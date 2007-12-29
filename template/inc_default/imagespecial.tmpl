@@ -1,0 +1,57 @@
+<!--IMAGES_HEADER_START//-->
+
+[TITLE]<h1>{TITLE}</h1>[/TITLE]
+[SUBTITLE]<h2>{SUBTITLE}</h2>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+
+<div class="images" id="images{ID}">
+<!--IMAGES_HEADER_END//-->
+
+
+<!--IMAGES_ENTRY_START//-->
+	<div class="imageEntry" id="img{IMGID}">
+		{IMAGE}
+		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
+	</div>
+	<!-- 
+
+		Thumbnail image: {THUMB_NAME}
+		  relative: {THUMB_REL}
+		  absolute: {THUMB_ABS}
+		  height/width: {THUMB_HEIGHT}px/{THUMB_WIDTH}px
+		
+		If you are not sure wrap zoomed image:
+		[ZOOM]
+		Zoomed (big) image: {IMAGE_NAME}
+		  relative: {IMAGE_REL}
+		  absolute: {IMAGE_ABS}
+		  height/width: {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
+		[/ZOOM]
+		
+		Image URL: {IMAGE_URL}, Target: {IMAGE_TARGET}
+		
+		[EFFECT_1]Yes Effect 1[/EFFECT_1]
+		[EFFECT_2]Yes Effect 2[/EFFECT_2]
+		[EFFECT_3]Yes Effect 3[/EFFECT_3]
+
+	//-->
+<!--IMAGES_ENTRY_END//-->
+
+
+<!--IMAGES_ENTRY_SPACER_START//-->
+
+	<!-- space between images {SPACE}px -->
+
+<!--IMAGES_ENTRY_SPACER_END//-->
+
+
+<!--IMAGES_ROW_SPACER_START//-->
+
+	<!-- space between image rows {SPACE}px -->
+
+<!--IMAGES_ROW_SPACER_END//-->
+
+
+<!--IMAGES_FOOTER_START//-->
+</div>
+<!--IMAGES_FOOTER_END//-->

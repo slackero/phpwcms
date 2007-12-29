@@ -1,0 +1,34 @@
+div.slider {
+	margin: 10px 0 10px 0;
+	padding: 5px 0 5px 0;
+	background-color: #666666;
+	overflow: hidden;
+	width: 535px;
+	position: relative;
+	height: 141px;
+}
+
+div.slider div.inner {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	height: 141px;
+	width: 5000px;
+	position: absolute;
+	left: 0;
+	top: 5px;
+}
+
+div.slider div.inner a {
+	border: 3px solid #FFFFFF;
+	padding: 0;
+	float: left;
+	background-color: #000000;
+	margin: 0 0 0 5px;
+}
+div.slider div.inner a:hover {
+	border: 3px solid #CC3300;
+}
+div.slider div.inner a img {
+	width: 95px;
+}

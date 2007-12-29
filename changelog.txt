@@ -1,0 +1,864 @@
+phpwcms Changelog
+=================
+
+This is a non-exhaustive (but still near complete) changelog for phpwcms starting with 1.2.7. 
+My thanks to all those people who've contributed bug reports and code fixes.
+
+1.3.5
+=====
+
+2007-12-17
+[FIX] pixelTracking.php changed for new Google Analytics script code.
+
+2007-12-13
+[FIX] Module ads does not link correct for flash layer.
+
+2007-12-10
+[FIX] Missing fallback for file size check in function "saveUploadedFile()".
+
+2007-12-08
+[UPDATE] Bad Behavior updated to 2.0.11
+[ADD] Content part "form" enhanced by anchor "jumpForm%CPID%". Form "action" will be linked to that anchor so after sending browser window will be positioned to this anchor.
+
+2007-11-26
+[FIX] Content part form - all missing {PLACEHOLDER} are replaced now- Cood happen in case checkbox was not checked...
+
+2007-11-17
+[ADD] DB specific functions enhanced by parameter to set other table prefix.
+
+2007-11-15
+[FIX] Double quotes in makeEmailSpamSave.php should be solved.
+
+2007-11-11
+[FIX] Small possible problem fixed for db related function and numeric vars - leading zero could be cut off in case it is a numeric value which should be filled in field of type char.
+
+2007-11-07
+[ADD] New content part "images special" which works a bit like "images <div>" but is more flexible. See the "slider.tmpl" and set thumbnail to width of 95px.
+
+2007-11-06
+[ADD] New solution to get resized images based on simple URI, which can be used with <img src=""> and is rendered when needed: %SITE%/img/cmsimage.php/%WIDTH%x%HEIGHT%[[x%CROP]%x%QUALITY%]/%HASH%.%EXT% or if you know file ID and source image extension: %SITE%/img/cmsimage.php/%WIDTH%x%HEIGHT%[[x%CROP]%x%QUALITY%]/%FILE-ID%.%EXT%. If image creation is successful webbrowser will redirect to the image which is much faster as when PHP process reads and delivers such image.
+
+2007-11-05
+[FIX] Setup WYSIWYG editor settings had some false defaults.
+[ADD] If user is automatically logged out based on timeout the last clicked backend link will be preserved to be able to redirect the user to that page after successful login. This information will get lost when closing browser or opening another page.
+[FIX] Content part "images <div>" fixed HTML typo.
+
+2007-11-02
+[FIX] Rendering replacement tag {KILLDATE...} fixed. Livedate instead was taken.
+
+2007-11-01
+[FIX] By default if no WYSIWYG editor is choosen textarea content will encoded to html entities. Former was using only html specialchars but this results in loss of hand-set "&..." entities.
+[ADD] "File list" enhanced a bit for cropped thumbnail images in case images are selected as downoadable file list entry. Use it for each line of description: description|alternative filename|title|target|Width x Height x Cropping (50x50x1)
+
+2007-10-31
+[ADD] New BBCode styled replacement tags: [ul][/ul], [ol][/ol], [li][/li], [dl][/dl], [dt][/dt], [dd][/dd]
+
+2007-10-30
+[FIX] If no pagelayout is created an error message will give more details and links to admin section.
+[FIX] Some fields in Shop mod backend fixed which contains pure HTML -> HTML specialchars like &nbsp; could be stored unencoded after updating.
+
+2007-10-29
+[ADD] Article list template enhanced by image related replacement tags: {THUMB_NAME}, {THUMB_REL}, {THUMB_ABS}, {THUMB_WIDTH}, {THUMB_HEIGHT}, {IMAGE_NAME}, {IMAGE_REL}, {IMAGE_ABS}, {IMAGE_WIDTH}, {IMAGE_HEIGHT}. Try [SPACE][/SPACE], [BEFORE][/BEFORE] and [AFTER][/AFTER] too.
+[ADD] Article summary template enhanced by image related replacement tags: {THUMB_NAME}, {THUMB_REL}, {THUMB_ABS}, {THUMB_WIDTH}, {THUMB_HEIGHT}, {IMAGE_NAME}, {IMAGE_REL}, {IMAGE_ABS}, {IMAGE_WIDTH}, {IMAGE_HEIGHT}.
+[ADD] Content part teaser image related replacement tags: {THUMB_NAME}, {THUMB_REL}, {THUMB_ABS}, {THUMB_WIDTH}, {THUMB_HEIGHT}.
+[ADD] Article redirect can now handle timeout, use %URL% %TARGET% %TIMEOUT%. It works for targets only which results in opening a new window. Otherwise it makes no sense.
+[ADD] Additional replacement tags for content part ID which is used while content parts are rendered: [%CPID%] or {CPID}.
+[ADD] {SHOW_CONTENT:...} enhanced by article ID selection. Mode: AS (sorted as given), ASL (livedate ASC), ASLD (livedate DESC), ASK (killdate ASC), ASKD (killdate DESC), ASC (change date ASC), ASCD (change date DESC), ASR (random). Mode can be enhanced by: MODE|LIMIT|TEMPLATE. Add "P" to mode (ASP or ASLDP...) and sorting will be include priorize article value too. 
+[FIX] Sitemap should be able now to hide levels whcih are hidden in case user is not logged in frontend
+
+2007-10-28
+[ADD] New db wrapper function _dbInsertOrUpdate() to use "INSERT ... ON DUPLICATE KEY UPDATE". For MySQL < 4.1.0 it works around that missing feature.
+
+2007-10-26
+[FIX] Recipe search does not return double results anymore
+[FIX] Recipe display of ingredients fixed - ingredients whcih were used twice or more often could be dropped.
+[FIX] Typing error fixed in line 503-506 of front.func.inc.php.
+[ADD] Hide article title now also works for article listing - BUT only for article listing. It does not work anywhere like article menu or {NEW} tag and so on.
+
+2007-10-25
+[ADD] Module Shop backend preferences enhanced - shop/cart can now be string too: if ID is given it will link against article ID, if alias is given it links again this level.
+[FIX] Replacement tag {URL:...} fixed. False matching value was taken - result was empty.
+
+2007-10-23
+[ADD] Linkme.php enhanced by bookmarlet links for: Facebook.com, OneView.de, Folkd.com. Also little encoding optimizations were done.
+
+2007-10-21
+[ADD] Module shop preferences enhanced by fields for shop and cart article ID.
+[ADD] Search API implemented which can be used to extend modules for search. Modules beeing searchable can be choosen in content part "search" for frontend search.
+[ADD] Module shop extended for search.
+
+2007-10-19
+[ADD] Content part "images <div>" enhanced by some additional replacement tags - have a look at template/inc_default/images.tmpl too see these. Cool way would be to mix these information inside a template with JavaScript or Flash.
+
+2007-10-17
+[UPDATE] JW Media Player updated to 3.12
+
+2007-10-14
+[ADD] New function sanitize_replacement_tags() which can be used to remove all useless, non-rendered replacement tags.
+[FIX] Frontend tag <title> will be rendered without any replacament tag.
+[FIX] FCKeditor configuration enhanced for new target directories of specific file types.
+
+2007-10-13
+[FIX] Fix for content part "form" where required field validation could fail in case field value returns "0".
+
+2007-10-12
+[ADD] Thumbnail cropping implemented for content parts "image with text" and old "images".
+[FIX] A false html_specialchars() for date rendering function removed.
+
+2007-10-11
+[UPDATE] FCKeditor 2.5 Beta implemented. Seems to solve problem of absolute images too ;-) - I made some changes to FCKedtor's config.
+[FIX] Old SPAW config settings removed from $phpwcms['wysiwyg_template'].
+[ADD] For article summary, article listing and teaser templates some date related replacement tags implemented: {LIVEDATE} and {KILLDATE}. Use it like the known {DATE}.
+
+2007-10-09
+[ADD] Content part "teaser" enhanced by cropping for teaser image.
+[CHANGE] Default charset switched back to ISO-8859-1. The better setting for most users.
+
+2007-10-08
+[FIX] Function get_level_ahref() fixed a little bit for better HTML validation. HTML special chars of attribut's value "href" will be HTML encoded correctly now.
+[ADD] New function log_message(type[, message[, userID], IP]]]) to save log message in db. Type can be DEBUG, INFO or ERROR.
+
+2007-10-07
+[FIX] Redirect field for article structure was too short - enhanced to 255 input chars.
+[ADD] Article listing template rendering enhanced by additional SUMMARY value. Use {SUMMARY:(INT)MAX_WORDS} to limit max used summary words based on template. If word count value is defined for article list (in backend) his value will be used and overwrite template based {SUMMARY:...} value.
+
+2007-10-06
+[ADD] File browser enhanced by additional "add all files" of current opened directory. It's available for content parts with option to hold multiple files/images.
+[FIX] Solved problem for content part "external content" where remote file/url could not be used.
+
+2007-10-05
+[FIX] Search did not work properly when articles inside root level (cat ID = 0) should be found. Now results look much better ;-)
+[FIX] Security fix for user language session var which might be injectable in case of register_globals On.
+
+2007-10-04
+[ADD] Multiple shop order recipents possible. Use "email;email;email..."
+
+2007-10-03
+[FIX] function login() in include/inc_js/phpwcms.js had a small bug which prevents submitting the form.
+
+2007-10-02
+[ADD] Login form language selection enhanced and combined with special cookie.
+
+2007-09-27
+[ADD] New replacement tag {IMGNAME} for CP "images <div>". Use it if you need the name of the image instead of caption (or in addition to caption).
+
+2007-09-25
+[ADD] New replacement tag to render "login-status-specific" template stuff. Wrap in "<!--LOGGED_IN_START//--><!--LOGGED_IN_END//-->" for things being visisble in case user is logged-in or use this "<!--LOGGED_OUT_START//--><!--LOGGED_OUT_END//-->" if user is not logged-in.
+
+2007-09-21
+[ADD] New Bookmarklet - yigg.de
+
+2007-09-17
+[ADD] Content part "teaser" enhanced by new date selections - can now be sorted by article live/kill (start/end) ascending/descending date too.
+[FIX] Moule "Glossary" small fix while creating new entry (no save) - new db ID was not given back by INSERT query.
+
+2007-09-13
+[FIX] Fixed a problem in cnt23.article.inc.php where some special chars (here $) could get lost while template is parsed. Maybe a probelm with preg_replace(). Now str_replace() is used.
+
+2007-09-05
+[ADD] New setting for content part article menu which allows show/hide of active article in menu too.
+
+2007-08-28
+[FIX]  >>language="javascript" defer="defer"<< removed from Flash Video Player <script> tag - seems to make problems on IE.
+
+2007-08-22
+[FIX] Function sendEmail had a bug where given filename for stringAttach was replaced by Mime-Type.
+
+2007-08-20
+[ADD] It's possible now to inject <body> tag by custom "class" and/or "id". Use template settings: $template_default['body']['id'] = ''; $template_default['body']['class'] = ''; If these are empty nothing will happen. You can define own rules for $content['body_id'] maybe to set level specific injection or what ever. See attached sample (frontend_init/disabled).
+
+2007-08-19
+[FIX] Solved a problem in module shop where prices and weight for product could be converted in false way.
+
+2007-07-26
+[FIX] Replacement tag {DATE:format:lang} has to bechanged because it failes in case of using soemthing like {DATE:d.m.Y H:i} -> all behind the second ":" will get lost. New is {DATE:format lang=LANG}
+
+2007-07-24
+[FIX] Spaw2 Toolbar selection is working again.
+[FIX] Lightbox setting was alive after first "text+image" with Lightbx setting. Var reset.
+
+2007-07-23
+[FIX] Setup db query for ads module (TYPE=MyISAM).
+
+2007-07-08
+[CHANGE] Login page secured by javascript a bit more. Now password is sent as MD5 encrypted string.
+[UPDATE] JW Media Player updated to v3.99
+[ADD] Better javascript function to convert structure level and article title to clean alias. All special chars are removed or converted.
+[UPDATE] Mootools v1.11
+[UPDATE] Slimbox 1.4.1
+[DELETE] Lightbox removed
+
+
+1.3.4
+=====
+
+2007-06-30
+[FIX] {URL} based on function "include_url()" returned false results because URL was given in false way. 
+
+2007-06-28
+[ADD] Article summary template can be enhanced by {TARGET} for article link - necessary when you want to have direct linking to another site (article redirect) via "more" link.
+[FIX] Possible bug in content part "search" fixed - exists in case of special chars like "äöü..". PHP mb_strlen gave wrong result...
+
+2007-06-27
+[FIX] Vulnerable fix for phpMailer class, see tracker issue 1734811 (https://sourceforge.net/tracker/index.php?func=detail&aid=1734811&group_id=26031&atid=385707).
+
+2007-06-25
+[ADD] New content part "Flash Player" (based on JW Media Player). Can play: SWF, FLV, MP3, GIF, PNG, JPG and Remote Streaming Flash Media.
+[ADD] Frontend render script for simple integration of YouTube and Sevenload Flash video player.
+
+2007-06-23
+[UPDATE] UFO 3.22 (JavaScript)
+[UPDATE] Prototype 1.5.1.1 (JavaScript)
+[UPDATE] FCKeditor 2.4.3
+[DELETE] Spaw1 obsolete and removed
+[UPDATE] WZ Tooltip updated.
+[...] Some more fixes and changes regarding redundant JavaScript.
+
+2007-06-22
+[ADD] CP "images <div>" enhanced by cropping feature for thumbnails (GD working, ImageMagick needs to be tested).
+
+2007-06-21
+[FIX] Content part "map" fixed some smaller bugs...
+
+2007-06-18
+[FIX] Function "slweg()" enhanced by additional clean-up of ending "<br />" and "<p></p>".
+[ADD] New config var "$phpwcms['Login_IPcheck']" -> set true to enable login check also against IP. It is more secure and can avoid stealing sessions. But if enabled and IP is lost you can not login until automatic timeout.
+[FIX] CP "images <div>" fixed - could result in PHP warnings in case of false "check unset vars" check...
+
+2007-06-13
+[FIX] {BREADCRUMB} did not returns correct structure in case startID = endID.
+
+2007-06-11
+[UPDATE] Spaw2 2.0.4.1
+
+2007-06-07
+[UPDATE] Spaw2 2.0.4
+
+2007-06-05
+[PATCH] Workaround to handle possible problems with permissions in case GD Lib uses different permissions and saving resized images failes. A Null-Byte file is created then first and and GD image resizing is processed again... 
+
+2007-05-31
+[ADD] New functions for simpler DB insert _dbInsert(), update _dbUpdate() and count _dbCount().
+[FIX] Final file deletion also checks resized images and moves these to "filearchive/can_be_deleted".
+
+2007-05-30
+[ADD] Article enhanced by fields to define alias which can be used in url
+[CHANGE] Alias check enhanced.
+
+2007-05-29
+[ADD] New setting "RSS" for article summary to define if article should be listed in feeds.
+[FIX] {NAV_LIST_UL} parent rendering fixed in case ID used.
+
+2007-05-20
+[ADD] Bookmarklet for webnews.de
+
+2007-05-18
+[ADD] New section tags which can be used to differentiate template in "article listing" and "article detail" mode. Wrap in "<!--IF_LIST_MODE_START//--><!--IF_LIST_MODE_END//-->" and "<!--ELSE_LIST_MODE_START//--><!--ELSE_LIST_MODE_END//-->".
+
+2007-05-15
+[FIX] Missing dumpVar() removed from cnt9.article.inc.php
+[CHANGE] SHOW_CONTENT moved up in rendering process.
+
+2007-05-14
+[FIX] Security fix: active session key of logged-in user could be used to open backend from remote browser.
+
+2007-05-13
+[FIX] Solved a possible problem with html entities and search.
+[CHANGE] Pixeltracking script enhanced. Now it creates structured site path which is better readable, sample: "/structure/to/id/catID/aid/articleID/article_title.html"
+[ADD] PixelTracking for Google Analytics enhanced to support readable path.
+
+2007-05-12
+[FIX] Content part serach enhanced for search in imagelist content parts and also in recipe.
+
+2007-05-11
+[FIX] Content part "html" will save html entities also in case content part is saved again.
+[FIX] Solved problem in case given structure ID is not available (index.php?id=1010101 while 1010101 is not valid). If article ID is valid this will be taken to do correct redirection.
+
+2007-05-08
+[ADD] Content part "file list" enhanced by additional HTML textarea (WYSIWYG). Template enhanced by title/subtitle and text.
+[FIX] Search result for {NAVI:1-3} fixed for results less than max entries per page, sample: 1-20 but you have only 10 results -> 1-10
+[ADD] Search enhanced by content part "images <div>".
+
+2007-05-07
+[ADD] Content part "article menu" enhanced by select menu to choose "title wrap" from (h1...h6, p, div...).
+
+2007-05-06
+[ADD] New db field for article -> article_priorize, be used to overwrite structure level based sorting. The higher the value, the more above an article is listed. Default "0".
+[ADD] Article summary form enhanced by select menu to edit priorize value.
+[ADD] Article center javascript tooltip implemented to display ID, Alias and such information. Is faster and better usable then "title" attribute.
+[ADD] New option when editing content part to change related article ID. Helpful when you want to move cotent part from one article to another. Move mouse over article title and click to show filed for article ID. It's not possible to switch to non-existing or deleted article.
+
+2007-05-05
+[ADD] Module glossary rendering enhanced by content part Title/Subtitle. Check default template.
+[ADD] Module glossary also lists if highlight enabled and whcih tag is defined in backend.
+[FIX] Feed ceation optimized. Now also new articles listed in root structure are used for feed creation. Article "live/begin date" used as order basis now - not create date anymore.
+[FIX] All BOM Unicode Signatures removed form FCKeditor files.
+[FIX] Banner ads module and UFO auto-install can result in buggy Explorer display. So UFO 'xi:"false"' set.
+
+2007-05-04
+[ADD] Article summary form has sort value field too.
+
+2007-05-02
+[FIX] Some more charset specific fixes for PDF creation.
+[ADD] Content part <div> enhanced by select menu to choose from how to center image thumbnails.
+[ADD] Content part "link list" now template based too.
+[FIX] Little layout bugfix for edit article summary form.
+
+
+1.3.3
+=====
+
+2007-05-02
+[FIX] Problem solved (hope everywhere) for newsletter recipients import and CSV files made on Mac. Mac uses different linbreaks and default setting for PHP is 'auto_detect_line_endings' set Off. You will need PHP 4.3.0+. For older PHP convert your CSV file to have UNIX or Windows linebreaks.
+[FIX] For all phpwcms charsets different from 'iso-8859-1' and 'iso-8859-15' FCKeditor setting "FCKConfig.ProcessHTMLEntities" set to false.
+[ADD] Display if article pagination enabled in article content part listing (backend) and on which subsection (page) content part will be positioned.
+
+2007-05-01
+[FIX] Small fix for file list description textarea - empty lines will not trimmed or removed anymore.
+[FIX] Error message for failed captcha check in content part "guestbook" was missing. Use: [ERROR_CAPTCHA]{ERROR_CAPTCHA}/or whatever[/ERROR_CAPTCHA]
+[ADD] Pagination for content parts is supported now. Each content part has additional fields which can be edited only if content part is selected for rendering in main column (CONTENT) and if article has been selected for "content part pagination". You can define different templates for summary display of page 1 and how to render article summary for paginate page > 1. Default template is located here "template/inc_default/article_summary_paginate.tmpl". Custom article summary templates have to be stored under same name as custom template but inside subfolder "template/inc_cntpart/articlesummary/article/paginate". To get to know how replacment tags and sections are defined open "article_summary_paginate.tmpl". At the moment only [1][2]...[n] (class: a.cpPaginate, a.cpPaginateActive) and [Prev][Next] are supported.
+
+2007-04-30
+[FIX] Enhanced PDF creation libs for handling of unknown image types and images having not set height or width.
+[FIX] PDF creation failed for images having set absolute paths like src="/img..."; this is solved.
+[FIX] For PHP releases having not defined function "file_get_contents()" workaround function was named "_file_get_contents()" (old way to handle the problem, but obsolete). Solved by removing leading "_".
+[FIX] Rewriting URLs optimized a bit.
+
+2007-04-29
+[ADD] Additional select field in structure level form to choose an alternative config file from which overwrites template default settings while frontend rendering.
+[FIX] Text for content part field "comment" was not displayed after saving.
+[ADD] It's possible now to edit sorting value of content part. There is a new field "sort value" available. Then it is much easier to change sorting of content part.
+[ADD] Content part global form enhanced by new field for subsection (paginate) title. Might be useful in case content part has no title or subtitle but and paginate content part function is used to generate in-page menu. Is visible only for articles having selected "paginate content part".
+[ADD] Content part global form enhanced by new field for set number of subsection. Is used to group subsections.
+[ADD] It's possible now to jump into edit mode of article or structure level from inside a content part form. Might be useful (sometimes).
+[FIX] Some changes on how article and structure level data are fetched for content part (backend form).
+
+2007-04-28
+[FIX] Frontend rendering for glossary -> false template section for list_footer was set.
+[CHANGE] Glossary template class names changed a bit.
+[ADD] Content part "plain text" enhanced by template select menu - default template "plaintext.tmpl".
+[CHANGE] Content part "plain text" -> empty lines and spaces remains at text start and end.
+[FIX] Some layout fixes for filebrowser.php - and DOCTYPE XHTML Strict removed.
+[ADD] Additional select field in template form to choose an alternative config file from which overwrites template default settings while frontend rendering.
+[FIX] {NAV_LIST_UL} fixed in case of parent mode and no sublevel available.
+
+2007-04-27
+[FIX] Feeds.php had a missing debug output - sorry for that. Removed.
+[FIX] Several fixes while encoding html entities.
+[FIX] Some more fixes to solve problems with PDF creation. But it is not 100% UTF-8 safe - specialchars are still a problem because missing in font.
+[FIX] New content part for "mod glossary" could not be safed.
+
+
+1.3.2.1
+=======
+
+2007-04-26
+[FIX] Charset problem fixed in case of use of htmlentities and phpwcms charset is different from ISO-8859-1.
+[FIX] Frontend user login check against frontend user setting in backend user administration.
+
+
+1.3.2
+=====
+
+2007-04-25
+[ADD] New content part "images <div>" enhanced by option to center an image horizontally and vertically based on thumbnail size. Only available when thumbnail's height AND width are set.
+[ADD] Based on idea and hack/patch of <marcus@localhorst> new option to print page to PDF was included. Use GET value "&print=2" or replacement tag [PRINT_PDF][/PRINT_PDF]. Check template file "template/inc_default/pdf.tmpl" where you can define some special settings and layout. 
+
+2007-04-24
+[ADD] New content part "images <div>" - same as images but with custom templates and additional rich text.
+
+2007-04-23
+[FIX] Default [bbcode] style replacement tags usable for lightbox captions.
+
+2007-04-23
+[FIX] While opening ?aid=123 or ?alias check missing if article or category are active.
+[FIX] HTML entities were lost in case of save and re-save. 
+[ADD] New template field "FE login url" - put in frontend login form page url here.
+
+2007-04-21
+[FIX] Path problem on Windows for FCKeditor fixed.
+
+2007-04-20
+[FIX] Content part teaser enhanced by another missing array check - no result in case of level based selection and no when no article was selected manually.
+
+2007-04-18
+[ADD] Content part teaser enhanced by new field for allowed tags used in summary text (sample: <a><b><i>).
+[FIX] Content part teaser missed unserialize in case no image replacement tag is found.
+
+2007-04-17
+[ADD] Bookmarklet script "linkme.php" enhanced for show in article details only. Use additional markup tag "<!--DETAIL_ONLY-->" inside [LINK_ME][/LINK_ME].
+
+2007-04-12
+[FIX] Should solve problem with file date in case wrong create date is given for content pat "filelist".
+
+2007-04-10
+[FIX] Another fix for content part "multimedia" -> classid for Windows MediaPlayer plugin was not working.
+
+2007-04-09
+[FIX] Function "getCleanSubString()" optimized for better char based substring lengths. It is able to process char count for html entities too.
+[ADD] New external library "htmlfilter.php" for future usage - can sanitize HTML.
+
+2007-04-08
+[UPDATE] FCKeditor 2.4.2
+[FIX] FCKeditor should work with relative paths too. Absolute path section "/subdir" has to be reoved by yourself.
+[ADD] Content part "teaser/link article" enhanced for setting to avoid duplicate listing f teaser entry. Use it to split same kind of teaser listings (maybe for ad block or different templates). This is rendered from top to bottom. So think twice when using it.  
+
+2007-04-07
+[FIX] Reworked content part multimedia and how to play Real media - but seems not to work without embed in Mozilla browser. Optimized a bit...
+[ADD] {NAV_LIST_UL} enhanced by "parent" setting which - additional modes: P, FP, HCSSP, VCSSP; working the same as modes without "P". Default class name is "sub_parent". If mode *P enabled parent structure level rendered as first <li>. 
+
+2007-04-06
+[FIX] Some more layout fixes regarding valid code.
+[FIX] Reworked content part multimedia and different handling of object tag fo Mozilla and IE. Should result in valid code always.
+
+2007-04-05
+[UPDATE] Content part multimedia converted from string based storing to serialized array. Run setup/upgrade_multimedia.php!!!
+[ADD] Bookmarklets enhanced for Reddit.com, Newsvine.com and Ma.gnolia.com.
+[ADD] Simple PHP based browser detection implementd; returns short browser name and browser version, like "msie", "7.0" 
+
+2007-04-04
+[ADD] Bookmarklets enhanced for Google Bookmarks.
+[UPDATE] French translation by Marcos Peebles, www.piezo.be
+
+2007-04-02
+[FIX] Smaller fix for cotent part multimedia - but some more changes necessary to handle object and embed in valid form.
+[FIX] makeEmailSpamSave.php fixed to handle additional attributes. Failed in case of such: <a href="..." class="class">
+[ADD] New db table "crossreference" which should be used to store cross references which are better used on per entry base rather than as serialized values.
+
+2007-04-01
+[ADD] Changed setting for pagelayout: possible to choose order of segements of pagetitle and pagetitle segments spacer. Spacer input field supports prefix/suffix spaces.
+[FIX] Some smaller layout fixes for pagelayout form.
+
+2007-03-31
+[FIX] Background-image url() - quotes removed. Normally no problem, but for some it seems to be...
+[ADD] New settings for guestbook comment. It's possible to allow posting or gb listing for logged in users only.
+[ADD] New setting for guestbook to disable remote URL validation. Might result in timeout on some systems when PHP cannot connect to remote servers.
+[FIX] Profile data form fixed.
+
+2007-03-29
+[FIX] linkme.php Bookmarklet-Script fixed in case no article title/summary defined.
+[FIX] Constant VISIBLE_MODE was set at wrong place, 
+
+2007-03-27
+[FIX] DynCalendar layer CSS class gt higher z-index.
+[FIX] Content Part teaser query to search for an article enhanced by live and kill date.
+[ADD] Glossary detail link enhanced by glossary title.
+[FIX] It's not possible to switch content part type "module".
+
+2007-03-26
+[CHANGE] Default guestbook template now located under "template/inc_default".
+[ADD] Additional settings for frontend user login to enable/disable against which user db login should be verified.
+
+2007-03-25
+[ADD] New field "notice" in backend of content part edit form. This is not used in frontend - you can leave notices in it for others or for yourself.
+[CHANGE] Some smaller changes in login.php. Updated license information.
+[ADD] Content part listing enhanced by small icon for TOP-Link and Anchor setting.
+
+2007-03-24
+[FIX] Frontend login optimized a bit. Should load faster now. To cancel fe login send POST or GET value "feLogout".
+[FIX] Some changes for checking registered_only setting in structure level editor to allow access to logged-in users only
+[CHANGE] Moved some functions out of front.func.nc.php for faster loading in case content part "text/image" or "images" is not used for page rendering.
+[ADD] New contant "FEUSER_LOGIN_STATUS" for having easy access to frontend user login status.
+[FIX] Function cut_string still alias function for the better getCleanSubString().
+[ADD] Frontend login implemented as content part.
+[FIX] When alias guestbook/comment is used path to uploaded images was set false.
+
+2007-03-23
+[ADD] First step of frontend users implemented.
+
+2007-03-22
+[ADD] New config value $phpwcms['SESSION_FEinit'] in conf.inc.php to enable/disable session_start() in frontend.
+[UPDATE] FCKeditor 2.4.1
+[ADD] "No caption for preview images" setting for content part "text/image" implemented too.
+
+2007-03-21
+[FIX] Change for FCKeditor paths in wysiwyg.editor.inc.php, changed from PHPWCMS_BASEPATH to PHPWCMS_URL. Might help in case userdirs are used "mysite.tld/~usrdir" which does not correspond with real server paths.
+[FIX] If no FILE_IMAGE replacement neccessary do not check or build thumbnail in frontend when possible for content part files.
+[ADD] Additional forms on backend HOME to set count of max listed articles and/or content parts. Values are stored in cookies.
+[ADD] JavaScript check in login.php and some HTML source code optimizations.
+[FIX] phpwcms.php fixed a bit - charset was not set correct - maybe based on autmatic DOCTYPE setting...
+[FIX] Removed file sp1.gif replaced by default spacer GIF leer.gif. Now all file lists looking good again.
+[FIX] Frontend render script "day_based_counter.php" fixed.
+[ADD] "Duplicate content part" button implemented in article edit list view.
+[ADD] If special article teaser image is available it is shown in article edit list view (in head section). It is dimmed by 50% if available but article image is the preferred.
+
+2007-03-20
+[ADD] New setting for content part images" to hide captions for thumbnails. It's useful in combination with lightbox.
+[FIX] Some template fixes and backend enhancements.
+
+2007-03-19
+[ADD] New language pack: Slovenian, thanks to Boris Jerenec <boris@jerenec.com>
+[FIX] Slovakian language (SK) string corrected - false translation was used.
+[FIX] When sending newsletter subscription (content part newsletter) and email send error (phpMailer) happens, no error message was displayed.
+[ADD] New template default value "$template_default['article']['imagelist_spacerrow_class']" - use this to style spaer row for galleries having multiple rows
+[ADD] Image list table enhanced for fixed classes based on selected alignment 
+
+2007-03-18
+[FIX] Splitting strings for counting words was buggy - commas were removed too and not only white space chars.
+[ADD] {URL:...} enhanced for caching fetched content. Use {URL:http://myurl.tld/ CACHE=TIMEOUT} where TIMEOUT is set in seconds, e.g. CACHE=3600 means update hourly.
+[ADD] New default values for modules to enable/disable module frontend_render/frontend_init (to speed up rendering process a bit).
+[FIX] Feeds.php SQL query fixed and optimized for regonly and non-active structure levels too.
+[FIX] Feeds.php fixed for better validation - author and editor name enhanced by feed's email.
+[FIX] Feeds.php and [RSS ID/alias] fixed too. Now you can open "feeds.php?feed=43,alias,50"
+
+2007-03-17
+[FIX] SQL query for retrieving article alias was false.
+
+2007-03-16
+[FIX] cnt22.article.inc.php line 158 fixed in case link var is not set.
+[FIX] image_zoom.php optmized
+[FIX] Missing attribute "summary" in tag "table" implemented whereever found...
+[UPDATE] Spaw2 2.0.3
+[UPDATE] Popup calendar enhanced for browser language detection and some default languages included.
+[FIX] Paginate setting for articles in structure level could fail in case maxlist value was empty (division by zero).
+
+2007-03-14
+[ADD] New settings for default image width/height implemented (article, gallery, text/image).
+
+2007-03-13
+[ADD] Lightbox JavaScript implemented for smooth "in-page" zoom images and gallery. OK, same day update and replaced Lightbox by Slimbox which loads much faster.
+
+2007-03-12
+[FIX] Additional cleanup for DOC_ROOT implemented - there seems to be a lot of default ending slashes for $_SERVER['DOCUMENT_ROOT'] which is always removed now.
+[FIX] Wherever possible htmlentities is replaced by html_specialchars.
+
+2007-03-10
+[FIX] Little fix for Spaw2.
+[ADD] CSSHOVER.HTC implemented for backend too. Doctype fix for backend, now :hover should be available for older releases of IE too.
+
+
+1.3.0
+=====
+
+2007-03-06
+[ADD] Plug-In Glossary. It can be used as sample plugin.
+
+2007-03-04
+[FIX] A problem solved for content parts edit form and when custom vlocks are defined solved - content part values could be overwritten.
+[ADD] Simple Plug-in API implemented. Will be enhanced and need more test. But seems to work...
+
+
+1.2.10
+======
+
+2007-03-02
+[FIX] Some layout fixes for struct level list and also article listing.
+[FIX] Small workaround to avoid error messages for date display in newsletter section - only neccessary on some Win systems.
+[FIX] Problem for guestbook listing solved in case email is set to hidden.
+[FIX] Fix for empty RSS feed description in "cnt22.article.inc.php".
+[FIX] In print mode get parameter "print" is removed from URL. Also fixed missing "?" when no additional GET param available.
+[FIX] SET NAMES for setting correct charset for db connection also working for MySQL 4.0.x. 
+
+
+1.2.9
+=====
+
+2007-03-01
+[FIX] Structure level alias was set wrong when empty alias field was sent.
+[ADD] Content part "link article" enhanced to "teaser/link article". Very easy way to build teaser listings of manual selected articles or based on create/change date. Custom templates for listing and also possible to limit summary words and change teaser image size.
+
+2007-02-28
+[FIX] Woraround to fix possible missing constant "PHPWCMS_INCLUDE_CHECK" for upgrade process.
+
+2007-02-27
+[FIX] makeEmailSpamSave.php enhanced to avoid replacing email adresses in <input> and <textarea> fields.
+[FIX] A not neccessary type check for templates removed. After saving template was not visible anymore.
+[FIX] It's possible to create and save newsletter subscriptions again.
+
+2007-02-26
+[FIX] Missing check against "hide title" and "hide summary text" for article detail view im plemented. If "hide" is enabled everything between [SUMMARY][/SUMMARY] or [TITLE][/TITLE] is replaced by empty string.
+[FIX] "include/inc_front/content/cnt12.article.inc.php" line 150 "$mail->Subject = $content['newsletter']['subject'];"
+[FIX] Creating a new newsletter recipient in backend was impossible because of an crippled INSERT SQL query. The verification hash was missing.
+[FIX] A langage var was missing for CSV import title (EN only).
+[FIX] On backend "home" listing of content parts could be false in case an article was deleted. 
+[CHANGE] Default rendering of content part "link article" changed to "<ul>/<li>".
+[FIX] Little is_array() check for function "countNewsletterRecipients()".
+
+2007-02-22
+[FIX] Content part search is able to handle search starting at specific levels. Needs a bit more testing.
+[FIX] Small fix for phpwcms internal GET array in case PHP's GET handling is not able to detect GET values without "=".
+[UPDATE] Spaw 1.2.1.
+[CHANGE] GT MOD returns CSS background images wrapped in a <div>. The replaced text is wrapped in a hidden <span>.
+[FIX] When just index.php was opened without an additional GET value a totally false page could be opened.
+[ADD] Content part search enhanced by file name search.
+[ADD] New parameter for content part search - minimum number of chars per search input.
+[ADD] Content part list enhanced by selection for <ul>, <ol> and <dl>. <dl> is a bit tricky and not the best solution - use pipe "|" in the same "~" level to split <dt> and <dd>.
+[FIX] Content part serach - try correct UTF-8 charset conversion for result's listing.
+[ADD] Content part search searches for ul/ol/dl list content part too.
+[ADD] Alternative pagetitle for article and structure level. If set these will be taken and rendered in frontend.
+[ADD] New "paginate articles" setting for structures.
+[FIX] Content part selector fixed in case no content part is selected - [optgroup] text was displayed. 
+[ADD] New "paginate content part" setting for articles.
+[ADD] "Update" button for editing article summary.
+[CHANGE] "fckeditor_config.js.php" moved from "/config/phpwcms/" to "/include/inc_ext/FCKeditor2/". Seems to be problematic with some server configurations where "/config" is used as server alias.
+[CHANGE] Content part space before and after - style "clear:both" removed. Could cause strange rendering effects.
+[ADD] 2 new template settings for article pagination. See "$template_default['article_paginate_navi']" and "$template_default['article_paginate_show']" in "conf.template_default.inc.php" for more 
+[CHANGE] When ever possible a string will be enclosed by single quotes. 
+[ADD] {NAV_LIST_UL} enhanced by "id" for <li> in case "ul_id_name" is set. It will generate "id=li_ul_id_name_levelID". With this you can set individual styles for any level or trigger JavaScript actions.
+[FIX] Fixes a problem for some PHP GD versions in combination with Flash files - false file extension could be the result of it - swf -> swf. Additional file extension check implemented avoiding this.
+[FIX] Guestbook backend template fixed - wrong table information.
+[FIX] If AliasID is used in content part guestbook it's possible to edit entries of alias guestbook too.
+[CHANGE] GT MOD renderer processed after frontend_render.
+[ADD] New array value "$content['globalRT']" where you can register global custom replacement tags like "$content['globalRT']['{MY_RT}']='<code>';". Good in combination with frontend_init.
+[CHANGE] Article listing with new default template.
+[ADD] Calendar development started - at the moment it's kind like a custom script for frontend_render in combination with "calendar.ini".
+[FIX] Possible validation problem for Google sitemap in "sitemap.php" fixed.
+[UPDATE] Bad Behavior 2.0.6
+[UPDATE] Deluxe Menu replacement tag: {DELUXE_MENU:ID} ID is the start point for a specific structure level ID. To use it check "phpwcms_template/inc_script/frontend_render/disabled/deluxe-menu.com.php".
+[ADD] HTTP headers based on page rendering: Expires, Last-Modified, Pragma and Cache-Control. Cache-Control and Pragma set to "public".
+[ADD] New backend vars which can be used to inject code by special custom code: $BE['HEADER'], $BE['BODY_OPEN'], $BE['BODY_CLOSE']. All are arrays and are imploded by LF.
+[FIX] Language merge (EN is the basis) for "login.php" implemented.
+[ADD] Turkish language - thanks to "aerkanc - gmail com"
+[CHANGE] Keywords editing changed completely. Will be extended much more.
+[ADD] 2nd PNG workaround for IE <= 6 implemented. To use this set "$phpwcms['IE_htc_png'] = 2".
+[FIX] Fixed a problem for content part select menu - [text] was still shown there because of a missing var check.
+[ADD] New config setting "$phpwcms['Bad_Behavior']" for Bad Behavior On/Off. Enable Bad Behavior spam blocking by setting it to 1=On, or 0=Off;
+[FIX] Replacement tag {BROWSE:PREV:Linktext:0} did not work - failed by always delivering the category-UP link. It's fixed now.
+[ADD] Images for article details and article listing selectable now.
+[ADD] New place holder tag for pagination and max search results and max articles - use "#####";
+[ADD] Setting for max summary words being listed in article listing. When the field is empty full article summary is rendered.
+[CHANGE] Limitation of 65000 chars for article summary removed.
+[FIX] Fixes function "html_specialchars()" to handle "&#8230;" and/or "&ndash;". The old one could produce "&amp;ndash;".
+[ADD] Aarabic language added - but very limited support. So check it out - not recommend at the moment. Seems to work well with UTF-8 only.
+[FIX] Article content preview button linked against false target because wrong categrory ID was given.
+[FIX] False "\" backslash in "admin.functions.inc.php" causes an error for "cut&paste"-ing content part into article.
+[FIX] RSS feed fixed to handle HTML entities in a more optimal way.
+[CHANGE] Content part space before and after possible up to 9999px.
+[ADD] Function "list_articles_summary()" enhanced for alternative article array setting. 
+[FIX] Fixed feeds.php - when charsets are different the converted string was not sent back. Oh Oliver, you are soooooo stupid ;-)
+[FIX] Highlight seems to work now very well also for parts of a string.
+[FIX] Creating new article and username contains an "'" causes a SQL error.
+[FIX] Possible problem in default.inc.php -> function buildGlobalGET() and in case $_SERVER['QUERY_STRING'] is empty.
+[FIX] Possible problem in content.func.inc.php around line 483 in case $_SERVER['QUERY_STRING'] is empty.
+[ADD] GT Mod enhanced for forced line breaks - use double spaces for a <br />.
+[UPDATE] Spaw 1.2.2
+[ADD] New content part FAQ.
+[ADD] Guestbook enhanced: image, sorting
+[FIX] Some misconfigured PHP installs might loose session information if header redirecting is used and session information is not given as GET value. Needs some more checks, but it seems to fail if "session.use_cookies=Off" is set in php.ini - recommend value is "session.use_cookies=On".
+[FIX] GT Mod optimized for line breaks too - no more double spaces neccessary. Use [br] or <br> or simple linefeeds.
+[FIX] Function headerRedirect() fixed for a problem that could cause in loosing the session.
+[FIX] Guestbook default template is CSS based now. A new setting enables or disables captcha check and length of the captcha code. The captcha check was buggy as long as somebody has tried to send POST vars directly and without a var for captcha code. Detailed error messages are available now and can be custom overwritten.
+[ADD] 2 new fields for content parts: spacer and template -> name of the template will be stored in seperate db field (will be changed step by step).
+[CHANGE] User pass is no longer stored in session var while login.
+[CHANGE] Support for passwords encoded by MySQL PASSWORD() is removed while login. 
+[ADD] User profile enhanced by an additional menu where a user can set the preferred WYSIWYG editor toolbar. The new value "$phpwcms['wysiwyg_template']" in conf.inc.php holds those toolbar information.
+[UPDATE] FCKeditor 2.3.2
+[CHANGE] Forum deprecated - also under "messages/forum list"
+[FIX] Content part email form does not show field select menu for custom template source if email format was set to HTML.
+[ADD] Additional new text/html field for content part email form - content will be displayed above the form only when form wasn't sent. Normally a text to tell a user what the form is for - an information most times not useful after sending it.
+[FIX] File Downloads in frontend had a huge problem - why ever the partial download functionality seems to be not usable in all server configurations. So it's removed.
+[CHANGE] Content part "file list" changed for template based frontend rendering. It supports direct downloads. Each file can have additional settings like file title, description, target.
+[FIX] Fix for outdated base64_decode() of pagelayout vars in admin.templates.tmpl.php (line 234).
+[ADD] Content part "email form" enhanced for custom subject based on a form field (supported: text, list, select, hidden) and additional "CC" addresses.
+[CHANGE] No content part switching for email form possible anymore - it's more safe!
+[ADD] New setting for content part email form which allows enabling storing frontend form values in database. In case there are db entries for the form a download button is visible (download format: Excel file/HTML table).
+[FIX] GT Mod fix - function's paramteter changed for backend too.
+[FIX] File delete.
+[FIX] Searching for an alias in db changed from "LIKE" to "=" - should be a bit faster.
+[CHANGE] Category alias lenght increased from 50 to 150 chars. Slash "/" is an allowed char now. Alias is now case sensitive.
+[FIX] Check if $block['css'] is set. 
+[FIX] XSS fix for "image_zom.php". Thanks to Stefan Lochbihler.
+[FIX] Fix for "default.inc.php": if register_globals is set ON constant "PHPWCMS_URL" could be changed by simple GET value. Thanks to Stefan Lochbihler.
+[FIX] Missing global var $aktion for function "showSelectedContent()".
+[FIX] Content part "email form" fixed for checkbox/radiobutton when there "class" is set. Now the complete checkbox/radiobutton section is wrapped in <div> tags.
+[FIX] {NAV_LIST_UL} and "active" class corrected. Now only the active category is marked and not the whole active path.
+[FIX] PixelTracking for phpMyVisites enhanced for SiteID and varname corrected. Also enhanced page name detection and additional value for form sent by method "post".
+[UPDATE] Bad Behavior 2.0.7
+[ADD] function "_dbQuery()" enhanced for queryMode "COUNT" - return value is the count of affected rows.
+[CHANGE] Automatic user name is now build based on user count.
+[ADD] Save (and close) button when creating a new article.
+[ADD] Notify setting for new guestbook entry.
+[CHANGE] Adjusting zoom image window removed.
+[CHANGE] Default template file extension ".txt" removed form function "get_tmpl_files()". Solves a problem with email texts.
+[CHANGE] Guestbook banned words are processed right after sending in the guestbook form - better filtering. Banned words are not stored any longer. Ban replacement does not accept html tags anymore.
+[UPDATE] Spaw 1.2.3
+[FIX] Solved the "POST again" problem for guestbook after new entry was created successfully.
+[FIX] Better, faster function to validate an email address - TLD check implemented too.
+[CHANGE] Newsletter subscriber email address db field changed from VARCHAR to TEXT.
+[CHANGE] Backend main navigation "messages" is now linking to subscribver listing by default.
+[CHANGE] Changed back CDATA comments to "old-styled" <!-- //-->
+[DELETE] Old navi point "messages -> import subscribers" removed.
+[ADD] Much improved functionality in section newsletter subscribers: everything around subscribers is bundled in the same screen. Each subscriber can be edited, manual creation possible, remove duplicates, better CSV import which allows the selection of special subscriptions for the whole import and (filtered) export. Search/filter and paginating implemented.
+[FIX] Newsletter verify.php optimized.
+[FIX] Setup "step1" problem solved for versions of MySQL that does not support collation. 
+[ADD] New config setting $phpwcms['version_check'] - if not set or "=0" n version check will be done. Speeds up backend login process.
+[ADD] Frontend render script that allows CSS switch.
+[FIX] Fix for replacement tag [RSS][/RSS]
+[ADD] New replacement tags [abbr title], [dfn title], [code], [cite], [em], [blockquote], [blockquote url], [acronym title]
+[CHANGE] Print link is now canged to singe GET value "print" - so if you want to link to print view add "&print=1" to href.
+[ADD] New field "address_iddetail" in table "phpwcms_address" which will store the relation to an enry in "phpwcms_userdetail".
+[CHANGE] Field "detail_newsletter" in "phpwcms_userdetail" changed. It is used to store the ID of a related entry in "phpwcms_address".
+[ADD] "phpwcms_userdetail" enhanced by "detail_website" and "detail_userimage".
+[ADD] "phpwcms_userdetail" enhanced by 5 fields of type varchar "detail_varchar1" ... "detail_varchar5" and 3 fields of type TEXT "detail_text1" ... "detail_text3".
+[ADD] "phpwcms_template" enhanced by field "template_type" - in case of an update all existing template entries will get type "0" which means general template. Based on type it will be possible to edit different kind of templates like content parts.
+[ADD] Article content parts prepared for live and killdate and special db-based templates.
+[CHANGE] If special type of content part is unset in "include/inc_lib/article.editcontent.inc.php" it will not be available in backend and frontend.
+[ADD] Layout of content part email form was optimized - each form field can be switched "show/hide". And fields are wider.
+[FIX] CVS import of newsletter subscripers could fail if MIME-type was text/x-csv -> is accepted from now on.
+[UPDATE] Bad Behavior 2.0.9
+[ADD] Function headerRedirect() supports Reditect Type now -> default is temporary "headerRedirect('url')" - permanent redirect "headerRedirect('url', 301)"
+[UPDATE] Spaw 1.2.4
+[ADD] Space before and after content part got own class for <div> and <br> too: "spaceBeforeCP", "spaceAfterCP".
+[FIX] A "rawurldecode" was missing in content part search. Search strings like "string%20string" would fail because "%" and other special chars would be urlencoded again and again.
+[ADD] Spaw 2.0.1 added.
+[UPDATE] Bad Behavior 2.0.10
+[FIX] Bad Behavior fixed for IE7 support.
+[CHANGE] Print layout can handle template sections now which should be not printable. Use <!--NO_PRINT_START//-->...<!--NO_PRINT_END//--> to define such sections. While rendering in print mode tags and tag enclosed content will be removed.
+[FIX] False SQL command used in dbcon.inc.php which could result in missing collation - often neccessary for UTF-8
+[CHANGE] When "error" page is shown a 404 header is sent. I think it's better because such content is not interesting for search engines and should be declared as "not found".
+[FIX] When using phpwcms on MySQL >= 4.1 setting correct DB charset and collation shoud work better now. For MySQL < 4.1 "SET NAMES" has no effect.
+[FIX] Setup for releases of MySQL <4.1 will check against installed charsets.
+[FIX] {URL:...} will now try to make correct charset conversion based on remote META "Content-Type/Charset" setting.
+[FIX] Some more charset conversion related fixes (feeds, URL...)
+[CHANGE] Default templates for rendering article listing and article detail are not hard coded anymore. Now these are template snippets stored in "template/inc_default": article_summary.tmpl, article_summary_list.tmpl.
+[FIX] Function "replaceGlobalRT()" replacement for template path was wrong.
+[CHANGE] File "include/inc_act/act_newsletter.php" is obolete. Functionality handled by "verify.php".
+[ADD] New function "_dbDuplicateRow()" which allows simple duplication of db records.
+[ADD] Duplicate newsletter button.
+[UPDATE] Spaw 2.0.2.
+[FIX] Content part "maps" fixed. Oh developers are stupid ;-)
+[UPDATE] FCKeditor 2.4
+[ADD] {NAV_LIST_UL} enhanced for additional sub level check but for "closed" structures only. If a sub level exists class "sub_no" is switched "to sub_no_ul".
+[ADD] New frontend_render script "linkme.php" which allows easy "send bookmark to..." icons for: Mr. Wong, DiggIt, Del.icio.us, Technorati, purl, Furl and Yahoo. Use replacement Teag: [LINK_IT]<p>{WONG} {DIGG} {DELICIOUS} {TECHNORATI} {SPURL} {FURL} {YAHOO}</p>[/LINK_IT].
+
+
+1.2.8
+=====
+
+2006-08-03
+[FIX] Article sorting corrected. Now it's based on article's sort information from database.
+[ADD] Article re-sorting in the case a sort value is set to "0" or not unique in same structure level. Re-sorting is automatically made based on structure level order-by setting when in article listing mode in the backend.
+[FIX] Structure level order-by setting "manual" is now correct for Ascending and Descending.
+[ADD] Google sitemap integration based on all public articles. Link Google sitemap service against "sitemap.php". Possible to include static URLs too (check sitemap.custom.ini).
+[SEC] Database connection put inside a new include file "dbcon.php". No database connect done anymore when db connection not neccessary for a script.
+[FIX] Unused functions removed from code.
+[CHANGE] Frontend is XHTML compatible now.
+[ADD] New config setting (array $phpwcms["BOTS"]) for user agents for whom no session should be started.
+[FIX] {NAV_TABLE_COLUMN} works better again. Still problems in IE and for hidden structure levels possible.
+[CHANGE] No <body onload="js()"> anymore. All JavaScript onLoad functions are placed inside "window.onload" in html <head> section.
+[CHANGE] No additional styling information are placed in <body> - all colors are placed in <style> in the html <head> section.
+[ADD] Fontsize setting routine implemented - check "switchFontSize.php". Some additional CSS files are placed in "inc_css/fontSize"
+[ADD] HTC Fixes for IE <= 6 - csshover.htc and pngbehavior.htc
+[FIX] Spaw 1.1 works pretty well now.
+[UPDATE] FCKeditor updated to version 2.3.1, build 1062 (released on July 26, 2006)
+[ADD] phpwcms optimized FCKeditor toolbars: "phpwcms_default" - most of FCKeditor functions enabled, "phpwcms_basic" - just basic functions.
+[ADD] Templates can have multiple CSS files - the drop down select field is replaced by a multiple select list box. CSS files can be sorted there.
+[ADD] Custom CSS definitions are now possible also direct from custom code - add a new array element to $block['css'] like "$block['css'][] = 'mycss.css'". The base CSS path is phpwcms_template/inc_css.
+[FIX] False variable used for setting file size in "download.php" causes false set header information for filesize.
+[FIX] Function list_articles_summary() - array for handling captions is now reset at correct point - could cause a PHP warning.
+
+2006-08-07
+[FIX] Function "getArticleSortValue()" could return wrong sort value if a sort value ist higher than "(count of all articles within the structure + 1) * 10".
+[FIX] GT Mod check integrated if a font really exists.
+[ADD] Function "clean_replacement_tags()" enhanced by a new parameter which defines allowed html tags.
+[FIX] Some functions deleted and some optimized.
+[FIX] {NAV_LIST...} equalized - now only 1 function is responsible creating the UL list. CSS id is replaced by class and no <div> is given back - just the <ul>.
+[ADD] New settings for MySQL charset and collation. In "conf.inc.php" manually add $phpwcms['db_charset'] and $phpwcms['db_collation'] at the moment. This will be integrated into the setup process (completely rewritten).
+[ADD] Some additional information for setup script (MySQL Client version and GD information).
+[FIX] Content part image list.
+[CHANGE] Captcha has now 6 chars as default.
+[FIX] Google Sitemap <lastmod> might be wrong depending on used MySQL release. Now SQL query always returns UNIX timestamp.
+[FIX] Feeds <updateDate> might be wrong depending on used MySQL release. Now SQL query always returns UNIX timestamp.
+[FIX] Search content part should work much better now. It's just a workaround but giving better results and CSS styled search result. Search result is sorted by rank. Future release will get better search implementation based on page content. The used search is too time expensive and less optimal for pagination. 
+[ADD] Search now searches for every given word: "word1 word2" will search for articles containing "word1" and/or "word2". So the more words the more results are given.
+[ADD] Search now supports highlighting of search words. After clicking on a link in the search result highlighting will be tried on the target page also - works only when a user session exists.
+[ADD] A new global array introduced "$GLOBALS['_getVar']" which contains all GET vars but reduced by PHP session ID. Use this new array to store all URL values neccessary for custom fiunctionality.
+[ADD] Use function "returnGlobalGET_QueryString($format)" to build a formatted query string based on "$GLOBALS['_getVar']". String "$format" supports default '', 'htmlentities', 'urlencode' and 'rawurlencode'.
+[CHANGE] All cache functionality removed from index.php. Was originally introduced for having a better search support but is outdated now.
+
+2006-08-15
+[FIX] If alias found using "$GLOBALS['_getVar']" delete it.
+[ADD] New menu replacement tag {NAV_LIST_UL: [menu_type[, start_id[, class_path[, class_active[, ul_id_name[,wrap_link_text]]]]]] }. Creates a cascaded <ul><li> list which can be formatted by CSS. Menu type "F" renders in mode "active path unfolded" (like {NAV_TABLE_ROW}). For menu type "HCSS" (horizontal) and "VCSS" (vertical) sample CSS code is generated (check rendered source code).
+[FIX] Frontend edit link corrected for article listings.
+[CHANGE] Function "include_ext_php()" optimized.
+[FIX] Setup "get_conf_file.php" optimized a bit - should deliver file as plain text now.
+[FIX] All 'nowrap' converted to XHTML compatible 'nowrap="nowrap"'.
+[ADD] Replacement tag {NEW:} enhanced by 2 new date sort options: ldate = sort descending by start/live date, kdate = sort descending by end/kill date
+[FIX] Spelling mistake in function "buildGlobalGET() ... if($retun... -> if($return". The constant FE_CURRENT_URL wasn't built correctly - no GET parameter added.
+[ADD] New configuration value: "$phpwcms['mode_XHTML']" Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional
+[ADD] New configuration value: "$phpwcms['header_XML']" Content Type: 1 = application/xhtml+xml, 0 = text/html -> for non compatible browser a fallback to text/html is integrated. If you are not sure always set to "0".
+[ADD] <![CDATA[]]> added for <style> and <script> - for DOCTYPE HTML the old comment style "<!-- //-->" is used.
+[FIX] Content part email fixed for XHTML compatibility. If no cols value is given a default value of cols="20" is used.
+[CHANGE] To avoid path problems CSS style "behavior:" for < IE7 is now written directly into the related <style> section. Solves the :hover and transparent PNG problem.
+[FIX] Blank 1px GIF for pngbehavior.htc is loaded correctly. This allows the usage of PNG images with alpha channels.
+[CHANGE] Function "headerRedirect()" moved from general.inc.php to default.inc.php.
+[ADD] Replacement tag {NAV_LIST_UL} by default renders each <li> having no sub <ul> with class "sub_no" while each <li> beeing a node with class "sub_ul".
+[CHANGE] Based on Peter Nederlof's example (http://blogger.xs4all.nl/peterned/archive/2006/08/12/113565.aspx) CSS sample code for {NAV_LIST_UL} optimized.
+[CHANGE] Small optimization for GT mod - array with GT information was loaded a bit too often. Now GT information is initialized only once.
+[FIX] Spelling mistake in switchFontSize.php fixed: $GlOBALS -> $GLOBALS...
+[FIX] There was an error in reasoning for {NAV_TABLE_COLUMN} in combination when starting at a deeper level than the root. A wrong counter was set to find the right template setting. Now it always starts with a count of 0.
+[ADD] Replacement tag {NAV_LIST_UL} got an additional parameter which allows to wrap each sub <ul> in a <div> (might be neccessary for having correct z-index settings in IE). Values are: 0 = '', 1 = <div>, 2 = <div id="ul_div_ID">. Complete parameter: [menu_type[, start_id[, class_path[, class_active[, ul_id_name[, wrap_ul_in_div[, wrap_link_text]]]]]]].
+
+2006-08-17
+[ADD] New sample frontend_render script which allows integration of JavaScript menus based on script from http://deluxe-menu.com/.
+[FIX] Print CSS file is added as array element now - the original has set $block['css'] back to string which might result in an error. 
+[ADD] New function getImageCaption($caption[, $array_index='NUM'||'STRING']): returns an array containing all caption elements.
+[CHANGE] Generating captions for content part images and text with image - now it's the same like for article image. Fixed for article listings too.
+[FIX] All pipes in GET values will be sent raw-url-encoded "|" -> '%7C'. Seems to be neccessary to fix possible web server problems.
+
+2006-08-20
+[ADD] New config settings in "conf.inc.php" to enable/disable special HTC CSS behaviors especially for IE < 7; $phpwcms['IE_htc_hover'] and $phpwcms['IE_htc_png'].
+[FIX] Special additional check for GT MOD in combination with "$phpwcms['IE_htc_png']=1" and file format PNG -> image height and width will be detected too so that pngbehavoir does not hide those GT MOD images in IE < 7.  
+
+2006-08-25
+[ADD] Additional setting for {NAV_LIST_UL} limiting the depth of rendered levels: {NAV_LIST_UL: [menu_type[, start_id[, max_level[, class_path[, class_active[, ul_id_name[,wrap_link_text]]]]]]]}. If max_level = 0 no limitation, max_level=1 limits to the first level - there will be no sub <ul> displayed and so on...
+[REMOVE] Experimental Tidy functionality removed - was always inactive.
+[CHANGE] Compression disabled - this is always better done by webserver.
+[ADD] phpwcms version returned in HTTP header 'X-phpwcms-Release'.
+[ADD] Page processing time returned in HTTP header 'X-phpwcms-Page-Processed-In'.
+[ADD] Bad Behavior 2 included as module. This is in experimental mode at the moment. Will need some enhancement to access admin section or retrieve statistics.
+[REMOVE] "phpwcms_template/inc_js/menubar.js" deleted - not in use.
+[ADD] Very simple filter based on SQL query for guestbook implemented.
+[FIX] Content part "Multimedia" can now handle ActiveX Plugin Activation in IE for Flash and Quicktime. JavaScript code is written in addition to normal object/embed code. Object/embed is now wrapped in <noscript>.
+[ADD] Captcha verification also implemented for the old/deprecated form mailer.
+[FIX] Click zoom image GET parameter is given as rawurlencoded string now. GET parameter is now built by a special function to have it more flexible.
+[FIX] Default value for template in conf.indexpage.inc.php was set to 2 - a wrong value. Now set to 1 again which most times should be the default template ID.
+[ADD] New replacement tag {SHOW_CONTENT:MODE,id[,id[,...]]} - the enhanced version of Jens Zetterström's mod.
+[CHANGE] Some more optimizations...
+
+2006-09-04
+[FIX] Function buildGlobalGET() could return false GET values in case of no user session was initiated.
+[CHANGE] Bookmarking should work in Firefox and Netscape too.
+[FIX] For some PHP installs there seems to be a problem when a GET parameter was given without "=" or empty value like for an alias. A workaround that is able to parse $_SERVER['QUERY_STRING'] should handles this.
+[ADD] Content part contact form was enhanced by very interesting feature. You can set sender and to email address based on field value. This allows to create forms for "link this site" emails.
+[UPDATE] Spaw updated to release 1.2.
+[FIX] Hide possible error messages for auto-logout which could prevent correct header redirect.
+[FIX] Page <title> rendering as htmlentitis.
+[ADD] Content part contact form enhanced. New: sender name. Error and Success can be text, html or redirect link. New tags for custom form template available: [IF_ERROR][/IF_ERROR], [ELSE_ERROR][/ELSE_ERROR]. New tags for email text: {FORM_URL}, {DATE:date_format}, {REMOTE_IP}.
+[CHANGE] Much better download functionality implemented. It should be able to resume file downloads. In case of an error it returns a 404.
+[ADD] The success text can be used in combination with form replacement tags. A dropdown select box allows to select such special tag based on form fields.
+[ADD] phpwcms version check for the start screen implemented in the backend.
+[CHANGE] Backend "phpwcms_template/inc_default/startup.php" is now empty by default.
+[FIX] Spaw has some problems handling special chars when phpwcms is set to UTF-8. A language workaround is implemented now. Most common languages are converted to UTF-8.
+[FIX] Check is var isset $GLOBALS['phpwcms']['bad_behavior_settings'].
+[DELETE] Kicked function word_wrap(), htmlarea_lang()
+[ADD] Content part search has 2 additional new values: "highlight" and "max words" for results. Value "-1" for "max count" means disable word cut. When empty value is given the default is 35 words.
+[ADD] New comment based replacement tag  "<!--SEARCH_HIGHLIGHT_START//-->...<!--SEARCH_HIGHLIGHT_END//-->" for template. Enclose tenplate section in such tags and highlighting will processed only there.
+[ADD] New PHP constants: "On" a better readable value for "true", "Off" a better readable value for "false", "XHTML_MODE" set "true" or "false" based on "$phpwcms['mode_XHTML']".
+[ADD] Generic JavaScript/PixelTracking code for phpMyVisites, Google Analytics, StatCounter and eTracker implemented - check: "phpwcms_template/inc_script/frontend_render/pixelTracking.php".
+[FIX] Ranking works much better now.
+[FIX] Search will not be processed for structure levels set as "not searchable".
+[CHANGE] All sample scripts in "phpwcms_template/inc_script/frontend_render" are moved to "phpwcms_template/inc_script/frontend_render/disabled" and a bit more secure too.
+[ADD] Content part search can handle the following replacment tags for the search result navigation: {PREV:<html>}, {NEXT:<html>} page #/##, result ###-####, {NAVI:123,spacer|prefix|suffix}, {NAVI:1-3,spacer|prefix|suffix}. Use htmlentities whenever possible. There multiple new settings available.
+
+2006-09-05
+[FIX] Some corrections for unset vars and neccessary checks.
+[FIX] Missing buggy function for content part guestbook fixed.
+[FIX] Some spelling errors fixed.
+[FIX] Array based translations are merged with default values.
+[FIX] Wrong html entity encoding for HTML <title> tag fixed.
+[FIX] Setting WYSIWYG editor for admin user set to FCKeditor by default while install.
+[FIX] In SQL query for new search the db table prefix was missing.
+
+
+1.2.7
+=====
+
+[SEC] Most comprehensive security update of phpwcms. All files possible infectable by remote code are secured.
+[CHANGE] FCKeditor 2.0.3 integrated.
+[CHANGE] RSS feeds are now processed by patched FeedcreatorClass. Link to "feeds.php". Feed settings can be made in feeds.ini.php. Support for RSS0.91, RSS1.0, RSS2.0, ATOM0.3, ATOM1.0.
+[CHANGE] RSS content part optimized for all general RSS formats - should be able to process RSS0.91, RSS1.0, RSS2.0, ATOM0.3, ATOM1.0.
+[ADD] Captcha for email forms and guestbook.
+[ADD] Custom template for email form.
+
+...lot of fixes....

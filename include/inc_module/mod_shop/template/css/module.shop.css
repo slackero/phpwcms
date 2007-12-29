@@ -1,0 +1,154 @@
+/* module calendar backend CSS */
+
+label {
+	cursor:	pointer;
+}
+
+form.editform {
+	background:#F3F5F8;
+	border-top:1px solid #92A1AF;
+	border-bottom:1px solid #92A1AF;
+	margin:0 0 5px 0;
+	padding:10px 8px 15px 8px;
+}
+
+form.editform1 {
+	margin:0 0 0 0;
+	padding:10px 8px 10px 8px;
+}
+
+table.shop {
+
+	margin: 8px 0 3px 0;
+
+}
+
+table.shop tr {
+
+
+	
+}
+table.shop tr.adsAltRow {
+
+	background-color: #F3F5F8;
+	
+}
+table.shop tr:hover {
+	background-color: #FFCC33;
+}
+
+table.shop th {
+
+	padding: 2px 0 3px 0;
+	border-bottom: 1px solid #92A1AF;
+	border-top: 1px solid #92A1AF;
+	text-align: left;
+	font-size: 10px;
+	color: #000000;
+	background-color: #FFFFFF;
+
+}
+
+table.shop th.listDate {
+	text-align: center;
+	padding: 2px 3px 3px 3px;
+}
+table.shop td.listDate {
+	padding: 3px;
+	text-align: center;
+	width: 50px;
+}
+table.shop th.listFormat {
+	padding: 2px 5px 3px 3px;
+}
+table.shop td.listFormat {
+	padding: 3px 5px 3px 3px;
+}
+table.shop td.listNumber {
+	padding: 3px 5px 3px 3px;
+	text-align:	right;
+}
+
+input.disabled {
+	background-color:#F3F5F8;
+	border:1px inset #F3F5F8;
+	padding: 1px 3px 1px 3px;
+	color: #666666;
+}
+
+input.width40	{	width:	40px;	}
+input.width45	{	width:	45px;	}
+input.width60	{	width:	60px;	}
+input.width77	{	width:	77px;	}
+input.width375, textarea.width375	{	width:	375px;	}
+input.width80	{	width:	80px;	}
+input.width100	{	width:	100px;	}
+input.width250	{	width:	250px;	}
+
+
+
+input.right, textarea.right {
+	text-align: right;
+}
+
+td.colorfield {
+	border: 1px solid #BBBBBB;
+	background-color: #F3F5F8;
+}
+
+input.width400, textarea.width400 {
+	width:	400px;
+}
+
+td.upload input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width: 220px;
+}
+
+td.newimage {
+	padding: 0 0 0 23px;
+	background-image: url(../../../../../img/famfamfam/silk_icons_gif/image_add.gif);
+	background-repeat:no-repeat;
+	background-position: 4px;
+}
+td.newflash {
+	padding: 0 0 0 23px;
+	background-image: url(../../../../../img/famfamfam/silk_icons_gif/film_add.gif);
+	background-repeat:no-repeat;
+	background-position: 4px;
+}
+td.newcss {
+	padding: 0 0 0 23px;
+	background-image: url(../../../../../img/famfamfam/silk_icons_gif/css_add.gif);
+	background-repeat:no-repeat;
+	background-position: 4px;
+}
+td.warning {
+	padding: 0 20px 15px 20px;
+	background-image: url(../../../../../img/famfamfam/mini/icon_alert.gif);
+	background-repeat: no-repeat;
+	background-position: 0px -1px;
+	color: #CC3300;
+	font-weight: bold;
+}
+td.warning1 {
+	padding: 5px 20px 5px 20px;
+	background-image: url(../../../../../img/famfamfam/mini/icon_alert.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 4px;
+	color: #CC3300;
+}
+input.rt {
+	padding: 2px;
+	margin-top: 3px;
+	font-weight: bold;
+	line-height: 100%;
+	font-size: 12px;
+	border:1px inset #F3F5F8;
+	background-color: #F7F7F7;
+}
+textarea.code {
+	font-family: "Courier New", Courier, mono;
+	font-size: 12px;
+}

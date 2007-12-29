@@ -1,0 +1,49 @@
+ul#images {
+	list-style: none;
+	padding: 0;
+	margin: 3px 0 0 0;
+}
+ul#images li {
+	padding: 6px 4px 7px 4px;
+	margin: 0 3px 0 0;
+	background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
+	list-style: none;
+}
+ul#images li:hover {
+	background-color: #F3F5F8;
+}
+
+ul#images input.imagename {
+	width: 300px;
+	color: #727889;
+}
+ul#images a {
+	margin-left: 3px;
+}
+
+ul#images td.spacerrow {
+	height: 3px;
+}
+td.right {
+	text-align: right;
+}
+
+ul#images td.backend_preview_img {
+	height:1px;
+}
+ul#images td.backend_preview_img img {
+	margin: 5px 0 3px 0;
+}
+
+ul#images input.w300, ul#images textarea.w300 {
+	width: 300px;
+}
+
+button span.btn_image_add {
+	font-size: 11px;
+	font-weight: bold;
+	padding: 2px 4px 2px 22px;
+	background: url(../../img/famfamfam/silk_icons_gif/image_add.gif) no-repeat left center;
+	float: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}

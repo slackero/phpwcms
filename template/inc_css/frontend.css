@@ -1,0 +1,279 @@
+body {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+}
+
+form, div, p, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+td, th, p, div, span {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px
+}
+
+.listEntry {
+	margin-bottom: 10px;
+}
+
+a, a:link, a:visited, a:active, a:focus {
+	color: #FF3300;
+	text-decoration: none
+}
+a:hover {
+	color: #FF3300;
+	text-decoration: underline;
+}
+
+.articleText { 
+	margin-bottom: 3px;
+	text-align: justify;
+}
+
+.articleCode {
+	margin-bottom: 3px;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.articleSummary {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	line-height: 135%;
+}
+
+.nav_table, .nav_table a, .nav_table a:link, .nav_table a:active, .nav_table a:visited, .nav_table a:hover {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	color: #4A5966;
+	font-weight: normal;
+	text-decoration: none;
+}
+.nav_table a:hover {
+	text-decoration: underline;
+}
+
+.nav_table_active, .nav_table_active a, .nav_table_active a:link, .nav_table_active a:active, .nav_table_active a:visited, .nav_table_active a:hover {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10px;
+	color: #4A5966;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.articleList_toptext {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10px;
+}
+
+.articleList_listhead {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+
+/* CSS for the top level list */
+ul.list_top, ul.list_level {
+	padding: 3px 0;
+	margin-left: 0;
+	border-bottom: 1px solid #5E747F;
+	font: bold 12px Verdana, sans-serif;
+}
+ul.list_top li, ul.list_level li {
+	list-style: none;
+	margin: 0;
+	display: inline;
+	padding: 0;
+}
+ul.list_top li a, ul.list_level li a {
+	padding: 3px 0.5em;
+	margin: 0px;
+	border: 1px solid #778;
+	border-bottom: none;
+	background: #D7DEE5;
+	text-decoration: none;
+}
+ul.list_top li a:link, ul.list_level li a:link { color: #5E747F; }
+ul.list_top li a:visited, ul.list_level li a:visited { color: #5E747F; }
+ul.list_top li a:hover, ul.list_level li a:hover {
+	color: Black;
+	background: #92A1AF;;
+	border-color: #227;
+}
+ul.list_top li.active a, ul.list_level li.active a {
+	background: white;
+	border-bottom: 1px solid white;
+}
+
+
+
+/** 
+ * Sample CSS for DIV pagelayout 
+ */
+#container {
+	width: 760px;
+	\width: 780px;
+	w\idth: 760px;
+	border: 1px solid gray;
+	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+}
+
+#headerBlock {
+	padding: 5px;
+	margin-bottom: 5px;
+	background-color: rgb(213, 219, 225);
+}
+
+#mainBlock {
+	padding: 5px;
+	margin-left: 215px;
+	margin-right: 215px;
+	background-color: gray;
+}
+
+#leftBlock {
+	float: left;
+	width: 200px;
+	\width: 210px;
+	w\idth: 200px;
+	margin: 0;
+	margin-right: 5px;
+	padding: 5px;
+	background-color: rgb(235, 235, 235);
+}
+
+#rightBlock {
+	float: right;
+	width: 200px;
+	\width: 210px;
+	w\idth: 200px;
+	margin: 0;
+	margin-left: 5px;
+	padding: 5px;
+	background-color: rgb(235, 235, 235);
+}
+
+#footerBlock {
+	clear: both;
+	padding: 5px;
+	margin-top: 5px;
+	background-color: rgb(213, 219, 225);
+}
+
+.imgDIVinTextLeft {
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 0;
+}
+.imgDIVinTextRight {
+	float: right;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	padding: 0;
+} 
+.imgDIVtopLeft { 
+	margin:8px 10px 5px 20px; 
+	padding:0px; 
+	border:0; 
+} 
+.imgDIVtopCenter { 
+	margin:8px -50% 5px -50%; 
+	padding:0px; 
+	border:0; 
+}
+
+.imgDIVblockImgLeft { 
+	margin-right: 10px;
+}
+.imgDIVblockImgRight {
+	margin-left: 10px; 
+} 
+
+.phpwcmsImgListRight {
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}
+.phpwcmsImgListLeft {
+	text-align: right;
+	margin: 0;
+	padding: 0;
+}
+
+
+.phpwcmsSearchResult {
+	margin: 15px 0 15px 0;
+}
+.phpwcmsSearchResult h3 {
+	margin: 10px 0 1px 0;
+	font-size: 12px;
+	font-weight: bold;
+}
+.phpwcmsSearchResult p {
+	margin: 0;
+}
+.phpwcmsSearchResult em.highlight, em.highlight {
+	background-color: #FFFF00;
+	font-style:inherit;
+}
+
+
+#VisualModeIndicator {
+	position:absolute;
+	left:5px;
+	bottom:5px;
+	padding:5px;
+	z-index:10000;
+	background-color:#FF3300;
+	color:#FFFFFF;
+	border:1px solid #000000;
+}
+
+.phpwcmsArticleListEntry {
+	clear: both;
+}
+.phpwcmsArticleListImage {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	padding-top: 3px;
+}
+.phpwcmsArticleListImageCaption {
+	padding-top: 5px;
+}
+
+div.cpPagination {
+	margin: 10px 0 10px 0;
+	text-align: right;
+}
+a.cpPaginate, a.cpPaginateActive, a.cpPaginationPrev, a.cpPaginationNext {
+	padding: 0px 3px 1px 3px;
+	background-color: #FFFFFF;
+	color: #BBBBBB;
+	text-decoration: none;
+	font-weight: bold;
+	border: 1px solid #CBCBCB;
+}
+a.cpPaginateActive {
+	background-color: #CBCBCB;
+	color: #FFFFFF;
+	border: 1px inset #CBCBCB;
+}
+
+a.cpPaginationPrev:hover, a.cpPaginationNext:hover, a.cpPaginate:hover {
+	background-color: #DDDDDD;
+	color: #666666;
+	border: 1px inset #CBCBCB;
+}
+

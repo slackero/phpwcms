@@ -1,0 +1,124 @@
+/* module calendar backend CSS */
+
+table.calendar {
+
+	margin: 8px 0 3px 0;
+
+}
+
+table.calendar tr {
+
+	background-color: #E1E7E8;
+	
+}
+table.calendar tr.calendarAltRow {
+
+	background-color: #D1DDDD;
+	
+}
+
+
+table.calendar th {
+
+	padding: 2px 3px 3px 3px;
+	border-bottom: 1px solid #92A1AF;
+	border-top: 1px solid #92A1AF;
+	background-color: #B6C5C7;
+	text-align: center;
+	font-size: 10px;
+	color: #000000;
+
+}
+
+table.calendar th.calendarWeek {
+	padding: 3px 5px 3px 5px;
+	background-color: #D8D6BF;
+	border-right: 1px solid #92A1AF;
+	color: #6B6942;
+}
+table.calendar th.calendarMonth {
+	font-size: 17px;
+	font-family: "Segoe UI", Segoe, "Lucida Grande", Lucida, "Trebuchet MS", Trebuchet, Helvetica, Arial, sans-serif;
+	line-height:100%;
+	text-align:left;
+}
+
+
+table.calendar td.calendarWeek {
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+	background-color: #D8D6BF;
+	border-bottom: 1px solid #92A1AF;
+	border-right: 1px solid #92A1AF;
+	color: #6B6942;
+}
+table.calendar td.calendarWeekAlt {
+	background-color: #D8D6BF;
+}
+
+table.calendar td.calendarDay {
+	padding: 2px 5px 2px 5px;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: "Segoe UI", Segoe, "Lucida Grande", Lucida, "Trebuchet MS", Trebuchet, Helvetica, Arial, sans-serif;
+	font-size:13px;
+	line-height:100%;
+	vertical-align: top;
+}
+table.calendar td.calendarDay span {
+	font-weight: bold;
+	font-size: 17px;
+	line-height:105%;
+}
+
+table.calendar td.calendarSunday {
+	border-bottom: 1px solid #92A1AF;
+}
+
+table.calendar td.calendarButton {
+	padding: 2px 6px 2px 5px;
+}
+
+
+table.calendar tr:hover {
+	background-color: #FFCC33;
+	/*cursor: pointer;*/
+}
+
+.calendarButton button {
+	font-size:	10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	line-height: 100%;
+	margin: 0 2px 0 2px;
+	padding: 0 5px 0 5px;
+}
+
+table.calendar td.calendarData {
+	padding: 4px 3px 2px 3px;
+	vertical-align: top;
+}
+table.calendar td.calendarData a {
+	color: #000000;
+}
+table.calendar td.calendarData a.off {
+	text-decoration: line-through;
+	color: #000000;
+}
+table.calendar td.calendarData a.off:hover {
+	text-decoration: underline;
+	color: #000000;
+}
+table.calendar td.calendarData p {
+	margin: 0;
+	padding: 0 0 3px 0;
+	font-family: "Segoe UI", Segoe, "Lucida Grande", Lucida, "Trebuchet MS", Trebuchet, Helvetica, Arial, sans-serif;
+	font-size:12px;
+	line-height:100%;
+	color: #000000;
+}
+a.calendarDateDel {
+	padding-left: 2px;
+}
+

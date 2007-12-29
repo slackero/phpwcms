@@ -1,0 +1,12 @@
+html, body {
+	margin:				0;
+	padding:			0;
+	height:				100%;
+	width:				100%;
+	min-height:			100%;
+	min-width:			100%;
+}
+body {
+	color: 				#000000;
+	background-color:	#FFFFFF;
+}

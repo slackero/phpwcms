@@ -1,0 +1,25 @@
+[SPACE]<!-- space //-->[/SPACE]
+<div class="phpwcmsArticleListEntry">
+	[IMAGE]<div class="phpwcmsArticleListImage">
+		[ARTICLELINK]<a href="{ARTICLELINK}"{TARGET}>[/ARTICLELINK]{IMAGE}[ARTICLELINK]</a>[/ARTICLELINK]
+		[CAPTION]<div class="phpwcmsArticleListImageCaption">{CAPTION}</div>[/CAPTION]
+	</div>[/IMAGE]
+	[TITLE]<h1>{TITLE}</h1>
+[/TITLE][SUB]	<h3>{SUB}</h3>
+[/SUB][SUMMARY]	<div><strong>{DATE:j. F Y lang=EN}</strong> {SUMMARY}</div>
+[/SUMMARY][MORE]	<div class="phpwcmsArticleListMore"><a href="{ARTICLELINK}"{TARGET}>{MORE}</a></div>[/MORE]
+</div>
+<!-- 
+	Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]
+
+	Thumbnail {THUMB_NAME}
+	Relative  {THUMB_REL}
+	Absolute  {THUMB_ABS}
+	WxH       {THUMB_WIDTH}px x {THUMB_HEIGHT}px[ZOOMIMAGE]
+
+	Zoomimage {IMAGE_NAME}
+	Relative  {IMAGE_REL}
+	Absolute  {IMAGE_ABS}
+	WxH       {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
+	[/ZOOMIMAGE][/IMAGE]
+//-->

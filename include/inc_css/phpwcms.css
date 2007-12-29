@@ -1,0 +1,517 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #282F42;
+	background-image: url(../../img/backend/background.jpg);
+	background-repeat: repeat-x;
+	background-color: #C1D2E2;
+	margin: 0px;
+}
+
+td, tr, p {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;   }
+
+ul {
+	margin: 0px 0px 0px 20px;
+}
+li {
+	font-size: 10px;
+	list-style: disc;
+}
+
+form {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+.v09 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px}
+.v10 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px}
+.v11 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px}
+.v12 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px}
+.v13 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px}
+.v14 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px}
+
+.v09b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px;}
+.v10b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px;}
+.v11b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;}
+.v12b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px;}
+.v13b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px;}
+.v14b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px;}
+
+.title {  font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #6288AD;  font-weight: bold;  }
+.error {  color: #CC3300; }
+.valid {  color: #2CAD00; }
+.columnhead {font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px; color: #406C94}
+
+.chat						{ color: #55638A; }
+.chatlist				{ color: #406C94; font-size: 10px; }
+.chatlist a:link		{ color: #406C94; font-size: 10px; }
+.chatlist a:visited	{ color: #406C94; font-size: 10px; }
+.chatlist a:active	{ color: #406C94; font-size: 10px; }
+.chatlist a:hover		{ color: #CC3300; font-size: 10px; }
+
+.msgreiter				{ color: #FFFFFF; font-weight: bold; font-size: 10px; }
+.msgreiter a:link		{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
+.msgreiter a:visited	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
+.msgreiter a:active	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
+.msgreiter a:hover	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: underline; }
+
+.navtext					{ color: #406C94; font-weight: normal; font-size: 10px }
+.navtext a:link		{ color: #406C94; font-weight: normal; text-decoration: none; font-size: 10px }
+.navtext a:visited	{ color: #406C94; font-weight: normal; text-decoration: none; font-size: 10px }
+.navtext a:active		{ color: #406C94; font-weight: normal; text-decoration: none; font-size: 10px }
+.navtext a:hover		{ color: #406C94; font-weight: normal; text-decoration: underline; font-size: 10px }
+.navtexta				{ color: #305270; font-weight: bold; font-size: 10px; text-decoration: none; }
+.navtexta a:link		{ color: #305270; font-weight: bold; text-decoration: none; font-size: 10px }
+.navtexta a:visited	{ color: #305270; font-weight: bold; text-decoration: none; font-size: 10px }
+.navtexta a:active	{ color: #305270; font-weight: bold; text-decoration: none; font-size: 10px }
+.navtexta a:hover		{ color: #305270; font-weight: bold; text-decoration: underline; font-size: 10px }
+
+.msglist { color: #000000; font-size: 10px}
+.msglist a:link {color: #000000;text-decoration: none}
+.msglist a:visited  {color: #000000}
+.msglist a:active  {color: #727889}
+.msglist a:hover {color: #CC3300; text-decoration: underline }
+.msgtext {	font-family: "Courier New", Courier, monospace; font-size: 9pt}
+.msgtext a:link {	text-decoration : underline; color: #55638A }
+.msgtext a:visited {	text-decoration : underline; color: #828282 }
+.msgtext a:active {	text-decoration : underline; color: #FF6600 }
+.msgtext a:hover {	text-decoration : none; color: #FFFFFF; background-color: #FF572D  }
+
+.add_all_files {
+	background-color: #CBDBE0;
+}
+
+.add_all_files a {
+	display: block;
+	padding: 2px 1px 0 19px;
+	height: 14px;
+	font-size: 10px;
+	font-weight: bold;
+	position: relative;
+}
+.add_all_files a:hover {
+	background-color: #fed83f;
+	text-decoration: none;
+	color: #000000;
+}
+.add_all_files a img {
+	position: absolute;
+	right: 6px;
+	top: 4px;
+}
+
+.useronline { font-size: 10px; color: #406C94; }
+
+a { text-decoration : none; background-color: transparent; color: #325676}
+a:link {  color: #325676; text-decoration: none; background-color: transparent;  }
+a:visited, a:active {  color: #325676;  background-color: transparent;  }
+a:hover {  color: #CC3300;  text-decoration: underline;  background-color: transparent;  }
+
+.mnav {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;  font-weight : bold; }
+
+.f10b {  font: bold 10px Verdana, Helvetica, Arial, sans-serif; }
+.f10 { font: normal 10px Verdana, Helvetica, Arial, sans-serif;  }
+.f11b {  font: bold 11px Verdana, Helvetica, Arial, sans-serif; }
+.f11 { font: normal 11px Verdana, Helvetica, Arial, sans-serif;  }
+.button10 {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;}
+.button12 {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px;}
+
+.dir {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #000000; }
+.dir a:link {	text-decoration : none; color: #000000 }
+.dir a:visited {	text-decoration : none; color: #000000 }
+.dir a:active {	text-decoration : none; color: #000000 }
+.dir a:hover {	text-decoration : underline; color: #000000  }
+
+.inaktiv {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #ADB2BE; }
+.inaktiv a:link {	text-decoration : none; color: #ADB2BE }
+.inaktiv a:visited {	text-decoration : none; color: #ADB2BE }
+.inaktiv a:active {	text-decoration : none; color: #ADB2BE }
+.inaktiv a:hover {	text-decoration : underline; color: #727889  }
+
+.popup{ font: 9px Verdana, Arial, Helvetica, sans-serif;  border: thin solid #FFCC00;  background: #FFEB99;  padding: 2px 2px 2px 2px;    }
+.table1 {
+	border: 1px dashed #BDC2C6;
+	background-color: #EDEEF1;
+}
+
+.table2 {
+	border: 1px solid #DEE9EC;
+	background-color: #F5F9FA;
+}
+
+.subnavactive				{color: #305270;	font-size: 10px; }
+.subnavactive a:link		{color: #305270;	font-size: 10px;	text-decoration: none; }
+.subnavactive a:visited	{color: #305270;	font-size: 10px;	text-decoration: none; }
+.subnavactive a:active	{color: #305270;	font-size: 10px;	text-decoration: none; }
+.subnavactive a:hover	{color: #FF572D;	font-size: 10px;	text-decoration: underline; }
+
+.subnavinactive				{color: #406C94;	font-size: 10px; }
+.subnavinactive a:link		{color: #406C94;	font-size: 10px;	text-decoration: none; }
+.subnavinactive a:visited	{color: #406C94;	font-size: 10px;	text-decoration: none; }
+.subnavinactive a:active	{color: #406C94;	font-size: 10px;	text-decoration: none; }
+.subnavinactive a:hover		{color: #FF572D;	font-size: 10px;	text-decoration: underline; }
+
+.code {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+}
+
+
+.clickMenu {
+	background-color: #ECE9D8;
+	border: 1px solid #7F9DB9;
+	padding: 3px;
+	margin:0;
+}
+.clickMenu td {
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+.clickMenu a, .clickMenu a:link, .clickMenu a:visited, .clickMenu a:active, .clickMenu a:hover {
+	text-decoration: none;
+	color: #000000;
+}
+.clickMenu a:hover {
+	text-decoration: underline;
+	color: #D2691E;
+}
+.clickMenuDisabled {
+	color: #8E8C82;
+	font-size: 10px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+
+/* Calendar Popup */
+.dynCalendar {
+	background-color: #c0c0c0;
+	border: 1px outset #F0F0F0;
+	visibility: hidden;
+	position: absolute;
+	z-index: 10000;
+}
+.dynCalendar_table {
+	background-color: #eeeeee;
+}
+.dynCalendar_table td {
+	padding: 1px;
+}
+
+.dynCalendar_header{
+	font-size: 10px;
+	font-weight: normal;
+}
+.dynCalendar_dayname {
+	background-color: #c0c0c0;
+	border: 1px solid #c0c0c0;
+	font-size: 10px;
+	color: #FFFFFF;
+	text-align: center;
+	width: 21px;
+	padding: 2px 3px 2px 3px;
+}
+
+.dynCalendar_day {
+	background-color: #eeeeee;
+	color: #000000;
+	font-size: 10px;
+}
+.dynCalendar_today {
+	background-color: #ffffff;
+	border: 1px solid #c0c0c0;
+	font-size: 10px;
+}
+td.dynCalendar_day:hover, td.dynCalendar_today:hover {
+	background-color: #FFCC33;
+}
+
+
+
+.dynCalendar select {
+	font-size: 10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	color: #6288AD;
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 15px;
+	font-weight:bold;
+	margin:0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+.cntOptGroup {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #666666;
+	padding: 2px 2px 1px 4px;
+	font-weight:normal;
+}
+
+.radioButton, .checkBox {
+	margin: 3px;
+	padding: 0;
+}
+
+.versioncheck {
+	padding: 6px;
+	border: 1px solid #A0BBD6;
+	margin: 0 0 15px 0;
+}
+
+.versioncheck p {
+	padding: 0;
+	margin: 5px 0 0 0;
+}
+
+.versioncheck h1 {
+	font-size: 13px;
+	margin: 0;
+}
+
+
+
+.listingTable {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-bottom: 0;
+}
+.listingTable tr.alternating {
+	background-color: #EFEFEF;
+}
+.listingTable tr:hover {
+	background-color: #FFCC99;
+}
+.listingTable td {
+	padding: 2px 0 2px 0;
+	margin: 0;
+	border-bottom: 1px solid #CCCCCC;
+}
+.listingTable .checkbox {
+	text-align: center;
+	width: 1%;
+}
+ .listingTable th {
+	padding: 3px;
+	margin: 0;
+	border-bottom: 1px solid #CCCCCC;
+	text-align: left;
+}
+.listingTable button {
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.listingTable .actions {
+	text-align: right;
+	padding-right: 3px;
+}
+.listingTable .entry {
+	text-align: left;
+	padding-right: 3px;
+	padding-left: 3px;
+}
+
+/* backend input elements */
+.inputText input {
+	font-size: 13px;
+	width: 400px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.inputText label {
+	display: block;
+	margin-bottom: 2px;
+}
+.inputButton {
+	margin-top: 15px;
+}
+.inputButton button {
+	font-size: 11px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin-right: 10px;
+}
+
+.inactive {
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+tr.inactive td {
+	opacity: .5;
+	filter: alpha(opacity=50);
+}
+.paginate input {
+	margin: 0;
+	padding: 0;
+}
+.paginate .textinput {
+	font-size: 10px;
+	color: #406C94;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding: 0 1px 0 1px;
+	text-align: center;
+	margin: 0;
+	border: 1px solid #7599BB;
+}
+.paginate label {
+	padding: 0 4px 0 1px;
+	margin: 0;
+}
+
+td.button_td img {
+	margin: 0 2px 0 0;
+}
+
+.errorInputText {
+	color:	#CC3300;
+	border:	1px solid #CC3300;
+	background-color: #FFECEC;
+	padding: 2px 1px 2px 1px;
+	background-image: url(../../img/famfamfam/silk_icons_gif/cancel.gif);
+	background-position:right;
+	background-repeat:no-repeat;
+}
+
+.icon {
+	position:			relative;
+	top:				2px;
+}
+.icon1 {
+	position:			relative;
+	top:				3px;
+	margin: 			0 3px 0 3px;
+}
+
+.imgButton span {
+	position: relative;
+	top: -4px;
+	margin: 0 4px 0 4px;
+}
+
+.navBar {
+	text-align: center;
+	margin:	10px 0 15px 0;
+	padding: 0;
+}
+.navBarLeft {
+	margin:	10px 0 15px 0;
+	padding: 0;
+}
+
+
+#channelSelect {
+	background-color: #EBF2F4;
+	margin: 0;
+	padding: 5px;
+	position: relative;
+}
+#channelSelect label {
+	font-size: 10px;
+}
+#channelSelect input {
+	margin: 1px 5px 1px 2px;
+	padding: 0;
+}
+.channelSelectTd {
+	background-color: #EBF2F4; /* #F3F5F8 */
+}
+.channelSelectTd input {
+	margin-left: 4px;
+}
+
+.csv {
+	color: #000000;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+	border: 1px solid #5BAE00;
+	background-color: #D7E9C7;
+	padding: 2px 5px 3px 5px;
+	margin: 3px 0 0 0;
+	float: left;
+}
+
+.error1 {
+	color: #CC3300;
+}
+
+#codebox {
+	height:				200px;
+	overflow:			auto;
+	border:				1px solid #7599BB;
+	margin:				0;
+	padding:			5px;
+	font-family:		"Courier New", Courier, mono;
+	font-weight:		normal;
+	background-color: #FFFFFF;
+}
+#codebox p {
+	border-bottom:		1px solid #E9E9E9;
+	font-family:		"Courier New", Courier, mono;
+	font-weight:		normal;
+	margin: 0 0 2px 0;
+	padding: 0 0 2px 0;
+}
+
+#statusMessage {
+	display:				none;
+	padding:				7px 10px 0 6px;
+	margin:					0;
+	-moz-border-radius:		7px;
+	-webkit-border-radius:	7px;
+	border-radius:			7px;
+	background-color:		#E3EED7;
+	float:					left;
+	color:					#52970D;
+	font-weight:			bold;
+}
+#statusMessage img {
+	float:				left;
+	position:			relative;
+	top:				0;
+}
+#statusMessage p {
+	margin: 			1px 0 7px 23px;
+	padding: 0;
+}
+
+.checkBoxFlow {
+	width:				438px;
+	height:				120px;
+	overflow:			auto;
+	border:				1px solid #7599BB;
+	margin:				0;
+	padding:			4px 0 4px 0;
+}
+.checkBoxFlow label {
+	padding-left:		5px;
+}
+.checkBoxFlow .left {
+	padding: 1px 0 1px 3px;
+}
+.checkBoxFlow .right {
+	padding: 1px 6px 1px 0;
+}
+select.optionTransfer {
+	width: 218px;
+	font-family: Verdana, Helvetica, Arial, sans-serif; 
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+td.optionTransfer {
+	width: 4px;
+	text-align:center;
+	vertical-align:top;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+}
+
+label.checkbox {
+	padding: 0 4px 0 2px;
+}
+

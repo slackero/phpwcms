@@ -1,0 +1,96 @@
+/**
+  * Sample for FORUM - deprecated
+  */
+.tableForum { background-color: #FFFFFF; border: 2px #006699 solid; }
+
+th	{
+	color: #FFA34F; font-size: 10px; font-weight : normal;
+	background-color: #006699; height: 24px;
+	background-image: url(../../img/forum/silver/cellpic3.gif);
+	background-repeat: repeat-x;
+}
+th.thForum, th.thTopic, th.thPost, th.thLastPost {
+	font-weight: normal; border: #FFFFFF; border-style: solid; height: 24px;
+}
+th.thForum { border-width: 0px 0px 0px 0px; }
+th.thTopic { border-width: 0px 0px 0px 0px; }
+th.thPost  { border-width: 0px 0px 0px 0px; }
+th.thLastPost { border-width: 0px 0px 0px 0px; }
+
+td.rowIcon, td.rowForum { background-color: #EFEFEF; height: 30px; }
+td.rowLabel, td.rowReply { background-color: #EFEFEF; }
+td.rowError { background-color: #D82B2B; }
+td.rowTopic, td.rowPost, td.rowLastPost, td.rowReplyA	{ background-color: #DEE3E7; }
+td.row3	{ background-color: #D1D7DC; }
+td.rowIcon, td.rowLabel, td.rowReply, td.rowReplyA	{ padding-left: 4px; padding-right: 4px; }
+
+.rowText { font-size : 12px; }
+.rowError { font-size: 12px; color: #FFFFFF; }
+.rowTextMed { font-size : 11px; }
+.rowTextSmall { font-size : 10px; }
+.rowTextLabel { font-size : 12px; font-weight: bold; }
+.rowText,.rowTextMed,.rowTextSmall, .rowTextLabel { color : #000000; }
+a.rowText,a.rowTextMed,a.rowTextSmall { color: #006699; text-decoration: none; }
+a.rowText:hover,a.rowTextMed:hover,a.rowTextSmall:hover	{ color: #DD6900; text-decoration: underline; }
+
+/* The register, login, search etc links at the top of the page */
+.mainmenu		{ font-size : 11px; color : #000000 }
+a.mainmenu		{ text-decoration: none; color : #006699;  }
+a.mainmenu:hover{ text-decoration: underline; color : #DD6900; }
+
+/* Forum category titles */
+.cattitle		{ font-weight: bold; font-size: 12px ; letter-spacing: 1px; color : #006699}
+a.cattitle		{ text-decoration: none; color : #006699; }
+a.cattitle:hover{ text-decoration: underline; }
+
+.catBottom {
+	background-color: #D1D7DC;
+	background-image: url(../../img/forum/silver/cellpic1.gif);
+	background-repeat: repeat-x;
+	text-align: center;
+}
+
+/* Forum title: Text and link to the forums used in: index.php */
+.rowTextForumlink		{ font-weight: bold; font-size: 12px; color : #006699; }
+.rowTextForumlink a, .rowTextForumlink a:link, .rowTextForumlink a:active, .rowTextForumlink a:visited {
+	text-decoration: none; color : #006699;
+}
+.rowTextForumlink a:hover { text-decoration: underline; color : #DD6900; }
+
+
+.navForum { font-weight: bold; font-size: 11px; color : #000000;}
+.navForum a, .navForum a:link, .navForum a:active, .navForum a:visited { text-decoration: none; color : #006699; }
+.navForum a:hover { text-decoration: underline; color : #006699; }
+
+.forumInputText {
+	font-weight: bold;
+	font-size: 13px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.forumTextareaText {
+	font-weight: normal;
+	font-size: 13px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.forumButton {
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.postdetails { font-size: 10px; color: #000000; margin: 3px 0 0 0; }
+.postdetails hr {
+	margin: 0 0 0 0;
+	padding: 0;
+	height: 0px;
+	border: solid #D1D7DC 0px;
+	border-top-width: 1px;
+}
+
+.postbody		{ font-size: 12px; color : #000000; margin: 0 0 3px 0; padding: 0 }
+.postbody a, .postbody a:link, .postbody a:active, .postbody a:visited {
+	text-decoration: none; color : #006699;
+}
+.postbody a:hover { text-decoration: underline; color : #DD6900; }

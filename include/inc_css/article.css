@@ -1,0 +1,110 @@
+body {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;  background : #FFFFFF;   }
+td, tr, p {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px}
+ul {
+	margin: 0px 0px 0px 20px;
+}
+li {
+	font-size: 11px;
+	list-style: disc;
+}
+
+a, a:link, a:visited, a:active {
+	color: #000000;
+	text-decoration: none
+}
+a:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.articleText { text-align: justify; }
+
+.articleHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 17px;
+	font-weight: bold;
+	color: #8DA09D;
+	line-height: 19px;
+}
+
+.articleSubHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	line-height: 14px;
+}
+
+.articleSummary {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	line-height: 13px;
+}
+
+.contentHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #6C807F;
+	line-height: 15px;
+}
+
+.contentSubHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.tableHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #6C807F;
+	line-height: 13px;
+}
+
+.tableSubHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+}
+
+.v09 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px; }
+.v10 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; }
+.v11 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; }
+.v12 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px; }
+.v13 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px; }
+.v14 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px; }
+
+
+.formButton		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold; color: #FFFFFF; background-color: #6C807F }
+.formLabel		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; }
+.checkLabel		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold;}
+.radioLabel		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold;}
+.formTextArea	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;	}
+.inputText		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
+.inputPass		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
+.selectMenu		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
+.selectList		{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
+
+.nav_table {
+	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px;
+	color: #4A5966;
+	font-weight: normal;
+}
+
+.nav_table a, .nav_table a:link, .nav_table a:active, .nav_table a:visited, .nav_table a:hover {
+	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px;
+	color: #FFFFFF;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.nav_table_active {
+	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px;
+	color: #4A5966;
+	font-weight: bold;
+}

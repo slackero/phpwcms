@@ -1,0 +1,51 @@
+/* CSS Document */
+
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #282F42;
+	background-image: url(../../img/backend/background.jpg);
+	background-repeat: repeat-x;
+	background-color: #C1D2E2; /*#D9DEE3*/
+	margin: 0px;
+	line-height: 125%;
+}
+a:link {
+	color: #000000;
+}
+a:visited {
+	color: #000000;
+}
+a:hover {
+	color: #CC3300;
+}
+a:active {
+	color: #000000;
+}
+
+p, div, form, h1, h2, h3, h4, h5, h6, hr {
+	margin: 0;
+	padding: 0;
+}
+input, select {
+	font-size: 13px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+p {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+h1 {
+	color: #6288AD;
+	font-family: "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+	font-size: 17px;
+	font-weight:bold;
+	margin-bottom: 5px;
+}
+td, .v10, .v11, .error {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+.error {
+	color: #CC3300;
+}

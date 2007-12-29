@@ -1,0 +1,200 @@
+body {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px; 
+	background-color: #D9DEE3;
+	margin: 0;
+	padding: 0;
+}
+td, tr, p {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;   }
+
+
+ul {
+	margin: 0px 0px 0px 20px;
+}
+li {
+	font-size: 10px;
+	list-style: disc;
+}
+
+form {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+.v09 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px}
+.v10 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px}
+.v11 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px}
+.v12 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px}
+.v13 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px}
+.v14 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px}
+
+.v09b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px;}
+.v10b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px;}
+.v11b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;}
+.v12b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px;}
+.v13b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px;}
+.v14b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px;}
+
+.title {  font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #727889;  font-weight: bold;  }
+.error {  font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #FF3300;  font-weight: normal;  }
+.columnhead {font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px; color: #727889;}
+
+.chat						{ color: #55638A; }
+.chatlist				{ color: #727889; font-size: 10px; }
+.chatlist a:link		{ color: #727889; font-size: 10px; }
+.chatlist a:visited	{ color: #727889; font-size: 10px; }
+.chatlist a:active	{ color: #727889; font-size: 10px; }
+.chatlist a:hover		{ color: #FF3300; font-size: 10px; }
+
+.msgreiter				{ color: #FFFFFF; font-weight: bold; font-size: 10px; }
+.msgreiter a:link		{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
+.msgreiter a:visited	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
+.msgreiter a:active	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
+.msgreiter a:hover	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: underline; }
+
+.navtext					{ color: #FFFFFF; font-weight: normal; font-size: 10px }
+.navtext a:link		{ color: #FFFFFF; font-weight: normal; text-decoration: none; font-size: 10px }
+.navtext a:visited	{ color: #FFFFFF; font-weight: normal; text-decoration: none; font-size: 10px }
+.navtext a:active		{ color: #FFFFFF; font-weight: normal; text-decoration: none; font-size: 10px }
+.navtext a:hover		{ color: #FFFFFF; font-weight: normal; text-decoration: underline; font-size: 10px }
+.navtexta				{ color: Yellow; font-weight: bold; font-size: 10px; text-decoration: none; }
+.navtexta a:link		{ color: Yellow; font-weight: bold; text-decoration: none; font-size: 10px }
+.navtexta a:visited	{ color: Yellow; font-weight: bold; text-decoration: none; font-size: 10px }
+.navtexta a:active	{ color: Yellow; font-weight: bold; text-decoration: none; font-size: 10px }
+.navtexta a:hover		{ color: Yellow; font-weight: bold; text-decoration: underline; font-size: 10px }
+
+.msglist { color: #000000; font-size: 10px}
+.msglist a:link {color: #000000;text-decoration: none}
+.msglist a:visited  {color: #000000}
+.msglist a:active  {color: #727889}
+.msglist a:hover {color: #CC3300;text-decoration: underline}
+.msgtext {	font-family: "Courier New", Courier, monospace; font-size: 9pt}
+.msgtext a:link {	text-decoration : underline; color: #55638A }
+.msgtext a:visited {	text-decoration : underline; color: #828282 }
+.msgtext a:active {	text-decoration : underline; color: #FF6600 }
+.msgtext a:hover {	text-decoration : none; color: #FFFFFF; background-color: #FF3300  }
+
+.useronline { font-size: 10px; color: #727889; }
+
+a { text-decoration : none; background-color: transparent; }
+a:link {  color: #FF3300; text-decoration: none; background-color: transparent;  }
+a:visited, a:active {  color: #828282;  background-color: transparent;  }
+a:hover {  color: #55638A;  text-decoration: underline;  background-color: transparent;  }
+
+.mnav {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;  font-weight : bold; }
+
+.f10b {  font: bold 10px Verdana, Helvetica, Arial, sans-serif; }
+.f10 { font: normal 10px Verdana, Helvetica, Arial, sans-serif;  }
+.f11b {  font: bold 11px Verdana, Helvetica, Arial, sans-serif; }
+.f11 { font: normal 11px Verdana, Helvetica, Arial, sans-serif;  }
+.button10 {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;/*background: #92A1AF; color: #FFFFFF;*/}
+
+.dir {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #000000; }
+.dir a:link {	text-decoration : none; color: #000000 }
+.dir a:visited {	text-decoration : none; color: #000000 }
+.dir a:active {	text-decoration : none; color: #000000 }
+.dir a:hover {	text-decoration : underline; color: #000000  }
+
+.inaktiv {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #ADB2BE; }
+.inaktiv a:link {	text-decoration : none; color: #ADB2BE }
+.inaktiv a:visited {	text-decoration : none; color: #ADB2BE }
+.inaktiv a:active {	text-decoration : none; color: #ADB2BE }
+.inaktiv a:hover {	text-decoration : underline; color: #727889  }
+
+.popup{ font: 9px Verdana, Arial, Helvetica, sans-serif;  border: thin solid #FFCC00;  background: #FFEB99;  padding: 2px 2px 2px 2px;    }
+.table1 {
+	border: 1px dashed #BDC2C6;
+	background-color: #EDEEF1;
+}
+
+.table2 {
+	border: 1px solid #DEE9EC;
+	background-color: #F5F9FA;
+}
+
+.subnavactive				{color: #262D3E;	font-size: 10px; }
+.subnavactive a:link		{color: #262D3E;	font-size: 10px;	text-decoration: none; }
+.subnavactive a:visited	{color: #262D3E;	font-size: 10px;	text-decoration: none; }
+.subnavactive a:active	{color: #262D3E;	font-size: 10px;	text-decoration: none; }
+.subnavactive a:hover	{color: #FF3300;	font-size: 10px;	text-decoration: underline; }
+
+.subnavinactive				{color: #727889;	font-size: 10px; }
+.subnavinactive a:link		{color: #727889;	font-size: 10px;	text-decoration: none; }
+.subnavinactive a:visited	{color: #727889;	font-size: 10px;	text-decoration: none; }
+.subnavinactive a:active	{color: #727889;	font-size: 10px;	text-decoration: none; }
+.subnavinactive a:hover		{color: #FF3300;	font-size: 10px;	text-decoration: underline; }
+
+.code {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+}
+
+
+.clickMenu {
+	background-color: #ECE9D8;
+	border: 1px solid #7F9DB9;
+	padding: 3px;
+	margin:0;
+}
+.clickMenu td {
+	color: #000000;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+.clickMenu a, .clickMenu a:link, .clickMenu a:visited, .clickMenu a:active, .clickMenu a:hover {
+	text-decoration: none;
+	color: #000000;
+}
+.clickMenu a:hover {
+	text-decoration: underline;
+	color: #D2691E;
+}
+.clickMenuDisabled {
+	color: #8E8C82;
+	font-size: 10px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+
+/* Calendar Popup */
+
+.dynCalendar_header{
+	font-size: 9px;
+	font-weight: bold;
+}
+.dynCalendar_dayname {
+	background-color: #c0c0c0;
+	border: 1px solid #c0c0c0;
+	font-size: 9px;
+	color: #FFFFFF;
+	text-align: center;
+	width: 21px;
+}
+
+.dynCalendar_day {
+	background-color: #eeeeee;
+	color: #000000;
+	font-size: 9px;
+}
+
+.dynCalendar_today {
+	background-color: #ffffff;
+	border: 1px solid #c0c0c0;
+	font-size: 9px;
+}
+
+.dynCalendar {
+	background-color: #c0c0c0;
+	border: 2px outset white;
+	visibility: hidden;
+	position: absolute;
+	top: 1px;
+	left: 1px;
+}
+.dynCalendar select {
+	font-size: 10px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}

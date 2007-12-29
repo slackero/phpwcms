@@ -1,0 +1,88 @@
+<?php
+/*************************************************************************************
+   Copyright notice
+   
+   (c) 2002-2007 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+ 
+   This script is part of PHPWCMS. The PHPWCMS web content management system is
+   free software; you can redistribute it and/or modify it under the terms of
+   the GNU General Public License as published by the Free Software Foundation;
+   either version 2 of the License, or (at your option) any later version.
+  
+   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
+   A copy is found in the textfile GPL.txt and important notices to the license 
+   from the author is found in LICENSE.txt distributed with these scripts.
+  
+   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
+   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ 
+   This copyright notice MUST APPEAR in all copies of the script!
+*************************************************************************************/
+
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+
+// newsletter subscription
+
+echo '<div class="title" style="margin-bottom:10px">'.$BL['be_newsletter_title'].'</div>';
+
+if(!empty($_GET["s"]) && isset($_GET['active'])) {
+
+	$sql  = "UPDATE ".DB_PREPEND."phpwcms_subscription SET ";
+	$sql .= "subscription_active=".(intval($_GET["active"]) ? 1 : 0)." ";
+	$sql .=	"WHERE subscription_id=".intval($_GET["s"]);
+	@_dbQuery($sql, 'UPDATE');
+}
+
+if(isset($_GET["s"]) && isset($_GET['edit'])) {
+	include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscription.form.tmpl.php');
+}
+
+
+?>
+<table width="538" border="0" cellpadding="0" cellspacing="0" summary="newsletter susbcription listing">
+	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<?php
+// loop listing available subscriptions                                           
+$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name;";
+if($result = mysql_query($sql, $db) or die("error while listing subscriptions")) {
+	$row_count = 0;
+	while($row = mysql_fetch_assoc($result)) {
+	
+		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).">\n<td width=\"25\" style=\"padding:1px 0 1px 0;\">";
+		
+		echo '<img src="img/symbole/newsletter_susbcription.gif" width="25" height="16" alt="" /></td>'.LF;
+		
+		echo '<td width="473" class="dir">';
+		echo '<a href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1">';
+		echo '<strong>'.html_specialchars($row["subscription_name"])."</strong></a></td>\n";
+		
+		echo '<td align="right" nowrap="nowrap" class="button_td">';
+
+		echo '<a href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1">';		
+		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
+	
+		echo '<a href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;active=';
+		echo ($row['subscription_active']) ? '0' : '1';
+		echo '">';		
+		echo '<img src="img/button/aktiv_12x13_'.$row['subscription_active'].'.gif" border="0" alt="" /></a>';
+		
+		echo "</td>\n</tr>\n";
+		
+		$row_count++;
+	}
+	mysql_free_result($result);
+} // end listing
+		
+?>
+	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+	<tr><td colspan="3"><form action="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" method="post"><input type="submit" value="<?php echo $BL['be_newsletter_new'] ?>" class="button10" title="<?php echo $BL['be_newsletter_add'] ?>"></form></td></tr>
+</table>
