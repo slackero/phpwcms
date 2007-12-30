@@ -23,7 +23,7 @@ function replaceEmailAddress($str) {
 	$regex = "([\xA1-\xFEa-z0-9_\.\-]+)(@)([\xA1-\xFEa-z0-9_\-]+\.[\xA1-\xFEa-z0-9\-\._\-]+[\.]*[a-z0-9]\??[\xA1-\xFEa-z0-9=]*)";
 
 	$src = "/href=[\"' ]*mailto:".$regex."[\"']*([^>]+>)/i";
-	$tar = 'href="#" onclick="mailtoLink(\'$1\',\'$3\');return false;" title="Email: $1 at $3"$4';
+	$tar = 'href="#" onclick="mailtoLink(\'$1\',\'$3\');return false;" title="Email: $1 at $3##--##$4';
 
 	$str = preg_replace($src, $tar, $str);
 	$str = preg_replace_callback('/'.$regex.'/i', 'rewriteEmailText', $str);
@@ -35,8 +35,10 @@ function replaceEmailAddress($str) {
 		$str = str_replace('[%---T'.$key.'---%]', $value, $str);
 	}
 
-	return preg_replace('/[^=]"">/', '">', $str);
-
+	$str = str_replace('##--##"', '"', $str);
+	$str = str_replace('##--##',  '"', $str);
+	return $str;
+	//return preg_replace('/[^=]"">/', '">', $str);
 }
 
 function rewriteEmailText($part) {
