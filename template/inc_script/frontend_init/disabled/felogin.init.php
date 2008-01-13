@@ -131,7 +131,7 @@ if(	defined('FELOGIN_LEVEL_DEPTH') && isset($LEVEL_ID[FELOGIN_LEVEL_DEPTH]) && $
 		
 			define('FELOGIN_IS_LOGGED', true);
 			
-			if(FELOGIN_LOGOUT_LINK != 0) {
+			if(FELOGIN_LOGOUT_LINK) {
 				$content['struct'][100000] = array(
 		
 					'acat_id' => 100000,
