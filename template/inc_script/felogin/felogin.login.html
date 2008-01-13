@@ -1,0 +1,31 @@
+<h3>Login</h3>
+
+<div class="feLoginForm">
+
+	<p>Please login.</p>
+	<p>
+		<i>
+			If you you have forgotten your username or your password 
+			<a href="mailto:my@mail.there">write us an email</a>.
+		</i>
+	</p>
+	
+	{FELOGIN_ERROR}
+
+	<form action="{FELOGIN_ACTION}" method="post" name="feLoginForm" id="feLoginForm">
+	<p>
+		<label for="feLogin">Login:</label>
+		<br />
+		<input type="text" name="feLogin" id="feLogin" value="{FELOGIN_USER}" size="40" />
+	</p>
+	<p>
+		<label for="fePassword">Password:</label>
+		<br />
+		<input type="password" name="fePassword" id="fePassword" size="40" />
+	</p>
+	<p>
+		<input type="submit" value="Login" name="feSubmit" id="feSubmit" />
+	</p>
+	</form>
+
+</div>
