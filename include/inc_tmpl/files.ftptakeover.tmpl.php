@@ -65,7 +65,7 @@ if (!defined('PHPWCMS_ROOT')) {
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1"></td>
             <td align="right" class="v10"><?php echo fsizelong($fxs) ?>&nbsp;</td>
           </tr>
-			<?				$fx++;
+			<?php				$fx++;
 						}
 					}
 				}
