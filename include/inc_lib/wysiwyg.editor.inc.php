@@ -132,7 +132,7 @@ switch($wysiwyg_editor['editor']) {
 	default:	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
 				echo '" class="v12" id="'.$wysiwyg_editor['field'].'" ';
 				echo 'style="width:'.$wysiwyg_editor['width'].';height:'.$wysiwyg_editor['height'].';">';
-				echo htmlentities($wysiwyg_editor['value']).'</textarea>';
+				echo htmlspecialchars($wysiwyg_editor['value'], ENT_QUOTES, PHPWCMS_CHARSET).'</textarea>';
 
 }
 
