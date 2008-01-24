@@ -54,6 +54,8 @@ FCKTextColorCommand.prototype.Execute = function( panelX, panelY, relElement )
 
 FCKTextColorCommand.prototype.SetColor = function( color )
 {
+	FCKUndo.SaveUndoStep() ;
+
 	var style = FCKStyles.GetStyle( '_FCK_' +
 		( this.Type == 'ForeColor' ? 'Color' : 'BackColor' ) ) ;
 
@@ -64,6 +66,8 @@ FCKTextColorCommand.prototype.SetColor = function( color )
 		style.SetVariable( 'Color', color ) ;
 		FCKStyles.ApplyStyle( style ) ;
 	}
+
+	FCKUndo.SaveUndoStep() ;
 
 	FCK.Focus() ;
 	FCK.Events.FireEvent( 'OnSelectionChange' ) ;
@@ -141,7 +145,8 @@ FCKTextColorCommand.prototype._CreatePanelBody = function( targetDocument, targe
 
 	FCKTools.AddEventListenerEx( oDiv, 'click', FCKTextColorCommand_AutoOnClick, this ) ;
 
-	if ( FCKBrowserInfo.IsSafari )
+	// Dirty hack for Opera, Safari and Firefox 3.
+	if ( !FCKBrowserInfo.IsIE )
 		oDiv.style.width = '96%' ;
 
 	// Create an array of colors based on the configuration file.
@@ -153,16 +158,24 @@ FCKTextColorCommand.prototype._CreatePanelBody = function( targetDocument, targe
 	{
 		var oRow = oTable.insertRow(-1) ;
 
-		for ( var i = 0 ; i < 8 && iCounter < aColors.length ; i++, iCounter++ )
+		for ( var i = 0 ; i < 8 ; i++, iCounter++ )
 		{
-			var colorParts = aColors[iCounter].split('/') ;
-			var colorValue = '#' + colorParts[0] ;
-			var colorName = colorParts[1] || colorValue ;
+			// The div will be created even if no more colors are available.
+			// Extra divs will be hidden later in the code. (#1597)
+			if ( iCounter < aColors.length )
+			{
+				var colorParts = aColors[iCounter].split('/') ;
+				var colorValue = '#' + colorParts[0] ;
+				var colorName = colorParts[1] || colorValue ;
+			}
 
 			oDiv = oRow.insertCell(-1).appendChild( CreateSelectionDiv() ) ;
 			oDiv.innerHTML = '<div class="ColorBoxBorder"><div class="ColorBox" style="background-color: ' + colorValue + '"></div></div>' ;
 
-			FCKTools.AddEventListenerEx( oDiv, 'click', FCKTextColorCommand_OnClick, [ this, colorName ] ) ;
+			if ( iCounter >= aColors.length )
+				oDiv.style.visibility = 'hidden' ;
+			else
+				FCKTools.AddEventListenerEx( oDiv, 'click', FCKTextColorCommand_OnClick, [ this, colorName ] ) ;
 		}
 	}
 
@@ -178,6 +191,7 @@ FCKTextColorCommand.prototype._CreatePanelBody = function( targetDocument, targe
 		FCKTools.AddEventListenerEx( oDiv, 'click', FCKTextColorCommand_MoreOnClick, this ) ;
 	}
 
-	if ( FCKBrowserInfo.IsSafari )
+	// Dirty hack for Opera, Safari and Firefox 3.
+	if ( !FCKBrowserInfo.IsIE )
 		oDiv.style.width = '96%' ;
 }

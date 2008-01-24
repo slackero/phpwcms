@@ -125,6 +125,11 @@ FCKDomRangeIterator.prototype =
 						break ;
 					}
 
+					// The range must finish right before the boundary,
+					// including possibly skipped empty spaces. (#1603)
+					if ( range )
+						range.SetEnd( currentNode, 3, true ) ;
+
 					closeRange = true ;
 				}
 				else
@@ -181,6 +186,7 @@ FCKDomRangeIterator.prototype =
 					}
 
 					currentNode = parentNode ;
+					includeNode = true ;
 					isLast = ( currentNode == lastNode ) ;
 					continueFromSibling = true ;
 				}
@@ -265,6 +271,7 @@ FCKDomRangeIterator.prototype =
 
 					removePreviousBr = !splitInfo.WasStartOfBlock ;
 					removeLastBr = !splitInfo.WasEndOfBlock ;
+					FCKDebug.Output( 'removePreviousBr=' + removePreviousBr + ',removeLastBr=' + removeLastBr ) ;
 
 					// Insert the new block into the DOM.
 					range.InsertNode( block ) ;
@@ -285,8 +292,13 @@ FCKDomRangeIterator.prototype =
 		if ( removePreviousBr )
 		{
 			var previousSibling = block.previousSibling ;
-			if ( previousSibling && previousSibling.nodeType == 1 && previousSibling.nodeName.toLowerCase() == 'br' )
-				previousSibling.parentNode.removeChild( previousSibling ) ;
+			if ( previousSibling && previousSibling.nodeType == 1 )
+			{
+				if ( previousSibling.nodeName.toLowerCase() == 'br' )
+					previousSibling.parentNode.removeChild( previousSibling ) ;
+				else if ( previousSibling.lastChild && previousSibling.lastChild.nodeName.IEquals( 'br' ) )
+					previousSibling.removeChild( previousSibling.lastChild ) ;
+			}
 		}
 
 		if ( removeLastBr )

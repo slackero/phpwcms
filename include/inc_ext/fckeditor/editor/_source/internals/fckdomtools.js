@@ -23,6 +23,9 @@
 
 var FCKDomTools =
 {
+	/**
+	 * Move all child nodes from one node to another.
+	 */
 	MoveChildren : function( source, target, toTargetStart )
 	{
 		if ( source == target )
@@ -116,7 +119,7 @@ var FCKDomTools =
 			break ;
 		}
 
-		if ( !FCKBrowserInfo.IsIE )
+		if ( !FCKBrowserInfo.IsIE && !FCKBrowserInfo.IsOpera )
 		{
 			eChildNode = node.lastChild ;
 
@@ -242,17 +245,19 @@ var FCKDomTools =
 	 *		@param {string[]} ignoreElements An array of element names that
 	 *				must be ignored during the search.
 	 */
-	GetNextSourceElement : function( currentNode, ignoreSpaceTextOnly, stopSearchElements, ignoreElements )
+	GetNextSourceElement : function( currentNode, ignoreSpaceTextOnly, stopSearchElements, ignoreElements, startFromSibling )
 	{
-		while( ( currentNode = this.GetNextSourceNode( currentNode, true ) ) )	// Only one "=".
+		while( ( currentNode = this.GetNextSourceNode( currentNode, startFromSibling ) ) )	// Only one "=".
 		{
 			if ( currentNode.nodeType == 1 )
 			{
 				if ( stopSearchElements && currentNode.nodeName.IEquals( stopSearchElements ) )
 					break ;
 
-				if ( !ignoreElements || !currentNode.nodeName.IEquals( ignoreElements ) )
-					return currentNode ;
+				if ( ignoreElements && currentNode.nodeName.IEquals( ignoreElements ) )
+					return this.GetNextSourceElement( currentNode, ignoreSpaceTextOnly, stopSearchElements, ignoreElements ) ;
+
+				return currentNode ;
 			}
 			else if ( ignoreSpaceTextOnly && currentNode.nodeType == 3 && currentNode.nodeValue.RTrim().length > 0 )
 				break ;
@@ -264,7 +269,7 @@ var FCKDomTools =
 	/*
 	 * Get the next DOM node available in source order.
 	 */
-	GetNextSourceNode : function( currentNode, startFromSibling, nodeType, stopSearchElement )
+	GetNextSourceNode : function( currentNode, startFromSibling, nodeType, stopSearchNode )
 	{
 		if ( !currentNode )
 			return null ;
@@ -275,14 +280,17 @@ var FCKDomTools =
 			node = currentNode.firstChild ;
 		else
 		{
+			if ( stopSearchNode && currentNode == stopSearchNode )
+				return null ;
+
 			node = currentNode.nextSibling ;
-			
-			if ( !node && ( !stopSearchElement || stopSearchElement != currentNode.parentNode ) )
-				return this.GetNextSourceNode( currentNode.parentNode, true, nodeType, stopSearchElement ) ;
+
+			if ( !node && ( !stopSearchNode || stopSearchNode != currentNode.parentNode ) )
+				return this.GetNextSourceNode( currentNode.parentNode, true, nodeType, stopSearchNode ) ;
 		}
 
 		if ( nodeType && node && node.nodeType != nodeType )
-			return this.GetNextSourceNode( node, false, nodeType, stopSearchElement ) ;
+			return this.GetNextSourceNode( node, false, nodeType, stopSearchNode ) ;
 
 		return node ;
 	},
@@ -290,7 +298,7 @@ var FCKDomTools =
 	/*
 	 * Get the next DOM node available in source order.
 	 */
-	GetPreviousSourceNode : function( currentNode, startFromSibling, nodeType )
+	GetPreviousSourceNode : function( currentNode, startFromSibling, nodeType, stopSearchNode )
 	{
 		if ( !currentNode )
 			return null ;
@@ -300,10 +308,18 @@ var FCKDomTools =
 		if ( !startFromSibling && currentNode.lastChild )
 			node = currentNode.lastChild ;
 		else
-			node = ( currentNode.previousSibling || this.GetPreviousSourceNode( currentNode.parentNode, true, nodeType ) ) ;
+		{
+			if ( stopSearchNode && currentNode == stopSearchNode )
+				return null ;
+
+			node = currentNode.previousSibling ;
+
+			if ( !node && ( !stopSearchNode || stopSearchNode != currentNode.parentNode ) )
+				return this.GetPreviousSourceNode( currentNode.parentNode, true, nodeType, stopSearchNode ) ;
+		}
 
 		if ( nodeType && node && node.nodeType != nodeType )
-			return this.GetPreviousSourceNode( node, false, nodeType ) ;
+			return this.GetPreviousSourceNode( node, false, nodeType, stopSearchNode ) ;
 
 		return node ;
 	},
@@ -380,10 +396,29 @@ var FCKDomTools =
 
 	EnforcePaddingNode : function( doc, tagName )
 	{
-		this.CheckAndRemovePaddingNode( doc, tagName, true ) ;
-		if ( doc.body.lastChild && ( doc.body.lastChild.nodeType != 1
-				|| doc.body.lastChild.tagName.toLowerCase() == tagName.toLowerCase() ) )
+		// In IE it can happen when the page is reloaded that doc or doc.body is null, so exit here
+		try
+		{
+			if ( !doc || !doc.body )
+				return ;
+		}
+		catch (e)
+		{
 			return ;
+		}
+
+		this.CheckAndRemovePaddingNode( doc, tagName, true ) ;
+		try
+		{
+			if ( doc.body.lastChild && ( doc.body.lastChild.nodeType != 1
+					|| doc.body.lastChild.tagName.toLowerCase() == tagName.toLowerCase() ) )
+				return ;
+		}
+		catch (e)
+		{
+			return ;
+		}
+
 		var node = doc.createElement( tagName ) ;
 		if ( FCKBrowserInfo.IsGecko && FCKListsLib.NonEmptyBlockElements[ tagName ] )
 			FCKTools.AppendBogusBr( node ) ;
@@ -405,14 +440,22 @@ var FCKDomTools =
 			return ;
 
 		// If the padding node is changed, remove its status as a padding node.
-		if ( paddingNode.parentNode != doc.body
-			|| paddingNode.tagName.toLowerCase() != tagName
-			|| ( paddingNode.childNodes.length > 1 )
-			|| ( paddingNode.firstChild && paddingNode.firstChild.nodeValue != '\xa0'
-				&& String(paddingNode.firstChild.tagName).toLowerCase() != 'br' ) )
+		try
 		{
-			this.PaddingNode = null ;
-			return ;
+			if ( paddingNode.parentNode != doc.body
+				|| paddingNode.tagName.toLowerCase() != tagName
+				|| ( paddingNode.childNodes.length > 1 )
+				|| ( paddingNode.firstChild && paddingNode.firstChild.nodeValue != '\xa0'
+					&& String(paddingNode.firstChild.tagName).toLowerCase() != 'br' ) )
+			{
+				this.PaddingNode = null ;
+				return ;
+			}
+		}
+		catch (e)
+		{
+				this.PaddingNode = null ;
+				return ;
 		}
 
 		// Now we're sure the padding node exists, and it is unchanged, and it
@@ -447,7 +490,7 @@ var FCKDomTools =
 		{
 			if ( FCKBrowserInfo.IsIE && attributes[i].nodeName == 'class' )
 			{
-				// IE has a strange bug. If calling removeAttribute('className'), 
+				// IE has a strange bug. If calling removeAttribute('className'),
 				// the attributes collection will still contain the "class"
 				// attribute, which will be marked as "specified", even if the
 				// outerHTML of the element is not displaying the class attribute.
@@ -573,9 +616,9 @@ var FCKDomTools =
 			for( var i = 0 ; i < parentNode.childNodes.length ; i++ )
 			{
 				var candidate = parentNode.childNodes[i] ;
-				if ( normalized === true && 
-						candidate.nodeType == 3 && 
-						candidate.previousSibling && 
+				if ( normalized === true &&
+						candidate.nodeType == 3 &&
+						candidate.previousSibling &&
 						candidate.previousSibling.nodeType == 3 )
 					continue;
 				currentIndex++ ;
@@ -768,7 +811,7 @@ var FCKDomTools =
 					currentListItem.appendChild( item.contents[i].cloneNode( true ) ) ;
 				if ( currentListItem.nodeType == 11 )
 				{
-					if ( currentListItem.lastChild && 
+					if ( currentListItem.lastChild &&
 							currentListItem.lastChild.getAttribute &&
 							currentListItem.lastChild.getAttribute( 'type' ) == '_moz' )
 						currentListItem.removeChild( currentListItem.lastChild );
@@ -842,7 +885,7 @@ var FCKDomTools =
 
 		return node ;
 	},
-	
+
 	/**
 	 * Checks if an element has no "useful" content inside of it
 	 * node tree. No "useful" content means empty text node or a signle empty
@@ -854,23 +897,23 @@ var FCKDomTools =
 	{
 		var child = element.firstChild ;
 		var elementChild ;
-		
+
 		while ( child )
 		{
 			if ( child.nodeType == 1 )
 			{
 				if ( elementChild || !FCKListsLib.InlineNonEmptyElements[ child.nodeName.toLowerCase() ] )
 					return false ;
-				
+
 				if ( !elementCheckCallback || elementCheckCallback( child ) === true )
 					elementChild = child ;
 			}
 			else if ( child.nodeType == 3 && child.nodeValue.length > 0 )
 				return false ;
-			
+
 			child = child.nextSibling ;
 		}
-		
+
 		return elementChild ? this.CheckIsEmptyElement( elementChild, elementCheckCallback ) : true ;
 	},
 
@@ -879,6 +922,63 @@ var FCKDomTools =
 		var style = element.style ;
 		for ( var styleName in styleDict )
 			style[ styleName ] = styleDict[ styleName ] ;
+	},
+
+	GetCurrentElementStyle : function( w, element, attrName )
+	{
+		if ( FCKBrowserInfo.IsIE )
+			return element.currentStyle[attrName] ;
+		else
+			return w.getComputedStyle( element, '' )[attrName] ;
+	},
+
+	GetPositionedAncestor : function( w, element )
+	{
+		var currentElement = element ;
+		while ( currentElement != currentElement.ownerDocument.documentElement )
+		{
+			if ( this.GetCurrentElementStyle( w, currentElement, 'position' ) != 'static' )
+				return currentElement ;
+			currentElement = currentElement.parentNode ;
+		}
+		return null ;
+	},
+
+	/**
+	 * Current implementation for ScrollIntoView (due to #1462). We don't have
+	 * a complete implementation here, just the things that fit our needs.
+	 */
+	ScrollIntoView : function( element, alignTop )
+	{
+		// Get the element window.
+		var window = FCKTools.GetElementWindow( element ) ;
+		var windowHeight = FCKTools.GetViewPaneSize( window ).Height ;
+		
+		// Starts the offset that will be scrolled with the negative value of
+		// the visible window height.
+		var offset = windowHeight * -1 ;
+
+		// Appends the height it we are about to align the bottoms.
+		if ( alignTop === false )
+		{
+			offset += element.offsetHeight ;
+			
+			// Consider the margin in the scroll, which is ok for our current
+			// needs, but needs investigation if we will be using this function
+			// in other places.
+			offset += parseInt( this.GetCurrentElementStyle( window, element, 'marginBottom' ) || 0, 10 ) ;
+		}
+
+		// Appends the offsets for the entire element hierarchy.
+		offset += element.offsetTop ;
+		while ( ( element = element.offsetParent ) )
+			offset += element.offsetTop || 0 ;
+		
+		// Scroll the window to the desired position, if not already visible.
+		var currentScroll = FCKTools.GetScrollPosition( window ).Y ;
+		if ( offset > 0 && offset > currentScroll )
+			window.scrollTo( 0, offset ) ;
 	}
 } ;
+
 

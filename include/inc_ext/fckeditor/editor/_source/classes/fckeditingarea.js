@@ -207,24 +207,6 @@ FCKEditingArea.prototype.MakeEditable = function()
 
 			oDoc.designMode = 'on' ;
 
-			// Tell Gecko to use or not the <SPAN> tag for the bold, italic and underline.
-			try
-			{
-				oDoc.execCommand( 'styleWithCSS', false, FCKConfig.GeckoUseSPAN ) ;
-			}
-			catch (e)
-			{
-				// As evidenced here, useCSS is deprecated in favor of styleWithCSS:
-				// http://www.mozilla.org/editor/midas-spec.html
-				oDoc.execCommand( 'useCSS', false, !FCKConfig.GeckoUseSPAN ) ;
-			}
-
-			// Analyzing Firefox 1.5 source code, it seams that there is support for a
-			// "insertBrOnReturn" command. Applying it gives no error, but it doesn't
-			// gives the same behavior that you have with IE. It works only if you are
-			// already inside a paragraph and it doesn't render correctly in the first enter.
-			// oDoc.execCommand( 'insertBrOnReturn', false, false ) ;
-
 			// Tell Gecko (Firefox 1.5+) to enable or not live resizing of objects (by Alfonso Martinez)
 			oDoc.execCommand( 'enableObjectResizing', false, !FCKConfig.DisableObjectResizing ) ;
 
@@ -278,16 +260,11 @@ FCKEditingArea.prototype.Focus = function()
 			if ( FCKBrowserInfo.IsIE && this.Document.hasFocus() )
 				this._EnsureFocusIE() ;
 
-			if ( FCKBrowserInfo.IsSafari )
-				this.IFrame.focus() ;
-			else
-			{
-				this.Window.focus() ;
+			this.Window.focus() ;
 
-				// In IE it can happen that the document is in theory focused but the active element is outside it
-				if ( FCKBrowserInfo.IsIE )
-					this._EnsureFocusIE() ;
-			}
+			// In IE it can happen that the document is in theory focused but the active element is outside it
+			if ( FCKBrowserInfo.IsIE )
+				this._EnsureFocusIE() ;
 		}
 		else
 		{
@@ -309,18 +286,21 @@ FCKEditingArea.prototype._EnsureFocusIE = function()
 	// Kludge for #141... yet more code to workaround IE bugs
 	var range = this.Document.selection.createRange() ;
 
-	// Only apply the fix when in a block and the block is empty.
 	var parentNode = range.parentElement() ;
+	var parentTag = parentNode.nodeName.toLowerCase() ;
 
-	if ( ! ( parentNode.childNodes.length == 0 && ( 
-					FCKListsLib.BlockElements[parentNode.nodeName.toLowerCase()] || 
-					FCKListsLib.NonEmptyBlockElements[parentNode.nodeName.toLowerCase()] ) ) )
+	// Only apply the fix when in a block, and the block is empty.
+	if ( parentNode.childNodes.length > 0 ||
+		 !( FCKListsLib.BlockElements[parentTag] || 
+		    FCKListsLib.NonEmptyBlockElements[parentTag] ) )
+	{
 		return ;
+	}
 
-	var oldLength = range.text.length ;
 	range.moveEnd( "character", 1 ) ;
 	range.select() ;
-	if ( range.text.length > oldLength )
+
+	if ( range.boundingWidth > 0 )
 	{
 		range.moveEnd( "character", -1 ) ;
 		range.select() ;

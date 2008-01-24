@@ -27,6 +27,7 @@ FCKUndo.TypesCount = 0 ;
 FCKUndo.Changed = false ;	// Is the document changed in respect to its initial image?
 FCKUndo.MaxTypes = 25 ;
 FCKUndo.Typing = false ;
+FCKUndo.SaveLocked = false ;
 
 FCKUndo._GetBookmark = function()
 {
@@ -114,7 +115,7 @@ FCKUndo._CheckIsBookmarksEqual = function( bookmark1, bookmark2 )
 
 FCKUndo.SaveUndoStep = function()
 {
-	if ( FCK.EditMode != FCK_EDITMODE_WYSIWYG )
+	if ( FCK.EditMode != FCK_EDITMODE_WYSIWYG || this.SaveLocked )
 		return ;
 
 	// Assume the editor content is changed when SaveUndoStep() is called after the first time.

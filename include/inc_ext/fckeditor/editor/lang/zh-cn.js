@@ -356,7 +356,7 @@ PasteAsText		: "粘贴为无格式文本",
 PasteFromWord	: "从 MS Word 粘贴",
 
 DlgPasteMsg2	: "请使用键盘快捷键(<STRONG>Ctrl+V</STRONG>)把内容粘贴到下面的方框里，再按 <STRONG>确定</STRONG>。",
-DlgPasteSec		: "Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.",	//MISSING
+DlgPasteSec		: "因为你的浏览器的安全设置原因，本编辑器不能直接访问你的剪贴板内容，你需要在本窗口重新粘贴一次。",
 DlgPasteIgnoreFont		: "忽略 Font 标签",
 DlgPasteRemoveStyles	: "清理 CSS 样式",
 DlgPasteCleanBox		: "清空上面内容",

@@ -142,7 +142,8 @@ FCK.InitializeBehaviors = function()
 					&& node.parentNode != FCK.EditorDocument.body
 					&& node.parentNode != FCK.EditorDocument.documentElement
 					&& node == node.parentNode.lastChild
-					&& ( ! FCKListsLib.BlockElements[node.parentNode.tagName.toLowerCase()] ) )
+					&& ( ! FCKListsLib.BlockElements[node.parentNode.tagName.toLowerCase()]
+					  && ! FCKListsLib.NonEmptyBlockElements[node.parentNode.tagName.toLowerCase()] ) )
 					node = node.parentNode ;
 
 
@@ -171,7 +172,8 @@ FCK.InitializeBehaviors = function()
 						}
 
 						var stopTag = stopNode.tagName.toLowerCase() ;
-						if ( FCKListsLib.BlockElements[stopTag] || FCKListsLib.EmptyElements[stopTag] )
+						if ( FCKListsLib.BlockElements[stopTag] || FCKListsLib.EmptyElements[stopTag] 
+							|| FCKListsLib.NonEmptyBlockElements[stopTag] )
 							break ;
 						stopNode = stopNode.nextSibling ;
 					}
@@ -194,28 +196,6 @@ FCK.InitializeBehaviors = function()
 		}
 
 		setTimeout( moveCursor, 1 ) ;
-	}
-
-	this._FillEmptyBlock = function( emptyBlockNode )
-	{
-		if ( ! emptyBlockNode || emptyBlockNode.nodeType != 1 )
-			return ;
-		var nodeTag = emptyBlockNode.tagName.toLowerCase() ;
-		if ( nodeTag != 'p' && nodeTag != 'div' )
-			return ;
-		if ( emptyBlockNode.firstChild )
-			return ;
-		FCKTools.AppendBogusBr( emptyBlockNode ) ;
-	}
-
-	this._ExecCheckEmptyBlock = function()
-	{
-		FCK._FillEmptyBlock( FCK.EditorDocument.body.firstChild ) ;
-		var sel = FCK.EditorWindow.getSelection() ;
-		if ( !sel || sel.rangeCount < 1 )
-			return ;
-		var range = sel.getRangeAt( 0 );
-		FCK._FillEmptyBlock( range.startContainer ) ;
 	}
 
 	this.ExecOnSelectionChangeTimer = function()
@@ -285,8 +265,6 @@ FCK.InitializeBehaviors = function()
 		this.EditorDocument.addEventListener( 'keypress', this._ExecCheckCaret, false ) ;
 		this.EditorDocument.addEventListener( 'click', this._ExecCheckCaret, false ) ;
 	}
-	if ( FCKBrowserInfo.IsGecko )
-		this.AttachToOnSelectionChange( this._ExecCheckEmptyBlock ) ;
 
 	// Reset the context menu.
 	FCK.ContextMenu._InnerContextMenu.SetMouseClickWindow( FCK.EditorWindow ) ;
@@ -450,9 +428,38 @@ FCK.CreateLink = function( url, noUndo )
 		{
 			var oLink = oLinksInteractor.snapshotItem( i ) ;
 			oLink.href = url ;
+
+			// It may happen that the browser (aka Safari) decides to use the
+			// URL as the link content to not leave it empty. In this case,
+			// let's reset it.
+			if ( sTempUrl == oLink.innerHTML )
+				oLink.innerHTML = '' ;
+
 			aCreatedLinks.push( oLink ) ;
 		}
 	}
 
 	return aCreatedLinks ;
+}
+
+FCK._FillEmptyBlock = function( emptyBlockNode )
+{
+	if ( ! emptyBlockNode || emptyBlockNode.nodeType != 1 )
+		return ;
+	var nodeTag = emptyBlockNode.tagName.toLowerCase() ;
+	if ( nodeTag != 'p' && nodeTag != 'div' )
+		return ;
+	if ( emptyBlockNode.firstChild )
+		return ;
+	FCKTools.AppendBogusBr( emptyBlockNode ) ;
+}
+
+FCK._ExecCheckEmptyBlock = function()
+{
+	FCK._FillEmptyBlock( FCK.EditorDocument.body.firstChild ) ;
+	var sel = FCK.EditorWindow.getSelection() ;
+	if ( !sel || sel.rangeCount < 1 )
+		return ;
+	var range = sel.getRangeAt( 0 );
+	FCK._FillEmptyBlock( range.startContainer ) ;
 }

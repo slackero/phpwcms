@@ -126,6 +126,10 @@ FCKToolbarButtonUI.prototype.ChangeState = function( newState, force )
 
 	var e = this.MainElement ;
 
+	// In IE it can happen when the page is reloaded that MainElement is null, so exit here
+	if ( !e )
+		return ;
+
 	switch ( parseInt( newState, 10 ) )
 	{
 		case FCK_TRISTATE_OFF :

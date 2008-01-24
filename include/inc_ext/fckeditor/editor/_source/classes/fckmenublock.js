@@ -94,6 +94,9 @@ FCKMenuBlock.prototype.Create = function( parentElement )
 
 function FCKMenuBlock_Item_OnClick( clickedItem, menuBlock )
 {
+	if ( menuBlock.Hide )
+		menuBlock.Hide() ;
+
 	FCKTools.RunFunction( menuBlock.OnClick, menuBlock, [ clickedItem ] ) ;
 }
 

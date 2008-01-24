@@ -34,7 +34,12 @@ FCKEvents.prototype.AttachEvent = function( eventName, functionPointer )
 	if ( !( aTargets = this._RegisteredEvents[ eventName ] ) )
 		this._RegisteredEvents[ eventName ] = [ functionPointer ] ;
 	else
-		aTargets.push( functionPointer ) ;
+	{
+		// Check that the event handler isn't already registered with the same listener
+		// It doesn't detect function pointers belonging to an object (at least in Gecko)
+		if ( aTargets.IndexOf( functionPointer ) == -1 )
+			aTargets.push( functionPointer ) ;
+	}
 }
 
 FCKEvents.prototype.FireEvent = function( eventName, params )

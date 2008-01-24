@@ -249,7 +249,15 @@ FCKPageBreakCommand.prototype.Execute = function()
 	e.innerHTML = '<span style="DISPLAY:none">&nbsp;</span>' ;
 
 	var oFakeImage = FCKDocumentProcessor_CreateFakeImage( 'FCK__PageBreak', e ) ;
-	FCK.InsertElement( oFakeImage ) ;
+	var oRange = new FCKDomRange( FCK.EditorWindow ) ;
+	oRange.MoveToSelection() ;
+	var oSplitInfo = oRange.SplitBlock() ;
+	if ( oSplitInfo.NextBlock )
+		oSplitInfo.NextBlock.parentNode.insertBefore( oFakeImage, oSplitInfo.NextBlock ) ;
+	else
+		oSplitInfo.PreviousBlock.parentNode.insertBefore( oFakeImage, oSplitInfo.PreviousBlock.nextSibling ) ;
+
+	FCK.Events.FireEvent( 'OnSelectionChange' ) ;
 }
 
 FCKPageBreakCommand.prototype.GetState = function()

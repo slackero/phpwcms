@@ -81,10 +81,7 @@ function FCKSpecialCombo_ItemOnClick( ev, specialCombo, itemId )
 FCKSpecialCombo.prototype.ClearItems = function ()
 {
 	if ( this.Items )
-	{
-		for ( var key in this.Items )
-			this.Items[key] = null ;
-	}
+		this.Items = {} ;
 	
 	var itemsholder = this._ItemsHolderEl ;
 	while ( itemsholder.firstChild )
@@ -192,7 +189,9 @@ FCKSpecialCombo.prototype.SetEnabled = function( isEnabled )
 {
 	this.Enabled = isEnabled ;
 
-	this._OuterTable.className = isEnabled ? '' : 'SC_FieldDisabled' ;
+	// In IE it can happen when the page is reloaded that _OuterTable is null, so check its existence
+	if ( this._OuterTable )
+		this._OuterTable.className = isEnabled ? '' : 'SC_FieldDisabled' ;
 }
 
 FCKSpecialCombo.prototype.Create = function( targetElement )

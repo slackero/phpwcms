@@ -35,7 +35,8 @@ FCKDomRange.prototype.MoveToSelection = function()
 		this._UpdateElementInfo() ;
 	}
 	else
-		this.MoveToElementStart( this.Window.document.body ) ;
+		if ( this.Window.document )
+			this.MoveToElementStart( this.Window.document.body ) ;
 }
 
 FCKDomRange.prototype.Select = function()

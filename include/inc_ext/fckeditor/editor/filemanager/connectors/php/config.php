@@ -24,8 +24,8 @@
 
 global $Config ;
 
-// SECURITY: You must explicitelly enable this "connector". (Set it to "true").
-// WARNING: don't just set "ConfigIsEnabled = true", you must be sure that only 
+// SECURITY: You must explicitly enable this "connector". (Set it to "true").
+// WARNING: don't just set "$Config['Enabled'] = true ;", you must be sure that only 
 //		authenticated users can access this file or use some kind of session checking.
 $Config['Enabled'] = true ;
 
@@ -38,12 +38,12 @@ $current_dir = explode('/include/inc_ext/', str_replace('\\', '/', dirname(__FIL
 $Config['UserFilesPath'] = 'picture/upload/' ;
 
 // Fill the following value it you prefer to specify the absolute path for the
-// user files directory. Usefull if you are using a virtual directory, symbolic
+// user files directory. Useful if you are using a virtual directory, symbolic
 // link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 // Attention: The above 'UserFilesPath' must point to the same directory.
 $Config['UserFilesAbsolutePath'] = $current_dir[0].'/picture/upload/' ;
 
-// Due to security issues with Apache modules, it is reccomended to leave the
+// Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.
 $Config['ForceSingleExtension'] = true ;
 
@@ -69,7 +69,7 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 	- DeniedExtensions: The extensions that won't be allowed. 
 		If it is empty then no restrictions are done here.
 
-	For a file to be uploaded it has to fullfil both the AllowedExtensions
+	For a file to be uploaded it has to fulfill both the AllowedExtensions
 	and DeniedExtensions (that's it: not being denied) conditions.
 
 	- FileTypesPath: the virtual folder relative to the document root where
@@ -79,7 +79,7 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 	- FileTypesAbsolutePath: the physical path to the above folder. It must be
 		an absolute path. 
 		If it's an empty string then it will be autocalculated.
-		Usefull if you are using a virtual directory, symbolic link or alias. 
+		Useful if you are using a virtual directory, symbolic link or alias. 
 		Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 		Attention: The above 'FileTypesPath' must point to the same directory.
 		Attention: It must end with a slash: '/'
@@ -92,7 +92,7 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 	 - QuickUploadAbsolutePath: the physical path to the above folder. It must be
 		an absolute path. 
 		If it's an empty string then it will be autocalculated.
-		Usefull if you are using a virtual directory, symbolic link or alias. 
+		Useful if you are using a virtual directory, symbolic link or alias. 
 		Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 		Attention: The above 'QuickUploadPath' must point to the same directory.
 		Attention: It must end with a slash: '/'
@@ -100,7 +100,7 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 	 	NOTE: by default, QuickUploadPath and QuickUploadAbsolutePath point to 
 	 	"userfiles" directory to maintain backwards compatibility with older versions of FCKeditor. 
 	 	This is fine, but you in some cases you will be not able to browse uploaded files using file browser.
-	 	Example: if you clik on "image button", select "Upload" tab and send image 
+	 	Example: if you click on "image button", select "Upload" tab and send image 
 	 	to the server, image will appear in FCKeditor correctly, but because it is placed 
 	 	directly in /userfiles/ directory, you'll be not able to see it in built-in file browser.
 	 	The more expected behaviour would be to send images directly to "image" subfolder.
@@ -109,7 +109,7 @@ $Config['HtmlExtensions'] = array("html", "htm", "xml", "xsd", "txt", "js") ;
 			$Config['QuickUploadAbsolutePath']['Image']	= $Config['UserFilesAbsolutePath'] ;
 		into:	
 			$Config['QuickUploadPath']['Image']			= $Config['FileTypesPath']['Image'] ;
-			$Config['QuickUploadAbsolutePath'['Image'] 	= $Config['FileTypesAbsolutePath']['Image'] ;			
+			$Config['QuickUploadAbsolutePath']['Image'] 	= $Config['FileTypesAbsolutePath']['Image'] ;			
 		
 */
 
@@ -120,14 +120,14 @@ $Config['FileTypesAbsolutePath']['File']= ($Config['UserFilesAbsolutePath'] == '
 $Config['QuickUploadPath']['File']		= $Config['UserFilesPath'] . 'file/' ;
 $Config['QuickUploadAbsolutePath']['File']= $Config['UserFilesAbsolutePath'] . 'file/' ;
 
-$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png','psd','tif','tiff') ;
+$Config['AllowedExtensions']['Image']	= array('bmp','gif','jpeg','jpg','png') ;
 $Config['DeniedExtensions']['Image']	= array() ;
 $Config['FileTypesPath']['Image']		= $Config['UserFilesPath'] . 'image/' ;
 $Config['FileTypesAbsolutePath']['Image']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'image/' ;
 $Config['QuickUploadPath']['Image']		= $Config['UserFilesPath'] . 'image/';
 $Config['QuickUploadAbsolutePath']['Image']= $Config['UserFilesAbsolutePath'] . 'image/';
 
-$Config['AllowedExtensions']['Flash']	= array('swf','fla') ;
+$Config['AllowedExtensions']['Flash']	= array('swf','flv') ;
 $Config['DeniedExtensions']['Flash']	= array() ;
 $Config['FileTypesPath']['Flash']		= $Config['UserFilesPath'] . 'flash/' ;
 $Config['FileTypesAbsolutePath']['Flash']= ($Config['UserFilesAbsolutePath'] == '') ? '' : $Config['UserFilesAbsolutePath'].'flash/' ;

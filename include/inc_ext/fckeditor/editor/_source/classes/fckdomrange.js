@@ -173,93 +173,150 @@ FCKDomRange.prototype =
 		return ( eToolDiv.innerHTML.length == 0 ) ;
 	},
 
+	/**
+	 * Checks if the start boundary of the current range is "visually" (like a
+	 * selection caret) at the beginning of the block. It means that some
+	 * things could be brefore the range, like spaces or empty inline elements,
+	 * but it would still be considered at the beginning of the block.
+	 */
 	CheckStartOfBlock : function()
 	{
-		var bIsStartOfBlock = this._Cache.IsStartOfBlock ;
+		var cache = this._Cache ;
+		var bIsStartOfBlock = cache.IsStartOfBlock ;
 
 		if ( bIsStartOfBlock != undefined )
 			return bIsStartOfBlock ;
 
-		// Create a clone of the current range.
-		var oTestRange = this.Clone() ;
+		// Take the block reference.
+		var block = this.StartBlock || this.StartBlockLimit ;
 
-		// Collapse it to its start point.
-		oTestRange.Collapse( true ) ;
+		var container	= this._Range.startContainer ;
+		var offset		= this._Range.startOffset ;
+		var currentNode ;
 
-		// Move the start boundary to the start of the block.
-		oTestRange.SetStart( oTestRange.StartBlock || oTestRange.StartBlockLimit, 1 ) ;
-
-		if ( oTestRange.CheckIsCollapsed() )
-			bIsStartOfBlock = true ;
-		else
+		if ( offset > 0 )
 		{
-			// Inserts the contents of the range in a div tag.
-			var eToolDiv = oTestRange.Window.document.createElement( 'div' ) ;
-			oTestRange._Range.cloneContents().AppendTo( eToolDiv ) ;
+			// First, check the start container. If it is a text node, get the
+			// substring of the node value before the range offset.
+			if ( container.nodeType == 3 )
+			{
+				var textValue = container.nodeValue.substr( 0, offset ).Trim() ;
 
-			// This line is why we don't use CheckIsEmpty() here...
-			// Because using RTrimNode() or TrimNode() would be incorrect - 
-			// TrimNode() and RTrimNode() would delete <br> nodes at the end of the div node,
-			// but for checking start of block they are actually meaningful. (Bug #1350)
-			FCKDomTools.LTrimNode( eToolDiv ) ;
-
-			bIsStartOfBlock = ( eToolDiv.innerHTML.length == 0 ) ;
+				// If we have some text left in the container, we are not at
+				// the end for the block.
+				if ( textValue.length != 0 )
+					return cache.IsStartOfBlock = false ;
+			}
+			else
+				currentNode = container.childNodes[ offset - 1 ] ;
 		}
 
-		oTestRange.Release() ;
+		// We'll not have a currentNode if the container was a text node, or
+		// the offset is zero.
+		if ( !currentNode )
+			currentNode = FCKDomTools.GetPreviousSourceNode( container, true, null, block ) ;
 
-		return ( this._Cache.IsStartOfBlock = bIsStartOfBlock ) ;
+		while ( currentNode )
+		{
+			switch ( currentNode.nodeType )
+			{
+				case 1 :
+					// It's not an inline element.
+					if ( !FCKListsLib.InlineChildReqElements[ currentNode.nodeName.toLowerCase() ] )
+						return cache.IsStartOfBlock = false ;
+
+					break ;
+
+				case 3 :
+					// It's a text node with real text.
+					if ( currentNode.nodeValue.Trim().length > 0 )
+						return cache.IsStartOfBlock = false ;
+			}
+
+			currentNode = FCKDomTools.GetPreviousSourceNode( currentNode, false, null, block ) ;
+		}
+
+		return cache.IsStartOfBlock = true ;
 	},
 
+	/**
+	 * Checks if the end boundary of the current range is "visually" (like a
+	 * selection caret) at the end of the block. It means that some things
+	 * could be after the range, like spaces, empty inline elements, or a
+	 * single <br>, but it would still be considered at the end of the block.
+	 */
 	CheckEndOfBlock : function( refreshSelection )
 	{
-		var bIsEndOfBlock = this._Cache.IsEndOfBlock ;
+		var isEndOfBlock = this._Cache.IsEndOfBlock ;
 
-		if ( bIsEndOfBlock != undefined )
-			return bIsEndOfBlock ;
+		if ( isEndOfBlock != undefined )
+			return isEndOfBlock ;
 
-		// Create a clone of the current range.
-		var oTestRange = this.Clone() ;
+		// Take the block reference.
+		var block = this.EndBlock || this.EndBlockLimit ;
 
-		// Collapse it to its end point.
-		oTestRange.Collapse( false ) ;
+		var container	= this._Range.endContainer ;
+		var offset			= this._Range.endOffset ;
+		var currentNode ;
 
-		// Move the end boundary to the end of the block.
-		oTestRange.SetEnd( oTestRange.EndBlock || oTestRange.EndBlockLimit, 2 ) ;
-
-		bIsEndOfBlock = oTestRange.CheckIsCollapsed() ;
-
-		if ( !bIsEndOfBlock )
+		// First, check the end container. If it is a text node, get the
+		// substring of the node value after the range offset.
+		if ( container.nodeType == 3 )
 		{
-			// Inserts the contents of the range in a div tag.
-			var eToolDiv = this.Window.document.createElement( 'div' ) ;
-			oTestRange._Range.cloneContents().AppendTo( eToolDiv ) ;
-			FCKDomTools.TrimNode( eToolDiv ) ;
-
-			// Find out if we are in an empty tree of inline elements, like <b><i><span></span></i></b>
-			bIsEndOfBlock = true ;
-			var eLastChild = eToolDiv ;
-			while ( ( eLastChild = eLastChild.lastChild ) )
+			var textValue = container.nodeValue ;
+			if ( offset < textValue.length )
 			{
-				// Check the following:
-				//		1. Is there more than one node in the parents children?
-				//		2. Is the node not an element node?
-				//		3. Is it not a inline element.
-				if ( eLastChild.previousSibling || eLastChild.nodeType != 1 || FCKListsLib.InlineChildReqElements[ eLastChild.nodeName.toLowerCase() ] == null )
-				{
-					// So we are not in the end of the range.
-					bIsEndOfBlock = false ;
-					break ;
-				}
+				textValue = textValue.substr( offset ) ;
+
+				// If we have some text left in the container, we are not at
+				// the end for the block.
+				if ( textValue.Trim().length != 0 )
+					return this._Cache.IsEndOfBlock = false ;
 			}
 		}
+		else
+			currentNode = container.childNodes[ offset ] ;
 
-		oTestRange.Release() ;
+		// We'll not have a currentNode if the container was a text node, of
+		// the offset is out the container children limits (after it probably).
+		if ( !currentNode )
+			currentNode = FCKDomTools.GetNextSourceNode( container, true, null, block ) ;
+
+		var hadBr = false ;
+
+		while ( currentNode )
+		{
+			switch ( currentNode.nodeType )
+			{
+				case 1 :
+					var nodeName = currentNode.nodeName.toLowerCase() ;
+
+					// It's an inline element.
+					if ( FCKListsLib.InlineChildReqElements[ nodeName ] )
+						break ;
+
+					// It is the first <br> found.
+					if ( nodeName == 'br' && !hadBr )
+					{
+						hadBr = true ;
+						break ;
+					}
+
+					return this._Cache.IsEndOfBlock = false ;
+
+				case 3 :
+					// It's a text node with real text.
+					if ( currentNode.nodeValue.Trim().length > 0 )
+						return this._Cache.IsEndOfBlock = false ;
+			}
+
+			currentNode = FCKDomTools.GetNextSourceNode( currentNode, false, null, block ) ;
+		}
 
 		if ( refreshSelection )
 			this.Select() ;
 
-		return this._Cache.IsEndOfBlock = bIsEndOfBlock ;
+		return this._Cache.IsEndOfBlock = true ;
 	},
 
 	// This is an "intrusive" way to create a bookmark. It includes <span> tags
@@ -320,7 +377,7 @@ FCKDomRange.prototype =
 			oBookmark.StartNode = eStartSpan ;
 			oBookmark.EndNode = eEndSpan ;
 		}
-		
+
 		// Update the range position.
 		if ( eEndSpan )
 		{
@@ -329,7 +386,7 @@ FCKDomRange.prototype =
 		}
 		else
 			this.MoveToPosition( eStartSpan, 4 ) ;
-		
+
 		return oBookmark ;
 	},
 
@@ -382,22 +439,58 @@ FCKDomRange.prototype =
 			"Start" : [ this._Range.startOffset ],
 			"End" : [ this._Range.endOffset ]
 		} ;
+		// Since we're treating the document tree as normalized, we need to backtrack the text lengths
+		// of previous text nodes into the offset value.
 		var curStart = this._Range.startContainer.previousSibling ;
 		var curEnd = this._Range.endContainer.previousSibling ;
+
+		// Also note that the node that we use for "address base" would change during backtracking.
+		var addrStart = this._Range.startContainer ;
+		var addrEnd = this._Range.endContainer ;
 		while ( curStart && curStart.nodeType == 3 )
 		{
 			bookmark.Start[0] += curStart.length ;
+			addrStart = curStart ;
 			curStart = curStart.previousSibling ;
 		}
 		while ( curEnd && curEnd.nodeType == 3 )
 		{
 			bookmark.End[0] += curEnd.length ;
+			addrEnd = curEnd ;
 			curEnd = curEnd.previousSibling ;
 		}
+
+		// If the object pointed to by the startOffset and endOffset are text nodes, we need
+		// to backtrack and add in the text offset to the bookmark addresses.
+		if ( addrStart.nodeType == 1 && addrStart.childNodes[bookmark.Start[0]] && addrStart.childNodes[bookmark.Start[0]].nodeType == 3 )
+		{
+			var curNode = addrStart.childNodes[bookmark.Start[0]] ;
+			var offset = 0 ;
+			while ( curNode.previousSibling && curNode.previousSibling.nodeType == 3 )
+			{
+				curNode = curNode.previousSibling ;
+				offset += curNode.length ;
+			}
+			addrStart = curNode ;
+			bookmark.Start[0] = offset ;
+		}
+		if ( addrEnd.nodeType == 1 && addrEnd.childNodes[bookmark.End[0]] && addrEnd.childNodes[bookmark.End[0]].nodeType == 3 )
+		{
+			var curNode = addrEnd.childNodes[bookmark.End[0]] ;
+			var offset = 0 ;
+			while ( curNode.previousSibling && curNode.previousSibling.nodeType == 3 )
+			{
+				curNode = curNode.previousSibling ;
+				offset += curNode.length ;
+			}
+			addrEnd = curNode ;
+			bookmark.End[0] = offset ;
+		}
+
 		// Then, we record down the precise position of the container nodes
 		// by walking up the DOM tree and counting their childNode index
-		bookmark.Start = FCKDomTools.GetNodeAddress( this._Range.startContainer, true ).concat( bookmark.Start ) ;
-		bookmark.End = FCKDomTools.GetNodeAddress( this._Range.endContainer, true ).concat( bookmark.End ) ;
+		bookmark.Start = FCKDomTools.GetNodeAddress( addrStart, true ).concat( bookmark.Start ) ;
+		bookmark.End = FCKDomTools.GetNodeAddress( addrEnd, true ).concat( bookmark.End ) ;
 		return bookmark;
 	},
 
@@ -530,7 +623,7 @@ FCKDomRange.prototype =
 
 					if ( oNode.nodeType != 1 )
 						oNode = oNode.previousSibling ? null : oNode.parentNode ;
-					
+
 					if ( oNode )
 					{
 						while ( FCKListsLib.InlineNonEmptyElements[ oNode.nodeName.toLowerCase() ] )
@@ -665,6 +758,7 @@ FCKDomRange.prototype =
 			// Get the current blocks.
 			var eStartBlock		= this.StartBlock ;
 			var eEndBlock		= this.EndBlock ;
+			var oElementPath	= null ;
 
 			if ( FCKConfig.EnterMode != 'br' )
 			{
@@ -690,11 +784,13 @@ FCKDomRange.prototype =
 			{
 				if ( bIsEndOfBlock )
 				{
+					oElementPath = new FCKElementPath( this.StartContainer ) ;
 					this.MoveToPosition( eEndBlock, 4 ) ;
 					eEndBlock = null ;
 				}
 				else if ( bIsStartOfBlock )
 				{
+					oElementPath = new FCKElementPath( this.StartContainer ) ;
 					this.MoveToPosition( eStartBlock, 3 ) ;
 					eStartBlock = null ;
 				}
@@ -727,7 +823,8 @@ FCKDomRange.prototype =
 				PreviousBlock	: eStartBlock,
 				NextBlock		: eEndBlock,
 				WasStartOfBlock : bIsStartOfBlock,
-				WasEndOfBlock	: bIsEndOfBlock
+				WasEndOfBlock	: bIsEndOfBlock,
+				ElementPath		: oElementPath
 			} ;
 		}
 
@@ -783,26 +880,26 @@ FCKDomRange.prototype =
 	{
 		return !!this._Range ;
 	},
-	
+
 	GetTouchedStartNode : function()
 	{
 		var range = this._Range ;
 		var container = range.startContainer ;
-		
+
 		if ( range.collapsed || container.nodeType != 1 )
 			return container ;
-		
+
 		return container.childNodes[ range.startOffset ] || container ;
 	},
-	
+
 	GetTouchedEndNode : function()
 	{
 		var range = this._Range ;
 		var container = range.endContainer ;
-		
+
 		if ( range.collapsed || container.nodeType != 1 )
 			return container ;
-		
+
 		return container.childNodes[ range.endOffset - 1 ] || container ;
 	}
 } ;

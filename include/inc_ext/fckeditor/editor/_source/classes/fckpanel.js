@@ -166,7 +166,17 @@ FCKPanel.prototype.Show = function( x, y, relElement, width, height )
 			FCK.ToolbarSet.CurrentInstance.FocusManager.Lock() ;
 
 		if ( this.ParentPanel )
+		{
 			this.ParentPanel.Lock() ;
+
+			// Due to a bug on FF3, we must ensure that the parent panel will
+			// blur (#1584).
+			FCKPanel_Window_OnBlur( null, this.ParentPanel ) ;
+		}
+
+		// Be sure we'll not have more than one Panel opened at the same time.
+		if ( FCKPanel._OpenedPanel )
+			FCKPanel._OpenedPanel.Hide() ;
 
 		FCKDomTools.SetElementStyles( eMainNode,
 			{
@@ -188,17 +198,26 @@ FCKPanel.prototype.Show = function( x, y, relElement, width, height )
 		// for Opera compatibility (see #570).
 		iMainWidth = eMainNode.offsetWidth || eMainNode.firstChild.offsetWidth ;
 
-		var oPos = FCKTools.GetElementPosition(
+		// Base the popup coordinates upon the coordinates of relElement.
+		var oPos = FCKTools.GetDocumentPosition( this._Window,
 			relElement.nodeType == 9 ?
 				( FCKTools.IsStrictMode( relElement ) ? relElement.documentElement : relElement.body ) :
-				relElement,
-			this._Window ) ;
+				relElement ) ;
+
+		// Minus the offsets provided by any positioned parent element of the panel iframe.
+		var positionedAncestor = FCKDomTools.GetPositionedAncestor( FCKTools.GetElementWindow( this._IFrame ), this._IFrame.parentNode ) ;
+		if ( positionedAncestor )
+		{
+			var nPos = FCKTools.GetDocumentPosition( FCKTools.GetElementWindow( positionedAncestor ), positionedAncestor ) ;
+			oPos.x -= nPos.x ;
+			oPos.y -= nPos.y ;
+		}
 
 		if ( this.IsRTL && !this.IsContextMenu )
 			x = ( x * -1 ) ;
 
-		x += oPos.X ;
-		y += oPos.Y ;
+		x += oPos.x ;
+		y += oPos.y ;
 
 		if ( this.IsRTL )
 		{
@@ -240,6 +259,8 @@ FCKPanel.prototype.Show = function( x, y, relElement, width, height )
 
 		// Move the focus to the IFRAME so we catch the "onblur".
 		this._IFrame.contentWindow.focus() ;
+
+		FCKPanel._OpenedPanel = this ;
 	}
 
 	this._IsOpened = true ;
@@ -253,7 +274,7 @@ FCKPanel.prototype.Hide = function( ignoreOnHide )
 		this._Popup.hide() ;
 	else
 	{
-		if ( !this._IsOpened )
+		if ( !this._IsOpened || this._LockCounter > 0 )
 			return ;
 
 		// Enable the editor to fire the "OnBlur".

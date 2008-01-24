@@ -32,9 +32,52 @@ FCKBlockQuoteCommand.prototype =
 		FCKUndo.SaveUndoStep() ;
 
 		var state = this.GetState() ;
+
 		var range = new FCKDomRange( FCK.EditorWindow ) ;
 		range.MoveToSelection() ;
+
 		var bookmark = range.CreateBookmark() ;
+
+		// Kludge for #1592: if the bookmark nodes are in the beginning of
+		// blockquote, then move them to the nearest block element in the
+		// blockquote.
+		if ( FCKBrowserInfo.IsIE )
+		{
+			var bStart	= range.GetBookmarkNode( bookmark, true ) ;
+			var bEnd	= range.GetBookmarkNode( bookmark, false ) ;
+			
+			var cursor ;
+			
+			if ( bStart 
+					&& bStart.parentNode.nodeName.IEquals( 'blockquote' )
+					&& !bStart.previousSibling )
+			{
+				cursor = bStart ;
+				while ( ( cursor = cursor.nextSibling ) )
+				{
+					if ( FCKListsLib.BlockElements[ cursor.nodeName.toLowerCase() ] )
+						FCKDomTools.MoveNode( bStart, cursor, true ) ;
+				}
+			}
+
+			if ( bEnd 
+					&& bEnd.parentNode.nodeName.IEquals( 'blockquote' )
+					&& !bEnd.previousSibling )
+			{
+				cursor = bEnd ;
+				while ( ( cursor = cursor.nextSibling ) )
+				{
+					if ( FCKListsLib.BlockElements[ cursor.nodeName.toLowerCase() ] )
+					{
+						if ( cursor.firstChild == bStart )
+							FCKDomTools.InsertAfterNode( bStart, bEnd ) ;
+						else
+							FCKDomTools.MoveNode( bEnd, cursor, true ) ;
+					}
+				}
+			}
+		}
+
 		var iterator = new FCKDomRangeIterator( range ) ;
 		var block ;
 
@@ -44,6 +87,19 @@ FCKBlockQuoteCommand.prototype =
 			var paragraphs = [] ;
 			while ( ( block = iterator.GetNextParagraph() ) )
 				paragraphs.push( block ) ;
+
+			// If no paragraphs, create one from the current selection position.
+			if ( paragraphs.length < 1 )
+			{
+				para = range.Window.document.createElement( FCKConfig.EnterMode.IEquals( 'p' ) ? 'p' : 'div' ) ;
+				range.InsertNode( para ) ;
+				para.appendChild( range.Window.document.createTextNode( '\ufeff' ) ) ;
+				range.MoveToBookmark( bookmark ) ;
+				range.MoveToNodeContents( para ) ;
+				range.Collapse( true ) ;
+				bookmark = range.CreateBookmark() ;
+				paragraphs.push( para ) ;
+			}
 
 			// Make sure all paragraphs have the same parent.
 			var commonParent = paragraphs[0].parentNode ;

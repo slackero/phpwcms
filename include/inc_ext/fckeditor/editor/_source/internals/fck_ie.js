@@ -92,7 +92,9 @@ function Doc_OnDblClick()
 
 function Doc_OnSelectionChange()
 {
-	FCK.Events.FireEvent( "OnSelectionChange" ) ;
+	// Don't fire the event if no document is loaded.
+	if ( FCK.EditorDocument )
+		FCK.Events.FireEvent( "OnSelectionChange" ) ;
 }
 
 function Doc_OnDrop()
@@ -283,8 +285,21 @@ FCK.PasteAsPlainText = function( forceText )
 		sText = FCKTools.HTMLEncode( sText ) ;
 		sText = FCKTools.ProcessLineBreaks( window, FCKConfig, sText ) ;
 
+		var closeTagIndex = sText.search( '</p>' ) ;
+		var startTagIndex = sText.search( '<p>' ) ;
+
+		if ( ( closeTagIndex != -1 && startTagIndex != -1 && closeTagIndex < startTagIndex ) 
+				|| ( closeTagIndex != -1 && startTagIndex == -1 ) )
+		{
+			var prefix = sText.substr( 0, closeTagIndex ) ;
+			sText = sText.substr( closeTagIndex + 4 ) ;
+			this.InsertHtml( prefix ) ;
+		}
+
 		// Insert the resulting data in the editor.
+		FCKUndo.SaveLocked = true ;
 		this.InsertHtml( sText ) ;
+		FCKUndo.SaveLocked = false ;
 	}
 }
 

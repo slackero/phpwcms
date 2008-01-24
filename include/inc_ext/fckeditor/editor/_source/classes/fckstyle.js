@@ -864,8 +864,8 @@ FCKStyle.prototype =
 			if ( !nodeName || elementDTD[ nodeName ] )
 			{
 				// Check if the style element can be a child of the current
-				// node parent.
-				if ( ( FCK.DTD[ currentNode.parentNode.nodeName.toLowerCase() ] || FCK.DTD.span )[ elementName ] )
+				// node parent or if the element is not defined in the DTD.
+				if ( ( FCK.DTD[ currentNode.parentNode.nodeName.toLowerCase() ] || FCK.DTD.span )[ elementName ] || !FCK.DTD[ elementName ] )
 				{
 					// This node will be part of our range, so if it has not
 					// been started, place its start right before the node.

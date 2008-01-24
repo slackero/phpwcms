@@ -69,11 +69,13 @@ function setDefaults()
 
 	// First of all, translates the dialog box texts.
 	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	window.parent.SetAutoSize( true ) ;
 }
 
 		</script>
-	</HEAD>
-	<BODY onload="setDefaults()" scroll="no">
+	</head>
+	<body onload="setDefaults()" style="overflow: hidden">
 		<table cellpadding="0" cellspacing="0" width="100%" height="100%">
 			<tr>
 				<td width="100%">
@@ -114,5 +116,5 @@ while (i < aChars.length)
 				</td>
 			</tr>
 		</table>
-	</BODY>
-</HTML>
+	</body>
+</html>

@@ -56,7 +56,13 @@ var FCK =
 		if ( this.EditMode == FCK_EDITMODE_SOURCE )
 			return ( this.StartupValue != this.EditingArea.Textarea.value ) ;
 		else
+		{
+			// It can happen switching between design and source mode in Gecko
+			if ( ! this.EditorDocument )
+				return false ;
+
 			return ( this.StartupValue != this.EditorDocument.body.innerHTML ) ;
+		}
 	},
 
 	ResetIsDirty : function()
@@ -104,6 +110,12 @@ var FCK =
 
 		// Tab key handling for source mode.
 		FCKTools.AddEventListener( document, "keydown", this._TabKeyHandler ) ;
+
+		// Add selection change listeners. They must be attached only once.
+		this.AttachToOnSelectionChange( _FCK_PaddingNodeListener ) ;
+		if ( FCKBrowserInfo.IsGecko )
+			this.AttachToOnSelectionChange( this._ExecCheckEmptyBlock ) ;
+
 	},
 
 	Focus : function()
@@ -164,7 +176,9 @@ var FCK =
 			{
 				// Element Node.
 				case 1 :
-					if ( !FCKListsLib.BlockElements[ oNode.nodeName.toLowerCase() ] )
+					if ( !FCKListsLib.BlockElements[ oNode.nodeName.toLowerCase() ] && 
+							!oNode.getAttribute('_fckfakelement') &&
+							oNode.getAttribute('_moz_dirty') == null )
 						bMoveNode = true ;
 					break ;
 
@@ -286,6 +300,9 @@ var FCK =
 		// <IMG> src
 		html = html.replace( FCKRegexLib.ProtectUrlsImg	, '$& _fcksavedurl=$1' ) ;
 
+		// <AREA> href
+		html = html.replace( FCKRegexLib.ProtectUrlsArea	, '$& _fcksavedurl=$1' ) ;
+
 		return html ;
 	},
 
@@ -339,6 +356,12 @@ var FCK =
 	SetData : function( data, resetIsDirty )
 	{
 		this.EditingArea.Mode = FCK.EditMode ;
+
+		// If there was an onSelectionChange listener in IE we must remove it to avoid crashes #1498
+		if ( FCKBrowserInfo.IsIE && FCK.EditorDocument )
+		{
+				FCK.EditorDocument.detachEvent("onselectionchange", Doc_OnSelectionChange ) ;
+		}
 
 		if ( FCK.EditMode == FCK_EDITMODE_WYSIWYG )
 		{
@@ -783,6 +806,8 @@ function _FCK_PaddingNodeListener()
 
 	if ( ! FCKBrowserInfo.IsIE && FCKDomTools.PaddingNode )
 	{
+		// Prevent the caret from going between the body and the padding node in Firefox.
+		// i.e. <body>|<p></p></body>
 		var sel = FCK.EditorWindow.getSelection() ;
 		if ( sel && sel.rangeCount == 1 )
 		{
@@ -796,6 +821,31 @@ function _FCK_PaddingNodeListener()
 			}
 		}
 	}
+	else if ( FCKDomTools.PaddingNode )
+	{
+		// Prevent the caret from going into an empty body but not into the padding node in IE.
+		// i.e. <body><p></p>|</body>
+		var parentElement = FCKSelection.GetParentElement() ;
+		var paddingNode = FCKDomTools.PaddingNode ;
+		if ( parentElement && parentElement.nodeName.IEquals( 'body' ) )
+		{
+			if ( FCK.EditorDocument.body.childNodes.length == 1 
+					&& FCK.EditorDocument.body.firstChild == paddingNode )
+			{
+				var range = FCK.EditorDocument.body.createTextRange() ;
+				var clearContents = false ;
+				if ( !paddingNode.childNodes.firstChild )
+				{
+					paddingNode.appendChild( paddingNode.ownerDocument.createTextNode( '\ufeff' ) ) ;
+					clearContents = true ;
+				}
+				range.moveToElementText( paddingNode ) ;
+				range.select() ;
+				if ( clearContents )
+					range.pasteHTML( '' ) ;
+			}
+		}
+	}
 }
 
 function _FCK_EditingArea_OnLoad()
@@ -805,7 +855,6 @@ function _FCK_EditingArea_OnLoad()
 	FCK.EditorDocument	= FCK.EditingArea.Document ;
 
 	FCK.InitializeBehaviors() ;
-	FCK.AttachToOnSelectionChange( _FCK_PaddingNodeListener ) ;
 
 	// Listen for mousedown and mouseup events for tracking drag and drops.
 	FCK.MouseDownFlag = false ;

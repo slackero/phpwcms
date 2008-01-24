@@ -90,7 +90,7 @@ function FCKToolbarSet_Create( overhideLocation )
 
 			// Initialize the IFRAME document body.
 			eTargetDocument.open() ;
-			eTargetDocument.write( '<html><head>' + sBase + '<script type="text/javascript"> var adjust = function() { window.frameElement.height = document.body.scrollHeight ; }; window.onresize = adjust; window.onload = function () {adjust(); window.setTimeout( adjust, 1000 ); }</script></head><body style="overflow: hidden">' + document.getElementById( 'xToolbarSpace' ).innerHTML + '</body></html>' ) ;
+			eTargetDocument.write( '<html><head>' + sBase + '<script type="text/javascript"> var adjust = function() { window.frameElement.height = document.body.scrollHeight ; }; window.onresize = adjust; window.onload = function () {window.setTimeout( adjust, 0 );}</script></head><body style="overflow: hidden">' + document.getElementById( 'xToolbarSpace' ).innerHTML + '</body></html>' ) ;
 			eTargetDocument.close() ;
 
 			FCKTools.AddEventListener( eTargetDocument, 'contextmenu', FCKTools.CancelEvent ) ;

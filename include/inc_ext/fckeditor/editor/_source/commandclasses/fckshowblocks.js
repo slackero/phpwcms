@@ -52,14 +52,12 @@ FCKShowBlockCommand.prototype.GetState = function()
 	if ( FCK.EditMode != FCK_EDITMODE_WYSIWYG )
 		return FCK_TRISTATE_DISABLED ;
 
-	// On some cases FCK.EditorDocument.body is not yet available, so try/catch.
-	try
-	{
-		if ( /FCK__ShowBlocks(?:\s|$)/.test( FCK.EditorDocument.body.className ) )
-			return FCK_TRISTATE_ON ;
-	}
-	catch (e)
-	{}
+	// On some cases FCK.EditorDocument.body is not yet available
+	if ( !FCK.EditorDocument )
+		return FCK_TRISTATE_OFF ;
+
+	if ( /FCK__ShowBlocks(?:\s|$)/.test( FCK.EditorDocument.body.className ) )
+		return FCK_TRISTATE_ON ;
 
 	return FCK_TRISTATE_OFF ;
 }

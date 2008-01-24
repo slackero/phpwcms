@@ -57,18 +57,21 @@ FCKSelection.GetSelectedElement = function()
 
 	if ( selection && selection.anchorNode && selection.anchorNode.nodeType == 1 )
 	{
-		// This one is good for all browsers, expect Safari Mac.
-		selectedElement = selection.anchorNode.childNodes[ selection.anchorOffset ] ;
+		if ( this.GetType() == 'Control' )
+		{
+			// This one is good for all browsers, expect Safari Mac.
+			selectedElement = selection.anchorNode.childNodes[ selection.anchorOffset ] ;
 
-		// For Safari (Mac only), the anchor node for a control selection is
-		// the control itself, which seams logic. FF and Opera use the parent
-		// as the anchor node, pointing to the control with the offset.
-		// As FF created the selection "standard", Safari would do better by
-		// following their steps.
-		if ( !selectedElement )
-			selectedElement = selection.anchorNode ;
-		else if ( selectedElement.nodeType != 1 )
-			return null ;
+			// For Safari (Mac only), the anchor node for a control selection is
+			// the control itself, which seams logic. FF and Opera use the parent
+			// as the anchor node, pointing to the control with the offset.
+			// As FF created the selection "standard", Safari would do better by
+			// following their steps.
+			if ( !selectedElement )
+				selectedElement = selection.anchorNode ;
+			else if ( selectedElement.nodeType != 1 )
+				return null ;
+		}
 	}
 
 	return selectedElement ;

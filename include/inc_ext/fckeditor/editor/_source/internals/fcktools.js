@@ -78,7 +78,8 @@ FCKTools.GetDocumentWindow = function( document )
 */
 FCKTools.FixDocumentParentWindow = function( targetWindow )
 {
-	targetWindow.document.parentWindow = targetWindow ;
+	if ( targetWindow.document )
+		targetWindow.document.parentWindow = targetWindow ;
 
 	for ( var i = 0 ; i < targetWindow.frames.length ; i++ )
 		FCKTools.FixDocumentParentWindow( targetWindow.frames[i] ) ;
@@ -422,12 +423,52 @@ FCKTools.GetDocumentPosition = function( w, node )
 	var x = 0 ;
 	var y = 0 ;
 	var curNode = node ;
-	while ( curNode && curNode != w.document.body )
+	var prevNode = null ;
+	var curWindow = FCKTools.GetElementWindow( curNode ) ;
+	while ( curNode && !( curWindow == w && ( curNode == w.document.body || curNode == w.document.documentElement ) ) )
 	{
 		x += curNode.offsetLeft - curNode.scrollLeft ;
 		y += curNode.offsetTop - curNode.scrollTop ;
-		curNode = curNode.offsetParent ;
+
+		if ( ! FCKBrowserInfo.IsOpera )
+		{
+			var scrollNode = prevNode ;
+			while ( scrollNode && scrollNode != curNode )
+			{
+				x -= scrollNode.scrollLeft ;
+				y -= scrollNode.scrollTop ;
+				scrollNode = scrollNode.parentNode ;
+			}
+		}
+
+		prevNode = curNode ;
+		if ( curNode.offsetParent )
+			curNode = curNode.offsetParent ;
+		else
+		{
+			if ( curWindow != w )
+			{
+				curNode = curWindow.frameElement ;
+				prevNode = null ;
+				if ( curNode )
+					curWindow = FCKTools.GetElementWindow( curNode ) ;
+			}
+			else
+				curNode = null ;
+		}
 	}
+
+	// document.body is a special case when it comes to offsetTop and offsetLeft values.
+	// 1. It matters if document.body itself is a positioned element;
+	// 2. It matters is when we're in IE and the element has no positioned ancestor.
+	// Otherwise the values should be ignored.
+	if ( FCKDomTools.GetCurrentElementStyle( w, w.document.body, 'position') != 'static' 
+			|| ( FCKBrowserInfo.IsIE && FCKDomTools.GetPositionedAncestor( w, node ) == null ) )
+	{
+		x += w.document.body.offsetLeft ;
+		y += w.document.body.offsetTop ;
+	}
+
 	return { "x" : x, "y" : y } ;
 }
 

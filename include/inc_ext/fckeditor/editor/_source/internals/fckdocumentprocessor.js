@@ -127,6 +127,8 @@ FCKFlashProcessor.ProcessDocument = function( document )
 	This is some <embed src="/UserFiles/Flash/Yellow_Runners.swf"></embed><strong>sample text</strong>. You are&nbsp;<a name="fred"></a> using <a href="http://www.fckeditor.net/">FCKeditor</a>.
 	*/
 
+	var bIsDirty = FCK.IsDirty() ;
+
 	var aEmbeds = document.getElementsByTagName( 'EMBED' ) ;
 
 	var oEmbed ;
@@ -152,6 +154,10 @@ FCKFlashProcessor.ProcessDocument = function( document )
 			oEmbed.parentNode.removeChild( oEmbed ) ;
 		}
 	}
+
+	// Fix the IsDirty state (#1406).
+	if ( !bIsDirty )
+		FCK.ResetIsDirty() ;
 }
 
 FCKFlashProcessor.RefreshView = function( placeHolderImage, originalEmbed )

@@ -74,6 +74,7 @@ GeckoEntitiesMarker : /#\?-\:/g ,
 // like "thumbnail.php?src=someimage.jpg" (SF-BUG 1554141).
 ProtectUrlsImg	: /<img(?=\s).*?\ssrc=((?:(?:\s*)("|').*?\2)|(?:[^"'][^ >]+))/gi ,
 ProtectUrlsA	: /<a(?=\s).*?\shref=((?:(?:\s*)("|').*?\2)|(?:[^"'][^ >]+))/gi ,
+ProtectUrlsArea	: /<area(?=\s).*?\shref=((?:(?:\s*)("|').*?\2)|(?:[^"'][^ >]+))/gi ,
 
 Html4DocType	: /HTML 4\.0 Transitional/i ,
 DocTypeTag		: /<!DOCTYPE[^>]*>/i ,

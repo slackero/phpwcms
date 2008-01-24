@@ -43,6 +43,9 @@ function OnDialogTabChange( tabCode )
 	idMap['FindText'] = 'txtFind' + tabCode ;
 	idMap['CheckCase'] = 'chkCase' + tabCode ;
 	idMap['CheckWord'] = 'chkWord' + tabCode ;
+
+	if ( tabCode == 'Replace' )
+		window.parent.SetAutoSize( true ) ;
 }
 
 function OnLoad()
@@ -60,9 +63,13 @@ function OnLoad()
 
 	// Show the appropriate tab at startup.
 	if ( window.parent.name.search( 'Replace' ) == -1 )
+	{
 		window.parent.SetSelectedTab( 'Find' ) ;
+		window.parent.SetAutoSize( true ) ;
+	}
 	else
 		window.parent.SetSelectedTab( 'Replace' ) ;
+
 }
 
 function btnStat(frm)
@@ -103,23 +110,45 @@ function GetMatchWord()
 // Get the data pointed to by a bookmark.
 function GetData( bookmark )
 {
-	var currentNode = oEditor.FCK.EditorDocument.documentElement;
-	for( var i = 0 ; i < bookmark.length ; i++ )
+	var cursor = oEditor.FCK.EditorDocument.documentElement ;
+	for ( var i = 0 ; i < bookmark.length ; i++ )
 	{
-		if ( currentNode.childNodes.length > bookmark[i] )
-			currentNode = currentNode.childNodes.item( bookmark[i] ) ;
-		else if ( currentNode.nodeType == 3 )	// text node
+		var target = bookmark[i] ;
+		var currentIndex = -1 ;
+		if ( cursor.nodeType != 3 )
 		{
-			var c = currentNode.nodeValue.charAt( bookmark[i] ) ;
-			if ( i == bookmark.length - 1 )
-				return c != "" ? c : null ;
-			else
+			for (var j = 0 ; j < cursor.childNodes.length ; j++ )
+			{
+				var candidate = cursor.childNodes[j] ;
+				if ( candidate.nodeType == 3 &&
+						candidate.previousSibling &&
+						candidate.previousSibling.nodeType == 3 )
+					continue ;
+				currentIndex++ ;
+				if ( currentIndex == target )
+				{
+					cursor = candidate ;
+					break ;
+				}
+			}
+			if ( currentIndex < target )
 				return null ;
 		}
 		else
-			return null;
+		{
+			if ( i != bookmark.length - 1 )
+				return null ;
+			while ( target >= cursor.length && cursor.nextSibling && cursor.nextSibling.nodeType == 3 )
+			{
+				target -= cursor.length ;
+				cursor = cursor.nextSibling ;
+			}
+			cursor = cursor.nodeValue.charAt( target ) ;
+			if ( cursor == "" )
+				cursor = null ;
+		}
 	}
-	return currentNode ;
+	return cursor ;
 }
 
 // With this function, we can treat the bookmark as an iterator for DFS.
@@ -127,7 +156,6 @@ function NextPosition( bookmark )
 {
 	// See if there's anything further down the tree.
 	var next = bookmark.concat( [0] ) ;
-
 	if ( GetData( next ) != null )
 		return next ;
 
@@ -248,7 +276,10 @@ function _Find()
 			if ( data.tagName )
 			{
 				if ( oEditor.FCKListsLib.BlockElements[ data.tagName.toLowerCase() ] )
+				{
 					matcher.Reset();
+					matchBookmark = null ;
+				}
 			}
 			else if ( data.charAt != undefined )
 			{
@@ -319,8 +350,15 @@ function _Find()
 		var focus = range._Range.endContainer ;
 		while ( focus && focus.nodeType != 1 )
 			focus = focus.parentNode ;
+
 		if ( focus )
-		focus.scrollIntoView( false ) ;
+		{
+			if ( oEditor.FCKBrowserInfo.IsSafari )
+				oEditor.FCKDomTools.ScrollIntoView( focus, false ) ;
+			else
+				focus.scrollIntoView( false ) ;
+		}
+
 		return true;
 	}
 	else
