@@ -81,17 +81,9 @@ switch($wysiwyg_editor['editor']) {
 	
 	//load FCKeditor
 	case 2:
-			if ( version_compare( phpversion(), '5', '<' ) ) {
-				include_once(PHPWCMS_ROOT.'/include/inc_ext/fckeditor/fckeditor_php4.php');
-			} else {
-				include_once(PHPWCMS_ROOT.'/include/inc_ext/fckeditor/fckeditor_php5.php');
-			}
-			
-			//include_once(PHPWCMS_ROOT.'/include/inc_ext/fckeditor/fckeditor.php');
+			include_once(PHPWCMS_ROOT.'/include/inc_ext/fckeditor/fckeditor.php');
 
 			$oFCKeditor = new FCKeditor($wysiwyg_editor['field']);
-			//$oFCKeditor->BasePath 							= PHPWCMS_BASEPATH.'include/inc_ext/fckeditor/';
-			//$oFCKeditor->Config['CustomConfigurationsPath']	= PHPWCMS_BASEPATH.'include/inc_ext/fckeditor/fckeditor_config.js.php' ;
 			$oFCKeditor->BasePath 							= PHPWCMS_URL.'include/inc_ext/fckeditor/';
 			$oFCKeditor->Config['CustomConfigurationsPath']	= PHPWCMS_URL.'include/inc_ext/fckeditor/fckeditor_config.js.php' ;
 			
