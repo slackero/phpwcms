@@ -29,7 +29,6 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/ExcelExport/ExcelExport.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/checklogin.inc.php');
 
 
@@ -66,11 +65,6 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		$row++;
 	}
 	
- 
-	//$xls = new ExcelExport();
- 	//$xls->addRow($export[0]);
-
-	
 	$elements = array();
 	
 	$elements[0]  = '	<tr>'.LF;
@@ -83,8 +77,6 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	
 	
 	for($x = 1; $x < $row; $x++) {
-		
-		//$xls->addRow($export[$x]);
 		
 		$elements[$x]  = '	<tr>'.LF;
 		foreach($export[0] as $key => $value) {
@@ -100,29 +92,27 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	}
 
 	$filename = date('Y-m-d_H-i-s').'_formresultID-'.$fid.'.xls';
-	
-	//$xls->download($filename);
-
 
 	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
 		// workaround for IE filename bug with multiple periods / multiple dots in filename
 		// that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe
 		$filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
-	} else {
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		header('Last-Modified: '.gmdate('D, d M Y H:i:s GMT', time()) );
-		header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');	
 	}
 	
-	header('Content-type: text/html'); 
- 	header('Content-Disposition: attachment; filename="'.$filename.'"');
-	header('Content-Transfer-Encoding: binary'.LF);
+	//header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+	//header('Last-Modified: '.gmdate('D, d M Y H:i:s GMT', time()) );
+	//header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
+	
+	
+	//header('Content-type: application/force-download'); 
+ 	//header('Content-Disposition: attachment; filename="'.$filename.'"');
+	//header('Content-Transfer-Encoding: binary'.LF);
 	
 	echo '<table border="1" cellspacing="1" cellpadding="2">'.LF;
 	echo implode(LF, $elements);
 	echo LF.'</table>';
 	flush();
-	die();
+	exit();
 	
 } elseif($action == 'exportformresultdetail' && isset($_GET['fid']) && ($fid = intval($_GET['fid']))) {
 
@@ -219,7 +209,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	}
 	
 	echo '</body>'.LF.'</html>';
-	die();
+	exit();
 	
 	
 } elseif($action == 'exportsubscriber') {
@@ -357,7 +347,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		echo '</table>';
 	
 	}
-	die();
+	exit();
 	
 	
 } else {
