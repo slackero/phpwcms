@@ -687,6 +687,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$cnt_form['upload_value']['regexp'] = '/(.'.$cnt_form['upload_value']['exclude'].')$/';
 									if($cnt_form["fields"][$key]['required'] && empty($_FILES[$POST_name]['name'])) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$POST_ERR[$key]	= str_replace('{MAXLENGTH}', '', $POST_ERR[$key]);
+										$POST_ERR[$key] = str_replace('{FILESIZE}', fsize(0, ' '), $POST_ERR[$key]);
+										$POST_ERR[$key] = str_replace('{FILENAME}', '"n.a."', $POST_ERR[$key]);
+										$POST_ERR[$key] = str_replace('{FILEEXT}', '"n.a."', $POST_ERR[$key]);							
 									} elseif(!empty($_FILES[$POST_name]['name'])) {
 										$cnt_form['upload_value']['filename'] = time().'_'.$_FILES[$POST_name]['name'];
 										if( (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
@@ -694,11 +698,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											|| !@move_uploaded_file($_FILES[$POST_name]['tmp_name'], 
 											   PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename'])
 											   ) {
-											   $POST_ERR[$key]  = $cnt_form["fields"][$key]['error'];
-											   $POST_ERR[$key]	= str_replace('{MAXLENGTH}', empty($cnt_form['upload_value']['maxlength']) ? '' : fsize($cnt_form['upload_value']['maxlength'], ' '), $POST_ERR[$key]);
-											   $POST_ERR[$key]  = str_replace('{FILESIZE}', !empty($_FILES[$POST_name]['size']) ? fsize($_FILES[$POST_name]['size'], ' ') : '', $POST_ERR[$key]);
-											   $POST_ERR[$key]  = str_replace('{FILENAME}', !empty($_FILES[$POST_name]['name']) ? $_FILES[$POST_name]['name'] : '"n.a."', $POST_ERR[$key]);
-											   $POST_ERR[$key]  = str_replace('{FILEEXT}', '.'.str_replace('|', ', .', str_replace(',', ', .', $cnt_form['upload_value']['exclude'])), $POST_ERR[$key]);											   
+											   $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+											   $POST_ERR[$key] = str_replace('{MAXLENGTH}', empty($cnt_form['upload_value']['maxlength']) ? '' : fsize($cnt_form['upload_value']['maxlength'], ' '), $POST_ERR[$key]);
+											   $POST_ERR[$key] = str_replace('{FILESIZE}', fsize(empty($_FILES[$POST_name]['size']) ? 0 : $_FILES[$POST_name]['size'], ' '), $POST_ERR[$key]);
+											   $POST_ERR[$key] = str_replace('{FILENAME}', empty($_FILES[$POST_name]['name']) || trim($_FILES[$POST_name]['name'])=='' ? '"n.a."' : $_FILES[$POST_name]['name'], $POST_ERR[$key]);
+											   $POST_ERR[$key] = str_replace('{FILEEXT}', '.'.str_replace('|', ', .', str_replace(',', ', .', $cnt_form['upload_value']['exclude'])), $POST_ERR[$key]);
 										} else {
 											$POST_val[$POST_name]['name'] = $cnt_form['upload_value']['filename'];
 										}
