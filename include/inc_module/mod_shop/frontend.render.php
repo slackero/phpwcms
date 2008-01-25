@@ -33,110 +33,6 @@ if(!isset($_SESSION['shopping_cart'])) {
 	$_SESSION['shopping_cart'] = array();
 }
 
-// OK get cart post data
-if( isset($_POST['shop_action']) ) {
-
-	switch($_POST['shop_action']) {
-	
-		case 'add':		$shop_prod_id		= intval($_POST['shop_prod_id']);
-						$shop_prod_amount	= intval($_POST['shop_prod_amount']);
-						if(empty($shop_prod_id) || empty($shop_prod_amount)) break; // leave
-						
-						// add product to shopping 
-						if(isset($_SESSION['shopping_cart']['products'][$shop_prod_id])) {
-							$_SESSION['shopping_cart']['products'][$shop_prod_id] += $shop_prod_amount;
-						} else {
-							$_SESSION['shopping_cart']['products'][$shop_prod_id]  = $shop_prod_amount;
-						}
-						
-						break;
-	
-	}
-
-} elseif( isset($_POST['shop_prod_amount']) && is_array($_POST['shop_prod_amount']) ) {
-
-	foreach($_POST['shop_prod_amount'] as $prod_id => $prod_qty) {
-	
-		$prod_id  = intval($prod_id);
-		$prod_qty = intval($prod_qty);
-		if(isset($_SESSION['shopping_cart']['products'][$prod_id])) {
-			if($prod_qty) {
-				$_SESSION['shopping_cart']['products'][$prod_id] = $prod_qty;
-			} else {
-				unset($_SESSION['shopping_cart']['products'][$prod_id]);
-			}
-		}		
-	}
-
-} elseif( isset($_POST['shop_order_step1']) ) {
-
-	// handle invoice address -> checkout
-	
-
-	$_SESSION['shopping_cart']['step1'] = array(
-
-		'INV_FIRSTNAME'	=> isset($_POST['shop_inv_firstname']) ? clean_slweg($_POST['shop_inv_firstname']) : '',
-		'INV_NAME'		=> isset($_POST['shop_inv_name']) ? clean_slweg($_POST['shop_inv_name']) : '',
-		'INV_ADDRESS'	=> isset($_POST['shop_inv_address']) ? clean_slweg($_POST['shop_inv_address']) : '',
-		'INV_ZIP'		=> isset($_POST['shop_inv_zip']) ? clean_slweg($_POST['shop_inv_zip']) : '',
-		'INV_CITY'		=> isset($_POST['shop_inv_city']) ? clean_slweg($_POST['shop_inv_city']) : '',
-		'INV_REGION'	=> isset($_POST['shop_inv_region']) ? clean_slweg($_POST['shop_inv_region']) : '',
-		'INV_COUNTRY'	=> isset($_POST['shop_inv_country']) ? clean_slweg($_POST['shop_inv_country']) : '',
-		'EMAIL'			=> isset($_POST['shop_email']) ? clean_slweg($_POST['shop_email']) : '',
-		'PHONE'			=> isset($_POST['shop_phone']) ? clean_slweg($_POST['shop_phone']) : ''
-				
-				);
-	
-	$payment_options = get_payment_options();
-	if(!empty($_POST['shopping_payment']) && isset($payment_options[$_POST['shopping_payment']])) {
-		$_SESSION['shopping_cart']['payby'] = $_POST['shopping_payment'];
-	} else {
-		$ERROR['inv_address']['payment'] = true;
-	}
-	
-	if(empty($_SESSION['shopping_cart']['step1']['INV_FIRSTNAME'])) {
-		$ERROR['inv_address']['INV_FIRSTNAME'] = 'First name must be filled';
-	}
-	if(empty($_SESSION['shopping_cart']['step1']['INV_NAME'])) {
-		$ERROR['inv_address']['INV_NAME'] = 'Name must be filled';
-	}
-	if(empty($_SESSION['shopping_cart']['step1']['INV_ADDRESS'])) {
-		$ERROR['inv_address']['INV_ADDRESS'] = 'Address must be filled';
-	}
-	if(empty($_SESSION['shopping_cart']['step1']['INV_ZIP'])) {
-		$ERROR['inv_address']['INV_ZIP'] = 'ZIP must be filled';
-	}
-	if(empty($_SESSION['shopping_cart']['step1']['INV_CITY'])) {
-		$ERROR['inv_address']['INV_CITY'] = 'City must be filled';
-	}
-	if(empty($_SESSION['shopping_cart']['step1']['EMAIL']) || !is_valid_email($_SESSION['shopping_cart']['step1']['EMAIL'])) {
-		$ERROR['inv_address']['EMAIL'] = 'Email must be filled or is invalid';
-	}
-	if(empty($_SESSION['shopping_cart']['step1']['PHONE'])) {
-		$ERROR['inv_address']['PHONE'] = 'Phone must be filled';
-	}
-
-	if(isset($ERROR['inv_address']) && count($ERROR['inv_address'])) {
-		$_SESSION['shopping_cart']['error']['step1'] = true;
-	} elseif(isset($_SESSION['shopping_cart']['error']['step1'])) {
-		unset($_SESSION['shopping_cart']['error']['step1']);
-	}
-
-} elseif( isset($_POST['shop_order_submit']) ) {
-
-	if(empty($_POST['shop_terms_agree'])) {
-		$_SESSION['shopping_cart']['error']['step2'] = true;
-	} elseif(isset($_SESSION['shopping_cart']['error']['step2'])) {
-		unset($_SESSION['shopping_cart']['error']['step2']);
-	}
-	
-} elseif( isset($_SESSION['shopping_cart']['error']['step2']) && !isset($_POST['shop_order_submit'])) {
-
-	unset($_SESSION['shopping_cart']['error']['step2']);
-
-}
-
-
 
 if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order !== false || $_shop_load_cart_small !== false) {
 
@@ -153,6 +49,32 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			$_tmpl['config']['cat_list_products'] = true;
 		} else {
 			$_tmpl['config']['cat_list_products'] = false;
+		}
+		
+		// handle custom fields
+		$_tmpl['config']['shop_field'] = array();
+		$custom_field_number = 1;
+		while( !empty( $_tmpl['config']['shop_field_' . $custom_field_number] ) ) {
+		
+			$custom_field_type = explode('_', trim($_tmpl['config']['shop_field_' . $custom_field_number]) );
+			if($custom_field_type[0] === 'STRING' || $custom_field_type[0] === 'TEXTAREA') {
+				$_tmpl['config']['shop_field'][ $custom_field_number ]['type'] = $custom_field_type[0];
+				if(isset($custom_field_type[1]) && $custom_field_type[1] == 'REQ') {
+					$_tmpl['config']['shop_field'][ $custom_field_number ]['required'] = true;
+					if(empty($custom_field_type[2])) {
+						$_tmpl['config']['shop_field'][ $custom_field_number ]['label'] = 'Custom '.$custom_field_number;
+					} else {
+						$_tmpl['config']['shop_field'][ $custom_field_number ]['label'] = trim($custom_field_type[2]);
+					}
+				} elseif(empty($custom_field_type[1])) {
+					$_tmpl['config']['shop_field'][ $custom_field_number ]['required'] = false;
+					$_tmpl['config']['shop_field'][ $custom_field_number ]['label'] = 'Custom '.$custom_field_number;
+				} else {
+					$_tmpl['config']['shop_field'][ $custom_field_number ]['required'] = false;
+					$_tmpl['config']['shop_field'][ $custom_field_number ]['label'] = trim($custom_field_type[1]);
+				}
+			}
+			$custom_field_number++;
 		}
 	
 		if($_shop_load_list) {
@@ -202,11 +124,9 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 							'mail_neworder_subject' => "[#{ORDER}] New order",
 							'label_payby_prepay' => "Cash with order",
 							'label_payby_pod' => "Cash on delivery",
-							'label_payby_onbill' => "On account"
+							'label_payby_onbill' => "On account",
+							'order_number_style' => 'RANDOM'
 									),	$_tmpl['config'] );
-									
-	
-	//dumpVar($_tmpl['config']);
 
 	// set preferences
 	$_shopPref = array();
@@ -237,7 +157,119 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	
 	$_tmpl['config']['shop_url'] = 'index.php?' . $_tmpl['config']['shop_url'];
 	$_tmpl['config']['cart_url'] = 'index.php?' . $_tmpl['config']['cart_url'];
-	//$_tmpl['config']['cart_url'] = 'index.php?aid=' . ($_tmpl['config']['cart_url']===false ? $aktion[1] : $_tmpl['config']['cart_url']);
+	
+	
+	// OK get cart post data
+	if( isset($_POST['shop_action']) ) {
+	
+		switch($_POST['shop_action']) {
+		
+			case 'add':		$shop_prod_id		= intval($_POST['shop_prod_id']);
+							$shop_prod_amount	= intval($_POST['shop_prod_amount']);
+							if(empty($shop_prod_id) || empty($shop_prod_amount)) break; // leave
+							
+							// add product to shopping 
+							if(isset($_SESSION['shopping_cart']['products'][$shop_prod_id])) {
+								$_SESSION['shopping_cart']['products'][$shop_prod_id] += $shop_prod_amount;
+							} else {
+								$_SESSION['shopping_cart']['products'][$shop_prod_id]  = $shop_prod_amount;
+							}
+							
+							break;
+		
+		}
+	
+	} elseif( isset($_POST['shop_prod_amount']) && is_array($_POST['shop_prod_amount']) ) {
+	
+		foreach($_POST['shop_prod_amount'] as $prod_id => $prod_qty) {
+		
+			$prod_id  = intval($prod_id);
+			$prod_qty = intval($prod_qty);
+			if(isset($_SESSION['shopping_cart']['products'][$prod_id])) {
+				if($prod_qty) {
+					$_SESSION['shopping_cart']['products'][$prod_id] = $prod_qty;
+				} else {
+					unset($_SESSION['shopping_cart']['products'][$prod_id]);
+				}
+			}		
+		}
+	
+	} elseif( isset($_POST['shop_order_step1']) ) {
+	
+		// handle invoice address -> checkout
+		
+		$_SESSION['shopping_cart']['step1'] = array(
+	
+			'INV_FIRSTNAME'	=> isset($_POST['shop_inv_firstname']) ? clean_slweg($_POST['shop_inv_firstname']) : '',
+			'INV_NAME'		=> isset($_POST['shop_inv_name']) ? clean_slweg($_POST['shop_inv_name']) : '',
+			'INV_ADDRESS'	=> isset($_POST['shop_inv_address']) ? clean_slweg($_POST['shop_inv_address']) : '',
+			'INV_ZIP'		=> isset($_POST['shop_inv_zip']) ? clean_slweg($_POST['shop_inv_zip']) : '',
+			'INV_CITY'		=> isset($_POST['shop_inv_city']) ? clean_slweg($_POST['shop_inv_city']) : '',
+			'INV_REGION'	=> isset($_POST['shop_inv_region']) ? clean_slweg($_POST['shop_inv_region']) : '',
+			'INV_COUNTRY'	=> isset($_POST['shop_inv_country']) ? clean_slweg($_POST['shop_inv_country']) : '',
+			'EMAIL'			=> isset($_POST['shop_email']) ? clean_slweg($_POST['shop_email']) : '',
+			'PHONE'			=> isset($_POST['shop_phone']) ? clean_slweg($_POST['shop_phone']) : ''
+					
+					);
+		
+		// retrieve all custom field POST data
+		foreach($_tmpl['config']['shop_field'] as $key => $row) {
+			
+			$_SESSION['shopping_cart']['step1']['shop_field_'.$key] = empty($_POST['shop_field_'.$key]) ? '' : clean_slweg($_POST['shop_field_'.$key]);
+			if($row['required'] && $_SESSION['shopping_cart']['step1']['shop_field_'.$key] === '') {
+				$ERROR['inv_address']['shop_field_'.$key] = $row['required'] . ' must be filled';
+			}		
+		}
+		
+		$payment_options = get_payment_options();
+		if(!empty($_POST['shopping_payment']) && isset($payment_options[$_POST['shopping_payment']])) {
+			$_SESSION['shopping_cart']['payby'] = $_POST['shopping_payment'];
+		} else {
+			$ERROR['inv_address']['payment'] = true;
+		}
+		
+		if(empty($_SESSION['shopping_cart']['step1']['INV_FIRSTNAME'])) {
+			$ERROR['inv_address']['INV_FIRSTNAME'] = 'First name must be filled';
+		}
+		if(empty($_SESSION['shopping_cart']['step1']['INV_NAME'])) {
+			$ERROR['inv_address']['INV_NAME'] = 'Name must be filled';
+		}
+		if(empty($_SESSION['shopping_cart']['step1']['INV_ADDRESS'])) {
+			$ERROR['inv_address']['INV_ADDRESS'] = 'Address must be filled';
+		}
+		if(empty($_SESSION['shopping_cart']['step1']['INV_ZIP'])) {
+			$ERROR['inv_address']['INV_ZIP'] = 'ZIP must be filled';
+		}
+		if(empty($_SESSION['shopping_cart']['step1']['INV_CITY'])) {
+			$ERROR['inv_address']['INV_CITY'] = 'City must be filled';
+		}
+		if(empty($_SESSION['shopping_cart']['step1']['EMAIL']) || !is_valid_email($_SESSION['shopping_cart']['step1']['EMAIL'])) {
+			$ERROR['inv_address']['EMAIL'] = 'Email must be filled or is invalid';
+		}
+		if(empty($_SESSION['shopping_cart']['step1']['PHONE'])) {
+			$ERROR['inv_address']['PHONE'] = 'Phone must be filled';
+		}
+		if(isset($ERROR['inv_address']) && count($ERROR['inv_address'])) {
+			$_SESSION['shopping_cart']['error']['step1'] = true;
+		} elseif(isset($_SESSION['shopping_cart']['error']['step1'])) {
+			unset($_SESSION['shopping_cart']['error']['step1']);
+		}
+
+	
+	
+	} elseif( isset($_POST['shop_order_submit']) ) {
+	
+		if(empty($_POST['shop_terms_agree'])) {
+			$_SESSION['shopping_cart']['error']['step2'] = true;
+		} elseif(isset($_SESSION['shopping_cart']['error']['step2'])) {
+			unset($_SESSION['shopping_cart']['error']['step2']);
+		}
+		
+	} elseif( isset($_SESSION['shopping_cart']['error']['step2']) && !isset($_POST['shop_order_submit'])) {
+	
+		unset($_SESSION['shopping_cart']['error']['step2']);
+	
+	}
 
 }
 
@@ -587,10 +619,15 @@ if( $_shop_load_order ) {
 					'EMAIL' => '',
 					'PHONE' => ''
 						);
+						
+		// handle custom fields
+		foreach($_tmpl['config']['shop_field'] as $item_key => $row) {
+			$_step1['shop_field_'.$item_key] = '';
+		}
 	
 		if(isset($_SESSION['shopping_cart']['step1'])) {
 			$_step1 = array_merge($_step1, $_SESSION['shopping_cart']['step1']);
-		}	
+		}
 
 		// checkout step 1 -> insert invoice address
 		$order_process = $_tmpl['inv_address'];
@@ -672,7 +709,15 @@ if( $_shop_load_order ) {
 
 		// OK agreed - now send order
 		
-		$order_num = generic_string(8, 2);
+		if($_tmpl['config']['order_number_style'] == 'RANDOM') {
+			$order_num = generic_string(8, 2);
+		} else {
+			// count all current orders
+			$order_num = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_shop_orders') + 1;
+			if(strpos($_tmpl['config']['order_number_style'], '%') !== FALSE) {
+				$order_num = sprintf($_tmpl['config']['order_number_style'], $order_num);
+			}
+		}
 		
 		// prepare customer mail
 		$order_process = $_tmpl['mail_customer'];

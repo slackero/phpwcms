@@ -1,19 +1,41 @@
 <!--CONFIG_START//-->
+
 cat_all = "Top products"
 cat_list_products = Off
+
 price_decimals = 2
 vat_decimals = 0
 dec_point = ","
 thousands_sep = "."
+
 image_list_width = 200
 image_list_height = 200
 image_detail_width = 150
 image_detail_height = 150
+
 mail_customer_subject = "[#{ORDER}] Your order at MyShop"
 mail_neworder_subject = "[#{ORDER}] New order"
+
 label_payby_prepay = "Cash with order"
 label_payby_pod = "Cash on delivery"
 label_payby_onbill = "On account"
+
+; Add custom fields, only for step 1
+; (where customer fill in address information)
+; The label information is just optional
+; and only used to set default error messages
+; format: shop_field_1 = STRING_REQ_Label
+shop_field_1 = STRING_REQ_Label
+shop_field_2 = STRING_My custom field
+
+; possible:
+; ---------
+; RANDOM or
+; sprintf() formatted http://php.net/sprintf
+; sample: %05s -> 00001
+order_number_style = %05s
+
+
 <!--CONFIG_END//-->
 
 
@@ -191,6 +213,7 @@ label_payby_onbill = "On account"
 [ERROR_EMAIL]<p>Email error message</p>[/ERROR_EMAIL]
 [ERROR_PHONE]<p>Email error message</p>[/ERROR_PHONE]
 [ERROR_PAYMENT]<p>You must check preferred payment option</p>[/ERROR_PAYMENT]
+[ERROR_shop_field_1]<p>You must fill in custom shop field 1</p>[/ERROR_shop_field_1]
 <table cellpadding="1" cellspacing="0" border="0" summary="cart">
 	<tr>
 		<td>first name*:</td>
@@ -227,6 +250,11 @@ label_payby_onbill = "On account"
 	<tr>
 		<td>phone*:</td>
 		<td><input type="text" name="shop_phone" id="shop_phone" value="{PHONE}" size="20" maxlength="20" /></td>
+	</tr>
+	
+	<tr>
+		<td>custom 1*:</td>
+		<td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
 	</tr>
 
 [PAYMENT]
@@ -268,6 +296,11 @@ label_payby_onbill = "On account"
 		Email: {EMAIL}<br />
 		Phone: {PHONE}
 	</p>
+	[shop_field_1]
+	<p>
+		custom 1: {shop_field_1}
+	</p>
+	[/shop_field_1]
 	[PAYMENT]<p>
 		Payment: {PAYMENT}
 	</p>[/PAYMENT]
@@ -383,6 +416,8 @@ Address: {INV_FIRSTNAME} {INV_NAME}
 Email:   {EMAIL}
 Phone:   {PHONE}
 
+Custom1: {shop_field_1}
+
 
 Subtotal Net:    {SUBTOTAL_NET} {CURRENCY_SYMBOL}
 Subtotal VAT:    {SUBTOTAL_VAT} {CURRENCY_SYMBOL}
@@ -415,6 +450,8 @@ Address: {INV_FIRSTNAME} {INV_NAME}
 Email:   {EMAIL}
 Phone:   {PHONE}
 
+Custom1: {shop_field_1}
+
 
 Subtotal Net:    {SUBTOTAL_NET} {CURRENCY_SYMBOL}
 Subtotal VAT:    {SUBTOTAL_VAT} {CURRENCY_SYMBOL}
@@ -433,7 +470,7 @@ Thank you.
 <!--ORDER_DONE_START//-->
 	<h2>Order {ORDER} successfully sent</h2>
 	<p>Hello <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
-	Thanks for your order. Your will receive a confirmation to your email <strong>{EMAIL}</strong> within next minutes.</p>
+	Thanks for your order. You will receive a confirmation to your email <strong>{EMAIL}</strong> within next minutes.</p>
 	<p>Your order number is: <strong>{ORDER}</strong>. Please use this number in case you contact us by email.</p>
 <!--ORDER_DONE_END//-->
 
