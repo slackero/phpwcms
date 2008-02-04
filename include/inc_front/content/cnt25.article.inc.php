@@ -49,7 +49,8 @@ if(isset($fmp_data['fmp_template'])) {
 	}
 	
 	// load SWFObject
-	$block['custom_htmlhead']['swfobject.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/swfobject/swfobject.js" type="text/javascript"></script>';
+	$block['custom_htmlhead']['mootools.js']	= '  <script src="'.TEMPLATE_PATH.'inc_js/mootools/mootools.js" type="text/javascript"></script>';
+	$block['custom_htmlhead']['swfobject.js']	= '  <script src="'.TEMPLATE_PATH.'inc_js/swfobject/swfobject.js" type="text/javascript"></script>';
 	
 
 	// set player dimensions first
@@ -164,6 +165,7 @@ if(isset($fmp_data['fmp_template'])) {
 	$fmp_data['id']  = 'UFOfmp'.$crow["acontent_id"];
 	
 	$fmp_data['script']  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF; // language="javascript" defer="defer"
+	$fmp_data['script'] .= '  window.addEvent("domready", function(){'.LF;
 	
 	$fmp_data['flashvars'][0]  = "var ".$fmp_data['var']." = new SWFObject('".PHPWCMS_URL.TEMPLATE_PATH ;
 	$fmp_data['flashvars'][0] .= "jw_media_player/mediaplayer.swf', '".$fmp_data['id']."', '".$fmp_data['fmp_width'];
@@ -223,6 +225,7 @@ if(isset($fmp_data['fmp_template'])) {
 	
 	$fmp_data['script']	.= LF.'		'.implode(LF.'		', $fmp_data['flashvars']);
 	
+	$fmp_data['script']	.= LF.'  });';
 	$fmp_data['script']	.= LF.SCRIPT_CDATA_END.LF.'  </script>';
 
 
