@@ -13,8 +13,9 @@ function bb2_msie($package)
 		return "a1084bad";
 	}
 
-	// MSIE does NOT send Connection: TE
-	if (preg_match('/\bTE\b/i', $package['headers_mixed']['Connection'])) {
+	// MSIE does NOT send Connection: TE but Akamai does
+	// Bypass this test when Akamai detected
+	if (!array_key_exists('Akamai-Origin-Hop', $package['headers_mixed']) && preg_match('/\bTE\b/i', $package['headers_mixed']['Connection'])) {
 		return "2b90f772";
 	}
 

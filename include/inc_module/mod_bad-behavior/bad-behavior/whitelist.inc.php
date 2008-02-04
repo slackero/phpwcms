@@ -12,6 +12,8 @@ function bb2_whitelist($package)
 
 	// Includes four examples of whitelisting by IP address and netblock.
 	$bb2_whitelist_ip_ranges = array(
+		"64.191.203.34",	// Digg whitelisted as of 2.0.12
+		"208.67.217.130",	// Digg whitelisted as of 2.0.12
 		"10.0.0.0/8",
 		"172.16.0.0/12",
 		"192.168.0.0/16",

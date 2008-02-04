@@ -44,8 +44,10 @@ function match_cidr($addr, $cidr) {
 			}
 		}
 	} else {
-		list($ip, $mask) = explode('/', $cidr);
-		if (!$mask) $mask = 32;
+		//list($ip, $mask) = explode('/', $cidr);
+		$cidr = explode('/', $cidr);
+		$ip = $cidr[0];
+		$mask = empty($cidr[1]) ? 32 : $cidr[1];
 		$mask = pow(2,32) - pow(2, (32 - $mask));
 		$output = ((ip2long($addr) & $mask) == (ip2long($ip) & $mask));
 	}

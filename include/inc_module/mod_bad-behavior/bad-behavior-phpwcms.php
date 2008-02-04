@@ -33,12 +33,22 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+$_SERVER['REMOTE_ADDR'] = getRemoteIP();
+
 
 define('BB2_CWD', PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior');
 
 // core path setting based on phpwcms' values
 define('BB2_CORE', BB2_CWD.'/bad-behavior');
 
+// Settings you can adjust for Bad Behavior.
+// Most of these are unused in non-database mode.
+$bb2_settings_defaults = array(
+	'log_table' => 'bad_behavior',
+	'display_stats' => true,
+	'strict' => false,
+	'verbose' => false
+);
 
 // Bad Behavior callback functions.
 
@@ -148,8 +158,8 @@ function bb2_insert_stats($force = false) {
 
 	if ($force || $settings['display_stats']) {
 		$blocked = bb2_db_query("SELECT COUNT(*) FROM " . $settings['log_table'] . " WHERE `key` NOT LIKE '00000000'");
-		if ($blocked !== false) {
-			echo sprintf('<p><a href="http://www.homelandstupidity.us/software/bad-behavior/">%1$s</a> %2$s <strong>%3$s</strong> %4$s</p>', __('Bad Behavior'), __('has blocked'), $blocked[0]["COUNT(*)"], __('access attempts in the last 7 days.'));
+		if ($blocked !== FALSE) {
+			echo sprintf('<p><a href="http://www.bad-behavior.ioerror.us/">%1$s</a> %2$s <strong>%3$s</strong> %4$s</p>', __('Bad Behavior'), __('has blocked'), $blocked[0]["COUNT(*)"], __('access attempts in the last 7 days.'));
 		}
 	}
 }

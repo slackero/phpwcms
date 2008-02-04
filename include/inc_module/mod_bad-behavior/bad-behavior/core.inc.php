@@ -116,7 +116,13 @@ function bb2_start($settings)
 	$request_method = $_SERVER['REQUEST_METHOD'];
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$server_protocol = $_SERVER['SERVER_PROTOCOL'];
-	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	
+	if(isset($_SERVER['HTTP_USER_AGENT'])) {
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	} else {
+		$user_agent = 'unknown';
+		$headers_mixed['User-Agent'] = 'unknown';
+	}
 
 	// Reconstruct the HTTP entity, if present.
 	$request_entity = array();

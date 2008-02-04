@@ -89,14 +89,14 @@ function bb2_blacklist($package) {
 	$ua = $package['headers_mixed']['User-Agent'];
 
 	foreach ($bb2_spambots_0 as $spambot) {
-		$pos = stripos($ua, $spambot);
+		$pos = strpos($ua, $spambot);
 		if ($pos !== FALSE && $pos == 0) {
 			return "17f4e8c8";
 		}
 	}
 
 	foreach ($bb2_spambots as $spambot) {
-		if (stripos($ua, $spambot) !== FALSE) {
+		if (strpos($ua, $spambot) !== FALSE) {
 			return "17f4e8c8";
 		}
 	}
