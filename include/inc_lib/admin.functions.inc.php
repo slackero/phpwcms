@@ -68,8 +68,6 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	
 	$a .= 'onmouseover="Tip(\''.$info.'\');" alt=""';	
 	
-	//$a .= getAltTitle('ID: '.$struct[$key]["acat_id"].($struct[$key]["acat_alias"] ? " \nALIAS: ".html_specialchars($struct[$key]["acat_alias"]) : ""));
-	
 	$a .= "></td>\n";
 	$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
 	$a .= "<td class=\"dir\"><strong>".$an."</strong></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
@@ -256,6 +254,9 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		$a .= "<img src=\"img/symbole/text_1.gif\" width=\"11\" height=\"15\" ";
 		
 		$info  = $GLOBALS["BL"]['be_func_struct_articleID'].": ".$article[$akey]["article_id"].'<br />';
+		if($article[$akey]["article_alias"]) {
+			$info .= 'ALIAS: '.$article[$akey]["article_alias"].'<br />';
+		}
 		$info .= $GLOBALS["BL"]['be_cnt_sortvalue'].": ".$article[$akey]["article_sort"].'<br />';
 		$info .= $GLOBALS["BL"]['be_priorize'].": ".$article[$akey]["article_priorize"];
 		
