@@ -39,7 +39,7 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 $IS_A_BOT = false;
 $BOTSLIST = (isset($phpwcms["BOTS"]) && is_array($phpwcms["BOTS"])) ? $phpwcms["BOTS"] : array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 foreach($BOTSLIST as $value) {
-	if(stristr($_SERVER['HTTP_USER_AGENT'], $value)) {
+	if(isset($_SERVER['HTTP_USER_AGENT']) && stristr($_SERVER['HTTP_USER_AGENT'], $value)) {
 		$IS_A_BOT = true;
 		break;
 	}

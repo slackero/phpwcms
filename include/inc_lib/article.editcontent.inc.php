@@ -105,12 +105,8 @@ if(intval($_GET["s"]) == 1) { //Show single article information
 		//Übernehmen der Editierungsdaten aus Artikelthema bearbeiten
 		$article["article_catid"]		= intval($_POST["article_cid"]);
 		$article["article_title"]		= clean_slweg($_POST["article_title"]);
-		
-		$article["article_alias"]		= clean_slweg($_POST["article_alias"]);
-		if(empty($article["article_alias"])) {
-			$article["article_alias"]	= $article["article_title"];
-		}
-		$article["article_alias"]		= remove_accents($article["article_alias"], true);
+
+		$article["article_alias"]		= proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
 		
 		$article["article_subtitle"]	= clean_slweg($_POST["article_subtitle"]);
 		$article["article_summary"]		= str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]) );

@@ -112,6 +112,17 @@ if(isset($_GET["id"])) {
 				}
 				mysql_free_result($result);
 			}
+			if($aktion[0] == 0) {
+				$sql  =	'SELECT article_cid, article_id FROM '.DB_PREPEND.'phpwcms_article WHERE ';
+				$sql .= "article_deleted=0 AND article_aktiv=1 AND acat_alias='".aporeplace($alias)."' LIMIT 1";
+				if($result = mysql_query($sql, $db)) {
+					if($row = mysql_fetch_row($result)) {
+						$aktion[0] = $row[0];
+						$aktion[1] = $row[1];
+					}
+					mysql_free_result($result);
+				}
+			}
 		}
 	}
 	

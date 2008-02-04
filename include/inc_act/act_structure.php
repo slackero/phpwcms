@@ -151,7 +151,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			$sql =	"UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
 			"acat_name='".getpostvar($_POST["acat_name"])."', ".
 			"acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
-			"acat_alias='".aporeplace(proof_alias($_POST["acat_id"], $_POST["acat_alias"], $db))."', ".
+			"acat_alias='".aporeplace(proof_alias($_POST["acat_id"], $_POST["acat_alias"]))."', ".
 			"acat_aktiv=".(isset($_POST["acat_aktiv"]) ? 1 : 0).", ".
 			"acat_public=".(isset($_POST["acat_public"]) ? 1 : 0).", ".
 			"acat_struct=".intval($_POST["acat_struct"]).", ".
@@ -383,38 +383,6 @@ if(isset($_POST['SubmitClose'])) {
 	headerRedirect(PHPWCMS_URL.'phpwcms.php?do=admin&p=6');
 } else {
 	headerRedirect($ref);
-}
-
-// Additional functions for article category structures
-function proof_alias($acat_id, $alias) {
-	
-	$alias = clean_slweg($alias, 150);
-	
-	if(empty($alias)) $alias = clean_slweg($_POST["acat_name"], 150);
-	
-	$alias = get_alnum_dashes($alias, true);
-	if($alias == 'index' && $acat_id != 'index') {
-		$alias = 'index'.date('jny');
-	} elseif($alias == 'aid') {
-		$alias = 'aid'.date('jny');
-	} elseif($alias == 'id') {
-		$alias = 'id'.date('jny');
-	}
-	
-	$sql  = "SELECT COUNT(acat_id) FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id != ".intval($acat_id);
-	$sql .= " AND acat_alias='".aporeplace($alias)."'";
-
-	if( _dbQuery($sql, 'COUNT') ) {
-
-		$sql  = "SELECT count(*) FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id != ".intval($acat_id);
-		$sql .= " AND acat_alias LIKE '".aporeplace($alias)."%'";
-		
-		if($count_alias = _dbQuery($sql, 'COUNT')) {
-			$alias .= '-' . $count_alias;
-		}
-	}
-	
-	return $alias;
 }
 
 function get_struct_del_id($s_id=0, $dbcon) {

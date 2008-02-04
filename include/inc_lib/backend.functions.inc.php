@@ -559,5 +559,81 @@ function set_language_cookie() {
 	setcookie('phpwcmsBELang', $_SESSION["wcs_user_lang"], time()+(3600*24*365), '/', getCookieDomain() );
 }
 
+// checks for alias and sets unique value
+function proof_alias($current_id, $alias='', $mode='CATEGORY') {
+
+	$current_id	= intval($current_id);
+	$alias		= trim($alias);
+
+	if($mode == 'CATEGORY' && $alias == '' && isset($_POST["acat_name"])) {
+		$alias = $_POST["acat_name"];
+	} elseif($mode == 'ARTICLE' && $alias == '' && isset($_POST["article_alias"])) {
+		$alias = $_POST["article_alias"];
+	}
+	
+	$alias = clean_slweg($alias, 150);
+	
+	$alias = get_alnum_dashes($alias, true);
+	if($alias == 'index' && $current_id != 'index') {
+		$alias = 'index'.date('jny');
+	} elseif($alias == 'aid') {
+		$alias = 'aid'.date('jny');
+	} elseif($alias == 'id') {
+		$alias = 'id'.date('jny');
+	}
+	
+	$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
+	$alias = trim( preg_replace('/__+/', '_', $alias), '_' );
+	
+	$where_acat		= 'acat_id != '.$current_id.' AND ';
+	$where_article	= 'article_id != '.$current_id.' AND ';
+	if($mode == 'CATEGORY') {
+		$where_article = '';
+	} elseif($mode == 'ARTICLE') {
+		$where_acat = '';
+	}
+	
+	// check alias against all structure alias
+	$sql  = "SELECT COUNT(acat_id) FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
+	$sql .= $where_acat;
+	$sql .= "acat_alias='".aporeplace($alias)."' LIMIT 1";
+	$acat_count = _dbQuery($sql, 'COUNT');
+	
+	$sql  = "SELECT COUNT(article_id) FROM ".DB_PREPEND."phpwcms_article WHERE ";
+	$sql .= $where_article;
+	$sql .= "article_alias='".aporeplace($alias)."' LIMIT 1";
+	$article_count = _dbQuery($sql, 'COUNT');
+
+	if( $acat_count > 0 || $article_count > 0 ) {
+
+		$sql  = "SELECT acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
+		$sql .= $where_acat;
+		$sql .= "acat_alias LIKE '".aporeplace($alias)."%'";
+		$all_acat_alias = _dbQuery($sql);
+		
+		$sql  = "SELECT article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
+		$sql .= $where_article;
+		$sql .= "article_alias LIKE '".aporeplace($alias)."%'";
+		$all_article_alias = _dbQuery($sql);
+
+		$all_alias = array();
+		foreach($all_acat_alias as $item) {
+			$item = $item['acat_alias'];
+			$all_alias[$item] = $item;
+		}
+		foreach($all_article_alias as $item) {
+			$item = $item['article_alias'];
+			$all_alias[$item] = $item;
+		}
+		$all_alias_count = count($all_alias);
+		while( isset( $all_alias[ $alias.'-'.$all_alias_count ] ) ) {
+			$all_alias_count++;
+		}
+		$alias .= '-'.$all_alias_count;
+	}
+	
+	return $alias;
+}
+
 
 ?>

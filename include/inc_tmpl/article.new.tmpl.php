@@ -56,7 +56,7 @@ $article_norss				= 1;
 if(isset($_POST["article_aktion"]) && intval($_POST["article_aktion"])) {
 	$article_cid		= intval($_POST["article_cid"]);
 	$article_title		= clean_slweg($_POST["article_title"]);
-	$article_alias		= get_alnum_dashes(clean_slweg($_POST["article_alias"]));
+	$article_alias		= proof_alias(0, $_POST["article_alias"], 'ARTICLE');
 	$article_keyword	= clean_slweg($_POST["article_keyword"]);
 	$article_aktiv		= isset($_POST["article_aktiv"]) ? 1 : 0;
 	$article_notitle	= isset($_POST["article_notitle"]) ? 1 : 0;
@@ -270,7 +270,7 @@ calEnd.setYearCombo(false);
               <td align="right" class="chatlist"><?php echo $BL['be_article_aredirect'] ?>:&nbsp;</td>
               <td><input name="article_redirect" type="text" id="article_redirect" class="f11" style="width: 440px" value="<?php echo html_specialchars($article_redirect) ?>" size="40" /></td>
 			</tr>
-			
+		
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 	<tr>
 		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>:&nbsp;</td>

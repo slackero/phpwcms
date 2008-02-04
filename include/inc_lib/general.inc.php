@@ -1786,7 +1786,7 @@ function get_alnum_dashes($string, $remove_accents = false, $replace_space='-') 
 		$string = remove_accents($string);
 	}
 	$string = str_replace(' ', $replace_space, $string);
-	return preg_replace('/[^a-z0-9\-_]/iuD', '', $string);
+	return preg_replace('/[^a-z0-9\-_]/i', '', $string);
 }
 
 // Thanks to: http://quickwired.com/smallprojects/php_xss_filter_function.php
