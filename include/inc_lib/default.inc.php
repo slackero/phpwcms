@@ -309,6 +309,15 @@ function getRemoteIP() {
 /************************************************************************/
 
 function phpwcms_getUserAgent() {
+
+	if(!isset($_SERVER['HTTP_USER_AGENT'])) {
+		return array(
+			'agent' => 'Other',
+			'version' => 0,
+			'platform' => 'Other'
+		);
+	}
+
 	if(preg_match('#MSIE ([0-9].[0-9]{1,2})(.*Opera ([0-9].[0-9]{1,2}))?#', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
 		if(isset($log_version[3])) {
 			$ver = $log_version[3];
