@@ -43,9 +43,21 @@ function replaceEmailAddress($str) {
 
 function rewriteEmailText($part) {
 	
-	$part[1] = str_replace('.', '<script type="text/javascript">document.write("&#"+"46");</script><noscript>(.)</noscript>', $part[1]);
-	$part[2] = '<script type="text/javascript">document.write("&#"+"64");</script><noscript>(@)</noscript>';
-	$part[3] = str_replace('.', '<script type="text/javascript">document.write("&#"+"46");</script><noscript>(.)</noscript>', $part[3]);
+	$part[1] = str_replace('.', '<script type="text/javascript">
+//<![CDATA[
+document.write("&#"+"46");
+//]]>
+</script><noscript>(.)</noscript>', $part[1]);
+	$part[2] = '<script type="text/javascript">
+//<![CDATA[
+document.write("&#"+"64");
+//]]>
+</script><noscript>(@)</noscript>';
+	$part[3] = str_replace('.', '<script type="text/javascript">
+//<![CDATA[
+document.write("&#"+"46");
+//]]>
+</script><noscript>(.)</noscript>', $part[3]);
 	
 	return $part[1].$part[2].$part[3];
 	
