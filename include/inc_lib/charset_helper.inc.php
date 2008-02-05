@@ -7,9 +7,6 @@
 *
 */
 
-//define( 'UTF8', PHPWCMS_ROOT.'/include/inc_ext/utf8' );
-//require_once( UTF8 . '/utf8.php' );
-
 // wordpress stuff
 function seems_utf8($Str) { # by bmorel at ssi dot fr
 	for ($i=0; $i<strlen($Str); $i++) {
