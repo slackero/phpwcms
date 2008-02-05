@@ -104,24 +104,24 @@ if(isset($_GET["id"])) {
 		reset($GLOBALS['_getVar']);
 		$alias = trim(key($GLOBALS['_getVar']));
 		if($alias && !strpos($alias, '=')) { // check alias for "=" what means no alias
-			$sql  = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
-			$sql .= "acat_trash=0 AND acat_aktiv=1 AND acat_alias='".aporeplace($alias)."' LIMIT 1";
+		
+			$alias = aporeplace($alias);
+		
+			$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+			$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $alias . "')";			 
+			$sql .= " UNION ";
+			$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+			$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $alias . "') ";
+			$sql .= "LIMIT 1";
+		
 			if($result = mysql_query($sql, $db)) {
 				if($row = mysql_fetch_row($result)) {
 					$aktion[0] = $row[0];
+					$aktion[1] = $row[1];
+					$aktion[3] = $row[2];
+					$aktion[4] = $row[3];
 				}
 				mysql_free_result($result);
-			}
-			if($aktion[0] == 0) {
-				$sql  =	'SELECT article_cid, article_id FROM '.DB_PREPEND.'phpwcms_article WHERE ';
-				$sql .= "article_deleted=0 AND article_aktiv=1 AND acat_alias='".aporeplace($alias)."' LIMIT 1";
-				if($result = mysql_query($sql, $db)) {
-					if($row = mysql_fetch_row($result)) {
-						$aktion[0] = $row[0];
-						$aktion[1] = $row[1];
-					}
-					mysql_free_result($result);
-				}
 			}
 		}
 	}
