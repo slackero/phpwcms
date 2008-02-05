@@ -59,7 +59,8 @@ if(!isset($content['image_list'])) {
 			'zoom'		=> 0,
 			'caption'	=> '',
 			'lightbox'	=> 0,
-			'nocaption'	=> 0
+			'nocaption'	=> 0,
+			'crop'		=> 0
 	
 		);
 
