@@ -87,9 +87,6 @@ echo phpwcmsversionCheck();
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
     <li><a href="http://phpsniff.sourceforge.net/" target="_blank"><strong>phpSniff</strong></a>,
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
-    <li><a href="http://snoopy.sourceforge.net/" target="_blank"><strong>Snoopy</strong></a>,
-      Copyright &copy; 1999-2000 ispi,
-      <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
     <li><a href="http://www.solmetra.com" target="_blank"><strong>Solmetra
       FormValidator</strong></a>,
       Copyright &copy; UAB Solmetra,

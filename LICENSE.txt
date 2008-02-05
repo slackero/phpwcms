@@ -41,17 +41,12 @@ Extensions are copyright of their respective owners:
       http://phpsniff.sourceforge.net/
 	  GNU Lesser Public License Version 2.1
 	  
-   7. Snoopy
-      http://snoopy.sourceforge.net/
-	  Copyright (c) 1999-2000 ispi
-      GNU Lesser Public License Version 2.1
-	  
    8. Solmetra FormValidator
       http://www.solmetra.com/
 	  Copyright (c) UAB Solmetra
       GNU General Public License Version 2
 	  
-   9. Spaw1 / Spaw2
+   9. Spaw2
       http://www.solmetra.com/
 	  Copyright (c) UAB Solmetra
       GNU General Public License Version 2
@@ -60,11 +55,6 @@ Extensions are copyright of their respective owners:
       http://smiledsoft.com/
 	  Copyright (c) Yuriy Horobey, SmiledSoft.com
       Special licence for use in phpwcms only
-	  
-  11. xajax
-      http://www.xajaxproject.org/
-	  Copyright © 2005 Jared White & J. Max Wilson
-      GNU Lesser Public License Version 2.1
 	  
   12. JavaScript Browser Sniffer
 	  GNU General Public License Version 2
