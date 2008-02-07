@@ -1162,4 +1162,7 @@ $BL['be_fx_3']							= 'Effekt 3';
 $BL['be_image_zoom']					= 'Gro&szlig;ansicht';
 $BL['be_image_delete_js']				= 'Soll der gewählte Bildeintrag wirklich gelöscht werden?';
 
+$BL['be_news']							= 'News';
+$BL['be_news_create']					= 'Neue News erstellen';
+
 ?>

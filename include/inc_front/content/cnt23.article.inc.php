@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2007 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -399,20 +399,46 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_value = array_map('trim', $form_value);
 								$form_value = array_diff($form_value, array(''));
 								if(count($form_value)) {
+									$form_optgroup = false;
 									foreach($form_value as $option_value) {
+									
+										// search for OPTGROUP
+										if( strpos(strtoupper($option_value), 'OPTGROUP') === 0 ) {
+											$option_value = explode(' ', $option_value, 2);
+											if(isset($option_value[1]) ) {
+												$option_value = trim($option_value[1]);
+												$form_field .= '<optgroup label="';
+												$form_field .= $option_value == '' ? 'Please select:' : html_specialchars($option_value);
+												$form_field .= '">'.LF;
+												$form_optgroup = true;
+											}
+											continue;
+										} elseif(strpos(strtoupper($option_value), '/OPTGROUP') === 0) {
+											if($form_optgroup == true) {
+												$form_field .= '</optgroup>'.LF;
+												$form_optgroup = false;
+											}
+											continue;							
+										}
 									
 										if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $option_value) {
 											$option_value .= ' selected';
 										}
 										
 										$option_value = html_specialchars($option_value);
-										if(strtolower(substr($option_value, -9)) != ' selected') {
+										if(substr($option_value, -2) === ' -') {
+											$form_field .= '<option value=""';
+											$option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
+										} elseif(strtolower(substr($option_value, -9)) != ' selected') {
 											$form_field .= '<option value="'.$option_value.'"';
 										} else {
 											$option_value = str_replace(' selected', '', $option_value);
 											$form_field .= '<option value="'.$option_value.'" selected="selected"';
 										}
 										$form_field .= '>'.$option_value."</option>\n";
+									}
+									if($form_optgroup == true) {
+										$form_field .= '</optgroup>'.LF;
 									}
 								}
 								$form_field .= '</select>';
@@ -460,6 +486,27 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_value = array_diff($form_value, array(''));
 								if(count($form_value)) {
 									foreach($form_value as $option_value) {
+									
+										// search for OPTGROUP
+										if( strpos(strtoupper($option_value), 'OPTGROUP') === 0 ) {
+											$option_value = explode(' ', $option_value, 2);
+											if(isset($option_value[1]) ) {
+												$option_value = trim($option_value[1]);
+												$form_field .= '<optgroup label="';
+												$form_field .= $option_value == '' ? 'Please select:' : html_specialchars($option_value);
+												$form_field .= '">'.LF;
+												$form_optgroup = true;
+											}
+											continue;
+										} elseif(strpos(strtoupper($option_value), '/OPTGROUP') === 0) {
+											if($form_optgroup == true) {
+												$form_field .= '</optgroup>'.LF;
+												$form_optgroup = false;
+											}
+											continue;							
+										}
+									
+									
 										// try to set given POST var as selected
 										if(isset($POST_val[$POST_name])) {
 											if(is_array($POST_val[$POST_name])) {
@@ -474,13 +521,19 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										}
 										
 										$option_value = html_specialchars($option_value);
-										if(substr($option_value, -9) != ' selected') {
+										if(substr($option_value, -2) === ' -') {
+											$form_field .= '<option value=""';
+											$option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
+										} elseif(substr($option_value, -9) != ' selected') {
 											$form_field .= '<option value="'.$option_value.'"';
 										} else {
 											$option_value = str_replace(' selected', '', $option_value);
 											$form_field .= '<option value="'.$option_value.'" selected="selected"';
 										}
 										$form_field .= '>'.$option_value."</option>\n";
+									}
+									if($form_optgroup == true) {
+										$form_field .= '</optgroup>'.LF;
 									}
 								}
 								$form_field .= '</select>';

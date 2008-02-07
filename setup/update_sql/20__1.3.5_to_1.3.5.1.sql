@@ -24,5 +24,5 @@ ALTER TABLE `phpwcms_guestbook` CHANGE `guestbook_created` `guestbook_created` I
 ALTER TABLE `phpwcms_userlog` CHANGE `logged_change` `logged_change` INT(11) DEFAULT '0' NOT NULL ;
 ALTER TABLE `phpwcms_userlog` CHANGE `logged_start` `logged_start` INT(11) DEFAULT '0' NOT NULL ;
 
-ALTER TABLE `phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(252) NOT NULL ;
+ALTER TABLE `phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(255) NOT NULL ;
 ALTER TABLE `phpwcms_articlecat` DROP INDEX `acat_alias`, ADD INDEX `acat_alias` (`acat_alias`);

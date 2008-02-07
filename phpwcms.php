@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2007 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -85,6 +85,8 @@ switch ($do) {
 						include_once(PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'); //loading article funtions
 						$subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1", $p, "1", 0);
+						$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+						$subnav .= subnavtext($BL['be_news'], "phpwcms.php?do=articles&amp;p=3", $p, "3", 0);
 						break;
 
 	case "files":		//files
@@ -121,22 +123,27 @@ switch ($do) {
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1"></td></tr>'."\n";
 							$subnav .= subnavtext($BL['be_subnav_msg_forum'], "phpwcms.php?do=messages&amp;p=6", $p, "6", 0);
 							*/
-							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+							//$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 						}
+						/*
+							//disable internal messages
+						
 						$subnav .= subnavtext($BL['be_subnav_msg_center'], "phpwcms.php?do=messages", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_msg_new'], "phpwcms.php?do=messages&amp;p=1", $p, "1", 0);
+						*/
 						break;
 
+/*	//OFF
 	case "discuss":		//discuss
 						$wcsnav["discuss"] = "<strong class=\"navtexta\">".$wcsnav["discuss"]."</strong>";
 						break;
-
-	case "chat":		//chat
+	//OFF
+	case "chat":		//chat OFF
 						$wcsnav["chat"] = "<strong class=\"navtexta\">".$wcsnav["chat"]."</strong>";
 						$subnav .= subnavtext($BL['be_subnav_chat_main'], "phpwcms.php?do=chat", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_chat_internal'], "phpwcms.php?do=chat&amp;p=1", $p, "1", 0);
 						break;
-
+*/
 	case "profile":		//profile
 						$wcsnav["profile"] = "<strong class=\"navtexta\">".$wcsnav["profile"]."</strong>";
 						if(!empty($_POST["form_aktion"])) {
@@ -371,18 +378,18 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
       		include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'); //Abschlieﬂende Tabellenzeile = dicke Linie
       	}
       	break;
-
+/*
       	case "chat":	//Chat
       	switch($p) {
       		case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php'); break; //Chat Startseite
       		case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php'); break; //Chat/Listing
       	}
       	break;
-
+*/
       	case "messages":	//Messages
       	switch($p) {
-      		case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'); break; //Messages Overview
-      		case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php');   break;	//New Message
+      	//	case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'); break; //Messages Overview
+      	//	case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php');   break;	//New Message
       		case 2: //Newsletter subscription
       		if($_SESSION["wcs_user_admin"] == 1) include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.subscription.tmpl.php');
       		break;
@@ -478,7 +485,12 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
       	switch ($p) {
       		case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php');	break;
       		case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.new.tmpl.php');			break; //Neuen Artikel anlegen
-      		case 2: include_once (PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php');	break; //Contentedit
+      		case 2: include_once (PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php');		break; //Contentedit
+			
+			 //News
+			case 3: include_once (PHPWCMS_ROOT.'/include/inc_lib/news.inc.php');
+					include_once (PHPWCMS_ROOT.'/include/inc_tmpl/news.tmpl.php');
+					break;
       	}
       	break;
 		
@@ -503,7 +515,7 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 	  <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
 	  <td colspan="5" valign="bottom" class="navtext">
 	  	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">phpwcms <?php echo $phpwcms["release"] ?> 
-			&copy; 2003&#8212;2007 Oliver Georgi. Licensed under GPL. Extensions are copyright
+			&copy; 2003&#8212;<?php echo date('Y'); ?> Oliver Georgi. Licensed under GPL. Extensions are copyright
 			of their respective owners.</a></td>
   </tr>
   <tr><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="8"></td>

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2007 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -285,7 +285,7 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
   </tr>
   <tr>
     <td style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;" bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF" style="padding: 0 3px 5px 3px;font-size:10px;"><strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong> Copyright &copy; 2003&#8212;2007
+    <td bgcolor="#FFFFFF" style="padding: 0 3px 5px 3px;font-size:10px;"><strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong> Copyright &copy; 2003&#8212;<?php echo date('Y'); ?>
             Oliver Georgi. Extensions are copyright of their respective owners.
             Visit <a href="http://www.phpwcms.de" target="_blank">http://www.phpwcms.de</a> for
             details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a> and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited

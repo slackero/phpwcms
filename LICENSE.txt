@@ -1,7 +1,7 @@
 *******************************************************************************************
 
   --- phpwcms --- licensing conditions
-  Copyright (c) 2002-2007 Oliver Georgi <oliver@phpwcms.de>
+  Copyright (c) 2002-2008 Oliver Georgi <oliver@phpwcms.de>
   revised 21/02/2007
 
 *******************************************************************************************
@@ -21,7 +21,7 @@ Extensions are copyright of their respective owners:
 	  
    2. FCKeditor
       http://www.fckeditor.net/
-	  Copyright (c) 2003-2007 Frederico Caldeira Knabben
+	  Copyright (c) 2003-2008 Frederico Caldeira Knabben
       GNU General Public License Version 2
 	  
    3. FeedCreator

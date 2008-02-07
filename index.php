@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2007 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -95,7 +95,7 @@ $content['page_start']  = PHPWCMS_DOCTYPE;
 $content['page_start'] .= '<!--
 	phpwcms | free open source content management system
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
-	phpwcms is copyright 2003-2007 of Oliver Georgi. Extensions are copyright of
+	phpwcms is copyright 2003-'.date('Y').' of Oliver Georgi. Extensions are copyright of
 	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'//-->'.LF;
 $content['page_start'] .= '<title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
 $content['page_start'] .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;

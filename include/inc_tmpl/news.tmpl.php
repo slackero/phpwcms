@@ -3,21 +3,21 @@
    Copyright notice
    
    (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
+
+This script is part of PHPWCMS. The PHPWCMS web content management system is
+free software; you can redistribute it and/or modify it under the terms of
+the GNU General Public License as published by the Free Software Foundation;
+either version 2 of the License, or (at your option) any later version.
+
+The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
+A copy is found in the textfile GPL.txt and important notices to the license
+from the author is found in LICENSE.txt distributed with these scripts.
+
+This script is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
 // ----------------------------------------------------------------
@@ -27,103 +27,26 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-$_entry['query']			= '';
-
-// create pagination
-if(isset($_GET['c'])) {
-	$_SESSION['list_user_count'] = $_GET['c'] == 'all' ? '99999' : intval($_GET['c']);
-}
-if(isset($_GET['page'])) {
-	$_SESSION['glossary_page'] = intval($_GET['page']);
-}
-
-// set default values for paginating
-if(empty($_SESSION['list_user_count'])) {
-	$_SESSION['list_user_count'] = 25;
-}
-
-// paginate and search form processing
-if(isset($_POST['do_pagination'])) {
-
-	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
-	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
-
-	$_SESSION['filter']			= clean_slweg($_POST['filter']);
-	if(empty($_SESSION['filter'])) {
-		unset($_SESSION['filter']);
-	} else {
-		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
-		$_POST['filter']	= $_SESSION['filter'];
-	}
-	
-	$_SESSION['glossary_page'] = intval($_POST['page']);
-
-}
-
-if(empty($_SESSION['glossary_page'])) {
-	$_SESSION['glossary_page'] = 1;
-}
-
-$_entry['list_active']		= isset($_SESSION['list_active'])	? $_SESSION['list_active']		: 1;
-$_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_inactive']	: 1;
+// News
 
 
-// set correct status query
-if($_entry['list_active'] != $_entry['list_inactive']) {
-	
-	if(!$_entry['list_active']) {
-		$_entry['query'] .= 'glossary_status=0';
-	}
-	if(!$_entry['list_inactive']) {
-		$_entry['query'] .= 'glossary_status=1';
-	}
-	
-} else {
-	$_entry['query'] .= 'glossary_status!=9';
-}
 
-if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
-	
-	$_entry['filter_array'] = array();
-
-	foreach($_SESSION['filter'] as $_entry['filter']) {
-		//usr_name, usr_login, usr_email
-		$_entry['filter_array'][] = "CONCAT(glossary_title, glossary_tag, glossary_keyword, glossary_text) LIKE '%".aporeplace($_entry['filter'])."%'";
-	}
-	if(count($_entry['filter_array'])) {
-		
-		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
-		$_entry['query'] .= $_SESSION['filter'];
-	
-	}
-
-} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
-
-	$_entry['query'] .= $_SESSION['filter'];
-
-}
-
-
-// paginating values
-$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE '.$_entry['query'], 'COUNT');
-$_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
-if($_SESSION['glossary_page'] > $_entry['pages_total']) {
-	$_SESSION['glossary_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
-}
 
 
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title" style="margin-bottom:10px"><?php echo $BL['be_news'] ?></h1>
 
 <div class="navBarLeft imgButton chatlist">
 	&nbsp;&nbsp;
-	<a href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><img src="img/famfamfam/silk_icons_gif/tag_blue_add.gif" alt="Add" border="0" /><span><?php echo $BLM['create_new'] ?></span></a>
+	<a href="<?php echo NEWS_HREF ?>&amp;edit=0" title="<?php echo $BL['be_news_create'] ?>">
+		<img src="img/famfamfam/silk_icons_gif/page_white_add.gif" alt="<?php echo $BL['be_news_create'] ?>" border="0" />
+		<span><?php echo $BL['be_news_create'] ?></span>
+	</a>
 </div>
 
 
-<form action="<?php echo GLOSSARY_HREF ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
+<form action="<?php echo NEWS_HREF ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -241,3 +164,5 @@ if($row_count) {
 
 	<tr><td colspan="5"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
 </table>
+
+

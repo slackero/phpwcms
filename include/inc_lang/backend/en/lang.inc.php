@@ -1173,4 +1173,7 @@ $BL['be_fx_3']							= 'effect 3';
 $BL['be_image_zoom']					= 'zoomed view';
 $BL['be_image_delete_js']				= 'Do you want to delete selected image entry?';
 
+$BL['be_news']							= 'News';
+$BL['be_news_create']					= 'Create news entry';
+
 ?>
