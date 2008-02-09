@@ -27,16 +27,13 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-//Editieren des Verzeichnisses
-	$dir_id = intval($_GET["editdir"]);
-				
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
 		$dir_id 		= intval($_POST["dir_id"]);
 		$dir_aktiv		= intval($_POST["dir_aktiv"]);;
 		$dir_public 	= intval($_POST["dir_public"]);;
 		$dir_newname	= clean_slweg($_POST["dir_newname"]);
+		$dir_longinfo	= clean_slweg($_POST["dir_longinfo"]);
 		if(isEmpty($dir_newname)) $dir_error = 1;
 		//Eintragen der aktualisierten Verzeichnisinfos
 		if(!isset($dir_error)) {
@@ -44,6 +41,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					"f_name='".aporeplace($dir_newname)."', ".
 					"f_aktiv=".$dir_aktiv.", ".
 					"f_public=".$dir_public.", ".
+					"f_longinfo='".aporeplace($dir_longinfo)."', ".
 					"f_created=CONCAT_WS('|', f_changed, '".time()."') ".
 					"WHERE f_kid=0 AND f_id=".$dir_id.
 					" AND f_uid=".$_SESSION["wcs_user_id"];
@@ -51,13 +49,19 @@ if (!defined('PHPWCMS_ROOT')) {
 				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
 			}
 		}
+	
+	} else {
+	
+		//Editieren des Verzeichnisses
+		$dir_id = empty($_GET["editdir"]) ? 0 : intval($_GET["editdir"]);
+	
 	}
 	//Ende Auswerten Formular
 				
 	//Wenn ID angegeben, dann -> oder aber Root Verzeichnis
 	if($dir_id) {
-		$sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$dir_id.
-			   " AND f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 AND f_kid=0 LIMIT 1;";
+		$sql = "SELECT f_id, f_name, f_aktiv, f_public, f_longinfo FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$dir_id.
+			   " AND f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 AND f_kid=0 LIMIT 1";
 		if($result = mysql_query($sql, $db) or die("error while reading folder name")) {
 			if($row = mysql_fetch_row($result)) {
 				$dir_oldname = html_specialchars($row[1]);
@@ -66,6 +70,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					$dir_newname	= $dir_oldname;
 					$dir_aktiv		= $row[2];
 					$dir_public		= $row[3];
+					$dir_longinfo	= $row[4];
 				}
 				$ja = 1;
 			}
@@ -74,48 +79,57 @@ if (!defined('PHPWCMS_ROOT')) {
 
 if($ja) {
 
-?><form action="phpwcms.php?do=files&f=0" method="post" name="editdir"><table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
+?>
+<form action="phpwcms.php?do=files&amp;f=0" method="post" name="editdir" id="editdir">
+<table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
 	<tr>
-		<td width="67" rowspan="2" valign="top"><a href="phpwcms.php?do=files&f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
-		<td width="471"><img src="img/leer.gif" alt="" width="1" height="6"></td>
+		<td width="67" rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0" /></a></td>
+		<td width="471"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
 	</tr>
 	<tr><td class="title"><?php echo $BL['be_fpriv_edittitle'] ?></td></tr>
-	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td width="67" align="right" class="v09"><?php echo $BL['be_fpriv_name'] ?>:&nbsp;</td>
 		<td class="v10"><strong><?php echo $dir_oldname ?></strong></td>
 	</tr>
-	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-	<tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
-	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+	<tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td>
+	</tr>
+	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	<?php if(isset($dir_error)) { ?>
 	<tr>
-	  <td align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="1"></td>
+	  <td align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 	  <td class="v10"><strong style="color:#FF3300;"><?php echo $BL['be_fpriv_error'] ?></strong></td>
 	</tr>
-	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 	<?php } ?>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_newname'] ?>:&nbsp;</td>
-		<td><input name="dir_newname" type="text" class="f10b" style="width: 450px;" id="dir_newname" value="<?php echo html_specialchars($dir_newname) ?>" size="40" maxlength="250"></td>
+		<td><input name="dir_newname" type="text" class="f10b" style="width: 450px;" id="dir_newname" value="<?php echo html_specialchars($dir_newname) ?>" size="40" maxlength="250" /></td>
 	</tr>
-	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+	<tr>
+		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
+		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="6" class="v10" id="dir_longinfo" style="width: 450px;"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
+	</tr>	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><input name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?>></td>
+			<td><input name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> /></td>
 			<td class="v10"><strong><?php echo $BL['be_ftptakeover_active'] ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?>></td>
+			<td><input name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?> /></td>
 			<td class="v10"><strong><?php echo $BL['be_ftptakeover_public'] ?></strong></td>
 		</tr>
 		</table></td>
 	</tr>
-	<tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+	<tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
-		<td width="67" valign="top"><input name="dir_id" type="hidden" id="dir_id" value="<?php echo $dir_id ?>"><input name="dir_aktion" type="hidden" id="dir_aktion" value="2"></td>
-		<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fpriv_updatebutton'] ?>"></td>
+		<td width="67" valign="top"><input name="dir_id" type="hidden" id="dir_id" value="<?php echo $dir_id ?>" />
+		<input name="dir_aktion" type="hidden" id="dir_aktion" value="2" /></td>
+		<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fpriv_updatebutton'] ?>" /></td>
 	</tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-	<tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+	<tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 </table></form><?php } ?>
