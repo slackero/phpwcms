@@ -31,7 +31,9 @@ require($root.'/include/inc_lib/imagick.convert.inc.php');
 
 // get segments: cmsimage.php/%WIDTH%x%HEIGHT%x%CROP%x%QUALITY%/%HASH%.%EXT%
 // by default this should be enough: cmsimage.php/%WIDTH%x%HEIGHT/%HASH%.%EXT%
-$data = explode('cmsimage.php/', $_SERVER['REQUEST_URI'], 2);
+$request_uri		= isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF'];
+$query_separator	= strpos($request_uri, 'cmsimage.php?') !== FALSE ? '?' : '/';
+$data				= explode('cmsimage.php'.$query_separator, $request_uri, 2);
 if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 
 	$data = explode('/', $data[1]);
