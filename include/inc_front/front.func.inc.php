@@ -428,7 +428,11 @@ function get_actcat_articles_data($act_cat_id) {
 	global $db;
 
 	$data 				= array();
-	$ao 				= get_order_sort($content['struct'][ $act_cat_id ]['acat_order']);
+	if(isset($content['struct'][ $act_cat_id ])) {
+		$ao = get_order_sort($content['struct'][ $act_cat_id ]['acat_order']);
+	} else {
+		return $data;
+	}
 	$as					= $content['struct'][ $act_cat_id ];
 	$as['acat_maxlist']	= intval($as['acat_maxlist']);
 

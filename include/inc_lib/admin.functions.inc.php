@@ -123,6 +123,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 	$show_sort			= (!$article_order || $article_order == 1) ? 1 : 0;
 	$ao 				= get_order_sort($article_order);
 	$count_article		= 0;
+	$sbutton_string		= array();
 	
 	$sql  = "SELECT *, ";
 	$sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date "; //, article_deleted

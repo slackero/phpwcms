@@ -467,22 +467,6 @@ function MailVal($Addr, $Level, $Timeout = 15000) {
 	// just simple alias function
     return is_valid_email($Addr) ? 0 : 1;
 }
-/*
-function remove_accents($string) {
-
-	$string = strtr($string,
-			  		array('ή' => 'TH', 'ώ' => 'th', 'Π' => 'DH', 'π' => 'dh', 'ί' => 'ss',
-  						  '' => 'OE', '' => 'oe', 'Ζ' => 'AE', 'ζ' => 'ae', 'µ' => 'u',
-						  'Δ' => 'AE', 'ά' => 'UE', 'Φ' => 'OE', 'δ' => 'ae', 'ό' => 'ue',
-						  'φ' => 'oe', '"' => '_' , "'" => '_' , '\\' => '_'
-						  )
-					);	//'/' => '_' , 
-	$string = strtr($string,
-   					"ΐΑΒΓΕΗΘΙΚΛΜΝΞΟΡÒΣΤΥΨΩΪΫέΰαβγεηθικλμνξορςστυψωϊϋύÿ {}?΄#`",
-   					"SZszYAAAAACEEEEIIIINOOOOOUUUYaaaaaceeeeiiiinooooouuuyy_______");
-	return $string;
-}
-*/
 
 function read_textfile($filename) {
 	if(is_file($filename)) {

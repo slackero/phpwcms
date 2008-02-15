@@ -105,13 +105,13 @@ if(isset($_GET["id"])) {
 		$alias = trim(key($GLOBALS['_getVar']));
 		if($alias && !strpos($alias, '=')) { // check alias for "=" what means no alias
 		
-			$alias = aporeplace($alias);
+			$where_alias = aporeplace($alias);
 		
 			$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-			$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $alias . "')";			 
+			$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "')";			 
 			$sql .= " UNION ";
 			$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-			$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $alias . "') ";
+			$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "') ";
 			$sql .= "LIMIT 1";
 		
 			if($result = mysql_query($sql, $db)) {
@@ -120,6 +120,8 @@ if(isset($_GET["id"])) {
 					$aktion[1] = $row[1];
 					$aktion[3] = $row[2];
 					$aktion[4] = $row[3];
+					
+					define('PHPWCMS_ALIAS', $alias);
 				}
 				mysql_free_result($result);
 			}
@@ -675,7 +677,9 @@ if(!stristr($block["htmlhead"], '"description"') && $content["struct"][$aktion[0
 // insert keywords meta tag if not definied
 if(!stristr($block["htmlhead"], '"keywords"') && !empty($content['all_keywords'])) {
 	$content['all_keywords'] = convertStringToArray($content['all_keywords']);
-	$block["htmlhead"] .= '  <meta name="keywords" content="'.html_specialchars(implode(', ', $content['all_keywords'])).'" />'.LF;
+	if(count($content['all_keywords'])) {
+		$block["htmlhead"] .= '  <meta name="keywords" content="'.html_specialchars(implode(', ', $content['all_keywords'])).'" />'.LF;
+	}
 }
 
 // -------------------------------------------------------------
