@@ -567,8 +567,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
 	if($mode == 'CATEGORY' && $alias == '' && isset($_POST["acat_name"])) {
 		$alias = $_POST["acat_name"];
-	} elseif($mode == 'ARTICLE' && $alias == '' && isset($_POST["article_alias"])) {
-		$alias = $_POST["article_alias"];
+	} elseif($mode == 'ARTICLE' && $alias == '' && isset($_POST["article_title"])) {
+		$alias = $_POST["article_title"];
 	}
 	
 	$alias = clean_slweg($alias, 150);
