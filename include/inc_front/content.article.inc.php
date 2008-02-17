@@ -162,6 +162,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		//build image/image link
 		$thumb_image = false;
 		$thumb_img = '';
+		$popup_img = '';
 		
 		$img_thumb_name		= '';
 		$img_thumb_rel		= '';
@@ -224,10 +225,14 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 							$return_false = 'return false;';
 						}
 
-						if(empty($row["article_image"]["lightbox"]) && !empty($caption[2][0])) {
+						if(empty($row["article_image"]["lightbox"])) {
 							$thumb_href  = '<a href="'.$popup_img.'" onclick="window.open(\''.$open_link;
 							$thumb_href .= "','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');".$return_false;
-							$thumb_href .= '"'.$caption[2][1].'>';
+							$thumb_href .= '"';
+							if(!empty($caption[2][1])) {
+								$thumb_href .= $caption[2][1];
+							}
+							$thumb_href .= '>';
 						} else {
 						
 							//lightbox
@@ -238,12 +243,10 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 								$thumb_href .= ' title="'.parseLightboxCaption($row["article_image"]["caption"]).'"';
 							}
 							$thumb_href .= ' rel="lightbox" target="_blank">';
-							
-						
 						}
 						
 						$thumb_img = $thumb_href.$thumb_img.'</a>';
-						
+						$popup_img = $thumb_img;
 						
 					}
 				} else {
@@ -363,6 +366,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
 			$row["article_image"]['tmplfull'] = render_cnt_date($row["article_image"]['tmplfull'], $content["article_date"], strtotime($row['article_begin']), strtotime($row['article_end']));
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ZOOMIMAGE', $popup_img);
+			
 			$content["summary"] .= $row["article_image"]['tmplfull'];
 			$row["article_image"]['tmplfull'] = 1;
 		
