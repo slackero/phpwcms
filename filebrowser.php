@@ -73,17 +73,24 @@ $js_aktion = (isset($_GET["opt"])) ? intval($_GET["opt"]) : 0;
 
 switch($js_aktion) {
 
-	case 0: 	$titel = $BL['IMAGE_TITLE'];	$filetype = $BL['IMAGE_FILES'];		break;
-	case 1: 	$titel = $BL['IMAGE_TITLE'];	$filetype = $BL['IMAGE_FILES'];		break;
-	case 2: 	$titel = $BL['MEDIA_TITLE'];	$filetype = $BL['MEDIA_FILES'];		break;
-	case 3: 	$titel = $BL['IMAGE_TITLE'];	$filetype = $BL['IMAGE_FILES'];		break;
-	case 4: 	$titel = $BL['FILE_TITLE'];		$filetype = $BL['FILES'];			break;
-	case 5:		$titel = $BL['IMAGE_TITLE'];	$filetype = $BL['IMAGE_FILES'];		break;
-	case 6:		$titel = $BL['MEDIA_TITLE'];	$filetype = $BL['MEDIA_FILES'];		break;
-	case 7:		$titel = $BL['IMAGE_TITLE'];	$filetype = $BL['IMAGE_FILES'];		break;
+	case 0: 	
+	case 1: 	
+	case 3: 
+	case 7:
+	case 8:
+	case 5:		$titel		= $BL['IMAGE_TITLE'];	
+				$filetype	= $BL['IMAGE_FILES'];
+				break;
 	
-				// content part images special
-	case 8:		$titel = $BL['IMAGE_TITLE'];	$filetype = $BL['IMAGE_FILES'];		break;
+	case 9:
+	case 4: 	$titel		= $BL['FILE_TITLE'];		
+				$filetype	= $BL['FILES'];
+				break;
+	
+	case 2:
+	case 6:		$titel		= $BL['MEDIA_TITLE'];	
+				$filetype	= $BL['MEDIA_FILES'];
+				break;
 	
 }
 
@@ -256,7 +263,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 			$filename = html_specialchars($file_row["f_name"]);
 			
 			$thumb_image = true;
-			if( $js_aktion != 2 && $js_aktion != 4) {
+			if( $js_aktion != 2 && $js_aktion != 4 && $js_aktion != 9 ) {
 				// check if file can have thumbnail - if so it can be choosen for usage
 				$thumb_image = get_cached_image(
 			 					array(	"target_ext"	=>	$file_row["f_ext"],
@@ -292,6 +299,11 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 						 	 break;
 				
 					case 4:  $js = "addFile(window.opener.document.articlecontent.cfile_list,'".$filename."','".$file_row["f_id"]."');";
+							 $js_files_all[] = $js;
+							 $add_all = true;
+							 break;
+							 
+					case 9:  $js = "window.opener.addFile('".$file_row["f_id"]."', '".$filename."');";
 							 $js_files_all[] = $js;
 							 $add_all = true;
 							 break;
