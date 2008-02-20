@@ -1175,5 +1175,29 @@ $BL['be_image_delete_js']				= 'Do you want to delete selected image entry?';
 
 $BL['be_news']							= 'News';
 $BL['be_news_create']					= 'Create news entry';
+$BL['be_tags']							= 'tags';
+$BL['be_title']							= 'title';
+$BL['be_delete_dataset']				= 'Delete selected dataset?';
+$BL['be_action_notvalid']				= 'Your last selected action was dropped because it was not valid!';
+$BL['be_action_deleted']				= 'The selected dataset having ID {ID} was deleted.';
+$BL['be_action_status']					= 'The status of the selected dataset having ID {ID} was changed.';
+$BL['be_data_select_failed']			= 'Accessing the selected data has failed. Please proof your selection.';
+$BL['be_alias']							= 'alias';
+$BL['be_url_value']						= 'URL title';
+$BL['default_date_format']				= 'DD/MM/YYYY';
+$BL['default_date']						= 'd/m/Y'; // do not use something diffrent than "d, m, Y" here
+$BL['default_date_delimiter']			= '/';
+$BL['default_time_format']				= 'HH:MM';
+$BL['default_time']						= 'H:i';  // do not use something diffrent than "H, i" here
+$BL['be_place']							= 'place';
+$BL['be_teasertext']					= 'teaser text';
+$BL['be_published']						= 'publish';
+$BL['be_show_archived']					= 'available after end date (archive)';
+$BL['be_save_copy']						= 'save entry as duplicate';
+$BL['be_read_more_link']				= 'more URL/ID';
+$BL['be_news_name_mandatory']			= "Fill in a news title. It's mandatory!";
+$BL['be_successfully_saved']			= 'All data were saved successfully!';
+$BL['be_successfully_updated']			= 'All data were updated successfully!';
+$BL['be_error_while_save']				= 'Storing data failed.';
 
 ?>

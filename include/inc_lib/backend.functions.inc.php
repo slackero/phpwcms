@@ -527,10 +527,13 @@ function isContentPartSet($value='') {
  *	Show System Status Message
  */
 function show_status_message($return_status=false) {
-	if(empty($_SESSION['system_status']['msg'])) return NULL;
-	$status  = '<div class="status_message_' . $_SESSION['system_status']['type'] .'">';
-	$status .= html_specialchars($_SESSION['system_status']['msg']) . '</div>';
-	$_SESSION['system_status']['msg'] = '';
+	if(empty($_SESSION['system_status']['msg'])) {
+		$status = '';
+	} else {
+		$status  = '<div class="status_message_' . $_SESSION['system_status']['type'] .'">';
+		$status .= html_specialchars($_SESSION['system_status']['msg']) . '</div>';
+		$_SESSION['system_status']['msg'] = '';
+	}
 	if($return_status) {
 		return $status;
 	} else {
@@ -541,7 +544,12 @@ function show_status_message($return_status=false) {
 /*
  *	Set System Status Message
  */
-function set_status_message($msg='', $type='info') {
+function set_status_message($msg='', $type='info', $replace=array()) {
+	if(is_array($replace) && count($replace)) {
+		foreach($replace as $key => $item) {
+			$msg = str_replace('{'.strtoupper($key).'}', $item, $msg);
+		}
+	}
 	$_SESSION['system_status']['msg']  = $msg;
 	switch($type) {
 		case 'success':
@@ -569,17 +577,21 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		$alias = $_POST["acat_name"];
 	} elseif($mode == 'ARTICLE' && $alias == '' && isset($_POST["article_title"])) {
 		$alias = $_POST["article_title"];
+	} elseif($mode == 'CONTENT' && $alias == '' && ( isset($_POST["cnt_title"]) || isset($_POST["cnt_name"]) )) {
+		$alias = trim($_POST["cnt_title"]) == '' ? $_POST["cnt_name"] : $_POST["cnt_title"];
 	}
 	
 	$alias = clean_slweg($alias, 150);
 	
 	$alias = get_alnum_dashes($alias, true);
 	if($alias == 'index' && $current_id != 'index') {
-		$alias = 'index'.date('jny');
+		$alias = 'index'.date('Y-n-j');
 	} elseif($alias == 'aid') {
-		$alias = 'aid'.date('jny');
+		$alias = 'aid'.date('Y-n-j');
 	} elseif($alias == 'id') {
-		$alias = 'id'.date('jny');
+		$alias = 'id'.date('Y-n-j');
+	} elseif($alias == '') {
+		$alias = date('Y-n-j');
 	}
 	
 	$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
@@ -587,10 +599,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	
 	$where_acat		= 'acat_id != '.$current_id.' AND ';
 	$where_article	= 'article_id != '.$current_id.' AND ';
-	if($mode == 'CATEGORY') {
-		$where_article = '';
-	} elseif($mode == 'ARTICLE') {
-		$where_acat = '';
+	$where_content	= 'cnt_id != '.$current_id.' AND ';
+
+	switch($mode) {
+		case 'CATEGORY':	$where_article	= '';	break;
+		case 'ARTICLE':		$where_acat		= '';	break;
+		case 'CONTENT':		$where_content	= '';	break;
 	}
 	
 	// check alias against all structure alias
@@ -599,12 +613,19 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	$sql .= "acat_alias='".aporeplace($alias)."' LIMIT 1";
 	$acat_count = _dbQuery($sql, 'COUNT');
 	
+	// check alias against all articles
 	$sql  = "SELECT COUNT(article_id) FROM ".DB_PREPEND."phpwcms_article WHERE ";
 	$sql .= $where_article;
 	$sql .= "article_alias='".aporeplace($alias)."' LIMIT 1";
 	$article_count = _dbQuery($sql, 'COUNT');
+	
+	// check alias against all "sub" contents like news
+	$sql  = "SELECT COUNT(cnt_id) FROM ".DB_PREPEND."phpwcms_content WHERE ";
+	$sql .= $where_content;
+	$sql .= "cnt_alias='".aporeplace($alias)."' LIMIT 1";
+	$content_count = _dbQuery($sql, 'COUNT');
 
-	if( $acat_count > 0 || $article_count > 0 ) {
+	if( $acat_count > 0 || $article_count > 0 || $content_count > 0 ) {
 
 		$sql  = "SELECT acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 		$sql .= $where_acat;
@@ -615,6 +636,11 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		$sql .= $where_article;
 		$sql .= "article_alias LIKE '".aporeplace($alias)."%'";
 		$all_article_alias = _dbQuery($sql);
+		
+		$sql  = "SELECT cnt_alias FROM ".DB_PREPEND."phpwcms_content WHERE ";
+		$sql .= $where_content;
+		$sql .= "cnt_alias LIKE '".aporeplace($alias)."%'";
+		$all_content_alias = _dbQuery($sql);
 
 		$all_alias = array();
 		foreach($all_acat_alias as $item) {
@@ -623,6 +649,10 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		}
 		foreach($all_article_alias as $item) {
 			$item = $item['article_alias'];
+			$all_alias[$item] = $item;
+		}
+		foreach($all_content_alias as $item) {
+			$item = $item['cnt_alias'];
 			$all_alias[$item] = $item;
 		}
 		$all_alias_count = count($all_alias);
@@ -635,5 +665,149 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	return $alias;
 }
 
+function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
+
+	$timeformat		= explode($delimeter, trim($default_time));
+	$time			= explode($delimeter, trim($time));
+	
+	$hour			= 0;
+	$minute			= 0;
+	$second			= 0;
+	
+	for($x=0; $x<=2; $x++) {
+	
+		if(isset($timeformat[$x])) {
+		
+			$value = trim($timeformat[$x]);
+			switch( $value{0} ) {
+			
+				case 'H': 	if(isset($time[$x])) {
+								$hour = intval($time[$x]);
+								if($hour < 0 || $hour > 23) $hour = 0;
+							}
+							break;
+							
+				case 'i': 	if(isset($time[$x])) {
+								$minute = intval($time[$x]);
+								if($minute < 0 || $minute > 59) $minute = 0;
+							}
+							break;
+							
+				case 's': 	if(isset($time[$x])) {
+								$second = intval($time[$x]);
+								if($second < 0 || $second > 59) $second = 0;
+							}
+							break;
+			}
+		
+		}
+	
+	}
+	
+	$time = str_replace($delimeter, ':', $default_time);
+	$time = str_replace('H', $hour, $time);
+	$time = str_replace('i', $minute, $time);
+	$time = str_replace('s', $second, $time);
+
+	return $time;
+}
+
+function _getDate($date='', $delimeter='', $default_date='') {
+
+	global $BL;
+	
+	$delimeter		= $delimeter == '' ? $BL['default_date_delimiter'] : $delimeter;
+	$default_date	= $default_date == '' ? $BL['default_date'] : $default_date;
+	
+	$dateformat		= explode($delimeter, trim($default_date));
+	$date			= explode($delimeter, trim($date));
+	
+	$day			= '';
+	$month			= '';
+	$year			= '';
+	
+	for($x=0; $x<=2; $x++) {
+	
+		if(isset($dateformat[$x])) {
+		
+			$value = trim($dateformat[$x]);
+			$value = strtolower($value);
+			switch( $value{0} ) {
+			
+				case 'y': 	if(isset($date[$x])) {
+								$year = intval($date[$x]);
+								if($year < 0) $year = '';
+							}
+							break;
+							
+				case 'd': 	if(isset($date[$x])) {
+								$day = intval($date[$x]);
+								if($day < 1 || $day > 31) $day = '';
+							}
+							break;
+							
+				case 'm': 	if(isset($date[$x])) {
+								$month = intval($date[$x]);
+								if($month < 1 || $month > 12) $month = '';
+							}
+							break;
+			
+			}
+		
+		}
+	
+	}
+	
+	if($year && $month && $day) {
+	
+		return $year.'-'.$month.'-'.$day;
+	
+	} else {
+	
+		return '0000-00-00';
+	
+	}
+	
+}
+
+function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=',') {
+
+	$pid	= intval($pid);
+	$type	= trim($type);
+	
+	if(is_string($categories)) {
+		$categories = convertStringToArray($categories, $seperator);
+	}
+	
+	// delete all related categories first
+	if($type && $pid) {
+		
+		$sql = 'DELETE FROM '.DB_PREPEND.'phpwcms_categories WHERE cat_pid='.$pid." AND cat_type='".aporeplace( $type )."'";
+		_dbQuery($sql, 'DELETE');
+	
+	}
+
+	if(is_array($categories) && count($categories) && $type && $pid) {
+	
+		$data = array(	'cat_type'			=> $type,
+						'cat_pid' 			=> $pid,
+						'cat_status'		=> 1,
+						'cat_createdate'	=> date('Y-m-d H:i:s'),
+						'cat_changedate'	=> date('Y-m-d H:i:s'),
+						'cat_name'			=> '',
+						'cat_info'			=> ''
+						);
+	
+		foreach($categories as $value) {
+			$value = trim($value);
+			if($value != '') {
+				
+				$data['cat_name'] = $value;
+				_dbInsert('phpwcms_categories', $data);
+				
+			}
+		}
+	}
+}
 
 ?>

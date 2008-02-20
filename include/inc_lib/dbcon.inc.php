@@ -225,7 +225,63 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $dbprefix=NULL) 
 
 }
 
+// simplified db select
+function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $limit='', $prefix=NULL) {
+	
+	if(empty($table)) return false;
+	
+	$table		= (is_string($prefix) ? $prefix : DB_PREPEND).$table;
+	$sets		= array();
+	$select		= trim($select);
+	$limit		= trim($limit);
+	$group_by	= trim($group_by);
+	$order_by	= trim($order_by);
+	
+	if($select === '') {
+		$select = '*';
+	}
+	if($limit !== '') {
+		$limit = explode(',', $limit);
+		$limit[0] = intval(trim($limit[0]));
+		if(isset($limit[1])) {
+			$limit[1] = intval(trim($limit[1]));
+		} else {
+			$limit[1] = 0;
+		}
+		if($limit[0] && $limit[1]) {
+			$limit = ' LIMIT ' . $limit[0] . ',' . $limit[1];
+		} elseif($limit[0] === 0 && $limit[1]) {
+			$limit = ' LIMIT ' . $limit[1];
+		} elseif($limit[0]) {
+			$limit = ' LIMIT ' . $limit[0];
+		} else {
+			$limit = '';
+		}
+	}
+	if($group_by !== '') {
+		$group_by = ' GROUP BY '.$group_by;
+	} else {
+		$group_by = '';
+	}
+	
+	if($order_by !== '') {
+		$order_by = ' ORDER BY '.$order_by;
+	} else {
+		$order_by = '';
+	}
+	
+	if($where != '') {
+		$where = trim($where);
+		if( substr(strtoupper($where), 0, 5) !== 'WHERE' ) {
+			$where = 'WHERE '.$where;
+		}
+		$where = ' '.$where;
+	}
 
+	$query = trim( 'SELECT ' . $select . ' FROM ' . $table . $where . $group_by . $order_by . $limit);
+
+	return _dbQuery($query);
+}
 
 // function for simplified update
 function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=NULL) {
@@ -245,9 +301,16 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=NUL
 		if($special != 'LOW_PRIORITY') $special = 'LOW_PRIORITY';
 		$special .= ' ';
 	}
+	
+	if($where != '') {
+		$where = trim($where);
+		if( substr(strtoupper($where), 0, 5) !== 'WHERE' ) {
+			$where = 'WHERE '.$where;
+		}
+	}
 
 	$query = trim( 'UPDATE ' . $special . $table . ' SET ' . implode(',', $sets) . ' ' . $where );
-	
+
 	return _dbQuery($query, 'UPDATE');
 
 }

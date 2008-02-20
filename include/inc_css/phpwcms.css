@@ -1,14 +1,16 @@
 body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
 	color: #282F42;
-	background-image: url(../../img/backend/background.jpg);
-	background-repeat: repeat-x;
-	background-color: #C1D2E2;
+	background: #C1D2E2 url(../../img/backend/background.jpg) repeat-x left top;
 	margin: 0px;
 }
 
-td, tr, p {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;   }
+body, td, p, div, form {
+	font-size: 11px;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}
+input, textarea, select, button {
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+}
 
 ul {
 	margin: 0px 0px 0px 20px;
@@ -23,24 +25,24 @@ form {
 	padding: 0 0 0 0;
 }
 
-.v09 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px}
-.v10 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px}
-.v11 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px}
-.v12 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px}
-.v13 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px}
-.v14 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px}
+.v09 {font-size: 9px}
+.v10 {font-size: 10px}
+.v11 {font-size: 11px}
+.v12 {font-size: 12px}
+.v13 {font-size: 13px}
+.v14 {font-size: 14px}
 
-.v09b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px;}
-.v10b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px;}
-.v11b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;}
-.v12b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px;}
-.v13b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px;}
-.v14b {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px;}
+.v09b {font-size: 9px;}
+.v10b {font-size: 10px;}
+.v11b {font-size: 11px;}
+.v12b {font-size: 12px;}
+.v13b {font-size: 13px;}
+.v14b {font-size: 14px;}
 
-.title {  font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #6288AD;  font-weight: bold;  }
+.title { font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif; font-size: 13px; color: #6288AD;  font-weight: bold;  }
 .error {  color: #CC3300; }
 .valid {  color: #2CAD00; }
-.columnhead {font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px; color: #406C94}
+.columnhead {font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif; font-size: 9px; color: #406C94}
 
 .chat						{ color: #55638A; }
 .chatlist				{ color: #406C94; font-size: 10px; }
@@ -55,7 +57,7 @@ form {
 .msgreiter a:active	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: none; }
 .msgreiter a:hover	{ color: #FFFFFF; font-weight: bold; font-size: 10px; text-decoration: underline; }
 
-.navtext					{ color: #406C94; font-weight: normal; font-size: 10px }
+.navtext					{ color: #406C94; font-weight: normal; font-size: 10px; }
 .navtext a:link		{ color: #406C94; font-weight: normal; text-decoration: none; font-size: 10px }
 .navtext a:visited	{ color: #406C94; font-weight: normal; text-decoration: none; font-size: 10px }
 .navtext a:active		{ color: #406C94; font-weight: normal; text-decoration: none; font-size: 10px }
@@ -107,28 +109,28 @@ a:link {  color: #325676; text-decoration: none; background-color: transparent; 
 a:visited, a:active {  color: #325676;  background-color: transparent;  }
 a:hover {  color: #CC3300;  text-decoration: underline;  background-color: transparent;  }
 
-.mnav {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;  font-weight : bold; }
+.mnav {  font-size: 11px;  font-weight : bold; }
 
-.f10b {  font: bold 10px Verdana, Helvetica, Arial, sans-serif; }
-.f10 { font: normal 10px Verdana, Helvetica, Arial, sans-serif;  }
-.f11b {  font: bold 11px Verdana, Helvetica, Arial, sans-serif; }
-.f11 { font: normal 11px Verdana, Helvetica, Arial, sans-serif;  }
-.button10 {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;}
-.button12 {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px;}
+.f10b {  font-weight: bold; font-size: 10px; }
+.f10 { font-weight: normal; font-size: 10px;  }
+.f11b {  font-weight: bold; font-size: 11px; }
+.f11 { font-weight: normal; font-size: 11px;  }
+.button10 {	font-size: 11px; width:auto }
+.button12 {	font-size: 12px;}
 
-.dir {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #000000; }
+.dir {	font-size: 11px; color: #000000; }
 .dir a:link {	text-decoration : none; color: #000000 }
 .dir a:visited {	text-decoration : none; color: #000000 }
 .dir a:active {	text-decoration : none; color: #000000 }
 .dir a:hover {	text-decoration : underline; color: #000000  }
 
-.inaktiv {	font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #ADB2BE; }
+.inaktiv {	font-size: 11px; color: #ADB2BE; }
 .inaktiv a:link {	text-decoration : none; color: #ADB2BE }
 .inaktiv a:visited {	text-decoration : none; color: #ADB2BE }
 .inaktiv a:active {	text-decoration : none; color: #ADB2BE }
 .inaktiv a:hover {	text-decoration : underline; color: #727889  }
 
-.popup{ font: 9px Verdana, Arial, Helvetica, sans-serif;  border: thin solid #FFCC00;  background: #FFEB99;  padding: 2px 2px 2px 2px;    }
+.popup{ font: 9px;  border: thin solid #FFCC00;  background: #FFEB99;  padding: 2px 2px 2px 2px;    }
 .table1 {
 	border: 1px dashed #BDC2C6;
 	background-color: #EDEEF1;
@@ -165,7 +167,6 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 }
 .clickMenu td {
 	color: #000000;
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	margin: 0;
 	padding: 0;
@@ -182,7 +183,6 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 .clickMenuDisabled {
 	color: #8E8C82;
 	font-size: 10px;
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
 
@@ -204,6 +204,10 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 .dynCalendar_header{
 	font-size: 10px;
 	font-weight: normal;
+	white-space:nowrap;
+}
+.dynCalendar_header select {
+	font-size: 10px !important;
 }
 .dynCalendar_dayname {
 	background-color: #c0c0c0;
@@ -232,8 +236,9 @@ td.dynCalendar_day:hover, td.dynCalendar_today:hover {
 
 
 .dynCalendar select {
-	font-size: 10px;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px !important;
+	width: auto !important;
+	width: auto;
 }
 
 h1 {
@@ -247,7 +252,6 @@ h1 {
 }
 
 .cntOptGroup {
-	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size: 9px;
 	color: #666666;
 	padding: 2px 2px 1px 4px;
@@ -307,7 +311,6 @@ h1 {
 }
 .listingTable button {
 	font-size: 10px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 .listingTable .actions {
 	text-align: right;
@@ -323,7 +326,6 @@ h1 {
 .inputText input {
 	font-size: 13px;
 	width: 400px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 .inputText label {
 	display: block;
@@ -334,7 +336,6 @@ h1 {
 }
 .inputButton button {
 	font-size: 11px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	margin-right: 10px;
 }
 
@@ -353,7 +354,6 @@ tr.inactive td {
 .paginate .textinput {
 	font-size: 10px;
 	color: #406C94;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	padding: 0 1px 0 1px;
 	text-align: center;
 	margin: 0;
@@ -499,7 +499,6 @@ td.button_td img {
 }
 select.optionTransfer {
 	width: 218px;
-	font-family: Verdana, Helvetica, Arial, sans-serif; 
 	font-size: 11px;
 	font-weight: bold;
 	margin-bottom: 4px;
@@ -508,8 +507,7 @@ td.optionTransfer {
 	width: 4px;
 	text-align:center;
 	vertical-align:top;
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-}
+	}
 
 label.checkbox {
 	padding: 0 4px 0 2px;

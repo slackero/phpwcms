@@ -1164,5 +1164,29 @@ $BL['be_image_delete_js']				= 'Soll der gewählte Bildeintrag wirklich gelöscht 
 
 $BL['be_news']							= 'News';
 $BL['be_news_create']					= 'Neue News erstellen';
+$BL['be_tags']							= 'Tags/Schlagworte';
+$BL['be_title']							= 'Bezeichnung';
+$BL['be_delete_dataset']				= 'Gew&auml;hlten Eintrag l&ouml;schen?';
+$BL['be_action_notvalid']				= 'Die von Ihnen gew&auml;hlte Aktion ist nicht zul&auml;ssig!';
+$BL['be_action_deleted']				= 'Der von Ihnen gew&auml;hlte Datensatz mit der ID {ID} wurde gel&ouml;scht.';
+$BL['be_action_status']					= 'Der Status des zuletzt gew&auml;hlten Datensatzes mit der ID {ID} wurde ge&auml;ndert.';
+$BL['be_data_select_failed']			= 'Auf die gew&auml;hlten Daten konnte nicht erfolgreich zugegriffen werden.';
+$BL['be_alias']							= 'Alias';
+$BL['be_url_value']						= 'URL-Bezeichnung';
+$BL['default_date_format']				= 'TT.MM.JJJJ';
+$BL['default_date_delimiter']			= '.';
+$BL['default_time_format']				= 'HH:MM';
+$BL['default_date']						= 'd.m.Y';
+$BL['default_time']						= 'H:i';
+$BL['be_place']							= 'Ort';
+$BL['be_teasertext']					= 'Teasertext';
+$BL['be_published']						= 'ver&ouml;ffentlichen';
+$BL['be_show_archived']					= 'verf&uuml;gbar nach Enddatum (archivieren)';
+$BL['be_save_copy']						= 'Eintrag als Duplikat speichern';
+$BL['be_read_more_link']				= 'Mehr URL/ID';
+$BL['be_news_name_mandatory']			= 'Bitte einen News-Titel eingeben. Dieser ist unbedingt erforderlich!';
+$BL['be_successfully_saved']			= 'Die Daten wurden erfolgreich gespeichert!';
+$BL['be_successfully_updated']			= 'Die Daten wurden erfolgreich aktualisiert!';
+$BL['be_error_while_save']				= 'Das Speichern der Daten ist fehlgeschlagen!';
 
 ?>

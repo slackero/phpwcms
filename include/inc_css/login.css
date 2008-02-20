@@ -1,7 +1,7 @@
 /* CSS Document */
 
 body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #282F42;
 	background-image: url(../../img/backend/background.jpg);
@@ -29,10 +29,9 @@ p, div, form, h1, h2, h3, h4, h5, h6, hr {
 }
 input, select {
 	font-size: 13px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 }
 p {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 }
 h1 {
@@ -43,7 +42,6 @@ h1 {
 	margin-bottom: 5px;
 }
 td, .v10, .v11, .error {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size:11px;
 }
 .error {
