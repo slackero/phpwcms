@@ -671,4 +671,52 @@ function convert2htmlspecialchars($matches) {
 		return html_specialchars($matches[1]);
 	}
 }
+
+function parse_images($matches) {
+
+	if(isset($matches[1])) {
+		
+		// Image file ID
+		$img_id 	= intval($matches[1]);
+		
+		// check for Alt-Text
+		$alt		= explode(' ', $matches[2], 2);
+		$value		= explode('x', trim(strtolower($alt[0])));
+
+		$alt		= isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';
+		
+		if(substr($value[0], 0, 1) == '.') {
+			$ext	= trim($value[0]);
+		} else {
+			$ext	= '.jpg';
+		}
+		
+		$width		= isset($value[ 1 ]) ? intval($value[ 1 ]) : 0;
+		$height		= isset($value[ 2 ]) ? intval($value[ 2 ]) : 0;
+		$crop		= isset($value[ 3 ]) && intval($value[ 3 ]) === 1 ? 1 : 0;
+		$quality	= isset($value[ 4 ]) ? intval($value[ 4 ]) : 0;
+		
+		$image		= '<img src="'.PHPWCMS_URL.'img/cmsimage.php/'.$width.'x'.$height.'x'.$crop;
+		if($quality <= 100 && $quality >= 10) {
+			$image .= 'x'.$quality;
+		}
+		$image	   .= '/'.$img_id.$ext.'" alt="'.$alt.'" border="0"';
+		if(isset($matches[3])) {
+		
+			$title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
+			if($title !== '') {
+				$image .= ' title="'.$title.'"';
+			}
+		}
+		$image	   .= ' />';
+		
+		return $image;
+		
+	}
+
+	return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" border="0" />';
+
+}
+
+
 ?>
