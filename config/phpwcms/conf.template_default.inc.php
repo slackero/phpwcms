@@ -276,7 +276,7 @@ $template_default['article']['ecard_chooser_text']		= 'style="font-weight:bold;"
 // this is used to inject <body> Tag by attribute "id" and/or "class"
 // if value is empty '' body tag will not be injected, otherwise it will use
 // current category "valueID"
-$template_default['body']['id'] = 'myid_';
+$template_default['body']['id'] = '';
 $template_default['body']['class'] = '';
 
 // target URL for login form - this is where the user is redirected to
