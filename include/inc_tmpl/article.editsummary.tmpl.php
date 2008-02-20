@@ -337,8 +337,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
 	<td class="chatlist"><?php echo $BL['be_article_forfull'] ?></td>
 </tr>
-<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
+<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <tr bgcolor="#F3F6F9">
 	<td align="right" class="chatlist">&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -351,8 +350,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		</tr>
 	</table></td>
 </tr>
-<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
+<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr bgcolor="#F3F6F9">
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -405,12 +403,9 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 	          </table></td>
 			</tr>
 			
-			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-			</tr>
-			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td>
-			</tr>
-			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-			</tr>
+			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
+			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 <tr bgcolor="#F3F6F9">
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
 	<td class="chatlist"><?php echo $BL['be_article_forlist'] ?></td>

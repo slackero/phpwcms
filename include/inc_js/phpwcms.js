@@ -390,10 +390,14 @@ function create_alias(str,encoding,ucfirst)
 
 	return str;
 }
-
+var temp_url = '';
 function openFileBrowser(url) {
 	if(url != null && url != '') {
+		if(window.imageBrowser && temp_url != url) {
+			tmt_winControl('imageBrowser','close()');	
+		}
 		tmt_winOpen(url,'imageBrowser','width=450,height=450,scrollbars=yes,resizable=yes',1);
+		temp_url = url;
 	}
 }
 

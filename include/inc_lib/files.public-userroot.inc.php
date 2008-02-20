@@ -51,15 +51,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
 		echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
 		echo $filename."</a>";
-		//Wenn für das Public File keine Vorschau existiert und Extension passt
-		/*
-		if(isEmpty($file_row["f_thumb_preview"]) && is_ext_true(strtolower($file_row["f_ext"]))) {
-			$file_makethumb	= "thumb=".$file_row["f_id"]."&ext=".$file_row["f_ext"]."&fcat=".$file_row["f_uid"];
-			echo " <a href=\"include/inc_act/act_imagick.php?".$file_makethumb."\" ";
-			echo " title=\"".$BL['be_ftptakeover_createthumb'].": ".$filename."\">";
-			echo " <img src=\"img/button/create_thumbnail_small.gif\" border=\"0\"></a>";
-		}
-		*/
+
 		echo "</td>\n";
 
 		echo "<td width=\"15\" align=\"right\" class=\"msglist\">";

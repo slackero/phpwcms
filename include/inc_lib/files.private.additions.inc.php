@@ -67,7 +67,7 @@ if(isset($count_user_files) && $count_user_files) {
 	//Beginn Tabelle für Dateilisting
 	echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";
-	list_private(0, $db, 0, "phpwcms.php?do=files&f=0", $_SESSION["wcs_user_id"], $cutID, $_SESSION["wcs_user_thumb"], $phpwcms);
+	list_private(0, $db, 0, "phpwcms.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], $cutID, $_SESSION["wcs_user_thumb"], $phpwcms);
 	include_once (PHPWCMS_ROOT."/include/inc_lib/files.private-filelist.inc.php");
 	echo "</table>\n";
 	//Ende Tabelle
@@ -75,7 +75,7 @@ if(isset($count_user_files) && $count_user_files) {
 	//Wenn keinerlei Datensatz innerhalb Files durchlaufen wurde, dann
 	echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";			
 	echo $BL['be_fprivadd_nofolders']."&nbsp;&nbsp;";
-	echo "[<a href=\"phpwcms.php?do=files&f=0&mkdir=0\">".$BL['be_fpriv_button']."</a>]";
+	echo "[<a href=\"phpwcms.php?do=files&amp;f=0&amp;mkdir=0\">".$BL['be_fpriv_button']."</a>]";
 	echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }
 ?>

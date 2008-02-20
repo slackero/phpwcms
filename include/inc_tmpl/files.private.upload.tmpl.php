@@ -173,7 +173,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		while($row = mysql_fetch_array($result)) {
 			if(get_filecat_childcount ($row["fcat_id"], $db)) {
 			
-				$ke = ($file_error["keywords"][$row["fcat_id"]])?"<img src=\"img/symbole/error.gif\" width=\"8\" height=\"9\">&nbsp;":"";
+				$ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : "<img src=\"img/symbole/error.gif\" width=\"8\" height=\"9\">&nbsp;";
 				//".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"")."
 				$k .= "<tr>\n<td class=\"f10b\">".$ke.html_specialchars($row["fcat_name"]).":&nbsp;</td>\n";
 				$k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"f10b\" style=\"width: 350px;\">\n";
@@ -183,7 +183,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 				if($kresult = mysql_query($ksql, $db) or die("error while listing file keywords")) {
 					while($krow = mysql_fetch_array($kresult)) {
 						$k .= "<option value=\"".$krow["fkey_id"]."\"";
-						$k .= ($file_keywords[$row["fcat_id"]] == $krow["fkey_id"]) ? " selected" : "";
+						$k .= isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"] ? " selected" : "";
 						$k .= ">".html_specialchars($krow["fkey_name"])."</option>\n";
 					}
 					mysql_free_result($kresult);

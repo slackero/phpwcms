@@ -117,7 +117,9 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 						echo "<tr>\n";
 						echo "<td width=\"37\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"37\" border=\"0\"></td>\n";
 						echo "<td width=\"13\" class=\"msglist\">";
-						echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"></td>\n";
+						echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
+						echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+						echo "></td>\n";
 						echo "<td width=\"473\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">"; //438-$vor
 						//echo "<a href=\"fileinfo_public.php?fid=".$file_row["f_id"];
 						echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];

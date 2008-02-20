@@ -44,7 +44,9 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<tr>\n";
 		echo "<td width=\"19\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"19\" border=\"0\"></td>\n";
 		echo "<td width=\"13\" class=\"msglist\">";
-		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"></td>\n";
+		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
+		echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+		echo "></td>\n";
 		echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">";
 		echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
 		echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
@@ -63,7 +65,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 			echo "<img src=\"img/button/cut_13x13_0.gif\" border=\"0\"></a>";
 		}
 		//Button zum Bearbeiten der Dateiinformationn
-		echo "<a href=\"".$zieldatei."&editfile=".$file_row["f_id"]."\" title=\"".$BL['be_fprivfunc_editfile'].": ".$filename."\">";
+		echo "<a href=\"".$zieldatei."&amp;editfile=".$file_row["f_id"]."\" title=\"".$BL['be_fprivfunc_editfile'].": ".$filename."\">";
 		echo "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";					
 		//Button zum Umschalten zwischen Aktiv/Inaktiv
 		echo "<a href=\"include/inc_act/act_file.php?aktiv=".$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
