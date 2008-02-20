@@ -275,6 +275,10 @@ if(!PERMIT_ACCESS && !_getFeUserLoginStatus()) {
 	} elseif(empty($template_default['login_form_url'])) {
 		$template_default['login_form_url'] = PHPWCMS_URL;
 	}
+	
+	// store current URL
+	$_SESSION['LOGIN_REDIRECT'] = decode_entities(FE_CURRENT_URL);
+	
 	// redirect to login form
 	headerRedirect($template_default['login_form_url'], 401);
 }
@@ -630,6 +634,8 @@ if(strpos($content["all"],'{NEW:') !== false) {
 $content["all"]	= str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
 $content["all"] = str_replace('{RSSIMG}', $template_default["rss"]["image"], $content["all"]);
 $content["all"] = html_parser($content["all"]);
+$content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i', 'parse_images', $content["all"]);
+$content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_images', $content["all"]);
 
 // -------------------------------------------------------------
 
