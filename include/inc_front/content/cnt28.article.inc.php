@@ -198,9 +198,17 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 	
 	if(_getFeUserLoginStatus()) {
 	
+		// proof if "former" redirect URL is known and redirect
+		if(!empty($_SESSION['LOGIN_REDIRECT'])) {
+			$linkto = $_SESSION['LOGIN_REDIRECT'];
+			unset($_SESSION['LOGIN_REDIRECT']);
+			headerRedirect($linkto);
+		
 		// user is logged in
-		if(isset($_POST['feLogin'])) {
+		} elseif(isset($_POST['feLogin'])) {
+		
 			headerRedirect(decode_entities(FE_CURRENT_URL));
+			
 		}
 		
 		// manage account
