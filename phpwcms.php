@@ -322,10 +322,7 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 		?><img src="img/leer.gif" alt="" width="175" height="1"></td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/dividerA.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
-      <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540"><?php
-    
-	// Show global system status message
-	show_status_message();
+      <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540">{STATUS_MESSAGE}<?php
 	 
 	 
       switch($do) {
@@ -513,12 +510,10 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
   </tr>
 	<tr>
 	  <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
-	  <td colspan="5" valign="bottom" class="navtext">
+	  <td colspan="5" valign="bottom" class="navtext" style="padding: 8px 0 15px 0;">
 	  	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">phpwcms <?php echo $phpwcms["release"] ?> 
 			&copy; 2003&#8212;<?php echo date('Y'); ?> Oliver Georgi. Licensed under GPL. Extensions are copyright
 			of their respective owners.</a></td>
-  </tr>
-  <tr><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="8"></td>
   </tr>
 </table>
 <?php
@@ -564,6 +559,9 @@ $BE['HTML'] = str_replace('<!-- phpwcms BODY_OPEN -->', implode(LF, $BE['BODY_OP
 
 // body close area
 $BE['HTML'] = str_replace('<!-- phpwcms BODY_CLOSE -->', implode(LF, $BE['BODY_CLOSE']), $BE['HTML']);
+
+// Show global system status message
+$BE['HTML'] = str_replace('{STATUS_MESSAGE}', show_status_message(true), $BE['HTML']);
 
 // return all
 echo $BE['HTML'];

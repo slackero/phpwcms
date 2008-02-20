@@ -285,11 +285,13 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
   </tr>
   <tr>
     <td style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;" bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF" style="padding: 0 3px 5px 3px;font-size:10px;"><strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong> Copyright &copy; 2003&#8212;<?php echo date('Y'); ?>
-            Oliver Georgi. Extensions are copyright of their respective owners.
-            Visit <a href="http://www.phpwcms.de" target="_blank">http://www.phpwcms.de</a> for
-            details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a> and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited
-      by law. 
+    <td bgcolor="#FFFFFF" style="padding: 0 3px 5px 3px;">
+		<strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong> 
+		Copyright &copy; 2003&#8212;<?php echo date('Y'); ?>
+        Oliver Georgi. Extensions are copyright of their respective owners.
+        Visit <a href="http://www.phpwcms.de" target="_blank">http://www.phpwcms.de</a> for
+        details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a> 
+		and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited  by law. 
     </td>
     <td style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
