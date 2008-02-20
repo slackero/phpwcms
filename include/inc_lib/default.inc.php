@@ -133,8 +133,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 }
 
-$phpwcms["release"] = '1.3.5';
-$phpwcms["release_date"] = '2007/12/05';
+$phpwcms["release"] = '1.3.9';
+$phpwcms["release_date"] = '2008/02/18';
 
 // -------------------------------------------------------------
 
@@ -268,10 +268,15 @@ function headerRedirect($target='', $type=0) {
 		session_write_close();
 	}
 	switch($type) {
-		case 301:	header('HTTP/1.1 301 Moved Permanently'); 			break;
-		case 401:	header('HTTP/1.1 401 Authorization Required'); 		break;
+		case 307:	header('HTTP/1.1 307 Temporary Redirect');		break;
+		case 401:	header('HTTP/1.1 401 Authorization Required'); 	break;
+		case 404:	header('HTTP/1.1 404 Not Found');				break;
+		case 503:	header('HTTP/1.1 503 Service Unavailable'); 	break;
+		case 301:	header('HTTP/1.1 301 Moved Permanently');		break;
 	}
-	header('Location: '.$target);
+	if($target !== '') {
+		header('Location: '.$target);
+	}
 	exit();
 }
 
