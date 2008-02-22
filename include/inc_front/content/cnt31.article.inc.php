@@ -227,9 +227,10 @@ if($image['template']) {
 				
 				if($image['lightbox'] && $capt_cur) {
 					$lightbox_capt = 'title="'.parseLightboxCaption($capt_cur).'" ';
-				} else {
-					$lightbox_capt = 'title="'.parseLightboxCaption( $image['images'][$key][1] ).'" ';
 				}
+				/* else {
+					$lightbox_capt = 'title="'.parseLightboxCaption( $image['images'][$key][1] ).'" ';
+				} */
 				
 				if(!$image['lightbox'] || $caption[2][0]) {
 				
@@ -266,8 +267,8 @@ if($image['template']) {
 			
 			$img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
 			$img_a = str_replace('{IMGID}', $key, $img_a);
-			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key][1]), $img_a);
-			
+			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key]['thumb_name']), $img_a);
+		
 			// replace thumbnail and zoom image information
 			$img_a = str_replace('{THUMB_NAME}',		$img_thumb_name, $img_a);
 			$img_a = str_replace('{THUMB_FILENAME}',	$img_thumb_filename, $img_a);

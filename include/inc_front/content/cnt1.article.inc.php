@@ -48,10 +48,12 @@ if($image) {
 	$cnt_image	= @unserialize($crow["acontent_form"]);
 	if(!isset($cnt_image['cimage_lightbox'])) {
 	
+		$GLOBALS['cnt_image_lightbox'] = 0;
 		$cnt_image_lightbox = 0;
 	
 	} elseif($cnt_image['cimage_lightbox']) {
 	
+		$GLOBALS['cnt_image_lightbox'] = 1;
 		$cnt_image_lightbox = 1;
 		initializeLightbox();
 	
@@ -177,6 +179,7 @@ if($image) {
 	}
 	
 	unset($cnt_image);
+	$GLOBALS['cnt_image_lightbox'] = 0;
 	$cnt_image_lightbox = 0;
 	
 } else {

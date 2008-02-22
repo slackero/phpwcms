@@ -29,13 +29,14 @@ if(is_array($image) && count($image)) {
 	// load special functions
 	require_once(PHPWCMS_ROOT.'/include/inc_front/img.func.inc.php');
 
-
 	if(!isset($image['lightbox'])) {
 
+		$GLOBALS['cnt_image_lightbox'] = 0;
 		$cnt_image_lightbox = 0;
 
 	} elseif($image['lightbox']) {
 
+		$GLOBALS['cnt_image_lightbox'] = 1;
 		$cnt_image_lightbox = 1;
 		initializeLightbox();
 
@@ -79,6 +80,10 @@ if(is_array($image) && count($image)) {
 				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
 				$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 	}
+	
+	$GLOBALS['cnt_image_lightbox'] = 0;
+	$cnt_image_lightbox = 0;
+	
 } else {
 	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 }
