@@ -315,6 +315,9 @@ class phpwcmsNews {
 			
 			if(!empty($_POST['cnt_duplicate'])) {
 				$this->newsId = 0;
+				$duplicate = 1;
+			} else {
+				$duplicate = 0;
 			}
 			
 			// 1st check if we have a name because it's mandatory
