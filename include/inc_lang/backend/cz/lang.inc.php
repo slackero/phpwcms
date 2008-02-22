@@ -21,7 +21,7 @@
 *************************************************************************************/
 
 
-// Language: Czech, Language Code: cz
+// Language: Czech, Language Code: cs
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 

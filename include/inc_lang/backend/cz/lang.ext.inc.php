@@ -22,7 +22,7 @@
 
 
 // Language: Czech
-// Language Code: cz
+// Language Code: cs
 
 // please use HTML safe strings ONLY
 // this is neccessary to reduce the processing time
@@ -80,6 +80,6 @@ $BL['SIZE'] = 'velikost';
 $BL['DOWNLOAD_FILE'] = 'stáhnout soubor';
 $BL['FILE_IN_TRASH'] = 'soubor je v koši';
 $BL['KEYWORDS'] = 'klíè. slova';
-$BL['DOWNLOAD_ERR3'] = 'chyba pøi naèítání informace o souboru<br>zavøete okno a zkuste to znovu...';
+$BL['DOWNLOAD_ERR3'] = 'chyba pøi naèítání informace o souboru<br />zavøete okno a zkuste to znovu...';
 
 ?>
