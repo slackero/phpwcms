@@ -29,21 +29,19 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-if(intval($_GET["s"]) == 1) { //Show single article information
+if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) { //Show single article information
 	
 	//Artikel editieren
-	
-	$article["article_id"] = intval($_GET["id"]);
+	$article = array();
+	$article["article_id"] = empty($_GET["id"]) ? 0 : intval($_GET["id"]);
 	$article["article_timeout"] = '';
 	$article['article_nosearch'] = '';
 	$article['article_nositemap'] = 1;
 	$article['article_morelink'] = 1;
 	$article["article_cntpart"] = array();
 	
-	if(!$article["article_id"]) {
-		headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2");
-	}
-	if(!isset($_POST["article_update"]) || !intval($_POST["article_update"])) {
+	// check if in POST mode (form submitted) and NOT add new article
+	if((!isset($_POST["article_update"]) || !intval($_POST["article_update"])) && !isset($_GET['struct'])) {
 		$read_done = false;
 		$sql =	"SELECT DISTINCT *, date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ".
 				"FROM ".DB_PREPEND."phpwcms_article LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ON ".
@@ -101,8 +99,66 @@ if(intval($_GET["s"]) == 1) { //Show single article information
 		if(!$read_done) {
 			headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2");
 		}
+	
+	
+	// add new article inside structure 
+	} elseif( isset($_GET['struct']) ) {
+		
+		// define defaults
+		$article["article_id"]					= 0;
+		$article["article_catid"]				= intval($_GET['struct']);
+		$article["article_title"]				= '';
+		$article["article_alias"]				= '';
+		$article["article_subtitle"]			= '';
+		$article["article_summary"]				= '';
+		$article["article_public"]				= 1;
+		$article["article_notitle"]				= 0;
+		$article["article_hidesummary"]			= 0;
+		$article["article_aktiv"]				= 0;
+		$article["article_begin"]				= '';
+		$article["article_end"]					= '';
+		$article["article_keyword"]				= '';
+		$article["article_redirect"]			= '';
+		$article['article_aliasid']				= '';
+		$article['article_headerdata']			= 0;
+		$article['article_morelink']			= 1;
+		$article["article_pagetitle"]			= '';
+		$article['article_paginate']			= 0;
+		$article['article_sort']				= 0;
+		$article['article_priorize']			= 0;
+		$article['article_norss']				= 1;
+		$article["article_timeout"]				= '';
+		$article['article_nosearch']			= '';
+		$article['article_nositemap']			= 1;
+		$article["article_uid"]					= $_SESSION["wcs_user_id"];
+		$article["article_username"]			= $_SESSION["wcs_user_name"];
+		
+		$article['image']						= array();
+		$article['image']['tmpllist']			= 'default';
+		$article['image']['tmplfull']			= 'default';
+		$article['image']['name']				= '';
+		$article['image']['id']					= '';
+		$article['image']['caption']			= '';
+		$article["image"]["hash"]				= '';
+		$article['image']['list_usesummary']	= 0;
+		$article['image']['list_name']			= '';
+		$article['image']['list_id']			= 0;
+		$article['image']['list_width']			= '';
+		$article['image']['list_height']		= '';
+		$article['image']['list_zoom']			= 0;
+		$article['image']['list_caption']		= '';
+		$article["image"]["list_hash"]			= '';
+		$article['image']['zoom']				= 0;
+		
+		$set_begin								= 0;
+		$set_end								= 0;
+	
 	} else {
-		//Übernehmen der Editierungsdaten aus Artikelthema bearbeiten
+	
+		// Take article Post data
+		
+		$article_err = array();
+		
 		$article["article_catid"]		= intval($_POST["article_cid"]);
 		$article["article_title"]		= clean_slweg($_POST["article_title"]);
 
@@ -130,7 +186,7 @@ if(intval($_GET["s"]) == 1) { //Show single article information
 		$article['article_paginate']	= isset($_POST["article_paginate"]) ? 1 : 0;
 		$article['article_sort']		= empty($_POST["article_sort"]) ? 0 : intval($_POST["article_sort"]);
 		$article['article_priorize']	= empty($_POST["article_priorize"]) ? 0 : intval($_POST["article_priorize"]);
-		$article['article_norss']		= empty($_POST["article_norss"]) ? 0 : 1;;
+		$article['article_norss']		= empty($_POST["article_norss"]) ? 0 : 1;
 		
 		$article["article_timeout"]		= clean_slweg($_POST["article_timeout"]);
 		if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) $article["article_timeout"] = '0'; //check if cache = Off
@@ -143,13 +199,15 @@ if(intval($_GET["s"]) == 1) { //Show single article information
 		$article["article_username"]	= clean_slweg($_POST["article_username"],100);
 		if(!$article["article_username"]) $article["article_username"] = $_SESSION["wcs_user_name"];
 		
-		if(isEmpty($article["article_title"])) $article_err = "> ".$BL['be_article_err1']."\n";
+		if(isEmpty($article["article_title"])) {
+			$article_err[] = $BL['be_article_err1'];
+		}
 		if($article["article_begin"]) { //Check date
 			$article["article_begin"] = strtotime($article["article_begin"]);
 			if($article["article_begin"] == -1) {
 				$article["article_begin"] = date("Y-m-d H:i:s");
 				$set_begin = 1;
-				$article_err  .= "> ".$BL['be_article_err2']."\n"; 
+				$article_err[] = $BL['be_article_err2'];
 			} else {
 				$article["article_begin"] = date("Y-m-d H:i:s", $article["article_begin"]);
 				$set_begin = 1;
@@ -163,7 +221,7 @@ if(intval($_GET["s"]) == 1) { //Show single article information
 			if($article["article_end"] == -1) {
 				$article["article_end"] = date("Y-m-d H:i:s", time() + (3600*24*365*10) );
 				$set_end = 1;
-				$article_err  .= "> ".$BL['be_article_err4']."\n"; 
+				$article_err[] = $BL['be_article_err4'];
 			} else {
 				$article["article_end"] = date("Y-m-d H:i:s", $article["article_end"]);
 				$set_end = 1;
@@ -243,61 +301,125 @@ if(intval($_GET["s"]) == 1) { //Show single article information
         }
 
 
+		if( count($article_err) == 0 ) {
 		
-		if(empty($article_err)) {
-			$sql =	"UPDATE ".DB_PREPEND."phpwcms_article SET ".
-					"article_cid=".$article["article_catid"].",".
-					"article_title='".aporeplace($article["article_title"])."', ".
-					"article_alias='".aporeplace($article["article_alias"])."', ".
-					"article_keyword='".aporeplace($article["article_keyword"])."', ".
-					"article_public=".$article["article_public"].", ".
-					"article_aktiv=".$article["article_aktiv"].", ".
-					"article_begin='".aporeplace($article["article_begin"])."', ".
-					"article_end='".aporeplace($article["article_end"])."', ".
-					"article_subtitle='".aporeplace($article["article_subtitle"])."', ".
-					"article_summary='".aporeplace($article["article_summary"])."', ".
-					"article_redirect='".aporeplace($article["article_redirect"])."', ".
-					"article_sort='".aporeplace($article["article_sort"])."', ".
-					"article_username='".aporeplace($article["article_username"])."', ".
-					"article_notitle=".$article["article_notitle"].", ".
-					"article_hidesummary=".$article["article_hidesummary"].", ".
-					"article_image='".aporeplace(serialize($article['image']))."', ".
-					"article_cache='".aporeplace($article["article_timeout"])."', ".
-					"article_nosearch='".aporeplace($article['article_nosearch'])."', ".
-					"article_nositemap=".$article['article_nositemap'].", ".
-					"article_aliasid=".$article['article_aliasid'].", ".
-					"article_headerdata=".$article['article_headerdata'].", ".
-					"article_morelink=".$article['article_morelink'].", ".
-					"article_pagetitle='".aporeplace($article['article_pagetitle'])."', ".
-					"article_paginate=".$article['article_paginate'].", ".
-					"article_priorize=".$article['article_priorize'].", ".
-					"article_norss=".$article['article_norss']." ";
-					if($_SESSION["wcs_user_admin"]) {
-						$sql .= ", article_uid=".$article["article_uid"]." ";				
-					}
+			if($article["article_id"] == 0) {
+			
+				// Insret (create) new article
+				
+				$data = array(
 					
-			$sql .=	"WHERE article_id=".$article["article_id"].";";
-					
+					'article_created'		=> time(),
+					"article_cid"			=> $article["article_catid"],
+					"article_title"			=> $article["article_title"],
+					"article_alias"			=> $article["article_alias"],
+					"article_keyword"		=> $article["article_keyword"],
+					"article_public"		=> $article["article_public"],
+					"article_aktiv"			=> $article["article_aktiv"],
+					"article_begin"			=> $article["article_begin"],
+					"article_end"			=> $article["article_end"],
+					"article_subtitle"		=> $article["article_subtitle"],
+					"article_summary"		=> $article["article_summary"],
+					"article_redirect"		=> $article["article_redirect"],
+					"article_sort"			=> $article["article_sort"],
+					"article_username"		=> $article["article_username"],
+					"article_notitle"		=> $article["article_notitle"],
+					"article_hidesummary"	=> $article["article_hidesummary"],
+					"article_image"			=> serialize($article['image']),
+					"article_cache"			=> $article["article_timeout"],
+					"article_nosearch"		=> $article['article_nosearch'],
+					"article_nositemap"		=> $article['article_nositemap'],
+					"article_aliasid"		=> $article['article_aliasid'],
+					"article_headerdata"	=> $article['article_headerdata'],
+					"article_morelink"		=> $article['article_morelink'],
+					"article_pagetitle"		=> $article['article_pagetitle'],
+					"article_paginate"		=> $article['article_paginate'],
+					"article_priorize"		=> $article['article_priorize'],
+					"article_norss"			=> $article['article_norss'],
+					"article_uid"			=> $article["article_uid"]			
 
-			if($result = mysql_query($sql, $db) or die(_report_error('DB', $sql))) {
+							);
+							
+				$result = _dbInsert('phpwcms_article', $data);
+				
+				if(isset($result['INSERT_ID'])) {
+				
+					$article["article_id"] = $result['INSERT_ID'];
+				
+				} else {
+				
+					$result = false;
+				
+				}
+
+			
+			} else {
+		
+				// Update article summary data
+		
+				$sql =	"UPDATE ".DB_PREPEND."phpwcms_article SET ".
+						"article_cid=".$article["article_catid"].",".
+						"article_title='".aporeplace($article["article_title"])."', ".
+						"article_alias='".aporeplace($article["article_alias"])."', ".
+						"article_keyword='".aporeplace($article["article_keyword"])."', ".
+						"article_public=".$article["article_public"].", ".
+						"article_aktiv=".$article["article_aktiv"].", ".
+						"article_begin='".aporeplace($article["article_begin"])."', ".
+						"article_end='".aporeplace($article["article_end"])."', ".
+						"article_subtitle='".aporeplace($article["article_subtitle"])."', ".
+						"article_summary='".aporeplace($article["article_summary"])."', ".
+						"article_redirect='".aporeplace($article["article_redirect"])."', ".
+						"article_sort='".aporeplace($article["article_sort"])."', ".
+						"article_username='".aporeplace($article["article_username"])."', ".
+						"article_notitle=".$article["article_notitle"].", ".
+						"article_hidesummary=".$article["article_hidesummary"].", ".
+						"article_image='".aporeplace(serialize($article['image']))."', ".
+						"article_cache='".aporeplace($article["article_timeout"])."', ".
+						"article_nosearch='".aporeplace($article['article_nosearch'])."', ".
+						"article_nositemap=".$article['article_nositemap'].", ".
+						"article_aliasid=".$article['article_aliasid'].", ".
+						"article_headerdata=".$article['article_headerdata'].", ".
+						"article_morelink=".$article['article_morelink'].", ".
+						"article_pagetitle='".aporeplace($article['article_pagetitle'])."', ".
+						"article_paginate=".$article['article_paginate'].", ".
+						"article_priorize=".$article['article_priorize'].", ".
+						"article_norss=".$article['article_norss']." ";
+						if($_SESSION["wcs_user_admin"]) {
+							$sql .= ", article_uid=".$article["article_uid"]." ";				
+						}
+						
+				$sql .=	"WHERE article_id=".$article["article_id"];
+				
+				$result = _dbQuery($sql, 'UPDATE');
+				
+			}
+
+			if($result) {
 				update_cache(); // set cache timeout = 0
 				$update = isset($_POST['updatesubmit']) ? '&aktion=1' : '';
 				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
 			}
+		
+		} else {
+		
+			set_status_message( $BL['be_admin_usr_err'] . ': ' . implode(', ', $article_err) , 'warning');
+		
 		}
+
 	}
+
 	
-	// 2005-04-10 Oliver Georgi: neccessary to set $_SESSION["article_path"] everey time
-	//$_SESSION["article_path"] = $article["article_cat"]."#|#".$article["article_title"]."#|#".$article["template_id"];
-	
-	if(!isset($_GET["aktion"]) || !intval($_GET["aktion"])) {; //Solange nicht Editieren gewählt
+	// list mode
+	if( (!isset($_GET["aktion"]) || !intval($_GET["aktion"])) && !isset($_GET['struct'])) {;
 	
 		include_once PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.list.tmpl.php";
-			
-	} elseif(intval($_GET["aktion"]) == 1) { //Editieren der Artikelbasisinformation
-		include_once PHPWCMS_ROOT."/include/inc_tmpl/article.editsummary.tmpl.php";					
+	
+	// edit article summary
+	} elseif( (isset($_GET["aktion"]) && intval($_GET["aktion"]) == 1) || isset($_GET['struct']) ) { //Editieren der Artikelbasisinformation
+		include_once PHPWCMS_ROOT."/include/inc_tmpl/article.editsummary.tmpl.php";
 	
 	} elseif(intval($_GET["aktion"]) == 2) { //Neuen Artikelcontent erstellen
+	
 		if(isset($content["error"])) unset($content["error"]); //fehler zurücksetzen
 		$content["media_control"] = 1; //Vordefinierte Werte
 		

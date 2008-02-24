@@ -44,22 +44,9 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 				<td width="88"><img src="img/leer.gif" alt="" width="88" height="4" /></td>
 				<td width="450"><img src="img/leer.gif" alt="" width="450" height="1" /></td>
 			</tr>
-			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-			</tr>
-      		<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-      		</tr>
-		  <?php
-		  if(!empty($article_err)) {
-		  ?>
-			<tr valign="top" bgcolor="#FFE9D2">
-				<td align="right"><strong style="color:#FF6600"><?php echo $BL['be_admin_usr_err'] ?>:&nbsp;</strong></td>
-				<td><strong style="color:#FF6600"><?php echo nl2br(html_specialchars(trim($article_err))); ?></strong></td>
-			</tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-			</tr>
-		  <?php
-		  }
-		  ?>
+			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+      		<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+
 		  	<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_article_cat'] ?>:&nbsp;</td>
 				<td><select name="article_cid" id="article_cid" style="width: 325px" class="f11b">
@@ -72,8 +59,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 			</tr>
 			
 			
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-			</tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 			<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_article_atitle'] ?>:&nbsp;</td>
@@ -90,8 +76,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
               <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
               <td><input name="article_subtitle" type="text" class="f11b width440" id="article_subtitle" value="<?php echo html_specialchars($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
 			</tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-			</tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
 				<td colspan="2"><table border="0" cellpadding="2" cellspacing="0" summary="">
 					<tr>
@@ -604,17 +589,18 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 					</tr>
 				</table></td>
 			</tr>
-			
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-			</tr>
-			
+
+
+<?php if(isset($article["article_date"])) { ?>				
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+	
 			<tr>
 			<td align="right" class="chatlist"><?php echo $BL['be_article_eslastedit'] ?>:&nbsp;</td>
 			<td><?php
 			echo (empty($_POST["article_update"]) || !intval($_POST["article_update"])) ? $article["article_date"] : $BL['be_article_esnoupdate'];
 			?></td>
 			</tr>
-			
+<?php } ?>
 			
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
@@ -622,11 +608,11 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 				<td><input name="article_update" type="hidden" id="article_update" value="1" /></td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 					<tr>
-					<td><input name="updatesubmit" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button1'] ?>" /></td>
+					<td><input name="updatesubmit" type="submit" class="button10" value="<?php echo $article["article_id"] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" /></td>
 					<td>&nbsp;</td>
 					<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" /></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $article["article_id"] ?>'" /></td>
+					<td><input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles<?php echo $article["article_id"] ? '&amp;p=2&amp;s=1&amp;id='.$article["article_id"] : '' ?>'" /></td>
 					</tr></table></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>

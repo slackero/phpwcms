@@ -481,7 +481,7 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
       	$_SESSION['image_browser_article'] = 0; //set how image file browser should work
       	switch ($p) {
       		case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php');	break;
-      		case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.new.tmpl.php');			break; //Neuen Artikel anlegen
+      		case 1:// include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.new.tmpl.php');			break; //Neuen Artikel anlegen
       		case 2: include_once (PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php');		break; //Contentedit
 			
 			 //News
