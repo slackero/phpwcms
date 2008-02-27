@@ -810,4 +810,56 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 	}
 }
 
+function getItemsPerPageMenu($base_url='', $default=25, $steps=array(10,25,50,100,250,0), $separator=' ') {
+
+	if( isset($_GET['showipp']) ) {
+		$ipp = intval( is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default );
+		setcookie('phpwcmsBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain() );
+	} elseif( isset($_COOKIE['phpwcmsBEItemsPerPage']) ) {
+		$ipp = intval( $_COOKIE['phpwcmsBEItemsPerPage'] );
+	} else {
+		$ipp = $default;
+	}
+	
+	if(!in_array($ipp, $steps)) {
+		array_unshift($steps, $ipp);
+	}
+	
+	$menu = array();
+	$x = 0;
+	foreach($steps as $item) {
+	
+		$menu[$x]  = '<a href="'.$base_url.'&amp;showipp='.$item.'"';
+		if($ipp == $item) {
+			$menu[$x] .= ' class="active"';
+		}
+		$menu[$x] .= '>';
+		$menu[$x] .= $item == 0 ? $GLOBALS['BL']['be_ftptakeover_all'] : $item;
+		$menu[$x] .= '</a>';
+	
+		$x++;
+	}
+	
+	return implode($separator, $menu);
+}
+
+
+
+function initJsCalendar() {
+	$GLOBALS['BE']['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
+	$GLOBALS['BE']['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
+}
+function initMootools() {
+	$GLOBALS['BE']['HEADER']['mootools.js']	= getJavaScriptSourceLink('include/inc_js/mootools/mootools.js');
+}
+function initMootoolsAutocompleter() {
+	initMootools();
+	$GLOBALS['BE']['HEADER']['Autocompleter.js']		= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.js');
+	$GLOBALS['BE']['HEADER']['Autocompleter.Remote.js']	= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.Remote.js');
+	$GLOBALS['BE']['HEADER']['Observer.js']				= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Observer.js');
+}
+function initJsOptionSelect() {
+	$GLOBALS['BE']['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
+}
+
 ?>

@@ -37,8 +37,9 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 
 
 ?>
+
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>" method="post" name="article" id="article">
-  <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
       		<tr><td colspan="2" class="title"><?php echo $BL['be_article_estitle'] ?></td></tr>
 			<tr>
 				<td width="88"><img src="img/leer.gif" alt="" width="88" height="4" /></td>
@@ -150,10 +151,7 @@ calEnd.setYearCombo(false);
 					</select></td>
 				 </tr>
 			  </table></td>
-			</tr>			
-			
-			
-			
+			</tr>
 			
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 			</tr>
@@ -189,27 +187,22 @@ calEnd.setYearCombo(false);
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
               <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11" style="width: 440px" value="<?php echo html_specialchars($article['article_pagetitle']) ?>" size="40" maxlength="125" />
               </td>
-			</tr>
-
-			
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-			</tr>
+			</tr>			
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr valign="top">
 				<td align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="3" /><br />
 			  <?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
 				<td><textarea name="article_keyword" rows="4" class="f10" id="article_keyword" style="width: 440px" onkeyup="if(this.value.length &gt; 250) {this.value=this.value.substr(0,250);}"><?php echo html_specialchars($article["article_keyword"]) ?></textarea></td>
 			</tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-			</tr><!--get_tmpl_files($dir)//-->			
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>		
 			<tr>
 				<td align="right" class="chatlist" valign="top"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
 				<td valign="top"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
-				<td width="215" class="chatlist"><?php echo $BL['be_article_forlist'] ?>:&nbsp;</td>
-				<td width="10"><img src="img/leer.gif" alt="" width="10" height="1" /></td>
-				<td width="215" class="chatlist"><?php echo $BL['be_article_forfull'] ?>:&nbsp;</td></tr>
-				<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-				</tr>
+					<td width="215" class="chatlist"><?php echo $BL['be_article_forlist'] ?>:&nbsp;</td>
+					<td width="10"><img src="img/leer.gif" alt="" width="10" height="1" /></td>
+					<td width="215" class="chatlist"><?php echo $BL['be_article_forfull'] ?>:&nbsp;</td></tr>
+				<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 				<tr>
 				  <td><select name="article_tmpllist" id="article_tmpllist" style="width: 215px" class="f11">
 <?php
@@ -619,4 +612,33 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 			</tr>
 			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
 			</tr>
-</table></form>
+</table>
+</form>
+<script type="text/javascript">
+<!--
+
+window.addEvent('domready', function(){
+									 
+	/* Autocompleter for keywords (=tags) */
+	var searchKeyword = $('article_keyword');
+	var completer = new Autocompleter.Ajax.Json(searchKeyword, 'include/inc_act/ajax_connector.php', {
+		multi: true,
+		maxChoices: 30,
+		autotrim: true,
+		minLength: 0,
+		allowDupes: false,
+		postData: {action: 'category', method: 'json'},
+		onRequest: function(el) {
+			searchKeyword.addClass('ajax-loading');
+		},
+		onComplete: function(el) {
+			searchKeyword.removeClass('ajax-loading');
+		}
+	});
+	
+
+});
+
+
+//-->
+</script>

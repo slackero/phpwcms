@@ -116,6 +116,8 @@ function get_article_content_count($id, $dbcon) {
 
 function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $article_order=0) {
 
+	global $BL;
+
 	$article			= array();	// empty article array
 	$sort_array			= array();	// empty array to store all sort values for the category
 	$article_order		= intval($article_order);
@@ -205,7 +207,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 			$sort_up  = '<a href="include/inc_act/act_structure.php?do=4%7C';
 			$sort_up .= $article[$akey]["article_id"] . '%7C' . $article[$akey]['sort_up'] . '%7C';
 			$sort_up .= $article[$akey-1]["article_id"] . '%7C' . $article[$akey]['article_sort'];
-			$sort_up .= '" title="'.$GLOBALS['BL']['be_func_struct_sort_up'].'">';
+			$sort_up .= '" title="'.$BL['be_func_struct_sort_up'].'">';
 			$sort_up .= '<img src="img/button/sort_1_1.gif" width="11" height="11" border="0" alt="" /></a>';
 		
 		} else {
@@ -219,7 +221,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 			$sort_down  = '<a href="include/inc_act/act_structure.php?do=4%7C';
 			$sort_down .= $article[$akey]["article_id"] . '%7C' . $article[$akey]['sort_down'] . '%7C';
 			$sort_down .= $article[$akey+1]["article_id"] . '%7C' . $article[$akey]['article_sort'];
-			$sort_down .= '" title="'.$GLOBALS['BL']['be_func_struct_sort_down'].'">';
+			$sort_down .= '" title="'.$BL['be_func_struct_sort_down'].'">';
 			$sort_down .= '<img src="img/button/sort_2_1.gif" width="11" height="11" border="0" alt="" /></a>';
 		
 		} else {
@@ -254,24 +256,28 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 
 		$a .= "<img src=\"img/symbole/text_1.gif\" width=\"11\" height=\"15\" ";
 		
-		$info  = $GLOBALS["BL"]['be_func_struct_articleID'].": ".$article[$akey]["article_id"].'<br />';
+		$info  = '<table cellspacing=0 cellpadding=1 border=0>';
+		$info .= '<tr><td>'.$BL['be_func_struct_articleID'].':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
 		if($article[$akey]["article_alias"]) {
-			$info .= 'ALIAS: '.$article[$akey]["article_alias"].'<br />';
+			$info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
 		}
-		$info .= $GLOBALS["BL"]['be_cnt_sortvalue'].": ".$article[$akey]["article_sort"].'<br />';
-		$info .= $GLOBALS["BL"]['be_priorize'].": ".$article[$akey]["article_priorize"];
+		$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_begin"])).'</b></td></tr>';
+		$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_end"])).'</b></td></tr>';
+		$info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
+		$info .= '<tr><td>'.$BL['be_priorize'].':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
+		$info .= '</table>';
 		
-		$a .= 'onmouseover="Tip(\''.$info.'\');" alt=""';
+		$a .= 'onmouseover="Tip(\''. $info .'\');" alt=""';
 		//$a .= getAltTitle($info);
 		$a .= " /></td>\n";
 		$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
 		$a .= "<td class=\"dir\"><a href=\"index.php?aid=".$article[$akey]["article_id"].'"';
-		$a .= "target=\"_blank\" title=\"".$GLOBALS["BL"]['be_func_struct_preview'].": ".$at."\">";
+		$a .= "target=\"_blank\" title=\"".$BL['be_func_struct_preview'].": ".$at."\">";
 		$a .= $at."</a></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
 
 		if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 			$a .= "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=".$article[$akey]["article_id"];
-			$a .= "\" title=\"".$GLOBALS["BL"]['be_func_struct_edit']." \n[".$at."]\">";
+			$a .= "\" title=\"".$BL['be_func_struct_edit']." \n[".$at."]\">";
 			$a .= "<img src=\"img/button/edit_11x11.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\"></a>";
 		} else {
 			$a .= "<img src=\"img/button/edit_11x11_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
@@ -279,27 +285,27 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 
 		if($cut_article != $article[$akey]["article_id"] && !$cut_article_content) {
 			$a .= "<a href=\"phpwcms.php?do=articles&amp;acut=".$article[$akey]["article_id"];
-			$a .= "\" title=\"".$GLOBALS["BL"]['be_func_struct_cut']." \n[".$at."]\">";
+			$a .= "\" title=\"".$BL['be_func_struct_cut']." \n[".$at."]\">";
 			$a .= "<img src=\"img/button/cut_11x11_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 	   } elseif($cut_article_content) {
 			$a .= '<a href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content.'|'.$article[$akey]["article_id"].'|-10');
-			$a .= '" title="'.$GLOBALS['BL']['be_func_content_paste0'];
+			$a .= '" title="'.$BL['be_func_content_paste0'];
 			$a .= " [".$at."]\"><img src=\"img/button/cut_11x11_1.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";                    
 		} else {
-			$a .= "<a href=\"phpwcms.php?do=articles\" title=\"".$GLOBALS["BL"]['be_func_struct_nocut'].'">';
+			$a .= "<a href=\"phpwcms.php?do=articles\" title=\"".$BL['be_func_struct_nocut'].'">';
 			$a .= "<img src=\"img/button/cut_11x11_3.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 		}
 
 		if($copy_article != $article[$akey]["article_id"] && !$copy_article_content) {
 			$a .= "<a href=\"phpwcms.php?do=articles&amp;acopy=".$article[$akey]["article_id"];
-			$a .= "\" title=\"".$GLOBALS["BL"]['be_func_struct_copy']." \n[".$at."]\">";
+			$a .= "\" title=\"".$BL['be_func_struct_copy']." \n[".$at."]\">";
 			$a .= "<img src=\"img/button/copy_11x11_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 		} elseif($copy_article_content) {
 			$a .= '<a href="include/inc_act/act_structure.php?do='.rawurlencode('8|'.$copy_article_content.'|'.$article[$akey]["article_id"].'|-10');
-			$a .= "\" title=\"".$GLOBALS['BL']['be_func_content_paste0'];
+			$a .= "\" title=\"".$BL['be_func_content_paste0'];
 			$a .= " [".$at."]\"><img src=\"img/button/copy_11x11_1.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";                    
 		} else {
-			$a .= "<a href=\"phpwcms.php?do=articles\" title=\"".$GLOBALS["BL"]['be_func_struct_nocopy'].'">';
+			$a .= "<a href=\"phpwcms.php?do=articles\" title=\"".$BL['be_func_struct_nocopy'].'">';
 			$a .= "<img src=\"img/button/copy_11x11_3.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 		}
 
@@ -312,17 +318,17 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 
 		//active und visible Status wechseln
 		$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=3,".$article[$akey]["article_id"].",,".(($article[$akey]["article_aktiv"])?0:1);
-		$a .= '" title="'.$GLOBALS["BL"]['be_func_struct_svisible'].'">';
+		$a .= '" title="'.$BL['be_func_struct_svisible'].'">';
 		$a .= "<img src=\"img/button/visible_11x11_".$article[$akey]["article_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 		$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=4,".$article[$akey]["article_id"].",,".(($article[$akey]["article_public"])?0:1);
-		$a .= '" title="'.$GLOBALS["BL"]['be_func_struct_spublic'].'">';
+		$a .= '" title="'.$BL['be_func_struct_spublic'].'">';
 		$a .= "<img src=\"img/button/public_11x11_".$article[$akey]["article_public"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 
 		//Article Löschen
 		if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 			$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=1,".$article[$akey]["article_id"];
-			$a .= "\" title=\"".$GLOBALS['BL']['be_func_struct_del_article']." \n[".$at."]\" ";
-			$a .= "onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_jsmsg']." \\n[".js_singlequote($at)."] ');\">";
+			$a .= "\" title=\"".$BL['be_func_struct_del_article']." \n[".$at."]\" ";
+			$a .= "onclick=\"return confirm('".$BL['be_func_struct_del_jsmsg']." \\n[".js_singlequote($at)."] ');\">";
 			$a .= "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 		} else {
 			$a .= "<img src=\"img/button/del_11x11_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
@@ -359,7 +365,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 					$sbutton[$key]["top"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
 					rawurlencode($sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
 					$sbutton[$key-1]["id"].":".$sbutton[$key]["sort"]).
-					"\" title=\"".$GLOBALS["BL"]['be_article_cnt_up']."\"><img src=\"img/button/sort_1_1.gif\" border=\"0\" alt=\"\" /></a>";
+					"\" title=\"".$BL['be_article_cnt_up']."\"><img src=\"img/button/sort_1_1.gif\" border=\"0\" alt=\"\" /></a>";
 	
 				}
 				if($key == $sc) {
@@ -374,7 +380,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 					$sbutton[$key]["bottom"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
 					rawurlencode($sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
 					$sbutton[$key+1]["id"].":".$sbutton[$key]["sort"]).
-					"\" title=\"".$GLOBALS["BL"]['be_article_cnt_down']."\"><img src=\"img/button/sort_2_1.gif\" border=\"0\" alt=\"\" /></a>";
+					"\" title=\"".$BL['be_article_cnt_down']."\"><img src=\"img/button/sort_2_1.gif\" border=\"0\" alt=\"\" /></a>";
 				}
 				$sbutton_string[$sbutton[$key]["id"]] = $sbutton[$key]["top"].
 				$sbutton[$key]["bottom"];

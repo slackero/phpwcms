@@ -173,6 +173,9 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_begin"]		= clean_slweg($_POST["article_begin"]);
 		$article["article_end"]			= clean_slweg($_POST["article_end"]);
 		$article["article_keyword"]		= clean_slweg($_POST["article_keyword"]);
+		
+		$article["article_keyword"]		= implode(', ',  convertStringToArray( trim($article["article_keyword"], ',') , ',') );
+		
 		$article["article_redirect"]	= clean_slweg($_POST["article_redirect"]);
 		$set_begin						= isset($_POST["set_begin"]) ? 1 : 0;
 		$set_end						= isset($_POST["set_end"]) ? 1 : 0;
@@ -395,7 +398,12 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 			}
 
 			if($result) {
+
 				update_cache(); // set cache timeout = 0
+				
+				
+				_dbSaveCategories($article["article_keyword"], 'article', $article["article_id"], ',');
+
 				$update = isset($_POST['updatesubmit']) ? '&aktion=1' : '';
 				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
 			}
@@ -415,7 +423,11 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		include_once PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.list.tmpl.php";
 	
 	// edit article summary
-	} elseif( (isset($_GET["aktion"]) && intval($_GET["aktion"]) == 1) || isset($_GET['struct']) ) { //Editieren der Artikelbasisinformation
+	} elseif( (isset($_GET["aktion"]) && intval($_GET["aktion"]) == 1) || isset($_GET['struct']) ) {
+		
+		// initialize Mootools for autocomplete
+		initMootoolsAutocompleter();
+	
 		include_once PHPWCMS_ROOT."/include/inc_tmpl/article.editsummary.tmpl.php";
 	
 	} elseif(intval($_GET["aktion"]) == 2) { //Neuen Artikelcontent erstellen
@@ -426,9 +438,9 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		if(isset($_GET["acid"]) && intval($_GET["acid"])) {
 			$content["id"]  = intval($_GET["acid"]);
 			$content["aid"]	= intval($_GET["id"]);
-			//Auslesen der Contentinformationen aus der Datenbank
+			
 			$sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$content["id"]." AND ".
-					"acontent_aid=".$content["aid"]." LIMIT 1;";
+					"acontent_aid=".$content["aid"]." LIMIT 1";
 			if($result = mysql_query($sql, $db) or die("error while reading article content data")) {
 				if($row = mysql_fetch_array($result)) {
 					$content["title"]	 		= $row["acontent_title"];
