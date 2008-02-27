@@ -45,8 +45,8 @@ if(isset($_GET["aktiv"])) {
 	$wert	= intval($wert);
 	if($wert != 1 && $wert != 0) $wert = 0;
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
-			"f_aktiv=".$wert.", f_changed=CONCAT_WS('|', f_changed, '".time()."') ".
-			"WHERE f_id=".$id." AND f_uid=".$_SESSION["wcs_user_id"];
+			"f_aktiv=".$wert.", f_changed='".time()."' ".
+			"WHERE f_id=".$id." AND f_uid=".intval($_SESSION["wcs_user_id"]);
 	$result = mysql_query($sql, $db) or die ("error while changing ACTIVE status");
 }
 
@@ -56,8 +56,8 @@ if(isset($_GET["public"])) {
 	$wert	= intval($wert);
 	if($wert != 1 && $wert != 0) $wert = 0;
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
-			"f_public=".$wert.", f_changed=CONCAT_WS('|', f_changed, '".time()."') ".
-			"WHERE f_id=".$id." AND f_uid=".$_SESSION["wcs_user_id"];
+			"f_public=".$wert.", f_changed='".time()."' ".
+			"WHERE f_id=".$id." AND f_uid=".intval($_SESSION["wcs_user_id"]);
 	$result = mysql_query($sql, $db) or die ("error while changing PUBLIC status");
 }
 
@@ -67,9 +67,8 @@ if(isset($_GET["delete"])) {
 	$wert	= intval($wert);
 	if($wert == 9) {
 		$sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
-				"f_trash=9, f_changed=CONCAT_WS('|', f_changed, '".time()."'), ".
-				"f_log=CONCAT_WS('\n', f_log, 'deleted by user ".aporeplace($_SESSION["wcs_user"])."') ".
-				"WHERE f_id=".$id." AND f_uid=".$_SESSION["wcs_user_id"];
+				"f_trash=9, f_changed='".time()."' ".
+				"WHERE f_id=".$id." AND f_uid=".intval($_SESSION["wcs_user_id"]);
 		$result = mysql_query($sql, $db) or die ("error while deleted directory");
 	}
 }
@@ -80,11 +79,9 @@ if(isset($_GET["trash"])) {
 	$wert	= intval($wert);
 	if($wert == 1 || $wert == 9 || $wert == 0) {
 		$sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_pid=0, ".
-				"f_trash=".$wert.", f_changed=CONCAT_WS('|', f_changed, '".time()."'), ".
-				"f_log=CONCAT_WS('\n', f_log, 'deleted by user ".aporeplace($_SESSION["wcs_user"])."') ".
-				"WHERE ";
+				"f_trash=".$wert.", f_changed='".time()."' WHERE ";
 		$sql .= ($id) ? "f_id=".$id." AND " : "f_trash=1 AND ";
-		$sql .= "f_kid=1 AND f_uid=".$_SESSION["wcs_user_id"]; 
+		$sql .= "f_kid=1 AND f_uid=".intval($_SESSION["wcs_user_id"]); 
 		$result = mysql_query($sql, $db) or die ("error while moving file to trash");
 	}
 }
@@ -94,10 +91,7 @@ if(isset($_GET["paste"])) {
 	$file_id	= intval($file_id);
 	$dir_id		= intval($dir_id);
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET f_pid=".$dir_id.", ".
-			"f_changed=CONCAT_WS('|', f_changed, '".time()."'), ".
-			"f_log=CONCAT_WS('\n', f_log, '[".
-			date("m-d-y H:i")."] file moved to dirID[".$dir_id."] by ".aporeplace($_SESSION["wcs_user"])."') ".
-			"WHERE f_id=".$file_id." AND f_kid=1 AND f_uid=".$_SESSION["wcs_user_id"];
+			"f_changed='".time()."' WHERE f_id=".$file_id." AND f_kid=1 AND f_uid=".intval($_SESSION["wcs_user_id"]);
 	$result = mysql_query($sql, $db) or die ("error while moving file to other directory");
 }
 

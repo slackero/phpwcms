@@ -1188,5 +1188,6 @@ $BL['be_news_name_mandatory']			= 'Bitte einen News-Titel eingeben. Dieser ist u
 $BL['be_successfully_saved']			= 'Die Daten wurden erfolgreich gespeichert!';
 $BL['be_successfully_updated']			= 'Die Daten wurden erfolgreich aktualisiert!';
 $BL['be_error_while_save']				= 'Das Speichern der Daten ist fehlgeschlagen!';
+$BL['be_copyright']						= 'Copyright';
 
 ?>

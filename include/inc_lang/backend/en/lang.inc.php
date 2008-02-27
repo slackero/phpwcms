@@ -1199,5 +1199,6 @@ $BL['be_news_name_mandatory']			= "Fill in a news title. It's mandatory!";
 $BL['be_successfully_saved']			= 'All data were saved successfully!';
 $BL['be_successfully_updated']			= 'All data were updated successfully!';
 $BL['be_error_while_save']				= 'Storing data failed.';
+$BL['be_copyright']						= 'copyright';
 
 ?>

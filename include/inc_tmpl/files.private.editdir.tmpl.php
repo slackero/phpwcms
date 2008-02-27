@@ -42,9 +42,9 @@ if (!defined('PHPWCMS_ROOT')) {
 					"f_aktiv=".$dir_aktiv.", ".
 					"f_public=".$dir_public.", ".
 					"f_longinfo='".aporeplace($dir_longinfo)."', ".
-					"f_created=CONCAT_WS('|', f_changed, '".time()."') ".
+					"f_created='".time()."' ".
 					"WHERE f_kid=0 AND f_id=".$dir_id.
-					" AND f_uid=".$_SESSION["wcs_user_id"];
+					" AND f_uid=".intval($_SESSION["wcs_user_id"]);
 			if($result = mysql_query($sql, $db) or die ("error while updating dir info")) {
 				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
 			}

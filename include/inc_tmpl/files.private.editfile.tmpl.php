@@ -28,6 +28,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
+// initialize Mootools for autocomplete
+initMootoolsAutocompleter();
 
 //Wenn neue Datei hochgeladen werden soll
 $file_id = isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
@@ -44,6 +46,8 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 	$file_ext		= clean_slweg($_POST["file_ext"]);
 	$file_shortinfo	= clean_slweg($_POST["file_shortinfo"]);
 	$file_longinfo	= slweg(trim($_POST["file_longinfo"]));
+	$file_copyright	= clean_slweg($_POST["file_copyright"]);
+	$file_tags		= trim( clean_slweg($_POST["file_tags"]), ',' );
 	
 	$file_keywords	= $_POST["file_keywords"];
 	if(count($file_keywords)) {
@@ -77,9 +81,15 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 				"f_shortinfo='".aporeplace($file_shortinfo)."', ".
 				"f_longinfo='".aporeplace($file_longinfo)."', ".
 				"f_keywords='".$file_keys."', ".
-				"f_created=CONCAT_WS('|', f_changed, '".time()."') ".
-				"WHERE f_kid=1 AND f_id=".$file_id." AND f_uid=".$_SESSION["wcs_user_id"];
+				"f_created='".time()."', ".
+				"f_copyright='".aporeplace($file_copyright)."', ".
+				"f_tags='".aporeplace($file_tags)."' ".
+				"WHERE f_kid=1 AND f_id=".$file_id." AND f_uid=".intval($_SESSION["wcs_user_id"]);
 		if($result = mysql_query($sql, $db) or die ("error while updating file info")) {
+		
+			// store tags
+			_dbSaveCategories($file_tags, 'file', $file_id, ',');
+		
 			headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
 		}
 	}	
@@ -89,7 +99,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 //Wenn ID angegeben, dann -> oder aber Root Verzeichnis
 if($file_id) {
 	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id.
-		   " AND f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 AND f_kid=1 LIMIT 1;";
+		   " AND f_uid=".intval($_SESSION["wcs_user_id"])." AND f_trash=0 AND f_kid=1 LIMIT 1;";
 	if($result = mysql_query($sql, $db) or die("error while reading file information")) {
 		if($row = mysql_fetch_array($result)) {
 			$file_oldname	= html_specialchars($row["f_name"]);
@@ -107,6 +117,8 @@ if($file_id) {
 				$file_longinfo	= $row["f_longinfo"];
 				$file_thumb		= $row["f_thumb_list"];
 				$file_keys		= $row["f_keywords"];
+				$file_copyright	= $row["f_copyright"];
+				$file_tags		= $row["f_tags"];
 				
 				if($file_keys) {
 					$file_keys_temp = explode(":", $file_keys);
@@ -146,10 +158,12 @@ if(!$othumb) {
 }
 				
 if($ja) {
-?><form action="phpwcms.php?do=files&f=0" method="post" enctype="multipart/form-data" name="editfileinfo"><table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
+?>
+<form action="phpwcms.php?do=files&f=0" method="post" enctype="multipart/form-data" name="editfileinfo">
+<table border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
 	<tr>
-		<td width="67" rowspan="2" valign="top"><a href="phpwcms.php?do=files&f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
-		<td width="471"><img src="img/leer.gif" alt="" width="1" height="6"></td>
+		<td rowspan="2" valign="top"><a href="phpwcms.php?do=files&f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
+		<td><img src="img/leer.gif" alt="" width="1" height="6"></td>
 	</tr>
 	<tr><td class="title"><?php echo $BL['be_fprivedit_title'] ?></td></tr>
 	<tr>
@@ -176,8 +190,8 @@ if($ja) {
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 	<tr>
-		<td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-		<td class="v10"><select name="file_pid" id="file_pid" class="f10b" style="width: 450px;">
+		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
+		<td class="v10"><select name="file_pid" id="file_pid" class="v11 width400">
 		<option value="0" <?php if($file_pid == 0) echo "selected"; ?>><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
 <?php dir_menu(0, $file_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
 	</select></td>
@@ -196,7 +210,7 @@ if($ja) {
 	<?php } ?>
 	<tr>
       <td align="right" class="v09"><?php echo $BL['be_fpriv_name'] ?>:&nbsp;</td>
-      <td><input name="file_name" type="text" class="f10b" style="width: 450px;" id="file_name" value="<?php echo html_specialchars($file_name) ?>" size="40" maxlength="230"></td>
+      <td><input name="file_name" type="text" class="v11 width400" id="file_name" value="<?php echo html_specialchars($file_name) ?>" size="40" maxlength="230"></td>
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
@@ -212,7 +226,7 @@ if($ja) {
 			
 				$ke = isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
 				$k .= "<tr>\n<td class=\"f10b\">".$ke.html_specialchars($row["fcat_name"]).":&nbsp;</td>\n";
-				$k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"f10b\" style=\"width: 350px;\">\n";
+				$k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"v11 width300\">\n";
 				$k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 				
 				$ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name;";
@@ -240,7 +254,7 @@ if($ja) {
 		<?php if($k) echo $k; ?>
 		<tr>
 			<td class="f10b"><?php echo $BL['be_ftptakeover_additional'] ?>:&nbsp;</td>
-			<td><input name="file_shortinfo" type="text" class="f10b" style="width: 350px;" id="file_shortinfo" value="<?php echo html_specialchars($file_shortinfo) ?>" size="40" maxlength="250"></td>
+			<td><input name="file_shortinfo" type="text" class="v11 width300" id="file_shortinfo" value="<?php echo html_specialchars($file_shortinfo) ?>" size="40" maxlength="250"></td>
 		</tr>		
 		</table></td>
 	</tr>
@@ -249,9 +263,28 @@ if($ja) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr>
 		<td align="right" valign="top" class="v09"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="file_longinfo" cols="40" rows="6" class="v10" id="file_longinfo" style="width: 450px;"><?php echo html_specialchars($file_longinfo) ?></textarea></td>
+		<td valign="top"><textarea name="file_longinfo" cols="40" rows="6" class="v11 width400" id="file_longinfo"><?php echo html_specialchars($file_longinfo) ?></textarea></td>
 	</tr>	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+	
+
+	<tr>
+		<td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
+		<td><input name="file_copyright" type="text" id="file_copyright" size="40" class="v11 width400" maxlength="255" value="<?php echo html_specialchars($file_copyright) ?>" /></td>
+	</tr>	
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	
+	<tr>
+		<td align="right" class="v09">&nbsp;<?php echo $BL['be_tags'] ?>:&nbsp;</td>
+		<td><input name="file_tags" type="text" id="file_tags" size="40" class="v11 width400" maxlength="255" value="<?php echo html_specialchars($file_tags) ?>" /></td>
+	</tr>
+	
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+	
+	
+	
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -265,12 +298,44 @@ if($ja) {
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 	<tr>
-		<td width="67" valign="top"><input name="file_id" type="hidden" id="file_id" value="<?php echo $file_id ?>"><input name="file_aktion" type="hidden" id="file_aktion" value="2"><input name="file_ext" type="hidden" id="file_ext" value="<?php echo strtolower($file_ext) ?>"></td>
+		<td valign="top"><input name="file_id" type="hidden" id="file_id" value="<?php echo $file_id ?>"><input name="file_aktion" type="hidden" id="file_aktion" value="2"><input name="file_ext" type="hidden" id="file_ext" value="<?php echo strtolower($file_ext) ?>"></td>
 		<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fprivedit_button'] ?>"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 	<tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
-</table> </form><?php 
+</table>
+</form>
+<script type="text/javascript">
+<!--
+
+window.addEvent('domready', function(){
+									 
+	/* Autocompleter for keywords (=tags) */
+	var searchKeyword = $('file_tags');
+	var indicator = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchKeyword);
+	var completer = new Autocompleter.Ajax.Json(searchKeyword, 'include/inc_act/ajax_connector.php', {
+		multi: true,
+		maxChoices: 30,
+		autotrim: true,
+		minLength: 0,
+		allowDupes: false,
+		postData: {action: 'category', method: 'json'},
+		onRequest: function(el) {
+			indicator.setStyle('display', '');
+		},
+		onComplete: function(el) {
+			indicator.setStyle('display', 'none');
+		}
+	});
+	
+
+});
+
+
+//-->
+</script>
+
+<?php 
 } 
 
 ?>

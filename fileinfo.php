@@ -172,7 +172,7 @@ echo '
   <tr>
     <td bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="1"></td>
     <td colspan="2" align="center" bgcolor="#F5F8F9"><?php
-	//<img src="<? php echo $phpwcms["file_tmp"].$phpwcms["dir_preview"].$row["f_thumb_preview"] ? >" border="0">
+	
 	echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
 
 	?></td>

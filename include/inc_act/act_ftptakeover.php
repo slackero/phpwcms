@@ -229,11 +229,12 @@ if(!$ftp["error"]) {
 	$ftp["dir"]			= intval($_POST["file_dir"]);
 	$ftp["short_info"]	= clean_slweg($_POST["file_shortinfo"]);
 	
-	$ftp["aktiv"]		= isset($_POST["file_aktiv"]) ? 1 : 0;
-	$ftp["public"]		= isset($_POST["file_public"]) ? 1 : 0;
-	$ftp["thumb"]		= isset($_POST["file_thumb"]) ? 1: 0;
-	$ftp["replace"] 	= isset($_POST["file_replace"]) ? 1 : 0;
-	$ftp["long_info"]	= clean_slweg($_POST["file_longinfo"],65000);
+	$ftp["aktiv"]		= empty($_POST["file_aktiv"]) ? 0 : 1;
+	$ftp["public"]		= empty($_POST["file_public"]) ? 0 : 1;
+	$ftp["replace"] 	= empty($_POST["file_replace"]) ? 0 : 1;
+	$ftp["long_info"]	= clean_slweg($_POST["file_longinfo"]);
+	$ftp["copyright"]	= clean_slweg($_POST["file_copyright"]);
+	$ftp["tags"]		= trim( trim( clean_slweg($_POST["file_tags"]), ',') );
 	
 	$ftp["keywords"]	= isset($_POST["file_keywords"]) ? $_POST["file_keywords"] : array();
 	$ftp["keys"] 		= "";
@@ -248,11 +249,6 @@ if(!$ftp["error"]) {
 				$file_error["keywords"][$key] = 1;
 			}		
 		}
-	}
-
-	
-	if($ftp["thumb"]) {
-		include_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
 	}
 	
 	
@@ -298,11 +294,12 @@ if(!$ftp["error"]) {
 			
 			$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
 					"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
-					"f_shortinfo, f_longinfo, f_keywords, f_hash) VALUES (".
-					$ftp["dir"].", ".$_SESSION["wcs_user_id"].", 1, ".$ftp["aktiv"].", ".$ftp["public"].", '".
+					"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags) VALUES (".
+					$ftp["dir"].", ".intval($_SESSION["wcs_user_id"]).", 1, ".$ftp["aktiv"].", ".$ftp["public"].", '".
 					aporeplace($file_name)."', '".time()."', '".$file_size."', '".aporeplace($file_type)."', '".
 					aporeplace($file_ext)."', '".aporeplace($ftp["short_info"])."', '".
-					aporeplace($ftp["long_info"])."', '".$ftp["keys"]."', '".$file_hash."')";
+					aporeplace($ftp["long_info"])."', '".$ftp["keys"]."', '".$file_hash."', '".
+					aporeplace($ftp["copyright"])."', '".aporeplace($ftp["tags"])."')";
 					
 			if($result = mysql_query($sql, $db) or die("error while insert file information")) {
 				$new_fileId = mysql_insert_id($db); //Festlegen der aktuellen File-ID
@@ -320,26 +317,19 @@ if(!$ftp["error"]) {
 				
 				if ($dir = @opendir($useruploadpath)) {
 					if(@copy($userftppath.$file, $usernewfile)) {
+						
 						@unlink($userftppath.$file);
+						
+						// store tags
+						_dbSaveCategories($ftp["tags"], 'file', $new_fileId, ',');
+						
 					} else {
 						$file_error["upload"] = "Error while writing file to storage (1).";
 					}
-				} else {
-					//$oldumask = umask(0);
-					if(@mkdir($useruploadpath, 0777)) {;
-						if(@copy($userftppath.$file, $usernewfile)) {
-							@unlink($userftppath.$file);
-						} else {
-							$file_error["upload"] = "Error while writing file to storage (2).";
-						}
-					} else {
-						$file_error["upload"] = "Error while creating user directory.";
-					}
-					//umask($oldumask);
 				}
 			}
 			
-			if(!$file_error["upload"]) {
+			if(empty($file_error["upload"])) {
 			
 				// now try to find 1st file having same named and replace it if related mark is set
 				if($ftp["replace"]) {
@@ -361,29 +351,22 @@ if(!$ftp["error"]) {
 							$nsql .= "f_hash='".aporeplace($oldFileNewHash)."' WHERE f_id=".$new_fileId;
 							
 							if(mysql_query($nsql, $db)) {
-							
-								//yepp successful updated hash								
-								//$nsql  = "UPDATE ".DB_PREPEND."phpwcms_file SET ";
-								//$nsql .= "f_hash='".$oldFileNewHash."' WHERE f_id=".$oldFileID;
 								
-								//if(mysql_query($nsql, $db)) {
+								// yepp both files are updated in db
+								// now change hash of file storage files
+								rename($useruploadpath.$oldFileHash.$_file_extension, $useruploadpath.$oldFileNewHash.$_file_extension);
+								rename($usernewfile, $useruploadpath.$oldFileHash.$_file_extension);
 								
-									// yepp both files are updated in db
-									// now change hash of file storage files
-									rename($useruploadpath.$oldFileHash.$_file_extension, $useruploadpath.$oldFileNewHash.$_file_extension);
-									rename($usernewfile, $useruploadpath.$oldFileHash.$_file_extension);
-									
-									//now try to delete all temp images if available
-									$isql = "SELECT imgcache_imgname FROM ".DB_PREPEND."phpwcms_imgcache WHERE imgcache_hash='".aporeplace($oldFileHash)."'";
-									if($iresult = mysql_query($isql, $db)) {
-										$cImagePath = PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES;
-										while($irow = mysql_fetch_row($iresult)) {
-											if(file_exists($cImagePath.$irow[0])) {
-												@unlink($cImagePath.$irow[0]);
-											}
+								//now try to delete all temp images if available
+								$isql = "SELECT imgcache_imgname FROM ".DB_PREPEND."phpwcms_imgcache WHERE imgcache_hash='".aporeplace($oldFileHash)."'";
+								if($iresult = mysql_query($isql, $db)) {
+									$cImagePath = PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES;
+									while($irow = mysql_fetch_row($iresult)) {
+										if(file_exists($cImagePath.$irow[0])) {
+											@unlink($cImagePath.$irow[0]);
 										}
-									}							
-								//}							
+									}
+								}				
 							}
 						}
 						mysql_free_result($rresult);				
@@ -408,7 +391,7 @@ if(!$ftp["error"]) {
 echo "</p>\n";
 }
 
-if(!$file_error["upload"] && !$ftp["error"]) {
+if(empty($file_error["upload"]) && empty($ftp["error"])) {
 	echo "<p class=\"title\"><strong>every selected file was taken over</strong></p>\n";
 	echo "<p class='v10'><a href=\"".$ref."\" style=\"font-weight: bold;\">click here to go back</a> (if no automatic redirect)</p>\n";
 	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\n";
@@ -421,6 +404,8 @@ if(!$file_error["upload"] && !$ftp["error"]) {
 echo "</body>\n</html>\n";
 
 
-umask($oldumask);
+if(isset($oldumask)) {
+	umask($oldumask);
+}
 
 ?>
