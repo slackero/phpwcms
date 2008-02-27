@@ -80,6 +80,7 @@ if($content["bid"]["image_width"] > $phpwcms["content_width"] || $content["bid"]
 	$content["bid"]["image_width"] = $phpwcms["content_width"];
 }
 
+/*
 if ($content["bid"]["image_id"] || $content["bid"]["image_name"]) {
 
 	// check for image information and get alle infos from file
@@ -129,6 +130,7 @@ if ($content["bid"]["image_id"] || $content["bid"]["image_name"]) {
 	}
 	
 }
+*/
 		
 // now check if new resized image should be created
 if(isset($content["bid"]["image_prev_info"]) && count($content["bid"]["image_prev_info"]) && !$content["bid"]["image_prev_make"] && 
