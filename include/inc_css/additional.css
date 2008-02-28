@@ -480,12 +480,21 @@ form.free input.checkbox_left {
 
 span.autocompleter-loading
 {
-	background: #fff url(../../img/ajax/ajax-indicator-16x16.gif) no-repeat center center;
+	background: transparent url(../../img/indicator/indicator_arrows_green.gif) no-repeat center center;
 	padding: 0 10px 0 10px;
 	line-height: 16px;
 	font-size: 16px;
 	position: relative;
 	top: 1px;
+}
+
+textarea.ajax-loading, input.ajax-loading {
+	background-image: url(../../img/indicator/indicator_arrows_green_19x19.gif);
+	background-repeat: no-repeat;
+	background-position: right top;
+	padding: 1px;
+	border: 1px solid #C7E2F1;
+	border-top-color: #3D7BAD;
 }
 
 ul.autocompleter-choices
@@ -494,10 +503,9 @@ ul.autocompleter-choices
 	margin:					0;
 	padding:				0;
 	list-style:				none;
-	border:					1px solid #ABADB3;
+	border:					1px solid #C7E2F1;
+	border-bottom-color:	#3D7BAD;
 	background-color:		white;
-	/* border-right-color:		#ddd;
-	border-bottom-color:	#ddd; */
 	text-align:				left;
 	z-index:				50;
 }
@@ -508,8 +516,8 @@ ul.autocompleter-choices li
 	padding:				0.1em 1.5em 0.1em 1em;
 	cursor:					pointer;
 	font-weight:			normal;
-	font-size:				13px;
-	list-style: none;
+	font-size:				14px;
+	list-style: 			none;
 	font-family:			"Lucida Grande", Verdana, Geneva, Arial, Helvetica, sans-serif;
 	line-height:			135%;
 }
@@ -528,4 +536,66 @@ ul.autocompleter-choices span.autocompleter-queried
 ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 {
 	color:					#9FCFFF;
+}
+
+.upload-queue
+{
+	list-style:				none;
+	margin: 0;
+	padding: 0 0 0 5px;
+}
+.upload-queue li
+{
+	background:				url(../../img/famfamfam/silk_icons_gif/drive_go.gif)  no-repeat 0 5px;
+	padding:				5px 0 5px 22px;
+	list-style:				none;
+}
+
+.upload-queue .queue-file
+{
+	font-weight:			bold;
+}
+
+.upload-queue .queue-size
+{
+	color:					#aaa;
+	margin-left:			1em;
+	font-size:				0.9em;
+}
+
+.upload-queue .queue-loader
+{
+	position:				relative;
+	margin:					4px 45px 5px 2px;
+	font-size:				0.9em;
+	background-color:		#ddd;
+	color:					#fff;
+	border:					1px inset #ddd;
+}
+.upload-queue .queue-subloader
+{
+	text-align:				center;
+	position:				absolute;
+	background-color:		#81B466;
+	height:					100%;
+	width:					0%;
+	left:					0;
+	top:					0;
+}
+
+.upload-queue .input-delete
+{
+	width:					16px;
+	height:					16px;
+	background:				url(../../img/famfamfam/silk_icons_gif/delete.gif) no-repeat 0 0;
+	text-decoration:		none;
+	border:					none;
+	float:					right;
+	margin-right:			28px;
+}
+.upload_button {
+
+}
+.upload_button input {
+	font-size: 12px;
 }
