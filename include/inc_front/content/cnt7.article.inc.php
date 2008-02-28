@@ -168,7 +168,7 @@ if($content['files_sql']) {
 					if(empty($_file_info[4]) && $_files_settings['thumbnail'] == 1) {
 					
 						$_file_info[4] = array(	0 => intval($_files_settings['thumbnail_width']),
-												1 => intval($_files_settings['thumbnail_heighth']),
+												1 => intval($_files_settings['thumbnail_height']),
 												2 => intval($_files_settings['thumbnail_crop']) ? 1 : 0
 											   );
 					
@@ -210,15 +210,27 @@ if($content['files_sql']) {
 					
 					if($_file_info[4] && strpos($_files_entries[$key], 'FILE_IMAGE') !== false) {
 					
+						$target_ext = $content['files_result'][ $_files_x ]['f_ext'];
+					
 						// do it for jpg, png or gif only
 						switch($content['files_result'][ $_files_x ]['f_ext']) {
 							
+							case 'tif':
+							case 'tiff':
+							case 'pdf':
+							case 'psd':
+							case 'eps':		if($GLOBALS['phpwcms']['imagick'] == 0) {
+												break;
+											}
+							
+							case 'bmp':		$target_ext = 'jpg';
+
 							case 'gif':
 							case 'jpg':
-							case 'png':		
+							case 'png':
 							
 								$_files_image = get_cached_image(
-												array(	"target_ext"	=>	$content['files_result'][ $_files_x ]['f_ext'],
+												array(	"target_ext"	=>	$target_ext,
 														"image_name"	=>	$content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
 														"max_width"		=>	$_file_info[4][0],
 														"max_height"	=>	$_file_info[4][1],
