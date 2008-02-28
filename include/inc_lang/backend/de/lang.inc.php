@@ -1189,5 +1189,8 @@ $BL['be_successfully_saved']			= 'Die Daten wurden erfolgreich gespeichert!';
 $BL['be_successfully_updated']			= 'Die Daten wurden erfolgreich aktualisiert!';
 $BL['be_error_while_save']				= 'Das Speichern der Daten ist fehlgeschlagen!';
 $BL['be_copyright']						= 'Copyright';
+$BL['be_file_multiple_upload']			= 'Mehrfach-Dateiupload';
+$BL['be_files_browse']					= 'Dateien auswählen';
+$BL['be_files_upload']					= 'Gewählte Dateien hochladen';
 
 ?>

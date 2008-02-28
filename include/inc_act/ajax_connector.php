@@ -32,7 +32,6 @@ require(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 
 if(empty($_SESSION["wcs_user"])) {
 	die('Sorry, access forbidden');
-	//require(PHPWCMS_ROOT.'/include/inc_lib/checklogin.inc.php');
 }
 
 $action		= isset($_POST['action']) ? $_POST['action'] : false;

@@ -1200,5 +1200,8 @@ $BL['be_successfully_saved']			= 'All data were saved successfully!';
 $BL['be_successfully_updated']			= 'All data were updated successfully!';
 $BL['be_error_while_save']				= 'Storing data failed.';
 $BL['be_copyright']						= 'copyright';
+$BL['be_file_multiple_upload']			= 'multiple file upload';
+$BL['be_files_browse']					= 'Browse files';
+$BL['be_files_upload']					= 'Upload selected files';
 
 ?>
