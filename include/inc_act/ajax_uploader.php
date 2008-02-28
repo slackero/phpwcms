@@ -59,7 +59,7 @@ if($log) {
 		$msg	= '';
 	}
 
-	fputs($log, $error . ' - ' . getRemoteIP() . ': ' . $status['name'] . ' ('. $status['size'] .' byte)' . $msg . LF );
+	fputs($log, date('Y-m-d H:i:s') . ' - ' . $error . ' - ' . getRemoteIP() . ': ' . $status['name'] . ' ('. $status['size'] .' byte)' . $msg . LF );
 	fclose($log);	
 
 }
