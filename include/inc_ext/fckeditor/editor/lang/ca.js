@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -359,7 +359,6 @@ DlgPasteMsg2	: "Si us plau, enganxeu dins del següent camp utilitzant el teclat
 DlgPasteSec		: "A causa de la configuració de seguretat del vostre navegador, l'editor no pot accedir al porta-retalls directament. Enganxeu-ho un altre cop en aquesta finestra.",
 DlgPasteIgnoreFont		: "Ignora definicions de font",
 DlgPasteRemoveStyles	: "Elimina definicions d'estil",
-DlgPasteCleanBox		: "Neteja camp",
 
 // Color Picker
 ColorAutomatic	: "Automàtic",

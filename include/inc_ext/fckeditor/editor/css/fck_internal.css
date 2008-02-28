@@ -1,6 +1,6 @@
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -19,6 +19,13 @@
  * == END LICENSE ==
  *
  * This CSS Style Sheet defines rules used by the editor for its internal use.
+ */
+
+/* #########
+ *  WARNING
+ * #########
+ * When changing this file, the minified version of it must be updated in the
+ * fckeditor.html file (see FCK_InternalCSS).
  */
 
 /* Fix to allow putting the caret at the end of the content in Firefox if
@@ -146,7 +153,7 @@ a[name]
 	background-image: url(images/block_address.png);
 }
 
-.FCK__ShowBlocks blockquote 
+.FCK__ShowBlocks blockquote
 {
 	background-image: url(images/block_blockquote.png);
 }

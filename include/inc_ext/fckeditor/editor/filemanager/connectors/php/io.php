@@ -1,7 +1,7 @@
 <?php
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -29,7 +29,7 @@ function GetResourceTypePath( $resourceType, $sCommand )
 {
 	global $Config ;
 
-	if ( $sCommand == "QuickUpload") 
+	if ( $sCommand == "QuickUpload")
 		return $Config['QuickUploadPath'][$resourceType] ;
 	else
 		return $Config['FileTypesPath'][$resourceType] ;
@@ -38,7 +38,7 @@ function GetResourceTypePath( $resourceType, $sCommand )
 function GetResourceTypeDirectory( $resourceType, $sCommand )
 {
 	global $Config ;
-	if ( $sCommand == "QuickUpload") 
+	if ( $sCommand == "QuickUpload")
 	{
 		if ( strlen( $Config['QuickUploadAbsolutePath'][$resourceType] ) > 0 )
 			return $Config['QuickUploadAbsolutePath'][$resourceType] ;
@@ -88,6 +88,7 @@ function GetParentFolder( $folderPath )
 
 function CreateServerFolder( $folderPath, $lastFolder = null )
 {
+	global $Config ;
 	$sParent = GetParentFolder( $folderPath ) ;
 
 	// Ensure the folder path has no double-slashes, or mkdir may fail on certain platforms
@@ -103,7 +104,7 @@ function CreateServerFolder( $folderPath, $lastFolder = null )
 		if ( !is_null( $lastFolder ) && $lastFolder === $sParent) {
 			return "Can't create $folderPath directory" ;
 		}
-		
+
 		$sErrorMsg = CreateServerFolder( $sParent, $folderPath ) ;
 		if ( $sErrorMsg != '' )
 			return $sErrorMsg ;
@@ -118,10 +119,22 @@ function CreateServerFolder( $folderPath, $lastFolder = null )
 		// Enable error tracking to catch the error.
 		ini_set( 'track_errors', '1' ) ;
 
-		// To create the folder with 0777 permissions, we need to set umask to zero.
-		$oldumask = umask(0) ;
-		mkdir( $folderPath, 0777 ) ;
-		umask( $oldumask ) ;
+		if ( isset( $Config['ChmodOnFolderCreate'] ) && !$Config['ChmodOnFolderCreate'] )
+		{
+			mkdir( $folderPath ) ;
+		}
+		else
+		{
+			$permissions = 0777 ;
+			if ( isset( $Config['ChmodOnFolderCreate'] ) )
+			{
+				$permissions = $Config['ChmodOnFolderCreate'] ;
+			}
+			// To create the folder with 0777 permissions, we need to set umask to zero.
+			$oldumask = umask(0) ;
+			mkdir( $folderPath, $permissions ) ;
+			umask( $oldumask ) ;
+		}
 
 		$sErrorMsg = $php_errormsg ;
 
@@ -146,7 +159,7 @@ function GetRootPath()
 	$sSelfPath = substr( $sSelfPath, 0, strrpos( $sSelfPath, '/' ) ) ;
 
 	$sSelfPath = str_replace( '/', DIRECTORY_SEPARATOR, $sSelfPath ) ;
-	
+
 	$position = strpos( $sRealPath, $sSelfPath ) ;
 
 	// This can check only that this script isn't run from a virtual dir
@@ -180,10 +193,10 @@ function IsAllowedExt( $sExtension, $resourceType )
 	$arAllowed	= $Config['AllowedExtensions'][$resourceType] ;
 	$arDenied	= $Config['DeniedExtensions'][$resourceType] ;
 
-	if ( count($arAllowed) > 0 && !in_array( $sExtension, $arAllowed ) ) 
+	if ( count($arAllowed) > 0 && !in_array( $sExtension, $arAllowed ) )
 		return false ;
 
-	if ( count($arDenied) > 0 && in_array( $sExtension, $arDenied ) ) 
+	if ( count($arDenied) > 0 && in_array( $sExtension, $arDenied ) )
 		return false ;
 
 	return true ;
@@ -194,7 +207,7 @@ function IsAllowedType( $resourceType )
 	global $Config ;
 	if ( !in_array( $resourceType, $Config['ConfigAllowedTypes'] ) )
 		return false ;
-	
+
 	return true ;
 }
 
@@ -204,7 +217,7 @@ function IsAllowedCommand( $sCommand )
 
 	if ( !in_array( $sCommand, $Config['ConfigAllowedCommands'] ) )
 		return false ;
-	
+
 	return true ;
 }
 

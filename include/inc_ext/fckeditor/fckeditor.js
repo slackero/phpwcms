@@ -1,6 +1,6 @@
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -59,8 +59,8 @@ FCKeditor.MinHeight = 200 ;
  */
 FCKeditor.MinWidth = 750 ;
 
-FCKeditor.prototype.Version			= '2.5.1' ;
-FCKeditor.prototype.VersionBuild	= '17566' ;
+FCKeditor.prototype.Version			= '2.6 Beta 1' ;
+FCKeditor.prototype.VersionBuild	= '18219' ;
 
 FCKeditor.prototype.Create = function()
 {
@@ -76,7 +76,7 @@ FCKeditor.prototype.CreateHtml = function()
 		return '' ;
 	}
 
-	var sHtml = '<div>' ;
+	var sHtml = '' ;
 
 	if ( !this.CheckBrowser || this._IsCompatibleBrowser() )
 	{
@@ -90,8 +90,6 @@ FCKeditor.prototype.CreateHtml = function()
 		var sHeight = this.Height.toString().indexOf('%') > 0 ? this.Height : this.Height + 'px' ;
 		sHtml += '<textarea name="' + this.InstanceName + '" rows="4" cols="40" style="width:' + sWidth + ';height:' + sHeight + '">' + this._HTMLEncode( this.Value ) + '<\/textarea>' ;
 	}
-
-	sHtml += '</div>' ;
 
 	return sHtml ;
 }
@@ -205,13 +203,13 @@ FCKeditor.prototype._HTMLEncode = function( text )
 	var textareaToEditor = function( textarea )
 	{
 		var editor = new FCKeditor( textarea.name ) ;
-		
+
 		editor.Width = Math.max( textarea.offsetWidth, FCKeditor.MinWidth ) ;
 		editor.Height = Math.max( textarea.offsetHeight, FCKeditor.MinHeight ) ;
-		
+
 		return editor ;
 	}
-	
+
 	/**
 	 * Replace all <textarea> elements available in the document with FCKeditor
 	 * instances.
@@ -244,7 +242,7 @@ FCKeditor.prototype._HTMLEncode = function( text )
 			// The "name" attribute must exist.
 			if ( !name || name.length == 0 )
 				continue ;
-			
+
 			if ( typeof arguments[0] == 'string' )
 			{
 				// The textarea class name could be passed as the function
@@ -289,7 +287,13 @@ function FCKeditor_IsCompatibleBrowser()
 
 	// Opera 9.50+
 	if ( window.opera && window.opera.version && parseFloat( window.opera.version() ) >= 9.5 )
-			return true ;
+		return true ;
+
+	// Adobe AIR
+	// Checked before Safari because AIR have the WebKit rich text editor
+	// features from Safari 3.0.4, but the version reported is 420.
+	if ( sAgent.indexOf( ' adobeair/' ) != -1 )
+		return ( sAgent.match( / adobeair\/(\d+)/ )[1] >= 1 ) ;	// Build must be at least v1
 
 	// Safari 3+
 	if ( sAgent.indexOf( ' applewebkit/' ) != -1 )

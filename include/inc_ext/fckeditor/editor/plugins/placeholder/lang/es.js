@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -18,21 +18,10 @@
  *
  * == END LICENSE ==
  *
- * FCKToolbarBreak Class: breaks the toolbars.
- * It makes it possible to force the toolbar to break to a new line.
- * This is the IE specific implementation.
+ * Placholder Spanish language file.
  */
-
-var FCKToolbarBreak = function()
-{}
-
-FCKToolbarBreak.prototype.Create = function( targetElement )
-{
-	var oBreakDiv = FCKTools.GetElementDocument( targetElement ).createElement( 'div' ) ;
-
-	oBreakDiv.className = 'TB_Break' ;
-
-	oBreakDiv.style.clear = FCKLang.Dir == 'rtl' ? 'left' : 'right' ;
-
-	targetElement.appendChild( oBreakDiv ) ;
-}
+FCKLang.PlaceholderBtn			= 'Insertar/Editar contenedor' ;
+FCKLang.PlaceholderDlgTitle		= 'Propiedades del contenedor ' ;
+FCKLang.PlaceholderDlgName		= 'Nombre de contenedor' ;
+FCKLang.PlaceholderErrNoName	= 'Por favor escriba el nombre de contenedor' ;
+FCKLang.PlaceholderErrNameInUse	= 'El nombre especificado ya esta en uso' ;

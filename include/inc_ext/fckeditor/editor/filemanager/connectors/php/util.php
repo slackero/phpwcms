@@ -1,7 +1,7 @@
 <?php
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -36,7 +36,7 @@ function RemoveFromEnd( $sourceString, $charToRemove )
 
 function ConvertToXmlAttribute( $value )
 {
-	if ( defined( 'PHP_OS' ) ) 
+	if ( defined( 'PHP_OS' ) )
 	{
 		$os = PHP_OS ;
 	}
@@ -44,15 +44,15 @@ function ConvertToXmlAttribute( $value )
 	{
 		$os = php_uname() ;
 	}
-	
-	if ( strtoupper( substr( $os, 0, 3 ) ) === 'WIN' ) 
+
+	if ( strtoupper( substr( $os, 0, 3 ) ) === 'WIN' )
 	{
 		return ( utf8_encode( htmlspecialchars( $value ) ) ) ;
-	} 
-	else 
+	}
+	else
 	{
 		return ( htmlspecialchars( $value ) ) ;
-	}	
+	}
 }
 
 /**
@@ -77,45 +77,53 @@ function IsHtmlExtension( $ext, $htmlExtensions )
 }
 
 /**
- * Detect HTML in the first KB to prevent against potential security issue with 
+ * Detect HTML in the first KB to prevent against potential security issue with
  * IE/Safari/Opera file type auto detection bug.
  * Returns true if file contain insecure HTML code at the beginning.
- * 
+ *
  * @param string $filePath absolute path to file
  * @return boolean
- */ 
+ */
 function DetectHtml( $filePath )
 {
-	$fp = fopen( $filePath, 'rb' ) ;
+	$fp = @fopen( $filePath, 'rb' ) ;
+
+	//open_basedir restriction, see #1906
+	if ( $fp === false || !flock( $fp, LOCK_SH ) )
+	{
+		return -1 ;
+	}
+
 	$chunk = fread( $fp, 1024 ) ;
+	flock( $fp, LOCK_UN ) ;
 	fclose( $fp ) ;
 
 	$chunk = strtolower( $chunk ) ;
 
-	if (!$chunk) 
+	if (!$chunk)
 	{
 		return false ;
 	}
 
 	$chunk = trim( $chunk ) ;
 
-	if ( preg_match( "/<!DOCTYPE\W*X?HTML/sim", $chunk ) ) 
+	if ( preg_match( "/<!DOCTYPE\W*X?HTML/sim", $chunk ) )
 	{
 		return true;
-	}	
+	}
 
 	$tags = array( '<body', '<head', '<html', '<img', '<pre', '<script', '<table', '<title' ) ;
 
-	foreach( $tags as $tag ) 
+	foreach( $tags as $tag )
 	{
-		if( false !== strpos( $chunk, $tag ) ) 
+		if( false !== strpos( $chunk, $tag ) )
 		{
 			return true ;
 		}
 	}
 
 	//type = javascript
-	if ( preg_match( '!type\s*=\s*[\'"]?\s*(?:\w*/)?(?:ecma|java)!sim', $chunk ) ) 
+	if ( preg_match( '!type\s*=\s*[\'"]?\s*(?:\w*/)?(?:ecma|java)!sim', $chunk ) )
 	{
 		return true ;
 	}
@@ -127,28 +135,32 @@ function DetectHtml( $filePath )
 	{
 		return true ;
 	}
-	
+
 	//url(javascript
-	if ( preg_match( '!url\s*\(\s*[\'"]?\s*(?:ecma|java)script:!sim', $chunk ) ) 
+	if ( preg_match( '!url\s*\(\s*[\'"]?\s*(?:ecma|java)script:!sim', $chunk ) )
 	{
 		return true ;
-	}			
+	}
 
-	return false ;	
+	return false ;
 }
 
 /**
  * Check file content.
  * Currently this function validates only image files.
  * Returns false if file is invalid.
- * 
+ *
  * @param string $filePath absolute path to file
  * @param string $extension file extension
  * @param integer $detectionLevel 0 = none, 1 = use getimagesize for images, 2 = use DetectHtml for images
  * @return boolean
- */ 
+ */
 function IsImageValid( $filePath, $extension )
 {
+	if (!@is_readable($filePath)) {
+		return -1;
+	}
+
 	$imageCheckExtensions = array('gif', 'jpeg', 'jpg', 'png', 'swf', 'psd', 'bmp', 'iff');
 
 	// version_compare is available since PHP4 >= 4.0.7
@@ -170,15 +182,15 @@ function IsImageValid( $filePath, $extension )
 			$imageCheckExtensions[] = "wbmp";
 		}
 	}
-	
+
 	if ( !in_array( $extension, $imageCheckExtensions ) ) {
 		return true;
 	}
-	
+
 	if ( @getimagesize( $filePath ) === false ) {
 		return false ;
-	}		
-	
+	}
+
 	return true;
 }
 
