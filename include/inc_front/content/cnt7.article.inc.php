@@ -87,6 +87,10 @@ if($content['files_sql']) {
 		$_files_settings				= parse_ini_str($_files_settings, false);
 		$_files_settings				= array_merge(	array(	'icon_path' => 'img/icons/', 
 																'icon_name' => 'small_icon_{FILE_EXT}.gif',
+																'thumbnail'	=> 0,
+																'thumbnail_width' => 50,
+																'thumbnail_height' => 50,
+																'thumbnail_crop' => 1,
 																'file_size_round' => 3, 
 																'file_size_space' => ' ',
 																'date_format' => "%m/%d/%y",
@@ -158,6 +162,16 @@ if($content['files_sql']) {
 					
 						$_file_info = array(0 => '', 1 => '', 2 => '', 3 => ' target="_blank"', 4 => '');
 		
+					}
+					
+		
+					if(empty($_file_info[4]) && $_files_settings['thumbnail'] == 1) {
+					
+						$_file_info[4] = array(	0 => intval($_files_settings['thumbnail_width']),
+												1 => intval($_files_settings['thumbnail_heighth']),
+												2 => intval($_files_settings['thumbnail_crop']) ? 1 : 0
+											   );
+					
 					}
 				
 					$_files_entries[$key]  = $content['template_file'];
