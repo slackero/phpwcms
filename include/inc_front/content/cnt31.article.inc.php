@@ -267,6 +267,7 @@ if($image['template']) {
 			
 			$img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
 			$img_a = str_replace('{IMGID}', $key, $img_a);
+			$img_a = str_replace('{IMGAGE_ID}', $key, $img_a);
 			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key]['thumb_name']), $img_a);
 		
 			// replace thumbnail and zoom image information
@@ -290,6 +291,7 @@ if($image['template']) {
 			$img_a = str_replace('{LIGHTBOX_CAPTION}', $lightbox_capt, $img_a);
 			
 			$img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
+			$img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
 			
 			if($image['nocaption']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');

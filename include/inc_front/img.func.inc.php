@@ -167,7 +167,11 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 		if($caption[0] && empty($image['nocaption'])) {
 			$table .= "<tr>";
 			$table .= ($rand[2]) ? "<td>".spacer($rand[2],1)."</td>" : "";
-			$table .= '<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$caption[0].$capt_after."</td>";
+			$table .= '<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$caption[0];
+			if($caption[4] !== '') {
+				$table .= ' <span class="copyright">'.html_specialchars($caption[4]).'</span>';
+			}
+			$table .= $capt_after."</td>";
 			$table .= ($rand[3]) ? "<td>".spacer($rand[3],1)."</td>" : "";
 			$table .= "</tr>\n";
 		}
@@ -285,7 +289,11 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 			$image_block .= '</div>';
 		}
 		if($caption[0] && empty($image['nocaption'])) {
-			$image_block .= '<p'.$caption_class.'>'.$capt_before.$caption[0].$capt_after."</p>";
+			$image_block .= '<p'.$caption_class.'>'.$capt_before.$caption[0];
+			if($caption[4] !== '') {
+				$image_block .= ' <span class="copyright">'.html_specialchars($caption[4]).'</span>';
+			}
+			$image_block .= $capt_after."</p>";
 		}
 
 		$image_block .= "</div>";

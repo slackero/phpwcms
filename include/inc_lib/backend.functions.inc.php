@@ -861,5 +861,11 @@ function initMootoolsAutocompleter() {
 function initJsOptionSelect() {
 	$GLOBALS['BE']['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
 }
+function initMultipleUpload() {
+	initMootools();
+	$GLOBALS['BE']['HEADER']['Swiff.Base.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Base.js');
+	$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Uploader.js');
+	$GLOBALS['BE']['HEADER']['FancyUpload.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/FancyUpload.js');
+}
 
 ?>

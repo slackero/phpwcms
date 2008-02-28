@@ -1151,6 +1151,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			// show the complete article summary listing
 
 			$article["article_image"] = setArticleSummaryImageData($article["article_image"]);
+			
 			if($template) {
 				$article["article_image"]['tmpllist'] = $template;
 			}
@@ -1171,14 +1172,15 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			$img_zoom_abs		= '';
 			$img_zoom_width		= 0;
 			$img_zoom_height	= 0;
-
+			
 			if(empty($article["article_image"]["list_caption"])) {
 				$article["article_image"]["list_caption"] = '';
 			}
 			$caption = getImageCaption($article["article_image"]["list_caption"]);
 
-			$article["article_image"]["list_caption"] = $caption[0]; // caption text
-
+			$article["article_image"]["list_caption"]	= $caption[0]; // caption text
+			$article["article_image"]["copyright"]		= $caption[4]; // copyright information
+			
 			if(!empty($article["article_image"]["list_hash"])) {
 
 				$thumb_image = get_cached_image(
@@ -1254,6 +1256,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 					unset($caption);
 				}
+			} else {
+			
+				$article["article_image"]["list_id"]	= 0;
+				$article["article_image"]["list_hash"]	= '';
+	
 			}
 
 
@@ -1284,9 +1291,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				
 				// replace thumbnail and zoom image information
 				$tmpl = str_replace( array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
-											'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}' ),
+											'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
+											'{IMAGE_ID}', 	'{IMAGE_HASH}' ),
 									 array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
-											$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height ),
+											$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
+											$article["article_image"]["list_id"], $article["article_image"]["list_hash"] ),
 									 $tmpl );
 				
 				if( preg_match('/\{SUMMARY:(\d+)\}/', $tmpl, $matches) ) {
@@ -1300,6 +1309,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
+				$tmpl = render_cnt_template($tmpl, 'COPYRIGHT', html_specialchars($article["article_image"]["copyright"]));
 				$tmpl = render_cnt_template($tmpl, 'ARTICLELINK', $article["article_morelink"] ? $article_link : '');
 				$tmpl = render_cnt_template($tmpl, 'EDITOR', html_specialchars($article["article_username"]));
 				$tmpl = render_cnt_template($tmpl, 'ARTICLEID', $article["article_id"]);
@@ -1350,7 +1360,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 	}
 
 	$listing .= $template_default["space_bottom"]; //ends with space at bottom
-	return $listing; //str_replace("<br /><br />", "<br />", $listing)
+	return $listing;
 }
 
 function get_html_part($value, $class="", $link="", $span_or_div=1) {
@@ -3009,6 +3019,7 @@ function getImageCaption($caption='', $array_index='NUM') {
 	// [1] alt text for image
 	// [2] link -> array(0 => link, 1 => target)
 	// [3] title text -> if empty alt text will be used
+	// [4] copyright information
 	$caption[0]			= trim($caption[0]);
 	$caption[1]			= isset($caption[1]) ? trim($caption[1]) : '';
 	$caption[2]			= isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
@@ -3020,6 +3031,16 @@ function getImageCaption($caption='', $array_index='NUM') {
 		$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 	}
 	$caption[3]			= isset($caption[3]) ? trim($caption[3]) : $caption[1];
+	$caption[4]			= isset($caption[4]) ? trim($caption[4]) : '';
+	
+	if($caption[4] == '') {
+		$copyright		= returnTagContent($caption[3], 'copyright');
+		$caption[3]		= $copyright['new'];
+		$caption[4]		= $copyright['tag'];
+	} else {
+		$caption[3]		= replace_cnt_template($caption[3], 'copyright', '');
+	}
+	
 	if($array_index == 'NUM') {
 		return $caption;
 	} else {

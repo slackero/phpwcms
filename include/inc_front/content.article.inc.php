@@ -155,9 +155,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 		//retrieve image info
 		$row["article_image"] = unserialize($row["article_image"]);
-		//$caption	= explode('|', $row["article_image"]["caption"]);
 		$caption = getImageCaption($row["article_image"]["caption"]);
-		$row["article_image"]["caption"] = $caption[0]; //$caption[0]
+		$row["article_image"]["caption"]	= $caption[0];
+		$row["article_image"]["copyright"]	= $caption[4];
 				
 		//build image/image link
 		$thumb_image = false;
@@ -256,6 +256,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					}
 				}
 			}
+		} else {
+		
+			$row["article_image"]['id']		= 0;
+			$row["article_image"]['hash']	= '';
+		
 		}
 		
 
@@ -342,9 +347,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// replace thumbnail and zoom image information
 			$row["article_image"]['tmplfull'] = str_replace( 
 								array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
-										'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}' ),
+										'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
+										'{IMAGE_ID}',	'{IMAGE_HASH}' ),
 								array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
-										$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height ),
+										$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
+										$row["article_image"]['id'], $row["article_image"]['hash'] ),
 								$row["article_image"]['tmplfull'] );
 			
 			// check if TITLE should be hidden
@@ -365,6 +372,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
 			$row["article_image"]['tmplfull'] = render_cnt_date($row["article_image"]['tmplfull'], $content["article_date"], strtotime($row['article_begin']), strtotime($row['article_end']));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ZOOMIMAGE', $popup_img);
 			

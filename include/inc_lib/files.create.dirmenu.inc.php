@@ -22,7 +22,7 @@
 
 //Funktionen zum Listen der privaten Dateien
 
-function dir_menu($pid, $zid, $dbcon, $vor, $userID, $vorzeichen = ":") {
+function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
 	$pid = intval($pid);
 	$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
 		   "f_pid=".intval($pid)." AND ".

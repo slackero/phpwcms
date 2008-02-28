@@ -2,7 +2,7 @@
 [TITLE]<h1>{TITLE}</h1>
 [/TITLE][SUB]<h3>{SUB}</h3>
 [/SUB][SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}[CAPTION]<br />
-{CAPTION}[/CAPTION]</span>
+{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT][/CAPTION]</span>
 [/IMAGE]{SUMMARY}[/SUMMARY]
 <!--CP_PAGINATE_START//-->
 <div class="cpPagination">
@@ -14,15 +14,19 @@
 
 <!-- 
 	Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]
+	
+	Image ID   {IMAGE_ID}
+	Image Hash {IMAGE_HASH}
+	cmsImage   <img src="img/cmsimage.php/100x100/{IMAGE_ID}.jpg" alt="" border="0" />
 
-	Thumbnail {THUMB_NAME}
-	Relative  {THUMB_REL}
-	Absolute  {THUMB_ABS}
-	WxH       {THUMB_WIDTH}px x {THUMB_HEIGHT}px[ZOOMIMAGE]
+	Thumbnail  {THUMB_NAME}
+	Relative   {THUMB_REL}
+	Absolute   {THUMB_ABS}
+	WxH        {THUMB_WIDTH}px x {THUMB_HEIGHT}px[ZOOMIMAGE]
 
-	Zoomimage {IMAGE_NAME}
-	Relative  {IMAGE_REL}
-	Absolute  {IMAGE_ABS}
-	WxH       {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
+	Zoomimage  {IMAGE_NAME}
+	Relative   {IMAGE_REL}
+	Absolute   {IMAGE_ABS}
+	WxH        {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
 	[/ZOOMIMAGE][/IMAGE]
 //-->

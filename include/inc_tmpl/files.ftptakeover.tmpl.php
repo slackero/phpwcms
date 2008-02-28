@@ -57,8 +57,7 @@ initMootoolsAutocompleter();
 				$fxsg = 0;
 				while ($file = @readdir ($handle))
 				{
-					
-					if($file != "." && $file != "..") {
+					if($file != "." && $file != ".." && $file{0} != '.') {
 						if(!is_dir($file) && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
 							$fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
 							//$fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file);

@@ -310,7 +310,7 @@ if(!$aktion[4]) {
 		} else {
 			// there is more than 1 article inside this category
 			// -> list all - the 1st will be shown with summary and such stuff
-			$content["main"] .= list_articles_summary(); //$content["articles"], $template_default
+			$content["main"] .= list_articles_summary();
 
 		}
 	

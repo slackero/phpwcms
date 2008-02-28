@@ -51,6 +51,73 @@ $news->limit = 50;
 		&nbsp;&nbsp;
 		<a href="<?= $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?= $BL['be_news_create'] ?>"><img src="img/famfamfam/silk_icons_gif/page_white_add.gif" alt="New" border="0" /><span><?= $BL['be_news_create'] ?></span></a>
 	</div>
+	
+<form action="<?= $news->base_url ?>" method="post" name="paginate" id="paginate">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
+	<tr>
+		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+			<tr>
+				
+				<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php //is_checked(1, $_entry['list_active'], 1) ?> /></td>
+				<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
+				<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php //is_checked(1, $_entry['list_inactive'], 1) ?> /></td>
+				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
+
+<?php 
+
+$_entry['pages_total'] = 0;
+
+if($_entry['pages_total'] > 1) {
+
+	echo '<td class="chatlist">|&nbsp;</td>';
+	echo '<td>';
+	if($_SESSION['glossary_page'] > 1) {
+		echo '<a href="'.GLOSSARY_HREF.'&amp;page='.($_SESSION['glossary_page']-1).'">';
+		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" /></a>';
+	} else {
+		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" class="inactive" />';
+	}
+	echo '</td>';
+	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['glossary_page'];
+	echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
+	echo '<td class="chatlist">/'.$_entry['pages_total'].'&nbsp;</td>';
+	echo '<td>';
+	if($_SESSION['glossary_page'] < $_entry['pages_total']) {
+		echo '<a href="'.GLOSSARY_HREF.'&amp;page='.($_SESSION['glossary_page']+1).'">';
+		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" /></a>';
+	} else {
+		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" class="inactive" />';
+	}
+	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
+
+} else {
+
+	echo '<td class="chatlist">|&nbsp;</td>';
+
+}
+?>
+				<td><input type="text" name="filter" id="filter" size="10" value="<?php 
+				
+				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
+					echo html_specialchars(implode(' ', $_POST['filter']));
+				}
+				
+				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
+				<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" style="margin-right:3px;" /></td>
+			
+			</tr>
+		</table></td>
+
+	<td class="chatlist" align="right">
+		<?= getItemsPerPageMenu( $news->base_url ) ?>
+	</td>
+
+	</tr>
+</table>
+</form>
+	
+	
+	
 <?php
 		echo $news->listBackend();
 	
@@ -58,14 +125,11 @@ $news->limit = 50;
 
 	// Begin news form
 	if(count($news->data)) {
-	
-		$BE['HEADER']['date.js']					= getJavaScriptSourceLink('include/inc_js/date.js');
-		$BE['HEADER']['dynCalendar.js']				= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
-		$BE['HEADER']['optionselect.js']			= getJavaScriptSourceLink('include/inc_js/optionselect.js');
-		$BE['HEADER']['mootools.js']				= getJavaScriptSourceLink('include/inc_js/mootools/mootools.js');
-		$BE['HEADER']['Autocompleter.js']			= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.js');
-		$BE['HEADER']['Autocompleter.Remote.js']	= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.Remote.js');
-		$BE['HEADER']['Observer.js']				= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Observer.js');
+		
+		// some JavaScripts wee need
+		initJsCalendar();
+		initJsOptionSelect();
+		initMootoolsAutocompleter();
 
 ?>
 <script type="text/javascript">
@@ -83,8 +147,9 @@ window.addEvent('domready', function(){
 	var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchCategory);
 	var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
 		multi: true,
-		maxChoices: 20,
+		maxChoices: 30,
 		autotrim: true,
+		minLength: 0,
 		allowDupes: false,
 		postData: {action: 'category', method: 'json'},
 		onRequest: function(el) {
@@ -101,6 +166,7 @@ window.addEvent('domready', function(){
 		multi: false,
 		allowDupes: false,
 		autotrim: true,
+		minLength: 0,
 		maxChoices: 20,
 		postData: {action: 'lang', method: 'json'},
 		onRequest: function(el) {
