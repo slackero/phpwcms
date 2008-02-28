@@ -1192,5 +1192,8 @@ $BL['be_copyright']						= 'Copyright';
 $BL['be_file_multiple_upload']			= 'Mehrfach-Dateiupload';
 $BL['be_files_browse']					= 'Dateien auswählen';
 $BL['be_files_upload']					= 'Gewählte Dateien hochladen';
+$BL['be_archive']						= 'Archiv';
+$BL['be_off']							= 'aus';
+$BL['be_on']							= 'an';
 
 ?>

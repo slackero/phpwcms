@@ -371,7 +371,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 								);
 				}
 				if($thumb_image != false) {
-					echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
+					echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
 				} else {
 					echo '&nbsp;';
 				}
@@ -471,7 +471,7 @@ if(!isset($article['image']['list_usesummary'])) {
 					);
 	}
 	if($thumb_image != false) {
-		echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
+		echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
 	} else {
 		echo '&nbsp;';
 	}
@@ -558,18 +558,14 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 					</tr>
 				</table></td>
 			</tr>
-			
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-			</tr>
+
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 			
 			<tr>
-				<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-				<td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+				<td align="right" class="chatlist tdtop4"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+				<td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">				
+		
 					<tr>
-						<td style="padding:1px 0 1px 0;"><input name="article_aktiv" type="checkbox" id="article_aktiv" value="1"<?php is_checked(1, $article["article_aktiv"]); ?> /></td>
-						<td><label for="article_aktiv">&nbsp;<?php echo $BL['be_admin_struct_visible'] ?></label>&nbsp;&nbsp;</td>
-						<td><input name="article_public" type="checkbox" id="article_public" value="1"<?php is_checked(1, $article["article_public"]); ?> /></td>
-						<td><label for="article_public">&nbsp;<?php echo $BL['be_ftptakeover_public'] ?></label>&nbsp;&nbsp;</td>
 						<td><input name="article_nositemap" type="checkbox" id="article_nositemap" value="1"<?php is_checked(1, $article["article_nositemap"]); ?> /></td>
 						<td><label for="article_nositemap">&nbsp;<?php echo  $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>
 						
@@ -577,9 +573,24 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 						<td style="padding:1px 5px 1px 0;"><label for="article_nosearch">&nbsp;<?php echo $BL['be_no_search'] ?></label></td>
 						
 						<td><input name="article_norss" type="checkbox" id="article_norss" value="1" <?php is_checked(1, $article['article_norss']); ?> /></td>
-						<td style="padding:1px 5px 1px 0;"><label for="article_norss">&nbsp;<?php echo $BL['be_no_rss'] ?></label></td>
+						<td style="padding:1px 5px 1px 0; width:50px;"><label for="article_norss">&nbsp;<?php echo $BL['be_no_rss'] ?></label></td>
 						
+						<td colspan="2" style="background-color:#FFFFFF">&nbsp;</td>
 					</tr>
+					
+					<tr><td colspan="8" style="background-color:#FFFFFF"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+					
+					<tr>
+						<td style="padding:1px 0 1px 0;"><input name="article_aktiv" type="checkbox" id="article_aktiv" value="1"<?php is_checked(1, $article["article_aktiv"]); ?> /></td>
+						<td><label for="article_aktiv">&nbsp;<?php echo $BL['be_admin_struct_visible'] ?></label>&nbsp;&nbsp;</td>
+						
+						<td><input name="article_public" type="checkbox" id="article_public" value="1"<?php is_checked(1, $article["article_public"]); ?> /></td>
+						<td><label for="article_public">&nbsp;<?php echo $BL['be_ftptakeover_public'] ?></label>&nbsp;&nbsp;</td>
+						
+						<td><input name="article_archive" type="checkbox" id="article_archive" value="1" <?php is_checked(1, $article['article_archive_status']); ?> /></td>
+						<td style="padding:1px 5px 1px 0;" colspan="3"><label for="article_archive">&nbsp;<?php echo $BL['be_show_archived'] ?></label></td>
+					</tr>
+					
 				</table></td>
 			</tr>
 
@@ -608,10 +619,8 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 					<td><input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles<?php echo $article["article_id"] ? '&amp;p=2&amp;s=1&amp;id='.$article["article_id"] : '' ?>'" /></td>
 					</tr></table></td>
 			</tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-			</tr>
-			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-			</tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
 </table>
 </form>
 <script type="text/javascript">

@@ -1203,5 +1203,8 @@ $BL['be_copyright']						= 'copyright';
 $BL['be_file_multiple_upload']			= 'multiple file upload';
 $BL['be_files_browse']					= 'Browse files';
 $BL['be_files_upload']					= 'Upload selected files';
+$BL['be_archive']						= 'archive';
+$BL['be_off']							= 'off';
+$BL['be_on']							= 'on';
 
 ?>

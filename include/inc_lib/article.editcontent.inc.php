@@ -92,6 +92,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article['article_priorize']	= $row['article_priorize'];
 				$article['article_created']		= $row['article_created'];
 				$article['article_norss']		= $row['article_norss'];
+				
+				$article['article_archive_status']	= $row['article_archive_status'];
 				$read_done = true;
 			}
 			mysql_free_result($result);
@@ -127,6 +129,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article['article_sort']				= 0;
 		$article['article_priorize']			= 0;
 		$article['article_norss']				= 1;
+		$article['article_archive_status']		= 1;
 		$article["article_timeout"]				= '';
 		$article['article_nosearch']			= '';
 		$article['article_nositemap']			= 1;
@@ -190,6 +193,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article['article_sort']		= empty($_POST["article_sort"]) ? 0 : intval($_POST["article_sort"]);
 		$article['article_priorize']	= empty($_POST["article_priorize"]) ? 0 : intval($_POST["article_priorize"]);
 		$article['article_norss']		= empty($_POST["article_norss"]) ? 0 : 1;
+		$article['article_archive_status']	= empty($_POST["article_archive"]) ? 0 : 1;
 		
 		$article["article_timeout"]		= clean_slweg($_POST["article_timeout"]);
 		if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) $article["article_timeout"] = '0'; //check if cache = Off
@@ -339,7 +343,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					"article_paginate"		=> $article['article_paginate'],
 					"article_priorize"		=> $article['article_priorize'],
 					"article_norss"			=> $article['article_norss'],
-					"article_uid"			=> $article["article_uid"]			
+					"article_uid"			=> $article["article_uid"],
+					"article_archive_status"=> $article["article_archive_status"]
 
 							);
 							
@@ -386,7 +391,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 						"article_pagetitle='".aporeplace($article['article_pagetitle'])."', ".
 						"article_paginate=".$article['article_paginate'].", ".
 						"article_priorize=".$article['article_priorize'].", ".
-						"article_norss=".$article['article_norss']." ";
+						"article_norss=".$article['article_norss'].", ".
+						"article_archive_status=".$article['article_archive_status']." ";
 						if($_SESSION["wcs_user_admin"]) {
 							$sql .= ", article_uid=".$article["article_uid"]." ";				
 						}
