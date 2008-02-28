@@ -70,7 +70,7 @@ function imagick_converting ($imagick) {
 	
 	// now it is good to check if image still available
 	// otherwise use placeholder image "filestorage/image_placeholder.png"
-	if(!file_exists($imagick["image_dir"].$imagick["image_name"])) {
+	if(!is_file($imagick["image_dir"].$imagick["image_name"])) {
 		$imagick["image_name"] = 'image_placeholder.png';
 	}
 	
@@ -163,15 +163,21 @@ function imagick_converting ($imagick) {
 			}
 			
 			if($imagick['crop_image'] && $imagick["max_width"] && $imagick["max_height"]) {
-				//crop
-				$imagick["command"] .= '-resize "'.$imagick["max_width"].'x'.$imagick["max_height"].'<" ';
+	
+				$resize_factor = 2 * ( $imagick["max_width"] > $imagick["max_height"] ? $imagick["max_width"] : $imagick["max_height"] );
+				
+				$imagick["command"] .= '-resize "x'.$resize_factor.'" -resize "'.$resize_factor.'x<" -resize 50% ';
 				$imagick["command"] .= '-gravity center -crop '.$imagick["max_width"].'x'.$imagick["max_height"].'+0+0 ';
+				$imagick["command"] .= '+repage ';
 			
 			} elseif( $imagick["max_width"] || $imagick["max_height"] ) {
+
 				// resize
 				$imagick["command"] .= '-resize "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
 			
 			}
+			
+
 			
 			// quality level
 			$imagick["command"] .= "-quality ".$imagick['jpg_quality']." ";
@@ -187,9 +193,12 @@ function imagick_converting ($imagick) {
 			$imagick["command"] .= '-antialias "'.$imagick["source_image_name"].'" ';
 			$imagick["command"] .= '+profile "*" ';
 			$imagick["command"] .= '"'.$imagick["thumb_dir"].$imagick["thumb_name"].'" ';
-		
+
 			@exec($imagick["command"], $imagick_return);
-			if (isset($imagick_return[0])) $imagick["error"] = $imagick_return[0];
+			
+			if (isset($imagick_return[0])) {
+				$imagick["error"] = $imagick_return[0];
+			}
 		
 		} else {
 			// use GD function
