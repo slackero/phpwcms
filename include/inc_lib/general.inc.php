@@ -1846,4 +1846,46 @@ function sanitize_multiple_emails($string) {
 	return $string;
 }
 
+function checkLogin($mode='REDIRECT') {
+
+	$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
+	$sql .= "logged_in = 0, logged_change = '".time()."' ";
+	$sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($GLOBALS['phpwcms']["max_time"]);
+	_dbQuery($sql, 'UPDATE');
+	
+	if(!empty($_SESSION["wcs_user"])) {
+		$sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog ";
+		$sql .= "WHERE logged_user='".aporeplace($_SESSION["wcs_user"])."' AND ";
+		$sql .= "logged_in=1";
+		if(!empty($phpwcms['Login_IPcheck'])) {
+			$sql .= " AND logged_ip='".aporeplace(getRemoteIP())."'";
+		}
+		
+		$check = _dbCount($sql);
+		
+		if($check == 0) {
+			unset($_SESSION["wcs_user"]);
+		} else {
+			$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
+			$sql .= "logged_change=".time()." WHERE ";
+			$sql .= "logged_user='".aporeplace($_SESSION["wcs_user"])."' AND logged_in=1";
+			_dbQuery($sql, 'UPDATE');
+		}
+	}
+	if(empty($_SESSION["wcs_user"])) {
+		@session_destroy();
+		$ref_url = '';
+		if(!empty($_SERVER['QUERY_STRING'])) {
+			$ref_url = '?ref='.rawurlencode(PHPWCMS_URL.'phpwcms.php?'.xss_clean($_SERVER['QUERY_STRING']));
+		}
+		if($mode == 'REDIRECT') {
+			headerRedirect(PHPWCMS_URL.'login.php'.$ref_url);
+		} else {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 ?>

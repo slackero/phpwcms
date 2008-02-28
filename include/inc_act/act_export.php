@@ -28,8 +28,8 @@ require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/checklogin.inc.php');
 
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';

@@ -39,11 +39,9 @@ $BE							= array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(),
 require_once ('config/phpwcms/conf.inc.php');
 require_once ('include/inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/checklogin.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php');
 
 //load default language EN
@@ -93,6 +91,7 @@ switch ($do) {
 						$wcsnav["files"] = "<strong class=\"navtexta\">".$wcsnav["files"]."</strong>";
 						$subnav .= subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_file_ftptakeover'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
+						$subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=9", $p, "9", 0);
 						break;
 
 	case "modules":		//modules
@@ -245,17 +244,16 @@ if($do == "messages" && $p == 1) {
 } elseif($do == "articles") {
 
 	if($p == 2 && isset($_GET["aktion"]) && intval($_GET["aktion"]) == 2) {
-		$BE['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
+		initJsOptionSelect();
 	}
 	if(($p == 1) || ($p == 2 && isset($_GET["aktion"]) && intval($_GET["aktion"]) == 1)) {
-		$BE['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
-		$BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
+		initJsCalendar();
 	}
 
 } elseif($do == 'admin' && ($p == 6 || $p == 11)) {
 
 	// struct editor
-	$BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/optionselect.js');
+	initJsOptionSelect();
 
 }
 
@@ -341,6 +339,13 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 						include_once (PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
 						include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php');
 						break;
+					
+						// Multiple, queued file upload
+			case 9:		include_once (PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
+						include_once (PHPWCMS_ROOT.'/include/inc_lib/files.multipleupload.inc.php');
+						include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.multipleupload.tmpl.php');
+						break;
+						
       		default:	include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'); //Files Navigation/Reiter
       		switch($files_folder) {
       			case 0:	//Listing der Privaten Dateien

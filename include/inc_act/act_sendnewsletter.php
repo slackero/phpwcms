@@ -27,7 +27,7 @@ require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/checklogin.inc.php');
+checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_ext/phpmailer/class.phpmailer.php');
 //load default language EN
 require_once (PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');

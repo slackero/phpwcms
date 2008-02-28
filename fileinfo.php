@@ -39,10 +39,10 @@ require_once ('include/inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
 require_once ("include/inc_lib/general.inc.php");
+checkLogin();
 require_once ("include/inc_lib/backend.functions.inc.php");
 require_once ("include/inc_lib/imagick.convert.inc.php");
 require_once ("include/inc_lib/autolink.inc.php");
-require_once ("include/inc_lib/checklogin.inc.php");
 
 $file_id	= (isset($_GET["fid"])) ? intval($_GET["fid"]) : 0;
 $public		= (isset($_GET["public"])) ? true : false;

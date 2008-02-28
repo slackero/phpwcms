@@ -65,9 +65,11 @@ if(isset($_GET['entry_id'])) {
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+
+checkLogin();
+
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/checklogin.inc.php');
 
 $js_aktion = (isset($_GET["opt"])) ? intval($_GET["opt"]) : 0;
 
