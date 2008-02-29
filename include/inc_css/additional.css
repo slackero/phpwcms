@@ -599,3 +599,9 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 .upload_button input {
 	font-size: 12px;
 }
+
+
+.items-per-page a.active {
+	font-weight: bold;
+}
+

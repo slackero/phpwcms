@@ -810,16 +810,30 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 	}
 }
 
-function getItemsPerPageMenu($base_url='', $default=25, $steps=array(10,25,50,100,250,0), $separator=' ') {
-
+function setItemsPerPage($default=25) {
 	if( isset($_GET['showipp']) ) {
 		$ipp = intval( is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default );
 		setcookie('phpwcmsBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain() );
+	} elseif(isset($_SESSION['PAGE_FILTER'])) {
+		$ipp = $_SESSION['PAGE_FILTER']['IPP'];
 	} elseif( isset($_COOKIE['phpwcmsBEItemsPerPage']) ) {
 		$ipp = intval( $_COOKIE['phpwcmsBEItemsPerPage'] );
 	} else {
 		$ipp = $default;
 	}
+	
+	if(!isset($_SESSION['PAGE_FILTER'])) {
+		$_SESSION['PAGE_FILTER'] = array();
+	}
+	
+	$_SESSION['PAGE_FILTER']['IPP'] = $ipp;
+	
+	return $ipp;
+}
+
+function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $separator=' ') {
+
+	$ipp = isset($_SESSION['PAGE_FILTER']['IPP']) ? $_SESSION['PAGE_FILTER']['IPP'] : setItemsPerPage();
 	
 	if(!in_array($ipp, $steps)) {
 		array_unshift($steps, $ipp);

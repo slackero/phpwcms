@@ -33,8 +33,9 @@ if (!defined('PHPWCMS_ROOT')) {
 class phpwcmsNews {
 
 	var $news				= array();
-	var $where				= array();
-	var $order_by			= array('cnt_livedate');
+	var $news_total			= 0;
+	var $where				= array('status' => 'cnt_status != 9');
+	var $order_by			= array('cnt_startdate DESC');
 	var $sql				= '';
 	var $limit				= 0;
 	var $start_at			= 0;
@@ -53,6 +54,7 @@ class phpwcmsNews {
 		$this->phpwcms			= &$phpwcms;
 		$this->base_url			= PHPWCMS_URL.'phpwcms.php?do=articles&amp;p=3';
 		$this->base_url_decoded	= PHPWCMS_URL.'phpwcms.php?do=articles&p=3';
+		
 	}
 	
 	function formAction() {
@@ -60,16 +62,10 @@ class phpwcmsNews {
 		return $this->base_url.'&amp;cntid='.$this->data['cnt_id'].'&amp;action=edit';
 	
 	}
-
-	/**
-	 * set array with news
-	 */
-	function getNews() {
 	
-		$this->news = array();
+	function _where() {
 	
-		$sql  = 'SELECT '.$this->select.' FROM '.DB_PREPEND.'phpwcms_content WHERE ';
-		$sql .= "cnt_module = 'news' AND cnt_status != 9";
+		$sql = '';
 		
 		if(is_array($this->where) && count($this->where)) {
 			
@@ -92,7 +88,27 @@ class phpwcmsNews {
 			
 			}
 		
+		} elseif(is_string($this->where) ) {
+		
+			$sql = ' ' . $this->where;
+		
 		}
+		
+		return $sql;
+		
+	}
+
+	/**
+	 * set array with news
+	 */
+	function getNews() {
+	
+		$this->news = array();
+	
+		$sql  = 'SELECT '.$this->select.' FROM '.DB_PREPEND.'phpwcms_content WHERE ';
+		$sql .= "cnt_module = 'news'";
+		
+		$sql .= $this->_where();
 		
 		if(is_array($this->order_by) && count($this->order_by)) {
 		
@@ -106,8 +122,8 @@ class phpwcmsNews {
 			$this->limit	= intval($this->limit);
 			
 			$sql .= ' LIMIT ' . $this->start_at . ',' . $this->limit;
+			
 		}
-		
 		
 		$this->sql = $sql;
 				
@@ -117,6 +133,71 @@ class phpwcmsNews {
 		
 		$this->setQueryDefaults();
 
+	}
+	
+	function countAll() {
+	
+		$sql  = 'SELECT COUNT(cnt_id) FROM '.DB_PREPEND.'phpwcms_content WHERE ';
+		$sql .= "cnt_module = 'news'" . $this->_where();
+		
+		$this->news_total = _dbCount($sql);
+		
+		return $this->news_total;
+
+	}
+	
+	function getPagination() {
+	
+		initMootools();
+	
+		$paginate = '<input type="hidden" name="page" id="filterPage" value="' . $this->filter_page . '" />';
+	
+		if( $this->limit > 0 && $this->news_total > $this->limit ) {
+			
+			$current_page	= $this->filter_page + 1;
+			$max_page		= ceil($this->news_total / $this->limit);
+			
+			if($current_page > $max_page) {
+				$current_page = $max_page;
+				$this->filter_page	= $max_page - 1;
+				$this->start_at		= $this->filter_page * $this->limit;
+			}
+		
+			$prev_page		= $this->filter_page - 1;
+			if($prev_page < 0) {
+				$prev_page = 0;
+			}
+			$next_page		= $current_page;
+			if($next_page >= $max_page) {
+				$next_page = $max_page - 1;
+			}
+			
+			$paginate .= '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0"';	
+			if($current_page == 1) {
+				$paginate .= ' class="inactive"';
+			} else {
+				$paginate .= ' onclick="$(\'filterPage\').value='.$prev_page.';$(\'paginate\').submit();"';
+			}
+			$paginate .= ' /></td><td>';
+			
+			$paginate .= '&nbsp;<b>' . $current_page . '</b>/' . $max_page . '&nbsp;';
+			
+			$paginate .= '</td><td><img src="img/famfamfam/mini/action_forward.gif" alt="" border="0"';
+			if($current_page == $max_page) {
+				$paginate .= ' class="inactive"';
+			} else {
+				$paginate .= ' onclick="$(\'filterPage\').value='.$next_page.';$(\'paginate\').submit();"';
+			}
+			$paginate .= ' />';
+		
+		} else {
+		
+			$this->start_at		= 0;
+			$this->filter_page	= 0;
+		
+		}
+	
+		return $paginate;
 	}
 	
 	function setQueryDefaults() {
@@ -129,6 +210,68 @@ class phpwcmsNews {
 
 	}
 	
+	function filter() {
+	
+		// filter defaults
+		// 0 = all with deleted
+		// 1 = all active
+		// 2 = all inactive
+	
+		$status	= isset($_SESSION['PAGE_FILTER']['news']['status']) ? intval($_SESSION['PAGE_FILTER']['news']['status']) : 0;
+		$filter	= isset($_SESSION['PAGE_FILTER']['news']['filter']) ? $_SESSION['PAGE_FILTER']['news']['filter'] : '';
+		$page	= isset($_SESSION['PAGE_FILTER']['news']['page']) ? intval($_SESSION['PAGE_FILTER']['news']['page']) : 0;
+	
+		if(isset($_POST['filter'])) {
+			
+			$active		= empty($_POST['showactive']) ? false : true;
+			$inactive	= empty($_POST['showinactive']) ? false : true;
+			$filter		= clean_slweg($_POST['filter']);
+			$page		= empty($_POST['page']) ? 0 : intval($_POST['page']);
+			
+			if($active && $inactive) {
+				$status = 0;
+			} elseif($active) {
+				$status = 1;
+			} elseif($inactive) {
+				$status = 2;
+			}
+			
+			if(!isset($_SESSION['PAGE_FILTER'])) {
+				$_SESSION['PAGE_FILTER'] = array();
+			}
+			
+			$_SESSION['PAGE_FILTER']['news'] = array(
+			
+							'status'	=> $status,
+							'filter'	=> $filter,
+							'page'		=> $page
+					);
+			
+		}
+
+		switch($status) {
+			case 0:		$this->where['status'] = 'cnt_status IN (1,0)';
+						break;
+			case 1:		$this->where['status'] = 'cnt_status = 1';
+						break;
+			case 2:		$this->where['status'] = 'cnt_status = 0';
+						break;
+		}
+		
+		if($filter != '') {
+			$this->where['filter']  = "CONCAT(cnt_name,' ',cnt_title,' ',cnt_subtitle,' ',cnt_teasertext,' ',cnt_text) LIKE '%";
+			$this->where['filter'] .= mysql_real_escape_string($filter)."%'";
+		}
+		
+		$this->filter_status	= $status;
+		$this->filter			= $filter;
+		$this->filter_page		= $page;
+		
+		$this->limit			= setItemsPerPage();
+		$this->start_at			= $page * $this->limit;
+	
+	}
+	
 
 	function listBackend() {
 	
@@ -136,7 +279,8 @@ class phpwcmsNews {
 		$this->select  .= 'IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)) AS cnt_startdate, ';
 		$this->select  .= 'UNIX_TIMESTAMP(cnt_killdate) AS cnt_enddate';
 		
-		$this->order_by = array('cnt_startdate DESC');
+		//$this->where		= array();
+		//$this->order_by	= array();
 		
 		$this->getNews();
 	

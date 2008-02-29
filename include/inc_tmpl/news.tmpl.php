@@ -32,8 +32,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 $news = & new phpwcmsNews();
-$news->limit = 50;
-
 
 ?>
 <h1 class="title"><?php echo $BL['be_news'] ?></h1>
@@ -45,6 +43,9 @@ $news->limit = 50;
 		$news->edit();
 		
 	} else {
+	
+		$news->filter();
+		$news->countAll();
 
 ?>
 	<div class="navBarLeft imgButton chatlist">
@@ -53,64 +54,27 @@ $news->limit = 50;
 	</div>
 	
 <form action="<?= $news->base_url ?>" method="post" name="paginate" id="paginate">
+<input type="hidden" name="filter" value="1" />
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
 	<tr>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+		<td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
 				
-				<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php //is_checked(1, $_entry['list_active'], 1) ?> /></td>
-				<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-				<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php //is_checked(1, $_entry['list_inactive'], 1) ?> /></td>
-				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-
-<?php 
-
-$_entry['pages_total'] = 0;
-
-if($_entry['pages_total'] > 1) {
-
-	echo '<td class="chatlist">|&nbsp;</td>';
-	echo '<td>';
-	if($_SESSION['glossary_page'] > 1) {
-		echo '<a href="'.GLOSSARY_HREF.'&amp;page='.($_SESSION['glossary_page']-1).'">';
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" /></a>';
-	} else {
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" class="inactive" />';
-	}
-	echo '</td>';
-	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['glossary_page'];
-	echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-	echo '<td class="chatlist">/'.$_entry['pages_total'].'&nbsp;</td>';
-	echo '<td>';
-	if($_SESSION['glossary_page'] < $_entry['pages_total']) {
-		echo '<a href="'.GLOSSARY_HREF.'&amp;page='.($_SESSION['glossary_page']+1).'">';
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" /></a>';
-	} else {
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" class="inactive" />';
-	}
-	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
-
-} else {
-
-	echo '<td class="chatlist">|&nbsp;</td>';
-
-}
-?>
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php 
+				<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 1 ) ? 1 : 0 ) ?> /></td>
+				<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" /></label></td>
+				<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php  is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 2 ) ? 1 : 0 ) ?> /></td>
+				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" /></label></td>
+				<td><input type="text" name="filter" id="filter" size="10" value="<?= html_specialchars($news->filter) ?>" /></td>
+				<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" /></td>
 				
-				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html_specialchars(implode(' ', $_POST['filter']));
-				}
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;<?= $news->getPagination(); ?></td>
 				
-				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-				<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" style="margin-right:3px;" /></td>
-			
 			</tr>
 		</table></td>
-
-	<td class="chatlist" align="right">
-		<?= getItemsPerPageMenu( $news->base_url ) ?>
-	</td>
+		
+		<td class="chatlist items-per-page" align="right">
+			<?= getItemsPerPageMenu( $news->base_url ); ?>
+		</td>
 
 	</tr>
 </table>
