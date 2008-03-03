@@ -24,3 +24,7 @@ ALTER TABLE `phpwcms_file` CHANGE `f_longinfo` `f_longinfo` TEXT NOT NULL;
 ALTER TABLE `phpwcms_file` ADD `f_copyright` VARCHAR( 255 ) NOT NULL;
 ALTER TABLE `phpwcms_file` ADD `f_tags` VARCHAR( 255 ) NOT NULL;
 ALTER TABLE `phpwcms_file` CHANGE `f_size` `f_size` INT( 15 ) UNSIGNED NOT NULL DEFAULT '0';
+
+# 2008-03-03
+ALTER TABLE `phpwcms_calendar` ADD `calendar_lang` VARCHAR( 255 ) NOT NULL ;
+ALTER TABLE `phpwcms_calendar` ADD INDEX ( `calendar_lang` ) ;

@@ -27,8 +27,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-$BE['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
-$BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
+initJsCalendar();
+initMootoolsAutocompleter();
 
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
@@ -205,51 +205,7 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 	
 	
 	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /><script type="text/javascript" language="javascript">
-	<!--
-	
-	
-	function setCalendarAllDay() {
-	
-		var calendarAllDay = getFieldById('calendar_allday');
-		if(calendarAllDay.checked == true) {
-			toggleDisplayById('endDate0', 'none');
-			toggleDisplayById('endDate1', 'none');
-			toggleDisplayById('endDate2', 'none');
-			toggleDisplayById('endDate3', 'none');
-			toggleDisplayById('endDate4', 'none');
-			toggleDisplayById('endDate5', 'none');
-		} else {
-			toggleDisplayById('endDate0', '');
-			toggleDisplayById('endDate1', '');
-			toggleDisplayById('endDate2', '');
-			toggleDisplayById('endDate3', '');
-			toggleDisplayById('endDate4', '');
-			toggleDisplayById('endDate5', '');
-		}
-
-	}
-	
-	function setRangeDates(value) {
-		value = parseInt(value);
-		if(!value) {
-			toggleDisplayById('rDate0', 'none');
-			toggleDisplayById('rDate1', 'none');
-		} else {
-			toggleDisplayById('rDate0', '');
-			toggleDisplayById('rDate1', '');
-			//getFieldById('calendar_range_start').value = getFieldById('calendar_start_date').value;
-			//getFieldById('calendar_range_end').value = getFieldById('calendar_end_date').value;
-		}
-		
-	}
-	
-	setCalendarAllDay();
-	setRangeDates(<?php echo $plugin['data']['calendar_range'] ?>);
-	
-	
-	//-->
-	</script></td></tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 	
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BLM['where'] ?>:&nbsp;</td>
@@ -260,9 +216,15 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 	
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BLM['calendar_token'] ?>:&nbsp;</td>
-		<td><input name="calendar_tag" type="text" id="calendar_tag" class="v12" style="width:375px;" value="<?php echo html_specialchars(trim($plugin['data']['calendar_tag'])) ?>" size="30" maxlength="220" /></td>
+		<td><input name="calendar_tag" type="text" id="calendar_tag" class="v12" style="width:375px;" value="<?php echo html_specialchars(trim($plugin['data']['calendar_tag'])) ?>" size="30" maxlength="255" /></td>
 	</tr>
 
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	
+	<tr> 
+		<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
+		<td><input name="calendar_lang" type="text" id="calendar_lang" class="v12" style="width:100px;" value="<?php echo html_specialchars(trim($plugin['data']['calendar_lang'])) ?>" size="30" maxlength="50" /></td>
+	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	
@@ -303,9 +265,63 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 		?></td>
 	</tr>
 	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>	
+	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
 	
-	<!-- <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr> -->
+	
+	<tr>
+		<td align="right" class="chatlist"><?= $BL['be_cnt_image'] ?>:&nbsp;</td>
+		<td>
+		<table cellpadding="0" cellspacing="0" border="0" summary="">
+			<tr>
+				<td><input type="text" name="cnt_image_name" id="cnt_image_name" value="<?= html_specialchars($plugin['data']['calendar_image']['name']) ?>" class="v12 width300" maxlength="250" /></td>
+				<td style="padding:2px 0 0 5px" width="100">
+					<a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=7');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
+					<a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
+					<input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?= $plugin['data']['calendar_image']['id'] ?>" />
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td>&nbsp;</td>
+		<td class="tdtop5 tdbottom5">
+		<table border="0" cellpadding="0" cellspacing="0" summary="">
+		<tr>
+	  <td><input name="cnt_image_zoom" type="checkbox" id="cnt_image_zoom" value="1" <?php is_checked(1, $plugin['data']['calendar_image']['zoom']); ?> /></td>
+		  <td><label for="cnt_image_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
+
+		  <td><input name="cnt_image_lightbox" type="checkbox" id="cnt_image_lightbox" value="1" <?php is_checked(1, $plugin['data']['calendar_image']['lightbox']); ?> onchange="if(this.checked){getObjectById('cnt_image_zoom').checked=true;}" /></td>
+		  <td><label for="cnt_image_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>		
+		</tr>
+		</table>
+		
+		<div id="cnt_image" style="padding-top:3px;"></div>
+		
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td align="right" class="chatlist tdtop4"><?= $BL['be_cnt_caption'] ?>:&nbsp;</td>
+		<td class="tdbottom4">
+		<textarea name="cnt_image_caption" id="cnt_image_caption" class="v12 width350" rows="2"><?= html_specialchars($plugin['data']['calendar_image']['caption']) ?></textarea>				
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td align="right" class="chatlist"><?= $BL['be_profile_label_website'] ?>:&nbsp;</td>
+		<td><input type="text" name="cnt_image_link" id="cnt_image_link" class="v12 width350" maxlength="500" value="<?= html_specialchars($plugin['data']['calendar_image']['link']) ?>" /></td>
+	</tr>
+
+	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>	
+	
+
 	
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
@@ -340,5 +356,115 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 	</tr>
 
 </table>
-
 </form>
+<script type="text/javascript">
+<!--
+
+window.addEvent('domready', function(){
+
+	/* Autocompleter for categories/tags */
+	var searchCategory = $('calendar_tag');
+	var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchCategory);
+	var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
+		multi: true,
+		maxChoices: 30,
+		autotrim: true,
+		minLength: 0,
+		allowDupes: false,
+		postData: {action: 'category', method: 'json'},
+		onRequest: function(el) {
+			indicator2.setStyle('display', '');
+		},
+		onComplete: function(el) {
+			indicator2.setStyle('display', 'none');
+		}
+	});
+	
+	var selectLang = $('calendar_lang');
+	var indicator1 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(selectLang);
+	var completer1 = new Autocompleter.Ajax.Json(selectLang, 'include/inc_act/ajax_connector.php', {
+		multi: false,
+		allowDupes: false,
+		autotrim: true,
+		minLength: 0,
+		maxChoices: 20,
+		postData: {action: 'lang', method: 'json'},
+		onRequest: function(el) {
+			indicator1.setStyle('display', '');
+		},
+		onComplete: function(el) {
+			indicator1.setStyle('display', 'none');
+		}
+	});
+	
+	selectLang.addEvent('keyup', function(){
+		this.value = this.value.replace(/[^a-z\-]/g, '');
+	});
+	
+	
+	setCalendarAllDay();
+	setRangeDates(<?= $plugin['data']['calendar_range'] ?>);
+	
+	showImage();
+
+});
+
+
+function setCalendarAllDay() {
+
+	var calendarAllDay = $('calendar_allday');
+	if(calendarAllDay.checked == true) {
+		toggleDisplayById('endDate0', 'none');
+		toggleDisplayById('endDate1', 'none');
+		toggleDisplayById('endDate2', 'none');
+		toggleDisplayById('endDate3', 'none');
+		toggleDisplayById('endDate4', 'none');
+		toggleDisplayById('endDate5', 'none');
+	} else {
+		toggleDisplayById('endDate0', '');
+		toggleDisplayById('endDate1', '');
+		toggleDisplayById('endDate2', '');
+		toggleDisplayById('endDate3', '');
+		toggleDisplayById('endDate4', '');
+		toggleDisplayById('endDate5', '');
+	}
+
+}
+
+function setRangeDates(value) {
+	value = parseInt(value);
+	if(!value) {
+		toggleDisplayById('rDate0', 'none');
+		toggleDisplayById('rDate1', 'none');
+	} else {
+		toggleDisplayById('rDate0', '');
+		toggleDisplayById('rDate1', '');
+	}
+	
+}
+
+function setImgIdName(file_id, file_name) {
+	if(file_id == null) file_id=0;
+	if(file_name == null) file_name='';
+	getObjectById('cnt_image_id').value = file_id;
+	getObjectById('cnt_image_name').value = file_name;
+	
+	showImage();
+}
+
+function showImage() {
+	id	= parseInt(getObjectById('cnt_image_id').value);
+	img	= getObjectById('cnt_image');
+	if(id > 0) {
+		img.innerHTML = '<img src="<?= PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
+		img.style.display = '';
+	} else {
+		img.style.display = 'none';
+	}
+}
+
+//-->
+</script>
+
+
+

@@ -47,6 +47,7 @@ if(isset($_POST['calendar_title'])) {
 				'calendar_created'		=> date('Y-m-d H:i:s'),
 				'calendar_changed'		=> date('Y-m-d H:i:s'),
 				'calendar_tag'			=> clean_slweg($_POST['calendar_tag']),
+				'calendar_lang'			=> isset($_POST['calendar_lang']) ? preg_replace('/[^a-z\-]/', '', strtolower($_POST['calendar_lang'])) : '',
 				'calendar_text'			=> slweg($_POST['calendar_text']),
 				'calendar_object'		=> array(),
 				'calendar_status'		=> empty($_POST['calendar_status']) ? 0 : 1,
@@ -60,7 +61,16 @@ if(isset($_POST['calendar_title'])) {
 				'calendar_refid'		=> intval($_POST['calendar_refid']),
 				'calendar_duplicate'	=> empty($_POST['calendar_duplicate']) ? 0 : 1,
 				'calendar_rangestart'	=> clean_slweg($_POST['calendar_range_start']),
-				'calendar_rangeend'		=> clean_slweg($_POST['calendar_range_end'])
+				'calendar_rangeend'		=> clean_slweg($_POST['calendar_range_end']),
+				'calendar_image'		=> array(
+				
+							'id'		=> intval($_POST['cnt_image_id']), 
+							'name'		=> clean_slweg($_POST['cnt_image_name']),
+							'zoom'		=> empty($_POST['cnt_image_zoom']) ? 0 : 1,
+							'lightbox'	=> empty($_POST['cnt_image_lightbox']) ? 0 : 1,
+							'caption'	=> clean_slweg($_POST['cnt_image_caption']),
+							'link'		=>clean_slweg($_POST['cnt_image_link'])				
+											)
 	
 								);
 
@@ -83,7 +93,9 @@ if(isset($_POST['calendar_title'])) {
 		if($plugin['data']['calendar_duplicate']) {
 			$plugin['data']['calendar_id'] = 0;
 		}
-	
+		
+		$plugin['data']['calendar_object']['image'] = $plugin['data']['calendar_image'];
+		
 		if($plugin['data']['calendar_id']) {
 		
 			// UPDATE
@@ -101,13 +113,16 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "calendar_title='".aporeplace($plugin['data']['calendar_title'])."', ";
 			$sql .= "calendar_where='".aporeplace($plugin['data']['calendar_where'])."', ";
 			$sql .= "calendar_text='".aporeplace($plugin['data']['calendar_text'])."', ";
-			$sql .= "calendar_tag=' ".aporeplace($plugin['data']['calendar_tag'])." ', ";
+			$sql .= "calendar_tag='".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "calendar_object='".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
-			$sql .= "calendar_refid=".$plugin['data']['calendar_refid']." ";
+			$sql .= "calendar_refid=".$plugin['data']['calendar_refid'].", ";
+			$sql .= "calendar_lang='".aporeplace($plugin['data']['calendar_lang'])."' ";
 			
 			$sql .= "WHERE calendar_id=".$plugin['data']['calendar_id'];
 			
 			if(@_dbQuery($sql, 'UPDATE')) {
+			
+				_dbSaveCategories($plugin['data']['calendar_tag'], 'calendar', $plugin['data']['calendar_id'], ',');
 			
 				if(isset($_POST['save'])) {
 					
@@ -131,7 +146,7 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= 'calendar_start, calendar_end, calendar_allday, calendar_range, ';
 			$sql .= 'calendar_range_start, calendar_range_end, ';
 			$sql .= 'calendar_title, calendar_where, calendar_text, calendar_tag, ';
-			$sql .= 'calendar_object, calendar_refid) VALUES (';
+			$sql .= 'calendar_object, calendar_refid, calendar_lang) VALUES (';
 			
 			$sql .= "'".aporeplace($plugin['data']['calendar_created'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_changed'])."', ";
@@ -145,18 +160,26 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "'".aporeplace($plugin['data']['calendar_title'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_where'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_text'])."', ";
-			$sql .= "' ".aporeplace($plugin['data']['calendar_tag'])." ', ";
+			$sql .= "'".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "'".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
 			$sql .= $plugin['data']['calendar_refid'];
+			$sql .= ", '".aporeplace($plugin['data']['calendar_lang'])."'";
 
 			$sql .= ')';
 			
-			if(@_dbQuery($sql, 'INSERT')) {
+			if($sql = @_dbQuery($sql, 'INSERT')) {
+			
+				$plugin['data']['calendar_id'] = $sql['INSERT_ID'];
+			
+				_dbSaveCategories($plugin['data']['calendar_tag'], 'calendar', $plugin['data']['calendar_id'], ',');
 			
 				if(isset($_POST['save'])) {
 					
 					headerRedirect(decode_entities(MODULE_HREF));
 					
+				} else {
+				
+					headerRedirect(decode_entities(MODULE_HREF).'&edit='.$plugin['data']['calendar_id']);		
 				}
 			
 			} else {
@@ -184,6 +207,14 @@ if($plugin['id'] && !isset($plugin['error'])) {
 	$sql .= 'FROM '.DB_PREPEND.'phpwcms_calendar WHERE calendar_id='.$plugin['id'];
 	$plugin['data'] = _dbQuery($sql);
 	$plugin['data'] = $plugin['data'][0];
+	
+	$plugin['data']['calendar_object'] = @unserialize($plugin['data']['calendar_object']);
+	
+	if(is_array($plugin['data']['calendar_object'])) {
+		if(isset($plugin['data']['calendar_object']['image'])) {
+			$plugin['data']['calendar_image'] = $plugin['data']['calendar_object']['image'];
+		}
+	}
 
 }
 
@@ -232,10 +263,17 @@ if(empty($plugin['data'])) {
 				'calendar_refid'		=> '',
 				'calendar_duplicate'	=> 0,
 				'calendar_rangestart'	=> '',
-				'calendar_rangeend'		=> ''
-	
+				'calendar_rangeend'		=> ''	
 								);
 
+}
+
+if(!isset($plugin['data']['calendar_image'])) {
+	$plugin['data']['calendar_image'] = array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>'');
+} else {
+	$plugin['data']['calendar_image'] = array_merge( 
+											array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''),
+											$plugin['data']['calendar_image'] );
 }
 
 
