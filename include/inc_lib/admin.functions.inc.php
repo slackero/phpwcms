@@ -258,13 +258,19 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		
 		$info  = '<table cellspacing=0 cellpadding=1 border=0>';
 		$info .= '<tr><td>'.$BL['be_func_struct_articleID'].':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
-		if($article[$akey]["article_alias"]) {
+		if(!empty($article[$akey]["article_alias"])) {
 			$info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
 		}
-		$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_begin"])).'</b></td></tr>';
-		$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_end"])).'</b></td></tr>';
+		if(!empty($article[$akey]["article_begin"])) {
+			$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_begin"])).'</b></td></tr>';
+		}
+		if(!empty($article[$akey]["article_end"])) {
+			$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_end"])).'</b></td></tr>';
+		}
 		$info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
-		$info .= '<tr><td>'.$BL['be_priorize'].':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
+		if(isset($article[$akey]["article_end"])) {
+			$info .= '<tr><td>'.$BL['be_priorize'].':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
+		}
 		$info .= '</table>';
 		
 		$a .= 'onmouseover="Tip(\''. $info .'\');" alt=""';
