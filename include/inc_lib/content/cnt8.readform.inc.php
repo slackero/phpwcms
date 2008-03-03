@@ -39,7 +39,7 @@ $content['alink']['alink_level']		= (isset($_POST["calink_level"]) && is_array($
 
 // article select type
 $content['alink']['alink_type']			= intval($_POST['calink_type']);
-if($content['alink']['alink_type'] > 8) $content['alink']['alink_type'] = 0;
+if($content['alink']['alink_type'] > 17) $content['alink']['alink_type'] = 0;
 
 // summary wordlimit
 $content['alink']['alink_wordlimit']	= intval($_POST['calink_wordlimit']);

@@ -131,12 +131,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td><input type="checkbox" name="calink_crop" id="calink_crop" value="1" <?php is_checked(1, $content['alink']['alink_crop']); ?> /></td>
 			<td class="v10 chatlist"><label for="calink_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
 			
-			<!--
-			<td bgcolor="#E7E8EB">&nbsp;</td>
-			<td bgcolor="#E7E8EB"><input name="calink_zoom" type="checkbox" id="calink_zoom" value="1" <?php is_checked(1, empty($content['alink']['alink_zoom']) ? 0 : 1); ?>></td>
-			<td bgcolor="#E7E8EB" class="v10">&nbsp;<label for="calink_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>&nbsp;</td>
-			<td bgcolor="#E7E8EB"><img src="img/leer.gif" alt="" width="6" height="15"></td>
-			//-->
 		</tr>
 		</table></td>
 </tr>
@@ -149,6 +143,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
 	<td valign="top"><select name="calink_type" class="f11b" id="calink_type" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
 		
+		<optgroup label="<?php echo $BL['be_sorted']; ?>">
+		
 		<option value="0"<?php is_selected(0, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_ordermanual'] ?></option>
 		<option value="1"<?php is_selected(1, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
 		<option value="2"<?php is_selected(2, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
@@ -158,6 +154,27 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<option value="6"<?php is_selected(6, $content['alink']['alink_type']) ?>><?php echo $BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 		<option value="7"<?php is_selected(7, $content['alink']['alink_type']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
 		<option value="8"<?php is_selected(8, $content['alink']['alink_type']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+		
+		</optgroup>
+		
+		<optgroup label="<?php echo $BL['be_random']; ?>">
+		
+		<option value="9"<?php is_selected(9, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'] ?></option>
+		
+		</optgroup>
+
+		<optgroup label="<?php echo $BL['be_random'].', '.$BL['be_sorted']; ?>">
+		
+		<option value="10"<?php is_selected(10, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+		<option value="11"<?php is_selected(11, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+		<option value="12"<?php is_selected(12, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+		<option value="13"<?php is_selected(13, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+		<option value="14"<?php is_selected(14, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+		<option value="15"<?php is_selected(15, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+		<option value="16"<?php is_selected(16, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+		<option value="17"<?php is_selected(17, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderasc'] ?></option>		
+		
+		</optgroup>
 		
 	</select></td>
 </tr>

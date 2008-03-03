@@ -1195,5 +1195,7 @@ $BL['be_files_upload']					= 'Gewählte Dateien hochladen';
 $BL['be_archive']						= 'Archiv';
 $BL['be_off']							= 'aus';
 $BL['be_on']							= 'an';
+$BL['be_random']						= 'zuf&auml;llig';
+$BL['be_sorted']						= 'sortiert';
 
 ?>

@@ -1206,5 +1206,7 @@ $BL['be_files_upload']					= 'Upload selected files';
 $BL['be_archive']						= 'archive';
 $BL['be_off']							= 'off';
 $BL['be_on']							= 'on';
+$BL['be_random']						= 'random';
+$BL['be_sorted']						= 'sorted';
 
 ?>

@@ -88,54 +88,85 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 				$alink_sql .= ' AND ar.article_id NOT IN ('.implode(',', $content['UNIQUE_ALINK']) . ')';
 			}
 		}
+		
+		$sql_union = '';
 	
 		switch($content['alink']['alink_type']) {
 	
-			case 1:	// create date, DESC
-			
-					$alink_sql .= " ORDER BY ar.article_created DESC";
-					break;
+			case 1:		// create date, DESC
+						$alink_sql .= " ORDER BY ar.article_created DESC";			break;
 					
-			case 2:	// create date, ASC
+			case 2:		// create date, ASC
+						$alink_sql .= " ORDER BY ar.article_created ASC";			break;
 					
-					$alink_sql .= " ORDER BY ar.article_created ASC";
-					break;
+			case 3:		// change date, DESC
+						$alink_sql .= " ORDER BY ar.article_tstamp DESC";			break;
 					
-			case 3:	// change date, DESC
-			
-					$alink_sql .= " ORDER BY ar.article_tstamp DESC";
-					break;
+			case 4:		// change date, ASC
+						$alink_sql .= " ORDER BY ar.article_tstamp ASC";			break;
 					
-			case 4:	// change date, ASC
-			
-					$alink_sql .= " ORDER BY ar.article_tstamp ASC";
-					break;
+			case 5:		// live date, DESC
+						$alink_sql .= " ORDER BY ar.article_begin DESC";			break;
 					
-			case 5:	// live date, DESC
-			
-					$alink_sql .= " ORDER BY ar.article_begin DESC";
-					break;
+			case 6:		// live date, ASC
+						$alink_sql .= " ORDER BY ar.article_begin ASC";				break;
 					
-			case 6:	// live date, ASC
-			
-					$alink_sql .= " ORDER BY ar.article_begin ASC";
-					break;
+			case 7:		// kill date, DESC
+						$alink_sql .= " ORDER BY ar.article_end DESC";				break;
 					
-			case 7:	// kill date, DESC
-			
-					$alink_sql .= " ORDER BY ar.article_end DESC";
-					break;
+			case 8:		// kill date, ASC
+						$alink_sql .= " ORDER BY ar.article_end ASC";				break;
 					
-			case 8:	// kill date, ASC
-			
-					$alink_sql .= " ORDER BY ar.article_end ASC";
-					break;
+			case 9:		// random
+						$alink_sql .= " ORDER BY RAND()";							break;
+					
+			case 10:	// random, create date, DESC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_created DESC";	break;
+					
+			case 11:	// random, create date, ASC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_created ASC";	break;
+					
+			case 12:	// random, change date, DESC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_tstamp DESC";	break;
+					
+			case 13:	// random, change date, ASC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_tstamp ASC";	break;
+					
+			case 14:	// random, live date, DESC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_begin DESC";	break;
+					
+			case 15:	// random, live date, ASC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_begin ASC";		break;
+					
+			case 16:	// random, kill date, DESC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_end DESC";		break;
+					
+			case 17:	// random, kill date, ASC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY article_end ASC";		break;
 	
 		}
 		
 		if(!empty($content['alink']['alink_max']) && intval($content['alink']['alink_max'])) {
 			$alink_sql .= " LIMIT ".intval($content['alink']['alink_max']);
 		}
+		
+		if($sql_union != '') {
+		
+			$alink_sql = '('.$alink_sql.') UNION DISTINCT ('.$alink_sql.')'.$sql_union;
+			if(!empty($content['alink']['alink_max']) && intval($content['alink']['alink_max'])) {
+				$alink_sql .= " LIMIT ".intval($content['alink']['alink_max']);
+			}
+
+		}
+						
 	}
 	
 	$content['alink']['result']	= _dbQuery($alink_sql);
