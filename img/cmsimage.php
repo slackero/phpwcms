@@ -25,7 +25,6 @@ $phpwcms	= array();
 $root		= rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
 require($root.'/config/phpwcms/conf.inc.php');
 require($root.'/include/inc_lib/default.inc.php');
-require($root.'/include/inc_lib/dbcon.inc.php');
 require($root.'/include/inc_lib/general.inc.php');
 require($root.'/include/inc_lib/imagick.convert.inc.php');
 
@@ -50,6 +49,9 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 		$ext		= which_ext($data[1]);
 		
 		if(is_numeric($hash)) {
+		
+			require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+		
 			$sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
 			$sql  .= 'f_id='.intval($hash)." AND f_ext IN ('jpg','jpeg','png','gif') AND ";
 			$sql  .= 'f_trash=0 AND f_aktiv=1 AND f_public=1';

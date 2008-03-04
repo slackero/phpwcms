@@ -319,6 +319,11 @@ function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
 
 			// now update image caching information in db
 			if($imgCache && $db_track) {
+			
+				if(!function_exists('_dbQuery')) {
+					require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+				}
+			
 				$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_imgcache SET ";
 				$sql .= "imgcache_hash = '" . 		aporeplace($image_hash) 			. "', ";
 				$sql .= "imgcache_imgname = '" . 	aporeplace($thumb_image_info[0]) 	. "', ";
