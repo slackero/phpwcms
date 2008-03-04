@@ -263,7 +263,8 @@ if(empty($plugin['data'])) {
 				'calendar_refid'		=> '',
 				'calendar_duplicate'	=> 0,
 				'calendar_rangestart'	=> '',
-				'calendar_rangeend'		=> ''	
+				'calendar_rangeend'		=> '',
+				'calendar_lang'			=> ''
 								);
 
 }
