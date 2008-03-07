@@ -11,9 +11,9 @@ window.addEvent('domready', function() {
 		var overlay = new Element('div', {'id': 'accessOverlay'}).injectInside(document.body);
 		$('access_dialog').addClass('accessDialog');
 		
-		overlay.setStyles({'top': window.getScrollTop(), 'height': window.getHeight(), 'opacity': .75});
-		window.addEvent('resize', function(){ overlay.setStyles({'top': window.getScrollTop(), 'height': window.getHeight()}); });
 		$('access_save').setStyle('display','');
+		overlay.setStyles({'top': 0, 'height': window.getScrollHeight(), 'opacity': .75});
+		window.addEvent('resize', function(){ overlay.setStyles({'top': 0, 'height': window.getScrollHeight()}); });
 	
 		var agree_checkbox = $('access_agree');
 		agree_checkbox.rel = 0;
