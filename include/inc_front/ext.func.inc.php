@@ -418,6 +418,11 @@ function showSelectedContent($param='') {
 				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 				$sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
 				$sql .= "WHERE acontent_id = " . $value . " AND acontent_visible = 1 ";
+				
+				if( !FEUSER_LOGIN_STATUS ) {
+					$sql .= 'AND acontent_granted=0 ';
+				}
+				
 				$sql .= "AND acontent_trash = 0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
 				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
 				$sql .= "LIMIT 1";
@@ -426,6 +431,11 @@ function showSelectedContent($param='') {
 				// content parts based on article ID				
 				$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent ";
 				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
+				
+				if( !FEUSER_LOGIN_STATUS ) {
+					$sql .= 'AND acontent_granted=0 ';
+				}
+				
 				$sql .= "ORDER BY acontent_sorting".$sort.", acontent_id";
 				
 			}
@@ -516,7 +526,11 @@ function getContentPartAlias($crow) {
 	if(!empty($alias['alias_ID'])) {
 		$alias['alias_ID'] = intval($alias['alias_ID']);
 		$sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
-		$sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 LIMIT 1"; 
+		$sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
+		if( !FEUSER_LOGIN_STATUS ) {
+			$sql_alias .= 'AND acontent_granted=0 ';
+		}
+		$sql_alias .= "LIMIT 1"; 
 		if($alias_result = mysql_query($sql_alias, $db)) {
 			if($alias_row = mysql_fetch_assoc($alias_result)) {
 				if(empty($alias['alias_block'])) {

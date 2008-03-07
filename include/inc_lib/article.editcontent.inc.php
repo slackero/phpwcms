@@ -463,6 +463,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					$content['comment']			= $row["acontent_comment"];
 					$content['paginate_title']	= $row["acontent_paginate_title"];
 					$content["paginate_page"]	= $row["acontent_paginate_page"];
+					$content["granted"]			= $row["acontent_granted"];
 					
 					if($content["type"] != 30 && is_file(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 					
@@ -527,7 +528,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$SQL .= "acontent_module			= '".aporeplace($content["module"])."', ";
 				$SQL .= "acontent_comment			= '".aporeplace($content["comment"])."', ";
 				$SQL .= "acontent_paginate_page		= '".aporeplace($content["paginate_page"])."', ";
-				$SQL .= "acontent_paginate_title	= '".aporeplace($content["paginate_title"])."', ";				
+				$SQL .= "acontent_paginate_title	= '".aporeplace($content["paginate_title"])."', ";
+				$SQL .= "acontent_granted			= '".$content["granted"]."', ";	
 				
 				$WHERE = '';
 				

@@ -80,6 +80,9 @@ if(isset($fmp_data['fmp_template'])) {
 
 		// internal
 		$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_internal_id'];
+		if( !FEUSER_LOGIN_STATUS ) {
+			$sql .= ' AND f_granted=0';
+		}
 		$fmp_data['file'] = _dbQuery($sql);
 		
 		if(isset($fmp_data['file'][0])) {
@@ -125,6 +128,9 @@ if(isset($fmp_data['fmp_template'])) {
 	if($fmp_data['fmp_img_id']) {
 	
 		$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_img_id'];
+		if( !FEUSER_LOGIN_STATUS ) {
+			$sql .= ' AND f_granted=0';
+		}
 		$fmp_data['preview'] = _dbQuery($sql);
 
 		if(isset($fmp_data['preview'][0])) {

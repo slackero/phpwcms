@@ -273,6 +273,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page ";
 			$sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
 			$sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 ";
+			
+			if( !FEUSER_LOGIN_STATUS ) {
+				$sql_cnt .= 'AND acontent_granted=0 ';
+			}
+			
 			$sql_cnt .= "AND acontent_block IN ('', 'CONTENT') ORDER BY acontent_paginate_page DESC";
 			$sql_cnt  = _dbQuery($sql_cnt);
 			
@@ -394,7 +399,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 		// render content parts
 		$sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$row["article_id"]." ";
-		$sql_cnt .=	"AND acontent_visible=1 AND acontent_trash=0 ORDER BY acontent_sorting, acontent_id";
+		$sql_cnt .=	"AND acontent_visible=1 AND acontent_trash=0 ";
+		if( !FEUSER_LOGIN_STATUS ) {
+			$sql_cnt .= 'AND acontent_granted=0 ';
+		}
+		$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
 		$cresult  = _dbQuery($sql_cnt);
 		
 		foreach($cresult as $crow) {

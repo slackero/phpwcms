@@ -38,12 +38,13 @@ $content["subtitle"] 		= clean_slweg($_POST["csubtitle"]);
 $content["comment"] 		= slweg($_POST["ccomment"]);
 $content["paginate_title"]	= clean_slweg($_POST["cpaginate_title"]);
 $content["paginate_page"]	= empty($_POST["cpaginate_page"]) ? 0 : intval($_POST["cpaginate_page"]);
-$content["visible"] 		= empty($_POST["cvisible"]) ? 0 : intval($_POST["cvisible"]);
+$content["visible"] 		= empty($_POST["cvisible"]) ? 0 : 1;
 $content["before"] 			= intval($_POST["cbefore"]);
 $content["after"] 			= intval($_POST["cafter"]);
 $content["top"] 			= isset($_POST["ctop"]) ? 1 : 0;
 $content["anchor"] 			= isset($_POST["canchor"]) ? 1 : 0;
 $content["id"] 				= intval($_POST["cid"]);
+$content["granted"] 		= empty($_POST["cgranted"]) ? 0 : 1;
 
 if(!empty($_POST['ctype_change_aid'])) {
 

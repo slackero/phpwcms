@@ -44,6 +44,9 @@ if($media["media_src"]) {
 } elseif($media["media_id"]) {
 
 	$media["sql"]  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_id=".intval($media["media_id"])." AND ";
+	if( !FEUSER_LOGIN_STATUS ) {
+		$media["sql"] .= 'f_granted=0 AND ';
+	}
 	$media["sql"] .= "f_name='".aporeplace($media["media_name"])."' LIMIT 1";
 
 	$media["result"] = _dbQuery($media["sql"]);

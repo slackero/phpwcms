@@ -1208,5 +1208,7 @@ $BL['be_off']							= 'off';
 $BL['be_on']							= 'on';
 $BL['be_random']						= 'random';
 $BL['be_sorted']						= 'sorted';
+$BL['be_granted_download']				= 'secured frontend download only';
+$BL['be_granted_feuser']				= 'for logged-in frontend users only';
 
 ?>

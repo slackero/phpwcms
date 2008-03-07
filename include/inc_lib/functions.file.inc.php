@@ -30,6 +30,9 @@ function _getFileInfo($value, $limit='1', $mode='hash') {
 		case 'hash':	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND ";
 						$sql .= "f_trash=0 AND f_public=1 AND ";
 						$sql .= "f_hash='".aporeplace($value)."'";
+						if( !FEUSER_LOGIN_STATUS ) {
+							$sql .= ' AND f_granted=0';
+						}
 						if($limit) {
 							$sql .= " LIMIT ".$limit;
 						}

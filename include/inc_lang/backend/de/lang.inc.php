@@ -1197,5 +1197,7 @@ $BL['be_off']							= 'aus';
 $BL['be_on']							= 'an';
 $BL['be_random']						= 'zuf&auml;llig';
 $BL['be_sorted']						= 'sortiert';
+$BL['be_granted_download']				= 'gesch&uuml;tzter Download im Frontend';
+$BL['be_granted_feuser']				= 'nur für angemeldete Frontend Benutzer';
 
 ?>

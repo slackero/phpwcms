@@ -56,9 +56,6 @@ if($row["acontent_files"]) {
 						$fxb[$key]["fname"] = html_specialchars($file_row[1]);
 						$fxb[$key]["fext"] = $file_row[2];
 					}
-					// else {
-					//	unset($fxb[$key]["fid"]);
-					//}
 				}
 			}
 		}
@@ -67,6 +64,9 @@ if($row["acontent_files"]) {
 		$fx = 0;
 		$cinfo_files = '';
 		foreach($fxb as $key => $value) {
+			if(!isset($fxb[$key]["fname"])) {
+				continue;
+			}
 			if($fx) $cinfo_files .= "<br />";
 			$cinfo_files .= "<img src=\"img/icons/small_".extimg($fxb[$key]["fext"])."\" border=\"0\">";
 			$cinfo_files .= "<img src=\"img/leer.gif\" width=\"3\" height=\"1\" border=\"0\">";

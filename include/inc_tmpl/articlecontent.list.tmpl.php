@@ -355,7 +355,7 @@ if(!$temp_count) {
 			?>
 			<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
-			  <td align="right" style="padding-right:5px;"><img src="img/symbole/content_9x11.gif" alt="" width="9" height="11" border="0" /></td>
+			  <td align="right" style="padding-right:5px;"><img src="img/symbole/content_9x11<?php if($row["acontent_granted"]) echo '_granted'; ?>.gif" alt="" width="9" height="11" border="0" /></td>
 	          <td><table border="0" cellpadding="0" cellspacing="0" summary="" width="100%">
 	            <tr>
 	              <td width="180" style="font-size:9px;font-weight:bold;text-transform:uppercase;"><?php 				  

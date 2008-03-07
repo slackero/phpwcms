@@ -145,6 +145,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				$csql  = "SELECT acontent_title, acontent_subtitle, acontent_text, acontent_html, acontent_files, acontent_type, acontent_form FROM ";
 				$csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." ";
 				$csql .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
+				if( !FEUSER_LOGIN_STATUS ) {
+					$csql .= 'acontent_granted=0 AND ';
+				}
 				$csql .= "acontent_type IN (0, 1, 2, 4, 5, 6, 7, 11, 14, 26, 27, 29, 100, 31)";
 
 				

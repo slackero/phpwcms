@@ -80,6 +80,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 		$content['comment']			= '';
 		$content['paginate_title']	= '';
 		$content['paginate_page']	= '';
+		$content["granted"]			= 0;
 	
 	} else {
 	
@@ -392,8 +393,15 @@ if(isset($result[0]['template_var'])) {
 		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
 		<td><table summary="" border="0" cellpadding="1" cellspacing="0" bgcolor="#E7E8EB">
 			<tr>
+
 				<td><input name="cvisible" type="checkbox" id="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?> /></td>
-				<td><label for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?>&nbsp;</label></td>
+				<td><label for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?>&nbsp;&nbsp;</label></td>
+				
+				<td bgcolor="#FFFFFF">&nbsp;</td>
+				
+				<td><input name="cgranted" type="checkbox" id="cgranted" value="1"<?php is_checked(1, $content["granted"]); ?> /></td>
+				<td><label for="cgranted"><?php echo $BL['be_granted_feuser'] ?>&nbsp;&nbsp;</label></td>
+				
 			</tr>
 		</table></td>
 	</tr>
@@ -407,7 +415,7 @@ if(isset($result[0]['template_var'])) {
 <input name="ctype" type="hidden" id="ctype" value="<?php echo  $content["type"] ?>" />
 		</td>
 	
-	<td style="padding: 10px 0 12px 0">
+	<td style="padding: 12px 0 12px 0">
 <div>
 <?php
 if(!empty($content["id"])) {

@@ -28,3 +28,9 @@ ALTER TABLE `phpwcms_file` CHANGE `f_size` `f_size` INT( 15 ) UNSIGNED NOT NULL 
 # 2008-03-03
 ALTER TABLE `phpwcms_calendar` ADD `calendar_lang` VARCHAR( 255 ) NOT NULL ;
 ALTER TABLE `phpwcms_calendar` ADD INDEX ( `calendar_lang` ) ;
+
+# 2008-03-06
+ALTER TABLE `phpwcms_file` ADD `f_granted` INT NOT NULL DEFAULT '0';
+ALTER TABLE `phpwcms_file` ADD INDEX ( `f_granted` ) ;
+ALTER TABLE `phpwcms_articlecontent` ADD `acontent_granted` INT NOT NULL DEFAULT '0';
+ALTER TABLE `phpwcms_articlecontent` ADD INDEX ( `acontent_granted` ) ;

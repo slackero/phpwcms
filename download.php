@@ -29,11 +29,18 @@ if(ini_get('zlib.output_compression') && function_exists('ini_set')) {
 $phpwcms = array();
 
 require_once ('config/phpwcms/conf.inc.php');
+
+if( !empty($phpwcms['SESSION_FEinit']) ) {
+	session_start();
+}
+
 require_once ('include/inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php');
+require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
+
+_checkFrontendUserAutoLogin();
 
 // try to get hash for file download
 $success	= false;
