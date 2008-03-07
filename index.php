@@ -133,7 +133,7 @@ if(!empty($phpwcms['IE_htc_hover']) || !empty($phpwcms['IE_htc_png'])) {
 	}
 	if(!empty($phpwcms['IE_htc_png'])) {
 		$content['page_start'] .= '    img { behavior: url("'.TEMPLATE_PATH.'inc_css/specific/';
-		$content['page_start'] .= $phpwcms['IE_htc_png']==1 ? 'pngbehavior' : 'iepngfix';
+		$content['page_start'] .= $phpwcms['IE_htc_png']==1 ? 'iepngfix' : 'pngbehavior';
 		$content['page_start'] .= '.htc"); }'.LF;
 	}
 	$content['page_start'] .= '  </style>'.LF;
