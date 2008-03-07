@@ -32,16 +32,26 @@ $template_default	= array();
 $indexpage			= array();
 
 // load general configuration
-require_once ('config/phpwcms/conf.inc.php');
-require_once ('include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+require_once 'config/phpwcms/conf.inc.php';
+require_once 'include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
+// BOT check
 $IS_A_BOT = false;
-$BOTSLIST = (isset($phpwcms["BOTS"]) && is_array($phpwcms["BOTS"])) ? $phpwcms["BOTS"] : array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
-foreach($BOTSLIST as $value) {
-	if(isset($_SERVER['HTTP_USER_AGENT']) && stristr($_SERVER['HTTP_USER_AGENT'], $value)) {
-		$IS_A_BOT = true;
-		break;
+
+if( !empty($_SERVER['HTTP_USER_AGENT']) ) {
+
+	if(empty($phpwcms["BOTS"]) || !is_array($phpwcms["BOTS"])) {
+		$phpwcms["BOTS"] = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+	}
+	
+	$_HTTP_USER_AGENT = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+	foreach($phpwcms["BOTS"] as $value) {
+		if(strpos($_HTTP_USER_AGENT, $value) !== FALSE) {
+			$IS_A_BOT = true;
+			break;
+		}
 	}
 }
 
@@ -51,6 +61,7 @@ foreach($BOTSLIST as $value) {
 if(!$IS_A_BOT && !empty($phpwcms['SESSION_FEinit'])) {
 	_initSession();
 }
+
 // define VISIBLE_MODE
 // 0 = frontend (all) mode
 // 1 = article user mode
@@ -65,31 +76,25 @@ if(empty($_SESSION["wcs_user_id"])) {
 cleanupPOSTandGET();
 define('FE_CURRENT_URL', PHPWCMS_URL . 'index.php' . buildGlobalGET('getQuery'));
 
-//script caching to allow header redirect
-//if($phpwcms["compress_page"] && isset($_SESSION['session_is_set'])) {
-//	ob_start("ob_gzhandler"); //with old style GZ Compression
-//} else {
-//	$_SESSION['session_is_set'] = true;
-ob_start(); //without Compression (or use browsers default)
-//}
+// buffer everything
+ob_start();
 
-require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php');
-require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
-
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_front/content.func.inc.php');
+require_once PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php';
+require_once PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
+require PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
+require PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
+require PHPWCMS_ROOT.'/include/inc_front/content.func.inc.php';
 
 if(!empty($phpwcms['Bad_Behavior'])) {
-	require(PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior/bad-behavior-phpwcms.php');
+	require PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior/bad-behavior-phpwcms.php';
 }
 
-$phpwcms["templates"] = TEMPLATE_PATH;
+$phpwcms["templates"]   = TEMPLATE_PATH;
 
 $content['page_start']  = PHPWCMS_DOCTYPE;
 $content['page_start'] .= '<!--
@@ -100,28 +105,14 @@ $content['page_start'] .= '<!--
 $content['page_start'] .= '<title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
 $content['page_start'] .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
 $content['page_start'] .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
-/*
-if(defined('PHPWCMS_WRAPPED_DISPLAY')) {
-	$content['page_start'] .= '  <base href="'.PHPWCMS_URL.'"'.HTML_TAG_CLOSE.LF;
-}
-*/
 $content['page_start'] .= '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>'.LF;
 $content['page_start'] .= get_body_attributes($pagelayout);
 
 // now add all CSS files here
-$content['css_import'] = '';
-if(isset($block['css']) && is_array($block['css'])) {
-
+if(count($block['css'])) {
 	foreach($block['css'] as $value) {
-		$content['css_import'] .= '    @import url("'.TEMPLATE_PATH.'inc_css/'.$value.'");'.LF;
+		$content['page_start'] .= '  <link href="'.TEMPLATE_PATH.'inc_css/'.$value.'" rel="stylesheet" type="text/css"'.HTML_TAG_CLOSE.LF;
 	}
-		
-	if($content['css_import']) {
-		$content['page_start'] .= '  <style type="text/css">'.LF.SCRIPT_CDATA_START.LF;
-		$content['page_start'] .= $content['css_import'];
-		$content['page_start'] .= SCRIPT_CDATA_END.LF.'  </style>'.LF;
-	}
-
 }
 
 $content['page_start'] .= $block["htmlhead"];
