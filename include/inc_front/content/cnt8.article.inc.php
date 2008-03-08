@@ -197,8 +197,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 		
 				if($value == $row['article_id'] && isset($content['struct'][ $row['article_cid'] ])) {
 				
-					// also check against structure				
-					$content['alink']['tr'][$key]	= $content['alink']['alink_template_entry'];
+					// enable frontend edit link
+					$content['alink']['tr'][$key]   = getFrontendEditLink('summary', $row["article_id"]);
+												
+					$content['alink']['tr'][$key]  .= $content['alink']['alink_template_entry'];
+					
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'TITLE', html_specialchars($row['article_title']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
 					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row['article_created'], strtotime($row['article_begin']), strtotime($row['article_end']));

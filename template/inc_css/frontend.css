@@ -228,18 +228,6 @@ ul.list_top li.active a, ul.list_level li.active a {
 	font-style:inherit;
 }
 
-
-#VisualModeIndicator {
-	position:absolute;
-	left:5px;
-	bottom:5px;
-	padding:5px;
-	z-index:10000;
-	background-color:#FF3300;
-	color:#FFFFFF;
-	border:1px solid #000000;
-}
-
 .phpwcmsArticleListEntry {
 	clear: both;
 }

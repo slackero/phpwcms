@@ -101,7 +101,7 @@ if($phpwcms["imagick_path"]) {
 	$phpwcms["imagick_path"] = str_replace("\\", '/', $phpwcms["imagick_path"]);
 	$phpwcms["imagick_path"] = str_replace('//', '/', $phpwcms["imagick_path"]);
 }
-define ("IMAGICK_PATH", $phpwcms["imagick_path"]);
+define ("IMAGICK_PATH",	$phpwcms["imagick_path"]);
 define ("IMAGICK_ON", intval($phpwcms["imagick"]));
 define ("GD2_ON", intval($phpwcms["use_gd2"]));
 
@@ -134,7 +134,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"] = '1.3.9';
-$phpwcms["release_date"] = '2008/02/18';
+$phpwcms["release_date"] = '2008/03/08';
 
 // -------------------------------------------------------------
 
@@ -401,6 +401,19 @@ function log_message($logtype='', $message='', $userid='', $ip='') {
 		
 		), 'DELAYED');
 
+}
+
+function init_frontend_edit() {
+	// define VISIBLE_MODE
+	// 0 = frontend (all) mode
+	// 1 = article user mode
+	// 2 = admin user mode
+	if(empty($_SESSION["wcs_user_id"])) {
+		define('VISIBLE_MODE', 0);
+	} else {
+		define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] !== 1 ? 1 : 2);
+	}
+	define ('FE_EDIT_LINK', VISIBLE_MODE == 0 || empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 }
 
 ?>

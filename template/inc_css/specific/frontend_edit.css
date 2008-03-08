@@ -1,0 +1,34 @@
+a.fe-link {
+	float: left;
+	width: 20px;
+	height: 16px;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	overflow: hidden;
+	color: #000000;
+	text-decoration: none;
+	background-position: left center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+}
+a.fe-link span {
+	float: left;
+	padding-left: 25px;
+}
+a.fe-link:hover {
+	text-decoration: none;
+	background-color: transparent;
+}
+a.fe-link.fe-article {
+	background-image: url(../../../img/famfamfam/silk_icons_gif/page_go.gif);
+}
+a.fe-link.fe-summary {
+	background-image: url(../../../img/famfamfam/silk_icons_gif/page_edit.gif);
+}
+a.fe-link.fe-CP {
+	background-image: url(../../../img/famfamfam/silk_icons_gif/page_white_edit.gif);
+}
+a.fe-link.fe-module {
+	background-image: url(../../../img/famfamfam/silk_icons_gif/plugin_go.gif);
+}

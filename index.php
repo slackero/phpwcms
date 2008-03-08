@@ -62,19 +62,12 @@ if(!$IS_A_BOT && !empty($phpwcms['SESSION_FEinit'])) {
 	_initSession();
 }
 
-// define VISIBLE_MODE
-// 0 = frontend (all) mode
-// 1 = article user mode
-// 2 = admin user mode
-if(empty($_SESSION["wcs_user_id"])) {
-	define('VISIBLE_MODE', 0);
-} else {
-	define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] != 1 ? 1 : 2);
-}
-
 // some initial actions
 cleanupPOSTandGET();
 define('FE_CURRENT_URL', PHPWCMS_URL . 'index.php' . buildGlobalGET('getQuery'));
+
+// init some special rights and also frontend edit
+init_frontend_edit();
 
 // buffer everything
 ob_start();
@@ -147,28 +140,11 @@ $content['page_start'] .= $body_inject.'>'.LF;
 
 
 $content['page_end'] = '';
-if(VISIBLE_MODE == 1 || VISIBLE_MODE == 2) {
-	$content['page_end']  = '<div id="VisualModeIndicator">';
-	$content['page_end'] .= VISIBLE_MODE == 1 ? 'user: ' : 'admin: ';
-	$content['page_end'] .= html_specialchars($_SESSION['wcs_user']);
-	$content['page_end'] .= ' <a href="phpwcms.php?do=articles';
-	if($aktion[1]) {
-		$content['page_end'] .= '&amp;p=2&amp;s=1&amp;id='.$aktion[1];
-	}
-	$content['page_end'] .= '" target="_blank" title="edit article">';
-	$content['page_end'] .= '<img src="img/symbols/fe_page_edit.gif" width="16" height="16" alt="edit article" border="0" style="vertical-align:middle"'.HTML_TAG_CLOSE;
-	$content['page_end'] .= "</a></div>";
-}
 
-//  this regex's call the function
+//  this regex's inits rewrite
 if($phpwcms["rewrite_url"]) {
 	$content["all"] = preg_replace("/( href=\"index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\")/e", "url_search('$2')", $content["all"]);
 	$content["all"] = preg_replace("/(onclick=\"location.href='index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\')/e", "js_url_search('$2')", $content["all"]);
-	/*
-	$allowed_chars_in_url = "[".implode("]|[",array("@",",","\.","+","&","-","_","=","*","#","\/","%","?"))."]";
-	$content["all"] = preg_replace("/( href=\"index.php?)(([a-z]|[A-Z]|[0-9]|".$allowed_chars_in_url.")*)(\")/e","url_search('\\2')",$content["all"]);
-	$content["all"] = preg_replace("/(onclick=\"location.href='index.php?)(([a-z]|[A-Z]|[0-9]|".$allowed_chars_in_url.")*)(\')/e","js_url_search('\\2')",$content["all"]);
-	*/
 }
 
 // return rendered content
@@ -180,7 +156,6 @@ echo $content['page_end'];
 echo LF.'</body>'.LF.'</html>';
 
 // phpwcms Default header settings
-//$gmdate_timestamp = time(); // + date('Z');
 if($phpwcms['cache_timeout']) {
 	header('Expires: '.gmdate('D, d M Y H:i:s', time() + $phpwcms['cache_timeout']) .' GMT');
 	header('Last-Modified: '.gmdate('D, d M Y H:i:s', empty($row['article_date']) ? time() : $row['article_date']) .' GMT');

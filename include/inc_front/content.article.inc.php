@@ -39,7 +39,6 @@ switch(VISIBLE_MODE) {
 			break;
 	case 1: $sql .= "ar.article_uid=".$_SESSION["wcs_user_id"]." AND ";
 			break;
-	//case 2: admin mode no additional neccessary
 }
 $sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() ";
 $sql .= "AND ar.article_end>NOW() LIMIT 1";
@@ -141,6 +140,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$content['all_keywords'] = $row['article_keyword'];
 
 		$content["main"] .= '<a name="jump'.$row["article_id"].'"></a>';
+		
+		// enable frontend edit link
+		$content["main"] .= getFrontendEditLink('article', $row["article_id"]);
+		$content["main"] .= getFrontendEditLink('summary', $row["article_id"]);
+		
 
 		// only copy the catname to a special var for multiple for use in any block
 		$content["cat"]				= html_specialchars($article["cat"]);
@@ -454,13 +458,17 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				}
 			}
 			
+			// set frontend edit link
+			$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
+			
 			// include content part code section
 			if($crow["acontent_type"] != 30) {
-			
+
 				@include(PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php");
 			
 			} elseif($crow["acontent_type"] == 30 && is_file($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
-			
+
+				$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name']);
 				// now try to include module content part code
 				include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
 			

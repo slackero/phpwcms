@@ -456,11 +456,18 @@ function showSelectedContent($param='') {
 					
 					// Space before
 					$CNT_TMP .= $space['before'];
+					
+					// set frontend edit link
+					$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
 											
 					// include content part code section
 					if($crow["acontent_type"] != 30) {
+					
 						include(PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php');
+					
 					} elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
+				
+						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name']);
 				
 						// now try to include module content part code
 						include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');

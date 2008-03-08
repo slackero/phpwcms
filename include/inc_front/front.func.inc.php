@@ -1284,8 +1284,13 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			}
 			if($tmpllist[ $article["article_image"]['tmpllist'] ]) {
 			
+				// set frontend edit link
+				//$tmpl  = getFrontendEditLink('article', $article['article_id']);
+				$tmpl  = getFrontendEditLink('summary', $article['article_id']);
+			
 				//rendering
-				$tmpl = $tmpllist[ $article["article_image"]['tmpllist'] ];
+				$tmpl .= $tmpllist[ $article["article_image"]['tmpllist'] ];
+				
 				$tmpl = render_cnt_template($tmpl, 'TITLE', empty($article['article_notitle']) ? html_specialchars($article["article_title"]) : '' );
 				$tmpl = render_cnt_template($tmpl, 'SUB', html_specialchars($article["article_subtitle"]));
 				
@@ -1337,7 +1342,13 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			} elseif ($temp_counter) {
 				$listing .= $template_default["space_between_list"];
 			}
+			
 			$listing .= $template_default["list_headline_before"];
+			
+			// set frontend edit link
+			$listing .= getFrontendEditLink('article', $article['article_id']);
+			$listing .= getFrontendEditLink('summary', $article['article_id']);			
+			
 			$listing .= '<a href="'.$article_link.'">';
 			$listing .= $template_default["list_startimage"];
 			$listing .= html_specialchars($article["article_title"]);
@@ -3061,14 +3072,13 @@ function getPageInfoGetValue($type='string') {
 	// type can be
 	// 'string' -> 'pageinfo=/...';
 	// 'array' -> array('pageinfo'=>'/...')
-
 	return ($type == 'string') ? 'pageinfo=' : array('pageinfo'=>'');
 }
 
 function initializeLightbox() {
 
 	// SlimBox 1.3
-	$GLOBALS['block']['custom_htmlhead']['lightbox.css']	= '  <link rel="stylesheet" href="'.TEMPLATE_PATH.'slimbox/css/slimbox.css" type="text/css" media="screen" />';
+	$GLOBALS['block']['custom_htmlhead']['lightbox.css']	= '  <link href="'.TEMPLATE_PATH.'slimbox/css/slimbox.css" rel="stylesheet" type="text/css" media="screen" />';
 	$GLOBALS['block']['custom_htmlhead']['mootools.js']		= '  <script src="'.TEMPLATE_PATH.'inc_js/mootools/mootools.js" type="text/javascript"></script>';
 	$GLOBALS['block']['custom_htmlhead']['slimbox.js']		= '  <script src="'.TEMPLATE_PATH.'slimbox/js/slimbox.js" type="text/javascript"></script>';
 
@@ -3271,6 +3281,59 @@ function get_article_morelink(& $article) {
 		$link[0] = 'index.php?aid='.$article['article_id'];
 		$link[1] = '';
 	}
+	return $link;
+}
+
+function set_css_link($css='', $add_template_path=true) {
+	$css_var = basename($css);
+	$GLOBALS['block']['custom_htmlhead'][$css_var] = '  <link href="';
+	if($add_template_path) {
+		$GLOBALS['block']['custom_htmlhead'][$css_var] .= TEMPLATE_PATH;
+	}
+	$GLOBALS['block']['custom_htmlhead'][$css_var] .= $css.'" rel="stylesheet" type="text/css" />';
+}
+
+function getFrontendEditLink($type='', $id_1=0, $id_2=0) {
+
+	// check if frontend edit link allowed
+	if(!FE_EDIT_LINK) return '';
+	
+	// set specific frontend editing link
+	set_css_link('inc_css/specific/frontend_edit.css');
+	
+	$link  = '';
+	$href  = '';
+	$title = '';
+	
+	switch($type) {
+
+		case 'article':		$href  = 'do=articles&amp;p=2&amp;s=1&amp;id='.$id_1;
+							$title = 'backend: goto Article';
+							break;
+							
+		case 'summary':		$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id='.$id_1;
+							$title = 'backend: edit Article Summary';
+							break;
+
+		case 'structure':	break;
+							
+		case 'CP':			$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$id_1.'&amp;acid='.$id_2;
+							$title = 'backend: edit Content Part';
+							break;
+							
+		case 'module':		$href = 'do=modules&amp;module='.$id_1;
+							$title = 'backend: goto Module';
+							break;
+	}
+	
+	if($href) {
+	
+		$link  = '<a href="'.PHPWCMS_URL.'phpwcms.php?'.$href.'" target="_blank" ';
+		$link .= 'class="fe-link fe-'.$type.'" title="'.$title.'">';
+		$link .= '<span>'.$title.'</span></a> ';
+	
+	}
+	
 	return $link;
 }
 

@@ -22,7 +22,7 @@
 
 //setup functions
 $phpwcms_version = "1.3.9";
-$phpwcms_release_date = '2008/02/18';
+$phpwcms_release_date = '2008/03/08';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -178,6 +178,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable\n";
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 2;  //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
+	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'iso-8859-1'\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
@@ -195,18 +196,18 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'form@localhost'); //for better security handling\n";
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
-	$conf_file .= "\$phpwcms['BOTS']  = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
+	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
 	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // enables HTC Hover for IE < 7 - has no effect in other browsers \n";
 	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers \n";
 	$conf_file .= "\$phpwcms['Bad_Behavior']      = 0; // 1 enables spam blocking by Bad Behavior, 0 off \n";
-	$conf_file .= "\$phpwcms['wysiwyg_template']  = array('FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 
-										'SPAW2' => 'standard,all,mini' );\n";
+	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'SPAW2' => 'standard,all,mini' );\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
 	$conf_file .= "\$phpwcms['version_check']     = 1; // checks for current release of phpwcms online \n";
 	$conf_file .= "\$phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";
-	$conf_file .= "\$phpwcms['Login_IPcheck']    = 0; \n";
+	$conf_file .= "\$phpwcms['Login_IPcheck']     = 0; \n";
+	$conf_file .= "\$phpwcms['frontend_edit']	  = 0; // enable content specific direct links - linking direct into the backend \n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";
