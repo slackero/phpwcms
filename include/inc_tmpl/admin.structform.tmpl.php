@@ -54,6 +54,7 @@ if($_GET['struct'] === 'index') {
 	$acat_pagetitle		= empty($indexpage['acat_pagetitle']) ? '' : $indexpage['acat_pagetitle'];
 	$acat_paginate		= empty($indexpage['acat_paginate']) ? 0 : 1;
 	$acat_overwrite		= empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'];
+	$acat_archive		= empty($indexpage['acat_archive']) ? 0 : $indexpage['acat_archive'];
 	
 } else {
 
@@ -80,6 +81,7 @@ if($_GET['struct'] === 'index') {
 		$acat_pagetitle		= '';
 		$acat_paginate		= 0;
 		$acat_overwrite		= '';
+		$acat_archive		= 0;
 	}
 }
 
@@ -116,28 +118,23 @@ switch($acat_hidden) {
 			}		  
 		  ?></strong></td>
           </tr>
-		  <tr><td><img src="img/leer.gif" width="1" height="4" alt="" /></td>
-		  </tr>
-          <tr><td><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-          </tr>
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-		  </tr>
-          <tr><td class="v09"><?php echo $BL['be_admin_struct_cat'] ?>:</td></tr>
+		  <tr><td><img src="img/leer.gif" width="1" height="4" alt="" /></td></tr>
+          <tr><td><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+         
+		  <tr><td class="v09"><?php echo $BL['be_admin_struct_cat'] ?>:</td></tr>
           <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b" style="width: 450px" onchange="this.value=Trim(this.value);" value="<?php echo html_specialchars($acat_title) ?>" size="50" maxlength="95" /></td></tr>
 
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
   
 		  <tr><td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>:</td></tr>
 		  <tr><td><input name="acat_alias" type="text" id="acat_alias" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_alias) ?>" size="50" maxlength="150" onfocus="set_article_alias(true, 'struct');" onchange="this.value=create_alias(this.value);" /></td></tr>
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 		  
 		  <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
 		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
  
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <?php
 if($acat_id != 'index' || strval($acat_id) == '0') {
 ?>  
@@ -150,13 +147,9 @@ if($acat_id != 'index' || strval($acat_id) == '0') {
 ?>
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_info'] ?>:</td></tr>
           <tr><td><textarea name="acat_info" cols="50" rows="6" id="acat_info" class="f11" style="width: 536px"><?php echo html_specialchars($acat_info) ?></textarea></td></tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-          </tr>
-		  <tr>
-		  	<td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td>
-		  </tr>
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-		  </tr>
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+		  <tr><td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td></tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 		  <tr>
 		  	<td><select name="acat_template" id="acat_template" class="f11b width300">
 <?php
@@ -185,13 +178,9 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		  
 		  
 		  
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-          </tr>
-		  <tr>
-		  	<td class="v09"><?php echo $BL['be_settings'] ?>:&nbsp;<i><?php echo $BL['be_overwrite_default'] ?></i></td>
-		  </tr>
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-		  </tr>
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+		  <tr><td class="v09"><?php echo $BL['be_settings'] ?>:&nbsp;<i><?php echo $BL['be_overwrite_default'] ?></i></td></tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 		  <tr>
 		  	<td><select name="acat_overwrite" id="acat_overwrite" class="f11b width300">
 			<option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
@@ -213,8 +202,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		  
 		  
           
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -227,8 +215,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td class="v09">&nbsp;&nbsp;</td>
 			<td class="v09"><?php echo $BL['be_article_per_page'] //$BL['be_admin_struct_maxlist'] ?>:</td>
 	  	  </tr>
-		  <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-		  </tr>
+		  <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 		  <tr>
 		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="f11b" style="width:135px" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -242,14 +229,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		  </table></td>
 	</tr>
 		  
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  
-		  <tr>
-		  	<td class="v09"><?php echo  $BL['be_admin_struct_orderarticle'] ?>:</td>
-	      </tr>
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-		  </tr>
+		  <tr><td class="v09"><?php echo  $BL['be_admin_struct_orderarticle'] ?>:</td></tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
           <tr>
             <td valign="top">
 			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;">
@@ -291,15 +274,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
           </tr>
 		  
 		  
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  
 		  
 <!-- Content Part Selection -->
 		  
 		  <tr><td class="v09">Content Part selection:</td></tr>
-		  <tr><td><img src="img/leer.gif" width="1" height="2" alt="" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>
           <tr>
             <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
               <tr>
@@ -364,12 +345,10 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
           </tr>
 	  
 		  
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-          </tr>
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
           <tr><td><table border="0" cellpadding="0" cellspacing="0" summary="">
             <tr><td colspan="4" class="v09"><?php echo $BL['be_admin_struct_status'] ?>:</td></tr>
-			<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-			</tr>
+			<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <tr>
               <td bgcolor="#D9DEE3"><input name="acat_hidden" type="checkbox" id="acat_hidden" value="1" <?php is_checked($acat_hidden, 1); ?> /></td>
               <td bgcolor="#D9DEE3">&nbsp;<label for="acat_hidden"><?php echo $BL['be_admin_struct_hide1'] ?></label>&nbsp;&nbsp;</td>
@@ -385,70 +364,7 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
 			
           </table></td></tr>		  
 		  
-		 <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-		 </tr>
-		 
-		 <!-- 
-
-		  <tr><td class="v09"><?php echo  $BL['be_admin_struct_permit'] ?>:</td></tr>
-		  <tr><td><img src="img/leer.gif" width="1" height="2"></td></tr>
-          <tr>
-            <td valign="top">
-<?php
-
-// list all available frontend users and put into temp array
-$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv != 9 ORDER BY usr_fe, usr_name, usr_login";
-if($result = mysql_query($sql, $db) or die("error while listing frontend users")) {
-	$_temp_usr = array();
-	while($row = mysql_fetch_assoc($result)) {
-		$_temp_usr[$row['usr_id']]['name']   = html_specialchars($row['usr_name']);
-		$_temp_usr[$row['usr_id']]['login']  = html_specialchars($row['usr_login']);
-		$_temp_usr[$row['usr_id']]['fe']     = $row['usr_fe'];
-		$_temp_usr[$row['usr_id']]['active'] = $row['usr_aktiv'];
-	}
-	mysql_free_result($result);
-}
-
-?>
-			<table border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td><select name="acat_access[]" id="acat_access" size="7" multiple style="width: 255px" class="f10" onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);">
-<?php
-// list all fe_users
-foreach($_temp_usr as $key => $value) {
-	if(in_array($key, $acat_permit)) {
-		echo '<option value="'.$key.'"';
-		if(!$_temp_usr[$key]['active']) {
-			echo ' style="color:#999999;"';
-		}
-		echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
-		unset($_temp_usr[$key]);
-	}
-}
-?>
-		</select></td>
-                <td valign="top" style="padding-left:5px;padding-right:5px;"><img src="img/button/put_left.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><br><img src="img/leer.gif" width="1" height="3"><br><img src="img/button/put_left_a.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><br><img src="img/leer.gif" width="1" height="6"><br><img src="img/button/put_right_a.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_remove_this']?>" onclick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><br><img src="img/leer.gif" width="1" height="3"><br><img src="img/button/put_right.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_remove_all']?>" onclick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"></td>
-                <td><select name="acat_feusers" size="7" multiple id="acat_feusers" style="width: 255px" class="f10" onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);">
-<?php
-// list all available fe_users
-if(isset($_temp_usr) && is_array($_temp_usr)) {
-	foreach($_temp_usr as $key => $value) {
-		echo '<option value="'.$key.'"';
-		if(!$_temp_usr[$key]['active']) {
-			echo ' style="color:#999999;"';
-		}
-		echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
-	}
-}
-?>
-		</select></td>
-              </tr>
-            </table></td>
-          </tr>
-		  
-		 <tr><td><img src="img/leer.gif" width="1" height="10"></td></tr>
-		 
-		 //-->
+		 <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
           <tr>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -489,17 +405,13 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
               </table></td>
           </tr>
 		  
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  
           <tr>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			
-				<tr>
-				  <td class="v09" colspan="8"><?php echo  $BL['be_ftptakeover_status'] ?>:</td>
-			    </tr>
-		 		<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-		 		</tr>
+				<tr><td class="v09" colspan="8"><?php echo  $BL['be_ftptakeover_status'] ?>:</td></tr>
+		 		<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 			
 			
                 <tr bgcolor="#D9DEE3">
@@ -510,20 +422,23 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 				  <td><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php 
 				  	if(intval($phpwcms["site_ssl_mode"])) {
 						if($acat_ssl == 1) { 
-							echo " checked"; 
+							echo ' checked="checked"'; 
 							$ssl_style='';
 						}
 					} else { 
-						echo " disabled";
+						echo ' disabled="disabled"'; 
 						$ssl_style=' style="color:#ADB2BE;"'; 
 					}
 					
 					?> /></td>
-                  <td<?php echo $ssl_style; ?>>&nbsp;
-                  	<label for="acat_ssl">SSL</label>&nbsp;&nbsp;</td>
+                  <td<?php echo $ssl_style; ?>>&nbsp;<label for="acat_ssl">SSL</label>&nbsp;&nbsp;</td>
 				  
 			     <td><input name="acat_nositemap" type="checkbox" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> /></td>
-				<td>&nbsp;<label for="acat_nositemap"><?php echo  $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>
+				 <td>&nbsp;<label for="acat_nositemap"><?php echo $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>
+				 
+				 <td><input name="acat_archive" type="checkbox" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> /></td>
+				 <td>&nbsp;<label for="acat_archive"><?php echo $BL['be_archive'] ?></label>&nbsp;&nbsp;</td>
+				
                 </tr>
               </table></td>
           </tr>
@@ -537,26 +452,8 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 		  		<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 		  &nbsp;&nbsp;&nbsp;&nbsp;
 		  <input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" /></td></tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
-          </tr>
-		  <tr><td><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-		  </tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
-          </tr>
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+		  <tr><td><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 </table>
 </form>
-<?php
-/*
-<script language="javascript" type="text/javascript">
-<!-- 
-function noDESC() {
-	if(document.editsitestructure.acat_order0.checked) {
-		document.editsitestructure.acat_ordersort0.checked = true;
-		document.editsitestructure.acat_ordersort1.checked = false;
-	}
-}
-noDESC();
-//-->
-</script>
-*/
-?>

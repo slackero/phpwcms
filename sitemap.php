@@ -49,7 +49,7 @@ $base	= true;
 
 // now retrieve all articles
 $sql  =	"SELECT article_id, article_cid, DATE_FORMAT(article_tstamp, '%Y-%m-%d') AS article_tstamp, ";
-$sql .= "article_title, article_redirect, article_aliasid ";
+$sql .= "article_title, article_redirect, article_aliasid, article_alias ";
 $sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ";
 $sql .= "article_public=1 AND article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
 $sql .= "article_nositemap=1 AND article_begin < NOW() AND article_end > NOW() ";
@@ -68,7 +68,7 @@ if($result = mysql_query($sql, $db)) {
 		
 		// now add article URL to Google sitemap
 		//$_link = PHPWCMS_URL.'index.php?id='.$data["article_cid"].','.$data["article_id"].',0,0,1,0';
-		$_link = PHPWCMS_URL.'index.php?aid='.$data["article_id"];
+		$_link = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );;
 		echo '	<url>'.LF;
     	echo '		<loc>'.$_link.'</loc>'.LF;
 		echo '		<lastmod>'.$data["article_tstamp"].'</lastmod>'.LF;

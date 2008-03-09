@@ -174,7 +174,7 @@ if($result = mysql_query($sql, $db)) {
 	
 		$item = new FeedItem();
 		$item->title 			= combinedParser($data["article_title"], FEED_ENCODING);
-		$item->link 			= PHPWCMS_URL.'index.php?aid='.$data["article_id"];
+		$item->link 			= PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
 		$item->description 		= combinedParser( empty($data["article_summary"]) ? $data["article_subtitle"] : $data["article_summary"] , FEED_ENCODING); 
 		$item->date 			= $data['article_created'] + $timePlus;
 		$item->updateDate		= $data['article_changeDate'] + $timePlus + 1;
@@ -190,7 +190,7 @@ if($result = mysql_query($sql, $db)) {
 
 		}
 		
-		$item->guid				= PHPWCMS_URL.'index.php?aid='.$data["article_id"];
+		$item->guid				= PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
 		$rss->addItem($item);
 		
 		$timePlus += 2;

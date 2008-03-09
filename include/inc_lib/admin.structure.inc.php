@@ -63,6 +63,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_pagetitle		= $row_acat["acat_pagetitle"];
 			$acat_paginate		= $row_acat["acat_paginate"];
 			$acat_overwrite		= $row_acat["acat_overwrite"];
+			$acat_archive		= $row_acat["acat_archive"];
 		}
 		mysql_free_result($result_acat);
 	}

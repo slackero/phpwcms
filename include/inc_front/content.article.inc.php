@@ -41,7 +41,7 @@ switch(VISIBLE_MODE) {
 			break;
 }
 $sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() ";
-$sql .= "AND ar.article_end>NOW() LIMIT 1";
+$sql .= "AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, ar.article_end>NOW()) LIMIT 1";
 
 if($result = mysql_query($sql, $db) or die("error while reading article datas")) {
 	if($row = mysql_fetch_assoc($result)) {

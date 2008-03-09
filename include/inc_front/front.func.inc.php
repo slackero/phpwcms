@@ -380,7 +380,8 @@ function get_struct_data($root_name='', $root_info='') {
 					"acat_permit"	=> !empty($indexpage['acat_permit']) && is_array($indexpage['acat_permit']) ? $indexpage['acat_permit'] : array(),
 					"acat_pagetitle"=> empty($indexpage['acat_pagetitle']) ? '' : $indexpage['acat_pagetitle'],
 					"acat_paginate"	=> empty($indexpage['acat_paginate']) ? 0 : 1,
-					"acat_overwrite"=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite']
+					"acat_overwrite"=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'],
+					"acat_archive"	=> empty($indexpage['acat_archive']) ? 0 : 1,
 				);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -412,7 +413,8 @@ function get_struct_data($root_name='', $root_info='') {
 										"acat_permit"	=> empty($row["acat_permit"]) ? array() : explode(',', $row["acat_permit"]),
 										"acat_pagetitle"=> $row["acat_pagetitle"],
 										"acat_paginate"	=> $row["acat_paginate"],
-										"acat_overwrite"=> $row["acat_overwrite"]
+										"acat_overwrite"=> $row["acat_overwrite"],
+										"acat_archive"	=> $row["acat_archive"]
 									  );
 		}
 		mysql_free_result($result);
@@ -446,9 +448,15 @@ function get_actcat_articles_data($act_cat_id) {
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= " AND article_deleted=0 AND article_begin < NOW() AND article_end > NOW() ";
+	$sql .= ' AND article_deleted=0 AND article_begin < NOW() ';
+	
+	if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
+		$sql .= 'AND article_end > NOW() ';
+	} else {
+		$sql .= 'AND IF( article_archive_status=1 , 1 , article_end > NOW() ) ';	
+	}
+	
 	$sql .= "ORDER BY ".$ao[2];
-
 
 	if(empty($as['acat_paginate']) && $as['acat_maxlist'] && $as['acat_topcount'] >= $as['acat_maxlist']) {
 		$sql .= ' LIMIT '.$as['acat_maxlist'];
@@ -477,7 +485,8 @@ function get_actcat_articles_data($act_cat_id) {
 									"article_headerdata"=> $row["article_headerdata"],
 									"article_morelink"	=> $row["article_morelink"],
 									"article_begin"		=> $row["article_begin"],
-									"article_end"		=> $row["article_end"]
+									"article_end"		=> $row["article_end"],
+									"article_alias"		=> $row["article_alias"]
 											);
 			// now check for article alias ID
 			if($row["article_aliasid"]) {
@@ -497,6 +506,7 @@ function get_actcat_articles_data($act_cat_id) {
 				if($alias_result = mysql_query($alias_sql, $db)) {
 					if($alias_row = mysql_fetch_assoc($alias_result)) {
 						$data[$aid]["article_id"] = $alias_row["article_id"];
+						$data[$aid]["article_alias"] = $alias_row["article_alias"];
 						// use alias article header data
 						if(!$row["article_headerdata"]) {
 							$data[$aid]["article_title"]	= $alias_row["article_title"];
@@ -743,8 +753,6 @@ function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $li
 				$nav_table_struct['array_struct'][$l]["cell_active_height"]	= $nav_table_struct["cell_active_height"];
 				$nav_table_struct['array_struct'][$l]["cell_active_class"]	= $nav_table_struct["cell_active_class"];
 
-				//$nav_table_struct['array_struct'][$l]["show_active_hidden"]	= $nav_table_struct["show_active_hidden"];
-
 			} else {
 
 				$nav_table_struct['array_struct'][$l]["linkimage_over_js"]	= get_real_imgsrc($nav_table_struct['array_struct'][$l]["linkimage_over"]);
@@ -841,18 +849,11 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 	if($nav_table_struct["space_celltop"]) $cell_top = spacer(1, $nav_table_struct["space_celltop"])."<br />";
 	if($nav_table_struct["space_cellbottom"]) $cell_bottom = "<br />".spacer(1, $nav_table_struct["space_cellbottom"]);
 
-	//$colspan	= ($depth2-1 > 1) ? ' colspan="'.($depth2-1).'"' : '';
 	$colspan	= ($depth2 > 1) ? ' colspan="'.($depth2).'"' : '';
 
 	foreach($struct as $key => $value) {
 
 		if( _getStructureLevelDisplayStatus($key, $level) ) {
-		/*
-		if(		$struct[$key]["acat_struct"] == $level
-			&& 	$key
-			//&& 	(!$struct[$key]["acat_hidden"]	|| 	(!empty($nav_table_struct["show_active_hidden"]) && isset($GLOBALS['LEVEL_KEY'][$key])) ? true : false)
-			&& (!$struct[$key]['acat_hidden'] || ($struct[$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))) {
-		*/
 
 			$link_image_id	= "linkid".randpassword(6);
 			$link_name_id 	= ' name="'.$link_image_id.'" id="'.$link_image_id.'"';
@@ -1285,7 +1286,6 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			if($tmpllist[ $article["article_image"]['tmpllist'] ]) {
 			
 				// set frontend edit link
-				//$tmpl  = getFrontendEditLink('article', $article['article_id']);
 				$tmpl  = getFrontendEditLink('summary', $article['article_id']);
 			
 				//rendering
@@ -1996,12 +1996,6 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 			$new_links .= '<a href="index.php?id='.$row[2].','.$row[0].',0,0,1,0"';
 			$new_links .= $target.">".$article_title."</a>";
 			$new_links .= $template_default["link_after"];
-			//try to remove possible unwanted after - if not enclosed before.link.after
-			/*
-			if($new_links && !$template_default["link_before"] && $count < $count_results) {
-				$new_links .= $template_default["link_after"];
-			}
-			*/
 		}
 		mysql_free_result($result);
 	}
@@ -2021,21 +2015,18 @@ function get_article_idlink($article_id=0, $link_text="", $db) {
 	$article_title	= $link_text;
 
 	if($article_id) {
-		$sql =	"SELECT article_id, article_title, article_cid ".
-				"FROM ".DB_PREPEND."phpwcms_article WHERE article_id=".$article_id." AND ".
+		$sql =	"SELECT article_id, article_title, article_cid, article_alias ".
+				"FROM ".DB_PREPEND."phpwcms_article ".
+				"WHERE article_id=".$article_id." AND ".
 				"article_public=1 AND article_aktiv=1 AND article_deleted=0 AND ".
-				"article_begin < NOW() AND article_end > NOW() LIMIT 1;";
-		if($result = mysql_query($sql, $db)) {
-			if($row = mysql_fetch_row($result)) {
-				$article_id		= $row[0];
-				$article_cid	= $row[2];
-				$article_title	= html_specialchars($row[1]);
-			}
-			mysql_free_result($result);
+				"article_begin < NOW() AND article_end > NOW() LIMIT 1";
+		$data = _dbQuery($sql);
+		
+		if(isset($data[0])) {
+			return '<a href="index.php?'.setGetArticleAid($data).'" title="'.$article_title.'">'.$link_text.'</a>';
 		}
 	}
-	$article_link = '<a href="index.php?aid='.$article_id.'" title="'.$article_title.'">'.$link_text.'</a>';
-	return $article_link;
+	return '<a href="index.php?aid='.$article_id.'" title="'.$article_title.'">'.$link_text.'</a>';
 }
 
 function get_keyword_link($keywords="", $db) {
@@ -2056,7 +2047,6 @@ function get_keyword_link($keywords="", $db) {
 					$keyword_list .= ", ";
 				}
 				$where .= "article_keyword LIKE '%*".aporeplace($value)."*%'";
-				//$where .= "article_keyword REGEXP '\\\\*".aporeplace($value)."\\\\*'";
 				$keyword_list .= html_specialchars($value);
 			}
 		}
@@ -2067,7 +2057,7 @@ function get_keyword_link($keywords="", $db) {
 	if($where) {
 
 		$x = 0;
-		$sql  = "SELECT article_id, article_cid, article_title FROM ".DB_PREPEND."phpwcms_article WHERE ";
+		$sql  = "SELECT article_id, article_cid, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 		switch(VISIBLE_MODE) {
 			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
@@ -2085,6 +2075,8 @@ function get_keyword_link($keywords="", $db) {
 				$article_list[$x][0] = $row[0]; //article ID
 				$article_list[$x][1] = $row[1]; //article catID
 				$article_list[$x][2] = html_specialchars($row[2]); //article title
+				$article_list[$x]['article_alias'] = $row[3];
+				$article_list[$x]['article_id'] = $row[0];
 				$x++;
 			}
 			mysql_free_result($result);
@@ -2094,12 +2086,12 @@ function get_keyword_link($keywords="", $db) {
 			// if keyword(s) found
 			if($x == 1) {
 				// if only 1 article found
-				$link .= '<a href="index.php?aid='.$article_list[0][0].'" title="'.$article_list[0][2].'">'.$keyword_list.'</a>';
+				$link .= '<a href="index.php?'.setGetArticleAid($article_list[0]).'" title="'.$article_list[0][2].'">'.$keyword_list.'</a>';
 			} else {
 				// if more than one article found
 				foreach($article_list as $key => $value) {
 					if($link) $link .= '|';
-					$link .= '<a href="index.php?aid='.$article_list[$key][0].'" title="'.$article_list[$key][2].'">'.($key+1).'</a>';
+					$link .= '<a href="index.php?'.setGetArticleAid($value).'" title="'.$article_list[$key][2].'">'.($key+1).'</a>';
 				}
 				$link = $keyword_list.' ['.$link.']';
 			}
@@ -2128,17 +2120,18 @@ function get_search_action($id, $dbcon) {
 	// return the search form action
 	$id = intval($id); $cid = 0;
 	if($id) {
-		$sql  = "SELECT article_cid FROM ".DB_PREPEND."phpwcms_article WHERE ";
+		$sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
 		$sql .=	"article_public=1 AND article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() ";
-		$sql .=	"AND article_end > NOW() AND article_id=".$id." LIMIT 1;";
+		$sql .=	"AND article_end > NOW() AND article_id=".$id." LIMIT 1";
 		if($result = mysql_query($sql, $dbcon)) {
 			if($row = mysql_fetch_row($result)) {
 				$cid = $row[0];
+				$data = array('article_id'=>$id, 'article_alias'=>$row[1]);
 			}
 			mysql_free_result($result);
 		}
 	}
-	return ($cid) ? 'index.php?aid='.$id : '';
+	return ($cid) ? 'index.php?'.setGetArticleAid($data) : '';
 }
 
 function get_index_link_up($linktext) {
@@ -2148,22 +2141,25 @@ function get_index_link_up($linktext) {
 	$link = '';
 	if(!$linktext) $linktext = 'UP';
 	if($cat_id && !$GLOBALS['content']['struct'][$cat_id]['acat_hidden']) {
-		$link = '<a href="index.php?id='.$GLOBALS['content']['struct'][$cat_id]['acat_struct'].',0,0,1,0,0">';
+		$link = '<a href="index.php?' . ( empty($GLOBALS['content']['struct'][$cat_id]['acat_alias']) ? 'id='.$GLOBALS['content']['struct'][$cat_id]['acat_struct'] : $GLOBALS['content']['struct'][$cat_id]['acat_alias'] ) .'">';
 	}
 	return ($link) ? $link.$linktext.'</a>' : $linktext;
 }
 
 function get_index_link_next($linktext, $cat_down=0) {
+
+	global $content;
+
 	// return the link to next article in current ctageory
-	$a_id = isset($GLOBALS['content']['article_id']) ? $GLOBALS['content']['article_id'] : $GLOBALS['aktion'][1];
+	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
 	$linktext = trim($linktext);
 	if(!$linktext) $linktext = 'NEXT';
 	$link = '';
 
-	if(count($GLOBALS['content']['articles']) > 1) {
+	if(count($content['articles']) > 1) {
 
 		$c = 0; //temp counter
-		foreach($GLOBALS['content']['articles'] as $key => $value) {
+		foreach($content['articles'] as $key => $value) {
 			if($c || !$a_id) {
 				$link  = '<a href="index.php?aid='.$key.'">';
 				break;
@@ -2175,29 +2171,33 @@ function get_index_link_next($linktext, $cat_down=0) {
 	if($cat_down && !$link) {
 		// go cat down or to next cat above
 
-		if($GLOBALS['content']['cat_id']) {
-			foreach($GLOBALS['content']['struct'] as $key => $value) {
-				if($GLOBALS['content']['struct'][$key]['acat_struct'] == $GLOBALS['content']['cat_id']) {
-					$link = '<a href="index.php?id='.$key.',0,0,1,0,0">';
+		if($content['cat_id']) {
+			foreach($content['struct'] as $key => $value) {
+				if($content['struct'][$key]['acat_struct'] == $content['cat_id']) {
+					$link  = '<a href="index.php?id=';
+					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+					$link .= '">';
 					break;
 				}
 			}
 		} else {
 			$c = 0;
-			foreach($GLOBALS['content']['struct'] as $key => $value) {
+			foreach($content['struct'] as $key => $value) {
 				if($c) {
-					$link = '<a href="index.php?id='.$key.',0,0,1,0,0">';
+					$link  = '<a href="index.php?id=';
+					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+					$link .= '">';
 					break;
 				}
 				$c++;
 			}
 		}
 
-		if(!$link && $GLOBALS['content']['cat_id']) {
+		if(!$link && $content['cat_id']) {
 			$c=0;
 			$temp_key = array();
-			foreach($GLOBALS['content']['struct'] as $key => $value) {
-				if($GLOBALS['content']['struct'][$key]['acat_struct'] == $GLOBALS['content']['struct'][ $GLOBALS['content']['cat_id'] ]['acat_struct']) {
+			foreach($content['struct'] as $key => $value) {
+				if($content['struct'][$key]['acat_struct'] == $content['struct'][ $content['cat_id'] ]['acat_struct']) {
 					$temp_key[] = $key;
 				}
 			}
@@ -2205,25 +2205,34 @@ function get_index_link_next($linktext, $cat_down=0) {
 			if($count_temp) {
 				$c=0;
 				foreach($temp_key as $value) {
-					if($value == $GLOBALS['content']['cat_id'] && $c+1 < $count_temp) {
-						$link = '<a href="index.php?id='.$temp_key[$c+1].',0,0,1,0,0">';
+					if($value == $content['cat_id'] && $c+1 < $count_temp) {
+						//$link = '<a href="index.php?id='.$temp_key[$c+1].',0,0,1,0,0">';
+						
+						$key = $temp_key[$c+1];
+						
+						$link  = '<a href="index.php?id=';
+						$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+						$link .= '">';
 						break;
 					}
 					$c++;
 				}
 				if($c == $count_temp && !$link) {
 					// back reverese to higher next structure level
-					$current_id = $GLOBALS['content']['cat_id'];
+					$current_id = $content['cat_id'];
 
 					while($c=1) {
-						$parent_id = $GLOBALS['content']['struct'][ $current_id ]['acat_struct'];
-						$parent_struct_id = $GLOBALS['content']['struct'][ $parent_id ]['acat_struct'];
+						$parent_id = $content['struct'][ $current_id ]['acat_struct'];
+						$parent_struct_id = $content['struct'][ $parent_id ]['acat_struct'];
 
 						$c=0;
-						foreach($GLOBALS['content']['struct'] as $key => $value) {
-							if($GLOBALS['content']['struct'][$key]['acat_struct'] == $parent_struct_id) {
+						foreach($content['struct'] as $key => $value) {
+							if($content['struct'][$key]['acat_struct'] == $parent_struct_id) {
 								if($c) {
-									$link = '<a href="index.php?id='.$key.',0,0,1,0,0">';
+									//$link = '<a href="index.php?id='.$key.',0,0,1,0,0">';
+									$link  = '<a href="index.php?id=';
+									$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+									$link .= '">';
 									break;
 								}
 								if($key == $parent_id) $c=1;
@@ -3278,7 +3287,7 @@ function get_article_morelink(& $article) {
 		}
 		if(empty($link[1])) $link[1] = '';
 	} else {
-		$link[0] = 'index.php?aid='.$article['article_id'];
+		$link[0] = 'index.php?'.setGetArticleAid($article);
 		$link[1] = '';
 	}
 	return $link;
@@ -3335,6 +3344,16 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0) {
 	}
 	
 	return $link;
+}
+
+function setGetArticleAid(&$data) {
+
+	if(!empty($data['article_alias'])) {
+		return $data['article_alias'];
+	} elseif(isset($data['article_id'])) {
+		return 'aid='.$data['article_id'];
+	}
+	return '';
 }
 
 ?>
