@@ -167,6 +167,10 @@ if(!$newsletter) {
 		$mail->Sender	 	= $newsletter['newsletter_vars']['replyto'];
 		$mail->Subject		= $newsletter['newsletter_subject'];
 		
+		if(!$mail->SetLanguage($phpwcms['default_lang'])) {
+			$mail->SetLanguage('en');
+		}
+		
 		$mail->SMTPKeepAlive = true;
 		
 		$x = 0;
@@ -198,11 +202,33 @@ if(!$newsletter) {
 				$mail->Body = build_email_text($newsletter['newsletter_vars']['text'], $value);
 				$mail->IsHTML(0);
 			}
-
+			
+					// update newsletter queue
+			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_newsletterqueue SET ';
+			$sql .= 'queue_changed=NOW(), ';
+			if(!($mailresult = $mail->Send())) {
+				// save error information
+				$sql .= 'queue_status=2, ';
+				$sql .= "queue_errormsg='".aporeplace($mail->ErrorInfo)."' ";
+			} else {
+				// save success
+				$sql .= 'queue_status=1 ';
+			}
+			$sql .= 'WHERE queue_id='.$value['queue_id'];
+			
+			@_dbQuery($sql, 'UPDATE');
+			
+			if($mailresult == false) {
+				echo '<p>'.$value['address_email'].' ('.$mail->ErrorInfo.')</p>';
+			} else {
+				echo '. ';
+			}
+			flush();
+			
 			// update newsletter queue
 			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_newsletterqueue SET ';
 			$sql .= 'queue_changed=NOW(), ';
-			if(!$mail->Send()) {
+			if( ( $mailresult = $mail->Send() ) == false ) {
 				// save error information
 				$sql .= 'queue_status=2, ';
 				$sql .= "queue_errormsg='".aporeplace($mail->ErrorInfo)."' ";
@@ -213,7 +239,11 @@ if(!$newsletter) {
 			$sql .= 'WHERE queue_id='.$value['queue_id'];
 			@_dbQuery($sql, 'UPDATE');
 			
-			echo '. ';
+			if($mailresult == false) {
+				echo '<p style="color:#CC3300">'.$value['address_email'].' ('.$mail->ErrorInfo.')</p>';
+			} else {
+				echo '. ';
+			}
 			flush();
 			
 			$mail->ClearAddresses();
