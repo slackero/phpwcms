@@ -1,5 +1,13 @@
 /* module calendar backend CSS */
 
+#calendar_form {
+	background:#F3F5F8;
+	border-top:1px solid #92A1AF;
+	border-bottom:1px solid #92A1AF;
+	margin:0 0 5px 0;
+	padding:10px 8px 15px 8px;
+}
+
 table.calendar {
 
 	margin: 8px 0 3px 0;

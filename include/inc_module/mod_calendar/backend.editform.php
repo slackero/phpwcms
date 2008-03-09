@@ -33,7 +33,7 @@ initMootoolsAutocompleter();
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
 
-<form action="<?php echo MODULE_HREF ?>&amp;edit=<?php echo $plugin['data']['calendar_id'] ?>" method="post" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
+<form action="<?php echo MODULE_HREF ?>&amp;edit=<?php echo $plugin['data']['calendar_id'] ?>" method="post" id="calendar_form">
 <input type="hidden" name="calendar_id" value="<?php echo $plugin['data']['calendar_id'] ?>" />
 <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
 
@@ -55,12 +55,12 @@ initMootoolsAutocompleter();
 
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BLM['calendar_title'] ?>:&nbsp;</td>
-		<td><input name="calendar_title" type="text" id="calendar_title" class="v12<?php 
+		<td><input name="calendar_title" type="text" id="calendar_title" class="v12 width375<?php 
 		
 		//error class
 		if(!empty($plugin['error']['calendar_title'])) echo ' errorInputText';
 		
-		?>" style="width:375px;" value="<?php echo html_specialchars($plugin['data']['calendar_title']) ?>" size="30" maxlength="250" /></td>
+		?>" value="<?php echo html_specialchars($plugin['data']['calendar_title']) ?>" size="30" maxlength="250" /></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
@@ -200,10 +200,7 @@ initMootoolsAutocompleter();
 			</tr>
 					
 		</table></td>
-	</tr>	
-	
-	
-	
+	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 	
@@ -238,6 +235,13 @@ initMootoolsAutocompleter();
 			</tr>
 		</table></td>
 	
+	</tr>
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	
+	<tr> 
+		<td align="right" class="chatlist tdtop4"><?php echo $BLM['calendar_teasertext'] ?>:&nbsp;</td>
+		<td><textarea name="calendar_teaser" id="calendar_teaser" class="v12 width375" rows="5"><?php echo html_specialchars($plugin['data']['calendar_teaser']) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
@@ -404,6 +408,16 @@ window.addEvent('domready', function(){
 	
 	setCalendarAllDay();
 	setRangeDates(<?= $plugin['data']['calendar_range'] ?>);
+	
+	$('calendar_form').addEvent('submit', function(r) {
+		var calendar_title = $('calendar_title');
+		calendar_title.value = calendar_title.value.clean();
+		if( calendar_title.value == '' ) {
+			var r = new Event(r).stop();
+			alert('<?php echo $BLM['alert_empty_title'] ?>');
+		}
+	});
+	
 	
 	showImage();
 

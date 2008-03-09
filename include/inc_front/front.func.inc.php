@@ -3356,4 +3356,18 @@ function setGetArticleAid(&$data) {
 	return '';
 }
 
+/**
+ * Convert 2 to x line breaks of plain text into correct <p> and <br>
+ */
+function plaintext_htmlencode($text='', $encode_function='html_specialchars') {
+	$text = trim($text);
+	if($text) {
+		$text = '[p]' . preg_replace('/\s{0,}\n\s{0,}\n\s{0,}/s', '[/p][p]', $text) . '[/p]';
+		$text = preg_replace('/\s{0,}\n\s{0,}/s', '[br]', $text);
+		$text = $encode_function($text);
+		$text = str_replace(array('[/p][p]', '[p]', '[/p]', '[br]'), array("</p>\n<p>", '<p>', '</p>', "<br />\n"), $text);
+	}
+	return $text;
+}
+
 ?>

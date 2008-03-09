@@ -34,3 +34,6 @@ ALTER TABLE `phpwcms_file` ADD `f_granted` INT NOT NULL DEFAULT '0';
 ALTER TABLE `phpwcms_file` ADD INDEX ( `f_granted` ) ;
 ALTER TABLE `phpwcms_articlecontent` ADD `acontent_granted` INT NOT NULL DEFAULT '0';
 ALTER TABLE `phpwcms_articlecontent` ADD INDEX ( `acontent_granted` ) ;
+
+# 2008-03-09
+ALTER TABLE `phpwcms_calendar` ADD `calendar_teaser` TEXT NOT NULL AFTER `calendar_where`;

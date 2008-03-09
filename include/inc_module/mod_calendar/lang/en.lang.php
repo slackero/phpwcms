@@ -10,10 +10,13 @@ $BLM['calendar_entry']			= 'calendar entry';
 $BLM['calendar_title']			= 'what';
 $BLM['calendar_token']			= 'calendar';
 $BLM['calendar_text']			= 'description';
+$BLM['calendar_teasertext']		= 'teaser text';
 $BLM['delete_entry']			= 'Delete calendar entry:';
 $BLM['input_filter']			= 'calendar filter';
 $BLM['listview']				= 'list view';
 $BLM['max_words']				= 'max. count of description words';
+
+$BLM['alert_empty_title']		= 'Please fill in a value in field "what".';
 
 $BLM['locale_string']			= 'en_EN';
 $BLM['day_name_length']			= 2;

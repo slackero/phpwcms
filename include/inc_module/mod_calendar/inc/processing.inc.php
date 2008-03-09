@@ -48,6 +48,7 @@ if(isset($_POST['calendar_title'])) {
 				'calendar_changed'		=> date('Y-m-d H:i:s'),
 				'calendar_tag'			=> clean_slweg($_POST['calendar_tag']),
 				'calendar_lang'			=> isset($_POST['calendar_lang']) ? preg_replace('/[^a-z\-]/', '', strtolower($_POST['calendar_lang'])) : '',
+				'calendar_teaser'		=> clean_slweg($_POST['calendar_teaser']),
 				'calendar_text'			=> slweg($_POST['calendar_text']),
 				'calendar_object'		=> array(),
 				'calendar_status'		=> empty($_POST['calendar_status']) ? 0 : 1,
@@ -112,6 +113,7 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "calendar_range_end='".aporeplace($plugin['data']['calendar_range_end'])."', ";
 			$sql .= "calendar_title='".aporeplace($plugin['data']['calendar_title'])."', ";
 			$sql .= "calendar_where='".aporeplace($plugin['data']['calendar_where'])."', ";
+			$sql .= "calendar_teaser='".aporeplace($plugin['data']['calendar_teaser'])."', ";
 			$sql .= "calendar_text='".aporeplace($plugin['data']['calendar_text'])."', ";
 			$sql .= "calendar_tag='".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "calendar_object='".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
@@ -144,8 +146,8 @@ if(isset($_POST['calendar_title'])) {
 			
 			$sql .= 'calendar_created, calendar_changed, calendar_status, ';
 			$sql .= 'calendar_start, calendar_end, calendar_allday, calendar_range, ';
-			$sql .= 'calendar_range_start, calendar_range_end, ';
-			$sql .= 'calendar_title, calendar_where, calendar_text, calendar_tag, ';
+			$sql .= 'calendar_range_start, calendar_range_end, calendar_title, ';
+			$sql .= 'calendar_where, calendar_teaser, calendar_text, calendar_tag, ';
 			$sql .= 'calendar_object, calendar_refid, calendar_lang) VALUES (';
 			
 			$sql .= "'".aporeplace($plugin['data']['calendar_created'])."', ";
@@ -159,6 +161,7 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "'".aporeplace($plugin['data']['calendar_range_end'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_title'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_where'])."', ";
+			$sql .= "'".aporeplace($plugin['data']['calendar_teaser'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_text'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "'".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
@@ -250,6 +253,7 @@ if(empty($plugin['data'])) {
 				'calendar_created'		=> '',
 				'calendar_changed'		=> gmdate('Y-m-d H:i:s'),
 				'calendar_tag'			=> '',
+				'calendar_teaser'		=> '',
 				'calendar_text'			=> '',
 				'calendar_object'		=> array(),
 				'calendar_status'		=> 0,
