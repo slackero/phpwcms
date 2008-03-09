@@ -296,7 +296,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					
 					}
 					
-					$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', 'index.php?aid='.$row['article_id'], $content['alink']['tr'][$key]);
+					$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', 'index.php?'.setGetArticleAid($row), $content['alink']['tr'][$key]);
 					break;
 					
 				}
