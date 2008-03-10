@@ -1123,7 +1123,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 	$listing 		= $template_default["space_top"]; //start with space at top
 
 	if(isset($paginate_show['top'])) {
-		$listing 	   .= $paginate_navi;
+		$listing 	   .= str_replace('{POS}', 'top', $paginate_navi);
 	}
 
 	foreach($content["articles"] as $article) {
@@ -1359,7 +1359,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 	}
 
 	if(isset($paginate_show['bottom'])) {
-		$listing .= $paginate_navi;
+		$listing .= str_replace('{POS}', 'bottom', $paginate_navi);
 	}
 	if(!empty($paginate_show['rt'])) {
 		$content['globalRT'][ $paginate_show['rt'] ] = $paginate_navi;
