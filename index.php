@@ -154,11 +154,14 @@ echo $content['page_end'];
 
 if(FE_EDIT_LINK) {
 
-	echo '<div id="fe-link" class="enabled"></div>
+	echo '<div id="fe-link" class="disabled"></div>
 <script type="text/javascript">
 <!--
 	window.addEvent("domready", function(){
-		var felink_status = 1;
+		var felink_status = 0;
+		$$("a.fe-link").each(function(r) {
+			r.setStyle("display", "none");
+		});
 		$("fe-link").addEvent("click", function() {
 			if(felink_status == 1) {
 				$$("a.fe-link").each(function(r) {
