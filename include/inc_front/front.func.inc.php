@@ -2842,6 +2842,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 	$TAB			= str_repeat('	', $counter);
 	$_menu_type		= strtolower($menu_type);
 	$max_depth		= ($max_depth == 0 || $max_depth-1 > $counter) ? true : false;
+	$x				= 0;
 
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 
@@ -2880,13 +2881,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$li_class = trim($li_class.' '.$active_class);
 			}
 
-			//if($li_class) {
-			$li .= ' class="'.$li_class.'"';
-			//}
+			$li .= ' class="' . $li_class . ( $x==0 ? ' sub_first' : '' ) .'"';
 
 			$li .= '>' . $li_a . '</a>';
 
 			$li .= $li_ul.'</li>'.LF; // remove $li_ul from this line of code if $ie_patch is used
+			
+			$x++;
 		}
 	}
 				// also check if $parent
