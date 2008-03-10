@@ -152,6 +152,35 @@ echo $content['page_start'];
 echo $content["all"];
 echo $content['page_end'];
 
+if(FE_EDIT_LINK) {
+
+	echo '<div id="fe-link" class="enabled"></div>
+<script type="text/javascript">
+<!--
+	window.addEvent("domready", function(){
+		var felink_status = 1;
+		$("fe-link").addEvent("click", function() {
+			if(felink_status == 1) {
+				$$("a.fe-link").each(function(r) {
+					r.setStyle("display", "none");
+				});
+				$("fe-link").removeClass("enabled");
+				$("fe-link").addClass("disabled");
+				felink_status = 0;
+			} else {
+				$$("a.fe-link").each(function(r) {
+					r.setStyle("display", "");
+				});
+				$("fe-link").removeClass("disabled");
+				$("fe-link").addClass("enabled");
+				felink_status = 1;
+			}
+		});
+	});
+//-->
+</script>';
+}
+
 // real page ending
 echo LF.'</body>'.LF.'</html>';
 

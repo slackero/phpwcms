@@ -1207,7 +1207,7 @@ function getFileInformation($fileID) {
 }
 
 function getJavaScriptSourceLink($src='', $prefix='	') {
-	return ($src) ? $prefix.'<script language="javascript" src="'.$src.'" type="text/javascript"></script>' : '';
+	return ($src) ? $prefix.'<script src="'.$src.'" type="text/javascript"></script>' : '';
 }
 
 function convertStringToArray($string='', $seperator=',', $mode='UNIQUE', $rmvDblWSp=true) {

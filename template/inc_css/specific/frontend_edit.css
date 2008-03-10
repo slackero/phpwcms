@@ -32,3 +32,24 @@ a.fe-link.fe-CP {
 a.fe-link.fe-module {
 	background-image: url(../../../img/famfamfam/silk_icons_gif/plugin_go.gif);
 }
+#fe-link {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	color: #FFFFFF;
+	border: 1px solid #003300;
+	padding: 3px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 16px;
+	width: 16px;
+	cursor: pointer;
+}
+#fe-link.enabled {
+	background-image: url(../../../img/famfamfam/silk_icons_gif/pencil_delete.gif);
+	background-color: #E1FFC4;
+}
+#fe-link.disabled {
+	background-image: url(../../../img/famfamfam/silk_icons_gif/pencil_add.gif);
+	background-color: #FFDDDD;
+}

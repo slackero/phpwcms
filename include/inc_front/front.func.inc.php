@@ -3088,8 +3088,8 @@ function initializeLightbox() {
 
 	// SlimBox 1.3
 	$GLOBALS['block']['custom_htmlhead']['lightbox.css']	= '  <link href="'.TEMPLATE_PATH.'slimbox/css/slimbox.css" rel="stylesheet" type="text/css" media="screen" />';
-	$GLOBALS['block']['custom_htmlhead']['mootools.js']		= '  <script src="'.TEMPLATE_PATH.'inc_js/mootools/mootools.js" type="text/javascript"></script>';
-	$GLOBALS['block']['custom_htmlhead']['slimbox.js']		= '  <script src="'.TEMPLATE_PATH.'slimbox/js/slimbox.js" type="text/javascript"></script>';
+	initMootools();
+	$GLOBALS['block']['custom_htmlhead']['slimbox.js']		= getJavaScriptSourceLink(TEMPLATE_PATH.'slimbox/js/slimbox.js', '  ');
 
 }
 
@@ -3307,6 +3307,9 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0) {
 	// check if frontend edit link allowed
 	if(!FE_EDIT_LINK) return '';
 	
+	// init Mootools
+	initMootools();
+	
 	// set specific frontend editing link
 	set_css_link('inc_css/specific/frontend_edit.css');
 	
@@ -3368,6 +3371,10 @@ function plaintext_htmlencode($text='', $encode_function='html_specialchars') {
 		$text = str_replace(array('[/p][p]', '[p]', '[/p]', '[br]'), array("</p>\n<p>", '<p>', '</p>', "<br />\n"), $text);
 	}
 	return $text;
+}
+
+function initMootools() {
+	$GLOBALS['block']['custom_htmlhead']['mootools.js']	= getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/mootools/mootools.js');
 }
 
 ?>
