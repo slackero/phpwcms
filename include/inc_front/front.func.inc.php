@@ -1119,6 +1119,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 	$tmpllist 		= array(); //temporary array for storing templates to minimize load
 	$temp_counter 	= 0;
+	$space_counter	= 0;
 
 	$listing 		= $template_default["space_top"]; //start with space at top
 
@@ -1323,7 +1324,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'BEFORE', '<!--before//-->');
 				$tmpl = render_cnt_template($tmpl, 'AFTER', '<!--after//-->');
 				$tmpl = render_cnt_date($tmpl, $article["article_date"], strtotime($article["article_begin"]), strtotime($article["article_end"]) );
-				if($temp_counter) {
+				if($space_counter) {
 					$tmpl = render_cnt_template($tmpl, 'SPACE', '<!--space//-->');
 				} else {
 					$tmpl = render_cnt_template($tmpl, 'SPACE', '');
@@ -1356,6 +1357,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 		}
 		$temp_counter++;
+		$space_counter++;
 	}
 
 	if(isset($paginate_show['bottom'])) {
