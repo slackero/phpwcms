@@ -468,9 +468,9 @@ function MailVal($Addr, $Level, $Timeout = 15000) {
     return is_valid_email($Addr) ? 0 : 1;
 }
 
-function read_textfile($filename) {
+function read_textfile($filename, $mode='rb') {
 	if(is_file($filename)) {
-		$fd = @fopen($filename, "rb");
+		$fd = @fopen($filename, $mode);
 		$text = fread($fd, filesize($filename));
 		fclose($fd);
 		return $text;				
@@ -479,12 +479,12 @@ function read_textfile($filename) {
 	}
 }
 
-function write_textfile($filename, $text) {
-	if($fp = @fopen($filename, "w+b")) {
+function write_textfile($filename, $text, $mode='w+b') {
+	if($fp = @fopen($filename, $mode)) {
 		if(empty($text)) $text = "\n";
 		fwrite($fp, $text);
 		fclose($fp);
-		return true;	
+		return true;
 	} else {
 		return false;
 	}

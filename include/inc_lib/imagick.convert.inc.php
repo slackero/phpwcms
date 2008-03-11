@@ -108,7 +108,7 @@ function imagick_converting ($imagick) {
 		} elseif ($imagick['jpg_quality'] > 100) {
 			$imagick['jpg_quality'] = 100;
 		}
-
+		
 		//Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 		switch($imagick['sharpen_level']) {
 			
@@ -132,6 +132,8 @@ function imagick_converting ($imagick) {
 			
 		}
 		
+		$sharpen = '';
+
 		$imagick["thumb_name"] .= '.' . $imagick["target_ext"];
 	
 		if(IMAGICK_ON) {
@@ -141,10 +143,16 @@ function imagick_converting ($imagick) {
 			switch($imagick["target_ext"]) {
 				case "jpg":	if(IMAGICK_ON == 1) {
 								//ImageMagick >= 5
-								$imagick["command"] .= "-colorspace RGB -type TrueColor ".$sharp5;
+								$imagick["command"] .= "-colorspace RGB -type TrueColor ";
+								
+								$sharpen = $sharp5;
+								
 							} else {
 								//ImageMagick 4.2.9
-								$imagick["command"] .= "-colorspace RGB -colors 16777216 ".$sharp4;
+								$imagick["command"] .= "-colorspace RGB -colors 16777216 ";
+								
+								$sharpen = $sharp4;
+								
 							}
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"].'[0]';
 							break;
@@ -190,10 +198,15 @@ function imagick_converting ($imagick) {
 				$imagick["command"] .= $imagick['add_command'] . " ";
 			}
 		
-			$imagick["command"] .= '-antialias "'.$imagick["source_image_name"].'" ';
-			$imagick["command"] .= '+profile "*" ';
+			$imagick["command"] .= '-antialias ';
+			$imagick["command"] .= $sharpen;
+			$imagick['command'] .= '"'.$imagick["source_image_name"].'" ';
+			//$imagick["command"] .= '+profile "*" ';
 			$imagick["command"] .= '"'.$imagick["thumb_dir"].$imagick["thumb_name"].'" ';
-
+			
+			// debug commands
+			//write_textfile(PHPWCMS_TEMP.'imagemagick.log', date('Y-m-d H:i:s').' - '.$imagick["command"].LF, 'a');
+			
 			@exec($imagick["command"], $imagick_return);
 			
 			if (isset($imagick_return[0])) {
