@@ -1,5 +1,24 @@
-'Hi {NEWSLETTER_NAME},'.LF.LF.'Someone (presumably you) on {SITE} '.LF.'subscribed to these newsletters: '.LF;
-'{SUBSCRIPTIONS}'.LF.LF.'The following email was requested for subscription '.LF.'{NEWSLETTER_EMAIL} '.LF.LF;
-'If you requested this subscription, visit the following URL '.LF.'{NEWSLETTER_VERIFY}'.LF.'to verify and activate it.'.LF.LF;
-'Ignore the message or visit the following URL'.LF.'{NEWSLETTER_DELETE}'.LF.'and nothing will happen.'.LF.LF.LF;
-'With best regards'.LF.'Webmaster'.LF.LF.'--'.LF.'{DATE:m/d/Y H:i:s}, IP: {IP}'.LF;
+Hello {NEWSLETTER_NAME},
+
+Someone (presumably you) on {SITE} 
+subscribed to these newsletters: 
+{SUBSCRIPTIONS}
+
+The following email was requested for subscription 
+{NEWSLETTER_EMAIL} 
+
+If you requested this subscription, visit the following URL 
+{NEWSLETTER_VERIFY}
+to verify and activate it.
+
+Ignore the message or visit the following URL
+{NEWSLETTER_DELETE}
+and nothing will happen.
+
+
+With best regards
+Webmaster
+
+--
+{DATE:m/d/Y H:i:s}, IP: {IP}
+
