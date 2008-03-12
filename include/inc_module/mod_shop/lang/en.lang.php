@@ -92,4 +92,26 @@ $BLM['shopprod_listall']		= 'List under &quot;All products&quot;';
 $BLM['shopprod_id_shop']		= 'Shop&nbsp;target';
 $BLM['shopprod_id_cart']		= 'Cart&nbsp;target';
 
+$BLM['shopprod_order']			= 'Order details';
+$BLM['shopprod_order_date']		= 'Order date';
+$BLM['shopprod_order_address']	= 'Address';
+$BLM['shopprod_order_region']	= 'Region';
+$BLM['shopprod_custom_field']	= 'Additional field';
+$BLM['shopprod_date_long']		= 'd/m/Y, H:i:s';
+
+$BLM['shopprod_total_net']		= 'Total net';
+$BLM['shopprod_total_vat']		= 'VAT';
+$BLM['shopprod_total_gross']	= 'Total gross';
+
+$BLM['shopprod_email_customer']	= 'Mail to customer';
+$BLM['shopprod_email_shop']		= 'Mail to shop';
+$BLM['shopprod_ordered']		= 'Ordered products';
+$BLM['shopprod_quantity']		= 'Quantity';
+$BLM['shopprod_total']			= 'Total';
+$BLM['shopprod_status_paid']	= 'Paid';
+$BLM['shopprod_status_sent']	= 'Sent';
+$BLM['shopprod_status_done']	= 'Completed';
+$BLM['shopprod_status_back']	= 'Return';
+$BLM['shopprod_status_msg']		= 'Order status changed.';
+
 ?>

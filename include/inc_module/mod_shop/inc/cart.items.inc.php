@@ -66,12 +66,15 @@ foreach($cart_data as $item_key => $row) {
 		case 'terms':	$cart_items[$x]  = $_tmpl['term_entry'];
 						break;
 
-		case 'mail1':	$cart_items[$x]  = 'Qty:   {COUNT}' . LF;
-						$cart_items[$x] .= 'Ord#:  {ORDER_NUM}' . LF;
-						$cart_items[$x] .= 'Item:  {PRODUCT_TITLE}' . LF;
-						$cart_items[$x] .= 'Net:   {PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}' . LF;
-						$cart_items[$x] .= 'VAT:   {PRODUCT_VAT} %' . LF;
-						$cart_items[$x] .= 'Gross: {PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}';
+		case 'mail1':	$cart_items[$x]  = trim( $_tmpl['mail_item'] );
+						if(empty($cart_items[$x])) {
+							$cart_items[$x]  = 'Qty:   {COUNT}' . LF;
+							$cart_items[$x] .= 'Ord#:  {ORDER_NUM}' . LF;
+							$cart_items[$x] .= 'Item:  {PRODUCT_TITLE}' . LF;
+							$cart_items[$x] .= 'Net:   {PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}' . LF;
+							$cart_items[$x] .= 'VAT:   {PRODUCT_VAT} %' . LF;
+							$cart_items[$x] .= 'Gross: {PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}';
+						}
 						break;
 	}
 	

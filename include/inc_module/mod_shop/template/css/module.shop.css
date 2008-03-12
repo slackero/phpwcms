@@ -4,7 +4,7 @@ label {
 	cursor:	pointer;
 }
 
-form.editform {
+.editform {
 	background:#F3F5F8;
 	border-top:1px solid #92A1AF;
 	border-bottom:1px solid #92A1AF;
@@ -150,5 +150,56 @@ input.rt {
 }
 textarea.code {
 	font-family: "Courier New", Courier, mono;
+	font-size: 12px;
+}
+
+.show {
+	border-top: 1px solid #92A1AF;
+	border-bottom: 1px solid #92A1AF;
+	margin: 0 0 5px 0;
+	padding: 10px 8px 15px 8px;
+}
+.show td.chatlist {
+	color: #406C94;
+	vertical-align: top;
+	padding: 2px 8px 0 0;
+	text-align: right;
+	white-space: nowrap;
+}
+.show th {
+	color: #406C94;
+	vertical-align: top;
+	padding: 1px 4px 2px 0;
+	text-align: left;
+	white-space: nowrap;
+	font-weight: normal;
+	border-bottom: 1px solid #92A1AF;
+}
+.show th.right {
+	text-align: right;
+	padding-left: 4px;
+}
+.show tr.product td {
+	vertical-align: top;
+	padding: 2px 4px 2px 0;
+}
+.show tr.product td.number {
+	text-align: right;
+}
+.show td.currency pre {
+	margin: 0;
+	padding: 0;
+	width: 100px;
+	text-align: right;
+}
+.show td.email pre {
+	margin: 0;
+	padding: 5px;
+	overflow: auto;
+	height: 150px;
+	border: 1px solid #ABADB3;
+}
+.show td label {
+	padding: 0 6px 0 4px;
 	font-size: 12px;
 }

@@ -45,7 +45,9 @@ if (!defined('PHPWCMS_ROOT')) {
 <?php
 
 // loop listing available newsletters
-$row_count = 0;                
+$row_count = 0;
+
+$BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];        
 
 $sql  = "SELECT *, DATE_FORMAT(order_date,'%e.%m.%y') AS order_fdate FROM ".DB_PREPEND."phpwcms_shop_orders WHERE ";
 $sql .= "order_status NOT IN ('ARCHIVED', 'CLOSED') ORDER BY order_date DESC";
@@ -59,7 +61,11 @@ foreach($data as $row) {
 	echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
 	
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
-	echo '<img src="img/famfamfam/silk_icons_gif/cart.gif" alt="'.$BLM['shop_order'].'" /></td>'.LF;
+	
+	echo '<a href="'.$_controller_link.'&amp;show='.$row["order_id"].'">';
+	echo '<img src="img/famfamfam/silk_icons_gif/cart_go.gif" alt="'.$BLM['shop_order'].'" border="0" />';
+	echo '</a></td>'.LF;
+	
 	echo '<td class="dir" width="13%">'.html_specialchars($row['order_number'])."&nbsp;</td>\n";
 	echo '<td class="dir" width="13%">&nbsp;'.html_specialchars($row['order_fdate'])."&nbsp;</td>\n";
 	echo '<td class="dir" width="50%">&nbsp;<a href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'">';
@@ -68,7 +74,7 @@ foreach($data as $row) {
 	echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_net'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
 	echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_gross'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
 
-	echo '<td class="dir" width="10%">'.html_specialchars($row['order_payment'])."&nbsp;</td>\n";
+	echo '<td class="dir" width="10%">'.html_specialchars($BLM[ 'shopprod_payby_'.$row['order_payment'] ])."&nbsp;&nbsp;</td>\n";
 	
 	echo '<td width="5%" align="right" nowrap="nowrap" class="button_td">';
 	

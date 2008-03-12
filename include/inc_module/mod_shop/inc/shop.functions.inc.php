@@ -42,6 +42,14 @@ function roundAll($a) {
 	return round($a, 2);
 }
 
+function order_status($is='', $status='') {
+	$is		= strtoupper($is);
+	$status	= strtoupper($status);
+	if(strpos($status, $is) !== FALSE) {
+		return ' checked="checked"';
+	}
+	return '';
+}
 
 
 

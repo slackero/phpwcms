@@ -105,6 +105,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			$_tmpl['mail_neworder']	= get_tmpl_section('MAIL_NEWORDER',			$_tmpl['source']);
 			$_tmpl['order_success']	= get_tmpl_section('ORDER_DONE',			$_tmpl['source']);
 			$_tmpl['order_failed']	= get_tmpl_section('ORDER_NOT_DONE',		$_tmpl['source']);
+			$_tmpl['mail_item']		= get_tmpl_section('MAIL_ITEM',				$_tmpl['source']);
 		}
 	}
 	
@@ -952,6 +953,16 @@ function get_cart_data() {
 	$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_shop_products WHERE shopprod_status=1 AND ';
 	$sql .= 'shopprod_id IN (' . implode(',', $in) . ')';
 	$data = _dbQuery($sql);
+	
+	if(isset($data[0])) {
+	
+		foreach($data as $key => $value) {
+	
+			$data[$key]['shopprod_quantity'] = $_SESSION['shopping_cart']['products'][ $value['shopprod_id'] ];
+	
+		}
+	
+	}
 
 	return $data;	
 }

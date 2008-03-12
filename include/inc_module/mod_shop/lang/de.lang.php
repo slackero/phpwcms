@@ -93,4 +93,26 @@ $BLM['shopprod_listall']		= 'Unter &quot;Alle Produkte&quot; listen';
 $BLM['shopprod_id_shop']		= 'Shop&nbsp;Ziel';
 $BLM['shopprod_id_cart']		= 'Warenkorb&nbsp;Ziel';
 
+$BLM['shopprod_order']			= 'Bestelldetails';
+$BLM['shopprod_order_date']		= 'Bestelldatum';
+$BLM['shopprod_order_address']	= 'Adresse';
+$BLM['shopprod_order_region']	= 'Region';
+$BLM['shopprod_custom_field']	= 'Zusatzfeld';
+$BLM['shopprod_date_long']		= 'd.m.Y, H:i:s \U\h\r';
+
+$BLM['shopprod_total_net']		= 'Gesamt Netto';
+$BLM['shopprod_total_vat']		= 'Mehrwertsteuer';
+$BLM['shopprod_total_gross']	= 'Endbetrag (Brutto)';
+
+$BLM['shopprod_email_customer']	= 'E-Mail an Kunden';
+$BLM['shopprod_email_shop']		= 'E-Mail an Shop';
+$BLM['shopprod_ordered']		= 'Bestellte Produkte';
+$BLM['shopprod_quantity']		= 'Anzahl';
+$BLM['shopprod_total']			= 'Gesamt';
+$BLM['shopprod_status_paid']	= 'Bezahlt';
+$BLM['shopprod_status_sent']	= 'Versendet';
+$BLM['shopprod_status_done']	= 'Abgeschlossen';
+$BLM['shopprod_status_back']	= 'Retour';
+$BLM['shopprod_status_msg']		= 'Der Status der Bestellung wurde ge&auml;ndert.';
+
 ?>

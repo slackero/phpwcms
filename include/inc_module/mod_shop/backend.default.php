@@ -70,6 +70,8 @@ if(isset($phpwcms['modules'][$module]['path']) && is_file($phpwcms['modules'][$m
 		$action	= 'status';
 	} elseif(isset($_GET['delete'])) {
 		$action	= 'delete';
+	} elseif(isset($_GET['show'])) {
+		$action	= 'show';
 	} else {
 		$action		= '';
 	}
