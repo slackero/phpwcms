@@ -171,7 +171,7 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 		echo '<option value="'.$value.'"';
 		if($plugin['data']['shopprod_vat'] == $value) {
 			echo ' selected="selected"';
-		} elseif(! in_array($plugin['data']['shopprod_vat'], $plugin['data']['shop_pref_vat']) ) {
+		} elseif( ! empty($plugin['data']['shopprod_vat']) && ! in_array($plugin['data']['shopprod_vat'], $plugin['data']['shop_pref_vat']) ) {
 			$plugin['data']['shop_pref_vat'][] = $plugin['data']['shopprod_vat'];
 			natsort($plugin['data']['shop_pref_vat']);
 			_setConfig('shop_pref_vat', 	$plugin['data']['shop_pref_vat'], 	'module_shop');
