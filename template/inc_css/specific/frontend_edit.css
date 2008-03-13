@@ -4,17 +4,15 @@ a.fe-link {
 	height: 16px;
 	padding: 0;
 	margin: 0;
-	position: relative;
-	overflow: hidden;
 	color: #000000;
 	text-decoration: none;
 	background-position: left center;
 	background-repeat: no-repeat;
 	background-color: transparent;
+	cursor: pointer;
 }
 a.fe-link span {
-	float: left;
-	padding-left: 25px;
+	display: none;
 }
 a.fe-link:hover {
 	text-decoration: none;
