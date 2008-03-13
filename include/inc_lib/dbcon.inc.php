@@ -158,7 +158,7 @@ function _dbInsert($table='', $data=array(), $special='', $prefix=NULL) {
 
 }
 
-function _dbInsertOrUpdate($table='', $data=array(), $where='', $dbprefix=NULL) {
+function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 
 	// INSERT ... ON DUPLICATE KEY UPDATE is available for MySQL >= 4.1.0
 	// $where is necessary OR if $where is empty first array $data element
@@ -468,53 +468,21 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
 
 /*
  * Set Config - store given key/value in config database
+ *
+ * 2008/03/13 Thiemo Mättig, fixed for MySQL 4.0, use _dbInsertOrUpdate()
  */
 function _setConfig($key, $value=NULL, $group='', $status=1) {
 
 	$time		= now();
-	$group		= mysql_real_escape_string(trim($group));
+	$group		= trim($group);
 	$status 	= intval($status);
 
-	if(is_array($key)) {
-		
-		$part = array();
-		
-		foreach($key as $k => $value) {
-		
-			if( is_string($value) ) {
-				$vartype = 'string';
-			} elseif( is_int($value) ) {
-				$vartype = 'int';
-			} elseif( is_float($value) ) {
-				$vartype = 'float';
-			} elseif( is_bool($value) ) {
-				$vartype = 'bool';
-			} elseif( is_array($value) ) {
-			 	$vartype = 'array';
-				$value   = serialize($value);
-			} elseif( is_object($value) ) {
-				$vartype = 'object';
-				$value   = serialize($value);
-			} else {
-				$vartype = '';
-				$value   = '';
-			}
-		
-			$part[ $k ]	 = '(';
-			
-			$part[ $k ]	.= "'" . mysql_real_escape_string($k) ."', ";
-			$part[ $k ]	.= "'" . $group ."', ";
-			$part[ $k ]	.= "'" . $time ."', ";
-			$part[ $k ]	.= "'" . $status ."', ";
-			$part[ $k ]	.= "'" . $vartype ."', ";
-			$part[ $k ]	.= "'" . mysql_real_escape_string($value) ."'";
-		
-			$part[ $k ]	.= ')';
-		}
-		
-	
-	} elseif(is_string($key)) {
-	
+	if (! is_array($key)) {
+		$key = array($key => $value);
+	}
+
+	foreach($key as $k => $value) {
+
 		if( is_string($value) ) {
 			$vartype = 'string';
 		} elseif( is_int($value) ) {
@@ -524,7 +492,7 @@ function _setConfig($key, $value=NULL, $group='', $status=1) {
 		} elseif( is_bool($value) ) {
 			$vartype = 'bool';
 		} elseif( is_array($value) ) {
-			$vartype = 'array';
+		 	$vartype = 'array';
 			$value   = serialize($value);
 		} elseif( is_object($value) ) {
 			$vartype = 'object';
@@ -533,33 +501,21 @@ function _setConfig($key, $value=NULL, $group='', $status=1) {
 			$vartype = '';
 			$value   = '';
 		}
-	
-		$part[ 0 ]	 = '(';
-			
-		$part[ 0 ]	.= "'" . mysql_real_escape_string($key) ."', ";
-		$part[ 0 ]	.= "'" . $group ."', ";
-		$part[ 0 ]	.= "'" . $time ."', ";
-		$part[ 0 ]	.= "'" . $status ."', ";
-		$part[ 0 ]	.= "'" . $vartype ."', ";
-		$part[ 0 ]	.= "'" . mysql_real_escape_string($value) ."'";
 		
-		$part[ 0 ]	.= ')';
-		
+		$data = array(	'sysvalue_key'			=> $k,
+						'sysvalue_group'		=> $group,
+						'sysvalue_lastchange'	=> $time,
+						'sysvalue_status'		=> $status,
+						'sysvalue_vartype'		=> $vartype,
+						'sysvalue_value'		=> $value	 );
+
+		if ( ! _dbInsertOrUpdate('phpwcms_sysvalue', $data) ) {
+			trigger_error("_setConfig failed", E_USER_ERROR);
+		}
+
 	}
-	
-	if(count($part)) {
-		$sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_sysvalue (';
-		$sql .= 'sysvalue_key, sysvalue_group, sysvalue_lastchange, sysvalue_status, sysvalue_vartype, sysvalue_value';
-		$sql .= ') VALUES ';
-		$sql .= implode(', ', $part);
-		$sql .= ' ON DUPLICATE KEY UPDATE ';
-		$sql .= 'sysvalue_group=VALUES(sysvalue_group), sysvalue_lastchange=VALUES(sysvalue_lastchange), ';
-		$sql .= 'sysvalue_status=VALUES(sysvalue_status), sysvalue_vartype=VALUES(sysvalue_vartype), ';
-		$sql .= 'sysvalue_value=VALUES(sysvalue_value)';
-		return @_dbQuery($sql, 'INSERT');
-	}
-	
-	return false;
+
+	return true;
 }
 
 /*
