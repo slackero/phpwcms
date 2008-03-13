@@ -438,7 +438,10 @@ function get_actcat_articles_data($act_cat_id) {
 	$as					= $content['struct'][ $act_cat_id ];
 	$as['acat_maxlist']	= intval($as['acat_maxlist']);
 
-	$sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ";
+	$sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+	$sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+	$sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
+	$sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 	$sql .= "WHERE article_cid=".$act_cat_id;
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
@@ -486,12 +489,17 @@ function get_actcat_articles_data($act_cat_id) {
 									"article_morelink"	=> $row["article_morelink"],
 									"article_begin"		=> $row["article_begin"],
 									"article_end"		=> $row["article_end"],
-									"article_alias"		=> $row["article_alias"]
+									"article_alias"		=> $row["article_alias"],
+									'article_livedate'	=> $row["article_livedate"],
+									'article_killdate'	=> $row["article_killdate"]
 											);
 			// now check for article alias ID
 			if($row["article_aliasid"]) {
 				$aid = $row["article_id"];
-				$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ";
+				$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+				$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+				$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate "; 
+				$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 				$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 				if(!$row["article_headerdata"]) {
 					switch(VISIBLE_MODE) {
@@ -518,6 +526,8 @@ function get_actcat_articles_data($act_cat_id) {
 							$data[$aid]["article_image"]	= @unserialize($alias_row["article_image"]);
 							$data[$aid]["article_begin"]	= $alias_row["article_begin"];
 							$data[$aid]["article_end"]		= $alias_row["article_end"];
+							$data[$aid]['article_livedate']	= $alias_row["article_livedate"];
+							$data[$aid]['article_killdate']	= $alias_row["article_killdate"];
 						}
 					}
 					mysql_free_result($alias_result);
@@ -1323,7 +1333,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'TARGET', ($article["article_morelink"] && $link_data[1]) ? ' target="'.$link_data[1].'"' : '');
 				$tmpl = render_cnt_template($tmpl, 'BEFORE', '<!--before//-->');
 				$tmpl = render_cnt_template($tmpl, 'AFTER', '<!--after//-->');
-				$tmpl = render_cnt_date($tmpl, $article["article_date"], strtotime($article["article_begin"]), strtotime($article["article_end"]) );
+				$tmpl = render_cnt_date($tmpl, $article["article_date"], $article["article_livedate"], $article["article_killdate"] );
 				if($space_counter) {
 					$tmpl = render_cnt_template($tmpl, 'SPACE', '<!--space//-->');
 				} else {
@@ -2466,7 +2476,8 @@ function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
 	if(intval($killdate)) {
 		$text = preg_replace('/\{KILLDATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$killdate.'")', $text);
 		$text = preg_replace('/\{KILLDATE:(.*?)\}/e', 'date("$1",'.$killdate.')', $text);
-	}	
+	}
+	$text = preg_replace('/\{NOW:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.now().'")', $text);
 	return $text;
 }
 

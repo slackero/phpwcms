@@ -28,7 +28,9 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-$sql  =	"SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date ";
+$sql  =	"SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+$sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+$sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 $sql .=	"FROM ".DB_PREPEND."phpwcms_article ar LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
 $sql .=	"ar.article_cid = ac.acat_id WHERE ";
 $sql .= "ar.article_id=".$aktion[1]." AND ";
@@ -50,7 +52,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		
 		// now try to retrieve alias article information
 		if($row["article_aliasid"]) {
-			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date ";
+			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+			$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate, ";
 			$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 			if(!$row["article_headerdata"]) {
@@ -147,15 +151,18 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		
 
 		// only copy the catname to a special var for multiple for use in any block
-		$content["cat"]				= html_specialchars($article["cat"]);
-		$content["cat_id"]			= $aktion[0] = $row["article_cid"]; //set category ID to actual category value
-		$content["article_id"] 		= $row["article_id"];
-		$content["summary"]			= '';
-		$content['article_title']	= $row["article_title"];
-		$content['article_summary']	= $row["article_summary"];
+		$content["cat"]					= html_specialchars($article["cat"]);
+		$content["cat_id"]				= $aktion[0] = $row["article_cid"]; //set category ID to actual category value
+		$content["article_id"] 			= $row["article_id"];
+		$content["summary"]				= '';
+		$content['article_title']		= $row["article_title"];
+		$content['article_summary']		= $row["article_summary"];
 		
-		$content["article_date"]	= $row["article_date"]; // article date
-		$content["article_created"]	= $row["article_created"]; // article created
+		$content["article_date"]		= $row["article_date"]; // article date
+		$content["article_created"]		= $row["article_created"]; // article created
+		$content['article_livedate']	= $row['article_livedate'];
+		$content['article_killdate']	= $row['article_killdate'];
+		$content['article_username']	= $row["article_username"];
 
 		//retrieve image info
 		$row["article_image"] = unserialize($row["article_image"]);
@@ -382,7 +389,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
-			$row["article_image"]['tmplfull'] = render_cnt_date($row["article_image"]['tmplfull'], $content["article_date"], strtotime($row['article_begin']), strtotime($row['article_end']));
+			$row["article_image"]['tmplfull'] = render_cnt_date($row["article_image"]['tmplfull'], $content["article_date"], $row['article_livedate'], $row['article_killdate']);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ZOOMIMAGE', $popup_img);
 			
 			$content["summary"] .= $row["article_image"]['tmplfull'];

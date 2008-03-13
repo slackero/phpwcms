@@ -617,11 +617,6 @@ if(strpos($content["all"],'{RELATED:') !== false) {
 
 // -------------------------------------------------------------
 
-// AUTHOR replacement tag: by Magnar Stav Johanssen
-$content["all"] = str_replace('{AUTHOR}', empty($content["articles"][$aktion[1]]["article_username"]) ? '' : $content["articles"][$aktion[1]]["article_username"], $content["all"]);
-
-// -------------------------------------------------------------
-
 // all new article list sorted by date
 if(strpos($content["all"],'{NEW:') !== false) {
 	$content["all"] = preg_replace('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/e','get_new_articles($template_default["news"],"$1","$2",$db);',$content["all"]);
@@ -727,6 +722,21 @@ if($phpwcms["gt_mod"]) { //enabled/disable GT MOD
 // always check if you want to use same head code only once
 if(count($block['custom_htmlhead'])) {
 	$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
+}
+
+// some article related "global" replacement tags
+if(isset($content['article_livedate'])) {
+
+	$content['all'] = render_cnt_template($content['all'], 'AUTHOR', html_specialchars($content['article_username']));
+	$content['all'] = render_cnt_date($content['all'], $content["article_date"], $content['article_livedate'], $content['article_killdate']);
+	$content['all'] = render_cnt_template($content['all'], 'CATEGORY', $content['cat']);
+
+} else {
+
+	$content['all'] = render_cnt_template($content['all'], 'AUTHOR', '');
+	$content['all'] = render_cnt_date($content['all'], now(), now(), now());
+	$content['all'] = render_cnt_template($content['all'], 'CATEGORY', html_specialchars($content['struct'][ $content['cat_id'] ]['acat_name']));
+
 }
 
 // -------------------------------------------------------------
