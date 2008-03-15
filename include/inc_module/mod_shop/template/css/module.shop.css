@@ -181,7 +181,37 @@ textarea.code {
 }
 .show tr.product td {
 	vertical-align: top;
-	padding: 2px 4px 2px 0;
+	padding: 3px 4px 3px 0;
+}
+
+.show tr.product.linetop, 
+.show tr.product.linebottom {
+	background-color: #F3F5F8;
+}
+.show tr.product.linetop td {
+	border-top: 1px solid #92A1AF;
+	padding-bottom: 0;
+}
+.show tr.product.total {
+	background-color: #EAFFD5;
+}
+.show tr.product.total td {
+	padding-bottom: 0;
+}
+.show tr.product.total td.chatlist {
+	padding-top: 5px;
+}
+.show tr.product.linebottom td {
+	border-bottom: 1px solid #92A1AF;
+}
+.show tr.product.total.end td {
+	border-bottom: 2px solid #92A1AF;
+	padding-bottom: 4px;
+	font-weight: bold;
+}
+.show tr.product.linetop td.chatlist,
+.show tr.product.linebottom td.chatlist {
+	padding-top: 4px;
 }
 .show tr.product td.number {
 	text-align: right;

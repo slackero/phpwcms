@@ -28,6 +28,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 $order_process  = str_replace('{CURRENCY_SYMBOL}', @htmlentities($_shopPref['shop_pref_currency'], ENT_QUOTES, PHPWCMS_CHARSET), $order_process);
+$order_process  = str_replace('{WEIGHT_UNIT}', @htmlentities($_shopPref['shop_pref_unit_weight'], ENT_QUOTES, PHPWCMS_CHARSET), $order_process);
 
 $subtotal['float_net']		= $subtotal['net'];
 $subtotal['float_gross']	= $subtotal['gross'];
@@ -39,5 +40,34 @@ $subtotal['gross']	= number_format($subtotal['gross'], $_tmpl['config']['price_d
 $order_process  = str_replace('{SUBTOTAL_NET}', $subtotal['net'], $order_process);
 $order_process  = str_replace('{SUBTOTAL_VAT}', $subtotal['vat'], $order_process);
 $order_process  = str_replace('{SUBTOTAL_GROSS}', $subtotal['gross'], $order_process);
+
+
+$subtotal['float_shipping_net']		= $subtotal['shipping_net'];
+$subtotal['float_shipping_gross']	= $subtotal['shipping_gross'];
+
+$subtotal['shipping_net']	= number_format($subtotal['shipping_net'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+$subtotal['shipping_vat']	= number_format($subtotal['shipping_vat'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+$subtotal['shipping_gross']	= number_format($subtotal['shipping_gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+
+$order_process  = str_replace('{SHIPPING_NET}', $subtotal['shipping_net'], $order_process);
+$order_process  = str_replace('{SHIPPING_VAT}', $subtotal['shipping_vat'], $order_process);
+$order_process  = str_replace('{SHIPPING_GROSS}', $subtotal['shipping_gross'], $order_process);
+
+$subtotal['float_weight']	= $subtotal['weight'];
+
+$subtotal['weight']	= number_format($subtotal['weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+$order_process 		= str_replace('{SUBTOTAL_WEIGHT}', $subtotal['weight'], $order_process);
+
+$subtotal['float_total_net']	= $subtotal['float_net'] + $subtotal['float_shipping_net'];
+$subtotal['float_total_gross']	= $subtotal['float_gross'] + $subtotal['float_shipping_gross'];
+$subtotal['float_total_vat']	= $subtotal['float_total_gross'] - $subtotal['float_total_net'];
+
+$subtotal['total_net']		= number_format($subtotal['float_total_net'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+$subtotal['total_vat']		= number_format($subtotal['float_total_vat'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+$subtotal['total_gross']	= number_format($subtotal['float_total_gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+
+$order_process  = str_replace('{TOTAL_NET}', $subtotal['total_net'], $order_process);
+$order_process  = str_replace('{TOTAL_VAT}', $subtotal['total_vat'], $order_process);
+$order_process  = str_replace('{TOTAL_GROSS}', $subtotal['total_gross'], $order_process);
 
 ?>

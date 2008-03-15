@@ -154,26 +154,11 @@ if (!defined('PHPWCMS_ROOT')) {
 	}
 	
 	$plugin['data']['currency'] = ' '.htmlentities( _getConfig( 'shop_pref_currency' ) );
+	$plugin['data']['weight_unit'] = ' '.htmlentities( _getConfig( 'shop_pref_unit_weight' ) );
 
 ?>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-	<tr> 
-		<td class="chatlist"><?php echo $BLM['shopprod_total_net'] ?>:&nbsp;</td>
-		<td class="v12 tdbottom3 currency"><pre><?php echo number_format($plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']).$plugin['data']['currency']; ?></pre></td>
-	</tr>
-	<tr> 
-		<td class="chatlist"><?php echo $BLM['shopprod_total_vat'] ?>:&nbsp;</td>
-		<td class="v12 tdbottom3 currency"><pre><?php echo number_format($plugin['data']['order_gross'] - $plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']).$plugin['data']['currency']; ?></pre></td>
-	</tr>
-	<tr> 
-		<td class="chatlist"><?php echo $BLM['shopprod_total_gross'] ?>:&nbsp;</td>
-		<td class="v12 tdbottom3 currency"><pre><b><?php echo number_format($plugin['data']['order_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']).$plugin['data']['currency']; ?></b></pre></td>
-	</tr>
-	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-	
 	
 	<tr> 
 		<td class="chatlist"><?php echo $BLM['shopprod_ordered'] ?>:&nbsp;</td>
@@ -221,12 +206,56 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	}
 
+	if(isset($plugin['data']['order_data']['subtotal'])) {
+	
+		$plugin['data']['order_data']['subtotal']['vat'] = $plugin['data']['order_data']['subtotal']['subtotal_gross'] - $plugin['data']['order_data']['subtotal']['subtotal_net'];
+?>
+		<tr class="product linetop">
+			<td colspan="2" class="chatlist"><?= $BLM['shopprod_subtotal'].' '.$plugin['data']['currency'] ?>:</td>
+			<td class="number"><?= number_format($plugin['data']['order_data']['subtotal']['subtotal_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?= number_format($plugin['data']['order_data']['subtotal']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?= number_format($plugin['data']['order_data']['subtotal']['subtotal_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
+		</tr>
+		
+		<tr class="product linebottom">
+			<td colspan="2" class="chatlist"><?php
+			
+			if(isset($plugin['data']['order_data']['weight'])) {
+				echo $BLM['shopprod_weight'];
+				echo number_format($plugin['data']['order_data']['weight'], 0, $BLM['dec_point'], $BLM['thousands_sep']);
+				echo ' '.$plugin['data']['weight_unit'];
+				echo ' &#8211; ';
+			}
+				
+			echo $BLM['shopprod_shipping'].' '.$plugin['data']['currency'];
+				
+			$plugin['data']['order_data']['shipping']['vat'] = $plugin['data']['order_data']['shipping']['shipping_gross'] - $plugin['data']['order_data']['shipping']['shipping_net'];
+				
+			?>:</td>
+			<td class="number"><?= number_format($plugin['data']['order_data']['shipping']['shipping_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?= number_format($plugin['data']['order_data']['shipping']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?= number_format($plugin['data']['order_data']['shipping']['shipping_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
+		</tr>
+
+<?php
+	}
 ?>
 		
+		<tr class="product total"> 
+			<td colspan="2" class="chatlist"><?php echo $BLM['shopprod_total_net'].' '.$plugin['data']['currency'] ?>:&nbsp;</td>
+			<td colspan="3" class="v12 number"><?php echo number_format($plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+		</tr>
+		<tr class="product total"> 
+			<td colspan="2" class="chatlist"><?php echo $BLM['shopprod_total_vat'].' '.$plugin['data']['currency'] ?>:&nbsp;</td>
+			<td colspan="3" class="v12 number"><?php echo number_format($plugin['data']['order_gross'] - $plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+		</tr>
+		<tr class="product total end"> 
+			<td colspan="2" class="chatlist"><?php echo $BLM['shopprod_total_gross'].' '.$plugin['data']['currency'] ?>:&nbsp;</td>
+			<td colspan="3" class="v12 number"><b><?php echo number_format($plugin['data']['order_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></b></td>
+		</tr>
+
 		</table></td>
 	</tr>
-
-	
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="20" /></td></tr>
 	
@@ -253,7 +282,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <?php
 /*
 unset($plugin['data']['order_data']['mail_customer'], $plugin['data']['order_data']['address'], $plugin['data']['order_data']['mail_self'], $plugin['data']['order_data']['cart'][0]['shopprod_var']);
-
-dumpVar($plugin['data']);
+dumpVar($plugin['data']['order_data']);
 */
+
 ?>

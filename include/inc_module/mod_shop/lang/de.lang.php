@@ -104,6 +104,9 @@ $BLM['shopprod_total_net']		= 'Gesamt Netto';
 $BLM['shopprod_total_vat']		= 'Mehrwertsteuer';
 $BLM['shopprod_total_gross']	= 'Endbetrag (Brutto)';
 
+$BLM['shopprod_subtotal']		= 'Warenbetrag';
+$BLM['shopprod_shipping']		= 'Versandkosten';
+
 $BLM['shopprod_email_customer']	= 'E-Mail an Kunden';
 $BLM['shopprod_email_shop']		= 'E-Mail an Shop';
 $BLM['shopprod_ordered']		= 'Bestellte Produkte';

@@ -103,6 +103,10 @@ $BLM['shopprod_total_net']		= 'Total net';
 $BLM['shopprod_total_vat']		= 'VAT';
 $BLM['shopprod_total_gross']	= 'Total gross';
 
+$BLM['shopprod_subtotal']		= 'Subtotal';
+$BLM['shopprod_shipping']		= 'Shipping costs';
+
+
 $BLM['shopprod_email_customer']	= 'Mail to customer';
 $BLM['shopprod_email_shop']		= 'Mail to shop';
 $BLM['shopprod_ordered']		= 'Ordered products';

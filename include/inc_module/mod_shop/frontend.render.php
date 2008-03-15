@@ -115,6 +115,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 							'cat_list_products'	=> false,
 							'price_decimals' => 2,
 							'vat_decimals' => 0,
+							'weight_decimals' => 0,
 							'dec_point' => ".",
 							'thousands_sep' => ",",
 							'image_list_width' => 200,
@@ -136,7 +137,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 					'shop_pref_payment' ) as $value ) {
 		_getConfig( $value, '_shopPref' );
 	}
-	
+
 	$_tmpl['config']['shop_url'] = _getConfig( 'shop_pref_id_shop', '_shopPref' );
 	$_tmpl['config']['cart_url'] = _getConfig( 'shop_pref_id_cart', '_shopPref' );
 	
@@ -509,7 +510,7 @@ if( $_shop_load_list !== false ) {
 			$_price['vat']		= number_format($_price['vat'],   $_tmpl['config']['vat_decimals'],   $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
 			$_price['net']		= number_format($_price['net'],   $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
 			$_price['gross']	= number_format($_price['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-			
+			$_price['weight']	= $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
 			
 			$row['shopprod_var'] = @unserialize($row['shopprod_var']);
 			
@@ -538,6 +539,7 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html_specialchars($row['shopprod_name2']));
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_LONG', $row['shopprod_description1']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_WEIGHT', $_price['weight']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_NET_PRICE', $_price['net']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_GROSS_PRICE', $_price['gross']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $_price['vat']);
@@ -640,7 +642,6 @@ if( $_shop_load_order ) {
 			$order_process = render_cnt_template($order_process, 'ERROR_'.$item_key, $field_error);
 		}
 		
-		//$payment_options = _getConfig( 'shop_pref_payment', '_shopPref' );
 		$payment_options = get_payment_options();
 
 		if(count($payment_options)) {
@@ -703,7 +704,8 @@ if( $_shop_load_order ) {
 		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
 		
 		// Is Shipping?
-		$order_process  = preg_replace('/\[SHIPPING\](.*?)\[\/SHIPPING\]/is', '' , $order_process);
+		//$order_process  = preg_replace('/\[SHIPPING\](.*?)\[\/SHIPPING\]/is', '' , $order_process);
+		$order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
 		
 
 	} elseif( isset($_POST['shop_order_submit']) && !isset($_SESSION['shopping_cart']['error']['step2']) ) {
@@ -778,14 +780,23 @@ if( $_shop_load_order ) {
 			'order_name'		=> $_SESSION['shopping_cart']['step1']['INV_NAME'],
 			'order_firstname'	=> $_SESSION['shopping_cart']['step1']['INV_FIRSTNAME'],
 			'order_email'		=> $_SESSION['shopping_cart']['step1']['EMAIL'],
-			'order_net'			=> $subtotal['float_net'],
-			'order_gross'		=> $subtotal['float_gross'],
+			'order_net'			=> $subtotal['float_total_net'],
+			'order_gross'		=> $subtotal['float_total_gross'],
 			'order_payment'		=> $payment,
 			'order_data'		=> @serialize( array(
 												'cart' => $cart_data, 
 												'address' => $_SESSION['shopping_cart']['step1'], 
 												'mail_customer' => $mail_customer,
-												'mail_self' => $mail_neworder 
+												'mail_self' => $mail_neworder,
+												'subtotal' => array(
+														'subtotal_net' => $subtotal['float_net'],
+														'subtotal_gross' => $subtotal['float_gross']
+																	),
+												'shipping' => array(
+														'shipping_net' => $subtotal['float_shipping_net'],
+														'shipping_gross' => $subtotal['float_shipping_gross']
+																	),
+												'weight' => $subtotal['float_weight']
 												) ),
 			'order_status'		=> 'NEW-ORDER'		
 		);
@@ -892,8 +903,8 @@ if( $_shop_load_order ) {
 		$order_process  = preg_replace('/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/is', $_cart_button , $order_process);
 		
 		// Is Shipping?
-		$order_process  = preg_replace('/\[SHIPPING\](.*?)\[\/SHIPPING\]/is', '' , $order_process);
-		
+		//$order_process  = preg_replace('/\[SHIPPING\](.*?)\[\/SHIPPING\]/is', '' , $order_process);
+		$order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
 		
 		$order_process  = '<form action="' .$_tmpl['config']['cart_url']. '" method="post">' . LF . trim($order_process) . LF . '</form>';
 		
