@@ -54,7 +54,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		if($row["article_aliasid"]) {
 			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
 			$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
-			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate, ";
+			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 			$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 			if(!$row["article_headerdata"]) {

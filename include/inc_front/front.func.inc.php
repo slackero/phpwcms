@@ -570,9 +570,7 @@ function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
 	$nav_table .= "</strong></td>\n<tr>";
 	foreach($struct as $key => $value) {
 
-		//if($GLOBALS['content']['struct'][$key]['acat_struct'] == $start_id && $key && (!$GLOBALS['content']['struct'][$key]['acat_hidden'] || ($GLOBALS['content']['struct'][$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))) {
 		if($key != $act_cat_id && _getStructureLevelDisplayStatus($key, $act_cat_id) ) {
-		//if(	$struct[$key]["acat_struct"] == $act_cat_id && $key != $act_cat_id && (!$struct[$key]['acat_hidden'] || ($struct[$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))   ) {
 			
 			$nav_table .= "<tr>\n";
 			$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
@@ -637,11 +635,6 @@ function nav_level_row($show_id, $show_home=1) {
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 	
 		if($key != $act_cat_id && _getStructureLevelDisplayStatus($key, $act_cat_id) ) {
-		/*
-		if($GLOBALS['content']['struct'][$key]["acat_struct"] == $act_cat_id && $key != $act_cat_id
-			&& (!$GLOBALS['content']['struct'][$key]['acat_hidden']
-			|| (($GLOBALS['content']['struct'][$key]["acat_hidden"]==2 && isset($GLOBALS['LEVEL_KEY'][$key])) ? true : false) )) {
-		*/
 
 			if($nav) {
 				$nav .= $GLOBALS['template_default']["nav_row"]["between"];
@@ -2756,14 +2749,12 @@ function highlightSearchResult($string='', $search, $wrap='<em class="highlight"
 		$highlight_match = str_replace("\\?", '.?', $highlight_match);
 		$highlight_match = str_replace("\\*", '.*', $highlight_match);
 		$highlight_match = trim($highlight_match);
-		//$string = preg_replace('/(?!<.*)(?<!\w)(' . $highlight_match . ')(?!\w|[^<>]*>)/is', $wrap[0]."$1".$wrap[1], $string);
 
 		if(false == preg_match('/<.+>/', $string)) {
 			$string = preg_replace('/('.$highlight_match.')/i', $wrap[0].'$1'.$wrap[1], $string);
 		} else {
 			$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$wrap[0].'$2'.$wrap[1], $string);
 		}
-
 	}
 	return $string;
 }
