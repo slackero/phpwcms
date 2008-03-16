@@ -422,12 +422,13 @@ function copy_article_to_level($do, $dbcon) {
 			$row["article_cid"] 	= $do[2];
 			$row["article_created"]	= time();
 			$row["article_sort"]	= getArticleSortValue($row["article_cid"]);
+			$row["article_alias"]	= proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
 
 			foreach($row as $key => $value) {
 				if($key == "article_id" ){
 					$keys   = $key;
 					$values = "''";
-				}else{
+				} else {
 					$keys   .= ", ".$key;
 					$values .= ", '".aporeplace($value)."'";
 				}
@@ -449,7 +450,7 @@ function copy_article_to_level($do, $dbcon) {
 						if($key1 == "acontent_id" ){
 							$key1s   = $key1;
 							$value1s = "''";
-						}else{
+						} else {
 							$key1s   .= ", ".$key1;
 							$value1s .= ", '".aporeplace($value1)."'";
 						}
@@ -475,7 +476,7 @@ function copy_level_to_level($do, $dbcon) {
 		if($row = mysql_fetch_assoc($result)) {
 			$row["acat_struct"] = $do[2];
 			$row["acat_sort"]   = $do[3];
-			$row["acat_alias"]  = "";
+			$row["acat_alias"]  = proof_alias(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY');;
 
 			foreach($row as $key => $value) {
 				if($key == "acat_id" ) {
