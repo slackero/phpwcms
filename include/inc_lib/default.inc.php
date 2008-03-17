@@ -276,8 +276,8 @@ function headerRedirect($target='', $type=0) {
 	}
 	if($target !== '') {
 		header('Location: '.$target);
+		exit();
 	}
-	exit();
 }
 
 function _initSession() {

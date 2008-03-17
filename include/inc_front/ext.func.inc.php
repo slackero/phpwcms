@@ -647,6 +647,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 								"article_morelink"	=> $row["article_morelink"],
 								"article_begin"		=> $row["article_begin"],
 								"article_end"		=> $row["article_end"],
+								"article_alias"		=> $row["article_alias"],
 								'article_livedate'	=> $row["article_livedate"],
 								'article_killdate'	=> $row["article_killdate"]
 										);
