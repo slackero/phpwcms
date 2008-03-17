@@ -563,7 +563,7 @@ function getContentPartAlias($crow) {
 }
 
 
-function get_article_data($article_id, $limit=0, $sort='') {
+function get_article_data($article_id, $limit=0, $sort='', $where='') {
 
 	if(is_string($article_id)) {
 		$article_id = explode(',', $article_id);
@@ -581,7 +581,10 @@ function get_article_data($article_id, $limit=0, $sort='') {
 	}
 	$article_id	= array_unique($article_id);
 
-	$sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date FROM '.DB_PREPEND.'phpwcms_article ';
+	$sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
+	$sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+	$sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
+	$sql .= 'FROM '.DB_PREPEND.'phpwcms_article ';
 	$sql .= 'WHERE ';
 	
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -593,7 +596,12 @@ function get_article_data($article_id, $limit=0, $sort='') {
 		//case 2: admin mode no additional neccessary
 	}
 	$sql .= 'article_deleted=0 AND article_begin < NOW() AND article_end > NOW() AND ';
-	$sql .= 'article_id IN (' . implode( ',', $article_id ) . ') ';
+	
+	if($where === '') {
+		$sql .= 'article_id IN (' . implode( ',', $article_id ) . ') ';
+	} else {
+		$sql .= ' ' . $where . ' ';
+	}
 	$sql .= 'GROUP BY article_id ';
 	if($sort) {
 		$sql .= 'ORDER BY '.$sort;
@@ -638,12 +646,17 @@ function get_article_data($article_id, $limit=0, $sort='') {
 								"article_headerdata"=> $row["article_headerdata"],
 								"article_morelink"	=> $row["article_morelink"],
 								"article_begin"		=> $row["article_begin"],
-								"article_end"		=> $row["article_end"]
+								"article_end"		=> $row["article_end"],
+								'article_livedate'	=> $row["article_livedate"],
+								'article_killdate'	=> $row["article_killdate"]
 										);
 		// now check for article alias ID
 		if($row["article_aliasid"]) {
 			$aid = $row["article_id"];
-			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ";
+			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+			$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate "; 
+			$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 			if(!$row["article_headerdata"]) {
 				switch(VISIBLE_MODE) {
@@ -669,6 +682,8 @@ function get_article_data($article_id, $limit=0, $sort='') {
 					$data[$aid]["article_image"]	= @unserialize($alias_row["article_image"]);
 					$data[$aid]["article_begin"]	= $alias_row["article_begin"];
 					$data[$aid]["article_end"]		= $alias_row["article_end"];
+					$data[$aid]['article_livedate']	= $alias_row["article_livedate"];
+					$data[$aid]['article_killdate']	= $alias_row["article_killdate"];
 				}
 			}
 		}
