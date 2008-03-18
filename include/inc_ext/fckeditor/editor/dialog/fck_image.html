@@ -164,7 +164,9 @@ document.write( FCKTools.GetStyleHtml( GetCommonDialogCss() ) ) ;
 			<input id="txtUploadFile" style="width: 100%" type="file" size="40" name="NewFile" /><br />
 			<br />
 			<input id="btnUpload" type="submit" value="Send it to the Server" fcklang="DlgLnkBtnUpload" />
-			<iframe name="UploadWindow" style="display: none" src="javascript:void(0)"></iframe>
+			<script type="text/javascript">
+				document.write( '<iframe name="UploadWindow" style="display: none" src="' + FCKTools.GetVoidUrl() + '"></iframe>' ) ;
+			</script>
 		</form>
 	</div>
 	<div id="divLink" style="display: none">

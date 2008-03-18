@@ -347,8 +347,8 @@ body, .BackColor
 .rtl #closeButton
 {
 	right: auto;
-	left: 0px;
-	margin-left: 10px;
+	left: 10px;
+	margin-right: 0px;
 }
 
 #closeButton:hover

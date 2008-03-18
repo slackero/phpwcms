@@ -150,9 +150,9 @@ function CreateServerFolder( $folderPath, $lastFolder = null )
 
 function GetRootPath()
 {
-    if (!isset($_SERVER)) {
-        global $_SERVER;
-    }
+	if (!isset($_SERVER)) {
+		global $_SERVER;
+	}
 	$sRealPath = realpath( './' ) ;
 
 	$sSelfPath = $_SERVER['PHP_SELF'] ;
@@ -223,14 +223,16 @@ function IsAllowedCommand( $sCommand )
 
 function GetCurrentFolder()
 {
-    if (!isset($_GET)) {
-        global $_GET;
-    }
+	if (!isset($_GET)) {
+		global $_GET;
+	}
 	$sCurrentFolder	= isset( $_GET['CurrentFolder'] ) ? $_GET['CurrentFolder'] : '/' ;
 
 	// Check the current folder syntax (must begin and start with a slash).
-	if ( ! ereg( '/$', $sCurrentFolder ) ) $sCurrentFolder .= '/' ;
-	if ( strpos( $sCurrentFolder, '/' ) !== 0 ) $sCurrentFolder = '/' . $sCurrentFolder ;
+	if ( !preg_match( '|/$|', $sCurrentFolder ) ) 
+		$sCurrentFolder .= '/' ;
+	if ( strpos( $sCurrentFolder, '/' ) !== 0 ) 
+		$sCurrentFolder = '/' . $sCurrentFolder ;
 
 	// Ensure the folder path has no double-slashes
 	while ( strpos ($sCurrentFolder, '//') !== false ) {
@@ -250,7 +252,7 @@ function SanitizeFolderName( $sNewFolderName )
 	$sNewFolderName = stripslashes( $sNewFolderName ) ;
 
 	// Remove . \ / | : ? * " < >
-	$sNewFolderName = preg_replace( '/\\.|\\\\|\\/|\\||\\:|\\?|\\*|"|<|>/', '_', $sNewFolderName ) ;
+	$sNewFolderName = preg_replace( '/\\.|\\\\|\\/|\\||\\:|\\?|\\*|"|<|>|[[:cntrl:]]/', '_', $sNewFolderName ) ;
 
 	return $sNewFolderName ;
 }
@@ -267,7 +269,7 @@ function SanitizeFileName( $sNewFileName )
 		$sNewFileName = preg_replace( '/\\.(?![^.]*$)/', '_', $sNewFileName ) ;
 
 	// Remove \ / | : ? * " < >
-	$sNewFileName = preg_replace( '/\\\\|\\/|\\||\\:|\\?|\\*|"|<|>/', '_', $sNewFileName ) ;
+	$sNewFileName = preg_replace( '/\\\\|\\/|\\||\\:|\\?|\\*|"|<|>|[[:cntrl:]]/', '_', $sNewFileName ) ;
 
 	return $sNewFileName ;
 }

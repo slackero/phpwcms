@@ -231,9 +231,8 @@ function CheckIsWhitespace( c )
 
 // Knuth-Morris-Pratt Algorithm for stream input
 KMP_NOMATCH = 0 ;
-KMP_STARTED = 1 ;
-KMP_ADVANCED = 2 ;
-KMP_MATCHED = 3 ;
+KMP_ADVANCED = 1 ;
+KMP_MATCHED = 2 ;
 function KmpMatch( pattern, ignoreCase )
 {
 	var overlap = [ -1 ] ;
@@ -268,7 +267,7 @@ KmpMatch.prototype = {
 					this._State = 0;
 					return KMP_MATCHED;
 				}
-				return this._State > 1 ? KMP_ADVANCED : KMP_STARTED ;
+				return KMP_ADVANCED ;
 			}
 			else if ( this._State == 0 )
 				return KMP_NOMATCH;
@@ -291,6 +290,7 @@ function _Find()
 	var cursor = GlobalRange.CreateBookmark2().End ;
 	var matchState = KMP_NOMATCH ;
 	var matchBookmark = null ;
+	var matchBookmarkStart = [] ;
 
 	// Match finding.
 	while ( true )
@@ -305,7 +305,7 @@ function _Find()
 				if ( oEditor.FCKListsLib.BlockElements[ data.tagName.toLowerCase() ] )
 				{
 					matcher.Reset();
-					matchBookmark = null ;
+					matchBookmarkStart = [] ;
 				}
 			}
 			else if ( data.charAt != undefined )
@@ -315,19 +315,23 @@ function _Find()
 				// No possible match of any useful substring in the pattern for the currently scanned character.
 				// So delete any positional information.
 				if ( matchState == KMP_NOMATCH )
-					matchBookmark = null ;
-				// The currently scanned character is a possible start, so mark down the starting position.
-				else if ( matchState == KMP_STARTED )
-					matchBookmark = { Start : cursor.concat( [] ) } ;
+					matchBookmarkStart = [] ;
+				// We've matched something, but it's not a complete match, so let's just mark down the position for backtracking later.
+				else if ( matchState == KMP_ADVANCED )
+				{
+					matchBookmarkStart.push( cursor.concat( [] ) ) ;
+					if ( matchBookmarkStart.length > matcher._State )
+						matchBookmarkStart.shift() ;
+				}
 				// Found a complete match! Mark down the ending position as well.
 				else if ( matchState == KMP_MATCHED )
 				{
-					// It is possible to get a KMP_MATCHED without KMP_STARTED when the match pattern is only 1 character.
+					// It is possible to get a KMP_MATCHED without KMP_ADVANCED when the match pattern is only 1 character.
 					// So need to check and mark down the starting position as well.
-					if ( matchBookmark == null )
-						matchBookmark = { Start : cursor.concat( [] ) } ;
+					if ( matchBookmarkStart.length == 0 )
+						matchBookmarkStart = [cursor.concat( [] )] ;
 
-					matchBookmark.End = cursor.concat( [] ) ;
+					matchBookmark = { 'Start' : matchBookmarkStart.shift(), 'End' : cursor.concat( [] ) } ;
 					matchBookmark.End[ matchBookmark.End.length - 1 ]++;
 
 					// Wait, do we have to match a whole word?

@@ -28,7 +28,8 @@
 		<meta content="noindex, nofollow" name="robots">
 		<script language="javascript">
 
-var oEditor = window.parent.InnerDialogLoaded() ;
+var dialog = window.parent ;
+var oEditor = dialog.InnerDialogLoaded() ;
 var FCKLang = oEditor.FCKLang ;
 var FCKPlaceholders = oEditor.FCKPlaceholders ;
 
@@ -40,10 +41,10 @@ window.onload = function ()
 	LoadSelected() ;
 
 	// Show the "Ok" button.
-	window.parent.SetOkButton( true ) ;
+	dialog.SetOkButton( true ) ;
 }
 
-var eSelected = oEditor.FCKSelection.GetSelectedElement() ;
+var eSelected = dialog.Selection.GetSelectedElement() ;
 
 function LoadSelected()
 {

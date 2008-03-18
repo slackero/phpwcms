@@ -386,7 +386,13 @@ var Selection = function()
 		EnsureSelection : function()
 		{
 			if ( FCKDialog.SelectionData )
-				FCKDialog.SelectionData.select() ;
+			{
+				try
+				{
+					FCKDialog.SelectionData.select() ;
+				}
+				catch ( e ) {}
+			}
 		},
 
 		/**
