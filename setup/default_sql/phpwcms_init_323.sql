@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.4
+-- version 2.11.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 06. MÃ¤rz 2008 um 18:10
+-- Erstellungszeit: 18. März 2008 um 07:07
 -- Server Version: 5.0.51
 -- PHP-Version: 5.2.5
 
@@ -14,7 +14,7 @@
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_address`
+-- Tabellenstruktur für Tabelle `phpwcms_address`
 --
 
 CREATE TABLE `phpwcms_address` (
@@ -34,7 +34,7 @@ CREATE TABLE `phpwcms_address` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_ads_campaign`
+-- Tabellenstruktur für Tabelle `phpwcms_ads_campaign`
 --
 
 CREATE TABLE `phpwcms_ads_campaign` (
@@ -64,7 +64,7 @@ CREATE TABLE `phpwcms_ads_campaign` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_ads_formats`
+-- Tabellenstruktur für Tabelle `phpwcms_ads_formats`
 --
 
 CREATE TABLE `phpwcms_ads_formats` (
@@ -83,7 +83,7 @@ CREATE TABLE `phpwcms_ads_formats` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_ads_place`
+-- Tabellenstruktur für Tabelle `phpwcms_ads_place`
 --
 
 CREATE TABLE `phpwcms_ads_place` (
@@ -104,7 +104,7 @@ CREATE TABLE `phpwcms_ads_place` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_ads_tracking`
+-- Tabellenstruktur für Tabelle `phpwcms_ads_tracking`
 --
 
 CREATE TABLE `phpwcms_ads_tracking` (
@@ -127,7 +127,7 @@ CREATE TABLE `phpwcms_ads_tracking` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_article`
+-- Tabellenstruktur für Tabelle `phpwcms_article`
 --
 
 CREATE TABLE `phpwcms_article` (
@@ -183,7 +183,7 @@ CREATE TABLE `phpwcms_article` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_articlecat`
+-- Tabellenstruktur für Tabelle `phpwcms_articlecat`
 --
 
 CREATE TABLE `phpwcms_articlecat` (
@@ -225,7 +225,7 @@ CREATE TABLE `phpwcms_articlecat` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_articlecontent`
+-- Tabellenstruktur für Tabelle `phpwcms_articlecontent`
 --
 
 CREATE TABLE `phpwcms_articlecontent` (
@@ -277,7 +277,7 @@ CREATE TABLE `phpwcms_articlecontent` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_bad_behavior`
+-- Tabellenstruktur für Tabelle `phpwcms_bad_behavior`
 --
 
 CREATE TABLE `phpwcms_bad_behavior` (
@@ -299,7 +299,7 @@ CREATE TABLE `phpwcms_bad_behavior` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_bid`
+-- Tabellenstruktur für Tabelle `phpwcms_bid`
 --
 
 CREATE TABLE `phpwcms_bid` (
@@ -318,7 +318,7 @@ CREATE TABLE `phpwcms_bid` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_cache`
+-- Tabellenstruktur für Tabelle `phpwcms_cache`
 --
 
 CREATE TABLE `phpwcms_cache` (
@@ -342,7 +342,7 @@ CREATE TABLE `phpwcms_cache` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_calendar`
+-- Tabellenstruktur für Tabelle `phpwcms_calendar`
 --
 
 CREATE TABLE `phpwcms_calendar` (
@@ -358,6 +358,7 @@ CREATE TABLE `phpwcms_calendar` (
   `calendar_range_end` date NOT NULL default '0000-00-00',
   `calendar_title` varchar(255) NOT NULL default '',
   `calendar_where` varchar(255) NOT NULL default '',
+  `calendar_teaser` text NOT NULL,
   `calendar_text` mediumtext NOT NULL,
   `calendar_tag` varchar(255) NOT NULL default '',
   `calendar_object` longtext NOT NULL,
@@ -376,7 +377,7 @@ CREATE TABLE `phpwcms_calendar` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_categories`
+-- Tabellenstruktur für Tabelle `phpwcms_categories`
 --
 
 CREATE TABLE `phpwcms_categories` (
@@ -396,7 +397,7 @@ CREATE TABLE `phpwcms_categories` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_chat`
+-- Tabellenstruktur für Tabelle `phpwcms_chat`
 --
 
 CREATE TABLE `phpwcms_chat` (
@@ -412,7 +413,7 @@ CREATE TABLE `phpwcms_chat` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_content`
+-- Tabellenstruktur für Tabelle `phpwcms_content`
 --
 
 CREATE TABLE `phpwcms_content` (
@@ -448,7 +449,7 @@ CREATE TABLE `phpwcms_content` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_country`
+-- Tabellenstruktur für Tabelle `phpwcms_country`
 --
 
 CREATE TABLE `phpwcms_country` (
@@ -464,7 +465,7 @@ CREATE TABLE `phpwcms_country` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_crossreference`
+-- Tabellenstruktur für Tabelle `phpwcms_crossreference`
 --
 
 CREATE TABLE `phpwcms_crossreference` (
@@ -480,7 +481,7 @@ CREATE TABLE `phpwcms_crossreference` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_file`
+-- Tabellenstruktur für Tabelle `phpwcms_file`
 --
 
 CREATE TABLE `phpwcms_file` (
@@ -521,7 +522,7 @@ CREATE TABLE `phpwcms_file` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_filecat`
+-- Tabellenstruktur für Tabelle `phpwcms_filecat`
 --
 
 CREATE TABLE `phpwcms_filecat` (
@@ -536,7 +537,7 @@ CREATE TABLE `phpwcms_filecat` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_filekey`
+-- Tabellenstruktur für Tabelle `phpwcms_filekey`
 --
 
 CREATE TABLE `phpwcms_filekey` (
@@ -551,7 +552,7 @@ CREATE TABLE `phpwcms_filekey` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_fonts`
+-- Tabellenstruktur für Tabelle `phpwcms_fonts`
 --
 
 CREATE TABLE `phpwcms_fonts` (
@@ -565,7 +566,7 @@ CREATE TABLE `phpwcms_fonts` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_fonts_colors`
+-- Tabellenstruktur für Tabelle `phpwcms_fonts_colors`
 --
 
 CREATE TABLE `phpwcms_fonts_colors` (
@@ -578,7 +579,7 @@ CREATE TABLE `phpwcms_fonts_colors` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_fonts_styles`
+-- Tabellenstruktur für Tabelle `phpwcms_fonts_styles`
 --
 
 CREATE TABLE `phpwcms_fonts_styles` (
@@ -591,7 +592,7 @@ CREATE TABLE `phpwcms_fonts_styles` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_formresult`
+-- Tabellenstruktur für Tabelle `phpwcms_formresult`
 --
 
 CREATE TABLE `phpwcms_formresult` (
@@ -607,7 +608,7 @@ CREATE TABLE `phpwcms_formresult` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_formtracking`
+-- Tabellenstruktur für Tabelle `phpwcms_formtracking`
 --
 
 CREATE TABLE `phpwcms_formtracking` (
@@ -623,7 +624,7 @@ CREATE TABLE `phpwcms_formtracking` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_glossary`
+-- Tabellenstruktur für Tabelle `phpwcms_glossary`
 --
 
 CREATE TABLE `phpwcms_glossary` (
@@ -647,7 +648,7 @@ CREATE TABLE `phpwcms_glossary` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_guestbook`
+-- Tabellenstruktur für Tabelle `phpwcms_guestbook`
 --
 
 CREATE TABLE `phpwcms_guestbook` (
@@ -670,7 +671,7 @@ CREATE TABLE `phpwcms_guestbook` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_imgcache`
+-- Tabellenstruktur für Tabelle `phpwcms_imgcache`
 --
 
 CREATE TABLE `phpwcms_imgcache` (
@@ -689,7 +690,7 @@ CREATE TABLE `phpwcms_imgcache` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_keyword`
+-- Tabellenstruktur für Tabelle `phpwcms_keyword`
 --
 
 CREATE TABLE `phpwcms_keyword` (
@@ -710,7 +711,7 @@ CREATE TABLE `phpwcms_keyword` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_language`
+-- Tabellenstruktur für Tabelle `phpwcms_language`
 --
 
 CREATE TABLE `phpwcms_language` (
@@ -745,7 +746,7 @@ CREATE TABLE `phpwcms_language` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_map`
+-- Tabellenstruktur für Tabelle `phpwcms_map`
 --
 
 CREATE TABLE `phpwcms_map` (
@@ -765,7 +766,7 @@ CREATE TABLE `phpwcms_map` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_message`
+-- Tabellenstruktur für Tabelle `phpwcms_message`
 --
 
 CREATE TABLE `phpwcms_message` (
@@ -786,7 +787,7 @@ CREATE TABLE `phpwcms_message` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_newsletter`
+-- Tabellenstruktur für Tabelle `phpwcms_newsletter`
 --
 
 CREATE TABLE `phpwcms_newsletter` (
@@ -804,7 +805,7 @@ CREATE TABLE `phpwcms_newsletter` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_newsletterqueue`
+-- Tabellenstruktur für Tabelle `phpwcms_newsletterqueue`
 --
 
 CREATE TABLE `phpwcms_newsletterqueue` (
@@ -822,7 +823,7 @@ CREATE TABLE `phpwcms_newsletterqueue` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_pagelayout`
+-- Tabellenstruktur für Tabelle `phpwcms_pagelayout`
 --
 
 CREATE TABLE `phpwcms_pagelayout` (
@@ -837,7 +838,7 @@ CREATE TABLE `phpwcms_pagelayout` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_profession`
+-- Tabellenstruktur für Tabelle `phpwcms_profession`
 --
 
 CREATE TABLE `phpwcms_profession` (
@@ -849,7 +850,7 @@ CREATE TABLE `phpwcms_profession` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_shop_orders`
+-- Tabellenstruktur für Tabelle `phpwcms_shop_orders`
 --
 
 CREATE TABLE `phpwcms_shop_orders` (
@@ -871,7 +872,7 @@ CREATE TABLE `phpwcms_shop_orders` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_shop_products`
+-- Tabellenstruktur für Tabelle `phpwcms_shop_products`
 --
 
 CREATE TABLE `phpwcms_shop_products` (
@@ -909,7 +910,7 @@ CREATE TABLE `phpwcms_shop_products` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_subscription`
+-- Tabellenstruktur für Tabelle `phpwcms_subscription`
 --
 
 CREATE TABLE `phpwcms_subscription` (
@@ -925,7 +926,7 @@ CREATE TABLE `phpwcms_subscription` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_sysvalue`
+-- Tabellenstruktur für Tabelle `phpwcms_sysvalue`
 --
 
 CREATE TABLE `phpwcms_sysvalue` (
@@ -943,7 +944,7 @@ CREATE TABLE `phpwcms_sysvalue` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_template`
+-- Tabellenstruktur für Tabelle `phpwcms_template`
 --
 
 CREATE TABLE `phpwcms_template` (
@@ -959,7 +960,7 @@ CREATE TABLE `phpwcms_template` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_user`
+-- Tabellenstruktur für Tabelle `phpwcms_user`
 --
 
 CREATE TABLE `phpwcms_user` (
@@ -986,7 +987,7 @@ CREATE TABLE `phpwcms_user` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_userdetail`
+-- Tabellenstruktur für Tabelle `phpwcms_userdetail`
 --
 
 CREATE TABLE `phpwcms_userdetail` (
@@ -1052,7 +1053,7 @@ CREATE TABLE `phpwcms_userdetail` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_usergroup`
+-- Tabellenstruktur für Tabelle `phpwcms_usergroup`
 --
 
 CREATE TABLE `phpwcms_usergroup` (
@@ -1070,7 +1071,7 @@ CREATE TABLE `phpwcms_usergroup` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur fÃ¼r Tabelle `phpwcms_userlog`
+-- Tabellenstruktur für Tabelle `phpwcms_userlog`
 --
 
 CREATE TABLE `phpwcms_userlog` (
