@@ -36,7 +36,7 @@ $language_regexp 		= array( 'search' => array(), 'replace' => array() );
 // set all language replacements now
 foreach($phpwcms['allowed_lang'] as $lang) {
 
-	$language_regexp['search'][$lang]	= '/\{'.$lang.'\}(.*?)\{\/'.$lang.'\}/is';
+	$language_regexp['search'][$lang]	= '/\['.$lang.'\](.*?)\[\/'.$lang.'\]/is';
 	$language_regexp['replace'][$lang]	= $lang == $language_current ? '$1' : '';
 
 }
