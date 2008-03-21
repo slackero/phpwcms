@@ -50,7 +50,7 @@ $news = & new phpwcmsNews();
 ?>
 	<div class="navBarLeft imgButton chatlist">
 		&nbsp;&nbsp;
-		<a href="<?= $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?= $BL['be_news_create'] ?>"><img src="img/famfamfam/silk_icons_gif/page_white_add.gif" alt="New" border="0" /><span><?= $BL['be_news_create'] ?></span></a>
+		<a href="<?= $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?= $BL['be_news_create'] ?>"><img src="img/famfamfam/page_white_add.gif" alt="New" border="0" /><span><?= $BL['be_news_create'] ?></span></a>
 	</div>
 	
 <form action="<?= $news->base_url ?>" method="post" name="paginate" id="paginate">
@@ -65,7 +65,7 @@ $news = & new phpwcmsNews();
 				<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php  is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 2 ) ? 1 : 0 ) ?> /></td>
 				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" /></label></td>
 				<td><input type="text" name="filter" id="filter" size="10" value="<?= html_specialchars($news->filter) ?>" /></td>
-				<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" /></td>
+				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" /></td>
 				
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;<?= $news->getPagination(); ?></td>
 				

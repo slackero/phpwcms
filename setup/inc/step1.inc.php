@@ -82,9 +82,9 @@ if(!empty($db_additional)) {
 
 ?>
 	<tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">4.</span> Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> collation
-	      settings <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/mini/icon_info.gif" alt="Info" border="0" class="icon" /></a></h1></td></tr>
+	      settings <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a></h1></td></tr>
 	<tr>
-            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/mini/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
+            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
             <td colspan="2"><select name="charset">
 			
 			<?php
@@ -255,7 +255,7 @@ if(!empty($db_init)) {
 ?>
 	  <tr>
 		<td align="right" class="v10">&nbsp;</td>
-		<td colspan="2"><img src="../img/famfamfam/mini/icon_accept.gif" alt="Juchu" class="icon1" /><strong>Fine!</strong> All initial phpwcms tables were created or still exists.<input type="hidden" name="db_sql_hidden" value="1" /></td>
+		<td colspan="2"><img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" /><strong>Fine!</strong> All initial phpwcms tables were created or still exists.<input type="hidden" name="db_sql_hidden" value="1" /></td>
 	  </tr>
 <?php
 	  
@@ -458,7 +458,7 @@ if(!empty($_SESSION['admin_set'])) {
 		if(!empty($create_user)) {
 		
 			// update
-			echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="Juchu" class="icon1" />';
+			echo '<img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" />';
 			echo '<strong>Done!</strong> Account for user <b>'.html_specialchars($phpwcms['admin_user']).'</b> was created.';
 			echo '<input type="hidden" name="user_account" value="1" />';
 		
@@ -467,7 +467,7 @@ if(!empty($_SESSION['admin_set'])) {
 		if(!empty($update_user)) {
 		
 			// update
-			echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="Juchu" class="icon1" />';
+			echo '<img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" />';
 			echo '<strong>Done!</strong> Account of user <b>'.html_specialchars($phpwcms['admin_user']).'</b> was updated.';
 			echo '<input type="hidden" name="user_account" value="1" />';
 		

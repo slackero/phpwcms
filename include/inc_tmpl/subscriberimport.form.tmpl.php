@@ -76,7 +76,7 @@ if($_userInfo['subscriptions']) {
 	if(!empty($_userInfo['csvError'])) {
 	
 		echo '	<tr> 
-		<td align="right" valign="top"><img src="img/famfamfam/mini/icon_alert.gif" alt="Error" />&nbsp;</td>
+		<td align="right" valign="top"><img src="img/famfamfam/icon_alert.gif" alt="Error" />&nbsp;</td>
 		<td class="error1" style="padding: 2px 0 10px 0">'.html_specialchars($_userInfo['csvError']).'</td>
 	</tr>';
 	

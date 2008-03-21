@@ -280,8 +280,8 @@ div.status_message_info {
 	background-color:			#FEE16C;
 	color:						#363C47;
 	padding:					5px 5px 5px 25px;
-	background-image:			url(../../img/famfamfam/silk_icons_png/information.png) !important;
-	background-image:			url(../../img/famfamfam/silk_icons_gif/information.gif);
+	background-image:			url(../../img/famfamfam/information.png) !important;
+	background-image:			url(../../img/famfamfam/information.gif);
 	background-repeat:			no-repeat;
 	background-position:		4px 4px;
 	font-size:					12px;
@@ -293,8 +293,8 @@ div.status_message_success {
 	background-color:			#DEF9AC;
 	color:						#006600;
 	padding:					5px 5px 5px 25px;
-	background-image:			url(../../img/famfamfam/silk_icons_png/accept.png) !important;
-	background-image:			url(../../img/famfamfam/silk_icons_gif/accept.gif);
+	background-image:			url(../../img/famfamfam/accept.png) !important;
+	background-image:			url(../../img/famfamfam/accept.gif);
 	background-repeat:			no-repeat;
 	background-position:		4px 4px;
 	font-size:					12px;
@@ -306,8 +306,8 @@ div.status_message_warning {
 	background-color:			#FFC6C6;
 	color:						#CC0033;
 	padding:					5px 5px 5px 25px;
-	background-image:			url(../../img/famfamfam/silk_icons_png/exclamation.png) !important;
-	background-image:			url(../../img/famfamfam/silk_icons_gif/exclamation.gif);
+	background-image:			url(../../img/famfamfam/exclamation.png) !important;
+	background-image:			url(../../img/famfamfam/exclamation.gif);
 	background-repeat:			no-repeat;
 	background-position:		4px 4px;
 	font-size:					12px;
@@ -359,7 +359,7 @@ table.listing td.colfirst {
 	padding-left: 21px;
 }
 table.listing td.colfirst {
-	background: url(../../img/famfamfam/silk_icons_gif/page_white.gif) no-repeat 1px center;
+	background: url(../../img/famfamfam/page_white.gif) no-repeat 1px center;
 }
 
 form.free p {
@@ -547,7 +547,7 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 }
 .upload-queue li
 {
-	background:				url(../../img/famfamfam/silk_icons_gif/drive_go.gif)  no-repeat 0 5px;
+	background:				url(../../img/famfamfam/drive_go.gif)  no-repeat 0 5px;
 	padding:				5px 0 5px 22px;
 	list-style:				none;
 }
@@ -588,7 +588,7 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 {
 	width:					16px;
 	height:					16px;
-	background:				url(../../img/famfamfam/silk_icons_gif/delete.gif) no-repeat 0 0;
+	background:				url(../../img/famfamfam/delete.gif) no-repeat 0 0;
 	text-decoration:		none;
 	border:					none;
 	float:					right;

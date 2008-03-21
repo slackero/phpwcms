@@ -56,7 +56,7 @@ $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_ads_campaign WHERE adcampaig
 foreach($data as $row) {
 
 	echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
-	echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/silk_icons_gif/layout.gif" alt="'.$BLM['adplace'].'" /></td>'.LF;
+	echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/layout.gif" alt="'.$BLM['adplace'].'" /></td>'.LF;
 
 	echo '	<td width="50%">'.html_specialchars($row["adplace_title"])."</td>\n";
 	

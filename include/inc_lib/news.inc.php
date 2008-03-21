@@ -172,7 +172,7 @@ class phpwcmsNews {
 				$next_page = $max_page - 1;
 			}
 			
-			$paginate .= '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0"';	
+			$paginate .= '<img src="img/famfamfam/action_back.gif" alt="" border="0"';	
 			if($current_page == 1) {
 				$paginate .= ' class="inactive"';
 			} else {
@@ -182,7 +182,7 @@ class phpwcmsNews {
 			
 			$paginate .= '&nbsp;<b>' . $current_page . '</b>/' . $max_page . '&nbsp;';
 			
-			$paginate .= '</td><td><img src="img/famfamfam/mini/action_forward.gif" alt="" border="0"';
+			$paginate .= '</td><td><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
 			if($current_page == $max_page) {
 				$paginate .= ' class="inactive"';
 			} else {

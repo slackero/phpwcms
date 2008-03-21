@@ -58,7 +58,7 @@ if(isset($_GET["s"])) {
 
 <div class="navBarLeft imgButton chatlist">
 	&nbsp;&nbsp;
-	<a href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><img src="img/famfamfam/silk_icons_gif/email_add.gif" alt="Add" border="0" /><span><?php echo $BL['be_newsletter_new'] ?></span></a>
+	<a href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><img src="img/famfamfam/email_add.gif" alt="Add" border="0" /><span><?php echo $BL['be_newsletter_new'] ?></span></a>
 </div>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -98,10 +98,10 @@ if(isset($_GET["s"])) {
 			$count_recipient	= countNewsletterRecipients($row['newsletter_vars']['subscription']);
 			
 			if(empty($row["newsletter_active"]) || !$count_queue) {
-				echo '<img src="img/famfamfam/silk_icons_gif/email.gif" alt="NL" title="ID:'.$row["newsletter_id"].'" />';
+				echo '<img src="img/famfamfam/email.gif" alt="NL" title="ID:'.$row["newsletter_id"].'" />';
 			} else {
 				echo '<a href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"];
-				echo '&amp;send=1"><img src="img/famfamfam/silk_icons_gif/email_go.gif" alt="Send" border="0" title="ID:'.$row["newsletter_id"].'"></a>';
+				echo '&amp;send=1"><img src="img/famfamfam/email_go.gif" alt="Send" border="0" title="ID:'.$row["newsletter_id"].'"></a>';
 			}
 			
 			echo '</td>'.LF;

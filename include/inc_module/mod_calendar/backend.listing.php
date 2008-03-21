@@ -162,7 +162,7 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 				}
 				
 				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-				<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" style="margin-right:3px;" /></td>
+				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
 				
 				<td class="chatlist">|&nbsp;</td>
 			//-->
@@ -297,7 +297,7 @@ $plugin['day_names'] = returnDayNameArray();
 
 echo '<tr>'.LF;
 echo '	<th class="calendarWeek">'.$BLM['weekNrTitle'].'</th>'.LF;
-echo '	<th><img src="img/famfamfam/silk_icons_gif/calendar_view_month.gif" alt="" /></th>'.LF;
+echo '	<th><img src="img/famfamfam/calendar_view_month.gif" alt="" /></th>'.LF;
 echo '	<th width="95%" class="calendarMonth">';
 
 echo $plugin['this_date'];
@@ -411,7 +411,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 	echo '	<td class="calendarButton'.$_entry['class'].'">';
 	echo '<a href="'.MODULE_HREF.'&amp;edit=0&amp;defaultdate=';
 	echo $_entry['x'].'-'.$plugin['current_month'].'-'.$plugin['current_year'].'" title="'.$BLM['add_event'].'">';
-	echo '<img src="img/famfamfam/silk_icons_gif/calendar_add.gif" alt="" border="0" />';
+	echo '<img src="img/famfamfam/calendar_add.gif" alt="" border="0" />';
 	echo '</a></td>'.LF;
 
 	echo '</tr>'.LF;

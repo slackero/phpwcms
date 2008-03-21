@@ -94,13 +94,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_date_format'] ?>:&nbsp;</td>
 		<td><input name="date_format" type="text" class="f11b width150" id="date_format" value="<?php echo $content['felogin']['felogin_date_format']; ?>" /></td>
-		<td>&nbsp;<a href="http://www.php.net/strftime" target="_blank" title="PHP strftime"><img src="img/famfamfam/mini/icon_info.gif" alt="Info" border="0" align="absmiddle" /></a></td>
+		<td>&nbsp;<a href="http://www.php.net/strftime" target="_blank" title="PHP strftime"><img src="img/famfamfam/icon_info.gif" alt="Info" border="0" align="absmiddle" /></a></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_locale'] ?>:&nbsp;</td>
 		<td><input name="locale" type="text" class="f11b width150" id="locale" value="<?php echo $content['felogin']['felogin_locale']; ?>" /></td>
-		<td>&nbsp;<a href="http://www.php.net/setlocale" target="_blank" title="PHP setlocale"><img src="img/famfamfam/mini/icon_info.gif" alt="Info" border="0" align="absmiddle" /></a> (en, de_DE)</td>
+		<td>&nbsp;<a href="http://www.php.net/setlocale" target="_blank" title="PHP setlocale"><img src="img/famfamfam/icon_info.gif" alt="Info" border="0" align="absmiddle" /></a> (en, de_DE)</td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	

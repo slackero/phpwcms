@@ -63,7 +63,7 @@ foreach($data as $row) {
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
 	
 	echo '<a href="'.$_controller_link.'&amp;show='.$row["order_id"].'">';
-	echo '<img src="img/famfamfam/silk_icons_gif/cart_go.gif" alt="'.$BLM['shop_order'].'" border="0" />';
+	echo '<img src="img/famfamfam/cart_go.gif" alt="'.$BLM['shop_order'].'" border="0" />';
 	echo '</a></td>'.LF;
 	
 	echo '<td class="dir" width="13%">'.html_specialchars($row['order_number'])."&nbsp;</td>\n";

@@ -130,9 +130,9 @@ if($_entry['pages_total'] > 1) {
 	echo '<td>';
 	if($_SESSION['ads_page'] > 1) {
 		echo '<a href="'.MODULE_HREF.'&amp;listcampaign=1&amp;page='.($_SESSION['ads_page']-1).'">';
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" /></a>';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
 	} else {
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" class="inactive" />';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
 	}
 	echo '</td>';
 	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['ads_page'];
@@ -141,9 +141,9 @@ if($_entry['pages_total'] > 1) {
 	echo '<td>';
 	if($_SESSION['ads_page'] < $_entry['pages_total']) {
 		echo '<a href="'.MODULE_HREF.'&amp;listcampaign=1&amp;page='.($_SESSION['ads_page']+1).'">';
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" /></a>';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
 	} else {
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" class="inactive" />';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
 	}
 	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
 
@@ -160,7 +160,7 @@ if($_entry['pages_total'] > 1) {
 				}
 				
 				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-				<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" style="margin-right:3px;" /></td>
+				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
 			
 			</tr>
 		</table></td>
@@ -205,7 +205,7 @@ $data = _dbQuery($sql);
 foreach($data as $row) {
 
 	echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
-	echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/silk_icons_gif/transmit.gif" alt="'.$BLM['campaign_entry'].'" /></td>'.LF;
+	echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/transmit.gif" alt="'.$BLM['campaign_entry'].'" /></td>'.LF;
 	echo '	<td width="50%">'.html_specialchars($row["adcampaign_title"])."</td>\n";
 	
 	echo '	<td class="listFormat">'.html_specialchars(date($BLM['list_date_format'], $row["adcampaign_start"]).'&#8211;'.date($BLM['list_date_format'], $row["adcampaign_end"]))."</td>\n";

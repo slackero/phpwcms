@@ -19,16 +19,16 @@ a.fe-link:hover {
 	background-color: transparent;
 }
 a.fe-link.fe-article {
-	background-image: url(../../../img/famfamfam/silk_icons_gif/page_go.gif);
+	background-image: url(../../../img/famfamfam/page_go.gif);
 }
 a.fe-link.fe-summary {
-	background-image: url(../../../img/famfamfam/silk_icons_gif/page_edit.gif);
+	background-image: url(../../../img/famfamfam/page_edit.gif);
 }
 a.fe-link.fe-CP {
-	background-image: url(../../../img/famfamfam/silk_icons_gif/page_white_edit.gif);
+	background-image: url(../../../img/famfamfam/page_white_edit.gif);
 }
 a.fe-link.fe-module {
-	background-image: url(../../../img/famfamfam/silk_icons_gif/plugin_go.gif);
+	background-image: url(../../../img/famfamfam/plugin_go.gif);
 }
 #fe-link {
 	position: absolute;
@@ -45,10 +45,10 @@ a.fe-link.fe-module {
 	z-index: 10000;
 }
 #fe-link.enabled {
-	background-image: url(../../../img/famfamfam/silk_icons_gif/pencil_delete.gif);
+	background-image: url(../../../img/famfamfam/pencil_delete.gif);
 	background-color: #E1FFC4;
 }
 #fe-link.disabled {
-	background-image: url(../../../img/famfamfam/silk_icons_gif/pencil_add.gif);
+	background-image: url(../../../img/famfamfam/pencil_add.gif);
 	background-color: #FFDDDD;
 }

@@ -79,13 +79,13 @@ echo '<div class="title" style="margin-bottom:10px">'.$BL['be_subnav_msg_subscri
 ?>
 
 <div class="navBar imgButton chatlist">
-	<a href="phpwcms.php?do=messages&amp;p=4&amp;s=0&amp;edit=1"><img src="img/famfamfam/silk_icons_gif/vcard_add.gif" alt="Add" border="0" /><span><?php echo $BL['be_cnt_new_recipient'] ?></span></a>
+	<a href="phpwcms.php?do=messages&amp;p=4&amp;s=0&amp;edit=1"><img src="img/famfamfam/vcard_add.gif" alt="Add" border="0" /><span><?php echo $BL['be_cnt_new_recipient'] ?></span></a>
 	&nbsp;
-	<a href="phpwcms.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('Delete all duplicate subscribers?');"><img src="img/famfamfam/silk_icons_gif/vcard_delete.gif" alt="Delete" border="0" /><span><?php echo $BL['be_cnt_delete_duplicates'] ?></span></a>
+	<a href="phpwcms.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('Delete all duplicate subscribers?');"><img src="img/famfamfam/vcard_delete.gif" alt="Delete" border="0" /><span><?php echo $BL['be_cnt_delete_duplicates'] ?></span></a>
 	&nbsp;
-	<a href="phpwcms.php?do=messages&amp;p=4&amp;import=1"><img src="img/famfamfam/silk_icons_gif/table_add.gif" alt="Import" border="0" /><span><?php echo $BL['be_newsletter_newimport'] ?></span></a>
+	<a href="phpwcms.php?do=messages&amp;p=4&amp;import=1"><img src="img/famfamfam/table_add.gif" alt="Import" border="0" /><span><?php echo $BL['be_newsletter_newimport'] ?></span></a>
 	&nbsp;
-	<a href="include/inc_act/act_export.php?action=exportsubscriber" target="_blank" onclick="return confirm('Export all subscribers based on current selection?');"><img src="img/famfamfam/mini/icon_download.gif" alt="Download" border="0" /><span><?php echo $BL['be_cnt_export_selection'] ?></span></a>
+	<a href="include/inc_act/act_export.php?action=exportsubscriber" target="_blank" onclick="return confirm('Export all subscribers based on current selection?');"><img src="img/famfamfam/icon_download.gif" alt="Download" border="0" /><span><?php echo $BL['be_cnt_export_selection'] ?></span></a>
 </div>
 
 
@@ -255,9 +255,9 @@ if($_userInfo['pages_total'] > 1) {
 	echo '<td>';
 	if($_SESSION['subscriber_page'] > 1) {
 		echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']-1).'">';
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" /></a>';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
 	} else {
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" class="inactive" />';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
 	}
 	echo '</td>';
 	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['subscriber_page'];
@@ -266,9 +266,9 @@ if($_userInfo['pages_total'] > 1) {
 	echo '<td>';
 	if($_SESSION['subscriber_page'] < $_userInfo['pages_total']) {
 		echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']+1).'">';
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" /></a>';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
 	} else {
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" class="inactive" />';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
 	}
 	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
 
@@ -286,7 +286,7 @@ if($_userInfo['pages_total'] > 1) {
 	}
 	
 	?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-	<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" style="margin-right:3px;" /></td>
+	<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
 
 	</tr>
 	</table></td>
@@ -341,7 +341,7 @@ if($_userInfo['list_channel']) {
 			echo '<table cellpadding="0" cellspacing="0" border="0">'.LF;
 			echo $_userInfo['select_subscr'];
 			echo '</table>'.LF;
-			//echo '<input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" class="channelSelectSubmit" />';
+			//echo '<input type="image" name="gofilter" src="img/famfamfam/action_go.gif" class="channelSelectSubmit" />';
 			echo '</div>';
 
 		}
@@ -397,7 +397,7 @@ foreach($data as $row) {
 
 	$row["address_email"] = html_specialchars($row["address_email"]);
 	echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).$_userInfo['channel_select'].">\n<td width=\"25\" style=\"padding:1px 3px 3px 4px;\">";
-	echo '<img src="img/famfamfam/silk_icons_gif/vcard.gif" alt="Recipient"></td>'."\n";
+	echo '<img src="img/famfamfam/vcard.gif" alt="Recipient"></td>'."\n";
 	echo '<td width="1%" class="dir">&nbsp;<strong>'.$row["address_email"]."</strong></td>\n";
 	echo '<td class="dir" width="95%">&nbsp;'.html_specialchars($row["address_name"])."</td>\n";
 	echo '<td align="right" nowrap="nowrap" class="button_td">';

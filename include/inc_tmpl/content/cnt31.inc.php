@@ -292,7 +292,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 		<td class="chatlist right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
 		<td><input type="text" name="cimage_url[<?php echo $key ?>]" id="cimage_url_<?php echo $key ?>" class="v11 w300" size="30" value="<?php echo html_specialchars($value['url']) ?>" /></td>
 		<td>&nbsp;</td>
-		<td><a href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');"><img src="img/famfamfam/silk_icons_gif/image_delete.gif" alt="" border="" /></a></td>
+		<td><a href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /></a></td>
 	</tr>
 	
 	
@@ -462,7 +462,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		new_entry += '<'+'td class="chatlist right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;<'+'/td>';
 		new_entry += '<'+'td><input type="text" name="cimage_url['+entry_number+']" id="cimage_url_'+entry_number+'" class="v11 w300" size="30" value="" /><'+'/td>';
 		new_entry += '<'+'td>&nbsp;</'+'td>';
-		new_entry += '<'+'td><a href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\');"><img src="img/famfamfam/silk_icons_gif/image_delete.gif" alt="" border="" /'+'><'+'/a></'+'td>';
+		new_entry += '<'+'td><a href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /'+'><'+'/a></'+'td>';
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'/table>';
 

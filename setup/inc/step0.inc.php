@@ -38,19 +38,19 @@ $_SESSION['admin_set'] = false;
 	switch(version_compare('4.2.1', phpversion())) {
   
 		case -1:	// current used PHP is > OK
-					echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="OK" class="icon1" />';
+					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
 					if(version_compare('4.4', phpversion()) == 1) {
 						echo ' (it is recommend to update your PHP version)';
 					}
 					break;
 				
 		case  0:	// the same version - HM not recommend
-					echo '<img src="../img/famfamfam/mini/icon_alert.gif" alt="OK" class="icon1" />';
+					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
 					echo ' (your version of PHP is very old - update recommend)';
 					break;
 				
 		case  1:	// false it's older
-					echo '<img src="../img/famfamfam/mini/action_stop.gif" alt="Stop" class="icon1" />';
+					echo '<img src="../img/famfamfam/action_stop.gif" alt="Stop" class="icon1" />';
 					echo ' (your version of PHP is too old - it is not recommend to continue)';
 					break;
 
@@ -65,30 +65,30 @@ $_SESSION['admin_set'] = false;
 	switch(version_compare('3.23.50', mysql_get_client_info())) {
   
 		case -1:	// current MySQL isOK
-					echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="OK" class="icon1" />';
+					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
 					break;
 				
 		default:	// the same version or older
-					echo '<img src="../img/famfamfam/mini/icon_alert.gif" alt="OK" class="icon1" />';
+					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
 					echo ' (update recommend)';
 
 	}  
   
   ?></li>
-  <li>PHP settings<a href="http://www.php.net/manual/security.php" target="_blank" title="PHP Security"><img src="../img/famfamfam/mini/icon_info.gif" alt="Security risks" class="icon1" border="0" /></a>
+  <li>PHP settings<a href="http://www.php.net/manual/security.php" target="_blank" title="PHP Security"><img src="../img/famfamfam/icon_info.gif" alt="Security risks" class="icon1" border="0" /></a>
   	<ul>
       <li><strong>register_globals </strong><?php
 		  
 		  if(ini_get('register_globals')) {
 		  	echo '<strong>On</strong>';
-			echo '<img src="../img/famfamfam/mini/icon_alert.gif" alt="OK" class="icon1" />';
+			echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
 			echo ' (should always be set Off';
 			echo '<a href="http://phpsec.org/projects/guide/1.html#1.3" target="_blank">';
-			echo '<img src="../img/famfamfam/mini/icon_info.gif" alt="Security risks" class="icon1" border="0" />';
+			echo '<img src="../img/famfamfam/icon_info.gif" alt="Security risks" class="icon1" border="0" />';
 			echo '</a>)';
 		  } else {
 		    echo '<strong>Off</strong>';
-			echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="OK" class="icon1" />';
+			echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
 		  }
 		  
 		  ?>
@@ -97,14 +97,14 @@ $_SESSION['admin_set'] = false;
 		  
 		  if(ini_get('safe_mode')) {
 		  	echo '<strong>On</strong>';
-			echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="OK" class="icon1" />';
+			echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
 			echo ' (limited permissions, but recommend)';
 		  } else {
 		    echo '<strong>Off</strong>';
-			echo '<img src="../img/famfamfam/mini/icon_alert.gif" alt="Warning" class="icon1" />';
+			echo '<img src="../img/famfamfam/icon_alert.gif" alt="Warning" class="icon1" />';
 			echo ' (check information about security risks';
 			echo '<a href="http://www.php.net/features.safe-mode" target="_blank">';
-			echo '<img src="../img/famfamfam/mini/icon_info.gif" alt="Security risks" class="icon1" border="0" />';
+			echo '<img src="../img/famfamfam/icon_info.gif" alt="Security risks" class="icon1" border="0" />';
 			echo '</a>)';
 		  }
 		  
@@ -122,16 +122,16 @@ $_SESSION['admin_set'] = false;
 				
 				if(function_exists('imagegd2')) {
 					echo '2</strong> '.$_phpinfo['gd_version'];
-					echo '<img src="../img/famfamfam/mini/icon_accept.gif" alt="GD2" class="icon1" />';
+					echo '<img src="../img/famfamfam/icon_accept.gif" alt="GD2" class="icon1" />';
 					$is_gd = true;
 				} elseif(function_exists('imagegd')) {
 					echo '1</strong> '.$_phpinfo['gd_version'];
-					echo '<img src="../img/famfamfam/mini/icon_alert.gif" alt="GD1" class="icon1" />';
+					echo '<img src="../img/famfamfam/icon_alert.gif" alt="GD1" class="icon1" />';
 					echo ' (GD2 is recommend)';
 					$is_gd = true;
 				} else {
 					echo ' not available</strong>';
-					echo '<img src="../img/famfamfam/mini/action_stop.gif" alt="GD not present" class="icon1" />';
+					echo '<img src="../img/famfamfam/action_stop.gif" alt="GD not present" class="icon1" />';
 					$is_gd = false;
 				}
 				
@@ -140,19 +140,19 @@ $_SESSION['admin_set'] = false;
 					$is_gd = array();
 				
 					if(imagetypes() & IMG_GIF) {
-						$is_gd[] = 'GIF<img src="../img/famfamfam/mini/icon_accept.gif" alt="GIF supported" class="icon1" />';
+						$is_gd[] = 'GIF<img src="../img/famfamfam/icon_accept.gif" alt="GIF supported" class="icon1" />';
 					} else {
-						$is_gd[] = 'GIF<img src="../img/famfamfam/mini/action_stop.gif" alt="GIF not supported" class="icon1" />';
+						$is_gd[] = 'GIF<img src="../img/famfamfam/action_stop.gif" alt="GIF not supported" class="icon1" />';
 					}
 					if(imagetypes() & IMG_PNG) {
-						$is_gd[] = 'PNG<img src="../img/famfamfam/mini/icon_accept.gif" alt="PNG supported" class="icon1" />';
+						$is_gd[] = 'PNG<img src="../img/famfamfam/icon_accept.gif" alt="PNG supported" class="icon1" />';
 					} else {
-						$is_gd[] = 'PNG<img src="../img/famfamfam/mini/action_stop.gif" alt="PNG not supported" class="icon1" />';
+						$is_gd[] = 'PNG<img src="../img/famfamfam/action_stop.gif" alt="PNG not supported" class="icon1" />';
 					}
 					if(imagetypes() & IMG_JPG) {
-						$is_gd[] = 'JPG<img src="../img/famfamfam/mini/icon_accept.gif" alt="JPG supported" class="icon1" />';
+						$is_gd[] = 'JPG<img src="../img/famfamfam/icon_accept.gif" alt="JPG supported" class="icon1" />';
 					} else {
-						$is_gd[] = 'JPG<img src="../img/famfamfam/mini/action_stop.gif" alt="JPG not supported" class="icon1" />';
+						$is_gd[] = 'JPG<img src="../img/famfamfam/action_stop.gif" alt="JPG not supported" class="icon1" />';
 					}
 					
 					echo '<br />Image types supported: '.implode('/ ', $is_gd);

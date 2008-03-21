@@ -285,7 +285,7 @@ function parsePHPModules() {
 
 
 function errorWarning($warning='') {
-	$t  = '<p class="error"><img src="../img/famfamfam/mini/icon_alert.gif" alt="Alert" border="0" class="icon1" /><b>';
+	$t  = '<p class="error"><img src="../img/famfamfam/icon_alert.gif" alt="Alert" border="0" class="icon1" /><b>';
 	$t .= $warning;
 	$t .= '</b></p>';
 	return $t;

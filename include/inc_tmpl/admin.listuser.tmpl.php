@@ -138,9 +138,9 @@ if($_userInfo['pages_total'] > 1) {
 	echo '<td>';
 	if($_SESSION['list_user_page'] > 1) {
 		echo '<a href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']-1).'">';
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" /></a>';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
 	} else {
-		echo '<img src="img/famfamfam/mini/action_back.gif" alt="" border="0" class="inactive" />';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
 	}
 	echo '</td>';
 	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
@@ -149,9 +149,9 @@ if($_userInfo['pages_total'] > 1) {
 	echo '<td>';
 	if($_SESSION['list_user_page'] < $_userInfo['pages_total']) {
 		echo '<a href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']+1).'">';
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" /></a>';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
 	} else {
-		echo '<img src="img/famfamfam/mini/action_forward.gif" alt="" border="0" class="inactive" />';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
 	}
 	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
 
@@ -169,7 +169,7 @@ if($_userInfo['pages_total'] > 1) {
 	}
 	
 	?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-	<td><input type="image" name="gofilter" src="img/famfamfam/mini/action_go.gif" /></td>
+	<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" /></td>
 			</table></td>
 			<td class="chatlist" align="right">
 				<a href="phpwcms.php?do=admin&amp;c=10">10</a>

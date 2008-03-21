@@ -44,7 +44,7 @@ if(!isset($_GET["s"])) {
 	
 			echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"1%\" style=\"padding:2px 5px 2px 3px\">";
 			
-			echo '<img src="img/famfamfam/silk_icons_gif/layout.gif" alt="" border="0" /></td>'."\n";
+			echo '<img src="img/famfamfam/layout.gif" alt="" border="0" /></td>'."\n";
 			
 			echo '<td class="dir"><a href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"];
 			echo '"><strong>'.html_specialchars($row["pagelayout_name"])."</strong>";

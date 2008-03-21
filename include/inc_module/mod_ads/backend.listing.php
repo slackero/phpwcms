@@ -39,9 +39,9 @@ $_entry['query']			= '';
 
 <div class="navBarLeft imgButton chatlist">
 	&nbsp;&nbsp;
-	<a href="<?php echo MODULE_HREF ?>&amp;campaign=1&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><img src="img/famfamfam/silk_icons_gif/transmit_add.gif" alt="New" border="0" /><span><?php echo $BLM['create_new'] ?></span></a>
+	<a href="<?php echo MODULE_HREF ?>&amp;campaign=1&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><img src="img/famfamfam/transmit_add.gif" alt="New" border="0" /><span><?php echo $BLM['create_new'] ?></span></a>
 	&nbsp;
-	<a href="<?php echo MODULE_HREF ?>&amp;adplace=1&amp;edit=0" title="<?php echo $BLM['new_adplace']	 ?>"><img src="img/famfamfam/silk_icons_gif/layout_add.gif" alt="New" border="0" /><span><?php echo $BLM['new_adplace'] ?></span></a>
+	<a href="<?php echo MODULE_HREF ?>&amp;adplace=1&amp;edit=0" title="<?php echo $BLM['new_adplace']	 ?>"><img src="img/famfamfam/layout_add.gif" alt="New" border="0" /><span><?php echo $BLM['new_adplace'] ?></span></a>
 </div>
 
 <div id="tabsG">

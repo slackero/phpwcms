@@ -87,7 +87,7 @@ if($do) require_once('inc/setup.check.inc.php');
 			
 		
 			?>
-    <h1><img src="../img/famfamfam/mini/action_stop.gif" alt="Setup STOP" class="icon" /> Setup
+    <h1><img src="../img/famfamfam/action_stop.gif" alt="Setup STOP" class="icon" /> Setup
       stopped </h1>
 			<p>Access on setup process is restricted if the setup config file is downloaded once. To re-enable setup remove the line</p>
 			<p class="code">$NO_ACCESS = true;</p>
