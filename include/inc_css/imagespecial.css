@@ -11,6 +11,15 @@ ul#images li {
 }
 ul#images li:hover {
 	background-color: #F3F5F8;
+	cursor: move;
+}
+ul#images li.nomove, 
+ul#images li.nomove:hover {
+	background: #F3F5F8;
+	cursor: auto;
+	border-top: 1px solid #4E789F;
+	border-bottom: 1px solid #4E789F;
+	margin-top: 10px;
 }
 
 ul#images input.imagename {

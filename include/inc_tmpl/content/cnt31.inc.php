@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //images special
 
-$BE['HEADER']['mootools.js'] 		= getJavaScriptSourceLink('include/inc_js/mootools/mootools.js');
+initMootools();
 $BE['HEADER']['imagespecial.css']	= '	<link href="include/inc_css/imagespecial.css" rel="stylesheet" type="text/css">';
 
 
@@ -362,7 +362,30 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 			ccp.disabled = false;
 		}
 	}
-	window.setTimeout('setCimageCenterInactive();updatePreviewImageAll();', 250);
+	
+	window.addEvent('domready', function() {
+	
+		setCimageCenterInactive();
+		updatePreviewImageAll();
+
+		new Sortables($('images')); /*, {
+	 
+			initialize: function(){
+				var step = 0;
+				this.elements.each(function(element, i){
+					var color = [step, 82, 87].hsbToRgb();
+					element.setStyle('background-color', color);
+					step = step + 35;
+					//element.setStyle('height', $random(40, 100));
+				});
+			}
+		
+		 
+		});
+		*/
+
+	});
+	
 	
 	function openImageFileBrowser(image_number) {
 		tmt_winOpen('filebrowser.php?opt=8&entry_id='+image_number,'imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1);
@@ -466,7 +489,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'/table>';
 
-		var new_element = new Element('li', {'id': 'image_'+entry_number}).injectInside($('images'));
+		var new_element = new Element('li', {'id': 'image_'+entry_number, 'class': 'nomove'}).injectInside($('images'));
 		new_element.innerHTML = new_entry;
 		window.location.hash='image_'+entry_number;
 		return false;
