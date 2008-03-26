@@ -56,8 +56,9 @@ if($all = _dbQuery("SELECT article_id, article_image, article_title, article_tst
 			$file = _dbQuery("SELECT f_id, f_hash, f_ext FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$all[$key]['article_image']['id']." LIMIT 1");
 			
 			if(!empty($file[0]['f_id']) && $file[0]['f_id'] == $all[$key]['article_image']['id']) {
-				$all[$key]['article_image']['hash']	= $file[0]['f_hash'];
-				$all[$key]['article_image']['ext']	= $file[0]['f_ext'];
+				$all[$key]['article_image']['hash']				= $file[0]['f_hash'];
+				$all[$key]['article_image']['ext']				= $file[0]['f_ext'];
+				$all[$key]['article_image']['list_usesummary']	= 1;
 				
 				$sql  = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
 				$sql .= "article_image = '".aporeplace(serialize($all[$key]['article_image']))."',";
