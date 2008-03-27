@@ -1133,6 +1133,12 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	// now prepare form values for sending or storing
 	if(isset($POST_val) && is_array($POST_val) && count($POST_val)) {
 	
+		// fallback solution for older forms which do not know 
+		// separate email template for "copy to" recipient
+		if(!isset($cnt_form['template_equal'])) {
+			$cnt_form['template_equal'] = 1;
+		}
+	
 		foreach($POST_val as $POST_key => $POST_keyval) {
 		
 			$POST_valurl = '';
@@ -1163,9 +1169,31 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 				
 			}
 			
-			if($cnt_form['template_format']) { //HTML
 			
-				// seems to be wrong --> if(is_array($POST_keyval) && !isset($POST_keyval['folder'])) {
+			// first check copy to email template related things
+			if( !$cnt_form['template_equal'] ) {
+			
+				if($cnt_form['template_format_copy'] == 1) { //HTML
+
+					if(is_string($POST_keyval)) {
+						$POST_keyval_copy = html_specialchars($POST_keyval);
+					} elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
+						$POST_keyval_copy = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
+					}
+	
+				} else {
+					
+					$POST_keyval_copy = $POST_keyval;
+				
+				}
+				
+				// replace tags in email form
+				$cnt_form['template_copy'] = str_replace('{'. $POST_key . '}', $POST_keyval_copy, $cnt_form['template_copy']);
+			
+			}
+			
+			if($cnt_form['template_format']) { //HTML
+
 				if(is_string($POST_keyval)) {
 					$POST_keyval = html_specialchars($POST_keyval);
 				} elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
@@ -1201,6 +1229,15 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		$cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
 		$cnt_form['template'] = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1")', $cnt_form['template']);
 		
+		if( !$cnt_form['template_equal'] ) {
+
+			$cnt_form['template_copy'] = str_replace('{FORM_URL}', FE_CURRENT_URL, $cnt_form['template_copy']);
+			$cnt_form['template_copy'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_copy']);
+			$cnt_form['template_copy'] = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1")', $cnt_form['template_copy']);
+			$cnt_form['template_copy'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_copy']);
+		
+		}
+		
 		if($cnt_form["onsuccess_redirect"] !== 1) {
 			
 			$cnt_form["onsuccess"] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
@@ -1209,6 +1246,15 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		}
 		
 		$cnt_form['template'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template']);
+		
+		// check if "copy to" email template is equal recipient 
+		// email template and set it the same
+		if($cnt_form['template_equal'] == 1) {
+		
+			$cnt_form['template_format_copy']	= $cnt_form['template_format'];
+			$cnt_form['template_copy']			= $cnt_form['template'];
+		
+		}
 		
 		// check if there are form values which should be saved in db
 		if(count($POST_savedb)) {
@@ -1256,9 +1302,9 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$mail->Password 	= $phpwcms['SMTP_PASS'];
 		}
 		$mail->CharSet	 		= $phpwcms["charset"];
-		$mail->IsHTML($cnt_form['template_format']);
+		$mail->IsHTML($cnt_form['template_format_copy']);
 		$mail->Subject			= $cnt_form["subject"];
-		$mail->Body 			= $cnt_form['template'];
+		$mail->Body 			= $cnt_form['template_copy'];
 		if(!$mail->SetLanguage($phpwcms['default_lang'], '')) {
 			$mail->SetLanguage('en');
 		}

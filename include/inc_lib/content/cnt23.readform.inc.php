@@ -113,8 +113,12 @@ $content['form']["onsuccess"] = $content['form']["onsuccess_redirect"] == 2 ? sl
 $content['form']["onerror"]   = $content['form']["onerror_redirect"]   == 2 ? slweg($_POST["cform_onerror"])   : clean_slweg($_POST["cform_onerror"]);
 
 $content['form']["template_format"] = intval($_POST["cform_template_format"]) ? 1 : 0;
-//$content['form']["template"]	= $content['form']["template_format"] ? slweg($_POST["cform_template"]) : clean_slweg($_POST["cform_template"]);
-$content['form']["template"]	= slweg($_POST["cform_template"]);
+$content['form']["template"]		= slweg($_POST["cform_template"]);
+
+$content['form']["template_format_copy"]	= intval($_POST["cform_template_format_copy"]) ? 1 : 0;
+$content['form']["template_copy"]			= slweg($_POST["cform_template_copy"]);
+
+$content['form']["template_equal"]			= empty($_POST["cform_template_equal"]) ? 0 : 1;
 
 $content['form']["customform"]	= slweg($_POST["cform_customform"]);
 

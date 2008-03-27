@@ -50,6 +50,9 @@ $content['form'] = array_merge( array(
 	"onerror"				=> '',
 	"template_format"		=> 0,
 	"template"				=> '',
+	"template_format_copy"	=> 0,
+	"template_copy"			=> '',
+	'template_equal'		=> 1,
 	"customform"			=> '',
 	'sender'				=> '',
 	'sendertype'			=> 'email',
@@ -131,6 +134,7 @@ $for_select_2	= '';
 
 // always disable switching content part for form - too complex settings and better to safe the user for himself
 $BE['BODY_CLOSE'][] = '<script language="javascript" type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
+initMootools();
 
 ?>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /><input type="hidden" name="target_ctype" value="23" /></td></tr>
@@ -268,8 +272,7 @@ echo $subject_option;
   </tr>
   </table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_cnt_recipient'] ?>:&nbsp;</td>
 <td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
@@ -287,8 +290,7 @@ echo $subject_option;
   </tr>
 </table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_newsletter_fromemail'] ?>:&nbsp;</td>
 <td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
@@ -307,8 +309,7 @@ echo $subject_option;
 </table></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_newsletter_fromname'] ?>:&nbsp;</td>
 <td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
@@ -326,8 +327,7 @@ echo $subject_option;
   </tr>
 </table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_cnt_send_copy_to']?>:&nbsp;</td>
 <td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
@@ -342,12 +342,9 @@ echo $subject_option;
 </table></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 
 <tr>
@@ -391,12 +388,9 @@ if($content['form']["savedb"] && $content["id"]) {
 
 
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_admin_tmpl_default'] ?>:&nbsp;</td>
@@ -412,10 +406,7 @@ if($content['form']["savedb"] && $content["id"]) {
 	<textarea name="cform_startup" id="cform_startup" rows="5" class="f11" style="width:440px;"><?php echo  html_specialchars($content['form']["startup"]) ?></textarea></td>
 </tr>
 
-
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 <tr>
 <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_onsuccess'] ?>:&nbsp;</td>
@@ -449,8 +440,7 @@ if($content['form']["savedb"] && $content["id"]) {
 <textarea name="cform_onsuccess" id="cform_onsuccess" rows="3" class="f11" style="font-size:11px;width:440px;"><?php echo  html_specialchars($content['form']["onsuccess"]) ?></textarea>
 </td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 <tr>
 <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_onerror'] ?>:&nbsp;</td>
 <td><table summary="" cellpadding="1" cellspacing="0" border="0">
@@ -468,15 +458,13 @@ if($content['form']["savedb"] && $content["id"]) {
 </td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
 <tr><td colspan="2">
 
 <table summary="" cellpadding="0" cellspacing="1" border="0">
 
-<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-</tr>
+<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr bgcolor="#E7E8EB">
 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_reference_basis'] ?>:&nbsp;</td>
@@ -502,10 +490,8 @@ if($content['form']["savedb"] && $content["id"]) {
 	</tr>
 </table></td>
 </tr>
-<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-</tr>
-<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-</tr>
+<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
 
 <tr>
@@ -522,10 +508,8 @@ if($content['form']["savedb"] && $content["id"]) {
 <td colspan="4"><input type="text" name="cform_error_class" class="v10" style="width:81px;" value="<?php echo  (isset($content['form']["error_class"]) ? html_specialchars($content['form']["error_class"]) : '') ?>" /></td>
 </tr>
 
-<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-</tr>
-<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-</tr>
+<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <tr bgcolor="#E6ECF2">
 	<td style="width:30px">&nbsp;</td>
 	<td class="chatlist" style="padding: 1px">&nbsp;<?php echo $BL['be_cnt_type'] ?>:</td>
@@ -637,28 +621,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 									}
 									break;
 
-/*
-			case 'upload':			// default hide/show
-									if($content['form']["saveprofile"]) {
-										echo ', 4';
-	
-										$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">'.LF;
-										$field_row4 .= '<td colspan="2" class="chatlist" align="right">&nbsp;';
-										$field_row4 .= 'profile file:&nbsp;</td>'.LF;
-										$field_row4 .= '<td colspan="6">';
-										
-										$field_row4 .= '	<select name="cform_field_profile['.$field_counter.']" id="cform_field_profile_'.$field_counter.'" class="v10">';
-										$field_row4 .= LF.'		<option value="">&nbsp;</option>';
-										$field_row4 .= '	</select>';
-										
-										$field_row4 .= '</td>'.LF.'</tr>'.LF;
-	
-										$field_js['showAll'][$key] .= ', 4';
-										$field_js['hideAll'][$key] .= ', 4';
-									}
-									break;
-*/
-									
+							
 		}
 		
 		echo ')"><img src="img/button/arrow_opened.gif" alt="" border="0" /></a>';
@@ -828,10 +791,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		</tr>
 	</table></td>
 </tr>
-<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-</tr>
-<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-</tr>
+<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 <tr><td colspan="2">&nbsp;</td><td colspan="6"><input type="submit" value="<?php echo $BL['be_article_cnt_button1'] ?>" class="v09" /></td></tr>
 
 </table><?php
@@ -901,22 +862,21 @@ if(!empty($field_counter) && $field_counter > 1) {
 ?></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
-<tr><td class="chatlist" colspan="2"><a name="anchor_template" id="anchor_template"></a><?php echo $BL['be_cnt_labelemail'] ?>:&nbsp;</td><!-- be_admin_struct_template -->
-</tr>
+<tr><td class="chatlist" colspan="2">
+	<a name="anchor_template" id="anchor_template"></a>
+	<?php echo $BL['be_cnt_recipient'].' - '.$BL['be_admin_struct_template'] ?>:&nbsp;
+	</td></tr>
 <tr>
 	<td colspan="2"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB" style="margin-top:3px;">
 		<tr>
-		<td><input type="radio" name="cform_template_format" id="cform_template_text" value="0"<?php echo is_checked('0', $content['form']["template_format"], 0, 0) ?> /></td>
-		<td class="f10"><label for="cform_template_text">TEXT</label>&nbsp;&nbsp;</td>
-		<td><input type="radio" name="cform_template_format" id="cform_template_html" value="1"<?php echo is_checked('1', $content['form']["template_format"], 0, 0) ?> /></td>
-		<td class="f10"><label for="cform_template_html">HTML</label>&nbsp;</td>
+		<td><input type="radio" name="cform_template_format" id="cform_template_text" value="0"<?php is_checked('0', $content['form']["template_format"]) ?> onchange="this.form.submit();" /></td>
+		<td class="f10"><label for="cform_template_text">TEXT&nbsp;&nbsp;</label></td>
+		<td><input type="radio" name="cform_template_format" id="cform_template_html" value="1"<?php is_checked('1', $content['form']["template_format"]) ?> onchange="this.form.submit();" /></td>
+		<td class="f10"><label for="cform_template_html">HTML&nbsp;</label></td>
 		<?php
 		if(!$content['form']["template_format"] && $for_select != '') {
 			echo '<td style="padding:2px;"><select name="ph" id="ph" class="v10" ';
@@ -935,15 +895,18 @@ if(!empty($field_counter) && $field_counter > 1) {
 		</tr>
 	</table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-</tr>
+
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+
+
 <tr>
 	<td colspan="2"><?php
 if($content['form']["template_format"]) {
 	$wysiwyg_editor = array(
 		'value'		=> $content['form']["template"],
 		'field'		=> 'cform_template',
-		'height'	=> '250px',
+		'height'	=> '350px',
 		'width'		=> '536px',
 		'rows'		=> '15',
 		'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
@@ -957,20 +920,128 @@ if($content['form']["template_format"]) {
 	echo html_specialchars($content['form']["template"]).'</textarea>';
 	?>
 	<div style="text-align:right;padding:2px;padding-right:5px;">
-	<a href="#anchor_template" onclick="contractField('cform_template', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_template" onclick="growField('cform_template', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>	</div>
+	<a href="#anchor_template" onclick="contractField('cform_template', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_template" onclick="growField('cform_template', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>
+	</div>
 	<?php
 }
 
 ?></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
+
+
+<!-- copy mail template //-->
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+
+<tr>
+	<td class="chatlist" colspan="2">
+	<a name="anchor_template_copy" id="anchor_template_copy"></a>
+	<?php echo $BL['be_cnt_send_copy_to'].' - '.$BL['be_admin_struct_template'] ?>:&nbsp;
+	</td>
 </tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
+<tr>
+	<td colspan="2" class="tdtop3"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
+	
+		<tr>
+			<td><input type="checkbox" name="cform_template_equal" id="cform_template_equal" value="1"<?php is_checked(1, $content['form']["template_equal"]) ?> onchange="showhidecopy()" /></td>
+			<td class="v10"><label for="cform_template_equal">&nbsp;= <?php echo $BL['be_cnt_recipient'].' - '.$BL['be_admin_struct_template'] ?>&nbsp;&nbsp;</label></td>
+		</tr>
+
+	</table><script type="text/javascript">
+	<!--
+
+	function showhidecopy() {
+	
+		var tcopy = $('cform_template_equal').checked;
+		
+		if(tcopy) {
+		
+			$('copytemplate1').setStyle('display', 'none');
+			$('copytemplate2').setStyle('display', 'none');
+			$('copytemplate3').setStyle('display', 'none');
+		
+		} else {
+		
+			$('copytemplate1').setStyle('display', '');
+			$('copytemplate2').setStyle('display', '');
+			$('copytemplate3').setStyle('display', '');
+		
+		}
+	
+	}
+	
+	window.addEvent('domready', function() {
+		
+		showhidecopy();
+		
+	});
+	
+	//-->
+	</script></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
+<tr id="copytemplate1">
+	<td colspan="2" class="tdtop3"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
+		<tr>
+		<td><input type="radio" name="cform_template_format_copy" id="cform_template_text_copy" value="0"<?php is_checked(0, $content['form']["template_format_copy"]) ?> onchange="this.form.submit();" /></td>
+		<td class="f10"><label for="cform_template_text_copy">TEXT&nbsp;&nbsp;</label></td>
+		<td><input type="radio" name="cform_template_format_copy" id="cform_template_html_copy" value="1"<?php is_checked(1, $content['form']["template_format_copy"]) ?> onchange="this.form.submit();" /></td>
+		<td class="f10"><label for="cform_template_html_copy">HTML&nbsp;</label></td>
+		<?php
+		if(!$content['form']["template_format_copy"] && $for_select != '') {
+			echo '<td style="padding:2px;"><select name="phc" id="phc" class="v10" ';
+			echo 'onchange="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
+			echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);">';
+			echo $for_select;
+			echo '<option value="{FORM_URL}">{FORM_URL}</option>'.LF;
+			echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>'.LF;
+			echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>'.LF;
+			echo '</select></td>';
+			echo '<td><img src="img/button/go04.gif" width="15" height="15" title="insert field placeholder" border="0" ';
+			echo 'onclick="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
+			echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);" style="margin:3px;" alt="" /></td>';
+		}
+		?>
+		</tr>
+	</table></td>
 </tr>
 
-<!-- custom form template -->
+<tr id="copytemplate2"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+
+<tr id="copytemplate3">
+	<td colspan="2"><?php
+if($content['form']["template_format_copy"]) {
+	$wysiwyg_editor = array(
+		'value'		=> $content['form']["template_copy"],
+		'field'		=> 'cform_template_copy',
+		'height'	=> '350px',
+		'width'		=> '536px',
+		'rows'		=> '15',
+		'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
+		'lang'		=> 'en'
+	);
+	include('include/inc_lib/wysiwyg.editor.inc.php');
+} else {
+
+	echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="code" style="width:536px;" ';
+	echo 'onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);">';
+	echo html_specialchars($content['form']["template_copy"]).'</textarea>';
+	?>
+	<div style="text-align:right;padding:2px;padding-right:5px;">
+	<a href="#anchor_template_copy" onclick="contractField('cform_template_copy', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_template_copy" onclick="growField('cform_template_copy', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>
+	</div>
+	<?php
+}
+
+?></td>
+</tr>
+
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+
 <tr>
 	<td class="chatlist" colspan="2" style="padding-bottom:3px;"><a name="anchor_customform" id="anchor_customform"></a><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
 </tr>
@@ -990,7 +1061,6 @@ if($for_select_2 != '') { //!$content['form']["template_format"] &&
 
 ?>
 
-
 <tr>
 	<td colspan="2">
 	<textarea name="cform_customform" id="cform_customform" rows="5" class="code" style="width:536px;" onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);"><?php echo html_specialchars($content['form']["customform"]) ?></textarea>
@@ -1000,9 +1070,6 @@ if($for_select_2 != '') { //!$content['form']["template_format"] &&
 </tr>
 
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
