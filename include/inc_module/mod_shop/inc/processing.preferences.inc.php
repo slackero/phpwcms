@@ -74,7 +74,7 @@ if($action == 'edit') {
 			$plugin['data']['shop_pref_shipping'][$x]['weight']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['weight']), 3);
 			
 			$plugin['data']['shop_pref_shipping'][$x]['net']	= str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['net']);
-			$plugin['data']['shop_pref_shipping'][$x]['net']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['net']), 2);
+			$plugin['data']['shop_pref_shipping'][$x]['net']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['net']), 3);
 			
 			$plugin['data']['shop_pref_shipping'][$x]['vat']	= str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_shipping'][$x]['vat']);
 			$plugin['data']['shop_pref_shipping'][$x]['vat']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_shipping'][$x]['vat']), 2);
