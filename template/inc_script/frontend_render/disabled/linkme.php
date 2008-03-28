@@ -118,8 +118,8 @@ function createSocialBookmark($matches) {
 	foreach($bm['service'] as $key => $value) {
 		
 		$bmt  = '<a href="'.$bm['service'][$key]['url'].'" title="'.$bm['service'][$key]['alt'].'" ';
-		$bmt .= 'target="_blank"><img src="'.TEMPLATE_PATH.'img/bookmarklets/'.$key.'.gif" ';
-		$bmt .= 'alt="'.$bm['service'][$key]['alt'].'" border="0" rel="nofollow" /></a>';
+		$bmt .= 'target="_blank" rel="nofollow"><img src="'.TEMPLATE_PATH.'img/bookmarklets/'.$key.'.gif" ';
+		$bmt .= 'alt="'.$bm['service'][$key]['alt'].'" border="0" /></a>';
 		$matches[1] = str_replace('{'.strtoupper($key).'}', $bmt, $matches[1]);
 	
 	}
