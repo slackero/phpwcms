@@ -38,8 +38,6 @@ FCKConfig.ToolbarSets["Basic"] = [
 	['Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink','-','About']
 ] ;
 
-
-
 // an optimized FCKeditor Toolbar for phpwcms
 FCKConfig.ToolbarSets["phpwcms_default"] = [
 	['Source','-','FitWindow','Preview','-','Templates'],

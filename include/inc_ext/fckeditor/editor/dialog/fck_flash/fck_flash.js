@@ -141,7 +141,7 @@ function Ok()
 		oFakeImage	= FCK.InsertElement( oFakeImage ) ;
 	}
 
-	oEditor.FCKFlashProcessor.RefreshView( oFakeImage, oEmbed ) ;
+	oEditor.FCKEmbedAndObjectProcessor.RefreshView( oFakeImage, oEmbed ) ;
 
 	return true ;
 }

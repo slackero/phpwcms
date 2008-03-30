@@ -31,9 +31,7 @@ $Config['Enabled'] = true ;
 
 
 // Path to user files relative to the document root.
-
 $current_dir = explode('/include/inc_ext/', str_replace('\\', '/', dirname(__FILE__)));
-
 
 $Config['UserFilesPath'] = 'picture/upload/' ;
 

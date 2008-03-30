@@ -58,7 +58,7 @@
 function GetCommonDialogCss( prefix )
 {
 	// CSS minified by http://iceyboard.no-ip.org/projects/css_compressor
-	return FCKConfig.BasePath + 'dialog/common/' + '|.ImagePreviewArea{border:#000 1px solid;overflow:auto;width:100%;height:170px;background-color:#fff}.FlashPreviewArea{border:#000 1px solid;padding:5px;overflow:auto;width:100%;height:170px;background-color:#fff}.BtnReset{float:left;background-position:center center;background-image:url(images/reset.gif);width:16px;height:16px;background-repeat:no-repeat;border:1px none;font-size:1px}.BtnLocked,.BtnUnlocked{float:left;background-position:center center;background-image:url(images/locked.gif);width:16px;height:16px;background-repeat:no-repeat;border:none 1px;font-size:1px}.BtnUnlocked{background-image:url(images/unlocked.gif)}.BtnOver{border:outset 1px;cursor:hand}' ;
+	return FCKConfig.BasePath + 'dialog/common/' + '|.ImagePreviewArea{border:#000 1px solid;overflow:auto;width:100%;height:170px;background-color:#fff}.FlashPreviewArea{border:#000 1px solid;padding:5px;overflow:auto;width:100%;height:170px;background-color:#fff}.BtnReset{float:left;background-position:center center;background-image:url(images/reset.gif);width:16px;height:16px;background-repeat:no-repeat;border:1px none;font-size:1px}.BtnLocked,.BtnUnlocked{float:left;background-position:center center;background-image:url(images/locked.gif);width:16px;height:16px;background-repeat:no-repeat;border:none 1px;font-size:1px}.BtnUnlocked{background-image:url(images/unlocked.gif)}.BtnOver{border:outset 1px;cursor:pointer;cursor:hand}' ;
 }
 
 // Gets a element by its Id. Used for shorter coding.
@@ -101,7 +101,10 @@ function SelectField( elementId )
 {
 	var element = GetE( elementId ) ;
 	element.focus() ;
-	element.select() ;
+
+	// element.select may not be available for some fields (like <select>).
+	if ( element.select )
+		element.select() ;
 }
 
 // Functions used by text fields to accept numbers only.
@@ -274,22 +277,23 @@ function CreateNamedElement( oEditor, oOriginal, nodeName, oAttributes )
 				oldNode.parentNode.removeChild( oldNode ) ;
 				oldNode = null ;
 
-				if ( oEditor.FCKDialog.SelectionData )
+				if ( oEditor.FCK.Selection.SelectionData )
 				{
-					// Trick to refresh the selection object and avoid error in fckdialog.html Selection.EnsureSelection
+					// Trick to refresh the selection object and avoid error in
+					// fckdialog.html Selection.EnsureSelection
 					var oSel = oEditor.FCK.EditorDocument.selection ;
-					oEditor.FCKDialog.SelectionData = oSel.createRange() ; // Now oSel.type will be 'None' reflecting the real situation
+					oEditor.FCK.Selection.SelectionData = oSel.createRange() ; // Now oSel.type will be 'None' reflecting the real situation
 				}
 			}
 			oNewNode = oEditor.FCK.InsertElement( oNewNode ) ;
 
-			// FCKDialog.SelectionData is broken by now since we've deleted the previously selected element.
-			// So we need to reassign it.
-			if ( oEditor.FCKDialog.SelectionData )
+			// FCK.Selection.SelectionData is broken by now since we've
+			// deleted the previously selected element. So we need to reassign it.
+			if ( oEditor.FCK.Selection.SelectionData )
 			{
 				var range = oEditor.FCK.EditorDocument.body.createControlRange() ;
 				range.add( oNewNode ) ;
-				oEditor.FCKDialog.SelectionData = range ;
+				oEditor.FCK.Selection.SelectionData = range ;
 			}
 		}
 		else

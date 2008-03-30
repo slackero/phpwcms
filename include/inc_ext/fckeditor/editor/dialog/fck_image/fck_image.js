@@ -250,8 +250,6 @@ function Ok()
 			oLink.href = sLnkUrl ;
 		else			// Creating a new link.
 		{
-			dialog.Selection.EnsureSelection() ;
-
 			if ( !bHasImage )
 				oEditor.FCKSelection.SelectNode( oImage ) ;
 

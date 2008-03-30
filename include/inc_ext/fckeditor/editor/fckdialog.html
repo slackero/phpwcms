@@ -375,44 +375,35 @@ var DragAndDrop = function()
 }() ;
 
 // Selection related functions.
-var Selection = function()
+//(Became simple shortcuts after the fix for #1990)
+var Selection =
 {
-	return {
-		/**
-		 * Ensures that the editing area contains an active selection. This is a
-		 * requirement for IE, as it looses the selection when the focus moves to other
-		 * frames.
-		 */
-		EnsureSelection : function()
-		{
-			if ( FCKDialog.SelectionData )
-			{
-				try
-				{
-					FCKDialog.SelectionData.select() ;
-				}
-				catch ( e ) {}
-			}
-		},
+	/**
+	 * Ensures that the editing area contains an active selection. This is a
+	 * requirement for IE, as it looses the selection when the focus moves to other
+	 * frames.
+	 */
+	EnsureSelection : function()
+	{
+		FCK.Selection.Restore() ;
+	},
 
-		/**
-		 * Get the FCKSelection object for the editor instance.
-		 */
-		GetSelection : function()
-		{
-			this.EnsureSelection() ;
-			return FCK.Selection ;
-		},
+	/**
+	 * Get the FCKSelection object for the editor instance.
+	 */
+	GetSelection : function()
+	{
+		return FCK.Selection ;
+	},
 
-		/**
-		 * Get the selected element in the editing area (for object selections).
-		 */
-		GetSelectedElement : function()
-		{
-			return this.GetSelection().GetSelectedElement() ;
-		}
-	} ;
-}() ;
+	/**
+	 * Get the selected element in the editing area (for object selections).
+	 */
+	GetSelectedElement : function()
+	{
+		return FCK.Selection.GetSelectedElement() ;
+	}
+}
 
 // Tab related functions.
 var Tabs = function()
@@ -681,14 +672,13 @@ var onReadyRegister = function()
 
 	window.Cancel = function( dontFireChange )
 	{
+		Selection.EnsureSelection() ;
 		return CloseDialog( dontFireChange ) ;
 	} ;
 
 	window.CloseDialog = function( dontFireChange )
 	{
 		Throbber.Hide() ;
-
-		Selection.EnsureSelection() ;
 
 		// Points the src to a non-existent location to avoid loading errors later, in case the dialog
 		// haven't been completed loaded at this point.
@@ -699,7 +689,13 @@ var onReadyRegister = function()
 		{
 			// All dialog windows, by default, will fire the "OnSelectionChange"
 			// event, no matter the Ok or Cancel button has been pressed.
-			FCK.Events.FireEvent( 'OnSelectionChange' ) ;
+			// It seems that OnSelectionChange may enter on a concurrency state
+			// on some situations (#1965), so we should put the event firing in
+			// the execution queue instead of executing it immediately.
+			setTimeout( function()
+				{
+					FCK.Events.FireEvent( 'OnSelectionChange' ) ;
+				}, 0 ) ;
 		}
 
 		FCKDialog.OnDialogClose( window ) ;

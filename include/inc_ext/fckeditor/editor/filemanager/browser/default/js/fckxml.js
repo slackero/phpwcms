@@ -31,8 +31,8 @@ var FCKXml = function()
 FCKXml.prototype.GetHttpRequest = function()
 {
 	// Gecko / IE7
-	if ( typeof(XMLHttpRequest) != 'undefined' )
-		return new XMLHttpRequest() ;
+	try { return new XMLHttpRequest(); }
+	catch(e) {}
 
 	// IE6
 	try { return new ActiveXObject( 'Msxml2.XMLHTTP' ) ; }

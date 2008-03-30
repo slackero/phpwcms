@@ -43,7 +43,6 @@ var oSample ;
 function insertChar(charValue)
 {
 	oEditor.FCKUndo.SaveUndoStep() ;
-	parent.Selection.EnsureSelection() ;
 	oEditor.FCK.InsertHtml( charValue || "" ) ;
 	window.parent.Cancel() ;
 }

@@ -26,6 +26,7 @@
 		<title>Placeholder Properties</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta content="noindex, nofollow" name="robots">
+		<script src="../../dialog/common/fck_dialog_common.js" type="text/javascript"></script>
 		<script language="javascript">
 
 var dialog = window.parent ;
@@ -42,6 +43,9 @@ window.onload = function ()
 
 	// Show the "Ok" button.
 	dialog.SetOkButton( true ) ;
+
+	// Select text field on load.
+	SelectField( 'txtName' ) ;
 }
 
 var eSelected = dialog.Selection.GetSelectedElement() ;

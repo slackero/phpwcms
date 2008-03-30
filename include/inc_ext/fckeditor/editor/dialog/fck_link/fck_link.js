@@ -159,7 +159,22 @@ window.onload = function()
 
 	// Activate the "OK" button.
 	dialog.SetOkButton( true ) ;
-	SelectField( 'txtUrl' ) ;
+
+	// Select the first field.
+	switch( GetE('cmbLinkType').value )
+	{
+		case 'url' :
+			SelectField( 'txtUrl' ) ;
+			break ;
+		case 'email' :
+			SelectField( 'txtEMailAddress' ) ;
+			break ;
+		case 'anchor' :
+			if ( GetE('divSelAnchor').style.display != 'none' )
+				SelectField( 'cmbAnchorName' ) ;
+			else
+				SelectField( 'cmbLinkType' ) ;
+	}
 }
 
 var bHasAnchors ;
@@ -623,7 +638,6 @@ function Ok()
 	}
 
 	// Select the (first) link.
-	dialog.Selection.EnsureSelection() ;
 	oEditor.FCKSelection.SelectNode( aLinks[0] );
 
 	return true ;

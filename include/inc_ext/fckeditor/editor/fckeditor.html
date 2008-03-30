@@ -233,8 +233,9 @@ if ( FCKBrowserInfo.IsGecko && !FCKBrowserInfo.IsOpera )
 	window.onresize = function( e )
 	{
 		// Running in Chrome makes the window receive the event including subframes.
-		// we care only about this window. Ticket #1642
-		if ( e && e.originalTarget !== document )
+		// we care only about this window. Ticket #1642.
+		// #2002: The originalTarget from the event can be the current document, the window, or the editing area.
+		if ( e && e.originalTarget !== document && e.originalTarget !== window && (!e.originalTarget.ownerDocument || e.originalTarget.ownerDocument != document ))
 			return ;
 
 		var oCell = document.getElementById( 'xEditingArea' ) ;
@@ -242,8 +243,8 @@ if ( FCKBrowserInfo.IsGecko && !FCKBrowserInfo.IsOpera )
 		var eInnerElement = oCell.firstChild ;
 		if ( eInnerElement )
 		{
-			eInnerElement.style.height = 0 ;
-			eInnerElement.style.height = oCell.scrollHeight - 2 ;
+			eInnerElement.style.height = '0px' ;
+			eInnerElement.style.height = ( oCell.scrollHeight - 2 ) + 'px' ;
 		}
 	}
 }

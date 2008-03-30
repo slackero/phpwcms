@@ -68,9 +68,6 @@
 		<Style name="background-color" value="Lime" />
 	</Style>
 
-	<Style name="Strong Emphasis" element="strong" />
-	<Style name="Emphasis" element="em" />
-
 	<Style name="Big" element="big" />
 	<Style name="Small" element="small" />
 	<Style name="Typewriter" element="tt" />
