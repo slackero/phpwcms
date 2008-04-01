@@ -15,6 +15,8 @@ header('Content-Type: application/x-javascript');
 ?>
 FCKConfig.BaseHref = '<?php echo PHPWCMS_URL ?>' ;
 FCKConfig.ProcessHTMLEntities    = <?php echo (PHPWCMS_CHARSET != 'iso-8859-1' && PHPWCMS_CHARSET != 'iso-8859-15') ? 'false' : 'true' ?> ;
+FCKConfig.Plugins.Add( 'autogrow' );
+FCKConfig.AutoGrowMax = 500;
 
 // default FCKeditor toolbars, but removed unnecessary buttons
 FCKConfig.ToolbarSets["Default"] = [

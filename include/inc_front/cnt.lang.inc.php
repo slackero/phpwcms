@@ -59,5 +59,6 @@ $BL['be_ctype_felogin']			= '';
 $BL['be_ctype_imagesdiv']		= '';
 $BL['be_ctype_flashplayer']		= '';
 $BL['be_ctype_imagesspecial']	= '';
+$BL['be_ctype_tabs']			= '';
 
 ?>

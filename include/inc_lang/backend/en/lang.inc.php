@@ -1211,4 +1211,11 @@ $BL['be_sorted']						= 'sorted';
 $BL['be_granted_download']				= 'secured frontend download only';
 $BL['be_granted_feuser']				= 'for logged-in frontend users only';
 
+$BL['be_ctype_tabs']					= 'tabs';
+$BL['be_tab_add']						= 'add tab';
+$BL['be_tab_name']						= 'tab';
+$BL['be_headline']						= 'headline';
+$BL['be_tab_delete_js']					= 'Do you want to delete the selected tab?';
+
+
 ?>

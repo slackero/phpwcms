@@ -1160,7 +1160,7 @@ $BL['be_fx_1']							= 'Effekt 1';
 $BL['be_fx_2']							= 'Effekt 2';
 $BL['be_fx_3']							= 'Effekt 3';
 $BL['be_image_zoom']					= 'Gro&szlig;ansicht';
-$BL['be_image_delete_js']				= 'Soll der gewählte Bildeintrag wirklich gelöscht werden?';
+$BL['be_image_delete_js']				= 'Soll der Bildeintrag wirklich entfernt werden?';
 
 $BL['be_news']							= 'News';
 $BL['be_news_create']					= 'Neue News erstellen';
@@ -1199,5 +1199,11 @@ $BL['be_random']						= 'zuf&auml;llig';
 $BL['be_sorted']						= 'sortiert';
 $BL['be_granted_download']				= 'gesch&uuml;tzter Download im Frontend';
 $BL['be_granted_feuser']				= 'nur für angemeldete Frontend Benutzer';
+
+$BL['be_ctype_tabs']					= 'Register (Tabs)';
+$BL['be_tab_add']						= 'Register hinzuf&uuml;gen';
+$BL['be_tab_name']						= 'Register';
+$BL['be_headline']						= '&Uuml;berschrift';
+$BL['be_tab_delete_js']					= 'Soll das Registerelement wirklich entfernt werden?';
 
 ?>

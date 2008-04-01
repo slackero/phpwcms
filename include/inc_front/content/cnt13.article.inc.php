@@ -148,7 +148,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				if( !FEUSER_LOGIN_STATUS ) {
 					$csql .= 'acontent_granted=0 AND ';
 				}
-				$csql .= "acontent_type IN (0, 1, 2, 4, 5, 6, 7, 11, 14, 26, 27, 29, 100, 31)";
+				$csql .= "acontent_type IN (0, 1, 2, 4, 5, 6, 7, 11, 14, 26, 27, 29, 100, 31, 32)";
 
 				
 				if($scresult = mysql_query($csql, $db)) {
@@ -189,7 +189,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 										}
 										break;							
 							
-							// serach recipe
+							// search recipe
 							case 26:	$scrow[6] = @unserialize($scrow[6]);
 										if(isset($scrow[6]['preparation'])) {
 											$s_text .= ' '.$scrow[6]['preparation'].' '.$scrow[6]['ingredients'];

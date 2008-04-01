@@ -1,58 +1,24 @@
-/* based on CSS Edit 2.0 and exploding-boy.com*/
-
-#tabsG {
-	float:						left;
-	width:						100%;
-	background:					#FFFFFF;
-	font-size:					11px;
-	line-height:				normal;
-	font-family: 				Verdana, Arial, Helvetica, sans-serif;
-	font-weight: 				bold;
+button.btn_add_tab {
+	width: auto;
 }
-#tabsG ul {
-	margin:						0;
-	padding:					8px 0 0 0;
-	list-style:					none;
+button.btn_add_tab span {
+	padding: 2px 4px 2px 22px;
+	background: url(../../img/famfamfam/tab_add.gif) no-repeat left center;
+	float: left;
+	font-size: 11px;
 }
-#tabsG li {
-	display:					inline;
-	margin:						0;
-	padding:					0;
+td.col1w {
+	width: 76px;
+	padding: 2px 0 2px 0;
 }
-#tabsG a {
-	float:						left;
-	background:					url(../../img/tab/tableftG.gif) no-repeat left top;
-	margin:						0;
-	padding:					0 0 0 4px;
-	text-decoration:			none;
+ul#tabs {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
-#tabsG a span {
-	float:						left;
-	display:					block;
-	background:					url(../../img/tab/tableftG.gif) no-repeat right top;
-	padding:					5px 12px 4px 6px;
-	color: 						#6288ad;
+ul#tabs li.tab {
+	margin: 7px 0 0 0;
+	padding: 7px 0 0 0;
+	list-style: none;
+	background: transparent url(../../img/lines/be_dotted_line.gif) repeat-x left top;
 }
-
-/* Commented Backslash Hack hides rule from IE5-Mac \*/
-#tabsG a span {float:			none;}
-/* End IE5-Mac hack */
-
-#tabsG a:hover span {
-	color: 						#325676;
-}
-#tabsG a:hover {
-	background-position:		0% -42px;
-}
-#tabsG a:hover span {
-	background-position:		100% -42px;
-}
-#tabsG .activeTab a {
-	background-position:		0% -42px;
-	color: 						#325676;
-}
-#tabsG .activeTab a span {
-	background-position:		100% -42px;
-	color:						#325676;
-}
-

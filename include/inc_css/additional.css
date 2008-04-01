@@ -107,6 +107,10 @@ table.tdMorepace td {
 	vertical-align: top;
 	padding-top: 6px;
 }
+.tdbottom2 {
+	vertical-align: top;
+	padding-bottom: 2px;
+}
 .tdbottom3 {
 	vertical-align: top;
 	padding-bottom: 3px;
@@ -479,8 +483,7 @@ form.free input.checkbox_left {
 	line-height: 135%;
 }
 
-span.autocompleter-loading
-{
+span.autocompleter-loading {
 	background: transparent url(../../img/indicator/indicator_arrows_green.gif) no-repeat center center;
 	padding: 0 10px 0 10px;
 	line-height: 16px;
@@ -498,8 +501,7 @@ textarea.ajax-loading, input.ajax-loading {
 	border-top-color: #3D7BAD;
 }
 
-ul.autocompleter-choices
-{
+ul.autocompleter-choices {
 	position:				absolute;
 	margin:					0;
 	padding:				0;
@@ -511,8 +513,7 @@ ul.autocompleter-choices
 	z-index:				50;
 }
 
-ul.autocompleter-choices li
-{
+ul.autocompleter-choices li {
 	position:				relative;
 	padding:				0.1em 1.5em 0.1em 1em;
 	cursor:					pointer;
@@ -523,37 +524,31 @@ ul.autocompleter-choices li
 	line-height:			135%;
 }
 
-ul.autocompleter-choices li.autocompleter-selected
-{
+ul.autocompleter-choices li.autocompleter-selected {
 	background-color:		#444;
 	color:					#fff;
 }
 
-ul.autocompleter-choices span.autocompleter-queried
-{
+ul.autocompleter-choices span.autocompleter-queried {
 	font-weight:			bold;
 }
 
-ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
-{
+ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
 	color:					#9FCFFF;
 }
 
-.upload-queue
-{
+.upload-queue {
 	list-style:				none;
 	margin: 0;
 	padding: 0 0 0 5px;
 }
-.upload-queue li
-{
+.upload-queue li {
 	background:				url(../../img/famfamfam/drive_go.gif)  no-repeat 0 5px;
 	padding:				5px 0 5px 22px;
 	list-style:				none;
 }
 
-.upload-queue .queue-file
-{
+.upload-queue .queue-file {
 	font-weight:			bold;
 }
 
@@ -564,8 +559,7 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 	font-size:				0.9em;
 }
 
-.upload-queue .queue-loader
-{
+.upload-queue .queue-loader {
 	position:				relative;
 	margin:					4px 45px 5px 2px;
 	font-size:				0.9em;
@@ -573,8 +567,7 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 	color:					#fff;
 	border:					1px inset #ddd;
 }
-.upload-queue .queue-subloader
-{
+.upload-queue .queue-subloader {
 	text-align:				center;
 	position:				absolute;
 	background-color:		#81B466;
@@ -584,8 +577,7 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried
 	top:					0;
 }
 
-.upload-queue .input-delete
-{
+.upload-queue .input-delete {
 	width:					16px;
 	height:					16px;
 	background:				url(../../img/famfamfam/delete.gif) no-repeat 0 0;

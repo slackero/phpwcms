@@ -29,6 +29,7 @@ $wcs_content_type = array(
 	 1 => $BL['be_ctype_textimage'],
 	29 => $BL['be_ctype_imagesdiv'],
 	31 => $BL['be_ctype_imagesspecial'],
+	32 => $BL['be_ctype_tabs'],
 	 2 => $BL['be_ctype_images'],
 	 4 => $BL['be_ctype_bulletlist'],
    100 => $BL['be_ctype_ullist'],
