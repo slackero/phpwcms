@@ -91,7 +91,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 
 <tr>
 	<td id="col_1_width">&nbsp;</td>
-	<td><button class="btn_add_tab" id="btn_add_tab">
+	<td class="tdbottom6"><button class="btn_add_tab" id="btn_add_tab">
 		<span><?php echo $BL['be_tab_add'] ?></span>
 	</button></td>
 </tr>
@@ -133,7 +133,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 </tr>
 
 <tr>
-	<td colspan="2" class="rowspacer7x7">
+	<td colspan="2" class="rowspacer0x7">
 	<script type="text/javascript">
 	<!--
 
@@ -181,6 +181,8 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 				EnableFCK(x);
 			}
 		}
+		
+		new Sortables($('tabs'));
 	
 	});
 	

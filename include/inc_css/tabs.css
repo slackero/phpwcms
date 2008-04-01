@@ -17,8 +17,20 @@ ul#tabs {
 	list-style: none;
 }
 ul#tabs li.tab {
-	margin: 7px 0 0 0;
-	padding: 7px 0 0 0;
+	margin: 0 0 0 0;
+	padding: 7px 0 7px 0;
 	list-style: none;
 	background: transparent url(../../img/lines/be_dotted_line.gif) repeat-x left top;
+}
+ul#tabs li:hover {
+	background-color: #F3F5F8;
+	cursor: move;
+}
+ul#tabs li.nomove, 
+ul#tabs li.nomove:hover {
+	background: #F3F5F8;
+	cursor: auto;
+	border-top: 1px solid #4E789F;
+	border-bottom: 1px solid #4E789F;
+	margin-top: 10px;
 }
