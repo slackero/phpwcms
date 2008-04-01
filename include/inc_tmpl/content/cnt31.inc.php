@@ -368,21 +368,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		setCimageCenterInactive();
 		updatePreviewImageAll();
 
-		new Sortables($('images')); /*, {
-	 
-			initialize: function(){
-				var step = 0;
-				this.elements.each(function(element, i){
-					var color = [step, 82, 87].hsbToRgb();
-					element.setStyle('background-color', color);
-					step = step + 35;
-					//element.setStyle('height', $random(40, 100));
-				});
-			}
-		
-		 
-		});
-		*/
+		new Sortables($('images'));
 
 	});
 	

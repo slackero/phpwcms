@@ -94,40 +94,6 @@ switch($wysiwyg_editor['editor']) {
 			$oFCKeditor->Create();
 			break;
 
-	/*
-	//load spaw editor
-	case 3:
-	case 4:
-	case 5:
-			// first do a check if translation for given language exists
-			$spaw_language_check 		= strtolower(str_replace('-', '', PHPWCMS_CHARSET));
-			$wysiwyg_editor['lang']		= strtolower($wysiwyg_editor['lang']);
-			
-			$spaw_language_folder	= $wysiwyg_editor['lang'].'-'.$spaw_language_check;
-			$spaw_language_file		= $wysiwyg_editor['lang'].'-'.$spaw_language_check.'_lang_data.inc.php';
-	
-			if(file_exists(PHPWCMS_ROOT.'/include/inc_ext/spaw/lib/lang/'.$spaw_language_folder.'/'.$spaw_language_file)) {
-				$wysiwyg_editor['lang'] = $spaw_language_folder;
-			} elseif(!file_exists(PHPWCMS_ROOT.'/include/inc_ext/spaw/lib/lang/'.$wysiwyg_editor['lang'].'/'.$wysiwyg_editor['lang'].'_lang_data.inc.php')) {
-				$wysiwyg_editor['lang'] = 'en';
-			}
-			if(empty($wysiwyg_spaw_template)) {
-				$wysiwyg_spaw_template = $_SESSION['WYSIWYG_TEMPLATE'];
-			}
-			include_once(PHPWCMS_ROOT.'/include/inc_ext/spaw/spaw_control.class.php');
-
-			$sw = new SPAW_Wysiwyg( $wysiwyg_editor['field'], 
-									$wysiwyg_editor['value'], 
-									$wysiwyg_editor['lang'],
-									$wysiwyg_spaw_template,
-									'default', 
-									$wysiwyg_editor['width'],
-									$wysiwyg_editor['height']
-								   );
-			$sw->show();
-			break;
-	*/
-
 	// just show general textarea
 	default:	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
 				echo '" class="v12" id="'.$wysiwyg_editor['field'].'" ';
