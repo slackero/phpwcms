@@ -82,7 +82,7 @@ switch ($do) {
 						include_once(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
 						include_once(PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'); //loading article funtions
 						$subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", $p, "", 0);
-						$subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1", $p, "1", 0);
+						$subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
 						$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 						$subnav .= subnavtext($BL['be_news'], "phpwcms.php?do=articles&amp;p=3", $p, "3", 0);
 						break;
