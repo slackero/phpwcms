@@ -282,4 +282,9 @@ $template_default['body']['class'] = '';
 // target URL for login form - this is where the user is redirected to
 $template_default['login_form_url'] = PHPWCMS_URL;
 
+// some texts are cut by default and if cutted the missing part is 
+// shorten by "..." - that sign is defined here - default "&#8230;"
+$template_default['ellipse_sign'] = '&#8230;';
+
+
 ?>

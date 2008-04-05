@@ -292,7 +292,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						
 						if(empty($content['alink']['alink_wordlimit']) && !empty($row['article_image']['list_maxwords'])) $content['alink']['alink_wordlimit'] = $row['article_image']['list_maxwords'];
 						$row['article_summary'] = empty($content['alink']['alink_allowedtags']) ? strip_tags($row['article_summary']) : strip_tags($row['article_summary'], $content['alink']['alink_allowedtags']);
-						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUMMARY', empty($content['alink']['alink_wordlimit']) ? $row['article_summary'] : getCleanSubString($row['article_summary'], $content['alink']['alink_wordlimit'], '&#8230;', 'word'));
+						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUMMARY', empty($content['alink']['alink_wordlimit']) ? $row['article_summary'] : getCleanSubString($row['article_summary'], $content['alink']['alink_wordlimit'], $template_default['ellipse_sign'], 'word'));
 					
 					}
 					

@@ -236,7 +236,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$s_list[$s_run]["user"]		= $s_user;
 					$s_list[$s_run]['query']	= 'aid='.$s_id;
 					
-					$s_list[$s_run]["text"]		= getCleanSubString($s_text, $content['search']['wordlimit'], '&#8230;', 'word');
+					$s_list[$s_run]["text"]		= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
 					$s_list[$s_run]["text"]		= html_specialchars($s_list[$s_run]["text"]);
 					if($content['search']['highlight_result']) {
 						$s_list[$s_run]["text"] = highlightSearchResult($s_list[$s_run]["text"], $content['highlight']);

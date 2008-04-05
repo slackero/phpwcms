@@ -218,7 +218,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 		$content['glossary']['entries'][$_entry_key] = render_cnt_template($content['glossary']['entries'][$_entry_key], 'TITLE', html_specialchars($_entry_value['glossary_title']));
 		
 		if(!empty($content['glossary']['glossary_maxwords']) && !$_no_entry) {
-			$_entry_value['glossary_text'] = getCleanSubString(strip_tags($_entry_value['glossary_text']), $content['glossary']['glossary_maxwords'], '&#8230;', 'word');
+			$_entry_value['glossary_text'] = getCleanSubString(strip_tags($_entry_value['glossary_text']), $content['glossary']['glossary_maxwords'], $template_default['ellipse_sign'], 'word');
 		}
 		$content['glossary']['entries'][$_entry_key] = render_cnt_template($content['glossary']['entries'][$_entry_key], 'TEXT', $_entry_value['glossary_text']);
 		
