@@ -281,7 +281,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		if($row['article_paginate'] && $aktion[2] != 1) { // no pagination in print mode
 			
 			// use an IF because acontent_paginate_page=1 is the same as acontent_paginate_page=0
-			$sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page ";
+			$sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page, ";
+			$sql_cnt .= "acontent_paginate_title ";
 			$sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
 			$sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 ";
 			
@@ -294,15 +295,31 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			
 			if(($paginate_count = count($sql_cnt)) > 1) {
 			
-				$content['CpPages']		= array();
-				$_CpPaginate			= true;
+				$content['CpPages']			= array();
+				$content['CpPageTitles']	= array();
+				$_CpPaginate				= true;
 					
 				foreach($sql_cnt as $crow) {
+	
 					$content['CpPages'][ $crow['acontent_paginate_page'] ] = $paginate_count; // set page numbers
+					
+					// set content part pagination title
+					if(!isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ])) {
+
+						$content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] == '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
+					
+					// check if content part title is set but starts with '#'
+					} elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] != '' && $content['CpPageTitles'][ $crow['acontent_paginate_page'] ]{0} == '#') { 
+						
+						$content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'];
+						
+					}
+
 					$paginate_count--;
 				}
 	
-				$content['CpPages']		= array_reverse($content['CpPages'], true);
+				$content['CpPages']			= array_reverse($content['CpPages'], true);
+				$content['CpPageTitles']	= array_reverse($content['CpPageTitles'], true);
 				
 				// check if given cp paginate page is valid, and reset to page 1 (=0)
 				// same happens for 1 because this will always be used like it is 0

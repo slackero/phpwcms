@@ -806,6 +806,80 @@ if(!empty($_CpPaginate)) {
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT');
 	}
 	
+	// search for content part pagination title menu
+	if(strpos($content['all'], '[CP_PAGINATE_MENU')) {
+	
+		/**
+		 * search for custom cp menu parameters
+		 *
+		 * [0] => item_prefix
+		 * [1] => item_suffix
+		 * [2] => active_class
+		 * [3] => hide_active
+		 * [4] => menu_prefix
+		 * [5] => menu_suffix
+		 */
+		if( preg_match('/\[CP_PAGINATE_MENU:(.*?)\]/', $content['all'], $match) ) {
+		
+			$content['all']					= str_replace($match[0], '[CP_PAGINATE_MENU]', $content['all']);
+			$content['CpTitleParams']		= explode('|', $match[1]);
+			if(!isset($content['CpTitleParams'][1])) {
+				$content['CpTitleParams'][1] = '';
+			}
+			$content['CpTitleParams'][2] = empty($content['CpTitleParams'][2]) ? '' : trim($content['CpTitleParams'][2]);
+			$content['CpTitleParams'][3] = empty($content['CpTitleParams'][3]) ? 0 : 1 ;
+			$content['CpTitleParams'][4]	= '';
+			$content['CpTitleParams'][5]	= '';
+		
+		} else {
+		
+			$content['CpTitleParams'][0]	= '<li>';
+			$content['CpTitleParams'][1]	= '</li>';
+			$content['CpTitleParams'][2]	= 'active';
+			$content['CpTitleParams'][3]	= 0;
+			$content['CpTitleParams'][4]	= '<ul class="cpmenu">';
+			$content['CpTitleParams'][5]	= '</ul>';			
+		
+		}
+		
+		$content['CpTitleMenu'] = array();
+
+		// cp menu items
+		foreach($content['CpPageTitles'] as $key => $value) {
+			
+			$content['CpItem']  = '<a href="index.php?aid='.$aktion[1];
+			
+			if($key) {
+				$content['CpItem'] .= '-'.$key;
+			}
+			
+			$content['CpItem'] .= $content['CpPaginateNaviGET'].'"';
+			
+			if($key == $content['aId_CpPage']) {
+				
+				if(!empty($content['CpTitleParams'][3])) {
+					continue;
+				}
+				
+				if(!empty($content['CpTitleParams'][2])) {
+					$content['CpItem'] .= ' class="'.$content['CpTitleParams'][2].'"';
+				}
+				
+			}
+
+			$content['CpItem'] .= '>'.html_specialchars($value).'</a>';
+			$content['CpTitleMenu'][] = $content['CpTitleParams'][0] . $content['CpItem'] . $content['CpTitleParams'][1];
+		}
+		
+		// cp menu prefix/suffix
+		if(count($content['CpTitleMenu'])) {
+			$content['CpTitleMenu'][] = $content['CpTitleParams'][5];
+			array_unshift($content['CpTitleMenu'], $content['CpTitleParams'][4]);
+		}
+
+		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_MENU', implode(LF, $content['CpTitleMenu']));
+	}
+	
 	
 } elseif(strpos($content['all'], 'CP_PAGINATE')) {
 
