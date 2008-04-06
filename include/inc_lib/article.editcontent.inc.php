@@ -199,8 +199,10 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) $article["article_timeout"] = '0'; //check if cache = Off
 		
 		if($_SESSION["wcs_user_admin"]) {
-			$article["article_uid"]			= intval($_POST["article_uid"]);
-			if(!$article["article_uid"]) $article["article_uid"] = $_SESSION["wcs_user_id"];			
+			$article["article_uid"]		= isset($_POST["article_uid"]) ? intval($_POST["article_uid"]) : $_SESSION["wcs_user_id"];
+		}
+		if(empty($article["article_uid"])) {
+			$article["article_uid"] = $_SESSION["wcs_user_id"];
 		}
 		
 		$article["article_username"]	= clean_slweg($_POST["article_username"],100);

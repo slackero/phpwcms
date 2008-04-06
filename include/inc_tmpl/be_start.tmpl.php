@@ -46,19 +46,24 @@ if(isset($_POST['homeMaxCntParts'])) {
 if(!$_phpwcms_home['homeMaxArticles']) $_phpwcms_home['homeMaxArticles'] = 5;
 if(!$_phpwcms_home['homeMaxCntParts']) $_phpwcms_home['homeMaxCntParts'] = 5;
 
+// set if user has admin rights
+$_usql = $_SESSION["wcs_user_admin"] ? '' : 'AND article_uid='.intval($_SESSION["wcs_user_id"]).' ';
 
-
-// first list last 10 edited articles
+// first list last edited articles
 $_asql_1  = "SELECT *, DATE_FORMAT(acontent_tstamp, '%d/%m/%Y %H:%i') AS acontent_changed FROM ".DB_PREPEND."phpwcms_articlecontent ";
 $_asql_1 .= "LEFT JOIN ".DB_PREPEND."phpwcms_article ON ";
 $_asql_1 .= DB_PREPEND."phpwcms_articlecontent.acontent_aid = ".DB_PREPEND."phpwcms_article.article_id "; 
-$_asql_1 .= 'WHERE acontent_trash=0 AND article_deleted=0 ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
+$_asql_1 .= 'WHERE acontent_trash=0 AND article_deleted=0 ';
+$_asql_1 .= $_usql;
+$_asql_1 .= 'ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
 $_last10_articlecontent = _dbQuery($_asql_1);
 
 $_asql_1  = "SELECT article_id, article_cid, article_title, article_public, article_aktiv, article_uid, ";
 $_asql_1 .= "date_format(article_tstamp, '%d/%m/%Y %H:%i') AS article_date ";
 $_asql_1 .= "FROM ".DB_PREPEND."phpwcms_article ";
-$_asql_1 .= 'WHERE article_deleted=0 ORDER BY article_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxArticles'];
+$_asql_1 .= 'WHERE article_deleted=0 ';
+$_asql_1 .= $_usql;
+$_asql_1 .= 'ORDER BY article_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxArticles'];
 $_last10_article = _dbQuery($_asql_1);
 
 
