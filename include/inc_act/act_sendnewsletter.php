@@ -203,28 +203,6 @@ if(!$newsletter) {
 				$mail->IsHTML(0);
 			}
 			
-					// update newsletter queue
-			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_newsletterqueue SET ';
-			$sql .= 'queue_changed=NOW(), ';
-			if(!($mailresult = $mail->Send())) {
-				// save error information
-				$sql .= 'queue_status=2, ';
-				$sql .= "queue_errormsg='".aporeplace($mail->ErrorInfo)."' ";
-			} else {
-				// save success
-				$sql .= 'queue_status=1 ';
-			}
-			$sql .= 'WHERE queue_id='.$value['queue_id'];
-			
-			@_dbQuery($sql, 'UPDATE');
-			
-			if($mailresult == false) {
-				echo '<p>'.$value['address_email'].' ('.$mail->ErrorInfo.')</p>';
-			} else {
-				echo '. ';
-			}
-			flush();
-			
 			// update newsletter queue
 			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_newsletterqueue SET ';
 			$sql .= 'queue_changed=NOW(), ';
