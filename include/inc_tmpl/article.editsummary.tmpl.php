@@ -616,7 +616,7 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 					<td>&nbsp;</td>
 					<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" /></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles<?php echo $article["article_id"] ? '&amp;p=2&amp;s=1&amp;id='.$article["article_id"] : '' ?>'" /></td>
+					<td><input name="donotsubmit" type="submit" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" /></td>
 					</tr></table></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
@@ -648,6 +648,10 @@ window.addEvent('domready', function(){
 
 });
 
+function cancelEdit() {
+	document.location.href='phpwcms.php?do=articles<?php echo $article["article_id"] ? '&p=2&s=1&id='.$article["article_id"] : '' ?>';
+	return false;
+}
 
 //-->
 </script>
