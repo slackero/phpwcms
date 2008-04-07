@@ -60,7 +60,7 @@ function FCKeditor_IsCompatibleBrowser()
 	else if ( strpos($sAgent, 'Opera/') !== false )
 	{
 		$fVersion = (float)substr($sAgent, strpos($sAgent, 'Opera/') + 6, 4) ;
-		return ($fVersion >= 9.5) ;
+		return ($fVersion >= 9.2) ;
 	}
 	else if ( preg_match( "|AppleWebKit/(\d+)|i", $sAgent, $matches ) )
 	{

@@ -286,7 +286,7 @@ function FCKeditor_IsCompatibleBrowser()
 		return true ;
 
 	// Opera 9.50+
-	if ( window.opera && window.opera.version && parseFloat( window.opera.version() ) >= 9.5 )
+	if ( window.opera && window.opera.version && parseFloat( window.opera.version() ) >= 9.2 )
 		return true ;
 
 	// Adobe AIR
