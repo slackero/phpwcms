@@ -24,13 +24,19 @@ ul#tabs li.tab {
 }
 ul#tabs li:hover {
 	background-color: #F3F5F8;
-	cursor: move;
 }
 ul#tabs li.nomove, 
 ul#tabs li.nomove:hover {
 	background: #F3F5F8;
-	cursor: auto;
-	border-top: 1px solid #4E789F;
-	border-bottom: 1px solid #4E789F;
-	margin-top: 10px;
+}
+
+em.handle {
+	float: left;
+	width: 16px;
+	height: 16px;
+	background: transparent url(../../img/button/sort_up_down.gif) no-repeat left top;
+	position: relative;
+	top: -2px;
+	left: 5px;
+	cursor: move;
 }

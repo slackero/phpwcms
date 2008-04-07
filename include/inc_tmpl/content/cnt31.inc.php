@@ -247,6 +247,9 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	<ul id="images">
 
 <?php
+
+	// Sort/Up Down Title
+	$sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
 	
 	// loop available image entries
 	foreach($content['image_special']['images'] as $key => $value) {
@@ -291,7 +294,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	<tr>
 		<td class="chatlist right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
 		<td><input type="text" name="cimage_url[<?php echo $key ?>]" id="cimage_url_<?php echo $key ?>" class="v11 w300" size="30" value="<?php echo html_specialchars($value['url']) ?>" /></td>
-		<td>&nbsp;</td>
+		<td><em title="<?php echo $sort_up_down; ?>" class="handle">&nbsp;</em></td>
 		<td><a href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /></a></td>
 	</tr>
 	
@@ -368,7 +371,9 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		setCimageCenterInactive();
 		updatePreviewImageAll();
 
-		new Sortables($('images'));
+		new Sortables($('images'), {
+			handles: 'em'
+		});
 
 	});
 	
@@ -470,7 +475,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		new_entry += '<'+'tr>';
 		new_entry += '<'+'td class="chatlist right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;<'+'/td>';
 		new_entry += '<'+'td><input type="text" name="cimage_url['+entry_number+']" id="cimage_url_'+entry_number+'" class="v11 w300" size="30" value="" /><'+'/td>';
-		new_entry += '<'+'td>&nbsp;</'+'td>';
+		new_entry += '<'+'td>&nbsp;<'+'/td>';
 		new_entry += '<'+'td><a href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /'+'><'+'/a></'+'td>';
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'/table>';

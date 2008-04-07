@@ -101,6 +101,9 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 
 <?php
 
+	// Sort/Up Down Title
+	$sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
+
 	foreach($content['tabs'] as $key => $value) {
 
 ?>
@@ -109,7 +112,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 			<table cellpadding="0" cellspacing="0" border="0" summary="">
 			
 				<tr>
-					<td class="chatlist col1w" align="right"><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
+					<td class="chatlist col1w" align="right"><em class="handle" title="<?php echo $sort_up_down; ?>">&nbsp;</em><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
 					<td class="tdbottom2"><input type="text" name="tabtitle[<?= $key ?>]" id="tabtitle<?= $key ?>" value="<?= html_specialchars($value['tabtitle']) ?>" class="f11b width400" /></td>			
 					<td><a href="#" onclick="return deleteTab('tab<?php echo $key ?>');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a></td>
 				</tr>				
@@ -163,11 +166,13 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 			entry    +=	'<tr><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="v12" ';
 			entry    +=	'style="width:536px;height:150px;"><'+'/textarea><'+'/td><'+'/tr><'+'/table>';
 			
-			var tab = new Element('li', {'id': 'tab'+entries, 'class': 'tab'} ).setHTML( entry ).injectInside( $('tabs') );
-			
+			var tab = new Element('li', {'id': 'tab'+entries, 'class': 'tab nomove'} ).setHTML( entry ).injectInside( $('tabs') );
+						
 			if(wysiwyg) {
 				EnableFCK(entries);
 			}
+			
+			//makeSortable();
 	
 			window.scrollTo(0, tab.getCoordinates()['top']);
 			
@@ -182,9 +187,13 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 			}
 		}
 		
-		new Sortables($('tabs'));
+		makeSortable();
 	
 	});
+	
+	function makeSortable() {
+		var s = new Sortables( $('tabs'), { handles: 'em' } );
+	}
 	
 	function EnableFCK(x) {
 

@@ -11,12 +11,10 @@ ul#images li {
 }
 ul#images li:hover {
 	background-color: #F3F5F8;
-	cursor: move;
 }
 ul#images li.nomove, 
 ul#images li.nomove:hover {
 	background: #F3F5F8;
-	cursor: auto;
 	border-top: 1px solid #4E789F;
 	border-bottom: 1px solid #4E789F;
 	margin-top: 10px;
@@ -54,4 +52,14 @@ button span.btn_image_add {
 	padding: 2px 4px 2px 22px;
 	background: url(../../img/famfamfam/image_add.gif) no-repeat left center;
 	float: left;
+}
+
+em.handle {
+	float: right;
+	width: 16px;
+	height: 16px;
+	background: transparent url(../../img/button/sort_up_down.gif) no-repeat left top;
+	position: relative;
+	cursor: move;
+	right: 2px;
 }
