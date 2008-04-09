@@ -923,4 +923,110 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 // remove all useless replacement tags
 $content["pagetitle"] = sanitize_replacement_tags($content["pagetitle"]);
 
+// now we should search all ?aid=123 and/or ?id=123 and replace'em by the real alias if available
+$match = array();
+preg_match_all('/index.php\?(a{0,1}id)=([\d\,]+)(["|&])/', $content['all'], $match);
+
+if( isset($match[1]) && isset($match[2]) ) {
+
+	$all_id		= array();
+	$sql_id		= '';
+	
+	$all_aid	= array();
+	$sql_aid	= '';
+	
+	$old_style	= false;
+
+	foreach($match[2] as $key => $value) {
+	
+		if($match[1][$key] == 'id') {
+			
+			if(strpos($match[2][$key], ',')) {
+			
+				$old_style	= true;
+				
+				$this_id	= 0;
+				$this_aid	= 0;
+				
+				list($this_id, $this_aid) = explode(',', $match[2][$key]);
+				
+				if( $this_aid = intval($this_aid) ) {
+				
+					$all_aid[ $this_aid ]	= $this_aid;
+					
+				} elseif( $this_id = intval($this_id) ) {
+				
+					$all_id[ $this_id ]		= $this_id;
+				
+				}
+			
+			} else {
+	
+				$all_id[ $match[2][$key] ]	= $match[2][$key];
+	
+			}			
+				
+		} else {
+		
+			$all_aid[ $match[2][$key] ]	= $match[2][$key];
+		
+		}	
+	}
+	
+	if(count($all_id)) {
+		$sql_id   = "SELECT 'id' AS alias_type, acat_id AS id, 0 AS aid, acat_alias AS alias FROM ".DB_PREPEND.'phpwcms_articlecat ';
+		$sql_id  .= 'WHERE acat_id IN (' . implode(',', $all_id) . ") AND acat_alias != ''";
+	}	
+	
+	if(count($all_aid)) {
+		$sql_aid  = "SELECT 'aid' AS alias_type, article_cid AS id, article_id AS aid, article_alias AS alias FROM ".DB_PREPEND.'phpwcms_article ';
+		$sql_aid .= 'WHERE article_id IN (' . implode(',', $all_aid) . ") AND article_alias != ''";
+	}
+
+	if($sql_id && $sql_aid) {
+	
+		$sql = '(' . $sql_id . ') UNION (' . $sql_aid . ')';
+	
+	} else {
+	
+		$sql = $sql_id . $sql_aid ;
+	
+	}
+	
+	$match = _dbQuery($sql);
+
+	if(isset($match[0])) {
+	
+		foreach($match as $value) {
+	
+			$value['alias'] = html_specialchars($value['alias']);
+
+			if($value['alias_type'] == 'id') { 
+			
+				$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
+				$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+			
+			} else {
+			
+				$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
+				$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+			
+			}
+			
+			// search also for id=0,0,...
+			if( $old_style == true ) {
+			
+				$value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
+			
+				$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
+				$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+
+			}
+			
+		}
+	
+	}
+	
+}
+
 ?>

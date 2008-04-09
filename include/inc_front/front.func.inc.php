@@ -2179,8 +2179,8 @@ function get_index_link_next($linktext, $cat_down=0) {
 		if($content['cat_id']) {
 			foreach($content['struct'] as $key => $value) {
 				if($content['struct'][$key]['acat_struct'] == $content['cat_id']) {
-					$link  = '<a href="index.php?id=';
-					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+					$link  = '<a href="index.php?';
+					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
 					$link .= '">';
 					break;
 				}
@@ -2189,8 +2189,8 @@ function get_index_link_next($linktext, $cat_down=0) {
 			$c = 0;
 			foreach($content['struct'] as $key => $value) {
 				if($c) {
-					$link  = '<a href="index.php?id=';
-					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+					$link  = '<a href="index.php?';
+					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
 					$link .= '">';
 					break;
 				}
@@ -2215,8 +2215,8 @@ function get_index_link_next($linktext, $cat_down=0) {
 						
 						$key = $temp_key[$c+1];
 						
-						$link  = '<a href="index.php?id=';
-						$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+						$link  = '<a href="index.php?';
+						$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
 						$link .= '">';
 						break;
 					}
@@ -2234,9 +2234,8 @@ function get_index_link_next($linktext, $cat_down=0) {
 						foreach($content['struct'] as $key => $value) {
 							if($content['struct'][$key]['acat_struct'] == $parent_struct_id) {
 								if($c) {
-									//$link = '<a href="index.php?id='.$key.',0,0,1,0,0">';
-									$link  = '<a href="index.php?id=';
-									$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias'];
+									$link  = '<a href="index.php?';
+									$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
 									$link .= '">';
 									break;
 								}
