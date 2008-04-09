@@ -760,7 +760,7 @@ if(!empty($_CpPaginate)) {
 	$content['all'] = str_replace(array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->'), '', $content['all']);
 	
 	unset($_getVar['aid'], $_getVar['id']);
-	$content['CpPaginateNaviGET']	= returnGlobalGET_QueryString('htmlentities');
+	$content['CpPaginateNaviGET']	= returnGlobalGET_QueryString('htmlentities', array(), defined('PHPWCMS_ALIAS') ? array(PHPWCMS_ALIAS) : array());
 	if(!empty($content['CpPaginateNaviGET']) && $content['CpPaginateNaviGET']{0} == '?') {
 		$content['CpPaginateNaviGET'] = '&amp;'.substr($content['CpPaginateNaviGET'], 1);
 	}
