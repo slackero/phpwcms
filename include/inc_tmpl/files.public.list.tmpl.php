@@ -73,7 +73,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 		$user_counter=0;
 		while($row = mysql_fetch_array($result)) {
 			//Prüfen
-			$pklapp_status = true_false($pklapp[("u".$row["f_uid"])]);
+			$pklapp_status = isset($pklapp[ "u".$row["f_uid"] ]) ? true_false($pklapp[ "u".$row["f_uid"] ]) : 1;
 			$root_user_id = intval($row["f_uid"]);
 			$user_naming = html_specialchars($row["usr_name"]." (".$row["usr_login"].")");
 			$count = "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">".
