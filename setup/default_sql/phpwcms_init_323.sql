@@ -440,10 +440,14 @@ CREATE TABLE `phpwcms_content` (
   `cnt_lang` varchar(10) NOT NULL default '',
   `cnt_object` text NOT NULL,
   PRIMARY KEY  (`cnt_id`),
-  KEY `cnt_pid` (`cnt_pid`,`cnt_type`,`cnt_group`,`cnt_owner`,`cnt_alias`),
   KEY `cnt_livedate` (`cnt_livedate`),
   KEY `cnt_killdate` (`cnt_killdate`),
-  KEY `cnt_module` (`cnt_module`)
+  KEY `cnt_module` (`cnt_module`),
+  KEY `cnt_type` (`cnt_type`),
+  KEY `cnt_group` (`cnt_group`),
+  KEY `cnt_owner` (`cnt_owner`),
+  KEY `cnt_alias` (`cnt_alias`),
+  KEY `cnt_pid` (`cnt_pid`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------
