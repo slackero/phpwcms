@@ -228,7 +228,7 @@ $BL['be_fprivup_upload']                = 'ubaci';
 $BL['be_fprivedit_title']               = 'promjeni informaciju o datoteci';
 $BL['be_fprivedit_filename']            = 'ime datoteke';
 $BL['be_fprivedit_created']             = 'kreirana';
-$BL['be_fprivedit_dateformat']          = 'mjecec-dan-Godina sat:minuta';
+$BL['be_fprivedit_dateformat']          = 'd-m-Y H:i';
 $BL['be_fprivedit_err1']                = 'provjeri ime datoteke (vrati nazad na originalno ime)';
 $BL['be_fprivedit_clockwise']           = 'okreni malu slicicu u smjeru kazaljke  [original +90&stepeni;]';
 $BL['be_fprivedit_cclockwise']          = 'okreni malu slicicu u suprotnom smjeru kazaljke [original -90&stepeni;]';
@@ -725,7 +725,7 @@ $BL['be_newsletter_fromname']           = 'od';
 $BL['be_newsletter_fromemail']          = 'od email';
 $BL['be_newsletter_replyto']            = 'odgovor na email';
 $BL['be_newsletter_changed']            = 'zadnja izmjena';
-$BL['be_newsletter_placeholder']        = 'drzac mjesta';
+$BL['be_newsletter_placeholder']        = 'pozicioner';
 $BL['be_newsletter_htmlpart']           = 'HTML newsletter sadrzaj';
 $BL['be_newsletter_textpart']           = 'TEKST newsletter sadrzaj';
 $BL['be_newsletter_allsubscriptions']   = 'sve pretplate';
@@ -969,16 +969,16 @@ $BL['be_admin_struct_remove_all']    = 'odstrani sve korisnike';
 $BL['be_admin_struct_remove_this']   = 'odstrani oznacene korisnike';
 
 
-$BL['be_ctype_alias'] = 'drugo ime za dio sadrzaja';
+$BL['be_ctype_alias'] = 'alias za dio sadrzaja';
 $BL['be_cnt_setting'] = 'preuzmi';
-$BL['be_cnt_spaces'] = 'razmak drugog imena za dio sadrzaja';
-$BL['be_cnt_toplink'] = 'podesavanja linka za vrh drugog imena za dio sadrzaja';
-$BL['be_cnt_block'] = 'prikazi (blok) podesavanja drugog imena za dio sadrzaja';
-$BL['be_cnt_title'] = 'naslovi drugih imena za dio sadrzaja';
+$BL['be_cnt_spaces'] = 'razmak aliasa za dio sadrzaja';
+$BL['be_cnt_toplink'] = 'podesavanja linka za vrh aliasa za dio sadrzaja';
+$BL['be_cnt_block'] = 'prikazi (blok) podesavanja aliasa za dio sadrzaja';
+$BL['be_cnt_title'] = 'naslovi aliasa za dio sadrzaja';
 
 $BL['be_file_replace'] = 'Premjesti datoteke';
 
-$BL['be_alias_articleID'] = 'ID broj drugog imena';
+$BL['be_alias_articleID'] = 'ID broj aliasa';
 $BL['be_alias_useAll'] = "iskoristi naslov ovog sadrzaja";
 $BL['be_article_morelink'] = '[vise&#8230;] adresa';
 $BL['be_admin_tmpl_copy']               = 'kopiraj predlozak'; 
