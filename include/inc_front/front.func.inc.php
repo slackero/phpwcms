@@ -3240,6 +3240,7 @@ function setPageTitle($pagetitle, $cattitle, $articletitle, $title_order=NULL) {
 	
 	}
 	$title = array_diff($title, array('', NULL, false));
+	$title = array_unique($title);
 	$title = trim(implode($title_spacer, $title));
 	return ($title === '') ? $pagetitle : $title;
 }
