@@ -59,8 +59,8 @@ FCKeditor.MinHeight = 200 ;
  */
 FCKeditor.MinWidth = 750 ;
 
-FCKeditor.prototype.Version			= '2.6 RC' ;
-FCKeditor.prototype.VersionBuild	= '18531' ;
+FCKeditor.prototype.Version			= '2.6' ;
+FCKeditor.prototype.VersionBuild	= '18638' ;
 
 FCKeditor.prototype.Create = function()
 {
@@ -286,7 +286,7 @@ function FCKeditor_IsCompatibleBrowser()
 		return true ;
 
 	// Opera 9.50+
-	if ( window.opera && window.opera.version && parseFloat( window.opera.version() ) >= 9.2 )
+	if ( window.opera && window.opera.version && parseFloat( window.opera.version() ) >= 9.5 )
 		return true ;
 
 	// Adobe AIR
