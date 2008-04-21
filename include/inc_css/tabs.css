@@ -1,9 +1,12 @@
 button.btn_add_tab {
 	width: auto;
+	white-space: nowrap;
+	padding: 0 2px 0 2px;
+	margin: 5px 0 0 0;
 }
 button.btn_add_tab span {
-	padding: 2px 4px 2px 22px;
-	background: url(../../img/famfamfam/tab_add.gif) no-repeat left center;
+	padding: 2px 4px 2px 30px;
+	background: url(../../img/famfamfam/tab_add.gif) no-repeat 5px center;
 	float: left;
 	font-size: 11px;
 }

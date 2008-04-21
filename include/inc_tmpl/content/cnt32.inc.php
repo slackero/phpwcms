@@ -148,9 +148,8 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 	
 	window.addEvent('domready', function() {
 
-		var col1w	= $('col_1_width').getCoordinates();
 		var head	= document.getElementsByTagName('head');
-		new Element('style', {'type': 'text/css'} ).setHTML('td.col1w {width: ' + col1w['width'] + 'px;}').injectInside( head[0] );
+		//new Element('style', {'type': 'text/css'} ).setText('td.col1w {width: ' + col1w['width'] + 'px;}').injectInside( head[0] );
 		
 		var entries = $('tabs').getChildren().length;
 		
@@ -188,6 +187,15 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 		}
 		
 		makeSortable();
+		
+		/*
+		var col1w	= $('col_1_width').getCoordinates();
+		
+		alert(col1w['width']);
+		$$('td.col1w').each( function(el) {
+			el.setStyle('width', col1w['width'] + 'px');
+		});
+		*/
 	
 	});
 	
