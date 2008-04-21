@@ -104,7 +104,7 @@ function renderAds($match) {
 
 	$ad_media	= '';
 	$ad_title	= ' title="'.html_specialchars($ad['adcampaign_data']['title_text'] ? $ad['adcampaign_data']['title_text'] : $ad['adcampaign_data']['url']).'"';
-	$ad_alt		= $ad['adcampaign_data']['alt_text'] ? ' alt="'.html_specialchars($ad['adcampaign_data']['alt_text']).'"' : '';
+	$ad_alt		= $ad['adcampaign_data']['alt_text'] ? ' alt="'.html_specialchars($ad['adcampaign_data']['alt_text']).'"' : ' alt=""';
 	$ad_wxh		= ' style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;"';
 	$ad_imgsrc	= $ad['content_dir'].$ad['adcampaign_data']['image'];
 	$ad_swfsrc	= $ad['content_dir'].$ad['adcampaign_data']['flash'];
