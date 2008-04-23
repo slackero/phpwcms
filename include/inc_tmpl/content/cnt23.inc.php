@@ -133,8 +133,8 @@ $for_select 	= '';
 $for_select_2	= '';
 
 // always disable switching content part for form - too complex settings and better to safe the user for himself
-$BE['BODY_CLOSE'][] = '<script language="javascript" type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
 initMootools();
+$BE['BODY_CLOSE'][] = '<script language="javascript" type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
 
 ?>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /><input type="hidden" name="target_ctype" value="23" /></td></tr>
@@ -167,27 +167,30 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
   
   		switch($content['form']["fields"][$key]['type']) {
 		
-			case 'text':	$for_copy 		= true;
-							$for_sendername	= true;
-							$for_subject	= true;
-							break;
+			case 'text':		$for_copy 		= true;
+								$for_sendername	= true;
+								$for_subject	= true;
+								break;
 							
-			case 'email':	$for_copy 		= true;
-							$for_email 		= true;
-							$for_sendername	= true;
-							break;
+			case 'email':		$for_copy 		= true;
+								$for_email 		= true;
+								$for_sendername	= true;
+								break;
 							
-			case 'hidden':	$for_copy 		= true;
-							$for_subject	= true;
-							break;
+			case 'selectemail':	$for_copy 		= true;
+								$for_email 		= true;
+								break;
 							
-			case 'newsletter':
-							$for_newsletter		= true;
-							break;
+			case 'hidden':		$for_copy 		= true;
+								$for_subject	= true;
+								break;
+							
+			case 'newsletter':	$for_newsletter		= true;
+								break;
 							
 			case 'select':
-			case 'list':	$for_subject	= true;
-							break;
+			case 'list':		$for_subject	= true;
+								break;
 		}
 		
 		if($for_subject) {
@@ -565,6 +568,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 			case 'password':
 			case 'hidden':
 			case 'select':
+			case 'selectemail':
 			case 'radio':			// default hide/show
 									if($content['form']["saveprofile"]) {
 										echo ', 4';
@@ -633,6 +637,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<option value="hidden"'. 		is_selected('hidden', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['hidden'].'</option>'."\n";
 		echo '<option value="password"'. 	is_selected('password', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['password'].'</option>'."\n";
 		echo '<option value="email"'. 		is_selected('email', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['email'].'</option>'."\n";
+		echo '<option value="selectemail"'.	is_selected('selectemail',	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['selectemail'].'</option>'."\n";
 		echo '<option value="select"'. 		is_selected('select', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['select'].'</option>'."\n";
 		echo '<option value="list"'. 		is_selected('list', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['list'].'</option>'."\n";
 		echo '<option value="newsletter"'. 	is_selected('newsletter', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['newsletter'].'</option>'."\n";
@@ -744,6 +749,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 	<option value="hidden"><?php echo $BL['be_cnt_field']['hidden'] ?></option>
 	<option value="password"><?php echo $BL['be_cnt_field']['password'] ?></option>
 	<option value="email"><?php echo $BL['be_cnt_field']['email'] ?></option>
+	<option value="selectemail"><?php echo $BL['be_cnt_field']['selectemail'] ?></option>
 	<option value="select"><?php echo $BL['be_cnt_field']['select'] ?></option>
 	<option value="list"><?php echo $BL['be_cnt_field']['list'] ?></option>
 	<?php

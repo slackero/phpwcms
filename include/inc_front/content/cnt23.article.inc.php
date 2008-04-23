@@ -375,8 +375,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_field .= ' autocomplete="off" />';
 								break;
 
+			case 'selectemail':
 			case 'select'	:	/*
-								 * Menü
+								 * Select menu
 								 */
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
@@ -384,6 +385,23 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 									} else {
 										$cnt_form["fields"][$key]['value'] = str_replace(' selected', '', $cnt_form["fields"][$key]['value']);
+									}
+								}
+								//
+								if($cnt_form["fields"][$key]['type'] == 'selectemail' && $POST_DO && empty($POST_ERR[$key]) ) {
+								
+									// check if message should be delivered to email address of this field
+									if( ($cnt_form['targettype'] == 'emailfield_'.$POST_name)  && is_valid_email($POST_val[$POST_name])) {
+										if(empty($cnt_form['target'])) {
+											$cnt_form['target'] = $POST_val[$POST_name];
+										} else {
+											$cnt_form['target'] = $POST_val[$POST_name].';'.$cnt_form['target'];
+										}
+									}
+									//
+									// check if message should be sent by email address of this field
+									if( ($cnt_form['sendertype'] == 'emailfield_'.$POST_name) && is_valid_email($POST_val[$POST_name])) {
+										$cnt_form['sender'] = $POST_val[$POST_name];
 									}
 								}
 								//
@@ -420,6 +438,16 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											}
 											continue;							
 										}
+										
+										// check if select item has specila value and name
+										$option_value = explode('-|-', $option_value, 2);
+										$option_label = $option_value[0];
+										$option_value = isset($option_value[1]) ? $option_value[1] : $option_label;
+										
+										if(substr($option_label, -2) === ' -') {
+											$option_label = trim( substr($option_label, 0, strlen($option_label) -2) );
+										}
+										$option_label = str_replace(' selected', '', $option_label);
 									
 										if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $option_value) {
 											$option_value .= ' selected';
@@ -435,7 +463,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											$option_value = str_replace(' selected', '', $option_value);
 											$form_field .= '<option value="'.$option_value.'" selected="selected"';
 										}
-										$form_field .= '>'.$option_value."</option>\n";
+										$form_field .= '>'.html_specialchars($option_label)."</option>\n";
 									}
 									if($form_optgroup == true) {
 										$form_field .= '</optgroup>'.LF;

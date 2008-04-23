@@ -257,8 +257,9 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
 								break;
 
+			case 'selectemail':
 			case 'select'	:	/*
-								 * Menü
+								 * Select Menu
 								 */
 								$content['form']["fields"][$field_counter]['size']	= ''; //mutiple or not
 								$content['form']["fields"][$field_counter]['max']	= '';
@@ -502,7 +503,6 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 				$field_name[$current_field_name]++;
 			}
 					
-			//$field_counter++;
 		}
 	
 	}
