@@ -216,6 +216,28 @@ function imagick_converting ($imagick) {
 		} else {
 			// use GD function
 			if($check_image) {
+			
+				// try to handle limited PHP memory
+				$php_memory = getBytes( @ini_get('memory_limit') );
+				$img_memory = getRealImageSize( $check_image );
+				
+				// do memory checks only when PHP's memory limit 
+				// and "real" image size is known
+				if(empty($GLOBALS['phpwcms']['gd_memcheck_off']) && $php_memory && $img_memory) {
+					
+					// in general we need around twice the memory for 
+					// successful GD resizing - so lets halve it
+					$php_memory = $php_memory / 2;
+					
+					$img_memory = $img_memory;
+					
+					if($php_memory < $img_memory) {
+					
+						$imagick["image_name"] = 'image_memoryinfo.png';
+					
+					}
+				
+				}
 
 				$image = new ss_image($imagick["image_dir"].$imagick["image_name"], 'f'); //given original image
 				$image->set_parameter($imagick["jpg_quality"], GD2_ON, false);

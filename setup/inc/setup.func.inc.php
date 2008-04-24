@@ -171,14 +171,13 @@ function write_conf_file($val) {
 
 	$conf_file .= "\n// other stuff\n";
 	$conf_file .= "\$phpwcms['compress_page']     = 0; //0 = OFF, 1-9: page compression ON (1 = low level, 9 = highest level)\n";
-	
 	$conf_file .= "\$phpwcms['imagick']           = 0; //0 = GD,  1 = ImageMagick, 2 = ImageMagick 4.2.9\n";
 	$conf_file .= "\$phpwcms['imagick_path']      = ''; //Path to ImageMagick (default='' - none)\n";
 	$conf_file .= "\$phpwcms['use_gd2']           = 1; //0 = GD1, 1 = GD2\n";
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable\n";
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 2;  //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
-	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages\n";
+	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'iso-8859-1'\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
@@ -208,6 +207,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";
 	$conf_file .= "\$phpwcms['Login_IPcheck']     = 0; \n";
 	$conf_file .= "\$phpwcms['frontend_edit']	  = 0; // enable content specific direct links - linking direct into the backend \n";
+	$conf_file .= "\$phpwcms['gd_memcheck_off']   = 0; // disable GD php memory check before resize an image \n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";

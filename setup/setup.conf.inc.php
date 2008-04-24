@@ -45,27 +45,28 @@ $phpwcms['img_prev_height']   = 400; //max height of the large preview image
 $phpwcms['max_time']          = 1800; //logout after max_time/60 seconds
 
 // other stuff
-$phpwcms['compress_page']     = 0; //0 = OFF, 1-9: page compression ON (1 = low level, 9 = highest level)
-
-$phpwcms['imagick']           = 0; //0 = GD,  1 = ImageMagick convert
-$phpwcms['imagick_path']      = ''; //Path to ImageMagick (default='' - none)
-$phpwcms['use_gd2']           = 1; //0 = GD1, 1 = GD2
-$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable
-$phpwcms['wysiwyg_editor']    = 2;  //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw
-$phpwcms['phpmyadmin']        = 1;  //enable/disable phpMyAdmin in Backend
-$phpwcms['default_lang']      = 'en';  //default language
-$phpwcms['charset']           = 'ISO-8859-1';  //default charset UTF-8, (iso-8859-1)
-$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
-$phpwcms['gt_mod']            = 1;  //0 = Graphical Text MOD disabled, 1 = enabled
-$phpwcms['jpg_quality']       = 85; //JPG Quality Range 25-100
-$phpwcms['sharpen_level']     = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
+$phpwcms['compress_page']     = 0;        //wenn 1 = Seite komprimieren, 0 = Kompresion aus
+$phpwcms['imagick']           = 0;        //if 0 = GD, 1 = ImageMagick convert, 2 = ImageMagick 4.2.9
+$phpwcms['imagick_path']      = '';       //Path to ImageMagick
+$phpwcms['use_gd2']           = 1;        //if 0 = GD1, 1 = GD2
+$phpwcms['rewrite_url']       = 0;        //whether URL should be rewritable
+$phpwcms['wysiwyg_editor']    = 2;        //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw
+$phpwcms['phpmyadmin']        = 0;        //enable/disable phpmyadmin in Admin section
+$phpwcms['default_lang']      = 'en';     //default language
+$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')
+$phpwcms['charset']           = 'ISO-8859-1';       //default charset 'iso-8859-1'
+$phpwcms['allow_remote_URL']  = 0;        //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
+$phpwcms['gt_mod']            = 0;        //0 = Graphical Text MOD disabled, 1 = enabled
+$phpwcms['jpg_quality']       = 85;		  //JPG Quality Range 25-100
+$phpwcms['sharpen_level']     = 1;        //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init']    = 1;        //allow including of custom external scripts at frontend initialization
 $phpwcms['allow_ext_render']  = 1;        //allow including of custom external scripts at frontend rendering
 $phpwcms['cache_enabled']     = 0;        //cache On/Off - 1 = caching On / 0 = caching Off (default)
 $phpwcms['cache_timeout']     = 14400;    //default cache timeout setting in seconds - 0 = caching Off
 $phpwcms['imgext_disabled']   = ''; //comma seperated list of imagetypes which should not be handled 'pdf,ps'
 $phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia
-$phpwcms['inline_download']   = 1;
+$phpwcms['recipient_count']   = 0;
+$phpwcms['inline_download']   = 1; //try to open download document in browser window
 $phpwcms['form_tracking']     = 1; //make a db entry for each form
 $phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'form@localhost'); //for better security handling
 $phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts
@@ -73,16 +74,17 @@ $phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars
 $phpwcms['BOTS']			  = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 $phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
-$phpwcms['IE_htc_hover']      = 0; // enables HTC Hover for IE < 7 - has no effect in other browsers
-$phpwcms['IE_htc_png']        = 0; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers
+$phpwcms['IE_htc_hover']      = 1; // enables HTC Hover for IE < 7 - has no effect in other browsers
+$phpwcms['IE_htc_png']        = 1; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers
 $phpwcms['timezone_GMT']  	  = '+1';
-$phpwcms['Bad_Behavior']      = 0; // enables spam blocking by Bad Behavior
-$phpwcms['wysiwyg_template']  = array(	'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 
-										'SPAW2' => 'standard,all,mini'  );
+$phpwcms['Bad_Behavior']      = 1; // enables spam blocking by Bad Behavior
+$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'SPAW2' => 'standard,all,mini' );
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online
 $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend
 $phpwcms['Login_IPcheck']     = 0;
+$phpwcms['frontend_edit']	  = 0; // enable content specific direct links - linking direct into the backend
+$phpwcms['gd_memcheck_off']   = 0; // disable GD php memory check before resize an image
 
 // dynamic ssl encryption engine
 $phpwcms['site_ssl_mode']     = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'

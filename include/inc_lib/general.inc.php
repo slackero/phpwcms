@@ -1902,4 +1902,93 @@ function plaintext_htmlencode($text='', $encode_function='html_specialchars') {
 	return $text;
 }
 
+/**
+ * Convert short file size (100M) to bytes
+ */
+function getBytes($size) {
+	
+	if(is_numeric($size)) {
+		
+		return $size;
+		
+	} elseif($size) {
+	
+		$_unit = array(
+	
+			'B'			=> 1,
+			'K'			=> 1024,
+			'M'			=> 1048576,
+			'G'			=> 1073741824,
+			'T'			=> 1099511627776,
+			
+			'KB'		=> 1024,
+			'MB'		=> 1048576,
+			'GB'		=> 1073741824,
+			'TB'		=> 1099511627776,
+			
+			'BYTE'		=> 1,
+			'KILOBYTE'	=> 1024,
+			'MEGABYTE'	=> 1048576,
+			'GIGABYTE'	=> 1073741824,
+			'TERABYTE'	=> 1099511627776
+		
+		);
+		
+		$size = trim($size);
+		
+		foreach($_unit as $key => $value) {
+		
+			if( preg_match('/.*?'.$key.'$/i', $size) ) {
+			
+				$num = trim( preg_replace('/(.*?)'.$key.'$/i', '$1', $size) );
+				
+				return ceil($num * $value);
+			
+			}
+		}
+	}
+
+	return $size == false ? 0 : floatval($size);
+
+}
+
+/**
+ * Try to calculate the memory necessary to
+ * handle the image in RAM to avoid
+ * errors based on memory limit.
+ */  
+function getRealImageSize(& $imginfo) {
+
+	$size = 0;
+
+	// check image width and height
+	if(!empty($imginfo[0]) && !empty($imginfo[1])) {
+		
+		$size = $imginfo[0] * $imginfo[1];
+
+	}
+	// handle possible alpha channel for PNG and TIF
+	$alpha = ($imginfo[2] == 3 || $imginfo[2] == 7 || $imginfo[2] == 6) ? 1 : 0;
+	if($size && !empty($imginfo['channels'])) {
+		
+		// channel - in general this is 3 (RGB) or 4 (CMYK)
+		$size = $size * ( $imginfo['channels'] + $alpha );
+		
+	} elseif($size && !empty($imginfo['bits'])) {
+	
+		// bits - general value is 8Bit, but can be higher too
+		$size = $size * ( log($imginfo['bits'], 2) + $alpha );
+	
+	} elseif($size) {
+		
+		// use a default of 4 like for CMYK
+		// should meet general usage
+		$size = $size * ( 4 + $alpha );
+	
+	}
+
+	return $size;
+
+}
+
 ?>

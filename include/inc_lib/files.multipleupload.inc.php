@@ -36,7 +36,7 @@ $file_replace		= 0;
 
 if(isset($_POST['file_dir'])) {
 
-	dumpVar($_POST);
+	//dumpVar($_POST);
 
 }
 

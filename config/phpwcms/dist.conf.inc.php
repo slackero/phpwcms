@@ -60,7 +60,7 @@ $phpwcms['img_prev_height']   = 538;      //max height of the large preview imag
 $phpwcms['max_time']          = 1800;     //nach wieviel Sekunden soll automatischer logout erfolgen? 1800 Sekunden=30Minuten
 
 // other stuff
-$phpwcms['compress_page']     = 3;        //wenn 1 = Seite komprimieren, 0 = Kompresion aus
+$phpwcms['compress_page']     = 0;        //wenn 1 = Seite komprimieren, 0 = Kompresion aus
 $phpwcms['imagick']           = 0;        //if 0 = GD, 1 = ImageMagick convert, 2 = ImageMagick 4.2.9
 $phpwcms['imagick_path']      = '';       //Path to ImageMagick
 $phpwcms['use_gd2']           = 1;        //if 0 = GD1, 1 = GD2
@@ -99,6 +99,7 @@ $phpwcms['version_check']     = 1; // checks for current release of phpwcms onli
 $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend
 $phpwcms['Login_IPcheck']     = 0;
 $phpwcms['frontend_edit']	  = 0; // enable content specific direct links - linking direct into the backend
+$phpwcms['gd_memcheck_off']   = 0; // disable GD php memory check before resize an image
 
 
 // dynamic ssl encryption engine
