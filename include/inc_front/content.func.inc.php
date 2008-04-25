@@ -106,25 +106,50 @@ if(isset($_GET["id"])) {
 		if($alias && !strpos($alias, '=')) { // check alias for "=" what means no alias
 		
 			$where_alias = aporeplace($alias);
-		
-			$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-			$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "')";			 
-			$sql .= " UNION ";
-			$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-			$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "') ";
-			$sql .= "LIMIT 1";
-		
-			if($result = mysql_query($sql, $db)) {
-				if($row = mysql_fetch_row($result)) {
-					$aktion[0] = $row[0];
-					$aktion[1] = $row[1];
-					$aktion[3] = $row[2];
-					$aktion[4] = $row[3];
+			
+			// we have to check against MySQL < 4.0 -> UNION unknown
+			// so use a workaround
+			
+			if(PHPWCMS_DB_VERSION < 40000) {
+			
+				$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "' LIMIT 1";
+				
+				$row = _dbQuery($sql);
+				
+				if(!isset($row[0]['acat_id'])) {
 					
-					define('PHPWCMS_ALIAS', $alias);
+					$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "' LIMIT 1";
+				
+					$row = _dbQuery($sql);
+				
 				}
-				mysql_free_result($result);
+			
+			} else {
+		
+				$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "')";			 
+				$sql .= " UNION ";
+				$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "') ";
+				$sql .= "LIMIT 1";
+			
+				$row = _dbQuery($sql);
+					
 			}
+			
+			if(isset($row[0]['acat_id'])) {
+			
+				$aktion[0] = $row[0]['acat_id'];
+				$aktion[1] = $row[0]['article_id'];
+				$aktion[3] = $row[0]['aktion3'];
+				$aktion[4] = $row[0]['aktion4'];
+						
+				define('PHPWCMS_ALIAS', $alias);
+			
+			}
+			
 		}
 	}
 	
