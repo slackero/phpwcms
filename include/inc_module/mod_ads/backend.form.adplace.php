@@ -143,14 +143,14 @@ if(empty($plugin['data']['adplace_format']) && count($plugin['ad_formats_js'])) 
 	
 	<tr> 
 		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BLM['adplace_prefix'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="adplace_prefix" id="adplace_prefix" rows="3" class="code width400"><?php echo htmlentities($plugin['data']['adplace_prefix']) ?></textarea></td>
+		<td colspan="2"><textarea name="adplace_prefix" id="adplace_prefix" rows="3" class="code width400"><?php echo html_entities($plugin['data']['adplace_prefix']) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	
 	<tr> 
 		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BLM['adplace_suffix'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="adplace_suffix" id="adplace_suffix" rows="3" class="code width400"><?php echo htmlentities($plugin['data']['adplace_suffix']) ?></textarea></td>
+		<td colspan="2"><textarea name="adplace_suffix" id="adplace_suffix" rows="3" class="code width400"><?php echo html_entities($plugin['data']['adplace_suffix']) ?></textarea></td>
 	</tr>
 	
 <?php 

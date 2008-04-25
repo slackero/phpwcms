@@ -60,8 +60,7 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {
 
 function getpostvar($formvar, $string_laenge=0) {
 	//combines trim, stripslashes und apostrophe replace
-	$formvar = slweg($formvar);
-	return aporeplace($formvar);
+	return aporeplace( slweg( $formvar, $string_laenge ) );
 }
 
 function html_specialchars($h='') {
@@ -88,10 +87,12 @@ function html_despecialchars($h='') {
 	return $h;
 }
 
+function html_entities($string='') {
+	return @htmlentities($string, ENT_QUOTES, PHPWCMS_CHARSET);
+}
+
 function trimhtml($h='') {
-	//return html_specialchars(trim($name));
-	$h = html_specialchars(trim($h));
-	return $h;
+	return html_specialchars(trim($h));
 }
 
 function list_country($c, $dbcon){
