@@ -227,11 +227,8 @@ function imagick_converting ($imagick) {
 					
 					// in general we need around twice the memory for 
 					// successful GD resizing - so lets halve it
-					$php_memory = $php_memory / 2;
-					
-					$img_memory = $img_memory;
-					
-					if($php_memory < $img_memory) {
+					// and compare against the RAM the image will need
+					if($php_memory / 2 < $img_memory) {
 					
 						$imagick["image_name"] = 'image_memoryinfo.png';
 					
