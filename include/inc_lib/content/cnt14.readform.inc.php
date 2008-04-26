@@ -31,6 +31,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type WYSIWYG HTML
-$content["html"] = slweg($_POST["chtml"], 65500);
+$content["html"]		= slweg($_POST["chtml"]);
+$content["template"]	= clean_slweg($_POST['template']);
 
 ?>

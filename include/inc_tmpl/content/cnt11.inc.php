@@ -30,7 +30,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //code
 
-?><tr>
-<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_code'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="ccode" rows="20" wrap="OFF" class="code" id="ccode" style="width: 440px"><?php echo  isset($content["code"]) ? html_specialchars($content["code"]) : '' ?></textarea></td>
+?>
+<tr>
+<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_code'] ?>:&nbsp;</td>
+<td valign="top"><textarea name="ccode" rows="20" wrap="off" class="code" id="ccode" style="width: 440px"><?php echo  isset($content["code"]) ? html_specialchars($content["code"]) : '' ?></textarea></td>
 </tr>

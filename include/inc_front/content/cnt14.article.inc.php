@@ -29,12 +29,25 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 
-//HTML
+// WYSIWYG
 
-$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-if($crow["acontent_html"]) {
-	$CNT_TMP .= $crow["acontent_html"];
+// read template
+if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/wysiwyg.tmpl')) {
+
+	$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/wysiwyg.tmpl');
+	
+} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/wysiwyg/'.$crow["acontent_template"])) {
+
+	$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/wysiwyg/'.$crow["acontent_template"]);
+
+} else {
+
+	$crow["acontent_template"]	= '[TITLE]<h3>{TITLE}</h3>'.LF.'[/TITLE][SUBTITLE]<h4>{SUBTITLE}</h4>'.LF.'[/SUBTITLE][TEXT]{TEXT}[/TEXT]';
+
 }
 
+$crow["acontent_template"]	 = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
+$crow["acontent_template"]	 = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+$CNT_TMP					.= render_cnt_template($crow["acontent_template"], 'TEXT', $crow['acontent_html']);
 									
 ?>

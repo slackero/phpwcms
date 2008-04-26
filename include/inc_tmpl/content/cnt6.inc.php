@@ -32,7 +32,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 if(!isset($content["html"])) $content["html"] = '';
 
-?><tr>
-<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_plainhtml'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="chtml" rows="30" wrap="VIRTUAL" class="msgtext" id="chtml" style="width: 440px"><?php echo @htmlentities($content["html"], ENT_QUOTES, PHPWCMS_CHARSET) ?></textarea></td>
+?>
+<tr>
+<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_plainhtml'] ?>:&nbsp;</td>
+<td valign="top"><textarea name="chtml" rows="30" wrap="virtual" class="msgtext" id="chtml" style="width: 440px"><?php echo @htmlentities($content["html"], ENT_QUOTES, PHPWCMS_CHARSET) ?></textarea></td>
 </tr>

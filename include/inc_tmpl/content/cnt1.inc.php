@@ -37,10 +37,11 @@ if(empty($content['cimage']['cimage_crop'])) {
 	$content['cimage']['cimage_crop'] = 0;
 }
 
-?><tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+?>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <tr><td colspan="2" class="chatlist">&nbsp;<?php echo $BL['be_cnt_htmltext'] ?>:&nbsp;</td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <tr><td colspan="2" align="center"><?php
 
 $wysiwyg_editor = array(
@@ -58,25 +59,26 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 
 
 ?></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 <tr>
 			  <td align="right" class="chatlist"><?php echo  $BL['be_cnt_image'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
 			      <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo  isset($content["image_name"]) ? html_specialchars($content["image_name"]) : '' ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
-			      <td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1)"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo  $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0"></a><input name="cimage_id" type="hidden" value="<?php echo  isset($content["image_id"]) ? $content["image_id"] : '' ?>"></td>
+			      <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1)"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo  $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
+			      	<input name="cimage_id" type="hidden" value="<?php echo  isset($content["image_id"]) ? $content["image_id"] : '' ?>" /></td>
 		        </tr>
 		      </table></td>
 			  </tr>
-			  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+			  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 			  <td align="right" class="chatlist"><?php echo  $BL['be_cnt_position'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><select name="cimage_pos" class="f10" id="cimage_pos" onChange="changeImagePosMenu();">
+			      <td><select name="cimage_pos" class="f10" id="cimage_pos" onchange="changeImagePosMenu();">
 			    <option value="0" <?php 
 				if(!isset($content["image_pos"])) $content["image_pos"] = 0;
 				
@@ -91,27 +93,27 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 				<option value="8" <?php is_selected(8, $content["image_pos"]) ?>><?php echo  $BL['be_cnt_pos8'] ?></option>
 			    <option value="9" <?php is_selected(9, $content["image_pos"]) ?>><?php echo  $BL['be_cnt_pos9'] ?></option>
 		      </select></td>
-			      <td><img src="img/leer.gif" alt="" width="3" height="1"></td>
-			      <td><img src="img/symbole/content_selected.gif" alt="" name="imgpos0" width="7" height="10" id="imgpos0"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(0);this.blur();return false;" title="<?php echo $BL['be_cnt_pos0i'] ?>"><img src="img/button/image_pos0.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos1" width="7" height="10" id="imgpos1"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(1);this.blur();return false;" title="<?php echo $BL['be_cnt_pos1i'] ?>"><img src="img/button/image_pos1.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos2" width="7" height="10" id="imgpos2"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(2);this.blur();return false;" title="<?php echo $BL['be_cnt_pos2i'] ?>"><img src="img/button/image_pos2.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos3" width="7" height="10" id="imgpos3"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(3);this.blur();return false;" title="<?php echo $BL['be_cnt_pos3i'] ?>"><img src="img/button/image_pos3.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos4" width="7" height="10" id="imgpos4"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(4);this.blur();return false;" title="<?php echo $BL['be_cnt_pos4i'] ?>"><img src="img/button/image_pos4.gif" alt="" width="15" height="15" border="0"></a></td>
-		          <td><img src="img/leer.gif" alt="" name="imgpos5" width="7" height="10" id="imgpos5"></td>
-		          <td><a href="javascript:;" onclick="changeImagePos(5);this.blur();return false;" title="<?php echo $BL['be_cnt_pos5i'] ?>"><img src="img/button/image_pos5.gif" alt="" width="15" height="15" border="0"></a></td>
-		          <td><img src="img/leer.gif" alt="" name="imgpos6" width="7" height="10" id="imgpos6"></td>
-		          <td><a href="javascript:;" onclick="changeImagePos(6);this.blur();return false;" title="<?php echo $BL['be_cnt_pos6i'] ?>"><img src="img/button/image_pos6.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos7" width="7" height="10" id="imgpos7"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(7);this.blur();return false;" title="<?php echo $BL['be_cnt_pos7i'] ?>"><img src="img/button/image_pos7.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos8" width="7" height="10" id="imgpos8"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(8);this.blur();return false;" title="<?php echo $BL['be_cnt_pos8i'] ?>"><img src="img/button/image_pos8.gif" alt="" width="15" height="15" border="0"></a></td>
-			      <td><img src="img/leer.gif" alt="" name="imgpos9" width="7" height="10" id="imgpos9"></td>
-			      <td><a href="javascript:;" onclick="changeImagePos(9);this.blur();return false;" title="<?php echo $BL['be_cnt_pos9i'] ?>"><img src="img/button/image_pos9.gif" alt="" width="15" height="15" border="0"></a></td>
+			      <td><img src="img/leer.gif" alt="" width="3" height="1" /></td>
+			      <td><img src="img/symbole/content_selected.gif" alt="" name="imgpos0" width="7" height="10" id="imgpos0" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(0);this.blur();return false;" title="<?php echo $BL['be_cnt_pos0i'] ?>"><img src="img/button/image_pos0.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos1" width="7" height="10" id="imgpos1" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(1);this.blur();return false;" title="<?php echo $BL['be_cnt_pos1i'] ?>"><img src="img/button/image_pos1.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos2" width="7" height="10" id="imgpos2" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(2);this.blur();return false;" title="<?php echo $BL['be_cnt_pos2i'] ?>"><img src="img/button/image_pos2.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos3" width="7" height="10" id="imgpos3" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(3);this.blur();return false;" title="<?php echo $BL['be_cnt_pos3i'] ?>"><img src="img/button/image_pos3.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos4" width="7" height="10" id="imgpos4" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(4);this.blur();return false;" title="<?php echo $BL['be_cnt_pos4i'] ?>"><img src="img/button/image_pos4.gif" alt="" width="15" height="15" border="0" /></a></td>
+		          <td><img src="img/leer.gif" alt="" name="imgpos5" width="7" height="10" id="imgpos5" /></td>
+		          <td><a href="javascript:;" onclick="changeImagePos(5);this.blur();return false;" title="<?php echo $BL['be_cnt_pos5i'] ?>"><img src="img/button/image_pos5.gif" alt="" width="15" height="15" border="0" /></a></td>
+		          <td><img src="img/leer.gif" alt="" name="imgpos6" width="7" height="10" id="imgpos6" /></td>
+		          <td><a href="javascript:;" onclick="changeImagePos(6);this.blur();return false;" title="<?php echo $BL['be_cnt_pos6i'] ?>"><img src="img/button/image_pos6.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos7" width="7" height="10" id="imgpos7" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(7);this.blur();return false;" title="<?php echo $BL['be_cnt_pos7i'] ?>"><img src="img/button/image_pos7.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos8" width="7" height="10" id="imgpos8" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(8);this.blur();return false;" title="<?php echo $BL['be_cnt_pos8i'] ?>"><img src="img/button/image_pos8.gif" alt="" width="15" height="15" border="0" /></a></td>
+			      <td><img src="img/leer.gif" alt="" name="imgpos9" width="7" height="10" id="imgpos9" /></td>
+			      <td><a href="javascript:;" onclick="changeImagePos(9);this.blur();return false;" title="<?php echo $BL['be_cnt_pos9i'] ?>"><img src="img/button/image_pos9.gif" alt="" width="15" height="15" border="0" /></a></td>
 			    </tr>
 		      </table><script language="JavaScript" type="text/javascript">
 			  <!--
@@ -119,25 +121,24 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 			  //-->
 			  </script></td>
 			  </tr>			 
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 			<tr>
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onKeyUp="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content["image_width"]) ? $template_default['article']['image_default_width'] : $content["image_width"] ?>" /></td>
+			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content["image_width"]) ? $template_default['article']['image_default_width'] : $content["image_width"] ?>" /></td>
 			      <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
 				  
-			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onKeyUp="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content["image_height"]) ? $template_default['article']['image_default_height'] : $content["image_height"] ?>" /></td>
+			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content["image_height"]) ? $template_default['article']['image_default_height'] : $content["image_height"] ?>" /></td>
 			      <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 			
 				<td><input type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['cimage']['cimage_crop']); ?> /></td>
 				<td class="v10"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
 				 
 		        </tr>
-		      </table></td>
-			  </tr>
+		      </table></td> </tr>
 			  
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_behavior'] ?>:&nbsp;</td>
@@ -161,13 +162,13 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 			  
 			  
 			  
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 			<tr>
-			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php echo  isset($content["image_caption"]) ? html_specialchars($content["image_caption"]) : '' ?></textarea></td>
-			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1"></td>
+			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
 	
 if(isset($content["image_hash"])) {
@@ -187,5 +188,5 @@ if(isset($content["image_hash"])) {
 		          </tr>
 	          </table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
