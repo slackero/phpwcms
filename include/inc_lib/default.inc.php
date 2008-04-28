@@ -411,7 +411,7 @@ function init_frontend_edit() {
 	if(empty($_SESSION["wcs_user_id"])) {
 		define('VISIBLE_MODE', 0);
 	} else {
-		define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] !== 1 ? 1 : 2);
+		define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] === 1 ? 2 : 1);
 	}
 	define ('FE_EDIT_LINK', VISIBLE_MODE == 0 || empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 }

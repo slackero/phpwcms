@@ -176,7 +176,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			$_SESSION["wcs_user_email"]		= $row["usr_email"];
 			$_SESSION["wcs_user_avatar"]	= $row["usr_avatar"];
 			$_SESSION["wcs_user_logtime"]	= time();
-			$_SESSION["wcs_user_admin"]		= $row["usr_admin"];
+			$_SESSION["wcs_user_admin"]		= intval($row["usr_admin"]);
 			$_SESSION["wcs_user_thumb"]		= 1;
 			if($row["usr_lang"]) {
 				$_SESSION["wcs_user_lang"]	= $row["usr_lang"];
