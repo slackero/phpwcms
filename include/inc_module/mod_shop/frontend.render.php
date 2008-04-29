@@ -167,7 +167,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		switch($_POST['shop_action']) {
 		
 			case 'add':		$shop_prod_id		= intval($_POST['shop_prod_id']);
-							$shop_prod_amount	= intval($_POST['shop_prod_amount']);
+							$shop_prod_amount	= abs( intval($_POST['shop_prod_amount']) );
 							if(empty($shop_prod_id) || empty($shop_prod_amount)) break; // leave
 							
 							// add product to shopping 
@@ -186,7 +186,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		foreach($_POST['shop_prod_amount'] as $prod_id => $prod_qty) {
 		
 			$prod_id  = intval($prod_id);
-			$prod_qty = intval($prod_qty);
+			$prod_qty = abs( intval($prod_qty) );
 			if(isset($_SESSION['shopping_cart']['products'][$prod_id])) {
 				if($prod_qty) {
 					$_SESSION['shopping_cart']['products'][$prod_id] = $prod_qty;
