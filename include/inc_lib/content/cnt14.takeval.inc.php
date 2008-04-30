@@ -32,5 +32,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type WYSIWYG HTML
 $content["html"] = $row["acontent_html"];
+$content["template"]	= $row["acontent_template"];
 
 ?>

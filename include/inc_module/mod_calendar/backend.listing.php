@@ -61,7 +61,7 @@ $plugin['days_in_month']	= gmdate('t', $plugin['first_of_month']);
 $plugin['week_start']		= date('W', $plugin['first_of_month']);
 $plugin['first_day']		= 0;
 $plugin['weekday']			= (gmstrftime('%w', $plugin['first_of_month']) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
-$plugin['this_date']		= @htmlentities(ucfirst(strftime('%B %Y', $plugin['first_of_month'])), ENT_QUOTES, PHPWCMS_CHARSET);
+$plugin['this_date']		= @htmlentities(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])), ENT_QUOTES, PHPWCMS_CHARSET);
 
 $plugin['location']			= decode_entities(MODULE_HREF);
 $plugin['loc_this_month']	= $plugin['location'].'&calendardate='.date('m-Y');
