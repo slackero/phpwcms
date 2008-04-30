@@ -2146,7 +2146,8 @@ function get_index_link_up($linktext) {
 	$link = '';
 	if(!$linktext) $linktext = 'UP';
 	if($cat_id && !$GLOBALS['content']['struct'][$cat_id]['acat_hidden']) {
-		$link = '<a href="index.php?' . ( empty($GLOBALS['content']['struct'][$cat_id]['acat_alias']) ? 'id='.$GLOBALS['content']['struct'][$cat_id]['acat_struct'] : $GLOBALS['content']['struct'][$cat_id]['acat_alias'] ) .'">';
+		$upid = $GLOBALS['content']['struct'][$cat_id]['acat_struct'];
+		$link = '<a href="index.php?' . ( empty($GLOBALS['content']['struct'][$upid]['acat_alias']) ? 'id='.$upid : $GLOBALS['content']['struct'][$upid]['acat_alias'] ) .'">';
 	}
 	return ($link) ? $link.$linktext.'</a>' : $linktext;
 }
