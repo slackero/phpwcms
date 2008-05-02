@@ -178,7 +178,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 	
 	foreach($data as $key => $value) {
 		$fields[$x]	= '`'.$key.'`';
-		$values[$x]	= is_numeric($value) ? $value : "'".mysql_real_escape_string($value)."'";
+		$values[$x]	= is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'";
 		$set[$x]	= $fields[$x].'='.$values[$x];
 		$x++;
 	}
@@ -202,7 +202,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 				$key	= key($data);
 				$value 	= current($data);
 				$update .= '`'.$key.'`=';
-				$update .= is_numeric($value) ? $value : "'".mysql_real_escape_string($value)."'";
+				$update .= is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'";
 			} else {
 				$update .= trim($where);
 			}
@@ -294,7 +294,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=NUL
 	$sets	= array();
 	
 	foreach($data as $key => $value) {
-		$sets[]	= '`'.$key.'`=' .( is_numeric($value) ? $value : "'".mysql_real_escape_string($value)."'" );
+		$sets[]	= '`'.$key.'`=' .( is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'" );
 	}
 	
 	if($special) {
