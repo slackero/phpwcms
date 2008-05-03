@@ -346,7 +346,9 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					"article_priorize"		=> $article['article_priorize'],
 					"article_norss"			=> $article['article_norss'],
 					"article_uid"			=> $article["article_uid"],
-					"article_archive_status"=> $article["article_archive_status"]
+					"article_archive_status"=> $article["article_archive_status"],
+					
+					'article_serialized'	=> ''
 
 							);
 							
