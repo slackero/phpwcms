@@ -597,6 +597,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
 	$alias = trim( preg_replace('/__+/', '_', $alias), '_' );
 	
+	/*
 	$where_acat		= 'acat_id != '.$current_id.' AND ';
 	$where_article	= 'article_id != '.$current_id.' AND ';
 	$where_content	= 'cnt_id != '.$current_id.' AND ';
@@ -606,27 +607,37 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		case 'ARTICLE':		$where_acat		= '';	break;
 		case 'CONTENT':		$where_content	= '';	break;
 	}
+	*/
+	$where_acat		= '';
+	$where_article	= '';
+	$where_content	= '';
+
+	switch($mode) {
+		case 'CATEGORY':	$where_acat		= 'acat_id != '.$current_id.' AND ';	break;
+		case 'ARTICLE':		$where_article	= 'article_id != '.$current_id.' AND ';	break;
+		case 'CONTENT':		$where_content	= 'cnt_id != '.$current_id.' AND ';		break;
+	}
 	
 	// check alias against all structure alias
 	$sql  = "SELECT COUNT(acat_id) FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	$sql .= $where_acat;
-	$sql .= "acat_alias='".aporeplace($alias)."' LIMIT 1";
+	$sql .= "acat_alias='".aporeplace($alias)."'";
 	$acat_count = _dbQuery($sql, 'COUNT');
 	
 	// check alias against all articles
 	$sql  = "SELECT COUNT(article_id) FROM ".DB_PREPEND."phpwcms_article WHERE ";
 	$sql .= $where_article;
-	$sql .= "article_alias='".aporeplace($alias)."' LIMIT 1";
+	$sql .= "article_alias='".aporeplace($alias)."'";
 	$article_count = _dbQuery($sql, 'COUNT');
 	
 	// check alias against all "sub" contents like news
 	$sql  = "SELECT COUNT(cnt_id) FROM ".DB_PREPEND."phpwcms_content WHERE ";
 	$sql .= $where_content;
-	$sql .= "cnt_alias='".aporeplace($alias)."' LIMIT 1";
+	$sql .= "cnt_alias='".aporeplace($alias)."'";
 	$content_count = _dbQuery($sql, 'COUNT');
 
 	if( $acat_count > 0 || $article_count > 0 || $content_count > 0 ) {
-
+	
 		$sql  = "SELECT acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 		$sql .= $where_acat;
 		$sql .= "acat_alias LIKE '".aporeplace($alias)."%'";
@@ -659,7 +670,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		while( isset( $all_alias[ $alias.'-'.$all_alias_count ] ) ) {
 			$all_alias_count++;
 		}
-		$alias .= '-'.$all_alias_count;
+				
+		if(preg_match('/\-(\d+)$/', $alias)) {
+			$alias .= $all_alias_count;
+		} else {
+			$alias .= '-'.$all_alias_count;
+		}
 	}
 	
 	return $alias;
