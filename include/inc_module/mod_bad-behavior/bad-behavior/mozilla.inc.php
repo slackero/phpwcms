@@ -8,7 +8,7 @@ function bb2_mozilla($package)
 	// Google Desktop fixed it, but apparently some old versions are
 	// still out there. :(
 	// Always check accept header for Mozilla user agents
-	if (strpos($package['headers_mixed']['User-Agent'], "Google Desktop") === FALSE) {
+	if (strpos($package['headers_mixed']['User-Agent'], "Google Desktop") === FALSE && strpos($package['headers_mixed']['User-Agent'], "PLAYSTATION 3") === FALSE) {
 		if (!array_key_exists('Accept', $package['headers_mixed'])) {
 			return "17566707";
 		}

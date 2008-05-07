@@ -44,10 +44,11 @@ define('BB2_CORE', BB2_CWD.'/bad-behavior');
 // Settings you can adjust for Bad Behavior.
 // Most of these are unused in non-database mode.
 $bb2_settings_defaults = array(
-	'log_table' => 'bad_behavior',
+	'log_table' => DB_PREPEND.'phpwcms_bad_behavior',
 	'display_stats' => true,
 	'strict' => false,
-	'verbose' => false
+	'verbose' => false,
+	'logging' => true
 );
 
 // Bad Behavior callback functions.
@@ -123,7 +124,8 @@ function bb2_read_settings() {
 		'display_stats' => true,
 		'strict' => false,
 		'verbose' => false,
-		'db_installed' => false
+		'db_installed' => true,
+		'logging' => true
 	);
 
 	return array_merge($bb2_settings_defaults, $settings);
@@ -175,7 +177,7 @@ function bb2_relative_path() {
 // Calls inward to Bad Behavor itself.
 require_once(BB2_CWD . '/bad-behavior/version.inc.php');
 require_once(BB2_CWD . '/bad-behavior/core.inc.php');
-bb2_install();	// FIXME: see above
+//bb2_install();	// FIXME: see above
 /*
 if(VISIBLE_MODE === 2) {
 	require_once(BB2_CWD . '/bad-behavior/admin.inc.php');

@@ -1,4 +1,5 @@
 <?php if (!defined('BB2_CORE')) die('I said no cheating!');
+/* This techncially belongs a level up, with the WordPress code. It'll be moved soon. */
 
 function bb2_admin_pages() {
 	if (function_exists('current_user_can')) {
@@ -39,6 +40,18 @@ function bb2_options()
 		} else {
 			$settings['verbose'] = false;
 		}
+		if ($_POST['logging']) {
+			if ($_POST['logging'] == 'verbose') {
+				$settings['verbose'] = true;
+				$settings['logging'] = true;
+			} else {
+				$settings['verbose'] = false;
+				$settings['logging'] = true;
+			}
+		} else {
+			$settings['verbose'] = false;
+			$settings['logging'] = false;
+		}
 		bb2_write_settings($settings);
 ?>
 	<div id="message" class="updated fade"><p><strong><?php _e('Options saved.') ?></strong></p></div>
@@ -59,7 +72,12 @@ function bb2_options()
 
 	<fieldset class="options">
 	<legend><?php _e('Logging'); ?></legend>
-	<p><label><input type="checkbox" name="verbose" value="true" <?php if ($settings['verbose']) { ?>checked="checked" <?php } ?>/> <?php _e('Verbose HTTP request logging'); ?></label></p>
+	<p><label><input type="radio" name="logging" value="verbose" <?php if ($settings['verbose'] && $settings['logging']) { ?>checked="checked" <?php } ?>/> <?php _e('Verbose HTTP request logging'); ?></label></p>
+	<p><label><input type="radio" name="logging" value="normal" <?php if ($settings['logging'] && !$settings['verbose']) { ?>checked="checked" <?php } ?>/> <?php _e('Normal HTTP request logging (recommended)'); ?></label></p>
+	<p><label><input type="radio" name="logging" value="false" <?php if (!$settings['logging']) { ?>checked="checked" <?php } ?>/> <?php _e('Do not log HTTP requests (not recommended)'); ?></label></p>
+	</fieldset>
+
+	<fieldset class="options">
 	<legend><?php _e('Strict Mode'); ?></legend>
 	<p><label><input type="checkbox" name="strict" value="true" <?php if ($settings['strict']) { ?>checked="checked" <?php } ?>/> <?php _e('Strict checking (blocks more spam but may block some people)'); ?></label></p>
 	</fieldset>

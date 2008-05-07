@@ -81,7 +81,7 @@ function bb2_approved($settings, $package)
 	}
 
 	// Decide what to log on approved requests.
-	if ($settings['verbose'] || empty($package['user_agent'])) {
+	if (($settings['verbose'] && $settings['logging']) || empty($package['user_agent'])) {
 		bb2_db_query(bb2_insert($settings, $package, "00000000"));
 	}
 }
@@ -112,7 +112,7 @@ function bb2_start($settings)
 	}
 
 	// We use these frequently. Keep a copy close at hand.
-	$ip = $_SERVER['REMOTE_ADDR'];
+	$ip = getRemoteIP();
 	$request_method = $_SERVER['REQUEST_METHOD'];
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$server_protocol = $_SERVER['SERVER_PROTOCOL'];
