@@ -145,8 +145,8 @@ if($_Tracking_StatCounter) {
 	$_TrackingCode .= XHTML_MODE ? '_xhtml' : '';
 	$_TrackingCode .= '.js"></script>' .LF;
 	$_TrackingCode .= '<noscript><img src="http://c8.statcounter.com/counter.php?sc_project='. $_Tracking_StatCounterCode;
-	$_TrackingCode .= '&java=0&security=' . $_Tracking_StatCounterSecCode . '&invisible=1" ';
-	$_TrackingCode .= 'alt="web hit counter" width="0" height="0" border="0" style="border:0" alt="StatCounter" /></noscript>' .LF;
+	$_TrackingCode .= '&amp;java=0&amp;security=' . $_Tracking_StatCounterSecCode . '&amp;invisible=1" ';
+	$_TrackingCode .= 'width="0" height="0" border="0" style="border:0" alt="StatCounter" /></noscript>' .LF;
 	$_TrackingCode .= '<!-- End of StatCounter Code -->';
 	
 	$content['all'] .= $_TrackingCode;
