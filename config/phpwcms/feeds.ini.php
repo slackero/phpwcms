@@ -49,6 +49,8 @@ maxentries			= 10
 encoding			= UTF-8		;ISO-8859-1
 defaultFormat		= RSS2.0			; available: 0.91/RSS0.91, 1.0/RSS1.0, 2.0/RSS2.0, ATOM/ATOM0.3
 filename			= "default_feed.xml"
+orderBy				= "livedate"		; possible: livedate, killdate, createdate, changedate
+order				= DESC					; order ascending ASC, descending DESC (default) or random RAND
 
 
 ; */ echo 'Sorry this is no public file. Good bye!' ?>

@@ -59,7 +59,8 @@ if(empty($feeds) || (is_array($feeds) && count($feeds) == 0)) {
 								"maxentries"		=> 10,
 								"encoding"			=> "UTF-8",
 								"defaultFormat"		=> "RSS2.0",
-								"filename"			=> "default_feed.xml"
+								"filename"			=> "default_feed.xml",
+								"orderBy"			=> 'livedate'
 							  );
 
 }
@@ -161,7 +162,51 @@ $sql .= "AND ar.article_end > NOW() AND ar.article_nosearch=0 ";
 $sql .= "AND IF(ar.article_cid=0, ";
 $sql .= $indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) ? '1' : '0';
 $sql .= ", ac.acat_aktiv=1 AND ac.acat_trash=0 AND ac.acat_regonly=0) ";
-$sql .= "ORDER BY ar.article_begin DESC"; // changed to begin date!
+
+// define ordering
+if(empty($FEED['orderBy'])) {
+	$FEED['orderBy'] = 'livedate';
+}
+switch(strtolower(trim($FEED['orderBy']))) {
+
+						// createdate
+	case 'createdate':	$FEED['orderBy'] = 'ar.article_created';	
+						break;
+
+						// changedate
+	case 'changedate':	$FEED['orderBy'] = 'ar.article_tstamp';	
+						break;
+
+						// killdate
+	case 'killdate':	$FEED['orderBy'] = 'ar.article_end';	
+						break;
+	
+						// livedate
+	default:			$FEED['orderBy'] = 'ar.article_begin';
+
+}
+// define ASC, DESC, RAND
+if(empty($FEED['order'])) {
+	$FEED['order'] = 'DESC';
+}
+switch(strtoupper(trim($FEED['orderBy']))) {
+
+					// random
+	case 'RAND':	$FEED['order'] = 'RAND()';
+					break;
+
+					// ascending
+	case 'ASC':		$FEED['order'] = $FEED['orderBy'] . ' ASC';
+					break;
+	
+					// descending
+	default:		$FEED['order'] = $FEED['orderBy'] . ' DESC';
+
+}
+
+//$sql .= "ORDER BY ar.article_begin DESC";
+$sql .= 'ORDER BY ' . $FEED['order'];
+
 if($FEED['maxentries']) {
 	$sql .= " LIMIT ".$FEED['maxentries'];
 }
