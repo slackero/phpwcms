@@ -68,6 +68,18 @@ switch($action) {
 								}
 							}
 							break;
+							
+	case 'newstags':		$where  = "cat_status=1 AND cat_type='news' AND ";
+							$where .= "cat_name LIKE '" . aporeplace( preg_replace('/[^\w\- ]/', '', $value) ) . "%'";
+							$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
+	
+							if(isset($result[0])) {
+	
+								foreach($result as $value) {
+									$data[] = utf8_encode($value['cat_name']);
+								}
+							}
+							break;
 						
 	case 'lang':			$data = is_array($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) ? $phpwcms['allowed_lang'] : array($phpwcms['default_lang']);
 							sort($data);

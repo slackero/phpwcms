@@ -596,7 +596,7 @@ class phpwcmsNews {
 		$post = array();
 		
 		// do only when news ID is known
-		if( $this->newsId > 0 ) {
+		if( $this->newsId == 0 ) {
 			
 			$post['cnt_created']	= time();
 		
@@ -631,7 +631,7 @@ class phpwcmsNews {
 		
 		$post['cnt_alias']			= isset($_POST['cnt_alias']) ? clean_slweg($_POST['cnt_alias']) : '';
 		if($post['cnt_alias'] == '') {
-			$post['cnt_alias'] = $post['cnt_title'];
+			$post['cnt_alias'] = empty($post['cnt_title']) ? $post['cnt_name'] : $post['cnt_title'];
 		}
 		$post['cnt_alias']			= proof_alias($this->newsId, $post['cnt_alias'], 'CONTENT');
 		

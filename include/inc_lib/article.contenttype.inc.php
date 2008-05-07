@@ -20,7 +20,8 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-//Content Type für Artikel -> nicht ändern
+// Content Part Types
+// DO NOT define 30 = used for modules
 $wcs_content_type = array(
 	 0 => $BL['be_ctype_plaintext'] ,
 	 6 => $BL['be_ctype_html'],
@@ -36,6 +37,7 @@ $wcs_content_type = array(
 	 3 => $BL['be_ctype_link'],
 	 5 => $BL['be_ctype_linklist'],
 	 8 => $BL['be_ctype_linkarticle'],
+	33 => $BL['be_news'],
 	15 => $BL['be_ctype_articlemenu'],
 	 9 => $BL['be_ctype_multimedia'],
 	 7 => $BL['be_ctype_filelist'],

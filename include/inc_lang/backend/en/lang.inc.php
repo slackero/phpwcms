@@ -1218,5 +1218,14 @@ $BL['be_tab_name']						= 'tab';
 $BL['be_headline']						= 'headline';
 $BL['be_tab_delete_js']					= 'Do you want to delete the selected tab?';
 
+$BL['be_pagniate_count']				= 'items per page';
+$BL['be_limit_to']						= 'limit to';
+$BL['be_archived_items']				= 'archived items';
+$BL['be_include']						= 'include';
+$BL['be_exclude']						= 'exclude';
+$BL['be_solely']						= 'solely';
+$BL['be_fsearch_not']					= 'NOT';
+$BL['be_date_year']						= 'year';
+$BL['be_archive_link']					= 'archive link';
 
 ?>

@@ -31,25 +31,45 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //file list
 
-//$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+// if $IS_NEWS_CP = true then file list content part rendere is
+// included by news content part
 
-$crow["acontent_files"]		= explode(':', $crow["acontent_files"]);
-$crow["acontent_text"]		= explode("\n", $crow["acontent_text"]);
-$crow["acontent_form"]		= unserialize($crow["acontent_form"]);
-$content['files_direct']	= empty($crow["acontent_form"]['direct_download']) ? 0 : 1;
+// default cp rendering
+if( empty($IS_NEWS_CP) ) {
+
+	$crow["acontent_files"]		= explode(':', $crow["acontent_files"]);
+	$crow["acontent_text"]		= explode("\n", $crow["acontent_text"]);
+	$crow["acontent_form"]		= unserialize($crow["acontent_form"]);
+	$crow['file_cp_title']		= $crow['acontent_title'];
+	$crow['file_cp_subtitle']	= $crow['acontent_subtitle'];
+	$content['files_direct']	= empty($crow["acontent_form"]['direct_download']) ? 0 : 1;
+
+} else {
+
+	// news cp rendering
+	// take some default values by news
+	$crow["acontent_files"]		= $value['cnt_object']['cnt_files']['id'];
+	$crow["acontent_text"]		= explode("\n", $value['cnt_object']['cnt_files']['caption']);
+	$content['files_direct']	= $value['files_direct_download'];
+	$crow["acontent_template"]	= $value['files_template'];
+	$crow["acontent_html"]		= '';
+	$crow['file_cp_title']		= '';
+	$crow['file_cp_subtitle']	= '';
+
+}
 
 $content['files']			= array();
 $content['files_sql']		= array();
 
 // build file id query first
-foreach($crow["acontent_files"] as $key => $value) {
+foreach($crow["acontent_files"] as $fkey => $value) {
 
 	$value										= intval($value);
 
 	if($value) {
-		$content['files'][$key]['file_id']		= $value;
-		$content['files'][$key]['file_info']	= empty($crow["acontent_text"][$key]) ? '' : trim($crow["acontent_text"][$key]);
-		$content['files_sql'][$key]				= $value;
+		$content['files'][$fkey]['file_id']		= $value;
+		$content['files'][$fkey]['file_info']	= empty($crow["acontent_text"][$fkey]) ? '' : trim($crow["acontent_text"][$fkey]);
+		$content['files_sql'][$fkey]				= $value;
 	}
 }
 
@@ -109,7 +129,7 @@ if($content['files_sql']) {
 		$_files_count 					= count($content['files_result']);
 		$_files_entries					= array();
 		
-		foreach($content['files'] as $key => $value) {
+		foreach($content['files'] as $fkey => $value) {
 		
 			for($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
 				
@@ -175,41 +195,41 @@ if($content['files_sql']) {
 					
 					}
 				
-					$_files_entries[$key]  = $content['template_file'];
-					$_files_entries[$key]  = str_replace('{FILE_TARGET}',		$_file_info[3], $_files_entries[$key]);
-					$_files_entries[$key]  = render_cnt_template($_files_entries[$key], 'FILE_EXT', $content['files_result'][ $_files_x ]['f_ext']);
-					$_files_entries[$key]  = str_replace('{FILE_DOWNLOADS}',	$content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$key]);
-					$_files_entries[$key]  = str_replace('{FILE_SIZE}', 		return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$key]);
+					$_files_entries[$fkey]  = $content['template_file'];
+					$_files_entries[$fkey]  = str_replace('{FILE_TARGET}',		$_file_info[3], $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][ $_files_x ]['f_ext']);
+					$_files_entries[$fkey]  = str_replace('{FILE_DOWNLOADS}',	$content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = str_replace('{FILE_SIZE}', 		return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
 					
 					$content['files_result'][ $_files_x ]['f_created'] = intval($content['files_result'][ $_files_x ]['f_created']);
 					if($content['files_result'][ $_files_x ]['f_created'] <= 0) {
 						$content['files_result'][ $_files_x ]['f_created'] = filectime($_file_current);
 					}
-					$_files_entries[$key]  = str_replace('{FILE_DATE}', 		strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$key]);
+					$_files_entries[$fkey]  = str_replace('{FILE_DATE}', 		strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$fkey]);
 					
 					if($content['files_direct'] && $content['files_result'][ $_files_x ]['f_ext']) {
 
-						$_files_entries[$key]  = str_replace('{FILE_LINK}', 	'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'].'&amp;countonly=1', $_files_entries[$key]);
+						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 	'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'].'&amp;countonly=1', $_files_entries[$fkey]);
 
 					} else {
-						$_files_entries[$key]  = str_replace('{FILE_LINK}', 	'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'], $_files_entries[$key]);
+						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 	'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'], $_files_entries[$fkey]);
 					}
 					
 					
 					if($_file_info[1]) {
-						$_files_entries[$key]  = str_replace('{FILE_NAME}', 	html_specialchars($_file_info[1]), $_files_entries[$key]);
+						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', 	html_specialchars($_file_info[1]), $_files_entries[$fkey]);
 					} else {
-						$_files_entries[$key]  = str_replace('{FILE_NAME}', 	html_specialchars($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$key]);
+						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', 	html_specialchars($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$fkey]);
 					}
 					
-					$_files_entries[$key]  = render_cnt_template($_files_entries[$key], 'FILE_TITLE', html_specialchars($_file_info[2]));
-					$_files_entries[$key]  = render_cnt_template($_files_entries[$key], 'FILE_DESCRIPTION', html_specialchars($_file_info[0]));
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html_specialchars($_file_info[2]));
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html_specialchars($_file_info[0]));
 					
 					
 					// now check file for possible thumbnail image
 					$_files_image = false;
 					
-					if($_file_info[4] && strpos($_files_entries[$key], 'FILE_IMAGE') !== false) {
+					if($_file_info[4] && strpos($_files_entries[$fkey], 'FILE_IMAGE') !== false) {
 					
 						$target_ext = $content['files_result'][ $_files_x ]['f_ext'];
 					
@@ -248,10 +268,10 @@ if($content['files_sql']) {
 					
 					}
 					$_files_image			= ($_files_image != false) ? PHPWCMS_IMAGES . $_files_image[0] : '';
-					$_files_entries[$key]	= render_cnt_template($_files_entries[$key], 'FILE_IMAGE', $_files_image);
+					$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE', $_files_image);
 					
 					// now replace a possible icon image
-					$_files_entries[$key]  = render_cnt_template($_files_entries[$key], 'FILE_ICON', str_replace('{FILE_EXT}', $content['files_result'][ $_files_x ]['f_ext'], $_files_settings['icon_path'].$_files_settings['icon_name']));
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_ICON', str_replace('{FILE_EXT}', $content['files_result'][ $_files_x ]['f_ext'], $_files_settings['icon_path'].$_files_settings['icon_name']));
 					
 					break;
 				
@@ -261,11 +281,16 @@ if($content['files_sql']) {
 		}
 
 		$crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
-		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
-		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['file_cp_title']));
+		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['file_cp_subtitle']));
 		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
 
-		$CNT_TMP .= LF.trim($crow["acontent_template"]).LF;
+		// return result
+		if( empty($IS_NEWS_CP) ) {
+			$CNT_TMP .= LF.trim($crow["acontent_template"]).LF;
+		} else {
+			$news['files_result'] = trim($crow["acontent_template"]);
+		}
 		
 		// reset locale settings
 		if(!empty($_files_old_locale)) {
@@ -275,7 +300,6 @@ if($content['files_sql']) {
 		unset($_files_count, $_files_entries, $_files_old_locale);
 
 	}
-
 
 }
 

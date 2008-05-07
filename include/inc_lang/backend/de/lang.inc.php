@@ -1165,7 +1165,7 @@ $BL['be_image_delete_js']				= 'Soll der Bildeintrag wirklich entfernt werden?';
 
 $BL['be_news']							= 'News';
 $BL['be_news_create']					= 'Neue News erstellen';
-$BL['be_tags']							= 'Tags/Schlagworte';
+$BL['be_tags']							= 'Tag/Schlagwort';
 $BL['be_title']							= 'Bezeichnung';
 $BL['be_delete_dataset']				= 'Gew&auml;hlten Eintrag l&ouml;schen?';
 $BL['be_action_notvalid']				= 'Die von Ihnen gew&auml;hlte Aktion ist nicht zul&auml;ssig!';
@@ -1206,5 +1206,15 @@ $BL['be_tab_add']						= 'Register hinzuf&uuml;gen';
 $BL['be_tab_name']						= 'Register';
 $BL['be_headline']						= '&Uuml;berschrift';
 $BL['be_tab_delete_js']					= 'Soll das Registerelement wirklich entfernt werden?';
+
+$BL['be_pagniate_count']				= 'Eintr&auml;ge pro Seite';
+$BL['be_limit_to']						= 'limitieren auf';
+$BL['be_archived_items']				= 'Archiveintr&auml;ge';
+$BL['be_include']						= 'einbeziehen';
+$BL['be_exclude']						= 'ausschlie&szlig;en';
+$BL['be_solely']						= 'ausschlie&szlig;lich';
+$BL['be_fsearch_not']					= 'NICHT';
+$BL['be_date_year']						= 'Jahr';
+$BL['be_archive_link']					= 'Archivlink';
 
 ?>

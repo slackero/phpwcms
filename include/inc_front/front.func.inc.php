@@ -348,7 +348,7 @@ function get_redirect_link($link='#', $pre='', $after=' ') {
 	// returns the link var and target var if available
 	$link 			= explode(' ', $link);
 	$l['link']		= empty($link[0]) ? '#' : $link[0];
-	$l['target']	= empty($link[1]) ? ''  : $pre.'target="'.strtolower($link[1]).'"'.$after;
+	$l['target']	= empty($link[1]) ? ''  : $pre.'target="'.$link[1].'"'.$after;
 	return $l;
 }
 

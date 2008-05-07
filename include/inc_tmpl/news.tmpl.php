@@ -160,7 +160,7 @@ window.addEvent('domready', function(){
 	</p>
 	
 	<p>	
-		<label><?= $BL['be_admin_page_category'] ?></label>
+		<label><?= $BL['be_tags'] ?></label>
 		<input type="text" name="cnt_category" id="cnt_category" value="<?= html_specialchars($news->data['cnt_category']) ?>" class="text" maxlength="250" />
 	</p>
 
@@ -249,8 +249,8 @@ window.addEvent('domready', function(){
 	
 	<p class="border_bottom space_top">	
 		<label><?= $BL['be_read_more_link'] ?>/<?= $BL['be_admin_page_text'] ?></label>
-		<input type="text" name="cnt_link" id="cnt_link" value="<?= html_specialchars($news->data['cnt_link']) ?>" class="text short" maxlength="250" title="<?= $BL['be_read_more_link'] ?>" />
-		<input type="text" name="cnt_linktext" id="cnt_linktext" value="<?= html_specialchars($news->data['cnt_linktext']) ?>" class="text short" maxlength="250" title="<?= $BL['be_admin_page_text'] ?>" />
+		<input type="text" name="cnt_link" id="cnt_link" value="<?= html_entities($news->data['cnt_link']) ?>" class="text short" maxlength="250" title="<?= $BL['be_read_more_link'] ?>" />
+		<input type="text" name="cnt_linktext" id="cnt_linktext" value="<?= html_entities($news->data['cnt_linktext']) ?>" class="text short" maxlength="250" title="<?= $BL['be_admin_page_text'] ?>" />
 	</p>
 
 	<div class="paragraph filled border_bottom">

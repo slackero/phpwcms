@@ -1904,6 +1904,17 @@ function plaintext_htmlencode($text='', $encode_function='html_specialchars') {
 }
 
 /**
+ * Convert line break to <br>
+ */
+function br_htmlencode($text='', $encode_function='html_specialchars') {
+	if($text) {
+		$text = $encode_function($text);
+		$text = nl2br($text);
+	}
+	return $text;
+}
+
+/**
  * Convert short file size (100M) to bytes
  */
 function getBytes($size) {
