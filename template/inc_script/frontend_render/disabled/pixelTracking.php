@@ -38,6 +38,7 @@ $_Tracking_GoogleSSL			= Off;
 $_Tracking_StatCounter			= Off;
 $_Tracking_StatCounterCode		= '000000';
 $_Tracking_StatCounterSecCode	= 'aaaaaaaaa';
+$_Tracking_StatCounterPartition	= 5;
 $_Tracking_StatCounterSSL		= Off;
  
  
@@ -133,7 +134,7 @@ if($_Tracking_StatCounter) {
 	$_TrackingCode .= SCRIPT_CDATA_START . LF;
 	$_TrackingCode .= '	var sc_project="' . $_Tracking_StatCounterCode . '";' .LF;
 	$_TrackingCode .= '	var sc_invisible=1;' .LF;
-	$_TrackingCode .= '	var sc_partition=7;'. LF;
+	$_TrackingCode .= '	var sc_partition=' . $_Tracking_StatCounterPartition . ';'. LF;
 	$_TrackingCode .= '	var sc_security="' . $_Tracking_StatCounterSecCode . '";' .LF;
 	$_TrackingCode .= '	var sc_https='. ( $_Tracking_StatCounterSSL ? 1 : 0 ) .';'. LF;
 	$_TrackingCode .= '	var sc_remove_link=1;'. LF;

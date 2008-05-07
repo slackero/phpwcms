@@ -32,7 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Tabs
 
-$content["tabs"]			= unserialize($row["acontent_form"]);
+$content["tabs"]			= @unserialize($row["acontent_form"]);
 $content["tabs_template"]	= $row["acontent_template"];
 
 ?>

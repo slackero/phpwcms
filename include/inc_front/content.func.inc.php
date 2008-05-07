@@ -914,7 +914,7 @@ if(!empty($_CpPaginate)) {
 }
 
 // check if print mode - then try to replace "no-print" sections from source
-if(strpos($content['all'], 'NO_PRINT')) {
+if(strpos($content['all'], '--NO_PRINT')) {
 	if($aktion[2] == 1) {
 
 		$content['all'] = replace_tmpl_section('NO_PRINT', $content['all']);

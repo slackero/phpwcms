@@ -47,7 +47,6 @@ if($is_mysql_error) {
 }
 
 // set DB to compatible mode
-//@mysql_query("SET SQL_MODE='MYSQL323'", $db);
 // for compatibility issues try to check for MySQL version and charset
 $phpwcms['db_version'] = _dbInitialize();
 define('PHPWCMS_DB_VERSION', $phpwcms['db_version']);
