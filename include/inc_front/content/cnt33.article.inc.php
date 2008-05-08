@@ -134,7 +134,7 @@ if(count($news['news_category'])) {
 		
 	}
 	
-	$sql .= "LEFT JOIN phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
+	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
 	$news['sql_where'][] = 'AND (' . implode($news['news_andor'], $news['news_category_sql']) . ')';
 	
 	$news['sql_group_by'] = 'GROUP BY pc.cnt_id ';
