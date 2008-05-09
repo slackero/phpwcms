@@ -20,6 +20,14 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+
 // Module/Plug-in Shop & Products - include in frontend search
 
 // include search specific functions and class
@@ -34,6 +42,7 @@ $s_module->search_words				= $content["search_word"];
 $s_module->search_highlight			= $content['search']['highlight_result'];
 $s_module->search_highlight_words	= $content['highlight'];
 $s_module->search_wordlimit			= $content['search']['wordlimit'];
+$s_module->ellipse_sign				= $template_default['ellipse_sign'];
 
 $s_module->search();
 

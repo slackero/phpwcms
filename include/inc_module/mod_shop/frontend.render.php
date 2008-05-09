@@ -20,6 +20,14 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+
 // Module/Plug-in Shop & Products
 
 $_shop_load_cat  		= strpos($content['all'], '{SHOP_CATEGOR');

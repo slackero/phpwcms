@@ -30,6 +30,7 @@ class ModuleShopSearch {
 	var $search_highlight		= false;
 	var $search_highlight_words	= false;
 	var $search_wordlimit		= 0;
+	var $ellipse_sign			= '&#8230;';
 
 	function search() {
 	
@@ -93,7 +94,7 @@ class ModuleShopSearch {
 				$s_title  = html_specialchars($s_title);
 
 				$s_text   = trim($s_text);
-				$s_text   = getCleanSubString($s_text, $this->search_wordlimit, $template_default['ellipse_sign'], 'word');
+				$s_text   = getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word');
 				$s_text   = html_specialchars($s_text);
 				
 				$this->search_results[$id]["id"]	= $value['shopprod_id'];
