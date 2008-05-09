@@ -69,5 +69,11 @@ if(isset($_POST['csearch_module']) && is_array($_POST['csearch_module']) && coun
 	}
 }
 
+$content['search']["search_news"]	= empty($_POST['csearch_news']) ? 0 : 1;
+$content['search']["news_lang"]		= empty($_POST['csearch_news_lang']) ? array() : convertStringToArray( strtolower(clean_slweg($_POST['csearch_news_lang'])) );
+$content['search']["news_category"]	= empty($_POST['csearch_news_category']) ? array() : convertStringToArray( strtolower(clean_slweg($_POST['csearch_news_category'])) );
+$content['search']["news_andor"]	= clean_slweg($_POST['csearch_news_andor']);
+$content['search']["news_url"]		= clean_slweg($_POST['csearch_news_url']);
+
 
 ?>

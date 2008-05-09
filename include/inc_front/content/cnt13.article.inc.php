@@ -257,10 +257,37 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					// include module search
 					include($phpwcms['modules'][$key]['path'].'frontend.search.php');
 					
-					
-					
 				}				
 			}
+		}
+		
+		// news search
+		if(!empty($content['search']['search_news'])) {
+
+			// initialize search for news
+			$s_news = new search_News();
+			
+			// set current search result counter
+			$s_news->search_result_entry		= $s_run;
+			$s_news->search_words				= $s_search_words;
+			$s_news->search_highlight			= $content['search']['highlight_result'];
+			$s_news->search_highlight_words		= $content['highlight'];
+			$s_news->search_wordlimit			= $content['search']['wordlimit'];
+			$s_news->search_category			= $content['search']['news_category'];
+			$s_news->search_language			= $content['search']['news_lang'];
+			$s_news->search_andor				= $content['search']['news_andor'];
+			$s_news->ellipse_sign				= $template_default['ellipse_sign'];
+			$s_news->search_target_url			= $content['search']['news_url'];
+			
+			$s_news->search();
+			
+			// add news search results
+			$s_list += $s_news->search_results;
+			
+			// get final search result counter
+			$s_run = $s_news->search_result_entry;
+		
+			unset($s_news);
 		}
 		
 		
@@ -313,7 +340,14 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				}
 			
 				$s_result_list .= '<div>'.LF;
-				$s_result_list .= '<h3><a href="index.php?'.$s_list[$s_key]['query'];
+				$s_result_list .= '<h3><a href="';
+				
+				if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
+					$s_result_list .= $s_list[$s_key]['query'];
+				} else {
+					$s_result_list .= 'index.php?'.$s_list[$s_key]['query'];
+				}
+				
 				if($content['search']['highlight_result']) {
 					$s_result_list .= '&amp;highlight='.$s_result_highlight;
 				}

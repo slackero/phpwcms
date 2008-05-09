@@ -29,9 +29,30 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //search form
 
+// necessary JavaScript libraries
+initMootools();
+initMootoolsAutocompleter();
+
+
 if(empty($content['search']["text_html"])) {
 	$content['search']["text_html"] = 0;
 }
+
+$content['search']["search_news"]	= empty($content['search']["search_news"]) ? 0 : 1;
+
+if(!isset($content['search']["news_lang"])) {
+	$content['search']["news_lang"] = array();
+}
+if(!isset($content['search']["news_category"])) {
+	$content['search']["news_category"] = array();
+}
+if(!isset($content['search']["news_andor"])) {
+	$content['search']["news_andor"] = 'OR';
+}
+if(empty($content['search']["news_url"])) {
+	$content['search']["news_url"] = '';
+}
+
 
 
 ?>
@@ -65,8 +86,8 @@ if(empty($content['search']["text_html"])) {
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
   
 <tr>
-				<td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_search_startlevel'] ?>:&nbsp;</td>
-				<td><select name="csearch_start_at[]" size="10" multiple="multiple" class="f11" id="csearch_start_at" style="width: 440px">
+	<td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_search_startlevel'] ?>:&nbsp;</td>
+	<td><select name="csearch_start_at[]" size="10" multiple="multiple" class="f11" id="csearch_start_at" style="width: 440px">
 <?php
 				if(!isset($content["search"]["start_at"]) || !is_array($content["search"]["start_at"])) $content["search"]["start_at"] = array();
 								
@@ -75,8 +96,90 @@ if(empty($content['search']["text_html"])) {
 				echo '>'.$BL['be_admin_struct_index'].'</option>'.LF;
 				struct_select_list(0, 0, $content["search"]["start_at"]);
 ?>
+	</select></td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+
+<tr>
+	<td align="right" class="chatlist tdtop4"><?php echo $BL['be_module_search'] ?>:&nbsp;</td>
+	<td valign="top">
+		<table border="0" cellpadding="1" cellspacing="0" summary="">
+			<tr>
+				<td><input name="csearch_news" type="checkbox" id="csearch_news" value="1"<?php is_checked(1, $content['search']["search_news"]) ?> /></td>
+				<td class="v10"><label for="csearch_news"><strong><?php echo $BL['be_news'] ?></strong></label>&nbsp;&nbsp;</td>
+				<td align="right" class="chatlist"><?= $BL['be_profile_label_lang'] ?>:&nbsp;</td>
+				<td colspan="2"><input type="text" name="csearch_news_lang" id="news_lang" value="<?= html_specialchars(implode(', ', $content['search']["news_lang"])) ?>" class="width200" /></td>
+			</tr>			
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				<td align="right" class="chatlist"><?= $BL['be_tags'] ?>:&nbsp;</td>
+				<td><input type="text" name="csearch_news_category" id="news_category" value="<?= html_specialchars(implode(', ', $content['search']["news_category"])) ?>" class="width200" /></td>
+				<td><select name="csearch_news_andor" id="news_andor">
+				
+					<option value="OR"<?php is_selected('OR', $content['search']['news_andor']) ?>><?= $BL['be_fsearch_or'] ?></option>
+					<option value="AND"<?php is_selected('AND', $content['search']['news_andor']) ?>><?= $BL['be_fsearch_and'] ?></option>
+					<option value="NOT"<?php is_selected('NOT', $content['search']['news_andor']) ?>><?= $BL['be_fsearch_not'] ?></option>
+			
 				</select></td>
 			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+				<td align="right" class="chatlist"><?= $BL['be_cnt_target'].'/'.$BL['be_profile_label_website'] ?>:&nbsp;</td>
+				<td><input type="text" name="csearch_news_url" id="news_url" value="<?= html_entities($content['search']["news_url"]) ?>" class="width200" /></td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	<script type="text/javascript">
+	<!--
+	
+	window.addEvent('domready', function(){
+										 
+		/* Autocompleter for categories/tags */
+		var searchCategory = $('news_category');
+		var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchCategory);
+		var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
+			multi: true,
+			maxChoices: 30,
+			autotrim: true,
+			minLength: 0,
+			allowDupes: false,
+			postData: {action: 'newstags', method: 'json'},
+			onRequest: function(el) {
+				indicator2.setStyle('display', '');
+			},
+			onComplete: function(el) {
+				indicator2.setStyle('display', 'none');
+			}
+		});
+		
+		var selectLang = $('news_lang');
+		var indicator1 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(selectLang);
+		var completer1 = new Autocompleter.Ajax.Json(selectLang, 'include/inc_act/ajax_connector.php', {
+			multi: true,
+			allowDupes: false,
+			autotrim: true,
+			minLength: 0,
+			maxChoices: 20,
+			postData: {action: 'lang', method: 'json'},
+			onRequest: function(el) {
+				indicator1.setStyle('display', '');
+			},
+			onComplete: function(el) {
+				indicator1.setStyle('display', 'none');
+			}
+		});
+		
+		selectLang.addEvent('keyup', function(){
+			this.value = this.value.replace(/[^a-z\-\, ]/g, '');
+		});
+	
+	});
+	
+	//-->
+	</script>
+	</td>
+</tr>
   
 <?php
 
@@ -107,8 +210,8 @@ foreach($phpwcms['modules'] as $value) {
 
 if(count($content['search']['module_search'])) {
 
-	echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>';
-	echo '<tr><td align="right" class="chatlist tdtop4">'.$BL['be_module_search'].':&nbsp;</td>';
+	echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>';
+	echo '<tr><td>&nbsp;</td>';
 	echo '<td valign="top">';
 	echo '<table border="0" cellpadding="1" cellspacing="0" summary="">';
 	echo implode(LF, $content['search']['module_search'])	;
