@@ -1227,5 +1227,7 @@ $BL['be_solely']						= 'solely';
 $BL['be_fsearch_not']					= 'NOT';
 $BL['be_date_year']						= 'year';
 $BL['be_archive_link']					= 'archive link';
+$BL['be_use_prio']						= 'apply priorization';
+$BL['be_skip_first_items']				= 'skip top items';
 
 ?>

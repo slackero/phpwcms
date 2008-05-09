@@ -39,7 +39,9 @@ $content['news_default'] = array(
 								'news_archive'			=> 1,
 								'news_andor'			=> 'OR',
 								'news_paginate_basis'	=> 3,
-								'news_archive_link'		=> ''
+								'news_archive_link'		=> '',
+								'news_prio'				=> 0,
+								'news_skip'				=> ''
 								);
 
 // set default values or merge with defaults
@@ -79,8 +81,10 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 <tr>
-	<td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-	<td valign="top"><select name="news_sort" class="f11b" id="calink_type">
+	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+		<tr>
+			<td><select name="news_sort" class="f11b" id="calink_type">
 		
 		<option value="1"<?php is_selected(1, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
 		<option value="2"<?php is_selected(2, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
@@ -92,6 +96,11 @@ initMootoolsAutocompleter();
 		<option value="8"<?php is_selected(8, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 
 	</select></td>
+			<td>&nbsp;&nbsp;</td>		
+			<td bgcolor="#e7e8eb"><input type="checkbox" name="news_prio" id="news_prio" value="1"<?php is_checked(1, $content['news']['news_prio']) ?> /></td>
+			<td bgcolor="#e7e8eb"><label for="news_prio">&nbsp;<?php echo $BL['be_use_prio'] ?>&nbsp;&nbsp;</label></td>
+		</tr>
+		</table></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -126,29 +135,39 @@ initMootoolsAutocompleter();
 
 <tr>
 	<td align="right" class="chatlist"><?= $BL['be_show_content'] ?>:&nbsp;</td>
-	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
-		<tr>
-		<td><select name="news_archive" id="news_archive" class="bold">
+	<td><select name="news_archive" id="news_archive" class="bold">
 			
-				<option value="0"<?php is_selected(0, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_include'] ?></option>
-				<option value="1"<?php is_selected(1, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_exclude'] ?></option>
-				<option value="2"<?php is_selected(2, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_solely'] ?></option>
-				<option value="3"<?php is_selected(3, $content['news']['news_archive']) ?>><?= $BL['be_cnt_guestbook_listing_all'].' &gt; ' . $BL['be_article_cnt_start'] ?></option>
+			<option value="0"<?php is_selected(0, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_include'] ?></option>
+			<option value="1"<?php is_selected(1, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_exclude'] ?></option>
+			<option value="2"<?php is_selected(2, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_solely'] ?></option>
+			<option value="3"<?php is_selected(3, $content['news']['news_archive']) ?>><?= $BL['be_cnt_guestbook_listing_all'].' &gt; ' . $BL['be_article_cnt_start'] ?></option>
 				
 		</select></td>
-		<td class="chatlist">&nbsp;&nbsp;&nbsp;<?= $BL['be_cnt_rssfeed_max'] ?>&nbsp;</td>
-		<td><input type="text" name="news_limit" id="news_limit" value="<?= html_specialchars($content['news']['news_limit']) ?>" class="width25" /></td>
-		<td class="v10">&nbsp;<?= $BL['be_cnt_rssfeed_item'] ?></td>
+</tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist"><?= $BL['be_cnt_rssfeed_item'] ?>:&nbsp;</td>
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+		<tr>
+			<td><input type="text" name="news_limit" id="news_limit" value="<?= html_specialchars($content['news']['news_limit']) ?>" class="width50" /></td>
+			<td>&nbsp;<?= $BL['be_cnt_rssfeed_max'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input type="text" name="news_skip" id="news_skip" value="<?= html_specialchars($content['news']['news_skip']) ?>" class="width50" />
+			<td>&nbsp;<?= $BL['be_skip_first_items'] ?></td>
 		</tr>
 		</table></td>
 </tr>
+
+
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+
 <tr>
 	<td>&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
 			<td bgcolor="#e7e8eb"><input type="checkbox" name="news_paginate" id="news_paginate" value="1"<?php is_checked(1, $content['news']['news_paginate']) ?> /></td>
-			<td class="v10" bgcolor="#e7e8eb"><label for="news_paginate">&nbsp;<?= $BL['be_pagination'] ?>&nbsp;&nbsp;</label></td>
+			<td bgcolor="#e7e8eb"><label for="news_paginate">&nbsp;<?= $BL['be_pagination'] ?>&nbsp;&nbsp;</label></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><select name="news_paginate_basis" id="news_paginate_basis" onchange="setPaginateBasis();">
 			

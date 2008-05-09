@@ -155,44 +155,63 @@ $sql .= $news['sql_group_by'];
 
 // order by - only necessary in list mode
 if($news['list_mode']) {
+	
+	$sql .= 'ORDER BY ';
+	
+	// add prio sorting value
+	if( !empty($news['news_prio']) ) {
+		$sql .= 'pc.cnt_prio DESC, ';
+	}
+
 	switch($news['news_sort']) {
 	
 		case 1:		// create date, DESC
-					$sql .= 'ORDER BY pc.cnt_created DESC';
+					$sql .= 'pc.cnt_created DESC';
 					break;
 		
 		case 2:		// create date, ASC
-					$sql .= 'ORDER BY pc.cnt_created ASC';
+					$sql .= 'pc.cnt_created ASC';
 					break;
 		
 		case 3:		// change date, DESC
-					$sql .= 'ORDER BY pc.cnt_changed DESC';
+					$sql .= 'pc.cnt_changed DESC';
 					break;
 		
 		case 4:		// change date, ASC
-					$sql .= 'ORDER BY pc.cnt_changed ASC';
+					$sql .= 'pc.cnt_changed ASC';
 					break;
 		
 		case 6:		// live date, ASC
-					$sql .= 'ORDER BY cnt_ts_livedate ASC';
+					$sql .= 'cnt_ts_livedate ASC';
 					break;
 		
 		case 7:		// kill date, DESC
-					$sql .= 'ORDER BY cnt_ts_killdate DESC';
+					$sql .= 'cnt_ts_killdate DESC';
 					break;
 		
 		case 8:		// kill date, ASC
-					$sql .= 'ORDER BY cnt_ts_killdate ASC';
+					$sql .= 'cnt_ts_killdate ASC';
 					break;
 		
 		default:	// live date, DESC
-					$sql .= 'ORDER BY cnt_ts_livedate DESC';
+					$sql .= 'cnt_ts_livedate DESC';
 					break;
 	
 	}
 
-	if(!empty($news['news_limit'])) {
-		$sql .= ' LIMIT '.intval($news['news_limit']);
+	if(!empty($news['news_skip'])) {
+	
+		$sql .= ' LIMIT '.intval($news['news_skip']).', ';
+		$sql .= !empty($news['news_limit']) ? intval($news['news_limit']) : 9999;
+
+	} elseif(!empty($news['news_limit'])) {
+
+		$sql .= ' LIMIT ';
+		if(!empty($news['news_skip'])) {
+			$sql .= intval($news['news_skip']).', ';
+		}
+		$sql .= intval($news['news_limit']);
+
 	}
 }
 

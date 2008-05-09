@@ -429,12 +429,14 @@ CREATE TABLE `phpwcms_content` (
   `cnt_livedate` datetime NOT NULL default '0000-00-00 00:00:00',
   `cnt_killdate` datetime NOT NULL default '0000-00-00 00:00:00',
   `cnt_archive_status` int(11) NOT NULL default '0',
-  `cnt_alias` varchar(255) NOT NULL,
+  `cnt_sort` int(11) NOT NULL default '0',
+  `cnt_prio` int(11) NOT NULL default '0',
+  `cnt_alias` varchar(255) NOT NULL default '',
   `cnt_name` varchar(255) NOT NULL default '',
   `cnt_title` varchar(255) NOT NULL default '',
   `cnt_subtitle` varchar(255) NOT NULL default '',
-  `cnt_editor` varchar(255) NOT NULL,
-  `cnt_place` varchar(255) NOT NULL,
+  `cnt_editor` varchar(255) NOT NULL default '',
+  `cnt_place` varchar(255) NOT NULL default '',
   `cnt_teasertext` text NOT NULL,
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL default '',
@@ -447,7 +449,9 @@ CREATE TABLE `phpwcms_content` (
   KEY `cnt_group` (`cnt_group`),
   KEY `cnt_owner` (`cnt_owner`),
   KEY `cnt_alias` (`cnt_alias`),
-  KEY `cnt_pid` (`cnt_pid`)
+  KEY `cnt_pid` (`cnt_pid`),
+  KEY `cnt_sort` (`cnt_sort`),
+  KEY `cnt_prio` (`cnt_prio`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------

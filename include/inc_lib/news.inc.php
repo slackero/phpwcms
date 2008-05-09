@@ -293,9 +293,9 @@ class phpwcmsNews {
 			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing">';
 			$list[] = '<tr class="header">';
 			
-			$list[] = '<th class="column colfirst news">'.$this->BL['be_article_cnt_start'].'</th>';
-			$list[] = '<th class="column">'.$this->BL['be_article_cnt_end'].'</th>';
+			$list[] = '<th class="column colfirst news">'.$this->BL['be_article_cnt_start'].'-'.$this->BL['be_article_cnt_end'].'</th>';
 			$list[] = '<th class="column">'.$this->BL['be_title'].'</th>';
+			$list[] = '<th class="column">Prio</th>';
 			$list[] = '<th class="column collast">&nbsp;</th>';
 			
 			$list[] = '</tr>';
@@ -307,12 +307,12 @@ class phpwcmsNews {
 				$news['live'] = $news['cnt_startdate'];
 				$news['kill'] = strtotime($news['cnt_killdate']);
 				
-				$news['live'] = $news['live'] == false ? '-' : date($this->BL['be_shortdatetime'], $news['live']);
-				$news['kill'] = $news['kill'] == false ? '-' : date($this->BL['be_shortdatetime'], $news['kill']);
+				$news['live'] = $news['live'] == false ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
+				$news['kill'] = $news['kill'] == false ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['kill']);
 				
-				$list[] = '<td class="column colfirst news">'.html_specialchars( $news['live'] ).'</td>';
-				$list[] = '<td class="column">'.html_specialchars( $news['kill'] ).'</td>';
+				$list[] = '<td class="column colfirst news">'.$news['live'].'&nbsp;-&nbsp;'.$news['kill'].'</td>';
 				$list[] = '<td class="column">'.html_specialchars($news['cnt_name']).'</td>';
+				$list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
 				$list[] = '<td class="column collast">
 				
 					<a href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">'.	
@@ -430,6 +430,7 @@ class phpwcmsNews {
 								'cnt_text'				=> '',
 								'cnt_duplicate'			=> 0,
 								'cnt_lang'				=> '',
+								'cnt_prio'				=> 0,
 		
 								'cnt_image'				=> array(	'id'			=> 0,
 																	'name'			=> '',
@@ -611,6 +612,7 @@ class phpwcmsNews {
 		
 		$post['cnt_status']			= empty($_POST['cnt_status']) ? 0 : 1;
 		$post['cnt_archive_status']	= empty($_POST['cnt_archive_status']) ? 0 : 1;
+		$post['cnt_prio']			= empty($_POST['cnt_prio']) ? 0 : intval($_POST['cnt_prio']);
 		
 		$temp_time					= isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
 		$temp_date					= isset($_POST['calendar_start_date']) ? _getDate($_POST['calendar_start_date']) : '';

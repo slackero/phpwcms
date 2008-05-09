@@ -37,9 +37,11 @@ $content['news']['news_lang']			= convertStringToArray( strtolower(clean_slweg($
 $content['news']['news_category']		= convertStringToArray( clean_slweg($_POST['news_category']) );
 $content['news']['news_sort']			= abs(intval($_POST['news_sort']));
 $content['news']['news_paginate']		= empty($_POST['news_paginate']) ? 0 : 1;
+$content['news']['news_prio']			= empty($_POST['news_prio']) ? 0 : 1;
 $content['news']['news_paginate_count']	= empty($_POST['news_paginate_count']) ? '' : abs(intval($_POST['news_paginate_count']));
 $content['news']['news_paginate_basis']	= abs(intval($_POST['news_paginate_basis']));
 $content['news']['news_limit']			= abs(intval($_POST['news_limit']));
+$content['news']['news_skip']			= abs(intval($_POST['news_skip']));
 $content['news']['news_archive']		= abs(intval($_POST['news_archive']));
 $content['news']['news_andor']			= strtoupper(clean_slweg($_POST['news_andor']));
 $content['news']['news_archive_link']	= clean_slweg($_POST['news_archive_link']);
@@ -55,6 +57,9 @@ if( $content['news']['news_paginate_basis'] > 4 ) {
 }
 if( empty($content['news']['news_limit']) ) {
 	$content['news']['news_limit'] = '';
+}
+if( empty($content['news']['news_skip']) ) {
+	$content['news']['news_skip'] = '';
 }
 if( $content['news']['news_archive'] > 3 ) {
 	$content['news']['news_sort'] = 1;

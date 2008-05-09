@@ -134,7 +134,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"] = '1.3.9';
-$phpwcms["release_date"] = '2008/04/28';
+$phpwcms["release_date"] = '2008/05/09';
 
 // -------------------------------------------------------------
 

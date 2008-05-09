@@ -37,3 +37,9 @@ ALTER TABLE `phpwcms_articlecontent` ADD INDEX ( `acontent_granted` ) ;
 
 # 2008-03-09
 ALTER TABLE `phpwcms_calendar` ADD `calendar_teaser` TEXT NOT NULL AFTER `calendar_where`;
+
+# 2008-05-09
+ALTER TABLE `phpwcms_content` ADD `cnt_sort` INT NOT NULL DEFAULT '0' AFTER `cnt_archive_status`;
+ALTER TABLE `phpwcms_content` ADD `cnt_prio` INT NOT NULL DEFAULT '0' AFTER `cnt_sort`;
+ALTER TABLE `phpwcms_content` ADD INDEX ( `cnt_sort` );
+ALTER TABLE `phpwcms_content` ADD INDEX ( `cnt_prio` );

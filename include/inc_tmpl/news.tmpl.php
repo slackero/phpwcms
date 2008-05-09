@@ -165,8 +165,21 @@ window.addEvent('domready', function(){
 	</p>
 
 	<p>	
-		<label><?= $BL['be_profile_label_lang'] ?></label>
-		<input type="text" name="cnt_lang" id="cnt_lang" value="<?= html_specialchars($news->data['cnt_lang']) ?>" class="text short" maxlength="10" />
+		<label><?= $BL['be_profile_label_lang'] ?>/<?= $BL['be_priorize'] ?></label>
+		<input type="text" name="cnt_lang" id="cnt_lang" value="<?= html_specialchars($news->data['cnt_lang']) ?>" class="text short" maxlength="10" title="<?= $BL['be_profile_label_lang'] ?>" />
+		<select name="cnt_prio" id="cnt_prio" style="width:auto" title="<?= $BL['be_priorize'] ?>">				
+		<?php
+		
+			for($x=30; $x>=-30; $x--) {				
+			
+				echo '	<option value="'.$x.'"';
+				is_selected($x, $news->data['cnt_prio']);
+				echo '>'.( $x==0 ? $BL['be_cnt_default'] : $x ).'</option>'.LF;
+			
+			}
+							
+		?>		
+		</select>
 	</p>
 
 	<p class="break filled important">
