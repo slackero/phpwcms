@@ -274,6 +274,7 @@ if($news['template']) {
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TEXT', $value['cnt_text']);
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'AUTHOR', html_specialchars($value['cnt_editor']));
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'PLACE', html_specialchars($value['cnt_place']));
+		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'PRIO', empty($value['cnt_prio']) ? '' : $value['cnt_prio'] );
 		
 		// news detail link (read)
 		if($news['list_mode']) {

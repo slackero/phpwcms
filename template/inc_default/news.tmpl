@@ -13,7 +13,6 @@ files_template_list = default
 files_template_detail = default
 files_direct_download = 0
 
-
 <!--NEWS_SETTINGS_END//-->
 news_per_row = 1
 
@@ -30,7 +29,7 @@ news_per_row = 1
 		Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN}
 		Killdate: {KILLDATE:d.m.Y H:i:s lang=EN}
 	//-->
-	<div class="newsEntry">
+	<div class="newsEntry[PRIO] prio{PRIO}[/PRIO]">
 	[NEWS_TITLE]<h2>{NEWS_TITLE}</h2>[/NEWS_TITLE]
 	[NEWS_SUBTITLE]<h3>{NEWS_SUBTITLE}</h3>[/NEWS_SUBTITLE]
 	[NEWS_TOPIC]<p><strong>{NEWS_TOPIC}</strong></p>[/NEWS_TOPIC]
