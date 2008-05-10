@@ -52,6 +52,9 @@ if(!isset($content['alink']['alink_allowedtags'])) {
 if(empty($content['alink']['alink_crop'])) {
 	$content['alink']['alink_crop'] = 0;
 }
+if(empty($content['alink']['alink_prio'])) {
+	$content['alink']['alink_prio'] = 0;
+}
 
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 
@@ -140,8 +143,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 <tr>
-	<td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
-	<td valign="top"><select name="calink_type" class="f11b" id="calink_type" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
+	<td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
+	<td valign="top"><table cellpadding="0" cellspacing="0" border="0" summary="">
+		<tr>
+			<td><select name="calink_type" class="f11b" id="calink_type" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
 		
 		<optgroup label="<?php echo $BL['be_sorted']; ?>">
 		
@@ -183,13 +188,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		
 		</optgroup>
 		
-	</select></td>
+			</select></td>
+			<td>&nbsp;&nbsp;</td>		
+			<td bgcolor="#e7e8eb" id="prio0"><input type="checkbox" name="calink_prio" id="calink_prio" value="1"<?php is_checked(1, $content['alink']['alink_prio']) ?> /></td>
+			<td bgcolor="#e7e8eb" id="prio1"><label for="calink_prio">&nbsp;<?php echo $BL['be_use_prio'] ?>&nbsp;&nbsp;</label></td>
+		</tr>
+		</table></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 <tr id="calink_manual_0"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-<td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_selection'] ?>:&nbsp;</td>
+<td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_selection'] ?>:&nbsp;</td>
 <td style="padding-bottom:3px;"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>

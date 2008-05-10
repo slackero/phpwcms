@@ -53,6 +53,7 @@ $content['alink']['alink_height']		= intval($_POST['calink_height']);
 $content['alink']['alink_zoom']			= empty($_POST['calink_zoom']) ? 0 : 1;
 $content['alink']['alink_unique']		= empty($_POST['calink_unique']) ? 0 : 1;
 $content['alink']['alink_crop']			= empty($_POST['calink_crop']) ? 0 : 1;
+$content['alink']['alink_prio']			= empty($_POST['calink_prio']) ? 0 : 1;
 
 if(empty($content['alink']['alink_width'])) $content['alink']['alink_width'] = '';
 if(empty($content['alink']['alink_height'])) $content['alink']['alink_height'] = '';

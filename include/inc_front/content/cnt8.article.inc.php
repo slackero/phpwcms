@@ -90,82 +90,91 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 		}
 		
 		$sql_union = '';
+		
+		// add prio sorting value
+		if(empty($content['alink']['alink_prio'])) {
+			$sql_prio		= '';
+			$sql_union_prio	= '';
+		} else {
+			$sql_prio		= 'ar.article_priorize DESC, ';
+			$sql_union_prio	= 'article_priorize DESC, ';
+		}
 	
 		switch($content['alink']['alink_type']) {
 	
 			case 1:		// create date, DESC
-						$alink_sql .= " ORDER BY ar.article_created DESC";	break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_created DESC";	break;
 					
 			case 2:		// create date, ASC
-						$alink_sql .= " ORDER BY ar.article_created ASC";	break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_created ASC";	break;
 					
 			case 3:		// change date, DESC
-						$alink_sql .= " ORDER BY ar.article_tstamp DESC";	break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_tstamp DESC";	break;
 					
 			case 4:		// change date, ASC
-						$alink_sql .= " ORDER BY ar.article_tstamp ASC";	break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_tstamp ASC";	break;
 					
 			case 5:		// live date, DESC
-						$alink_sql .= " ORDER BY ar.article_begin DESC";	break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_begin DESC";	break;
 					
 			case 6:		// live date, ASC
-						$alink_sql .= " ORDER BY ar.article_begin ASC";		break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_begin ASC";	break;
 					
 			case 7:		// kill date, DESC
-						$alink_sql .= " ORDER BY ar.article_end DESC";		break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_end DESC";		break;
 					
 			case 8:		// kill date, ASC
-						$alink_sql .= " ORDER BY ar.article_end ASC";		break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_end ASC";		break;
 						
 			case 18:	// article title, DESC
-						$alink_sql .= " ORDER BY ar.article_title DESC";	break;
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_title DESC";	break;
 					
 			case 19:	// article title, ASC
-						$alink_sql .= " ORDER BY ar.article_title ASC";		break;						
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_title ASC";	break;						
 						
 					
 			case 9:		// random
-						$alink_sql .= " ORDER BY RAND()";					break;
+						$alink_sql .= " ORDER BY RAND()";								break;
 					
 			case 10:	// random, create date, DESC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_created DESC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_created DESC";	break;
 					
 			case 11:	// random, create date, ASC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_created ASC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_created ASC";		break;
 					
 			case 12:	// random, change date, DESC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_tstamp DESC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_tstamp DESC";		break;
 					
 			case 13:	// random, change date, ASC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_tstamp ASC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_tstamp ASC";		break;
 					
 			case 14:	// random, live date, DESC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_begin DESC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_begin DESC";		break;
 					
 			case 15:	// random, live date, ASC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_begin ASC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_begin ASC";		break;
 					
 			case 16:	// random, kill date, DESC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_end DESC";			break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_end DESC";		break;
 					
 			case 17:	// random, kill date, ASC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_end ASC";			break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_end ASC";			break;
 						
 			case 20:	// random, kill date, DESC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_title DESC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_title DESC";		break;
 					
 			case 21:	// random, kill date, ASC
 						$alink_sql .= " ORDER BY RAND()";
-						$sql_union .= " ORDER BY article_title ASC";		break;
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_title ASC";		break;
 	
 		}
 		
@@ -220,7 +229,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'TITLE', html_specialchars($row['article_title']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
 					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row['article_created'], strtotime($row['article_begin']), strtotime($row['article_end']));
-					
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
+
 					$row['article_image'] = unserialize( $row['article_image'] );
 					
 					// article list image

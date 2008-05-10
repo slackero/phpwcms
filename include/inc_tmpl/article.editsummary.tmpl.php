@@ -134,16 +134,12 @@ calEnd.setYearCombo(false);
 					<td><select name="article_priorize" id="article_priorize" class="v11">
 					
 <?php
-
-	echo '	<option value="0"';
-	is_selected(0, $article["article_priorize"]);
-	echo '>'.$BL['be_cnt_default'].'</option>'.LF;
 	
-	for($x=1; $x<=25; $x++) {				
+	for($x=30; $x>=-30; $x--) {				
 	
 		echo '	<option value="'.$x.'"';
 		is_selected($x, $article["article_priorize"]);
-		echo '>'.$x.'</option>'.LF;
+		echo '>'. ( $x==0 ? $BL['be_cnt_default'] : $x ) .'</option>'.LF;
 	
 	}
 					

@@ -6,6 +6,8 @@ function showHide_TeaserArticleSelection(value) {
 
 		toggleDisplayById('calink_auto_0', 'none');
 		toggleDisplayById('calink_auto_1', 'none');
+		toggleDisplayById('prio0', 'none');
+		toggleDisplayById('prio1', 'none');
 		toggleDisplayById('calink_manual_0', '');
 		toggleDisplayById('calink_manual_1', '');
 		
@@ -15,6 +17,8 @@ function showHide_TeaserArticleSelection(value) {
 		toggleDisplayById('calink_manual_1', 'none');
 		toggleDisplayById('calink_auto_0', '');
 		toggleDisplayById('calink_auto_1', '');
+		toggleDisplayById('prio0', '');
+		toggleDisplayById('prio1', '');
 		
 	}
 	
