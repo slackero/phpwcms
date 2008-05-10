@@ -39,6 +39,40 @@ ALTER TABLE `phpwcms_articlecontent` ADD INDEX ( `acontent_granted` ) ;
 ALTER TABLE `phpwcms_calendar` ADD `calendar_teaser` TEXT NOT NULL AFTER `calendar_where`;
 
 # 2008-05-09
+CREATE TABLE IF NOT EXISTS `phpwcms_content` (
+  `cnt_id` int(11) NOT NULL auto_increment,
+  `cnt_pid` int(11) NOT NULL default '0',
+  `cnt_created` int(11) NOT NULL default '0',
+  `cnt_changed` int(11) NOT NULL default '0',
+  `cnt_status` int(1) NOT NULL default '0',
+  `cnt_type` varchar(255) NOT NULL,
+  `cnt_module` varchar(255) NOT NULL,
+  `cnt_group` int(11) NOT NULL default '0',
+  `cnt_owner` int(11) NOT NULL default '0',
+  `cnt_livedate` datetime NOT NULL default '0000-00-00 00:00:00',
+  `cnt_killdate` datetime NOT NULL default '0000-00-00 00:00:00',
+  `cnt_archive_status` int(11) NOT NULL default '0',
+  `cnt_alias` varchar(255) NOT NULL,
+  `cnt_name` varchar(255) NOT NULL default '',
+  `cnt_title` varchar(255) NOT NULL default '',
+  `cnt_subtitle` varchar(255) NOT NULL default '',
+  `cnt_editor` varchar(255) NOT NULL,
+  `cnt_place` varchar(255) NOT NULL,
+  `cnt_teasertext` text NOT NULL,
+  `cnt_text` text NOT NULL,
+  `cnt_lang` varchar(10) NOT NULL default '',
+  `cnt_object` text NOT NULL,
+  PRIMARY KEY  (`cnt_id`),
+  KEY `cnt_livedate` (`cnt_livedate`),
+  KEY `cnt_killdate` (`cnt_killdate`),
+  KEY `cnt_module` (`cnt_module`),
+  KEY `cnt_type` (`cnt_type`),
+  KEY `cnt_group` (`cnt_group`),
+  KEY `cnt_owner` (`cnt_owner`),
+  KEY `cnt_alias` (`cnt_alias`),
+  KEY `cnt_pid` (`cnt_pid`)
+) TYPE=MyISAM ;
+
 ALTER TABLE `phpwcms_content` ADD `cnt_sort` INT NOT NULL DEFAULT '0' AFTER `cnt_archive_status`;
 ALTER TABLE `phpwcms_content` ADD `cnt_prio` INT NOT NULL DEFAULT '0' AFTER `cnt_sort`;
 ALTER TABLE `phpwcms_content` ADD INDEX ( `cnt_sort` );
