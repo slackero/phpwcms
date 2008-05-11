@@ -6,10 +6,7 @@
 #
 #####################################################
 
-
-ALTER TABLE `phpwcms_categories` ADD `cat_pid` INT( 11 ) NOT NULL AFTER `cat_type` ;
-ALTER TABLE `phpwcms_categories` ADD INDEX ( `cat_pid` ) ;
-
+DROP TABLE IF EXISTS `phpwcms_log` ;
 CREATE TABLE `phpwcms_log` (
   `log_id` int(11) NOT NULL auto_increment,
   `log_type` varchar(255) NOT NULL,

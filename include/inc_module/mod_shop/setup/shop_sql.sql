@@ -16,17 +16,19 @@
 -- Tabellenstruktur für Tabelle `phpwcms_categories`
 -- 
 
-CREATE TABLE `phpwcms_categories` (
+CREATE TABLE IF NOT EXISTS `phpwcms_categories` (
   `cat_id` int(10) unsigned NOT NULL auto_increment,
   `cat_type` varchar(255) NOT NULL default '',
+  `cat_pid` int(11) NOT NULL default '0',
   `cat_status` int(1) NOT NULL default '0',
   `cat_createdate` datetime NOT NULL default '0000-00-00 00:00:00',
   `cat_changedate` datetime NOT NULL default '0000-00-00 00:00:00',
   `cat_name` varchar(255) NOT NULL default '',
   `cat_info` text NOT NULL,
   PRIMARY KEY  (`cat_id`),
-  KEY `cat_type` (`cat_type`,`cat_status`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `cat_type` (`cat_type`,`cat_status`),
+  KEY `cat_pid` (`cat_pid`)
+) TYPE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -34,7 +36,7 @@ CREATE TABLE `phpwcms_categories` (
 -- Tabellenstruktur für Tabelle `phpwcms_shop_orders`
 -- 
 
-CREATE TABLE `phpwcms_shop_orders` (
+CREATE TABLE IF NOT EXISTS `phpwcms_shop_orders` (
   `order_id` int(10) unsigned NOT NULL auto_increment,
   `order_number` varchar(20) NOT NULL default '',
   `order_date` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -48,7 +50,7 @@ CREATE TABLE `phpwcms_shop_orders` (
   `order_status` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`order_id`),
   KEY `order_number` (`order_number`,`order_status`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) TYPE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -56,7 +58,7 @@ CREATE TABLE `phpwcms_shop_orders` (
 -- Tabellenstruktur für Tabelle `phpwcms_shop_products`
 -- 
 
-CREATE TABLE `phpwcms_shop_products` (
+CREATE TABLE IF NOT EXISTS `phpwcms_shop_products` (
   `shopprod_id` int(10) unsigned NOT NULL auto_increment,
   `shopprod_createdate` datetime NOT NULL default '0000-00-00 00:00:00',
   `shopprod_changedate` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -80,13 +82,13 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_weight` float NOT NULL default '0',
   `shopprod_color` varchar(255) NOT NULL default '',
   `shopprod_size` varchar(255) NOT NULL default '',
-  `shopprod_listall` int(1) unsigned NOT NULL default '0',
+  `shopprod_listall` int(1) unsigned default '0',
   PRIMARY KEY  (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
   KEY `all` (`shopprod_listall`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) TYPE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,7 @@ CREATE TABLE `phpwcms_shop_products` (
 -- Tabellenstruktur für Tabelle `phpwcms_sysvalue`
 -- 
 
-CREATE TABLE `phpwcms_sysvalue` (
+CREATE TABLE IF NOT EXISTS `phpwcms_sysvalue` (
   `sysvalue_key` varchar(255) NOT NULL default '',
   `sysvalue_group` varchar(255) NOT NULL default '',
   `sysvalue_lastchange` int(11) NOT NULL default '0',
@@ -104,4 +106,4 @@ CREATE TABLE `phpwcms_sysvalue` (
   PRIMARY KEY  (`sysvalue_key`),
   KEY `sysvalue_group` (`sysvalue_group`),
   KEY `sysvalue_status` (`sysvalue_status`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) TYPE=MyISAM;
