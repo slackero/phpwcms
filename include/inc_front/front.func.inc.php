@@ -1413,19 +1413,19 @@ function html_parser($string) {
 	// values with $replace
 
 	// page TOP link
-	$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/i';
+	$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/is';
 	$replace[0]		= '<a href="#top" class="phpwcmsTopLink">$1</a>';
 
 	// internal Link to article ID
-	$search[1]		= '/\[ID (\d+)\](.*?)\[\/ID\]/';
+	$search[1]		= '/\[ID (\d+)\](.*?)\[\/ID\]/s';
 	$replace[1]		= '<a href="index.php?aid=$1" class="phpwcmsIntLink">$2</a>';
 
 	// external Link (string)
-	$search[2]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/';
+	$search[2]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
 	$replace[2]		= '<a href="$1" target="_blank" class="phpwcmsExtLink">$2</a>';
 
 	// internal Link (string)
-	$search[3]		= '/\[INT (.*?)\](.*?)\[\/INT\]/';
+	$search[3]		= '/\[INT (.*?)\](.*?)\[\/INT\]/s';
 	$replace[3]		= '<a href="$1" class="phpwcmsIntLink">$2</a>';
 
 	// random GIF Image
@@ -1461,7 +1461,7 @@ function html_parser($string) {
 	$replace[11] 	= '<img src="img/leer.gif" border="0" width="$1" height="$2" alt="" />';
 
 	// RSS feed link 
-	$search[13]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/';
+	$search[13]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
 	$replace[13]	= '<a href="feeds.php?feed=$1" target="_blank" class="phpwcmsRSSLink">$2</a>';
 
 	// back Link (string)
@@ -1491,11 +1491,11 @@ function html_parser($string) {
 	$replace[22]	= '<a name="$1" class="phpwcmsAnchorLink"></a>';
 
 	// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
-	$search[23]     = '/\[MAIL (.*?)\](.*?)\[\/MAIL\]/i';
+	$search[23]     = '/\[MAIL (.*?)\](.*?)\[\/MAIL\]/is';
 	$replace[23]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$2</a>';
 
 	// this tags out a Mailaddress with an predifined subject (by Florian, 21-11-2003)
-	$search[24]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/i';
+	$search[24]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
 	$replace[24]    = '<a href="mailto:$1?subject=$2" class="phpwcmsMailtoLink">$3</a>';
 
 	// added simple [br] -> <br />
@@ -1505,7 +1505,7 @@ function html_parser($string) {
 	$replace[26]    = '<br />';
 
 	// create "make bookmark" javascript code
-	$search[27]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/i';
+	$search[27]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/is';
 	$replace[27]    = '<a href="#" onclick="BookMark_Page();return false;" title="$1" class="phpwcmsBookmarkLink">$2</a>';
 
 	// ABBreviation
@@ -1526,7 +1526,7 @@ function html_parser($string) {
 	$search[35]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
 	$replace[35]	= '<acronym title="$1">$2</acronym>';
 
-	$search[36]		= '/\[ID (.*?)\](.*?)\[\/ID\]/';
+	$search[36]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
 	$replace[36]	= '<a href="index.php?$1" class="phpwcmsIntLink">$2</a>';
 	
 	$search[37]		= '/\[li\](.*?)\[\/li\]/is';					$replace[37]	= '<li>$1</li>';
