@@ -98,7 +98,7 @@ function renderAds($match) {
 		return '';
 	}
 	$ad['dir']			   .= '/';
-	if($ad['adcampaign_data']['css'] && is_file($ad['dir'].$ad['adcampaign_data']['css'])) {
+	if(!empty($ad['adcampaign_data']['css']) && is_file($ad['dir'].$ad['adcampaign_data']['css'])) {
 		$GLOBALS['block']['custom_htmlhead'][] = '  <link rel="stylesheet" type="text/css" href="'.$ad['content_dir'].$ad['adcampaign_data']['css'].'"'.HTML_TAG_CLOSE;
 	}
 
@@ -123,10 +123,11 @@ function renderAds($match) {
 				$ad_media	.= $ad_title;
 				$ad_media	.= $ad['adcampaign_data']['target'] ? ' target="'.$ad['adcampaign_data']['target'].'"' : '';
 				$ad_media	.= '>';
-				$ad_media	.= '<noscript><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</noscript>';
-				$ad_media	.= '<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
-				$ad_media	.= '	document.write(\'<\'+\'img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt."'+'".HTML_TAG_CLOSE."');";			
-				$ad_media	.= LF.SCRIPT_CDATA_END.LF.'</script>';
+				//$ad_media	.= '<noscript><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</noscript>';
+				//$ad_media	.= '<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
+				//$ad_media	.= '	document.write(\'<\'+\'img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt."'+'".HTML_TAG_CLOSE."');";			
+				//$ad_media	.= LF.SCRIPT_CDATA_END.LF.'< /script>';
+				$ad_media	.= '<img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
 				$ad_media	.= '</a>';
 				break;
 		

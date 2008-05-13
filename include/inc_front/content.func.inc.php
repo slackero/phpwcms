@@ -772,8 +772,8 @@ if($block["jsonload"]) {
 		$pagelayout["layout_jsonload"]  = '';
 	} else {
 		$pagelayout["layout_jsonload"] .= ';';
-		$pagelayout["layout_jsonload"]  = str_replace(';;', ';', $pagelayout["layout_jsonload"] . $block["jsonload"] . ';');
 	}
+	$pagelayout["layout_jsonload"]  = str_replace(';;', ';', $pagelayout["layout_jsonload"] . $block["jsonload"] . ';');
 }
 
 if(!empty($_GET['highlight'])) {

@@ -514,7 +514,7 @@ if(empty($plugin['data']['adcampaign_id'])) {
 				<td style="padding-right:3px;"><input type="text" name="adcampaign_bordercolor" id="adcampaign_bordercolor" value="<?php echo $plugin['data']['adcampaign_data']['bordercolor'] ?>" class="v12 width77" maxlength="7" /></td>
 				<td class="colorfield" width="20" id="bordercolor"<?php if(!empty($plugin['data']['adcampaign_data']['bordercolor'])) echo ' style="background-color:'.$plugin['data']['adcampaign_data']['bordercolor'].'"' ?>>&nbsp;</td>
 				<td>&nbsp;</td>
-				<td><input type="text" name="adcampaign_flashversion" id="adcampaign_flashversion" value="<?php echo $plugin['data']['adcampaign_data']['flashversion'] ?>" class="v12 width100" /></td>
+				<td><input type="text" name="adcampaign_flashversion" id="adcampaign_flashversion" value="<?php echo $plugin['data']['adcampaign_data']['flashversion'] ?>" class="v12 width75" /></td>
 			</tr>
 		</table></td>
 	
