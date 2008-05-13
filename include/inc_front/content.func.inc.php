@@ -768,8 +768,12 @@ if(isset($content['article_livedate'])) {
 
 //check for additional template based onLoad JavaScript Code
 if($block["jsonload"]) {
-	$pagelayout["layout_jsonload"] .= (($pagelayout["layout_jsonload"]) ? ";" : "") . $block["jsonload"].";";
-	$pagelayout["layout_jsonload"]  = str_replace(";;", ";", $pagelayout["layout_jsonload"]);
+	if(empty($pagelayout["layout_jsonload"])) {
+		$pagelayout["layout_jsonload"]  = '';
+	} else {
+		$pagelayout["layout_jsonload"] .= ';';
+		$pagelayout["layout_jsonload"]  = str_replace(';;', ';', $pagelayout["layout_jsonload"] . $block["jsonload"] . ';');
+	}
 }
 
 if(!empty($_GET['highlight'])) {
