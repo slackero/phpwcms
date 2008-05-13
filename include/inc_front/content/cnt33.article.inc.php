@@ -336,10 +336,13 @@ if($news['template']) {
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'ZOOM', empty($value['cnt_object']['cnt_image']['zoom']) ? '' : 'zoom' );
 		
 		// news entry URL
-		$value['news_url']		= $value['cnt_link'] == '' ? array('link'=>'', 'target'=>'') : get_redirect_link($value['cnt_link'], ' ', '');
+		$value['news_url']		= $value['cnt_object']['cnt_link'] == '' ? array('link'=>'', 'target'=>'') : get_redirect_link($value['cnt_object']['cnt_link'], ' ', '');
 		$news['entries'][$key]	= str_replace('{URL_TARGET}', $value['news_url']['target'], $news['entries'][$key]);
+		if(is_numeric($value['news_url']['link']) && intval($value['news_url']['link'])) {
+			$value['news_url']['link'] = 'index.php?aid='.intval($value['news_url']['link']);
+		}
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'URL', html_specialchars($value['news_url']['link']) );
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'URL_TEXT', html_specialchars($value['cnt_linktext']) );
+		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'URL_TEXT', html_specialchars($value['cnt_object']['cnt_linktext']) );
 		
 		// Dates
 		$news['entries'][$key]	= render_cnt_date($news['entries'][$key], $value['cnt_changed'], $value['cnt_ts_livedate'], $value['cnt_ts_killdate']);

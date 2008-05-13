@@ -360,6 +360,7 @@ table.listing td.collast {
 	text-align: right;
 	padding-top: 4px;
 	padding-bottom: 1px;
+	white-space: nowrap;
 }
 table.listing td a {
 	padding: 0 1px 0 1px;
