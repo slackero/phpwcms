@@ -278,9 +278,14 @@ if($news['template']) {
 		
 		// news detail link (read)
 		if($news['list_mode']) {
-			$value['detail_link']	= urlencode( date('Y/m/d/', $value['cnt_ts_livedate']) . (empty($value['cnt_alias']) ? $value['cnt_id'] : $value['cnt_alias']) );
-			$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . '&amp;newsdetail=' . $value['detail_link']);
 		
+			if(empty($value['cnt_object']['cnt_readmore'])) {
+				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', '');
+			} else {
+				$value['detail_link']	= urlencode( date('Y/m/d/', $value['cnt_ts_livedate']) . (empty($value['cnt_alias']) ? $value['cnt_id'] : $value['cnt_alias']) );
+				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . '&amp;newsdetail=' . $value['detail_link']);
+			}
+			
 		// news list link (back)
 		} else {
 			$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_LIST_LINK', $news['base_href']);

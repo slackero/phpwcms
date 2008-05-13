@@ -423,8 +423,18 @@ window.addEvent('domready', function(){
 		<tr>
 		
 			<td><label><?= $BL['be_ftptakeover_status'] ?></label></td>
+			<td><input name="cnt_readmore" type="checkbox" id="cnt_readmore" value="1" <?php is_checked(1, $news->data['cnt_readmore']); ?> /></td>
+			<td><label class="checkbox" for="cnt_readmore"><?= $BL['be_article_morelink'] ?></label></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" style="line-height:5px;font-size:5px;">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;</td>
 			<td><input name="cnt_status" type="checkbox" id="cnt_status" value="1" <?php is_checked(1, $news->data['cnt_status']); ?> /></td>
-			<td><label class="checkbox" for="cnt_status"><?= $BL['be_published'] ?></label></td>
+			<td><label class="checkbox" for="cnt_status"><strong><?= $BL['be_published'] ?></strong></label></td>
 		</tr>
 		
 		<tr>

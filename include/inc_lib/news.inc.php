@@ -431,6 +431,7 @@ class phpwcmsNews {
 								'cnt_duplicate'			=> 0,
 								'cnt_lang'				=> '',
 								'cnt_prio'				=> 0,
+								'cnt_readmore'			=> 1,
 		
 								'cnt_image'				=> array(	'id'			=> 0,
 																	'name'			=> '',
@@ -653,7 +654,8 @@ class phpwcmsNews {
 												'cnt_files'		=> array(), 
 												'cnt_link'		=> '', 
 												'cnt_linktext'	=> '', 
-												'cnt_category'	=> '' 
+												'cnt_category'	=> '',
+												'cnt_readmore'	=> 0
 											);
 		
 		$post['cnt_object']['cnt_image']['id']			= isset($_POST['cnt_image_id']) ? intval($_POST['cnt_image_id']) : '';
@@ -670,6 +672,8 @@ class phpwcmsNews {
 		$post['cnt_object']['cnt_linktext']				= isset($_POST['cnt_linktext']) ? clean_slweg($_POST['cnt_linktext']) : '';
 		
 		$post['cnt_object']['cnt_category']				= $category;
+		
+		$post['cnt_object']['cnt_readmore']				= empty($_POST['cnt_readmore']) ? 0 : 1;
 		
 		return $post;
 	
