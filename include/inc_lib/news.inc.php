@@ -561,6 +561,9 @@ class phpwcmsNews {
 				if(isset($result[0]['cnt_object']['cnt_category'])) {
 					$result[0]['cnt_category'] = $result[0]['cnt_object']['cnt_category'];
 				}
+				if(isset($result[0]['cnt_object']['cnt_readmore'])) {
+					$result[0]['cnt_readmore'] = $result[0]['cnt_object']['cnt_readmore'];
+				}
 				
 				$this->data = array_merge($this->data, $result[0]);
 			
