@@ -714,7 +714,7 @@ function js_singlequote($t='') {
 	return $t;
 }
 
-function get_tmpl_files($dir='', $ext='') {
+function get_tmpl_files($dir='', $ext='', $sort=true) {
 	//browse a dir and return all template files
 	$c = '\.html|\.htm|\.php|\.inc|\.tmpl'; //$c = '\.html|\.htm|\.txt|\.php|\.inc|\.tmpl';
 	if($ext) {
@@ -737,6 +737,10 @@ function get_tmpl_files($dir='', $ext='') {
 			}
 		}
 		closedir($ph);
+		
+		if(count($fa) && $sort === true) {
+			sort($fa);
+		}
 	}
 	return $fa;
 }
