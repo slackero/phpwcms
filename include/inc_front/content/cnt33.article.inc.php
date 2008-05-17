@@ -70,83 +70,98 @@ $news['sql_where'][]	= "AND pc.cnt_module='news'";
 
 if(isset($_getVar['newsdetail'])) {
 
-	$news['select_detail'] = trim( preg_replace('/^\d+\/\d+\/\d+\//', '', xss_clean($_getVar['newsdetail']) ) );
+	//$news['select_detail'] = trim( preg_replace('/^\d+\/\d+\/\d+\//', '', xss_clean($_getVar['newsdetail']) ) );
+	$news['match'] = array();
 	
-	if(is_numeric($news['select_detail'])) {
-		$news['sql_where'][]	= "AND pc.cnt_id=" . intval($news['select_detail']);
-	} else {
-		$news['sql_where'][]	= "AND pc.cnt_alias='" . aporeplace($news['select_detail']) . "'";
-	}
+	preg_match('/^\d{8}\-(\d+)_(.*)/', xss_clean($_getVar['newsdetail']), $news['match']);
 	
-	$news['list_mode']	= false;
-
-}
-
-// archived 
-switch($news['news_archive']) {
-
-	case 0:	// include archived
-			$news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
-			$news['sql_where'][] = 'AND (' . $news['cnt_ts_killdate'] . ' > ' . $news['now'] . ' OR cnt_archive_status = 1)';
-			break;
-			
-	case 1:	// exclude archived
-			$news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
-			$news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' > ' . $news['now'];
-			break;
-			
-	case 2:	// archived only
-			$news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' > ' . $news['now'];
-			$news['sql_where'][] = 'AND cnt_archive_status = 1';
-			break;
-			
-	case 3:	// all items
-			$news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
-			break;
-
-}
-
-
-// choose by category
-if(count($news['news_category'])) {
+	$news['select_detail'] = isset($news['match'][2]) ? $news['match'][2] : 0;
 	
-	$news['news_category_sql'] = array();
-
-	// and/or/not mode
-	switch($news['news_andor']) {
+	if(isset($news['match'][1]) && intval($news['match'][1]) == $aktion[1]) {
 	
-		case 'AND': $news['news_andor']		= ' AND ';
-					$news['news_compare']	= '=';
-					break;
-					
-		case 'NOT':	$news['news_andor']		= ' AND ';
-					$news['news_compare']	= '!=';
-					break;
-					
-		default:	//OR
-					$news['news_andor']		= ' OR ';
-					$news['news_compare']	= '=';
-	}
-	
-	foreach($news['news_category'] as $value) {
+		if(is_numeric($news['select_detail'])) {
+			$news['sql_where'][]	= "AND pc.cnt_id=" . intval($news['select_detail']);
+		} else {
+			$news['sql_where'][]	= "AND pc.cnt_alias='" . aporeplace($news['select_detail']) . "'";
+		}
 		
-		$news['news_category_sql'][] = 'pcat.cat_name' . $news['news_compare'] . "'" . aporeplace($value) . "'";
+		$news['list_mode']	= false;
 		
 	}
-	
-	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
-	$news['sql_where'][] = 'AND (' . implode($news['news_andor'], $news['news_category_sql']) . ')';
-	
-	$news['sql_group_by'] = 'GROUP BY pc.cnt_id ';
-	
-}
-
-// language selection
-if(count($news['news_lang'])) {
-
-	$news['sql_where'][] = "AND pc.cnt_lang IN ('". str_replace('#', "','", aporeplace( implode('#', $news['news_lang']) ) ) . "')";
 
 }
+
+// filters necessary only when in news list mode
+if($news['list_mode']) {
+
+	// archived 
+	switch($news['news_archive']) {
+	
+		case 0:	// include archived
+				$news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
+				$news['sql_where'][] = 'AND (' . $news['cnt_ts_killdate'] . ' > ' . $news['now'] . ' OR cnt_archive_status = 1)';
+				break;
+				
+		case 1:	// exclude archived
+				$news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
+				$news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' > ' . $news['now'];
+				break;
+				
+		case 2:	// archived only
+				$news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' > ' . $news['now'];
+				$news['sql_where'][] = 'AND cnt_archive_status = 1';
+				break;
+				
+		case 3:	// all items
+				$news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
+				break;
+	
+	}
+	
+	
+	// choose by category
+	if(count($news['news_category'])) {
+		
+		$news['news_category_sql'] = array();
+	
+		// and/or/not mode
+		switch($news['news_andor']) {
+		
+			case 'AND': $news['news_andor']		= ' AND ';
+						$news['news_compare']	= '=';
+						break;
+						
+			case 'NOT':	$news['news_andor']		= ' AND ';
+						$news['news_compare']	= '!=';
+						break;
+						
+			default:	//OR
+						$news['news_andor']		= ' OR ';
+						$news['news_compare']	= '=';
+		}
+		
+		foreach($news['news_category'] as $value) {
+			
+			$news['news_category_sql'][] = 'pcat.cat_name' . $news['news_compare'] . "'" . aporeplace($value) . "'";
+			
+		}
+		
+		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
+		$news['sql_where'][] = 'AND (' . implode($news['news_andor'], $news['news_category_sql']) . ')';
+		
+		$news['sql_group_by'] = 'GROUP BY pc.cnt_id ';
+		
+	}
+	
+	// language selection
+	if(count($news['news_lang'])) {
+	
+		$news['sql_where'][] = "AND pc.cnt_lang IN ('". str_replace('#', "','", aporeplace( implode('#', $news['news_lang']) ) ) . "')";
+	
+	}
+
+}
+
 
 $sql .= 'WHERE ' . implode(' ', $news['sql_where']) . ' ';
 
@@ -255,11 +270,19 @@ if($news['template']) {
 
 
 	// start parsing news entries	
-	$news['row_count']		= 1;
-	$news['total_count']	= 1;
-	$news['entry_count']	= count($news['result']);
+	$news['row_count']			= 1;
+	$news['total_count']		= 1;
+	$news['entry_count']		= count($news['result']);
 	
-	$news['base_href']		= 'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'));
+	// set new target if necessary
+	if(empty($news['news_detail_link'])) {
+		$news['base_href'] = 'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'));
+	} else {
+		if(is_intval($news['news_detail_link'])) {
+			$news['news_detail_link'] = 'aid='.$news['news_detail_link'];
+		}
+		$news['base_href'] = 'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'), $news['news_detail_link']);
+	}
 	
 	foreach($news['result'] as $key => $value) {
 	
@@ -282,7 +305,8 @@ if($news['template']) {
 			if(empty($value['cnt_object']['cnt_readmore'])) {
 				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', '');
 			} else {
-				$value['detail_link']	= urlencode( date('Y/m/d/', $value['cnt_ts_livedate']) . (empty($value['cnt_alias']) ? $value['cnt_id'] : $value['cnt_alias']) );
+				$value['detail_link']	= date('Ymd', $value['cnt_ts_livedate']) . '-' . $crow['acontent_aid'] . '_' ;
+				$value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
 				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . '&amp;newsdetail=' . $value['detail_link']);
 			}
 			

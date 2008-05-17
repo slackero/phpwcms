@@ -1229,5 +1229,6 @@ $BL['be_date_year']						= 'year';
 $BL['be_archive_link']					= 'archive link';
 $BL['be_use_prio']						= 'apply priorization';
 $BL['be_skip_first_items']				= 'skip top items';
+$BL['be_news_detail_link']				= 'news article';
 
 ?>

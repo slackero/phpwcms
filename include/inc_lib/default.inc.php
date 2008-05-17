@@ -143,7 +143,9 @@ function removeSessionName($str='') {
 	// not useful when when storing in cache
 	// because it stores unneccessary session IDs too
 	$sessName = session_name();
-	$str = preg_replace('/[&|\?]{0,1}'.$sessName.'=[a-zA-Z0-9]{1,}/', '', $str);
+	if($sessName) {
+		$str = preg_replace('/[&|\?]{0,1}'.$sessName.'=[a-zA-Z0-9]{1,}/', '', $str);
+	}
 	return $str;
 }
 
@@ -178,56 +180,84 @@ function buildGlobalGET($return = '') {
 	}
 }
 
-function returnGlobalGET_QueryString($format='', $add=array(), $remove=array()) {
-	// build a URL query string
+// build a URL query string based on current values
+function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=') {
+
 	$queryString = array();
-	$glue = '&';
-	$pairs = is_array($add) && count($add) ? array_merge($GLOBALS['_getVar'], $add) : $GLOBALS['_getVar'];
-	if(count($remove)) {
-		foreach($remove as $value) {
-			unset($pairs[$value]);
+	
+	// replace first value by the given in $id_alias
+	if($id_alias !== '') {
+
+		$id_alias		= explode($bind, $id_alias, 2);
+		$id_alias[0]	= trim($id_alias[0]);
+
+		if($id_alias[0] !== '') {
+			$id_alias[1]		= isset($id_alias[1]) ? trim($id_alias[1]) : '';
+			array_shift($GLOBALS['_getVar']);
+			$GLOBALS['_getVar']	= array($id_alias[0] => $id_alias[1]) + $GLOBALS['_getVar'];
 		}
+	}
+
+	$pairs = count($add) ? array_merge($GLOBALS['_getVar'], $add) : $GLOBALS['_getVar'];
+
+	foreach($remove as $value) {
+		unset($pairs[$value]);
+	}
+
+	switch($format) {
+	
+		case 'htmlentities':	$glue	= htmlentities($glue);
+								$funct	= 'getQueryString_htmlentities';
+								break;
+								
+		case 'urlencode':		$funct	= 'getQueryString_urlencode';
+								break;
+								
+		case 'rawurlencode':	$funct	= 'getQueryString_rawurlencode';
+								break;
+								
+		default:				$funct	= 'getQueryString_default';
+
 	}
 	
 	foreach($pairs as $key => $value) {
 	
-		switch($format) {
-		
-			case 'htmlentities':
-				if($value != '') {
-					$queryString[] = @htmlentities(urlencode($key).'='.str_replace('%2C', ',', urlencode($value)), ENT_QUOTES, PHPWCMS_CHARSET);
-				} else {
-					$queryString[] = @htmlentities(urlencode($key), ENT_QUOTES, PHPWCMS_CHARSET);
-				}
-				$glue = '&amp;';
-				break;
-				
-			case 'urlencode':
-				if($value != '') {
-					$queryString[] = urlencode($key).'='.urlencode($value);
-				} else {
-					$queryString[] = urlencode($key);
-				}
-				break;
-			
-			case 'rawurlencode':
-				if($value != '') {
-					$queryString[] = rawurlencode($key).'='.rawurlencode($value);
-				} else {
-					$queryString[] = rawurlencode($key);
-				}
-				break;
-			
-			default:
-				if($value != '') {
-					$queryString[] = $key.'='.$value;
-				} else {
-					$queryString[] = $key;
-				}
-		}
+		$queryString[] = $funct($key, $value, $bind);
+
 	}
-	return (count($queryString) ? '?'.implode($glue, $queryString) : '');
+
+	return count($queryString) ? '?'.implode($glue, $queryString) : '';
 }
+
+function getQueryString_htmlentities($key='', $value='', $bind='=') {
+	if($value !== '') {
+		return @htmlentities(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)), ENT_QUOTES, PHPWCMS_CHARSET);
+	}
+	return @htmlentities(urlencode($key), ENT_QUOTES, PHPWCMS_CHARSET);
+}
+
+function getQueryString_urlencode($key='', $value='', $bind='=') {
+	if($value !== '') {
+		return urlencode($key).$bind.urlencode($value);
+	}
+	return urlencode($key);
+}
+
+function getQueryString_rawurlencode($key='', $value='', $bind='=') {
+	if($value !== '') {
+		return rawurlencode($key).$bind.rawurlencode($value);
+	}
+	return rawurlencode($key);
+}
+
+function getQueryString_default($key='', $value='', $bind='=') {
+	if($value !== '') {
+		return $key.$bind.$value;
+	}
+	return $key;
+}
+
+
 
 function cleanupPOSTandGET() {
 	// remove possible unsecure PHP replacement tags in GET and POST vars

@@ -45,6 +45,7 @@ $content['news']['news_skip']			= abs(intval($_POST['news_skip']));
 $content['news']['news_archive']		= abs(intval($_POST['news_archive']));
 $content['news']['news_andor']			= strtoupper(clean_slweg($_POST['news_andor']));
 $content['news']['news_archive_link']	= clean_slweg($_POST['news_archive_link']);
+$content['news']['news_detail_link']	= clean_slweg($_POST['news_detail_link']);
 								
 if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 8 ) {
 	$content['news']['news_sort'] = 5;
@@ -66,6 +67,13 @@ if( $content['news']['news_archive'] > 3 ) {
 }
 if( ! in_array($content['news']['news_andor'], array('OR', 'AND', 'NOT')) ) {
 	$content['news']['news_andor'] = 'OR';
+}
+
+if(is_intval($content['news']['news_detail_link'])) {
+	$content['news']['news_detail_link'] = intval($content['news']['news_detail_link']) ? intval($content['news']['news_detail_link']) : '';
+}
+if(is_intval($content['news']['news_archive_link'])) {
+	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ? intval($content['news']['news_archive_link']) : '';
 }
 
 ?>

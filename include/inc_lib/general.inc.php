@@ -2007,4 +2007,8 @@ function getRealImageSize(& $imginfo) {
 
 }
 
+function is_intval($str) {
+     return (bool)preg_match( '/^[\-+]?[0-9]+$/', $str );
+}
+
 ?>

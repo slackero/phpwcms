@@ -41,7 +41,8 @@ $content['news_default'] = array(
 								'news_paginate_basis'	=> 3,
 								'news_archive_link'		=> '',
 								'news_prio'				=> 0,
-								'news_skip'				=> ''
+								'news_skip'				=> '',
+								'news_detail_link'		=> ''
 								);
 
 // set default values or merge with defaults
@@ -183,12 +184,35 @@ initMootoolsAutocompleter();
 		</tr>
 		</table></td>
 </tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist"><?= $BL['be_archive'] ?>:&nbsp;</td>
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+		<tr>
+			<td><input type="text" name="news_archive_link" id="news_archive_link" value="<?= html_specialchars($content['news']['news_archive_link']) ?>" class="width250" /></td>
+			<td>&nbsp;<?= $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_archive_link'] ?>:&nbsp;</td>
-	<td><input type="text" name="news_archive_link" id="news_archive_link" value="<?= html_specialchars($content['news']['news_archive_link']) ?>" class="width350" /></td>
+	<td align="right" class="chatlist"><?= $BL['be_news_detail_link'] ?>:&nbsp;</td>
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+		<tr>
+			<td><input type="text" name="news_detail_link" id="news_detail_link" value="<?= html_specialchars($content['news']['news_detail_link']) ?>" class="width250" /></td>
+			<td>&nbsp;<?= $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
+		</tr>
+		</table>
+	</td>
 </tr>
+
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script type="text/javascript">
 <!--
