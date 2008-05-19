@@ -246,9 +246,9 @@ if($image['template']) {
 			}
 			
 			$img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
-			$img_a = str_replace('{IMGID}', $key, $img_a);
-			$img_a = str_replace('{IMGAGE_ID}', $key, $img_a);
-			$img_a = str_replace('{IMGAGE_HASH}', $image['images'][$key][2], $img_a);
+			$img_a = str_replace('{IMGID}', $image['images'][$key][0], $img_a);
+			$img_a = str_replace('{IMAGE_ID}', $image['images'][$key][0], $img_a);
+			$img_a = str_replace('{IMAGE_HASH}', $image['images'][$key][2], $img_a);
 			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key][1]), $img_a);
 			
 			// replace thumbnail and zoom image information
