@@ -10,6 +10,8 @@ a.fe-link {
 	background-repeat: no-repeat;
 	background-color: transparent;
 	cursor: pointer;
+	z-index: 10000;
+	position: relative;
 }
 a.fe-link span {
 	display: none;
