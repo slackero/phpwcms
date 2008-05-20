@@ -31,7 +31,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //link article
 
-$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+//$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 $content['alink'] = unserialize($crow["acontent_form"]);
 
@@ -41,7 +41,18 @@ if(!isset($content['alink']['alink_id'])) {
 
 }
 
-if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id'])) || (!empty($content['alink']['alink_type']) && is_array($content['alink']['alink_level']) && count($content['alink']['alink_level']))) {
+if(
+		(is_array($content['alink']['alink_id']) && count($content['alink']['alink_id'])) 
+		|| 
+		(!empty($content['alink']['alink_type']) 
+			&& 
+			(
+				(is_array($content['alink']['alink_level']) && count($content['alink']['alink_level']))
+				||
+				(isset($content['alink']['alink_category']) && count($content['alink']['alink_category']))
+			)
+		)
+	) {
 
 	if(!isset($content['UNIQUE_ALINK'])) {
 		$content['UNIQUE_ALINK'] = array();
@@ -64,9 +75,55 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 			
 	}
 
+
+	$content['alink']['tags_group_by']	= '';
+	$content['alink']['tags_where']		= '';
+
 	$alink_sql  = "SELECT ar.* FROM ".DB_PREPEND."phpwcms_article ar ";
+	
+	
+	// select by category
+	if(count($content['alink']['alink_category'])) {
+		
+		$content['alink']['tags_sql'] = array();
+	
+		// and/or/not mode
+		switch($content['alink']['alink_andor']) {
+		
+			case 'AND': $content['alink']['alink_andor']	= ' AND ';
+						$content['alink']['alink_compare']	= '=';
+						break;
+						
+			case 'NOT':	$content['alink']['alink_andor']	= ' AND ';
+						$content['alink']['alink_compare']	= '!=';
+						break;
+						
+			default:	//OR
+						$content['alink']['alink_andor']	= ' OR ';
+						$content['alink']['alink_compare']	= '=';
+		}
+		
+		foreach($content['alink']['alink_category'] as $value) {
+			
+			$content['alink']['tags_sql'][] = 'pcat.cat_name' . $content['alink']['alink_compare'] . "'" . aporeplace($value) . "'";
+			
+		}
+		
+		// JOIN with tags/categories for articles
+		$alink_sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='article' AND pcat.cat_pid=ar.article_id) ";
+		$content['alink']['tags_where'] = 'AND (' . implode($content['alink']['alink_andor'], $content['alink']['tags_sql']) . ') ';
+		
+		// group by article ID
+		$content['alink']['tags_group_by'] = ' GROUP BY ar.article_id';
+		
+	}
+
+	
 	$alink_sql .= "WHERE ar.article_public=1 AND ar.article_aktiv=1 AND ar.article_deleted=0 ";
 	$alink_sql .= "AND ar.article_begin < NOW() AND ar.article_end > NOW() ";
+	
+	// add possible WHERE clauses when tags/categories are used
+	$alink_sql .= $content['alink']['tags_where'];
 	
 	if(empty($content['alink']['alink_type'])) {
 	
@@ -78,6 +135,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 		} else {
 			$alink_sql .= 'AND ar.article_id IN ('.implode(',', $content['alink']['alink_id']) . ')';
 		}
+		
+		// group by - when used with categories/tags
+		$alink_sql .= $content['alink']['tags_group_by'];
 	
 	} else {
 	
@@ -89,6 +149,10 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 			}
 		}
 		
+		// group by - when used with categories/tags
+		$alink_sql .= $content['alink']['tags_group_by'];
+		
+		// don't use SQL UNION
 		$sql_union = '';
 		
 		// add prio sorting value
@@ -193,6 +257,15 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						
 	}
 	
+	$content['alink']['tr'] = array();
+	
+	$content['alink']['alink_template_head']	= get_tmpl_section('TEASER_HEAD', $content['alink']['alink_template']);
+	$content['alink']['alink_template_footer']	= get_tmpl_section('TEASER_FOOTER', $content['alink']['alink_template']);
+	$content['alink']['alink_template_entry']	= get_tmpl_section('TEASER_ENTRY', $content['alink']['alink_template']);
+	$content['alink']['alink_template_space']	= get_tmpl_section('TEASER_SPACER', $content['alink']['alink_template']);
+	
+	$content['alink']['alink_template_head']	= str_replace('{LINK_ARTICLE_CLASS}', get_class_attrib($template_default["article"]["link_article_class"]), $content['alink']['alink_template_head']);
+
 	$content['alink']['result']	= _dbQuery($alink_sql);
 	
 	if(count($content['alink']['result'])) {
@@ -204,15 +277,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 				$content['alink']['alink_id'][] = $value['article_id'];
 			}
 		}
-	
-		$content['alink']['alink_template_head']	= get_tmpl_section('TEASER_HEAD', $content['alink']['alink_template']);
-		$content['alink']['alink_template_footer']	= get_tmpl_section('TEASER_FOOTER', $content['alink']['alink_template']);
-		$content['alink']['alink_template_entry']	= get_tmpl_section('TEASER_ENTRY', $content['alink']['alink_template']);
-		$content['alink']['alink_template_space']	= get_tmpl_section('TEASER_SPACER', $content['alink']['alink_template']);
-		
-		$content['alink']['alink_template_head']	= str_replace('{LINK_ARTICLE_CLASS}', get_class_attrib($template_default["article"]["link_article_class"]), $content['alink']['alink_template_head']);
-		
-		$content['alink']['tr']		= array();	
+
 		foreach($content['alink']['alink_id'] as $key => $value) {
 		
 			$content['UNIQUE_ALINK'][$value] = $value; //save UNIQUE Teaser ID
@@ -333,13 +398,30 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 			}
 		}
 		
-		if(count($content['alink']['tr'])) {
-			$CNT_TMP .= LF.$content['alink']['alink_template_head'];
-			$CNT_TMP .= implode($content['alink']['alink_template_space'], $content['alink']['tr']);
-			$CNT_TMP .= $content['alink']['alink_template_footer'].LF;
-		}
-		
 	}
+	
+	// combine all teaser items
+	if(count($content['alink']['tr'])) {
+		$content['alink']['tr']		= implode($content['alink']['alink_template_space'], $content['alink']['tr']);
+		$content['alink']['teaser']	= ' ';
+	} else {
+		$content['alink']['tr']		= '';
+		$content['alink']['teaser']	= '';
+	}
+
+	// put all template and content into one
+	$content['alink']['alink_template'] = LF . $content['alink']['alink_template_head'] . $content['alink']['tr'] . $content['alink']['alink_template_footer'] . LF;
+	
+	// render teaser elements - throw everything between [TEASER]...[/TEASER]
+	$content['alink'] = render_cnt_template($content['alink']['alink_template'], 'TEASER', $content['alink']['teaser']);
+	
+	// render title
+	$content['alink'] = render_cnt_template($content['alink'], 'TITLE', html_specialchars($crow['acontent_title']));
+	$content['alink'] = render_cnt_template($content['alink'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+	
+	$CNT_TMP .= $content['alink'];
+	
+	
 }
 
 									

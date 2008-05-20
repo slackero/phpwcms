@@ -55,8 +55,18 @@ if(empty($content['alink']['alink_crop'])) {
 if(empty($content['alink']['alink_prio'])) {
 	$content['alink']['alink_prio'] = 0;
 }
+if(empty($content['alink']['alink_category']) || !is_array($content['alink']['alink_category'])) {
+	$content['alink']['alink_category'] = array();
+}
+if(empty($content['alink']['alink_category'])) {
+	$content['alink']['alink_andor'] = 'OR';
+}
 
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
+
+// necessary JavaScript libraries
+initMootools();
+initMootoolsAutocompleter();
 
 ?>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
@@ -310,7 +320,52 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 
 
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr>
+	<td align="right" class="chatlist"><?= $BL['be_tags'] ?>:&nbsp;</td>
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+		<tr>
+			<td><input type="text" name="calink_category" id="calink_category" value="<?= html_specialchars(implode(', ', $content['alink']['alink_category'])) ?>" class="width350 bold" /></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><select name="calink_andor" id="calink_andor">
+				
+				<option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?= $BL['be_fsearch_or'] ?></option>
+				<option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?= $BL['be_fsearch_and'] ?></option>
+				<option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?= $BL['be_fsearch_not'] ?></option>
+			
+			</select></td>
+		</tr>
+		</table></td>		
+</tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script type="text/javascript">
+<!--
+
+window.addEvent('domready', function(){
+									 
+	/* Autocompleter for categories/tags */
+	var searchCategory = $('calink_category');
+	var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter($('calink_andor'));
+	var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
+		multi: true,
+		maxChoices: 30,
+		autotrim: true,
+		minLength: 0,
+		allowDupes: false,
+		postData: {action: 'category', method: 'json'},
+		onRequest: function(el) {
+			indicator2.setStyle('display', '');
+		},
+		onComplete: function(el) {
+			indicator2.setStyle('display', 'none');
+		}
+	});
+
+
+});
+
+//-->
+</script></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
 

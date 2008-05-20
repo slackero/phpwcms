@@ -55,6 +55,14 @@ $content['alink']['alink_unique']		= empty($_POST['calink_unique']) ? 0 : 1;
 $content['alink']['alink_crop']			= empty($_POST['calink_crop']) ? 0 : 1;
 $content['alink']['alink_prio']			= empty($_POST['calink_prio']) ? 0 : 1;
 
+if( empty($_POST['calink_andor']) ) {
+	$content['alink']['alink_andor'] = 'OR';
+} else {
+	$content['alink']['alink_andor'] = in_array($_POST['calink_andor'], array('OR', 'AND', 'NOT') ) ? $_POST['calink_andor'] : 'OR';
+}
+
+$content['alink']['alink_category']		= convertStringToArray( clean_slweg($_POST['calink_category']) );
+
 if(empty($content['alink']['alink_width'])) $content['alink']['alink_width'] = '';
 if(empty($content['alink']['alink_height'])) $content['alink']['alink_height'] = '';
 if(empty($content['alink']['alink_wordlimit'])) $content['alink']['alink_wordlimit'] = '';
