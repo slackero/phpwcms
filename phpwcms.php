@@ -183,6 +183,7 @@ switch ($do) {
 							//$subnav .= subnavtext($BL['be_admin_keywords'], "phpwcms.php?do=admin&amp;p=5", $p, "5", 0);
 							$subnav .= subnavtext($BL['be_subnav_admin_filecat'], "phpwcms.php?do=admin&amp;p=7", $p, "7", 0);
 							$subnav .= subnavtext($BL['be_subnav_admin_starttext'], "phpwcms.php?do=admin&amp;p=12", $p, "12", 0);
+							$subnav .= subnavtext($BL['be_article_urlalias'].' ('.$BL['be_ftptakeover_active'].')', 'phpwcms.php?do=admin&amp;p=13', $p, "4", 0);
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
 							//$subnav .= subnavtext($BL['be_cnt_cache_update'], 'include/inc_act/act_cache.php', 1, 0, 0);
 							//$subnav .= subnavtext($BL['be_cnt_cache_delete'], 'include/inc_act/act_cache.php?do=9', 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_cache_delete_msg'].'\');" ');
@@ -477,6 +478,11 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
       			case 12:	//Default backend starup HTML
       			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php');
       			break;
+				
+				
+				//Default backend sitemap HTML
+				case 13: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php');
+        					break;
 
       		}
       	}
@@ -493,6 +499,7 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 			case 3: include_once (PHPWCMS_ROOT.'/include/inc_lib/news.inc.php');
 					include_once (PHPWCMS_ROOT.'/include/inc_tmpl/news.tmpl.php');
 					break;
+
       	}
       	break;
 		
