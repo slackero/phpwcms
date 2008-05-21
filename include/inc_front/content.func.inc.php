@@ -649,13 +649,16 @@ if(strpos($content["all"],'{NEW:') !== false) {
 
 // -------------------------------------------------------------
 
-//parses complete list of preg_replace definitions
-//$content["all"]	= preg_replace('/\[ID (\d+)\](.*?)\[\/ID\]/e', 'get_article_idlink($1, "$2", $db);', $content["all"]);
+// some more general parsing 
 $content["all"]	= str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
 $content["all"] = str_replace('{RSSIMG}', $template_default["rss"]["image"], $content["all"]);
+
 $content["all"] = html_parser($content["all"]);
+
 $content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i', 'parse_images', $content["all"]);
 $content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_images', $content["all"]);
+$content["all"] = preg_replace_callback('/\[download=(.*?)\/\]/i', 'parse_downloads', $content["all"]);
+$content["all"] = preg_replace_callback('/\[download=(.*?)\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
 
 // -------------------------------------------------------------
 

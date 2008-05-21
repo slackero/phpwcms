@@ -369,6 +369,7 @@ table.listing td a {
 table.listing th.colfirst,
 table.listing td.colfirst {
 	padding-left: 21px;
+	white-space: nowrap;
 }
 table.listing td.colfirst {
 	background: url(../../img/famfamfam/page_white.gif) no-repeat 1px center;

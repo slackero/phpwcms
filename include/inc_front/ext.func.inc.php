@@ -755,6 +755,40 @@ function parse_images($matches) {
 
 }
 
+function parse_downloads($match) {
 
+	if(isset($match[1])) {
+
+		$value											= array();
+
+		$value['cnt_object']['cnt_files']['id']			= convertStringToArray($match[1]);
+
+		if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
+		
+			global $phpwcms;
+		
+			$IS_NEWS_CP										= true;
+			
+			$news											= array();
+			$news['files_result']							= '';
+			
+			$crow											= array();
+			
+			$value['cnt_object']['cnt_files']['caption']	= isset($match[2]) ? @html_entity_decode(trim($match[2]), ENT_QUOTES, PHPWCMS_CHARSET) : '';		
+			$value['files_direct_download']					= 0;
+			$value['files_template']						= '';
+			
+			// include content part files renderer
+			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+
+			return $news['files_result'];
+		
+		}
+
+	}
+
+	return '';
+
+}
 
 ?>
