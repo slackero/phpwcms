@@ -52,10 +52,10 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	$file_copyright	= clean_slweg($_POST["file_copyright"]);
 	$file_tags		= trim( clean_slweg($_POST["file_tags"]), ',' );
 	$file_granted	= empty($_POST["file_granted"]) ? 0 : 1;
+	$file_keys		= '';
 	
 	$file_keywords	= empty($_POST["file_keywords"]) ? array() : $_POST["file_keywords"];
 	if(count($file_keywords)) {
-		$file_keys = "";
 		foreach($file_keywords as $key => $value) {
 			unset($file_keywords[$key]);
 			$key = intval($key);
@@ -90,7 +90,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 				$file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
 				$fileName."', '".time()."', '".intval($_FILES["file"]["size"])."', '".
 				aporeplace($_FILES["file"]["type"])."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
-				aporeplace($file_longinfo)."', '".$file_keys."', '".$fileHash."', '".
+				aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
 				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.")";
 		
 		if($result = mysql_query($sql, $db) or die("error while insert file information")) {

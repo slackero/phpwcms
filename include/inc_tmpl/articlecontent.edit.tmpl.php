@@ -228,14 +228,16 @@ $result = _dbQuery($sql);
 if(isset($result[0]['template_var'])) {
 	
 	$result = unserialize($result[0]['template_var']);
-	$result = explode(',', $result['customblock']);
-	foreach($result as $value) {
-		if($value != '') {
-			$valhtml = html_specialchars($value);
-			echo '		<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>'.LF;				
-		}		
+	if(isset($result['customblock'])) {
+		$result = explode(',', $result['customblock']);
+		foreach($result as $value) {
+			$value = trim($value);
+			if($value != '') {
+				$valhtml = html_specialchars($value);
+				echo '		<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>'.LF;				
+			}		
+		}
 	}
-
 }
 
 ?>

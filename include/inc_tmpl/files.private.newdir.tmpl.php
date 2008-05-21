@@ -34,7 +34,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	$dir_public = 0;
 	$dir_newname = '';
 	$dir_longinfo = '';
-	$dir_pid = intval($_GET["mkdir"]);
+	$dir_pid = empty($_GET["mkdir"]) ? 0 : intval($_GET["mkdir"]);
 				
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
