@@ -1759,9 +1759,11 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 		}
 	}	
 	if(!@move_uploaded_file($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
-		$file_status['error'] = 'Uploaded file <b>'.$file_status['name'].'</b> can not be moved to <b>'.str_replace(PHPWCMS_ROOT, '', $target).'</b>';
-		@unlink($_FILES[$file]['tmp_name']);
-		return $file_status;
+		if(!copy($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
+			$file_status['error'] = 'Saving uploaded file <b>'.$file_status['name'].'</b> to <b>'.str_replace(PHPWCMS_ROOT, '', $target).'</b> failed';
+			@unlink($_FILES[$file]['tmp_name']);
+			return $file_status;
+		}
 	}
 	@chmod($target.$file_status['rename'], 0644);
 	
