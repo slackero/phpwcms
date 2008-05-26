@@ -95,21 +95,59 @@ function trimhtml($h='') {
 	return html_specialchars(trim($h));
 }
 
-function list_country($c, $dbcon){
-	//Create the country list menu for forms 
-	//with the given value selected
+function list_country($c, &$dbcon){
+	//Create the country list menu for forms with the given value selected
 	//$c = selected value
-	if(isEmpty($c)) $c = "DE";
-	$sql = mysql_query("SELECT country_iso, country_name FROM ".DB_PREPEND."phpwcms_country ORDER BY country_name", $dbcon);
-	$country_list = "";
-	while($a = mysql_fetch_assoc($sql)) {
-		$country_list .= "<option value=\"".$a["country_iso"]."\"";
-		$country_list .= ($a["country_iso"] != $c) ? "" : " selected";
-		$country_list .= ">".html_specialchars($a["country_name"])."</option>\n";
+	if(empty($c)) {
+		$c = strtoupper($GLOBALS['phpwcms']['default_lang']);
 	}
-	mysql_free_result($sql);
+	$country_list = '';
+	$country = getCountry();
+	foreach($country as $key => $value) {
+		$country_list .= '	<option value="'.html_specialchars($value).'"';
+		if($key == $c) {
+			$country_list .= ' selected="selected"';
+		}
+		$country_list .= '>'.html_specialchars($value).'</option>' . LF;
+	}
 	return $country_list;
 }
+
+function getCountry($lang='') {
+
+	if(empty($lang)) {
+		$lang = isset($_SESSION["wcs_user_lang"]) ? strtolower($_SESSION["wcs_user_lang"]) : $GLOBALS['phpwcms']['default_lang'];
+	} else {
+		$lang = strtolower(substr($lang, 0, 2));
+	}
+	
+	$country_name	= 'country_name_'.aporeplace($lang);
+	$sql			= 'SHOW COLUMNS FROM '.DB_PREPEND."phpwcms_country WHERE Field='".$country_name."'";
+	$result			= _dbQuery($sql);
+	if(!isset($result[0])) {
+		$country_name = 'country_name';
+	}	
+	
+	$sql	= 'SELECT country_iso, '.$country_name.' AS country FROM '.DB_PREPEND.'phpwcms_country ORDER BY '.$country_name;
+	$result	= _dbQuery($sql);
+	
+	if(isset($result[0])) {
+
+		$country = array();
+
+		foreach($result as $row) {
+
+			$country[ $row['country_iso'] ] = $row['country'];
+
+		}
+
+		return $country;
+
+	}
+	
+	return array();	
+}
+
 
 function list_profession($c){
 	//Create the profession list menu for forms 

@@ -8,7 +8,7 @@ if(defined('FELOGIN_IS_LOGGED')) {
 	$FELOGIN_LOGIN = str_replace('{FELOGIN_ACTION}', 'index.php?id=' . $LEVEL_ID[FELOGIN_CHILD_LEVEL], $FELOGIN_LOGIN);
 	
 	
-	$FELOGIN_USER_NAME   = empty($_SESSION['FELOGIN_USER_NAME']) ? '' : htmlentities($_SESSION['FELOGIN_USER_NAME']);
+	$FELOGIN_USER_NAME   = empty($_SESSION['FELOGIN_USER_NAME']) ? '' : html_specialchars($_SESSION['FELOGIN_USER_NAME']);
 	
 	$content['all'] = str_replace('{FELOGIN}',  		$FELOGIN_LOGIN, $content['all']);
 	$content['all'] = str_replace('{FELOGIN_USER}',  	$FELOGIN_USER_NAME, $content['all']);
