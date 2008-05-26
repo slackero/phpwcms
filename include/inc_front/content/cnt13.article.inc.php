@@ -198,6 +198,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 										break;
 							
 						}
+						$s_text = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text); // strip all <script> Tags
 						$s_text = str_replace(array('~', '|', ':', 'http', '//', '_blank'), ' ', $s_text );
 						
 					}

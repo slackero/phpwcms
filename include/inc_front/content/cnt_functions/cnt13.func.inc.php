@@ -212,7 +212,7 @@ class search_News {
 				$s_text .= ' ' . $value['cnt_object']['cnt_files']['caption'];
 			
 			}
-			
+			$s_text  = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text); // strip all <script> Tags
 			$s_text  = str_replace( array('~', '|', ':', 'http', '//', '_blank', '&nbsp;') , ' ', $s_text );
 			$s_text  = clean_replacement_tags($s_text, '');
 			$s_text  = remove_unsecure_rptags($s_text);
