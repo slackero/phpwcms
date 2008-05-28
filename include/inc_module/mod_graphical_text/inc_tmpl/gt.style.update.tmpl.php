@@ -226,7 +226,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				</select> <span id="fgt" class="<?php echo $tr_visibility; ?>">
 				<?php
 					
-					echo '<input type="checkbox" name="fgtransparency" id="fgtransparency" value="1"'.is_checked(1, $style_fgtransparency, 1).' />';
+					echo '<input type="checkbox" name="fgtransparency" id="fgtransparency" value="1"'.is_checked(1, $style_fgtransparency, 1, 0).' />';
 					
 					echo $BL['be_gt_style_transparency'];
 				?></span>			</td>
@@ -255,7 +255,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					?>
 				</select> <span id="bgt" class="<?php echo $tr_visibility; ?>">
 				<?php
-					echo '<input type="checkbox" name="bgtransparency" id="bgtransparency" value="1"'.is_checked(1, $style_bgtransparency, 1).' />';
+					echo '<input type="checkbox" name="bgtransparency" id="bgtransparency" value="1"'.is_checked(1, $style_bgtransparency, 1, 0).' />';
 					echo $BL['be_gt_style_transparency'];
 				?></span>			</td>
 		</tr>

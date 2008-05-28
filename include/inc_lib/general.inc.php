@@ -165,7 +165,7 @@ function list_profession($c){
 	mysql_free_result($sql);
 }
 
-function is_selected($c, $chkvalue, $xhtml=0, $echoit=1) {
+function is_selected($c, $chkvalue, $xhtml=1, $echoit=1) {
 	$e = '';
 	if(strval($c) == strval($chkvalue)) {
 		$e = (!$xhtml) ? ' selected' : ' selected="selected"' ;
@@ -177,7 +177,7 @@ function is_selected($c, $chkvalue, $xhtml=0, $echoit=1) {
 	}
 }
 
-function is_checked($c, $chkvalue, $xhtml=0, $echoit=1) {
+function is_checked($c, $chkvalue, $xhtml=1, $echoit=1) {
 	$e = '';
 	if(strval($c) == strval($chkvalue)) {
 		$e = (!$xhtml) ? ' checked' : ' checked="checked"' ;
