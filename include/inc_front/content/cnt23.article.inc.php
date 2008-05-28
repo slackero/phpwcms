@@ -61,7 +61,6 @@ if(empty($cnt_form['sendername'])) {
 
 }
 
-
 /*
  * Browse form fields
  */

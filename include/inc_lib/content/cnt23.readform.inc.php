@@ -137,7 +137,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 		$value = clean_slweg($value);
 		$field_counter = intval($_POST['cform_order'][$key]);
 		$content["form"]["fields"][$field_counter]['type'] 		= $value;
-		$content['form']["fields"][$field_counter]['name']		= trim(remove_accents(clean_slweg($_POST['cform_field_name'][$key])));
+		
+		// field name cannot include spaces and also should not include any special chars
+		$content['form']["fields"][$field_counter]['name']		= attribute_name_clean(clean_slweg($_POST['cform_field_name'][$key]));		
+		
 		$content['form']["fields"][$field_counter]['label']		= clean_slweg($_POST['cform_field_label'][$key]);
 		$content['form']["fields"][$field_counter]['required']	= isset($_POST['cform_field_required'][$key]) ? 1 : 0;
 		$content['form']["fields"][$field_counter]['value']		= slweg($_POST['cform_field_value'][$key]);
@@ -488,7 +491,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 		} else {
 		
 			if($content['form']["fields"][$field_counter]['name'] == '') {
-				$content['form']["fields"][$field_counter]['name'] = $content["form"]["fields"][$field_counter]['type'];
+				$content['form']["fields"][$field_counter]['name'] = attribute_name_clean($content["form"]["fields"][$field_counter]['type']);
 			}
 			if($content['form']["fields"][$field_counter]['name'] == 'reset' || $content['form']["fields"][$field_counter]['name'] == 'submit') {
 				$content['form']["fields"][$field_counter]['name'] .= 'It';

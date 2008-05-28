@@ -2051,4 +2051,16 @@ function is_intval($str) {
      return (bool)preg_match( '/^[\-+]?[0-9]+$/', $str );
 }
 
+function attribute_name_clean($name='') {
+	$name = trim(remove_accents($name));
+	$name = str_replace(
+				array(' ','/','\\','#','+',':','.'), 
+				array('_','-', '-','_','-','-','-'), 
+				$name
+			);
+	$name = preg_replace('/[^a-zA-Z0-9\-_]/', '', $name);
+	$name = preg_replace('/^\d+/', '', $name);
+	return $name;
+}
+
 ?>
