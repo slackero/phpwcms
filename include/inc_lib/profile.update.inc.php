@@ -48,7 +48,7 @@ $sql =	"UPDATE ".DB_PREPEND."phpwcms_userdetail SET ".
 		"detail_notes='".getpostvar(substr($_POST["form_notes"],0,3000))."',".
 		"detail_public=".(empty($_POST["form_public"]) ? 0 : 1).",".
 		"detail_newsletter=".(empty($_POST["form_newsletter"]) ? 0 : 1)." WHERE ".
-		"detail_pid=".$_SESSION["wcs_user_id"].";";
+		"detail_pid=".$_SESSION["wcs_user_id"];
 if(mysql_query($sql)) {
 	$detail_updated = $BL['be_profile_update_success'];	
 } else {
