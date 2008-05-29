@@ -55,6 +55,12 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 	$filename 		= empty($fileinfo['realfname'])	? basename($file) : $fileinfo['realfname'];
 	$disposition	= empty($fileinfo['method'])	? 'attachment' : $fileinfo['method'];
 	
+	if($disposition == 'attachment') {
+	
+		$fileinfo['mimetype'] = "application/force-download";
+	
+	}
+	
 	if(empty($fileinfo['mimetype']) && empty($fileinfo['extension'])) {
 	
 		$file_extension	=  strtolower(substr(strrchr($filename,"."),1));
@@ -75,7 +81,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 		$file_extension	= $fileinfo['extension'];
 	
 	}
-	
+
 	//Begin writing headers
 	header('Cache-Control: ');
 	header('Cache-Control: public');
@@ -123,6 +129,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
 	}
 	*/
+	
 	header('Content-Disposition: '.$disposition.'; filename="'.$filename.'"');
 	
 

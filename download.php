@@ -48,8 +48,10 @@ $hash		= false;
 $countonly	= empty($_GET['countonly']) ? false : true;
 $hash 		= empty($_GET['f']) ? '' : clean_slweg($_GET['f']);
 
-if(empty($phpwcms["inline_download"])) {
-	$phpwcms["inline_download"]		= empty($_GET['target']) ? 0 : 1;
+if(isset($_GET['target'])) {
+	$phpwcms["inline_download"]	= empty($_GET['target']) ? 0 : 1;
+} elseif(!isset($phpwcms["inline_download"])) {
+	$phpwcms["inline_download"] = 0;
 }
 
 if(!empty($hash) && strlen($hash) == 32) {

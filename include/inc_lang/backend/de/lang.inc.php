@@ -1220,5 +1220,10 @@ $BL['be_use_prio']						= 'Priorisierung anwenden';
 $BL['be_skip_first_items']				= 'Eintr&auml;ge am Anfang &uuml;berspringen';
 $BL['be_news_detail_link']				= 'Newsartikel';
 
+$BL['be_gallerydownload']				= 'Galeriedownload gestatten';
+$BL['be_gallery_root']					= 'Galerie Wurzelverzeichnis';
+$BL['be_gallery_directory']				= 'Galerie Unterverzeichnis';
+$BL['be_gallery']						= 'Galerie';
+
 
 ?>

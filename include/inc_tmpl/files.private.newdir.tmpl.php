@@ -30,30 +30,42 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //Wenn neues Verzeichnis angelegt werden soll
 //if(isset($_GET["mkdir"]) || intval($_POST["dir_aktion"])) {
-	$dir_aktiv = 1;
-	$dir_public = 0;
-	$dir_newname = '';
-	$dir_longinfo = '';
+	$dir_aktiv		= 1;
+	$dir_public		= 0;
+	$dir_newname	= '';
+	$dir_longinfo	= '';
+	$dir_gallery	= 0;
 	$dir_pid = empty($_GET["mkdir"]) ? 0 : intval($_GET["mkdir"]);
 				
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
 					$dir_pid 		= intval($_POST["dir_pid"]);
-					$dir_aktiv		= intval($_POST["dir_aktiv"]);;
-					$dir_public 	= intval($_POST["dir_public"]);;
+					$dir_aktiv		= empty($_POST["dir_aktiv"]) ? 0 : 1;
+					$dir_public 	= empty($_POST["dir_public"]) ? 0 : 1;
 					$dir_newname	= clean_slweg($_POST["dir_newname"]);
 					$dir_longinfo	= clean_slweg($_POST["dir_longinfo"]);
+					$dir_gallery	= empty($_POST["dir_gallery"]) ? 0 : intval($_POST["dir_gallery"]);
+					
+					switch($dir_gallery) {
+					
+						case 2:
+						case 3: break;
+						
+						default: $dir_gallery = 0;
+					
+					}
+					
 					if(isEmpty($dir_newname)) $dir_error = 1;
 					//Eintragen des neuen verzeichnisnamens
 					if(!isset($dir_error)) {
 						$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
-								"f_created, f_kid, f_longinfo) VALUES (".
+								"f_created, f_kid, f_longinfo, f_gallerystatus) VALUES (".
 								$dir_pid.", ".
 								$_SESSION["wcs_user_id"].", '".
 								aporeplace($dir_newname)."', ".
 								$dir_aktiv.", ".
 								$dir_public.", '".
-								time()."', 0, '".aporeplace($dir_longinfo)."')";
+								time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.")";
 						if($result = mysql_query($sql, $db) or die ("error while writing new dir info")) {
 							headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
 						}
@@ -108,20 +120,33 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr>
 		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
 		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="6" class="v10" id="dir_longinfo" style="width: 450px;"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
-	</tr>	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+	</tr>
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	
+	<tr>
+		<td align="right" class="v09"><?php echo $BL['be_gallery'] ?>:&nbsp;</td>
+		<td><select name="dir_gallery" id="dir_gallery" class="v10">
+			<option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
+			<option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
+			<option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
+		</select></td>
+	</tr>
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td><input name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> /></td>
 			<td class="v10"><strong><label for="dir_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
 			<td><input name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?> /></td>
 			<td class="v10"><strong><label for="dir_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong></td>
 		</tr>
 		</table></td>
 	</tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td width="67" valign="top"><input name="dir_pid" type="hidden" id="dir_pid" value="<?php echo $dir_pid ?>" />
 		<input name="dir_aktion" type="hidden" id="dir_aktion" value="1" /></td>

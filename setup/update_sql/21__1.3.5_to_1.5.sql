@@ -448,3 +448,4 @@ INSERT INTO `phpwcms_country` VALUES(246, '0000-00-00 00:00:00', 'MF', 'MAF', 66
 INSERT INTO `phpwcms_country` VALUES(247, '0000-00-00 00:00:00', 'RS', 'SRB', 688, 'EU', 'Serbia, Republic of', 'Serbien', 'Europe', 'Europa', '', '');
 INSERT INTO `phpwcms_country` VALUES(248, '0000-00-00 00:00:00', 'TL', 'TLS', 626, 'AS', 'Timor-Leste, Democratic Republic of', 'Osttimor (Timor-Leste)', 'Asia', 'Asien', '', '');
 
+ALTER TABLE `phpwcms_file` ADD `f_gallerystatus` INT( 1 ) NOT NULL DEFAULT '0';

@@ -38,19 +38,20 @@ $othumb = false;
 				
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
-	$file_id		= intval($_POST["file_id"]);
-	$file_pid 		= intval($_POST["file_pid"]);
-	$file_aktiv		= intval($_POST["file_aktiv"]);
-	$file_public 	= intval($_POST["file_public"]);
-	$file_name		= clean_slweg($_POST["file_name"]);
-	$file_ext		= clean_slweg($_POST["file_ext"]);
-	$file_shortinfo	= clean_slweg($_POST["file_shortinfo"]);
-	$file_longinfo	= slweg(trim($_POST["file_longinfo"]));
-	$file_copyright	= clean_slweg($_POST["file_copyright"]);
-	$file_tags		= trim( clean_slweg($_POST["file_tags"]), ',' );
-	$file_granted	= empty($_POST["file_granted"]) ? 0 : 1;
+	$file_id				= intval($_POST["file_id"]);
+	$file_pid 				= intval($_POST["file_pid"]);
+	$file_aktiv				= empty($_POST["file_aktiv"]) ? 0 : 1;
+	$file_public 			= empty($_POST["file_public"]) ? 0 : 1;
+	$file_name				= clean_slweg($_POST["file_name"]);
+	$file_ext				= clean_slweg($_POST["file_ext"]);
+	$file_shortinfo			= clean_slweg($_POST["file_shortinfo"]);
+	$file_longinfo			= slweg(trim($_POST["file_longinfo"]));
+	$file_copyright			= clean_slweg($_POST["file_copyright"]);
+	$file_tags				= trim( clean_slweg($_POST["file_tags"]), ',' );
+	$file_granted			= empty($_POST["file_granted"]) ? 0 : 1;
+	$file_gallerydownload	= empty($_POST["file_gallerydownload"]) ? 0 : 1;
 	
-	$file_keywords	= $_POST["file_keywords"];
+	$file_keywords			= $_POST["file_keywords"];
 	if(count($file_keywords)) {
 		$file_keys = "";
 		foreach($file_keywords as $key => $value) {
@@ -85,7 +86,8 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 				"f_created='".time()."', ".
 				"f_copyright='".aporeplace($file_copyright)."', ".
 				"f_tags='".aporeplace($file_tags)."', ".
-				"f_granted=".$file_granted." ".
+				"f_granted=".$file_granted.", ".
+				"f_gallerystatus=".$file_gallerydownload." ".
 				"WHERE f_kid=1 AND f_id=".$file_id." AND f_uid=".intval($_SESSION["wcs_user_id"]);
 		if($result = mysql_query($sql, $db) or die ("error while updating file info")) {
 		
@@ -111,17 +113,18 @@ if($file_id) {
 			$file_ext		= $row["f_ext"];
 			//$file_makethumb	= "thumb=".$row["f_id"]."&ext=".$row["f_ext"];
 			if(empty($_POST["file_aktion"]) || intval($_POST["file_aktion"]) != 2) {
-				$file_pid		= $row["f_pid"];
-				$file_name		= $row["f_name"];
-				$file_aktiv		= $row["f_aktiv"];
-				$file_public	= $row["f_public"];
-				$file_shortinfo = $row["f_shortinfo"];
-				$file_longinfo	= $row["f_longinfo"];
-				$file_thumb		= $row["f_thumb_list"];
-				$file_keys		= $row["f_keywords"];
-				$file_copyright	= $row["f_copyright"];
-				$file_tags		= $row["f_tags"];
-				$file_granted	= $row["f_granted"];
+				$file_pid				= $row["f_pid"];
+				$file_name				= $row["f_name"];
+				$file_aktiv				= $row["f_aktiv"];
+				$file_public			= $row["f_public"];
+				$file_shortinfo 		= $row["f_shortinfo"];
+				$file_longinfo			= $row["f_longinfo"];
+				$file_thumb				= $row["f_thumb_list"];
+				$file_keys				= $row["f_keywords"];
+				$file_copyright			= $row["f_copyright"];
+				$file_tags				= $row["f_tags"];
+				$file_granted			= $row["f_granted"];
+				$file_gallerydownload	= $row["f_gallerystatus"];
 				
 				if($file_keys) {
 					$file_keys_temp = explode(":", $file_keys);
@@ -286,23 +289,29 @@ if($ja) {
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 	
-	
-	
+
+
 	<tr>
-		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+		<td align="right" class="v09 tdtop3"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?>></td>
-			<td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;</td>
-			<td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?>></td>
-			<td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> /></td>
+			<td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			
 			<td><input name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted) ?>></td>
 			<td class="v10"><label for="file_granted"><?php echo $BL['be_granted_download'] ?></label></td>
+		</tr>
+		<tr>
+			<td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> /></td>
+			<td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			
+			<td><input name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload) ?>></td>
+			<td class="v10"><label for="file_gallerydownload"><?php echo $BL['be_gallerydownload'] ?></label></td>
 		</tr>
 		</table></td>
-	</tr>
+	</tr>	
+	
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 	<tr>
 		<td valign="top"><input name="file_id" type="hidden" id="file_id" value="<?php echo $file_id ?>"><input name="file_aktion" type="hidden" id="file_aktion" value="2"><input name="file_ext" type="hidden" id="file_ext" value="<?php echo strtolower($file_ext) ?>"></td>

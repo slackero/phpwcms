@@ -1231,4 +1231,9 @@ $BL['be_use_prio']						= 'apply priorization';
 $BL['be_skip_first_items']				= 'skip top items';
 $BL['be_news_detail_link']				= 'news article';
 
+$BL['be_gallerydownload']				= 'allow download in gallery';
+$BL['be_gallery_root']					= 'gallery root directory';
+$BL['be_gallery_directory']				= 'gallery subdirectory';
+$BL['be_gallery']						= 'gallery';
+
 ?>

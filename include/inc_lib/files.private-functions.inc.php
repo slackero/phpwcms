@@ -26,7 +26,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 	$cutID = intval($cutID);
 	$klapp = $_SESSION["klapp"];
 	$pid = intval($pid);
-	$sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE ".
+	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ".
 		   "f_pid=".intval($pid)." AND ".
 		   "f_uid=".intval($userID)." AND ".
 		   "f_kid=0 AND f_trash=0 ORDER BY f_name;";
@@ -57,7 +57,22 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 		echo '<tr bgcolor="#EBF2F4"><td colspan="2"><img src="img/leer.gif" height="1" width="1" alt="" /></td></tr>'."\n"; //Abstand vor
 		echo "<tr bgcolor=\"#EBF2F4\">\n"; //Einleitung Tabellenzeile
 		echo "<td width=\"438\" class=\"msglist\">"; //Einleiten der Tabellenzelle
-		echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\"><img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />"; //Zellinhalt 1. Spalte
+		echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\">";
+		
+		// Gallery status
+		switch($row["f_gallerystatus"]) {
+			
+			case 2:		// gallery root dir
+						echo '<img src="img/icons/folder_galleryroot.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_root'].'" title="'.$GLOBALS['BL']['be_gallery_root'].'" />';
+						break;
+			
+			case 3:		// gallery subdir
+						echo '<img src="img/icons/folder_gallerysub.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_directory'].'" title="'.$GLOBALS['BL']['be_gallery_directory'].'" />';
+						break;
+			
+			default:	echo "<img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
+		}
+		
 		echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
 		echo "</strong></td>\n"; //Schließen Zelle 1. Spalte
 		//Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.

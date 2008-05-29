@@ -30,10 +30,21 @@ if (!defined('PHPWCMS_ROOT')) {
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
 		$dir_id 		= intval($_POST["dir_id"]);
-		$dir_aktiv		= intval($_POST["dir_aktiv"]);;
-		$dir_public 	= intval($_POST["dir_public"]);;
+		$dir_aktiv		= empty($_POST["dir_aktiv"]) ? 0 : 1;
+		$dir_public 	= empty($_POST["dir_public"]) ? 0 : 1;
 		$dir_newname	= clean_slweg($_POST["dir_newname"]);
 		$dir_longinfo	= clean_slweg($_POST["dir_longinfo"]);
+		$dir_gallery	= empty($_POST["dir_gallery"]) ? 0 : intval($_POST["dir_gallery"]);
+					
+		switch($dir_gallery) {
+		
+			case 2:
+			case 3: break;
+			
+			default: $dir_gallery = 0;
+		
+		}
+
 		if(isEmpty($dir_newname)) $dir_error = 1;
 		//Eintragen der aktualisierten Verzeichnisinfos
 		if(!isset($dir_error)) {
@@ -42,7 +53,8 @@ if (!defined('PHPWCMS_ROOT')) {
 					"f_aktiv=".$dir_aktiv.", ".
 					"f_public=".$dir_public.", ".
 					"f_longinfo='".aporeplace($dir_longinfo)."', ".
-					"f_created='".time()."' ".
+					"f_created='".time()."', ".
+					"f_gallerystatus=".$dir_gallery." ".
 					"WHERE f_kid=0 AND f_id=".$dir_id.
 					" AND f_uid=".intval($_SESSION["wcs_user_id"]);
 			if($result = mysql_query($sql, $db) or die ("error while updating dir info")) {
@@ -60,7 +72,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				
 	//Wenn ID angegeben, dann -> oder aber Root Verzeichnis
 	if($dir_id) {
-		$sql = "SELECT f_id, f_name, f_aktiv, f_public, f_longinfo FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$dir_id.
+		$sql = "SELECT f_id, f_name, f_aktiv, f_public, f_longinfo, f_gallerystatus FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$dir_id.
 			   " AND f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 AND f_kid=0 LIMIT 1";
 		if($result = mysql_query($sql, $db) or die("error while reading folder name")) {
 			if($row = mysql_fetch_row($result)) {
@@ -71,6 +83,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					$dir_aktiv		= $row[2];
 					$dir_public		= $row[3];
 					$dir_longinfo	= $row[4];
+					$dir_gallery	= $row[5];
 				}
 				$ja = 1;
 			}
@@ -112,7 +125,20 @@ if($ja) {
 		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
 		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="6" class="v10" id="dir_longinfo" style="width: 450px;"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
 	</tr>	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	
+	<tr>
+		<td align="right" class="v09"><?php echo $BL['be_gallery'] ?>:&nbsp;</td>
+		<td><select name="dir_gallery" id="dir_gallery" class="v10">
+			<option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
+			<option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
+			<option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
+		</select></td>
+	</tr>
+	
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -124,7 +150,7 @@ if($ja) {
 		</tr>
 		</table></td>
 	</tr>
-	<tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	<tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td width="67" valign="top"><input name="dir_id" type="hidden" id="dir_id" value="<?php echo $dir_id ?>" />
 		<input name="dir_aktion" type="hidden" id="dir_aktion" value="2" /></td>

@@ -32,27 +32,29 @@ if (!defined('PHPWCMS_ROOT')) {
 initMootoolsAutocompleter();
 
 // Upload new file
-$file_aktiv		= 1;
-$file_public	= 0;
-$file_shortinfo	= '';
-$file_longinfo	= '';
-$file_pid		= empty($_GET["upload"]) ? 0 : intval($_GET["upload"]);
-$file_copyright	= '';
-$file_tags		= '';
-$file_granted	= 0;
+$file_aktiv				= 1;
+$file_public			= 0;
+$file_shortinfo			= '';
+$file_longinfo			= '';
+$file_pid				= empty($_GET["upload"]) ? 0 : intval($_GET["upload"]);
+$file_copyright			= '';
+$file_tags				= '';
+$file_granted			= 0;
+$file_gallerydownload	= 0;
 				
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	if(!ini_get('safe_mode') && function_exists('set_time_limit')) set_time_limit(0);
-	$file_pid 		= intval($_POST["file_pid"]);
-	$file_aktiv		= empty($_POST["file_aktiv"]) ? 0 : 1;
-	$file_public 	= empty($_POST["file_public"]) ? 0 : 1;
-	$file_shortinfo	= clean_slweg($_POST["file_shortinfo"]);
-	$file_longinfo	= slweg(trim($_POST["file_longinfo"]));
-	$file_copyright	= clean_slweg($_POST["file_copyright"]);
-	$file_tags		= trim( clean_slweg($_POST["file_tags"]), ',' );
-	$file_granted	= empty($_POST["file_granted"]) ? 0 : 1;
-	$file_keys		= '';
+	$file_pid 				= intval($_POST["file_pid"]);
+	$file_aktiv				= empty($_POST["file_aktiv"]) ? 0 : 1;
+	$file_public 			= empty($_POST["file_public"]) ? 0 : 1;
+	$file_shortinfo			= clean_slweg($_POST["file_shortinfo"]);
+	$file_longinfo			= slweg(trim($_POST["file_longinfo"]));
+	$file_copyright			= clean_slweg($_POST["file_copyright"]);
+	$file_tags				= trim( clean_slweg($_POST["file_tags"]), ',' );
+	$file_granted			= empty($_POST["file_granted"]) ? 0 : 1;
+	$file_gallerydownload	= empty($_POST["file_gallerydownload"]) ? 0 : 1;
+	$file_keys				= '';
 	
 	$file_keywords	= empty($_POST["file_keywords"]) ? array() : $_POST["file_keywords"];
 	if(count($file_keywords)) {
@@ -86,12 +88,12 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		
 		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
 				"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
-				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted) VALUES (".
+				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus) VALUES (".
 				$file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
 				$fileName."', '".time()."', '".intval($_FILES["file"]["size"])."', '".
 				aporeplace($_FILES["file"]["type"])."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
 				aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
-				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.")";
+				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".$file_gallerydownload.")";
 		
 		if($result = mysql_query($sql, $db) or die("error while insert file information")) {
 			$new_fileId = mysql_insert_id($db); //Festlegen der aktuellen File-ID	
@@ -258,16 +260,21 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	
 	
 	<tr>
-		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+		<td align="right" class="v09 tdtop3"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> /></td>
-			<td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;</td>
-			<td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> /></td>
-			<td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			
 			<td><input name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted) ?>></td>
 			<td class="v10"><label for="file_granted"><?php echo $BL['be_granted_download'] ?></label></td>
+		</tr>
+		<tr>
+			<td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> /></td>
+			<td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			
+			<td><input name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload) ?>></td>
+			<td class="v10"><label for="file_gallerydownload"><?php echo $BL['be_gallerydownload'] ?></label></td>
 		</tr>
 		</table></td>
 	</tr>
