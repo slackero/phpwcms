@@ -957,7 +957,7 @@ $content["pagetitle"] = sanitize_replacement_tags($content["pagetitle"]);
 
 // now we should search all ?aid=123 and/or ?id=123 and replace'em by the real alias if available
 $match = array();
-preg_match_all('/index.php\?(a{0,1}id)=([\d\,]+)(["|&])/', $content['all'], $match);
+preg_match_all('/index.php\?(aid|id)=([\d\,]+)(["|&])/', $content['all'], $match);
 
 if( isset($match[1]) && isset($match[2]) ) {
 
@@ -1002,7 +1002,7 @@ if( isset($match[1]) && isset($match[2]) ) {
 		
 			$all_aid[ $match[2][$key] ]	= $match[2][$key];
 		
-		}	
+		}
 	}
 	
 	if(count($all_id)) {

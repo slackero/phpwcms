@@ -582,7 +582,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	}
 	
 	$alias = clean_slweg($alias, 150);
-	
+	$alias = pre_remove_accents($alias);
 	$alias = get_alnum_dashes($alias, true);
 	if($alias == 'index' && $current_id != 'index') {
 		$alias = 'index'.date('Y-n-j');

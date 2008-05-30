@@ -51,7 +51,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		// numbering starting at 1
 		$export[$row]['#']		= $row;
 		$export[$row]['#ID']	= $value['formresult_id'];
-		$export[$row]['#Date']	= $value['formresult_date'];
+		$export[$row]['#Date']	= $value['formresult_createdate'];
 		$export[$row]['#IP']	= $value['formresult_ip'];
 		
 		$val_array				= @unserialize($value['formresult_content']);
@@ -129,7 +129,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	
 		// numbering starting at 1
 		$export[$row]['#ID']	= $value['formresult_id'];
-		$export[$row]['#Date']	= $value['formresult_date'];
+		$export[$row]['#Date']	= $value['formresult_createdate'];
 		$export[$row]['#IP']	= $value['formresult_ip'];
 		
 		$val_array				= @unserialize($value['formresult_content']);
