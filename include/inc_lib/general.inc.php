@@ -104,7 +104,7 @@ function list_country($c, &$dbcon){
 	$country_list = '';
 	$country = getCountry();
 	foreach($country as $key => $value) {
-		$country_list .= '	<option value="'.html_specialchars($value).'"';
+		$country_list .= '	<option value="'.html_specialchars($key).'"';
 		if($key == $c) {
 			$country_list .= ' selected="selected"';
 		}
