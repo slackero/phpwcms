@@ -55,7 +55,7 @@ $buttonAction .= '</tr></table>';
 		<td><img src="img/leer.gif" alt="" width="62" height="1" /></td>
 	</tr>
 	<tr bgcolor="#F3F5F8">
-		<td width="23" align="right"><img src="img/symbole/article_text.gif" alt="" width="9" height="11" border="0" /><img src="img/leer.gif" alt="" width="1" height="1" /><img src="img/leer.gif" alt="" width="4" height="1" /></td>
+		<td width="23" align="right"><img src="img/symbole/article_text.gif" alt="" width="9" height="11" border="0" /><img src="img/leer.gif" alt="" width="5" height="1" /></td>
 		<td width="453" class="dir"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><strong><?php echo html_specialchars($article["article_title"]) ?></strong></a></td>
 		<td width="62" align="right" class="h13" style="padding-right:1px"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><img src="img/button/edit_22x13.gif" alt="<?php echo $BL['be_article_cnt_ledit'] ?>" width="22" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "3,".$article["article_id"].",0,".switch_on_off($article["article_aktiv"]) ?>" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"><img src="img/button/visible_12x13_<?php echo $article["article_aktiv"] ?>.gif" alt="" width="12" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" title="<?php echo $BL['be_article_cnt_ldel'] ?>" onclick="return confirm('<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html_specialchars($article["article_title"]); ?>  \n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
 	</tr>

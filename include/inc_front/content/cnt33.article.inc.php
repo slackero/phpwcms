@@ -108,7 +108,7 @@ if($news['list_mode']) {
 				break;
 				
 		case 2:	// archived only
-				$news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' > ' . $news['now'];
+				$news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' < ' . $news['now'];
 				$news['sql_where'][] = 'AND cnt_archive_status = 1';
 				break;
 				
