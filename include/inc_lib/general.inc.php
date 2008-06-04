@@ -1326,7 +1326,7 @@ function optimizeForSearch() {
 }
 
 function return_bytes_shorten($val, $round=2, $return_bytes=0) {
-	$last	= strtolower($val{strlen(trim($val))-1});
+	$last = strtolower($val{strlen(trim($val))-1});
 	if(empty($return_bytes)) {
 		$space	= '';
 		$byte	= '';
@@ -1334,13 +1334,17 @@ function return_bytes_shorten($val, $round=2, $return_bytes=0) {
 		$space	= $return_bytes;
 		$byte	= 'B';
 	}
-	if($last == 'g' || $last == 'm' || $last == 'k') {
+	if($last == 'k' || $last == 'm' || $last == 'g' || $last == 't') {
 		$val = trim($val);
 		if($byte) $val .= $space.'Byte';
 		return $val;
 	}
-	$val	= ceil($val);
-	if($val >= (1024 * 1024 * 1024)) {
+	$val = ceil($val);
+	if($val >= (1024 * 1024 * 1024 * 1024)) {
+		//T
+		$val  = round($val / (1024 * 1024 * 1024 * 1024), $round);
+		$val .= $space.'T'.$byte;
+	} elseif($val >= (1024 * 1024 * 1024)) {
 		//G
 		$val  = round($val / (1024 * 1024 * 1024), $round);
 		$val .= $space.'G'.$byte;
@@ -1352,6 +1356,10 @@ function return_bytes_shorten($val, $round=2, $return_bytes=0) {
 		//K
 		$val  = round($val / 1024, $round);
 		$val .= $space.'K'.$byte;
+	} elseif($val < 1024) {
+		//Byte but as 0.xxx KB
+		$val  = round($val / 1024, $round+1);
+		$val .= $space.'K'.$byte;
 	}
 	return $val;
 }
@@ -1362,6 +1370,7 @@ function return_bytes($val) {
 	$last	= strtolower($val{strlen($val)-1});
 	$val	= floatval($val);
 	switch($last) {
+		case 't':	$val *= 1024;
 		case 'g':	$val *= 1024;
 		case 'm':	$val *= 1024;
 		case 'k':	$val *= 1024;
