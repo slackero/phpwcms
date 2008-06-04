@@ -34,7 +34,7 @@ initMultipleUpload();
 ?>
 <h1 class="title" id="swiffStore"><?php echo $BL['be_file_multiple_upload'] ?></h1>
 
-<form action="<?=PHPWCMS_URL?>include/inc_act/ajax_uploader.php?<?= session_name().'='.session_id(); ?>" method="post" id="upload">
+<form action="<?php echo PHPWCMS_URL?>include/inc_act/ajax_uploader.php?<?php echo session_name().'='.session_id(); ?>" method="post" id="upload">
 
 <table border="0" cellpadding="0" cellspacing="0" summary="" class="width440 tdbottom10">
 <tr>
@@ -49,7 +49,7 @@ initMultipleUpload();
 <div class="upload_button">
 	<input type="file" name="Filedata" id="upload-filedata" />
 	&nbsp;&nbsp;
-	<input name="submit" type="submit" class="v12" id="profile-submit" value="2) <?php echo $BL['be_files_upload'] ?>" />
+	<input name="submit" type="submit" class="v12" id="profile-submit" value="2) <?php echo $BL['be_files_upload']; ?>" />
 </div>
 
 </form>
@@ -60,15 +60,15 @@ initMultipleUpload();
 window.addEvent('domready', function(){
 
 	var upload = new FancyUpload( $('upload-filedata'), {
-		swf: '<?= PHPWCMS_URL ?>include/inc_js/mootools/FancyUpload/Swiff.Uploader.swf',
+		swf: '<?php echo PHPWCMS_URL; ?>include/inc_js/mootools/FancyUpload/Swiff.Uploader.swf',
 		queueList: 'upload-queue',
 		container: $('swiffStore'),
 		types: {
-			'<?=$BL['be_ctype_images']?> (*.jpg, *.jpeg, *.gif, *.png)': '*.jpg; *.jpeg; *.gif; *.png;',
-			'<?=$BL['be_ftptakeover_all']?> (*.*)': '*.*;'
+			'<?php echo $BL['be_ctype_images']; ?> (*.jpg, *.jpeg, *.gif, *.png)': '*.jpg; *.jpeg; *.gif; *.png;',
+			'<?php echo $BL['be_ftptakeover_all']; ?> (*.*)': '*.*;'
 			},
-		limitSize: <?=$phpwcms['file_maxsize']?>,
-		browseButtonText: '1) <?=$BL['be_files_browse']?>'
+		limitSize: <?php echo $phpwcms['file_maxsize']; ?>,
+		browseButtonText: '1) <?php echo $BL['be_files_browse']; ?>'
 	});
 
 });

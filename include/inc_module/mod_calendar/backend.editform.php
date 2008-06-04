@@ -273,15 +273,15 @@ initMootoolsAutocompleter();
 	
 	
 	<tr>
-		<td align="right" class="chatlist"><?= $BL['be_cnt_image'] ?>:&nbsp;</td>
+		<td align="right" class="chatlist"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
 		<td>
 		<table cellpadding="0" cellspacing="0" border="0" summary="">
 			<tr>
-				<td><input type="text" name="cnt_image_name" id="cnt_image_name" value="<?= html_specialchars($plugin['data']['calendar_image']['name']) ?>" class="v12 width300" maxlength="250" /></td>
+				<td><input type="text" name="cnt_image_name" id="cnt_image_name" value="<?php echo html_specialchars($plugin['data']['calendar_image']['name']) ?>" class="v12 width300" maxlength="250" /></td>
 				<td style="padding:2px 0 0 5px" width="100">
 					<a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=7');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
 					<a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
-					<input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?= $plugin['data']['calendar_image']['id'] ?>" />
+					<input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $plugin['data']['calendar_image']['id'] ?>" />
 				</td>
 			</tr>
 		</table>
@@ -309,16 +309,16 @@ initMootoolsAutocompleter();
 	
 	
 	<tr>
-		<td align="right" class="chatlist tdtop4"><?= $BL['be_cnt_caption'] ?>:&nbsp;</td>
+		<td align="right" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 		<td class="tdbottom4">
-		<textarea name="cnt_image_caption" id="cnt_image_caption" class="v12 width350" rows="2"><?= html_specialchars($plugin['data']['calendar_image']['caption']) ?></textarea>				
+		<textarea name="cnt_image_caption" id="cnt_image_caption" class="v12 width350" rows="2"><?php echo html_specialchars($plugin['data']['calendar_image']['caption']) ?></textarea>				
 		</td>
 	</tr>
 	
 	
 	<tr>
-		<td align="right" class="chatlist"><?= $BL['be_profile_label_website'] ?>:&nbsp;</td>
-		<td><input type="text" name="cnt_image_link" id="cnt_image_link" class="v12 width350" maxlength="500" value="<?= html_specialchars($plugin['data']['calendar_image']['link']) ?>" /></td>
+		<td align="right" class="chatlist"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
+		<td><input type="text" name="cnt_image_link" id="cnt_image_link" class="v12 width350" maxlength="500" value="<?php echo html_specialchars($plugin['data']['calendar_image']['link']) ?>" /></td>
 	</tr>
 
 	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
@@ -407,7 +407,7 @@ window.addEvent('domready', function(){
 	
 	
 	setCalendarAllDay();
-	setRangeDates(<?= $plugin['data']['calendar_range'] ?>);
+	setRangeDates(<?php echo $plugin['data']['calendar_range'] ?>);
 	
 	$('calendar_form').addEvent('submit', function(r) {
 		var calendar_title = $('calendar_title');
@@ -470,7 +470,7 @@ function showImage() {
 	id	= parseInt(getObjectById('cnt_image_id').value);
 	img	= getObjectById('cnt_image');
 	if(id > 0) {
-		img.innerHTML = '<img src="<?= PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
+		img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
 		img.style.display = '';
 	} else {
 		img.style.display = 'none';

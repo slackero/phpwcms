@@ -177,7 +177,7 @@ $buttonAction .= '</tr></table>';
 			
 			<tr>
 			  <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_archive'] ?>:&nbsp;</td>
-			  <td class="v10"><?= '[ '.strtoupper($article["article_archive_status"] == 1 ? $BL['be_on'] : $BL['be_off'] ).' ] ' . $BL['be_show_archived'] ?></td>
+			  <td class="v10"><?php echo '[ '.strtoupper($article["article_archive_status"] == 1 ? $BL['be_on'] : $BL['be_off'] ).' ] ' . $BL['be_show_archived'] ?></td>
 			</tr>			
 			
 		  </table></td>

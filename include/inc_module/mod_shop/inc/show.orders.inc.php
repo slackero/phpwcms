@@ -52,19 +52,19 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr> 
 		<td class="chatlist" style="padding-top:3px;"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
 		<td class="v12b">
-		<form action="<?= shop_url('controller=order').'&amp;show='.$plugin['data']['order_id'] ?>" method="post">
-			<input type="hidden" name="order_status" value="<?= $plugin['data']['order_id'] ?>" />
+		<form action="<?php echo shop_url('controller=order').'&amp;show='.$plugin['data']['order_id'] ?>" method="post">
+			<input type="hidden" name="order_status" value="<?php echo $plugin['data']['order_id'] ?>" />
 			<table cellpadding="0" cellspacing="0" border="0" summary="">
 		
 			<tr class="row">
-				<td><input type="checkbox" name="status_payment" value="PAYED" id="status_payment"<?= order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-				<td><label for="status_payment"><?= $BLM['shopprod_status_paid']?>&nbsp;</label></td>
-				<td><input type="checkbox" name="status_send" value="SENT" id="status_send"<?= order_status('SENT', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-				<td><label for="status_send"><?= $BLM['shopprod_status_sent'] ?>&nbsp;</label></td>
-				<td><input type="checkbox" name="status_back" value="RETURN" id="status_back"<?= order_status('RETURN', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-				<td><label for="status_back"><?= $BLM['shopprod_status_back'] ?>&nbsp;</label></td>
-				<td><input type="checkbox" name="status_done" value="COMPLETED" id="status_done"<?= order_status('COMPLETED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-				<td><label for="status_done"><?= $BLM['shopprod_status_done'] ?></label></td>
+				<td><input type="checkbox" name="status_payment" value="PAYED" id="status_payment"<?php echo order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+				<td><label for="status_payment"><?php echo $BLM['shopprod_status_paid']?>&nbsp;</label></td>
+				<td><input type="checkbox" name="status_send" value="SENT" id="status_send"<?php echo order_status('SENT', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+				<td><label for="status_send"><?php echo $BLM['shopprod_status_sent'] ?>&nbsp;</label></td>
+				<td><input type="checkbox" name="status_back" value="RETURN" id="status_back"<?php echo order_status('RETURN', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+				<td><label for="status_back"><?php echo $BLM['shopprod_status_back'] ?>&nbsp;</label></td>
+				<td><input type="checkbox" name="status_done" value="COMPLETED" id="status_done"<?php echo order_status('COMPLETED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+				<td><label for="status_done"><?php echo $BLM['shopprod_status_done'] ?></label></td>
 			</tr>
 
 			</table>
@@ -165,11 +165,11 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="" width="100%">
 		
 		<tr>
-			<th><?= $BLM['shopprod_quantity'] ?></th>
-			<th><?= $BLM['shopprod_name1'] ?></th>
-			<th class="right"><?= $BLM['shopprod_net'].' '.$plugin['data']['currency'] ?></th>
-			<th class="right"><?= $BLM['shopprod_vat'].'%' ?></th>
-			<th class="right"><?= $BLM['shopprod_total'].' '.$plugin['data']['currency'] ?></th>			
+			<th><?php echo $BLM['shopprod_quantity'] ?></th>
+			<th><?php echo $BLM['shopprod_name1'] ?></th>
+			<th class="right"><?php echo $BLM['shopprod_net'].' '.$plugin['data']['currency'] ?></th>
+			<th class="right"><?php echo $BLM['shopprod_vat'].'%' ?></th>
+			<th class="right"><?php echo $BLM['shopprod_total'].' '.$plugin['data']['currency'] ?></th>			
 		</tr>
 		
 <?php
@@ -194,11 +194,11 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 ?>
 		<tr class="product">
-			<td><?= $plugin['product']['shopprod_quantity'] ?></td>
-			<td><a href="<?= $_controller_link.'&amp;edit='.$plugin['product']["shopprod_id"] ?>" target="_blank"><?= html_specialchars($plugin['product']['shopprod_name1']) ?></a></td>
-			<td class="number"><?= number_format($plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-			<td class="number"><?= number_format($plugin['product']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-			<td class="number"><?= number_format($plugin['product']['shopprod_quantity'] * $plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
+			<td><?php echo $plugin['product']['shopprod_quantity'] ?></td>
+			<td><a href="<?php echo $_controller_link.'&amp;edit='.$plugin['product']["shopprod_id"] ?>" target="_blank"><?php echo html_specialchars($plugin['product']['shopprod_name1']) ?></a></td>
+			<td class="number"><?php echo number_format($plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?php echo number_format($plugin['product']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?php echo number_format($plugin['product']['shopprod_quantity'] * $plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
 		</tr>
 
 
@@ -211,10 +211,10 @@ if (!defined('PHPWCMS_ROOT')) {
 		$plugin['data']['order_data']['subtotal']['vat'] = $plugin['data']['order_data']['subtotal']['subtotal_gross'] - $plugin['data']['order_data']['subtotal']['subtotal_net'];
 ?>
 		<tr class="product linetop">
-			<td colspan="2" class="chatlist"><?= $BLM['shopprod_subtotal'].' '.$plugin['data']['currency'] ?>:</td>
-			<td class="number"><?= number_format($plugin['data']['order_data']['subtotal']['subtotal_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-			<td class="number"><?= number_format($plugin['data']['order_data']['subtotal']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-			<td class="number"><?= number_format($plugin['data']['order_data']['subtotal']['subtotal_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
+			<td colspan="2" class="chatlist"><?php echo $BLM['shopprod_subtotal'].' '.$plugin['data']['currency'] ?>:</td>
+			<td class="number"><?php echo number_format($plugin['data']['order_data']['subtotal']['subtotal_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?php echo number_format($plugin['data']['order_data']['subtotal']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?php echo number_format($plugin['data']['order_data']['subtotal']['subtotal_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
 		</tr>
 		
 		<tr class="product linebottom">
@@ -232,9 +232,9 @@ if (!defined('PHPWCMS_ROOT')) {
 			$plugin['data']['order_data']['shipping']['vat'] = $plugin['data']['order_data']['shipping']['shipping_gross'] - $plugin['data']['order_data']['shipping']['shipping_net'];
 				
 			?>:</td>
-			<td class="number"><?= number_format($plugin['data']['order_data']['shipping']['shipping_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-			<td class="number"><?= number_format($plugin['data']['order_data']['shipping']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-			<td class="number"><?= number_format($plugin['data']['order_data']['shipping']['shipping_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
+			<td class="number"><?php echo number_format($plugin['data']['order_data']['shipping']['shipping_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?php echo number_format($plugin['data']['order_data']['shipping']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+			<td class="number"><?php echo number_format($plugin['data']['order_data']['shipping']['shipping_gross'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>			
 		</tr>
 
 <?php
@@ -277,7 +277,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 </div>
 
-<input type="button" class="button10" style="margin-top:5px;" value="<?= $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?= shop_url('controller=order') ?>'" />
+<input type="button" class="button10" style="margin-top:5px;" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?php echo shop_url('controller=order') ?>'" />
 
 <?php
 /*

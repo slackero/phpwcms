@@ -108,20 +108,20 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 
 ?>
 
-			<li id="tab<?= $key ?>" class="tab">
+			<li id="tab<?php echo $key ?>" class="tab">
 			<table cellpadding="0" cellspacing="0" border="0" summary="">
 			
 				<tr>
 					<td class="chatlist col1w" align="right"><em class="handle" title="<?php echo $sort_up_down; ?>">&nbsp;</em><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
-					<td class="tdbottom2"><input type="text" name="tabtitle[<?= $key ?>]" id="tabtitle<?= $key ?>" value="<?= html_specialchars($value['tabtitle']) ?>" class="f11b width400" /></td>			
+					<td class="tdbottom2"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html_specialchars($value['tabtitle']) ?>" class="f11b width400" /></td>			
 					<td><a href="#" onclick="return deleteTab('tab<?php echo $key ?>');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a></td>
 				</tr>				
 				<tr>
 					<td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;</td>
-					<td colspan="2"><input type="text" name="tabheadline[<?= $key ?>]" id="tabheadline<?= $key ?>" value="<?= html_specialchars($value['tabheadline']) ?>" class="v11 width400" /></td>			
+					<td colspan="2"><input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html_specialchars($value['tabheadline']) ?>" class="v11 width400" /></td>			
 				</tr>
 				<tr>
-					<td colspan="3" class="tdtop5"><textarea name="tabtext[<?= $key ?>]" id="tabtext<?= $key ?>" rows="10" class="v12" style="width:536px;height:150px;"><?= html_specialchars($value['tabtext']) ?></textarea></td>
+					<td colspan="3" class="tdtop5"><textarea name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10" class="v12" style="width:536px;height:150px;"><?php echo html_specialchars($value['tabtext']) ?></textarea></td>
 				</tr>
 			
 			</table>

@@ -107,16 +107,16 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_tags'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_category" id="news_category" value="<?= html_specialchars(implode(', ', $content['news']['news_category'])) ?>" class="width350 bold" /></td>
+			<td><input type="text" name="news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['news']['news_category'])) ?>" class="width350 bold" /></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><select name="news_andor" id="news_andor">
 				
-				<option value="OR"<?php is_selected('OR', $content['news']['news_andor']) ?>><?= $BL['be_fsearch_or'] ?></option>
-				<option value="AND"<?php is_selected('AND', $content['news']['news_andor']) ?>><?= $BL['be_fsearch_and'] ?></option>
-				<option value="NOT"<?php is_selected('NOT', $content['news']['news_andor']) ?>><?= $BL['be_fsearch_not'] ?></option>
+				<option value="OR"<?php is_selected('OR', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
+				<option value="AND"<?php is_selected('AND', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
+				<option value="NOT"<?php is_selected('NOT', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
 			
 			</select></td>
 		</tr>
@@ -126,8 +126,8 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_profile_label_lang'] ?>:&nbsp;</td>
-	<td><input type="text" name="news_lang" id="news_lang" value="<?= html_specialchars(implode(', ', $content['news']['news_lang'])) ?>" class="width200" /></td>
+	<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
+	<td><input type="text" name="news_lang" id="news_lang" value="<?php echo html_specialchars(implode(', ', $content['news']['news_lang'])) ?>" class="width200" /></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
@@ -135,13 +135,13 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_show_content'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
 	<td><select name="news_archive" id="news_archive" class="bold">
 			
-			<option value="0"<?php is_selected(0, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_include'] ?></option>
-			<option value="1"<?php is_selected(1, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_exclude'] ?></option>
-			<option value="2"<?php is_selected(2, $content['news']['news_archive']) ?>><?= $BL['be_archived_items'].': '.$BL['be_solely'] ?></option>
-			<option value="3"<?php is_selected(3, $content['news']['news_archive']) ?>><?= $BL['be_cnt_guestbook_listing_all'].' &gt; ' . $BL['be_article_cnt_start'] ?></option>
+			<option value="0"<?php is_selected(0, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_include'] ?></option>
+			<option value="1"<?php is_selected(1, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_exclude'] ?></option>
+			<option value="2"<?php is_selected(2, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_solely'] ?></option>
+			<option value="3"<?php is_selected(3, $content['news']['news_archive']) ?>><?php echo $BL['be_cnt_guestbook_listing_all'].' &gt; ' . $BL['be_article_cnt_start'] ?></option>
 				
 		</select></td>
 </tr>
@@ -149,13 +149,13 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_cnt_rssfeed_item'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_cnt_rssfeed_item'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_limit" id="news_limit" value="<?= html_specialchars($content['news']['news_limit']) ?>" class="width50" /></td>
-			<td>&nbsp;<?= $BL['be_cnt_rssfeed_max'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input type="text" name="news_skip" id="news_skip" value="<?= html_specialchars($content['news']['news_skip']) ?>" class="width50" />
-			<td>&nbsp;<?= $BL['be_skip_first_items'] ?></td>
+			<td><input type="text" name="news_limit" id="news_limit" value="<?php echo html_specialchars($content['news']['news_limit']) ?>" class="width50" /></td>
+			<td>&nbsp;<?php echo $BL['be_cnt_rssfeed_max'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input type="text" name="news_skip" id="news_skip" value="<?php echo html_specialchars($content['news']['news_skip']) ?>" class="width50" />
+			<td>&nbsp;<?php echo $BL['be_skip_first_items'] ?></td>
 		</tr>
 		</table></td>
 </tr>
@@ -168,19 +168,19 @@ initMootoolsAutocompleter();
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
 			<td bgcolor="#e7e8eb"><input type="checkbox" name="news_paginate" id="news_paginate" value="1"<?php is_checked(1, $content['news']['news_paginate']) ?> /></td>
-			<td bgcolor="#e7e8eb"><label for="news_paginate">&nbsp;<?= $BL['be_pagination'] ?>&nbsp;&nbsp;</label></td>
+			<td bgcolor="#e7e8eb"><label for="news_paginate">&nbsp;<?php echo $BL['be_pagination'] ?>&nbsp;&nbsp;</label></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><select name="news_paginate_basis" id="news_paginate_basis" onchange="setPaginateBasis();">
 			
-				<option value="0"<?php is_selected(0, $content['news']['news_paginate_basis']) ?>><?= $BL['be_pagniate_count'] ?></option>
-				<option value="1"<?php is_selected(1, $content['news']['news_paginate_basis']) ?>><?= $BL['be_date_day'] ?></option>
-				<option value="2"<?php is_selected(2, $content['news']['news_paginate_basis']) ?>><?= $BL['be_date_week'] ?></option>
-				<option value="3"<?php is_selected(3, $content['news']['news_paginate_basis']) ?>><?= $BL['be_date_month'] ?></option>
-				<option value="4"<?php is_selected(4, $content['news']['news_paginate_basis']) ?>><?= $BL['be_date_year'] ?></option>
+				<option value="0"<?php is_selected(0, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagniate_count'] ?></option>
+				<option value="1"<?php is_selected(1, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_day'] ?></option>
+				<option value="2"<?php is_selected(2, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_week'] ?></option>
+				<option value="3"<?php is_selected(3, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_month'] ?></option>
+				<option value="4"<?php is_selected(4, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_year'] ?></option>
 			
 			</select></td>
 			<td>&nbsp;&nbsp;</td>
-			<td><input type="text" name="news_paginate_count" id="news_paginate_count" value="<?= html_specialchars($content['news']['news_paginate_count']) ?>" class="width25" /></td>
+			<td><input type="text" name="news_paginate_count" id="news_paginate_count" value="<?php echo html_specialchars($content['news']['news_paginate_count']) ?>" class="width25" /></td>
 		</tr>
 		</table></td>
 </tr>
@@ -190,11 +190,11 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_archive'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_archive'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_archive_link" id="news_archive_link" value="<?= html_specialchars($content['news']['news_archive_link']) ?>" class="width250" /></td>
-			<td>&nbsp;<?= $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
+			<td><input type="text" name="news_archive_link" id="news_archive_link" value="<?php echo html_specialchars($content['news']['news_archive_link']) ?>" class="width250" /></td>
+			<td>&nbsp;<?php echo $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
 		</tr>
 		</table>
 	</td>
@@ -203,11 +203,11 @@ initMootoolsAutocompleter();
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_news_detail_link'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_news_detail_link'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_detail_link" id="news_detail_link" value="<?= html_specialchars($content['news']['news_detail_link']) ?>" class="width250" /></td>
-			<td>&nbsp;<?= $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
+			<td><input type="text" name="news_detail_link" id="news_detail_link" value="<?php echo html_specialchars($content['news']['news_detail_link']) ?>" class="width250" /></td>
+			<td>&nbsp;<?php echo $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
 		</tr>
 		</table>
 	</td>

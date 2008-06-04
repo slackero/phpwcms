@@ -323,16 +323,16 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist"><?= $BL['be_tags'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="calink_category" id="calink_category" value="<?= html_specialchars(implode(', ', $content['alink']['alink_category'])) ?>" class="width350 bold" /></td>
+			<td><input type="text" name="calink_category" id="calink_category" value="<?php echo html_specialchars(implode(', ', $content['alink']['alink_category'])) ?>" class="width350 bold" /></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><select name="calink_andor" id="calink_andor">
 				
-				<option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?= $BL['be_fsearch_or'] ?></option>
-				<option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?= $BL['be_fsearch_and'] ?></option>
-				<option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?= $BL['be_fsearch_not'] ?></option>
+				<option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
+				<option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
+				<option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
 			
 			</select></td>
 		</tr>
