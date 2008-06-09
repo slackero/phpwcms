@@ -2501,7 +2501,7 @@ function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $ta
 	$data['original']	= $string;
 	$tag_open			= preg_quote($tagOpen.$tag.$tagClose, '/');
 	$tag_close			= preg_quote($tagOpen.'/'.$tag.$tagClose, '/');
-	$data['new']		= preg_replace('/'.$tag_open.'(.*?)'.$tag_close.'/is', '', $string);
+	$data['new']		= trim(preg_replace('/'.$tag_open.'(.*?)'.$tag_close.'/is', '', $string));
 	if($findall) {
 		preg_match_all('/'.$tag_open.'(.*?)'.$tag_close.'/is', $string, $matches);
 	} else {
