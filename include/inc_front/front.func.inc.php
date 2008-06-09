@@ -2115,9 +2115,29 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
 	$text = str_replace('<td>', '<td> ', $text);
 	$text = strip_tags($text, $allowed_tags);
 	$text = str_replace('|', ' ', $text);
-	$text = preg_replace('/\{.*?\}/si', '', $text);
-	$text = preg_replace('/\[ID.*?\/ID\]/si', '', $text);
-	$text = preg_replace('/(\s+)/i', ' ', $text);
+	
+	$search = array(
+				'/\{.*?\}/si',
+				'/\[ID.*?\/ID\]/si',
+				'/(\s+)/i',
+				'/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i',
+				'/\[img=(\d+)(.*?){0,1}\]/i',
+				'/\[download=(.*?)\/\]/i',
+				'/\[download=(.*?)\](.*?)\[\/download\]/is'
+					);
+					
+	$replace = array(
+				'',
+				'',
+				' ',
+				'$3',
+				'',
+				'',
+				'$2'
+					);
+	
+	$text = preg_replace($search, $replace, $text);
+
 	return trim($text);
 }
 

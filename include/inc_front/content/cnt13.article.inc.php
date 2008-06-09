@@ -210,11 +210,8 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					unset($s_result);
 				}
 				$s_result = array();
-
-				$s_text = clean_replacement_tags($s_text.' --##-'.$srow["article_keyword"].' '.$s_title.' '.$s_user.'-##--');
-				$s_text = remove_unsecure_rptags($s_text);
-				$s_text = preg_replace('/\s+/i', ' ', str_replace('&nbsp;', ' ', $s_text));
-				$s_text = cleanUpSpecialHtmlEntities($s_text);
+				
+				$s_text = clean_search_text($s_text.' --##-'.$srow["article_keyword"].' '.$s_title.' '.$s_user.'-##--');
 				
 				preg_match_all('/'.$s_search_words.'/is', $s_text, $s_result ); //search string
 	

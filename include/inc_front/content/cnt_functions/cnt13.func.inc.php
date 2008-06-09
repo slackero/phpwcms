@@ -259,5 +259,16 @@ class search_News {
 }
 
 
+function clean_search_text($string='') {
+
+	$string = clean_replacement_tags($string);
+	$string = remove_unsecure_rptags($string);
+	$string = str_replace('&nbsp;', ' ', $string);
+	$string = preg_replace('/\s+/i', ' ', $string);
+	$string = cleanUpSpecialHtmlEntities($string);
+
+	return $string;
+}
+
 
 ?>
