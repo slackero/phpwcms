@@ -460,10 +460,11 @@ class phpwcmsNews {
 			$post_error	= false;
 			
 			if(!empty($_POST['cnt_duplicate'])) {
-				$this->newsId = 0;
-				$duplicate = 1;
+				$this->newsId			= 0;
+				$duplicate				= 1;
+				$post['cnt_created']	= now();
 			} else {
-				$duplicate = 0;
+				$duplicate				= 0;
 			}
 			
 			// 1st check if we have a name because it's mandatory
@@ -603,7 +604,7 @@ class phpwcmsNews {
 		// do only when news ID is known
 		if( $this->newsId == 0 ) {
 			
-			$post['cnt_created']	= time();
+			$post['cnt_created']	= now();
 		
 		}
 		
