@@ -127,13 +127,13 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 		
 		$content['newsletter']['subject']  = returnTagContent($content["newsletter"]["mailtext"], 'SUBJECT');
 		if(empty($content['newsletter']['subject']['tag'])) {
-			$content['newsletter']['subject'] = 'Newsletter verification for '.$phpwcms["site"];
 			if(isset($content['newsletter']['subject']['new'])) {
 				$content["newsletter"]["mailtext"] = $content['newsletter']['subject']['new'];
 			}
+			$content['newsletter']['subject'] = 'Newsletter verification for '.$phpwcms["site"];
 		} else {
-			$content['newsletter']['subject']	= $content['newsletter']['subject']['tag'];
 			$content["newsletter"]["mailtext"]	= $content['newsletter']['subject']['new'];
+			$content['newsletter']['subject']	= $content['newsletter']['subject']['tag'];
 		}
 
 		require_once ("include/inc_ext/phpmailer/class.phpmailer.php");
