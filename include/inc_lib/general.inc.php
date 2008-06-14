@@ -95,14 +95,14 @@ function trimhtml($h='') {
 	return html_specialchars(trim($h));
 }
 
-function list_country($c, &$dbcon){
+function list_country($c, $lang='') {
 	//Create the country list menu for forms with the given value selected
 	//$c = selected value
 	if(empty($c)) {
 		$c = strtoupper($GLOBALS['phpwcms']['default_lang']);
 	}
 	$country_list = '';
-	$country = getCountry();
+	$country = getCountry($lang);
 	foreach($country as $key => $value) {
 		$country_list .= '	<option value="'.html_specialchars($key).'"';
 		if($key == $c) {
@@ -117,9 +117,8 @@ function getCountry($lang='') {
 
 	if(empty($lang)) {
 		$lang = isset($_SESSION["wcs_user_lang"]) ? strtolower($_SESSION["wcs_user_lang"]) : $GLOBALS['phpwcms']['default_lang'];
-	} else {
-		$lang = strtolower(substr($lang, 0, 2));
 	}
+	$lang = strtolower(substr($lang, 0, 2));
 	
 	$country_name	= 'country_name_'.aporeplace($lang);
 	$sql			= 'SHOW COLUMNS FROM '.DB_PREPEND."phpwcms_country WHERE Field='".$country_name."'";

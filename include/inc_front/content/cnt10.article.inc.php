@@ -206,7 +206,7 @@ if(trim($cform[0])) {
 			case "SC":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\">".must_filled($cfield[2]).$cfield[3]."</td><td>";
 						$CNT_TMP .= "<select name=\"".$cfield[1]."\" id=\"".$cfield[1]."\" class=\"selectMenu\"";
 						$CNT_TMP .= (($cfield[6])?" style=\"width:".$cfield[6]."px\"":"").">\n";
-						$CNT_TMP .= list_country($cfield[5], $db);															
+						$CNT_TMP .= list_country($cfield[5]);														
 						$CNT_TMP .= "</select></td></tr>\n";
 						break;
 						// Captcha Image	

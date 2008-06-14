@@ -354,8 +354,15 @@ tr.inactive td {
 .paginate .textinput {
 	font-size: 10px;
 	color: #406C94;
-	padding: 0 1px 0 1px;
+	padding: 1px;
 	text-align: center;
+	margin: 0;
+	border: 1px solid #7599BB;
+}
+.paginate select.drop {
+	font-size: 10px;
+	color: #406C94;
+	padding: 0;
 	margin: 0;
 	border: 1px solid #7599BB;
 }

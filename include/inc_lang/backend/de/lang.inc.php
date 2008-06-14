@@ -924,7 +924,7 @@ $BL['be_cnt_field']						= array("text"=>'Text (einzeilig)', "email"=>'E-Mail', 
 												"upload"=>'Datei', "submit"=>'Sende-Taste', "reset"=>'Zur&uuml;cksetzen', 
 												"break"=>'Trenner', "breaktext"=>'Zwischentext', "special"=>'Text (spezial)',
 												"captchaimg"=>'Captcha Bild', "captcha"=>'Captcha Code', 'newsletter'=>'Newsletter',
-												'selectemail'=>'E-Mail Ausklappmen&uuml;');
+												'selectemail'=>'E-Mail Ausklappmen&uuml;', 'country'=>'L&auml;nder-Ausklappmen&uuml;');
 
 $BL['be_cnt_access']					= 'Zugriff';
 $BL['be_cnt_activated']					= 'aktiviert';

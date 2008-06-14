@@ -141,7 +141,7 @@ if($form_detail_aktion == 'create_detail') {
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_country'] ?>:&nbsp;</td>
 		<td colspan="2"><select name="form_country" id="form_country" class="v12 width250">
-		<?php echo list_country($detail["detail_country"], $db); ?>
+		<?php echo list_country($detail["detail_country"]); ?>
 		</select></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>

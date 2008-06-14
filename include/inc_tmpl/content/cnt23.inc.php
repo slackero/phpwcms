@@ -476,7 +476,7 @@ if($content['form']["savedb"] && $content["id"]) {
 	<?php
 	if(!isset($content['form']["labelpos"])) {
 		$content['form']["labelpos"] = 0;
-		// 0 = default = in fornt of form field
+		// 0 = default = in front of form field
 		// 1 = above form field
 	}
 	?>
@@ -569,6 +569,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 			case 'hidden':
 			case 'select':
 			case 'selectemail':
+			case 'country':
 			case 'radio':			// default hide/show
 									if($content['form']["saveprofile"]) {
 										echo ', 4';
@@ -639,6 +640,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<option value="email"'. 		is_selected('email', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['email'].'</option>'."\n";
 		echo '<option value="selectemail"'.	is_selected('selectemail',	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['selectemail'].'</option>'."\n";
 		echo '<option value="select"'. 		is_selected('select', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['select'].'</option>'."\n";
+		echo '<option value="country"'. 	is_selected('country', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['country'].'</option>'."\n";
 		echo '<option value="list"'. 		is_selected('list', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['list'].'</option>'."\n";
 		echo '<option value="newsletter"'. 	is_selected('newsletter', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['newsletter'].'</option>'."\n";
 		echo '<option value="checkbox"'. 	is_selected('checkbox', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['checkbox'].'</option>'."\n";
@@ -751,6 +753,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 	<option value="email"><?php echo $BL['be_cnt_field']['email'] ?></option>
 	<option value="selectemail"><?php echo $BL['be_cnt_field']['selectemail'] ?></option>
 	<option value="select"><?php echo $BL['be_cnt_field']['select'] ?></option>
+	<option value="country"><?php echo $BL['be_cnt_field']['country'] ?></option>
 	<option value="list"><?php echo $BL['be_cnt_field']['list'] ?></option>
 	<?php
 	if(empty($for_newsletter)) {

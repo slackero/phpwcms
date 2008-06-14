@@ -929,7 +929,7 @@ $BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email',
 												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button', 
 												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)',
 												"captchaimg"=>'captcha image', "captcha"=>'captcha code', 'newsletter'=>'newsletter',
-												'selectemail'=>'select email menu');
+												'selectemail'=>'select email menu', 'country'=>'select country menu');
 
 $BL['be_cnt_access']					= 'access';
 $BL['be_cnt_activated']					= 'activated';

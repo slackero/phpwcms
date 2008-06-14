@@ -260,6 +260,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
 								break;
 
+			case 'country':
 			case 'selectemail':
 			case 'select'	:	/*
 								 * Select Menu

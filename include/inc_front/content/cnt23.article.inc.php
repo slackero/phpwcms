@@ -374,6 +374,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_field .= ' autocomplete="off" />';
 								break;
 
+			case 'country':
 			case 'selectemail':
 			case 'select'	:	/*
 								 * Select menu
@@ -404,6 +405,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 								}
 								//
+								
 								$form_field .= '<select name="'.$form_name.'" id="'.$form_name.'"';
 								if($cnt_form["fields"][$key]['class']) {
 									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
@@ -411,62 +413,93 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
-								$form_field .= ">\n";
-								$form_value = explode("\n", $cnt_form["fields"][$key]['value']);
-								$form_value = array_map('trim', $form_value);
-								$form_value = array_diff($form_value, array(''));
-								if(count($form_value)) {
-									$form_optgroup = false;
-									foreach($form_value as $option_value) {
-									
-										// search for OPTGROUP
-										if( strpos(strtoupper($option_value), 'OPTGROUP') === 0 ) {
-											$option_value = explode(' ', $option_value, 2);
-											if(isset($option_value[1]) ) {
-												$option_value = trim($option_value[1]);
-												$form_field .= '<optgroup label="';
-												$form_field .= $option_value == '' ? 'Please select:' : html_specialchars($option_value);
-												$form_field .= '">'.LF;
-												$form_optgroup = true;
-											}
-											continue;
-										} elseif(strpos(strtoupper($option_value), '/OPTGROUP') === 0) {
-											if($form_optgroup == true) {
-												$form_field .= '</optgroup>'.LF;
-												$form_optgroup = false;
-											}
-											continue;							
-										}
-										
-										// check if select item has specila value and name
-										$option_value = explode('-|-', $option_value, 2);
-										$option_label = $option_value[0];
-										$option_value = isset($option_value[1]) ? $option_value[1] : $option_label;
-										
-										if(substr($option_label, -2) === ' -') {
-											$option_label = trim( substr($option_label, 0, strlen($option_label) -2) );
-										}
-										$option_label = str_replace(' selected', '', $option_label);
-									
-										if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $option_value) {
-											$option_value .= ' selected';
-										}
-										
-										$option_value = html_specialchars($option_value);
-										if(substr($option_value, -2) === ' -') {
-											$form_field .= '<option value=""';
-											$option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
-										} elseif(strtolower(substr($option_value, -9)) != ' selected') {
-											$form_field .= '<option value="'.$option_value.'"';
-										} else {
-											$option_value = str_replace(' selected', '', $option_value);
-											$form_field .= '<option value="'.$option_value.'" selected="selected"';
-										}
-										$form_field .= '>'.html_specialchars($option_label)."</option>\n";
+								$form_field .= '>' . LF;
+								
+								// build country select menu
+								if($cnt_form["fields"][$key]['type'] == 'country') {
+								
+									// check which language should be used and 
+									// which country should be set as default
+									$form_value = parse_ini_str($cnt_form["fields"][$key]['value'], false);
+									if(isset($form_value['lang'])) {
+										$form_value['lang'] = preg_replace('/[^a-zA-Z]/', '', $form_value['lang']);
+									} else {
+										$form_value['lang'] = $phpwcms['default_lang'];
 									}
-									if($form_optgroup == true) {
-										$form_field .= '</optgroup>'.LF;
+									if(isset($form_value['default'])) {
+										$form_value['default'] = preg_replace('/[^a-zA-Z]/', '', $form_value['default']);
+									} else {
+										$form_value['default'] = '-';
 									}
+									
+									$option_value = substr( empty($POST_val[$POST_name]) ? $form_value['default'] : $POST_val[$POST_name] , 0, 2);
+									if(!empty($form_value['first'])) {
+										$form_field  .= '<option value="">' . html_specialchars($form_value['first']) . '</option>' . LF;
+									}
+									$form_field  .= list_country($option_value, $form_value['lang']);
+									
+								
+								// build value/option select menu
+								} else {
+
+									
+									$form_value = explode("\n", $cnt_form["fields"][$key]['value']);
+									$form_value = array_map('trim', $form_value);
+									$form_value = array_diff($form_value, array(''));
+									if(count($form_value)) {
+										$form_optgroup = false;
+										foreach($form_value as $option_value) {
+										
+											// search for OPTGROUP
+											if( strpos(strtoupper($option_value), 'OPTGROUP') === 0 ) {
+												$option_value = explode(' ', $option_value, 2);
+												if(isset($option_value[1]) ) {
+													$option_value = trim($option_value[1]);
+													$form_field .= '<optgroup label="';
+													$form_field .= $option_value == '' ? 'Please select:' : html_specialchars($option_value);
+													$form_field .= '">'.LF;
+													$form_optgroup = true;
+												}
+												continue;
+											} elseif(strpos(strtoupper($option_value), '/OPTGROUP') === 0) {
+												if($form_optgroup == true) {
+													$form_field .= '</optgroup>'.LF;
+													$form_optgroup = false;
+												}
+												continue;							
+											}
+											
+											// check if select item has specila value and name
+											$option_value = explode('-|-', $option_value, 2);
+											$option_label = $option_value[0];
+											$option_value = isset($option_value[1]) ? $option_value[1] : $option_label;
+											
+											if(substr($option_label, -2) === ' -') {
+												$option_label = trim( substr($option_label, 0, strlen($option_label) -2) );
+											}
+											$option_label = str_replace(' selected', '', $option_label);
+										
+											if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $option_value) {
+												$option_value .= ' selected';
+											}
+											
+											$option_value = html_specialchars($option_value);
+											if(substr($option_value, -2) === ' -') {
+												$form_field .= '<option value=""';
+												$option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
+											} elseif(strtolower(substr($option_value, -9)) != ' selected') {
+												$form_field .= '<option value="'.$option_value.'"';
+											} else {
+												$option_value = str_replace(' selected', '', $option_value);
+												$form_field .= '<option value="'.$option_value.'" selected="selected"';
+											}
+											$form_field .= '>'.html_specialchars($option_label)."</option>\n";
+										}
+										if($form_optgroup == true) {
+											$form_field .= '</optgroup>'.LF;
+										}
+									}
+
 								}
 								$form_field .= '</select>';
 								break;
@@ -507,7 +540,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
-								$form_field .= ">\n";
+								$form_field .= '>'.LF;
 								$form_value = explode("\n", $cnt_form["fields"][$key]['value']);
 								$form_value = array_map('trim', $form_value);
 								$form_value = array_diff($form_value, array(''));
