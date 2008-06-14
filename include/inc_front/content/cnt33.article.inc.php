@@ -27,7 +27,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // News
 
 $news	= @unserialize($crow["acontent_form"]);
@@ -70,14 +69,13 @@ $news['sql_where'][]	= "AND pc.cnt_module='news'";
 
 if(isset($_getVar['newsdetail'])) {
 
-	//$news['select_detail'] = trim( preg_replace('/^\d+\/\d+\/\d+\//', '', xss_clean($_getVar['newsdetail']) ) );
 	$news['match'] = array();
 	
 	preg_match('/^\d{8}\-(\d+)_(.*)/', xss_clean($_getVar['newsdetail']), $news['match']);
 	
 	$news['select_detail'] = isset($news['match'][2]) ? $news['match'][2] : 0;
 	
-	if(isset($news['match'][1]) && intval($news['match'][1]) == $aktion[1]) {
+	if(isset($news['match'][1]) ) { //&& intval($news['match'][1]) == $aktion[1]
 	
 		if(is_numeric($news['select_detail'])) {
 			$news['sql_where'][]	= "AND pc.cnt_id=" . intval($news['select_detail']);
@@ -229,6 +227,7 @@ if($news['list_mode']) {
 
 	}
 }
+
 
 // get db query result
 $news['result'] = _dbQuery($sql);
