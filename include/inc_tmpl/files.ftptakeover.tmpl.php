@@ -251,33 +251,37 @@ window.addEvent('domready', function(){
 									 
 	/* Autocompleter for keywords (=tags) */
 	var searchKeyword = $('file_tags');
-	var indicator = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchKeyword);
-	var completer = new Autocompleter.Ajax.Json(searchKeyword, 'include/inc_act/ajax_connector.php', {
-		multi: true,
-		maxChoices: 30,
-		autotrim: true,
-		minLength: 0,
-		allowDupes: false,
-		postData: {action: 'category', method: 'json'},
-		onRequest: function(el) {
-			indicator.setStyle('display', '');
-		},
-		onComplete: function(el) {
-			indicator.setStyle('display', 'none');
-		}
-	});
+	if(searchKeyword) {
+		var indicator = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchKeyword);
+		var completer = new Autocompleter.Ajax.Json(searchKeyword, 'include/inc_act/ajax_connector.php', {
+			multi: true,
+			maxChoices: 30,
+			autotrim: true,
+			minLength: 0,
+			allowDupes: false,
+			postData: {action: 'category', method: 'json'},
+			onRequest: function(el) {
+				indicator.setStyle('display', '');
+			},
+			onComplete: function(el) {
+				indicator.setStyle('display', 'none');
+			}
+		});
+	}
 	
-	$('toggle').addEvent('click', function() {
-	
-		var toggle_var = this.checked ? 1 : 0;
-	
-		$$('input.ftp_mark').each( function(el) {
+	if($('toggle')) {
+		$('toggle').addEvent('click', function() {
 		
-			el.checked = toggle_var ? true : false;
+			var toggle_var = this.checked ? 1 : 0;
+		
+			$$('input.ftp_mark').each( function(el) {
+			
+				el.checked = toggle_var ? true : false;
+			
+			});
 		
 		});
-	
-	});
+	}
 	
 
 });

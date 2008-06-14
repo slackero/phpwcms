@@ -737,10 +737,10 @@ if(count($phpwcms['modules_fe_render'])) {
 // replace Print URL
 if(strpos($content["all"], '[PRINT') !== false) {
 	$GLOBALS['_getVar']['print'] = 1;
-	$content["all"] = str_replace('[PRINT]', '<a href="index.php'.returnGlobalGET_QueryString('htmlentities').'" target="_blank">', $content["all"]);
+	$content["all"] = str_replace('[PRINT]', '<a href="index.php'.returnGlobalGET_QueryString('htmlentities').'" target="_blank" rel="nofollow">', $content["all"]);
 	$content["all"] = str_replace('[/PRINT]', '</a>', $content["all"]);
 	$GLOBALS['_getVar']['print'] = 2;
-	$content["all"] = str_replace('[PRINT_PDF]', '<a href="index.php'.returnGlobalGET_QueryString('htmlentities').'" target="_blank">', $content["all"]);
+	$content["all"] = str_replace('[PRINT_PDF]', '<a href="index.php'.returnGlobalGET_QueryString('htmlentities').'" target="_blank" rel="nofollow">', $content["all"]);
 	$content["all"] = str_replace('[/PRINT_PDF]', '</a>', $content["all"]);
 	unset($GLOBALS['_getVar']['print']);
 }
