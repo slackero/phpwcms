@@ -44,9 +44,12 @@ function bb2_options()
 			if ($_POST['logging'] == 'verbose') {
 				$settings['verbose'] = true;
 				$settings['logging'] = true;
-			} else {
+			} else if ($_POST['logging'] == 'normal') {
 				$settings['verbose'] = false;
 				$settings['logging'] = true;
+			} else {
+				$settings['verbose'] = false;
+				$settings['logging'] = false;
 			}
 		} else {
 			$settings['verbose'] = false;
