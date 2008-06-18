@@ -335,7 +335,7 @@ if(!empty($db_init)) {
 			echo '<input type="hidden" name="db_create" value="1" />';
 		}
 		echo '</td><td colspan="2">';
-		echo '<div id="license">';
+		echo '<div id="license" style="width:550px">';
 		echo $sql_data;
 		echo "</div></td></tr>\n";
 

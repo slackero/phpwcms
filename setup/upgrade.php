@@ -20,6 +20,8 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+$phpwcms = array();
+
 $_this_path = realpath(dirname(__FILE__).'/../');
 if(is_file($_this_path.'/config/phpwcms/conf.inc.php')) {
 	require_once ($_this_path.'/config/phpwcms/conf.inc.php');
@@ -47,7 +49,8 @@ require_once (PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php');
 <style type="text/css">
 <!--
 body {
-	margin:	0 15px 15px 15px;
+	padding:	0 15px 15px 15px;
+	margin: 0;
 }
 -->
 </style>
@@ -200,7 +203,7 @@ if($do) {
 	$sql_data = preg_replace("/ `phpwcms/", " `".DB_PREPEND."phpwcms", $sql_data );
 	$sql = explode(";", $sql_data);
 
-	echo '<div id="license">';
+	echo '<div id="license" style="width:550px">';
 	echo '<p><a href="upgrade.php">Chosse another SQL file...</a></p>';
 	echo '<pre>';
 
@@ -209,6 +212,11 @@ if($do) {
 		if(!$value) {
 			unset($sql[$key]);
 		} else {
+		
+			if($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']=='utf8') {
+				$value = utf8_encode($value);
+			}
+		
 			if(!mysql_query($value)) echo '<span class="error">ERROR: '.@htmlentities(mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET)." -&gt; </span>";
 			echo html_specialchars($value).";\n";
 		}

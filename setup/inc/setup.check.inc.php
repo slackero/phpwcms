@@ -198,6 +198,8 @@ if(!empty($step)) {
 										$value .= ' DEFAULT';
 										$value .= ' CHARACTER SET '.$phpwcms['db_charset'];
 										$value .= ' COLLATE '.$phpwcms['db_collation'];
+									} elseif($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']=='utf8') {
+										$value = utf8_encode($value);
 									}
 
 									// send sql query
