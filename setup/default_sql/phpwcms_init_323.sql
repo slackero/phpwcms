@@ -1,11 +1,12 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.5
+-- version 2.11.6
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 18. März 2008 um 07:07
+-- Erstellungszeit: 18. Juni 2008 um 08:15
 -- Server Version: 5.0.51
 -- PHP-Version: 5.2.5
+
 
 --
 -- Datenbank: `dev_phpwcms`
@@ -431,12 +432,12 @@ CREATE TABLE `phpwcms_content` (
   `cnt_archive_status` int(11) NOT NULL default '0',
   `cnt_sort` int(11) NOT NULL default '0',
   `cnt_prio` int(11) NOT NULL default '0',
-  `cnt_alias` varchar(255) NOT NULL default '',
+  `cnt_alias` varchar(255) NOT NULL,
   `cnt_name` varchar(255) NOT NULL default '',
   `cnt_title` varchar(255) NOT NULL default '',
   `cnt_subtitle` varchar(255) NOT NULL default '',
-  `cnt_editor` varchar(255) NOT NULL default '',
-  `cnt_place` varchar(255) NOT NULL default '',
+  `cnt_editor` varchar(255) NOT NULL,
+  `cnt_place` varchar(255) NOT NULL,
   `cnt_teasertext` text NOT NULL,
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL default '',
@@ -462,9 +463,17 @@ CREATE TABLE `phpwcms_content` (
 
 CREATE TABLE `phpwcms_country` (
   `country_id` int(4) NOT NULL auto_increment,
+  `country_updated` timestamp NOT NULL,
   `country_iso` char(2) NOT NULL default '',
-  `country_name` varchar(100) NOT NULL default '',
-  `country_name_de` varchar(255) NOT NULL default '',
+  `country_iso3` char(3) NOT NULL default '',
+  `country_isonum` int(11) NOT NULL default '0',
+  `country_continent_code` char(2) NOT NULL default '',
+  `country_name` varchar(100) NOT NULL,
+  `country_name_de` varchar(255) NOT NULL,
+  `country_continent` varchar(255) NOT NULL default '',
+  `country_continent_de` varchar(255) NOT NULL default '',
+  `country_region` varchar(255) NOT NULL default '',
+  `country_region_de` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`country_id`),
   UNIQUE KEY `country_iso` (`country_iso`),
   UNIQUE KEY `country_name` (`country_name`)
@@ -1052,7 +1061,6 @@ CREATE TABLE `phpwcms_userdetail` (
   `detail_float4` double NOT NULL default '0',
   `detail_float5` double NOT NULL default '0',
   PRIMARY KEY  (`detail_id`),
-  UNIQUE KEY `detail_login` (`detail_login`),
   KEY `detail_pid` (`detail_pid`),
   KEY `detail_formid` (`detail_formid`),
   KEY `detail_password` (`detail_password`),

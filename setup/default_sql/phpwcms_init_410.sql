@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.5
+-- version 2.11.6
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 18. März 2008 um 07:06
+-- Erstellungszeit: 18. Juni 2008 um 08:15
 -- Server Version: 5.0.51
 -- PHP-Version: 5.2.5
 
@@ -31,7 +31,7 @@ CREATE TABLE `phpwcms_address` (
   `address_url1` varchar(255) NOT NULL default '',
   `address_url2` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`address_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE `phpwcms_ads_campaign` (
   KEY `adcampaign_status` (`adcampaign_status`,`adcampaign_datestart`,`adcampaign_dateend`,`adcampaign_type`,`adcampaign_place`),
   KEY `adcampaign_maxview` (`adcampaign_maxview`,`adcampaign_maxclick`,`adcampaign_maxviewuser`),
   KEY `adcampaign_curview` (`adcampaign_curview`,`adcampaign_curclick`,`adcampaign_curviewuser`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE `phpwcms_ads_formats` (
   `adformat_comment` text NOT NULL,
   PRIMARY KEY  (`adformat_id`),
   KEY `adformat_status` (`adformat_status`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -101,7 +101,7 @@ CREATE TABLE `phpwcms_ads_place` (
   `adplace_suffix` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`adplace_id`),
   KEY `adplace_status` (`adplace_status`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -124,7 +124,7 @@ CREATE TABLE `phpwcms_ads_tracking` (
   PRIMARY KEY  (`adtracking_id`),
   KEY `adtracking_campaignid` (`adtracking_campaignid`,`adtracking_ip`,`adtracking_countclick`,`adtracking_countview`),
   KEY `adtracking_cookieid` (`adtracking_cookieid`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,7 @@ CREATE TABLE `phpwcms_article` (
   KEY `article_sort` (`article_sort`),
   KEY `article_alias` (`article_alias`),
   KEY `article_archive_status` (`article_archive_status`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -222,7 +222,7 @@ CREATE TABLE `phpwcms_articlecat` (
   KEY `acat_sort` (`acat_sort`),
   KEY `acat_alias` (`acat_alias`),
   KEY `acat_archive` (`acat_archive`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -274,7 +274,7 @@ CREATE TABLE `phpwcms_articlecontent` (
   KEY `acontent_livedate` (`acontent_livedate`,`acontent_killdate`),
   KEY `acontent_paginate` (`acontent_paginate_page`),
   KEY `acontent_granted` (`acontent_granted`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -296,7 +296,7 @@ CREATE TABLE `phpwcms_bad_behavior` (
   PRIMARY KEY  (`id`),
   KEY `ip` (`ip`(15)),
   KEY `user_agent` (`user_agent`(10))
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -315,7 +315,7 @@ CREATE TABLE `phpwcms_bid` (
   `bid_trashed` int(1) NOT NULL default '0',
   `bid_vars` mediumblob NOT NULL,
   PRIMARY KEY  (`bid_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -339,7 +339,7 @@ CREATE TABLE `phpwcms_cache` (
   PRIMARY KEY  (`cache_id`),
   KEY `cache_hash` (`cache_hash`),
   FULLTEXT KEY `cache_stripped` (`cache_stripped`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -374,7 +374,7 @@ CREATE TABLE `phpwcms_calendar` (
   KEY `calendar_refid` (`calendar_refid`),
   KEY `calendar_range` (`calendar_range`),
   KEY `calendar_lang` (`calendar_lang`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -394,7 +394,7 @@ CREATE TABLE `phpwcms_categories` (
   PRIMARY KEY  (`cat_id`),
   KEY `cat_type` (`cat_type`,`cat_status`),
   KEY `cat_pid` (`cat_pid`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -410,7 +410,7 @@ CREATE TABLE `phpwcms_chat` (
   `chat_text` varchar(255) NOT NULL default '',
   `chat_cat` int(5) NOT NULL default '0',
   PRIMARY KEY  (`chat_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -433,12 +433,12 @@ CREATE TABLE `phpwcms_content` (
   `cnt_archive_status` int(11) NOT NULL default '0',
   `cnt_sort` int(11) NOT NULL default '0',
   `cnt_prio` int(11) NOT NULL default '0',
-  `cnt_alias` varchar(255) NOT NULL default '',
+  `cnt_alias` varchar(255) NOT NULL,
   `cnt_name` varchar(255) NOT NULL default '',
   `cnt_title` varchar(255) NOT NULL default '',
   `cnt_subtitle` varchar(255) NOT NULL default '',
-  `cnt_editor` varchar(255) NOT NULL default '',
-  `cnt_place` varchar(255) NOT NULL default '',
+  `cnt_editor` varchar(255) NOT NULL,
+  `cnt_place` varchar(255) NOT NULL,
   `cnt_teasertext` text NOT NULL,
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL default '',
@@ -451,8 +451,10 @@ CREATE TABLE `phpwcms_content` (
   KEY `cnt_group` (`cnt_group`),
   KEY `cnt_owner` (`cnt_owner`),
   KEY `cnt_alias` (`cnt_alias`),
-  KEY `cnt_pid` (`cnt_pid`)
-) ENGINE=MyISAM ;
+  KEY `cnt_pid` (`cnt_pid`),
+  KEY `cnt_sort` (`cnt_sort`),
+  KEY `cnt_prio` (`cnt_prio`)
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -462,13 +464,21 @@ CREATE TABLE `phpwcms_content` (
 
 CREATE TABLE `phpwcms_country` (
   `country_id` int(4) NOT NULL auto_increment,
+  `country_updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `country_iso` char(2) NOT NULL default '',
-  `country_name` varchar(100) NOT NULL default '',
-  `country_name_de` varchar(255) NOT NULL default '',
+  `country_iso3` char(3) NOT NULL default '',
+  `country_isonum` int(11) NOT NULL default '0',
+  `country_continent_code` char(2) NOT NULL default '',
+  `country_name` varchar(100) NOT NULL,
+  `country_name_de` varchar(255) NOT NULL,
+  `country_continent` varchar(255) NOT NULL default '',
+  `country_continent_de` varchar(255) NOT NULL default '',
+  `country_region` varchar(255) NOT NULL default '',
+  `country_region_de` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`country_id`),
   UNIQUE KEY `country_iso` (`country_iso`),
   UNIQUE KEY `country_name` (`country_name`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -484,7 +494,7 @@ CREATE TABLE `phpwcms_crossreference` (
   `cref_str` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`cref_id`),
   KEY `cref_type` (`cref_type`,`cref_rid`,`cref_int`,`cref_str`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -526,7 +536,7 @@ CREATE TABLE `phpwcms_file` (
   KEY `f_granted` (`f_granted`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -541,7 +551,7 @@ CREATE TABLE `phpwcms_filecat` (
   `fcat_deleted` int(1) NOT NULL default '0',
   `fcat_needed` int(1) NOT NULL default '0',
   PRIMARY KEY  (`fcat_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -556,7 +566,7 @@ CREATE TABLE `phpwcms_filekey` (
   `fkey_aktiv` int(1) NOT NULL default '0',
   `fkey_deleted` int(1) NOT NULL default '0',
   PRIMARY KEY  (`fkey_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -570,7 +580,7 @@ CREATE TABLE `phpwcms_fonts` (
   `font_shortname` text NOT NULL,
   `font_filename` text NOT NULL,
   PRIMARY KEY  (`font_id`)
-) ENGINE=MyISAM  PACK_KEYS=0;
+) ENGINE=MyISAM   PACK_KEYS=0;
 
 -- --------------------------------------------------------
 
@@ -583,7 +593,7 @@ CREATE TABLE `phpwcms_fonts_colors` (
   `color_name` text NOT NULL,
   `color_value` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`color_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -596,7 +606,7 @@ CREATE TABLE `phpwcms_fonts_styles` (
   `style_name` text NOT NULL,
   `style_info` text NOT NULL,
   PRIMARY KEY  (`style_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -612,7 +622,7 @@ CREATE TABLE `phpwcms_formresult` (
   `formresult_content` mediumblob NOT NULL,
   PRIMARY KEY  (`formresult_id`),
   KEY `formresult_pid` (`formresult_pid`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -628,7 +638,7 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_sentdate` varchar(20) NOT NULL default '',
   `formtracking_sent` int(1) NOT NULL default '0',
   PRIMARY KEY  (`formtracking_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -652,7 +662,7 @@ CREATE TABLE `phpwcms_glossary` (
   KEY `glossary_tag` (`glossary_tag`),
   KEY `glossary_keyword` (`glossary_keyword`),
   KEY `glossary_highlight` (`glossary_highlight`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -675,7 +685,7 @@ CREATE TABLE `phpwcms_guestbook` (
   `guestbook_image` varchar(255) NOT NULL default '',
   `guestbook_imagename` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`guestbook_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -694,7 +704,7 @@ CREATE TABLE `phpwcms_imgcache` (
   `imgcache_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`imgcache_id`),
   KEY `imgcache_hash` (`imgcache_hash`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -715,7 +725,7 @@ CREATE TABLE `phpwcms_keyword` (
   `keyword_abbr` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`keyword_id`),
   KEY `keyword_abbr` (`keyword_abbr`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -750,7 +760,7 @@ CREATE TABLE `phpwcms_language` (
   `SK` text NOT NULL,
   `VN` text NOT NULL,
   PRIMARY KEY  (`lang_id`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -770,7 +780,7 @@ CREATE TABLE `phpwcms_map` (
   `map_entry` text NOT NULL,
   `map_vars` text NOT NULL,
   PRIMARY KEY  (`map_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -791,7 +801,7 @@ CREATE TABLE `phpwcms_message` (
   `msg_from` int(11) NOT NULL default '0',
   `msg_from_del` int(1) NOT NULL default '0',
   PRIMARY KEY  (`msg_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -809,7 +819,7 @@ CREATE TABLE `phpwcms_newsletter` (
   `newsletter_trashed` int(1) NOT NULL default '0',
   `newsletter_active` int(1) NOT NULL default '0',
   PRIMARY KEY  (`newsletter_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -827,7 +837,7 @@ CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_errormsg` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`queue_id`),
   KEY `nlqueue` (`queue_pid`,`queue_status`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -842,7 +852,7 @@ CREATE TABLE `phpwcms_pagelayout` (
   `pagelayout_var` mediumblob NOT NULL,
   `pagelayout_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`pagelayout_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -854,7 +864,7 @@ CREATE TABLE `phpwcms_profession` (
   `prof_id` int(4) NOT NULL auto_increment,
   `prof_name` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`prof_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -876,7 +886,7 @@ CREATE TABLE `phpwcms_shop_orders` (
   `order_status` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`order_id`),
   KEY `order_number` (`order_number`,`order_status`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -914,7 +924,7 @@ CREATE TABLE `phpwcms_shop_products` (
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
   KEY `all` (`shopprod_listall`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -930,7 +940,7 @@ CREATE TABLE `phpwcms_subscription` (
   `subscription_lang` varchar(100) NOT NULL default '',
   `subscription_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
   PRIMARY KEY  (`subscription_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -948,7 +958,7 @@ CREATE TABLE `phpwcms_sysvalue` (
   PRIMARY KEY  (`sysvalue_key`),
   KEY `sysvalue_group` (`sysvalue_group`),
   KEY `sysvalue_status` (`sysvalue_status`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM ;
 
 -- --------------------------------------------------------
 
@@ -964,7 +974,7 @@ CREATE TABLE `phpwcms_template` (
   `template_var` mediumblob NOT NULL,
   `template_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`template_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -991,7 +1001,7 @@ CREATE TABLE `phpwcms_user` (
   `usr_fe` int(1) NOT NULL default '0',
   `usr_vars` mediumtext NOT NULL,
   PRIMARY KEY  (`usr_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1052,12 +1062,11 @@ CREATE TABLE `phpwcms_userdetail` (
   `detail_float4` double NOT NULL default '0',
   `detail_float5` double NOT NULL default '0',
   PRIMARY KEY  (`detail_id`),
-  UNIQUE KEY `detail_login` (`detail_login`),
   KEY `detail_pid` (`detail_pid`),
   KEY `detail_formid` (`detail_formid`),
   KEY `detail_password` (`detail_password`),
   KEY `detail_aktiv` (`detail_aktiv`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1075,7 +1084,7 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_active` int(1) NOT NULL default '0',
   PRIMARY KEY  (`group_id`),
   KEY `group_member` (`group_member`(255))
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -1093,4 +1102,4 @@ CREATE TABLE `phpwcms_userlog` (
   `logged_ip` varchar(24) NOT NULL default '',
   `logged_section` int(1) NOT NULL default '0',
   PRIMARY KEY  (`userlog_id`)
-) ENGINE=MyISAM ;
+) ENGINE=MyISAM;
