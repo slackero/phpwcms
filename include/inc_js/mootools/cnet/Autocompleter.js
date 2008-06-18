@@ -133,7 +133,8 @@ Autocompleter.Base = new Class({
 				this.fix.hide();
 			}.bind(this)).set(0);
 		this.element.setProperty('autocomplete', 'off')
-			.addEvent(window.ie ? 'keydown' : 'keypress', this.onCommand.bindWithEvent(this))
+			.addEvent((window.ie || window.webkit ) ? 'keydown' : 'keypress',
+				this.onCommand.bindWithEvent(this))
 			.addEvent('mousedown', this.onCommand.bindWithEvent(this, [true]))
 			.addEvent('focus', this.toggleFocus.bind(this, [true]))
 			.addEvent('blur', this.toggleFocus.bind(this, [false]))
@@ -324,7 +325,7 @@ getQueryValue() returns ""
 		txt - (string) the string to mark
 	 */
 	markQueryValue: function(txt) {
-		var val = (this.options.mult)?this.lastQueryElementValue:this.queryValue;
+		var val = (this.options.multi)?this.lastQueryElementValue:this.queryValue;
 		return (this.options.markQuery && val) ? txt.replace(new RegExp('^(' + val.escapeRegExp() + ')', 'i'), '<span class="autocompleter-queried">$1</span>') : txt;
 	},
 
@@ -402,6 +403,9 @@ String.extend({
 
 $Source: /cvs/main/flatfile/html/rb/js/global/cnet.global.framework/common/3rdParty/Autocomplete/Autocompleter.js,v $
 $Log: Autocompleter.js,v $
+Revision 1.7  2008/02/21 20:07:58  newtona
+fixing a typo in Autocompleter
+
 Revision 1.6  2007/10/29 18:28:57  newtona
 fixed a bug in autocompleter, see: http://forum.mootools.net/viewtopic.php?pid=31481#p31481
 

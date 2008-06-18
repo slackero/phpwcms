@@ -83,7 +83,13 @@ if(isset($_GET["id"])) {
 	$_GET['aid']			= intval($_GET['aid'][0]);
 	if($_GET['aid']) {
 		$sql  =	'SELECT article_cid FROM '.DB_PREPEND.'phpwcms_article WHERE ';
-		$sql .= 'article_deleted=0 AND article_aktiv=1 AND article_id='.$_GET['aid'].' LIMIT 1';
+		$sql .= 'article_deleted=0 ';
+		if(VISIBLE_MODE !== 2) {
+			$sql .= 'AND article_aktiv=1 AND article_public=1 ';
+		} elseif(VISIBLE_MODE === 1) {
+			$sql .= 'AND article_uid='.intval($_SESSION["wcs_user_id"]).' ';
+		}
+		$sql .= 'AND article_id='.$_GET['aid'].' LIMIT 1';
 		if($result = mysql_query($sql, $db)) {
 			if($row = mysql_fetch_row($result)) {
 				$aktion[0] = $row[0];
