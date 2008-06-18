@@ -33,15 +33,19 @@
  */
 function FCKeditor_IsCompatibleBrowser()
 {
-	if ( isset( $_SERVER ) ) {
+	if ( isset( $_SERVER ) ) 
+	{
 		$sAgent = $_SERVER['HTTP_USER_AGENT'] ;
 	}
-	else {
+	else 
+	{
 		global $HTTP_SERVER_VARS ;
-		if ( isset( $HTTP_SERVER_VARS ) ) {
+		if ( isset( $HTTP_SERVER_VARS ) ) 
+		{
 			$sAgent = $HTTP_SERVER_VARS['HTTP_USER_AGENT'] ;
 		}
-		else {
+		else 
+		{
 			global $HTTP_USER_AGENT ;
 			$sAgent = $HTTP_USER_AGENT ;
 		}
@@ -60,7 +64,7 @@ function FCKeditor_IsCompatibleBrowser()
 	else if ( strpos($sAgent, 'Opera/') !== false )
 	{
 		$fVersion = (float)substr($sAgent, strpos($sAgent, 'Opera/') + 6, 4) ;
-		return ($fVersion >= 9.2) ;
+		return ($fVersion >= 9.5) ;
 	}
 	else if ( preg_match( "|AppleWebKit/(\d+)|i", $sAgent, $matches ) )
 	{
@@ -68,7 +72,9 @@ function FCKeditor_IsCompatibleBrowser()
 		return ( $matches[1] >= 522 ) ;
 	}
 	else
+	{
 		return false ;
+	}
 }
 
 if ( !function_exists('version_compare') || version_compare( phpversion(), '5', '<' ) ) {

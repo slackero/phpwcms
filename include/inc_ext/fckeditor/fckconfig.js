@@ -21,7 +21,7 @@
  * Editor configuration settings.
  *
  * Follow this link for more information:
- * http://wiki.fckeditor.net/Developer%27s_Guide/Configuration/Configurations_Settings
+ * http://docs.fckeditor.net/FCKeditor_2.x/Developers_Guide/Configuration/Configuration_Options
  */
 
 FCKConfig.CustomConfigurationsPath = '' ;
@@ -87,7 +87,6 @@ FCKConfig.SourcePopup	= false ;
 FCKConfig.ToolbarStartExpanded	= true ;
 FCKConfig.ToolbarCanCollapse	= true ;
 FCKConfig.IgnoreEmptyParagraphValue = true ;
-FCKConfig.PreserveSessionOnFileBrowser = false ;
 FCKConfig.FloatingPanelsZIndex = 10000 ;
 FCKConfig.HtmlEncodeOutput = false ;
 
@@ -128,6 +127,7 @@ FCKConfig.Keystrokes = [
 	[ CTRL + 84 /*T*/, true ],
 	[ CTRL + 88 /*X*/, true ],
 	[ CTRL + 86 /*V*/, 'Paste' ],
+	[ CTRL + 45 /*INS*/, true ],
 	[ SHIFT + 45 /*INS*/, 'Paste' ],
 	[ CTRL + 88 /*X*/, 'Cut' ],
 	[ SHIFT + 46 /*DEL*/, 'Cut' ],
