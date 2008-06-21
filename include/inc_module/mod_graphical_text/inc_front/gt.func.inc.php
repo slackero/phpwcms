@@ -83,6 +83,10 @@ function create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolo
 	$font_start_x = (($im_width - $font_width)/2) + $_fval_x; 
 	//$font_start_y = (($im_height - $font_weight)/2) + ($size/2);
 	$font_start_y = ($im_height/2) + ($size/2) + $_fval_y;
+		
+	if( ! seems_utf8($text) ) {
+		$text = utf8_encode($text);
+	}
 
 	imagettftext($im, $size, 0, $font_start_x, $font_start_y, $color, $fontfile, $text);
 	

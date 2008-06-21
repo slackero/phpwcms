@@ -16,25 +16,22 @@ $BL['be_gt_submenu_styles']						= 'Stile';
 $BL['be_gt_index_title']						= 'Graphischer Text - Startseite';
 $BL['be_gt_index_summary']						= 
 'Mit diesem Addon haben Sie die M&ouml;glichkeit, graphische Texte dynamisch zu erzeugen. Hierf&uuml;r sind
-allerdings einige Vorbereitungen nötig.<br />
+allerdings einige Vorbereitungen n&ouml;tig.<br />
 <br />
-Bitte laden Sie zun&auml;chst die Schriftarten, die Sie f&uuml;r graphische Texte verwenden m&ouml;chten,
-in den Ordner<br />
-<br />
-<div style="text-align: center">include/inc_module/mod_graphical_text/inc_fonts/</div>
-<br />
-Klicken Sie anschließend auf den Men&uuml;punkt "Schriftarten" und f&uuml;gen Sie die Schriftarten der
+Bitte laden Sie zun&auml;chst die Schriftarten, die Sie f&uuml;r graphische Texte verwenden m&ouml;chten, 
+in den Ordner
+<strong>include/inc_module/mod_graphical_text/inc_fonts/</strong>
+<br /><br />
+Klicken Sie anschlie&szlig;end auf den Men&uuml;punkt "Schriftarten" und f&uuml;gen Sie die Schriftarten der
 Datenbank hinzu, indem Sie den vollen Namen der Schriftart (z.B. "MS Trebuchet"), und einen Kurznamen
 angeben. &Uuml;ber den Kurznamen wird sp&auml;ter die gew&uuml;nschte Schriftart ausgew&auml;hlt.<br />
 <br />
 Schriftarten, die nicht der Datenbank hinzugef&uuml;gt wurden, k&ouml;nnen nicht im Frontend verwendet
 werden.<br />
 <br />
-Um diesen MOD verwenden zu k&ouml;nnen, m&uuml;ssen Sie ein Verzeichnis "gt" im Verzeichnis<br />
-<br />
-<div style="text-align: center">content/</div>
-<br />
-erstellen und per CHMOD auf 777 stellen.
+Um diesen MOD verwenden zu k&ouml;nnen, m&uuml;ssen Sie ein Verzeichnis "<strong>gt</strong>" im Verzeichnis 
+<b>content/</b> erstellen und per CHMOD auf 777 stellen.<br /><br />
+Verwendung des Tags: <strong>{GT:Stil}Text{/GT}</strong><br /><br />
 
 ';
 

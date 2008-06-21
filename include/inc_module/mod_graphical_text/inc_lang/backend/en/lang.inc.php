@@ -18,21 +18,20 @@ $BL['be_gt_index_summary']						=
 'This addon enables you to use dynamic graphical text with replacement tags. To do this, you have to perform
 the following actions.<br />
 <br />
-Please upload the fonts that you want to use for your graphical texts into the folder<br />
-<br />
-<div style="text-align: center">include/inc_module/mod_graphical_text/inc_fonts/</div>
-<br />
+Please upload the fonts that you want to use for your graphical texts into the folder 
+<strong>include/inc_module/mod_graphical_text/inc_fonts/</strong>
+<br /><br />
 Afterwards, please click on the menu entry "Fonts" and add the fonts to the database. Enter a full name
 (e.g. "MS Trebuchet") and a short name (e.g. "trebuchet") - the short name will be the key to use the font 
 within the replacement tag.<br />
 <br />
 Fonts that are not added to the database will not be available for use with the replacement tags.<br />
 <br />
-To use this MOD, you must create a folder "gt" into the folder<br />
-<br />
-<div style="text-align: center">content/</div>
-<br />
-and CHMOD it to 777.';
+To use this MOD, you must create a folder "<strong>gt</strong>" into the folder 
+<strong>content/</strong> <br />and CHMOD it to 777.<br /><br />
+Usage of this tag: <strong>{GT:Style}Text{/GT}</strong><br /><br />
+
+';
 
 // Fonts
 $BL['be_gt_fonts_title']						= 'Fonts';
