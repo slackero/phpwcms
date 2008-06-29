@@ -47,18 +47,18 @@ if (!empty($phpwcms['header_XML']) && $_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' 
 // define the real path of the phpwcms installation
 // important to script that must know the real path to files or something else
 
-$phpwcms['DOC_ROOT'] = str_replace("\\", '/', $phpwcms['DOC_ROOT']);
-if(substr($phpwcms['DOC_ROOT'], -1, 1) == '/') {
-	$phpwcms['DOC_ROOT'] = substr($phpwcms['DOC_ROOT'], 0, -1);
-}
-if(!empty($phpwcms["root"])) {
-	$phpwcms['DOC_ROOT']		.= 	'/'.$phpwcms["root"];
+$phpwcms['DOC_ROOT'] = rtrim( str_replace("\\", '/', $phpwcms['DOC_ROOT']), '/' );
+if( empty($phpwcms["root"]) ) {
+	$phpwcms["root"]			 = '';
+} else {
+	$phpwcms["root"]			 = trim( $phpwcms["root"], '/' );
+	$phpwcms['DOC_ROOT']		.= 	'/' . $phpwcms["root"];
 	$phpwcms["root"]			.= 	'/';
 }
 
 define ("PHPWCMS_ROOT", 			$phpwcms['DOC_ROOT']);
-define ('PHPWCMS_FILES', 			$phpwcms["file_path"].'/');
-define ('PHPWCMS_BASEPATH',			'/'.$phpwcms["root"]);
+define ('PHPWCMS_FILES', 			$phpwcms["file_path"] . '/');
+define ('PHPWCMS_BASEPATH',			'/' . $phpwcms["root"]);
 define ('On',						true);
 define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));

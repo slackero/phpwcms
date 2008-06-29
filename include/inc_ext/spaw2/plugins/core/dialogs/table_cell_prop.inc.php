@@ -16,8 +16,8 @@ echo 'spawErrorMessages["error_height_nan"] = "' . $lang->m('error_height_nan') 
 ?>
 //-->
 </script>
-<table border="0" cellspacing="0" cellpadding="2" width="336">
 <form name="td_prop" id="td_prop" onsubmit="return false;" style="margin:0;padding:0;">
+<table border="0" cellspacing="0" cellpadding="2" width="336">
 <tr>
   <td nowrap="nowrap"><?php echo $lang->m('css_class')?>:</td>
   <td nowrap="nowrap" colspan="3">
@@ -96,5 +96,5 @@ echo 'spawErrorMessages["error_height_nan"] = "' . $lang->m('error_height_nan') 
   <input type="button" value="<?php echo $lang->m('cancel')?>" onclick="SpawTableCellPropDialog.cancelClick()" class="bt" />
 </td>
 </tr>
-</form>
 </table>
+</form>

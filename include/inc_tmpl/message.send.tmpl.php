@@ -112,8 +112,9 @@ if($msg_send_ok) {
 	$forward_to_message_center = 1;
 } else { //Mitteilungszusammenstellung
 
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-	<form name="sendmsg" action="phpwcms.php?do=messages&p=1" method="post">
+?>
+<form name="sendmsg" action="phpwcms.php?do=messages&p=1" method="post">
+<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr><td colspan="3" class="title"><?php echo $BL['be_msg_newmsgtitle'] ?></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -180,7 +181,8 @@ if($msg_send_ok) {
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="3"><input name="submit" type="image" id="submit" src="img/button/send_message.gif" alt="<?php echo $BL['be_msg_all'] ?>" width="87" height="17" border="0"></td></tr>
 	<tr><td colspan="3">&nbsp;</td></tr>
-	</form>
-</table><?php
+</table>
+</form>
+<?php
 } //Ende Mitteilungszusammenstellung
 ?>

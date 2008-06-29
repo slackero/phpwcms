@@ -74,7 +74,7 @@ $wysiwyg_editor = array(
 	'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 	'lang'		=> 'en'
 );
-include('include/inc_lib/wysiwyg.editor.inc.php');
+include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 
 ?></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>

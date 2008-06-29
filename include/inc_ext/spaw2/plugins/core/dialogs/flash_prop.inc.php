@@ -13,8 +13,8 @@ echo 'spawErrorMessages["error_height_nan"] = "' . $lang->m('error_height_nan') 
 ?>
 //-->
 </script>
-<table border="0" cellspacing="0" cellpadding="2" width="336">
 <form name="img_prop" id="img_prop" onsubmit="return false;">
+<table border="0" cellspacing="0" cellpadding="2" width="336">
 <tr>
   <td><?php echo $lang->m('source')?>:</td>
   <td colspan="3" nowrap="nowrap"><input type="text" name="csrc" id="csrc" class="input" size="32" />
@@ -42,5 +42,5 @@ echo 'spawErrorMessages["error_height_nan"] = "' . $lang->m('error_height_nan') 
   <input type="button" value="<?php echo $lang->m('cancel')?>" onclick="SpawFlashPropDialog.cancelClick()" class="bt" />
 </td>
 </tr>
-</form>
 </table>
+</form>

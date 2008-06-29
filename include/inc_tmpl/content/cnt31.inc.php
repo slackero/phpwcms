@@ -232,7 +232,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	<td class="chatlist tdtop5" align="right"><?php echo $BL['be_ctype_images'] ?>:&nbsp;</td>
 	<td class="tdbottom4">
 	
-	<button onclick="return addNewImage();">
+	<button onclick="return addNewImage('top');">
 		<span class="btn_image_add"><?php echo $BL['be_article_cnt_add'] ?></span>
 	</button>
 	
@@ -314,6 +314,24 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	</td>
 </tr>
 
+<?php
+	// second button to add images at bottom of list
+	if (count($content['image_special']['images'])){
+?>
+<tr>
+	<td class="chatlist tdtop5" align="right"><?php echo $BL['be_ctype_images'] ?>:&nbsp;</td>
+	<td class="tdbottom4">
+	
+	<button onclick="return addNewImage('bottom');">
+		<span class="btn_image_add"><?php echo $BL['be_article_cnt_add'] ?></span>
+	</button>
+	
+	</td>
+
+</tr>
+<?php
+	}
+?>
 <tr><td colspan="2" class="rowspacer7x7"></td></tr>
 
 <tr><td colspan="2" align="center"><?php
@@ -328,7 +346,7 @@ $wysiwyg_editor = array(
 	'lang'		=> 'en'
 );
 
-include('include/inc_lib/wysiwyg.editor.inc.php');
+include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 
 
 ?></td></tr>
@@ -436,7 +454,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		}
 	}
 	
-	function addNewImage() {
+	function addNewImage(where) {
 	
 		updatePreviewImageAll();
 	
@@ -480,7 +498,7 @@ include('include/inc_lib/wysiwyg.editor.inc.php');
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'/table>';
 
-		var new_element = new Element('li', {'id': 'image_'+entry_number, 'class': 'nomove'}).injectInside($('images'));
+		var new_element = new Element('li', {'id': 'image_'+entry_number, 'class': 'nomove'}).inject($('images'),where);
 		new_element.innerHTML = new_entry;
 		window.location.hash='image_'+entry_number;
 		return false;

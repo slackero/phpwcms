@@ -128,6 +128,7 @@ input, textarea {
 </style></head>
 
 <body>
+<form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
 <table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
 <?php
 
@@ -189,7 +190,6 @@ if($result = mysql_query($sql, $db)) {
   }
   
   ?>
-  <form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
   <tr>
   <td>name:&nbsp;</td>
   <td><input name="gbname" type="text" id="gbname" style="width:350px;" value="<?php echo htmlspecialchars($row['guestbook_name']) ?>" /></td>
@@ -217,7 +217,6 @@ if($result = mysql_query($sql, $db)) {
   <td valign="bottom"><input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" style="font-size:10px;" />
     <input name="gbcancel" type="button" id="gbcancel" value="close" style="font-size:10px;" onclick="location.href='act_guestbook.php?cid=<?php echo $row['guestbook_cid'] ?>';" /></td>
   </tr>
-  </form>
 <?php
 		$c++;
 		}
@@ -237,5 +236,6 @@ if(!$c) {
 
 ?>
 </table>
+</form>
 </body>
 </html>

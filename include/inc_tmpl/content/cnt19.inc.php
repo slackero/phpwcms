@@ -100,7 +100,7 @@ if(!isset($content['sitemap'])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_articleclass'] ?>:&nbsp;</td>
-  <td valign="top"><input name="csitemap_articleclass" type="text" id="csitemap_articleclass" class="f11" style="width: 350px" value="<?php echo html_specialchars($content["sitemap"]["articleclass"]) ?>" size="40"></td></td>
+  <td valign="top"><input name="csitemap_articleclass" type="text" id="csitemap_articleclass" class="f11" style="width: 350px" value="<?php echo html_specialchars($content["sitemap"]["articleclass"]) ?>" size="40"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>

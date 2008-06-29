@@ -238,6 +238,7 @@ switch(intval($do[0])) {
 	case 5:	// COPY Article
 	$do[1] = intval($do[1]); //copy Article ID
 	$do[2] = intval($do[2]); //paste level ID
+	$do[3] = isset($do[3]) && $do[3] == 'open' ? 'open' : 0; // special link to copy an existing article and open the new
 	if($do[1]) { //also allowed for pasting in root structure
 		copy_article_to_level($do, $db);
 	}
@@ -420,7 +421,8 @@ function copy_article_to_level($do, $dbcon) {
 
 		if($row = mysql_fetch_assoc($result)) {
 			$row["article_cid"] 	= $do[2];
-			$row["article_created"]	= time();
+			$row["article_created"]	= now();
+			$row["article_tstamp"]	= date('Y-m-d H:i:s', now() );
 			$row["article_sort"]	= getArticleSortValue($row["article_cid"]);
 			$row["article_alias"]	= proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
 
@@ -460,6 +462,12 @@ function copy_article_to_level($do, $dbcon) {
 				}
 				mysql_free_result($result1);
 			}
+			
+			if($do[3] == 'open' && $article_insert_id) {
+			
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&id='.$article_insert_id);
+			
+			} 
 
 		}
 

@@ -154,7 +154,7 @@ $wysiwyg_editor = array(
 	'lang'		=> 'en'
 );
 
-include('include/inc_lib/wysiwyg.editor.inc.php');
+include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 
 
 ?></td></tr>

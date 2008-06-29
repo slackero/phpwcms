@@ -307,7 +307,7 @@ if(is_dir($dir)) {
   </tr>
 </table>
 <p style="margin-top:5px;"><strong>SQL queries to be processed:</strong></p>
-<iframe name="sqlqueries" id="sqlqueries" frameborder="0" scrolling="auto" src="inc/showsql.php"></iframe></p>
+<iframe name="sqlqueries" id="sqlqueries" frameborder="0" scrolling="auto" src="inc/showsql.php"></iframe>
 <p><input name="submit" type="submit" value="Upgrade database" /></p>
 </form>
 <?php 

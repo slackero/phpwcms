@@ -68,7 +68,7 @@
               put this directory outside a folder<br />
               available via web. you can use it like this ../filearchive</td>
           </tr>
-		  </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
+		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
           <tr>
             <td align="right" class="v10">filestorage:&nbsp;</td>
             <td><input name="file_path" type="text" class="f11b" id="file_path" style="width:280px" value="<?php echo html_specialchars($phpwcms["file_path"]) ?>" size="30" maxlength="100"></td>
@@ -78,7 +78,7 @@
             <td align="right" class="v10">&nbsp;</td>
             <td colspan="2" class="chatlist">here are the template directories located where all<br />template stuff is stored</td>
           </tr>
-		  </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
+		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
           <tr>
             <td align="right" class="v10">templates:&nbsp;</td>
             <td><input name="templates" type="text" class="f11b" id="templates" style="width:280px" value="<?php echo html_specialchars($phpwcms["templates"]) ?>" size="30" maxlength="100"></td>
@@ -93,7 +93,7 @@
               you can also use it like this: ../../myftpdir
             </td>
           </tr>
-		  </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
+		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
           <tr>
             <td align="right" class="v10">ftp&nbsp;takeover:&nbsp;</td>
             <td><input name="ftp_path" type="text" class="f11b" id="ftp_path" style="width:280px" value="<?php echo html_specialchars($phpwcms["ftp_path"]) ?>" size="30" maxlength="100"></td>

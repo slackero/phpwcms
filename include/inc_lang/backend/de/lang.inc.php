@@ -1110,8 +1110,8 @@ $BL['be_check_login_against']			= 'Login pr&uuml;fen gegen';
 $BL['be_userprofile_db']				= 'Benutzerprofil-Datenbank';
 $BL['be_backenduser_db']				= 'Backendnutzer-Datenbank';
 
-$BL['be_gb_post_login']					= 'Posten nur für angemeldete Benutzer';
-$BL['be_gb_show_login']					= 'Anzeigen nur für angemeldete Benutzer';
+$BL['be_gb_post_login']					= 'Posten nur f&uuml;r angemeldete Benutzer';
+$BL['be_gb_show_login']					= 'Anzeigen nur f&uuml;r angemeldete Benutzer';
 $BL['be_gb_urlcheck']					= 'Remote URL Pr&uuml;fung aktivieren';
 $BL['be_order']							= 'Reihenfolge';
 $BL['be_unique_teaser_entry']			= 'Zeige Teaser/Artikellink nur einmal je Seite';
@@ -1139,8 +1139,8 @@ $BL['be_title_wrap']					= 'Artikeltitel umschlie&szlig;en';
 $BL['be_no_rss']						= 'RSS';
 $BL['be_article_urlalias']				= 'Artikelalias';
 
-$BL['be_image_crop']					= 'Vorschau auf Gr&ouml;ße schneiden';
-$BL['be_image_cropit']					= 'Bild auf Gr&ouml;ße schneiden';
+$BL['be_image_crop']					= 'Vorschau auf Gr&ouml;&szlig;e schneiden';
+$BL['be_image_cropit']					= 'Bild auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_align']					= 'Bildausrichtung';
 
 $BL['be_ctype_flashplayer']				= 'Flash Media-Player';
@@ -1199,7 +1199,7 @@ $BL['be_on']							= 'an';
 $BL['be_random']						= 'zuf&auml;llig';
 $BL['be_sorted']						= 'sortiert';
 $BL['be_granted_download']				= 'gesch&uuml;tzter Download im Frontend';
-$BL['be_granted_feuser']				= 'nur für angemeldete Frontend Benutzer';
+$BL['be_granted_feuser']				= 'nur f&uuml;r angemeldete Frontend Benutzer';
 
 $BL['be_ctype_tabs']					= 'Register (Tabs)';
 $BL['be_tab_add']						= 'Register hinzuf&uuml;gen';
