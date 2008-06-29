@@ -36,9 +36,7 @@
 			break ;
 		}
 		catch( e )
-		{
-			break ;
-		}
+		{}
 
 		// Remove a domain part: www.mytest.example.com => mytest.example.com => example.com ...
 		d = d.replace( /.*?(?:\.|$)/, '' ) ;
