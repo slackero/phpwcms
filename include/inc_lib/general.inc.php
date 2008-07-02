@@ -25,6 +25,7 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/ConvertCharset/ConvertCharset.class.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/htmlfilter/htmlfilter.php');
+require_once (PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php');
 
 
 function isEmpty($string) {

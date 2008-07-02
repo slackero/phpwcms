@@ -75,7 +75,7 @@ if(isset($_getVar['newsdetail'])) {
 	
 	$news['select_detail'] = isset($news['match'][2]) ? $news['match'][2] : 0;
 	
-	if(isset($news['match'][1]) ) { //&& intval($news['match'][1]) == $aktion[1]
+	if(isset($news['match'][1]) && intval($news['match'][1]) == $aktion[1]) {
 	
 		if(is_numeric($news['select_detail'])) {
 			$news['sql_where'][]	= "AND pc.cnt_id=" . intval($news['select_detail']);
