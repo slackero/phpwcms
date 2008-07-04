@@ -1072,7 +1072,6 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			$navi['spacer']	= empty($navi[1][0]) ? ' ' : $navi[1][0]; //spacer
 			$navi['prefix']	= empty($navi[1][1]) ? ''  : $navi[1][1]; //prefix
 			$navi['suffix']	= empty($navi[1][2]) ? ''  : $navi[1][2]; //suffix
-			$navi['link'] 	= 'index.php' . returnGlobalGET_QueryString('htmlentities') . '&amp;listpage=';
 
 			$navi['navi'] 	= $navi['prefix'];
 
@@ -1081,7 +1080,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				for($i = 1; $i <= $max_pages; $i++) {
 
 					if($i > 1) $navi['navi'] .= $navi['spacer'];
-					$navi['navi'] .= ($i == $page_current) ? $i : '<a href="' . $navi['link'] . $i .'">'.$i.'</a>';
+					$navi['navi'] .= ($i == $page_current) ? $i : '<a href="' . rel_url( array('listpage'=>$i) ) . '">'.$i.'</a>';
 
 				}
 
@@ -1096,7 +1095,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					if($i > 0) $navi['navi'] .= $navi['spacer'];
 					$i_entry 	= $i_start.'&ndash;'.$i_end;
 					$i_page 	= $i+1;
-					$navi['navi'] .= ($i_page == $page_current) ? $i_entry : '<a href="' . $navi['link'] . $i_page .'">'.$i_entry.'</a>';
+					$navi['navi'] .= ($i_page == $page_current) ? $i_entry : '<a href="' . rel_url( array('listpage'=>$i_page) ) . '">'.$i_entry.'</a>';
 
 				}
 

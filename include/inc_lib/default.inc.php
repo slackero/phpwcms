@@ -180,6 +180,19 @@ function buildGlobalGET($return = '') {
 	}
 }
 
+// build phpwcms specific relative url
+function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlentities', $glue='&', $bind='=') {
+	
+	return 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+
+}
+// build phpwcms specific absolute url
+function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlentities', $glue='&', $bind='=') {
+	
+	return PHPWCMS_URL . 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+
+}
+
 // build a URL query string based on current values
 function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=') {
 
