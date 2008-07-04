@@ -1099,7 +1099,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 		// try to build correct subject
 		if($POST_DO && isset($cnt_form['subjectselect']) && $cnt_form['subjectselect'] == 'formfield_'.$POST_name) {
 		
-			$cnt_form['subject'] .= ' '.cleanUpForEmailHeader($cnt_form["fields"][$key]['value']);
+			$cnt_form['subject'] .= ' '.cleanUpForEmailHeader($POST_val[$POST_name]);
 			$cnt_form['subject']  = trim($cnt_form['subject']);
 		
 		}		
@@ -1126,8 +1126,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 					$form_cnt = str_replace('{ERROR:'.$POST_name.'}', html_specialchars($POST_ERR[$key]), $form_cnt);
 				}
 								
-				$form_cnt = str_replace('{'.$POST_name_quoted.'}', $form_field, $form_cnt);
-				$form_cnt = str_replace('{LABEL:'.$POST_name_quoted.'}', html_specialchars($cnt_form["fields"][$key]['label']), $form_cnt);
+				$form_cnt = str_replace('{'.$POST_name.'}', $form_field, $form_cnt);
+				$form_cnt = str_replace('{LABEL:'.$POST_name.'}', html_specialchars($cnt_form["fields"][$key]['label']), $form_cnt);
 
 			} else {
 			
@@ -1337,7 +1337,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	$cnt_form["target"]			= explode(';', $cnt_form["target"]);
 	if(empty($cnt_form["subject"])) {
 		$cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
-		$cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, strpos($phpwcms['site'], '/')-1);
+		$cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, trim($phpwcms['site'], '/'));
 		$cnt_form["subject"]  = 'Webform: '.$cnt_form["alt_subj"];
 	}
 	
