@@ -73,14 +73,14 @@ if(isset($_getVar['newsdetail'])) {
 	
 	preg_match('/^\d{8}\-(\d+)_(.*)/', xss_clean($_getVar['newsdetail']), $news['match']);
 	
-	$news['select_detail'] = isset($news['match'][2]) ? $news['match'][2] : 0;
+	if(isset($news['match'][2])) {
 	
-	if(isset($news['match'][1]) && intval($news['match'][1]) == $aktion[1]) {
+		$news['match'] = trim($news['match'][2]);
 	
-		if(is_numeric($news['select_detail'])) {
-			$news['sql_where'][]	= "AND pc.cnt_id=" . intval($news['select_detail']);
+		if(is_numeric($news['match'])) {
+			$news['sql_where'][]	= "AND pc.cnt_id=" . intval($news['match']);
 		} else {
-			$news['sql_where'][]	= "AND pc.cnt_alias='" . aporeplace($news['select_detail']) . "'";
+			$news['sql_where'][]	= "AND pc.cnt_alias='" . aporeplace($news['match']) . "'";
 		}
 		
 		$news['list_mode']	= false;
