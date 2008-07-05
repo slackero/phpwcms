@@ -230,16 +230,16 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 }
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 	<title>phpwcms: LOGIN</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-	<meta name="robots" content="noindex, nofollow">
-	<link href="include/inc_css/login.css" rel="stylesheet" type="text/css">
-	<script language="javascript" type="text/javascript" src="include/inc_js/phpwcms.js"></script>
-	<script language="javascript" type="text/javascript" src="include/inc_js/md5.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="robots" content="noindex, nofollow" />
+	<link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="include/inc_js/phpwcms.js"></script>
+	<script language="JavaScript" type="text/javascript" src="include/inc_js/md5.js"></script>
 <?php
 
 if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
@@ -254,24 +254,24 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 <body>
 <table width="504" border="0" align="center" cellpadding="0" cellspacing="0" summary="Login Screen">
   <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="12"></td>
+    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="12" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="18" height="1"><a href="index.php" target="_top"><img src="img/backend/preinfo2.jpg" alt="phpwcms" width="122" height="31" border="0"></a></td>
+    <td colspan="3"><img src="img/leer.gif" alt="" width="18" height="1" /><a href="index.php" target="_top"><img src="img/backend/preinfo2.jpg" alt="phpwcms" width="122" height="31" border="0" /></a></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td>
+    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7" /></td>
   </tr>
   <tr>
-    <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/preinfo2_r4_c2.jpg" alt="phpwcms" width="504" height="154" border="0"></a></td>
+    <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/preinfo2_r4_c2.jpg" alt="phpwcms" width="504" height="154" border="0" /></a></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="11"></td>
+    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="11" /></td>
   </tr>
   <tr>
-    <td width="15" style="width:15px;"><img src="img/backend/preinfo2_r6_c2.gif" alt="" width="15" height="15" border="0"></td>
-    <td width="474" bgcolor="#FFFFFF" style="width:474px;"><img src="img/backend/preinfo2_r6_c3.gif" alt="" width="474" height="15" border="0"></td>
-    <td width="15" style="width:15px;"><img src="img/backend/preinfo2_r6_c7.gif" alt="" width="15" height="15" border="0"></td>
+    <td width="15" style="width:15px;"><img src="img/backend/preinfo2_r6_c2.gif" alt="" width="15" height="15" border="0" /></td>
+    <td width="474" bgcolor="#FFFFFF" style="width:474px;"><img src="img/backend/preinfo2_r6_c3.gif" alt="" width="474" height="15" border="0" /></td>
+    <td width="15" style="width:15px;"><img src="img/backend/preinfo2_r6_c7.gif" alt="" width="15" height="15" border="0" /></td>
   </tr>
   <tr>
     <td style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;" bgcolor="#FFFFFF">&nbsp;</td>
@@ -296,15 +296,22 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
     <td style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
   <tr>
-    <td><img src="img/backend/preinfo2_r9_c2.gif" alt="" width="15" height="15" border="0"></td>
-    <td bgcolor="#FFFFFF"><img src="img/backend/preinfo2_r9_c3.gif" alt="" width="474" height="15" border="0"></td>
-    <td><img src="img/backend/preinfo2_r9_c7.gif" alt="" width="15" height="15" border="0"></td>
+    <td><img src="img/backend/preinfo2_r9_c2.gif" alt="" width="15" height="15" border="0" /></td>
+    <td bgcolor="#FFFFFF"><img src="img/backend/preinfo2_r9_c3.gif" alt="" width="474" height="15" border="0" /></td>
+    <td><img src="img/backend/preinfo2_r9_c7.gif" alt="" width="15" height="15" border="0" /></td>
   </tr>
 </table>
-<div id="loginForm" style="display:none;">
-<form name="login_formular" method="post" action="login.php" autocomplete="off" style="margin:0;padding:0;" onsubmit="return login(this);">
+<?php
+
+// get whole login form and keep in buffer
+ob_start();
+
+//<div id="loginForm" style="display:none;">
+
+?>
+<form action="login.php" method="post" name="login_formular" id="login_formular" style="margin:0;padding:0;" onsubmit="return login(this);" autocomplete="off">
 <input type="hidden" name="json" id="json" value="0" />
-<input type="hidden" name="md5pass" id="md5pass" value="" />
+<input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
 <input type="hidden" name="ref_url" value="<?php echo htmlentities($ref_url) ?>" />
 <input name="form_aktion" type="hidden" id="form_aktion" value="login" />
 <?php 
@@ -331,14 +338,14 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 	<table border="0" cellpadding="0" cellspacing="0" summary="Login Form" style="margin:15px 0 20px 10px">
         <tr>
           <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_username"] ?>:&nbsp;</td>
-          <td class="v10"><input name="form_loginname" type="text" id="form_loginname" style="width:250px;" size="30" maxlength="30" value="<?php echo html_specialchars($wcs_user); ?>"></td>
+          <td class="v10"><input name="form_loginname" type="text" id="form_loginname" style="width:250px;" size="30" maxlength="30" value="<?php echo html_specialchars($wcs_user); ?>" /></td>
           </tr>
-        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
         <tr>
           <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-          <td class="v10"><input name="form_password" type="password" id="form_password" style="width:250px;" size="30" maxlength="40"></td>
+          <td class="v10"><input name="form_password" type="password" id="form_password" style="width:250px;" size="30" maxlength="40" value="" autocomplete="off" /></td>
           </tr>
-        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
         <tr>
           <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_lang"] ?>:&nbsp;</td>
           <td class="v10"><select name="form_lang" id="form_lang" style="width:250px;" onchange="getObjectById('json').value='2';login(this.form);">
@@ -363,21 +370,32 @@ echo implode(LF, $lang_code);
 ?>
           </select></td>
           </tr>
-        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
         <tr>
           <td>&nbsp;</td>
           <td><input name="submit_form" type="submit" value="<?php echo $BL["login_button"] ?>" /></td>
           </tr>
     </table>
     </form>
-</div>
-<script language="javascript" type="text/javascript">
+<?php
+
+//</div>
+
+$formAll = ob_get_contents();
+ob_end_clean();
+
+$formAll = str_replace( "'", "\'", trim($formAll) );
+$formAll = str_replace( "\r", '', $formAll );
+//$formAll = str_replace( "\n", '', $formAll );
+$formAll = str_replace( "\n", "';\nlf += '", $formAll );
+$formAll = str_replace( '<', "<'+'", $formAll );
+
+?>
+<script type="text/javascript">
 <!--
-var loginHTML = getObjectById('loginForm');
-var loginArea = getObjectById('loginFormArea');
-loginArea.innerHTML = loginHTML.innerHTML;
-loginHTML.innerHTML = '';
-document.login_formular.form_loginname.focus();
+var lf  = '<?php echo $formAll ?>';
+getObjectById('loginFormArea').innerHTML = lf;
+getObjectById('form_loginname').focus();
 //-->
 </script>
 </body>
