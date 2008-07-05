@@ -85,8 +85,10 @@ initMootoolsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><select name="news_sort" class="f11b" id="calink_type">
-		
+			<td><select name="news_sort" id="calink_type">
+
+		<option value="9"<?php is_selected(9, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+		<option value="10"<?php is_selected(10, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 		<option value="1"<?php is_selected(1, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
 		<option value="2"<?php is_selected(2, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 		<option value="3"<?php is_selected(3, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
@@ -111,7 +113,7 @@ initMootoolsAutocompleter();
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
 			<td><input type="text" name="news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['news']['news_category'])) ?>" class="width350 bold" /></td>
-			<td>&nbsp;&nbsp;</td>
+			<td>&nbsp;</td>
 			<td><select name="news_andor" id="news_andor">
 				
 				<option value="OR"<?php is_selected('OR', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
@@ -136,7 +138,7 @@ initMootoolsAutocompleter();
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
-	<td><select name="news_archive" id="news_archive" class="bold">
+	<td><select name="news_archive" id="news_archive">
 			
 			<option value="0"<?php is_selected(0, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_include'] ?></option>
 			<option value="1"<?php is_selected(1, $content['news']['news_archive']) ?>><?php echo $BL['be_archived_items'].': '.$BL['be_exclude'] ?></option>

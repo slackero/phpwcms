@@ -277,10 +277,11 @@ class phpwcmsNews {
 	
 		$this->select   = '*, ';
 		$this->select  .= 'IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)) AS cnt_startdate, ';
-		$this->select  .= 'UNIX_TIMESTAMP(cnt_killdate) AS cnt_enddate';
+		$this->select  .= 'UNIX_TIMESTAMP(cnt_killdate) AS cnt_enddate, ';
+		$this->select  .= 'IF(cnt_sort=0, IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)), cnt_sort) AS cnt_sortdate';
 		
 		//$this->where		= array();
-		//$this->order_by	= array();
+		$this->order_by	= array('cnt_prio DESC', 'cnt_sortdate DESC');
 		
 		$this->getNews();
 	
@@ -292,9 +293,11 @@ class phpwcmsNews {
 		
 			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing">';
 			$list[] = '<tr class="header">';
-			
-			$list[] = '<th class="column colfirst news">'.$this->BL['be_article_cnt_start'].'-'.$this->BL['be_article_cnt_end'].'</th>';
-			$list[] = '<th class="column">'.$this->BL['be_title'].'</th>';
+
+			$list[] = '<th class="column colfirst news">'.$this->BL['be_title'].'</th>';
+			$list[] = '<th class="column">'.$this->BL['be_article_cnt_start'].'</th>';
+			$list[] = '<th class="column">'.$this->BL['be_article_cnt_end'].'</th>';
+			$list[] = '<th class="column">'.$this->BL['be_sort_date'].'</th>';
 			$list[] = '<th class="column">Prio</th>';
 			$list[] = '<th class="column collast">&nbsp;</th>';
 			
@@ -310,8 +313,10 @@ class phpwcmsNews {
 				$news['live'] = $news['live'] == false ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
 				$news['kill'] = $news['kill'] == false ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['kill']);
 				
-				$list[] = '<td class="column colfirst news">'.$news['live'].'&nbsp;-&nbsp;'.$news['kill'].'</td>';
-				$list[] = '<td class="column">'.html_specialchars($news['cnt_name']).'</td>';
+				$list[] = '<td class="column colfirst news">'.html_specialchars($news['cnt_name']).'</td>';
+				$list[] = '<td class="column">'.$news['live'].'</td>';
+				$list[] = '<td class="column">'.$news['kill'].'</td>';
+				$list[] = '<td class="column">'.date($this->BL['be_shortdatetime'], $news['cnt_sortdate']).'</td>';
 				$list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
 				$list[] = '<td class="column collast">
 				
@@ -448,7 +453,8 @@ class phpwcmsNews {
 								'cnt_linktext'			=> '',
 								'cnt_category'			=> '',
 								'cnt_livedate'			=> '',
-								'cnt_killdate'			=> ''
+								'cnt_killdate'			=> '',
+								'cnt_sort'				=> 0
 								
 							  );
 							  
@@ -494,7 +500,7 @@ class phpwcmsNews {
 						$this->newsId	= $result['INSERT_ID'];
 						$success		= true;
 						
-						set_status_message($this->BL['be_successfully_saved'], 'success');
+						set_status_message($this->BL['be_successfully_saved'] . LF . $post['cnt_name'], 'success');
 					}
 				
 				// update existing dataset
@@ -504,7 +510,7 @@ class phpwcmsNews {
 					if($result != false) {
 						$success = true;
 						
-						set_status_message($this->BL['be_successfully_updated'], 'success');
+						set_status_message($this->BL['be_successfully_updated'] . LF . $post['cnt_name'], 'success');
 					}
 				
 				}
@@ -578,6 +584,7 @@ class phpwcmsNews {
 		
 		$start_date	= strtotime( $this->data['cnt_livedate'] );
 		$end_date	= strtotime( $this->data['cnt_killdate'] );
+		$sort_date	= intval($this->data['cnt_sort']);
 		
 		if(!$start_date) {
 			$this->data['cnt_date_start'] = '';
@@ -593,6 +600,15 @@ class phpwcmsNews {
 		} else {
 			$this->data['cnt_date_end'] = date($this->BL['default_date'], $end_date);
 			$this->data['cnt_time_end'] = date($this->BL['default_time'], $end_date);
+		}
+		
+		// sort date
+		if($sort_date == 0) {
+			$this->data['cnt_sort_date'] = '';
+			$this->data['cnt_sort_time'] = '';
+		} else {
+			$this->data['cnt_sort_date'] = date($this->BL['default_date'], $sort_date);
+			$this->data['cnt_sort_time'] = date($this->BL['default_time'], $sort_date);
 		}
 
 	}
@@ -626,6 +642,10 @@ class phpwcmsNews {
 		$temp_time					= isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
 		$temp_date					= isset($_POST['calendar_end_date']) ? _getDate($_POST['calendar_end_date']) : '';
 		$post['cnt_killdate']		= $temp_date.' '.$temp_time;
+		
+		$temp_time					= isset($_POST['sort_time']) ? _getTime($_POST['sort_time']) : '';
+		$temp_date					= isset($_POST['sort_date']) ? _getDate($_POST['sort_date']) : '';
+		$post['cnt_sort']			= intval( strtotime($temp_date.' '.$temp_time) );
 		
 		$post['cnt_name']			= isset($_POST['cnt_name']) ? clean_slweg($_POST['cnt_name']) : '';
 		$post['cnt_title']			= isset($_POST['cnt_title']) ? clean_slweg($_POST['cnt_title']) : '';

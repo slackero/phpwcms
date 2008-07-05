@@ -2493,6 +2493,14 @@ function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
 	return $text;
 }
 
+function render_date($text='', $date, $rt='DATE') {
+	// render date by replacing placeholder tags by value
+	$rt = preg_quote($rt);
+	$text = preg_replace('/\{'.$rt.':(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
+	$text = preg_replace('/\{'.$rt.':(.*?)\}/e', 'date("$1",'.$date.')', $text);
+	return $text;
+}
+
 function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $tagClose=']') {
 	// used to exclude a special string sequence from string
 	// enclosed by [tag][/tag] or also <tag></tag>

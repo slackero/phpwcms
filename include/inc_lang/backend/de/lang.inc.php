@@ -1225,5 +1225,6 @@ $BL['be_gallery_root']					= 'Galerie Wurzelverzeichnis';
 $BL['be_gallery_directory']				= 'Galerie Unterverzeichnis';
 $BL['be_gallery']						= 'Galerie';
 
+$BL['be_sort_date']						= 'Sortierdatum';
 
 ?>

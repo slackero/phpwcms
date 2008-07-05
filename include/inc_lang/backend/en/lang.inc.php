@@ -1236,4 +1236,6 @@ $BL['be_gallery_root']					= 'gallery root directory';
 $BL['be_gallery_directory']				= 'gallery subdirectory';
 $BL['be_gallery']						= 'gallery';
 
+$BL['be_sort_date']						= 'sort date';
+
 ?>

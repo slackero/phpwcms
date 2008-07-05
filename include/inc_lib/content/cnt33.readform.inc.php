@@ -47,8 +47,8 @@ $content['news']['news_andor']			= strtoupper(clean_slweg($_POST['news_andor']))
 $content['news']['news_archive_link']	= clean_slweg($_POST['news_archive_link']);
 $content['news']['news_detail_link']	= clean_slweg($_POST['news_detail_link']);
 								
-if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 8 ) {
-	$content['news']['news_sort'] = 5;
+if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 10 ) {
+	$content['news']['news_sort'] = 9;
 }
 if( empty($content['news']['news_paginate_count']) ) {
 	$content['news']['news_paginate_count'] = $content['news']['news_paginate'] ? 10 : '';

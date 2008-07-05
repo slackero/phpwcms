@@ -54,10 +54,12 @@ $news['list_mode']	= true;
 
 $news['cnt_ts_livedate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTAMP(pc.cnt_livedate), pc.cnt_created)';
 $news['cnt_ts_killdate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_killdate) > 0, UNIX_TIMESTAMP(pc.cnt_killdate), pc.cnt_created + 31536000)';
+$news['cnt_ts_sortdate'] = 'IF(pc.cnt_sort=0, IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTAMP(pc.cnt_livedate), pc.cnt_created), pc.cnt_sort)';
 
 $sql  = 'SELECT pc.*, ';
 $sql .= $news['cnt_ts_livedate'] . ' AS cnt_ts_livedate, ';
-$sql .= $news['cnt_ts_killdate'] . ' AS cnt_ts_killdate ';
+$sql .= $news['cnt_ts_killdate'] . ' AS cnt_ts_killdate, ';
+$sql .= $news['cnt_ts_sortdate'] . ' AS cnt_ts_sortdate ';
 $sql .= 'FROM '.DB_PREPEND.'phpwcms_content pc ';
 
 $news['sql_group_by']	= '';
@@ -193,6 +195,10 @@ if($news['list_mode']) {
 		case 4:		// change date, ASC
 					$sql .= 'pc.cnt_changed ASC';
 					break;
+
+		case 5:		// live date, DESC
+					$sql .= 'cnt_ts_livedate DESC';
+					break;
 		
 		case 6:		// live date, ASC
 					$sql .= 'cnt_ts_livedate ASC';
@@ -205,10 +211,14 @@ if($news['list_mode']) {
 		case 8:		// kill date, ASC
 					$sql .= 'cnt_ts_killdate ASC';
 					break;
-		
-		default:	// live date, DESC
-					$sql .= 'cnt_ts_livedate DESC';
+					
+		case 10:	// sort date, ASC
+					$sql .= 'cnt_ts_sortdate ASC';
 					break;
+		
+		case 9:
+		default:	// sort date, DESC
+					$sql .= 'cnt_ts_sortdate DESC';
 	
 	}
 
@@ -369,6 +379,7 @@ if($news['template']) {
 		
 		// Dates
 		$news['entries'][$key]	= render_cnt_date($news['entries'][$key], $value['cnt_changed'], $value['cnt_ts_livedate'], $value['cnt_ts_killdate']);
+		$news['entries'][$key]	= render_date($news['entries'][$key], $value['cnt_ts_sortdate'], 'SORTDATE');
 		
 		$news['files_result']	= '';
 		

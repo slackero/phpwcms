@@ -144,8 +144,51 @@ window.addEvent('domready', function(){
 	selectLang.addEvent('keyup', function(){
 		this.value = this.value.replace(/[^a-z\-]/g, '');
 	});
-	
 
+
+
+	var cnt_title = $('cnt_title');
+	
+	// set name field
+	$('cnt_name_click').addEvent('click', function(){
+		var cnt_name = cnt_title.value.trim();
+		if(cnt_name === '') {
+			cnt_title.value = $('cnt_name').value.trim();
+		} else {
+			$('cnt_name').value = cnt_name;
+		}		
+	});
+	
+	$('cnt_alias_click').addEvent('click', function(){
+		var cnt_alias = $('cnt_name').value.trim();
+		if(cnt_alias === '') {
+			cnt_alias = cnt_title.value.trim();
+			$('cnt_name').value = cnt_alias;
+		}
+		if(cnt_alias !== '') {
+			$('cnt_alias').value = create_alias(cnt_alias);
+		}
+	});
+	
+	var change_name_value	= '-';
+	var change_alias_value	= '-';
+	
+	cnt_title.addEvent('focus', function(){
+	
+		change_name_value 	= $('cnt_name').value.trim();
+		change_alias_value	= $('cnt_alias').value.trim();
+
+	});
+	
+	cnt_title.addEvent('keyup', function() {
+		if(change_name_value == ''){
+			$('cnt_name').value = cnt_title.value;
+		}
+		if(change_alias_value == '') {
+			$('cnt_alias').value = create_alias( $('cnt_name').value );
+		}
+	});
+	
 });
 
 
@@ -153,46 +196,23 @@ window.addEvent('domready', function(){
 </script>
 <form action="<?php echo $news->formAction() ?>" method="post" class="free" onsubmit="selectAllOptions(this.cfile_list);">
 
-	<p>	
-		<label><?php echo $BL['be_title'] ?>/<?php echo $BL['be_alias'] ?></label>
-		<input type="text" name="cnt_name" id="cnt_name" value="<?php echo html_specialchars($news->data['cnt_name']) ?>" class="text short" maxlength="200" title="<?php echo $BL['be_title'] ?>" />
-		<input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html_specialchars($news->data['cnt_alias']) ?>" class="text short" maxlength="200" title="<?php echo $BL['be_alias'] ?>" />
-	</p>
-	
-	<p>	
-		<label><?php echo $BL['be_tags'] ?></label>
-		<input type="text" name="cnt_category" id="cnt_category" value="<?php echo html_specialchars($news->data['cnt_category']) ?>" class="text" maxlength="250" />
-	</p>
-
-	<p>	
-		<label><?php echo $BL['be_profile_label_lang'] ?>/<?php echo $BL['be_priorize'] ?></label>
-		<input type="text" name="cnt_lang" id="cnt_lang" value="<?php echo html_specialchars($news->data['cnt_lang']) ?>" class="text short" maxlength="10" title="<?php echo $BL['be_profile_label_lang'] ?>" />
-		<select name="cnt_prio" id="cnt_prio" style="width:auto" title="<?php echo $BL['be_priorize'] ?>">				
-		<?php
-		
-			for($x=30; $x>=-30; $x--) {				
-			
-				echo '	<option value="'.$x.'"';
-				is_selected($x, $news->data['cnt_prio']);
-				echo '>'.( $x==0 ? $BL['be_cnt_default'] : $x ).'</option>'.LF;
-			
-			}
-							
-		?>		
-		</select>
-	</p>
 
 	<p class="break filled important">
 		<label><?php echo $BL['be_article_cnt_ctitle'] ?></label>
 		<input type="text" name="cnt_title" id="cnt_title" value="<?php echo html_specialchars($news->data['cnt_title']) ?>" class="text" maxlength="250" />
 	</p>
 	
-	<p class="important border_bottom">	
+	<p>	
 		<label><?php echo $BL['be_article_asubtitle'] ?></label>
 		<input type="text" name="cnt_subtitle" id="cnt_subtitle" value="<?php echo html_specialchars($news->data['cnt_subtitle']) ?>" class="text" maxlength="250" />
 	</p>
+	
+	<p>	
+		<label><?php echo $BL['be_teasertext'] ?></label>
+		<textarea name="cnt_teasertext" id="cnt_teasertext" class="text" rows="5"><?php echo html_specialchars($news->data['cnt_teasertext']) ?></textarea>
+	</p>
 
-	<div class="paragraph filled">
+	<div class="paragraph filled border_top border_bottom">
 	<table border="0" cellpadding="0" cellspacing="0" summary="">
 		
 			<tr>
@@ -217,7 +237,7 @@ window.addEvent('domready', function(){
 		//-->
 		</script>
 		&nbsp;</td>
-		<td><input name="calendar_start_time" type="text" id="calendar_start_time" class="v12" style="width:80px;" value="<?php echo $news->data['cnt_time_start'] ?>" size="30" /></td>
+		<td><input name="calendar_start_time" type="text" id="calendar_start_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_start'] ?>" size="30" /></td>
 			</tr>
 			
 		<tr><td colspan="4" style="font:5px;line-height:5px">&nbsp;</td></tr>
@@ -244,29 +264,77 @@ window.addEvent('domready', function(){
 		//-->
 		</script>
 		&nbsp;</td>
-		<td><input name="calendar_end_time" type="text" id="calendar_end_time" class="v12" style="width:80px;" value="<?php echo $news->data['cnt_time_end'] ?>" size="30" /></td>
+		<td><input name="calendar_end_time" type="text" id="calendar_end_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_end'] ?>" size="30" /></td>
 			</tr>
+
+
+		<tr><td colspan="4" style="font:5px;line-height:5px">&nbsp;</td></tr>
+		
+
+		<!-- sort date -->
+			<tr>
+				<td class="chatlist">&nbsp;</td>
+				<td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_date_format'] ?></td>
+				<td class="chatlist">&nbsp;</td>
+				<td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_time_format'] ?></td>
+			</tr>
+		
+			<tr>
+				<td><label><?php echo $BL['be_sort_date'] ?></label></td>
+				<td><input name="sort_date" type="text" id="sort_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_sort_date'] ?>" size="30" /></td>
+		<td>
+		<script language="javascript" type="text/javascript">
+		<!--
+		function aSort(date, month, year) {
+			getFieldById('sort_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+		}
+		calSort = new dynCalendar('calSort', 'aSort', 'img/dynCal/');
+		calSort.setMonthCombo(true);
+		calSort.setYearCombo(true);
+		//-->
+		</script>
+		&nbsp;</td>
+		<td><input name="sort_time" type="text" id="sort_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_sort_time'] ?>" size="30" /></td>
+			</tr>	
+			
 		</table>
 	</div>
 	
-	<p class="break">	
-		<label><?php echo $BL['be_article_username'] ?>/<?php echo $BL['be_place'] ?></label>
-		<input type="text" name="cnt_editor" id="cnt_editor" value="<?php echo html_specialchars($news->data['cnt_editor']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_article_username'] ?>" />
-		<input type="text" name="cnt_place" id="cnt_place" value="<?php echo html_specialchars($news->data['cnt_place']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_place'] ?>" />
+
+	<p class="space_top">	
+		<label><a id="cnt_name_click"><?php echo $BL['be_title'] ?></a>/<a id="cnt_alias_click"><?php echo $BL['be_alias'] ?></a></label>
+		<input type="text" name="cnt_name" id="cnt_name" value="<?php echo html_specialchars($news->data['cnt_name']) ?>" class="text short" maxlength="200" title="<?php echo $BL['be_title'] ?>" />
+		<input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html_specialchars($news->data['cnt_alias']) ?>" class="text short" maxlength="200" title="<?php echo $BL['be_alias'] ?>" />
 	</p>
 	
-	<p class="border_bottom">	
-		<label><?php echo $BL['be_teasertext'] ?></label>
-		<textarea name="cnt_teasertext" id="cnt_teasertext" class="text" rows="5"><?php echo html_specialchars($news->data['cnt_teasertext']) ?></textarea>
-	</p>
-	
-	<p class="border_bottom space_top">	
-		<label><?php echo $BL['be_read_more_link'] ?>/<?php echo $BL['be_admin_page_text'] ?></label>
-		<input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_read_more_link'] ?>" />
-		<input type="text" name="cnt_linktext" id="cnt_linktext" value="<?php echo html_entities($news->data['cnt_linktext']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_admin_page_text'] ?>" />
+	<p>	
+		<label><?php echo $BL['be_tags'] ?></label>
+		<input type="text" name="cnt_category" id="cnt_category" value="<?php echo html_specialchars($news->data['cnt_category']) ?>" class="text" maxlength="250" />
 	</p>
 
-	<div class="paragraph filled border_bottom">
+	<p>	
+		<label><?php echo $BL['be_profile_label_lang'] ?></label>
+		<input type="text" name="cnt_lang" id="cnt_lang" value="<?php echo html_specialchars($news->data['cnt_lang']) ?>" class="text short" maxlength="10" title="<?php echo $BL['be_profile_label_lang'] ?>" />
+	</p>
+	
+	<p>	
+		<label><?php echo $BL['be_priorize'] ?></label>
+		<select name="cnt_prio" id="cnt_prio" style="width:auto" title="<?php echo $BL['be_priorize'] ?>">
+		<?php
+		
+			for($x=30; $x>=-30; $x--) {				
+			
+				echo '	<option value="'.$x.'"';
+				is_selected($x, $news->data['cnt_prio']);
+				echo '>'.( $x==0 ? $BL['be_cnt_default'] : $x ).'</option>'.LF;
+			
+			}
+							
+		?>		
+		</select>
+	</p>
+
+	<div class="paragraph filled border_bottom border_top">
 		
 		<table cellpadding="0" cellspacing="0" border="0" summary="">
 	
@@ -415,6 +483,22 @@ window.addEvent('domready', function(){
 		?>
 	</div>
 	
+	<p class="space_top border_top">	
+		<label><?php echo $BL['be_read_more_link'] ?></label>
+		<input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="text" maxlength="250" title="<?php echo $BL['be_read_more_link'] ?>" />
+	</p>
+	
+	<p>	
+		<label>URL <?php echo $BL['be_admin_page_text'] ?></label>
+		<input type="text" name="cnt_linktext" id="cnt_linktext" value="<?php echo html_entities($news->data['cnt_linktext']) ?>" class="text" maxlength="250" title="URL <?php echo $BL['be_admin_page_text'] ?>" />
+	</p>	
+	
+	<p class="space_top border_top">	
+		<label><?php echo $BL['be_article_username'] ?>/<?php echo $BL['be_place'] ?></label>
+		<input type="text" name="cnt_editor" id="cnt_editor" value="<?php echo html_specialchars($news->data['cnt_editor']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_article_username'] ?>" />
+		<input type="text" name="cnt_place" id="cnt_place" value="<?php echo html_specialchars($news->data['cnt_place']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_place'] ?>" />
+	</p>
+	
 	
 	<div class="filled border_top paragraph border_bottom">
 	
@@ -456,6 +540,7 @@ window.addEvent('domready', function(){
 		</table>
 			
 	</div>
+	
 	
 	<p style="padding:10px 0 10px 0" class="border_bottom">
 		

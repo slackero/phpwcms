@@ -531,7 +531,7 @@ function show_status_message($return_status=false) {
 		$status = '';
 	} else {
 		$status  = '<div class="status_message_' . $_SESSION['system_status']['type'] .'">';
-		$status .= html_specialchars($_SESSION['system_status']['msg']) . '</div>';
+		$status .= nl2br( trim( html_specialchars($_SESSION['system_status']['msg']) ) ) . '</div>';
 		$_SESSION['system_status']['msg'] = '';
 	}
 	if($return_status) {
