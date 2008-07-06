@@ -77,7 +77,7 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
@@ -119,7 +119,7 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 		
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_flashplayer_thumbnail'] ?>:&nbsp;</td>
@@ -168,7 +168,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 		</table></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_zoom'] ?>:&nbsp;</td>
@@ -188,7 +188,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	</table></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_behavior'] ?>:&nbsp;</td>
@@ -226,7 +226,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 </tr>
 
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td class="chatlist tdtop5" align="right"><?php echo $BL['be_ctype_images'] ?>:&nbsp;</td>
@@ -332,7 +332,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <?php
 	}
 ?>
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr><td colspan="2" align="center"><?php
 

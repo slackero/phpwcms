@@ -73,7 +73,7 @@ $img_count = isset($content["image_list"]['images']) && is_array($content["image
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
@@ -218,7 +218,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 </tr>
 
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 
 
@@ -300,7 +300,7 @@ if($img_count) {
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top"><textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11" id="cimage_caption" style="width: 440px;"><?php echo implode(' '.LF, $caption_box) ?></textarea></td>
 </tr>
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr><td colspan="2" align="center"><?php
 
@@ -319,4 +319,4 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 
 ?></td></tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

@@ -37,7 +37,7 @@ if( ! $content["id"] ) {
 
 
 ?>
-<tr><td colspan="2" class="rowspacer0x0"></td></tr>
+<tr><td colspan="2" class="rowspacer0x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td colspan="2" style="padding:0 10px 0 10px;background-color:#C2EB9A;">
@@ -55,7 +55,7 @@ if( ! $content["id"] ) {
 	</td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer0x10"></td></tr>
+<tr><td colspan="2" class="rowspacer0x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <!-- Template selection -->
 <tr>
@@ -109,7 +109,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 
 
-<tr><td colspan="2" class="rowspacer10x10"></td></tr>
+<tr><td colspan="2" class="rowspacer10x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 
 
@@ -177,7 +177,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 
 
-<tr><td colspan="2" class="rowspacer10x10"></td></tr>
+<tr><td colspan="2" class="rowspacer10x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 
 <tr>

@@ -269,7 +269,7 @@ initMootoolsAutocompleter();
 		?></td>
 	</tr>
 	
-	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	
 	
 	<tr>
@@ -321,7 +321,7 @@ initMootoolsAutocompleter();
 		<td><input type="text" name="cnt_image_link" id="cnt_image_link" class="v12 width350" maxlength="500" value="<?php echo html_specialchars($plugin['data']['calendar_image']['link']) ?>" /></td>
 	</tr>
 
-	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>	
 	

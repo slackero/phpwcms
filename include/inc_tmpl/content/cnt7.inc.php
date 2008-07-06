@@ -140,7 +140,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr><td colspan="2" align="center"><?php
 
@@ -159,4 +159,4 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 
 ?></td></tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

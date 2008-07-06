@@ -267,7 +267,7 @@ if($opt) {
 	</tr>
 
 	
-	<tr bgcolor="#E6EAED"><td colspan="2" class="rowspacer7x7"></td></tr>
+	<tr bgcolor="#E6EAED"><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 	<tr bgcolor="#E6EAED">
 		<td>&nbsp;</td>
@@ -451,7 +451,7 @@ if(!empty($jsOnChange))  {
       <td><textarea name="template_block_error" cols="35" rows="5" class="code" id="template_block_error" style="width:440px"><?php echo @htmlentities($template["errortext"], ENT_QUOTES, PHPWCMS_CHARSET); ?></textarea></td>
 	</tr>
 	
-	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	
 	<tr>
 		<td>&nbsp;<input name="template_id" type="hidden" value="<?php echo $template["id"] ?>" /></td>

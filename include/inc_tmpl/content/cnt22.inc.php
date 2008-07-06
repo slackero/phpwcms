@@ -41,7 +41,7 @@ if(!isset($content['rssfeed'])) {
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
  
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
@@ -119,4 +119,4 @@ echo '<option value="2592000"'.is_selected($content['rssfeed']["timeout"], '2592
 	</table></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x0"></td></tr>
+<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

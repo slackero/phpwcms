@@ -31,7 +31,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //link list
 
 ?>
-<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
@@ -54,7 +54,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		</select></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 
 <tr>

@@ -115,7 +115,7 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 .f10 { font-weight: normal; font-size: 10px;  }
 .f11b {  font-weight: bold; font-size: 11px; }
 .f11 { font-weight: normal; font-size: 11px;  }
-.button10 {	font-size: 11px; width:auto }
+.button10 {	font-size: 11px; width:auto; padding: 1px; }
 .button12 {	font-size: 12px;}
 
 .dir {	font-size: 11px; color: #000000; }

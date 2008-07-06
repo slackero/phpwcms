@@ -58,7 +58,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
@@ -87,7 +87,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 		
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td id="col_1_width">&nbsp;</td>

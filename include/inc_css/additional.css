@@ -55,6 +55,7 @@ table.tdMorepace td {
 
 .width15 {	width: 15px;	}
 .width15i { width: 15px; margin:0 1px 0 2px; }
+.width20 {	width: 20px;	}
 .width25 {	width: 25px;	}
 .width30 {	width: 30px;	}
 .width35 {	width: 35px;	}
@@ -78,6 +79,7 @@ table.tdMorepace td {
 .width375 {	width: 375px;	}
 .width400 {	width: 400px;	}
 .width440 {	width: 440px;	}
+.width440p5 {	width: 433px; margin-right: 5px;	}
 .width540 {	width: 540px;	}
 
 .bold {

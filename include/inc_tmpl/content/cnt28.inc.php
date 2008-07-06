@@ -80,7 +80,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		</select></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
   <td align="right" class="chatlist tdtop3"><?php echo $BL['be_settings'] ?>:&nbsp;</td>
@@ -132,6 +132,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	</table></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x0"></td></tr>
+<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 

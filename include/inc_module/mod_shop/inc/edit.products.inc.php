@@ -220,7 +220,7 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 	
 	
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 
 	<tr> 
@@ -278,7 +278,7 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 	</tr>
 	
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
@@ -367,14 +367,14 @@ if($img_count) {
 		<td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
 	</tr>
 	
-	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_url'] ?>:&nbsp;</td>
 		<td><input name="shopprod_url" type="text" id="shopprod_url" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" /></td>
 	</tr>
 
-	<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	
 	
 	<tr>

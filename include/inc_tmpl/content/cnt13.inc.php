@@ -56,7 +56,7 @@ if(empty($content['search']["news_url"])) {
 
 
 ?>
-<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
   <tr>
     <td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_results'] ?>:&nbsp;</td>
@@ -99,7 +99,7 @@ if(empty($content['search']["news_url"])) {
 	</select></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist tdtop4"><?php echo $BL['be_module_search'] ?>:&nbsp;</td>
@@ -219,7 +219,7 @@ if(count($content['search']['module_search'])) {
 }
 ?>
 
- <tr><td colspan="2" class="rowspacer7x7"></td></tr>
+ <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
   
    <tr>
     <td align="right" class="chatlist">&nbsp;&nbsp;</td>
@@ -263,7 +263,7 @@ if(count($content['search']['module_search'])) {
     </td>
   </tr>
   
- <tr><td colspan="2" class="rowspacer7x7"></td></tr>
+ <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
   
   <tr>
     <td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_page_of_pages'] ?>:&nbsp;</td>
@@ -370,4 +370,4 @@ if(count($content['search']['module_search'])) {
     <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="f10"  id="csearch_text_noresult" style="width: 440px"><?php echo  isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
   </tr>
   
- <tr><td colspan="2" class="rowspacer7x0"></td></tr>
+ <tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

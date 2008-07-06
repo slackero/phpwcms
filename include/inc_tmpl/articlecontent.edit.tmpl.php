@@ -105,7 +105,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	
 	
 	?></td></tr>
-	<tr><td colspan="2" class="rowspacer5x0"></td></tr>
+	<tr><td colspan="2" class="rowspacer5x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr bgcolor="#D9DEE3"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 	
 	<tr bgcolor="#D9DEE3">
@@ -161,7 +161,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	?>:&nbsp;</td>
 	  <td><table summary="" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
-			<td><select name="target_ctype" class="v12" id="target_ctype" onchange="if(confirm('<?php
+			<td><select name="target_ctype" id="target_ctype" onchange="if(confirm('<?php
 
 	// echo Message for JS dialog
 	echo $BL['be_func_switch_contentpart'];
@@ -209,13 +209,13 @@ if(empty($content['article']['acat_id'])) { // Root structure
 			      </tr>
                 </table></td>
    	 </tr>
-			
+
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>  
-	<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 			
 	<tr>
             <td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
-              <td><select name="cblock" class="v11" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
+              <td><select name="cblock" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
 					<option value="CONTENT"<?php echo  is_selected('CONTENT', $content["block"]) ?>><?php echo  $BL['be_main_content'] ?> (CONTENT)</option>
 					<option value="LEFT"<?php echo  is_selected('LEFT', $content["block"]) ?>><?php echo  $BL['be_cnt_left'] ?> (LEFT)</option>
 					<option value="RIGHT"<?php echo  is_selected('RIGHT', $content["block"]) ?>><?php echo  $BL['be_cnt_right'] ?> (RIGHT)</option>
@@ -251,10 +251,10 @@ if(isset($result[0]['template_var'])) {
 		  <tr>
 			<td class="v10" bgcolor="#E7E8EB"><label for="ccb">&nbsp;<?php echo $BL['be_article_cnt_before'] ?></label></td>
 			<td bgcolor="#E7E8EB"><input name="ccb" type="checkbox" id="ccb" value="1" <?php if(intval($content["before"])) echo "checked"; ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" /></td>
-			<td bgcolor="#E7E8EB"><input name="cbefore" type="text" id="cbefore" class="v09" style="width: 25px" value="<?php echo $content["before"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.ccb.checked=true;}else{this.form.ccb.checked=false;this.value=''}" /></td>
+			<td bgcolor="#E7E8EB"><input name="cbefore" type="text" id="cbefore" class="width20" value="<?php echo $content["before"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.ccb.checked=true;}else{this.form.ccb.checked=false;this.value=''}" /></td>
 			<td class="v10" bgcolor="#E7E8EB"><label for="cca">&nbsp;<?php echo $BL['be_article_cnt_after'] ?></label></td>
 			<td bgcolor="#E7E8EB"><input name="cca" type="checkbox" id="cca" value="1" <?php if(intval($content["after"])) echo "checked"; ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" /></td>
-			<td style="padding:1px 1px 1px 0" bgcolor="#E7E8EB"><input name="cafter" type="text" id="cafter" class="v09" style="width: 25px" value="<?php echo $content["after"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.cca.checked=true;}else{this.form.cca.checked=false;this.value=''}" /></td>
+			<td style="padding:1px 1px 1px 0" bgcolor="#E7E8EB"><input name="cafter" type="text" id="cafter" class="width20" value="<?php echo $content["after"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.cca.checked=true;}else{this.form.cca.checked=false;this.value=''}" /></td>
 			<td class="chatlist"><label for="ctop">&nbsp;&nbsp;<?php echo $BL['be_article_cnt_toplink'] ?>:</label></td>
 			<td><input name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> /></td>
 			<?php
@@ -266,7 +266,7 @@ if(isset($result[0]['template_var'])) {
 			<td><input name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); ?><?php echo $anchor_title ?> /></td>
 			
 			<td class="chatlist" width="100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
-			<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="v09 width25" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
+			<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width30" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
 			
 		</tr>
 		</table>
@@ -274,7 +274,7 @@ if(isset($result[0]['template_var'])) {
     </tr>
 
 
-	<tr><td colspan="2" class="rowspacer7x0"></td></tr>
+	<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 	
@@ -300,12 +300,12 @@ if(isset($result[0]['template_var'])) {
 		  ?>
 	<tr bgcolor="#F3F5F8">
 	  <td align="right" class="chatlist"><?php echo $BL['be_article_cnt_ctitle'] ?>:&nbsp;</td>
-	  <td><input name="ctitle" type="text" id="ctitle" class="f11b width440" value="<?php echo html_specialchars($content["title"]) ?>" size="40" maxlength="250" /></td>
+	  <td><input name="ctitle" type="text" id="ctitle" class="width440p5" value="<?php echo html_specialchars($content["title"]) ?>" size="40" maxlength="250" /></td>
 	</tr>
-	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 	<tr bgcolor="#F3F5F8">
 	  <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
-	  <td><input name="csubtitle" type="text" id="csubtitle" class="f11b width440" value="<?php echo html_specialchars($content["subtitle"]) ?>" size="40" maxlength="250" /></td>
+	  <td><input name="csubtitle" type="text" id="csubtitle" class="width440p5" value="<?php echo html_specialchars($content["subtitle"]) ?>" size="40" maxlength="250" /></td>
 	</tr>
 	
 <?php
@@ -327,7 +327,7 @@ if(isset($result[0]['template_var'])) {
 ?>
 
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-	<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
@@ -409,15 +409,13 @@ if(isset($result[0]['template_var'])) {
 	</tr>
 	
 	<tr>
-	
-		<td>&nbsp;
+
+	<td>&nbsp;</td>
+	<td style="padding: 12px 0 12px 0;">
 <input name="caktion" type="hidden" id="caktion" value="1" />
 <input name="caid" type="hidden" id="caid" value="<?php echo $article["article_id"] ?>" />
 <input name="cid" type="hidden" id="cid" value="<?php echo  $content["id"] ?>" />
 <input name="ctype" type="hidden" id="ctype" value="<?php echo  $content["type"] ?>" />
-		</td>
-	
-	<td style="padding: 12px 0 12px 0">
 <div>
 <?php
 if(!empty($content["id"])) {
@@ -429,17 +427,17 @@ if(!empty($content["id"])) {
 	echo $buttonAction;
 }
 ?>
-	<div style="float:left;margin-right:20px;padding:0;">
+	<div style="float:left;padding:0;">
 	<input name="Submit" type="submit" class="button10" value="<?php echo  $sendbutton ?>" />
 	<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-	&nbsp;&nbsp;&nbsp;&nbsp;
+	&nbsp; &nbsp;
 	<input name="donotsubmit" type="button" class="button10" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
 	</div>
 </div>
 		</td>
 	</tr>
 	
-	<tr><td colspan="2" class="rowspacer0x7"></td></tr>
+	<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	
 	<tr>
 	  <td align="right" class="chatlist tdtop3"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</td>
