@@ -918,13 +918,34 @@ $BL['be_cnt_css_style']					= 'CSS Stil';
 $BL['be_cnt_css_class']					= 'CSS Klasse';
 $BL['be_cnt_send_copy_to']				= 'Kopie an';
 
-$BL['be_cnt_field']						= array("text"=>'Text (einzeilig)', "email"=>'E-Mail', "textarea"=>'Text (mehrzeilig)', 
-												"hidden"=>'Versteckt', "password"=>'Passwort', "select"=>'Ausklappmen&uuml;', 
-												"list"=>'Liste', "checkbox"=>'Kontrollk&auml;stchen', "radio"=>'Optionsschalter', 
-												"upload"=>'Datei', "submit"=>'Sende-Taste', "reset"=>'Zur&uuml;cksetzen', 
-												"break"=>'Trenner', "breaktext"=>'Zwischentext', "special"=>'Text (spezial)',
-												"captchaimg"=>'Captcha Bild', "captcha"=>'Captcha Code', 'newsletter'=>'Newsletter',
-												'selectemail'=>'E-Mail Ausklappmen&uuml;', 'country'=>'L&auml;nder-Ausklappmen&uuml;');
+$BL['be_cnt_field']						= array("text"=>'Text (einzeilig)', 
+												"email"=>'E-Mail', 
+												"textarea"=>'Text (mehrzeilig)', 
+												"hidden"=>'Versteckt', 
+												"password"=>'Passwort', 
+												"select"=>'Ausklappmen&uuml;', 
+												"list"=>'Liste', 
+												"checkbox"=>'Kontrollk&auml;stchen', 
+												"radio"=>'Optionsschalter', 
+												"upload"=>'Datei', 
+												"submit"=>'Sende-Taste', 
+												"reset"=>'Zur&uuml;cksetzen', 
+												"break"=>'Trenner', 
+												"breaktext"=>'Zwischentext', 
+												"special"=>'Text (spezial)',
+												"captchaimg"=>'Captcha Bild', 
+												"captcha"=>'Captcha Code', 
+												'newsletter'=>'Newsletter',
+												'selectemail'=>'E-Mail Ausklappmen&uuml;', 
+												'country'=>'L&auml;nder-Ausklappmen&uuml;',
+												'mathspam'=>'Mathe Spam Schutz', 
+												'summing'=>'Summieren', 
+												'subtract'=>'Subtrahieren', 
+												'divide'=>'Dividieren', 
+												'multiply'=>'Multiplizieren', 
+												'calculation'=>'Berechnung:',
+												'formtracking_off'=>'Formular-Tracking ausschalten', 
+												'checktofrom'=>'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein');
 
 $BL['be_cnt_access']					= 'Zugriff';
 $BL['be_cnt_activated']					= 'aktiviert';

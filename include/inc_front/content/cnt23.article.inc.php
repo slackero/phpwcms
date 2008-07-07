@@ -32,6 +32,13 @@ $CNT_TMP .= '<a name="jumpForm'.$crow["acontent_id"].'" id="jumpForm'.$crow["aco
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 $cnt_form = unserialize($crow["acontent_form"]);
 
+// save default form tracking status
+$default_formtracking_value = $phpwcms['form_tracking'];
+// check form related form tracking status
+if(isset($cnt_form['formtracking_off']) && $cnt_form['formtracking_off'] == 1) {
+	$phpwcms['form_tracking'] = 0;
+}
+
 $form_error_text = '';
 
 $form_cnt = $cnt_form['labelpos']== 2 ? $cnt_form['customform'] : '';
@@ -967,6 +974,115 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_field = str_replace('{CAPTCHA}', '<img src="img/captcha.php?regen=y&amp;'.time().'" alt="Captcha" border="0" />', $form_field);
 								break;
 								
+			case 'mathspam':	/*
+								 * Math Spam Protect
+								 */
+								if($POST_DO && isset($_POST[$POST_name])) {
+									$POST_val[$POST_name] = trim(is_numeric($_POST[$POST_name])) ? intval($_POST[$POST_name]) : -1;
+
+									$mathspam_result  = $POST_val[$POST_name] * 123345;
+									$mathspam_result  = md5( PHPWCMS_URL . $mathspam_result );
+									
+									$mathspam_default = isset($_POST[$POST_name.'_result']) ? trim($_POST[$POST_name.'_result']) : '';
+									
+									if($mathspam_result != $mathspam_default  || ($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == ''))) {
+										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? 'Captcha error' : $cnt_form["fields"][$key]['error'];
+									}
+								}
+
+								$form_field .= '<input type="text" name="'.$form_name.'" id="'.$form_name.'" value=""';
+								if($cnt_form["fields"][$key]['size']) {
+									$form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
+								}
+								if($cnt_form["fields"][$key]['max']) {
+									$form_field .= ' maxlength="'.$cnt_form["fields"][$key]['max'].'"';
+								}
+								if($cnt_form["fields"][$key]['class']) {
+									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
+								}
+								if($cnt_form["fields"][$key]['style']) {
+									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								$form_field .= ' />';
+								
+								// calculate the result and the question
+								$mathspam_calculations	 = array('+'=>'+', '-'=>'-', '*'=>'×', '/'=>'÷');
+								$mathspam_operation		 = array_rand($mathspam_calculations, 1);
+								$mathspam_operator		 = $mathspam_calculations[ $mathspam_operation ];
+								$mathspam_number_1		 = rand(0, 10);
+								
+								// fix divisions to avoid fractional results
+								if($mathspam_operation === '/' && $mathspam_number_1 > 0) {
+								
+									switch($mathspam_number_1) {
+									
+										case 1:		$mathspam_number_2 = 1;
+													break;
+													
+										case 2:		$mathspam_number_2 = array_rand( array(1=>1, 2=>2), 1);
+													break;
+													
+										case 3:		$mathspam_number_2 = array_rand( array(1=>1, 3=>3), 1);
+													break;
+													
+										case 4:		$mathspam_number_2 = array_rand( array(1=>1, 2=>2, 4=>4), 1);
+													break;
+													
+										case 5:		$mathspam_number_2 = array_rand( array(1=>1, 5=>5), 1);
+													break;
+													
+										case 6:		$mathspam_number_2 = array_rand( array(1=>1, 2=>2, 3=>3, 6=>6), 1);
+													break;
+													
+										case 7:		$mathspam_number_2 = array_rand( array(1=>1, 7=>7), 1);
+													break;
+													
+										case 8:		$mathspam_number_2 = array_rand( array(1=>1, 2=>2, 4=>4, 8=>8), 1);
+													break;
+													
+										case 9:		$mathspam_number_2 = array_rand( array(1=>1, 3=>3, 9=>9), 1);
+													break;
+													
+										case 10:	$mathspam_number_2 = array_rand( array(1=>1, 2=>2, 5=>5, 10=>10), 1);
+													break;
+
+									}
+								
+								// avoid subtraction with results < 0
+								} elseif($mathspam_operation === '-') {
+								
+									$mathspam_number_2		 = rand(0, $mathspam_number_1);
+								
+								} else {
+								
+									$mathspam_number_2		 = rand(0, 10);
+								
+								}
+				
+								$mathspam_question		 = $cnt_form["fields"][$key]['value'][ $mathspam_operator ];
+								$mathspam_question		.= ' <span class="calc">' . $mathspam_number_1 . '&nbsp;';
+								$mathspam_question		.= html_entities( $mathspam_operator );
+								$mathspam_question		.= '&nbsp;' . $mathspam_number_2 . '</span>';
+								
+								switch($mathspam_operation) {
+								
+									case '+': $mathspam_result = $mathspam_number_1 + $mathspam_number_2; break;
+									case '-': $mathspam_result = $mathspam_number_1 - $mathspam_number_2; break;
+									case '/': $mathspam_result = $mathspam_number_1 / $mathspam_number_2; break;
+									case '*': $mathspam_result = $mathspam_number_1 * $mathspam_number_2; break;
+								
+								}
+								$mathspam_result = intval($mathspam_result) * 123345;
+								$mathspam_result = md5( PHPWCMS_URL . $mathspam_result );
+																
+								// hidden field, contains the hashed result
+								$form_field .= '<input type="hidden" name="'.$form_name.'_result" value="'.$mathspam_result.'" />';
+								
+								$form_field .= ' <span class="mathspam">';
+								$form_field .= trim( $cnt_form["fields"][$key]['value']['calc'] . ' ' . trim( $mathspam_question ) );
+								$form_field .= '</span>';
+								break;
+								
 			case 'newsletter':	/*
 								 * Newsletter
 								 */
@@ -1318,23 +1434,14 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		
 		}
 		
-		// check if there are form values which should be saved in db
-		if(count($POST_savedb)) {
-			
-			$POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
-			$POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
-			$POST_savedb_sql .= $crow['acontent_id'].", '".aporeplace(getRemoteIP())."', '";
-			$POST_savedb_sql .= aporeplace(serialize($POST_savedb))  . "')";
-			$POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
-				
-		}
+		// storing in database moved to 2nd POST_ERR if section
 	
 	}
+	
 
-
-	// send mail
-	require_once ('include/inc_ext/phpmailer/class.phpmailer.php');
-	$cnt_form["target"]			= explode(';', $cnt_form["target"]);
+	// get email addresses of recipients and senders
+	
+	$cnt_form["target"]			= convertStringToArray($cnt_form["target"], ';');
 	if(empty($cnt_form["subject"])) {
 		$cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
 		$cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, trim($phpwcms['site'], '/'));
@@ -1342,14 +1449,50 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 	
 	// check for BCC Addresses
-	$cnt_form['cc'] = empty($cnt_form['cc']) ? array() : convertStringToArray($cnt_form['cc'],';');
+	$cnt_form['cc'] = empty($cnt_form['cc']) ? array() : convertStringToArray($cnt_form['cc'], ';');
 	
 	
 	// first try to send copy message
 	if(!empty($cnt_form['sendcopy']) && !empty($cnt_form["copyto"]) && is_valid_email($cnt_form["copyto"])) {
 		$cnt_form['cc'][]		= $cnt_form["copyto"];
-		$cnt_form["fromEmail"]	= $cnt_form["copyto"];
+		$cnt_form['fromEmail']	= $cnt_form["copyto"];
 	}
+	
+	// check for unique recipients (target) and sender (fromEmail)
+	if(!empty($cnt_form['checktofrom'])) {
+	
+		foreach($cnt_form["target"] as $value) {
+	
+			if(strtolower($cnt_form['fromEmail']) == strtolower($value)) {
+	
+				$POST_ERR[] = 'Sender&#8217;s email must be different from recipient&#8217;s email';
+				break;	
+			}
+
+		}
+	
+	}
+
+}
+
+// do $POST_ERR test again to handle possible duplicates
+// in case 'checktofrom' = 1
+if(!empty($POST_DO) && empty($POST_ERR)) {
+
+	// check if there are form values which should be saved in db
+	if(count($POST_savedb)) {
+		
+		$POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
+		$POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
+		$POST_savedb_sql .= $crow['acontent_id'].", '".aporeplace(getRemoteIP())."', '";
+		$POST_savedb_sql .= aporeplace(serialize($POST_savedb))  . "')";
+		$POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
+			
+	}
+
+
+	// send mail, include phpmailer class
+	require_once ('include/inc_ext/phpmailer/class.phpmailer.php');
 	
 	// now run all CC -> but sent as full email to each CC recipient
 	if(count($cnt_form['cc'])) {
@@ -1417,7 +1560,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		$mail->SetLanguage('en');
 	}
 	if(empty($cnt_form["fromEmail"])) {
-		$cnt_form["fromEmail"] = 'noreply@test.com';
+		$cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
 	}
 	$mail->From 		= $cnt_form['sender'];
 	$mail->FromName		= $cnt_form['sendername'];
@@ -1674,5 +1817,8 @@ if($form_cnt) {
 }
 
 unset( $form, $form_cnt, $form_cnt_2, $form_field, $form_field_hidden, $form_counter, $form_error_text, $POST_ERR );
+
+// reset form tracking status to default value
+$phpwcms['form_tracking'] = $default_formtracking_value;
 
 ?>

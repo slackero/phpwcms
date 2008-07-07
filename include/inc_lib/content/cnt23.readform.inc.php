@@ -97,6 +97,12 @@ $content["form"]["labelpos"]		= intval($_POST["cform_labelpos"]);
 $content['form']["sendcopy"]		= empty($_POST["cform_sendcopy"]) ? 0 : 1;
 $content['form']["copyto"]			= isset($_POST["cform_copyto"]) ? clean_slweg($_POST["cform_copyto"]) : '';
 
+// disable formtracking as recommend for "send a friend" forms
+$content['form']['formtracking_off'] = empty($_POST["cform_tracking_off"]) ? 0 : 1;
+
+// check if email of sender and recipient have to be different
+$content['form']['checktofrom'] = empty($_POST['cform_checktofrom']) ? 0 : 1;
+
 $content['form']["onsuccess_redirect"] = empty($_POST["cform_onsuccess_redirect"]) ? 0 : intval($_POST["cform_onsuccess_redirect"]);
 switch($content['form']["onsuccess_redirect"]) {
 	case 1:
@@ -474,6 +480,41 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['value']	= slweg($_POST['cform_field_value'][$key]);
 								break;
 								
+			case 'mathspam':	/*
+								 * Math Spam Protect
+								 */
+								$content['form']["fields"][$field_counter]['size']		= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
+								$content['form']["fields"][$field_counter]['max']		= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
+								$content['form']["fields"][$field_counter]['required']	= 1;
+								$content['form']["fields"][$field_counter]['value']		= parse_ini_str( slweg($_POST['cform_field_value'][$key]), false );
+
+								$mathspam = array(
+									'+'		=> $BL['be_cnt_field']['summing'],
+									'-'		=> $BL['be_cnt_field']['subtract'],
+									'×'		=> $BL['be_cnt_field']['multiply'],
+									'÷'		=> $BL['be_cnt_field']['divide'],
+									'calc'	=> $BL['be_cnt_field']['calculation']
+								);
+
+								if(isset($content['form']["fields"][$field_counter]['value']['+'])) {
+									$mathspam['+'] = $content['form']["fields"][$field_counter]['value']['+'];
+								}
+								if(isset($content['form']["fields"][$field_counter]['value']['-'])) {
+									$mathspam['-'] = $content['form']["fields"][$field_counter]['value']['-'];
+								}
+								if(isset($content['form']["fields"][$field_counter]['value']['×'])) {
+									$mathspam['×'] = $content['form']["fields"][$field_counter]['value']['×'];
+								}
+								if(isset($content['form']["fields"][$field_counter]['value']['÷'])) {
+									$mathspam['÷'] = $content['form']["fields"][$field_counter]['value']['÷'];
+								}
+								if(isset($content['form']["fields"][$field_counter]['value']['calc'])) {
+									$mathspam['calc'] = $content['form']["fields"][$field_counter]['value']['calc'];
+								}
+								
+								$content['form']["fields"][$field_counter]['value'] = $mathspam;
+								
+								break;
 								 
 		}
 		

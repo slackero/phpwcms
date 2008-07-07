@@ -55,6 +55,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 	include_once (PHPWCMS_ROOT.'/include/inc_lang/backend/'. substr($_SESSION["wcs_user_lang"],0,2) .'/lang.inc.php');
 	$BL['be_admin_optgroup_label'] = array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
 	$BL['be_cnt_field'] = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
+	unset($BL['merge_lang_array']);
 }
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/navi_text.inc.php');
