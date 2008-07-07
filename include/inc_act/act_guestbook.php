@@ -128,7 +128,6 @@ input, textarea {
 </style></head>
 
 <body>
-<form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
 <table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
 <?php
 
@@ -190,6 +189,7 @@ if($result = mysql_query($sql, $db)) {
   }
   
   ?>
+  <form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
   <tr>
   <td>name:&nbsp;</td>
   <td><input name="gbname" type="text" id="gbname" style="width:350px;" value="<?php echo htmlspecialchars($row['guestbook_name']) ?>" /></td>
@@ -209,14 +209,16 @@ if($result = mysql_query($sql, $db)) {
   <tr>
     <td valign="top" class="v10">display:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
     <td><input name="gbshow" type="radio" value="0"<?php is_checked(0, intval($row['guestbook_show']), 1); ?> />
-    show email&nbsp;&nbsp;    <input name="gbshow" type="radio" value="1"<?php is_checked(1, intval($row['guestbook_show']), 1); ?> />hide email<br>
+    show email&nbsp;&nbsp;    <input name="gbshow" type="radio" value="1"<?php is_checked(1, intval($row['guestbook_show']), 1); ?> />hide email<br />
      <input type="radio" name="gbshow" value="2"<?php is_checked(2, intval($row['guestbook_show']), 1); ?> />show email as &quot;info at mail dot com&quot;</td>
   </tr>
   <tr>
   <td><img src="../../img/leer.gif" alt="" width="1" height="30" /><input name="gbcid" type="hidden" value="<?php echo intval($row['guestbook_cid']) ?>" /><input name="gbid" type="hidden" value="<?php echo intval($row['guestbook_id']) ?>" /></td>
-  <td valign="bottom"><input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" style="font-size:10px;" />
+  <td valign="bottom">
+  	<input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" style="font-size:10px;" />
     <input name="gbcancel" type="button" id="gbcancel" value="close" style="font-size:10px;" onclick="location.href='act_guestbook.php?cid=<?php echo $row['guestbook_cid'] ?>';" /></td>
   </tr>
+  </form>
 <?php
 		$c++;
 		}
@@ -236,6 +238,5 @@ if(!$c) {
 
 ?>
 </table>
-</form>
 </body>
 </html>
