@@ -227,7 +227,7 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title><?php echo $BL['be_page_title'] ?></title>
+	<title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
 	<meta http-equiv="content-type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/additional.css" rel="stylesheet" type="text/css">
@@ -273,7 +273,12 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 	  <td colspan="6"><img src="img/leer.gif" alt="" width="1" height="7"></td>
   </tr>
 	<tr>
-	  <td colspan="6"><img src="img/leer.gif" alt="" width="15" height="1"><a href="phpwcms.php" target="_top"><img src="img/backend/backend_r1_c3.jpg" alt="phpwcms v<?php echo  html_specialchars($phpwcms["release"]); ?>" width="95" height="24" border="0"></a></td>
+		<td colspan="6">
+		<div style="position:relative">
+	  		<a href="phpwcms.php" target="_top"><img src="img/backend/backend_r1_c3.jpg" alt="phpwcms v<?php echo  html_specialchars($phpwcms["release"]); ?>" width="95" height="24" border="0" hspace="15"></a>
+			<a href="<?php echo PHPWCMS_URL ?>" class="v10" style="position:absolute;right:15px;bottom:4px;color:#FFFFFF" target="_blank"><?php echo PHPWCMS_HOST ?></a>
+		</div>
+		</td>
     </tr>
 	<tr>
 	  <td colspan="6"><img src="img/leer.gif" alt="" width="1" height="7"></td>

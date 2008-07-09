@@ -80,6 +80,7 @@ $phpwcms["ftp_path"]     		= 	'/'.$phpwcms["ftp_path"].'/'  ;  // "/phpwcms_ftp/
 
 define ('PHPWCMS_TEMPLATE', 		PHPWCMS_ROOT.$phpwcms["templates"]);
 define ('PHPWCMS_URL', 				$phpwcms["site"].$phpwcms["root"]);
+define ('PHPWCMS_HOST',				parse_url(PHPWCMS_URL, PHP_URL_HOST) );
 define ('PHPWCMS_IMAGES', 			$phpwcms["content_path"].'images/');
 define ('PHPWCMS_TEMP', 			PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
 define ('PHPWCMS_CONTENT',			PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);

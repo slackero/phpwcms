@@ -234,7 +234,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<title>phpwcms: LOGIN</title>
+	<title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<meta name="robots" content="noindex, nofollow" />
 	<link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
@@ -257,7 +257,7 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
     <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="12" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="18" height="1" /><a href="index.php" target="_top"><img src="img/backend/preinfo2.jpg" alt="phpwcms" width="122" height="31" border="0" /></a></td>
+    <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/preinfo2.jpg" alt="phpwcms" width="122" height="31" border="0" hspace="18" /></a></td>
   </tr>
   <tr>
     <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7" /></td>
