@@ -83,7 +83,7 @@ $_PDF->SetAuthor( '' );
 unset($content);
 
 $_PDF_page = ob_get_contents();
-ob_clean();
+ob_end_clean();
 
 $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
 	'ƒ', 

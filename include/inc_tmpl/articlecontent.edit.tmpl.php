@@ -381,21 +381,22 @@ if(isset($result[0]['template_var'])) {
 <?php
 
 // render buttons only once and save the buffer
-
-ob_start();
-
-?>		
-<div>
-<?php
 if(!empty($content["id"])) {
 	$buttonActionLink	= 'index.php?id='.$content['article']['acat_id'].','.$content["aid"].',0,0,1,0';
 	$buttonAction  = '	<div style="float:right;margin-right:5px;padding:0;">';
 	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" ';
 	$buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
 	$buttonAction .= $BL['be_func_struct_preview']."</button></div>" . LF;
-	echo $buttonAction;
+} else {
+	$buttonAction  = '';
 }
-?>
+
+
+ob_start();
+
+?>		
+<div>
+	<?php echo $buttonAction; ?>
 	<div style="float:left;padding:0;">
 	<input name="Submit" type="submit" class="button10" value="<?php echo  $sendbutton ?>" />
 	<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
@@ -406,7 +407,7 @@ if(!empty($content["id"])) {
 <?php
 
 $_save_close_buttons = ob_get_contents();
-ob_clean();
+ob_end_clean();
 
 echo $_save_close_buttons;
 

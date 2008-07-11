@@ -1572,7 +1572,7 @@ function include_ext_php($inc_file, $t=0) {
 		ob_start();
 		@include($inc_file);
 		$ext_php_content = ob_get_contents();
-		ob_clean();
+		ob_end_clean();
 	}
 
 	return $ext_php_content;
@@ -2346,7 +2346,7 @@ function include_int_php($string) {
 	ob_start();
 	eval('echo '.$s.';');
 	$return = ob_get_contents();
-	ob_clean();
+	ob_end_clean();
 	return $return;
 }
 
@@ -2358,7 +2358,7 @@ function include_int_phpcode($string) {
 	ob_start();
 	eval($s.";");
 	$return = ob_get_contents();
-	ob_clean();
+	ob_end_clean();
 	return $return;
 }
 
