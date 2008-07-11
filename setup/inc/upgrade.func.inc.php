@@ -5,7 +5,7 @@ function parsePHPModules() {
  ob_start();
  phpinfo(INFO_MODULES);
  $s = ob_get_contents();
- ob_end_clean();
+ ob_clean();
  
  $s = strip_tags($s,'<h2><th><td>');
  $s = preg_replace('/<th[^>]*>([^<]+)<\/th>/',"<info>\\1</info>",$s);

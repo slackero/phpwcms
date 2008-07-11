@@ -163,9 +163,9 @@ if($img_thumbs) {
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td><input name="creference_width" type="text" class="f11b" id="creference_width" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["width"] ?>"></td>
+        <td><input name="creference_width" type="text" class="f11b" id="creference_width" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["width"] ?>"></td>
         <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
-        <td><input name="creference_height" type="text" class="f11b" id="creference_height" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["height"] ?>"></td>
+        <td><input name="creference_height" type="text" class="f11b" id="creference_height" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["height"] ?>"></td>
 		<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;<?php echo $BL['be_cnt_reference_border'] ?>:&nbsp;</td>
         <td><input name="creference_border" type="text" class="f11b" id="creference_border" style="width: 30px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='0';" value="<?php echo $content['reference']["border"] ?>"></td>
       </tr>
@@ -205,9 +205,9 @@ if($img_thumbs) {
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
 	    
-		<td><input name="creference_blockwidth" type="text" class="f11b" id="creference_blockwidth" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["blockwidth"] ?>"></td>
+		<td><input name="creference_blockwidth" type="text" class="f11b" id="creference_blockwidth" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["blockwidth"] ?>"></td>
         <td class="chatlist">&nbsp;x&nbsp;</td>
-        <td><input name="creference_blockheight" type="text" class="f11b" id="creference_blockheight" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["blockheight"] ?>"></td>
+        <td><input name="creference_blockheight" type="text" class="f11b" id="creference_blockheight" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["blockheight"] ?>"></td>
 		<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
         <td><input name="creference_space" type="text" class="f11b" id="creference_space" style="width: 50px;" size="2" maxlength="2" onKeyUp="if(!parseInt(this.value*1)) this.value='0';" value="<?php echo $content['reference']["space"] ?>"></td>
         <td class="chatlist">&nbsp;px&nbsp;&nbsp;<?php echo $BL['be_cnt_reference_border'] ?>:&nbsp;</td>

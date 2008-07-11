@@ -371,6 +371,52 @@ if(isset($result[0]['template_var'])) {
 	}
 	// end paginate check
 
+?>
+
+	<tr><td colspan="2" class="rowspacer"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+	
+	<tr bgcolor="#F3F5F8">
+		<td>&nbsp;</td>
+		<td style="padding:7px 0 7px 0;">
+<?php
+
+// render buttons only once and save the buffer
+
+ob_start();
+
+?>		
+<div>
+<?php
+if(!empty($content["id"])) {
+	$buttonActionLink	= 'index.php?id='.$content['article']['acat_id'].','.$content["aid"].',0,0,1,0';
+	$buttonAction  = '	<div style="float:right;margin-right:5px;padding:0;">';
+	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" ';
+	$buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
+	$buttonAction .= $BL['be_func_struct_preview']."</button></div>" . LF;
+	echo $buttonAction;
+}
+?>
+	<div style="float:left;padding:0;">
+	<input name="Submit" type="submit" class="button10" value="<?php echo  $sendbutton ?>" />
+	<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+	&nbsp; &nbsp;
+	<input name="donotsubmit" type="button" class="button10" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
+	</div>
+</div>		
+<?php
+
+$_save_close_buttons = ob_get_contents();
+ob_clean();
+
+echo $_save_close_buttons;
+
+?>	
+		</td>
+	</tr>
+
+
+
+<?php
 	// show content part specific form elements
 	
 	if($content['type'] != 30 && file_exists(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php')) {
@@ -416,24 +462,7 @@ if(isset($result[0]['template_var'])) {
 <input name="caid" type="hidden" id="caid" value="<?php echo $article["article_id"] ?>" />
 <input name="cid" type="hidden" id="cid" value="<?php echo  $content["id"] ?>" />
 <input name="ctype" type="hidden" id="ctype" value="<?php echo  $content["type"] ?>" />
-<div>
-<?php
-if(!empty($content["id"])) {
-	$buttonActionLink	= 'index.php?id='.$content['article']['acat_id'].','.$content["aid"].',0,0,1,0';
-	$buttonAction  = '	<div style="float:right;margin-right:5px;padding:0;">';
-	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" ';
-	$buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
-	$buttonAction .= $BL['be_func_struct_preview']."</button></div>" . LF;
-	echo $buttonAction;
-}
-?>
-	<div style="float:left;padding:0;">
-	<input name="Submit" type="submit" class="button10" value="<?php echo  $sendbutton ?>" />
-	<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-	&nbsp; &nbsp;
-	<input name="donotsubmit" type="button" class="button10" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
-	</div>
-</div>
+<?php echo $_save_close_buttons ?>
 		</td>
 	</tr>
 	
