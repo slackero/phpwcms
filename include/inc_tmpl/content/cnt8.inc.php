@@ -91,7 +91,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 }
 				  
 ?>				  
-		</select></td>
+	</select></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -136,9 +136,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-			<td><input name="calink_width" type="text" class="f11b" id="calink_width" style="width: 35px;" size="3" maxlength="3" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>"></td>
+			<td><input name="calink_width" type="text" class="f11b" id="calink_width" style="width: 35px;" size="3" maxlength="3" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>" /></td>
 			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-			<td><input name="calink_height" type="text" class="f11b" id="calink_height" style="width: 35px;" size="3" maxlength="3" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>"></td>
+			<td><input name="calink_height" type="text" class="f11b" id="calink_height" style="width: 35px;" size="3" maxlength="3" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>" /></td>
 			<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 			
 			<td><input type="checkbox" name="calink_crop" id="calink_crop" value="1" <?php is_checked(1, $content['alink']['alink_crop']); ?> /></td>
@@ -213,7 +213,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <td style="padding-bottom:3px;"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
-		<td rowspan="2"><select name="calink[]" size="8" multiple class="f11 listrow" id="calink" style="width: 420px" onDblClick="moveSelectedOptions(document.articlecontent.calink,document.articlecontent.calinklist,true);">
+		<td rowspan="2"><select name="calink[]" size="8" multiple="multiple" class="f11 listrow" id="calink" style="width: 420px" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
 <?php
 	  	//Auslesen der kompletten Public Artikel
 	  	$sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid ";
@@ -263,33 +263,28 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	
 		<td rowspan="2">&nbsp;</td>
 		<td valign="top">
-		<a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.calink);return false;"><img src="img/button/list_pos_up.gif" alt="" width="15" height="15" border="0"></a>
+		<a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(teaser_items);return false;"><img src="img/button/list_pos_up.gif" alt="" width="15" height="15" border="0" /></a>
 		<br />
-		<a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.calink);return false;"><img src="img/button/list_pos_down.gif" alt="" width="15" height="15" border="0"></a>
-		</td>
+		<a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(teaser_items);return false;"><img src="img/button/list_pos_down.gif" alt="" width="15" height="15" border="0" /></a></td>
 	</tr>
 	<tr>
-	  <td valign="bottom">
-	  <a href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(document.articlecontent.calink,document.articlecontent.calinklist,true);return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0"></a>
-	  </td>
-	  </tr>
+	  <td valign="bottom"><a href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>
+	 </tr>
 	</table></td>
 </tr>
 <tr id="calink_manual_1"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>  
-	  <td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_articles'] ?>:&nbsp;</td>
+    <td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_articles'] ?>:&nbsp;</td>
       <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
-		<td><select name="calinklist" size="16" multiple class="f11 listrow" id="calinklist" style="width:420px;" onDblClick="moveSelectedOptions(document.articlecontent.calinklist,document.articlecontent.calink,false);">
+		<td><select name="calinklist" size="16" multiple="multiple" class="f11 listrow" id="calinklist" style="width:420px;" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
 	  <?php echo $carticle_list; ?>
-      </select></td>
+      			</select></td>
 	  
 	  <td>&nbsp;</td>
-	  <td valign="top">
-	  <a href="javascript:;" title="<?php echo $BL['be_cnt_movearticleto'] ?>" onclick="moveSelectedOptions(document.articlecontent.calinklist,document.articlecontent.calink,false);"><img src="img/button/list_copy.gif" alt="" width="15" height="15" border="0"></a>
-	  </td>
-	  </tr>
-	  </table></td>
+	  <td valign="top"><a href="#" title="<?php echo $BL['be_cnt_movearticleto'] ?>" onclick="moveSelectedOptions(source_items,teaser_items,false);return false"><img src="img/button/list_copy.gif" alt="" width="15" height="15" border="0" /></a></td>
+	</tr>
+	</table></td>
 </tr>
 
 
@@ -300,7 +295,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<tr>
 		<td><input name="calink_max" type="text" id="calink_max" class="f11b" style="width: 35px" value="<?php 
 			echo empty($content['alink']['alink_max']) ? '' : $content['alink']['alink_max']; 
-			?>" size="5" maxlength="5"></td>
+			?>" size="5" maxlength="5" /></td>
 		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_articles'] ?></td>
 	</tr>
 	
@@ -316,7 +311,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				echo '>'.html_specialchars($indexpage['acat_name']).'</option>'.LF;
 				struct_select_list(0, 0, $content['alink']['alink_level']);
 ?>
-				</select></td>
+	</select></td>
 </tr>
 
 
@@ -362,8 +357,10 @@ window.addEvent('domready', function(){
 		}
 	});
 
-
 });
+
+var teaser_items = $('calink');
+var source_items = $('calinklist');
 
 //-->
 </script></td></tr>
