@@ -99,6 +99,63 @@ $news = & new phpwcmsNews();
 <script type="text/javascript">
 <!--
 
+function setImgIdName(file_id, file_name) {
+	if(file_id == null) var file_id=0;
+	if(file_name == null) var file_name='';
+	$('cnt_image_id').value = file_id;
+	$('cnt_image_name').value = file_name;
+	
+	showImage();
+}
+
+function showImage() {
+	var id	= parseInt($('cnt_image_id').value);
+	var img	= $('cnt_image');
+	if(id > 0) {
+		img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
+		img.style.display = '';
+	} else {
+		img.style.display = 'none';
+	}
+}
+
+function addFile(file_id, file_name) {
+	obj = $('cfile_list');
+	if(obj!=null && obj.options!=null) {
+		var newOpt = new Option(file_name, file_id);
+		obj.options.length++;
+		obj.options[obj.length-1].text  	= newOpt.text;
+		obj.options[obj.length-1].value 	= newOpt.value;
+		obj.options[obj.length-1].selected	= false;
+		if(obj.options.length > 5) {
+			obj.size = obj.options.length;
+			$('cnt_file_caption').rows = obj.size;
+		}
+	}	
+}
+
+function emptyNews() {
+	document.location.href='<?php echo $news->base_url_decoded ?>&cntid=0&action=edit';
+	return false;
+}
+
+function closeForm() {
+	document.location.href='<?php echo $news->base_url_decoded ?>';
+	return false;
+}
+
+
+// Calendar
+function aStart(date, month, year) {
+	$('calendar_start_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+}
+function aEnd(date, month, year) {
+	$('calendar_end_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+}
+function aSort(date, month, year) {
+	$('sort_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+}
+
 window.addEvent('domready', function(){
 									 
 	/* setup tooltips */
@@ -189,6 +246,7 @@ window.addEvent('domready', function(){
 		}
 	});
 	
+
 });
 
 
@@ -225,18 +283,16 @@ window.addEvent('domready', function(){
 			<tr>
 				<td><label><?php echo $BL['be_article_cnt_start'] ?></label></td>
 				<td><input name="calendar_start_date" type="text" id="calendar_start_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_date_start'] ?>" size="30" /></td>
-		<td>
-		<script language="javascript" type="text/javascript">
-		<!--
-		function aStart(date, month, year) {
-			getFieldById('calendar_start_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
-		}
-		calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
-		calStart.setMonthCombo(true);
-		calStart.setYearCombo(true);
-		//-->
-		</script>
-		&nbsp;</td>
+		<td><script type="text/javascript">
+<!--
+	
+		// Calendar start
+	var calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
+	calStart.setMonthCombo(true);
+	calStart.setYearCombo(true);
+
+//-->
+</script>&nbsp;</td>
 		<td><input name="calendar_start_time" type="text" id="calendar_start_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_start'] ?>" size="30" /></td>
 			</tr>
 			
@@ -252,18 +308,16 @@ window.addEvent('domready', function(){
 			<tr>
 				<td><label><?php echo $BL['be_article_cnt_end'] ?></label></td>
 				<td><input name="calendar_end_date" type="text" id="calendar_end_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_date_end'] ?>" size="30" /></td>
-		<td>
-		<script language="javascript" type="text/javascript">
-		<!--
-		function aEnd(date, month, year) {
-			getFieldById('calendar_end_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
-		}
-		calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
-		calEnd.setMonthCombo(true);
-		calEnd.setYearCombo(true);
-		//-->
-		</script>
-		&nbsp;</td>
+		<td><script type="text/javascript">
+<!--
+
+	var calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
+	calEnd.setMonthCombo(true);
+	calEnd.setYearCombo(true);
+	
+
+//-->
+</script>&nbsp;</td>
 		<td><input name="calendar_end_time" type="text" id="calendar_end_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_end'] ?>" size="30" /></td>
 			</tr>
 
@@ -282,18 +336,14 @@ window.addEvent('domready', function(){
 			<tr>
 				<td><label><?php echo $BL['be_sort_date'] ?></label></td>
 				<td><input name="sort_date" type="text" id="sort_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_sort_date'] ?>" size="30" /></td>
-		<td>
-		<script language="javascript" type="text/javascript">
-		<!--
-		function aSort(date, month, year) {
-			getFieldById('sort_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
-		}
-		calSort = new dynCalendar('calSort', 'aSort', 'img/dynCal/');
-		calSort.setMonthCombo(true);
-		calSort.setYearCombo(true);
-		//-->
-		</script>
-		&nbsp;</td>
+		<td><script type="text/javascript">
+<!--
+	var calSort = new dynCalendar('calSort', 'aSort', 'img/dynCal/');
+	calSort.setMonthCombo(true);
+	calSort.setYearCombo(true);
+
+//-->
+</script>&nbsp;</td>
 		<td><input name="sort_time" type="text" id="sort_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_sort_time'] ?>" size="30" /></td>
 			</tr>	
 			
@@ -357,7 +407,7 @@ window.addEvent('domready', function(){
 			  <td><input name="cnt_image_zoom" type="checkbox" id="cnt_image_zoom" value="1" <?php is_checked(1, $news->data['cnt_image']['zoom']); ?> /></td>
 				  <td><label for="cnt_image_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
 
-				  <td><input name="cnt_image_lightbox" type="checkbox" id="cnt_image_lightbox" value="1" <?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> onchange="if(this.checked){getObjectById('cnt_image_zoom').checked=true;}" /></td>
+				  <td><input name="cnt_image_lightbox" type="checkbox" id="cnt_image_lightbox" value="1" <?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> onchange="if(this.checked){$('cnt_image_zoom').checked=true;}" /></td>
 				  <td><label for="cnt_image_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>		
 				</tr>
 				</table>
@@ -380,59 +430,6 @@ window.addEvent('domready', function(){
 			</tr>
 	
 		</table>
-
-		<script type="text/javascript">
-		<!--
-		
-		showImage();
-		
-		function setImgIdName(file_id, file_name) {
-			if(file_id == null) file_id=0;
-			if(file_name == null) file_name='';
-			getObjectById('cnt_image_id').value = file_id;
-			getObjectById('cnt_image_name').value = file_name;
-			
-			showImage();
-		}
-		
-		function showImage() {
-			id	= parseInt(getObjectById('cnt_image_id').value);
-			img	= getObjectById('cnt_image');
-			if(id > 0) {
-				img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
-				img.style.display = '';
-			} else {
-				img.style.display = 'none';
-			}
-		}
-		
-		function addFile(file_id, file_name) {
-			obj = getObjectById('cfile_list');
-			if(obj!=null && obj.options!=null) {
-				newOpt = new Option(file_name, file_id);
-				obj.options.length++;
-				obj.options[obj.length-1].text  	= newOpt.text;
-				obj.options[obj.length-1].value 	= newOpt.value;
-				obj.options[obj.length-1].selected	= false;
-				if(obj.options.length > 5) {
-					obj.size = obj.options.length;
-					getObjectById('cnt_file_caption').rows = obj.size;
-				}
-			}	
-		}
-		
-		function emptyNews() {
-			document.location.href='<?php echo $news->base_url_decoded ?>&cntid=0&action=edit';
-			return false;
-		}
-		
-		function closeForm() {
-			document.location.href='<?php echo $news->base_url_decoded ?>';
-			return false;
-		}
-	
-		//-->
-		</script>
 	</div>
 	
 	<div class="paragraph border_bottom">
@@ -562,8 +559,14 @@ window.addEvent('domready', function(){
 		<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
 	
 	</p>
+<script type="text/javascript">
+<!--
+	
+	// Show image
+	showImage();
 
-
+//-->
+</script>
 </form>
 <?php 
 

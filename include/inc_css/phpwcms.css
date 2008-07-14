@@ -208,6 +208,8 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 }
 .dynCalendar_header select {
 	font-size: 10px !important;
+	font-size: 10px;
+	width: auto;
 }
 .dynCalendar_dayname {
 	background-color: #c0c0c0;
@@ -233,12 +235,9 @@ td.dynCalendar_day:hover, td.dynCalendar_today:hover {
 	background-color: #FFCC33;
 }
 
-
-
 .dynCalendar select {
 	font-size: 10px !important;
 	width: auto !important;
-	width: auto;
 }
 
 h1 {

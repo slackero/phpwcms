@@ -240,7 +240,7 @@
 				selected = (i == thisMonth.getFullYear() ? 'selected="selected"' : '');
 				yearComboOptions += '<option value="' + i + '" ' + selected + '>' + i + '</option>';
 			}
-			yearCombo = '<select style="border: 1px groove" name="years" onchange="' + this.objName + '.show(' + this.objName + '.currentMonth, this.options[this.selectedIndex].value)">' + yearComboOptions + '</select>';
+			yearCombo = '<select name="years" onchange="' + this.objName + '.show(' + this.objName + '.currentMonth, this.options[this.selectedIndex].value)">' + yearComboOptions + '</select>';
 		} else {
 			yearCombo = thisMonth.getFullYear();
 		}
