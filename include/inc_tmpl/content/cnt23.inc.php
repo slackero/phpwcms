@@ -680,10 +680,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 			
 								foreach($mathspam as $item_key => $item) {
 								
-									$content['form']["fields"][$field_counter]['value'] .= $item_key . ' = ' . $item . LF;
+									$content['form']["fields"][$key]['value'] .= $item_key . ' = ' . $item . LF;
 								
 								}								
-								$content['form']["fields"][$field_counter]['value'] = trim($content['form']["fields"][$field_counter]['value']);
+								$content['form']["fields"][$key]['value'] = trim($content['form']["fields"][$key]['value']);
 		}
 		
 		echo ')"><img src="img/button/arrow_opened.gif" alt="" border="0" /></a>';
