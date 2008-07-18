@@ -985,7 +985,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									
 									$mathspam_default = isset($_POST[$POST_name.'_result']) ? trim($_POST[$POST_name.'_result']) : '';
 									
-									if($mathspam_result != $mathspam_default  || ($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == ''))) {
+									if($mathspam_result != $mathspam_default  || ($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] === ''))) {
 										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? 'Captcha error' : $cnt_form["fields"][$key]['error'];
 									}
 								}
