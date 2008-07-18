@@ -491,8 +491,8 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$mathspam = array(
 									'+'		=> $BL['be_cnt_field']['summing'],
 									'-'		=> $BL['be_cnt_field']['subtract'],
-									'×'		=> $BL['be_cnt_field']['multiply'],
-									'÷'		=> $BL['be_cnt_field']['divide'],
+									'*'		=> $BL['be_cnt_field']['multiply'],
+									':'		=> $BL['be_cnt_field']['divide'],
 									'calc'	=> $BL['be_cnt_field']['calculation']
 								);
 
@@ -502,11 +502,11 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								if(isset($content['form']["fields"][$field_counter]['value']['-'])) {
 									$mathspam['-'] = $content['form']["fields"][$field_counter]['value']['-'];
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['×'])) {
-									$mathspam['×'] = $content['form']["fields"][$field_counter]['value']['×'];
+								if(isset($content['form']["fields"][$field_counter]['value']['*'])) {
+									$mathspam['*'] = $content['form']["fields"][$field_counter]['value']['*'];
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['÷'])) {
-									$mathspam['÷'] = $content['form']["fields"][$field_counter]['value']['÷'];
+								if(isset($content['form']["fields"][$field_counter]['value'][':'])) {
+									$mathspam[':'] = $content['form']["fields"][$field_counter]['value'][':'];
 								}
 								if(isset($content['form']["fields"][$field_counter]['value']['calc'])) {
 									$mathspam['calc'] = $content['form']["fields"][$field_counter]['value']['calc'];

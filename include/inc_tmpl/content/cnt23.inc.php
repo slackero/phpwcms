@@ -40,9 +40,9 @@ function initMathSpam() {
 	$BL['be_cnt_field']['summing'].
 	'\n- = '.
 	$BL['be_cnt_field']['subtract'].
-	'\n× = '.
+	'\n* = '.
 	$BL['be_cnt_field']['multiply'].
-	'\n÷ = '.
+	'\n: = '.
 	$BL['be_cnt_field']['divide'].
 	'\ncalc = '.
 	$BL['be_cnt_field']['calculation'].

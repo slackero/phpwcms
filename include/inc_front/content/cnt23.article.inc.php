@@ -1006,7 +1006,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_field .= ' />';
 								
 								// calculate the result and the question
-								$mathspam_calculations	 = array('+'=>'+', '-'=>'-', '*'=>'×', '/'=>'÷');
+								$mathspam_calculations	 = array('+'=>'+', '-'=>'-', '*'=>'*', '/'=>':');
 								$mathspam_operation		 = array_rand($mathspam_calculations, 1);
 								$mathspam_operator		 = $mathspam_calculations[ $mathspam_operation ];
 								$mathspam_number_1		 = rand(0, 10);
