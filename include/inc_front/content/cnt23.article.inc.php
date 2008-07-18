@@ -1009,10 +1009,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$mathspam_calculations	 = array('+'=>'+', '-'=>'-', '*'=>'*', '/'=>':');
 								$mathspam_operation		 = array_rand($mathspam_calculations, 1);
 								$mathspam_operator		 = $mathspam_calculations[ $mathspam_operation ];
-								$mathspam_number_1		 = rand(0, 10);
+								$mathspam_number_1		 = rand( $mathspam_operation === '/' ? 1 : 0 , 10);
 								
 								// fix divisions to avoid fractional results
-								if($mathspam_operation === '/' && $mathspam_number_1 > 0) {
+								if($mathspam_operation === '/') {
 								
 									switch($mathspam_number_1) {
 									
