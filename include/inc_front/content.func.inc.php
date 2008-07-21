@@ -173,7 +173,7 @@ $content["cat_id"]	= $aktion[0];
 $content['body_id']	= $content["cat_id"];
 
 // check if current level is a redirect level
-if($content['struct'][ $content["cat_id"] ]['acat_redirect'] != '') {
+if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
 	$redirect = get_redirect_link( $content['struct'][ $content["cat_id"] ]['acat_redirect'] );
 	headerRedirect($redirect['link'], 301);
 }
