@@ -87,19 +87,21 @@ if(!empty($phpwcms['Bad_Behavior'])) {
 	require PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior/bad-behavior-phpwcms.php';
 }
 
-$phpwcms["templates"]   = TEMPLATE_PATH;
+$phpwcms["templates"]    = TEMPLATE_PATH;
 
-$content['page_start']  = PHPWCMS_DOCTYPE;
-$content['page_start'] .= '<!--
+$phpwcms['DOCTYPE_LANG'] = str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG );
+
+$content['page_start']   = str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE );
+$content['page_start']  .= '<!--
 	phpwcms | free open source content management system
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
 	phpwcms is copyright 2003-'.date('Y').' of Oliver Georgi. Extensions are copyright of
 	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'//-->'.LF;
-$content['page_start'] .= '<title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
-$content['page_start'] .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
-$content['page_start'] .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
-$content['page_start'] .= '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>'.LF;
-$content['page_start'] .= get_body_attributes($pagelayout);
+$content['page_start']  .= '<title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
+$content['page_start']  .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
+$content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
+$content['page_start']  .= '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>'.LF;
+$content['page_start']  .= get_body_attributes($pagelayout);
 
 // now add all CSS files here
 if(count($block['css'])) {
