@@ -203,22 +203,23 @@ function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlentit
 // build a URL query string based on current values
 function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=') {
 
-	$queryString = array();
+	$queryString	= array();
+	$_getVarTemp	= $GLOBALS['_getVar'];
 	
-	// replace first value by the given in $id_alias
+	// replace first value with $id_alias
 	if($id_alias !== '') {
 
 		$id_alias		= explode($bind, $id_alias, 2);
 		$id_alias[0]	= trim($id_alias[0]);
 
 		if($id_alias[0] !== '') {
-			$id_alias[1]		= isset($id_alias[1]) ? trim($id_alias[1]) : '';
-			array_shift($GLOBALS['_getVar']);
-			$GLOBALS['_getVar']	= array($id_alias[0] => $id_alias[1]) + $GLOBALS['_getVar'];
+			$id_alias[1] = isset($id_alias[1]) ? trim($id_alias[1]) : '';
+			array_shift($_getVarTemp);
+			$_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
 		}
 	}
 
-	$pairs = count($add) ? array_merge($GLOBALS['_getVar'], $add) : $GLOBALS['_getVar'];
+	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
 	foreach($remove as $value) {
 		unset($pairs[$value]);
