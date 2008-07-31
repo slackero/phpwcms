@@ -168,6 +168,7 @@ if(isset($_GET['print'])) {
 
 }
 
+
 //define the current article category ID
 $content["cat_id"]	= $aktion[0];
 $content['body_id']	= $content["cat_id"];
@@ -245,23 +246,24 @@ if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
 // -------------------------------------------------------------
 
 // retrieve pagelayout info
-if($aktion[2] == 0) {
-
-	//check how the content should be rendered based on pagelayout render value
-	$block["layout"] = intval($block["layout"]);
-	$sql  = "SELECT pagelayout_var FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ";
-	$sql .= $block["layout"] ? "AND pagelayout_id=".$block["layout"] : "ORDER BY pagelayout_default DESC";
-	$sql .= " LIMIT 1";
-	$result = _dbQuery($sql);
-	if(isset($result[0]['pagelayout_var'])) {
-		$pagelayout = @unserialize($result[0]['pagelayout_var']);
+// check how the content should be rendered based on pagelayout render value
+$block["layout"] = intval($block["layout"]);
+$sql  = "SELECT pagelayout_var FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ";
+$sql .= $block["layout"] ? "AND pagelayout_id=".$block["layout"] : "ORDER BY pagelayout_default DESC";
+$sql .= " LIMIT 1";
+$result = _dbQuery($sql);
+if(isset($result[0]['pagelayout_var'])) {
+	$pagelayout = @unserialize($result[0]['pagelayout_var']);
+	// if print action
+	if($aktion[2] === 1) {
+		$pagelayout = array('layout_title' => $pagelayout['layout_title'], 'layout_customblocks' => $pagelayout['layout_customblocks']);
 	}
-	if(empty($pagelayout)) {
-		// if no pagelayout could be found
-		die('There is no pagelayout available. Please <a href="'.
-			PHPWCMS_URL.'login.php">login</a> to the admin section and <a href="'.
-			PHPWCMS_URL.'phpwcms.php?do=admin&p=8">create one here</a>!');
-	}
+}
+if(empty($pagelayout)) {
+	// if no pagelayout could be found
+	die('There is no pagelayout available. Please <a href="'.
+		PHPWCMS_URL.'login.php">login</a> to the admin section and <a href="'.
+		PHPWCMS_URL.'phpwcms.php?do=admin&p=8">create one here</a>!');
 }
 // Pagetitle
 $content["pagetitle"] = empty($pagelayout["layout_title"]) ? '' : $pagelayout["layout_title"];
@@ -373,7 +375,7 @@ $cache_searchable = $content['struct'][$content['cat_id']]['acat_nosearch'];
 
 $content['list_mode'] = true;
 
-if($aktion[4]==1 && $aktion[1]) {
+if($aktion[1]) {
 
 	// render page based on article
 	include_once(PHPWCMS_ROOT."/include/inc_front/content.article.inc.php");
@@ -520,7 +522,7 @@ $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
 // put in custom rendered content
 foreach($content['CB'] as $key => $value) {
 	//first check content of custom block in current template
-	if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] != '' && $value != '') {
+	if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '' && $value !== '') {
 		$value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
 	}
 	$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
