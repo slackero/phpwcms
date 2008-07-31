@@ -980,8 +980,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = trim(is_numeric($_POST[$POST_name])) ? intval($_POST[$POST_name]) : -1;
 
-									$mathspam_result  = $POST_val[$POST_name] * 123345;
-									$mathspam_result  = md5( PHPWCMS_URL . $mathspam_result );
+									$mathspam_result  = $POST_val[$POST_name] * 123345 * strlen($phpwcms['db_user']);
+									$mathspam_result  = md5( PHPWCMS_URL . md5($phpwcms['db_pass']) . $mathspam_result );
 									
 									$mathspam_default = isset($_POST[$POST_name.'_result']) ? trim($_POST[$POST_name.'_result']) : '';
 									
@@ -1072,8 +1072,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									case '*': $mathspam_result = $mathspam_number_1 * $mathspam_number_2; break;
 								
 								}
-								$mathspam_result = intval($mathspam_result) * 123345;
-								$mathspam_result = md5( PHPWCMS_URL . $mathspam_result );
+								$mathspam_result = intval($mathspam_result) * 123345 * strlen($phpwcms['db_user']);
+								$mathspam_result = md5( PHPWCMS_URL . md5($phpwcms['db_pass']) . $mathspam_result );
 																
 								// hidden field, contains the hashed result
 								$form_field .= '<input type="hidden" name="'.$form_name.'_result" value="'.$mathspam_result.'" />';

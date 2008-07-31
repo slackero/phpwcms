@@ -1056,10 +1056,10 @@ function dumpVar($var, $commented=false) {
 					echo "\n//-->\n";
 					return NULL;
 					break;
-		case 2:		return '<pre>'.print_r($var, true).'</pre>';
+		case 2:		return '<pre>'.html_entities(print_r($var, true)).'</pre>';
 					break;
 		default: 	echo '<pre>';
-					print_r($var);
+					echo html_entities(print_r($var, true));
 					echo '</pre>';
 					return NULL;
 	}
