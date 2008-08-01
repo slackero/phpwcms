@@ -37,6 +37,7 @@ $content['redirect']			= array('code' => '');
 $content['all_keywords']		= '';
 $content['globalRT']			= array();
 $content['aId_CpPage']			= 0; // set default content part pagination page (0 and 1) are the same
+$content['CpTrigger']			= array(); // array to hold content part trigger functions
 $pagelayout						= array();
 $no_content_for_this_page		= 0;
 $alias							= '';

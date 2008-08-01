@@ -479,6 +479,9 @@ function showSelectedContent($param='') {
 					
 					//Maybe content part ID should b used inside templates or for something different
 					$CNT_TMP  = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
+					
+					// trigger content part functions
+					$CNT_TMP = trigger_cp($CNT_TMP, $crow);
 			
 					// Space after
 					$CNT_TMP .= $space['after'];
@@ -789,6 +792,63 @@ function parse_downloads($match) {
 
 	return '';
 
+}
+
+/**
+ * process content part trigger functions
+ **/
+function trigger_cp($CP, & $CPDATA) {
+	foreach($GLOBALS['content']['CpTrigger'] as $trigger_function) {
+		if(function_exists($trigger_function)) {
+			$CP = $trigger_function($CP, $CPDATA);
+		}
+	}
+	dumpVar($GLOBALS['content']['CpTrigger']);
+	return $CP;
+}
+
+/**
+ * register content part trigger function
+ * @param	string	$function	name of the trigger function
+ * @param	string	$method		method how trigger function should be registered
+ *								LAST	- register as last, multiple possible
+ *								FIRST	- register as first, multiple possible
+ *								RFIRST	- if not registered as first
+ *								RLAST	- if not registered as last
+ *
+ * Good place to place custom trigger function is
+ * /template/inc_script/frontend_init
+ *
+ *   function replace_cp_word($text, & $data) {
+ *       return str_replace('12345', '*12345 replaced by CPID:'.$data['acontent_id'].'*', $text);
+ *   }
+ *   register_cp_trigger('replace_cp_word');
+ *
+ **/
+function register_cp_trigger($function='', $method='LAST') {
+	if(is_string($function)) {
+		switch($method) {
+			case 'FIRST': 	
+				array_unshift($GLOBALS['content']['CpTrigger'], $function);
+				break;
+		
+			case 'RFIRST':
+				if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
+					array_unshift($GLOBALS['content']['CpTrigger'], $function);
+				}
+				break;
+				
+			case 'RLAST':
+				if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
+					array_push($GLOBALS['content']['CpTrigger'], $function);
+				}
+				break;
+
+			case 'LAST':
+			default:
+				array_push($GLOBALS['content']['CpTrigger'], $function);
+		}
+	}
 }
 
 ?>

@@ -513,6 +513,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			//Maybe content part ID should b used inside templates or for something different
 			$CNT_TMP = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
 			
+			// trigger content part functions
+			$CNT_TMP = trigger_cp($CNT_TMP, $crow);
+			
 			//check if PHP replacent tags are allowed for content
 			if(empty($phpwcms["allow_cntPHP_rt"])) {
 				$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
