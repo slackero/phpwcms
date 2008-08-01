@@ -977,8 +977,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			case 'mathspam':	/*
 								 * Math Spam Protect
 								 */
-								if($POST_DO && isset($_POST[$POST_name])) {
-									$POST_val[$POST_name] = trim(is_numeric($_POST[$POST_name])) ? intval($_POST[$POST_name]) : -1;
+								if($POST_DO) {
+
+									$POST_val[$POST_name] = isset($_POST[$POST_name]) && trim(is_numeric($_POST[$POST_name])) ? intval($_POST[$POST_name]) : -1;
 
 									$mathspam_result  = $POST_val[$POST_name] * 123345 * strlen($phpwcms['db_user']);
 									$mathspam_result  = md5( PHPWCMS_URL . md5($phpwcms['db_pass']) . $mathspam_result );
@@ -986,7 +987,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$mathspam_default = isset($_POST[$POST_name.'_result']) ? trim($_POST[$POST_name.'_result']) : '';
 									
 									if($mathspam_result != $mathspam_default  || ($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] === ''))) {
-										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? 'Captcha error' : $cnt_form["fields"][$key]['error'];
+										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? 'Math spam protection error' : $cnt_form["fields"][$key]['error'];
 									}
 								}
 
@@ -1062,6 +1063,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$mathspam_question		 = $cnt_form["fields"][$key]['value'][ $mathspam_operator ];
 								$mathspam_question		.= ' <span class="calc">' . $mathspam_number_1 . '&nbsp;';
 								$mathspam_question		.= html_entities( $mathspam_operator );
+								//$mathspam_question		.= '<i style="display:none;">(%'.mt_rand(0,10000).')</i>';
 								$mathspam_question		.= '&nbsp;' . $mathspam_number_2 . '</span>';
 								
 								switch($mathspam_operation) {

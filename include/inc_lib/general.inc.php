@@ -1293,6 +1293,19 @@ function convertDecChar($decChar) {
 	return $decChar;
 }
 
+function is_html($string='') {
+	$length_1 = strlen($string);
+	$length_2 = strlen(strip_tags($string));
+	if($length_1 != $length_2) {
+		return true;
+	}
+	$length_2 = strlen(decode_entities($string));
+	if($length_1 != $length_2) {
+		return true;
+	}	
+	return false;
+}
+
 function stripped_cache_content($page='') {
 	// clean up html page
 	$page = preg_replace('@<script[^>]*?>.*?</script>@si', '', $page);
