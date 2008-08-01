@@ -803,7 +803,6 @@ function trigger_cp($CP, & $CPDATA) {
 			$CP = $trigger_function($CP, $CPDATA);
 		}
 	}
-	dumpVar($GLOBALS['content']['CpTrigger']);
 	return $CP;
 }
 
