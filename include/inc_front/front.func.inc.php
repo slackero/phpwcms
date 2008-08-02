@@ -2563,6 +2563,7 @@ function include_url($url) {
 			$include_urlparts['path'] = str_replace("\\", '/', $include_urlparts['path']);
 		}
 		$k = @file_get_contents($url);
+		
 		if($k) {
 			// now check against charset
 			if(strpos($k, 'charset=') || strpos($k, 'CHARSET=')) {
@@ -2576,11 +2577,11 @@ function include_url($url) {
 					$charset = trim(str_replace(array('"', "'", '/', 'content=', ' ', '>'), '', $charset));
 				}
 			}
-
-			$k = preg_replace("/.*<body[^>]*?".">(.*?)<\/body>.*/si", "$1", $k);
+			$k = preg_replace('/.*?<body[^>]*?'.'>(.*?)<\/body>.*?/si', "$1", $k);
 			$k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
 			$k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
 			$k = trim($k);
+			$k = sanitize($k, array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
 			$k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);
 			
 			// now write or update cache file in case there is timeout or content
