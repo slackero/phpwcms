@@ -70,7 +70,7 @@ FCKConfig.ProcessNumericEntities = false ;
 
 FCKConfig.AdditionalNumericEntities = ''  ;		// Single Quote: "'"
 
-FCKConfig.FillEmptyBlocks	= true ;
+FCKConfig.FillEmptyBlocks	= false ;
 
 FCKConfig.FormatSource		= true ;
 FCKConfig.FormatOutput		= true ;

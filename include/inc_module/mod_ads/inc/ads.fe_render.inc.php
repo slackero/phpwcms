@@ -118,7 +118,7 @@ function renderAds($match) {
 				if(empty($ad['adcampaign_data']['image']) || !is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
 					return '';
 				}
-				$ad_imgsrc	 = @htmlentities($ad_imgsrc, ENT_QUOTES, PHPWCMS_CHARSET);
+				$ad_imgsrc	 = html_entities($ad_imgsrc);
 				$ad_media	.= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata.'"';
 				$ad_media	.= $ad_title;
 				$ad_media	.= $ad['adcampaign_data']['target'] ? ' target="'.$ad['adcampaign_data']['target'].'"' : '';
@@ -140,7 +140,7 @@ function renderAds($match) {
 				$ad_media	.= $ad['adcampaign_data']['target'] ? ' target="'.$ad['adcampaign_data']['target'].'"' : '';
 				$ad_media	.= '>';
 				if(is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
-					$ad_media	.= '<img src="'. @htmlentities($ad_imgsrc, ENT_QUOTES, PHPWCMS_CHARSET) .'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
+					$ad_media	.= '<img src="'. html_entities($ad_imgsrc) .'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
 				} else {
 					$ad_media	.= $ad_title;
 				}

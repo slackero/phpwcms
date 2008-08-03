@@ -32,7 +32,7 @@ function shop_url($get='', $type='htmlentities') {
 	if(empty($type) || $type != 'htmlentities') {
 		$base = str_replace('&amp;', '&', MODULE_HREF);
 	} else {
-		$get = htmlentities($get);
+		$get = html_entities($get);
 	}
 	return $base.$get;
 }

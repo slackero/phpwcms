@@ -56,7 +56,7 @@ $_SESSION["list_zaehler"] = 0;
 
 //Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
-	   "f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 LIMIT 1;";
+	   "f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 LIMIT 1";
 if($result = mysql_query($sql, $db) or die ("error while counting user files")) {
 	if($row = mysql_fetch_row($result)) $count_user_files = $row[0];
 	mysql_free_result($result);

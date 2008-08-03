@@ -98,22 +98,22 @@ $sql_error = array();
 // first create db tables
 if(!_dbQuery($sql[0], 'CREATE')) {
 
-	$sql_error[0] = '<p class="error">Error creating <b>banner ads formats</b> initial database table: '.@htmlentities(@mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET).'</p>';
+	$sql_error[0] = '<p class="error">Error creating <b>banner ads formats</b> initial database table: '.html_entities(@mysql_error()).'</p>';
 
 }
 if(!_dbQuery($sql[1], 'CREATE')) {
 
-	$sql_error[1] = '<p class="error">Error creating <b>banner ads campaign</b> initial database table: '.@htmlentities(@mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET).'</p>';
+	$sql_error[1] = '<p class="error">Error creating <b>banner ads campaign</b> initial database table: '.html_entities(@mysql_error()).'</p>';
 
 }
 if(!_dbQuery($sql[2], 'CREATE')) {
 
-	$sql_error[2] = '<p class="error">Error creating <b>banner ads tracking</b> initial database table: '.@htmlentities(@mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET).'</p>';
+	$sql_error[2] = '<p class="error">Error creating <b>banner ads tracking</b> initial database table: '.html_entities(@mysql_error()).'</p>';
 
 }
 if(!_dbQuery($sql[3], 'CREATE')) {
 
-	$sql_error[3] = '<p class="error">Error creating <b>banner ad place</b> initial database table: '.@htmlentities(@mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET).'</p>';
+	$sql_error[3] = '<p class="error">Error creating <b>banner ad place</b> initial database table: '.html_entities(@mysql_error()).'</p>';
 
 }
 
@@ -122,7 +122,7 @@ if(!isset($sql_error[0]) && !_dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcm
 
 	@_dbQuery($sql[4], 'INSERT');
 	if(@mysql_error()) {
-		$sql_error[4] = '<p class="error">Error inserting default <b>banner ads formats</b> entries: '.@htmlentities(@mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET).'</p>';	
+		$sql_error[4] = '<p class="error">Error inserting default <b>banner ads formats</b> entries: '.html_entities(@mysql_error()).'</p>';	
 	}
 }
 

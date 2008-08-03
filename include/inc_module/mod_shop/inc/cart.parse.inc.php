@@ -27,8 +27,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-$order_process  = str_replace('{CURRENCY_SYMBOL}', @htmlentities($_shopPref['shop_pref_currency'], ENT_QUOTES, PHPWCMS_CHARSET), $order_process);
-$order_process  = str_replace('{WEIGHT_UNIT}', @htmlentities($_shopPref['shop_pref_unit_weight'], ENT_QUOTES, PHPWCMS_CHARSET), $order_process);
+$order_process  = str_replace('{CURRENCY_SYMBOL}', html_entities($_shopPref['shop_pref_currency']), $order_process);
+$order_process  = str_replace('{WEIGHT_UNIT}', html_entities($_shopPref['shop_pref_unit_weight']), $order_process);
 
 $subtotal['float_net']		= $subtotal['net'];
 $subtotal['float_gross']	= $subtotal['gross'];

@@ -88,8 +88,8 @@ function html_despecialchars($h='') {
 	return $h;
 }
 
-function html_entities($string='') {
-	return @htmlentities($string, ENT_QUOTES, PHPWCMS_CHARSET);
+function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
+	return @htmlentities($string, $quote_mode, $charset);
 }
 
 function trimhtml($h='') {
@@ -1517,7 +1517,7 @@ function makeCharsetConversion($string='', $in_charset='utf-8', $out_charset='ut
 
 function doHtmlEntityPHPCleanUp($string, $charset) {
 
-	$string = @htmlentities($string, ENT_QUOTES, $charset);
+	$string = html_entities($string);
 	return decode_entities($string);
 
 }

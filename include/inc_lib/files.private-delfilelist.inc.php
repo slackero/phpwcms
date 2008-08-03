@@ -31,7 +31,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //Listing der gelöschten Dateien
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_uid=".$_SESSION["wcs_user_id"].
-			" AND f_kid=1 AND f_trash=1 ORDER BY f_name;";
+			" AND f_kid=1 AND f_trash=1 ORDER BY f_name";
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 	$file_durchlauf = 0;
 	while($file_row = mysql_fetch_array($file_result)) {

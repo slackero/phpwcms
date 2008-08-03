@@ -312,7 +312,7 @@ ob_start();
 <form action="login.php" method="post" name="login_formular" id="login_formular" style="margin:0;padding:0;" onsubmit="return login(this);" autocomplete="off">
 <input type="hidden" name="json" id="json" value="0" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
-<input type="hidden" name="ref_url" value="<?php echo htmlentities($ref_url) ?>" />
+<input type="hidden" name="ref_url" value="<?php echo html_entities($ref_url) ?>" />
 <input name="form_aktion" type="hidden" id="form_aktion" value="login" />
 <?php 
 	  

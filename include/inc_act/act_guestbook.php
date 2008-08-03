@@ -71,7 +71,6 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
 			$sql .= "guestbook_url='".aporeplace($gburl)."', ";
 			$sql .= "guestbook_show='".$gbshow."' WHERE ";
 			$sql .= "guestbook_cid='".$gbcid."' AND guestbook_id='".$gbid."' LIMIT 1;";
-			//echo htmlentities($sql, ENT_QUOTES, PHPWCMS_CHARSET);
 			mysql_query($sql, $db);
 		}
 	}

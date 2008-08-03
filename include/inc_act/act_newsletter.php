@@ -39,7 +39,7 @@ if(!empty($_GET['i'])) {
 	
 	$verify		= explode(':', base64_decode(clean_slweg($_GET["i"])));
 	$email		= empty($verify[2]) ? '?' : $verify[2];
-	$email		= @htmlentities(strip_tags($email), ENT_QUOTES, PHPWCMS_CHARSET);
+	$email		= @html_entities(strip_tags($email));
 
 	if(isset($verify[1]) && ($verify[0] == 'V' || $verify[0] == 'D')) {
 	

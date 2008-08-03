@@ -38,7 +38,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		
 			<tr>
-				<td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo htmlentities($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo html_entities($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td class="chatlist">&nbsp;&nbsp;EUR, USD, &#8364;, $, &pound;, &yen;</td>
 			</tr>
 				
@@ -216,7 +216,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_terms'] ?>:&nbsp;</td>
 		<td><textarea name="pref_terms" id="pref_terms" class="v12 width375" onchange="enableSubmit();" rows="10"><?php 
 
-		echo $plugin['data']['shop_pref_terms_format'] ? @htmlentities($plugin['data']['shop_pref_terms'], ENT_QUOTES, PHPWCMS_CHARSET) : html_specialchars($plugin['data']['shop_pref_terms']);
+		echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html_specialchars($plugin['data']['shop_pref_terms']);
 	
 		?></textarea></td>
 	</tr>

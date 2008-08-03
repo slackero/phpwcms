@@ -702,7 +702,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 
 function convert2html($matches) {
 	if(isset($matches[1])) {
-		return htmlentities($matches[1]);
+		return html_entities($matches[1]);
 	}
 }
 

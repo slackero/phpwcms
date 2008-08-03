@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //Listing eventuell im Verzeichnis enthaltener Dateien
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$_SESSION["wcs_user_id"].
-			" AND f_kid=1 AND f_trash=0 ORDER BY f_name;";
+			" AND f_kid=1 AND f_trash=0 ORDER BY f_name";
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 	$file_durchlauf = 0;
 	$zieldatei = "phpwcms.php?do=files&amp;f=0";

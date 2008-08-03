@@ -31,7 +31,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 		   "f_pid=".intval($pid)." AND ".
 		   "f_public=1 AND f_aktiv=1 AND ".
 		   "f_uid=".intval($userID)." AND ".
-		   "f_kid=0 AND f_trash=0 ORDER BY f_name;";
+		   "f_kid=0 AND f_trash=0 ORDER BY f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 		
@@ -45,7 +45,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 					 "f_pid=".$row["f_id"]." AND ".
 					 "f_uid=".intval($userID)." AND ".
 					 "f_public=1 AND f_aktiv=1 AND ".
-					 "f_trash=0 LIMIT 1;";
+					 "f_trash=0 LIMIT 1";
 		if($count_result = mysql_query($count_sql, $dbcon)) {
 			if($count_row = mysql_fetch_row($count_result)) {
 				$count = "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">".
@@ -79,7 +79,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 			
 			//Listing eventuell im Verzeichnis enthaltener Dateien
 			$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_uid=".intval($userID).
-						" AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name;";
+						" AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name";
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {

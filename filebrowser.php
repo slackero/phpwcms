@@ -252,7 +252,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	$file_sql .= "f_public=1 AND f_aktiv=1 ";
 	$file_sql .= "AND f_kid=1 AND f_trash=0 ORDER BY f_name";
 	
-	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br>".@htmlentities($file_sql, ENT_QUOTES, PHPWCMS_CHARSET))) {
+	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br>".html_entities($file_sql))) {
 		$file_durchlauf = 0;
 		
 		if(empty($_SESSION['image_browser_article'])) {
@@ -410,7 +410,7 @@ function folder_list($pid, $dbcon, $vor, $zieldatei) {
 	$pid = intval($pid);
 	$sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE ".
 		   "f_pid=".intval($pid)." AND f_public=1 AND f_aktiv=1 AND ".
-		   "f_kid=0 AND f_trash=0 ORDER BY f_name;"; //"f_uid=".intval($userID)." AND ".
+		   "f_kid=0 AND f_trash=0 ORDER BY f_name"; //"f_uid=".intval($userID)." AND ".
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 	
@@ -424,7 +424,7 @@ function folder_list($pid, $dbcon, $vor, $zieldatei) {
 		$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
 					 "f_pid=".$row["f_id"].
 					 " AND f_public=1 AND f_aktiv=1 AND ".
-					 "f_trash=0 LIMIT 1;"; //"f_uid=".intval($userID)." AND ".
+					 "f_trash=0 LIMIT 1";
 		if($count_result = mysql_query($count_sql, $dbcon)) {
 			if($count_row = mysql_fetch_row($count_result)) {
 				$count = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="'.$zieldatei."folder=".$row["f_id"].

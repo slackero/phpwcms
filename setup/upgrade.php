@@ -217,7 +217,7 @@ if($do) {
 				$value = utf8_encode($value);
 			}
 		
-			if(!mysql_query($value)) echo '<span class="error">ERROR: '.@htmlentities(mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET)." -&gt; </span>";
+			if(!mysql_query($value)) echo '<span class="error">ERROR: '.html_entities(@mysql_error())." -&gt; </span>";
 			echo html_specialchars($value).";\n";
 		}
 	}

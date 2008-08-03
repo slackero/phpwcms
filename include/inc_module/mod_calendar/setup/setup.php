@@ -39,7 +39,7 @@ if(_dbQuery($sql, 'CREATE')) {
 
 	echo '<p class="title">Calendar setup</p>';
 	echo '<p class="error">Error creating <b>calendar</b> initial database table:</p>';
-	echo '<p>'.@htmlentities(@mysql_error(), ENT_QUOTES, PHPWCMS_CHARSET).'</p>';
+	echo '<p>'.html_entities(@mysql_error()).'</p>';
 
 }
 

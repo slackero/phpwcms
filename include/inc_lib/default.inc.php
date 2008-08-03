@@ -50,8 +50,10 @@ if (!empty($phpwcms['header_XML']) && $_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' 
 $phpwcms['DOC_ROOT'] = rtrim( str_replace("\\", '/', $phpwcms['DOC_ROOT']), '/' );
 if( empty($phpwcms["root"]) ) {
 	$phpwcms["root"]			 = '';
+	$phpwcms["host_root"]		 = '';
 } else {
 	$phpwcms["root"]			 = trim( $phpwcms["root"], '/' );
+	$phpwcms["host_root"]		 = '/'.$phpwcms["root"];
 	$phpwcms['DOC_ROOT']		.= 	'/' . $phpwcms["root"];
 	$phpwcms["root"]			.= 	'/';
 }
@@ -82,7 +84,7 @@ define ('PHPWCMS_TEMPLATE', 		PHPWCMS_ROOT.$phpwcms["templates"]);
 define ('PHPWCMS_URL', 				$phpwcms["site"].$phpwcms["root"]);
 
 $phpwcms['parse_url']			=	parse_url(PHPWCMS_URL);
-define ('PHPWCMS_HOST',				$phpwcms['parse_url']['host']);
+define ('PHPWCMS_HOST',				$phpwcms['parse_url']['host'].$phpwcms["host_root"]);
 define ('PHPWCMS_IMAGES', 			$phpwcms["content_path"].'images/');
 define ('PHPWCMS_TEMP', 			PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
 define ('PHPWCMS_CONTENT',			PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
@@ -227,7 +229,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 	switch($format) {
 	
-		case 'htmlentities':	$glue	= htmlentities($glue);
+		case 'htmlentities':	$glue	= html_entities($glue);
 								$funct	= 'getQueryString_htmlentities';
 								break;
 								
@@ -252,9 +254,9 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 function getQueryString_htmlentities($key='', $value='', $bind='=') {
 	if($value !== '') {
-		return @htmlentities(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)), ENT_QUOTES, PHPWCMS_CHARSET);
+		return html_entities(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
 	}
-	return @htmlentities(urlencode($key), ENT_QUOTES, PHPWCMS_CHARSET);
+	return html_entities(urlencode($key));
 }
 
 function getQueryString_urlencode($key='', $value='', $bind='=') {

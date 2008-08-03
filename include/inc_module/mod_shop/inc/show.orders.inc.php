@@ -153,8 +153,8 @@ if (!defined('PHPWCMS_ROOT')) {
 		}	
 	}
 	
-	$plugin['data']['currency'] = ' '.htmlentities( _getConfig( 'shop_pref_currency' ) );
-	$plugin['data']['weight_unit'] = ' '.htmlentities( _getConfig( 'shop_pref_unit_weight' ) );
+	$plugin['data']['currency'] = ' '.html_entities( _getConfig( 'shop_pref_currency' ) );
+	$plugin['data']['weight_unit'] = ' '.html_entities( _getConfig( 'shop_pref_unit_weight' ) );
 
 ?>
 

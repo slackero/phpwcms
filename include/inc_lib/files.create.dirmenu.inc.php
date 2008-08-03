@@ -27,7 +27,7 @@ function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
 	$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
 		   "f_pid=".intval($pid)." AND ".
 		   "f_uid=".intval($userID)." AND ".
-		   "f_kid=0 AND f_trash=0;";
+		   "f_kid=0 AND f_trash=0 ORDER BY f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_row($result)) {
 		$dirname = html_specialchars($row["1"]);
