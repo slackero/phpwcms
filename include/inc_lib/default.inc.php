@@ -469,4 +469,11 @@ function init_frontend_edit() {
 	define ('FE_EDIT_LINK', VISIBLE_MODE == 0 || empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 }
 
+/**
+ * Wrapper for htmlentities() to handle charset better inside of phpwcms
+ **/
+function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
+	return @htmlentities($string, $quote_mode, $charset);
+}
+
 ?>

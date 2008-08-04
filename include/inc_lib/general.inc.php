@@ -88,10 +88,6 @@ function html_despecialchars($h='') {
 	return $h;
 }
 
-function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
-	return @htmlentities($string, $quote_mode, $charset);
-}
-
 function trimhtml($h='') {
 	return html_specialchars(trim($h));
 }
