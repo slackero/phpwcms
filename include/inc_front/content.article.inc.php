@@ -143,7 +143,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		
 		$content['all_keywords'] = $row['article_keyword'];
 
-		$content["main"] .= '<a name="jump'.$row["article_id"].'"></a>';
+		$content["main"] .= '<a name="jump'.$row["article_id"].'" id="jump'.$row["article_id"].'"></a>';
 		
 		// enable frontend edit link
 		$content["main"] .= getFrontendEditLink('article', $row["article_id"]);

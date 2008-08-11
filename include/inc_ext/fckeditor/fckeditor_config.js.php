@@ -20,20 +20,24 @@ FCKConfig.AutoGrowMax = 500;
 
 // default FCKeditor toolbars, but removed unnecessary buttons
 FCKConfig.ToolbarSets["Default"] = [
+
 	['Source','Preview','-','Templates'],
-	['Cut','Copy','Paste','PasteText','PasteWord','-','SpellCheck'],
+
+	['Cut','Copy','Paste','PasteText','PasteWord'],
+
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+
 	['Form','Checkbox','Radio','TextField','Textarea','Select','Button','ImageButton','HiddenField'],
+	'/',
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-	['OrderedList','UnorderedList','-','Outdent','Indent'],
-	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Blockquote'],
+	['OrderedList','UnorderedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+	['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
 	['Link','Unlink','Anchor'],
 	['Image','Flash','Table','Rule','Smiley','SpecialChar','PageBreak'],
 	'/',
-	['Style'],
+	['Style','FontFormat','FontName','FontSize'],
 	['TextColor','BGColor'],
-	['FitWindow','-','About'],
-	['FontFormat','FontName','FontSize']	
+	['FitWindow','ShowBlocks','-','About']		// No comma for the last row.
 ] ;
 
 FCKConfig.ToolbarSets["Basic"] = [
@@ -42,7 +46,7 @@ FCKConfig.ToolbarSets["Basic"] = [
 
 // an optimized FCKeditor Toolbar for phpwcms
 FCKConfig.ToolbarSets["phpwcms_default"] = [
-	['Source','-','FitWindow','Preview','-','Templates'],
+	['Source','FitWindow','Preview','ShowBlocks','-','Templates'],
 	['Cut','Copy','Paste','PasteText','PasteWord'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	['About'],
@@ -50,13 +54,12 @@ FCKConfig.ToolbarSets["phpwcms_default"] = [
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript','-',
 	'TextColor','BGColor','-',
 	'OrderedList','UnorderedList','Outdent','Indent','-',
-	'JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Blockquote'],
+	'JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Blockquote','CreateDiv'],
 	['Link','Unlink','Anchor'],
 	['Rule','Image','Flash','Table','SpecialChar'],
 	['Style'],
 	'/',
 	['FontFormat','FontName','FontSize']
-	
 ] ;
 
 // a minimized FCKeditor Toolbar for phpwcms
