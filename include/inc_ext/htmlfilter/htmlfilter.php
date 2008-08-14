@@ -872,13 +872,13 @@ function fixatts($tagname,
  * @return                      sanitized html safe to show on your pages.
  */
 function sanitize($body, 
-                  $tag_list, 
-                  $rm_tags_with_content,
-                  $self_closing_tags,
-                  $force_tag_closing,
-                  $rm_attnames,
-                  $bad_attvals,
-                  $add_attr_to_tag
+                  $tag_list = array(), 
+                  $rm_tags_with_content = array(),
+                  $self_closing_tags = array(),
+                  $force_tag_closing = true,
+                  $rm_attnames = array(),
+                  $bad_attvals = array(),
+                  $add_attr_to_tag = array()
                   ){
     $me = 'sanitize';
     /**

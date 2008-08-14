@@ -1158,7 +1158,7 @@ function cleanUpForEmailHeader($text='') {
 	return trim($text);
 }
 
-function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='char') {
+function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='char', $sanitize=NULL) {
 	// used to cut a string by words or chars
 	if(empty($maxLength) || $maxLength < 0) return $cutString;
 	
@@ -1198,7 +1198,11 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 
 		}
 	}
-	
+	/*
+	if($sanitize !== NULL) {
+		$cutString = sanitize($cutString, array(), array(), array('img', 'br', 'hr', 'input'), true);
+	}
+	*/
 	return $cutString;
 }
 

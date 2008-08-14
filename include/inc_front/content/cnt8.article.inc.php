@@ -380,10 +380,14 @@ if(
 					// article summary
 					if(strpos($content['alink']['tr'][$key], 'SUMMARY') !== false) {
 						
-						if(empty($content['alink']['alink_wordlimit']) && !empty($row['article_image']['list_maxwords'])) $content['alink']['alink_wordlimit'] = $row['article_image']['list_maxwords'];
+						if(empty($content['alink']['alink_wordlimit']) && !empty($row['article_image']['list_maxwords'])) {
+							$content['alink']['alink_wordlimit'] = $row['article_image']['list_maxwords'];
+						}
 						$row['article_summary'] = empty($content['alink']['alink_allowedtags']) ? strip_tags($row['article_summary']) : strip_tags($row['article_summary'], $content['alink']['alink_allowedtags']);
-						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUMMARY', empty($content['alink']['alink_wordlimit']) ? $row['article_summary'] : getCleanSubString($row['article_summary'], $content['alink']['alink_wordlimit'], $template_default['ellipse_sign'], 'word'));
-					
+						if(!empty($content['alink']['alink_wordlimit'])) {
+							$row['article_summary'] = getCleanSubString($row['article_summary'], $content['alink']['alink_wordlimit'], $template_default['ellipse_sign'], 'word');
+						}
+						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUMMARY', $row['article_summary']);
 					}
 					
 					$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', 'index.php?'.setGetArticleAid($row), $content['alink']['tr'][$key]);

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*************************************************************************************
    Copyright notice
    
@@ -24,7 +24,7 @@
 // Language: Slovenian
 // Language Code: sl
 // Translated By: Boris Jerenec <boris@studiotandem.si>
-// Character Set: UTF-8
+// Character Set: UTF-8 no BOM
 
 // please use HTML safe strings ONLY
 // this is neccessary to reduce the processing time
@@ -57,5 +57,9 @@ $BL['DOWNLOAD_FILE']     = 'snemite datoteko';
 $BL['FILE_IN_TRASH']     = 'datoteka je v košu';
 $BL['KEYWORDS']          = 'ključne besede';
 $BL['DOWNLOAD_ERR3']     = 'napaka pri branju podatkov o datoteki<br />zaprite okno in poskusite znova...';
+
+// Added 2008-08-14
+$BL['ADD_ALL_FILES'] = "dodaj vse datoteke";
+$BL['ADD_ALL_CONFIRM'] = "Vse datoteke iz mape »{VAL}« so bile prenešene!\n\nPritisni [OK], da zapreš brskalnik po datotekah …";
 
 ?>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*************************************************************************************
    Copyright notice
    
@@ -24,7 +24,7 @@
 // Language: Slovenian
 // Language Code: sl
 // Translated By: Boris Jerenec <boris@studiotandem.si>
-// Character Set: UTF-8
+// Character Set: UTF-8 no BOM
 
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -109,7 +109,7 @@ $BL['be_ctype_code']                    = 'koda';
 $BL['be_ctype_textimage']               = 'tekst s sliko';
 $BL['be_ctype_images']                  = 'slike';
 $BL['be_ctype_bulletlist']              = 'seznam (tabela)';
-$BL['be_ctype_ullist']     		        	= 'seznam';
+$BL['be_ctype_ullist']                  = 'seznam';
 $BL['be_ctype_link']                    = 'povezava &amp; email';
 $BL['be_ctype_linklist']                = 'seznam povezav';
 $BL['be_ctype_linkarticle']             = 'povezani članki';
@@ -594,8 +594,8 @@ $BL['be_cnt_target2']                   = 'v okvirju starša';
 $BL['be_cnt_target3']                   = 'v istem oknu brez okvirjev';
 $BL['be_cnt_target4']                   = 'v istem okvirju ali oknu';
 $BL['be_cnt_bullet']                    = 'seznam (tabela)';
-$BL['be_cnt_ullist']     		        = 'seznam';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1. stopnja, &nbsp; ~~ = 2. stopnja, &nbsp; itd.';
+$BL['be_cnt_ullist']                    = 'seznam';
+$BL['be_cnt_ullist_desc']               = '~ = 1. stopnja, &nbsp; ~~ = 2. stopnja, &nbsp; itd.';
 $BL['be_cnt_linklist']                  = 'seznam povezav';
 $BL['be_cnt_plainhtml']                 = 'preprost html';
 $BL['be_cnt_files']                     = 'datoteke';
@@ -666,21 +666,21 @@ $BL['be_article_adminuser']             = 'uporabnik-administrator';
 $BL['be_article_username']              = 'avtor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysywig']                 = 'oblikovano besedilo';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'vidno samo prijavljenim uporabnikom';
 $BL['be_admin_struct_status']           = 'status menija';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']							= 'meni člankov';
-$BL['be_cnt_sitelevel']									= 'nivo strani';
-$BL['be_cnt_sitecurrent']								= 'trenutni nivo';
+$BL['be_ctype_articlemenu']             = 'meni člankov';
+$BL['be_cnt_sitelevel']                 = 'nivo strani';
+$BL['be_cnt_sitecurrent']               = 'trenutni nivo';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']				= 'privzeto uvodno besedilo';
-$BL['be_ctype_ecard']										= 'e-razglednica';
-$BL['be_ctype_blog']										= 'blog';
+$BL['be_subnav_admin_starttext']        = 'privzeto uvodno besedilo';
+$BL['be_ctype_ecard']                   = 'e-razglednica';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'naslov/e-razglednica';
 $BL['be_cnt_ecardtmpl']                 = 'predloga pošte';
 $BL['be_cnt_ecard_image']               = 'slika e-razglednice';
@@ -701,24 +701,24 @@ $BL['be_admin_startup_text']            = 'uvodno besedilo';
 $BL['be_admin_startup_button']          = 'shrani uvodno besedilo';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']								= 'knjiga gostov/komentarji';
-$BL['be_cnt_guestbook_listing']					= 'seznam';
-$BL['be_cnt_guestbook_listing_all']			= 'prikaži&nbsp;vse&nbsp;zapise';
-$BL['be_cnt_guestbook_list']						= 'prikaži';
-$BL['be_cnt_guestbook_perpage']					= 'zapisov&nbsp;na&nbsp;stran';
-$BL['be_cnt_guestbook_form']						= 'obrazec';
-$BL['be_cnt_guestbook_signed']					= 'podpisan';
-$BL['be_cnt_guestbook_nav']							= 'nav';
-$BL['be_cnt_guestbook_before']					= 'pred';
-$BL['be_cnt_guestbook_after']						= 'za';
-$BL['be_cnt_guestbook_entry']						= 'zapis';
-$BL['be_cnt_guestbook_edit']						= 'uredi';
+$BL['be_ctype_guestbook']               = 'knjiga gostov/komentarji';
+$BL['be_cnt_guestbook_listing']         = 'seznam';
+$BL['be_cnt_guestbook_listing_all']     = 'prikaži&nbsp;vse&nbsp;zapise';
+$BL['be_cnt_guestbook_list']            = 'prikaži';
+$BL['be_cnt_guestbook_perpage']         = 'zapisov&nbsp;na&nbsp;stran';
+$BL['be_cnt_guestbook_form']            = 'obrazec';
+$BL['be_cnt_guestbook_signed']          = 'podpisan';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'pred';
+$BL['be_cnt_guestbook_after']           = 'za';
+$BL['be_cnt_guestbook_entry']           = 'zapis';
+$BL['be_cnt_guestbook_edit']            = 'uredi';
 $BL['be_cnt_ecardform_selector']        = 'izbira';
 $BL['be_cnt_ecardform_radiobutton']     = 'gumb (radio button)';
 $BL['be_cnt_ecardform_javascript']      = 'uporabi JavaScript';
-$BL['be_cnt_ecardform_over']        		= 'onmouseover';
-$BL['be_cnt_ecardform_click']       		= 'onclick';
-$BL['be_cnt_ecardform_out']       			= 'onmouseout';
+$BL['be_cnt_ecardform_over']            = 'onmouseover';
+$BL['be_cnt_ecardform_click']           = 'onclick';
+$BL['be_cnt_ecardform_out']             = 'onmouseout';
 $BL['be_admin_struct_topcount']         = 'maks. število člankov';
 
 // added: 19-04-2004
@@ -752,7 +752,7 @@ $BL['be_newsletter_readyfailed']        = 'Pošiljanje ni uspelo za:';
 $BL['be_subnav_msg_subscribers']        = 'naročniki';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    			= 'kazalo strani (sitemap)';
+$BL['be_ctype_sitemap']                 = 'kazalo strani (sitemap)';
 $BL['be_cnt_sitemap_catimage']          = 'ikona nivoja';
 $BL['be_cnt_sitemap_articleimage']      = 'ikona članka';
 $BL['be_cnt_sitemap_display']           = 'prikaži';
@@ -765,7 +765,7 @@ $BL['be_cnt_sitemap_classcount']        = 'dodaj imenu razreda';
 $BL['be_cnt_sitemap_noclasscount']      = 'ne dodaj imenu razreda';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        			= 'avkcija';
+$BL['be_ctype_bid']                     = 'avkcija';
 $BL['be_cnt_bid_bidtext']               = 'opis avkcije';
 $BL['be_cnt_bid_sendtext']              = 'poslano besedilo';
 $BL['be_cnt_bid_verifiedtext']          = 'preverjeno besedilo ';
@@ -798,7 +798,7 @@ $BL['be_cnt_reference_block']           = 'blok š x v';
 
 // added: 31-05-2004
 $BL['be_article_rendering']             = 'izris';
-$BL['be_article_nosummary']             = 'ne prikaži povzetka v polnem ćlanku';
+$BL['be_article_nosummary']             = 'ne prikaži povzetka v polnem članku';
 $BL['be_article_forlist']               = 'seznam člankov';
 $BL['be_article_forfull']               = 'polni članek';
 
@@ -883,17 +883,17 @@ $BL['be_cache']                         = 'predpomnilnik';
 $BL['be_cache_timeout']                 = 'časovna omejitev';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']						= 'skupine uporabnikov';
-$BL['be_admin_group_add']								= 'dodaj skupino';
-$BL['be_admin_group_nogroup']						= 'ne najdem nobene skupine uporabnikov';
+$BL['be_subnav_admin_groups']           = 'skupine uporabnikov';
+$BL['be_admin_group_add']               = 'dodaj skupino';
+$BL['be_admin_group_nogroup']           = 'ne najdem nobene skupine uporabnikov';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']										= 'forum';
-$BL['be_subnav_msg_forum']							= 'seznam forumov';
-$BL['be_forum_title']										= 'naslov foruma';
-$BL['be_forum_permission']							= 'pravice';
-$BL['be_forum_add']											= 'dodaj forum';
-$BL['be_forum_titleedit']								= 'uredi forum';
+$BL['be_ctype_forum']                   = 'forum';
+$BL['be_subnav_msg_forum']              = 'seznam forumov';
+$BL['be_forum_title']                   = 'naslov foruma';
+$BL['be_forum_permission']              = 'pravice';
+$BL['be_forum_add']                     = 'dodaj forum';
+$BL['be_forum_titleedit']               = 'uredi forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'dodatni bloki';
@@ -901,61 +901,61 @@ $BL['be_show_content']                  = 'prikaži v';
 $BL['be_main_content']                  = 'glavni stolpec';
 $BL['be_admin_template_jswarning']      = 'Opozorilo!!! \nDodani bloki po meri se lahko spremenijo! \n\nČe prekličete, \nresetirajte vaše nastavitve oblike strani! \n\nSpremenim predlogo?\n\n';
 
-$BL['be_ctype_rssfeed']									= 'vir RSS';
-$BL['be_cnt_rssfeed_url']								= 'url vira RSS';
-$BL['be_cnt_rssfeed_item']							= 'zapisov';
-$BL['be_cnt_rssfeed_max']								= 'maks.';
-$BL['be_cnt_rssfeed_cut']								= 'skrij 1. zapis';
+$BL['be_ctype_rssfeed']                 = 'vir RSS';
+$BL['be_cnt_rssfeed_url']               = 'url vira RSS';
+$BL['be_cnt_rssfeed_item']              = 'zapisov';
+$BL['be_cnt_rssfeed_max']               = 'maks.';
+$BL['be_cnt_rssfeed_cut']               = 'skrij 1. zapis';
 
-$BL['be_ctype_simpleform']							= 'obrazec';
+$BL['be_ctype_simpleform']              = 'obrazec';
 
-$BL['be_cnt_onsuccess']				    			= 'ob uspehu';
-$BL['be_cnt_onerror']				    				= 'ob napaki';
-$BL['be_cnt_onsuccess_redirect']	    	= 'preusmeri ob uspehu';
-$BL['be_cnt_onerror_redirect']	        = 'preusmeri ob napaki';
+$BL['be_cnt_onsuccess']                 = 'ob uspehu';
+$BL['be_cnt_onerror']                   = 'ob napaki';
+$BL['be_cnt_onsuccess_redirect']        = 'preusmeri ob uspehu';
+$BL['be_cnt_onerror_redirect']          = 'preusmeri ob napaki';
 
-$BL['be_cnt_form_class']								= 'obrazec/css razred';
-$BL['be_cnt_label_wrap']								= 'prelom oznake';
-$BL['be_cnt_error_class']								= 'napaka/css razred';
-$BL['be_cnt_req_mark']				    			= 'znak za zahtevano';
-$BL['be_cnt_mark_as_req']								= 'označi kot zahtevano';
-$BL['be_cnt_mark_as_del']								= 'označi za brisanje';
+$BL['be_cnt_form_class']                = 'obrazec/css razred';
+$BL['be_cnt_label_wrap']                = 'prelom oznake';
+$BL['be_cnt_error_class']               = 'napaka/css razred';
+$BL['be_cnt_req_mark']                  = 'znak za zahtevano';
+$BL['be_cnt_mark_as_req']               = 'označi kot zahtevano';
+$BL['be_cnt_mark_as_del']               = 'označi za brisanje';
 
 
-$BL['be_cnt_type']				        			= 'tip';
-$BL['be_cnt_label']				        			= 'oznaka';
-$BL['be_cnt_needed']										= 'zahtevano';
-$BL['be_cnt_delete']										= 'izbriši';
-$BL['be_cnt_value']											= 'vrednost';
-$BL['be_cnt_error_text']								= 'tekst ob napaki';
-$BL['be_cnt_css_style']									= 'css stil';
-$BL['be_cnt_css_class']									= 'css razred';
-$BL['be_cnt_send_copy_to']							= 'kopiraj v';
+$BL['be_cnt_type']                      = 'tip';
+$BL['be_cnt_label']                     = 'oznaka';
+$BL['be_cnt_needed']                    = 'zahtevano';
+$BL['be_cnt_delete']                    = 'izbriši';
+$BL['be_cnt_value']                     = 'vrednost';
+$BL['be_cnt_error_text']                = 'tekst ob napaki';
+$BL['be_cnt_css_style']                 = 'css stil';
+$BL['be_cnt_css_class']                 = 'css razred';
+$BL['be_cnt_send_copy_to']              = 'kopiraj v';
 
-$BL['be_cnt_field']						= array("text"=>'besedilo (1 vrstica)', "email"=>'email', "textarea"=>'besedilo (več vrstic)', 
-												"hidden"=>'skrito polje', "password"=>'geslo', "select"=>'izbirni meni', 
-												"list"=>'seznam', "checkbox"=>'potrditveno polje', "radio"=>'izbirni gumb', 
-												"upload"=>'datoteka', "submit"=>'gumb za pošiljanje', "reset"=>'gumb za resetiranje', 
-												"break"=>'prekinitev', "breaktext"=>'prekinitveno besedilo', "special"=>'besedilo (specialno)',
-												"captchaimg"=>'captcha slika', "captcha"=>'captcha polje', 'newsletter'=>'e-časopis');
+$BL['be_cnt_field']           = array("text"=>'besedilo (1 vrstica)', "email"=>'email', "textarea"=>'besedilo (več vrstic)', 
+                        "hidden"=>'skrito polje', "password"=>'geslo', "select"=>'izbirni meni', 
+                        "list"=>'seznam', "checkbox"=>'potrditveno polje', "radio"=>'izbirni gumb', 
+                        "upload"=>'datoteka', "submit"=>'gumb za pošiljanje', "reset"=>'gumb za resetiranje', 
+                        "break"=>'prekinitev', "breaktext"=>'prekinitveno besedilo', "special"=>'besedilo (specialno)',
+                        "captchaimg"=>'captcha slika', "captcha"=>'captcha polje', 'newsletter'=>'e-časopis');
 
-$BL['be_cnt_access']										= 'dostop';
-$BL['be_cnt_activated']									= 'aktiven';
-$BL['be_cnt_available']									= 'dostopen';
-$BL['be_cnt_guests']										= 'gosti';
-$BL['be_cnt_admin']											= 'administrator';
-$BL['be_cnt_write']											= 'pisanje';
-$BL['be_cnt_read']											= 'branje';
+$BL['be_cnt_access']                    = 'dostop';
+$BL['be_cnt_activated']                 = 'aktiven';
+$BL['be_cnt_available']                 = 'dostopen';
+$BL['be_cnt_guests']                    = 'gosti';
+$BL['be_cnt_admin']                     = 'administrator';
+$BL['be_cnt_write']                     = 'pisanje';
+$BL['be_cnt_read']                      = 'branje';
 
-$BL['be_cnt_no_wysiwyg_editor']					= 'onemogoči WYSIWYG urejevalnik';
-$BL['be_cnt_cache_update']							= 'resetiraj predpomnilnik';
-$BL['be_cnt_cache_delete']							= 'briši predpomnilnik';
-$BL['be_cnt_cache_delete_msg']					= 'Ali v resnici želite izbrisati predpomnilnik?\nTo lahko vpliva tudi na iskalnik.\n';
+$BL['be_cnt_no_wysiwyg_editor']         = 'onemogoči WYSIWYG urejevalnik';
+$BL['be_cnt_cache_update']              = 'resetiraj predpomnilnik';
+$BL['be_cnt_cache_delete']              = 'briši predpomnilnik';
+$BL['be_cnt_cache_delete_msg']          = 'Ali v resnici želite izbrisati predpomnilnik?\nTo lahko vpliva tudi na iskalnik.\n';
 
-$BL['be_admin_usr_issection']						= 'prijava v';
-$BL['be_admin_usr_ifsection0']					= 'frontend';
-$BL['be_admin_usr_ifsection1']					= 'backend (administracija)';
-$BL['be_admin_usr_ifsection2']					= 'frontend in backend';
+$BL['be_admin_usr_issection']           = 'prijava v';
+$BL['be_admin_usr_ifsection0']          = 'frontend';
+$BL['be_admin_usr_ifsection1']          = 'backend (administracija)';
+$BL['be_admin_usr_ifsection2']          = 'frontend in backend';
 
 // added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
 $BL['be_func_content_edit']             = 'uredi ta delček vsebine';
@@ -967,155 +967,271 @@ $BL['be_func_content_copy']             = 'kopiraj ta delček vsebine';
 $BL['be_func_content_no_copy']          = "Ni mogoče kopirati tega delčka vsebine!";
 $BL['be_func_content_paste_cancel']     = 'prekliči spremembo delčka vsebine';
 
-$BL['be_cnt_move_deleted'] 							= 'dokončno izbriši datoteke v košu';
-$BL['be_cnt_move_deleted_msg'] 					= 'Ali v resnici želite vse datoteke iz koša premakniti\nv poseben direktorij za brisanje?  \n';
+$BL['be_cnt_move_deleted']              = 'dokončno izbriši datoteke v košu';
+$BL['be_cnt_move_deleted_msg']          = 'Ali v resnici želite vse datoteke iz koša premakniti\nv poseben direktorij za brisanje?  \n';
 
 // NEZNAN
-$BL['be_admin_struct_permit'] 					= 'avtoriziran dostop za (pustite prazno za vse)';
-$BL['be_admin_struct_adduser_all']   		= 'dodaj vse uporabnike';
-$BL['be_admin_struct_adduser_this']  		= 'dodaj izbranega uporabnika';
-$BL['be_admin_struct_remove_all']    		= 'odstrani vse uporabnike';
-$BL['be_admin_struct_remove_this']   		= 'odstrani izbranega uporabnika';
+$BL['be_admin_struct_permit']           = 'avtoriziran dostop za (pustite prazno za vse)';
+$BL['be_admin_struct_adduser_all']      = 'dodaj vse uporabnike';
+$BL['be_admin_struct_adduser_this']     = 'dodaj izbranega uporabnika';
+$BL['be_admin_struct_remove_all']       = 'odstrani vse uporabnike';
+$BL['be_admin_struct_remove_this']      = 'odstrani izbranega uporabnika';
 
 
-$BL['be_ctype_alias'] 									= 'alias delčka vsebine';
-$BL['be_cnt_setting'] 									= 'prevzemi od originala';
-$BL['be_cnt_spaces'] 										= 'nastavitve prostora';
-$BL['be_cnt_toplink'] 									= 'nastavitve za povezavo na vrh';
-$BL['be_cnt_block'] 										= 'prikaz v bloku';
-$BL['be_cnt_title'] 										= 'naslov in podnaslov';
+$BL['be_ctype_alias']                   = 'alias delčka vsebine';
+$BL['be_cnt_setting']                   = 'prevzemi od originala';
+$BL['be_cnt_spaces']                    = 'nastavitve prostora';
+$BL['be_cnt_toplink']                   = 'nastavitve za povezavo na vrh';
+$BL['be_cnt_block']                     = 'prikaz v bloku';
+$BL['be_cnt_title']                     = 'naslov in podnaslov';
 
-$BL['be_file_replace'] 									= 'prepiši enako poimenovane datoteke?';
+$BL['be_file_replace']                  = 'prepiši enako poimenovane datoteke?';
 
-$BL['be_alias_articleID'] 							= 'alias ID';
-$BL['be_alias_useAll'] 									= "uporabi podatke za glavo iz originalnega članka";
-$BL['be_article_morelink'] 							= 'povezava [več&#8230;]';
+$BL['be_alias_articleID']               = 'alias ID';
+$BL['be_alias_useAll']                  = "uporabi podatke za glavo iz originalnega članka";
+$BL['be_article_morelink']              = 'povezava [več&#8230;]';
 $BL['be_admin_tmpl_copy']               = 'kopiraj predlogo'; 
 
 // NEZNAN
 $BL['be_ctype_filelist1']                = 'file list pro';
 $BL['be_cnt_fpro_usecaption']            = 'use file center &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
-$BL['be_admin_keywords']								= 'ključne besede';
-$BL['be_admin_keywords_key']						= 'KLJUČNA BESEDA';
-$BL['be_admin_keywords_err']						= 'Vstavi unikatno ime KLJUČNE BESEDE';
-$BL['be_admin_keyword_edit']						= 'uredi KLJUČNO BESEDO';
-$BL['be_admin_keyword_del']							= 'izbriši KLJUČNO BESEDO';
-$BL['be_admin_keyword_delmsg']					= 'Ali želite v resnici izbrisati KLJUČNO BESEDO?';
-$BL['be_admin_keyword_add']							= 'dodaj KLJUČNO BESEDO';
+$BL['be_admin_keywords']                = 'ključne besede';
+$BL['be_admin_keywords_key']            = 'KLJUČNA BESEDA';
+$BL['be_admin_keywords_err']            = 'Vstavi unikatno ime KLJUČNE BESEDE';
+$BL['be_admin_keyword_edit']            = 'uredi KLJUČNO BESEDO';
+$BL['be_admin_keyword_del']             = 'izbriši KLJUČNO BESEDO';
+$BL['be_admin_keyword_delmsg']          = 'Ali želite v resnici izbrisati KLJUČNO BESEDO?';
+$BL['be_admin_keyword_add']             = 'dodaj KLJUČNO BESEDO';
 
-$BL['be_cnt_transparent'] 							= 'transparenten Flash';
+$BL['be_cnt_transparent']               = 'transparenten Flash';
 
 
 // added: 02-04-2006
-$BL['be_admin_struct_orderkilldate']   	= 'datum odstranitve';
-$BL['be_func_switch_contentpart'] 			= 'Ali v resnici želite spremeniti delček vsebine?\n\nPazljivo!\nMorda bodo prepisane pomembne nastavitve!\n';
+$BL['be_admin_struct_orderkilldate']    = 'datum odstranitve';
+$BL['be_func_switch_contentpart']       = 'Ali v resnici želite spremeniti delček vsebine?\n\nPazljivo!\nMorda bodo prepisane pomembne nastavitve!\n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>POZOR!</strong> Direktorij &quot;CODE-SNIPPETS&quot; še vedno obstaja! Izbrišite direktorij <strong>phpwcms_code_snippets</strong> - lahko predstavlja varnostno težavo.';
 
-$BL['be_ctype_poll'] 										= 'anketa';
+$BL['be_ctype_poll']                    = 'anketa';
 $BL['be_cnt_pos8']                      = 'tabela, levo';
 $BL['be_cnt_pos9']                      = 'tabela, desno';
 $BL['be_cnt_pos8i']                     = 'postavi sliko levo od tabele';
 $BL['be_cnt_pos9i']                     = 'postavi sliko desno od tabele';
 
 
-$BL['be_WYSIWYG']												= 'WYSIWYG urejevalnik';
-$BL['be_WYSIWYG_disabled']							= 'WYSIWYG urejevalnik onemogočen';
+$BL['be_WYSIWYG']                       = 'WYSIWYG urejevalnik';
+$BL['be_WYSIWYG_disabled']              = 'WYSIWYG urejevalnik onemogočen';
 $BL['be_admin_struct_acat_hiddenactive'] = 'vidno, ko je aktivno';
 
 
 
-$BL['be_login_jsinfo']									= 'Prosim, omogočite uporabo JavaScripta v vašem brskalniku. Za uporabo administracije je nujen.';
+$BL['be_login_jsinfo']                  = 'Prosim, omogočite uporabo JavaScripta v vašem brskalniku. Za uporabo administracije je nujen.';
 
-$BL['be_admin_struct_maxlist']					= 'maks. število člankov v seznamu';
+$BL['be_admin_struct_maxlist']          = 'maks. število člankov v seznamu';
 
-$BL['be_admin_optgroup_label']					= array(1 => 'text', 2 => 'image', 3 => 'form', 4 => 'admin', 5 => 'special');
-$BL['be_cnt_articlemenu_maxchar']				= 'maks. št. znakov';
+$BL['be_admin_optgroup_label']          = array(1 => 'text', 2 => 'image', 3 => 'form', 4 => 'admin', 5 => 'special');
+$BL['be_cnt_articlemenu_maxchar']       = 'maks. št. znakov';
 
-$BL['be_cnt_sysadmin_system']						= 'sistem';
+$BL['be_cnt_sysadmin_system']           = 'sistem';
 
 // version check - taken from phpBB ;-)
-$BL['Version_up_to_date']								= 'Nameščeno imate zadnjo verzijo phpwcms-ja. Na voljo ni nobene posodobitve.';
-$BL['Version_not_up_to_date']						= 'Vaša namestitev <strong>ni</strong> posodobljena. Na voljo so posodobitve - obiščite <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a>.';
-$BL['Latest_version_info']							= 'Zadnja verzija je: <b>phpwcms %s</b>.';
-$BL['Current_version_info']							= 'Nameščeno imate: <b>phpwcms %s</b>.';
-$BL['Connect_socket_error']							= 'Ne morem odpreti povezave do phpwcms strežnika - napaka:<br />%s';
-$BL['Socket_functions_disabled']				= 'Ne morem uporaviti "socket" funkcije.';
-$BL['Mailing_list_subscribe_reminder']	= 'Za prejemanje informacij o zadnjih verzijah phpwcms-ja se lahko prijavite <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">tukaj</a>.';
-$BL['Version_information'] 							= 'informacije o verziji phpwcms-ja';
+$BL['Version_up_to_date']               = 'Nameščeno imate zadnjo verzijo phpwcms-ja. Na voljo ni nobene posodobitve.';
+$BL['Version_not_up_to_date']           = 'Vaša namestitev <strong>ni</strong> posodobljena. Na voljo so posodobitve - obiščite <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a>.';
+$BL['Latest_version_info']              = 'Zadnja verzija je: <b>phpwcms %s</b>.';
+$BL['Current_version_info']             = 'Nameščeno imate: <b>phpwcms %s</b>.';
+$BL['Connect_socket_error']             = 'Ne morem odpreti povezave do phpwcms strežnika - napaka:<br />%s';
+$BL['Socket_functions_disabled']        = 'Ne morem uporaviti "socket" funkcije.';
+$BL['Mailing_list_subscribe_reminder']  = 'Za prejemanje informacij o zadnjih verzijah phpwcms-ja se lahko prijavite <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">tukaj</a>.';
+$BL['Version_information']              = 'informacije o verziji phpwcms-ja';
 
-$BL['be_cnt_search_highlight']					= 'poudari zadetek';
-$BL['be_cnt_results_wordlimit']					= 'maks. št. besed povzetka';
-$BL['be_cnt_page_of_pages']							= 'iskalna nav.';
-$BL['be_cnt_page_of_pages_descr']				= '{PREV:Back} page #/##, result ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Next}';
-$BL['be_cnt_search_show_top']						= 'na vrhu';
-$BL['be_cnt_search_show_bottom']				= 'na dnu';
-$BL['be_cnt_search_show_next']					= 'naslednja (tudi, če ni povezave)';
-$BL['be_cnt_search_show_prev']					= 'prejšnja (tudi, če ni povezave)';
-$BL['be_cnt_search_show_forall']				= 'prikaži vedno';
-$BL['be_cnt_search_startlevel']					= 'začetek iskanja na';
-$BL['be_cnt_results_minchar']						= 'minimalno št. znakov za iskanje';
+$BL['be_cnt_search_highlight']          = 'poudari zadetek';
+$BL['be_cnt_results_wordlimit']         = 'maks. št. besed povzetka';
+$BL['be_cnt_page_of_pages']             = 'iskalna nav.';
+$BL['be_cnt_page_of_pages_descr']       = '{PREV:Back} page #/##, result ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Next}';
+$BL['be_cnt_search_show_top']           = 'na vrhu';
+$BL['be_cnt_search_show_bottom']        = 'na dnu';
+$BL['be_cnt_search_show_next']          = 'naslednja (tudi, če ni povezave)';
+$BL['be_cnt_search_show_prev']          = 'prejšnja (tudi, če ni povezave)';
+$BL['be_cnt_search_show_forall']        = 'prikaži vedno';
+$BL['be_cnt_search_startlevel']         = 'začetek iskanja na';
+$BL['be_cnt_results_minchar']           = 'minimalno št. znakov za iskanje';
 
-$BL['be_cnt_pagination']								= 'paginacija delčkov vsebine';
-$BL['be_article_pagination']						= 'paginacija člankov';
-$BL['be_article_per_page']			    		= 'člankov na stran';
-$BL['be_pagination']										= 'paginacija';
-
-
-$BL['be_ctype_recipe']									= 'recept';
-$BL['be_ctype_faq']											= 'pogosta vprašanja (faq)';
-$BL['be_cnt_additional']								= 'dodatno';
-$BL['be_cnt_question']									= 'vprašanje';
-$BL['be_cnt_answer']										= 'odgovor';
-$BL['be_cnt_same_as_summary']						= 'uporabi sliko iz polnega članka';
-$BL['be_cnt_sorting']										= 'sortiranje';
-$BL['be_cnt_imgupload']									= 'nalaganje&nbsp;slike';
-$BL['be_cnt_filesize']									= 'velikost datoteke';
-$BL['be_cnt_captchalength']							= 'dolžina captcha kode';
-$BL['be_cnt_chars']											= 'znakov';
-$BL['be_cnt_download']									= 'download';
-$BL['be_cnt_download_direct']						= 'direkten';
-$BL['be_cnt_database']									= 'podatkovna baza';
-$BL['be_cnt_formsave_in_db']						= 'shrani rezultate obrazca';
-
-$BL['be_cnt_email_notify']							= 'obvesti po e-pošti';
-$BL['be_cnt_notify_by_email']						= 'na naslov';
-$BL['be_cnt_last_edited']								= 'zadnja sprememba';
-
-$BL['be_cnt_export_selection']					= 'izvozi izbrane';
-$BL['be_cnt_delete_duplicates']					= 'briši dvojnike';
-$BL['be_cnt_new_recipient']							= 'dodaj naročnika';
+$BL['be_cnt_pagination']                = 'paginacija delčkov vsebine';
+$BL['be_article_pagination']            = 'paginacija člankov';
+$BL['be_article_per_page']              = 'člankov na stran';
+$BL['be_pagination']                    = 'paginacija';
 
 
-$BL['be_cnt_newsletter_prepare']				= 'e-časopis aktiven';
-$BL['be_cnt_newsletter_prepare1']				= 'vsi naročniki bodo prestavljeni v vrsto za pošiljanje';
-$BL['be_cnt_newsletter_prepare2']				= 'vrsta za pošiljanje bo posodobljena&#8230;';
+$BL['be_ctype_recipe']                  = 'recept';
+$BL['be_ctype_faq']                     = 'pogosta vprašanja (faq)';
+$BL['be_cnt_additional']                = 'dodatno';
+$BL['be_cnt_question']                  = 'vprašanje';
+$BL['be_cnt_answer']                    = 'odgovor';
+$BL['be_cnt_same_as_summary']           = 'uporabi sliko iz polnega članka';
+$BL['be_cnt_sorting']                   = 'sortiranje';
+$BL['be_cnt_imgupload']                 = 'nalaganje&nbsp;slike';
+$BL['be_cnt_filesize']                  = 'velikost datoteke';
+$BL['be_cnt_captchalength']             = 'dolžina captcha kode';
+$BL['be_cnt_chars']                     = 'znakov';
+$BL['be_cnt_download']                  = 'download';
+$BL['be_cnt_download_direct']           = 'direkten';
+$BL['be_cnt_database']                  = 'podatkovna baza';
+$BL['be_cnt_formsave_in_db']            = 'shrani rezultate obrazca';
 
-$BL['be_cnt_export']										= 'izvozi';
-$BL['be_cnt_formsave_profile']					= 'shrani uporabnikov profil';
-$BL['be_profile_label_add']							= 'dodaj';
-$BL['be_profile_label_website']					= 'spletna stran (URL)';
-$BL['be_profile_label_gender']					= 'spol';
-$BL['be_profile_label_birthday']				= 'rojstni dan';
+$BL['be_cnt_email_notify']              = 'obvesti po e-pošti';
+$BL['be_cnt_notify_by_email']           = 'na naslov';
+$BL['be_cnt_last_edited']               = 'zadnja sprememba';
 
-$BL['be_cnt_store_in']									= 'shrani v polje';
-$BL['be_aboutlink_title']								= 'informacije o phpwcms-ju in licenca';
+$BL['be_cnt_export_selection']          = 'izvozi izbrane';
+$BL['be_cnt_delete_duplicates']         = 'briši dvojnike';
+$BL['be_cnt_new_recipient']             = 'dodaj naročnika';
 
-$BL['be_shortdate']          						= 'n/j/y';
-$BL['be_shortdatetime']          				= 'n/j/y G:i';
 
-$BL['be_confirm_sending']								= 'potrdi pošiljanje';
-$BL['be_confirm_text']									= 'Da, pošlji e-časopis vsem naročnikom!';
+$BL['be_cnt_newsletter_prepare']        = 'e-časopis aktiven';
+$BL['be_cnt_newsletter_prepare1']       = 'vsi naročniki bodo prestavljeni v vrsto za pošiljanje';
+$BL['be_cnt_newsletter_prepare2']       = 'vrsta za pošiljanje bo posodobljena&#8230;';
 
-$BL['be_cnt_queued']										= 'čakalna vrsta';
-$BL['be_last_sending']									= 'zadnje pošiljanje';
-$BL['be_last_edited']										= 'zadnje urejanje';
-$BL['be_total']													= 'skupaj';
+$BL['be_cnt_export']                    = 'izvozi';
+$BL['be_cnt_formsave_profile']          = 'shrani uporabnikov profil';
+$BL['be_profile_label_add']             = 'dodaj';
+$BL['be_profile_label_website']         = 'spletna stran (URL)';
+$BL['be_profile_label_gender']          = 'spol';
+$BL['be_profile_label_birthday']        = 'rojstni dan';
 
-$BL['be_settings']											= 'nastavitve';
-$BL['be_ctype']													= 'delček vsebine';
-$BL['be_selection']											= 'izbira';
+$BL['be_cnt_store_in']                  = 'shrani v polje';
+$BL['be_aboutlink_title']               = 'informacije o phpwcms-ju in licenca';
 
-$BL['be_ctype_module']									= 'plug-in';
+$BL['be_shortdate']                     = 'n/j/y';
+$BL['be_shortdatetime']                 = 'n/j/y G:i';
 
+$BL['be_confirm_sending']               = 'potrdi pošiljanje';
+$BL['be_confirm_text']                  = 'Da, pošlji e-časopis vsem naročnikom!';
+
+$BL['be_cnt_queued']                    = 'čakalna vrsta';
+$BL['be_last_sending']                  = 'zadnje pošiljanje';
+$BL['be_last_edited']                   = 'zadnje urejanje';
+$BL['be_total']                         = 'skupaj';
+
+$BL['be_settings']                      = 'nastavitve';
+$BL['be_ctype']                         = 'delček vsebine';
+$BL['be_selection']                     = 'izbira';
+
+$BL['be_ctype_module']                  = 'plug-in';
+
+
+// 1.3.5 - preview
+$BL['be_longdatetime'] = "d.m.Y H:i:s";
+$BL['be_cnt_lightbox'] = "lightbox efekt";
+$BL['be_cnt_behavior'] = "obnašanje";
+$BL['be_cnt_imglist_nocaption'] = "skrij podpis k sličici";
+$BL['be_ctype_felogin'] = "prijava v sistem";
+$BL['be_cookie_runtime'] = "iztek piškotka v";
+$BL['be_locale'] = "lokalnost";
+$BL['be_date_format'] = "oblika datuma";
+$BL['be_check_login_against'] = "preveri prijavo z";
+$BL['be_userprofile_db'] = "profili uporabnikov";
+$BL['be_backenduser_db'] = "profili backend uporabnikov";
+$BL['be_gb_post_login'] = "dovoli pisanje samo prijavljenim uporabnikom";
+$BL['be_gb_show_login'] = "prikaži samo prijavljenim uporabnikom";
+$BL['be_gb_urlcheck'] = "omogoči daljinsko preverjanje URL naslova";
+$BL['be_order'] = "vrstni red";
+$BL['be_unique_teaser_entry'] = "prikaži povzetek/povezavo članka samo enkrat na stran";
+$BL['be_allowed_tags'] = "dovoljene oznake (tags)";
+$BL['be_fe_login_url'] = "url za prijavo v frontend";
+$BL['be_ctype_imagesdiv'] = "css slike";
+$BL['be_cnt_imagecenter'] = "centriraj horizontalno/vertikalno";
+$BL['be_cnt_imagenocenter'] = "ne centriraj";
+$BL['be_cnt_imagecenterh'] = "centriraj horizontalno";
+$BL['be_cnt_imagecenterv'] = "centriraj vertikalno";
+$BL['be_overwrite_default'] = "To bo prepisalo privzete vrednosti konfiguracijske datoteke";
+$BL['be_cnt_sortvalue'] = "vrstni red";
+$BL['be_dialog_warn_nosave'] = "Nastavitve ne bodo shranjene!\nAli ste prepričani, da želite nadaljevati?";
+$BL['be_cnt_paginate_subsection'] = "podsekcija";
+$BL['be_cnt_subsection_tite'] = "naslov podsekcije";
+$BL['be_cnt_subsection_warning'] = "Številčenje podsekcij (paginiranje vsebine) je mogoče le za \nglavni stolpec (CONTENT)!";
+$BL['be_no_search'] = "preskoči v iskanju";
+$BL['be_priorize'] = "prioriteta";
+$BL['be_change_articleID'] = "spremeni ID članka";
+$BL['be_title_wrap'] = "lomi naslov članka";
+$BL['be_no_rss'] = "RSS";
+$BL['be_article_urlalias'] = "alias članka";
+$BL['be_image_crop'] = "izsek sličice";
+$BL['be_image_align'] = "postavitev slike";
+$BL['be_ctype_flashplayer'] = "flash predvajalnik";
+$BL['be_flashplayer_caption'] = "naslov";
+$BL['be_flashplayer_thumbnail'] = "sličica";
+$BL['be_flashplayer_selectsize'] = "Izberite velikost predvajalnika";
+$BL['be_check_feuser_profile'] = "profil frontend uporabnika";
+$BL['be_check_feuser_registration'] = "registracija";
+$BL['be_check_feuser_manage'] = "upravlja uporabnik";
+
+// r213 -- 2008-08-14
+$BL['be_image_cropit'] = "obreži sliko";
+$BL['be_hide_active_articlelink'] = "skrij aktivni članek v meniju člankov";
+$BL['be_module_search'] = "išči tudi";
+$BL['be_ctype_imagesspecial'] = "slike (specialno)";
+$BL['be_image_WxHpx'] = "širina &times; višina px";
+$BL['be_fx_1'] = "efekt 1";
+$BL['be_fx_2'] = "efekt 2";
+$BL['be_fx_3'] = "efekt 3";
+$BL['be_image_zoom'] = "povečan pogled";
+$BL['be_image_delete_js'] = "Ali želite izbrisati izbrano sliko?";
+$BL['be_news'] = "novice";
+$BL['be_news_create'] = "nova novica";
+$BL['be_tags'] = "oznake";
+$BL['be_title'] = "naslov";
+$BL['be_delete_dataset'] = "Izbrišem izbrane podatke?";
+$BL['be_action_notvalid'] = "Vaša zadnja izbrana kacija je bila prekinjena, saj je neveljavna!";
+$BL['be_action_deleted'] = "Izbrani podatki (ID {ID}) so bili izbrisani.";
+$BL['be_action_status'] = "Status izbranih podatkov (ID {ID}) so bili spremenjeni.";
+$BL['be_data_select_failed'] = "Dostop do izbranih podatkov ni mogoč. Preverite vašo izbiro.";
+$BL['be_alias'] = "alias";
+$BL['be_url_value'] = "URL naslov";
+$BL['default_date_format'] = "DD.MM.YYYY";
+$BL['default_date'] = "d.m.Y";
+$BL['default_date_delimiter'] = ".";
+$BL['default_time_format'] = "HH:MM";
+$BL['default_time'] = "H:i";
+$BL['be_place'] = "položaj";
+$BL['be_teasertext'] = "uvodno besedilo";
+$BL['be_published'] = "objavi";
+$BL['be_show_archived'] = "dosegljivo po končnem datumu (arhiv)";
+$BL['be_save_copy'] = "shrani zapis kot duplikat";
+$BL['be_read_more_link'] = "več URL/ID";
+$BL['be_news_name_mandatory'] = "Izpolni naslov novice!";
+$BL['be_successfully_saved'] = "Vsi podatki so bili uspešno shranjeni!";
+$BL['be_successfully_updated'] = "Vsi podatki so bili uspešno posodobljeni!";
+$BL['be_error_while_save'] = "Napaka pri shranjevanju podatkov.";
+$BL['be_copyright'] = "avtorske pravice";
+$BL['be_file_multiple_upload'] = "hkratno nalaganje večih datotek";
+$BL['be_files_browse'] = "izberi datoteke";
+$BL['be_files_upload'] = "naloži izbrane datoteke";
+$BL['be_archive'] = "arhiv";
+$BL['be_random'] = "naključno";
+$BL['be_sorted'] = "urejeno";
+$BL['be_granted_download'] = "samo zaščiten prenos";
+$BL['be_granted_feuser'] = "samo za prijavljene frontend uporabnike";
+$BL['be_ctype_tabs'] = "zavihki";
+$BL['be_tab_add'] = "dodaj zavihek";
+$BL['be_tab_name'] = "zavihek";
+$BL['be_headline'] = "naslov";
+$BL['be_tab_delete_js'] = "Ali želite izbrisati izbrani zavihek?";
+$BL['be_pagniate_count'] = "zapisov na stran";
+$BL['be_limit_to'] = "omejitev na";
+$BL['be_archived_items'] = "arhivirani zapisi";
+$BL['be_include'] = "vključi";
+$BL['be_exclude'] = "izključi";
+$BL['be_solely'] = "izključno";
+$BL['be_fsearch_not'] = "NE";
+$BL['be_date_year'] = "leto";
+$BL['be_archive_link'] = "povezava v arhiv";
+$BL['be_use_prio'] = "uporabi prioritizacijo";
+$BL['be_skip_first_items'] = "preskoči vrhnje zapise";
+$BL['be_news_detail_link'] = "novica - članek";
+$BL['be_gallerydownload'] = "dovoli prenosi iz galerije";
+$BL['be_gallery_root'] = "osnovni direktorij galerije";
+$BL['be_gallery_directory'] = "poddirektorij galerije";
+$BL['be_gallery'] = "galerija";
+
+$BL['be_sort_date'] = "uredi po datumu";
 ?>
