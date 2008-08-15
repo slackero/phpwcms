@@ -550,6 +550,7 @@ CREATE TABLE `phpwcms_filecat` (
   `fcat_aktiv` int(1) NOT NULL default '0',
   `fcat_deleted` int(1) NOT NULL default '0',
   `fcat_needed` int(1) NOT NULL default '0',
+  `fcat_sort` int(11) NOT NULL default '0',
   PRIMARY KEY  (`fcat_id`)
 ) ENGINE=MyISAM;
 
@@ -565,6 +566,7 @@ CREATE TABLE `phpwcms_filekey` (
   `fkey_name` varchar(255) NOT NULL default '',
   `fkey_aktiv` int(1) NOT NULL default '0',
   `fkey_deleted` int(1) NOT NULL default '0',
+  `fkey_sort` int(11) NOT NULL default '0',
   PRIMARY KEY  (`fkey_id`)
 ) ENGINE=MyISAM;
 

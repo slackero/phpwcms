@@ -224,7 +224,7 @@ if($ja) {
 	<?php 
 	
 	//Auswahlliste vordefinierte Keywörter
-	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_name;";
+	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
 	if($result = mysql_query($sql, $db) or die("error while browsing file categories for selecting keywords")) {
 		$k = "";
 		while($row = mysql_fetch_array($result)) {
@@ -235,7 +235,7 @@ if($ja) {
 				$k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"v11 width300\">\n";
 				$k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 				
-				$ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name;";
+				$ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
 				if($kresult = mysql_query($ksql, $db) or die("error while listing file keywords")) {
 					while($krow = mysql_fetch_array($kresult)) {
 						$k .= "<option value=\"".$krow["fkey_id"]."\"";

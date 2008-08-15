@@ -46,12 +46,13 @@ if(isset($_GET["open"])) {
 		  <?php
 		  	$fcat["id"] = intval($_GET["fcatid"]);
 			if($fcat["id"]) {	
-				$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_id=".$fcat["id"]." LIMIT 1;";
+				$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_id=".$fcat["id"]." LIMIT 1";
 				if($result = mysql_query($sql, $db) or die("error while getting file category infos")) {
 					if($row = mysql_fetch_array($result)) {
 						$fcat["name"]	= $row["fcat_name"];
 						$fcat["active"]	= $row["fcat_aktiv"];
 						$fcat["needed"]	= $row["fcat_needed"];
+						$fcat["sort"]	= $row["fcat_sort"];
 					}
 					mysql_free_result($result);
 				}
@@ -66,16 +67,17 @@ if(isset($_GET["open"])) {
 				$fcat["id"]		= intval($_POST["fcat_id"]);
 				$fcat["active"]	= empty($_POST["fcat_active"]) ? 0 : 1;
 				$fcat["needed"]	= empty($_POST["fcat_needed"]) ? 0 : 1;
+				$fcat["sort"]	= empty($_POST["fcat_sort"]) ? 0 : intval($_POST["fcat_sort"]);
 			
 				if(isEmpty($fcat["name"])) {
 					$fcat["error"] = 1; 
 				} else {
 					if(!$fcat["id"]) {
-						$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_filecat (fcat_name, fcat_aktiv, fcat_needed) VALUES ('";
-						$sql .= aporeplace($fcat["name"])."', ".$fcat["active"].", ".$fcat["needed"].");";						
+						$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_filecat (fcat_name, fcat_aktiv, fcat_needed, fcat_sort) VALUES ('";
+						$sql .= aporeplace($fcat["name"])."', ".$fcat["active"].", ".$fcat["needed"].", ".$fcat["sort"].")";						
 					} else {
 						$sql  = "UPDATE ".DB_PREPEND."phpwcms_filecat SET fcat_name='".aporeplace($fcat["name"]);
-						$sql .= "', fcat_aktiv=".$fcat["active"].", fcat_needed=".$fcat["needed"]." WHERE fcat_id=".$fcat["id"].";";
+						$sql .= "', fcat_aktiv=".$fcat["active"].", fcat_needed=".$fcat["needed"].", fcat_sort=".$fcat["sort"]." WHERE fcat_id=".$fcat["id"];
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating file category")) {
 						if(!$fcat["id"]) $fcat["id"] = mysql_insert_id($db);
@@ -98,30 +100,41 @@ if(isset($_GET["open"])) {
 			<?php } ?>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_admin_fcat_name'] ?>:&nbsp;</td>
-		      <td><input name="fcat_name" type="text" id="fcat_name" class="f11b" style="width: 430px" value="<?php echo  empty($fcat["name"]) ? '' : html_specialchars($fcat["name"]) ?>" size="40" maxlength="250" /></td>
+		      <td><input name="fcat_name" type="text" id="fcat_name" class="width400" value="<?php echo  empty($fcat["name"]) ? '' : html_specialchars($fcat["name"]) ?>" size="40" maxlength="250" /></td>
 		    </tr>
-		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-		    </tr>
+			
+
+		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+
+		    <tr>
+		      <td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
+		      <td><input name="fcat_sort" type="text" id="fcat_sort" class="width75" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
+		    </tr>			
+		
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		      <td><table border="0" cellpadding="2" cellspacing="0" bgcolor="#D9DEE3" summary="">
+		      <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#D9DEE3" summary="">
                 <tr>
                   <td><input name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> /></td>
-                  <td>&nbsp;<?php echo $BL['be_ftptakeover_active'] ?></td>
-                  <td><img src="img/leer.gif" alt="" width="15" height="1" /></td>
+                  <td><label for="fcat_active"><?php echo $BL['be_ftptakeover_active'] ?></label>&nbsp;&nbsp;</td>
                   <td><input name="fcat_needed" type="checkbox" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> /></td>
-                  <td><?php echo $BL['be_admin_fcat_needed'] ?>&nbsp;&nbsp;</td>
+                  <td><label for="fcat_needed"><?php echo $BL['be_admin_fcat_needed'] ?></label>&nbsp;&nbsp;</td>
                 </tr>
               </table></td>
 		      </tr>
 		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
 		    </tr>
 		    <tr>
-		      <td><input name="fcat_id" type="hidden" id="fcat_id" value="<?php echo intval($fcat["id"]) ?>" />
-		      <input name="fcat_aktion" type="hidden" id="fcat_aktion" value="1" /></td>
-		      <td><input name="Submit" type="submit" class="button10" style="width: 150px;" value="<?php echo $sendbutton ?>" />
+		      <td>
+			  &nbsp;
+			  <input name="fcat_id" type="hidden" id="fcat_id" value="<?php echo intval($fcat["id"]) ?>" />
+			  <input name="fcat_aktion" type="hidden" id="fcat_aktion" value="1" />
+			  </td>
+		      <td>
+			  <input name="Submit" type="submit" class="button10" value="<?php echo $sendbutton ?>" />
 		      &nbsp;&nbsp;
-		      	<input name="donotsubmit" type="button" class="button10" style="width: 80px;" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=7';" /></td>
+		      <input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=7';" /></td>
 		      </tr>
 		    </table></td>
 		  </tr>
@@ -141,18 +154,19 @@ if(isset($_GET["open"])) {
 		  	$fkey["id"] = intval($_GET["fkeyid"]);
 			$fkey["cid"] = intval($_GET["cid"]);
 			if($fkey["id"]) {	
-				$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_id=".$fkey["id"]." LIMIT 1;";
+				$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_id=".$fkey["id"]." LIMIT 1";
 				if($result = mysql_query($sql, $db) or die("error while getting file key infos")) {
 					if($row = mysql_fetch_array($result)) {
 						$fkey["name"]	= $row["fkey_name"];
 						$fkey["active"]	= $row["fkey_aktiv"];
 						$fkey["cid"]	= $row["fkey_cid"];
+						$fkey["sort"]	= $row["fkey_sort"];
 					}
 					mysql_free_result($result);
 				}
-				$sendbutton = "update";
+				$sendbutton = $BL['be_admin_fcat_button1'];
 			} else {
-				$sendbutton = "create";
+				$sendbutton = $BL['be_admin_fcat_button2'];
 			}
 		  
 			if(!empty($_POST["fkey_aktion"])) { //Formular zum Bearbeiten der Dateischlüssel-Namen
@@ -161,16 +175,17 @@ if(isset($_GET["open"])) {
 				$fkey["id"]		= intval($_POST["fkey_id"]);
 				$fkey["active"]	= intval($_POST["fkey_active"]);
 				$fkey["cid"]	= intval($_POST["fkey_cid"]);
+				$fkey["sort"]	= empty($_POST["fkey_sort"]) ? 0 : intval($_POST["fkey_sort"]);
 			
 				if(isEmpty($fkey["name"])) {
 					$fkey["error"] = 1; 
 				} else {
 					if(!$fkey["id"]) {
-						$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_filekey (fkey_name, fkey_aktiv, fkey_cid) VALUES ('";
-						$sql .= aporeplace($fkey["name"])."', ".$fkey["active"].", ".$fkey["cid"].");";						
+						$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_filekey (fkey_name, fkey_aktiv, fkey_cid, fkey_sort) VALUES ('";
+						$sql .= aporeplace($fkey["name"])."', ".$fkey["active"].", ".$fkey["cid"].", ".$fkey["sort"].")";						
 					} else {
 						$sql  = "UPDATE ".DB_PREPEND."phpwcms_filekey SET fkey_name='".aporeplace($fkey["name"]);
-						$sql .= "', fkey_aktiv=".$fkey["active"].", fkey_cid=".$fkey["cid"]." WHERE fkey_id=".$fkey["id"].";";
+						$sql .= "', fkey_aktiv=".$fkey["active"].", fkey_cid=".$fkey["cid"].", fkey_sort=".$fkey["sort"]." WHERE fkey_id=".$fkey["id"];
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating file key")) {
 						if(!$fkey["id"]) $fkey["id"] = mysql_insert_id($db);
@@ -185,9 +200,9 @@ if(isset($_GET["open"])) {
 		  <tr align="center" bgcolor="#F0F2F4"><td colspan="2"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		  <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_admin_fcat_fcat'] ?>:&nbsp;</td>
-		      <td><select name="fkey_cid" class="f11b" id="fkey_cid">
+		      <td><select name="fkey_cid" id="fkey_cid">
 			  <?php
-			  	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_name;";
+			  	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_name";
 				if($result = mysql_query($sql, $db) or die("error while creating file category list")) {
 					while($row = mysql_fetch_array($result)) {
 						echo "<option value=\"".$row["fcat_id"]."\"".
@@ -212,28 +227,38 @@ if(isset($_GET["open"])) {
 			<?php } ?>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_admin_fcat_fkeyname'] ?>:&nbsp;</td>
-		      <td><input name="fkey_name" type="text" id="fkey_name" class="f11b" style="width: 430px" value="<?php echo html_specialchars(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" size="40" maxlength="250" /></td>
+		      <td><input name="fkey_name" type="text" id="fkey_name" class="width400" value="<?php echo html_specialchars(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" size="40" maxlength="250" /></td>
 		    </tr>
-		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-		    </tr>
+		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+			
+			<tr>
+		      <td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
+		      <td><input name="fkey_sort" type="text" id="fkey_sort" class="width75" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
+		    </tr>			
+		
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+			
+			
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		      <td><table border="0" cellpadding="2" cellspacing="0" bgcolor="#D9DEE3" summary="">
+		      <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#D9DEE3" summary="">
                 <tr>
                   <td><input name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> /></td>
-                  <td>&nbsp;<?php echo $BL['be_ftptakeover_active'] ?></td>
-                  <td><img src="img/leer.gif" alt="" width="3" height="1" /></td>
+                  <td><label for="fkey_active"><?php echo $BL['be_ftptakeover_active'] ?></label>&nbsp;&nbsp;</td>
                 </tr>
               </table></td>
 		      </tr>
 		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
 		    </tr>
 		    <tr>
-		      <td><input name="fkey_id" type="hidden" id="fkey_id" value="<?php echo intval($fkey["id"]) ?>" />
+		      <td>
+			  &nbsp;
+			  <input name="fkey_id" type="hidden" id="fkey_id" value="<?php echo intval($fkey["id"]) ?>" />
 		      <input name="fkey_aktion" type="hidden" id="fkey_aktion" value="1" /></td>
-		      <td><input name="Submit" type="submit" class="button10" style="width: 125px;" value="<?php echo $sendbutton ?>" />
+		      <td>
+			  <input name="Submit" type="submit" class="button10" value="<?php echo $sendbutton ?>" />
 		      &nbsp;&nbsp;
-		      	<input name="donotsubmit" type="button" class="button10" style="width: 80px;" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=7';" /></td>
+		      <input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=7';" /></td>
 		    </tr>
 		    </table></td>
 		  </tr>
@@ -250,23 +275,25 @@ if(isset($_GET["open"])) {
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
     </tr>
 		  <?php
-			$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_name;";
+			$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
 			if($result = mysql_query($sql, $db) or die("error while browsing file categories")) {
 				while($row = mysql_fetch_array($result)) {
 					
-		 			echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
+		 			echo "<tr onmouseover=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
 					echo "<td width=\"483\"><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
 					
 					$child_count = get_filecat_childcount ($row["fcat_id"], $db);
-					//echo "<!-- ".$child_count." //-->\n";
+					
 					echo "<td>";
 					echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."\">" : "";
 					echo "<img src=\"img/symbole/plus_".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "open" : "close") : "empty");
 					echo ".gif\" width=\"15\" height=\"15\" border=\"0\">".(($child_count) ? "</a>" : "")."</td>\n";
 						
               		echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-					echo "<td class=\"dir\"><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html_specialchars($row["fcat_name"])."</strong></td>\n";
-              		echo "</tr>\n</table></td>\n<td width=\"55\">";
+					echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html_specialchars($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
+              		echo "</tr>\n</table></td>".LF;
+					
+					echo "<td width=\"55\">";
 					
 					echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" title=\"".$BL['be_admin_fcat_addkey']."\">";
 					echo "<img src=\"img/button/add_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
@@ -286,7 +313,7 @@ if(isset($_GET["open"])) {
 					
 					if(isset($_SESSION["fcatlist"]) && isset($_SESSION["fcatlist"][$row["fcat_id"]]) && $_SESSION["fcatlist"][$row["fcat_id"]]) { //List key names for this categroy
 						$ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_cid=".$row["fcat_id"].
-								" AND fkey_deleted=0 ORDER BY fkey_name;";
+								" AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
 						if($kresult = mysql_query($ksql, $db)) {
 							while($krow = mysql_fetch_array($kresult)) {
 								echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
@@ -294,7 +321,7 @@ if(isset($_GET["open"])) {
 								echo "<td><img src=\"img/leer.gif\" width=\"16\" height=\"1\">";
 								echo "<img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";
 								echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-								echo "<td class=\"dir\">".html_specialchars($krow["fkey_name"])."</td>\n";
+								echo "<td>".html_specialchars($krow["fkey_name"])." [".$krow["fkey_sort"]."]</td>\n";
 								echo "</tr>\n</table></td>\n";
 								echo "<td><img src=\"img/leer.gif\" width=\"11\" height=\"11\">";
 							
