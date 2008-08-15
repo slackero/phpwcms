@@ -32,6 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Plain HTML
 
-$SQL .= "acontent_html	='".aporeplace($content["html"])."' ";
+$SQL .= "acontent_html	='".aporeplace($content["html"])."', ";
+$SQL .= "acontent_template	= '".aporeplace($content["template"])."' ";
 
 ?>
