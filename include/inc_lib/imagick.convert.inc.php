@@ -165,7 +165,8 @@ function imagick_converting ($imagick) {
 							}
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"];
 							break;
-				case "png":	$imagick["command"] .= "-colors 128 ";
+				case "png":	//$imagick["command"] .= "-colors 128 ";
+							$imagick["command"] .= "-colorspace RGB ";
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"];
 							break;
 			}
