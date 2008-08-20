@@ -239,7 +239,7 @@ class search_News {
 				$this->search_results[$id]["user"]	= html_specialchars($value['cnt_editor']);
 				
 				
-				$value['detail_link']	= date('Ymd', $value['cnt_ts_livedate']) . '-' . $crow['acontent_aid'] . '_' ;
+				$value['detail_link']	= date('Ymd', $value['cnt_ts_livedate']) . '-' . $value['cnt_id'] . '_' ; //$crow['acontent_aid']
 				$value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
 				
 				$this->search_results[$id]['query']	= $this->search_target_url.'&amp;newsdetail='.$value['detail_link'];
