@@ -453,3 +453,6 @@ ALTER TABLE `phpwcms_file` ADD `f_gallerystatus` INT( 1 ) NOT NULL DEFAULT '0';
 # 2008-08-15
 ALTER TABLE `phpwcms_filecat` ADD `fcat_sort` INT( 11 ) NOT NULL DEFAULT '0';
 ALTER TABLE `phpwcms_filekey` ADD `fkey_sort` INT( 11 ) NOT NULL DEFAULT '0';
+
+# 2008-08-21
+ALTER TABLE `phpwcms_file` ADD `f_vars` BLOB NOT NULL ;

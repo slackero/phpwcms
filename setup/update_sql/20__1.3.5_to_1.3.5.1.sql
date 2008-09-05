@@ -22,7 +22,10 @@ ALTER TABLE `phpwcms_userlog` CHANGE `logged_change` `logged_change` INT(11) DEF
 ALTER TABLE `phpwcms_userlog` CHANGE `logged_start` `logged_start` INT(11) DEFAULT '0' NOT NULL ;
 
 ALTER TABLE `phpwcms_articlecat` CHANGE `acat_alias` `acat_alias` VARCHAR(255) NOT NULL ;
-ALTER TABLE `phpwcms_articlecat` DROP INDEX `acat_alias`, ADD INDEX `acat_alias` (`acat_alias`);
+ALTER TABLE `phpwcms_articlecat` DROP INDEX `acat_alias`;
+ALTER TABLE `phpwcms_articlecat` ADD INDEX `acat_alias` (`acat_alias`);
 
-ALTER TABLE `phpwcms_file` DROP INDEX `f_name`, ADD INDEX `f_name` (`f_name`);
-ALTER TABLE `phpwcms_file` DROP INDEX `f_shortinfo`, ADD INDEX `f_shortinfo` (`f_shortinfo`);
+ALTER TABLE `phpwcms_file` DROP INDEX `f_name`;
+ALTER TABLE `phpwcms_file` ADD INDEX `f_name` (`f_name`);
+ALTER TABLE `phpwcms_file` DROP INDEX `f_shortinfo`;
+ALTER TABLE `phpwcms_file` ADD INDEX `f_shortinfo` (`f_shortinfo`);

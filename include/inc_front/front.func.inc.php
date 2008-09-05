@@ -1938,25 +1938,27 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	$limit = empty($max_cnt_links) ?  '' : ' LIMIT '.$max_cnt_links;
 	$cat = trim($cat);
 	$cat = (intval($cat) || $cat == '0') ? 'article_cid='.intval($cat).' AND ' : '';
+	
+	$sql = 'SELECT article_id, article_title, article_cid, article_alias, ';
 
 	switch( (empty($template_default["sort_by"]) ? '' : strtolower($template_default["sort_by"])) ) {
 
 		case 'cdate': 	//use real creation date
-						$sql  =	"SELECT article_id, article_title, article_cid, article_created AS article_date ";
+						$sql .=	"article_created AS article_date ";
 						$sorting = 'article_created';
 						break;
 
 		case 'ldate': 	//use live/start date
-						$sql  =	"SELECT article_id, article_title, article_cid, UNIX_TIMESTAMP(article_begin) AS article_date ";
+						$sql .=	"UNIX_TIMESTAMP(article_begin) AS article_date ";
 						$sorting = 'article_begin';
 						break;
 
 		case 'kdate': 	//use kill/end date
-						$sql  =	"SELECT article_id, article_title, article_cid, UNIX_TIMESTAMP(article_end) AS article_date ";
+						$sql .=	"UNIX_TIMESTAMP(article_end) AS article_date ";
 						$sorting = 'article_end';
 						break;
 
-		default:		$sql  =	"SELECT article_id, article_title, article_cid, UNIX_TIMESTAMP(article_tstamp) AS article_date ";
+		default:		$sql .=	"UNIX_TIMESTAMP(article_tstamp) AS article_date ";
 						$sorting = 'article_tstamp';
 	}
 
@@ -1974,16 +1976,17 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 
 	// new articles list
 	$new_links = "";
-	$target = ($template_default["link_target"]) ? ' target="'.$template_default["link_target"].'"' : "";
-	if($result = mysql_query($sql, $dbcon)) {
-		$count_results = mysql_num_rows($result);
-		$count = 0;
-		while ($row = mysql_fetch_row($result)) {
+	$target = ($template_default["link_target"]) ? ' target="'.$template_default["link_target"].'"' : '';
+	
+	$result = _dbQuery($sql);
+	$count  = 0;
+	
+	foreach($result as $row) {
 			$count++;
-			if($template_default["link_length"] && strlen($row[1]) > $template_default["link_length"]) {
-				$article_title = substr($row[1], 0, $template_default["link_length"]).$template_default["cut_title_add"];
+			if($template_default["link_length"] && strlen($row['article_title']) > $template_default["link_length"]) {
+				$article_title = substr($row['article_title'], 0, $template_default["link_length"]).$template_default["cut_title_add"];
 			} else {
-				$article_title = $row[1];
+				$article_title = $row['article_title'];
 			}
 			$article_title = html_specialchars($article_title);
 			if(trim($template_default["date_format"])) {
@@ -1991,17 +1994,14 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 									html_specialchars(international_date_format(
 									$template_default["date_language"],
 									$template_default["date_format"],
-									$row[3])) .
+									$row['article_date'])) .
 									$template_default["date_after"] .
 									$article_title;
 			}
 			$new_links .= $template_default["link_before"];
 			$new_links .= $template_default["link_symbol"];
-			$new_links .= '<a href="index.php?id='.$row[2].','.$row[0].',0,0,1,0"';
-			$new_links .= $target.">".$article_title."</a>";
+			$new_links .= '<a href="index.php?'.setGetArticleAid($row).'"'.$target.'>'.$article_title.'</a>';
 			$new_links .= $template_default["link_after"];
-		}
-		mysql_free_result($result);
 	}
 
 	//enclose whole

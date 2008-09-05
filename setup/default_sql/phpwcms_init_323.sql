@@ -531,6 +531,7 @@ CREATE TABLE `phpwcms_file` (
   `f_tags` varchar(255) NOT NULL,
   `f_granted` int(11) NOT NULL default '0',
   `f_gallerystatus` int(1) NOT NULL default '0',
+  `f_vars` blob NOT NULL,
   PRIMARY KEY  (`f_id`),
   KEY `f_granted` (`f_granted`),
   FULLTEXT KEY `f_name` (`f_name`),
