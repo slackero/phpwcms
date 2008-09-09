@@ -877,13 +877,27 @@ function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $se
 
 function initJsCalendar() {
 	$GLOBALS['BE']['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
-	$GLOBALS['BE']['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
+	$GLOBALS['BE']['HEADER']['dynCalendar.js']	= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
 }
-function initMootools() {
-	$GLOBALS['BE']['HEADER']['mootools.js']	= getJavaScriptSourceLink('include/inc_js/mootools/mootools.js');
+function initMootools($mode='1.1') {
+	switch($mode) {
+		case '1.1':
+			$GLOBALS['BE']['HEADER']['mootools.js']					= getJavaScriptSourceLink('include/inc_js/mootools/mootools.js');
+			break;
+		case 'COMPAT':
+			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-core.js');
+			$GLOBALS['BE']['HEADER']['mootools-1.2-more.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-more.js');
+			$GLOBALS['BE']['HEADER']['compat-mootools-core.js']		= getJavaScriptSourceLink('include/inc_js/mootools/compat-mootools-core.js');
+			$GLOBALS['BE']['HEADER']['compat-mootools-more.js']		= getJavaScriptSourceLink('include/inc_js/mootools/compat-mootools-more.js');
+			$GLOBALS['BE']['HEADER']['mootools-compat-custom.js']	= getJavaScriptSourceLink('include/inc_js/mootools/mootools-compat-custom.js');
+			break;
+		default: // 1.2
+			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-core.js');
+			$GLOBALS['BE']['HEADER']['mootools-1.2-more.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-more.js');
+	}
 }
-function initMootoolsAutocompleter() {
-	initMootools();
+function initMootoolsAutocompleter($mode='1.1') {
+	initMootools($mode);
 	$GLOBALS['BE']['HEADER']['Autocompleter.js']		= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.js');
 	$GLOBALS['BE']['HEADER']['Autocompleter.Remote.js']	= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.Remote.js');
 	$GLOBALS['BE']['HEADER']['Observer.js']				= getJavaScriptSourceLink('include/inc_js/mootools/cnet/Observer.js');
