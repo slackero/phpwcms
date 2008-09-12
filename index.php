@@ -72,6 +72,8 @@ init_frontend_edit();
 // buffer everything
 ob_start();
 
+$content['page_end'] = '';
+
 require_once PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -139,9 +141,6 @@ if($content['body_id'] !== false) {
 	}
 }
 $content['page_start'] .= $body_inject.'>'.LF;
-
-
-$content['page_end'] = '';
 
 //  this regex's inits rewrite
 if($phpwcms["rewrite_url"]) {
