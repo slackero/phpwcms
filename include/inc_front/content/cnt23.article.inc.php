@@ -1792,9 +1792,12 @@ if($form_cnt) {
 	if($cnt_form["class"]) {
 		$CNT_TMP .= '<div class="'.$cnt_form["class"].'">';
 		$cnt_form["class_close"] = '</div>';
+		$cnt_form['class'] = ' class="form-'.$cnt_form["class"].'"';
+	} else {
+		$cnt_form['class'] = '';
 	}
 	$CNT_TMP .= $form_error_text;
-	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'" ';
+	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'" '.$cnt_form['class'];
 	$CNT_TMP .= 'action="'.FE_CURRENT_URL.'#jumpForm'.$crow["acontent_id"].'" method="post" enctype="multipart/form-data">';
 
 	if($cnt_form['labelpos'] == 2) {
