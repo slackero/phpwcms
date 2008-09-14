@@ -12,12 +12,16 @@ function replaceEmailAddress($str) {
 
 	preg_match_all('/<input[^>]+>/U', $str, $input_tags);
 	preg_match_all('/<textarea[^>]+>.*<\/textarea>/U', $str, $textarea_tags);
+	preg_match_all('/<option[^>]+>/U', $str, $option_tags);
 
 	foreach($input_tags[0] as $key => $value) {
 		$str = str_replace($value, '[%---I'.$key.'---%]', $str);
 	}
 	foreach($textarea_tags[0] as $key => $value) {
 		$str = str_replace($value, '[%---T'.$key.'---%]', $str);
+	}
+	foreach($option_tags[0] as $key => $value) {
+		$str = str_replace($value, '[%---O'.$key.'---%]', $str);
 	}
 
 	$regex = "([\xA1-\xFEa-z0-9_\.\-]+)(@)([\xA1-\xFEa-z0-9_\-]+\.[\xA1-\xFEa-z0-9\-\._\-]+[\.]*[a-z0-9]\??[\xA1-\xFEa-z0-9=]*)";
@@ -34,11 +38,14 @@ function replaceEmailAddress($str) {
 	foreach($textarea_tags[0] as $key => $value) {
 		$str = str_replace('[%---T'.$key.'---%]', $value, $str);
 	}
+	foreach($option_tags[0] as $key => $value) {
+		$str = str_replace('[%---O'.$key.'---%]', $value, $str);
+	}
 
 	$str = str_replace('##--##"', '"', $str);
 	$str = str_replace('##--##',  '"', $str);
+
 	return $str;
-	//return preg_replace('/[^=]"">/', '">', $str);
 }
 
 function rewriteEmailText($part) {
