@@ -8,26 +8,19 @@ if (!defined('PHPWCMS_ROOT')) {
 
 ?>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-	<tr><td colspan="3" class="title"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-	</tr>
+	<tr><td colspan="3" class="title"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr><td colspan="3" class="title"><?php echo $BL['be_gt_styles_title']; ?></td></tr>
-	<tr><td colspan="3" class="title"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-	</tr>
-	<tr><td colspan="3" ><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-	</tr>
-	<tr><td colspan="3" ><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-	</tr>
+	<tr><td colspan="3" class="title"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	<tr><td colspan="3" ><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+	<tr><td colspan="3" ><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td><strong><?php echo $BL['be_gt_styles_name'] ?></strong></td>
 		<td><strong><?php echo $BL['be_gt_styles_preview'] ?></strong></td>
 		<td>&nbsp;</td>
 	</tr>
-	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-	</tr>
-	<tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-	</tr>
-	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-	</tr>
+	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	<tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<?php
 	
 		//$gtarray = gt2array($db);

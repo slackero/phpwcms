@@ -52,8 +52,8 @@ function gt2array ($db)
 	$query = "SELECT * FROM ".DB_PREPEND."phpwcms_fonts_styles ORDER BY style_name";
 	$result = mysql_query($query, $db) or die ("Error in query:$query");
 	
-	while ($row = mysql_fetch_assoc($result))
-	{
+	while ($row = mysql_fetch_assoc($result)) {
+	
 		$stylename = "\"".$row["style_name"]."\"";
 		$array["styles_name"][$stylename]["id"] = $row["style_id"];
 		$array["styles_name"][$stylename]["name"] = $row["style_name"];
@@ -75,6 +75,7 @@ function gt2array ($db)
 		$array["styles_name"][$stylename]["start_x"] = empty($style_info[9]) ? 0 : $style_info[9] ;
 		$array["styles_name"][$stylename]["start_y"] = empty($style_info[10]) ? 0 : $style_info[10] ;
 		$array["styles_name"][$stylename]["height"] = empty($style_info[11]) ? 5 : $style_info[11] ;
+		$array["styles_name"][$stylename]["rotation"] = empty($style_info[12]) ? 'default' : $style_info[12] ;
 		
 		
 		$array["styles_id"][$row["style_id"]]["font"] = $style_info[0];
@@ -90,13 +91,11 @@ function gt2array ($db)
 		$array["styles_id"][$row["style_id"]]["start_x"] = empty($style_info[9]) ? 0 : $style_info[9] ;
 		$array["styles_id"][$row["style_id"]]["start_y"] = empty($style_info[10]) ? 0 : $style_info[10] ;
 		$array["styles_id"][$row["style_id"]]["height"] = empty($style_info[11]) ? 5 : $style_info[11] ;
-		
-		
+		$array["styles_id"][$row["style_id"]]["rotation"] = empty($style_info[12]) ? 'default' : $style_info[12] ;
+
 	}
 	
 	return $array;
 }
-
-//$gtarray = gt2array($db);
 
 ?>

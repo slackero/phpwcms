@@ -15,8 +15,6 @@ define('CACHE_PREFIX', PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'gt/' );
 // Path for display
 define('DISPLAY_PREFIX', $phpwcms["content_path"].'gt/' );
 
-
-
 function hex2dec($hex)
 {
 	// Converts HEX-values to RGB-arrays
@@ -31,7 +29,7 @@ function hex2dec($hex)
 }
 
 
-function create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolor, $fgtransparency, $bgcolor, $bgtransparency, $line_width, $format, $x=0, $y=0, $h=5)
+function create_picture($cachefile, $font, $text, $antialiasing, $size, $fgcolor, $fgtransparency, $bgcolor, $bgtransparency, $line_width, $format, $x=0, $y=0, $h=5, $rotation='default')
 {
 	// Creates a picture in the cache folder
 	$fgcolor		= hex2dec($fgcolor);
@@ -41,25 +39,21 @@ function create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolo
 	$_fval_y = intval($y);
 	$_fval_h = intval($h);
 	
-	//$text = decode_entities($text);
-		
 	// Font properties
 	$fontfile = PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_fonts/'.$font;
 	$bbox = imagettfbbox($size, 0, $fontfile, $text);
-	//$bbox = better_imagettfbbox($size, 0, $fontfile, $text);
 	$font_left=($bbox[0]>$bbox[6])?$bbox[6]:$bbox[0];
 	$font_right=($bbox[2]>$bbox[4])?$bbox[2]:$bbox[4];
 	
 	// Check height with letters like 'pbl' etc. to center the text correctly
 	$bbox = imagettfbbox($size, 0, $fontfile, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"§$%&/()=?");
-	//$bbox = better_imagettfbbox($size, 0, $fontfile, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"§$%&/()=?");
 	$font_top=($bbox[1]>$bbox[7])?$bbox[7]:$bbox[1];
 	$font_bottom=($bbox[3]>$bbox[5])?$bbox[3]:$bbox[5];
 	
 	$font_width=$font_right-$font_left;
 	$font_height=$font_bottom-$font_top;
 		
-	$im = imagecreate ($font_width + 5, $font_height + $_fval_h);
+	$im = imagecreate($font_width + 5, $font_height + $_fval_h);
 	
 	if (intval($bgtransparency) == 1 && $format != "jpg") {
 		$background = imagecolorallocatealpha($im, $bgcolor['r'], $bgcolor['g'], $bgcolor['b'], 127);
@@ -81,7 +75,6 @@ function create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolo
 	$im_height = imagesy($im);
 	
 	$font_start_x = (($im_width - $font_width)/2) + $_fval_x; 
-	//$font_start_y = (($im_height - $font_weight)/2) + ($size/2);
 	$font_start_y = ($im_height/2) + ($size/2) + $_fval_y;
 		
 	if( ! seems_utf8($text) ) {
@@ -93,7 +86,12 @@ function create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolo
 	// Create underline
 	for ($i = 0;$i < $line_width; $i++)
 	{
-		imageline ($im, $font_start_x, $font_height+$i, $font_start_x+$font_width, $font_height+$i, $color);
+		imageline($im, $font_start_x, $font_height+$i, $font_start_x+$font_width, $font_height+$i, $color);
+	}
+	
+	// rotate image
+	if($rotation == 'hcw' || $rotation == 'cw' || $rotation == 'ccw') {
+		$im = rotateImage($im, $rotation);
 	}
 	
 	// Create cached image
@@ -114,18 +112,18 @@ function create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolo
 	imagedestroy($im);
 }
 
-function show_picture ($font, $text, $antialiasing, $size, $fgcolor, $fgtransparency, $bgcolor, $bgtransparency, $line_width, $format, $x=0, $y=0, $h=5) 
+function show_picture ($font, $text, $antialiasing, $size, $fgcolor, $fgtransparency, $bgcolor, $bgtransparency, $line_width, $format, $x=0, $y=0, $h=5, $rotation='default') 
 {
 	// This function checks if the image with the above parameters has already been created and cached
 	// If so, it creates a direct image link to the cached file (this should solve sooner problems with
 	// some older browsers
 	
-	$md5 = md5($font.$text.$antialiasing.$size.$fgcolor.$fgtransparency.$bgcolor.$bgtransparency.$line_width.$format.$x.$y.$h);
+	$md5 = md5($font.$text.$antialiasing.$size.$fgcolor.$fgtransparency.$bgcolor.$bgtransparency.$line_width.$format.$x.$y.$h.$rotation);
 	$cachefile = CACHE_PREFIX . $md5 . '.' . $format;	
 	
 	if(!file_exists($cachefile)) {
 		// Call the fontizer-script to generate the image. This will happen only one time
-		create_picture ($cachefile, $font, $text, $antialiasing, $size, $fgcolor, $fgtransparency, $bgcolor, $bgtransparency, $line_width, $format, $x, $y, $h);
+		create_picture($cachefile, $font, $text, $antialiasing, $size, $fgcolor, $fgtransparency, $bgcolor, $bgtransparency, $line_width, $format, $x, $y, $h, $rotation);
 	}
 	
 	$displayfile	= DISPLAY_PREFIX . $md5 . '.' .$format;
@@ -165,7 +163,7 @@ function get_gt_by_style ($matches) {
 		$fgcolor		= $gt["colors_id"][$style["fgcolor"]]["value"];
 		$bgcolor		= $gt["colors_id"][$style["bgcolor"]]["value"];
 		
-		if(file_exists(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_fonts/'.$font)) {
+		if(is_file(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_fonts/'.$font)) {
 		
 			preg_match('/(<a[^>]*?>)(.*?)(<\/a>)/i', $text, $aparts);
 			if(is_array($aparts) && count($aparts)) {
@@ -198,7 +196,7 @@ function get_gt_by_style ($matches) {
 											$bgcolor,					$style["bgtransparency"],
 											$style["line_width"],		$style["format"], 
 											$style["start_x"],			$style["start_y"],
-											$style["height"]
+											$style["height"],			$style["rotation"]
 											);
 					if($text && $temp) {
 						$text .= '<br />';
@@ -226,6 +224,38 @@ function better_imagettfbbox($size, $angle, $font, $text) {
 	$bbox = imagettftext($dummy, $size, $angle, 0, 0, $black, $font, $text);
 	imagedestroy($dummy);
 	return $bbox;
+}
+
+function rotateImage($image, $direction) {
+	$direction = strtolower($direction);
+	switch($direction) {
+		case 'cw':	$degrees = 270;
+					break;
+		case 'ccw':	$degrees = 90;
+					break;
+		case 'hcw':	return imagerotate($image, 180, 0, -1);
+					break;
+		default:	return $image;
+	}
+	$width			= imagesx($image);
+	$height			= imagesy($image);
+	$side			= $width > $height ? $width : $height;
+	$imageSquare	= imagecreatetruecolor($side, $side);
+	imagecopy($imageSquare, $image, 0, 0, 0, 0, $width, $height);
+	imagedestroy($image);
+	$imageSquare	= imagerotate($imageSquare, $degrees, 0, -1);
+	$image			= imagecreatetruecolor($height, $width);
+	
+	if($direction == 'cw') {
+		$x = $height > $width ? 0 : $side - $height;
+		$y = 0;
+	} elseif($direction == 'ccw') {
+		$x = 0;
+		$y = $height < $width ? 0 : $side - $width;
+	}
+	imagecopy($image, $imageSquare, 0, 0, $x, $y, $height, $width);
+	imagedestroy($imageSquare);
+	return $image;
 }
 
 ?>

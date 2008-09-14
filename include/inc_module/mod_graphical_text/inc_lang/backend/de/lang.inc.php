@@ -88,4 +88,10 @@ $BL['be_gt_style_transparency']					= 'Transparenz';
 $BL['be_gt_style_fgcolor']						= 'Vordergrund-Farbe';
 $BL['be_gt_style_bgcolor']						= 'Hintergrund-Farbe';
 $BL['be_gt_style_back']							= 'zur&uuml;ck zur Stil-&Uuml;bersicht';
+$BL['be_gt_style_rotation']						= 'Rotation';
+$BL['be_gt_style_rotation_cw']					= 'im Uhrzeigersinn (90°)';
+$BL['be_gt_style_rotation_ccw']					= 'entgegen dem Uhrzeigersinn (270°)';
+$BL['be_gt_style_rotation_hcw']					= 'halbe Drehung (180°)';
+$BL['be_gt_style_rotation_default']				= 'keine Drehung (0°)';
+$BL['be_gt_style_height']						= 'H&ouml;he zugeben';
 ?>

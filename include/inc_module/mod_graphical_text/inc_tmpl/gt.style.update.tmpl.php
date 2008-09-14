@@ -24,6 +24,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	$style_bgcolor			= 0;
 	$tr_visibility			= 'visible';
 	$style_size				= '10';
+	$style_rotation			= 'default';
 	
 	
 	if (isset($_GET["doit"]) && intval($_GET["doit"]) == 1)
@@ -39,8 +40,23 @@ if (!defined('PHPWCMS_ROOT')) {
 		
 		$line_width= empty($_POST["linewidth"]) ? 0 : intval($_POST["linewidth"]);
 		
-		
-		$style_info  = $_POST["font"].":".$_POST["antialiasing"].":".$_POST["size"].":".$_POST["fgcolor"].":".$fgtransparency.":".$_POST["bgcolor"].":".$bgtransparency.":".$line_width.":".$_POST["format"];
+		$style_info  = clean_slweg($_POST["font"]);
+		$style_info .= ":";
+		$style_info .= clean_slweg($_POST["antialiasing"]);
+		$style_info .= ":";
+		$style_info .= clean_slweg($_POST["size"]);
+		$style_info .= ":";
+		$style_info .= clean_slweg($_POST["fgcolor"]);
+		$style_info .= ":";
+		$style_info .= $fgtransparency;
+		$style_info .= ":";
+		$style_info .= clean_slweg($_POST["bgcolor"]);
+		$style_info .= ":";
+		$style_info .= $bgtransparency;
+		$style_info .= ":";
+		$style_info .= $line_width;
+		$style_info .= ":";
+		$style_info .= clean_slweg($_POST["format"]);
 		
 		//add new enhanced settings to font
 		$style_info .= ":";
@@ -49,6 +65,8 @@ if (!defined('PHPWCMS_ROOT')) {
 		$style_info .= intval($_POST["start_y"]);
 		$style_info .= ":";
 		$style_info .= intval($_POST["height"]);
+		$style_info .= ":";
+		$style_info .= clean_slweg($_POST["rotation"]);
 		
 		if ($action == "add") {
 			$query  = "INSERT INTO ".DB_PREPEND."phpwcms_fonts_styles SET style_name = '";
@@ -81,7 +99,8 @@ if (!defined('PHPWCMS_ROOT')) {
 		
 		$style_x = $style["start_x"];
 		$style_y = $style["start_y"];
-		$style_height = $style["height"];		
+		$style_height = $style["height"];
+		$style_rotation = $style["rotation"];
 		
 		if ($style_format != "jpg") {
 			$tr_visibility = "visible";
@@ -140,7 +159,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_gt_style_font'] ?>:&nbsp;</td>
 			<td>
 				<select name="font" class="f11b">
-					<option value="0" class="f11b"></option>
+					<option value="0" class="f11b">&nbsp;</option>
 					<?php
 						foreach($gtarray["fonts_id"] as $key)
 						{
@@ -197,7 +216,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<tr><td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td></tr>
 		
 		<tr>
-			<td align="right" class="chatlist" nowrap="nowrap">Height:&nbsp;</td>
+			<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_gt_style_height'] ?>:&nbsp;</td>
 			<td class="chatlist"><input name="height" type="text" id="height" class="f11b" style="width: 50px" value="<?php echo @$style_height; ?>" size="10" maxlength="3" /></td>
 		</tr>
 		<tr><td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td></tr>
@@ -206,7 +225,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_gt_style_fgcolor']; ?>:&nbsp;</td>
 			<td class="chatlist">
 				<select name="fgcolor" class="f11b">
-					<option value="0" class="f11b"></option>
+					<option value="0" class="f11b">&nbsp;</option>
 					<?php
 						foreach($gtarray["colors_id"] as $key)
 						{
@@ -236,7 +255,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_gt_style_bgcolor']; ?>:&nbsp;</td>
 			<td class="chatlist">
 				<select name="bgcolor" class="f11b">
-					<option value="0" class="f11b"></option>
+					<option value="0" class="f11b">&nbsp;</option>
 					<?php
 						foreach($gtarray["colors_id"] as $key)
 						{
@@ -259,7 +278,22 @@ if (!defined('PHPWCMS_ROOT')) {
 					echo $BL['be_gt_style_transparency'];
 				?></span>			</td>
 		</tr>
+		
 		<tr><td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td></tr>
+		<tr>
+			<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_gt_style_rotation']; ?>:&nbsp;</td>
+			<td class="chatlist"><select name="rotation" class="f11b">
+					
+					<option value="default"<?php is_selected('default', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_default']; ?></option>
+					<option value="cw"<?php is_selected('cw', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_cw']; ?></option>
+					<option value="hcw"<?php is_selected('hcw', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_hcw']; ?></option>
+					<option value="ccw"<?php is_selected('ccw', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_ccw']; ?></option>
+					
+				</select></td>
+		</tr>
+		
+		
+		<tr><td colspan="2"><img src="img/leer.gif" width="1" height="10" alt="" /></td></tr>
 		<tr>
 			<td class="chatlist"></td>
 			<td><input name="Submit" type="submit" class="button10" value="<?php echo $sendbutton ?>" />
