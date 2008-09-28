@@ -227,13 +227,14 @@ function better_imagettfbbox($size, $angle, $font, $text) {
 }
 
 function rotateImage($image, $direction) {
-	$direction = strtolower($direction);
+	$direction	= strtolower($direction);
+	$is_php51	= version_compare(PHP_VERSION, '5.1.0', '>=');
 	switch($direction) {
 		case 'cw':	$degrees = 270;
 					break;
 		case 'ccw':	$degrees = 90;
 					break;
-		case 'hcw':	return imagerotate($image, 180, 0, -1);
+		case 'hcw':	return $is_php51 ? imagerotate($image, 180, 0, -1) : imagerotate($image, 180, 0);
 					break;
 		default:	return $image;
 	}
@@ -243,7 +244,7 @@ function rotateImage($image, $direction) {
 	$imageSquare	= imagecreatetruecolor($side, $side);
 	imagecopy($imageSquare, $image, 0, 0, 0, 0, $width, $height);
 	imagedestroy($image);
-	$imageSquare	= imagerotate($imageSquare, $degrees, 0, -1);
+	$imageSquare	= $is_php51 ? imagerotate($imageSquare, $degrees, 0, -1) : imagerotate($imageSquare, $degrees, 0);
 	$image			= imagecreatetruecolor($height, $width);
 	
 	if($direction == 'cw') {
