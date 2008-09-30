@@ -326,7 +326,8 @@ if ($spawfm->getCurrentFsDir()) {
 <script type="text/javascript">
 <?php
 // populate directories list
-foreach ($directories as $c => $directory) {
+$c = 0;
+foreach ($directories as $directory) {
   echo 'SpawFm.addDirectory(\''.SpawFm::escJsStr($directory['name'])."', '".
                             $directory['size']."', '".
                             date('Y-m-d H:i:s', $directory['date'])."', '".
@@ -339,10 +340,12 @@ foreach ($directories as $c => $directory) {
   if (!empty($onload_select) and $directory['name'] == $onload_select) {
     $onload_select = $c;
   }
+  $c++;
 }
 
 // populate files list
-foreach ($files as $c => $file) {
+$c = 0;
+foreach ($files as $file) {
   echo 'SpawFm.addFile(\''.SpawFm::escJsStr($file['name'])."', '".
                             $file['size']."', '".
                             date('Y-m-d H:i:s', $file['date'])."', '".
@@ -356,6 +359,7 @@ foreach ($files as $c => $file) {
   if (!empty($onload_select) and $file['name'] == $onload_select) {
     $onload_select = sizeof($directories) + $c;
   }
+  $c++;
 }
 ?>
 

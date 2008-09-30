@@ -1,15 +1,16 @@
 SPAW Editor PHP Edition
-Version 2.0.5
+Version 2.0.8.1
 
-2.0.5 Release Notes
+2.0.8.1 Release Notes
 
 Thanks to everyone who downloaded and tried SPAW Editor v.2! 
 Your feedback was extremely helpful.
 
-2.0.5 is mainly a wide release of version 2.0.5 beta which introduced support
-for Safari browser on Mac (and Windows). There's only one additional bug fix
-so, if you were already using 2.0.5 beta and you don't work with any RTL 
-languages like Hebrew or Arabic, there's no real need to upgrade.
+This is a hotfix release for a possible security issue in file 
+class/theme.class.php
+
+Users of previous 2.x versions can just overwrite the above mentioned file. 
+It hasn't changed since version 2.0.
 
 For a complete list of changes see changelog.txt 
 

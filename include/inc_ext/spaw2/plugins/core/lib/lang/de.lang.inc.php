@@ -1,15 +1,19 @@
-<?php 
-// ================================================
-// SPAW v.2.0
-// ================================================
-// English language file
-// ================================================
-// Author: Alan Mendelevich, UAB Solmetra
-// ------------------------------------------------
+<?php
+// =========================================================
+// SPAW PHP WYSIWYG editor control
+// =========================================================
+// German language file
+// =========================================================
+// Developed: Alan Mendelevich, alan@solmetra.lt
+// German translation: Simon Schmitz, schmitz@unitedfuor.com
+// Corrections: Matthias Höschele, matthias.hoeschele@gmx.net
+// Corrections: Martina Greiner, ismagentur@online.de
+// Copyright: Solmetra (c)2003 All rights reserved.
+// ---------------------------------------------------------
 //                                www.solmetra.com
-// ================================================
-// v.2.0
-// ================================================
+// =========================================================
+// v.1.0, 2003-04-10
+// =========================================================
 
 // charset to be used in dialogs
 $spaw_lang_charset = 'utf-8';
@@ -26,147 +30,168 @@ $spaw_lang_data = array(
     'title' => 'Kopieren'
   ),
   'paste' => array(
-    'title' => 'Einfügen'
+    'title' => 'Einf&uuml;gen'
   ),
   'undo' => array(
-    'title' => 'Rückgängig'
+    'title' => 'R&uuml;ckg&auml;ngig'
   ),
   'redo' => array(
     'title' => 'Wiederherstellen'
   ),
+  'hyperlink' => array(
+    'title' => 'Hyperlink einf&uuml;gen'
+  ),
+  'internal_link' => array(                //Doesn't appear in Any lang-file?!? (dzy) ;-)
+    'title' => 'Interner Link'
+  ),
   'image' => array(
-    'title' => 'Schnelles Bild-Einfügen'
+    'title' => 'Bild einf&uuml;gen'
+  ),
+  'image_insert' => array(
+    'title' => 'Bild einf&uuml;gen',
+    'select' => 'Ausw&auml;hlen',
+	'delete' => 'Löschen', // new 1.0.5
+    'cancel' => 'Abbrechen',
+    'library' => 'Bibliothek',
+    'preview' => 'Vorschau',
+    'images' => 'Bild',
+    'upload' => 'Bild hochladen',
+    'upload_button' => 'Hochladen',
+    'error' => 'Fehler',
+    'error_no_image' => 'W&auml;hlen Sie bitte ein Bild',
+    'error_uploading' => 'Ein Fehler trat bei der &Uuml;bertragung der Datei auf.  Bitte Versuchen Sie es sp&auml;ter noch einmal.',
+    'error_wrong_type' => 'Unzul&auml;ssiger Dateityp',
+    'error_no_dir' => 'Bibliothek ist physikalisch nicht vorhanden',
+	'error_cant_delete' => 'L&ouml;schen fehlgeschlagen', // new 1.0.5
+
   ),
   'image_prop' => array(
-    'title' => 'Bild',
+    'title' => 'Bildeigenschaften',
     'ok' => '   OK   ',
     'cancel' => 'Abbrechen',
     'source' => 'Quelle',
     'alt' => 'Alternativer Text',
-    'align' => 'Ausrichten',
-    'left' => 'links',
-    'right' => 'rechts',
-    'top' => 'oben',
-    'middle' => 'mittig',
-    'bottom' => 'unten',
-    'absmiddle' => 'absolut mittig',
-    'texttop' => 'Text oben',
-    'baseline' => 'Grundlinie',
+    'align' => 'Ausrichtung',
+    'justifyleft' => 'Linksb&uuml;ndig',
+    'justifyright' => 'Rechtsb&uuml;ndig',
+    'top' => 'Oben',
+    'middle' => 'Mitte',
+    'bottom' => 'Unten',
+    'absmiddle' => 'Absolute Mitte',
+    'texttop' => 'TextTop',
+    'baseline' => 'An Grundlinie ausrichten',
     'width' => 'Breite',
-    'height' => 'Höhe',
-    'border' => 'Rahmen',
-    'hspace' => 'Hor. Abstand',
-    'vspace' => 'Vert. Abstand',
-    'dimensions' => 'Größe', // <= new in 2.0.1
-    'reset_dimensions' => 'Größe zurücksetzen', // <= new in 2.0.1
-    'title_attr' => 'Titel', // <= new in 2.0.1
-    'constrain_proportions' => 'Proportionen beibehalten', // <= new in 2.0.1
-    'Fehler' => 'Fehler',
-    'Fehler_width_nan' => 'Breite ist keine Zahl',
-    'Fehler_height_nan' => 'Höhe ist keine Zahl',
-    'Fehler_border_nan' => 'Rahmen ist keine Zahl',
-    'Fehler_hspace_nan' => 'Horizontaler Abstand ist keine Zahl',
-    'Fehler_vspace_nan' => 'Vertikaler Abstand ist keine Zahl',
+    'height' => 'H&ouml;he',
+    'border' => 'Rand',
+    'hspace' => 'Horizontaler Abstand',
+    'vspace' => 'Vertikaler Abstand',
+    'error' => 'Fehler',
+    'error_width_nan' => 'Die Breite ist keine Zahl',
+    'error_height_nan' => 'Die H&ouml;he ist keine Zahl',
+    'error_border_nan' => 'Der Rand ist keine Zahl',
+    'error_hspace_nan' => 'Horizontaler Abstand ist keine Zahl',
+    'error_vspace_nan' => 'Vertikaler Abstand ist keine Zahl',
   ),
-  'flash_prop' => array(                // <= new in 2.0
-    'title' => 'Flash',
+    'flash_prop' => array(                // <= new in 2.0
+    'title' => 'Flashfilm einf&uuml;gen',
     'ok' => '   OK   ',
     'cancel' => 'Abbrechen',
     'source' => 'Quelle',
     'width' => 'Breite',
-    'height' => 'Höhe',
-    'Fehler' => 'Fehler',
-    'Fehler_width_nan' => 'Breite ist keine Zahl',
-    'Fehler_height_nan' => 'Höhe ist keine Zahl',
+    'height' => 'H&ouml;he',
+    'error' => 'Fehler',
+    'error_width_nan' => 'Die Breite ist keine Zahl',
+    'error_height_nan' => 'Die H&ouml;he ist keine Zahl',
   ),
-  'inserthorizontalrule' => array( // <== v.2.0 changed from hr
+  'inserthorizontalrule' => array(
     'title' => 'Horizontale Linie'
   ),
   'table_create' => array(
-    'title' => 'Tabelle erstellen'
+    'title' => 'Tabelle einf&uuml;gen'
   ),
   'table_prop' => array(
-    'title' => 'Tabelleneinstellungen',
+    'title' => 'Tabelleneigenschaften',
     'ok' => '   OK   ',
-    'cancel' => 'Abbrech',
+    'cancel' => 'Abbrechen',
     'rows' => 'Zeilen',
     'columns' => 'Spalten',
-    'css_class' => 'CSS Klasse',
+    'css_class' => 'CSS Klasse', // <=== new 1.0.6
     'width' => 'Breite',
-    'height' => 'Höhe',
-    'border' => 'Rahmen',
+    'height' => 'H&ouml;he',
+    'border' => 'Rand',
     'pixels' => 'Pixel',
-    'cellpadding' => 'Zellenauffüllung',
-    'cellspacing' => 'Zellenabstand',
+    'cellpadding' => 'Zellauff&uuml;llung',
+    'cellspacing' => 'Zellabstand',
     'bg_color' => 'Hintergrundfarbe',
-    'background' => 'Hintergrundbild',
-    'Fehler' => 'Fehler',
-    'Fehler_rows_nan' => 'Zeilen ist keine Zahl',
-    'Fehler_columns_nan' => 'Spalten ist keine Zahl',
-    'Fehler_width_nan' => 'Breite ist keine Zahl',
-    'Fehler_height_nan' => 'Höhe ist keine Zahl',
-    'Fehler_border_nan' => 'Rahmen ist keine Zahl',
-    'Fehler_cellpadding_nan' => 'Zellenauffüllung ist keine Zahl',
-    'Fehler_cellspacing_nan' => 'Zellenabstand ist keine Zahl',
+    'background' => 'Hintergrundbild', // <=== new 1.0.6
+    'error' => 'Fehler',
+    'error_rows_nan' => 'Die Zeilenanzahl ist keine Zahl',
+    'error_columns_nan' => 'Die Spaltenanzahl ist keine Zahl',
+    'error_width_nan' => 'Die Breite ist keine Zahl',
+    'error_height_nan' => 'Die H&ouml;he ist keine Zahl',
+    'error_border_nan' => 'Die Randbreite ist keine Zahl',
+    'error_cellpadding_nan' => 'Zellauff&uuml;llung ist keine Zahl',
+    'error_cellspacing_nan' => 'Zellabstand ist keine Zahl',
   ),
   'table_cell_prop' => array(
-    'title' => 'Tabellenzellen Einstellungen',
+    'title' => 'Zelleigenschaften',
     'horizontal_align' => 'Horizontale Ausrichtung',
     'vertical_align' => 'Vertikale Ausrichtung',
     'width' => 'Breite',
-    'height' => 'Höhe',
+    'height' => 'H&ouml;he',
     'css_class' => 'CSS Klasse',
-    'no_wrap' => 'Kein Umbruch',
+    'no_wrap' => 'Zeilenumbruch verhindern',
     'bg_color' => 'Hintergrundfarbe',
-    'background' => 'Hintergrundbild',
+    'background' => 'Hintergrundbild', // <=== new 1.0.6
     'ok' => '   OK   ',
     'cancel' => 'Abbrechen',
-    'left' => 'Links',
-    'center' => 'Zentriert',
-    'right' => 'Rechts',
+    'justifyleft' => 'Links',
+    'justifycenter' => 'Zentriert',
+    'justifyright' => 'Rechts',
     'top' => 'Oben',
-    'middle' => 'Mittig',
+    'middle' => 'Mitte',
     'bottom' => 'Unten',
-    'baseline' => 'Grundline',
+    'baseline' => 'Grundlinie',
     'error' => 'Fehler',
-    'error_width_nan' => 'Breite ist keine Zahl',
-    'eror_height_nan' => 'Höhe ist keine Zahl',
+    'error_width_nan' => 'Die Breite ist keine Zahl',
+    'error_height_nan' => 'Die H&ouml;he ist keine Zahl',
+    
   ),
   'table_row_insert' => array(
-    'title' => 'Zeile einfügen'
+    'title' => 'Zeile einf&uuml;gen'
   ),
   'table_column_insert' => array(
-    'title' => 'Spalte einfügen'
+    'title' => 'Spalte einf&uuml;gen'
   ),
   'table_row_delete' => array(
-    'title' => 'Zeile löschen'
+    'title' => 'Zeile l&ouml;schen'
   ),
   'table_column_delete' => array(
-    'title' => 'Spalte löschenn'
+    'title' => 'Spalte l&ouml;schen'
   ),
   'table_cell_merge_right' => array(
-    'title' => 'Nach rechts verbinden'
+    'title' => 'Zelle mit rechts daneben liegender verbinden'
   ),
   'table_cell_merge_down' => array(
-    'title' => 'Nach unten verbinden'
+    'title' => 'Zelle mit darunter liegender verbinden'
   ),
   'table_cell_split_horizontal' => array(
-    'title' => 'Zelle horizontal trennen'
+    'title' => 'Zelle horizontal teilen'
   ),
   'table_cell_split_vertical' => array(
-    'title' => 'Zelle vertikal trennen'
+    'title' => 'Zelle vertikal teilen'
   ),
   'style' => array(
-    'title' => 'Stil'
+    'title' => 'Style'
   ),
-  'fontname' => array( // <== v.2.0 changed from font
-    'title' => 'Zeichensatz'
+  'fontname' => array(
+    'title' => 'Schriftart'
   ),
   'fontsize' => array(
-    'title' => 'Größe'
+    'title' => 'Schriftgrad'
   ),
-  'formatBlock' => array( // <= v.2.0: changed from paragraph
-    'title' => 'Absatz'
+  'formatBlock' => array(
+    'title' => 'Formatvorlage'
   ),
   'bold' => array(
     'title' => 'Fett'
@@ -177,136 +202,142 @@ $spaw_lang_data = array(
   'underline' => array(
     'title' => 'Unterstrichen'
   ),
-  'strikethrough' => array(
+   'strikethrough' => array(
     'title' => 'Durchgestrichen'
   ),
-  'insertorderedlist' => array( // <== v.2.0 changed from ordered_list
-    'title' => 'Sortierte Liste'
+  'insertorderedlist' => array(
+    'title' => 'Nummerierung'
   ),
-  'insertunorderedlist' => array( // <== v.2.0 changed from bulleted list
-    'title' => 'Liste'
+  'insertunorderedlist' => array(
+    'title' => 'Aufz&auml;hlungszeichen'
   ),
   'indent' => array(
-    'title' => 'Einzug nach rechts'
+    'title' => 'Einzug vergr&ouml;&szlig;ern'
   ),
-  'outdent' => array( // <== v.2.0 changed from unindent
-    'title' => 'Einzug rückgängig'
+  'outdent' => array(
+    'title' => 'Einzug verkleinern'
   ),
-  'justifyleft' => array( // <== v.2.0 changed from left
-    'title' => 'Links'
+  'justifyleft' => array(
+    'title' => 'Linksb&uuml;ndig'
   ),
-  'justifycenter' => array( // <== v.2.0 changed from center
+  'justifycenter' => array(
     'title' => 'Zentriert'
   ),
-  'justifyright' => array( // <== v.2.0 changed from right
-    'title' => 'Rechts'
+  'justifyright' => array(
+    'title' => 'Rechtsb&uuml;ndig'
   ),
-  'justifyfull' => array( // <== v.2.0 changed from justify
+  'justifyfull' => array(     // <- 1.0.5
     'title' => 'Blocksatz'
   ),
   'fore_color' => array(
-    'title' => 'Vordergrundfarbe'
+    'title' => 'Schriftfarbe'
   ),
   'bg_color' => array(
     'title' => 'Hintergrundfarbe'
   ),
-  'design' => array( // <== v.2.0 changed from design_tab
-    'title' => 'In den WYSIWYG-Modus wechseln (Design)'
+  'design' => array(
+    'title' => 'Zum WYSIWYG (Design) Modus wechseln'
   ),
-  'html' => array( // <== v.2.0 changed from html_tab
-    'title' => 'In den HTML-Modus wechseln (Code)'
+  'html' => array(
+    'title' => 'Zum HTML (Quelltext) Modus wechseln'
   ),
   'colorpicker' => array(
-    'title' => 'Farbpalette',
+    'title' => 'Farbpipette',
     'ok' => '   OK   ',
-    'cancel' => 'Abbruch',
+    'cancel' => 'Abbrechen',
   ),
+  // <<<<<<<<< NEW >>>>>>>>>
   'cleanup' => array(
-    'title' => 'HTML säubern (Stile entfernen)',
-    'confirm' => 'Beim Ausführen dieser Aktion werden alle Stile, Schriftarten und überfüssigen Tags aus dem aktuellen Inhalt entfernt. Einige oder alle Formatierung können dabei verloren gehen.',
+    'title' => 'HTML S&auml;uberung (Stile entfernen)',
+    'confirm' => 'Das Ausf&uuml;hren dieser Aktion wird alle Stile, Schriften und nutzlose Tags vom aktuellen Inhalt entfernen. Die Formatierung kann teilweise oder vollst&auml;ndig verloren gehen.',
     'ok' => '   OK   ',
-    'cancel' => 'Abbruch',
+    'cancel' => 'Abbrechen',
   ),
   'toggle_borders' => array(
-    'title' => 'Rahmen umschalten',
+    'title' => 'R&auml;nder anzeigen',
   ),
   'hyperlink' => array(
-    'title' => 'Hypertext-Link',
+    'title' => 'Hyperlink',
     'url' => 'URL',
     'name' => 'Name',
     'target' => 'Ziel',
     'title_attr' => 'Titel',
-  	'a_type' => 'Typ',
-  	'type_link' => 'Link',
-  	'type_anchor' => 'Anker',
-  	'type_link2anchor' => 'Ankerlink',
-  	'anchors' => 'Anker',
+	'a_type' => 'Typ', // <=== new 1.0.6
+	'type_link' => 'Link', // <=== new 1.0.6
+	'type_anchor' => 'Anker', // <=== new 1.0.6
+	'type_link2anchor' => 'Link -> Anker', // <=== new 1.0.6
+	'anchors' => 'Anker', // <=== new 1.0.6
     'ok' => '   OK   ',
-    'cancel' => 'Abbruch',
+    'cancel' => 'Abbrechen',
   ),
-  'hyperlink_targets' => array(
-  	'_self' => 'gleicher Frame (_self)',
-  	'_blank' => 'neues Fenster (_blank)',
-  	'_top' => 'Hauptframe (_top)',
-  	'_parent' => 'übergeordneter Frame (_parent)'
+  'hyperlink_targets' => array( // <=== new 1.0.5
+  	'_self' => 'Eigenes Fenster (_self)',
+	'_blank' => 'Neues Fenster (_blank)',
+	'_top' => 'Hauptfenster (_top)',
+	'_parent' => 'Aufrufendes Fenster (_parent)'
   ),
   'unlink' => array( // <=== new v.2.0
-    'title' => 'Hypertext-Link entfernen'
+    'title' => 'Hyperlink l&ouml;schen'
   ),
   'table_row_prop' => array(
-    'title' => 'Zeilendefinitionen',
+    'title' => 'Zeileneigenschaften',
     'horizontal_align' => 'Horizontale Ausrichtung',
     'vertical_align' => 'Vertikale Ausrichtung',
     'css_class' => 'CSS Klasse',
-    'no_wrap' => 'Kein Umbruch',
+    'no_wrap' => 'Zeilenumbruch verhindern',
     'bg_color' => 'Hintergrundfarbe',
     'ok' => '   OK   ',
-    'cancel' => 'Abbruch',
-    'left' => 'Links',
-    'center' => 'Zentriert',
-    'right' => 'Rechts',
+    'cancel' => 'Abbrechen',
+    'justifyleft' => 'Links',
+    'justifycenter' => 'Zentriert',
+    'justifyright' => 'Rechts',
     'top' => 'Oben',
-    'middle' => 'Mittig',
+    'middle' => 'Mitte',
     'bottom' => 'Unten',
     'baseline' => 'Grundlinie',
   ),
   'symbols' => array(
     'title' => 'Sonderzeichen',
     'ok' => '   OK   ',
-    'cancel' => 'Abbruch',
+    'cancel' => 'Abbrechen',
+  ),
+  'symbols' => array(
+    'title' => 'Sonderzeichen',
+    'ok' => '   OK   ',
+    'cancel' => 'Abbrechen',
   ),
   'templates' => array(
-    'title' => 'Vorlagen',
+    'title' => 'Templates',
   ),
   'page_prop' => array(
-    'title' => 'Seitendefinitionen',
+    'title' => 'Seiteneigenschaften',
     'title_tag' => 'Titel',
-    'charset' => 'Zeichensatz',
+    'charset' => 'Dokumentkodierung',
     'background' => 'Hintergrundbild',
     'bgcolor' => 'Hintergrundfarbe',
     'text' => 'Textfarbe',
     'link' => 'Linkfarbe',
-    'vlink' => 'Farbe für besuchte Links',
-    'alink' => 'Farbe für aktive Links',
+    'vlink' => 'Besuchter-Link-Farbe',
+    'alink' => 'Aktiver-Link-Farbe',
     'leftmargin' => 'Linker Rand',
-    'topmargin' => 'Rechter Rand',
+    'topmargin' => 'Oberer Rand',
     'css_class' => 'CSS Klasse',
     'ok' => '   OK   ',
-    'cancel' => 'Abbruch',
+    'cancel' => 'Abbrechen',
   ),
   'preview' => array(
     'title' => 'Vorschau',
   ),
   'image_popup' => array(
-    'title' => 'Bildpopup',
+    'title' => 'Bild-Popup',
   ),
   'zoom' => array(
-    'title' => 'Vergrößern',
+    'title' => 'Zoom',
   ),
-  'subscript' => array(
+  'subscript' => array( // <=== new 1.0.7
     'title' => 'Tiefgestellt',
   ),
-  'superscript' => array(
+  'superscript' => array( // <=== new 1.0.7
     'title' => 'Hochgestellt',
   ),
 );

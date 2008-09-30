@@ -473,6 +473,30 @@ class SpawEditor
     return $this->is_resizable;
   }                       
   
+  /**
+   * Holds value whether editor is in read-only mode
+   * @var bool
+   */
+  var $is_read_only = false;
+  
+  /** 
+   * Set's instance config item
+   * @param bool $value Value of read-only state (true - read-only, false - editable)   
+   */
+  function setReadOnly($value=true)
+  {
+    $this->is_read_only = $value;
+  }
+  /**
+   * Returns value indicating whether editor is in read-only mode
+   * @returns bool
+   */
+  function isReadOnly()
+  {
+    return $this->is_read_only;
+  }                       
+
+  
   /** 
    * Set's instance config item
    * @param string $name Config item's name
@@ -573,10 +597,18 @@ class SpawEditor
       if (!$ssent)
       {
         $head_res .= '<script type="text/javascript" src="'.SpawConfig::getStaticConfigValue("SPAW_DIR").'js/spaw.js.php" charset="utf-8"></script>';
-        $js_res .= 'SpawEngine.setSpawDir("'. SpawConfig::getStaticConfigValue("SPAW_DIR") . '");';
+        $js_res .= 'SpawEngine.setSpawDir("'. SpawConfig::getStaticConfigValue("SPAW_DIR") . '"); SpawEngine.setPlatform("php");';
         $ssent = true;
       }
       $objname = $this->name.'_obj';
+      
+      // handle read-only state
+      if ($this->isReadOnly())
+      {
+        $this->toolbars = array();
+        $this->hideModeStrip();
+      }
+      
       $js_res .= 'var '.$objname.' = new SpawEditor("'.$this->name.'");';
       $js_res .= 'SpawEngine.registerEditor('.$objname.');';
       $js_res .= $objname.'.setTheme(SpawTheme'.$this->theme->name.');';
@@ -584,6 +616,7 @@ class SpawEditor
       $js_res .= $objname.'.setOutputCharset("'.$this->lang->getOutputCharset().'");';
       $js_res .= $objname.'.stylesheet = "'.$this->stylesheet.'";';
       $js_res .= $objname.'.scid = "'.$this->config->storeSecureConfig().'";';
+      $js_res .= $objname.'.enabled = '.($this->isReadOnly()?"false":"true").';';
   
       // add javascript or request uri config items
       $reqstr = '';
@@ -606,7 +639,7 @@ class SpawEditor
             $reqstr .= '&'.$cfg->name.'='.$cfg->value;
         }
       }
-      if ($reqstr != '');
+      if ($reqstr != '')
       {
         $js_res .= $objname.'.setConfigValue("__request_uri", "'.$reqstr.'");';
       }
@@ -637,7 +670,7 @@ class SpawEditor
         $tpl .= $this->theme->getTemplateFloating();
       }
       // if this is the main toolbar instance, add toolbars
-      if ($tbfrom->name == $this->name)
+      if ($tbfrom->name == $this->name && !$this->isReadOnly())
       {
         foreach($this->toolbars as $key => $tb)
         {
@@ -654,7 +687,7 @@ class SpawEditor
           }
         }
       }
-      elseif ($this->getFloatingMode() && $this->toolbar_from->name != $this->name)
+      elseif (($this->getFloatingMode() && $this->toolbar_from->name != $this->name) || $this->isReadOnly())
       {
         // editor template for floating mode slave
         $tpl = $this->theme->getTemplateFloating();
@@ -774,7 +807,7 @@ class SpawEditor
       
       $js_res .= $objname.'.onLoadHookup();'."\n";
   
-      $res = $head_res.'<script type="text/javascript">'."\n<!--\n".$js_res."\n//-->\n".'</script>'.$html_res;
+      $res = $head_res.'<script type="text/javascript" id="'.$pname.'_script">'."\n<!--\n".$js_res."\n//-->\n".'</script>'.$html_res;
     }
     else
     {

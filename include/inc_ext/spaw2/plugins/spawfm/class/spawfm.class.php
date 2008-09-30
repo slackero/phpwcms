@@ -212,7 +212,7 @@ class SpawFm
     }
     
     // reorder files by title
-    sort($files, SORT_STRING);
+    natcasesort($files);
     
     // load files' details
     foreach ($files as $key=>$file) {
@@ -269,7 +269,7 @@ class SpawFm
     }
     
     // sort
-    sort($directories);
+    natcasesort($directories);
     
     // load details
     foreach ($directories as $key=>$file) {
@@ -494,7 +494,7 @@ class SpawFm
                 $err[] = str_replace('[*MAXWIDTH*]', $this->getCurrentDirSetting('max_img_width'), $lang->m('error_img_width_max', 'spawfm'));
               }
               if ($this->getCurrentDirSetting('max_img_height') and 
-                  $imgsize[0] > $this->getCurrentDirSetting('max_img_height')) 
+                  $imgsize[1] > $this->getCurrentDirSetting('max_img_height')) 
               {
                 $ok = false;
                 $err[] = str_replace('[*MAXHEIGHT*]', $this->getCurrentDirSetting('max_img_height'), $lang->m('error_img_height_max', 'spawfm'));

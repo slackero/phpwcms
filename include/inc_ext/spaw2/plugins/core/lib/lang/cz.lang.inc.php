@@ -7,13 +7,14 @@
 // Developed: Alan Mendelevich, alan@solmetra.lt
 // Copyright: Solmetra (c)2003 All rights reserved.
 // Czech translation: BrM (BrM@bridlicna.cz)
+// Updated by Radek Uhlíř (ruhlir@gmail.com)
 // ------------------------------------------------
 //                                www.solmetra.com
 // ================================================
-// v.1.0, 2003-03-20
+// v.1.1, 2007-09-04
 // ================================================
-
-// charset to be used in dialogs
+ 
+ // charset to be used in dialogs
 $spaw_lang_charset = 'utf-8';
 
 // language text data array
@@ -36,38 +37,21 @@ $spaw_lang_data = array(
   'redo' => array(
     'title' => 'Znovu'
   ),
-  'hyperlink' => array(
-    'title' => 'Odkaz'
-  ),
-  'image_insert' => array(
-    'title' => 'Vložit obrázek',
-    'select' => 'Vybrat',
-	'delete' => 'Smazat', // new 1.0.5
-    'cancel' => 'Zrušit',
-    'library' => 'Knihovna',
-    'preview' => 'Náhled',
-    'images' => 'Obrázek',
-    'upload' => 'Poslat obrázek',
-    'upload_button' => 'Poslat',
-    'error' => 'Chyba',
-    'error_no_image' => 'Vyberte prosím obrázek',
-    'error_uploading' => 'V průběhu uploadu došlo k chybě. Opakujte akci znovu',
-    'error_wrong_type' => 'Chybný formát obrázku',
-    'error_no_dir' => 'Knihovna fyzicky neexistuje',
-	'error_cant_delete' => 'Obrázek nebylo možno smazat', // new 1.0.5
+  'image' => array(
+    'title' => 'Vložit obrázek'
   ),
   'image_prop' => array(
-    'title' => 'Vlastnosti obrázku',
+    'title' => 'Obrázek',
     'ok' => '   OK   ',
     'cancel' => 'Storno',
-    'source' => 'Zdroj',
+    'source' => 'Source',
     'alt' => 'Alternativní text',
     'align' => 'Zarovnání',
-    'justifyleft' => 'Vlevo',
-    'justifyright' => 'Vpravo',
-    'top' => 'Nahoru',
-    'middle' => 'Doprostřed',
-    'bottom' => 'Dolů',
+    'left' => 'vlevo',
+    'right' => 'vpravo',
+    'top' => 'nahoru',
+    'middle' => 'na střed',
+    'bottom' => 'dolů',
     'absmiddle' => 'Absolutní střed',
     'texttop' => 'Text nahoru',
     'baseline' => 'Základní linka',
@@ -76,6 +60,10 @@ $spaw_lang_data = array(
     'border' => 'Okraje',
     'hspace' => 'Vod. okraj',
     'vspace' => 'Svisl. okraj',
+    'dimensions' => 'Rozměry', // <= new in 2.0.1
+    'reset_dimensions' => 'Původní rozměry', // <= new in 2.0.1
+    'title_attr' => 'Titulek', // <= new in 2.0.1
+    'constrain_proportions' => 'Zachovat proporce', // <= new in 2.0.1
     'error' => 'Chyba',
     'error_width_nan' => 'Šířka není číslo',
     'error_height_nan' => 'Výška není číslo',
@@ -83,8 +71,19 @@ $spaw_lang_data = array(
     'error_hspace_nan' => 'Horizontální rozteč není číslo',
     'error_vspace_nan' => 'Vertikální rozteč není číslo',
   ),
-  'inserthorizontalrule' => array(
-    'title' => 'Vodorovná čára'
+  'flash_prop' => array(                // <= new in 2.0
+    'title' => 'Flash',
+    'ok' => '   OK   ',
+    'cancel' => 'Storno',
+    'source' => 'Zdroj',
+    'width' => 'Šířka',
+    'height' => 'Výška',
+    'error' => 'Chyba',
+    'error_width_nan' => 'Šířka není číslo.',
+    'error_height_nan' => 'Výška není číslo.',
+  ),
+  'inserthorizontalrule' => array( // <== v.2.0 changed from hr
+    'title' => 'Horizontální čára'
   ),
   'table_create' => array(
     'title' => 'Vytvoř tabulku'
@@ -95,16 +94,16 @@ $spaw_lang_data = array(
     'cancel' => 'Storno',
     'rows' => 'Řádků',
     'columns' => 'Sloupců',
-    'width' => 'Šířka',
+    'css_class' => 'Třída CSS', // <=== new 1.0.6
+	'width' => 'Šířka',
     'height' => 'Výška',
     'border' => 'Okraje',
     'pixels' => 'pixelů',
-    'css_class' => 'Třída CSS', // <=== new 1.0.6
-    'background' => 'Obrázek pozadí', // <=== new 1.0.6
     'cellpadding' => 'Odsazení v buňce',
     'cellspacing' => 'Vzdálenost buněk',
     'bg_color' => 'Barva pozadí',
-    'error' => 'Chyba',
+    'background' => 'Obrázek pozadí', // <=== new 1.0.6
+	'error' => 'Chyba',
     'error_rows_nan' => 'Řádky nejsou číslo',
     'error_columns_nan' => 'Sloupce nejsou číslo',
     'error_width_nan' => 'Šířka není číslo',
@@ -125,21 +124,20 @@ $spaw_lang_data = array(
     'background' => 'Obrázek pozadí', // <=== new 1.0.6
     'ok' => '   OK   ',
     'cancel' => 'Zrušit',
-    'justifyleft' => 'Vlevo',
-    'justifycenter' => 'Na střed',
-    'justifyright' => 'Vpravo',
+    'left' => 'Vlevo',
+    'center' => 'Na střed',
+    'right' => 'Vpravo',
     'top' => 'Nahoru',
     'middle' => 'Doprostřed',
     'bottom' => 'Dolů',
     'baseline' => 'Základní linka',
     'error' => 'Chyba',
     'error_width_nan' => 'Šířka není číslo',
-    'error_height_nan' => 'Výška není číslo',
-    
+    'error_height_nan' => 'Výška není číslo',  
   ),
   'table_row_insert' => array(
     'title' => 'Vložit řádek'
-  ),
+  ),  
   'table_column_insert' => array(
     'title' => 'Vložit sloupec'
   ),
@@ -161,7 +159,7 @@ $spaw_lang_data = array(
   'table_cell_split_vertical' => array(
     'title' => 'Rozdělit buňku vertikálně'
   ),
-  'style' => array(
+ 'style' => array(
     'title' => 'Styl'
   ),
   'fontname' => array(
@@ -181,6 +179,9 @@ $spaw_lang_data = array(
   ),
   'underline' => array(
     'title' => 'Podtržení'
+  ),
+  'strikethrough' => array(
+    'title' => 'Přeškrtnuté'
   ),
   'insertorderedlist' => array(
     'title' => 'Číslování'
@@ -203,6 +204,9 @@ $spaw_lang_data = array(
   'justifyright' => array(
     'title' => 'Vpravo'
   ),
+  'justifyfull' => array( // <== v.2.0 changed from justify
+    'title' => 'Do bloku'
+  ),
   'fore_color' => array(
     'title' => 'Barva popředí'
   ),
@@ -220,7 +224,6 @@ $spaw_lang_data = array(
     'ok' => '   OK   ',
     'cancel' => 'Storno',
   ),
-  // <<<<<<<<< NEW >>>>>>>>>
   'cleanup' => array(
     'title' => 'Vyčištění HTML (odstranit styly)',
     'confirm' => 'Provedením akce odstraníte všechny styly, fonty a zbytečné tagy z aktuálního obsahu. Vaše formátování bude částečně či úplně odstraněno.',
@@ -250,6 +253,9 @@ $spaw_lang_data = array(
 	'_top' => 'Vrchní rámec (_top)',
 	'_parent' => 'Nadřazený rámec (_parent)'
   ),
+  'unlink' => array( // <=== new v.2.0
+    'title' => 'Odstranit odkaz'
+  ),
   'table_row_prop' => array(
     'title' => 'Vlastnosti řádku',
     'horizontal_align' => 'Horizontální zarovnání',
@@ -259,18 +265,13 @@ $spaw_lang_data = array(
     'bg_color' => 'Barva pozadí',
     'ok' => '   OK   ',
     'cancel' => 'Storno',
-    'justifyleft' => 'Vlevo',
-    'justifycenter' => 'Na střed',
-    'justifyright' => 'Vpravo',
+    'left' => 'Vlevo',
+    'center' => 'Na střed',
+    'right' => 'Vpravo',
     'top' => 'Nahoru',
     'middle' => 'Doprostřed',
     'bottom' => 'Dolů',
     'baseline' => 'Základní linka',
-  ),
-  'symbols' => array(
-    'title' => 'Speciální znaky',
-    'ok' => '   OK   ',
-    'cancel' => 'Storno',
   ),
   'symbols' => array(
     'title' => 'Speciální znaky',
@@ -305,6 +306,11 @@ $spaw_lang_data = array(
   'zoom' => array(
     'title' => 'Přiblížení',
   ),
+  'subscript' => array(
+    'title' => 'Dolní index',
+  ),
+  'superscript' => array(
+    'title' => 'Horní index',
+  ),
 );
 ?>
-

@@ -1,5 +1,5 @@
-SPAW Editor PHP Edition v.2.0.5
--------------------------------
+SPAW Editor PHP Edition v.2.0.8.1
+---------------------------------
 Thank you for downloading SPAW Editor!
 
 SPAW Editor PHP Edition version 2.0 adds following major features:

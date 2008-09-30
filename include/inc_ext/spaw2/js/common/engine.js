@@ -14,6 +14,17 @@ SpawEngine.getSpawDir = function()
   return (SpawEngine.spaw_dir);
 }
 
+// platform (php/asp.net)
+SpawEngine.platform;
+SpawEngine.setPlatform = function(platform)
+{
+  SpawEngine.platform = platform;
+}
+SpawEngine.getPlatform = function()
+{
+  return (SpawEngine.platform);
+}
+
 SpawEngine.addBrowserEventHandler = function(obj, evt, func)
 {
   if (document.attachEvent)
@@ -211,7 +222,7 @@ SpawEngine.openDialog = function(module, dialog, editor, arguments, querystring,
 {
   var posX = screen.availWidth/2 - 275;
   var posY = screen.availHeight/2 - 250;
-  var durl = SpawEngine.spaw_dir + 'dialogs/dialog.php?module=' + module + '&dialog=' + dialog 
+  var durl = SpawEngine.spaw_dir + 'dialogs/dialog.' + SpawEngine.platform + '?module=' + module + '&dialog=' + dialog 
     + '&theme=' + editor.theme.prefix + '&lang=' + editor.getLang() 
     + '&charset=' + editor.getOutputCharset() 
     + '&scid=' + editor.scid + "&" + querystring + editor.getRequestUriConfigValue();

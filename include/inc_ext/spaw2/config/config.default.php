@@ -88,9 +88,18 @@ SpawConfig::setStaticConfigItem("table_cell_styles",
     'style2' => 'Style No.2',
   )
 );
+// data for style (css class) dropdown in image properties dialog
+SpawConfig::setStaticConfigItem("image_styles",
+  array(
+    '' => 'Normal',
+    'style1' => 'Style No.1',
+    'style2' => 'Style No.2',
+  )
+);
 // data for fonts dropdown list
 SpawConfig::setStaticConfigItem("dropdown_data_core_fontname",
   array(
+    '' => 'Default',
     'Arial' => 'Arial',
     'Courier' => 'Courier',
     'Tahoma' => 'Tahoma',
@@ -101,6 +110,7 @@ SpawConfig::setStaticConfigItem("dropdown_data_core_fontname",
 // data for fontsize dropdown list
 SpawConfig::setStaticConfigItem("dropdown_data_core_fontsize",
   array(
+    '' => 'Default',
     '1' => '1',
     '2' => '2',
     '3' => '3',
@@ -112,7 +122,7 @@ SpawConfig::setStaticConfigItem("dropdown_data_core_fontsize",
 // data for paragraph dropdown list
 SpawConfig::setStaticConfigItem("dropdown_data_core_formatBlock",
   array(
-    'Normal' => 'Normal',
+    '<p>' => 'Normal',
     '<H1>' => 'Heading 1',
     '<H2>' => 'Heading 2',
     '<H3>' => 'Heading 3',
@@ -120,8 +130,7 @@ SpawConfig::setStaticConfigItem("dropdown_data_core_formatBlock",
     '<H5>' => 'Heading 5',
     '<H6>' => 'Heading 6',
     '<pre>' => 'Preformatted',
-    '<address>' => 'Address',
-    '<p>' => 'Paragraph'    
+    '<address>' => 'Address'
   )
 );
 // data for link targets drodown list in hyperlink dialog
@@ -132,6 +141,15 @@ SpawConfig::setStaticConfigItem("a_targets",
     '_top' => 'Top',
     '_parent' => 'Parent'
   )
+);
+// data for quick links dropdown (new in 2.0.6)
+SpawConfig::setStaticConfigItem("quick_links",
+  array(
+    'http://spaweditor.com/' => 'SPAW Editor',
+    'http://forums.solmetra.com/' => 'SPAW Support Forums',
+    'http://blog.solmetra.com/' => 'Solmetra\'s Developer Blog'
+  ),
+  SPAW_CFG_TRANSFER_SECURE
 );
 
 

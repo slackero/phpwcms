@@ -1,23 +1,31 @@
 <?php 
 // ================================================
-// SPAW PHP WYSIWYG editor control
+// SPAW v.2.0
 // ================================================
+//
+//
 // Arabic language file
 // Traslated: Mohammed Ahmed
 // Gaza, Palestine
 // http://www.maaking.com
 // Email/MSN: m@maaking.com
+//
+// last update: 18-oct-2007
+//
 // ================================================
-// Developed: Alan Mendelevich, alan@solmetra.lt
-// Copyright: Solmetra (c)2003 All rights reserved.
+// Author: Alan Mendelevich, UAB Solmetra
 // ------------------------------------------------
-//                                www.solmetra.com
+// www.solmetra.com
 // ================================================
-// v.1.0, 2003-03-20
+// v.2.0
 // ================================================
 
 // charset to be used in dialogs
-$spaw_lang_charset = 'utf-8';
+$spaw_lang_charset = 'windows-1256';
+
+
+// text direction for the language
+$spaw_lang_direction = 'rtl';
 
 // language text data array
 // first dimension - block, second - exact phrase
@@ -25,284 +33,294 @@ $spaw_lang_charset = 'utf-8';
 
 $spaw_lang_data = array(
   'cut' => array(
-    'title' => 'Ù‚Øµ'
+    'title' => 'ŞÕ'
   ),
   'copy' => array(
-    'title' => 'Ù†Ø³Ø®'
+    'title' => 'äÓÎ'
   ),
   'paste' => array(
-    'title' => 'Ù„ØµÙ‚'
+    'title' => 'áÕŞ'
   ),
   'undo' => array(
-    'title' => 'ØªØ±Ø§Ø¬Ø¹'
+    'title' => 'ÊÑÇÌÚ'
   ),
   'redo' => array(
-    'title' => 'Ø¥Ø¹Ø§Ø¯Ø© Ø§Ù„ØªØ±Ø§Ø¬Ø¹'
+    'title' => 'ÅÚÇÏÉ ÇáÊÑÇÌÚ'
   ),
-  'image_insert' => array(
-    'title' => 'Ø¥Ø¯Ø±Ø§Ø¬ ØµÙˆØ±Ø©',
-    'select' => 'Ø¥Ø®ØªØ±',
-	'delete' => 'Ø­Ø°Ù', // new 1.0.5
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø£Ù…Ø±',
-    'library' => 'Ø§Ù„Ù…ÙƒØªØ¨Ø©',
-    'preview' => 'Ù…Ø¹Ø§ÙŠÙ†Ø©',
-    'images' => 'Ø§Ù„ØµÙˆØ±',
-    'upload' => 'Ø§Ø®ØªØ± ØµÙˆØ±Ø© Ù„Ù„ØªØ­Ù…ÙŠÙ„',
-    'upload_button' => 'Ø¥Ø±ÙØ¹ Ø§Ù„ØµÙˆØ±Ø©',
-    'error' => 'Ø®Ø·Ø£',
-    'error_no_image' => 'Ù…Ù† ÙØ¶Ù„Ùƒ Ø¥Ø®ØªØ± ØµÙˆØ±Ø©',
-    'error_uploading' => 'AØ­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ù…Ø¹Ø§Ù„Ø¬Ø© Ø§Ù„Ù…Ù„ÙØŒ Ø§Ù„Ø±Ø¬Ø§Ø¡ Ø§Ù„Ù…Ø­Ø§ÙˆÙ„Ø© ÙÙŠÙ…Ø§ Ø¨Ø¹Ø¯.',
-    'error_wrong_type' => 'Ù†ÙˆØ¹ Ù…Ù„Ù Ø§Ù„ØµÙˆØ±Ø© Ø®Ø§Ø·Ø¡.',
-    'error_no_dir' => 'Ù…Ø¬Ù„Ø¯ Ù…ÙƒØªØ¨Ø§Øª Ø§Ù„ØµÙˆØ± ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯ØŸ',
-	'error_cant_delete' => 'Ø®Ø·Ø£: ÙØ´Ù„Øª Ø¹Ù…Ù„ÙŠØ© Ø§Ù„Ø­Ø°Ù', // new 1.0.5
+  'image' => array(
+    'title' => 'ÅÏÑÇÌ ÕæÑÉ'
   ),
   'image_prop' => array(
-    'title' => 'Ø®ØµØ§Ø¦Øµ Ø§Ù„ØµÙˆØ±Ø©',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡',
-    'source' => 'Ø§Ù„Ù…ØµØ¯Ø±',
-    'alt' => 'Ù†Øµ Ø¨Ø¯ÙŠÙ„',
-    'align' => 'Ù…Ø­Ø§Ø°Ø§Ù‡',
-    'justifyleft' => 'ÙŠØ³Ø§Ø±',
-    'justifyright' => 'ÙŠÙ…ÙŠÙ†',
-    'top' => 'Ø£Ø¹Ù„Ù‰',
-    'middle' => 'ÙˆØ³Ø·',
-    'bottom' => 'Ø£Ø³ÙÙ„',
-    'absmiddle' => 'ÙˆØ³Ø· Ø§Ù„Ø³Ø·Ø±',
-    'texttop' => 'Ø§Ù„Ù†Øµ Ø¨Ø§Ù„Ø£Ø¹Ù„Ù‰',
-    'baseline' => 'Ù…Ø¹ Ø§Ù„Ø®Ø·',
-    'width' => 'Ø§Ù„Ø¹Ø±Ø¶',
-    'height' => 'Ø§Ù„Ø·ÙˆÙ„',
-    'border' => 'Ø³Ù…Ùƒ Ø§Ù„Ø­Ø¯ÙˆØ¯',
-    'hspace' => 'Ø§Ù„ÙØ±Ø§Øº Ø¹Ù…ÙˆØ¯ÙŠØ§',
-    'vspace' => 'Ø§Ù„ÙØ±Ø§Øº Ø£ÙÙ‚ÙŠØ§',
-    'error' => 'Ø®Ø·Ø£',
-    'error_width_nan' => 'Ø§Ù„Ø¹Ø±Ø¶ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_height_nan' => 'Ø§Ù„Ø·ÙˆÙ„ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_border_nan' => 'Ø³Ù…Ùƒ Ø§Ù„Ø­Ø¯ÙˆØ¯ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_hspace_nan' => 'Ø­Ù‚Ù„ Ø§Ù„ÙØ±Ø§Øº Ø§Ù„Ø£ÙÙ‚ÙŠ Ù„ÙŠØ³ Ø±Ù‚Ù…',
-    'error_vspace_nan' => 'Ø­Ù‚Ù„ Ø§Ù„ÙØ±Ø§Øº Ø§Ù„Ø¹Ù…ÙˆØ¯ÙŠ Ù„ÙŠØ³ Ø±Ù‚Ù…',
+    'title' => 'ÕæÑÉ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
+    'source' => 'ÇáãÕÏÑ',
+    'alt' => 'äÕ ÈÏíá',
+    'align' => 'ÇáãÍÇĞÇå',
+    'left' => 'íÓÇÑ',
+    'right' => 'íãíä',
+    'top' => 'ÃÚáì',
+    'middle' => 'æÓØ',
+    'bottom' => 'ÃÓİá',
+    'absmiddle' => 'äÕ İí ÇáãäÊÕİ',
+    'texttop' => 'äÕ İí ÇáÃÚáì',
+    'baseline' => 'ÎØ ÃÓÇÓí',
+    'width' => 'ÇáÚÑÖ',
+    'height' => 'ÇáÅÑÊİÇÚ',
+    'border' => 'ÇáÍÏ',
+    'hspace' => 'ãÓÇİÉ ÃİŞíÉ',
+    'vspace' => 'ãÓÇİÉ ÚãæÏíÉ',
+    'dimensions' => 'ÇáÃÈÚÇÏ', // <= new in 2.0.1
+    'reset_dimensions' => 'ÅÚÇÏÉ ÖÈØ ÇáÃÈÚÇÏ', // <= new in 2.0.1
+    'title_attr' => 'ÇáÚäæÇä', // <= new in 2.0.1
+    'constrain_proportions' => 'ÎíÇÑÇÊ ãŞíÏÉ', // <= new in 2.0.1
+    'error' => 'ÎØÃ',
+    'error_width_nan' => 'ÇáÚÑÖ áíÓ ÑŞã',
+    'error_height_nan' => 'ÇáÅÑÊİÇÚ áíÓ ÑŞã',
+    'error_border_nan' => 'ÇáÍÏ áíÓ ÑŞã',
+    'error_hspace_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_vspace_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
   ),
-  'inserthorizontalrule' => array(
-    'title' => 'Ø®Ø· Ø£ÙÙ‚ÙŠ'
+  'flash_prop' => array(                // <= new in 2.0
+    'title' => 'İáÇÔ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáİÇÁ',
+    'source' => 'ÇáãÕÏÑ',
+    'width' => 'ÇáÚÑÖ',
+    'height' => 'ÇáÅÑÊİÇÚ',
+    'error' => 'ÎØÃ',
+    'error_width_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_height_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+  ),
+  'inserthorizontalrule' => array( // <== v.2.0 changed from hr
+    'title' => 'ÅÏÑÇÌ ÎØ ÃİŞí'
   ),
   'table_create' => array(
-    'title' => 'Ø¥Ù†Ø´Ø§Ø¡ Ø¬Ø¯ÙˆÙ„'
+    'title' => 'ÅäÔÇÁ ÌÏæá'
   ),
   'table_prop' => array(
-    'title' => 'Ø®ØµØ§Ø¦Øµ Ø§Ù„Ø¬Ø¯ÙˆÙ„',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡',
-    'rows' => 'ØµÙÙˆÙ',
-    'columns' => 'Ø£Ø¹Ù…Ø¯Ø©',
-    'css_class' => 'CSS Ø¯Ø§Ù„Ø©', // <=== new 1.0.6
-    'width' => 'Ø§Ù„Ø¹Ø±Ø¶',
-    'height' => 'Ø§Ù„Ø·ÙˆÙ„',
-    'border' => 'Ø§Ù„Ø­Ø¯',
-    'pixels' => 'Ø¨ÙŠÙƒØ³Ù„',
-    'cellpadding' => 'Ù†Ø·Ø§Ù‚ Ø§Ù„Ø®Ù„ÙŠØ©',
-    'cellspacing' => 'Ø§Ù„Ù…Ø³Ø§ÙØ© Ø¨ÙŠÙ† Ø§Ù„Ø®Ù„Ø§ÙŠØ§',
-    'bg_color' => 'Ù„ÙˆÙ† Ø§Ù„Ø®Ù„ÙÙŠØ©',
-    'background' => 'ØµÙˆØ±Ø© Ø§Ù„Ø®Ù„ÙÙŠØ©', // <=== new 1.0.6
-    'error' => 'Ø­Ø·Ø£',
-    'error_rows_nan' => 'Ø§Ù„ØµÙ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_columns_nan' => 'Ø§Ù„Ø¹Ù…ÙˆØ¯ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_width_nan' => 'Ø§Ù„Ø¹Ø±Ø¶ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_height_nan' => 'Ø§Ù„Ø·ÙˆÙ„ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_border_nan' => 'Ø§Ù„Ø­Ø¯ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_cellpadding_nan' => 'Ù†Ø·Ø§Ù‚ Ø§Ù„Ø®Ù„ÙŠØ© Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_cellspacing_nan' => 'Ø§Ù„Ù…Ø³Ø§ÙØ© Ø¨ÙŠÙ† Ø§Ù„Ø®Ù„Ø§Ø§ÙŠØ§ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
+    'title' => 'ÎÕÇÆÕ ÇáÌÏæá',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
+    'rows' => 'ÇáÕİæİ',
+    'columns' => 'ÇáÃÚãÏÉ',
+    'css_class' => 'CSS ÊäÓíŞ',
+    'width' => 'ÇáÚÑÖ',
+    'height' => 'ÇáÅÑÊİÇÚ',
+    'border' => 'ÇáÍÏ',
+    'pixels' => 'ÈßÓá',
+    'cellpadding' => 'äØÇŞ ÇáÎáíÉ',
+    'cellspacing' => 'ÇáãÓÇİÉ Èíä ÇáÎáÇíÇ',
+    'bg_color' => 'áæä ÇáÎáİíÉ',
+    'background' => 'ÕæÑÉ ááÎáİíÉ',
+    'error' => 'ÎØÃ',
+    'error_rows_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_columns_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_width_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_height_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_border_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_cellpadding_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_cellspacing_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
   ),
   'table_cell_prop' => array(
-    'title' => 'Ø®ØµØ§Ø¦Øµ Ø§Ù„Ø®Ù„ÙŠØ©',
-    'horizontal_align' => 'Ù…Ø­Ø§Ø°Ø§Ù‡ Ø¹Ù…ÙˆØ¯ÙŠØ©',
-    'vertical_align' => 'Ù…Ø­Ø§Ø°Ø§Ù‡ Ø£ÙÙ‚ÙŠØ©',
-    'width' => 'Ø§Ù„Ø¹Ø±Ø¶',
-    'height' => 'Ø§Ù„Ø·ÙˆÙ„',
-    'css_class' => 'CSS Ø¯Ø§Ù„Ø©',
-    'no_wrap' => 'Ø¨Ù„Ø§ Ø§Ù„ØªÙØ§Ù',
-    'bg_color' => 'Ù„ÙˆÙ† Ø§Ù„Ø®Ù„ÙÙŠØ©',
-    'background' => 'ØµÙˆØ±Ø© Ø§Ù„Ø®Ù„ÙÙŠØ©', // <=== new 1.0.6
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡',
-    'justifyleft' => 'ÙŠØ³Ø§Ø±',
-    'justifycenter' => 'ÙˆØ³Ø·',
-    'justifyright' => 'ÙŠÙ…ÙŠÙ†',
-    'top' => 'Ø£Ø¹Ù„Ù‰',
-    'middle' => 'ÙˆØ³Ø·',
-    'bottom' => 'Ø£Ø³ÙÙ„',
-    'baseline' => 'Ø®Ø· Ø£Ø³Ø§Ø³ÙŠ',
-    'error' => 'Ø®Ø·Ø£',
-    'error_width_nan' => 'Ø§Ù„Ø¹Ø±Ø¶ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
-    'error_height_nan' => 'Ø§Ù„Ø·ÙˆÙ„ Ù„ÙŠØ³ Ø¨Ø±Ù‚Ù…',
+    'title' => 'ÎÕÇÆÕ ÇáÎáíÉ',
+    'horizontal_align' => 'ãÍÇĞÇÉ ÃİŞíÉ',
+    'vertical_align' => 'ãÍÇĞÇÉ ÚãæÏíÉ',
+    'width' => 'ÇáÚÑÖ',
+    'height' => 'ÇáÇÑÊİÇÚ',
+    'css_class' => 'CSS äãØ',
+    'no_wrap' => 'ÈáÇ áİ',
+    'bg_color' => 'áæä ÇáÎáİíÉ',
+    'background' => 'ÕæÑÉ ÇáÎáİíÉ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
+    'left' => 'íÓÇÑ',
+    'center' => 'æÓØ',
+    'right' => 'íãíä',
+    'top' => 'ÃÚáì',
+    'middle' => 'æÓØ',
+    'bottom' => 'ÃÓİá',
+    'baseline' => 'ÎØ ÃÓÇÓí',
+    'error' => 'ÎØÃ',
+    'error_width_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
+    'error_height_nan' => 'ÇáŞíãÉ ÇáãÏÎáÉ áíÓ ÑŞã',
   ),
   'table_row_insert' => array(
-    'title' => 'Ø¥Ø¯Ø±Ø§Ø¬ ØµÙ'
+    'title' => 'ÅÏÑÇÌ Õİ'
   ),
   'table_column_insert' => array(
-    'title' => 'Ø¥Ø¯Ø±Ø§Ø¬ Ø¹Ù…ÙˆØ¯'
+    'title' => 'ÅÏÇÑÌ ÚãæÏ'
   ),
   'table_row_delete' => array(
-    'title' => 'Ø­Ø°Ù ØµÙ'
+    'title' => 'ÍĞİ Õİ'
   ),
   'table_column_delete' => array(
-    'title' => 'Ø­Ø°Ù Ø¹Ù…ÙˆØ¯'
+    'title' => 'ÍĞİ ÚãæÏ'
   ),
   'table_cell_merge_right' => array(
-    'title' => 'Ø¯Ù…Ø¬ ÙŠÙ…ÙŠÙ†'
+    'title' => 'ÏãÌ Åáì Çáíãíä'
   ),
   'table_cell_merge_down' => array(
-    'title' => 'Ø¯Ù…Ø¬ ÙŠØ³Ø§Ø±'
+    'title' => 'ÏãÌ Åáì ÇáÃÓİá'
   ),
   'table_cell_split_horizontal' => array(
-    'title' => 'ØªÙ‚Ø³ÙŠÙ… Ø§Ù„Ø®Ù„Ø§Ø§ÙŠØ§ Ø¹Ù†ÙˆØ¯ÙŠ'
+    'title' => 'ŞÓã ÇáÎáÇíÇ ÈÔßá ÃİŞí'
   ),
   'table_cell_split_vertical' => array(
-    'title' => 'ØªÙ‚Ø³ÙŠÙ… Ø§Ù„Ø®Ù„Ø§Ø§ÙŠØ§ Ø£ÙÙ‚ÙŠ'
+    'title' => 'ÊŞÓíã ÇáÎáÇíÇ ÈÔßá ÚãæÏí'
   ),
   'style' => array(
-    'title' => 'Ø§Ù„ØªÙ†Ø³ÙŠÙ‚'
+    'title' => 'ÇáäãØ'
   ),
-  'fontname' => array(
-    'title' => 'Ø§Ù„Ø®Ø·'
+  'fontname' => array( // <== v.2.0 changed from font
+    'title' => 'ÇáÎØ'
   ),
   'fontsize' => array(
-    'title' => 'Ø§Ù„Ø­Ø¬Ù…'
+    'title' => 'ÇáÍÌã'
   ),
-  'formatBlock' => array(
-    'title' => 'Ø§Ù„ÙÙ‚Ø±Ø©'
+  'formatBlock' => array( // <= v.2.0: changed from paragraph
+    'title' => 'ÇáİŞÑÉ'
   ),
   'bold' => array(
-    'title' => 'Ø£Ø³ÙˆØ¯ Ø¹Ø±ÙŠØ¶'
+    'title' => 'ÚÑíÖ'
   ),
   'italic' => array(
-    'title' => 'Ù…Ø§Ø¦Ù„'
+    'title' => 'ãÇÆá'
   ),
   'underline' => array(
-    'title' => 'ØªØ­ØªÙ‡ Ø®Ø·'
+    'title' => 'ÊÍÊå ÎØ'
   ),
-  'insertorderedlist' => array(
-    'title' => 'ØªØ¹Ø¯Ø§Ø¯ Ø±Ù‚Ù…ÙŠ'
+  'strikethrough' => array(
+    'title' => 'æÓØå ÎØ'
   ),
-  'insertunorderedlist' => array(
-    'title' => 'ØªØ¹Ø¯Ø§Ø¯ Ù†Ù‚Ø·ÙŠ'
+  'insertorderedlist' => array( // <== v.2.0 changed from ordered_list
+    'title' => 'äÚÏÇÏ ÑŞãí'
+  ),
+  'insertunorderedlist' => array( // <== v.2.0 changed from bulleted list
+    'title' => 'ÊÚÏÇÏ äŞØí'
   ),
   'indent' => array(
-    'title' => 'Ø²ÙŠØ§Ø¯Ø© Ø§Ù„Ù…Ø³Ø§ÙØ© Ø§Ù„Ø¨Ø§Ø¯Ø¦Ø©'
+    'title' => 'ÒíÇÏÉ ÇáãÓÇİÉ ÇáÈÇÏÆÉ'
   ),
-  'outdent' => array(
-    'title' => 'Ø¥Ù†Ù‚Ø§Øµ Ø§Ù„Ù…Ø³Ø§ÙØ© Ø§Ù„Ø²Ø§Ø¦Ø¯Ø©'
+  'outdent' => array( // <== v.2.0 changed from unindent
+    'title' => 'ÇäŞÇÕ ÇáãÓÇİÉ ÇáÈÇÏÆÉ'
   ),
-  'justifyleft' => array(
-    'title' => 'ÙŠØ³Ø§Ø±'
+  'justifyleft' => array( // <== v.2.0 changed from left
+    'title' => 'íÓÇÑ'
   ),
-  'justifycenter' => array(
-    'title' => 'ÙˆØ³Ø·'
+  'justifycenter' => array( // <== v.2.0 changed from center
+    'title' => 'ÊæÓíØ'
   ),
-  'justifyright' => array(
-    'title' => 'ÙŠÙ…ÙŠÙ†'
+  'justifyright' => array( // <== v.2.0 changed from right
+    'title' => 'íãíä'
+  ),
+  'justifyfull' => array( // <== v.2.0 changed from justify
+    'title' => 'ÖÈØ'
   ),
   'fore_color' => array(
-    'title' => 'Ù„ÙˆÙ† Ø§Ù„Ù†Øµ'
+    'title' => 'áæä ÇáÎØ'
   ),
   'bg_color' => array(
-    'title' => 'Ù„ÙˆÙ† Ø§Ù„Ø®Ù„ÙÙŠØ©'
+    'title' => 'áæä ÎáİíÉ ÇáÎØ'
   ),
-  'design' => array(
-    'title' => 'Ø¹Ø±Ø¶ Ø§Ù„ØªØµÙ…ÙŠÙ…'
+  'design' => array( // <== v.2.0 changed from design_tab
+    'title' => 'æÖÚ ÇáÊäÓíŞ'
   ),
-  'html' => array(
-    'title' => 'Ø¹Ø±Ø¶ ÙƒÙˆØ¯ html'
+  'html' => array( // <== v.2.0 changed from html_tab
+    'title' => 'ÚÑÖ ÇáãÕÏÑ'
   ),
   'colorpicker' => array(
-    'title' => 'Ø¥Ù†ØªÙ‚Ø§Ø¡ Ø§Ù„Ù„ÙˆÙ†',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡ Ø§Ù„Ø£Ù…Ø±',
+    'title' => 'ÇäÊŞÇÁ áæä',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
   ),
   'cleanup' => array(
-    'title' => 'Ù…Ø³Ø­ ÙƒØ§ÙØ© Ø§Ù„ØªÙ†Ø³ÙŠÙ‚Ø§Øª',
-    'confirm' => 'Ø³ÙŠØªÙ… Ù…Ø³Ø­ ÙƒØ§ÙØ© Ø§Ù„ØªÙ†Ø³ÙŠÙ‚Ø§Øª Ùˆ Ø§Ù„Ø£ÙƒÙˆØ§Ø¯ Ø§Ù„ØªÙŠ Ù„Ø§ ØªÙ„Ø²Ù…ØŒ ÙˆØ¨Ø¹Ø¶Ù‡Ø§ Ù‚Ø¯ ÙŠØ¨Ù‚Ù‰.',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡',
+    'title' => 'ãÓÍ ßÇİÉ ÇáÊäÓíŞÇÊ',
+    'confirm' => ' ÊäİíĞ åĞÇ ÇáÃãÑ ÓíãÓÍ ßÇİÉ ÇáÊäÓíŞÇÊ ÇáÊí ŞãÊ ÈÚãáåÇ. ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
   ),
   'toggle_borders' => array(
-    'title' => 'Ø­Ø¯ÙˆØ¯ Ø§Ù„Ø³ÙŠØ§Ù‚',
+    'title' => 'ÒíÇÏÉ ÇáÍÏæÏ',
   ),
   'hyperlink' => array(
-    'title' => 'Ø±Ø§Ø¨Ø· ØªØ´Ø¹Ø¨ÙŠ',
-    'url' => 'Ø¹Ù†ÙˆØ§Ù† Ø§Ù„ URL',
-    'name' => 'Ø§Ù„Ø§Ø³Ù…',
-    'target' => 'Ø§Ù„Ø¥Ø·Ø§Ø± Ø§Ù„Ù‡Ø¯Ù',
-    'title_attr' => 'Ø§Ù„Ø¹Ù†ÙˆØ§Ù†',
-	'a_type' => 'Ø§Ù„Ù†ÙˆØ¹', // <=== new 1.0.6
-	'type_link' => 'Ø±Ø§Ø¨Ø·', // <=== new 1.0.6
-	'type_anchor' => 'Ù…Ø¹Ù„Ù…Ø©', // <=== new 1.0.6
-	'type_link2anchor' => 'Ø±Ø¨Ø· Ø¨Ù…Ø¹Ù„Ù…Ø©', // <=== new 1.0.6
-	'anchors' => 'Ø§Ù„Ù…Ø¹Ù„Ù…Ø§Øª', // <=== new 1.0.6
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø§Ù„ØºØ§Ø¡',
+    'title' => 'ÑÇÈØ ÊÔÚÈí',
+    'url' => 'ÇáÇÑÈØ URL',
+    'name' => 'ÇÓã',
+    'target' => 'ÇáÅØÇÑ ÇáåÏİ',
+    'title_attr' => 'ÇáÚäæÇä',
+  	'a_type' => 'ÇáäæÚ',
+  	'type_link' => 'ÇáÑÇÈØ',
+  	'type_anchor' => 'æÕáÉ',
+  	'type_link2anchor' => 'ÑÈØ Çáì æÕáÉ',
+  	'anchors' => 'æÕáÇÊ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
   ),
-  'hyperlink_targets' => array( // <=== new 1.0.5
-  	'_self' => 'Ù†ÙØ³ Ø§Ù„Ø§Ø·Ø§Ø± (_self)',
-	'_blank' => 'ØµÙØ­Ø© Ø¬Ø¯ÙŠØ¯Ø© (_blank)',
-	'_top' => 'Ø£Ø¹Ù„Ù‰ (_top)',
-	'_parent' => 'Ø¥Ø·Ø§Ø± Ù‚Ø±ÙŠÙ† (_parent)'
+  'hyperlink_targets' => array(
+  	'_self' => 'äİÓ ÇáÇØÇÑ (_self)',
+  	'_blank' => 'ÕİÍÉ ÌÏíÏÉ (_blank)',
+  	'_top' => 'ÇØÇÑ ÇáÚáæí (_top)',
+  	'_parent' => 'ÇáÃÈ (_parent)'
+  ),
+  'unlink' => array( // <=== new v.2.0
+    'title' => 'ÅÒÇáÉ ÇáÑÇÈØ ÇáÊÔÚÈí'
   ),
   'table_row_prop' => array(
-    'title' => 'Ø®ØµØ§Ø¦Øµ Ø§Ù„ØµÙ',
-    'horizontal_align' => 'Ù…Ø­Ø§Ø°Ø§Ø© Ø¹Ù…ÙˆØ¯ÙŠØ©',
-    'vertical_align' => 'Ù…Ø­Ø§Ø°Ø§Ù‡ Ø£ÙÙ‚ÙŠØ©',
-    'css_class' => 'CSS Ø¯Ø§Ù„Ø©',
-    'no_wrap' => 'Ø¨Ù„Ø§ Ø§Ù„ØªÙØ§Ù',
-    'bg_color' => 'Ù„ÙˆÙ† Ø§Ù„Ø®Ù„ÙÙŠØ©',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø§Ù„ØºØ§Ø¡',
-    'justifyleft' => 'ÙŠØ³Ø§Ø±',
-    'justifycenter' => 'ØªÙˆØ³ÙŠØ·',
-    'justifyright' => 'ÙŠÙ…ÙŠÙ†',
-    'top' => 'Ø£Ø¹Ù„Ù‰',
-    'middle' => 'ÙˆØ³Ø·',
-    'bottom' => 'Ø£Ø³ÙÙ„',
-    'baseline' => 'Ø®Ø· Ø£Ø³Ø§Ø³ÙŠ',
+    'title' => 'ÎÕÇÆÕ ÇáÕİ',
+    'horizontal_align' => 'ãÍÇĞÇÉ ÃİŞíÉ',
+    'vertical_align' => 'ãÍÇĞÇÉ ÚãæÏíÉ',
+    'css_class' => 'CSS äãØ',
+    'no_wrap' => 'ÈáÇ áİ',
+    'bg_color' => 'áæä ÇáÎáİíÉ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÇáÛÇÁ',
+    'left' => 'íÓÇÑ',
+    'center' => 'æÓØ',
+    'right' => 'íãíä',
+    'top' => 'ÃÚáì',
+    'middle' => 'æÓØ',
+    'bottom' => 'ÃÓİá',
+    'baseline' => 'ÎØ ÃÓÇÓí',
   ),
   'symbols' => array(
-    'title' => 'Ø±Ù…ÙˆØ² Ø®Ø§ØµØ©',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø§Ù„ØºØ§Ø¡',
+    'title' => 'ÃÍÑİ ÎÇÕÉ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
   ),
   'templates' => array(
-    'title' => 'Ø£Ø´ÙƒØ§Ù„ Ø¬Ø§Ù‡Ø²Ø© Templates',
+    'title' => 'ŞæÇáÈ',
   ),
   'page_prop' => array(
-    'title' => 'Ø®ØµØ§Ø¦Øµ Ø§Ù„ØµÙØ­Ø©',
-    'title_tag' => 'Ø§Ù„Ø¹Ù†ÙˆØ§Ù†',
-    'charset' => 'ØªØ±Ù…ÙŠØ²',
-    'background' => 'ØµÙˆØ±Ø© Ø§Ù„Ø®Ù„ÙÙŠØ©',
-    'bgcolor' => 'Ù„ÙˆÙ† Ø§Ù„Ø®Ù„ÙÙŠØ©',
-    'text' => 'Ù„ÙˆÙ† Ø§Ù„Ù†Øµ',
-    'link' => 'Ù„ÙˆÙ† Ø§Ù„Ø±Ø§Ø¨Ø·',
-    'vlink' => 'Ù„ÙˆÙ† Ø§Ù„Ø±Ø§Ø¨Ø· Ø§Ù„Ø°ÙŠ ØªÙ… Ø²ÙŠØ§Ø±ØªÙ‡',
-    'alink' => 'Ù„ÙˆÙ† Ø§Ù„Ø±Ø§Ø¨Ø· Ø§Ù„ÙØ¹Ø§Ù„',
-    'leftmargin' => 'Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£ÙŠØ³Ø±',
-    'topmargin' => 'Ø§Ù„Ø­Ø¯ Ø§Ù„Ø¹Ù„ÙˆÙŠ',
-    'css_class' => 'CSS Ø¯Ø§Ù„Ø©',
-    'ok' => '   Ù…ÙˆØ§ÙÙ‚   ',
-    'cancel' => 'Ø¥Ù„ØºØ§Ø¡',
+    'title' => 'ÎÕÇÆÕ ÇáÕİÍÉ',
+    'title_tag' => 'ÇáÚäæÇä',
+    'charset' => 'ÇáÊÑãíÒ',
+    'background' => 'ÕæÑÉ ÇáÎáİíÉ',
+    'bgcolor' => 'áæä ÇáÎáİíÉ',
+    'text' => 'áæä ÇáäÕ',
+    'link' => 'áæä ÇáÑÇÈØ',
+    'vlink' => 'áæä ÇáÑÇÈØ Êã ÒíÇÑÊå',
+    'alink' => 'áæä ÇáÑÇÈØ ÇáÍí',
+    'leftmargin' => 'ÇáÍÏ ÇáÃíÓÑ',
+    'topmargin' => 'ÇáÍÏ ÇáÚáæí',
+    'css_class' => 'CSS ÊäÓíŞ',
+    'ok' => '   ãæÇİŞ   ',
+    'cancel' => 'ÅáÛÇÁ',
   ),
   'preview' => array(
-    'title' => 'Ù…Ø¹Ø§ÙŠÙ†Ø©',
+    'title' => 'ãÚÇíäÉ',
   ),
   'image_popup' => array(
-    'title' => 'Ø¥Ø¯Ø±Ø§Ø¬ ØµÙˆØ±Ø© ÙˆØ¬Ø¹Ù„ Ø±Ø§Ø¨Ø· Ù„Ù‡Ø§ ØªØ¸Ù‡Ø± ÙÙŠ Ù†Ø§ÙØ°Ø© Ø¹Ù†Ø¯ Ø§Ù„Ø¶ØºØ· Ø¹Ù„ÙŠÙ‡Ø§ Ø£Ùˆ Ø¹Ù„Ù‰ Ø§Ù„Ø±Ø§Ø¨Ø·',
+    'title' => 'ÕæÑÉ İí äÇİĞÉ',
   ),
   'zoom' => array(
-    'title' => 'ØªÙƒØ¨ÙŠØ±/ØªØµØºÙŠØ±',
+    'title' => 'ÊßÈíÑ',
   ),
-  'subscript' => array( // <=== new 1.0.7
-    'title' => 'Ø±ÙØ¹ Ø§Ù„Ù†Øµ',
+  'subscript' => array(
+    'title' => 'äÕ Óİáí',
   ),
-  'superscript' => array( // <=== new 1.0.7
-    'title' => 'Ø±ÙØ¹ Ø§Ù„Ù†Øµ2',
+  'superscript' => array(
+    'title' => 'äÕ Úáæí',
   ),
 );
 ?>

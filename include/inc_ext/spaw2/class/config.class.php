@@ -322,7 +322,7 @@ class SpawConfig
   function restoreSecureConfig($scid)
   {
     $sec_cfg = SpawVars::getSessionVar("spaw_configs");
-    if ($sec_cfg != '' && is_array($sec_cfg[$scid]))
+    if ($sec_cfg != null && $sec_cfg != '' && is_array($sec_cfg) && isset($sec_cfg[$scid]) && is_array($sec_cfg[$scid]))
     {
       foreach($sec_cfg[$scid] as $key => $cfg_item)
         $this->setConfigItem($cfg_item->name, $cfg_item->value, $cfg_item->transfer_type);

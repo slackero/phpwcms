@@ -247,7 +247,7 @@ class SpawLang
           && $this->charset != $this->output_charset)
       {
         // convert charsets (ignore illegal characters)
-        $msg = @iconv($this->charset, $this->output_charset.'//IGNORE', $msg);
+        $msg = iconv($this->charset, $this->output_charset.'//IGNORE', $msg);
       }
       // return message
       return $msg;

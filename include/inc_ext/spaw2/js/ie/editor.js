@@ -21,7 +21,7 @@ SpawEditor.prototype.initialize = function()
       var pdoc = this.getPageDoc(this.pages[i].name);
       pta.style.width = f_pif.offsetWidth + 'px';
       
-      if (pdoc.designMode != 'on')
+      if (pdoc.designMode != 'on' && eval(this.name+'_obj.enabled'))
       {
         pdoc.designMode = 'On';
       }
@@ -307,7 +307,15 @@ SpawEditor.prototype.insertHtmlAtSelection = function(source)
   var sel = pdoc.selection.createRange();
   try
   {
-    sel.pasteHTML(source);
+    if (pdoc.selection.type == "Control") // control node
+    {
+      sel(0).outerHTML = source;
+      this.focus();
+    }
+    else
+    {
+      sel.pasteHTML(source);
+    }
   }
   catch(excp)
   {
@@ -319,6 +327,89 @@ SpawEditor.prototype.insertHtmlAtSelection = function(source)
     catch(excp)
     {
       // everything failed so do nothing
+    }
+  }
+}
+
+// applies style setting or css class to selection
+SpawEditor.prototype.applyStyleToSelection = function(cssClass, styleName, styleValue)
+{
+  this.focus();
+
+  var sel = this.getNodeAtSelection(); // for IE this always returns span for non-objects
+  var pnode = this.getSelectionParent();
+  if (sel)
+  {
+    if (sel.innerHTML.length>0 && sel.innerHTML != pnode.outerHTML) // setting class on a new snippet
+    {
+      if (cssClass != '')
+        sel.className = cssClass;
+      if (styleName != '')
+        sel.style.setAttribute(styleName, styleValue, 0);
+      this.insertNodeAtSelection(sel);
+    }
+    else if (sel.innerHTML.length == 0) // empty selection, set class on the parent
+    {
+      if (pnode && pnode.tagName.toLowerCase() != "body")
+      {
+        if (cssClass != '')
+          pnode.className = cssClass;
+        if (styleName != '')
+          pnode.style.setAttribute(styleName, styleValue, 0);
+      }
+      else // parent is body
+      {
+        sel.innerHTML = pnode.innerHTML;
+
+        if (cssClass != '')
+          sel.className = cssClass;
+        if (styleName != '')
+          sel.style.setAttribute(styleName, styleValue, 0);
+
+        pnode.innerHTML = sel.outerHTML;
+      }
+    }
+    else // changing class on an element
+    {
+      if (cssClass != '')
+        pnode.className = cssClass;
+      if (styleName != '')
+        pnode.style.setAttribute(styleName, styleValue, 0);
+    }
+  }
+}
+
+// removes style from selection
+SpawEditor.prototype.removeStyleFromSelection = function(cssClass, styleName)
+{
+  this.focus();
+  
+  var pnode = this.getSelectionParent();
+  
+  if (cssClass)
+  {
+    while(pnode && pnode.tagName.toLowerCase() != "body" && (!pnode.className || pnode.className == ""))
+    {
+      pnode = pnode.parentNode;
+    }
+      
+    if (pnode && pnode.tagName.toLowerCase() != "body")
+    {
+      pnode.removeAttribute("class");
+      pnode.removeAttribute("className");
+    }
+  }
+  
+  if (styleName)
+  {
+    while(pnode && pnode.tagName.toLowerCase() != "body" && !pnode.style.getAttribute(styleName))
+    {
+      pnode = pnode.parentNode;
+    }
+      
+    if (pnode && pnode.tagName.toLowerCase() != "body")
+    {
+      pnode.style.removeAttribute(styleName);
     }
   }
 }

@@ -61,6 +61,7 @@ $spaw_lang_data = array(
     'reset_dimensions' => 'Reset dimensions', // <= new in 2.0.1
     'title_attr' => 'Title', // <= new in 2.0.1
     'constrain_proportions' => 'constrain proportions', // <= new in 2.0.1
+    'css_class' => 'CSS class', // <= new in 2.0.6
     'error' => 'Error',
     'error_width_nan' => 'Width is not a number',
     'error_height_nan' => 'Height is not a number',
@@ -241,6 +242,7 @@ $spaw_lang_data = array(
   	'type_anchor' => 'Anchor',
   	'type_link2anchor' => 'Link to anchor',
   	'anchors' => 'Anchors',
+  	'quick_links' => "Quick links", // <=== new in 2.0.6
     'ok' => '   OK   ',
     'cancel' => 'Cancel',
   ),

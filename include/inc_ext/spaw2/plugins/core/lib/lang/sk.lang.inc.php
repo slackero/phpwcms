@@ -1,17 +1,17 @@
 <?php 
 // ================================================
-// SPAW PHP WYSIWYG editor control
+// SPAW v.2.0
 // ================================================
 // Slovak language file
 // ================================================
 // Developed: Alan Mendelevich, alan@solmetra.lt
 // Copyright: Solmetra (c)2003 All rights reserved.
-// Slovak translation: Pavel Koutny
-//                     pavel.koutny@inetix.sk
+// Slovak translation: Martin Švec
+//                     shuter@vadium.sk
 // ------------------------------------------------
 //                                www.solmetra.com
 // ================================================
-// v.1.0, 2003-03-20
+// v.2.0
 // ================================================
 
 // charset to be used in dialogs
@@ -23,247 +23,265 @@ $spaw_lang_charset = 'utf-8';
 
 $spaw_lang_data = array(
   'cut' => array(
-    'title' => 'Vystrihnú'
+    'title' => 'Vystrihnúť'
   ),
   'copy' => array(
-    'title' => 'Kopírova'
+    'title' => 'Kopírovať'
   ),
   'paste' => array(
-    'title' => 'Vloi'
+    'title' => 'Vložiť'
   ),
   'undo' => array(
-    'title' => 'Vráti'
+    'title' => 'Vrátiť úpravy'
   ),
   'redo' => array(
-    'title' => 'Vykona'
+    'title' => 'Znovu vykonať úpravy'
   ),
-  'hyperlink' => array(
-    'title' => 'Hyperlink'
-  ),
-  'image_insert' => array(
-    'title' => 'Vloi obrázok',
-    'select' => 'Vybra',
-    'cancel' => 'Zrui',
-    'library' => 'Kninica',
-    'preview' => 'Náhžad',
-    'images' => 'Obrázky',
-    'upload' => 'Nahra obrázek',
-    'upload_button' => 'Nahra',
-    'error' => 'Chyba',
-    'error_no_image' => 'Vyberte prosím obrázok',
-    'error_uploading' => 'V priebehu nahrávania dolo k chybe. Zopakujte to.',
-    'error_wrong_type' => 'chybný formát obrázku',
-    'error_no_dir' => 'Kninica neexistuje',
+  'image' => array(
+    'title' => 'Rýchle vloženie obrázka'
   ),
   'image_prop' => array(
-    'title' => 'Vlastnosti obrázku',
+    'title' => 'Obrázok',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
+    'cancel' => 'Zrušiť',
     'source' => 'Zdroj',
     'alt' => 'Alternatívny text',
     'align' => 'Zarovnanie',
-    'justifyleft' => 'vževo',
-    'justifyright' => 'vpravo',
-    'top' => 'Zhora',
-    'middle' => 'Na stred',
-    'bottom' => 'Zdole',
+    'left' => 'vľavo',
+    'right' => 'vpravo',
+    'top' => 'nahor',
+    'middle' => 'nastred',
+    'bottom' => 'naspodok',
     'absmiddle' => 'absolútny stred',
-    'texttop' => 'text-hore',
-    'baseline' => 'Základná linka',
-    'width' => 'írka',
-    'height' => 'Výka',
-    'border' => 'Okraje',
-    'hspace' => 'Hor. medzera',
+    'texttop' => 'text-nahor',
+    'baseline' => 'základný riadok',
+    'width' => 'Šírka',
+    'height' => 'Výška',
+    'border' => 'Okraj',
+    'hspace' => 'Horiz. medzera',
     'vspace' => 'Vert. medzera',
+    'dimensions' => 'Rozmery', // <= new in 2.0.1
+    'reset_dimensions' => 'Obnoviť rozmery', // <= new in 2.0.1
+    'title_attr' => 'Popis', // <= new in 2.0.1
+    'constrain_proportions' => 'Vynútiť proporcie', // <= new in 2.0.1
+    'css_class' => 'CSS trieda', // <= new in 2.0.6
     'error' => 'Chyba',
-    'error_width_nan' => 'írka nie je číslo',
-    'error_height_nan' => 'Výka nie je číslo',
+    'error_width_nan' => 'Šírka nie je číslo',
+    'error_height_nan' => 'Výška nie je číslo',
     'error_border_nan' => 'Okraj nie je číslo',
     'error_hspace_nan' => 'Horizontálna medzera nie je číslo',
     'error_vspace_nan' => 'Vertikálna medzera nie je číslo',
   ),
-  'inserthorizontalrule' => array(
-    'title' => 'Horizontálny oddelovač'
+  'flash_prop' => array(                // <= new in 2.0
+    'title' => 'Flash',
+    'ok' => '   OK   ',
+    'cancel' => 'Zrušiť',
+    'source' => 'Zdroj',
+    'width' => 'Šírka',
+    'height' => 'Výška',
+    'error' => 'Chyba',
+    'error_width_nan' => 'Šírka nie je číslo',
+    'error_height_nan' => 'Výška nie je číslo',
+  ),
+  'inserthorizontalrule' => array( // <== v.2.0 changed from hr
+    'title' => 'Horizontálna čiara'
   ),
   'table_create' => array(
-    'title' => 'Vytvor tabužku'
+    'title' => 'Vytvoriť tabuľku'
   ),
   'table_prop' => array(
-    'title' => 'Vlastnosti tabužky',
+    'title' => 'Vlastnosti tabuľky',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
-    'rows' => 'Riadkov',
-    'columns' => 'Stĺpcov',
-    'width' => 'írka',
-    'height' => 'Výka',
-    'border' => 'Okraje',
-    'pixels' => 'pixelov',
+    'cancel' => 'Zrušiť',
+    'rows' => 'Riadky',
+    'columns' => 'Stĺpce',
+    'css_class' => 'CSS trieda',
+    'width' => 'Šírka',
+    'height' => 'Výška',
+    'border' => 'Okraj',
+    'pixels' => 'pixlov',
     'cellpadding' => 'Odsadenie v bunke',
-    'cellspacing' => 'Vzdialenos buniek',
+    'cellspacing' => 'Vzdialenosť buniek',
     'bg_color' => 'Farba pozadia',
+    'background' => 'Obrázok pozadia',
     'error' => 'Chyba',
     'error_rows_nan' => 'Riadky nie sú číslo',
     'error_columns_nan' => 'Stĺpce nie sú číslo',
-    'error_width_nan' => 'írka nie je číslo',
-    'error_height_nan' => 'Výka nie je číslo',
+    'error_width_nan' => 'Šírka nie je číslo',
+    'error_height_nan' => 'Výška nie je číslo',
     'error_border_nan' => 'Okraj nie je číslo',
     'error_cellpadding_nan' => 'Odsadenie v bunke nie je číslo',
-    'error_cellspacing_nan' => 'Vzdialenos buniek nie je číslo',
+    'error_cellspacing_nan' => 'Vzdialenosť buniek nie je číslo',
   ),
   'table_cell_prop' => array(
     'title' => 'Vlastnosti bunky',
     'horizontal_align' => 'Horizontálne zarovnanie',
     'vertical_align' => 'Vertikálne zarovnanie',
-    'width' => 'írka',
-    'height' => 'Výka',
+    'width' => 'Šírka',
+    'height' => 'Výška',
     'css_class' => 'CSS trieda',
-    'no_wrap' => 'nezalamova',
+    'no_wrap' => 'Nezalamovať',
     'bg_color' => 'Farba pozadia',
+    'background' => 'Obrázok pozadia',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
-    'justifyleft' => 'Vževo',
-    'justifycenter' => 'V strede',
-    'justifyright' => 'Vpravo',
-    'top' => 'Zhora',
-    'middle' => 'Na stred',
-    'bottom' => 'Zdola',
-    'baseline' => 'Základná linka',
+    'cancel' => 'Zrušiť',
+    'left' => 'Vľavo',
+    'center' => 'Centrovať',
+    'right' => 'Vpravo',
+    'top' => 'Nahor',
+    'middle' => 'Nastred',
+    'bottom' => 'Naspodok',
+    'baseline' => 'Základný riadok',
     'error' => 'Chyba',
-    'error_width_nan' => 'írka nie je číslo',
-    'error_height_nan' => 'Výka nie je číslo',
-    
+    'error_width_nan' => 'Šírka nie je číslo',
+    'error_height_nan' => 'Výška nie je číslo',
   ),
   'table_row_insert' => array(
-    'title' => 'Vloi riadok'
+    'title' => 'Vložiť riadok'
   ),
   'table_column_insert' => array(
-    'title' => 'Vloi stĺpec'
+    'title' => 'Vložiť stĺpec'
   ),
   'table_row_delete' => array(
-    'title' => 'Vyma riadok'
+    'title' => 'Vymazať riadok'
   ),
   'table_column_delete' => array(
-    'title' => 'Vyma stĺpec'
+    'title' => 'Vymazať stĺpec'
   ),
   'table_cell_merge_right' => array(
-    'title' => 'Zlúi vpravo'
+    'title' => 'Zlúčiť vpravo'
   ),
   'table_cell_merge_down' => array(
-    'title' => 'Zlúči nadol'
+    'title' => 'Zlúčiť nadol'
   ),
   'table_cell_split_horizontal' => array(
-    'title' => 'Rozdeli bunku horizontálne'
+    'title' => 'Rozdeliť bunku horizontálne'
   ),
   'table_cell_split_vertical' => array(
-    'title' => 'Rozdeli bunku vertikálne'
+    'title' => 'Rozdeliť bunku vertikálne'
   ),
   'style' => array(
-    'title' => 'týl'
+    'title' => 'Štýl'
   ),
-  'fontname' => array(
-    'title' => 'Font'
+  'fontname' => array( // <== v.2.0 changed from font
+    'title' => 'Písmo'
   ),
   'fontsize' => array(
-    'title' => 'Vežkos'
+    'title' => 'Veľkosť'
   ),
-  'formatBlock' => array(
+  'formatBlock' => array( // <= v.2.0: changed from paragraph
     'title' => 'Odstavec'
   ),
   'bold' => array(
-    'title' => 'Tučné'
+    'title' => 'Hrubé'
   ),
   'italic' => array(
-    'title' => 'ikmé'
+    'title' => 'Šikmé'
   ),
   'underline' => array(
     'title' => 'Podčiarknuté'
   ),
-  'insertorderedlist' => array(
-    'title' => 'Číslovanie'
+  'strikethrough' => array(
+    'title' => 'Preškrtnuté'
   ),
-  'insertunorderedlist' => array(
-    'title' => 'Odráky'
+  'insertorderedlist' => array( // <== v.2.0 changed from ordered_list
+    'title' => 'Číslovaný zoznam'
+  ),
+  'insertunorderedlist' => array( // <== v.2.0 changed from bulleted list
+    'title' => 'Nečíslovaný zoznam'
   ),
   'indent' => array(
     'title' => 'Odsadenie'
   ),
-  'outdent' => array(
-    'title' => 'Zrui odsadenie'
+  'outdent' => array( // <== v.2.0 changed from unindent
+    'title' => 'Zrušiť odsadenie'
   ),
-  'justifyleft' => array(
-    'title' => 'Vžavo'
+  'justifyleft' => array( // <== v.2.0 changed from left
+    'title' => 'Vľavo'
   ),
-  'justifycenter' => array(
-    'title' => 'V strede'
+  'justifycenter' => array( // <== v.2.0 changed from center
+    'title' => 'Centrovať'
   ),
-  'justifyright' => array(
+  'justifyright' => array( // <== v.2.0 changed from right
     'title' => 'Vpravo'
   ),
+  'justifyfull' => array( // <== v.2.0 changed from justify
+    'title' => 'Do bloku'
+  ),
   'fore_color' => array(
-    'title' => 'Barva popredia'
+    'title' => 'Farba popredia'
   ),
   'bg_color' => array(
-    'title' => 'Barva pozadia'
+    'title' => 'Farba pozadia'
   ),
-  'design' => array(
-    'title' => 'Prepnú do WYSIWYG módu'
+  'design' => array( // <== v.2.0 changed from design_tab
+    'title' => 'Prepnúť do WYSIWYG (dizajn) módu'
   ),
-  'html' => array(
-    'title' => 'Přepnú do HTML módu'
+  'html' => array( // <== v.2.0 changed from html_tab
+    'title' => 'Prepnúť do HTML (kód) módu'
   ),
   'colorpicker' => array(
     'title' => 'Paleta farieb',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
+    'cancel' => 'Zrušiť',
   ),
-  // <<<<<<<<< NEW >>>>>>>>>
   'cleanup' => array(
-    'title' => 'HTML kontrola (odstraní týly)',
-    'confirm' => 'Prevedením akcie odstránite vetky týly, fonty a zbytočné tagy z aktuálneho obsahu. Jedno, alebo vetky formátovania budú odstránené.',
+    'title' => 'HTML vyčistiť (odstrániť štýly)',
+    'confirm' => 'Vykonaním akcie odstránite všetky štýly, fonty a zbytočné tagy z aktuálneho obsahu. Niektoré alebo všetky formátovania budú odstránené.',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
+    'cancel' => 'Zrušiť',
   ),
   'toggle_borders' => array(
-    'title' => 'Upravi okraje',
+    'title' => 'Zapnúť zobrazenie okrajov tabľky',
   ),
   'hyperlink' => array(
-    'title' => 'Hyperlink',
+    'title' => 'Hypertextový odkaz',
     'url' => 'URL',
     'name' => 'Meno',
-    'target' => 'Ciež',
-    'title_attr' => 'Názov',
+    'target' => 'Cieľ',
+    'title_attr' => 'Popis',
+  	'a_type' => 'Typ',
+  	'type_link' => 'Odkaz',
+  	'type_anchor' => 'Kotva',
+  	'type_link2anchor' => 'Odkaz do Kotvy',
+  	'anchors' => 'Kotvy',
+  	'quick_links' => "Rýchle odkazy", // <=== new in 2.0.6
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
+    'cancel' => 'Zrušiť',
+  ),
+  'hyperlink_targets' => array(
+  	'_self' => 'to isté okno (_self)',
+  	'_blank' => 'nové okno (_blank)',
+  	'_top' => 'horný rám (_top)',
+  	'_parent' => 'rodičovský rám (_parent)'
+  ),
+  'unlink' => array( // <=== new v.2.0
+    'title' => 'Odstrániť hypertextový odkaz'
   ),
   'table_row_prop' => array(
-    'title' => 'Vlastnosti riadku',
+    'title' => 'Vlastnosti riadku tabuľky',
     'horizontal_align' => 'Horizontálne zarovnanie',
     'vertical_align' => 'Vertikálne zarovnanie',
     'css_class' => 'CSS trieda',
-    'no_wrap' => 'Nezalamova',
+    'no_wrap' => 'Nezalamovať',
     'bg_color' => 'Farba pozadia',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
-    'justifyleft' => 'Vževo',
-    'justifycenter' => 'V strede',
-    'justifyright' => 'Vpravo',
-    'top' => 'Zhora',
-    'middle' => 'Na stred',
-    'bottom' => 'Zdola',
-    'baseline' => 'Základná linka',
+    'cancel' => 'Zrušiť',
+    'left' => 'Vľavo',
+    'center' => 'Centrovať',
+    'right' => 'Vpravo',
+    'top' => 'Nahor',
+    'middle' => 'Nastred',
+    'bottom' => 'Naspodok',
+    'baseline' => 'Základný riadok',
   ),
   'symbols' => array(
-    'title' => 'peciálne znaky',
+    'title' => 'Špeciálne znaky',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
-  ),
-  'symbols' => array(
-    'title' => 'peciálne znaky',
-    'ok' => '   OK   ',
-    'cancel' => 'Zrui',
+    'cancel' => 'Zrušiť',
   ),
   'templates' => array(
-    'title' => 'ablóny',
+    'title' => 'šablóny',
   ),
   'page_prop' => array(
     'title' => 'Vlastnosti stránky',
@@ -273,23 +291,28 @@ $spaw_lang_data = array(
     'bgcolor' => 'Farba pozadia',
     'text' => 'Farba textu',
     'link' => 'Farba odkazu',
-    'vlink' => 'Farba navtíveného odkazu',
+    'vlink' => 'Farba navštíveného odkazu',
     'alink' => 'Farba aktívneho odkazu',
-    'leftmargin' => 'źavý okraj',
+    'leftmargin' => 'Ľavý okraj',
     'topmargin' => 'Horný okraj',
     'css_class' => 'CSS trieda',
     'ok' => '   OK   ',
-    'cancel' => 'Zrui',
+    'cancel' => 'Zrušiť',
   ),
   'preview' => array(
-    'title' => 'Náhžad',
+    'title' => 'Náhľad',
   ),
   'image_popup' => array(
-    'title' => 'Prekrývanie obrázkov',
+    'title' => 'Rozklikávací obrázok',
   ),
   'zoom' => array(
-    'title' => 'Zväčenie',
+    'title' => 'Zväčšenie',
+  ),
+  'subscript' => array(
+    'title' => 'Dolný index',
+  ),
+  'superscript' => array(
+    'title' => 'Horný index',
   ),
 );
 ?>
-

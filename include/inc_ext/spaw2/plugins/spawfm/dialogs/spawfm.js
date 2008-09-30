@@ -166,14 +166,14 @@ SpawFm.onSelectItem = function(itemno) {
     SpawFm.unselectItem();
     SpawFm.selectedItem = itemno;
     SpawFm.selectItem(itemno, true);
-    document.spawfm_form.ok_button.disabled = false;
+    document.forms[0].ok_button.disabled = false;
     SpawFm.showItemDetails(itemno);
     if (SpawFm.items[itemno].type == 'F' && SpawFm.allowModify) {
-      document.spawfm_form.delete_button.disabled = false;
-      document.spawfm_form.rename_button.disabled = false;
+      document.forms[0].delete_button.disabled = false;
+      document.forms[0].rename_button.disabled = false;
     } else if (SpawFm.items[itemno].type == 'D' && SpawFm.allowModifySubdirectories) {
-      document.spawfm_form.delete_button.disabled = false;
-      document.spawfm_form.rename_button.disabled = false;
+      document.forms[0].delete_button.disabled = false;
+      document.forms[0].rename_button.disabled = false;
     }
   }
 }
@@ -208,9 +208,9 @@ SpawFm.unselectItem = function() {
   if (SpawFm.selectedItem >= 0) {
     // unselect file
     SpawFm.selectItem(SpawFm.selectedItem, false);
-    document.spawfm_form.ok_button.disabled = true;
-    document.spawfm_form.delete_button.disabled = true;
-    document.spawfm_form.rename_button.disabled = true;
+    document.forms[0].ok_button.disabled = true;
+    document.forms[0].delete_button.disabled = true;
+    document.forms[0].rename_button.disabled = true;
     SpawFm.hideItemDetails();
   }
 }
@@ -534,16 +534,16 @@ SpawFm.addEventHandler = function(obj, event, funcname) {
 }
 
 SpawFm.folderSelect = function() {
-  var currpath = document.spawfm_form.dir.options[document.spawfm_form.dir.selectedIndex].value;
+  var currpath = document.forms[0].dir.options[document.forms[0].dir.selectedIndex].value;
   if (currpath.indexOf(spawEditor.getConfigValue('spawfm_path_separator')) >= 0) {
     var newpath = currpath + SpawFm.items[SpawFm.selectedItem]['name'] + '/';
   } else {
     var newpath = currpath + spawEditor.getConfigValue('spawfm_path_separator') + SpawFm.items[SpawFm.selectedItem]['name'] + '/';
   }
-  document.spawfm_form.dir.options[document.spawfm_form.dir.options.length] = new Option(
+  document.forms[0].dir.options[document.forms[0].dir.options.length] = new Option(
     SpawFm.items[SpawFm.selectedItem]['name'], newpath, false, true
   );
-  document.spawfm_form.submit();
+  document.forms[0].submit();
 }
 
 SpawFm.okClick = function() {
@@ -571,8 +571,8 @@ SpawFm.cancelClick = function() {
 SpawFm.deleteClick = function() {
   if ((SpawFm.items[SpawFm.selectedItem]['type'] == 'F' && confirm(SpawFm.txtConfirmDelete.replace('[*file*]', SpawFm.items[SpawFm.selectedItem]['name']))) ||
       (SpawFm.items[SpawFm.selectedItem]['type'] == 'D' && confirm(SpawFm.txtConfirmDeleteDir.replace('[*DIR*]', SpawFm.items[SpawFm.selectedItem]['name'])))) {
-    document.spawfm_form.delete_file.value = SpawFm.items[SpawFm.selectedItem]['name'];
-    document.spawfm_form.submit();
+    document.forms[0].delete_file.value = SpawFm.items[SpawFm.selectedItem]['name'];
+    document.forms[0].submit();
   }
 }
 
@@ -580,26 +580,26 @@ SpawFm.renameClick = function() {
   var oldname = SpawFm.items[SpawFm.selectedItem]['name'];
   var newname = prompt(SpawFm.txtRename.replace('[*FILE*]', oldname), oldname);
   if (newname && newname != oldname) {
-    document.spawfm_form.rename_from.value = SpawFm.items[SpawFm.selectedItem]['name'];
-    document.spawfm_form.rename_to.value = newname;
-    document.spawfm_form.submit();
+    document.forms[0].rename_from.value = SpawFm.items[SpawFm.selectedItem]['name'];
+    document.forms[0].rename_to.value = newname;
+    document.forms[0].submit();
   }
 }
 
 SpawFm.createDirectoryClick = function() {
   var dirname = prompt(SpawFm.txtCreateDirectory);
   if (dirname) {
-    document.spawfm_form.new_folder.value = dirname;
-    document.spawfm_form.submit();
+    document.forms[0].new_folder.value = dirname;
+    document.forms[0].submit();
   }
 }
 
 SpawFm.goUpClick = function() {
-  var sel = document.spawfm_form.dir.selectedIndex;
+  var sel = document.forms[0].dir.selectedIndex;
   if (sel && sel > 0) {
     sel--;
-    document.spawfm_form.dir.options[sel].selected = true;
-    document.spawfm_form.submit();
+    document.forms[0].dir.options[sel].selected = true;
+    document.forms[0].submit();
   }
 }
 

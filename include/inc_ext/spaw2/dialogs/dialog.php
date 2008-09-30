@@ -45,6 +45,7 @@ ob_start();
 <script type="text/javascript">
 <!--
 SpawEngine.spaw_dir = "<?php echo SpawConfig::getStaticConfigValue('SPAW_DIR') ?>";
+SpawEngine.setPlatform('php');
 
 function SpawDialog()
 {

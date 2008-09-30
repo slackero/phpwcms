@@ -134,7 +134,6 @@ SpawPGcore.isForeColorEnabled = function(editor, tbi)
 
 // bg color differs between browsers
 
-
 // applies style
 SpawPGcore.styleChange = function(editor, tbi, sender)
 {
@@ -144,54 +143,22 @@ SpawPGcore.styleChange = function(editor, tbi, sender)
     if (cls != '')
     {
       // apply class
-      var sel = editor.getNodeAtSelection();
-      if (sel)
-      {
-        if (sel.nodeType == 1) // element
-        {
-          sel.className = cls;
-          editor.insertNodeAtSelection(sel);
-        }
-        else
-        {
-          var pdoc = editor.getActivePageDoc();
-          var spn = pdoc.createElement("SPAN");
-          spn.className = cls;
-          spn.appendChild(sel);
-          editor.insertNodeAtSelection(spn);
-        }
-      }
-      else
-      {
-      }
+      editor.applyStyleToSelection(cls, '', '');
     }
     else
     {
       // remove class
-      var pnode = editor.getSelectionParent();
-      while(pnode && pnode.tagName.toLowerCase() != "body" && (!pnode.className || pnode.className == ""))
-      {
-        pnode = pnode.parentNode;
-      }
-        
-      if (pnode && pnode.tagName.toLowerCase() != "body")
-      {
-        pnode.removeAttribute("class");
-        pnode.removeAttribute("className");
-      }
+      editor.removeStyleFromSelection(true, '');
     }
     sender.selectedIndex = 0;
     editor.updateToolbar();
     editor.focus();
   }
 }
+
 SpawPGcore.isStyleEnabled = function(editor, tbi)
 {
-  if(editor.isInDesignMode())
-    // use formatBlock because it should be enabled in same situations
-    return editor.getActivePageDoc().queryCommandEnabled("formatBlock");
-  else
-    return false;
+  return editor.isInDesignMode();
 }
 // returns currently applied class
 SpawPGcore.styleStatusCheck = function(editor, tbi)
@@ -209,6 +176,77 @@ SpawPGcore.styleStatusCheck = function(editor, tbi)
   else
   {
     return null;
+  }
+}
+
+// applies font family
+SpawPGcore.fontFamilyChange = function(editor, tbi, sender)
+{
+  if (tbi.is_enabled)
+  {
+    var fontName = sender.options[sender.selectedIndex].value;
+    if (fontName != '')
+    {
+      // apply class
+      editor.applyStyleToSelection('', 'fontFamily', fontName);
+    }
+    else
+    {
+      // remove class
+      editor.removeStyleFromSelection('', 'fontFamily');
+    }
+    sender.selectedIndex = 0;
+    editor.updateToolbar();
+    editor.focus();
+  }
+}
+
+// applies font size
+SpawPGcore.fontSizeChange = function(editor, tbi, sender)
+{
+  if (tbi.is_enabled)
+  {
+    var fontSize = sender.options[sender.selectedIndex].value;
+    if (fontSize != '')
+    {
+      // convert old-school html size (1, 2, etc.) to CSS compatible
+      switch(fontSize)
+      {
+        case "1":
+          fontSize = "xx-small";
+          break;
+        case "2":
+          fontSize = "x-small";
+          break;
+        case "3":
+          fontSize = "small";
+          break;
+        case "4":
+          fontSize = "medium";
+          break;
+        case "5":
+          fontSize = "large";
+          break;
+        case "6":
+          fontSize = "x-large";
+          break;
+        case "7":
+          fontSize = "xx-large";
+          break;
+        default:
+          break;
+      }
+      // apply class
+      editor.applyStyleToSelection('', 'fontSize', fontSize);
+    }
+    else
+    {
+      // remove class
+      editor.removeStyleFromSelection('', 'fontSize');
+    }
+    sender.selectedIndex = 0;
+    editor.updateToolbar();
+    editor.focus();
   }
 }
 

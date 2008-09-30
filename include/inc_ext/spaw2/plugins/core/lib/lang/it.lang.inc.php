@@ -37,6 +37,9 @@ $spaw_lang_data = array(
   'redo' => array(
     'title' => 'Ripeti'
   ),
+    'image' => array(
+    'title' => 'Inserisci Immagine' //*******ADDED BY FABRIX*******
+  ),
   'hyperlink' => array(
     'title' => 'Collegamento Ipertestuale'
   ),
@@ -44,7 +47,7 @@ $spaw_lang_data = array(
     'title' => 'Inserisci immagine',
     'select' => 'Seleziona',
     'cancel' => 'Esci',
-	'delete' => 'Elimina', // new 1.0.5
+    'delete' => 'Elimina', // new 1.0.5
     'library' => 'Libreria',
     'preview' => 'Anteprima',
     'images' => 'Immagini',
@@ -183,6 +186,9 @@ $spaw_lang_data = array(
   'underline' => array(
     'title' => 'Sottolineato'
   ),
+  'strikethrough' => array(
+    'title' => 'Barrato' //*******ADDED BY FABRIX*******
+  ),
   'insertorderedlist' => array(
     'title' => 'Elenco numerato'
   ),
@@ -254,6 +260,9 @@ $spaw_lang_data = array(
 	'_blank' => 'Nuova finestra (_blank)',
 	'_top' => 'Frame corrente (_top)',
 	'_parent' => 'Intero FrameSet (_parent)'
+  ),
+'unlink' => array( // <=== new v.2.0 *******ADDED BY FABRIX*******
+    'title' => 'Rimuovi Collegamento'
   ),
   'table_row_prop' => array(
     'title' => 'Proprietà riga',

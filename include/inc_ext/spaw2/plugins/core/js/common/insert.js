@@ -29,6 +29,19 @@ SpawPGcore.hyperlinkClickCallback = function(editor, result, tbi, sender)
       {
         newa.appendChild(sel);
       }
+      
+      // if link is set on empty space use links title or url as link text
+      if (SpawUtils.trim(newa.innerHTML) == '' && SpawUtils.trim(newa.href) != '' && newa.href != pdoc.location.href) // protect anchors from this action
+      {
+        if (newa.title)
+          newa.innerHTML = newa.title;
+        else
+          newa.innerHTML = editor.getStrippedAbsoluteUrl(newa.href, false);
+      }
+      
+      if (newa.href == pdoc.location.href)
+        newa.removeAttribute("href");
+      
       editor.insertNodeAtSelection(newa);
     }
   }

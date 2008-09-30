@@ -137,10 +137,18 @@ SpawEditor.prototype.getActivePage = function()
 
 // parent object of the editing area
 SpawEditor.prototype.pageOffsetParent;
+SpawEditor.prototype.currentTextAreaWidth = '100%';
 SpawEditor.prototype.hidePage = function(page)
 {
   var pta = this.getPageInput(page.name);
   var pif = this.getPageIframeObject(page.name);
+
+  // workaround for zero width textarea
+  if (page.editing_mode == 'design')
+    this.currentTextAreaWidth = pif.offsetWidth + 'px';
+  else
+    this.currentTextAreaWidth = pta.offsetWidth + 'px';
+
   pta.style.display = 'none';
   pif.style.display = 'none';
 }
@@ -153,11 +161,12 @@ SpawEditor.prototype.showPage = function(page)
   {
     pta.style.display = 'none';
     pif.style.display = 'inline';
-    pdoc.designMode = 'on'; // mozilla (and probably early firefox versions) looses this when the page is hidden
+    if (this.Enabled)
+        pdoc.designMode = 'on'; // mozilla (and probably early firefox versions) looses this when the page is hidden
   }
   else
   {
-    pta.style.width = pif.offsetWidth + 'px'; 
+    pta.style.width = this.currentTextAreaWidth;
     pta.style.display = 'inline';
     pif.style.display = 'none';
   }
@@ -479,7 +488,49 @@ SpawEditor.prototype.updatePageDoc = function(page)
 {
   var pdoc = this.getPageDoc(page.name);
   var pta = this.getPageInput(page.name);
-  pdoc.body.innerHTML = pta.value;
+
+  var htmlValue = pta.value;
+  
+  // hr workaround for IE (HR sometimes causes unpredictable behavior in IE)
+  // replace HR with SPAW:HR tags
+  if (document.attachEvent) // ie
+  {
+    var hrRgx = new RegExp('(<HR(\/?)>)|(<HR ([^>]*)>)','gi');
+    htmlValue = htmlValue.replace(hrRgx, '<SPAW:HR $2$4/>').replace("//>","/>");
+  }
+
+  // workaround for chewed up script, style and other tags under IE when content starts with them
+  if (document.attachEvent) // ie
+  {
+    htmlValue = '<span id="spaw2_script_workaround">.</span>' + htmlValue;
+  }
+
+  // assign value  
+  pdoc.body.innerHTML = htmlValue;
+  
+  // hr workaround for IE (HR sometimes causes unpredictable behavior in IE)
+  // replace SPAW:HRs back to HR
+  if (document.attachEvent) // ie
+  {
+    var HRs = pdoc.getElementsByTagName('hr');
+    if (HRs && HRs.length > 0)
+    {
+      for (var i = (HRs.length - 1); i>=0; i--)
+      {
+        var realHR = pdoc.createElement('hr');
+        realHR.mergeAttributes(HRs[i]);
+        HRs[i].replaceNode(realHR);
+      }
+    } 
+  }
+  
+  // workaround for chewed up script, style and other tags under IE when content starts with them
+  if (document.attachEvent) // ie
+  {
+    var tmpSpan = pdoc.getElementById("spaw2_script_workaround");
+    tmpSpan.parentNode.removeChild(tmpSpan);
+  }  
+  
   this.flash2img();
 }
 // returns html of the current page
@@ -514,6 +565,9 @@ SpawEditor.prototype.getPageHtml = function(page)
     {
       // call custom html renderer
       result = this.dom2xml(pdoc.body, '');
+      // workaround for broken DOM tree
+      pta.value = result;
+      this.updatePageDoc(page);
     }
   }
   if (this.getConfigValue('convert_html_entities'))
@@ -541,7 +595,7 @@ SpawEditor.prototype.spawSubmit = function()
 }
 
 // renders xhtml
-SpawEditor.prototype.dom2xml = function(node, indent)
+SpawEditor.prototype.dom2xml = function(node, indent, inParagraph)
 {
     var xbuf = '';
     var f_indent = '';
@@ -555,6 +609,8 @@ SpawEditor.prototype.dom2xml = function(node, indent)
       {
         if (SpawUtils.trim(chnode.nodeValue).length > 0)
           xbuf += SpawUtils.trimLineBreaks(SpawUtils.htmlEncode(chnode.nodeValue));
+        else if (chnode.nodeValue.length > 0)
+          xbuf += " "; // add single space
       }
       else if (chnode.nodeType == 8) // comment node
       {
@@ -669,7 +725,6 @@ SpawEditor.prototype.dom2xml = function(node, indent)
               case "th":
               case "label":
               case "li":
-              case "br":
                 f_indent = indent;
                 f_crlf = '\n';
                 e_indent = '';
@@ -683,6 +738,8 @@ SpawEditor.prototype.dom2xml = function(node, indent)
               case "div":
               case "ul":
               case "ol":
+              case "script":
+              case "style":
                 f_indent = indent;
                 f_crlf = '\n';
                 e_indent = indent;
@@ -695,16 +752,42 @@ SpawEditor.prototype.dom2xml = function(node, indent)
                 e_crlf = '';
             }
           }  
-          if (chnode.tagName.toLowerCase() != "script")
+          if (chnode.tagName.toLowerCase() != "script" && chnode.tagName.toLowerCase() != "style" )
           {
             // replace font with span
             var tag_name = (chnode.tagName.toLowerCase() != 'font')?chnode.tagName.toLowerCase():'span';
+
+            // workaround for invalid HTML in IE
+            var pInParagraph = false;
+            var closingP = '';
+            if (document.attachEvent) // ie
+            {
+              if (inParagraph == true && tag_name == 'p')
+              {
+                closingP = '</p>';
+                pInParagraph = false;
+                inParagraph = false;
+              }
+              else if (inParagraph == true || tag_name == 'p')
+                pInParagraph = true;
+            }            
+            
             if (chnode.childNodes.length>0)
             {
-              var innercode = this.dom2xml(chnode, indent + ((f_indent!="tmp")?"  ":""));
+            
+              var innercode = this.dom2xml(chnode, indent + ((f_indent!="tmp")?"  ":""), pInParagraph);
               if (SpawUtils.trim(innercode) == '')
                 innercode = '&nbsp;';
-              xbuf += f_crlf + f_indent + "<" + SpawUtils.trim(tag_name + attr_str) + ">" + innercode + e_crlf + e_indent + "</" + tag_name + ">";
+
+              // workaround for invalid HTML in IE
+              var closingTag = "</" + tag_name + ">";
+              if (document.attachEvent) // ie
+              {
+                if (tag_name == 'p' && innercode.indexOf("</p>") != -1)
+                  closingTag = "";
+              }        
+
+              xbuf += closingP + f_crlf + f_indent + "<" + SpawUtils.trim(tag_name + attr_str) + ">" + innercode + e_crlf + e_indent + closingTag;
             }
             else if (chnode.tagName.indexOf("/") == -1)// empty tag (sometimes ending tag is passed as a separate node)
             {
@@ -737,9 +820,9 @@ SpawEditor.prototype.dom2xml = function(node, indent)
               }
             }
           }
-          else // script
+          else // script & style
           {
-            xbuf += f_crlf + f_indent + "<" + SpawUtils.trim(chnode.tagName.toLowerCase() + attr_str) + ">" + chnode.innerHTML + "</" + chnode.tagName.toLowerCase() + ">";                    
+            xbuf += f_crlf + f_indent + "<" + SpawUtils.trim(chnode.tagName.toLowerCase() + attr_str) + ">" + SpawUtils.trim(chnode.innerHTML) + e_crlf + e_indent + "</" + chnode.tagName.toLowerCase() + ">";                    
           }
         }
       }

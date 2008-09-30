@@ -1,4 +1,4 @@
-// Gecko specific code
+// Safari specific code
 
 // initialize
 SpawEditor.prototype.initialize = function()
@@ -26,7 +26,7 @@ SpawEditor.prototype.initialize = function()
       
       try
       {
-        if(pdoc.designMode != 'on')
+        if(pdoc.designMode != 'on' && eval(this.name+'_obj.enabled'))
         {
           pdoc.designMode = 'on';
           pdoc.designMode = 'off';
@@ -323,4 +323,95 @@ SpawEditor.prototype.insertHtmlAtSelection = function(source)
   while(elm.hasChildNodes())
     frag.appendChild(elm.childNodes[0]);
   this.insertNodeAtSelection(frag);
+}
+
+// applies style setting or css class to selection
+SpawEditor.prototype.applyStyleToSelection = function(cssClass, styleName, styleValue)
+{
+  var sel = this.getNodeAtSelection();
+  var pnode = this.getSelectionParent();
+  if (sel)
+  {
+    if (sel.nodeType == 1) // element
+    {
+      if (cssClass != '')
+        sel.className = cssClass;
+      if (styleName != '')
+        sel.style[styleName] = styleValue;
+      this.insertNodeAtSelection(sel);
+    }
+    else
+    {
+      var pdoc = this.getActivePageDoc();
+      var spn = pdoc.createElement("SPAN");
+      if (cssClass != '')
+        spn.className = cssClass;
+      if (styleName != '')
+        spn.style[styleName] = styleValue;
+      spn.appendChild(sel);
+      if (spn.innerHTML.length > 0) // something selected
+      {
+        if (spn.innerHTML != pnode.innerHTML || pnode.tagName.toLowerCase() == "body") // this is a new snippet, set class on it
+          this.insertNodeAtSelection(spn);
+        else // change class
+        {
+          if (cssClass != '')
+            pnode.className = cssClass;
+          if (styleName != '')
+            pnode.style[styleName] = styleValue;
+        }        
+      }
+      else // nothing is select, set class on the parent
+      {
+        if (pnode.tagName.toLowerCase() != "body") // there's a parent, set class on it
+        {
+          if (cssClass != '')
+            pnode.className = cssClass;
+          if (styleName != '')
+            pnode.style[styleName] = styleValue;
+        }
+        else
+        {
+          spn.innerHTML = pnode.innerHTML;
+          pnode.innerHTML = '';
+          pnode.appendChild(spn);
+        }        
+      }
+    }
+  }
+}
+
+// removes style from selection
+SpawEditor.prototype.removeStyleFromSelection = function(cssClass, styleName)
+{
+  this.focus();
+  
+  var pnode = this.getSelectionParent();
+  
+  if (cssClass)
+  {
+    while(pnode && pnode.tagName.toLowerCase() != "body" && (!pnode.className || pnode.className == ""))
+    {
+      pnode = pnode.parentNode;
+    }
+      
+    if (pnode && pnode.tagName.toLowerCase() != "body")
+    {
+      pnode.removeAttribute("class");
+      pnode.removeAttribute("className");
+    }
+  }
+  
+  if (styleName)
+  {
+    while(pnode && pnode.tagName.toLowerCase() != "body" && !pnode.style[styleName])
+    {
+      pnode = pnode.parentNode;
+    }
+      
+    if (pnode && pnode.tagName.toLowerCase() != "body")
+    {
+      pnode.style[styleName] = '';
+    }
+  }
 }

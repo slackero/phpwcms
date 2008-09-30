@@ -1,3 +1,72 @@
+2008-09-10 v.2.0.8.1
+--------------------
+- BUGFIX: possilbe security issue fixed in file class/theme.class.php
+
+2008-08-29 v.2.0.8
+------------------
+- FEATURE ADDED: read-only mode. turn read-only mode on by calling 
+  $editor->setReadOnly() prior to show()
+- BUGFIX: when inserting anchor on an empty content in Firefox inner document 
+  URL was inserted into editing area
+- BUGFIX: paragraph value Normal wasn't working in Firefox. Replaced with <p> 
+  in config.default.php (replace in your config.php if you are affected)
+
+2008-04-04 v.2.0.7
+------------------
+- FEATURE ADDED: when inserting a hyperlink and nothing is selected, hyperlink 
+  title is used for linked text (if title is not set href url is used)
+- CHANGE: reworked CSS class application algorithm: now if nothing is selected 
+  CSS class is set on the parent tag of the current cursor position, plus style 
+  changes are applied to the same span tag rather than creating a new one
+- CHANGE: font name and font sizes are now applied with custom code rather than 
+  browser features allowing for wider variety of valid settings
+- CHANGE: JavaScript API: refactored style setting methods: moved style setting 
+  to editor methods applyStyleToSelection and removeStyleFrom, so they could be 
+  called from various other methods (like font settings, etc.)
+- BUGFIX/WORKAROUND: empty paragraphs were multiplying in IE when DOM tree or 
+  HTML had paragraph inside of a paragraph
+- BUGFIX/WORKAROUND: when content started with script or style tag it was 
+  removed under IE
+- BUGFIX: there were PHP notices in dialogs when session wasn't used to store 
+  config data
+- BUGFIX: inner contents of style tag was stripped under IE
+- BUGFIX: insertHtmlAtSelection method wasn't working correctly in IE when 
+  "control" (image, etc.) was selected
+- BUGFIX: SpawFm plugin: fixed automatic uploaded file/created directory selection
+- LANGUAGE FILE ADDED: Romanian (Lari Corifeanu)
+- LANGUAGE FILE ADDED: SpawFM: Turkish (Sitki Ozkurt)
+- LANGUAGE FILE ADDED: core and SpawFM: Celtic (Alan Davies)
+- LANGUAGE FILE ADDED: SpawFM: Slovak (Martin Svec)
+- LANGUAGE FILE UPDATED: Slovak (Martin Svec)
+- LANGUAGE FILE UPDATED: Italian (fabrix)
+
+2007-12-20 v.2.0.6
+------------------
+- FEATURE ADDED: Quick links in hyperlink dialog
+- FEATURE ADDED: CSS class in image properties dialog
+- BUGFIX: fixed (hopefully) long-standing bug with content doubling under IE in
+  some invalid HTML cases
+- BUGFIX: calls to getPageHtml were destroying DOM tree
+- BUGFIX: in some cases <br /> was multiplying empty lines in source code under 
+  Firefox
+- BUGFIX: html mode textareas where set to zero width when switching between tabs
+- BUGFIX: spaces between tags were completely removed
+- BUGFIX: inputName variable name was mistyped in editor.class.php
+- BUGFIX: SpawFm plugin: fixed uploaded image height checking
+- BUGFIX: SpawFm plugin: fixed failing files listing when current directory has 
+  a single quote in it's name
+- CHANGE: SpawFm plugin: files/directories list sorting changed from sort() to 
+  natcasesort()
+- LANGUAGE FILE UPDATED: German (Martina Greiner)
+- LANGUAGE FILE UPDATED: Bulgarian (Stoyan Dimitrov)
+- LANGUAGE FILE UPDATED: French
+- LANGUAGE FILE UPDATED: Czech (Radek Uhlir)
+- LANGUAGE FILE UPDATED: Finnish (Teemu Joensuu)
+- LANGUAGE FILE UPDATED: Arabic (Mohammed Ahmed)
+- LANGUAGE FILE ADDED: SpawFM: Bulgarian (Stoyan Dimitrov)
+- LANGUAGE FILE ADDED: SpawFM: Arabic (Mohammed Ahmed)
+- LANGUAGE FILE ADDED: Spaw FM: Finish (Teemu Joensuu)
+
 2007-07-16 v.2.0.5
 ------------------
 - BUGFIX: text direction wasn't set in dialogs when using RTL languages like 

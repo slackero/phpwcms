@@ -1,16 +1,14 @@
 <?php 
 // ================================================
-// SPAW PHP WYSIWYG editor control
+// SPAW v.2.0.5
 // ================================================
 // French language file
 // ================================================
-// Developed: Alan Mendelevich, alan@solmetra.lt
-// Copyright: Solmetra (c)2003 All rights reserved.
-// Translation to French: Laurent Fasnacht(lf@o-t.ch)
+// Author: oVa, Toulouse (France)
 // ------------------------------------------------
 //                                www.solmetra.com
 // ================================================
-// v.1.0, 2003-04-16
+// v.2.0.5
 // ================================================
 
 // charset to be used in dialogs
@@ -34,95 +32,98 @@ $spaw_lang_data = array(
     'title' => 'Annuler'
   ),
   'redo' => array(
-    'title' => 'Refaire'
+    'title' => 'R&eacute;p&eacute;ter'
   ),
-  'hyperlink' => array(
-    'title' => 'Lien hypertexte'
-  ),
-  'image_insert' => array(
-    'title' => 'Ins&eacute;rer une image',
-    'select' => 'S&eacute;lectionner',
-    'cancel' => 'Annuler',
-    'library' => 'Biblioth&egrave;que',
-    'preview' => 'Pr&eacute;visualiser',
-    'images' => 'Images',
-    'upload' => 'Uploader l\'image',
-    'upload_button' => 'Uploader',
-    'error' => 'Erreur',
-    'error_no_image' => 'Veuillez s&eacute;lectionner une image',
-    'error_uploading' => 'Impossible d\'uploader. Veuillez r&eacute;essayer plus tard.',
-    'error_wrong_type' => 'Mauvais type d\'image',
-    'error_no_dir' => 'La biblioth&egrave;que n\'existe pas physiquement',
+  'image' => array(
+    'title' => 'Ins&eacute;rer une image'
   ),
   'image_prop' => array(
     'title' => 'Propri&eacute;t&eacute;s de l\'image',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
+    'cancel' => 'Fermer',
     'source' => 'Source',
     'alt' => 'Texte alternatif',
     'align' => 'Alignement',
-    'justifyleft' => 'gauche',
-    'justifyright' => 'droite',
-    'top' => 'haut',
-    'middle' => 'milieu',
-    'bottom' => 'bas',
-    'absmiddle' => 'Alignement milieu image = milieu texte',
+    'left' => 'Gauche',
+    'right' => 'Droite',
+    'top' => 'Haut',
+    'middle' => 'Milieu',
+    'bottom' => 'Bas',
+    'absmiddle' => 'Milieu absolu',
     'texttop' => 'Haut de ligne',
     'baseline' => 'Bas de ligne',
-    'width' => 'Width',
-    'height' => 'Hauteur',
-    'border' => 'Bordure',
-    'hspace' => 'Espacement horizontal',
-    'vspace' => 'Espacement vertical',
-    'error' => 'Erreur',
-    'error_width_nan' => 'Largeur non num&eacute;rique',
-    'error_height_nan' => 'Hauteur non num&eacute;rique',
-    'error_border_nan' => 'Bordure non num&eacute;rique',
-    'error_hspace_nan' => 'Espacement horizontal non num&eacute;rique',
-    'error_vspace_nan' => 'Espacement vertical non num&eacute;rique',
-  ),
-  'inserthorizontalrule' => array(
-    'title' => 'Trait de s&eacute;paration horizonal'
-  ),
-  'table_create' => array(
-    'title' => 'Cr&eacute;er un tableau'
-  ),
-  'table_prop' => array(
-    'title' => 'Propri&eacute;t&eacute;s du tableau',
-    'ok' => '   OK   ',
-    'cancel' => 'Annuler',
-    'rows' => 'Lignes',
-    'columns' => 'Colonnes',
     'width' => 'Largeur',
     'height' => 'Hauteur',
     'border' => 'Bordure',
-    'pixels' => 'pixels',
-    'cellpadding' => 'Marge de cellule',
-    'cellspacing' => 'Espace entre cellules',
-    'bg_color' => 'Couleur de fond',
+    'hspace' => 'Espacement Horiz',
+    'vspace' => 'Espacement Vertic',
+    'dimensions' => 'Dimensions', // <= new in 2.0.1
+    'reset_dimensions' => 'R&eacute;initialiser les dimensions', // <= new in 2.0.1
+    'title_attr' => 'Titre', // <= new in 2.0.1
+    'constrain_proportions' => 'Conserver les proportions', // <= new in 2.0.1
     'error' => 'Erreur',
-    'error_rows_nan' => 'Lignes non num&eacute;rique',
-    'error_columns_nan' => 'Colonnes non num&eacute;rique',
     'error_width_nan' => 'Largeur non num&eacute;rique',
     'error_height_nan' => 'Hauteur non num&eacute;rique',
     'error_border_nan' => 'Bordure non num&eacute;rique',
-    'error_cellpadding_nan' => 'Marge non num&eacute;rique',
-    'error_cellspacing_nan' => 'Espace non num&eacute;rique',
+    'error_hspace_nan' => 'Espacement Horizontal non num&eacute;rique',
+    'error_vspace_nan' => 'Espacement Vertical non num&eacute;rique',
+  ),
+  'flash_prop' => array(                // <= new in 2.0
+    'title' => 'Ins&eacute;rer une animation flash',
+    'ok' => '   OK   ',
+    'cancel' => 'Fermer',
+    'source' => 'Source',
+    'width' => 'Largeur',
+    'height' => 'Hauteur',
+    'error' => 'Erreur',
+    'error_width_nan' => 'Largeur non num&eacute;rique',
+    'error_height_nan' => 'Hauteur non num&eacute;rique',
+  ),
+  'inserthorizontalrule' => array( // <== v.2.0 changed from hr
+    'title' => 'S&eacute;parateur horizontal'
+  ),
+  'table_create' => array(
+    'title' => 'Creer un tableau'
+  ),
+  'table_prop' => array(
+    'title' => 'Propri&eacute;t&eacute;s du Tableau',
+    'ok' => '   OK   ',
+    'cancel' => 'Fermer',
+    'rows' => 'Lignes',
+    'columns' => 'Colonnes',
+    'css_class' => 'Classe CSS',
+    'width' => 'Largeur',
+    'height' => 'Hauteur',
+    'border' => 'Bordure',
+    'pixels' => 'Pixels',
+    'cellpadding' => 'Marge de cellule',
+    'cellspacing' => 'Espace entre cellules',
+    'bg_color' => 'Couleur de fond',
+    'background' => 'Image de fond',
+    'error' => 'Erreur',
+    'error_rows_nan' => 'Lignes non num&eacute;riques',
+    'error_columns_nan' => 'Colonnes non num&eacute;riques',
+    'error_width_nan' => 'Largeur non num&eacute;rique',
+    'error_height_nan' => 'Hauteur non num&eacute;rique',
+    'error_border_nan' => 'Bordure non num&eacute;rique',
+    'error_cellpadding_nan' => 'Marge de cellule non num&eacute;rique',
+    'error_cellspacing_nan' => 'Espace entre cellules non num&eacute;rique',
   ),
   'table_cell_prop' => array(
-    'title' => 'Propri&eacute;t&eacute; de la cellule',
-    'horizontal_align' => 'Alignement horizontal',
-    'vertical_align' => 'Alignement vertical',
+    'title' => 'Propri&eacute;t&eacute;s de la cellule',
+    'horizontal_align' => 'Alignement Horizontal',
+    'vertical_align' => 'Alignement Vertical',
     'width' => 'Largeur',
     'height' => 'Hauteur',
     'css_class' => 'Classe CSS',
     'no_wrap' => 'Pas de saut de ligne automatique',
     'bg_color' => 'Couleur de fond',
+    'background' => 'Image de fond',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
-    'justifyleft' => 'Gauche',
-    'justifycenter' => 'Centre',
-    'justifyright' => 'Droite',
+    'cancel' => 'Fermer',
+    'left' => 'Gauche',
+    'center' => 'Centre',
+    'right' => 'Droite',
     'top' => 'Haut',
     'middle' => 'Milieu',
     'bottom' => 'Bas',
@@ -130,19 +131,18 @@ $spaw_lang_data = array(
     'error' => 'Erreur',
     'error_width_nan' => 'Largeur non num&eacute;rique',
     'error_height_nan' => 'Hauteur non num&eacute;rique',
-    
   ),
   'table_row_insert' => array(
-    'title' => 'Ins&eacute;rer ligne'
+    'title' => 'Ins&eacute;rer une ligne'
   ),
   'table_column_insert' => array(
-    'title' => 'Ins&eacute;rer colonne'
+    'title' => 'Ins&eacute;rer une colonne'
   ),
   'table_row_delete' => array(
-    'title' => 'Supprimer ligne'
+    'title' => 'Supprimer une ligne'
   ),
   'table_column_delete' => array(
-    'title' => 'Supprimer colonne'
+    'title' => 'Supprimer une colonne'
   ),
   'table_cell_merge_right' => array(
     'title' => 'Fusionner avec cellule de droite'
@@ -159,13 +159,13 @@ $spaw_lang_data = array(
   'style' => array(
     'title' => 'Style'
   ),
-  'fontname' => array(
+  'fontname' => array( // <== v.2.0 changed from font
     'title' => 'Police'
   ),
   'fontsize' => array(
     'title' => 'Taille'
   ),
-  'formatBlock' => array(
+  'formatBlock' => array( // <= v.2.0: changed from paragraph
     'title' => 'Paragraphe'
   ),
   'bold' => array(
@@ -177,84 +177,103 @@ $spaw_lang_data = array(
   'underline' => array(
     'title' => 'Soulign&eacute;'
   ),
-  'insertorderedlist' => array(
+  'strikethrough' => array(
+    'title' => 'Barr&eacute;'
+  ),
+  'insertorderedlist' => array( // <== v.2.0 changed from ordered_list
     'title' => 'Num&eacute;ros'
   ),
-  'insertunorderedlist' => array(
+  'insertunorderedlist' => array( // <== v.2.0 changed from bulleted list
     'title' => 'Puces'
   ),
   'indent' => array(
     'title' => 'Augmenter la marge &agrave; droite'
   ),
-  'outdent' => array(
-    'title' => 'Diminuer la marge &agrave; droite'
+  'outdent' => array( // <== v.2.0 changed from unindent
+    'title' => 'Augmenter la marge &agrave; gauche'
   ),
-  'justifyleft' => array(
+  'justifyleft' => array( // <== v.2.0 changed from left
     'title' => 'Gauche'
   ),
-  'justifycenter' => array(
+  'justifycenter' => array( // <== v.2.0 changed from center
     'title' => 'Centr&eacute;'
   ),
-  'justifyright' => array(
+  'justifyright' => array( // <== v.2.0 changed from right
     'title' => 'Droite'
   ),
+  'justifyfull' => array( // <== v.2.0 changed from justify
+    'title' => 'Justifi&eacute;'
+  ),
   'fore_color' => array(
-    'title' => 'Couleur'
+    'title' => 'Couleur du texte'
   ),
   'bg_color' => array(
     'title' => 'Couleur de fond'
   ),
-  'design' => array(
-    'title' => 'Passer en mode WYSIWYG (dessin)'
+  'design' => array( // <== v.2.0 changed from design_tab
+    'title' => 'Basculer en mode WYSIWYG (Design)'
   ),
-  'html' => array(
-    'title' => 'Passer en mode HTML (code)'
+  'html' => array( // <== v.2.0 changed from html_tab
+    'title' => 'Basculer en mode HTML (Code)'
   ),
   'colorpicker' => array(
     'title' => 'Choix de couleur',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
+    'cancel' => 'Fermer',
   ),
-  // <<<<<<<<< NEW >>>>>>>>>
   'cleanup' => array(
     'title' => 'Nettoyer le code HTML (enlever les styles)',
-    'confirm' => 'Valider cette action supprimera tous les styles, polices, et tags html inutiles du contenu actuel. Tout ou une partie de votre formattage pourra &ecirc;tre perdu.',
+    'confirm' => 'Valider cette action supprimera tous les styles, polices, et tags html inutiles du contenu actuel. Tout ou une partie de votre formattage pourrait &ecirc;tre perdu.',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
+    'cancel' => 'Fermer',
   ),
   'toggle_borders' => array(
-    'title' => 'Activer/d&eacute;sactiver bordures',
+    'title' => 'Activer/D&eacute;sactiver bordures',
   ),
   'hyperlink' => array(
-    'title' => 'Hyperlien',
+    'title' => 'Lien',
     'url' => 'URL',
     'name' => 'Nom',
     'target' => 'Cible',
     'title_attr' => 'Titre',
+  	'a_type' => 'Type',
+  	'type_link' => 'Lien',
+  	'type_anchor' => 'Ancre',
+  	'type_link2anchor' => 'Lien vers une ancre',
+  	'anchors' => 'Ancres',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
+    'cancel' => 'Fermer',
+  ),
+  'hyperlink_targets' => array(
+  	'_self' => 'Page actuelle (_self)',
+  	'_blank' => 'Nouvelle fen&ecirc;tre (_blank)',
+  	'_top' => 'Cadre de haut niveau (_top)',
+  	'_parent' => 'Cadre parent (_parent)'
+  ),
+  'unlink' => array( // <=== new v.2.0
+    'title' => 'Supprimer Lien'
   ),
   'table_row_prop' => array(
-    'title' => 'Propri&eacute;t&eacute; de ligne',
-    'horizontal_align' => 'Alignement horizontal',
-    'vertical_align' => 'Alignement vertical',
+    'title' => 'Propri&eacute;t&eacute;s de ligne',
+	'horizontal_align' => 'Alignement Horizontal',
+    'vertical_align' => 'Alignement Vertical',
     'css_class' => 'Classe CSS',
-    'no_wrap' => 'Pas de sauts &agrave; la ligne',
+    'no_wrap' => 'Pas de saut de ligne automatique',
     'bg_color' => 'Couleur de fond',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
-    'justifyleft' => 'Gauche',
-    'justifycenter' => 'Centre',
-    'justifyright' => 'Droite',
+    'cancel' => 'Fermer',
+    'left' => 'Gauche',
+    'center' => 'Centre',
+    'right' => 'Droite',
     'top' => 'Haut',
-    'middle' => 'Millieu',
+    'middle' => 'Milieu',
     'bottom' => 'Bas',
     'baseline' => 'Bas de ligne',
   ),
   'symbols' => array(
     'title' => 'Caract&egrave;res sp&eacute;ciaux',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
+    'cancel' => 'Fermer',
   ),
   'templates' => array(
     'title' => 'Mod&egrave;les',
@@ -262,18 +281,18 @@ $spaw_lang_data = array(
   'page_prop' => array(
     'title' => 'Propri&eacute;t&eacute;s de la page',
     'title_tag' => 'Titre',
-    'charset' => 'Jeu de charact&egrave;re',
+    'charset' => 'Jeu de charact&egrave;res',
     'background' => 'Image de fond',
     'bgcolor' => 'Couleur de fond',
-    'text' => 'Couleur de texte',
-    'link' => 'Couleur de lien',
-    'vlink' => 'Couleur de lien visit&eacute;',
-    'alink' => 'Couleur de lien actif',
+    'text' => 'Couleur du texte',
+    'link' => 'Couleurs des liens',
+    'vlink' => 'Couleur des liens visit&eacute;s',
+    'alink' => 'Couleur des liens actifs',
     'leftmargin' => 'Marge gauche',
     'topmargin' => 'Marge haut',
     'css_class' => 'Classe CSS',
     'ok' => '   OK   ',
-    'cancel' => 'Annuler',
+    'cancel' => 'Fermer',
   ),
   'preview' => array(
     'title' => 'Pr&eacute;visualiser',
@@ -284,6 +303,11 @@ $spaw_lang_data = array(
   'zoom' => array(
     'title' => 'Zoom',
   ),
+  'subscript' => array(
+    'title' => 'Indice',
+  ),
+  'superscript' => array(
+    'title' => 'Exposant',
+  ),
 );
 ?>
-
