@@ -246,8 +246,12 @@ class SpawLang
       if (SpawConfig::getStaticConfigValue("USE_ICONV") && isset($this->output_charset) 
           && $this->charset != $this->output_charset)
       {
-        // convert charsets (ignore illegal characters)
-        $msg = iconv($this->charset, $this->output_charset.'//IGNORE', $msg);
+		// convert charsets (ignore illegal characters)
+		if(function_exists('iconv')) {
+			$msg = iconv($this->charset, $this->output_charset.'//IGNORE', $msg);
+		} elseif(function_exists('mb_convert_encoding')) {
+			$msg = mb_convert_encoding($msg, $this->charset, $this->output_charset);
+		}
       }
       // return message
       return $msg;
