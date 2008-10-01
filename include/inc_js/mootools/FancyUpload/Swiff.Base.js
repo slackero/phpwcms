@@ -65,15 +65,16 @@ var Swiff = function(source, props){
 		bgcolor: '#ffffff',
 		allowScriptAccess: 'sameDomain',
 		callBacks: {'onLoad': Class.empty},
-		params: false
+		params: {}
 	}, props || {});
 	var append = [];
+	if (window.ie) append.push('__salt=' + $time());
 	for (var p in props.callBacks){
 		Swiff.vars[instance][p] = props.callBacks[p];
 		append.push(p + '=Swiff.vars.' + instance + '.' + p);
 	}
 	if (props.params) append.push(Object.toQueryString(props.params));
-	var swf = source + '?' + append.join('&');
+	var swf = source + (source.contains('?') ? '&' : '?') + append.join('&');
 	return new Element('div').setHTML(
 		'<object width="', props.width, '" height="', props.height, '" id="', props.id, '" type="application/x-shockwave-flash" data="', swf, '">'
 			,'<param name="allowScriptAccess" value="', props.allowScriptAccess, '" />'
@@ -112,6 +113,7 @@ Swiff.extend({
 				for (var p in swf){
 					if (typeof swf[p] == 'function') swf[p] = Class.empty;
 				}
+				swf.parentNode.removeChild(swf);
 			});
 		});
 	},

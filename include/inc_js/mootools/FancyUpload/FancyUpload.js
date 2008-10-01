@@ -1,21 +1,21 @@
 /**
  * FancyUpload - Flash meets Ajax for beauty uploads
- * 
+ *
  * Based on Swiff.Base and Swiff.Uploader.
- * 
+ *
  * Its intended that you edit this class to add your
  * own queue layout/text/effects. This is NO include
  * and forget class. If you want custom effects or
  * more output, use Swiff.Uploader as interface
  * for your new class or change this class.
- * 
+ *
  * USAGE:
  *  var inputElement = $E('input[type="file"]');
  * 	new FancyUpload(inputElement, {
  * 		swf: '../swf/Swiff.Uploader.swf'
  * 		// more options
  * 	})
- * 
+ *
  * 	The target element has to be in an form, the upload starts onsubmit
  * 	by default.
  * 
@@ -38,17 +38,17 @@
  *  onAllComplete: Event fired when all files uploaded
  * 
  * NOTE:
- * 
+ *
  * 	Flash FileReference is stupid, the request will have no cookies
  * 	or additional post data. Only the file is send in $_FILES['Filedata'],
  * 	with a wrong content-type (application/octet-stream).
  * 	When u have sessions, append them as get-data to the the url.
- * 
- * 
- * @version		1.0rc1
- * 
+ *
+ *
+ * @version		1.0rc2
+ *
  * @license		MIT License
- * 
+ *
  * @author		Harald Kirschner <mail [at] digitarald [dot] de>
  * @copyright	Authors
  */
@@ -71,14 +71,19 @@ var FancyUpload = new Class({
 		onComplete: Class.empty,
 		onError: Class.empty,
 		onCancel: Class.empty,
+		onUpload: Class.empty,
 		onAllComplete: Class.empty,
-		browseButtonText: 'Browse Files'
+		txtBrowse: 'Browse Files',
+		txtUploading: 'Uploading',
+		onAddFile: Class.empty,
+		onRemoveFile: Class.empty
 	},
 
 	initialize: function(el, options){
 		this.element = $(el);
 		this.setOptions(options);
-		this.options.url = this.options.url || this.element.form.action || location.href;
+		this.form = $(this.element.form || null);
+		this.options.url = this.options.url || (this.form && this.form.action) || location.href;
 		this.fileList = [];
 
 		this.uploader = new Swiff.Uploader({
@@ -98,12 +103,13 @@ var FancyUpload = new Class({
 
 	initializeFlash: function() {
 		this.queue = $(this.options.queueList);
-		$(this.element.form).addEvent('submit', this.upload.bindWithEvent(this));
-		if (this.options.createReplacement) this.options.createReplacement(this.element);
-		else {
+		if (this.form) this.form.addEvent('submit', this.upload.bindWithEvent(this));
+		if (this.options.createReplacement) {
+			this.options.createReplacement(this.element);
+		} else {
 			new Element('input', {
 				type: 'button',
-				value: this.options.browseButtonText,
+				value: this.options.txtBrowse,
 				events: {
 					click: this.browse.bind(this)
 				}
@@ -119,6 +125,7 @@ var FancyUpload = new Class({
 
 	upload: function(e) {
 		if (e) e.stop();
+		this.fireEvent('onUpload', this);
 		this.uploader.send(this.options.url);
 	},
 
@@ -129,6 +136,7 @@ var FancyUpload = new Class({
 			|| (!this.options.allowDuplicates && this.findFile(name, size) != -1)) return false;
 		this.addFile(name, size);
 		if (this.options.instantStart) this.uploadTimer = this.upload.delay(250, this);
+		this.fireEvent('onAddFile', [name, size]);
 		return true;
 	},
 
@@ -137,7 +145,7 @@ var FancyUpload = new Class({
 		this.fileList[index].status = 1;
 		if (this.fileList[index].fx) return;
 		this.fileList[index].fx = new Element('div', {'class': 'queue-subloader'}).injectInside(
-				new Element('div', {'class': 'queue-loader'}).setHTML('Uploading').injectInside(this.fileList[index].element)
+				new Element('div', {'class': 'queue-loader'}).setHTML(this.options.txtUploading).injectInside(this.fileList[index].element)
 			).effect('width', {
 				duration: 200,
 				wait: false,
@@ -160,7 +168,7 @@ var FancyUpload = new Class({
 
 	/**
 	 * Error codes are just examples, customize them according to your server-errorhandling
-	 * 
+	 *
 	 */
 	onError: function(name, size, error) {
 		var msg = "Upload failed (" + error + ")";
@@ -177,9 +185,6 @@ var FancyUpload = new Class({
 		this.fileList[index].status = 2;
 		this.highlight(index, 'ffd780');
 		this.checkComplete(name, size, 'onError');
-		
-		alert(msg);
-		
 	},
 
 	checkComplete: function(name, size, fire) {
@@ -227,6 +232,7 @@ var FancyUpload = new Class({
 	cancelFile: function(e, name, size) {
 		e.stop();
 		this.remove(name, size);
+		this.fireEvent('onRemoveFile', [name, size]);
 	},
 
 	remove: function(name, size, index) {

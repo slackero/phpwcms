@@ -293,6 +293,11 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
 			$img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
 			
+			// new freetext value
+			$value['freetext'] = empty($value['freetext']) ? '' : trim($value['freetext']);
+			$img_a = render_cnt_template($img_a, 'INFOTEXT', plaintext_htmlencode($value['freetext'], 'html_entities') );
+			$img_a = render_cnt_template($img_a, 'INFOHTML', $value['freetext'] );
+			
 			if($image['nocaption']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');
 				$img_a = render_cnt_template($img_a, 'CAPTION', '');

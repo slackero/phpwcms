@@ -101,7 +101,10 @@ Swiff.Uploader.extend({
 		if (!Swiff.Uploader.object || !Swiff.Uploader.loaded) {
 			Swiff.Uploader.callBacks.push(callBack);
 			if (!Swiff.Uploader.object) {
-				Swiff.Uploader.object = new Swiff(url || Swiff.Uploader.swf, {callBacks: {'onLoad': Swiff.Uploader.onLoad}});
+				Swiff.Uploader.object = new Swiff(url || Swiff.Uploader.swf, {
+					wmode: null,
+					callBacks: {'onLoad': Swiff.Uploader.onLoad
+				}});
 				(container || document.body).appendChild(Swiff.Uploader.object);
 			}
 		}

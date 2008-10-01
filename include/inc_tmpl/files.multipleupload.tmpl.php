@@ -49,7 +49,7 @@ initMultipleUpload();
 <div class="upload_button">
 	<input type="file" name="Filedata" id="upload-filedata" />
 	&nbsp;&nbsp;
-	<input name="submit" type="submit" class="v12" id="profile-submit" value="2) <?php echo $BL['be_files_upload']; ?>" />
+	<input name="submit" type="submit" class="v12" id="profile-submit" value="<?php echo $BL['be_files_upload']; ?>" />
 </div>
 
 </form>
@@ -68,7 +68,7 @@ window.addEvent('domready', function(){
 			'<?php echo $BL['be_ftptakeover_all']; ?> (*.*)': '*.*;'
 			},
 		limitSize: <?php echo $phpwcms['file_maxsize']; ?>,
-		browseButtonText: '1) <?php echo $BL['be_files_browse']; ?>'
+		txtBrowse: '<?php echo $BL['be_files_browse']; ?>'
 	});
 
 });

@@ -22,6 +22,13 @@
 
 // general wrapper for ajax based uploads
 
+// handle possible missing session information
+if (isset($_POST[ session_name() ])) {
+	session_id($_POST[ session_name() ]);
+} elseif(isset($_GET[ session_name() ])) {
+	session_id($_GET[ session_name() ]);
+}
+
 session_start();
 $phpwcms = array();
 require('../../config/phpwcms/conf.inc.php');

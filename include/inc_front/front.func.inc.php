@@ -1845,7 +1845,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 				$where .= "article_keyword LIKE '%".aporeplace($value)."%'";
 		}
 		$limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
-		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary ";
+		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias ";
 		$sql .=	"FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND ";
 		$sql .=	"article_id<>".intval($current_article_id)." AND ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
