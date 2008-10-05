@@ -38,6 +38,7 @@ $content['all_keywords']		= '';
 $content['globalRT']			= array();
 $content['aId_CpPage']			= 0; // set default content part pagination page (0 and 1) are the same
 $content['CpTrigger']			= array(); // array to hold content part trigger functions
+$content['404error']			= false;
 $pagelayout						= array();
 $no_content_for_this_page		= 0;
 $alias							= '';
@@ -100,7 +101,8 @@ if(isset($_GET["id"])) {
 		}
 	}
 	if(!$aktion[1]) {
-		$content['aId_CpPage'] = 0;	// no article = no pagination
+		$content['aId_CpPage']	= 0;	// no article = no pagination
+		$content['404error']	= true;
 	}
 
 } else {
@@ -154,6 +156,10 @@ if(isset($_GET["id"])) {
 				$aktion[4] = $row[0]['aktion4'];
 						
 				define('PHPWCMS_ALIAS', $alias);
+			
+			} else {
+			
+				$content['404error'] = true;
 			
 			}
 			
@@ -334,7 +340,7 @@ $content["articles"] = get_actcat_articles_data($content["cat_id"]);
 if(!$aktion[4]) {
 	$content["article_list_count"] = count($content["articles"]);
 	
-	if($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1) {
+	if(!$content['404error'] && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
 		
 		if($content["article_list_count"] == 1 || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1) {
 		    // if($temp_counter == 1) {
@@ -355,11 +361,9 @@ if(!$aktion[4]) {
 		}
 	
 	} else {
-		/*
-		 * 2003-10-21 : disabled because of the new multiple template system
-		 */
-		// $content["main"] .= read_textfile(PHPWCMS_ROOT.$phpwcms["templates"]."inc_error/error_page.tmpl");
+
 		$no_content_for_this_page = 1;
+
 	}
 }
 
@@ -396,7 +400,8 @@ if($aktion[1]) {
 // -------------------------------------------------------------
 
 //check for no content error
-if($no_content_for_this_page || trim($content["main"]) == '') {
+$content["main"] = trim($content["main"]);
+if($content['404error'] || $no_content_for_this_page || $content["main"] == '') {
 	header('HTTP/1.0 404 Not Found');
 	$content["main"] .= $block["errortext"];
 }
