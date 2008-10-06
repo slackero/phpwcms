@@ -96,13 +96,16 @@ if(isset($_GET["id"])) {
 			if($row = mysql_fetch_row($result)) {
 				$aktion[0] = $row[0];
 				$aktion[1] = $_GET['aid'];
+			} else {
+				$content['404error'] = true;
 			}
 			mysql_free_result($result);
+		} else {
+			$content['404error'] = true;
 		}
 	}
 	if(!$aktion[1]) {
 		$content['aId_CpPage']	= 0;	// no article = no pagination
-		$content['404error']	= true;
 	}
 
 } else {
@@ -155,6 +158,15 @@ if(isset($_GET["id"])) {
 				$aktion[3] = $row[0]['aktion3'];
 				$aktion[4] = $row[0]['aktion4'];
 						
+				define('PHPWCMS_ALIAS', $alias);
+			
+			} elseif($alias == $indexpage['acat_alias']) {
+			
+				$aktion[0] = 0;
+				$aktion[1] = 0;
+				$aktion[3] = 0;
+				$aktion[4] = 0;
+				
 				define('PHPWCMS_ALIAS', $alias);
 			
 			} else {
