@@ -80,26 +80,13 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 				echo "505\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\"><a href=\"fileinfo.php?fid=";
 				echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
 				echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-				//echo "<img src=\"".$phpwcms["file_tmp"].$phpwcms["dir_thlist"].$file_row["f_thumb_list"]."\" border=\"0\"></a></td>\n";
 				echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n";
 				echo "<td width=\"15\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";			
 			}
 			
 		}
-		/*
-		if($file_row["f_thumb_list"] && $show_thumb) { //Wenn List Preview Image verfügbar
-			echo "<tr>\n";
-			echo "<td width=\"55\"><img src=\"img/leer.gif\" height=\"1\" width=\"55\" border=\"0\"></td>\n";
-			echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
-			echo "505\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\"><a href=\"fileinfo.php?fid=";
-			echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
-			echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-			echo "<img src=\"".$phpwcms["file_tmp"].$phpwcms["dir_thlist"].$file_row["f_thumb_list"]."\" border=\"0\"></a></td>\n";
-			echo "<td width=\"15\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-			echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-		}
-		*/
+
 		$file_durchlauf++;
 	}
 	if($file_durchlauf) { //Abschluss der Filelisten-Tabelle
