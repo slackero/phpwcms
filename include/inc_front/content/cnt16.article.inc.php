@@ -164,7 +164,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 					$temp_cap  = '<table width="100%" '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">';
 					$temp_cap .= '<tr><td id="ecard'.$key.'" '.$template_default["article"]["ecard_chooser_text"];
 					if($ecard["onover"]) {
-						$temp_cap .= ' onmouseoOver="'.$ecard["onover"].'"';
+						$temp_cap .= ' onmouseover="'.$ecard["onover"].'"';
 					}
 					if($ecard["onclick"]) {
 						$temp_cap .= ' onclick="'.$ecard["onclick"].'"';
