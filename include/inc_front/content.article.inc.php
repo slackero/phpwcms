@@ -121,6 +121,15 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			}
 		}
 
+
+		// UNIQUE article ID as used for teaser content part
+		if(!isset($content['UNIQUE_ALINK'])) {
+			$content['UNIQUE_ALINK'] = array();
+		}
+		
+		$content['UNIQUE_ALINK'][ $row["article_id"] ] = $row["article_id"];
+
+
 		//set cache timeout for this article
 		if($row['article_cache'] != '') {
 			$phpwcms['cache_timeout'] = $row['article_cache'];
