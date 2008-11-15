@@ -119,7 +119,7 @@ $_last10_article = _dbQuery($_asql_1);
 	<tr>
 		<td colspan="4" style="padding: 6px 0 0 3px;">
 			<input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles'" />
-			<input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles&p=1'" />
+			<input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles&p=1&struct=0'" />
 		</td>
 	</tr>
 
