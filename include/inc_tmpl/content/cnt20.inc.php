@@ -62,7 +62,7 @@ if(!isset($content['bid'])) {
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 200px; color: #727889;" value="<?php echo html_specialchars($content["bid"]["image_name"]) ?>" size="40" onFocus="this.blur()"></td>
-			<td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1)"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a></td>
+			<td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=0&amp;target=nolist','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1)"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a></td>
 			<td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" alt="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0"></a><input name="cimage_id" type="hidden" value="<?php echo $content["bid"]["image_id"] ?>"></td>
 		</tr>
 	</table></td>

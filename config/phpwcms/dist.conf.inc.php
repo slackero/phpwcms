@@ -101,7 +101,8 @@ $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to
 $phpwcms['Login_IPcheck']     = 0;
 $phpwcms['frontend_edit']	  = 0; // enable content specific direct links - linking direct into the backend
 $phpwcms['gd_memcheck_off']   = 0; // disable GD php memory check before resize an image
-
+$phpwcms['enable_chat']		  = 0; // enable or disable chat function, by default it is disabled - not recommend anymore to use it
+$phpwcms['enable_messages']	  = 0; // enable or disable internal messags, by default it is disabled - not recommend anymore to use it
 
 // dynamic ssl encryption engine
 $phpwcms['site_ssl_mode'] 	  = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'

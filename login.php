@@ -76,7 +76,7 @@ if(isset($_POST['form_lang'])) {
 if(empty($_SESSION["wcs_user_lang"])) {
 	$_SESSION["wcs_user_lang"] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $phpwcms["default_lang"] );
 } else {
-	$_SESSION["wcs_user_lang"] = substr($_SESSION["wcs_user_lang"],0,2);
+	$_SESSION["wcs_user_lang"] = strtolower( substr($_SESSION["wcs_user_lang"], 0, 2 ) );
 }
 if(isset($BL[strtoupper($_SESSION["wcs_user_lang"])]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
 	$_SESSION["wcs_user_lang_custom"] = 1;
@@ -343,7 +343,7 @@ ob_start();
         <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
         <tr>
           <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-          <td class="v10"><input name="form_password" type="password" id="form_password" style="width:250px;" size="30" maxlength="40" value="" autocomplete="off" /></td>
+          <td class="v10"><input name="form_password" type="password" id="form_password" style="width:250px;" size="30" maxlength="40" /></td>
           </tr>
         <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
         <tr>

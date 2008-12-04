@@ -24,7 +24,6 @@ This copyright notice MUST APPEAR in all copies of the script!
 list($usec, $sec) = explode(' ', microtime());
 $phpwcms_rendering_start = $usec + $sec;
 
-//if(ini_get('register_globals') && function_exists('ini_set')) ini_set('register_globals', '0');
 session_start();
 
 //define used var names
@@ -34,7 +33,12 @@ $wcsnav 					= array();
 $indexpage 					= array();
 $phpwcms 					= array();
 $BL							= array();
-$BE							= array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array());
+$BE							= array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
+
+// check against user's language
+if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wcs_user_lang"])) {
+	$BE['LANG'] = $_SESSION["wcs_user_lang"];
+}
 
 require_once ('config/phpwcms/conf.inc.php');
 require_once ('include/inc_lib/default.inc.php');
@@ -50,11 +54,11 @@ $BL['modules']				= array();
 
 if(!empty($_SESSION["wcs_user_lang_custom"])) {
 	//use custom lang if available -> was set in login.php
-	$BL['merge_lang_array'][0] = $BL['be_admin_optgroup_label'];
-	$BL['merge_lang_array'][1] = $BL['be_cnt_field'];	
-	include_once (PHPWCMS_ROOT.'/include/inc_lang/backend/'. substr($_SESSION["wcs_user_lang"],0,2) .'/lang.inc.php');
-	$BL['be_admin_optgroup_label'] = array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
-	$BL['be_cnt_field'] = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
+	$BL['merge_lang_array'][0]		= $BL['be_admin_optgroup_label'];
+	$BL['merge_lang_array'][1]		= $BL['be_cnt_field'];	
+	include(PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.inc.php');
+	$BL['be_admin_optgroup_label']	= array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
+	$BL['be_cnt_field']				= array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
 	unset($BL['merge_lang_array']);
 }
 
@@ -62,10 +66,10 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/navi_text.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php');
 require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php');
 require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
-include_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
+require_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
 
 // check modules 
-include_once(PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');		
+require_once (PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');		
 
 $BL['be_admin_struct_index'] = html_specialchars($indexpage['acat_name']);
 
@@ -78,10 +82,10 @@ $module	= isset($_GET['module'])  ? clean_slweg($_GET['module']) : ''; //which m
 switch ($do) {
 
 	case "articles":	//articles
-						include_once(PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php');
+						include(PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php');
 						$wcsnav["articles"] = "<strong class=\"navtexta\">".$wcsnav["articles"]."</strong>";
-						include_once(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
-						include_once(PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'); //loading article funtions
+						include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
+						include(PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'); //loading article funtions
 						$subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
 						$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
@@ -98,9 +102,9 @@ switch ($do) {
 	case "modules":		//modules
 						$wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
 						if($phpwcms["gt_mod"]) { //enabled/disable GT MOD
-							include_once(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/en/lang.inc.php');
-							if(!empty($_SESSION["wcs_user_lang"]) && file_exists(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
-								include_once(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php');
+							include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/en/lang.inc.php');
+							if($BE['LANG'] != 'en' && is_file(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/'.$BE['LANG'].'/lang.inc.php')) {
+								include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/'.$BE['LANG'].'/lang.inc.php');
 							}
 							$subnav .= subnavtext($BL['be_subnav_graphicaltext_mod'], "phpwcms.php?do=modules&amp;p=2", $p, "2", 0);
 						}
@@ -119,40 +123,36 @@ switch ($do) {
 							$subnav .= subnavtext($BL['be_subnav_msg_newslettersend'], "phpwcms.php?do=messages&amp;p=3", $p, "3", 0);
 							$subnav .= subnavtext($BL['be_subnav_msg_subscribers'], "phpwcms.php?do=messages&amp;p=4", $p, "4", 0);
 							$subnav .= subnavtext($BL['be_subnav_msg_newsletter'], "phpwcms.php?do=messages&amp;p=2", $p, "2", 0);
-														/*
-							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1"></td></tr>'."\n";
-							$subnav .= subnavtext($BL['be_subnav_msg_forum'], "phpwcms.php?do=messages&amp;p=6", $p, "6", 0);
-							*/
-							//$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+							
+							if(!empty($phpwcms['enable_messages'])) {
+								$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+							}
 						}
-						/*
-							//disable internal messages
-						
-						$subnav .= subnavtext($BL['be_subnav_msg_center'], "phpwcms.php?do=messages", $p, "", 0);
-						$subnav .= subnavtext($BL['be_subnav_msg_new'], "phpwcms.php?do=messages&amp;p=1", $p, "1", 0);
-						*/
+						if(!empty($phpwcms['enable_messages'])) {
+							$subnav .= subnavtext($BL['be_subnav_msg_center'], "phpwcms.php?do=messages", $p, "", 0);
+							$subnav .= subnavtext($BL['be_subnav_msg_new'], "phpwcms.php?do=messages&amp;p=1", $p, "1", 0);
+						}
 						break;
 
-/*	//OFF
 	case "discuss":		//discuss
 						$wcsnav["discuss"] = "<strong class=\"navtexta\">".$wcsnav["discuss"]."</strong>";
 						break;
-	//OFF
-	case "chat":		//chat OFF
+
+	case "chat":		//chat
 						$wcsnav["chat"] = "<strong class=\"navtexta\">".$wcsnav["chat"]."</strong>";
 						$subnav .= subnavtext($BL['be_subnav_chat_main'], "phpwcms.php?do=chat", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_chat_internal'], "phpwcms.php?do=chat&amp;p=1", $p, "1", 0);
 						break;
-*/
+
 	case "profile":		//profile
 						$wcsnav["profile"] = "<strong class=\"navtexta\">".$wcsnav["profile"]."</strong>";
 						if(!empty($_POST["form_aktion"])) {
 							switch($_POST["form_aktion"]) { //Aktualisieren der wcs account & profile Daten
-								case "update_account":	include_once(PHPWCMS_ROOT.'/include/inc_lib/profile.updateaccount.inc.php');
+								case "update_account":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.updateaccount.inc.php');
 														break;
-								case "update_detail":	include_once(PHPWCMS_ROOT.'/include/inc_lib/profile.update.inc.php'); 
+								case "update_detail":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.update.inc.php'); 
 														break;
-								case "create_detail":	include_once(PHPWCMS_ROOT.'/include/inc_lib/profile.create.inc.php'); 
+								case "create_detail":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.create.inc.php'); 
 														break;
 							}
 						}
@@ -171,7 +171,7 @@ switch ($do) {
 
 	case "admin":		//Admin
 						if(isset($_SESSION["wcs_user_admin"]) && $_SESSION["wcs_user_admin"] == 1) {
-							include_once(PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php');
+							include(PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php');
 							$subnav .= subnavtext($BL['be_subnav_admin_sitestructure'], "phpwcms.php?do=admin&amp;p=6", $p, "6", 0);
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], "phpwcms.php?do=admin&amp;p=8", $p, "8", 0);
@@ -190,8 +190,6 @@ switch ($do) {
 							//$subnav .= subnavtext($BL['be_cnt_cache_delete'], 'include/inc_act/act_cache.php?do=9', 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_cache_delete_msg'].'\');" ');
 							$subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
-							//$subnav .= subnavtext($BL['be_settings'], "phpwcms.php?do=admin&amp;p=2", $p, "2", 0);
-							//$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
 							if($phpwcms["phpmyadmin"]) {
 								$subnav .= subnavtextext('phpMyAdmin', 'include/inc_ext/phpMyAdmin/', '_blank', 0);
@@ -199,7 +197,7 @@ switch ($do) {
 						}
 						break;
 						
-		default:		include_once(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
+		default:		include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
 
 } //Ende Auswahl Aktion
 
@@ -241,7 +239,7 @@ $BE['HEADER']['browserSniffer.js']	= getJavaScriptSourceLink('include/inc_js/bro
 
 if($do == "messages" && $p == 1) {
 
-	include_once(PHPWCMS_ROOT.'/include/inc_lib/message.sendjs.inc.php');
+	include(PHPWCMS_ROOT.'/include/inc_lib/message.sendjs.inc.php');
 
 } elseif($do == "articles") {
 
@@ -259,7 +257,7 @@ if($do == "messages" && $p == 1) {
 
 }
 
-if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
+if($BE['LANG'] == 'ar') {
 	$BE['HEADER'][] = '<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '//-->' . LF . '</style>';
 }
 
@@ -298,15 +296,8 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 		  } else {
 		  	echo '<a href="phpwcms.php">HOME</a>&nbsp;&nbsp;&nbsp;';
 		  }
-		  echo implode('&nbsp;&nbsp;&nbsp;', $wcsnav);/*
+		  echo implode('&nbsp;&nbsp;&nbsp;', $wcsnav);
 
-	
-	$nav_x=0;
-	
-	foreach ($wcsnav as $wcsnav_output) { //Generieren der Men&uuml;zeile mit Text
-		echo ($nav_x) ? "&nbsp;&nbsp;&nbsp;".$wcsnav_output : $wcsnav_output;
-		$nav_x++;
-	}*/
 
 				?></td>
           <td align="right" valign="top" class="navtext"><a href="phpwcms.php?do=logout" target="_top"><?php echo $BL['be_nav_logout'] ?></a></td>
@@ -334,89 +325,82 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 
       	case "profile":	//Profile
       	switch($p) {
-      		case 1:		include_once (PHPWCMS_ROOT.'/include/inc_tmpl/profile.data.tmpl.php');
+      		case 1:		include(PHPWCMS_ROOT.'/include/inc_tmpl/profile.data.tmpl.php');
       					break;
-      		default:	include_once (PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php');
+      		default:	include(PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php');
       	}
       	break;
 
       	case "files":	//Hochladen sowie Downloaden und Verwalten von Dateien
       	switch($p) {
       		case 8:		//FTP File upload
-						include_once (PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
-						include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php');
+						include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
+						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php');
 						break;
 					
 						// Multiple, queued file upload
-			case 9:		include_once (PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
-						include_once (PHPWCMS_ROOT.'/include/inc_lib/files.multipleupload.inc.php');
-						include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.multipleupload.tmpl.php');
+			case 9:		include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
+						include(PHPWCMS_ROOT.'/include/inc_lib/files.multipleupload.inc.php');
+						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.multipleupload.tmpl.php');
 						break;
 						
-      		default:	include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'); //Files Navigation/Reiter
+      		default:	include(PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'); //Files Navigation/Reiter
       		switch($files_folder) {
       			case 0:	//Listing der Privaten Dateien
       			if(isset($_GET["mkdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) ) {
-					include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.private.newdir.tmpl.php');
+					include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.newdir.tmpl.php');
 				}
       			if(isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) ) {
-					include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php');
+					include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php');
 				}
       			if(isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) ) {
-      				include_once (PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
-      				include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php');
+      				include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
+      				include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php');
       			}
       			if(isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) ) {
-      				include_once (PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
-      				include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php');
+      				include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
+      				include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php');
       			}
-      			include_once (PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'); //Listing-Funktionen einfügen
-      			include_once (PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'); //Zusätzliche Private Funktionen
+      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'); //Listing-Funktionen einfügen
+      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'); //Zusätzliche Private Funktionen
       			break;
       			case 1: //Funktionen zum Listen von Public Files
-      			include_once (PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'); //Public Listing-Funktionen einfügen
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'); //Elemetares für Public Listing
+      			include(PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'); //Public Listing-Funktionen einfügen
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'); //Elemetares für Public Listing
       			break;
       			case 2:	//Dateien im Papierkorb
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.private.trash.tmpl.php');
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.trash.tmpl.php');
       			break;
       			case 3:	//Dateisuche
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.search.tmpl.php');
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.search.tmpl.php');
       			break;
       		}
-      		include_once (PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'); //Abschließende Tabellenzeile = dicke Linie
+      		include(PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'); //Abschließende Tabellenzeile = dicke Linie
       	}
       	break;
-/*
+
       	case "chat":	//Chat
       	switch($p) {
-      		case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php'); break; //Chat Startseite
-      		case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php'); break; //Chat/Listing
+      		case 0: include(PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php'); break; //Chat Startseite
+      		case 1: include(PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php'); break; //Chat/Listing
       	}
       	break;
-*/
-      	case "messages":	//Messages
+
+		case "messages":	//Messages
       	switch($p) {
-      	//	case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'); break; //Messages Overview
-      	//	case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php');   break;	//New Message
+      		case 0: include(PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'); break; //Messages Overview
+      		case 1: include(PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php');   break;	//New Message
       		case 2: //Newsletter subscription
-      		if($_SESSION["wcs_user_admin"] == 1) include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.subscription.tmpl.php');
+      		if($_SESSION["wcs_user_admin"] == 1) include(PHPWCMS_ROOT.'/include/inc_tmpl/message.subscription.tmpl.php');
       		break;
       		case 3: //Newsletter
-      		if($_SESSION["wcs_user_admin"] == 1) include_once (PHPWCMS_ROOT.'/include/inc_tmpl/newsletter.list.tmpl.php');
+      		if($_SESSION["wcs_user_admin"] == 1) include(PHPWCMS_ROOT.'/include/inc_tmpl/newsletter.list.tmpl.php');
       		break;
       		case 4: //Newsletter subscribers
       		if($_SESSION["wcs_user_admin"] == 1) {
-				include_once (PHPWCMS_ROOT.'/include/inc_tmpl/message.subscribers.tmpl.php');
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/message.subscribers.tmpl.php');
 			}
-      		break;
-      		
-			/*
-			case 6:	//Forums list
-			if($_SESSION["wcs_user_admin"] == 1) include_once (PHPWCMS_ROOT.'/include/inc_tmpl/forum.list.tmpl.php');
-      		break;
-			*/
-			
+      		break;	
       	}
       	break;
 
@@ -424,13 +408,13 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 		
 			if($p == 2 && $phpwcms["gt_mod"]) { //enabled/disable GT MOD
 				// include language vars for Jérôme's Graphical Text MOD
-      			include_once(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/main.inc.php');
+      			include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/main.inc.php');
       		}
 			
 			// if a module is selected
 			if(isset($phpwcms['modules'][$module])) {
 			
-				include_once($phpwcms['modules'][$module]['path'].'backend.default.php');
+				include($phpwcms['modules'][$module]['path'].'backend.default.php');
 			
 			}
 			
@@ -441,82 +425,100 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
       		switch($p) {
       			case 0: //User Administration
       			switch(!empty($_GET['s']) ? intval($_GET["s"]) : 0) {
-      				case 1: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php');  break; //New User
-      				case 2: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'); break; //Edit User
+      				case 1: include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php');  break; //New User
+      				case 2: include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'); break; //Edit User
       			}
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php');
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php');
       			break;
 				
 				case 1: //Users and Groups
-				include_once(PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php');				
+				include(PHPWCMS_ROOT.'/include/inc_lib/admin.groups.inc.php');
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.'.$_entry['mode'].'.tmpl.php');				
 				break;
 				
 				case 2: //Settings
-				include_once(PHPWCMS_ROOT.'/include/inc_tmpl/admin.settings.tmpl.php');				
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.settings.tmpl.php');				
 				break;
 				
 				case 5: //Keywords
-				include_once(PHPWCMS_ROOT.'/include/inc_tmpl/admin.keyword.tmpl.php');	
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.keyword.tmpl.php');	
 				break;
 				
       			case 6: //article structure
 				
-      			include_once (PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php');
+      			include(PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php');
       			if(isset($_GET["struct"])) {
-					include_once (PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
-      				include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php');
+					include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
+      				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php');
       			} else {
-      				include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.structlist.tmpl.php');
+      				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.structlist.tmpl.php');
       			}
       			break;
-      			case 7:	//File Categories
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.filecat.tmpl.php');
-      			break;
-      			case 8:	//Page Layout
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php');
-      			break;
-      			case 10:	//Frontend CSS
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.frontendcss.tmpl.php');
-      			break;
-      			case 11:	//Templates
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php');
-      			break;
-      			case 12:	//Default backend starup HTML
-      			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php');
+      			
+				case 7:	//File Categories
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.filecat.tmpl.php');
       			break;
 				
+      			case 8:	//Page Layout
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php');
+      			break;
+      			
+				case 10:	//Frontend CSS
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.frontendcss.tmpl.php');
+      			break;
+      			
+				case 11:	//Templates
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php');
+      			break;
+				
+      			case 12:	//Default backend starup HTML
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php');
+      			break;
 				
 				//Default backend sitemap HTML
-				case 13: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php');
-        					break;
+				case 13: 
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php');
+        		break;
 
       		}
       	}
       	break;
 
-      	case "articles":	//Artikelbearbeitung
-      	$_SESSION['image_browser_article'] = 0; //set how image file browser should work
-      	switch ($p) {
-      		case 0: include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php');	break;
-      		case 1:// include_once (PHPWCMS_ROOT.'/include/inc_tmpl/article.new.tmpl.php');			break; //Neuen Artikel anlegen
-      		case 2: include_once (PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php');		break; //Contentedit
-			
-			 //News
-			case 3: include_once (PHPWCMS_ROOT.'/include/inc_lib/news.inc.php');
-					include_once (PHPWCMS_ROOT.'/include/inc_tmpl/news.tmpl.php');
+		// articles
+      	case "articles":
+			$_SESSION['image_browser_article'] = 0; //set how image file browser should work
+			switch($p) {
+				
+				// List articles
+				case 0: 
+					include(PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php');
 					break;
-
-      	}
-      	break;
+				
+				// Edit/create article
+				case 1:
+				case 2: 
+					include(PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php');
+					break;
+				
+				// News
+				case 3:
+					include(PHPWCMS_ROOT.'/include/inc_lib/news.inc.php');
+					include(PHPWCMS_ROOT.'/include/inc_tmpl/news.tmpl.php');
+					break;
+			}
+			break;
 		
-		case "about":		// about phpwcms
-							include_once (PHPWCMS_ROOT.'/include/inc_tmpl/about.tmpl.php');
-							break;
+		// about phpwcms
+		case "about":
+			include(PHPWCMS_ROOT.'/include/inc_tmpl/about.tmpl.php');
+			break;
 		
-		default: 			include_once (PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php');
-							include_once (PHPWCMS_TEMPLATE.'inc_default/startup.php');
+		// start
+		default:
+			include(PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php');
+			include(PHPWCMS_TEMPLATE.'inc_default/startup.php');
 
-      }
+	}
 
 ?></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="img/leer.gif" alt="" width="15" height="1"></td>

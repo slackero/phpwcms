@@ -20,6 +20,14 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+
 // make all neccessary module checks
 
 $phpwcms_modules	= returnSubdirListAsArray(PHPWCMS_ROOT.'/include/inc_module');
@@ -61,8 +69,8 @@ foreach($phpwcms_modules as $value) {
 					include_once($phpwcms['modules'][$_module_name]['path'].'lang/en.lang.php');
 				
 					// try to find right language - will be merged with default english
-					if(is_file($phpwcms['modules'][$_module_name]['path'].'lang/'.$_SESSION["wcs_user_lang"].'.lang.php')) {
-						include_once($phpwcms['modules'][$_module_name]['path'].'lang/'.$_SESSION["wcs_user_lang"].'.lang.php');
+					if(is_file($phpwcms['modules'][$_module_name]['path'].'lang/'.$BE['LANG'].'.lang.php')) {
+						include_once($phpwcms['modules'][$_module_name]['path'].'lang/'.$BE['LANG'].'.lang.php');
 					}
 					
 					// put mdule language setting into global language array

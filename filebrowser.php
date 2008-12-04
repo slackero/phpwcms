@@ -57,6 +57,10 @@ if(isset($_GET['target'])) {
 		default: 		$_SESSION['filebrowser_image_target'] = '_';
 	}
 
+} elseif(empty($_SESSION['filebrowser_image_target'])) {
+
+	$_SESSION['filebrowser_image_target'] = '_';
+
 }
 
 if(isset($_GET['entry_id'])) {
@@ -142,12 +146,7 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 	<script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
 	<script src="include/inc_js/filebrowser.js" type="text/javascript"></script>
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
-
-	<style type="text/css">
-	<!--
-	body { margin: 5px; }
-	//-->
-	</style>
+	<style type="text/css">	body { margin: 5px; }	</style>
 
 </head>
 

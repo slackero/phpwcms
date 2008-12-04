@@ -20,14 +20,15 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-@ini_set( 'arg_separator.output' , '&amp;' );
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_INCLUDE_CHECK')) {
    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
+
+
+@ini_set( 'arg_separator.output' , '&amp;' );
 
 define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
@@ -142,8 +143,16 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"] = '1.3.9';
-$phpwcms["release_date"] = '2008/06/18';
+$phpwcms["release"] = '1.4.0';
+$phpwcms["release_date"] = '2008/12/04';
+
+
+// load permissions class
+require(PHPWCMS_ROOT.'/include/inc_lib/permissions.class.php');
+// init permissions
+$_PERMIT =& new Permissions();
+
+
 
 // -------------------------------------------------------------
 
@@ -183,6 +192,12 @@ function buildGlobalGET($return = '') {
 			$GLOBALS['_getVar'][session_name()], 
 			$GLOBALS['_getVar']['']
 		  );
+		  
+	if( get_magic_quotes_gpc() ) {
+		foreach($GLOBALS['_getVar'] as $key => $value) {
+			$GLOBALS['_getVar'][$key] = stripslashes($value);
+		}
+	}
 	
 	if($return == 'getQuery') {
 		return returnGlobalGET_QueryString('htmlentities');
@@ -221,11 +236,11 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 		}
 	}
 
-	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
-
 	foreach($remove as $value) {
-		unset($pairs[$value]);
+		unset($_getVarTemp[$value]);
 	}
+
+	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
 	switch($format) {
 	
@@ -420,6 +435,10 @@ function phpwcms_getUserAgent() {
 	);
 }
 
+/**
+ * Return current UNIX timestamp
+ * Wrapper function that might be enhanced for regional time and so on
+ **/
 function now() {
 	return time();
 }

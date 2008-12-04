@@ -61,7 +61,11 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$a .= ($child_count) ? "<a href=\"phpwcms.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
 	$a .= "<img src=\"img/symbole/plus_".(($child_count) ? ((!empty($_SESSION["structure"][ $struct[$key]["acat_id"] ])) ? "close" : "open") : "empty");
 	$a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($child_count) ? "</a>" : "");
-	$a .= "<img src=\"img/symbole/page_".((!$struct[$key]["acat_hidden"])?1:7).".gif\" width=\"11\" height=\"15\" ";
+	$a .= "<img src=\"img/symbole/page_".(!$struct[$key]["acat_hidden"]?1:7);
+	if($struct[$key]["acat_regonly"]) {
+		$a .= '_locked';
+	}
+	$a .= ".gif\" width=\"11\" height=\"15\" ";
 
 	$info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
 	$info .= 'ALIAS: '.html_specialchars($struct[$key]["acat_alias"]);

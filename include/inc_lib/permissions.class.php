@@ -20,21 +20,15 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-// Main Backend Nav Definition
+/**
+ * Used to handle all things related to permissions and rights
+ **/
+class Permissions {
+	
+	var $user_type = array('superuser', 'admin', 'editor', 'newsletter', 'client', 'guest');
 
-$wcsnav = array();
 
-$wcsnav["articles"]		= '<a href="phpwcms.php?do=articles">'.$BL['be_nav_articles'].'</a>';
-$wcsnav["files"]		= '<a href="phpwcms.php?do=files">'.$BL['be_nav_files'].'</a>';
-$wcsnav["modules"]		= '<a href="phpwcms.php?do=modules">'.$BL['be_nav_modules'].'</a>';
-$wcsnav["messages"]		= '<a href="phpwcms.php?do=messages&amp;p=4">'.$BL['be_nav_messages'].'</a>';
-
-if(!empty($phpwcms['enable_chat'])) {
-	$wcsnav["chat"]			= '<a href="phpwcms.php?do=chat">'.$BL['be_nav_chat'].'</a>';
 }
 
-$wcsnav["profile"]		= '<a href="phpwcms.php?do=profile">'.$BL['be_nav_profile'].'</a>';
-$wcsnav["admin"]		= '<a href="phpwcms.php?do=admin&amp;p=6">'.$BL['be_nav_admin'].'</a>';
-$wcsnav["navspace1"]	= '';
 
 ?>

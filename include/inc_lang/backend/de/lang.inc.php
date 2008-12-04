@@ -1037,7 +1037,7 @@ $BL['be_cnt_sysadmin_system']			= 'System';
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date'] 				= 'Diese Installation ist auf dem neuesten Stand; es sind keine Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar.';
 $BL['Version_not_up_to_date'] 			= 'Diese Installation ist wahrscheinlich <b>nicht</b> auf dem neuesten Stand. Es sind Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar, bitte <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> besuchen, um die aktuellste Version zu erhalten.';
-$BL['Latest_version_info'] 				= 'Die neueste verf&uuml;gbare Version ist <b>phpwcms %s</b>.';
+$BL['Latest_version_info'] 				= 'Die neueste offizielle Version ist <b>phpwcms %s</b>.';
 $BL['Current_version_info'] 			= 'Aktuell verwendete Version <b>phpwcms %s</b>.';
 $BL['Connect_socket_error'] 			= 'Die Verbindung zum phpwcms-Server konnte nicht aufgebaut werden. Es trat folgender Fehler auf:<br />%s';
 $BL['Socket_functions_disabled'] 		= 'Die Socket-Funktionen konnten nicht benutzt werden.';
@@ -1247,5 +1247,13 @@ $BL['be_gallery_directory']				= 'Galerie Unterverzeichnis';
 $BL['be_gallery']						= 'Galerie';
 
 $BL['be_sort_date']						= 'Sortierdatum';
+
+$BL['group_superuser']					= 'Superuser';
+$BL['group_admin']						= 'Administrator';
+$BL['group_editor']						= 'Redakteur';
+$BL['group_newsletter']					= 'Newsletter-Redakteur';
+$BL['group_client']						= 'Kunde';
+$BL['group_guest']						= 'Besucher';
+
 
 ?>

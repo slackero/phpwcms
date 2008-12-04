@@ -1046,7 +1046,7 @@ $BL['be_cnt_sysadmin_system']			= 'system';
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'Your installation is up to date, no updates are available for this version of phpwcms.';
 $BL['Version_not_up_to_date']			= 'Your installation does <b>not</b> seem to be up to date. Updates are available for this version of phpwcms, please visit <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> to obtain the latest version.';
-$BL['Latest_version_info']				= 'The latest available version is <b>phpwcms %s</b>.';
+$BL['Latest_version_info']				= 'The latest official version is <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'You are running <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Unable to open connection to phpwcms Server, reported error is:<br />%s';
 $BL['Socket_functions_disabled']		= 'Unable to use socket functions.';
@@ -1256,5 +1256,12 @@ $BL['be_gallery_directory']				= 'gallery subdirectory';
 $BL['be_gallery']						= 'gallery';
 
 $BL['be_sort_date']						= 'sort date';
+
+$BL['group_superuser']					= 'superuser';
+$BL['group_admin']						= 'administrator';
+$BL['group_editor']						= 'editor';
+$BL['group_newsletter']					= 'newsletter editor';
+$BL['group_client']						= 'client';
+$BL['group_guest']						= 'guest';
 
 ?>

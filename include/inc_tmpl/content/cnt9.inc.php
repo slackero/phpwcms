@@ -99,7 +99,7 @@ if(!isset($content["media_pos"])) {
 	  <td><img src="img/leer.gif" alt="" width="6" height="1"></td>
       <td><input name="cmedia_name" type="text" id="cmedia_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo  isset($content["media_name"]) ? html_specialchars($content["media_name"]) : '' ?>" size="40" onFocus="this.blur()"></td>
                                                                                                                                                  
-	  <td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=2','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1)"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a></td>
+	  <td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=2&amp;target=nolist','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1)"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a></td>
       <td><img src="img/leer.gif" alt="" width="3" height="1"><a href="javascript:;" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.articlecontent.cmedia_name.value='';document.articlecontent.cmedia_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0"></a></td>
       <td><input name="cmedia_id" type="hidden" id="cmedia_id2" value="<?php echo  isset($content["media_id"]) ? $content["media_id"] : '' ?>"></td>
     </tr>

@@ -405,7 +405,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 	
 	
 	function openImageFileBrowser(image_number) {
-		tmt_winOpen('filebrowser.php?opt=8&entry_id='+image_number,'imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1);
+		tmt_winOpen('filebrowser.php?opt=8&target=nolist&entry_id='+image_number,'imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1);
 		return false;
 	}	
 	function setImgIdName(image_number, file_id, file_name) {

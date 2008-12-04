@@ -130,7 +130,7 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 .inaktiv a:active {	text-decoration : none; color: #ADB2BE }
 .inaktiv a:hover {	text-decoration : underline; color: #727889  }
 
-.popup{ font: 9px;  border: thin solid #FFCC00;  background: #FFEB99;  padding: 2px 2px 2px 2px;    }
+.popup{ font-size: 9px;  border: thin solid #FFCC00;  background: #FFEB99;  padding: 2px 2px 2px 2px;    }
 .table1 {
 	border: 1px dashed #BDC2C6;
 	background-color: #EDEEF1;
