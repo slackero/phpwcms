@@ -86,6 +86,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 	
 		$content['glossary']['entry']['glossary_title']	= '';
 		$content['glossary']['entry']['glossary_text']	= $content['glossary']['glossary_noentry'];
+		$content['glossary']['entry']['glossary_id']	= 'empty-glossary-id';
 	
 	} else {
 	
@@ -97,16 +98,16 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 	unset($GLOBALS['_getVar']['glossarytitle']);
 	$content['glossary']['base_link'] = 'index.php'.returnGlobalGET_QueryString('htmlentities');
 
-	$content['glossary']['detail_head']		= str_replace('{BACKLINK}', $content['glossary']['base_link'], $content['glossary']['detail_head']);
-	$content['glossary']['detail_footer']	= str_replace('{BACKLINK}', $content['glossary']['base_link'], $content['glossary']['detail_footer']);
 	$content['glossary']['detail_entry']	= get_tmpl_section('GLOSSARY_DETAIL_ENTRY',		$content['glossary']['glossary_template']);
 	$content['glossary']['detail_entry']	= render_cnt_template($content['glossary']['detail_entry'], 'TEXT', $content['glossary']['entry']['glossary_text']);
-	$content['glossary']['detail_entry']	= render_cnt_template($content['glossary']['detail_entry'], 'TITLE', html_specialchars($content['glossary']['entry']['glossary_title']));
+	$content['glossary']['detail_entry']	= render_cnt_template($content['glossary']['detail_entry'], 'TITLE', html_entities($content['glossary']['entry']['glossary_title']));
+
+	$content['glossary']['item'] = $content['glossary']['detail_head'] . $content['glossary']['detail_entry'] . $content['glossary']['detail_footer'];
+	$content['glossary']['item'] = str_replace('{GLOSSARY_ID}', $content['glossary']['entry']['glossary_id'], $content['glossary']['item']);
+	$content['glossary']['item'] = str_replace('{BACKLINK}', $content['glossary']['base_link'], $content['glossary']['item']);
 
 	// fine we will display given glossary ID
-	$CNT_TMP .= $content['glossary']['detail_head'];
-	$CNT_TMP .= $content['glossary']['detail_entry'];
-	$CNT_TMP .= $content['glossary']['detail_footer'];
+	$CNT_TMP .= $content['glossary']['item'];
 
 } else {
 
@@ -194,11 +195,10 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 	}
 
 	$_filter_link = implode(' ', $_filter_link);
-	$content['glossary']['list_head']	= render_cnt_template($content['glossary']['list_head'], 'FILTER', $_filter_link);
-	$content['glossary']['list_footer']	= render_cnt_template($content['glossary']['list_footer'], 'FILTER', $_filter_link);
+
 	
-	$CNT_TMP .= $content['glossary']['list_head'];
-	
+	$CNT_TMP .= render_cnt_template($content['glossary']['list_head'], 'FILTER', $_filter_link);
+
 	if(!count($content['glossary']['entries'])) {
 	
 		$content['glossary']['entries'][0]['glossary_title']	= '';
@@ -214,7 +214,8 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 
 	foreach($content['glossary']['entries'] as $_entry_key => $_entry_value) {
 
-		$content['glossary']['entries'][$_entry_key] = str_replace('{LINK}', $_no_entry ? '#' : $content['glossary']['base_link'].'glossaryid='.$_entry_value['glossary_id'].'&amp;glossarytitle='.urlencode($_entry_value['glossary_title']), $content['glossary']['list_entry']);
+		$content['glossary']['entries'][$_entry_key] = str_replace('{GLOSSARY_ID}', $_entry_value['glossary_id'], $content['glossary']['list_entry']);
+		$content['glossary']['entries'][$_entry_key] = str_replace('{LINK}', $_no_entry ? '#' : $content['glossary']['base_link'].'glossaryid='.$_entry_value['glossary_id'].'&amp;glossarytitle='.urlencode($_entry_value['glossary_title']), $content['glossary']['entries'][$_entry_key]);
 		$content['glossary']['entries'][$_entry_key] = render_cnt_template($content['glossary']['entries'][$_entry_key], 'TITLE', html_specialchars($_entry_value['glossary_title']));
 		
 		if(!empty($content['glossary']['glossary_maxwords']) && !$_no_entry) {
@@ -223,9 +224,9 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 		$content['glossary']['entries'][$_entry_key] = render_cnt_template($content['glossary']['entries'][$_entry_key], 'TEXT', $_entry_value['glossary_text']);
 		
 	}
-	
+
 	$CNT_TMP .= implode($content['glossary']['list_spacer'] ,$content['glossary']['entries']);
-	$CNT_TMP .= $content['glossary']['list_footer'];
+	$CNT_TMP .= render_cnt_template($content['glossary']['list_footer'], 'FILTER', $_filter_link);
 
 }
 
