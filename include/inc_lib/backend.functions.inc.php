@@ -123,7 +123,13 @@ function check_image_extension($file) {
 					 break;
 			
 			case 14: $result = 'iff';	break;
-			case 15: $result = 'wbmp';	break;
+
+			case 15: // there seems to be a problem with getimagesize and Quicktime VR
+					 // mov -> wmbf ? why ever!
+					 // do an additional extension check and compare against mov
+					 $result = (strtolower(which_ext($file)) == 'mov') ? 'mov' : 'wbmp';
+					 break;
+
 			case 16: $result = 'xbm';	break;
 		}
 	}	
