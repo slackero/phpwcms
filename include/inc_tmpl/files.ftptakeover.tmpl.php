@@ -93,11 +93,11 @@ initMootoolsAutocompleter();
           <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
         </tr>
 		  
-          <tr bgcolor="#F9FAFB">
+          <tr bgcolor="#EAEDF0">
             <td align="center" class="subnavactive"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="v10"><?php echo $BL['be_ftptakeover_all'] ?></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
             <td align="right" class="v10"><?php echo fsizelong($fxsg) ?>&nbsp;</td>
           </tr>

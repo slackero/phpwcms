@@ -1721,7 +1721,8 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	$file_status = array(
 		'status'	=> false, 	'error'		=> '',		'name'		=> '',
 		'tmp_name'	=> '',		'size'		=> 0,		'path'		=> '',
-		'ext'		=> '',		'rename'	=> '',		'maxsize'	=> intval($maxsize) );
+		'ext'		=> '',		'rename'	=> '',		'maxsize'	=> intval($maxsize),
+		'error_num'	=> 0,		'type'		=> '' );
 		
 	if(!isset($_FILES[$file]) || !is_uploaded_file($_FILES[$file]['tmp_name'])) {
 		$file_status['error'] = 'Upload not defined';
@@ -1732,21 +1733,25 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	$file_status['ext']			= which_ext($file_status['name']);
 	$file_status['tmp_name']	= $_FILES[$file]['tmp_name'];
 	$file_status['size']		= $_FILES[$file]['size'];
+	$file_status['type']		= empty($_FILES[$file]['type']) ? '' : $_FILES[$file]['type'];
 	$file_status['path']		= $target;
 	$file_status['rename']		= $file_status['name'];
 	$file_status['maxsize']		= empty($file_status['maxsize']) ? $GLOBALS['phpwcms']['file_maxsize'] : $file_status['maxsize'];
 	
 	if(intval($file_status['size']) > $file_status['maxsize']) {
 		$file_status['error'] = 'File is too large';
+		$file_status['error_num'] = 400;
 		return $file_status;
 	}
 
 	if(empty($target)) {
 		$file_status['error'] = 'Target directory not defined';
+		$file_status['error_num'] = 412;
 		return $file_status;
 	}
 	if(!@_mkdir($target)) {
 		$file_status['error'] = 'The target directory "'.$target.'" can not be found or generated';
+		$file_status['error_num'] = 412;
 		return $file_status;
 	}
 	if($_FILES[$file]['error']) {
@@ -1754,11 +1759,12 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 		return $file_status;
 	}
 	if($imgtype) {
-		$imgtype	= convertStringToArray($imgtype);
+		$exttype .= ',' . $imgtype;
+		$imgtype  = convertStringToArray(strtolower($imgtype));
 		if(count($imgtype)) {
 			$data	= @getimagesize($_FILES[$file]['tmp_name']);
 			$exif_imagetype = array(
-				1=>'gif',	2=>'jpeg',	2=>'jpg',	3=>'png',	4=>'swf',	5=>'psd',
+				1=>'gif',	2=>'jpg',	3=>'png',	4=>'swf',	5=>'psd',
 				6=>'bmp',	7=>'tif',	8=>'tiff',	9=>'jpc',	10=>'jp2',	11=>'jpx',
 				12=>'jb2',	13=>'swc',	14=>'iff',	15=>'wbmp',	16=>'xbm'  );
 			if($data == false) {
@@ -1771,8 +1777,9 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 				@unlink($_FILES[$file]['tmp_name']);
 				return $file_status;
 			}
-			if(empty($exif_imagetype[$data[2]]) || !in_array($data[2], $imgtype)) {
+			if(empty($exif_imagetype[$data[2]]) || !in_array($exif_imagetype[$data[2]], $imgtype)) {
 				$file_status['error'] = 'File type '.$data[2].' is not supported for this upload ('.implode(', ', $imgtype).' only)';
+				$file_status['error_num'] = 415;
 				@unlink($_FILES[$file]['tmp_name']);
 				return $file_status;
 			}
@@ -1789,38 +1796,43 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	}
 	if(!is_writable($target)) {
 		$file_status['error'] = 'Target directory <b>'.str_replace(PHPWCMS_ROOT, '', $target).'</b> is not writable';
+		$file_status['error_num'] = 412;
 		@unlink($_FILES[$file]['tmp_name']);
 		return $file_status;	
 	}	
 	$rename	= convertStringToArray($rename);
 	if(count($rename)) {
+	
+		$_temp_name	= cut_ext($file_status['rename']);
+
 		foreach($rename as $value) {
 			switch($value) {
-				case 1:		$file_status['rename'] = remove_accents($file_status['name']);
-							$file_status['rename'] = str_replace(array(':','/',"\\"), '-', $file_status['rename']);
+				case 1:		$_temp_name = str_replace(array(':','/',"\\",' '), array('-','-','-','_'), remove_accents($_temp_name) );
+							$_temp_name = preg_replace('/[^0-9a-z_\-\.]/i', '', $_temp_name);
 							break;
-				case 2:		$file_status['rename'] = time().'_'.$file_status['name'];
+				case 2:		$_temp_name = time().'_'.$_temp_name;
 							break;
-				case 3:		$file_status['rename'] = date('Ymd-His').'_'.$file_status['name'];
+				case 3:		$_temp_name = date('Ymd-His').'_'.$_temp_name;
 							break;
-				case 4:		$file_status['rename'] = date('Ymd').'_'.$file_status['name'];
+				case 4:		$_temp_name = date('Ymd').'_'.$_temp_name;
 							break;
-				case 5:		$file_status['rename'] = generic_string(6).'_'.$file_status['name'];
+				case 5:		$_temp_name = generic_string(6).'_'.$_temp_name;
 							break;
-				case 6:		$file_status['rename'] = md5($file_status['name']);
-							if($file_status['ext']) $file_status['rename'] .= '.';
-							$file_status['rename'] .= $file_status['ext'];
+				case 6:		$_temp_name = md5( $_temp_name . ( $file_status['ext'] ? '.' . $file_status['ext'] : '' ) );
 							break;
-				case 7:		$file_status['rename'] = shortHash($file_status['name']);
-							if($file_status['ext']) $file_status['rename'] .= '.';
-							$file_status['rename'] .= $file_status['ext'];
-							break;	
+				case 7:		$_temp_name = shortHash( $_temp_name . ( $file_status['ext'] ? '.' . $file_status['ext'] : '' ) );
+							break;
 			}
 		}
-	}	
+		
+		$file_status['rename'] = $_temp_name . ( $file_status['ext'] ? '.' . $file_status['ext'] : '' );
+		
+	}
+	@umask(0);
 	if(!@move_uploaded_file($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
 		if(!copy($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
-			$file_status['error'] = 'Saving uploaded file <b>'.$file_status['name'].'</b> to <b>'.str_replace(PHPWCMS_ROOT, '', $target).'</b> failed';
+			$file_status['error'] = 'Saving uploaded file <b>'.html_entities($file_status['name']).'</b> to <b>'.html_entities(str_replace(PHPWCMS_ROOT, '', $target.$file_status['rename'])).'</b> failed';
+			$file_status['error_num'] = 412;
 			@unlink($_FILES[$file]['tmp_name']);
 			return $file_status;
 		}
@@ -1965,6 +1977,7 @@ function plaintext_htmlencode($text='', $encode_function='html_specialchars') {
 		$text = preg_replace('/\s{0,}\n\s{0,}/s', '[br]', $text);
 		$text = $encode_function($text);
 		$text = str_replace(array('[/p][p]', '[p]', '[/p]', '[br]'), array("</p>\n<p>", '<p>', '</p>', "<br />\n"), $text);
+		$text = render_bbcode_basics($text);
 	}
 	return $text;
 }
@@ -1978,6 +1991,57 @@ function br_htmlencode($text='', $encode_function='html_specialchars') {
 		$text = nl2br($text);
 	}
 	return $text;
+}
+
+/**
+ * Render simple BBCode
+ **/
+function render_bbcode_basics($text='', $mode='basic') {
+
+	if($text == '') {
+
+		return '';
+
+	}
+	
+	if($mode == 'basic') {
+	
+		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]');
+		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />');
+	
+		return str_replace($search, $replace, $text);
+		
+	}
+
+	$search		= array();
+	$replace	= array();
+
+	$search[0]		= '/\[i\](.*?)\[\/i\]/is';			$replace[0]		= '<i>$1</i>';
+	$search[1]		= '/\[u\](.*?)\[\/u\]/is';			$replace[1]		= '<u>$1</u>';
+	$search[2]		= '/\[s\](.*?)\[\/s\]/is';			$replace[2]		= '<strike>$1</strike>';
+	$search[3]		= '/\[b\](.*?)\[\/b\]/is';			$replace[3]		= '<strong>$1</strong>';
+	$search[4]		= '/\[br\]/i';						$replace[4]		= '<br />';
+	$search[5]		= '/\[em\](.*?)\[\/em\]/is';		$replace[5]		= '<em>$1</em>';
+	$search[6]		= '/\[code\](.*?)\[\/code\]/is';	$replace[6]		= '<code>$1</code>';
+	$search[7]		= '/\[cite\](.*?)\[\/cite\]/is';	$replace[7]		= '<cite>$1</cite>';
+	$search[8]		= '/\[li\](.*?)\[\/li\]/is';		$replace[8]		= '<li>$1</li>';
+	$search[9]		= '/\[dt\](.*?)\[\/dt\]/is';		$replace[9]		= '<dt>$1</dt>';
+	$search[10]		= '/\[dd\](.*?)\[\/dd\]/is';		$replace[10]	= '<dd>$1</dd>';
+	$search[11]		= '/\[ul\](.*?)\[\/ul\]/is';		$replace[11]	= '<ul>$1</ul>';
+	$search[12]		= '/\[ol\](.*?)\[\/ol\]/is';		$replace[12]	= '<ol>$1</ol>';
+	$search[13]		= '/\[dl\](.*?)\[\/dl\]/is';		$replace[13]	= '<dl>$1</dl>';
+	$search[14]		= '/\[h1\](.*?)\[\/h1\]/is';		$replace[14]	= '<h1>$1</h1>';
+	$search[15]		= '/\[h2\](.*?)\[\/h2\]/is';		$replace[15]	= '<h2>$1</h2>';
+	$search[16]		= '/\[h3\](.*?)\[\/h3\]/is';		$replace[16]	= '<h3>$1</h3>';
+	$search[17]		= '/\[h4\](.*?)\[\/h4\]/is';		$replace[17]	= '<h4>$1</h4>';
+	$search[18]		= '/\[h5\](.*?)\[\/h5\]/is';		$replace[18]	= '<h5>$1</h5>';
+	$search[19]		= '/\[h6\](.*?)\[\/h6\]/is';		$replace[19]	= '<h6>$1</h6>';
+	
+	$search[20]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
+	$replace[20]	= '<blockquote>$1</blockquote>';
+	
+	return preg_replace($search, $replace, $text);
+	
 }
 
 /**

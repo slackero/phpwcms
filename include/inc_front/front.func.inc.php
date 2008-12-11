@@ -1410,6 +1410,12 @@ function get_class_attrib($class) {
 function html_parser($string) {
 	// parse the $string and replace all possible
 	// values with $replace
+	
+	if(trim($string) == '') {
+		return $string;	
+	}
+	
+	$string = render_bbcode_basics($string, '');
 
 	// page TOP link
 	$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/is';
@@ -1480,11 +1486,12 @@ function html_parser($string) {
 	$replace[17]	= '<$1 class="$2">$3</$1>';
 
 	// typical html formattings
+/*
 	$search[18]		= '/\[i\](.*?)\[\/i\]/is';			$replace[18]	= '<i>$1</i>';
 	$search[19]		= '/\[u\](.*?)\[\/u\]/is';			$replace[19]	= '<u>$1</u>';
 	$search[20]		= '/\[s\](.*?)\[\/s\]/is';			$replace[20]	= '<strike>$1</strike>';
 	$search[21]		= '/\[b\](.*?)\[\/b\]/is';			$replace[21]	= '<strong>$1</strong>';
-
+*/
 	// anchor link
 	$search[22]		= '/\{A:(.*?)\}/is';
 	$replace[22]	= '<a name="$1" class="phpwcmsAnchorLink"></a>';
@@ -1498,8 +1505,10 @@ function html_parser($string) {
 	$replace[24]    = '<a href="mailto:$1?subject=$2" class="phpwcmsMailtoLink">$3</a>';
 
 	// added simple [br] -> <br />
+/*
 	$search[25]     = '/\[br\]/i';
 	$replace[25]    = '<br />';
+*/
 	$search[26]     = '/\<br>/i';
 	$replace[26]    = '<br />';
 
@@ -1513,12 +1522,12 @@ function html_parser($string) {
 
 	$search[29]		= '/\[dfn (.*?)\](.*?)\[\/dfn\]/is';
 	$replace[29]	= '<dfn title="$1">$2</dfn>';
-
+/*
 	$search[30]		= '/\[em\](.*?)\[\/em\]/is';					$replace[30]	= '<em>$1</em>';
 	$search[31]		= '/\[code\](.*?)\[\/code\]/is';				$replace[31]	= '<code>$1</code>';
 	$search[32]		= '/\[cite\](.*?)\[\/cite\]/is';				$replace[32]	= '<cite>$1</cite>';
 	$search[33]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';	$replace[33]	= '<blockquote>$1</blockquote>';
-
+*/
 	$search[34]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
 	$replace[34]	= '<blockquote cite="$1">$2</blockquote>';
 
@@ -1527,7 +1536,7 @@ function html_parser($string) {
 
 	$search[36]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
 	$replace[36]	= '<a href="index.php?$1" class="phpwcmsIntLink">$2</a>';
-	
+/*	
 	$search[37]		= '/\[li\](.*?)\[\/li\]/is';					$replace[37]	= '<li>$1</li>';
 	$search[38]		= '/\[dt\](.*?)\[\/dt\]/is';					$replace[38]	= '<dt>$1</dt>';
 	$search[39]		= '/\[dd\](.*?)\[\/dd\]/is';					$replace[39]	= '<dd>$1</dd>';
@@ -1540,7 +1549,7 @@ function html_parser($string) {
 	$search[46]		= '/\[h4\](.*?)\[\/h4\]/is';					$replace[46]	= '<h4>$1</h4>';
 	$search[47]		= '/\[h5\](.*?)\[\/h5\]/is';					$replace[47]	= '<h5>$1</h5>';
 	$search[48]		= '/\[h6\](.*?)\[\/h6\]/is';					$replace[48]	= '<h6>$1</h6>';
-
+*/
 	$string = preg_replace($search, $replace, $string);
 	$string = str_replace('&#92;&#039;', '&#039;', $string);
 	$string = str_replace('&amp;quot;', '&quot;', $string);
