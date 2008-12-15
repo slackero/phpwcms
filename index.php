@@ -85,6 +85,15 @@ require PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
 require PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
 require PHPWCMS_ROOT.'/include/inc_front/content.func.inc.php';
 
+
+// SEO logging
+if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
+	$phpwcms['seo_referrer_data'] = seReferrer( $_SERVER['HTTP_REFERER'] );
+	if( is_array( $phpwcms['seo_referrer_data'] ) ) {
+		@_dbInsert('phpwcms_log_seo', $phpwcms['seo_referrer_data'], 'DELAYED');
+	}
+}
+
 if(!empty($phpwcms['Bad_Behavior'])) {
 	require PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior/bad-behavior-phpwcms.php';
 }

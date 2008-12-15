@@ -850,4 +850,59 @@ function register_cp_trigger($function='', $method='LAST') {
 	}
 }
 
+
+/**
+ * Check referrer string for search engine related information
+ * and log those fetched data in database
+ * Basic idea: http://www.tellinya.com/read/2007/07/11/34.html
+ *
+ * @return	array
+ * @param	string	referrer string
+ *
+ **/
+function seReferrer($ref = false) {
+
+	$SeReferer = empty($ref) ? $_SERVER['HTTP_REFERER'] : $ref;
+
+	//Check against Google, Yahoo, MSN, Ask and others
+	if( preg_match('/[&\?](q|p|w|s|qry|searchfor|as_q|as_epq|query|qt|keyword|keywords|encquery)=([^&]+)/i', $SeReferer, $pcs) ){
+		if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ) {
+			$SeDomain	= trim(strtolower($SeDomain[1]));
+			$SeQuery	= $pcs[2];
+			if(preg_match("/[&\?](start|b|first|stq)=([0-9]*)/i",$SeReferer,$pcs)) {
+				$SePos	= (int)trim($pcs[2]);
+			}
+		}
+	}
+	if(!isset($SeQuery)){
+		//Check against DogPile
+		if( preg_match('/\/search\/web\/([^\/]+)\//i', $SeReferer, $pcs) ) {
+			if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ){
+			$SeDomain	= trim(strtolower($SeDomain[1]));
+			$SeQuery	= $pcs[1];
+			}
+		}
+	
+		// We Do Not have a query
+		if(!isset($SeQuery)){
+			return false;
+		}
+	}
+	
+	$OldQ		= $SeQuery;
+	$SeQuery	= urldecode($SeQuery);
+	
+	// The Multiple URLDecode Trick to fix DogPile %XXXX Encodes
+	while($SeQuery != $OldQ){
+		$OldQ		= $SeQuery;
+		$SeQuery	= urldecode($SeQuery);
+	}
+	
+	return array(	"domain"	=> $SeDomain,
+					"query"		=> $SeQuery,
+					"pos"		=> $SePos,
+					"referrer"	=> $SeReferer	);
+}
+
+
 ?>

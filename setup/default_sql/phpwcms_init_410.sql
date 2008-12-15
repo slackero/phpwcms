@@ -1106,3 +1106,13 @@ CREATE TABLE `phpwcms_userlog` (
   `logged_section` int(1) NOT NULL default '0',
   PRIMARY KEY  (`userlog_id`)
 ) ENGINE=MyISAM;
+
+CREATE TABLE `phpwcms_log_seo` (
+  `id` int(11) NOT NULL auto_increment,
+  `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  `domain` varchar(255) collate latin1_german2_ci NOT NULL,
+  `query` varchar(255) collate latin1_german2_ci NOT NULL,
+  `pos` int(11) NOT NULL,
+  `referrer` text collate latin1_german2_ci NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM;
