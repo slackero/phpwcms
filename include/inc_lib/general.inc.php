@@ -1998,11 +1998,13 @@ function br_htmlencode($text='', $encode_function='html_specialchars') {
  **/
 function render_bbcode_basics($text='', $mode='basic') {
 
-	if($text == '') {
+	if($text === '') {
 
-		return '';
+		return $text;
 
 	}
+
+	$text = render_bbcode_url($text);
 	
 	if($mode == 'basic') {
 	
@@ -2041,6 +2043,24 @@ function render_bbcode_basics($text='', $mode='basic') {
 	$replace[20]	= '<blockquote>$1</blockquote>';
 	
 	return preg_replace($search, $replace, $text);
+	
+}
+
+function render_bbcode_url($text) {
+
+	if($text === '') {
+
+		return $text;
+
+	}
+
+	$text = preg_replace_callback(
+				array('/\[url=([^ ]+).*\](.*)\[\/url\]/', '/\[a=([^ ]+).*\](.*)\[\/a\]/'), 
+				create_function('$match', 'return "<a href=\"".xss_clean($match[1])."\">".$match[2]."</a>";'), 
+				$text
+			);  
+	
+	return $text;
 	
 }
 
