@@ -86,11 +86,12 @@ define ('PHPWCMS_URL', 				$phpwcms["site"].$phpwcms["root"]);
 
 $phpwcms['parse_url']			=	parse_url(PHPWCMS_URL);
 define ('PHPWCMS_HOST',				$phpwcms['parse_url']['host'].$phpwcms["host_root"]);
-define ('PHPWCMS_IMAGES', 			$phpwcms["content_path"].'images/');
+define ('PHPWCMS_IMAGES', 			$phpwcms["content_path"].$phpwcms["cimage_path"]);
 define ('PHPWCMS_TEMP', 			PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
 define ('PHPWCMS_CONTENT',			PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
+define ('PHPWCMS_THUMB',			PHPWCMS_CONTENT.$phpwcms["cimage_path"]);
 define ('MAGPIE_DIR', 				PHPWCMS_ROOT.'/include/inc_ext/magpierss/');
-define ('MAGPIE_CACHE_DIR', 		PHPWCMS_ROOT.'/content/rss');
+define ('MAGPIE_CACHE_DIR', 		PHPWCMS_CONTENT.'rss');
 define ('MAGPIE_OUTPUT_ENCODING', 	PHPWCMS_CHARSET);
 define ('LF', 						"\n"); 	//global new line Feed
 

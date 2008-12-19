@@ -44,9 +44,9 @@ function imagick_converting ($imagick) {
 						"image_name"	=>	'',
 						"thumb_name"	=>	'',
 						"target_ext"	=>	'jpg',
-						"image_dir"		=>	'',
-						"thumb_dir"		=>	'',
-						'jpg_quality'	=>	75,
+						"image_dir"		=>	PHPWCMS_ROOT.PHPWCMS_FILES,
+						"thumb_dir"		=>	PHPWCMS_THUMB,
+						'jpg_quality'	=>	85,
 						'sharpen_level'	=>	0,
 						'density'		=>	72,
 						'add_command'	=>	'',
@@ -72,6 +72,7 @@ function imagick_converting ($imagick) {
 	// otherwise use placeholder image "filestorage/image_placeholder.png"
 	if(!is_file($imagick["image_dir"].$imagick["image_name"])) {
 		$imagick["image_name"] = 'image_placeholder.png';
+		$imagick["thumb_name"] = 'temp_'.$imagick["thumb_name"];
 	}
 	
 	// check if it is useful only to copy the image
@@ -232,6 +233,7 @@ function imagick_converting ($imagick) {
 					if($php_memory / 2 < $img_memory) {
 					
 						$imagick["image_name"] = 'image_memoryinfo.png';
+						$imagick["thumb_name"] = 'mem_'.$imagick["thumb_name"];
 					
 					}
 				
