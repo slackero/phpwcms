@@ -1508,7 +1508,12 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$mail->Username 	= $phpwcms['SMTP_USER'];
 			$mail->Password 	= $phpwcms['SMTP_PASS'];
 		}
-		$mail->CharSet	 		= $phpwcms["charset"];
+		$mail->CharSet	 		= $phpwcms["charset"];		
+
+		if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {
+			@$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
+		}
+
 		$mail->IsHTML($cnt_form['template_format_copy']);
 		$mail->Subject			= $cnt_form["subject"];
 		$mail->Body 			= $cnt_form['template_copy'];
@@ -1554,6 +1559,11 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		$mail->Password 	= $phpwcms['SMTP_PASS'];
 	}
 	$mail->CharSet	 		= $phpwcms["charset"];
+
+	if(isset($cnt_form['function_to']) && function_exists($cnt_form['function_to'])) {
+		@$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
+	}
+
 	$mail->IsHTML($cnt_form['template_format']);
 	$mail->Subject			= $cnt_form["subject"];
 	$mail->Body 			= $cnt_form['template'];

@@ -1264,4 +1264,6 @@ $BL['group_newsletter']					= 'newsletter editor';
 $BL['group_client']						= 'client';
 $BL['group_guest']						= 'guest';
 
+$BL['php_function']						= 'php function';
+
 ?>
