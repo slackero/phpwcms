@@ -22,7 +22,7 @@
 
 //setup functions
 $phpwcms_version = "1.4.0";
-$phpwcms_release_date = '2008/12/04';
+$phpwcms_release_date = '2008/12/22';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -196,7 +196,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
 	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
-	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional \n";
+	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // enables HTC Hover for IE < 7 - has no effect in other browsers \n";
 	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers \n";
@@ -208,6 +208,9 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['Login_IPcheck']     = 0; \n";
 	$conf_file .= "\$phpwcms['frontend_edit']	  = 0; // enable content specific direct links - linking direct into the backend \n";
 	$conf_file .= "\$phpwcms['gd_memcheck_off']   = 0; // disable GD php memory check before resize an image \n";
+	$conf_file .= "\$phpwcms['enable_chat']		  = 0; // enable or disable chat function, by default it is disabled - not recommend anymore to use it \n";
+	$conf_file .= "\$phpwcms['enable_messages']	  = 0; // enable or disable internal messags, by default it is disabled - not recommend anymore to use it \n";
+	$conf_file .= "\$phpwcms['enable_seolog']	  = 1; // enable or disable logging of search engine referrer data \n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";

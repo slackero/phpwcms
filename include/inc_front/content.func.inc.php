@@ -984,6 +984,13 @@ if(strpos($content['all'], '--LOGGED_')) {
 $content['all'] = preg_replace_callback('/\[HTML\](.*?)\[\/HTML\]/s', 'convert2html', $content['all'] );
 $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\]/s', 'convert2htmlspecialchars' , $content['all'] );
 
+// cleanup document to enhance XHTML Strict compatibility
+if($phpwcms['mode_XHTML'] == 2) {
+	
+	$content['all'] = preg_replace('/ target=".*?"/', '', $content['all'] );
+
+}
+
 // remove all useless replacement tags
 $content["pagetitle"] = sanitize_replacement_tags($content["pagetitle"]);
 

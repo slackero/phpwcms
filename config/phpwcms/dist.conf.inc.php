@@ -88,7 +88,7 @@ $phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_
 $phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts
 $phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars
 $phpwcms['BOTS']			  = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
-$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional
+$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
 $phpwcms['IE_htc_hover']      = 1; // enables HTC Hover for IE < 7 - has no effect in other browsers
 $phpwcms['IE_htc_png']        = 1; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers
