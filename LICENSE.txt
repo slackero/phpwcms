@@ -1,8 +1,8 @@
 *******************************************************************************************
 
   --- phpwcms --- licensing conditions
-  Copyright (c) 2002-2008 Oliver Georgi <oliver@phpwcms.de>
-  revised 21/02/2007
+  Copyright (c) 2002-2009 Oliver Georgi <oliver@phpwcms.de>
+  revised 07/01/2009
 
 *******************************************************************************************
 
@@ -29,9 +29,10 @@ Extensions are copyright of their respective owners:
 	  originally (c) Kai Blankenhorn
       GNU Lesser Public License Version 2.1
 	  
-   4. MagpieRSS
-      http://magpierss.sourceforge.net/
-	  GNU General Public License Version 2
+   4. SimplePie
+      http://simplepie.org/
+	  © 2004–2009 Ryan Parman, Geoffrey Sneddon and contributors
+	  Licensed under the BSD License
 	  
    5. PHPMailer
       http://phpmailer.sourceforge.net/

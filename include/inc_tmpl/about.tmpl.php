@@ -81,8 +81,7 @@ echo phpwcmsversionCheck();
     <li><a href="http://www.bitfolge.de" target="_blank"><strong>FeedCreator</strong></a>,
       originally &copy; Kai Blankenhorn,
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL </a></li>
-    <li><a href="http://magpierss.sourceforge.net/" target="_blank"><strong>MagpieRSS</strong></a>,
-      <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
+    <li><a href="http://simplepie.org/" target="_blank"><strong>SimplePie</strong></a>, Copyright &copy; 2004&ndash;2009 Ryan Parman, Geoffrey Sneddon and contributors, <a href="http://www.opensource.org/licenses/bsd-license.php" target="_blank">BSD License</a></li>
     <li><a href="http://phpmailer.sourceforge.net/" target="_blank"><strong>PHPMailer</strong></a>,
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
     <li><a href="http://phpsniff.sourceforge.net/" target="_blank"><strong>phpSniff</strong></a>,

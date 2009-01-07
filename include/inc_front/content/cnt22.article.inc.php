@@ -94,7 +94,7 @@ if($rssfeed["timeout"]) {
 
 	$rss_obj->enable_cache( true );
 	$rss_obj->set_cache_duration ( $rssfeed["timeout"] );
-	$rss_obj->set_cache_location ( MAGPIE_CACHE_DIR );
+	$rss_obj->set_cache_location ( PHPWCMS_RSS );
 	
 } else {
 	

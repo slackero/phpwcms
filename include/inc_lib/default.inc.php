@@ -90,9 +90,7 @@ define ('PHPWCMS_IMAGES', 			$phpwcms["content_path"].$phpwcms["cimage_path"]);
 define ('PHPWCMS_TEMP', 			PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
 define ('PHPWCMS_CONTENT',			PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
 define ('PHPWCMS_THUMB',			PHPWCMS_CONTENT.$phpwcms["cimage_path"]);
-define ('MAGPIE_DIR', 				PHPWCMS_ROOT.'/include/inc_ext/magpierss/');
-define ('MAGPIE_CACHE_DIR', 		PHPWCMS_CONTENT.'rss');
-define ('MAGPIE_OUTPUT_ENCODING', 	PHPWCMS_CHARSET);
+define ('PHPWCMS_RSS', 				PHPWCMS_CONTENT.'rss');
 define ('LF', 						"\n"); 	//global new line Feed
 
 define ('MB_SAFE',					function_exists('mb_substr') ? true : false); //mbstring safe - better to do a check here
