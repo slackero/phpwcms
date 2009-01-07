@@ -720,7 +720,7 @@ function parse_images($matches) {
 		$img_id 	= intval($matches[1]);
 		
 		// check for Alt-Text
-		$alt		= explode(' ', $matches[2], 2);
+		$alt		= explode(' ', trim($matches[2]), 2);
 		$value		= explode('x', trim(strtolower($alt[0])));
 
 		$alt		= isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';

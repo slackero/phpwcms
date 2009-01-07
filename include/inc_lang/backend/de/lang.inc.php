@@ -1256,6 +1256,6 @@ $BL['group_client']						= 'Kunde';
 $BL['group_guest']						= 'Besucher';
 
 $BL['php_function']						= 'PHP-Funktion';
-
+$BL['article_menu_title']				= 'Men&uuml;titel';
 
 ?>

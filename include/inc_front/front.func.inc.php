@@ -472,6 +472,7 @@ function get_actcat_articles_data($act_cat_id) {
 									"article_cid"		=> $row["article_cid"],
 									"article_title"		=> $row["article_title"],
 									"article_subtitle"	=> $row["article_subtitle"],
+									"article_menutitle"	=> $row["article_menutitle"],
 									"article_keyword"	=> $row["article_keyword"],
 									"article_summary"	=> $row["article_summary"],
 									"article_redirect"	=> $row["article_redirect"],
@@ -517,17 +518,18 @@ function get_actcat_articles_data($act_cat_id) {
 						$data[$aid]["article_alias"] = $alias_row["article_alias"];
 						// use alias article header data
 						if(!$row["article_headerdata"]) {
-							$data[$aid]["article_title"]	= $alias_row["article_title"];
-							$data[$aid]["article_subtitle"]	= $alias_row["article_subtitle"];
-							$data[$aid]["article_keyword"]	= $alias_row["article_keyword"];
-							$data[$aid]["article_summary"]	= $alias_row["article_summary"];
-							$data[$aid]["article_redirect"]	= $alias_row["article_redirect"];
-							$data[$aid]["article_date"]		= $alias_row["article_date"];
-							$data[$aid]["article_image"]	= @unserialize($alias_row["article_image"]);
-							$data[$aid]["article_begin"]	= $alias_row["article_begin"];
-							$data[$aid]["article_end"]		= $alias_row["article_end"];
-							$data[$aid]['article_livedate']	= $alias_row["article_livedate"];
-							$data[$aid]['article_killdate']	= $alias_row["article_killdate"];
+							$data[$aid]["article_title"]		= $alias_row["article_title"];
+							$data[$aid]["article_subtitle"]		= $alias_row["article_subtitle"];
+							$data[$aid]["article_keyword"]		= $alias_row["article_keyword"];
+							$data[$aid]["article_summary"]		= $alias_row["article_summary"];
+							$data[$aid]["article_redirect"]		= $alias_row["article_redirect"];
+							$data[$aid]["article_date"]			= $alias_row["article_date"];
+							$data[$aid]["article_image"]		= @unserialize($alias_row["article_image"]);
+							$data[$aid]["article_begin"]		= $alias_row["article_begin"];
+							$data[$aid]["article_end"]			= $alias_row["article_end"];
+							$data[$aid]['article_livedate']		= $alias_row["article_livedate"];
+							$data[$aid]['article_killdate']		= $alias_row["article_killdate"];
+							$data[$aid]['article_menutitle']	= $alias_row["article_menutitle"];
 						}
 					}
 					mysql_free_result($alias_result);
@@ -2805,7 +2807,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 	// @string $parameter = "menu_type, start_id, max_level_depth, class_path, class_active,
 	// ul_id_name, wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
-	// wrap_link_text(<em>|</em>)"
+	// wrap_link_text(<em>|</em>, articlemenu_start_id)"
 
 	if($param == 'string') {
 
@@ -2816,16 +2818,23 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$ie_patch		= false; // unused at the moment
 		$create_css 	= false;
 		$parent			= false; // do not show parent link
+		$articlemenu	= false; // do not show category's article titles as menu entry
 
 		switch($menu_type) {
 
 							// show parent level too
-			case 'P':		$parent = true;
+			case 'PA':		$articlemenu	= true;
+			case 'P':		$parent			= true;
 							break;
 
 							// vertical, active path unfolded
-			case 'FP':		$parent = true;
-			case 'F':		$unfold = 'active_path';
+			case 'FPA':		$articlemenu	= true;
+			case 'FP':		$parent			= true;
+			case 'F':		$unfold			= 'active_path';
+							break;
+							
+			case 'FA':		$articlemenu	= true;
+							$unfold			= 'active_path';
 							break;
 							
 							// horizontal, all levels unfolded, add special code for horizontal flyout menu
@@ -2855,11 +2864,12 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		if(empty($wrap_link_text[1])) {
 			$wrap_link_text[1] = '';
 		}
+		$amenu_start_id	= empty($parameter[8]) ? 0 : intval($parameter[8]);
 
-		$parameter		= array(	 0 => $menu_type, 		 1 => $start_id, 		2 => $max_depth,
-									 3 => $path_class,		 4 => $active_class, 	5 => $level_id_name,
-									 6 => $wrap_ul_div,		 7 => $wrap_link_text,	8 => $unfold,
-									 9 => $ie_patch,		10 => $create_css	);
+		$parameter		= array(	 0 => $menu_type, 		 1 => $start_id, 		 2 => $max_depth,
+									 3 => $path_class,		 4 => $active_class, 	 5 => $level_id_name,
+									 6 => $wrap_ul_div,		 7 => $wrap_link_text,	 8 => $unfold,
+									 9 => $ie_patch,		10 => $create_css,		11 => $amenu_start_id );
 	} else {
 
 		$menu_type		= $parameter[0];
@@ -2873,6 +2883,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$unfold			= $parameter[8];
 		$ie_patch		= $parameter[9];
 		$create_css 	= $parameter[10];
+		$amenu_start_id	= $parameter[11];
 		
 		$parent			= false; // do not show parent link
 
@@ -3405,5 +3416,97 @@ function setGetArticleAid(&$data) {
 function initMootools() {
 	$GLOBALS['block']['custom_htmlhead']['mootools.js']	= getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/mootools/mootools.js');
 }
+
+/**
+ * Return menu or menu elements based on article menu title information 
+ * starting at given structure level ID, limited to single level (non-nested)
+ *
+ * @return mixed (array/string)
+ * @param array
+ **/
+function getArticleMenu($data=array()) {
+	
+	global $content;
+	global $aktion;
+	
+	$defaults = array(
+		
+		'level_id'				=> 0,
+		'class_active'			=> 'active',
+		'wrap_title_prefix'		=> '',
+		'wrap_title_suffix'		=> '',
+		'item_prefix'			=> "\t",
+		'item_suffix'			=> '',
+		'sort'					=> 'level',
+		'item_tag'				=> 'li',
+		'wrap_tag'				=> 'ul',
+		'attribute_wrap_tag'	=> '',
+		'class_item_tag'		=> '',
+		'class_first_item_tag'	=> '',
+		'class_last_item_tag'	=> '',
+		'return_format'			=> 'string' // string or array
+
+					  );	
+	
+	$data	= is_array($data) && count($data) ? array_merge($defaults, $data) : $defaults;
+	$li		= array();
+	
+	$articles = get_actcat_articles_data( $data['level_id'] );
+	
+	$key	= 0;
+	$total	= count($articles) - 1;
+	foreach($articles as $item) {
+		
+		$class = '';
+		if($data['class_item_tag']) {
+			$class .= $data['class_item_tag'].' ';
+		}
+		if($key === 0 && $data['class_first_item_tag']) {
+			$class .= $data['class_first_item_tag'].' ';
+		} elseif($key === $total && $data['class_last_item_tag']) {
+			$class .= $data['class_last_item_tag'].' ';
+		}
+		if($data['class_active'] && $item['article_id'] == $aktion[1]) {
+			$class .= $data['class_active'].' ';
+		}
+		$class = trim($class);
+		
+		$li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
+
+		$li[$key] .= '<a href="'.rel_url( array(), array(), setGetArticleAid($item) ).'">';
+		
+		$li[$key] .= $data['wrap_title_prefix'];
+		$li[$key] .= html_entities( getArticleMenuTitle($item) );
+		$li[$key] .= $data['wrap_title_suffix'];
+		
+		$li[$key] .= '</a>';
+
+		$li[$key] .= '</'.$data['item_tag'].'>' . $data['item_suffix'];
+	
+		$key++;
+	
+	}
+	
+	if($data['wrap_tag'] && count($li)) {
+		
+		array_unshift($li, '<'.trim($data['wrap_tag'].' '.trim($data['attribute_wrap_tag'])).'>');
+		array_push($li, '</'.$data['wrap_tag'].'>');
+		
+	}
+	
+	return $data['return_format'] == 'string' ? implode(LF, $li) : $li;
+
+}
+
+/**
+ * Return article menu title text
+ *
+ * @return string
+ * @param array article data
+ **/
+function getArticleMenuTitle(& $data) {
+	return empty($data['article_menutitle']) ? $data['article_title'] : $data['article_menutitle'];
+}
+
 
 ?>

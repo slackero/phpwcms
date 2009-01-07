@@ -507,4 +507,13 @@ function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHAR
 	return @htmlentities($string, $quote_mode, $charset);
 }
 
+function getMicrotime() {
+    list($usec, $sec) = explode(' ', microtime());
+    return ((float)$usec + (float)$sec);
+}
+
+function getMicrotimeDiff($start=0) {
+	return (getMicrotime() - $start);
+}
+
 ?>

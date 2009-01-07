@@ -92,6 +92,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article['article_priorize']	= $row['article_priorize'];
 				$article['article_created']		= $row['article_created'];
 				$article['article_norss']		= $row['article_norss'];
+				$article['article_menutitle']	= $row['article_menutitle'];
 				
 				$article['article_archive_status']	= $row['article_archive_status'];
 				$read_done = true;
@@ -112,6 +113,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_title"]				= '';
 		$article["article_alias"]				= '';
 		$article["article_subtitle"]			= '';
+		$article["article_menutitle"]			= '';
 		$article["article_summary"]				= '';
 		$article["article_public"]				= 1;
 		$article["article_notitle"]				= 0;
@@ -168,6 +170,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_alias"]		= proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
 		
 		$article["article_subtitle"]	= clean_slweg($_POST["article_subtitle"]);
+		$article["article_menutitle"]	= empty($_POST["article_menutitle"]) ? $article["article_title"] : clean_slweg($_POST["article_menutitle"]);
 		$article["article_summary"]		= str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]) );
 		$article["article_public"]		= isset($_POST["article_public"]) ? 1 : 0;
 		$article["article_notitle"]		= isset($_POST["article_notitle"]) ? 1 : 0;
@@ -347,7 +350,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					"article_norss"			=> $article['article_norss'],
 					"article_uid"			=> $article["article_uid"],
 					"article_archive_status"=> $article["article_archive_status"],
-					
+					"article_menutitle"		=> $article["article_menutitle"],
 					'article_serialized'	=> ''
 
 							);
@@ -396,7 +399,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 						"article_paginate=".$article['article_paginate'].", ".
 						"article_priorize=".$article['article_priorize'].", ".
 						"article_norss=".$article['article_norss'].", ".
-						"article_archive_status=".$article['article_archive_status']." ";
+						"article_archive_status=".$article['article_archive_status'].", ".
+						"article_menutitle='".aporeplace($article["article_menutitle"])."'";
 						if($_SESSION["wcs_user_admin"]) {
 							$sql .= ", article_uid=".$article["article_uid"]." ";				
 						}

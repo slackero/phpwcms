@@ -17,3 +17,6 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log_seo` (
   `referrer` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM ;
+
+#2008-12-22
+ALTER TABLE `phpwcms_article` ADD `article_menutitle` VARCHAR( 255 ) NOT NULL ;
