@@ -20,3 +20,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log_seo` (
 
 #2008-12-22
 ALTER TABLE `phpwcms_article` ADD `article_menutitle` VARCHAR( 255 ) NOT NULL ;
+
+#2009-01-18
+ALTER TABLE `phpwcms_crossreference` ADD `cref_module` VARCHAR( 255 ) NOT NULL AFTER `cref_type`;
+ALTER TABLE `phpwcms_crossreference` ADD INDEX ( `cref_module` );

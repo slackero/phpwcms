@@ -1768,10 +1768,10 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 				6=>'bmp',	7=>'tif',	8=>'tiff',	9=>'jpc',	10=>'jp2',	11=>'jpx',
 				12=>'jb2',	13=>'swc',	14=>'iff',	15=>'wbmp',	16=>'xbm'  );
 			if($data == false) {
-				$file_status['error']  = 'Format not supported (';
+				$file_status['error']  = 'Format'.($file_status['ext'] ? ' *.'.$file_status['ext'] : '').' not supported (';
 				$allowed = array();
 				foreach($imgtype as $value) {
-					$allowed[] = '*.'.$exif_imagetype[$value];
+					$allowed[] = '*.'.$value;
 				}
 				$file_status['error'] .= implode(', ', $allowed).')';
 				@unlink($_FILES[$file]['tmp_name']);
@@ -1783,6 +1783,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 				@unlink($_FILES[$file]['tmp_name']);
 				return $file_status;
 			}
+			$file_status['image'] = $data;
 		}
 	}
 

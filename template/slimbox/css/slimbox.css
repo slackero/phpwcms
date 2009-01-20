@@ -45,6 +45,9 @@
 #lbPrevLink:hover {
 	background: transparent url(prevlabel.gif) no-repeat 0 15%;
 }
+#lbPrevLink.lbPrevLink-de:hover {
+	background: transparent url(prevlabel-de.gif) no-repeat 0 15%;
+}
 
 #lbNextLink {
 	right: 0;
@@ -52,6 +55,9 @@
 
 #lbNextLink:hover {
 	background: transparent url(nextlabel.gif) no-repeat 100% 15%;
+}
+#lbNextLink.lbNextLink-de:hover {
+	background: transparent url(nextlabel-de.gif) no-repeat 100% 15%;
 }
 
 #lbBottom {
@@ -73,9 +79,13 @@
 	margin: 5px 0;
 	outline: none;
 }
+#lbCloseLink.lbCloseLink-de {
+	width: 80px;
+	background-image: url(closelabel-de.gif);
+}
 
 #lbCaption, #lbNumber {
-	margin-right: 71px;
+	margin-right: 85px;
 }
 
 #lbCaption {

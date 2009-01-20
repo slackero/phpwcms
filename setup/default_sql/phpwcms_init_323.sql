@@ -487,13 +487,15 @@ CREATE TABLE `phpwcms_country` (
 --
 
 CREATE TABLE `phpwcms_crossreference` (
-  `cref_id` int(11) NOT NULL auto_increment,
-  `cref_type` int(11) NOT NULL default '0',
-  `cref_rid` int(11) NOT NULL default '0',
-  `cref_int` int(11) NOT NULL default '0',
-  `cref_str` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`cref_id`),
-  KEY `cref_type` (`cref_type`,`cref_rid`,`cref_int`,`cref_str`)
+  `cref_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cref_type` int(11) NOT NULL DEFAULT '0',
+  `cref_module` varchar(255) NOT NULL DEFAULT '',
+  `cref_rid` int(11) NOT NULL DEFAULT '0',
+  `cref_int` int(11) NOT NULL DEFAULT '0',
+  `cref_str` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`cref_id`),
+  KEY `cref_type` (`cref_type`,`cref_rid`,`cref_int`,`cref_str`),
+  KEY `cref_module` (`cref_module`)
 ) TYPE=MyISAM;
 
 -- --------------------------------------------------------
