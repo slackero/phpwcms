@@ -185,8 +185,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
 	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"{DOCTYPE_LANG}>'.LF.'<head>'.LF);
-	define('SCRIPT_CDATA_START', '  <![CDATA[');
-	define('SCRIPT_CDATA_END'  , '  ]]>');
+	define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
+	define('SCRIPT_CDATA_END'  , '  /* ]]> */');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
