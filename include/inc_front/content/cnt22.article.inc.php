@@ -76,11 +76,16 @@ $rss_obj = new SimplePie();
 // Feed URL
 $rss_obj->set_feed_url( $rssfeed['rssurl'] );
 
-// Output Charset
+// Output Encoding Charset
 $rss_obj->set_output_encoding( PHPWCMS_CHARSET );
 
-// Feed Cache Timeout
+// Input Encoding Charset
+if(!empty($rssfeed['content_type'])) {
+	$rss_obj->set_input_encoding( $rssfeed['content_type'] );
+}
 
+
+// Feed Cache Timeout
 if(!$rssfeed["timeout"]) {
 	// set to default value = 3600 seconds = 1 hour
 	$rssfeed["timeout"] = 3600;

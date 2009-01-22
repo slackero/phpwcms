@@ -496,8 +496,7 @@ CREATE TABLE `phpwcms_crossreference` (
   `cref_str` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`cref_id`),
   KEY `cref_type` (`cref_type`,`cref_rid`,`cref_int`,`cref_str`),
-  KEY `cref_module` (`cref_module`),
-  KEY `cref_module_2` (`cref_module`)
+  KEY `cref_module` (`cref_module`)
 ) ENGINE=MyISAM;
 
 -- --------------------------------------------------------

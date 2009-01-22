@@ -38,4 +38,10 @@ $content['rssfeed']["cut1st"]		= isset($_POST["crss_cut1st"]) ? 1 : 0;
 $content['rssfeed']["cacheoff"]		= isset($_POST["crss_cacheoff"]) ? 1 : 0;
 $content['rssfeed']["timeout"]		= strval(intval($_POST['crss_timeout']));
 
+$content['rssfeed']["content_type"]	= '';
+
+if( isset($_POST['crss_contenttype']) && in_array($_POST['crss_contenttype'], $phpwcms['charsets']) ) {
+	$content['rssfeed']["content_type"]	= $_POST['crss_contenttype'];
+}
+
 ?>

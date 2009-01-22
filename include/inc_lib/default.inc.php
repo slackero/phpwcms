@@ -30,6 +30,57 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
 
 @ini_set( 'arg_separator.output' , '&amp;' );
 
+// i18n charsets that might be accessible - in general used in MySQL
+// but a few more as listed here http://www.w3.org/International/O-charset-list.html
+$phpwcms['charsets'] = array(
+	'iso-2022-kr',
+	'iso-2022-jp',
+    'iso-8859-1',
+    'iso-8859-2',
+    'iso-8859-3',
+    'iso-8859-4',
+    'iso-8859-5',
+    'iso-8859-6',
+    'iso-8859-7',
+    'iso-8859-8',
+	'iso-8859-8-i',
+    'iso-8859-9',
+    'iso-8859-10',
+    'iso-8859-11',
+    'iso-8859-12',
+    'iso-8859-13',
+    'iso-8859-14',
+    'iso-8859-15',
+	'iso-10646-ucs-2',
+	'windows-874',
+    'windows-1250',
+    'windows-1251',
+    'windows-1252',
+	'windows-1253',
+	'windows-1254',
+	'windows-1255',
+    'windows-1256',
+    'windows-1257',
+	'windows-1258',
+    'koi8-r',
+    'big5',
+    'gb2312',
+	'us-ascii',
+    'utf-16',
+    'utf-8',
+    'utf-7',
+    'x-user-defined',
+	'euc-cn',
+    'euc-jp',
+	'euc-kr',
+	'euc-tw',
+    'ks_c_5601-1987',
+    'tis-620',
+    'shift_jis'
+);
+
+
+
 define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
 /* seems to be problematic at the moment - so always use text/html

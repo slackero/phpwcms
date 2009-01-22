@@ -1258,4 +1258,7 @@ $BL['group_guest']						= 'Besucher';
 $BL['php_function']						= 'PHP-Funktion';
 $BL['article_menu_title']				= 'Men&uuml;titel';
 
+$BL['content_type']						= 'Content-Type';
+$BL['automatic']						= 'automatisch';
+
 ?>

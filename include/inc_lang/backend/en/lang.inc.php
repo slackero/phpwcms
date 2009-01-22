@@ -1267,4 +1267,7 @@ $BL['group_guest']						= 'guest';
 $BL['php_function']						= 'php function';
 $BL['article_menu_title']				= 'menu title';
 
+$BL['content_type']						= 'content-type';
+$BL['automatic']						= 'automatic';
+
 ?>
