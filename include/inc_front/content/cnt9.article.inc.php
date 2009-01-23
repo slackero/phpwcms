@@ -76,7 +76,7 @@ if($media["source"]) {
 				$media["width"]  = $media["media_width"]  ? 'width="'.$media["media_width"].'" '   : '';
 				$media["height"] = $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
 				
-				$media["code"]  = LF.'<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
+				$media["code"]  = LF.'<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 				$media['code'] .= empty($phpwcms['mode_XHTML']) ? '	QT_WriteOBJECT' : '	QT_WriteOBJECT_XHTML';
 				$media['code'] .= "('".$media["source"]."', '".$media["media_width"]."', '".$media["media_height"]."', '', ";
 				$media['code'] .= "'autoplay', '".$media["media_auto"]."', ";
@@ -142,7 +142,7 @@ if($media["source"]) {
 				
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
 					$media["code"]    = trim($media["code"]);
-					$media["iecode"]  = LF.'<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
+					$media["iecode"]  = LF.'<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 					$media["iecode"] .= "	_writeActiveXObject('".str_replace(LF, '', $media["code"])."');";
 					$media["iecode"] .= LF.SCRIPT_CDATA_END.LF.'</script>'.LF;
 					$media["iecode"] .= '<noscript>'.$media["code"].'</noscript>'.LF;
@@ -188,7 +188,7 @@ if($media["source"]) {
 				
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
 					$media["code"]    = trim($media["code"]);
-					$media["iecode"]  = LF.'<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
+					$media["iecode"]  = LF.'<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 					$media["iecode"] .= "	_writeActiveXObject('".str_replace(LF, '', $media["code"])."');";
 					$media["iecode"] .= LF.SCRIPT_CDATA_END.LF.'</script>'.LF;
 					$media["iecode"] .= '<noscript>'.$media["code"].'</noscript>'.LF;
@@ -237,7 +237,7 @@ if($media["source"]) {
 				$media["code"] .= '</object></noscript>'.LF;
 				
 				$media["source"] = cut_ext($media["source"]);
-				$media["code"] .= '<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
+				$media["code"] .= '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 				$media["code"] .= "  AC_FL_RunContent('codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0','id','".$randomID."','width','".$media["media_width"]."','height','".$media["media_height"]."','src','".$media["source"]."','quality','high','scale','noborder',".$wmode_js."'pluginspage','http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash','movie','".$media["source"]."' );";
 				$media["code"] .= LF.SCRIPT_CDATA_END.LF.'</script>';
 				break;

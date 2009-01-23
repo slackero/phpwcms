@@ -27,6 +27,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php');
+
 // Form
 $CNT_TMP .= '<a name="jumpForm'.$crow["acontent_id"].'" id="jumpForm'.$crow["acontent_id"].'"></a>';
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
@@ -63,9 +65,10 @@ if(empty($cnt_form['sendernametype'])) {
 }
 
 if(empty($cnt_form['sendername'])) {
-
 	$cnt_form['sendername'] = '';
-
+}
+if(empty($cnt_form["error_class"])) {
+	$cnt_form["error_class"] = 'error';
 }
 
 /*
@@ -107,6 +110,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
 									}
@@ -140,6 +144,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$spaf_obj->destroy();
 									} else {
 										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? 'Captcha error' : $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									}
 									$cnt_form["fields"][$key]['value'] = '';
 								}
@@ -193,6 +198,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
 										// try to check for special value
@@ -272,6 +278,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if(($cnt_form["fields"][$key]['required'] && !$POST_val[$POST_name]) || ($POST_val[$POST_name] && !is_valid_email($POST_val[$POST_name]))) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									}
 									$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
 								}
@@ -313,6 +320,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
 									}
@@ -359,6 +367,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
 									}
@@ -390,6 +399,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = str_replace(' selected', '', $cnt_form["fields"][$key]['value']);
 									}
@@ -526,6 +536,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 									if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = str_replace(' selected', '', $cnt_form["fields"][$key]['value']);
 									}
@@ -621,6 +632,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 									if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = str_replace(' checked', '', $cnt_form["fields"][$key]['value']);
 									}
@@ -700,6 +712,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$POST_val[$POST_name] = isset($_POST[$POST_name]) ? remove_unsecure_rptags(clean_slweg($_POST[$POST_name])) : false;
 									if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = str_replace(' checked', '', $cnt_form["fields"][$key]['value']);
 									}
@@ -810,7 +823,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$POST_ERR[$key]	= str_replace('{MAXLENGTH}', '', $POST_ERR[$key]);
 										$POST_ERR[$key] = str_replace('{FILESIZE}', fsize(0, ' '), $POST_ERR[$key]);
 										$POST_ERR[$key] = str_replace('{FILENAME}', '"n.a."', $POST_ERR[$key]);
-										$POST_ERR[$key] = str_replace('{FILEEXT}', '"n.a."', $POST_ERR[$key]);							
+										$POST_ERR[$key] = str_replace('{FILEEXT}', '"n.a."', $POST_ERR[$key]);						
 									} elseif(!empty($_FILES[$POST_name]['name'])) {
 										$cnt_form['upload_value']['filename'] = time().'_'.$_FILES[$POST_name]['name'];
 										if( (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
@@ -830,6 +843,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									if(isset($POST_ERR[$key])) {
 										@unlink($_FILES[$POST_name]['tmp_name']);
 										@unlink(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename']);
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									}
 								}
 								//
@@ -988,6 +1002,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									
 									if($mathspam_result != $mathspam_default  || ($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] === ''))) {
 										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? 'Math spam protection error' : $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									}
 								}
 
@@ -1105,6 +1120,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 									if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
 									} else {
 										$cnt_form["fields"][$key]['value'] = str_replace(' checked', '', $cnt_form["fields"][$key]['value']);
 									}
