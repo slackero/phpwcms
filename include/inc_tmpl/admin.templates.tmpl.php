@@ -308,11 +308,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<tr>
 			<td valign="top"><select name="template_css[]" size="6" multiple="multiple" class="code" id="template_css">
 <?php
+
+$unselected_css = array();
+
 // get css file list
 if(is_dir(PHPWCMS_TEMPLATE."inc_css")) {
 	
 	$css_handle 		= opendir(PHPWCMS_TEMPLATE."inc_css" );
-	$unselected_css		= array();
 	
 	// browse template CSS diretory and list all available CSS files
 	while($css_file = readdir( $css_handle )) {
@@ -329,16 +331,14 @@ if(is_dir(PHPWCMS_TEMPLATE."inc_css")) {
 // now run the css information
 foreach($template["css"] as $value) {
 	if(isset($unselected_css[$value])) {
-		$css_file = html_specialchars($value);
+		$css_file = html_entities($value);
 		echo '		<option value="'.$css_file.'" selected="selected" style="font-weight: bold;">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
-		unset($unselected_css[$value]);
+		@unset($unselected_css[$value]);
 	}
 }
-if(is_array($unselected_css)) {
-	foreach($unselected_css as $value) {
-		$css_file = html_specialchars($value);
-		echo '		<option value="'.$css_file.'">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
-	}
+foreach($unselected_css as $value) {
+	$css_file = html_entities($value);
+	echo '		<option value="'.$css_file.'">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
 }
 
 ?>
