@@ -117,7 +117,9 @@ $content['page_start']  .= get_body_attributes($pagelayout);
 // now add all CSS files here
 if(count($block['css'])) {
 	foreach($block['css'] as $value) {
-		$content['page_start'] .= '  <link href="'.TEMPLATE_PATH.'inc_css/'.$value.'" rel="stylesheet" type="text/css"'.HTML_TAG_CLOSE.LF;
+		$content['page_start'] .= '  <link rel="stylesheet" type="text/css" href="'.TEMPLATE_PATH.'inc_css/';
+		$content['page_start'] .= str_replace('--__--', '/', rawurlencode(str_replace('/', '--__--', $value)));
+		$content['page_start'] .= '"'.HTML_TAG_CLOSE.LF;
 	}
 }
 
