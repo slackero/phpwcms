@@ -118,7 +118,7 @@ $content['page_start']  .= get_body_attributes($pagelayout);
 if(count($block['css'])) {
 	foreach($block['css'] as $value) {
 		$content['page_start'] .= '  <link rel="stylesheet" type="text/css" href="'.TEMPLATE_PATH.'inc_css/';
-		$content['page_start'] .= str_replace('--__--', '/', rawurlencode(str_replace('/', '--__--', $value)));
+		$content['page_start'] .= str_replace(' ', '%20', $value);
 		$content['page_start'] .= '"'.HTML_TAG_CLOSE.LF;
 	}
 }
