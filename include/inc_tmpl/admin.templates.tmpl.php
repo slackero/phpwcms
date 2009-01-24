@@ -333,7 +333,7 @@ foreach($template["css"] as $value) {
 	if(isset($unselected_css[$value])) {
 		$css_file = html_entities($value);
 		echo '		<option value="'.$css_file.'" selected="selected" style="font-weight: bold;">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
-		@unset($unselected_css[$value]);
+		unset($unselected_css[$value]);
 	}
 }
 foreach($unselected_css as $value) {
