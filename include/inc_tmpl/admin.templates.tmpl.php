@@ -319,7 +319,7 @@ if(is_dir(PHPWCMS_TEMPLATE."inc_css")) {
 	// browse template CSS diretory and list all available CSS files
 	while($css_file = readdir( $css_handle )) {
 		 
-		if( $css_file != "." && $css_file != ".." && preg_match('/[a-z0-9\. \-_]+\.css$/i', $css_file) ) {
+		if( $css_file != "." && $css_file != ".." && preg_match('/^[a-z0-9\. \-_]+\.css$/i', $css_file) ) {
 
 			$unselected_css[$css_file] = $css_file;
 				
