@@ -118,7 +118,6 @@ if($news['list_mode']) {
 	
 	}
 	
-	
 	// choose by category
 	if(count($news['news_category'])) {
 		
@@ -145,7 +144,7 @@ if($news['list_mode']) {
 			$news['news_category_sql'][] = 'pcat.cat_name' . $news['news_compare'] . "'" . aporeplace($value) . "'";
 			
 		}
-		
+
 		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
 		$news['sql_where'][] = 'AND (' . implode($news['news_andor'], $news['news_category_sql']) . ')';
 		
@@ -275,8 +274,19 @@ if($news['template']) {
 								  );
 
 	$news['config']['news_per_row']		= abs(intval($news['config']['news_per_row']));
-	$news['config']['news_teaser_text']	= strtolower(trim($news['config']['news_teaser_text'])) == 'br' ? 'br_htmlencode' : 'plaintext_htmlencode';
-
+	
+	// set function used to render teaser text, custom can be registered
+	switch( trim($news['config']['news_teaser_text']) ) {
+		case 'br':
+		case 'BR':	$news['config']['news_teaser_text'] = 'br_htmlencode';
+					break;
+		case 'p':
+		case 'P':	$news['config']['news_teaser_text'] = 'plaintext_htmlencode';
+					break;
+		default:	if(!function_exists($news['config']['news_teaser_text'])) {
+						$news['config']['news_teaser_text'] = 'plaintext_htmlencode';
+					}
+	}
 
 	// start parsing news entries	
 	$news['row_count']			= 1;
@@ -307,6 +317,7 @@ if($news['template']) {
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'AUTHOR', html_specialchars($value['cnt_editor']));
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'PLACE', html_specialchars($value['cnt_place']));
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'PRIO', empty($value['cnt_prio']) ? '' : $value['cnt_prio'] );
+		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'FIRST', $news['row_count'] === 1 ? ' ' : '');
 		
 		// news detail link (read)
 		if($news['list_mode']) {
@@ -409,7 +420,7 @@ if($news['template']) {
 		}
 		
 		
-		$news['entries'][$key]	= $news['entries'][$key];
+		//$news['entries'][$key]	= $news['entries'][$key];
 		
 		// row and entry spacer
 		if($news['list_mode']) {

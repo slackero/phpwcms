@@ -50,6 +50,8 @@ if(!isset($content['rssfeed'])) {
 	<td><select name="crss_template" id="crss_template" class="f11b">
   <?php
 
+	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+
 // templates for RSS feed
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed');
 if(is_array($tmpllist) && count($tmpllist)) {

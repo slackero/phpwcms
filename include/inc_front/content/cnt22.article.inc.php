@@ -30,8 +30,17 @@ if (!defined('PHPWCMS_ROOT')) {
 // RSS feed
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-$rssfeed = unserialize($crow["acontent_form"]);
-$rssfeed['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']);
+
+if( isset($crow["acontent_form"]) && is_string($crow["acontent_form"]) ) {
+	$rssfeed = unserialize($crow["acontent_form"]);
+} elseif( empty($crow["acontent_form"]) || empty($rssfeed) ) {
+	$rssfeed = array();
+}
+if( empty($rssfeed['template']) || !is_file(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']) ) {
+	$rssfeed['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/rssfeed.tmpl');
+} else {
+	$rssfeed['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']);
+}
 if(!$rssfeed['template']) {
 
 	$rssfeed['template'] = '
@@ -69,7 +78,7 @@ $rss['template_RSSFEED']	= get_tmpl_section('RSSFEED',	$rssfeed['template']);
 
 // Load SimplePie
 require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/simplepie.inc.php');
-require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/idn/idna_convert.class.php');
+//require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/idn/idna_convert.class.php');
 
 $rss_obj = new SimplePie();
 
