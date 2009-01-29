@@ -1,7 +1,14 @@
 <p style="background-color:#D7E3E2 "><strong>RSS feed ITEM <br></strong>{TITLE}, {LINK}, {DATE:FORMAT} (<a href="http://www.php.net/manual/en/function.date.php" target="_blank" style="text-decoration:underline">FORMAT&nbsp;=&nbsp;d.m.Y&nbsp;or&nbsp;H:i:s</a>)</p>
 
 <!--ITEM_START//-->
-<p style="margin:0;padding:0;margin-top:2px;margin-bottom:3px;">{DATE:d.m.y}: <a href="{LINK}" target="_blank">{TITLE}</a><br>{DESCRIPTION}</p>
+<div class="feeditem">
+	[TITLE]<h4>[LINK]<a href="{LINK}" target="_blank">[/LINK]{TITLE}[LINK]</a>[/LINK]</h4>[/TITLE]
+	[DESCRIPTION]<p><span class="date">{DATE:d.m.y lang=DE}:</span>
+		{DESCRIPTION}
+		<a href="{LINK}" target="_blank" class="rss-more">mehr&nbsp;&rsaquo;</a>
+	</p>[/DESCRIPTION]
+</div>
+
 <!--ITEM_END//-->
 
 
@@ -9,15 +16,22 @@
 <p style="background-color:#D7E3E2 "><strong>RSS feed item divider</strong></p>
 
 <!--DIVIDER_START//-->
-<div style="margin:0;padding:0;border-top:1px dotted #B2B2B2;height:1px;"><img src="img/leer.gif" width="1" height="1" alt="" /></div>
+<hr />
 <!--DIVIDER_END//-->
 
 
 <p style="background-color:#D7E3E2 "><strong>RSS feed INFO<br></strong>{IMAGE}</p>
 
 <!--FEEDINFO_START//-->
-<div class="feedTitle">{TITLE}</div>
-<p style="margin:0;padding:0;margin-bottom:6px;"><div style="float:left">{IMAGE}</div>{DESCRIPTION}<br style="clear:both" />
+[TITLE]
+<div class="feedinfo">
+	<h3>{TITLE}</h3>[DESCRIPTION]
+	<p>
+	[IMAGE]<span class="rssimage">{IMAGE}</span>[/IMAGE]
+	{DESCRIPTION}
+	</p>[/DESCRIPTION]
+</div>
+[/TITLE]
 <!--FEEDINFO_END//-->
 
 
@@ -25,5 +39,13 @@
 <p style="background-color:#D7E3E2 "><strong>RSS feed Complete<br></strong>{FEEDINFO}, {ITEMS}, {DIVIDER}</p>
 
 <!--RSSFEED_START//-->
-<div style="clear:both;">{FEEDINFO}{DIVIDER}{ITEMS}{DIVIDER}</div>
+<div>
+	[TITLE]<h3>{TITLE}</h3>[/TITLE]
+	[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+	{FEEDINFO}
+	{DIVIDER}
+	{ITEMS}
+	{DIVIDER}
+	<p>[LINK]<p class="feedlink"><a href="{LINK}" target="_blank">Alle News im Blog</a></p>[/LINK]
+</div>
 <!--RSSFEED_END//-->
