@@ -1823,8 +1823,8 @@ if($form_cnt) {
 		$cnt_form['class'] = '';
 	}
 	$CNT_TMP .= $form_error_text;
-	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'" '.$cnt_form['class'];
-	$CNT_TMP .= 'action="'.FE_CURRENT_URL.'#jumpForm'.$crow["acontent_id"].'" method="post" enctype="multipart/form-data">';
+	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'];
+	$CNT_TMP .= ' action="'.FE_CURRENT_URL.'#jumpForm'.$crow["acontent_id"].'" method="post" enctype="multipart/form-data">';
 
 	if($cnt_form['labelpos'] == 2) {
 	

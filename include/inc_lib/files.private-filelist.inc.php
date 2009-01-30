@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //Listing eventuell im Verzeichnis enthaltener Dateien
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$_SESSION["wcs_user_id"].
-			" AND f_kid=1 AND f_trash=0 ORDER BY f_name";
+			" AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 	$file_durchlauf = 0;
 	$zieldatei = "phpwcms.php?do=files&amp;f=0";
@@ -45,7 +45,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<td width=\"19\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"19\" border=\"0\"></td>\n";
 		echo "<td width=\"13\" class=\"msglist\">";
 		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
-		echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+		echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" alt=""';
 		echo "></td>\n";
 		echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">";
 		echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];

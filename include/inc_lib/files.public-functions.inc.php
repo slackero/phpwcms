@@ -31,7 +31,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 		   "f_pid=".intval($pid)." AND ".
 		   "f_public=1 AND f_aktiv=1 AND ".
 		   "f_uid=".intval($userID)." AND ".
-		   "f_kid=0 AND f_trash=0 ORDER BY f_name";
+		   "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 		
@@ -79,7 +79,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 			
 			//Listing eventuell im Verzeichnis enthaltener Dateien
 			$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_uid=".intval($userID).
-						" AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name";
+						" AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
@@ -94,7 +94,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 					echo "<td width=\"13\" class=\"msglist\">";
 					echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
 	
-					echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+					echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" alt=""';
 					
 					echo "></td>\n";
 					echo "<td width=\"".(473-$vor)."\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">"; //438-$vor

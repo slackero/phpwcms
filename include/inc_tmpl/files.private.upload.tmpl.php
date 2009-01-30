@@ -41,6 +41,7 @@ $file_copyright			= '';
 $file_tags				= '';
 $file_granted			= 0;
 $file_gallerydownload	= 0;
+$file_sort				= 0;
 				
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
@@ -55,6 +56,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	$file_granted			= empty($_POST["file_granted"]) ? 0 : 1;
 	$file_gallerydownload	= empty($_POST["file_gallerydownload"]) ? 0 : 1;
 	$file_keys				= '';
+	$file_sort 				= intval($_POST["file_sort"]);
 	
 	$file_keywords	= empty($_POST["file_keywords"]) ? array() : $_POST["file_keywords"];
 	if(count($file_keywords)) {
@@ -88,12 +90,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		
 		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
 				"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
-				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus) VALUES (".
+				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, f_sort) VALUES (".
 				$file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
 				$fileName."', '".time()."', '".intval($_FILES["file"]["size"])."', '".
 				aporeplace($_FILES["file"]["type"])."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
 				aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
-				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".$file_gallerydownload.")";
+				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".
+				$file_gallerydownload.", ".$file_sort.")";
 		
 		if($result = mysql_query($sql, $db) or die("error while insert file information")) {
 			$new_fileId = mysql_insert_id($db); //Festlegen der aktuellen File-ID	
@@ -152,7 +155,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-		<td class="v10"><select name="file_pid" id="file_pid" class="v11 width400">
+		<td class="v10"><select name="file_pid" id="file_pid" class="width400">
 <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
 <?php dir_menu(0, $file_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
 	</select></td>
@@ -178,7 +181,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	<?php } ?>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fprivup_upload'] ?>:&nbsp;</td>
-		<td><input name="file" type="file" id="file" size="40" class="v11" /></td>
+		<td><input name="file" type="file" id="file" size="40" /></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	<tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
@@ -193,9 +196,8 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 			if(get_filecat_childcount ($row["fcat_id"], $db)) {
 			
 				$ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : "<img src=\"img/symbole/error.gif\" width=\"8\" height=\"9\">&nbsp;";
-				//".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"")."
 				$k .= "<tr>\n<td class=\"f10b\">".$ke.html_specialchars($row["fcat_name"]).":&nbsp;</td>\n";
-				$k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"v11\" style=\"width: 300px;\">\n";
+				$k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"width300\">\n";
 				$k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 				
 				$ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
@@ -224,7 +226,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		<?php if($k) echo $k; ?>
 		<tr>
 			<td class="f10b"><?php echo $BL['be_ftptakeover_additional'] ?>:&nbsp;</td>
-			<td><input name="file_shortinfo" type="text" class="v11 width300" id="file_shortinfo" value="<?php echo html_specialchars($file_shortinfo) ?>" size="40" maxlength="250" /></td>
+			<td><input name="file_shortinfo" type="text" class="width300" id="file_shortinfo" value="<?php echo html_specialchars($file_shortinfo) ?>" size="40" maxlength="250" /></td>
 		</tr>		
 		</table></td>
 	</tr>
@@ -236,7 +238,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	</tr>
 	<tr>
 		<td align="right" valign="top" class="v09"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="file_longinfo" cols="40" rows="10" class="v11 width400" id="file_longinfo"><?php echo html_specialchars($file_longinfo) ?></textarea></td>
+		<td valign="top"><textarea name="file_longinfo" cols="40" rows="10" class="v12 width400" id="file_longinfo"><?php echo html_specialchars($file_longinfo) ?></textarea></td>
 	</tr>	
 	
 
@@ -245,18 +247,26 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
-		<td><input name="file_copyright" type="text" id="file_copyright" size="40" class="v11 width400" maxlength="255" value="<?php echo html_specialchars($file_copyright) ?>" /></td>
+		<td><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="255" value="<?php echo html_specialchars($file_copyright) ?>" /></td>
 	</tr>	
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	
 	<tr>
 		<td align="right" class="v09">&nbsp;<?php echo $BL['be_tags'] ?>:&nbsp;</td>
-		<td><input name="file_tags" type="text" id="file_tags" size="40" class="v11 width400" maxlength="255" value="<?php echo html_specialchars($file_tags) ?>" /></td>
+		<td><input name="file_tags" type="text" id="file_tags" size="40" class="width400" maxlength="255" value="<?php echo html_specialchars($file_tags) ?>" /></td>
 	</tr>
 	
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+
+	
+	<tr>
+		<td align="right" class="v09">&nbsp;<?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
+		<td><input name="file_sort" type="text" id="file_sort" size="10" class="width50" maxlength="10" value="<?php echo intval($file_sort) ?>" /></td>
+	</tr>	
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	
 	
 	<tr>

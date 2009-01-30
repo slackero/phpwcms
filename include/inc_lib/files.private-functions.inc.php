@@ -29,7 +29,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ".
 		   "f_pid=".intval($pid)." AND ".
 		   "f_uid=".intval($userID)." AND ".
-		   "f_kid=0 AND f_trash=0 ORDER BY f_name";
+		   "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 		
@@ -124,7 +124,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			
 			//Listing eventuell im Verzeichnis enthaltener Dateien
 			$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"].
-						" AND f_uid=".$userID." AND f_kid=1 AND f_trash=0 ORDER BY f_name";
+						" AND f_uid=".$userID." AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
@@ -139,7 +139,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					echo "<td width=\"".($vor+37)."\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+37)."\" border=\"0\" alt=\"\" /></td>\n";
 					echo "<td width=\"13\" class=\"msglist\">";
 					echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
-					echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+					echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" alt=""';
 					echo " /></td>\n";
 					echo "<td width=\"".(388-$vor)."\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\" border=\"0\" alt=\"\" />";
 					echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
@@ -205,7 +205,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 							echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
 							echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
 							echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
-							echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+							echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" alt=""';
 							echo " /></a></td>\n";
 							echo "<td width=\"100\"><img src=\"img/leer.gif\" border=\"0\" alt=\"\" /></td>\n</tr>\n";
 							echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\" alt=\"\" /></td>\n</tr>\n";

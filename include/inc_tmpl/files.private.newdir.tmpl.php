@@ -35,7 +35,8 @@ if (!defined('PHPWCMS_ROOT')) {
 	$dir_newname	= '';
 	$dir_longinfo	= '';
 	$dir_gallery	= 0;
-	$dir_pid = empty($_GET["mkdir"]) ? 0 : intval($_GET["mkdir"]);
+	$dir_pid		= empty($_GET["mkdir"]) ? 0 : intval($_GET["mkdir"]);
+	$dir_sort		= 0;
 				
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
@@ -45,6 +46,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					$dir_newname	= clean_slweg($_POST["dir_newname"]);
 					$dir_longinfo	= clean_slweg($_POST["dir_longinfo"]);
 					$dir_gallery	= empty($_POST["dir_gallery"]) ? 0 : intval($_POST["dir_gallery"]);
+					$dir_sort		= intval($_POST["dir_sort"]);
 					
 					switch($dir_gallery) {
 					
@@ -59,13 +61,14 @@ if (!defined('PHPWCMS_ROOT')) {
 					//Eintragen des neuen verzeichnisnamens
 					if(!isset($dir_error)) {
 						$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
-								"f_created, f_kid, f_longinfo, f_gallerystatus) VALUES (".
+								"f_created, f_kid, f_longinfo, f_gallerystatus, f_sort) VALUES (".
 								$dir_pid.", ".
 								$_SESSION["wcs_user_id"].", '".
 								aporeplace($dir_newname)."', ".
 								$dir_aktiv.", ".
 								$dir_public.", '".
-								time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.")";
+								time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.", ".
+								$dir_sort.")";
 						if($result = mysql_query($sql, $db) or die ("error while writing new dir info")) {
 							headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
 						}
@@ -114,19 +117,19 @@ if (!defined('PHPWCMS_ROOT')) {
 	<?php } ?>
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_name'] ?>:&nbsp;</td>
-		<td><input name="dir_newname" type="text" class="f10b" style="width: 450px;" id="dir_newname" value="<?php echo html_specialchars($dir_newname) ?>" size="40" maxlength="250" /></td>
+		<td><input name="dir_newname" type="text" class="width440" id="dir_newname" value="<?php echo html_specialchars($dir_newname) ?>" size="40" maxlength="250" /></td>
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr>
 		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="6" class="v10" id="dir_longinfo" style="width: 450px;"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
+		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="6" class="v12 width440" id="dir_longinfo"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_gallery'] ?>:&nbsp;</td>
-		<td><select name="dir_gallery" id="dir_gallery" class="v10">
+		<td><select name="dir_gallery" id="dir_gallery">
 			<option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
 			<option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
 			<option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
@@ -134,6 +137,15 @@ if (!defined('PHPWCMS_ROOT')) {
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+	
+	<tr>
+		<td align="right" class="v09">&nbsp;<?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
+		<td><input name="dir_sort" type="text" id="dir_sort" size="10" class="width50" maxlength="10" value="<?php echo intval($dir_sort) ?>" /></td>
+	</tr>	
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	
+	
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">

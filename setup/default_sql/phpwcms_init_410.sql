@@ -536,8 +536,10 @@ CREATE TABLE `phpwcms_file` (
   `f_granted` int(11) NOT NULL default '0',
   `f_gallerystatus` int(1) NOT NULL default '0',
   `f_vars` blob NOT NULL,
+  `f_sort` int(11) NOT NULL default '0',
   PRIMARY KEY  (`f_id`),
   KEY `f_granted` (`f_granted`),
+  KEY `f_sort` (`f_sort`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)
 ) ENGINE=MyISAM;

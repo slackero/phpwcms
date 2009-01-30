@@ -119,12 +119,13 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	// Init Feed
 	$rss_obj->init();
 	
+	/*
 	if($rss_obj->error()) {
 	
 		$CNT_TMP .= $rss_obj->error();
 	
 	}
-	
+	*/
 	
 	if( $rss_obj->data ) {
 	

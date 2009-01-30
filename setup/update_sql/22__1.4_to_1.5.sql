@@ -24,3 +24,7 @@ ALTER TABLE `phpwcms_article` ADD `article_menutitle` VARCHAR( 255 ) NOT NULL ;
 #2009-01-18
 ALTER TABLE `phpwcms_crossreference` ADD `cref_module` VARCHAR( 255 ) NOT NULL AFTER `cref_type`;
 ALTER TABLE `phpwcms_crossreference` ADD INDEX ( `cref_module` );
+
+#2009-01-30
+ALTER TABLE `phpwcms_file` ADD `f_sort` INT NOT NULL DEFAULT '0';
+ALTER TABLE `phpwcms_file` ADD INDEX ( f_sort );
