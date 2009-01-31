@@ -29,6 +29,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Code
-$content["code"] = $row["acontent_text"];
+$content["code"]		= $row["acontent_text"];
+$content["template"]	= $row["acontent_template"];
 
 ?>

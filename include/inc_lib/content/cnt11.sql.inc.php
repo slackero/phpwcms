@@ -30,6 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Code
 										
-$SQL .= "acontent_text='".aporeplace($content["code"])."' ";
+$SQL .= "acontent_text = '".aporeplace($content["code"])."', ";
+$SQL .= "acontent_template = '".aporeplace($content["template"])."' ";
 
 ?>
