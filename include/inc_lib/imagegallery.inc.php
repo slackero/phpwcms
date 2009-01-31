@@ -216,9 +216,15 @@ class phpwcmsImageGallery {
 			$this->image_sort	= strtoupper($this->image_sort);
 		
 			switch($this->image_sort) {
-				case 'ASC':		$order_by = ' ORDER BY f_created ASC';	break;
-				case 'RAND':	$order_by = ' ORDER BY RAND()';			break;
-				default:		$order_by = ' ORDER BY f_created DESC';
+				case 'ASC':					$order_by = ' ORDER BY f_created ASC';					break;
+				case 'RAND':				$order_by = ' ORDER BY RAND()';							break;
+				case 'SORT-ASC':			$order_by = ' ORDER BY f_sort ASC';						break;
+				case 'SORT-DESC':			$order_by = ' ORDER BY f_sort DESC';					break;
+				case 'SORT-NAME-ASC':		$order_by = ' ORDER BY f_sort ASC, f_name ASC';			break;
+				case 'SORT-NAME-DESC':		$order_by = ' ORDER BY f_sort DESC, f_name DESC';		break;
+				case 'SORT-CREATE-ASC':		$order_by = ' ORDER BY f_sort ASC, f_created ASC';		break;
+				case 'SORT-CREATE-DESC':	$order_by = ' ORDER BY f_sort DESC, f_created DESC';	break;
+				default:					$order_by = ' ORDER BY f_created DESC';
 			}
 			$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE ';
 			$sql .= 'f_pid IN (' . $folders . ') AND f_kid=1 AND ';
@@ -370,6 +376,30 @@ class phpwcmsImageGallery {
 			
 				case 'NAME-DESC':
 					$this->gallery_sort = ' ORDER BY f_name DESC';
+					break;
+					
+				case 'SORT-DESC':
+					$this->gallery_sort = ' ORDER BY f_sort DESC';
+					break;
+					
+				case 'SORT-ASC':
+					$this->gallery_sort = ' ORDER BY f_sort ASC';
+					break;
+					
+				case 'SORT-NAME-DESC':
+					$this->gallery_sort = ' ORDER BY f_sort DESC, f_name DESC';
+					break;
+					
+				case 'SORT-NAME-ASC':
+					$this->gallery_sort = ' ORDER BY f_sort ASC, f_name ASC';
+					break;
+					
+				case 'SORT-CREATE-DESC':
+					$this->gallery_sort = ' ORDER BY f_sort DESC, f_created DESC';
+					break;
+					
+				case 'SORT-CREATE-ASC':
+					$this->gallery_sort = ' ORDER BY f_sort ASC, f_created ASC';
 					break;
 			
 				case 'CREATE-ASC':
