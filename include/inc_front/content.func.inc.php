@@ -1100,4 +1100,9 @@ if( isset($match[1]) && isset($match[2]) ) {
 	
 }
 
+if(!empty($phpwcms['i18n_parse'])) {
+	$content['all']			= i18n_substitute_text($content['all']);
+	$content["pagetitle"]	= i18n_substitute_text($content['pagetitle']);
+}
+
 ?>

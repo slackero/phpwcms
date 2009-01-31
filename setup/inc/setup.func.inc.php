@@ -21,8 +21,8 @@
 *************************************************************************************/
 
 //setup functions
-$phpwcms_version = "1.4.0";
-$phpwcms_release_date = '2008/12/22';
+$phpwcms_version = "1.4.1";
+$phpwcms_release_date = '2009/01/31';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -211,6 +211,8 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['enable_chat']		  = 0; // enable or disable chat function, by default it is disabled - not recommend anymore to use it \n";
 	$conf_file .= "\$phpwcms['enable_messages']	  = 0; // enable or disable internal messags, by default it is disabled - not recommend anymore to use it \n";
 	$conf_file .= "\$phpwcms['enable_seolog']	  = 1; // enable or disable logging of search engine referrer data \n";
+	$conf_file .= "\$phpwcms['i18n_parse']	  	  = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement\n";
+	$conf_file .= "\$phpwcms['i18n_complex']	  = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars 'en'), true - 'en-gb'...\n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";

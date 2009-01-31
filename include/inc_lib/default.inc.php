@@ -204,8 +204,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"] = '1.4.0';
-$phpwcms["release_date"] = '2008/12/22';
+$phpwcms["release"] = '1.4.1';
+$phpwcms["release_date"] = '2009/01/30';
 
 
 // load permissions class
@@ -500,8 +500,8 @@ function phpwcms_getUserAgent() {
  * Return current UNIX timestamp
  * Wrapper function that might be enhanced for regional time and so on
  **/
-function now() {
-	return time();
+function now($format=NULL) {
+	return is_string($format) ? date($format) : time();
 }
 
 function log_message($logtype='', $message='', $userid='', $ip='') {
