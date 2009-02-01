@@ -56,6 +56,12 @@ function i18n_get_language($complex=false) {
 function i18n_get_filename() {
 	return PHPWCMS_TEMPLATE . 'template_lang/' . i18n_get_language(true) . '.php';
 }
+function i18n_get_file_open_text() {
+	$text  = '<?php ' . PHP_EOL;
+	$text .= '// phpwcms template language file "' . i18n_get_language(true) . '" (' . now('Y-m-d H:i:s') . ')' . PHP_EOL;
+	$text .= '// ATTENTION! Never add the closing PHP tag "? >" at the end of this file!' . PHP_EOL . PHP_EOL;
+	return $text;
+}
 // substitutes a single token
 function i18n_substitute_text_token($token) {
 	global $i18n_tokens;	
@@ -67,7 +73,7 @@ function i18n_substitute_text_token($token) {
 		if(is_readable($f)) {
 			include($f);
 		} elseif($handle = fopen($f, 'ab')) {
-			fwrite($handle, '<?php // phpwcms template language file "' . i18n_get_language(true) . '" (' . now('Y-m-d H:i:s') . ')' . PHP_EOL . PHP_EOL);
+			fwrite($handle, i18n_get_file_open_text() );
 			fclose($handle);
 		} else {
 			return $a;
@@ -93,7 +99,7 @@ function i18n_substitute_text($tpl_output) {
 		if(is_readable($f)) {
 			include($f);
 		} elseif($handle = fopen($f, 'ab')) {
-			fwrite($handle, '<?php // phpwcms template language file "' . i18n_get_language(true) . '" (' . now('Y-m-d H:i:s') . ')' . PHP_EOL . PHP_EOL);
+			fwrite($handle, i18n_get_file_open_text() );
 			fclose($handle);
 		}
 	}
