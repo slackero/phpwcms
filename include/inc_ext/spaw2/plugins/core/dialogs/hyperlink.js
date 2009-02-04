@@ -42,6 +42,12 @@ SpawHyperlinkDialog.init = function()
     document.getElementById("catype").remove(2);
   }
   SpawHyperlinkDialog.changeType(atype);    
+  
+  // size quicklinks equally to title field
+  if (document.getElementById("cquicklinks"))
+  {
+    document.getElementById("cquicklinks").style.width = document.getElementById("ctitle").offsetWidth + "px"; 
+  }
 }
 
 SpawHyperlinkDialog.okClick = function() {
@@ -149,8 +155,15 @@ SpawHyperlinkDialog.changeType = function(new_type)
 	document.getElementById("name_row").style.display = new_type=="anchor"?"":"none";
 	document.getElementById("anchor_row").style.display = new_type=="link2anchor"?"":"none";
 	document.getElementById("target_row").style.display = (new_type=="link"||new_type=="link2anchor")?"":"none";
+	if (document.getElementById("quick_links_row"))
+    document.getElementById("quick_links_row").style.display = new_type=="link"?"":"none";
 	
   //SpawDialog.resizeDialogToContent();
+}
+
+SpawHyperlinkDialog.changeQuickLink = function(new_url)
+{
+  document.getElementById("chref").value = new_url;
 }
 
 if (document.attachEvent)

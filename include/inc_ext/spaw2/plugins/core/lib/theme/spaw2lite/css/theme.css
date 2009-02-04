@@ -10,6 +10,10 @@
 {
   border: 0px;
 }
+.spaw2 textarea {
+	font-family: Monaco, "Courier New", Courier, monospace;
+	font-size: 13px;
+}
 .spaw2liteframe
 {
   border: solid 1px #b7b7b7;

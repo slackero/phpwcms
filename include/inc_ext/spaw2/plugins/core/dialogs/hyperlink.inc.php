@@ -3,6 +3,7 @@ $lang->setModule("core");
 $lang->setBlock("hyperlink");
 
 $spaw_a_targets = $config->getConfigValue("a_targets");
+$spaw_quick_links = $config->getConfigValue("quick_links");
 ?>
 <script type="text/javascript" src="<?php echo SpawConfig::getStaticConfigValue('SPAW_DIR') ?>plugins/core/dialogs/hyperlink.js"></script>
 <form name="a_prop" id="a_prop" onsubmit="return false;" style="margin:0;padding:0;">
@@ -25,6 +26,27 @@ $spaw_a_targets = $config->getConfigValue("a_targets");
   <td width="50%" nowrap="nowrap"><input type="text" name="chref" id="chref" class="input" size="32" />
     &nbsp;<input type="button" value="..." onclick="SpawHyperlinkDialog.browseClick()" class="bt" /></td>
 </tr>
+<?php 
+if (is_array($spaw_quick_links) && count($spaw_quick_links)>0) 
+{ 
+?>
+<tr id="quick_link_row">
+  <td width="50%"><?php echo $lang->m('quick_links')?>:</td>
+  <td width="50%" align="left">
+  <select name="cquicklinks" id="cquicklinks" size="1" class="input" onchange="SpawHyperlinkDialog.changeQuickLink(this.options[this.selectedIndex].value);" style="width: 50px;">
+    <option value=""></option>
+    <?php
+		foreach($spaw_quick_links as $key=>$value)
+		{
+			echo '<option value="'.$key.'">'.$value."</option>";
+		}
+	?>
+  </select>
+  </td>
+</tr>
+<?php 
+} 
+?>
 <tr id="name_row">
   <td width="50%"><?php echo $lang->m('name')?>:</td>
   <td width="50%"><input type="text" name="cname" id="cname" class="input" size="32" /></td>

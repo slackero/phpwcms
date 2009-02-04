@@ -46,6 +46,9 @@ SpawImagePropDialog.init = function()
     if (iProps.vspace && iProps.vspace>-1) {
       document.getElementById('cvspace').value = iProps.vspace;
     }
+    if (iProps.className) {
+      document.getElementById('ccssclass').value = iProps.className;
+    }
   }
   
   //SpawDialog.resizeDialogToContent();
@@ -108,6 +111,9 @@ SpawImagePropDialog.okClick = function() {
     var iProps = spawArguments;
     if (iProps == null)
       iProps = pdoc.createElement("img");
+    iProps.className = (document.getElementById('ccssclass').value != 'default')?document.getElementById('ccssclass').value:'';
+    if (!iProps.className || iProps.className == '')
+      iProps.removeAttribute("class"); 
     iProps.align = (document.getElementById('calign').value)?(document.getElementById('calign').value):'';
     if (!iProps.align || iProps.align == '')
       iProps.removeAttribute("align"); 
@@ -261,6 +267,10 @@ SpawImagePropDialog.proportionsClick = function()
     // set new aspect ratio
     SpawImagePropDialog.setAspectRatio();
   }
+}
+
+SpawImagePropDialog.cssClassChanged = function()
+{
 }
 
 if (document.attachEvent)

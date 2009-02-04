@@ -198,8 +198,10 @@ $sql .= 'UNIX_TIMESTAMP(ac.adcampaign_dateend) AS adcampaign_end ';
 $sql .= 'FROM '.DB_PREPEND.'phpwcms_ads_campaign ac ';
 $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_ads_place ap ON ';
 $sql .=	'ac.adcampaign_place=ap.adplace_id  ';
-$sql .= 'WHERE '.$_entry['query'].' ';
-$sql .= 'LIMIT '.(($_SESSION['ads_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
+$sql .= 'WHERE '.$_entry['query'];
+if($_SESSION['ads_page'] > 0 && $_SESSION['list_user_count']) {
+	$sql .= ' LIMIT '.(($_SESSION['ads_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
+}
 $data = _dbQuery($sql);
 
 foreach($data as $row) {

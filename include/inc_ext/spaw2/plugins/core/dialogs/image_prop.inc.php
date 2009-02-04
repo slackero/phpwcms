@@ -1,6 +1,8 @@
 <?php
 $lang->setModule("core");
 $lang->setBlock("image_prop");
+
+$spaw_image_styles = $config->getConfigValue("image_styles");
 ?>
 <script type="text/javascript" src="<?php echo SpawConfig::getStaticConfigValue('SPAW_DIR') ?>plugins/core/dialogs/image_prop.js"></script>
 
@@ -19,7 +21,7 @@ echo 'spawErrorMessages["error_vspace_nan"] = "' . $lang->m('error_vspace_nan') 
 <form name="img_prop" id="img_prop" onsubmit="return false;" style="padding: 0px; margin: 0px;">
 <table border="0" cellspacing="0" cellpadding="2">
 <tr>
-  <td rowspan="8" id="img_preview_box" valign="top" align="center" class="groupbox" width="210">
+  <td rowspan="9" id="img_preview_box" valign="top" align="center" class="groupbox" width="210">
     <div id="img_preview_placeholder" style="padding: 0px 1px 0px 0px; margin: 0px; visibility: hidden; white-space:nowrap;">
       <img id="img_preview_sizer" src="img/spacer.gif" width="1" alt="" /><img id="img_preview" src="img/spacer.gif" width="200" height="100" alt="" />
     </div>
@@ -29,7 +31,7 @@ echo 'spawErrorMessages["error_vspace_nan"] = "' . $lang->m('error_vspace_nan') 
       <a href="#" style="white-space: nowrap;" onclick="SpawImagePropDialog.resetDimensions();"><?php echo $lang->m('reset_dimensions')?> &raquo;</a>
     </div>
   </td>
-  <td rowspan="8">&nbsp;</td>
+  <td rowspan="9">&nbsp;</td>
   <td align="right" nowrap="nowrap"><?php echo $lang->m('source')?>:</td>
   <td colspan="3" nowrap="nowrap"><input type="text" name="csrc" id="csrc" class="input" size="32" onchange="SpawImagePropDialog.previewImage(this.value, 0);" />&nbsp;<input type="button" value="..." onclick="SpawImagePropDialog.imageBrowseClick()" class="bt" /></td>
 </tr>
@@ -54,7 +56,20 @@ echo 'spawErrorMessages["error_vspace_nan"] = "' . $lang->m('error_vspace_nan') 
   <td colspan="3"><input type="checkbox" name="cproportions" id="cproportions" checked="checked" onclick="SpawImagePropDialog.proportionsClick();" /> <?php echo $lang->m('constrain_proportions')?></td>
 </tr>
 <tr>
-  <td align="right" nowrap="nowrap"><?php echo $lang->m('align')?>:</td>
+  <td align="right" nowrap><?php echo $lang->m('css_class')?>:</td>
+  <td nowrap colspan="3">
+    <select id="ccssclass" name="ccssclass" id="ccssclass" size="1" class="input" onchange="SpawImagePropDialog.cssClassChanged();">
+	<?php
+	foreach($spaw_image_styles as $key => $text)
+	{
+		echo '<option value="'.$key.'">'.$text.'</option>'."\n";
+	}
+	?>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td align="right" nowrap><?php echo $lang->m('align')?>:</td>
   <td align="left" colspan="3">
   <select name="calign" id="calign" size="1" class="input">
     <option value="">&nbsp;</option>
