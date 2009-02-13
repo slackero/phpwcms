@@ -2014,9 +2014,7 @@ function br_htmlencode($text='', $encode_function='html_specialchars') {
 function render_bbcode_basics($text='', $mode='basic') {
 
 	if($text === '') {
-
 		return $text;
-
 	}
 
 	$text = render_bbcode_url($text);
@@ -2064,19 +2062,23 @@ function render_bbcode_basics($text='', $mode='basic') {
 function render_bbcode_url($text) {
 
 	if($text === '') {
-
 		return $text;
-
 	}
+	$text = preg_replace_callback( array('/\[url=([^ ]+)(.*)\](.*)\[\/url\]/', '/\[a=([^ ]+)(.*)\](.*)\[\/a\]/'), 'get_bbcode_ahref', $text );
+	return  preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*)\]/', 'get_link_ahref', $text );
+}
 
-	$text = preg_replace_callback(
-				array('/\[url=([^ ]+).*\](.*)\[\/url\]/', '/\[a=([^ ]+).*\](.*)\[\/a\]/'), 
-				create_function('$match', 'return "<a href=\"".xss_clean($match[1])."\">".$match[2]."</a>";'), 
-				$text
-			);  
-	
-	return $text;
-	
+function get_bbcode_ahref($match) {
+	$href	= empty($match[1]) ? '#' : xss_clean($match[1]);
+	$target	= trim($match[2]) == '' ? '' : ' target="'.trim($match[2]).'"';
+	$text	= empty($match[3]) ? $href : $match[3];
+	return '<a href="'.$href.'"'.$target.'>'.$text.'</a>';
+}
+
+function get_link_ahref($match) {
+	$href	= empty($match[2]) ? '#' : xss_clean($match[2]);
+	$text	= empty($match[3]) ? $href : trim($match[3]);
+	return '<a href="'.$match[1].'://'.$href.'" target="_blank">'.$text.'</a>';
 }
 
 /**

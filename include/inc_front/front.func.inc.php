@@ -2490,6 +2490,7 @@ function replace_cnt_template($text='', $tag='', $value='') {
 
 function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
 	// render date by replacing placeholder tags by value
+	$date = is_numeric($date) ? intval($date) : now();
 	$text = preg_replace('/\{DATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
 	$text = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1",'.$date.')', $text);
 	if(intval($livedate)) {
