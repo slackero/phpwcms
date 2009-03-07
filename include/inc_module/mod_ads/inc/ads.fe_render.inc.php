@@ -111,7 +111,6 @@ function renderAds($match) {
 	$ad_random	= md5( time().@microtime() );
 	$ad_urldata	= '&amp;u='.PHPWCMS_USER_KEY.'&amp;r='.(empty($_SERVER['HTTP_REFERER']) ? '' : urlencode($_SERVER['HTTP_REFERER'])).'&amp;c='.$GLOBALS['aktion'][0].'&amp;a='.$GLOBALS['aktion'][1].'&amp;k='.$ad_random;
 	
-	
 	switch($ad['adcampaign_type']) {
 	
 		case 0:	//Bild
@@ -121,24 +120,22 @@ function renderAds($match) {
 				$ad_imgsrc	 = html_entities($ad_imgsrc);
 				$ad_media	.= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata.'"';
 				$ad_media	.= $ad_title;
-				$ad_media	.= $ad['adcampaign_data']['target'] ? ' target="'.$ad['adcampaign_data']['target'].'"' : '';
-				$ad_media	.= '>';
-				//$ad_media	.= '<noscript><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</noscript>';
-				//$ad_media	.= '<script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
-				//$ad_media	.= '	document.write(\'<\'+\'img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt."'+'".HTML_TAG_CLOSE."');";			
-				//$ad_media	.= LF.SCRIPT_CDATA_END.LF.'< /script>';
-				$ad_media	.= '<img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
-				$ad_media	.= '</a>';
+				if($ad['adcampaign_data']['target']) {
+					$ad_media	.= ' target="'.$ad['adcampaign_data']['target'].'"';
+				}
+				$ad_media	.= '><img src="'.$ad_imgsrc.'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE.'</a>';
 				break;
 		
 		case 1:	//Flash
-				$ad['adcampaign_data']['url']		= urlencode($ad['adcampaign_data']['url']);
+				$ad['adcampaign_data']['url'] = urlencode($ad['adcampaign_data']['url']);
 				$ad_flashID  = 'adsBannerFlash'.$adID;
-				$ad_so		 = 'ufoFO'.$ad['adcampaign_id'];
+				$ad_so		 = 'adsInnerFlash'.$ad['adcampaign_id'];
 				$ad_media	.= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.$ad['adcampaign_data']['url'].$ad_urldata.'"';
 				$ad_media	.= $ad_title;
-				$ad_media	.= $ad['adcampaign_data']['target'] ? ' target="'.$ad['adcampaign_data']['target'].'"' : '';
-				$ad_media	.= '>';
+				if($ad['adcampaign_data']['target']) {
+					$ad_media	.= ' target="'.$ad['adcampaign_data']['target'].'"';
+				}
+				$ad_media	.= ' id="'.$ad_so.'">';
 				if(is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
 					$ad_media	.= '<img src="'. html_entities($ad_imgsrc) .'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
 				} else {
@@ -146,29 +143,33 @@ function renderAds($match) {
 				}
 				$ad_media	.= '</a>';
 				$ad_media    = '<div id="'.$ad_flashID.'">'.$ad_media.'</div>';
+				
 				if(!empty($ad['adcampaign_data']['flash']) && is_file($ad['dir'].$ad['adcampaign_data']['flash'])) {
 					
-					$GLOBALS['block']['custom_htmlhead']['ufo.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/ufo/ufo.js" type="text/javascript"></script>';
+					initSwfObject();
+					
 					$ad_urldata	 = urldecode(str_replace('&amp;', '&', $ad_urldata));
-					$ad_flash	 = '';
-					$ad_flash	.= '  <script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
+					$ad_flash	 = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 					
-					$ad_flash	.= '  var '.$ad_so.' = { ';
-					$ad_flash	.= 'movie:"'.$ad_swfsrc.'", id:"UFO'.$ad_flashID.'", name:"UFO'.$ad_flashID.'", ';
-					$ad_flash	.= 'width:"'.$ad['adplace_width'].'", height:"'.$ad['adplace_height'].'", ';
-					$ad_flash	.= 'majorversion:"'.$ad['adcampaign_data']['flashversion'].'", build:"0", ';
-					$ad_flash	.= 'autoplay:"true", play:"true", scale:"exactfit", quality:"autohigh", ';
-					$ad_flash	.= 'wmode:"opaque", menu:"false", allowscriptaccess:"always", swliveconnect:"true", ';
-					$ad_flash	.= 'flashvars:"clickTag='.urlencode('index.php?adclickval='.$ad['adcampaign_id'].'&url='.$ad['adcampaign_data']['url'].$ad_urldata).'&clickTarget='.urlencode($ad['adcampaign_data']['target']).'", ';
+					$ad_flash	.= '	var flashvars_'.$ad_so.'	= {clickTag: "'.urlencode('index.php?adclickval='.$ad['adcampaign_id'].'&url='.$ad['adcampaign_data']['url'].$ad_urldata).'", ';
+					$ad_flash	.= 'clickTarget: "'.urlencode($ad['adcampaign_data']['target']).'"};' . LF;
+					$ad_flash	.= '	var params_'.$ad_so.'		= {wmode: "opaque", autoplay: true, quality: "autohigh", ';
+					$ad_flash	.= 'play: true, menu: false, allowscriptaccess: "always", swliveconnect: true, scale: "exactfit"';
 					if($ad['adcampaign_data']['bgcolor']) {
-						$ad_flash	.= 'bgcolor:"'.$ad['adcampaign_data']['bgcolor'].'", ';
+						$ad_flash	.= ', bgcolor: "'.$ad['adcampaign_data']['bgcolor'].'"';
 					}
-					$ad_flash	.= 'xi:"false" };'.LF;
-					$ad_flash	.= '  UFO.create('.$ad_so.', "'.$ad_flashID.'");';
+					$ad_flash	.= '};' . LF;
+					$ad_flash	.= '	var attributes_'.$ad_so.'	= {};' . LF;
 					
+					$ad_flash	.= '	swfobject.embedSWF("'.$ad_swfsrc.'", "'.$ad_so.'", ';
+					$ad_flash	.= '"'.$ad['adplace_width'].'", "'.$ad['adplace_height'].'", ';
+					$ad_flash	.= '"'.$ad['adcampaign_data']['flashversion'].'", false, ';
+					$ad_flash	.= 'flashvars_'.$ad_so.', params_'.$ad_so.', attributes_'.$ad_so.');';
+
 					$ad_flash	.= LF.SCRIPT_CDATA_END.LF.'  </script>';
+
 					$GLOBALS['block']['custom_htmlhead'][$ad_so] = $ad_flash;
-					
+
 				}
 				break;
 		
@@ -186,10 +187,11 @@ function renderAds($match) {
 					$ad_media .= '<div id="adBannerHTML'.$adID.'"'.$ad_wxh.'">';
 					$ad_media .= '<a href="index.php?adclickval='.$ad['adcampaign_id'].'&amp;url='.urlencode($ad['adcampaign_data']['url']).$ad_urldata.'"';
 					$ad_media .= $ad_title;
-					$ad_media .= $ad['adcampaign_data']['target'] ? ' target="'.$ad['adcampaign_data']['target'].'"' : '';
+					if($ad['adcampaign_data']['target']) {
+						$ad_media .= ' target="'.$ad['adcampaign_data']['target'].'"';
+					}
 					$ad_media .= ' style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;display:block;">';
-					$ad_media .= $ad['adcampaign_data']['html'];
-					$ad_media .= '</a></div>';
+					$ad_media .= $ad['adcampaign_data']['html'] . '</a></div>';
 				}
 		
 				break;
@@ -197,32 +199,44 @@ function renderAds($match) {
 		case 3:	//Flash Layer
 				$ad['adcampaign_data']['url']		= urlencode($ad['adcampaign_data']['url']);
 				$ad_flashID  = 'adsBannerFL'.$adID;
-				$ad_so		 = 'ufoFO'.$ad['adcampaign_id'];
+				$ad_so		 = 'adsInnerFlash'.$ad['adcampaign_id'];
 				if(!empty($ad['adcampaign_data']['flash']) && is_file($ad['dir'].$ad['adcampaign_data']['flash'])) {
-					
-					$GLOBALS['block']['custom_htmlhead']['ufo.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/ufo/ufo.js" type="text/javascript"></script>';
+
+					$ad_media    = '<div id="'.$ad_flashID.'" style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;display:none;">';
+					$ad_media   .= '<div id="'.$ad_so.'"></div></div>';
+
+					initSwfObject();
 					
 					$ad_urldata	 = urldecode(str_replace('&amp;', '&', $ad_urldata));
 					
-					$ad_media    = '<div id="'.$ad_flashID.'" style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;display:none;"></div>';
 					
-					$ad_flash	 = '  <!--[if gte IE 5]><script type="text/javascript" event="FSCommand(command,args)" for="UFO'.$ad_flashID.'">';
-					$ad_flash	.= 'UFO'.$ad_flashID.'_DoFSCommand(command, args);</script><![endif]-->'.LF;
+					$ad_flash	 = '  <!--[if gte IE 5]><script type="text/javascript" event="FSCommand(command,args)" for="'.$ad_so.'">';
+					$ad_flash	.= $ad_so.'_DoFSCommand(command, args);</script><![endif]-->'.LF;
 					
-					$ad_flash	.= '  <script type="text/javascript" language="javascript">'.LF.SCRIPT_CDATA_START.LF;
-					$ad_flash	.= '    function UFO'.$ad_flashID.'_DoFSCommand(command,args){if(command=="adlayerhider")toggleLayerDisplay("'.$ad_flashID.'","none");}'.LF;
-					$ad_flash	.= '    var '.$ad_so.' = { ';
-					$ad_flash	.= 'movie:"'.$ad_swfsrc.'", id:"UFO'.$ad_flashID.'", name:"UFO'.$ad_flashID.'", ';
-					$ad_flash	.= 'width:"'.$ad['adplace_width'].'", height:"'.$ad['adplace_height'].'", ';
-					$ad_flash	.= 'majorversion:"'.$ad['adcampaign_data']['flashversion'].'", build:"0", ';
-					$ad_flash	.= 'autoplay:"true", play:"true", scale:"exactfit", quality:"autohigh", ';
-					$ad_flash	.= 'wmode:"transparent", menu:"false", allowscriptaccess:"always", swliveconnect:"true", ';
-					$ad_flash	.= 'flashvars:"clickTag='.urlencode('index.php?adclickval='.$ad['adcampaign_id'].'&current='.$ad_random.'&u='.PHPWCMS_USER_KEY.'&url='.$ad['adcampaign_data']['url']).'&clickTarget='.urlencode($ad['adcampaign_data']['target']).'", ';
-					$ad_flash	.= 'xi:"false" };'.LF;
-					$ad_flash	.= '    function show'.$ad_so.'(){toggleLayerDisplay("'.$ad_flashID.'", "block");UFO.create('.$ad_so.', "'.$ad_flashID.'");}'.LF;
-					$ad_flash	.= '    window.setTimeout("show'.$ad_so.'()", 5000);';
+					$ad_flash	.= '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+					
+					$ad_flash	.= '	function '.$ad_so.'_DoFSCommand(command,args){if(command=="adlayerhider")toggleLayerDisplay("'.$ad_flashID.'","none");}'.LF;
+					$ad_flash	.= '	function show'.$ad_so.'(){toggleLayerDisplay("'.$ad_flashID.'", "block");}'.LF;
+					
+					$ad_flash	.= '	var flashvars_'.$ad_so.'	= {clickTag: "'.urlencode('index.php?adclickval='.$ad['adcampaign_id'].'&current='.$ad_random.'&u='.PHPWCMS_USER_KEY.'&url='.$ad['adcampaign_data']['url']).'", ';
+					$ad_flash	.= 'clickTarget: "'.urlencode($ad['adcampaign_data']['target']).'"};' . LF;
+					$ad_flash	.= '	var params_'.$ad_so.'		= {wmode: "transparent", autoplay: true, quality: "autohigh", ';
+					$ad_flash	.= 'play: true, menu: false, allowscriptaccess: "always", swliveconnect: true, scale: "exactfit"';
+					if($ad['adcampaign_data']['bgcolor']) {
+						$ad_flash	.= ', bgcolor: "'.$ad['adcampaign_data']['bgcolor'].'"';
+					}
+					$ad_flash	.= '};' . LF;
+					$ad_flash	.= '	var attributes_'.$ad_so.'	= {name: "'.$ad_so.'"};' . LF;
+					
+					$ad_flash	.= '	swfobject.embedSWF("'.$ad_swfsrc.'", "'.$ad_so.'", ';
+					$ad_flash	.= '"'.$ad['adplace_width'].'", "'.$ad['adplace_height'].'", ';
+					$ad_flash	.= '"'.$ad['adcampaign_data']['flashversion'].'", false, ';
+					$ad_flash	.= 'flashvars_'.$ad_so.', params_'.$ad_so.', attributes_'.$ad_so.');' . LF;
+
+					$ad_flash	.= '	window.setTimeout("show'.$ad_so.'()", 1000);';
+
 					$ad_flash	.= LF.SCRIPT_CDATA_END.LF.'  </script>';
-					
+
 					$GLOBALS['block']['custom_htmlhead'][$ad_so] = $ad_flash;
 
 				}

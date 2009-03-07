@@ -37,24 +37,6 @@ if( ! $content["id"] ) {
 
 
 ?>
-<tr><td colspan="2" class="rowspacer0x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-<tr>
-	<td colspan="2" style="padding:0 10px 0 10px;background-color:#C2EB9A;">
-	<p><strong>Licensing JW Media Player</strong></p>
-	<p>
-	<a href="http://www.jeroenwijering.com/?item=JW_Media_Player" target="_blank"><strong>The player itself</strong></a> 
-	(used as as plugin inside of <strong>phpwcms</strong>) is licensed under a 
-	<a href="http://creativecommons.org/licenses/by-nc-sa/2.0/" target="_blank"><strong>Creative Commons License</strong></a>.
-	<strong style="color:#cc3300">It allows you to use and modify the script for noncommercial purposes.</strong>
-	For commercial use, the author Jeroen Wijering distribute licenses of the script for <strong>15 EUR</strong>. 
-	For more info and instant ordering, please 
-	<a href="http://www.jeroenwijering.com/?order=form" target="_blank"><strong>advance to his online order page</strong></a>!
-	<strong>Please - respect copyrights!</strong>
-	</p>
-	</td>
-</tr>
-
 <tr><td colspan="2" class="rowspacer0x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <!-- Template selection -->
@@ -62,7 +44,7 @@ if( ! $content["id"] ) {
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="" class="width440">
 		<tr>
-			<td><select name="fmp_template" id="fmp_template" class="f11b width150">
+			<td><select name="fmp_template" id="fmp_template" class="width150">
 <?php
 	
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -82,7 +64,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		
 			<td width="20%">&nbsp;</td>
 		
-			<td><select name="fmp_width_height" id="fmp_width_height" class="v11" onchange="setPlayerSize(this)">
+			<td><select name="fmp_width_height" id="fmp_width_height" onchange="setPlayerSize(this)">
 				
 				<option><?php echo $BL['be_flashplayer_selectsize'] ?></option>
 				<option value="200x178">200 x 178 px</option>
@@ -97,10 +79,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			
 			<td>&nbsp;&nbsp;</td>			
 		
-			<td><input name="fmp_width" type="text" class="f11b width30" id="fmp_width" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_width']  ?>" /></td>
+			<td><input name="fmp_width" type="text" class="width30" id="fmp_width" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_width']  ?>" /></td>
 			<td class="chatlist">&nbsp;x&nbsp;</td>
 
-			<td><input name="fmp_height" type="text" class="f11b width30" id="fmp_height" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_height']  ?>" /></td>
+			<td><input name="fmp_height" type="text" class="width30" id="fmp_height" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_height']  ?>" /></td>
 			<td class="chatlist">&nbsp;px</td>
 		
 		</tr>
@@ -127,7 +109,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td bgcolor="#E7E8EB"><input name="fmp_int_ext" id="fmp_int_ext0" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext']); ?> /></td>
 			<td bgcolor="#E7E8EB" class="v10"><label for="fmp_int_ext0"><?php echo $BL['be_cnt_internal'] ?>&nbsp;</label></td>
 			<td>&nbsp;<input name="fmp_internal_id" type="hidden" id="fmp_internal_id" value="<?php echo $fmp_data['fmp_internal_id'] ?>" /></td>
-			<td><input name="fmp_internal_name" type="text" id="fmp_internal_name" class="f11b width300 greyed" value="<?php echo html_specialchars($fmp_data['fmp_internal_name']) ?>" size="40" onfocus="this.blur()" onclick="openFileBrowser('filebrowser.php?opt=6');" /></td>
+			<td><input name="fmp_internal_name" type="text" id="fmp_internal_name" class="width300 greyed" value="<?php echo html_specialchars($fmp_data['fmp_internal_name']) ?>" size="40" onfocus="this.blur()" onclick="openFileBrowser('filebrowser.php?opt=6');" /></td>
 			<td><a href="#" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=6');return false;"><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /></a></td>
 			<td><a href="#" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_internal_name').value='';getObjectById('fmp_internal_id').value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" border="0" /></a></td>
 		</tr>
@@ -138,7 +120,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td bgcolor="#E7E8EB"><input name="fmp_int_ext" id="fmp_int_ext1" type="radio" value="1" <?php is_checked(1, $fmp_data['fmp_int_ext']); ?> /></td>
 			<td bgcolor="#E7E8EB" class="v10"><label for="fmp_int_ext1"><?php echo $BL['be_cnt_external'] ?>&nbsp;</label></td>
 			<td>&nbsp;</td>
-			<td colspan="3"><input name="fmp_external_file" type="text" id="fmp_external_file" class="f11b width300" value="<?php echo html_specialchars($fmp_data['fmp_external_file']) ?>" size="40" /></td>
+			<td colspan="3"><input name="fmp_external_file" type="text" id="fmp_external_file" class="width300" value="<?php echo html_specialchars($fmp_data['fmp_external_file']) ?>" size="40" /></td>
 		</tr>
 	</table></td>
 </tr>
@@ -147,14 +129,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist tdtop3"><?php echo $BL['be_flashplayer_caption'] ?>:&nbsp;</td>
-	<td><textarea name="fmp_caption" cols="40" rows="2" wrap="off" class="v11 width440" id="fmp_caption"><?php echo html_specialchars($fmp_data['fmp_caption']) ?></textarea></td>
+	<td><textarea name="fmp_caption" cols="40" rows="2" wrap="off" class="width440" id="fmp_caption"><?php echo html_specialchars($fmp_data['fmp_caption']) ?></textarea></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 
 <tr>
 	<td align="right" class="chatlist tdtop3"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;</td>
-	<td><input name="fmp_link" type="text" id="fmp_link" class="v11 width440" value="<?php echo html_specialchars($fmp_data['fmp_link']) ?>" size="40" /></td>
+	<td><input name="fmp_link" type="text" id="fmp_link" class="width440" value="<?php echo html_specialchars($fmp_data['fmp_link']) ?>" size="40" /></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
@@ -166,7 +148,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 	
 		<tr>
-			<td><input name="fmp_img_name" type="text" id="fmp_img_name" class="f11b width300 greyed" value="<?php echo html_specialchars($fmp_data['fmp_img_name']) ?>" size="40" onfocus="this.blur()" onclick="openFileBrowser('filebrowser.php?opt=7');" /></td>
+			<td><input name="fmp_img_name" type="text" id="fmp_img_name" class="width300 greyed" value="<?php echo html_specialchars($fmp_data['fmp_img_name']) ?>" size="40" onfocus="this.blur()" onclick="openFileBrowser('filebrowser.php?opt=7');" /></td>
 			<td><a href="#" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=7');return false;"><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /></a></td>
 			<td><a href="#" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_img_name').value='';getObjectById('fmp_img_id').value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" border="0" /></a>
 			<input name="fmp_img_id" type="hidden" id="fmp_img_id" value="<?php echo $fmp_data['fmp_img_id'] ?>" />			
@@ -197,7 +179,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		//-->
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_overstretch">Display:&nbsp;</label></td>
-			<td><select name="fmp_set_overstretch" id="fmp_set_overstretch" class="v11">
+			<td><select name="fmp_set_overstretch" id="fmp_set_overstretch">
 			
 			<option value="default"<?php is_selected('default', $fmp_data['fmp_set_overstretch']) ?>>Default</option>
 			<option value="fit"<?php is_selected('fit', $fmp_data['fmp_set_overstretch']) ?>>Stretch disproportionally</option>
@@ -240,37 +222,61 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_bgcolor">Background color (#FFFFFF):&nbsp;</label></td>
-			<td><input name="fmp_set_bgcolor" type="text" id="fmp_set_bgcolor" class="v11 width75" value="<?php echo html_specialchars($fmp_data['fmp_set_bgcolor']) ?>" size="40" maxlength="7" /></td>
+			<td><input name="fmp_set_bgcolor" type="text" id="fmp_set_bgcolor" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_bgcolor']) ?>" size="40" maxlength="7" /></td>
 		</tr>
 		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_color">Front color (#000000):&nbsp;</label></td>
-			<td><input name="fmp_set_color" type="text" id="fmp_set_color" class="v11 width75" value="<?php echo html_specialchars($fmp_data['fmp_set_color']) ?>" size="40" maxlength="7" /></td>
+			<td><input name="fmp_set_color" type="text" id="fmp_set_color" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_color']) ?>" size="40" maxlength="7" /></td>
 		</tr>
 		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_hcolor">Highlight color (#000000):&nbsp;</label></td>
-			<td><input name="fmp_set_hcolor" type="text" id="fmp_set_hcolor" class="v11 width75" value="<?php echo html_specialchars($fmp_data['fmp_set_hcolor']) ?>" size="40" maxlength="7" /></td>
+			<td><input name="fmp_set_hcolor" type="text" id="fmp_set_hcolor" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_hcolor']) ?>" size="40" maxlength="7" /></td>
 		</tr>
 		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_logo">Watermark logo (path):&nbsp;</label></td>
-			<td><input name="fmp_set_logo" type="text" id="fmp_set_logo" class="v11 width250" value="<?php echo html_specialchars($fmp_data['fmp_set_logo']) ?>" size="40" /></td>
+			<td><input name="fmp_set_logo" type="text" id="fmp_set_logo" class="width250" value="<?php echo html_specialchars($fmp_data['fmp_set_logo']) ?>" size="40" /></td>
 		</tr>
 		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_flashversion">Flash version (7 >= only):&nbsp;</label></td>
-			<td><input name="fmp_set_flashversion" type="text" id="fmp_set_flashversion" class="v11 width75" value="<?php echo html_specialchars($fmp_data['fmp_set_flashversion']) ?>" size="40" maxlength="10" /></td>
+			<td><input name="fmp_set_flashversion" type="text" id="fmp_set_flashversion" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_flashversion']) ?>" size="40" maxlength="10" /></td>
 		</tr>
 
+		<tr>
+			<td class="chatlist" align="right"><label for="fmp_set_skin">Skin:&nbsp;</label></td>
+			<td><select name="fmp_set_skin">
+			<option value="default"<?php is_selected('default', empty($fmp_data['fmp_set_skin']) ? 'default' : $fmp_data['fmp_set_skin']) ?>>Default</option>
+			<option value="nacht"<?php is_selected('nacht', $fmp_data['fmp_set_skin']) ?>>Nacht</option>
+			<!-- <option value="stylish"<?php is_selected('stylish', $fmp_data['fmp_set_skin']) ?>>Stylish</option> -->
+			</select></td>
+		</tr>
 		
 	</table></td>
 </tr>
 
-
+<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
-	<td colspan="2" class="rowspacer7x0"><script type="text/javascript">
+	<td colspan="2" style="padding:0 10px 0 10px;background-color:#C2EB9A;">
+	<p><strong>Licensing JW Media Player</strong></p>
+	<p>
+	<a href="http://www.jeroenwijering.com/?item=JW_Media_Player" target="_blank"><strong>The player itself</strong></a> 
+	(used as as plugin inside of <strong>phpwcms</strong>) is licensed under a 
+	<a href="http://creativecommons.org/licenses/by-nc-sa/2.0/" target="_blank"><strong>Creative Commons License</strong></a>.
+	<strong style="color:#cc3300">It allows you to use and modify the script for noncommercial purposes.</strong>
+	For commercial use, the author Jeroen Wijering distribute licenses of the script for <strong>15 EUR</strong>. 
+	For more info and instant ordering, please 
+	<a href="http://www.jeroenwijering.com/?order=form" target="_blank"><strong>advance to his online order page</strong></a>!
+	<strong>Please - respect copyrights!</strong>
+	</p>
+	</td>
+</tr>
+
+<tr>
+	<td colspan="2" class="rowspacer0x0"><script type="text/javascript">
 		<!--
 		function setIdName(file_id, file_name) {
 			if(file_id == null) file_id=0;

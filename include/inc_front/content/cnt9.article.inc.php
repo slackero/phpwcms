@@ -86,7 +86,7 @@ if($media["source"]) {
 
 				$media["code"] .= '<noscript><object '.$media["width"].$media["height"].'border="0" id="'.$randomID.'" ';
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
-					$media["code"] .= 'classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab"';
+					$media["code"] .= 'classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"';
 				} else {
 					$media["code"] .= 'data="'.$media["source"].'" type="video/quicktime"';
 				}
@@ -162,15 +162,12 @@ if($media["source"]) {
 				$media["code"]  = LF.'<object id="'.$randomID.'" name="'.$randomID.'" '.$media["width"].$media["height"];
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
 					$media["code"] .= 'classid="clsid:22D6f312-B0F6-11D0-94AB-0080C74C7E95" ';
-					//$media["code"] .= 'classid="clsid:6BF52A52-394A-11d3-B153-00C04F79FAA6" ';
-					$media["code"] .= 'codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,7,1112" ';
 					$media["code"] .= 'type="application/x-oleobject"';
 				} else {
 					$media["code"] .= 'data="'.$media["source"].'" type="'.((!$media["media_src"] && $media["media_type"]) ? $media["media_type"] : 'video/x-ms-wmv').'"';
 				}
 				$media["code"] .= '>'.LF;
 				$media["code"] .= '	<param name="filename" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
-				//$media["code"] .= '	<param name="src" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
 				$media["code"] .= '	<param name="autostart" value="'.($media["media_auto"]=='true'?1:0).'"'.HTML_TAG_CLOSE.LF;
 				$media["code"] .= '	<param name="autosize" value="0"'.HTML_TAG_CLOSE.LF;
 				$media["code"] .= '	<param name="showstatusbar" value="0"'.HTML_TAG_CLOSE.LF;
@@ -199,8 +196,6 @@ if($media["source"]) {
 				
 				
 		case 3:	//Flash Player/Plugin
-				$block['custom_htmlhead']['AC_RunActiveContent.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_RunActiveContent.js" type="text/javascript"></script>';
-		
 				if(!$media["media_src"] && (!$media["media_width"] || !$media["media_height"])) {
 					$media['local'] = @getimagesize(PHPWCMS_ROOT.'/'.$media["source"]);
 					if(is_array($media['local'])) {
@@ -209,37 +204,35 @@ if($media["source"]) {
 					}
 				}
 				
-				$media["width"]  = $media["media_width"]  ? 'width="'.$media["media_width"].'" ' : '';
-				$media["height"] = $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
+				$media["width"]  = $media["media_width"]  ? ' width="'.$media["media_width"].'"' : '';
+				$media["height"] = $media["media_height"] ? ' height="'.$media["media_height"].'"' : '';
 				
-				$media["code"]  = LF.'<noscript><object id="'.$randomID.'" name="'.$randomID.'" '.$media["width"].$media["height"];
-				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
-					$media["code"] .= 'classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" ';
-					$media["code"] .= 'codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" ';
-				} else {
-					$media["code"] .= 'data="'.$media["source"].'" ';
-				}
-				$media["code"] .= 'type="application/x-shockwave-flash">'.LF;
+				$media["param"]  = '	<param name="movie" value="'.$media["source"].'" />'.LF;
+				$media["param"] .= '	<param name="quality" value="autohigh" />'.LF;
+				$media["param"] .= '	<param name="scale" value="noborder" />'.LF;
+				$media["param"] .= '	<param name="loop" value="false" />'.LF;
+				$media["param"] .= '	<param name="play" value="'.$media["media_auto"].'" />'.LF;
 				
-				$media["code"] .= '	<param name="movie" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
-				$media["code"] .= '	<param name="quality" value="high"'.HTML_TAG_CLOSE.LF;
-				$media["code"] .= '	<param name="scale" value="noborder"'.HTML_TAG_CLOSE.LF;
-				$media["code"] .= '	<param name="loop" value="false"'.HTML_TAG_CLOSE.LF;
-				$media["code"] .= '	<param name="play" value="'.$media["media_auto"].'"'.HTML_TAG_CLOSE.LF;
-				
-				$wmode = ''; $wmode_js = '';
 				if($media["media_transparent"]) {
-					$media["code"] .= '	<param name="wmode" value="transparent"'.HTML_TAG_CLOSE.LF;
-					$wmode			= ' wmode="transparent"';
-					$wmode_js		= "'wmode','transparent',";
+					$media["param"] .= '	<param name="wmode" value="transparent" />'.LF;
+				} else {
+					$media["param"] .= '	<param name="wmode" value="opaque" />'.LF;
 				}
 				
-				$media["code"] .= '</object></noscript>'.LF;
 				
-				$media["source"] = cut_ext($media["source"]);
-				$media["code"] .= '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
-				$media["code"] .= "  AC_FL_RunContent('codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0','id','".$randomID."','width','".$media["media_width"]."','height','".$media["media_height"]."','src','".$media["source"]."','quality','high','scale','noborder',".$wmode_js."'pluginspage','http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash','movie','".$media["source"]."' );";
-				$media["code"] .= LF.SCRIPT_CDATA_END.LF.'</script>';
+				$media["code"]  = LF . '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="'.$randomID.'"'.$media["width"].$media["height"].'>' . LF;
+				$media["code"] .= $media["param"];
+				$media["code"] .= '	<!--[if !IE]>--><object type="application/x-shockwave-flash" data="'.$media["source"].'"'.$media["width"].$media["height"].'><!--<![endif]-->' . LF;
+				$media["code"] .= $media["param"];
+				$media["code"] .= '	<!--[if !IE]>--></object><!--<![endif]-->' . LF;
+				$media["code"] .= '</object>' . LF;
+				
+				initSwfObject();
+				
+				$block['custom_htmlhead'][$randomID]  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+				$block['custom_htmlhead'][$randomID] .= '	swfobject.registerObject("'.$randomID.'", "9.0.0", "'.PHPWCMS_URL.TEMPLATE_PATH.'inc_js/swfobject/2.1/expressInstall.swf");';
+				$block['custom_htmlhead'][$randomID] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
+
 				break;
 	}
 }

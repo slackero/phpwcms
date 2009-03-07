@@ -44,22 +44,27 @@ if(isset($fmp_data['fmp_template'])) {
 	
 	} else {
 	
-		$fmp_data['fmp_template']	= '[TITLE]<h1>{TITLE}</h1>[/TITLE][SUBTITLE]<h2>{SUBTITLE}</h2>[/SUBTITLE]{PLAYER}';
+		$fmp_data['fmp_template']	= '[TITLE]<h3>{TITLE}</h3>[/TITLE][SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]{PLAYER}';
 	
 	}
 	
-	// load SWFObject
-	$block['custom_htmlhead']['mootools.js']	= '  <script src="'.TEMPLATE_PATH.'inc_js/mootools/mootools.js" type="text/javascript"></script>';
-	$block['custom_htmlhead']['swfobject.js']	= '  <script src="'.TEMPLATE_PATH.'inc_js/swfobject/swfobject.js" type="text/javascript"></script>';
-	
+	// Load SwfObject 2.1
+	initSwfObject();
+
+	// Set some defaults used to build SwfObject Call
+	$fmp_data['flashvars'] 		= array();
+	$fmp_data['attributes'] 	= array();
+	$fmp_data['params'] 		= array();
+	$fmp_data['flashvars_type']	= '';
+
 
 	// set player dimensions first
 	if(empty($fmp_data['fmp_width'])) {
 		$fmp_data['fmp_width']	= 320;
 	}
-	// check if controls shuld be shown and add controls' height to player height
+	// check if controls should be shown and add controls' height to player height
 	$fmp_data['fmp_displayheight'] = $fmp_data['fmp_height'];
-	if($fmp_data['fmp_set_showcontrols'] || empty($fmp_data['fmp_height'])) { // && !$fmp_data['fmp_set_autohidecontrol']
+	if($fmp_data['fmp_set_showcontrols'] || empty($fmp_data['fmp_height'])) {
 		$fmp_data['fmp_height'] += ($fmp_data['fmp_set_largecontrols'] ? 40 : 20);
 	}
 
@@ -67,8 +72,6 @@ if(isset($fmp_data['fmp_template'])) {
 		$fmp_data['fmp_set_flashversion'] = 7;
 	}
 
-	$fmp_data['flashvars'] 		= array();
-	$fmp_data['flashvars_type']	= '';
 	
 	// file
 	if($fmp_data['fmp_int_ext']) {
@@ -162,83 +165,100 @@ if(isset($fmp_data['fmp_template'])) {
 	
 	}
 	
-	// defalt background-color
+
+	// Define Flash Vars
+	$fmp_data['flashvars'][]	= 'file: "'.rawurlencode($fmp_data['file']).'"';
+	$fmp_data['flashvars'][]	= 'width: ' . $fmp_data['fmp_width'];
+	$fmp_data['flashvars'][]	= 'showeq: ' . ($fmp_data['fmp_set_showeq'] ? 'true' : 'false');
+	$fmp_data['flashvars'][]	= 'showdigits: ' . ($fmp_data['fmp_set_showdigits'] ? 'true' : 'false');
+	$fmp_data['flashvars'][]	= 'showvolume: ' . ($fmp_data['fmp_set_showvolume'] ? 'true' : 'false');
+	$fmp_data['flashvars'][]	= 'largecontrols: ' . ($fmp_data['fmp_set_largecontrols'] ? 'true' : 'false');
+	$fmp_data['flashvars'][]	= 'autostart: ' . ($fmp_data['fmp_set_autostart'] ? 'true' : 'false');
+	$fmp_data['flashvars'][]	= 'usecaptions: false';
+	
+	if(isset($fmp_data['fmp_set_overstretch']) && $fmp_data['fmp_set_overstretch'] != 'default') {
+		$fmp_data['flashvars'][] = 'overstretch: "' . $fmp_data['fmp_set_overstretch'] . '"';
+	}
+	
+	if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
+		$fmp_data['flashvars'][] = 'image: "' . rawurlencode($fmp_data['preview']) . '"';
+	}
+	
+	if($fmp_data['flashvars_type']) {
+		$fmp_data['flashvars'][] = 'type: "' . $fmp_data['flashvars_type'] . '"';
+	}
+	
+	if($fmp_data['fmp_set_logo']) {
+		$fmp_data['flashvars'][] = 'logo: "' . rawurlencode($fmp_data['fmp_set_logo']) . '"';
+	}
+	
+	if($fmp_data['fmp_link']) {
+		
+		$fmp_data['fmp_link'] = explode(' ', $fmp_data['fmp_link']);
+		
+		$fmp_data['flashvars'][] = 'link: "' . rawurlencode(trim($fmp_data['fmp_link'][0])) . '"';
+		$fmp_data['flashvars'][] = 'linkfromdisplay: true';
+		
+		if(!empty($fmp_data['fmp_link'][1])) {
+			$fmp_data['flashvars'][] = 'linktarget: "' . trim($fmp_data['fmp_link'][1]) . '"';
+		}
+	}
+	
+	if($fmp_data['fmp_set_showdownload']) {
+		$fmp_data['flashvars'][] = 'showdownload: true';
+	}
+	
 	if(empty($fmp_data['fmp_set_bgcolor'])) {
 		$fmp_data['fmp_set_bgcolor'] = 'FFFFFF';
 	}
 	
-	$fmp_data['var'] = 'fmp'.$crow["acontent_id"];
-	$fmp_data['id']  = 'UFOfmp'.$crow["acontent_id"];
-	
-	$fmp_data['script']  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF; // language="javascript" defer="defer"
-	$fmp_data['script'] .= '  window.addEvent("domready", function(){'.LF;
-	
-	$fmp_data['flashvars'][0]  = "var ".$fmp_data['var']." = new SWFObject('".PHPWCMS_URL.TEMPLATE_PATH ;
-	$fmp_data['flashvars'][0] .= "jw_media_player/mediaplayer.swf', '".$fmp_data['id']."', '".$fmp_data['fmp_width'];
-	$fmp_data['flashvars'][0] .= "', '".$fmp_data['fmp_height']."', '".$fmp_data['fmp_set_flashversion']."', ";
-	$fmp_data['flashvars'][0] .= "'#".$fmp_data['fmp_set_bgcolor']."', 'autohigh');";
-		
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addParam("allowfullscreen", "true");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addParam("play", "true");';
-	
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("file", "' . rawurlencode($fmp_data['file']) . '");'; //str_replace(array('?', '=', '&'), array('%3F', '%3D', '%26'), $fmp_data['file'])
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("width", "' . $fmp_data['fmp_width'] . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("displayheight", "' . $fmp_data['fmp_displayheight'] . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("showeq","' . ($fmp_data['fmp_set_showeq'] ? 'true' : 'false') . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("showdigits", "' . ($fmp_data['fmp_set_showdigits'] ? 'true' : 'false') . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("showvolume", "' . ($fmp_data['fmp_set_showvolume'] ? 'true' : 'false') . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("largecontrols", "' . ($fmp_data['fmp_set_largecontrols'] ? 'true' : 'false') . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("autostart", "' . ($fmp_data['fmp_set_autostart'] ? 'true' : 'false') . '");';
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("usecaptions", "false");';
-	
-	if(isset($fmp_data['fmp_set_overstretch']) && $fmp_data['fmp_set_overstretch'] != 'default') {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("overstretch", "' . $fmp_data['fmp_set_overstretch'] . '");';
-	}
-	
-	if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("image", "' . rawurlencode($fmp_data['preview']) . '");';
-	}
-	
-	if($fmp_data['flashvars_type']) {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("type", "' . $fmp_data['flashvars_type'] . '");';
-	}
-	
-	if($fmp_data['fmp_set_logo']) {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("logo", "' . rawurlencode($fmp_data['fmp_set_logo']) . '");';
-	}
-	if($fmp_data['fmp_link']) {
-		$fmp_data['fmp_link'] = explode(' ', $fmp_data['fmp_link']);
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("link", "' . rawurlencode(trim($fmp_data['fmp_link'][0])) . '");';
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("linkfromdisplay", "true");';
-		if(!empty($fmp_data['fmp_link'][1])) {
-			$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("linktarget", "' . trim($fmp_data['fmp_link'][1]) . '");';
-		}
-	}
-	if($fmp_data['fmp_set_showdownload']) {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("showdownload", "true");';
-	}
-	
-	// colors
-	$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("backcolor", "0x' . $fmp_data['fmp_set_bgcolor'] . '");';
+	$fmp_data['flashvars'][] = 'backcolor: "0x' . $fmp_data['fmp_set_bgcolor'] . '"';
+
 	if($fmp_data['fmp_set_hcolor']) {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("lightcolor", "0x' . $fmp_data['fmp_set_hcolor'] . '");';
+		$fmp_data['flashvars'][] = 'lightcolor: "0x' . $fmp_data['fmp_set_hcolor'] . '"';
 	}
 	if($fmp_data['fmp_set_color']) {
-		$fmp_data['flashvars'][] = $fmp_data['var'] . '.addVariable("frontcolor", "0x' . $fmp_data['fmp_set_color'] . '");';
+		$fmp_data['flashvars'][] = 'frontcolor: "0x' . $fmp_data['fmp_set_color'] . '"';
+	}
+		
+	if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'jw_media_player/skins/'.$fmp_data['fmp_set_skin'].'.swf')) {
+		$fmp_data['flashvars'][] = 'skin: "' . rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'jw_media_player/skins/'.$fmp_data['fmp_set_skin']).'.swf"';
+		if($fmp_data['fmp_set_skin'] == 'stylish') {
+			$fmp_data['fmp_displayheight'] += 12;	
+		}
 	}
 	
-	$fmp_data['flashvars'][] = $fmp_data['var'] . ".write('" . $fmp_data['id'] . "');";
+	$fmp_data['flashvars'][]	= 'displayheight: ' . $fmp_data['fmp_displayheight'];
 	
-	$fmp_data['script']	.= LF.'		'.implode(LF.'		', $fmp_data['flashvars']);
+	$fmp_data['params'][]		= 'allowfullscreen: true';
+	$fmp_data['params'][]		= 'play: true';
+	$fmp_data['params'][]		= 'wmode: "opaque"';
 	
-	$fmp_data['script']	.= LF.'  });';
-	$fmp_data['script']	.= LF.SCRIPT_CDATA_END.LF.'  </script>';
+	
+	$fmp_data['attributes'][]	= '';
+	
+
+	// build SwfObject Sccript Block
+
+	// set ID
+	$fmp_data['id'] = 'fmp'.$crow["acontent_id"];
+	
+
+	$block['custom_htmlhead'][ $fmp_data['id'] ]  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+	
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var flashvars_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['flashvars']) . '};' . LF;
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var params_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['params']) . '};' . LF;
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var attributes_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['attributes']) . '};' . LF;
+	
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	swfobject.embedSWF("'.PHPWCMS_URL.TEMPLATE_PATH.'jw_media_player/mediaplayer.swf", "'.$fmp_data['id'].'", "'.$fmp_data['fmp_width'].'", "'.$fmp_data['fmp_height'].'", "'.$fmp_data['fmp_set_flashversion'].'", false, flashvars_'.$fmp_data['id'].', params_'.$fmp_data['id'].', attributes_'.$fmp_data['id'].');';
+	
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
 
 
 	// add rendering result to current listing
 	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'TITLE',    html_specialchars($crow['acontent_title']));
 	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
-	$CNT_TMP				  .= str_replace('{PLAYER}', '<div id="'.$fmp_data['id'].'">No JavaScript - no Flash Media!</div>'.LF.$fmp_data['script'], $fmp_data['fmp_template']);
+	$CNT_TMP				  .= str_replace('{PLAYER}', '<div id="'.$fmp_data['id'].'"></div>', $fmp_data['fmp_template']);
 
 }
 

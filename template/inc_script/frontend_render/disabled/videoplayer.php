@@ -27,40 +27,39 @@ $content['all'] = preg_replace_callback('/\[(youtube|sevenload)\]([a-zA-Z0-9\-]{
 function show_videoplayer($matches) {
 
 	if(empty($matches[2])) return ' ';
-
+	
 	$player		= '';
 	$swf		= '';
 	$player_id	= 'vp'.substr(md5($matches[1].$matches[2].microtime()), 15);
 	
-	$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/swfobject/swfobject.js" type="text/javascript"></script>';
+	// Load SwfObject JavaScript
+	initSwfObject();
 
 	if($matches[1] == 'youtube') {
 	
 		$player  = ' <span id="'.$player_id.'" class="youtube_player"><a href="http://www.youtube.com/watch?v='.$matches[2].'" target="_blank">';
 		$player .= 'http://www.youtube.com/watch?v='.$matches[2].'</a></span>' . LF;
 		
-		$swf  = "	var yt".$player_id." = new SWFObject('http://www.youtube.com/v/".$matches[2];
-		$swf .=	"', '".$player_id."', '425', '350', '7', '#000000', 'autohigh');";
-		$swf .= LF.'	yt'.$player_id.'.addParam("wmode", "transparent");';
-		$swf .= LF.'	yt'.$player_id.'.write("' . $player_id . '");';
-		
+		$GLOBALS['block']['custom_htmlhead'][]	= '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF.'
+	var flashvars_'.$player_id.'	= {};
+	var params_'.$player_id.'		= {wmode: "opaque"};
+	var attributes_'.$player_id.'	= {};
+	swfobject.embedSWF("http://www.youtube.com/v/'.$matches[2].'", "'.$player_id.'", "425", "350", "8.0.0", false, flashvars_'.$player_id.', params_'.$player_id.', attributes_'.$player_id.');'.
+		LF.SCRIPT_CDATA_END.LF.'  </script>';
 
 	} elseif($matches[1] == 'sevenload') {
 		
 		$player  = ' <span id="'.$player_id.'" class="sevenload_player"><a href="http://www.sevenload.com/videos/'.$matches[2].'" target="_blank">';
 		$player .= 'http://www.sevenload.com/videos/'.$matches[2].'</a></span> ';
-
-		$swf  = "	var sl".$player_id." = new SWFObject('http://en.sevenload.com/pl/".$matches[2]."/425x350/swf";
-		$swf .=	"', '".$player_id."', '425', '350', '7', '#000000', 'autohigh');";
-		$swf .= LF.'	sl'.$player_id.'.addParam("wmode", "transparent");';
-		$swf .= LF.'	sl'.$player_id.'.addVariable("slxml", "en.sevenload.com");';
-		$swf .= LF.'	sl'.$player_id.'.write("' . $player_id . '");';
+		
+		$GLOBALS['block']['custom_htmlhead'][]	= '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF.'
+	var flashvars_'.$player_id.'	= {slxml: "en.sevenload.com"};
+	var params_'.$player_id.'		= {wmode: "opaque"};
+	var attributes_'.$player_id.'	= {};
+	swfobject.embedSWF("http://en.sevenload.com/pl/'.$matches[2].'/425x350/swf", "'.$player_id.'", "425", "350", "8.0.0", false, flashvars_'.$player_id.', params_'.$player_id.', attributes_'.$player_id.');'.
+		LF.SCRIPT_CDATA_END.LF.'  </script>';
 
 	}
-	
-	$player .= '  <script type="text/javascript" language="javascript" defer="defer">'.LF.SCRIPT_CDATA_START.LF;
-	$player .= $swf;
-	$player .= LF.SCRIPT_CDATA_END.LF.'  </script>'.LF;
 
 	return $player;
 }

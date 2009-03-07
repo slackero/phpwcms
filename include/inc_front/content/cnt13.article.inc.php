@@ -125,9 +125,10 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 		if(!FEUSER_LOGIN_STATUS) {
 			$sql .= "ac.acat_regonly=0 AND ";
 		}
-		$sql .= "ar.article_public=1 AND ar.article_aktiv=1 AND ar.article_deleted=0 ";
-		$sql .= "AND ar.article_nosearch!=1 AND ar.article_begin < NOW() AND ar.article_end > NOW() ";
-		$sql .= "GROUP BY ar.article_id";
+		$sql .= "ar.article_public=1 AND ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_nosearch!=1 AND ";
+		// enhanced IF statement by kh 2008/12/03
+		$sql .= "IF((ar.article_begin < NOW() AND ar.article_end > NOW()) OR (ar.article_archive_status=1 AND ac.acat_archive=1), 1, 0) ";
+		$sql .= "GROUP BY ar.article_id";		
 		
 		if($sresult = mysql_query($sql, $db)) {
 			$s_search_words = implode('|', $content["search_word"]);

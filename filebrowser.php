@@ -20,7 +20,12 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-// session_name('hashID');
+/**
+ * Sept. 2009
+ * enhancement to enable phpwcms filebrowser support in FCK Editor
+ * based on concept and work of Markus Köhl <www.pagewerkstatt.ch>
+ */
+
 session_start();
 
 $phpwcms			= array();
@@ -84,12 +89,14 @@ switch($js_aktion) {
 	case 3: 
 	case 7:
 	case 8:
-	case 5:		$titel		= $BL['IMAGE_TITLE'];	
+	case 5:
+	case 11:	$titel		= $BL['IMAGE_TITLE'];	
 				$filetype	= $BL['IMAGE_FILES'];
 				break;
-	
+
+	case 4:
 	case 9:
-	case 4: 	$titel		= $BL['FILE_TITLE'];		
+	case 10:	$titel		= $BL['FILE_TITLE'];		
 				$filetype	= $BL['FILES'];
 				break;
 	
@@ -146,7 +153,7 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 	<script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
 	<script src="include/inc_js/filebrowser.js" type="text/javascript"></script>
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">	body { margin: 5px; }	</style>
+	<style type="text/css">body{margin:5px;}</style>
 
 </head>
 
@@ -251,7 +258,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	$file_sql .= "f_public=1 AND f_aktiv=1 ";
 	$file_sql .= "AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 	
-	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br>".html_entities($file_sql))) {
+	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br />".html_entities($file_sql))) {
 		$file_durchlauf = 0;
 		
 		if(empty($_SESSION['image_browser_article'])) {
@@ -264,7 +271,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 			$filename = html_specialchars($file_row["f_name"]);
 			
 			$thumb_image = true;
-			if( $js_aktion != 2 && $js_aktion != 4 && $js_aktion != 9 ) {
+			if( $js_aktion != 2 && $js_aktion != 4 && $js_aktion != 9 && $js_aktion != 10 ) {
 				// check if file can have thumbnail - if so it can be choosen for usage
 				$thumb_image = get_cached_image(
 			 					array(	"target_ext"	=>	$file_row["f_ext"],
@@ -313,6 +320,13 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 							 $js_files_all[] = $js;
 							 $add_all = true;
 							 break;
+							 
+					//mod
+					case 10: $js  = "window.opener.SetUrl('download.php?f=".$file_row["f_hash"] . "&target=0');";
+							 break;
+		
+					case 11: $js  = "window.opener.SetUrl('image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=filearchive/".$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
+							 break;
 						 
 					default: $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
 							 $js_files_all[] = $js;
@@ -339,7 +353,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 				echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" border="0" alt="" /></td></tr>'.LF;
 				echo "<tr>\n<td><img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" alt=\"\" hspace=\"3\" vspace=\"1\" /></td>\n";
         	
-        		if($js_aktion != 4) {
+        		if($js_aktion != 4 && $js_aktion != 10) {
         			echo "<td class=\"msglist\">".$filename."</td>\n<td><img src=\"img/leer.gif\" width=\"5\" height=\"1\" alt=\"\" border=\"0\" />";
 				} else {
 					echo "<td class=\"msglist\"><a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename."</a></td>\n<td>";
@@ -349,7 +363,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 				echo "<img src=\"img/button/add_9x9a.gif\" border=\"0\" alt=\"\" hspace=\"5\" vspace=\"2\" /></a></td>\n";
 				echo "<td><img src=\"img/leer.gif\" alt=\"\" border=\"0\" /></td>\n</tr>\n";
 				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-				if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8) ) ) {
+				if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11) ) ) {
 					echo "<tr><td>&nbsp;</td>\n<td colspan=\"3\"><a href=\"#\" onclick=\"".$js;
 					echo "tmt_winControl('self','close()');\">";
 					echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';

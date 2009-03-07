@@ -1,6 +1,9 @@
 phpwcms Changelog
 =================
 
+This changelog is outdated - visit Google Code for more
+http://code.google.com/p/phpwcms/source/list
+
 This is a non-exhaustive (but still near complete) changelog for phpwcms starting with 1.2.7. 
 My thanks to all those people who've contributed bug reports and code fixes.
 

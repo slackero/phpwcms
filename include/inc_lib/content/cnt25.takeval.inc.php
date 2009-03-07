@@ -58,7 +58,8 @@ $fmp_data = array(
 		'fmp_set_autohidecontrol'	=> 0,
 		'fmp_set_flashversion'		=> '7',
 		'fmp_set_showdownload'		=> 0,
-		'fmp_set_overstretch'		=> 'default'
+		'fmp_set_overstretch'		=> 'default',
+		'fmp_set_skin'				=> 'default'
 
 				 );
 				 

@@ -68,3 +68,19 @@ FCKConfig.ToolbarSets["phpwcms_basic"] = [
 	['FitWindow','Source']
 ] ;
 
+<?php
+
+	// enhancement for phpwcms filebrowser support
+	// based on concept and work of Markus Köhl <www.pagewerkstatt.ch> (Sept. 2009)
+
+	if(!empty($phpwcms['FCK_FileBrowser'])) {
+
+?>
+FCKConfig.LinkBrowserURL = '<?php echo PHPWCMS_URL ?>filebrowser.php?opt=10';
+FCKConfig.LinkBrowserWindowWidth	= 380;
+FCKConfig.ImageBrowserURL = '<?php echo PHPWCMS_URL ?>filebrowser.php?opt=11';
+FCKConfig.ImageBrowserWindowWidth  = 380;
+FCKConfig.FlashBrowserURL = '<?php echo PHPWCMS_URL ?>filebrowser.php?opt=10';
+FCKConfig.FlashBrowserWindowWidth  = 380;
+
+<?php	}	?>

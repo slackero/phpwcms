@@ -3414,8 +3414,25 @@ function setGetArticleAid(&$data) {
 	return '';
 }
 
-function initMootools() {
-	$GLOBALS['block']['custom_htmlhead']['mootools.js']	= getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/mootools/mootools.js');
+/**
+ * Init Mootools Library
+ */
+function initMootools($v='1.11') {
+	$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/mootools/mootools.js', '  ');
+}
+
+/**
+ * Init SwfObject JavaScript Library
+ */
+function initSwfObject($v='2.1') {
+	switch($v) {
+		case '1.5':
+			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/swfobject.js', '  ');
+			break;
+		case '2.1':
+		default:
+			$GLOBALS['block']['custom_htmlhead']['swfobject2.1.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/2.1/swfobject.js', '  ');
+	}
 }
 
 /**
@@ -3508,6 +3525,5 @@ function getArticleMenu($data=array()) {
 function getArticleMenuTitle(& $data) {
 	return empty($data['article_menutitle']) ? $data['article_title'] : $data['article_menutitle'];
 }
-
 
 ?>
