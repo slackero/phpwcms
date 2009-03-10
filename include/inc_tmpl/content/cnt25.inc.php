@@ -261,6 +261,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td colspan="2" style="padding:0 10px 0 10px;background-color:#C2EB9A;">
+<?php if(empty($phpwcms['JW_FLV_License'])) {	?>
 	<p><strong>Licensing JW Media Player</strong></p>
 	<p>
 	<a href="http://www.jeroenwijering.com/?item=JW_Media_Player" target="_blank"><strong>The player itself</strong></a> 
@@ -272,11 +273,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<a href="http://www.jeroenwijering.com/?order=form" target="_blank"><strong>advance to his online order page</strong></a>!
 	<strong>Please - respect copyrights!</strong>
 	</p>
+<?php } else { ?>
+	<p>
+		JW FLV Media Player License: <strong><?php echo html_specialchars($phpwcms['JW_FLV_License']) ?></strong> 
+		[<a href="http://www.longtailvideo.com/players/jw-flv-player/" target="_blank">more</a>]
+	</p>
+<?php } ?>
 	</td>
 </tr>
 
 <tr>
 	<td colspan="2" class="rowspacer0x0"><script type="text/javascript">
+
 		<!--
 		function setIdName(file_id, file_name) {
 			if(file_id == null) file_id=0;

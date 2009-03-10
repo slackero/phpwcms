@@ -165,7 +165,6 @@ if(isset($fmp_data['fmp_template'])) {
 	
 	}
 	
-
 	// Define Flash Vars
 	$fmp_data['flashvars'][]	= 'file: "'.rawurlencode($fmp_data['file']).'"';
 	$fmp_data['flashvars'][]	= 'width: ' . $fmp_data['fmp_width'];
@@ -245,6 +244,14 @@ if(isset($fmp_data['fmp_template'])) {
 	
 
 	$block['custom_htmlhead'][ $fmp_data['id'] ]  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+	
+	// Licensed Player
+	if(!empty($phpwcms['JW_FLV_License'])) {
+		$fmp_data['host'] = parse_url(PHPWCMS_URL);
+		$fmp_data['flashvars'][] = 'abouttext: "'.$fmp_data['host']['host'].' FLV Player"';
+		$fmp_data['flashvars'][] = 'aboutlink: "'.PHPWCMS_URL.'"';
+		$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	// JW FLV Media Player licensed for: '.$fmp_data['host']['host'].' ('.$phpwcms['JW_FLV_License'].')' . LF;
+	}
 	
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var flashvars_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['flashvars']) . '};' . LF;
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var params_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['params']) . '};' . LF;

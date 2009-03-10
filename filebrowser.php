@@ -326,6 +326,8 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 							 break;
 		
 					case 11: $js  = "window.opener.SetUrl('image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=filearchive/".$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
+							 
+							 //$js = "window.opener.SetUrl('img/cmsimage.php?xxx".$phpwcms['jpg_quality']."/".$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
 							 break;
 						 
 					default: $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
