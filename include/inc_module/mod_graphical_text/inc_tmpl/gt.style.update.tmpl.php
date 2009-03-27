@@ -284,10 +284,10 @@ if (!defined('PHPWCMS_ROOT')) {
 			<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_gt_style_rotation']; ?>:&nbsp;</td>
 			<td class="chatlist"><select name="rotation" class="f11b">
 					
-					<option value="default"<?php is_selected('default', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_default']; ?></option>
-					<option value="cw"<?php is_selected('cw', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_cw']; ?></option>
-					<option value="hcw"<?php is_selected('hcw', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_hcw']; ?></option>
-					<option value="ccw"<?php is_selected('ccw', $style_rotation) ?>><?php echo $BL['be_gt_style_rotation_ccw']; ?></option>
+					<option value="default"<?php is_selected('default', $style_rotation) ?>><?php echo html_entities($BL['be_gt_style_rotation_default']); ?></option>
+					<option value="cw"<?php is_selected('cw', $style_rotation) ?>><?php echo html_entities($BL['be_gt_style_rotation_cw']); ?></option>
+					<option value="hcw"<?php is_selected('hcw', $style_rotation) ?>><?php echo html_entities($BL['be_gt_style_rotation_hcw']); ?></option>
+					<option value="ccw"<?php is_selected('ccw', $style_rotation) ?>><?php echo html_entities($BL['be_gt_style_rotation_ccw']); ?></option>
 					
 				</select></td>
 		</tr>

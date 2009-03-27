@@ -1270,4 +1270,7 @@ $BL['article_menu_title']				= 'menu title';
 $BL['content_type']						= 'content-type';
 $BL['automatic']						= 'automatic';
 
+$BL['random_image']						= 'random image';
+$BL['random_image_from_list']			= 'Select 1 random image from image list';
+
 ?>

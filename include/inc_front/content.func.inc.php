@@ -246,7 +246,7 @@ if(!isset($block)) {
 	}
 }
 // set array for possible custom html head additions
-$block['custom_htmlhead'] = array();
+$block['custom_htmlhead'] = array('frontend.js' => '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>');
 // compatibility for older releases where only 
 // 1 css file could be stored per template
 if(is_string($block['css'])) {

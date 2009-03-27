@@ -54,6 +54,11 @@ if (!defined('PHPWCMS_ROOT')) {
 		
 		while (false !== ($file = readdir($handle)))	// von php.net abgeguckt
 		{
+			$font_ext = which_ext($file);
+			
+			if(strpos($file, '.') === 0 || ($font_ext != 'ttf' && $font_ext != 'otf')) {
+				continue;	
+			}
 
 			if (fmod($i, 2) == 0)
 			{
@@ -85,9 +90,9 @@ if (!defined('PHPWCMS_ROOT')) {
 					}
 				}
 			}
-		
-			if (strpos(strtolower($file), ".ttf"))
-			{
+
+			//if(0)
+			//{
 				$font_filename = $file;
 			
 				echo "<tr style=\"background: #$bgcolor;\">\n";
@@ -109,7 +114,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				}
 				echo "</tr>\n";
 				echo "<tr bgcolor=\"#AAAAAA\"><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" /></td></tr>\n";
-			}
+			//}
 			++$i;
 			$found = false;
 			$font_id = "";

@@ -60,7 +60,8 @@ if(!isset($content['image_list'])) {
 			'caption'	=> '',
 			'lightbox'	=> 0,
 			'nocaption'	=> 0,
-			'crop'		=> 0
+			'crop'		=> 0,
+			'random'	=> 0
 	
 		);
 
@@ -237,6 +238,17 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 			</tr>
 		</table>
 	</td>
+</tr>
+
+<tr>
+   <td align="right" class="chatlist"><?php echo $BL['random_image'] ?>:&nbsp;</td>
+   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td><input name="cimage_random" type="checkbox" id="cimage_random" value="1" <?php is_checked(1, $content['image_list']['random']); ?> /></td>
+            <td class="v10"><label for="cimage_random" class="checkbox"><?php echo $BL['random_image_from_list'] ?></label></td>
+         </tr>
+      </table>
+   </td>
 </tr>
 			  
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>

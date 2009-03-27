@@ -317,7 +317,6 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 	
 	$caption_on = empty($imagelist['nocaption']) ? true : false;
 	$crop		= empty($imagelist['crop']) ? 0 : 1;
-	
 
 	$table_class 	= $GLOBALS["template_default"]["article"][$template_type."_table_class"];
 	if($align) {
@@ -359,8 +358,14 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$rand = array(0,0,0,0);
 	}
 	$col_rand = ($rand[2] && $rand[3]) ? 2 : (($rand[2] || $rand[3]) ? 1 : 0 );
-
+	
 	if($count_images = count($imagelist['images'])) {
+		
+		// select random image from image
+		if(!empty($imagelist['random'])){
+			$random = array_rand($imagelist['images'], 1);
+			$imagelist['images'] = array( $imagelist['images'][ $random ] );
+		}
 
 		//Tabelle starten
 		$table = LF.'<table border="0" cellspacing="0" width="10%" cellpadding="0"'.$align.$table_bgcolor.$table_class.' summary="">'.LF;
@@ -368,6 +373,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$y=0;
 		$z=0;
 		foreach($imagelist['images'] as $key => $value) {
+			
 			$y++;
 			if($z && $x==1) {
 				if($col_space) {

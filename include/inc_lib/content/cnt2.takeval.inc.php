@@ -33,20 +33,16 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type Images
 $content["image_list"]		= unserialize($row["acontent_form"]);
 if(!isset($content["image_list"]['lightbox'])) {
-
 	$content["image_list"]['lightbox'] = 0;
-
 }
 if(!isset($content["image_list"]['nocaption'])) {
-
 	$content["image_list"]['nocaption'] = 0;
-
 }
 if(!isset($content["image_list"]['crop'])) {
-
 	$content["image_list"]['crop'] = 0;
-
 }
-
+if(!isset($content["image_list"]['random'])) {
+	$content["image_list"]['random'] = 0;
+}
 
 ?>

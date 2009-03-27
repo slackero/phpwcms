@@ -119,7 +119,6 @@ $content['page_start']  .= '<!--
 $content['page_start']  .= '<title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
 $content['page_start']  .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
 $content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
-$content['page_start']  .= '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>'.LF;
 $content['page_start']  .= get_body_attributes($pagelayout);
 
 // now add all CSS files here

@@ -1261,4 +1261,7 @@ $BL['article_menu_title']				= 'Men&uuml;titel';
 $BL['content_type']						= 'Content-Type';
 $BL['automatic']						= 'automatisch';
 
+$BL['random_image']						= 'Zufallsbild';
+$BL['random_image_from_list']			= '1 Bild zuf&auml;llig aus der Bildliste w&auml;hlen';
+
 ?>
