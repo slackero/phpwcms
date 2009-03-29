@@ -328,9 +328,11 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 											
 											default:	if(intval($newsletter[0])) {
 															$newsletter[0]  = intval($newsletter[0]);
-															$newsletter[2]  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_newsletter WHERE ";
-															$newsletter[2] .= "newsletter_id=".$newsletter[0]." AND newsletter_trashed=0";
-															if(_dbQuery($newsletter[2], 'COUNT')) {
+															$query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$newsletter[0].' AND subscription_active=1');
+															if(isset($query[0])) {
+																if($newsletter[1] == '') {
+																	$newsletter[1] = $query[0]['subscription_name'];
+																}
 																$newletter_array[ $newsletter[0] ] = $newsletter[1];
 															} else {
 																continue;
