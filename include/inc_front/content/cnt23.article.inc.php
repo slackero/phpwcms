@@ -1159,16 +1159,16 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											case 'double_optin':	$form_newletter_setting['double_optin'] 	= intval($form_value_nl[1]) ? 1 : 0;	break;
 											
 											default:	
-												if(intval($form_value_nl[0])) {
-													$form_value_nl[0]  = intval($form_value_nl[0]);
-													$form_value_nl[2]  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_newsletter WHERE ";
-													$form_value_nl[2] .= "newsletter_id=".$form_value_nl[0]." AND newsletter_trashed=0";
-													if(_dbQuery($form_value_nl[2], 'COUNT')) {
+												if( ($form_value_nl[0] = intval($form_value_nl[0])) ) {
+													$query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
+													if(isset($query[0])) {
+														if($form_value_nl[1] == '') {
+															$form_value_nl[1] = $query[0]['subscription_name'];
+														}
 														$form_value[ $form_value_nl[0] ] = $form_value_nl[1];
 													} else {
 														continue;
 													}
-							
 												} else {
 													continue;
 												}
