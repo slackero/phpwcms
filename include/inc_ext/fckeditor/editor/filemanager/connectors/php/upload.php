@@ -21,6 +21,13 @@
  *
  * This is the "File Uploader" for PHP.
  */
+ 
+session_start();
+
+if(empty($_SESSION["wcs_user"])) {
+	exit();
+}
+
 
 require('./config.php') ;
 require('./util.php') ;

@@ -21,6 +21,12 @@
  *
  * This is the File Manager Connector for PHP.
  */
+ 
+session_start();
+
+if(empty($_SESSION["wcs_user"])) {
+	exit();
+}
 
 ob_start() ;
 
