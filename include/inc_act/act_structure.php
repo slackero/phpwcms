@@ -463,7 +463,7 @@ function copy_article_to_level($do, $dbcon) {
 				mysql_free_result($result1);
 			}
 			
-			if($do[3] == 'open' && $article_insert_id) {
+			if(isset($do[3]) && $do[3] == 'open' && $article_insert_id) {
 			
 				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&id='.$article_insert_id);
 			

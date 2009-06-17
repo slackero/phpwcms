@@ -31,6 +31,16 @@ require($root.'/include/inc_lib/imagick.convert.inc.php');
 // get segments: cmsimage.php/%WIDTH%x%HEIGHT%x%CROP%x%QUALITY%/%HASH%.%EXT%
 // by default this should be enough: cmsimage.php/%WIDTH%x%HEIGHT/%HASH%.%EXT%
 $request_uri		= isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF'];
+
+// strip out PHPSESSNAME=...
+if(session_id() && session_name()) {
+	// session expected at the end of REQUEST URI when added by PHP
+	$session_name_pos = strpos($request_uri, session_name().'=');
+	if($session_name_pos !== FALSE) {
+		$request_uri = trim(trim(substr($request_uri, 0, $session_name_pos), '&'), '?');
+	}
+}
+
 $query_separator	= strpos($request_uri, 'cmsimage.php?') !== FALSE ? '?' : '/';
 $data				= explode('cmsimage.php'.$query_separator, $request_uri, 2);
 if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {

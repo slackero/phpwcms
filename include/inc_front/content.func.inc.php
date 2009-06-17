@@ -730,18 +730,6 @@ if(count($content['globalRT'])) {
 // add possible redirection code (article summary) to $block["htmlhead"];
 $block["htmlhead"]  = render_PHPcode($block["htmlhead"]);
 $block["htmlhead"]  = $content["redirect"]["code"].$block["htmlhead"]."\n";
-// insert description meta tag if not definied
-if(!stristr($block["htmlhead"], '"description"') && $content["struct"][$aktion[0]]["acat_info"]) {
-	$block["htmlhead"] .= '<meta name="description" content="';
-	$block["htmlhead"] .= html_specialchars($content["struct"][$aktion[0]]["acat_info"]).'" />'.LF;
-}
-// insert keywords meta tag if not definied
-if(!stristr($block["htmlhead"], '"keywords"') && !empty($content['all_keywords'])) {
-	$content['all_keywords'] = convertStringToArray($content['all_keywords']);
-	if(count($content['all_keywords'])) {
-		$block["htmlhead"] .= '  <meta name="keywords" content="'.html_specialchars(implode(', ', $content['all_keywords'])).'" />'.LF;
-	}
-}
 
 // -------------------------------------------------------------
 
@@ -757,6 +745,18 @@ if($phpwcms["allow_ext_render"]) {
 if(count($phpwcms['modules_fe_render'])) {
 	foreach($phpwcms['modules_fe_render'] as $value) {
 		include_once($value);
+	}
+}
+
+// insert description meta tag if not definied
+if(empty($block['custom_htmlhead']['meta.description']) && !empty($content["struct"][$aktion[0]]["acat_info"]) && !stristr($block["htmlhead"], '"description"')) {
+	set_meta('description', $content["struct"][$aktion[0]]["acat_info"]);
+}
+// insert keywords meta tag if not definied
+if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_keywords']) && !stristr($block["htmlhead"], '"keywords"')) {
+	$content['all_keywords'] = convertStringToArray($content['all_keywords']);
+	if(count($content['all_keywords'])) {
+		set_meta('keywords', implode(', ', $content['all_keywords']));
 	}
 }
 

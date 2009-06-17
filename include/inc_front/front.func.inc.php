@@ -3526,4 +3526,16 @@ function getArticleMenuTitle(& $data) {
 	return empty($data['article_menutitle']) ? $data['article_title'] : $data['article_menutitle'];
 }
 
+/**
+ * Add HTML Head meta tag
+ */
+function set_meta($name='', $content='', $http_equiv=FALSE) {
+	if(empty($name) || empty($content)) {
+		return NULL;
+	}
+	$GLOBALS['block']['custom_htmlhead']['meta.'.$name]  = '  <meta ';
+	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= $http_equiv ? 'http-equiv' : 'name';
+	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'" />';
+}
+
 ?>
