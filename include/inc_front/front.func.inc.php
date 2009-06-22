@@ -1810,7 +1810,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 	// find keyword for current article used for RELATED replacementtag
 	// prepared and inspired by Magnar Stav Johanssen
 
-	$keyword_links = "";
+	$keyword_links = '';
 	$max_cnt_links = intval($max_cnt_links);
 
 	$keywords = str_replace("ALLKEYWORDS", $GLOBALS['content']['all_keywords'].',', $keywords);
@@ -1912,34 +1912,26 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		$sql .= $limit;
 
 		// related things
-		$target = ($template_default["link_target"]) ? ' target="'.$template_default["link_target"].'"' : "";
-		if($result = mysql_query($sql, $dbcon)) {
-			$count_results = mysql_num_rows($result);
-			$count = 0;
-			while ($row = mysql_fetch_row($result)) {
-				$count++;
-				if($template_default["link_length"] && strlen($row[1]) > $template_default["link_length"]) {
-					$article_title = substr($row[1], 0, $template_default["link_length"]).$template_default["cut_title_add"];
+		$target = $template_default["link_target"] ? ' target="'.$template_default["link_target"].'"' : '';
+		$result = _dbQuery($sql);
+		if(isset($result[0])) {
+			foreach($result as $row) {
+				if($template_default["link_length"] && strlen($row['article_title']) > $template_default["link_length"]) {
+					$article_title = substr($row['article_title'], 0, $template_default["link_length"]).$template_default["cut_title_add"];
 				} else {
-					$article_title = $row[1];
+					$article_title = $row['article_title'];
 				}
-				$keyword_links .= $template_default["link_before"].$template_default["link_symbol"];
-				$keyword_links .= '<a href="index.php?id='.$row[2].','.$row[0].',0,0,1,0"';
-				$keyword_links .= $target.">".html_specialchars($article_title)."</a>";
-
-				//try to remove possible unwanted after - if not enclosed before.link.after
-				if($keyword_links && !$template_default["link_before"] && $count < $count_results) {
-					$keyword_links .= $template_default["link_after"];
-				}
+				$keyword_links .= $template_default["link_before"];
+				$keyword_links .= $template_default["link_symbol"];
+				$keyword_links .= '<a href="index.php?' . setGetArticleAid($row) . '"' . $target . '>';
+				$keyword_links .= html_specialchars($article_title);
+				$keyword_links .= '</a>' . $template_default["link_after"];
 			}
-			mysql_free_result($result);
 		}
 	}
 
 	//enclose whole
-	if($keyword_links) $keyword_links = $template_default["before"].$keyword_links.$template_default["after"];
-
-	return $keyword_links;
+	return empty($keyword_links) ? '' : $template_default["before"].$keyword_links.$template_default["after"];
 }
 
 function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
