@@ -529,7 +529,7 @@ if($aktion[2] == 0) {
 
 // Render possible PHP Values in category or article keyword field
 $content["struct"][$aktion[0]]["acat_info"]			= render_PHPcode($content["struct"][$aktion[0]]["acat_info"]);
-if(!empty($content["articles"][$aktion[1]]["article_keyword"])) {
+if(!empty($content["articles"][$aktion[1]]["article_keyword"]) && strpos($content["articles"][$aktion[1]]["article_keyword"], 'PHP') !== FALSE) {
 	$content["articles"][$aktion[1]]["article_keyword"]	= render_PHPcode($content["articles"][$aktion[1]]["article_keyword"]);
 }
 
@@ -551,6 +551,10 @@ if(strpos($content['all'], '_LIST_MODE')) {
 	$content['all'] = replace_tmpl_section( ($content['list_mode'] ? 'ELSE_LIST_MODE' : 'IF_LIST_MODE') , $content['all']);
 	$content['all'] = str_replace(array('<!--ELSE_LIST_MODE_START//-->', '<!--ELSE_LIST_MODE_END//-->', '<!--IF_LIST_MODE_START//-->', '<!--IF_LIST_MODE_END//-->'), '', $content['all']);
 }
+
+// search for specific article ID and or category ID and replace it
+$content['all'] = str_replace('{CURRENT_ARTICLEID}', $aktion[1], $content['all']);
+$content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all']);
 
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
 if( ! ( strpos($content["all"],'{SHOW_CONTENT:')===false ) ) {
