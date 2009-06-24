@@ -556,6 +556,9 @@ if(strpos($content['all'], '_LIST_MODE')) {
 $content['all'] = str_replace('{CURRENT_ARTICLEID}', $aktion[1], $content['all']);
 $content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all']);
 
+// search for level related replacement tags and replace it, sample: {LEVEL2_ID}
+$content['all'] = preg_replace_callback('/\{LEVEL(\d+)_ID\}/', 'replace_level_id', $content['all']);
+
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
 if( ! ( strpos($content["all"],'{SHOW_CONTENT:')===false ) ) {
 	$content["all"] = preg_replace('/\{SHOW_CONTENT:(.*?)\}/e', 'showSelectedContent("$1");', $content["all"]);
