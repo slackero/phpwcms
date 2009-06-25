@@ -234,7 +234,6 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		$capt_after 	= $GLOBALS["template_default"]["article"]["image_caption_after"];
 
 		// image caption
-		//$caption	= explode('|', base64_decode($image[6]));
 		$caption = getImageCaption(base64_decode($image[6]));
 		$caption[0]	= html_specialchars($caption[0]);
 		$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
