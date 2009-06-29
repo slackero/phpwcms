@@ -143,6 +143,7 @@ define ('PHPWCMS_CONTENT',			PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
 define ('PHPWCMS_THUMB',			PHPWCMS_CONTENT.$phpwcms["cimage_path"]);
 define ('PHPWCMS_RSS', 				PHPWCMS_CONTENT.'rss');
 define ('LF', 						"\n"); 	//global new line Feed
+define ('FEUSER_REGKEY',			empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
 
 define ('MB_SAFE',					function_exists('mb_substr') ? true : false); //mbstring safe - better to do a check here
 

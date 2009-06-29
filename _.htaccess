@@ -4,6 +4,7 @@
 # register_globals ON
 
 #	php_flag magic_quotes_gpc Off
+# 	php_flag magic_quotes_runtime Off
 #	php_flag register_globals Off
 
 

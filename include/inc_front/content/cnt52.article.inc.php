@@ -32,7 +32,10 @@ if (!defined('PHPWCMS_ROOT')) {
 //PHP variables
 
 if($crow["acontent_text"]) {
-	$CUSTOM = !isset($CUSTOM) ? parse_ini_str($crow["acontent_text"]) : $CUSTOM + parse_ini_str($crow["acontent_text"]);
+	$crow["acontent_text"] = parse_ini_str($crow["acontent_text"]);
+	if(is_array($crow["acontent_text"]) && count($crow["acontent_text"])) {
+		$CUSTOM = array_merge( $CUSTOM, $crow["acontent_text"]);
+	}
 }
-								
+
 ?>

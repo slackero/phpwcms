@@ -43,6 +43,7 @@ $pagelayout						= array();
 $no_content_for_this_page		= 0;
 $alias							= '';
 $PERMIT_ACCESS					= true; // by default set all content without permissions
+$CUSTOM							= array(); // var that holds result of content part "php var"
 
 //method to get the right action values
 //if there is only the ?alias try to find the right category

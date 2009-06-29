@@ -34,7 +34,10 @@ if (!defined('PHPWCMS_ROOT')) {
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 $content['page_file'] = @unserialize($crow["acontent_form"]);
 if(!$content["page_file"]['source']) {
-	$CNT_TMP .= trim(preg_replace("/.*<body[^>]*?>(.*?)<\/body>.*/si", '$1', include_ext_php($content['page_file']['pfile'],1)));
+	$content['page_file']['pfile'] = include_ext_php( $content['page_file']['pfile'] , 1 );
+	if(strpos(strtolower($content['page_file']['pfile']), '<body') !== false) {
+		$CNT_TMP .= trim( preg_replace("/.*<body[^>]*?>(.*?)<\/body>.*/si", '$1', $content['page_file']['pfile']) );
+	}
 } else {
 	$CNT_TMP .= include_url( $content['page_file']['pfile'] );
 }

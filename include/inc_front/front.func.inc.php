@@ -2580,13 +2580,20 @@ function include_url($url) {
 					$charset = strtolower($match[1]);
 					$charset = trim(str_replace(array('"', "'", '/', 'content=', ' ', '>'), '', $charset));
 				}
+			} else {
+				$charset = false;
 			}
-			$k = preg_replace('/.*?<body[^>]*?'.'>(.*?)<\/body>.*?/si', "$1", $k);
+			
+			if(strpos(strtolower($k), '<body') !== false) {
+				$k = preg_replace('/.*?<body[^>]*?'.'>(.*?)<\/body>.*?/si', "$1", $k);
+			}
 			$k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
 			$k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
-			$k = trim($k);
-			$k = sanitize($k, array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
-			$k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);
+			$k = sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
+			
+			if($charset != false) {
+				$k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);
+			}
 			
 			// now write or update cache file in case there is timeout or content
 			if($cache && $k) {

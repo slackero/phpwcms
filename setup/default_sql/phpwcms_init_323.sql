@@ -1018,10 +1018,12 @@ CREATE TABLE `phpwcms_user` (
 
 CREATE TABLE `phpwcms_userdetail` (
   `detail_id` int(11) NOT NULL auto_increment,
+  `detail_regkey` varchar(255) NOT NULL default '',
   `detail_pid` int(11) NOT NULL default '0',
   `detail_formid` int(11) NOT NULL default '0',
   `detail_tstamp` timestamp NOT NULL,
   `detail_title` varchar(255) NOT NULL default '',
+  `detail_salutation` varchar(255) NOT NULL default '',
   `detail_firstname` varchar(255) NOT NULL default '',
   `detail_lastname` varchar(255) NOT NULL default '',
   `detail_company` varchar(255) NOT NULL default '',
@@ -1072,7 +1074,8 @@ CREATE TABLE `phpwcms_userdetail` (
   KEY `detail_pid` (`detail_pid`),
   KEY `detail_formid` (`detail_formid`),
   KEY `detail_password` (`detail_password`),
-  KEY `detail_aktiv` (`detail_aktiv`)
+  KEY `detail_aktiv` (`detail_aktiv`),
+  KEY `detail_regkey` (`detail_regkey`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------

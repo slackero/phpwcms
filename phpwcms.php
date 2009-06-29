@@ -69,7 +69,7 @@ require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
 
 // check modules 
-require_once (PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');		
+require_once (PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');	
 
 $BL['be_admin_struct_index'] = html_specialchars($indexpage['acat_name']);
 

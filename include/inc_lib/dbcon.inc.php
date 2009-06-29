@@ -241,21 +241,21 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 		$select = '*';
 	}
 	if($limit !== '') {
-		$limit = explode(',', $limit);
-		$limit[0] = intval(trim($limit[0]));
-		if(isset($limit[1])) {
-			$limit[1] = intval(trim($limit[1]));
+		if(is_int($limit)) {
+			$limit = ' LIMIT ' . $limit;
 		} else {
-			$limit[1] = 0;
-		}
-		if($limit[0] && $limit[1]) {
-			$limit = ' LIMIT ' . $limit[0] . ',' . $limit[1];
-		} elseif($limit[0] === 0 && $limit[1]) {
-			$limit = ' LIMIT ' . $limit[1];
-		} elseif($limit[0]) {
-			$limit = ' LIMIT ' . $limit[0];
-		} else {
-			$limit = '';
+			$limit = explode(',', $limit);
+			$limit[0] = intval(trim($limit[0]));
+			$limit[1] = isset($limit[1]) ? intval(trim($limit[1])) : 0;
+			if($limit[0] && $limit[1]) {
+				$limit = ' LIMIT ' . $limit[0] . ',' . $limit[1];
+			} elseif($limit[0] === 0 && $limit[1]) {
+				$limit = ' LIMIT ' . $limit[1];
+			} elseif($limit[0]) {
+				$limit = ' LIMIT ' . $limit[0];
+			} else {
+				$limit = '';
+			}
 		}
 	}
 	if($group_by !== '') {
