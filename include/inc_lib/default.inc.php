@@ -79,7 +79,7 @@ $phpwcms['charsets'] = array(
     'shift_jis'
 );
 
-
+$phpwcms['reserved_alias'] = array('id', 'aid', 'print'); // "index" too but checked separately
 
 define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
