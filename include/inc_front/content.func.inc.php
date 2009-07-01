@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -741,6 +741,11 @@ $block["htmlhead"]  = $content["redirect"]["code"].$block["htmlhead"]."\n";
 
 // -------------------------------------------------------------
 
+
+if(!defined('PHPWCMS_ALIAS')) {
+	define('PHPWCMS_ALIAS', empty($content['struct'][ $content["cat_id"] ]['acat_alias']) ? '' : $content['struct'][ $content["cat_id"] ]['acat_alias'] );
+}
+
 // try to include custom functions and replacement tags or what you want to do at this point of the script
 // default dir: "phpwcms_template/inc_script/frontend_render"; only *.php files are allowed there
 if($phpwcms["allow_ext_render"]) {
@@ -1112,5 +1117,6 @@ if(!empty($phpwcms['i18n_parse'])) {
 	$content['all']			= i18n_substitute_text($content['all']);
 	$content["pagetitle"]	= i18n_substitute_text($content['pagetitle']);
 }
+
 
 ?>

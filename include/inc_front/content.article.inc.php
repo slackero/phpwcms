@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -552,6 +552,10 @@ if(empty($template_default["article"]["div_spacer"])) {
 	$content["main"] = str_replace("</table>\n<br />", "</table>\n", $content["main"]);
 	$content["main"] = str_replace("</table><br />", "</table>", $content["main"]);
 	$content["main"] = str_replace("</div><br />", "</div>", $content["main"]);
+}
+
+if(!defined('PHPWCMS_ALIAS') && !empty($row['article_alias'])) {
+	define('PHPWCMS_ALIAS', $row['article_alias']);
 }
 
 ?>

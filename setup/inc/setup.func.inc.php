@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -22,7 +22,7 @@
 
 //setup functions
 $phpwcms_version = "1.4.2";
-$phpwcms_release_date = '2009/03/07';
+$phpwcms_release_date = '2009/07/01';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -196,7 +196,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'form@localhost'); //for better security handling\n";
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
-	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
+	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
 	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // enables HTC Hover for IE < 7 - has no effect in other browsers \n";

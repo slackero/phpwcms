@@ -56,16 +56,21 @@ $_Tracking_eTrackerSSL			= Off;
 
 /// some minor thinhgs////////////////////////////////////////////////////////////////////////////
 
-$_TrackingPageName = is_array($GLOBALS['LEVEL_STRUCT']) ? implode('%%%', $GLOBALS['LEVEL_STRUCT']) : $_SERVER['REQUEST_URI'];
-$_TrackingPageName = '%%%'.$_TrackingPageName.'%%%id%%%'.$aktion[0];
-if($aktion[1]) {
-	$_TrackingPageName .= '%%%aid%%%'.$aktion[1];
+$_TrackingCategory = array();
+if(is_array($LEVEL_STRUCT) && count($LEVEL_STRUCT)) {
+	$_TrackingCategory['phpwcmscategory'] = implode('%%%', $LEVEL_STRUCT);
+	$_TrackingCategory['phpwcmscategory'] = cleanUpSpecialHtmlEntities($_TrackingCategory['phpwcmscategory']);
+	$_TrackingCategory['phpwcmscategory'] = str_replace(array("'", '"', '/', ' ', '%%%'), array('', '', '-', '_', '/'), $_TrackingCategory['phpwcmscategory']);
 }
-if(!empty($content["article_title"])) {
-	$_TrackingPageName .= '%%%'.$content["article_title"].'.html';
+$_TrackingAlias = PHPWCMS_ALIAS;
+if($_TrackingAlias == '') {
+	if($aktion[1]) {
+		$_TrackingAlias = 'aid='.$aktion[1];
+	} elseif($aktion[0]) {
+		$_TrackingAlias = 'id='.$aktion[0];
+	}
 }
-$_TrackingPageName = cleanUpSpecialHtmlEntities($_TrackingPageName);
-$_TrackingPageName = str_replace(array("'", '"', '/', ' ', '%%%'), array('', '', '-', '_', '/'), $_TrackingPageName);
+$_TrackingPageName = rel_url($_TrackingCategory, array(), $_TrackingAlias, 'rawurlencode');
 
 
 /// phpMyVisites /////////////////////////////////////////////////////////////////////////////////

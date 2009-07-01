@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -50,7 +50,7 @@ $IS_A_BOT = false;
 if( !empty($_SERVER['HTTP_USER_AGENT']) ) {
 
 	if(empty($phpwcms["BOTS"]) || !is_array($phpwcms["BOTS"])) {
-		$phpwcms["BOTS"] = array('googlebot', 'msnbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+		$phpwcms["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 	}
 	
 	$_HTTP_USER_AGENT = strtolower($_SERVER['HTTP_USER_AGENT']);

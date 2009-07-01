@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -206,7 +206,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"] = '1.4.2';
-$phpwcms["release_date"] = '2009/03/07';
+$phpwcms["release_date"] = '2009/07/01';
 
 
 // load permissions class

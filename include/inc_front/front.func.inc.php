@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2008 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -327,7 +327,7 @@ function breadcrumb ($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 					if(!$struct_array[$key]["acat_redirect"]) {
 						$breadcrumb .= '<a href="index.php?';
 						$alias 		 = $struct_array[$key]["acat_alias"];
-						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key.',0,0,1,0,0';
+						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key; //',0,0,1,0,0';
 						$breadcrumb .= '">';
 					} else {
 						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
@@ -583,7 +583,7 @@ function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
 				if($struct[$key]["acat_alias"]) {
 					$nav_table .= html_specialchars($struct[$key]["acat_alias"]);
 				} else {
-					$nav_table .= 'id='.$key.',0,0,1,0,0';
+					$nav_table .= 'id='.$key; //',0,0,1,0,0';
 				}
 				$nav_table .= '">';
 			} else {
@@ -623,7 +623,7 @@ function nav_level_row($show_id, $show_home=1) {
 		}
 		$nav .= $before;
 		$nav .= '<a href="index.php?';
-		$nav .= ($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) ? html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) : 'id='.$act_cat_id.',0,0,1,0,0';
+		$nav .= ($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) ? html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) : 'id='.$act_cat_id; //',0,0,1,0,0';
 		$nav .= '">'.$direct_before;
 		$nav .= html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_name']);
 		$nav .= $direct_after.'</a>'.$after;
@@ -661,7 +661,7 @@ function nav_level_row($show_id, $show_home=1) {
 				if($GLOBALS['content']['struct'][$key]["acat_alias"]) {
 					$nav .= html_specialchars($GLOBALS['content']['struct'][$key]["acat_alias"]);
 				} else {
-					$nav .= 'id='.$key.',0,0,1,0,0';
+					$nav .= 'id='.$key; //',0,0,1,0,0';
 				}
 				$nav .= '">';
 			} else {
@@ -868,7 +868,7 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 				if($struct[$key]["acat_alias"]) {
 					$link .= html_specialchars($struct[$key]["acat_alias"]);
 				} else {
-					$link .= 'id='.$key.',0,0,1,0,0';
+					$link .= 'id='.$key; //',0,0,1,0,0';
 				}
 				$redirect['target'] = '';
 			} else {
@@ -1736,7 +1736,7 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			if($level_struct[$key]["acat_alias"]) {
 				$link .= html_specialchars($level_struct[$key]["acat_alias"]);
 			} else {
-				$link .= 'id='.$key.',0,0,1,0,0';
+				$link .= 'id='.$key; //',0,0,1,0,0';
 			}
 			$redirect['target'] = '';
 		} else {
@@ -1759,7 +1759,7 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			if($struct[$level]["acat_alias"]) {
 				$link .= html_specialchars($struct[$level]["acat_alias"]);
 			} else {
-				$link .= 'id='.$level.',0,0,1,0,0';
+				$link .= 'id='.$level; //',0,0,1,0,0';
 			}
 			$redirect['target'] = '';
 		} else {
