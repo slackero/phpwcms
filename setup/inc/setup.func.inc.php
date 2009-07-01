@@ -178,6 +178,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 2;  //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
 	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as $phpwcms['default_lang'], but can be injected by whatever you like\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'iso-8859-1'\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";

@@ -53,6 +53,7 @@ $phpwcms['rewrite_url']       = 0;        //whether URL should be rewritable
 $phpwcms['wysiwyg_editor']    = 2;        //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw
 $phpwcms['phpmyadmin']        = 0;        //enable/disable phpmyadmin in Admin section
 $phpwcms['default_lang']      = 'en';     //default language
+$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')
 $phpwcms['charset']           = 'ISO-8859-1';       //default charset 'iso-8859-1'
 $phpwcms['allow_remote_URL']  = 0;        //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
@@ -90,6 +91,8 @@ $phpwcms['enable_messages']	  = 0; // enable or disable internal messags, by def
 $phpwcms['enable_seolog']	  = 1; // enable or disable logging of search engine referrer data
 $phpwcms['i18n_parse']	  	  = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement
 $phpwcms['i18n_complex']	  = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars "en"), true - "en-gb"...
+$phpwcms['FCK_FileBrowser']   = 0; // enable|disable phpwcms Filebrowser in FCKeditor instead of built-in FCK file bowser support
+$phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 
 // dynamic ssl encryption engine
