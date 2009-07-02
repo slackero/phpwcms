@@ -10,11 +10,26 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // chnage setting Off to On -> do not wrap in ""
 
+/*
+ * Piwik
+ * Piwik aims to be an open source alternative to Google Analytics.
+ * Piwik is created from the team behind phpMyVisites.
+ * visit: http://piwik.org
+ */
+$_Tracking_Piwik				= Off;
+$_Tracking_PiwikSiteID			= 1; //usually it is ID 1
+$_Tracking_PiwikURL 			= 'mystats.url/piwik';	// fill in the URI where Piwik is installed without http:// or https://
+$_Tracking_PiwikUsePageTitle	= Off;
+
 
 /*
- * phpMyVisites
- * phpMyVisites is free and is a pwerful solution
+ * phpMyVisites (deprecated)
+ * phpMyVisites is free and is a powerful solution
  * visit: http://www.phpmyvisites.net
+ *
+ * !!! DO NOT USE phpMyVisites any longer !!!
+ * switch to Piwik (http://www.piwik.org)
+ *
  */
 $_Tracking_phpMyVisites			= Off;
 $_Tracking_phpMyVisitesSite		= 1; //typically it is ID 1
@@ -52,9 +67,7 @@ $_Tracking_eTrackerSSL			= Off;
 
 
 
-
-
-/// some minor thinhgs////////////////////////////////////////////////////////////////////////////
+/// some minor things ////////////////////////////////////////////////////////////////////////////
 
 $_TrackingCategory = array();
 if(is_array($LEVEL_STRUCT) && count($LEVEL_STRUCT)) {
@@ -106,6 +119,34 @@ if($_Tracking_phpMyVisites) {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+/// Piwik ////////////////////////////////////////////////////////////////////////////////////////
+
+if($_Tracking_Piwik) {
+	
+	$_Tracking_PiwikURL = trim($_Tracking_PiwikURL, '/');
+	$_TrackingCode  = '<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://'.$_Tracking_PiwikURL.'/" : "http://'.$_Tracking_PiwikURL.'/");
+document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", '.intval($_Tracking_PiwikSiteID).');';
+	if($_Tracking_PiwikUsePageTitle) {
+		$_TrackingCode .= LF . 'piwikTracker.setDocumentTitle("'.str_replace('"', '\"', $content["pagetitle"]).'");';
+	}
+	$_TrackingCode .= LF . 'piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script>
+<!-- End Piwik Tag -->';
+
+	$content['all'] .= $_TrackingCode;
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 /// GoogleAnalytics///////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_GoogleAnalytics) {
@@ -134,7 +175,7 @@ if($_Tracking_GoogleAnalytics) {
 
 if($_Tracking_StatCounter) {
 
-	$_TrackingCode  = LF . '<!-- Start of StatCounter Code -->' .LF;
+	$_TrackingCode  = '<!-- Start of StatCounter Code -->' .LF;
 	$_TrackingCode .= '<script type="text/javascript">' .LF;
 	$_TrackingCode .= SCRIPT_CDATA_START . LF;
 	$_TrackingCode .= '	var sc_project="' . $_Tracking_StatCounterCode . '";' .LF;
@@ -166,8 +207,7 @@ if($_Tracking_StatCounter) {
 
 if($_Tracking_eTracker) {
 
-	$_TrackingCode  = '
-<!-- Copyright (c) 2000-2009 etracker GmbH. All rights reserved. -->
+	$_TrackingCode  = '<!-- Copyright (c) 2000-2009 etracker GmbH. All rights reserved. -->
 <!-- This material may not be reproduced, displayed, modified or distributed -->
 <!-- without the express prior written permission of the copyright holder. -->
 <!-- BEGIN etracker Tracklet 3.0 -->
