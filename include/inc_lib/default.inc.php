@@ -206,7 +206,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"] = '1.4.2';
-$phpwcms["release_date"] = '2009/07/01';
+$phpwcms["release_date"] = '2009/07/02';
 
 
 // load permissions class
