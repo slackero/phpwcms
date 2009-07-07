@@ -85,11 +85,6 @@ FCKXml.prototype.LoadUrl = function( urlToCall, asyncFunctionPointer )
 							'XML request error: ' + oXmlHttp.statusText + ' (' + oXmlHttp.status + ')\n\n' +
 							'Requested URL:\n' + urlToCall + '\n\n' +
 							'Response text:\n' + oXmlHttp.responseText ) ;
-					
-					var linkme = urlToCall.split('include');
-					
-					document.location.href = linkme[0];
-					
 					return ;
 				}
 
