@@ -426,9 +426,16 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			}
 			
 			$info  = "Tip('";
-			$info .= 'ID: '.$article_content["acontent_id"].'<br /><nobr>';
-			$info .= $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html_specialchars(js_singlequote($article_content['acontent_title'])).'</nobr><br /><nobr>';
-			$info .= $GLOBALS['BL']['be_article_asubtitle'].': '.html_specialchars(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
+			$info .= 'ID: '.$article_content["acontent_id"];
+			if($article_content['acontent_title']) {
+				$info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html_specialchars(js_singlequote($article_content['acontent_title'])).'</nobr>';
+			}
+			if($article_content['acontent_title']) {
+				$info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_asubtitle'].': '.html_specialchars(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
+			}
+			if($article_content["acontent_comment"]) {
+				$info .= '<br />' . nl2br( html_specialchars(js_singlequote($article_content["acontent_comment"])) );
+			}
 			$info .= "');";
 					
 			if($cut_article_content == $article_content["acontent_id"] ) {
