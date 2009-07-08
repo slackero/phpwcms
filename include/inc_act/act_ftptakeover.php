@@ -347,7 +347,8 @@ if(!$ftp["error"]) {
 						
 							// now update new file by old file information of same named
 							$nsql  = "UPDATE ".DB_PREPEND."phpwcms_file SET ";
-							$nsql .= "f_refid=".$oldFileID.", f_trash=5, ";
+							$nsql .= "f_refid=".$oldFileID.", f_trash=5, f_size=".$rrow['f_size'].', ';
+							$nsql .= "f_type='".$rrow['f_type']."', f_changed=".now().', ';
 							$nsql .= "f_hash='".aporeplace($oldFileNewHash)."' WHERE f_id=".$new_fileId;
 							
 							if(mysql_query($nsql, $db)) {
@@ -356,6 +357,9 @@ if(!$ftp["error"]) {
 								// now change hash of file storage files
 								rename($useruploadpath.$oldFileHash.$_file_extension, $useruploadpath.$oldFileNewHash.$_file_extension);
 								rename($usernewfile, $useruploadpath.$oldFileHash.$_file_extension);
+								
+								// update file size of old file with new filesize
+								_dbUpdate('phpwcms_file', array('f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()), 'f_id='.$oldFileID);
 								
 								//now try to delete all temp images if available
 								$isql = "SELECT imgcache_imgname FROM ".DB_PREPEND."phpwcms_imgcache WHERE imgcache_hash='".aporeplace($oldFileHash)."'";
