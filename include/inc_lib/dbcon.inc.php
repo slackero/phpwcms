@@ -51,6 +51,18 @@ if($is_mysql_error) {
 $phpwcms['db_version'] = _dbInitialize();
 define('PHPWCMS_DB_VERSION', $phpwcms['db_version']);
 
+if(!function_exists('mysql_real_escape_string')) {
+	if(function_exists('mysql_escape_string')) {
+		function mysql_real_escape_string($string) {
+			return mysql_escape_string( $string );
+		}
+	} else {
+		function mysql_real_escape_string($string) {
+			return aporeplace( $string );
+		}
+	}
+}
+
 function _dbQuery($query='', $_queryMode='ASSOC') {
 
 	if(empty($query)) return false;
