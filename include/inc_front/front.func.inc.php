@@ -3414,6 +3414,55 @@ function setGetArticleAid(&$data) {
 }
 
 /**
+ * Return Link based on given structure level data
+ *
+ * @param mixed - structure level [integer] ID or Array(acat_redirect,acat_alias,acat_id,acat_name) 
+ * @param string - additional link attributes
+ * @param string - link prefix
+ * @param string - link suffix
+ */
+function getStructureLevelLink($acat, $attributes='', $prefix='', $suffix='') {
+	
+	if( !is_array($acat) ) {
+		
+		$id = is_int($acat) ? intval($acat) : -1;
+		
+		if($id >= 0 && isset($GLOBALS['content']['struct'][$id])) {
+		
+			$acat =& $GLOBALS['content']['struct'][$id];
+		
+		} else {
+			
+			$acat = trim($acat);
+			
+			if(empty($acat)) {
+				return '';
+			}
+			
+			return $prefix . html_specialchars( $acat ) . $suffix;
+		
+		}
+		
+	}
+	
+	if($acat['acat_redirect'] == false) {
+		
+		$target		= '';
+		$link		= rel_url( array(), array(), empty($acat['acat_alias']) ? 'id='.$acat['acat_id'] : $acat['acat_alias'] );
+		
+	} else {
+		
+		$redirect	= get_redirect_link($acat['acat_redirect'], ' ', '');
+		$target		= $redirect['target'];
+		$link		= $redirect['link'];
+		
+	}
+	
+	return trim( '<a href="' . $link . '"' . $target . ' ' . $attributes ) . '>' . $prefix . html_specialchars( $acat['acat_name'] ) . $suffix . '</a>';
+	
+}
+
+/**
  * Init Mootools Library
  */
 function initMootools($v='1.11') {
