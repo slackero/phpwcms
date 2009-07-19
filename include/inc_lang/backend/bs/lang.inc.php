@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'sifra je prazna (potrebno)';
 $BL['be_admin_usr_err4']                = "email nije ispravan";
 $BL['be_admin_usr_err']                 = 'greska';
 $BL['be_admin_usr_mailsubject']         = 'dobrodosli na administracijske stranice';
-$BL['be_admin_usr_mailbody']            = "Dobrodosli na administracijske stranice\n\n    korisnicko ime: {LOGIN}\n    sifra: {PASSWORD}\n\n\nMozete se prijaviti ovdje: {SITE}\n\nadministrator\n ";
+$BL['be_admin_usr_mailbody']            = "Dobrodosli na administracijske stranice\n\n    korisnicko ime: {LOGIN}\n    sifra: {PASSWORD}\n\n\nMozete se prijaviti ovdje: {LOGIN_PAGE}\n\nadministrator\n ";
 $BL['be_admin_usr_title']               = 'dodaj novog korisnika';
 $BL['be_admin_usr_realname']            = 'pravo ime';
 $BL['be_admin_usr_setactive']           = 'korisnik je aktivan';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'OK';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'izmjeni korisnicki racun';
 $BL['be_admin_usr_emailsubject']        = 'podaci racuna izmjenjeni';
-$BL['be_admin_usr_emailbody']           = "Informacije korisnickog racuna izmjenjene. \n\n    korisnicko ime: {LOGIN}\n    sifra: {PASSWORD}\n\n\nMozete se prijaviti ovdje: {SITE}\n\nadministrator\n ";
+$BL['be_admin_usr_emailbody']           = "Informacije korisnickog racuna izmjenjene. \n\n    korisnicko ime: {LOGIN}\n    sifra: {PASSWORD}\n\n\nMozete se prijaviti ovdje: {LOGIN_PAGE}\n\nadministrator\n ";
 $BL['be_admin_usr_passnochange']        = '[bez promjene - koristite postojecu sifru]';
 $BL['be_admin_usr_ebutton']             = 'OK';
 

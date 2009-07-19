@@ -345,7 +345,7 @@ $BL['be_admin_usr_err3']                = 'neávestas slaptaþodis (bûtinas)';
 $BL['be_admin_usr_err4']                = "negaliojantis el. paðto adresas";
 $BL['be_admin_usr_err']                 = 'klaida';
 $BL['be_admin_usr_mailsubject']         = 'sveiki atvykæ á tinklapio administravimà';
-$BL['be_admin_usr_mailbody']            = "TINKLAPIO ADMINISTRAVIMO SISTEMA\n\n    vartotojo vardas: {LOGIN}\n    slapradþodis: {PASSWORD}\n\n\nGalite prisijungti èia: {SITE}\n\nsistemos administratorius\n ";
+$BL['be_admin_usr_mailbody']            = "TINKLAPIO ADMINISTRAVIMO SISTEMA\n\n    vartotojo vardas: {LOGIN}\n    slapradþodis: {PASSWORD}\n\n\nGalite prisijungti èia: {LOGIN_PAGE}\n\nsistemos administratorius\n ";
 $BL['be_admin_usr_title']               = 'pridëti naujà vartotojà';
 $BL['be_admin_usr_realname']            = 'vardas ir pavardë';
 $BL['be_admin_usr_setactive']           = 'aktyvuoti vartotojà';
@@ -359,7 +359,7 @@ $BL['be_admin_usr_button']              = 'áraðyti vartotojo duomenis';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'redaguoti vartotojo duomenis';
 $BL['be_admin_usr_emailsubject']        = 'duomenys pakeisti';
-$BL['be_admin_usr_emailbody']           = "VARTOTOJO INFORMACIJA PAKEISTA\n\n    vartotojo vardas: {LOGIN}\n    slaptaþodis: {PASSWORD}\n\n\nPrisijungti galite èia: {SITE}\n\nsistemos administratorius\n ";
+$BL['be_admin_usr_emailbody']           = "VARTOTOJO INFORMACIJA PAKEISTA\n\n    vartotojo vardas: {LOGIN}\n    slaptaþodis: {PASSWORD}\n\n\nPrisijungti galite èia: {LOGIN_PAGE}\n\nsistemos administratorius\n ";
 $BL['be_admin_usr_passnochange']        = '[NAUDOKITE SAVO SLAPTAÞODÁ]';
 $BL['be_admin_usr_ebutton']             = 'atnaujinti vartotojo duomenis';
 

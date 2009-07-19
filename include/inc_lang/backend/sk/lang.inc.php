@@ -344,7 +344,7 @@ $BL['be_admin_usr_err3']                = 'heslo je pr&aacute;zdne (povinn&eacut
 $BL['be_admin_usr_err4']                = "email nie je platn&yacute;";
 $BL['be_admin_usr_err']                 = 'chyba';
 $BL['be_admin_usr_mailsubject']         = 'vitajte v phpwcms backend';
-$BL['be_admin_usr_mailbody']            = "VITAJTE V PHPWCMS BACKEND\n\n    u&#382;&iacute;vate&#318;sk&eacute; meno: {LOGIN}\n    heslo: {PASSWORD}\n\n\nPrihl&aacute;si&#357; sa mo&#382;ete tu: {SITE}\n\nphpwcms administr&aacute;tor\n ";
+$BL['be_admin_usr_mailbody']            = "VITAJTE V PHPWCMS BACKEND\n\n    u&#382;&iacute;vate&#318;sk&eacute; meno: {LOGIN}\n    heslo: {PASSWORD}\n\n\nPrihl&aacute;si&#357; sa mo&#382;ete tu: {LOGIN_PAGE}\n\nphpwcms administr&aacute;tor\n ";
 $BL['be_admin_usr_title']               = 'prida&#357; nov&yacute; u&#382;&iacute;vate&#318;sk&yacute; &uacute;&#269;et';
 $BL['be_admin_usr_realname']            = 'skuto&#269;n&eacute; meno';
 $BL['be_admin_usr_setactive']           = 'aktivova&#357; u&#382;&iacute;vate&#318;a';
@@ -358,7 +358,7 @@ $BL['be_admin_usr_button']              = 'zasla&#357; u&#382;&iacute;vate&#318;
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'editova&#357; u&#382;&iacute;vate&#318;sk&yacute; &uacute;&#269;et';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - inform&aacute;cie &uacute;&#269;tu boli zmenen&eacute;';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS INFORM&Aacute;CIE U&#381;&Iacute;VATE&#317;SK&Eacute;HO &Uacute;&#268;TU SA ZMENILI\n\n    u&#382;&iacute;vate&#318;sk&eacute; meno: {LOGIN}\n    heslo: {PASSWORD}\n\n\nPrihl&aacute;si&#357; sa m&ocirc;&#382;ete tu: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS INFORM&Aacute;CIE U&#381;&Iacute;VATE&#317;SK&Eacute;HO &Uacute;&#268;TU SA ZMENILI\n\n    u&#382;&iacute;vate&#318;sk&eacute; meno: {LOGIN}\n    heslo: {PASSWORD}\n\n\nPrihl&aacute;si&#357; sa m&ocirc;&#382;ete tu: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[BEZ ZMENY - POU&#381;ITE PRE ZISTENIE HESLA]';
 $BL['be_admin_usr_ebutton']             = 'aktualizova&#357; u&#382;&iacute;vate&#318;sk&eacute; d&aacute;ta';
 

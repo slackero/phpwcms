@@ -566,4 +566,24 @@ function getMicrotimeDiff($start=0) {
 	return (getMicrotime() - $start);
 }
 
+/**
+ * Return login.php
+ */
+function get_login_file() {
+	if(defined('PHPWCMS_LOGIN_PHP')) {
+		return PHPWCMS_LOGIN_PHP;
+	}
+	global $phpwcms;
+	$login = empty($GLOBALS['phpwcms']['login.php']) ? 'login.php' : $GLOBALS['phpwcms']['login.php'];
+	if(is_file(PHPWCMS_ROOT.'/'.$login)) {
+		define('PHPWCMS_LOGIN_PHP', $login);
+		return PHPWCMS_LOGIN_PHP;
+	}
+	if(is_file(PHPWCMS_ROOT.'/login.php')) {
+		define('PHPWCMS_LOGIN_PHP', 'login.php');
+		return PHPWCMS_LOGIN_PHP;
+	}
+	die('Login.php cannot be found. We stop here!');
+}
+
 ?>

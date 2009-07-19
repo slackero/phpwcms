@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'champ mot de passe vide (champ requis
 $BL['be_admin_usr_err4']                = "adresse email non valide";
 $BL['be_admin_usr_err']                 = 'erreur';
 $BL['be_admin_usr_mailsubject']         = 'bienvenue';
-$BL['be_admin_usr_mailbody']            = "bienvenue dans l&#39;interface d&#39;administation PHPWCMS\n\n    identifiant: {LOGIN}\n    mot de passe: {PASSWORD}\n\n\nVous pouvez vous connecter ici: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "bienvenue dans l&#39;interface d&#39;administation PHPWCMS\n\n    identifiant: {LOGIN}\n    mot de passe: {PASSWORD}\n\n\nVous pouvez vous connecter ici: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'ajouter un compte utilisateur';
 $BL['be_admin_usr_realname']            = 'nom r&eacute;el';
 $BL['be_admin_usr_setactive']           = 'activer le compte';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'valider les modifications';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = '&eacute;diter le compte utlisateur';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - donn&eacute;es compte utilisateur modifi&eacute;es';
-$BL['be_admin_usr_emailbody']           = "Compte utilisateur PHPWCMS, donn&eacute;es modifi&eacute;es\n\n    identifiant: {LOGIN}\n    mot de passe: {PASSWORD}\n\n\Vous pouvez vous connecter ici: {SITE}login.php\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "Compte utilisateur PHPWCMS, donn&eacute;es modifi&eacute;es\n\n    identifiant: {LOGIN}\n    mot de passe: {PASSWORD}\n\n\Vous pouvez vous connecter ici: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[Aucune modification - Utilisez le mot de passe existant]';
 $BL['be_admin_usr_ebutton']             = 'valider les modifications';
 

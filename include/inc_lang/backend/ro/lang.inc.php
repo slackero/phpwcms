@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'camp parola e gol (necesar)';
 $BL['be_admin_usr_err4']                = "emailul nu este valid ";
 $BL['be_admin_usr_err']                 = 'error';
 $BL['be_admin_usr_mailsubject']         = 'Bine ai venit la phpwcms "backend"';
-$BL['be_admin_usr_mailbody']            = "Bine ai venit la phpwcms BACKEND\n\n    utilizator: {LOGIN}\n    parola: {PASSWORD}\n\n\nTe poti loga aici: {SITE}\n\nwdmedia admin\n ";
+$BL['be_admin_usr_mailbody']            = "Bine ai venit la phpwcms BACKEND\n\n    utilizator: {LOGIN}\n    parola: {PASSWORD}\n\n\nTe poti loga aici: {LOGIN_PAGE}\n\nwdmedia admin\n ";
 $BL['be_admin_usr_title']               = 'adauga un nou cont de utilizator';
 $BL['be_admin_usr_realname']            = 'nume real';
 $BL['be_admin_usr_setactive']           = 'seteaza utilizator activ';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'trimite datele utilizatorului';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'editeaza contul utilizatorului';
 $BL['be_admin_usr_emailsubject']        = 'wdmedia - date cont modificate';
-$BL['be_admin_usr_emailbody']           = "Wdmedia date utilizator schimbate\n\n    utilizator: {LOGIN}\n    parola: {PASSWORD}\n\n\nTe poti loga: {SITE}\n\nwdmedia admin\n ";
+$BL['be_admin_usr_emailbody']           = "Wdmedia date utilizator schimbate\n\n    utilizator: {LOGIN}\n    parola: {PASSWORD}\n\n\nTe poti loga: {LOGIN_PAGE}\n\nwdmedia admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NICI O SCHIMBARE - UTILIZEAZA PAROLA DEJA CUNOSCUTA]';
 $BL['be_admin_usr_ebutton']             = 'actualizeaza date utilizator';
 

@@ -34,7 +34,7 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lang/code.lang.inc.php');
 
-$_SESSION['REFERER_URL'] = PHPWCMS_URL.'login.php';
+$_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
 
 // define vars
 $err 		= 0;
@@ -309,7 +309,7 @@ ob_start();
 //<div id="loginForm" style="display:none;">
 
 ?>
-<form action="login.php" method="post" name="login_formular" id="login_formular" style="margin:0;padding:0;" onsubmit="return login(this);" autocomplete="off">
+<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" style="margin:0;padding:0;" onsubmit="return login(this);" autocomplete="off">
 <input type="hidden" name="json" id="json" value="0" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
 <input type="hidden" name="ref_url" value="<?php echo html_entities($ref_url) ?>" />

@@ -348,7 +348,7 @@ $BL['be_admin_usr_err3']                = 'senha vazia (obrigatório)';
 $BL['be_admin_usr_err4']                = "o email não é válido";
 $BL['be_admin_usr_err']                 = 'erro';
 $BL['be_admin_usr_mailsubject']         = 'bem vindo ao phpwcms backend';
-$BL['be_admin_usr_mailbody']            = "BEM VINDO AO BACKEND DO PHPWCMS\n\n    utilizador: {LOGIN}\n    senha: {PASSWORD}\n\n\nVoçê pode ligar-se em: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "BEM VINDO AO BACKEND DO PHPWCMS\n\n    utilizador: {LOGIN}\n    senha: {PASSWORD}\n\n\nVoçê pode ligar-se em: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'criar novo utilizador';
 $BL['be_admin_usr_realname']            = 'nome real';
 $BL['be_admin_usr_setactive']           = 'activar';
@@ -362,7 +362,7 @@ $BL['be_admin_usr_button']              = 'enviar dados do utilizador';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'editar conta do utilizador';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - dados da conta alterados';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS DADOS DA CONTA ALTERADOS\n\n    utilizador: {LOGIN}\n    senha: {PASSWORD}\n\n\nVoçê pode ligar-se aqui: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS DADOS DA CONTA ALTERADOS\n\n    utilizador: {LOGIN}\n    senha: {PASSWORD}\n\n\nVoçê pode ligar-se aqui: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NÃO MUDAR - UTILIZAR A MESMA]';
 $BL['be_admin_usr_ebutton']             = 'actualizar dados do utilizador';
 

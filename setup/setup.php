@@ -62,7 +62,7 @@ if($do) require_once('inc/setup.check.inc.php');
         <tr>
           <td valign="top" class="navtext">PHPWCMS SETUP VERSION&nbsp;<?php echo $phpwcms_version.', RELEASE '.$phpwcms_release_date ?></td>
           <td align="right" valign="top" class="navtext"><a href="../index.php" target="_top">HOME</a> |
-            <a href="upgrade.php">UPGRADE</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="../login.php" target="_top">LOGIN</a></td>
+            <a href="upgrade.php">UPGRADE</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="../<?php echo $phpwcms['login.php'] ?>" target="_top">LOGIN</a></td>
         </tr>
     </table></td>
     <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>

@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'ο κωδικός προσβασης είναι κενός (απαι
 $BL['be_admin_usr_err4']                = "η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη";
 $BL['be_admin_usr_err']                 = 'σφάλμα';
 $BL['be_admin_usr_mailsubject']         = 'καλωσήρθατε στο phpwcms';
-$BL['be_admin_usr_mailbody']            = "ΚΑΛΩΣΗΡΘΑΤΕ ΣΤΟ PHPWCMS\n\n    ταυτότητα χρήστη: {LOGIN}\n    κωδικός πρόσβασης: {PASSWORD}\n\n\nΜπορείτε να συνδεθείτε εδώ: {SITE}\n\nδιαχειριστής phpwcms\n ";
+$BL['be_admin_usr_mailbody']            = "ΚΑΛΩΣΗΡΘΑΤΕ ΣΤΟ PHPWCMS\n\n    ταυτότητα χρήστη: {LOGIN}\n    κωδικός πρόσβασης: {PASSWORD}\n\n\nΜπορείτε να συνδεθείτε εδώ: {LOGIN_PAGE}\n\nδιαχειριστής phpwcms\n ";
 $BL['be_admin_usr_title']               = 'προσθήκη νέου χρήστη';
 $BL['be_admin_usr_realname']            = 'πραγματικό όνομα';
 $BL['be_admin_usr_setactive']           = 'ενεργοποίηση χρήστη';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'αποστολή στοιχείων χρήστη';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'επεξεργασία λογαριασμού χρήστη';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - στοιχεία λογαριασμού άλλαξαν';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ΠΛΗΡΟΦΟΡΙΕΣ ΛΟΓΑΡΙΑΣΜΟΥ ΧΡΗΣΤΗ ΑΛΛΑΞΑΝ\n\n    όνομα χρήστη: {LOGIN}\n    κωδικός: {PASSWORD}\n\n\nΜπορείτε να συνδεθείτε εδώ: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS ΠΛΗΡΟΦΟΡΙΕΣ ΛΟΓΑΡΙΑΣΜΟΥ ΧΡΗΣΤΗ ΑΛΛΑΞΑΝ\n\n    όνομα χρήστη: {LOGIN}\n    κωδικός: {PASSWORD}\n\n\nΜπορείτε να συνδεθείτε εδώ: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[ΚΑΜΙΑ ΑΛΛΑΓΗ - ΧΡΗΣΙΜΟΠΟΙΗΣΤΕ ΤΟΝ ΓΝΩΣΤΟ ΚΩΔΙΚΟ ΠΡΟΣΒΑΣΗΣ]';
 $BL['be_admin_usr_ebutton']             = 'ανανέωση στοιχείων χρήστη';
 

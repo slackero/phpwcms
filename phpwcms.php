@@ -166,7 +166,7 @@ switch ($do) {
 						$sql .= "WHERE logged_user='".$_SESSION["wcs_user"]."' AND logged_in=1";
 						@mysql_query($sql, $db);
 						session_destroy();
-						headerRedirect(PHPWCMS_URL.'login.php');
+						headerRedirect(PHPWCMS_URL.get_login_file());
 						break;
 
 	case "admin":		//Admin

@@ -347,7 +347,7 @@ $BL['be_admin_usr_err3']                = 'паролата е празна (задължитела)';
 $BL['be_admin_usr_err4']                = "email е невалиден";
 $BL['be_admin_usr_err']                 = 'грешка';
 $BL['be_admin_usr_mailsubject']         = 'Добре дошли в phpwcms backend';
-$BL['be_admin_usr_mailbody']            = "ДОБРЕ ДОШЛИ PHPWCMS BACKEND\n\n    потребителско име: {LOGIN}\n    парола: {PASSWORD}\n\n\nможе да влезето тука: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "ДОБРЕ ДОШЛИ PHPWCMS BACKEND\n\n    потребителско име: {LOGIN}\n    парола: {PASSWORD}\n\n\nможе да влезето тука: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'добавяне на нов потребител';
 $BL['be_admin_usr_realname']            = 'истинско име';
 $BL['be_admin_usr_setactive']           = 'активирай потребителят';
@@ -361,7 +361,7 @@ $BL['be_admin_usr_button']              = 'изпрати данните на потребителя';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'редактирай потребителя';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - данните за потребитеят са променени';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    потребителско име: {LOGIN}\n    парола: {PASSWORD}\n\n\nМоже да влезнете от тука: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    потребителско име: {LOGIN}\n    парола: {PASSWORD}\n\n\nМоже да влезнете от тука: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[НЯМА ПРОМЯНА - ИЗПОЛЗВАЙТЕ ПАРОЛАТА СИ]';
 $BL['be_admin_usr_ebutton']             = 'обнови данните за потребителя';
 

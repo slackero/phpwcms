@@ -83,6 +83,19 @@ $phpwcms["root"] = !empty($phpwcms["root"]) ? "/".$phpwcms["root"] : "";
     <td><?php echo gib_status_text($status==1 ? 3 : $status) ?></td>
   </tr>
   
+  <tr><td colspan="4" class="v10"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
+  <tr><?php
+  
+  $template_lang_path = trim($phpwcms["templates"], '/').'/template_lang';
+  $status = check_path_status($phpwcms["root"]."/".$template_lang_path);
+  
+  ?>
+    <td align="right" class="v10">template&nbsp;languages:&nbsp;</td>
+    <td<?php echo gib_bg_color($status) ?>>&nbsp;<strong><font color="#FFFFFF"><?php echo html_specialchars($template_lang_path) ?></font></strong>&nbsp;</td>
+    <td><img src="../img/leer.gif" alt="" width="1" height="19"></td>
+    <td><?php echo gib_status_text($status==1 ? 3 : $status) ?></td>
+  </tr>
+  
     <tr><td colspan="4" class="v10"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
   <tr><?php	
   $status = check_path_status($phpwcms["root"]."/".$phpwcms["ftp_path"]);	

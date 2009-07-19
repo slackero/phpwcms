@@ -108,7 +108,7 @@ if($err) {
     <td width="250"><img src="../../img/leer.gif" alt="" width="1" height="15"><br />
       An error (ID:<?php echo $err ?>) occured while trying to download a file of your directory.<br />
       <img src="../../img/leer.gif" alt="" width="1" height="10"><br />
-      Please <a href="../../login.php"><strong>login</strong></a> again<br />
+      Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again<br />
       and try another file.<br />
       <img src="../../img/leer.gif" alt="" width="1" height="10"><br />
       If you think that this might be a technical problem send an email to the <a href="mailto:webmaster@mailverbund.de">webmaster</a>.</td>

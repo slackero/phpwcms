@@ -82,6 +82,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 				$emailbody = str_replace('{LOGIN}',    $new_login,       $BL['be_admin_usr_mailbody']);
 				$emailbody = str_replace('{PASSWORD}', $new_password,    $emailbody);
 				$emailbody = str_replace('{SITE}',     PHPWCMS_URL, $emailbody);
+				$emailbody = str_replace('{LOGIN_PAGE}',     PHPWCMS_URL.get_login_file(), $emailbody);
 
 				sendEmail(	array(
 					'recipient'	=> $new_email,

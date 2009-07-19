@@ -347,7 +347,7 @@ $BL['be_admin_usr_err3']                = 'Salasana-kentt&auml; on tyhj&auml; (p
 $BL['be_admin_usr_err4']                = "S&auml;hk&ouml;postiosoite on virheellinen";
 $BL['be_admin_usr_err']                 = 'Virhe';
 $BL['be_admin_usr_mailsubject']         = 'Tervetuloa PHPWCMS:n k&auml;ytt&ouml;liittym&auml;an';
-$BL['be_admin_usr_mailbody']            = "TERVETULOA PHPWCMS:N k&auml;ytt&ouml;liittym&auml;AN\n\n    K&auml;ytt&auml;j&auml;tunnus: {LOGIN}\n    salasana: {PASSWORD}\n\n\nVoit kirjautua t&auml;st&auml; sivuston: {SITE}\n\nsivuston yll&auml;pidon k&auml;ytt&ouml;liittym&auml;&auml;n\n ";
+$BL['be_admin_usr_mailbody']            = "TERVETULOA PHPWCMS:N k&auml;ytt&ouml;liittym&auml;AN\n\n    K&auml;ytt&auml;j&auml;tunnus: {LOGIN}\n    salasana: {PASSWORD}\n\n\nVoit kirjautua t&auml;st&auml; sivuston: {LOGIN_PAGE}\n\nsivuston yll&auml;pidon k&auml;ytt&ouml;liittym&auml;&auml;n\n ";
 $BL['be_admin_usr_title']               = 'Lis&auml;&auml; uusi k&auml;ytt&auml;j&auml;tili';
 $BL['be_admin_usr_realname']            = 'Oikea nimi';
 $BL['be_admin_usr_setactive']           = 'Aseta k&auml;ytt&auml;j&auml; aktiiviseksi';
@@ -361,7 +361,7 @@ $BL['be_admin_usr_button']              = 'Tallenna k&auml;ytt&auml;j&auml;tilin
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'Muokkaa k&auml;ytt&auml;j&auml;tili&auml;';
 $BL['be_admin_usr_emailsubject']        = 'K&auml;ytt&auml;j&auml;tilin tietojen muutokset tallennettu';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS K&Auml;YTT&Auml;J&Auml;TILIN TIEDOT TALLENNETTU ONNISTUNEESTI\n\n    k&auml;ytt&auml;j&auml;tunnus: {LOGIN}\n    salasana: {PASSWORD}\n\n\nVoit kirjautua t&auml;st&auml; sivuston: {SITE}\n\nsivuston yll&auml;pidon k&auml;ytt&ouml;liittym&auml;&auml;n\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS K&Auml;YTT&Auml;J&Auml;TILIN TIEDOT TALLENNETTU ONNISTUNEESTI\n\n    k&auml;ytt&auml;j&auml;tunnus: {LOGIN}\n    salasana: {PASSWORD}\n\n\nVoit kirjautua t&auml;st&auml; sivuston: {LOGIN_PAGE}\n\nsivuston yll&auml;pidon k&auml;ytt&ouml;liittym&auml;&auml;n\n ";
 $BL['be_admin_usr_passnochange']        = '[MUUTOKSIA EI TALLENNETTU - V&Auml;&Auml;r&Auml; SALASANA]';
 $BL['be_admin_usr_ebutton']             = 'P&auml;ivit&auml; k&auml;ytt&auml;j&auml;tilin tiedot';
 

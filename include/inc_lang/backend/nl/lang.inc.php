@@ -350,7 +350,7 @@ $BL['be_admin_usr_err3']                = 'Wachtwoordveld is leeg (vereist).';
 $BL['be_admin_usr_err4']                = "E-mailadres is foutief ingevoerd.";
 $BL['be_admin_usr_err']                 = 'Fout';
 $BL['be_admin_usr_mailsubject']         = 'Welkom bij de administratiemodule (de zg. backend) van phpwcms!';
-$BL['be_admin_usr_mailbody']            = "Welkom bij de administratiemodule (de zg. backend) van phpwcms!\n\n    Uw gebruikersnaam: {LOGIN}\n    Uw wachtwoord: {PASSWORD}\n\n\nU kunt hier inloggen: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "Welkom bij de administratiemodule (de zg. backend) van phpwcms!\n\n    Uw gebruikersnaam: {LOGIN}\n    Uw wachtwoord: {PASSWORD}\n\n\nU kunt hier inloggen: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'Nieuwe gebruiker toevoegen';
 $BL['be_admin_usr_realname']            = 'Echte naam';
 $BL['be_admin_usr_setactive']           = 'Inlog-rechten';
@@ -364,7 +364,7 @@ $BL['be_admin_usr_button']              = 'Opslaan';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'Gebruikersprofiel bewerken';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms account-info aangepast';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS GEBRUIKERS-PROFIEL AANGEPAST\n\n    uw gebruikersnaam: {LOGIN}\n    Uw wachtwoord: {PASSWORD}\n\n\nU kunt hier inloggen: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS GEBRUIKERS-PROFIEL AANGEPAST\n\n    uw gebruikersnaam: {LOGIN}\n    Uw wachtwoord: {PASSWORD}\n\n\nU kunt hier inloggen: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[GEEN VERANDERING - GEBRUIK HET BESTAANDE WACHTWOORD]';
 $BL['be_admin_usr_ebutton']             = 'Opslaan';
 

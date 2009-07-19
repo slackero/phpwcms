@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'a jelszó üres (ki kell tölteni)';
 $BL['be_admin_usr_err4']                = "email érvénytelen";								
 $BL['be_admin_usr_err']                 = 'hiba';											
 $BL['be_admin_usr_mailsubject']         = 'üdvözlöm a phpwcms backend-ben';					
-$BL['be_admin_usr_mailbody']            = "ÜDVÖZLÖM A PHPWCMS BACKEND-ben\n\n    felhasználói neve: {LOGIN}\n    jelszó: {PASSWORD}\n\n\nIde jelentkezhet be: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "ÜDVÖZLÖM A PHPWCMS BACKEND-ben\n\n    felhasználói neve: {LOGIN}\n    jelszó: {PASSWORD}\n\n\nIde jelentkezhet be: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'új felhasználó hozzáadása';						
 $BL['be_admin_usr_realname']            = 'igazi név';										
 $BL['be_admin_usr_setactive']           = 'felhasználó aktiválása';							
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'felhasználói adatok küldése';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'felhasználó szerkesztése';						
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - felhasználói adatok megváltoztak';		
-$BL['be_admin_usr_emailbody']           = "PHPWCMS FELHASZNÁLÓI ADATOK MEGVÁLTOZTAK\n\n    felhasználói neve: {LOGIN}\n    jelszó: {PASSWORD}\n\n\nIde jelentkezhet be: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS FELHASZNÁLÓI ADATOK MEGVÁLTOZTAK\n\n    felhasználói neve: {LOGIN}\n    jelszó: {PASSWORD}\n\n\nIde jelentkezhet be: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NINCS VÁLTOZÁS - A RÉGI JELSZÓT HASZNÁLJA]';    
 $BL['be_admin_usr_ebutton']             = 'felhasználói adatok módosítása';					
 

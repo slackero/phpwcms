@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'password is empty (required)';
 $BL['be_admin_usr_err4']                = "email isn't valid";
 $BL['be_admin_usr_err']                 = 'error';
 $BL['be_admin_usr_mailsubject']         = 'welcome to phpwcms backend';
-$BL['be_admin_usr_mailbody']            = "WELCOME TO THE PHPWCMS BACKEND\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "WELCOME TO THE PHPWCMS BACKEND\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'add new user account';
 $BL['be_admin_usr_realname']            = 'real name';
 $BL['be_admin_usr_setactive']           = 'set user active';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'send user data';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'edit user account';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - account data changed';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NO CHANGE - USE THE KNOWN PASSWORD]';
 $BL['be_admin_usr_ebutton']             = 'update user data';
 

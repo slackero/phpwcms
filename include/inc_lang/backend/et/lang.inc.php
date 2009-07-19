@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'parool on tühi (nõutav)';
 $BL['be_admin_usr_err4']                = "e-maili aadress pole korrektselt";
 $BL['be_admin_usr_err']                 = 'viga';
 $BL['be_admin_usr_mailsubject']         = 'tere tulemast phpwcms back-end kasutajaliidesesse';
-$BL['be_admin_usr_mailbody']            = "TERE TULEMAST PHPWCMS BACK-END KASUTAJALIIDESESSE\n\n    kasutajatunnus: {LOGIN}\n    parool: {PASSWORD}\n\n\nLogi sisse: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "TERE TULEMAST PHPWCMS BACK-END KASUTAJALIIDESESSE\n\n    kasutajatunnus: {LOGIN}\n    parool: {PASSWORD}\n\n\nLogi sisse: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'lisa kasutajakonto';
 $BL['be_admin_usr_realname']            = 'tegelik nimi';
 $BL['be_admin_usr_setactive']           = 'aktiveeri kasutajakonto';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'saada kasutaja andmed';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'muuda kasutajakontot';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - kontoandmed on muudetud';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS KASUTAJAKONTO ANDMED ON MUUDETUD\n\n    kasutajatunnus: {LOGIN}\n    parool: {PASSWORD}\n\n\nLogi sisse: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS KASUTAJAKONTO ANDMED ON MUUDETUD\n\n    kasutajatunnus: {LOGIN}\n    parool: {PASSWORD}\n\n\nLogi sisse: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[MUUDATUSI POLE - KASUTA VANA PAROOLI]';
 $BL['be_admin_usr_ebutton']             = 'värskenda kasutaja andmeid';
 

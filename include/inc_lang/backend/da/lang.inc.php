@@ -351,7 +351,7 @@ $BL['be_admin_usr_err3']                = 'password er ikke angivet (skal angive
 $BL['be_admin_usr_err4']                = "email-adressen er ikke gyldig";
 $BL['be_admin_usr_err']                 = 'fejl';
 $BL['be_admin_usr_mailsubject']         = 'velkommen til administrationen af phpwcms';
-$BL['be_admin_usr_mailbody']            = "VELKOMMEN TIL ADMINISTRATIONEN AF  HPWCMS\n\n    brugernavn: {LOGIN}\n    password: {PASSWORD}\n\n\nDu kan logge ind her: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "VELKOMMEN TIL ADMINISTRATIONEN AF  HPWCMS\n\n    brugernavn: {LOGIN}\n    password: {PASSWORD}\n\n\nDu kan logge ind her: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'tilf&oslash;j ny bruger';
 $BL['be_admin_usr_realname']            = 'rigtige navn';
 $BL['be_admin_usr_setactive']           = 's&aelig;t til at v&aelig;re aktiv';
@@ -365,7 +365,7 @@ $BL['be_admin_usr_button']              = 'send brugerdata';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'redigér brugerkonto';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - kontodata er &aelig;ndret';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS BRUGERINFORMATION &aelig;NDRET\n\n    brugernavn: {LOGIN}\n    password: {PASSWORD}\n\n\nDu kan logge ind her: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS BRUGERINFORMATION &aelig;NDRET\n\n    brugernavn: {LOGIN}\n    password: {PASSWORD}\n\n\nDu kan logge ind her: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[INGEN &aelig;NDRINGER - BRUG BLOT DET KENDTE PASSWORD]';
 $BL['be_admin_usr_ebutton']             = 'opdatér brugerdata';
 

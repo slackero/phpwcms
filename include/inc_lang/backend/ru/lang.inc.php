@@ -345,7 +345,7 @@ $BL['be_admin_usr_err3']                = 'пароль отсутствует (необходимо)';
 $BL['be_admin_usr_err4']                = "неправильный email";
 $BL['be_admin_usr_err']                 = 'ошибка';
 $BL['be_admin_usr_mailsubject']         = 'добро пожаловать в раздел администратора';
-$BL['be_admin_usr_mailbody']            = "Добро пожаловать в раздел администратора\n\n    имя: {LOGIN}\n    пароль: {PASSWORD}\n\n\nВы можете войти здесь: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "Добро пожаловать в раздел администратора\n\n    имя: {LOGIN}\n    пароль: {PASSWORD}\n\n\nВы можете войти здесь: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'добавить нового пользователя';
 $BL['be_admin_usr_realname']            = 'настоящее имя';
 $BL['be_admin_usr_setactive']           = 'сделать пользователя активным';
@@ -359,7 +359,7 @@ $BL['be_admin_usr_button']              = 'послать данные пользователя';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'изменить данные пользователя';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - данные пользователя изменены';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ДАННЫЕ ПОЛЬЗОВАТЕЛЯ БЫЛИ ИЗМЕНЕНЫ\n\n    пользователь: {LOGIN}\n    пароль: {PASSWORD}\n\n\nВы можете зайти здесь: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS ДАННЫЕ ПОЛЬЗОВАТЕЛЯ БЫЛИ ИЗМЕНЕНЫ\n\n    пользователь: {LOGIN}\n    пароль: {PASSWORD}\n\n\nВы можете зайти здесь: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[НЕ ИЗМЕНЯТЬ - ИСПОЛЬЗОВАТЬ ИЗВЕСТНЫЙ ПАРОЛЬ]';
 $BL['be_admin_usr_ebutton']             = 'обновить данные пользователя';
 

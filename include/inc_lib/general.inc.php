@@ -1973,7 +1973,7 @@ function checkLogin($mode='REDIRECT') {
 			$ref_url = '?ref='.rawurlencode(PHPWCMS_URL.'phpwcms.php?'.xss_clean($_SERVER['QUERY_STRING']));
 		}
 		if($mode == 'REDIRECT') {
-			headerRedirect(PHPWCMS_URL.'login.php'.$ref_url);
+			headerRedirect(PHPWCMS_URL.get_login_file().$ref_url);
 		} else {
 			return false;
 		}

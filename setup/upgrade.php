@@ -76,7 +76,7 @@ body {
         <tr>
           <td valign="top" class="navtext">PHPWCMS UPGRADE VERSION&nbsp;<?php echo $phpwcms['release'].', RELEASE '.$phpwcms['release_date'] ?></td>
           <td align="right" valign="top" class="navtext"><a href="../index.php" target="_top">HOME</a> |
-            <a href="setup.php">SETUP</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="../login.php" target="_top">LOGIN</a></td>
+            <a href="setup.php">SETUP</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" target="_top">LOGIN</a></td>
         </tr>
     </table></td>
     <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>

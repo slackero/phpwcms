@@ -62,6 +62,6 @@ if(empty($_SESSION["wcs_user"])) {
 	if(!empty($_SERVER['QUERY_STRING'])) {
 		$ref_url = '?ref='.rawurlencode(PHPWCMS_URL.'phpwcms.php?'.xss_clean($_SERVER['QUERY_STRING']));
 	}
-	headerRedirect(PHPWCMS_URL.'login.php'.$ref_url);
+	headerRedirect(PHPWCMS_URL.get_login_file().$ref_url);
 }
 ?>

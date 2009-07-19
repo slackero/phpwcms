@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'Cal indicar la contrasenya (camp obli
 $BL['be_admin_usr_err4']                = "L'adre&ccedil;a de correu no &eacute;s v&agrave;lida";
 $BL['be_admin_usr_err']                 = 'Error';
 $BL['be_admin_usr_mailsubject']         = 'Benvingut a la administraci&oacute; de phpwcms';
-$BL['be_admin_usr_mailbody']            = "BENVINGUT A LA ADMINISTRACI&Oacute; DE PHPWCMS\n\n    usuari: {LOGIN}\n    contrasenya: {PASSWORD}\n\n\nEs pot connectar aqu&iacute;: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "BENVINGUT A LA ADMINISTRACI&Oacute; DE PHPWCMS\n\n    usuari: {LOGIN}\n    contrasenya: {PASSWORD}\n\n\nEs pot connectar aqu&iacute;: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'Afegeix nou compte d\'usuari';
 $BL['be_admin_usr_realname']            = 'Nom real';
 $BL['be_admin_usr_setactive']           = 'Activa el compte';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'Envia les dades de l\'usuari';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'Edita el compte de l\'usuari';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - S\'ha modificat la informaci&oacute; del compte';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS S'HA MODIFICAT LA INFORMACI&Oacute; DEL COMPTE D'USUARI\n\n    usuari: {LOGIN}\n    CONTRASENYA: {PASSWORD}\n\n\nEs pot connectar aqu&iacute;: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS S'HA MODIFICAT LA INFORMACI&Oacute; DEL COMPTE D'USUARI\n\n    usuari: {LOGIN}\n    CONTRASENYA: {PASSWORD}\n\n\nEs pot connectar aqu&iacute;: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[SENSE MODIFICAR - UTILITZAR LA CONTRASENYA CONEGUDA]';
 $BL['be_admin_usr_ebutton']             = 'Actualitza la informaci&oacute; d\'usuari';
 

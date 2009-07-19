@@ -217,6 +217,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['FCK_FileBrowser']   = 1; // enable|disable phpwcms Filebrowser in FCKeditor instead of built-in FCK file bowser support\n";
 	$conf_file .= "\$phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed\n";
 	$conf_file .= "\$phpwcms['feuser_regkey']	  = 'FEUSER';\n";
+	$conf_file .= "\$phpwcms['login.php']	  	  = 'login.php';\n";
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";
 	$conf_file .= "\$phpwcms['site_ssl_mode']     = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'\n";

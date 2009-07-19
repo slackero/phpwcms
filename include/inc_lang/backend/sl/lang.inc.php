@@ -350,7 +350,7 @@ $BL['be_admin_usr_err3']                = 'geslo je prazno (zahtevano)';
 $BL['be_admin_usr_err4']                = "email ni pravilen";
 $BL['be_admin_usr_err']                 = 'napaka';
 $BL['be_admin_usr_mailsubject']         = 'dobrodošli v uredniški sistem phpwcms';
-$BL['be_admin_usr_mailbody']            = "DOBRODOŠLI V UREDNIŠKI SISTEM PHPWCMS\n\n    uporabniško ime: {LOGIN}\n    geslo: {PASSWORD}\n\n\nPrijavite se lahko tukaj: {SITE}\n\nadministrator sistema phpwcms\n ";
+$BL['be_admin_usr_mailbody']            = "DOBRODOŠLI V UREDNIŠKI SISTEM PHPWCMS\n\n    uporabniško ime: {LOGIN}\n    geslo: {PASSWORD}\n\n\nPrijavite se lahko tukaj: {LOGIN_PAGE}\n\nadministrator sistema phpwcms\n ";
 $BL['be_admin_usr_title']               = 'dodaj novega uporabnika';
 $BL['be_admin_usr_realname']            = 'pravo ime';
 $BL['be_admin_usr_setactive']           = 'uporabnik je aktiven';
@@ -364,7 +364,7 @@ $BL['be_admin_usr_button']              = 'shrani uporabnikove podatke';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'urejanje uporabniškega računa';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - uporabniški račun spremenjen';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS UPORABNIŠKI RAČUN SPREMENJEN\n\n    uporabniško ime: {LOGIN}\n    geslo: {PASSWORD}\n\n\nPrijavite se lahko tukaj: {SITE}\n\nadministrator sistema phpwcms\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS UPORABNIŠKI RAČUN SPREMENJEN\n\n    uporabniško ime: {LOGIN}\n    geslo: {PASSWORD}\n\n\nPrijavite se lahko tukaj: {LOGIN_PAGE}\n\nadministrator sistema phpwcms\n ";
 $BL['be_admin_usr_passnochange']        = '[BREZ SPREMEMBE - UPORABITE ZNANO GESLO]';
 $BL['be_admin_usr_ebutton']             = 'popravi uporabnikove podatke';
 

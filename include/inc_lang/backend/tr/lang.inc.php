@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = '&#351;ifre bo&#351; olamaz';
 $BL['be_admin_usr_err4']                = "email ge&ccedil;erli de&#287;il";
 $BL['be_admin_usr_err']                 = 'hata';
 $BL['be_admin_usr_mailsubject']         = 'phpwcms site arkas&#305; y&ouml;netime hos geldiniz.';
-$BL['be_admin_usr_mailbody']            = "PHPWCMS SITE ARKASI Y&Ouml;NETIMINE HOS GELDINIZ\n\n    kullan&#305;c&#305; ad&#305;: {LOGIN}\n    &#351;ifre: {PASSWORD}\n\n\nBuraya giri&#351; yapabilirsiniz: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "PHPWCMS SITE ARKASI Y&Ouml;NETIMINE HOS GELDINIZ\n\n    kullan&#305;c&#305; ad&#305;: {LOGIN}\n    &#351;ifre: {PASSWORD}\n\n\nBuraya giri&#351; yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'yeni kullan&#305;c&#305; hesab&#305;';
 $BL['be_admin_usr_realname']            = 'ger&ccedil;ek isim';
 $BL['be_admin_usr_setactive']           = 'kullan&#305;c&#305; aktifle&#351;tir';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'kullan&#305;c&#305; bilgilerini g&oum
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'kullan&#305;c&#305; hesap bilgilerini d&uuml;zenle';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - hesap bilgileri degistirildi';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS KULLANICI HESAP B&#304;LG&#304;LER&#304; DE&#286;I&#350;T&#304;R&#304;LD&#304;\n\n    kullan&#305;c&#305; ad&#305;: {LOGIN}\n    &#351;ifre: {PASSWORD}\n\n\nBuradan giri&#351; yapabilirsiniz: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS KULLANICI HESAP B&#304;LG&#304;LER&#304; DE&#286;I&#350;T&#304;R&#304;LD&#304;\n\n    kullan&#305;c&#305; ad&#305;: {LOGIN}\n    &#351;ifre: {PASSWORD}\n\n\nBuradan giri&#351; yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[DE&#286;&#304;&#350;MEZ - B&#304;L&#304;NEN &#350;&#304;FREY&#304; KULLANIN]';
 $BL['be_admin_usr_ebutton']             = 'kullan&#305;c&#305; bilgilerini g&uuml;ncelle';
 

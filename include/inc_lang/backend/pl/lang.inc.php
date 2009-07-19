@@ -346,7 +346,7 @@ $BL['be_admin_usr_err3']                = 'has³o u¿ytkownika nie mo¿e byæ puste'
 $BL['be_admin_usr_err4']                = "adres email jest nieprawid³owy";
 $BL['be_admin_usr_err']                 = 'b³±d';
 $BL['be_admin_usr_mailsubject']         = 'Witajcie w systemie zarz±dzania phpWCMS';
-$BL['be_admin_usr_mailbody']            = "WITAJCIE W SYSTEMIE ZARZ¡DZANIA PHPWCMS\n\n    u¿ytkownik: {LOGIN}\n    has³o: {PASSWORD}\n\n\nPrzez t± stronê mo¿esz siê zalogowaæ: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "WITAJCIE W SYSTEMIE ZARZ¡DZANIA PHPWCMS\n\n    u¿ytkownik: {LOGIN}\n    has³o: {PASSWORD}\n\n\nPrzez t± stronê mo¿esz siê zalogowaæ: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'dodaj nowe konto u¿ytkownika';
 $BL['be_admin_usr_realname']            = 'prawdziwe imiê';
 $BL['be_admin_usr_setactive']           = 'ustaw konto jako aktywne';
@@ -360,7 +360,7 @@ $BL['be_admin_usr_button']              = 'zapisz dane u¿ytkownika';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'edycja konta u¿ytkownika';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - dane konta zosta³y zmienione';
-$BL['be_admin_usr_emailbody']           = "KONTO U¯YTKOWNIKA W PHPWCMS ZOSTA£O ZMIENIONE \n\n    nazwa u¿ytkownika: {LOGIN}\n    has³o: {PASSWORD}\n\n\nPrzez t± stronê mo¿esz siê zalogowaæ:: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "KONTO U¯YTKOWNIKA W PHPWCMS ZOSTA£O ZMIENIONE \n\n    nazwa u¿ytkownika: {LOGIN}\n    has³o: {PASSWORD}\n\n\nPrzez t± stronê mo¿esz siê zalogowaæ:: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NIE ZMIENIONO - PODAJ PRAWID£OW HAS£O]';
 $BL['be_admin_usr_ebutton']             = 'uaktualnij dane u¿ytkownika';
 

@@ -345,7 +345,7 @@ $BL['be_admin_usr_err3']                = 'Kennwort ist leer (ben&ouml;tigt)';
 $BL['be_admin_usr_err4']                = "E-Mail ist ung&uuml;ltig";
 $BL['be_admin_usr_err']                 = 'Fehler';
 $BL['be_admin_usr_mailsubject']         = 'Willkommen im phpwcms Backend';
-$BL['be_admin_usr_mailbody']            = "WILLKOMMEN IM PHPWCMS BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {SITE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_mailbody']            = "WILLKOMMEN IM PHPWCMS BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
 $BL['be_admin_usr_title']               = 'Neuen Benutzer anlegen';
 $BL['be_admin_usr_realname']            = 'Wahrer Name';
 $BL['be_admin_usr_setactive']           = 'Aktivieren';
@@ -359,7 +359,7 @@ $BL['be_admin_usr_button']              = 'Benutzerdaten senden';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'Benutzerdaten bearbeiten';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - Anmeldedaten ge&auml;ndert';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ANMELDEDATEN GEÄNDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {SITE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS ANMELDEDATEN GEÄNDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
 $BL['be_admin_usr_passnochange']        = '[KEINE ÄNDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
 $BL['be_admin_usr_ebutton']             = 'Benutzerdaten aktualisieren';
 

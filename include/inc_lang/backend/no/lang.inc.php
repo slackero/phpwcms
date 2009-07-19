@@ -352,7 +352,7 @@ $BL['be_admin_usr_err3']                = 'passordet er tomt (obligatorisk)';
 $BL['be_admin_usr_err4']                = "epsot er ugyldig";
 $BL['be_admin_usr_err']                 = 'feil';
 $BL['be_admin_usr_mailsubject']         = 'Velkommen til phpwcms adminstasjon';
-$BL['be_admin_usr_mailbody']            = "Velkommen til PHPWCMS administrasjon\n\n    brukernavn: {LOGIN}\n    passord: {PASSWORD}\n\n\nDu kan logge inn her: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "Velkommen til PHPWCMS administrasjon\n\n    brukernavn: {LOGIN}\n    passord: {PASSWORD}\n\n\nDu kan logge inn her: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'opprett ny bruker konto';
 $BL['be_admin_usr_realname']            = 'riktig navn';
 $BL['be_admin_usr_setactive']           = 'sett bruker aktiv';
@@ -366,7 +366,7 @@ $BL['be_admin_usr_button']              = 'send brukerdata';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'rediger bruker konto';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - konto data endret';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS BRUKERKONTO INFORMASJON ER ENDRET\n\n    brukernavn: {LOGIN}\n    passord: {PASSWORD}\n\n\nDu kan logge inn her: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS BRUKERKONTO INFORMASJON ER ENDRET\n\n    brukernavn: {LOGIN}\n    passord: {PASSWORD}\n\n\nDu kan logge inn her: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[INGEN ENDRING - BRUK DITT GAMLE PASSORD]';
 $BL['be_admin_usr_ebutton']             = 'oppdater bruker data';
 

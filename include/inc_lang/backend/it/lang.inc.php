@@ -347,7 +347,7 @@ $BL['be_admin_usr_err3']                = 'password vuota (obbligatorio)';
 $BL['be_admin_usr_err4']                = "email non valido";
 $BL['be_admin_usr_err']                 = 'errore';
 $BL['be_admin_usr_mailsubject']         = 'benvenuto nel back office di phpwcms';
-$BL['be_admin_usr_mailbody']            = "BENVENUTO NEL BACK OFFICE DI PHPWCMS\n\n    nome utente: {LOGIN}\n    password: {PASSWORD}\n\n\nPuoi accedere da qui: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "BENVENUTO NEL BACK OFFICE DI PHPWCMS\n\n    nome utente: {LOGIN}\n    password: {PASSWORD}\n\n\nPuoi accedere da qui: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'aggiungi nome utente';
 $BL['be_admin_usr_realname']            = 'nome vero';
 $BL['be_admin_usr_setactive']           = 'attiva utente';
@@ -361,7 +361,7 @@ $BL['be_admin_usr_button']              = 'invia i dati dell"utente';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'edita account utente';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - dati account modificati';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS - INFORMAZIONI ACCOUNT UTENTE MODIFICATE\n\n    nome: {LOGIN}\n    password: {PASSWORD}\n\n\nPuoi accedere da qui: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS - INFORMAZIONI ACCOUNT UTENTE MODIFICATE\n\n    nome: {LOGIN}\n    password: {PASSWORD}\n\n\nPuoi accedere da qui: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NESSUNA MODIFICA - USA LA VECCHIA PASSWORD]';
 $BL['be_admin_usr_ebutton']             = 'aggiorna dati utente';
 

@@ -383,7 +383,7 @@ $BL['be_admin_usr_err3']                = 'm&#7853;t kh&#7849;u &#273;&#7875; tr
 $BL['be_admin_usr_err4']                = "email kh&#244;ng &#273;&#250;ng";
 $BL['be_admin_usr_err']                 = 'l&#7895;i';
 $BL['be_admin_usr_mailsubject']         = 'Ch&#224;o m&#7913;ng,ch&#250;c b&#7841;n vui v&#7867;';
-$BL['be_admin_usr_mailbody']            = "CH&#192;O M&#7914;NG B&#7840;N &#272;&#195; &#272;&#7870;N V&#7898;I WEBSITE C&#7910;A CH&#218;NG TA\n\n    t&#234;n truy c&#7853;p: {LOGIN}\n    m&#7853;t kh&#7849;u: {PASSWORD}\n\n\nB&#7841;n c&#243; th&#7875; &#273;&#259;ng nh&#7853;p &#7903; &#273;&#226;y: {SITE)qu&#7843;n tr&#7883;\n ";
+$BL['be_admin_usr_mailbody']            = "CH&#192;O M&#7914;NG B&#7840;N &#272;&#195; &#272;&#7870;N V&#7898;I WEBSITE C&#7910;A CH&#218;NG TA\n\n    t&#234;n truy c&#7853;p: {LOGIN}\n    m&#7853;t kh&#7849;u: {PASSWORD}\n\n\nB&#7841;n c&#243; th&#7875; &#273;&#259;ng nh&#7853;p &#7903; &#273;&#226;y: {LOGIN_PAGE}qu&#7843;n tr&#7883;\n ";
 $BL['be_admin_usr_title']               = 'th&#234;m th&#224;nh vi&#234;n m&#7899;i';
 $BL['be_admin_usr_realname']            = 't&#234;n th&#7853;t';
 $BL['be_admin_usr_setactive']           = 'thi&#7871;t l&#7853;p user n&#224;y &#7903; tr&#7841;ng th&#225;i k&#237;ch ho&#7841;t';
@@ -399,7 +399,7 @@ $BL['be_admin_usr_button']              = 'g&#7917;i d&#7919; li&#7879;u c&#7911
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'ch&#7881;nh s&#7917;a user';
 $BL['be_admin_usr_emailsubject']        = 'h&#7879; th&#7889;ng &#273;&#227; &#273;&#7921;&#417;c thay &#273;&#7893;i';
-$BL['be_admin_usr_emailbody']           = "TH&#212;NG TIN USER H&#7878; TH&#7888;NG &#272;&#195; &#272;&#431;&#7906;C THAY &#272;&#7892;I\n\n    t&#234;n truy c&#7853;p: {LOGIN}\n    m&#7853;t kh&#7849;u: {PASSWORD}\n\n\nB&#7841;n c&#243; th&#7875; &#273;&#259;ng nh&#7853;p t&#7841;i &#273;&#226;y: {SITE}\n\nqu&#7843;n tr&#7883;\n ";
+$BL['be_admin_usr_emailbody']           = "TH&#212;NG TIN USER H&#7878; TH&#7888;NG &#272;&#195; &#272;&#431;&#7906;C THAY &#272;&#7892;I\n\n    t&#234;n truy c&#7853;p: {LOGIN}\n    m&#7853;t kh&#7849;u: {PASSWORD}\n\n\nB&#7841;n c&#243; th&#7875; &#273;&#259;ng nh&#7853;p t&#7841;i &#273;&#226;y: {LOGIN_PAGE}\n\nqu&#7843;n tr&#7883;\n ";
 $BL['be_admin_usr_passnochange']        = '[KHONG CO THAY DOI]';
 $BL['be_admin_usr_ebutton']             = 'c&#7853;p nh&#7853;t d&#7919; li&#7879;u user';
 

@@ -345,7 +345,7 @@ $BL['be_admin_usr_err3']                = 'Falta completar la password (Es neces
 $BL['be_admin_usr_err4']                = "El email no es v&aacute;lido";
 $BL['be_admin_usr_err']                 = 'Error';
 $BL['be_admin_usr_mailsubject']         = 'Bienvenido a la administraci&oacute;n de phpwcms';
-$BL['be_admin_usr_mailbody']            = "BIENVENIDO A LA ADMINISTRACI&Oacute;N DE PHPWCMS\n\n    usuario: {LOGIN}\n    password: {PASSWORD}\n\n\nPuede ingresar aqu&iacute;: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "BIENVENIDO A LA ADMINISTRACI&Oacute;N DE PHPWCMS\n\n    usuario: {LOGIN}\n    password: {PASSWORD}\n\n\nPuede ingresar aqu&iacute;: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'Agregar nuevo usuario';
 $BL['be_admin_usr_realname']            = 'Nombre real';
 $BL['be_admin_usr_setactive']           = 'Activaci&oacute;n';
@@ -359,7 +359,7 @@ $BL['be_admin_usr_button']              = 'Enviar los datos del usuario';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'Editar la cuenta del usuario';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - Se modific&oacute; la informaci&oacute;n de la cuenta';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS SE MODIFICO LA INFORMACI&Oacute;N DE LA CUENTA DE USUARIO\n\n    usuario: {LOGIN}\n    password: {PASSWORD}\n\n\nPuede ingresar aqu&iacute;: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS SE MODIFICO LA INFORMACI&Oacute;N DE LA CUENTA DE USUARIO\n\n    usuario: {LOGIN}\n    password: {PASSWORD}\n\n\nPuede ingresar aqu&iacute;: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[SIN MODIFICAR - USAR LA PASSWORD CONOCIDA]';
 $BL['be_admin_usr_ebutton']             = 'Actualizar informaci&oacute;n de usuario';
 

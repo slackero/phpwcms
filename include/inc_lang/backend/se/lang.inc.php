@@ -351,7 +351,7 @@ $BL['be_admin_usr_err3']                = 'l&ouml;senord saknas (obligatoriskt)'
 $BL['be_admin_usr_err4']                = "e-post adressen &auml;r inte giltig";
 $BL['be_admin_usr_err']                 = 'fel';
 $BL['be_admin_usr_mailsubject']         = 'V&auml;lkommen till administrationen av phpwcms';
-$BL['be_admin_usr_mailbody']            = "VÄLKOMMEN TILL ADMINISTRATIONEN AV PHPWCMS\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "VÄLKOMMEN TILL ADMINISTRATIONEN AV PHPWCMS\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'L&auml;gg till ny anv&auml;ndare';
 $BL['be_admin_usr_realname']            = 'Ditt egentliga namn';
 $BL['be_admin_usr_setactive']           = 'Aktivera anv&auml;ndarkonto';
@@ -365,7 +365,7 @@ $BL['be_admin_usr_button']              = 'spara anv&auml;ndardata';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = '&auml;ndra anv&auml;ndarkonto';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - kontodata har &auml;ndrats';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ANVÄNDARINFORMATION &auml;NDRAT\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS ANVÄNDARINFORMATION &auml;NDRAT\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[INGA &auml;NDRINGAR - ANVÄND SAMMA LÖSENORD SOM TIDIGARE]';
 $BL['be_admin_usr_ebutton']             = 'spara anv&auml;ndardata';
 
