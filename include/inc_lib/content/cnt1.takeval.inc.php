@@ -30,6 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Text with Image
 $content["text"]				= $row["acontent_text"];
+$content["template"]			= $row["acontent_template"];
 $content["cimage"]				= @unserialize($row["acontent_form"]);
 if(!is_array($content["cimage"])) {
 	$content["cimage"] = array();

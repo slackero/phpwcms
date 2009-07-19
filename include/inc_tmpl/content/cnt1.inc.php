@@ -38,8 +38,32 @@ if(empty($content['cimage']['cimage_crop'])) {
 }
 
 ?>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
+	<td><select name="template" id="template" class="f11b">
+<?php
+	
+	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+
+// templates for frontend login
+$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/imagetext');
+if(is_array($tmpllist) && count($tmpllist)) {
+	foreach($tmpllist as $val) {
+		$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
+		$val = html_specialchars($val);
+		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+	}
+}
+
+?>				  
+		</select></td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+
 <tr><td colspan="2" class="chatlist">&nbsp;<?php echo $BL['be_cnt_htmltext'] ?>:&nbsp;</td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <tr><td colspan="2" align="center"><?php
