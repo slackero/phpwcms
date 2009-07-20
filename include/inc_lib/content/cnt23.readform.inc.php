@@ -195,7 +195,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 											switch($_special[0]) {
 											
 												case 'type': 		if(!empty($_special[1])) {
-																		$_special[1] = strtoupper(trim($_special[1]));
+																		$_special[1] = trim($_special[1]);
+																		if($_special[1] !== 'a-Z' && $_special[1] !== 'a-z') {
+																			$_special[1] = strtoupper($_special[1]);
+																		}
 																		switch($_special[1]) {
 																			case 'MIX':
 																			case 'INT':
@@ -204,6 +207,14 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 																			case 'IDENT':
 																			case 'STRING':
 																			case 'DATE':
+																			case 'A-Z':
+																			case 'a-Z':
+																			case 'a-z':
+																			case '0-9':
+																			case 'WORD':
+																			case 'LETTER+SPACE':
+																			case 'PHONE':
+																			case 'REGEX':
 																				$special_attribute['type'] = $_special[1];
 																				break;
 																		}
@@ -219,6 +230,8 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 												case 'dateformat': 	$special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
 																	break;
 																	
+												case 'pattern': 	$special_attribute['pattern'] = isset($_special[1]) ? trim($_special[1]) : '/.*?/';
+																	break;
 											}
 										}
 									}

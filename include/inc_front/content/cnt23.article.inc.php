@@ -82,6 +82,17 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 	$cnt_form['label_wrap'][1] = !empty($cnt_form['label_wrap'][1]) ? trim($cnt_form['label_wrap'][1]) : '';
 	$form_field_hidden = '';
 	
+	$cnt_form['regx_pattern'] = array(
+			'A-Z'			=> '/^[A-Z]+$/',
+			'a-Z'			=> '/^[a-zA-Z]+$/',
+			'a-z'			=> '/^[a-z]+$/',
+			'0-9'			=> '/^[0-9]+$/',
+			'PHONE'			=> '/^[+]?([0-9]*[\.\s\-\(\)]|[0-9]+){3,24}$/',
+			'INT'			=> '/^[0-9\-\+]+$/',
+			'WORD'			=> '/^[\w]+$/',
+			'LETTER+SPACE'	=> '/^[a-z _\-\:]+$/i'
+		);
+	
 	if(!empty($_POST['cpID'.$crow["acontent_id"]]) && intval($_POST['cpID'.$crow["acontent_id"]]) == $crow["acontent_id"]) {
 		$POST_DO = true;
 		$POST_val = array();
@@ -168,10 +179,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			case 'special'	:	/*
 								 * Special
 								 */
+								$cnt_form['special_attribute'] = array(
+											'default'		=> '',
+											'type'			=> 'MIX',
+											'dateformat'	=> 'm/d/Y',
+											'pattern'		=> '/.*?/'
+										); 
+								
 								if($cnt_form["fields"][$key]['value']) {
-									$cnt_form['special_value'] = str_replace('"', '', $cnt_form["fields"][$key]['value']);
-									$cnt_form['special_value'] = str_replace("'", '',$cnt_form['special_value']);
-									$cnt_form['special_value'] = str_replace("\r'", '',$cnt_form['special_value']);
+									$cnt_form['special_value'] = str_replace( array('"', "'", "\r'"), '', $cnt_form["fields"][$key]['value'] );
 									$cnt_form['special_value'] = explode("\n", $cnt_form['special_value']);
 									$cnt_form["fields"][$key]['value'] = '';
 									
@@ -185,12 +201,12 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 																	break;
 												case 'dateformat':	$cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
 																	break;
+												case 'pattern':		$cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
+																	break;
 											}
 										}
 									}
 								}
-								
-
 								
 								$cnt_form["fields"][$key]['value'] = isset($cnt_form['special_attribute']['default']) ? $cnt_form['special_attribute']['default'] : '';
 								 
@@ -204,40 +220,42 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										// try to check for special value
 										if(isset($cnt_form['special_attribute']['type'])) {
 											switch($cnt_form['special_attribute']['type']) {
-										
-												//case 'MIX':		
-												//				break;
 												
-												case 'INT':		if(!preg_match('/^[0-9\-\+]+$/', $cnt_form["fields"][$key]['value'])) {
+												case 'A-Z':
+												case 'a-Z':
+												case 'a-z':
+												case '0-9':
+												case 'WORD':
+												case 'LETTER+SPACE':
+												case 'PHONE':
+												case 'INT':		if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], $cnt_form["fields"][$key]['value'])) {
 																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-																} else {
-																	 $cnt_form["fields"][$key]['value'] = intval( $cnt_form["fields"][$key]['value']);
+																} /* else { $cnt_form["fields"][$key]['value'] = $cnt_form["fields"][$key]['value']; } */
+																break;
+																
+												case 'REGEX':	if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['special_attribute']['pattern'], $cnt_form["fields"][$key]['value'])) {
+																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 																}
 																break;
 												
 												case 'DEC':
-												case 'FLOAT':	if(!is_float_ex($cnt_form["fields"][$key]['value'])) {
+												case 'FLOAT':	if($cnt_form["fields"][$key]['value'] !== '' && !is_float_ex($cnt_form["fields"][$key]['value'])) {
 																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 																}
 																break;
 												
 												case 'IDENT':	if(isset($cnt_form['special_attribute']['default']) && 
-																   decode_entities($cnt_form['special_attribute']['default']) != decode_entities($cnt_form["fields"][$key]['value'])) {
+																	decode_entities($cnt_form['special_attribute']['default']) != decode_entities($cnt_form["fields"][$key]['value'])) {
 																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 																}
 																break;
-												
-												case 'MIX':
-												case 'STRING':	
-																break;
-												
-												case 'DATE':	if(isset($cnt_form['special_attribute']['dateformat']) && 
-																   !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
+													
+												case 'DATE':	if($cnt_form["fields"][$key]['value'] !== '' && isset($cnt_form['special_attribute']['dateformat']) && 
+																	!is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
 																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 																	$cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat']);
 																}
-																break;
-										
+																break;										
 											}
 										}
 									}
