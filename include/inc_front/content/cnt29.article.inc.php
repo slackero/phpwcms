@@ -304,6 +304,7 @@ if($image['template']) {
 	$image['template']  = str_replace('{SPACE}', $image['space'], $image['template']);
 	$image['template']  = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
 	$image['template']  = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
+	$image['template']  = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
 	$image['template']  = render_cnt_template($image['template'], 'TITLE', html_specialchars($crow['acontent_title']));
 	$image['template']  = render_cnt_template($image['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 	$image['template']  = render_cnt_template($image['template'], 'TEXT', $crow['acontent_text']);
