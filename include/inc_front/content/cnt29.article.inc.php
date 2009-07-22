@@ -20,6 +20,9 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// 2009-07-22 Thumbnail max width and max height replacement tag implemented
+//            Thanks to Gerd Müller for proposal and code sample
+
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -29,6 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 //images (gallery)
+
 
 $image	= @unserialize($crow["acontent_form"]);
 
@@ -49,12 +53,14 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/im
 
 if($image['template']) {
 
-	$image['tmpl_header']		= get_tmpl_section('IMAGES_HEADER', $image['template']);
-	$image['tmpl_footer']		= get_tmpl_section('IMAGES_FOOTER', $image['template']);
-	$image['tmpl_entry']		= get_tmpl_section('IMAGES_ENTRY', $image['template']);
-	$image['tmpl_entry_space']	= get_tmpl_section('IMAGES_ENTRY_SPACER', $image['template']);
-	$image['tmpl_row_space']	= get_tmpl_section('IMAGES_ROW_SPACER', $image['template']);
-	$image['tmpl_images']		= array();
+	$image['tmpl_header']			= get_tmpl_section('IMAGES_HEADER', $image['template']);
+	$image['tmpl_footer']			= get_tmpl_section('IMAGES_FOOTER', $image['template']);
+	$image['tmpl_entry']			= get_tmpl_section('IMAGES_ENTRY', $image['template']);
+	$image['tmpl_entry_space']		= get_tmpl_section('IMAGES_ENTRY_SPACER', $image['template']);
+	$image['tmpl_row_space']		= get_tmpl_section('IMAGES_ROW_SPACER', $image['template']);
+	$image['tmpl_thumb_width_max']	= 0;
+	$image['tmpl_thumb_height_max']	= 0;
+	$image['tmpl_images']			= array();
 	
 	$image['template']  = $image['tmpl_header'];
 
@@ -258,6 +264,9 @@ if($image['template']) {
 			$img_a = str_replace('{THUMB_WIDTH}',	$img_thumb_width, $img_a);
 			$img_a = str_replace('{THUMB_HEIGHT}',	$img_thumb_height, $img_a);
 			
+			$image['tmpl_thumb_width_max']	= max($image['tmpl_thumb_width_max'], $img_thumb_width);
+			$image['tmpl_thumb_height_max']	= max($image['tmpl_thumb_height_max'], $img_thumb_height);
+			
 			$img_a = str_replace('{IMAGE_NAME}',	$img_zoom_name, $img_a);
 			$img_a = str_replace('{IMAGE_REL}',		$img_zoom_rel, $img_a);
 			$img_a = str_replace('{IMAGE_ABS}',		$img_zoom_abs, $img_a);
@@ -293,6 +302,8 @@ if($image['template']) {
 	// now do main replacements
 	$image['template']  = str_replace('{ID}', $crow['acontent_id'], $image['template']);
 	$image['template']  = str_replace('{SPACE}', $image['space'], $image['template']);
+	$image['template']  = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
+	$image['template']  = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
 	$image['template']  = render_cnt_template($image['template'], 'TITLE', html_specialchars($crow['acontent_title']));
 	$image['template']  = render_cnt_template($image['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 	$image['template']  = render_cnt_template($image['template'], 'TEXT', $crow['acontent_text']);

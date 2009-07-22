@@ -443,9 +443,11 @@ function getRemoteIP() {
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-function phpwcms_getUserAgent() {
+function phpwcms_getUserAgent($USER_AGENT='') {
+	
+	$USER_AGENT = empty($USER_AGENT) && isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : $USER_AGENT;
 
-	if(!isset($_SERVER['HTTP_USER_AGENT'])) {
+	if(empty($USER_AGENT)) {
 		return array(
 			'agent' => 'Other',
 			'version' => 0,
@@ -453,7 +455,7 @@ function phpwcms_getUserAgent() {
 		);
 	}
 
-	if(preg_match('#MSIE ([0-9].[0-9]{1,2})(.*Opera ([0-9].[0-9]{1,2}))?#', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
+	if(preg_match('#MSIE ([0-9].[0-9]{1,2})(.*Opera ([0-9].[0-9]{1,2}))?#', $USER_AGENT, $log_version)) {
 		if(isset($log_version[3])) {
 			$ver = $log_version[3];
 			$agent = 'Opera';
@@ -461,16 +463,16 @@ function phpwcms_getUserAgent() {
 			$ver = $log_version[1];
 			$agent = 'IE';
 		}
-	} elseif (preg_match('#Opera[/ ]([0-9].[0-9]{1,2})#', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
+	} elseif (preg_match('#Opera[/ ]([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
 		$agent = 'Opera';
-	} elseif (strstr($_SERVER['HTTP_USER_AGENT'], 'Safari') && preg_match('#Safari/([0-9]{1,3})#', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
+	} elseif (strstr($USER_AGENT, 'Safari') && preg_match('#Safari/([0-9]{1,3})#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
 		$agent = 'Safari';
-	} elseif (strstr($_SERVER['HTTP_USER_AGENT'], 'Konqueror') && preg_match('#Konqueror/([0-9])#', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
+	} elseif (strstr($USER_AGENT, 'Konqueror') && preg_match('#Konqueror/([0-9])#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
 		$agent = 'Konqueror';
-	} elseif (preg_match('#Mozilla/([0-9].[0-9]{1,2})#', $_SERVER['HTTP_USER_AGENT'], $log_version)) {
+	} elseif (preg_match('#Mozilla/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
 		$agent = 'Mozilla';
 	} else {
@@ -478,13 +480,13 @@ function phpwcms_getUserAgent() {
 		$agent = 'Other';
 	}
 	
-	if (strstr($_SERVER['HTTP_USER_AGENT'], 'Win')) {
+	if (strstr($USER_AGENT, 'Win')) {
 		$platform = 'Win';
-	} elseif (strstr($_SERVER['HTTP_USER_AGENT'], 'Mac')) {
+	} elseif (strstr($USER_AGENT, 'Mac')) {
 		$platform = 'Mac';
-	} elseif (strstr($_SERVER['HTTP_USER_AGENT'], 'Linux')) {
+	} elseif (strstr($USER_AGENT, 'Linux')) {
 		$platform = 'Linux';
-	} elseif (strstr($_SERVER['HTTP_USER_AGENT'], 'Unix')) {
+	} elseif (strstr($USER_AGENT, 'Unix')) {
 		$platform = 'Unix';
 	} else {
 		$platform = 'Other';
