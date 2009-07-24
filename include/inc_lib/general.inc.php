@@ -1973,7 +1973,15 @@ function checkLogin($mode='REDIRECT') {
 			$ref_url = '?ref='.rawurlencode(PHPWCMS_URL.'phpwcms.php?'.xss_clean($_SERVER['QUERY_STRING']));
 		}
 		if($mode == 'REDIRECT') {
-			headerRedirect(PHPWCMS_URL.get_login_file().$ref_url);
+			
+			// check again if user was logged in and this is a valid redirect request
+			$sql  = 'SELECT COUNT(*)  FROM '.DB_PREPEND.'phpwcms_userlog WHERE ';
+			$sql .= "logged_ip='".aporeplace(getRemoteIP())."' AND ";
+			$sql .= '( '.time().' - logged_change ) < 3600';
+			$ref_url	= _dbCount($sql) > 0 ? get_login_file().$ref_url : '';
+			
+			headerRedirect(PHPWCMS_URL . $ref_url);
+		
 		} else {
 			return false;
 		}
