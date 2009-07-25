@@ -27,6 +27,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+$acat_struct_mode = 'STRUCT';
 
 if($_GET['struct'] === 'index') {
 
@@ -36,7 +37,7 @@ if($_GET['struct'] === 'index') {
 	$acat_new			= 0;
 	$acat_aktiv			= $indexpage['acat_aktiv'];
 	$acat_public		= $indexpage['acat_public'];
-	$acat_sort			= '';
+	$acat_sort			= isset($acat_sort) ? $acat_sort : '';
 	$acat_alias			= $indexpage['acat_alias'];
 	$acat_hidden		= $indexpage['acat_hidden'];
 	$acat_template		= $indexpage['acat_template'];
@@ -56,33 +57,33 @@ if($_GET['struct'] === 'index') {
 	$acat_overwrite		= empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'];
 	$acat_archive		= empty($indexpage['acat_archive']) ? 0 : $indexpage['acat_archive'];
 	
-} else {
+	$acat_struct_mode = 'INDEX';
+	
+} elseif(!isset($acat_title)) {
+	
+	$parentStructData = getParentStructArray($_GET["struct"]);
 
-	if(!isset($acat_title)) {
-	
-		$parentStructData = getParentStructArray($_GET["struct"]);
-	
-		$acat_title			= '';
-		$acat_info			= '';
-		$acat_aktiv			= 1;
-		$acat_public		= 1;
-		$acat_sort			= '';
-		$acat_alias			= '';
-		$acat_hidden		= 0;
-		$acat_hiddenactive	= 0;
-		$acat_template		= $parentStructData['acat_template'];
-		$acat_ssl			= 0;
-		$acat_regonly		= 0;
-		$acat_redirect		= '';
-		$acat_nositemap		= 1;
-		$acat_maxlist		= 0;
-		$acat_permit		= array();
-		$acat_cntpart		= array();
-		$acat_pagetitle		= '';
-		$acat_paginate		= 0;
-		$acat_overwrite		= '';
-		$acat_archive		= 0;
-	}
+	$acat_title			= '';
+	$acat_info			= '';
+	$acat_aktiv			= 1;
+	$acat_public		= 1;
+	$acat_sort			= isset($acat_sort) ? $acat_sort : '';
+	$acat_alias			= '';
+	$acat_hidden		= 0;
+	$acat_hiddenactive	= 0;
+	$acat_template		= $parentStructData['acat_template'];
+	$acat_ssl			= 0;
+	$acat_regonly		= 0;
+	$acat_redirect		= '';
+	$acat_nositemap		= 1;
+	$acat_maxlist		= 0;
+	$acat_permit		= array();
+	$acat_cntpart		= array();
+	$acat_pagetitle		= '';
+	$acat_paginate		= 0;
+	$acat_overwrite		= '';
+	$acat_archive		= 0;
+
 }
 
 switch($acat_hidden) {
@@ -199,32 +200,44 @@ if(is_array($tmpllist) && count($tmpllist)) {
 ?>				  
 		</select></td>
 		  </tr>
-		  
-		  
-          
+
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		 <tr>
 		  	<td class="v09"><?php echo  $BL['be_admin_struct_topcount'] ?>:</td>
-			<td class="v09">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			
 			<td class="v09" colspan="2"><?php echo  $BL['be_pagination'] ?>:</td>
 			
-			<td class="v09">&nbsp;&nbsp;</td>
-			<td class="v09"><?php echo $BL['be_article_per_page'] //$BL['be_admin_struct_maxlist'] ?>:</td>
-	  	  </tr>
-		  <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-		  <tr>
-		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="f11b" style="width:135px" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
+			<td>&nbsp;&nbsp;</td>
+			<td class="v09"><?php echo $BL['be_article_per_page'] ?>:</td>
+
+<?php if($acat_struct_mode != 'INDEX'): ?>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td class="v09"><?php echo $BL['be_cnt_sortvalue'] ?>:</td>
+<?php endif; ?>
+
+	  	  </tr>
+		 
+		  <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+		 
+		  <tr>
+		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="f11b width125" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
+			<td>&nbsp;</td>
 			
 			<td bgcolor="#D9DEE3"><input name="acat_paginate" type="checkbox" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo "checked"; ?> /></td>
 			<td bgcolor="#D9DEE3">&nbsp;<label for="acat_paginate"><?php echo $BL['be_article_pagination'] ?></label>&nbsp;&nbsp;</td>
 			
-			<td>&nbsp;&nbsp;</td>
-			<td><input name="acat_maxlist" type="text" id="acat_maxlist" class="f11b" style="width:80px" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" /></td>
+			<td>&nbsp;</td>
+			<td><input name="acat_maxlist" type="text" id="acat_maxlist" class="f11b width75" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" /></td>
+
+<?php if($acat_struct_mode != 'INDEX'): ?>	 
+		 	<td>&nbsp;</td>
+		 	<td><input name="acat_sort" type="text" id="acat_sort" class="f11b width75" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" /></td>
+<?php endif; ?>
+
 		  </tr>
 		  </table></td>
 	</tr>
@@ -270,7 +283,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
                   <td>&nbsp;<label for="acat_order4"><?php echo  $BL['be_article_atitle'] ?></label>&nbsp;&nbsp;</td>
                 </tr>
             </table>
-            </div>			</td>
+            </div>
+			</td>
           </tr>
 		  
 		  
@@ -292,16 +306,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 $temp_count = 0;
 foreach($acat_cntpart as $value) {
 	if(isset($wcs_content_type[$value])) {
-	/*
-	if(isContentPartSet($value)) {
-		
-		list($value_id, $value_module) = explode(':', $value);
-		echo '<option value="'.$value.'">'.$wcs_content_type[$value_id];
-		if(isset($phpwcms['modules'][$value_module])) {
-			echo ': '.$BL['modules'][ $value_module ]['listing_title'];
-		}
-		echo "</option>\n";
-		*/
 		echo '<option value="'.$value.'">'.$wcs_content_type[$value]."</option>\n";;
 		unset($wcs_content_type[$value]);
 	}
@@ -443,7 +447,7 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
               </table></td>
           </tr>
           <tr><td><img src="img/leer.gif" alt="" width="1" height="20" />
-		  		<input name="acat_sort" type="hidden" id="acat_sort" value="<?php echo $acat_sort; ?>" />
+		  		<input name="acat_sort_temp" type="hidden" value="<?php echo $acat_sort; ?>" />
 				<input name="acat_struct" type="hidden" id="acat_struct" value="<?php echo $acat_struct; ?>" />
 				<input name="acat_new" type="hidden" id="acat_new" value="<?php echo $acat_new; ?>" />
 				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" /></td>

@@ -68,12 +68,9 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 		mysql_free_result($result_acat);
 	}
 } else {
-	//include_once('include/inc_conf/conf.template_default.inc.php');
-	//include_once('include/inc_conf/conf.indexpage.inc.php');
 	$acat_topcount 		= $indexpage['acat_topcount'];
 	$acat_order 		= $indexpage['acat_order'];
 	$acat_cntpart		= isset($indexpage['acat_cntpart']) ? explode(',', $indexpage['acat_cntpart']) : array();
-	//unset($template_default);
 }
 
 if(isset($_GET["sort"])) {

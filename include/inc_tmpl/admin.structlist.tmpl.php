@@ -84,7 +84,8 @@ $struct[0]["acat_struct"] = 0;
 //-- 19-11-2004 Fernando Batista start-----------------------------------------------------------------------------------------------------------
 // echo listmode_edits ($listmode,$struct,0,$an,$cut_article,$cut_id,0,0,0,0);
 // echo listmode_edits($listmode,$struct,0,$an,$copy_article,$copy_id,$cut_article,$cut_id,0,0,0,0);
-echo listmode_edits($listmode,$struct,0,$an,$copy_article_content,$cut_article_content,$copy_article,$copy_id,$cut_article,$cut_id,0,0,0,0);
+$child_sort	= ( get_root_childcount(0, $db) + 1 ) * 10;
+echo listmode_edits($listmode,$struct,0,$an,$copy_article_content,$cut_article_content,$copy_article,$copy_id,$cut_article,$cut_id,0,0,0,$child_sort);
 //-- 19-11-2004 Fernando Batista end-----------------------------------------------------------------------------------------------------------
 
 echo "</td>\n</tr>\n";

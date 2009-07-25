@@ -46,6 +46,8 @@ function struct_list ($id, $dbcon, $copy_article_content, $cut_article_content, 
 
 function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $forbid_cut, $forbid_copy, $listmode, $cut_article, $count_row, $dbcon) {
 
+	global $BL;
+
 	$page_val		= ($listmode) ? "do=admin&amp;p=6" : "do=articles";
 	$child_count	= get_root_childcount($struct[$key]["acat_id"], $dbcon);
 	$child_sort		= (($child_count+1)*10);
@@ -54,7 +56,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$forbid_copy	= ($struct[$key]["acat_struct"] == $copy_id || $forbid_copy) ? 1 : 0;
 	
 	$an = html_specialchars($struct[$key]["acat_name"]);
-	$a  = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
+	$a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
 	$a .= "<td width=\"428\">";
 	$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 	$a .= '<td nowrap="nowrap"><img src="img/leer.gif" width="'.(14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />"; //14
@@ -68,7 +70,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$a .= ".gif\" width=\"11\" height=\"15\" ";
 
 	$info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
-	$info .= 'ALIAS: '.html_specialchars($struct[$key]["acat_alias"]);
+	$info .= 'ALIAS: '.html_specialchars($struct[$key]["acat_alias"]).'<br />';
+	$info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
 	
 	$a .= 'onmouseover="Tip(\''.$info.'\');" alt=""';	
 	
@@ -547,14 +550,14 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 
 function listmode_edits ($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort) {
 
-	//Unterscheidung, welche bearbeitungsfunktionen angezeigt werden sollen
+	// Decide which action available
 	$a = ''; 
 	switch($listmode) {
 	
 		case 0:	$a .= "<a href=\"phpwcms.php?do=articles&amp;p=1&amp;struct=".$struct[$key]["acat_id"]."\" ";
 				$a .= "title=\"".$GLOBALS['BL']['be_func_struct_new_article']." \n[".$an."]\">";
 				$a .= "<img src=\"img/button/add_11x11.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
-				if($cut_article) { //Wenn ID zum Artikelausschneiden angegeben
+				if($cut_article) { // Cut
 					$a .= '<a href="include/inc_act/act_structure.php?do=3'.'%7C'.$cut_article.'%7C';
 					$a .= $struct[$key]["acat_id"]."\" title=\"".$GLOBALS['BL']['be_func_struct_paste_article']." \n[".$an;
 					$a .= "]\"><img src=\"img/button/cut_11x11_1.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";

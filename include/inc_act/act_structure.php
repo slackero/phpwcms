@@ -60,17 +60,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 	if(isset($_POST['acat_cp']) && is_array($_POST['acat_cp'])) {
 
 		$acat_cntpart = $_POST['acat_cp'];
-		$acat_cntpart = array_unique($acat_cntpart);
-		/*
-		foreach($acat_cntpart as $key => $value) {
-		
-			if(!is_numeric($value)) {
-				unset($acat_cntpart[$key]);
-			}
-		
-		}
-		*/
-		
+		$acat_cntpart = array_unique($acat_cntpart);		
 		$acat_cntpart = implode(',', $acat_cntpart);
 	
 	}
@@ -106,7 +96,13 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$sql .= "?>";
 		write_textfile(PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php', $sql);
 	}
-
+	
+	$acat_sort_fallback	= isset($_POST["acat_sort"]) ? intval(trim($_POST["acat_sort"])) : 0;
+	$acat_sort_temp		= isset($_POST["acat_sort_temp"]) ? intval($_POST["acat_sort_temp"]) : 0;
+	
+	if($acat_sort_fallback === 0 && $acat_sort_temp > 0) {
+		$acat_sort_fallback = $acat_sort_temp;
+	}
 
 	if(isset($_POST["acat_new"]) && intval($_POST["acat_new"]) == 1 && intval($_POST["acat_id"]) == 0 && $_POST["acat_id"] != 'index') {
 		if(trim($_POST["acat_name"])) {
@@ -126,7 +122,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			(isset($_POST["acat_public"]) ? 1 : 0).",".
 			intval($_POST["acat_struct"]).",".
 			intval($_POST["acat_template"]).",".
-			intval($_POST["acat_sort"]).",".
+			$acat_sort_fallback.",".
 			$_SESSION["wcs_user_id"].",'".
 			proof_alias($_POST["acat_id"], $_POST["acat_alias"])."',".
 			$acat_hidden.", ".
@@ -158,7 +154,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			"acat_public=".(isset($_POST["acat_public"]) ? 1 : 0).", ".
 			"acat_struct=".intval($_POST["acat_struct"]).", ".
 			"acat_template=".intval($_POST["acat_template"]).", ".
-			"acat_sort=".intval($_POST["acat_sort"]).", ".
+			"acat_sort=".$acat_sort_fallback.", ".
 			"acat_uid=".$_SESSION["wcs_user_id"].", ".
 			"acat_hidden=".$acat_hidden.", ".
 			"acat_ssl=".(isset($_POST["acat_ssl"]) ? 1 : 0).", ".
