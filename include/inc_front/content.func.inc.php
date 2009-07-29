@@ -163,11 +163,6 @@ if(isset($_GET["id"])) {
 			
 			} elseif($alias == $indexpage['acat_alias']) {
 			
-				$aktion[0] = 0;
-				$aktion[1] = 0;
-				$aktion[3] = 0;
-				$aktion[4] = 0;
-				
 				define('PHPWCMS_ALIAS', $alias);
 			
 			} else {
