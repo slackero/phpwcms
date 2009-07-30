@@ -35,7 +35,7 @@ ALTER TABLE `phpwcms_userdetail` ADD `detail_salutation` VARCHAR( 255 ) NOT NULL
 ALTER TABLE `phpwcms_userdetail` ADD INDEX ( detail_regkey );
 
 #2009-07-29
-ALTER TABLE `phpwcms_shop_products` ADD `shopprod_track_view` INT( 11 ) NOT NULL DEFAULT '0' AFTER `shopprod_special_price`;
+ALTER TABLE `phpwcms_shop_products` ADD `shopprod_track_view` INT( 11 ) NOT NULL DEFAULT '0';
 ALTER TABLE `phpwcms_shop_products` ADD INDEX ( `shopprod_track_view` );
 
 CREATE TABLE IF NOT EXISTS `phpwcms_log` (
@@ -56,3 +56,4 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log` (
   KEY `log_referrer_id` (`log_referrer_id`),
   KEY `log_type` (`log_type`)
 ) TYPE=MyISAM ;
+
