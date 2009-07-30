@@ -33,3 +33,26 @@ ALTER TABLE `phpwcms_file` ADD INDEX ( f_sort );
 ALTER TABLE `phpwcms_userdetail` ADD `detail_regkey` VARCHAR( 255 ) NOT NULL DEFAULT '' AFTER `detail_id`;
 ALTER TABLE `phpwcms_userdetail` ADD `detail_salutation` VARCHAR( 255 ) NOT NULL DEFAULT '' AFTER `detail_title`;
 ALTER TABLE `phpwcms_userdetail` ADD INDEX ( detail_regkey );
+
+#2009-07-29
+ALTER TABLE `phpwcms_shop_products` ADD `shopprod_track_view` INT( 11 ) NOT NULL DEFAULT '0' AFTER `shopprod_special_price`;
+ALTER TABLE `phpwcms_shop_products` ADD INDEX ( `shopprod_track_view` );
+
+CREATE TABLE IF NOT EXISTS `phpwcms_log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `log_type` varchar(50) NOT NULL DEFAULT '',
+  `log_ip` varchar(30) NOT NULL DEFAULT '',
+  `log_user_agent` varchar(255) NOT NULL,
+  `log_user_id` int(11) NOT NULL DEFAULT '0',
+  `log_user_name` varchar(255) NOT NULL,
+  `log_referrer_id` int(11) NOT NULL DEFAULT '0',
+  `log_referrer_url` text NOT NULL,
+  `log_data1` varchar(255) NOT NULL DEFAULT '',
+  `log_data2` varchar(255) NOT NULL DEFAULT '',
+  `log_data3` varchar(255) NOT NULL DEFAULT '',
+  `log_msg` text NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `log_referrer_id` (`log_referrer_id`),
+  KEY `log_type` (`log_type`)
+) TYPE=MyISAM ;

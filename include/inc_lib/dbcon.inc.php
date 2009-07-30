@@ -271,13 +271,13 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 		}
 	}
 	if($group_by !== '') {
-		$group_by = ' GROUP BY '.$group_by;
+		$group_by = ' GROUP BY '.aporeplace($group_by);
 	} else {
 		$group_by = '';
 	}
 	
 	if($order_by !== '') {
-		$order_by = ' ORDER BY '.$order_by;
+		$order_by = ' ORDER BY '.aporeplace($order_by);
 	} else {
 		$order_by = '';
 	}

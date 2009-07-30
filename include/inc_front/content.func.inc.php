@@ -27,6 +27,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+
 //predefine values
 
 $content['cat']					= '';
@@ -423,7 +424,7 @@ if(!$block["maintext"]) {
 
 // -------------------------------------------------------------
 
-//normal page opreation
+//normal page operation
 if($aktion[2] == 0) {
 	
 	switch($pagelayout["layout_render"]) {

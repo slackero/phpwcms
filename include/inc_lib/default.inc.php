@@ -206,7 +206,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"] = '1.4.2';
-$phpwcms["release_date"] = '2009/07/02';
+$phpwcms["release_date"] = '2009/07/30';
 
 
 // load permissions class
@@ -420,6 +420,9 @@ function _initSession() {
 }
 
 function getRemoteIP() {
+	if(defined('REMOTE_IP')) {
+		return REMOTE_IP;
+	}
 	$IP = 'unknown';
 	if (!empty($_SERVER['HTTP_CLIENT_IP']) && strcasecmp($_SERVER['HTTP_CLIENT_IP'], 'unknown')) {
 		$IP = $_SERVER['HTTP_CLIENT_IP'];
@@ -428,6 +431,7 @@ function getRemoteIP() {
 	} elseif (!empty($_SERVER['REMOTE_ADDR']) && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
 		$IP = $_SERVER['REMOTE_ADDR'];
 	}
+	define('REMOTE_IP', $IP);
 	return $IP;
 }
 
@@ -445,14 +449,19 @@ function getRemoteIP() {
 
 function phpwcms_getUserAgent($USER_AGENT='') {
 	
+	if(isset($GLOBALS['phpwcms']['USER_AGENT'])) {
+		return $GLOBALS['phpwcms']['USER_AGENT'];
+	}
+	
 	$USER_AGENT = empty($USER_AGENT) && isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : $USER_AGENT;
 
 	if(empty($USER_AGENT)) {
-		return array(
+		$GLOBALS['phpwcms']['USER_AGENT'] = array(
 			'agent' => 'Other',
 			'version' => 0,
 			'platform' => 'Other'
 		);
+		return $GLOBALS['phpwcms']['USER_AGENT'];
 	}
 
 	if(preg_match('#MSIE ([0-9].[0-9]{1,2})(.*Opera ([0-9].[0-9]{1,2}))?#', $USER_AGENT, $log_version)) {
@@ -492,11 +501,13 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$platform = 'Other';
 	}
 	
-	return array(
+	$GLOBALS['phpwcms']['USER_AGENT'] = array(
 		'agent' => $agent,
 		'version' => $ver,
 		'platform' => $platform
 	);
+	
+	return $GLOBALS['phpwcms']['USER_AGENT'];
 }
 
 /**
@@ -507,37 +518,54 @@ function now($format=NULL) {
 	return is_string($format) ? date($format) : time();
 }
 
-function log_message($logtype='', $message='', $userid='', $ip='') {
+/**
+ * Log to db
+ *
+ * Default log types: DEBUG|INFO|ERROR|INFO or use specific module name
+ */
+function log_message($type='UNDEFINED', $message='', $userid=0) {
 
-	$logtype = strtoupper($logtype);
+	$log = array(
+			'log_created'		=> date('Y-m-d H:i:s', now()),
+			'log_type'			=> 'UNDEFINED',
+			'log_ip'			=> getRemoteIP(),
+			'log_user_agent'	=> '',
+			'log_user_id'		=> 0,
+			'log_user_name'		=> '',
+			'log_referrer_id'	=> 0,
+			'log_referrer_url'	=> '',
+			'log_data1'			=> '',
+			'log_data2'			=> '',
+			'log_data3'			=> '',
+			'log_msg'			=> ''
+		);
 
-	switch($logtype) {
-	
-		case 'DEBUG':
-		case 'INFO':
-		case 'ERROR':	break;
-		default: 		$logtype = 'INFO';
-	
+	if(is_array($type)) {
+		$user = array_intersect( $log, $type );
+	} else {
+		$user = array(
+			'log_type'			=> trim($type),
+			'log_user_id'		=> intval($userid),
+			'log_msg'			=> trim($message)
+			);
 	}
 	
-	$message = trim($message);
-	if( empty($message) ) {
-		$message = 'no specific log message';
+	$log = array_merge( $log, $user );
+	
+	$log['log_type'] = strtoupper($log['log_type']);
+	
+	if($log['log_user_agent'] == '') {
+		$user_agent = phpwcms_getUserAgent();
+		$log['log_user_agent'] = $user_agent['agent'];
 	}
-	if( empty( $ip ) ) {
-		$ip = getRemoteIP();
+	if(empty($log['log_referrer_url']) && isset($_SERVER['HTTP_REFERER'])) {
+		$log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
 	}
 	
-	@_dbInsert('phpwcms_log', array(
-		
-			'log_type'		=> $logtype,
-			'log_message'	=> $message,
-			'log_ip'		=> $ip,
-			'log_userid'	=> $userid
-		
-		), 'DELAYED');
+	_dbInsert( 'phpwcms_log', $log, 'DELAYED' );
 
 }
+
 
 function init_frontend_edit() {
 	// define VISIBLE_MODE

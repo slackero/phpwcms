@@ -49,15 +49,13 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	$_tmpl['source'] = @file_get_contents($phpwcms['modules']['shop']['path'].'template/default/default.html');
 	if($_tmpl['source'])
 	{
-		$_tmpl['config']		= parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);
+		$_tmpl['config'] = parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);
 		
-		if( empty($_tmpl['config']['cat_list_products']) ) {
-			$_tmpl['config']['cat_list_products'] = false;
-		} elseif( strtolower($_tmpl['config']['cat_list_products']) == 'on' || $_tmpl['config']['cat_list_products'] == '1' ) {
-			$_tmpl['config']['cat_list_products'] = true;
-		} else {
-			$_tmpl['config']['cat_list_products'] = false;
-		}
+		$_tmpl['config']['cat_list_products']		= empty($_tmpl['config']['cat_list_products']) ? false : boolval($_tmpl['config']['cat_list_products']);
+		$_tmpl['config']['image_list_lightbox']		= empty($_tmpl['config']['image_list_lightbox']) ? false : boolval($_tmpl['config']['image_list_lightbox']);
+		$_tmpl['config']['image_detail_lightbox']	= empty($_tmpl['config']['image_detail_lightbox']) ? false : boolval($_tmpl['config']['image_detail_lightbox']);
+		$_tmpl['config']['image_detail_crop']		= empty($_tmpl['config']['image_detail_crop']) ? false : boolval($_tmpl['config']['image_detail_crop']);
+		$_tmpl['config']['image_list_crop']			= empty($_tmpl['config']['image_list_crop']) ? false : boolval($_tmpl['config']['image_list_crop']);
 		
 		// handle custom fields
 		$_tmpl['config']['shop_field'] = array();
@@ -119,25 +117,32 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	
 	// merge config settings like translations and so on	
 	$_tmpl['config'] = array_merge(	array(
-							'cat_all' => 'All products',
-							'cat_list_products'	=> false,
-							'price_decimals' => 2,
-							'vat_decimals' => 0,
-							'weight_decimals' => 0,
-							'dec_point' => ".",
-							'thousands_sep' => ",",
-							'image_list_width' => 200,
-							'image_list_height' => 200,
-							'image_detail_width' => 200,
-							'image_detail_height' => 200,
-							'mail_customer_subject' => "[#{ORDER}] Your order at MyShop",
-							'mail_neworder_subject' => "[#{ORDER}] New order",
-							'label_payby_prepay' => "Cash with order",
-							'label_payby_pod' => "Cash on delivery",
-							'label_payby_onbill' => "On account",
-							'order_number_style' => 'RANDOM'
-									),	$_tmpl['config'] );
-
+							'cat_all'				=> '@@All products@@',
+							'cat_list_products'		=> false,
+							'price_decimals'		=> 2,
+							'vat_decimals'			=> 0,
+							'weight_decimals'		=> 0,
+							'dec_point'				=> ".",
+							'thousands_sep'			=> ",",
+							'image_list_width'		=> 200,
+							'image_list_height'		=> 200,
+							'image_detail_width'	=> 200,
+							'image_detail_height'	=> 200,
+							'image_zoom_width'		=> 750,
+							'image_zoom_height'		=> 500,
+							'image_list_lightbox'	=> false,
+							'image_detail_lightbox'	=> true,
+							'image_detail_crop'		=> false,
+							'image_list_crop'		=> false,
+							'mail_customer_subject'	=> "[#{ORDER}] Your order at MyShop",
+							'mail_neworder_subject'	=> "[#{ORDER}] New order",
+							'label_payby_prepay'	=> "@@Cash with order@@",
+							'label_payby_pod'		=> "@@Cash on delivery@@",
+							'label_payby_onbill'	=> "@@On account@@",
+							'order_number_style'	=> 'RANDOM',
+							'cat_list_sort_by'		=> 'shopprod_name1 ASC'
+						),	$_tmpl['config'] );
+	
 	// set preferences
 	$_shopPref = array();
 	foreach( array( 'shop_pref_currency', 'shop_pref_unit_weight', 'shop_pref_vat', 'shop_pref_email_to', 
@@ -239,25 +244,25 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		}
 		
 		if(empty($_SESSION['shopping_cart']['step1']['INV_FIRSTNAME'])) {
-			$ERROR['inv_address']['INV_FIRSTNAME'] = 'First name must be filled';
+			$ERROR['inv_address']['INV_FIRSTNAME'] = '@@First name must be filled@@';
 		}
 		if(empty($_SESSION['shopping_cart']['step1']['INV_NAME'])) {
-			$ERROR['inv_address']['INV_NAME'] = 'Name must be filled';
+			$ERROR['inv_address']['INV_NAME'] = '@@Name must be filled@@';
 		}
 		if(empty($_SESSION['shopping_cart']['step1']['INV_ADDRESS'])) {
-			$ERROR['inv_address']['INV_ADDRESS'] = 'Address must be filled';
+			$ERROR['inv_address']['INV_ADDRESS'] = '@@Address must be filled@@';
 		}
 		if(empty($_SESSION['shopping_cart']['step1']['INV_ZIP'])) {
-			$ERROR['inv_address']['INV_ZIP'] = 'ZIP must be filled';
+			$ERROR['inv_address']['INV_ZIP'] = '@@ZIP must be filled@@';
 		}
 		if(empty($_SESSION['shopping_cart']['step1']['INV_CITY'])) {
-			$ERROR['inv_address']['INV_CITY'] = 'City must be filled';
+			$ERROR['inv_address']['INV_CITY'] = '@@City must be filled@@';
 		}
 		if(empty($_SESSION['shopping_cart']['step1']['EMAIL']) || !is_valid_email($_SESSION['shopping_cart']['step1']['EMAIL'])) {
-			$ERROR['inv_address']['EMAIL'] = 'Email must be filled or is invalid';
+			$ERROR['inv_address']['EMAIL'] = '@@Email must be filled or is invalid@@';
 		}
 		if(empty($_SESSION['shopping_cart']['step1']['PHONE'])) {
-			$ERROR['inv_address']['PHONE'] = 'Phone must be filled';
+			$ERROR['inv_address']['PHONE'] = '@@Phone must be filled@@';
 		}
 		if(isset($ERROR['inv_address']) && count($ERROR['inv_address'])) {
 			$_SESSION['shopping_cart']['error']['step1'] = true;
@@ -490,17 +495,21 @@ if( $_shop_load_list !== false ) {
 		
 	}
 	
+	$_tmpl['config']['cat_list_sort_by'] = trim($_tmpl['config']['cat_list_sort_by']);
+	if($_tmpl['config']['cat_list_sort_by'] !== '') {
+		$sql .= ' ORDER BY '.aporeplace($_tmpl['config']['cat_list_sort_by']);
+	}
+	
 	$data = _dbQuery($sql);
 	
 	if( count($shop_cat) ) {
 	
 		$x = 0;
 		$entry = array();
+
+		$shop_prod_detail = rel_url(array(), array('shop_detail'));
 		
-		if(!$shop_detail_id) {
-			unset($GLOBALS['_getVar']['shop_detail']);
-		}
-		$shop_prod_detail = 'index.php'.returnGlobalGET_QueryString('htmlentities');
+		$_tmpl['config']['init_lightbox'] = false;
 
 		foreach($data as $row) {
 		
@@ -553,8 +562,12 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $_price['vat']);
 			$entry[$x] = render_cnt_template($entry[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
 			$entry[$x] = render_cnt_template($entry[$x], 'MODEL', html_specialchars($row['shopprod_model']));
+			$entry[$x] = render_cnt_template($entry[$x], 'VIEWED', number_format($row['shopprod_track_view'], 0, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']));
 			
 			if($shop_detail_id) {
+				
+				$_tmpl['config']['mode']		= 'detail';
+				$_tmpl['config']['lightbox_id']	= '[product_'.$x.'_'.$shop_detail_id.']';
 				
 				// product detail
 				$entry[$x] = str_replace('{PRODUCT_DETAIL_LINK}', $shop_prod_detail, $entry[$x]);
@@ -564,17 +577,26 @@ if( $_shop_load_list !== false ) {
 				if(count($row['shopprod_var']['images'])) {
 
 					foreach($row['shopprod_var']['images'] as $img_key => $img_vars) {
-						if($img_vars = shop_image_tag($row['shopprod_var']['images'][$img_key], $_tmpl['config']['image_detail_width'], $_tmpl['config']['image_detail_height'])) {
+						if($img_vars = shop_image_tag($row['shopprod_var']['images'][$img_key])) {
 							$_prod_list_img[] = $img_vars;
 						}
 					}
 				}
 				$_prod_list_img = implode($_tmpl['image_space'], $_prod_list_img);
 				
+				
+				// Update product view count
+				// ToDo: Maybe use cookie or session to avoid tracking in case showed once
+				$sql = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'phpwcms_shop_products SET shopprod_track_view=shopprod_track_view+1 WHERE shopprod_id='.$shop_detail_id;
+				_dbQuery($sql, 'UPDATE');
+				
 			} else {
+				
+				$_tmpl['config']['mode']		= 'list';
+				$_tmpl['config']['lightbox_id']	= '';
 			
 				if(count($row['shopprod_var']['images'])) {
-					$_prod_list_img = shop_image_tag($row['shopprod_var']['images'][0], $_tmpl['config']['image_list_width'], $_tmpl['config']['image_list_height']);
+					$_prod_list_img = shop_image_tag($row['shopprod_var']['images'][0]);
 				} else {
 					$_prod_list_img = '';
 				}
@@ -583,10 +605,19 @@ if( $_shop_load_list !== false ) {
 				$entry[$x] = str_replace('{PRODUCT_DETAIL_LINK}', $shop_prod_detail.'&amp;shop_detail='.$row['shopprod_id'], $entry[$x]);
 				
 			}
-	
+			
+			if(!$_tmpl['config']['init_lightbox'] && $_tmpl['config']['image_'.$_tmpl['config']['mode'].'_lightbox'] && $_prod_list_img) {
+				$_tmpl['config']['init_lightbox'] = true;
+			}
+			
 			$entry[$x] = render_cnt_template($entry[$x], 'IMAGE', $_prod_list_img);
 
 			$x++;
+		}
+		
+		// initialize Lightbox effect
+		if($_tmpl['config']['init_lightbox']) {
+			initializeLightbox();
 		}
 		
 		$entries = implode($_tmpl['list_space'], $entry);
@@ -988,7 +1019,15 @@ function get_cart_data() {
 
 
 
-function shop_image_tag($img, $width=100, $height=100, $crop=0) {
+function shop_image_tag($img) {
+	
+	//['config'][], $_tmpl['config']['']
+	$config =& $GLOBALS['_tmpl']['config'];
+	
+	// set image values
+	$width		= $config['image_'.$config['mode'].'_width'];
+	$height		= $config['image_'.$config['mode'].'_height'];
+	$crop		= $config['image_'.$config['mode'].'_crop'];
 
 	$thumb_image = get_cached_image(
 			array(	"target_ext"	=>	$img['f_ext'],
@@ -1011,12 +1050,23 @@ function shop_image_tag($img, $width=100, $height=100, $crop=0) {
 		
 		$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
 		$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' border="0" />';
+		
+		// use lightbox effect
+		if($config['image_'.$config['mode'].'_lightbox']) {
+		
+			$a  = '<a href="img/cmsimage.php/';
+			$a .= $config['image_zoom_width'] . 'x' . $config['image_zoom_height'] . '/';
+			$a .= $img['f_hash'] . '.' . $img['f_ext'] . '" ';
+			$a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . $caption[3] .'>';
+			
+			$list_img_temp = $a . $list_img_temp . '</a>';
+		}
+		
 		return $list_img_temp;
 
-	} else {
-
-		return '';
 	}
+	
+	return '';
 }
 
 function get_shop_category_name($id) {

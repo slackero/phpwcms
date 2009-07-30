@@ -902,35 +902,38 @@ CREATE TABLE `phpwcms_shop_orders` (
 --
 
 CREATE TABLE `phpwcms_shop_products` (
-  `shopprod_id` int(10) unsigned NOT NULL auto_increment,
-  `shopprod_createdate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `shopprod_changedate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `shopprod_status` int(1) unsigned NOT NULL default '0',
-  `shopprod_uid` int(10) unsigned NOT NULL default '0',
-  `shopprod_ordernumber` varchar(255) NOT NULL default '',
-  `shopprod_model` varchar(255) NOT NULL default '',
-  `shopprod_name1` varchar(255) NOT NULL default '',
-  `shopprod_name2` varchar(255) NOT NULL default '',
-  `shopprod_tag` varchar(255) NOT NULL default '',
-  `shopprod_vat` float unsigned NOT NULL default '0',
-  `shopprod_netgross` int(1) unsigned NOT NULL default '0',
-  `shopprod_price` float NOT NULL default '0',
-  `shopprod_maxrebate` float NOT NULL default '0',
+  `shopprod_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `shopprod_createdate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `shopprod_changedate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `shopprod_status` int(1) unsigned NOT NULL DEFAULT '0',
+  `shopprod_uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `shopprod_ordernumber` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_model` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_name1` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_name2` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_tag` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_vat` float unsigned NOT NULL DEFAULT '0',
+  `shopprod_netgross` int(1) unsigned NOT NULL DEFAULT '0',
+  `shopprod_price` float NOT NULL DEFAULT '0',
+  `shopprod_maxrebate` float NOT NULL DEFAULT '0',
   `shopprod_description0` text NOT NULL,
   `shopprod_description1` text NOT NULL,
   `shopprod_description2` text NOT NULL,
   `shopprod_description3` text NOT NULL,
   `shopprod_var` mediumtext NOT NULL,
-  `shopprod_category` varchar(255) NOT NULL default '',
-  `shopprod_weight` float NOT NULL default '0',
-  `shopprod_color` varchar(255) NOT NULL default '',
-  `shopprod_size` varchar(255) NOT NULL default '',
-  `shopprod_listall` int(1) unsigned default '0',
-  PRIMARY KEY  (`shopprod_id`),
+  `shopprod_category` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_weight` float NOT NULL DEFAULT '0',
+  `shopprod_color` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_size` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_listall` int(1) unsigned DEFAULT '0',
+  `shopprod_special_price` text NOT NULL,
+  `shopprod_track_view` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
-  KEY `all` (`shopprod_listall`)
+  KEY `all` (`shopprod_listall`),
+  KEY `shopprod_track_view` (`shopprod_track_view`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------
@@ -1123,3 +1126,22 @@ CREATE TABLE `phpwcms_log_seo` (
   `referrer` text NOT NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS `phpwcms_log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `log_type` varchar(50) NOT NULL DEFAULT '',
+  `log_ip` varchar(30) NOT NULL DEFAULT '',
+  `log_user_agent` varchar(255) NOT NULL,
+  `log_user_id` int(11) NOT NULL DEFAULT '0',
+  `log_user_name` varchar(255) NOT NULL,
+  `log_referrer_id` int(11) NOT NULL DEFAULT '0',
+  `log_referrer_url` text NOT NULL,
+  `log_data1` varchar(255) NOT NULL DEFAULT '',
+  `log_data2` varchar(255) NOT NULL DEFAULT '',
+  `log_data3` varchar(255) NOT NULL DEFAULT '',
+  `log_msg` text NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `log_referrer_id` (`log_referrer_id`),
+  KEY `log_type` (`log_type`)
+) TYPE=MyISAM ;
