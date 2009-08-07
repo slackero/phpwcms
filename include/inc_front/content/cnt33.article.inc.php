@@ -264,16 +264,21 @@ if($news['template']) {
 	}
 
 	// get template based config and merge with defaults
-	$news['config']	= array_merge(	array(	'news_per_row'			=> 1,
-											'news_teaser_text'		=> 'p',
+	$news['config']	= array_merge(	array(	'news_per_row'				=> 1,
+											'news_teaser_text'			=> 'p',
+											'news_teaser_limit_chars'	=> 0,
+											'news_teaser_limit_words'	=> 0,
+											'news_teaser_limit_ellipse'	=> $template_default['ellipse_sign'],
 											'files_template_list'	=> 'default',
 											'files_template_detail'	=> 'default',
-											'files_direct_download'	=> 0 
+											'files_direct_download'	=> 0
 										  ),
 									parse_ini_str( get_tmpl_section('NEWS_SETTINGS', $news['template']), false )
 								  );
 
-	$news['config']['news_per_row']		= abs(intval($news['config']['news_per_row']));
+	$news['config']['news_per_row']				= abs(intval($news['config']['news_per_row']));
+	$news['config']['news_teaser_limit_chars']	= intval($news['config']['news_teaser_limit_chars']);
+	$news['config']['news_teaser_limit_words']	= intval($news['config']['news_teaser_limit_words']);
 	
 	// set function used to render teaser text, custom can be registered
 	switch( trim($news['config']['news_teaser_text']) ) {
@@ -308,6 +313,12 @@ if($news['template']) {
 		$value['cnt_object']	= @unserialize($value['cnt_object']);
 	
 		$news['entries'][$key]	= $news['tmpl_entry'];
+		
+		if($news['config']['news_teaser_limit_chars']) {
+			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_chars'], $news['config']['news_teaser_limit_ellipse'], 'char');
+		} elseif($news['config']['news_teaser_limit_words']) {
+			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_words'], $news['config']['news_teaser_limit_ellipse'], 'word');
+		}
 		
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
 		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));

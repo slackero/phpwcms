@@ -253,7 +253,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 												case 'DATE':	if($cnt_form["fields"][$key]['value'] !== '' && isset($cnt_form['special_attribute']['dateformat']) && 
 																	!is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
 																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-																	$cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat']);
 																}
 																break;										
 											}
@@ -674,6 +673,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									// only 1 checkbox
 									$checkbox_value = is_array($form_value) ? implode('', $form_value) : $form_value;
 									$checkbox_value = trim($checkbox_value);
+									
+									$checkbox_value = explode('-|-', $checkbox_value, 2);
+									$checkbox_label = $checkbox_value[0];
+									$checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
+									
+									$checkbox_label = str_replace(' checked', '', $checkbox_label);
+									
 									if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ? $checkbox_value : $form_name)) {
 										$checkbox_value .= ' checked';
 									}
@@ -687,13 +693,19 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 									$form_field .= '<label for="'.$form_name.'"';
 									$form_field .= $checkbox_style;
-									$form_field .= '>'.$checkbox_value .'</label>';
+									$form_field .= '>'. $checkbox_label .'</label>';
 									
 								} else {
 									// list of checkboxes
 									$checkbox_counter = 0;
 									$checkbox_spacer  = $cnt_form["fields"][$key]['size'] ? '<br />' : ' ';
 									foreach($form_value as $checkbox_value) {
+										
+										$checkbox_value = explode('-|-', $checkbox_value, 2);
+										$checkbox_label = $checkbox_value[0];
+										$checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
+										
+										$checkbox_label = str_replace(' checked', '', $checkbox_label);
 									
 										if(isset($POST_val[$POST_name]) && is_array($POST_val[$POST_name])) {
 											foreach($POST_val[$POST_name] as $postvar_value) {
@@ -716,7 +728,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										}
 										$form_field .= '<label for="'.$form_name.$checkbox_counter.'"';
 										$form_field .= $checkbox_style;
-										$form_field .= '>'.$checkbox_value .'</label>';
+										$form_field .= '>'. $checkbox_label .'</label>';
 										$checkbox_counter++;
 									}
 								}
@@ -754,6 +766,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									// only 1 checkbox
 									$checkbox_value = is_array($form_value) ? implode('', $form_value) : $form_value;
 									$checkbox_value = trim($checkbox_value);
+									
+									$checkbox_value = explode('-|-', $checkbox_value, 2);
+									$checkbox_label = $checkbox_value[0];
+									$checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
+									
+									$checkbox_label = str_replace(' checked', '', $checkbox_label);
+									
 									if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ? $checkbox_value : $form_name)) {
 										$checkbox_value .= ' checked';
 									}
@@ -767,13 +786,20 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 									$form_field .= '<label for="'.$form_name.'"';
 									$form_field .= $checkbox_style;
-									$form_field .= '>'.$checkbox_value .'</label>';
+									$form_field .= '>'. $checkbox_label .'</label>';
 									
 								} else {
 									// list of checkboxes
 									$checkbox_counter = 0;
 									$checkbox_spacer  = $cnt_form["fields"][$key]['size'] ? '<br />' : ' ';
 									foreach($form_value as $checkbox_value) {
+										
+										$checkbox_value = explode('-|-', $checkbox_value, 2);
+										$checkbox_label = $checkbox_value[0];
+										$checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
+										
+										$checkbox_label = str_replace(' checked', '', $checkbox_label);
+										
 										if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $checkbox_value) {
 											$checkbox_value .= ' checked';
 										}
@@ -790,7 +816,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										}
 										$form_field .= '<label for="'.$form_name.$checkbox_counter.'"';
 										$form_field .= $checkbox_style;
-										$form_field .= '>'.$checkbox_value .'</label>';
+										$form_field .= '>'. $checkbox_label .'</label>';
 										$checkbox_counter++;
 									}
 								}
