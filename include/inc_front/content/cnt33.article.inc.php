@@ -73,7 +73,7 @@ if(isset($_getVar['newsdetail'])) {
 
 	$news['match'] = array();
 	
-	preg_match('/^\d{8}\-(\d+)_(.*)/', xss_clean($_getVar['newsdetail']), $news['match']);
+	preg_match('/^\d{8}\-(\d+)_(.*?)$/', xss_clean($_getVar['newsdetail']), $news['match']);
 	
 	if(isset($news['match'][2])) {
 	

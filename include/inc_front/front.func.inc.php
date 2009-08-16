@@ -2030,7 +2030,7 @@ function get_article_idlink($article_id=0, $link_text="", $db) {
 		$data = _dbQuery($sql);
 		
 		if(isset($data[0])) {
-			return '<a href="index.php?'.setGetArticleAid($data).'" title="'.$article_title.'">'.$link_text.'</a>';
+			return '<a href="index.php?'.setGetArticleAid($data[0]).'" title="'.$article_title.'">'.$link_text.'</a>';
 		}
 	}
 	return '<a href="index.php?aid='.$article_id.'" title="'.$article_title.'">'.$link_text.'</a>';

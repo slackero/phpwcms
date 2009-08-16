@@ -110,38 +110,63 @@ function list_country($c, $lang='') {
 	return $country_list;
 }
 
-function getCountry($lang='') {
+function getCountry($lang='', $get='COUNTRY_ARRAY') {
+	
+	global $phpwcms;
 
 	if(empty($lang)) {
 		$lang = isset($_SESSION["wcs_user_lang"]) ? strtolower($_SESSION["wcs_user_lang"]) : $GLOBALS['phpwcms']['default_lang'];
 	}
 	$lang = strtolower(substr($lang, 0, 2));
 	
+	$country_lang_var = $get . '_' . $lang;
+	
+	if(!empty($phpwcms['country'][$country_lang_var])) {
+
+		return $phpwcms['country'][$country_lang_var];
+	}
+		
 	$country_name	= 'country_name_'.aporeplace($lang);
 	$sql			= 'SHOW COLUMNS FROM '.DB_PREPEND."phpwcms_country WHERE Field='".$country_name."'";
 	$result			= _dbQuery($sql);
 	if(!isset($result[0])) {
 		$country_name = 'country_name';
-	}	
+	}
 	
-	$sql	= 'SELECT country_iso, '.$country_name.' AS country FROM '.DB_PREPEND.'phpwcms_country ORDER BY '.$country_name;
-	$result	= _dbQuery($sql);
-	
-	if(isset($result[0])) {
+	if($get == 'COUNTRY_NAME') {
+		
+		$phpwcms['country'][$country_lang_var] = strtoupper($lang);
+		
+		$sql  = 'SELECT '.$country_name.' AS country FROM '.DB_PREPEND."phpwcms_country WHERE ";
+		$sql .= "country_iso='".aporeplace($phpwcms['country'][$country_lang_var])."' LIMIT 1";
+		$result	= _dbQuery($sql);
+		
+		if(isset($result[0]['country'])) {
 
-		$country = array();
-
-		foreach($result as $row) {
-
-			$country[ $row['country_iso'] ] = $row['country'];
+			$phpwcms['country'][$country_lang_var] = $result[0]['country'];
 
 		}
 
-		return $country;
+	} else {
+		
+		$country_lang_var = 'COUNTRY_ARRAY_' . $lang;
 
+		$phpwcms['country'][$country_lang_var] = array();
+
+		$sql	= 'SELECT country_iso, '.$country_name.' AS country FROM '.DB_PREPEND.'phpwcms_country ORDER BY '.$country_name;
+		$result	= _dbQuery($sql);
+
+		if(isset($result[0])) {
+	
+			foreach($result as $row) {
+	
+				$phpwcms['country'][ $country_lang_var ][ $row['country_iso'] ] = $row['country'];
+	
+			}
+		}
 	}
 	
-	return array();	
+	return $phpwcms['country'][$country_lang_var];
 }
 
 

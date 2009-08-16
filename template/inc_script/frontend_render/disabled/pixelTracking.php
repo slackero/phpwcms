@@ -156,13 +156,15 @@ if($_Tracking_GoogleAnalytics) {
 	//$_TrackingCode .= '.google-analytics.com/urchin.js" type="text/javascript">< /script>' . LF;
 	$_TrackingCode .= '.google-analytics.com/ga.js" type="text/javascript"></script>' . LF;
 	$_TrackingCode .= '<script type="text/javascript">' .LF;
-	$_TrackingCode .= SCRIPT_CDATA_START . LF;
-	$_TrackingCode .= '	var pageTracker = _gat._getTracker("' . $_Tracking_GoogleAnalyticsCode . '");' .LF;
-	$_TrackingCode .= '	pageTracker._initData();' .LF;
-	$_TrackingCode .= '	pageTracker._trackPageview("'.$_TrackingPageName.'");' .LF;
+//	$_TrackingCode .= SCRIPT_CDATA_START . LF;
+	$_TrackingCode .= '	try {' . LF;
+	$_TrackingCode .= '		var pageTracker = _gat._getTracker("' . $_Tracking_GoogleAnalyticsCode . '");' .LF;
+//	$_TrackingCode .= '	pageTracker._initData();' .LF;
+	$_TrackingCode .= '		pageTracker._trackPageview("'.$_TrackingPageName.'");' .LF;
+	$_TrackingCode .= '	} catch(err) {}' . LF;
 	//$_TrackingCode .= '	_uacct = "' . $_Tracking_GoogleAnalyticsCode . '";' .LF;
 	//$_TrackingCode .= '	urchinTracker("'.$_TrackingPageName.'");' .LF;
-	$_TrackingCode .= SCRIPT_CDATA_END . LF;
+//	$_TrackingCode .= SCRIPT_CDATA_END . LF;
 	$_TrackingCode .= '</script>';
 	
 	$content['all'] .= $_TrackingCode;

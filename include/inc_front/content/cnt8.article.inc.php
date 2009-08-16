@@ -76,7 +76,7 @@ if(
 	$content['alink']['tags_group_by']	= '';
 	$content['alink']['tags_where']		= '';
 
-	$alink_sql  = "SELECT ar.* FROM ".DB_PREPEND."phpwcms_article ar ";
+	$alink_sql  = "SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ar ";
 	
 	
 	// select by category
@@ -160,13 +160,17 @@ if(
 			$sql_prio		= 'ar.article_priorize DESC, ';
 			$sql_union_prio	= 'article_priorize DESC, ';
 		}
+		
+		$content['alink']['date_basis'] = 'article_date';
 	
 		switch($content['alink']['alink_type']) {
 	
 			case 1:		// create date, DESC
+						$content['alink']['date_basis'] = 'article_created';
 						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_created DESC";	break;
 					
 			case 2:		// create date, ASC
+						$content['alink']['date_basis'] = 'article_created';
 						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_created ASC";	break;
 					
 			case 3:		// change date, DESC
@@ -292,7 +296,7 @@ if(
 					$content['alink']['tr'][$key]	= str_replace('{CATEGORYID}', $row['article_cid'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'TITLE', html_specialchars($row['article_title']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
-					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row['article_created'], strtotime($row['article_begin']), strtotime($row['article_end']));
+					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], strtotime($row['article_begin']), strtotime($row['article_end']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
 
 					$row['article_image'] = unserialize( $row['article_image'] );

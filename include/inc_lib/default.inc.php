@@ -555,8 +555,7 @@ function log_message($type='UNDEFINED', $message='', $userid=0) {
 	$log['log_type'] = strtoupper($log['log_type']);
 	
 	if($log['log_user_agent'] == '') {
-		$user_agent = phpwcms_getUserAgent();
-		$log['log_user_agent'] = $user_agent['agent'];
+		$log['log_user_agent'] = empty($_SERVER['HTTP_USER_AGENT']) ? implode( ', ', phpwcms_getUserAgent() ) : $_SERVER['HTTP_USER_AGENT'];
 	}
 	if(empty($log['log_referrer_url']) && isset($_SERVER['HTTP_REFERER'])) {
 		$log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
