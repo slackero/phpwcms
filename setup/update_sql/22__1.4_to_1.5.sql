@@ -57,3 +57,5 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log` (
   KEY `log_type` (`log_type`)
 ) TYPE=MyISAM ;
 
+#2009-08-19
+ALTER TABLE `phpwcms_calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR( 255 ) NOT NULL DEFAULT '';

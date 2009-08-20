@@ -227,14 +227,11 @@ initMootoolsAutocompleter();
 	
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BLM['article_link'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-		
-			<tr>
-				<td><input name="calendar_refid" type="text" id="calendar_refid" class="v12" style="width:80px;" value="<?php echo empty($plugin['data']['calendar_refid']) ? '' : $plugin['data']['calendar_refid'] ?>" size="11" maxlength="11" /></td>
-				<td class="chatlist">&nbsp;<?php echo $BLM['more_info'] ?></td>
-			</tr>
-		</table></td>
-	
+		<td class="chatlist"><?php echo $BLM['more_info'] ?></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><input name="calendar_refid" type="text" id="calendar_refid" class="v12" style="width:375px;margin-top:3px;" value="<?php echo empty($plugin['data']['calendar_refid']) ? '' : html_specialchars($plugin['data']['calendar_refid']) ?>" size="30" maxlength="255" /></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>

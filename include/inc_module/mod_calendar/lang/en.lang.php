@@ -55,7 +55,7 @@ $BLM['repeat_list5']			= 'weekly';
 $BLM['repeat_list6']			= 'monthly';
 $BLM['repeat_list7']			= 'yearly';
 
-$BLM['article_link']			= 'article ID';
+$BLM['article_link']			= 'AID/alias/url';
 $BLM['more_info']				= '(generates pursuing link in frontend)'; 
 
 $BLM['repeat_till']				= 'time period'; 

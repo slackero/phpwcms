@@ -59,7 +59,7 @@ if(isset($_POST['calendar_title'])) {
 				'calendar_allday'		=> empty($_POST['calendar_allday']) ? 0 : 1,
 				'calendar_range'		=> intval($_POST['calendar_range']),
 				'calendar_where'		=> clean_slweg($_POST['calendar_where']),
-				'calendar_refid'		=> intval($_POST['calendar_refid']),
+				'calendar_refid'		=> clean_slweg($_POST['calendar_refid']),
 				'calendar_duplicate'	=> empty($_POST['calendar_duplicate']) ? 0 : 1,
 				'calendar_rangestart'	=> clean_slweg($_POST['calendar_range_start']),
 				'calendar_rangeend'		=> clean_slweg($_POST['calendar_range_end']),
@@ -117,7 +117,7 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "calendar_text='".aporeplace($plugin['data']['calendar_text'])."', ";
 			$sql .= "calendar_tag='".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "calendar_object='".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
-			$sql .= "calendar_refid=".$plugin['data']['calendar_refid'].", ";
+			$sql .= "calendar_refid='".aporeplace($plugin['data']['calendar_refid'])."', ";
 			$sql .= "calendar_lang='".aporeplace($plugin['data']['calendar_lang'])."' ";
 			
 			$sql .= "WHERE calendar_id=".$plugin['data']['calendar_id'];
@@ -165,8 +165,8 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "'".aporeplace($plugin['data']['calendar_text'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "'".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
-			$sql .= $plugin['data']['calendar_refid'];
-			$sql .= ", '".aporeplace($plugin['data']['calendar_lang'])."'";
+			$sql .= "'".aporeplace($plugin['data']['calendar_refid'])."', ";
+			$sql .= "'".aporeplace($plugin['data']['calendar_lang'])."'";
 
 			$sql .= ')';
 			
@@ -277,8 +277,9 @@ if(!isset($plugin['data']['calendar_image'])) {
 	$plugin['data']['calendar_image'] = array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>'');
 } else {
 	$plugin['data']['calendar_image'] = array_merge( 
-											array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''),
-											$plugin['data']['calendar_image'] );
+					array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''),
+					$plugin['data']['calendar_image']
+			);
 }
 
 
