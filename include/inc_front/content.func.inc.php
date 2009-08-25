@@ -117,7 +117,7 @@ if(isset($_GET["id"])) {
 	if(count($GLOBALS['_getVar'])) {
 		reset($GLOBALS['_getVar']);
 		$alias = trim(key($GLOBALS['_getVar']));
-		if($alias && !strpos($alias, '=')) { // check alias for "=" what means no alias
+		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 		
 			$where_alias = aporeplace($alias);
 			
@@ -182,6 +182,51 @@ if(isset($_GET['print'])) {
 	define('PRINT_PDF', intval($_GET['print']) == 2 ? true : false);
 	unset($GLOBALS['_getVar']['print'], $_GET['print']);
 
+}
+
+// define special OUTPUT format/action
+$phpwcms['output_action'] = false;
+if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_action'])) {
+
+	// split by function - value: F-function1|function2|function3--S-SECT1|SECT2|SECT3
+	$phpwcms['output_action']	= explode('--', clean_slweg( empty($_GET['phpwcms_output_action']) ? $_POST['phpwcms_output_action'] : $_GET['phpwcms_output_action'] ));
+	
+	if(is_array($phpwcms['output_action'])) {
+		
+		$phpwcms['output_function']	= array();
+		$phpwcms['output_section']	= array();
+		
+		foreach($phpwcms['output_action'] as $value) {
+			
+			$value = trim($value);
+			if($value{0} == 'F') {
+				$value = explode('|', substr($value, 2));
+				$output_key = 'output_function';
+			} elseif($value{0} == 'S') {
+				$value = explode('|', substr($value, 2));
+				$output_key = 'output_section';
+			} else {
+				continue;
+			}
+
+			if(is_array($value)) {
+			
+				foreach($value as $_value) {
+					
+					$_value = trim($_value);
+					
+					if($_value != '') {
+						$phpwcms[$output_key][$_value] = $_value;
+					}
+				}
+			}
+		}
+		
+		$phpwcms['output_action'] = count($phpwcms['output_function']) || count($phpwcms['output_section']) ? true : false;
+
+	} else {
+		$phpwcms['output_action'] = false;
+	}
 }
 
 

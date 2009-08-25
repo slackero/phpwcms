@@ -166,14 +166,9 @@ if($phpwcms["rewrite_url"]) {
 	$content["all"] = preg_replace("/(onclick=\"location.href='index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\')/e", "js_url_search('$2')", $content["all"]);
 }
 
-// return rendered content
-echo $content['page_start'];
-echo $content["all"];
-echo $content['page_end'];
-
 if(FE_EDIT_LINK) {
 
-	echo '<div id="fe-link" class="disabled"></div>
+	$content['page_end'] .= '<div id="fe-link" class="disabled"></div>
 <script type="text/javascript">
 <!--
 	window.addEvent("domready", function(){
@@ -204,7 +199,12 @@ if(FE_EDIT_LINK) {
 }
 
 // real page ending
-echo LF.'</body>'.LF.'</html>';
+$content['page_end'] .= LF.'</body>'.LF.'</html>';
+
+// return rendered content
+echo $content['page_start'];
+echo $content["all"];
+echo $content['page_end'];
 
 // phpwcms Default header settings
 if($phpwcms['cache_timeout']) {
@@ -224,6 +224,37 @@ header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $php
 // print PDF
 if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 	require_once (PHPWCMS_ROOT.'/include/inc_front/pdf.inc.php');
+
+// handle output action and section
+} elseif($phpwcms['output_action']) {
+	
+	if(empty($phpwcms['output_function_filter']) || !is_array($phpwcms['output_function_filter'])) {
+		$phpwcms['output_function_filter'] = array('trim', 'strip_tags');
+	}
+	
+	$phpwcms['output_function'] = array_intersect($phpwcms['output_function_filter'], $phpwcms['output_function']);
+
+	$content = ob_get_contents();
+	ob_end_clean();
+
+	$sections = '';
+
+	foreach($phpwcms['output_section'] as $section) {
+	
+		$section = get_tmpl_section($section, $content);
+		
+		foreach($phpwcms['output_function'] as $function) {
+	
+			$section = $function($section);
+	
+		}
+		
+		$sections .= $section;
+	}
+	
+	echo trim($sections) == '' ? $content : $sections;
+	
+	exit();
 }
 
 // send buffer to browser

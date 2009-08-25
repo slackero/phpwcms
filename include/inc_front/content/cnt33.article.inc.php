@@ -268,7 +268,7 @@ if($news['template']) {
 											'news_teaser_text'			=> 'p',
 											'news_teaser_limit_chars'	=> 0,
 											'news_teaser_limit_words'	=> 0,
-											'news_teaser_limit_ellipse'	=> $template_default['ellipse_sign'],
+											'news_teaser_limit_ellipse'	=> $GLOBALS['template_default']['ellipse_sign'],
 											'files_template_list'	=> 'default',
 											'files_template_detail'	=> 'default',
 											'files_direct_download'	=> 0
