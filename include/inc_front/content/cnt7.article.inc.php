@@ -122,6 +122,7 @@ if($content['files_sql']) {
 																'thumbnail_width' => 50,
 																'thumbnail_height' => 50,
 																'thumbnail_crop' => 1,
+																'lightbox_init' => 0,
 																'file_size_round' => 3, 
 																'file_size_space' => ' ',
 																'date_format' => "%m/%d/%y",
@@ -134,6 +135,9 @@ if($content['files_sql']) {
 		if($_files_settings['set_locale']) {
 			$_files_old_locale				= setlocale(LC_ALL, "0");
 			setlocale(LC_ALL, $_files_settings['set_locale']);
+		}
+		if(!empty($_files_settings['lightbox_init'])) {
+			initializeLightbox();
 		}
 		
 		$_files_count 					= count($content['files_result']);
