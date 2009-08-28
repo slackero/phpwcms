@@ -207,30 +207,31 @@ if($content['files_sql']) {
 					}
 				
 					$_files_entries[$fkey]  = $content['template_file'];
-					$_files_entries[$fkey]  = str_replace('{FILE_TARGET}',		$_file_info[3], $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = str_replace('{FILE_ID}', $content['files_result'][ $_files_x ]['f_id'], $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = str_replace('{FILE_TARGET}', $_file_info[3], $_files_entries[$fkey]);
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][ $_files_x ]['f_ext']);
-					$_files_entries[$fkey]  = str_replace('{FILE_DOWNLOADS}',	$content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$fkey]);
-					$_files_entries[$fkey]  = str_replace('{FILE_SIZE}', 		return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = str_replace('{FILE_DOWNLOADS}', $content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = str_replace('{FILE_SIZE}', return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
 					
 					$content['files_result'][ $_files_x ]['f_created'] = intval($content['files_result'][ $_files_x ]['f_created']);
 					if($content['files_result'][ $_files_x ]['f_created'] <= 0) {
 						$content['files_result'][ $_files_x ]['f_created'] = filectime($_file_current);
 					}
-					$_files_entries[$fkey]  = str_replace('{FILE_DATE}', 		strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$fkey]);
+					$_files_entries[$fkey]  = str_replace('{FILE_DATE}', strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$fkey]);
 					
 					if($content['files_direct'] && $content['files_result'][ $_files_x ]['f_ext']) {
 
-						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 	'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'].'&amp;countonly=1', $_files_entries[$fkey]);
+						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'].'&amp;countonly=1', $_files_entries[$fkey]);
 
 					} else {
-						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 	'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'], $_files_entries[$fkey]);
+						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'], $_files_entries[$fkey]);
 					}
 					
 					
 					if($_file_info[1]) {
-						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', 	html_specialchars($_file_info[1]), $_files_entries[$fkey]);
+						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', html_specialchars($_file_info[1]), $_files_entries[$fkey]);
 					} else {
-						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', 	html_specialchars($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$fkey]);
+						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', html_specialchars($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$fkey]);
 					}
 					
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html_specialchars($_file_info[2]));
