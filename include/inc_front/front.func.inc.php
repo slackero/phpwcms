@@ -3472,14 +3472,15 @@ function initMootools($v='1.11') {
 /**
  * Init SwfObject JavaScript Library
  */
-function initSwfObject($v='2.1') {
+function initSwfObject($v='2.2') {
 	switch($v) {
 		case '1.5':
 			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/swfobject.js', '  ');
 			break;
 		case '2.1':
+		case '2.2':
 		default:
-			$GLOBALS['block']['custom_htmlhead']['swfobject2.1.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/2.1/swfobject.js', '  ');
+			$GLOBALS['block']['custom_htmlhead']['swfobject2.1.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/2.2/swfobject.js', '  ');
 	}
 }
 
