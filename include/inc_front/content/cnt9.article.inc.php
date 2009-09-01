@@ -30,9 +30,29 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 //multimedia
+
+// read template
+if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/multimedia.tmpl')) {
+
+	$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/multimedia.tmpl');
+	
+} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/multimedia/'.$crow["acontent_template"])) {
+
+	$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/multimedia/'.$crow["acontent_template"]);
+
+} else {
+
+	$crow["acontent_template"]	= '[MULTIMEDIA]<div class="multimedia">{MULTIMEDIA}</div>[/MULTIMEDIA]';
+
+}
+
+
+
+
 $media				= @unserialize($crow['acontent_form']);
 $media["source"]	= '';
 $media["code"]		= '';
+$media["alt"]		= '';
 
 $media["media_control"]	= $media["media_control"] ? 'true' : 'false';
 $media["media_auto"]	= $media["media_auto"] ? 'true' : 'false';
@@ -60,6 +80,24 @@ if($media["media_src"]) {
 			$media["source"] .= '.'.$media["result"][0]["f_ext"];
 		}
 	}
+}
+
+if(!empty($media["image_id"])) {
+
+	$media["alt"] .= '<div class="alt-image">';
+	$media["alt"] .= '<img src="img/cmsimage.php/' . $media["media_width"] . 'x' . $media["media_height"] . 'x1/' . $media["image_id"] . '" ';
+	$media["alt"] .= 'alt="'.html_specialchars($media["image_name"]).'" border="0" />';
+	$media["alt"] .= '</div>';
+
+}
+if(!empty($media["image_caption"])) {
+
+	$media["alt"] .= plaintext_htmlencode($media["image_caption"]);
+
+}
+
+if($media["alt"]) {
+	$media["alt"] = '	' . $media["alt"] . LF;
 }
 
 //Aufbauen der Plugin-Codeteile
@@ -99,6 +137,8 @@ if($media["source"]) {
 				$media["code"] .= '	<param name="bgcolor" value="black"'.HTML_TAG_CLOSE.LF;
 				$media["code"] .= '	<param name="cache" value="true"'.HTML_TAG_CLOSE.LF;
 
+				$media["code"] .= $media["alt"];
+
 				$media["code"] .= '</object></noscript>'.LF;
 				break;
 
@@ -123,6 +163,9 @@ if($media["source"]) {
 					$media["code"] .= 'controls="ImageWindow" console="'.$media['console'].'" type="audio/x-pn-realaudio-plugin">';
 					$media["code"] .= '</embed>';
 				}
+				
+				$media["code"] .= $media["alt"];
+				
 				$media["code"] .= '</object>'.LF;
 				if($media["media_control"] == "true") {
 					$media["code"] .= '<br />'.LF.'<object id="'.$randomID.'_C" name="'.$randomID.'_C" height="32" '.$media["width"];
@@ -181,6 +224,9 @@ if($media["source"]) {
 				if($media["width"] && $media["width"] <=240) {
 					$media["code"] .= '	<param name="showpositioncontrols" value="0"'.HTML_TAG_CLOSE.LF;
 				}
+				
+				$media["code"] .= $media["alt"];
+				
 				$media["code"] .= '</object>'.LF;
 				
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
@@ -224,6 +270,9 @@ if($media["source"]) {
 				$media["code"] .= $media["param"];
 				$media["code"] .= '	<!--[if !IE]>--><object type="application/x-shockwave-flash" data="'.$media["source"].'"'.$media["width"].$media["height"].'><!--<![endif]-->' . LF;
 				$media["code"] .= $media["param"];
+				
+				$media["code"] .= $media["alt"];
+				
 				$media["code"] .= '	<!--[if !IE]>--></object><!--<![endif]-->' . LF;
 				$media["code"] .= '</object>' . LF;
 				
@@ -238,46 +287,52 @@ if($media["source"]) {
 }
 
 if($media["code"]) {
+	
+	$media["result"] = '';	
 
 	switch($media["media_pos"]) {
 	
-		case 0:	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-				$CNT_TMP .= $media["code"];
+		case 0:	$media["result"] .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+				$media["result"] .= $media["code"];
 				break;
 				
-		case 1:	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-				$CNT_TMP .= "<div align=\"center\">".$media["code"]."</div>";
+		case 1:	$media["result"] .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+				$media["result"] .= "<div align=\"center\">".$media["code"]."</div>";
 				break;
 				
-		case 2:	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-				$CNT_TMP .= "<div align=\"right\">".$media["code"]."</div>";
+		case 2:	$media["result"] .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+				$media["result"] .= "<div align=\"right\">".$media["code"]."</div>";
 				break;
 				
-		case 3: $CNT_TMP .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"left\">\n";
-				$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
-				$CNT_TMP .= ($crow["acontent_title"]) ?	"<tr><td class=\"tableHead\">".html_specialchars($crow["acontent_title"])."</td><td>".
+		case 3: $media["result"] .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"left\">\n";
+				$media["result"] .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
+				$media["result"] .= ($crow["acontent_title"]) ?	"<tr><td class=\"tableHead\">".html_specialchars($crow["acontent_title"])."</td><td>".
 														spacer(5,1)."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
-				$CNT_TMP .= ($crow["acontent_subtitle"]) ?	"<tr><td class=\"tableSubHead\">".html_specialchars($crow["acontent_subtitle"])."</td><td>".
+				$media["result"] .= ($crow["acontent_subtitle"]) ?	"<tr><td class=\"tableSubHead\">".html_specialchars($crow["acontent_subtitle"])."</td><td>".
 															spacer(5,1)."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
-				$CNT_TMP .= "<tr><td>".$media["code"]."</td><td>".spacer(5,1)."</td></tr>\n";
-				$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
-				$CNT_TMP .= "</table>\n";
+				$media["result"] .= "<tr><td>".$media["code"]."</td><td>".spacer(5,1)."</td></tr>\n";
+				$media["result"] .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
+				$media["result"] .= "</table>\n";
 				break;
 				
-		case 4: $CNT_TMP .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"right\">\n";
-				$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
-				$CNT_TMP .= ($crow["acontent_title"]) ?	"<tr><td>".spacer(5,1)."</td><td class=\"tableHead\">".html_specialchars($crow["acontent_title"])."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
-				$CNT_TMP .= ($crow["acontent_subtitle"]) ?	"<tr><td>".spacer(5,1)."</td><td class=\"tableSubHead\">".html_specialchars($crow["acontent_subtitle"])."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
-				$CNT_TMP .= "<tr><td>".spacer(5,1)."</td><td>".$media["code"]."</td></tr>\n";
-				$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
-				$CNT_TMP .= "</table>\n";
+		case 4: $media["result"] .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"right\">\n";
+				$media["result"] .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
+				$media["result"] .= ($crow["acontent_title"]) ?	"<tr><td>".spacer(5,1)."</td><td class=\"tableHead\">".html_specialchars($crow["acontent_title"])."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
+				$media["result"] .= ($crow["acontent_subtitle"]) ?	"<tr><td>".spacer(5,1)."</td><td class=\"tableSubHead\">".html_specialchars($crow["acontent_subtitle"])."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
+				$media["result"] .= "<tr><td>".spacer(5,1)."</td><td>".$media["code"]."</td></tr>\n";
+				$media["result"] .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
+				$media["result"] .= "</table>\n";
 				break;
 	}
 
 } else {
 
-	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+	$media["result"] = headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 }
+
+$CNT_TMP .= LF . trim( render_cnt_template($crow["acontent_template"], 'MULTIMEDIA', trim($media["result"]) ) ) . LF;
+
+unset($media);
 									
 ?>

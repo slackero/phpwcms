@@ -106,6 +106,7 @@ foreach($cart_data as $item_key => $row) {
 $subtotal['shipping_net']	= 0;
 $subtotal['shipping_vat']	= 0;
 $subtotal['shipping_gross'] = 0;
+$subtotal['shipping_calc']	= false;
 
 foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) {
 	
@@ -114,25 +115,24 @@ foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) 
 		continue;
 	}
 	
-	$row['calculate'] = false;
-
 	// lower weight and current shipping fee lower then this
-	if( $subtotal['weight'] <= $row['weight'] && $subtotal['shipping_net'] <= $row['net'] ) {
+	if( $subtotal['weight'] <= $row['weight'] ) { /* && $subtotal['shipping_net'] <= $row['net'] ) {
 
-		$row['calculate'] = true;
+		$subtotal['shipping_calc'] = true;
 
-	} elseif( $subtotal['weight'] > $row['weight'] && $subtotal['shipping_net'] < $row['net'] ) {
+	} elseif( $subtotal['weight'] > $row['weight'] && $subtotal['shipping_net'] < $row['net'] ) { */
 	
-		$row['calculate'] = true;
+		$subtotal['shipping_calc'] = true;
 		
 	}
 	
-	if( $row['calculate'] ) {
+	if( $subtotal['shipping_calc'] ) {
 	
 		$subtotal['shipping_net']	= $row['net'];
 		$subtotal['shipping_gross']	= $subtotal['shipping_net'] * ( 1 + ($row['vat'] / 100) );
 		$subtotal['shipping_vat']	= $subtotal['shipping_gross'] - $subtotal['shipping_net'];
-	
+		
+		break;
 	}
 
 }

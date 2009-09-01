@@ -1264,4 +1264,7 @@ $BL['automatic']						= 'automatisch';
 $BL['random_image']						= 'Zufallsbild';
 $BL['random_image_from_list']			= '1 Bild zuf&auml;llig aus der Bildliste w&auml;hlen';
 
+$BL['alt_image']						= 'Alt. Bild';
+$BL['alt_text']							= 'Alt. Text';
+
 ?>

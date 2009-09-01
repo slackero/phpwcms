@@ -31,30 +31,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Multimedia
-/*
-$content["media"] 			= explode(":", $row["acontent_media"]);
-$content["media_type"]		= isset($content["media"][0]) ? intval($content["media"][0]) : 0;
-$content["media_player"]	= isset($content["media"][1]) ? intval($content["media"][1]) : 0;
-$content["media_src"]		= isset($content["media"][5]) ? intval($content["media"][5]) : 0;
-$content["media_pos"]		= isset($content["media"][2]) ? intval($content["media"][2]) : 0;
-$content["media_control"]	= isset($content["media"][7]) ? intval($content["media"][7]) : 0;
-$content["media_auto"]		= isset($content["media"][8]) ? intval($content["media"][8]) : 0;
-$content["media_transparent"] = isset($content["media"][9]) ? intval($content["media"][9]) : 0;
-$content["media_width"]		= isset($content["media"][3]) ? $content["media"][3] : '';
-$content["media_height"]	= isset($content["media"][4]) ? $content["media"][4] : '';
-if($content["media_src"]) {
-	$content["media_id"]	= "";
-	$content["media_name"]	= "";
-	$content["media_extern"]= isset($content["media"][6]) ? base64_decode($content["media"][6]) : '';
-} else {
-	$content['temp_media'] = explode(":", !empty($content["media"][6]) ? base64_decode($content["media"][6]) : ':');
-	$content["media_id"] = $content['temp_media'][0];
-	$content["media_name"] = isset($content['temp_media'][1]) ? $content['temp_media'][1] : '';
- 	$content["media_extern"] = "";
-}
-*/
 
-$content["media"]	= @unserialize($row["acontent_form"]);
+$content["media"]				= @unserialize($row["acontent_form"]);
 
 $content["media_type"]			= $content['media']["media_type"];
 $content["media_player"]		= $content['media']["media_player"];
@@ -68,6 +46,13 @@ $content["media_height"]		= $content['media']["media_height"];
 $content["media_id"]			= $content['media']["media_id"];
 $content["media_name"]			= $content['media']["media_name"];
 $content["media_extern"]		= $content['media']["media_extern"];
+
+$content["image_name"]			= empty($content['media']["image_name"]) ? '' : $content['media']["image_name"];
+$content["image_id"]			= empty($content['media']["image_id"]) ? '' : $content['media']["image_id"];
+$content["image_caption"]		= empty($content['media']["image_caption"]) ? '' : $content['media']["image_caption"];
+
+
+$content["template"]			= $row["acontent_template"];
 
 
 ?>

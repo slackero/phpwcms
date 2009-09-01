@@ -45,13 +45,10 @@ $content["media_height"] 		= ($content["media_height"]) ? $content["media_height
 $content["media_id"] 			= intval($_POST["cmedia_id"]);
 $content["media_name"] 			= clean_slweg($_POST["cmedia_name"]);
 $content["media_extern"] 		= clean_slweg($_POST["cmedia_extern"]);
-/*
-$content["media"] = $content["media_type"] . ":" . $content["media_player"] . ":";
-$content["media"] .= $content["media_pos"] . ":" . $content["media_width"] . ":";
-$content["media"] .= $content["media_height"] . ":" . $content["media_src"] . ":";
-$content["media"] .= ($content["media_src"]) ? base64_encode($content["media_extern"]) : base64_encode($content["media_id"] . ":" . $content["media_name"]);
-$content["media"] .= ":" . $content["media_control"] . ":" . $content["media_auto"] . ":" . $content["media_transparent"];
-*/
+$content["image_name"]			= clean_slweg($_POST["cimage_name"]);
+$content["image_id"]			= empty($_POST["cimage_id"]) ? '' : intval($_POST["cimage_id"]);
+$content["image_caption"]		= clean_slweg($_POST["cimage_caption"]);
+
 
 $content['media']	= array();
 
@@ -68,6 +65,12 @@ $content['media']["media_id"]			= $content["media_id"];
 $content['media']["media_name"]			= $content["media_name"];
 $content['media']["media_extern"]		= $content["media_extern"];
 
+$content['media']["image_name"]			= $content["image_name"];
+$content['media']["image_id"]			= $content["image_id"];
+$content['media']["image_caption"]		= $content["image_caption"];
+
+
+$content["template"] = clean_slweg($_POST['template']);
 
 
 ?>
