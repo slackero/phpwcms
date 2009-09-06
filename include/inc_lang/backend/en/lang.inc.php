@@ -1275,5 +1275,6 @@ $BL['random_image_from_list']			= 'Select 1 random image from image list';
 
 $BL['alt_image']						= 'alt. image';
 $BL['alt_text']							= 'alt. text';
+$BL['over']								= 'over';
 
 ?>

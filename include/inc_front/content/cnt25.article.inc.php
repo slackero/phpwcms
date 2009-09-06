@@ -64,12 +64,39 @@ if(isset($fmp_data['fmp_template'])) {
 	}
 	// check if controls should be shown and add controls' height to player height
 	$fmp_data['fmp_displayheight'] = $fmp_data['fmp_height'];
-	if($fmp_data['fmp_set_showcontrols'] || empty($fmp_data['fmp_height'])) {
-		$fmp_data['fmp_height'] += ($fmp_data['fmp_set_largecontrols'] ? 40 : 20);
+	
+	if(!$fmp_data['fmp_set_showcontrols'] || $fmp_data['fmp_set_showcontrols'] == 'none') {
+		$fmp_data['fmp_set_showcontrols'] = 'none';
+	} elseif($fmp_data['fmp_set_showcontrols'] != 'over') {
+		$fmp_data['fmp_set_showcontrols'] = 'bottom';
+	}
+	
+	if($fmp_data['fmp_set_showcontrols'] == 'bottom' || empty($fmp_data['fmp_height'])) {
+		$fmp_data['fmp_height'] += 20;
 	}
 
 	if(empty($fmp_data['fmp_set_flashversion'])) {
-		$fmp_data['fmp_set_flashversion'] = 7;
+		$fmp_data['fmp_set_flashversion'] = 8;
+	}
+	
+	switch($fmp_data['fmp_set_overstretch']) {
+		case 'fit':
+		case 'exactfit':
+			$fmp_data['fmp_set_overstretch'] = 'exactfit';
+			break;
+		
+		case 'true':
+		case 'fill':
+			$fmp_data['fmp_set_overstretch'] = 'fill';
+			break;
+		
+		case 'false':
+		case 'none':
+			$fmp_data['fmp_set_overstretch'] = 'none';
+			break;
+			
+		default:
+			$fmp_data['fmp_set_overstretch'] = 'uniform';
 	}
 
 	
@@ -168,16 +195,14 @@ if(isset($fmp_data['fmp_template'])) {
 	// Define Flash Vars
 	$fmp_data['flashvars'][]	= 'file: "'.rawurlencode($fmp_data['file']).'"';
 	$fmp_data['flashvars'][]	= 'width: ' . $fmp_data['fmp_width'];
-	$fmp_data['flashvars'][]	= 'showeq: ' . ($fmp_data['fmp_set_showeq'] ? 'true' : 'false');
-	$fmp_data['flashvars'][]	= 'showdigits: ' . ($fmp_data['fmp_set_showdigits'] ? 'true' : 'false');
-	$fmp_data['flashvars'][]	= 'showvolume: ' . ($fmp_data['fmp_set_showvolume'] ? 'true' : 'false');
-	$fmp_data['flashvars'][]	= 'largecontrols: ' . ($fmp_data['fmp_set_largecontrols'] ? 'true' : 'false');
+	$fmp_data['flashvars'][]	= 'controlbar: "' . $fmp_data['fmp_set_showcontrols'].'"';
+	//$fmp_data['flashvars'][]	= 'showeq: ' . ($fmp_data['fmp_set_showeq'] ? 'true' : 'false');
+	//$fmp_data['flashvars'][]	= 'showdigits: ' . ($fmp_data['fmp_set_showdigits'] ? 'true' : 'false');
+	//$fmp_data['flashvars'][]	= 'showvolume: ' . ($fmp_data['fmp_set_showvolume'] ? 'true' : 'false');
+	//$fmp_data['flashvars'][]	= 'largecontrols: ' . ($fmp_data['fmp_set_largecontrols'] ? 'true' : 'false');
 	$fmp_data['flashvars'][]	= 'autostart: ' . ($fmp_data['fmp_set_autostart'] ? 'true' : 'false');
 	$fmp_data['flashvars'][]	= 'usecaptions: false';
-	
-	if(isset($fmp_data['fmp_set_overstretch']) && $fmp_data['fmp_set_overstretch'] != 'default') {
-		$fmp_data['flashvars'][] = 'overstretch: "' . $fmp_data['fmp_set_overstretch'] . '"';
-	}
+	$fmp_data['flashvars'][]	= 'stretching : "' . $fmp_data['fmp_set_overstretch'] . '"';
 	
 	if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
 		$fmp_data['flashvars'][] = 'image: "' . rawurlencode($fmp_data['preview']) . '"';
@@ -257,7 +282,7 @@ if(isset($fmp_data['fmp_template'])) {
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var params_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['params']) . '};' . LF;
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var attributes_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['attributes']) . '};' . LF;
 	
-	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	swfobject.embedSWF("'.PHPWCMS_URL.TEMPLATE_PATH.'jw_media_player/mediaplayer.swf", "'.$fmp_data['id'].'", "'.$fmp_data['fmp_width'].'", "'.$fmp_data['fmp_height'].'", "'.$fmp_data['fmp_set_flashversion'].'", false, flashvars_'.$fmp_data['id'].', params_'.$fmp_data['id'].', attributes_'.$fmp_data['id'].');';
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	swfobject.embedSWF("'.PHPWCMS_URL.TEMPLATE_PATH.'jw_media_player/player.swf", "'.$fmp_data['id'].'", "'.$fmp_data['fmp_width'].'", "'.$fmp_data['fmp_height'].'", "'.$fmp_data['fmp_set_flashversion'].'", false, flashvars_'.$fmp_data['id'].', params_'.$fmp_data['id'].', attributes_'.$fmp_data['id'].');';
 	
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
 

@@ -35,6 +35,10 @@ if( ! $content["id"] ) {
 	include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt25.takeval.inc.php');
 }
 
+if(empty($fmp_data['fmp_set_skin'])) {
+	$fmp_data['fmp_set_skin'] = 'default';
+}
+
 
 ?>
 <tr><td colspan="2" class="rowspacer0x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -181,20 +185,36 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td class="chatlist" align="right"><label for="fmp_set_overstretch">Display:&nbsp;</label></td>
 			<td><select name="fmp_set_overstretch" id="fmp_set_overstretch">
 			
-			<option value="default"<?php is_selected('default', $fmp_data['fmp_set_overstretch']) ?>>Default</option>
-			<option value="fit"<?php is_selected('fit', $fmp_data['fmp_set_overstretch']) ?>>Stretch disproportionally</option>
+			<option value="uniform"<?php is_selected('uniform', $fmp_data['fmp_set_overstretch']) ?>><?php echo $BL['be_admin_tmpl_default'] ?></option>
+			<option value="exactfit"<?php is_selected('exactfit', $fmp_data['fmp_set_overstretch']) ?>>Stretch disproportionally</option>
 			<option value="none"<?php is_selected('none', $fmp_data['fmp_set_overstretch']) ?>>Show in original dimensions</option>
-			<option value="false"<?php is_selected('false', $fmp_data['fmp_set_overstretch']) ?>>Stretch to fit</option>
-			<option value="true"<?php is_selected('true', $fmp_data['fmp_set_overstretch']) ?>>Stretch proportionally</option>
+			<option value="fill"<?php is_selected('fill', $fmp_data['fmp_set_overstretch']) ?>>Stretch proportionally</option>
 
 			</select></td>
 		</tr>
 		
 		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_showcontrols">Show controls:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_showcontrols" id="fmp_set_showcontrols" value="1"<?php is_checked(1, $fmp_data['fmp_set_showcontrols']) ?> /></td>
+			<td class="chatlist" align="right"><label for="fmp_set_showcontrols">Controlbar:&nbsp;</label></td>
+			<td><select name="fmp_set_showcontrols" id="fmp_set_showcontrols">
+			
+			<option value="bottom"<?php is_selected('bottom', $fmp_data['fmp_set_showcontrols']) ?>><?php echo $BL['be_admin_page_bottom'] ?> (<?php echo $BL['be_admin_tmpl_default'] ?>)</option>
+			<option value="none"<?php is_selected('none', $fmp_data['fmp_set_showcontrols']) ?>><?php echo $BL['be_admin_struct_hide1'] ?></option>
+			<option value="over"<?php is_selected('over', $fmp_data['fmp_set_showcontrols']) ?>><?php echo $BL['over'] ?></option>
+
+			</select>
+			
+			
+			<!--<input type="checkbox" name="fmp_set_showcontrols" id="fmp_set_showcontrols" value="1"<?php is_checked(1, $fmp_data['fmp_set_showcontrols']) ?> />-->
+
+			<input type="hidden" name="fmp_set_largecontrols" id="fmp_set_largecontrols" value="0" />
+			<input type="hidden" name="fmp_set_showdigits" id="fmp_set_showdigits" value="0" />
+			<input type="hidden" name="fmp_set_showeq" id="fmp_set_showeq" value="0" />
+			<input type="hidden" name="fmp_set_showvolume" id="fmp_set_showvolume" value="0" />
+			<input type="hidden" name="fmp_set_showdownload" id="fmp_set_showdownload" value="0" />
+			
+			</td>
 		</tr>
-		
+<!--		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_largecontrols">Large controls:&nbsp;</label></td>
 			<td><input type="checkbox" name="fmp_set_largecontrols" id="fmp_set_largecontrols" value="1"<?php is_checked(1, $fmp_data['fmp_set_largecontrols']) ?> /></td>
@@ -219,7 +239,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td class="chatlist" align="right"><label for="fmp_set_showdownload">Show download button:&nbsp;</label></td>
 			<td><input type="checkbox" name="fmp_set_showdownload" id="fmp_set_showdownload" value="1"<?php is_checked(1, $fmp_data['fmp_set_showdownload']) ?> /></td>
 		</tr>
-		
+//-->		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_bgcolor">Background color (#FFFFFF):&nbsp;</label></td>
 			<td><input name="fmp_set_bgcolor" type="text" id="fmp_set_bgcolor" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_bgcolor']) ?>" size="40" maxlength="7" /></td>
@@ -248,9 +268,23 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_skin">Skin:&nbsp;</label></td>
 			<td><select name="fmp_set_skin">
-			<option value="default"<?php is_selected('default', empty($fmp_data['fmp_set_skin']) ? 'default' : $fmp_data['fmp_set_skin']) ?>>Default</option>
-			<option value="nacht"<?php is_selected('nacht', $fmp_data['fmp_set_skin']) ?>>Nacht</option>
-			<!-- <option value="stylish"<?php is_selected('stylish', $fmp_data['fmp_set_skin']) ?>>Stylish</option> -->
+			<option value="default"<?php is_selected('default', $fmp_data['fmp_set_skin']) ?>><?php echo $BL['be_admin_tmpl_default'] ?></option>
+<?php
+			// skins for Flash Media Player
+			$skins = returnFileListAsArray(PHPWCMS_TEMPLATE.'jw_media_player/skins', 'swf');
+			if(is_array($skins) && count($skins)):
+				foreach($skins as $skin):
+					$skin = cut_ext($skin['filename']);
+?>
+			<option value="<?php 
+				echo html_specialchars($skin) 
+			?>"<?php is_selected($skin, $fmp_data['fmp_set_skin']) ?>><?php 
+				echo html_specialchars(ucwords(str_replace('_', ' ', $skin)))
+			?></option>
+<?php			
+				endforeach;
+			endif;
+?>
 			</select></td>
 		</tr>
 		
