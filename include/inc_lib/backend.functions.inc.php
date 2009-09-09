@@ -577,28 +577,70 @@ function set_language_cookie() {
 function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
 	$current_id	= intval($current_id);
-	$alias		= trim($alias);
+	$alias = clean_slweg(strtolower($alias), 150);
+	$alias = pre_remove_accents($alias);
+	$alias = get_alnum_dashes($alias, true);
+	$alias = trim($alias);
+	if($alias != '') {
+		$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
+		$alias = trim( preg_replace('/__+/', '_', $alias), '_' );
+	}
+	
+	$reserved	= array(
+		'print',
+		'newsdetail',
+		'newspage',
+		'id',
+		'aid',
+		'subgallery',
+		'listpage',
+		'page',
+		'subscribe',
+		'unsubscribe',
+		'email',
+		'u',
+		's',
+		'q'
+		);
 
 	if($mode == 'CATEGORY' && $alias == '' && isset($_POST["acat_name"])) {
 		$alias = $_POST["acat_name"];
+		$set = true;
 	} elseif($mode == 'ARTICLE' && $alias == '' && isset($_POST["article_title"])) {
 		$alias = $_POST["article_title"];
+		$set = true;
 	} elseif($mode == 'CONTENT' && $alias == '' && ( isset($_POST["cnt_title"]) || isset($_POST["cnt_name"]) )) {
 		$alias = trim($_POST["cnt_title"]) == '' ? $_POST["cnt_name"] : $_POST["cnt_title"];
+		$set = true;
+	} else {
+		$set = false;
 	}
 	
-	$alias = clean_slweg($alias, 150);
-	$alias = pre_remove_accents($alias);
-	$alias = get_alnum_dashes($alias, true);
-	
-	if( in_array($alias, $GLOBALS['phpwcms']['reserved_alias']) || $alias == '' || ($alias == 'index' && $current_id != 'index') ) {
-	
-		$alias .= date('-Y-n-j');
-
+	if($set) {
+		$alias = clean_slweg(strtolower($alias), 150);
+		$alias = pre_remove_accents($alias);
+		$alias = get_alnum_dashes($alias, true);
+		if($alias != '') {
+			$alias		= trim( preg_replace('/\-\-+/', '-', $alias), '-' );
+			$alias		= trim( preg_replace('/__+/', '_', $alias), '_' );
+		}
 	}
 	
-	$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
-	$alias = trim( preg_replace('/__+/', '_', $alias), '_' );
+	// new reserved alias can be defined in $phpwcms['reserved_alias']
+	if( isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias']) ) {
+		$reserved = array_merge($reserved, $phpwcms['reserved_alias']);
+	}
+	
+	if( $alias == '' || in_array($alias, $reserved) || ($alias == 'index' && $current_id != 'index') ) {
+	
+		if($mode == 'CONTENT') {
+			$alias .= date('-Y-n-j');
+		} else {
+			$alias .= '-view';
+		}
+	}
+	
+	$alias = trim( $alias, '-' );
 	
 	/*
 	$where_acat		= 'acat_id != '.$current_id.' AND ';
@@ -875,8 +917,6 @@ function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $se
 	
 	return implode($separator, $menu);
 }
-
-
 
 function initJsCalendar() {
 	$GLOBALS['BE']['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');

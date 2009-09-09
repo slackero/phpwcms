@@ -25,6 +25,17 @@ files_direct_download = 0
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 [NEWS_ENTRIES]{NEWS_ENTRIES}[/NEWS_ENTRIES]
+[PAGINATE]
+<div class="news-pagination">
+	[PAGE_PREV]<a href="{PAGE_PREV}">previous</a>[/PAGE_PREV]
+	[PAGE_PREV_ELSE]<span class="inactive">previous</span>[/PAGE_PREV_ELSE]
+	|
+	[PAGE_NEXT]<a href="{PAGE_NEXT}">next</a>[/PAGE_NEXT]
+	[PAGE_NEXT_ELSE]<span class="inactive">next</span>[/PAGE_NEXT_ELSE]
+	|
+	page {PAGE_CURRENT}/{PAGE_TOTAL}
+</div>
+[/PAGINATE]
 <!--NEWS_LIST_END//-->
 
 

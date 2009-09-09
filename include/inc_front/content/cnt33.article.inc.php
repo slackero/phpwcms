@@ -31,6 +31,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $news	= @unserialize($crow["acontent_form"]);
 
+//$CNT_TMP .= dumpVar($news, 2);
+
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/news.tmpl')) {
 
@@ -56,11 +58,16 @@ $news['cnt_ts_livedate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTA
 $news['cnt_ts_killdate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_killdate) > 0, UNIX_TIMESTAMP(pc.cnt_killdate), pc.cnt_created + 31536000)';
 $news['cnt_ts_sortdate'] = 'IF(pc.cnt_sort=0, IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTAMP(pc.cnt_livedate), pc.cnt_created), pc.cnt_sort)';
 
-$sql  = 'SELECT pc.*, ';
-$sql .= $news['cnt_ts_livedate'] . ' AS cnt_ts_livedate, ';
-$sql .= $news['cnt_ts_killdate'] . ' AS cnt_ts_killdate, ';
-$sql .= $news['cnt_ts_sortdate'] . ' AS cnt_ts_sortdate ';
-$sql .= 'FROM '.DB_PREPEND.'phpwcms_content pc ';
+// define the general SELECT query part
+$news['sql_query']  = 'SELECT pc.*, ';
+$news['sql_query'] .= $news['cnt_ts_livedate'] . ' AS cnt_ts_livedate, ';
+$news['sql_query'] .= $news['cnt_ts_killdate'] . ' AS cnt_ts_killdate, ';
+$news['sql_query'] .= $news['cnt_ts_sortdate'] . ' AS cnt_ts_sortdate ';
+
+// define the COUNT all query part
+$news['sql_count']  = 'SELECT COUNT(pc.cnt_id) ';
+
+$sql  = 'FROM '.DB_PREPEND.'phpwcms_content pc ';
 
 $news['sql_group_by']	= '';
 $news['sql_where'][]	= 'pc.cnt_status=1';
@@ -170,6 +177,82 @@ $sql .= $news['sql_group_by'];
 // order by - only necessary in list mode
 if($news['list_mode']) {
 	
+	$news['news_skip']	= intval($news['news_skip']);
+	$news['news_limit']	= intval($news['news_limit']);
+	
+	if($news['news_skip']) {
+		
+		$news['sql_limit']  = ' LIMIT '.$news['news_skip'].', ';
+		$news['sql_limit'] .= $news['news_limit'] ? $news['news_limit'] : 99999999;
+
+	} elseif($news['news_limit']) {
+
+		$news['sql_limit']  = ' LIMIT ';
+		$news['sql_limit'] .= $news['news_skip'] ? $news['news_skip'] : 0;
+		$news['sql_limit'] .= ', ' . $news['news_limit'];
+
+	} else {
+
+		$news['sql_limit'] = '';
+
+	}
+	
+	// set defaults
+	$news['current_page']	= 1;
+	$news['total_pages']	= 1;
+	$news['page_next']		= '';
+	$news['page_prev']		= '';
+	
+	// pagination - no LIMIT, no ORDER BY
+	if($news['news_paginate'] == 1) {
+
+		// count all news based on current query
+		$news['count_all'] = _dbCount($news['sql_count'] . $sql);
+		
+		// handle skipped items
+		if($news['news_skip']) {
+			$news['count_all'] = $news['count_all'] - $news['news_skip'];
+			if($news['count_all'] < 0) {
+				$news['count_all'] = 0;
+			}
+		}
+		
+		// check if less news should be used than news in db
+		if($news['news_limit'] && $news['news_limit'] < $news['count_all']) {
+			$news['count_all'] = $news['news_limit'];
+		}
+		
+		// test and set page
+		if(isset($_getVar['newspage'])) {
+			$_getVar['newspage'] = intval($_getVar['newspage']);
+		}
+		$news['current_page']	= $_getVar['newspage'] > 0 ? $_getVar['newspage'] : 1;
+		$news['total_pages']	= ceil( $news['count_all'] / $news['news_paginate_count'] );
+		
+		if($news['current_page'] > $news['total_pages']) {
+			$news['current_page'] = $news['total_pages'];
+		}
+
+		if($news['current_page'] > 1 && $news['total_pages'] > 1) {
+			if($news['current_page'] == 2) {
+				$news['page_prev'] = rel_url( array(), array('newspage') );
+			} else {
+				$news['page_prev'] = rel_url( array( 'newspage' => $news['current_page']-1 ) );
+			}
+		}
+
+		if($news['total_pages'] > 1 && $news['current_page'] < $news['total_pages']) {
+			$news['page_next'] = rel_url( array( 'newspage' => $news['current_page']+1 ) );
+		}
+		
+		// set LIMIT
+		$news['sql_limit']  = ' LIMIT ';
+		$news['sql_limit'] .= (($news['current_page'] - 1) *  $news['news_paginate_count']) + $news['news_skip'];
+		$news['sql_limit'] .= ', ' . $news['news_paginate_count'];
+	
+	}
+	
+	
 	$sql .= 'ORDER BY ';
 	
 	// add prio sorting value
@@ -220,26 +303,13 @@ if($news['list_mode']) {
 					$sql .= 'cnt_ts_sortdate DESC';
 	
 	}
-
-	if(!empty($news['news_skip'])) {
 	
-		$sql .= ' LIMIT '.intval($news['news_skip']).', ';
-		$sql .= !empty($news['news_limit']) ? intval($news['news_limit']) : 9999;
-
-	} elseif(!empty($news['news_limit'])) {
-
-		$sql .= ' LIMIT ';
-		if(!empty($news['news_skip'])) {
-			$sql .= intval($news['news_skip']).', ';
-		}
-		$sql .= intval($news['news_limit']);
-
-	}
+	$sql .= $news['sql_limit'];
 }
 
 
 // get db query result
-$news['result'] = _dbQuery($sql);
+$news['result'] = _dbQuery($news['sql_query'] . $sql);
 
 // now render
 if($news['template']) {
@@ -460,6 +530,22 @@ if($news['template']) {
 	$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'NEWS_ENTRIES', implode('', $news['entries']) );
 	$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'TITLE', html_specialchars($crow['acontent_title']));
 	$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+	
+	// render news pagination
+	if($news['list_mode']) {
+		if($news['news_paginate'] == 1) {
+			$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'PAGINATE', true);
+			$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'PAGE_PREV', $news['page_prev']);
+			$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'PAGE_NEXT', $news['page_next']);
+			$news['tmpl_news']	= str_replace('{PAGE_CURRENT}', $news['current_page'], $news['tmpl_news']);
+			$news['tmpl_news']	= str_replace('{PAGE_TOTAL}', $news['total_pages'], $news['tmpl_news']);
+		} else {
+			$news['tmpl_news']	= render_cnt_template($news['tmpl_news'], 'PAGINATE', '');
+		}
+	} else {
+		$news['tmpl_news']	= replace_cnt_template($news['tmpl_news'], 'PAGINATE', '');
+		$news['tmpl_news']	= replace_cnt_template($news['tmpl_news'], 'PAGINATE_ELSE', '');
+	}
 	
 	$CNT_TMP .= $news['tmpl_news'];
 

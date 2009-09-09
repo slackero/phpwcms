@@ -2470,14 +2470,12 @@ function render_cnt_template($text='', $tag='', $value='') {
 		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '$1', $text);
 		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '', $text);
 	}
-	$text = str_replace('{'.$tag.'}', $value, $text);
-	return $text;
+	return str_replace('{'.$tag.'}', $value, $text);
 }
 
 function replace_cnt_template($text='', $tag='', $value='') {
 	// replace tag by value
-	$text = preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/is', strval($value), $text);
-	return $text;
+	return preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/is', strval($value), $text);
 }
 
 function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
@@ -2493,16 +2491,14 @@ function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
 		$text = preg_replace('/\{KILLDATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$killdate.'")', $text);
 		$text = preg_replace('/\{KILLDATE:(.*?)\}/e', 'date("$1",'.$killdate.')', $text);
 	}
-	$text = preg_replace('/\{NOW:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.now().'")', $text);
-	return $text;
+	return preg_replace('/\{NOW:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.now().'")', $text);
 }
 
 function render_date($text='', $date, $rt='DATE') {
 	// render date by replacing placeholder tags by value
 	$rt = preg_quote($rt);
 	$text = preg_replace('/\{'.$rt.':(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
-	$text = preg_replace('/\{'.$rt.':(.*?)\}/e', 'date("$1",'.$date.')', $text);
-	return $text;
+	return preg_replace('/\{'.$rt.':(.*?)\}/e', 'date("$1",'.$date.')', $text);
 }
 
 function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $tagClose=']') {
