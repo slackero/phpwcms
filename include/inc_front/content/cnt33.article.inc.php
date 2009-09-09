@@ -50,9 +50,10 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/ne
 
 
 // build SQL query first
-$news['sql_where']	= array();
-$news['now']		= now();
-$news['list_mode']	= true;
+$news['sql_where']		= array();
+$news['now']			= now();
+$news['list_mode']		= true;
+$news['listing_page']	= array();
 
 $news['cnt_ts_livedate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTAMP(pc.cnt_livedate), pc.cnt_created)';
 $news['cnt_ts_killdate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_killdate) > 0, UNIX_TIMESTAMP(pc.cnt_killdate), pc.cnt_created + 31536000)';
@@ -239,6 +240,9 @@ if($news['list_mode']) {
 			} else {
 				$news['page_prev'] = rel_url( array( 'newspage' => $news['current_page']-1 ) );
 			}
+			
+			// set pagination page info for detail link too
+			$news['listing_page'] = array( 'newspage' => $news['current_page'] );
 		}
 
 		if($news['total_pages'] > 1 && $news['current_page'] < $news['total_pages']) {
@@ -370,12 +374,12 @@ if($news['template']) {
 	
 	// set new target if necessary
 	if(empty($news['news_detail_link'])) {
-		$news['base_href'] = 'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'));
+		$news['base_href'] = rel_url($news['listing_page'], array('newsdetail'));
 	} else {
 		if(is_intval($news['news_detail_link'])) {
 			$news['news_detail_link'] = 'aid='.$news['news_detail_link'];
 		}
-		$news['base_href'] = 'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'), $news['news_detail_link']);
+		$news['base_href'] = rel_url($news['listing_page'], array('newsdetail'), $news['news_detail_link']); //'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'), $news['news_detail_link']);
 	}
 	
 	foreach($news['result'] as $key => $value) {
