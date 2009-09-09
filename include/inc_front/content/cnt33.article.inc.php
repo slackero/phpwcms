@@ -379,7 +379,7 @@ if($news['template']) {
 		if(is_intval($news['news_detail_link'])) {
 			$news['news_detail_link'] = 'aid='.$news['news_detail_link'];
 		}
-		$news['base_href'] = rel_url($news['listing_page'], array('newsdetail'), $news['news_detail_link']); //'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'), $news['news_detail_link']);
+		$news['base_href'] = rel_url($news['listing_page'], array('newsdetail'), $news['news_detail_link']);
 	}
 	
 	foreach($news['result'] as $key => $value) {

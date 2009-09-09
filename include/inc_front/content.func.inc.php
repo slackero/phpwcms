@@ -1041,7 +1041,7 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 // cleanup document to enhance XHTML Strict compatibility
 if($phpwcms['mode_XHTML'] == 2) {
 	
-	$content['all'] = preg_replace('/ target=".*?"/', '', $content['all'] );
+	$content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
 
 }
 
