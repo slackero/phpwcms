@@ -66,7 +66,8 @@ $news['sql_query'] .= $news['cnt_ts_killdate'] . ' AS cnt_ts_killdate, ';
 $news['sql_query'] .= $news['cnt_ts_sortdate'] . ' AS cnt_ts_sortdate ';
 
 // define the COUNT all query part
-$news['sql_count']  = 'SELECT COUNT(pc.cnt_id) ';
+$news['sql_count']			= 'SELECT COUNT(pc.cnt_id) ';
+$news['sql_joined_count']	= 'SELECT pc.cnt_id ';
 
 $sql  = 'FROM '.DB_PREPEND.'phpwcms_content pc ';
 
@@ -216,25 +217,25 @@ if($news['list_mode']) {
 		// count all news based on current query
 		if($news['news_joined_sql']) {
 		
-			$news['count_all'] = count( _dbQuery($news['sql_count'] . $sql) );
+			$news['count_all'] = count( _dbQuery($news['sql_joined_count'] . $sql . $news['sql_limit']) );
 		
 		} else {
 			
 			$news['count_all'] = _dbCount($news['sql_count'] . $sql);
 			
-		}
-		
-		// handle skipped items
-		if($news['news_skip']) {
-			$news['count_all'] = $news['count_all'] - $news['news_skip'];
-			if($news['count_all'] < 0) {
-				$news['count_all'] = 0;
+			// handle skipped items
+			if($news['news_skip']) {
+				$news['count_all'] = $news['count_all'] - $news['news_skip'];
+				if($news['count_all'] < 0) {
+					$news['count_all'] = 0;
+				}
 			}
-		}
-		
-		// check if less news should be used than news in db
-		if($news['news_limit'] && $news['news_limit'] < $news['count_all']) {
-			$news['count_all'] = $news['news_limit'];
+			
+			// check if less news should be used than news in db
+			if($news['news_limit'] && $news['news_limit'] < $news['count_all']) {
+				$news['count_all'] = $news['news_limit'];
+			}
+			
 		}
 		
 		// test and set page
