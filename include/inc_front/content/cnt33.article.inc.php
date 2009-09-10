@@ -129,7 +129,8 @@ if($news['list_mode']) {
 	// choose by category
 	if(count($news['news_category'])) {
 		
-		$news['news_category_sql'] = array();
+		$news['news_joined_sql']	= true;
+		$news['news_category_sql']	= array();
 	
 		// and/or/not mode
 		switch($news['news_andor']) {
@@ -158,6 +159,11 @@ if($news['list_mode']) {
 		
 		$news['sql_group_by'] = 'GROUP BY pc.cnt_id ';
 		
+	} else {
+	
+		// for joined SQL the COUNT() query is used in different way
+		$news['news_joined_sql'] = false;
+	
 	}
 	
 	// language selection
@@ -208,7 +214,15 @@ if($news['list_mode']) {
 	if($news['news_paginate'] == 1) {
 
 		// count all news based on current query
-		$news['count_all'] = _dbCount($news['sql_count'] . $sql);
+		if($news['news_joined_sql']) {
+		
+			$news['count_all'] = count( _dbQuery($news['sql_count'] . $sql) );
+		
+		} else {
+			
+			$news['count_all'] = _dbCount($news['sql_count'] . $sql);
+			
+		}
 		
 		// handle skipped items
 		if($news['news_skip']) {
