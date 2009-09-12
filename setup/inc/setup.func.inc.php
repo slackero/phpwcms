@@ -21,8 +21,8 @@
 *************************************************************************************/
 
 //setup functions
-$phpwcms_version = "1.4.2";
-$phpwcms_release_date = '2009/07/30';
+$phpwcms_version = "1.4.3";
+$phpwcms_release_date = '2009/09/13';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -175,7 +175,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['imagick_path']      = ''; //Path to ImageMagick (default='' - none)\n";
 	$conf_file .= "\$phpwcms['use_gd2']           = 1; //0 = GD1, 1 = GD2\n";
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable\n";
-	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 2;  //0 = no wysiwyg editor, 2 = FCKeditor, 4 = spaw\n";
+	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = WYSIWYG editor - only CKeditor\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
 	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
@@ -202,7 +202,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // enables HTC Hover for IE < 7 - has no effect in other browsers \n";
 	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers \n";
 	$conf_file .= "\$phpwcms['Bad_Behavior']      = 0; // 1 enables spam blocking by Bad Behavior, 0 off \n";
-	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'SPAW2' => 'standard,all,mini' );\n";
+	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
 	$conf_file .= "\$phpwcms['version_check']     = 1; // checks for current release of phpwcms online \n";
 	$conf_file .= "\$phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";

@@ -84,18 +84,13 @@ echo phpwcmsversionCheck();
     <li><a href="http://simplepie.org/" target="_blank"><strong>SimplePie</strong></a>, Copyright &copy; 2004&ndash;2009 Ryan Parman, Geoffrey Sneddon and contributors, <a href="http://www.opensource.org/licenses/bsd-license.php" target="_blank">BSD License</a></li>
     <li><a href="http://phpmailer.sourceforge.net/" target="_blank"><strong>PHPMailer</strong></a>,
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
-    <li><a href="http://phpsniff.sourceforge.net/" target="_blank"><strong>phpSniff</strong></a>,
-      <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
     <li><a href="http://www.solmetra.com" target="_blank"><strong>Solmetra
-      FormValidator</strong></a>,
-      Copyright &copy; UAB Solmetra,
-      <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
-    <li><strong><a href="http://www.solmetra.com" target="_blank">Spaw2</a></strong>,
-      Copyright &copy; UAB Solmetra,
-      <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
+    	FormValidator</strong></a>,
+    	Copyright &copy; UAB Solmetra,
+    	<a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
     <li><a href="http://smiledsoft.com/" target="_blank"><strong>ss_image</strong> PHP
-        class</a>,
-      Copyright &copy; Yuriy Horobey,  for use in phpwcms only</li>
+    	class</a>,
+    	Copyright &copy; Yuriy Horobey,  for use in phpwcms only</li>
     <li><strong>JavaScript Browser Sniffer</strong>,
       <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
     <li><a href="http://www.JavascriptToolbox.com" target="_blank"><strong>JavascriptToolbox.com</strong></a> JavaScripts,
@@ -110,8 +105,7 @@ echo phpwcmsversionCheck();
     Copyright &copy; Christophe Beyls, <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></li>
     <li><a href="http://mootools.net/" target="_blank"><strong>mootools</strong></a>, Copyright &copy; 2006 Valerio Proietti, <a href="http://www.opensource.org/licenses/mit-license.php">MIT
     License</a></li>
-    <li><a href="http://www.bobbyvandersluis.com/ufo/" target="_blank"><strong>UFO</strong></a>, Copyright &copy; 2005-2007 Bobby
-    van der Sluis, <a href="http://creativecommons.org/licenses/LGPL/2.1/" target="_blank">CC-GNU LGPL</a></li>
+    <li><a href="http://code.google.com/p/swfobject/" target="_blank"><strong>SWFObject</strong></a>,  <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a><a href="http://creativecommons.org/licenses/LGPL/2.1/" target="_blank"></a></li>
     <li><a href="http://www.famfamfam.com/" target="_blank"><strong>FamFamFam</strong></a>, Copyright &copy; Mark James, <a href="http://creativecommons.org/licenses/by/2.5/" target="_blank">CC-Attribution</a></li>
     <li><a href="http://linux.duke.edu/projects/mini/htmlfilter/" target="_blank"><strong>Htmlfilter</strong></a>, Copyright &copy; 2002-2005 by Duke University/<a href="http://www.mricon.com/">Konstantin
         Riabitsev</a>, <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank"> GNU

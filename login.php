@@ -97,63 +97,23 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //0 = no wysiwyg editor (default)
 //1 = FCKeditor
 $_SESSION["WYSIWYG_EDITOR"]		= 0;
-$_SESSION["dhtml_hiding"]		= 1;
-$phpwcms["wysiwyg_editor"]		= intval($phpwcms["wysiwyg_editor"]);
+$phpwcms["wysiwyg_editor"]		= intval($phpwcms["wysiwyg_editor"]) ? 1 : 0;
 $wysiwyg_template				= '';
 
 if($phpwcms["wysiwyg_editor"]) {
-	include_once ("include/inc_ext/phpsniff/phpSniff.class.php");
-	$c = new phpSniff();
 	
-	if($c->browser_is("mz1.3+") || $c->browser_is("ns7+") || $c->browser_is("fx")) {
-		$_SESSION["dhtml_hiding"] = 0;
+	$_SESSION["WYSIWYG_EDITOR"] = 1;
+					
+	if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
+		$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
+	} elseif(!empty($phpwcms['wysiwyg_template']['CKEditor'])) {
+		$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);
 	}
 	
-	switch($phpwcms["wysiwyg_editor"]) {
+	if(empty($wysiwyg_template) || count($wysiwyg_template) == 0) {
+		$wysiwyg_template = array('Basic');
+	}
 
-		case 4:
-		case 1:	//SPAW2
-				if(	$c->browser_is("ie5.5+") || 
-					$c->browser_is("mz1.3+") || 
-					$c->browser_is("ns7+")   || 
-					$c->browser_is("fx")     || 
-					$c->browser_is("op9+")			) {
-					
-					$_SESSION["WYSIWYG_EDITOR"] = 1;
-					
-					if(!empty($phpwcms['wysiwyg_template']['SPAW2'])) {
-						$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['SPAW2']);
-						$wysiwyg_template = $wysiwyg_template[0];
-					} else {
-						$wysiwyg_template = 'toolbarset_standard';
-					}
-				
-				}
-				break;
-				
-		
-		
-		
-		case 3:
-		case 2:	// FCKeditor 2
-				if(	$c->browser_is("ie5.5+") || 
-					$c->browser_is("mz1.3+") || 
-					$c->browser_is("ns7+")   || 
-					$c->browser_is("fx")		) {
-					
-					$_SESSION["WYSIWYG_EDITOR"] = 2;
-					
-					if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
-						$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
-						$wysiwyg_template = $wysiwyg_template[0];
-					} else {
-						$wysiwyg_template = 'Basic';
-					}
-				
-				}
-				break;
-				
-	}
 }
 
 if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_POST['json']) && $_POST['json'] == '1') {
@@ -188,8 +148,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			$_SESSION["klapp"]				= @unserialize($row["usr_var_privatefile"]);
 			$_SESSION["pklapp"]				= @unserialize($row["usr_var_publicfile"]);
 			$row["usr_vars"]				= @unserialize($row["usr_vars"]);
-			$_SESSION["WYSIWYG_TEMPLATE"]	= empty($row["usr_vars"]['template']) ? $wysiwyg_template : $row["usr_vars"]['template'];
-			$_SESSION["WYSIWYG_EDITOR"]		= $row["usr_wysiwyg"];
+			$_SESSION["WYSIWYG_TEMPLATE"]	= empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
+			$_SESSION["WYSIWYG_EDITOR"]		= empty($row["usr_wysiwyg"]) ? 0 : 1;
 			
 			$login_passed = 1;		
 		}
@@ -223,9 +183,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 		$err = 1;
 	}
 
-} else {
+} elseif(isset($_POST['json']) && intval($_POST['json']) != 1) {
 
-	if(isset($_POST['json']) && $_POST['json'] != '1') $err = 1;
+	$err = 1;
 
 }
 

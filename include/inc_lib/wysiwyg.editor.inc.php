@@ -33,72 +33,28 @@ if(!isset($wysiwyg_editor['editor'])){
 }
 $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
 
-switch($wysiwyg_editor['editor']) {
+if($wysiwyg_editor['editor']) {
 
-	//load Spaw2
-	case 3:
-	case 4:
-	case 5:
-	case 1:	
-			include_once(PHPWCMS_ROOT.'/include/inc_ext/spaw2/spaw.inc.php');
-			
-			SpawConfig::setStaticConfigValue('default_height','250px');
-			SpawConfig::setStaticConfigValue('default_output_charset', PHPWCMS_CHARSET);
-			//SpawConfig::setStaticConfigValue('base_href', PHPWCMS_URL);
-			SpawConfig::setStaticConfigValue('default_toolbarset', $_SESSION['WYSIWYG_TEMPLATE']);
-			
-			$spaw1 = new SpawEditor($wysiwyg_editor['field'], $wysiwyg_editor['value']);
-			$spaw1->setLanguage($wysiwyg_editor['lang'], PHPWCMS_CHARSET);
-			// setting global SpawFm settings for a SPAW editor instance:
-			$spaw1->setConfigItem(
-				'PG_SPAWFM_SETTINGS',
-				array(
-					'allow_upload' => true,
-					'allow_modify' => true,
-					'max_upload_filesize' => $phpwcms['file_maxsize'],
-					'allowed_filetypes' => array('images', 'flash', 'documents'),
-					'recursive' => true,
-					'allow_create_subdirectories' => true
-				),
-				SPAW_CFG_TRANSFER_SECURE
-			);
-			// setting directories for a SPAW editor instance:
-			$spaw1->setConfigItem(
-				'PG_SPAWFM_DIRECTORIES',
-				array(
-					array(
-						'dir' => '/picture/upload/',
-						'caption' => 'spaw2 Files',
-						'params' => array(
-							'allowed_filetypes' => array('images', 'flash', 'documents')
-							)
-					),
-				),
-				SPAW_CFG_TRANSFER_SECURE
-			);
-			$spaw1->show();
-			break;
-	
 	//load FCKeditor
-	case 2:
-			include_once(PHPWCMS_ROOT.'/include/inc_ext/fckeditor/fckeditor.php');
+	include_once(PHPWCMS_ROOT.'/include/inc_ext/fckeditor/fckeditor.php');
 
-			$oFCKeditor = new FCKeditor($wysiwyg_editor['field']);
-			$oFCKeditor->BasePath 							= PHPWCMS_URL.'include/inc_ext/fckeditor/';
-			$oFCKeditor->Config['CustomConfigurationsPath']	= PHPWCMS_URL.'include/inc_ext/fckeditor/fckeditor_config.js.php' ;
-			
-			$oFCKeditor->Value 								= $wysiwyg_editor['value'];
-			$oFCKeditor->Width 								= str_replace('px', '', $wysiwyg_editor['width']);
-			$oFCKeditor->Height 							= str_replace('px', '', $wysiwyg_editor['height']);
-			$oFCKeditor->ToolbarSet							= $_SESSION['WYSIWYG_TEMPLATE'];
-			$oFCKeditor->Create();
-			break;
+	$oFCKeditor = new FCKeditor($wysiwyg_editor['field']);
+	$oFCKeditor->BasePath 							= PHPWCMS_URL.'include/inc_ext/fckeditor/';
+	$oFCKeditor->Config['CustomConfigurationsPath']	= PHPWCMS_URL.'include/inc_ext/fckeditor/fckeditor_config.js.php' ;
+	
+	$oFCKeditor->Value 								= $wysiwyg_editor['value'];
+	$oFCKeditor->Width 								= str_replace('px', '', $wysiwyg_editor['width']);
+	$oFCKeditor->Height 							= str_replace('px', '', $wysiwyg_editor['height']);
+	$oFCKeditor->ToolbarSet							= $_SESSION['WYSIWYG_TEMPLATE'];
+	$oFCKeditor->Create();
 
-	// just show general textarea
-	default:	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
-				echo '" class="v12" id="'.$wysiwyg_editor['field'].'" ';
-				echo 'style="width:'.$wysiwyg_editor['width'].';height:'.$wysiwyg_editor['height'].';">';
-				echo htmlspecialchars($wysiwyg_editor['value'], ENT_QUOTES, PHPWCMS_CHARSET).'</textarea>';
+} else {
+
+	// simple textarea - no WYSIWYG editor
+	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
+	echo '" class="v12" id="'.$wysiwyg_editor['field'].'" ';
+	echo 'style="width:'.$wysiwyg_editor['width'].';height:'.$wysiwyg_editor['height'].';">';
+	echo html_specialchars($wysiwyg_editor['value']).'</textarea>';
 
 }
 

@@ -29,7 +29,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-?><form action="phpwcms.php?do=profile" method="post" name="formprofiledetail" id="formprofiledetail"><table border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="phpwcms.php?do=profile" method="post" name="formprofiledetail" id="formprofiledetail" autocomplete="off">
+	<table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr><td colspan="2" class="title"><?php echo $BL['be_profile_account_title'] ?></td></tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 	<tr><td colspan="2"><?php echo $BL['be_profile_account_text'] ?></td></tr>
@@ -86,6 +87,8 @@ while($lang_codes = readdir( $lang_dirs )) {
 closedir( $lang_dirs );
 
 
+$wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
+
 ?>
         </select></td>
 	</tr>
@@ -93,14 +96,10 @@ closedir( $lang_dirs );
 	<tr> 
 		<td align="right" valign="top" style="padding-top: 3px;"><?php echo $BL['be_WYSIWYG'] ?>:&nbsp;</td>
 		<td><select name="form_wysiwyg" id="form_wysiwyg" class="f11" style="width:250px;margin-bottom:2px;" onchange="setWYSIWYGtemplate();">
-				<option value="0"<?php if(empty($_SESSION["WYSIWYG_EDITOR"])) echo ' selected'; ?>><?php echo $BL['be_WYSIWYG_disabled'] ?></option>
-				<option value="1"<?php if(!empty($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 1) echo ' selected="selected"'; ?>>SPAW2 (IE/Gecko/Opera9)</option>
-				<option value="2"<?php if(!empty($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] > 1  && $_SESSION["WYSIWYG_EDITOR"] < 4) echo ' selected="selected"'; ?>>FCKeditor (IE/Gecko)</option>
-				<!-- <option value="4"<?php if(!empty($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 4) echo ' selected="selected"'; ?>>SPAW (IE/Gecko)</option> -->
+				<option value="0"<?php is_selected(0, $_SESSION["WYSIWYG_EDITOR"]) ?>><?php echo $BL['be_WYSIWYG_disabled'] ?></option>
+				<option value="1"<?php is_selected(1, $_SESSION["WYSIWYG_EDITOR"]) ?>>CKEditor</option>
         </select>
-		<div id="wysiwyg_template">
-		<input type="hidden" name="form_wysiwyg_toolbar" value="" />
-		</div>
+		<div id="wysiwyg_template"><input type="hidden" name="form_wysiwyg_toolbar" value="" /></div>
 		</td>
 	</tr>
 
@@ -114,74 +113,25 @@ closedir( $lang_dirs );
 </table></form>
 <?php
 
-// set correct templates for WYSIWYG editor
-if(!empty($phpwcms['wysiwyg_template']['SPAW2'])) {
-	$wysiwygTemplates['SPAW2'] = convertStringToArray($phpwcms['wysiwyg_template']['SPAW2']);
-} elseif(empty($wysiwygTemplates['SPAW2']) || !count($wysiwygTemplates['SPAW2'])) {
-	$wysiwygTemplates['SPAW2'] = array('toolbarset_standard','toolbarset_all','toolbarset_mini');
-}
-if(!empty($phpwcms['wysiwyg_template']['SPAW'])) {
-	$wysiwygTemplates['SPAW'] = convertStringToArray($phpwcms['wysiwyg_template']['SPAW']);
-} elseif(empty($wysiwygTemplates['SPAW']) || !count($wysiwygTemplates['SPAW'])) {
-	$wysiwygTemplates['SPAW'] = array('default','mini','full','sidetable','intlink');
-}
+// set templates for WYSIWYG editor
 if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
 	$wysiwygTemplates['FCKeditor'] = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
-} elseif(empty($wysiwygTemplates['FCKeditor']) || !count($wysiwygTemplates['FCKeditor'])) {
+}
+if(empty($wysiwygTemplates['FCKeditor']) || count($wysiwygTemplates['FCKeditor']) == 0) {
 	$wysiwygTemplates['FCKeditor'] = array('phpwcms_basic','phpwcms_default','Default','Basic');
 }
 
-$wysiwygTemplates['SPAW_options']		= '';
-$wysiwygTemplates['SPAW2_options']		= '';
 $wysiwygTemplates['FCKeditor_options'] 	= '';
 $wysiwygTemplates['userTemplate']		= empty($_SESSION["WYSIWYG_TEMPLATE"]) ? '' : $_SESSION["WYSIWYG_TEMPLATE"];
-
-if(empty($_SESSION["WYSIWYG_EDITOR"])) {
-	$wysiwygTemplates['editor'] = 0;
-} elseif($_SESSION["WYSIWYG_EDITOR"] == 1) {	//SPAW2
-	$wysiwygTemplates['editor'] = 1;		
-} elseif($_SESSION["WYSIWYG_EDITOR"] < 4) {		//FCKeditor
-	$wysiwygTemplates['editor'] = 2;
-} elseif($_SESSION["WYSIWYG_EDITOR"] == 4) {	//SPAW
-	$wysiwygTemplates['editor'] = 4;
-} else {
-	$wysiwygTemplates['editor'] = 0;
-}
-
-foreach($wysiwygTemplates['SPAW2'] as $value) {
-	$value1 = html_specialchars($value);
-	$wysiwygTemplates['SPAW2_options'] .= '	<option value="'.$value1.'"';
-	if($wysiwygTemplates['editor'] == 1 && $wysiwygTemplates['userTemplate'] == $value) {
-		$wysiwygTemplates['SPAW2_options'] .= ' selected="selected"';
-	}
-	$wysiwygTemplates['SPAW2_options'] .= '>SPAW2: '.$value1.'</option>';
-}
-
-foreach($wysiwygTemplates['SPAW'] as $value) {
-	$value1 = html_specialchars($value);
-	$wysiwygTemplates['SPAW_options'] .= '	<option value="'.$value1.'"';
-	if($wysiwygTemplates['editor'] == 4 && $wysiwygTemplates['userTemplate'] == $value) {
-		$wysiwygTemplates['SPAW_options'] .= ' selected="selected"';
-	}
-	$wysiwygTemplates['SPAW_options'] .= '>SPAW: '.$value1.'</option>';
-}
 
 foreach($wysiwygTemplates['FCKeditor'] as $value) {
 	$value = html_specialchars($value);
 	$wysiwygTemplates['FCKeditor_options'] .= '	<option value="'.$value.'"';
-	if($wysiwygTemplates['editor'] == 2 && $wysiwygTemplates['userTemplate'] == $value) {
+	if($wysiwygTemplates['userTemplate'] == $value) {
 		$wysiwygTemplates['FCKeditor_options'] .= ' selected="selected"';
 	}
-	$wysiwygTemplates['FCKeditor_options'] .= '>FCKeditor: '.$value.'</option>';
+	$wysiwygTemplates['FCKeditor_options'] .= '>CKEditor: '.$value.'</option>';
 }
-
-$wysiwygTemplates['SPAW2_select']  = '<select name="form_wysiwyg_template" class="f11" style="width:250px;">';
-$wysiwygTemplates['SPAW2_select'] .= $wysiwygTemplates['SPAW2_options'];
-$wysiwygTemplates['SPAW2_select'] .= '</select>';
-
-$wysiwygTemplates['SPAW_select']  = '<select name="form_wysiwyg_template" class="f11" style="width:250px;">';
-$wysiwygTemplates['SPAW_select'] .= $wysiwygTemplates['SPAW_options'];
-$wysiwygTemplates['SPAW_select'] .= '</select>';
 
 $wysiwygTemplates['FCKeditor_select']  = '<select name="form_wysiwyg_template" class="f11" style="width:250px;">';
 $wysiwygTemplates['FCKeditor_select'] .= $wysiwygTemplates['FCKeditor_options'];
@@ -196,12 +146,8 @@ function setWYSIWYGtemplate() {
 	var templateObj = document.getElementById('form_wysiwyg');
 	var templateVal = templateObj.options[templateObj.selectedIndex].value;
 	var baseVal     = '<input type="hidden" name="form_wysiwyg_toolbar" value="" />'
-	if(templateVal == '1') {
-		baseVal     = '<?php echo $wysiwygTemplates['SPAW2_select'] ?>';
-	} else if(templateVal == '2') {
+	if(templateVal != '0') {
 		baseVal     = '<?php echo $wysiwygTemplates['FCKeditor_select'] ?>';
-	} else if(templateVal == '4') {
-		baseVal     = '<?php echo $wysiwygTemplates['SPAW_select'] ?>';
 	}
 	document.getElementById('wysiwyg_template').innerHTML = baseVal;
 }
