@@ -71,6 +71,9 @@ if(empty($cnt_form["error_class"])) {
 	$cnt_form["error_class"] = 'error';
 }
 
+// set enctype mode false (no upload)
+$cnt_form['is_enctype'] = false;
+
 /*
  * Browse form fields
  */
@@ -915,6 +918,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								$form_field .= '" />';
 								unset($cnt_form['upload_value']);
+								
+								// enable enctype attribute
+								$cnt_form['is_enctype'] = true;
 								break;
 
 			case 'submit'	:	/*
@@ -1868,7 +1874,8 @@ if($form_cnt) {
 	}
 	$CNT_TMP .= $form_error_text;
 	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'];
-	$CNT_TMP .= ' action="'.FE_CURRENT_URL.'#jumpForm'.$crow["acontent_id"].'" method="post" enctype="multipart/form-data">';
+	$CNT_TMP .= ' action="'.FE_CURRENT_URL.'#jumpForm'.$crow["acontent_id"].'" method="post"';
+	$CNT_TMP .= $cnt_form['is_enctype'] ? ' enctype="multipart/form-data">' : '>';
 
 	if($cnt_form['labelpos'] == 2) {
 	
@@ -1885,10 +1892,10 @@ if($form_cnt) {
 		$CNT_TMP .= "\n".$form_cnt.'</table>';
 	}
 	
-	$CNT_TMP .= '<input type="hidden" name="cpID'.$crow["acontent_id"].'" value="'.$crow["acontent_id"].'" />';
+	$CNT_TMP .= LF . '<div><input type="hidden" name="cpID'.$crow["acontent_id"].'" value="'.$crow["acontent_id"].'" />';
 	$CNT_TMP .= $form_field_hidden;
 	$CNT_TMP .=	getFormTrackingValue(); //hidden form tracking field
-	$CNT_TMP .= '</form>'.$cnt_form["class_close"];
+	$CNT_TMP .= '</div>' . LF . '</form>'.$cnt_form["class_close"];
 }
 
 unset( $form, $form_cnt, $form_cnt_2, $form_field, $form_field_hidden, $form_counter, $form_error_text, $POST_ERR );

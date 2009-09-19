@@ -2556,18 +2556,18 @@ function include_url($url) {
 	}
 	
 	if($cache_status != 'VALID' && $url) {	// cache file is missing or outdated
-	
+
 		$include_urlparts = parse_url($url);
 		if(!empty($include_urlparts['path'])) {
 			$include_urlparts['path'] = dirname($include_urlparts['path']);
 			$include_urlparts['path'] = str_replace("\\", '/', $include_urlparts['path']);
 		}
 		$k = @file_get_contents($url);
-		
+
 		if($k) {
 			// now check against charset
-			if(strpos($k, 'charset=') || strpos($k, 'CHARSET=')) {
-				$charset = preg_replace('/.*charset=(.*?)>.*/si', "$1", $k, 1);
+			if(preg_match('/charset=(.*?)"|\'/is', $k, $match)) {
+				$charset = $match[1];
 				$charset = str_replace(array('"', "'", '/'), '', $charset);
 				$charset = strtolower(trim($charset));
 			} elseif(preg_match('/http-equiv="{0,1}Content-Type"{0,1}\s{1,}(content="{0,1}.*?"{0,1}.{0,3}>)/i', $k, $match)) {
@@ -2579,28 +2579,26 @@ function include_url($url) {
 			} else {
 				$charset = false;
 			}
-			
-			if(strpos(strtolower($k), '<body') !== false) {
-				$k = preg_replace('/.*?<body[^>]*?'.'>(.*?)<\/body>.*?/si', "$1", $k);
+
+			if(preg_match('/<body[^>]*?'.'>(.*)<\/body>/is', $k, $match)) {
+				$k = $match[1];
 			}
 			$k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
 			$k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
 			$k = sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
-			
+
 			if($charset != false) {
 				$k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);
 			}
 			
 			// now write or update cache file in case there is timeout or content
 			if($cache && $k) {
-			
 				@write_textfile($cache_file, $k);
-			
 			}
 
 		}
 		$include_urlparts = '';
-		
+
 	}
 	return $k;
 }

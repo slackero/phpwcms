@@ -39,12 +39,19 @@ $_Tracking_phpMyVisitesVars		= Off; // additional vars: full page title, cms pag
 
 
 /*
- * Google Aanalytics
+ * Google Analytics
  */
 $_Tracking_GoogleAnalytics		= Off;
 $_Tracking_GoogleAnalyticsCode	= 'UA-00000-1';
 $_Tracking_GoogleSSL			= Off;
 
+
+/*
+ * Yahoo Analytics
+ */
+$_Tracking_YahooAnalytics		= Off;
+$_Tracking_YahooAnalyticsCode	= '01234567890';
+$_Tracking_YahooAnalyticsGroup	= Off;
 
 /*
  * StatCounter
@@ -224,6 +231,28 @@ var et_url          = "'.abs_url(array(), array('phpwcmscategory'), $_TrackingAl
 <script type="text/javascript">_etc();</script>
 <noscript><div style="overflow:hidden;width:0;height:0;"><img src="https://www.etracker.com/nscnt.php?et='.$_Tracking_eTrackerCode.'" border="0" alt="" /></div></noscript>
 <!-- etracker CODE END -->';
+
+	$content['all'] .= $_TrackingCode;
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/// Yahoo Aanalytics /////////////////////////////////////////////////////////////////////////////
+
+if($_Tracking_YahooAnalytics) {
+
+	$_TrackingCode  = '<!-- Yahoo! Web Analytics - All rights reserved -->
+<script type="text/javascript" src="http://d.yimg.com/mi/eu/ywa.js"></script>
+<script type="text/javascript">
+// globals YWA
+var YWATracker = YWA.getTracker("'.$_Tracking_YahooAnalyticsCode.'");
+//YWATracker.setDocumentName("");
+'.($_Tracking_YahooAnalyticsGroup == Off ? '//' : '').'YWATracker.setDocumentGroup("'.str_replace('"', '\"', implode('', $_TrackingCategory)).'");
+YWATracker.submit();
+</script>
+<noscript><div style="width:0;height:0;overflow:hidden"><img src="http://s.analytics.yahoo.com/p.pl?a=10001633077682&amp;js=no" width="1" height="1" alt="" /></div></noscript>';
 
 	$content['all'] .= $_TrackingCode;
 

@@ -86,13 +86,20 @@ if (!empty($phpwcms['header_XML']) && $_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' 
 	header('Content-Type: application/xhtml+xml; charset='.PHPWCMS_CHARSET);
 	header('Vary: Negotiate, Accept');
 	$_use_content_type = 'application/xhtml+xml';
-} else {
+}
 */
+if(defined('CUSTOM_CONTENT_TYPE')) {
+
+	header(CUSTOM_CONTENT_TYPE);
+	
+} else {
+
 	header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
-//	header('Vary: Negotiate, Accept');
+	//	header('Vary: Negotiate, Accept');
 	$_use_content_type = 'text/html';
-//}
-//header ('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
+
+}
+
 
 // define the real path of the phpwcms installation
 // important to script that must know the real path to files or something else
