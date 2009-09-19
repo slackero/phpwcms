@@ -60,8 +60,19 @@ $content["guestbook"]["gb_urlcheck"] 		= empty($_POST["cguestbook_urlcheck"]) ? 
 
 $content["guestbook"]["notify"] 			= empty($_POST["cguestbook_notify"]) ? 0 : 1;
 $content["guestbook"]["notify_email"] 		= clean_slweg($_POST["cguestbook_notify_email"]);
-if(!is_valid_email($content["guestbook"]["notify_email"])) {
+if(empty($content["guestbook"]["notify_email"])) {
 	$content["guestbook"]["notify"] = 0;
+} else{
+	$content["guestbook"]["notify_email"] = convertStringToArray(str_replace(',', ';', $content["guestbook"]["notify_email"]), ';');
+	foreach($content["guestbook"]["notify_email"] as $key => $item) {
+		if(!is_valid_email($item)) {
+			unset($content["guestbook"]["notify_email"][$key]);
+		}
+	}
+	$content["guestbook"]["notify_email"] = implode(';', $content["guestbook"]["notify_email"]);
+	if($content["guestbook"]["notify_email"] == '') {
+		$content["guestbook"]["notify"] = 0;
+	}
 }
 $content["guestbook"]["captcha_maxchar"]	= intval($_POST['cguestbook_captchamaxchar']);
 if(!$content["guestbook"]["captcha_maxchar"]) {
