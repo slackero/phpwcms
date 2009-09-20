@@ -91,10 +91,12 @@ if($result = mysql_query($alink_sql, $db) or die("error while getting link artic
 		
 		}
 		
+		$alinkmenu['active_class'] = ($aktion[1] == $row[0]) ? ' class="'.(empty($alinkmenu['class']) ? 'alink-active' : $alinkmenu['class'].'-active').'"' : '';
+		
 		switch($alinkmenu['ul']) {
 		
 			case 1:		// render as unordered list
-						$alinkmenu['link'] .= '<li>'.$alinkmenu['titlewrap'][0];
+						$alinkmenu['link'] .= '<li'.$alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0];
 						$alinkmenu['link'] .= '<a href="index.php?aid='.$row[0].'">';
 						$alinkmenu['link'] .= html_specialchars($row[1]);
 						$alinkmenu['link'] .= '</a>'.$alinkmenu['titlewrap'][1];
@@ -107,7 +109,7 @@ if($result = mysql_query($alink_sql, $db) or die("error while getting link artic
 						break;
 						
 			case 2:		// render as div
-						$alinkmenu['link'] .= '<div>'.$alinkmenu['titlewrap'][0];
+						$alinkmenu['link'] .= '<div'.$alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0];
 						$alinkmenu['link'] .= '<a href="index.php?aid='.$row[0].'">';
 						$alinkmenu['link'] .= html_specialchars($row[1]);
 						$alinkmenu['link'] .= '</a>'.$alinkmenu['titlewrap'][1];
@@ -127,7 +129,7 @@ if($result = mysql_query($alink_sql, $db) or die("error while getting link artic
 						}
 					
 						$alinkmenu['link'] .= "<tr>\n\t<td valign=\"top\"".$tempRowSpan." nowrap=\"nowrap\">".$template_default["article"]["link_article_sign"]."</td>\n\t";
-						$alinkmenu['link'] .= '<td>'.$alinkmenu['titlewrap'][0].'<a href="index.php?aid='.$row[0].'" ';
+						$alinkmenu['link'] .= '<td'.$alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0].'<a href="index.php?aid='.$row[0].'" ';
 						$alinkmenu['link'] .= get_class_attrib($template_default["article"]["link_article_class"]).">";
 						$alinkmenu['link'] .= html_specialchars($row[1]).'</a>'.$alinkmenu['titlewrap'][1]."</td>\n</tr>\n";
 						$alinkmenu['link'] .= $alinkmenu['sum'];

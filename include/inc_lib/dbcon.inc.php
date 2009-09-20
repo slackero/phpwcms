@@ -530,6 +530,22 @@ function _setConfig($key, $value=NULL, $group='', $status=1) {
 	return true;
 }
 
+function _dbEscape($value='', $quoted=TRUE) {
+	if(!is_string($value) && !is_numeric($value)) {
+		if(is_array($value) || is_object($value)) {
+			$value = serialize($value);
+		} elseif(is_bool($value)) {
+			return $value ? 'true' : 'false';
+		} elseif(is_null($value)) {
+			return 'NULL';
+		} else {
+			$value = strval($value);
+		}
+	}
+	$value = mysql_real_escape_string($value);
+	return $quoted === TRUE ? "'".$value."'" : $value;
+}
+
 /*
  * Get Config - retrieve Config value from database
  *
