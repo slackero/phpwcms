@@ -94,7 +94,7 @@ function clearfilename($formvar) {
 	//Filename anpassen und säubern
 	$formvar = trim($formvar);
 	if( get_magic_quotes_gpc() ) $formvar = stripslashes ($formvar);
-	$formvar = str_replace(array(' ', "'", ':', '/'), array('_', '', '-', '-'), $formvar);
+	$formvar = str_replace(array("'", ':', '/', '\\', '"'), '_', $formvar);
 	return $formvar;
 }
 
@@ -245,13 +245,6 @@ function phpwcmsversionCheck() {
 	global $BL;
 	
 	if(empty($phpwcms['version_check'])) return '';
-		
-	$current_version			= explode('.', $phpwcms["release"]);
-	$current_version[0]			= intval($current_version[0]);
-	$current_version[1]			= intval($current_version[1]);
-	$current_version[2]			= intval($current_version[2]);
-
-	$current_date				= getdate(strtotime($phpwcms["release_date"]));
 
 	$errno 						= 0;
 	$errstr 					= '';
@@ -279,37 +272,18 @@ function phpwcmsversionCheck() {
 
 		$version_info		= explode("\n", $version_info);
 		
-		$latest_revision	= explode('.', $version_info[0]);
-		$latest_revision[0]			= intval($latest_revision[0]);
-		$latest_revision[1]			= intval($latest_revision[1]);
-		$latest_revision[2]			= intval($latest_revision[2]);
-		
-		$latest_revdate		= getdate(strtotime($version_info[1]));
+		$latest_version		= trim($version_info[0]);
+		$latest_revdate		= trim($version_info[1]);
+		$latest_revision	= intval(trim($version_info[2]));
 
 		// do version check
-		$check = true;
-		if($latest_revision[0] != $current_version[0]) {
-			$check = false;
-			
-		} elseif($latest_revision[1] != $current_version[1]) {
-			$check = false;
-	
-		} elseif($latest_revision[2] != $current_version[2]) {
-			$check = false;
-	
-		} elseif($latest_revdate['year'] != $current_date['year']) {
-			$check = false;
-	
-		} elseif($latest_revdate['mon'] != $current_date['mon']) {
-			$check = false;
-	
-		} elseif($latest_revdate['mday'] != $current_date['mday']) {
-			$check = false;
-		}
+		$check = $latest_revision > $phpwcms['revision'] ? false : true;
 		
 		
 		if ($check)	{
 			$version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
+			$version_info .= '<p class="valid">'.sprintf($BL['Latest_version_info'], $latest_version.' ('.$latest_revdate.', r'.$latest_revision.')'). ' ';
+			$version_info .= sprintf($BL['Current_version_info'], $phpwcms["release"].' ('.$phpwcms["release_date"].', r'.$phpwcms["revision"].')') . '</p>';
 		
 		} else {
 		
@@ -332,7 +306,7 @@ function phpwcmsversionCheck() {
 		}
 	}
 	
-	$version_info .= '<p>' . $BL['Mailing_list_subscribe_reminder'] . '</p>';
+	//$version_info .= '<p>' . $BL['Mailing_list_subscribe_reminder'] . '</p>';
 
 	return '<div class="versioncheck"><h1>'.$BL['Version_information'].'</h1> '.$version_info.'</div>';
 

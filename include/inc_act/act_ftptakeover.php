@@ -271,7 +271,7 @@ if(!$ftp["error"]) {
 			$file_ext  = check_image_extension($file_path);
 			$file_ext  = (false === $file_ext) ? which_ext($file) : $file_ext;
 			
-			$file_name = clearfilename( seems_utf8($file) ? utf8_decode($file) : $file);
+			$file_name = clearfilename( PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file) ? utf8_decode($file) : $file);
 			$file_hash = md5( $file_name . microtime() );
 			
 			

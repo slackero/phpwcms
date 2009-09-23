@@ -62,12 +62,15 @@ initMootoolsAutocompleter();
 							$fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
 							$fxsg += $fxs;
 							$fxe = extimg(which_ext($file));
+							if(PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file)) {
+								$file = utf8_decode($file);
+							}
 		  ?>
           <tr<?php echo $fxb?>>
             <td align="center"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
             <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
-            <td class="v10"><?php echo html_entities(utf8_decode($file)) ?></td>
+            <td class="v10"><?php echo html_specialchars($file) ?></td>
 			
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
             <td align="right" class="v10">

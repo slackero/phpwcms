@@ -180,7 +180,7 @@ if(isset($_GET['print'])) {
 
 	$aktion[2] = 1;
 	define('PRINT_PDF', intval($_GET['print']) == 2 ? true : false);
-	unset($GLOBALS['_getVar']['print'], $_GET['print']);
+	unset($_getVar['print'], $_GET['print']);
 
 }
 
@@ -190,6 +190,11 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 
 	// split by function - value: F-function1|function2|function3--S-SECT1|SECT2|SECT3
 	$phpwcms['output_action']	= explode('--', clean_slweg( empty($_GET['phpwcms_output_action']) ? $_POST['phpwcms_output_action'] : $_GET['phpwcms_output_action'] ));
+	unset(
+		$_GET['phpwcms_output_action'],
+		$_POST['phpwcms_output_action'],
+		$_getVar['phpwcms_output_action']
+	);
 	
 	if(is_array($phpwcms['output_action'])) {
 		

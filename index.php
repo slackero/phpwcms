@@ -72,7 +72,8 @@ if(!$IS_A_BOT && !empty($phpwcms['SESSION_FEinit'])) {
 
 // some initial actions
 cleanupPOSTandGET();
-define('FE_CURRENT_URL', PHPWCMS_URL . 'index.php' . buildGlobalGET('getQuery'));
+buildGlobalGET();
+define('FE_CURRENT_URL', abs_url(array(),array('phpwcms_output_action')) );
 
 // init some special rights and also frontend edit
 init_frontend_edit();
