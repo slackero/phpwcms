@@ -369,7 +369,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								 */
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
-									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] = '') {
+									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 									} else {
 										$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
