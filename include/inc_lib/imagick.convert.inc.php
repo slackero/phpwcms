@@ -142,6 +142,7 @@ function imagick_converting ($imagick) {
 			
 			$imagick["command"]  = IMAGICK_PATH."convert ";
 			switch($imagick["target_ext"]) {
+				
 				case "jpg":	if(IMAGICK_ON == 1) {
 								//ImageMagick >= 5
 								$imagick["command"] .= "-colorspace RGB -type TrueColor ";
@@ -157,6 +158,7 @@ function imagick_converting ($imagick) {
 							}
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"].'[0]';
 							break;
+							
 				case "gif":	if(IMAGICK_ON == 1) {
 								//ImageMagick >= 5
 								$imagick["command"] .= "-colors 256 ";
@@ -166,28 +168,50 @@ function imagick_converting ($imagick) {
 							}
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"];
 							break;
-				case "png":	//$imagick["command"] .= "-colors 128 ";
-							$imagick["command"] .= "-colorspace RGB ";
+							
+				case "png":	$imagick["command"] .= "-colorspace RGB ";
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"];
 							break;
+
 			}
 			
+			/**
+			 * to keep 4.2.9 compatibility there is more that has to be done
+			 * it might fail for PNG and for cropping
+			 */
+			
 			if($imagick['crop_image'] && $imagick["max_width"] && $imagick["max_height"]) {
-	
-				$resize_factor = 2 * ( $imagick["max_width"] > $imagick["max_height"] ? $imagick["max_width"] : $imagick["max_height"] );
-				
-				$imagick["command"] .= '-resize "x'.$resize_factor.'" -resize "'.$resize_factor.'x<" -resize 50% ';
-				$imagick["command"] .= '-gravity center -crop '.$imagick["max_width"].'x'.$imagick["max_height"].'+0+0 ';
-				$imagick["command"] .= '+repage ';
+
+				if(IMAGICK_ON == 1) {
+					//ImageMagick >= 5
+					$resize_factor = 2 * ( $imagick["max_width"] > $imagick["max_height"] ? $imagick["max_width"] : $imagick["max_height"] );
+					
+					$imagick["command"] .= '-resize "x'.$resize_factor.'" -resize "'.$resize_factor.'x<" -resize 50% ';
+					$imagick["command"] .= '-gravity center -crop '.$imagick["max_width"].'x'.$imagick["max_height"].'+0+0 ';
+					$imagick["command"] .= '+repage ';
+			
+				} else {
+					//ImageMagick 4.2.9
+					$imagick["command"] .= '-geometry "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
+					$imagick["command"] .= '-gravity center -crop '.$imagick["max_width"].'x'.$imagick["max_height"].'+0+0 ';
+					$imagick["command"] .= '+repage ';
+					
+				}
 			
 			} elseif( $imagick["max_width"] || $imagick["max_height"] ) {
 
 				// resize
-				$imagick["command"] .= '-resize "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
+				if(IMAGICK_ON == 1) {
+					//ImageMagick >= 5
+					$imagick["command"] .= '-resize "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
+				
+				} else {
+					//ImageMagick 4.2.9
+					$imagick["command"] .= '-geometry "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
+					
+				}
 			
 			}
-			
-
 			
 			// quality level
 			$imagick["command"] .= "-quality ".$imagick['jpg_quality']." ";
@@ -203,7 +227,11 @@ function imagick_converting ($imagick) {
 			$imagick["command"] .= '-antialias ';
 			$imagick["command"] .= $sharpen;
 			$imagick['command'] .= '"'.$imagick["source_image_name"].'" ';
-			//$imagick["command"] .= '+profile "*" ';
+			/*
+			if(IMAGICK_ON == 2) {
+				$imagick["command"] .= '+profile "*" ';
+			}
+			*/
 			$imagick["command"] .= '"'.$imagick["thumb_dir"].$imagick["thumb_name"].'" ';
 			
 			// debug commands

@@ -54,7 +54,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 	$content["search_word"] = array_unique($content["search_word"]);
 	
 	$content['search']['highlight_result']	= empty($content["search"]['highlight_result']) ? false : true;
-	$content['search']['wordlimit']			= empty($content["search"]['wordlimit']) ? 35 : $content["search"]['wordlimit'];
+	$content['search']['wordlimit']			= isset($content["search"]['wordlimit']) && is_intval($content["search"]['wordlimit']) ? intval($content["search"]['wordlimit']) : 35;
 	
 	$content["search"]["result_per_page"]	= empty($content["search"]['result_per_page']) ? 15 : $content["search"]['result_per_page'];
 	if($content["search"]["result_per_page"] == -1)  {
@@ -235,10 +235,14 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$s_list[$s_run]["user"]		= $s_user;
 					$s_list[$s_run]['query']	= 'aid='.$s_id;
 					
-					$s_list[$s_run]["text"]		= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
-					$s_list[$s_run]["text"]		= html_specialchars($s_list[$s_run]["text"]);
-					if($content['search']['highlight_result']) {
-						$s_list[$s_run]["text"] = highlightSearchResult($s_list[$s_run]["text"], $content['highlight']);
+					if($content['search']['wordlimit'] > 0) {
+						$s_list[$s_run]["text"]	= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
+						$s_list[$s_run]["text"]	= html_specialchars($s_list[$s_run]["text"]);
+						if($content['search']['highlight_result']) {
+							$s_list[$s_run]["text"] = highlightSearchResult($s_list[$s_run]["text"], $content['highlight']);
+						}
+					} else {
+						$s_list[$s_run]["text"]	= '';
 					}
 
 					$s_run++;

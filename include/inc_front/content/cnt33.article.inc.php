@@ -368,9 +368,10 @@ if($news['template']) {
 	$news['config']['news_per_row']				= abs(intval($news['config']['news_per_row']));
 	$news['config']['news_teaser_limit_chars']	= intval($news['config']['news_teaser_limit_chars']);
 	$news['config']['news_teaser_limit_words']	= intval($news['config']['news_teaser_limit_words']);
+	$news['config']['news_teaser_text']			= trim($news['config']['news_teaser_text']);
 	
 	// set function used to render teaser text, custom can be registered
-	switch( trim($news['config']['news_teaser_text']) ) {
+	switch( $news['config']['news_teaser_text'] ) {
 		case 'br':
 		case 'BR':	$news['config']['news_teaser_text'] = 'br_htmlencode';
 					break;

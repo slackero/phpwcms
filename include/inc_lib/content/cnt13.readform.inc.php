@@ -30,7 +30,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Search Form
 $content["search"]["result_per_page"] = empty($_POST["csearch_result_per_page"]) ? '' : intval($_POST["csearch_result_per_page"]);
-$content["search"]["wordlimit"] = empty($_POST["csearch_wordlimit"]) ? '' : intval($_POST["csearch_wordlimit"]);
+$content["search"]["wordlimit"] = isset($_POST["csearch_wordlimit"]) ? trim($_POST["csearch_wordlimit"]) : '';
+$content["search"]["wordlimit"] = is_intval($content["search"]["wordlimit"]) ? intval($content["search"]["wordlimit"]) : '';
 $content["search"]["newwin"] = isset($_POST["csearch_newwin"]) ? 1 : 0;
 $content["search"]["highlight_result"] = isset($_POST["csearch_highlight"]) ? 1 : 0;
 $content["search"]["label_input"] = html_specialchars(clean_slweg($_POST["csearch_label_input"]));

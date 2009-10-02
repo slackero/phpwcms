@@ -310,6 +310,7 @@ function breadcrumb ($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	$end_id 	= intval($end_id);
 	$act_id 	= $start_id; //store actual ID for later comparing
 	$breadcrumb = '';
+	global $template_default;
 
 	while ($start_id) { //get the breadcrumb path starting with given start_id
 		if($end_id && $start_id == $end_id) break;
@@ -336,7 +337,13 @@ function breadcrumb ($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 					$breadcrumb .= html_specialchars($crumbs_part[$key]).'</a>';
 				} else {
 					if($breadcrumb) $breadcrumb .= $spacer;
+					if(!empty($template_default['breadcrumb_active_prefix'])) {
+						$breadcrumb .= $template_default['breadcrumb_active_prefix'];
+					}
 					$breadcrumb .= html_specialchars($crumbs_part[$key]);
+					if(!empty($template_default['breadcrumb_active_suffix'])) {
+						$breadcrumb .= $template_default['breadcrumb_active_suffix'];
+					}
 				}
 			}
 		}
