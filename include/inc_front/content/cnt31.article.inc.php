@@ -110,20 +110,6 @@ if($image['template']) {
 			$thumb_image		= false;
 			$zoominfo			= false;
 			
-			$img_thumb_name		= '';
-			$img_thumb_filename	= '';
-			$img_thumb_rel		= '';
-			$img_thumb_abs		= '';
-			$img_thumb_width	= '';
-			$img_thumb_height	= '';
-			
-			$img_zoom_name		= '';
-			$img_zoom_filename	= '';
-			$img_zoom_rel		= '';
-			$img_zoom_abs		= '';
-			$img_zoom_width		= '';
-			$img_zoom_height	= '';
-		
 			if($value['thumb_hash']) {
 
 				$thumb_image = get_cached_image(
@@ -143,6 +129,16 @@ if($image['template']) {
 			if(!$value['thumb_hash'] || !$thumb_image) {
 				continue;
 			}
+			
+			$img_zoom_id		= '';
+			$img_zoom_hash		= '';
+			$img_zoom_ext		= '';
+			$img_zoom_name		= '';
+			$img_zoom_filename	= '';
+			$img_zoom_rel		= '';
+			$img_zoom_abs		= '';
+			$img_zoom_width		= '';
+			$img_zoom_height	= '';
 			
 			$col++;
 			
@@ -233,9 +229,6 @@ if($image['template']) {
 				if($image['lightbox'] && $capt_cur) {
 					$lightbox_capt = 'title="'.parseLightboxCaption($capt_cur).'" ';
 				}
-				/* else {
-					$lightbox_capt = 'title="'.parseLightboxCaption( $image['images'][$key][1] ).'" ';
-				} */
 				
 				if(!$image['lightbox'] || $caption[2][0]) {
 				
@@ -254,6 +247,9 @@ if($image['template']) {
 				
 				$img_a .= $list_img_temp.'</a>';
 				
+				$img_zoom_id		= $value['zoom_id'];
+				$img_zoom_hash		= $value['zoom_hash'];
+				$img_zoom_ext		= $value['zoom_ext'];
 				$img_zoom_name		= $zoominfo[0];
 				$img_zoom_rel		= PHPWCMS_IMAGES.$zoominfo[0];
 				$img_zoom_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
@@ -272,10 +268,12 @@ if($image['template']) {
 			
 			$img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
 			$img_a = str_replace('{IMGID}', $key, $img_a);
-			$img_a = str_replace('{IMAGE_ID}', $key, $img_a);
 			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key]['thumb_name']), $img_a);
 		
 			// replace thumbnail and zoom image information
+			$img_a = str_replace('{THUMB_ID}',			$value['thumb_id'], $img_a);
+			$img_a = str_replace('{THUMB_HASH}',		$value['thumb_hash'], $img_a);
+			$img_a = str_replace('{THUMB_EXT}',			$value['thumb_ext'], $img_a);
 			$img_a = str_replace('{THUMB_NAME}',		$img_thumb_name, $img_a);
 			$img_a = str_replace('{THUMB_FILENAME}',	$img_thumb_filename, $img_a);
 			$img_a = str_replace('{THUMB_REL}',			$img_thumb_rel, $img_a);
@@ -286,6 +284,9 @@ if($image['template']) {
 			$image['tmpl_thumb_width_max']	= max($image['tmpl_thumb_width_max'], $img_thumb_width);
 			$image['tmpl_thumb_height_max']	= max($image['tmpl_thumb_height_max'], $img_thumb_height);
 			
+			$img_a = str_replace('{IMAGE_ID}',			$img_zoom_id, $img_a);
+			$img_a = str_replace('{IMAGE_HASH}',		$img_zoom_hash, $img_a);
+			$img_a = str_replace('{IMAGE_EXT}',			$img_zoom_ext, $img_a);
 			$img_a = str_replace('{IMAGE_NAME}',		$img_zoom_name, $img_a);
 			$img_a = str_replace('{IMAGE_FILENAME}',	$img_zoom_filename, $img_a);
 			$img_a = str_replace('{IMAGE_REL}',			$img_zoom_rel, $img_a);
