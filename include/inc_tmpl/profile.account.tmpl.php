@@ -48,29 +48,29 @@ if (!defined('PHPWCMS_ROOT')) {
 	</tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_username'] ?>:&nbsp;</td>
-		<td><input name="form_loginname" type="text" id="form_loginname" class="f11b" style="width:250px;" size="30" maxlength="30" value="<?php echo html_specialchars($_SESSION["wcs_user"]); ?>"></td>
+		<td><input name="form_loginname" type="text" id="form_loginname" class="v12b width250" size="30" maxlength="30" value="<?php echo html_specialchars($_SESSION["wcs_user"]); ?>"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_newpass'] ?>:&nbsp;</td>
-		<td><input name="form_password" type="password" id="form_password" class="f11b" style="width:250px;" size="30" maxlength="20"></td>
+		<td><input name="form_password" type="password" id="form_password" class="v12b width250" size="30" maxlength="20"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_repeatpass'] ?>:&nbsp;</td>
-		<td><input name="form_password2" type="password" id="form_password2" class="f11b" style="width:250px;" size="30" maxlength="20"></td>
+		<td><input name="form_password2" type="password" id="form_password2" class="v12b width250" size="30" maxlength="20"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-		<td><input name="form_useremail" type="text" id="form_useremail" class="f11b" style="width:250px;" value="<?php echo html_specialchars($_SESSION["wcs_user_email"]); ?>" size="30" maxlength="150"></td>
+		<td><input name="form_useremail" type="text" id="form_useremail" class="v12b width250" value="<?php echo html_specialchars($_SESSION["wcs_user_email"]); ?>" size="30" maxlength="150"></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 	
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
-		<td><select name="form_lang" id="form_lang" class="f11" style="width:250px;">
+		<td><select name="form_lang" id="form_lang" class="v12 width250">
 <?php
 // check available languages installed and build language selector menu
 include_once PHPWCMS_ROOT."/include/inc_lang/code.lang.inc.php";
@@ -95,9 +95,10 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 	<tr> 
 		<td align="right" valign="top" style="padding-top: 3px;"><?php echo $BL['be_WYSIWYG'] ?>:&nbsp;</td>
-		<td><select name="form_wysiwyg" id="form_wysiwyg" class="f11" style="width:250px;margin-bottom:2px;" onchange="setWYSIWYGtemplate();">
+		<td><select name="form_wysiwyg" id="form_wysiwyg" class="v12 width250" style="margin-bottom:2px;" onchange="setWYSIWYGtemplate();">
 				<option value="0"<?php is_selected(0, $_SESSION["WYSIWYG_EDITOR"]) ?>><?php echo $BL['be_WYSIWYG_disabled'] ?></option>
-				<option value="1"<?php is_selected(1, $_SESSION["WYSIWYG_EDITOR"]) ?>>CKEditor</option>
+				<option value="1"<?php is_selected(1, $_SESSION["WYSIWYG_EDITOR"]) ?>>CKEditor 3.0</option>
+				<option value="2"<?php is_selected(2, $_SESSION["WYSIWYG_EDITOR"]) ?>>FCKeditor 2.6.5</option>
         </select>
 		<div id="wysiwyg_template"><input type="hidden" name="form_wysiwyg_toolbar" value="" /></div>
 		</td>
@@ -107,7 +108,7 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 	</tr>
 	<tr> 
 		<td align="right">&nbsp;</td>
-		<td><input type="submit" name="Submit" value="<?php echo $BL['be_profile_account_button'] ?>" class="button10"></td>
+		<td><input type="submit" name="Submit" value="<?php echo $BL['be_profile_account_button'] ?>" class="button12"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="20"></td></tr>
 </table></form>
@@ -120,22 +121,44 @@ if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
 if(empty($wysiwygTemplates['FCKeditor']) || count($wysiwygTemplates['FCKeditor']) == 0) {
 	$wysiwygTemplates['FCKeditor'] = array('phpwcms_basic','phpwcms_default','Default','Basic');
 }
+if(!empty($phpwcms['wysiwyg_template']['CKEditor'])) {
+	$wysiwygTemplates['CKEditor'] = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);
+}
+if(empty($wysiwygTemplates['CKEditor']) || count($wysiwygTemplates['CKEditor']) == 0) {
+	$wysiwygTemplates['CKEditor'] = array('Default','Basic');
+}
 
-$wysiwygTemplates['FCKeditor_options'] 	= '';
 $wysiwygTemplates['userTemplate']		= empty($_SESSION["WYSIWYG_TEMPLATE"]) ? '' : $_SESSION["WYSIWYG_TEMPLATE"];
 
+// FCKeditor
+$wysiwygTemplates['FCKeditor_options'] 	= '';
 foreach($wysiwygTemplates['FCKeditor'] as $value) {
 	$value = html_specialchars($value);
 	$wysiwygTemplates['FCKeditor_options'] .= '	<option value="'.$value.'"';
 	if($wysiwygTemplates['userTemplate'] == $value) {
 		$wysiwygTemplates['FCKeditor_options'] .= ' selected="selected"';
 	}
-	$wysiwygTemplates['FCKeditor_options'] .= '>CKEditor: '.$value.'</option>';
+	$wysiwygTemplates['FCKeditor_options'] .= '>FCKeditor: '.$value.'<\'+\'/option>';
 }
 
-$wysiwygTemplates['FCKeditor_select']  = '<select name="form_wysiwyg_template" class="f11" style="width:250px;">';
+$wysiwygTemplates['FCKeditor_select']  = '<select name="form_wysiwyg_template" class="v12 width250">';
 $wysiwygTemplates['FCKeditor_select'] .= $wysiwygTemplates['FCKeditor_options'];
-$wysiwygTemplates['FCKeditor_select'] .= '</select>';
+$wysiwygTemplates['FCKeditor_select'] .= '<\'+\'/select>';
+
+// CKEditor
+$wysiwygTemplates['CKEditor_options'] 	= '';
+foreach($wysiwygTemplates['CKEditor'] as $value) {
+	$value = html_specialchars($value);
+	$wysiwygTemplates['CKEditor_options'] .= '	<option value="'.$value.'"';
+	if($wysiwygTemplates['userTemplate'] == $value) {
+		$wysiwygTemplates['CKEditor_options'] .= ' selected="selected"';
+	}
+	$wysiwygTemplates['CKEditor_options'] .= '>CKEditor: '.$value.'<\'+\'/option>';
+}
+
+$wysiwygTemplates['CKEditor_select']  = '<select name="form_wysiwyg_template" class="v12 width250">';
+$wysiwygTemplates['CKEditor_select'] .= $wysiwygTemplates['CKEditor_options'];
+$wysiwygTemplates['CKEditor_select'] .= '<\'+\'/select>';
 
 ?>
 <script language="javascript" type="text/javascript">
@@ -145,9 +168,17 @@ setWYSIWYGtemplate();
 function setWYSIWYGtemplate() {
 	var templateObj = document.getElementById('form_wysiwyg');
 	var templateVal = templateObj.options[templateObj.selectedIndex].value;
-	var baseVal     = '<input type="hidden" name="form_wysiwyg_toolbar" value="" />'
-	if(templateVal != '0') {
-		baseVal     = '<?php echo $wysiwygTemplates['FCKeditor_select'] ?>';
+	switch(templateVal) {
+		case 2:
+		case '2': 
+			var baseVal = '<?php echo $wysiwygTemplates['FCKeditor_select'] ?>';
+			break;
+		case 1:
+		case '1': 
+			var baseVal = '<?php echo $wysiwygTemplates['CKEditor_select'] ?>';
+			break;
+		default:
+			var baseVal = '<input type="hidden" name="form_wysiwyg_toolbar" value="" />';
 	}
 	document.getElementById('wysiwyg_template').innerHTML = baseVal;
 }

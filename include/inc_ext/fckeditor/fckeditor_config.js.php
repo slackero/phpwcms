@@ -4,12 +4,13 @@
 // a custom FCKeditor config
 // optimized for phpwcms
 $phpwcms = array();
-$_root = realpath(dirname(__FILE__).'/../../../');
-require_once ($_root.'/config/phpwcms/conf.inc.php');
-require_once ($_root.'/include/inc_lib/default.inc.php');
+$_root = rtrim( str_replace("\\", '/', dirname(dirname(dirname(dirname(__FILE__)))) ), '/' );
 
 // send correct content-type/mime-type
-header('Content-Type: application/x-javascript');
+define('CUSTOM_CONTENT_TYPE', 'Content-Type: application/x-javascript');
+
+require_once ($_root.'/config/phpwcms/conf.inc.php');
+require_once ($_root.'/include/inc_lib/default.inc.php');
 
 
 ?>

@@ -24,7 +24,7 @@
  
 session_start();
 
-if(empty($_SESSION["wcs_user"])) {
+if(empty($_SESSION["wcs_user"]) || isset($_POST['wcs_user']) || isset($_GET['wcs_user']) || isset($_COOKIE['wcs_user'])) {
 	exit();
 }
 

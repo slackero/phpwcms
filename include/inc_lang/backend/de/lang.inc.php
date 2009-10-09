@@ -1021,7 +1021,7 @@ $BL['be_cnt_pos9']                      = 'Tabelle, rechts';
 $BL['be_cnt_pos8i']                     = 'Bild in Tabelle links anordnen';
 $BL['be_cnt_pos9i']                     = 'Bild in Tabelle rechts anordnen';
 
-$BL['be_WYSIWYG']						= 'WYSIWYG editor';
+$BL['be_WYSIWYG']						= 'WYSIWYG Editor';
 $BL['be_WYSIWYG_disabled']				= 'WYSIWYG Editor ausgeschaltet';
 
 $BL['be_admin_struct_acat_hiddenactive'] = 'sichtbar, wenn aktiv';

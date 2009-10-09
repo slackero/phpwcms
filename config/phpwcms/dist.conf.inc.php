@@ -94,7 +94,7 @@ $phpwcms['IE_htc_hover']      = 1; // enables HTC Hover for IE < 7 - has no effe
 $phpwcms['IE_htc_png']        = 1; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers
 $phpwcms['timezone_GMT']  	  = '+1';
 $phpwcms['Bad_Behavior']      = 1; // enables spam blocking by Bad Behavior
-$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );								   
+$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );								   
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online
 $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend
