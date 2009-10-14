@@ -149,9 +149,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			$_SESSION["pklapp"]				= @unserialize($row["usr_var_publicfile"]);
 			$row["usr_vars"]				= @unserialize($row["usr_vars"]);
 			$_SESSION["WYSIWYG_TEMPLATE"]	= empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
-			$_SESSION["WYSIWYG_EDITOR"]		= empty($row["usr_wysiwyg"]) ? 0 : 1;
+			$_SESSION["WYSIWYG_EDITOR"]		= empty($row["usr_wysiwyg"]) ? 0 : $row["usr_wysiwyg"];
 			
-			$login_passed = 1;		
+			$login_passed = 1;
 		}
 		mysql_free_result($result);
 	}
