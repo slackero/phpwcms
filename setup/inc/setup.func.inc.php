@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.3';
-$phpwcms_release_date	= '2009/10/14';
-$phpwcms_revision		= '376';
+$phpwcms_release_date	= '2009/10/15';
+$phpwcms_revision		= '377';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -176,7 +176,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['imagick_path']      = ''; //Path to ImageMagick (default='' - none)\n";
 	$conf_file .= "\$phpwcms['use_gd2']           = 1; //0 = GD1, 1 = GD2\n";
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable\n";
-	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = WYSIWYG editor - only CKeditor\n";
+	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
 	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";

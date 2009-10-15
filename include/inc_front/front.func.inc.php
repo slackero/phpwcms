@@ -2567,13 +2567,13 @@ function include_url($url) {
 		$include_urlparts = parse_url($url);
 		if(!empty($include_urlparts['path'])) {
 			$include_urlparts['path'] = dirname($include_urlparts['path']);
-			$include_urlparts['path'] = str_replace("\\", '/', $include_urlparts['path']);
+			$include_urlparts['path'] = str_replace('\\', '/', $include_urlparts['path']);
 		}
 		$k = @file_get_contents($url);
 
 		if($k) {
 			// now check against charset
-			if(preg_match('/charset=(.*?)"|\'/is', $k, $match)) {
+			if(preg_match('/charset=(.*?)"/i', $k, $match)) {
 				$charset = $match[1];
 				$charset = str_replace(array('"', "'", '/'), '', $charset);
 				$charset = strtolower(trim($charset));

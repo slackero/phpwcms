@@ -65,7 +65,7 @@ $phpwcms['imagick']           = 0;        //if 0 = GD, 1 = ImageMagick convert, 
 $phpwcms['imagick_path']      = '';       //Path to ImageMagick
 $phpwcms['use_gd2']           = 1;        //if 0 = GD1, 1 = GD2
 $phpwcms['rewrite_url']       = 0;        //whether URL should be rewritable
-$phpwcms['wysiwyg_editor']    = 1;        //0 = no wysiwyg editor, 1 = WYSIWYG editor - only CKeditor
+$phpwcms['wysiwyg_editor']    = 1;        //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor
 $phpwcms['phpmyadmin']        = 0;        //enable/disable phpmyadmin in Admin section
 $phpwcms['default_lang']      = 'en';     //default language
 $phpwcms['DOCTYPE_LANG']      = '';       //by default same as $phpwcms['default_lang'], but can be injected by whatever you like
