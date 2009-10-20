@@ -1277,4 +1277,5 @@ $BL['alt_image']						= 'alt. image';
 $BL['alt_text']							= 'alt. text';
 $BL['over']								= 'over';
 
+
 ?>
