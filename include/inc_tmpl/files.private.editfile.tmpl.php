@@ -32,9 +32,10 @@ if (!defined('PHPWCMS_ROOT')) {
 initMootoolsAutocompleter();
 
 //Wenn neue Datei hochgeladen werden soll
-$file_id = isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
-$ja = 0;
-$othumb = false;
+$file_id	= isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
+$file_ext	= '';
+$ja			= 0;
+$othumb		= false;
 				
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {

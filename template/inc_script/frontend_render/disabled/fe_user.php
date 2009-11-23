@@ -748,12 +748,12 @@ if($fe_action) {
 					'toName'		=> trim($udata['user_firstname'].' '.$udata['user_name']),
 					'subject'		=> 'phpwcms Registration',
 					'text'			=> $fe_text,
-					'from'			=> 'oliver@phpwcms.de',
+					'from'			=> 'me@localhost',
 					'fromName'		=> 'phpwcms',
-					'sender'		=> 'oliver@phpwcms.de' ));
+					'sender'		=> 'me@localhost' ));
 					
 				sendEmail(array(
-					'recipient'		=> 'slackero+phpwcms-registration@gmail.com',
+					'recipient'		=> 'me@localhost',
 					'subject'		=> 'New registration',
 					'text'			=> $fe_text1,
 					'from'			=> strtolower($udata['user_email']),

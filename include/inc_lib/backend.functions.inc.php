@@ -98,10 +98,10 @@ function clearfilename($formvar) {
 	return $formvar;
 }
 
-function check_image_extension($file) {
+function check_image_extension($file, $filename='') {
 	// only checks against correct image extension
-	$image_info = getimagesize($file);
-	$result = false;
+	$image_info	= getimagesize($file);	
+	$result		= false;
 	if(false != $image_info) {
 		switch($image_info[2]) {
 			case  1: $result = 'gif';	break;
@@ -127,7 +127,7 @@ function check_image_extension($file) {
 			case 15: // there seems to be a problem with getimagesize and Quicktime VR
 					 // mov -> wmbf ? why ever!
 					 // do an additional extension check and compare against mov
-					 $result = (strtolower(which_ext($file)) == 'mov') ? 'mov' : 'wbmp';
+					 $result = (strtolower(which_ext( empty($filename) ? $file : $filename )) == 'mov') ? 'mov' : 'wbmp';
 					 break;
 
 			case 16: $result = 'xbm';	break;

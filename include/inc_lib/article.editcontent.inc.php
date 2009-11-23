@@ -170,7 +170,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_alias"]		= proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
 		
 		$article["article_subtitle"]	= clean_slweg($_POST["article_subtitle"]);
-		$article["article_menutitle"]	= empty($_POST["article_menutitle"]) ? $article["article_title"] : clean_slweg($_POST["article_menutitle"]);
+		$article["article_menutitle"]	= clean_slweg($_POST["article_menutitle"]);
 		$article["article_summary"]		= str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]) );
 		$article["article_public"]		= isset($_POST["article_public"]) ? 1 : 0;
 		$article["article_notitle"]		= isset($_POST["article_notitle"]) ? 1 : 0;

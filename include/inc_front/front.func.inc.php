@@ -1506,7 +1506,7 @@ function html_parser($string) {
 	$replace[22]	= '<a name="$1" class="phpwcmsAnchorLink"></a>';
 
 	// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
-	$search[23]     = '/\[MAIL (.*?)\](.*?)\[\/MAIL\]/is';
+	$search[23]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
 	$replace[23]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$2</a>';
 
 	// this tags out a Mailaddress with an predifined subject (by Florian, 21-11-2003)
@@ -1559,6 +1559,10 @@ function html_parser($string) {
 	$search[47]		= '/\[h5\](.*?)\[\/h5\]/is';					$replace[47]	= '<h5>$1</h5>';
 	$search[48]		= '/\[h6\](.*?)\[\/h6\]/is';					$replace[48]	= '<h6>$1</h6>';
 */
+
+	$search[49]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[49]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$1</a>';
+
 	$string = preg_replace($search, $replace, $string);
 	$string = str_replace('&#92;&#039;', '&#039;', $string);
 	$string = str_replace('&amp;quot;', '&quot;', $string);
@@ -1650,29 +1654,42 @@ function international_date_format($language="EN", $format="Y/m/d", $date_now=0)
 
 function get_random_image_tag($path) {
 	// returns an random image from the give path
-	// it looks for image of following type:
-	// gif, jpg, jpeg, png
+	// it looks for image of following type: gif, jpg, jpeg, png
+	// {RANDOM:path} willl return <img src="path/rand_image" />
+	// {RANDOM:SRC:path} willl return absolute URI PHPWCMS_URL/path/rand_image
 
-	$imgArray = array();
-	$imgpath = str_replace('//', '/', PHPWCMS_ROOT.'/'.$path.'/');
-	$imageinfo = false;
+	$imgArray	= array();
+	$path		= trim($path);
+	if(strtoupper(substr($path, 0, 4)) == 'SRC:') {
+		$tag	= false;
+		$path	= trim(substr($path, 4));
+	} else {
+		$tag	= true;
+	}
+	
+	$path		= trim($path, '/');
+	$imgpath	= PHPWCMS_ROOT . '/' . $path . '/';
+	$imageinfo	= false;
 
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if( $file != '.' && $file != '..' && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
+   			if( $file{0} != '.' && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
 				$imgArray[] = $file;
 			}
 		}
 		closedir( $handle );
 	}
 
-	if(count($imgArray) && $imageinfo = is_random_image($imgArray, $imgpath)) {
-		return '<img src="'.$path.'/'.urlencode($imageinfo['imagename']).'" '.$imageinfo[3].' border="0" alt="'.html_specialchars($imageinfo["imagename"]).'"'.HTML_TAG_CLOSE;
-	} else {
-		return '';
+	if(count($imgArray) && ($imageinfo = is_random_image($imgArray, $imgpath))) {
+		if($tag) {
+			return '<img src="'.$path.'/'.urlencode($imageinfo['imagename']).'" '.$imageinfo[3].' border="0" alt="'.html_specialchars($imageinfo["imagename"]).'"'.HTML_TAG_CLOSE;
+		} else {
+			return PHPWCMS_URL . $path . '/' . urlencode($imageinfo['imagename']);
+		}
 	}
 
+	return '';
 }
 
 function is_random_image($imgArray, $imagepath, $count=0) {

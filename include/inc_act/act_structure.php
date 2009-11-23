@@ -344,7 +344,7 @@ switch(intval($do[0])) {
 			}
 
 			if($a_del) {
-				$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9 WHERE (".$a_del.")";
+				$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE (".$a_del.")";
 				mysql_query($sql, $db) or die("error while deleting articles while deleting structures");
 			}
 		}
@@ -362,7 +362,7 @@ switch(intval($do[0])) {
 			}
 
 			if($s_del) {
-				$sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_sort=9999999 WHERE (".$s_del.")";
+				$sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE (".$s_del.")";
 				mysql_query($sql, $db) or die("error while deleting structures");
 			}
 		}
@@ -374,9 +374,6 @@ switch(intval($do[0])) {
 
 } //Ende Abarbeiten Aktion
 
-//first delete cache
-//$sql = "UPDATE ".DB_PREPEND."phpwcms_cache SET cache_timeout='0';";
-//mysql_query($sql, $db) or die("error while deleting cache");
 update_cache();
 
 if(isset($_POST['SubmitClose'])) {
@@ -528,14 +525,9 @@ function set_correct_ordersort() {
 	// 0 = manual, 2 = creation date, 4 = start date -> + 0 = ASC, + 1 = DESC
 	$val = 0;
 	
-	//if(intval($_POST["acat_order"]) == 0) {
-		// manual can never be sorted DESC
-	//	$val = 0;
-	//} else {
-	
 	// but why not - should be possible too based on new sorting
 	$val = intval($_POST["acat_order"]) + intval($_POST["acat_ordersort"]);
-	//}
+
 	return $val;
 }
 

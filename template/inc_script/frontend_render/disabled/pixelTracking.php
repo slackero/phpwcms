@@ -200,9 +200,8 @@ if($_Tracking_StatCounter) {
 	$_TrackingCode .= '.statcounter.com/counter/counter';
 	$_TrackingCode .= XHTML_MODE ? '_xhtml' : '';
 	$_TrackingCode .= '.js"></script>' .LF;
-	$_TrackingCode .= '<noscript><img src="http://c8.statcounter.com/counter.php?sc_project='. $_Tracking_StatCounterCode;
-	$_TrackingCode .= '&amp;java=0&amp;security=' . $_Tracking_StatCounterSecCode . '&amp;invisible=1" ';
-	$_TrackingCode .= 'width="0" height="0" border="0" style="border:0" alt="" /></noscript>' .LF;
+	$_TrackingCode .= '<noscript><img src="http://c8.statcounter.com/'. $_Tracking_StatCounterCode . '/0/' . $_Tracking_StatCounterSecCode . '/1/" ';
+	$_TrackingCode .= 'width="0" height="0" border="0" style="border:0;overflow:hidden;" alt="" /></noscript>' .LF;
 	$_TrackingCode .= '<!-- End of StatCounter Code -->';
 	
 	$content['all'] .= $_TrackingCode;

@@ -44,7 +44,7 @@ if(isset($_GET["do"])) {
 					mysql_query($sql, $db) or die("error while deleting content part");
 					break;
 			case 1: //delete article
-					$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9".
+					$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."')".
 						   " WHERE (article_uid=".$_SESSION["wcs_user_id"]." OR ".$_SESSION["wcs_user_admin"].")".
 						   " AND article_id=".intval($values[1]).";";
 					mysql_query($sql, $db) or die("error while deleting article");

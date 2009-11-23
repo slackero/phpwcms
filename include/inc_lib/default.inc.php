@@ -211,14 +211,14 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.3';
-$phpwcms["release_date"]	= '2009/10/20';
-$phpwcms["revision"]		= '379';
+$phpwcms["release_date"]	= '2009/11/23';
+$phpwcms["revision"]		= '380';
 
 
 // load permissions class
 require(PHPWCMS_ROOT.'/include/inc_lib/permissions.class.php');
 // init permissions
-$_PERMIT =& new Permissions();
+$_PERMIT = new Permissions();
 
 
 
