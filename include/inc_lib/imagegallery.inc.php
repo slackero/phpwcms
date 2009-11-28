@@ -586,7 +586,7 @@ class phpwcmsImageGallery {
 		
 		if($this->lightbox === true) {
 		
-			initializeLightbox();
+			initSlimbox();
 		
 		}
 

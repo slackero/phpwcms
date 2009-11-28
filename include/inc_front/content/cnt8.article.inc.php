@@ -304,31 +304,43 @@ if(
 					// article list image
 					if(strpos($content['alink']['tr'][$key], 'IMAGE') !== false) {
 					
+						$row['article_image'] = setArticleSummaryImageData( $row['article_image'] );
+					
 						$img_thumb_name		= '';
 						$img_thumb_rel		= '';
 						$img_thumb_abs		= '';
 						$img_thumb_width	= 0;
 						$img_thumb_height	= 0;
-					
-						$row['article_image'] = setArticleSummaryImageData( $row['article_image'] );
+						$img_thumb_id		= empty($row['article_image']['list_id']) ? '' : $row['article_image']['list_id'];
+						$img_thumb_hash		= '';
+						$img_thumb_crop		= 0;
 						
 						// check if image available
-						if(!empty($row['article_image']['list_id'])) {
+						if($img_thumb_id) {
 						
-							if(!empty($content['alink']['alink_width']))  $row['article_image']['list_width']  = $content['alink']['alink_width'];
-							if(!empty($content['alink']['alink_height'])) $row['article_image']['list_height'] = $content['alink']['alink_height'];
+							if(!empty($content['alink']['alink_width'])) {
+								$row['article_image']['list_width']		= $content['alink']['alink_width'];
+								$img_thumb_width						= $row['article_image']['list_width'];
+							}
+							if(!empty($content['alink']['alink_height'])) {
+								$row['article_image']['list_height']	= $content['alink']['alink_height'];
+								$img_thumb_height						= $row['article_image']['list_height'];
+							}
 						
 							// build image/image link
 							$content['alink']['poplink']			= '';
 							$thumb_image 							= false;
 							$thumb_img 								= '';
+							$img_thumb_hash							= empty($row['article_image']['list_hash']) ? '' : $row['article_image']['list_hash'];
+							$img_thumb_crop							= empty($content['alink']['alink_crop']) ? 0 : 1;
 							$content['alink']['caption'] 			= getImageCaption($row['article_image']['list_caption']);
 							$row['article_image']['list_caption']	= $content['alink']['caption'][0]; // caption text
 							
+							if(strpos($content['alink']['tr'][$key], 'cmsimage.php') !== false && $img_thumb_hash) {
+								
+								$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'IMAGE', $img_thumb_hash);
 							
-							if(!empty($row['article_image']['list_hash'])) {
-							
-								$content['alink']['alink_crop'] = empty($content['alink']['alink_crop']) ? 0 : 1;
+							} elseif($img_thumb_hash) {
 
 								$thumb_image = get_cached_image(
 													array(	"target_ext"	=>	$row['article_image']['list_ext'],
@@ -339,9 +351,9 @@ if(
 																						$row['article_image']['list_width'].
 																						$row['article_image']['list_height'].
 																						$GLOBALS['phpwcms']['sharpen_level'].
-																						$content['alink']['alink_crop']
+																						$img_thumb_crop
 																					),
-															'crop_image'	=>	$content['alink']['alink_crop']
+															'crop_image'	=>	$img_thumb_crop
 													  ));
 
 								if($thumb_image != false) {
@@ -369,11 +381,10 @@ if(
 						
 						// replace thumbnail and zoom image information
 						$content['alink']['tr'][$key] = str_replace(
-						
-											array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}' ),
-									 		array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height ),
-									 		$content['alink']['tr'][$key] 
-										);
+							array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}', '{THUMB_ID}', '{THUMB_HASH}', '{THUMB_CROP}' ),
+							array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height, $img_thumb_id, $img_thumb_hash, $img_thumb_crop ),
+							$content['alink']['tr'][$key] 
+						);
 						
 						// Image Caption
 						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION', empty($row['article_image']['list_caption']) ? '' : html_specialchars($row['article_image']['list_caption']));

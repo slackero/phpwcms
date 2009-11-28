@@ -27,7 +27,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 //predefine values
 
 $content['cat']					= '';
@@ -292,8 +291,7 @@ if(!isset($block)) {
 		mysql_free_result($result);
 	}
 }
-// set array for possible custom html head additions
-$block['custom_htmlhead'] = array('frontend.js' => '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>');
+
 // compatibility for older releases where only 
 // 1 css file could be stored per template
 if(is_string($block['css'])) {
@@ -308,6 +306,9 @@ if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $content['struct'][ $content['cat_id'] ]['acat_overwrite']);
 	@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite']);
 }
+
+// load frontend JavaScript lib file
+require PHPWCMS_ROOT.'/include/inc_front/js.inc.php';
 
 // -------------------------------------------------------------
 
@@ -807,6 +808,15 @@ if(count($phpwcms['modules_fe_render'])) {
 	}
 }
 
+// render frontend edit related content and JavaScript
+if(FE_EDIT_LINK) {
+
+	init_frontend_edit_js();
+	$content['all'] .= LF . '<div id="fe-link" class="disabled"></div>' . LF;
+
+}
+
+
 // insert description meta tag if not definied
 if(empty($block['custom_htmlhead']['meta.description']) && !empty($content["struct"][$aktion[0]]["acat_info"]) && !stristr($block["htmlhead"], '"description"')) {
 	set_meta('description', $content["struct"][$aktion[0]]["acat_info"]);
@@ -836,13 +846,6 @@ if($phpwcms["gt_mod"]) { //enabled/disable GT MOD
 	require_once ('include/inc_module/mod_graphical_text/inc_front/gt.func.inc.php');
 }
 
-// new $block['custom_htmlhead'] var (array) for usage in own rendering stuff.
-// you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
-// always check if you want to use same head code only once
-if(count($block['custom_htmlhead'])) {
-	$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
-}
-
 // some article related "global" replacement tags
 if(isset($content['article_livedate'])) {
 
@@ -867,7 +870,32 @@ if($block["jsonload"]) {
 	} else {
 		$pagelayout["layout_jsonload"] .= ';';
 	}
-	$pagelayout["layout_jsonload"]  = str_replace(';;', ';', $pagelayout["layout_jsonload"] . $block["jsonload"] . ';');
+	$pagelayout["layout_jsonload"]	= convertStringToArray($pagelayout["layout_jsonload"] . $block["jsonload"], ';');
+	$block['js_ondomready'][]		= '		' . implode(';'.LF.'	', $pagelayout["layout_jsonload"]) . ';';
+	$pagelayout["layout_jsonload"]	= '';
+}
+
+// set OnLoad (DomReady) JavaScript
+if(count($block['js_ondomready'])) {
+	jsOnDomReady(implode(LF, $block['js_ondomready']));
+}
+// set OnUnLoad JavaScript
+if(count($block['js_onunload'])) {
+	jsOnUnLoad(implode(LF, $block['js_onunload']));
+}
+// set Inline JS
+if(count($block['js_inline'])) {
+	$block['custom_htmlhead']['inline']  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+	$block['custom_htmlhead']['inline'] .= implode(LF, $block['js_inline']);
+	$block['custom_htmlhead']['inline'] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
+}
+
+
+// new $block['custom_htmlhead'] var (array) for usage in own rendering stuff.
+// you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
+// always check if you want to use same head code only once
+if(count($block['custom_htmlhead'])) {
+	$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
 }
 
 if(!empty($_GET['highlight'])) {
@@ -897,7 +925,7 @@ if(!empty($_CpPaginate)) {
 			if($key) {
 				$content['CpPaginateNavi'][ $key ] .= '-'.$key;
 			}
-			$content['CpPaginateNavi'][ $key ] .= $content['CpPaginateNaviGET'].'" class="'; // class="cpPaginate cpPaginatePage'.$value;
+			$content['CpPaginateNavi'][ $key ] .= $content['CpPaginateNaviGET'].'" class="';
 			$content['CpPaginateNavi'][ $key ] .= ($key == $content['aId_CpPage']) ? 'cpPaginateActive' : 'cpPaginate';
 			$content['CpPaginateNavi'][ $key ] .= '">'.$value.'</a>';
 		
@@ -1159,10 +1187,10 @@ if( isset($match[1]) && isset($match[2]) ) {
 	
 }
 
+// Global parsing for i18 @@Text@@ replacements
 if(!empty($phpwcms['i18n_parse'])) {
 	$content['all']			= i18n_substitute_text($content['all']);
 	$content["pagetitle"]	= i18n_substitute_text($content['pagetitle']);
 }
-
 
 ?>

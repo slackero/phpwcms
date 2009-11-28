@@ -617,7 +617,7 @@ if( $_shop_load_list !== false ) {
 		
 		// initialize Lightbox effect
 		if($_tmpl['config']['init_lightbox']) {
-			initializeLightbox();
+			initSlimbox();
 		}
 		
 		$entries = implode($_tmpl['list_space'], $entry);

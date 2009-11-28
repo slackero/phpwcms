@@ -174,8 +174,16 @@ if(empty($phpwcms['SMTP_FROM_EMAIL'])) {
 	$phpwcms['SMTP_FROM_EMAIL'] = $phpwcms["admin_email"];
 }
 
-$phpwcms['default_lang'] = strtolower($phpwcms['default_lang']);
-$phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
+$phpwcms['default_lang']	= strtolower($phpwcms['default_lang']);
+$phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
+
+if(empty($phpwcms['js_lib'])) {
+	$phpwcms['js_lib']		= array(
+		'mootools-1.2'	=> 'MooTools 1.2',
+		'mootools-1.1'	=> 'MooTools 1.1',
+		'jquery'		=> 'jQuery 1.3'
+	);
+}
 
 if(empty($phpwcms['mode_XHTML'])) {
 	
@@ -210,9 +218,9 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"]			= '1.4.3';
-$phpwcms["release_date"]	= '2009/11/23';
-$phpwcms["revision"]		= '380';
+$phpwcms["release"]			= '1.4.4';
+$phpwcms["release_date"]	= '2009/11/28';
+$phpwcms["revision"]		= '381';
 
 
 // load permissions class

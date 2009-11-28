@@ -117,7 +117,7 @@ $content['page_start']  .= '<!--
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
 	phpwcms is copyright 2003-'.date('Y').' of Oliver Georgi. Extensions are copyright of
 	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'//-->'.LF;
-$content['page_start']  .= '<title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
+$content['page_start']  .= '  <title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
 $content['page_start']  .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
 $content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
 $content['page_start']  .= get_body_attributes($pagelayout);
@@ -136,10 +136,10 @@ if(!empty($phpwcms['IE_htc_hover']) || !empty($phpwcms['IE_htc_png'])) {
 	$content['page_start'] .= '  <!--[if lt IE 7]>'.LF;
 	$content['page_start'] .= '  <style type="text/css">'.LF;
 	if(!empty($phpwcms['IE_htc_hover'])) {
-		$content['page_start'] .= '    body { behavior: url("'.TEMPLATE_PATH.'inc_css/specific/csshover2.htc"); }'.LF;
+		$content['page_start'] .= '		body { behavior: url("'.TEMPLATE_PATH.'inc_css/specific/csshover2.htc"); }'.LF;
 	}
 	if(!empty($phpwcms['IE_htc_png'])) {
-		$content['page_start'] .= '    img { behavior: url("'.TEMPLATE_PATH.'inc_css/specific/';
+		$content['page_start'] .= '		img { behavior: url("'.TEMPLATE_PATH.'inc_css/specific/';
 		$content['page_start'] .= $phpwcms['IE_htc_png']==1 ? 'iepngfix' : 'pngbehavior';
 		$content['page_start'] .= '.htc"); }'.LF;
 	}
@@ -165,38 +165,6 @@ $content['page_start'] .= $body_inject.'>'.LF;
 if($phpwcms["rewrite_url"]) {
 	$content["all"] = preg_replace("/( href=\"index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\")/e", "url_search('$2')", $content["all"]);
 	$content["all"] = preg_replace("/(onclick=\"location.href='index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\')/e", "js_url_search('$2')", $content["all"]);
-}
-
-if(FE_EDIT_LINK) {
-
-	$content['page_end'] .= '<div id="fe-link" class="disabled"></div>
-<script type="text/javascript">
-<!--
-	window.addEvent("domready", function(){
-		var felink_status = 0;
-		$$("a.fe-link").each(function(r) {
-			r.setStyle("display", "none");
-		});
-		$("fe-link").addEvent("click", function() {
-			if(felink_status == 1) {
-				$$("a.fe-link").each(function(r) {
-					r.setStyle("display", "none");
-				});
-				$("fe-link").removeClass("enabled");
-				$("fe-link").addClass("disabled");
-				felink_status = 0;
-			} else {
-				$$("a.fe-link").each(function(r) {
-					r.setStyle("display", "");
-				});
-				$("fe-link").removeClass("disabled");
-				$("fe-link").addClass("enabled");
-				felink_status = 1;
-			}
-		});
-	});
-//-->
-</script>';
 }
 
 // real page ending

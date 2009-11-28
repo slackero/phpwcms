@@ -38,7 +38,7 @@ if(is_array($image) && count($image)) {
 
 		$GLOBALS['cnt_image_lightbox'] = 1;
 		$cnt_image_lightbox = 1;
-		initializeLightbox();
+		initSlimbox();
 
 	}
 

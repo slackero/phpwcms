@@ -271,7 +271,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<option value="default"<?php is_selected('default', $fmp_data['fmp_set_skin']) ?>><?php echo $BL['be_admin_tmpl_default'] ?></option>
 <?php
 			// skins for Flash Media Player
-			$skins = returnFileListAsArray(PHPWCMS_TEMPLATE.'jw_media_player/skins', 'swf');
+			$skins = returnFileListAsArray(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins', 'swf');
 			if(is_array($skins) && count($skins)):
 				foreach($skins as $skin):
 					$skin = cut_ext($skin['filename']);

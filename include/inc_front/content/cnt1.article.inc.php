@@ -71,7 +71,7 @@ if($image) {
 	
 		$GLOBALS['cnt_image_lightbox'] = 1;
 		$cnt_image_lightbox = 1;
-		initializeLightbox();
+		initSlimbox();
 	
 	}
 	$image['nocaption'] = empty($cnt_image['cimage_nocaption']) ? 0 : 1;

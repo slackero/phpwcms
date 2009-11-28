@@ -1524,8 +1524,8 @@ function getFileInformation($fileID) {
 	
 }
 
-function getJavaScriptSourceLink($src='', $prefix='	') {
-	return ($src) ? $prefix.'<script src="'.$src.'" type="text/javascript"></script>' : '';
+function getJavaScriptSourceLink($src, $prefix='  ') {
+	return ($src) ? $prefix.'<script type="text/javascript" src="'.$src.'"></script>' : '';
 }
 
 function convertStringToArray($string='', $seperator=',', $mode='UNIQUE', $rmvDblWSp=true) {

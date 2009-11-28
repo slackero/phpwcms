@@ -31,7 +31,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // email contact form
 
 $field_counter = 0;
-initMootools();
+initJSLib();
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 $BE['HEADER']['custom_js'] = '<script type="text/javascript">
 <!--

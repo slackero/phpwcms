@@ -738,21 +738,6 @@ if($guestbook['visible']) {
 	
 	if($guestbook['result'] = mysql_query($guestbook['sql'], $db)) {
 	
-		/*
-		$guestbook['ban_count'] = 0;
-		if($guestbook['ban']) {
-			$guestbook['ban'] = preg_replace('/\s{1,}/is', ' ', $guestbook['ban']);
-			$guestbook['ban'] = explode(' ', $guestbook['ban']);
-			if(is_array($guestbook['ban']) && count($guestbook['ban'])) {
-				foreach($guestbook['ban'] as $key => $value) {
-					$value = preg_quote(trim($value));
-					$guestbook['ban'][$key] = '/'.$value.'/i';
-					$guestbook['ban_count']++;
-				}
-			}
-		}
-		*/
-		
 		while($guestbook['row'] = mysql_fetch_assoc($guestbook['result'])) {		
 	
 			/*
@@ -838,7 +823,7 @@ if($guestbook['visible']) {
 		
 		// initialize lightbox
 		if($thumb_image != false) {
-			initializeLightbox();
+			initSlimbox();
 		}
 		
 		// comments

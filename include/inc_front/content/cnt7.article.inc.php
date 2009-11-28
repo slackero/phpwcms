@@ -137,7 +137,7 @@ if($content['files_sql']) {
 			setlocale(LC_ALL, $_files_settings['set_locale']);
 		}
 		if(!empty($_files_settings['lightbox_init'])) {
-			initializeLightbox();
+			initSlimbox();
 		}
 		
 		$_files_count 					= count($content['files_result']);

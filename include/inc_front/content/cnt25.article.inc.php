@@ -118,7 +118,7 @@ if(isset($fmp_data['fmp_template'])) {
 		if(isset($fmp_data['file'][0])) {
 		
 			$fmp_data['file']		= $fmp_data['file'][0];
-			$fmp_data['fmp_file']	= PHPWCMS_URL.TEMPLATE_PATH . 'jw_media_player/stream.php?file='.$fmp_data['file']['f_hash'];
+			$fmp_data['fmp_file']	= PHPWCMS_URL.TEMPLATE_PATH . 'lib/jw_media_player/stream.php?file='.$fmp_data['file']['f_hash'];
 			
 			if($fmp_data['file']['f_ext']) {
 			
@@ -181,7 +181,7 @@ if(isset($fmp_data['fmp_template'])) {
 			
 			}
 			
-			$fmp_data['preview']  = PHPWCMS_URL.TEMPLATE_PATH . 'jw_media_player/stream.php?type='.$fmp_data['preview']['f_type'];
+			$fmp_data['preview']  = PHPWCMS_URL.TEMPLATE_PATH . 'lib/jw_media_player/stream.php?type='.$fmp_data['preview']['f_type'];
 			$fmp_data['preview'] .= '&file=' . $fmp_data['fmp_preview'];
 		
 		} else {
@@ -245,8 +245,8 @@ if(isset($fmp_data['fmp_template'])) {
 		$fmp_data['flashvars'][] = 'frontcolor: "0x' . $fmp_data['fmp_set_color'] . '"';
 	}
 		
-	if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'jw_media_player/skins/'.$fmp_data['fmp_set_skin'].'.swf')) {
-		$fmp_data['flashvars'][] = 'skin: "' . rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'jw_media_player/skins/'.$fmp_data['fmp_set_skin']).'.swf"';
+	if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin'].'.swf')) {
+		$fmp_data['flashvars'][] = 'skin: "' . rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin']).'.swf"';
 		if($fmp_data['fmp_set_skin'] == 'stylish') {
 			$fmp_data['fmp_displayheight'] += 12;	
 		}
@@ -282,7 +282,7 @@ if(isset($fmp_data['fmp_template'])) {
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var params_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['params']) . '};' . LF;
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var attributes_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['attributes']) . '};' . LF;
 	
-	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	swfobject.embedSWF("'.PHPWCMS_URL.TEMPLATE_PATH.'jw_media_player/player.swf", "'.$fmp_data['id'].'", "'.$fmp_data['fmp_width'].'", "'.$fmp_data['fmp_height'].'", "'.$fmp_data['fmp_set_flashversion'].'", false, flashvars_'.$fmp_data['id'].', params_'.$fmp_data['id'].', attributes_'.$fmp_data['id'].');';
+	$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	swfobject.embedSWF("'.PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/player.swf", "'.$fmp_data['id'].'", "'.$fmp_data['fmp_width'].'", "'.$fmp_data['fmp_height'].'", "'.$fmp_data['fmp_set_flashversion'].'", false, flashvars_'.$fmp_data['id'].', params_'.$fmp_data['id'].', attributes_'.$fmp_data['id'].');';
 	
 	$block['custom_htmlhead'][ $fmp_data['id'] ] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
 

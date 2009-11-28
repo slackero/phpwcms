@@ -116,54 +116,48 @@ function get_body_attributes(& $values) {
 	//based on the pagelayout definitions
 	$body_class	= '';
 	$link_class	= '';
-	$onload_js	= '';
 	if(is_array($values)) {
 		if(empty($values["layout_noborder"])) {
-			$body_class .= add_style_attribute('      margin', '0').LF;
-			$body_class .= add_style_attribute('      padding-top',		empty($values["layout_border_top"])		? '0' : intval($values["layout_border_top"])   .'px').LF;
-			$body_class .= add_style_attribute('      padding-bottom',	empty($values["layout_border_bottom"])	? '0' : intval($values["layout_border_bottom"]).'px').LF;
-			$body_class .= add_style_attribute('      padding-left',	empty($values["layout_border_left"]) 	? '0' : intval($values["layout_border_left"])  .'px').LF;
-			$body_class .= add_style_attribute('      padding-right', 	empty($values["layout_border_right"]) 	? '0' : intval($values["layout_border_right"]) .'px').LF;
+			$body_class .= add_style_attribute('		margin', '0').LF;
+			$body_class .= add_style_attribute('		padding-top',		empty($values["layout_border_top"])		? '0' : intval($values["layout_border_top"])   .'px').LF;
+			$body_class .= add_style_attribute('		padding-bottom',	empty($values["layout_border_bottom"])	? '0' : intval($values["layout_border_bottom"]).'px').LF;
+			$body_class .= add_style_attribute('		padding-left',	empty($values["layout_border_left"]) 	? '0' : intval($values["layout_border_left"])  .'px').LF;
+			$body_class .= add_style_attribute('		padding-right', 	empty($values["layout_border_right"]) 	? '0' : intval($values["layout_border_right"]) .'px').LF;
 			$body_class .= LF;
 		}
 		if(!empty($values["layout_bgcolor"])) {
-			$body_class .= add_style_attribute('      background-color', $values["layout_bgcolor"]);
+			$body_class .= add_style_attribute('		background-color', $values["layout_bgcolor"]);
 			$body_class .= LF;
 		}
 		if(!empty($values["layout_bgimage"])) {
-			$body_class .= add_style_attribute('      background-image', 'url('.$values["layout_bgimage"].')');
+			$body_class .= add_style_attribute('		background-image', 'url('.$values["layout_bgimage"].')');
 			$body_class .= LF;
 		}
 		if(!empty($values["layout_textcolor"])) {
-			$body_class .= add_style_attribute('      color', $values["layout_textcolor"]);
+			$body_class .= add_style_attribute('		color', $values["layout_textcolor"]);
 			$body_class .= LF;
 		}
 		if(!empty($body_class)) {
-			$body_class  = '    body {'.LF.$body_class.'    }'.LF;
+			$body_class  = '	body {'.LF.$body_class.'	}'.LF;
 		}
 		if(!empty($values["layout_linkcolor"])) {
-			$link_class .= '    a, a:link, a:active, a:visited, a:hover { color: '.$values["layout_linkcolor"].'; }';
+			$link_class .= '	a, a:link, a:active, a:visited, a:hover { color: '.$values["layout_linkcolor"].'; }';
 			$link_class .= LF;
 		}
 		if(!empty($values["layout_vcolor"])) {
-			$link_class .= '    a:visited { color: '.$values["layout_vcolor"].'; }';
+			$link_class .= '	a:visited { color: '.$values["layout_vcolor"].'; }';
 			$link_class .= LF;
 		}
 		if(!empty($values["layout_acolor"])) {
-			$link_class .= '    a:active { color: '.$values["layout_acolor"].'; }';
+			$link_class .= '	a:active { color: '.$values["layout_acolor"].'; }';
 			$link_class .= LF;
 		}
-		if(!empty($values["layout_jsonload"])) {
-			$onload_js   = '  <script language="javascript" type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
-			$onload_js  .= '  window.onload = function () {'.LF.'    ';
-			$onload_js  .= $values["layout_jsonload"].LF.'  }'.LF.SCRIPT_CDATA_END.LF.'  </script>'.LF;
-		}
 		if(!empty($body_class) || !empty($link_class)) {
-			$body_class  = '  <style type="text/css" media="all">'.LF.SCRIPT_CDATA_START.LF.$body_class;
+			$body_class  = '  <style type="text/css">'.LF.SCRIPT_CDATA_START.LF.$body_class;
 			$body_class .= $link_class;
 			$body_class .= SCRIPT_CDATA_END.LF.'  </style>'.LF;
 		}
-		return $onload_js.$body_class;
+		return $body_class;
 	}
 }
 
@@ -784,7 +778,11 @@ function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $li
 	}
 
 	$temp_menu = build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $level_depth, $c, $link_to); //starts at root level
-	return ($temp_menu) ? ("<table".table_attributes($nav_table_struct, "table", 0)." summary=\"\">\n".$temp_menu."</table>") : '';
+	if($temp_menu) {
+		initFrontendJS();
+		return "<table".table_attributes($nav_table_struct, "table", 0)." summary=\"\">\n".$temp_menu."</table>";
+	}
+	return '';
 }
 
 function get_real_imgsrc($img='') {
@@ -1247,6 +1245,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 							}
 
 							if(empty($article["article_image"]["list_lightbox"]) && !empty($caption[2][0])) {
+								
+								initFrontendJS();
+								
 								$article["article_image"]["poplink"]  = '<a href="'.$article["article_image"]["poplink"].'" ';
 								$article["article_image"]["poplink"] .= 'onclick="checkClickZoom();clickZoom(\''.$open_link;
 								$article["article_image"]["poplink"] .= "','previewpic','width=".$zoominfo[1];
@@ -1254,7 +1255,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 								$article["article_image"]["poplink"] .= '"'.$caption[2][1].'>';
 							} else {
 								// lightbox
-								initializeLightbox();
+								initSlimbox();
 								
 								$article["article_image"]["poplink"]  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox" ';
 								if($article["article_image"]["list_caption"]) {
@@ -1494,13 +1495,6 @@ function html_parser($string) {
 	$search[17]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
 	$replace[17]	= '<$1 class="$2">$3</$1>';
 
-	// typical html formattings
-/*
-	$search[18]		= '/\[i\](.*?)\[\/i\]/is';			$replace[18]	= '<i>$1</i>';
-	$search[19]		= '/\[u\](.*?)\[\/u\]/is';			$replace[19]	= '<u>$1</u>';
-	$search[20]		= '/\[s\](.*?)\[\/s\]/is';			$replace[20]	= '<strike>$1</strike>';
-	$search[21]		= '/\[b\](.*?)\[\/b\]/is';			$replace[21]	= '<strong>$1</strong>';
-*/
 	// anchor link
 	$search[22]		= '/\{A:(.*?)\}/is';
 	$replace[22]	= '<a name="$1" class="phpwcmsAnchorLink"></a>';
@@ -1513,17 +1507,12 @@ function html_parser($string) {
 	$search[24]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
 	$replace[24]    = '<a href="mailto:$1?subject=$2" class="phpwcmsMailtoLink">$3</a>';
 
-	// added simple [br] -> <br />
-/*
-	$search[25]     = '/\[br\]/i';
-	$replace[25]    = '<br />';
-*/
 	$search[26]     = '/\<br>/i';
 	$replace[26]    = '<br />';
 
 	// create "make bookmark" javascript code
 	$search[27]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/is';
-	$replace[27]    = '<a href="#" onclick="BookMark_Page();return false;" title="$1" class="phpwcmsBookmarkLink">$2</a>';
+	$replace[27]    = '<a href="#" onclick="return BookMark_Page(\'$1\');" title="$1" class="phpwcmsBookmarkLink">$2</a>';
 
 	// ABBreviation
 	$search[28]		= '/\[abbr (.*?)\](.*?)\[\/abbr\]/is';
@@ -1531,12 +1520,7 @@ function html_parser($string) {
 
 	$search[29]		= '/\[dfn (.*?)\](.*?)\[\/dfn\]/is';
 	$replace[29]	= '<dfn title="$1">$2</dfn>';
-/*
-	$search[30]		= '/\[em\](.*?)\[\/em\]/is';					$replace[30]	= '<em>$1</em>';
-	$search[31]		= '/\[code\](.*?)\[\/code\]/is';				$replace[31]	= '<code>$1</code>';
-	$search[32]		= '/\[cite\](.*?)\[\/cite\]/is';				$replace[32]	= '<cite>$1</cite>';
-	$search[33]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';	$replace[33]	= '<blockquote>$1</blockquote>';
-*/
+
 	$search[34]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
 	$replace[34]	= '<blockquote cite="$1">$2</blockquote>';
 
@@ -1545,20 +1529,6 @@ function html_parser($string) {
 
 	$search[36]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
 	$replace[36]	= '<a href="index.php?$1" class="phpwcmsIntLink">$2</a>';
-/*	
-	$search[37]		= '/\[li\](.*?)\[\/li\]/is';					$replace[37]	= '<li>$1</li>';
-	$search[38]		= '/\[dt\](.*?)\[\/dt\]/is';					$replace[38]	= '<dt>$1</dt>';
-	$search[39]		= '/\[dd\](.*?)\[\/dd\]/is';					$replace[39]	= '<dd>$1</dd>';
-	$search[40]		= '/\[ul\](.*?)\[\/ul\]/is';					$replace[40]	= '<ul>$1</ul>';
-	$search[41]		= '/\[ol\](.*?)\[\/ol\]/is';					$replace[41]	= '<ol>$1</ol>';
-	$search[42]		= '/\[dl\](.*?)\[\/dl\]/is';					$replace[42]	= '<dl>$1</dl>';
-	$search[43]		= '/\[h1\](.*?)\[\/h1\]/is';					$replace[43]	= '<h1>$1</h1>';
-	$search[44]		= '/\[h2\](.*?)\[\/h2\]/is';					$replace[44]	= '<h2>$1</h2>';
-	$search[45]		= '/\[h3\](.*?)\[\/h3\]/is';					$replace[45]	= '<h3>$1</h3>';
-	$search[46]		= '/\[h4\](.*?)\[\/h4\]/is';					$replace[46]	= '<h4>$1</h4>';
-	$search[47]		= '/\[h5\](.*?)\[\/h5\]/is';					$replace[47]	= '<h5>$1</h5>';
-	$search[48]		= '/\[h6\](.*?)\[\/h6\]/is';					$replace[48]	= '<h6>$1</h6>';
-*/
 
 	$search[49]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
 	$replace[49]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$1</a>';
@@ -1697,7 +1667,6 @@ function is_random_image($imgArray, $imagepath, $count=0) {
 	$count++;
 	$randval = mt_rand( 0, count( $imgArray ) - 1 );
 	$file = $imagepath.$imgArray[ $randval ];
-	//gets -> better tests for image info
 	$imageinfo = @getimagesize($file);
 	//if $imageinfo is not true repeat function and count smaller count all images
 	if(!$imageinfo && $count < count($imgArray)) {
@@ -1714,7 +1683,6 @@ function return_struct_level(&$struct, $struct_id) {
 	if(is_array($struct)) {
 		foreach($struct as $key => $value) {
 			if( _getStructureLevelDisplayStatus($key, $struct_id) ) {
-			//if($key && $struct[$key]["acat_struct"] == $struct_id && (!$struct[$key]['acat_hidden'] || ($struct[$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))) {
 				$level_entry[$key] = $value;
 			}
 		}
@@ -3155,15 +3123,6 @@ function getPageInfoGetValue($type='string') {
 	return ($type == 'string') ? 'pageinfo=' : array('pageinfo'=>'');
 }
 
-function initializeLightbox() {
-
-	// SlimBox 1.3
-	$GLOBALS['block']['custom_htmlhead']['lightbox.css']	= '  <link href="'.TEMPLATE_PATH.'slimbox/css/slimbox.css" rel="stylesheet" type="text/css" media="screen" />';
-	initMootools();
-	$GLOBALS['block']['custom_htmlhead']['slimbox.js']		= getJavaScriptSourceLink(TEMPLATE_PATH.'slimbox/js/slimbox.js', '  ');
-
-}
-
 function _getFeUserLoginStatus() {
 	$login_key = session_id();
 	if(empty($login_key)) {
@@ -3380,7 +3339,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0) {
 	if(!FE_EDIT_LINK) return '';
 	
 	// init Mootools
-	initMootools();
+	initJSLib();
 	
 	// set specific frontend editing link
 	set_css_link('inc_css/specific/frontend_edit.css');
@@ -3478,28 +3437,6 @@ function getStructureLevelLink($acat, $attributes='', $prefix='', $suffix='') {
 	
 	return trim( '<a href="' . $link . '"' . $target . ' ' . $attributes ) . '>' . $prefix . html_specialchars( $acat['acat_name'] ) . $suffix . '</a>';
 	
-}
-
-/**
- * Init Mootools Library
- */
-function initMootools($v='1.11') {
-	$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/mootools/mootools.js', '  ');
-}
-
-/**
- * Init SwfObject JavaScript Library
- */
-function initSwfObject($v='2.2') {
-	switch($v) {
-		case '1.5':
-			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/swfobject.js', '  ');
-			break;
-		case '2.1':
-		case '2.2':
-		default:
-			$GLOBALS['block']['custom_htmlhead']['swfobject2.1.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'inc_js/swfobject/2.2/swfobject.js', '  ');
-	}
 }
 
 /**

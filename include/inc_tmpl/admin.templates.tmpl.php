@@ -27,12 +27,12 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-// copy template initiated by Erich
+reset($phpwcms['js_lib']);	// reset $phpwcms['js_lib'] to get first element as default
 
 $template = array(	"name" => '', "default" => 0, "layout" => '', "css" => array(), "htmlhead" => '',
 					"jsonload" => '', "headertext" => '', "maintext" => '', "footertext" => '', 
-					"lefttext" => '', "righttext" => '', "errortext" => '', 'feloginurl' => '' );
+					"lefttext" => '', "righttext" => '', "errortext" => '', 'feloginurl' => '',
+					'jslib'	=> key($phpwcms['js_lib']), 'jslibload' => 0, 'frontendjs' => 0, 'googleapi' => 1 );
 
 if(!isset($_GET["s"])) { 
 // check if template should be edited
@@ -124,6 +124,10 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		$template["errortext"]	= slweg($_POST["template_block_error"]);
 		$template["feloginurl"]	= slweg($_POST["template_felogin_url"]);
 		$template["overwrite"]	= clean_slweg($_POST["template_overwrite"]);
+		$template['jslib']		= clean_slweg($_POST["template_jslib"]);
+		$template['jslibload']	= empty($_POST["template_jslibload"]) ? 0 : 1;
+		$template['frontendjs']	= empty($_POST["template_frontendjs"]) ? 0 : 1;
+		$template['googleapi']	= empty($_POST["template_googleapi"]) ? 0 : 1;
 		
 		// now browse custom blocks if available
 		if(!empty($_POST['customblock'])) {
@@ -181,6 +185,21 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 				if(is_string($template['css'])) {
 					$template['css'] = array($template['css']);
 				}
+				if(empty($template['jslib'])) {
+					$template['jslib'] = key($phpwcms['js_lib']);
+				}
+				if(empty($template['jslibload'])) {
+					$template['jslibload'] = 0;
+				}
+				if(empty($template['frontendjs'])) {
+					$template['frontendjs'] = 0;
+				}
+				if(!isset($template['googleapi'])) {
+					$template['googleapi'] = 1;
+				} elseif(empty($template['googleapi'])) {
+					$template['googleapi'] = 0;
+				}
+				
 			}
 			mysql_free_result($result);
 		}
@@ -353,33 +372,82 @@ foreach($unselected_css as $value) {
 		  </tr>
 		  </table></td>
 	</tr>
-	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-	</tr>
+
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+	
 	<tr bgcolor="#F3F5F8">
-		<td align="right" valign="top" bgcolor="#F3F5F8" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_head'] ?>:&nbsp;<br />&lt;head&gt; &nbsp;</td>
-		<td><textarea name="template_htmlhead" cols="35" rows="5" wrap="off" class="code" id="template_htmlhead" style="width:440px"><?php echo html_entities($template["htmlhead"]); ?></textarea></td>
+		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_head'] ?>:&nbsp;<br />&lt;head&gt; &nbsp;</td>
+		<td><textarea name="template_htmlhead" cols="35" rows="5" class="code width440" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea></td>
 	</tr>
-	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	
+	
+	<tr bgcolor="#F3F5F8">
+      <td align="right" class="chatlist"><?php echo $BL['js_lib'] ?>:&nbsp;</td>
+      <td><table cellpadding="0" cellspacing="0" border="0" summary="">
+	  
+	  	<tr>
+	  		<td><select name="template_jslib" id="template_jslib" class="f11b">
+<?php
+foreach($phpwcms['js_lib'] as $key => $value) {
+	
+	echo '		<option value="' . $key . '"';
+	is_selected($template['jslib'], $key);
+	echo '>' . html_specialchars($value) . '</option>' . LF;
+
+}
+?>
+			</select></td>
+			<td>&nbsp;</td>
+			<td><input type="checkbox" name="template_jslibload" id="template_jslibload" value="1"<?php is_checked($template['jslibload'], 1); ?> /></td>
+			<td class="v10"><label for="template_jslibload"><?php echo $BL['js_lib_alwaysload'] ?></label></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input type="checkbox" name="template_googleapi" id="template_googleapi" value="1"<?php is_checked($template['googleapi'], 1); ?> /></td>
+			<td class="v10"><label for="template_googleapi"><?php echo $BL['googleapi_load'] ?></label></td>
+		</tr>
+	</table></td>
 	</tr>
+	
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	
+	<tr bgcolor="#F3F5F8">
+      <td align="right" class="chatlist">&nbsp;</td>
+      <td><table cellpadding="0" cellspacing="0" border="0" summary="">
+	  
+	  	<tr>
+			<td><input type="checkbox" name="template_frontendjs" id="template_frontendjs" value="1"<?php is_checked($template['frontendjs'], 1); ?> /></td>
+			<td class="v10"><label for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label></td>
+		</tr>
+	</table></td>
+	</tr>	
+	
+	
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	
 	<tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist"><?php echo $BL['be_admin_tmpl_js'] ?>:&nbsp;</td>
-      <td><input name="template_jsonload" type="text" class="code" id="template_jsonload" style="width:440px" value="<?php echo html_entities($template["jsonload"]) ?>" size="50" /></td>
+      <td><input name="template_jsonload" type="text" class="code width440" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>" size="50" /></td>
 	</tr>
-	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-	</tr>
+	
+	
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	
+	
 	<tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist" nowrap="nowrap">&nbsp;<?php echo $BL['be_fe_login_url'] ?>:&nbsp;</td>
-      <td><input name="template_felogin_url" type="text" class="code" id="template_felogin_url" style="width:440px" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>" size="50" /></td>
+      <td><input name="template_felogin_url" type="text" class="code width440" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>" size="50" /></td>
 	</tr>
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 	</tr>
-	<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-	</tr>
-		<tr>
+	<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+	
+	<tr>
 		<td>&nbsp;</td>
-		<td style="padding:7px 0 7px 0"><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_tmpl_button'] ?>" />
-		&nbsp;&nbsp;
-		  <input type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';" /></td>
+		<td style="padding:7px 0 7px 0">
+			<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_tmpl_button'] ?>" />
+			&nbsp;&nbsp;
+			<input type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';" />
+		</td>
 	</tr>
 	<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
 	</tr>
@@ -387,19 +455,19 @@ foreach($unselected_css as $value) {
 	</tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_header'] ?>:&nbsp;</td>
-		<td><textarea name="template_block_header" cols="35" rows="8" class="code" id="template_block_header" style="width:440px"><?php echo html_entities($template["headertext"]); ?></textarea></td>
+		<td><textarea name="template_block_header" cols="35" rows="8" class="code width440" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 	</tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_main'] ?>:&nbsp;</td>
-		<td><textarea name="template_block_main" cols="35" rows="20" class="code" id="template_block_main" style="width:440px"><?php echo html_entities($template["maintext"]); ?></textarea></td>
+		<td><textarea name="template_block_main" cols="35" rows="20" class="code width440" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 	</tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_footer'] ?>:&nbsp;</td>
-		<td><textarea name="template_block_footer" cols="35" rows="8" class="code" id="template_block_footer" style="width:440px"><?php echo html_entities($template["footertext"]); ?></textarea></td>
+		<td><textarea name="template_block_footer" cols="35" rows="8" class="code width440" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 	</tr>
@@ -411,7 +479,7 @@ foreach($unselected_css as $value) {
 	</tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_right'] ?>:&nbsp;</td>
-		<td><textarea name="template_block_right" cols="35" rows="8" class="code" id="template_block_right" style="width:440px"><?php echo html_entities($template["righttext"]); ?></textarea></td>
+		<td><textarea name="template_block_right" cols="35" rows="8" class="code width440" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 	</tr>
@@ -422,7 +490,7 @@ if(!empty($jsOnChange))  {
 	echo '<tr><td colspan="2"><img src="img/leer.gif" width="1" height="5" alt="" /></td></tr>';
 	echo '<tr><td colspan="2"><img src="img/lines/l538_70.gif" width="538" height="1" alt="" /></td></tr>';	
 	echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" width="1" height="8" alt="" />';
-	echo '<input type="hidden" name="customblock" value="'.html_specialchars(implode(',', $custom_blocks)).'">';
+	echo '<input type="hidden" name="customblock" value="'.html_specialchars(implode(',', $custom_blocks)).'" />';
 	echo "</td></tr>\n";
 	// list custom blocks	
 	foreach($custom_blocks as $value) {
@@ -433,7 +501,7 @@ if(!empty($jsOnChange))  {
 		echo '<td class="chatlist" valign="top">'.$custom_block." {".$custom_block."}</td>\n</tr>\n";
 		echo '<tr bgcolor="#F3F5F8"><td>&nbsp;</td>';
 		echo '<td><textarea name="template_customblock_'.$custom_block;
-		echo '" cols="35" rows="8" class="code" style="width:440px">';
+		echo '" cols="35" rows="8" class="code width440">';
 		echo isset($template['customblock_'.$value]) ? html_entities($template['customblock_'.$value]) : '';
 		echo "</textarea></td>\n</tr>\n";
 		echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td></tr>'."\n";
@@ -448,7 +516,7 @@ if(!empty($jsOnChange))  {
 ?>
 	<tr>
       <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_error'] ?>:&nbsp;</td>
-      <td><textarea name="template_block_error" cols="35" rows="5" class="code" id="template_block_error" style="width:440px"><?php echo html_entities($template["errortext"]); ?></textarea></td>
+      <td><textarea name="template_block_error" cols="35" rows="5" class="code width440" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

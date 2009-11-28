@@ -69,7 +69,7 @@ if($image['template']) {
 		if(empty($image['lightbox'])) {
 			$image['lightbox'] = false;
 		} else {
-			initializeLightbox();
+			initSlimbox();
 			$image['lightbox'] = generic_string(5);
 		}
 		

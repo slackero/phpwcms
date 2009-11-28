@@ -143,7 +143,7 @@ function imagick_converting ($imagick) {
 			$imagick["command"]  = IMAGICK_PATH."convert ";
 			switch($imagick["target_ext"]) {
 				
-				case "jpg":	if(IMAGICK_ON == 1) {
+				case "jpg":	if(IMAGICK_ON === 1) {
 								//ImageMagick >= 5
 								$imagick["command"] .= "-colorspace RGB -type TrueColor ";
 								
@@ -159,7 +159,7 @@ function imagick_converting ($imagick) {
 							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"].'[0]';
 							break;
 							
-				case "gif":	if(IMAGICK_ON == 1) {
+				case "gif":	if(IMAGICK_ON === 1) {
 								//ImageMagick >= 5
 								$imagick["command"] .= "-colors 256 ";
 							} else {
@@ -182,7 +182,7 @@ function imagick_converting ($imagick) {
 			
 			if($imagick['crop_image'] && $imagick["max_width"] && $imagick["max_height"]) {
 
-				if(IMAGICK_ON == 1) {
+				if(IMAGICK_ON === 1) {
 					//ImageMagick >= 5
 					$resize_factor = 2 * ( $imagick["max_width"] > $imagick["max_height"] ? $imagick["max_width"] : $imagick["max_height"] );
 					
@@ -201,7 +201,7 @@ function imagick_converting ($imagick) {
 			} elseif( $imagick["max_width"] || $imagick["max_height"] ) {
 
 				// resize
-				if(IMAGICK_ON == 1) {
+				if(IMAGICK_ON === 1) {
 					//ImageMagick >= 5
 					$imagick["command"] .= '-resize "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
 				

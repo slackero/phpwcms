@@ -46,6 +46,7 @@ function BookMark_Page(alerttext) {
 		if(!alerttext) alerttext = "To bookmark this page use [Ctrl+D]";
 		alert(alerttext);	
 	}
+	return false;
 }
 
 var ie4 = document.all ? 1 : 0;

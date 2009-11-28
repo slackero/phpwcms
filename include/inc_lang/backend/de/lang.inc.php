@@ -1267,5 +1267,9 @@ $BL['random_image_from_list']			= '1 Bild zuf&auml;llig aus der Bildliste w&auml
 $BL['alt_image']						= 'Alt. Bild';
 $BL['alt_text']							= 'Alt. Text';
 $BL['over']								= 'dar&uuml;ber';
+$BL['js_lib']							= 'JS Bibliothek';
+$BL['js_lib_alwaysload']				= 'immer laden';
+$BL['frontendjs_load']					= 'frontend.js laden (mehr aus historischen Gr&uuml;nden)';
+$BL['googleapi_load']					= 'Google Ajax Lib benutzen';
 
 ?>

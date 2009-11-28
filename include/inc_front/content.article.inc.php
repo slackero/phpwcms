@@ -256,7 +256,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 						} else {
 						
 							//lightbox
-							initializeLightbox();
+							initSlimbox();
 							
 							$thumb_href  = '<a href="'.PHPWCMS_IMAGES . $zoominfo[0].'"';
 							if($row["article_image"]["caption"]) {

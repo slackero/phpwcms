@@ -455,7 +455,7 @@ if($news['template']) {
 		if(empty($value['cnt_object']['cnt_image']['lightbox'])) {
 			$news['entries'][$key]	= str_replace('{LIGHTBOX}', '', $news['entries'][$key]);
 		} else {
-			initializeLightbox();
+			initSlimbox();
 			$news['entries'][$key]	= str_replace('{LIGHTBOX}', ' rel="lightbox"', $news['entries'][$key]);
 		}
 		// Caption
