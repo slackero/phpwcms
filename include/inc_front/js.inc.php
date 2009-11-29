@@ -77,5 +77,42 @@ function inlineJS($js='', $prefix='	') {
 	}
 }
 
+/**
+ * render <!-- JS: PluginName|my.js //Whatever text -->
+ */
+function renderHeadJS($js) {
+	
+	if(empty($js[1])) {
+		return '';
+	}
+	
+	$js = trim($js[1]);
+	
+	// test for .js
+	$ext = which_ext($js);
+	
+	// decide it is a  plugin or qualified .js
+	if($ext == 'js') {
+		
+		// replace {TEMPLATE}
+		$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
+		$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
+		
+	} else {
+		
+		initJSLib();
+		
+		if(strtolower($js) != 'initlib') {
+		
+			initJSPlugin($js);
+			
+		}
+		
+	}
+	
+	return '';
+	
+}
+
 
 ?>
