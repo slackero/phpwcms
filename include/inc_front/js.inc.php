@@ -64,7 +64,14 @@ function initializeLightbox() {
  * Init SwfObject JavaScript Library
  */
 function initSwfObject() {
-	$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/swfobject/swfobject.js');
+	if(empty($GLOBALS['block']['custom_htmlhead']['swfobject.js'])) {
+		if(!USE_GOOGLE_AJAX_LIB) {
+			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/swfobject/swfobject.js');
+		} else {
+			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'swfobject/2/swfobject.js');
+		}
+	}
+	return TRUE;
 }
 
 function initFrontendJS() {
