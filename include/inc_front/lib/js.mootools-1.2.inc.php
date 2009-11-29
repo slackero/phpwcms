@@ -31,7 +31,7 @@ function initJSLib() {
 		if(!USE_GOOGLE_AJAX_LIB) {
 			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.2-core-yc.js');
 		} else {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'mootools/1.2/mootools-yui-compressed.js');
+			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'mootools/1.2/mootools-yui-compressed.js');
 		}
 	}
 	return TRUE;

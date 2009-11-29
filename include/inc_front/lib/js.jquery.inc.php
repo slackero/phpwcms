@@ -85,7 +85,7 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
 	if($js) {
 		
-		initJSLib()
+		initJSLib();
 		
 		$_js  = $prefix . '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 		$_js .= '	jQuery(window).unload(function() {' . LF . $js . LF . '	});';
