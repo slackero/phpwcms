@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.4';
-$phpwcms_release_date	= '2009/11/29';
-$phpwcms_revision		= '386';
+$phpwcms_release_date	= '2009/12/03';
+$phpwcms_revision		= '387';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -33,7 +33,7 @@ function read_textfile($filename) {
 		return $text;				
 	} else {
 		return false;
-	}	
+	}
 }
 
 function write_textfile($filename, $text) {

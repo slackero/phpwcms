@@ -119,7 +119,4 @@ function initJSPlugin($plugin='') {
 	return TRUE;
 }
 
-	
-}
-
 ?>

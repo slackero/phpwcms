@@ -2793,7 +2793,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 	// @string $parameter = "menu_type, start_id, max_level_depth, class_path, class_active,
 	// ul_id_name, wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
-	// wrap_link_text(<em>|</em>, articlemenu_start_id)"
+	// wrap_link_text(<em>|</em>, articlemenu_start_level)"
 
 	if($param == 'string') {
 
@@ -2846,16 +2846,35 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		} elseif($wrap_ul_div < 0) {
 			$wrap_ul_div = 0;
 		}
-		$wrap_link_text	= empty($parameter[7]) ? array(0 => '', 1 => '') : explode('|', $parameter[7]);
+		$wrap_link_text	= empty($parameter[7]) ? array(0 => '', 1 => '') : explode('|', trim($parameter[7]), 2);
 		if(empty($wrap_link_text[1])) {
 			$wrap_link_text[1] = '';
 		}
-		$amenu_start_id	= empty($parameter[8]) ? 0 : intval($parameter[8]);
+		$amenu_level	= empty($parameter[8]) ? 0 : intval($parameter[8]);
 
 		$parameter		= array(	 0 => $menu_type, 		 1 => $start_id, 		 2 => $max_depth,
 									 3 => $path_class,		 4 => $active_class, 	 5 => $level_id_name,
 									 6 => $wrap_ul_div,		 7 => $wrap_link_text,	 8 => $unfold,
-									 9 => $ie_patch,		10 => $create_css,		11 => $amenu_start_id );
+									 9 => $ie_patch,		10 => $create_css,		11 => $amenu_level,
+									12 => array('articlemenu' => $articlemenu, 'level_id' => $start_id)
+							);
+		
+		if($articlemenu) {
+			$parameter[12]['class_active']			= $active_class;
+			$parameter[12]['wrap_title_prefix']		= $wrap_link_text[0];
+			$parameter[12]['wrap_title_suffix']		= $wrap_link_text[1];
+			$parameter[12]['item_prefix']			= "\t";
+			$parameter[12]['item_suffix']			= '';
+			$parameter[12]['sort']					= 'level';
+			$parameter[12]['item_tag']				= 'li';
+			$parameter[12]['wrap_tag']				= '';
+			$parameter[12]['attribute_wrap_tag']	= '';
+			$parameter[12]['class_item_tag']		= 'asub_no';
+			$parameter[12]['class_first_item_tag']	= 'asub_first';
+			$parameter[12]['class_last_item_tag']	= 'asub_last';
+			$parameter[12]['return_format']			= 'array';
+		}
+	
 	} else {
 
 		$menu_type		= $parameter[0];
@@ -2869,9 +2888,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$unfold			= $parameter[8];
 		$ie_patch		= $parameter[9];
 		$create_css 	= $parameter[10];
-		$amenu_start_id	= $parameter[11];
+		$amenu_level	= $parameter[11];
 		
-		$parent			= false; // do not show parent link
+		$parent			= false;		// do not show parent link
 
 	}
 
@@ -2884,7 +2903,6 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 
-		//if($GLOBALS['content']['struct'][$key]['acat_struct'] == $start_id && $key && (!$GLOBALS['content']['struct'][$key]['acat_hidden'] || ($GLOBALS['content']['struct'][$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))) {
 		if( _getStructureLevelDisplayStatus($key, $start_id) ) {
 
 			$li_ul 		= '';
@@ -2897,8 +2915,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$li_a .= $wrap_link_text[1];
 
 			if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
-				$parameter[1] = $key;
-				$li_ul = buildCascadingMenu($parameter, $counter+1, 'param_is_array');
+				$parameter[1]	= $key;
+				$li_ul			= buildCascadingMenu($parameter, $counter+1, 'param_is_array');
 			}
 
 			$li .= $TAB.'	<li';
@@ -2928,7 +2946,24 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$x++;
 		}
 	}
-				// also check if $parent
+	
+	// show article menu
+	if($parameter[12]['articlemenu'] && $amenu_level <= $counter) {
+		
+		$parameter[12]['level_id']		= $start_id;
+		$parameter[12]['item_prefix']	= $TAB;
+
+		$ali = getArticleMenu( $parameter[12] );
+		
+		if(count($ali) > 1) {
+		
+			$li .= implode(LF, $ali) . LF;
+			
+		}
+		
+	}	
+	
+	// also check if $parent
 	if($li || ($parent && isset($GLOBALS['content']['struct'][$start_id]))) {
 
 		switch($wrap_ul_div) {
