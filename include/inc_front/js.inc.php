@@ -48,6 +48,11 @@ define('USE_GOOGLE_AJAX_LIB', !empty($block['googleapi']) || !isset($block['goog
 // include the related JavaScript Library wrapper
 @include PHPWCMS_ROOT.'/include/inc_front/lib/js.'.$block['jslib'].'.inc.php';
 
+// check if selected JavaScript should be loaded permanently
+if(!empty($block['jslibload'])) {
+	initJSLib();
+}
+
 // check if frontend.js should be loaded always - it is  more for historic reasons
 if(!empty($block['frontendjs'])) {
 	initFrontendJS();
