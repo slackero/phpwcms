@@ -112,12 +112,30 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 /**
  * Simple MooTools Plugin Loader
  */
-function initJSPlugin($plugin='') {
-	$plugin = 'mootools.'.$plugin.'.js';
-	if(empty($GLOBALS['block']['custom_htmlhead'][$plugin])) {
-		initJSLib();
-		$GLOBALS['block']['custom_htmlhead'][$plugin] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/plugin-1.2/'.$plugin);
-	}
+function initJSPlugin($plugin='', $more=false) {
+	if($more === false) {
+		$plugin = 'mootools.'.$plugin.'.js';
+		if(empty($GLOBALS['block']['custom_htmlhead'][$plugin])) {
+			initJSLib();
+			$GLOBALS['block']['custom_htmlhead'][$plugin] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/plugin-1.2/'.$plugin);
+		}
+	} else {
+		// Load MooTools More Plugins - simple Wrapper 'Fx/Fx.Slide,Fx/Fx.Scroll...'
+		// it does not check dependends
+		if(!is_array($plugin)) {
+			$plugin = convertStringToArray($plugin);
+		}
+		if(count($plugin)) {
+			initJSLib();
+			// add mootools more core
+			array_unshift($plugin, 'Core/More');
+			foreach($plugin as $more) {
+				if(empty($GLOBALS['block']['custom_htmlhead'][$more]) && is_file(PHPWCMS_TEMPLATE.'lib/mootools/more/'.$more.'.js')) {
+					$GLOBALS['block']['custom_htmlhead'][$more] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/more/'.$more.'.js');
+				}
+			}
+		}
+	}	
 	return TRUE;
 }
 

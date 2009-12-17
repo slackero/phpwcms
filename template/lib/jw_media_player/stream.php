@@ -2,52 +2,53 @@
 
 $phpwcms = array();
 
-$path = dirname(dirname(realpath(dirname(__FILE__))));
+$path = rtrim(str_replace('\\', '/', dirname(dirname(realpath(dirname(__FILE__))))), '/');
 
 require_once ($path . '/config/phpwcms/conf.inc.php');
 require_once ($path . '/include/inc_lib/default.inc.php');
+require_once (PHPWCMS_ROOT . '/include/inc_lib/general.inc.php');
 
-// this example assumes your FLV files are in the "upload" directory of your website:
-$file = trim($_GET['file']);
+$file = isset($_GET['file']) ? clean_slweg($_GET['file'], 40) : '';
+$file = PHPWCMS_ROOT.'/'.PHPWCMS_FILES. basename($file);
 
-if(strlen($file) < 40) {
+if(is_file($file)) {
 
-	$file = PHPWCMS_ROOT.'/'.PHPWCMS_FILES. basename($file);
-
-	if(is_file($file)) {
-	
-		$mime = substr(trim($_GET['type']), 0, 30);
-		//$pos = (isset($_GET["pos"]))  ? intval($_GET["pos"]) : 0;
-		
-		if($mime) {
-			header('Content-Type: ' . $mime);
+	$mime = empty($_GET['type']) ? @mime_content_type($file) : clean_slweg($_GET['type'], 30);
+	if(!$mime) {
+		switch(which_ext($file)) {
+			case 'mp3':		$mime='audio/x-mpeg';					break;
+			case 'flv':		$mime='video/x-flv';					break;
+			case 'mp4':
+			case 'f4p':
+			case 'f4v':		$mime='video/mp4';						break;
+			case 'm4v':		$mime='video/x-m4v';					break;
+			case '3gp':
+			case '3gpp':	$mime='video/3gpp';						break;
+			case 'f4a':
+			case 'f4b':		$mime='audio/mp4';						break;
+			case 'aif':
+			case 'aiff':	$mime='audio/x-aiff';					break;
+			case 'aac':		$mime='audio/x-aiff';					break;
+			case 'jpeg':
+			case 'jpg':		$mime='image/jpeg';						break;
+			case 'png':		$mime='image/png';						break;
+			case 'gif':		$mime='image/gif';						break;
+			case 'swf':		$mime='application/x-shockwave-flash';	break;
 		}
-		header('Content-Length: ' . filesize($file));
-		
-		/*
-		if($pos > 0) {
-			print("FLV");
-			print(pack('C',1));
-			print(pack('C',1));
-			print(pack('N',9));
-			print(pack('N',9));
-		}
-		
-		$fh = fopen($file,"rb");
-		fseek($fh, $pos);
-		fpassthru($fh);
-		fclose($fh);
-		
-		*/
-	
-		@readfile($file);
-
 	}
-} else {
-
-	echo '';
 	
+	if($mime) {
+		header('Content-Type: ' . $mime);
+	}
+	header('Content-Transfer-Encoding: binary');
+	header('Content-Length: ' . filesize($file));
+
+	ob_clean();
+    flush();
+	@readfile($file);
+
 }
 
+exit();
 
 ?>

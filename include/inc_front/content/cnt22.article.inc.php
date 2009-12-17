@@ -156,7 +156,12 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 			// general item info
 			$rss['items'][$c] = render_cnt_template($rss['template_ITEM'], 'LINK', $rssvalue->get_permalink() );
 			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'TITLE', $rssvalue->get_title() );
-			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'DESCRIPTION', $rssvalue->get_content() );
+			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'DESCRIPTION', $rssvalue->get_description() );
+			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'CONTENT', $rssvalue->get_content() );
+			
+			// author
+			$rss['item_author'] = $rssvalue->get_author();
+			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'AUTHOR', $rss['item_author'] ? $rss['item_author']->get_name() : '' );
 			
 			// item date
 			$rss['items'][$c] = render_cnt_date($rss['items'][$c], $rssvalue->get_date('U') );
@@ -173,10 +178,10 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 		// whole rss feed
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'TITLE', html_entities($crow['acontent_title']) );
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'SUBTITLE', html_entities($crow['acontent_subtitle']) );
-		$rss['template_RSSFEED'] = str_replace('{DIVIDER}', $rss['template_DIVIDER'], $rss['template_RSSFEED']);
-		$rss['template_RSSFEED'] = str_replace('{ITEMS}', implode( $rss['template_DIVIDER'] , $rss['items'] ), $rss['template_RSSFEED']);
+		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'ITEMS', implode( LF , $rss['items'] ) );
 		$rss['template_RSSFEED'] = str_replace('{FEEDINFO}', $rss['template_FEEDINFO'], $rss['template_RSSFEED']);
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'LINK', $rss_obj->get_permalink() );
+		$rss['template_RSSFEED'] = str_replace('{DIVIDER}', $rss['template_DIVIDER'], $rss['template_RSSFEED']);
 		
 		$CNT_TMP .= $rss['template_RSSFEED'];
 		

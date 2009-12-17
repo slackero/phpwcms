@@ -1,51 +1,39 @@
-<p style="background-color:#D7E3E2 "><strong>RSS feed ITEM <br></strong>{TITLE}, {LINK}, {DATE:FORMAT} (<a href="http://www.php.net/manual/en/function.date.php" target="_blank" style="text-decoration:underline">FORMAT&nbsp;=&nbsp;d.m.Y&nbsp;or&nbsp;H:i:s</a>)</p>
-
 <!--ITEM_START//-->
-<div class="feeditem">
-	[TITLE]<h4>[LINK]<a href="{LINK}" target="_blank">[/LINK]{TITLE}[LINK]</a>[/LINK]</h4>[/TITLE]
-	[DESCRIPTION]<p><span class="date">{DATE:d.m.y lang=DE}:</span>
-		{DESCRIPTION}
-		<a href="{LINK}" target="_blank" class="rss-more">mehr&nbsp;&rsaquo;</a>
-	</p>[/DESCRIPTION]
-</div>
-
+	<li>
+		<h3>[LINK]<a href="{LINK}" target="_blank">[/LINK]{TITLE}[LINK]</a>[/LINK]</h3>
+		<p>{DATE:D, j F Y H:i lang=EN}[AUTHOR] by {AUTHOR}[/AUTHOR]</p>
+		[DESCRIPTION]<p>{DESCRIPTION}</p>[/DESCRIPTION]
+		[CONTENT]<!-- <p>{CONTENT}</p> -->[/CONTENT]
+		<!-- {DIVIDER} -->
+	</li>
 <!--ITEM_END//-->
-
-
-
-<p style="background-color:#D7E3E2 "><strong>RSS feed item divider</strong></p>
 
 <!--DIVIDER_START//-->
 <hr />
 <!--DIVIDER_END//-->
 
-
-<p style="background-color:#D7E3E2 "><strong>RSS feed INFO<br></strong>{IMAGE}</p>
-
 <!--FEEDINFO_START//-->
-[TITLE]
-<div class="feedinfo">
-	<h3>{TITLE}</h3>[DESCRIPTION]
-	<p>
-	[IMAGE]<span class="rssimage">{IMAGE}</span>[/IMAGE]
-	{DESCRIPTION}
-	</p>[/DESCRIPTION]
-</div>
-[/TITLE]
+	<h2>{TITLE}</h2>
+[DESCRIPTION]
+	<p>[IMAGE]<span style="float:left">{IMAGE}</span>[/IMAGE]
+		{DESCRIPTION}
+	</p>
+[/DESCRIPTION][DESCRIPTION_ELSE]
+[IMAGE]	<p>{IMAGE}</p>[/IMAGE]
+[/DESCRIPTION_ELSE]
 <!--FEEDINFO_END//-->
 
-
-
-<p style="background-color:#D7E3E2 "><strong>RSS feed Complete<br></strong>{FEEDINFO}, {ITEMS}, {DIVIDER}</p>
-
 <!--RSSFEED_START//-->
-<div>
-	[TITLE]<h3>{TITLE}</h3>[/TITLE]
-	[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
-	{FEEDINFO}
-	{DIVIDER}
-	{ITEMS}
-	{DIVIDER}
-	<p>[LINK]<p class="feedlink"><a href="{LINK}" target="_blank">Alle News im Blog</a></p>[/LINK]
+<div class="feed">
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+{FEEDINFO}
+[ITEMS]
+{DIVIDER}
+<ul>
+{ITEMS}
+</ul>
+{DIVIDER}
+[/ITEMS]
 </div>
 <!--RSSFEED_END//-->
