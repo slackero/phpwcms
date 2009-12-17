@@ -1,0 +1,1 @@
+Array.implement({min:function(){return Math.min.apply(null,this)},max:function(){return Math.max.apply(null,this)},average:function(){return this.length?this.sum()/this.length:0},sum:function(){var a=0,b=this.length;if(b){do{a+=this[--b]}while(b)}return a},unique:function(){return[].combine(this)}});

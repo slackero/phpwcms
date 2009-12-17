@@ -1,0 +1,1 @@
+Class.Mutators.Binds=function(a){return a};Class.Mutators.initialize=function(a){return function(){$splat(this.Binds).each(function(b){var c=this[b];if(c){this[b]=c.bind(this)}},this);return a.apply(this,arguments)}};
