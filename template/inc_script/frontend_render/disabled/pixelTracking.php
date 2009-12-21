@@ -90,7 +90,7 @@ if($_TrackingAlias == '') {
 		$_TrackingAlias = 'id='.$aktion[0];
 	}
 }
-$_TrackingPageName = rel_url($_TrackingCategory, array(), $_TrackingAlias, 'rawurlencode');
+$_TrackingPageName = abs_url($_TrackingCategory, array(), $_TrackingAlias, 'rawurlencode');
 
 
 /// phpMyVisites /////////////////////////////////////////////////////////////////////////////////

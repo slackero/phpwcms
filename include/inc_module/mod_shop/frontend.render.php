@@ -531,6 +531,13 @@ if( $_shop_load_list !== false ) {
 			
 			$row['shopprod_var'] = @unserialize($row['shopprod_var']);
 			
+			// check custom product URL
+			if(empty($row['shopprod_var']['url'])) {
+				$row['prod_url'] = array('link'=>'', 'target'=>'');
+			} else {
+				$row['prod_url'] = get_redirect_link($row['shopprod_var']['url'], ' ', '');
+			}
+			
 			// select template based on listing or detail view
 			$entry[$x] = $shop_detail_id ? $_tmpl['detail'] : $_tmpl['list_entry'];
 			
@@ -560,6 +567,8 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_NET_PRICE', $_price['net']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_GROSS_PRICE', $_price['gross']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $_price['vat']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_URL', $row['prod_url']['link']);
+			$entry[$x] = str_replace('{PRODUCT_URL_TARGET}', $row['prod_url']['target'], $entry[$x]);
 			$entry[$x] = render_cnt_template($entry[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
 			$entry[$x] = render_cnt_template($entry[$x], 'MODEL', html_specialchars($row['shopprod_model']));
 			$entry[$x] = render_cnt_template($entry[$x], 'VIEWED', number_format($row['shopprod_track_view'], 0, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']));

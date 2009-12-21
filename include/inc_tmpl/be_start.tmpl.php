@@ -149,7 +149,7 @@ $_last10_article = _dbQuery($_asql_1);
 	
 	foreach($_last10_articlecontent as $value) {
 	
-		if($value["acontent_type"] == 30 && !isset($phpwcms['modules'][$value["acontent_module"] ])) {
+		if(($value["acontent_type"] == 30 && !isset($phpwcms['modules'][$value["acontent_module"] ])) || !isset($wcs_content_type[$value["acontent_type"]])) {
 			continue;
 		}
 	

@@ -54,6 +54,7 @@ $BL['DOWNLOAD_FILE']     = 'dobavi datoteku';
 $BL['FILE_IN_TRASH']     = 'datoteka je u kanti za smece';
 $BL['KEYWORDS']          = 'kljucne rijeci';
 $BL['DOWNLOAD_ERR3']     = 'greska prilikom dobavljanja informacija datoteke<br />zatvorite ovaj prozor i pokusajte ponovo...';
-
+$BL['ADD_ALL_FILES']     = 'Dodaj sve datoteke';
+$BL['ADD_ALL_CONFIRM']   = 'Sve datoteke iz direktorija »{VAL}« su uzete!\n\nKliknite na [OK] da zatvorite ovaj prozor…';
 
 ?>

@@ -115,11 +115,11 @@ $BL['be_ctype_emailform']               = 'email forma generator';
 $BL['be_ctype_newsletter']              = 'newsletter';
 
 // profile.create.inc.php
-$BL['be_profile_create_success']        = 'Profile uspjesno kreiran.';
+$BL['be_profile_create_success']        = 'Profil uspjesno kreiran.';
 $BL['be_profile_create_error']          = 'Greska prilikom kreiranja.';
 
 // profile.update.inc.php
-$BL['be_profile_update_success']        = 'Profile uspjesno izmjenjen.';
+$BL['be_profile_update_success']        = 'Profil uspjesno izmjenjen.';
 $BL['be_profile_update_error']          = 'Greska prilikom izmjene.';
 
 // profile.updateaccount.inc.php
@@ -1026,7 +1026,7 @@ $BL['be_cnt_sysadmin_system']			= 'system';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'Vasa instalacija je svjeza, nema novih nadogradnji.';
-$BL['Version_not_up_to_date']			= 'Vasa instalacija  <b>not</b> nije svjeza. Postoje nadogradnje. Kontaktirajte svog administratora.';
+$BL['Version_not_up_to_date']			= 'Vasa instalacija  <b>nije</b> svjeza. Postoje nadogradnje. Kontaktirajte svog administratora.';
 $BL['Latest_version_info']				= 'Najnovija dostupna verzija <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'Vasa verzija <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Nije moguce pristupiti serveru. Kod greske je:<br />%s';
@@ -1137,5 +1137,117 @@ $BL['be_dialog_warn_nosave']			= 'Ako nastavite, promjene nece biti sacuvane!\nD
 $BL['be_cnt_paginate_subsection']		= 'podsekcija';
 $BL['be_cnt_subsection_tite']			= 'naslov podsekcije';
 $BL['be_cnt_subsection_warning']		= 'Linkovanje podsekcija (linkovanje dijelova clanaka) \n je omoguceno samo za glavnu kolonu!';
+
+$BL['be_no_search']						= 'bez pretrage';
+$BL['be_priorize']						= 'prioritizacija';
+$BL['be_change_articleID']				= 'promjeni ID clanka';
+$BL['be_title_wrap']					= 'Prelomi naslov clanka';
+
+$BL['be_no_rss']						= 'RSS';
+$BL['be_article_urlalias']				= 'alias clanka';
+
+$BL['be_image_crop']					= '"crop" male slike';
+$BL['be_image_cropit']					= '"crop" slike';
+$BL['be_image_align']					= 'poravnanje slike';
+
+$BL['be_ctype_flashplayer']				= 'flash media player';
+$BL['be_flashplayer_caption']           = 'uvod';
+$BL['be_flashplayer_thumbnail']			= 'mala slika';
+$BL['be_flashplayer_selectsize']		= 'Odaberi velicinu player-a';
+
+$BL['be_check_feuser_profile']			= 'frontend korisnicki profil';
+$BL['be_check_feuser_registration']		= 'registracija';
+$BL['be_check_feuser_manage']			= 'rukovan od strane korisnika';
+$BL['be_hide_active_articlelink']		= 'sakrij aktivni clanaka u meniju clanaka';
+
+$BL['be_module_search']					= 'takodjer pretrazi';
+
+$BL['be_ctype_imagesspecial']			= 'slike - specijal';
+$BL['be_image_WxHpx']					= 'S x V px';
+$BL['be_fx_1']							= 'efekt 1';
+$BL['be_fx_2']							= 'efekt 2';
+$BL['be_fx_3']							= 'efekt 3';
+$BL['be_image_zoom']					= 'zumirani pogled';
+$BL['be_image_delete_js']				= 'Da li zelite da obrisete oznacene slike?';
+
+$BL['be_news']							= 'News - Vijesti';
+$BL['be_news_create']					= 'Kreiraj unos nove vijesti';
+$BL['be_tags']							= 'tagovi';
+$BL['be_title']							= 'naslov';
+$BL['be_delete_dataset']				= 'Izbrisi oznaceni set podataka?';
+$BL['be_action_notvalid']				= 'Vasa zadnja oznacena akcija je odbacena zato sto nije validna!';
+$BL['be_action_deleted']				= 'Oznaceni set podataka sa ID {ID} je obrisan.';
+$BL['be_action_status']					= 'Status oznacenog seta podataka sa ID {ID} je izmjenjen.';
+$BL['be_data_select_failed']			= 'Pristup oznacenom setu podataka nije uspio. Molimo provjerite vasu selekciju.';
+$BL['be_alias']							= 'alias';
+$BL['be_url_value']						= 'naslov URL-a';
+$BL['default_date_format']				= 'DD/MM/YYYY';
+$BL['default_date']						= 'd/m/Y'; // do not use something diffrent than "d, m, Y" here
+$BL['default_date_delimiter']			= '/';
+$BL['default_time_format']				= 'HH:MM';
+$BL['default_time']						= 'H:i';  // do not use something diffrent than "H, i" here
+$BL['be_place']							= 'mjesto';
+$BL['be_teasertext']					= 'tekst teaser-a';
+$BL['be_published']						= 'objavi';
+$BL['be_show_archived']					= 'omoguceno i nakon datuma isteka (arhiva)';
+$BL['be_save_copy']						= 'spasi unos kao duplikat';
+$BL['be_read_more_link']				= 'vise URL/ID';
+$BL['be_news_name_mandatory']			= "Popunite naslov vijesti. To je obavezno!";
+$BL['be_successfully_saved']			= 'Svi podaci su uspjesno snimljeni!';
+$BL['be_successfully_updated']			= 'Svi podaci su uspjesno izmjenjeni!';
+$BL['be_error_while_save']				= 'Snimanje podataka je neuspjesno.';
+$BL['be_copyright']						= 'copyright';
+$BL['be_file_multiple_upload']			= 'ubacivanje vise datoteka';
+$BL['be_files_browse']					= 'Izaberite datoteke';
+$BL['be_files_upload']					= 'Ubacite oznacene datoteke';
+$BL['be_archive']						= 'arhiva';
+$BL['be_off']							= 'iskljuceno';
+$BL['be_on']							= 'ukljuceno';
+$BL['be_random']						= 'nasumicno';
+$BL['be_sorted']						= 'sortirano';
+$BL['be_granted_download']				= 'samo "secure download" na frontend-u';
+$BL['be_granted_feuser']				= 'samo za prijavljene korisnike na frontend-u';
+
+$BL['be_ctype_tabs']					= 'tabovi';
+$BL['be_tab_add']						= 'dodaj tab';
+$BL['be_tab_name']						= 'tab';
+$BL['be_headline']						= 'naslov';
+$BL['be_tab_delete_js']					= 'Da li zelite da izbrisete oznaceni tab?';
+
+$BL['be_pagniate_count']				= 'artikala po stranici';
+$BL['be_limit_to']						= 'ogranici na';
+$BL['be_archived_items']				= 'arhivirani artikli';
+$BL['be_include']						= 'ukljucujuci';
+$BL['be_exclude']						= 'iskljucujuci';
+$BL['be_solely']						= 'iskljucivo';
+$BL['be_fsearch_not']					= 'NE';
+$BL['be_date_year']						= 'godina';
+$BL['be_archive_link']					= 'arhiviraj link';
+$BL['be_use_prio']						= 'primjeni prioritizaciju';
+$BL['be_skip_first_items']				= 'preskoci artikle na vrhu';
+$BL['be_news_detail_link']				= 'clanak vijesti';
+
+$BL['be_gallerydownload']				= 'omoguci download u galeriji';
+$BL['be_gallery_root']					= 'galerija - glavni direktorij';
+$BL['be_gallery_directory']				= 'galerija - poddirektorij';
+$BL['be_gallery']						= 'galerija';
+
+$BL['be_sort_date']						= 'datum sortiranja';
+
+$BL['group_superuser']					= 'superuser';
+$BL['group_admin']						= 'administrator';
+$BL['group_editor']						= 'editor';
+$BL['group_newsletter']					= 'editor newsletter-a';
+$BL['group_client']						= 'klijent';
+$BL['group_guest']						= 'gost';
+
+$BL['php_function']						= 'php funkcija';
+$BL['article_menu_title']				= 'naslov menija';
+
+$BL['content_type']						= 'tip sadrzaja';
+$BL['automatic']						= 'automatski';
+
+$BL['random_image']						= 'nasumicna slika';
+$BL['random_image_from_list']			= 'Oznaci jednu nasumicnu sliku iz liste slika';
 
 ?>

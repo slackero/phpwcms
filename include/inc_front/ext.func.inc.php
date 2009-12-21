@@ -898,6 +898,11 @@ function seReferrer($ref = false) {
 		$SeQuery	= urldecode($SeQuery);
 	}
 	
+	// check given query and decode utf-8
+	if(PHPWCMS_CHARSET != 'utf-8' && seems_utf8($SeQuery)) {
+		$SeQuery = makeCharsetConversion($SeQuery, 'utf-8', PHPWCMS_CHARSET, false);
+	}
+	
 	return array(	"domain"	=> $SeDomain,
 					"query"		=> $SeQuery,
 					"pos"		=> $SePos,
