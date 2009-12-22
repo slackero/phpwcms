@@ -113,6 +113,12 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
  * Simple MooTools Plugin Loader
  */
 function initJSPlugin($plugin='', $more=false) {
+	// enhance teplate JS parser for MooTools More
+	// sample: <!-- JS: MORE:Fx/Fx.Elements,Fx/Fx.Accordion -->
+	if(is_string($plugin) && $more === false && substr(strtoupper($plugin), 0, 5) == 'MORE:') {
+		$plugin	= trim(substr($plugin, 0, 5));
+		$more	= true;
+	}
 	if($more === false) {
 		$plugin = 'mootools.'.$plugin.'.js';
 		if(empty($GLOBALS['block']['custom_htmlhead'][$plugin])) {

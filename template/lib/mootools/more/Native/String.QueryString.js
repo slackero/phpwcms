@@ -1,1 +1,3 @@
+//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+
 String.implement({parseQueryString:function(){var b=this.split(/[&;]/),a={};if(b.length){b.each(function(g){var c=g.indexOf("="),d=c<0?[""]:g.substr(0,c).match(/[^\]\[]+/g),e=decodeURIComponent(g.substr(c+1)),f=a;d.each(function(j,h){var k=f[j];if(h<d.length-1){f=f[j]=k||{}}else{if($type(k)=="array"){k.push(e)}else{f[j]=$defined(k)?[k,e]:e}}})})}return a},cleanQueryString:function(a){return this.split("&").filter(function(e){var b=e.indexOf("="),c=b<0?"":e.substr(0,b),d=e.substr(b+1);return a?a.run([c,d]):$chk(d)}).join("&")}});

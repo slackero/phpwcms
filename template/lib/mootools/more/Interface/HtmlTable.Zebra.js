@@ -1,1 +1,3 @@
+//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+
 HtmlTable=Class.refactor(HtmlTable,{options:{classZebra:"table-tr-odd",zebra:true},initialize:function(){this.previous.apply(this,arguments);if(this.occluded){return this.occluded}if(this.options.zebra){this.updateZebras()}},updateZebras:function(){Array.each(this.body.rows,this.zebra,this)},zebra:function(b,a){return b[((a%2)?"remove":"add")+"Class"](this.options.classZebra)},push:function(){var a=this.previous.apply(this,arguments);if(this.options.zebra){this.updateZebras()}return a}});

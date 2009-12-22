@@ -536,6 +536,7 @@ if( $_shop_load_list !== false ) {
 				$row['prod_url'] = array('link'=>'', 'target'=>'');
 			} else {
 				$row['prod_url'] = get_redirect_link($row['shopprod_var']['url'], ' ', '');
+				$row['prod_url']['link'] = html_specialchars($row['prod_url']['link']);
 			}
 			
 			// select template based on listing or detail view
