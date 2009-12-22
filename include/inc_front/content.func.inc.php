@@ -864,7 +864,7 @@ if(isset($content['article_livedate'])) {
 // -------------------------------------------------------------
 
 // render JavaScript Plugins and/or JavaScript scripts that should be loaded in <head>
-$content['all'] = preg_replace_callback('/<!--\s+JS:\s+([a-z0-9%&=\?_\-\+\.\/\{\}\:]+?)\s+.*?-->/i', 'renderHeadJS', $content['all']);
+$content['all'] = preg_replace_callback('/<!--\s+JS:\s+([a-z0-9%&=?_\-+.\/\{\}:,]+?)\s+.*?-->/i', 'renderHeadJS', $content['all']);
 
 //check for additional template based onLoad JavaScript Code
 if($block["jsonload"]) {

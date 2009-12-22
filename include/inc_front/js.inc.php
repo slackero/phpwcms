@@ -115,7 +115,7 @@ function renderHeadJS($js) {
 		initJSLib();
 		
 		if(strtolower($js) != 'initlib') {
-		
+
 			initJSPlugin($js);
 			
 		}
