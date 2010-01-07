@@ -59,7 +59,21 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	$rss['template_DIVIDER']	= get_tmpl_section('DIVIDER',	$rssfeed['template']);
 	$rss['template_FEEDINFO']	= get_tmpl_section('FEEDINFO',	$rssfeed['template']);
 	$rss['template_RSSFEED']	= get_tmpl_section('RSSFEED',	$rssfeed['template']);
+	
+	// fallback for mb_convert_encoding()
+	if(!function_exists('iconv') && !function_exists('mb_convert_encoding')) {
+		
+		function mb_convert_encoding($string='', $out_charset='utf-8', $in_charset='utf-8') {
+			if(strtolower($in_charset) == 'utf-16be') {
+				$in_charset = 'utf-8';
+			}
+			if(strtolower($out_charset) == 'utf-16be') {
+				$out_charset = 'utf-8';
+			}			
+			return makeCharsetConversion($string, $in_charset, $out_charset);
+		}
 
+	}
 	
 	// Load SimplePie
 	require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/simplepie.inc.php');

@@ -13,9 +13,17 @@ $file = PHPWCMS_ROOT.'/'.PHPWCMS_FILES. basename($file);
 
 if(is_file($file)) {
 
-	$mime = empty($_GET['type']) ? @mime_content_type($file) : clean_slweg($_GET['type'], 30);
+	if(function_exists('mime_content_type') && empty($_GET['type'])) {
+		$mime = @mime_content_type($file);
+	} elseif(!empty($_GET['type'])) {
+		$mime = clean_slweg($_GET['type'], 30);
+	} else {
+		$mime = '';
+	}
+	
 	if(!$mime) {
-		switch(which_ext($file)) {
+		$ext = which_ext($file);
+		switch($ext) {
 			case 'mp3':		$mime='audio/x-mpeg';					break;
 			case 'flv':		$mime='video/x-flv';					break;
 			case 'mp4':
