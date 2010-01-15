@@ -59,7 +59,8 @@ $fmp_data = array(
 		'fmp_set_flashversion'		=> preg_replace('/[^0-9.r]/i', '', $_POST['fmp_set_flashversion']),
 		'fmp_set_showdownload'		=> empty($_POST['fmp_set_showdownload']) ? 0 : 1,
 		'fmp_set_overstretch'		=> clean_slweg($_POST['fmp_set_overstretch']),
-		'fmp_set_skin'				=> clean_slweg($_POST['fmp_set_skin'])
+		'fmp_set_skin'				=> clean_slweg($_POST['fmp_set_skin']),
+		'fmp_player'				=> empty($_POST['fmp_player']) ? 0 : 1
 
 				 );
 

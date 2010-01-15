@@ -218,9 +218,9 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"]			= '1.4.4';
-$phpwcms["release_date"]	= '2010/01/07';
-$phpwcms["revision"]		= '394';
+$phpwcms["release"]			= '1.4.5';
+$phpwcms["release_date"]	= '2010/01/15';
+$phpwcms["revision"]		= '395';
 
 
 // load permissions class
@@ -555,16 +555,16 @@ function log_message($type='UNDEFINED', $message='', $userid=0) {
 		);
 
 	if(is_array($type)) {
-		$user = array_intersect( $log, $type );
+		foreach($type as $key => $value) {
+			if(isset($log[$key])) {
+				$log[$key] = $value;
+			}
+		}
 	} else {
-		$user = array(
-			'log_type'			=> trim($type),
-			'log_user_id'		=> intval($userid),
-			'log_msg'			=> trim($message)
-			);
+		$log['log_type']	= trim($type);
+		$log['log_user_id']	= intval($userid);
+		$log['log_msg']		= trim($message);
 	}
-	
-	$log = array_merge( $log, $user );
 	
 	$log['log_type'] = strtoupper($log['log_type']);
 	

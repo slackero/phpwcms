@@ -896,21 +896,27 @@ function initJsCalendar() {
 	$GLOBALS['BE']['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
 	$GLOBALS['BE']['HEADER']['dynCalendar.js']	= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
 }
-function initMootools($mode='1.1') {
+function initMootools($mode='1.1', $more=array()) {
 	switch($mode) {
+		// MooTools 1.1
 		case '1.1':
-			$GLOBALS['BE']['HEADER']['mootools.js']					= getJavaScriptSourceLink('include/inc_js/mootools/mootools.js');
+			$GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js');
 			break;
-		case 'COMPAT':
-			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-core.js');
-			$GLOBALS['BE']['HEADER']['mootools-1.2-more.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-more.js');
-			$GLOBALS['BE']['HEADER']['compat-mootools-core.js']		= getJavaScriptSourceLink('include/inc_js/mootools/compat-mootools-core.js');
-			$GLOBALS['BE']['HEADER']['compat-mootools-more.js']		= getJavaScriptSourceLink('include/inc_js/mootools/compat-mootools-more.js');
-			$GLOBALS['BE']['HEADER']['mootools-compat-custom.js']	= getJavaScriptSourceLink('include/inc_js/mootools/mootools-compat-custom.js');
-			break;
-		default: // 1.2
-			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-core.js');
-			$GLOBALS['BE']['HEADER']['mootools-1.2-more.js']		= getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-more.js');
+			
+		// MooTools 1.2 + More
+		default:
+			unset($GLOBALS['BE']['HEADER']['mootools.js']);
+			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.2-core-yc.js');
+			
+			if(is_array($more) && count($more)) {
+				array_unshift($plugin, 'Core/More');
+				foreach($plugin as $more) {
+					$name = 'mootools-more-'.$more;
+					if(empty($GLOBALS['BE']['HEADER'][$name]) && is_file(PHPWCMS_TEMPLATE.'lib/mootools/more/'.$more.'.js')) {
+						$GLOBALS['BE']['HEADER'][$name] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/more/'.$more.'.js');
+					}
+				}
+			}
 	}
 }
 function initMootoolsAutocompleter($mode='1.1') {

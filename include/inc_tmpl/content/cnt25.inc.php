@@ -30,6 +30,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Flash Media Player
 
+initMootools('1.2'); // We use MooTools here
+
 if( ! $content["id"] ) {
 	
 	include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt25.takeval.inc.php');
@@ -39,11 +41,52 @@ if(empty($fmp_data['fmp_set_skin'])) {
 	$fmp_data['fmp_set_skin'] = 'default';
 }
 
+$fmp_data['fmp_player'] = empty($fmp_data['fmp_player']) ? 0 : 1;
+
 
 ?>
-<tr><td colspan="2" class="rowspacer0x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<tr><td colspan="2" class="rowspacer0x7" bgcolor="#e7e8eb"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
-<!-- Template selection -->
+<tr>
+	<td align="right" class="chatlist" bgcolor="#e7e8eb">&nbsp;</td>
+	<td bgcolor="#e7e8eb"><table border="0" cellpadding="0" cellspacing="0" summary="">
+		<tr>
+			<td><input type="radio" name="fmp_player" id="fmp_player_nvb" value="1"<?php is_checked(1, $fmp_data['fmp_player']) ?> onclick="setPlayer(1);" /></td>
+			<td class="tdtop3 v12" nowrap="nowrap"><label for="fmp_player_nvb">&nbsp;<strong>NonverBlaster:hover</strong></label></td>
+			
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>			
+		
+			<td><input type="radio" name="fmp_player" id="fmp_player_jw" value="0"<?php is_checked(0, $fmp_data['fmp_player']) ?> onclick="setPlayer(0);" /></td>
+			<td class="tdtop3 v12" nowrap="nowrap"><label for="fmp_player_jw">&nbsp;<strong>JW Player&#8482;</strong></label></td>
+			
+			<td width="50%">&nbsp;</td>
+		</tr>
+		
+		<tr class="jw-player">
+			<td colspan="6"><p style="padding:7px;background-color:#C2EB9A;margin:7px 10px 0 5px">
+		<?php if(empty($phpwcms['JW_FLV_License'])) {	?>
+			
+				<a href="http://www.jeroenwijering.com/?item=JW_Media_Player" target="_blank"><strong>JW Player&#8482;</strong></a>
+				is licensed under a	non-commercial 
+				<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank">Creative Commons License</a>.
+				For commercial use you have to 
+				<a href="http://www.longtailvideo.com/players/order/" target="_blank">order a special license</a>.
+
+		<?php } else { ?>
+
+				<strong>JW Player&#8482;</strong> License: <strong><?php echo html_specialchars($phpwcms['JW_FLV_License']) ?></strong> 
+				[<a href="http://www.longtailvideo.com/players/jw-flv-player/" target="_blank">more</a>]
+			
+		<?php } ?></p>
+			</td>
+		</tr>
+		
+	</table></td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x0" bgcolor="#e7e8eb"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
+
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="" class="width440">
@@ -94,19 +137,15 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		
 </tr>
 
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
-<tr><td colspan="2" class="rowspacer10x10"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-
-
-<!-- internal/external selection -->
 <tr>
 	<td align="right" class="chatlist tdtop6">&nbsp;<br /><?php echo $BL['be_cnt_source'] ?>:&nbsp;</td>
 
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td colspan="3">&nbsp;</td>
-			<td colspan="3" class="v10 tdbottom3 greyed">&nbsp;<i>MP3, FLV, SWF, JPG, PNG, GIF</i></td>
+			<td colspan="3" class="v10 tdbottom3 greyed">&nbsp;<i>mp3, flv, mov, swf, f4v, m4v, jpg, png, gif</i></td>
 		</tr>
 	
 		<tr>
@@ -133,7 +172,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist tdtop3"><?php echo $BL['be_flashplayer_caption'] ?>:&nbsp;</td>
-	<td><textarea name="fmp_caption" cols="40" rows="2" wrap="off" class="width440" id="fmp_caption"><?php echo html_specialchars($fmp_data['fmp_caption']) ?></textarea></td>
+	<td><textarea name="fmp_caption" cols="40" rows="2" class="width440" id="fmp_caption"><?php echo html_specialchars($fmp_data['fmp_caption']) ?></textarea></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
@@ -175,13 +214,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td class="chatlist" align="right"><label for="fmp_set_autostart">Autostart:&nbsp;</label></td>
 			<td><input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> /></td>
 		</tr>
-		<!--
-		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_autohidecontrol">Autohide control bar:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_autohidecontrol" id="fmp_set_autohidecontrol" value="1"<?php is_checked(1, $fmp_data['fmp_set_autohidecontrol']) ?> /></td>
-		</tr>
-		//-->
-		<tr>
+		<tr class="jw-player">
 			<td class="chatlist" align="right"><label for="fmp_set_overstretch">Display:&nbsp;</label></td>
 			<td><select name="fmp_set_overstretch" id="fmp_set_overstretch">
 			
@@ -202,9 +235,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<option value="over"<?php is_selected('over', $fmp_data['fmp_set_showcontrols']) ?>><?php echo $BL['over'] ?></option>
 
 			</select>
-			
-			
-			<!--<input type="checkbox" name="fmp_set_showcontrols" id="fmp_set_showcontrols" value="1"<?php is_checked(1, $fmp_data['fmp_set_showcontrols']) ?> />-->
 
 			<input type="hidden" name="fmp_set_largecontrols" id="fmp_set_largecontrols" value="0" />
 			<input type="hidden" name="fmp_set_showdigits" id="fmp_set_showdigits" value="0" />
@@ -214,32 +244,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			
 			</td>
 		</tr>
-<!--		
-		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_largecontrols">Large controls:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_largecontrols" id="fmp_set_largecontrols" value="1"<?php is_checked(1, $fmp_data['fmp_set_largecontrols']) ?> /></td>
-		</tr>
-		
-		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_showdigits">Show digits:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_showdigits" id="fmp_set_showdigits" value="1"<?php is_checked(1, $fmp_data['fmp_set_showdigits']) ?> /></td>
-		</tr>
 
-		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_showeq">Show equalizer:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_showeq" id="fmp_set_showeq" value="1"<?php is_checked(1, $fmp_data['fmp_set_showeq']) ?> /></td>
-		</tr>
-		
-		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_showvolume">Show volume:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_showvolume" id="fmp_set_showvolume" value="1"<?php is_checked(1, $fmp_data['fmp_set_showvolume']) ?> /></td>
-		</tr>
-		
-		<tr>
-			<td class="chatlist" align="right"><label for="fmp_set_showdownload">Show download button:&nbsp;</label></td>
-			<td><input type="checkbox" name="fmp_set_showdownload" id="fmp_set_showdownload" value="1"<?php is_checked(1, $fmp_data['fmp_set_showdownload']) ?> /></td>
-		</tr>
-//-->		
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_bgcolor">Background color (#FFFFFF):&nbsp;</label></td>
 			<td><input name="fmp_set_bgcolor" type="text" id="fmp_set_bgcolor" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_bgcolor']) ?>" size="40" maxlength="7" /></td>
@@ -250,7 +255,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td><input name="fmp_set_color" type="text" id="fmp_set_color" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_color']) ?>" size="40" maxlength="7" /></td>
 		</tr>
 		
-		<tr>
+		<tr class="jw-player">
 			<td class="chatlist" align="right"><label for="fmp_set_hcolor">Highlight color (#000000):&nbsp;</label></td>
 			<td><input name="fmp_set_hcolor" type="text" id="fmp_set_hcolor" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_hcolor']) ?>" size="40" maxlength="7" /></td>
 		</tr>
@@ -265,7 +270,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td><input name="fmp_set_flashversion" type="text" id="fmp_set_flashversion" class="width75" value="<?php echo html_specialchars($fmp_data['fmp_set_flashversion']) ?>" size="40" maxlength="10" /></td>
 		</tr>
 
-		<tr>
+		<tr class="jw-player">
 			<td class="chatlist" align="right"><label for="fmp_set_skin">Skin:&nbsp;</label></td>
 			<td><select name="fmp_set_skin">
 			<option value="default"<?php is_selected('default', $fmp_data['fmp_set_skin']) ?>><?php echo $BL['be_admin_tmpl_default'] ?></option>
@@ -291,57 +296,47 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	</table></td>
 </tr>
 
-<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
 <tr>
-	<td colspan="2" style="padding:0 10px 0 10px;background-color:#C2EB9A;">
-<?php if(empty($phpwcms['JW_FLV_License'])) {	?>
-	<p><strong>Licensing JW Media Player</strong></p>
-	<p>
-	<a href="http://www.jeroenwijering.com/?item=JW_Media_Player" target="_blank"><strong>The player itself</strong></a> 
-	(used as as plugin inside of <strong>phpwcms</strong>) is licensed under a 
-	<a href="http://creativecommons.org/licenses/by-nc-sa/2.0/" target="_blank"><strong>Creative Commons License</strong></a>.
-	<strong style="color:#cc3300">It allows you to use and modify the script for noncommercial purposes.</strong>
-	For commercial use, the author Jeroen Wijering distribute licenses of the script for <strong>15 EUR</strong>. 
-	For more info and instant ordering, please 
-	<a href="http://www.jeroenwijering.com/?order=form" target="_blank"><strong>advance to his online order page</strong></a>!
-	<strong>Please - respect copyrights!</strong>
-	</p>
-<?php } else { ?>
-	<p>
-		JW FLV Media Player License: <strong><?php echo html_specialchars($phpwcms['JW_FLV_License']) ?></strong> 
-		[<a href="http://www.longtailvideo.com/players/jw-flv-player/" target="_blank">more</a>]
-	</p>
-<?php } ?>
-	</td>
-</tr>
-
-<tr>
-	<td colspan="2" class="rowspacer0x0"><script type="text/javascript">
-
-		<!--
-		function setIdName(file_id, file_name) {
-			if(file_id == null) file_id=0;
-			if(file_name == null) file_name='';
-			getObjectById('fmp_internal_id').value = file_id;
-			getObjectById('fmp_internal_name').value = file_name;
+	<td colspan="2" class="rowspacer7x0"><script type="text/javascript">
+	var selected_player = <?php echo $fmp_data['fmp_player'] ?>;
+	var tr_jw_player	= null;
+	
+	function setIdName(file_id, file_name) {
+		if(file_id == null) file_id=0;
+		if(file_name == null) file_name='';
+		$('fmp_internal_id').value = file_id;
+		$('fmp_internal_name').value = file_name;
+	}
+	function setImgIdName(file_id, file_name) {
+		if(file_id == null) file_id=0;
+		if(file_name == null) file_name='';
+		$('fmp_img_id').value = file_id;
+		$('fmp_img_name').value = file_name;
+	}
+	function setPlayerSize(sval) {
+		var indx = sval.selectedIndex;
+		if(indx > 0) {
+			var val = sval.options[indx].value.split('x');
+			$('fmp_width').value = parseInt(val[0]);
+			$('fmp_height').value = parseInt(val[1]);
 		}
-		function setImgIdName(file_id, file_name) {
-			if(file_id == null) file_id=0;
-			if(file_name == null) file_name='';
-			getObjectById('fmp_img_id').value = file_id;
-			getObjectById('fmp_img_name').value = file_name;
+		sval.options[0].selected = true;
+		sval.blur();
+	}
+	function setPlayer(val) {
+		selected_player = val ? 1 : 0;
+		switchPlayer();
+	}
+	var switchPlayer = function() {
+		if(tr_jw_player === null) {
+			tr_jw_player = $('articlecontent').getElements('tr.jw-player');
+		}		
+		if(selected_player === 0) {
+			tr_jw_player.each(function(el){el.removeProperty('style')});
+		} else {
+			tr_jw_player.each(function(el){el.setStyle('display', 'none')});
 		}
-		function setPlayerSize(sval) {
-			var indx = sval.selectedIndex;
-			if(indx > 0) {
-				var val = sval.options[indx].value.split('x');
-				getObjectById('fmp_width').value = parseInt(val[0]);
-				getObjectById('fmp_height').value = parseInt(val[1]);
-			}
-			sval.options[0].selected = true;
-			sval.blur();
-		}
-		//-->
-		</script></td>
+	}		
+	window.addEvent('domready', switchPlayer);
+</script></td>
 </tr>
