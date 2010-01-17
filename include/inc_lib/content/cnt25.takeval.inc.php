@@ -47,8 +47,8 @@ $fmp_data = array(
 		'fmp_img_name'				=> '',
 		'fmp_set_logo'				=> '',
 		'fmp_set_hcolor'			=> '',
-		'fmp_set_color'				=> '',
-		'fmp_set_bgcolor'			=> '',
+		'fmp_set_color'				=> 'FFFFFF',
+		'fmp_set_bgcolor'			=> '000000',
 		'fmp_set_showvolume'		=> 1,
 		'fmp_set_showeq'			=> 0,
 		'fmp_set_showdigits'		=> 0,
@@ -56,10 +56,11 @@ $fmp_data = array(
 		'fmp_set_largecontrols'		=> 0,
 		'fmp_set_autostart'			=> 0,
 		'fmp_set_autohidecontrol'	=> 0,
-		'fmp_set_flashversion'		=> '7',
+		'fmp_set_flashversion'		=> '10',
 		'fmp_set_showdownload'		=> 0,
 		'fmp_set_overstretch'		=> 'default',
-		'fmp_set_skin'				=> 'default'
+		'fmp_set_skin'				=> 'default',
+		'fmp_player'				=> 1
 
 				 );
 				 
@@ -73,12 +74,12 @@ if( $content["id"] ) {
 
 	$fmp_data['fmp_template'] = $row["acontent_template"];
 	
-	// format color
-	if($fmp_data['fmp_set_hcolor'])		$fmp_data['fmp_set_hcolor'] = '#'.$fmp_data['fmp_set_hcolor'];
-	if($fmp_data['fmp_set_bgcolor'])	$fmp_data['fmp_set_bgcolor'] = '#'.$fmp_data['fmp_set_bgcolor'];
-	if($fmp_data['fmp_set_color'])		$fmp_data['fmp_set_color'] = '#'.$fmp_data['fmp_set_color'];
-
 }
+
+// format color
+if($fmp_data['fmp_set_hcolor'])		$fmp_data['fmp_set_hcolor'] = '#'.$fmp_data['fmp_set_hcolor'];
+if($fmp_data['fmp_set_bgcolor'])	$fmp_data['fmp_set_bgcolor'] = '#'.$fmp_data['fmp_set_bgcolor'];
+if($fmp_data['fmp_set_color'])		$fmp_data['fmp_set_color'] = '#'.$fmp_data['fmp_set_color'];
 
 
 ?>

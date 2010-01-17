@@ -181,7 +181,8 @@ if(empty($phpwcms['js_lib'])) {
 	$phpwcms['js_lib']		= array(
 		'mootools-1.2'	=> 'MooTools 1.2',
 		'mootools-1.1'	=> 'MooTools 1.1',
-		'jquery'		=> 'jQuery 1.3'
+		'jquery'		=> 'jQuery 1.3',
+		'jquery-1.4'	=> 'jQuery 1.4'
 	);
 }
 
@@ -219,8 +220,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.5';
-$phpwcms["release_date"]	= '2010/01/15';
-$phpwcms["revision"]		= '395';
+$phpwcms["release_date"]	= '2010/01/17';
+$phpwcms["revision"]		= '396';
 
 
 // load permissions class
