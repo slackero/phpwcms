@@ -2908,11 +2908,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$li_ul 		= '';
 			$li_class	= '';
 			$li_ie		= '';
-
-			$li_a  = get_level_ahref($key);
-			$li_a .= $wrap_link_text[0];
-			$li_a .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-			$li_a .= $wrap_link_text[1];
+			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
+			
+			$li_a  = get_level_ahref($key, ' title="'.$li_a_title.'"');
+			$li_a .= $wrap_link_text[0] . $li_a_title . $wrap_link_text[1];
 
 			if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
 				$parameter[1]	= $key;
@@ -3004,10 +3003,11 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$li_class = trim($li_class.' '.$active_class);
 			}
 			$ul .= ' class="'.$li_class.'">';
-			$ul .= get_level_ahref($start_id);
-			$ul .= $wrap_link_text[0];
-			$ul .= html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
-			$ul .= $wrap_link_text[1];
+			
+			$link_text = html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
+			
+			$ul .= get_level_ahref($start_id, ' title="'.$link_text.'"');
+			$ul .= $wrap_link_text[0] . $link_text . $wrap_link_text[1];
 			$ul .= '</a></li>'.LF;
 					
 		}
@@ -3048,7 +3048,6 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 function get_level_ahref($key=0, $custom_link_add='') {
 	$link = '<a href="';
-	//maybe later... if(!isset($GLOBALS['content']['struct'][$key]))
 	if(!$GLOBALS['content']['struct'][$key]["acat_redirect"]) {
 		$link .= 'index.php?';
 		if($GLOBALS['content']['struct'][$key]['acat_alias']) {
@@ -3061,6 +3060,14 @@ function get_level_ahref($key=0, $custom_link_add='') {
 		$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
 		$link .= html_specialchars($redirect['link']).'"'.$redirect['target'];
 	}
+	/*
+	$custom_link_add = trim($custom_link_add);
+	if($custom_link_add) {
+		$custom_link_add = ' '.$custom_link_add;
+	} else {
+		$custom_link_add = ' title="'.html_specialchars($GLOBALS['content']['struct'][$key]["acat_name"]).'"';
+	}
+	*/
 	return $link.$custom_link_add.'>';
 }
 
@@ -3069,7 +3076,6 @@ function getHasSubStructureStatus($level_id=0) {
 		return false;
 	}
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
-		//if($GLOBALS['content']['struct'][$key]['acat_struct'] == $level_id && $key && (!$GLOBALS['content']['struct'][$key]['acat_hidden'] || ($GLOBALS['content']['struct'][$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))) {
 		if( _getStructureLevelDisplayStatus($key, $level_id) ) {
 			return true;
 		}
@@ -3081,7 +3087,6 @@ function getStructureChildData($level_id=0) {
 	if( !isset($GLOBALS['content']['struct'][$level_id]) ) return array();
 	$struct_data = array();
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
-		//if($GLOBALS['content']['struct'][$key]['acat_struct'] == $level_id && $key	&& (!$GLOBALS['content']['struct'][$key]['acat_hidden'] || ($GLOBALS['content']['struct'][$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key])))) {
 		if( _getStructureLevelDisplayStatus($key, $level_id) ) {
 			$struct_data[$key]	= $value;
 		}

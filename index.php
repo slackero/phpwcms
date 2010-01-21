@@ -104,7 +104,7 @@ if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strp
 }
 
 if(!empty($phpwcms['Bad_Behavior'])) {
-	require PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior/bad-behavior-phpwcms.php';
+	require PHPWCMS_ROOT.'/include/inc_ext/bad-behavior/bad-behavior-phpwcms.php';
 }
 
 $phpwcms["templates"]    = TEMPLATE_PATH;

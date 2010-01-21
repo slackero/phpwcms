@@ -38,9 +38,8 @@ bb2_addLoadEvent(function() {
 		}
 	}
 });
-//-->
-</script>
-";
+// --></script>
+		";
 }
 
 function bb2_screener($settings, $package)

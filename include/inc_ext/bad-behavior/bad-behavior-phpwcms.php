@@ -1,11 +1,11 @@
 <?php
 /*
 Bad Behavior - detects and blocks unwanted Web accesses
-Copyright (C) 2005-2006 Michael Hampton
+Copyright (C) 2005,2006,2007,2008,2009 Michael Hampton
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
+the Free Software Foundation; either version 3 of the License, or
 (at your option) any later version.
 
 As a special exemption, you may link this program with any of the
@@ -36,7 +36,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $_SERVER['REMOTE_ADDR'] = getRemoteIP();
 
 
-define('BB2_CWD', PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior');
+define('BB2_CWD', PHPWCMS_ROOT.'/include/inc_ext/bad-behavior');
 
 // core path setting based on phpwcms' values
 define('BB2_CORE', BB2_CWD.'/bad-behavior');
@@ -48,7 +48,11 @@ $bb2_settings_defaults = array(
 	'display_stats' => true,
 	'strict' => false,
 	'verbose' => false,
-	'logging' => true
+	'logging' => true,
+	'httpbl_key' => '',
+	'httpbl_threat' => '25',
+	'httpbl_maxage' => '30',
+	'offsite_forms' => false
 );
 
 // Bad Behavior callback functions.
@@ -125,7 +129,11 @@ function bb2_read_settings() {
 		'strict' => false,
 		'verbose' => false,
 		'db_installed' => true,
-		'logging' => true
+		'logging' => true,
+		'httpbl_key' => '',
+		'httpbl_threat' => '25',
+		'httpbl_maxage' => '30',
+		'offsite_forms' => false
 	);
 
 	return array_merge($bb2_settings_defaults, $settings);
