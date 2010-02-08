@@ -27,9 +27,7 @@ require_once ('config/phpwcms/conf.inc.php');
 // set neccessary charset
 $phpwcms["charset"] = 'utf-8';
 require_once ('include/inc_lib/default.inc.php');
-
-init_frontend_edit();
-
+define('VISIBLE_MODE', 0);
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
@@ -70,7 +68,11 @@ if($result = mysql_query($sql, $db)) {
 		}
 		
 		// now add article URL to Google sitemap
-		$_link = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
+		if(empty($phpwcms['rewrite_url']) || empty($data['article_alias'])) {
+			$_link = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
+		} else {
+			$_link = PHPWCMS_URL.rawurlencode($data['article_alias']).'.phtml';
+		}
 		echo '	<url>'.LF;
     	echo '		<loc>'.$_link.'</loc>'.LF;
 		echo '		<lastmod>'.$data["article_tstamp"].'</lastmod>'.LF;

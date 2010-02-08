@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.5';
-$phpwcms_release_date	= '2010/01/21';
-$phpwcms_revision		= '397';
+$phpwcms_release_date	= '2010/02/08';
+$phpwcms_revision		= '398';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -194,15 +194,16 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia\n";
 	$conf_file .= "\$phpwcms['inline_download']   = 1;  //1 = try to display download documents in new window; 0 = show safe under dialog\n";
 	$conf_file .= "\$phpwcms['form_tracking']     = 1; //make a db entry for each form\n";
-	$conf_file .= "\$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'form@localhost'); //for better security handling\n";
+	$conf_file .= "\$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling\n";
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
 	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
 	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
-	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // enables HTC Hover for IE < 7 - has no effect in other browsers \n";
-	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers \n";
-	$conf_file .= "\$phpwcms['Bad_Behavior']      = 0; // 1 enables spam blocking by Bad Behavior, 0 off \n";
+	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities\n";
+	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix\n";
+	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png\n";
+	$conf_file .= "\$phpwcms['Bad_Behavior']      = 0; // 1 enables spam/bot blocking by Bad Behavior, 0 off \n";
 	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
 	$conf_file .= "\$phpwcms['version_check']     = 1; // checks for current release of phpwcms online \n";

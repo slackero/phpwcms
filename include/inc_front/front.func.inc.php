@@ -3587,11 +3587,9 @@ function set_meta($name='', $content='', $http_equiv=FALSE) {
  * and return ID of the level or 0 if level is not set
  */
 function replace_level_id($match) {
-	if(isset($match[1])) {
-		$level_id = intval($match[1]);
-		if(isset($GLOBALS['LEVEL_ID'][ $level_id ])) {
-			return $GLOBALS['LEVEL_ID'][ $level_id ];
-		}
+	$level_id = intval($match[1]);
+	if(isset($GLOBALS['LEVEL_ID'][ $level_id ])) {
+		return $GLOBALS['LEVEL_ID'][ $level_id ];
 	}
 	return 0;
 }

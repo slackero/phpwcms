@@ -84,16 +84,17 @@ $phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf
 $phpwcms['recipient_count']   = 0;
 $phpwcms['inline_download']   = 1; //try to open download document in browser window
 $phpwcms['form_tracking']     = 1; //make a db entry for each form
-$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'form@localhost'); //for better security handling
+$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling
 $phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts
 $phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars
 $phpwcms['BOTS']			  = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 $phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
-$phpwcms['IE_htc_hover']      = 1; // enables HTC Hover for IE < 7 - has no effect in other browsers
-$phpwcms['IE_htc_png']        = 1; // enables HTC pngbehavior for IE < 7 - has no effect in other browsers
+$phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities
+$phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix
+$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png
 $phpwcms['timezone_GMT']  	  = '+1';
-$phpwcms['Bad_Behavior']      = 1; // enables spam blocking by Bad Behavior
+$phpwcms['Bad_Behavior']      = 0; // enables spam/bot blocking by Bad Behavior
 $phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );								   
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online

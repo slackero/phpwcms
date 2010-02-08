@@ -261,14 +261,14 @@ class HTML2FPDF extends FPDF {
 		$this->urlbasepath = $str . "/";
 		if ( $this->filebasepath == '' ) {
 			$this->basepath = str_replace( "\\", "/", $this->urlbasepath ); //If on Windows
-			$urllevels = substr_count( '/', ereg_replace( '^.*?://', $this->urlbasepath ) );
+			$urllevels = substr_count( '/', preg_replace( '/^.*?:\/\//', $this->urlbasepath ) );
 		} ;
 	}
 
 	function setBasePath( $str )
 	{
 		// legacy implementation
-		if ( ereg( '^(http|https|ftp|file):\\/\\/', $str ) ) {
+		if ( preg_match( '/^(http|https|ftp|file):\/\//', $str ) ) {
 			$this->filebasepath = '';
 			$this->setURLBasePath( dirname( $str ) );
 		} else {

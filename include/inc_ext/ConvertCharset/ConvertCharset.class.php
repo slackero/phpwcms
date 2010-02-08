@@ -1,7 +1,6 @@
 <?php
 
-$PATH_TO_CLASS = dirname(ereg_replace("\\\\", "/", __FILE__)) . "/" . "ConvertTables" . "/";
-define ("CONVERT_TABLES_DIR", $PATH_TO_CLASS);
+define ("CONVERT_TABLES_DIR", PHPWCMS_ROOT.'/include/inc_ext/ConvertCharset/ConvertTables/');
 define ("DEBUG_MODE", 1);
 
 

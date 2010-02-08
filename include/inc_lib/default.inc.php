@@ -220,15 +220,18 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.5';
-$phpwcms["release_date"]	= '2010/01/21';
-$phpwcms["revision"]		= '397';
+$phpwcms["release_date"]	= '2010/02/08';
+$phpwcms["revision"]		= '398';
 
-
+/* 
+ * Disabled now - maybe needed at later time
+ *
 // load permissions class
 require(PHPWCMS_ROOT.'/include/inc_lib/permissions.class.php');
 // init permissions
 $_PERMIT = new Permissions();
-
+ *
+ */
 
 
 // -------------------------------------------------------------
