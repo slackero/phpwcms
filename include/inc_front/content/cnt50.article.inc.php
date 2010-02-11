@@ -231,6 +231,8 @@ if($content['reference']['ref_count']) {
         					  )	);
 			
 			if($thumb_image != false) {
+				
+				initFrontendJS();
 	
 				if(!empty($content['reference']['caption_list'][$captkey])) {
 					$img_name = $content['reference']['caption_list'][$captkey];

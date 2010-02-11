@@ -42,6 +42,9 @@ if(empty($content["newsletter"]["email_address"])) {
 if(empty($content["newsletter"]["email_name"])) {
 	$content["newsletter"]["email_name"] = '';
 }
+if(!isset($content["newsletter"]["label_pos"])) {
+	$content["newsletter"]["label_pos"] = 0;
+}
 
 if(!$content["newsletter"]["change_text"] || !$content["newsletter"]["reg_text"]) {
 	$temp_mailtext  = 'Hi {NEWSLETTER_NAME},'."\n\n";
@@ -190,6 +193,22 @@ if($content["newsletter"]["success"]) {
 	, $template_default["article"]["text_class"]);
 
 } else {
+	
+	if(empty($content["newsletter"]["label_pos"])) {
+		
+		$label_pos			= false;
+		$label_pos_tr		= LF;
+		$label_pos_colspan	= ' colspan="2"';
+		
+	} else {
+		
+		$label_pos			= true;
+		$label_pos_tr		= '</tr>'.LF.'<tr>';
+		$label_pos_colspan	= '';
+
+	}
+	
+	
 	$CNT_TMP .= ($content["newsletter"]["text"]) ? "<br />".nl2br(div_class($content["newsletter"]["text"],$template_default["article"]["text_class"])) : "";
 	$CNT_TMP .= '<form action="'.FE_CURRENT_URL.'" method="post" id="newsletterSubscribeForm">'.LF;
 	$CNT_TMP .= '<table border="0" cellpadding="0" cellspacing="0"';
@@ -200,21 +219,26 @@ if($content["newsletter"]["success"]) {
 	}
 	$CNT_TMP .= ' summary="">'.LF;
 	if($content["newsletter"]["email_address_error"]) {
-		$CNT_TMP .= "<tr>\n<td>&nbsp;";
-		$CNT_TMP .= "</td>\n<td class=\"formError\">".$template_default["article"]["newsletter_error"]."</td>\n</tr>\n";
+		$CNT_TMP .= "<tr>";
+		if(!$label_pos) {
+			$CNT_TMP .= "\n<td>&nbsp;</td>";
+		}
+		$CNT_TMP .= "<td class=\"formError\">".$template_default["article"]["newsletter_error"]."</td>\n</tr>\n";
 	}
 	$CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
-	$CNT_TMP .= (($content["newsletter"]["label_email"]) ? $content["newsletter"]["label_email"] : "email:")."&nbsp;";
-	$CNT_TMP .= "</td>\n<td><input name=\"newsletter_email\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
+	$CNT_TMP .= (($content["newsletter"]["label_email"]) ? $content["newsletter"]["label_email"] : "email:")."&nbsp;</td>";
+	$CNT_TMP .= $label_pos_tr;
+	$CNT_TMP .= "<td><input name=\"newsletter_email\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
 	$CNT_TMP .= "value=\"".$content["newsletter"]["email_address"]."\" /></td>\n</tr>\n";
 	$CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
-	$CNT_TMP .= (($content["newsletter"]["label_name"]) ? $content["newsletter"]["label_name"] : "name:")."&nbsp;";
-	$CNT_TMP .= "</td>\n<td><input name=\"newsletter_name\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
+	$CNT_TMP .= (($content["newsletter"]["label_name"]) ? $content["newsletter"]["label_name"] : "name:")."&nbsp;</td>";
+	$CNT_TMP .= $label_pos_tr;
+	$CNT_TMP .= "<td><input name=\"newsletter_name\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
 	$CNT_TMP .= "value=\"".$content["newsletter"]["email_name"]."\" /></td>\n</tr>\n";
 	
 	if(is_array($content["newsletter"]["subscription"]) && count($content["newsletter"]["subscription"])) {
 	
-		$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
+		$CNT_TMP .= '<tr><td'.$label_pos_colspan.'>'.spacer(1,3)."</td></tr>\n";
 		
 		// retrieve all active newsletters
 		$content["newsletter"]['temp'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription WHERE subscription_active=1 ORDER BY subscription_name");
@@ -251,7 +275,7 @@ if($content["newsletter"]["success"]) {
 		
 			$CNT_TMP .= "<tr>\n<td valign=\"top\" class=\"formLabel subscriptions\">";
 			$CNT_TMP .= empty($content["newsletter"]["label_subscriptions"]) ? 'subscribe&nbsp;to:' : $content["newsletter"]["label_subscriptions"];
-			$CNT_TMP .= "&nbsp;</td>\n<td valign=\"top\">";
+			$CNT_TMP .= '&nbsp;</td>'.$label_pos_tr.'<td valign="top">';
 			$CNT_TMP .= '<table border="0" cellpadding="0" cellspacing="0" class="subscriptions">'.LF;
 			$CNT_TMP .= $content["newsletter"]['t'];
 			$CNT_TMP .= "</table></td>\n</tr>\n";
@@ -260,8 +284,11 @@ if($content["newsletter"]["success"]) {
 	}
 	
 	
-	$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
-	$CNT_TMP .= "<tr>\n<td>&nbsp;</td>\n<td><input name=\"submit\" type=\"submit\" class=\"formButton\" value=\"";
+	$CNT_TMP .= '<tr><td'.$label_pos_colspan.'>'.spacer(1,3)."</td></tr>\n<tr>";
+	if(!$label_pos) {
+		$CNT_TMP .= "\n<td>&nbsp;</td>";
+	}
+	$CNT_TMP .= "<td><input name=\"submit\" type=\"submit\" class=\"formButton\" value=\"";
 	$CNT_TMP .= (($content["newsletter"]["button_text"]) ? $content["newsletter"]["button_text"] : "send")."\" />";
 	$CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
 	$CNT_TMP .= "</td>\n</tr>\n</table></form>";

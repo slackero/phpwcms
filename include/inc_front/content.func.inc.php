@@ -865,6 +865,11 @@ if(isset($content['article_livedate'])) {
 // render JavaScript Plugins and/or JavaScript scripts that should be loaded in <head>
 $content['all'] = preg_replace_callback('/<!--\s+JS:\s+([a-z0-9%&=?_\-+.\/\{\}:,]+?)\s+.*?-->/i', 'renderHeadJS', $content['all']);
 
+// test for frontend.js
+if(!isset($GLOBALS['block']['custom_htmlhead']['frontend.js']) && preg_match('/MM_swapImage|BookMark_Page|clickZoom|mailtoLink/', $content['all'])) {
+	initFrontendJS();
+}
+
 //check for additional template based onLoad JavaScript Code
 if($block["jsonload"]) {
 	if(empty($pagelayout["layout_jsonload"])) {

@@ -474,18 +474,18 @@ function is_valid_email($email) {
 	}	
 	$local_array = explode('.', $email_array[0]);
 	for ($i = 0; $i < count($local_array); $i++) {
-		if (!ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$", $local_array[$i])) {
+		if (!preg_match("/^(([A-Z0-9!#$%&'*+\/\=?^_`{|}~-][A-Z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/i", $local_array[$i])) {
 			return false;
 		}
 	}  
-	if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
+	if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
 		$domain_array = explode('.', $email_array[1]);
 		$count = count($domain_array);
 		if ($count < 2) {
 			return false; // Not enough parts to domain
 		}
 		for ($i = 0; $i < $count; $i++) {
-			if (!ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$", $domain_array[$i])) {
+			if (!preg_match("/^(([A-Z0-9][A-Z0-9-]{0,61}[A-Z0-9])|([A-Z0-9]+))$/i", $domain_array[$i])) {
 				return false;
 			}
 		}

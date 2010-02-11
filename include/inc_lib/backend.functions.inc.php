@@ -286,13 +286,9 @@ function phpwcmsversionCheck() {
 			$version_info .= sprintf($BL['Current_version_info'], $phpwcms["release"].' ('.$phpwcms["release_date"].', r'.$phpwcms["revision"].')') . '</p>';
 		
 		} else {
-		
-			$this_version  = implode('.', $latest_revision);
-			$this_version .= ' ('.date('Y/m/d', $latest_revdate[0]).')';
-		
 			$version_info  = '<p class="error">' . $BL['Version_not_up_to_date'] . '</p>';
-			$version_info .= '<p class="error">'.sprintf($BL['Latest_version_info'], $this_version). ' ';
-			$version_info .= sprintf($BL['Current_version_info'], $phpwcms["release"].' ('.$phpwcms["release_date"].')') . '</p>';
+			$version_info .= '<p class="error">'.sprintf($BL['Latest_version_info'], ' ' . $latest_version . ' ('.$latest_revdate.', r'.$latest_revision.')'). ' ';
+			$version_info .= sprintf($BL['Current_version_info'], $phpwcms["release"].' ('.$phpwcms["release_date"].', r'.$phpwcms["revision"].')') . '</p>';
 
 		}
 		

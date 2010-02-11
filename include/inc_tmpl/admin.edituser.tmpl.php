@@ -59,6 +59,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 			$set_user_fe = 2;
 		}
 		$send_verification = isset($_POST["verification_email"]) ? 1 : 0;
+		$user_err = '';
 		if(isEmpty($new_login)) {
 			$user_err = $BL['be_admin_usr_err2']."\n";
 		} else {
@@ -69,7 +70,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 				}
 			}
 		}
-		if(MailVal($new_email, 3) && $send_verification) $user_err .= $BL['be_admin_usr_err4']."\n";
+		if(!is_valid_email($new_email)) $user_err .= $BL['be_admin_usr_err4']."\n";
 		if(empty($user_err)) { //Insert new User
 			$upd_password = ($new_password) ? "usr_pass='".aporeplace(md5($new_password))."', " : "";
 			//$upd_password = ($new_password) ? "usr_pass=PASSWORD('".aporeplace($new_password)."'), " : "";
