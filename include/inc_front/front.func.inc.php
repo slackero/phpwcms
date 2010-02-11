@@ -1848,7 +1848,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 				$where .= "article_keyword LIKE '%".aporeplace($value)."%'";
 		}
 		$limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
-		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias ";
+		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias, article_redirect, article_morelink, ";
 		$sql .=	"FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND ";
 		$sql .=	"article_id<>".intval($current_article_id)." AND ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -1908,6 +1908,17 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		$result = _dbQuery($sql);
 		if(isset($result[0])) {
 			foreach($result as $row) {
+				
+				if(empty($row['article_redirect'])) {
+					if(empty($row['article_morelink'])) {
+						continue;
+					}
+					$article_link = 'index.php?'.setGetArticleAid($row).'"'.$target;
+				} else {
+					$redirect = get_redirect_link($row['article_redirect'], ' ', '');
+					$article_link = $redirect['link'].'"'.$redirect['target'];
+				}
+				
 				if($template_default["link_length"] && strlen($row['article_title']) > $template_default["link_length"]) {
 					$article_title = substr($row['article_title'], 0, $template_default["link_length"]).$template_default["cut_title_add"];
 				} else {
@@ -1915,7 +1926,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 				}
 				$keyword_links .= $template_default["link_before"];
 				$keyword_links .= $template_default["link_symbol"];
-				$keyword_links .= '<a href="index.php?' . setGetArticleAid($row) . '"' . $target . '>';
+				$keyword_links .= '<a href="' . $article_link . '>';
 				$keyword_links .= html_specialchars($article_title);
 				$keyword_links .= '</a>' . $template_default["link_after"];
 			}
@@ -1934,7 +1945,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	$cat = trim($cat);
 	$cat = (intval($cat) || $cat == '0') ? 'article_cid='.intval($cat).' AND ' : '';
 	
-	$sql = 'SELECT article_id, article_title, article_cid, article_alias, ';
+	$sql = 'SELECT article_id, article_title, article_cid, article_alias, article_redirect, article_morelink, ';
 
 	switch( (empty($template_default["sort_by"]) ? '' : strtolower($template_default["sort_by"])) ) {
 
@@ -1977,6 +1988,17 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	$count  = 0;
 	
 	foreach($result as $row) {
+		
+			if(empty($row['article_redirect'])) {
+				if(empty($row['article_morelink'])) {
+					continue;
+				}
+				$article_link = 'index.php?'.setGetArticleAid($row).'"'.$target;
+			} else {
+				$redirect = get_redirect_link($row['article_redirect'], ' ', '');
+				$article_link = $redirect['link'].'"'.$redirect['target'];
+			}
+		
 			$count++;
 			if($template_default["link_length"] && strlen($row['article_title']) > $template_default["link_length"]) {
 				$article_title = substr($row['article_title'], 0, $template_default["link_length"]).$template_default["cut_title_add"];
@@ -1995,7 +2017,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 			}
 			$new_links .= $template_default["link_before"];
 			$new_links .= $template_default["link_symbol"];
-			$new_links .= '<a href="index.php?'.setGetArticleAid($row).'"'.$target.'>'.$article_title.'</a>';
+			$new_links .= '<a href="' . $article_link . '>' . $article_title . '</a>';
 			$new_links .= $template_default["link_after"];
 	}
 

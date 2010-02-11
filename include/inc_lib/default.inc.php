@@ -220,8 +220,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.5';
-$phpwcms["release_date"]	= '2010/02/11';
-$phpwcms["revision"]		= '399';
+$phpwcms["release_date"]	= '2010/02/12';
+$phpwcms["revision"]		= '400';
 
 /* 
  * Disabled now - maybe needed at later time
