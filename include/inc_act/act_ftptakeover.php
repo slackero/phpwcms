@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -398,8 +398,7 @@ echo "</p>\n";
 if(empty($file_error["upload"]) && empty($ftp["error"])) {
 	echo "<p class=\"title\"><strong>every selected file was taken over</strong></p>\n";
 	echo "<p class='v10'><a href=\"".$ref."\" style=\"font-weight: bold;\">click here to go back</a> (if no automatic redirect)</p>\n";
-	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n<!--\n";
-	echo "window.location.href = \"".$ref."\";\n//-->\n</script>\n";
+	echo "<script type=\"text/javascript\"> window.location.href = \"".$ref."\"; </script>\n";
 	
 } else {
 	echo "<p class=\"error\"><strong>error while file take over</strong></p>\n";

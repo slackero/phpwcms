@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -232,9 +232,9 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 	<meta name="robots" content="noindex, nofollow">
 <?php
 
+initMootools();
 $BE['HEADER']['phpwcms.js']			= getJavaScriptSourceLink('include/inc_js/phpwcms.js');
-$BE['HEADER']['browserSniffer.js']	= getJavaScriptSourceLink('include/inc_js/browserSniffer.js');
-
+//$BE['HEADER']['browserSniffer.js']	= getJavaScriptSourceLink('include/inc_js/browserSniffer.js');
 
 
 if($do == "messages" && $p == 1) {
@@ -258,7 +258,7 @@ if($do == "messages" && $p == 1) {
 }
 
 if($BE['LANG'] == 'ar') {
-	$BE['HEADER'][] = '<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '//-->' . LF . '</style>';
+	$BE['HEADER'][] = '<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
 }
 
 ?>
@@ -544,7 +544,7 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 2500);
 
-$BE['BODY_CLOSE']['wz_tooltip.js'] = getJavaScriptSourceLink('include/inc_js/wz_js/wz_tooltip.js', '');
+$BE['BODY_CLOSE']['wz_tooltip.js'] = getJavaScriptSourceLink('include/inc_js/wz_tooltip.js', '');
 
 ?>
 <!-- phpwcms BODY_CLOSE -->
@@ -569,7 +569,7 @@ if($body_onload) {
 	$BE['HTML'] = str_replace('<body>', '<body '.$body_onload.'>', $BE['HTML']);
 }
 
-$BE['HEADER'][] = '	<!--[if lt IE 7]><style type="text/css"> body { behavior: url("include/inc_css/csshover2.htc"); } </style><![endif]-->';
+$BE['HEADER'][] = '  <!--[if lte IE 7]><style type="text/css">body{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/csshover3.htc");}</style><![endif]-->';
 
 // html head section
 $BE['HTML'] = str_replace('<!-- phpwcms HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);

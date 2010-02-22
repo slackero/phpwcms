@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -84,12 +84,9 @@ if($file_id) {
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta name="robots" content="noindex, nofollow">
-<script src="include/inc_js/phpwcms.js" language="JavaScript" type="text/JavaScript"></script>
+<script src="include/inc_js/phpwcms.js" type="text/JavaScript"></script>
 <?php
-echo '
-<script language="JavaScript" type="text/javascript">
-<!--
-
+echo '<script type="text/javascript">
 function ResizeAndCenter(){
 	var width = 590;
 ';
@@ -110,12 +107,11 @@ echo '
 	window.moveTo(5,5);
 	window.resizeTo(width,height);
 }
-//-->
 </script>
 ';
 
 ?>
-<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
+<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body text="#000000" link="#000000" vlink="#000000" alink="#000000" onLoad="ResizeAndCenter();">

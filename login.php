@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -35,6 +35,11 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lang/code.lang.inc.php');
 
 $_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
+
+// make compatibility check
+if(phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
+	phpwcms_revision_check($phpwcms["revision"]);
+}
 
 // define vars
 $err 		= 0;
@@ -200,17 +205,15 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
 <head>
 	<title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="content-type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
 	<meta name="robots" content="noindex, nofollow" />
 	<link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
-	<script language="JavaScript" type="text/javascript" src="include/inc_js/phpwcms.js"></script>
-	<script language="JavaScript" type="text/javascript" src="include/inc_js/md5.js"></script>
+	<script type="text/javascript" src="include/inc_js/phpwcms.js"></script>
+	<script type="text/javascript" src="include/inc_js/md5.js"></script>
 <?php
 
-if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
-	echo '	<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '//-->' . LF . '</style>';
-} elseif(strtolower($phpwcms['default_lang']) == 'ar') {
-	echo '	<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '//-->' . LF . '</style>';
+if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || strtolower($phpwcms['default_lang']) == 'ar') {
+	echo '	<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
 }
 
 ?>
@@ -270,8 +273,6 @@ if(isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') {
 
 // get whole login form and keep in buffer
 ob_start();
-
-//<div id="loginForm" style="display:none;">
 
 ?>
 <form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" style="margin:0;padding:0;" onsubmit="return login(this);" autocomplete="off">
@@ -344,24 +345,19 @@ echo implode(LF, $lang_code);
     </form>
 <?php
 
-//</div>
-
 $formAll = ob_get_contents();
 ob_end_clean();
 
 $formAll = str_replace( "'", "\'", trim($formAll) );
 $formAll = str_replace( "\r", '', $formAll );
-//$formAll = str_replace( "\n", '', $formAll );
 $formAll = str_replace( "\n", "';\nlf += '", $formAll );
 $formAll = str_replace( '<', "<'+'", $formAll );
 
 ?>
 <script type="text/javascript">
-<!--
 var lf  = '<?php echo $formAll ?>';
 getObjectById('loginFormArea').innerHTML = lf;
 getObjectById('form_loginname').focus();
-//-->
 </script>
 </body>
 </html>

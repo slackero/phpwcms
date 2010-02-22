@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -31,17 +31,17 @@ function update_cache() {
 
 function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
 	if($do == "chat" && $p == 1) {
-		echo "<script language=\"JavaScript\" type=\"text/JavaScript\">\n<!--\n";
+		echo "<script type=\"text/javascript\">\n";
 		echo "document.sendchatmessage.chatmsg.focus();\ndocument.sendchatmessage.chatmsg.value=get_cookie('chatstring');\n";
 		echo "timer = chat_reload(20000);\nfunction chat_reload(zeit) {\n";
 		echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php?do=chat&p=1&l=".$chatlist."'\", zeit);\n";
 		echo "return timer;\n}\nfunction restart_reload(timer) {\n";
-		echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); }\nreturn timer;\n}\n//-->\n</script>\n";
+		echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); }\nreturn timer;\n}\n</script>\n";
 	}
 }
 
 function forward_to($to, $link, $time=2500) { //Javascript forwarding
-	if($to) echo "<script language=\"JavaScript\" type=\"text/JavaScript\">\n<!--\n setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); \n //-->\n</script>\n";
+	if($to) echo "<script type=\"text/javascript\">\n setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); \n</script>\n";
 }
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
@@ -929,6 +929,38 @@ function initMultipleUpload() {
 	$GLOBALS['BE']['HEADER']['Swiff.Base.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Base.js');
 	$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Uploader.js');
 	$GLOBALS['BE']['HEADER']['FancyUpload.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/FancyUpload.js');
+}
+
+// make phpwcms compatibility and upgrade check
+function phpwcms_revision_check(&$revision) {
+	$revision_temp = phpwcms_revision_check_temp($revision);
+	if($revision_temp === NULL) {
+		return false;
+	} elseif($revision_temp) {
+		return true;
+	}
+	$revision_file = PHPWCMS_ROOT.'/include/inc_lib/revision/r'.$revision.'.php';
+	if(!is_file($revision_file)) {
+		return false;
+	}
+	include_once($revision_file);
+	$revision_function = 'phpwcms_revision_r'.$revision;
+	if(function_exists($revision_function) && empty($GLOBALS['phpwcms']['check_r'.$revision])) {
+		if( call_user_func($revision_function) !== false ) {
+			$GLOBALS['phpwcms']['check_r'.$revision] = true;
+			@write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s'));
+			return true;
+		}
+	}
+	return true;
+}
+
+// check upgrade temp file for current revision
+function phpwcms_revision_check_temp(&$revision) {
+	if(empty($revision) || !preg_match('/^\d+$/', $revision)) {
+		return NULL;
+	}
+	return is_file(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp');
 }
 
 ?>

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -52,6 +52,31 @@ if(isset($_GET["s"])) {
 	}
 
 // check if subscription should be edited
+
+
+// create paginating for newsletter
+if(isset($_GET['c'])) {
+	$_SESSION['list_newsletter_count'] = $_GET['c'] == 'all' ? '99999' : intval($_GET['c']);
+}
+// set default values for paginating
+if(empty($_SESSION['list_newsletter_count'])) {
+	$_SESSION['list_newsletter_count'] = 10;
+}
+// set page
+if(isset($_GET['page'])) {
+	$_SESSION['newsletter_page'] = intval($_GET['page']);
+}
+// start at page 1
+if(empty($_SESSION['newsletter_page']) || $_SESSION['newsletter_page'] < 1) {
+	$_SESSION['newsletter_page'] = 1;
+}
+
+$_newsletter['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0", 'COUNT');
+$_newsletter['pages_total'] = ceil($_newsletter['count_total'] / $_SESSION['list_newsletter_count']);
+if($_SESSION['newsletter_page'] > $_newsletter['pages_total']) {
+	$_SESSION['newsletter_page'] = $_newsletter['pages_total'];
+}
+
 ?>
 
 <div class="title" style="margin-bottom:10px"><?php echo $BL['be_subnav_msg_newslettersend'] ?></div>
@@ -61,6 +86,50 @@ if(isset($_GET["s"])) {
 	<a href="phpwcms.php?do=messages&amp;p=3&amp;s=0&amp;edit=1"><img src="img/famfamfam/email_add.gif" alt="Add" border="0" /><span><?php echo $BL['be_newsletter_new'] ?></span></a>
 </div>
 
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+		<tr>
+			<td><?php 
+if($_newsletter['pages_total'] > 1) {
+
+	echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
+	if($_SESSION['newsletter_page'] > 1) {
+		echo '<a href="phpwcms.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']-1).'">';
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
+	} else {
+		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
+	}
+	echo '</td>';
+	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
+	echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
+	echo '<td class="chatlist">/'.$_newsletter['pages_total'].'&nbsp;</td>';
+	echo '<td>';
+	if($_SESSION['newsletter_page'] < $_newsletter['pages_total']) {
+		echo '<a href="phpwcms.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']+1).'">';
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
+	} else {
+		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
+	}
+	echo '</td></tr></table>';
+} else {
+	echo '&nbsp;';
+}
+?>
+	
+	</td>
+    
+	<td class="chatlist" align="right">
+		<a href="phpwcms.php?do=messages&amp;p=3&amp;c=5">5</a>
+		<a href="phpwcms.php?do=messages&amp;p=3&amp;c=10">10</a>
+		<a href="phpwcms.php?do=messages&amp;p=3&amp;c=25">25</a>
+		<a href="phpwcms.php?do=messages&amp;p=3&amp;c=50">50</a>
+		<a href="phpwcms.php?do=messages&amp;p=3&amp;c=100">100</a>
+		<a href="phpwcms.php?do=messages&amp;p=3&amp;c=all"><?php echo $BL['be_ftptakeover_all'] ?></a>
+	</td>
+
+	</tr>
+</table>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 	
 	<tr class="tableHeadRow">
@@ -79,6 +148,7 @@ if(isset($_GET["s"])) {
 	// loop listing available newsletters
                                  
 	$sql	= "SELECT * FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_changed DESC";
+	$sql .= " LIMIT ".(($_SESSION['newsletter_page']-1) * $_SESSION['list_newsletter_count']).','.$_SESSION['list_newsletter_count'];
 	$result	= _dbQuery($sql);
 	
 	if($result) {

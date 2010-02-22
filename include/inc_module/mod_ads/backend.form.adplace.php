@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -112,8 +112,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				<td><input type="text" name="adplace_height" id="adplace_height" value="<?php echo $plugin['data']['adplace_height'] ?>" class="v11 disabled width45" onfocus="this.blur()" /></td>
 				<td class="chatlist">&nbsp;<?php echo $BLM['pixel'] ?></td>
 			</tr>
-		</table><script language="javascript" type="text/javascript">
-		<!--
+		</table><script type="text/javascript">
 		var ad_formats = new Array();
 
 <?php 
@@ -124,7 +123,6 @@ if(empty($plugin['data']['adplace_format']) && count($plugin['ad_formats_js'])) 
 }
 
 ?>
-
 		function setFormat(value) {
 		
 			if(ad_formats[value]) {
@@ -133,9 +131,6 @@ if(empty($plugin['data']['adplace_format']) && count($plugin['ad_formats_js'])) 
 			}
 		
 		}
-		
-
-		//-->
 		</script></td>
 	</tr>
 

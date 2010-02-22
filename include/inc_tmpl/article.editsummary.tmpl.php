@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -90,8 +90,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 						  <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="if(!this.checked) {document.article.article_begin.value='';}else{document.article.article_begin.value='<?php echo $article["article_begin"] ?>';}" /></td>
 						<td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
 						  <input name="article_begin" type="text" id="article_begin" style="width:140px" class="f11" value="<?php echo $article["article_begin"] ?>" /></td>
-					  <td class="chatlist" valign="bottom"><script language="JavaScript" type="text/javascript">
-<!--
+					  <td class="chatlist" valign="bottom"><script type="text/javascript">
 function aBegin(date, month, year) {
 	document.article.article_begin.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 00:00:00';
 	document.article.set_begin.checked = true;
@@ -99,15 +98,13 @@ function aBegin(date, month, year) {
 calBegin = new dynCalendar('calBegin', 'aBegin', 'img/dynCal/');
 calBegin.setMonthCombo(false);
 calBegin.setYearCombo(false);
-//-->
 </script><img src="img/leer.gif" alt="" width="3" height="1" /></td>
 						<td align="right" bgcolor="#FFFFFF" class="chatlist">&nbsp;<br />&nbsp;&nbsp;<?php echo $BL['be_article_aend'] ?>:</td>
 						<td class="chatlist">&nbsp;<br />
 						  <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="if(!this.checked) {document.article.article_end.value='';}else{document.article.article_end.value='<?php echo $article["article_end"] ?>';}" /></td>
 						<td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
 						  <input name="article_end" type="text" id="article_end" style="width:140px" class="f11" value="<?php echo $article["article_end"] ?>" /></td>
-					  <td class="chatlist" valign="bottom"><script language="JavaScript" type="text/javascript">
-<!--
+					  <td class="chatlist" valign="bottom"><script type="text/javascript">
 function aEnd(date, month, year) {
 	document.article.article_end.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 23:59:59';
 	document.article.set_end.checked = true;
@@ -115,7 +112,6 @@ function aEnd(date, month, year) {
 calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
 calEnd.setMonthCombo(false);
 calEnd.setYearCombo(false);
-//-->
 </script><img src="img/leer.gif" alt="" width="3" height="1" /></td>
 					</tr>
 				</table></td>
@@ -178,7 +174,7 @@ calEnd.setYearCombo(false);
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-              <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11" style="width: 440px" value="<?php echo html_specialchars($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
+              <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11 width440" value="<?php echo html_specialchars($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
 			</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
@@ -189,10 +185,14 @@ calEnd.setYearCombo(false);
 	</tr>			
 		
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-			<tr valign="top">
-				<td align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="3" /><br />
-			  <?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
-				<td><textarea name="article_keyword" rows="4" class="f10" id="article_keyword" style="width: 440px" onkeyup="if(this.value.length &gt; 250) {this.value=this.value.substr(0,250);}"><?php echo html_specialchars($article["article_keyword"]) ?></textarea></td>
+			<tr>
+				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
+				<td><textarea name="article_keyword" rows="2" class="f10 width440" id="article_keyword"><?php echo html_specialchars($article["article_keyword"]) ?></textarea></td>
+			</tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+			<tr>
+				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
+				<td><textarea name="article_description" rows="2" class="f10 width440" id="article_description"><?php echo html_specialchars($article["article_description"]) ?></textarea></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>		
 			<tr>
@@ -624,8 +624,6 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 </table>
 </form>
 <script type="text/javascript">
-<!--
-
 window.addEvent('domready', function(){
 									 
 	/* Autocompleter for keywords (=tags) */
@@ -653,5 +651,4 @@ function cancelEdit() {
 	return false;
 }
 
-//-->
 </script>

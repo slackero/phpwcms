@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -153,8 +153,8 @@ function get_body_attributes(& $values) {
 			$link_class .= LF;
 		}
 		if(!empty($body_class) || !empty($link_class)) {
-			$body_class  = '  <style type="text/css">'.LF.SCRIPT_CDATA_START.LF.$body_class;
-			$body_class .= $link_class;
+			$body_class  = '  <style type="text/css">'.LF.SCRIPT_CDATA_START.LF;
+			$body_class .= $body_class . $link_class;
 			$body_class .= SCRIPT_CDATA_END.LF.'  </style>'.LF;
 		}
 		return $body_class;

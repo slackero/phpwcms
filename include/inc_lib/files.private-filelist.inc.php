@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -45,7 +45,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<td width=\"19\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"19\" border=\"0\"></td>\n";
 		echo "<td width=\"13\" class=\"msglist\">";
 		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
-		echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" alt=""';
+		echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" onmouseout="UnTip()" alt=""';
 		echo "></td>\n";
 		echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">";
 		echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];

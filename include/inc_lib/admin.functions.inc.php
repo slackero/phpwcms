@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -73,7 +73,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$info .= 'ALIAS: '.html_specialchars($struct[$key]["acat_alias"]).'<br />';
 	$info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
 	
-	$a .= 'onmouseover="Tip(\''.$info.'\');" alt=""';	
+	$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt=""';	
 	
 	$a .= "></td>\n";
 	$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
@@ -280,7 +280,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		}
 		$info .= '</table>';
 		
-		$a .= 'onmouseover="Tip(\''. $info .'\');" alt=""';
+		$a .= 'onmouseover="Tip(\''. $info .'\');" onmouseout="UnTip()" alt=""';
 		//$a .= getAltTitle($info);
 		$a .= " /></td>\n";
 		$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
@@ -446,7 +446,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			} elseif($copy_article_content == $article_content["acontent_id"]) {       
 				$a .= "<tr bgcolor=\"#FFA801\">\n";
 			} else {
-				$a .= "<tr onmouseover=\"this.bgColor='#FFDE01';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";						
+				$a .= "<tr onmouseover=\"this.bgColor='#FFDE01';\" onmouseout=\"this.bgColor='#FFFFFF';UnTip();\">\n";						
 			}
 			$gk = 14+14+29+(14*($counter-1));
 			$a .= "<td width=\"".$gk."\"><img src=\"img/leer.gif\" width=\"".$gk."\" height=\"1\" alt=\"\" /></td>";	//$counter-1           

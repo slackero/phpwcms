@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -38,8 +38,8 @@ $_SESSION['REFERER_URL'] =	BE_CURRENT_URL;
 
 
 // some more important constants
-define('JS_START',	'<script language="javascript" type="text/javascript">' . LF . '<!--' . LF);
-define('JS_END',	LF . '//-->' . LF . '</script>');
+define('JS_START',	'<script type="text/javascript">' . LF . '<!--' . LF);
+define('JS_END',	LF . '// -->' . LF . '</script>');
 
 
 ?>

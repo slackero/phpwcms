@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -47,7 +47,7 @@ $template_default['imagegallery_default_width']	 = isset($template_default['imag
 $template_default['imagegallery_default_height'] = isset($template_default['imagegallery_default_height']) ? $template_default['imagegallery_default_height'] : '' ;
 $template_default['imagegallery_default_space']	 = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
 
-if(!isset($content['image_list'])) {
+if(!isset($content['image_list']['col'])) {
 
 	$content['image_list'] = array(
 	

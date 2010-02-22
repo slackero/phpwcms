@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -165,7 +165,7 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
 				
 				<td class="chatlist">|&nbsp;</td>
-			//-->
+			// -->
 				<td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;">&lt;</button></td>
 				<td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_this_month'] ?>';return false;"><?php echo $BLM['today'] ?></button></td>
 				<td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;">&gt;</button></td>

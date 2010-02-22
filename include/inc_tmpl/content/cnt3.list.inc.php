@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -51,8 +51,8 @@ $cinfo[1] = cut_string($row["acontent_title"],'&#8230;', 55);
 							 echo "<img src=\"img/symbole/link_to.gif\" border=\"0\" ";
 							 echo "title=\"test link to: ".html_specialchars($content["link"])."\"></a>";
 							 if($cinfo["result"]) { //Zeige Inhaltinfo
-							 	echo " <a href=\"phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$article["article_id"];
-							 	echo "&acid=".$row["acontent_id"]."\">".$cinfo["result"]."</a>";
+							 	echo " <a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"];
+							 	echo "&amp;acid=".$row["acontent_id"]."\">".$cinfo["result"]."</a>";
 							 }	
 							 echo "</td><td>&nbsp;</td></tr>";
 

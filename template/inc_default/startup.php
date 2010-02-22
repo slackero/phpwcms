@@ -1,1 +1,1 @@
-<!-- fill in information for your customers here //-->
+<!-- fill in information for your customers here -->

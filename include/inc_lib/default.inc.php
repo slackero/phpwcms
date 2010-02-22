@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -192,7 +192,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html{DOCTYPE_LANG}>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
-	define('SCRIPT_CDATA_END'  , '  //-->');
+	define('SCRIPT_CDATA_END'  , '  // -->');
 	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', false);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
@@ -212,7 +212,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"{DOCTYPE_LANG}>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
-	define('SCRIPT_CDATA_END'  , '  //-->');
+	define('SCRIPT_CDATA_END'  , '  // -->');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
@@ -220,8 +220,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.5';
-$phpwcms["release_date"]	= '2010/02/12';
-$phpwcms["revision"]		= '400';
+$phpwcms["release_date"]	= '2010/02/22';
+$phpwcms["revision"]		= '401';
 
 /* 
  * Disabled now - maybe needed at later time

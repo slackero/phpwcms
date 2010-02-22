@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -127,8 +127,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<td><input type="text" name="adcampaign_height" id="adcampaign_height" value="<?php echo $plugin['data']['adcampaign_data']['height'] ?>" class="v11 disabled width40" onfocus="this.blur()" /></td>
 				<td class="chatlist">&nbsp;<?php echo $BLM['pixel'] ?></td>
 			</tr>
-		</table><script language="javascript" type="text/javascript">
-		<!--
+		</table><script type="text/javascript">
 		var ad_place = new Array();
 <?php 
 
@@ -137,11 +136,7 @@ if(empty($plugin['data']['adcampaign_place']) && count($plugin['ad_place_js'])) 
 	echo LF.LF.'	 	setFormat('.key($plugin['ad_place_js']).');';
 }
 
-
-
-
 // set JavaScript sourcePath
-
 if(!empty($plugin['data']['adcampaign_id'])) {
 	echo LF.LF.'	 	var adsPath = "'.$phpwcms["content_path"].'ads/'.$plugin['data']['adcampaign_id'].'/";'.LF.LF;
 }
@@ -156,7 +151,6 @@ if(!empty($plugin['data']['adcampaign_id'])) {
 		
 		}
 
-		//-->
 		</script></td>
 	
 	</tr>
@@ -216,8 +210,7 @@ if(!empty($plugin['data']['adcampaign_id'])) {
 		?>" value="<?php echo html_specialchars($plugin['data']['adcampaign_date_start']) ?>" size="30" /></td>
 		<td>&nbsp;</td>
 		<td><input name="adcampaign_time_start" type="text" id="adcampaign_time_start" class="v12 width100" value="<?php echo html_specialchars($plugin['data']['adcampaign_time_start']) ?>" size="30" /></td>
-		<td>&nbsp;<script language="javascript" type="text/javascript">
-		<!--
+		<td>&nbsp;<script type="text/javascript">
 		function aStart(date, month, year) {
 			getFieldById('adcampaign_date_start').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 			
@@ -229,7 +222,6 @@ if(!empty($plugin['data']['adcampaign_id'])) {
 		calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
 		calStart.setMonthCombo(false);
 		calStart.setYearCombo(false);
-		//-->
 		</script></td>
 	
 			</tr>
@@ -258,8 +250,7 @@ if(!empty($plugin['data']['adcampaign_id'])) {
 		?>" value="<?php echo html_specialchars($plugin['data']['adcampaign_date_end']) ?>" size="30" /></td>
 		<td>&nbsp;</td>
 		<td><input name="adcampaign_time_end" type="text" id="adcampaign_time_end" class="v12 width100" value="<?php echo html_specialchars($plugin['data']['adcampaign_time_end']) ?>" size="30" /></td>
-		<td>&nbsp;<script language="javascript" type="text/javascript">
-		<!--
+		<td>&nbsp;<script type="text/javascript">
 		function aEnd(date, month, year) {
 			getFieldById('adcampaign_date_end').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 			var timeend = getFieldById('adcampaign_time_end');
@@ -270,7 +261,6 @@ if(!empty($plugin['data']['adcampaign_id'])) {
 		calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
 		calEnd.setMonthCombo(false);
 		calEnd.setYearCombo(false);
-		//-->
 		</script></td>
 		
 			</tr>
@@ -466,7 +456,7 @@ if(isset($plugin['error']['css'])) {
 <?php
 // as long as no ID defined hide upload content
 if(empty($plugin['data']['adcampaign_id'])) {
-	echo LF.'//-->'.LF;
+	echo LF.'// -->'.LF;
 } 
 
 

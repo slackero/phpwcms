@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -389,7 +389,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	if( count($js_files_select) ) {
 		
 		echo LF . '<script type="text/javascript">';
-		echo LF . '<!--' . LF;
+		echo LF . SCRIPT_CDATA_START . LF;
 		
 		echo 'var files_all = new Array(' . LF;
 		echo implode(','.LF, $js_files_select);
@@ -405,7 +405,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 		echo LF . '	if(confirm("' . str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']) . '")) tmt_winControl("self","close()");';
 		echo LF . '}' . LF;
 		
-		echo LF . '//-->';
+		echo LF . SCRIPT_CDATA_END;
 		echo LF . '</script>' . LF;
 		
 		

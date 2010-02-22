@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -60,7 +60,7 @@ foreach($cinfo as $value) {
 $cinfo["result"] = str_replace("\n", " / ", html_specialchars(trim($cinfo["result"])));
 if($cinfo["result"] || $cinfo_image) { //Zeige Inhaltinfo
 	echo "<tr><td>&nbsp;</td><td class=\"v10\">";
-	echo "<a href=\"phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$article["article_id"]."&acid=".$row["acontent_id"]."\">";
+	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
 	echo $cinfo["result"];
 	if($cinfo["result"] && $cinfo_image) echo "<br />";
 	echo $cinfo_image."</a></td><td>&nbsp;</td></tr>";

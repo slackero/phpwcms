@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -80,6 +80,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 						$row["article_date"]		= $alias_row["article_date"];
 						$row["article_image"]		= $alias_row["article_image"];
 						$row["article_pagetitle"]	= $alias_row["article_pagetitle"];
+						$row['article_description']	= $alias_row['article_description'];
 					}
 				}
 				mysql_free_result($alias_result);
@@ -108,7 +109,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$content["redirect"]["code"] .= '	<meta http-equiv="refresh" content="'.$content["redirect"]["timeout"].';URL=';
 				$content["redirect"]["code"] .= $content["redirect"]["link"];
 				$content["redirect"]["code"] .= '" />'.LF.'  </noscript>' . LF;
-				$content["redirect"]["code"] .= '  <script type="text/javascript">' . LF . '  <!--' . LF;
+				$content["redirect"]["code"] .= '  <script type="text/javascript">' . LF;
 				$content["redirect"]["code"] .= '	var redirectWin;' . LF;
 				if($content["redirect"]["timeout"]) {
 					$content["redirect"]["code"] .= '	window.setTimeout(\'window.open("'.$content["redirect"]["link"].'", redirectWin)\', ';
@@ -117,7 +118,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				} else {
 					$content["redirect"]["code"] .= '	window.open("'.$content["redirect"]["link"].'", redirectWin);';
 				}
-				$content["redirect"]["code"] .= LF . '  //-->' . LF . '  </script>' . LF;
+				$content["redirect"]["code"] .= LF . '  </script>' . LF;
 			}
 		}
 
@@ -141,13 +142,14 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 		//check if article has custom pagetitle
 		if(!empty($row["article_pagetitle"])) {
-		
 			$content["pagetitle"] = $row["article_pagetitle"];
-		
 		} else {
-			
 			$content["pagetitle"] = setPageTitle($content["pagetitle"], $article['cat'], $row["article_title"]);
+		}
 		
+		// check description
+		if(!empty($row['article_description'])) {
+			set_meta('description', $row['article_description']);
 		}
 		
 		$content['all_keywords'] = $row['article_keyword'];

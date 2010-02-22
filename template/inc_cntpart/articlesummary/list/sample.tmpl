@@ -1,38 +1,16 @@
-<!-- 
-sample template for article summary listing
-===========================================
-
-TITLE       = article title
-SUB         = article subtitle
-SUMMARY     = article summary text
-IMAGE       = summary image (only the <img src="..."> tag)
-ZOOMIMAGE   = if the image is click-zoomable (<a href...><img...></a>)
-CAPTION     = summary image caption
-ARTICLELINK = url to full article
-MORE        = the "more..." text/image like defined in template_defaults
-BEFORE      = show before listing entry
-AFTER       = show after listing entry
-SPACE       = show this between listings
-DATE        = show article date {DATE:FORMAT:LANG} or {DATE:FORMAT}
-EDITOR      = name of editor
-ARTICLEID   = ID of list entry
-
-//-->
 [SPACE]<hr />[/SPACE]
-<div>
-	<table cellspacing="0" cellpadding="0" border="0" width="100%" summary="">
-		<tr>
-			<td width="150" valign="top">
-				[IMAGE]<div><a href="{ARTICLELINK}">{IMAGE}</a></div>[/IMAGE]
-				[CAPTION]<div align="center">{CAPTION}</div>[/CAPTION]
-			</td>
-			<td width="10"><img src="img/leer.gif" border="0" width="10" height="1" alt="" /></td>
-			<td width="98%" valign="top">
-				[TITLE]<h1 style="margin:0 0 5px 0;">{TITLE}</h1>[/TITLE]
-				[SUB]<h3 style="margin:0 0 5px 0;">{SUB}</h3>[/SUB]
-				[SUMMARY]<p style="margin:0"><strong>{DATE:F lang=DE}</strong> {SUMMARY}</p>[/SUMMARY]
-				[MORE]<a href="{ARTICLELINK}"{TARGET}>{MORE}</a>[/MORE]
-			</td>
-		</tr>
-	</table>
-</div>
+<table cellspacing="0" cellpadding="0" border="0" width="100%" summary="">
+	<tr>
+		<td width="150" valign="top">
+			[IMAGE]<div><a href="{ARTICLELINK}">{IMAGE}</a></div>[/IMAGE]
+			[CAPTION]<div align="center">{CAPTION}</div>[/CAPTION]
+		</td>
+		<td width="10"><img src="img/leer.gif" border="0" width="10" height="1" alt="" /></td>
+		<td width="98%" valign="top">
+			[TITLE]<h1>{TITLE}</h1>[/TITLE]
+			[SUB]<h2>{SUB}</h3>[/SUB]
+			[SUMMARY]<div><strong>{DATE:F lang=DE}</strong> {SUMMARY}</div>[/SUMMARY]
+			[MORE]<p><a href="{ARTICLELINK}"{TARGET}>{MORE}</a></p>[/MORE]
+		</td>
+	</tr>
+</table>

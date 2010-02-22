@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -118,7 +118,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 						echo "<td width=\"37\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"37\" border=\"0\"></td>\n";
 						echo "<td width=\"13\" class=\"msglist\">";
 						echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
-						echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" alt=""';
+						echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" onmouseout="UnTip()" alt=""';
 						echo "></td>\n";
 						echo "<td width=\"473\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">"; //438-$vor
 						//echo "<a href=\"fileinfo_public.php?fid=".$file_row["f_id"];

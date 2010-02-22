@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -79,7 +79,7 @@ $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" ";
 $info  = 'ID: <b>0</b><br />';
 $info .= 'ALIAS: '.html_specialchars($indexpage["acat_alias"]);
 	
-$a .= 'onmouseover="Tip(\''.$info.'\');" alt="" />';	
+$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt="" />';	
 
 $a .= "</td>\n";
 $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";

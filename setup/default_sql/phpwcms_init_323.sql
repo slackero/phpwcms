@@ -167,6 +167,7 @@ CREATE TABLE `phpwcms_article` (
   `article_norss` int(1) NOT NULL default '1',
   `article_archive_status` int(1) NOT NULL default '1',
   `article_menutitle` varchar(255) NOT NULL,
+  `article_description` varchar(255) NOT NULL,
   PRIMARY KEY  (`article_id`),
   KEY `article_aktiv` (`article_aktiv`),
   KEY `article_public` (`article_public`),

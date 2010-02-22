@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -576,7 +576,7 @@ if($aktion[2] == 0) {
 // -------------------------------------------------------------
 
 // Render possible PHP Values in category or article keyword field
-$content["struct"][$aktion[0]]["acat_info"]			= render_PHPcode($content["struct"][$aktion[0]]["acat_info"]);
+$content["struct"][$aktion[0]]["acat_info"] = render_PHPcode($content["struct"][$aktion[0]]["acat_info"]);
 if(!empty($content["articles"][$aktion[1]]["article_keyword"]) && strpos($content["articles"][$aktion[1]]["article_keyword"], 'PHP') !== FALSE) {
 	$content["articles"][$aktion[1]]["article_keyword"]	= render_PHPcode($content["articles"][$aktion[1]]["article_keyword"]);
 }
@@ -783,8 +783,7 @@ if(count($content['globalRT'])) {
 // -------------------------------------------------------------
 
 // add possible redirection code (article summary) to $block["htmlhead"];
-$block["htmlhead"]  = render_PHPcode($block["htmlhead"]);
-$block["htmlhead"]  = $content["redirect"]["code"].$block["htmlhead"]."\n";
+$block["htmlhead"]  = $content["redirect"]["code"] . render_PHPcode($block["htmlhead"]) . LF;
 
 // -------------------------------------------------------------
 
@@ -815,7 +814,6 @@ if(FE_EDIT_LINK) {
 	$content['all'] .= LF . '<div id="fe-link" class="disabled"></div>' . LF;
 
 }
-
 
 // insert description meta tag if not definied
 if(empty($block['custom_htmlhead']['meta.description']) && !empty($content["struct"][$aktion[0]]["acat_info"]) && !stristr($block["htmlhead"], '"description"')) {

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -93,8 +93,10 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article['article_created']		= $row['article_created'];
 				$article['article_norss']		= $row['article_norss'];
 				$article['article_menutitle']	= $row['article_menutitle'];
-				
+				$article['article_description']	= $row['article_description'];
+								
 				$article['article_archive_status']	= $row['article_archive_status'];
+				
 				$read_done = true;
 			}
 			mysql_free_result($result);
@@ -114,6 +116,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_alias"]				= '';
 		$article["article_subtitle"]			= '';
 		$article["article_menutitle"]			= '';
+		$article["article_description"]			= '';
 		$article["article_summary"]				= '';
 		$article["article_public"]				= 1;
 		$article["article_notitle"]				= 0;
@@ -165,12 +168,13 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article_err = array();
 		
 		$article["article_catid"]		= intval($_POST["article_cid"]);
-		$article["article_title"]		= clean_slweg($_POST["article_title"]);
+		$article["article_title"]		= clean_slweg($_POST["article_title"], 255);
 
 		$article["article_alias"]		= proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
 		
-		$article["article_subtitle"]	= clean_slweg($_POST["article_subtitle"]);
-		$article["article_menutitle"]	= clean_slweg($_POST["article_menutitle"]);
+		$article["article_subtitle"]	= clean_slweg($_POST["article_subtitle"], 255);
+		$article["article_menutitle"]	= clean_slweg($_POST["article_menutitle"], 255);
+		$article["article_description"]	= clean_slweg($_POST["article_description"], 255);
 		$article["article_summary"]		= str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]) );
 		$article["article_public"]		= isset($_POST["article_public"]) ? 1 : 0;
 		$article["article_notitle"]		= isset($_POST["article_notitle"]) ? 1 : 0;
@@ -317,7 +321,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		
 			if($article["article_id"] == 0) {
 			
-				// Insret (create) new article
+				// Insert (create) new article
 				
 				$data = array(
 					
@@ -351,6 +355,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					"article_uid"			=> $article["article_uid"],
 					"article_archive_status"=> $article["article_archive_status"],
 					"article_menutitle"		=> $article["article_menutitle"],
+					'article_description'	=> $article["article_description"],
 					'article_serialized'	=> ''
 
 							);
@@ -400,7 +405,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 						"article_priorize=".$article['article_priorize'].", ".
 						"article_norss=".$article['article_norss'].", ".
 						"article_archive_status=".$article['article_archive_status'].", ".
-						"article_menutitle='".aporeplace($article["article_menutitle"])."'";
+						"article_menutitle='".aporeplace($article["article_menutitle"])."',".
+						"article_description='".aporeplace($article["article_description"])."' ";
 						if($_SESSION["wcs_user_admin"]) {
 							$sql .= ", article_uid=".$article["article_uid"]." ";				
 						}

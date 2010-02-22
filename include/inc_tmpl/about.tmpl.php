@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -76,12 +76,14 @@ echo phpwcmsversionCheck();
     <li><a href="http://mikolajj.republika.pl" target="_blank"><strong>ConvertCharset</strong></a>,
       Copyright &copy; 2003-2004 Mikolaj Jedrzejak  </li>
     <li><a href="http://www.fckeditor.net" target="_blank"><strong>FCKeditor</strong></a>,
-      Copyright &copy; 2003-2007 Frederico Caldeira Knabben,
+      Copyright &copy; 2003-2010 Frederico Caldeira Knabben,
       <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
+    <li><a href="http://www.fckeditor.net" target="_blank"><strong>CKEditor</strong></a>,
+      Copyright &copy; 2003-2010 Frederico Caldeira Knabben, <a href="http://ckeditor.com/license" target="_blank">License</a></li>
     <li><a href="http://www.bitfolge.de" target="_blank"><strong>FeedCreator</strong></a>,
       originally &copy; Kai Blankenhorn,
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL </a></li>
-    <li><a href="http://simplepie.org/" target="_blank"><strong>SimplePie</strong></a>, Copyright &copy; 2004&ndash;2009 Ryan Parman, Geoffrey Sneddon and contributors, <a href="http://www.opensource.org/licenses/bsd-license.php" target="_blank">BSD License</a></li>
+    <li><a href="http://simplepie.org/" target="_blank"><strong>SimplePie</strong></a>, Copyright &copy; 2004&ndash;2010 Ryan Parman, Geoffrey Sneddon and contributors, <a href="http://www.opensource.org/licenses/bsd-license.php" target="_blank">BSD License</a></li>
     <li><a href="http://phpmailer.sourceforge.net/" target="_blank"><strong>PHPMailer</strong></a>,
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
     <li><a href="http://www.solmetra.com" target="_blank"><strong>Solmetra
@@ -91,19 +93,17 @@ echo phpwcmsversionCheck();
     <li><a href="http://smiledsoft.com/" target="_blank"><strong>ss_image</strong> PHP
     	class</a>,
     	Copyright &copy; Yuriy Horobey,  for use in phpwcms only</li>
-    <li><strong>JavaScript Browser Sniffer</strong>,
-      <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a></li>
     <li><a href="http://www.JavascriptToolbox.com" target="_blank"><strong>JavascriptToolbox.com</strong></a> JavaScripts,
-      Matt Kruse &lt;matt@mattkruse.com&gt;</li>
+    	Matt Kruse &lt;matt@mattkruse.com&gt;</li>
     <li><a href="http://www.walterzorn.com/" target="_blank"><strong>wz_js
       Scripts</strong></a>,
-      Copyright &copy; 2002-2005 Walter Zorn, 
+      Copyright &copy; 2002-2009 Walter Zorn, 
       <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a></li>
     <li><strong>dynCalendar.js</strong>,
       Copyright &copy; 2001, 2002 Richard Heyes</li>
 	<li><a href="http://www.digitalia.be/software/slimbox" target="_blank"><strong>Slimbox</strong></a>,
     Copyright &copy; Christophe Beyls, <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></li>
-    <li><a href="http://mootools.net/" target="_blank"><strong>mootools</strong></a>, Copyright &copy; 2006 Valerio Proietti, <a href="http://www.opensource.org/licenses/mit-license.php">MIT
+    <li><a href="http://mootools.net/" target="_blank"><strong>MooTools</strong></a>, Copyright &copy; 2006-2009 Valerio Proietti, <a href="http://www.opensource.org/licenses/mit-license.php">MIT
     License</a></li>
     <li><a href="http://code.google.com/p/swfobject/" target="_blank"><strong>SWFObject</strong></a>,  <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a><a href="http://creativecommons.org/licenses/LGPL/2.1/" target="_blank"></a></li>
     <li><a href="http://www.famfamfam.com/" target="_blank"><strong>FamFamFam</strong></a>, Copyright &copy; Mark James, <a href="http://creativecommons.org/licenses/by/2.5/" target="_blank">CC-Attribution</a></li>

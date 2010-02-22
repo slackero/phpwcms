@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.5';
-$phpwcms_release_date	= '2010/02/12';
-$phpwcms_revision		= '400';
+$phpwcms_release_date	= '2010/02/22';
+$phpwcms_revision		= '401';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {

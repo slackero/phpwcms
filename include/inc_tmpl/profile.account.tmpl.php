@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -97,8 +97,8 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 		<td align="right" valign="top" style="padding-top: 3px;"><?php echo $BL['be_WYSIWYG'] ?>:&nbsp;</td>
 		<td><select name="form_wysiwyg" id="form_wysiwyg" class="v12 width250" style="margin-bottom:2px;" onchange="setWYSIWYGtemplate();">
 				<option value="0"<?php is_selected(0, $_SESSION["WYSIWYG_EDITOR"]) ?>><?php echo $BL['be_WYSIWYG_disabled'] ?></option>
-				<option value="1"<?php is_selected(1, $_SESSION["WYSIWYG_EDITOR"]) ?>>CKEditor 3.0</option>
-				<option value="2"<?php is_selected(2, $_SESSION["WYSIWYG_EDITOR"]) ?>>FCKeditor 2.6.5</option>
+				<option value="1"<?php is_selected(1, $_SESSION["WYSIWYG_EDITOR"]) ?>>CKEditor 3.1</option>
+				<option value="2"<?php is_selected(2, $_SESSION["WYSIWYG_EDITOR"]) ?>>FCKeditor 2.6.6</option>
         </select>
 		<div id="wysiwyg_template"><input type="hidden" name="form_wysiwyg_toolbar" value="" /></div>
 		</td>

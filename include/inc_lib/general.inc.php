@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -29,13 +29,6 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php');
 
 function isEmpty($string) {
 	return ($string == NULL || $string == '') ? 1 : 0;
-}
-
-function aporeplace($string_to_convert='') {
-	//Ändert die einfachen Apostrophe für SQL-Funktionen in doppelte
-	$string_to_convert = str_replace("\\", "\\\\", $string_to_convert);
-	$string_to_convert = str_replace("'", "''", $string_to_convert );
-	return $string_to_convert;
 }
 
 function slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {

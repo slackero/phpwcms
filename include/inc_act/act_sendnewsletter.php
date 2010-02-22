@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -145,6 +145,7 @@ if(!$newsletter) {
 			$template_text = trim(get_tmpl_section('TEXT', $template));
 			if($template_html) {
 				$newsletter['newsletter_vars']['html'] = str_replace('{CONTENT}', $newsletter['newsletter_vars']['html'], $template_html);
+				$newsletter['newsletter_vars']['html'] = preg_replace('/( src=["\'](?!http:|https:|mailto:))(.*?)/i', '$1'.PHPWCMS_URL.'$2', $newsletter['newsletter_vars']['html']);
 			}
 			if($template_text) {
 				$newsletter['newsletter_vars']['text'] = str_replace('{CONTENT}', $newsletter['newsletter_vars']['text'], $template_text);
@@ -230,7 +231,7 @@ if(!$newsletter) {
 			if($loop && $loop == $x) {
 				$mail->SmtpClose();
 				updateSentDate($newsletter["newsletter_id"]);
-				echo '<script language="javascript" type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+				echo '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 				echo 'function loopIt() { self.location.href="act_sendnewsletter.php?';
 				echo 'newsletter_id='.$newsletter["newsletter_id"].'&';
 				echo 'send_confirm=confirmed&loop='.$loop.'&pause='.$pause.'"; }'.LF;

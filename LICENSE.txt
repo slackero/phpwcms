@@ -1,7 +1,7 @@
 *******************************************************************************************
 
   --- phpwcms --- licensing conditions
-  Copyright (c) 2002-2009 Oliver Georgi <oliver@phpwcms.de>
+  Copyright (c) 2002-2010 Oliver Georgi <oliver@phpwcms.de>
   revised 07/01/2009
 
 *******************************************************************************************

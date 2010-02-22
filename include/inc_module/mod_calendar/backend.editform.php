@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -84,15 +84,13 @@ initMootoolsAutocompleter();
 		if(!empty($plugin['error']['calendar_start'])) echo ' errorInputText';
 		
 		?>" style="width:100px;" value="<?php echo html_specialchars($plugin['data']['calendar_start_date']) ?>" size="30" /></td>
-		<td><script language="javascript" type="text/javascript">
-		<!--
+		<td><script type="text/javascript">
 		function aStart(date, month, year) {
 			getFieldById('calendar_start_date').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 		}
 		calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
 		calStart.setMonthCombo(false);
 		calStart.setYearCombo(false);
-		//-->
 		</script>&nbsp;</td>
 		<td id="endDate2"><input name="calendar_start_time" type="text" id="calendar_start_time" class="v12" style="width:80px;" value="<?php echo html_specialchars($plugin['data']['calendar_start_time']) ?>" size="30" /></td>
 		
@@ -124,15 +122,13 @@ initMootoolsAutocompleter();
 		if(!empty($plugin['error']['calendar_end'])) echo ' errorInputText';
 		
 		?>" style="width:100px;" value="<?php echo html_specialchars($plugin['data']['calendar_end_date']) ?>" size="30" /></td>
-		<td><script language="javascript" type="text/javascript">
-		<!--
+		<td><script type="text/javascript">
 		function aEnd(date, month, year) {
 			getFieldById('calendar_end_date').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 		}
 		calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
 		calEnd.setMonthCombo(false);
 		calEnd.setYearCombo(false);
-		//-->
 		</script>&nbsp;</td>
 		<td><input name="calendar_end_time" type="text" id="calendar_end_time" class="v12" style="width:80px;" value="<?php echo html_specialchars($plugin['data']['calendar_end_time']) ?>" size="30" /></td>
 		
@@ -174,27 +170,23 @@ initMootoolsAutocompleter();
 		
 			<tr>
 				<td><input name="calendar_range_start" type="text" id="calendar_range_start" class="v12" style="width:100px;" value="<?php echo html_specialchars($plugin['data']['calendar_rangestart']) ?>" size="30" /></td>
-				<td><script language="javascript" type="text/javascript">
-					<!--
+				<td><script type="text/javascript">
 					function rStart(date, month, year) {
 						getFieldById('calendar_range_start').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 					}
 					rangeStart = new dynCalendar('rangeStart', 'rStart', 'img/dynCal/');
 					rangeStart.setMonthCombo(false);
 					rangeStart.setYearCombo(false);
-					//-->
 					</script>&nbsp;</td>
 				<td class="chatlist">&nbsp;<?php echo $BLM['till'] ?>:&nbsp;</td>
 				<td><input name="calendar_range_end" type="text" id="calendar_range_end" class="v12" style="width:100px;" value="<?php echo html_specialchars($plugin['data']['calendar_rangeend']) ?>" size="30" /></td>
-				<td><script language="javascript" type="text/javascript">
-					<!--
+				<td><script type="text/javascript">
 					function rEnd(date, month, year) {
 						getFieldById('calendar_range_end').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 					}
 					rangeEnd = new dynCalendar('rangeEnd', 'rEnd', 'img/dynCal/');
 					rangeEnd.setMonthCombo(false);
 					rangeEnd.setYearCombo(false);
-					//-->
 					</script>&nbsp;</td>
 	
 			</tr>
@@ -359,8 +351,6 @@ initMootoolsAutocompleter();
 </table>
 </form>
 <script type="text/javascript">
-<!--
-
 window.addEvent('domready', function(){
 
 	/* Autocompleter for categories/tags */
@@ -474,8 +464,4 @@ function showImage() {
 	}
 }
 
-//-->
 </script>
-
-
-

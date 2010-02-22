@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -58,9 +58,14 @@ if(!function_exists('mysql_real_escape_string')) {
 		}
 	} else {
 		function mysql_real_escape_string($string) {
-			return aporeplace( $string );
+			return str_replace("'", "''", str_replace("\\", "\\\\", $string) );
 		}
 	}
+}
+// old function for escaping db items
+function aporeplace($value='') {
+	// ToDo: Check if _dbEscape($value, false) might better replacement
+	return mysql_real_escape_string($value);
 }
 
 function _dbQuery($query='', $_queryMode='ASSOC') {
@@ -109,9 +114,15 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 							}
 							break;
 			
-			// SET, CREATE
+			// SET, CREATE, ALTER
+			case 'ALTER':
 			case 'SET':
 			case 'CREATE':	return true;
+							break;
+			
+			// send SHOW query and count results
+			case 'COUNT_SHOW':
+							return mysql_num_rows($result);
 							break;
 			
 			default: 		$_queryMode = 'mysql_fetch_assoc';

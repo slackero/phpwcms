@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2009 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -161,7 +161,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
 		hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
 		td {font-size: 10pt;}
-	//-->
+	// -->
 	</style>'.LF;
 	echo '</head>'.LF;
 	echo '<body>'.LF;
