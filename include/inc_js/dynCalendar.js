@@ -272,10 +272,11 @@
 */
 	function dynCalendar_writeHTML()
 	{
-		if (is_ie5up || is_nav6up || is_gecko) {
+		// expect modern browser
+		//if (is_ie5up || is_nav6up || is_gecko) {
 			document.write('<a href="javascript: ' + this.objName + '.show()"><img src="' + this.imagesPath + 'dynCalendar.gif" border="0" id="' + this.imgID + '" /></a>');
 			document.write('<div class="dynCalendar" id="' + this.layerID + '" onmouseover="' + this.objName + '._mouseover(true)" onmouseout="' + this.objName + '._mouseover(false)"></div>');
-		}
+		//}
 	}
 
 /**
@@ -486,7 +487,8 @@
 
 	document.onmousemove = function ()
 	{
-		if (is_ie5up || is_nav6up || is_gecko) {
+		// expect modern browser
+		//if (is_ie5up || is_nav6up || is_gecko) {
 			if (arguments[0]) {
 				dynCalendar_mouseX = arguments[0].pageX;
 				dynCalendar_mouseY = arguments[0].pageY;
@@ -497,7 +499,7 @@
 			}
 	
 			dynCalendar_oldOnmousemove();
-		}
+		//}
 	}
 
 /**
@@ -507,7 +509,8 @@
 
 	document.onclick = function ()
 	{
-		if (is_ie5up || is_nav6up || is_gecko) {
+		// expect modern browser
+		//if (is_ie5up || is_nav6up || is_gecko) {
 			if(!dynCalendar_mouseoverStatus){
 				for(i=0; i<dynCalendar_layers.length; ++i){
 					dynCalendar_layers[i]._hideLayer();
@@ -515,5 +518,5 @@
 			}
 	
 			dynCalendar_oldOnclick(arguments[0] ? arguments[0] : null);
-		}
+		//}
 	}

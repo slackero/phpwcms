@@ -862,10 +862,18 @@ function register_cp_trigger($function='', $method='LAST') {
  **/
 function seReferrer($ref = false) {
 
-	$SeReferer = empty($ref) ? $_SERVER['HTTP_REFERER'] : $ref;
+	if(!empty($ref) && is_string($ref)) {
+		$SeReferer = trim($ref);
+	} elseif(isset($_SERVER['HTTP_REFERER'])) {
+		$SeReferer = trim($_SERVER['HTTP_REFERER']);
+	} else {
+		return false;
+	}
+	$SePos		= 0;
+	$SeDomain	= '';
 
 	//Check against Google, Yahoo, MSN, Ask and others
-	if( preg_match('/[&\?](q|p|w|s|qry|searchfor|as_q|as_epq|query|qt|keyword|keywords|encquery)=([^&]+)/i', $SeReferer, $pcs) ){
+	if( $SeReferer && preg_match('/[&\?](q|p|w|s|qry|searchfor|as_q|as_epq|query|qt|keyword|keywords|encquery)=([^&]+)/i', $SeReferer, $pcs) ){
 		if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ) {
 			$SeDomain	= trim(strtolower($SeDomain[1]));
 			$SeQuery	= $pcs[2];

@@ -69,7 +69,7 @@ foreach($crow["acontent_files"] as $fkey => $value) {
 	if($value) {
 		$content['files'][$fkey]['file_id']		= $value;
 		$content['files'][$fkey]['file_info']	= empty($crow["acontent_text"][$fkey]) ? '' : trim($crow["acontent_text"][$fkey]);
-		$content['files_sql'][$fkey]				= $value;
+		$content['files_sql'][$fkey]			= $value;
 	}
 }
 
@@ -162,6 +162,7 @@ if($content['files_sql']) {
 					// [2] = title
 					// [3] = target (where to open a new file -> default is _blank even if empty
 					// [4] = if it is an image try to show a thumbnail instead of the file icon -> here thumbnail WIDTHxHEIGHT
+					// [5] = copyright information
 					
 					if($value['file_info']) {
 					
@@ -200,7 +201,6 @@ if($content['files_sql']) {
 		
 					}
 					
-		
 					if(empty($_file_info[4]) && $_files_settings['thumbnail'] == 1) {
 					
 						$_file_info[4] = array(	0 => intval($_files_settings['thumbnail_width']),
@@ -209,6 +209,9 @@ if($content['files_sql']) {
 											   );
 					
 					}
+					
+					$_file_info[5] = empty($_file_info[5]) ? $content['files_result'][ $_files_x ]['f_copyright'] : trim($_file_info[5]);
+
 				
 					$_files_entries[$fkey]  = $content['template_file'];
 					$_files_entries[$fkey]  = str_replace('{FILE_ID}', $content['files_result'][ $_files_x ]['f_id'], $_files_entries[$fkey]);
@@ -240,7 +243,7 @@ if($content['files_sql']) {
 					
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html_specialchars($_file_info[2]));
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html_specialchars($_file_info[0]));
-					
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_COPYRIGHT', html_specialchars($_file_info[5]));
 					
 					// now check file for possible thumbnail image
 					$_files_image = false;

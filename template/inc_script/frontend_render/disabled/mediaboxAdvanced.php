@@ -61,8 +61,12 @@ if(PHPWCMS_JSLIB != 'mootools-1.2' || ( strpos($content['all'], '[MEDIABOX') ===
 
 	// load mediaBox JavaScript and CSS
 	set_css_link( 'lib/mediabox/css/'.$mediaBox['css'] );
-	$block['custom_htmlhead']['mediabox.js'] =  getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mediabox/mediaboxAdv-yui.js');
 	initJSPlugin('Quickie-yui');
+	$block['custom_htmlhead']['mediabox.js'] =  getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mediabox/mediaboxAdv-yui.js');
+	$block['custom_htmlhead']['mediaboxvars.js']  =  '  <script type="text/javascript">'.LF;
+	$block['custom_htmlhead']['mediaboxvars.js'] .=  '	NonverBlasterPath="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf";'.LF;
+	$block['custom_htmlhead']['mediaboxvars.js'] .=  '	JWPlayerPath="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/player.swf";'.LF;
+	$block['custom_htmlhead']['mediaboxvars.js'] .=  '  </script>';
 
 
 	// parse and render MEDIABOX

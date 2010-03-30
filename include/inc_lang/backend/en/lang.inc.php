@@ -1281,4 +1281,15 @@ $BL['js_lib_alwaysload']				= 'always load';
 $BL['frontendjs_load']					= 'load frontend.js (more for historical reasons)';
 $BL['googleapi_load']					= 'use Google Ajax Lib';
 
+$BL['fancyupload_clear_list']			= 'Clear List';
+$BL['fancyupload_file_uploaded']		= 'File was uploaded';
+$BL['fancyupload_file_error']			= 'An error occured';
+$BL['fancyupload_adblock_error']		= 'To enable the embedded uploader, unblock it in your browser and refresh (see Adblock).';
+$BL['fancyupload_flashblock_error']		= 'To enable the embedded uploader, enable the blocked Flash movie (see Flashblock).';
+$BL['fancyupload_required_error']		= 'A required file was not found, please be patient and we fix this.';
+$BL['fancyupload_flash_error']			= 'To enable the embedded uploader, install the latest Adobe Flash plugin.';
+
+
+
+
 ?>

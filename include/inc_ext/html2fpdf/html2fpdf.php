@@ -60,7 +60,7 @@ Perl:  '/regexp/x'  where x == option ( x = i:ignore case , x = s: DOT gets \n a
 define( 'HTML2FPDF_VERSION', '3.0(beta)' );
 if ( !defined( 'RELATIVE_PATH' ) ) define( 'RELATIVE_PATH', '' );
 if ( !defined( 'FPDF_FONTPATH' ) ) define( 'FPDF_FONTPATH', 'font/' );
-if ( !defined( 'REGEXP_NOENDTAG' ) ) define( 'REGEXP_NOENDTAG', '^(BR|INPUT|IMG|HR)$' );
+if ( !defined( 'REGEXP_NOENDTAG' ) ) define( 'REGEXP_NOENDTAG', '/^(BR|INPUT|IMG|HR)$/i' );
 require_once( RELATIVE_PATH . 'fpdf.php' );
 require_once( RELATIVE_PATH . 'htmltoolkit.php' );
 
@@ -384,7 +384,7 @@ class HTML2FPDF extends FPDF {
 			// ////////////////////////////////////////////////
 			// TODO: Verify this list of tags without endtags
 			// ////////////////////////////////////////////////
-			if ( ereg( REGEXP_NOENDTAG, $ltag ) ) {
+			if ( preg_match( REGEXP_NOENDTAG, $ltag ) ) {
 				// Previous tag does not have CloseTag.
 				// Restore CSS
 				$this->debug( "Forced revert of ${ltag}<br>" );
@@ -504,7 +504,7 @@ class HTML2FPDF extends FPDF {
 		$attr = array();
 		if ( !empty( $contents ) ) {
 			foreach( $contents[0] as $v ) {
-				if ( ereg( '^([^=]*)=["\']?([^"\']*)["\']?$', $v, $a3 ) ) {
+				if ( preg_match( '/^([^=]*)=["\']?([^"\']*)["\']?$/', $v, $a3 ) ) {
 					$attr[strtoupper( $a3[1] )] = $a3[2];
 				}
 			}
@@ -2331,7 +2331,7 @@ class HTML2FPDF extends FPDF {
 				$this->debug( "LINKATTR: $k $v<br>" );
 			}
 			if ( isset( $attr['REL'] ) && isset( $attr['HREF'] ) && ( strtoupper( $attr['REL'] ) == 'STYLESHEET' ) ) {
-				if ( !isset( $attr['MEDIA'] ) || ereg( 'print', $attr['MEDIA'] ) ) {
+				if ( !isset( $attr['MEDIA'] ) || preg_match( '/print/', $attr['MEDIA'] ) ) {
 					// //////////////
 					// Get the file
 					$CSSextblock = file_get_contents( $attr['HREF'] );
@@ -2354,7 +2354,7 @@ class HTML2FPDF extends FPDF {
 		$ind = 0;
 		while ( $match ) {
 			$this->GetTagAndAttrs( $CSSblock[1][$ind], $tag, $attr );
-			if ( !isset( $attr['MEDIA'] ) || ereg( 'print', $attr['MEDIA'] ) ) {
+			if ( !isset( $attr['MEDIA'] ) || preg_match( '/print/', $attr['MEDIA'] ) ) {
 				$this->debug( '------------ Accepting CSS -------<br>' . $CSSblock[2][$ind] . '<br>---------- end of CSS block -----------<br>' );
 				$this->ParseStyle( $CSSblock[2][$ind] );
 			} else {

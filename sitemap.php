@@ -22,6 +22,7 @@
 
 // build Google Sitemap based on available articles
 
+$phpwcms = array();
 require_once ('config/phpwcms/conf.inc.php');
 
 // set neccessary charset

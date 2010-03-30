@@ -81,7 +81,7 @@ if(
 	
 	
 	// select by category
-	if(count($content['alink']['alink_category'])) {
+	if(!empty($content['alink']['alink_category']) && count($content['alink']['alink_category'])) {
 		
 		$content['alink']['tags_sql'] = array();
 	

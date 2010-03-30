@@ -1271,5 +1271,12 @@ $BL['js_lib']							= 'JS Bibliothek';
 $BL['js_lib_alwaysload']				= 'immer laden';
 $BL['frontendjs_load']					= 'frontend.js laden (mehr aus historischen Gr&uuml;nden)';
 $BL['googleapi_load']					= 'Google Ajax Lib benutzen';
+$BL['fancyupload_clear_list']			= 'Dateiliste leeren';
+$BL['fancyupload_file_uploaded']		= 'Datei wurde hochgeladen';
+$BL['fancyupload_file_error']			= 'Fehler beim Hochladen';
+$BL['fancyupload_adblock_error']		= 'Erlauben Sie die Nutzung von Flash im Browser und laden neu (siehe Adblock), um den integrierten Uploader zu aktivieren.';
+$BL['fancyupload_flashblock_error']		= 'Aktivieren Sie die blockierte Flash-Datei (siehe Flashblock), um den integrierten Uploader nutzen zu k&ouml;nnen.';
+$BL['fancyupload_required_error']		= 'Eine erforderliche Datei wurde nicht gefunden. Bitte gedulden Sie sich. Wir &ouml;sen das Problem.';
+$BL['fancyupload_flash_error']			= 'Installieren Sie das neueste Adobe Flash Plugin, um den integrierten Uploader zu aktivieren.';
 
 ?>

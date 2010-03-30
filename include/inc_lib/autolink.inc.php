@@ -84,7 +84,7 @@ function auto_link($str) {
   $tar[] = "<\\1 BORDER=0>"; 
 
   # If not MSIE, disable embed tag 
-  if(!ereg("MSIE", $_SERVER['HTTP_USER_AGENT'])) {
+  if(!preg_match("/MSIE/", $_SERVER['HTTP_USER_AGENT'])) {
     $src[] = "/<embed/i"; 
     $tar[] = "&lt;embed"; 
   } 

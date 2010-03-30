@@ -924,11 +924,21 @@ function initMootoolsAutocompleter($mode='1.1') {
 function initJsOptionSelect() {
 	$GLOBALS['BE']['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
 }
-function initMultipleUpload() {
-	initMootools();
-	$GLOBALS['BE']['HEADER']['Swiff.Base.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Base.js');
-	$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Uploader.js');
-	$GLOBALS['BE']['HEADER']['FancyUpload.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/FancyUpload.js');
+function initMultipleUpload($mode='1.2') {
+	switch($mode) {
+		case '1.1':
+			initMootools('1.1');
+			$GLOBALS['BE']['HEADER']['Swiff.Base.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/v1/Swiff.Base.js');
+			$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/v1/Swiff.Uploader.js');
+			$GLOBALS['BE']['HEADER']['FancyUpload.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/v1/FancyUpload.js');
+			break;
+
+		default:
+			initMootools('1.2');
+			$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Uploader.js');
+			$GLOBALS['BE']['HEADER']['FX.ProgressBar.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Fx.ProgressBar.js');
+			$GLOBALS['BE']['HEADER']['FancyUpload2.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/FancyUpload2.js');
+	}
 }
 
 // make phpwcms compatibility and upgrade check

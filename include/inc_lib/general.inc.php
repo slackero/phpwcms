@@ -2042,7 +2042,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	}
 	if($_FILES[$file]['error']) {
 		$file_status['error'] = $_FILES[$file]['error'];
-		$file_status['error_num'] = 0;
+		$file_status['error_num'] = 409;
 		return $file_status;
 	}
 	

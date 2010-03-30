@@ -72,25 +72,24 @@ if($log) {
 }
 
 if(isset($status['status']) && $status['status'] == true) {
-
-	die('Upload Successfull');
+	
+	$return = '{"status":"1","name":"'.$status['rename'].'"}';
 
 } elseif(isset($status['error'])) {
-
-	header('HTTP/1.1 405 '.$status['error']);
-	die($status['error']);
+	
+	$return = '{"status":"0","error":"'.$status['error'].'","code":"'.$status['error_num'].'"}';
 
 } elseif($login) {
-
-	header('HTTP/1.1 409 Conflict');
-	die('General error');
+	
+	$return = '{"status":"0","error":"General error!","code":"409"}';
 
 } else {
-
-	header('HTTP/1.1 401 Unauthorized');
-	die('Sorry, Access forbidden!');
+	
+	$return = '{"status":"0","error":"Sorry, Access forbidden!","code":"401"}';
 
 }
 
+echo $return;
+exit();
 
 ?>

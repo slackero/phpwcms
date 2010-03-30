@@ -219,9 +219,9 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"]			= '1.4.5';
-$phpwcms["release_date"]	= '2010/02/22';
-$phpwcms["revision"]		= '401';
+$phpwcms["release"]			= '1.4.6';
+$phpwcms["release_date"]	= '2010/03/30';
+$phpwcms["revision"]		= '402';
 
 /* 
  * Disabled now - maybe needed at later time

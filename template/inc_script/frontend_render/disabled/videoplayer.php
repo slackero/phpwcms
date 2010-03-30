@@ -21,7 +21,7 @@
 *************************************************************************************/
 
 
-$content['all'] = preg_replace_callback('/\[(youtube|sevenload)\]([a-zA-Z0-9\-]{1,32})\[\/(youtube|sevenload)\]/', 'show_videoplayer', $content['all']);
+$content['all'] = preg_replace_callback('/\[(youtube|sevenload)\]([a-zA-Z0-9\-_]+)\[\/(youtube|sevenload)\]/', 'show_videoplayer', $content['all']);
 
 
 function show_videoplayer($matches) {
