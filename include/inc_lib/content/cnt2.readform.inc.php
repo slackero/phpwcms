@@ -125,5 +125,6 @@ $content['image_list']['lightbox']	= empty($_POST["cimage_lightbox"]) ? 0 : 1;
 $content['image_list']['nocaption']	= empty($_POST["cimage_nocaption"]) ? 0 : 1;
 $content['image_list']['crop']		= empty($_POST["cimage_crop"]) ? 0 : 1;
 $content["image_list"]['random']	= empty($_POST["cimage_random"]) ? 0 : 1;
+$content["image_list"]['limit']		= intval($_POST["cimage_limit"]);
 
 ?>

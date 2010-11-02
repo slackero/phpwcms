@@ -56,7 +56,7 @@ $news['list_mode']		= true;
 $news['listing_page']	= array();
 
 $news['cnt_ts_livedate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTAMP(pc.cnt_livedate), pc.cnt_created)';
-$news['cnt_ts_killdate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_killdate) > 0, UNIX_TIMESTAMP(pc.cnt_killdate), pc.cnt_created + 31536000)';
+$news['cnt_ts_killdate'] = 'IF(UNIX_TIMESTAMP(pc.cnt_killdate) > 0, UNIX_TIMESTAMP(pc.cnt_killdate), ' . ( $news['now'] + 3600 ) . ')'; // set end date to current time + 1 hour
 $news['cnt_ts_sortdate'] = 'IF(pc.cnt_sort=0, IF(UNIX_TIMESTAMP(pc.cnt_livedate) > 0, UNIX_TIMESTAMP(pc.cnt_livedate), pc.cnt_created), pc.cnt_sort)';
 
 // define the general SELECT query part
@@ -130,33 +130,69 @@ if($news['list_mode']) {
 	// choose by category
 	if(count($news['news_category'])) {
 		
-		$news['news_joined_sql']	= true;
-		$news['news_category_sql']	= array();
+		$news['news_joined_sql']		= true;
+		$news['news_category_sql']		= array();
 	
-		// and/or/not mode
-		switch($news['news_andor']) {
-		
-			case 'AND': $news['news_andor']		= ' AND ';
-						$news['news_compare']	= '=';
-						break;
-						
-			case 'NOT':	$news['news_andor']		= ' AND ';
-						$news['news_compare']	= '!=';
-						break;
-						
-			default:	//OR
-						$news['news_andor']		= ' OR ';
-						$news['news_compare']	= '=';
-		}
-		
 		foreach($news['news_category'] as $value) {
 			
-			$news['news_category_sql'][] = 'pcat.cat_name' . $news['news_compare'] . "'" . aporeplace($value) . "'";
+			$news['news_category_sql'][] = 'pcat.cat_name LIKE ' . _dbEscape($value);
 			
 		}
+		
+		//$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
+		//$news['sql_where'][] = 'AND (' . implode($news['news_andor'], $news['news_category_sql']) . ')';
+		
+		// use sub query instead of JOIN to compare against AND / OR / NOT
+				
+		if($news['news_andor'] != 'NOT') {
+			
+			$news['sql_where_cat']  = '(';
+			$news['sql_where_cat'] .= 	'SELECT COUNT(pcat.cat_pid) ';
+			$news['sql_where_cat'] .= 	'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
+			$news['sql_where_cat'] .= 	"pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id AND (";
+			$news['sql_where_cat'] .= 	implode(' OR ', $news['news_category_sql']);
+			$news['sql_where_cat'] .= 	') GROUP BY pcat.cat_pid';
+			$news['sql_where_cat'] .= ')';
+			
+			if($news['news_andor'] == 'AND') {
 
-		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
-		$news['sql_where'][] = 'AND (' . implode($news['news_andor'], $news['news_category_sql']) . ')';
+					// count must be identical
+					$news['sql_where'][] = 'AND ' . $news['sql_where_cat'] . ' = ' . count($news['news_category_sql']);
+			
+			} else {
+			
+					//OR
+					// only single matching category needed
+					$news['sql_where'][] = 'AND ' . $news['sql_where_cat'] . ' > 0';
+			}
+		
+		} else {
+			
+			// no category is allowed
+			$news['sql_where_cat'] .= 'SELECT pcat.cat_pid ';
+			$news['sql_where_cat'] .= 'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
+			$news['sql_where_cat'] .= "pcat.cat_type='news' AND (";
+			$news['sql_where_cat'] .= implode(' OR ', $news['news_category_sql']);
+			$news['sql_where_cat'] .= ') GROUP BY pcat.cat_pid';
+			
+			// catch all cat_id having not allowed category
+			$news['not_allowed'] = _dbQuery($news['sql_where_cat']);
+			
+			if(isset($news['not_allowed'][0])) {
+			
+				$news['not_allowed_id'] = array();
+				
+				foreach($news['not_allowed'] as $cat_key => $cat_pid) {
+				
+					$news['not_allowed_id'][] = $cat_pid['cat_pid'];
+				
+				}
+				
+				$news['sql_where'][] = 'AND pc.cnt_id NOT IN (' . implode(',', $news['not_allowed_id']) . ')';
+				
+			}
+			
+		}
 		
 		$news['sql_group_by'] = 'GROUP BY pc.cnt_id ';
 		
@@ -326,6 +362,7 @@ if($news['list_mode']) {
 	$sql .= $news['sql_limit'];
 }
 
+//dumpVar( wordwrap($news['sql_query'] . $sql) );
 
 // get db query result
 $news['result'] = _dbQuery($news['sql_query'] . $sql);

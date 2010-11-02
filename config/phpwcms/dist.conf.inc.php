@@ -70,6 +70,7 @@ $phpwcms['phpmyadmin']        = 0;        //enable/disable phpmyadmin in Admin s
 $phpwcms['default_lang']      = 'en';     //default language
 $phpwcms['DOCTYPE_LANG']      = '';       //by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es');     //array of allowed languages
+$phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $phpwcms['charset']           = 'ISO-8859-1';       //default charset 'iso-8859-1'
 $phpwcms['allow_remote_URL']  = 0;        //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['gt_mod']            = 0;        //0 = Graphical Text MOD disabled, 1 = enabled
@@ -88,14 +89,14 @@ $phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_
 $phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts
 $phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars
 $phpwcms['BOTS']			  = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
-$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict
+$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
 $phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities
 $phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix
 $phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png
 $phpwcms['timezone_GMT']  	  = '+1';
 $phpwcms['Bad_Behavior']      = 0; // enables spam/bot blocking by Bad Behavior
-$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );								   
+$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms,Default,Basic' );								   
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online
 $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend

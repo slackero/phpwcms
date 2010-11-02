@@ -50,7 +50,10 @@ if(!empty($_GET['s']) || !empty($_GET['u'])) {
 	$data = _dbQuery('SELECT * FROM '.DB_PREPEND."phpwcms_address WHERE address_key='".aporeplace($hash)."' LIMIT 1");
 
 	if(isset($data[0])) {
-	
+		
+		// fix old hash where containing "+" char might result in an invalid hash key
+		$hash = str_replace(' ', '+', $hash);
+			
 		$email = $data[0]['address_email'];
 		switch($type) {
 		

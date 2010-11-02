@@ -1,3 +1,192 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-(function(){var a=function(c,b){return(c)?($type(c)=="function"?c(b):b.get(c)):""};this.Tips=new Class({Implements:[Events,Options],options:{onShow:function(){this.tip.setStyle("display","block")},onHide:function(){this.tip.setStyle("display","none")},title:"title",text:function(b){return b.get("rel")||b.get("href")},showDelay:100,hideDelay:100,className:"tip-wrap",offset:{x:16,y:16},windowPadding:{x:0,y:0},fixed:false},initialize:function(){var b=Array.link(arguments,{options:Object.type,elements:$defined});this.setOptions(b.options);if(b.elements){this.attach(b.elements)}this.container=new Element("div",{"class":"tip"})},toElement:function(){if(this.tip){return this.tip}return this.tip=new Element("div",{"class":this.options.className,styles:{position:"absolute",top:0,left:0}}).adopt(new Element("div",{"class":"tip-top"}),this.container,new Element("div",{"class":"tip-bottom"})).inject(document.body)},attach:function(b){$$(b).each(function(d){var f=a(this.options.title,d),e=a(this.options.text,d);d.erase("title").store("tip:native",f).retrieve("tip:title",f);d.retrieve("tip:text",e);this.fireEvent("attach",[d]);var c=["enter","leave"];if(!this.options.fixed){c.push("move")}c.each(function(h){var g=d.retrieve("tip:"+h);if(!g){g=this["element"+h.capitalize()].bindWithEvent(this,d)}d.store("tip:"+h,g).addEvent("mouse"+h,g)},this)},this);return this},detach:function(b){$$(b).each(function(d){["enter","leave","move"].each(function(e){d.removeEvent("mouse"+e,d.retrieve("tip:"+e)).eliminate("tip:"+e)});this.fireEvent("detach",[d]);if(this.options.title=="title"){var c=d.retrieve("tip:native");if(c){d.set("title",c)}}},this);return this},elementEnter:function(c,b){this.container.empty();["title","text"].each(function(e){var d=b.retrieve("tip:"+e);if(d){this.fill(new Element("div",{"class":"tip-"+e}).inject(this.container),d)}},this);$clear(this.timer);this.timer=(function(){this.show(this,b);this.position((this.options.fixed)?{page:b.getPosition()}:c)}).delay(this.options.showDelay,this)},elementLeave:function(c,b){$clear(this.timer);this.timer=this.hide.delay(this.options.hideDelay,this,b);this.fireForParent(c,b)},fireForParent:function(c,b){b=b.getParent();if(!b||b==document.body){return}if(b.retrieve("tip:enter")){b.fireEvent("mouseenter",c)}else{this.fireForParent(c,b)}},elementMove:function(c,b){this.position(c)},position:function(e){if(!this.tip){document.id(this)}var c=window.getSize(),b=window.getScroll(),f={x:this.tip.offsetWidth,y:this.tip.offsetHeight},d={x:"left",y:"top"},g={};for(var h in d){g[d[h]]=e.page[h]+this.options.offset[h];if((g[d[h]]+f[h]-b[h])>c[h]-this.options.windowPadding[h]){g[d[h]]=e.page[h]-this.options.offset[h]-f[h]}}this.tip.setStyles(g)},fill:function(b,c){if(typeof c=="string"){b.set("html",c)}else{b.adopt(c)}},show:function(b){if(!this.tip){document.id(this)}this.fireEvent("show",[this.tip,b])},hide:function(b){if(!this.tip){document.id(this)}this.fireEvent("hide",[this.tip,b])}})})();
+script: Tips.js
+
+name: Tips
+
+description: Class for creating nice tips that follow the mouse cursor when hovering an element.
+
+license: MIT-style license
+
+authors:
+  - Valerio Proietti
+  - Christoph Pojer
+
+requires:
+  - Core/Options
+  - Core/Events
+  - Core/Element.Event
+  - Core/Element.Style
+  - Core/Element.Dimensions
+  - /MooTools.More
+
+provides: [Tips]
+
+...
+*/
+
+(function(){
+
+var read = function(option, element){
+	return (option) ? ($type(option) == 'function' ? option(element) : element.get(option)) : '';
+};
+
+this.Tips = new Class({
+
+	Implements: [Events, Options],
+
+	options: {
+		/*
+		onAttach: $empty(element),
+		onDetach: $empty(element),
+		*/
+		onShow: function(){
+			this.tip.setStyle('display', 'block');
+		},
+		onHide: function(){
+			this.tip.setStyle('display', 'none');
+		},
+		title: 'title',
+		text: function(element){
+			return element.get('rel') || element.get('href');
+		},
+		showDelay: 100,
+		hideDelay: 100,
+		className: 'tip-wrap',
+		offset: {x: 16, y: 16},
+		windowPadding: {x:0, y:0},
+		fixed: false
+	},
+
+	initialize: function(){
+		var params = Array.link(arguments, {options: Object.type, elements: $defined});
+		this.setOptions(params.options);
+		if (params.elements) this.attach(params.elements);
+		this.container = new Element('div', {'class': 'tip'});
+	},
+
+	toElement: function(){
+		if (this.tip) return this.tip;
+
+		return this.tip = new Element('div', {
+			'class': this.options.className,
+			styles: {
+				position: 'absolute',
+				top: 0,
+				left: 0
+			}
+		}).adopt(
+			new Element('div', {'class': 'tip-top'}),
+			this.container,
+			new Element('div', {'class': 'tip-bottom'})
+		);
+	},
+
+	attach: function(elements){
+		$$(elements).each(function(element){
+			var title = read(this.options.title, element),
+				text = read(this.options.text, element);
+			
+			element.erase('title').store('tip:native', title).retrieve('tip:title', title);
+			element.retrieve('tip:text', text);
+			this.fireEvent('attach', [element]);
+			
+			var events = ['enter', 'leave'];
+			if (!this.options.fixed) events.push('move');
+			
+			events.each(function(value){
+				var event = element.retrieve('tip:' + value);
+				if (!event) event = this['element' + value.capitalize()].bindWithEvent(this, element);
+				
+				element.store('tip:' + value, event).addEvent('mouse' + value, event);
+			}, this);
+		}, this);
+		
+		return this;
+	},
+
+	detach: function(elements){
+		$$(elements).each(function(element){
+			['enter', 'leave', 'move'].each(function(value){
+				element.removeEvent('mouse' + value, element.retrieve('tip:' + value)).eliminate('tip:' + value);
+			});
+			
+			this.fireEvent('detach', [element]);
+			
+			if (this.options.title == 'title'){ // This is necessary to check if we can revert the title
+				var original = element.retrieve('tip:native');
+				if (original) element.set('title', original);
+			}
+		}, this);
+		
+		return this;
+	},
+
+	elementEnter: function(event, element){
+		this.container.empty();
+		
+		['title', 'text'].each(function(value){
+			var content = element.retrieve('tip:' + value);
+			if (content) this.fill(new Element('div', {'class': 'tip-' + value}).inject(this.container), content);
+		}, this);
+		
+		$clear(this.timer);
+		this.timer = (function(){
+			this.show(element);
+			this.position((this.options.fixed) ? {page: element.getPosition()} : event);
+		}).delay(this.options.showDelay, this);
+	},
+
+	elementLeave: function(event, element){
+		$clear(this.timer);
+		this.timer = this.hide.delay(this.options.hideDelay, this, element);
+		this.fireForParent(event, element);
+	},
+
+	fireForParent: function(event, element){
+		element = element.getParent();
+		if (!element || element == document.body) return;
+		if (element.retrieve('tip:enter')) element.fireEvent('mouseenter', event);
+		else this.fireForParent(event, element);
+	},
+
+	elementMove: function(event, element){
+		this.position(event);
+	},
+
+	position: function(event){
+		if (!this.tip) document.id(this);
+
+		var size = window.getSize(), scroll = window.getScroll(),
+			tip = {x: this.tip.offsetWidth, y: this.tip.offsetHeight},
+			props = {x: 'left', y: 'top'},
+			obj = {};
+		
+		for (var z in props){
+			obj[props[z]] = event.page[z] + this.options.offset[z];
+			if ((obj[props[z]] + tip[z] - scroll[z]) > size[z] - this.options.windowPadding[z]) obj[props[z]] = event.page[z] - this.options.offset[z] - tip[z];
+		}
+		
+		this.tip.setStyles(obj);
+	},
+
+	fill: function(element, contents){
+		if(typeof contents == 'string') element.set('html', contents);
+		else element.adopt(contents);
+	},
+
+	show: function(element){
+		if (!this.tip) document.id(this);
+		if (!this.tip.parentNode) this.tip.inject(document.body);
+		this.fireEvent('show', [this.tip, element]);
+	},
+
+	hide: function(element){
+		if (!this.tip) document.id(this);
+		this.fireEvent('hide', [this.tip, element]);
+	}
+
+});
+
+})();

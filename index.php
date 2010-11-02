@@ -44,24 +44,8 @@ require_once $basepath.'/config/phpwcms/conf.inc.php';
 require_once $basepath.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
-// BOT check
-$IS_A_BOT = false;
-
-if( !empty($_SERVER['HTTP_USER_AGENT']) ) {
-
-	if(empty($phpwcms["BOTS"]) || !is_array($phpwcms["BOTS"])) {
-		$phpwcms["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
-	}
-	
-	$_HTTP_USER_AGENT = strtolower($_SERVER['HTTP_USER_AGENT']);
-
-	foreach($phpwcms["BOTS"] as $value) {
-		if(strpos($_HTTP_USER_AGENT, $value) !== FALSE) {
-			$IS_A_BOT = true;
-			break;
-		}
-	}
-}
+// Get user Agent BOT check
+$IS_A_BOT = $phpwcms['USER_AGENT']['bot'];
 
 // start session - neccessary if frontend users are available
 // but neccessary also to check if a bot is visiting the site
@@ -221,6 +205,7 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 		$sections .= $section;
 	}
 	
+	// return preg_replace('/<!--(.|\s)*?-->/', '', $buffer);
 	echo trim($sections) == '' ? $content : $sections;
 	
 	exit();

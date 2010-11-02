@@ -39,6 +39,10 @@ $s_list					 = array();
 if(empty($content['search']["text_html"])) {
 	$content['search']['text_html'] = 0;
 }
+
+$content['search']['search_filenames'] = empty($content['search']["no_filenames"]) ? true : false;	// search/list for file/imagenames
+$content['search']['show_summary'] = empty($content['search']["hide_summary"]) ? true : false; // show search tester text
+
 if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 	$s_run = 0;
@@ -143,7 +147,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				$s_text		= $srow["article_subtitle"].' '.$srow["article_summary"];
 	
 				// read article content for search
-				$csql  = "SELECT acontent_title, acontent_subtitle, acontent_text, acontent_html, acontent_files, acontent_type, acontent_form FROM ";
+				$csql  = "SELECT acontent_title, acontent_subtitle, acontent_text, acontent_html, acontent_files, acontent_type, acontent_form, acontent_image FROM ";
 				$csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." ";
 				$csql .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
 				if( !FEUSER_LOGIN_STATUS ) {
@@ -154,49 +158,121 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				
 				if($scresult = mysql_query($csql, $db)) {
 					while($scrow = mysql_fetch_row($scresult)) {
-						$s_text .= ' '.$scrow[0].' '.$scrow[1].' '.$scrow[2].' '.$scrow[3];
+						
+						// always title, subtitle
+						$s_text .= ' '.$scrow[0].' '.$scrow[1];
+						
 						switch($scrow[5]) {
+							
+							// just no additional search terms
+							case 3:
+							case 8:
+							case 9:
+							case 10:
+							case 12:
+							case 13:
+							case 15:
+							case 16:
+							case 18:
+							case 19:
+							case 20:
+							case 21:
+							case 22:
+							case 23:
+							case 24:
+							case 25:
+							case 28:
+							case 33:
+							case 50:
+							case 51:
+							case 52:
+							case 53:
+										break;
+							
+							// only HTML
+							case 6:
+							case 14:	$s_text .= ' '.$scrow[3];
+										break;
+							
+							// only TEXT
+							case 0:
+							case 4:
+							case 5:
+							case 11:
+							case 32:
+							case 100:	$s_text .= ' '.$scrow[2];
+										break;
+							
 							case 7:		// file list, get files listed here
-										$s_files = getFileInformation( explode(':', $scrow[4]) );
-										if(is_array($s_files) && count($s_files)) {
-											// retrieve file information
-											foreach($s_files as $s_files_value) {
-												$s_text .= ' '.$s_files_value['f_name'];
+										$s_text .= ' '.$scrow[2];
+										if($content['search']['search_filenames']) {
+											$s_files = getFileInformation( explode(':', $scrow[4]) );
+											if(is_array($s_files) && count($s_files)) {
+												// retrieve file information
+												foreach($s_files as $s_files_value) {
+													$s_text .= ' '.$s_files_value['f_name'];
+												}
 											}
 										}
 										break;
 							
-							// optimize images for search			
-							case 2:
-							case 29:	$scrow[6] = @unserialize($scrow[6]);
+							// optimize images for search
+							case 1	:	$s_text .= ' '.$scrow[2];
+										if($content['search']['search_filenames'] && $scrow[7]) {
+											$scrow[7] = explode(":", $scrow[7]);
+											$s_text .= ' '.$scrow[1];
+										}	
+										break;
+									
+							case 29:	$s_text .= ' '.$scrow[2];
+							case 2:		$scrow[6] = @unserialize($scrow[6]);
 										if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
 											$s_imgname = '';
 											foreach($scrow[6]['images'] as $s_imgtext) {
-												$s_text .= ' '.str_replace('|', ' ', $s_imgtext[6]);
-												$s_imgname .= ' '.$s_imgtext[1];
+												
+												$s_imgtext[6] = getImageCaption($s_imgtext[6], '', true);
+												
+												if($s_imgtext[6]['caption']) {
+													$s_text .= ' '.$s_imgtext[6]['caption'];
+												} elseif($s_imgtext[6]['title']) {
+													$s_text .= ' '.$s_imgtext[6]['title'];
+												} elseif($s_imgtext[6]['alt']) {
+													$s_text .= ' '.$s_imgtext[6]['alt'];
+												}
+
+												if($content['search']['search_filenames']) {
+													$s_imgname .= ' '.$s_imgtext[1];
+												}
 											}
 											$s_text .= $s_imgname;
 										}
 										break;
 							
-							case 31:	$scrow[6] = @unserialize($scrow[6]);
+							case 31:	$s_text .= ' '.$scrow[3];
+										$scrow[6] = @unserialize($scrow[6]);
 										if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
 											foreach($scrow[6]['images'] as $s_imgtext) {
-												$s_text .= ' '.$s_imgtext['thumb_name'];
 												$s_text .= ' '.$s_imgtext['caption'];
-												$s_text .= ' '.$s_imgtext['url'];
-												$s_text .= ' '.$s_imgtext['zoom_name'];
+												//$s_text .= ' '.$s_imgtext['url'];
+												if($content['search']['search_filenames']) {
+													$s_text .= ' '.$s_imgtext['thumb_name'];
+													$s_text .= ' '.$s_imgtext['zoom_name'];
+												}
 											}
 										}
 										break;							
 							
 							// search recipe
-							case 26:	$scrow[6] = @unserialize($scrow[6]);
+							case 26:	$s_text .= ' '.$scrow[2].' '.$scrow[3];
+										$scrow[6] = @unserialize($scrow[6]);
 										if(isset($scrow[6]['preparation'])) {
 											$s_text .= ' '.$scrow[6]['preparation'].' '.$scrow[6]['ingredients'];
 											$s_text .= ' '.$scrow[6]['calorificvalue'].' '.$scrow[6]['calorificvalue_add'];
 										}
 										break;
+							
+							// all other non defined CPs	
+							default:	$s_text .= ' '.$scrow[2].' '.$scrow[3];
 							
 						}
 						$s_text = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text); // strip all <script> Tags
@@ -235,7 +311,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$s_list[$s_run]["user"]		= $s_user;
 					$s_list[$s_run]['query']	= 'aid='.$s_id;
 					
-					if($content['search']['wordlimit'] > 0) {
+					if($content['search']['show_summary'] && $content['search']['wordlimit'] > 0) {
 						$s_list[$s_run]["text"]	= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
 						$s_list[$s_run]["text"]	= html_specialchars($s_list[$s_run]["text"]);
 						if($content['search']['highlight_result']) {
@@ -342,8 +418,8 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					continue;
 				}
 			
-				$s_result_list .= '<div>'.LF;
-				$s_result_list .= '<h3><a href="';
+				$s_result_list .= '<div class="search-result">'.LF;
+				$s_result_list .= '	<h3><a href="';
 				
 				if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
 					$s_result_list .= $s_list[$s_key]['query'];
@@ -356,8 +432,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				}
 				$s_result_list .= ($content["search"]["newwin"]) ? '" target="_blank">' : '">';
 				$s_result_list .= $s_list[$s_key]["title"].'</a></h3>'.LF;
-				if($s_list[$s_key]["text"]) {
-					$s_result_list .= '<p>'.$s_list[$s_key]["text"].'</p>'.LF;
+					
+				if($content['search']['show_summary'] && $s_list[$s_key]["text"]) {
+					$s_result_list .= '	<p>'.$s_list[$s_key]["text"].'</p>'.LF;
 				}
 				$s_result_list .= '</div>'.LF;
 				

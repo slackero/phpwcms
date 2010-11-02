@@ -171,7 +171,7 @@ $_last10_article = _dbQuery($_asql_1);
 		
 		$trenner = ($value['acontent_title'] && $value['acontent_subtitle']) ? '/' : '';
 		
-		echo '	<td width="80%"><strong>'.html_specialchars(getCleanSubString($value['acontent_title'].$trenner.$value['acontent_subtitle'], 27, '&#8230;')).'</strong></td>'.LF;
+		echo '	<td width="80%"><strong>'.html_specialchars(getCleanSubString($value['acontent_title'].$trenner.$value['acontent_subtitle'], 27, '&#8230;')).'&nbsp;</strong></td>'.LF;
 		echo '	<td align="center" nowrap="nowrap">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
 		
 		echo '	<td style="padding:3px;" nowrap="nowrap">';

@@ -6,14 +6,28 @@
 <!--TEASER_HEAD_END//-->
 <!--TEASER_ENTRY_START//-->
 	<!-- AID: {ARTICLEID}, CID: {CATEGORYID} -->
-	<li[PRIO] class="prio{PRIO}"[/PRIO]>
+	<li class="teaser[PRIO] prio{PRIO}[/PRIO][COLUMN] {COLUMN}[/COLUMN]">
 		<a href="{ARTICLELINK}">[CATEGORY]{CATEGORY}: [/CATEGORY][MENUTITLE]{MENUTITLE}[/MENUTITLE][MENUTITLE_ELSE]{TITLE}[/MENUTITLE_ELSE]</a>
 	</li>
 <!--TEASER_ENTRY_END//-->
 <!--TEASER_ENTRY_SPACER_START//-->
-
+	<!-- next teaser please -->
 <!--TEASER_ENTRY_SPACER_END//-->
+
+<!--TEASER_ROW_SPACER_START//-->
+	<!-- split teaser here and start new row -->
+<!--TEASER_ROW_SPACER_END//-->
+
 <!--TEASER_FOOTER_START//-->
 </ul>
 [/TEASER]
 <!--TEASER_FOOTER_END//-->
+
+<!-- 
+	The following setting can be used to overwrite 
+	the CP backend column setting. Only unsigned Integer
+	values will be used. Use value here only if you
+	ensure to overwrite user's setting. Use 0 to disable
+	columns for this template.
+-->
+<!--TEASER_COLUMN_OVERWRITE_START//--><!--TEASER_COLUMN_OVERWRITE_END//-->

@@ -1,3 +1,67 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-MooTools.lang.set("nl-NL","Date",{months:["Januari","Februari","Maart","April","Mei","Juni","Juli","Augustus","September","Oktober","November","December"],days:["Zondag","Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag"],dateOrder:["date","month","year"],AM:"AM",PM:"PM",shortDate:"%d/%m/%Y",shortTime:"%H:%M",ordinal:"e",lessThanMinuteAgo:"minder dan een minuut geleden",minuteAgo:"ongeveer een minuut geleden",minutesAgo:"minuten geleden",hourAgo:"ongeveer een uur geleden",hoursAgo:"ongeveer {delta} uur geleden",dayAgo:"{delta} dag geleden",daysAgo:"dagen geleden",weekAgo:"een week geleden",weeksAgo:"{delta} weken geleden",monthAgo:"een maand geleden",monthsAgo:"{delta} maanden geleden",yearAgo:"een jaar geleden",yearsAgo:"{delta} jaar geleden",lessThanMinuteUntil:"minder dan een minuut vanaf nu",minuteUntil:"ongeveer een minuut vanaf nu",minutesUntil:"{delta} minuten vanaf nu",hourUntil:"ongeveer een uur vanaf nu",hoursUntil:"ongeveer {delta} uur vanaf nu",dayUntil:"1 dag vanaf nu",daysUntil:"{delta} dagen vanaf nu",weekAgo:"een week geleden",weeksAgo:"{delta} weken geleden",monthAgo:"een maand geleden",monthsAgo:"{delta} maanden geleden",yearthAgo:"een jaar geleden",yearsAgo:"{delta} jaar geleden",weekUntil:"over een week",weeksUntil:"over {delta} weken",monthUntil:"over een maand",monthsUntil:"over {delta} maanden",yearUntil:"over een jaar",yearsUntil:"over {delta} jaar"});
+script: Date.Dutch.js
+
+name: Date.Dutch
+
+description: Date messages for Dutch.
+
+license: MIT-style license
+
+authors:
+  - Lennart Pilon
+  - Tim Wienk
+
+requires:
+  - /Lang
+
+provides: [Date.Dutch]
+
+...
+*/
+
+MooTools.lang.set('nl-NL', 'Date', {
+
+	months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+	days: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+
+	// Culture's date order: DD-MM-YYYY
+	dateOrder: ['date', 'month', 'year'],
+	shortDate: '%d-%m-%Y',
+	shortTime: '%H:%M',
+	AM: 'AM',
+	PM: 'PM',
+
+	// Date.Extras
+	ordinal: 'e',
+
+	lessThanMinuteAgo: 'minder dan een minuut geleden',
+	minuteAgo: 'ongeveer een minuut geleden',
+	minutesAgo: '{delta} minuten geleden',
+	hourAgo: 'ongeveer een uur geleden',
+	hoursAgo: 'ongeveer {delta} uur geleden',
+	dayAgo: 'een dag geleden',
+	daysAgo: '{delta} dagen geleden',
+	weekAgo: 'een week geleden',
+	weeksAgo: '{delta} weken geleden',
+	monthAgo: 'een maand geleden',
+	monthsAgo: '{delta} maanden geleden',
+	yearAgo: 'een jaar geleden',
+	yearsAgo: '{delta} jaar geleden',
+
+	lessThanMinuteUntil: 'over minder dan een minuut',
+	minuteUntil: 'over ongeveer een minuut',
+	minutesUntil: 'over {delta} minuten',
+	hourUntil: 'over ongeveer een uur',
+	hoursUntil: 'over {delta} uur',
+	dayUntil: 'over ongeveer een dag',
+	daysUntil: 'over {delta} dagen',
+	weekUntil: 'over een week',
+	weeksUntil: 'over {delta} weken',
+	monthUntil: 'over een maand',
+	monthsUntil: 'over {delta} maanden',
+	yearUntil: 'over een jaar',
+	yearsUntil: 'over {delta} jaar'
+
+});

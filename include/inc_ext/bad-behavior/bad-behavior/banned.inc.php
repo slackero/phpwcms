@@ -5,7 +5,7 @@
 
 require_once(BB2_CORE . "/responses.inc.php");
 
-function bb2_display_denial($settings, $key, $previous_key = false)
+function bb2_display_denial($settings, $package, $key, $previous_key = false)
 {
 	define('DONOTCACHEPAGE', true);	// WP Super Cache
 	if (!$previous_key) $previous_key = $key;
@@ -13,7 +13,7 @@ function bb2_display_denial($settings, $key, $previous_key = false)
 		// FIXME: lookup the real key
 	}
 	// Create support key
-	$ip = explode(".", $_SERVER['REMOTE_ADDR']);
+	$ip = explode(".", $package['ip']);
 	$ip_hex = "";
 	foreach ($ip as $octet) {
 		$ip_hex .= str_pad(dechex($octet), 2, 0, STR_PAD_LEFT);
@@ -24,6 +24,7 @@ function bb2_display_denial($settings, $key, $previous_key = false)
 	$response = bb2_get_response($previous_key);
 	header("HTTP/1.1 " . $response['response'] . " Bad Behavior");
 	header("Status: " . $response['response'] . " Bad Behavior");
+	$request_uri = empty($_SERVER["REQUEST_URI"]) ? $_SERVER['SCRIPT_NAME'] : $_SERVER["REQUEST_URI"]; # IIS
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--< html xmlns="http://www.w3.org/1999/xhtml">-->
@@ -33,7 +34,7 @@ function bb2_display_denial($settings, $key, $previous_key = false)
 <body>
 <h1>Error <?php echo $response['response']; ?></h1>
 <p>We're sorry, but we could not fulfill your request for
-<?php echo htmlspecialchars($_SERVER['REQUEST_URI']) ?> on this server.</p>
+<?php echo htmlspecialchars($request_uri) ?> on this server.</p>
 <p><?php echo $response['explanation']; ?></p>
 <p>Your technical support key is: <strong><?php echo $support_key; ?></strong></p>
 <p>You can use this key to <a href="http://www.ioerror.us/bb2-support-key?key=<?php echo $support_key; ?>">fix this problem yourself</a>.</p>

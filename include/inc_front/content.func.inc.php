@@ -39,6 +39,8 @@ $content['globalRT']			= array();
 $content['aId_CpPage']			= 0; // set default content part pagination page (0 and 1) are the same
 $content['CpTrigger']			= array(); // array to hold content part trigger functions
 $content['404error']			= false;
+$content['set_canonical']		= false;
+$content['cptab']				= array(); // array to hold content part based tabs
 $pagelayout						= array();
 $no_content_for_this_page		= 0;
 $alias							= '';
@@ -392,13 +394,13 @@ if(!PERMIT_ACCESS && !_getFeUserLoginStatus()) {
 // -------------------------------------------------------------
 
 //reads all articles for active cat into array
-$content["articles"] = get_actcat_articles_data($content["cat_id"]);
+$content["articles"]			= get_actcat_articles_data($content["cat_id"]);
+$content["article_list_count"]	= count($content["articles"]);
 
 // -------------------------------------------------------------
 
 // generating a list of articles inside the current article category
 if(!$aktion[4]) {
-	$content["article_list_count"] = count($content["articles"]);
 	
 	if(!$content['404error'] && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
 		
@@ -412,6 +414,9 @@ if(!$aktion[4]) {
 				break;
 			}
 			$aktion[4] = 1; // this needs to be set to 1 for showing the article
+			
+			// enable canonical <link> tag
+			$content['set_canonical'] = true;
 
 		} else {
 			// there is more than 1 article inside this category
@@ -425,6 +430,12 @@ if(!$aktion[4]) {
 		$no_content_for_this_page = 1;
 
 	}
+
+} elseif($content["article_list_count"] === 1) {
+
+	// enable canonical <link> tag
+	$content['set_canonical'] = true;
+
 }
 
 // -------------------------------------------------------------
@@ -592,6 +603,13 @@ foreach($content['CB'] as $key => $value) {
 		$value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
 	}
 	$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
+}
+
+// render Tab replacement code
+if(count($content['cptab'])) {
+	foreach($content['cptab'] as $CNT_TAB => $trow) {
+		$content['all'] = str_replace('<!-- ' . $CNT_TAB . ' -->', $trow, $content['all']);
+	}
 }
 
 // check layout for list mode sections or detail view
@@ -819,7 +837,11 @@ if(FE_EDIT_LINK) {
 if(empty($block['custom_htmlhead']['meta.description']) && !empty($content["struct"][$aktion[0]]["acat_info"]) && !stristr($block["htmlhead"], '"description"')) {
 	set_meta('description', $content["struct"][$aktion[0]]["acat_info"]);
 }
-// insert keywords meta tag if not definied
+// add structure level keywords
+if(!empty($content['struct'][ $content["cat_id"] ]['acat_keywords'])) {
+	$content['all_keywords'] .= ', ' . $content['struct'][ $content["cat_id"] ]['acat_keywords'];
+}
+// insert keywords meta tag if not yet definied
 if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_keywords']) && !stristr($block["htmlhead"], '"keywords"')) {
 	$content['all_keywords'] = convertStringToArray($content['all_keywords']);
 	if(count($content['all_keywords'])) {

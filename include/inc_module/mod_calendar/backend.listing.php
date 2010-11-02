@@ -42,12 +42,22 @@ $_entry['query']			= '';
 // define some defaults
 if(isset($_GET['calendardate'])) {
 
-	$_SESSION['calendardate'] = clean_slweg($_GET['calendardate']);
+	$_SESSION['calendardate'] = substr(clean_slweg($_GET['calendardate']), 0, 7);
 
 }
 if(!empty($_SESSION['calendardate'])) {
 
 	@list($plugin['current_month'], $plugin['current_year']) = explode('-', $_SESSION['calendardate']);
+	
+	$plugin['current_month']	= intval($plugin['current_month']);
+	$plugin['current_year']		= intval($plugin['current_year']);
+	
+	if(empty($plugin['current_year'])) {
+		$plugin['current_year']		= gmdate('Y');
+	}
+	if(empty($plugin['current_month'])) {
+		$plugin['current_month']		= gmdate('n');
+	}
 
 } else {
 

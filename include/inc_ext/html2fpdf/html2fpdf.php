@@ -481,7 +481,7 @@ class HTML2FPDF extends FPDF {
 				$path = substr( $path, 0 , strrpos( $path, "/" ) );
 				$path = $path . "/" . $filepath; //Make it an absolute path
 			} elseif ( strpos( $path, ":/" ) === false ) { // It is a Local Link
-				$path = $this->basepath . ereg_replace( "^/([^/]*/){" . $this->urllevels . "}", '', $path );
+				$path = $this->basepath . preg_replace( "/^\/([^\/]*\/){" . $this->urllevels . "}/", '', $path );
 				$this->debug( "^/([^/]*/){" . $this->urllevels . "}" );
 			}
 			$this->debug( "GetAbsPath $orgpath -> $path<br>" );

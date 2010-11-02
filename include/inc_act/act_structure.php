@@ -64,18 +64,26 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$acat_cntpart = implode(',', $acat_cntpart);
 	
 	}
+	
+	$acat_class = empty($_POST["acat_class"]) ? '' : preg_replace('/[^a-zA-Z0-9_\-]/', '', str_replace(' ', '-', clean_slweg($_POST["acat_class"], 150)));
+	
+	if(empty($_POST["acat_keywords"])) {
+		$acat_keywords = '';
+	} else {
+		$acat_keywords = substr( implode(', ', convertStringToArray( clean_slweg($_POST["acat_keywords"], 255) ) ), 0, 255);
+	}
 
 	if(isset($_POST["acat_id"]) && $_POST["acat_id"] === 'index') {
 		// write index page config into flat file
 		$sql  = "<?php\n";
 		$sql .= "\$indexpage['acat_name']		= '".	str_replace("''", "\\'", getpostvar($_POST["acat_name"]))."';\n";
 		$sql .= "\$indexpage['acat_info']		= '".	str_replace("''", "\\'", getpostvar($_POST["acat_info"], 32000))."';\n";
-		$sql .= "\$indexpage['acat_alias']	= '".		proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
-		$sql .= "\$indexpage['acat_aktiv']	= ".		(isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_public']	= ".		(isset($_POST["acat_public"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_alias']		= '".	proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
+		$sql .= "\$indexpage['acat_aktiv']		= ".	(isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_public']		= ".	(isset($_POST["acat_public"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_template']	= ".	intval($_POST["acat_template"]).";\n";
 	
-		$sql .= "\$indexpage['acat_hidden']	= ".		$acat_hidden.";\n";
+		$sql .= "\$indexpage['acat_hidden']		= ".	$acat_hidden.";\n";
 		$sql .= "\$indexpage['acat_ssl']		= ".	(isset($_POST["acat_ssl"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_regonly']	= ".	(isset($_POST["acat_regonly"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_topcount']	= ".	intval($_POST["acat_topcount"]).";\n";
@@ -86,13 +94,15 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$sql .= "\$indexpage['acat_timeout']	= '".	$cache_timeout."';\n";
 		$sql .= "\$indexpage['acat_nosearch']	= '".	((isset($_POST['acat_nosearch']) && intval($_POST['acat_nosearch'])) ? '1' : '')."';\n";
 		$sql .= "\$indexpage['acat_nositemap']	= ".	(isset($_POST["acat_nositemap"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_order']	= ". set_correct_ordersort() .";\n";
-		$sql .= "\$indexpage['acat_permit']	= '".$acat_permit."';\n";
-		$sql .= "\$indexpage['acat_cntpart']	= '".$acat_cntpart."';\n";
+		$sql .= "\$indexpage['acat_order']		= ". 	set_correct_ordersort() .";\n";
+		$sql .= "\$indexpage['acat_permit']		= '".	$acat_permit."';\n";
+		$sql .= "\$indexpage['acat_cntpart']	= '".	$acat_cntpart."';\n";
 		$sql .= "\$indexpage['acat_pagetitle']	= '".	str_replace("''", "\\'", getpostvar($_POST["acat_pagetitle"]))."';\n";
 		$sql .= "\$indexpage['acat_paginate']	= ".	(isset($_POST["acat_paginate"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_overwrite']	= '".	str_replace("''", "\\'", getpostvar($_POST["acat_overwrite"]))."';\n";
 		$sql .= "\$indexpage['acat_archive']	= ".	(empty($_POST["acat_archive"]) ? 0 : 1) .";\n";
+		$sql .= "\$indexpage['acat_class']		= '".	str_replace("'", "\\'", $acat_class)."';\n";
+		$sql .= "\$indexpage['acat_keywords']	= '".	str_replace("'", "\\'", $acat_keywords)."';\n";
 		$sql .= "?>";
 		write_textfile(PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php', $sql);
 	}
@@ -113,7 +123,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
 			"acat_public, acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
 			"acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
-			"acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive) VALUES ('".
+			"acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords) VALUES ('".
 			getpostvar($_POST["acat_name"])."','".
 			getpostvar($_POST["acat_info"], 32000)."',".
 			(isset($_POST["acat_aktiv"]) ? 1 : 0).",".
@@ -133,7 +143,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			(isset($_POST["acat_nositemap"]) ? 1 : 0).",".
 			"'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", '".aporeplace($acat_cntpart)."','".
 			getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
-			(empty($_POST["acat_archive"]) ? 0 : 1).")";
+			(empty($_POST["acat_archive"]) ? 0 : 1).", '".aporeplace($acat_class)."', '".aporeplace($acat_keywords)."')";
 			if($result = mysql_query($sql, $db) or die("error")) {
 				$ref .= "&cat=".mysql_insert_id($db);
 			}
@@ -171,7 +181,9 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			"acat_pagetitle='".getpostvar($_POST["acat_pagetitle"])."', ".
 			"acat_paginate=".(isset($_POST["acat_paginate"]) ? 1 : 0).", ".
 			"acat_overwrite='".getpostvar($_POST["acat_overwrite"])."', ".
-			"acat_archive=".(empty($_POST["acat_archive"]) ? 0 : 1).
+			"acat_archive=".(empty($_POST["acat_archive"]) ? 0 : 1).", ".
+			"acat_class='".aporeplace($acat_class)."', ".
+			"acat_keywords='".aporeplace($acat_keywords)."'".
 			" WHERE acat_id=".intval($_POST["acat_id"]);
 		
 			mysql_query($sql, $db) or die(_report_error('DB', $sql));
@@ -376,6 +388,13 @@ switch(intval($do[0])) {
 
 update_cache();
 
+// empty pre-rendered frontend structure for all visible modes
+// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
+_setConfig('structure_array_vmode_all', false, 'frontend_render', 1);
+_setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
+_setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
+
+
 if(isset($_POST['SubmitClose'])) {
 	headerRedirect(PHPWCMS_URL.'phpwcms.php?do=admin&p=6');
 } else {
@@ -410,7 +429,7 @@ function get_struct_del_id($s_id=0, $dbcon) {
 function copy_article_to_level($do, $dbcon) {
 
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_id=".$do[1];
-	if($result = mysql_query($sql, $dbcon) or die("error while connecting to database: <br><pre>".$sql."</pre>")) {
+	if($result = mysql_query($sql, $dbcon) or die("error while connecting to database: <pre>".$sql."</pre>")) {
 
 		if($row = mysql_fetch_assoc($result)) {
 			$row["article_cid"] 	= $do[2];
@@ -433,7 +452,7 @@ function copy_article_to_level($do, $dbcon) {
 
 		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_article (".$keys.") VALUES (".$values.")" ;
 
-		if($result = mysql_query($sql, $dbcon) or die("error while copy article <br>error while connecting to database: <br><pre>".$sql."</pre>")) {
+		if($result = mysql_query($sql, $dbcon) or die("error while copy article <br>error while connecting to database: <pre>".$sql."</pre>")) {
 
 			$article_insert_id = mysql_insert_id($dbcon);
 
@@ -451,16 +470,16 @@ function copy_article_to_level($do, $dbcon) {
 						}
 					}
 					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")" ;
-					$result = mysql_query($sql2, $dbcon) or die("error while copy article content <br>error while connecting to database: <br><pre>".$sql2."</pre>");
+					$result = mysql_query($sql2, $dbcon) or die("error while copy article content <br>error while connecting to database: <pre>".$sql2."</pre>");
 				}
 				mysql_free_result($result1);
 			}
-			
-			if(isset($do[3]) && $do[3] == 'open' && $article_insert_id) {
+
+			if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open' && $article_insert_id) {
 			
 				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&id='.$article_insert_id);
 			
-			} 
+			}
 
 		}
 

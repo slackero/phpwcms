@@ -5,7 +5,7 @@
  * A PHP-Based RSS and Atom Feed Framework.
  * Takes the hard work out of managing a complete RSS/Atom solution.
  *
- * Copyright (c) 2004-2009, Ryan Parman and Geoffrey Sneddon
+ * Copyright (c) 2004-2010, Ryan Parman, Geoffrey Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -33,10 +33,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
- * @version 1.2.1-dev
- * @copyright 2004-2009 Ryan Parman, Geoffrey Sneddon
+ * @version 1.3-dev
+ * @copyright 2004-2010 Ryan Parman, Geoffrey Sneddon, Ryan McCue
  * @author Ryan Parman
  * @author Geoffrey Sneddon
+ * @author Ryan McCue
  * @link http://simplepie.org/ SimplePie
  * @link http://simplepie.org/support/ Please submit all bug reports and feature requests to the SimplePie forums
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
@@ -51,12 +52,12 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.2.1-dev');
+define('SIMPLEPIE_VERSION', '1.3-dev');
 
 /**
  * SimplePie Build
  */
-define('SIMPLEPIE_BUILD', '20091211203510');
+define('SIMPLEPIE_BUILD', '20101003193300');
 
 /**
  * SimplePie Website URL
@@ -333,9 +334,29 @@ define('SIMPLEPIE_NAMESPACE_GEORSS', 'http://www.georss.org/georss');
 define('SIMPLEPIE_NAMESPACE_MEDIARSS', 'http://search.yahoo.com/mrss/');
 
 /**
- * Wrong Media RSS Namespace
+ * Wrong Media RSS Namespace. Caused by a long-standing typo in the spec.
  */
 define('SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG', 'http://search.yahoo.com/mrss');
+
+/**
+ * Wrong Media RSS Namespace #2. New namespace introduced in Media RSS 1.5.
+ */
+define('SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG2', 'http://video.search.yahoo.com/mrss');
+
+/**
+ * Wrong Media RSS Namespace #3. A possible typo of the Media RSS 1.5 namespace.
+ */
+define('SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG3', 'http://video.search.yahoo.com/mrss/');
+
+/**
+ * Wrong Media RSS Namespace #4. New spec location after the RSS Advisory Board takes it over, but not a valid namespace.
+ */
+define('SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG4', 'http://www.rssboard.org/media-rss');
+
+/**
+ * Wrong Media RSS Namespace #5. A possible typo of the RSS Advisory Board URL.
+ */
+define('SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG5', 'http://www.rssboard.org/media-rss/');
 
 /**
  * iTunes RSS Namespace
@@ -1104,7 +1125,7 @@ class SimplePie
 	{
 		if (SimplePie_Misc::is_subclass_of($class, 'SimplePie_Sanitize'))
 		{
-			$this->sanitize =& new $class;
+			$this->sanitize = new $class();
 			return true;
 		}
 		return false;
@@ -1533,6 +1554,7 @@ class SimplePie
 
 		if ($this->feed_url !== null || $this->raw_data !== null)
 		{
+			$this->error = null;
 			$this->data = array();
 			$this->multifeed_objects = array();
 			$cache = false;
@@ -3278,6 +3300,11 @@ class SimplePie_Item
 		{
 			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT);
 		}
+		elseif ($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_RSS_090, 'description'))
+		{
+			return $this->sanitize($return[0]['data'], SIMPLEPIE_CONSTRUCT_HTML);
+		}
+
 		elseif (!$description_only)
 		{
 			return $this->get_content(true);
@@ -3642,7 +3669,7 @@ class SimplePie_Item
 		{
 			return $this->sanitize($this->get_date(''), SIMPLEPIE_CONSTRUCT_TEXT);
 		}
-		elseif (($date = $this->get_date('U')) !== null)
+		elseif (($date = $this->get_date('U')) !== null && $date !== false)
 		{
 			return strftime($date_format, $date);
 		}
@@ -4067,16 +4094,16 @@ class SimplePie_Item
 					$temp = explode(':', $this->sanitize($duration_parent[0]['data'], SIMPLEPIE_CONSTRUCT_TEXT));
 					if (sizeof($temp) > 0)
 					{
-						(int) $seconds = array_pop($temp);
+						$seconds = (int) array_pop($temp);
 					}
 					if (sizeof($temp) > 0)
 					{
-						(int) $minutes = array_pop($temp);
+						$minutes = (int) array_pop($temp);
 						$seconds += $minutes * 60;
 					}
 					if (sizeof($temp) > 0)
 					{
-						(int) $hours = array_pop($temp);
+						$hours = (int) array_pop($temp);
 						$seconds += $hours * 3600;
 					}
 					unset($temp);
@@ -5055,7 +5082,7 @@ class SimplePie_Item
 			{
 				foreach ((array) $this->data['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['content'] as $content)
 				{
-					if (isset($content['attribs']['']['url']))
+					if (isset($content['attribs']['']['url']) || isset($content['child'][SIMPLEPIE_NAMESPACE_MEDIARSS]['player']))
 					{
 						// Attributes
 						$bitrate = null;
@@ -5140,8 +5167,10 @@ class SimplePie_Item
 						{
 							$width = $this->sanitize($content['attribs']['']['width'], SIMPLEPIE_CONSTRUCT_TEXT);
 						}
-						$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
-
+						if (isset($content['attribs']['']['url']))
+						{
+							$url = $this->sanitize($content['attribs']['']['url'], SIMPLEPIE_CONSTRUCT_IRI);
+						}
 						// Checking the other optional media: elements. Priority: media:content, media:group, item, channel
 
 						// CAPTIONS
@@ -6452,7 +6481,7 @@ class SimplePie_Enclosure
 		$this->width = $width;
 		if (class_exists('idna_convert'))
 		{
-			$idn =& new idna_convert;
+			$idn =& new idna_convert();
 			$parsed = SimplePie_Misc::parse_url($link);
 			$this->link = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
@@ -7650,7 +7679,7 @@ class SimplePie_File
 	{
 		if (class_exists('idna_convert'))
 		{
-			$idn =& new idna_convert;
+			$idn =& new idna_convert();
 			$parsed = SimplePie_Misc::parse_url($url);
 			$url = SimplePie_Misc::compress_parse_url($parsed['scheme'], $idn->encode($parsed['authority']), $parsed['path'], $parsed['query'], $parsed['fragment']);
 		}
@@ -9446,7 +9475,7 @@ class SimplePie_Misc
 		}
 
 		// This is first, as behaviour of this is completely predictable
-		if ($input === 'Windows-1252' && $output === 'UTF-8')
+		if ($input === 'windows-1252' && $output === 'UTF-8')
 		{
 			return SimplePie_Misc::windows_1252_to_utf8($data);
 		}
@@ -9467,6 +9496,17 @@ class SimplePie_Misc
 		}
 	}
 
+	/**
+	 * Normalize an encoding name
+	 *
+	 * This is automatically generated by create.php
+	 *
+	 * To generate it, run `php create.php` on the command line, and copy the
+	 * output to replace this function.
+	 *
+	 * @param string $charset Character set to standardise
+	 * @return string Standardised name
+	 */
 	function encoding($charset)
 	{
 		// Normalization from UTS #22
@@ -9500,7 +9540,6 @@ class SimplePie_Misc
 
 			case 'big5':
 			case 'csbig5':
-			case 'xxbig5':
 				return 'Big5';
 
 			case 'big5hkscs':
@@ -9656,14 +9695,14 @@ class SimplePie_Misc
 			case 'isoir85':
 				return 'ES2';
 
-			case 'cseucfixwidjapanese':
-			case 'extendedunixcodefixedwidthforjapanese':
-				return 'Extended_UNIX_Code_Fixed_Width_for_Japanese';
-
 			case 'cseucpkdfmtjapanese':
 			case 'eucjp':
 			case 'extendedunixcodepackedformatforjapanese':
-				return 'Extended_UNIX_Code_Packed_Format_for_Japanese';
+				return 'EUC-JP';
+
+			case 'cseucfixwidjapanese':
+			case 'extendedunixcodefixedwidthforjapanese':
+				return 'Extended_UNIX_Code_Fixed_Width_for_Japanese';
 
 			case 'gb18030':
 				return 'GB18030';
@@ -9741,80 +9780,6 @@ class SimplePie_Misc
 			case 'csibmthai':
 			case 'ibmthai':
 				return 'IBM-Thai';
-
-			case 'ccsid858':
-			case 'cp858':
-			case 'ibm858':
-			case 'pcmultilingual850euro':
-				return 'IBM00858';
-
-			case 'ccsid924':
-			case 'cp924':
-			case 'ebcdiclatin9euro':
-			case 'ibm924':
-				return 'IBM00924';
-
-			case 'ccsid1140':
-			case 'cp1140':
-			case 'ebcdicus37euro':
-			case 'ibm1140':
-				return 'IBM01140';
-
-			case 'ccsid1141':
-			case 'cp1141':
-			case 'ebcdicde273euro':
-			case 'ibm1141':
-				return 'IBM01141';
-
-			case 'ccsid1142':
-			case 'cp1142':
-			case 'ebcdicdk277euro':
-			case 'ebcdicno277euro':
-			case 'ibm1142':
-				return 'IBM01142';
-
-			case 'ccsid1143':
-			case 'cp1143':
-			case 'ebcdicfi278euro':
-			case 'ebcdicse278euro':
-			case 'ibm1143':
-				return 'IBM01143';
-
-			case 'ccsid1144':
-			case 'cp1144':
-			case 'ebcdicit280euro':
-			case 'ibm1144':
-				return 'IBM01144';
-
-			case 'ccsid1145':
-			case 'cp1145':
-			case 'ebcdices284euro':
-			case 'ibm1145':
-				return 'IBM01145';
-
-			case 'ccsid1146':
-			case 'cp1146':
-			case 'ebcdicgb285euro':
-			case 'ibm1146':
-				return 'IBM01146';
-
-			case 'ccsid1147':
-			case 'cp1147':
-			case 'ebcdicfr297euro':
-			case 'ibm1147':
-				return 'IBM01147';
-
-			case 'ccsid1148':
-			case 'cp1148':
-			case 'ebcdicinternational500euro':
-			case 'ibm1148':
-				return 'IBM01148';
-
-			case 'ccsid1149':
-			case 'cp1149':
-			case 'ebcdicis871euro':
-			case 'ibm1149':
-				return 'IBM01149';
 
 			case 'cp37':
 			case 'csibm37':
@@ -9963,6 +9928,12 @@ class SimplePie_Misc
 			case 'ibm857':
 				return 'IBM857';
 
+			case 'ccsid858':
+			case 'cp858':
+			case 'ibm858':
+			case 'pcmultilingual850euro':
+				return 'IBM00858';
+
 			case '860':
 			case 'cp860':
 			case 'csibm860':
@@ -10065,6 +10036,12 @@ class SimplePie_Misc
 			case 'ibm918':
 				return 'IBM918';
 
+			case 'ccsid924':
+			case 'cp924':
+			case 'ebcdiclatin9euro':
+			case 'ibm924':
+				return 'IBM00924';
+
 			case 'cp1026':
 			case 'csibm1026':
 			case 'ibm1026':
@@ -10072,6 +10049,68 @@ class SimplePie_Misc
 
 			case 'ibm1047':
 				return 'IBM1047';
+
+			case 'ccsid1140':
+			case 'cp1140':
+			case 'ebcdicus37euro':
+			case 'ibm1140':
+				return 'IBM01140';
+
+			case 'ccsid1141':
+			case 'cp1141':
+			case 'ebcdicde273euro':
+			case 'ibm1141':
+				return 'IBM01141';
+
+			case 'ccsid1142':
+			case 'cp1142':
+			case 'ebcdicdk277euro':
+			case 'ebcdicno277euro':
+			case 'ibm1142':
+				return 'IBM01142';
+
+			case 'ccsid1143':
+			case 'cp1143':
+			case 'ebcdicfi278euro':
+			case 'ebcdicse278euro':
+			case 'ibm1143':
+				return 'IBM01143';
+
+			case 'ccsid1144':
+			case 'cp1144':
+			case 'ebcdicit280euro':
+			case 'ibm1144':
+				return 'IBM01144';
+
+			case 'ccsid1145':
+			case 'cp1145':
+			case 'ebcdices284euro':
+			case 'ibm1145':
+				return 'IBM01145';
+
+			case 'ccsid1146':
+			case 'cp1146':
+			case 'ebcdicgb285euro':
+			case 'ibm1146':
+				return 'IBM01146';
+
+			case 'ccsid1147':
+			case 'cp1147':
+			case 'ebcdicfr297euro':
+			case 'ibm1147':
+				return 'IBM01147';
+
+			case 'ccsid1148':
+			case 'cp1148':
+			case 'ebcdicinternational500euro':
+			case 'ibm1148':
+				return 'IBM01148';
+
+			case 'ccsid1149':
+			case 'cp1149':
+			case 'ebcdicis871euro':
+			case 'ibm1149':
+				return 'IBM01149';
 
 			case 'csiso143iecp271':
 			case 'iecp271':
@@ -10615,11 +10654,6 @@ class SimplePie_Misc
 			case 'sen850200c':
 				return 'SEN_850200_C';
 
-			case 'csshiftjis':
-			case 'mskanji':
-			case 'shiftjis':
-				return 'Shift_JIS';
-
 			case 'csiso102t617bit':
 			case 'isoir102':
 			case 't617bit':
@@ -10718,7 +10752,10 @@ class SimplePie_Misc
 			case 'viscii':
 				return 'VISCII';
 
+			case 'csshiftjis':
 			case 'cswindows31j':
+			case 'mskanji':
+			case 'shiftjis':
 			case 'windows31j':
 				return 'Windows-31J';
 
@@ -14648,7 +14685,11 @@ class SimplePie_Parser
 				}
 
 				// Normalize the Media RSS namespaces
-				if ($namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG)
+				if ($namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG ||
+					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG2 ||
+					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG3 ||
+					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG4 ||
+					$namespace === SIMPLEPIE_NAMESPACE_MEDIARSS_WRONG5 )
 				{
 					$namespace = SIMPLEPIE_NAMESPACE_MEDIARSS;
 				}

@@ -1,3 +1,40 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-MooTools.lang.set("no-NO","Date",{dateOrder:["date","month","year"],shortDate:"%d.%m.%Y",shortTime:"%H:%M",lessThanMinuteAgo:"kortere enn et minutt siden",minuteAgo:"omtrent et minutt siden",minutesAgo:"{delta} minutter siden",hourAgo:"omtrent en time siden",hoursAgo:"omtrent {delta} timer siden",dayAgo:"{delta} dag siden",daysAgo:"{delta} dager siden"});
+script: Date.Norwegian.js
+
+name: Date.Norwegian
+
+description: Date messages for Norwegian.
+
+license: MIT-style license
+
+authors:
+  - Espen 'Rexxars' Hovlandsdal
+
+requires:
+  - /Lang
+
+provides: [Date.Norwegian]
+
+...
+*/
+
+MooTools.lang.set('no-NO', 'Date', {
+
+	// Culture's date order: DD.MM.YYYY
+	dateOrder: ['date', 'month', 'year'],
+	shortDate: '%d.%m.%Y',
+	shortTime: '%H:%M',
+	AM: 'AM',
+	PM: 'PM',
+
+	lessThanMinuteAgo: 'kortere enn et minutt siden',
+	minuteAgo: 'omtrent et minutt siden',
+	minutesAgo: '{delta} minutter siden',
+	hourAgo: 'omtrent en time siden',
+	hoursAgo: 'omtrent {delta} timer siden',
+	dayAgo: '{delta} dag siden',
+	daysAgo: '{delta} dager siden'
+
+});

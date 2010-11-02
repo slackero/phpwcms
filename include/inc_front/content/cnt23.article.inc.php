@@ -179,6 +179,49 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_field .= ' />';
 								break;
 								
+			case 'recaptcha':	/*
+								 * reCAPTCHA
+								 */
+								include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptcha/recaptchalib.php');
+								
+								$cnt_form['recaptcha'] = array(
+									'public_key' => empty($cnt_form["fields"][$key]['value']['public_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['public_key'],
+									'private_key' => empty($cnt_form["fields"][$key]['value']['private_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['private_key'],
+									'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
+									'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'clear' : $cnt_form["fields"][$key]['value']['theme'],
+									'tabindex' => empty($cnt_form["fields"][$key]['value']['tabindex']) ? 0 : $cnt_form["fields"][$key]['value']['tabindex'],
+									'error' => NULL
+								);
+							
+								if($POST_DO && isset($_POST['recaptcha_response_field']) && isset($_POST['recaptcha_challenge_field'])) {
+									
+									$cnt_form['recaptcha']['response'] = recaptcha_check_answer($cnt_form['recaptcha']['private_key'], $_SERVER["REMOTE_ADDR"], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+									
+									if(!$cnt_form['recaptcha']['response']->is_valid) {
+									
+										$cnt_form['recaptcha']['error']	= $cnt_form['recaptcha']['response']->error;
+										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
+
+									}
+								}
+								//
+								$form_field  = '<div';
+								if($cnt_form["fields"][$key]['class']) {
+									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
+								}
+								if($cnt_form["fields"][$key]['style']) {
+									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								$form_field .= '><script type="text/javascript">' . LF;
+								$form_field .= '	var RecaptchaOptions = {lang:"'.$cnt_form['recaptcha']['lang'].'",';
+								$form_field .= 'theme:"'.$cnt_form['recaptcha']['theme'].'",tabindex:'.$cnt_form['recaptcha']['tabindex'] . '};' . LF;
+								$form_field .= '</script>';
+								$form_field .= recaptcha_get_html($cnt_form['recaptcha']['public_key'], $cnt_form['recaptcha']['error']);
+								$form_field .= '</div>';
+								
+								break;
+								
 			case 'special'	:	/*
 								 * Special
 								 */
@@ -188,7 +231,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											'dateformat'	=> 'm/d/Y',
 											'pattern'		=> '/.*?/'
 										); 
-								
+								//
 								if($cnt_form["fields"][$key]['value']) {
 									$cnt_form['special_value'] = str_replace( array('"', "'", "\r'"), '', $cnt_form["fields"][$key]['value'] );
 									$cnt_form['special_value'] = explode("\n", $cnt_form['special_value']);
@@ -417,6 +460,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								 */
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
+									if($POST_val[$POST_name] != '' && $cnt_form["fields"][$key]['type'] == 'selectemail') { // decrypt
+										$POST_val[$POST_name] = decrypt(base64_decode($POST_val[$POST_name]));
+									}
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
 										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
@@ -525,10 +571,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 												$form_field .= '<option value=""';
 												$option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
 											} elseif(strtolower(substr($option_value, -9)) != ' selected') {
-												$form_field .= '<option value="'.$option_value.'"';
+												$form_field .= '<option value="'.($cnt_form["fields"][$key]['type'] == 'selectemail' ? base64_encode(encrypt($option_value)) : $option_value).'"';
 											} else {
 												$option_value = str_replace(' selected', '', $option_value);
-												$form_field .= '<option value="'.$option_value.'" selected="selected"';
+												$form_field .= '<option value="'.($cnt_form["fields"][$key]['type'] == 'selectemail' ? base64_encode(encrypt($option_value)) : $option_value).'" selected="selected"';
 											}
 											$form_field .= '>'.html_specialchars($option_label)."</option>\n";
 										}
@@ -1286,8 +1332,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			$cnt_form['subject'] .= ' '.cleanUpForEmailHeader($POST_val[$POST_name]);
 			$cnt_form['subject']  = trim($cnt_form['subject']);
 		
-		}		
-
+		}
+		
 		// Build the form elements
 
 		if($form_field && $cnt_form["fields"][$key]['type'] != 'hidden') {
@@ -1366,6 +1412,32 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 		}
 
 		$form_counter++;
+	}
+	
+	// check against custom PHP function used to validate form
+	if($POST_DO && !empty($cnt_form['cform_function_validate']) && is_string($cnt_form['cform_function_validate'])) {
+		
+		$cnt_form['validate'] = explode('[', trim($cnt_form['cform_function_validate'], ']'));
+		$cnt_form_validate_function = trim($cnt_form['validate'][0]);
+		
+		if($cnt_form_validate_function && function_exists($cnt_form_validate_function)) {
+			
+			$cnt_form_validate_fields = NULL;
+			
+			if(isset($cnt_form['validate'][1])) {
+				$cnt_form_validate_fields = trim($cnt_form['validate'][1]);
+				if($cnt_form_validate_fields) {
+					$cnt_form_validate_fields = convertStringToArray($cnt_form_validate_fields);
+					if(empty($cnt_form_validate_fields) || !count($cnt_form_validate_fields)) {
+						$cnt_form_validate_fields = NULL;
+					}
+				}
+			}
+		
+			$cnt_form_validate_function($POST_val, $cnt_form_validate_fields);
+			
+		}
+
 	}
 }
 
@@ -1702,7 +1774,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 					$form_newletter_setting['name_field'] = $form_newletter_setting['email_field'];
 				}
 				
-				$form_newletter_setting['hash'] = shortHash( $form_newletter_setting['email_field'].time() );
+				$form_newletter_setting['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash( $form_newletter_setting['email_field'].time() ) );
 				
 				// create SQL query to populate recipient into recipients db
 				$form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
@@ -1874,7 +1946,7 @@ if($form_cnt) {
 	}
 	$CNT_TMP .= $form_error_text;
 	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'];
-	$CNT_TMP .= ' action="'.FE_CURRENT_URL.'#jumpForm'.$crow["acontent_id"].'" method="post"';
+	$CNT_TMP .= ' action="'.rel_url().'#jumpForm'.$crow["acontent_id"].'" method="post"';
 	$CNT_TMP .= $cnt_form['is_enctype'] ? ' enctype="multipart/form-data">' : '>';
 
 	if($cnt_form['labelpos'] == 2) {

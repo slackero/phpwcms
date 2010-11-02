@@ -345,7 +345,7 @@ $BL['be_admin_usr_err3']                = 'Kennwort ist leer (ben&ouml;tigt)';
 $BL['be_admin_usr_err4']                = "E-Mail ist ung&uuml;ltig";
 $BL['be_admin_usr_err']                 = 'Fehler';
 $BL['be_admin_usr_mailsubject']         = 'Willkommen im phpwcms Backend';
-$BL['be_admin_usr_mailbody']            = "WILLKOMMEN IM PHPWCMS BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_mailbody']            = "WILLKOMMEN IM PHPWCMS BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie kÃ¶nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
 $BL['be_admin_usr_title']               = 'Neuen Benutzer anlegen';
 $BL['be_admin_usr_realname']            = 'Wahrer Name';
 $BL['be_admin_usr_setactive']           = 'Aktivieren';
@@ -359,8 +359,8 @@ $BL['be_admin_usr_button']              = 'Benutzerdaten senden';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'Benutzerdaten bearbeiten';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - Anmeldedaten ge&auml;ndert';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ANMELDEDATEN GEÄNDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
-$BL['be_admin_usr_passnochange']        = '[KEINE ÄNDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
+$BL['be_admin_usr_emailbody']           = "PHPWCMS ANMELDEDATEN GEÃ„NDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie kÃ¶nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_passnochange']        = '[KEINE Ã„NDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
 $BL['be_admin_usr_ebutton']             = 'Benutzerdaten aktualisieren';
 
 // admin.listuser.tmpl.php
@@ -886,7 +886,7 @@ $BL['be_forum_titleedit']				= 'Forum bearbeiten';
 $BL['be_admin_page_customblocks']       = 'Eigene';
 $BL['be_show_content']                  = 'Ausgabe';
 $BL['be_main_content']                  = 'Hauptspalte';
-$BL['be_admin_template_jswarning']      = 'Achtung!!! \nEs kann zu Änderungen der \nnutzerdefinierten Blöcke kommen! \n\nWenn Sie abbrechen, setzen Sie \nden Wert für das Seitenlayout zurück! \n\nWirklich Vorlage ändern?\n\n';
+$BL['be_admin_template_jswarning']      = 'Achtung!!! \nEs kann zu Ã„nderungen der \nnutzerdefinierten BlÃ¶cke kommen! \n\nWenn Sie abbrechen, setzen Sie \nden Wert fÃ¼r das Seitenlayout zurÃ¼ck! \n\nWirklich Vorlage Ã¤ndern?\n\n';
 
 $BL['be_ctype_rssfeed']					= 'RSS Feed';
 $BL['be_cnt_rssfeed_url']				= 'RSS URL';
@@ -945,7 +945,9 @@ $BL['be_cnt_field']						= array("text"=>'Text (einzeilig)',
 												'multiply'=>'Multiplizieren', 
 												'calculation'=>'Berechnung:',
 												'formtracking_off'=>'Formular-Tracking ausschalten', 
-												'checktofrom'=>'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein');
+												'checktofrom'=>'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
+												'recaptcha'=>'reCAPTCHA',
+												'recaptcha_signapikey'=>'Registrierung eines reCAPTCHA API-Schl&uuml;ssels');
 
 $BL['be_cnt_access']					= 'Zugriff';
 $BL['be_cnt_activated']					= 'aktiviert';
@@ -1054,7 +1056,9 @@ $BL['be_cnt_search_show_next']			= 'vorw&auml;rts (auch ohne Link)';
 $BL['be_cnt_search_show_prev']			= 'zur&uuml;ck (auch ohne Link)';
 $BL['be_cnt_search_show_forall']		= 'immer zeigen';
 $BL['be_cnt_search_startlevel']			= 'Suche ab';
+$BL['be_cnt_search_searchnot']			= 'Suche nicht';
 $BL['be_cnt_results_minchar']			= 'Minimale Anzahl Zeichen der Sucheingabe';
+$BL['be_cnt_search_hidesummary']		= 'Such-Teasertext ausblenden';
 
 $BL['be_cnt_pagination']				= 'Content Parts paginieren';
 $BL['be_article_pagination']			= 'Artikel paginieren';
@@ -1088,7 +1092,7 @@ $BL['be_cnt_new_recipient']				= 'Neuer Empf&auml;nger';
 
 $BL['be_cnt_newsletter_prepare']		= 'Newsletter aktiv schalten!';
 $BL['be_cnt_queued']					= 'wartend';
-$BL['be_cnt_newsletter_prepare1']		= 'Alle Empfänger werden in die Sende-Warteschlange &uuml;bernommen';
+$BL['be_cnt_newsletter_prepare1']		= 'Alle EmpfÃ¤nger werden in die Sende-Warteschlange &uuml;bernommen';
 $BL['be_cnt_newsletter_prepare2']		= 'Die Sende-Warteschlange wird aktualisiert&#8230;';
 
 $BL['be_cnt_export']					= 'Export';
@@ -1164,10 +1168,21 @@ $BL['be_image_crop']					= 'Vorschau auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_cropit']					= 'Bild auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_align']					= 'Bildausrichtung';
 
-$BL['be_ctype_flashplayer']				= 'Flash Media-Player';
+$BL['be_ctype_flashplayer']				= 'HTML5/Flash Media-Player';
 $BL['be_flashplayer_caption']           = 'Titel';
 $BL['be_flashplayer_thumbnail']			= 'Vorschau';
 $BL['be_flashplayer_selectsize']		= 'Playergr&ouml;&szlig;e w&auml;hlen';
+$BL['be_flash_media']					= 'Flash';
+$BL['be_html5_media']					= 'HTML5';
+$BL['be_html5_h264']					= 'H.264 (MPEG 4)';
+$BL['be_html5_webm']					= 'WebM';
+$BL['be_html5_ogg']						= 'Ogg';
+$BL['be_media_format']					= 'Format';
+$BL['be_media_watermark']				= 'Wasserzeichen';
+$BL['be_skin']							= 'Aussehen/Skin';
+$BL['be_foreground_color']				= 'Vordergrundfarbe';
+$BL['be_background_color']				= 'Hintergrundfarbe';
+$BL['be_highlight_color']				= 'Hervorhebungsfarbe';
 
 $BL['be_check_feuser_profile']			= 'Frontend Benutzerprofil';
 $BL['be_check_feuser_registration']		= 'Registrierung';
@@ -1212,8 +1227,8 @@ $BL['be_successfully_updated']			= 'Die Daten wurden erfolgreich aktualisiert!';
 $BL['be_error_while_save']				= 'Das Speichern der Daten ist fehlgeschlagen!';
 $BL['be_copyright']						= 'Copyright';
 $BL['be_file_multiple_upload']			= 'Mehrfach-Dateiupload';
-$BL['be_files_browse']					= 'Dateien auswählen';
-$BL['be_files_upload']					= 'Gewählte Dateien hochladen';
+$BL['be_files_browse']					= 'Dateien ausw&auml;hlen';
+$BL['be_files_upload']					= 'Gew&auml;hlte Dateien hochladen';
 $BL['be_archive']						= 'Archiv';
 $BL['be_off']							= 'aus';
 $BL['be_on']							= 'an';
@@ -1261,8 +1276,8 @@ $BL['article_menu_title']				= 'Men&uuml;titel';
 $BL['content_type']						= 'Content-Type';
 $BL['automatic']						= 'automatisch';
 
-$BL['random_image']						= 'Zufallsbild';
-$BL['random_image_from_list']			= '1 Bild zuf&auml;llig aus der Bildliste w&auml;hlen';
+$BL['random_image']						= 'Bilder zuf&auml;llig w&auml;hlen';
+$BL['limit_image_from_list']			= 'Bilder max.';
 
 $BL['alt_image']						= 'Alt. Bild';
 $BL['alt_text']							= 'Alt. Text';
@@ -1278,5 +1293,7 @@ $BL['fancyupload_adblock_error']		= 'Erlauben Sie die Nutzung von Flash im Brows
 $BL['fancyupload_flashblock_error']		= 'Aktivieren Sie die blockierte Flash-Datei (siehe Flashblock), um den integrierten Uploader nutzen zu k&ouml;nnen.';
 $BL['fancyupload_required_error']		= 'Eine erforderliche Datei wurde nicht gefunden. Bitte gedulden Sie sich. Wir &ouml;sen das Problem.';
 $BL['fancyupload_flash_error']			= 'Installieren Sie das neueste Adobe Flash Plugin, um den integrierten Uploader zu aktivieren.';
+
+$BL['be_cnt_function_validate']			= 'PHP-Validierung';
 
 ?>

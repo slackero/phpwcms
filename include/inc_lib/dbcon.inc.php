@@ -114,7 +114,9 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 							}
 							break;
 			
-			// SET, CREATE, ALTER
+			// SET, CREATE, ALTER, DROP, RENAME
+			case 'RENAME':
+			case 'DROP':
 			case 'ALTER':
 			case 'SET':
 			case 'CREATE':	return true;
@@ -492,7 +494,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
 /*
  * Set Config - store given key/value in config database
  *
- * 2008/03/13 Thiemo Mättig, fixed for MySQL 4.0, use _dbInsertOrUpdate()
+ * 2008/03/13 Thiemo MÃ¤ttig, fixed for MySQL 4.0, use _dbInsertOrUpdate()
  */
 function _setConfig($key, $value=NULL, $group='', $status=1) {
 

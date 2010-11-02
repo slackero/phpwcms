@@ -548,6 +548,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
 	$current_id	= intval($current_id);
 	$alias = clean_slweg(strtolower($alias), 150);
+	$alias = uri_sanitize($alias);
+	/*
 	$alias = pre_remove_accents($alias);
 	$alias = get_alnum_dashes($alias, true);
 	$alias = trim($alias);
@@ -555,6 +557,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
 		$alias = trim( preg_replace('/__+/', '_', $alias), '_' );
 	}
+	*/
 	
 	$reserved	= array(
 		'print',
@@ -905,15 +908,16 @@ function initMootools($mode='1.1', $more=array()) {
 			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.2-core-yc.js');
 			
 			if(is_array($more) && count($more)) {
-				array_unshift($plugin, 'Core/More');
-				foreach($plugin as $more) {
-					$name = 'mootools-more-'.$more;
-					if(empty($GLOBALS['BE']['HEADER'][$name]) && is_file(PHPWCMS_TEMPLATE.'lib/mootools/more/'.$more.'.js')) {
-						$GLOBALS['BE']['HEADER'][$name] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/more/'.$more.'.js');
+				array_unshift($more, 'Core/More');
+				foreach($more as $item) {
+					$name = 'mootools-more-'.$item;
+					if(empty($GLOBALS['BE']['HEADER'][$name]) && is_file(PHPWCMS_TEMPLATE.'lib/mootools/more/'.$item.'.js')) {
+						$GLOBALS['BE']['HEADER'][$name] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/more/'.$item.'.js');
 					}
 				}
 			}
 	}
+	$GLOBALS['phpwcms']['mootools_mode'] = $mode;
 }
 function initMootoolsAutocompleter($mode='1.1') {
 	initMootools($mode);
@@ -971,6 +975,152 @@ function phpwcms_revision_check_temp(&$revision) {
 		return NULL;
 	}
 	return is_file(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp');
+}
+
+/*
+ * Parse backend for language related BBCode [EN][/EN] or {EN}{/EN} unsing JavaScript
+ * 
+ * To enable backend language parser set config in conf.inc.php
+ * $phpwcms['be_lang_parse'] = 'BBCode'; // to enable parsing for [EN][/EN]
+ * $phpwcms['be_lang_parse'] = 'BraceCode'; // to enable parsing for {EN}{/EN}
+ * $phpwcms['be_lang_parse'] = 'i18n'; // ToDo: to enable parsing for @@Default@@
+ * $phpwcms['be_lang_parse'] = false; // to disable backend language parsing
+ */ 
+function backend_language_parser() {
+	
+	global $phpwcms, $BE, $BL;
+		
+	
+	if(!$phpwcms['be_parse_lang_process'] || empty($phpwcms['be_lang_parse'])) {
+		
+		return backend_language_replace('');
+		
+	} elseif(empty($phpwcms['allowed_lang']) || !is_array($phpwcms['allowed_lang']) || count($phpwcms['allowed_lang']) < 2) {
+		
+		return backend_language_replace('');
+	
+	} else {
+		
+		$parse_mode = strtoupper($phpwcms['be_lang_parse']);
+		
+		if(!in_array($parse_mode, array('BBCODE', 'BRACECODE'))) { // i18n later
+			
+			return backend_language_replace('');
+	
+		}
+
+	}
+	
+	// cut main backend content innerHTML
+	$html_pos1	= strpos($BE['HTML'], '<!--BE_MAIN_CONTENT_START//-->');
+	$html_pos2	= strpos($BE['HTML'], '<!--BE_MAIN_CONTENT_END//-->');
+	
+	if($html_pos1 !== false && $html_pos2 !== false) {
+	
+		$html_pos1 += strlen('<!--BE_MAIN_CONTENT_START//-->');
+		$html_pos2 -= 1;
+		
+	}
+	
+	$html		= trim( preg_replace('/\s+/', ' ', substr($BE['HTML'], $html_pos1, $html_pos2-$html_pos1) ) );
+	$BE['HTML']	= substr($BE['HTML'], 0, $html_pos1) . substr($BE['HTML'], $html_pos2);
+	
+	// load MooTools too
+	if(empty($phpwcms['mootools_mode'])) {
+		initMootools();
+	}
+	
+	// init language replacements
+	$regexp 	= array( 'search' => array(), 'replace' => array() );
+	$bracket	= array('BBCODE_OPEN' => '[', 'BRACECODE_OPEN' => '{', 'BBCODE_CLOSE' => ']', 'BRACECODE_CLOSE' => '}');
+	$cookie		= (empty($_COOKIE['phpwcms_be_parse_lang']) || !in_array($_COOKIE['phpwcms_be_parse_lang'], $phpwcms['allowed_lang'])) ? false : $_COOKIE['phpwcms_be_parse_lang'];
+	
+	// init menu
+	$menu		= array(
+		'<ul id="be_lang">',
+		'<li class="be-lang-label chatlist">'.$BL['be_profile_label_lang'].':</li>',
+		'<li><a href="#" class="be-disabled'.
+			($cookie === false ? ' be-active' : '').
+			'" rel="disabled" title="'.
+			$BL['be_profile_label_lang'].': '.$BL['be_off'].'">'.$BL['be_off'].'</a></li>'
+	);
+	
+	// Header CSS section
+	$BE['HEADER']['be_parse_lang']  = '	<style type="text/css">' . LF;
+	
+	// JavaScript section
+	$BE['BODY_CLOSE']['hidden_main_content']  = '	<script type="text/javascript">' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= "		var be_lang_html = [];" . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= "		var cur_be_lang = 'disabled';" . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= "		be_lang_html['disabled'] = '" . trim(str_replace(array("\\", "'"), array("\\\\", "\\'"), $html)) . "';" . LF . LF;
+	
+	// build regular expression at first
+	foreach($phpwcms['allowed_lang'] as $lang) {
+		$regexp['search'][$lang]	= '/\\'.$bracket[$parse_mode.'_OPEN'].$lang.'\\'.$bracket[$parse_mode.'_CLOSE'].'(.*?)\\'.$bracket[$parse_mode.'_OPEN'].'\/'.$lang.'\\'.$bracket[$parse_mode.'_CLOSE'].'/is';
+		$regexp['replace'][$lang]	= '';
+	}
+	// parse each language at second
+	foreach($phpwcms['allowed_lang'] as $lang) {
+		$replace		= $regexp['replace'];
+		$replace[$lang]	= '$1';
+		$lang_html		= preg_replace($regexp['search'], $replace, $html);
+		
+		$BE['HEADER']['be_parse_lang'] .= '	#be_lang a.be-lang-'.$lang.' {background-image:url(img/famfamfam/lang/'.$lang.'.png);}'.LF;
+		
+		
+		$menu_item		= '<li><a href="#" class="be-lang be-lang-'.$lang;
+		
+		// check which is current default
+		if($lang == $cookie) {
+			$new_html = $lang_html;	// phpwcms should use the curent lang html
+			$BE['BODY_CLOSE']['hidden_main_content'] .= "		cur_be_lang = '" . $lang . "';" . LF;
+			$menu_item .= ' be-active';
+		}
+		
+		$menu[] = $menu_item . '" rel="'.$lang.'" title="'.$BL['be_profile_label_lang'].': '.strtoupper($lang).'">'.$lang.'</a></li>';
+
+		$BE['BODY_CLOSE']['hidden_main_content'] .= "		be_lang_html['".$lang."'] = '" . trim(str_replace(array("\\", "'"), array("\\\\", "\\'"), $lang_html)) . "';" . LF . LF;
+	}
+	
+	$BE['HEADER']['be_parse_lang']			 .= '	</style>';
+	
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '	window.addEvent("domready", function() {' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '		var be_lang = $("be_lang");' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '		var be_lang_cnt = $("be_lang_cnt");' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '		if(be_lang && be_lang_cnt) {' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '			var be_lang_items = be_lang.getElements("a");' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '			be_lang_items.each(function(l) {' . LF;
+
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '				l.addEvent("click", function(){' . LF;
+	
+	$BE['BODY_CLOSE']['hidden_main_content'] .= "					if(cur_be_lang == l.rel) {return;}" . LF;
+	
+	$BE['BODY_CLOSE']['hidden_main_content'] .= "					cur_be_lang = l.rel;" . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '					be_lang_items.each(function(el){el.removeClass("be-active");});' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '					l.addClass("be-active");' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '					be_lang_cnt.setHTML(be_lang_html[l.rel]);' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '					Cookie.set("phpwcms_be_parse_lang", cur_be_lang);' . LF;
+	
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '				});' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '			});' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '		}' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '	});' . LF;
+	$BE['BODY_CLOSE']['hidden_main_content'] .= '	</script>';
+	
+	$menu[] = '</ul>';
+	
+	// wrap current lang/html with <div>
+	$BE['HTML']	= replace_tmpl_section('BE_MAIN_CONTENT', $BE['HTML'], '<div id="be_lang_cnt">' . (empty($new_html) ? $html : $new_html) . '</div>');
+	
+	backend_language_replace( implode(LF, $menu) );
+	
+}
+
+function backend_language_replace($result) {
+	
+	$GLOBALS['BE']['HTML'] = str_replace('{BE_PARSE_LANG}', $result, $GLOBALS['BE']['HTML']);
+	return NULL;
+	
 }
 
 ?>

@@ -948,7 +948,9 @@ $BL['be_cnt_field']						= array("text"=>'text (single-line)',
 												'divide'=>'divide', 'multiply'=>'multiply', 
 												'calculation'=>'calculation:',
 												'formtracking_off'=>'disable form tracking', 
-												'checktofrom'=>'email of recipient must be different from sender');
+												'checktofrom'=>'email of recipient must be different from sender',
+												'recaptcha'=>'reCAPTCHA',
+												'recaptcha_signapikey'=>'Sign up for a reCAPTCHA API key');
 
 $BL['be_cnt_access']					= 'access';
 $BL['be_cnt_activated']					= 'activated';
@@ -1032,8 +1034,6 @@ $BL['be_WYSIWYG']						= 'WYSIWYG editor';
 $BL['be_WYSIWYG_disabled']				= 'WYSIWYG editor disabled';
 $BL['be_admin_struct_acat_hiddenactive'] = 'visible when active';
 
-
-
 $BL['be_login_jsinfo']					= 'Please enable JavaScript which is neccessary in the backend!';
 
 $BL['be_admin_struct_maxlist']			= 'max. articles in list mode';
@@ -1064,6 +1064,8 @@ $BL['be_cnt_search_show_prev']			= 'previous (also if no link)';
 $BL['be_cnt_search_show_forall']		= 'show always';
 $BL['be_cnt_search_startlevel']			= 'search start';
 $BL['be_cnt_results_minchar']			= 'minimum number of chars of search input';
+$BL['be_cnt_search_hidesummary']		= 'hide search teaser text';
+$BL['be_cnt_search_searchnot']			= 'no search for';
 
 $BL['be_cnt_pagination']				= 'paginate content parts';
 $BL['be_article_pagination']			= 'paginate articles';
@@ -1173,10 +1175,21 @@ $BL['be_image_crop']					= 'crop thumbnail';
 $BL['be_image_cropit']					= 'crop image';
 $BL['be_image_align']					= 'image alignment';
 
-$BL['be_ctype_flashplayer']				= 'flash media player';
+$BL['be_ctype_flashplayer']				= 'HTML5/Flash media player';
 $BL['be_flashplayer_caption']           = 'caption';
 $BL['be_flashplayer_thumbnail']			= 'thumbnail';
 $BL['be_flashplayer_selectsize']		= 'Select player size';
+$BL['be_flash_media']					= 'Flash';
+$BL['be_html5_media']					= 'HTML5';
+$BL['be_html5_h264']					= 'H.264';
+$BL['be_html5_webm']					= 'WebM';
+$BL['be_html5_ogg']						= 'Ogg';
+$BL['be_media_format']					= 'format';
+$BL['be_media_watermark']				= 'watermark';
+$BL['be_skin']							= 'skin';
+$BL['be_foreground_color']				= 'foreground color';
+$BL['be_background_color']				= 'background color';
+$BL['be_highlight_color']				= 'highlight color';
 
 $BL['be_check_feuser_profile']			= 'frontend user profile';
 $BL['be_check_feuser_registration']		= 'registration';
@@ -1270,8 +1283,8 @@ $BL['article_menu_title']				= 'menu title';
 $BL['content_type']						= 'content-type';
 $BL['automatic']						= 'automatic';
 
-$BL['random_image']						= 'random image';
-$BL['random_image_from_list']			= 'Select 1 random image from image list';
+$BL['random_image']						= 'select images randomly';
+$BL['limit_image_from_list']			= 'Images max.';
 
 $BL['alt_image']						= 'alt. image';
 $BL['alt_text']							= 'alt. text';
@@ -1289,7 +1302,7 @@ $BL['fancyupload_flashblock_error']		= 'To enable the embedded uploader, enable 
 $BL['fancyupload_required_error']		= 'A required file was not found, please be patient and we fix this.';
 $BL['fancyupload_flash_error']			= 'To enable the embedded uploader, install the latest Adobe Flash plugin.';
 
-
+$BL['be_cnt_function_validate']			= 'PHP validation';
 
 
 ?>

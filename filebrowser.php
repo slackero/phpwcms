@@ -101,7 +101,10 @@ switch($js_aktion) {
 				break;
 	
 	case 2:
-	case 6:		$titel		= $BL['MEDIA_TITLE'];	
+	case 6:
+	case 12:
+	case 13:
+	case 14:	$titel		= $BL['MEDIA_TITLE'];	
 				$filetype	= $BL['MEDIA_FILES'];
 				break;
 	
@@ -229,30 +232,42 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	$file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
 	switch($js_aktion) {
 
-		case 6:	$file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'jpg', 'png', 'gif') AND ";
-				break;
-		
-		case 8:	$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
-		case 7:	$file_sql .= "f_ext IN ('jpg', 'png', 'gif') AND ";
-				break;
-	
-	
-		case 2: $default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
-				$default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
-				$default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
-				
-				if(!empty($phpwcms["multimedia_ext"])) {
-				
-					$allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
-					if(count($allowed_ext)) {						
-						$default_ext = "f_ext IN ('".implode("', '", $allowed_ext) . "')";
-					}
+		case 6:		$file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'png', 'gif') AND ";
+					break;
 					
-				}
+					// H.264
+		case 12:	$file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a') AND ";
+					break;
+					
+					// WebM
+		case 13:	$file_sql .= "f_ext IN ('webm') AND ";
+					break;
+			
+					// Ogg
+		case 14:	$file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
+					break;
+		
+		case 8:		$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
+		case 7:		$file_sql .= "f_ext IN ('jpg', 'png', 'gif') AND ";
+					break;
+	
+	
+		case 2: 	$default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
+					$default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
+					$default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
 				
-				$file_sql .= $default_ext." AND ";
+					if(!empty($phpwcms["multimedia_ext"])) {
 				
-				break;
+						$allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
+						if(count($allowed_ext)) {						
+							$default_ext = "f_ext IN ('".implode("', '", $allowed_ext) . "')";
+						}
+					
+					}
+				
+					$file_sql .= $default_ext." AND ";
+				
+					break;
 
 	}
 	$file_sql .= "f_public=1 AND f_aktiv=1 ";
@@ -281,7 +296,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 								);
 			}
 
-			if($thumb_image != false || $js_aktion == 6) {
+			if($thumb_image != false || in_array($js_aktion, array(6,12,13,14))) {
 			
 				$js_files_select[$file_durchlauf] = '	  [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
 				$add_all = false;
@@ -297,7 +312,10 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 							 $js .= "window.opener.document.articlecontent.cmedia_id.value='".$file_row["f_id"]."';";
 						 	 break;
 							 
-					case 6:  $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."');";
+					case 6:
+					case 12:
+					case 13:
+					case 14: $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
 						 	 break;
 							 
 					case 7:  $js = "window.opener.setImgIdName('".$file_row["f_id"]."', '".$filename."');";

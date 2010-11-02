@@ -358,12 +358,15 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 	}
 	$col_rand = ($rand[2] && $rand[3]) ? 2 : (($rand[2] || $rand[3]) ? 1 : 0 );
 	
-	if($count_images = count($imagelist['images'])) {
+	if(($count_images = count($imagelist['images']))) {
 		
-		// select random image from image
-		if(!empty($imagelist['random'])){
-			$random = array_rand($imagelist['images'], 1);
-			$imagelist['images'] = array( $imagelist['images'][ $random ] );
+		// randomize image
+		if(!empty($imagelist['random'])) {
+			shuffle($imagelist['images']);
+		}
+		
+		if(empty($imagelist['limit'])) {
+			$imagelist['limit'] = 0;
 		}
 
 		//Tabelle starten
@@ -537,6 +540,11 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				$table 		.= $xct;
 				$capt_row 	.= $xct;
 				$x++;
+			}
+			
+			// end if max image count
+			if($imagelist['limit'] == $y) {
+				break;
 			}
 		}
 		

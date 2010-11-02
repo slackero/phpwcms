@@ -1,3 +1,122 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-Date.implement({timeDiffInWords:function(a){return Date.distanceOfTimeInWords(this,a||new Date)},timeDiff:function(g,b){if(g==null){g=new Date}var f=((g-this)/1000).toInt();if(!f){return"0s"}var a={s:60,m:60,h:24,d:365,y:0};var e,d=[];for(var c in a){if(!f){break}if((e=a[c])){d.unshift((f%e)+c);f=(f/e).toInt()}else{d.unshift(f+c)}}return d.join(b||":")}});Date.alias("timeDiffInWords","timeAgoInWords");Date.extend({distanceOfTimeInWords:function(b,a){return Date.getTimePhrase(((a-b)/1000).toInt())},getTimePhrase:function(f){var d=(f<0)?"Until":"Ago";if(f<0){f*=-1}var b={minute:60,hour:60,day:24,week:7,month:52/12,year:12,eon:Infinity};var e="lessThanMinute";for(var c in b){var a=b[c];if(f<1.5*a){if(f>0.75*a){e=c}break}f/=a;e=c+"s"}return Date.getMsg(e+d).substitute({delta:f.round()})}});Date.defineParsers({re:/^(?:tod|tom|yes)/i,handler:function(a){var b=new Date().clearTime();switch(a[0]){case"tom":return b.increment();case"yes":return b.decrement();default:return b}}},{re:/^(next|last) ([a-z]+)$/i,handler:function(e){var f=new Date().clearTime();var b=f.getDay();var c=Date.parseDay(e[2],true);var a=c-b;if(c<=b){a+=7}if(e[1]=="last"){a-=7}return f.set("date",f.getDate()+a)}});
+script: Date.Extras.js
+
+name: Date.Extras
+
+description: Extends the Date native object to include extra methods (on top of those in Date.js).
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+  - Scott Kyle
+
+requires:
+  - /Date
+
+provides: [Date.Extras]
+
+...
+*/
+
+Date.implement({
+
+	timeDiffInWords: function(relative_to){
+		return Date.distanceOfTimeInWords(this, relative_to || new Date);
+	},
+
+	timeDiff: function(to, joiner){
+		if (to == null) to = new Date;
+		var delta = ((to - this) / 1000).toInt();
+		if (!delta) return '0s';
+		
+		var durations = {s: 60, m: 60, h: 24, d: 365, y: 0};
+		var duration, vals = [];
+		
+		for (var step in durations){
+			if (!delta) break;
+			if ((duration = durations[step])){
+				vals.unshift((delta % duration) + step);
+				delta = (delta / duration).toInt();
+			} else {
+				vals.unshift(delta + step);
+			}
+		}
+		
+		return vals.join(joiner || ':');
+	}
+
+});
+
+Date.alias('timeDiffInWords', 'timeAgoInWords');
+
+Date.extend({
+
+	distanceOfTimeInWords: function(from, to){
+		return Date.getTimePhrase(((to - from) / 1000).toInt());
+	},
+
+	getTimePhrase: function(delta){
+		var suffix = (delta < 0) ? 'Until' : 'Ago';
+		if (delta < 0) delta *= -1;
+		
+		var units = {
+			minute: 60,
+			hour: 60,
+			day: 24,
+			week: 7,
+			month: 52 / 12,
+			year: 12,
+			eon: Infinity
+		};
+		
+		var msg = 'lessThanMinute';
+		
+		for (var unit in units){
+			var interval = units[unit];
+			if (delta < 1.5 * interval){
+				if (delta > 0.75 * interval) msg = unit;
+				break;
+			}
+			delta /= interval;
+			msg = unit + 's';
+		}
+		
+		return Date.getMsg(msg + suffix, delta).substitute({delta: delta.round()});
+	}
+
+});
+
+
+Date.defineParsers(
+
+	{
+		// "today", "tomorrow", "yesterday"
+		re: /^(?:tod|tom|yes)/i,
+		handler: function(bits){
+			var d = new Date().clearTime();
+			switch(bits[0]){
+				case 'tom': return d.increment();
+				case 'yes': return d.decrement();
+				default: 	return d;
+			}
+		}
+	},
+
+	{
+		// "next Wednesday", "last Thursday"
+		re: /^(next|last) ([a-z]+)$/i,
+		handler: function(bits){
+			var d = new Date().clearTime();
+			var day = d.getDay();
+			var newDay = Date.parseDay(bits[2], true);
+			var addDays = newDay - day;
+			if (newDay <= day) addDays += 7;
+			if (bits[1] == 'last') addDays -= 7;
+			return d.set('date', d.getDate() + addDays);
+		}
+	}
+
+);

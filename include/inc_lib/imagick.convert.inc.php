@@ -44,7 +44,7 @@ function imagick_converting ($imagick) {
 						"image_name"	=>	'',
 						"thumb_name"	=>	'',
 						"target_ext"	=>	'jpg',
-						"image_dir"		=>	PHPWCMS_ROOT.PHPWCMS_FILES,
+						"image_dir"		=>	PHPWCMS_ROOT.'/'.PHPWCMS_FILES,
 						"thumb_dir"		=>	PHPWCMS_THUMB,
 						'jpg_quality'	=>	85,
 						'sharpen_level'	=>	0,

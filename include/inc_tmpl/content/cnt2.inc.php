@@ -61,10 +61,15 @@ if(!isset($content['image_list'])) {
 			'lightbox'	=> 0,
 			'nocaption'	=> 0,
 			'crop'		=> 0,
-			'random'	=> 0
+			'random'	=> 0,
+			'limit'		=> 0
 	
 		);
 
+}
+
+if(!isset($content['image_list']['limit'])) {
+	$content['image_list']['limit'] = 0;
 }
 
 ?><tr>
@@ -192,7 +197,37 @@ if($img_thumbs) {
 		        </tr>
 		      </table></td>
 			  </tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+			
+<tr>
+   <td align="right" class="chatlist"><?php echo $BL['limit_image_from_list'] ?>:&nbsp;</td>
+   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td><select name="cimage_limit" class="f10" id="cimage_limit">
+		<option value="0"<?php is_selected(0, $content['image_list']['limit']); ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+<?php
+// take max images from list
+if($imgx) {
+	$max_limit = $imgx + 10;
+} else {
+	$max_limit = 20;	
+}
+for($max_image_limit = 1; $max_image_limit <= $max_limit; $max_image_limit++) {
+
+	echo '<option value="'.$max_image_limit.'" ';
+	is_selected($max_image_limit, $content['image_list']['limit']);
+	echo '>'.$max_image_limit."</option>\n";
+}
+?>            </select></td>
+			<td>&nbsp;&nbsp;</td>
+			<td><input name="cimage_random" type="checkbox" id="cimage_random" value="1" <?php is_checked(1, $content['image_list']['random']); ?> /></td>
+            <td class="v10"><label for="cimage_random" class="checkbox"><?php echo $BL['random_image'] ?></label></td>
+         </tr>
+      </table>
+   </td>
+</tr>			
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+			
 			<tr>
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -240,17 +275,6 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	</td>
 </tr>
 
-<tr>
-   <td align="right" class="chatlist"><?php echo $BL['random_image'] ?>:&nbsp;</td>
-   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-         <tr>
-            <td><input name="cimage_random" type="checkbox" id="cimage_random" value="1" <?php is_checked(1, $content['image_list']['random']); ?> /></td>
-            <td class="v10"><label for="cimage_random" class="checkbox"><?php echo $BL['random_image_from_list'] ?></label></td>
-         </tr>
-      </table>
-   </td>
-</tr>
-			  
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>

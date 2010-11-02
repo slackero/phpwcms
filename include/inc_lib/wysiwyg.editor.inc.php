@@ -55,6 +55,9 @@ if($wysiwyg_editor['editor'] == 2) {
 	
 	$wysiwyg_editor['template'] = 'Basic';
 	switch(strtolower($_SESSION['WYSIWYG_TEMPLATE'])) {
+		case 'phpwcms':
+			$wysiwyg_editor['template'] = 'phpwcms';
+			break;
 		case 'default':
 		case 'full':
 			$wysiwyg_editor['template'] = 'Full';

@@ -1,3 +1,30 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-MooTools.lang.set("en-GB","Date",{dateOrder:["date","month","year"],shortDate:"%d/%m/%Y",shortTime:"%H:%M"}).set("cascade",["en-US"]);
+script: Date.English.GB.js
+
+name: Date.English.GB
+
+description: Date messages for British English.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - /Lang
+
+provides: [Date.English.GB]
+
+...
+*/
+
+MooTools.lang.set('en-GB', 'Date', {
+
+	// Culture's date order: DD/MM/YYYY
+	dateOrder: ['date', 'month', 'year'],
+	shortDate: '%d/%m/%Y',
+	shortTime: '%H:%M'
+
+}).set('cascade', ['en-US']);

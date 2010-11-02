@@ -214,7 +214,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 								$for_subject	= true;
 								break;
 							
-			case 'newsletter':	$for_newsletter		= true;
+			case 'newsletter':	$for_newsletter	= true;
 								break;
 							
 			case 'select':
@@ -548,18 +548,26 @@ if($content["id"]) {
 
 
 <tr>
-<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_form_class'] ?>:&nbsp;</td>
-<td><input type="text" name="cform_class" class="v10" style="width:120px;" value="<?php echo  (isset($content['form']["class"]) ? html_specialchars($content['form']["class"]) : '') ?>" /></td>
-<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_label_wrap'] ?>:&nbsp;</td>
-<td colspan="4"><input type="text" name="cform_label_wrap" class="v10" style="width:81px;" value="<?php echo  (isset($content['form']["label_wrap"]) ? html_entities($content['form']["label_wrap"]) : '|') ?>" /></td>
+	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_form_class'] ?>:&nbsp;</td>
+	<td><input type="text" name="cform_class" class="v10" style="width:120px;" value="<?php echo  (isset($content['form']["class"]) ? html_specialchars($content['form']["class"]) : '') ?>" /></td>
+	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_label_wrap'] ?>:&nbsp;</td>
+	<td colspan="4"><input type="text" name="cform_label_wrap" class="v10" style="width:81px;" value="<?php echo  (isset($content['form']["label_wrap"]) ? html_entities($content['form']["label_wrap"]) : '|') ?>" /></td>
 </tr>
 
 <tr>
-<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_req_mark'] ?>:&nbsp;</td>
-<td><input type="text" name="cform_reqmark" class="v10" style="width:120px;" value="<?php echo  (isset($content['form']["cform_reqmark"]) ? html_entities($content['form']["cform_reqmark"]) : '*') ?>" /></td>
-<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_error_class'] ?>:&nbsp;</td>
-<td colspan="4"><input type="text" name="cform_error_class" class="v10" style="width:81px;" value="<?php echo  (isset($content['form']["error_class"]) ? html_specialchars($content['form']["error_class"]) : '') ?>" /></td>
+	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_req_mark'] ?>:&nbsp;</td>
+	<td><input type="text" name="cform_reqmark" class="v10" style="width:120px;" value="<?php echo  (isset($content['form']["cform_reqmark"]) ? html_entities($content['form']["cform_reqmark"]) : '*') ?>" /></td>
+	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_error_class'] ?>:&nbsp;</td>
+	<td colspan="4"><input type="text" name="cform_error_class" class="v10" style="width:81px;" value="<?php echo  (isset($content['form']["error_class"]) ? html_specialchars($content['form']["error_class"]) : '') ?>" /></td>
 </tr>
+
+<tr>
+	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
+	<td><input type="text" name="cform_function_validate" class="v10" style="width:120px;" value="<?php echo (isset($content['form']["cform_function_validate"]) ? html_entities($content['form']["cform_function_validate"]) : '') ?>" /></td>
+	<td colspan="4">&nbsp;</td>
+</tr>
+
+
 
 <tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -677,15 +685,23 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 									break;
 
 
-			case 'mathspam':	$mathspam = $content['form']["fields"][$key]['value'];
-								$content['form']["fields"][$key]['value'] = '';
-			
-								foreach($mathspam as $item_key => $item) {
+			case 'mathspam':
+			case 'recaptcha':		$_ini_values = $content['form']["fields"][$key]['value'];
+									$content['form']["fields"][$key]['value'] = '';
+				
+									foreach($_ini_values as $item_key => $item) {
+									
+										$content['form']["fields"][$key]['value'] .= $item_key . ' = ' . $item . LF;
+									
+									}								
+									
+									$content['form']["fields"][$key]['value'] = trim($content['form']["fields"][$key]['value']);
+									
+									unset($_ini_values);
+									
+									break;
 								
-									$content['form']["fields"][$key]['value'] .= $item_key . ' = ' . $item . LF;
 								
-								}								
-								$content['form']["fields"][$key]['value'] = trim($content['form']["fields"][$key]['value']);
 		}
 		
 		echo ')"><img src="img/button/arrow_opened.gif" alt="" border="0" /></a>';
@@ -705,6 +721,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<option value="checkbox"'. 	is_selected('checkbox', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['checkbox'].'</option>'.LF;
 		echo '<option value="radio"'. 		is_selected('radio',		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['radio'].'</option>'.LF;
 		echo '<option value="upload"'. 		is_selected('upload', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['upload'].'</option>'.LF;
+		echo '<option value="recaptcha"'. 	is_selected('recaptcha',	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['recaptcha'].'</option>'.LF;
 		echo '<option value="captcha"'. 	is_selected('captcha',		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['captcha'].'</option>'.LF;
 		echo '<option value="captchaimg"'.	is_selected('captchaimg', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['captchaimg'].'</option>'.LF;
 		echo '<option value="mathspam"'.	is_selected('mathspam', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['mathspam'].'</option>'.LF;
@@ -753,12 +770,18 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<input type="hidden" name="cform_order['.$field_counter.']" id="cform_order_'.$field_counter.'" value="'.$field_counter.'">';
 		echo '</td><td class="chatlist" align="right" valign="top"><a name="field_value_'.$field_counter.'"></a>';
 		echo '<img src="img/leer.gif" width="1" height="15" alt="" />'.$BL['be_cnt_value'].':&nbsp;';
-		echo "</td></tr></table></td>\n";
+		echo "</td></tr>";
+		// Show "sign up for reCAPCHA API key"
+		if($content['form']["fields"][$key]['type'] == 'recaptcha') {
+			include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptcha/recaptchalib.php');			
+			echo '<tr><td colspan="2" class="chatlist" style="padding:10px 5px 0 3px"><a href="'.recaptcha_get_signup_url($phpwcms['parse_url']['host'], 'phpwcms').'" target="_blank">'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a></td></tr>';	
+		}
+		echo "</table></td>\n";
 		
 		echo '<td colspan="4"><textarea name="cform_field_value['.$field_counter.']" ';
 		echo 'id="cform_field_value_'.$field_counter.'" rows="5" class="code" style="font-size:11px;width:323px;">';
 		echo html_entities($content['form']["fields"][$key]['value']).'</textarea>';
-		
+	
 		echo '</td>';
 		echo '<td colspan="2" valign="bottom"><div style="padding:2px"><a href="#field_value_'.$field_counter.'" ';
 		echo "onclick=\"contractField('cform_field_value_".$field_counter."', 'V')\">";
@@ -815,16 +838,15 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 	<option value="select"><?php echo $BL['be_cnt_field']['select'] ?></option>
 	<option value="country"><?php echo $BL['be_cnt_field']['country'] ?></option>
 	<option value="list"><?php echo $BL['be_cnt_field']['list'] ?></option>
-	<?php
-	if(empty($for_newsletter)) {
-	?>
+	<?php	if(empty($for_newsletter)):	?>
 	<option value="newsletter"><?php echo $BL['be_cnt_field']['newsletter'] ?></option>
-	<?php
-	}
-	?>
+	<?php	endif;	?>
 	<option value="checkbox"><?php echo $BL['be_cnt_field']['checkbox'] ?></option>
 	<option value="radio"><?php echo $BL['be_cnt_field']['radio'] ?></option>
 	<option value="upload"><?php echo $BL['be_cnt_field']['upload'] ?></option>
+	<?php	if(!defined('RECAPTCHA_API_SERVER')):	?>
+	<option value="recaptcha"><?php echo $BL['be_cnt_field']['recaptcha'] ?></option>
+	<?php	endif;	?>
 	<option value="captcha"><?php echo $BL['be_cnt_field']['captcha'] ?></option>
 	<option value="captchaimg"><?php echo $BL['be_cnt_field']['captchaimg'] ?></option>
 	<option value="mathspam"><?php echo $BL['be_cnt_field']['mathspam'] ?></option>

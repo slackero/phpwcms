@@ -1,3 +1,81 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-(function(){var c=this;var b=function(){if(c.console&&console.log){try{console.log.apply(console,arguments)}catch(d){console.log(Array.slice(arguments))}}else{Log.logged.push(arguments)}return this};var a=function(){this.logged.push(arguments);return this};this.Log=new Class({logged:[],log:a,resetLog:function(){this.logged.empty();return this},enableLog:function(){this.log=b;this.logged.each(function(d){this.log.apply(this,d)},this);return this.resetLog()},disableLog:function(){this.log=a;return this}});Log.extend(new Log).enableLog();Log.logger=function(){return this.log.apply(this,arguments)}})();
+script: Log.js
+
+name: Log
+
+description: Provides basic logging functionality for plugins to implement.
+
+license: MIT-style license
+
+authors:
+  - Guillermo Rauch
+  - Thomas Aylott
+  - Scott Kyle
+
+requires:
+  - Core/Class
+  - /MooTools.More
+
+provides: [Log]
+
+...
+*/
+
+(function(){
+
+var global = this;
+
+var log = function(){
+	if (global.console && console.log){
+		try {
+			console.log.apply(console, arguments);
+		} catch(e) {
+			console.log(Array.slice(arguments));
+		}
+	} else {
+		Log.logged.push(arguments);
+	}
+	return this;
+};
+
+var disabled = function(){
+	this.logged.push(arguments);
+	return this;
+};
+
+this.Log = new Class({
+	
+	logged: [],
+	
+	log: disabled,
+	
+	resetLog: function(){
+		this.logged.empty();
+		return this;
+	},
+
+	enableLog: function(){
+		this.log = log;
+		this.logged.each(function(args){
+			this.log.apply(this, args);
+		}, this);
+		return this.resetLog();
+	},
+
+	disableLog: function(){
+		this.log = disabled;
+		return this;
+	}
+	
+});
+
+Log.extend(new Log).enableLog();
+
+// legacy
+Log.logger = function(){
+	return this.log.apply(this, arguments);
+};
+
+})();

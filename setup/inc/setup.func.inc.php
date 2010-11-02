@@ -21,9 +21,9 @@
 *************************************************************************************/
 
 //setup functions
-$phpwcms_version		= '1.4.6';
-$phpwcms_release_date	= '2010/03/30';
-$phpwcms_revision		= '402';
+$phpwcms_version		= '1.4.7';
+$phpwcms_release_date	= '2010/11/01';
+$phpwcms_revision		= '403';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -179,6 +179,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
 	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+	$conf_file .= "\$phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'iso-8859-1'\n";
@@ -198,7 +199,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
 	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
-	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict \n";
+	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities\n";
 	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix\n";

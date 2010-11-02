@@ -1,3 +1,185 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-Form.Validator.Inline=new Class({Extends:Form.Validator,options:{scrollToErrorsOnSubmit:true,scrollFxOptions:{transition:"quad:out",offset:{y:-20}}},initialize:function(b,a){this.parent(b,a);this.addEvent("onElementValidate",function(g,f,e,h){var d=this.getValidator(e);if(!g&&d.getError(f)){if(h){f.addClass("warning")}var c=this.makeAdvice(e,f,d.getError(f),h);this.insertAdvice(c,f);this.showAdvice(e,f)}else{this.hideAdvice(e,f)}})},makeAdvice:function(d,f,c,g){var e=(g)?this.warningPrefix:this.errorPrefix;e+=(this.options.useTitles)?f.title||c:c;var a=(g)?"warning-advice":"validation-advice";var b=this.getAdvice(d,f);if(b){b=b.set("html",e)}else{b=new Element("div",{html:e,styles:{display:"none"},id:"advice-"+d+"-"+this.getFieldId(f)}).addClass(a)}f.store("advice-"+d,b);return b},getFieldId:function(a){return a.id?a.id:a.id="input_"+a.name},showAdvice:function(b,c){var a=this.getAdvice(b,c);if(a&&!c.retrieve(this.getPropName(b))&&(a.getStyle("display")=="none"||a.getStyle("visiblity")=="hidden"||a.getStyle("opacity")==0)){c.store(this.getPropName(b),true);if(a.reveal){a.reveal()}else{a.setStyle("display","block")}}},hideAdvice:function(b,c){var a=this.getAdvice(b,c);if(a&&c.retrieve(this.getPropName(b))){c.store(this.getPropName(b),false);if(a.dissolve){a.dissolve()}else{a.setStyle("display","none")}}},getPropName:function(a){return"advice"+a},resetField:function(a){a=document.id(a);if(!a){return this}this.parent(a);a.className.split(" ").each(function(b){this.hideAdvice(b,a)},this);return this},getAllAdviceMessages:function(d,c){var b=[];if(d.hasClass("ignoreValidation")&&!c){return b}var a=d.className.split(" ").some(function(g){var e=g.test("^warn-")||d.hasClass("warnOnly");if(e){g=g.replace(/^warn-/,"")}var f=this.getValidator(g);if(!f){return}b.push({message:f.getError(d),warnOnly:e,passed:f.test(),validator:f})},this);return b},getAdvice:function(a,b){return b.retrieve("advice-"+a)},insertAdvice:function(a,c){var b=c.get("validatorProps");if(!b.msgPos||!document.id(b.msgPos)){if(c.type.toLowerCase()=="radio"){c.getParent().adopt(a)}else{a.inject(document.id(c),"after")}}else{document.id(b.msgPos).grab(a)}},validateField:function(f,e){var a=this.parent(f,e);if(this.options.scrollToErrorsOnSubmit&&!a){var b=document.id(this).getElement(".validation-failed");var c=document.id(this).getParent();while(c!=document.body&&c.getScrollSize().y==c.getSize().y){c=c.getParent()}var d=c.retrieve("fvScroller");if(!d&&window.Fx&&Fx.Scroll){d=new Fx.Scroll(c,this.options.scrollFxOptions);c.store("fvScroller",d)}if(b){if(d){d.toElement(b)}else{c.scrollTo(c.getScroll().x,b.getPosition(c).y-20)}}}return a}});
+script: Form.Validator.Inline.js
+
+name: Form.Validator.Inline
+
+description: Extends Form.Validator to add inline messages.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - /Form.Validator
+
+provides: [Form.Validator.Inline]
+
+...
+*/
+
+Form.Validator.Inline = new Class({
+
+	Extends: Form.Validator,
+
+	options: {
+		showError: function(errorElement){
+			if (errorElement.reveal) errorElement.reveal();
+			else errorElement.setStyle('display', 'block');
+		},
+		hideError: function(errorElement){
+			if (errorElement.dissolve) errorElement.dissolve();
+			else errorElement.setStyle('display', 'none');
+		},
+		scrollToErrorsOnSubmit: true,
+		scrollToErrorsOnBlur: false,
+		scrollToErrorsOnChange: false,
+		scrollFxOptions: {
+			transition: 'quad:out',
+			offset: {
+				y: -20
+			}
+		}
+	},
+
+	initialize: function(form, options){
+		this.parent(form, options);
+		this.addEvent('onElementValidate', function(isValid, field, className, warn){
+			var validator = this.getValidator(className);
+			if (!isValid && validator.getError(field)){
+				if (warn) field.addClass('warning');
+				var advice = this.makeAdvice(className, field, validator.getError(field), warn);
+				this.insertAdvice(advice, field);
+				this.showAdvice(className, field);
+			} else {
+				this.hideAdvice(className, field);
+			}
+		});
+	},
+
+	makeAdvice: function(className, field, error, warn){
+		var errorMsg = (warn)?this.warningPrefix:this.errorPrefix;
+			errorMsg += (this.options.useTitles) ? field.title || error:error;
+		var cssClass = (warn) ? 'warning-advice' : 'validation-advice';
+		var advice = this.getAdvice(className, field);
+		if(advice) {
+			advice = advice.set('html', errorMsg);
+		} else {
+			advice = new Element('div', {
+				html: errorMsg,
+				styles: { display: 'none' },
+				id: 'advice-' + className.split(':')[0] + '-' + this.getFieldId(field)
+			}).addClass(cssClass);
+		}
+		field.store('advice-' + className, advice);
+		return advice;
+	},
+
+	getFieldId : function(field){
+		return field.id ? field.id : field.id = 'input_' + field.name;
+	},
+
+	showAdvice: function(className, field){
+		var advice = this.getAdvice(className, field);
+		if (advice && !field.retrieve(this.getPropName(className))
+				&& (advice.getStyle('display') == 'none'
+				|| advice.getStyle('visiblity') == 'hidden'
+				|| advice.getStyle('opacity') == 0)){
+			field.store(this.getPropName(className), true);
+			this.options.showError(advice);
+			this.fireEvent('showAdvice', [field, advice, className]);
+		}
+	},
+
+	hideAdvice: function(className, field){
+		var advice = this.getAdvice(className, field);
+		if (advice && field.retrieve(this.getPropName(className))){
+			field.store(this.getPropName(className), false);
+			this.options.hideError(advice);
+			this.fireEvent('hideAdvice', [field, advice, className]);
+		}
+	},
+
+	getPropName: function(className){
+		return 'advice' + className;
+	},
+
+	resetField: function(field){
+		field = document.id(field);
+		if (!field) return this;
+		this.parent(field);
+		field.className.split(' ').each(function(className){
+			this.hideAdvice(className, field);
+		}, this);
+		return this;
+	},
+
+	getAllAdviceMessages: function(field, force){
+		var advice = [];
+		if (field.hasClass('ignoreValidation') && !force) return advice;
+		var validators = field.className.split(' ').some(function(cn){
+			var warner = cn.test('^warn-') || field.hasClass('warnOnly');
+			if (warner) cn = cn.replace(/^warn-/, '');
+			var validator = this.getValidator(cn);
+			if (!validator) return;
+			advice.push({
+				message: validator.getError(field),
+				warnOnly: warner,
+				passed: validator.test(),
+				validator: validator
+			});
+		}, this);
+		return advice;
+	},
+
+	getAdvice: function(className, field){
+		return field.retrieve('advice-' + className);
+	},
+
+	insertAdvice: function(advice, field){
+		//Check for error position prop
+		var props = field.get('validatorProps');
+		//Build advice
+		if (!props.msgPos || !document.id(props.msgPos)){
+			if(field.type.toLowerCase() == 'radio') field.getParent().adopt(advice);
+			else advice.inject(document.id(field), 'after');
+		} else {
+			document.id(props.msgPos).grab(advice);
+		}
+	},
+
+	validateField: function(field, force, scroll){
+		var result = this.parent(field, force);
+		if (((this.options.scrollToErrorsOnSubmit && scroll === undefined) || scroll) && !result){
+			var failed = document.id(this).getElement('.validation-failed');
+			var par = document.id(this).getParent();
+			while (par != document.body && par.getScrollSize().y == par.getSize().y){
+				par = par.getParent();
+			}
+			var fx = par.retrieve('fvScroller');
+			if (!fx && window.Fx && Fx.Scroll){
+				fx = new Fx.Scroll(par, this.options.scrollFxOptions);
+				par.store('fvScroller', fx);
+			}
+			if (failed){
+				if (fx) fx.toElement(failed);
+				else par.scrollTo(par.getScroll().x, failed.getPosition(par).y - 20);
+			}
+		}
+		return result;
+	},
+
+	watchFields: function(fields){
+		fields.each(function(el){
+			if (this.options.evaluateFieldsOnBlur){
+				el.addEvent('blur', this.validationMonitor.pass([el, false, this.options.scrollToErrorsOnBlur], this));
+			}
+			if (this.options.evaluateFieldsOnChange){
+				el.addEvent('change', this.validationMonitor.pass([el, true, this.options.scrollToErrorsOnChange], this));
+			}
+		}, this);
+	}
+
+});

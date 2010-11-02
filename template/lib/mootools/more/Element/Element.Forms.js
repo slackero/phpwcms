@@ -1,3 +1,127 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-Element.implement({tidy:function(){this.set("value",this.get("value").tidy())},getTextInRange:function(b,a){return this.get("value").substring(b,a)},getSelectedText:function(){if(this.setSelectionRange){return this.getTextInRange(this.getSelectionStart(),this.getSelectionEnd())}return document.selection.createRange().text},getSelectedRange:function(){if($defined(this.selectionStart)){return{start:this.selectionStart,end:this.selectionEnd}}var e={start:0,end:0};var a=this.getDocument().selection.createRange();if(!a||a.parentElement()!=this){return e}var c=a.duplicate();if(this.type=="text"){e.start=0-c.moveStart("character",-100000);e.end=e.start+a.text.length}else{var b=this.get("value");var d=b.length;c.moveToElementText(this);c.setEndPoint("StartToEnd",a);if(c.text.length){d-=b.match(/[\n\r]*$/)[0].length}e.end=d-c.text.length;c.setEndPoint("StartToStart",a);e.start=d-c.text.length}return e},getSelectionStart:function(){return this.getSelectedRange().start},getSelectionEnd:function(){return this.getSelectedRange().end},setCaretPosition:function(a){if(a=="end"){a=this.get("value").length}this.selectRange(a,a);return this},getCaretPosition:function(){return this.getSelectedRange().start},selectRange:function(e,a){if(this.setSelectionRange){this.focus();this.setSelectionRange(e,a)}else{var c=this.get("value");var d=c.substr(e,a-e).replace(/\r/g,"").length;e=c.substr(0,e).replace(/\r/g,"").length;var b=this.createTextRange();b.collapse(true);b.moveEnd("character",e+d);b.moveStart("character",e);b.select()}return this},insertAtCursor:function(b,a){var d=this.getSelectedRange();var c=this.get("value");this.set("value",c.substring(0,d.start)+b+c.substring(d.end,c.length));if($pick(a,true)){this.selectRange(d.start,d.start+b.length)}else{this.setCaretPosition(d.start+b.length)}return this},insertAroundCursor:function(b,a){b=$extend({before:"",defaultMiddle:"",after:""},b);var c=this.getSelectedText()||b.defaultMiddle;var g=this.getSelectedRange();var f=this.get("value");if(g.start==g.end){this.set("value",f.substring(0,g.start)+b.before+c+b.after+f.substring(g.end,f.length));this.selectRange(g.start+b.before.length,g.end+b.before.length+c.length)}else{var d=f.substring(g.start,g.end);this.set("value",f.substring(0,g.start)+b.before+d+b.after+f.substring(g.end,f.length));var e=g.start+b.before.length;if($pick(a,true)){this.selectRange(e,e+d.length)}else{this.setCaretPosition(e+f.length)}}return this}});
+script: Element.Forms.js
+
+name: Element.Forms
+
+description: Extends the Element native object to include methods useful in managing inputs.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - Core/Element
+  - /MooTools.More
+
+provides: [Element.Forms]
+
+...
+*/
+
+Element.implement({
+
+	tidy: function(){
+		this.set('value', this.get('value').tidy());
+	},
+
+	getTextInRange: function(start, end){
+		return this.get('value').substring(start, end);
+	},
+
+	getSelectedText: function(){
+		if (this.setSelectionRange) return this.getTextInRange(this.getSelectionStart(), this.getSelectionEnd());
+		return document.selection.createRange().text;
+	},
+
+	getSelectedRange: function() {
+		if ($defined(this.selectionStart)) return {start: this.selectionStart, end: this.selectionEnd};
+		var pos = {start: 0, end: 0};
+		var range = this.getDocument().selection.createRange();
+		if (!range || range.parentElement() != this) return pos;
+		var dup = range.duplicate();
+		if (this.type == 'text') {
+			pos.start = 0 - dup.moveStart('character', -100000);
+			pos.end = pos.start + range.text.length;
+		} else {
+			var value = this.get('value');
+			var offset = value.length;
+			dup.moveToElementText(this);
+			dup.setEndPoint('StartToEnd', range);
+			if(dup.text.length) offset -= value.match(/[\n\r]*$/)[0].length;
+			pos.end = offset - dup.text.length;
+			dup.setEndPoint('StartToStart', range);
+			pos.start = offset - dup.text.length;
+		}
+		return pos;
+	},
+
+	getSelectionStart: function(){
+		return this.getSelectedRange().start;
+	},
+
+	getSelectionEnd: function(){
+		return this.getSelectedRange().end;
+	},
+
+	setCaretPosition: function(pos){
+		if (pos == 'end') pos = this.get('value').length;
+		this.selectRange(pos, pos);
+		return this;
+	},
+
+	getCaretPosition: function(){
+		return this.getSelectedRange().start;
+	},
+
+	selectRange: function(start, end){
+		if (this.setSelectionRange) {
+			this.focus();
+			this.setSelectionRange(start, end);
+		} else {
+			var value = this.get('value');
+			var diff = value.substr(start, end - start).replace(/\r/g, '').length;
+			start = value.substr(0, start).replace(/\r/g, '').length;
+			var range = this.createTextRange();
+			range.collapse(true);
+			range.moveEnd('character', start + diff);
+			range.moveStart('character', start);
+			range.select();
+		}
+		return this;
+	},
+
+	insertAtCursor: function(value, select){
+		var pos = this.getSelectedRange();
+		var text = this.get('value');
+		this.set('value', text.substring(0, pos.start) + value + text.substring(pos.end, text.length));
+		if ($pick(select, true)) this.selectRange(pos.start, pos.start + value.length);
+		else this.setCaretPosition(pos.start + value.length);
+		return this;
+	},
+
+	insertAroundCursor: function(options, select){
+		options = $extend({
+			before: '',
+			defaultMiddle: '',
+			after: ''
+		}, options);
+		var value = this.getSelectedText() || options.defaultMiddle;
+		var pos = this.getSelectedRange();
+		var text = this.get('value');
+		if (pos.start == pos.end){
+			this.set('value', text.substring(0, pos.start) + options.before + value + options.after + text.substring(pos.end, text.length));
+			this.selectRange(pos.start + options.before.length, pos.end + options.before.length + value.length);
+		} else {
+			var current = text.substring(pos.start, pos.end);
+			this.set('value', text.substring(0, pos.start) + options.before + current + options.after + text.substring(pos.end, text.length));
+			var selStart = pos.start + options.before.length;
+			if ($pick(select, true)) this.selectRange(selStart, selStart + current.length);
+			else this.setCaretPosition(selStart + text.length);
+		}
+		return this;
+	}
+
+});

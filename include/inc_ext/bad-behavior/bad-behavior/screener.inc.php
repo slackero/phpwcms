@@ -14,7 +14,6 @@ function bb2_screener_javascript($settings, $package, $cookie_name, $cookie_valu
 
 	// FIXME: do something
 	$bb2_javascript = "<script type=\"text/javascript\">
-<!--
 function bb2_addLoadEvent(func) {
 	var oldonload = window.onload;
 	if (typeof window.onload != 'function') {
@@ -38,8 +37,7 @@ bb2_addLoadEvent(function() {
 		}
 	}
 });
-// --></script>
-		";
+</script>";
 }
 
 function bb2_screener($settings, $package)

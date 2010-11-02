@@ -56,6 +56,8 @@ if($_GET['struct'] === 'index') {
 	$acat_paginate		= empty($indexpage['acat_paginate']) ? 0 : 1;
 	$acat_overwrite		= empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'];
 	$acat_archive		= empty($indexpage['acat_archive']) ? 0 : $indexpage['acat_archive'];
+	$acat_class			= empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'];
+	$acat_keywords		= empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'];
 	
 	$acat_struct_mode = 'INDEX';
 	
@@ -83,6 +85,8 @@ if($_GET['struct'] === 'index') {
 	$acat_paginate		= 0;
 	$acat_overwrite		= '';
 	$acat_archive		= 0;
+	$acat_class			= '';
+	$acat_keywords		= '';
 
 }
 
@@ -127,9 +131,27 @@ switch($acat_hidden) {
           <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b" style="width: 450px" onchange="this.value=Trim(this.value);" value="<?php echo html_specialchars($acat_title) ?>" size="50" maxlength="95" /></td></tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+		  
+		  <tr>
+		  	<td>
+				<table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
+			
+					<tr>
+						<td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>:</td>
+						<td style="width:10px">&nbsp;</td>
+						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
+					</tr>
+		 			<tr>
+						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html_specialchars($acat_alias) ?>" size="50" maxlength="150" onfocus="set_article_alias(true, 'struct');" onchange="this.value=create_alias(this.value);" /></td>
+						<td>&nbsp;</td>
+						<td><input name="acat_class" type="text" id="acat_class" class="f11 width185" value="<?php echo html_specialchars($acat_class) ?>" size="50" maxlength="150" /></td>
+					</tr>
+				
+				</table>
+			</td>
+		  </tr>
   
-		  <tr><td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>:</td></tr>
-		  <tr><td><input name="acat_alias" type="text" id="acat_alias" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_alias) ?>" size="50" maxlength="150" onfocus="set_article_alias(true, 'struct');" onchange="this.value=create_alias(this.value);" /></td></tr>
+		  
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 		  
 		  <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
@@ -141,14 +163,24 @@ if($acat_id != 'index' || strval($acat_id) == '0') {
 ?>  
 		  <tr><td class="v09"><?php echo $BL['be_article_aredirect'] ?>:</td></tr>
 		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-		  </tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <?php
 }
 ?>
+
+
+		<tr><td class="v09"><?php echo $BL['be_article_akeywords'] ?>:</td></tr>
+          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="f11 width540"><?php echo html_specialchars($acat_keywords) ?></textarea></td></tr>
+		
+		<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_info'] ?>:</td></tr>
-          <tr><td><textarea name="acat_info" cols="50" rows="6" id="acat_info" class="f11" style="width: 536px"><?php echo html_specialchars($acat_info) ?></textarea></td></tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="f11 width540"><?php echo html_specialchars($acat_info) ?></textarea></td></tr>
+         
+		 
+		 
+		 
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 		  <tr>

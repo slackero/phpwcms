@@ -52,8 +52,18 @@ if(!isset($content['search']["news_andor"])) {
 if(empty($content['search']["news_url"])) {
 	$content['search']["news_url"] = '';
 }
-
-
+if(empty($content["search"]["hide_summary"])) {
+	$content["search"]["hide_summary"] = 0;
+}
+if(empty($content["search"]["highlight_result"])) {
+	$content["search"]["highlight_result"] = 0;
+}
+if(empty($content["search"]["newwin"])) {
+	$content["search"]["newwin"] = 0;
+}
+if(empty($content["search"]["no_filenames"])) {
+	$content["search"]["no_filenames"] = 0;
+}
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -62,24 +72,26 @@ if(empty($content['search']["news_url"])) {
     <td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_results'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td><input name="csearch_result_per_page" type="text" id="csearch_result_per_page" class="f11b" style="width: 30px" value="<?php echo  isset($content["search"]["result_per_page"]) ? $content["search"]["result_per_page"] : '' ?>" size="3" maxlength="5" /></td>
+        <td><input name="csearch_result_per_page" type="text" id="csearch_result_per_page" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["result_per_page"]) ? $content["search"]["result_per_page"] : '' ?>" size="3" maxlength="5" /></td>
         <td class="v10">&nbsp;<?php echo $BL['be_cnt_results_per_page'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td><input name="csearch_newwin" type="checkbox" id="csearch_newwin" value="1" <?php is_checked(1, isset($content["search"]["newwin"]) ? $content["search"]["newwin"] : 0) ?> /></td>
-        <td class="v10"><?php echo $BL['be_cnt_opennewwin'] ?></td>
+        <td><input name="csearch_newwin" type="checkbox" id="csearch_newwin" value="1" <?php is_checked(1, $content["search"]["newwin"]) ?> /></td>
+        <td class="v10"><label for="csearch_newwin"><?php echo $BL['be_cnt_opennewwin'] ?></label></td>
       </tr>
 	  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
 	  </tr>
 	  <tr>
-	  <td><input name="csearch_wordlimit" type="text" id="csearch_wordlimit" class="f11b" style="width: 30px" value="<?php echo  isset($content["search"]["wordlimit"]) ? $content["search"]["wordlimit"] : '' ?>" size="3" maxlength="5" /></td>
-      <td class="v10">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>  
-	  <td><input name="csearch_highlight" type="checkbox" id="csearch_highlight" value="1" <?php is_checked(1, isset($content["search"]["highlight_result"]) ? $content["search"]["highlight_result"] : 0) ?> /></td>
-      <td class="v10"><?php echo $BL['be_cnt_search_highlight'] ?></td>
+	  	<td><input name="csearch_wordlimit" type="text" id="csearch_wordlimit" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["wordlimit"]) ? $content["search"]["wordlimit"] : '' ?>" size="3" maxlength="5" /></td>
+      	<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>  
+	  	<td><input name="csearch_highlight" type="checkbox" id="csearch_highlight" value="1" <?php is_checked(1, $content["search"]["highlight_result"]) ?> /></td>
+      	<td class="v10"><label for="csearch_highlight"><?php echo $BL['be_cnt_search_highlight'] ?></label></td>
 	  </tr>
 	  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
 	  </tr>
 	  <tr>
-	  <td><input name="csearch_minchar" type="text" id="csearch_minchar" class="f11b" style="width: 30px" value="<?php echo  isset($content["search"]["minchar"]) ? $content["search"]["minchar"] : '3' ?>" size="3" maxlength="5" /></td>
-      <td class="v10" colspan="3">&nbsp;<?php echo $BL['be_cnt_results_minchar'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	  	<td><input name="csearch_minchar" type="text" id="csearch_minchar" class="f11b" style="width: 30px" value="<?php echo  isset($content["search"]["minchar"]) ? $content["search"]["minchar"] : '3' ?>" size="3" maxlength="5" /></td>
+      	<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_minchar'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td><input name="csearch_hidesummary" type="checkbox" id="csearch_hidesummary" value="1" <?php is_checked(1, $content["search"]["hide_summary"]) ?> /></td>
+      	<td class="v10"><label for="csearch_hidesummary"><?php echo $BL['be_cnt_search_hidesummary'] ?></label></td>
 	  </tr>
     </table></td>
   </tr>
@@ -97,6 +109,18 @@ if(empty($content['search']["news_url"])) {
 				struct_select_list(0, 0, $content["search"]["start_at"]);
 ?>
 	</select></td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist tdtop3" valign="top"><?php echo $BL['be_cnt_search_searchnot'] ?>:&nbsp;</td>
+	<td><table border="0" cellpadding="1" cellspacing="0" summary="">
+      <tr>
+        <td><input name="csearch_nofilenames" type="checkbox" id="csearch_nofilenames" value="1" <?php is_checked(1, $content["search"]["no_filenames"]) ?> /></td>
+      	<td class="v10"><label for="csearch_nofilenames"><?php echo $BL['be_fprivedit_filename'] ?></label></td>
+	  </tr>
+    </table></td>
 </tr>
 
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

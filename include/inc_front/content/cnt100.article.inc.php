@@ -110,15 +110,17 @@ if(substr_count ($crow["acontent_text"], '~')) {
 			//proof if it is a <dl> and split into definition and description
 			if($clist_listtype['list_type'] == 2) {
 				$value = explode('|', $value);
-				if(empty($value[1])) $value[1] = '';
+				$value[1] = empty($value[1]) ? '' : trim($value[1]);
 			} else {
 				$value = array(0 => $value, 1 => '');
 			}
 			
+			$value[0] = trim($value[0]);
+			
 			//insert value
-			$crow["acontent_text"] .= '<'.$clist_listentry.'>'.nl2br(trim($value[0]));
+			$crow["acontent_text"] .= '<'.$clist_listentry.'>'.plaintext_htmlencode($value[0]);
 			if($clist_listtype['list_type'] == 2 && $value[1]) {
-				$crow["acontent_text"] .= LF . '<dd>'.nl2br(trim($value[1])).'</dd>' . LF;
+				$crow["acontent_text"] .= LF . '<dd>'.plaintext_htmlencode($value[1]).'</dd>' . LF;
 			}
 			
 			//--------------------------------------------------------
@@ -140,7 +142,7 @@ if(substr_count ($crow["acontent_text"], '~')) {
 				if($clist_diff_next > 0) {
 					//entry close tag and list close tag
 					$crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF . '</'.$clist_listmain.'>' . LF;
-					if($clist_diff_next > 1) {
+					if($clist_diff_next >= 1) {
 						for($i=0; $i < (abs($clist_diff_next)-1); $i++) {
 							//entry close tag
 							if(!$i) $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF;
@@ -162,7 +164,7 @@ if(substr_count ($crow["acontent_text"], '~')) {
 } else {
 
 	// show text only and do nothing else
-	$CNT_TMP .= nl2br(div_class($crow["acontent_text"], $template_default["article"]["text_class"]));
+	$CNT_TMP .= div_class(plaintext_htmlencode($crow["acontent_text"]), $template_default["article"]["text_class"]);
 
 }
 

@@ -21,7 +21,11 @@
 *************************************************************************************/
 
 
-require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.php');
+if(PHPWCMS_CHARSET == 'utf-8') {
+	require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.utf-8.php');
+} else {
+	require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.php');
+}
 require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/htmlfilter/htmlfilter.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php');
@@ -203,7 +207,7 @@ function is_checked($c, $chkvalue, $xhtml=1, $echoit=1) {
 }
 
 function check_checkbox($c) {
-	//Prüft, ob korrekte Werte via Checkbox übergeben wurden
+	//PrÃ¼ft, ob korrekte Werte via Checkbox Ã¼bergeben wurden
 	$c = intval($c);
 	if($c != 0 AND $c != 1) $c = 0;
 	return $c;
@@ -323,7 +327,7 @@ function genlogname() {
 }
  
 function gib_part($value, $part, $separator) {
-	//Gibt den Wert an Stelle $part von $value zurück
+	//Gibt den Wert an Stelle $part von $value zurÃ¼ck
 	$value_array = explode($separator, $value);
 	return $value_array[$part];
 }
@@ -1174,7 +1178,17 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 	$toName			= empty($data['toName'])										? ''							: cleanUpForEmailHeader($data['toName']);
 	$subject		= empty($data['subject'])										? 'Email sent by phpwcms'		: cleanUpForEmailHeader($data['subject']);
 	
-	$data['isHTML']	= empty($data['isHTML'])										? 0								: 1;
+	if(empty($data['html'])) {
+		$data['html']	= '';
+		$data['isHTML']	= 0;
+	} elseif(empty($data['isHTML'])) {
+		$data['isHTML'] = 0;
+	} else {
+		$data['isHTML'] = 1;
+	}
+	if(empty($data['text'])) {
+		$data['text']	= '';
+	}
 	
 	if(!is_array($data['recipient'])) {
 		$recipient = str_replace(' ', '', trim($data['recipient']));
@@ -1211,7 +1225,9 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 		$mail->IsHTML($data['isHTML']);
 		$mail->Subject			= $data['subject'];
 		if($data['isHTML']) {
-			$mail->AltBody		= $data['text'];
+			if($data['text'] != '') {
+				$mail->AltBody	= $data['text'];
+			}
 			$mail->Body 		= $data['html'];
 		} else {
 			$mail->Body 		= $data['text'];
@@ -1596,7 +1612,7 @@ function optimizeForSearch() {
 		$text	= stripped_cache_content($text);
 		$text	= cleanUpSpecialHtmlEntities($text);
 		$text	= decode_entities($text);
-		$text	= str_replace(array('!', '"', "'", '.', '#', ';', '~', '+', '*', '%', '&', '$', '§', ':', '@', ',', '|'), ' ', $text);
+		$text	= str_replace(array('!', '"', "'", '.', '#', ';', '~', '+', '*', '%', '&', '$', 'Â§', ':', '@', ',', '|'), ' ', $text);
 		$text	= preg_replace('/\[.*?\]/', '', $text);
 		$text	= preg_replace('/\{.*?\}/', '', $text);
 		$text	= strtoupper($text);
@@ -2508,6 +2524,20 @@ function boolval($BOOL, $STRICT=false) {
 
 	// let PHP decide
     return $BOOL ? true : false;
+}
+
+// sanitize a text for nice URL/alias or whatever
+function uri_sanitize($text) {
+	
+	$text = pre_remove_accents($text);
+	$text = get_alnum_dashes($text, true);
+	$text = trim($text);
+	if($text != '') {
+		$text = trim( preg_replace('/\-\-+/', '-', $text), '-' );
+		$text = trim( preg_replace('/__+/', '_', $text), '_' );
+	}
+	
+	return $text;
 }
 
 ?>

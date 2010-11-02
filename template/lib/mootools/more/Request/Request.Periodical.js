@@ -1,3 +1,51 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-Request.implement({options:{initialDelay:5000,delay:5000,limit:60000},startTimer:function(b){var a=function(){if(!this.running){this.send({data:b})}};this.timer=a.delay(this.options.initialDelay,this);this.lastDelay=this.options.initialDelay;this.completeCheck=function(c){$clear(this.timer);this.lastDelay=(c)?this.options.delay:(this.lastDelay+this.options.delay).min(this.options.limit);this.timer=a.delay(this.lastDelay,this)};return this.addEvent("complete",this.completeCheck)},stopTimer:function(){$clear(this.timer);return this.removeEvent("complete",this.completeCheck)}});
+script: Request.Periodical.js
+
+name: Request.Periodical
+
+description: Requests the same URL to pull data from a server but increases the intervals if no data is returned to reduce the load
+
+license: MIT-style license
+
+authors:
+  - Christoph Pojer
+
+requires:
+  - Core/Request
+  - /MooTools.More
+
+provides: [Request.Periodical]
+
+...
+*/
+
+Request.implement({
+
+	options: {
+		initialDelay: 5000,
+		delay: 5000,
+		limit: 60000
+	},
+
+	startTimer: function(data){
+		var fn = function(){
+			if (!this.running) this.send({data: data});
+		};
+		this.timer = fn.delay(this.options.initialDelay, this);
+		this.lastDelay = this.options.initialDelay;
+		this.completeCheck = function(response){
+			$clear(this.timer);
+			this.lastDelay = (response) ? this.options.delay : (this.lastDelay + this.options.delay).min(this.options.limit);
+			this.timer = fn.delay(this.lastDelay, this);
+		};
+		return this.addEvent('complete', this.completeCheck);
+	},
+
+	stopTimer: function(){
+		$clear(this.timer);
+		return this.removeEvent('complete', this.completeCheck);
+	}
+
+});

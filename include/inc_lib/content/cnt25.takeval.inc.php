@@ -41,6 +41,25 @@ $fmp_data = array(
 		'fmp_internal_id'			=> 0,
 		'fmp_internal_name'			=> '',
 		'fmp_external_file'			=> '',
+		
+		// H.264
+		'fmp_int_ext_h264'			=> 0,
+		'fmp_internal_id_h264'		=> 0,
+		'fmp_internal_name_h264'	=> '',
+		'fmp_external_file_h264'	=> '',
+		
+		// WebM
+		'fmp_int_ext_webm'			=> 0,
+		'fmp_internal_id_webm'		=> 0,
+		'fmp_internal_name_webm'	=> '',
+		'fmp_external_file_webm'	=> '',
+		
+		// Ogg
+		'fmp_int_ext_ogg'			=> 0,
+		'fmp_internal_id_ogg'		=> 0,
+		'fmp_internal_name_ogg'		=> '',
+		'fmp_external_file_ogg'		=> '',
+		
 		'fmp_caption'				=> '',
 		'fmp_link'					=> '',
 		'fmp_img_id'				=> 0,
@@ -60,6 +79,7 @@ $fmp_data = array(
 		'fmp_set_showdownload'		=> 0,
 		'fmp_set_overstretch'		=> 'default',
 		'fmp_set_skin'				=> 'default',
+		'fmp_set_skin_html5'		=> '',
 		'fmp_player'				=> 1
 
 				 );

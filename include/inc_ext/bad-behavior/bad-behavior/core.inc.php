@@ -4,6 +4,7 @@
 // If you're reading this, you are probably lost.
 // Go read the bad-behavior-generic.php file.
 
+//define('BB2_CORE', dirname(__FILE__));
 define('BB2_COOKIE', 'bb2_screener_');
 
 require_once(BB2_CORE . "/functions.inc.php");
@@ -15,7 +16,7 @@ function bb2_banned($settings, $package, $key, $previous_key=false)
 	sleep(2);
 
 	require_once(BB2_CORE . "/banned.inc.php");
-	bb2_display_denial($settings, $key, $previous_key);
+	bb2_display_denial($settings, $package, $key, $previous_key);
 	bb2_log_denial($settings, $package, $key, $previous_key);
 	if (is_callable('bb2_banned_callback')) {
 		bb2_banned_callback($settings, $package, $key);
@@ -63,7 +64,13 @@ function bb2_start($settings)
 		}
 	}
 
-	@$package = array('ip' => $_SERVER['REMOTE_ADDR'], 'headers' => $headers, 'headers_mixed' => $headers_mixed, 'request_method' => $_SERVER['REQUEST_METHOD'], 'request_uri' => $_SERVER['REQUEST_URI'], 'server_protocol' => $_SERVER['SERVER_PROTOCOL'], 'request_entity' => $request_entity, 'user_agent' => $_SERVER['HTTP_USER_AGENT'], 'is_browser' => false);
+	$request_uri = empty($_SERVER["REQUEST_URI"]) ? $_SERVER['SCRIPT_NAME'] : $_SERVER["REQUEST_URI"]; # IIS
+
+	# Nasty CloudFlare hack provided by butchs at simplemachines
+	$ip_temp = preg_replace("/^::ffff:/", "", (array_key_exists('Cf-Connecting-Ip', $headers_mixed)) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR']);
+	$cloudflare_ip = preg_replace("/^::ffff:/", "", $_SERVER['REMOTE_ADDR']);
+
+	@$package = array('ip' => $ip_temp, 'headers' => $headers, 'headers_mixed' => $headers_mixed, 'request_method' => $_SERVER['REQUEST_METHOD'], 'request_uri' => $request_uri, 'server_protocol' => $_SERVER['SERVER_PROTOCOL'], 'request_entity' => $request_entity, 'user_agent' => $_SERVER['HTTP_USER_AGENT'], 'is_browser' => false, 'cloudflare' => $cloudflare_ip);
 
 	$result = bb2_screen($settings, $package);
 	if ($result && !defined('BB2_TEST')) bb2_banned($settings, $package, $result);
@@ -74,6 +81,14 @@ function bb2_screen($settings, $package)
 {
 	// Please proceed to the security checkpoint and have your
 	// identification and boarding pass ready.
+
+	// Check for CloudFlare CDN since IP to be screened may be different
+	// Thanks to butchs at Simple Machines
+	if (array_key_exists('Cf-Connecting-Ip', $package['headers_mixed'])) {
+		require_once(BB2_CORE . "/cloudflare.inc.php");
+		$r = bb2_cloudflare($package);
+		if ($r !== false && $r != $package['ip']) return $r;
+	}
 
 	// First check the whitelist
 	require_once(BB2_CORE . "/whitelist.inc.php");

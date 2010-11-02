@@ -1,3 +1,196 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-(function(){var a=Element.prototype.position;Element.implement({position:function(g){if(g&&($defined(g.x)||$defined(g.y))){return a?a.apply(this,arguments):this}$each(g||{},function(u,t){if(!$defined(u)){delete g[t]}});g=$merge({relativeTo:document.body,position:{x:"center",y:"center"},edge:false,offset:{x:0,y:0},returnPos:false,relFixedPosition:false,ignoreMargins:false,ignoreScroll:false,allowNegative:false},g);var r={x:0,y:0},e=false;var c=this.measure(function(){return document.id(this.getOffsetParent())});if(c&&c!=this.getDocument().body){r=c.measure(function(){return this.getPosition()});e=c!=document.id(g.relativeTo);g.offset.x=g.offset.x-r.x;g.offset.y=g.offset.y-r.y}var s=function(t){if($type(t)!="string"){return t}t=t.toLowerCase();var u={};if(t.test("left")){u.x="left"}else{if(t.test("right")){u.x="right"}else{u.x="center"}}if(t.test("upper")||t.test("top")){u.y="top"}else{if(t.test("bottom")){u.y="bottom"}else{u.y="center"}}return u};g.edge=s(g.edge);g.position=s(g.position);if(!g.edge){if(g.position.x=="center"&&g.position.y=="center"){g.edge={x:"center",y:"center"}}else{g.edge={x:"left",y:"top"}}}this.setStyle("position","absolute");var f=document.id(g.relativeTo)||document.body,d=f==document.body?window.getScroll():f.getPosition(),l=d.y,h=d.x;var n=this.getDimensions({computeSize:true,styles:["padding","border","margin"]});var j={},o=g.offset.y,q=g.offset.x,k=window.getSize();switch(g.position.x){case"left":j.x=h+q;break;case"right":j.x=h+q+f.offsetWidth;break;default:j.x=h+((f==document.body?k.x:f.offsetWidth)/2)+q;break}switch(g.position.y){case"top":j.y=l+o;break;case"bottom":j.y=l+o+f.offsetHeight;break;default:j.y=l+((f==document.body?k.y:f.offsetHeight)/2)+o;break}if(g.edge){var b={};switch(g.edge.x){case"left":b.x=0;break;case"right":b.x=-n.x-n.computedRight-n.computedLeft;break;default:b.x=-(n.totalWidth/2);break}switch(g.edge.y){case"top":b.y=0;break;case"bottom":b.y=-n.y-n.computedTop-n.computedBottom;break;default:b.y=-(n.totalHeight/2);break}j.x+=b.x;j.y+=b.y}j={left:((j.x>=0||e||g.allowNegative)?j.x:0).toInt(),top:((j.y>=0||e||g.allowNegative)?j.y:0).toInt()};var i={left:"x",top:"y"};["minimum","maximum"].each(function(t){["left","top"].each(function(u){var v=g[t]?g[t][i[u]]:null;if(v!=null&&j[u]<v){j[u]=v}})});if(f.getStyle("position")=="fixed"||g.relFixedPosition){var m=window.getScroll();j.top+=m.y;j.left+=m.x}if(g.ignoreScroll){var p=f.getScroll();j.top-=p.y;j.left-=p.x}if(g.ignoreMargins){j.left+=(g.edge.x=="right"?n["margin-right"]:g.edge.x=="center"?-n["margin-left"]+((n["margin-right"]+n["margin-left"])/2):-n["margin-left"]);j.top+=(g.edge.y=="bottom"?n["margin-bottom"]:g.edge.y=="center"?-n["margin-top"]+((n["margin-bottom"]+n["margin-top"])/2):-n["margin-top"])}j.left=Math.ceil(j.left);j.top=Math.ceil(j.top);if(g.returnPos){return j}else{this.setStyles(j)}return this}})})();
+script: Element.Position.js
+
+name: Element.Position
+
+description: Extends the Element native object to include methods useful positioning elements relative to others.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - Core/Element.Dimensions
+  - /Element.Measure
+
+provides: [Element.Position]
+
+...
+*/
+
+(function(){
+
+var original = Element.prototype.position;
+
+Element.implement({
+
+	position: function(options){
+		//call original position if the options are x/y values
+		if (options && ($defined(options.x) || $defined(options.y))) return original ? original.apply(this, arguments) : this;
+		$each(options||{}, function(v, k){ if (!$defined(v)) delete options[k]; });
+		options = $merge({
+			// minimum: { x: 0, y: 0 },
+			// maximum: { x: 0, y: 0},
+			relativeTo: document.body,
+			position: {
+				x: 'center', //left, center, right
+				y: 'center' //top, center, bottom
+			},
+			edge: false,
+			offset: {x: 0, y: 0},
+			returnPos: false,
+			relFixedPosition: false,
+			ignoreMargins: false,
+			ignoreScroll: false,
+			allowNegative: false
+		}, options);
+		//compute the offset of the parent positioned element if this element is in one
+		var parentOffset = {x: 0, y: 0}, 
+				parentPositioned = false;
+		/* dollar around getOffsetParent should not be necessary, but as it does not return
+		 * a mootools extended element in IE, an error occurs on the call to expose. See:
+		 * http://mootools.lighthouseapp.com/projects/2706/tickets/333-element-getoffsetparent-inconsistency-between-ie-and-other-browsers */
+		var offsetParent = this.measure(function(){
+			return document.id(this.getOffsetParent());
+		});
+		if (offsetParent && offsetParent != this.getDocument().body){
+			parentOffset = offsetParent.measure(function(){
+				return this.getPosition();
+			});
+			parentPositioned = offsetParent != document.id(options.relativeTo);
+			options.offset.x = options.offset.x - parentOffset.x;
+			options.offset.y = options.offset.y - parentOffset.y;
+		}
+		//upperRight, bottomRight, centerRight, upperLeft, bottomLeft, centerLeft
+		//topRight, topLeft, centerTop, centerBottom, center
+		var fixValue = function(option){
+			if ($type(option) != 'string') return option;
+			option = option.toLowerCase();
+			var val = {};
+			
+			if (option.test('left')) val.x = 'left';
+			else if (option.test('right')) val.x = 'right';
+			else val.x = 'center';
+			
+			if (option.test('upper') || option.test('top')) val.y = 'top';
+			else if (option.test('bottom')) val.y = 'bottom';
+			else val.y = 'center';
+			
+			return val;
+		};
+		options.edge = fixValue(options.edge);
+		options.position = fixValue(options.position);
+		if (!options.edge){
+			if (options.position.x == 'center' && options.position.y == 'center') options.edge = {x:'center', y:'center'};
+			else options.edge = {x:'left', y:'top'};
+		}
+
+		this.setStyle('position', 'absolute');
+		var rel = document.id(options.relativeTo) || document.body,
+				calc = rel == document.body ? window.getScroll() : rel.getPosition(),
+				top = calc.y, left = calc.x;
+
+		var dim = this.getDimensions({computeSize: true, styles:['padding', 'border','margin']});
+		var pos = {},
+				prefY = options.offset.y,
+				prefX = options.offset.x,
+				winSize = window.getSize();
+		switch(options.position.x){
+			case 'left':
+				pos.x = left + prefX;
+				break;
+			case 'right':
+				pos.x = left + prefX + rel.offsetWidth;
+				break;
+			default: //center
+				pos.x = left + ((rel == document.body ? winSize.x : rel.offsetWidth)/2) + prefX;
+				break;
+		}
+		switch(options.position.y){
+			case 'top':
+				pos.y = top + prefY;
+				break;
+			case 'bottom':
+				pos.y = top + prefY + rel.offsetHeight;
+				break;
+			default: //center
+				pos.y = top + ((rel == document.body ? winSize.y : rel.offsetHeight)/2) + prefY;
+				break;
+		}
+		if (options.edge){
+			var edgeOffset = {};
+
+			switch(options.edge.x){
+				case 'left':
+					edgeOffset.x = 0;
+					break;
+				case 'right':
+					edgeOffset.x = -dim.x-dim.computedRight-dim.computedLeft;
+					break;
+				default: //center
+					edgeOffset.x = -(dim.totalWidth/2);
+					break;
+			}
+			switch(options.edge.y){
+				case 'top':
+					edgeOffset.y = 0;
+					break;
+				case 'bottom':
+					edgeOffset.y = -dim.y-dim.computedTop-dim.computedBottom;
+					break;
+				default: //center
+					edgeOffset.y = -(dim.totalHeight/2);
+					break;
+			}
+			pos.x += edgeOffset.x;
+			pos.y += edgeOffset.y;
+		}
+		pos = {
+			left: ((pos.x >= 0 || parentPositioned || options.allowNegative) ? pos.x : 0).toInt(),
+			top: ((pos.y >= 0 || parentPositioned || options.allowNegative) ? pos.y : 0).toInt()
+		};
+		var xy = {left: 'x', top: 'y'};
+		['minimum', 'maximum'].each(function(minmax) {
+			['left', 'top'].each(function(lr) {
+				var val = options[minmax] ? options[minmax][xy[lr]] : null;
+				if (val != null && ((minmax == 'minimum') ? pos[lr] < val: pos[lr] > val)) pos[lr] = val;
+			});
+		});
+		if (rel.getStyle('position') == 'fixed' || options.relFixedPosition){
+			var winScroll = window.getScroll();
+			pos.top+= winScroll.y;
+			pos.left+= winScroll.x;
+		}
+		var relScroll = rel.getScroll();
+		if (options.ignoreScroll) {
+			pos.top -= relScroll.y;
+			pos.left -= relScroll.x;
+		} else {
+			pos.top += relScroll.y;
+			pos.left += relScroll.x;
+		}
+		if (options.ignoreMargins) {
+			pos.left += (
+				options.edge.x == 'right' ? dim['margin-right'] : 
+				options.edge.x == 'center' ? -dim['margin-left'] + ((dim['margin-right'] + dim['margin-left'])/2) : 
+					- dim['margin-left']
+			);
+			pos.top += (
+				options.edge.y == 'bottom' ? dim['margin-bottom'] : 
+				options.edge.y == 'center' ? -dim['margin-top'] + ((dim['margin-bottom'] + dim['margin-top'])/2) : 
+					- dim['margin-top']
+			);
+		}
+		pos.left = Math.ceil(pos.left);
+		pos.top = Math.ceil(pos.top);
+		if (options.returnPos) return pos;
+		else this.setStyles(pos);
+		return this;
+	}
+
+});
+
+})();

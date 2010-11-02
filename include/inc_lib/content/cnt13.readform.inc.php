@@ -76,5 +76,7 @@ $content['search']["news_category"]	= empty($_POST['csearch_news_category']) ? a
 $content['search']["news_andor"]	= clean_slweg($_POST['csearch_news_andor']);
 $content['search']["news_url"]		= clean_slweg($_POST['csearch_news_url']);
 
+$content['search']["no_filenames"]	= empty($_POST['csearch_nofilenames']) ? 0 : 1;
+$content['search']["hide_summary"]	= empty($_POST['csearch_hidesummary']) ? 0 : 1;
 
 ?>

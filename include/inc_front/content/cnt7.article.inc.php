@@ -336,6 +336,9 @@ if($content['files_sql']) {
 		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['file_cp_title']));
 		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['file_cp_subtitle']));
 		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
+		
+		// cleanup left over FILE_IMAGE sections
+		$crow["acontent_template"] = replace_cnt_template($crow["acontent_template"], 'FILE_IMAGE', '');
 
 		// return result
 		if( empty($IS_NEWS_CP) ) {

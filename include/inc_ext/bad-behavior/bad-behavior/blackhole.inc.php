@@ -1,10 +1,5 @@
 <?php if (!defined('BB2_CORE')) die('I said no cheating!');
 
-// Quick and dirty check for an IPv6 address
-function is_ipv6($address) {
-	return (strpos($address, ":")) ? TRUE : FALSE;
-}
-
 // Look up address on various blackhole lists.
 // These should not be used for GET requests under any circumstances!
 // FIXME: Note that this code is no longer in use

@@ -1,3 +1,312 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-HtmlTable=Class.refactor(HtmlTable,{options:{sortIndex:0,sortReverse:false,parsers:[],defaultParser:"string",classSortable:"table-sortable",classHeadSort:"table-th-sort",classHeadSortRev:"table-th-sort-rev",classNoSort:"table-th-nosort",classGroupHead:"table-tr-group-head",classGroup:"table-tr-group",classCellSort:"table-td-sort",classSortSpan:"table-th-sort-span",sortable:false},initialize:function(){this.previous.apply(this,arguments);if(this.occluded){return this.occluded}this.sorted={index:null,dir:1};this.bound={headClick:this.headClick.bind(this)};this.sortSpans=new Elements();if(this.options.sortable){this.enableSort();if(this.options.sortIndex!=null){this.sort(this.options.sortIndex,this.options.sortReverse)}}},attachSorts:function(a){this.element.removeEvents("click:relay(th)");this.element[$pick(a,true)?"addEvent":"removeEvent"]("click:relay(th)",this.bound.headClick)},setHeaders:function(){this.previous.apply(this,arguments);if(this.sortEnabled){this.detectParsers()}},detectParsers:function(c){if(!this.head){return}var a=this.options.parsers,b=this.body.rows;this.parsers=$$(this.head.cells).map(function(d,e){if(!c&&(d.hasClass(this.options.classNoSort)||d.retrieve("htmltable-parser"))){return d.retrieve("htmltable-parser")}var f=new Element("div");$each(d.childNodes,function(j){f.adopt(j)});f.inject(d);var h=new Element("span",{html:"&#160;","class":this.options.classSortSpan}).inject(f,"top");this.sortSpans.push(h);var i=a[e],g;switch($type(i)){case"function":i={convert:i};g=true;break;case"string":i=i;g=true;break}if(!g){HtmlTable.Parsers.some(function(n){var l=n.match;if(!l){return false}for(var m=0,k=b.length;m<k;m++){var o=$(b[m].cells[e]).get("html").clean();if(o&&l.test(o)){i=n;return true}}})}if(!i){i=this.options.defaultParser}d.store("htmltable-parser",i);return i},this)},headClick:function(c,b){console.log(b);if(!this.head||b.hasClass(this.options.classNoSort)){return}var a=Array.indexOf(this.head.cells,b);this.sort(a);return false},sort:function(f,h,m){if(!this.head){return}m=!!(m);var l=this.options.classCellSort;var o=this.options.classGroup,t=this.options.classGroupHead;if(!m){if(f!=null){if(this.sorted.index==f){this.sorted.reverse=!(this.sorted.reverse)}else{if(this.sorted.index!=null){this.sorted.reverse=false;this.head.cells[this.sorted.index].removeClass(this.options.classHeadSort).removeClass(this.options.classHeadSortRev)}else{this.sorted.reverse=true}this.sorted.index=f}}else{f=this.sorted.index}if(h!=null){this.sorted.reverse=h}var d=document.id(this.head.cells[f]);if(d){d.addClass(this.options.classHeadSort);if(this.sorted.reverse){d.addClass(this.options.classHeadSortRev)}else{d.removeClass(this.options.classHeadSortRev)}}this.body.getElements("td").removeClass(this.options.classCellSort)}var c=this.parsers[f];if($type(c)=="string"){c=HtmlTable.Parsers.get(c)}if(!c){return}if(!Browser.Engine.trident){var b=this.body.getParent();this.body.dispose()}var s=Array.map(this.body.rows,function(v,j){var u=c.convert.call(document.id(v.cells[f]));return{position:j,value:u,toString:function(){return u.toString()}}},this);s.reverse(true);s.sort(function(j,i){if(j.value===i.value){return 0}return j.value>i.value?1:-1});if(!this.sorted.reverse){s.reverse(true)}var p=s.length,k=this.body;var n,r,a,g;while(p){var q=s[--p];r=q.position;var e=k.rows[r];if(e.disabled){continue}if(!m){if(g===q.value){e.removeClass(t).addClass(o)}else{g=q.value;e.removeClass(o).addClass(t)}if(this.zebra){this.zebra(e,p)}e.cells[f].addClass(l)}k.appendChild(e);for(n=0;n<p;n++){if(s[n].position>r){s[n].position--}}}s=null;if(b){b.grab(k)}return this.fireEvent("sort",[k,f])},reSort:function(){if(this.sortEnabled){this.sort.call(this,this.sorted.index,this.sorted.reverse)}return this},enableSort:function(){this.element.addClass(this.options.classSortable);this.attachSorts(true);this.detectParsers();this.sortEnabled=true;return this},disableSort:function(){this.element.removeClass(this.options.classSortable);this.attachSorts(false);this.sortSpans.each(function(a){a.destroy()});this.sortSpans.empty();this.sortEnabled=false;return this}});HtmlTable.Parsers=new Hash({date:{match:/^\d{2}[-\/ ]\d{2}[-\/ ]\d{2,4}$/,convert:function(){return Date.parse(this.get("text")).format("db")},type:"date"},"input-checked":{match:/ type="(radio|checkbox)" /,convert:function(){return this.getElement("input").checked}},"input-value":{match:/<input/,convert:function(){return this.getElement("input").value}},number:{match:/^\d+[^\d.,]*$/,convert:function(){return this.get("text").toInt()},number:true},numberLax:{match:/^[^\d]+\d+$/,convert:function(){return this.get("text").replace(/[^-?^0-9]/,"").toInt()},number:true},"float":{match:/^[\d]+\.[\d]+/,convert:function(){return this.get("text").replace(/[^-?^\d.]/,"").toFloat()},number:true},floatLax:{match:/^[^\d]+[\d]+\.[\d]+$/,convert:function(){return this.get("text").replace(/[^-?^\d.]/,"")},number:true},string:{match:null,convert:function(){return this.get("text")}},title:{match:null,convert:function(){return this.title}}});
+script: HtmlTable.Sort.js
+
+name: HtmlTable.Sort
+
+description: Builds a stripy, sortable table with methods to add rows.
+
+license: MIT-style license
+
+authors:
+  - Harald Kirschner
+  - Aaron Newton
+
+requires:
+  - Core/Hash
+  - /HtmlTable
+  - /Class.refactor
+  - /Element.Delegation
+  - /String.Extras
+  - /Date
+
+provides: [HtmlTable.Sort]
+
+...
+*/
+
+HtmlTable = Class.refactor(HtmlTable, {
+
+	options: {/*
+		onSort: $empty, */
+		sortIndex: 0,
+		sortReverse: false,
+		parsers: [],
+		defaultParser: 'string',
+		classSortable: 'table-sortable',
+		classHeadSort: 'table-th-sort',
+		classHeadSortRev: 'table-th-sort-rev',
+		classNoSort: 'table-th-nosort',
+		classGroupHead: 'table-tr-group-head',
+		classGroup: 'table-tr-group',
+		classCellSort: 'table-td-sort',
+		classSortSpan: 'table-th-sort-span',
+		sortable: false
+	},
+
+	initialize: function () {
+		this.previous.apply(this, arguments);
+		if (this.occluded) return this.occluded;
+		this.sorted = {index: null, dir: 1};
+		this.bound = {
+			headClick: this.headClick.bind(this)
+		};
+		this.sortSpans = new Elements();
+		if (this.options.sortable) {
+			this.enableSort();
+			if (this.options.sortIndex != null) this.sort(this.options.sortIndex, this.options.sortReverse);
+		}
+	},
+
+	attachSorts: function(attach){
+		this.element.removeEvents('click:relay(th)');
+		this.element[$pick(attach, true) ? 'addEvent' : 'removeEvent']('click:relay(th)', this.bound.headClick);
+	},
+
+	setHeaders: function(){
+		this.previous.apply(this, arguments);
+		if (this.sortEnabled) this.detectParsers();
+	},
+	
+	detectParsers: function(force){
+		if (!this.head) return;
+		var parsers = this.options.parsers, 
+				rows = this.body.rows;
+
+		// auto-detect
+		this.parsers = $$(this.head.cells).map(function(cell, index) {
+			if (!force && (cell.hasClass(this.options.classNoSort) || cell.retrieve('htmltable-parser'))) return cell.retrieve('htmltable-parser');
+			var thDiv = new Element('div');
+			$each(cell.childNodes, function(node) {
+				thDiv.adopt(node);
+			});
+			thDiv.inject(cell);
+			var sortSpan = new Element('span', {'html': '&#160;', 'class': this.options.classSortSpan}).inject(thDiv, 'top');
+			
+			this.sortSpans.push(sortSpan);
+
+			var parser = parsers[index], 
+					cancel;
+			switch ($type(parser)) {
+				case 'function': parser = {convert: parser}; cancel = true; break;
+				case 'string': parser = parser; cancel = true; break;
+			}
+			if (!cancel) {
+				HtmlTable.Parsers.some(function(current) {
+					var match = current.match;
+					if (!match) return false;
+					for (var i = 0, j = rows.length; i < j; i++) {
+						var cell = document.id(rows[i].cells[index]);
+						var text = cell ? cell.get('html').clean() : '';
+						if (text && match.test(text)) {
+							parser = current;
+							return true;
+						}
+					}
+				});
+			}
+
+			if (!parser) parser = this.options.defaultParser;
+			cell.store('htmltable-parser', parser);
+			return parser;
+		}, this);
+	},
+
+	headClick: function(event, el) {
+		if (!this.head || el.hasClass(this.options.classNoSort)) return;
+		var index = Array.indexOf(this.head.cells, el);
+		this.sort(index);
+		return false;
+	},
+
+	sort: function(index, reverse, pre) {
+		if (!this.head) return;
+		pre = !!(pre);
+		var classCellSort = this.options.classCellSort;
+		var classGroup = this.options.classGroup, 
+				classGroupHead = this.options.classGroupHead;
+
+		if (!pre) {
+			if (index != null) {
+				if (this.sorted.index == index) {
+					this.sorted.reverse = !(this.sorted.reverse);
+				} else {
+					if (this.sorted.index != null) {
+						this.sorted.reverse = false;
+						this.head.cells[this.sorted.index].removeClass(this.options.classHeadSort).removeClass(this.options.classHeadSortRev);
+					} else {
+						this.sorted.reverse = true;
+					}
+					this.sorted.index = index;
+				}
+			} else {
+				index = this.sorted.index;
+			}
+
+			if (reverse != null) this.sorted.reverse = reverse;
+
+			var head = document.id(this.head.cells[index]);
+			if (head) {
+				head.addClass(this.options.classHeadSort);
+				if (this.sorted.reverse) head.addClass(this.options.classHeadSortRev);
+				else head.removeClass(this.options.classHeadSortRev);
+			}
+
+			this.body.getElements('td').removeClass(this.options.classCellSort);
+		}
+
+		var parser = this.parsers[index];
+		if ($type(parser) == 'string') parser = HtmlTable.Parsers.get(parser);
+		if (!parser) return;
+
+		if (!Browser.Engine.trident) {
+			var rel = this.body.getParent();
+			this.body.dispose();
+		}
+
+		var data = Array.map(this.body.rows, function(row, i) {
+			var value = parser.convert.call(document.id(row.cells[index]));
+
+			return {
+				position: i,
+				value: value,
+				toString:  function() {
+					return value.toString();
+				}
+			};
+		}, this);
+		data.reverse(true);
+
+		data.sort(function(a, b){
+			if (a.value === b.value) return 0;
+			return a.value > b.value ? 1 : -1;
+		});
+
+		if (!this.sorted.reverse) data.reverse(true);
+
+		var i = data.length, body = this.body;
+		var j, position, entry, group;
+
+		while (i) {
+			var item = data[--i];
+			position = item.position;
+			var row = body.rows[position];
+			if (row.disabled) continue;
+
+			if (!pre) {
+				if (group === item.value) {
+					row.removeClass(classGroupHead).addClass(classGroup);
+				} else {
+					group = item.value;
+					row.removeClass(classGroup).addClass(classGroupHead);
+				}
+				if (this.options.zebra) this.zebra(row, i);
+
+				row.cells[index].addClass(classCellSort);
+			}
+
+			body.appendChild(row);
+			for (j = 0; j < i; j++) {
+				if (data[j].position > position) data[j].position--;
+			}
+		};
+		data = null;
+		if (rel) rel.grab(body);
+
+		return this.fireEvent('sort', [body, index]);
+	},
+
+	reSort: function(){
+		if (this.sortEnabled) this.sort.call(this, this.sorted.index, this.sorted.reverse);
+		return this;
+	},
+
+	enableSort: function(){
+		this.element.addClass(this.options.classSortable);
+		this.attachSorts(true);
+		this.detectParsers();
+		this.sortEnabled = true;
+		return this;
+	},
+
+	disableSort: function(){
+		this.element.removeClass(this.options.classSortable);
+		this.attachSorts(false);
+		this.sortSpans.each(function(span) { span.destroy(); });
+		this.sortSpans.empty();
+		this.sortEnabled = false;
+		return this;
+	}
+
+});
+
+HtmlTable.Parsers = new Hash({
+
+	'date': {
+		match: /^\d{2}[-\/ ]\d{2}[-\/ ]\d{2,4}$/,
+		convert: function() {
+			var d = Date.parse(this.get('text').stripTags());
+			return $type(d) == 'date' ? d.format('db') : '';
+		},
+		type: 'date'
+	},
+	'input-checked': {
+		match: / type="(radio|checkbox)" /,
+		convert: function() {
+			return this.getElement('input').checked;
+		}
+	},
+	'input-value': {
+		match: /<input/,
+		convert: function() {
+			return this.getElement('input').value;
+		}
+	},
+	'number': {
+		match: /^\d+[^\d.,]*$/,
+		convert: function() {
+			return this.get('text').stripTags().toInt();
+		},
+		number: true
+	},
+	'numberLax': {
+		match: /^[^\d]+\d+$/,
+		convert: function() {
+			return this.get('text').replace(/[^-?^0-9]/, '').stripTags().toInt();
+		},
+		number: true
+	},
+	'float': {
+		match: /^[\d]+\.[\d]+/,
+		convert: function() {
+			return this.get('text').replace(/[^-?^\d.]/, '').stripTags().toFloat();
+		},
+		number: true
+	},
+	'floatLax': {
+		match: /^[^\d]+[\d]+\.[\d]+$/,
+		convert: function() {
+			return this.get('text').replace(/[^-?^\d.]/, '').stripTags();
+		},
+		number: true
+	},
+	'string': {
+		match: null,
+		convert: function() {
+			return this.get('text').stripTags();
+		}
+	},
+	'title': {
+		match: null,
+		convert: function() {
+			return this.title;
+		}
+	}
+
+});
+
+
+HtmlTable.defineParsers = function(parsers){
+	HtmlTable.Parsers = new Hash(parsers).combine(HtmlTable.Parsers);
+};

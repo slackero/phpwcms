@@ -240,6 +240,7 @@ if(!isset($_GET["s"])) {
 		// set default pagelayout information
 		$pagelayout = array();
 		
+		$pagelayout["id"]						  = 0;
 		$pagelayout["layout_align"]               = 0;
 		$pagelayout["layout_type"]                = 0;
 		$pagelayout["layout_border_top"]          = '';

@@ -2,6 +2,11 @@
 
 // Miscellaneous helper functions.
 
+// Quick and dirty check for an IPv6 address
+function is_ipv6($address) {
+	return (strpos($address, ":")) ? TRUE : FALSE;
+}
+
 // stripos() needed because stripos is only present on PHP 5
 if (!function_exists('stripos')) {
 	function stripos($haystack,$needle,$offset = 0) {

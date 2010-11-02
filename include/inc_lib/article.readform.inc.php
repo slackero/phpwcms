@@ -86,6 +86,21 @@ if($content["paginate_page"] && $content["block"] != 'CONTENT') {
 	$content["paginate_page"] = 0;
 }
 
+
+$content["tab"] = '';
+if(!empty($_POST['ctab'])) {
+	
+	$content["tab_number"]	= empty($_POST['ctab_number']) ? 0 : intval($_POST['ctab_number']);
+	$content["tab_title"]	= empty($_POST['ctab_title']) ? '' : clean_slweg($_POST['ctab_title'], 100);
+	
+	if($content["tab_number"] || $content["tab_title"]) {
+		
+		$content["tab"] = $content["tab_number"] . '_' . $content["tab_title"];
+		
+	}
+}
+
+
 $content["module"]	 	= empty($_POST["ctype_module"]) ? '' : clean_slweg($_POST["ctype_module"]);
 
 // check if content type possibly changed

@@ -1,3 +1,124 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-(function(){var a=false;window.addEvent("domready",function(){var b=new Element("div").setStyles({position:"fixed",top:0,right:0}).inject(document.body);a=(b.offsetTop===0);b.dispose()});Element.implement({pin:function(d){if(this.getStyle("display")=="none"){return null}var f,b=window.getScroll();if(d!==false){f=this.getPosition();if(!this.retrieve("pinned")){var h={top:f.y-b.y,left:f.x-b.x};if(a){this.setStyle("position","fixed").setStyles(h)}else{this.store("pinnedByJS",true);this.setStyles({position:"absolute",top:f.y,left:f.x}).addClass("isPinned");this.store("scrollFixer",(function(){if(this.retrieve("pinned")){var i=window.getScroll()}this.setStyles({top:h.top.toInt()+i.y,left:h.left.toInt()+i.x})}).bind(this));window.addEvent("scroll",this.retrieve("scrollFixer"))}this.store("pinned",true)}}else{var g;if(!Browser.Engine.trident){var e=this.getParent();g=(e.getComputedStyle("position")!="static"?e:e.getOffsetParent())}f=this.getPosition(g);this.store("pinned",false);var c;if(a&&!this.retrieve("pinnedByJS")){c={top:f.y+b.y,left:f.x+b.x}}else{this.store("pinnedByJS",false);window.removeEvent("scroll",this.retrieve("scrollFixer"));c={top:f.y,left:f.x}}this.setStyles($merge(c,{position:"absolute"})).removeClass("isPinned")}return this},unpin:function(){return this.pin(false)},togglepin:function(){this.pin(!this.retrieve("pinned"))}})})();
+script: Element.Pin.js
+
+name: Element.Pin
+
+description: Extends the Element native object to include the pin method useful for fixed positioning for elements.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - Core/Element.Event
+  - Core/Element.Dimensions
+  - Core/Element.Style
+  - /MooTools.More
+
+provides: [Element.Pin]
+
+...
+*/
+
+(function(){
+	var supportsPositionFixed = false,
+		supportTested = false;
+
+	var testPositionFixed = function(){
+		var test = new Element('div').setStyles({
+			position: 'fixed',
+			top: 0,
+			right: 0
+		}).inject(document.body);
+		supportsPositionFixed = (test.offsetTop === 0);
+		test.dispose();
+		supportTested = true;
+	}
+
+	Element.implement({
+
+		pin: function(enable, forceScroll){
+			if (!supportTested) testPositionFixed();
+			if (this.getStyle('display') == 'none') return this;
+
+			var pinnedPosition,
+				scroll = window.getScroll();
+
+			if (enable !== false){
+				pinnedPosition = this.getPosition(supportsPositionFixed ? document.body : this.getOffsetParent());
+				if (!this.retrieve('pin:_pinned')){
+					var currentPosition = {
+						top: pinnedPosition.y - scroll.y,
+						left: pinnedPosition.x - scroll.x
+					};
+
+					if (supportsPositionFixed && !forceScroll){
+						this.setStyle('position', 'fixed').setStyles(currentPosition);
+					} else {
+
+						var parent = this.getOffsetParent(),
+							position = this.getPosition(parent),
+							styles = this.getStyles('left', 'top');
+
+						if (parent && styles.left == 'auto' || styles.top == 'auto') this.setPosition(position);
+						if (this.getStyle('position') == 'static') this.setStyle('position', 'absolute');
+
+						position = {
+							x: styles.left.toInt() - scroll.x,
+							y: styles.top.toInt() - scroll.y
+						};
+
+						var scrollFixer = function(){
+							if (!this.retrieve('pin:_pinned')) return;
+							var scroll = window.getScroll();
+							this.setStyles({
+								left: position.x + scroll.x,
+								top: position.y + scroll.y
+							});
+						}.bind(this);
+
+						this.store('pin:_scrollFixer', scrollFixer);
+						window.addEvent('scroll', scrollFixer);
+					}
+					this.store('pin:_pinned', true);
+				}
+
+			} else {
+				if (!this.retrieve('pin:_pinned')) return this;
+
+				var parent = this.getParent(),
+					offsetParent = (parent.getComputedStyle('position') != 'static' ? parent : parent.getOffsetParent());
+
+				pinnedPosition = this.getPosition(offsetParent);
+
+				this.store('pin:_pinned', false);
+				var scrollFixer = this.retrieve('pin:_scrollFixer');
+				if (!scrollFixer){
+					this.setStyles({
+						position: 'absolute',
+						top: pinnedPosition.y + scroll.y,
+						left: pinnedPosition.x + scroll.x
+					});
+				} else {
+					this.store('pin:_scrollFixer', null);
+					window.removeEvent('scroll', scrollFixer);
+				}
+				this.removeClass('isPinned');
+			}
+			return this;
+		},
+
+		unpin: function(){
+			return this.pin(false);
+		},
+
+		togglepin: function(){
+			return this.pin(!this.retrieve('pin:_pinned'));
+		}
+
+	});
+
+})();

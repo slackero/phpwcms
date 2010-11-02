@@ -1,3 +1,24 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-MooTools.lang.set("de-CH","cascade",["de-DE"]);
+script: Date.German.CH.js
+
+name: Date.German.CH
+
+description: Date messages for German (Switzerland).
+
+license: MIT-style license
+
+authors:
+  - Michael van der Weg
+
+requires:
+  - /Lang
+  - /Date.German
+
+provides: [Date.German.CH]
+
+...
+*/
+
+MooTools.lang.set('de-CH', 'cascade', ['de-DE']);

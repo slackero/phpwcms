@@ -84,6 +84,8 @@ $news = & new phpwcmsNews();
 	
 <?php
 		echo $news->listBackend();
+		
+		$phpwcms['be_parse_lang_process'] = true;
 	
 	}
 

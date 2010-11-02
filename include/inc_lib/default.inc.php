@@ -95,7 +95,6 @@ if(defined('CUSTOM_CONTENT_TYPE')) {
 } else {
 
 	header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
-	//	header('Vary: Negotiate, Accept');
 	$_use_content_type = 'text/html';
 
 }
@@ -123,10 +122,13 @@ define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
 define ('PHPWCMS_REWRITE_EXT',		'phtml');
 
-$phpwcms['browser_detect']		=	phpwcms_getUserAgent();
-define('BROWSER_NAME',				$phpwcms['browser_detect']['agent']);
-define('BROWSER_NUMBER',			$phpwcms['browser_detect']['version']);
-define('BROWSER_OS',				$phpwcms['browser_detect']['platform']);
+// Mime-Type definitions
+require_once(PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php');
+
+phpwcms_getUserAgent();
+define('BROWSER_NAME',				$phpwcms['USER_AGENT']['agent']);
+define('BROWSER_NUMBER',			$phpwcms['USER_AGENT']['version']);
+define('BROWSER_OS',				$phpwcms['USER_AGENT']['platform']);
 
 $phpwcms["file_path"]    		= 	'/'.$phpwcms["file_path"].'/' ;  // "/phpwcms_filestorage/"
 
@@ -206,6 +208,15 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
 	
+} elseif($phpwcms['mode_XHTML'] == 3) {
+
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html{DOCTYPE_LANG}>'.LF.'<head>'.LF);
+	define('SCRIPT_CDATA_START', '');
+	define('SCRIPT_CDATA_END'  , '');
+	define('HTML_TAG_CLOSE'  , ' />');
+	define('XHTML_MODE', true);
+	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}"');
+	
 } else {
 	
 	$phpwcms['mode_XHTML'] = 1;
@@ -219,20 +230,9 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"]			= '1.4.6';
-$phpwcms["release_date"]	= '2010/03/30';
-$phpwcms["revision"]		= '402';
-
-/* 
- * Disabled now - maybe needed at later time
- *
-// load permissions class
-require(PHPWCMS_ROOT.'/include/inc_lib/permissions.class.php');
-// init permissions
-$_PERMIT = new Permissions();
- *
- */
-
+$phpwcms["release"]			= '1.4.7';
+$phpwcms["release_date"]	= '2010/11/01';
+$phpwcms["revision"]		= '403';
 
 // -------------------------------------------------------------
 
@@ -453,18 +453,8 @@ function getRemoteIP() {
 	return $IP;
 }
 
-/************************************************************************/
-/* Openads 2.0                                                          */
-/* ===========                                                          */
-/*                                                                      */
-/* Copyright (c) 2000-2007 by the Openads developers                    */
-/* For more information visit: http://www.openads.org                   */
-/*                                                                      */
-/* This program is free software. You can redistribute it and/or modify */
-/* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
-/************************************************************************/
-
+// Get user agent informations, based on concepts of OpenAds 2.0
+// Copyright (c) 2000-2007 by the OpenAds developers
 function phpwcms_getUserAgent($USER_AGENT='') {
 	
 	if(isset($GLOBALS['phpwcms']['USER_AGENT'])) {
@@ -477,7 +467,9 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$GLOBALS['phpwcms']['USER_AGENT'] = array(
 			'agent' => 'Other',
 			'version' => 0,
-			'platform' => 'Other'
+			'platform' => 'Other',
+			'mobile' => 0,
+			'bot' => 0
 		);
 		return $GLOBALS['phpwcms']['USER_AGENT'];
 	}
@@ -490,39 +482,72 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 			$ver = $log_version[1];
 			$agent = 'IE';
 		}
-	} elseif (preg_match('#Opera[/ ]([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
+	} elseif(preg_match('#Mozilla.*Firefox\/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
-		$agent = 'Opera';
-	} elseif (strstr($USER_AGENT, 'Safari') && preg_match('#Safari/([0-9]{1,3})#', $USER_AGENT, $log_version)) {
+		$agent = 'Firefox';
+	} elseif(preg_match('#Mozilla.*Chrome\/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
+		$ver = $log_version[1];
+		$agent = 'Chrome';
+ 	} elseif(strstr($USER_AGENT, 'Safari') && preg_match('#Safari/([0-9]{1,4})#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
 		$agent = 'Safari';
-	} elseif (strstr($USER_AGENT, 'Konqueror') && preg_match('#Konqueror/([0-9])#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Konqueror';
-	} elseif (preg_match('#Mozilla/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
+	} elseif(preg_match('#Mozilla/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
 		$ver = $log_version[1];
 		$agent = 'Mozilla';
+	} elseif(preg_match('#Opera.* Version\/([0-9]{1,2}.[0-9]{1,2})#', $USER_AGENT, $log_version)) {
+		$ver = $log_version[1];
+		$agent = 'Opera';
+	} elseif(preg_match('#Opera[/ ]([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
+		$ver = $log_version[1];
+		$agent = 'Opera';
+	} elseif(strstr($USER_AGENT, 'Konqueror') && preg_match('#Konqueror/([0-9])#', $USER_AGENT, $log_version)) {
+		$ver = $log_version[1];
+		$agent = 'Konqueror';
 	} else {
 		$ver = 0;
 		$agent = 'Other';
 	}
 	
-	if (strstr($USER_AGENT, 'Win')) {
+	$mobile = 0;
+	$bot = 0;
+	
+	if(strpos($USER_AGENT, 'Win') !== false) {
 		$platform = 'Win';
-	} elseif (strstr($USER_AGENT, 'Mac')) {
+	} elseif(strpos($USER_AGENT, 'iPhone') !== false || strpos($USER_AGENT, 'iPod') !== false || strpos($USER_AGENT, 'iPad') !== false) {
+		$platform = 'iOS';
+		$mobile = 1;
+	} elseif(strpos($USER_AGENT, 'Mac') !== false) {
 		$platform = 'Mac';
-	} elseif (strstr($USER_AGENT, 'Linux')) {
+	} elseif(strpos($USER_AGENT, 'Android') !== false) {
+		$platform = 'Android';
+		$mobile = 1;
+	} elseif(strpos($USER_AGENT, 'Linux') !== false) {
 		$platform = 'Linux';
-	} elseif (strstr($USER_AGENT, 'Unix')) {
+	} elseif(strpos($USER_AGENT, 'Unix') !== false) {
 		$platform = 'Unix';
 	} else {
 		$platform = 'Other';
+		
+		if($USER_AGENT) {
+		
+			if(empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
+				$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+			}
+			
+			if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/i', $USER_AGENT, $match_bot)) {
+				$agent = $match_bot[1];
+				$bot = 1;
+			}
+		
+		}
 	}
-	
+		
 	$GLOBALS['phpwcms']['USER_AGENT'] = array(
 		'agent' => $agent,
 		'version' => $ver,
-		'platform' => $platform
+		'platform' => $platform,
+		'mobile' => $mobile,
+		'bot' => $bot
 	);
 	
 	return $GLOBALS['phpwcms']['USER_AGENT'];
@@ -632,5 +657,49 @@ function get_login_file() {
 	}
 	die('Login.php cannot be found. We stop here!');
 }
+
+/**
+ * Encrypt string
+ */
+function encrypt($plaintext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode='cfb') {
+	$td = mcrypt_module_open($cypher, '', $mode, '');
+	$iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+	mcrypt_generic_init($td, $key, $iv);
+	$crypttext = mcrypt_generic($td, $plaintext);
+	mcrypt_generic_deinit($td);
+	return $iv.$crypttext;
+}
+
+/**
+ * Decrypt string
+ */
+function decrypt($crypttext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode='cfb') {
+	$plaintext = '';
+	$td = mcrypt_module_open($cypher, '', $mode, '');
+	$ivsize = mcrypt_enc_get_iv_size($td);
+	$iv = substr($crypttext, 0, $ivsize);
+	$crypttext = substr($crypttext, $ivsize);
+	if ($iv) {
+		mcrypt_generic_init($td, $key, $iv);
+		$plaintext = mdecrypt_generic($td, $crypttext);
+	}
+	return $plaintext;
+}
+
+/**
+ * Get current user visual mode
+ */
+function get_user_vmode() {
+	switch(VISIBLE_MODE) {
+		case 1:		return 'editor';	break;
+		case 2:		return 'admin';		break;
+		default:	return 'all';
+	};
+}
+
+function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
+	$c = ''; foreach(str_split(strval($$g)) as $a) $c.=$e[intval($a)]; return $c;
+}
+
 
 ?>

@@ -200,7 +200,7 @@ My thanks to all those people who've contributed bug reports and code fixes.
 
 2007-06-28
 [ADD] Article summary template can be enhanced by {TARGET} for article link - necessary when you want to have direct linking to another site (article redirect) via "more" link.
-[FIX] Possible bug in content part "search" fixed - exists in case of special chars like "äöü..". PHP mb_strlen gave wrong result...
+[FIX] Possible bug in content part "search" fixed - exists in case of special chars like "Ã¤Ã¶Ã¼..". PHP mb_strlen gave wrong result...
 
 2007-06-27
 [FIX] Vulnerable fix for phpMailer class, see tracker issue 1734811 (https://sourceforge.net/tracker/index.php?func=detail&aid=1734811&group_id=26031&atid=385707).
@@ -816,7 +816,7 @@ My thanks to all those people who've contributed bug reports and code fixes.
 [ADD] Captcha verification also implemented for the old/deprecated form mailer.
 [FIX] Click zoom image GET parameter is given as rawurlencoded string now. GET parameter is now built by a special function to have it more flexible.
 [FIX] Default value for template in conf.indexpage.inc.php was set to 2 - a wrong value. Now set to 1 again which most times should be the default template ID.
-[ADD] New replacement tag {SHOW_CONTENT:MODE,id[,id[,...]]} - the enhanced version of Jens Zetterström's mod.
+[ADD] New replacement tag {SHOW_CONTENT:MODE,id[,id[,...]]} - the enhanced version of Jens ZetterstrÃ¶m's mod.
 [CHANGE] Some more optimizations...
 
 2006-09-04

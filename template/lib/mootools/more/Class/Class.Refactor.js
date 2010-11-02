@@ -1,3 +1,40 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-Class.refactor=function(b,a){$each(a,function(e,d){var c=b.prototype[d];if(c&&(c=c._origin)&&typeof e=="function"){b.implement(d,function(){var f=this.previous;this.previous=c;var g=e.apply(this,arguments);this.previous=f;return g})}else{b.implement(d,e)}});return b};
+script: Class.Refactor.js
+
+name: Class.Refactor
+
+description: Extends a class onto itself with new property, preserving any items attached to the class's namespace.
+
+license: MIT-style license
+
+authors:
+  - Aaron Newton
+
+requires:
+  - Core/Class
+  - /MooTools.More
+
+# Some modules declare themselves dependent on Class.Refactor
+provides: [Class.refactor, Class.Refactor]
+
+...
+*/
+
+Class.refactor = function(original, refactors){
+
+	$each(refactors, function(item, name){
+		var origin = original.prototype[name];
+		if (origin && (origin = origin._origin ? origin._origin: origin) && typeof item == 'function') original.implement(name, function(){
+			var old = this.previous;
+			this.previous = origin;
+			var value = item.apply(this, arguments);
+			this.previous = old;
+			return value;
+		}); else original.implement(name, item);
+	});
+
+	return original;
+
+};

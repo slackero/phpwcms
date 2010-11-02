@@ -76,6 +76,26 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 				$hash = '';
 				$ext  = '';
 			}
+			
+		} elseif($hash && strlen($hash) == 32 && $ext && !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext)) {
+			
+			require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+		
+			$sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+			$sql  .= 'f_hash='._dbEscape($hash)." AND ";
+			if(!$phpwcms['imagick']) {
+				$sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+			}
+			$sql  .= 'f_trash=0 AND f_aktiv=1 AND f_public=1';
+			$hash  = _dbQuery($sql);
+			if(isset($hash[0]['f_hash'])) {
+				$ext  = $hash[0]['f_ext'];
+				$hash = $hash[0]['f_hash'];
+			} else {
+				$hash = '';
+				$ext  = '';
+			}
+			
 		}
 		
 		if($hash && strlen($hash) == 32 && $ext) {

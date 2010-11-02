@@ -88,8 +88,10 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		}
 		$elements[$x] .= '	</tr>';
 		
-	
+		unset($export[$x]); // free memory
 	}
+	
+	unset($export); // free memory
 
 	$filename = date('Y-m-d_H-i-s').'_formresultID-'.$fid.'.xls';
 

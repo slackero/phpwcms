@@ -8,7 +8,7 @@
 
 --------------------------------------------------------------------- */
 
-// @NOTE: ie7Layout.boxSizing is the same as the "Holly Hack"
+// NOTE: IE7.Layout.boxSizing is the same as the "Holly Hack"
 
 if (IE7.loaded && IE7.appVersion < 7) {
 
@@ -19,7 +19,7 @@ if (IE7.loaded && IE7.appVersion < 7) {
   // "peekaboo" bug
   // http://www.positioniseverything.net/explorer/peekaboo.html
   if (IE7.appVersion >= 6) IE7.CSS.addRecalc("float", "(left|right)", function(element) {
-  	IE7.Layout.boxSizing(element.parentElement); // assing "hasLayout" to parent element
+  	IE7.Layout.boxSizing(element.parentElement);
   	// "doubled margin" bug
   	element.style.display = "inline";
   });
@@ -27,8 +27,8 @@ if (IE7.loaded && IE7.appVersion < 7) {
   // "unscrollable content" bug
   // http://www.positioniseverything.net/explorer/unscrollable.html
   IE7.CSS.addRecalc("position", "absolute|fixed", function(element) {
-  	if (element.offsetParent && element.offsetParent.currentStyle.position == "relative")
-  		IE7.Layout.boxSizing(element.offsetParent); // assing "hasLayout"
+  	if (element.offsetParent && element.offsetParent.currentStyle.position === "relative")
+  		IE7.Layout.boxSizing(element.offsetParent);
   });
 }
 

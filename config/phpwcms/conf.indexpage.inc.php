@@ -20,4 +20,7 @@ $indexpage['acat_cntpart']	= '';
 $indexpage['acat_pagetitle']	= '';
 $indexpage['acat_paginate']	= 0;
 $indexpage['acat_overwrite']	= '';
+$indexpage['acat_archive']	= 0;
+$indexpage['acat_class']	= '';
+$indexpage['acat_keywords']	= '';
 ?>

@@ -678,3 +678,52 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
 #upload-queue li.file.file-success .file-remove {
 	display: none;
 }
+
+
+/* Backend Content Language Parser */
+#be_lang {
+	list-style: none;
+	margin: 0 0 1em 0;
+	padding: 0;
+	height: 15px;
+	line-height: 15px;
+	position: relative;
+}
+#be_lang li {
+	list-style: none;
+	float: left;
+	margin: 0 7px 0 0;
+	padding: 0;
+	height: 15px;
+	position: relative;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+#be_lang li.be-lang-label {
+	text-transform: none;
+}
+#be_lang a.be-lang {
+	position: relative;
+	float: left;
+	width: 16px;
+	text-indent: -1000em;
+	height: 15px;
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: 0 1px;
+	overflow: hidden;
+}
+#be_lang a.be-disabled,
+#be_lang a.be-lang {
+	opacity: .5;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+}
+#be_lang a.be-lang:hover,
+#be_lang a.be-active {
+	opacity: 1;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+}
+
+

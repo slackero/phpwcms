@@ -20,27 +20,17 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-/*
-if(ini_get('zlib.output_compression') && function_exists('ini_set')) {
-	ini_set('zlib.output_compression', 'Off');
-}
-*/
-
 $phpwcms = array();
 
 require_once ('config/phpwcms/conf.inc.php');
 
 if( !empty($phpwcms['SESSION_FEinit']) ) {
-	session_start();
+	@session_start();
 }
 
 require_once ('include/inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
-
-_checkFrontendUserAutoLogin();
 
 // try to get hash for file download
 $success	= false;
@@ -55,7 +45,12 @@ if(isset($_GET['target'])) {
 }
 
 if(!empty($hash) && strlen($hash) == 32) {
+	
+	require_once (PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php');
+	require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
 
+	_checkFrontendUserAutoLogin();
+	
 	// get file info - limit 1 entry
 	$download = _getFileInfo($hash, 1);
 	
@@ -102,6 +97,44 @@ if(!empty($hash) && strlen($hash) == 32) {
 		}
 		
 
+	}
+
+// we hack in the stream.php here
+} elseif( ($file = isset($_GET['file']) ? clean_slweg($_GET['file'], 40) : '') ) {
+
+	$filename	= basename($file);
+	$file		= PHPWCMS_ROOT.'/'.PHPWCMS_FILES . $filename;
+
+	if(is_file($file)) {
+	
+		$mime = empty($_GET['type']) ? '' : clean_slweg($_GET['type'], 100);
+		
+		if(!$mime) {
+			$mime = get_mimetype_by_extension( which_ext($file) );
+		}
+		
+		header('Content-Type: ' . $mime);
+		
+		if(BROWSER_OS == 'iOS') {
+			
+			require_once (PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php');
+			
+			rangeDownload($file);			
+			
+		} else {
+		
+			header('Content-Transfer-Encoding: binary');
+			if(!isset($_GET['ios'])) {
+				header('Content-Disposition: inline; filename="'.$filename.'"');
+			}
+			header('Content-Length: ' . filesize($file));
+			
+			readfile($file);
+		
+		}
+		
+		$success = true;
+		
 	}
 
 }

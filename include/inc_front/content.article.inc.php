@@ -509,7 +509,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			
 			}
 
-			//check if top link should be shown
+			// check if top link should be shown
 			$CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
 
 			// Space after
@@ -521,7 +521,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				}
 			}
 			
-			//Maybe content part ID should b used inside templates or for something different
+			// Maybe content part ID should b used inside templates or for something different
 			$CNT_TMP = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
 			
 			// trigger content part functions
@@ -530,6 +530,45 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			//check if PHP replacent tags are allowed for content
 			if(empty($phpwcms["allow_cntPHP_rt"])) {
 				$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
+			}
+			
+			
+			// wrap tab 
+			if(!empty($crow['acontent_tab'])) {
+				
+				$crow['acontent_tab']			= explode('_', $crow['acontent_tab'], 2);
+				$crow['acontent_tab']['num']	= intval($crow['acontent_tab'][0]);
+				$crow['acontent_tab']['title']	= empty($crow['acontent_tab'][1]) ? '@@TabTitle@@' : $crow['acontent_tab'][1];
+				
+				// create a unique Tab ID based on title, content block and section
+				$CNT_TAB		= 'TABBOX-' . md5($crow['acontent_block'] . $crow['acontent_tab']['num']);
+				$CNT_TAB_ID 	= 'TAB-' . md5($crow['acontent_tab']['title'].$crow['acontent_block']);
+				$CNT_TAB_TMP	= $CNT_TMP;
+				
+				// check if Tab ID is registered
+				if(!isset($content['cptab'][$CNT_TAB])) {
+					
+					$content['cptab'][$CNT_TAB] = array();
+					
+					// write Tab Block Replacer
+					$CNT_TMP = '<!-- ' . $CNT_TAB . ' -->';
+					
+				} else {
+				
+					$CNT_TMP = '';
+					
+				}
+				if(!isset($content['cptab'][$CNT_TAB][$CNT_TAB_ID])) {
+					
+					$content['cptab'][$CNT_TAB][$CNT_TAB_ID] = array(
+						'title'		=> $crow['acontent_tab']['title'],
+						'content'	=> ''
+					);
+					
+				}
+				
+				$content['cptab'][$CNT_TAB][$CNT_TAB_ID]['content'] .= $CNT_TAB_TMP;
+			
 			}
 			
 			// now add rendered content part to right frontend content 
@@ -545,8 +584,50 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$content['CB'][$crow['acontent_block']] .= $CNT_TMP;
 			}
 			
-			
 		}
+		
+		
+		// render Tabs
+		$tab_counter = 0;
+		foreach($content['cptab'] as $CNT_TAB => $trow) {
+			
+			// define helper var
+			$g = array('wrap' => array(), 'cnt' => array(), 'counter' => 1, 'max' => count($trow));
+	
+			$g['wrap'][]	= '<div id="'.$CNT_TAB.'" class="tab-container">';
+			
+			$g['wrap'][]	= '	<ul class="tab-navigation">';
+			
+			foreach($trow as $tabkey => $tabitem) {
+				
+				$tabitem['id']		= 'tab-' . uri_sanitize(strtolower($tabitem['title'])) . $tab_counter;
+				$tabitem['title']	= html_specialchars($tabitem['title']);
+				$tabitem['class']	= '';
+				
+				if($g['counter'] === 1) {
+					$tabitem['class'] .= ' tab-first';
+				}
+				if($g['counter'] === $g['max']) {
+					$tabitem['class'] .= ' tab-last';
+				}
+				
+				$g['wrap'][]	= '		<li class="tab-item-'.$g['counter'].$tabitem['class'].'"><a href="#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
+				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'" class="tab-content">' . LF . $tabitem['content'] . LF . '	</div>';
+				
+				$tab_counter++;
+				$g['counter']++;
+			}
+			
+			$g['wrap'][]	= '	</ul>';
+			$g['wrap'][]	= implode(LF, $g['cnt']);
+			$g['wrap'][]	= '	<div class="tab-container-clear"></div>';
+			$g['wrap'][]	= '</div>';
+			
+			$content['cptab'][$CNT_TAB] = implode(LF, $g['wrap']);
+		}
+		
+		unset($g);
+
 	}
 }
 
@@ -554,6 +635,20 @@ if(empty($template_default["article"]["div_spacer"])) {
 	$content["main"] = str_replace("</table>\n<br />", "</table>\n", $content["main"]);
 	$content["main"] = str_replace("</table><br />", "</table>", $content["main"]);
 	$content["main"] = str_replace("</div><br />", "</div>", $content["main"]);
+}
+
+// set canonical <link> in page <head> section to avoid lower SEO ranking
+// see: http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
+if($content['set_canonical']) {
+	if($content['aId_CpPage']) {
+		$content['set_canonical'] = 'aid='.$row["article_id"].'-'.$content['aId_CpPage'];
+		if(!empty($content['struct'][ $content['cat_id'] ]['acat_alias'])) {
+			$content['set_canonical'] .= '&amp;'.$content['struct'][ $content['cat_id'] ]['acat_alias'];
+		}
+	} else {
+		$content['set_canonical'] = empty($content['struct'][ $content['cat_id'] ]['acat_alias']) ? 'id='.$content['cat_id'] : $content['struct'][ $content['cat_id'] ]['acat_alias'];
+	}
+	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
 }
 
 if(!defined('PHPWCMS_ALIAS') && !empty($row['article_alias'])) {

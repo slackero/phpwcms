@@ -1,3 +1,57 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-URI=Class.refactor(URI,{combine:function(f,e){if(!e||f.scheme!=e.scheme||f.host!=e.host||f.port!=e.port){return this.previous.apply(this,arguments)}var a=f.file+(f.query?"?"+f.query:"")+(f.fragment?"#"+f.fragment:"");if(!e.directory){return(f.directory||(f.file?"":"./"))+a}var d=e.directory.split("/"),c=f.directory.split("/"),g="",h;var b=0;for(h=0;h<d.length&&h<c.length&&d[h]==c[h];h++){}for(b=0;b<d.length-h-1;b++){g+="../"}for(b=h;b<c.length-1;b++){g+=c[b]+"/"}return(g||(f.file?"":"./"))+a},toAbsolute:function(a){a=new URI(a);if(a){a.set("directory","").set("file","")}return this.toRelative(a)},toRelative:function(a){return this.get("value",new URI(a))}});
+script: URI.Relative.js
+
+name: URI.Relative
+
+description: Extends the URI class to add methods for computing relative and absolute urls.
+
+license: MIT-style license
+
+authors:
+  - Sebastian Markbåge
+
+
+requires:
+  - /Class.refactor
+  - /URI
+
+provides: [URI.Relative]
+
+...
+*/
+
+URI = Class.refactor(URI, {
+
+	combine: function(bits, base){
+		if (!base || bits.scheme != base.scheme || bits.host != base.host || bits.port != base.port)
+			return this.previous.apply(this, arguments);
+		var end = bits.file + (bits.query ? '?' + bits.query : '') + (bits.fragment ? '#' + bits.fragment : '');
+
+		if (!base.directory) return (bits.directory || (bits.file ? '' : './')) + end;
+
+		var baseDir = base.directory.split('/'),
+			relDir = bits.directory.split('/'),
+			path = '',
+			offset;
+
+		var i = 0;
+		for(offset = 0; offset < baseDir.length && offset < relDir.length && baseDir[offset] == relDir[offset]; offset++);
+		for(i = 0; i < baseDir.length - offset - 1; i++) path += '../';
+		for(i = offset; i < relDir.length - 1; i++) path += relDir[i] + '/';
+
+		return (path || (bits.file ? '' : './')) + end;
+	},
+
+	toAbsolute: function(base){
+		base = new URI(base);
+		if (base) base.set('directory', '').set('file', '');
+		return this.toRelative(base);
+	},
+
+	toRelative: function(base){
+		return this.get('value', new URI(base));
+	}
+
+});

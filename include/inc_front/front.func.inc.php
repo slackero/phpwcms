@@ -284,7 +284,7 @@ function get_breadcrumb ($start_id, &$struct_array) {
 	//returns the breadcrumb path starting with given start_id
 
 	$data = array();
-	while ($start_id) {
+	while ($start_id && isset($struct_array[$start_id])) {
 		$data[$start_id] = $struct_array[$start_id]["acat_name"];
 		$start_id		 = $struct_array[$start_id]["acat_struct"];
 	}
@@ -356,6 +356,14 @@ function get_redirect_link($link='#', $pre='', $after=' ') {
 function get_struct_data($root_name='', $root_info='') {
 	//returns the complete active and public struct data as array
 	//so it is reusable by many menu functions -> lower db access
+	
+	// first check pre-rendered structure for current user mode
+	$sysvalue_key	= 'structure_array_vmode_'.get_user_vmode();
+	$data			= _getConfig($sysvalue_key);
+	
+	if(is_array($data)) {
+		return $data;	
+	}
 
 	global $db;
 	global $indexpage;
@@ -383,6 +391,8 @@ function get_struct_data($root_name='', $root_info='') {
 					"acat_paginate"	=> empty($indexpage['acat_paginate']) ? 0 : 1,
 					"acat_overwrite"=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'],
 					"acat_archive"	=> empty($indexpage['acat_archive']) ? 0 : 1,
+					"acat_class"	=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
+					"acat_keywords"	=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords']
 				);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -415,11 +425,17 @@ function get_struct_data($root_name='', $root_info='') {
 										"acat_pagetitle"=> $row["acat_pagetitle"],
 										"acat_paginate"	=> $row["acat_paginate"],
 										"acat_overwrite"=> $row["acat_overwrite"],
-										"acat_archive"	=> $row["acat_archive"]
+										"acat_archive"	=> $row["acat_archive"],
+										"acat_class"	=> $row["acat_class"],
+										"acat_keywords"	=> $row["acat_keywords"]
 									  );
 		}
 		mysql_free_result($result);
 	}
+	
+	// store pre-rendered serialized array in database
+	_setConfig($sysvalue_key, $data, 'frontend_render', 1);
+	
 	return $data;
 }
 
@@ -568,7 +584,7 @@ function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
 	//structure levels based on current structure level
 	$nav_table  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" summary=\"\">\n<tr>\n";
 	$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
-	$nav_table .= "<td width=\"100%\"><strong>";
+	$nav_table .= '<td width="100%"'.(empty($struct[$act_cat_id]["acat_class"]) ? '' : ' class="'.$struct[$act_cat_id]["acat_class"].'"').'><strong>';
 	$nav_table .= html_specialchars($struct[$act_cat_id]["acat_name"]);
 	$nav_table .= "</strong></td>\n<tr>";
 	foreach($struct as $key => $value) {
@@ -577,7 +593,7 @@ function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
 			
 			$nav_table .= "<tr>\n";
 			$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
-			$nav_table .= '<td width="100%">';
+			$nav_table .= '<td width="100%"'.(empty($struct[$key]["acat_class"]) ? '' : ' class="'.$struct[$key]["acat_class"].'"').'>';
 
 			if(!$struct[$key]["acat_redirect"]) {
 				$nav_table .= '<a href="index.php?';
@@ -625,7 +641,7 @@ function nav_level_row($show_id, $show_home=1) {
 		$nav .= $before;
 		$nav .= '<a href="index.php?';
 		$nav .= ($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) ? html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) : 'id='.$act_cat_id; //',0,0,1,0,0';
-		$nav .= '">'.$direct_before;
+		$nav .= '"'.(empty($GLOBALS['content']['struct'][$act_cat_id]["acat_class"]) ? '' : ' class="'.$GLOBALS['content']['struct'][$act_cat_id]["acat_class"].'"').'>'.$direct_before;
 		$nav .= html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_name']);
 		$nav .= $direct_after.'</a>'.$after;
 	}
@@ -638,6 +654,8 @@ function nav_level_row($show_id, $show_home=1) {
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 	
 		if($key != $act_cat_id && _getStructureLevelDisplayStatus($key, $act_cat_id) ) {
+			
+			$class = empty($GLOBALS['content']['struct'][$key]["acat_class"]) ? '' : ' class="'.$GLOBALS['content']['struct'][$key]["acat_class"].'"';
 
 			if($nav) {
 				$nav .= $GLOBALS['template_default']["nav_row"]["between"];
@@ -664,10 +682,10 @@ function nav_level_row($show_id, $show_home=1) {
 				} else {
 					$nav .= 'id='.$key; //',0,0,1,0,0';
 				}
-				$nav .= '">';
+				$nav .= '"'.$class.'>';
 			} else {
 				$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
-				$nav .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+				$nav .= '<a href="'.$redirect['link'].'"'.$redirect['target'].$class.'>';
 			}
 			$nav .= $direct_before;
 			$nav .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);;
@@ -864,7 +882,7 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 	foreach($struct as $key => $value) {
 
 		if( _getStructureLevelDisplayStatus($key, $level) ) {
-
+			
 			$link_image_id	= "linkid".randpassword(6);
 			$link_name_id 	= ' name="'.$link_image_id.'" id="'.$link_image_id.'"';
 
@@ -903,6 +921,16 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 				$js .= '"';
 			} else {
 				$js = '';
+			}
+			
+			// add structure level based classes
+			if(!empty($struct[$key]["acat_class"])) {
+				$nav_table_struct_temp = $nav_table_struct;
+				$nav_table_struct["row_norm_class"]		= trim($nav_table_struct["row_norm_class"].' '.$struct[$key]["acat_class"]);
+				$nav_table_struct["row_active_class"]	= trim($nav_table_struct["row_active_class"].' '.$struct[$key]["acat_class"]);
+				$nav_table_struct["row_space_class"]	= 'row_space '.$struct[$key]["acat_class"];
+			} else {
+				$nav_table_struct_temp = NULL;
 			}
 
 			//spacer row
@@ -946,6 +974,11 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 				$temp_menu .= $nav_table_struct["link_after"].'</a>';
 				$temp_menu .= $cell_bottom."</td>\n".$right_cell."</tr>\n";
 			}
+			
+			// reset table structure attributes
+			if($nav_table_struct_temp !== NULL) {
+				$nav_table_struct = $nav_table_struct_temp;
+			}
 		}
 	}
 
@@ -965,7 +998,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 	global $_getVar;
 
 	// alternative way to send article listings
-	if(isset($alt)) {
+	if(is_array($alt)) {
 		// first save default value of $content["articles"]
 		$_old_articles			= $content["articles"];
 		$content["articles"]	= $alt;
@@ -1736,9 +1769,13 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			$link = $redirect['link'];
 		}
 		$css_list .= '	<li';
-		if(!empty($breadcrumb[$key])) {
-			$css_list .= ' class="active"';
+		if(empty($breadcrumb[$key])) {
+			$class = $level_struct[$key]["acat_class"];
+		} else {
+			$class = 'active '.$level_struct[$key]["acat_class"];
 		}
+		$class = trim($class);
+		$css_list .= empty($class) ? '' : ' class="'.$class.'"';
 		$css_list .= '><a href="'.$link.'"'.$redirect['target'].'>';
 		$css_list .= html_specialchars($level_struct[$key]["acat_name"]);
 		$css_list .= '</a></li>'.LF;
@@ -1759,7 +1796,7 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			$link = $redirect['link'];
 		}
 
-		$css_list_home  = ($GLOBALS['aktion'][0] == $level) ? '	<li class="active">' : '	<li class="parent">';
+		$css_list_home  = '	<li class="' . trim( ($GLOBALS['aktion'][0] == $level ? 'active' : 'parent') . ' ' . $struct[$level]["acat_class"] ) .'">';
 		$css_list_home .= '<a href="'.$link.'"'.$redirect['target'].'>';
 		$css_list_home .= html_specialchars((!$parent_level_name) ? $struct[$level]["acat_name"] : $parent_level_name);
 		$css_list_home .= '</a></li>'.LF;
@@ -1848,7 +1885,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 				$where .= "article_keyword LIKE '%".aporeplace($value)."%'";
 		}
 		$limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
-		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias, article_redirect, article_morelink, ";
+		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias, article_redirect, article_morelink ";
 		$sql .=	"FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND ";
 		$sql .=	"article_id<>".intval($current_article_id)." AND ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -2690,7 +2727,6 @@ function build_list ($struct, $level, $temp_tree, $act_cat_id, $class='', $depth
 	$temp_menu = "\n<ul".$curClass.">\n";
 	foreach($struct as $key => $value) {
 
-		//if($struct[$key]["acat_struct"] == $level && $key && (!$struct[$key]['acat_hidden'] || ($struct[$key]["acat_hidden"] == 2 && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
 		if( _getStructureLevelDisplayStatus($key, $level) ) {
 
 			if(!$struct[$key]["acat_redirect"]) {
@@ -2698,7 +2734,7 @@ function build_list ($struct, $level, $temp_tree, $act_cat_id, $class='', $depth
 				if($struct[$key]["acat_alias"]) {
 					$link .= html_specialchars($struct[$key]["acat_alias"]);
 				} else {
-					$link .= 'id='.$key.',0,0,1,0,0';
+					$link .= 'id='.$key; //',0,0,1,0,0';
 				}
 				$redirect['target'] = '';
 			} else {
@@ -2928,7 +2964,6 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		if( _getStructureLevelDisplayStatus($key, $start_id) ) {
 
 			$li_ul 		= '';
-			$li_class	= '';
 			$li_ie		= '';
 			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
 			
@@ -2945,20 +2980,18 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($level_id_name) {
 				$li .= ' id="li_'.$level_id_name.'_'.$key.'"';
 			}
-			if($li_ul) {
-				$li_class	= 'sub_ul';
-			} else {
-				$li_class	= getHasSubStructureStatus($key) ? 'sub_no sub_ul_true' : 'sub_no';
-			}
+			$li_class = ($li_ul) ? 'sub_ul' : (getHasSubStructureStatus($key) ? 'sub_no sub_ul_true' : 'sub_no');
 			if($path_class != '' && isset($GLOBALS['LEVEL_KEY'][$key])) {
-				$li_class .= ' '.$path_class;
-				$li_class  = trim($li_class);
+				$li_class = trim($li_class.' '.$path_class);
 			}
 			if($active_class != '' && $key == $GLOBALS['aktion'][0]) {
 				$li_class = trim($li_class.' '.$active_class);
 			}
+			if($x==0) {
+				$li_class .= ' sub_first';
+			}
 
-			$li .= ' class="' . $li_class . ( $x==0 ? ' sub_first' : '' ) .'"';
+			$li .= ' class="' . trim($li_class . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
 
 			$li .= '>' . $li_a . '</a>';
 
@@ -3016,15 +3049,11 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($level_id_name) {
 				$ul .= ' id="li_'.$level_id_name.'_'.$start_id.'"';
 			}
-			$li_class	= 'sub_parent';
-			if($path_class != '' && isset($GLOBALS['LEVEL_KEY'][$start_id])) {
-				$li_class .= ' '.$path_class;
-				$li_class  = trim($li_class);
-			}
+			$li_class = 'sub_parent';
 			if($active_class != '' && $start_id == $GLOBALS['aktion'][0]) {
 				$li_class = trim($li_class.' '.$active_class);
 			}
-			$ul .= ' class="'.$li_class.'">';
+			$ul .= ' class="'.trim($li_class.' '.$GLOBALS['content']['struct'][$start_id]['acat_class']).'">';
 			
 			$link_text = html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
 			
@@ -3082,14 +3111,6 @@ function get_level_ahref($key=0, $custom_link_add='') {
 		$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
 		$link .= html_specialchars($redirect['link']).'"'.$redirect['target'];
 	}
-	/*
-	$custom_link_add = trim($custom_link_add);
-	if($custom_link_add) {
-		$custom_link_add = ' '.$custom_link_add;
-	} else {
-		$custom_link_add = ' title="'.html_specialchars($GLOBALS['content']['struct'][$key]["acat_name"]).'"';
-	}
-	*/
 	return $link.$custom_link_add.'>';
 }
 
@@ -3131,7 +3152,7 @@ function getStructureChildEntryHref($childData) {
 
 }
 
-function getImageCaption($caption='', $array_index='NUM') {
+function getImageCaption($caption='', $array_index='NUM', $short=false) {
 	// splits given image caption and returns an array
 	$caption	= explode('|', $caption);
 
@@ -3143,6 +3164,13 @@ function getImageCaption($caption='', $array_index='NUM') {
 	// [4] copyright information
 	$caption[0]			= trim($caption[0]);
 	$caption[1]			= isset($caption[1]) ? trim($caption[1]) : '';
+	$caption[3]			= isset($caption[3]) ? trim($caption[3]) : $caption[1];
+	
+	// cut here – just return caption and alt text
+	if($short) {
+		return array('caption' => $caption[0], 'alt' => $caption[1], 'title' => $caption[3]);
+	}
+	
 	$caption[2]			= isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
 	$caption[2][0]		= trim($caption[2][0]);
 	if(empty($caption[2][0]) || empty($caption[2][1])) {
@@ -3151,7 +3179,6 @@ function getImageCaption($caption='', $array_index='NUM') {
 		$caption[2][1]	= trim($caption[2][1]);
 		$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 	}
-	$caption[3]			= isset($caption[3]) ? trim($caption[3]) : $caption[1];
 	$caption[4]			= isset($caption[4]) ? trim($caption[4]) : '';
 	
 	if($caption[4] == '') {

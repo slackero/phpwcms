@@ -104,13 +104,13 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 			"WHERE address_id=".aporeplace($content["newsletter"]["reffering_id"]).";";
 			$content["newsletter"]["updated"] = 1;
 		} else {
-			$content["newsletter"]["reffering_key"] = shortHash($content["newsletter"]["email_address"].time());
+			$content["newsletter"]["reffering_key"] = preg_replace('/[^a-z0-9]/i', '', shortHash($content["newsletter"]["email_address"].time()) );
 			//if email not exists in newsletter address list insert entry
 			$e_sql = "INSERT INTO ".DB_PREPEND."phpwcms_address (".
 			"address_email, address_name, address_key, address_subscription, address_url1, address_url2) VALUES ('".
 			aporeplace($content["newsletter"]["email_address"])."', '".
 			aporeplace($content["newsletter"]["email_name"])."', '".
-			$content["newsletter"]["reffering_key"]."', '".
+			aporeplace($content["newsletter"]["reffering_key"])."', '".
 			aporeplace(serialize($content["newsletter"]["email_subscription"]))."', '".
 			aporeplace($content["newsletter"]["url1"]).
 			"', '".

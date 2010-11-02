@@ -7,17 +7,17 @@
  * and handle [MEDIABOX] replacement tags.
  *
  * Sample Quicktime, white|black|my.css CSS
- * <!-- MEDIABOX: white | @@More…@@ -->[MEDIABOX quicktime|640 360|My Private Video]http://symboleffects.com/media/2007vfx.mov[/MEDIABOX]
+ * <!-- MEDIABOX: white | @@More@@ -->[MEDIABOX quicktime|640 360|My Private Video]http://symboleffects.com/media/2007vfx.mov[/MEDIABOX]
  */
  
 $mediaBox = array(
 		
 		// set the CSS which should be used for mediaBox
 		// available by default: mediaboxAdvBlack.css, mediaboxAdvWhite.css
-		'css'		=> 'mediaboxAdvBlack.css',
+		'css'		=> 'mediaboxAdvBlack21.css',
 		
 		// default linktext
-		'linktext'	=> '@@More…@@'
+		'linktext'	=> '@@More@@'
 
 	);
 
@@ -37,19 +37,19 @@ if(PHPWCMS_JSLIB != 'mootools-1.2' || ( strpos($content['all'], '[MEDIABOX') ===
 	);
 	
 	// Set CSS color and/or More Text:
-	// <!-- MEDIABOX: black | @@More…@@ -->
-	// <!-- MEDIABOX: white | @@More…@@ -->
-	// <!-- MEDIABOX: myCustomMediaBox.css | @@More…@@ -->
+	// <!-- MEDIABOX: black | @@More@@ -->
+	// <!-- MEDIABOX: white | @@More@@ -->
+	// <!-- MEDIABOX: myCustomMediaBox.css | @@More@@ -->
 	if(preg_match('/<!-- MEDIABOX:(.+?)-->/', $content['all'], $match)) {
 		
 		$match		= explode('|', trim($match[1]), 2);
 		$match[0]	= trim($match[0]);
 		if($match[0] == 'black') {
-			$mediaBox['css'] = 'mediaboxAdvBlack.css';
+			$mediaBox['css'] = 'mediaboxAdvBlack21.css';
 		} elseif($match[0] != 'white') {
 			$mediaBox['css'] = $match[0];
 		} else {
-			$mediaBox['css'] = 'mediaboxAdvWhite.css';
+			$mediaBox['css'] = 'mediaboxAdvWhite21.css';
 		}
 		$match[1]	= empty($match[1]) ? '' : trim($match[1]);
 		if($match[1]) {

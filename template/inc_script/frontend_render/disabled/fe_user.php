@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * FE User frontend render script
+ * Use this to customize your frontend user registration form
+ * 
+ * Frontend User Registration key can be found in constant FEUSER_REGKEY.
+ * The default value of FEUSER_REGKEY is "FEUSER". It can be changed by
+ * setting $phpwcms['feuser_regkey'] in conf.inc.php
+ */
+ 
+$fe_defaults = array(
+
+	'field-open'	=> '<p>',
+	'field-close'	=> '</p>',
+	
+	'label-class'	=> 'label',
+
+		);
+
+
 // first check what to do
 if(_getFeUserLoginStatus() && strpos($content['all'], '{FE_USER_MANAGE}')) {
 
@@ -24,38 +43,118 @@ if(_getFeUserLoginStatus() && strpos($content['all'], '{FE_USER_MANAGE}')) {
 
 // fe user register
 if($fe_action) {
+	
+	/**
+	 * Define fields to be used - fields are named like in phpwcms_userdetail
+	 * 'fieldname' => 'TYPE' (can be STRING, TEXT, CHECKBOX, RADIO, INT, FLOAT, TEL, COUNTRY, EMAIL)
+	 * or
+	 * 'fieldname' => array('type'=>'TYPE', 'value'=>default value, 'required'=>true|false)
+	 * use array for multiple selections
+	 * Use 'FIELDSET-X'	=> 'label', '/FIELDSET-X' => '' to enable fieldsets
+	 */
+	$fe_fields = array(
+					   
+		'FIELDSET-1'		=> 'label-fieldset-1',
 
-	$udata = array(
-						'user_login'		=> '',
-						'user_password'		=> '',
-						
-						'user_company'		=> '',
-						'user_title'		=> '',
-						'user_name'			=> '',
-						'user_firstname'	=> '',
-						'user_street'		=> '',
-						'user_zip'			=> '',
-						'user_city'			=> '',
-						'user_tel'			=> '',
-						'user_email'		=> '',
-						
-						'user_profile_1'	=> '', 
-						'user_profile_2'	=> '', 
-						'user_profile_3'	=> '',
-						'user_profile_4'	=> '',
-						'user_profile_5'	=> '',
-						'user_profile_6'	=> '',
-						'user_profile_7'	=> array(4=>1),
-						'user_profile_8'	=> '',
-						'user_profile_9'	=> '',
-						'user_profile_10'	=> '',
-						'user_profile_11'	=> '',
-						'user_profile_12'	=> '',
-						'user_profile_13'	=> '',
-						'user_profile_14'	=> '',
+		'detail_login'		=> 'STRING',
+		'detail_password'	=> 'STRING',
+		
+		'/FIELDSET-1'		=> '',
+		'FIELDSET-2'		=> 'label-fieldset-2',
+		
+		'detail_title'		=> 'STRING',
+		'detail_salutation'	=> array( 'type'=>'RADIO', 'value'=>array('@@Mr@@', '@@Ms@@') ),
+		'detail_firstname'	=> 'STRING',
+		'detail_lastname'	=> 'STRING',
+		'detail_company'	=> 'STRING',
+		'detail_street'		=> 'STRING',
+		'detail_add'		=> 'STRING',
+		'detail_city'		=> 'STRING',
+		'detail_zip'		=> 'STRING',
+		'detail_region'		=> 'STRING',
+		'detail_country'	=> 'COUNTRY',
+		'detail_fon'		=> 'STRING',
+		'detail_fax'		=> 'STRING',
+		'detail_mobile'		=> 'STRING',
+		'detail_signature'	=> 'TEXT',
+		'detail_prof'		=> 'STRING',
+		'detail_notes'		=> 'TEXT',
+		'detail_email'		=> 'EMAIL',
+		
+		'/FIELDSET-2'		=> '',
+		'FIELDSET-3'		=> 'label-fieldset-3',
+
+		'detail_website'	=> 'STRING',
+		'detail_userimage'	=> 'STRING',
+		'detail_gender'		=> 'STRING',
+		'detail_birthday'	=> 'STRING',
+		
+		'/FIELDSET-3'		=> '',
+		'FIELDSET-4'		=> 'label-fieldset-4',
+		
+		'detail_varchar1'	=> 'STRING',
+		'detail_varchar2'	=> 'STRING',
+		'detail_varchar3'	=> 'STRING',
+		'detail_varchar4'	=> 'STRING',
+		'detail_varchar5'	=> 'STRING',
+		
+		'detail_text1'		=> 'TEXT',
+		'detail_text2'		=> 'TEXT',
+		'detail_text3'		=> 'TEXT',
+		'detail_text4'		=> 'TEXT',
+		'detail_text5'		=> 'TEXT',
+		
+		'detail_int1'		=> 'INT',
+		'detail_int2'		=> 'INT',
+		'detail_int3'		=> 'INT',
+		'detail_int4'		=> 'INT',
+		'detail_int5'		=> 'INT',
+		
+		'detail_float1'		=> 'FLOAT',
+		'detail_float2'		=> 'FLOAT',
+		'detail_float3'		=> 'FLOAT',
+		'detail_float4'		=> 'FLOAT',
+		'detail_float5'		=> 'FLOAT',
+		
+		'/FIELDSET-4'		=> ''
 					);
-					
-					
+	
+	// init error array and error status set to false
+	$fe_error = array('status' => false);
+	
+	// init fe data array
+	$fe_data = array();
+	
+	foreach($fe_fields as $fe_field => $fe_field_value) {
+		
+		if( substr(ltrim($fe_field , '/'), 0, 8) === 'FIELDSET' ) {
+			$fe_fields[ $fe_field ] = array('type' => 'FIELDSET', 'label' => $fe_field_value, 'value'=>substr($fe_field, 0, 1));
+			continue;
+		}
+		
+		$fe_error[ $fe_field ]	= '';
+		
+		if( is_array($fe_field_value) && isset($fe_field_value['type']) ) {
+			$fe_field_type = $fe_field_value['type'];
+			if(!isset($fe_field_value['value'])) {
+				$fe_fields[ $fe_field ]['value'] = '';
+			}
+			$fe_fields[ $fe_field ]['required'] = empty( $fe_field_value['required'] ) ? false : true;
+		} else {
+			$fe_field_type = is_string($fe_field_value) ? $fe_field_value : 'STRING';
+			$fe_fields[ $fe_field ] = array('type' => $fe_field_type, 'value' => '', 'required' => false);
+		}
+		
+		if( $fe_field_type == 'INT' || $fe_field_type == 'FLOAT' ) {
+			$fe_data[ $fe_field ] = 0;
+		} else {
+			$fe_data[ $fe_field ] = '';
+		}
+
+	}
+	
+	dumpVar($fe_fields);
+	
 	if($content['cat_id'] == 0) {
 		if($aktion[1]) {
 			$_uri_alias = 'aid='.$aktion[1];
@@ -70,67 +169,29 @@ if($fe_action) {
 
 	switch($fe_action) {
 	
-		case '{FE_USER_MANAGE}':	$_uri = rel_url( array('profile_manage'=>'edit'), array('profile_register', 'rofile_reminder'), $_uri_alias );
+		case '{FE_USER_MANAGE}':	$_uri = rel_url( array('profile_manage'=>'edit'), array('profile_register', 'profile_reminder'), $_uri_alias );
 									
 									// at the moment it is only possible to edit user data of "real" FRONTEND users
 									// all BACKEND users should login to backend and edit their data there
-									$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
-									$sql .= 'detail_id=' . intval($_SESSION[ $_loginData['session_key'].'_userdata']['id']).' LIMIT 1';
-									$result = _dbQuery($sql);
+									$result = _dbGet(
+											'phpwcms_userdetail', '*', 
+											"detail_filter='" . aporeplace(FEUSER_REGKEY) . "' AND detail_id=" . intval($_SESSION[ $_loginData['session_key'].'_userdata' ]['id']),
+											'', '',  '1' );
 									if(isset($result[0])) {
-										$udata = unserialize($result[0]['detail_notes']);
-									}
-									$udata['user_password'] = '';
+										$fe_data = $result[0];
+										$fe_data['detail_password'] = '';
+									}									
 									
 									break;
 									
-		case '{FE_USER_REGISTER}':	$_uri = rel_url( array('profile_register'=>'create'), array('profile_manage', 'rofile_reminder'), $_uri_alias );
-		
+		case '{FE_USER_REGISTER}':	$_uri = rel_url( array('profile_register'=>'create'), array('profile_manage', 'profile_reminder'), $_uri_alias );
 
 									break;
 	
 	}
 
-	
-	$uerror = array(
-	
-		'status'			=> false,
-	
-		'user_login'		=> '',
-		'user_password'		=> '',
-		
-		'user_company'		=> '',
-		'user_title'		=> '',
-		'user_name'			=> '',
-		'user_firstname'	=> '',
-		'user_street'		=> '',
-		'user_zip'			=> '',
-		'user_city'			=> '',
-		'user_tel'			=> '',
-		'user_email'		=> '',
-		
-		'user_profile_1'	=> '', 
-		'user_profile_2'	=> '',
-		'user_profile_3'	=> '',
-		'user_profile_4'	=> '',
-		'user_profile_5'	=> '',
-		'user_profile_6'	=> '',
-		'user_profile_7'	=> '',
-		'user_profile_8'	=> '',
-		'user_profile_9'	=> '',
-		'user_profile_10'	=> '',
-		'user_profile_11'	=> '',
-		'user_profile_12'	=> '',
-		'user_profile_13'	=> '',
-		'user_profile_14'	=> '',
-	
-	);
 
-	$user_title = array('Herr', 'Frau', '');
-
-	if(isset($_POST['user_login'])) {
-	
-		$fe_csv = array();
+	if(isset($_POST['detail_login'])) {
 		
 		$udata['user_login']		= clean_slweg($_POST['user_login']);
 		$udata['user_password']		= slweg($_POST['user_password']);
@@ -146,111 +207,41 @@ if($fe_action) {
 		$udata['user_tel']			= preg_replace('/[^0-9\+\-\(\) ]/', '', clean_slweg($_POST['user_tel']) );
 		$udata['user_email']		= clean_slweg($_POST['user_email']);
 
-		$fe_csv['login'] 		= $udata['user_login'];
-		$fe_csv['company'] 		= $udata['user_company'];
-		$fe_csv['title'] 		= $udata['user_title'];
-		$fe_csv['name'] 		= $udata['user_name'];
-		$fe_csv['firstname']	= $udata['user_firstname'];
-		$fe_csv['street'] 		= $udata['user_street'];
-		$fe_csv['zip'] 			= $udata['user_zip'];
-		$fe_csv['city'] 		= $udata['user_city'];
-		$fe_csv['tel'] 			= $udata['user_tel'];
-		$fe_csv['email'] 		= $udata['user_email'];
 		
 		if($fe_action == '{FE_USER_REGISTER}') {
-		
-			
-			$udata['user_profile_1']	= isset($_POST['user_profile_1']) ? intval($_POST['user_profile_1']) : '';
-			$udata['user_profile_2']	= isset($_POST['user_profile_2']) ? clean_slweg($_POST['user_profile_2']) : '';
-			
-			$udata['user_profile_5']	= isset($_POST['user_profile_5']) ? intval($_POST['user_profile_5']) : '';
-			$udata['user_profile_6']	= clean_slweg($_POST['user_profile_6']);
-			$udata['user_profile_8']	= clean_slweg($_POST['user_profile_8']);
-			$udata['user_profile_9']	= isset($_POST['user_profile_9']) ? clean_slweg($_POST['user_profile_9']) : '';
-			$udata['user_profile_10']	= clean_slweg($_POST['user_profile_10']);
-			$udata['user_profile_11']	= isset($_POST['user_profile_11']) ? clean_slweg($_POST['user_profile_11']) : '';
-			
-			$udata['user_profile_13']	= isset($_POST['user_profile_13']) ? clean_slweg($_POST['user_profile_13']) : '';
-			$udata['user_profile_14']	= clean_slweg($_POST['user_profile_14']);
-		
 		
 		
 			$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
 			$sql .= "detail_login LIKE '" . aporeplace($udata['user_login'])."'";
 		
 			if( empty($udata['user_login']) ) {
-				$uerror['user_login'] = 'Login muss ausgef&uuml;llt werden';
+				$uerror['user_login'] = '@@Login is required@@';
 			} elseif( strlen($udata['user_login']) < 4 ) {
-				$uerror['user_login'] = 'Login muss mindestens 4 Zeichen lang sein';
+				$uerror['user_login'] = '@@Login is too short (more than 3 chars)@@';
 			} elseif( _dbCount( $sql )	) {
-				$uerror['user_login'] = 'Dieser Login ist bereits vergeben';
+				$uerror['user_login'] = '@@Login not allowed@@';
 			}
 			
 			if( empty($udata['user_password']) ) {
-				$uerror['user_password'] = 'Passwort muss ausgef&uuml;llt werden';
+				$uerror['user_password'] = '@@Password is required@@';
 			} elseif( strlen($udata['user_password']) < 4 ) {
-				$uerror['user_password'] = 'Passwort muss mindestens 4 Zeichen lang sein';
+				$uerror['user_password'] = '@@Password is too short (more than 3 chars)@@';
 			} elseif( $udata['user_password'] !== $udata['user_password2'] ) {
-				$uerror['user_password'] = 'Passwort und Passwort Wiederholung sind nicht identisch';
+				$uerror['user_password'] = '@@Password and repeat password are not equal@@';
 			}
 			
-			
-			if(isset($_POST['user_profile_3']) && is_array($_POST['user_profile_3'])) {
-				foreach($_POST['user_profile_3'] as $key => $value) {
-					$udata['user_profile_3'][$key] = clean_slweg($value);
-				}
-			}
-			
-			if(isset($_POST['user_profile_4']) && is_array($_POST['user_profile_4'])) {
-				foreach($_POST['user_profile_4'] as $key => $value) {
-					$udata['user_profile_4'][$key] = clean_slweg($value);
-				}
-			}
-			
-			if(isset($_POST['user_profile_7']) && is_array($_POST['user_profile_7'])) {
-				foreach($_POST['user_profile_7'] as $key => $value) {
-					$udata['user_profile_7'][$key] = intval($value);
-				}
-			}
-			
-			if(isset($_POST['user_profile_12']) && is_array($_POST['user_profile_12'])) {
-				foreach($_POST['user_profile_12'] as $key => $value) {
-					$udata['user_profile_12'][$key] = clean_slweg($value);
-				}
-			}
-			
-			
-			$fe_csv['Data-1'] 		= empty($udata['user_profile_1']) ? 'Nein' : 'Ja';
-			$fe_csv['Data-2'] 				= $udata['user_profile_2'];
-			$fe_csv['Data-3'] 		= implode(', ', $udata['user_profile_3']);
-			$fe_csv['Data-4'] 			= implode(', ', $udata['user_profile_4']);
-			$fe_csv['Data-5'] 				= empty($udata['user_profile_5']) ? 'Nein' : 'Ja';
-			$fe_csv['Data-6'] 		= $udata['user_profile_6'];
-			$fe_csv['Data-7'] 				= empty($udata['user_profile_7'][0]) ? 'Nein' : 'Ja';
-			$fe_csv['Data-8']	= empty($udata['user_profile_7'][1]) ? 'Nein' : 'Ja';
-			$fe_csv['Data-9'] 				= $udata['user_profile_8'];
-			$fe_csv['Data-10'] 			= empty($udata['user_profile_7'][3]) ? 'Nein' : 'Ja';
-			$fe_csv['Data-11'] 			= empty($udata['user_profile_7'][4]) ? 'Nein' : 'Ja';
-			$fe_csv['Data-12'] 			= $udata['user_profile_9'];
-			$fe_csv['Data-13'] 			= $udata['user_profile_10'];
-			$fe_csv['Data-14'] 						= $udata['user_profile_11'];
-			$fe_csv['Data-15'] 				= implode(', ', $udata['user_profile_12']);
-			$fe_csv['Data-16'] 		= str_replace(array('+','-'), array('> ', '< '), $udata['user_profile_13']);
-			$fe_csv['Data-17'] 			= $udata['user_profile_14'];
-			
+	
 			
 		} else {
 		
 			$udata['user_login'] = $_SESSION[ $_loginData['session_key'].'_userdata']['login'];
 			
 			if( !empty($udata['user_password']) && strlen($udata['user_password']) < 4 ) {
-				$uerror['user_password'] = 'Passwort muss mindestens 4 Zeichen lang sein';
+				$uerror['user_password'] = '@@Password is too short (more than 3 chars)@@';
 			} elseif( $udata['user_password'] !== $udata['user_password2'] ) {
-				$uerror['user_password'] = 'Passwort und Passwort Wiederholung sind nicht identisch';
+				$uerror['user_password'] = '@@Password and repeat password are not equal@@';
 			}
-			
-			$udata['user_profile_7'][3] = empty($_POST['user_profile_7'][3]) ? 0 : 1;
-					
+						
 		}
 		
 		$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
@@ -266,29 +257,22 @@ if($fe_action) {
 		}
 		
 		if( empty($udata['user_tel']) ) {
-			$uerror['user_tel'] = 'Telefon muss ausgef&uuml;llt werden';
+			$uerror['user_tel'] = '@@Phone is required@@';
 		} elseif( preg_match('/[^0-9\+\-\(\) ]/', $udata['user_tel']) ) {
-			$uerror['user_tel'] = 'Telefonnummer darf nur Zahlen, Leerzeichen, Klammern, + oder - enthalten';
+			$uerror['user_tel'] = '@@Only integers, spaces, parentheses, + or - are allowed@@';
 		}
 		
 		if( empty($udata['user_name']) ) {
-			$uerror['user_name'] = 'Name muss ausgef&uuml;llt werden';
-		}
-		
-		if( empty($udata['user_firstname']) ) {
-			$uerror['user_firstname'] = 'Vorname muss ausgef&uuml;llt werden';
+			$uerror['user_name'] = '@@Name is required@@';
 		}
 		if( empty($udata['user_firstname']) ) {
-			$uerror['user_firstname'] = 'Vorname muss ausgef&uuml;llt werden';
-		}
-		if( empty($udata['user_company']) ) {
-			$uerror['user_company'] = 'Firma muss ausgef&uuml;llt werden';
+			$uerror['user_firstname'] = '@@First name is required@@';
 		}
 		if( empty($udata['user_street']) ) {
-			$uerror['user_street'] = 'Stra&szlig;e muss ausgef&uuml;llt werden';
+			$uerror['user_street'] = '@@Street is required@@';
 		}
 		if( empty($udata['user_zip']) || empty($udata['user_city']) ) {
-			$uerror['user_zip'] = 'PLZ und Ort m&uuml;ssen ausgef&uuml;llt werden';
+			$uerror['user_zip'] = '@@Post code and city are required@@';
 		}
 
 	
@@ -298,23 +282,55 @@ if($fe_action) {
 	
 	if($fe_action == '{FE_USER_REGISTER}') {
 	
-		$fe_reg[] = '<p>Text</p>';
+		$fe_reg[] = '<p>Register Text</p>';
 		
 	} else {
 	
-		$fe_reg[] = '<p>Text</p>';
+		$fe_reg[] = '<p>Edit Text</p>';
 	
 	}
 	
 	$fe_reg[] = '<form action="' .$_uri. '" method="post">';
 	
-	// Fieldset 1 -> login basics
-	$fe_reg[] = '<fieldset>';
-	$fe_reg[] = '<legend> Login Data </legend>';
+	foreach($fe_fields as $fe_field) {
+		
+		switch($fe_field['type']) {
+				
+			case 'TEXT':
+				break;
+				
+			case 'EMAIL':
+				break;
+				
+			case 'INT':
+				break;
+				
+			case 'FLOAT':
+				break;
+				
+			case 'RADIO':
+				break;
+				
+			case 'CHECKBOX':
+				break;
+				
+			case 'FIELDSET':
+				break;
+		
+			case 'STRING':
+			default:
+
+		}	
 	
-	$fe_reg[] = is_uerror('user_login');
+	}
+	
+	/*
+	$fe_reg[] = '<fieldset>';
+	$fe_reg[] = '<legend> @@Login Data@@ </legend>';
+	
+	$fe_reg[] = is_fe_error('detail_login');
 	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_login">Login</label>';
+	$fe_reg[] = '<label class="labelpos" for="user_login">@@Login@@</label>';
 	if($fe_action == '{FE_USER_REGISTER}') {
 		$fe_reg[] = '<input type="text" name="user_login" id="user_login" value="' .html_specialchars($udata['user_login']). '" class="textfield" maxlength="200" size="30" />';
 	} else {
@@ -322,334 +338,14 @@ if($fe_action) {
 		$fe_reg[] = '<input type="hidden" name="user_login" value="' .html_specialchars($udata['user_login']). '" />';
 	}
 	$fe_reg[] = '</p>';
+	*/
+	
 
-	$fe_reg[] = is_uerror('user_password');
+	
+	// Submit Button Line
 	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_password">Password</label>';
-	$fe_reg[] = '<input type="password" name="user_password" id="user_password" class="textfield" maxlength="20" size="30" />';
+	$fe_reg[] = '	<input type="submit" value="@@Submit@@" class="button" />';
 	$fe_reg[] = '</p>';
-
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_password2">Password repeat</label>';
-	$fe_reg[] = '<input type="password" name="user_password2" id="user_password2" class="textfield" maxlength="20" size="30" />';
-	$fe_reg[] = '</p>';
-	$fe_reg[] = '</fieldset>';
-	
-	$fe_reg[] = '<fieldset>';
-	$fe_reg[] = '<legend> Adress information </legend>';
-	
-	$fe_reg[] = is_uerror('user_company');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_company">Company</label>';
-	$fe_reg[] = '<input type="text" name="user_company" id="user_company" value="' .html_specialchars($udata['user_company']). '" class="textfield" maxlength="200" size="30" />';
-	$fe_reg[] = '</p>';
-	
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos">Title</label>';
-	foreach($user_title as $key => $value) {
-		$fe_reg['title'.$key]  = '<input type="radio" name="user_title" id="title'.$key.'" value="' ;
-		$fe_reg['title'.$key] .= html_specialchars($value) . '"'.is_checked($value, $udata['user_title'], 1, 0).' />';
-		if($value) {
-			$fe_reg['title'.$key] .= '<label class="inline" for="title'.$key.'">' . html_specialchars($value) . '</label>';
-		} else {
-			$fe_reg['title'.$key] .= '<label class="inline" for="title'.$key.'">no title</label>';
-		}
-	}
-	$fe_reg[] = '</p>';
-
-	$fe_reg[] = is_uerror('user_firstname');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_firstname">First name</label>';
-	$fe_reg[] = '<input type="text" name="user_firstname" id="user_firstname" value="' .html_specialchars($udata['user_firstname']). '" class="textfield" maxlength="200" size="30" />';
-	$fe_reg[] = '</p>';
-
-	$fe_reg[] = is_uerror('user_name');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_name">Name</label>';
-	$fe_reg[] = '<input type="text" name="user_name" id="user_name" value="' .html_specialchars($udata['user_name']). '" class="textfield" maxlength="200" size="30" />';
-	$fe_reg[] = '</p>';
-	
-	$fe_reg[] = is_uerror('user_street');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_street">Street</label>';
-	$fe_reg[] = '<input type="text" name="user_street" id="user_street" value="' .html_specialchars($udata['user_street']). '" class="textfield" maxlength="200" size="30" />';
-	$fe_reg[] = '</p>';
-	
-	$fe_reg[] = is_uerror('user_zip');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos">Post code, city</label>';
-	$fe_reg[] = '<input type="text" name="user_zip" id="user_zip" value="' .html_specialchars($udata['user_zip']). '" class="textfield_zip" maxlength="5" size="5" />';
-	$fe_reg[] = '<input type="text" name="user_city" id="user_city" value="' .html_specialchars($udata['user_city']). '" class="textfield_city" maxlength="200" size="25" />';
-	$fe_reg[] = '</p>';
-
-	$fe_reg[] = '</fieldset>';
-	
-	$fe_reg[] = '<fieldset>';
-	$fe_reg[] = '<legend> Kommunikation </legend>';
-
-	$fe_reg[] = is_uerror('user_tel');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_tel">Phone</label>';
-	$fe_reg[] = '<input type="text" name="user_tel" id="user_tel" value="' .html_specialchars($udata['user_tel']). '" class="textfield" maxlength="200" size="30" />';
-	$fe_reg[] = '</p>';	
-	
-	$fe_reg[] = is_uerror('user_email');
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<label class="labelpos" for="user_email">Email</label>';
-	$fe_reg[] = '<input type="text" name="user_email" id="user_email" value="' .html_specialchars($udata['user_email']). '" class="textfield" maxlength="200" size="30" />';
-	$fe_reg[] = '</p>';	
-	$fe_reg[] = '</fieldset>';
-
-
-	if($fe_action == '{FE_USER_REGISTER}') {
-
-
-		$fe_reg[] = '<fieldset class="profile">';
-		$fe_reg[] = '<legend> Infos zu HP ProCurve </legend>';
-
-		//$fe_reg[] = is_uerror('user_profile_1');
-		$fe_reg[] = '';
-		$fe_reg[] = '<p class="title">Text?</p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_1" value="1"'.is_checked(1, $udata['user_profile_1'], 1, 0).' />' .
-					'Ja</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_1" value="0"'.is_checked(0, $udata['user_profile_1'], 1, 0).' />' .
-					'Nein</label>';
-		$fe_reg[] = '';
-		
-		//$fe_reg[] = is_uerror('user_profile_2');
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<p class="title">Text?</p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_2" value="1"'.is_checked('SMB', $udata['user_profile_2'], 1, 0).' />' .
-					'1</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_2" value="2"'.is_checked('Enterprise', $udata['user_profile_2'], 1, 0).' />' .
-					'2</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_2" value="3"'.is_checked('Beides', $udata['user_profile_2'], 1, 0).' />' .
-					'3</label>';
-		$fe_reg[] = '</p>';
-		
-		//$fe_reg[] = is_uerror('user_profile_3');
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<p class="title">Text?</p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_3[cisco]" value="1"'.is_checked(1, isset($udata['user_profile_3']['cisco']) ? 1 : 0 , 1, 0).' />' .
-					'1</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_3[nortel]" value="2"'.is_checked(1, isset($udata['user_profile_3']['nortel']) ? 1 : 0 , 1, 0).' />' .
-					'2</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_3[keine]" value="none"'.is_checked(1, isset($udata['user_profile_3']['keine']) ? 1 : 0 , 1, 0).' />' .
-					'None</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_3[andere]" value="other"'.is_checked(1, isset($udata['user_profile_3']['andere']) ? 1 : 0 , 1, 0).' />' .
-					'Other</label> <input type="text" name="user_profile_3[andere_text]" value="' .
-					(isset($udata['user_profile_3']['andere_text']) ? html_specialchars($udata['user_profile_3']['andere_text']) : '') . 
-					'" size="15" maxlength="100" class="textfield inline" />';
-	
-		$fe_reg[] = '</p>';
-		
-		
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<p class="title">Vertreiben Sie andere Technologien von HP?</p>';
-		$fe_reg[] = 'Ja &#8211; <label class="inline">' .
-					'<input type="checkbox" name="user_profile_4[server]" value="Server"'.is_checked(1, isset($udata['user_profile_4']['server']) ? 1 : 0 , 1, 0).' />' .
-					'Server</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_4[storage]" value="Storage"'.is_checked(1, isset($udata['user_profile_4']['storage']) ? 1 : 0 , 1, 0).' />' .
-					'Storage</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_4[software]" value="Software"'.is_checked(1, isset($udata['user_profile_4']['software']) ? 1 : 0 , 1, 0).' />' .
-					'Software</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_4[andere]" value="Andere"'.is_checked(1, isset($udata['user_profile_4']['andere']) ? 1 : 0 , 1, 0).' />' .
-					'Andere</label> <input type="text" name="user_profile_4[andere_text]" value="' .
-					(isset($udata['user_profile_4']['andere_text']) ? html_specialchars($udata['user_profile_4']['andere_text']) : '') . 
-					'" size="15" maxlength="100" class="textfield inline" />';
-	
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '</fieldset>';
-	
-	
-		$fe_reg[] = '<fieldset class="profile">';
-		$fe_reg[] = '<legend> Infos zum Partnerstatus </legend>';
-	
-		$fe_reg[] = '';
-		$fe_reg[] = '<p class="title">Sind Sie bereits HP Vertriebspartner?</p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_5" value="1"'.is_checked(1, $udata['user_profile_5'], 1, 0).' />' .
-					'Ja</label>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_5" value="0"'.is_checked(0, $udata['user_profile_5'], 1, 0).' />' .
-					'Nein</label>';
-		$fe_reg[] = '';
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = 'Wenn Ja, welcher Status';
-		$fe_reg[] = '<input type="text" name="user_profile_6" value="' . html_specialchars($udata['user_profile_6']) . '" size="15" maxlength="150" class="textfield inline" />';
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '</fieldset>';
-	
-	}
-	
-		$fe_reg[] = '<fieldset class="profile_info">';
-		$fe_reg[] = '<legend> Informationen </legend>';
-	
-	if($fe_action == '{FE_USER_REGISTER}') {
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_7[0]" value="1"'.is_checked(1, empty($udata['user_profile_7'][0]) ? 0 : 1 , 1, 0).' />' .
-					'Text.</label>';
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<p>';				
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_7[1]" value="1"'.is_checked(1, empty($udata['user_profile_7'][1]) ? 0 : 1 , 1, 0).' />' .
-					'Text.</label>';
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<p>';				
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_7[2]" value="1"'.is_checked(1, empty($udata['user_profile_7'][2]) ? 0 : 1 , 1, 0).' />' .
-					'Ich habe noch Fragen zu</label> '.
-					'<input type="text" name="user_profile_8" value="' . html_specialchars($udata['user_profile_8']) . '" size="15" maxlength="200" class="textfield inline" />';
-		$fe_reg[] = '</p>';
-		
-	}
-	
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_7[3]" value="1"'.is_checked(1, empty($udata['user_profile_7'][3]) ? 0 : 1 , 1, 0).' />' .
-					'Text.</label>';
-		$fe_reg[] = '</p>';
-	
-	if($fe_action == '{FE_USER_REGISTER}') {
-	
-		$fe_reg[] = '<p>';	
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="checkbox" name="user_profile_7[4]" value="1"'.is_checked(1, empty($udata['user_profile_7'][4]) ? 0 : 1 , 1, 0).' />' .
-					'<strong>I want a login.</strong></label>';
-		$fe_reg[] = '</p>';
-	
-	}	
-	
-		$fe_reg[] = '</fieldset>';
-	
-	if($fe_action == '{FE_USER_REGISTER}') {
-	
-		$fe_reg[] = '<fieldset class="profile_info">';
-		$fe_reg[] = '<legend> Weitere Angaben </legend>';
-	
-		$fe_reg[] = '<p class="title">';
-		$fe_reg[] = 'Wie lässt sich Ihr Geschäftsbereich am besten beschreiben?';
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_9" value="Systemhaus"'.is_checked('Systemhaus', $udata['user_profile_9'], 1, 0).' />' .
-					'Systemhaus</label>';
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_9" value="Value Added Reseller"'.is_checked('Value Added Reseller', $udata['user_profile_9'], 1, 0).' />' .
-					'Value Added Reseller</label>';
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_9" value="Reseller"'.is_checked('Reseller', $udata['user_profile_9'], 1, 0).' />' .
-					'Reseller</label>';
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_9" value="Anderes"'.is_checked('Anderes', $udata['user_profile_9'], 1, 0).' />' .
-					'Anderes</label> <input type="text" name="user_profile_10" value="' . html_specialchars($udata['user_profile_10']) . 
-					'" size="15" maxlength="200" class="textfield inline" />';
-		$fe_reg[] = '</p>';
-		
-	
-		$fe_reg[] = '<p class="title">';
-		$fe_reg[] = 'Wieviele Mitarbeiter beschäftigt Ihr Unternehmen?';
-		$fe_reg[] = '</p>';
-	
-		foreach(array('weniger als 15', '15 - 49', '50 – 149', '150 – 499', '500 – 999', 'mehr als 1.000') as $value) {
-		
-			$fe_reg[] = '<p>';
-			$fe_reg[] = '<label class="inline">' .
-						'<input type="radio" name="user_profile_11" value="'.$value.'"'.is_checked($value, $udata['user_profile_11'], 1, 0).' />' . $value .'</label>';
-			$fe_reg[] = '</p>';
-		
-		}
-		
-		
-		$fe_reg[] = '<p class="title">';
-		$fe_reg[] = 'In welchen Branchen sind Ihre Kunden hauptsächlich tätig?';
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<p>';
-		foreach(array(	'Automotive', 'Banken & Versicherungen', 'Energie', 
-						'ITK', 'Großhandel', 'Einzelhandel', 'Fertigung', 
-						'Gesundheit', 'Medien', 'Öffentliche Einrichtungen', 
-						'Transport/Logistik', 'Dienstleistungen', 'Sonstiges') as $key => $value) {
-		
-			$fe_reg[] = '<label class="column" style="float:left;width:200px;">' .
-						'<input type="checkbox" name="user_profile_12['.$key.']" value="'.html_specialchars($value).'"' .
-						is_checked(1, isset($udata['user_profile_12'][$key]) ? 1 : 0, 1, 0) .' />' .
-						html_specialchars($value) .'</label>';
-		
-		}
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<div style="clear:both"></div><p class="title">';
-		$fe_reg[] = 'Wer sind Ihre Kunden vorwiegend?';
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_13" value="+500"'.is_checked('+500', $udata['user_profile_13'], 1, 0).' />' .
-					'Gro&szlig;unternehmen (&gt; 500 MA)</label>';
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_13" value="-500"'.is_checked('-500', $udata['user_profile_13'], 1, 0).' />' .
-					'Mittelstand (&lt; 500 MA)</label>';
-		$fe_reg[] = '</p>';
-		
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_13" value="-20"'.is_checked('-20', $udata['user_profile_13'], 1, 0).' />' .
-					'Kleinunternehmen (&lt; 20 MA)</label>';
-		$fe_reg[] = '</p>';
-	
-		$fe_reg[] = '<p>';
-		$fe_reg[] = '<label class="inline">' .
-					'<input type="radio" name="user_profile_13" value="Andere"'.is_checked('Andere', $udata['user_profile_13'], 1, 0).' />' .
-					'Andere</label> <input type="text" name="user_profile_14" value="' . html_specialchars($udata['user_profile_14']) . 
-					'" size="15" maxlength="200" class="textfield inline" />';
-		$fe_reg[] = '</p>';
-	
-	
-		$fe_reg[] = '</fieldset>';
-
-	}
-
-	
-	
-	$fe_reg[] = '<p>';
-	$fe_reg[] = '<input type="submit" value="Senden" class="button" />';
-	$fe_reg[] = '</p>';
-
-
 
 
 	$fe_reg[] = '</form>';
@@ -748,12 +444,12 @@ if($fe_action) {
 					'toName'		=> trim($udata['user_firstname'].' '.$udata['user_name']),
 					'subject'		=> 'phpwcms Registration',
 					'text'			=> $fe_text,
-					'from'			=> 'me@localhost',
+					'from'			=> 'oliver@phpwcms.de',
 					'fromName'		=> 'phpwcms',
-					'sender'		=> 'me@localhost' ));
+					'sender'		=> 'oliver@phpwcms.de' ));
 					
 				sendEmail(array(
-					'recipient'		=> 'me@localhost',
+					'recipient'		=> 'slackero+phpwcms-registration@gmail.com',
 					'subject'		=> 'New registration',
 					'text'			=> $fe_text1,
 					'from'			=> strtolower($udata['user_email']),
@@ -819,14 +515,14 @@ if($fe_action) {
 
 }
 
-function is_uerror($field='') {
-	global $uerror;
-	if(!empty($uerror[$field])) {
-		$uerror['status'] = true;
-		return '<p class="error">' . $uerror[$field] . '</p>';
+
+function is_fe_error($field='') {
+	global $fe_error;
+	if(!empty($fe_error[$field])) {
+		$fe_error['status'] = true;
+		return '<p class="error">' . $fe_error[$field] . '</p>';
 	}
 	return '';
 }
-
 
 ?>

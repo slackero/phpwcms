@@ -212,19 +212,20 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 			
 	<tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
-              <td><select name="cblock" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
-					<option value="CONTENT"<?php echo  is_selected('CONTENT', $content["block"]) ?>><?php echo  $BL['be_main_content'] ?> (CONTENT)</option>
-					<option value="LEFT"<?php echo  is_selected('LEFT', $content["block"]) ?>><?php echo  $BL['be_cnt_left'] ?> (LEFT)</option>
-					<option value="RIGHT"<?php echo  is_selected('RIGHT', $content["block"]) ?>><?php echo  $BL['be_cnt_right'] ?> (RIGHT)</option>
-					<option value="HEADER"<?php echo  is_selected('HEADER', $content["block"]) ?>><?php echo  $BL['be_admin_page_header'] ?> (HEADER)</option>
-					<option value="FOOTER"<?php echo  is_selected('FOOTER', $content["block"]) ?>><?php echo  $BL['be_admin_page_footer'] ?> (FOOTER)</option>
+		<td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
+		  <td><table summary="" border="0" cellspacing="0" cellpadding="0" width="440">
+		  	<tr>
+		  		<td width="75%"><select name="cblock" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
+				<option value="CONTENT"<?php echo  is_selected('CONTENT', $content["block"]) ?>><?php echo  $BL['be_main_content'] ?> (CONTENT)</option>
+				<option value="LEFT"<?php echo  is_selected('LEFT', $content["block"]) ?>><?php echo  $BL['be_cnt_left'] ?> (LEFT)</option>
+				<option value="RIGHT"<?php echo  is_selected('RIGHT', $content["block"]) ?>><?php echo  $BL['be_cnt_right'] ?> (RIGHT)</option>
+				<option value="HEADER"<?php echo  is_selected('HEADER', $content["block"]) ?>><?php echo  $BL['be_admin_page_header'] ?> (HEADER)</option>
+				<option value="FOOTER"<?php echo  is_selected('FOOTER', $content["block"]) ?>><?php echo  $BL['be_admin_page_footer'] ?> (FOOTER)</option>
 <?php
 
 $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_id=".$content['article']['acat_template']." LIMIT 1";
 $result = _dbQuery($sql);
 if(isset($result[0]['template_var'])) {
-	
 	$result = unserialize($result[0]['template_var']);
 	if(isset($result['customblock'])) {
 		$result = explode(',', $result['customblock']);
@@ -232,20 +233,26 @@ if(isset($result[0]['template_var'])) {
 			$value = trim($value);
 			if($value != '') {
 				$valhtml = html_specialchars($value);
-				echo '		<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>'.LF;				
-			}		
+				echo '				<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>'.LF;				
+			}
 		}
 	}
 }
 
 ?>
-</select></td>
+				</select></td>
+				
+				<td class="chatlist" width="100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
+				<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width30" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
+				
+			</tr>
+		</table></td>
     </tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 	
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['be_article_cnt_space'] ?>:&nbsp;</td>
-	  <td><table summary="" border="0" cellspacing="0" cellpadding="0" width="444">
+	  <td><table summary="" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
 			<td class="v10" bgcolor="#E7E8EB"><label for="ccb">&nbsp;<?php echo $BL['be_article_cnt_before'] ?></label></td>
 			<td bgcolor="#E7E8EB"><input name="ccb" type="checkbox" id="ccb" value="1" <?php if(intval($content["before"])) echo "checked"; ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" /></td>
@@ -255,22 +262,83 @@ if(isset($result[0]['template_var'])) {
 			<td style="padding:1px 1px 1px 0" bgcolor="#E7E8EB"><input name="cafter" type="text" id="cafter" class="width20" value="<?php echo $content["after"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.cca.checked=true;}else{this.form.cca.checked=false;this.value=''}" /></td>
 			<td class="chatlist"><label for="ctop">&nbsp;&nbsp;<?php echo $BL['be_article_cnt_toplink'] ?>:</label></td>
 			<td><input name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> /></td>
-			<?php
+<?php
+
+	$anchor_title = empty($content["id"]) ? '' : ' title="cpid'.$content["id"].'"';
+	
+	
+	// handle tab settings
+	$content["tab_style"] = ' style="display:none"';
+	
+	if(empty($content["tab"])) {
+		
+		$content["tab"]				= '';
+		$content["tab_number"]		= '';
+		$content["tab_title"]		= '';
+		
+	} else {
+		
+		$content["tab"]				= explode('_', $content["tab"], 2);
+		$content["tab_title"]		= empty($content["tab"][1]) ? '' : $content["tab"][1];
+		$content["tab_number"]		= empty($content["tab"][0]) ? '' : intval($content["tab"][0]);
+		
+		if($content["tab_number"].$content["tab_title"]) {
+			$content["tab"]			= 1;
+			$content["tab_style"]	= '';
+		}
+	
+	}		
 			
-			$anchor_title = empty($content["id"]) ? '' : ' title="cpid'.$content["id"].'"';
-			
-			?>
+?>
 			<td class="chatlist"><label for="canchor"<?php echo $anchor_title ?>>&nbsp;&nbsp;<?php echo $BL['be_article_cnt_anchor'] ?>:</label></td>
 			<td><input name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); ?><?php echo $anchor_title ?> /></td>
-			
-			<td class="chatlist" width="100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
-			<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width30" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
-			
-		</tr>
-		</table>
-	  </td>
-    </tr>
 
+			<td class="chatlist"><label for="ctab">&nbsp;&nbsp;<?php echo $BL['be_ctype_tabs'] ?>:</label></td>
+			<td><input name="ctab" type="checkbox" id="ctab" value="1"<?php is_checked(1, $content["tab"]); ?> onclick="checkTabStatus(this);" /></td>
+		
+		</tr>
+		</table><script type="text/javascript">
+
+	var cTabStatus = <?php echo $content["tab"] ? 'true' : 'false' ?>;
+	
+	function checkTabStatus(tabVal) {
+		
+		cTabStatus = tabVal.checked;
+		
+		if(cTabStatus == false) {
+		
+			$('ctab1').setStyle('display', 'none');
+			$('ctab2').setStyle('display', 'none');
+			$('ctab3').setStyle('display', 'none');
+			
+		} else {
+			
+			$('ctab1').setStyle('display', '');
+			$('ctab2').setStyle('display', '');
+			$('ctab3').setStyle('display', '');
+
+		}
+	
+	}
+
+		</script></td>
+    </tr>
+	
+	<!-- ctab section -->
+	<tr id="ctab1"<?php echo $content["tab_style"] ?>><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+	<tr id="ctab2"<?php echo $content["tab_style"] ?>><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+	<tr id="ctab3"<?php echo $content["tab_style"] ?>>
+	  <td align="right" class="chatlist"><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
+	  <td><table summary="" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+		  	<td><input name="ctab_title" type="text" id="ctab_title" class="f11b width225" value="<?php echo html_specialchars($content["tab_title"]) ?>" size="40" maxlength="100" /></td>
+			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
+			<td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="3" onkeyup="if(!parseInt(this.value))this.value='';" /></td>
+		  </tr>
+		</table></td>
+	</tr>
+	<!-- ctab section end -->
+	
 
 	<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -335,10 +403,8 @@ if(isset($result[0]['template_var'])) {
 			<td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_subsection_tite'].' ('.$BL['be_pagination'].')' ?>:&nbsp;</td>
 			<td width="200"><input name="cpaginate_title" type="text" id="cpaginate_title" class="f11b width225" value="<?php echo html_specialchars($content["paginate_title"]) ?>" size="40" maxlength="200" /></td>
 		  </tr>
-		</table>
-		<script language="javascript" type="text/javascript">
-	<!--
-	
+		</table><script language="javascript" type="text/javascript">
+
 	var loadblock  = true;
 	checkCntBlockPaginate(getObjectById("cblock"));
 	loadblock      = false;
@@ -358,8 +424,7 @@ if(isset($result[0]['template_var'])) {
 		}
 	}
 	
-	//-->			
-	</script>
+		</script></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>

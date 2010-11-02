@@ -61,6 +61,9 @@ if(empty($content['alink']['alink_category']) || !is_array($content['alink']['al
 if(empty($content['alink']['alink_category'])) {
 	$content['alink']['alink_andor'] = 'OR';
 }
+if(empty($content['alink']['alink_columns'])) {
+	$content['alink']['alink_columns'] = '';
+}
 
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 
@@ -98,10 +101,15 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_article_rendering'] ?>:&nbsp;</td>
-	<td><table border="0" cellpadding="0" cellspacing="0" summary="" bgcolor="#E7E8EB">
+	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-		<td><input type="checkbox" name="calink_unique" id="calink_unique" value="1"<?php is_checked(1, $content['alink']['alink_unique']) ?> /></td>
-		<td class="chatlist"><label for="calink_unique">&nbsp;<?php echo $BL['be_unique_teaser_entry'] ?>&nbsp;&nbsp;</label></td>  
+		<td bgcolor="#E7E8EB"><input type="checkbox" name="calink_unique" id="calink_unique" value="1"<?php is_checked(1, $content['alink']['alink_unique']) ?> /></td>
+		<td bgcolor="#E7E8EB" class="chatlist"><label for="calink_unique">&nbsp;<?php echo $BL['be_unique_teaser_entry'] ?>&nbsp;&nbsp;</label></td>
+		
+		<td>&nbsp;&nbsp;&nbsp;</td>
+		<td class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
+		<td><input name="calink_columns" type="text" id="calink_columns" class="f11b" style="width: 35px" value="<?php echo $content['alink']['alink_columns']; ?>" size="3" maxlength="3" /></td>
+		
 	</tr>
 	</table>
 	</td>
@@ -116,7 +124,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<td><input name="calink_wordlimit" type="text" id="calink_wordlimit" class="f11b" style="width: 35px" value="<?php 
 			echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit']; 
 			?>" size="3" maxlength="5" /></td>
-		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?></td>  
+		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?></td>
 	</tr>
 	</table>
 	</td>

@@ -53,11 +53,18 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/im
 
 if($image['template']) {
 
+	$image['tmpl_settings']			= parse_ini_str( get_tmpl_section('IMAGE_SETTINGS', $image['template']), false);
+	
+	if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
+		$image = array_merge($image, $image['tmpl_settings']);
+	}
+
 	$image['tmpl_header']			= get_tmpl_section('IMAGES_HEADER', $image['template']);
 	$image['tmpl_footer']			= get_tmpl_section('IMAGES_FOOTER', $image['template']);
 	$image['tmpl_entry']			= get_tmpl_section('IMAGES_ENTRY', $image['template']);
 	$image['tmpl_entry_space']		= get_tmpl_section('IMAGES_ENTRY_SPACER', $image['template']);
 	$image['tmpl_row_space']		= get_tmpl_section('IMAGES_ROW_SPACER', $image['template']);
+		
 	$image['tmpl_thumb_width_max']	= 0;
 	$image['tmpl_thumb_height_max']	= 0;
 	$image['tmpl_images']			= array();
@@ -109,12 +116,14 @@ if($image['template']) {
 		
 		}
 		
-		$x   = 0;
-		$col = 0;
+		$x		= 0;
+		$col	= 0;
+		$total	= 0;
 
 		foreach($image['images'] as $key => $value) {
 		
 			$col++;
+			$total++;
 			
 			// put spacer content between images
 			if($col > 1) {
@@ -130,10 +139,10 @@ if($image['template']) {
 			$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$image['images'][$key][3],
 								"image_name"	=>	$image['images'][$key][2] . '.' . $image['images'][$key][3],
-								"max_width"		=>	$image['images'][$key][4],
-								"max_height"	=>	$image['images'][$key][5],
-								"thumb_name"	=>	md5(	$image['images'][$key][2].$image['images'][$key][4].
-															$image['images'][$key][5].$phpwcms["sharpen_level"].
+								"max_width"		=>	$image['width'],
+								"max_height"	=>	$image['height'],
+								"thumb_name"	=>	md5(	$image['images'][$key][2].$image['width'].
+															$image['height'].$phpwcms["sharpen_level"].
 															$image['crop']
 														),
 								'crop_image'	=>	$image['crop']
@@ -168,6 +177,7 @@ if($image['template']) {
 			$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
 			$img_thumb_width	= $thumb_image[1];
 			$img_thumb_height	= $thumb_image[2];
+			$img_thumb_link		= '';
 			
 			if($image['center_image']) {
 			
@@ -209,22 +219,27 @@ if($image['template']) {
 				}
 				
 				if(!$image['lightbox'] || $caption[2][0]) {
-				
-					$img_a .= '<a href="'.$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
-					$img_a .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1];
-					$img_a .= $list_ahref_style.'>';
+					
+					$img_thumb_link  = '<a href="'.$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
+					$img_thumb_link .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1];
+					$img_thumb_link .= $list_ahref_style.'>';
+					
+					$img_a .= $img_thumb_link;
+					
 					
 				} else {
 				
 					// lightbox
-					$img_a .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']" ';
+					$img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']" ';
 					if($capt_cur) {
-						$img_a .= 'title="'.parseLightboxCaption($capt_cur).'" ';
+						$img_thumb_link .= 'title="'.parseLightboxCaption($capt_cur).'" ';
 					} elseif(strpos($image['tmpl_entry'], '{IMGNAME}')) {
-						$img_a .= 'title="'.parseLightboxCaption( $image['images'][$key][1] ).'" ';
+						$img_thumb_link .= 'title="'.parseLightboxCaption( $image['images'][$key][1] ).'" ';
 					}
 					
-					$img_a .= $list_ahref_style.'target="_blank">';
+					$img_thumb_link .= $list_ahref_style.'target="_blank">';
+					
+					$img_a .= $img_thumb_link;
 				
 				}
 				
@@ -239,7 +254,8 @@ if($image['template']) {
 			} else {
 				// if not click enlarge
 				if($caption[2][0]) {
-					$img_a .= '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].'>'.$list_img_temp.'</a>';
+					$img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].'>';
+					$img_a .= $img_thumb_link.$list_img_temp.'</a>';
 				} else {
 					$img_a .= $list_img_temp;
 				}
@@ -252,7 +268,7 @@ if($image['template']) {
 			}
 			
 			$img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
-			$img_a = str_replace('{IMGID}', $image['images'][$key][0], $img_a);
+			$img_a = str_replace('{IMGID}', $key, $img_a);
 			$img_a = str_replace('{IMAGE_ID}', $image['images'][$key][0], $img_a);
 			$img_a = str_replace('{IMAGE_HASH}', $image['images'][$key][2], $img_a);
 			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key][1]), $img_a);
@@ -275,6 +291,8 @@ if($image['template']) {
 			
 			$img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
 			$img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
+			$img_a = render_cnt_template($img_a, 'FIRST', ($col > 1 ? '' : $col) );
+			$img_a = render_cnt_template($img_a, 'ROW', ($x+1) );
 			
 			if($image['nocaption']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');
@@ -282,13 +300,27 @@ if($image['template']) {
 			} else {
 				$img_a = render_cnt_template($img_a, 'CAPTION', $capt_cur);
 			}
+			$img_a = render_cnt_template($img_a, 'TITLE', $capt_cur);
+			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
+			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 			
-			$image['tmpl_images'][$x] .= $img_a;
 			
 			// check if this is the last image in row
-			if($image['col'] == $col) {
+			if($image['col'] == $col || $image['count'] == $total) {
+				
+				$img_a = render_cnt_template($img_a, 'LAST', $col);
+				
+				$image['tmpl_images'][$x] .= $img_a;
+				
 				$x++;
 				$col = 0;
+				
+			} else {
+				
+				$img_a = render_cnt_template($img_a, 'LAST', '');
+				
+				$image['tmpl_images'][$x] .= $img_a;
+				
 			}
 			
 		}

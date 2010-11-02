@@ -74,10 +74,11 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');
 $BL['be_admin_struct_index'] = html_specialchars($indexpage['acat_name']);
 
 
-$subnav	= ''; //Sub Navigation
-$p		= isset($_GET["p"])  ? intval($_GET["p"]) : 0; //which page should be opened
-$do		= isset($_GET["do"]) ? $_GET["do"] : 'default'; //which backend section and which $do action
-$module	= isset($_GET['module'])  ? clean_slweg($_GET['module']) : ''; //which module
+$subnav								= ''; //Sub Navigation
+$p									= isset($_GET["p"])  ? intval($_GET["p"]) : 0; //which page should be opened
+$do									= isset($_GET["do"]) ? $_GET["do"] : 'default'; //which backend section and which $do action
+$module								= isset($_GET['module'])  ? clean_slweg($_GET['module']) : ''; //which module
+$phpwcms['be_parse_lang_process']	= false; // limit parsing for BBCode/BraceCode languages only to some sections
 
 switch ($do) {
 
@@ -226,8 +227,8 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 <html>
 <head>
 	<title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
-	<meta http-equiv="content-type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/additional.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 <?php
@@ -309,7 +310,7 @@ if($BE['LANG'] == 'ar') {
 	  <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
 		<td width="175" valign="top" bgcolor="#FFFFFF"><?php 
 
-		echo $subnav;
+		echo $subnav . LF;
 		echo '<img src="img/leer.gif" width="1" height="5" alt="" /><br /><span class="title">';
 		echo $BL['usr_online'];
 		echo '</span><br /><img src="img/leer.gif" width="1" height="3" alt="" /><br />';
@@ -318,9 +319,9 @@ if($BE['LANG'] == 'ar') {
 		?><img src="img/leer.gif" alt="" width="175" height="1"></td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/dividerA.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
-      <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540">{STATUS_MESSAGE}<?php
-	 
-	 
+      <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540" id="be_main_content">{STATUS_MESSAGE}{BE_PARSE_LANG}<!--BE_MAIN_CONTENT_START//-->
+<?php
+		 
       switch($do) {
 
       	case "profile":	//Profile
@@ -330,6 +331,11 @@ if($BE['LANG'] == 'ar') {
       		default:	include(PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php');
       	}
       	break;
+      	
+      	case 'filecenter':
+      					include(PHPWCMS_ROOT.'/include/inc_tmpl/filecenter.tmpl.php');
+      					
+      					break;
 
       	case "files":	//Hochladen sowie Downloaden und Verwalten von Dateien
       	switch($p) {
@@ -361,12 +367,12 @@ if($BE['LANG'] == 'ar') {
       				include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
       				include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php');
       			}
-      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'); //Listing-Funktionen einfügen
-      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'); //Zusätzliche Private Funktionen
+      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'); //Listing-Funktionen einfÃ¼gen
+      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'); //ZusÃ¤tzliche Private Funktionen
       			break;
       			case 1: //Funktionen zum Listen von Public Files
-      			include(PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'); //Public Listing-Funktionen einfügen
-      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'); //Elemetares für Public Listing
+      			include(PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'); //Public Listing-Funktionen einfÃ¼gen
+      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'); //Elemetares fÃ¼r Public Listing
       			break;
       			case 2:	//Dateien im Papierkorb
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.trash.tmpl.php');
@@ -375,7 +381,7 @@ if($BE['LANG'] == 'ar') {
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.search.tmpl.php');
       			break;
       		}
-      		include(PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'); //Abschließende Tabellenzeile = dicke Linie
+      		include(PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'); //AbschlieÃŸende Tabellenzeile = dicke Linie
       	}
       	break;
 
@@ -407,7 +413,7 @@ if($BE['LANG'] == 'ar') {
       	case "modules":	//Modules
 		
 			if($p == 2 && $phpwcms["gt_mod"]) { //enabled/disable GT MOD
-				// include language vars for Jérôme's Graphical Text MOD
+				// include language vars for JÃ©rÃ´me's Graphical Text MOD
       			include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/main.inc.php');
       		}
 			
@@ -452,6 +458,7 @@ if($BE['LANG'] == 'ar') {
       				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php');
       			} else {
       				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.structlist.tmpl.php');
+					$phpwcms['be_parse_lang_process'] = true;
       			}
       			break;
       			
@@ -492,6 +499,7 @@ if($BE['LANG'] == 'ar') {
 				// List articles
 				case 0: 
 					include(PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php');
+					$phpwcms['be_parse_lang_process'] = true;
 					break;
 				
 				// Edit/create article
@@ -517,10 +525,13 @@ if($BE['LANG'] == 'ar') {
 		default:
 			include(PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php');
 			include(PHPWCMS_TEMPLATE.'inc_default/startup.php');
+			$phpwcms['be_parse_lang_process'] = true;
 
 	}
 
-?></td>
+?>
+	
+	<!--BE_MAIN_CONTENT_END//--></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
 	</tr>
 	<tr>
@@ -558,6 +569,9 @@ header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $php
 
 $BE['HTML'] = ob_get_contents();
 ob_end_clean();
+
+//	parse for backend languages
+backend_language_parser();
 
 //	replace special backend sections -> good for additional code like custom JavaScript, CSS and so on
 //	<!-- phpwcms BODY_CLOSE -->

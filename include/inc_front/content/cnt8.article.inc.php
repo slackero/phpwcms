@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Teaser (link article) content part
 
-$content['alink'] = unserialize($crow["acontent_form"]);
+$content['alink'] = @unserialize($crow["acontent_form"]);
 
 if(!isset($content['alink']['alink_id'])) {
 
@@ -65,10 +65,12 @@ if(
 
 	} else {
 	
-		$content['alink']['alink_template']  = '<!--TEASER_HEAD_START//--><ul{LINK_ARTICLE_CLASS}>'.LF.'<!--TEASER_HEAD_END//-->';
-		$content['alink']['alink_template'] .= '<!--TEASER_ENTRY_START//-->	<li><a href="{ARTICLELINK}">{TITLE}</a></li><!--TEASER_ENTRY_END//-->';
-		$content['alink']['alink_template'] .= '<!--TEASER_ENTRY_SPACER_START//-->'.LF.'<!--TEASER_ENTRY_SPACER_END//-->';
-		$content['alink']['alink_template'] .= '<!--TEASER_FOOTER_START//-->'.LF.'</ul><!--TEASER_FOOTER_END//-->';
+		$content['alink']['alink_template']  = '<!--TEASER_HEAD_START//--><ul{LINK_ARTICLE_CLASS}><!--TEASER_HEAD_END//-->';
+		$content['alink']['alink_template'] .= '<!--TEASER_ENTRY_START//--><li><a href="{ARTICLELINK}">{TITLE}</a></li><!--TEASER_ENTRY_END//-->';
+		$content['alink']['alink_template'] .= '<!--TEASER_ENTRY_SPACER_START//--><!--TEASER_ENTRY_SPACER_END//-->';
+		$content['alink']['alink_template'] .= '<!--TEASER_ROW_SPACER_START//--><!--TEASER_ROW_SPACER_END//-->';
+		$content['alink']['alink_template'] .= '<!--TEASER_FOOTER_START//--></ul><!--TEASER_FOOTER_END//-->';
+		$content['alink']['alink_template'] .= '<!--TEASER_COLUMN_OVERWRITE_START//--><!--TEASER_COLUMN_OVERWRITE_END//-->';
 			
 	}
 
@@ -262,13 +264,28 @@ if(
 	$content['alink']['alink_template_head']	= get_tmpl_section('TEASER_HEAD', $content['alink']['alink_template']);
 	$content['alink']['alink_template_footer']	= get_tmpl_section('TEASER_FOOTER', $content['alink']['alink_template']);
 	$content['alink']['alink_template_entry']	= get_tmpl_section('TEASER_ENTRY', $content['alink']['alink_template']);
-	$content['alink']['alink_template_space']	= get_tmpl_section('TEASER_SPACER', $content['alink']['alink_template']);
+	$content['alink']['alink_template_space']	= get_tmpl_section('TEASER_ENTRY_SPACER', $content['alink']['alink_template']);
+	$content['alink']['alink_template_row']		= get_tmpl_section('TEASER_ROW_SPACER', $content['alink']['alink_template']);
+	$content['alink']['alink_template_column']	= trim( get_tmpl_section('TEASER_COLUMN_OVERWRITE', $content['alink']['alink_template']) );
 	
 	$content['alink']['alink_template_head']	= str_replace('{LINK_ARTICLE_CLASS}', get_class_attrib($template_default["article"]["link_article_class"]), $content['alink']['alink_template_head']);
 
-	$content['alink']['result']	= _dbQuery($alink_sql);
+	$content['alink']['result']					= _dbQuery($alink_sql);
 	
-	if(count($content['alink']['result'])) {
+	if(isset($content['alink']['result'][0])) {
+		
+		// lets handle columns and rows
+		if($content['alink']['alink_template_column'] !== '') {
+			$content['alink']['alink_columns']	= abs(intval($content['alink']['alink_template_column']));
+		} elseif(empty($content['alink']['alink_columns'])) {
+			$content['alink']['alink_columns']	= 0;
+		} else {
+			$content['alink']['alink_columns']	= $content['alink']['alink_columns'];
+		}
+		
+		$content['alink']['column']			= 1;
+		$content['alink']['row']			= 1;
+		$content['alink']['row_space']		= false;
 			
 		// before finding a faster solution...
 		if(!empty($content['alink']['alink_type'])) {
@@ -277,6 +294,9 @@ if(
 				$content['alink']['alink_id'][] = $value['article_id'];
 			}
 		}
+		
+		// Max teaser items
+		$content['alink']['max_items'] = count($content['alink']['alink_id']);
 
 		foreach($content['alink']['alink_id'] as $key => $value) {
 		
@@ -285,9 +305,41 @@ if(
 			foreach($content['alink']['result'] as $row) {
 		
 				if($value == $row['article_id'] && isset($content['struct'][ $row['article_cid'] ])) {
-				
+					
 					// enable frontend edit link
 					$content['alink']['tr'][$key]   = getFrontendEditLink('summary', $row["article_id"]);
+										
+					// set columns/row class
+					if($content['alink']['alink_columns'] > 0) {
+						
+						// check if the current teaser will be on a new row
+						if($content['alink']['row_space']) {
+							$content['alink']['tr'][$key] .= $content['alink']['alink_template_row'];
+						}
+	
+						$row['column'] = array(
+							'teaser-row'.$content['alink']['row'],
+							'teaser-col'.$content['alink']['column']
+						);
+						
+						$row['column'] = implode(' ', $row['column']);
+						
+						// now make the tests
+						if($content['alink']['column'] % $content['alink']['alink_columns']) {
+							// New column
+							$content['alink']['column']++;
+							$content['alink']['row_space'] = false;
+						} else {
+							// New row
+							$content['alink']['column'] = 1;
+							$content['alink']['row']++;
+							$content['alink']['row_space'] = true;
+						}
+					
+					} else {
+					
+						$row['column'] = '';
+					}
 												
 					$content['alink']['tr'][$key]  .= $content['alink']['alink_template_entry'];
 					
@@ -298,8 +350,9 @@ if(
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
 					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], strtotime($row['article_begin']), strtotime($row['article_end']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'COLUMN', $row['column']);
 
-					$row['article_image'] = unserialize( $row['article_image'] );
+					$row['article_image'] = @unserialize( $row['article_image'] );
 					
 					// article list image
 					if(strpos($content['alink']['tr'][$key], 'IMAGE') !== false) {

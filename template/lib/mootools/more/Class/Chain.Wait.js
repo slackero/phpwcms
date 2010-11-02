@@ -1,3 +1,62 @@
-//MooTools More, <http://mootools.net/more>. Copyright (c) 2006-2009 Aaron Newton <http://clientcide.com/>, Valerio Proietti <http://mad4milk.net> & the MooTools team <http://mootools.net/developers>, MIT Style License.
+/*
+---
 
-(function(){var a={wait:function(b){return this.chain(function(){this.callChain.delay($pick(b,500),this)}.bind(this))}};Chain.implement(a);if(window.Fx){Fx.implement(a);["Css","Tween","Elements"].each(function(b){if(Fx[b]){Fx[b].implement(a)}})}Element.implement({chains:function(b){$splat($pick(b,["tween","morph","reveal"])).each(function(c){c=this.get(c);if(!c){return}c.setOptions({link:"chain"})},this);return this},pauseFx:function(c,b){this.chains(b).get($pick(b,"tween")).wait(c);return this}})})();
+script: Chain.Wait.js
+
+name: Chain.Wait
+
+description: value, Adds a method to inject pauses between chained events.
+
+license: MIT-style license.
+
+authors:
+  - Aaron Newton
+
+requires: 
+  - Core/Chain
+  - Core/Element
+  - Core/Fx
+  - /MooTools.More
+
+provides: [Chain.Wait]
+
+...
+*/
+
+(function(){
+
+	var wait = {
+		wait: function(duration){
+			return this.chain(function(){
+				this.callChain.delay($pick(duration, 500), this);
+			}.bind(this));
+		}
+	};
+
+	Chain.implement(wait);
+
+	if (window.Fx){
+		Fx.implement(wait);
+		['Css', 'Tween', 'Elements'].each(function(cls){
+			if (Fx[cls]) Fx[cls].implement(wait);
+		});
+	}
+
+	Element.implement({
+		chains: function(effects){
+			$splat($pick(effects, ['tween', 'morph', 'reveal'])).each(function(effect){
+				effect = this.get(effect);
+				if (!effect) return;
+				effect.setOptions({
+					link:'chain'
+				});
+			}, this);
+			return this;
+		},
+		pauseFx: function(duration, effect){
+			this.chains(effect).get($pick(effect, 'tween')).wait(duration);
+			return this;
+		}
+	});
+
+})();
