@@ -23,7 +23,7 @@
 //setup functions
 $phpwcms_version		= '1.4.7';
 $phpwcms_release_date	= '2010/11/23';
-$phpwcms_revision		= '404';
+$phpwcms_revision		= '405';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
