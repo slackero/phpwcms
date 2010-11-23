@@ -122,12 +122,12 @@ if (!defined('PHPWCMS_ROOT')) {
 			</tr>
 	<?php
 	for( $x = 0; $x <= 4; $x++ ) {
-	
+
 		echo '
 			<tr>
-				<td class="tdtop3"><input name="pref_shipping_weight['.$x.']" type="text" class="v12 width100" value="' . html_specialchars(number_format($plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
-				<td class="tdtop3"><input name="pref_shipping_net['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( number_format($plugin['data']['shop_pref_shipping'][$x]['net'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
-				<td class="tdtop3"><input name="pref_shipping_vat['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( number_format($plugin['data']['shop_pref_shipping'][$x]['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td class="tdtop3"><input name="pref_shipping_weight['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
+				<td class="tdtop3"><input name="pref_shipping_net['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['net'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
+				<td class="tdtop3"><input name="pref_shipping_vat['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 			</tr>
 			';
 

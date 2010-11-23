@@ -535,7 +535,8 @@ function _setConfig($key, $value=NULL, $group='', $status=1) {
 						'sysvalue_value'		=> $value	 );
 
 		if ( ! _dbInsertOrUpdate('phpwcms_sysvalue', $data) ) {
-			trigger_error("_setConfig failed", E_USER_ERROR);
+			$mysql_error = trim( @mysql_error() );
+			trigger_error("_setConfig failed".(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_ERROR);
 		}
 
 	}
@@ -611,6 +612,96 @@ function _getConfig($key, $set_global='phpwcms') {
 		}		
 	}
 	return false;
+}
+
+/**
+ * Set MySQL variable
+ *
+ * An often seen default value is just 1M for that MySQL variable
+ * Serialized data or text can be much bigger than this and
+ * MySQL connection can get lost. This fixes this and set it
+ * to a global default value of 16M
+ */
+function _dbSetVar($var='', $value=NULL, $compare=FALSE) {
+	
+	$var = trim($var);
+	
+	// stop if this was set yet. can be defined as 
+	// additional  config value in conf.inc.php
+	
+	if(!is_string($var) || !$var || $value === NULL) {
+	
+		return FALSE;
+		
+	} elseif(isset($GLOBALS['phpwcms']['mysql_'.$var]) && $GLOBALS['phpwcms']['mysql_'.$var] == $value) {
+		
+		return TRUE;
+	
+	}
+	
+	// check if it is a valid MySQL var
+	$_var		= _dbEscape($var, FALSE);
+	$result		= _dbQuery('SELECT @@'.$_var.' AS mysqlvar');
+	$default	= NULL;
+	
+	if(isset($result[0]['mysqlvar'])) {
+		
+		// check if the given MySQL var exists
+		$default = $result[0]['mysqlvar'];
+		
+		if($default !== NULL) {
+			
+			$GLOBALS['phpwcms']['mysql_'.$var] = $default;
+			
+			switch($compare) {
+				
+				case '>':
+					$set = $default > $value ? TRUE : FALSE;
+					break;
+				
+				case '<':
+					$set = $default < $value ? TRUE : FALSE;
+					break;
+				
+				case '!=':
+					$set = $default != $value ? TRUE : FALSE;
+					break;
+				
+				default:
+					$set = FALSE;
+			
+			}
+			
+			// change MySQL var setting
+			if($set) {
+				
+				$value	= _dbEscape($value, is_numeric($default) ? FALSE : TRUE);
+				
+				// try SET SESSION first
+				if(!_dbQuery('SET @@'.$_var.'='.$value, 'SET')) {
+					
+					if(!_dbQuery('SET @@session.'.$_var.'='.$value, 'SET')) {
+					
+						if(!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
+							
+							return FALSE;
+							
+						}
+
+					}
+				
+				}
+				
+				$GLOBALS['phpwcms']['mysql_'.$var] = $value;
+				return TRUE;
+				
+			}
+			
+		}
+		
+	}
+	
+	return FALSE;
 }
 
 ?>

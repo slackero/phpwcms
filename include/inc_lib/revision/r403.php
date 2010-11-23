@@ -30,7 +30,7 @@ function phpwcms_revision_r403() {
 	// r402 required no action, so fallback to r401
 	$r401 = '401';
 	if(phpwcms_revision_check_temp($r401) !== true) {
-		phpwcms_revision_check($r401);
+		$status = phpwcms_revision_check($r401);
 	}
 	
 	// check if article content tab field exists

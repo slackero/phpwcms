@@ -313,31 +313,54 @@ function breadcrumb ($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	}
 	$data[$start_id] = $struct_array[$start_id]["acat_name"];
 	$crumbs_part = array_reverse($data, 1);
-	if(is_array($crumbs_part)) {
+	if(is_array($crumbs_part) && count($crumbs_part)) {
 		foreach($crumbs_part as $key => $value) {
+
 			$alias = '';
+
 			if($struct_array[$key]["acat_hidden"] != 1) { // check if the structure should be unvisible when active
+
+				if($breadcrumb) {
+					$breadcrumb .= $spacer;
+				}
+
 				if ($act_id != $key) {
-					if($breadcrumb) $breadcrumb .= $spacer;
+
 					if(!$struct_array[$key]["acat_redirect"]) {
 						$breadcrumb .= '<a href="index.php?';
 						$alias 		 = $struct_array[$key]["acat_alias"];
-						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key; //',0,0,1,0,0';
+						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key;
 						$breadcrumb .= '">';
 					} else {
 						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
 						$breadcrumb .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
 					}
+
 					$breadcrumb .= html_specialchars($crumbs_part[$key]).'</a>';
+
 				} else {
-					if($breadcrumb) $breadcrumb .= $spacer;
+				
+					if(!$struct_array[$key]["acat_redirect"]) {
+						$breadcrumb .= '<a href="index.php?';
+						$alias 		 = $struct_array[$key]["acat_alias"];
+						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key;
+						$breadcrumb .= '" class="active">';
+					} else {
+						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
+						$breadcrumb .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="active">';
+					}
+
 					if(!empty($template_default['breadcrumb_active_prefix'])) {
 						$breadcrumb .= $template_default['breadcrumb_active_prefix'];
 					}
+					
 					$breadcrumb .= html_specialchars($crumbs_part[$key]);
+					
 					if(!empty($template_default['breadcrumb_active_suffix'])) {
 						$breadcrumb .= $template_default['breadcrumb_active_suffix'];
 					}
+					
+					$breadcrumb .= '</a>';
 				}
 			}
 		}
@@ -433,6 +456,9 @@ function get_struct_data($root_name='', $root_info='') {
 		mysql_free_result($result);
 	}
 	
+	// set max_allowed_package to bigger value
+	_dbSetVar('max_allowed_packet', 16*1024*1024, '<');
+
 	// store pre-rendered serialized array in database
 	_setConfig($sysvalue_key, $data, 'frontend_render', 1);
 	
@@ -1224,6 +1250,8 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 			$article["article_image"]["list_caption"]	= $caption[0]; // caption text
 			$article["article_image"]["copyright"]		= $caption[4]; // copyright information
+			$article["article_image"]["list_alt"]		= $caption[1]; // alt text
+			$article["article_image"]["list_title"]		= $caption[3]; // title text
 			
 			if(!empty($article["article_image"]["list_hash"])) {
 
@@ -1360,6 +1388,8 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
+				$tmpl = render_cnt_template($tmpl, 'ALT', html_specialchars($article["article_image"]["list_alt"]));
+				$tmpl = render_cnt_template($tmpl, 'IMAGE_TITLE', html_specialchars($article["article_image"]["list_title"]));
 				$tmpl = render_cnt_template($tmpl, 'COPYRIGHT', html_specialchars($article["article_image"]["copyright"]));
 				$tmpl = render_cnt_template($tmpl, 'ARTICLELINK', $article["article_morelink"] ? $article_link : '');
 				$tmpl = render_cnt_template($tmpl, 'EDITOR', html_specialchars($article["article_username"]));
@@ -1769,13 +1799,8 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			$link = $redirect['link'];
 		}
 		$css_list .= '	<li';
-		if(empty($breadcrumb[$key])) {
-			$class = $level_struct[$key]["acat_class"];
-		} else {
-			$class = 'active '.$level_struct[$key]["acat_class"];
-		}
-		$class = trim($class);
-		$css_list .= empty($class) ? '' : ' class="'.$class.'"';
+		$liclass   = trim( (empty($breadcrumb[$key]) ? '' : 'active ') . $level_struct[$key]["acat_class"] );
+		$css_list .= empty($liclass) ? '' : ' class="'.$liclass.'"';
 		$css_list .= '><a href="'.$link.'"'.$redirect['target'].'>';
 		$css_list .= html_specialchars($level_struct[$key]["acat_name"]);
 		$css_list .= '</a></li>'.LF;

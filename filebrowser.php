@@ -96,7 +96,8 @@ switch($js_aktion) {
 
 	case 4:
 	case 9:
-	case 10:	$titel		= $BL['FILE_TITLE'];		
+	case 10:
+	case 15:	$titel		= $BL['FILE_TITLE'];
 				$filetype	= $BL['FILES'];
 				break;
 	
@@ -149,7 +150,7 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 
 	<title><?php echo $titel ?></title>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
 	<meta http-equiv="Expires" content="0" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="cache-control" content="no-cache" />
@@ -247,6 +248,9 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 		case 14:	$file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
 					break;
 		
+		case 15:	$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
+					break;
+		
 		case 8:		$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
 		case 7:		$file_sql .= "f_ext IN ('jpg', 'png', 'gif') AND ";
 					break;
@@ -316,6 +320,9 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 					case 12:
 					case 13:
 					case 14: $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
+						 	 break;
+							 
+					case 15: $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
 						 	 break;
 							 
 					case 7:  $js = "window.opener.setImgIdName('".$file_row["f_id"]."', '".$filename."');";

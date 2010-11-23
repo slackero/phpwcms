@@ -964,6 +964,8 @@ function phpwcms_revision_check(&$revision) {
 			$GLOBALS['phpwcms']['check_r'.$revision] = true;
 			@write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s'));
 			return true;
+		} else {
+			return false;
 		}
 	}
 	return true;

@@ -3,8 +3,7 @@
 // load phpwcmsImageGallery class
 include_once(PHPWCMS_ROOT.'/include/inc_lib/imagegallery.inc.php');
 
-
-$gallery = & new phpwcmsImageGallery();
+$gallery = new phpwcmsImageGallery();
 //$gallery->setQuerySeparator('?');
 $gallery->setAlias( 'aid=116' );
 $gallery->image_sort			= 'DESC';

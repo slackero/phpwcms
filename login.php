@@ -38,7 +38,7 @@ $_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
 
 // make compatibility check
 if(phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
-	phpwcms_revision_check($phpwcms["revision"]);
+	$revision_status = phpwcms_revision_check($phpwcms["revision"]);
 }
 
 // define vars

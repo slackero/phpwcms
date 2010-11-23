@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2010/11/01';
-$phpwcms_revision		= '403';
+$phpwcms_release_date	= '2010/11/23';
+$phpwcms_revision		= '404';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -247,7 +247,7 @@ function write_conf_file($val) {
 }
 
 function aporeplace($string_to_convert="") {
-	//Ändert die einfachen Apostrophe für SQL-Funktionen in doppelte
+	//Ã„ndert die einfachen Apostrophe fÃ¼r SQL-Funktionen in doppelte
 	$string_to_convert = str_replace("\\", "\\\\", $string_to_convert);
 	$string_to_convert = str_replace("'", "''", $string_to_convert );
 	return $string_to_convert;

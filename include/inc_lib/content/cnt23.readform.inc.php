@@ -41,7 +41,7 @@ $content["form"]["cform_reqmark"]			= slweg($_POST["cform_reqmark"]);
 $content["form"]["cform_function_validate"]	= clean_slweg($_POST["cform_function_validate"]);
 
 
-$content["form"]["cc"]				= convertStringToArray(str_replace(array(' ',','), ';', clean_slweg($_POST["cform_cc"])),';');
+$content["form"]["cc"] = convertStringToArray(str_replace(array(' ',','), ';', clean_slweg($_POST["cform_cc"])),';');
 foreach($content["form"]["cc"] as $e_key => $e_value) {
 	if(!is_valid_email($content["form"]["cc"][$e_key])) {
 		unset($content["form"]["cc"][$e_key]);
@@ -134,7 +134,7 @@ if(is_callable($content['form']["function_cc"])) {
 }
 
 
-$content['form']["template_equal"]			= empty($_POST["cform_template_equal"]) ? 0 : 1;
+$content['form']["template_equal"] = empty($_POST["cform_template_equal"]) ? 0 : 1;
 
 $content['form']["customform"]	= slweg($_POST["cform_customform"]);
 

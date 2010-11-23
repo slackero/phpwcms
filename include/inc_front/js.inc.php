@@ -85,7 +85,7 @@ function initFrontendJS() {
 
 function inlineJS($js='', $prefix='	') {
 	if($js) {
-		$block['js_inline'][] = $prefix.$js;
+		$GLOBALS['block']['js_inline'][] = $prefix.$js;
 	}
 }
 
