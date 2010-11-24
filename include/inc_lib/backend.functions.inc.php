@@ -973,6 +973,7 @@ function phpwcms_revision_check(&$revision) {
 
 // check upgrade temp file for current revision
 function phpwcms_revision_check_temp(&$revision) {
+
 	if(empty($revision) || !preg_match('/^\d+$/', $revision)) {
 		return NULL;
 	}
