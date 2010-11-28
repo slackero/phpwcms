@@ -24,11 +24,13 @@ set_locale			= "de_DE@Euro"
 			[FILE_IMAGE]<img src="{FILE_IMAGE}" alt="" border="" />[/FILE_IMAGE]
 			<a href="{FILE_LINK}&amp;target=0"{FILE_TARGET}>[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
 		</h2>
-		<p>[FILE_DESCRIPTION]
-		{FILE_DESCRIPTION}<br />[/FILE_DESCRIPTION][FILE_COPYRIGHT]
+		[FILE_DESCRIPTION]<p>
+		{FILE_DESCRIPTION}<br />[FILE_COPYRIGHT]
 		Copyright: {FILE_COPYRIGHT}<br />[/FILE_COPYRIGHT]
 		{FILE_EXT}, {FILE_SIZE}, {FILE_DATE}, {FILE_DOWNLOADS} downloads
-		</p>
+		</p>[/FILE_DESCRIPTION][FILE_DESCRIPTION_ELSE]
+		<!-- This uses the file information from info in file center auto wrapped by <p> -->
+		{FILE_LONGINFO}[/FILE_DESCRIPTION_ELSE]
 		[FILE_IMAGE][FILE_IMAGE_WIDTH]
 		<p>
 		width: {FILE_IMAGE_WIDTH}px, height: {FILE_IMAGE_HEIGHT}px<br />

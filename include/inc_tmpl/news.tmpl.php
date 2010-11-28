@@ -31,7 +31,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 
-$news = & new phpwcmsNews();
+$news = new phpwcmsNews();
 
 ?>
 <h1 class="title"><?php echo $BL['be_news'] ?></h1>

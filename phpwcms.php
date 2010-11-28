@@ -227,8 +227,8 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 <html>
 <head>
 	<title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
+	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/additional.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 <?php

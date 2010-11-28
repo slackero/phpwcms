@@ -91,7 +91,7 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
 }
 
 function clearfilename($formvar) {
-	//Filename anpassen und s‰ubern
+	//Filename anpassen und s√§ubern
 	$formvar = trim($formvar);
 	if( get_magic_quotes_gpc() ) $formvar = stripslashes ($formvar);
 	$formvar = str_replace(array("'", ':', '/', '\\', '"'), '_', $formvar);
@@ -946,18 +946,28 @@ function initMultipleUpload($mode='1.2') {
 }
 
 // make phpwcms compatibility and upgrade check
-function phpwcms_revision_check(&$revision) {
+function phpwcms_revision_check($revision) {
+
+	$revision_file = PHPWCMS_ROOT.'/include/inc_lib/revision/r';
+
+	// loop while trying to find the latest revision file (for r407 and up)
+	// then there is no need to implement new revision updater for each revision
+	while(!is_file( $revision_file . $revision.'.php')) {
+		$revision--;
+		if($revision < 406) {
+			return false;
+		}
+	}
+
 	$revision_temp = phpwcms_revision_check_temp($revision);
 	if($revision_temp === NULL) {
 		return false;
 	} elseif($revision_temp) {
 		return true;
 	}
-	$revision_file = PHPWCMS_ROOT.'/include/inc_lib/revision/r'.$revision.'.php';
-	if(!is_file($revision_file)) {
-		return false;
-	}
-	include_once($revision_file);
+	
+	include_once($revision_file . $revision.'.php');
+
 	$revision_function = 'phpwcms_revision_r'.$revision;
 	if(function_exists($revision_function) && empty($GLOBALS['phpwcms']['check_r'.$revision])) {
 		if( call_user_func($revision_function) !== false ) {
@@ -968,12 +978,12 @@ function phpwcms_revision_check(&$revision) {
 			return false;
 		}
 	}
+
 	return true;
 }
 
 // check upgrade temp file for current revision
-function phpwcms_revision_check_temp(&$revision) {
-
+function phpwcms_revision_check_temp($revision) {
 	if(empty($revision) || !preg_match('/^\d+$/', $revision)) {
 		return NULL;
 	}

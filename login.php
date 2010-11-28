@@ -167,12 +167,12 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 	}
 	
 	if($login_passed) {
-		//Schreiben der Login-Daten in Datenbank
+		// Store login information in DB
 		$check = mysql_query(	"SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user='".
 								aporeplace($wcs_user)."' AND logged_in=1", $db );
 		if($row = mysql_fetch_row($check)) {
 			if(!$row[0]) {
-				//Wenn kein User geführt wird, dann neu anlegen
+				// User not yet logged in, create new
 				mysql_query("INSERT INTO ".DB_PREPEND."phpwcms_userlog ".
 							"(logged_user, logged_username, logged_start, logged_change, ".
 							"logged_in, logged_ip) VALUES ('".
@@ -205,7 +205,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
 <head>
 	<title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
-	<meta http-equiv="content-type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
 	<meta name="robots" content="noindex, nofollow" />
 	<link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="include/inc_js/phpwcms.js"></script>

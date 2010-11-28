@@ -2890,6 +2890,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$articlemenu	= false; // do not show category's article titles as menu entry
 
 		switch($menu_type) {
+			
+			case 'A':		$articlemenu	= true;
+							break;
 
 							// show parent level too
 			case 'PA':		$articlemenu	= true;

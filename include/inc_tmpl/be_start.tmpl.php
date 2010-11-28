@@ -95,7 +95,7 @@ $_last10_article = _dbQuery($_asql_1);
 		}
 	
 		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
-		echo 'onclick="document.location.href=\'phpwcms.php?do=articles&p=2&s=1&id='.$value['article_id'].'\'" title="'.$BL['be_func_struct_edit'].'">'.LF;
+		echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'\'" title="'.$BL['be_func_struct_edit'].'">'.LF;
 		echo '	<td style="padding:1px 4px 1px 2px;"><img src="img/symbole/text_1.gif" alt="" /></td>'.LF;
 		echo '	<td width="80%"><strong>'.html_specialchars($value['article_title']).'</strong></td>'.LF;
 		echo '	<td align="center" nowrap="nowrap">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
@@ -119,7 +119,7 @@ $_last10_article = _dbQuery($_asql_1);
 	<tr>
 		<td colspan="4" style="padding: 6px 0 0 3px;">
 			<input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles'" />
-			<input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles&p=1&struct=0'" />
+			<input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles&amp;p=1&amp;struct=0'" />
 		</td>
 	</tr>
 
@@ -158,8 +158,8 @@ $_last10_article = _dbQuery($_asql_1);
 		}
 	
 		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
-		echo 'onclick="document.location.href=\'phpwcms.php?do=articles&p=2&s=1&aktion=2&';
-		echo 'id='.$value['acontent_aid'].'&acid='.$value['acontent_id'].'\'" title="'.$BL['be_func_content_edit'].'">'.LF;
+		echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
+		echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'\'" title="'.$BL['be_func_content_edit'].'">'.LF;
 		
 		echo '	<td style="padding:1px 4px 1px 2px;"><img src="img/symbole/add_content.gif" alt="" /></td>'.LF;
 		

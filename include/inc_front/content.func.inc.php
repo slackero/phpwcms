@@ -860,7 +860,7 @@ if(strpos($content["all"], '[PRINT_PDF]') !== false) {
 }
 
 
-// Jérôme's Graphical Text MOD Coypright (C) 2004
+// JÃ©rÃ´me's Graphical Text MOD Coypright (C) 2004
 if($phpwcms["gt_mod"]) { //enabled/disable GT MOD
 	require_once ('include/inc_module/mod_graphical_text/inc_front/gt.func.inc.php');
 }

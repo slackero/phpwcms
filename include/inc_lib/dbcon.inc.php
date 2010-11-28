@@ -536,7 +536,7 @@ function _setConfig($key, $value=NULL, $group='', $status=1) {
 
 		if ( ! _dbInsertOrUpdate('phpwcms_sysvalue', $data) ) {
 			$mysql_error = trim( @mysql_error() );
-			trigger_error("_setConfig failed".(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_ERROR);
+			trigger_error("_setConfig failed".(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_WARNING);
 		}
 
 	}

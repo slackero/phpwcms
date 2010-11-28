@@ -243,6 +243,7 @@ if($content['files_sql']) {
 					
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html_specialchars($_file_info[2]));
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html_specialchars($_file_info[0]));
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_LONGINFO', empty($content['files_result'][ $_files_x ]['f_longinfo']) ? '' : plaintext_htmlencode($content['files_result'][ $_files_x ]['f_longinfo']));
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_COPYRIGHT', html_specialchars($_file_info[5]));
 					
 					// now check file for possible thumbnail image

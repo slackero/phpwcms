@@ -96,6 +96,9 @@ if(isset($_getVar['newsdetail'])) {
 		
 		$news['list_mode']	= false;
 		
+		// disable canonical <link> tag
+		$content['set_canonical'] = false;
+		
 	}
 
 }

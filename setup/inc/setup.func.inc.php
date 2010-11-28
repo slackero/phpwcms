@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2010/11/25';
-$phpwcms_revision		= '406';
+$phpwcms_release_date	= '2010/11/28';
+$phpwcms_revision		= '407';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
