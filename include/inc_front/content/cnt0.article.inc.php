@@ -48,7 +48,35 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/pl
 
 $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
 $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TEXT', plaintext_htmlencode($crow['acontent_text']));
+
+$crow["acontent_form"]		= @unserialize($crow["acontent_form"]);
+$crow["acontent_form"]		= isset($crow["acontent_form"]['ctext_format']) ? $crow["acontent_form"]['ctext_format'] : 'plain';
+
+switch($crow["acontent_form"]) {
+	
+	case 'markdown':
+		// Load MarkDown function and class
+		require_once(PHPWCMS_ROOT.'/include/inc_ext/php-markdown/markdown.php');
+		$crow['acontent_text'] = Markdown($crow['acontent_text']);
+		break;
+	
+	case 'textile':
+		// Load Textile function and class
+		require_once(PHPWCMS_ROOT.'/include/inc_ext/php-textile/classTextile.php');
+		if(!isset($phpwcms['textile'])) {
+			$phpwcms['textile'] = new Textile();
+		}
+		$crow['acontent_text'] = $phpwcms['textile']->TextileThis($crow['acontent_text']);
+		break;
+	
+	case 'plain':
+		$crow['acontent_text'] = plaintext_htmlencode($crow['acontent_text']);
+		break;
+
+}
+
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow['acontent_text']).'<!-- '.$crow["acontent_form"].' -->';
+
 
 $CNT_TMP .= LF.trim($crow["acontent_template"]).LF;
 									

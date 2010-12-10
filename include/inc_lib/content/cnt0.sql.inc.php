@@ -32,6 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 $SQL .= "acontent_text		= '".aporeplace($content["text"])."', ";
-$SQL .= "acontent_template	= '".aporeplace($content["template"])."' ";
+$SQL .= "acontent_template	= '".aporeplace($content["template"])."', ";
+$SQL .= "acontent_form		= '".aporeplace( serialize( array('ctext_format' => $content["ctext_format"]) ) )."' ";
 
 ?>

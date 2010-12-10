@@ -73,7 +73,7 @@ form {
 .msglist a:visited  {color: #000000}
 .msglist a:active  {color: #727889}
 .msglist a:hover {color: #CC3300; text-decoration: underline }
-.msgtext {	font-family: "Courier New", Courier, monospace; font-size: 9pt}
+.msgtext {	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace; font-size: 9pt}
 .msgtext a:link {	text-decoration : underline; color: #55638A }
 .msgtext a:visited {	text-decoration : underline; color: #828282 }
 .msgtext a:active {	text-decoration : underline; color: #FF6600 }
@@ -154,7 +154,7 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 .subnavinactive a:hover		{color: #FF572D;	font-size: 10px;	text-decoration: underline; }
 
 .code {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
 	font-size: 12px;
 }
 
@@ -433,7 +433,7 @@ td.button_td img {
 
 .csv {
 	color: #000000;
-	font-family: "Courier New", Courier, monospace;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
 	font-size: 12px;
 	border: 1px solid #5BAE00;
 	background-color: #D7E9C7;
@@ -452,13 +452,13 @@ td.button_td img {
 	border:				1px solid #7599BB;
 	margin:				0;
 	padding:			5px;
-	font-family:		"Courier New", Courier, mono;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
 	font-weight:		normal;
 	background-color: #FFFFFF;
 }
 #codebox p {
 	border-bottom:		1px solid #E9E9E9;
-	font-family:		"Courier New", Courier, mono;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
 	font-weight:		normal;
 	margin: 0 0 2px 0;
 	padding: 0 0 2px 0;

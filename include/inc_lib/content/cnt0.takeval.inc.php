@@ -28,7 +28,16 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Text
-$content["text"] 		= $row["acontent_text"];
-$content["template"]	= $row["acontent_template"];
+$content["text"] 			= $row["acontent_text"];
+$content["template"]		= $row["acontent_template"];
+$content["ctext_format"]	= @unserialize($row["acontent_form"]);
+$content["ctext_format"]	= isset($content["ctext_format"]['ctext_format']) ? $content["ctext_format"]['ctext_format'] : 'plain';
+
+switch($content["ctext_format"]) {
+	case 'plain':
+	case 'markdown':
+	case 'textile':	break;
+	default: $content["ctext_format"] = 'plain';
+}
 
 ?>
