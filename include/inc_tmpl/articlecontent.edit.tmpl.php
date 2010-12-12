@@ -46,7 +46,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $content["aid"]."&amp;acid=".$content["id"] ?>" method="post" name="articlecontent" id="articlecontent" <?php 
 			
-	switch($content["type"]) { //Übergeben bestimmter onSubmit JavaScript Aktionen
+	switch($content["type"]) { //Ãœbergeben bestimmter onSubmit JavaScript Aktionen
 		case  2: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
 		case 29: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
 		case 16: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
@@ -164,7 +164,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	// echo Message for JS dialog
 	echo $BL['be_func_switch_contentpart'];
 	
-	// Menü mit Content Typen erstellen
+	// MenÃ¼ mit Content Typen erstellen
 	// build select box options and remember the "old" value for javascript
 	$temp_select				= '';
 	$temp_count    				= 0;
@@ -196,7 +196,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 ?>')){ this.form.submit(); } else {	this.form.target_ctype.selectedIndex = <?php echo $contentpart_temp_selected; ?>; return false; }">
 <?php
 
-	//Menü mit Content Typen erstellen
+	//MenÃ¼ mit Content Typen erstellen
 	echo $temp_select
 					
 ?>

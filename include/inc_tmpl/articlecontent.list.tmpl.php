@@ -239,13 +239,10 @@ if(!$temp_count) {
 			//Auslesen der Content Daten zum Zusammenstellen der Sortier-Informationen
 
 			$sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
-			$sql .= "WHERE acontent_aid=".$article["article_id"]." ORDER BY acontent_block, ";
-			/*if($article["article_paginate"]) {
-				$sql .= 'acontent_paginate_page, ';
-			}*/
-			$sql .= "acontent_sorting, acontent_id";
+			$sql .= "WHERE acontent_aid=".$article["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";
+
 			if($result = mysql_query($sql, $db) or die("error while listing contents for this article")) {
-				$sc = 0; $scc = 0; //Sort-Zwischenzähler
+				$sc = 0; $scc = 0; //Sort-ZwischenzÃ¤hler
 				while($row = mysql_fetch_row($result)) {
 					$scc++;
 					if($row[2] == 0) {
@@ -294,15 +291,16 @@ if(!$temp_count) {
 				unset($sbutton);
 			}
 
-			//Listing zugehöriger Artikel Content Teile
+			//Listing zugehÃ¶riger Artikel Content Teile
 			$sql = 	"SELECT *, UNIX_TIMESTAMP(acontent_tstamp) as acontent_date FROM ".DB_PREPEND."phpwcms_articlecontent ".
 					"WHERE acontent_aid=".$article["article_id"]." AND acontent_trash=0 ".
-					"ORDER BY acontent_block, acontent_sorting, acontent_id;";
+					"ORDER BY acontent_block, acontent_sorting, acontent_tab, acontent_id;";
 
 			if($result = mysql_query($sql, $db) or die("error while listing contents for this article")) {
-				$sortierwert=1;
-				$contentpart_block = ' ';
-				$contentpart_block_name = '';
+				$sortierwert			= 1;
+				$contentpart_block		= ' ';
+				$contentpart_block_name	= '';
+				$contentpart_tab		= '';
 				while($row = mysql_fetch_assoc($result)) {
 				
 					// if type of content part not enabled available 
@@ -344,11 +342,46 @@ if(!$temp_count) {
 			?>
 			<tr<?php echo $contentpart_block_color ?>>
 				<td align="right" style="padding-right:5px;"><img src="img/symbole/block.gif" alt="" width="9" height="11" border="0" /></td>
-				<td style="font-size:9px;"><?php echo  $contentpart_block_name ?></td>
+				<td style="font-size:9px;font-weight:bold;"><?php echo  $contentpart_block_name ?></td>
 				<td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
 			<tr><td colspan="3" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 			<?php
+					}
+					
+					// now check if content part is tabbed
+					if($row['acontent_tab'] && $contentpart_tab != $row['acontent_tab']) {
+						
+						$contentpart_tab		= $row['acontent_tab'];
+						
+						$contentpart_tabbed		= explode('_', $contentpart_tab, 2);
+						$contentpart_tab_title	= empty($contentpart_tabbed[1]) ? '' : $contentpart_tabbed[1];
+						$contentpart_tab_number	= empty($contentpart_tabbed[0]) ? 0 : intval($contentpart_tabbed[0]);
+						$contentpart_tab_number++;
+			
+			?>
+			<tr<?php echo $contentpart_block_color ?>>
+				<td align="right" style="padding-right:5px;"><img src="img/symbole/tabbed.gif" alt="" width="9" height="11" border="0" /></td>
+				<td style="font-size:9px;"><?php 
+					echo html_specialchars($contentpart_tab_title);
+					if(empty($contentpart_tab_title)) {
+						echo ' [' . $contentpart_tab_number . ']';
+					}
+				 ?>&nbsp;</td>
+				<td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
+			</tr>
+			<tr><td colspan="3" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+			<?php
+						
+					} elseif($contentpart_tab && empty($row['acontent_tab'])) {
+						
+					// not the same tab but following cp is not tabbed
+					$contentpart_tab = '';
+			?>
+			<tr<?php echo $contentpart_block_color ?>><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+			<tr><td colspan="3" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+			<?php
+						
 					}
 			
 			

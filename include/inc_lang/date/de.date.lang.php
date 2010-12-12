@@ -41,7 +41,7 @@ $month_long[ 4]	= "April";			$month_short[ 4]		= "Apr.";
 $month_long[ 5]	= "Mai";			$month_short[ 5]		= "Mai";
 $month_long[ 6]	= "Juni";			$month_short[ 6]		= "Juni";
 $month_long[ 7]	= "Juli";			$month_short[ 7]		= "Juli";
-$month_long[ 8]	= "August";			$month_short[ 8]		= "Aug";
+$month_long[ 8]	= "August";			$month_short[ 8]		= "Aug.";
 $month_long[ 9]	= "September";		$month_short[ 9]		= "Sep.";
 $month_long[10]	= "Oktober";		$month_short[10]		= "Okt.";
 $month_long[11]	= "November";		$month_short[11]		= "Nov.";

@@ -20,7 +20,10 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-// script for redirection to a "system down" message
+// sending system down message and send 503
+
+header('HTTP/1.1 503 Service Temporarily Unavailable');
+header('Retry-After: 3600');
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
