@@ -395,12 +395,14 @@ function _dbInitialize() {
 		}
 		
 		// Send charset used in phpwcms for every query
-		$sql = "SET NAMES '".$phpwcms['db_charset']."'";
+		$sql = "SET NAMES "._dbEscape($phpwcms['db_charset']);
 		if($phpwcms['db_version'] > 40100 && !empty($phpwcms['db_collation'])) {
-			$sql .= " COLLATE '".$phpwcms['db_collation']."'";
+			$sql .= " COLLATE "._dbEscape($phpwcms['db_collation']);
+		}
+		if(!empty($phpwcms['db_timezone'])) {
+			$sql .= ", time_zone = "._dbEscape($phpwcms['db_timezone']);
 		}
 		_dbQuery($sql, 'SET');
-
 	}
 	
 	return $phpwcms['db_version'];

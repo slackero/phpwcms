@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2010/12/12';
-$phpwcms_revision		= '409';
+$phpwcms_release_date	= '2010/12/18';
+$phpwcms_revision		= '410';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -134,6 +134,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['db_charset']        = '".$val["db_charset"]."';\n";
 	$conf_file .= "\$phpwcms['db_collation']      = '".$val["db_collation"]."';\n";
 	$conf_file .= "\$phpwcms['db_version']        = ".intval($val["db_version"]).";\n";
+	$conf_file .= "\$phpwcms['db_timezone']       = '".trim($val["db_timezone"])."';\n // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html";
 	
 	$conf_file .= "\n// site values\n";
 	$conf_file .= "\$phpwcms['site']              = '".$val["site"]."';\n";
@@ -178,7 +179,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable\n";
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
-	$conf_file .= "\$phpwcms['allowed_lang']      = array('en');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+	$conf_file .= "\$phpwcms['allowed_lang']      = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
 	$conf_file .= "\$phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
@@ -204,6 +205,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities\n";
 	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix\n";
 	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png\n";
+	$conf_file .= "\$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
 	$conf_file .= "\$phpwcms['Bad_Behavior']      = 0; // 1 enables spam/bot blocking by Bad Behavior, 0 off \n";
 	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";

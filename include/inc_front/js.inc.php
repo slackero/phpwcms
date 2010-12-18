@@ -99,27 +99,48 @@ function renderHeadJS($js) {
 	}
 	
 	$js = trim($js[1]);
-	
-	// test for .js
-	$ext = which_ext($js);
-	
-	// decide it is a  plugin or qualified .js
-	if($ext == 'js') {
+
+	if(strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false) {
 		
-		// replace {TEMPLATE}
-		$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
-		$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
+		$key = md5($js);
 		
-	} else {
+		// add the same section only once
+		if(empty($GLOBALS['block']['custom_htmlhead'][$key])) {
+					
+			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script type="text/javascript">' . LF . SCRIPT_CDATA_START . LF . '	';
+			$GLOBALS['block']['custom_htmlhead'][$key] .= $js;
+			$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </script>';
+			
+		}
+	
+	} elseif($js == 'initJSLib') {
 		
 		initJSLib();
 		
-		if(strtolower($js) != 'initlib') {
-
-			initJSPlugin($js);
+	} else {
+	
+		// test for .js
+		$ext = which_ext($js);
+		
+		// decide it is a  plugin or qualified .js
+		if($ext == 'js') {
+			
+			// replace {TEMPLATE}
+			$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
+			$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
+			
+		} else {
+			
+			initJSLib();
+			
+			if(strtolower($js) != 'initlib') {
+	
+				initJSPlugin($js);
+				
+			}
 			
 		}
-		
+	
 	}
 	
 	return '';

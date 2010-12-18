@@ -21,7 +21,7 @@ This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
 // 2009-07-22 Thumbnail max width and max height replacement tag implemented
-//            Thanks to Gerd Müller for proposal and code sample
+//            Thanks to Gerd MÃ¼ller for proposal and code sample
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants

@@ -3671,4 +3671,54 @@ function replace_level_id($match) {
 	return 0;
 }
 
+/**
+ * Render CSS related template code
+ *
+ * relative or absolute external css file
+ * <!-- CSS: file.css -->
+ *
+ * put as inline CSS in separate <style> section in head
+ * <!-- CSS: img {} -->
+ */
+function renderHeadCSS($css) {
+	
+	if(empty($css[1])) {
+		return '';
+	}
+	
+	$css = trim($css[1]);
+	
+	// test for .css as file extension
+	$ext = which_ext($css);
+	$key = md5($css);
+	
+	// if it is a css file register it as external css file
+	if($ext == 'css') {
+
+		$css = str_replace(' ', '%20', str_replace('{TEMPLATE}', TEMPLATE_PATH, html_specialchars($css)));
+		
+		if(strpos($css, '/') !== false) {
+			$GLOBALS['block']['custom_htmlhead'][$key] = '  <link rel="stylesheet" type="text/css" href="' . $css . '"'.HTML_TAG_CLOSE;
+		} else {
+			$GLOBALS['block']['css'][$css] = $css;
+		}
+	
+	// otherwise create a CSS <style> section
+	} else {
+		
+		// add the same section only once
+		if(isset($GLOBALS['block']['custom_htmlhead'][$key])) {
+			return '';
+		}
+		
+		$GLOBALS['block']['custom_htmlhead'][$key]  = '  <style type="text/css">' . LF . SCRIPT_CDATA_START . LF . '	';
+		$GLOBALS['block']['custom_htmlhead'][$key] .= str_replace('{TEMPLATE}', TEMPLATE_PATH, $css);
+		$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </style>';
+
+	}
+	
+	return '';
+	
+}
+
 ?>

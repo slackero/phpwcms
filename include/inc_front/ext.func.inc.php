@@ -297,7 +297,7 @@ function is_float_ex($pNum) {
 
 /*
  * {SHOW_CONTENT} 
- * thanks to Jens Zetterström who has initiated this in 2005
+ * thanks to Jens ZetterstrÃ¶m who has initiated this in 2005
  * Shows the content of the article content part with the specified id.
  * use it {SHOW_CONTENT:MODE,id[,id[,...]]}
  * where MODE is what should returned

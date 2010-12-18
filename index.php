@@ -168,7 +168,7 @@ if($phpwcms['cache_timeout']) {
 }
 
 // write phpwcms release information in a custom HTTP header
-header('X-phpwcms-Release: ' . $phpwcms["release"] . ' ('.$phpwcms["release_date"].')');
+header('X-phpwcms-Release: ' . $phpwcms["generator"]);
 
 // retrieve complete processing time
 list($usec, $sec) = explode(' ', microtime());

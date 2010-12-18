@@ -30,6 +30,10 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
 
 @ini_set( 'arg_separator.output' , '&amp;' );
 
+if(!empty($phpwcms['php_timezone'])) {
+	@ini_set( 'date.timezone' , $phpwcms['php_timezone'] );
+}
+
 // i18n charsets that might be accessible - in general used in MySQL
 // but a few more as listed here http://www.w3.org/International/O-charset-list.html
 $phpwcms['charsets'] = array(
@@ -194,7 +198,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html{DOCTYPE_LANG}>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
-	define('SCRIPT_CDATA_END'  , '  // -->');
+	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', false);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
@@ -223,7 +227,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"{DOCTYPE_LANG}>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
-	define('SCRIPT_CDATA_END'  , '  // -->');
+	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
@@ -231,8 +235,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.7';
-$phpwcms["release_date"]	= '2010/12/12';
-$phpwcms["revision"]		= '409';
+$phpwcms["release_date"]	= '2010/12/18';
+$phpwcms["revision"]		= '410';
 
 // -------------------------------------------------------------
 

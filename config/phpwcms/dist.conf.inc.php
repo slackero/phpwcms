@@ -33,6 +33,7 @@ $phpwcms['db_pers']           = 1;
 $phpwcms['db_charset']        = 'latin1';
 $phpwcms['db_collation']      = 'latin1_general_ci';
 $phpwcms['db_version']        = 0;
+$phpwcms['db_timezone']		  = ''; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
 
 // site values
 $phpwcms['site']              = 'http://'.$_SERVER['SERVER_NAME'].'/';
@@ -94,7 +95,7 @@ $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0
 $phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities
 $phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix
 $phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png
-$phpwcms['timezone_GMT']  	  = '+1';
+$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php
 $phpwcms['Bad_Behavior']      = 0; // enables spam/bot blocking by Bad Behavior
 $phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms,Default,Basic' );								   
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link

@@ -21,7 +21,7 @@ This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
 // 2009-07-22 Thumbnail max width and max height replacement tag implemented
-//            Thanks to Gerd Müller for proposal and code sample
+//            Thanks to Gerd MÃ¼ller for proposal and code sample
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -179,9 +179,17 @@ if($image['template']) {
 			}
 
 			// set caption and ALT Image Text for imagelist
-			$capt_cur			= html_specialchars($value['caption']);
-			$caption			= array();
-			$caption[1] 		= html_specialchars($value['thumb_name']);
+			$caption			= getImageCaption($value['caption']); // Caption | Title | Alt
+			// no ALT, no TITLE
+			if(empty($caption[1])) {
+				$capt_cur		= html_specialchars($caption[0]);
+				$caption[1]		= $value['thumb_name'];
+				$caption[4]		= $capt_cur;
+			} else {
+				$capt_cur		= html_specialchars($caption[1]);
+				$caption[1] 	= html_specialchars(empty($caption[2]) ? $value['thumb_name'] : $caption[2]);
+				$caption[4]		= html_specialchars($caption[0]);
+			}
 			$caption[2]			= explode(' ', $value['url']);
 			$caption[2][1]		= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 			$caption[3] 		= empty($value['caption']) ? '' : ' title="'.$capt_cur.'"'; //title
@@ -330,7 +338,7 @@ if($image['template']) {
 			} else {
 				$img_a = render_cnt_template($img_a, 'CAPTION', $capt_cur);
 			}
-			$img_a = render_cnt_template($img_a, 'TITLE', $capt_cur);
+			$img_a = render_cnt_template($img_a, 'TITLE', $caption[4]);
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 						

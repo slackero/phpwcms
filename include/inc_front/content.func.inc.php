@@ -848,6 +848,9 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 		set_meta('keywords', implode(', ', $content['all_keywords']));
 	}
 }
+$phpwcms["generator"] = $phpwcms["release"] . ' (r'.$phpwcms["revision"].')';
+set_meta('generator', 'phpwcms '.$phpwcms["generator"]);
+
 
 // replace Print URL
 if(strpos($content["all"], '[PRINT]') !== false) {
@@ -883,7 +886,8 @@ if(isset($content['article_livedate'])) {
 // -------------------------------------------------------------
 
 // render JavaScript Plugins and/or JavaScript scripts that should be loaded in <head>
-$content['all'] = preg_replace_callback('/<!--\s+JS:\s+([a-z0-9%&=?_\-+.\/\{\}:,]+?)\s+.*?-->/i', 'renderHeadJS', $content['all']);
+$content['all'] = preg_replace_callback('/<!--\s+JS:\s+(.*?)\s+-->/s', 'renderHeadJS', $content['all']);
+$content['all'] = preg_replace_callback('/<!--\s+CSS:\s+(.*?)\s+-->/s', 'renderHeadCSS', $content['all']);
 
 // test for frontend.js
 if(!isset($GLOBALS['block']['custom_htmlhead']['frontend.js']) && preg_match('/MM_swapImage|BookMark_Page|clickZoom|mailtoLink/', $content['all'])) {
