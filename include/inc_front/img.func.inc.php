@@ -20,6 +20,13 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
 // image rendering functions
 // moved away from front
 
@@ -499,7 +506,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			$capt_row .= '	<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$capt_cur.$capt_after.'</td>'.LF;
 
 
-			//Gegenchecken wieviele Tabellenspalten als Rest bleiben und ergänzen
+			//Gegenchecken wieviele Tabellenspalten als Rest bleiben und ergÃ¤nzen
 			if($y == $count_images && $col_count > 1) {	//wenn eigentlich alle Bilder durchlaufen sind
 				if ($col_space && $x<$col_count) {
 					$xct = '	<td>'.spacer($col_space,1).'</td>'.LF;

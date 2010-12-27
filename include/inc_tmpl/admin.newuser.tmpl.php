@@ -68,7 +68,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 		$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
 				"usr_admin, usr_aktiv, usr_name, usr_wysiwyg, usr_fe ) VALUES ('".
 				aporeplace($new_login)."', '".
-				aporeplace(md5($new_password))."', '".
+				aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', '".
 				aporeplace($new_email)."', '".
 				$set_user_admin."', '".
 				$set_user_aktiv."', '".

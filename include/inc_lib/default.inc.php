@@ -27,7 +27,6 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
 }
 // ----------------------------------------------------------------
 
-
 @ini_set( 'arg_separator.output' , '&amp;' );
 
 if(!empty($phpwcms['php_timezone'])) {
@@ -235,8 +234,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.7';
-$phpwcms["release_date"]	= '2010/12/18';
-$phpwcms["revision"]		= '411';
+$phpwcms["release_date"]	= '2010/12/27';
+$phpwcms["revision"]		= '412';
 
 // -------------------------------------------------------------
 

@@ -20,6 +20,13 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_INCLUDE_CHECK')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
 /**
  * Render @@Text@@ based on browser language and store in related language file
  * which allows easy translation at later time and when needed. The Text between
@@ -27,7 +34,7 @@
  *
  * Based on work and ideas of
  *   Dr.-Ing. Tobias Schittkowski (http://www.schittkowski.de/index.php?q=node/20)
- *   André Rabold (http://smarty.incutio.com/?page=SmartyMultilanguageSupport)
+ *   AndrÃ© Rabold (http://smarty.incutio.com/?page=SmartyMultilanguageSupport)
  **/
 
 // language which is selected by user (defined in the browser settings)

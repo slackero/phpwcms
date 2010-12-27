@@ -20,6 +20,7 @@
 	height:100%;
 	width:100%;
 	background:transparent url(../images/load-indicator.gif) no-repeat scroll 50% 50%;
+	position:relative;
 }
 .lof-main-outer {
 	position:relative;
@@ -69,6 +70,7 @@ ul.lof-main-wapper li {
 	height:100%;
 	width:600px;
 	float:left;
+	position:relative;
 }
 .lof-opacity li {
 	position:absolute;

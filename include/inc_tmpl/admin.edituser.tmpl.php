@@ -48,8 +48,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 	if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "edit_account") {
 		//Create Account Daten verarbeiten
 		$new_user_id = intval($_POST["form_uid"]);
-		$new_login = clean_slweg($_POST["form_newloginname"]);
-		$new_password = clean_slweg($_POST["form_newpassword"]);
+		$new_login = slweg($_POST["form_newloginname"]);
+		$new_password = slweg($_POST["form_newpassword"]);
 		$new_email = clean_slweg($_POST["form_newemail"]);
 		$new_name = clean_slweg($_POST["form_newrealname"]);
 		$set_user_aktiv = isset($_POST["form_active"]) ? 1 : 0;
@@ -72,8 +72,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 		}
 		if(!is_valid_email($new_email)) $user_err .= $BL['be_admin_usr_err4']."\n";
 		if(empty($user_err)) { //Insert new User
-			$upd_password = ($new_password) ? "usr_pass='".aporeplace(md5($new_password))."', " : "";
-			//$upd_password = ($new_password) ? "usr_pass=PASSWORD('".aporeplace($new_password)."'), " : "";
+			$upd_password = ($new_password) ? "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', " : '';
 			$sql =	"UPDATE ".DB_PREPEND."phpwcms_user SET ".
 					"usr_login='".aporeplace($new_login)."', ".$upd_password.
 					"usr_email='".aporeplace($new_email)."', ".

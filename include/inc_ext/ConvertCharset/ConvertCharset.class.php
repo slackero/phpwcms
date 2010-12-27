@@ -1,7 +1,7 @@
 <?php
 
 define ("CONVERT_TABLES_DIR", PHPWCMS_ROOT.'/include/inc_ext/ConvertCharset/ConvertTables/');
-define ("DEBUG_MODE", 1);
+define ("DEBUG_MODE", 0);
 
 
 class ConvertCharset{

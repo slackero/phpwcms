@@ -29,9 +29,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 
-//Prüfen, ob der Benutzername bereits vergeben ist, aber nur, wenn sich der
-//Benutzername geändert hat
-if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
+//PrÃ¼fen, ob der Benutzername bereits vergeben ist, aber nur, wenn sich der
+//Benutzername geÃ¤ndert hat
+if($_SESSION["wcs_user"] != "guest") { //PrÃ¼fung fÃ¼r Gastzugang
 	
 	$err = '';
 
@@ -78,7 +78,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 		$sql .= "   usr_login='".aporeplace($new_username)."', ";
 		
 		if(!empty($new_password)) {
-			$sql .= "usr_pass='".aporeplace(md5($new_password))."', ";
+			$sql .= "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', ";
 		}
 		
 		$sql .= "usr_email='".aporeplace($new_email);
@@ -102,5 +102,5 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 			headerRedirect(PHPWCMS_URL."phpwcms.php?do=profile");
 		}
 	}
-} //Ende Prüfung Gastzugang
+} //Ende PrÃ¼fung Gastzugang
 ?>

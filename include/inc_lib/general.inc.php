@@ -20,6 +20,12 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_INCLUDE_CHECK')) {
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
 
 if(PHPWCMS_CHARSET == 'utf-8') {
 	require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.utf-8.php');

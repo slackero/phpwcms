@@ -22,6 +22,8 @@
 
 session_start();
 
+$phpwcms = array();
+
 require_once('inc/setup.func.inc.php');
 require_once('setup.conf.inc.php');
 
