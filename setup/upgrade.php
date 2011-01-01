@@ -185,7 +185,11 @@ CONTENT IMAGELIST</strong></a><br />
 <p>5) <a href="upgrade_pagelayout.php" target="_blank"><strong>UPGRADE PAGELAYOUT</strong></a></p>
 <h1>When upgrading from releases older than 1.3.1:</h1>
 <p>6) <a href="upgrade_multimedia.php" target="_blank"><strong>UPGRADE CONTENT PART MULTIMEDIA</strong></a></p>
-<p>6) <a href="upgrade_articlealias.php" target="_blank"><strong>UPDATE ARTICLE ALIAS</strong></a></p>
+<p>7) <a href="upgrade_articlealias.php" target="_blank"><strong>UPDATE ARTICLE ALIAS</strong></a></p>
+
+<h1>Update old default article end date 2010-12-31, 23:59:59:</h1>
+<p>8) <a href="upgrade_articledate.php" target="_blank"><strong>SET ARTICLE END 2010-12-31, 23:59:59 plus 20 YEARS</strong></a></p>
+
 <?php
 $do = 0;
 if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
