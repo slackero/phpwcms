@@ -236,7 +236,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 $phpwcms["release"]			= '1.4.7';
 $phpwcms["release_date"]	= '2011/04/18';
-$phpwcms["revision"]		= '414';
+$phpwcms["revision"]		= '415';
 
 // -------------------------------------------------------------
 
