@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -37,6 +37,8 @@ if($action == 'edit') {
 		
 		$plugin['data']['shop_pref_terms']				= slweg($_POST['pref_terms']);
 		$plugin['data']['shop_pref_terms_format']		= empty($_POST['pref_terms_format']) ? 0 : 1;
+		
+		$plugin['data']['shop_pref_felang']				= empty($_POST['pref_felang']) ? 0 : 1;
 		
 		$plugin['data']['shop_pref_id_shop']			= slweg($_POST['pref_shop_id']);
 		$plugin['data']['shop_pref_id_cart']			= slweg($_POST['pref_cart_id']);
@@ -91,7 +93,29 @@ if($action == 'edit') {
 													'accepted_ccard'	=> ( is_array($_POST['pref_supported_ccard']) ? $_POST['pref_supported_ccard'] : array() )
 																);
 		
+		// Discount Setting
+		$plugin['data']['shop_pref_discount']			= array(
+													'discount'			=> empty($_POST['pref_discount']) ? 0 : 1,
+													'percent'			=> clean_slweg($_POST['pref_discount_percent'])
+																);
+		$plugin['data']['shop_pref_discount']['percent'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['percent']);
+		$plugin['data']['shop_pref_discount']['percent'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent']), 2);
 		
+		
+		
+		// Low Order
+		$plugin['data']['shop_pref_loworder']			= array(
+													'loworder'			=> empty($_POST['pref_loworder']) ? 0 : 1,
+													'under'				=> clean_slweg($_POST['pref_loworder_under']),
+													'charge'			=> clean_slweg($_POST['pref_loworder_charge']),
+													'vat'				=> clean_slweg($_POST['pref_loworder_vat'])
+																);
+		$plugin['data']['shop_pref_loworder']['under']	= str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_loworder']['under']);
+		$plugin['data']['shop_pref_loworder']['under']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['under']), 2);
+		$plugin['data']['shop_pref_loworder']['charge']	= str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_loworder']['charge']);
+		$plugin['data']['shop_pref_loworder']['charge']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['charge']), 2);
+		$plugin['data']['shop_pref_loworder']['vat']	= str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_loworder']['vat']);
+		$plugin['data']['shop_pref_loworder']['vat']	= round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_loworder']['vat']), 2);
 		
 		if( empty($plugin['error'] )) {
 
@@ -107,7 +131,9 @@ if($action == 'edit') {
 			_setConfig('shop_pref_terms_format',	$plugin['data']['shop_pref_terms_format'],	'module_shop');
 			_setConfig('shop_pref_id_shop',			$plugin['data']['shop_pref_id_shop'],		'module_shop');
 			_setConfig('shop_pref_id_cart',			$plugin['data']['shop_pref_id_cart'],		'module_shop');
-		
+			_setConfig('shop_pref_discount',		$plugin['data']['shop_pref_discount'],		'module_shop');
+			_setConfig('shop_pref_loworder',		$plugin['data']['shop_pref_loworder'],		'module_shop');
+			_setConfig('shop_pref_felang',			$plugin['data']['shop_pref_felang'],		'module_shop');		
 			// save and back to listing mode
 			headerRedirect( shop_url('controller=pref', '') );
 			
@@ -117,7 +143,7 @@ if($action == 'edit') {
 	
 	$_checkPref = array(
 	
-		'shop_pref_currency'		=>	'€',
+		'shop_pref_currency'		=>	'',
 		'shop_pref_unit_weight'		=>	'kg',
 		'shop_pref_vat'				=>	array( '0.00', '7.00', '19.00' ),
 		'shop_pref_email_to'		=>	'',
@@ -125,6 +151,7 @@ if($action == 'edit') {
 		'shop_pref_email_paypal'	=>	'',
 		'shop_pref_id_shop'			=>	0,
 		'shop_pref_id_cart'			=>	0,
+		'shop_pref_felang'			=>	0,
 		'shop_pref_shipping'		=>	array(	0 => array('weight'=>'50', 'net'=>0, 'vat'=>0), 
 												1 => array('weight'=>'', 'net'=>0, 'vat'=>0), 
 												2 => array('weight'=>'', 'net'=>0, 'vat'=>0),
@@ -139,7 +166,9 @@ if($action == 'edit') {
 												'accepted_ccard' => array('americanexpress', 'mastercard', 'visa')
 											 ),
 		'shop_pref_terms'			=>	'',
-		'shop_pref_terms_format'	=>  0
+		'shop_pref_terms_format'	=>  0,
+		'shop_pref_discount'		=> array('discount' => 0, 'percent' => 0),
+		'shop_pref_loworder'		=> array('loworder' => 0, 'under' => 0, 'charge' => 0, 'vat' => 0)
 	
 				);
 

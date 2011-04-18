@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -159,12 +159,12 @@ function get_body_attributes(& $values) {
 			$link_class .= LF;
 		}
 		if(!empty($body_class) || !empty($link_class)) {
-			$body_class  = '  <style type="text/css">'.LF.SCRIPT_CDATA_START.LF;
-			$body_class .= $body_class . $link_class;
-			$body_class .= SCRIPT_CDATA_END.LF.'  </style>'.LF;
+			$body_class  = '  <style type="text/css">'.LF. $body_class;
+			$body_class .= $link_class . '  </style>'.LF;
 		}
 		return $body_class;
 	}
+	return '';
 }
 
 function align_base_layout($value) {
@@ -1242,6 +1242,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			$img_thumb_abs		= '';
 			$img_thumb_width	= 0;
 			$img_thumb_height	= 0;
+			$img_thumb_ext		= 'jpg';
 			
 			$img_zoom_name		= '';
 			$img_zoom_rel		= '';
@@ -1276,6 +1277,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
 					$img_thumb_width	= $thumb_image[1];
 					$img_thumb_height	= $thumb_image[2];
+					$img_thumb_ext		= $article["article_image"]['list_ext'];
 
 					$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"';
 					$caption[1] = html_specialchars($caption[1]);
@@ -1377,10 +1379,10 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				// replace thumbnail and zoom image information
 				$tmpl = str_replace( array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
 											'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
-											'{IMAGE_ID}', 	'{IMAGE_HASH}' ),
+											'{IMAGE_ID}', 	'{IMAGE_HASH}', '{IMAGE_EXT}' ),
 									 array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
 											$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
-											$article["article_image"]["list_id"], $article["article_image"]["list_hash"] ),
+											$article["article_image"]["list_id"], $article["article_image"]["list_hash"], $img_thumb_ext ),
 									 $tmpl );
 				
 				if( preg_match('/\{SUMMARY:(\d+)\}/', $tmpl, $matches) ) {
@@ -3200,7 +3202,7 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
 	$caption[1]			= isset($caption[1]) ? trim($caption[1]) : '';
 	$caption[3]			= isset($caption[3]) ? trim($caption[3]) : $caption[1];
 	
-	// cut here – just return caption and alt text
+	// cut here Ð just return caption and alt text
 	if($short) {
 		return array('caption' => $caption[0], 'alt' => $caption[1], 'title' => $caption[3]);
 	}

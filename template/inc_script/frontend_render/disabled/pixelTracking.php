@@ -167,6 +167,7 @@ if($_Tracking_GoogleAnalytics) {
 	$_TrackingCode .= '	try {' . LF;
 	$_TrackingCode .= '		var pageTracker = _gat._getTracker("' . $_Tracking_GoogleAnalyticsCode . '");' .LF;
 //	$_TrackingCode .= '	pageTracker._initData();' .LF;
+// _gaq.push(['_gat._anonymizeIp']);
 	$_TrackingCode .= '		pageTracker._trackPageview("'.$_TrackingPageName.'");' .LF;
 	$_TrackingCode .= '	} catch(err) {}' . LF;
 	//$_TrackingCode .= '	_uacct = "' . $_Tracking_GoogleAnalyticsCode . '";' .LF;

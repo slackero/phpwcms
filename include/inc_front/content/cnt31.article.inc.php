@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -180,6 +180,7 @@ if($image['template']) {
 
 			// set caption and ALT Image Text for imagelist
 			$caption			= getImageCaption($value['caption']); // Caption | Title | Alt
+			
 			// no ALT, no TITLE
 			if(empty($caption[1])) {
 				$capt_cur		= html_specialchars($caption[0]);
@@ -187,7 +188,7 @@ if($image['template']) {
 				$caption[4]		= $capt_cur;
 			} else {
 				$capt_cur		= html_specialchars($caption[1]);
-				$caption[1] 	= html_specialchars(empty($caption[2]) ? $value['thumb_name'] : $caption[2]);
+				$caption[1] 	= html_specialchars(empty($caption[3]) ? $value['thumb_name'] : $caption[3]);
 				$caption[4]		= html_specialchars($caption[0]);
 			}
 			$caption[2]			= explode(' ', $value['url']);

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -34,15 +34,20 @@ $cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
-if($cinfo["result"]) {
+$row["acontent_form"] = @unserialize($row["acontent_form"]);
+
+if($cinfo["result"] || count($row["acontent_form"])) {
 	echo "<tr><td>&nbsp;</td><td class=\"v10\">";
 	echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article["article_id"].'&amp;acid='.$row["acontent_id"].'">';
 	echo $cinfo["result"];
 	
-	foreach(@unserialize($row["acontent_form"]) as $value) {
-		
-		echo '<br />&raquo; '.html_specialchars($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
+	$cinfo["result"] = trim($cinfo["result"]) ? '<br />' : '';
 	
+	foreach($row["acontent_form"] as $value) {
+		
+		echo $cinfo["result"] . '&raquo; '.html_specialchars($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
+		$cinfo["result"] = '<br />';
+		
 	}
 	
 	echo "</a></td><td>&nbsp;</td></tr>";

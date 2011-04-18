@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -931,6 +931,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											   $POST_ERR[$key] = str_replace('{FILEEXT}', '.'.str_replace('|', ', .', str_replace(',', ', .', $cnt_form['upload_value']['exclude'])), $POST_ERR[$key]);
 										} else {
 											$POST_val[$POST_name]['name'] = $cnt_form['upload_value']['filename'];
+											@chmod(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename'], 0644);
 										}
 									}
 									if(isset($POST_ERR[$key])) {

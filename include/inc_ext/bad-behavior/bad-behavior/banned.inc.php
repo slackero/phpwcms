@@ -5,6 +5,19 @@
 
 require_once(BB2_CORE . "/responses.inc.php");
 
+function bb2_housekeeping($settings, $package)
+{
+	// FIXME Yes, the interval's hard coded (again) for now.
+	$query = "DELETE FROM `" . $settings['log_table'] . "` WHERE `date` < DATE_SUB('" . bb2_db_date() . "', INTERVAL 7 DAY)";
+	bb2_db_query($query);
+
+	// Waste a bunch more of the spammer's time, sometimes.
+	if (rand(1,1000) == 1) {
+		$query = "OPTIMIZE TABLE `" . $settings['log_table'] . "`";
+		bb2_db_query($query);
+	}
+}
+
 function bb2_display_denial($settings, $package, $key, $previous_key = false)
 {
 	define('DONOTCACHEPAGE', true);	// WP Super Cache
@@ -24,7 +37,8 @@ function bb2_display_denial($settings, $package, $key, $previous_key = false)
 	$response = bb2_get_response($previous_key);
 	header("HTTP/1.1 " . $response['response'] . " Bad Behavior");
 	header("Status: " . $response['response'] . " Bad Behavior");
-	$request_uri = empty($_SERVER["REQUEST_URI"]) ? $_SERVER['SCRIPT_NAME'] : $_SERVER["REQUEST_URI"]; # IIS
+	$request_uri = $_SERVER["REQUEST_URI"];
+	if (!$request_uri) $request_uri = $_SERVER['SCRIPT_NAME'];	# IIS
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--< html xmlns="http://www.w3.org/1999/xhtml">-->
@@ -47,5 +61,3 @@ function bb2_log_denial($settings, $package, $key, $previous_key=false)
 	if (!$settings['logging']) return;
 	bb2_db_query(bb2_insert($settings, $package, $key));
 }
-
-?>

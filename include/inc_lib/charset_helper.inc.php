@@ -166,5 +166,4 @@ function pre_remove_accents($string) {
 	return $string;
 }
 
-
 ?>

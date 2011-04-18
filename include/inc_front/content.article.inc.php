@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -154,7 +154,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		
 		$content['all_keywords'] = $row['article_keyword'];
 
-		$content["main"] .= '<a name="jump'.$row["article_id"].'" id="jump'.$row["article_id"].'" class="jump-anchor"></a>';
+		if(!empty($template_default['article_render_anchor'])) {
+			$content["main"] .= '<a name="jump'.$row["article_id"].'" id="jump'.$row["article_id"].'" class="jump-anchor"></a>';
+		}
 		
 		// enable frontend edit link
 		$content["main"] .= getFrontendEditLink('article', $row["article_id"]);

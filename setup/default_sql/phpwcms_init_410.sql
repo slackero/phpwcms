@@ -933,12 +933,14 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_listall` int(1) unsigned DEFAULT '0',
   `shopprod_special_price` text NOT NULL,
   `shopprod_track_view` int(11) NOT NULL DEFAULT '0',
+  `shopprod_lang` varchar(255) NOT NULL default '',
   PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
   KEY `all` (`shopprod_listall`),
-  KEY `shopprod_track_view` (`shopprod_track_view`)
+  KEY `shopprod_track_view` (`shopprod_track_view`),
+  KEY `shopprod_lang` (`shopprod_lang`)
 ) ENGINE=MyISAM;
 
 -- --------------------------------------------------------

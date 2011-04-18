@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -53,15 +53,9 @@ if($wysiwyg_editor['editor'] == 2) {
 	$BE['HEADER']['ckeditor.js']	= getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
 	$BE['HEADER']['ckeditor.styles.default.js']	= getJavaScriptSourceLink(TEMPLATE_PATH.'config/ckeditor/ckeditor.styles.default.js');
 	
-	$wysiwyg_editor['template'] = 'Basic';
-	switch(strtolower($_SESSION['WYSIWYG_TEMPLATE'])) {
-		case 'phpwcms':
-			$wysiwyg_editor['template'] = 'phpwcms';
-			break;
-		case 'default':
-		case 'full':
-			$wysiwyg_editor['template'] = 'Full';
-			break;	
+	$wysiwyg_editor['template'] = $_SESSION['WYSIWYG_TEMPLATE'];
+	if($_SESSION['WYSIWYG_TEMPLATE'] == 'Default') {
+		$wysiwyg_editor['template'] = 'Full';
 	}
 	
 	// simple textarea - no WYSIWYG editor

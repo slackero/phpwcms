@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -38,7 +38,7 @@ echo phpwcmsversionCheck();
 //-->
 <div class="copyrightInfo">
 	<p>
-		<strong>phpwcms</strong> Copyright &copy; 2003&#8212;2007
+		<strong>phpwcms</strong> Copyright &copy; 2002&#8212;<?php echo date('Y') ?>
 		<a title="send email to oliver@phpwcms.de" href="mailto:oliver@phpwcms.de">Oliver
 		Georgi</a>. 
 		Extensions are copyright of their respective owners.

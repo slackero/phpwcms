@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -21,7 +21,6 @@
 *************************************************************************************/
 
 // Module/Plug-in Shop & Products search class
-
 class ModuleShopSearch {
 
 	var $search_words			= array();
@@ -40,7 +39,8 @@ class ModuleShopSearch {
 			$this->search_words = implode('|', $this->search_words);
 		}
 		
-		$shop_url = _getConfig( 'shop_pref_id_shop', '_shopPref' );
+		$shop_url			= _getConfig( 'shop_pref_id_shop', '_shopPref' );
+		$shop_lang_support	= _getConfig( 'shop_pref_felang' ) ? true : false;
 		
 		if(!is_numeric($shop_url) && is_string($shop_url)) {
 			$shop_url	= trim($shop_url);
@@ -66,6 +66,9 @@ class ModuleShopSearch {
 		$sql .= "	shopprod_name2,' '";
 		$sql .= ') AS shopprod_search ';
 		$sql .= 'FROM '.DB_PREPEND.'phpwcms_shop_products WHERE shopprod_status=1';
+		if($shop_lang_support && !empty($GLOBALS['phpwcms']['default_lang'])) {
+			$sql .= " AND (shopprod_lang='' OR shopprod_lang="._dbEscape($GLOBALS['phpwcms']['default_lang']).')';
+		}
 		$data = _dbQuery($sql);
 		
 		foreach($data as $value) {

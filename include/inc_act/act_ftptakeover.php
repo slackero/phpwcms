@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -35,16 +35,17 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 $ref = $_SESSION['REFERER_URL'];
 $ftp["error"] = 0;
 
-$ftp["mark"] = isset($_POST["ftp_mark"]) ? $_POST["ftp_mark"] : false;
-$ftp["file"] = isset($_POST["ftp_file"]) ? $_POST["ftp_file"] : false;
+$ftp["mark"]		= isset($_POST["ftp_mark"]) ? $_POST["ftp_mark"] : false;
+$ftp["file"]		= isset($_POST["ftp_file"]) ? $_POST["ftp_file"] : false;
+$ftp["filename"]	= isset($_POST["ftp_filename"]) ? $_POST["ftp_filename"] : false;
 
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
 	foreach($ftp["mark"] as $key => $value) {
 		if(intval($ftp["mark"][$key])) {
-			$ftp["file"][$key] = base64_decode($ftp["file"][$key]);
+			$ftp["file"][$key]		= base64_decode($ftp["file"][$key]);
+			$ftp["filename"][$key]	= clean_slweg($ftp["filename"][$key]);
 		} else {
-			unset($ftp["mark"][$key]);
-			unset($ftp["file"][$key]);
+			unset($ftp["mark"][$key], $ftp["file"][$key], $ftp["filename"][$key]);
 		}
 	}	
 	if(!count($ftp["mark"])) $ftp["error"] = 1;	
@@ -106,7 +107,7 @@ if(!$ftp["error"]) {
 		
 		$file = $ftp["file"][$key];
 		$file_path = PHPWCMS_ROOT.$phpwcms["ftp_path"].$file;
-		if(file_exists($file_path)) {
+		if(is_file($file_path)) {
 		
 			$file_type = '';
 			$file_error["upload"] = 0;
@@ -115,7 +116,7 @@ if(!$ftp["error"]) {
 			$file_ext  = check_image_extension($file_path);
 			$file_ext  = (false === $file_ext) ? which_ext($file) : $file_ext;
 			
-			$file_name = clearfilename( PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file) ? utf8_decode($file) : $file);
+			$file_name = $ftp["filename"][$key];
 			$file_hash = md5( $file_name . microtime() );
 			
 			

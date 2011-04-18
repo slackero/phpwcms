@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -329,7 +329,10 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$table_class .= ' imgListTable'.ucfirst($align);
 	}
 	
-	$table_class	= ($table_class) ? ' class="'.$table_class.'"' : '';
+	$table_class	= trim($table_class);
+	if($table_class) {
+		$table_class = ' class="'.$table_class.'"';
+	}
 	$table_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"];
 	$table_bgcolor	= ($table_bgcolor) ? ' bgcolor="'.$table_bgcolor.'"' : '';
 	$image_align	= $GLOBALS["template_default"]["article"][$template_type."_align"];

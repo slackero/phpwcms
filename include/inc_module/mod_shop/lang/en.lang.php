@@ -118,4 +118,12 @@ $BLM['shopprod_status_done']	= 'Completed';
 $BLM['shopprod_status_back']	= 'Return';
 $BLM['shopprod_status_msg']		= 'Order status changed.';
 
+$BLM['shopprod_loworder']			= 'Low order';
+$BLM['shopprod_loworder_under']		= 'below';
+$BLM['shopprod_loworder_charge']	= 'surcharge';
+
+$BLM['shopprod_discount']			= 'Discount';
+
+$BLM['shopprod_lang_support']	= 'Frontend language support';
+
 ?>

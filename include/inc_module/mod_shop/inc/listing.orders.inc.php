@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -65,8 +65,16 @@ foreach($data as $row) {
 	echo '<a href="'.$_controller_link.'&amp;show='.$row["order_id"].'">';
 	echo '<img src="img/famfamfam/cart_go.gif" alt="'.$BLM['shop_order'].'" border="0" />';
 	echo '</a></td>'.LF;
+
+	echo '<td class="dir" width="13%">';
+
+	if(SHOP_FELANG_SUPPORT) {
+		$row['order_data']		= @unserialize($row['order_data']);
+		$row['shopprod_lang']	= html_specialchars(strtolower($row['order_data']['lang']));
+		echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ? $row['shopprod_lang'] : 'all').'.png" alt="'.$row['shopprod_lang'].'" style="position:relative;top:1px;margin:0 3px 0 3px;" />';
+	}
 	
-	echo '<td class="dir" width="13%">'.html_specialchars($row['order_number'])."&nbsp;</td>\n";
+	echo html_specialchars($row['order_number'])."&nbsp;</td>\n";
 	echo '<td class="dir" width="13%">&nbsp;'.html_specialchars($row['order_fdate'])."&nbsp;</td>\n";
 	echo '<td class="dir" width="50%">&nbsp;<a href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'">';
 	echo html_specialchars($row['order_firstname'].' '.$row['order_name'])."</a>&nbsp;</td>\n";

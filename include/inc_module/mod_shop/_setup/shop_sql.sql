@@ -83,11 +83,16 @@ CREATE TABLE IF NOT EXISTS `phpwcms_shop_products` (
   `shopprod_color` varchar(255) NOT NULL default '',
   `shopprod_size` varchar(255) NOT NULL default '',
   `shopprod_listall` int(1) unsigned default '0',
-  PRIMARY KEY  (`shopprod_id`),
+  `shopprod_special_price` text NOT NULL,
+  `shopprod_track_view` int(11) NOT NULL default '0',
+  `shopprod_lang` varchar(255) NOT NULL default '',
+  PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
-  KEY `all` (`shopprod_listall`)
+  KEY `all` (`shopprod_listall`),
+  KEY `shopprod_track_view` (`shopprod_track_view`),
+  KEY `shopprod_lang` (`shopprod_lang`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------

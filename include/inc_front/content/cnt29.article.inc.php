@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -178,6 +178,7 @@ if($image['template']) {
 			$img_thumb_width	= $thumb_image[1];
 			$img_thumb_height	= $thumb_image[2];
 			$img_thumb_link		= '';
+			$img_thumb_ext		= which_ext($thumb_image[0]);
 			
 			if($image['center_image']) {
 			
@@ -288,6 +289,8 @@ if($image['template']) {
 			$img_a = str_replace('{IMAGE_ABS}',		$img_zoom_abs, $img_a);
 			$img_a = str_replace('{IMAGE_WIDTH}',	$img_zoom_width, $img_a);
 			$img_a = str_replace('{IMAGE_HEIGHT}',	$img_zoom_height, $img_a);
+			
+			$img_a = str_replace('{IMAGE_EXT}',	$img_thumb_ext, $img_a);
 			
 			$img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
 			$img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );

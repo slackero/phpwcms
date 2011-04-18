@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -47,7 +47,7 @@ if(!$content["page_file"]['source']) {
 	if(!file_exists($content["page_file"]['pfile'])) {
 	
 		list($content["page_file"]['checkurl']) = explode('?', $content["page_file"]['pfile']);
-		//if(!validate_url($content["page_file"]['checkurl'])) {
+
 		if(!file_get_contents($content["page_file"]['checkurl'])) {
 			$content["page_file"]['pfile'] = '';
 		}

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -543,7 +543,7 @@ if($BE['LANG'] == 'ar') {
 	  <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
 	  <td colspan="5" valign="bottom" class="navtext" style="padding: 8px 0 15px 0;">
 	  	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">phpwcms <?php echo $phpwcms["release"] ?> 
-			&copy; 2003&#8212;<?php echo date('Y'); ?> Oliver Georgi. Licensed under GPL. Extensions are copyright
+			&copy; 2002&#8212;<?php echo date('Y'); ?> Oliver Georgi. Licensed under GPL. Extensions are copyright
 			of their respective owners.</a></td>
   </tr>
 </table>

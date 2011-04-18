@@ -9480,7 +9480,7 @@ class SimplePie_Misc
 			return SimplePie_Misc::windows_1252_to_utf8($data);
 		}
 		// This is second, as behaviour of this varies only with PHP version (the middle part of this expression checks the encoding is supported).
-		elseif (function_exists('mb_convert_encoding') && @mb_convert_encoding("\x80", 'UTF-16BE', $input) !== "\x00\x80" && ($return = @mb_convert_encoding($data, $output, $input)))
+		elseif (function_exists('mb_convert_encoding') && @mb_convert_encoding("\x80", 'UTF-16BE', $input) !== "\x00\x80" && in_array($input, mb_list_encodings()) && ($return = @mb_convert_encoding($data, $output, $input)))
 		{
 			return $return;
 		}
@@ -12186,7 +12186,7 @@ class SimplePie_IRI
 		}
 		else
 		{
-			$this->query = $this->replace_invalid_with_pct_encoding($query, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~!$\'()*+,;:@/?');
+			$this->query = $this->replace_invalid_with_pct_encoding($query, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~!$\'()*+,;:@/?&=');
 		}
 		$this->valid[__FUNCTION__] = true;
 		return true;
@@ -14481,7 +14481,7 @@ class SimplePie_Parser
 					case constant('XMLReader::END_ELEMENT'):
 						if ($xml->namespaceURI !== '')
 						{
-							$tagName = "{$xml->namespaceURI}{$this->separator}{$xml->localName}";
+							$tagName = $xml->namespaceURI . $this->separator . $xml->localName;
 						}
 						else
 						{
@@ -14493,7 +14493,7 @@ class SimplePie_Parser
 						$empty = $xml->isEmptyElement;
 						if ($xml->namespaceURI !== '')
 						{
-							$tagName = "{$xml->namespaceURI}{$this->separator}{$xml->localName}";
+							$tagName = $xml->namespaceURI . $this->separator . $xml->localName;
 						}
 						else
 						{
@@ -14504,7 +14504,7 @@ class SimplePie_Parser
 						{
 							if ($xml->namespaceURI !== '')
 							{
-								$attrName = "{$xml->namespaceURI}{$this->separator}{$xml->localName}";
+								$attrName = $xml->namespaceURI . $this->separator . $xml->localName;
 							}
 							else
 							{

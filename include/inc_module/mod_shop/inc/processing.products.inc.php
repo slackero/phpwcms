@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -33,7 +33,7 @@ if($action == 'edit') {
 
 	$plugin['data']['shopprod_id']	= intval($_GET['edit']);
 
-	if(isset($_POST['shopprod_id']) ) {
+	if(isset($_POST['shopprod_id'])) {
 	
 		// check if form should be closed only -> and back to listing mode
 		if( isset($_POST['close']) ) {
@@ -73,6 +73,9 @@ if($action == 'edit') {
 		
 		$plugin['data']['shopprod_url']				= clean_slweg($_POST['shopprod_url']);
 		
+		// Shop product language
+		$plugin['data']['shopprod_lang']			= empty($_POST['shopprod_lang']) ? '' : strtolower(clean_slweg($_POST['shopprod_lang']));
+		
 		$plugin['data']['shopprod_status']			= empty($_POST['shopprod_status']) ? 0 : 1;
 		$plugin['data']['shopprod_listall']			= empty($_POST['shopprod_listall']) ? 0 : 1;
 		
@@ -87,6 +90,9 @@ if($action == 'edit') {
 			$sql  = 'SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'phpwcms_shop_products WHERE ';
 			if($plugin['data']['shopprod_id']) $sql .= 'shopprod_id != '.$plugin['data']['shopprod_id'].' AND ';
 			$sql .= "shopprod_ordernumber LIKE '" . aporeplace($plugin['data']['shopprod_ordernumber']) . "'";
+			//if($plugin['data']['shopprod_lang']) {
+				$sql .= " AND shopprod_lang='" . aporeplace($plugin['data']['shopprod_lang']) . "'";
+			//}
 			if(_dbCount($sql)) $plugin['error']['shopprod_ordernumber'] = 'Unique order number necessary';
 		}
 		
@@ -105,14 +111,13 @@ if($action == 'edit') {
 		$plugin['data']['shopprod_tag']				= implode(', ', convertStringToArray($plugin['data']['shopprod_tag']));
 
 		
+		// Images		
 		$plugin['data']['shopprod_caption']			= clean_slweg($_POST["shopprod_caption"], 0 , false);
 		$plugin['data']['shopprod_caption'] 		= explode(LF, $plugin['data']['shopprod_caption']);
 
 		$plugin['data']['shopprod_images']			= isset($_POST['shopprod_images']) && is_array($_POST['shopprod_images']) ? $_POST['shopprod_images'] : array();
 		
-		
 		if(is_array($plugin['data']['shopprod_images']) && count($plugin['data']['shopprod_images'])) {
-		
 		
 			$plugin['data']['shopprod_images'] = array_map('intval', $plugin['data']['shopprod_images']);
 			$plugin['data']['shopprod_images'] = array_diff($plugin['data']['shopprod_images'], array(0,'',NULL,false));
@@ -149,12 +154,56 @@ if($action == 'edit') {
 			}
 		}
 	
+		// Attachments
+		$plugin['data']['shopprod_filecaption']		= clean_slweg($_POST["shopprod_filecaption"], 0 , false);
+		$plugin['data']['shopprod_filecaption'] 	= explode(LF, $plugin['data']['shopprod_filecaption']);
 		
+		$plugin['data']['shopprod_files']			= isset($_POST['shopprod_files']) && is_array($_POST['shopprod_files']) ? $_POST['shopprod_files'] : array();
+		
+		if(is_array($plugin['data']['shopprod_files']) && count($plugin['data']['shopprod_files'])) {
+		
+			$plugin['data']['shopprod_files'] = array_map('intval', $plugin['data']['shopprod_files']);
+			$plugin['data']['shopprod_files'] = array_diff($plugin['data']['shopprod_files'], array(0,'',NULL,false));
+		
+			if(count($plugin['data']['shopprod_files'])) {
+
+				$img_all = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_id IN ('.implode(',', $plugin['data']['shopprod_files']).')');
+				
+				// take all values from db
+				$temp_img_row = array();
+				foreach($img_all as $value) {
+					$temp_img_row[ $value['f_id'] ] = $value;
+				}
+				
+				$img_all = array();
+				
+				// now run though image result - but keep sorting
+				foreach($plugin['data']['shopprod_files'] as $key => $value) {
+					if(isset($temp_img_row[$value])) {
+					
+						$img_all[$key]['f_id']		= $temp_img_row[$value]['f_id'];
+						$img_all[$key]['f_name']	= $temp_img_row[$value]['f_name'];
+						$img_all[$key]['f_hash']	= $temp_img_row[$value]['f_hash'];
+						$img_all[$key]['f_ext']		= $temp_img_row[$value]['f_ext'];
+						$img_all[$key]['caption']	= isset($plugin['data']['shopprod_filecaption'][$key]) ? trim($plugin['data']['shopprod_filecaption'][$key]) : '';
+					
+					}
+				}
+				
+				$plugin['data']['shopprod_filecaption']	= array();
+				$plugin['data']['shopprod_files']		= $img_all;
+				unset($img_all);
+				
+			}
+		}
+		
+		// Duplicate it?
+		$plugin['data']['shopprod_duplicate'] = empty($_POST['shopprod_duplicate']) ? 0 : 1;
 				
 		if(empty($plugin['error'] )) {
 		
 			// Update
-			if( $plugin['data']['shopprod_id'] ) {
+			if( $plugin['data']['shopprod_id'] && $plugin['data']['shopprod_duplicate'] == 0 ) {
 			
 				$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_shop_products SET ';
 				
@@ -180,7 +229,8 @@ if($action == 'edit') {
 				
 				$sql .= "shopprod_var = '".aporeplace(	serialize( array(
 												'images'	=> $plugin['data']['shopprod_images'],
-												'url'		=> $plugin['data']['shopprod_url']
+												'url'		=> $plugin['data']['shopprod_url'],
+												'files'		=> $plugin['data']['shopprod_files']
 														) )	)."', ";
 				
 				$sql .= "shopprod_category = '".aporeplace( implode(',', $plugin['data']['shopprod_category']) )."', ";
@@ -188,7 +238,8 @@ if($action == 'edit') {
 				$sql .= "shopprod_weight = '".aporeplace($plugin['data']['shopprod_weight'])."', ";
 				$sql .= "shopprod_size = '".aporeplace($plugin['data']['shopprod_size'])."', ";
 				$sql .= "shopprod_color = '".aporeplace($plugin['data']['shopprod_color'])."', ";
-				$sql .= "shopprod_listall = '".aporeplace($plugin['data']['shopprod_listall'])."' ";
+				$sql .= "shopprod_listall = '".aporeplace($plugin['data']['shopprod_listall'])."', ";
+				$sql .= "shopprod_lang = '".aporeplace($plugin['data']['shopprod_lang'])."' ";
 				
 				$sql .= "WHERE shopprod_id = " . $plugin['data']['shopprod_id'];
 				
@@ -202,7 +253,7 @@ if($action == 'edit') {
 				$sql .= 'shopprod_name1, shopprod_name2, shopprod_tag, shopprod_vat, shopprod_netgross, shopprod_price, ';
 				$sql .= 'shopprod_maxrebate, shopprod_description0, shopprod_description1, shopprod_description2, ';
 				$sql .= 'shopprod_description3, shopprod_var, shopprod_category, shopprod_weight, shopprod_size, shopprod_color, ';
-				$sql .= 'shopprod_listall) VALUES (';
+				$sql .= 'shopprod_listall, shopprod_lang) VALUES (';
 				$sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";			
 				$sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
 				$sql .= $plugin['data']['shopprod_status'].", ";
@@ -223,7 +274,8 @@ if($action == 'edit') {
 							
 				$sql .= "'".aporeplace(	serialize( array(
 												'images'	=> $plugin['data']['shopprod_images'],
-												'url'		=> $plugin['data']['shopprod_url']
+												'url'		=> $plugin['data']['shopprod_url'],
+												'files'		=> $plugin['data']['shopprod_files']
 												) )	)."', "; //VAR
 				
 				$sql .= "'".aporeplace( implode(',', $plugin['data']['shopprod_category']) ) ."', ";
@@ -231,7 +283,8 @@ if($action == 'edit') {
 				$sql .= "'".aporeplace($plugin['data']['shopprod_weight'])."', ";
 				$sql .= "'".aporeplace($plugin['data']['shopprod_size'])."', ";
 				$sql .= "'".aporeplace($plugin['data']['shopprod_color'])."', ";
-				$sql .= "'".aporeplace($plugin['data']['shopprod_listall'])."' ";
+				$sql .= "'".aporeplace($plugin['data']['shopprod_listall'])."', ";
+				$sql .= "'".aporeplace($plugin['data']['shopprod_lang'])."' ";
 				
 				$sql .= ')';
 			
@@ -274,11 +327,14 @@ if($action == 'edit') {
 		$plugin['data']['shopprod_var']				= array();
 		$plugin['data']['shopprod_images']			= array();
 		$plugin['data']['shopprod_caption']			= array();
+		$plugin['data']['shopprod_files']			= array();
+		$plugin['data']['shopprod_filecaption']		= array();	
 		$plugin['data']['shopprod_weight']			= 0;
 		$plugin['data']['shopprod_size']			= '';
 		$plugin['data']['shopprod_color']			= '';
 		$plugin['data']['shopprod_url']				= '';
 		$plugin['data']['shopprod_listall']			= 0;
+		$plugin['data']['shopprod_lang']			= '';
 	
 	} else {
 
@@ -299,7 +355,13 @@ if($action == 'edit') {
 			} else {
 				$plugin['data']['shopprod_images']	= array();
 			}
+			if(isset($plugin['data']['shopprod_var']['files']) && is_array($plugin['data']['shopprod_var']['files'])) {
+				$plugin['data']['shopprod_files']	= $plugin['data']['shopprod_var']['files'];
+			} else {
+				$plugin['data']['shopprod_files']	= array();
+			}			
 			$plugin['data']['shopprod_caption']		= array();
+			$plugin['data']['shopprod_filecaption']	= array();
 			$plugin['data']['shopprod_url']			= isset($plugin['data']['shopprod_var']['url']) ? $plugin['data']['shopprod_var']['url'] : '';
 			
 		} else {

@@ -20,6 +20,7 @@ function bb2_get_response($key) {
 		'69920ee5' => array('response' => 400, 'explanation' => 'An invalid request was received from your browser. This may be caused by a malfunctioning proxy server or browser privacy software.', 'log' => 'Header \'Referer\' present but blank'),
 		'6c502ff1' => array('response' => 403, 'explanation' => 'You do not have permission to access this server.', 'log' => 'Bot not fully compliant with RFC 2965'),
 		'70e45496' => array('response' => 403, 'explanation' => 'You do not have permission to access this server.', 'log' => 'User agent claimed to be CloudFlare, claim appears false'),
+		'71436a15' => array('response' => 403, 'explanation' => 'An invalid request was received. You claimed to be a major search engine, but you do not appear to actually be a major search engine.', 'log' => 'User-Agent claimed to be Yahoo, claim appears to be false'),
 		'799165c2' => array('response' => 403, 'explanation' => 'You do not have permission to access this server.', 'log' => 'Rotating user-agents detected'),
 		'7a06532b' => array('response' => 400, 'explanation' => 'An invalid request was received from your browser. This may be caused by a malfunctioning proxy server or browser privacy software.', 'log' => 'Required header \'Accept-Encoding\' missing'),
 		'7ad04a8a' => array('response' => 400, 'explanation' => 'The automated program you are using is not permitted to access this server. Please use a different program or a standard Web browser.', 'log' => 'Prohibited header \'Range\' present'),
@@ -48,4 +49,3 @@ function bb2_get_response($key) {
 	if (array_key_exists($key, $bb2_responses)) return $bb2_responses[$key];
 	return array('00000000');
 }
-?>

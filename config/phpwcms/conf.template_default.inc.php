@@ -121,6 +121,7 @@ $template_default['top_count']				= 1;
 $template_default['article_order']			= 1; // 0 = manual, 2 = creation date, 4 = start date -> + 0 = ASC, + 1 = DESC
 $template_default['article_paginate_navi']	= '<div class="paginate paginate-{POS}">{PREV:&laquo;} {NEXT:&raquo;} page #/##, result ###-####, {NAVI:1-3, |<span>|</span>}</div>'; //
 $template_default['article_paginate_show']	= 'top bottom rt{RT}'; //where should the navi be shown - possible values: top and/or bottom and/or rt:{RT}
+$template_default['article_render_anchor']	= false; // render article jumpID anchor true||false
 
 //
 $template_default['list_startimage']		= '<img src="img/article/list_startimage.gif" width="11" height="7" border="0" alt="" />';

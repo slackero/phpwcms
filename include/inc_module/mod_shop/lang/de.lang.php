@@ -25,7 +25,7 @@ $BLM['delete_order']			= 'Folgende Bestellung wirklich löschen?\n';
 
 $BLM['th_ordnr']				= 'Best.Nr.';
 $BLM['th_modnr']				= 'Mod.Nr.';
-$BLM['th_product']				= 'Product';
+$BLM['th_product']				= 'Produkt';
 $BLM['th_price']				= 'Preis';
 $BLM['th_customer']				= 'Kunde';
 $BLM['th_net']					= 'Netto';
@@ -117,5 +117,13 @@ $BLM['shopprod_status_sent']	= 'Versendet';
 $BLM['shopprod_status_done']	= 'Abgeschlossen';
 $BLM['shopprod_status_back']	= 'Retour';
 $BLM['shopprod_status_msg']		= 'Der Status der Bestellung wurde ge&auml;ndert.';
+
+$BLM['shopprod_loworder']			= 'Mindermenge';
+$BLM['shopprod_loworder_under']		= 'unter';
+$BLM['shopprod_loworder_charge']	= 'Zuschlag';
+
+$BLM['shopprod_discount']			= 'Rabatt';
+
+$BLM['shopprod_lang_support']	= 'Frontend Sprachunterst&uuml;tzung';
 
 ?>

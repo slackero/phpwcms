@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -113,7 +113,7 @@ $phpwcms['FCK_FileBrowser']   = 0; // enable|disable phpwcms Filebrowser in FCKe
 $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';
-$phpwcms['js_lib']			  = array('mootools-1.2' => 'MooTools 1.2', 'mootools-1.1' => 'MooTools 1.1', 'jquery' => 'jQuery 1.3', 'jquery-1.4' => 'jQuery 1.4');
+$phpwcms['js_lib']			  = array('mootools-1.2' => 'MooTools 1.2', 'mootools-1.1' => 'MooTools 1.1', 'jquery' => 'jQuery 1.3', 'jquery-1.4' => 'jQuery 1.4', 'jquery-1.5' => 'jQuery 1.5');
 
 // dynamic ssl encryption engine
 $phpwcms['site_ssl_mode'] 	  = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'

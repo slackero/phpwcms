@@ -18,4 +18,3 @@ function bb2_roundtripdns($ip,$domain)
 	if (in_array($ip, $addrs)) return true;
 	return false;
 }
-?>

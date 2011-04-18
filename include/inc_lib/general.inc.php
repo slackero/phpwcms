@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -765,7 +765,7 @@ function is_valid_email($email) {
 			'yu', 
 			'za', 
 			'zm', 
-			'zw', 
+			'zw'
 		);
 
 		if(!in_array($tld, $tld_all)) {
@@ -906,26 +906,24 @@ function validate_url($url) {
 
 function convert_url($text) {
 	// converts URLs in Texts to link
-    $text = eregi_replace("((ht|f)tp(s*)://www\.|www\.)([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})((/|\?)[a-z0-9~#%&\\/'_\+=:\?\.-]*)*)", "http\\3://www.\\4", $text); 
-    $text = eregi_replace("((ht|f)tp(s*)://)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)", "\\0", $text); 
-    return $text; 
+    $text = @eregi_replace("((ht|f)tp(s*)://www\.|www\.)([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})((/|\?)[a-z0-9~#%&\\/'_\+=:\?\.-]*)*)", "http\\3://www.\\4", $text); 
+    return @eregi_replace("((ht|f)tp(s*)://)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)", "\\0", $text); 
 }
 
 function link_url($text) {
 	// converts URLs in Texts to link
-    $text = eregi_replace("((ht|f)tp(s*)://www\.|www\.)([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})((/|\?)[a-z0-9~#%&\\/'_\+=:\?\.-]*)*)", "http\\3://www.\\4", $text); 
-    $text = eregi_replace("((ht|f)tp(s*)://)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)", "<a href=\"\\0\">\\0</a>", $text); 
-    return $text; 
+    $text = @eregi_replace("((ht|f)tp(s*)://www\.|www\.)([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})((/|\?)[a-z0-9~#%&\\/'_\+=:\?\.-]*)*)", "http\\3://www.\\4", $text); 
+    return @eregi_replace("((ht|f)tp(s*)://)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)", "<a href=\"\\0\">\\0</a>", $text); 
 }
 
 function convert_email($text) {
 	// converts Email addresses in Texts to mailto link
-	return eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))", "mailto:\\0", $text); 
+	return @eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))", "mailto:\\0", $text); 
 }
 
 function link_email($text) {
 	// converts Email addresses in Texts to mailto link
-	return eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))", "<a href='mailto:\\0'>\\0</a>", $text); 
+	return @eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))", "<a href='mailto:\\0'>\\0</a>", $text); 
 }
 
 function convert_all_links($text) {
@@ -2094,7 +2092,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 			
 			} elseif($data) {
 			
-				if(empty($exif_imagetype[$data[2]]) || !in_array($data[2], $imgtype)) {
+				if(empty($exif_imagetype[$data[2]]) || !in_array($exif_imagetype[$data[2]], $imgtype)) {
 					$file_status['error'] = 'File type ('.$data[2].') is not supported for this upload ('.implode(', ', $imgtype).' only)';
 					$file_status['error_num'] = 415;
 					@unlink($_FILES[$file]['tmp_name']);
@@ -2339,8 +2337,8 @@ function render_bbcode_basics($text='', $mode='basic') {
 	
 	if($mode == 'basic') {
 	
-		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]');
-		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />');
+		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]',   '[p]', '[/p]');
+		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>');
 	
 		return str_replace($search, $replace, $text);
 		
@@ -2369,9 +2367,10 @@ function render_bbcode_basics($text='', $mode='basic') {
 	$search[17]		= '/\[h4\](.*?)\[\/h4\]/is';		$replace[17]	= '<h4>$1</h4>';
 	$search[18]		= '/\[h5\](.*?)\[\/h5\]/is';		$replace[18]	= '<h5>$1</h5>';
 	$search[19]		= '/\[h6\](.*?)\[\/h6\]/is';		$replace[19]	= '<h6>$1</h6>';
+	$search[20]		= '/\[p\](.*?)\[\/p\]/is';		$replace[20]	= '<p>$1</p>';
 	
-	$search[20]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
-	$replace[20]	= '<blockquote>$1</blockquote>';
+	$search[21]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
+	$replace[21]	= '<blockquote>$1</blockquote>';
 	
 	return preg_replace($search, $replace, $text);
 	

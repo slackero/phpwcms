@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -187,7 +187,8 @@ if(empty($phpwcms['js_lib'])) {
 		'mootools-1.2'	=> 'MooTools 1.2',
 		'mootools-1.1'	=> 'MooTools 1.1',
 		'jquery'		=> 'jQuery 1.3',
-		'jquery-1.4'	=> 'jQuery 1.4'
+		'jquery-1.4'	=> 'jQuery 1.4',
+		'jquery-1.5'	=> 'jQuery 1.5'
 	);
 }
 
@@ -195,7 +196,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 	$phpwcms['mode_XHTML'] = 0;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html{DOCTYPE_LANG}>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , '>');
@@ -204,7 +205,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"{DOCTYPE_LANG}>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
 	define('SCRIPT_CDATA_END'  , '  /* ]]> */');
 	define('HTML_TAG_CLOSE'  , ' />');
@@ -213,7 +214,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 } elseif($phpwcms['mode_XHTML'] == 3) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html{DOCTYPE_LANG}>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
 	define('HTML_TAG_CLOSE'  , ' />');
@@ -224,7 +225,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 	$phpwcms['mode_XHTML'] = 1;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"{DOCTYPE_LANG}>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , ' />');
@@ -234,8 +235,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.7';
-$phpwcms["release_date"]	= '2011/01/01';
-$phpwcms["revision"]		= '413';
+$phpwcms["release_date"]	= '2011/04/18';
+$phpwcms["revision"]		= '414';
 
 // -------------------------------------------------------------
 

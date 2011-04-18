@@ -26,5 +26,3 @@ function bb2_whitelist($package)
 	}
 	return false;
 }
-
-?>

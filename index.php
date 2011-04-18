@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -92,21 +92,24 @@ if(!empty($phpwcms['Bad_Behavior'])) {
 }
 
 $phpwcms["templates"]    = TEMPLATE_PATH;
-
-$phpwcms['DOCTYPE_LANG'] = str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG );
-
-$content['page_start']   = str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE );
+$content['page_start']   = sprintf(PHPWCMS_DOCTYPE, str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG ) . ' id="'.str_replace(array('.','/'), '-', PHPWCMS_HOST).'"');
 $content['page_start']  .= '<!--
 	phpwcms | free open source content management system
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
-	phpwcms is copyright 2003-'.date('Y').' of Oliver Georgi. Extensions are copyright of
-	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'// -->'.LF;
+	phpwcms is copyright 2002-'.date('Y').' of Oliver Georgi. Extensions are copyright of
+	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'-->'.LF;
 $content['page_start']  .= '  <title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
 $content['page_start']  .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
-$content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
+
+// HTML5 does not like content-style-type
+if($phpwcms['mode_XHTML'] != 3) {
+	$content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
+}
+
+// Deprecated custom page CSS
 $content['page_start']  .= get_body_attributes($pagelayout);
 
-// now add all CSS files here
+// Add all CSS files here
 if(count($block['css'])) {
 	foreach($block['css'] as $value) {
 		$content['page_start'] .= '  <link rel="stylesheet" type="text/css" href="'.TEMPLATE_PATH.'inc_css/';

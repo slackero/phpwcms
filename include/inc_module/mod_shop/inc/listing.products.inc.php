@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -191,14 +191,14 @@ if($_entry['pages_total'] > 1) {
 </table>
 </form>
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="" class="shop">
+<table width="700" border="0" cellpadding="0" cellspacing="0" summary="" class="shop">
 		
 	<tr>
 		<th>&nbsp;</th>
 		<th>&nbsp;<?php echo $BLM['th_ordnr'] ?></th>
 		<th>&nbsp;<?php echo $BLM['th_modnr'] ?></th>
 		<th>&nbsp;<?php echo $BLM['th_product'] ?></th>
-		<th>&nbsp;<?php echo $BLM['th_price'] ?>&nbsp;</th>
+		<th style="text-align:right;padding-right:5px;">&nbsp;<?php echo $BLM['th_price'] ?>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
 	
@@ -222,12 +222,17 @@ foreach($data as $row) {
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
 	echo '<img src="img/famfamfam/package.gif" alt="'.$BLM['shop_product'].'" /></td>'.LF;
 	
-	echo '<td class="dir" width="10%">&nbsp;'.html_specialchars($row['shopprod_ordernumber'])."</td>\n";
-	echo '<td class="dir" width="10%">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
-	echo '<td class="dir" width="60%">&nbsp;'.html_specialchars($row['shopprod_name1'])."</td>\n";
-	echo '<td class="dir listNumber" width="10%">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
+	echo '<td class="dir">';
+	if(SHOP_FELANG_SUPPORT) {
+		$row['shopprod_lang'] = html_specialchars(strtolower($row['shopprod_lang']));
+		echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ? $row['shopprod_lang'] : 'all').'.png" alt="'.$row['shopprod_lang'].'" />';
+	}
+	echo '&nbsp;' . html_specialchars($row['shopprod_ordernumber']) . "</td>\n";
+	echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
+	echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_name1'])."</td>\n";
+	echo '<td class="dir listNumber">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
 
-	echo '<td width="7%" align="right" nowrap="nowrap" class="button_td">';
+	echo '<td align="right" nowrap="nowrap" class="button_td">';
 	
 		echo '<a href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';		
 		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -54,6 +54,8 @@ if(isset($phpwcms['modules'][$module]['path']) && is_file($phpwcms['modules'][$m
 	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
 	include_once($phpwcms['modules'][$module]['path'].'inc/shop.functions.inc.php');
 	
+	define('SHOP_FELANG_SUPPORT', _getConfig( 'shop_pref_felang' ) ? true : false);
+
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
 	

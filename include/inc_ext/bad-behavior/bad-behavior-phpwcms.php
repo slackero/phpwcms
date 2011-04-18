@@ -1,28 +1,22 @@
 <?php
 /*
 Bad Behavior - detects and blocks unwanted Web accesses
-Copyright (C) 2005,2006,2007,2008,2009 Michael Hampton
+Copyright (C) 2005,2006,2007,2008,2009,2010,2011 Michael Hampton
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
+Bad Behavior is free software; you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option) any
+later version.
 
-As a special exemption, you may link this program with any of the
-programs listed below, regardless of the license terms of those
-programs, and distribute the resulting program, without including the
-source code for such programs: ExpressionEngine
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+You should have received a copy of the GNU Lesser General Public License along
+with this program. If not, see <http://www.gnu.org/licenses/>.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-Please report any problems to badbots AT ioerror DOT us
+Please report any problems to bad . bots AT ioerror DOT us
+http://www.bad-behavior.ioerror.us/
 */
 
 // This file is the entry point for Bad Behavior 2 in phpwcms.
@@ -45,14 +39,17 @@ define('BB2_CORE', BB2_CWD.'/bad-behavior');
 // Most of these are unused in non-database mode.
 $bb2_settings_defaults = array(
 	'log_table' => DB_PREPEND.'phpwcms_bad_behavior',
-	'display_stats' => true,
+	'display_stats' => false,
 	'strict' => false,
 	'verbose' => false,
 	'logging' => true,
 	'httpbl_key' => '',
 	'httpbl_threat' => '25',
 	'httpbl_maxage' => '30',
-	'offsite_forms' => false
+	'offsite_forms' => false,
+	'reverse_proxy' => false,
+	'reverse_proxy_header' => 'X-Forwarded-For',
+	'reverse_proxy_addresses' => array()
 );
 
 // Bad Behavior callback functions.
@@ -125,15 +122,17 @@ function bb2_read_settings() {
 	}
 	$bb2_settings_defaults = array(
 		'log_table' => DB_PREPEND.'phpwcms_bad_behavior',
-		'display_stats' => true,
+		'display_stats' => false,
 		'strict' => false,
 		'verbose' => false,
-		'db_installed' => true,
 		'logging' => true,
 		'httpbl_key' => '',
 		'httpbl_threat' => '25',
 		'httpbl_maxage' => '30',
-		'offsite_forms' => false
+		'offsite_forms' => false,
+		'reverse_proxy' => false,
+		'reverse_proxy_header' => 'X-Forwarded-For',
+		'reverse_proxy_addresses' => array()
 	);
 
 	return array_merge($bb2_settings_defaults, $settings);
@@ -182,7 +181,6 @@ function bb2_install() {
 // if you don't use it.
 function bb2_insert_head() {
 	global $bb2_javascript;
-	//echo $bb2_javascript;
 	$GLOBALS['block']['custom_htmlhead']['bad_behavior'] = '  '.$bb2_javascript;
 }
 
@@ -207,7 +205,6 @@ function bb2_relative_path() {
 }
 
 // Calls inward to Bad Behavor itself.
-require_once(BB2_CWD . '/bad-behavior/version.inc.php');
 require_once(BB2_CWD . '/bad-behavior/core.inc.php');
 
 bb2_start(bb2_read_settings());

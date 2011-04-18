@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -93,12 +93,16 @@ function inlineJS($js='', $prefix='	') {
  * render <!-- JS: PluginName|my.js //Whatever text -->
  */
 function renderHeadJS($js) {
+
+	if(is_array($js) && isset($js[1])) {
+		$js = $js[1];
+	}
+
+	$js = trim($js);
 	
-	if(empty($js[1])) {
+	if(empty($js)) {
 		return '';
 	}
-	
-	$js = trim($js[1]);
 
 	if(strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false) {
 		

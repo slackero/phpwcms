@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2011/01/01';
-$phpwcms_revision		= '413';
+$phpwcms_release_date	= '2011/04/18';
+$phpwcms_revision		= '414';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -223,7 +223,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed\n";
 	$conf_file .= "\$phpwcms['feuser_regkey']	  = 'FEUSER';\n";
 	$conf_file .= "\$phpwcms['login.php']	  	  = 'login.php';\n";
-	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.2'=>'MooTools 1.2', 'mootools-1.1'=>'MooTools 1.1', 'jquery'=>'jQuery 1.3', 'jquery-1.4'=>'jQuery 1.4');\n";
+	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.2'=>'MooTools 1.2', 'mootools-1.1'=>'MooTools 1.1', 'jquery'=>'jQuery 1.3', 'jquery-1.4'=>'jQuery 1.4', 'jquery-1.5' => 'jQuery 1.5');\n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -29,8 +29,10 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
+// ensure max allowed packet is big enough
+_dbSetVar('max_allowed_packet', 16*1024*1024, '<');
 
-// RSS feed
-$SQL .= "acontent_form	='".aporeplace(serialize($content['form']))."' ";
+// Form
+$SQL .= "acontent_form = '".aporeplace(serialize($content['form']))."' ";
 
 ?>

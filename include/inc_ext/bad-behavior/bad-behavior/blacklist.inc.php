@@ -18,6 +18,7 @@ function bb2_blacklist($package) {
 		"EmailCollector",	// spam harvester
 		"Email Siphon",		// spam harvester
 		"EmailSiphon",		// spam harvester
+		"Forum Poster",		// forum spambot
 		"grub crawler",		// misc comment/email spam
 		"HttpProxy",		// misc comment/email spam
 		"Internet Explorer",	// XMLRPC exploits seen
@@ -34,7 +35,7 @@ function bb2_blacklist($package) {
 		"Mozilla ",		// malicious software
 		"Mozilla/2",		// malicious software
 		"Mozilla/4.0(",		// from honeypot
-		"Mozilla/4.0+(",	// suspicious harvester
+		"Mozilla/4.0+(compatible;+",	// suspicious harvester
 		"MSIE",			// malicious software
 		"NutchCVS",		// unidentified robots
 		"Nutscrape/",		// misc comment spam
@@ -42,8 +43,9 @@ function bb2_blacklist($package) {
 		"psycheclone",		// spam harvester
 		"PussyCat ",		// misc comment spam
 		"PycURL",		// misc comment spam
-//		"Shockwave Flash",	// spam harvester
+		"Python-urllib",	// commonly abused
 //		WP 2.5 now has Flash; FIXME
+//		"Shockwave Flash",	// spam harvester
 		"Super Happy Fun ",	// spam harvester
 		"TrackBack/",		// trackback spam
 		"user",			// suspicious harvester
@@ -123,5 +125,3 @@ function bb2_blacklist($package) {
 
 	return FALSE;
 }
-
-?>

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -30,6 +30,11 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/optionselect.js');
 
+if(!isset($plugin['data']['shopprod_duplicate'])) {
+	$plugin['data']['shopprod_duplicate'] = 0;
+}
+
+
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['prod_edit'] ?></h1>
 
@@ -37,9 +42,9 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 
 	echo shop_url( array('controller=prod', 'edit='.$plugin['data']['shopprod_id']) ) 
 
-?>" method="post" class="editform" onsubmit="selectAllOptions(this.shopprod_images);">
+?>" method="post" class="editform" onsubmit="selectAllOptions(this.shopprod_images);selectAllOptions(this.shopprod_files);">
 
-<input type="hidden" name="shopprod_id" value="<?php echo $plugin['data']['shopprod_id'] ?>" />
+<input type="hidden" name="shopprod_id" value="<?php echo $plugin['data']['shopprod_id'] ?>" /><?php if(SHOP_FELANG_SUPPORT === false): ?><input type="hidden" name="shopprod_lang" value="<?php echo $plugin['data']['shopprod_lang'] ?>" /><?php endif; ?>
 <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
 
 	<tr> 
@@ -52,7 +57,8 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 		?>		
 		&nbsp;&nbsp;&nbsp;<span class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:</span> 
 		<?php 
-				echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
+			
+			echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
 		}
 		
 		?></td>
@@ -74,14 +80,37 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 		
 				<td align="right" class="chatlist width100"><?php echo $BLM['shopprod_model'] ?>:&nbsp;</td>
 				<td><input name="shopprod_model" type="text" id="shopprod_model" class="v12 width170" value="<?php echo html_specialchars($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" /></td>
-		
-				</tr>
+			</tr>
 				
 			</table></td>
 	</tr>
 
-	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>	
+
+<?php if(SHOP_FELANG_SUPPORT): ?>
+
+	<tr> 
+		<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang']  ?>:&nbsp;</td>
+		<td class="v10" width="410"><table cellpadding="0" cellspacing="0" border="0" summary="">
+			<tr>
+				<td><input type="radio" name="shopprod_lang" id="shopprod_lang_0" value=""<?php is_checked($plugin['data']['shopprod_lang'], '') ?> /></td>
+				<td><label for="shopprod_lang_0"><?php echo $BL['be_ftptakeover_all'] ?></label>&nbsp;&nbsp;</td>
+<?php	foreach($phpwcms['allowed_lang'] as $lang):
+
+			$lang = strtolower($lang);
+?>
+		<td><input type="radio" name="shopprod_lang" id="shopprod_lang_<?php echo $lang ?>" value="<?php echo $lang ?>"<?php is_checked(strtolower($plugin['data']['shopprod_lang']), $lang) ?> /></td>
+		<td><label for="shopprod_lang_<?php echo $lang ?>"><img src="img/famfamfam/lang/<?php echo $lang; $lang = strtoupper($lang); ?>.png" alt="<?php echo $lang ?>" title="<?php echo $lang ?>" /></label>&nbsp;&nbsp;</td>
+
+<?php	endforeach;	?>
+			</tr>
+		</table></td>
+	</tr>
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+<?php endif; ?>
+	
 	
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_name1'] ?>:&nbsp;</td>
@@ -207,10 +236,10 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		
 			<tr>
-				<td><textarea name="shopprod_size" type="text" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea></td>
+				<td><textarea name="shopprod_size" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea></td>
 		
 				<td align="right" class="chatlist width100 tdtop4"><?php echo $BLM['shopprod_color'] ?>:&nbsp;</td>
-				<td><textarea name="shopprod_color" type="text" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea></td>
+				<td><textarea name="shopprod_color" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea></td>
 		
 				</tr>
 				
@@ -233,7 +262,7 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 		$wysiwyg_editor = array(
 			'value'		=> $plugin['data']['shopprod_description0'],
 			'field'		=> 'shopprod_description0',
-			'height'	=> '250px',
+			'height'	=> '150px',
 			'width'		=> '536px',
 			'rows'		=> '10',
 			'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
@@ -294,6 +323,7 @@ $BE['HEADER']['optionselect.js']		= getJavaScriptSourceLink('include/inc_js/opti
 <?php
 
 $img_thumbs = '';
+$imgx = 0;
 
 if($img_count) {
 
@@ -305,7 +335,7 @@ if($img_count) {
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
 		$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$plugin['data']['shopprod_images'][$key]['f_ext'],
-								"image_name"	=>	$plugin['data']['shopprod_images'][$key]['f_hash'] . '.' . $content['image_list']['images'][$key]['f_ext'],
+								"image_name"	=>	$plugin['data']['shopprod_images'][$key]['f_hash'] . '.' . $plugin['data']['shopprod_images'][$key]['f_ext'],
 								"thumb_name"	=>	md5(	$plugin['data']['shopprod_images'][$key]['f_hash'].
 															$phpwcms["img_list_width"].
 															$phpwcms["img_list_height"].
@@ -360,12 +390,64 @@ if($img_count) {
 	}
 
 ?></td>
-			  </tr>
+	</tr>
 			  
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 		<td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
 	</tr>
+	
+	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+
+	<!-- Attachments -->
+	<tr>
+	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_files'] ?>:&nbsp;</td>
+	<td valign="top" class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
+	<tr>
+		<td valign="top"><select name="shopprod_files[]" size="<?php 
+		
+	$files_count = isset($plugin['data']['shopprod_files']) && is_array($plugin['data']['shopprod_files']) ? count($plugin['data']['shopprod_files']) : 0;		
+		
+	echo $files_count+4 
+		
+		?>" multiple="multiple" class="f11 width360" id="shopprod_files">
+<?php
+
+if(count($plugin['data']['shopprod_files'])) {
+
+	// browse images and list available
+	// will be visible only when aceessible
+	foreach($plugin['data']['shopprod_files'] as $key => $value) {
+
+		echo '<option value="' . $plugin['data']['shopprod_files'][$key]['f_id'] . '">';
+		echo html_specialchars($plugin['data']['shopprod_files'][$key]['f_name']);
+		echo '</option>'.LF;
+
+		$plugin['data']['shopprod_filecaption'][] = html_specialchars($plugin['data']['shopprod_files'][$key]['caption']);
+
+	}
+
+}
+
+?>
+		</select></td>
+	
+		<td valign="top"><img src="img/leer.gif" alt="" width="5" height="1" /></td>
+		<td valign="top">
+	  	<a href="#" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=9&amp;target=nolist','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes,status=yes',1);return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
+	  	<br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(files_field);return false;"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0" /></a><a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(files_field);return false;"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0" /></a>
+	  	<br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" onclick="removeSelectedOptions(files_field);return false;" title="<?php echo $BL['be_cnt_delfile'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0" /></a></td> 
+      </tr>
+	</table>
+		</td>
+	</tr>
+			  
+	<tr>
+		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
+		<td valign="top"><textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea></td>
+	</tr>
+	<!-- End Attachments -->
 	
 	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
@@ -428,14 +510,22 @@ if($img_count) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="18" /></td></tr>
 	
 	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+		<td align="right" class="chatlist tdtop4"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">		
 			<tr>
 				<td><input type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> /></td>
-				<td><label for="shopprod_status"><?php echo $BL['be_cnt_activated'] ?></label>&nbsp;&nbsp;&nbsp;</td>
+				<td><label for="shopprod_status"><?php echo $BL['be_cnt_activated'] ?></label>&nbsp;&nbsp;</td>
 				<td><input type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> /></td>
 				<td><label for="shopprod_listall"><?php echo $BLM['shopprod_listall'] ?></label></td>
 			</tr>
+<!-- save as duplicate -->
+<?php	if($plugin['data']['shopprod_id']):	?>
+			<tr>
+				<td><input type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> /></td>
+				<td colspan="3"><label for="shopprod_duplicate"><?php echo $BL['be_save_copy'] ?></label></td>
+			</tr>
+<?php	endif;	?>
+
 		</table></td>
 	</tr>
 	
@@ -455,5 +545,15 @@ if($img_count) {
 <script language="javascript" type="text/javascript">
 <!--
 var img_field = getObjectById('shopprod_images');
+var files_field = getObjectById('shopprod_files');
+function addFile(value,text) {
+	if(files_field!=null && files_field.options!=null) {
+		newOpt = new Option(text, value);
+		files_field.options.length++;
+		files_field.options[files_field.length-1].text  = newOpt.text;
+		files_field.options[files_field.length-1].value = newOpt.value;
+		files_field.options[files_field.length-1].selected = false;
+	}
+}
 //-->
 </script>

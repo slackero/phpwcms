@@ -58,7 +58,10 @@ function bb2_httpbl($settings, $package) {
 		if ($ip[0] == 127 && ($ip[3] & 7) && $ip[2] >= $settings['httpbl_threat'] && $ip[1] <= $settings['httpbl_maxage']) {
 			return '2b021b1f';
 		}
+		// Check if search engine
+		if ($ip[3] == 0) {
+			return 1;
+		}
 	}
 	return false;
 }
-?>

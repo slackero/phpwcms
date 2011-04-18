@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -63,19 +63,21 @@ initMootoolsAutocompleter();
 							$fxsg += $fxs;
 							$fxe = extimg(which_ext($file));
 							if(PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file)) {
-								$file = utf8_decode($file);
+								$filename = str_replace('?', '', utf8_decode($file)); // there is a big problem with special chars on Mac OS X and seems Windows too
 							}
+							$filename = html_specialchars($filename);
 		  ?>
           <tr<?php echo $fxb?>>
             <td align="center"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
             <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
-            <td class="v10"><?php echo html_specialchars($file) ?></td>
+            <td class="v10"><?php echo $filename ?></td>
 			
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
             <td align="right" class="v10">
 				<?php echo fsizelong($fxs) ?>&nbsp;
 				<input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo base64_encode($file) ?>" />
+				<input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
 			</td>
           </tr>
 			<?php				$fx++;

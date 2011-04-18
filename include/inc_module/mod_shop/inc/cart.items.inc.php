@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2010 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -37,7 +37,7 @@ foreach($cart_data as $item_key => $row) {
 	
 	$prod_id = $row['shopprod_id'];
 	
-	$total[$prod_id]['quantity']	= $_SESSION['shopping_cart']['products'][$prod_id];
+	$total[$prod_id]['quantity']	= $_SESSION[CART_KEY]['products'][$prod_id];
 	$total[$prod_id]['vat']			= $row['shopprod_vat'];
 	if($row['shopprod_netgross'] == 1) {
 		// price given is GROSS price, including VAT
