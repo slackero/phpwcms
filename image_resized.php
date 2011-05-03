@@ -31,25 +31,22 @@ $img_quality= (isset($_GET['q']) && intval($_GET['q']) <= 100 && intval($_GET['q
 $img_file	= str_replace(array('http://', 'https://'), '', $img_file);
 
 switch($img_target) {
-
-	case 'jpg':		$img_mimetype = 'image/jpeg';
-					break;
 	
-	case 'jpeg':	$img_mimetype = 'image/jpeg';
-					$img_target = 'jpg';
-					break;
-	
-	case 'png':		$img_mimetype = 'image/png';
+	case 'png':		$img_mimetype	= 'image/png';
+					$img_target		= 'jpg';
 					break;
 	
 	case 'gif':		if(function_exists('imagegif')) {
 						$img_mimetype = 'image/gif';
+						$img_target   = 'gif';
 					} else {
 						$img_target   = 'png';
 						$img_mimetype = 'image/png';
 					}
 					break;
 	
+	case 'jpeg':
+	case 'jpg':
 	default:		$img_mimetype	= 'image/jpeg';
 					$img_target		= 'jpg';
 

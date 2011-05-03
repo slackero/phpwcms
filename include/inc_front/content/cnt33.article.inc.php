@@ -450,15 +450,16 @@ if($news['template']) {
 			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_words'], $news['config']['news_teaser_limit_ellipse'], 'word');
 		}
 		
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_SUBTITLE', html_specialchars($value['cnt_subtitle']));
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TEASER', $news['config']['news_teaser_text']($value['cnt_teasertext']));
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_TEXT', $value['cnt_text']);
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'AUTHOR', html_specialchars($value['cnt_editor']));
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'PLACE', html_specialchars($value['cnt_place']));
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'PRIO', empty($value['cnt_prio']) ? '' : $value['cnt_prio'] );
-		$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'FIRST', $news['row_count'] === 1 ? ' ' : '');
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_SUBTITLE', html_specialchars($value['cnt_subtitle']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TEASER', $news['config']['news_teaser_text']($value['cnt_teasertext']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TEXT', $value['cnt_text']);
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'AUTHOR', html_specialchars($value['cnt_editor']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'PLACE', html_specialchars($value['cnt_place']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'PRIO', empty($value['cnt_prio']) ? '' : $value['cnt_prio'] );
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FIRST', $news['row_count'] === 1 ? ' ' : '');
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TAGS', html_specialchars($value['cnt_object']['cnt_category']));
 		
 		// news detail link (read)
 		if($news['list_mode']) {

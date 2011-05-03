@@ -109,7 +109,7 @@ $phpwcms['enable_messages']	  = 0; // enable or disable internal messags, by def
 $phpwcms['enable_seolog']	  = 1; // enable or disable logging of search engine referrer data
 $phpwcms['i18n_parse']	  	  = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement
 $phpwcms['i18n_complex']	  = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars "en"), true - "en-gb"...
-$phpwcms['FCK_FileBrowser']   = 0; // enable|disable phpwcms Filebrowser in FCKeditor instead of built-in FCK file bowser support
+$phpwcms['FCK_FileBrowser']   = 1; // enable|disable phpwcms Filebrowser in FCKeditor instead of built-in FCK file bowser support
 $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';

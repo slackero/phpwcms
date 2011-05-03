@@ -209,7 +209,7 @@ if(is_array($article["article_cntpart"]) && count($article["article_cntpart"])) 
 
 		if(isset($wcs_content_type[$value])) {
 		
-			echo getContentPartOptionTag($value, $wcs_content_type[$value]);
+			echo getContentPartOptionTag($value, $wcs_content_type[$value], $article['article_cpdefault']);
 			$temp_count++;
 
 		}
@@ -224,7 +224,7 @@ if(!$temp_count) {
 	//list all available content parts
 	foreach($wcs_content_type as $key => $value) {
 		//echo "<option value=\"".$key."\">".$value."</option>";
-		echo getContentPartOptionTag($key, $value);
+		echo getContentPartOptionTag($key, $value, $article['article_cpdefault']);
 	}
 }
 					?>

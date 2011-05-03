@@ -35,6 +35,7 @@ $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : ""
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
 $row["acontent_form"] = @unserialize($row["acontent_form"]);
+unset($row['acontent_form']['tabwysiwygoff']);
 
 if($cinfo["result"] || count($row["acontent_form"])) {
 	echo "<tr><td>&nbsp;</td><td class=\"v10\">";

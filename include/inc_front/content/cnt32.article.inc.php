@@ -32,6 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $tabs			= array();
 $tabs['tabs']	= @unserialize($crow["acontent_form"]);
+unset($content['tabs']['tabwysiwygoff']);
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/tabs.tmpl')) {

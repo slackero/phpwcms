@@ -1303,6 +1303,6 @@ $BL['fancyupload_required_error']		= 'A required file was not found, please be p
 $BL['fancyupload_flash_error']			= 'To enable the embedded uploader, install the latest Adobe Flash plugin.';
 
 $BL['be_cnt_function_validate']			= 'PHP validation';
-
+$BL['be_structform_selected_cp']		= 'Limit selection of usable content parts';
 
 ?>

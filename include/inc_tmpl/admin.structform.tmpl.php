@@ -58,6 +58,7 @@ if($_GET['struct'] === 'index') {
 	$acat_archive		= empty($indexpage['acat_archive']) ? 0 : $indexpage['acat_archive'];
 	$acat_class			= empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'];
 	$acat_keywords		= empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'];
+	$acat_cpdefault		= empty($indexpage['acat_cpdefault']) ? 0 : intval($indexpage['acat_cpdefault']);
 	
 	$acat_struct_mode = 'INDEX';
 	
@@ -87,6 +88,7 @@ if($_GET['struct'] === 'index') {
 	$acat_archive		= 0;
 	$acat_class			= '';
 	$acat_keywords		= '';
+	$acat_cpdefault		= 0;
 
 }
 
@@ -320,12 +322,25 @@ if(is_array($tmpllist) && count($tmpllist)) {
           </tr>
 		  
 		  
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
 		  
 		  
 <!-- Content Part Selection -->
 		  
-		  <tr><td class="v09">Content Part selection:</td></tr>
+		  <tr><td><table border="0" cellpadding="0" cellspacing="0" summary="">
+			<tr>
+		  		<td class="v09" style="width:280px;"><?php echo $BL['be_structform_selected_cp'] ?>:</td>
+				<td class="v09"><?php echo $BL['be_admin_tmpl_default'] ?>:&nbsp;</td>
+				<td style="padding:2px 0;"><select name="acat_cpdefault" class="f10">
+<?php
+foreach($wcs_content_type as $key => $value) {
+	echo '<option value="'.$key.'"'.is_selected($acat_cpdefault, $key,1, 0).'>'.$value."</option>\n";
+}
+				
+?>			
+				</select></td>
+			</tr>
+			</table></td></tr>
 		  <tr><td><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>
           <tr>
             <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">

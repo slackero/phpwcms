@@ -29,11 +29,12 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-// Content Type Images Special
+// Content Type Tabs
 $content["tabs_template"]	= clean_slweg($_POST['template']);
 $content["tabs"]			= array();
 $content['search']			= '';
 $content['html']			= array();
+$content['tabwysiwygoff']	= empty($_POST['tabwysiwygoff']) ? 0 : 1;
 
 // get all tabs
 if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['tabtitle'])) {
@@ -57,8 +58,10 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		if($content["tabs"][$x]['tabheadline']) {
 			$content['html'][] = '		<h3>'.html_specialchars($content["tabs"][$x]['tabheadline']).'</h3>';
 		}
-		if(strpos($content["tabs"][$x]['tabtext'], '<') === false) {
+		if(!$content['tabwysiwygoff'] && strpos($content["tabs"][$x]['tabtext'], '<') === false) {
 			$content["tabs"][$x]['tabtext'] = plaintext_htmlencode($content["tabs"][$x]['tabtext']);
+		} else {
+			$content["tabs"][$x]['tabtext'] = html_specialchars($content["tabs"][$x]['tabtext']);
 		}
 		$content['html'][] = '		'.$content["tabs"][$x]['tabtext'];
 		$content['html'][] = '	</dd>';
@@ -74,5 +77,7 @@ if(count($content['html'])) {
 } else {
 	$content['html'] = '';
 }
+
+$content['tabs']['tabwysiwygoff'] = $content['tabwysiwygoff'];
 
 ?>

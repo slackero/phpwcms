@@ -66,7 +66,16 @@ if($wysiwyg_editor['editor'] == 2) {
 		CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {
 			customConfig: phpwcms_ckeditor_config+"ckeditor.config.js",
 			language: "'.$wysiwyg_editor['lang'].'",
-			toolbar: "'.$wysiwyg_editor['template'].'"
+			toolbar: "'.$wysiwyg_editor['template'].'"';
+	if (!empty($phpwcms['FCK_FileBrowser'])) {
+		echo ',
+			filebrowserBrowseUrl: "'.PHPWCMS_URL.'/filebrowser.php?opt=16",
+			filebrowserImageBrowseUrl : "'.PHPWCMS_URL.'/filebrowser.php?opt=17",
+			filebrowserWindowWidth: 640,
+			filebrowserWindowHeight: 480
+			';
+	}
+		echo '
 		});
 	</script>';
 

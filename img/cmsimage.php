@@ -59,7 +59,10 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 		$ext		= which_ext($data[1]);
 		
 		if(is_numeric($hash)) {
-		
+			
+			@session_start();
+			$file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+			
 			require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 		
 			$sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
@@ -67,7 +70,7 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 			if(!$phpwcms['imagick']) {
 				$sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
 			}
-			$sql  .= 'f_trash=0 AND f_aktiv=1 AND f_public=1';
+			$sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
 			$hash  = _dbQuery($sql);
 			if(isset($hash[0]['f_hash'])) {
 				$ext  = $hash[0]['f_ext'];
@@ -79,6 +82,9 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 			
 		} elseif($hash && strlen($hash) == 32 && $ext && !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext)) {
 			
+			@session_start();
+			$file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+			
 			require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 		
 			$sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
@@ -86,7 +92,7 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 			if(!$phpwcms['imagick']) {
 				$sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
 			}
-			$sql  .= 'f_trash=0 AND f_aktiv=1 AND f_public=1';
+			$sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
 			$hash  = _dbQuery($sql);
 			if(isset($hash[0]['f_hash'])) {
 				$ext  = $hash[0]['f_ext'];

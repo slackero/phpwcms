@@ -1295,5 +1295,6 @@ $BL['fancyupload_required_error']		= 'Eine erforderliche Datei wurde nicht gefun
 $BL['fancyupload_flash_error']			= 'Installieren Sie das neueste Adobe Flash Plugin, um den integrierten Uploader zu aktivieren.';
 
 $BL['be_cnt_function_validate']			= 'PHP-Validierung';
+$BL['be_structform_selected_cp']		= 'Auswahl nutzbarer Content Parts begrenzen';
 
 ?>

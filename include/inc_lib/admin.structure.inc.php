@@ -66,6 +66,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_archive		= $row_acat["acat_archive"];
 			$acat_class			= $row_acat["acat_class"];
 			$acat_keywords		= $row_acat["acat_keywords"];
+			$acat_cpdefault		= $row_acat["acat_cpdefault"];
 		}
 		mysql_free_result($result_acat);
 	}
@@ -73,6 +74,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 	$acat_topcount 		= $indexpage['acat_topcount'];
 	$acat_order 		= $indexpage['acat_order'];
 	$acat_cntpart		= isset($indexpage['acat_cntpart']) ? explode(',', $indexpage['acat_cntpart']) : array();
+	$acat_cpdefault		= 0;
 }
 
 if(isset($_GET["sort"])) {

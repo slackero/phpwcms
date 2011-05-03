@@ -23,7 +23,12 @@
 /**
  * Sept. 2009
  * enhancement to enable phpwcms filebrowser support in FCK Editor
- * based on concept and work of Markus Köhl <www.pagewerkstatt.ch>
+ * based on concept and work of Markus KÃ¶hl <www.pagewerkstatt.ch>
+ *
+ * April 2011
+ * - enhancement to enable phpwcms filebrowser support in CKEditor
+ *   based on concept and work of Markus KÃƒÂ¶hl <www.leanux.ch>
+ * - Issue 265 based on TB's post
  */
 
 session_start();
@@ -80,6 +85,8 @@ checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
 
+$phpwcms_filestorage = PHPWCMS_FILES;
+
 $js_aktion = (isset($_GET["opt"])) ? intval($_GET["opt"]) : 0;
 
 switch($js_aktion) {
@@ -90,13 +97,15 @@ switch($js_aktion) {
 	case 7:
 	case 8:
 	case 5:
-	case 11:	$titel		= $BL['IMAGE_TITLE'];	
+	case 11:
+	case 17:	$titel		= $BL['IMAGE_TITLE'];	
 				$filetype	= $BL['IMAGE_FILES'];
 				break;
 
 	case 4:
 	case 9:
 	case 10:
+	case 16:
 	case 15:	$titel		= $BL['FILE_TITLE'];
 				$filetype	= $BL['FILES'];
 				break;
@@ -116,9 +125,9 @@ if(isset($_SESSION["folder"])) $folder = $_SESSION["folder"];
 if(isset($_GET["folder"])) {
 	list($folder_id, $folder_value) = explode('|', $_GET["folder"]);
 	$folder[$folder_id] = intval($folder_value);
-	$_SESSION["folder"] = $folder; //Rückgabe des Aktuellen Array mit Aufolderwerten in die Session
+	$_SESSION["folder"] = $folder; //RÃ¼ckgabe des Aktuellen Array mit Aufolderwerten in die Session
 }
-$_SESSION["list_zaehler"] = 0; //Zähler für die Public-Listenfunktion setzen
+$_SESSION["list_zaehler"] = 0; //ZÃ¤hler fÃ¼r die Public-Listenfunktion setzen
 
 //Checken, welcher Ordner aktiv
 if(isset($_GET["files"])) {
@@ -135,16 +144,14 @@ if(isset($_GET["files"])) {
 
 }
 
-//Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0 LIMIT 1";
-	   //"f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 LIMIT 1;";
+//Does user have files and folders that can be used
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") AND f_trash=0 LIMIT 1";
 if($result = mysql_query($sql, $db) or die ("error while counting private files")) {
 	if($row = mysql_fetch_row($result)) $count_user_files = $row[0];
 	mysql_free_result($result);
 }
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
@@ -179,9 +186,9 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
   <tr>
     <td valign="top"><?php
 	
-if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
+if(!empty($count_user_files)) { //Listing in case of user files/folders
 
-	echo '<table summary="" bgColor="#FCFDFD" border="0" cellspacing="0" cellpadding="0">'."\n";
+	echo '<table summary="" bgColor="#FCFDFD" border="0" cellspacing="0" cellpadding="0">'.LF;
 	
 	//Anzeige des Festplattensymbols
 	$dirname = $BL['ROOT_DIR'];
@@ -189,7 +196,8 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 		$folder[0] = 0;
 	}
 	$folder_status = true_false($folder[0]);
-	$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_public=1 AND f_aktiv=1 AND f_trash=0 LIMIT 1";
+	// Change based on Issue 265 by TB to allow file's uploader to select own items
+	$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") LIMIT 1";
 
 	if($count_result = mysql_query($count_sql, $db)) {
 		if($count_row = mysql_fetch_row($count_result)) {
@@ -214,7 +222,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	echo '<tr'.$bgcol.'><td colspan="2"><img src="img/leer.gif" height="1" width="1" border="0" alt="" /></td></tr>'.LF; //Abstand nach
 	echo '<tr bgcolor="#CDDEE4"><td colspan="2"><img src="img/leer.gif" height="1" width="1" border="0" alt="" /></td></tr>'.LF;
 		
-	//Wenn überhaupt Ordner für User vorhanden, dann Listing
+	//Wenn Ã¼berhaupt Ordner fÃ¼r User vorhanden, dann Listing
 	if(!$folder_status && $count_wert) {
 		folder_list(0, $db, 18, "filebrowser.php?opt=".$js_aktion."&amp;");
 	}
@@ -233,11 +241,11 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	$file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
 	switch($js_aktion) {
 
-		case 6:		$file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'png', 'gif') AND ";
+		case 6:		$file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif') AND ";
 					break;
 					
 					// H.264
-		case 12:	$file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a') AND ";
+		case 12:	$file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v') AND ";
 					break;
 					
 					// WebM
@@ -251,8 +259,10 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 		case 15:	$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
 					break;
 		
+		case 11:
+		case 17:
 		case 8:		$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
-		case 7:		$file_sql .= "f_ext IN ('jpg', 'png', 'gif') AND ";
+		case 7:		$file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif') AND ";
 					break;
 	
 	
@@ -274,8 +284,9 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 					break;
 
 	}
-	$file_sql .= "f_public=1 AND f_aktiv=1 ";
-	$file_sql .= "AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
+	$file_sql .= "f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ";
+	$file_sql .= "(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") ";
+	$file_sql .= "ORDER BY f_sort, f_name";
 	
 	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br />".html_entities($file_sql))) {
 		$file_durchlauf = 0;
@@ -290,7 +301,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 			$filename = html_specialchars($file_row["f_name"]);
 			
 			$thumb_image = true;
-			if( $js_aktion != 2 && $js_aktion != 4 && $js_aktion != 9 && $js_aktion != 10 ) {
+			if( !in_array($js_aktion, array(2, 4, 9, 10, 16)) ) {
 				// check if file can have thumbnail - if so it can be choosen for usage
 				$thumb_image = get_cached_image(
 			 					array(	"target_ext"	=>	$file_row["f_ext"],
@@ -300,7 +311,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 								);
 			}
 
-			if($thumb_image != false || in_array($js_aktion, array(6,12,13,14))) {
+			if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16))) {
 			
 				$js_files_select[$file_durchlauf] = '	  [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
 				$add_all = false;
@@ -350,10 +361,16 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 					case 10: $js  = "window.opener.SetUrl('download.php?f=".$file_row["f_hash"] . "&target=0');";
 							 break;
 		
-					case 11: $js  = "window.opener.SetUrl('image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=filearchive/".$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
-							 
-							 //$js = "window.opener.SetUrl('img/cmsimage.php?xxx".$phpwcms['jpg_quality']."/".$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
+					case 11: $js  = "window.opener.SetUrl('image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=".$phpwcms_filestorage.$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
 							 break;
+							 
+					//CKEditor
+					case 16: $js  = "window.opener.CKEDITOR.tools.callFunction(4, 'download.php?f=".$file_row["f_hash"] . "&target=0');";
+							 break;
+					
+					case 17: $js  = "window.opener.CKEDITOR.tools.callFunction(4,'image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=".$phpwcms_filestorage.$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
+							 break;
+						
 						 
 					default: $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
 							 $js_files_all[] = $js;
@@ -380,7 +397,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 				echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" border="0" alt="" /></td></tr>'.LF;
 				echo "<tr>\n<td><img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" alt=\"\" hspace=\"3\" vspace=\"1\" /></td>\n";
         	
-        		if($js_aktion != 4 && $js_aktion != 10) {
+        		if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
         			echo "<td class=\"msglist\">".$filename."</td>\n<td><img src=\"img/leer.gif\" width=\"5\" height=\"1\" alt=\"\" border=\"0\" />";
 				} else {
 					echo "<td class=\"msglist\"><a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename."</a></td>\n<td>";
@@ -390,7 +407,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 				echo "<img src=\"img/button/add_9x9a.gif\" border=\"0\" alt=\"\" hspace=\"5\" vspace=\"2\" /></a></td>\n";
 				echo "<td><img src=\"img/leer.gif\" alt=\"\" border=\"0\" /></td>\n</tr>\n";
 				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-				if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11) ) ) {
+				if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17) ) ) {
 					echo "<tr><td>&nbsp;</td>\n<td colspan=\"3\"><a href=\"#\" onclick=\"".$js;
 					echo "tmt_winControl('self','close()');\">";
 					echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
@@ -443,14 +460,15 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 </html>
 <?php
 
-//function folder_list($pid, $dbcon, $vor, $zieldatei, $userID) {
+//function folder_list($pid, $dbcon, $vor, $zieldatei) {
 function folder_list($pid, $dbcon, $vor, $zieldatei) {
 	global $current_dirname;
 	$folder = $_SESSION["folder"];
 	$pid = intval($pid);
+	$userID = intval($_SESSION["wcs_user_id"]);
 	$sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE ".
-		   "f_pid=".intval($pid)." AND f_public=1 AND f_aktiv=1 AND ".
-		   "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name"; //"f_uid=".intval($userID)." AND ".
+		   "f_pid=".intval($pid)." AND f_aktiv=1 AND f_kid=0 AND f_trash=0 AND ".
+		   "(f_public=1 OR f_uid=".$userID.") ORDER BY f_sort, f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 	
@@ -460,11 +478,10 @@ function folder_list($pid, $dbcon, $vor, $zieldatei) {
 		if(!isset($folder[$row["f_id"]])) $folder[$row["f_id"]] = 0;
 		$folder_status = true_false($folder[$row["f_id"]]);
 		
-		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
+		//Ermitteln, ob Ã¼berhaupt abhÃ¤ngige Dateien/Ordner existieren
 		$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
-					 "f_pid=".$row["f_id"].
-					 " AND f_public=1 AND f_aktiv=1 AND ".
-					 "f_trash=0 LIMIT 1";
+					 "f_pid=".$row["f_id"]." AND f_trash=0 AND f_aktiv=1 AND ".
+					 "(f_public=1 OR f_uid=".$userID.") LIMIT 1";
 		if($count_result = mysql_query($count_sql, $dbcon)) {
 			if($count_row = mysql_fetch_row($count_result)) {
 				$count = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="'.$zieldatei."folder=".$row["f_id"].
@@ -497,14 +514,14 @@ function folder_list($pid, $dbcon, $vor, $zieldatei) {
 			folder_list($row["f_id"], $dbcon, $vor+18, $zieldatei); //, $userID
 		}
 		
-		//Zaehler mitführen
+		//Zaehler mitfÃ¼hren
 		$_SESSION["list_zaehler"]++;
 	}
 	mysql_free_result($result);
 }
 
 function on_off($wert, $string, $art = 1) {
-	//Erzeugt das Status-Zeichen für Klapp-Auf/Zu
+	//Erzeugt das Status-Zeichen fÃ¼r Klapp-Auf/Zu
 	//Wenn Art = 1 dann als Zeichen, ansonsten als Bild
 	if($wert) {
 		if($art == 1) {

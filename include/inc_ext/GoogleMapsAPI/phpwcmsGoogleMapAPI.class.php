@@ -1580,8 +1580,9 @@ class GoogleMapAPI
 				
 					// changed to JSON, it's more accurate
 					$_url = sprintf( 'http://%s/maps/geo?&q=%s&output=json&key=%s', $this->lookup_server['GOOGLE'], rawurlencode( $address ), $this->api_key );
+					$_result = $this->fetchURL( $_url );
 					
-					if ( $_result = $this->fetchURL( $_url ) ) {
+					if ( $_result ) {
 						
 						$json = new Services_JSON();
 						$_result_parts = $json->decode( $_result );

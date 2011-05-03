@@ -62,12 +62,11 @@ initMootoolsAutocompleter();
 							$fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
 							$fxsg += $fxs;
 							$fxe = extimg(which_ext($file));
-							if(PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file)) {
-								$filename = str_replace('?', '', utf8_decode($file)); // there is a big problem with special chars on Mac OS X and seems Windows too
-							}
+							 // there is a big problem with special chars on Mac OS X and seems Windows too
+							$filename = (PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
 							$filename = html_specialchars($filename);
 		  ?>
-          <tr<?php echo $fxb?>>
+          <tr<?php echo $fxb ?>>
             <td align="center"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
             <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
@@ -140,7 +139,7 @@ initMootoolsAutocompleter();
             </tr>
             <?php 
 	
-	//Auswahlliste vordefinierte Keywörter
+	//Auswahlliste vordefinierte KeywÃ¶rter
 	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
 	if($result = mysql_query($sql, $db) or die("error while browsing file categories for selecting keywords")) {
 		$k = "";
@@ -212,9 +211,6 @@ initMootoolsAutocompleter();
 		<td align="right" class="v09">&nbsp;<?php echo $BL['be_tags'] ?>:&nbsp;</td>
 		<td><input name="file_tags" type="text" id="file_tags" size="40" class="v11 width400" maxlength="255" value="" /></td>
 	</tr>
-	
-	
-
 			
             <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="9" /></td>
             </tr>
@@ -250,7 +246,6 @@ initMootoolsAutocompleter();
 </form>
 <script type="text/javascript">
 <!--
-
 window.addEvent('domready', function(){
 									 
 	/* Autocompleter for keywords (=tags) */
@@ -289,7 +284,6 @@ window.addEvent('domready', function(){
 	
 
 });
-
 
 //-->
 </script>

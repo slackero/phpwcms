@@ -65,15 +65,17 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article["article_username"]	= $row["article_username"];
 				$article["article_uid"]			= $row["article_uid"];
 				if($row["acat_id"]) {
-					$article["article_cat"]		= $row["acat_name"].' [ID:'.$row["acat_id"].']';
-					$article["article_catid"]	= $row["acat_id"];
-					$article["template_id"]		= $row['acat_template'];
-					$article["article_cntpart"]	= isset($row['acat_cntpart']) ? explode(',', $row['acat_cntpart']) : false;
+					$article["article_cat"]			= $row["acat_name"].' [ID:'.$row["acat_id"].']';
+					$article["article_catid"]		= $row["acat_id"];
+					$article["template_id"]			= $row['acat_template'];
+					$article["article_cntpart"]		= isset($row['acat_cntpart']) ? explode(',', $row['acat_cntpart']) : false;
+					$article['article_cpdefault']	= empty($row['acat_cpdefault']) ? 0 : intval($row['acat_cpdefault']);
 				} else {
-					$article["article_cat"]		= $indexpage['acat_name'].' [ID:0]'; //"index (website start)";
-					$article["article_catid"]	= 0;
-					$article["template_id"]		= $indexpage['acat_template'];
-					$article["article_cntpart"]	= isset($indexpage['acat_cntpart']) ? explode(',', $indexpage['acat_cntpart']) : false;
+					$article["article_cat"]			= $indexpage['acat_name'].' [ID:0]'; //"index (website start)";
+					$article["article_catid"]		= 0;
+					$article["template_id"]			= $indexpage['acat_template'];
+					$article["article_cntpart"]		= isset($indexpage['acat_cntpart']) ? explode(',', $indexpage['acat_cntpart']) : false;
+					$article['article_cpdefault']	= empty($indexpage['acat_cpdefault']) ? 0 : intval($indexpage['acat_cpdefault']);
 				}
 				$article["article_keyword"]		= $row["article_keyword"];
 				$article["image"]				= unserialize($row["article_image"]);
@@ -94,7 +96,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article['article_norss']		= $row['article_norss'];
 				$article['article_menutitle']	= $row['article_menutitle'];
 				$article['article_description']	= $row['article_description'];
-								
+												
 				$article['article_archive_status']	= $row['article_archive_status'];
 				
 				$read_done = true;

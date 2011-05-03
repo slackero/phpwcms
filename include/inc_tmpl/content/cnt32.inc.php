@@ -37,11 +37,13 @@ $BE['HEADER']['tabs.css']	= '	<link href="include/inc_css/tabs.css" rel="stylesh
 if(empty($content['tabs']) || !is_array($content['tabs'])) {
 	$content['tabs'] = array();
 }
+$content['tabwysiwygoff'] = empty($content['tabs']['tabwysiwygoff']) ? 0 : 1;
+unset($content['tabs']['tabwysiwygoff']);
 
 // check which WYSIWYG editor to load
 // only FCKeditor is supported here
 // or WYSIWYG disabled
-if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
+if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 
 	$BE['HEADER']['fckeditor.js']	= '	<script type="text/javascript" src="include/inc_ext/fckeditor/fckeditor.js"></script>';
 	$content['wysiwyg']				= true;
@@ -91,9 +93,16 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"])) {
 
 <tr>
 	<td id="col_1_width">&nbsp;</td>
-	<td class="tdbottom6"><button class="btn_add_tab" id="btn_add_tab">
-		<span><?php echo $BL['be_tab_add'] ?></span>
-	</button></td>
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+    	<tr>
+    		<td class="tdbottom6"><button class="btn_add_tab" id="btn_add_tab">
+				<span><?php echo $BL['be_tab_add'] ?></span>
+			</button></td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><input type="checkbox" name="tabwysiwygoff" id="tabwysiwygoff" value="1"<?php is_checked(1, $content['tabwysiwygoff']) ?> /></td>
+            <td class="chatlist"><label for="tabwysiwygoff">&nbsp;<?php echo $BL['be_cnt_no_wysiwyg_editor'] ?></label></td>
+		</tr>        
+    </table></td>
 </tr>
 
 <tr>
