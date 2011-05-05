@@ -184,11 +184,14 @@ $phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_l
 
 if(empty($phpwcms['js_lib'])) {
 	$phpwcms['js_lib']		= array(
-		'mootools-1.2'	=> 'MooTools 1.2',
-		'mootools-1.1'	=> 'MooTools 1.1',
-		'jquery'		=> 'jQuery 1.3',
-		'jquery-1.4'	=> 'jQuery 1.4',
-		'jquery-1.5'	=> 'jQuery 1.5'
+		'mootools-1.3'			=> 'MooTools 1.3',
+		'mootools-1.3-compat'	=> 'MooTools 1.3 Compat',
+		'mootools-1.2'			=> 'MooTools 1.2',
+		'mootools-1.1'			=> 'MooTools 1.1',
+		'jquery-1.6'			=> 'jQuery 1.6',
+		'jquery-1.5'			=> 'jQuery 1.5',
+		'jquery-1.4'			=> 'jQuery 1.4',
+		'jquery'				=> 'jQuery 1.3'
 	);
 }
 
@@ -235,8 +238,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.7';
-$phpwcms["release_date"]	= '2011/05/02';
-$phpwcms["revision"]		= '416';
+$phpwcms["release_date"]	= '2011/05/05';
+$phpwcms["revision"]		= '417';
 
 // -------------------------------------------------------------
 

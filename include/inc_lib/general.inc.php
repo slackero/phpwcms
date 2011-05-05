@@ -2092,8 +2092,17 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 			
 			} elseif($data) {
 			
-				if(empty($exif_imagetype[$data[2]]) || !in_array($exif_imagetype[$data[2]], $imgtype)) {
-					$file_status['error'] = 'File type ('.$data[2].') is not supported for this upload ('.implode(', ', $imgtype).' only)';
+				if(empty($exif_imagetype[$data[2]]) || !in_array($data[2], $imgtype)) {
+					$file_status['error']  = 'File type ';
+					$file_status['error'] .= empty($exif_imagetype[$data[2]]) ? $data[2] : $exif_imagetype[$data[2]];
+					$file_status['error'] .= ' is not supported for this upload (';
+					foreach($imgtype as $imgt) {
+						$file_status['error'] .= empty($exif_imagetype[$imgt]) ? $imgt : $exif_imagetype[$imgt];
+						$file_status['error'] .= ', ';
+					}
+					$file_status['error']  = trim(trim($file_status['error']), ',');
+					$file_status['error'] .= ' only)';
+					
 					$file_status['error_num'] = 415;
 					@unlink($_FILES[$file]['tmp_name']);
 					return $file_status;

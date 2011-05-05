@@ -54,7 +54,9 @@ if($wysiwyg_editor['editor'] == 2) {
 	$BE['HEADER']['ckeditor.styles.default.js']	= getJavaScriptSourceLink(TEMPLATE_PATH.'config/ckeditor/ckeditor.styles.default.js');
 	
 	$wysiwyg_editor['template'] = $_SESSION['WYSIWYG_TEMPLATE'];
-	if($_SESSION['WYSIWYG_TEMPLATE'] == 'Default') {
+	if(empty($wysiwyg_editor['template']) || $wysiwyg_editor['template'] == 'phpwcms_basic') {
+		$wysiwyg_editor['template'] = 'phpwcms';
+	} elseif($wysiwyg_editor['template'] == 'Default') {
 		$wysiwyg_editor['template'] = 'Full';
 	}
 	

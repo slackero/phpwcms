@@ -1,0 +1,1 @@
+Locale.define("es-VE","Number",{decimal:",",group:".",negative:{prefix:"-"},currency:{decimals:2,prefix:"Bs. "},percentage:{decimals:2,suffix:"%"}});

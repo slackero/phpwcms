@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2011/05/02';
-$phpwcms_revision		= '416';
+$phpwcms_release_date	= '2011/05/05';
+$phpwcms_revision		= '417';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -223,7 +223,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed\n";
 	$conf_file .= "\$phpwcms['feuser_regkey']	  = 'FEUSER';\n";
 	$conf_file .= "\$phpwcms['login.php']	  	  = 'login.php';\n";
-	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.2'=>'MooTools 1.2', 'mootools-1.1'=>'MooTools 1.1', 'jquery'=>'jQuery 1.3', 'jquery-1.4'=>'jQuery 1.4', 'jquery-1.5' => 'jQuery 1.5');\n";
+	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');\n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";

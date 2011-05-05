@@ -124,7 +124,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
 			"acat_public, acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
 			"acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
-			"acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, acat_cdpdefault) VALUES ('".
+			"acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, acat_cpdefault) VALUES ('".
 			getpostvar($_POST["acat_name"])."','".
 			getpostvar($_POST["acat_info"], 32000)."',".
 			(isset($_POST["acat_aktiv"]) ? 1 : 0).",".
