@@ -3550,7 +3550,7 @@ function getStructureLevelLink($acat, $attributes='', $prefix='', $suffix='') {
 	if($acat['acat_redirect'] == false) {
 		
 		$target		= '';
-		$link		= rel_url( array(), array(), empty($acat['acat_alias']) ? 'id='.$acat['acat_id'] : $acat['acat_alias'] );
+		$link		= rel_url( array(), array('newsdetail'), empty($acat['acat_alias']) ? 'id='.$acat['acat_id'] : $acat['acat_alias'] );
 		
 	} else {
 		
@@ -3620,7 +3620,7 @@ function getArticleMenu($data=array()) {
 		
 		$li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
 
-		$li[$key] .= '<a href="'.rel_url( array(), array(), setGetArticleAid($item) ).'">';
+		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'">';
 		
 		$li[$key] .= $data['wrap_title_prefix'];
 		$li[$key] .= html_entities( getArticleMenuTitle($item) );
@@ -3727,6 +3727,49 @@ function renderHeadCSS($css) {
 	
 	return '';
 	
+}
+
+function parse_CKEDitor_resized_images() {
+	
+	$GLOBALS['content']['all'] = preg_replace_callback('/<img.*? src="(image_resized\.php\?format=.*?)".*? style="(.*?)px;"/', 'render_CKEDitor_resized_images', $GLOBALS['content']['all']);
+	
+}
+
+function render_CKEDitor_resized_images($match) {
+
+	$src = explode(PHPWCMS_FILES, $match[1]);
+	if(empty($src[1])) {
+		return $match[0];
+	}
+	
+	$sizes	= explode(';', str_replace('px', '', $match[2]));
+	$height	= 0;
+	$width	= 0;
+	foreach($sizes as $size) {
+		
+		$size = trim($size);
+		
+		if(substr($size, 0, 6) == 'width:') {
+			$width	= intval(trim(substr($size, 6)));
+		} elseif(substr($size, 0, 7) == 'height:') {
+			$height	= intval(trim(substr($size, 7)));
+		}
+		
+	}
+	
+	if(!$width || !$height) {
+		return $match[0];
+	}
+	
+	$src = 'img/cmsimage.php/'.$width.'x'.$height.'/'.$src[1];
+	if(strpos($match[0], 'alt="')) {
+		preg_match('/alt="(.*?)"/', $match[0], $alt);
+		$alt = empty($alt[1]) ? '' : ' alt="'.$alt[1].'"';
+	} else {
+		$alt = '';
+	}
+	
+	return '<img src="'.$src.'"'.$alt;
 }
 
 ?>

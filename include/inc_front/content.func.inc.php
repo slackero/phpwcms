@@ -1102,6 +1102,8 @@ if(strpos($content['all'], '--LOGGED_')) {
 $content['all'] = preg_replace_callback('/\[HTML\](.*?)\[\/HTML\]/s', 'convert2html', $content['all'] );
 $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\]/s', 'convert2htmlspecialchars' , $content['all'] );
 
+parse_CKEDitor_resized_images();
+
 // cleanup document to enhance XHTML Strict compatibility
 if($phpwcms['mode_XHTML'] == 2) {
 	

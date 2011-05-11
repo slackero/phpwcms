@@ -20,7 +20,7 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.mootools.default.php');
+require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.mootools-1.3.default.php');
 
 define('PHPWCMS_JSLIB', 'mootools-1.3-compat');
 

@@ -140,7 +140,7 @@ if(	isset($phpwcms["formmailer_set"])
 }
 
 
-if(MailVal($recipient,2)) { //if recipient mail address is invalid
+if(!is_valid_email($recipient)) { //if recipient mail address is invalid
 	$form_error[100] = $translate[$lang]["error100"];
 }
 if(isset($_POST["recipient_name"])) {
@@ -160,7 +160,7 @@ if(empty($subject)) { //if recipient mail address is invalid
 if(isset($_POST["send_copy"])) {
 	if(!empty($phpwcms["formmailer_set"]['allow_send_copy']) && intval($_POST["send_copy"])) {
 		$send_copy_to = cleanUpFormMailerPostValue($_POST["email"]);
-		if(MailVal($send_copy_to, 2)) {
+		if(!is_valid_email($send_copy_to)) {
 			$form_error[300] = $translate[$lang]["error300"];
 			unset($send_copy_to);
 		}

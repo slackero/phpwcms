@@ -124,6 +124,7 @@ define ('On',						true);
 define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
 define ('PHPWCMS_REWRITE_EXT',		'phtml');
+define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
 
 // Mime-Type definitions
 require_once(PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php');

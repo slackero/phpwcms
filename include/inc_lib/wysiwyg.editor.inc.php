@@ -73,9 +73,7 @@ if($wysiwyg_editor['editor'] == 2) {
 		echo ',
 			filebrowserBrowseUrl: "'.PHPWCMS_URL.'/filebrowser.php?opt=16",
 			filebrowserImageBrowseUrl : "'.PHPWCMS_URL.'/filebrowser.php?opt=17",
-			filebrowserWindowWidth: 640,
-			filebrowserWindowHeight: 480
-			';
+			filebrowserWindowWidth: "640", filebrowserWindowHeight: "480"';
 	}
 		echo '
 		});

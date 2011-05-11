@@ -51,7 +51,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 					"WHERE usr_id=".$user_id." AND ".
 					"usr_email='".aporeplace($user_email)."';";
 			if($result = mysql_query($sql, $db)) {
-				if(!MailVal($user_email,2)) {
+				if(is_valid_email($user_email)) {
 					@mail($user_email, "your account", "YOUR PHPWCMS ACCOUNT WAS DELETED\n \ncontact the admin if you have any question.\n\nSee you at ".$phpwcms["site"], "From: ".$phpwcms["admin_email"]."\nReply-To: ".$phpwcms["admin_email"]."\n");
 				}
 			}

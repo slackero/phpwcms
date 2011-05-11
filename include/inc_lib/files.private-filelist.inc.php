@@ -44,10 +44,15 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<tr>\n";
 		echo "<td width=\"19\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"19\" border=\"0\"></td>\n";
 		echo "<td width=\"13\" class=\"msglist\">";
-		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"";
-		echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'\');" onmouseout="UnTip()" alt=""';
-		echo "></td>\n";
-		echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">";
+		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
+		echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
+		echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);
+		if($file_row["f_copyright"]) {
+			echo '&lt;br&gt;&copy;: '.html_specialchars($file_row["f_copyright"]);
+		}
+		echo '\');" onmouseout="UnTip()" alt=""';
+		echo " /></td>\n";
+		echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\" />";
 		echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
 		echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
 		echo $filename."</a></td>\n";

@@ -63,7 +63,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 		}
 	}
 	if(isEmpty($new_password)) $user_err .= $BL['be_admin_usr_err3']."\n";
-	if(MailVal($new_email, 2) && $send_verification) $user_err .= $BL['be_admin_usr_err4']."\n";
+	if(!is_valid_email($new_email) && $send_verification) $user_err .= $BL['be_admin_usr_err4']."\n";
 	if(empty($user_err)) { //Insert new User
 		$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
 				"usr_admin, usr_aktiv, usr_name, usr_wysiwyg, usr_fe ) VALUES ('".

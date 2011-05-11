@@ -35,7 +35,10 @@ if(PHPWCMS_CHARSET == 'utf-8') {
 require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/htmlfilter/htmlfilter.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php');
-
+require_once (PHPWCMS_ROOT.'/include/inc_ext/rfc822.php');
+if(IS_PHP5) {
+	require_once (PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php');
+}
 
 function isEmpty($string) {
 	return ($string == NULL || $string == '') ? 1 : 0;
@@ -458,327 +461,37 @@ function get_filecat_childcount ($fcatid, $dbcon) {
 	return intval($count);
 }
 
-
-function is_valid_email($email) {
-
-	// Split it into sections to make life easier
-	$email_array = explode('@', $email);
-	$count = count($email_array);
-	
-	// First, we check that there's one @ symbol, and that the lengths are right
-	if($count != 2) {
-		return false;
-	}
-	if(empty($email_array[0]) || strlen($email_array[0]) > 64) {
-		return false;
-	}
-	if(empty($email_array[1]) || strlen($email_array[1]) > 255) {
-		return false;
-	}	
-	$local_array = explode('.', $email_array[0]);
-	for ($i = 0; $i < count($local_array); $i++) {
-		if (!preg_match("/^(([A-Z0-9!#$%&'*+\/\=?^_`{|}~-][A-Z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/i", $local_array[$i])) {
-			return false;
-		}
-	}  
-	if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
-		$domain_array = explode('.', $email_array[1]);
-		$count = count($domain_array);
-		if ($count < 2) {
-			return false; // Not enough parts to domain
-		}
-		for ($i = 0; $i < $count; $i++) {
-			if (!preg_match("/^(([A-Z0-9][A-Z0-9-]{0,61}[A-Z0-9])|([A-Z0-9]+))$/i", $domain_array[$i])) {
-				return false;
-			}
-		}
-		
-		// check if it is valid TLD
-		$tld = strtolower($domain_array[ $count-1 ]);
-		// Updated 2009-09-14
-		$tld_all = array(
-			'ac', 
-			'ad', 
-			'ae', 
-			'aero', 
-			'af', 
-			'ag', 
-			'ai', 
-			'al', 
-			'am', 
-			'an', 
-			'ao', 
-			'aq', 
-			'ar', 
-			'arpa', 
-			'as', 
-			'asia', 
-			'at', 
-			'au', 
-			'aw', 
-			'ax', 
-			'az', 
-			'ba', 
-			'bb', 
-			'bd', 
-			'be', 
-			'bf', 
-			'bg', 
-			'bh', 
-			'bi', 
-			'biz', 
-			'bj', 
-			'bm', 
-			'bn', 
-			'bo', 
-			'br', 
-			'bs', 
-			'bt', 
-			'bv', 
-			'bw', 
-			'by', 
-			'bz', 
-			'ca', 
-			'cat', 
-			'cc', 
-			'cd', 
-			'cf', 
-			'cg', 
-			'ch', 
-			'ci', 
-			'ck', 
-			'cl', 
-			'cm', 
-			'cn', 
-			'co', 
-			'com', 
-			'coop', 
-			'cr', 
-			'cu', 
-			'cv', 
-			'cx', 
-			'cy', 
-			'cz', 
-			'de', 
-			'dj', 
-			'dk', 
-			'dm', 
-			'do', 
-			'dz', 
-			'ec', 
-			'edu', 
-			'ee', 
-			'eg', 
-			'er', 
-			'es', 
-			'et', 
-			'eu', 
-			'fi', 
-			'fj', 
-			'fk', 
-			'fm', 
-			'fo', 
-			'fr', 
-			'ga', 
-			'gb', 
-			'gd', 
-			'ge', 
-			'gf', 
-			'gg', 
-			'gh', 
-			'gi', 
-			'gl', 
-			'gm', 
-			'gn', 
-			'gov', 
-			'gp', 
-			'gq', 
-			'gr', 
-			'gs', 
-			'gt', 
-			'gu', 
-			'gw', 
-			'gy', 
-			'hk', 
-			'hm', 
-			'hn', 
-			'hr', 
-			'ht', 
-			'hu', 
-			'id', 
-			'ie', 
-			'il', 
-			'im', 
-			'in', 
-			'info', 
-			'int', 
-			'io', 
-			'iq', 
-			'ir', 
-			'is', 
-			'it', 
-			'je', 
-			'jm', 
-			'jo', 
-			'jobs', 
-			'jp', 
-			'ke', 
-			'kg', 
-			'kh', 
-			'ki', 
-			'km', 
-			'kn', 
-			'kp', 
-			'kr', 
-			'kw', 
-			'ky', 
-			'kz', 
-			'la', 
-			'lb', 
-			'lc', 
-			'li', 
-			'lk', 
-			'lr', 
-			'ls', 
-			'lt', 
-			'lu', 
-			'lv', 
-			'ly', 
-			'ma', 
-			'mc', 
-			'md', 
-			'me', 
-			'mg', 
-			'mh', 
-			'mil', 
-			'mk', 
-			'ml', 
-			'mm', 
-			'mn', 
-			'mo', 
-			'mobi', 
-			'mp', 
-			'mq', 
-			'mr', 
-			'ms', 
-			'mt', 
-			'mu', 
-			'museum', 
-			'mv', 
-			'mw', 
-			'mx', 
-			'my', 
-			'mz', 
-			'na', 
-			'name', 
-			'nc', 
-			'ne', 
-			'net', 
-			'nf', 
-			'ng', 
-			'ni', 
-			'nl', 
-			'no', 
-			'np', 
-			'nr', 
-			'nu', 
-			'nz', 
-			'om', 
-			'org', 
-			'pa', 
-			'pe', 
-			'pf', 
-			'pg', 
-			'ph', 
-			'pk', 
-			'pl', 
-			'pm', 
-			'pn', 
-			'pr', 
-			'pro', 
-			'ps', 
-			'pt', 
-			'pw', 
-			'py', 
-			'qa', 
-			're', 
-			'ro', 
-			'rs', 
-			'ru', 
-			'rw', 
-			'sa', 
-			'sb', 
-			'sc', 
-			'sd', 
-			'se', 
-			'sg', 
-			'sh', 
-			'si', 
-			'sj', 
-			'sk', 
-			'sl', 
-			'sm', 
-			'sn', 
-			'so', 
-			'sr', 
-			'st', 
-			'su', 
-			'sv', 
-			'sy', 
-			'sz', 
-			'tc', 
-			'td', 
-			'tel', 
-			'tf', 
-			'tg', 
-			'th', 
-			'tj', 
-			'tk', 
-			'tl', 
-			'tm', 
-			'tn', 
-			'to', 
-			'tp', 
-			'tr', 
-			'travel', 
-			'tt', 
-			'tv', 
-			'tw', 
-			'tz', 
-			'ua', 
-			'ug', 
-			'uk', 
-			'us', 
-			'uy', 
-			'uz', 
-			'va', 
-			'vc', 
-			've', 
-			'vg', 
-			'vi', 
-			'vn', 
-			'vu', 
-			'wf', 
-			'ws', 
-			'ye', 
-			'yt', 
-			'yu', 
-			'za', 
-			'zm', 
-			'zw'
-		);
-
-		if(!in_array($tld, $tld_all)) {
-			return false;
-		}
-	}
-	
-	return true;
+/**
+ * Test email based on RFC 822/2822/5322 Email Parser
+ * @copyright Cal Henderson <cal@iamcal.com>
+ * 
+ * @param string email address
+ * @return bool
+ */
+function is_valid_email($email, $options=array()) {
+	// IDN conversion
+	$email = idn_encode($email);
+	// wrapped by default function as used since long time in phpwcms
+	return is_valid_email_address($email, $options);
 }
 
-function MailVal($Addr, $Level, $Timeout = 15000) {
-	// just simple alias function
-    return is_valid_email($Addr) ? 0 : 1;
+/**
+ * Convert internationalized domain names
+ *
+ * @param string
+ * @return string
+ */
+function idn_encode($string='') {
+	// convert to utf-8 first
+	$string = makeCharsetConversion($string, PHPWCMS_CHARSET, 'utf-8');
+	
+	// include punicode conversion if >= PHP5
+	if(empty($string) || !class_exists('idna_convert')) {
+		return $string;
+	}
+
+	$IDN = new idna_convert();
+	return $IDN->encode($string);
 }
 
 function read_textfile($filename, $mode='rb') {
