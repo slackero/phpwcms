@@ -60,10 +60,8 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		}
 		if(!$content['tabwysiwygoff'] && strpos($content["tabs"][$x]['tabtext'], '<') === false) {
 			$content["tabs"][$x]['tabtext'] = plaintext_htmlencode($content["tabs"][$x]['tabtext']);
-		} else {
-			$content["tabs"][$x]['tabtext'] = html_specialchars($content["tabs"][$x]['tabtext']);
+			$content['html'][] = '		'.$content["tabs"][$x]['tabtext'];
 		}
-		$content['html'][] = '		'.$content["tabs"][$x]['tabtext'];
 		$content['html'][] = '	</dd>';
 
 		$x++;
