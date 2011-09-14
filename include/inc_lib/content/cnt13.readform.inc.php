@@ -29,6 +29,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Search Form
+$content["template"] = clean_slweg($_POST['template']);
+
 $content["search"]["result_per_page"] = empty($_POST["csearch_result_per_page"]) ? '' : intval($_POST["csearch_result_per_page"]);
 $content["search"]["wordlimit"] = isset($_POST["csearch_wordlimit"]) ? trim($_POST["csearch_wordlimit"]) : '';
 $content["search"]["wordlimit"] = is_intval($content["search"]["wordlimit"]) ? intval($content["search"]["wordlimit"]) : '';

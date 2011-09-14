@@ -70,7 +70,7 @@ foreach($data as $row) {
 
 	if(SHOP_FELANG_SUPPORT) {
 		$row['order_data']		= @unserialize($row['order_data']);
-		$row['shopprod_lang']	= html_specialchars(strtolower($row['order_data']['lang']));
+		$row['shopprod_lang']	= empty($row['order_data']['lang']) ? '' : html_specialchars(strtolower($row['order_data']['lang']));
 		echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ? $row['shopprod_lang'] : 'all').'.png" alt="'.$row['shopprod_lang'].'" style="position:relative;top:1px;margin:0 3px 0 3px;" />';
 	}
 	

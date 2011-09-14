@@ -47,6 +47,9 @@ $content['alink']['alink_wordlimit']	= intval($_POST['calink_wordlimit']);
 // handle teaser for columns
 $content['alink']['alink_columns']		= empty($_POST['calink_columns']) ? 0 : intval($_POST['calink_columns']);
 
+// link against structure level link for single articles
+$content['alink']['alink_categoryalias'] = empty($_POST['calink_categoryalias']) ? 0 : 1;
+
 // max auto article
 $content['alink']['alink_max']			= intval($_POST['calink_max']);
 

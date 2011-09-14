@@ -864,8 +864,6 @@ $BL['be_date_week']                     = 'Woche';
 $BL['be_date_weeks']                    = 'Wochen';
 $BL['be_date_month']                    = 'Monat';
 $BL['be_date_months']                   = 'Monate';
-$BL['be_off']                           = 'Aus';
-$BL['be_on']                            = 'An';
 $BL['be_cache']                         = 'Cache';
 $BL['be_cache_timeout']                 = 'Verfallszeit';
 
@@ -1140,6 +1138,7 @@ $BL['be_gb_show_login']					= 'Anzeigen nur f&uuml;r angemeldete Benutzer';
 $BL['be_gb_urlcheck']					= 'Remote URL Pr&uuml;fung aktivieren';
 $BL['be_order']							= 'Reihenfolge';
 $BL['be_unique_teaser_entry']			= 'Zeige Teaser/Artikellink nur einmal je Seite';
+$BL['be_check_against_category_alias']	= 'Einzelartikel innerhalb einer Strukturebene mit der Strukturebene verlinken';
 
 $BL['be_allowed_tags']					= 'Erlaubte Tags';
 $BL['be_fe_login_url']					= 'FE LoginURL';

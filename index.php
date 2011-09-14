@@ -120,18 +120,20 @@ if(count($block['css'])) {
 
 $content['page_start'] .= $block["htmlhead"];
 
-if(empty($phpwcms['IE7-js'])) {
-	if(!empty($phpwcms['IE_htc_hover'])) {
-		$content['page_start'] .= '  <!--[if lte IE 7]><style type="text/css">body{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/csshover3.htc");}</style><![endif]-->'.LF;
+if($phpwcms['USER_AGENT']['agent'] == 'IE' && version_compare($phpwcms['USER_AGENT']['version'], '9.0', '<')) {
+	if(empty($phpwcms['IE7-js'])) {
+		if(!empty($phpwcms['IE_htc_hover'])) {
+			$content['page_start'] .= '  <!--[if lte IE 7]><style type="text/css">body{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/csshover3.htc");}</style><![endif]-->'.LF;
+		}
+		if(!empty($phpwcms['IE_htc_png'])) {
+			$content['page_start'] .= '  <!--[if lt IE 7]>'.LF;
+			$content['page_start'] .= '	<script type="text/javascript" src="'.TEMPLATE_PATH.'inc_css/specific/iepngfix_tilebg.js"></script>'.LF;
+			$content['page_start'] .= '	<style type="text/css">img,a,div,input,.pngfix{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/iepngfix.htc");}</style>'.LF;
+			$content['page_start'] .= '  <![endif]-->'.LF;
+		}
+	} else {
+		$content['page_start'] .= '  <!--[if lt IE 9]><script type="text/javascript" src="'.TEMPLATE_PATH.'lib/ie7-js/IE9.js"></script><![endif]-->'.LF;
 	}
-	if(!empty($phpwcms['IE_htc_png'])) {
-		$content['page_start'] .= '  <!--[if lt IE 7]>'.LF;
-		$content['page_start'] .= '	<script type="text/javascript" src="'.TEMPLATE_PATH.'inc_css/specific/iepngfix_tilebg.js"></script>'.LF;
-		$content['page_start'] .= '	<style type="text/css">img,a,div,input,.pngfix{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/iepngfix.htc");}</style>'.LF;
-		$content['page_start'] .= '  <![endif]-->'.LF;
-	}
-} else {
-	$content['page_start'] .= '  <!--[if lt IE 8]><script type="text/javascript" src="'.TEMPLATE_PATH.'lib/ie7-js/IE8.js"></script><![endif]-->'.LF;
 }
 
 $content['page_start'] .= '</head>'.LF;

@@ -108,7 +108,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 							$query = strtoupper($query);
 							if(strpos($query, 'SELECT COUNT(') !== false) {
 								$row = mysql_fetch_row($result);
-								return $row ? $row[0] : 0;
+								return $row ? (int) $row[0] : 0;
 							} else {
 								return mysql_num_rows($result);
 							}

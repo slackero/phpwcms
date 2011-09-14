@@ -106,7 +106,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td colspan="2"><textarea name="cat_info" id="cat_info" rows="10" class="v12 width400"><?php echo html_specialchars($plugin['data']['cat_info']) ?></textarea></td>
 	</tr>
 	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="18" /></td></tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 	
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
@@ -114,11 +114,13 @@ if (!defined('PHPWCMS_ROOT')) {
 			<tr>
 				<td><input type="checkbox" name="cat_status" id="cat_status" value="1"<?php is_checked($plugin['data']['cat_status'], 1) ?> /></td>
 				<td><label for="cat_status"><?php echo $BL['be_cnt_activated'] ?></label></td>
+				<td class="chatlist" style="padding-left:6em;"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
+				<td><input name="cat_sort" type="text" id="cat_sort" class="v10 width50" value="<?php echo empty($plugin['data']['cat_sort']) ? 0 : intval($plugin['data']['cat_sort']) ?>" /></td>
 			</tr>
 		</table></td>
 	</tr>
 	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 	</tr>
 	<tr> 
 		<td>&nbsp;</td>

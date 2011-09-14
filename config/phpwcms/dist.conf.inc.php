@@ -113,7 +113,7 @@ $phpwcms['FCK_FileBrowser']   = 1; // enable|disable phpwcms Filebrowser in FCKe
 $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';
-$phpwcms['js_lib']			  = array('mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
+$phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
 
 // dynamic ssl encryption engine
 $phpwcms['site_ssl_mode'] 	  = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'

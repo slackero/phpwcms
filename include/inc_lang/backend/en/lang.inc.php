@@ -1155,6 +1155,7 @@ $BL['be_cnt_imagecenter']				= 'center horizontal/vertical';
 $BL['be_cnt_imagenocenter']				= 'do not center';
 $BL['be_cnt_imagecenterh']				= 'center horizontal';
 $BL['be_cnt_imagecenterv']				= 'center vertical';
+$BL['be_check_against_category_alias']	= 'link single article inside structure level with structure level';
 
 $BL['be_overwrite_default']				= 'Will overwrite default settings of config file';
 $BL['be_cnt_sortvalue']					= 'sort&nbsp;value';

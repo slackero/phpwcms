@@ -648,9 +648,12 @@ if($content['set_canonical']) {
 			$content['set_canonical'] .= '&amp;'.$content['struct'][ $content['cat_id'] ]['acat_alias'];
 		}
 	} else {
-		$content['set_canonical'] = empty($content['struct'][ $content['cat_id'] ]['acat_alias']) ? 'id='.$content['cat_id'] : $content['struct'][ $content['cat_id'] ]['acat_alias'];
+		// set canonical only for single article in this category
+		$content['set_canonical'] = get_structurelevel_single_article_alias($content['cat_id']);
 	}
-	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
+	if($content['set_canonical']) {
+		$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
+	}
 }
 
 if(!defined('PHPWCMS_ALIAS') && !empty($row['article_alias'])) {

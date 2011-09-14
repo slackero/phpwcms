@@ -180,7 +180,8 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 							'image_detail_more_start'	=> 1,
 							'image_detail_more_lightbox'=> false,
 							'files_direct_download'		=> false,
-							'files_template'			=> '' // default
+							'files_template'			=> '', // default
+							'on_request_trigger'		=> -999
 						),	$_tmpl['config'] );
 	
 	foreach( array( 'shop_pref_currency', 'shop_pref_unit_weight', 'shop_pref_vat', 'shop_pref_email_to', 
@@ -359,7 +360,7 @@ if( $_shop_load_cat !== false ) {
 	if($shop_limited_cat) {
 		$sql .= 'AND cat_id = ' . $shop_limited_catid . ' ';
 	}
-	$sql .= 'ORDER BY cat_name ASC';
+	$sql .= 'ORDER BY cat_sort DESC, cat_name ASC';
 	$data = _dbQuery($sql);
 	
 	$shop_cat = array();
@@ -407,7 +408,7 @@ if( $_shop_load_cat !== false ) {
 				// now try to retrieve sub categories for active category
 				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
 				$sql .= "cat_type='module_shop' AND cat_status=1 AND cat_pid=" . $shop_cat_selected ;
-				$sql .= ' ORDER BY cat_name ASC';
+				$sql .= ' ORDER BY cat_sort DESC, cat_name ASC';
 				$sdata = _dbQuery($sql);
 				
 				$subcat_count = count($sdata);
@@ -595,6 +596,14 @@ if( $_shop_load_list !== false ) {
 			// select template based on listing or detail view
 			$entry[$x] = $shop_detail_id ? $_tmpl['detail'] : $_tmpl['list_entry'];
 			
+			if($_tmpl['config']['on_request_trigger'] == $_price['net']) {
+				
+				$_cart = '';
+				$_cart_add = '';
+				$_cart_on_request = TRUE;
+				
+			} else {
+			
 			$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
 			
 			$_cart_add  = '<form action="' . $shop_prod_detail . '" method="post">';
@@ -615,10 +624,14 @@ if( $_shop_load_list !== false ) {
 			}
 			$_cart_add .= '</form>';
 
+				$_cart_on_request = FALSE;
+			}
+
 			$entry[$x] = preg_replace('/\[CART_ADD\](.*?)\[\/CART_ADD\]/is', $_cart_add , $entry[$x]);
 			
 			// product name
 			$entry[$x] = str_replace('{CURRENCY_SYMBOL}', html_entities($_shopPref['shop_pref_currency']), $entry[$x]);
+			$entry[$x] = render_cnt_template($entry[$x], 'ON_REQUEST', $_cart_on_request);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_TITLE', html_specialchars($row['shopprod_name1']));
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html_specialchars($row['shopprod_name2']));
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
@@ -735,6 +748,7 @@ if( $_shop_load_list !== false ) {
 	
 	$entries = str_replace('{CATEGORY}', html_specialchars($shop_cat_name), $entries);
 	$entries = render_cnt_template($entries, 'CART_LINK', is_cart_filled() ? $_tmpl['config']['cart_url'] : '');
+	$entries = parse_cnt_urlencode($entries);
 
 	$content['all'] = str_replace('{SHOP_PRODUCTLIST}', $entries, $content['all']);
 	

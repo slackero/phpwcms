@@ -45,6 +45,7 @@ if($action == 'edit') {
 		$plugin['data']['cat_info']			= clean_slweg($_POST['cat_info']);
 		$plugin['data']['cat_status']		= empty($_POST['cat_status']) ? 0 : 1;
 		$plugin['data']['cat_pid']			= intval($_POST['cat_pid']);
+		$plugin['data']['cat_sort']			= intval($_POST['cat_sort']);
 		
 		if(!$plugin['data']['cat_name']) {
 			$plugin['error']['cat_name'] = 'No name';
@@ -67,7 +68,8 @@ if($action == 'edit') {
 				$sql .= "cat_pid = ".$plugin['data']['cat_pid'].", ";
 				$sql .= "cat_status = ".$plugin['data']['cat_status'].", ";
 				$sql .= "cat_name = '".aporeplace($plugin['data']['cat_name'])."', ";
-				$sql .= "cat_info = '".aporeplace($plugin['data']['cat_info'])."' ";
+				$sql .= "cat_info = '".aporeplace($plugin['data']['cat_info'])."', ";
+				$sql .= "cat_sort = ".$plugin['data']['cat_sort']." ";
 				$sql .= "WHERE cat_type='module_shop' AND cat_id = " . $plugin['data']['cat_id'];
 				
 				_dbQuery($sql, 'UPDATE');
@@ -76,7 +78,7 @@ if($action == 'edit') {
 			} else {
 
 				$sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_categories (';
-				$sql .= 'cat_type, cat_pid, cat_createdate, cat_changedate, cat_status, cat_name, cat_info';
+				$sql .= 'cat_type, cat_pid, cat_createdate, cat_changedate, cat_status, cat_name, cat_info, cat_sort';
 				$sql .= ') VALUES (';
 				$sql .= "'module_shop', ";
 				$sql .= $plugin['data']['cat_pid'].', ';
@@ -84,7 +86,8 @@ if($action == 'edit') {
 				$sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['cat_changedate']) )."', ";
 				$sql .= $plugin['data']['cat_status'].", ";
 				$sql .= "'".aporeplace($plugin['data']['cat_name'])."', ";
-				$sql .= "'".aporeplace($plugin['data']['cat_info'])."'";
+				$sql .= "'".aporeplace($plugin['data']['cat_info'])."',";
+				$sql .= $plugin['data']['cat_sort'];
 				$sql .= ')';
 			
 				$result = _dbQuery($sql, 'INSERT');
@@ -113,6 +116,7 @@ if($action == 'edit') {
 		$plugin['data']['cat_name']			= '';
 		$plugin['data']['cat_info']			= '';
 		$plugin['data']['cat_status']		= 1;	
+		$plugin['data']['cat_sort']			= 0;	
 	
 	} else {
 

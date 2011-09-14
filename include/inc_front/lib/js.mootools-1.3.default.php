@@ -118,7 +118,7 @@ function initJSPlugin($plugin='', $more=false) {
 		if(count($plugin)) {
 			initJSLib();
 			// add mootools more core
-			array_unshift($plugin, 'Core/More');
+			array_unshift($plugin, 'More/More');
 			foreach($plugin as $more) {
 				if(empty($GLOBALS['block']['custom_htmlhead'][$more]) && is_file(PHPWCMS_TEMPLATE.'lib/mootools/more-1.3/'.$more.'.js')) {
 					$GLOBALS['block']['custom_htmlhead'][$more] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/more-1.3/'.$more.'.js');

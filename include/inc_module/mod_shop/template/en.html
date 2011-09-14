@@ -37,6 +37,8 @@ image_detail_lightbox = TRUE
 files_direct_download = 0
 files_template = shop.tmpl
 
+on_request_trigger = -999
+
 mail_customer_subject = "[#{ORDER}] Your order at MyShop"
 mail_neworder_subject = "[#{ORDER}] New order"
 
@@ -76,11 +78,17 @@ order_number_style = EN%05s
 		<div>
 			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
 			{PRODUCT_SHORT}
+		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
 			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
 			<em>{PRODUCT_VAT}%</em>
-			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>			
+			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]			
 			<a href="{PRODUCT_DETAIL_LINK}">Show product details</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>More&#8230;</a>[/PRODUCT_URL]
+		[ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
+			Send price inquiry
+		</a>[/ON_REQUEST][ON_REQUEST_ELSE]
 			[CART_ADD]Add to cart[/CART_ADD]
+		[/ON_REQUEST_ELSE]
 			[VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
 		</div>
 	
@@ -111,17 +119,17 @@ order_number_style = EN%05s
 		{PRODUCT_LONG}
 		
 		[IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
-		
+		[ON_REQUEST_ELSE]
 		<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
 		<em>{PRODUCT_VAT}%</em>
 		<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
-		
+		[/ON_REQUEST_ELSE]
 		[ORDER_NUM]<p>Order number: {ORDER_NUM}</p>[/ORDER_NUM]
 		[MODEL]<p>Model: {MODEL}</p>[/MODEL]
 		[VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
 		[PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 		
-		[CART_ADD]Add to cart[/CART_ADD]
+		[ON_REQUEST_ELSE][CART_ADD]Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
 	</div>
 	<div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 

@@ -185,6 +185,8 @@ $phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_l
 
 if(empty($phpwcms['js_lib'])) {
 	$phpwcms['js_lib']		= array(
+		'mootools-1.4'			=> 'MooTools 1.4',
+		'mootools-1.4-compat'	=> 'MooTools 1.4 Compat',
 		'mootools-1.3'			=> 'MooTools 1.3',
 		'mootools-1.3-compat'	=> 'MooTools 1.3 Compat',
 		'mootools-1.2'			=> 'MooTools 1.2',
@@ -239,8 +241,8 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 $phpwcms["release"]			= '1.4.7';
-$phpwcms["release_date"]	= '2011/05/17';
-$phpwcms["revision"]		= '420';
+$phpwcms["release_date"]	= '2011/09/14';
+$phpwcms["revision"]		= '421';
 
 // -------------------------------------------------------------
 

@@ -91,7 +91,8 @@ $content['form'] = array_merge( array(
 	'formtracking_off'		=> 0,
 	'checktofrom'			=> 0,
 	'function_to'			=> '',
-	'function_cc'			=> ''	), $content['form']);
+	'function_cc'			=> '',
+	'anchor_off'			=> 0	), $content['form']);
 
 $content['profile_fields'] = array(
 				"title"			=> $BL['be_profile_label_title'],
@@ -564,7 +565,13 @@ if($content["id"]) {
 <tr>
 	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
 	<td><input type="text" name="cform_function_validate" class="v10" style="width:120px;" value="<?php echo (isset($content['form']["cform_function_validate"]) ? html_entities($content['form']["cform_function_validate"]) : '') ?>" /></td>
-	<td colspan="4">&nbsp;</td>
+	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_article_cnt_anchor'] ?>:&nbsp;</td>
+	<td colspan="4"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
+		<tr>
+			<td><input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="1"<?php is_checked(1, $content['form']["anchor_off"]) ?> /></td>
+			<td class="v10"><label for="cform_anchor_off">&nbsp;<?php echo $BL['be_off'] ?>&nbsp;&nbsp;</label></td>
+		</tr>
+	</table></td>
 </tr>
 
 

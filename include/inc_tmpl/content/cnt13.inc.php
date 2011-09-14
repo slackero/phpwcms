@@ -68,6 +68,29 @@ if(empty($content["search"]["no_filenames"])) {
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
+<tr>
+	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
+	<td><select name="template" id="template" class="f11b">
+<?php
+	
+	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+
+// templates for search listing
+$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/search');
+if(is_array($tmpllist) && count($tmpllist)) {
+	foreach($tmpllist as $val) {
+		$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
+		$val = html_specialchars($val);
+		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+	}
+}
+
+?>				  
+		</select></td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
   <tr>
     <td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_results'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">

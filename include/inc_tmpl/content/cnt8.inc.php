@@ -64,6 +64,9 @@ if(empty($content['alink']['alink_category'])) {
 if(empty($content['alink']['alink_columns'])) {
 	$content['alink']['alink_columns'] = '';
 }
+if(empty($content['alink']['alink_categoryalias'])) {
+	$content['alink']['alink_categoryalias'] = 0;
+}
 
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 
@@ -110,6 +113,19 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<td class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
 		<td><input name="calink_columns" type="text" id="calink_columns" class="f11b" style="width: 35px" value="<?php echo $content['alink']['alink_columns']; ?>" size="3" maxlength="3" /></td>
 		
+	</tr>
+	</table>
+	</td>
+</tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist"><?php echo $BL['be_article_morelink'] ?>:&nbsp;</td>
+	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+	<tr>
+		<td bgcolor="#E7E8EB"><input type="checkbox" name="calink_categoryalias" id="calink_categoryalias" value="1"<?php is_checked(1, $content['alink']['alink_categoryalias']) ?> /></td>
+		<td bgcolor="#E7E8EB" class="chatlist"><label for="calink_categoryalias">&nbsp;<?php echo $BL['be_check_against_category_alias'] ?>&nbsp;&nbsp;</label></td>	
 	</tr>
 	</table>
 	</td>

@@ -28,7 +28,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Search Form
-										
-$SQL .= "acontent_form='".aporeplace(serialize($content["search"]))."' ";
+
+$SQL .= "acontent_template = '".aporeplace($content["template"])."', ";							
+$SQL .= "acontent_form = '".aporeplace(serialize($content["search"]))."' ";
 
 ?>

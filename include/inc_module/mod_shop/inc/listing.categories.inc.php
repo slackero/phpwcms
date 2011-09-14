@@ -202,7 +202,7 @@ $sql .= DB_PREPEND.'phpwcms_categories C1 ';
 $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_categories C2 ';
 $sql .= 'ON C1.cat_pid=C2.cat_id ';
 $sql .= 'WHERE '.str_replace('cat_', 'C1.cat_', $_entry['query']).' ';
-$sql .= 'ORDER BY category ASC ';
+$sql .= 'ORDER BY C1.cat_sort DESC, C2.cat_sort DESC, category ASC ';
 $sql .= 'LIMIT '.(($_SESSION['detail_page']-1) * $_SESSION['list_count']).','.$_SESSION['list_count'];
 
 //dumpVar($sql);
@@ -211,11 +211,13 @@ $data = _dbQuery($sql);
 
 $_controller_link =  shop_url('controller=cat');
 
+if(isset($data[0]['cat_id'])) {
+
 foreach($data as $row) {
 
 	echo '<tr';
 	if($row_count % 2) echo ' bgcolor="#F3F5F8"';
-	if(!$row['cat_pid']) echo " onmouseover=\"Tip('" . $BL['be_admin_page_category'] . " ID: <b>" .$row["cat_id"]. "</b>');\"";
+	if(!$row['cat_pid']) echo " onmouseover=\"Tip('" . $BL['be_admin_page_category'] . " ID: <b>" .$row["cat_id"]. "</b><br />".$BL['be_cnt_sorting'].": <b>".$row["cat_sort"]."</b>');\"";
 	echo '>'.LF;
 	
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
@@ -252,6 +254,7 @@ if($row_count) {
 	echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
 }
 
+}
 ?>	
 
 

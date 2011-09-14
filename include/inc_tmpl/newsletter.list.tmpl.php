@@ -149,13 +149,13 @@ if($_newsletter['pages_total'] > 1) {
                                  
 	$sql	= "SELECT * FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_changed DESC";
 	$sql .= " LIMIT ".(($_SESSION['newsletter_page']-1) * $_SESSION['list_newsletter_count']).','.$_SESSION['list_newsletter_count'];
-	$result	= _dbQuery($sql);
 	
-	if($result) {
+	if($result = mysql_query($sql, $db) or die("error while reading newsletter list")) {
 		
 		$row_count = 0;
+		while($row = mysql_fetch_array($result)) {
 		
-		foreach($result as $row) {
+		//foreach($result as $row) {
 		
 			$row['newsletter_vars'] = unserialize($row['newsletter_vars']);
 		

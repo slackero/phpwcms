@@ -264,7 +264,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									} else {
 										$cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
 										// try to check for special value
-										if(isset($cnt_form['special_attribute']['type'])) {
+										if(isset($cnt_form['special_attribute']['type'])) {								
 											switch($cnt_form['special_attribute']['type']) {
 												
 												case 'A-Z':
@@ -276,7 +276,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 												case 'PHONE':
 												case 'INT':		if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], $cnt_form["fields"][$key]['value'])) {
 																	$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-																} /* else { $cnt_form["fields"][$key]['value'] = $cnt_form["fields"][$key]['value']; } */
+																}
 																break;
 																
 												case 'REGEX':	if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['special_attribute']['pattern'], $cnt_form["fields"][$key]['value'])) {
@@ -419,7 +419,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 								}
 								//
-								$form_field_hidden .= '<input type="hidden" name="'.$form_name.'" ';
+								$form_field_hidden .= '<input type="hidden" name="'.$form_name.'" id="'.$form_name.'" ';
 								$form_field_hidden .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'" />';
 								break;
 
@@ -1411,6 +1411,27 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			
 			}
 		}
+		
+		if($form_field_hidden && $cnt_form["fields"][$key]['type'] == 'hidden' && $cnt_form['labelpos'] == 2) {
+		
+			// custom form template
+			$POST_name_quoted = preg_quote($POST_name, '/');
+			
+			if(empty($POST_ERR[$key])) {
+				// if error for field empty
+				$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\].*?\[\/IF_ERROR\]/s', '', $form_cnt);
+				$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
+				$form_cnt = str_replace('{ERROR:'.$POST_name.'}', '', $form_cnt);
+			} else {
+				// field error available
+				$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\](.*?)\[\/IF_ERROR\]/s', '$1', $form_cnt);
+				$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\].*?\[\/ELSE_ERROR\]/s', '', $form_cnt);
+				$form_cnt = str_replace('{ERROR:'.$POST_name.'}', html_specialchars($POST_ERR[$key]), $form_cnt);
+			}
+							
+			$form_cnt = str_replace('{'.$POST_name.'}', $form_field, $form_cnt);
+			$form_cnt = str_replace('{LABEL:'.$POST_name.'}', html_specialchars($cnt_form["fields"][$key]['label']), $form_cnt);
+		}
 
 		$form_counter++;
 	}
@@ -1420,7 +1441,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 		
 		$cnt_form['validate'] = explode('[', trim($cnt_form['cform_function_validate'], ']'));
 		$cnt_form_validate_function = trim($cnt_form['validate'][0]);
-		
+
 		if($cnt_form_validate_function && function_exists($cnt_form_validate_function)) {
 			
 			$cnt_form_validate_fields = NULL;
@@ -1434,8 +1455,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 					}
 				}
 			}
-		
-			$cnt_form_validate_function($POST_val, $cnt_form_validate_fields);
+
+			if($cnt_form_validate_function($POST_val, $cnt_form_validate_fields) === FALSE) {
+				$POST_ERR['VALIDATE_FUNCTION_ERROR'] = TRUE;
+			}
 			
 		}
 
@@ -1897,7 +1920,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			}
 		}
 	
-		$POST_ERR = array_diff(	$POST_ERR , array('') );
+		$POST_ERR = array_diff(	$POST_ERR , array('', FALSE) );
 		$POST_ERR = array_map( 'html_specialchars', $POST_ERR );
 		if($cnt_form['labelpos'] != 2 && count( $POST_ERR ) ) {
 			$form_error = "<tr>\n";
@@ -1947,7 +1970,11 @@ if($form_cnt) {
 	}
 	$CNT_TMP .= $form_error_text;
 	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'];
-	$CNT_TMP .= ' action="'.rel_url().'#jumpForm'.$crow["acontent_id"].'" method="post"';
+	$CNT_TMP .= ' action="'.rel_url();
+	if(empty($cnt_form['anchor_off'])) {
+		$CNT_TMP .= '#jumpForm'.$crow["acontent_id"];
+	}
+	$CNT_TMP .= '" method="post"';
 	$CNT_TMP .= $cnt_form['is_enctype'] ? ' enctype="multipart/form-data">' : '>';
 
 	if($cnt_form['labelpos'] == 2) {

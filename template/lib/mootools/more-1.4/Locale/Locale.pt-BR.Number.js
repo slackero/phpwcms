@@ -1,0 +1,1 @@
+Locale.define("pt-BR","Number",{decimal:",",group:".",currency:{prefix:"R$ "}});

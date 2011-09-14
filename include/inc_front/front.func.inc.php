@@ -2562,6 +2562,18 @@ function replace_cnt_template($text='', $tag='', $value='') {
 	return preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/is', strval($value), $text);
 }
 
+function parse_cnt_urlencode($value) {
+	// replace tag by value
+	return preg_replace_callback('/\[URLENCODE\](.*?)\[\/URLENCODE\]/s', 'render_urlencode', $value);
+}
+
+function render_urlencode($match) {
+	if(is_array($match) && isset($match[1])) {
+		$match = $match[1]; 
+	}
+	return rawurlencode(decode_entities($match));
+}
+
 function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
 	// render date by replacing placeholder tags by value
 	$date = is_numeric($date) ? intval($date) : now();
@@ -3663,7 +3675,12 @@ function set_meta($name='', $content='', $http_equiv=FALSE) {
 		return NULL;
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name]  = '  <meta ';
-	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= $http_equiv ? 'http-equiv' : 'name';
+	switch($http_equiv) {
+		case 'prop':
+		case 'property':	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'property'; break;
+		case TRUE:			$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'http-equiv'; break;
+		default:			$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
+	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'" />';
 }
 
@@ -3770,6 +3787,30 @@ function render_CKEDitor_resized_images($match) {
 	}
 	
 	return '<img src="'.$src.'"'.$alt;
+}
+
+function get_structurelevel_single_article_alias($article_cid=0) {
+	
+	if(!is_intval($article_cid)) {
+		return '';
+	}
+	
+	global $content;
+	
+	if(empty($content['struct'][ $article_cid ]['acat_articlecount'])) {
+		$sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'phpwcms_article ';
+		$sql .= 'WHERE article_cid='.$article_cid.' AND ';
+		$sql .= 'article_public=1 AND article_aktiv=1 AND article_deleted=0 AND ';
+		$sql .= 'article_begin < NOW() AND article_end > NOW()';
+		$content['struct'][ $article_cid ]['acat_articlecount'] = _dbCount($sql);
+	}
+
+	// reset article alias/ID
+	if($content['struct'][ $article_cid ]['acat_articlecount'] === 1) {
+		return empty($content['struct'][ $article_cid ]['acat_alias']) ? 'id='.$article_cid : $content['struct'][ $article_cid ]['acat_alias'];
+	}
+	
+	return '';
 }
 
 ?>

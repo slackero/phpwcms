@@ -38,18 +38,7 @@ if(!isset($content['alink']['alink_id'])) {
 
 }
 
-if(
-		(is_array($content['alink']['alink_id']) && count($content['alink']['alink_id'])) 
-		|| 
-		(!empty($content['alink']['alink_type']) 
-			&& 
-			(
-				(is_array($content['alink']['alink_level']) && count($content['alink']['alink_level']))
-				||
-				(isset($content['alink']['alink_category']) && count($content['alink']['alink_category']))
-			)
-		)
-	) {
+if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id'])) || (!empty($content['alink']['alink_type']) && ((is_array($content['alink']['alink_level']) && count($content['alink']['alink_level'])) || (isset($content['alink']['alink_category']) && count($content['alink']['alink_category']))))) {
 
 	if(!isset($content['UNIQUE_ALINK'])) {
 		$content['UNIQUE_ALINK'] = array();
@@ -75,9 +64,10 @@ if(
 	}
 
 
-	$content['alink']['tags_group_by']	= '';
-	$content['alink']['tags_where']		= '';
-	$content['alink']['date_basis'] 	= 'article_date';
+	$content['alink']['tags_group_by']			= '';
+	$content['alink']['tags_where']				= '';
+	$content['alink']['date_basis'] 			= 'article_date';
+	$content['alink']['alink_categoryalias']	= empty($content['alink']['alink_categoryalias']) ? 0 : 1;
 
 	$alink_sql  = "SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ar ";
 	
@@ -455,6 +445,15 @@ if(
 							$row['article_summary'] = getCleanSubString($row['article_summary'], $content['alink']['alink_wordlimit'], $template_default['ellipse_sign'], 'word');
 						}
 						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUMMARY', $row['article_summary']);
+					}
+					
+					// $content['struct'][ $row['article_cid'] ]['acat_articlecount']
+					// count the articles per category and decide where to link on that basis
+					// store it if used once
+					if($content['alink']['alink_categoryalias'] && ($row['article_structalias'] = get_structurelevel_single_article_alias($row['article_cid']))) {
+						
+						$row['article_alias'] = $row['article_structalias'];
+						
 					}
 					
 					$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', 'index.php?'.setGetArticleAid($row), $content['alink']['tr'][$key]);

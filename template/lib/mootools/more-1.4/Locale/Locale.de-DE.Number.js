@@ -1,0 +1,1 @@
+Locale.define("de-DE").inherit("EU","Number");

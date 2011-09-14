@@ -6,49 +6,30 @@
  * Optimized for integration into phpwcms.
  */
 
-/*! \mainpage CKEditor - PHP server side intergation
- * \section intro_sec CKEditor
- * Visit <a href="http://ckeditor.com">CKEditor web site</a> to find more information about the editor.
- * \section install_sec Installation
- * \subsection step1 Include ckeditor.php in your PHP web site.
+/**
+ * \brief CKEditor class that can be used to create editor
+ * instances in PHP pages on server side.
+ * @see http://ckeditor.com
+ *
+ * Sample usage:
  * @code
- * <?php
- * include("ckeditor/ckeditor.php");
- * ?>
- * @endcode
- * \subsection step2 Create CKEditor class instance and use one of available methods to insert CKEditor.
- * @code
- * <?php
  * $CKEditor = new CKEditor();
- * echo $CKEditor->textarea("field1", "<p>Initial value.</p>");
- * ?>
+ * $CKEditor->editor("editor1", "<p>Initial value.</p>");
  * @endcode
  */
 
-
 if (IS_PHP5) {
 
-	/**
-	 * \brief CKEditor class that can be used to create editor
-	 * instances in PHP pages on server side.
-	 * @see http://ckeditor.com
-	 *
-	 * Sample usage:
-	 * @code
-	 * $CKEditor = new CKEditor();
-	 * $CKEditor->editor("editor1", "<p>Initial value.</p>");
-	 * @endcode
-	 */
 	class CKEditor
 	{
 		/**
 		 * The version of %CKEditor.
 		 */
-		const version = '3.6';
+		const version = '3.6.2';
 		/**
 		 * A constant string unique for each release of %CKEditor.
 		 */
-		const timestamp = 'B49E5BQ';
+		const timestamp = 'B8DJ5M3';
 
 		/**
 		 * URL to the %CKEditor installation directory (absolute or relative to document root).
@@ -102,7 +83,7 @@ if (IS_PHP5) {
 		 * A string indicating the creation date of %CKEditor.
 		 * Do not change it unless you want to force browsers to not use previously cached version of %CKEditor.
 		 */
-		public $timestamp = "B49E5BQ";
+		public $timestamp = "B8DJ5M3";
 		/**
 		 * An array that holds event listeners.
 		 */
@@ -570,42 +551,29 @@ if (IS_PHP5) {
 				return '{' . implode(',', $temp) . '}';
 			}
 			// String otherwise
-			if (strpos($val, '@@') === 0) {
+			if (strpos($val, '@@') === 0)
 				return substr($val, 2);
-			}
-			if (strtoupper(substr($val, 0, 9)) == 'CKEDITOR.') {
+			if (strtoupper(substr($val, 0, 9)) == 'CKEDITOR.')
 				return $val;
-			}
 
 			return '"' . str_replace(array("\\", "/", "\n", "\t", "\r", "\x08", "\x0c", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'), $val) . '"';
 		}
-	}	
+	}
 	
 } else {
 	
-	/**
-	 * \brief CKEditor class that can be used to create editor
-	 * instances in PHP pages on server side.
-	 * @see http://ckeditor.com
-	 *
-	 * Sample usage:
-	 * @code
-	 * $CKEditor = new CKEditor();
-	 * $CKEditor->editor("editor1", "<p>Initial value.</p>");
-	 * @endcode
-	 */
 	class CKEditor
 	{
 		/**
 		 * The version of %CKEditor.
 		 * \private
 		 */
-		var $version = '3.6';
+		var $version = '3.6.2';
 		/**
 		 * A constant string unique for each release of %CKEditor.
 		 * \private
 		 */
-		var $_timestamp = 'B49E5BQ';
+		var $_timestamp = 'B8DJ5M3';
 
 		/**
 		 * URL to the %CKEditor installation directory (absolute or relative to document root).
@@ -659,7 +627,7 @@ if (IS_PHP5) {
 		 * A string indicating the creation date of %CKEditor.
 		 * Do not change it unless you want to force browsers to not use previously cached version of %CKEditor.
 		 */
-		var $timestamp = "B49E5BQ";
+		var $timestamp = "B8DJ5M3";
 		/**
 		 * An array that holds event listeners.
 		 * \private
@@ -1135,16 +1103,14 @@ if (IS_PHP5) {
 				return '{' . implode(',', $temp) . '}';
 			}
 			// String otherwise
-			if (strpos($val, '@@') === 0) {
+			if (strpos($val, '@@') === 0)
 				return substr($val, 2);
-			}
-			if (strtoupper(substr($val, 0, 9)) == 'CKEDITOR.') {
+			if (strtoupper(substr($val, 0, 9)) == 'CKEDITOR.')
 				return $val;
-			}
-			
+
 			return '"' . str_replace(array("\\", "/", "\n", "\t", "\r", "\x08", "\x0c", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'), $val) . '"';
 		}
-	}	
+	}
 	
 }
 
