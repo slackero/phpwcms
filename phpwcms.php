@@ -274,7 +274,7 @@ if($BE['LANG'] == 'ar') {
 	<tr>
 		<td colspan="6">
 		<div style="position:relative">
-	  		<a href="phpwcms.php" target="_top"><img src="img/backend/backend_r1_c3.jpg" alt="phpwcms v<?php echo  html_specialchars($phpwcms["release"]); ?>" width="95" height="24" border="0" hspace="15"></a>
+	  		<a href="phpwcms.php" target="_top"><img src="img/backend/backend_r1_c3.jpg" alt="phpwcms v<?php echo  html_specialchars(PHPWCMS_VERSION); ?>" width="95" height="24" border="0" hspace="15"></a>
 			<a href="<?php echo PHPWCMS_URL ?>" class="v10" style="position:absolute;right:15px;bottom:4px;color:#FFFFFF" target="_blank"><?php echo PHPWCMS_HOST ?></a>
 		</div>
 		</td>
@@ -542,7 +542,7 @@ if($BE['LANG'] == 'ar') {
 	<tr>
 	  <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
 	  <td colspan="5" valign="bottom" class="navtext" style="padding: 8px 0 15px 0;">
-	  	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">phpwcms <?php echo $phpwcms["release"] ?> 
+	  	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">phpwcms <?php echo PHPWCMS_VERSION ?> 
 			&copy; 2002&#8212;<?php echo date('Y'); ?> Oliver Georgi. Licensed under GPL. Extensions are copyright
 			of their respective owners.</a></td>
   </tr>

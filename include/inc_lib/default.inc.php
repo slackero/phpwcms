@@ -128,11 +128,13 @@ define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
 
 // Mime-Type definitions
 require_once(PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php');
+require_once(PHPWCMS_ROOT.'/include/inc_lib/revision/revision.php');
 
 phpwcms_getUserAgent();
 define('BROWSER_NAME',				$phpwcms['USER_AGENT']['agent']);
 define('BROWSER_NUMBER',			$phpwcms['USER_AGENT']['version']);
 define('BROWSER_OS',				$phpwcms['USER_AGENT']['platform']);
+define('BROWSER_MOBILE',			$phpwcms['USER_AGENT']['mobile']);
 
 $phpwcms["file_path"]    		= 	'/'.$phpwcms["file_path"].'/' ;  // "/phpwcms_filestorage/"
 
@@ -240,9 +242,10 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 }
 
-$phpwcms["release"]			= '1.4.7';
-$phpwcms["release_date"]	= '2011/09/14';
-$phpwcms["revision"]		= '421';
+// Todo: Later remove these
+$phpwcms["release"]			= PHPWCMS_VERSION;
+$phpwcms["release_date"]	= PHPWCMS_RELEASE_DATE;
+$phpwcms["revision"]		= PHPWCMS_REVISION;
 
 // -------------------------------------------------------------
 

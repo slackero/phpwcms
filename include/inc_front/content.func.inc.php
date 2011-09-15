@@ -848,7 +848,7 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 		set_meta('keywords', implode(', ', $content['all_keywords']));
 	}
 }
-$phpwcms["generator"] = $phpwcms["release"] . ' (r'.$phpwcms["revision"].')';
+$phpwcms["generator"] = PHPWCMS_VERSION . ' (r'.PHPWCMS_REVISION.')';
 set_meta('generator', 'phpwcms '.$phpwcms["generator"]);
 
 

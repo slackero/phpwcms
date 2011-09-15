@@ -259,7 +259,7 @@ function phpwcmsversionCheck() {
 
 	if ($fsock = @fsockopen('www.phpwcms.de', 80, $errno, $errstr, 10))	{
 
-		$identify = '?version='.rawurlencode($phpwcms["release"].'-'.str_replace('/', '', $phpwcms["release_date"])).'&hash='.md5($_SERVER['REQUEST_URI']);
+		$identify = '?version='.rawurlencode(PHPWCMS_VERSION.'-'.str_replace('/', '', PHPWCMS_RELEASE_DATE)).'&hash='.md5($_SERVER['REQUEST_URI']);
 	
 		@fputs($fsock, "GET /versioncheck/phpwcms_releaseinfo.txt".$identify." HTTP/1.1\r\n");
 		@fputs($fsock, "HOST: www.phpwcms.de\r\n");
@@ -290,12 +290,12 @@ function phpwcmsversionCheck() {
 		if ($check)	{
 			$version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
 			$version_info .= '<p class="valid">'.sprintf($BL['Latest_version_info'], $latest_version.' ('.$latest_revdate.', r'.$latest_revision.')'). ' ';
-			$version_info .= sprintf($BL['Current_version_info'], $phpwcms["release"].' ('.$phpwcms["release_date"].', r'.$phpwcms["revision"].')') . '</p>';
+			$version_info .= sprintf($BL['Current_version_info'], PHPWCMS_VERSION.' ('.PHPWCMS_RELEASE_DATE.', r'.PHPWCMS_REVISION.')') . '</p>';
 		
 		} else {
 			$version_info  = '<p class="error">' . $BL['Version_not_up_to_date'] . '</p>';
 			$version_info .= '<p class="error">'.sprintf($BL['Latest_version_info'], ' ' . $latest_version . ' ('.$latest_revdate.', r'.$latest_revision.')'). ' ';
-			$version_info .= sprintf($BL['Current_version_info'], $phpwcms["release"].' ('.$phpwcms["release_date"].', r'.$phpwcms["revision"].')') . '</p>';
+			$version_info .= sprintf($BL['Current_version_info'], PHPWCMS_VERSION.' ('.PHPWCMS_RELEASE_DATE.', r'.PHPWCMS_REVISION.')') . '</p>';
 
 		}
 		
