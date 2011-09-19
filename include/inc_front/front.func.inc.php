@@ -2894,7 +2894,7 @@ function pregReplaceHighlightWrapper($matches) {
 
 function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
-	// @string $parameter = "menu_type, start_id, max_level_depth, class_path, class_active,
+	// @string $parameter = "menu_type, start_id, max_level_depth, class_path, class_active_li|class_active_a,
 	// ul_id_name, wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
 	// wrap_link_text(<em>|</em>, articlemenu_start_level)"
 
@@ -2947,6 +2947,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$active_class	= empty($parameter[4]) ? '' : trim($parameter[4]);
 		$level_id_name	= empty($parameter[5]) ? '' : trim($parameter[5]);
 		$wrap_ul_div	= empty($parameter[6]) ? 0  : intval($parameter[6]);
+		if($active_class) {
+			$active_class		= explode('|', $active_class, 2);
+			$active_class[0]	= trim($active_class[0]);
+			$active_class[1]	= empty($active_class[1]) ? '' : trim($active_class[1]);
+		} else {
+			$active_class		= array(0 => '', 1 => '');
+		}
 		if($wrap_ul_div > 3) {
 			$wrap_ul_div = 2;
 		} elseif($wrap_ul_div < 0) {
@@ -3014,8 +3021,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$li_ul 		= '';
 			$li_ie		= '';
 			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
+			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? ' class="'.$active_class[1].'"' : ''; // set active link class
 			
-			$li_a  = get_level_ahref($key, ' title="'.$li_a_title.'"');
+			$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"');
 			$li_a .= $wrap_link_text[0] . $li_a_title . $wrap_link_text[1];
 
 			if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
@@ -3032,8 +3040,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($path_class != '' && isset($GLOBALS['LEVEL_KEY'][$key])) {
 				$li_class = trim($li_class.' '.$path_class);
 			}
-			if($active_class != '' && $key == $GLOBALS['aktion'][0]) {
-				$li_class = trim($li_class.' '.$active_class);
+			if($active_class[0] != '' && $key == $GLOBALS['aktion'][0]) {
+				$li_class = trim($li_class.' '.$active_class[0]);
 			}
 			if($x==0) {
 				$li_class .= ' sub_first';
@@ -3098,14 +3106,15 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$ul .= ' id="li_'.$level_id_name.'_'.$start_id.'"';
 			}
 			$li_class = 'sub_parent';
-			if($active_class != '' && $start_id == $GLOBALS['aktion'][0]) {
-				$li_class = trim($li_class.' '.$active_class);
+			if($active_class[0] != '' && $start_id == $GLOBALS['aktion'][0]) {
+				$li_class = trim($li_class.' '.$active_class[0]);
 			}
 			$ul .= ' class="'.trim($li_class.' '.$GLOBALS['content']['struct'][$start_id]['acat_class']).'">';
 			
-			$link_text = html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
+			$link_text	= html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
+			$link_class	= ($active_class[1] && $start_id == $GLOBALS['aktion'][0]) ? ' class="'.$active_class[1].'"' : ''; // set active link class
 			
-			$ul .= get_level_ahref($start_id, ' title="'.$link_text.'"');
+			$ul .= get_level_ahref($start_id, $link_class.' title="'.$link_text.'"');
 			$ul .= $wrap_link_text[0] . $link_text . $wrap_link_text[1];
 			$ul .= '</a></li>'.LF;
 					

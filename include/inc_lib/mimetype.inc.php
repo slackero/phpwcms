@@ -277,17 +277,28 @@ $phpwcms['mime_types'] = array(
 function get_mimetype_by_extension($ext='') {
 	
 	if(empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext])) {
-		return $GLOBALS['phpwcms']['mime_types']['*'];
+		$ext = '*';
 	}
-	
+
 	return $GLOBALS['phpwcms']['mime_types'][$ext];
 }
 
 function is_mimetype_by_extension($ext) {
-	if(empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext])) {
+	return empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext]) ? false : true;
+}
+
+/**
+ * Check a given MimeType against type/subtype format
+ * It is mainly based to handle problemes related to mimeTypes.rdf in FireFox
+ */
+function is_mimetype_format($mimetype='') {
+	
+	if(empty($mimetype)) {
 		return false;
 	}
-	return true;
+	
+	// we do not test against 'examples' type
+	return preg_match('/^(application|audio|image|text|video|message|model|multipart)\/([a-z0-9\-\.\+]+)$/i', $mimetype);
 }
 
 ?>

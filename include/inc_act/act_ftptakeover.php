@@ -130,8 +130,8 @@ if(!$ftp["error"]) {
 					if(version_compare("4.3.0", phpversion(), ">=") && $file_check) {
 						$file_type = image_type_to_mime_type($file_check[2]);
 					}
-					if(!trim($file_type)) {
-						$file_type = 'application/force-download';
+					if(!is_mimetype_format($file_type)) {
+						$file_type = get_mimetype_by_extension($file_ext);
 					}
 				}
 			

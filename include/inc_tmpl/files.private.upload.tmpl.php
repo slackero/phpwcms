@@ -83,17 +83,18 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	
 	//Create new file in database and give hashed
 	if(!isset($file_error)) {
-		$fileExt  = check_image_extension($_FILES["file"]["tmp_name"], $_FILES["file"]["name"]);
-		$fileExt  = $fileExt === false ? which_ext($_FILES["file"]["name"]) : $fileExt;
-		$fileName = clearfilename($_FILES["file"]["name"]);
-		$fileHash = md5( $fileName . microtime() );
+		$fileExt	= check_image_extension($_FILES["file"]["tmp_name"], $_FILES["file"]["name"]);
+		$fileExt	= $fileExt === false ? which_ext($_FILES["file"]["name"]) : $fileExt;
+		$fileName	= clearfilename($_FILES["file"]["name"]);
+		$fileHash	= md5( $fileName . microtime() );
+		$fileType	= is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
 		
 		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
 				"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
 				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, f_sort) VALUES (".
 				$file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
 				$fileName."', '".time()."', '".intval($_FILES["file"]["size"])."', '".
-				aporeplace($_FILES["file"]["type"])."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
+				aporeplace($fileType)."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
 				aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
 				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".
 				$file_gallerydownload.", ".$file_sort.")";

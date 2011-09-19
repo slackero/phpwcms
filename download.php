@@ -109,7 +109,7 @@ if(!empty($hash) && strlen($hash) == 32) {
 	
 		$mime = empty($_GET['type']) ? '' : clean_slweg($_GET['type'], 100);
 		
-		if(!$mime) {
+		if(!is_mimetype_format($mime)) {
 			$mime = get_mimetype_by_extension( which_ext($file) );
 		}
 		

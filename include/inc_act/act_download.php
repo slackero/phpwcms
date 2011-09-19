@@ -20,8 +20,6 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-
-// session_name('hashID');
 session_start();
 $phpwcms = array();
 
@@ -41,54 +39,51 @@ if($dl) {
 	$err = 0;
 	if(!$pl) {
 		$sql =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND ".
-				"f_id=".$dl." AND f_kid=1 AND f_uid=".$_SESSION["wcs_user_id"]." LIMIT 1;";
+				"f_id=".$dl." AND f_kid=1 AND f_uid=".intval($_SESSION["wcs_user_id"])." LIMIT 1";
 				//09-20-2003: WHERE f_aktiv=1 AND... not neccessary
 	} else {
 		$sql =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND ".
-				"f_id=".$dl." AND f_kid=1 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") LIMIT 1;";
+				"f_id=".$dl." AND f_kid=1 AND (f_public=1 OR f_uid=".intval($_SESSION["wcs_user_id"]).") LIMIT 1";
 	}
 
 	if($result = mysql_query($sql, $db) or die ("error while retrieving file download infos")) {;
 		if($download = mysql_fetch_array($result)) {
 	
-			//$dl_filename = 	$download["f_uid"]."_".$download["f_id"];
-			//if($download["f_ext"]) $dl_filename .= ".".$download["f_ext"];
-			
 			$dl_filename = $download["f_hash"];
 			if($download["f_ext"]) {
 				$dl_filename .= '.'.$download["f_ext"];
 			}
-			//$dl_path = PHPWCMS_ROOT.$phpwcms["file_path"].$download["f_uid"]."/";
+
 			$dl_path = PHPWCMS_ROOT.$phpwcms["file_path"];
 			
-			if(file_exists($dl_path.$dl_filename)) { //echo "Datei existiert<br />";
+			if(file_exists($dl_path.$dl_filename)) { 
 				//Send file to user
 				//Downloads must downloaded to harddisk
 				//are not opened and showed inside browser
 				//if possible file format (PDF/JPG...)
 				//$att = (stristr($_SERVER['HTTP_USER_AGENT'],"MSIE")) ? "" : "attachment; ";
-				if($download["f_type"]) {
-					header("Content-type: ".$download["f_type"]);
-				} else {
-					header("Content-type: application/force-download");
-				}
+				if(!is_mimetype_format($download["f_type"])) {
+					$download["f_type"] = get_mimetype_by_extension($download["f_ext"]);
+				}				
+				
+				header("Content-type: ".$download["f_type"]);
 				header('Content-Disposition: attachment; filename="'.$download["f_name"].'"');
 				header("Content-Length: " . filesize($dl_path.$dl_filename));
 				if(readfile($dl_path.$dl_filename)) {
 					exit();
 				} else {
-					$err = 4;
+					$err = 4; // Error reading file
 				}				
 				
 			} else {
-				$err = 1; //Wenn Datei nicht exisitiert
+				$err = 1; // File does not exist
 			}
 		} else {
-			$err = 2; //Wenn keine Datei aus Datenbank zurückgegeben wird
+			$err = 2; // File not found in database
 		}
 	}
 } else {
-	$err = 3; //Wenn keine korrekte id übergeben wird
+	$err = 3; // False ID given
 }
 
 if($err) {
@@ -111,7 +106,7 @@ if($err) {
       Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again<br />
       and try another file.<br />
       <img src="../../img/leer.gif" alt="" width="1" height="10"><br />
-      If you think that this might be a technical problem send an email to the <a href="mailto:webmaster@mailverbund.de">webmaster</a>.</td>
+      If you think that this might be a technical problem send an email to the webmaster.</td>
   </tr>
 </table>
 </body>

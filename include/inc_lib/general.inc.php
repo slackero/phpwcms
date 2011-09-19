@@ -1752,7 +1752,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	$file_status['ext']			= which_ext($file_status['name']);
 	$file_status['tmp_name']	= $_FILES[$file]['tmp_name'];
 	$file_status['size']		= $_FILES[$file]['size'];
-	$file_status['type']		= empty($_FILES[$file]['type']) ? '' : $_FILES[$file]['type'];
+	$file_status['type']		= empty($_FILES[$file]['type']) || !is_mimetype_format($_FILES[$file]['type']) ? get_mimetype_by_extension($file_status['ext']) : $_FILES[$file]['type'];
 	$file_status['path']		= $target;
 	$file_status['rename']		= $file_status['name'];
 	$file_status['maxsize']		= empty($file_status['maxsize']) ? $GLOBALS['phpwcms']['file_maxsize'] : $file_status['maxsize'];
