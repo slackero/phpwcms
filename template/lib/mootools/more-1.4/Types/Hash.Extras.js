@@ -1,1 +1,1 @@
-Hash.implement({getFromPath:function(a){return Object.getFromPath(this,a)},cleanValues:function(a){return new Hash(Object.cleanValues(this,a))},run:function(){Object.run(arguments)}});
+Hash.implement({getFromPath:function(notation){return Object.getFromPath(this,notation)},cleanValues:function(method){return new Hash(Object.cleanValues(this,method))},run:function(){Object.run(arguments)}});

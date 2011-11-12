@@ -78,7 +78,7 @@ if(!isset($content["alist"]["hideactive"])) {
     <td><select name="calist_catid" style="width: 325px" class="f11b">
 <?php
 	echo "<option value='0'".((!$content["alist"]["catid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
-	struct_select_menu($db, 0, 0, $content["alist"]["catid"]);
+	struct_select_menu(0, 0, $content["alist"]["catid"]);
 ?></select></td>
   </tr>
 

@@ -1,14 +1,36 @@
 [SPACE]<!-- space //-->[/SPACE]
 <div class="phpwcmsArticleListEntry">
-	[IMAGE]<div class="phpwcmsArticleListImage">
-		[ARTICLELINK]<a href="{ARTICLELINK}"{TARGET}>[/ARTICLELINK]{IMAGE}[ARTICLELINK]</a>[/ARTICLELINK]
-		[CAPTION]<div class="phpwcmsArticleListImageCaption">{CAPTION}[COPYRIGHT]
-			<span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</div>[/CAPTION]
-	</div>[/IMAGE]
-	[TITLE]<h1>{TITLE}</h1>
-[/TITLE][SUB]	<h2>{SUB}</h2>
-[/SUB][SUMMARY]	<div><strong>{DATE:j. F Y lang=EN}</strong> {SUMMARY}</div>
-[/SUMMARY][MORE]	<div class="phpwcmsArticleListMore"><a href="{ARTICLELINK}"{TARGET}>{MORE}</a></div>[/MORE]
+[IMAGE]
+	<div class="phpwcmsArticleListImage">
+		[ARTICLELINK]<a href="{ARTICLELINK}"{TARGET}>[/ARTICLELINK]
+			{IMAGE}
+		[ARTICLELINK]</a>[/ARTICLELINK]
+
+		[CAPTION]
+			<div class="phpwcmsArticleListImageCaption">
+				{CAPTION}
+				[COPYRIGHT]<span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+			</div>
+		[/CAPTION]
+	</div>
+[/IMAGE]
+[TITLE]
+	<h1>{TITLE}</h1>
+[/TITLE]
+[SUB]
+	<h2>{SUB}</h2>
+[/SUB]
+[SUMMARY]
+	<div>
+		<strong>{DATE:j. F Y lang=EN}</strong>
+		{SUMMARY}
+	</div>
+[/SUMMARY]
+[MORE]
+	<div class="phpwcmsArticleListMore">
+		<a href="{ARTICLELINK}"{TARGET}>{MORE}</a>
+	</div>
+[/MORE]
 </div>
 <!-- 
 	Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]

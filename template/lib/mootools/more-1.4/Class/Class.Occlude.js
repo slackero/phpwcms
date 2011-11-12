@@ -1,1 +1,1 @@
-Class.Occlude=new Class({occlude:function(c,b){b=document.id(b||this.element);var a=b.retrieve(c||this.property);if(a&&!this.occluded){return(this.occluded=a)}this.occluded=false;b.store(c||this.property,this);return this.occluded}});
+Class.Occlude=new Class({occlude:function(property,element){element=document.id(element||this.element);var instance=element.retrieve(property||this.property);if(instance&&!this.occluded){return(this.occluded=instance)}this.occluded=false;element.store(property||this.property,this);return this.occluded}});

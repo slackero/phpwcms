@@ -77,7 +77,7 @@ if(!isset($content['sitemap'])) {
 	<td><select name="csitemap_startid" id="csitemap_startid" style="width: 325px" class="f11b">
 <?php
 	echo "<option value='0'".((!$content["sitemap"]["startid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
-	struct_select_menu($db, 0, 0, $content["sitemap"]["startid"]);
+	struct_select_menu(0, 0, $content["sitemap"]["startid"]);
 ?></select></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>

@@ -58,7 +58,7 @@ $phpwcms['img_list_width']    = 100;      //max with of the list thumbnail image
 $phpwcms['img_list_height']   = 75;       //max height of the list thumbnail image
 $phpwcms['img_prev_width']    = 538;      //max width of the large preview image
 $phpwcms['img_prev_height']   = 538;      //max height of the large preview image
-$phpwcms['max_time']          = 1800;     //nach wieviel Sekunden soll automatischer logout erfolgen? 1800 Sekunden=30Minuten
+$phpwcms['max_time']          = 1800;     //logout after max_time/60 seconds
 
 // other stuff
 $phpwcms['compress_page']     = 0;        //wenn 1 = Seite komprimieren, 0 = Kompresion aus
@@ -72,7 +72,7 @@ $phpwcms['default_lang']      = 'en';     //default language
 $phpwcms['DOCTYPE_LANG']      = '';       //by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es');     //array of allowed languages
 $phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
-$phpwcms['charset']           = 'ISO-8859-1';       //default charset 'iso-8859-1'
+$phpwcms['charset']           = 'utf-8';       //default charset 'utf-8' do not use soemthing different any longer
 $phpwcms['allow_remote_URL']  = 0;        //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['gt_mod']            = 0;        //0 = Graphical Text MOD disabled, 1 = enabled
 $phpwcms['jpg_quality']       = 85;		  //JPG Quality Range 25-100
@@ -113,7 +113,7 @@ $phpwcms['FCK_FileBrowser']   = 1; // enable|disable phpwcms Filebrowser in FCKe
 $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';
-$phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
+$phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.7'=>'jQuery 1.7','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
 
 // dynamic ssl encryption engine
 $phpwcms['site_ssl_mode'] 	  = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'
@@ -121,14 +121,14 @@ $phpwcms['site_ssl_url'] 	  = ''; //URL assigned to the SSL Certificate. DON'T a
 $phpwcms['site_ssl_port'] 	  = '443'; //The Port on which you SSL Service serve the secure Sites. Servers DEFAULT is '443'
 
 // smtp values
-$phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost';
-$phpwcms['SMTP_FROM_NAME']    = 'My Name';
-$phpwcms['SMTP_HOST']         = 'localhost';
-$phpwcms['SMTP_PORT']         = 25;
-$phpwcms['SMTP_MAILER']       = 'mail';
-$phpwcms['SMTP_AUTH']         = 0;
-$phpwcms['SMTP_USER']         = 'user';
-$phpwcms['SMTP_PASS']         = 'pass';
+$phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address
+$phpwcms['SMTP_FROM_NAME']    = 'My Name'; // reply/from name
+$phpwcms['SMTP_HOST']         = 'localhost'; // SMTP server (host/IP)
+$phpwcms['SMTP_PORT']         = 25; // SMTP-Server port (default 25)
+$phpwcms['SMTP_MAILER']       = 'mail'; // default phpMailer: smtp, mail (default), sendmail
+$phpwcms['SMTP_AUTH']         = 0; // sets SMTP_AUTH to ON/OFF
+$phpwcms['SMTP_USER']         = 'user'; // default SMTP login (user) name
+$phpwcms['SMTP_PASS']         = 'pass'; // default SMTP password
 
 define('PHPWCMS_INCLUDE_CHECK', true);
 

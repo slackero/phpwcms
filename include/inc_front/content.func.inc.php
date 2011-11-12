@@ -1105,10 +1105,13 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 parse_CKEDitor_resized_images();
 
 // cleanup document to enhance XHTML Strict compatibility
-if($phpwcms['mode_XHTML'] == 2) {
-	
-	$content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
-
+switch($phpwcms['mode_XHTML']) {
+	case 2:
+		$content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
+		break;
+	case 3:
+		$block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
+		break;
 }
 
 // remove all useless replacement tags

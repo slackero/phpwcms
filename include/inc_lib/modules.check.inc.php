@@ -77,7 +77,7 @@ foreach($phpwcms_modules as $value) {
 					$BL['modules'][$_module_name] = $BLM;
 				
 				} else {
-				
+			
 					unset($phpwcms['modules'][$_module_name]);
 				
 				}

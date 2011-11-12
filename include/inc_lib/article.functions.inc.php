@@ -22,29 +22,53 @@
 
 
 //Baut das Level Struktur Auswahlmenü
-function struct_select_menu($dbcon, $counter=0, $struct_id=0, $selected_id=0) {
+function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='option') {
 
 	$struct_id		= intval($struct_id);
 	$selected_id	= intval($selected_id);
 	$counter		= intval($counter) + 1;
+	
+	if($return=='array') {
+		$structure = array();		
+	}
 					
-	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort;";
-	if($result = mysql_query($sql, $dbcon) or die ("error while building struct select menu (ID:".$struct_id)) {
+	$sql = "SELECT acat_id, acat_name FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
+	if($result = mysql_query($sql, $GLOBALS['db']) or die ("error while building struct select menu (ID:".$struct_id)) {
 		$sx=0;
 		while($row = mysql_fetch_assoc($result)) {
+			$row['acat_name'] = str_repeat('-', $counter) . ' ' . $row['acat_name'];
 			$struct[$sx] = $row;
 			$sx++;
 		}
 		mysql_free_result($result);
 	}
+	
 	if(isset($struct[0])) {
-		foreach($struct as $key => $value) {
-			echo "<option value=\"".$struct[$key]["acat_id"]."\"";
-			echo ( ($selected_id==$struct[$key]["acat_id"]) ? " selected" : "" ).">";
-			echo str_repeat("&#8212;", $counter).html_specialchars($struct[$key]["acat_name"]);
-			echo "</option>\n";
-			struct_select_menu($dbcon, $counter, $struct[$key]["acat_id"], $selected_id);
+		foreach($struct as $value) {
+			if($return=='array') {
+				
+				$structure[$value["acat_id"]] = $value["acat_name"];
+				
+				$substruct = struct_select_menu($counter, $value["acat_id"], 0, 'array');
+				
+				if(count($substruct)) {
+					$structure += $substruct;
+				}
+				
+			} else {
+				
+				echo "<option value=\"".$value["acat_id"]."\"";
+				echo ( ($selected_id==$value["acat_id"]) ? " selected" : "" ).">";
+				echo html_entities($value["acat_name"]);
+				echo "</option>\n";
+				struct_select_menu($counter, $value["acat_id"], $selected_id, 'option');
+			
+			}
 		}
+	}
+	
+	if($return=='array') {
+		return $structure;		
 	}
 }
 

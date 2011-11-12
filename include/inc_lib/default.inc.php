@@ -193,6 +193,7 @@ if(empty($phpwcms['js_lib'])) {
 		'mootools-1.3-compat'	=> 'MooTools 1.3 Compat',
 		'mootools-1.2'			=> 'MooTools 1.2',
 		'mootools-1.1'			=> 'MooTools 1.1',
+		'jquery-1.7'			=> 'jQuery 1.7',
 		'jquery-1.6'			=> 'jQuery 1.6',
 		'jquery-1.5'			=> 'jQuery 1.5',
 		'jquery-1.4'			=> 'jQuery 1.4',

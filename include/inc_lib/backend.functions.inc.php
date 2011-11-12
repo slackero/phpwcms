@@ -554,18 +554,7 @@ function set_language_cookie() {
 function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
 	$current_id	= intval($current_id);
-	$alias = clean_slweg(strtolower($alias), 150);
-	$alias = uri_sanitize($alias);
-	/*
-	$alias = pre_remove_accents($alias);
-	$alias = get_alnum_dashes($alias, true);
-	$alias = trim($alias);
-	if($alias != '') {
-		$alias = trim( preg_replace('/\-\-+/', '-', $alias), '-' );
-		$alias = trim( preg_replace('/__+/', '_', $alias), '_' );
-	}
-	*/
-	
+	$alias		= uri_sanitize( clean_slweg(strtolower($alias), 150) );
 	$reserved	= array(
 		'print',
 		'newsdetail',
@@ -580,8 +569,9 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		'email',
 		'u',
 		's',
-		'q'
-		);
+		'q',
+		'feedimport'
+	);
 
 	if($mode == 'CATEGORY' && $alias == '' && isset($_POST["acat_name"])) {
 		$alias = $_POST["acat_name"];
@@ -621,18 +611,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	}
 	
 	$alias = trim( $alias, '-' );
-	
-	/*
-	$where_acat		= 'acat_id != '.$current_id.' AND ';
-	$where_article	= 'article_id != '.$current_id.' AND ';
-	$where_content	= 'cnt_id != '.$current_id.' AND ';
 
-	switch($mode) {
-		case 'CATEGORY':	$where_article	= '';	break;
-		case 'ARTICLE':		$where_acat		= '';	break;
-		case 'CONTENT':		$where_content	= '';	break;
-	}
-	*/
 	$where_acat		= '';
 	$where_article	= '';
 	$where_content	= '';

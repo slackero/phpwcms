@@ -54,7 +54,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
       		<?php
 				//keine definierte Kategorie = allgemeine Artikelkategorie
 				echo "<option value='0'".((!$article["article_catid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
-				struct_select_menu($db, 0, 0, $article["article_catid"]);
+				struct_select_menu(0, 0, $article["article_catid"]);
 				?>
 				</select></td>
 			</tr>

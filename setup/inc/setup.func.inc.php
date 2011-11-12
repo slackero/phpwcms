@@ -22,8 +22,8 @@
 
 //setup functions
 $phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2011/09/19';
-$phpwcms_revision		= '424';
+$phpwcms_release_date	= '2011/11/12';
+$phpwcms_revision		= '425';
 
 function read_textfile($filename) {
 	if(is_file($filename)) {
@@ -183,7 +183,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
-	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'iso-8859-1'\n";
+	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'utf-8'\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
 	$conf_file .= "\$phpwcms['gt_mod']            = 1;  //0 = Graphical Text MOD disabled, 1 = enabled\n";
 	$conf_file .= "\$phpwcms['jpg_quality']       = 85; //JPG Quality Range 25-100\n";
@@ -223,7 +223,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed\n";
 	$conf_file .= "\$phpwcms['feuser_regkey']	  = 'FEUSER';\n";
 	$conf_file .= "\$phpwcms['login.php']	  	  = 'login.php';\n";
-	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');\n";
+	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.7'=>'jQuery 1.7','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');\n";
 
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";

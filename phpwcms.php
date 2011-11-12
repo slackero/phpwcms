@@ -85,8 +85,8 @@ switch ($do) {
 	case "articles":	//articles
 						include(PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php');
 						$wcsnav["articles"] = "<strong class=\"navtexta\">".$wcsnav["articles"]."</strong>";
-						include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
-						include(PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'); //loading article funtions
+						include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //load array with actual content types
+						include(PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'); //load article funtions
 						$subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", $p, "", 0);
 						$subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
 						$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
@@ -235,7 +235,6 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 
 initMootools();
 $BE['HEADER']['phpwcms.js']			= getJavaScriptSourceLink('include/inc_js/phpwcms.js');
-//$BE['HEADER']['browserSniffer.js']	= getJavaScriptSourceLink('include/inc_js/browserSniffer.js');
 
 
 if($do == "messages" && $p == 1) {

@@ -164,7 +164,7 @@ function _dbInsert($table='', $data=array(), $special='', $prefix=NULL) {
 	
 	foreach($data as $key => $value) {
 		$fields[$x]	= '`'.$key.'`';
-		$values[$x]	= is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'";
+		$values[$x]	= _dbEscape($value);
 		$x++;
 	}
 	
@@ -202,7 +202,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 	
 	foreach($data as $key => $value) {
 		$fields[$x]	= '`'.$key.'`';
-		$values[$x]	= is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'";
+		$values[$x]	= _dbEscape($value);
 		$set[$x]	= $fields[$x].'='.$values[$x];
 		$x++;
 	}
@@ -226,7 +226,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 				$key	= key($data);
 				$value 	= current($data);
 				$update .= '`'.$key.'`=';
-				$update .= is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'";
+				$update .= _dbEscape($value);
 			} else {
 				$update .= trim($where);
 			}
@@ -318,7 +318,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=NUL
 	$sets	= array();
 	
 	foreach($data as $key => $value) {
-		$sets[]	= '`'.$key.'`=' .( is_numeric($value) ? "'".$value."'" : "'".mysql_real_escape_string($value)."'" );
+		$sets[]	= '`'.$key.'`=' . _dbEscape($value);
 	}
 	
 	if($special) {
@@ -459,10 +459,10 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
 			if(strpos($value, 'SQL:') === 0) {
 				$_SET[$c] = str_replace('SQL:', '', $value);
 			} else {
-				$_SET[$c] = "'".mysql_real_escape_string($value)."'";
+				$_SET[$c] = _dbEscape($value);
 			}
 		} else {
-			$_SET[$c] = $value;
+			$_SET[$c] = _dbEscape($value);
 		}
 		$c++;
 	}

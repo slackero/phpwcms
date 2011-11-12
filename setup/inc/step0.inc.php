@@ -28,25 +28,25 @@ $_SESSION['admin_set'] = false;
   which <strong>phpwcms</strong> is released you can continue to install or upgrade <strong>phpwcms</strong>.</p>
   
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
-<p>Please proof all information about your system (recommend PHP 4.3+, MySQL 3.23.50+).</p>
+<p>Please proof all information about your system (recommend PHP 5.0+, MySQL 4.1+).</p>
 <ol>
   <li>WWW server: <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong></li>
   <li>PHP version: <?php 
   
 	echo '<strong>'.html_specialchars(phpversion()).'</strong>';
   
-	switch(version_compare('4.2.1', phpversion())) {
+	switch(version_compare('5.0.0', phpversion())) {
   
 		case -1:	// current used PHP is > OK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
-					if(version_compare('4.4', phpversion()) == 1) {
+					if(version_compare('5.1', phpversion()) == 1) {
 						echo ' (it is recommend to update your PHP version)';
 					}
 					break;
 				
 		case  0:	// the same version - HM not recommend
 					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-					echo ' (your version of PHP is very old - update recommend)';
+					echo ' (your version of PHP is older - update recommend)';
 					break;
 				
 		case  1:	// false it's older
@@ -62,7 +62,7 @@ $_SESSION['admin_set'] = false;
   
 	echo '<strong>'.html_specialchars(mysql_get_client_info()) .'</strong>';
 
-	switch(version_compare('3.23.50', mysql_get_client_info())) {
+	switch(version_compare('4.10.00', mysql_get_client_info())) {
   
 		case -1:	// current MySQL isOK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';

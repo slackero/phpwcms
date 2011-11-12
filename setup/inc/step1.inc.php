@@ -84,7 +84,7 @@ if(!empty($db_additional)) {
 	<tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">4.</span> Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> collation
 	      settings <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a></h1></td></tr>
 	<tr>
-            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
+            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset (recommend: UTF8):&nbsp;</td>
             <td colspan="2"><select name="charset">
 			
 			<?php
@@ -177,7 +177,7 @@ if(!empty($db_additional)) {
 ?>
 		
 		<tr>
-            <td align="right" class="v10">MySQL Collation:&nbsp;</td>
+            <td align="right" class="v10">MySQL Collation (recommend: utf8_general_ci):&nbsp;</td>
             <td colspan="2"><select name="collation">
 <?php
 			
