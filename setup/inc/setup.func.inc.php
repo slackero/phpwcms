@@ -21,9 +21,17 @@
 *************************************************************************************/
 
 //setup functions
-$phpwcms_version		= '1.4.7';
-$phpwcms_release_date	= '2011/11/12';
-$phpwcms_revision		= '425';
+
+$DOCROOT = rtrim(str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))), '/');
+include($DOCROOT.'/include/inc_lib/revision/revision.php');
+
+if(empty($_SERVER['DOCUMENT_ROOT'])) {
+	$_SERVER['DOCUMENT_ROOT'] = $DOCROOT;
+}
+
+$phpwcms_version		= PHPWCMS_VERSION;
+$phpwcms_release_date	= PHPWCMS_RELEASE_DATE;
+$phpwcms_revision		= PHPWCMS_REVISION;
 
 function read_textfile($filename) {
 	if(is_file($filename)) {

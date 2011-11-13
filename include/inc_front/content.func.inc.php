@@ -801,7 +801,7 @@ if(count($content['globalRT'])) {
 // -------------------------------------------------------------
 
 // add possible redirection code (article summary) to $block["htmlhead"];
-$block["htmlhead"]  = $content["redirect"]["code"] . render_PHPcode($block["htmlhead"]) . LF;
+$block["htmlhead"] = $content["redirect"]["code"] . render_PHPcode($block["htmlhead"]) . LF;
 
 // -------------------------------------------------------------
 
@@ -919,14 +919,6 @@ if(count($block['js_inline'])) {
 	$block['custom_htmlhead']['inline']  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 	$block['custom_htmlhead']['inline'] .= implode(LF, $block['js_inline']);
 	$block['custom_htmlhead']['inline'] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
-}
-
-
-// new $block['custom_htmlhead'] var (array) for usage in own rendering stuff.
-// you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
-// always check if you want to use same head code only once
-if(count($block['custom_htmlhead'])) {
-	$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
 }
 
 if(!empty($_GET['highlight'])) {
@@ -1112,6 +1104,13 @@ switch($phpwcms['mode_XHTML']) {
 	case 3:
 		$block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
 		break;
+}
+
+// new $block['custom_htmlhead'] var (array) for usage in own rendering stuff.
+// you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
+// always check if you want to use same head code only once
+if(count($block['custom_htmlhead'])) {
+	$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
 }
 
 // remove all useless replacement tags

@@ -20,18 +20,7 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-/*
-if(empty($_SERVER['DOCUMENT_ROOT'])) {
 
-	$root_path = '';
-	if(!empty($phpwcms["root"])) {
-		$root_path = $phpwcms["root"]."\\/";
-	}
-	$_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__);
-	$_SERVER['DOCUMENT_ROOT'] = str_replace("\\", '/', $_SERVER['DOCUMENT_ROOT']);
-	$_SERVER['DOCUMENT_ROOT'] = preg_replace("/\/(".$root_path."setup\/inc|".$root_path."SETUP\/inc)$/","", $_SERVER['DOCUMENT_ROOT']);
-}
-*/
 $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
 $phpwcms["root"] = !empty($phpwcms["root"]) ? "/".$phpwcms["root"] : "";
 

@@ -24,15 +24,15 @@ session_start();
 
 $phpwcms = array();
 
-require_once('inc/setup.func.inc.php');
-require_once('setup.conf.inc.php');
+require_once(dirname(__FILE__).'/inc/setup.func.inc.php');
+require_once($DOCROOT.'/setup/setup.conf.inc.php');
 
 $step		= isset($_GET["step"]) ? intval($_GET["step"]) : 0;
 $do			= isset($_POST["do"]) ? intval($_POST["do"]) : 0;
 $err		= 0;
 $prepend	= $phpwcms["db_prepend"];
 
-if($do) require_once('inc/setup.check.inc.php');
+if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 
 
 ?>
@@ -76,12 +76,12 @@ if($do) require_once('inc/setup.check.inc.php');
 		if(empty($NO_ACCESS)) {
 		
 			switch($step) {
-				case  1:	include "inc/step1.inc.php"; break;
-				case  2:	include "inc/step2.inc.php"; break;
-				case  3:	include "inc/step3.inc.php"; break;
-				case  4:	include "inc/step4.inc.php"; break;
-				case  5:	include "inc/step5.inc.php"; break;
-				default:	include "inc/step0.inc.php";
+				case  1:	include $DOCROOT.'/setup/inc/step1.inc.php'; break;
+				case  2:	include $DOCROOT.'/setup/inc/step2.inc.php'; break;
+				case  3:	include $DOCROOT.'/setup/inc/step3.inc.php'; break;
+				case  4:	include $DOCROOT.'/setup/inc/step4.inc.php'; break;
+				case  5:	include $DOCROOT.'/setup/inc/step5.inc.php'; break;
+				default:	include $DOCROOT.'/setup/inc/step0.inc.php';
 			}
 			
 		} else {
@@ -108,7 +108,7 @@ if($do) require_once('inc/setup.check.inc.php');
   </tr>
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
-    <td colspan="2" valign="bottom" class="navtext"><a href="http://www.phpwcms.de" target="_blank">phpwcms</a> &copy; 2003&#8212;2006  <a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver
+    <td colspan="2" valign="bottom" class="navtext"><a href="http://www.phpwcms.de" target="_blank">phpwcms</a> &copy; 2003&#8212;<?php echo date('Y') ?>  <a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver
         Georgi</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.</td>
   </tr>
@@ -116,16 +116,5 @@ if($do) require_once('inc/setup.check.inc.php');
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="8" /></td>
   </tr>
 </table>
-<!--
-<pre>
-
-<?php 
-print_r('http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']).'/');
-print_r($phpwcms);
-
-?>
-
-</pre>
-//-->
 </body>
 </html>

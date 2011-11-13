@@ -174,9 +174,9 @@ $_SESSION['admin_set'] = false;
 <?php
 
 // is the setup config file writable
-if(!is_writable("setup.conf.inc.php")) {
+if(!is_writable($DOCROOT.'/setup/setup.conf.inc.php')) {
 
-	if(!@chmod("setup.conf.inc.php", 0666)) {
+	if(!@chmod($DOCROOT.'/setup/setup.conf.inc.php', 0666)) {
 	
 	echo errorWarning('The file <i>setup.conf.inc.php</i> in which all values are stored is NOT writable.');
 	

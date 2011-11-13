@@ -297,7 +297,7 @@ if(!isset($_GET["s"])) {
 		$pagelayout["layout_footer_bgcolor"]      = "";
 		$pagelayout["layout_footer_bgimage"]      = "";
 		$pagelayout["layout_footer_class"]        = "";
-		$pagelayout["layout_render"]				= 0;
+		$pagelayout["layout_render"]				= 2;
 		$pagelayout["layout_title_order"]			= 4;
 		$pagelayout["layout_title_spacer"]			= ' | ';
 		$pagelayout["layout_noborder"]				= 1;
@@ -325,10 +325,89 @@ if(!isset($_GET["s"])) {
 			  </table></td>
 			</tr>
 			<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+		
 			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+
+			
+			
 			<tr>
-              <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="21"><?php echo $BL['be_admin_page_align']  ?>:&nbsp;</td>
+              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_render'] ?>:&nbsp;</td>
+              <td bgcolor="#E6EAED" class="tdtop3 tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
+					<tr>
+						<td>&nbsp;</td>
+						<td align="center"><input name="layout_render" type="radio" id="layout_render_2" value="2" <?php is_checked(2, $pagelayout["layout_render"]); ?>></td>
+						<td><label for="layout_render_2">&nbsp;<strong><?php echo $BL['be_admin_page_custom'].'</strong> <span class="v09">('.$BL['be_admin_page_custominfo'].')</span>' ?></label>&nbsp;&nbsp;</td>
+						<td align="center"><input name="layout_render" type="radio" id="layout_render_0" value="0" <?php is_checked(0, $pagelayout["layout_render"]); ?>></td>
+						<td><label for="layout_render_0">&nbsp;<?php echo $BL['be_admin_page_table'] ?></label>&nbsp;&nbsp;</td>
+						<td align="center"><input name="layout_render" type="radio" id="layout_render_1" value="1" <?php is_checked(1, $pagelayout["layout_render"]); ?>></td>
+						<td><label for="layout_render_1">&nbsp;<?php echo $BL['be_admin_page_div'] ?></label></td>
+  					</tr>
+				</table></td>
+			</tr>
+
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+			
+			<tr>
+              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'] ?>:&nbsp;</td>
+              <td bgcolor="#E6EAED" class="tdtop3 tdbottom3">
+			  	&nbsp;<input name="layout_customblocks" type="text" class="f10" id="layout_customblocks" style="width: 400px;" value="<?php echo  isset($pagelayout["layout_customblocks"]) ? html_specialchars($pagelayout["layout_customblocks"]) : '' ?>" size="20">
+				</td>
+			</tr>		
+			
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+
+		<tr>
+			  <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
+			  <td><input name="layout_title" type="text" class="f11b" id="layout_title" style="width: 400px;" value="<?php echo html_specialchars($pagelayout["layout_title"]); ?>" size="20" maxlength="100"></td>
+			</tr>
+			<tr><td colspan="2" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+			<tr>
+			  <td align="right" class="chatlist"><?php echo $BL['be_admin_page_addtotitle'] ?>:&nbsp;</td>
+			<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+                <tr>
+				  <td><select name="layout_title_order" id="layout_title_order" class="v11">
+	
+	<?php 
+	
+	if(empty($pagelayout["layout_title_order"])) $pagelayout["layout_title_order"] = 0;
+	if(empty($pagelayout["layout_title_spacer"])) $pagelayout["layout_title_spacer"] = ' | ';
+	
+	
+	?>
+	<option value="0"<?php is_selected(0, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
+	<option value="1"<?php is_selected(1, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
+	<option value="2"<?php is_selected(2, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+	<option value="3"<?php is_selected(3, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
+	<option value="4"<?php is_selected(4, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+	<option value="5"<?php is_selected(5, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
+
+	<option value="6"<?php is_selected(6, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
+	<option value="7"<?php is_selected(7, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
+	<option value="8"<?php is_selected(8, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
+	<option value="9"<?php is_selected(9, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+	<option value="10"<?php is_selected(10, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
+	<option value="11"<?php is_selected(11, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>	
+
+	<option value="12"<?php is_selected(12, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'] ?></option>
+	<option value="13"<?php is_selected(13, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'] ?></option>
+	<option value="14"<?php is_selected(14, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'] ?></option>
+
+				  </select></td>
+				  
+				  <td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_field']['break'] ?>:&nbsp;</td>
+				  <td><input name="layout_title_spacer" type="text" class="v11 width40" id="layout_title_spacer" value="<?php echo html_specialchars($pagelayout["layout_title_spacer"]); ?>" size="20" maxlength="100"></td>
+			
+				</tr>
+              </table></td>
+			</tr>
+		
+			
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+
+
+			<tr>
+              <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_admin_page_align']  ?>:&nbsp;</td>
               <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
                   <tr><td colspan="9"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 				  <tr>
@@ -408,56 +487,10 @@ if(!isset($_GET["s"])) {
 			   </table></td>
 			 </tr>
 			 <tr><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-			<tr><td colspan="2" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-			<tr>
-			  <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-			  <td><input name="layout_title" type="text" class="f11b" id="layout_title" style="width: 400px;" value="<?php echo html_specialchars($pagelayout["layout_title"]); ?>" size="20" maxlength="100"></td>
-			</tr>
 			<tr><td colspan="2" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+	
 			<tr>
-			  <td align="right" class="chatlist"><?php echo $BL['be_admin_page_addtotitle'] ?>:&nbsp;</td>
-			<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-				  <td><select name="layout_title_order" id="layout_title_order" class="v11">
-	
-	<?php 
-	
-	if(empty($pagelayout["layout_title_order"])) $pagelayout["layout_title_order"] = 0;
-	if(empty($pagelayout["layout_title_spacer"])) $pagelayout["layout_title_spacer"] = ' | ';
-	
-	
-	?>
-	<option value="0"<?php is_selected(0, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
-	<option value="1"<?php is_selected(1, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
-	<option value="2"<?php is_selected(2, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>
-	<option value="3"<?php is_selected(3, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
-	<option value="4"<?php is_selected(4, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
-	<option value="5"<?php is_selected(5, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
-
-	<option value="6"<?php is_selected(6, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
-	<option value="7"<?php is_selected(7, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
-	<option value="8"<?php is_selected(8, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
-	<option value="9"<?php is_selected(9, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
-	<option value="10"<?php is_selected(10, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
-	<option value="11"<?php is_selected(11, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>	
-
-	<option value="12"<?php is_selected(12, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'] ?></option>
-	<option value="13"<?php is_selected(13, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'] ?></option>
-	<option value="14"<?php is_selected(14, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'] ?></option>
-
-				  </select></td>
-				  
-				  <td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_field']['break'] ?>:&nbsp;</td>
-				  <td><input name="layout_title_spacer" type="text" class="v11 width40" id="layout_title_spacer" value="<?php echo html_specialchars($pagelayout["layout_title_spacer"]); ?>" size="20" maxlength="100"></td>
-			
-				</tr>
-              </table></td>
-			</tr>
-		
-			
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-			<tr>
-              <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="21"><?php echo $BL['be_admin_page_blocks'] ?>:&nbsp;</td>
+              <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_admin_page_blocks'] ?>:&nbsp;</td>
               <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
                   <tr><td colspan="12"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
                   <tr>
@@ -482,46 +515,9 @@ if(!isset($_GET["s"])) {
                   </tr>
                 </table></td>
 			</tr>
-			<tr>
-			  <td align="right" class="chatlist">&nbsp;</td>
-			  <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-			  <tr>
-			  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_customblocks'] ?>:&nbsp;</td>
-			  <td><input name="layout_customblocks" type="text" class="f10" id="layout_customblocks" style="width: 325px;" value="<?php echo  isset($pagelayout["layout_customblocks"]) ? html_specialchars($pagelayout["layout_customblocks"]) : '' ?>" size="20"></td>
-
-			  </tr>
-			  </table></td>
-			</tr>
-			<tr><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 			
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 
-			<tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_render'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-					<tr>
-						<td><img src="img/leer.gif" alt="" width="7" height="7"></td>
-						<td><img src="img/leer.gif" alt="" width="25" height="1"></td>
-						<td><img src="img/leer.gif" alt="" width="1" height="1"></td>
-						<td><img src="img/leer.gif" alt="" width="25" height="1"></td>
-						<td><img src="img/leer.gif" alt="" width="1" height="1"></td>
-						<td><img src="img/leer.gif" alt="" width="25" height="1"></td>
-						<td><img src="img/leer.gif" alt="" width="1" height="1"></td>
-  					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td align="center"><input name="layout_render" type="radio" id="layout_render_0" value="0" <?php is_checked(0, $pagelayout["layout_render"]); ?>></td>
-						<td><label for="layout_render_0"><?php echo $BL['be_admin_page_table'] ?></label>&nbsp;&nbsp;</td>
-						<td align="center"><input name="layout_render" type="radio" id="layout_render_1" value="1" <?php is_checked(1, $pagelayout["layout_render"]); ?>></td>
-						<td><label for="layout_render_1"><?php echo $BL['be_admin_page_div'] ?></label>&nbsp;&nbsp;</td>
-						<td align="center"><input name="layout_render" type="radio" id="layout_render_2" value="2" <?php is_checked(2, $pagelayout["layout_render"]); ?>></td>
-						<td><label for="layout_render_2"><?php echo $BL['be_admin_page_custom'].' <span class="v09">('.$BL['be_admin_page_custominfo'].')</span>' ?></label></td>
-  					</tr>
-  					<tr><td colspan="7"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-				</table></td>
-			</tr>
-			
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 			<tr><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_allblocks'] ?>:&nbsp;</td>
