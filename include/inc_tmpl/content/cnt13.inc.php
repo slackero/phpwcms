@@ -64,6 +64,9 @@ if(empty($content["search"]["newwin"])) {
 if(empty($content["search"]["no_filenames"])) {
 	$content["search"]["no_filenames"] = 0;
 }
+if(empty($content['search']['type'])) {
+	$content['search']['type'] = 'OR';
+}
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -137,11 +140,20 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
-	<td align="right" class="chatlist tdtop3" valign="top"><?php echo $BL['be_cnt_search_searchnot'] ?>:&nbsp;</td>
+	<td align="right" class="chatlist"><?php echo $BL['be_cnt_search_searchnot'] ?>:&nbsp;</td>
 	<td><table border="0" cellpadding="1" cellspacing="0" summary="">
       <tr>
         <td><input name="csearch_nofilenames" type="checkbox" id="csearch_nofilenames" value="1" <?php is_checked(1, $content["search"]["no_filenames"]) ?> /></td>
       	<td class="v10"><label for="csearch_nofilenames"><?php echo $BL['be_fprivedit_filename'] ?></label></td>
+		
+		<td class="width75">&nbsp;</td>
+		
+		<td align="right" class="chatlist"><?php echo $BL['be_cnt_search_default_type'] ?>:&nbsp;</td>
+		<td><select name="csearch_type">
+				<option value="OR"<?php is_selected('OR', $content['search']['type']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
+				<option value="AND"<?php is_selected('AND', $content['search']['type']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
+		</select></td>
+		
 	  </tr>
     </table></td>
 </tr>

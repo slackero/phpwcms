@@ -650,6 +650,7 @@ $BL['be_cnt_align']                     = 'align';
 $BL['be_cnt_searchformtext']            = 'the following texts are listed when the search form is opened or results for given search are (not) available.';
 $BL['be_cnt_intro']                     = 'intro';
 $BL['be_cnt_noresult']                  = 'no result';
+$BL['be_cnt_search_default_type']       = 'default search type';
 
 // added: 02-01-2004
 $BL['be_admin_page_disable']            = 'disable';

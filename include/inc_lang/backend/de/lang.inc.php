@@ -648,6 +648,7 @@ $BL['be_cnt_align']                     = 'Ausrichtung';
 $BL['be_cnt_searchformtext']            = 'Die folgenden Texte werden angezeigt, wenn das Suchformular aufgerufen, ein Ergebnis angezeigt oder kein Ergebnis zur&uuml;ckgegeben wird.';
 $BL['be_cnt_intro']                     = 'Intro';
 $BL['be_cnt_noresult']                  = 'Kein Ergebnis';
+$BL['be_cnt_search_default_type']       = 'Standard Suchtyp';
 
 // added: 02-01-2004
 $BL['be_admin_page_disable']            = 'abschalten';

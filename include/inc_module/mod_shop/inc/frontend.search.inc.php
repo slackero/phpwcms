@@ -24,6 +24,7 @@
 class ModuleShopSearch {
 
 	var $search_words			= array();
+	var $search_word_count		= 0;
 	var $search_result_entry	= 0;
 	var $search_results			= array();
 	var $search_highlight		= false;
@@ -33,10 +34,8 @@ class ModuleShopSearch {
 
 	function search() {
 	
-		if(count($this->search_words)==0) {
+		if(!$this->search_word_count) {
 			return NULL;
-		} else {
-			$this->search_words = implode('|', $this->search_words);
 		}
 		
 		$shop_url			= _getConfig( 'shop_pref_id_shop', '_shopPref' );
@@ -83,9 +82,18 @@ class ModuleShopSearch {
 			
 			preg_match_all('/'.$this->search_words.'/is', $s_text, $s_result );
 
-			$s_count	= 0; //set search_result to 0
-			foreach($s_result as $svalue) {
-				$s_count += count($svalue);
+			$s_count	= count($s_result[0]);
+			
+			if($s_count && SEARCH_TYPE_AND) {
+				$s_and_or = array();
+				foreach($s_result[0] as $svalue) {
+					$s_and_or[strtolower($svalue)] = 1;
+				}
+				$s_and_or = count($s_and_or);
+				
+				if($s_and_or != $this->search_word_count) {
+					$s_count = 0;
+				}
 			}
 			
 			if($s_count) {

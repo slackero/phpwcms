@@ -80,5 +80,7 @@ $content['search']["news_url"]		= clean_slweg($_POST['csearch_news_url']);
 
 $content['search']["no_filenames"]	= empty($_POST['csearch_nofilenames']) ? 0 : 1;
 $content['search']["hide_summary"]	= empty($_POST['csearch_hidesummary']) ? 0 : 1;
+$content['search']["type"]			= empty($_POST['csearch_type']) || strtoupper($_POST['csearch_type']) == 'OR' ? 'OR' : 'AND';
+
 
 ?>

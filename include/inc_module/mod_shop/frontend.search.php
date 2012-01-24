@@ -38,7 +38,8 @@ $s_module = new ModuleShopSearch();
 
 // set current search result counter
 $s_module->search_result_entry		= $s_run;
-$s_module->search_words				= $content["search_word"];
+$s_module->search_words				= $s_search_words;
+$s_module->search_word_count		= $s_search_words_count;
 $s_module->search_highlight			= $content['search']['highlight_result'];
 $s_module->search_highlight_words	= $content['highlight'];
 $s_module->search_wordlimit			= $content['search']['wordlimit'];

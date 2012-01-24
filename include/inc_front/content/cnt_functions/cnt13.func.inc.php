@@ -104,6 +104,7 @@ function search_buildMenuPathStructure($start_id=0, $counter=0, $pre = '') {
 class search_News {
 
 	var $search_words			= '';
+	var $search_word_count		= 0;
 	var $search_result_entry	= 0;
 	var $search_results			= array();
 	var $search_highlight		= false;
@@ -220,9 +221,18 @@ class search_News {
 			
 			preg_match_all('/'.$this->search_words.'/is', $s_text, $s_result );
 
-			$s_count	= 0; //set search_result to 0
-			foreach($s_result as $svalue) {
-				$s_count += count($svalue);
+			$s_count = count($s_result[0]); //set search_result to 0
+				
+			if($s_count && SEARCH_TYPE_AND) {
+				$s_and_or = array();
+				foreach($s_result[0] as $svalue) {
+					$s_and_or[strtolower($svalue)] = 1;
+				}
+				$s_and_or = count($s_and_or);
+				
+				if($s_and_or != $this->search_word_count) {
+					$s_count = 0;
+				}
 			}
 			
 			if($s_count) {

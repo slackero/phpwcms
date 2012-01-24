@@ -35,6 +35,7 @@ $s_result_list			 = '';
 $content["search_word"]	 = '';
 $content['highlight']	 = array();
 $s_list					 = array();
+define('SEARCH_TYPE_AND', empty($content['search']['type']) || $content['search']['type'] == 'OR' ? FALSE : TRUE);
 
 if(empty($content['search']["text_html"])) {
 	$content['search']['text_html'] = 0;
@@ -135,7 +136,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 		$sql .= "GROUP BY ar.article_id";		
 		
 		if($sresult = mysql_query($sql, $db)) {
-			$s_search_words = implode('|', $content["search_word"]);
+			$s_search_words			= implode('|', $content["search_word"]);
+			$s_search_words_count	= count($content["search_word"]);
+			
 			while($srow = mysql_fetch_assoc($sresult)) {
 			
 				// read article base info for search
@@ -282,21 +285,24 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					mysql_free_result($scresult);
 				}
 	
-				// search given string
-				if(isset($s_result)) {
-					unset($s_result);
-				}
-				$s_result = array();
-				
-				$s_text = clean_search_text($s_text.' --##-'.$srow["article_keyword"].' '.$s_title.' '.$s_user.'-##--');
+				$s_result	= array();
+				$s_text		= clean_search_text($s_text.' --##-'.$srow["article_keyword"].' '.$s_title.' '.$s_user.'-##--');
 				
 				preg_match_all('/'.$s_search_words.'/is', $s_text, $s_result ); //search string
-	
-				$s_text = preg_replace("/(<\/?)(\w+)([^>]*>)/i", '', $s_text);
 
-				$s_count = 0; //set search_result to 0
-				foreach($s_result as $svalue) {
-					$s_count += count($svalue);
+				$s_text		= preg_replace("/(<\/?)(\w+)([^>]*>)/i", '', $s_text);
+				$s_count	= count($s_result[0]);
+				
+				if($s_count && SEARCH_TYPE_AND) {
+					$s_and_or = array();
+					foreach($s_result[0] as $svalue) {
+						$s_and_or[strtolower($svalue)] = 1;
+					}
+					$s_and_or = count($s_and_or);
+					
+					if($s_and_or != $s_search_words_count) {
+						$s_count = 0;
+					}
 				}
 	
 				if($s_count) {
@@ -349,6 +355,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			// set current search result counter
 			$s_news->search_result_entry		= $s_run;
 			$s_news->search_words				= $s_search_words;
+			$s_news->search_word_count			= $s_search_words_count;
 			$s_news->search_highlight			= $content['search']['highlight_result'];
 			$s_news->search_highlight_words		= $content['highlight'];
 			$s_news->search_wordlimit			= $content['search']['wordlimit'];
