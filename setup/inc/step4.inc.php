@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -97,24 +97,7 @@
             <td><input name="max_time" type="text" class="f11b" id="max_time" style="width:125px" value="<?php echo $phpwcms["max_time"] ?>" size="30" maxlength="100"></td>
             <td class="chatlist"><em>&nbsp;default: 1800 seconds</em></td>
           </tr>
-          <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2" class="chatlist">if you would deliver compressed
-               web pages<br />
-               you should enable this. maybe your Apache is doing so <br />
-               diable this function or if  compression should be set off. </td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
-          <tr>
-            <td align="right" class="v10">page&nbsp;compression:&nbsp;</td>
-            <td><input name="compress_page" type="checkbox" id="compress_page" value="1" <?php echo ($phpwcms["compress_page"])?"checked":""?>></td>
-            <td class="chatlist"><em>&nbsp;default: none</em></td>
-          </tr>
-          <tr>
-            <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="15"></td></tr>
+ 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="20"></td></tr>
           <tr>
             <td align="right" class="v10">&nbsp;</td>
             <td colspan="2"><input name="Submit" type="submit" class="button10" value="send content values"></td>

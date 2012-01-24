@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -70,7 +70,7 @@ function getCurrentCalendarDate() {
 		if(!empty($d[0]) && intval($d[0]))	$_date['year']	= intval($d[0]);
 		if(!empty($d[1]) && intval($d[1]))	$_date['month']	= intval($d[1]);
 		if(!empty($d[2]) && intval($d[2]))	$_date['day']	= intval($d[2]);
-		if (($int_time = strtotime($_date['year'].'/'.$_date['month'].'/'.$_date['day'])) === -1) {
+		if (($int_time = phpwcms_strtotime($_date['year'].'/'.$_date['month'].'/'.$_date['day'])) === false) {
    			$_date['year']	= date('Y');
 			$_date['month']	= date('n');
 			$_date['day']	= date('j');

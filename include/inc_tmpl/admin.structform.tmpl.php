@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -160,16 +160,10 @@ switch($acat_hidden) {
 		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
  
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<?php
-if($acat_id != 'index' || strval($acat_id) == '0') {
-?>  
+
 		  <tr><td class="v09"><?php echo $BL['be_article_aredirect'] ?>:</td></tr>
 		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<?php
-}
-?>
-
 
 		<tr><td class="v09"><?php echo $BL['be_article_akeywords'] ?>:</td></tr>
           <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="f11 width540"><?php echo html_specialchars($acat_keywords) ?></textarea></td></tr>

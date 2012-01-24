@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -50,12 +50,26 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/im
 
 }
 
+// define default infotext renderer
+$image['text_render'] = 'plaintext';
+
 if($image['template']) {
 
 	$image['tmpl_settings']			= parse_ini_str( get_tmpl_section('IMAGE_SETTINGS', $image['template']), false);
 	
 	if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
 		$image = array_merge($image, $image['tmpl_settings']);
+		
+		if($image['text_render'] == 'markdown') {
+			// Load MarkDown function and class
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/php-markdown/markdown.php');
+		} elseif($image['text_render'] == 'textile') {
+			// Load Textile function and class
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/php-textile/classTextile.php');
+			if(!isset($phpwcms['textile'])) {
+				$phpwcms['textile'] = new Textile();
+			}
+		}
 	}
 
 	$image['tmpl_header']			= get_tmpl_section('IMAGES_HEADER', $image['template']);
@@ -330,8 +344,27 @@ if($image['template']) {
 			
 			// new freetext value
 			$value['freetext'] = empty($value['freetext']) ? '' : trim($value['freetext']);
-			$img_a = render_cnt_template($img_a, 'INFOTEXT', plaintext_htmlencode($value['freetext'], 'html_entities') );
-			$img_a = render_cnt_template($img_a, 'INFOHTML', $value['freetext'] );
+			
+			switch($image['text_render']) {
+	
+				case 'markdown':
+					$value['freetext'] = Markdown($value['freetext']);
+					break;
+				
+				case 'textile':
+					$value['freetext'] = $phpwcms['textile']->TextileThis($value['freetext']);
+					break;
+					
+				case 'html':
+					break;
+				
+				default:
+					$value['freetext'] = plaintext_htmlencode($value['freetext'], 'html_entities');
+					break;
+			
+			}
+			
+			$img_a = render_cnt_template($img_a, 'INFOTEXT', $value['freetext'] );
 			
 			if($image['nocaption']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');

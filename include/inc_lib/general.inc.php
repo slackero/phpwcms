@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -49,7 +49,7 @@ function slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {
 	// sollen die Slashes herausgenommen werden, anderenfalls nicht
 	if($trim) $string_wo_slashes_weg = trim($string_wo_slashes_weg);
 	if( get_magic_quotes_gpc() ) $string_wo_slashes_weg = stripslashes ($string_wo_slashes_weg);
-	if($string_laenge) $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);
+	if($string_laenge && strlen($string_wo_slashes_weg) > $string_laenge) $string_wo_slashes_weg = mb_substr($string_wo_slashes_weg, 0, $string_laenge);
 	$string_wo_slashes_weg = preg_replace( array('/<br>$/i','/<br \/>$/i','/<p><\/p>$/i','/<p>&nbsp;<\/p>$/i') , '', $string_wo_slashes_weg);
 	return $string_wo_slashes_weg;
 }
@@ -60,7 +60,7 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {
 	if($trim) $string_wo_slashes_weg = trim($string_wo_slashes_weg);
 	if( get_magic_quotes_gpc() ) $string_wo_slashes_weg = stripslashes ($string_wo_slashes_weg);
 	$string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
-	if($string_laenge) $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);
+	if($string_laenge && strlen($string_wo_slashes_weg) > $string_laenge) $string_wo_slashes_weg = mb_substr($string_wo_slashes_weg, 0, $string_laenge);
 	return $string_wo_slashes_weg;
 }
 
@@ -230,7 +230,7 @@ function which_ext($filename) {
 function cut_ext($dateiname) {
 	//cuts extension of file
 	$cutoff = strrpos($dateiname, '.');
-	return ($cutoff !== false) ? substr($dateiname, 0, $cutoff) : $dateiname;
+	return ($cutoff !== false) ? mb_substr($dateiname, 0, $cutoff) : $dateiname;
 }
 
 function fsize($zahl,$spacer='&nbsp;',$short=1) {
@@ -356,7 +356,7 @@ function which_folder_active($ist, $soll, $ac="#9BBECA", $nc="#363E57", $nclass=
 }
 
 function FileExtension($filename) {
-	return substr(strrchr($filename, "."), 1, strlen(strrchr($filename, ".")));
+	return mb_substr(strrchr($filename, "."), 1, strlen(strrchr($filename, ".")));
 }
 
 function convert_into($extension) {
@@ -379,8 +379,23 @@ function convert_into($extension) {
 }
 
 function is_ext_true($extension) {
+	
+	global $phpwcms;
+	
 	$ext = false;
-	if(IMAGICK_ON) {
+	
+	if($phpwcms['image_library'] == 'gd2' || $phpwcms['image_library'] == 'gd') {
+		// if GD is used
+		switch($extension) {
+			case "jpg":		$ext="jpg"; break;
+			case "jpeg":	$ext="jpg"; break;
+			case "gif":		$ext=(imagetypes() && IMG_GIF) ? "gif" : "png";
+							break;
+			case "png":		$ext="png"; break;
+		}
+
+	} else {
+	
 		// if ImageMagick for thumbnail creation
 		switch($extension) {
 			case "jpg":		$ext="jpg"; break;
@@ -390,9 +405,9 @@ function is_ext_true($extension) {
 			case "psd":		$ext="jpg"; break;
 			case "bmp":		$ext="jpg"; break;
 			case "pic":		$ext="jpg"; break;
-			case "eps":		$ext="jpg"; break;
-			case "ps":		$ext="jpg"; break;
-			case "ai":		$ext="jpg"; break;
+			case "eps":		$ext="png"; break;
+			case "ps":		$ext="png"; break;
+			case "ai":		$ext="png"; break;
 			case "ps2":		$ext="jpg"; break;
 			case "ps3":		$ext="jpg"; break;
 			case "pn":		$ext="jpg"; break;
@@ -400,22 +415,14 @@ function is_ext_true($extension) {
 			case "gif":		$ext="gif"; break;
 			case "png":		$ext="png"; break;
 			case "tga":		$ext="jpg"; break;
-			case "pdf":		$ext="jpg"; break;
+			case "pdf":		$ext="png"; break;
 			case "pict":	$ext="jpg"; break;
 			case "jp2":		$ext="jpg"; break;
 			case "jpc":		$ext="jpg"; break;
 			case "ico":		$ext="jpg"; break;
 			case "fax":		$ext="jpg"; break;
 		}
-	} else {
-		// if GD is used
-		switch($extension) {
-			case "jpg":		$ext="jpg"; break;
-			case "jpeg":	$ext="jpg"; break;
-			case "gif":		$ext=(imagetypes() & IMG_GIF) ? "gif" : "png";
-							break;
-			case "png":		$ext="png"; break;
-		}
+		
 	}
 	if($ext && !empty($GLOBALS['phpwcms']["imgext_disabled"])) {
 		$GLOBALS['phpwcms']["imgext_disabled"] = str_replace(' ', '', $GLOBALS['phpwcms']["imgext_disabled"]);
@@ -429,8 +436,7 @@ function is_ext_true($extension) {
 }
 
 function make_date($datestring, $dateformat = "d.m.y") {
-	$unixtime=strtotime($datestring);
-	return ($unixtime) ? date($dateformat, $unixtime) : $datestring;
+	return phpwcms_strtotime($datestring, $dateformat, '');
 }
 
 function switch_on_off($wert) {
@@ -1165,7 +1171,7 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 	
 	if($cutMode == 'word') {
 	
-		$words		= preg_split("/[\s]+/", $cutString, -1, PREG_SPLIT_NO_EMPTY);
+		$words		= preg_split("/[\s,]+/", $cutString, -1, PREG_SPLIT_NO_EMPTY);
 		$cutString	= '';
 		for($i = 0; $i < $maxLength; $i++) {
 			if(!empty($words[$i])) {
@@ -1184,7 +1190,7 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 		
 			return '';
 		
-		} elseif($maxLength >= (MB_SAFE ? mb_strlen($curString) : strlen($curString))) {
+		} elseif($sanitize===NULL && $maxLength >= (MB_SAFE ? mb_strlen($curString) : strlen($curString))) {
 		
 			return $curString;
 		
@@ -1199,11 +1205,9 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 
 		}
 	}
-	/*
 	if($sanitize !== NULL) {
-		$cutString = sanitize($cutString, array(), array(), array('img', 'br', 'hr', 'input'), true);
+		$cutString = htmlfilter_sanitize($cutString, array(), array(), array('img', 'br', 'hr', 'input'), true);
 	}
-	*/
 	return $cutString;
 }
 
@@ -1496,7 +1500,7 @@ function formatRTDate($matches) {
 		$matches[1] = intval($matches[1]);
 		return $type($matches[0], $matches[1]);
 	}
-	return $type($matches[0], strtotime($matches[1]));
+	return $type($matches[0], phpwcms_strtotime($matches[1], NULL, now()));
 }
 
 function makeCharsetConversion($string='', $in_charset='utf-8', $out_charset='utf-8', $entityEncode=false) {
@@ -1662,8 +1666,12 @@ function parse_ini_str($Str, $ProcessSections=true, $SplitInNameValue=false) {
 	x=File1
 	y=File2
 	*/
-	$Section = NULL;
-	$Data = array();
+	$Section	= NULL;
+	$Data		= array();
+	$Escape		= array(
+		'search' 	=> array('\t', '\r', '\n', '\;', '\#', '\=', '\:', "\\\\"),
+		'replace'	=> array("\t", "\r", "\n", ';', '#', '=', ':', "\\")
+	);
 	if ($Temp = strtok($Str,"\r\n")) {
 		do {
 			switch ($Temp{0}) {
@@ -1674,15 +1682,15 @@ function parse_ini_str($Str, $ProcessSections=true, $SplitInNameValue=false) {
 				
 				case '[':	if (!$ProcessSections) break;
 							$Pos = strpos($Temp,'[');
-							$Section = substr($Temp,$Pos+1,strpos($Temp,']',$Pos)-1);
+							$Section = mb_substr($Temp,$Pos+1,strpos($Temp,']',$Pos)-1);
 							if($Section) $Data[$Section] = array();
 							break;
 				
 				default:	$Pos = strpos($Temp,'=');
 							if ($Pos === FALSE) break;
 							if(!$SplitInNameValue) {
-								$key = trim(substr($Temp,0,$Pos));
-								$val = trim(substr($Temp,$Pos+1),' "');
+								$key = trim(mb_substr($Temp,0,$Pos));
+								$val = str_replace($Escape['search'], $Escape['replace'], trim(mb_substr($Temp,$Pos+1),' "'));
 								if ($ProcessSections && $Section) {
 									$Data[$Section][$key] = $val;
 								} else {
@@ -1690,8 +1698,8 @@ function parse_ini_str($Str, $ProcessSections=true, $SplitInNameValue=false) {
 								}
 							} else {
 								$Value = array();
-								$Value["NAME"] = trim(substr($Temp,0,$Pos));
-								$Value["VALUE"] = trim(substr($Temp,$Pos+1),' "');
+								$Value["NAME"] = trim(mb_substr($Temp,0,$Pos));
+								$Value["VALUE"] = str_replace($Escape['search'], $Escape['replace'], trim(mb_substr($Temp,$Pos+1),' "'));
 								if ($ProcessSections && $Section) {
 									$Data[$Section][] = $Value;
 								} else {
@@ -1850,7 +1858,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 
 		foreach($rename as $value) {
 			switch($value) {
-				case 1:		$_temp_name = str_replace(array(':','/',"\\",' '), array('-','-','-','_'), remove_accents($_temp_name) );
+				case 1:		$_temp_name = str_replace(array(':','/',"\\",' '), array('-','-','-','_'), phpwcms_remove_accents($_temp_name) );
 							$_temp_name = preg_replace('/[^0-9a-z_\-\.]/i', '', $_temp_name);
 							break;
 				case 2:		$_temp_name = time().'_'.$_temp_name;
@@ -1889,7 +1897,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 
 function get_alnum_dashes($string, $remove_accents = false, $replace_space='-') {
 	if($remove_accents) {
-		$string = remove_accents($string);
+		$string = phpwcms_remove_accents($string);
 	}
 	$string = str_replace(' ', $replace_space, $string);
 	return preg_replace('/[^a-z0-9\-_]/i', '', $string);
@@ -2214,7 +2222,7 @@ function is_intval($str) {
 }
 
 function attribute_name_clean($name='') {
-	$name = trim(remove_accents($name));
+	$name = trim(phpwcms_remove_accents($name));
 	$name = str_replace(
 				array(' ','/','\\','#','+',':','.'), 
 				array('_','-', '-','_','-','-','-'), 
@@ -2265,6 +2273,15 @@ function uri_sanitize($text) {
 	}
 	
 	return $text;
+}
+
+function phpwcms_strtotime($date, $date_format=NULL, $empty_return=false) {
+	$strtotime = strtotime($date);
+	if ($strtotime === -1 || $strtotime === false) {
+		return $empty_return;
+	}
+	
+	return is_string($date_format) ? date($date_format, $strtotime) : $strtotime;
 }
 
 ?>

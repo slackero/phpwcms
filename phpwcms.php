@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -102,13 +102,6 @@ switch ($do) {
 
 	case "modules":		//modules
 						$wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
-						if($phpwcms["gt_mod"]) { //enabled/disable GT MOD
-							include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/en/lang.inc.php');
-							if($BE['LANG'] != 'en' && is_file(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/'.$BE['LANG'].'/lang.inc.php')) {
-								include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/inc_lang/backend/'.$BE['LANG'].'/lang.inc.php');
-							}
-							$subnav .= subnavtext($BL['be_subnav_graphicaltext_mod'], "phpwcms.php?do=modules&amp;p=2", $p, "2", 0);
-						}
 						
 						foreach($phpwcms['modules'] as $value) {
 						
@@ -411,11 +404,6 @@ if($BE['LANG'] == 'ar') {
 
       	case "modules":	//Modules
 		
-			if($p == 2 && $phpwcms["gt_mod"]) { //enabled/disable GT MOD
-				// include language vars for Jérôme's Graphical Text MOD
-      			include(PHPWCMS_ROOT.'/include/inc_module/mod_graphical_text/main.inc.php');
-      		}
-			
 			// if a module is selected
 			if(isset($phpwcms['modules'][$module])) {
 			
@@ -566,8 +554,7 @@ $BE['BODY_CLOSE']['wz_tooltip.js'] = getJavaScriptSourceLink('include/inc_js/wz_
 list($usec, $sec) = explode(' ', microtime());
 header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $phpwcms_rendering_start), 3) .' ms');
 
-$BE['HTML'] = ob_get_contents();
-ob_end_clean();
+$BE['HTML'] = ob_get_clean();
 
 //	parse for backend languages
 backend_language_parser();

@@ -2,7 +2,7 @@
 /*************************************************************************************
 Copyright notice
 
-(c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+(c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -163,11 +163,11 @@ $buttonAction .= '</tr></table>';
 			</tr>
 			<tr>
 			  <td class="v10" style="color:#727889"><?php echo $BL['be_article_eslastedit'] ?>:&nbsp;</td>
-			  <td class="v10"><?php echo date($BL['be_longdatetime'], strtotime($article["article_date"])) ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_fprivedit_created'] ?>:</span>&nbsp;<?php echo date($BL['be_longdatetime'], $article["article_created"]) ?></td>
+			  <td class="v10"><?php echo phpwcms_strtotime($article["article_date"], $BL['be_longdatetime'], '') ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_fprivedit_created'] ?>:</span>&nbsp;<?php echo date($BL['be_longdatetime'], $article["article_created"]) ?></td>
 			</tr>
 			<tr>
 			  <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
-			  <td class="v10"><?php echo date($BL['be_longdatetime'], strtotime($article["article_begin"])) ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_article_cnt_end'] ?>:</span>&nbsp;<?php echo date($BL['be_longdatetime'], strtotime($article["article_end"])) ?></td>
+			  <td class="v10"><?php echo phpwcms_strtotime($article["article_begin"], $BL['be_longdatetime'], '') ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_article_cnt_end'] ?>:</span>&nbsp;<?php echo phpwcms_strtotime($article["article_end"], $BL['be_longdatetime'], '') ?></td>
 			</tr>
 			
 			<tr>

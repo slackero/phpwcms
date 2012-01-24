@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -49,9 +49,9 @@ $sql =	"INSERT INTO ".DB_PREPEND."phpwcms_userdetail (".
 		getpostvar($_POST["form_fon"])."', '".
 		getpostvar($_POST["form_fax"])."', '".
 		getpostvar($_POST["form_mobile"])."', '".
-		getpostvar(substr($_POST["form_signature"],0,250))."', '".
+		getpostvar(mb_substr($_POST["form_signature"],0,250))."', '".
 		getpostvar($_POST["form_prof"])."', '".
-		getpostvar(substr($_POST["form_notes"],0,3000))."', ".
+		getpostvar(mb_substr($_POST["form_notes"],0,3000))."', ".
 		check_checkbox($_POST["form_public"]).", ".
 		check_checkbox($_POST["form_newsletter"]).
 		")";

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -269,10 +269,10 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 			$info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
 		}
 		if(!empty($article[$akey]["article_begin"])) {
-			$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_begin"])).'</b></td></tr>';
+			$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>'.phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;').'</b></td></tr>';
 		}
 		if(!empty($article[$akey]["article_end"])) {
-			$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>'.date($BL['be_longdatetime'], strtotime($article[$akey]["article_end"])).'</b></td></tr>';
+			$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>'.phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;').'</b></td></tr>';
 		}
 		$info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
 		if(isset($article[$akey]["article_end"])) {

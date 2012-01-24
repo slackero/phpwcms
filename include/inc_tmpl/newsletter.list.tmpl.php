@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -147,7 +147,7 @@ if($_newsletter['pages_total'] > 1) {
 
 	// loop listing available newsletters
                                  
-	$sql	= "SELECT * FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_changed DESC";
+	$sql  = "SELECT *, UNIX_TIMESTAMP(newsletter_changed) AS cdate, UNIX_TIMESTAMP(newsletter_lastsending) AS lastsend FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_changed DESC";
 	$sql .= " LIMIT ".(($_SESSION['newsletter_page']-1) * $_SESSION['list_newsletter_count']).','.$_SESSION['list_newsletter_count'];
 	
 	if($result = mysql_query($sql, $db) or die("error while reading newsletter list")) {
@@ -179,9 +179,17 @@ if($_newsletter['pages_total'] > 1) {
 			echo '<td class="dir"><strong>'.html_specialchars($row["newsletter_subject"])."</strong></td>\n";
 			
 			// create date
-			echo '<td nowrap="nowrap" class="v10" align="center">&nbsp;'.@date($BL['be_shortdatetime'], strtotime($row['newsletter_changed'])).'&nbsp;</td>';
+			echo '<td nowrap="nowrap" class="v10" align="center">&nbsp;';
+			if($row['cdate']) {
+				echo @date($BL['be_shortdatetime'], $row['cdate']);
+			}
+			echo '&nbsp;</td>';
 			// last sending
-			echo '<td nowrap="nowrap" class="v10" align="center">&nbsp;'.@date($BL['be_shortdatetime'], strtotime($row['newsletter_lastsending'])).'&nbsp;</td>';
+			echo '<td nowrap="nowrap" class="v10" align="center">&nbsp;';
+			if($row['lastsend']) {
+				@date($BL['be_shortdatetime'], $row['lastsend']);
+			}
+			echo '&nbsp;</td>';
 			
 			echo '<td nowrap="nowrap" class="v10" align="center">'.$count_recipient.'/'.$count_queue.'/'.$count_sent;
 			if($count_sent && !$count_queue && $row["newsletter_active"]) {

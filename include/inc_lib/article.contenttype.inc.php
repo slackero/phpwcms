@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -42,20 +42,17 @@ $wcs_content_type = array(
 	 9 => $BL['be_ctype_multimedia'],
 	 7 => $BL['be_ctype_filelist'],
 	16 => $BL['be_ctype_ecard'],
-	//17 => $BL['be_ctype_blog'],
 	23 => $BL['be_ctype_simpleform'],
 	10 => $BL['be_ctype_emailform'].' [old]',
 	12 => $BL['be_ctype_newsletter'],
 	13 => $BL['be_ctype_search'],
 	18 => $BL['be_ctype_guestbook'],
 	19 => $BL['be_ctype_sitemap'],
-	//20 => $BL['be_ctype_bid'],
 	21 => $BL['be_ctype_pages'],
 	22 => $BL['be_ctype_rssfeed'],
 	50 => $BL['be_ctype_reference'],
 	51 => $BL['be_ctype_map'],
 	52 => $BL['be_ctype_phpvar'],
-	//53 => $BL['be_ctype_forum'],
 	24 => $BL['be_ctype_alias'],
 	89 => $BL['be_ctype_poll'], // jens poll
 	26 => $BL['be_ctype_recipe'],

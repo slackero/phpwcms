@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -310,13 +310,14 @@ class phpwcmsNews {
 				$news['live'] = $news['cnt_startdate'];
 				$news['kill'] = strtotime($news['cnt_killdate']);
 				
-				$news['live'] = $news['live'] == false ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
-				$news['kill'] = $news['kill'] == false ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['kill']);
+				$news['live'] = $news['live'] == false || $news['live'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
+				$news['kill'] = phpwcms_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
+				$news['sort'] = $news['cnt_sortdate'] == false || $news['cnt_sortdate'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['cnt_sortdate']);
 				
 				$list[] = '<td class="column colfirst news">'.html_specialchars($news['cnt_name']).'</td>';
 				$list[] = '<td class="column">'.$news['live'].'</td>';
 				$list[] = '<td class="column">'.$news['kill'].'</td>';
-				$list[] = '<td class="column">'.date($this->BL['be_shortdatetime'], $news['cnt_sortdate']).'</td>';
+				$list[] = '<td class="column">'.$news['sort'].'</td>';
 				$list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
 				$list[] = '<td class="column collast">
 				
@@ -586,29 +587,32 @@ class phpwcmsNews {
 		$end_date	= strtotime( $this->data['cnt_killdate'] );
 		$sort_date	= intval($this->data['cnt_sort']);
 		
-		if(!$start_date) {
-			$this->data['cnt_date_start'] = '';
-			$this->data['cnt_time_start'] = '';
+		if($start_date <= 0) {
+			$this->data['cnt_livedate']		= '0000-00-00 00:00:00';
+			$this->data['cnt_date_start']	= '';
+			$this->data['cnt_time_start']	= '';
 		} else {
-			$this->data['cnt_date_start'] = date($this->BL['default_date'], $start_date);
-			$this->data['cnt_time_start'] = date($this->BL['default_time'], $start_date);
+			$this->data['cnt_date_start']	= date($this->BL['default_date'], $start_date);
+			$this->data['cnt_time_start']	= date($this->BL['default_time'], $start_date);
 		}
 		
-		if(!$end_date) {
-			$this->data['cnt_date_end'] = '';
-			$this->data['cnt_time_end'] = '';
+		if($end_date <= 0) {
+			$this->data['cnt_killdate']		= '0000-00-00 00:00:00';
+			$this->data['cnt_date_end']		= '';
+			$this->data['cnt_time_end']		= '';
 		} else {
-			$this->data['cnt_date_end'] = date($this->BL['default_date'], $end_date);
-			$this->data['cnt_time_end'] = date($this->BL['default_time'], $end_date);
+			$this->data['cnt_date_end']		= date($this->BL['default_date'], $end_date);
+			$this->data['cnt_time_end']		= date($this->BL['default_time'], $end_date);
 		}
 		
 		// sort date
-		if($sort_date == 0) {
-			$this->data['cnt_sort_date'] = '';
-			$this->data['cnt_sort_time'] = '';
+		if($sort_date <= 0) {
+			$this->data['cnt_sort']			= 0;
+			$this->data['cnt_sort_date']	= '';
+			$this->data['cnt_sort_time']	= '';
 		} else {
-			$this->data['cnt_sort_date'] = date($this->BL['default_date'], $sort_date);
-			$this->data['cnt_sort_time'] = date($this->BL['default_time'], $sort_date);
+			$this->data['cnt_sort_date']	= date($this->BL['default_date'], $sort_date);
+			$this->data['cnt_sort_time']	= date($this->BL['default_time'], $sort_date);
 		}
 
 	}
@@ -697,8 +701,8 @@ class phpwcmsNews {
 		
 		$post['cnt_object']['cnt_category']				= $category;
 		
-		$post['cnt_object']['cnt_readmore']				= empty($_POST['cnt_readmore']) ? 0 : 1;
-		
+		$post['cnt_object']['cnt_readmore']				= empty($_POST['cnt_readmore']) ? 0 : 1;	
+	
 		return $post;
 	
 	}

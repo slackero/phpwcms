@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -907,7 +907,7 @@ function seReferrer($ref = false) {
 	}
 	
 	// check given query and decode utf-8
-	if(PHPWCMS_CHARSET != 'utf-8' && seems_utf8($SeQuery)) {
+	if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($SeQuery)) {
 		$SeQuery = makeCharsetConversion($SeQuery, 'utf-8', PHPWCMS_CHARSET, false);
 	}
 	

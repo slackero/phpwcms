@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -63,7 +63,7 @@ initMootoolsAutocompleter();
 							$fxsg += $fxs;
 							$fxe = extimg(which_ext($file));
 							 // there is a big problem with special chars on Mac OS X and seems Windows too
-							$filename = (PHPWCMS_CHARSET != 'utf-8' && seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
+							$filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
 							$filename = html_specialchars($filename);
 		  ?>
           <tr<?php echo $fxb ?>>

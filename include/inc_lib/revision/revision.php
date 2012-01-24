@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -20,8 +20,8 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-define('PHPWCMS_VERSION',		'1.4.7');
-define('PHPWCMS_RELEASE_DATE',	'2011/11/13');
-define('PHPWCMS_REVISION',		'426');
+define('PHPWCMS_VERSION',		'1.5');
+define('PHPWCMS_RELEASE_DATE',	'2012/01/24');
+define('PHPWCMS_REVISION',		'427');
 
 ?>

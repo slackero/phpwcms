@@ -166,8 +166,8 @@ CREATE TABLE `phpwcms_article` (
   `article_priorize` int(5) NOT NULL default '0',
   `article_norss` int(1) NOT NULL default '1',
   `article_archive_status` int(1) NOT NULL default '1',
-  `article_menutitle` varchar(255) NOT NULL,
-  `article_description` varchar(255) NOT NULL,
+  `article_menutitle` varchar(255) NOT NULL default '',
+  `article_description` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`article_id`),
   KEY `article_aktiv` (`article_aktiv`),
   KEY `article_public` (`article_public`),
@@ -278,47 +278,6 @@ CREATE TABLE `phpwcms_articlecontent` (
   KEY `acontent_livedate` (`acontent_livedate`,`acontent_killdate`),
   KEY `acontent_paginate` (`acontent_paginate_page`),
   KEY `acontent_granted` (`acontent_granted`)
-) TYPE=MyISAM ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_bad_behavior`
---
-
-CREATE TABLE `phpwcms_bad_behavior` (
-  `id` int(11) NOT NULL auto_increment,
-  `ip` text NOT NULL,
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `request_method` text NOT NULL,
-  `request_uri` text NOT NULL,
-  `server_protocol` text NOT NULL,
-  `http_headers` text NOT NULL,
-  `user_agent` text NOT NULL,
-  `request_entity` text NOT NULL,
-  `key` text NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `ip` (`ip`(15)),
-  KEY `user_agent` (`user_agent`(10))
-) TYPE=MyISAM ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_bid`
---
-
-CREATE TABLE `phpwcms_bid` (
-  `bid_id` int(11) NOT NULL auto_increment,
-  `bid_cid` int(11) NOT NULL default '0',
-  `bid_email` text NOT NULL,
-  `bid_hash` varchar(255) NOT NULL default '',
-  `bid_amount` float NOT NULL default '0',
-  `bid_created` timestamp NOT NULL,
-  `bid_verified` int(1) NOT NULL default '0',
-  `bid_trashed` int(1) NOT NULL default '0',
-  `bid_vars` mediumblob NOT NULL,
-  PRIMARY KEY  (`bid_id`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------
@@ -577,46 +536,6 @@ CREATE TABLE `phpwcms_filekey` (
   `fkey_deleted` int(1) NOT NULL default '0',
   `fkey_sort` int(11) NOT NULL default '0',
   PRIMARY KEY  (`fkey_id`)
-) TYPE=MyISAM ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_fonts`
---
-
-CREATE TABLE `phpwcms_fonts` (
-  `font_id` int(11) NOT NULL auto_increment,
-  `font_name` text NOT NULL,
-  `font_shortname` text NOT NULL,
-  `font_filename` text NOT NULL,
-  PRIMARY KEY  (`font_id`)
-) TYPE=MyISAM  PACK_KEYS=0;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_fonts_colors`
---
-
-CREATE TABLE `phpwcms_fonts_colors` (
-  `color_id` int(11) NOT NULL auto_increment,
-  `color_name` text NOT NULL,
-  `color_value` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`color_id`)
-) TYPE=MyISAM ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_fonts_styles`
---
-
-CREATE TABLE `phpwcms_fonts_styles` (
-  `style_id` int(11) NOT NULL auto_increment,
-  `style_name` text NOT NULL,
-  `style_info` text NOT NULL,
-  PRIMARY KEY  (`style_id`)
 ) TYPE=MyISAM ;
 
 -- --------------------------------------------------------

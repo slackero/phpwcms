@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -30,9 +30,12 @@ if (!defined('PHPWCMS_ROOT')) {
 include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php');
 
 // Form
-$CNT_TMP .= '<a name="jumpForm'.$crow["acontent_id"].'" id="jumpForm'.$crow["acontent_id"].'"></a>';
-$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 $cnt_form = unserialize($crow["acontent_form"]);
+
+if(empty($cnt_form['anchor_off'])) {
+	$CNT_TMP .= '<a name="jumpForm'.$crow["acontent_id"].'" id="jumpForm'.$crow["acontent_id"].'"></a>';
+}
+$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 // save default form tracking status
 $default_formtracking_value = $phpwcms['form_tracking'];
@@ -707,12 +710,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_value = explode("\n", $cnt_form["fields"][$key]['value']);
 								$form_value = array_map('trim', $form_value);
 								$form_value = array_diff($form_value, array(''));
-								if($cnt_form["fields"][$key]['class']) {
-									$form_field 	.= '<div class="'.$cnt_form["fields"][$key]['class'].'">';
-									$checkbox_class  = '</div>';
-								} else {
-									$checkbox_class  = '';
-								}
+								
+								$form_field 	.= '<span class="'.trim('form-checkbox '.$cnt_form["fields"][$key]['class']).'">';
+								$checkbox_class  = '</span>';
+								
 								if($cnt_form["fields"][$key]['style']) {
 									$checkbox_style = ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								} else {
@@ -733,6 +734,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$checkbox_value .= ' checked';
 									}
 									$checkbox_value = $checkbox_value ? html_specialchars($checkbox_value) : $form_name;
+									$form_field .= '<label for="'.$form_name.'"' . $checkbox_style . '>';
 									$form_field .= '<input type="checkbox" name="'.$form_name.'" id="'.$form_name.'" ';
 									if(substr($checkbox_value, -8) != ' checked') {
 										$form_field .= 'value="' . $checkbox_value . '" />';
@@ -740,9 +742,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$checkbox_value = str_replace(' checked', '', $checkbox_value);
 										$form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
 									}
-									$form_field .= '<label for="'.$form_name.'"';
-									$form_field .= $checkbox_style;
-									$form_field .= '>'. $checkbox_label .'</label>';
+									$form_field .= $checkbox_label .'</label>';
 									
 								} else {
 									// list of checkboxes
@@ -768,6 +768,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										if($checkbox_counter) {
 											$form_field .= $checkbox_spacer;
 										}
+										$form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
 										$form_field .= '<input type="checkbox" name="'.$form_name.'[]" id="'.$form_name.$checkbox_counter.'" ';
 										if(substr($checkbox_value, -8) != ' checked') {
 											$form_field .= 'value="' . $checkbox_value . '" />';
@@ -775,9 +776,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											$checkbox_value = str_replace(' checked', '', $checkbox_value);
 											$form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
 										}
-										$form_field .= '<label for="'.$form_name.$checkbox_counter.'"';
-										$form_field .= $checkbox_style;
-										$form_field .= '>'. $checkbox_label .'</label>';
+										$form_field .= $checkbox_label .'</label>';
 										$checkbox_counter++;
 									}
 								}
@@ -826,6 +825,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$checkbox_value .= ' checked';
 									}
 									$checkbox_value = $checkbox_value ? html_specialchars($checkbox_value) : $form_name;
+									$form_field .= '<label for="'.$form_name.'"' . $checkbox_style . '>';
 									$form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.'" ';
 									if(substr($checkbox_value, -8) != ' checked') {
 										$form_field .= 'value="' . $checkbox_value . '" />';
@@ -833,9 +833,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$checkbox_value = str_replace(' checked', '', $checkbox_value);
 										$form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
 									}
-									$form_field .= '<label for="'.$form_name.'"';
-									$form_field .= $checkbox_style;
-									$form_field .= '>'. $checkbox_label .'</label>';
+									$form_field .= $checkbox_label .'</label>';
 									
 								} else {
 									// list of checkboxes
@@ -856,6 +854,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										if($checkbox_counter) {
 											$form_field .= $checkbox_spacer;
 										}
+										$form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
 										$form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.$checkbox_counter.'" ';
 										if(substr($checkbox_value, -8) != ' checked') {
 											$form_field .= 'value="' . $checkbox_value . '" />';
@@ -863,9 +862,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											$checkbox_value = str_replace(' checked', '', $checkbox_value);
 											$form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
 										}
-										$form_field .= '<label for="'.$form_name.$checkbox_counter.'"';
-										$form_field .= $checkbox_style;
-										$form_field .= '>'. $checkbox_label .'</label>';
+										$form_field .= $checkbox_label .'</label>';
 										$checkbox_counter++;
 									}
 								}
@@ -1050,7 +1047,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								 * Breaktext
 								 */
 								if($cnt_form["fields"][$key]['style'] || $cnt_form["fields"][$key]['class']) {
-									$form_field .= '<span id="'.$form_name.'"';
+									$form_field .= '<div id="'.$form_name.'"';
 									if($cnt_form["fields"][$key]['class']) {
 										$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
 									}
@@ -1058,10 +1055,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 									}
 									$form_field .= '>';
-									$form_field .= nl2br(html_specialchars($cnt_form["fields"][$key]['value']));
-									$form_field .= '</span>';
+									$form_field .= plaintext_htmlencode($cnt_form["fields"][$key]['value']);
+									$form_field .= '</div>';
 								} else {
-									$form_field .= nl2br(html_specialchars($cnt_form["fields"][$key]['value']));
+									$form_field .= plaintext_htmlencode($cnt_form["fields"][$key]['value']);
 								}
 								break;
 	
@@ -1191,7 +1188,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 																
 								// hidden field, contains the hashed result
 								$form_field .= '<input type="hidden" name="'.$form_name.'_result" value="'.$mathspam_result.'" />';
-								
 								$form_field .= ' <span class="mathspam">';
 								$form_field .= trim( $cnt_form["fields"][$key]['value']['calc'] . ' ' . trim( $mathspam_question ) );
 								$form_field .= '</span>';
@@ -1302,6 +1298,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									if($checkbox_counter) {
 										$form_field .= $checkbox_spacer;
 									}
+									$form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
 									$form_field .= '<input type="checkbox" name="'.$form_name.'[]" id="'.$form_name.$checkbox_counter.'" ';
 									if(substr($checkbox_key, -8) != ' checked' && substr($checkbox_value, -8) != ' checked') {
 										$form_field .= 'value="' . $checkbox_key . '" />';
@@ -1310,9 +1307,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$checkbox_value = str_replace(' checked', '', $checkbox_value);
 										$form_field    .= 'value="' . $checkbox_key . '" checked="checked" />';
 									}
-									$form_field .= '<label for="'.$form_name.$checkbox_counter.'"';
-									$form_field .= $checkbox_style;
-									$form_field .= '>'.$checkbox_value .'</label>';
+									$form_field .= $checkbox_value .'</label>';
 									$checkbox_counter++;
 								}
 								$form_field .= $checkbox_class;
@@ -1371,14 +1366,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 				} else {
 				
 					if($cnt_form["fields"][$key]['required']) {
-						$cnt_form['labelClass']   = 'formLabelRequired';
+						$cnt_form['labelClass']   = 'form-label required';
 						$cnt_form['labelReqMark'] = $cnt_form["cform_reqmark"];
 					} else {
-						$cnt_form['labelClass']   = 'formLabel';
+						$cnt_form['labelClass']   = 'form-label';
 						$cnt_form['labelReqMark'] = '';
 					}
 				
 					if($cnt_form['labelpos'] == 0) {
+				
 						// label: field
 						if($cnt_form["fields"][$key]['type'] != 'break') {
 							$form_cnt .= "<tr>\n".'<td class="'.$cnt_form['labelClass'].'">';
@@ -1391,12 +1387,30 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_cnt .= '&nbsp;';
 							}
 							$form_cnt .= "</td>\n";
-							$form_cnt .= '<td class="formField">'.$form_field."</td>\n</tr>\n";
+							$form_cnt .= '<td class="form-field">'.$form_field."</td>\n</tr>\n";
 						} else {
 							// colspan for break
 							$form_cnt .= '<tr><td colspan="2">'.$form_field."</td></tr>\n";
 						}
+				
+					} elseif($cnt_form['labelpos'] == 3) {
+				
+						// DIV based
+						$form_cnt .= '<div class="form-field';
+						if($cnt_form["fields"][$key]['label'] != '') {
+							$form_cnt .= '">' . LF . '	<label class="'.$cnt_form['labelClass'].'">';
+							$form_cnt .= $cnt_form['label_wrap'][0];
+							$form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
+							$form_cnt .= $cnt_form['labelReqMark'];
+							$form_cnt .= $cnt_form['label_wrap'][1];
+							$form_cnt .= '</label>';
+						} else {
+							$form_cnt .= ' no-label">';
+						}
+						$form_cnt .= LF . '	' . $form_field . LF . '</div>' . LF;
+						
 					} else {
+						
 						// label:
 						// field
 						if($cnt_form["fields"][$key]['label'] != '') {
@@ -1405,7 +1419,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 							$form_cnt .= $cnt_form['labelReqMark'];
 							$form_cnt .= $cnt_form['label_wrap'][1]."</td></tr>\n";
 						}
-						$form_cnt .= '<tr><td class="formField">'.$form_field."</td></tr>\n";
+						$form_cnt .= '<tr><td class="form-field">'.$form_field."</td></tr>\n";
+					
 					}
 				}
 			
@@ -1871,20 +1886,19 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		} elseif($cnt_form["onsuccess"]) {
 			// success
 			
-			$CNT_TMP .= '<div';
-			$CNT_TMP .= $cnt_form["class"] ? ' class="'.$cnt_form["class"].'">' : '>';
+			$CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
 					
 			if($cnt_form["onsuccess_redirect"] === 0) {
-				$CNT_TMP .= '<p>'.nl2br(html_specialchars($cnt_form["onsuccess"])).'</p>';
+				$CNT_TMP .= plain_htmlencode($cnt_form["onsuccess"]);
 			} else {
 				$CNT_TMP .= $cnt_form["onsuccess"];
 			}
-			$CNT_TMP .= '</div>';
+			$CNT_TMP .= LF . '</div>' . LF;
 		}
 
 	}
 	if(!empty($cnt_form["copytoError"])) {
-		$CNT_TMP .= '<p>'.$cnt_form["copytoError"].'</p>';
+		$CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["copytoError"].'</p>';
 	}
 	
 	unset($mail);
@@ -1912,26 +1926,37 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	} else {
 	
 		if($cnt_form["onerror"]) {
-		
-			if($cnt_form["onerror_redirect"] === 0) {
-				$form_error_text = '<p>'.nl2br(html_specialchars($cnt_form["onerror"])).'</p>';
-			} else {
-				$form_error_text = $cnt_form["onerror"];
-			}
+			
+			$form_error_text  = '<div class="form-error on-send">' . LF;
+			$form_error_text .= $cnt_form["onerror_redirect"] === 0 ? plain_htmlencode($cnt_form["onerror"]) : $cnt_form["onerror"];
+			$form_error_text .= LF . '</div>' . LF;
+	
 		}
 	
 		$POST_ERR = array_diff(	$POST_ERR , array('', FALSE) );
 		$POST_ERR = array_map( 'html_specialchars', $POST_ERR );
 		if($cnt_form['labelpos'] != 2 && count( $POST_ERR ) ) {
-			$form_error = "<tr>\n";
-			if($cnt_form['labelpos'] == 0) { // label: field
-				$form_error .= '<td class="'.$cnt_form['labelClass'].'">'."&nbsp;</td>\n";
+			
+			if($cnt_form['labelpos'] == 3) {
+				
+				$form_error  = '<div class="' . trim('form-error ' . $cnt_form["error_class"]) . '">' . LF;
+				$form_error .= '	<p>' . implode('</p>'.LF.'	<p>', $POST_ERR) . '</p>' . LF;				
+				$form_error .= '</div>' . LF;
+				
+			} else {
+			
+				$form_error = "<tr>\n";
+				if($cnt_form['labelpos'] == 0) { // label: field
+					$form_error .= '<td class="'.$cnt_form['labelClass'].'">'."&nbsp;</td>\n";
+				}
+				$form_error .= '<td'.(!empty($cnt_form["error_class"]) ? ' class="'.$cnt_form["error_class"].'"' : '').'>';
+				$form_error .= implode("<br />", $POST_ERR);
+				$form_error .= "</td>\n</tr>\n";
+			
 			}
-			$form_error .= '<td'.(!empty($cnt_form["error_class"]) ? ' class="'.$cnt_form["error_class"].'"' : '').'>';
-			$form_error .= implode("<br />", $POST_ERR);
-			$form_error .= "</td>\n</tr>\n";
-		
+			
 			$form_cnt = $form_error.$form_cnt;
+			
 			unset($form_error);
 		}
 		
@@ -1946,7 +1971,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		if(empty($cnt_form['startup_html'])) {
 		
-			$CNT_TMP .= LF . '<p>'.nl2br(html_specialchars($cnt_form['startup'])).'</p>' . LF;
+			$CNT_TMP .= LF . '<div class="form-intro">' . LF . plain_htmlencode($cnt_form['startup']) . LF . '</div>' . LF;
 			
 		} else {
 
@@ -1987,15 +2012,22 @@ if($form_cnt) {
 			$form_cnt = preg_replace('/\[ELSE_ERROR\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
 		}
 		$CNT_TMP .= "\n". $form_cnt ."\n";
+	
+	} elseif($cnt_form['labelpos'] == 3) {
+		
+		$CNT_TMP .= LF . $form_cnt;
+	
 	} else {
+		
 		$CNT_TMP .= '<table cellspacing="0" cellpadding="0" border="0">';
 		$CNT_TMP .= "\n".$form_cnt.'</table>';
+	
 	}
 	
 	$CNT_TMP .= LF . '<div><input type="hidden" name="cpID'.$crow["acontent_id"].'" value="'.$crow["acontent_id"].'" />';
 	$CNT_TMP .= $form_field_hidden;
 	$CNT_TMP .=	getFormTrackingValue(); //hidden form tracking field
-	$CNT_TMP .= '</div>' . LF . '</form>'.$cnt_form["class_close"];
+	$CNT_TMP .= '</div>' . LF . '</form>' . LF . $cnt_form["class_close"];
 }
 
 unset( $form, $form_cnt, $form_cnt_2, $form_field, $form_field_hidden, $form_counter, $form_error_text, $POST_ERR );

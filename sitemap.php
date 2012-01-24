@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -72,7 +72,7 @@ if($result = mysql_query($sql, $db)) {
 		if(empty($phpwcms['rewrite_url']) || empty($data['article_alias'])) {
 			$_link = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
 		} else {
-			$_link = PHPWCMS_URL.rawurlencode($data['article_alias']).'.phtml';
+			$_link = PHPWCMS_URL.rawurlencode($data['article_alias']).PHPWCMS_REWRITE_EXT;
 		}
 		echo '	<url>'.LF;
     	echo '		<loc>'.$_link.'</loc>'.LF;

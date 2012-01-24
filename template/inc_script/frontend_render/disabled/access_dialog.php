@@ -54,7 +54,7 @@ if(!empty($_SESSION['phpwcmsAgree']) || ( isset($_COOKIE['phpwcmsAgree']) && $_C
 
 } elseif( strpos($content['all'], $ACCESS['prefix']) !== FALSE && strpos($content['all'], $ACCESS['suffix']) !== FALSE ) {
 
-	$block['custom_htmlhead']['mootools.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/mootools/mootools.js" type="text/javascript"></script>';
+	$block['custom_htmlhead']['mootools.js'] = '  <script src="'.TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js" type="text/javascript"></script>';
 	$block['custom_htmlhead']['access.js']   = '  <script src="'.TEMPLATE_PATH.'inc_script/access/access.js" type="text/javascript"></script>';
 	$block['custom_htmlhead']['set_vars']    = '  <script type="text/javascript">'.LF.'  <!--'.LF;
 	$block['custom_htmlhead']['set_vars']   .= '  var redirect="'.$redirect.'";' . LF;

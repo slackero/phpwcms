@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
 
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -286,16 +286,16 @@ function table_attributes($val, $var_part, $top=1, $tr=false) {
 	return $td_attrib;
 }
 
-function get_breadcrumb ($start_id, &$struct_array) {
+function get_breadcrumb ($start_id, &$struct_array, $key="acat_name") {
 	//returns the breadcrumb path starting with given start_id
 
 	$data = array();
 	while ($start_id && isset($struct_array[$start_id])) {
-		$data[$start_id] = $struct_array[$start_id]["acat_name"];
+		$data[$start_id] = $struct_array[$start_id][$key];
 		$start_id		 = $struct_array[$start_id]["acat_struct"];
 	}
-	if(!empty($struct_array[$start_id]["acat_name"])) {
-		$data[$start_id] = $struct_array[$start_id]["acat_name"];
+	if(!empty($struct_array[$start_id][$key])) {
+		$data[$start_id] = $struct_array[$start_id][$key];
 	}
 	return array_reverse($data, 1);
 }
@@ -1392,7 +1392,18 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					$tmpl = preg_replace('/\{SUMMARY:\d+\}/', '{SUMMARY}', $tmpl);
 				}
 				
-				$tmpl = render_cnt_template($tmpl, 'SUMMARY', empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString($article["article_summary"], $article['article_image']['list_maxwords'], $template_default['ellipse_sign'], 'word'));
+				if(strpos($article["article_summary"], '-//-')) {
+					$article["article_summary"] = explode('-//-', $article["article_summary"]);
+					$article['article_image']['list_maxwords_temp'] = count(preg_split("/[\s,]+/", $article["article_summary"][0], -1, PREG_SPLIT_NO_EMPTY));
+					if(empty($article['article_image']['list_maxwords']) || $article['article_image']['list_maxwords_temp'] < $article['article_image']['list_maxwords']) {
+						$article['article_image']['list_maxwords'] = $article['article_image']['list_maxwords_temp'];
+						$article["article_summary"] = trim($article["article_summary"][0]);
+					} else {
+						$article["article_summary"] = implode(' ', $article["article_summary"]);
+					}
+				}
+				
+				$tmpl = render_cnt_template($tmpl, 'SUMMARY', empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString($article["article_summary"], $article['article_image']['list_maxwords'], $template_default['ellipse_sign'], 'word', true));
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
@@ -1603,20 +1614,30 @@ function html_parser($string) {
 
 	$search[49]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
 	$replace[49]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$1</a>';
-
+	
 	$string = preg_replace($search, $replace, $string);
-	$string = str_replace('&#92;&#039;', '&#039;', $string);
-	$string = str_replace('&amp;quot;', '&quot;', $string);
+	$string = str_replace(
+		array(
+			'&#92;&#039;',
+			'&amp;quot;',
+			'-//-'
+		), 
+		array(
+			'&#039;',
+			'&quot;',
+			' '
+		),
+		$string
+	);
 	return $string;
 }
 
 function include_ext_php($inc_file, $t=0) {
 	// includes an external PHP script file and returns
 	// the result as string from buffered include content
-	$ext_php_content = '';
 
 	//check if this is a local file
-	if(is_file($inc_file) && !$t) {
+	if(!$t && is_file($inc_file)) {
 
 		$this_path = str_replace("\\", '/', dirname(realpath($inc_file)));
 		$this_path = preg_replace('/\/$/', '', $this_path);
@@ -1631,14 +1652,13 @@ function include_ext_php($inc_file, $t=0) {
 		$t = 1;
 	}
 
-	if($t) {
-		ob_start();
-		@include($inc_file);
-		$ext_php_content = ob_get_contents();
-		ob_end_clean();
+	if(!$t) {
+		return '';
 	}
 
-	return $ext_php_content;
+	ob_start();
+	@include($inc_file);
+	return ob_get_clean();;
 }
 
 function international_date_format($language="EN", $format="Y/m/d", $date_now=0) {
@@ -1799,7 +1819,7 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			if($level_struct[$key]["acat_alias"]) {
 				$link .= html_specialchars($level_struct[$key]["acat_alias"]);
 			} else {
-				$link .= 'id='.$key; //',0,0,1,0,0';
+				$link .= 'id='.$key;
 			}
 			$redirect['target'] = '';
 		} else {
@@ -1821,7 +1841,7 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 			if($struct[$level]["acat_alias"]) {
 				$link .= html_specialchars($struct[$level]["acat_alias"]);
 			} else {
-				$link .= 'id='.$level; //',0,0,1,0,0';
+				$link .= 'id='.$level;
 			}
 			$redirect['target'] = '';
 		} else {
@@ -1845,24 +1865,24 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 function url_search($query) {
 	if ( substr($query,0,4) == '?id=') {
 		$noid = substr($query, 4);
-		$file = str_replace(',', '.', $noid).'.'.PHPWCMS_REWRITE_EXT;
+		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
 	} else {
 		$noid = substr($query,1);
-		$file = str_replace(',', '.', $noid).'.'.PHPWCMS_REWRITE_EXT;
+		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
+		$file = str_replace('aid=', 'aid'.rawurlencode('='), $file);
 	}
-	$link = ' href="'.$file.'"';
+	$link = ' href="'.str_replace('aid=', 'aid'.rawurlencode('='), $file).'"';
 	return($link);
 }
 
 function js_url_search($query) {
 	if ( substr($query,0,4) == '?id=') {
 		$noid = substr($query, 4);
-		$file = str_replace(',', '.', $noid).'.'.PHPWCMS_REWRITE_EXT;
-		$file = $noid.'.'.PHPWCMS_REWRITE_EXT;
+		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
 	} else {
 		$noid = substr($query,1);
-		$file = str_replace(',', '.', $noid).'.'.PHPWCMS_REWRITE_EXT;
-		$file = $noid.'.'.PHPWCMS_REWRITE_EXT;
+		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
+		$file = str_replace('aid=', 'aid'.rawurlencode('='), $file);
 	}
 	$link = "onclick=\"location.href='".$file."'";
 	return($link);
@@ -1874,21 +1894,17 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 
 	$keyword_links = '';
 	$max_cnt_links = intval($max_cnt_links);
-
-	$keywords = str_replace("ALLKEYWORDS", $GLOBALS['content']['all_keywords'].',', $keywords);
-
+	
 	// replace unwanted chars and convert to wanted
-	$keywords = str_replace(";", ",", $keywords);
-	$keywords = str_replace("'", "", $keywords);
-	$keywords = str_replace(" ", ",", $keywords);
-	$keywords = str_replace(",,", ",", $keywords);
+	$keywords = str_replace(
+		array("ALLKEYWORDS",";", "'", ' ', ',,'),
+		array($GLOBALS['content']['all_keywords'].',', ",", '', ',', ','),
+		strtoupper($keywords)
+	);
 
 	// choose comma separated keywords
-	$keywordarray = explode (",", $keywords);
-	$keywordarray = array_map('trim', $keywordarray);
-	$keywordarray = array_diff($keywordarray, array(''));
-	$keywordarray = array_unique($keywordarray);
-	$keywordarray = array_map('strtoupper', $keywordarray);
+	$keywordarray = convertStringToArray($keywords);
+	
 	// check for empty keywords or keywords smaller than 3 chars
 	if(is_array($keywordarray) && count($keywordarray)) {
 		foreach($keywordarray as $key => $value) {
@@ -2432,9 +2448,7 @@ function include_int_php($string) {
 	$s = str_replace("['phpwcms']", '["notavailable"]', $s);
 	ob_start();
 	eval('echo '.$s.';');
-	$return = ob_get_contents();
-	ob_end_clean();
-	return $return;
+	return ob_get_clean();
 }
 
 function include_int_phpcode($string) {
@@ -2444,9 +2458,7 @@ function include_int_phpcode($string) {
 	$s = str_replace('<br />', "\n", $s);
 	ob_start();
 	eval($s.";");
-	$return = ob_get_contents();
-	ob_end_clean();
-	return $return;
+	return ob_get_clean();
 }
 
 function build_sitemap($start=0, $counter=0) {
@@ -2681,7 +2693,7 @@ function include_url($url) {
 			}
 			$k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
 			$k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
-			$k = sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
+			$k = htmlfilter_sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
 
 			if($charset != false) {
 				$k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);
@@ -3008,6 +3020,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 	}
 
 	$li				= '';
+	$ali			= '';
 	$ul				= '';
 	$TAB			= str_repeat('	', $counter);
 	$_menu_type		= strtolower($menu_type);
@@ -3061,13 +3074,18 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 	if($parameter[12]['articlemenu'] && $amenu_level <= $counter) {
 		
 		$parameter[12]['level_id']		= $start_id;
-		$parameter[12]['item_prefix']	= $TAB;
+		$parameter[12]['item_prefix']	= $TAB.$TAB.$TAB;
 
 		$ali = getArticleMenu( $parameter[12] );
 		
 		if(count($ali) > 1) {
 		
 			$li .= implode(LF, $ali) . LF;
+			$ali = $TAB;
+			
+		} else {
+		
+			$ali = '';
 			
 		}
 		
@@ -3089,7 +3107,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			default:	$ul = '';
 						$close_wrap_ul = '';
 		}
-		$ul .= LF.$TAB.'<ul';
+		$ul .= LF . $TAB . $ali . '<ul';
 		if($level_id_name) {
 			$ul .= ' id="'.$level_id_name.'_'.$start_id.'"';
 		}
@@ -3121,7 +3139,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		}
 		
 		$ul .= $li;
-		$ul .= $TAB . '</ul>' . LF . $TAB . $close_wrap_ul;
+		$ul .= $TAB . $ali . '</ul>' . LF . $TAB . $close_wrap_ul;
 
 		if($create_css && empty($GLOBALS['block']['custom_htmlhead'][$menu_type][$counter])) {
 
@@ -3600,7 +3618,7 @@ function getArticleMenu($data=array()) {
 	$defaults = array(
 		
 		'level_id'				=> 0,
-		'class_active'			=> 'active',
+		'class_active'			=> array(0 => 'active', 1 => ''),
 		'wrap_title_prefix'		=> '',
 		'wrap_title_suffix'		=> '',
 		'item_prefix'			=> "\t",
@@ -3616,8 +3634,8 @@ function getArticleMenu($data=array()) {
 
 					  );	
 	
-	$data	= is_array($data) && count($data) ? array_merge($defaults, $data) : $defaults;
-	$li		= array();
+	$data		= is_array($data) && count($data) ? array_merge($defaults, $data) : $defaults;
+	$li			= array();
 	
 	$articles = get_actcat_articles_data( $data['level_id'] );
 	
@@ -3625,7 +3643,8 @@ function getArticleMenu($data=array()) {
 	$total	= count($articles) - 1;
 	foreach($articles as $item) {
 		
-		$class = '';
+		$class		= '';
+		$class_a	= '';
 		if($data['class_item_tag']) {
 			$class .= $data['class_item_tag'].' ';
 		}
@@ -3634,14 +3653,19 @@ function getArticleMenu($data=array()) {
 		} elseif($key === $total && $data['class_last_item_tag']) {
 			$class .= $data['class_last_item_tag'].' ';
 		}
-		if($data['class_active'] && $item['article_id'] == $aktion[1]) {
-			$class .= $data['class_active'].' ';
+		if($item['article_id'] == $aktion[1]) {
+			if(!empty($data['class_active'][0])) {
+				$class .= $data['class_active'][0].' ';
+			}
+			if(!empty($data['class_active'][1])) {
+				$class_a = ' class="'.$data['class_active'][1].'"'; // set active link class
+			}
 		}
 		$class = trim($class);
 		
 		$li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
 
-		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'">';
+		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.'>';
 		
 		$li[$key] .= $data['wrap_title_prefix'];
 		$li[$key] .= html_entities( getArticleMenuTitle($item) );
@@ -3684,11 +3708,12 @@ function set_meta($name='', $content='', $http_equiv=FALSE) {
 		return NULL;
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name]  = '  <meta ';
-	switch($http_equiv) {
-		case 'prop':
-		case 'property':	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'property'; break;
-		case TRUE:			$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'http-equiv'; break;
-		default:			$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
+	if($http_equiv == 'prop' || $http_equiv == 'property') {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'property';
+	} elseif($http_equiv === TRUE) {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'http-equiv'; break;
+	} else {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'" />';
 }

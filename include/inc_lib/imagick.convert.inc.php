@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -21,305 +21,165 @@
 *************************************************************************************/
 
 
-// ========================================================================================================================
-
 // load external GD image handling class
-if(!IMAGICK_ON) {
-	/*
-	$cfg = array(	'JPEG_QUALITY'    => $phpwcms["jpg_quality"],
-					'USE_GD2'         => GD2_ON,
-					'USE_COLOR_NAMES' => false
-				);
-	*/
-	include_once(PHPWCMS_ROOT."/include/inc_ext/ss_image/ss_image.class.php");
+include_once(PHPWCMS_ROOT."/include/inc_lib/helper.image.php");
+
+
+// Deprecated function, use for 3rd party fallback usage
+function imagick_converting(array $config) {
+	return image_manipulate($config);
 }
 
-// ========================================================================================================================
-
-function imagick_converting ($imagick) {
-
-	$default = array(	"max_width"		=>	150,
-						"max_height"	=>	150,
-						"error"			=>	0,
-						"image_name"	=>	'',
-						"thumb_name"	=>	'',
-						"target_ext"	=>	'jpg',
-						"image_dir"		=>	PHPWCMS_ROOT.'/'.PHPWCMS_FILES,
-						"thumb_dir"		=>	PHPWCMS_THUMB,
-						'jpg_quality'	=>	85,
-						'sharpen_level'	=>	0,
-						'density'		=>	72,
-						'add_command'	=>	'',
-						'crop_image'	=>	false
-					);
+// Resize, Crop and other image manipulation
+function image_manipulate(array $config) {
 	
-	$imagick = array_merge($default, $imagick);
-	unset($default);
-
-	if(!intval($imagick["max_width"])) {
-		$imagick["max_width"]	= '';
-		$imagick['crop_image']	= false;
-	}
-	if(!intval($imagick["max_height"])) {
-		$imagick["max_height"]	= '';
-		$imagick['crop_image']	= false;
-	}
-
-	//say that it should be converted
-	$resize = true;
+	global $phpwcms;
 	
-	// now it is good to check if image still available
+	// Merge config values with default
+	$config = array_merge(array(
+			"max_width"		=> $phpwcms["img_list_width"],
+			"max_height"	=> $phpwcms["img_list_height"],
+			"error"			=> '',
+			"image_name"	=> '',
+			"thumb_name"	=> '',
+			"target_ext"	=> 'jpg',
+			"image_dir"		=> PHPWCMS_ROOT.'/'.PHPWCMS_FILES,
+			"thumb_dir"		=> PHPWCMS_THUMB,
+			'jpg_quality'	=> 85,
+			'sharpen_level'	=> 0,
+			'density'		=> 72,
+			'add_command'	=> '',
+			'crop_image'	=> false,
+			'master_dim'	=> 'auto'
+		), $config);
+	
+	// Test width and height and set correct dimensions
+	if(!intval($config["max_width"]) && !intval($config["max_height"])) {
+		// Should not happen, but better have a fallback
+		$config["max_width"]	= $phpwcms["img_list_width"];
+		$config["max_height"]	= $phpwcms["img_list_height"];
+		$config['master_dim']	= 'auto';
+	} elseif(!intval($config["max_width"])) {
+		// No width given, recalculate final image size based on height
+		$config["max_width"]	= $phpwcms["img_prev_width"];
+		$config['crop_image']	= false;
+		$config['master_dim']	= 'height';
+	} elseif(!intval($config["max_height"])) {
+		// No height given, recalculate final image size based on width
+		$config["max_height"]	= $phpwcms["img_prev_height"];
+		$config['crop_image']	= false;
+		$config['master_dim']	= 'width';
+	}
+	
+	// Check if source image is accessible
 	// otherwise use placeholder image "filestorage/image_placeholder.png"
-	if(!is_file($imagick["image_dir"].$imagick["image_name"])) {
-		$imagick["image_name"] = 'image_placeholder.png';
-		$imagick["thumb_name"] = 'temp_'.$imagick["thumb_name"];
+	if(!is_file($config["image_dir"].$config["image_name"])) {
+		$config["image_name"]  = 'image_placeholder.png';
+		$config["thumb_name"]  = 'temp_'.$config["thumb_name"];
 	}
 	
-	// check if it is useful only to copy the image
-	$check_image = @getimagesize($imagick["image_dir"].$imagick["image_name"]);
+	// Doubled config setting but especially for Image manipulation class
+	$image_config = array(
+		
+		'image_library'		=> $phpwcms['image_library'],
+		'library_path'		=> $phpwcms['library_path'],
+		'source_image'		=> $config["image_dir"].$config["image_name"],
+		'new_image'			=> $config["thumb_dir"].$config["thumb_name"].'.'.$config["target_ext"],
+		'maintain_ratio'	=> true,
+		'width'				=> $config['max_width'],
+		'height'			=> $config['max_height'],
+		'master_dim'		=> $config['master_dim'],
+		'sharpen'			=> $config['sharpen_level'],
+		'quality'			=> $config['jpg_quality'],
+		'create_thumb'		=> false,
+		'target_ext'		=> $config["target_ext"]
 
-	$channel_check = (isset($check_image['channels']) && $check_image['channels'] == 3) ? true : false;
+	);
+	
+	$IMG = new Phpwcms_Image_lib($image_config);
+	
+	// try to handle limited PHP memory
+	if(empty($GLOBALS['phpwcms']['gd_memcheck_off']) && ($phpwcms['image_library'] == 'gd2' || $phpwcms['image_library'] == 'gd')) {
 
-	if($channel_check && $check_image && ($check_image[2] == 1 || $check_image[2] == 2 || $check_image[2] == 3)) {
-
-		$copy_w = 0;
-		$copy_h = 0;
-		if($imagick["max_width"]	&& $check_image[0]	<= $imagick["max_width"])	$copy_w = 1;
-		if($imagick["max_height"]	&& $check_image[1]	<= $imagick["max_height"])	$copy_h = 1;		
-		if(!$imagick["max_width"]	&& $check_image[0]) 							$copy_w = 1;
-		if(!$imagick["max_height"]	&& $check_image[1])								$copy_h = 1;
-
-		if(!$imagick['crop_image'] && $copy_w && $copy_h) { // do not copy in case crop is enabled
-
-			$imagick["thumb_name"] .= '.' . which_ext($imagick["image_name"]);
-			if( @copy( $imagick["image_dir"].$imagick["image_name"], $imagick["thumb_dir"].$imagick["thumb_name"] ) ) {
-				$resize = false;
+		$php_memory = getBytes( @ini_get('memory_limit') );
+		$img_memory = getRealImageSize( $IMG->image_current_vals );
+		
+		// do memory checks only when PHP's memory limit 
+		// and "real" image size is known
+		if($php_memory && $img_memory) {
+			
+			// test if we have enough PHP memory for this image and test to set it up
+			if($php_memory / 3 < $img_memory) {
+				@ini_set('memory_limit', $img_memory * 3);
 			}
+			
+			$php_memory = getBytes( @ini_get('memory_limit') );
+			
+			// still not enough, use fallback memory warning image
+			if($php_memory / 3 < $img_memory) {
+				$config["image_name"]			= 'image_memoryinfo.png';
+				$config["thumb_name"]			= 'mem_'.$config["thumb_name"];
+				
+				$image_config['source_image']	= $config["image_dir"].$config["image_name"];
+				$image_config['new_image']		= $config["thumb_dir"].$config["thumb_name"].'.'.$config["target_ext"];
+				
+				$IMG->initialize($image_config);
+			}
+		
 		}
 	}
 	
-	if($resize) {
+		
+	if($phpwcms['image_library'] == 'imagemagick' && $config['crop_image']) {
+		
+		$IMG->crop_centered_resize();
 	
-		if(!ini_get('safe_mode') && function_exists('set_time_limit')) set_time_limit(90);
-
-		if(!$imagick['jpg_quality']) {
-			$imagick['jpg_quality'] = 80;
-		} elseif ($imagick['jpg_quality'] < 25) {
-			$imagick['jpg_quality'] = 25;
-		} elseif ($imagick['jpg_quality'] > 100) {
-			$imagick['jpg_quality'] = 100;
-		}
+	} elseif($config['crop_image']) {
 		
-		//Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
-		switch($imagick['sharpen_level']) {
-			
-			case 1:		$sharp4 = '-sharpen 10 ';
-						$sharp5 = '-sharpen 1x10 ';
-						break;
-			case 2:		$sharp4 = '-sharpen 25 ';
-						$sharp5 = '-sharpen 3x10 ';
-						break;
-			case 3:		$sharp4 = '-sharpen 50 ';
-						$sharp5 = '-sharpen 5x10 ';
-						break;
-			case 4:		$sharp4 = '-sharpen 70 ';
-						$sharp5 = '-sharpen 7x10 ';
-						break;
-			case 5:		$sharp4 = '-sharpen 90 ';
-						$sharp5 = '-sharpen 9x10 ';
-						break;
-			default:	$sharp4 = '';
-						$sharp5 = '';
-			
-		}
+		$image_config = set_cropped_imagesize($image_config, $IMG->orig_width, $IMG->orig_height);
 		
-		$sharpen = '';
+		if( $image_config['do_cropping'] ) {
+			
+			// first resize width recalculated height/width
+			$IMG->width		= $image_config['resize_width'];
+			$IMG->height	= $image_config['resize_height'];
+			$IMG->quality	= 100;
+			$IMG->resize();
+			
+			$image_config['sharpen']		= 0;
+			$image_config['maintain_ratio']	= FALSE;
+			$image_config['create_thumb']	= FALSE;
+			$image_config['source_image']	= $image_config['new_image'];
 
-		$imagick["thumb_name"] .= '.' . $imagick["target_ext"];
-	
-		if(IMAGICK_ON) {
-			// If ImageMagick should be used
-			
-			$imagick["command"]  = IMAGICK_PATH."convert ";
-			switch($imagick["target_ext"]) {
-				
-				case "jpg":	if(IMAGICK_ON === 1) {
-								//ImageMagick >= 5
-								$imagick["command"] .= "-colorspace RGB -type TrueColor ";
-								
-								$sharpen = $sharp5;
-								
-							} else {
-								//ImageMagick 4.2.9
-								$imagick["command"] .= "-colorspace RGB -colors 16777216 ";
-								
-								$sharpen = $sharp4;
-								
-							}
-							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"].'[0]';
-							break;
-							
-				case "gif":	if(IMAGICK_ON === 1) {
-								//ImageMagick >= 5
-								$imagick["command"] .= "-colors 256 ";
-							} else {
-								//ImageMagick 4.2.9
-								$imagick["command"] .= "-colorspace Transparent -colors 128 ";
-							}
-							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"];
-							break;
-							
-				case "png":	$imagick["command"] .= "-colorspace RGB ";
-							$imagick["source_image_name"] = $imagick["image_dir"].$imagick["image_name"];
-							break;
-
-			}
-			
-			/**
-			 * to keep 4.2.9 compatibility there is more that has to be done
-			 * it might fail for PNG and for cropping
-			 */
-			
-			if($imagick['crop_image'] && $imagick["max_width"] && $imagick["max_height"]) {
-
-				if(IMAGICK_ON === 1) {
-					//ImageMagick >= 5
-					$resize_factor = 2 * ( $imagick["max_width"] > $imagick["max_height"] ? $imagick["max_width"] : $imagick["max_height"] );
-					
-					$imagick["command"] .= '-resize "x'.$resize_factor.'" -resize "'.$resize_factor.'x<" -resize 50% ';
-					$imagick["command"] .= '-gravity center -crop '.$imagick["max_width"].'x'.$imagick["max_height"].'+0+0 ';
-					$imagick["command"] .= '+repage ';
-			
-				} else {
-					//ImageMagick 4.2.9
-					$imagick["command"] .= '-geometry "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
-					$imagick["command"] .= '-gravity center -crop '.$imagick["max_width"].'x'.$imagick["max_height"].'+0+0 ';
-					$imagick["command"] .= '+repage ';
-					
-				}
-			
-			} elseif( $imagick["max_width"] || $imagick["max_height"] ) {
-
-				// resize
-				if(IMAGICK_ON === 1) {
-					//ImageMagick >= 5
-					$imagick["command"] .= '-resize "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
-				
-				} else {
-					//ImageMagick 4.2.9
-					$imagick["command"] .= '-geometry "'.$imagick["max_width"].'x'.$imagick["max_height"].'>" ';
-					
-				}
-			
-			}
-			
-			// quality level
-			$imagick["command"] .= "-quality ".$imagick['jpg_quality']." ";
-			
-			// density
-			$imagick["command"] .= "-density ".$imagick['density']."x".$imagick['density']." ";
-			
-			// additional command
-			if($imagick['add_command']) {
-				$imagick["command"] .= $imagick['add_command'] . " ";
-			}
-		
-			$imagick["command"] .= '-antialias ';
-			$imagick["command"] .= $sharpen;
-			$imagick['command'] .= '"'.$imagick["source_image_name"].'" ';
-			/*
-			if(IMAGICK_ON == 2) {
-				$imagick["command"] .= '+profile "*" ';
-			}
-			*/
-			$imagick["command"] .= '"'.$imagick["thumb_dir"].$imagick["thumb_name"].'" ';
-			
-			// debug commands
-			//write_textfile(PHPWCMS_TEMP.'imagemagick.log', date('Y-m-d H:i:s').' - '.$imagick["command"].LF, 'a');
-			
-			@exec($imagick["command"], $imagick_return);
-			
-			if (isset($imagick_return[0])) {
-				$imagick["error"] = $imagick_return[0];
-			}
+			$IMG->initialize( $image_config );
+			$IMG->crop();
 		
 		} else {
-			// use GD function
-			if($check_image) {
 			
-				// try to handle limited PHP memory
-				$php_memory = getBytes( @ini_get('memory_limit') );
-				$img_memory = getRealImageSize( $check_image );
-				
-				// do memory checks only when PHP's memory limit 
-				// and "real" image size is known
-				if(empty($GLOBALS['phpwcms']['gd_memcheck_off']) && $php_memory && $img_memory) {
-					
-					// in general we need around twice the memory for 
-					// successful GD resizing - so lets halve it
-					// and compare against the RAM the image will need
-					if($php_memory / 2 < $img_memory) {
-					
-						$imagick["image_name"] = 'image_memoryinfo.png';
-						$imagick["thumb_name"] = 'mem_'.$imagick["thumb_name"];
-					
-					}
-				
-				}
-
-				$image = new ss_image($imagick["image_dir"].$imagick["image_name"], 'f'); //given original image
-				$image->set_parameter($imagick["jpg_quality"], GD2_ON, false);
-		
-				if($imagick['crop_image']) {
-				
-					$image->set_size($imagick["max_width"], $imagick["max_height"], '+');
-					$image->commit();
-					
-					$crop_x = abs( $image->get_w() - $imagick["max_width"] );
-					$crop_x = ceil( $crop_x / 2 );
-					$crop_y = abs( $image->get_h() - $imagick["max_height"] );
-					$crop_y = ceil( $crop_y / 2 );
-					
-					$image->crop($crop_x, $crop_y, $imagick["max_width"], $imagick["max_height"]);					
-					
-				} else {
-
-					if($imagick["max_width"] && $check_image[0] < $imagick["max_width"]) $imagick["max_width"] = $check_image[0];
-					if($imagick["max_height"] && $check_image[1] < $imagick["max_height"]) $imagick["max_height"] = $check_image[1];		
-					if(!$imagick["max_width"]) $imagick["max_width"] = "*";
-					if(!$imagick["max_height"]) $imagick["max_height"] = "*";
-					
-					$image->set_size($imagick["max_width"], $imagick["max_height"], '--');
-
-				}
-					
-				/*
-				if($imagick['sharpen_level']) {
-					$image->commit();
-					$image->unsharp(80, 0.5, 3);
-				}
-				*/
-				$image->output($imagick["thumb_dir"].$imagick["thumb_name"], 'c', strtoupper($imagick["target_ext"]));
-				if(!is_file($imagick["thumb_dir"].$imagick["thumb_name"])) {
-					$imagick["error"] = "GD image creation failed.";
-				}
-			} else {
-			 	$imagick["error"] = "GD source image error. Maybe not exists.";
-			}
+			$IMG->resize();
+			
 		}
 		
+		
+	} else {
+	
+		$IMG->resize();
+	
 	}
-	return $imagick;
+	
+	$config["thumb_name"]	= $IMG->dest_image;
+	$config['error']		= $IMG->display_errors('<li>', '</li>', '<ul class="error">', '</ul>');
+
+	return $config;
 }
 
 // ========================================================================================================================
 
 
 // build thumbnail image name
-function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
+function get_cached_image(array $val, $db_track=true, $return_all_imageinfo=true) {
 	
-	// predefine values
-	$default = array(
+	$val = array_merge(array(
 		"max_width"		=>	$GLOBALS['phpwcms']["img_list_width"],
 		"max_height"	=>	$GLOBALS['phpwcms']["img_list_height"],
 		"image_dir"		=>	PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
@@ -327,9 +187,7 @@ function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
 		'jpg_quality'	=>	$GLOBALS['phpwcms']['jpg_quality'],
 		'sharpen_level'	=>	$GLOBALS['phpwcms']['sharpen_level'],
 		'crop_image'	=>	false
-		);
-	
-	$val = array_merge($default, $val);
+	), $val);
 	
 	$imgCache = false; //do not insert file information in db image cache
 	$thumb_image_info = array();
@@ -357,8 +215,8 @@ function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
 		// check if current file's extension is handable by ImageMagick or GD
 		if( $val["target_ext"] = is_ext_true($val["target_ext"]) ) {	
 
-			$create_preview	= imagick_converting( $val );
-
+			$create_preview	= image_manipulate( $val );
+			
 			if( is_file( $val['thumb_dir'] . $create_preview["thumb_name"] ) ) {
 				$thumb_image_info[0] = $create_preview["thumb_name"];
 				$imgCache = true; // insert/update information in db image cache
@@ -366,6 +224,7 @@ function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
 
 		}
 	}
+
 	
 	if($thumb_image_info[0] != false) {
 	
@@ -394,6 +253,8 @@ function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
 				$sql .= "imgcache_height = " . 		intval($thumb_image_info[2]) 		. " , ";
 				$sql .= "imgcache_wh = '" . 		aporeplace($thumb_image_info[3]) 	. "'";
 				@_dbQuery($sql, 'INSERT');
+				
+				
 			}
 		
 		} else {
@@ -415,5 +276,56 @@ function get_cached_image($val, $db_track=true, $return_all_imageinfo=true) {
 	// $thumb_image_info[3] = HTML width & height attribute
 	return $thumb_image_info;
 }
+
+function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
+	$config['resize_width']		= $config['width'];
+	$config['resize_height']	= $config['height'];
+	$config['x_axis']			= 0;
+	$config['y_axis']			= 0;
+	
+	if($orig_width && $orig_height) {
+		
+		// compare original image sizes against cropped image size
+		$ratio_width	= $orig_width / $config['width'];
+		$ratio_height	= $orig_height / $config['height'];
+		
+		// check if cropping is necessary
+		if( $ratio_width == $ratio_height ) {
+
+			$config['do_cropping'] = FALSE;
+
+		} else {
+			
+			$config['do_cropping'] = TRUE;
+		
+			// source image dimensions are both larger than target
+			if( $ratio_width >= 1 && $ratio_height >= 1 ) {
+				
+				if( $ratio_width <= $ratio_height ) {
+					$config['resize_height']	= ceil( $orig_height / $ratio_width );
+					$config['y_axis']			= round( ( $config['resize_height'] - $config['height'] ) / 2 );
+				} else {
+					$config['resize_width']		= ceil( $orig_width / $ratio_height );
+					$config['x_axis']			= round( ( $config['resize_width'] - $config['width'] ) / 2 );
+				}
+			
+			// source image dimensions width and/or height is smaller than target
+			} else {
+				
+				if( $ratio_width <= $ratio_height ) {
+					$config['resize_width']		= ceil( $orig_width + ( $orig_width * ( 1 - $ratio_height ) ) );
+					$config['x_axis']			= round( ( $config['resize_width'] - $config['width'] ) / 2 );
+				} else {
+					$config['resize_height']	= ceil( $orig_height + ( $orig_height * ( 1 - $ratio_width ) ) );
+					$config['y_axis']			= round( ( $config['resize_height'] - $config['height'] ) / 2 );
+				}
+			}
+		
+		}
+	}
+	
+	return $config;
+}
+
 
 ?>

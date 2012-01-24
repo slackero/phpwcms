@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -43,9 +43,9 @@ $sql =	"UPDATE ".DB_PREPEND."phpwcms_userdetail SET ".
 		"detail_fon='".getpostvar($_POST["form_fon"])."',".
 		"detail_fax='".getpostvar($_POST["form_fax"])."',".
 		"detail_mobile='".getpostvar($_POST["form_mobile"])."',".
-		"detail_signature='".getpostvar(substr($_POST["form_signature"],0,250))."',".
+		"detail_signature='".getpostvar(mb_substr($_POST["form_signature"],0,250))."',".
 		"detail_prof='".getpostvar($_POST["form_prof"])."',".
-		"detail_notes='".getpostvar(substr($_POST["form_notes"],0,3000))."',".
+		"detail_notes='".getpostvar(mb_substr($_POST["form_notes"],0,3000))."',".
 		"detail_public=".(empty($_POST["form_public"]) ? 0 : 1).",".
 		"detail_newsletter=".(empty($_POST["form_newsletter"]) ? 0 : 1)." WHERE ".
 		"detail_pid=".$_SESSION["wcs_user_id"];

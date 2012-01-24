@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -399,16 +399,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<option value="default"<?php is_selected('default', $fmp_data['fmp_set_skin']) ?>><?php echo $BL['be_admin_tmpl_default'] ?></option>
 <?php
 			// skins for Flash Media Player
-			$skins = returnFileListAsArray(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins', 'swf');
+			$skins = returnFileListAsArray(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins', 'swf,zip');
 			if(is_array($skins) && count($skins)):
 				foreach($skins as $skin):
-					$skin = cut_ext($skin['filename']);
 ?>
-			<option value="<?php 
-				echo html_specialchars($skin) 
-			?>"<?php is_selected($skin, $fmp_data['fmp_set_skin']) ?>><?php 
-				echo html_specialchars(ucwords(str_replace('_', ' ', $skin)))
-			?></option>
+			<option value="<?php echo $skin['filename'] ?>"<?php is_selected($skin['filename'], $fmp_data['fmp_set_skin']) ?>><?php echo html_specialchars(ucwords(str_replace('_', ' ', cut_ext($skin['filename'])))) ?></option>
 <?php			
 				endforeach;
 			endif;
@@ -466,7 +461,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			tr_jw_player = $('articlecontent').getElements('tr.jw-player');
 		}		
 		if(selected_player === 0) {
-			tr_jw_player.each(function(el){el.removeProperty('style')});
+			tr_jw_player.each(function(el){el.setStyle('display', '')});
 		} else {
 			tr_jw_player.each(function(el){el.setStyle('display', 'none')});
 		}

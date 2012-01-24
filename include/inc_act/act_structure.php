@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -65,7 +65,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 	
 	}
 	
-	$acat_class = empty($_POST["acat_class"]) ? '' : preg_replace('/[^a-zA-Z0-9_\-]/', '', str_replace(' ', '-', clean_slweg($_POST["acat_class"], 150)));
+	$acat_class = empty($_POST["acat_class"]) ? '' : preg_replace('/[^a-zA-Z0-9_\- ]/', '', clean_slweg($_POST["acat_class"], 150));
 	
 	if(empty($_POST["acat_keywords"])) {
 		$acat_keywords = '';
@@ -88,7 +88,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$sql .= "\$indexpage['acat_regonly']	= ".	(isset($_POST["acat_regonly"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_topcount']	= ".	intval($_POST["acat_topcount"]).";\n";
 		$sql .= "\$indexpage['acat_maxlist']	= ".	intval($_POST["acat_maxlist"]).";\n";
-		$sql .= "\$indexpage['acat_redirect']	= '';\n";
+		$sql .= "\$indexpage['acat_redirect']	= '".	str_replace("''", "\\'", getpostvar($_POST["acat_redirect"]))."';\n";
 		$cache_timeout = clean_slweg($_POST["acat_timeout"]);
 		if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
 		$sql .= "\$indexpage['acat_timeout']	= '".	$cache_timeout."';\n";

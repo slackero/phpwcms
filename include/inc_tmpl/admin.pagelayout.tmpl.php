@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -174,7 +174,7 @@ if(!isset($_GET["s"])) {
 		$pagelayout["layout_customblocks"]		  = strtoupper(clean_slweg($_POST['layout_customblocks']));
 		
 		$pagelayout["layout_customblocks"] = str_replace(' ', ',', $pagelayout["layout_customblocks"]);
-		$pagelayout["layout_customblocks"] = remove_accents($pagelayout["layout_customblocks"]);
+		$pagelayout["layout_customblocks"] = phpwcms_remove_accents($pagelayout["layout_customblocks"]);
 		$pagelayout["layout_customblocks"] = explode(',', $pagelayout["layout_customblocks"]);
 		if(is_array($pagelayout["layout_customblocks"]) && count($pagelayout["layout_customblocks"])) {
 		

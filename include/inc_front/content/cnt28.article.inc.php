@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -258,9 +258,19 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 	
 	// check manage profile
 	if($_loginData['felogin_profile_manage']) {
+		
+		if(isset($_GET['profile_manage'])) {
+			$_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', '' );
+		}
+		
 		// possible -> set link to form
-		$_loginData['uri'] = 'index.php'.returnGlobalGET_QueryString('htmlentities', array('profile_manage'=>$_loginData['get_profile_manage']), array('profile_register', 'profile_reminder') );
+		$_loginData['uri'] = rel_url(
+			array('profile_manage'=>$_loginData['get_profile_manage']),
+			array('profile_register', 'profile_reminder'),
+			empty($_loginData['felogin_profile_manage_redirect']) ? '' : $_loginData['felogin_profile_manage_redirect']
+		);
 		$_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', $_loginData['uri'] );
+
 	} else {
 		// not possible	
 		$_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', '' );

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -180,10 +180,8 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['max_time']          = ".intval($val["max_time"])."; //logout after max_time/60 seconds\n";
 
 	$conf_file .= "\n// other stuff\n";
-	$conf_file .= "\$phpwcms['compress_page']     = 0; //0 = OFF, 1-9: page compression ON (1 = low level, 9 = highest level)\n";
-	$conf_file .= "\$phpwcms['imagick']           = 0; //0 = GD,  1 = ImageMagick, 2 = ImageMagick 4.2.9\n";
-	$conf_file .= "\$phpwcms['imagick_path']      = ''; //Path to ImageMagick (default='' - none)\n";
-	$conf_file .= "\$phpwcms['use_gd2']           = 1; //0 = GD1, 1 = GD2\n";
+	$conf_file .= "\$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, NetPBM\n";
+	$conf_file .= "\$phpwcms['library_path']      = '';       //Path to ImageMagick or NetPBM\n";
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0;  //whether URL should be rewritable\n";
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
@@ -193,7 +191,6 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'utf-8'\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
-	$conf_file .= "\$phpwcms['gt_mod']            = 1;  //0 = Graphical Text MOD disabled, 1 = enabled\n";
 	$conf_file .= "\$phpwcms['jpg_quality']       = 85; //JPG Quality Range 25-100\n";
 	$conf_file .= "\$phpwcms['sharpen_level']     = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
 	$conf_file .= "\$phpwcms['allow_ext_init']    = 1;  //allow including of custom external scripts at frontend initialization\n";
@@ -210,11 +207,8 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
 	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
-	$conf_file .= "\$phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities\n";
-	$conf_file .= "\$phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix\n";
-	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png\n";
+	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE\n";
 	$conf_file .= "\$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
-	$conf_file .= "\$phpwcms['Bad_Behavior']      = 0; // 1 enables spam/bot blocking by Bad Behavior, 0 off \n";
 	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms_basic,phpwcms_default,Default,Basic' );\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
 	$conf_file .= "\$phpwcms['version_check']     = 1; // checks for current release of phpwcms online \n";
@@ -231,8 +225,9 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed\n";
 	$conf_file .= "\$phpwcms['feuser_regkey']	  = 'FEUSER';\n";
 	$conf_file .= "\$phpwcms['login.php']	  	  = 'login.php';\n";
+	$conf_file .= "\$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten\n";
 	$conf_file .= "\$phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.7'=>'jQuery 1.7','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');\n";
-
+	$conf_file .= "\$phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)\n";
 
 	$conf_file .= "\n// dynamic ssl encryption engine\n";
 	$conf_file .= "\$phpwcms['site_ssl_mode']     = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'\n";
@@ -280,9 +275,7 @@ function html_specialchars($h="") {
 function parsePHPModules() {
  ob_start();
  phpinfo(INFO_MODULES);
- $s = ob_get_contents();
- ob_end_clean();
- 
+ $s = ob_get_clean(); 
  $s = strip_tags($s,'<h2><th><td>');
  $s = preg_replace('/<th[^>]*>([^<]+)<\/th>/',"<info>\\1</info>",$s);
  $s = preg_replace('/<td[^>]*>([^<]+)<\/td>/',"<info>\\1</info>",$s);

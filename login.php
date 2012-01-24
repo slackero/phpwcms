@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -345,18 +345,11 @@ echo implode(LF, $lang_code);
     </form>
 <?php
 
-$formAll = ob_get_contents();
-ob_end_clean();
-
-$formAll = str_replace( "'", "\'", trim($formAll) );
-$formAll = str_replace( "\r", '', $formAll );
-$formAll = str_replace( "\n", "';\nlf += '", $formAll );
-$formAll = str_replace( '<', "<'+'", $formAll );
+$formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
 
 ?>
 <script type="text/javascript">
-var lf  = '<?php echo $formAll ?>';
-getObjectById('loginFormArea').innerHTML = lf;
+getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
 getObjectById('form_loginname').focus();
 </script>
 </body>

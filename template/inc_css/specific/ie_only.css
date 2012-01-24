@@ -1,4 +1,0 @@
-/* fix IE specific CSS problems */
-
-body { behavior: url(csshover2.htc); }
-img { behavior: url(pngbehavior.htc); }

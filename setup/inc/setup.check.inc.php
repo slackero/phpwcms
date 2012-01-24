@@ -283,9 +283,6 @@ if(!empty($step)) {
 		$phpwcms["img_prev_width"]   = intval($_POST["img_prev_width"]);
 		$phpwcms["img_prev_height"]  = intval($_POST["img_prev_height"]);
 		$phpwcms["max_time"]         = intval($_POST["max_time"]);
-		$phpwcms["compress_page"]    = empty($_POST["compress_page"]) ? 0 : 1;
-		//$phpwcms["charset"]          = clean_slweg($_POST["charset"]);
-		
 		$phpwcms["file_maxsize"]     = ($phpwcms["file_maxsize"]) ? $phpwcms["file_maxsize"] : 2097152;
 		$phpwcms["content_width"]    = ($phpwcms["content_width"]) ? $phpwcms["content_width"] : 538;
 		$phpwcms["img_list_width"]   = ($phpwcms["img_list_width"]) ? $phpwcms["img_list_width"] : 100;
@@ -293,8 +290,7 @@ if(!empty($step)) {
 		$phpwcms["img_prev_width"]   = ($phpwcms["img_prev_width"]) ? $phpwcms["img_prev_width"] : 538;
 		$phpwcms["img_prev_height"]  = ($phpwcms["img_prev_height"]) ? $phpwcms["img_prev_height"] : 400;
 		$phpwcms["max_time"]         = ($phpwcms["max_time"]) ? $phpwcms["max_time"] : 1800;
-		$phpwcms["compress_page"]    = ($phpwcms["compress_page"]) ? $phpwcms["compress_page"] : 0;
-			
+		
 		write_conf_file($phpwcms);
 		header("Location: setup.php?step=5");
 		exit();

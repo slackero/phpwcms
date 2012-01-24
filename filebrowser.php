@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -106,7 +106,8 @@ switch($js_aktion) {
 	case 9:
 	case 10:
 	case 16:
-	case 15:	$titel		= $BL['FILE_TITLE'];
+	case 15:
+	case 18:	$titel		= $BL['FILE_TITLE'];
 				$filetype	= $BL['FILES'];
 				break;
 	
@@ -256,6 +257,8 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 		case 14:	$file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
 					break;
 		
+					// Typical Doc files
+		case 18:	$file_sql .= "f_ext IN ('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers') AND ";
 		case 15:	$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
 					break;
 		
@@ -264,8 +267,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 		case 8:		$entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
 		case 7:		$file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif') AND ";
 					break;
-	
-	
+
 		case 2: 	$default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
 					$default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
 					$default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
@@ -301,7 +303,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 			$filename = html_specialchars($file_row["f_name"]);
 			
 			$thumb_image = true;
-			if( !in_array($js_aktion, array(2, 4, 9, 10, 16)) ) {
+			if( !in_array($js_aktion, array(2, 4, 9, 10, 16, 18)) ) {
 				// check if file can have thumbnail - if so it can be choosen for usage
 				$thumb_image = get_cached_image(
 			 					array(	"target_ext"	=>	$file_row["f_ext"],
@@ -311,7 +313,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 								);
 			}
 
-			if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16))) {
+			if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16, 18))) {
 			
 				$js_files_select[$file_durchlauf] = '	  [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
 				$add_all = false;
@@ -332,7 +334,8 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 					case 13:
 					case 14: $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
 						 	 break;
-							 
+					
+					case 18: 
 					case 15: $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
 						 	 break;
 							 
@@ -407,7 +410,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 				echo "<img src=\"img/button/add_9x9a.gif\" border=\"0\" alt=\"\" hspace=\"5\" vspace=\"2\" /></a></td>\n";
 				echo "<td><img src=\"img/leer.gif\" alt=\"\" border=\"0\" /></td>\n</tr>\n";
 				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-				if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17) ) ) {
+				if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18) ) ) {
 					echo "<tr><td>&nbsp;</td>\n<td colspan=\"3\"><a href=\"#\" onclick=\"".$js;
 					echo "tmt_winControl('self','close()');\">";
 					echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';

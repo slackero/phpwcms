@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
 This script is part of PHPWCMS. The PHPWCMS web content management system is
 free software; you can redistribute it and/or modify it under the terms of
@@ -251,6 +251,10 @@ if(isset($fmp_data['fmp_template'])) {
 	
 	// Define Flash Vars
 	
+	// set ID
+	$fmp_data['id']					= 'fmp'.$crow["acontent_id"];
+	$fmp_data['jw_license_info']	= '';
+	
 	// JW Player
 	if(empty($fmp_data['fmp_player']) ) {
 		
@@ -294,11 +298,8 @@ if(isset($fmp_data['fmp_template'])) {
 		$fmp_data['flashvars']['lightcolor']	= '0x' . $fmp_data['fmp_set_hcolor'];
 		$fmp_data['flashvars']['frontcolor']	= '0x' . $fmp_data['fmp_set_color'];
 			
-		if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin'].'.swf')) {
-			$fmp_data['flashvars']['skin'] = rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin']).'.swf';
-			if($fmp_data['fmp_set_skin'] == 'stylish') {
-				$fmp_data['fmp_displayheight'] += 12;	
-			}
+		if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin'])) {
+			$fmp_data['flashvars']['skin'] = rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin']);
 		}
 		
 		$fmp_data['flashvars']['displayheight']	= $fmp_data['fmp_displayheight'];
@@ -310,9 +311,9 @@ if(isset($fmp_data['fmp_template'])) {
 		// Licensed Player
 		if(!empty($phpwcms['JW_FLV_License'])) {
 			$fmp_data['host'] = parse_url(PHPWCMS_URL);
-			$fmp_data['flashvars']['abouttext'] = rawurlencode($fmp_data['host']['host'].' FLV Player');
-			$fmp_data['flashvars']['aboutlink'] = rawurlencode(PHPWCMS_URL);
-			$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	// JW FLV Media Player licensed for: '.$fmp_data['host']['host'].' ('.$phpwcms['JW_FLV_License'].')' . LF;
+			$fmp_data['flashvars']['abouttext']	= rawurlencode($fmp_data['host']['host'].' FLV Player');
+			$fmp_data['flashvars']['aboutlink']	= rawurlencode(PHPWCMS_URL);
+			$fmp_data['jw_license_info']		= '	// JW FLV Media Player licensed for: '.$fmp_data['host']['host'] . LF;
 		}
 	
 	// NonverBlaster:hover
@@ -355,10 +356,6 @@ if(isset($fmp_data['fmp_template'])) {
 		}
 	
 	}
-	
-	// set ID
-	$fmp_data['id'] = 'fmp'.$crow["acontent_id"];
-	
 	
 	$fmp_data['attributes'][] = 'id: "'.$fmp_data['id'].'"';
 	$fmp_data['attributes'][] = 'name: "'.$fmp_data['id'].'"';
@@ -432,54 +429,39 @@ if(isset($fmp_data['fmp_template'])) {
 	// Video JS
 	if(count($fmp_data['video'])) {
 		
-		// all clients different from iPad, iPod
-		if(BROWSER_OS != 'iOS') {
+		$phpwcms['video-js'] = empty($phpwcms['video-js']) ? 'http://vjs.zencdn.net/c/' : rtrim($phpwcms['video-js'], '/') . '/';
 		
-			// load default video-js.css
-			$block['custom_htmlhead']['video-js.css']  = '  <link rel="stylesheet" type="text/css" href="' . TEMPLATE_PATH . 'lib/video-js/video-js.css" />';
-			
-			// check for video-js Skin
-			if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default') {
-				$block['custom_htmlhead']['skin_html5.css']  = '  <link rel="stylesheet" type="text/css" href="' . TEMPLATE_PATH . 'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css" />';
-				$fmp_data['fmp_set_skin_html5'] = ' ' . strtolower($fmp_data['fmp_set_skin_html5']).'-css';
-			} else {
-				$fmp_data['fmp_set_skin_html5'] = '';
-			}
-			
-			// Put Video JS scripts to the body end
-			$block['custom_htmlhead']['video.js']     = '  <script type="text/javascript" src="' . TEMPLATE_PATH . 'lib/video-js/video.js" charset="utf-8"></script>';
-			$block['custom_htmlhead']['video-ready']  = '  <script type="text/javascript">' . LF;
-			// jQuery Fallback
-			if(substr($block['jslib'], 0, 6) == 'jquery') {
-				$block['custom_htmlhead']['video-ready'] .= '	// jQuery Plugin' . LF;
-				$block['custom_htmlhead']['video-ready'] .= '	if(window.jQuery){(function($){$.fn.VideoJS=function(options){this.each(function(){VideoJS.setup(this,options);});return this;};})(jQuery);}' . LF;
-			}
-			$block['custom_htmlhead']['video-ready'] .= '	if(VideoJS != "undefined") VideoJS.setupAllWhenReady();' . LF . '  </script>';
+		// load default video-js.css
+		$block['custom_htmlhead']['video-js.css']  = '  <link rel="stylesheet" type="text/css" href="' . $phpwcms['video-js'] . 'video-js.css" />';
 		
-		// iPad, iPod does not support Flash fallback
+		// check for video-js Skin
+		if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default' && is_file(PHPWCMS_TEMPLATE.'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css')) {
+			$block['custom_htmlhead']['skin_html5.css']  = '  <link rel="stylesheet" type="text/css" href="' . TEMPLATE_PATH . 'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css" />';
+			$fmp_data['fmp_set_skin_html5'] = ' ' . strtolower($fmp_data['fmp_set_skin_html5']).'-css';
+			$fmp_data['fmp_set_skin_video'] = strtolower($fmp_data['fmp_set_skin_html5']);
 		} else {
-			
-			$fmp_data['fallback']		= '';
-			
+			$fmp_data['fmp_set_skin_html5'] = '';
+			$fmp_data['fmp_set_skin_video'] = 'vjs-default-skin';
 		}
 		
-		$fmp_data['video_tag'] = array(
-			'<!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->'
-		);
+		// Put Video JS scripts to the body end
+		$block['custom_htmlhead']['video.js']     = '  <script type="text/javascript" src="' . $phpwcms['video-js'] . 'video.js" charset="utf-8"></script>';
+	
+		$fmp_data['video_tag'] = array();
 		
 		// build Video JS leading tag
-		$fmp_data['video_tag']['header']  = '<video class="video-js" width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" ';
+		$fmp_data['video_tag']['header']  = '<video id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" ';
 		$fmp_data['video_tag']['header'] .= $fmp_data['fmp_set_showcontrols'] == 'none' ? '' : 'controls="controls" ';
 		$fmp_data['video_tag']['header'] .= $fmp_data['fmp_set_autostart'] ? 'autoplay="autoplay" ' : '';
 		$fmp_data['video_tag']['header'] .= empty($fmp_data['fmp_preview']) ? '' : 'poster="'.$fmp_data['preview'].'" ';
-		$fmp_data['video_tag']['header'] .= 'preload="none">';
+		$fmp_data['video_tag']['header'] .= 'preload="auto">';
 		
 		foreach($fmp_data['video'] as $param_name => $param_value) {		
 			$fmp_data['video_tag'][] = '	<source src="'.html_specialchars($param_value).'" type="'.$param_name.'" />';
 		}
 		
 		$fmp_data['video_tag']['fallback'] = $fmp_data['fallback'];
-		$fmp_data['video_tag']['footer']   = '</video>';
+		$fmp_data['video_tag']['footer']   = '</video><script type="text/javascript">var videojs_'.$fmp_data['id'].'=_V_("video-js-'.$fmp_data['id'].'");</script>';
 		
 		$fmp_data['fallback'] = implode(LF, $fmp_data['video_tag']);
 		
@@ -493,6 +475,7 @@ if(isset($fmp_data['fmp_template'])) {
 	
 		// build SwfObject Script Block
 		$block['custom_htmlhead'][ $fmp_data['id'] ]  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+		$block['custom_htmlhead'][ $fmp_data['id'] ] .= $fmp_data['jw_license_info'];
 		$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var flashvars_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['flashvars']) . '};' . LF;
 		$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var params_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['params']) . '};' . LF;
 		$block['custom_htmlhead'][ $fmp_data['id'] ] .= '	var attributes_'.$fmp_data['id'].'	= {' . implode(', ', $fmp_data['attributes']) . '};' . LF;

@@ -1,64 +1,82 @@
 <?php
-/**
-* An open source library
-* http://sourceforge.net/projects/phputf8
-* PHP UTF-8 is a UTF-8 aware library of functions mirroring PHP's own string functions.
-* Does not require PHP mbstring extension though will use it, if found, for a (small) performance gain.  
-*
-*/
 
-// wordpress stuff
-function seems_utf8($Str) { # by bmorel at ssi dot fr
-	for ($i=0; $i<strlen($Str); $i++) {
-		if (ord($Str[$i]) < 0x80) continue; # 0bbbbbbb
-		elseif ((ord($Str[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
-		elseif ((ord($Str[$i]) & 0xF0) == 0xE0) $n=2; # 1110bbbb
-		elseif ((ord($Str[$i]) & 0xF8) == 0xF0) $n=3; # 11110bbb
-		elseif ((ord($Str[$i]) & 0xFC) == 0xF8) $n=4; # 111110bb
-		elseif ((ord($Str[$i]) & 0xFE) == 0xFC) $n=5; # 1111110b
+/**
+ * Checks to see if a string is utf8 encoded.
+ *
+ * NOTE: This function checks for 5-Byte sequences, UTF8
+ *       has Bytes Sequences with a maximum length of 4.
+ *
+ * @author bmorel at ssi dot fr (modified)
+ * @package WordPress
+ *
+ * @param string $str The string to be checked
+ * @return bool True if $str fits a UTF-8 model, false otherwise.
+ */
+function phpwcms_seems_utf8($str) { # by bmorel at ssi dot fr
+	$length = strlen($str);
+	for ($i=0; $i < $length; $i++) {
+		$c = ord($str[$i]);
+		if ($c < 0x80) $n = 0; # 0bbbbbbb
+		elseif (($c & 0xE0) == 0xC0) $n=1; # 110bbbbb
+		elseif (($c & 0xF0) == 0xE0) $n=2; # 1110bbbb
+		elseif (($c & 0xF8) == 0xF0) $n=3; # 11110bbb
+		elseif (($c & 0xFC) == 0xF8) $n=4; # 111110bb
+		elseif (($c & 0xFE) == 0xFC) $n=5; # 1111110b
 		else return false; # Does not match any model
 		for ($j=0; $j<$n; $j++) { # n bytes matching 10bbbbbb follow ?
-			if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80))
-			return false;
+			if ((++$i == $length) || ((ord($str[$i]) & 0xC0) != 0x80))
+				return false;
 		}
 	}
 	return true;
 }
 
-function remove_accents($string) {
+/**
+ * Converts all accent characters to ASCII characters.
+ *
+ * If there are no accent characters, then the string given is just returned.
+ * @package WordPress
+ *
+ * @param string $string Text that might have accent characters
+ * @return string Filtered string with replaced "nice" characters.
+ */
+function phpwcms_remove_accents($string) {
 	if ( !preg_match('/[\x80-\xff]/', $string) )
 		return $string;
 
-	if (seems_utf8($string)) {
+	if (phpwcms_seems_utf8($string)) {
 		$chars = array(
 		// Decompositions for Latin-1 Supplement
 		chr(195).chr(128) => 'A', chr(195).chr(129) => 'A',
 		chr(195).chr(130) => 'A', chr(195).chr(131) => 'A',
 		chr(195).chr(132) => 'A', chr(195).chr(133) => 'A',
-		chr(195).chr(135) => 'C', chr(195).chr(136) => 'E',
-		chr(195).chr(137) => 'E', chr(195).chr(138) => 'E',
-		chr(195).chr(139) => 'E', chr(195).chr(140) => 'I',
-		chr(195).chr(141) => 'I', chr(195).chr(142) => 'I',
-		chr(195).chr(143) => 'I', chr(195).chr(145) => 'N',
+		chr(195).chr(134) => 'AE',chr(195).chr(135) => 'C',
+		chr(195).chr(136) => 'E', chr(195).chr(137) => 'E',
+		chr(195).chr(138) => 'E', chr(195).chr(139) => 'E',
+		chr(195).chr(140) => 'I', chr(195).chr(141) => 'I',
+		chr(195).chr(142) => 'I', chr(195).chr(143) => 'I',
+		chr(195).chr(144) => 'D', chr(195).chr(145) => 'N',
 		chr(195).chr(146) => 'O', chr(195).chr(147) => 'O',
 		chr(195).chr(148) => 'O', chr(195).chr(149) => 'O',
 		chr(195).chr(150) => 'O', chr(195).chr(153) => 'U',
 		chr(195).chr(154) => 'U', chr(195).chr(155) => 'U',
 		chr(195).chr(156) => 'U', chr(195).chr(157) => 'Y',
-		chr(195).chr(159) => 's', chr(195).chr(160) => 'a',
-		chr(195).chr(161) => 'a', chr(195).chr(162) => 'a',
-		chr(195).chr(163) => 'a', chr(195).chr(164) => 'a',
-		chr(195).chr(165) => 'a', chr(195).chr(167) => 'c',
+		chr(195).chr(158) => 'TH',chr(195).chr(159) => 's',
+		chr(195).chr(160) => 'a', chr(195).chr(161) => 'a',
+		chr(195).chr(162) => 'a', chr(195).chr(163) => 'a',
+		chr(195).chr(164) => 'a', chr(195).chr(165) => 'a',
+		chr(195).chr(166) => 'ae',chr(195).chr(167) => 'c',
 		chr(195).chr(168) => 'e', chr(195).chr(169) => 'e',
 		chr(195).chr(170) => 'e', chr(195).chr(171) => 'e',
 		chr(195).chr(172) => 'i', chr(195).chr(173) => 'i',
 		chr(195).chr(174) => 'i', chr(195).chr(175) => 'i',
-		chr(195).chr(177) => 'n', chr(195).chr(178) => 'o',
-		chr(195).chr(179) => 'o', chr(195).chr(180) => 'o',
-		chr(195).chr(181) => 'o', chr(195).chr(182) => 'o',
-		chr(195).chr(182) => 'o', chr(195).chr(185) => 'u',
-		chr(195).chr(186) => 'u', chr(195).chr(187) => 'u',
-		chr(195).chr(188) => 'u', chr(195).chr(189) => 'y',
+		chr(195).chr(176) => 'd', chr(195).chr(177) => 'n',
+		chr(195).chr(178) => 'o', chr(195).chr(179) => 'o',
+		chr(195).chr(180) => 'o', chr(195).chr(181) => 'o',
+		chr(195).chr(182) => 'o', chr(195).chr(184) => 'o',
+		chr(195).chr(185) => 'u', chr(195).chr(186) => 'u',
+		chr(195).chr(187) => 'u', chr(195).chr(188) => 'u',
+		chr(195).chr(189) => 'y', chr(195).chr(190) => 'th',
 		chr(195).chr(191) => 'y',
 		// Decompositions for Latin Extended-A
 		chr(196).chr(128) => 'A', chr(196).chr(129) => 'a',
@@ -125,6 +143,9 @@ function remove_accents($string) {
 		chr(197).chr(186) => 'z', chr(197).chr(187) => 'Z',
 		chr(197).chr(188) => 'z', chr(197).chr(189) => 'Z',
 		chr(197).chr(190) => 'z', chr(197).chr(191) => 's',
+		// Decompositions for Latin Extended-B
+		chr(200).chr(152) => 'S', chr(200).chr(153) => 's',
+		chr(200).chr(154) => 'T', chr(200).chr(155) => 't',
 		// Euro Sign
 		chr(226).chr(130).chr(172) => 'E',
 		// GBP (Pound) Sign

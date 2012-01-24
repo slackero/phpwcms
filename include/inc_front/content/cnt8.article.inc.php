@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -303,8 +303,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					if($content['alink']['alink_columns'] > 0) {
 						
 						// check if the current teaser will be on a new row
-						if($content['alink']['row_space']) {
-							$content['alink']['tr'][$key] .= $content['alink']['alink_template_row'];
+						if($content['alink']['row_space'] && $content['alink']['alink_template_row']) {
+							$content['alink']['tr'][$key] .= render_cnt_template($content['alink']['alink_template_row'], 'ROW', $content['alink']['row']);
 						}
 	
 						$row['column'] = array(
@@ -338,7 +338,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'MENUTITLE', html_specialchars($row['article_menutitle']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'TITLE', html_specialchars($row['article_title']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
-					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], strtotime($row['article_begin']), strtotime($row['article_end']));
+					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], phpwcms_strtotime($row['article_begin']), phpwcms_strtotime($row['article_end']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'COLUMN', $row['column']);
 
@@ -435,6 +435,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					}
 					
 					// article summary
+					if(strpos($content['alink']['tr'][$key], 'SUMMARY_RAW') !== false) {
+						
+						$content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'SUMMARY_RAW', $row['article_summary']);
+											
+					}
 					if(strpos($content['alink']['tr'][$key], 'SUMMARY') !== false) {
 						
 						if(empty($content['alink']['alink_wordlimit']) && !empty($row['article_image']['list_maxwords'])) {
@@ -456,7 +461,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						
 					}
 					
-					$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', 'index.php?'.setGetArticleAid($row), $content['alink']['tr'][$key]);
+					// link to article detail
+					//$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', , $content['alink']['tr'][$key]);
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'ARTICLELINK', $row['article_morelink'] ? 'index.php?'.setGetArticleAid($row) : '');
 					
 					// article category
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CATEGORY', html_specialchars($content['struct'][ $row['article_cid'] ]['acat_name']));

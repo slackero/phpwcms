@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -84,13 +84,6 @@ $phpwcms['charsets'] = array(
 
 define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
-/* seems to be problematic at the moment - so always use text/html
-if (!empty($phpwcms['header_XML']) && $_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' && isset($_SERVER['HTTP_ACCEPT']) && preg_match('|application/xhtml\+xml(?!\s*;\s*q=0)|', $_SERVER['HTTP_ACCEPT'])) {
-	header('Content-Type: application/xhtml+xml; charset='.PHPWCMS_CHARSET);
-	header('Vary: Negotiate, Accept');
-	$_use_content_type = 'application/xhtml+xml';
-}
-*/
 if(defined('CUSTOM_CONTENT_TYPE')) {
 
 	header(CUSTOM_CONTENT_TYPE);
@@ -123,7 +116,7 @@ define ('PHPWCMS_BASEPATH',			'/' . $phpwcms["root"]);
 define ('On',						true);
 define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
-define ('PHPWCMS_REWRITE_EXT',		'phtml');
+define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
 
 // Mime-Type definitions
@@ -158,22 +151,48 @@ define ('PHPWCMS_RSS', 				PHPWCMS_CONTENT.'rss');
 define ('LF', 						"\n"); 	//global new line Feed
 define ('FEUSER_REGKEY',			empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
 
-define ('MB_SAFE',					function_exists('mb_substr') ? true : false); //mbstring safe - better to do a check here
+if(function_exists('mb_substr')) {
+	define ('MB_SAFE', true); //mbstring safe - better to do a check here
+} else {
+	define ('MB_SAFE', false);
+
+	function mb_substr(string $str, int $start, int $length, string $encoding) {
+		if(phpwcms_seems_utf8($str)) {
+			return utf8_encode(substr(utf8_decode($str), $start, $length));
+		} else {
+			return substr($str, $start, $length);
+		}
+	}
+	function mb_strlen(string $str, string $encoding) {
+		return strlen(phpwcms_seems_utf8($str) ? utf8_decode($str) : $str);
+	}
+}
 
 $phpwcms['modules']				 = array();
 $phpwcms['modules_fe_render']	 = array();
 $phpwcms['modules_fe_init']		 = array();
 
-// check which function should be used to create thumbnail images
-// and if ImageMagick check if enabled or 1 or located at give path
-if($phpwcms["imagick_path"]) {
-	$phpwcms["imagick_path"] = $phpwcms["imagick_path"].'/';
-	$phpwcms["imagick_path"] = str_replace("\\", '/', $phpwcms["imagick_path"]);
-	$phpwcms["imagick_path"] = str_replace('//', '/', $phpwcms["imagick_path"]);
+// 2011-12-27
+// Changed Image Manipulation class to CodeIgniter based class
+// which supports GD, GD2, ImageMagick and NetPBM
+if(isset($phpwcms['image_library'])) {
+	
+	$phpwcms['image_library']	= strtolower($phpwcms['image_library']);
+	$phpwcms['library_path']	= empty($phpwcms['library_path']) ? '' : $phpwcms['library_path'];
+	
+	if(!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'netpbm', 'gd'))) {
+		$phpwcms['image_library'] = 'gd2';
+	}
+
+// Fallback to old setting
+} else {
+	
+	$phpwcms['image_library']	= empty($phpwcms["imagick"]) ? 'gd2' : 'imagemagick';
+	$phpwcms['library_path']	= empty($phpwcms["imagick_path"]) ? '' : str_replace('//', '/', str_replace("\\", '/', $phpwcms["imagick_path"].'/') );
+
+	unset($phpwcms["imagick_path"], $phpwcms["imagick"]);
+	
 }
-define ("IMAGICK_PATH",	$phpwcms["imagick_path"]);
-define ("IMAGICK_ON", intval($phpwcms["imagick"]));
-define ("GD2_ON", intval($phpwcms["use_gd2"]));
 
 if(empty($phpwcms['SMTP_MAILER'])) {
 	$phpwcms['SMTP_MAILER'] = 'mail';
@@ -228,7 +247,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('SCRIPT_CDATA_END'  , '');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
-	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}"');
+	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
 	
 } else {
 	

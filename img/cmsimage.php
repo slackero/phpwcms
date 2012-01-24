@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -37,7 +37,7 @@ if(session_id() && session_name()) {
 	// session expected at the end of REQUEST URI when added by PHP
 	$session_name_pos = strpos($request_uri, session_name().'=');
 	if($session_name_pos !== FALSE) {
-		$request_uri = trim(trim(substr($request_uri, 0, $session_name_pos), '&'), '?');
+		$request_uri = trim(trim(mb_substr($request_uri, 0, $session_name_pos), '&'), '?');
 	}
 }
 
@@ -57,7 +57,7 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 
 		$hash		= cut_ext($data[1]);
 		$ext		= which_ext($data[1]);
-		
+			
 		if(is_numeric($hash)) {
 			
 			@session_start();
@@ -67,7 +67,7 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 		
 			$sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
 			$sql  .= 'f_id='.intval($hash)." AND ";
-			if(!$phpwcms['imagick']) {
+			if(substr($phpwcms['image_library'], 0, 2) == 'gd') {
 				$sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
 			}
 			$sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
@@ -89,7 +89,7 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 		
 			$sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
 			$sql  .= 'f_hash='._dbEscape($hash)." AND ";
-			if(!$phpwcms['imagick']) {
+			if(substr($phpwcms['image_library'], 0, 2) == 'gd') {
 				$sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
 			}
 			$sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
@@ -121,22 +121,13 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 			} else {
 				$quality = '';
 			}
-		
-			if($width) {
-				$value["max_width"]		= $width;
-			} else {
-				$width					= '';
-			}
-			if($height) {
-				$value["max_height"]	= $height;
-			} else {
-				$height					= '';
-			}
-			$value['target_ext']		= $ext;
-			$value['image_name']		= $hash . '.' . $ext;
-			$value['image_name']		= $hash . '.' . $ext;
-			$value['thumb_name']		= md5($hash.$width.$height.$phpwcms['sharpen_level'].$crop.$quality);
-			$value['crop_image']		= $crop;
+
+			$value["max_width"]		= $width ? $width : '';
+			$value["max_height"]	= $height ? $height : '';
+			$value['target_ext']	= $ext;
+			$value['image_name']	= $hash . '.' . $ext;
+			$value['thumb_name']	= md5($hash.$value["max_width"].$value["max_height"].$phpwcms['sharpen_level'].$crop.$quality);
+			$value['crop_image']	= $crop;
 			
 			$image = get_cached_image( $value, false, false );
 			

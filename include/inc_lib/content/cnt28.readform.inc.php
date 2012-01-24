@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -32,13 +32,14 @@ if (!defined('PHPWCMS_ROOT')) {
 //
 // Content Part Frontend Login
 //
-$content['felogin_template']						= clean_slweg($_POST['template']);
-$content['felogin']['felogin_cookie_expire']		= intval($_POST['cookie_expire']);
-$content['felogin']['felogin_date_format']			= clean_slweg($_POST['date_format']);
-$content['felogin']['felogin_locale']				= clean_slweg($_POST['locale']);
-$content['felogin']['felogin_validate_userdetail']	= empty($_POST['validate_userdetail']) ? 0 : 1;
-$content['felogin']['felogin_validate_backenduser']	= empty($_POST['validate_backenduser']) ? 0 : 1;
-$content['felogin']['felogin_profile_registration']	= empty($_POST['profile_registration']) ? 0 : 1;
-$content['felogin']['felogin_profile_manage']		= empty($_POST['profile_manage']) ? 0 : 1;
+$content['felogin_template']							= clean_slweg($_POST['template']);
+$content['felogin']['felogin_cookie_expire']			= intval($_POST['cookie_expire']);
+$content['felogin']['felogin_date_format']				= clean_slweg($_POST['date_format']);
+$content['felogin']['felogin_locale']					= clean_slweg($_POST['locale']);
+$content['felogin']['felogin_validate_userdetail']		= empty($_POST['validate_userdetail']) ? 0 : 1;
+$content['felogin']['felogin_validate_backenduser']		= empty($_POST['validate_backenduser']) ? 0 : 1;
+$content['felogin']['felogin_profile_registration']		= empty($_POST['profile_registration']) ? 0 : 1;
+$content['felogin']['felogin_profile_manage']			= empty($_POST['profile_manage']) ? 0 : 1;
+$content['felogin']['felogin_profile_manage_redirect']	= clean_slweg($_POST['profile_manage_redirect']);
 
 ?>

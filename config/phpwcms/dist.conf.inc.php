@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -61,10 +61,8 @@ $phpwcms['img_prev_height']   = 538;      //max height of the large preview imag
 $phpwcms['max_time']          = 1800;     //logout after max_time/60 seconds
 
 // other stuff
-$phpwcms['compress_page']     = 0;        //wenn 1 = Seite komprimieren, 0 = Kompresion aus
-$phpwcms['imagick']           = 0;        //if 0 = GD, 1 = ImageMagick convert, 2 = ImageMagick 4.2.9
-$phpwcms['imagick_path']      = '';       //Path to ImageMagick
-$phpwcms['use_gd2']           = 1;        //if 0 = GD1, 1 = GD2
+$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, NetPBM
+$phpwcms['library_path']      = '';       //Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url']       = 0;        //whether URL should be rewritable
 $phpwcms['wysiwyg_editor']    = 1;        //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor
 $phpwcms['phpmyadmin']        = 0;        //enable/disable phpmyadmin in Admin section
@@ -74,7 +72,6 @@ $phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es');     //array of al
 $phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $phpwcms['charset']           = 'utf-8';       //default charset 'utf-8' do not use soemthing different any longer
 $phpwcms['allow_remote_URL']  = 0;        //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
-$phpwcms['gt_mod']            = 0;        //0 = Graphical Text MOD disabled, 1 = enabled
 $phpwcms['jpg_quality']       = 85;		  //JPG Quality Range 25-100
 $phpwcms['sharpen_level']     = 1;        //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init']    = 1;        //allow including of custom external scripts at frontend initialization
@@ -88,15 +85,11 @@ $phpwcms['inline_download']   = 1; //try to open download document in browser wi
 $phpwcms['form_tracking']     = 1; //make a db entry for each form
 $phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling
 $phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts
-$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars
 $phpwcms['BOTS']			  = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 $phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
-$phpwcms['IE_htc_hover']      = 0; // fix IE CSS anomalities
-$phpwcms['IE_htc_png']        = 0; // IE <7 PNG fix
-$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PMG bugs in IE, will disable IE_htc_hover/IE_htc_png
+$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE
 $phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php
-$phpwcms['Bad_Behavior']      = 0; // enables spam/bot blocking by Bad Behavior
 $phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'phpwcms_basic,phpwcms_default,Default,Basic', 'CKEditor' => 'phpwcms,Default,Basic' );								   
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online
@@ -113,7 +106,9 @@ $phpwcms['FCK_FileBrowser']   = 1; // enable|disable phpwcms Filebrowser in FCKe
 $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';
+$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
 $phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.3'=>'MooTools 1.3','mootools-1.3-compat'=>'MooTools 1.3 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.7'=>'jQuery 1.7','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
+$phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)
 
 // dynamic ssl encryption engine
 $phpwcms['site_ssl_mode'] 	  = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'

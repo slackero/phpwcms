@@ -1296,4 +1296,6 @@ $BL['fancyupload_flash_error']			= 'Installieren Sie das neueste Adobe Flash Plu
 $BL['be_cnt_function_validate']			= 'PHP-Validierung';
 $BL['be_structform_selected_cp']		= 'Auswahl nutzbarer Content Parts begrenzen';
 
+$BL['source_image_not_found']			= 'Quelldatei Fehler: Die Datei %s konnte nicht gefunden werden.';
+
 ?>

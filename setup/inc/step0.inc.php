@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -28,18 +28,18 @@ $_SESSION['admin_set'] = false;
   which <strong>phpwcms</strong> is released you can continue to install or upgrade <strong>phpwcms</strong>.</p>
   
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
-<p>Please proof all information about your system (recommend PHP 5.0+, MySQL 4.1+).</p>
+<p>Please proof all information about your system (recommend PHP 5.1+, MySQL 4.1+).</p>
 <ol>
   <li>WWW server: <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong></li>
   <li>PHP version: <?php 
   
 	echo '<strong>'.html_specialchars(phpversion()).'</strong>';
   
-	switch(version_compare('5.0.0', phpversion())) {
+	switch(version_compare('5.1.0', phpversion())) {
   
 		case -1:	// current used PHP is > OK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
-					if(version_compare('5.1', phpversion()) == 1) {
+					if(version_compare('5.2', phpversion()) == 1) {
 						echo ' (it is recommend to update your PHP version)';
 					}
 					break;

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -576,7 +576,7 @@ if($aktion[2] == 0) {
 	}
 	
 	if($content['all']) {
-		$content["all"]	= str_replace('{CURRENT_URL}', PHPWCMS_URL.'index.php'.returnGlobalGET_QueryString('htmlentities'), $content["all"]);
+		$content["all"]	= str_replace('{CURRENT_URL}', abs_url(), $content["all"]);
 		$content["all"]	= str_replace('{CONTENT}', $block["maintext"], $content["all"]);
 	} else {
 		$content['all']	= $block["maintext"];
@@ -789,7 +789,6 @@ if(strpos($content["all"],'{BROWSE:') !== false) {
 // -------------------------------------------------------------
 
 // replace all "hardcoded" global replacement tags
-
 if(count($content['globalRT'])) {
 	foreach($content['globalRT'] as $key => $value) {
 		if($key != '') {
@@ -860,12 +859,6 @@ if(strpos($content["all"], '[PRINT]') !== false) {
 if(strpos($content["all"], '[PRINT_PDF]') !== false) {
 	$content["all"] = str_replace('[PRINT_PDF]', '<a href="'.rel_url(array('print'=>2),array(), PHPWCMS_ALIAS).'" target="_blank" rel="nofollow">', $content["all"]);
 	$content["all"] = str_replace('[/PRINT_PDF]', '</a>', $content["all"]);
-}
-
-
-// Jérôme's Graphical Text MOD Coypright (C) 2004
-if($phpwcms["gt_mod"]) { //enabled/disable GT MOD
-	require_once ('include/inc_module/mod_graphical_text/inc_front/gt.func.inc.php');
 }
 
 // some article related "global" replacement tags
@@ -1102,7 +1095,10 @@ switch($phpwcms['mode_XHTML']) {
 		$content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
 		break;
 	case 3:
-		$block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
+		// put it as first item
+		if(empty($phpwcms['html5shiv_disabled'])) {
+			$block['custom_htmlhead'] = array('html5shiv' => '  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->') + $block['custom_htmlhead'];
+		}
 		break;
 }
 
@@ -1226,6 +1222,16 @@ if( isset($match[1]) && isset($match[2]) ) {
 if(!empty($phpwcms['i18n_parse'])) {
 	$content['all']			= i18n_substitute_text($content['all']);
 	$content["pagetitle"]	= i18n_substitute_text($content['pagetitle']);
+}
+
+// Replace all deprecated GT Mod tags
+if(!empty($phpwcms['gt_mod']) && strpos($content["all"], '{GT') !== false) {
+	
+	function deprecated_get_gt_by_style($matches) {
+		return '<span class="gt-'.trim($matches[1]).'">' . $matches[2] . '</span>';
+	}
+	
+	$content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
 
 ?>

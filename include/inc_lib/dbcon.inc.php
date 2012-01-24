@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -38,7 +38,8 @@ if($phpwcms["db_pers"] == 1) {
 } else {
 	$db = @mysql_connect($phpwcms["db_host"], $phpwcms["db_user"], $phpwcms["db_pass"]) or ($is_mysql_error = true);
 }
-@mysql_select_db($phpwcms["db_table"], $db) or ($is_mysql_error = true);
+
+$is_mysql_error = _dbSelect() ? false : true;
 
 if($is_mysql_error) {
 	header('Location: '.PHPWCMS_URL.'dbdown.php');
@@ -62,10 +63,27 @@ if(!function_exists('mysql_real_escape_string')) {
 		}
 	}
 }
-// old function for escaping db items
+// deprecated function for escaping db items
 function aporeplace($value='') {
 	// ToDo: Check if _dbEscape($value, false) might better replacement
 	return mysql_real_escape_string($value);
+}
+
+function _dbSelect($db_table='') {
+	
+	if(empty($db_table)) {
+		$db_table = $GLOBALS['phpwcms']["db_table"];
+	}
+	
+	if(isset($GLOBALS['phpwcms']["db_table_selected"]) && $GLOBALS['phpwcms']["db_table_selected"] == $db_table) {
+		return true;
+	}
+	
+	// Set current selected DB Table
+	$GLOBALS['phpwcms']["db_table_selected"] = $db_table;
+
+	return @mysql_select_db($db_table, $GLOBALS['db']);
+
 }
 
 function _dbQuery($query='', $_queryMode='ASSOC') {

@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -469,8 +469,7 @@ ob_start();
 </div>		
 <?php
 
-$_save_close_buttons = ob_get_contents();
-ob_end_clean();
+$_save_close_buttons = ob_get_clean();
 
 echo $_save_close_buttons;
 

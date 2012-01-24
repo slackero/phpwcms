@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -42,14 +42,14 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['adcampaign_changed']))) ?></td>
+		<td class="v10"><?php echo html_specialchars(phpwcms_strtotime($plugin['data']['adcampaign_changed'], $BL['be_fprivedit_dateformat'], '')) ?></td>
 	</tr>
 	
 	<?php if(!empty($plugin['data']['adcampaign_created'])) { ?>
 	
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['adcampaign_created']))) ?></td>
+		<td class="v10"><?php echo html_specialchars(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?></td>
 	</tr>
 	
 	<?php } ?>

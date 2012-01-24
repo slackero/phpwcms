@@ -18,6 +18,8 @@
 ;fx1			= 0
 ;fx2			= 0
 ;fx3			= 0
+; InfoText render: plain, html, markdown, textile
+text_render	= plain
 <!--IMAGE_SETTINGS_END//-->
 
 <!--IMAGES_HEADER_START//-->
@@ -35,13 +37,9 @@
 		{IMAGE}
 		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
 		[INFOTEXT]
-			<!-- auto <p>info text</p> text -->
+			<!-- check setting "text_render", default "plain" -->
 			{INFOTEXT}
 		[/INFOTEXT]
-		[INFOHTML]
-			<!-- pure HTML info text -->
-			{INFOHTML}
-		[/INFOHTML]
 	</div>
 	<!-- 
 

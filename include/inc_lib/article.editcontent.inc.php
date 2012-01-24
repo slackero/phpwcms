@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -221,8 +221,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 			$article_err[] = $BL['be_article_err1'];
 		}
 		if($article["article_begin"]) { //Check date
-			$article["article_begin"] = strtotime($article["article_begin"]);
-			if($article["article_begin"] == -1) {
+			$article["article_begin"] = phpwcms_strtotime($article["article_begin"]);
+			if($article["article_begin"] == false) {
 				$article["article_begin"] = date("Y-m-d H:i:s");
 				$set_begin = 1;
 				$article_err[] = $BL['be_article_err2'];
@@ -235,8 +235,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 			$set_begin = 0;
 		}
 		if($article["article_end"]) { //Check date
-			$article["article_end"] = strtotime($article["article_end"]);
-			if($article["article_end"] == -1) {
+			$article["article_end"] = phpwcms_strtotime($article["article_end"]);
+			if($article["article_end"] == false) {
 				$article["article_end"] = date("Y-m-d H:i:s", time() + (3600*24*365*10) );
 				$set_end = 1;
 				$article_err[] = $BL['be_article_err4'];
@@ -361,7 +361,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					'article_serialized'	=> ''
 
 							);
-							
+								
 				$result = _dbInsert('phpwcms_article', $data);
 				
 				if(isset($result['INSERT_ID'])) {
@@ -440,7 +440,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 
 	
 	// list mode
-	if( (!isset($_GET["aktion"]) || !intval($_GET["aktion"])) && !isset($_GET['struct'])) {;
+	if( (!isset($_GET["aktion"]) || !intval($_GET["aktion"])) && !isset($_GET['struct'])) {
 	
 		include_once PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.list.tmpl.php";
 		$phpwcms['be_parse_lang_process'] = true;

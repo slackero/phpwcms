@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -107,7 +107,7 @@ if($action == 'edit') {
 		$plugin['data']['shopprod_weight']			= str_replace($BLM['dec_point'], '.', $plugin['data']['shopprod_weight']);
 		$plugin['data']['shopprod_weight']			= floatval($plugin['data']['shopprod_weight']);
 		
-		$plugin['data']['shopprod_tag']				= strtolower( preg_replace('/[^0-9a-z, \-_]/i', '', remove_accents($_POST['shopprod_tag']) ) );
+		$plugin['data']['shopprod_tag']				= strtolower( preg_replace('/[^0-9a-z, \-_]/i', '', phpwcms_remove_accents($_POST['shopprod_tag']) ) );
 		$plugin['data']['shopprod_tag']				= implode(', ', convertStringToArray($plugin['data']['shopprod_tag']));
 
 		

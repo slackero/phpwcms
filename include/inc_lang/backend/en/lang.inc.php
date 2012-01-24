@@ -1306,4 +1306,6 @@ $BL['fancyupload_flash_error']			= 'To enable the embedded uploader, install the
 $BL['be_cnt_function_validate']			= 'PHP validation';
 $BL['be_structform_selected_cp']		= 'Limit selection of usable content parts';
 
+$BL['source_image_not_found']			= 'Source image error: The image %s seems not to exist';
+
 ?>

@@ -3,7 +3,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -154,8 +154,8 @@ $plugin['data']['calendar_rangeend']		= implode($BLM['date_delimiter'], $plugin[
 $plugin['data']['calendar_range_start']	= $plugin['data']['calendar_range_start'][2].'-'.$plugin['data']['calendar_range_start'][1].'-'.$plugin['data']['calendar_range_start'][0];
 $plugin['data']['calendar_range_end']	= $plugin['data']['calendar_range_end'][2].'-'.$plugin['data']['calendar_range_end'][1].'-'.$plugin['data']['calendar_range_end'][0];
 
-$plugin['data']['start_timestamp'] = strtotime($plugin['data']['calendar_range_start']);
-if(strtotime($plugin['data']['calendar_range_end']) < $plugin['data']['start_timestamp']) {
+$plugin['data']['start_timestamp'] = phpwcms_strtotime($plugin['data']['calendar_range_start'], NULL, 0);
+if(phpwcms_strtotime($plugin['data']['calendar_range_end'], NULL, 0) < $plugin['data']['start_timestamp']) {
 	$plugin['data']['calendar_rangeend']	= $plugin['data']['start_timestamp'] + (60*60*24*7);
 	$plugin['data']['calendar_range_end']	= date('Y-m-d', $plugin['data']['calendar_rangeend']);
 	$plugin['data']['calendar_rangeend']	= date('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $plugin['data']['calendar_rangeend']);
@@ -182,8 +182,8 @@ $plugin['data']['calendar_end']  = $plugin['data']['calendar_end_date'][2].'-'.$
 $plugin['data']['calendar_end'] .= $plugin['data']['calendar_end_date'][0].' '.$plugin['data']['calendar_end_time'].':00';
 
 // compare start against end
-$plugin['data']['start_timestamp'] = strtotime($plugin['data']['calendar_start']);
-if(strtotime($plugin['data']['calendar_end']) < $plugin['data']['start_timestamp']) {
+$plugin['data']['start_timestamp'] = phpwcms_strtotime($plugin['data']['calendar_start'], NULL, 0);
+if(phpwcms_strtotime($plugin['data']['calendar_end'], NULL, 0) < $plugin['data']['start_timestamp']) {
 	$plugin['data']['calendar_end']			= $plugin['data']['start_timestamp'] + (60*30);
 	$plugin['data']['calendar_end_time']	= date('H:i', $plugin['data']['calendar_end']);
 	$plugin['data']['calendar_end_date'][0]	= date('d', $plugin['data']['calendar_end']);

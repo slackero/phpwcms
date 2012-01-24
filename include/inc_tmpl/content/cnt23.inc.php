@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -524,23 +524,33 @@ if($content["id"]) {
 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_reference_basis'] ?>:&nbsp;</td>
 <td colspan="6" style="padding:3px 0 3px 0"><table summary="" cellpadding="0" cellspacing="0" border="0">
 	<tr>
+	
+	<td>&nbsp;</td>
+	
 	<?php
 	if(!isset($content['form']["labelpos"])) {
-		$content['form']["labelpos"] = 0;
+		$content['form']["labelpos"] = 3;
 		// 0 = default = in front of form field
 		// 1 = above form field
+		// 2 = Custom
+		// 3 = modern DIV based
 	}
 	?>
+	<td><input type="radio" name="cform_labelpos" id="cform_labelpos3" value="3"<?php echo  is_checked(3, $content['form']["labelpos"], 0, 1) ?> /></td>
+	<td><label for="cform_labelpos3"><img src="img/symbole/label_3.gif" width="72" height="22" alt="" /></label></td>
+
+	<td>&nbsp;&nbsp;</td>	
+	
 	<td><input type="radio" name="cform_labelpos" id="cform_labelpos0" value="0"<?php echo  is_checked(0, $content['form']["labelpos"], 0, 1) ?> /></td>
-	<td><label for="cform_labelpos0"><img src="img/symbole/label_1.gif" width="70" height="22" alt="" /></label></td>
+	<td><label for="cform_labelpos0"><img src="img/symbole/label_0.gif" width="70" height="22" alt="" /></label></td>
 
 	<td>&nbsp;&nbsp;</td>
 	<td><input type="radio" name="cform_labelpos" id="cform_labelpos1" value="1"<?php echo  is_checked(1, $content['form']["labelpos"], 0, 1) ?> /></td>
-	<td><label for="cform_labelpos1"><img src="img/symbole/label_2.gif" width="60" height="22" alt="" /></label></td>
+	<td><label for="cform_labelpos1"><img src="img/symbole/label_1.gif" width="60" height="22" alt="" /></label></td>
 
 	<td>&nbsp;&nbsp;</td>
 	<td><input type="radio" name="cform_labelpos" id="cform_labelpos2" value="2"<?php echo  is_checked(2, $content['form']["labelpos"], 0, 1) ?> /></td>
-	<td><label for="cform_labelpos2"><img src="img/symbole/label_3.gif" width="60" height="22" alt="" /></label></td>
+	<td><label for="cform_labelpos2"><img src="img/symbole/label_2.gif" width="60" height="22" alt="" /></label></td>
 	</tr>
 </table></td>
 </tr>

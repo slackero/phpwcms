@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
 
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -87,10 +87,6 @@ if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strp
 	}
 }
 
-if(!empty($phpwcms['Bad_Behavior'])) {
-	require PHPWCMS_ROOT.'/include/inc_ext/bad-behavior/bad-behavior-phpwcms.php';
-}
-
 $phpwcms["templates"]    = TEMPLATE_PATH;
 $content['page_start']   = sprintf(PHPWCMS_DOCTYPE, str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG ) . ' id="'.str_replace(array('.','/'), '-', PHPWCMS_HOST).'"');
 $content['page_start']  .= '<!--
@@ -120,20 +116,8 @@ if(count($block['css'])) {
 
 $content['page_start'] .= $block["htmlhead"];
 
-if($phpwcms['USER_AGENT']['agent'] == 'IE' && version_compare($phpwcms['USER_AGENT']['version'], '9.0', '<')) {
-	if(empty($phpwcms['IE7-js'])) {
-		if(!empty($phpwcms['IE_htc_hover'])) {
-			$content['page_start'] .= '  <!--[if lte IE 7]><style type="text/css">body{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/csshover3.htc");}</style><![endif]-->'.LF;
-		}
-		if(!empty($phpwcms['IE_htc_png'])) {
-			$content['page_start'] .= '  <!--[if lt IE 7]>'.LF;
-			$content['page_start'] .= '	<script type="text/javascript" src="'.TEMPLATE_PATH.'inc_css/specific/iepngfix_tilebg.js"></script>'.LF;
-			$content['page_start'] .= '	<style type="text/css">img,a,div,input,.pngfix{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/iepngfix.htc");}</style>'.LF;
-			$content['page_start'] .= '  <![endif]-->'.LF;
-		}
-	} else {
-		$content['page_start'] .= '  <!--[if lt IE 9]><script type="text/javascript" src="'.TEMPLATE_PATH.'lib/ie7-js/IE9.js"></script><![endif]-->'.LF;
-	}
+if($phpwcms['USER_AGENT']['agent'] == 'IE' && !empty($phpwcms['IE7-js']) && version_compare($phpwcms['USER_AGENT']['version'], '9.0', '<')) {
+	$content['page_start'] .= '  <!--[if lt IE 9]><script type="text/javascript" src="'.TEMPLATE_PATH.'lib/ie7-js/IE9.js"></script><![endif]-->'.LF;
 }
 
 $content['page_start'] .= '</head>'.LF;
@@ -192,8 +176,7 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 	
 	$phpwcms['output_function'] = array_intersect($phpwcms['output_function_filter'], $phpwcms['output_function']);
 
-	$content = ob_get_contents();
-	ob_end_clean();
+	$content = ob_get_clean();
 
 	$sections = '';
 

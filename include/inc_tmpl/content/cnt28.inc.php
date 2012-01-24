@@ -2,7 +2,7 @@
 /*************************************************************************************
    Copyright notice
    
-   (c) 2002-2011 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
  
    This script is part of PHPWCMS. The PHPWCMS web content management system is
    free software; you can redistribute it and/or modify it under the terms of
@@ -57,6 +57,9 @@ if(!isset($content['felogin']['felogin_reminder_subject'])) {
 }
 if(!isset($content['felogin']['felogin_reminder_body'])) {
 	$content['felogin']['felogin_reminder_body']	= '';
+}
+if(!isset($content['felogin']['felogin_profile_manage_redirect'])) {
+	$content['felogin']['felogin_profile_manage_redirect']	= '';
 }
 
 
@@ -122,12 +125,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<td colspan="2" class="inlineCheckbox"><input type="checkbox" name="profile_registration" id="profile_registration" value="1"<?php echo is_checked(1, $content['felogin']['felogin_profile_registration']); ?> />
 		<label for="profile_registration"><?php echo $BL['be_check_feuser_registration'] ?></label></td>
 	  </tr>
-	 	<tr>
+	 <tr>
 		<td align="right" class="chatlist">&nbsp;</td>
 		<td colspan="2" class="inlineCheckbox"><input type="checkbox" name="profile_manage" id="profile_manage" value="1"<?php echo is_checked(1, $content['felogin']['felogin_profile_manage']); ?> />
 		<label for="profile_manage"><?php echo $BL['be_check_feuser_manage'] ?></label></td>
 	  </tr>
-
+	<tr>
+		<td align="right" class="chatlist"><?php //echo $BL['be_article_aredirect']: ?>&nbsp;</td>
+		<td><input name="profile_manage_redirect" type="text" class="f11b width150" id="profile_manage_redirect" size="10" value="<?php echo html_specialchars($content['felogin']['felogin_profile_manage_redirect']); ?>" /></td>
+		<td class="f10">&nbsp;<?php 
+			echo $BL['be_alias'], ', aid=ID', ', id=ID' ?></td>
+	</tr>
 	
 	</table></td>
 </tr>

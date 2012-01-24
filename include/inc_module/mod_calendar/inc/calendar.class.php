@@ -181,7 +181,7 @@ class phpwcmsCalendar {
 			if(strtoupper($match['date_start']) == 'TODAY') {
 				$this->date_start =  mktime(0, 0, 0, $this->current_date['mon'], $this->current_date['mday'], $this->current_date['year']);
 			} else {
-				$match['date_start'] = strtotime($match['date_start']);
+				$match['date_start'] = phpwcms_strtotime($match['date_start']);
 				if($match['date_start']) {
 					$this->date_start = $match['date_start'];
 				}
@@ -194,7 +194,7 @@ class phpwcmsCalendar {
 			} elseif(strtoupper($match['date_end']) == 'TODAY') {
 				$this->date_end =  mktime(23, 59, 59, $this->current_date['mon'], $this->current_date['mday'], $this->current_date['year']);
 			} else {
-				$match['date_end'] = strtotime($match['date_end']);
+				$match['date_end'] = phpwcms_strtotime($match['date_end']);
 				if($match['date_end']) {
 					$this->date_end = $match['date_end'];
 				}
