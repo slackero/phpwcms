@@ -36,7 +36,7 @@ $crow["acontent_image"]	= empty($crow["acontent_image"]) ? '' : explode(":", $cr
 
 if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template'])) {
 
-	$crow["acontent_form"]['faq_template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template']);
+	$crow["acontent_form"]['faq_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template']) );
 
 } else {
 	$crow["acontent_form"]['faq_template'] = '<div class="phpwcmsFAQ">
@@ -52,32 +52,6 @@ if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLAT
 	[FAQ_ANSWER]<p>{FAQ_ANSWER}</p>[/FAQ_ANSWER]
 </div>';
 }
-
-/*
-$thumb_image = get_cached_image(
-					array(	"target_ext"	=>	$image[3],
-							"image_name"	=>	$image[2] . '.' . $image[3],
-							"max_width"		=>	$image[4],
-							"max_height"	=>	$image[5],
-							"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"])
-       					  )
-					);
-					
-if($image[8]) {
-	
-	$zoominfo = get_cached_image(
-					array(	"target_ext"	=>	$image[3],
-							"image_name"	=>	$image[2] . '.' . $image[3],
-							"max_width"		=>	$phpwcms["img_prev_width"],
-							"max_height"	=>	$phpwcms["img_prev_height"],
-							"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
-       					  )
-					);
-		
-	if($zoominfo == false) $image[8] = 0;
-
-}
-*/
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8
 // dbid:filename:hash:extension:width:height:caption:position:zoom

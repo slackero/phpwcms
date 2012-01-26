@@ -3723,9 +3723,9 @@ function set_meta($name='', $content='', $http_equiv=FALSE) {
  * and return ID of the level or 0 if level is not set
  */
 function replace_level_id($match) {
-	$level_id = intval($match[1]);
-	if(isset($GLOBALS['LEVEL_ID'][ $level_id ])) {
-		return $GLOBALS['LEVEL_ID'][ $level_id ];
+	$level = intval($match[1]);
+	if(isset($GLOBALS['LEVEL_ID'][ $level ])) {
+		return $GLOBALS['LEVEL_ID'][ $level ];
 	}
 	return 0;
 }
@@ -3845,6 +3845,129 @@ function get_structurelevel_single_article_alias($article_cid=0) {
 	}
 	
 	return '';
+}
+
+/**
+ * Parse and render text for device specific replacement tags
+ *
+ *
+ * @param	string
+ * @return	string
+ */
+function render_device($string) {
+
+	if(empty($string)) {
+		return '';
+	}
+
+	if(empty($GLOBALS['phpwcms']['render_device']) || strpos($string, '<!--if:') === false) {
+		return $string;
+	}
+	
+	preg_match_all('/<!--if:(.+?)-->(.*?)<!--\/if-->/s', $string, $matches);
+
+	if(!isset($matches[0][0])) {
+		return $string;		
+	}
+	
+	// get agent information
+	$user_agent = phpwcms_getUserAgent();
+	
+	// Test against
+
+	foreach($matches[1] as $match) {
+		
+		$validity	= array();
+		$values		= explode(';', strtolower($match));
+		
+		// parameters (AND)
+		foreach($values as $check) {
+			
+			// values (OR)
+			$check	= explode(':', trim($check));
+			$param	= trim($check[0]);
+			$value	= isset($check[1]) ? explode(',', trim($check[1])) : array();
+						
+			// mobile
+			if($param == 'mobile') {
+			
+				$validity[] = $user_agent['mobile'] ? 1 : 0;
+			
+			} elseif($param == 'desktop') {
+			
+				$validity[] = $user_agent['mobile'] ? 0 : 1;
+			
+			} elseif($param == 'platform') {
+			
+				// WinPhone, WinCE, Win, iOS, Mac, GoogleTV, Android, 
+				// BlackBerry, WebOS, Linux, Unix, Symbian, Other
+				$validity[] = in_array(strtolower($user_agent['platform']), $value) ? 1 : 0;
+			
+			} elseif($param == 'device') {
+			
+				// Default, Other, Smartphone, Tablet, Desktop, TV
+				$validity[] = in_array(strtolower($user_agent['device']), $value) ? 1 : 0;
+			
+			} elseif($param == 'browser') {
+				
+				// Other, Firefox, Chrome, Safari, IE, IEMobile, Opera, Mozilla
+				$validity[] = in_array(strtolower($user_agent['agent']), $value) ? 1 : 0;
+				
+			} elseif($param == 'engine') {
+				
+				// Gecko, Other, WebKit, Opera, KHTML, 
+				$validity[] = in_array(strtolower($user_agent['engine']), $value) ? 1 : 0;
+				
+			} elseif($param == 'version') {
+				
+				// Only first value will be used for comparison
+				// >Version, <Version, =Version, <=Version, >=Version
+				if(preg_match('/^([<>=]+)(\d+)$/', current($value), $value)) {
+					
+					$compare	= $value[1];
+					$value		= intval($value[2]);				
+					if($compare == '=' && $user_agent['version'] == $value) {
+						$validity[] = 1;
+					} elseif($compare == '<' && $user_agent['version'] < $value) {
+						$validity[] = 1;
+					} elseif($compare == '>' && $user_agent['version'] > $value) {
+							$validity[] = 1;
+					} elseif($compare == '<=' && $user_agent['version'] <= $value) {
+						$validity[] = 1;
+					} elseif($compare == '>=' && $user_agent['version'] >= $value) {
+						$validity[] = 1;
+					} else {
+						$validity[] = 0;			
+					}
+					
+				} else {
+					$validity[] = 0;					
+				}
+				
+			}
+			
+		}
+		
+		$match = preg_quote($match);
+		if(array_sum($validity) == count($values)) {
+			// Valid – delete the !if and !if:default
+			$string	= preg_replace(
+				array('/<!--if:'.$match.'-->(.*?)<!--\/if-->/s', '/<!--!if:'.$match.'-->.*?<!--\/!if-->/s', '/<!--!if:default-->.*?<!--\/!if-->/s'),
+				array('$1', '', ''),
+				$string
+			);
+		} else {
+			// Invalid – keep the !if and !if:default
+			$string	= preg_replace(
+				array('/<!--if:'.$match.'-->.*?<!--\/if-->/s', '/<!--!if:'.$match.'-->(.*?)<!--\/!if-->/s', '/<!--!if:default-->(.*?)<!--\/!if-->/s'),
+				array('', '$1', '$1'),
+				$string
+			);
+		}
+		
+	}
+
+	return $string;
 }
 
 ?>

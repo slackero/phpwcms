@@ -42,11 +42,11 @@ if($crow["acontent_text"]) {
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/code.tmpl')) {
 
-	$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/code.tmpl');
+	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/code.tmpl') );
 	
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/code/'.$crow["acontent_template"])) {
 
-	$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/code/'.$crow["acontent_template"]);
+	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/code/'.$crow["acontent_template"]) );
 
 } else {
 

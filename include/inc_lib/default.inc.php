@@ -486,104 +486,188 @@ function getRemoteIP() {
 	return $IP;
 }
 
-// Get user agent informations, based on concepts of OpenAds 2.0
-// Copyright (c) 2000-2007 by the OpenAds developers
+// Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
 function phpwcms_getUserAgent($USER_AGENT='') {
 	
-	if(isset($GLOBALS['phpwcms']['USER_AGENT'])) {
-		return $GLOBALS['phpwcms']['USER_AGENT'];
+	if(empty($USER_AGENT)) {
+		$USER_AGENT	= isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+		$index		= 'USER_AGENT';
+	} else {
+		$index		= 'USER_AGENT_'.md5($USER_AGENT);
 	}
 	
-	$USER_AGENT = empty($USER_AGENT) && isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : $USER_AGENT;
+	if(isset($GLOBALS['phpwcms'][$index])) {
+		return $GLOBALS['phpwcms'][$index];
+	}
 
 	if(empty($USER_AGENT)) {
-		$GLOBALS['phpwcms']['USER_AGENT'] = array(
-			'agent' => 'Other',
-			'version' => 0,
-			'platform' => 'Other',
-			'mobile' => 0,
-			'bot' => 0
+		return $GLOBALS['phpwcms'][$index] = array(
+			'agent'		=> 'Other',
+			'version'	=> 0,
+			'platform'	=> 'Other',
+			'mobile'	=> 0,
+			'device'	=> 'Default',
+			'bot'		=> 0,
+			'engine'	=> 'Other'
 		);
-		return $GLOBALS['phpwcms']['USER_AGENT'];
 	}
+	
+	$mobile		= 0;
+	$bot		= 0;
+	$device		= 'Other';
+	$ver		= 0;
+	$agent		= 'Other';
+	$platform	= 'Other';
+	$engine		= 'Other';
 
-	if(preg_match('#MSIE ([0-9].[0-9]{1,2})(.*Opera ([0-9].[0-9]{1,2}))?#', $USER_AGENT, $log_version)) {
+	if(preg_match('#MSIE ([0-9]+)(.*Opera ([0-9]+))?#', $USER_AGENT, $log_version)) {
 		if(isset($log_version[3])) {
-			$ver = $log_version[3];
-			$agent = 'Opera';
+			$ver	= $log_version[3];
+			$agent	= 'Opera';
+			$engine	= 'Opera';
 		} else {
-			$ver = $log_version[1];
-			$agent = 'IE';
+			$ver	= $log_version[1];
+			$agent	= 'IE';
+			$engine	= 'IE';
 		}
-	} elseif(preg_match('#Mozilla.*Firefox\/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Firefox';
-	} elseif(preg_match('#Mozilla.*Chrome\/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Chrome';
- 	} elseif(strstr($USER_AGENT, 'Safari') && preg_match('#Safari/([0-9]{1,4})#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Safari';
-	} elseif(preg_match('#Mozilla/([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Mozilla';
-	} elseif(preg_match('#Opera.* Version\/([0-9]{1,2}.[0-9]{1,2})#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Opera';
-	} elseif(preg_match('#Opera[/ ]([0-9].[0-9]{1,2})#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Opera';
-	} elseif(strstr($USER_AGENT, 'Konqueror') && preg_match('#Konqueror/([0-9])#', $USER_AGENT, $log_version)) {
-		$ver = $log_version[1];
-		$agent = 'Konqueror';
-	} else {
-		$ver = 0;
-		$agent = 'Other';
+	} elseif(preg_match('#Mozilla.*Firefox\/([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Firefox';
+		$engine	= 'Gecko';
+	} elseif(preg_match('#Mozilla.*Chrome\/([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Chrome';
+		$engine	= 'WebKit';
+ 	} elseif(strstr($USER_AGENT, 'Safari') && preg_match('#Safari/([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Safari';
+		$engine	= 'WebKit';
+	} elseif(preg_match('#Mozilla/([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Mozilla';
+		$engine	= 'Gecko';
+	} elseif(preg_match('#Opera.* Version\/([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Opera';
+		$engine	= 'Opera';
+	} elseif(preg_match('#Opera[/ ]([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Opera';
+		$engine	= 'Opera';
+	} elseif(strstr($USER_AGENT, 'Konqueror') && preg_match('#Konqueror/([0-9]+)#', $USER_AGENT, $log_version)) {
+		$ver	= $log_version[1];
+		$agent	= 'Konqueror';
+		$engine	= 'KHTML';
 	}
 	
-	$mobile = 0;
-	$bot = 0;
+	$USER_AGENT = strtolower($USER_AGENT);
 	
-	if(strpos($USER_AGENT, 'Win') !== false) {
-		$platform = 'Win';
-	} elseif(strpos($USER_AGENT, 'iPhone') !== false || strpos($USER_AGENT, 'iPod') !== false || strpos($USER_AGENT, 'iPad') !== false) {
-		$platform = 'iOS';
-		$mobile = 1;
-	} elseif(strpos($USER_AGENT, 'Mac') !== false) {
-		$platform = 'Mac';
-	} elseif(strpos($USER_AGENT, 'Android') !== false) {
-		$platform = 'Android';
-		$mobile = 1;
-	} elseif(strpos($USER_AGENT, 'Linux') !== false) {
-		$platform = 'Linux';
-	} elseif(strpos($USER_AGENT, 'Unix') !== false) {
-		$platform = 'Unix';
-	} else {
-		$platform = 'Other';
+	if(strpos($USER_AGENT, 'windows phone os') !== false) {
+		$agent		= 'IEMobile';
+		$platform	= 'WinPhone';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+	} elseif(strpos($USER_AGENT, 'windows ce') !== false) {
+		$platform	= 'WinCE';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+	} elseif(strpos($USER_AGENT, 'win') !== false) {
+		$platform	= 'Win';
+		$device		= 'Desktop';
+	} elseif(strpos($USER_AGENT, 'iphone') !== false) {
+		$platform	= 'iOS';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+	} elseif(strpos($USER_AGENT, 'ipad') !== false) {
+		$platform	= 'iOS';
+		$mobile		= 1;
+		$device		= 'Tablet';
+	} elseif(strpos($USER_AGENT, 'ipod') !== false) {
+		$platform	= 'iOS';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+	} elseif(strpos($USER_AGENT, 'mac') !== false) {
+		$platform	= 'Mac';
+		$device		= 'Desktop';
+	} elseif(strpos($USER_AGENT, 'googletv') !== false) {
+		$platform	= 'GoogleTV';
+		$mobile		= 1;
+		$device		= 'TV';
+		$engine		= 'WebKit';
+	} elseif(preg_match('/android.*tablet/', $USER_AGENT)) {
+		$platform	= 'Android';
+		$mobile		= 1;
+		$device		= 'Tablet';
+		$engine		= 'Webkit';
+	} elseif(preg_match('/android.*mobile/', $USER_AGENT)) {
+		$platform	= 'Android';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+		$engine		= 'Webkit';
+	} elseif(preg_match('/android(?!.*mobile)/', $USER_AGENT)) {
+		$platform	= 'Android';
+		$mobile		= 1;
+		$device		= 'Tablet';
+		$engine		= 'Webkit';
+	} elseif(strpos($USER_AGENT, 'rim tablet') !== false) {
+		$platform	= 'Blackberry';
+		$mobile		= 1;
+		$device		= 'Tablet';
+		$engine		= 'Webkit';
+	} elseif(strpos($USER_AGENT, 'blackberry') !== false) {
+		$platform	= 'Blackberry';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+		$engine		= 'Webkit';
+	} elseif(strpos($USER_AGENT, 'webos') !== false) {
+	    $platform	= 'WebOS';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+		$engine		= 'Webkit';
+	} elseif(strpos($USER_AGENT, 'kindle') !== false) {
+		$platform	= 'Android';
+		$mobile		= 1;
+		$device		= 'Tablet';
+		$engine		= 'Webkit';
+	} elseif(strpos($USER_AGENT, 'silk') !== false) {
+		$platform	= 'Linux';
+		$mobile		= 1;
+		$device		= 'Tablet';
+		$engine		= 'Webkit';
+	} elseif(strpos($USER_AGENT, 'linux') !== false) {
+		$platform	= 'Linux';
+	} elseif(strpos($USER_AGENT, 'unix') !== false) {
+		$platform	= 'Unix';
+	} elseif(strpos($USER_AGENT, 'symbian') !== false) {
+	    $platform	= 'Symbian';
+		$mobile		= 1;
+		$device		= 'Smartphone';
+	} elseif($USER_AGENT) {
 		
-		if($USER_AGENT) {
+		if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
+			$mobile	= 1;
+		}
 		
-			if(empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
-				$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
-			}
-			
-			if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/i', $USER_AGENT, $match_bot)) {
-				$agent = $match_bot[1];
-				$bot = 1;
-			}
+		if(empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
+			$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+		}
 		
+		if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/', $USER_AGENT, $match_bot)) {
+			$agent	= $match_bot[1];
+			$bot	= 1;
+			$device	= 'Bot';
 		}
 	}
 		
-	$GLOBALS['phpwcms']['USER_AGENT'] = array(
-		'agent' => $agent,
-		'version' => $ver,
-		'platform' => $platform,
-		'mobile' => $mobile,
-		'bot' => $bot
+	return $GLOBALS['phpwcms'][$index] = array(
+		'agent'		=> $agent,
+		'version'	=> intval($ver),
+		'platform'	=> $platform,
+		'mobile'	=> $mobile,
+		'device'	=> $device,
+		'bot'		=> $bot,
+		'engine'	=> $engine
 	);
-	
-	return $GLOBALS['phpwcms']['USER_AGENT'];
 }
 
 /**

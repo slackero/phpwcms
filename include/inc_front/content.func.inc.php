@@ -618,6 +618,9 @@ if(strpos($content['all'], '_LIST_MODE')) {
 	$content['all'] = str_replace(array('<!--ELSE_LIST_MODE_START//-->', '<!--ELSE_LIST_MODE_END//-->', '<!--IF_LIST_MODE_START//-->', '<!--IF_LIST_MODE_END//-->'), '', $content['all']);
 }
 
+// Initial Render Device
+$content['all'] = render_device($content['all']);
+
 // search for specific article ID and or category ID and replace it
 $content['all'] = str_replace('{CURRENT_ARTICLEID}', $aktion[1], $content['all']);
 $content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all']);
@@ -823,6 +826,9 @@ if(count($phpwcms['modules_fe_render'])) {
 		include_once($value);
 	}
 }
+
+// Final Render Device
+$content['all'] = render_device($content['all']);
 
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {

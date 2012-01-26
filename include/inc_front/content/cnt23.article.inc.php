@@ -46,7 +46,7 @@ if(isset($cnt_form['formtracking_off']) && $cnt_form['formtracking_off'] == 1) {
 
 $form_error_text = '';
 
-$form_cnt = $cnt_form['labelpos']== 2 ? $cnt_form['customform'] : '';
+$form_cnt = $cnt_form['labelpos']== 2 ? render_device( $cnt_form['customform'] ) : '';
 
 // set sender email address
 if(empty($cnt_form['sendertype']) || $cnt_form['sendertype'] == 'system') {

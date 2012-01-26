@@ -52,9 +52,9 @@ $guestbook['image_dir']	 = PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'guestbook_'.$guestboo
 
 // getting guestbook template
 if(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/guestbook/'.$guestbook['template'])) {
-	$guestbook['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/guestbook/'.$guestbook['template']);
+	$guestbook['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/guestbook/'.$guestbook['template']) );
 } else {
-	$guestbook['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/guestbook.tmpl');
+	$guestbook['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/guestbook.tmpl') );
 }
 
 

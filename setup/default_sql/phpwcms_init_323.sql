@@ -220,6 +220,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_archive` int(1) NOT NULL default '0',
   `acat_class` varchar(255) NOT NULL default '',
   `acat_keywords` varchar(255) NOT NULL default '',
+  `acat_cpdefault` int(10) UNSIGNED NOT NULL default '0',
   PRIMARY KEY  (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),
@@ -346,18 +347,20 @@ CREATE TABLE `phpwcms_calendar` (
 --
 
 CREATE TABLE `phpwcms_categories` (
-  `cat_id` int(10) unsigned NOT NULL auto_increment,
-  `cat_type` varchar(255) NOT NULL default '',
-  `cat_pid` int(11) NOT NULL default '0',
-  `cat_status` int(1) NOT NULL default '0',
-  `cat_createdate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `cat_changedate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `cat_name` varchar(255) NOT NULL default '',
+  `cat_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_type` varchar(255) NOT NULL DEFAULT '',
+  `cat_pid` int(11) NOT NULL DEFAULT '0',
+  `cat_status` int(1) NOT NULL DEFAULT '0',
+  `cat_createdate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cat_changedate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_info` text NOT NULL,
-  PRIMARY KEY  (`cat_id`),
+  `cat_sort` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`cat_id`),
   KEY `cat_type` (`cat_type`,`cat_status`),
-  KEY `cat_pid` (`cat_pid`)
-) TYPE=MyISAM ;
+  KEY `cat_pid` (`cat_pid`),
+  KEY `cat_sort` (`cat_sort`)
+) TYPE=MyISAM;
 
 -- --------------------------------------------------------
 

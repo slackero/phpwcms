@@ -38,11 +38,11 @@ $image	= @unserialize($crow["acontent_form"]);
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/imagespecial.tmpl')) {
 
-	$image['template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/imagespecial.tmpl');
+	$image['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/imagespecial.tmpl') );
 	
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/imagespecial/'.$crow["acontent_template"])) {
 
-	$image['template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/imagespecial/'.$crow["acontent_template"]);
+	$image['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/imagespecial/'.$crow["acontent_template"]) );
 
 } else {
 

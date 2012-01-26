@@ -59,7 +59,7 @@ if($map['result'] = mysql_query($map['sql'], $db)) {
 	mysql_free_result($map['result']);
 }
 
-$map['template']		= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/map/'.$map['template']);
+$map['template']		= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/map/'.$map['template']) );
 $map['tmpl_var']		= get_tmpl_section('VAR', $map['template']);
 $map['tmpl_content']	= get_tmpl_section('CONTENT', $map['template']);
 $map['tmpl_location']	= get_tmpl_section('LOCATION', $map['template']);

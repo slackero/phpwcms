@@ -32,7 +32,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type Reference
 
 $content['reference'] = unserialize($crow["acontent_form"]);
-$content['reference']["tmpl"] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/reference/'.$content['reference']["tmpl"]);
+$content['reference']["tmpl"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/reference/'.$content['reference']["tmpl"]) );
 if(!$content['reference']["tmpl"]) {
 
 	$content['reference']["tmpl"] = '<table width="100%"  border="0" cellspacing="0" cellpadding="0">

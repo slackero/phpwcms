@@ -95,11 +95,11 @@ if(isset($fmp_data['fmp_template'])) {
 	// read template
 	if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/flashplayer.tmpl')) {
 	
-		$fmp_data['fmp_template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/flashplayer.tmpl');
+		$fmp_data['fmp_template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/flashplayer.tmpl') );
 		
 	} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/flashplayer/'.$crow["acontent_template"])) {
 	
-		$fmp_data['fmp_template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/flashplayer/'.$crow["acontent_template"]);
+		$fmp_data['fmp_template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/flashplayer/'.$crow["acontent_template"]) );
 	
 	} else {
 	

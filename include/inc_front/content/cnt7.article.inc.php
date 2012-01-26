@@ -99,11 +99,11 @@ if($content['files_sql']) {
 		// get filelist template
 		if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl')) {
 
-			$crow["acontent_template"]	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl');
+			$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl') );
 	
 		} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"])) {
 			
-			$crow["acontent_template"] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"]);
+			$crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"]) );
 			
 		} else {
 			

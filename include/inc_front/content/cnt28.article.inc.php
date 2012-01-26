@@ -36,7 +36,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
 	$_loginData						= @unserialize($crow["acontent_form"]);
 			
-	$_loginData['template']			= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/felogin/'.$crow["acontent_template"]);
+	$_loginData['template']			= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/felogin/'.$crow["acontent_template"]) );
 
 	$_loginData['form']				= get_tmpl_section('LOGIN_FORM', $_loginData['template']);
 	$_loginData['logged_in']		= get_tmpl_section('LOGIN_IS', $_loginData['template']);

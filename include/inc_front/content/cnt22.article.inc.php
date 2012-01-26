@@ -41,9 +41,9 @@ if( !empty($crow["acontent_form"]) && is_string($crow["acontent_form"]) ) {
 if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	
 	if( empty($rssfeed['template']) || !is_file(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']) ) {
-		$rssfeed['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/rssfeed.tmpl');
+		$rssfeed['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/rssfeed.tmpl') );
 	} else {
-		$rssfeed['template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']);
+		$rssfeed['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']) );
 	}
 	if(!$rssfeed['template']) {
 

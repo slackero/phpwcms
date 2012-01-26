@@ -31,16 +31,14 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $news	= @unserialize($crow["acontent_form"]);
 
-//$CNT_TMP .= dumpVar($news, 2);
-
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/news.tmpl')) {
 
-	$news['template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/news.tmpl');
+	$news['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/news.tmpl') );
 	
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/news/'.$crow["acontent_template"])) {
 
-	$news['template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/news/'.$crow["acontent_template"]);
+	$news['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/news/'.$crow["acontent_template"]) );
 
 } else {
 

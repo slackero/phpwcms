@@ -46,11 +46,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 	if(!empty($content['alink']['alink_template']) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/'.$content['alink']['alink_template'])) {
 
-		$content['alink']['alink_template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/'.$content['alink']['alink_template']);
+		$content['alink']['alink_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/'.$content['alink']['alink_template']) );
 
 	} elseif(is_file(PHPWCMS_TEMPLATE.'inc_default/teaser.tmpl')) {
 	
-		$content['alink']['alink_template'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/teaser.tmpl');
+		$content['alink']['alink_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/teaser.tmpl') );
 
 	} else {
 	

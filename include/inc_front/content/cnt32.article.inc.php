@@ -37,11 +37,11 @@ unset($tabs['tabs']['tabwysiwygoff']);
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/tabs.tmpl')) {
 
-	$tabs['template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/tabs.tmpl');
+	$tabs['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/tabs.tmpl') );
 	
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/tabs/'.$crow["acontent_template"])) {
 
-	$tabs['template']	= @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/tabs/'.$crow["acontent_template"]);
+	$tabs['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/tabs/'.$crow["acontent_template"]) );
 
 } else {
 
