@@ -1669,7 +1669,6 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			
 	}
 
-
 	// send mail, include phpmailer class
 	require_once ('include/inc_ext/phpmailer/class.phpmailer.php');
 	
@@ -1889,7 +1888,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
 					
 			if($cnt_form["onsuccess_redirect"] === 0) {
-				$CNT_TMP .= plain_htmlencode($cnt_form["onsuccess"]);
+				$CNT_TMP .= plaintext_htmlencode($cnt_form["onsuccess"]);
 			} else {
 				$CNT_TMP .= $cnt_form["onsuccess"];
 			}
@@ -1928,7 +1927,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		if($cnt_form["onerror"]) {
 			
 			$form_error_text  = '<div class="form-error on-send">' . LF;
-			$form_error_text .= $cnt_form["onerror_redirect"] === 0 ? plain_htmlencode($cnt_form["onerror"]) : $cnt_form["onerror"];
+			$form_error_text .= $cnt_form["onerror_redirect"] === 0 ? plaintext_htmlencode($cnt_form["onerror"]) : $cnt_form["onerror"];
 			$form_error_text .= LF . '</div>' . LF;
 	
 		}
@@ -1963,15 +1962,15 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 
 } else {
-
+	
 	// form was not send yet
 	// display startup text	
 
 	if(!empty($cnt_form['startup'])) {
-
+		
 		if(empty($cnt_form['startup_html'])) {
 		
-			$CNT_TMP .= LF . '<div class="form-intro">' . LF . plain_htmlencode($cnt_form['startup']) . LF . '</div>' . LF;
+			$CNT_TMP .= LF . '<div class="form-intro">' . LF . plaintext_htmlencode($cnt_form['startup']) . LF . '</div>' . LF;
 			
 		} else {
 
@@ -1980,8 +1979,8 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		}
 
 	}
-}
 
+}
 
 if($form_cnt) {
 	$form_cnt = str_replace('###RESET###', '', $form_cnt);
