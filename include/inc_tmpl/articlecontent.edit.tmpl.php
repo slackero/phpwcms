@@ -333,7 +333,7 @@ if(isset($result[0]['template_var'])) {
 		  <tr>
 		  	<td><input name="ctab_title" type="text" id="ctab_title" class="f11b width225" value="<?php echo html_specialchars($content["tab_title"]) ?>" size="40" maxlength="100" /></td>
 			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
-			<td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="3" onkeyup="if(!parseInt(this.value))this.value='';" /></td>
+			<td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="4" onkeyup="if(!parseInt(this.value))this.value='';" /></td>
 		  </tr>
 		</table></td>
 	</tr>

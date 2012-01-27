@@ -180,9 +180,9 @@ if(isset($img_thumbs) && $img_thumbs) {
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td><input name="cecard_width" type="text" class="f11b" id="cecard_width" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content["ecard"]["width"] ?>"></td>
+        <td><input name="cecard_width" type="text" class="f11b" id="cecard_width" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content["ecard"]["width"] ?>"></td>
         <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
-        <td><input name="cecard_height" type="text" class="f11b" id="cecard_height" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content["ecard"]["height"] ?>"></td>
+        <td><input name="cecard_height" type="text" class="f11b" id="cecard_height" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content["ecard"]["height"] ?>"></td>
         <td class="chatlist">&nbsp;&nbsp;px</td>
       </tr>
     </table></td>

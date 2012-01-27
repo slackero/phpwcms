@@ -142,9 +142,9 @@ if($img_thumbs)
   <td valign="top">
    <table border="0" cellpadding="0" cellspacing="0" summary="">
 	 <tr>
-		<td><input name="cpoll_width" type="text" class="f11b" id="cpoll_width" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>"></td>
+		<td><input name="cpoll_width" type="text" class="f11b" id="cpoll_width" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>"></td>
 		<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
-		<td><input name="cpoll_height" type="text" class="f11b" id="cpoll_height" style="width: 50px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['poll_list']['height'] ?>"></td>
+		<td><input name="cpoll_height" type="text" class="f11b" id="cpoll_height" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['poll_list']['height'] ?>"></td>
 		<td class="chatlist">&nbsp;px&nbsp;&nbsp;</td>
 		<td bgcolor="#E7E8EB"><input name="cpoll_zoom" type="checkbox" id="cpoll_zoom" value="1" <?php is_checked(1, $content['poll_list']['zoom']); ?>></td>
 	  <td bgcolor="#E7E8EB" class="v10">&nbsp;<?php echo $BL['be_cnt_enlarge'] ?>&nbsp;</td>
