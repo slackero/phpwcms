@@ -30,7 +30,7 @@ define('PHPWCMS_JSLIB', 'mootools-1.4');
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['mootools.js'])) {
 		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-core-1.4.1-full-nocompat.js');
+			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-core-1.4.x-full-nocompat.js');
 		} else {
 			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'mootools/1.4/mootools-yui-compressed.js');
 		}

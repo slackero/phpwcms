@@ -30,7 +30,7 @@ define('PHPWCMS_JSLIB', 'mootools-1.4-compat');
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['mootools.js'])) {
 		// Google Libraries API does not support compat version of MooTools, so always load from local source 
-		$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-core-1.4.1-full-compat.js');
+		$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-core-1.4.x-full-compat.js');
 	}
 	return TRUE;
 }

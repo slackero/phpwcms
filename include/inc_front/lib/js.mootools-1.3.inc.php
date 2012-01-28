@@ -20,22 +20,9 @@
    This copyright notice MUST APPEAR in all copies of the script!
 *************************************************************************************/
 
-require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.mootools-1.3.default.php');
+// No MooTools 1.3 support any longer, fallback to MooTools 1.4
 
-define('PHPWCMS_JSLIB', 'mootools-1.3');
+require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.mootools-1.4.inc.php');
 
-/**
- * Init Mootools 1.3.x Library without compatibility
- */
-function initJSLib() {
-	if(empty($GLOBALS['block']['custom_htmlhead']['mootools.js'])) {
-		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-core-1.3.2-full-nocompat.js');
-		} else {
-			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'mootools/1.3/mootools-yui-compressed.js');
-		}
-	}
-	return TRUE;
-}
 
 ?>
