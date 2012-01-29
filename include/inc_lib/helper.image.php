@@ -43,9 +43,9 @@ if (!defined('PHPWCMS_ROOT')) {
  * Taken from CodeIgniter and adopted for use in phpwcms.
  *
  * @author		EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @author		Oliver Georgi <oliver@phpwcms.de>
- * @copyright	Copyright (c) 2011, Oliver Georgi (http://phpwcms.de/)
+ * @copyright	Copyright (c) 2012, Oliver Georgi (http://phpwcms.de/)
  */
 class Phpwcms_Image_lib {
 
