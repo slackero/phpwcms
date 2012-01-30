@@ -1,0 +1,19 @@
+<!--FILE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+icon_path 			= "img/icons/"
+icon_name 			= "small_icon_{FILE_EXT}.gif"
+thumbnail			= 0
+thumbnail_width		= 50
+thumbnail_height	= 50
+thumbnail_crop		= 1
+lightbox_init		= 0
+file_size_round		= 1
+file_size_space		= "&nbsp;"
+date_format			= "%d.%m.%y"
+set_locale			= "de_DE@Euro"
+<!--FILE_SETTINGS_END//-->
+<!--FILE_ENTRY_START//-->
+<a href="{FILE_LINK}&amp;target=0"{FILE_TARGET} title="&raquo;{FILE_NAME}&laquo; herunterladen" rel="nofollow" class="download-inline">[FILE_DESCRIPTION]{FILE_DESCRIPTION}[/FILE_DESCRIPTION][FILE_DESCRIPTION_ELSE][FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE][/FILE_DESCRIPTION_ELSE]</a>
+<span class="download-info">({FILE_EXT},&nbsp;{FILE_SIZE})</span>
+<!--FILE_ENTRY_END//-->

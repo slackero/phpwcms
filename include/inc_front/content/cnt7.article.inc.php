@@ -95,11 +95,19 @@ if($content['files_sql']) {
 	}
 
 	if(is_array($content['files_result']) && count($content['files_result'])) {
+		
+		if($crow["acontent_template"] == 'download-inline' && !is_file(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl')) {
+			$crow["acontent_template"] = '';
+		}
 	
 		// get filelist template
 		if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl')) {
 
 			$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl') );
+		
+		} elseif($crow["acontent_template"] == 'download-inline') {
+
+			$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl') );
 	
 		} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"])) {
 			
