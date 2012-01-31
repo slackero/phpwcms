@@ -75,7 +75,10 @@ if(empty($cnt_form["error_class"])) {
 }
 
 // set enctype mode false (no upload)
-$cnt_form['is_enctype'] = false;
+$cnt_form['is_enctype']			= false;
+
+// use default behavior for send email copy to
+$cnt_form['option_email_copy']	= NULL;
 
 /*
  * Browse form fields
@@ -686,9 +689,19 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								$form_field .= '</select>';
 								break;
 
-			case 'checkbox'	:	/*
-								 * Checkbox
+
+								/*
+								 * Checkbox and Checkbox (send email copy on/off)
 								 */
+			case 'checkboxcopy':
+			case 'checkbox':	
+								if($cnt_form["fields"][$key]['type'] == 'checkboxcopy') {
+									$checkbox_copy					= true;
+									$cnt_form['option_email_copy']	= false;
+								} else {
+									$checkbox_copy					= false;
+								}
+			
 								if($POST_DO && ($cnt_form["fields"][$key]['required'] || isset($_POST[$POST_name]) ) ) {
 									if(isset($_POST[$POST_name]) && is_array($_POST[$POST_name])) {
 										$POST_val[$POST_name] = array_map('combined_POST_cleaning', $_POST[$POST_name]);
@@ -697,7 +710,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											$POST_val[$POST_name] = '';
 										}
 									} else {
-										$POST_val[$POST_name] = isset($_POST[$POST_name]) ? remove_unsecure_rptags(clean_slweg($_POST[$POST_name])) : '';
+										
+										if(isset($_POST[$POST_name])) {
+											$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
+											if($checkbox_copy) {
+												$cnt_form['option_email_copy'] = true;
+											}
+										} else {
+											$POST_val[$POST_name] = '';
+										}
 									}
 									if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
@@ -719,7 +740,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								} else {
 									$checkbox_style = '';
 								}
-								if(count($form_value) == 1 || count($form_value) == 0 || !$form_value) {
+								if($checkbox_copy || count($form_value) == 1 || count($form_value) == 0 || !$form_value) {
 									// only 1 checkbox
 									$checkbox_value = is_array($form_value) ? implode('', $form_value) : $form_value;
 									$checkbox_value = trim($checkbox_value);
@@ -1575,7 +1596,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 					$POST_keyval = html_specialchars($POST_keyval);
 				}
 				$cnt_form["onsuccess"] = str_replace('{'. $POST_key . '}', $POST_keyval, $cnt_form["onsuccess"]);
-			
+				$cnt_form["onsuccess"] = render_cnt_template($cnt_form["onsuccess"], 'EMAIL_COPY', empty($cnt_form['sendcopy']) || $cnt_form['option_email_copy'] === false ? '' : html_specialchars($cnt_form["copyto"]));
 			}
 			
 		}
@@ -1612,14 +1633,9 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$cnt_form['template_copy']			= $cnt_form['template'];
 		
 		}
-		
-		// storing in database moved to 2nd POST_ERR if section
-	
 	}
 	
-
 	// get email addresses of recipients and senders
-	
 	$cnt_form["target"]			= convertStringToArray($cnt_form["target"], ';');
 	if(empty($cnt_form["subject"])) {
 		$cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
@@ -1630,10 +1646,14 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	// check for BCC Addresses
 	$cnt_form['cc'] = empty($cnt_form['cc']) ? array() : convertStringToArray($cnt_form['cc'], ';');
 	
-	
 	// first try to send copy message
 	if(!empty($cnt_form['sendcopy']) && !empty($cnt_form["copyto"]) && is_valid_email($cnt_form["copyto"])) {
-		$cnt_form['cc'][]		= $cnt_form["copyto"];
+		
+		// check if user has avoided receiving email copy
+		if($cnt_form['option_email_copy'] !== false) {
+			$cnt_form['cc'][] = $cnt_form["copyto"];
+		}
+		
 		$cnt_form['fromEmail']	= $cnt_form["copyto"];
 	}
 	
@@ -1644,14 +1664,11 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	
 			if(strtolower($cnt_form['fromEmail']) == strtolower($value)) {
 	
-				$POST_ERR[] = 'Sender&#8217;s email must be different from recipient&#8217;s email';
+				$POST_ERR[] = '@@Sender&#8217;s email must be different from recipient&#8217;s email@@';
 				break;	
 			}
-
 		}
-	
 	}
-
 }
 
 // do $POST_ERR test again to handle possible duplicates
@@ -1704,7 +1721,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		$cnt_form["copytoError"] = array();
 
 		foreach($cnt_form['cc'] as $cc_email) {
-		
+	
 			$mail->AddAddress($cc_email);
 		
 			if(!$mail->Send()) {

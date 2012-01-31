@@ -56,7 +56,39 @@ function setFieldValue(el) {
 //-->
 </script>';
 
-
+$BL['be_cnt_field'] = array_merge(array(
+	"text"=>'text (single-line)', 
+	"email"=>'email', 
+	"textarea"=>'text (multi-line)', 
+	"hidden"=>'hidden', 
+	"password"=>'password', 
+	"select"=>'select menu', 
+	"list"=>'list menu', 
+	"checkbox"=>'checkbox', 
+	"checkboxcopy"=>'checkbox (email copy on/off)',
+	"radio"=>'radio button', 
+	"upload"=>'file', 
+	"submit"=>'send button', 
+	"reset"=>'reset button', 
+	"break"=>'break', "breaktext"=>'break text', 
+	"special"=>'text (spezial)',
+	"captchaimg"=>'captcha image', 
+	"captcha"=>'captcha code', 
+	'newsletter'=>'newsletter',
+	'selectemail'=>'select email menu', 
+	'country'=>'select country menu',
+	'mathspam'=>'math spam protect', 
+	'summing'=>'summing', 
+	'subtract'=>'subtract', 
+	'divide'=>'divide', 'multiply'=>'multiply', 
+	'calculation'=>'calculation:',
+	'formtracking_off'=>'disable form tracking', 
+	'checktofrom'=>'email of recipient must be different from sender',
+	'recaptcha'=>'reCAPTCHA',
+	'recaptcha_signapikey'=>'Sign up for a reCAPTCHA API key'), 
+	
+	$BL['be_cnt_field']
+);
 
 if(empty($content['form']) || !is_array($content['form'])) $content['form'] = array();
 
@@ -675,6 +707,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
 			case 'textarea':
 			case 'checkbox':
+			case 'checkboxcopy':
 			case 'list':			// default hide/show
 									if($content['form']["saveprofile"]) {
 										echo ', 4';
@@ -736,6 +769,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<option value="list"'. 		is_selected('list', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['list'].'</option>'.LF;
 		echo '<option value="newsletter"'. 	is_selected('newsletter', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['newsletter'].'</option>'.LF;
 		echo '<option value="checkbox"'. 	is_selected('checkbox', 	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['checkbox'].'</option>'.LF;
+		echo '<option value="checkboxcopy"'.is_selected('checkboxcopy',	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['checkboxcopy'].'</option>'.LF;
 		echo '<option value="radio"'. 		is_selected('radio',		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['radio'].'</option>'.LF;
 		echo '<option value="upload"'. 		is_selected('upload', 		$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['upload'].'</option>'.LF;
 		echo '<option value="recaptcha"'. 	is_selected('recaptcha',	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['recaptcha'].'</option>'.LF;
@@ -859,6 +893,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 	<option value="newsletter"><?php echo $BL['be_cnt_field']['newsletter'] ?></option>
 	<?php	endif;	?>
 	<option value="checkbox"><?php echo $BL['be_cnt_field']['checkbox'] ?></option>
+	<option value="checkboxcopy"><?php echo $BL['be_cnt_field']['checkboxcopy'] ?></option>
 	<option value="radio"><?php echo $BL['be_cnt_field']['radio'] ?></option>
 	<option value="upload"><?php echo $BL['be_cnt_field']['upload'] ?></option>
 	<?php	if(!defined('RECAPTCHA_API_SERVER')):	?>

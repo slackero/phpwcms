@@ -371,6 +371,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['value'] = trim($content['form']["fields"][$field_counter]['value']);
 								break;
 
+			case 'checkboxcopy':
 			case 'checkbox'	:	/*
 								 * Checkbox
 								 */								
