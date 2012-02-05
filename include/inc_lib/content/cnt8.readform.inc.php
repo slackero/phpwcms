@@ -43,6 +43,7 @@ if($content['alink']['alink_type'] > 21) $content['alink']['alink_type'] = 0;
 
 // summary wordlimit
 $content['alink']['alink_wordlimit']	= intval($_POST['calink_wordlimit']);
+$content['alink']['alink_hidesummary']	= empty($_POST['calink_hidesummary']) ? 0 : 1;
 
 // handle teaser for columns
 $content['alink']['alink_columns']		= empty($_POST['calink_columns']) ? 0 : intval($_POST['calink_columns']);

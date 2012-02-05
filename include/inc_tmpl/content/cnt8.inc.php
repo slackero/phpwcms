@@ -67,6 +67,9 @@ if(empty($content['alink']['alink_columns'])) {
 if(empty($content['alink']['alink_categoryalias'])) {
 	$content['alink']['alink_categoryalias'] = 0;
 }
+if(empty($content['alink']['alink_hidesummary'])) {
+	$content['alink']['alink_hidesummary'] = 0;
+}
 
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 
@@ -141,6 +144,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit']; 
 			?>" size="3" maxlength="5" /></td>
 		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?></td>
+		
+		<td>&nbsp;&nbsp;&nbsp;</td>
+		
+		<td><input name="calink_hidesummary" type="checkbox" id="calink_hidesummary" value="1"<?php is_checked(1, $content['alink']['alink_hidesummary']); ?> /></td>
+        <td class="chatlist"><label for="calink_hidesummary">&nbsp;<?php echo $BL['be_article_nosummary'] ?></label></td>
+		
 	</tr>
 	</table>
 	</td>
