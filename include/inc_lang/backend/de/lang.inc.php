@@ -1092,7 +1092,7 @@ $BL['be_cnt_new_recipient']				= 'Neuer Empf&auml;nger';
 
 $BL['be_cnt_newsletter_prepare']		= 'Newsletter aktiv schalten!';
 $BL['be_cnt_queued']					= 'wartend';
-$BL['be_cnt_newsletter_prepare1']		= 'Alle Empfänger werden in die Sende-Warteschlange &uuml;bernommen';
+$BL['be_cnt_newsletter_prepare1']		= 'Alle Empf&auml;nger werden in die Sende-Warteschlange &uuml;bernommen';
 $BL['be_cnt_newsletter_prepare2']		= 'Die Sende-Warteschlange wird aktualisiert&#8230;';
 
 $BL['be_cnt_export']					= 'Export';

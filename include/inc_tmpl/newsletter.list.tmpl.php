@@ -66,15 +66,16 @@ if(empty($_SESSION['list_newsletter_count'])) {
 if(isset($_GET['page'])) {
 	$_SESSION['newsletter_page'] = intval($_GET['page']);
 }
-// start at page 1
-if(empty($_SESSION['newsletter_page']) || $_SESSION['newsletter_page'] < 1) {
-	$_SESSION['newsletter_page'] = 1;
-}
 
 $_newsletter['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0", 'COUNT');
 $_newsletter['pages_total'] = ceil($_newsletter['count_total'] / $_SESSION['list_newsletter_count']);
 if($_SESSION['newsletter_page'] > $_newsletter['pages_total']) {
 	$_SESSION['newsletter_page'] = $_newsletter['pages_total'];
+}
+
+// start at page 1
+if(empty($_SESSION['newsletter_page']) || $_SESSION['newsletter_page'] < 1) {
+	$_SESSION['newsletter_page'] = 1;
 }
 
 ?>
@@ -146,16 +147,16 @@ if($_newsletter['pages_total'] > 1) {
 <?php
 
 	// loop listing available newsletters
-                                 
 	$sql  = "SELECT *, UNIX_TIMESTAMP(newsletter_changed) AS cdate, UNIX_TIMESTAMP(newsletter_lastsending) AS lastsend FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0 ORDER BY newsletter_changed DESC";
 	$sql .= " LIMIT ".(($_SESSION['newsletter_page']-1) * $_SESSION['list_newsletter_count']).','.$_SESSION['list_newsletter_count'];
 	
-	if($result = mysql_query($sql, $db) or die("error while reading newsletter list")) {
+	$result = _dbQuery($sql);
+
+	if(isset($result[0]['newsletter_id'])) {
 		
 		$row_count = 0;
-		while($row = mysql_fetch_array($result)) {
-		
-		//foreach($result as $row) {
+	
+		foreach($result as $row) {
 		
 			$row['newsletter_vars'] = unserialize($row['newsletter_vars']);
 		
@@ -222,7 +223,7 @@ if($_newsletter['pages_total'] > 1) {
 		
 	} else {
 	
-		echo '<tr><td colspan="4">&nbsp;no newsletter available</td></tr>';
+		echo '<tr><td colspan="6">&nbsp;no newsletter available</td></tr>';
 	
 	}
 		
