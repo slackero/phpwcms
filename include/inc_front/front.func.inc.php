@@ -1661,7 +1661,7 @@ function include_ext_php($inc_file, $t=0) {
 	return ob_get_clean();;
 }
 
-function international_date_format($language="EN", $format="Y/m/d", $date_now=0) {
+function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 	// formats the given date
 	// for the specific language
 	// use the normal date format options
@@ -1672,45 +1672,60 @@ function international_date_format($language="EN", $format="Y/m/d", $date_now=0)
 	if(!intval($date_now)) {
 		$date_now = time();
 	}
-	if($language == "EN" || !$language) {
+	
+	$language = strtolower(trim($language));
+	
+	if($language == "EN") {
+		
 		return date($format, $date_now);
-	} else {
-		$lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.substr(strtolower($language), 0, 2).'.date.lang.php';
-		if(is_file($lang_include)) {
-
-			include($lang_include);
-			$date_format_function = array (	"a" => 1, "A" => 1, "B" => 1, "d" => 1, "g" => 1, "G" => 1,
-									"h" => 1, "H" => 1, "i" => 1, "I" => 1, "j" => 1, "m" => 1,
-									"n" => 1, "s" => 1, "t" => 1, "T" => 1, "U" => 1, "w" => 1,
-									"Y" => 1, "y" => 1, "z" => 1, "Z" => 1,
-									"D" => 0, "F" => 0, "l" => 0, "M" => 0, "S" => 0
-								   );
-
-			$str_length = strlen($format); $date = "";
-			for($i = 0; $i < $str_length; $i++) $date_format[$i] = substr($format, $i, 1);
-			foreach($date_format as $key => $value) {
-				if(isset($date_format_function[$value])) {
-					if($date_format_function[$value]) {
-						$date .= date($value, $date_now);
-					} else{
-						switch($value) {
-							case "D":	$date .= $weekday_short[ intval(date("w", $date_now)) ]; break; //short weekday name
-							case "l":	$date .= $weekday_long[ intval(date("w", $date_now)) ]; break; //long weekday name
-							case "F":	$date .= $month_long[ intval(date("n", $date_now)) ]; break; //long month name
-							case "M":	$date .= $month_short[ intval(date("n", $date_now)) ]; break; //long month name
-							case "S":	$date .= ""; break;
-						}
-					}
-				} else {
-					$date .= $value;
-				}
-			}
-
-		} else {
-			$date = date($format, $date_now);
+		
+	} elseif(empty($language) || $language=='@@') {
+		
+		if(empty($GLOBALS['phpwcms']['DOCTYPE_LANG'])) {
+		
+			return date($format, $date_now);
+		
 		}
+		$language = $GLOBALS['phpwcms']['DOCTYPE_LANG'];
+	
 	}
-	return $date;
+
+	$lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.substr($language, 0, 2).'.date.lang.php';
+	if(is_file($lang_include)) {
+
+		include($lang_include);
+		$date_format_function = array (	"a" => 1, "A" => 1, "B" => 1, "d" => 1, "g" => 1, "G" => 1,
+								"h" => 1, "H" => 1, "i" => 1, "I" => 1, "j" => 1, "m" => 1,
+								"n" => 1, "s" => 1, "t" => 1, "T" => 1, "U" => 1, "w" => 1,
+								"Y" => 1, "y" => 1, "z" => 1, "Z" => 1,
+								"D" => 0, "F" => 0, "l" => 0, "M" => 0, "S" => 0
+							   );
+
+		$str_length = strlen($format); $date = "";
+		for($i = 0; $i < $str_length; $i++) $date_format[$i] = substr($format, $i, 1);
+		foreach($date_format as $key => $value) {
+			if(isset($date_format_function[$value])) {
+				if($date_format_function[$value]) {
+					$date .= date($value, $date_now);
+				} else{
+					switch($value) {
+						case "D":	$date .= $weekday_short[ intval(date("w", $date_now)) ]; break; //short weekday name
+						case "l":	$date .= $weekday_long[ intval(date("w", $date_now)) ]; break; //long weekday name
+						case "F":	$date .= $month_long[ intval(date("n", $date_now)) ]; break; //long month name
+						case "M":	$date .= $month_short[ intval(date("n", $date_now)) ]; break; //long month name
+						case "S":	$date .= ""; break;
+					}
+				}
+			} else {
+				$date .= $value;
+			}
+		}
+		
+		return $date;
+
+	}
+	
+	return date($format, $date_now);
 }
 
 function get_random_image_tag($path) {
