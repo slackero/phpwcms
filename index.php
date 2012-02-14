@@ -122,6 +122,10 @@ if($phpwcms['USER_AGENT']['agent'] == 'IE' && !empty($phpwcms['IE7-js']) && vers
 
 $content['page_start'] .= '</head>'.LF;
 
+if($phpwcms['rewrite_url'] && strpos($content['page_start'], '<base href') === false) {
+	$content['page_start'] = str_replace('</title>', '</title>'.LF.'  <base href="'.PHPWCMS_URL.'"'.HTML_TAG_CLOSE, $content['page_start']);
+}
+
 // inject body tag in case of class or id attribute
 $body_inject = '<body';
 if($content['body_id'] !== false) {

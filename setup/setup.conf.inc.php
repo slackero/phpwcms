@@ -69,30 +69,32 @@ $phpwcms['img_prev_height']   = 538;      //max height of the large preview imag
 $phpwcms['max_time']          = 1800;     //logout after max_time/60 seconds
 
 // other stuff
-$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, NetPBM
-$phpwcms['library_path']      = '';       //Path to ImageMagick or NetPBM
-$phpwcms['rewrite_url']       = 0;        //whether URL should be rewritable
-$phpwcms['wysiwyg_editor']    = 1;        //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor
-$phpwcms['phpmyadmin']        = 0;        //enable/disable phpmyadmin in Admin section
-$phpwcms['default_lang']      = 'en';     //default language
-$phpwcms['DOCTYPE_LANG']      = '';       //by default same as $phpwcms['default_lang'], but can be injected by whatever you like
-$phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es');     //array of allowed languages
+$phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, NetPBM
+$phpwcms['library_path']      = ''; // Path to ImageMagick or NetPBM
+$phpwcms['rewrite_url']       = 0; // whether URL should be rewritable
+$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
+$phpwcms['alias_allow_slash'] = 0; // Allow slashes / in ALIAS
+$phpwcms['wysiwyg_editor']    = 1; // 0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor
+$phpwcms['phpmyadmin']        = 0; // enable/disable phpmyadmin in Admin section
+$phpwcms['default_lang']      = 'en'; // default language
+$phpwcms['DOCTYPE_LANG']      = ''; // by default same as $phpwcms['default_lang'], but can be injected by whatever you like
+$phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es'); //array of allowed languages
 $phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
-$phpwcms['charset']           = 'utf-8';       //default charset 'utf-8' do not use soemthing different any longer
-$phpwcms['allow_remote_URL']  = 0;        //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
-$phpwcms['jpg_quality']       = 85;		  //JPG Quality Range 25-100
-$phpwcms['sharpen_level']     = 1;        //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
-$phpwcms['allow_ext_init']    = 1;        //allow including of custom external scripts at frontend initialization
-$phpwcms['allow_ext_render']  = 1;        //allow including of custom external scripts at frontend rendering
-$phpwcms['cache_enabled']     = 0;        //cache On/Off - 1 = caching On / 0 = caching Off (default)
-$phpwcms['cache_timeout']     = 14400;    //default cache timeout setting in seconds - 0 = caching Off
-$phpwcms['imgext_disabled']   = ''; //comma seperated list of imagetypes which should not be handled 'pdf,ps'
+$phpwcms['charset']           = 'utf-8'; // default charset 'utf-8' do not use soemthing different any longer
+$phpwcms['allow_remote_URL']  = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
+$phpwcms['jpg_quality']       = 85; // JPG Quality Range 25-100
+$phpwcms['sharpen_level']     = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
+$phpwcms['allow_ext_init']    = 1; // allow including of custom external scripts at frontend initialization
+$phpwcms['allow_ext_render']  = 1; // allow including of custom external scripts at frontend rendering
+$phpwcms['cache_enabled']     = 0; // cache On/Off - 1 = caching On / 0 = caching Off (default)
+$phpwcms['cache_timeout']     = 14400; // default cache timeout setting in seconds - 0 = caching Off
+$phpwcms['imgext_disabled']   = ''; // comma seperated list of imagetypes which should not be handled 'pdf,ps'
 $phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia
 $phpwcms['recipient_count']   = 0;
-$phpwcms['inline_download']   = 1; //try to open download document in browser window
-$phpwcms['form_tracking']     = 1; //make a db entry for each form
+$phpwcms['inline_download']   = 1; // try to open download document in browser window
+$phpwcms['form_tracking']     = 1; // make a db entry for each form
 $phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling
-$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts
+$phpwcms['allow_cntPHP_rt']   = 0; // allow PHP replacement tags and includes in content parts
 $phpwcms['BOTS']			  = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 $phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
@@ -114,7 +116,6 @@ $phpwcms['FCK_FileBrowser']   = 1; // enable|disable phpwcms Filebrowser in FCKe
 $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';
-$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
 $phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.7'=>'jQuery 1.7','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
 $phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)
 $phpwcms['render_device']     = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->

@@ -117,6 +117,7 @@ define ('On',						true);
 define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
+define ('PHPWCMS_ALIAS_WSLASH',		empty($phpwcms['alias_allow_slash']) ? false : true);
 define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
 
 // Mime-Type definitions

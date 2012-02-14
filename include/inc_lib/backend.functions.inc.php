@@ -572,7 +572,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		'q',
 		'feedimport'
 	);
-
+	
 	if($mode == 'CATEGORY' && $alias == '' && isset($_POST["acat_name"])) {
 		$alias = $_POST["acat_name"];
 		$set = true;
@@ -586,13 +586,17 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		$set = false;
 	}
 	
-	if($set) {
+	if($set && $alias) {		
 		$alias = clean_slweg(strtolower($alias), 150);
 		$alias = pre_remove_accents($alias);
-		$alias = get_alnum_dashes($alias, true);
+		$alias = get_alnum_dashes($alias, true, '-', PHPWCMS_ALIAS_WSLASH);
 		if($alias != '') {
-			$alias		= trim( preg_replace('/\-\-+/', '-', $alias), '-' );
-			$alias		= trim( preg_replace('/__+/', '_', $alias), '_' );
+			$alias		= trim( preg_replace('/\-+/', '-', $alias), '-' );
+			$alias		= trim( preg_replace('/_+/', '_', $alias), '_' );
+			if(PHPWCMS_ALIAS_WSLASH) {
+				$alias	= trim( preg_replace('/\/+/', '/', $alias), '/' );
+				$alias	= preg_replace('/\-\/\-/', '/', $alias);
+			}
 		}
 	}
 	

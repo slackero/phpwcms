@@ -361,7 +361,7 @@ function enableStatusMessage(fld, showHide, text) {
 
 function create_alias(str,encoding,ucfirst)
 {
-	str = str.toUpperCase();
+	var str = str.toUpperCase();
 	str = str.toLowerCase();
 	
 	str = str.replace(/[\u00E0\u00E1\u00E2\u00E3\u00E5]/g,'a');
@@ -375,13 +375,21 @@ function create_alias(str,encoding,ucfirst)
 	str = str.replace(/[\u0153\u00F6]/g,'oe');
 	str = str.replace(/[\u00E6\u00E4]/g,'ae');
 	str = str.replace(/[\u00DF]/g,'ss');
-	
-	// additional German "Umlaute"
 	str = str.replace(/[\u00FC]/g,'ue');
 
-	str = str.replace(/[ ]/g,'-');
-	str = str.replace(/[^a-z0-9_\-]/g,'');
-	str = Trim(str);
+	str = str.replace(/\s+/g,'-');
+	str = str.replace(/-+\/+-+/g,'/');
+	if(aliasAllowSlashes) {
+		str = str.replace(/[^a-z0-9_\-\/]+/g,'');
+	} else {
+		str = str.replace(/[^a-z0-9_\-]+/g,'');
+	}
+	str = str.replace(/\-+/g,'-');
+	str = str.replace(/\/+/g,'/');
+	str = str.replace(/_+/g,'_');
+	str = str.replace(/^-+|-+$/g, '');
+	str = str.replace(/^\/+|\/+$/g, '');
+	str = str.replace(/^-+|-+$/g, '');
 
 	if (ucfirst == 1) {
 		c = str.charAt(0);

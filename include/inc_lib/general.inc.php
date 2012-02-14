@@ -1895,12 +1895,13 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	
 }
 
-function get_alnum_dashes($string, $remove_accents = false, $replace_space='-') {
+function get_alnum_dashes($string, $remove_accents = false, $replace_space='-', $allow_slashes=false) {
 	if($remove_accents) {
 		$string = phpwcms_remove_accents($string);
 	}
-	$string = str_replace(' ', $replace_space, $string);
-	return preg_replace('/[^a-z0-9\-_]/i', '', $string);
+	$string		= str_replace(' ', $replace_space, $string);
+	$pattern	= $allow_slashes ? '/[^a-z0-9\-_\/]/i' : '/[^a-z0-9\-_]/i';
+	return preg_replace($pattern, '', $string);
 }
 
 // Thanks to: http://quickwired.com/smallprojects/php_xss_filter_function.php
@@ -2265,11 +2266,15 @@ function boolval($BOOL, $STRICT=false) {
 function uri_sanitize($text) {
 	
 	$text = pre_remove_accents($text);
-	$text = get_alnum_dashes($text, true);
+	$text = get_alnum_dashes($text, true, '-', PHPWCMS_ALIAS_WSLASH);
 	$text = trim($text);
 	if($text != '') {
 		$text = trim( preg_replace('/\-\-+/', '-', $text), '-' );
 		$text = trim( preg_replace('/__+/', '_', $text), '_' );
+		if(PHPWCMS_ALIAS_WSLASH) {
+			$text = trim( preg_replace('/\/+/', '/', $text), '/' );
+			$text = preg_replace('/\-\/\-/', '/', $text);
+		}
 	}
 	
 	return $text;

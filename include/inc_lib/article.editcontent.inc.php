@@ -166,7 +166,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 	} else {
 	
 		// Take article Post data
-		
+
 		$article_err = array();
 		
 		$article["article_catid"]		= intval($_POST["article_cid"]);

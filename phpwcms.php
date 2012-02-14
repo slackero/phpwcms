@@ -226,8 +226,10 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 	<meta name="robots" content="noindex, nofollow">
 <?php
 
+$BE['HEADER']['alias_slah_var'] = '	<script type="text/javascript"> ' . LF . '		var aliasAllowSlashes = ' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ';' . LF . '	</script>';
+
 initMootools();
-$BE['HEADER']['phpwcms.js']			= getJavaScriptSourceLink('include/inc_js/phpwcms.js');
+$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
 
 if($do == "messages" && $p == 1) {
