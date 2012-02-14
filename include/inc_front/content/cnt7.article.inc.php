@@ -268,7 +268,7 @@ if($content['files_sql']) {
 							case 'tiff':
 							case 'pdf':
 							case 'psd':
-							case 'eps':		if($GLOBALS['phpwcms']['imagick'] == 0) {
+							case 'eps':		if($GLOBALS['phpwcms']['image_library'] == 'gd2' || $GLOBALS['phpwcms']['image_library'] == 'gd') {
 												break;
 											}
 							
