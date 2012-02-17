@@ -92,7 +92,7 @@ if(isset($_GET["id"])) {
 		if(VISIBLE_MODE !== 2) {
 			$sql .= 'AND article_aktiv=1 AND article_public=1 ';
 		} elseif(VISIBLE_MODE === 1) {
-			$sql .= 'AND article_uid='.intval($_SESSION["wcs_user_id"]).' ';
+			$sql .= 'AND ((article_aktiv=1 AND article_public=1) OR article_uid='.intval($_SESSION["wcs_user_id"]).') ';
 		}
 		$sql .= 'AND article_id='.$_GET['aid'].' LIMIT 1';
 		if($result = mysql_query($sql, $db)) {

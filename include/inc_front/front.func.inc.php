@@ -496,7 +496,7 @@ function get_actcat_articles_data($act_cat_id) {
 	switch(VISIBLE_MODE) {
 		case 0: $sql .= " AND article_public=1 AND article_aktiv=1";
 				break;
-		case 1: $sql .= " AND article_uid=".$_SESSION["wcs_user_id"];
+		case 1: $sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
 				break;
 		//case 2: admin mode no additional neccessary
 	}
@@ -555,7 +555,7 @@ function get_actcat_articles_data($act_cat_id) {
 					switch(VISIBLE_MODE) {
 						case 0: $alias_sql .= " AND article_public=1 AND article_aktiv=1";
 								break;
-						case 1: $alias_sql .= " AND article_uid=".$_SESSION["wcs_user_id"];
+						case 1: $alias_sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 					}
 					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
@@ -1956,7 +1956,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		switch(VISIBLE_MODE) {
 			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
 					break;
-			case 1: $sql .= "article_uid=".$_SESSION["wcs_user_id"]." AND ";
+			case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 					break;
 			//case 2: admin mode no additional neccessary
 		}
@@ -2074,7 +2074,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	switch(VISIBLE_MODE) {
 		case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
 				break;
-		case 1: $sql .= "article_uid=".$_SESSION["wcs_user_id"]." AND ";
+		case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 				break;
 		//case 2: admin mode no additional neccessary
 	}
@@ -2184,7 +2184,7 @@ function get_keyword_link($keywords="", $db) {
 		switch(VISIBLE_MODE) {
 			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
 					break;
-			case 1: $sql .= "article_uid=".$_SESSION["wcs_user_id"]." AND ";
+			case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 					break;
 			//case 2: admin mode no additional neccessary
 		}
@@ -2538,7 +2538,7 @@ function build_sitemap_articlelist($cat, $counter=0) {
 	switch(VISIBLE_MODE) {
 		case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
 				break;
-		case 1: $sql .= "article_uid=".$_SESSION["wcs_user_id"]." AND ";
+		case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 				break;
 		//case 2: admin mode no additional neccessary
 	}

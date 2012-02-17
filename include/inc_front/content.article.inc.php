@@ -36,10 +36,9 @@ $sql .=	"ar.article_cid = ac.acat_id WHERE ";
 $sql .= "ar.article_id=".$aktion[1]." AND ";
 // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 switch(VISIBLE_MODE) {
-	case 0: $sql .= "ar.article_public=1 AND ";
-			$sql .= "ar.article_aktiv=1 AND ";
+	case 0: $sql .= "ar.article_public=1 AND ar.article_aktiv=1 AND ";
 			break;
-	case 1: $sql .= "ar.article_uid=".$_SESSION["wcs_user_id"]." AND ";
+	case 1: $sql .= "((ar.article_public=1 AND ar.article_aktiv=1) OR ar.article_uid=".$_SESSION["wcs_user_id"].") AND ";
 			break;
 }
 $sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() ";
@@ -61,7 +60,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				switch(VISIBLE_MODE) {
 					case 0: $alias_sql .= " AND article_public=1 AND article_aktiv=1";
 								break;
-					case 1: $alias_sql .= " AND article_uid=".$_SESSION["wcs_user_id"];
+					case 1: $alias_sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 				}
 				$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
