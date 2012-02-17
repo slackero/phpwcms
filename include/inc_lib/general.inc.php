@@ -69,19 +69,6 @@ function getpostvar($formvar, $string_laenge=0) {
 	return aporeplace( slweg( $formvar, $string_laenge ) );
 }
 
-function html_specialchars($h='') {
-	//used to replace the htmlspecialchars original php function
-	//not compatible with many internation chars like turkish, polish
-	$h = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $h ); //works correct for "&#8230;" and/or "&ndash;"
-	//$h = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $h );
-	$h = str_replace( '<', '&lt;'  , $h );
-	$h = str_replace( '>', '&gt;'  , $h );
-	$h = str_replace( '"', '&quot;', $h );
-	$h = str_replace( "'", '&#039;', $h );
-	$h = str_replace( "\\", '&#92;', $h );
-	return $h;
-}
-	
 function html_despecialchars($h='') {
 	//call off html_specialchars
 	$h = str_replace( '&amp;' , '&', $h );

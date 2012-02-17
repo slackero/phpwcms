@@ -317,13 +317,13 @@ function buildGlobalGET($return = '') {
 }
 
 // build phpwcms specific relative url
-function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlentities', $glue='&', $bind='=') {
+function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
 	
 	return 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
 
 }
 // build phpwcms specific absolute url
-function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlentities', $glue='&', $bind='=') {
+function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
 	
 	return PHPWCMS_URL . 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
 
@@ -356,17 +356,26 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 	switch($format) {
 	
-		case 'htmlentities':	$glue	= html_entities($glue);
-								$funct	= 'getQueryString_htmlentities';
-								break;
+		case 'htmlentities':
+			$glue	= html_entities($glue);
+			$funct	= 'getQueryString_htmlentities';
+			break;
 								
-		case 'urlencode':		$funct	= 'getQueryString_urlencode';
-								break;
+		case 'htmlspecialchars':
+			$glue	= html_specialchars($glue);
+			$funct	= 'getQueryString_htmlspecialchars';
+			break;
 								
-		case 'rawurlencode':	$funct	= 'getQueryString_rawurlencode';
-								break;
+		case 'urlencode':
+			$funct	= 'getQueryString_urlencode';
+			break;
 								
-		default:				$funct	= 'getQueryString_default';
+		case 'rawurlencode':
+			$funct	= 'getQueryString_rawurlencode';
+			break;
+								
+		default:
+			$funct	= 'getQueryString_default';
 
 	}
 	
@@ -382,8 +391,19 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 function getQueryString_htmlentities($key='', $value='', $bind='=') {
 	if($value !== '') {
 		return html_entities(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
+	} elseif(PHPWCMS_ALIAS_WSLASH) {
+		return html_entities(str_replace('%2F', '/', urlencode($key)));
 	}
 	return html_entities(urlencode($key));
+}
+
+function getQueryString_htmlspecialchars($key='', $value='', $bind='=') {
+	if($value !== '') {
+		return html_specialchars(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
+	} elseif(PHPWCMS_ALIAS_WSLASH) {
+		return html_specialchars(str_replace('%2F', '/', urlencode($key)));
+	}
+	return html_specialchars(urlencode($key));
 }
 
 function getQueryString_urlencode($key='', $value='', $bind='=') {
@@ -406,8 +426,6 @@ function getQueryString_default($key='', $value='', $bind='=') {
 	}
 	return $key;
 }
-
-
 
 function cleanupPOSTandGET() {
 	// remove possible unsecure PHP replacement tags in GET and POST vars
@@ -724,7 +742,6 @@ function log_message($type='UNDEFINED', $message='', $userid=0) {
 
 }
 
-
 function init_frontend_edit() {
 	// define VISIBLE_MODE
 	// 0 = frontend (all) mode
@@ -738,11 +755,21 @@ function init_frontend_edit() {
 	define ('FE_EDIT_LINK', VISIBLE_MODE == 0 || empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 }
 
-/**
- * Wrapper for htmlentities() to handle charset better inside of phpwcms
- **/
 function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
 	return @htmlentities($string, $quote_mode, $charset);
+}
+
+function html_specialchars($h='') {
+	//used to replace the htmlspecialchars original php function
+	//not compatible with many internation chars like turkish, polish
+	$h = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $h ); //works correct for "&#8230;" and/or "&ndash;"
+	//$h = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $h );
+	$h = str_replace( '<', '&lt;'  , $h );
+	$h = str_replace( '>', '&gt;'  , $h );
+	$h = str_replace( '"', '&quot;', $h );
+	$h = str_replace( "'", '&#039;', $h );
+	$h = str_replace( "\\", '&#92;', $h );
+	return $h;
 }
 
 function getMicrotime() {
