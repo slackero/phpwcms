@@ -364,7 +364,18 @@ if($image['template']) {
 			
 			}
 			
-			$img_a = render_cnt_template($img_a, 'INFOTEXT', $value['freetext'] );
+			if(empty($value['url'])) {
+				$value['url']			= '';
+				$value['url_target']	= '';
+			} else {
+				$value['url']			= explode(' ', $value['url']);
+				$value['url_target']	= empty($value['url'][1]) ? '' : trim($value['url'][1]);
+				$value['url']			= trim($value['url'][0]);
+			}
+			
+			$img_a = render_cnt_template($img_a, 'INFOTEXT', $value['freetext']);
+			$img_a = render_cnt_template($img_a, 'URL', $value['url']);
+			$img_a = render_cnt_template($img_a, 'URL_TARGET', $value['url_target']);
 			
 			if($image['nocaption']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');
@@ -375,6 +386,7 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'TITLE', $caption[4]);
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
+			
 						
 			// check if this is the last image in row
 			if($image['col'] == $col || $image['count'] == $total) {
