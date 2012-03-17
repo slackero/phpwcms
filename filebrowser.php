@@ -27,7 +27,7 @@
  *
  * April 2011
  * - enhancement to enable phpwcms filebrowser support in CKEditor
- *   based on concept and work of Markus KÃ¶hl <www.leanux.ch>
+ *   based on concept and work of Markus Köhl <www.leanux.ch>
  * - Issue 265 based on TB's post
  */
 
@@ -125,12 +125,16 @@ if(isset($folder)) unset($folder);
 if(isset($_SESSION["folder"])) $folder = $_SESSION["folder"];
 if(isset($_GET["folder"])) {
 	list($folder_id, $folder_value) = explode('|', $_GET["folder"]);
-	$folder[$folder_id] = intval($folder_value);
-	$_SESSION["folder"] = $folder; //Rückgabe des Aktuellen Array mit Aufolderwerten in die Session
+	$folder_value		= intval($folder_value);
+	$folder[$folder_id] = $folder_value;
+	$_SESSION["folder"] = $folder; // Return array with current opened folder session values
+	if($folder_value) {
+		$_SESSION["imgdir"] = $folder_id;
+	}
 }
-$_SESSION["list_zaehler"] = 0; //Zähler für die Public-Listenfunktion setzen
+$_SESSION["list_zaehler"] = 0;
 
-//Checken, welcher Ordner aktiv
+// Which folder is active
 if(isset($_GET["files"])) {
 
 	$_SESSION["imgdir"] = intval($_GET["files"]);
@@ -139,7 +143,7 @@ if(isset($_GET["files"])) {
 
 	$_SESSION["imgdir"] = 0;
 
-} else {
+} elseif(isset($_SESSION["imgdir"])) {
 
 	$_SESSION["imgdir"] = intval($_SESSION["imgdir"]);
 
