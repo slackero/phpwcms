@@ -1930,7 +1930,9 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		}
 		if(isset($POST_val) && count($POST_val)) {
 			foreach($POST_val as $file_key => $file_val) {
-				@unlink(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$POST_val[$file_key]['name']);
+				if(isset($POST_val[$file_key]['name'])) {
+					@unlink(PHPWCMS_ROOT.'/'.$POST_val[$file_key]['folder'].$POST_val[$file_key]['name']);
+				}
 			}
 		}
 	}
