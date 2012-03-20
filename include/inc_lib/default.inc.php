@@ -157,14 +157,22 @@ if(function_exists('mb_substr')) {
 } else {
 	define ('MB_SAFE', false);
 
-	function mb_substr(string $str, int $start, int $length, string $encoding) {
-		if(phpwcms_seems_utf8($str)) {
-			return utf8_encode(substr(utf8_decode($str), $start, $length));
+	function mb_substr($str='', $start=0, $length=NULL, $encoding='') {
+		if($length !== NULL) {
+			if(phpwcms_seems_utf8($str)) {
+				return utf8_encode(substr(utf8_decode($str), $start, $length));
+			} else {
+				return substr($str, $start, $length);
+			}
 		} else {
-			return substr($str, $start, $length);
+			if(phpwcms_seems_utf8($str)) {
+				return utf8_encode(substr(utf8_decode($str), $start));
+			} else {
+				return substr($str, $start);
+			}
 		}
 	}
-	function mb_strlen(string $str, string $encoding) {
+	function mb_strlen($str='', $encoding='') {
 		return strlen(phpwcms_seems_utf8($str) ? utf8_decode($str) : $str);
 	}
 }
