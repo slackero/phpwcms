@@ -26,12 +26,12 @@ include_once(PHPWCMS_ROOT."/include/inc_lib/helper.image.php");
 
 
 // Deprecated function, use for 3rd party fallback usage
-function imagick_converting(array $config) {
+function imagick_converting($config=array()) {
 	return image_manipulate($config);
 }
 
 // Resize, Crop and other image manipulation
-function image_manipulate(array $config) {
+function image_manipulate($config=array()) {
 	
 	global $phpwcms;
 	
@@ -177,7 +177,7 @@ function image_manipulate(array $config) {
 
 
 // build thumbnail image name
-function get_cached_image(array $val, $db_track=true, $return_all_imageinfo=true) {
+function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=true) {
 	
 	$val = array_merge(array(
 		"max_width"		=>	$GLOBALS['phpwcms']["img_list_width"],
