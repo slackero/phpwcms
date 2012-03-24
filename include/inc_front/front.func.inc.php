@@ -3879,7 +3879,7 @@ function render_device($string) {
 		return $string;
 	}
 	
-	preg_match_all('/<!--if:(.+?)-->(.*?)<!--\/if-->/s', $string, $matches);
+	preg_match_all(array('/<!--if:(.+?)-->.*?<!--\/if-->/s', '/<!--!if:(.+?)-->.*?<!--\/!if-->/s'), $string, $matches);
 
 	if(!isset($matches[0][0])) {
 		return $string;		
@@ -3889,11 +3889,22 @@ function render_device($string) {
 	$user_agent = phpwcms_getUserAgent();
 	
 	// Test against
+	$cache = array();
 
 	foreach($matches[1] as $match) {
 		
-		$validity	= array();
-		$values		= explode(';', strtolower($match));
+		dumpVar($match);
+		
+		$match	= strtolower($match);
+		$hash	= md5($match);
+		
+		if(isset($cache[$hash])) {
+			continue;
+		}
+		
+		$cache[$hash]	= true;
+		$validity		= array();
+		$values			= explode(';', $match);
 		
 		// parameters (AND)
 		foreach($values as $check) {

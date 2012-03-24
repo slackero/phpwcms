@@ -605,7 +605,6 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$device		= 'Smartphone';
 	} elseif(strpos($USER_AGENT, 'ipad') !== false) {
 		$platform	= 'iOS';
-		$mobile		= 1;
 		$device		= 'Tablet';
 	} elseif(strpos($USER_AGENT, 'ipod') !== false) {
 		$platform	= 'iOS';
@@ -616,12 +615,10 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$device		= 'Desktop';
 	} elseif(strpos($USER_AGENT, 'googletv') !== false) {
 		$platform	= 'GoogleTV';
-		$mobile		= 1;
 		$device		= 'TV';
 		$engine		= 'WebKit';
 	} elseif(preg_match('/android.*tablet/', $USER_AGENT)) {
 		$platform	= 'Android';
-		$mobile		= 1;
 		$device		= 'Tablet';
 		$engine		= 'Webkit';
 	} elseif(preg_match('/android.*mobile/', $USER_AGENT)) {
@@ -631,12 +628,10 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$engine		= 'Webkit';
 	} elseif(preg_match('/android(?!.*mobile)/', $USER_AGENT)) {
 		$platform	= 'Android';
-		$mobile		= 1;
 		$device		= 'Tablet';
 		$engine		= 'Webkit';
 	} elseif(strpos($USER_AGENT, 'rim tablet') !== false) {
 		$platform	= 'Blackberry';
-		$mobile		= 1;
 		$device		= 'Tablet';
 		$engine		= 'Webkit';
 	} elseif(strpos($USER_AGENT, 'blackberry') !== false) {
@@ -656,7 +651,6 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$engine		= 'Webkit';
 	} elseif(strpos($USER_AGENT, 'silk') !== false) {
 		$platform	= 'Linux';
-		$mobile		= 1;
 		$device		= 'Tablet';
 		$engine		= 'Webkit';
 	} elseif(strpos($USER_AGENT, 'linux') !== false) {
