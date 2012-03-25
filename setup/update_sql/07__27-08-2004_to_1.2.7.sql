@@ -51,7 +51,7 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_active` int(1) NOT NULL default '0',
   PRIMARY KEY  (`group_id`),
   KEY `group_member` (`group_member`(255))
-) TYPE=MyISAM ;
+);
 
 
 # cache
@@ -72,7 +72,7 @@ CREATE TABLE `phpwcms_cache` (
   PRIMARY KEY  (`cache_id`),
   KEY `cache_hash` (`cache_hash`),
   FULLTEXT KEY `cache_stripped` (`cache_stripped`)
-) TYPE=MyISAM ;
+);
 
 
 # forum
@@ -94,7 +94,7 @@ CREATE TABLE `phpwcms_forum` (
   `forum_var` blob NOT NULL,
   `forum_lastpost` mediumtext NOT NULL,
   PRIMARY KEY  (`forum_id`)
-) TYPE=MyISAM ;
+);
 
 
 # image cache
@@ -110,7 +110,7 @@ CREATE TABLE `phpwcms_imgcache` (
   `imgcache_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`imgcache_id`),
   KEY `imgcache_hash` (`imgcache_hash`)
-) TYPE=MyISAM ;
+);
 
 
 # sys value
@@ -121,7 +121,7 @@ CREATE TABLE `phpwcms_sysvalue` (
   `sysvalue_value` mediumblob NOT NULL,
   PRIMARY KEY  (`sysvalue_key`),
   FULLTEXT KEY `sysvalue_key` (`sysvalue_key`)
-) TYPE=MyISAM ;
+);
 
 
 # module
@@ -134,7 +134,7 @@ CREATE TABLE `phpwcms_module` (
   `module_title` text NOT NULL,
   `module_description` text NOT NULL,
   PRIMARY KEY  (`module_id`)
-) TYPE=MyISAM ;
+);
 
 
 # map
@@ -151,7 +151,7 @@ CREATE TABLE `phpwcms_map` (
   `map_entry` text NOT NULL,
   `map_vars` text NOT NULL,
   PRIMARY KEY  (`map_id`)
-) TYPE=MyISAM ;
+);
 
 
 # countries
@@ -165,7 +165,7 @@ CREATE TABLE `phpwcms_country` (
   PRIMARY KEY  (`country_id`),
   UNIQUE KEY `country_iso` (`country_iso`),
   UNIQUE KEY `country_name` (`country_name`)
-) TYPE=MyISAM ;
+);
 
 INSERT INTO `phpwcms_country` VALUES (1, 'AF', 'Afghanistan', 'Afghanistan');
 INSERT INTO `phpwcms_country` VALUES (2, 'AL', 'Albania', 'Albanien');
@@ -415,7 +415,7 @@ CREATE TABLE `phpwcms_keyword` (
   `keyword_name` varchar(255) NOT NULL default '',
   `keyword_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`keyword_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);
 
 
 CREATE TABLE `phpwcms_formtracking` (
@@ -426,7 +426,7 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_sentdate` VARCHAR( 20 ) NOT NULL default '',
   `formtracking_sent` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`formtracking_id`)
-) TYPE=MyISAM;
+);
 
 
 

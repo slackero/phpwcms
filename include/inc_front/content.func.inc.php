@@ -1108,6 +1108,15 @@ switch($phpwcms['mode_XHTML']) {
 		break;
 }
 
+// PixelRatio Check based on JavaScript and Cookie
+if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['phpwcms_pixelratio'])) {
+	$block['custom_htmlhead']['pixelratio']  = '  <script type="text/javascript">' . LF;
+	$block['custom_htmlhead']['pixelratio'] .= '	var phpwcms_pixelratio = 1;' . LF;
+	$block['custom_htmlhead']['pixelratio'] .= '	if(window.devicePixelRatio !== undefined) phpwcms_pixelratio = window.devicePixelRatio;' . LF;
+	$block['custom_htmlhead']['pixelratio'] .= '	document.cookie = "phpwcms_pixelratio="+phpwcms_pixelratio+";expires='.date('r', now()+2592000).'");' . LF; // 30 days
+	$block['custom_htmlhead']['pixelratio'] .= '  </script>';
+}
+
 // new $block['custom_htmlhead'] var (array) for usage in own rendering stuff.
 // you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
 // always check if you want to use same head code only once

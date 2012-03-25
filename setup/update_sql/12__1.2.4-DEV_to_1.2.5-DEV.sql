@@ -23,4 +23,4 @@ CREATE TABLE `phpwcms_imgcache` (
 	`imgcache_trash` int(1) NOT NULL default '0',
 	PRIMARY KEY  (`imgcache_id`),
 	KEY `imgcache_hash` (`imgcache_hash`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);

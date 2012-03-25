@@ -30,7 +30,7 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
 @ini_set( 'arg_separator.output' , '&amp;' );
 
 if(!empty($phpwcms['php_timezone'])) {
-	@ini_set( 'date.timezone' , $phpwcms['php_timezone'] );
+	@date_default_timezone_set($phpwcms['php_timezone']);
 }
 
 // i18n charsets that might be accessible - in general used in MySQL
@@ -524,16 +524,28 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 	if(isset($GLOBALS['phpwcms'][$index])) {
 		return $GLOBALS['phpwcms'][$index];
 	}
+	
+	if(empty($GLOBALS['phpwcms']['detect_pixelratio'])) {
+		$pixelratio = 1;
+	} elseif(isset($_COOKIE['phpwcms_pixelratio'])) {
+		$pixelratio = floatval($_COOKIE['phpwcms_pixelratio']);
+		if($pixelratio < 1 || $pixelratio > 3) {
+			$pixelratio = 1;
+		}
+	} else {
+		$pixelratio = 1;
+	}
 
 	if(empty($USER_AGENT)) {
 		return $GLOBALS['phpwcms'][$index] = array(
-			'agent'		=> 'Other',
-			'version'	=> 0,
-			'platform'	=> 'Other',
-			'mobile'	=> 0,
-			'device'	=> 'Default',
-			'bot'		=> 0,
-			'engine'	=> 'Other'
+			'agent'			=> 'Other',
+			'version'		=> 0,
+			'platform'		=> 'Other',
+			'mobile'		=> 0,
+			'device'		=> 'Default',
+			'bot'			=> 0,
+			'engine'		=> 'Other',
+			'pixelratio'	=> $pixelratio
 		);
 	}
 	
@@ -679,13 +691,14 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 	}
 		
 	return $GLOBALS['phpwcms'][$index] = array(
-		'agent'		=> $agent,
-		'version'	=> intval($ver),
-		'platform'	=> $platform,
-		'mobile'	=> $mobile,
-		'device'	=> $device,
-		'bot'		=> $bot,
-		'engine'	=> $engine
+		'agent'			=> $agent,
+		'version'		=> intval($ver),
+		'platform'		=> $platform,
+		'mobile'		=> $mobile,
+		'device'		=> $device,
+		'bot'			=> $bot,
+		'engine'		=> $engine,
+		'pixelratio'	=> $pixelratio
 	);
 }
 

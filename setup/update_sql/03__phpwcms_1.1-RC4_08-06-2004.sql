@@ -16,7 +16,7 @@ CREATE TABLE `phpwcms_fonts` (
   `font_shortname` text NOT NULL,
   `font_filename` text NOT NULL,
   PRIMARY KEY  (`font_id`)
-) TYPE=MyISAM PACK_KEYS=0 AUTO_INCREMENT=6 ;
+);
 
 # --------------------------------------------------------
 
@@ -29,7 +29,7 @@ CREATE TABLE `phpwcms_fonts_colors` (
   `color_name` text NOT NULL,
   `color_value` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`color_id`)
-) TYPE=MyISAM AUTO_INCREMENT=7 ;
+);
 
 # --------------------------------------------------------
 
@@ -42,4 +42,4 @@ CREATE TABLE `phpwcms_fonts_styles` (
   `style_name` text NOT NULL,
   `style_info` text NOT NULL,
   PRIMARY KEY  (`style_id`)
-) TYPE=MyISAM AUTO_INCREMENT=3 ;
+);

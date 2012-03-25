@@ -28,4 +28,4 @@ CREATE TABLE `phpwcms_map` (
   `map_deleted` int(1) NOT NULL default '0',
   `map_vars` mediumblob NOT NULL,
   PRIMARY KEY  (`map_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);

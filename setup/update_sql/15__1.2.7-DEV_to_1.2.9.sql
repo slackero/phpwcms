@@ -103,7 +103,7 @@ CREATE TABLE `phpwcms_formresult` (
   `formresult_content` mediumblob NOT NULL,
   PRIMARY KEY  (`formresult_id`),
   KEY `formresult_pid` (`formresult_pid`)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_id` int(11) NOT NULL auto_increment,
@@ -114,4 +114,4 @@ CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_rid` int(11) NOT NULL default '0',
   `queue_errormsg` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`queue_id`)
-) ENGINE=MyISAM;
+);

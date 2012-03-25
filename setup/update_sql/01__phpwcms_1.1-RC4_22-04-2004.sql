@@ -18,4 +18,4 @@ CREATE TABLE `phpwcms_bid` (
   `bid_trashed` int(1) NOT NULL default '0',
   `bid_vars` mediumblob NOT NULL,
   PRIMARY KEY  (`bid_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);

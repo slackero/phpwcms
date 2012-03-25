@@ -20,7 +20,7 @@ CREATE TABLE `phpwcms_guestbook` (
   `guestbook_trashed` int(1) NOT NULL default '0',
   `guestbook_url` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`guestbook_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);
 
 DROP TABLE IF EXISTS `phpwcms_newsletter`;
 
@@ -31,7 +31,7 @@ CREATE TABLE `phpwcms_newsletter` (
   `newsletter_vars` mediumblob NOT NULL,
   `newsletter_trashed` int(1) NOT NULL default '0',
   PRIMARY KEY  (`newsletter_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);
 
 
 # 24-03-2004
@@ -98,4 +98,4 @@ CREATE TABLE `phpwcms_blog` (
   `blog_active` int(1) NOT NULL default '0',
   `blog_trashed` int(1) NOT NULL default '0',
   PRIMARY KEY  (`blog_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);

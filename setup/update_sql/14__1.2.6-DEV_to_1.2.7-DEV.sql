@@ -15,7 +15,7 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_sentdate` VARCHAR( 20 ) NOT NULL default '',
   `formtracking_sent` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`formtracking_id`)
-) TYPE=MyISAM;
+);
 
 ALTER TABLE `phpwcms_articlecat` ADD `acat_maxlist` INT( 11 ) NOT NULL DEFAULT '0';
 ALTER TABLE `phpwcms_articlecat` ADD `acat_cntpart` VARCHAR( 255 ) NOT NULL ;

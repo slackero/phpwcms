@@ -60,7 +60,7 @@ CREATE TABLE `phpwcms_calendar` (
   KEY `calendar_refid` (`calendar_refid`),
   KEY `calendar_range` (`calendar_range`),
   KEY `calendar_lang` (`calendar_lang`)
-) TYPE=MyISAM ;
+);
 
 # 2008-05-09
 DROP TABLE IF EXISTS `phpwcms_content` ;
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_content` (
   KEY `cnt_owner` (`cnt_owner`),
   KEY `cnt_alias` (`cnt_alias`),
   KEY `cnt_pid` (`cnt_pid`)
-) TYPE=MyISAM ;
+);
 
 ALTER TABLE `phpwcms_content` ADD `cnt_sort` INT NOT NULL DEFAULT '0' AFTER `cnt_archive_status`;
 ALTER TABLE `phpwcms_content` ADD `cnt_prio` INT NOT NULL DEFAULT '0' AFTER `cnt_sort`;
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_categories` (
   PRIMARY KEY  (`cat_id`),
   KEY `cat_type` (`cat_type`,`cat_status`),
   KEY `cat_pid` (`cat_pid`)
-) TYPE=MyISAM ;
+);
 
 CREATE TABLE IF NOT EXISTS `phpwcms_shop_orders` (
   `order_id` int(10) unsigned NOT NULL auto_increment,
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_shop_orders` (
   `order_status` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`order_id`),
   KEY `order_number` (`order_number`,`order_status`)
-) TYPE=MyISAM ;
+);
 
 CREATE TABLE IF NOT EXISTS `phpwcms_shop_products` (
   `shopprod_id` int(10) unsigned NOT NULL auto_increment,
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_shop_products` (
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
   KEY `all` (`shopprod_listall`)
-) TYPE=MyISAM ;
+);
 
 CREATE TABLE IF NOT EXISTS `phpwcms_sysvalue` (
   `sysvalue_key` varchar(255) NOT NULL default '',
@@ -176,14 +176,16 @@ CREATE TABLE IF NOT EXISTS `phpwcms_sysvalue` (
   PRIMARY KEY  (`sysvalue_key`),
   KEY `sysvalue_group` (`sysvalue_group`),
   KEY `sysvalue_status` (`sysvalue_status`)
-) TYPE=MyISAM ;
+);
 
 
 # Add country continents and regions
-ALTER TABLE `phpwcms_country` ADD `country_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP AFTER `country_id` ;
+ALTER TABLE `phpwcms_country` CHANGE `country_name` `country_name` VARCHAR( 255 ) NOT NULL DEFAULT '';
+ALTER TABLE `phpwcms_country` ADD `country_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP AFTER `country_id`;
 ALTER TABLE `phpwcms_country` ADD `country_iso3` CHAR( 3 ) NOT NULL default '' AFTER `country_iso`;
 ALTER TABLE `phpwcms_country` ADD `country_isonum` INT NOT NULL default '0' AFTER `country_iso3`;
 ALTER TABLE `phpwcms_country` ADD `country_continent_code` CHAR( 2 ) NOT NULL default '' AFTER `country_isonum`;
+ALTER TABLE `phpwcms_country` ADD `country_name_de` VARCHAR( 255 ) NOT NULL default '';
 ALTER TABLE `phpwcms_country` ADD `country_continent` VARCHAR( 255 ) NOT NULL default '';
 ALTER TABLE `phpwcms_country` ADD `country_continent_de` VARCHAR( 255 ) NOT NULL default '';
 ALTER TABLE `phpwcms_country` ADD `country_region` VARCHAR( 255 ) NOT NULL default '';

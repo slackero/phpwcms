@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log_seo` (
   `pos` int(11) NOT NULL DEFAULT 0,
   `referrer` text NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM ;
+);
 
 #2008-12-22
 ALTER TABLE `phpwcms_article` ADD `article_menutitle` VARCHAR( 255 ) NOT NULL DEFAULT '' ;
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log` (
   PRIMARY KEY (`log_id`),
   KEY `log_referrer_id` (`log_referrer_id`),
   KEY `log_type` (`log_type`)
-) TYPE=MyISAM ;
+);
 
 #2009-08-19
 ALTER TABLE `phpwcms_calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR( 255 ) NOT NULL DEFAULT '';

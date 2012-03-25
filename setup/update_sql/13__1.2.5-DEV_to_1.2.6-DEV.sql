@@ -21,4 +21,4 @@ CREATE TABLE `phpwcms_keyword` (
   `keyword_name` varchar(255) NOT NULL default '',
   `keyword_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`keyword_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+);

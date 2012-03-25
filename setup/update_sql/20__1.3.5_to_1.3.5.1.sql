@@ -15,7 +15,7 @@ CREATE TABLE `phpwcms_log` (
   `log_ip` varchar(50) NOT NULL,
   `log_userid` varchar(255) NOT NULL,
   PRIMARY KEY  (`log_id`)
-) TYPE=MyISAM ;
+);
 
 ALTER TABLE `phpwcms_guestbook` CHANGE `guestbook_created` `guestbook_created` INT(11) NOT NULL ;
 ALTER TABLE `phpwcms_userlog` CHANGE `logged_change` `logged_change` INT(11) DEFAULT '0' NOT NULL ;

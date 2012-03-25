@@ -20,4 +20,4 @@ CREATE TABLE `phpwcms_categories` (
   PRIMARY KEY  (`cat_id`),
   KEY `cat_type` (`cat_type`,`cat_status`),
   KEY `cat_pid` (`cat_pid`)
-) TYPE=MyISAM ;
+);

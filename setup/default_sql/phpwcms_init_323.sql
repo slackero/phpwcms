@@ -30,7 +30,7 @@ CREATE TABLE `phpwcms_address` (
   `address_url1` varchar(255) NOT NULL default '',
   `address_url2` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`address_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ CREATE TABLE `phpwcms_ads_campaign` (
   KEY `adcampaign_status` (`adcampaign_status`,`adcampaign_datestart`,`adcampaign_dateend`,`adcampaign_type`,`adcampaign_place`),
   KEY `adcampaign_maxview` (`adcampaign_maxview`,`adcampaign_maxclick`,`adcampaign_maxviewuser`),
   KEY `adcampaign_curview` (`adcampaign_curview`,`adcampaign_curclick`,`adcampaign_curviewuser`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `phpwcms_ads_formats` (
   `adformat_comment` text NOT NULL,
   PRIMARY KEY  (`adformat_id`),
   KEY `adformat_status` (`adformat_status`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE `phpwcms_ads_place` (
   `adplace_suffix` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`adplace_id`),
   KEY `adplace_status` (`adplace_status`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ CREATE TABLE `phpwcms_ads_tracking` (
   PRIMARY KEY  (`adtracking_id`),
   KEY `adtracking_campaignid` (`adtracking_campaignid`,`adtracking_ip`,`adtracking_countclick`,`adtracking_countview`),
   KEY `adtracking_cookieid` (`adtracking_cookieid`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -181,7 +181,7 @@ CREATE TABLE `phpwcms_article` (
   KEY `article_sort` (`article_sort`),
   KEY `article_alias` (`article_alias`),
   KEY `article_archive_status` (`article_archive_status`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -226,7 +226,7 @@ CREATE TABLE `phpwcms_articlecat` (
   KEY `acat_sort` (`acat_sort`),
   KEY `acat_alias` (`acat_alias`),
   KEY `acat_archive` (`acat_archive`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -279,7 +279,7 @@ CREATE TABLE `phpwcms_articlecontent` (
   KEY `acontent_livedate` (`acontent_livedate`,`acontent_killdate`),
   KEY `acontent_paginate` (`acontent_paginate_page`),
   KEY `acontent_granted` (`acontent_granted`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ CREATE TABLE `phpwcms_cache` (
   PRIMARY KEY  (`cache_id`),
   KEY `cache_hash` (`cache_hash`),
   FULLTEXT KEY `cache_stripped` (`cache_stripped`)
-) TYPE=MyISAM;
+);
 
 -- --------------------------------------------------------
 
@@ -338,7 +338,7 @@ CREATE TABLE `phpwcms_calendar` (
   KEY `calendar_refid` (`calendar_refid`),
   KEY `calendar_range` (`calendar_range`),
   KEY `calendar_lang` (`calendar_lang`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -360,7 +360,7 @@ CREATE TABLE `phpwcms_categories` (
   KEY `cat_type` (`cat_type`,`cat_status`),
   KEY `cat_pid` (`cat_pid`),
   KEY `cat_sort` (`cat_sort`)
-) TYPE=MyISAM;
+);
 
 -- --------------------------------------------------------
 
@@ -376,7 +376,7 @@ CREATE TABLE `phpwcms_chat` (
   `chat_text` varchar(255) NOT NULL default '',
   `chat_cat` int(5) NOT NULL default '0',
   PRIMARY KEY  (`chat_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -420,7 +420,7 @@ CREATE TABLE `phpwcms_content` (
   KEY `cnt_pid` (`cnt_pid`),
   KEY `cnt_sort` (`cnt_sort`),
   KEY `cnt_prio` (`cnt_prio`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -444,7 +444,7 @@ CREATE TABLE `phpwcms_country` (
   PRIMARY KEY  (`country_id`),
   UNIQUE KEY `country_iso` (`country_iso`),
   UNIQUE KEY `country_name` (`country_name`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -462,7 +462,7 @@ CREATE TABLE `phpwcms_crossreference` (
   PRIMARY KEY (`cref_id`),
   KEY `cref_type` (`cref_type`,`cref_rid`,`cref_int`,`cref_str`),
   KEY `cref_module` (`cref_module`)
-) TYPE=MyISAM;
+);
 
 -- --------------------------------------------------------
 
@@ -507,7 +507,7 @@ CREATE TABLE `phpwcms_file` (
   KEY `f_sort` (`f_sort`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -523,7 +523,7 @@ CREATE TABLE `phpwcms_filecat` (
   `fcat_needed` int(1) NOT NULL default '0',
   `fcat_sort` int(11) NOT NULL default '0',
   PRIMARY KEY  (`fcat_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -539,7 +539,7 @@ CREATE TABLE `phpwcms_filekey` (
   `fkey_deleted` int(1) NOT NULL default '0',
   `fkey_sort` int(11) NOT NULL default '0',
   PRIMARY KEY  (`fkey_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -555,7 +555,7 @@ CREATE TABLE `phpwcms_formresult` (
   `formresult_content` mediumblob NOT NULL,
   PRIMARY KEY  (`formresult_id`),
   KEY `formresult_pid` (`formresult_pid`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -571,7 +571,7 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_sentdate` varchar(20) NOT NULL default '',
   `formtracking_sent` int(1) NOT NULL default '0',
   PRIMARY KEY  (`formtracking_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -595,7 +595,7 @@ CREATE TABLE `phpwcms_glossary` (
   KEY `glossary_tag` (`glossary_tag`),
   KEY `glossary_keyword` (`glossary_keyword`),
   KEY `glossary_highlight` (`glossary_highlight`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -618,7 +618,7 @@ CREATE TABLE `phpwcms_guestbook` (
   `guestbook_image` varchar(255) NOT NULL default '',
   `guestbook_imagename` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`guestbook_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -637,7 +637,7 @@ CREATE TABLE `phpwcms_imgcache` (
   `imgcache_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`imgcache_id`),
   KEY `imgcache_hash` (`imgcache_hash`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -658,7 +658,7 @@ CREATE TABLE `phpwcms_keyword` (
   `keyword_abbr` varchar(10) NOT NULL default '',
   PRIMARY KEY  (`keyword_id`),
   KEY `keyword_abbr` (`keyword_abbr`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -693,7 +693,7 @@ CREATE TABLE `phpwcms_language` (
   `SK` text NOT NULL,
   `VN` text NOT NULL,
   PRIMARY KEY  (`lang_id`)
-) TYPE=MyISAM;
+);
 
 -- --------------------------------------------------------
 
@@ -713,7 +713,7 @@ CREATE TABLE `phpwcms_map` (
   `map_entry` text NOT NULL,
   `map_vars` text NOT NULL,
   PRIMARY KEY  (`map_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -734,7 +734,7 @@ CREATE TABLE `phpwcms_message` (
   `msg_from` int(11) NOT NULL default '0',
   `msg_from_del` int(1) NOT NULL default '0',
   PRIMARY KEY  (`msg_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -752,7 +752,7 @@ CREATE TABLE `phpwcms_newsletter` (
   `newsletter_trashed` int(1) NOT NULL default '0',
   `newsletter_active` int(1) NOT NULL default '0',
   PRIMARY KEY  (`newsletter_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -770,7 +770,7 @@ CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_errormsg` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`queue_id`),
   KEY `nlqueue` (`queue_pid`,`queue_status`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -785,7 +785,7 @@ CREATE TABLE `phpwcms_pagelayout` (
   `pagelayout_var` mediumblob NOT NULL,
   `pagelayout_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`pagelayout_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -797,7 +797,7 @@ CREATE TABLE `phpwcms_profession` (
   `prof_id` int(4) NOT NULL auto_increment,
   `prof_name` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`prof_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -819,7 +819,7 @@ CREATE TABLE `phpwcms_shop_orders` (
   `order_status` varchar(100) NOT NULL default '',
   PRIMARY KEY  (`order_id`),
   KEY `order_number` (`order_number`,`order_status`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -862,7 +862,7 @@ CREATE TABLE `phpwcms_shop_products` (
   KEY `all` (`shopprod_listall`),
   KEY `shopprod_track_view` (`shopprod_track_view`),
   KEY `shopprod_lang` (`shopprod_lang`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -878,7 +878,7 @@ CREATE TABLE `phpwcms_subscription` (
   `subscription_lang` varchar(100) NOT NULL default '',
   `subscription_tstamp` timestamp NOT NULL,
   PRIMARY KEY  (`subscription_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -896,7 +896,7 @@ CREATE TABLE `phpwcms_sysvalue` (
   PRIMARY KEY  (`sysvalue_key`),
   KEY `sysvalue_group` (`sysvalue_group`),
   KEY `sysvalue_status` (`sysvalue_status`)
-) TYPE=MyISAM;
+);
 
 -- --------------------------------------------------------
 
@@ -912,7 +912,7 @@ CREATE TABLE `phpwcms_template` (
   `template_var` mediumblob NOT NULL,
   `template_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`template_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -939,7 +939,7 @@ CREATE TABLE `phpwcms_user` (
   `usr_fe` int(1) NOT NULL default '0',
   `usr_vars` mediumtext NOT NULL,
   PRIMARY KEY  (`usr_id`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -1007,7 +1007,7 @@ CREATE TABLE `phpwcms_userdetail` (
   KEY `detail_password` (`detail_password`),
   KEY `detail_aktiv` (`detail_aktiv`),
   KEY `detail_regkey` (`detail_regkey`)
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -1025,7 +1025,7 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_active` int(1) NOT NULL default '0',
   PRIMARY KEY  (`group_id`),
   KEY `group_member` (`group_member`(255))
-) TYPE=MyISAM ;
+) ;
 
 -- --------------------------------------------------------
 
@@ -1043,7 +1043,7 @@ CREATE TABLE `phpwcms_userlog` (
   `logged_ip` varchar(24) NOT NULL default '',
   `logged_section` int(1) NOT NULL default '0',
   PRIMARY KEY  (`userlog_id`)
-) TYPE=MyISAM ;
+) ;
 
 CREATE TABLE `phpwcms_log_seo` (
   `id` int(11) NOT NULL auto_increment,
@@ -1053,7 +1053,7 @@ CREATE TABLE `phpwcms_log_seo` (
   `pos` int(11) NOT NULL,
   `referrer` text NOT NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+);
 
 CREATE TABLE IF NOT EXISTS `phpwcms_log` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1072,4 +1072,4 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log` (
   PRIMARY KEY (`log_id`),
   KEY `log_referrer_id` (`log_referrer_id`),
   KEY `log_type` (`log_type`)
-) TYPE=MyISAM ;
+) ;
