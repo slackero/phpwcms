@@ -3893,8 +3893,7 @@ function render_device($string) {
 
 	foreach($matches[1] as $match) {
 		
-		$match	= strtolower($match);
-		$hash	= md5($match);
+		$hash = md5($match);
 		
 		if(isset($cache[$hash])) {
 			continue;
@@ -3902,7 +3901,7 @@ function render_device($string) {
 		
 		$cache[$hash]	= true;
 		$validity		= array();
-		$values			= explode(';', $match);
+		$values			= explode(';', strtolower($match));
 		
 		// parameters (AND)
 		foreach($values as $check) {
