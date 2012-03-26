@@ -3879,7 +3879,7 @@ function render_device($string) {
 		return $string;
 	}
 	
-	preg_match_all(array('/<!--if:(.+?)-->.*?<!--\/if-->/s', '/<!--!if:(.+?)-->.*?<!--\/!if-->/s'), $string, $matches);
+	preg_match_all('/<!--!{0,1}if:(.+?)-->.*?<!--\/!{0,1}if-->/s', $string, $matches);
 
 	if(!isset($matches[0][0])) {
 		return $string;		
@@ -3892,8 +3892,6 @@ function render_device($string) {
 	$cache = array();
 
 	foreach($matches[1] as $match) {
-		
-		dumpVar($match);
 		
 		$match	= strtolower($match);
 		$hash	= md5($match);
