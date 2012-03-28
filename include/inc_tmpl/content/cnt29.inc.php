@@ -277,7 +277,7 @@ if($img_count) {
 		  </select></td>
 			      <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1" /></td>
 			      <td valign="top">
-				  <a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=1&amp;target=nolist','imageBrowser','width=450,height=450,left=8,top=8,scrollbars=yes,resizable=yes',1);return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
+				  <a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=1&amp;target=nolist');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
 				  <br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);return false;"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0" /></a><a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);return false;"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0" /></a>
 				  <br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" onclick="removeSelectedOptions(document.articlecontent.cimage_list);return false;" title="<?php echo $BL['be_cnt_delimage'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0" /></a></td>
       </tr>

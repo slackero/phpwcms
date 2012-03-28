@@ -30,13 +30,16 @@ if (!defined('PHPWCMS_ROOT')) {
 		if(empty($plugin['filebrowser_js'])) {
 
 			$BE['HEADER']['fbjs']  = '  <script type="text/javascript">' . LF;
-			$BE['HEADER']['fbjs'] .= "function openFileBrowser(image_number){";
+			$BE['HEADER']['fbjs'] .= "	var fbw = 400, fbh = 575;" . LF;
+			$BE['HEADER']['fbjs'] .= "	if(screen.width !== undefined) fbw = Math.ceil(Math.max(screen.width / 6, fbw));" . LF;
+			$BE['HEADER']['fbjs'] .= "	if(screen.height !== undefined) fbh = Math.ceil(Math.max(screen.height / 1.5, fbh));" . LF;			
+			$BE['HEADER']['fbjs'] .= "	function openFileBrowser(image_number){";
 			$BE['HEADER']['fbjs'] .= "tmt_winOpen('filebrowser.php?opt=15&target=nolist&entry_id='+image_number,'imageBrowser',";
-			$BE['HEADER']['fbjs'] .= "'width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1);return false;}".LF;
-			$BE['HEADER']['fbjs'] .= "function setIdName(image_number, file_id, file_name){";
+			$BE['HEADER']['fbjs'] .= "'width='+fbw+',height='+fbh+',left=8,top=8,scrollbars=yes,resizable=yes',1);return false;}".LF;
+			$BE['HEADER']['fbjs'] .= "	function setIdName(image_number, file_id, file_name){";
 			$BE['HEADER']['fbjs'] .= "if(file_id == null || file_name == null) return null;imageBrowser.close();";
 			$BE['HEADER']['fbjs'] .= "$('fileid_'+image_number).value = file_id;$('file_'+image_number).value = file_name;}".LF;
-			$BE['HEADER']['fbjs'] .= "function deleteIdData(image_number, e) {"."$('file_'+image_number).value='';";
+			$BE['HEADER']['fbjs'] .= "	function deleteIdData(image_number, e) {"."$('file_'+image_number).value='';";
 			$BE['HEADER']['fbjs'] .= "$('fileid_'+image_number).value='0';e.blur();return false;}".LF;
 			$BE['HEADER']['fbjs'] .= '  </script>';
 

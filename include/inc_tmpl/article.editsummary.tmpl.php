@@ -322,7 +322,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		<tr>
 			<td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html_specialchars($article['image']['name']) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
 			                                                                                                                                              <!-- browser_image.php //-->
-			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=0&amp;target=summary','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1);return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
+			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=summary');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
 			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.article.cimage_name.value='';document.article.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
 		      <input name="cimage_id" type="hidden" value="<?php echo $article['image']['id'] ?>" /></td>
 		</tr>
@@ -420,7 +420,7 @@ if(!isset($article['image']['list_usesummary'])) {
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td><input name="cimage_list_name" type="text" id="cimage_list_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html_specialchars($article['image']['list_name']) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
-			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="tmt_winOpen('filebrowser.php?opt=0&amp;target=list','imageBrowser','width=380,height=300,left=8,top=8,scrollbars=yes,resizable=yes',1);return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
+			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=list');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
 			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
 		      <input name="cimage_list_id" type="hidden" value="<?php echo $article['image']['list_id'] ?>" /></td>
 		</tr>

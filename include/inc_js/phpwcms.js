@@ -1,3 +1,5 @@
+var imageBrowser, uploadWin, temp_url;
+
 function login(fval) {
 	if(fval.json.value == 2 && fval.form_password.value=='' && fval.form_loginname.value=='') {
 		fval.submit();
@@ -86,7 +88,7 @@ function set_chatlist(lines) {
 }
 
 function flevPopupLink(){// v1.2
-var v1=arguments,v2=window.open(v1[0],v1[1],v1[2]), v3=(v1.length>3)?v1[3]:false;if (v3){v2.focus();}document.MM_returnValue=false;
+	var v1=arguments,v2=window.open(v1[0],v1[1],v1[2]), v3=(v1.length>3)?v1[3]:false;if (v3){v2.focus();}document.MM_returnValue=false;
 }
 
 function MM_showHideLayers() { //v6.0
@@ -249,10 +251,6 @@ function insertAtCursorPos (textObj, textFieldValue) {
 	}
 }
 
-//tmtC_winOpen
-var imageBrowser;
-var uploadWin;
-
 // code copied from Solmetra
 function growField (id, dir) {
   fld = getFieldById(id);
@@ -359,8 +357,7 @@ function enableStatusMessage(fld, showHide, text) {
 	return true;
 }
 
-function create_alias(str,encoding,ucfirst)
-{
+function create_alias(str,encoding,ucfirst) {
 	var str = str.toUpperCase();
 	str = str.toLowerCase();
 	
@@ -398,13 +395,20 @@ function create_alias(str,encoding,ucfirst)
 
 	return str;
 }
-var temp_url = '';
+
+var fbw = 400, fbh = 575;
+if(screen.width !== undefined) {
+	fbw = Math.ceil(Math.max(screen.width / 6, fbw));
+}
+if(screen.height !== undefined) {
+	fbh = Math.ceil(Math.max(screen.height / 1.5, fbh));
+}
 function openFileBrowser(url) {
 	if(url != null && url != '') {
 		if(window.imageBrowser && temp_url != url) {
 			tmt_winControl('imageBrowser','close()');	
 		}
-		tmt_winOpen(url,'imageBrowser','width=450,height=450,scrollbars=yes,resizable=yes',1);
+		tmt_winOpen(url,'imageBrowser','width='+fbw+',height='+fbh+',left=8,top=8,scrollbars=yes,resizable=yes',1);
 		temp_url = url;
 	}
 }
