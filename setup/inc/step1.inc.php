@@ -219,8 +219,7 @@ if(!empty($db_additional)) {
 if(!empty($db_init)) {
 
 ?>
-	<tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default phpwcms database
-	      schema</h1></td></tr>
+	<tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default phpwcms database schema</h1></td></tr>
 <?php
 
 
