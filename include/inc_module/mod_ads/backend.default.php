@@ -142,7 +142,7 @@ if(isset($phpwcms['modules'][$module]['path']) && file_exists($phpwcms['modules'
 		// listing
 		include_once($phpwcms['modules'][$module]['path'].'backend.listing.php');
 		
-		if(isset($_GET['listcampaign'])) {
+		if(isset($_GET['listcampaign']) || empty($_GET['listadplace'])) {
 			include_once($phpwcms['modules'][$module]['path'].'inc/listing.campaign.inc.php');
 		} elseif(isset($_GET['listadplace'])) {
 			include_once($phpwcms['modules'][$module]['path'].'inc/listing.adplace.inc.php');

@@ -46,8 +46,8 @@ $_entry['query']			= '';
 
 <div id="tabsG">
 	<ul>
-		<li<?php if(empty($_GET['listcampaign']) && empty($_GET['listadplace'])) echo ' class="activeTab"'; ?>><a href="<?php echo MODULE_HREF ?>"><span><?php echo $BLM['ad_summary'] ?></span></a></li>
-		<li<?php if(isset($_GET['listcampaign'])) echo ' class="activeTab"'; ?>><a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1"><span><?php echo $BLM['campaign_entry'] ?></span></a></li>
+<?php /*		<li<?php if(empty($_GET['listcampaign']) && empty($_GET['listadplace'])) echo ' class="activeTab"'; ?>><a href="<?php echo MODULE_HREF ?>"><span><?php echo $BLM['ad_summary'] ?></span></a></li> */ ?>
+		<li<?php if(isset($_GET['listcampaign']) || empty($_GET['listadplace'])) echo ' class="activeTab"'; ?>><a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1"><span><?php echo $BLM['campaign_entry'] ?></span></a></li>
 		<li<?php if(isset($_GET['listadplace'])) echo ' class="activeTab"'; ?>><a href="<?php echo MODULE_HREF ?>&amp;listadplace=1"><span><?php echo $BLM['ad_format'] ?></span></a></li>
 	</ul>
 	<br class="clear" />

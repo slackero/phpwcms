@@ -554,7 +554,7 @@ function set_language_cookie() {
 function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
 	$current_id	= intval($current_id);
-	$alias		= uri_sanitize( clean_slweg(strtolower($alias), 150) );
+	$alias		= strtolower( uri_sanitize( clean_slweg($alias) ) );
 	$reserved	= array(
 		'print',
 		'newsdetail',
@@ -587,8 +587,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	}
 	
 	if($set && $alias) {		
-		$alias = clean_slweg(strtolower($alias), 150);
-		$alias = pre_remove_accents($alias);
+		$alias = clean_slweg($alias);
+		$alias = strtolower(pre_remove_accents($alias));
 		$alias = get_alnum_dashes($alias, true, '-', PHPWCMS_ALIAS_WSLASH);
 		if($alias != '') {
 			$alias		= trim( preg_replace('/\-+/', '-', $alias), '-' );
@@ -599,6 +599,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 			}
 		}
 	}
+	
+	$alias = substr($alias, 0, 150);
 	
 	// new reserved alias can be defined in $phpwcms['reserved_alias']
 	if( isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias']) ) {

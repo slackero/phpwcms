@@ -177,6 +177,10 @@ function phpwcms_remove_accents($string) {
 }
 
 function pre_remove_accents($string) {
+	
+	if(PHPWCMS_CHARSET == 'utf-8') {
+		$string = utf8_decode($string);
+	}
 
 	$string = strtr($string,	array('Þ' => 'TH', 'þ' => 'th', 'Ð' => 'DH', 'ð' => 'dh', 'ß' => 'ss',
 									  'Œ' => 'OE', 'œ' => 'oe', 'Æ' => 'AE', 'æ' => 'ae', 'µ' => 'u',
@@ -184,7 +188,9 @@ function pre_remove_accents($string) {
 									  'ö' => 'oe' )	);
 	$string = strtr($string,	'ŠŽšžŸÀÁÂÃÅÇÈÉÊËÌÍÎÏÑÒÓÔÕØÙÚÛÝàáâãåçèéêëìíîïñòóôõøùúûýÿ',
 								'SZszYAAAAACEEEEIIIINOOOOOUUUYaaaaaceeeeiiiinooooouuuyy');
+								
 	return $string;
+
 }
 
 ?>
