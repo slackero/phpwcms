@@ -69,12 +69,13 @@ if(isset($_GET['page'])) {
 
 $_newsletter['count_total'] = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_trashed=0", 'COUNT');
 $_newsletter['pages_total'] = ceil($_newsletter['count_total'] / $_SESSION['list_newsletter_count']);
+if(empty($_SESSION['newsletter_page'])) {
+	$_SESSION['newsletter_page'] = 1;
+}
 if($_SESSION['newsletter_page'] > $_newsletter['pages_total']) {
 	$_SESSION['newsletter_page'] = $_newsletter['pages_total'];
 }
-
-// start at page 1
-if(empty($_SESSION['newsletter_page']) || $_SESSION['newsletter_page'] < 1) {
+if($_SESSION['newsletter_page'] < 1) {
 	$_SESSION['newsletter_page'] = 1;
 }
 
