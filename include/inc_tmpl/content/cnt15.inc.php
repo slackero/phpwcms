@@ -60,6 +60,15 @@ if(empty($content["alist"]["titlewrap"])) {
 if(!isset($content["alist"]["hideactive"])) {
 	$content["alist"]["hideactive"] = 0;
 }
+if(!isset($content["alist"]["titleasnumber"])) {
+	$content["alist"]["titleasnumber"] = 0;
+}
+if(empty($content["alist"]["break"])) {
+	$content["alist"]["break"] = '';
+}
+if(empty($content["alist"]["label"])) {
+	$content["alist"]["label"] = '';
+}
 
 
 ?>
@@ -92,24 +101,50 @@ if(!isset($content["alist"]["hideactive"])) {
 <td colspan="6"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 
-	<td><input name="calist_ul" id="calist_ul0" type="radio" value="0" <?php is_checked(0, intval($content["alist"]["ul"])) ?> class="radioButton"></td>
-	<td><label for="calist_ul0"><?php echo $BL['be_admin_page_table'] ?>&nbsp;</label></td>
-
 	<td><input name="calist_ul" id="calist_ul1" type="radio" value="1" <?php is_checked(1, intval($content["alist"]["ul"])) ?> class="radioButton"></td>
-	<td><label for="calist_ul1">&lt;UL&gt;&nbsp;</label></td>
+	<td><label for="calist_ul1">&lt;ul&gt;&nbsp;</label></td>
 
 	<td><input name="calist_ul" id="calist_ul2" type="radio" value="2" <?php is_checked(2, intval($content["alist"]["ul"])) ?> class="radioButton"></td>
-	<td><label for="calist_ul2">&lt;DIV&gt;&nbsp;</label></td>
+	<td><label for="calist_ul2">&lt;div&gt;&nbsp;</label></td>
 	
-	<td>&nbsp;&nbsp;&nbsp;</td>
+	<td><input name="calist_ul" id="calist_ul3" type="radio" value="3" <?php is_checked(3, intval($content["alist"]["ul"])) ?> class="radioButton"></td>
+	<td><label for="calist_ul3">&lt;dl&gt;&nbsp;</label></td>
+	
+	<td><input name="calist_ul" id="calist_ul4" type="radio" value="4" <?php is_checked(4, intval($content["alist"]["ul"])) ?> class="radioButton"></td>
+	<td><label for="calist_ul4">&lt;span&gt;&nbsp;</label></td>
+	
+	<td><input name="calist_ul" id="calist_ul0" type="radio" value="0" <?php is_checked(0, intval($content["alist"]["ul"])) ?> class="radioButton"></td>
+	<td><label for="calist_ul0"><?php echo $BL['be_admin_page_table'] ?>&nbsp;</label></td>
+	
+	<td>&nbsp;&nbsp;</td>
 	
 	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>:&nbsp;</td>
-	<td><input type="text" name="calist_class" id="calist_class" class="v11" style="width:110px;" value="<?php echo html_specialchars($content["alist"]["class"]) ?>"></td>
+	<td><input type="text" name="calist_class" id="calist_class" class="v11 width100" value="<?php echo html_specialchars($content["alist"]["class"]) ?>"></td>
 	
 	</tr>
 	</table>
 	
 	
+	<table border="0" cellpadding="0" cellspacing="0" style="margin-top:8px;" summary="">
+	<tr>
+		<td><input name="calist_titleasnumber" id="calist_titleasnumber" type="checkbox" value="1" <?php is_checked(1, intval($content["alist"]["titleasnumber"])) ?> class="checkBox"></td>
+		<td><label for="calist_titleasnumber"><?php echo $BL['numerize_title'] ?></label></td>
+		
+		<td>&nbsp;&nbsp;&nbsp;</td>
+	
+		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_label'] ?>:&nbsp;</td>
+		<td><input type="text" name="calist_label" id="calist_label" class="v11 width100" value="<?php echo html_specialchars($content["alist"]["label"]) ?>"></td>
+	
+		<td>&nbsp;</td>
+	
+		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_field']['break'] ?>:&nbsp;</td>
+		<td><input type="text" name="calist_break" id="calist_break" class="v11 width35" value="<?php echo html_specialchars($content["alist"]["break"]) ?>"></td>
+		
+		
+	</tr>
+	</table>
+	
+
 	<table border="0" cellpadding="0" cellspacing="0" style="margin-top:8px;" summary="">
 	<tr>
 	<td><input name="calist_headertext" id="calist_headertext" type="checkbox" value="1" <?php is_checked(1, intval($content["alist"]["headertext"])) ?> class="checkBox"></td>
@@ -125,6 +160,8 @@ if(!isset($content["alist"]["hideactive"])) {
 	
 	</tr>
 	</table>
+
+
 	
 	<table border="0" cellpadding="0" cellspacing="0" style="margin-top:8px;" summary="">
 	<tr>

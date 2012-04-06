@@ -1300,5 +1300,6 @@ $BL['be_structform_selected_cp']		= 'Auswahl nutzbarer Content Parts begrenzen';
 
 $BL['source_image_not_found']			= 'Quelldatei Fehler: Die Datei %s konnte nicht gefunden werden.';
 $BL['form_force_ssl']					= 'Formularversand per SSL erzwingen';
+$BL['numerize_title']					= 'Nummerieren anstatt Artikeltitel';
 
 ?>

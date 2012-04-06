@@ -117,6 +117,7 @@ a:hover {  color: #CC3300;  text-decoration: underline;  background-color: trans
 .f11 { font-weight: normal; font-size: 11px;  }
 .button10 {	font-size: 11px; width:auto; padding: 1px; }
 .button12 {	font-size: 12px;}
+button.button10 { padding: 0 6px; line-height: 18px; }
 
 .dir {	font-size: 11px; color: #000000; }
 .dir a:link {	text-decoration : none; color: #000000 }
