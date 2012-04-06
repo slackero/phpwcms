@@ -141,6 +141,7 @@ $content['form']["customform"]	= slweg($_POST["cform_customform"]);
 $content['form']["savedb"]		= empty($_POST["cform_savedb"]) ? 0 : 1;
 $content['form']["saveprofile"]	= empty($_POST["cform_saveprofile"]) ? 0 : 1;
 $content['form']["anchor_off"]	= empty($_POST["cform_anchor_off"]) ? 0 : 1;
+$content['form']["ssl"]			= empty($_POST["cform_ssl"]) ? 0 : 1;
 
 
 //$field_counter = 0;

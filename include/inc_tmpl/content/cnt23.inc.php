@@ -124,7 +124,8 @@ $content['form'] = array_merge( array(
 	'checktofrom'			=> 0,
 	'function_to'			=> '',
 	'function_cc'			=> '',
-	'anchor_off'			=> 0	), $content['form']);
+	'anchor_off'			=> 0,
+	'ssl'					=> 0 ), $content['form']);
 
 $content['profile_fields'] = array(
 				"title"			=> $BL['be_profile_label_title'],
@@ -203,7 +204,7 @@ $BE['BODY_CLOSE'][] = '<script language="javascript" type="text/javascript">docu
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_msg_subject'] ?>:&nbsp;</td>
-<td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
+<td><table summary="" cellpadding="0" cellspacing="0" border="0">
   <tr>
   	<td><select name="cform_subjectselect" class="v11" style="width:200px">
 	
@@ -340,7 +341,7 @@ echo $subject_option;
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_cnt_recipient'] ?>:&nbsp;</td>
-<td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
+<td><table summary="" cellpadding="0" cellspacing="0" border="0">
   <tr>
   <td><select name="cform_targettype" class="v11" style="width:200px">
 <?php 
@@ -358,7 +359,7 @@ echo $subject_option;
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_newsletter_fromemail'] ?>:&nbsp;</td>
-<td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
+<td><table summary="" cellpadding="0" cellspacing="0" border="0">
   <tr>
   <td><select name="cform_sendertype" class="v11 width200">
 <?php
@@ -377,7 +378,7 @@ echo $subject_option;
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_newsletter_fromname'] ?>:&nbsp;</td>
-<td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
+<td><table summary="" cellpadding="0" cellspacing="0" border="0">
   <tr>
   <td><select name="cform_sendernametype" class="v11 width200">
 <?php
@@ -397,9 +398,9 @@ echo $subject_option;
 
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_cnt_send_copy_to']?>:&nbsp;</td>
-<td valign="top"><table summary="" cellpadding="0" cellspacing="0" border="0">
+<td><table summary="" cellpadding="0" cellspacing="0" border="0">
   <tr>
-  <td bgcolor="#E7E8EB"><input type="checkbox" name="cform_sendcopy" value="1"<?php echo is_checked('1', $content['form']["sendcopy"], 0, 0) ?> title="send copy to selected field" /></td>
+  <td><input type="checkbox" name="cform_sendcopy" value="1"<?php echo is_checked('1', $content['form']["sendcopy"], 0, 0) ?> title="send copy to selected field" />&nbsp;</td>
   <td><select name="cform_copyto" class="v11" style="width:180px;">
 <?php echo $cc_listing; ?>
   </select></td>
@@ -417,6 +418,19 @@ echo $subject_option;
   		<tr>
   			<td><input type="checkbox" name="cform_checktofrom" id="cform_checktofrom" value="1" <?php is_checked(1, $content['form']['checktofrom']) ?> /></td>
   			<td class="v10"><label for="cform_checktofrom">&nbsp;<?php echo $BL['be_cnt_field']['checktofrom'] ?></label>&nbsp;</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+
+<tr>
+	<td  align="right">&nbsp;</td>
+	<td><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
+  		<tr>
+  			<td><input type="checkbox" name="cform_ssl" id="cform_ssl" value="1" <?php is_checked(1, $content['form']['ssl']) ?> /></td>
+  			<td class="v10"><label for="cform_ssl">&nbsp;<?php echo $BL['form_force_ssl'] ?></label>&nbsp;</td>
 		</tr>
 		</table>
 	</td>

@@ -37,6 +37,11 @@ if(empty($cnt_form['anchor_off'])) {
 }
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
+if(!empty($cnt_form['ssl']) && !PHPWCMS_SSL) {
+	headerRedirect($phpwcms['site_ssl_url'] . rel_url(), 301);
+}
+
+
 // save default form tracking status
 $default_formtracking_value = $phpwcms['form_tracking'];
 // check form related form tracking status

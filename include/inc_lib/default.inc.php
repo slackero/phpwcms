@@ -95,6 +95,31 @@ if(defined('CUSTOM_CONTENT_TYPE')) {
 
 }
 
+$phpwcms["site"] = rtrim($phpwcms["site"], '/');
+if(empty($phpwcms['site_ssl_url'])) {
+	$phpwcms['site_ssl_url'] = $phpwcms["site"];
+} else {
+	$phpwcms["site_ssl_url"] = rtrim($phpwcms["site_ssl_url"], '/');
+}
+if(substr($phpwcms['site_ssl_url'], 0, 5) == 'http:') {
+	$phpwcms['site_ssl_url'] = 'https' . substr($phpwcms['site_ssl_url'], 4);
+}
+$phpwcms['site_ssl_port'] = abs(intval($phpwcms['site_ssl_port']));
+if($phpwcms['site_ssl_port'] !== 443) {
+	$phpwcms['site_ssl_url'] .= ':' . $phpwcms['site_ssl_port'];
+}
+
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+	if(substr($phpwcms['site'], 0, 5) == 'http:') {
+		$phpwcms['site'] = $phpwcms['site_ssl_url'];
+	}
+	define ('PHPWCMS_SSL', true);
+} else {
+	define ('PHPWCMS_SSL', false);
+}
+
+$phpwcms["site"] .= '/';
+$phpwcms['site_ssl_url'] .= '/';
 
 // define the real path of the phpwcms installation
 // important to script that must know the real path to files or something else
@@ -326,19 +351,22 @@ function buildGlobalGET($return = '') {
 
 // build phpwcms specific relative url
 function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
-	
+	if($GLOBALS['phpwcms']['rewrite_url']) {
+		returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind, '');
+	}
 	return 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
-
 }
 // build phpwcms specific absolute url
 function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
-	
+	if($GLOBALS['phpwcms']['rewrite_url']) {
+		PHPWCMS_URL . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind, '');
+	}
 	return PHPWCMS_URL . 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
 
 }
 
 // build a URL query string based on current values
-function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=') {
+function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=', $query_string_separator='?') {
 
 	$queryString	= array();
 	$_getVarTemp	= $GLOBALS['_getVar'];
@@ -393,7 +421,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 	}
 
-	return count($queryString) ? '?'.implode($glue, $queryString) : '';
+	return count($queryString) ? $query_string_separator.implode($glue, $queryString) : '';
 }
 
 function getQueryString_htmlentities($key='', $value='', $bind='=') {

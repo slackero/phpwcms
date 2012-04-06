@@ -1309,5 +1309,6 @@ $BL['be_cnt_function_validate']			= 'PHP validation';
 $BL['be_structform_selected_cp']		= 'Limit selection of usable content parts';
 
 $BL['source_image_not_found']			= 'Source image error: The image %s seems not to exist';
+$BL['form_force_ssl']					= 'Force sending forms with SSL';
 
 ?>

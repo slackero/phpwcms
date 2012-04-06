@@ -245,6 +245,10 @@ if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
 	$redirect = get_redirect_link( $content['struct'][ $content["cat_id"] ]['acat_redirect'] );
 	headerRedirect($redirect['link'], 301);
 }
+// Check if curret level is forced for SSL
+if(!PHPWCMS_SSL && (!empty($phpwcms['site_ssl_mode']) || $content['struct'][ $content["cat_id"] ]['acat_ssl'])) {
+	headerRedirect($phpwcms['site_ssl_url'] . rel_url(), 301);
+}
 
 //try to find current tree depth
 $LEVEL_ID  		= array();

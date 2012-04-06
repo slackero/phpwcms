@@ -145,7 +145,16 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['db_timezone']       = '".trim($val["db_timezone"])."';\n // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html";
 	
 	$conf_file .= "\n// site values\n";
-	$conf_file .= "\$phpwcms['site']              = '".$val["site"]."';\n";
+	if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
+		$conf_file .= "\$phpwcms['site']              = 'http://'.\$_SERVER['SERVER_NAME'].'/';";
+	} else {
+		$conf_file .= "\$phpwcms['site']              = '".$val["site"]."';";
+	}
+	$conf_file .= " // recommend 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
+	$conf_file .= "\$phpwcms['site_ssl_mode']     = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
+	$conf_file .= "\$phpwcms['site_ssl_url']      = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
+	$conf_file .= "\$phpwcms['site_ssl_port']     = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
+	
 	$conf_file .= "\$phpwcms['admin_name']        = '".$val["admin_name"]."'; //default: Webmaster\n";
 	$conf_file .= "\$phpwcms['admin_user']        = '".$val["admin_user"]."'; //default: admin\n";
 	$conf_file .= "\$phpwcms['admin_pass']        = '".$val["admin_pass"]."'; //MD5(phpwcms)\n";
@@ -153,16 +162,12 @@ function write_conf_file($val) {
 
 	$conf_file .= "\n// paths\n";
 	if(!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
-		$conf_file .= "\$phpwcms['DOC_ROOT']          = \$_SERVER"."['DOCUMENT_ROOT'];";
+		$conf_file .= "\$phpwcms['DOC_ROOT']          = \$_SERVER['DOCUMENT_ROOT'];";
 	} else {
 		$conf_file .= "\$phpwcms['DOC_ROOT']          = '".$val["DOC_ROOT"]."';         //default: \$_SERVER['DOCUMENT_ROOT']";
 	}
-	$real_doc_root = dirname(__FILE__);
-	$real_doc_root = str_replace("\\", '/', $real_doc_root);
-	$real_doc_root = str_replace('/setup', '', $real_doc_root);
-	$real_doc_root = str_replace($val["root"], '', $real_doc_root);
-	$real_doc_root = preg_replace('/\/$/i', '', $real_doc_root);
-	$conf_file .= "// real DOC_ROOT seems to be: '".$real_doc_root."' \n";
+	$real_doc = explode($val["root"], str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))));
+	$conf_file .= "// current DOC_ROOT seems to be: '".rtrim($real_doc[0], '/')."' \n";
 	$conf_file .= "\$phpwcms['root']         		= '".$val["root"]."';         //default: ''\n";
 	$conf_file .= "\$phpwcms['file_path']         = '".$val["file_path"]."';    //default: 'filearchive'\n";
 	$conf_file .= "\$phpwcms['templates']         = '".$val["templates"]."';    //default: 'template'\n";
@@ -231,11 +236,6 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)\n";
 	$conf_file .= "\$phpwcms['render_device']     = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
 	$conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
-
-	$conf_file .= "\n// dynamic ssl encryption engine\n";
-	$conf_file .= "\$phpwcms['site_ssl_mode']     = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'\n";
-	$conf_file .= "\$phpwcms['site_ssl_url']      = '';  //URL assigned to the SSL Certificate. DON'T add a slash at the End! Exp. 'https://www.yourdomainhere.tld'\n";
-	$conf_file .= "\$phpwcms['site_ssl_port']     = '443'; //The Port on which you SSL Service serve the secure Sites. Servers DEFAULT is '443'\n";
 	
 	$conf_file .= "\n// smtp values\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";

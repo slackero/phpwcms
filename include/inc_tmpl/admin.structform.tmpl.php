@@ -444,7 +444,7 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 				  </select></td>
 				  <td class="inactive">&nbsp;<?php echo $BL['be_cache_timeout'] ?>&nbsp;&nbsp;</td>
 				  <td bgcolor="#FFFFFF">&nbsp;&nbsp;</td>
-				  <td><input name="acat_nosearch" type="checkbox" id="acat_nosearch" value="1" <?php if($acat_nosearch === '1') echo "checked"; ?> /></td>
+				  <td><input name="acat_nosearch" type="checkbox" id="acat_nosearch" value="1" <?php if($acat_nosearch === '1') echo 'checked="checked"'; ?> /></td>
 				  <td>&nbsp;<label for="acat_nosearch"><?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
                 </tr>
               </table></td>
@@ -453,30 +453,19 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  
           <tr>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+            <td><table border="0" cellpadding="0" cellspacing="0" summary="" class="nowrap">
 			
 				<tr><td class="v09" colspan="8"><?php echo  $BL['be_ftptakeover_status'] ?>:</td></tr>
 		 		<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 			
 			
                 <tr bgcolor="#D9DEE3">
-                  <td><input name="acat_aktiv" type="checkbox" id="acat_aktiv" value="1" <?php if($acat_aktiv == 1) echo "checked"; ?> /></td>
+                  <td><input name="acat_aktiv" type="checkbox" id="acat_aktiv" value="1" <?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> /></td>
                   <td>&nbsp;<label for="acat_aktiv"><?php echo $BL['be_admin_struct_visible'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="acat_public" type="checkbox" id="acat_public" value="1" <?php if($acat_public == 1) echo "checked"; ?> /></td>
+                  <td><input name="acat_public" type="checkbox" id="acat_public" value="1" <?php if($acat_public == 1) echo 'checked="checked"'; ?> /></td>
                   <td>&nbsp;<label for="acat_public"><?php echo $BL['be_ftptakeover_public'] ?></label>&nbsp;&nbsp;</td>
-				  <td><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php 
-				  	if(intval($phpwcms["site_ssl_mode"])) {
-						if($acat_ssl == 1) { 
-							echo ' checked="checked"'; 
-							$ssl_style='';
-						}
-					} else { 
-						echo ' disabled="disabled"'; 
-						$ssl_style=' style="color:#ADB2BE;"'; 
-					}
-					
-					?> /></td>
-                  <td<?php echo $ssl_style; ?>>&nbsp;<label for="acat_ssl">SSL</label>&nbsp;&nbsp;</td>
+				  <td><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> /></td>
+                  <td>&nbsp;<label for="acat_ssl">SSL</label>&nbsp;&nbsp;</td>
 				  
 			     <td><input name="acat_nositemap" type="checkbox" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> /></td>
 				 <td>&nbsp;<label for="acat_nositemap"><?php echo $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>

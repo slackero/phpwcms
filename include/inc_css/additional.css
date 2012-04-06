@@ -726,4 +726,8 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
 	filter: alpha(opacity=100);
 }
 
-
+.nowrap td,
+.nowrap label,
+label.nowrap {
+	white-space: nowrap;
+}

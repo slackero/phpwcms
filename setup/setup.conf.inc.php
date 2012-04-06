@@ -36,14 +36,18 @@ $phpwcms['db_version']        = 0;
 $phpwcms['db_timezone']		  = ''; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
 
 // site values
-$phpwcms['site']              = 'http://'.$_SERVER['SERVER_NAME'].'/';
+$phpwcms['site']              = 'http://'.$_SERVER['SERVER_NAME'].'/'; // recommend 'http://'.$_SERVER['SERVER_NAME'].'/'
+$phpwcms['site_ssl_mode']     = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0
+$phpwcms['site_ssl_url']      = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.$_SERVER['SERVER_NAME'].'/'
+$phpwcms['site_ssl_port']     = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443
+
 $phpwcms['admin_name']        = 'Webmaster';
 $phpwcms['admin_user']        = 'admin';
 $phpwcms['admin_pass']        = 'acf977c1cfa27a463246f6963055cb11'; //MD5
 $phpwcms['admin_email']       = 'noreply@'.str_replace(array('www.', 'WWW.', '/'), '', $_SERVER["HTTP_HOST"]);
 
 // paths
-$ptemp = dirname(__FILE__);
+$ptemp = dirname(dirname(__FILE__));
 $phpwcms['DOC_ROOT']          = empty($_SERVER['DOCUMENT_ROOT']) ? $ptemp : $_SERVER['DOCUMENT_ROOT'];
 
 $ptemp = dirname($_SERVER['SCRIPT_NAME']);
@@ -119,11 +123,7 @@ $phpwcms['login.php']	  	  = 'login.php';
 $phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-compat'=>'MooTools 1.4 Compat','mootools-1.2'=>'MooTools 1.2','mootools-1.1'=>'MooTools 1.1','jquery-1.7'=>'jQuery 1.7','jquery-1.6'=>'jQuery 1.6','jquery-1.5'=>'jQuery 1.5','jquery-1.4'=>'jQuery 1.4','jquery'=>'jQuery 1.3');
 $phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)
 $phpwcms['render_device']     = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
-
-// dynamic ssl encryption engine
-$phpwcms['site_ssl_mode']     = '0'; // tuns the SSL Support of WCMS on(1) or off (0) DEFAULT '0'
-$phpwcms['site_ssl_url']      = '';  //URL assigned to the SSL Certificate. DON'T add a slash at the End! Exp. 'https://www.yourdomainhere.tld'
-$phpwcms['site_ssl_port']     = '443'; //The Port on which you SSL Service serve the secure Sites. Servers DEFAULT is '443'
+$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = ''; // reply/from email address
@@ -134,6 +134,5 @@ $phpwcms['SMTP_MAILER']       = 'mail'; // default phpMailer: smtp, mail (defaul
 $phpwcms['SMTP_AUTH']         = 0; // sets SMTP_AUTH to ON/OFF
 $phpwcms['SMTP_USER']         = ''; // default SMTP login (user) name
 $phpwcms['SMTP_PASS']         = ''; // default SMTP password
-
 
 ?>

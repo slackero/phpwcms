@@ -1,5 +1,4 @@
 <?php
-
 /*************************************************************************************
    Copyright notice
    
@@ -60,8 +59,6 @@ $_form_entries['ENTRY']			= '
 	</tr>
 ';
 
-
-
 ////////// Do not change below //////////////////////////////
 
 if(strpos($content['all'], $_form_entries['RT']) !== false) {
@@ -95,11 +92,9 @@ if(strpos($content['all'], $_form_entries['RT']) !== false) {
 	
 	
 	if(count($_form_entries['ENTRIES'])) {
-	
-		$content['all'] = str_replace(	$_form_entries['RT'], 
-										$_form_entries['HEADER'].
-										implode($_form_entries['SPACER'], $_form_entries['ENTRIES']), $content['all']).
-										$_form_entries['FOOTER'];
+		
+		$_form_entries['ENTRIES'] = implode($_form_entries['SPACER'], $_form_entries['ENTRIES']);
+		$content['all'] = str_replace($_form_entries['RT'], $_form_entries['HEADER'].$_form_entries['ENTRIES'].$_form_entries['FOOTER'], $content['all']);
 	
 	
 	} else {
