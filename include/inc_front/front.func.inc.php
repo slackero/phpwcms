@@ -3041,10 +3041,19 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 	$_menu_type		= strtolower($menu_type);
 	$max_depth		= ($max_depth == 0 || $max_depth-1 > $counter) ? true : false;
 	$x				= 0;
-
+	$items			= array();
+	$last_item		= 0;
+	
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 
 		if( _getStructureLevelDisplayStatus($key, $start_id) ) {
+			$items[$key] = $key;
+			$last_item++;
+		}
+
+	}
+
+	foreach($items as $key) {
 
 			$li_ul 		= '';
 			$li_ie		= '';
@@ -3074,15 +3083,19 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($x==0) {
 				$li_class .= ' sub_first';
 			}
+			
+			$x++;
+			
+			if($x==$last_item) {
+				$li_class .= ' sub_last';
+			}
 
 			$li .= ' class="' . trim($li_class . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
 
 			$li .= '>' . $li_a . '</a>';
 
 			$li .= $li_ul.'</li>'.LF; // remove $li_ul from this line of code if $ie_patch is used
-			
-			$x++;
-		}
+
 	}
 	
 	// show article menu
