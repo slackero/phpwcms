@@ -104,7 +104,7 @@ function renderHeadJS($js) {
 		return '';
 	}
 
-	if(strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false) {
+	if(strpos($js, '://') === false && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
 		
 		$key = md5($js);
 		
