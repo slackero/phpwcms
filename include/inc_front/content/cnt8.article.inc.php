@@ -297,50 +297,63 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 				if($value == $row['article_id'] && isset($content['struct'][ $row['article_cid'] ])) {
 					
 					// enable frontend edit link
-					$content['alink']['tr'][$key]   = getFrontendEditLink('summary', $row["article_id"]);
+					$content['alink']['tr'][$key] = getFrontendEditLink('summary', $row["article_id"]);
 										
 					// set columns/row class
 					if($content['alink']['alink_columns'] > 0) {
 						
 						// check if the current teaser will be on a new row
 						if($content['alink']['row_space'] && $content['alink']['alink_template_row']) {
-							$content['alink']['tr'][$key] .= render_cnt_template($content['alink']['alink_template_row'], 'ROW', $content['alink']['row']);
+							$content['alink']['tr'][$key] .= str_replace('{ROW}', $content['alink']['row'], $content['alink']['alink_template_row']);
 						}
-	
-						$row['column'] = array(
-							'teaser-row'.$content['alink']['row'],
-							'teaser-col'.$content['alink']['column']
-						);
-						
-						$row['column'] = implode(' ', $row['column']);
 						
 						// now make the tests
 						if($content['alink']['column'] % $content['alink']['alink_columns']) {
 							// New column
 							$content['alink']['column']++;
 							$content['alink']['row_space'] = false;
+							$content['alink']['column_minus'] = 1;
+							$content['alink']['row_minus'] = 0;
 						} else {
 							// New row
 							$content['alink']['column'] = 1;
 							$content['alink']['row']++;
 							$content['alink']['row_space'] = true;
+							$content['alink']['column_minus'] = 0;
+							$content['alink']['row_minus'] = 1;
+						}
+						
+						if($content['alink']['column'] > 2 || ($content['alink']['row_space'] && $content['alink']['column'] === 1)) {
+							$content['alink']['tr'][$key] .= $content['alink']['alink_template_space'];
 						}
 					
 					} else {
-					
-						$row['column'] = '';
+						
+						$content['alink']['row_space'] = false;
+						
+						if($content['alink']['column'] > 1) {
+							$content['alink']['tr'][$key] .= $content['alink']['alink_template_space'];
+						}
+						
+						$content['alink']['column']++;
+						
+						$content['alink']['column_minus'] = 1;
+						$content['alink']['row_minus'] = 0;
+
 					}
-												
+
 					$content['alink']['tr'][$key]  .= $content['alink']['alink_template_entry'];
 					
 					$content['alink']['tr'][$key]	= str_replace('{ARTICLEID}', $row['article_id'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= str_replace('{CATEGORYID}', $row['article_cid'], $content['alink']['tr'][$key]);
+					$content['alink']['tr'][$key]	= str_replace('{COLUMN}', $content['alink']['column']-$content['alink']['column_minus'], $content['alink']['tr'][$key]);
+					$content['alink']['tr'][$key]	= str_replace('{ROW}', $content['alink']['row']-$content['alink']['row_minus'], $content['alink']['tr'][$key]);
+					
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'MENUTITLE', html_specialchars($row['article_menutitle']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'TITLE', html_specialchars($row['article_title']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
 					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], phpwcms_strtotime($row['article_begin']), phpwcms_strtotime($row['article_end']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
-					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'COLUMN', $row['column']);
 
 					$row['article_image'] = @unserialize( $row['article_image'] );
 					
@@ -483,7 +496,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 	
 	// combine all teaser items
 	if(count($content['alink']['tr'])) {
-		$content['alink']['tr']		= implode($content['alink']['alink_template_space'], $content['alink']['tr']);
+		$content['alink']['tr']		= implode(LF, $content['alink']['tr']);
 		$content['alink']['teaser']	= ' ';
 	} else {
 		$content['alink']['tr']		= '';
