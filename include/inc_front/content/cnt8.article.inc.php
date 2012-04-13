@@ -485,6 +485,13 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					// article category
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CATEGORY', html_specialchars($content['struct'][ $row['article_cid'] ]['acat_name']));
 					
+					// article class based on keyword *CSS-classname*
+					$row['article_class'] = '';
+					if(strpos($row['article_keyword'], '*CSS-') !== false) {
+						$row['article_class'] = trim(preg_replace('/^.*\*CSS\-(.+)\*.*$/', '$1', $row['article_keyword']));
+					}
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CLASS', $row['article_class']);
+					
 					break;
 					
 				}
