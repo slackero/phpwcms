@@ -166,8 +166,13 @@ function write_conf_file($val) {
 	} else {
 		$conf_file .= "\$phpwcms['DOC_ROOT']          = '".$val["DOC_ROOT"]."';         //default: \$_SERVER['DOCUMENT_ROOT']";
 	}
-	$real_doc = explode($val["root"], str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))));
-	$conf_file .= "// current DOC_ROOT seems to be: '".rtrim($real_doc[0], '/')."' \n";
+	
+	$real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
+	if(isset($val["root"]) && $val["root"] !== '') {
+		$real_doc = explode($val["root"], $real_doc);
+		$real_doc = rtrim($real_doc[0], '/');
+	}
+	$conf_file .= "// current DOC_ROOT seems to be: '".$real_doc."' \n";
 	$conf_file .= "\$phpwcms['root']         		= '".$val["root"]."';         //default: ''\n";
 	$conf_file .= "\$phpwcms['file_path']         = '".$val["file_path"]."';    //default: 'filearchive'\n";
 	$conf_file .= "\$phpwcms['templates']         = '".$val["templates"]."';    //default: 'template'\n";
