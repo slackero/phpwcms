@@ -191,13 +191,14 @@ if($_entry['pages_total'] > 1) {
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="" class="shop">
 
-	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+	<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	
 <?php
 // loop listing available newsletters
 $row_count = 0;
 
-$sql  = "SELECT C1.*, IFNULL(CONCAT(C2.cat_name, ' / ', C1.cat_name), C1.cat_name) AS category FROM ";
+$sql  = "SELECT C1.*, ";
+$sql .= "IFNULL(CONCAT(C2.cat_name, ' / ', C1.cat_name), C1.cat_name) AS category FROM ";
 $sql .= DB_PREPEND.'phpwcms_categories C1 ';
 $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_categories C2 ';
 $sql .= 'ON C1.cat_pid=C2.cat_id ';
@@ -225,9 +226,11 @@ foreach($data as $row) {
 	echo $row['cat_pid'] ? 'orange' : 'blue';	
 	echo '.gif" alt="'.$BLM['shop_category'].'" /></td>'.LF;
 	
-	echo '<td class="dir" width="88%">';
+	echo '<td class="dir" width="85%">';
 	echo $row['cat_pid'] ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '&nbsp;';
-	echo html_specialchars($row['cat_name'])."</td>\n";
+	echo html_specialchars($row['category'])."</td>\n";
+	
+	echo '<td class="dir" width="3%" align="center">&nbsp;' . $row['cat_sort'] . '&nbsp;</td>';
 
 
 	echo '<td width="10%" align="right" nowrap="nowrap" class="button_td">';
@@ -251,7 +254,7 @@ foreach($data as $row) {
 }
 
 if($row_count) {
-	echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
+	echo '<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
 }
 
 }

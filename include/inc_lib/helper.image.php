@@ -678,11 +678,11 @@ class Phpwcms_Image_lib {
 		$cmd  = $this->library_path;
 		if($this->target_ext == 'jpg')
 		{
-			$cmd .= ' -colorspace RGB -type TrueColor';
+			$cmd .= ' -colorspace sRGB -type TrueColor';
 		}
 		elseif($this->target_ext == 'png')
 		{
-			$cmd .= ' -colorspace RGB';
+			$cmd .= ' -colorspace sRGB';
 		}
 		elseif($this->target_ext == 'gif')
 		{
@@ -1380,7 +1380,7 @@ class Phpwcms_Image_lib {
 		{
 			case 1		:	imagegif($resource);
 				break;
-			case 2		:	imagejpeg($resource, '', $this->quality);
+			case 2		:	imagejpeg($resource, NULL, $this->quality);
 				break;
 			case 3		:	imagepng($resource);
 				break;

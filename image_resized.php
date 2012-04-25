@@ -114,10 +114,10 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
 	
 	switch($img_target) {
 
-		case 'jpg':		imagejpeg($new_img, '', $img_quality);
+		case 'jpg':		imagejpeg($new_img, NULL, $img_quality);
 						break;
 	
-		case 'png':		imagepng($new_img, '', 9);
+		case 'png':		imagepng($new_img, NULL, 9);
 						break;
 	
 		case 'gif':		imagegif($new_img);
@@ -135,9 +135,8 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
 	$new_img = imagecreatetruecolor(75, 20);
 	$text_color = imagecolorallocate($new_img, 255, 255, 255);
 	imagestring($new_img, 1, 5, 5,  "Image Error", $text_color);
-	imagepng($new_img, '', 9);
+	imagepng($new_img, NULL, 9);
 	imagedestroy($new_img);
-
 
 }
 

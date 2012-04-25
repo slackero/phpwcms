@@ -112,10 +112,10 @@ if($do) {
 	
 	switch($img_target) {
 
-		case 'jpg':		imagejpeg($img_source, '', $img_quality);
+		case 'jpg':		imagejpeg($img_source, NULL, $img_quality);
 						break;
 	
-		case 'png':		imagepng($img_source, '', 9);
+		case 'png':		imagepng($img_source, NULL, 9);
 						break;
 	
 		case 'gif':		imagegif($img_source);
@@ -132,7 +132,7 @@ if($do) {
 	$new_img = imagecreatetruecolor(75, 20);
 	$text_color = imagecolorallocate($new_img, 255, 255, 255);
 	imagestring($new_img, 1, 5, 5,  "Image Error", $text_color);
-	imagepng($new_img, '', 9);
+	imagepng($new_img, NULL, 9);
 	imagedestroy($new_img);
 
 }
