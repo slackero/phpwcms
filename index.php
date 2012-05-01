@@ -142,6 +142,10 @@ $content['page_start'] .= $body_inject.'>'.LF;
 if($phpwcms["rewrite_url"]) {
 	$content["all"] = preg_replace("/( href=\"index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\")/e", "url_search('$2')", $content["all"]);
 	$content["all"] = preg_replace("/(onclick=\"location.href='index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\')/e", "js_url_search('$2')", $content["all"]);
+	if(!empty($phpwcms['rewrite_ext'])) {
+		$content["all"] = str_replace(array($phpwcms['rewrite_ext'].'&amp;', $phpwcms['rewrite_ext'].'&'), $phpwcms['rewrite_ext'].'?', $content["all"]);
+	}
+	$content["all"] = str_replace('&amp;print=', $phpwcms['rewrite_ext'].'?print=', $content["all"]);
 }
 
 // real page ending
