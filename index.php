@@ -140,8 +140,8 @@ $content['page_start'] .= $body_inject.'>'.LF;
 
 //  this regex's inits rewrite
 if($phpwcms["rewrite_url"]) {
-	$content["all"] = preg_replace("/( href=\"index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\")/e", "url_search('$2')", $content["all"]);
-	$content["all"] = preg_replace("/(onclick=\"location.href='index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)(\')/e", "js_url_search('$2')", $content["all"]);
+	$content["all"] = preg_replace_callback('/( href| action)(="index.php?)(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)"/', 'url_search', $content["all"]);
+	$content["all"] = preg_replace_callback('/onclick="location.href=\'index.php?(([a-zA-Z0-9@,\.\+&\-_=\*#\/%\?])*)\'/', 'js_url_search', $content["all"]);
 	if(!empty($phpwcms['rewrite_ext'])) {
 		$content["all"] = str_replace(array($phpwcms['rewrite_ext'].'&amp;', $phpwcms['rewrite_ext'].'&'), $phpwcms['rewrite_ext'].'?', $content["all"]);
 	}

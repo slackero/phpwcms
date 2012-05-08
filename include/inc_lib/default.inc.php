@@ -351,18 +351,11 @@ function buildGlobalGET($return = '') {
 
 // build phpwcms specific relative url
 function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
-	if($GLOBALS['phpwcms']['rewrite_url']) {
-		return returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind, '');
-	}
 	return 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
 }
 // build phpwcms specific absolute url
 function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
-	if($GLOBALS['phpwcms']['rewrite_url']) {
-		return PHPWCMS_URL . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind, '');
-	}
 	return PHPWCMS_URL . 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
-
 }
 
 // build a URL query string based on current values

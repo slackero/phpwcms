@@ -1878,29 +1878,23 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 
 // REWRITE - PATCHED FOR 04/04 // jan212
 function url_search($query) {
-	if ( substr($query,0,4) == '?id=') {
-		$noid = substr($query, 4);
-		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
+	if ( substr($query[3], 0, 4) == '?id=') {
+		$file = str_replace(',', '.', substr($query[3], 4)).PHPWCMS_REWRITE_EXT;
 	} else {
-		$noid = substr($query,1);
-		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
+		$file = str_replace(',', '.', substr($query[3], 1)).PHPWCMS_REWRITE_EXT;
 		$file = str_replace('aid=', 'aid'.rawurlencode('='), $file);
 	}
-	$link = ' href="'.str_replace('aid=', 'aid'.rawurlencode('='), $file).'"';
-	return($link);
+	return $query[1].'="'.$file.'"';
 }
 
 function js_url_search($query) {
-	if ( substr($query,0,4) == '?id=') {
-		$noid = substr($query, 4);
-		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
+	if ( substr($query[1], 0, 4) == '?id=') {
+		$file = str_replace(',', '.', substr($query[1], 4)).PHPWCMS_REWRITE_EXT;
 	} else {
-		$noid = substr($query,1);
-		$file = str_replace(',', '.', $noid).PHPWCMS_REWRITE_EXT;
+		$file = str_replace(',', '.', substr($query[1], 1)).PHPWCMS_REWRITE_EXT;
 		$file = str_replace('aid=', 'aid'.rawurlencode('='), $file);
 	}
-	$link = "onclick=\"location.href='".$file."'";
-	return($link);
+	return "onclick=\"location.href='".$file."'";
 }
 
 function get_related_articles($keywords, $current_article_id, $template_default, $max_cnt_links=0, $dbcon) {
