@@ -860,7 +860,6 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 $phpwcms["generator"] = PHPWCMS_VERSION . ' (r'.PHPWCMS_REVISION.')';
 set_meta('generator', 'phpwcms '.$phpwcms["generator"]);
 
-
 // replace Print URL
 if(strpos($content["all"], '[PRINT]') !== false) {
 	$content["all"] = str_replace('[PRINT]', '<a href="'.rel_url(array('print'=>1),array(), PHPWCMS_ALIAS).'" target="_blank" rel="nofollow">', $content["all"]);
