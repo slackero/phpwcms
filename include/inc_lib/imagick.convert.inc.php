@@ -128,7 +128,16 @@ function image_manipulate($config=array()) {
 		
 		}
 	}
-	
+		
+	// do not resize if image is smaller than target sizes
+	if(!$config['crop_image'] && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
+		$config['max_width']		= $IMG->orig_width;
+		$config['max_height']		= $IMG->orig_height;
+		$image_config['width']		= $IMG->orig_width;
+		$image_config['height']		= $IMG->orig_height;
+		$IMG->width					= $IMG->orig_width;
+		$IMG->height				= $IMG->orig_height;
+	}
 		
 	if($phpwcms['image_library'] == 'imagemagick' && $config['crop_image']) {
 		
