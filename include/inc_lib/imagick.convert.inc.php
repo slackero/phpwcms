@@ -130,7 +130,7 @@ function image_manipulate($config=array()) {
 	}
 		
 	// do not resize if image is smaller than target sizes
-	if(!$config['crop_image'] && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
+	if(!$config['crop_image'] && substr($phpwcms['image_library'], 0, 2) == 'gd' && !empty($IMG->orig_width) && !empty($IMG->orig_height) && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
 		$config['max_width']		= $IMG->orig_width;
 		$config['max_height']		= $IMG->orig_height;
 		$image_config['width']		= $IMG->orig_width;
