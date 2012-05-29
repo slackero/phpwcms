@@ -521,10 +521,10 @@ function getContentPartTopLink($param=0) {
 	if($param) {
 		if($template_default["article"]["top_sign_before"].$template_default["article"]["top_sign_after"]) {
 			$toplink .= $template_default["article"]["top_sign_before"];
-			$toplink .= '<a href="#top">'.$template_default["article"]["top_sign"].'</a>';
+			$toplink .= '<a href="'.rel_url().'#top">'.$template_default["article"]["top_sign"].'</a>';
 			$toplink .= $template_default["article"]["top_sign_after"];
 		} else{
-			$toplink .= '<br /><a href="#top">' . $template_default["article"]["top_sign"] . '</a>';
+			$toplink .= '<br /><a href="'.rel_url().'#top">' . $template_default["article"]["top_sign"] . '</a>';
 		}
 	}
 	return $toplink;

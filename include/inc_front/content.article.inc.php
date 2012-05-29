@@ -593,7 +593,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		foreach($content['cptab'] as $CNT_TAB => $trow) {
 			
 			// define helper var
-			$g = array('wrap' => array(), 'cnt' => array(), 'counter' => 1, 'max' => count($trow));
+			$g = array('wrap' => array(), 'cnt' => array(), 'counter' => 1, 'max' => count($trow), 'href' => rel_url());
 	
 			$g['wrap'][]	= '<div id="'.$CNT_TAB.'" class="tab-container">';
 			
@@ -612,7 +612,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					$tabitem['class'] .= ' tab-last';
 				}
 				
-				$g['wrap'][]	= '		<li class="tab-item-'.$g['counter'].$tabitem['class'].'"><a href="#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
+				$g['wrap'][]	= '		<li class="tab-item-'.$g['counter'].$tabitem['class'].'"><a href="'.$g['url'].'#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
 				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'" class="tab-content">' . LF . $tabitem['content'] . LF . '	</div>';
 				
 				$tab_counter++;
