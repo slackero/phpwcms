@@ -26,10 +26,12 @@
 # Ignore
 #	RewriteRule ^(include|img|template|picture|filearchive|content)/ - [L]
 
-# Rewrite 0.0.0.0.0.0.phtml => index.php?id=0.0.0.0.0.0
+# Rewrite 0.0.0.0.0.0.html => index.php?id=0.0.0.0.0.0
+# Rewrite 0.0.0.0.0.0.html?query-string => index.php?id=0.0.0.0.0.0&query-string
 #	RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
 
 # Rewrite mypage.html => index.php?mypage
+# Rewrite mypage.html?query-string => index.php?mypage&query-string
 #	RewriteRule ^(.+)\.html$ index.php?$1&%{QUERY_STRING}
 
 #</IfModule>
