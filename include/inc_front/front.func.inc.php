@@ -3763,15 +3763,21 @@ function getArticleMenuTitle(& $data) {
 /**
  * Add HTML Head meta tag
  */
-function set_meta($name='', $content='', $http_equiv=FALSE) {
+function set_meta($name='', $content='', $type=FALSE) {
 	if(empty($name) || empty($content)) {
 		return NULL;
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name]  = '  <meta ';
-	if($http_equiv == 'prop' || $http_equiv == 'property') {
+	if($type === FALSE) {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
+	} elseif($type == 'prop' || $type == 'property') {
 		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'property';
-	} elseif($http_equiv === TRUE) {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'http-equiv'; break;
+	} elseif($type == 'itemprop') {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'itemprop';	
+	} elseif($type === TRUE || $type == 'http-equiv') {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'http-equiv';
+	} elseif($type) {
+		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= $type;	
 	} else {
 		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
 	}
