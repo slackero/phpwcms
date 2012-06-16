@@ -256,7 +256,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 	$phpwcms['mode_XHTML'] = 0;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html%s%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , '>');
@@ -265,7 +265,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
 	define('SCRIPT_CDATA_END'  , '  /* ]]> */');
 	define('HTML_TAG_CLOSE'  , ' />');
@@ -274,7 +274,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 } elseif($phpwcms['mode_XHTML'] == 3) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html%s%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
 	define('HTML_TAG_CLOSE'  , ' />');
@@ -285,7 +285,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	
 	$phpwcms['mode_XHTML'] = 1;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s%s>'.LF.'<head>'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , ' />');

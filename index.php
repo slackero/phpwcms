@@ -88,7 +88,11 @@ if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strp
 }
 
 $phpwcms["templates"]    = TEMPLATE_PATH;
-$content['page_start']   = sprintf(PHPWCMS_DOCTYPE, str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG ) . ' id="'.str_replace(array('.','/'), '-', PHPWCMS_HOST).'"');
+$content['page_start']   = sprintf(
+	PHPWCMS_DOCTYPE, 
+	str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG ) . ' id="'.str_replace(array('.','/'), '-', PHPWCMS_HOST).'"',
+	empty($content['htmltag_inject']) ? '' : ' '.$content['htmltag_inject']
+);
 $content['page_start']  .= '<!--
 	phpwcms | free open source content management system
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
