@@ -190,7 +190,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['max_time']          = ".intval($val["max_time"])."; //logout after max_time/60 seconds\n";
 
 	$conf_file .= "\n// other stuff\n";
-	$conf_file .= "\$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, NetPBM\n";
+	$conf_file .= "\$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
 	$conf_file .= "\$phpwcms['library_path']      = '';       //Path to ImageMagick or NetPBM\n";
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0; // whether URL should be rewritable\n";
 	$conf_file .= "\$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten\n";

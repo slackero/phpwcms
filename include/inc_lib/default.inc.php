@@ -214,7 +214,7 @@ if(isset($phpwcms['image_library'])) {
 	$phpwcms['image_library']	= strtolower($phpwcms['image_library']);
 	$phpwcms['library_path']	= empty($phpwcms['library_path']) ? '' : $phpwcms['library_path'];
 	
-	if(!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'netpbm', 'gd'))) {
+	if(!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'))) {
 		$phpwcms['image_library'] = 'gd2';
 	}
 

@@ -49,7 +49,7 @@ if (!defined('PHPWCMS_ROOT')) {
  */
 class Phpwcms_Image_lib {
 
-	var $image_library		= 'gd2';	// Can be:  imagemagick, netpbm, gd, gd2
+	var $image_library		= 'gd2';	// Can be: imagemagick, grpahicsmagick, netpbm, gd, gd2
 	var $library_path		= '';
 	var $dynamic_output		= FALSE;	// Whether to send to browser or write to disk
 	var $source_image		= '';
@@ -103,6 +103,8 @@ class Phpwcms_Image_lib {
 	var $wm_use_truetype	= FALSE;
 	var $image_cache		= array();
 	var $image_current_vals	= array();
+	var $graphicsmagick		= '';
+	var $colorspace			= 'RGB';
 	
 	// Language strings
 	var $lang				= array(
@@ -173,7 +175,8 @@ class Phpwcms_Image_lib {
 			'image_type',
 			'size_str',
 			'full_src_path',
-			'full_dst_path'
+			'full_dst_path',
+			'colorspace'
 		);
 
 		foreach ($props as $val)
@@ -206,6 +209,7 @@ class Phpwcms_Image_lib {
 		$this->wm_use_drop_shadow 	= FALSE;
 		$this->wm_use_truetype 		= FALSE;
 		$this->sharpen				= FALSE;
+		$this->colorspace			= 'RGB';
 	}
 
 	// --------------------------------------------------------------------
@@ -271,8 +275,18 @@ class Phpwcms_Image_lib {
 			$this->set_error('imglib_gd_required_for_props');
 			return FALSE;
 		}
-
+		
 		$this->image_library = strtolower($this->image_library);
+		if($this->image_library === 'graphicsmagick' || $this->image_library === 'gm') {
+			$this->graphicsmagick = 'gm ';
+			$this->image_library = 'imagemagick';
+			$this->colorspace = 'RGB';
+		} else {
+			$this->graphicsmagick = '';
+			if(!empty($GLOBALS['phpwcms']['im_fix_colorspace'])) {
+				$this->colorspace = $GLOBALS['phpwcms']['im_fix_colorspace'];
+			}
+		}
 
 		/* Set the full server path
 		 *
@@ -646,20 +660,20 @@ class Phpwcms_Image_lib {
 			return FALSE;
 		}
 
-		if ( ! preg_match('/convert$/i', $this->library_path))
+		if ( ! preg_match('/'.$this->graphicsmagick.'convert$/i', $this->library_path))
 		{
-			$this->library_path = rtrim($this->library_path, '/').'/convert';
+			$this->library_path = rtrim($this->library_path, '/').'/'.$this->graphicsmagick.'convert';
 		}
 
 		// Execute the command
 		$cmd  = $this->library_path;
 		if($this->target_ext == 'jpg')
 		{
-			$cmd .= ' -colorspace sRGB -type TrueColor';
+			$cmd .= ' -colorspace '.$this->colorspace.' -type TrueColor';
 		}
 		elseif($this->target_ext == 'png')
 		{
-			$cmd .= ' -colorspace sRGB';
+			$cmd .= ' -colorspace '.$this->colorspace;
 		}
 		elseif($this->target_ext == 'gif')
 		{
@@ -716,7 +730,7 @@ class Phpwcms_Image_lib {
 		$retval = 1;
 		
 		// debug commands
-		//write_textfile(PHPWCMS_TEMP.'imagemagick.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
+		//write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
 
 		@exec($cmd, $output, $retval);
 

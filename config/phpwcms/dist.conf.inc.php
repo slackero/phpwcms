@@ -65,7 +65,7 @@ $phpwcms['img_prev_height']   = 538; // max height of the large preview image
 $phpwcms['max_time']          = 1800; // logout after max_time/60 seconds
 
 // other stuff
-$phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, NetPBM
+$phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM
 $phpwcms['library_path']      = ''; // Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url']       = 0; // whether URL should be rewritable
 $phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
