@@ -368,14 +368,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 					case 10: $js  = "window.opener.SetUrl('download.php?f=".$file_row["f_hash"] . "&target=0');";
 							 break;
 		
-					case 11: $js  = "window.opener.SetUrl('image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=".$phpwcms_filestorage.$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
+					case 11: $js  = "window.opener.SetUrl('img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
 							 break;
 							 
 					//CKEditor
 					case 16: $js  = "window.opener.CKEDITOR.tools.callFunction(2, 'download.php?f=".$file_row["f_hash"] . "&target=0');";
 							 break;
 					
-					case 17: $js  = "window.opener.CKEDITOR.tools.callFunction(2,'image_resized.php?format=" . $file_row["f_ext"]. "&q=85&imgfile=".$phpwcms_filestorage.$file_row["f_hash"] . '.' . $file_row["f_ext"]. "');";
+					case 17: $js  = "window.opener.CKEDITOR.tools.callFunction(2,'img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
 							 break;
 						
 						 

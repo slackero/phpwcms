@@ -362,7 +362,7 @@ function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspeci
 function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=', $query_string_separator='?') {
 
 	$queryString	= array();
-	$_getVarTemp	= $GLOBALS['_getVar'];
+	$_getVarTemp	= empty($GLOBALS['_getVar']) ? array() : $GLOBALS['_getVar'];
 	
 	// replace first value with $id_alias
 	if($id_alias !== '') {
@@ -408,13 +408,21 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 	}
 	
-	foreach($pairs as $key => $value) {
+	if(count($pairs)) {
 	
-		$queryString[] = $funct($key, $value, $bind);
-
+		foreach($pairs as $key => $value) {
+		
+			$queryString[] = $funct($key, $value, $bind);
+	
+		}
+	
+		return $query_string_separator.implode($glue, $queryString);
+	
+	} else {
+	
+		return '';
+	
 	}
-
-	return count($queryString) ? $query_string_separator.implode($glue, $queryString) : '';
 }
 
 function getQueryString_htmlentities($key='', $value='', $bind='=') {
