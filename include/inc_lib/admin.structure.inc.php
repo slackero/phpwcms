@@ -67,6 +67,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_class			= $row_acat["acat_class"];
 			$acat_keywords		= $row_acat["acat_keywords"];
 			$acat_cpdefault		= $row_acat["acat_cpdefault"];
+			$acat_lang			= $row_acat["acat_lang"];
 		}
 		mysql_free_result($result_acat);
 	}

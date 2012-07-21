@@ -29,7 +29,7 @@ ALTER TABLE `phpwcms_articlecontent` ADD `acontent_comment` TEXT NOT NULL ;
 
 CREATE TABLE `phpwcms_crossreference` (
   `cref_id` int(11) NOT NULL auto_increment,
-  `cref_type` int(11) NOT NULL default '0',
+  `cref_type` varchar(255) NOT NULL default '',
   `cref_rid` int(11) NOT NULL default '0',
   `cref_int` int(11) NOT NULL default '0',
   `cref_str` varchar(255) NOT NULL default '',

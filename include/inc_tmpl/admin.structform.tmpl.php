@@ -59,6 +59,7 @@ if($_GET['struct'] === 'index') {
 	$acat_class			= empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'];
 	$acat_keywords		= empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'];
 	$acat_cpdefault		= empty($indexpage['acat_cpdefault']) ? 0 : intval($indexpage['acat_cpdefault']);
+	$acat_lang			= '';
 	
 	$acat_struct_mode = 'INDEX';
 	
@@ -89,6 +90,7 @@ if($_GET['struct'] === 'index') {
 	$acat_class			= '';
 	$acat_keywords		= '';
 	$acat_cpdefault		= 0;
+	$acat_lang			= '';
 
 }
 
@@ -153,7 +155,46 @@ switch($acat_hidden) {
 			</td>
 		  </tr>
   
+<?php	if($_GET['struct'] != 'index' && count($phpwcms['allowed_lang']) > 1):	?>
+
+   		<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+	
+		<tr><td class="v09"><?php echo $BL['be_profile_label_lang'] ?>:</td></tr>
+		  <tr><td class="tdtop2">
 		  
+			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;">
+			<table border="0" cellpadding="0" cellspacing="0" summary="">
+				<tr>
+<?php		foreach($phpwcms['allowed_lang'] as $key => $lang):	
+				
+				$lang			= strtolower($lang);
+				$lang_value		= $lang;
+				$lang_default	= '';
+				
+				if($lang == $phpwcms['default_lang']) {
+					$lang_value		= '';
+					$lang_default	= ' ('.$BL['be_admin_tmpl_default'].')';
+				}
+
+?>
+				
+					<td><label for="acat_lang<?php echo $key ?>"><input type="radio" name="acat_lang" id="acat_lang<?php echo $key ?>" value="<?php echo $lang_value ?>"<?php is_checked($lang_value, $acat_lang) ?> />
+							<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) . $lang_default ?>" /><?php echo $lang_default ?>
+							&nbsp;
+						</label>
+					</td>
+
+<?php		endforeach;	?>
+
+				</tr>
+
+			</table>
+            </div>		  
+		  
+		  </td></tr>
+
+<?php	endif;	?>
+
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 		  
 		  <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
@@ -172,10 +213,7 @@ switch($acat_hidden) {
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_info'] ?>:</td></tr>
           <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="f11 width540"><?php echo html_specialchars($acat_info) ?></textarea></td></tr>
-         
-		 
-		 
-		 
+ 		 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

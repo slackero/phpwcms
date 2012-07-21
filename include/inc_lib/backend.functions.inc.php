@@ -1128,4 +1128,19 @@ function backend_language_replace($result) {
 	
 }
 
+function get_language_name($lang='', $default=true) {
+
+	if(empty($lang)) {
+		if($default == false) {
+			return '';
+		}
+		$lang = $GLOBALS['phpwcms']['default_lang'];
+	}
+	
+	$lang = strtoupper($lang);
+	
+	return isset($GLOBALS['BL'][$lang]) ? $GLOBALS['BL'][$lang] : $lang;
+	
+}
+
 ?>

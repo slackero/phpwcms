@@ -96,6 +96,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article['article_norss']		= $row['article_norss'];
 				$article['article_menutitle']	= $row['article_menutitle'];
 				$article['article_description']	= $row['article_description'];
+				$article['article_lang']		= $row['article_lang'];
 												
 				$article['article_archive_status']	= $row['article_archive_status'];
 				
@@ -119,6 +120,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_subtitle"]			= '';
 		$article["article_menutitle"]			= '';
 		$article["article_description"]			= '';
+		$article["article_lang"]				= '';
 		$article["article_summary"]				= '';
 		$article["article_public"]				= 1;
 		$article["article_notitle"]				= 0;
@@ -185,6 +187,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_begin"]		= clean_slweg($_POST["article_begin"]);
 		$article["article_end"]			= clean_slweg($_POST["article_end"]);
 		$article["article_keyword"]		= clean_slweg($_POST["article_keyword"]);
+		$article["article_lang"]		= isset($_POST["article_lang"]) ? clean_slweg($_POST["article_lang"]) : '';
 		
 		$article["article_keyword"]		= implode(', ',  convertStringToArray( trim($article["article_keyword"], ',') , ',') );
 		
@@ -358,7 +361,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					"article_archive_status"=> $article["article_archive_status"],
 					"article_menutitle"		=> $article["article_menutitle"],
 					'article_description'	=> $article["article_description"],
-					'article_serialized'	=> ''
+					'article_serialized'	=> '',
+					'article_lang'			=> $article["article_lang"]
 
 							);
 								
@@ -408,7 +412,9 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 						"article_norss=".$article['article_norss'].", ".
 						"article_archive_status=".$article['article_archive_status'].", ".
 						"article_menutitle='".aporeplace($article["article_menutitle"])."',".
-						"article_description='".aporeplace($article["article_description"])."' ";
+						"article_description='".aporeplace($article["article_description"])."', ".
+						"article_lang='".aporeplace($article["article_lang"])."' ";
+						
 						if($_SESSION["wcs_user_admin"]) {
 							$sql .= ", article_uid=".$article["article_uid"]." ";				
 						}

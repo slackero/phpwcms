@@ -108,7 +108,10 @@ table.tdMorepace td {
 .tdleft10 {
 	padding-left: 10px;
 }
-
+.tdtop2 {
+	vertical-align: top;
+	padding-top: 2px;
+}
 .tdtop3 {
 	vertical-align: top;
 	padding-top: 3px;

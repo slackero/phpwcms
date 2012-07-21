@@ -450,7 +450,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			}
 			$gk = 14+14+29+(14*($counter-1));
 			$a .= "<td width=\"".$gk."\"><img src=\"img/leer.gif\" width=\"".$gk."\" height=\"1\" alt=\"\" /></td>";	//$counter-1           
-			$a .= "<td width=\"14\"><img src=\"img/symbole/content_9x11.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" onmouseover=\"".$info."\" /></td>";
+			$a .= "<td width=\"13\"><img src=\"img/symbole/content_9x11.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" onmouseover=\"".$info."\" /></td>";
 			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;\" width=\"".(538-$gk-14-15-110-98)."\" onmouseover=\"".$info."\">";
 			
 			$ab  = '[ID:'.$article_content["acontent_id"].'] ';
@@ -462,8 +462,8 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$a .= $ab;
 			
 			$a .= "</td>";                                                   
-			$a .= "<td width=\"15\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";  
-			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"100\">".html_specialchars(' {'.$article_content['acontent_block'].'} ')."</td>";                     
+			$a .= "<td width=\"16\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";  
+			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html_specialchars(' {'.$article_content['acontent_block'].'} ')."</td>";                     
 			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;" onmouseover="'.$info.'">'; //width="110"
 			
 			$at  = ' '.$ab.' ';                       

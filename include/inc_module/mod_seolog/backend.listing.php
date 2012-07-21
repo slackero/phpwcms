@@ -69,7 +69,7 @@ $_entry['list_active']		= isset($_SESSION['list_active'])	? $_SESSION['list_acti
 $_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_inactive']	: 1;
 
 
-$_entry['query'] = '1=1';
+$_entry['query'] = '';
 
 if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
 	
@@ -93,8 +93,14 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 }
 
 
+$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_log_seo ';
+if($_entry['query']) {
+	$sql .= 'WHERE '.$_entry['query'].' ';
+}
+$sql .= 'GROUP BY hash';
+
 // paginating values
-$_entry['count_total'] = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_log_seo WHERE '.$_entry['query'], 'COUNT');
+$_entry['count_total'] = _dbQuery($sql, 'COUNT');
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_user_count']);
 if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 	$_SESSION['seolog_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
@@ -165,14 +171,18 @@ if($_entry['pages_total'] > 1) {
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 		
-	<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-	<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 	
 <?php
 // loop listing available newsletters
 $row_count = 0;                
 
-$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_log_seo WHERE '.$_entry['query'].' ';
+$sql  = 'SELECT *, COUNT(*) AS occurance FROM '.DB_PREPEND.'phpwcms_log_seo ';
+if($_entry['query']) {
+	$sql .= 'WHERE '.$_entry['query'].' ';
+}
+$sql .= 'GROUP BY hash ORDER BY occurance DESC ';
 $sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 $data = _dbQuery($sql);
 
@@ -181,20 +191,15 @@ $data = _dbQuery($sql);
 foreach($data as $row) {
 
 	echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
-
-	echo '<td class="tdbottom3 tdtop3" nowrap="nowrap">';
-	echo $row['create_date'];
+	
+	echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;';
+	echo $row['occurance'];
 	echo '&nbsp;</td>';
 		
 	echo '<td class="tdbottom3 tdtop3"><a href="';
 	echo html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']);
 	echo '</a></td>';
-	
-	echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;';
-	echo $row['pos'];
-	echo '&nbsp;</td>';
 
-	
 	echo '<td class="tdbottom3 tdtop3">';
 	echo html_specialchars(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', PHPWCMS_CHARSET, false) : $row['query']);
 	echo '</td>';
@@ -205,10 +210,10 @@ foreach($data as $row) {
 }
 
 if($row_count) {
-	echo '<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
+	echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
 }
 
 ?>	
 
-	<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
+	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
 </table>

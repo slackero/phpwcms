@@ -83,6 +83,7 @@ require PHPWCMS_ROOT.'/include/inc_front/content.func.inc.php';
 if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
 	$phpwcms['seo_referrer_data'] = seReferrer( $_SERVER['HTTP_REFERER'] );
 	if( is_array( $phpwcms['seo_referrer_data'] ) ) {
+		$phpwcms['seo_referrer_data']['hash'] = md5(strtolower($phpwcms['seo_referrer_data']['domain'].$phpwcms['seo_referrer_data']['query']));
 		@_dbInsert('phpwcms_log_seo', $phpwcms['seo_referrer_data'], 'DELAYED');
 	}
 }

@@ -1956,7 +1956,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	
 		}
 	
-		$POST_ERR = array_diff(	$POST_ERR , array('', FALSE) );
+		$POST_ERR = array_diff(	$POST_ERR , array('', FALSE, TRUE) );
 		$POST_ERR = array_map( 'html_specialchars', $POST_ERR );
 		if($cnt_form['labelpos'] != 2 && count( $POST_ERR ) ) {
 			

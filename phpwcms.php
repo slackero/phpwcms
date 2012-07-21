@@ -40,36 +40,37 @@ if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wc
 	$BE['LANG'] = $_SESSION["wcs_user_lang"];
 }
 
-require_once ('config/phpwcms/conf.inc.php');
-require_once ('include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once 'config/phpwcms/conf.inc.php';
+require_once 'include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php';
 
 //load default language EN
-require_once (PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
+include_once PHPWCMS_ROOT."/include/inc_lang/code.lang.inc.php";
 $BL['modules']				= array();
 
 if(!empty($_SESSION["wcs_user_lang_custom"])) {
 	//use custom lang if available -> was set in login.php
 	$BL['merge_lang_array'][0]		= $BL['be_admin_optgroup_label'];
 	$BL['merge_lang_array'][1]		= $BL['be_cnt_field'];	
-	include(PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.inc.php');
+	include PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.inc.php';
 	$BL['be_admin_optgroup_label']	= array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
 	$BL['be_cnt_field']				= array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
 	unset($BL['merge_lang_array']);
 }
 
-require_once (PHPWCMS_ROOT.'/include/inc_lib/navi_text.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php');
-require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php');
-require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/navi_text.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php';
+require_once PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php';
+require_once PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
 // check modules 
-require_once (PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php');	
+require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';	
 
 $BL['be_admin_struct_index'] = html_specialchars($indexpage['acat_name']);
 

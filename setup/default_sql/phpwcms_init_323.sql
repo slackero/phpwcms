@@ -168,6 +168,7 @@ CREATE TABLE `phpwcms_article` (
   `article_archive_status` int(1) NOT NULL default '1',
   `article_menutitle` varchar(255) NOT NULL default '',
   `article_description` varchar(255) NOT NULL default '',
+  `article_lang` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`article_id`),
   KEY `article_aktiv` (`article_aktiv`),
   KEY `article_public` (`article_public`),
@@ -180,7 +181,8 @@ CREATE TABLE `phpwcms_article` (
   KEY `article_priorize` (`article_priorize`),
   KEY `article_sort` (`article_sort`),
   KEY `article_alias` (`article_alias`),
-  KEY `article_archive_status` (`article_archive_status`)
+  KEY `article_archive_status` (`article_archive_status`),
+  KEY `article_lang` (`article_lang`)
 ) ;
 
 -- --------------------------------------------------------
@@ -221,11 +223,13 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_class` varchar(255) NOT NULL default '',
   `acat_keywords` varchar(255) NOT NULL default '',
   `acat_cpdefault` int(10) UNSIGNED NOT NULL default '0',
+  `acat_lang` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),
   KEY `acat_alias` (`acat_alias`),
-  KEY `acat_archive` (`acat_archive`)
+  KEY `acat_archive` (`acat_archive`),
+  KEY `acat_lang` (`acat_lang`)
 ) ;
 
 -- --------------------------------------------------------
@@ -272,13 +276,15 @@ CREATE TABLE `phpwcms_articlecontent` (
   `acontent_category` varchar(255) NOT NULL,
   `acontent_granted` int(11) NOT NULL default '0',
   `acontent_tab` varchar(255) NOT NULL default '',
+  `acontent_lang` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`acontent_id`),
   KEY `acontent_aid` (`acontent_aid`),
   KEY `acontent_sorting` (`acontent_sorting`),
   KEY `acontent_type` (`acontent_type`),
   KEY `acontent_livedate` (`acontent_livedate`,`acontent_killdate`),
   KEY `acontent_paginate` (`acontent_paginate_page`),
-  KEY `acontent_granted` (`acontent_granted`)
+  KEY `acontent_granted` (`acontent_granted`),
+  KEY `acontent_lang` (`acontent_lang`)
 ) ;
 
 -- --------------------------------------------------------
@@ -454,7 +460,7 @@ CREATE TABLE `phpwcms_country` (
 
 CREATE TABLE `phpwcms_crossreference` (
   `cref_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cref_type` int(11) NOT NULL DEFAULT '0',
+  `cref_type` varchar(255) NOT NULL DEFAULT '',
   `cref_module` varchar(255) NOT NULL DEFAULT '',
   `cref_rid` int(11) NOT NULL DEFAULT '0',
   `cref_int` int(11) NOT NULL DEFAULT '0',

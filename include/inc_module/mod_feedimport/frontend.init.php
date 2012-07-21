@@ -92,7 +92,7 @@ if(!empty($_getVar['feedimport'])) {
 				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_crossreference c ';
 				$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_article a ';
 				$sql .= 'ON c.cref_rid=a.article_id ';
-				$sql .= "WHERE c.cref_str="._dbEscape('feedimport_'.$article_unique_hash).' AND ';
+				$sql .= "WHERE c.cref_type='feed_to_article_import' AND c.cref_str="._dbEscape('feedimport_'.$article_unique_hash).' AND ';
 				$sql .= 'a.article_deleted=0 LIMIT 1';
 				
 				if(_dbQuery($sql, 'COUNT') > 0) {
@@ -185,6 +185,7 @@ if(!empty($_getVar['feedimport'])) {
 					$feedimport_result['status'][] = date('Y-m-d, H:i:s', $article_begin) . LF . $article_title . LF . $rssvalue->get_permalink() . LF . PHPWCMS_URL . 'phpwcms.php?do=articles&p=2&s=1&id='.$result['INSERT_ID'];
 					
 					$data = array(
+						'cref_type'	=> 'feed_to_article_import',
 						'cref_rid'	=> $result['INSERT_ID'],
 						'cref_str'	=> 'feedimport_'.$article_unique_hash
 					);
