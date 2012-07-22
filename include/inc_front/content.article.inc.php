@@ -436,8 +436,6 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$content["main"] .= $template_default["article"]["head_after"];
 		
 		}
-		
-		$content["main"] .= $template_default['article']['cp_before'];
 
 		// render content parts
 		$sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$row["article_id"]." ";
@@ -588,8 +586,6 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			}
 			
 		}
-		
-		$content["main"] .= $template_default['article']['cp_after'];
 		
 		// render Tabs
 		$tab_counter = 0;

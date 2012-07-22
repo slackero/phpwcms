@@ -29,15 +29,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 unset($_SESSION['filebrowser_image_target']);
 
-
 $template_default['article']['image_default_width']		 = isset($template_default['article']['image_default_width']) ? $template_default['article']['image_default_width'] : '' ;
 $template_default['article']['image_default_height']	 = isset($template_default['article']['image_default_height']) ? $template_default['article']['image_default_height'] : '' ;
 $template_default['article']['imagelist_default_width']	 = isset($template_default['article']['imagelist_default_width']) ? $template_default['article']['imagelist_default_width'] : '' ;
 $template_default['article']['imagelist_default_height'] = isset($template_default['article']['imagelist_default_height']) ? $template_default['article']['imagelist_default_height'] : '' ;
 
-
 ?>
-
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>" method="post" name="article" id="article">
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
       		<tr><td colspan="2" class="title"><?php echo $BL['be_article_estitle'] ?></td></tr>
@@ -158,6 +155,42 @@ calEnd.setYearCombo(false);
 		 </tr>
 	  </table></td>
 	</tr>
+	
+
+<?php	if(count($phpwcms['allowed_lang']) > 1):	?>
+
+   		<tr><td><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	
+		<tr>
+			<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
+		  	<td><table border="0" cellpadding="0" cellspacing="0" style="background:#E7E8EB;border:2px solid #E7E8EB;">
+				<tr>
+<?php		foreach($phpwcms['allowed_lang'] as $key => $lang):	
+				
+				$lang			= strtolower($lang);
+				$lang_value		= $lang;
+				$lang_default	= '';
+				
+				if($lang == $phpwcms['default_lang']) {
+					$lang_value		= '';
+					$lang_default	= ' ('.$BL['be_admin_tmpl_default'].')';
+				}
+
+?>
+					<td><label for="article_lang<?php echo $key ?>"><input type="radio" name="article_lang" id="article_lang<?php echo $key ?>" value="<?php echo $lang_value ?>"<?php is_checked($lang_value, $article['article_lang']) ?> />
+							<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) . $lang_default ?>" /><?php echo $lang_default ?>
+							&nbsp;
+						</label>
+					</td>
+
+<?php		endforeach;	?>
+
+				</tr>
+			</table></td>
+	</tr>
+
+<?php	endif;	?>
+
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	

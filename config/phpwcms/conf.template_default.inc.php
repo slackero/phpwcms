@@ -145,9 +145,6 @@ $template_default['article']['div_spacer']			= true; //if true or 'div' = <div>.
 
 $template_default['article']['head_after']			= '';
 
-$template_default['article']['cp_before']			= '';
-$template_default['article']['cp_after']			= '';
-
 $template_default['article']['content_head_before']		= '<h3>';
 $template_default['article']['content_head_after']		= '</h3>';
 $template_default['article']['content_subhead_before']	= '<h4>';

@@ -120,7 +120,6 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article["article_subtitle"]			= '';
 		$article["article_menutitle"]			= '';
 		$article["article_description"]			= '';
-		$article["article_lang"]				= '';
 		$article["article_summary"]				= '';
 		$article["article_public"]				= 1;
 		$article["article_notitle"]				= 0;
@@ -144,6 +143,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article['article_nositemap']			= 1;
 		$article["article_uid"]					= $_SESSION["wcs_user_id"];
 		$article["article_username"]			= $_SESSION["wcs_user_name"];
+		$article['article_lang']				= '';
 		
 		$article['image']						= array();
 		$article['image']['tmpllist']			= 'default';
