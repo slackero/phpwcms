@@ -21,7 +21,7 @@
 *************************************************************************************/
 
 define('PHPWCMS_VERSION',		'1.5.4.3');
-define('PHPWCMS_RELEASE_DATE',	'2012/07/22');
-define('PHPWCMS_REVISION',		'498');
+define('PHPWCMS_RELEASE_DATE',	'2012/07/27');
+define('PHPWCMS_REVISION',		'499');
 
 ?>

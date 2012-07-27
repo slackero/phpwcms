@@ -413,7 +413,7 @@ function openFileBrowser(url) {
 	}
 }
 
-function set_article_alias(onempty_only, alias_type) {
+function set_article_alias(onempty_only, alias_type, category) {
 	if(alias_type == 'struct') {
 		var alias_basis		= 'acat_name';
 		var alias_target	= 'acat_alias';
@@ -424,6 +424,6 @@ function set_article_alias(onempty_only, alias_type) {
 	var aalias = getObjectById(alias_target);
 	if(onempty_only && aalias.value != '') return false;
 	var atitle = getObjectById(alias_basis)
-	aalias.value = create_alias(atitle.value);
+	aalias.value = create_alias((category ? category+'/' : '') + atitle.value);
 	return false;
 }

@@ -1158,7 +1158,7 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 	
 	if($cutMode == 'word') {
 	
-		$words		= preg_split("/[\s,]+/", $cutString, -1, PREG_SPLIT_NO_EMPTY);
+		$words		= preg_split("/[\s]+/", $cutString, -1, PREG_SPLIT_NO_EMPTY);
 		$cutString	= '';
 		for($i = 0; $i < $maxLength; $i++) {
 			if(!empty($words[$i])) {
