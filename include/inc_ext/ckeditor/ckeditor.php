@@ -25,11 +25,11 @@ if (IS_PHP5) {
 		/**
 		 * The version of %CKEditor.
 		 */
-		const version = '3.6.3';
+	const version = '3.6.4';
 		/**
 		 * A constant string unique for each release of %CKEditor.
 		 */
-		const timestamp = 'C3HA5RM';
+	const timestamp = 'C6HH5UF';
 
 		/**
 		 * URL to the %CKEditor installation directory (absolute or relative to document root).
@@ -83,7 +83,7 @@ if (IS_PHP5) {
 		 * A string indicating the creation date of %CKEditor.
 		 * Do not change it unless you want to force browsers to not use previously cached version of %CKEditor.
 		 */
-		public $timestamp = "C3HA5RM";
+	public $timestamp = "C6HH5UF";
 		/**
 		 * An array that holds event listeners.
 		 */
@@ -568,12 +568,12 @@ if (IS_PHP5) {
 		 * The version of %CKEditor.
 		 * \private
 		 */
-		var $version = '3.6.3';
+	var $version = '3.6.4';
 		/**
 		 * A constant string unique for each release of %CKEditor.
 		 * \private
 		 */
-		var $_timestamp = 'C3HA5RM';
+	var $_timestamp = 'C6HH5UF';
 
 		/**
 		 * URL to the %CKEditor installation directory (absolute or relative to document root).
@@ -627,7 +627,7 @@ if (IS_PHP5) {
 		 * A string indicating the creation date of %CKEditor.
 		 * Do not change it unless you want to force browsers to not use previously cached version of %CKEditor.
 		 */
-		var $timestamp = "C3HA5RM";
+	var $timestamp = "C6HH5UF";
 		/**
 		 * An array that holds event listeners.
 		 * \private

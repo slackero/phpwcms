@@ -461,7 +461,7 @@ CREATE TABLE `phpwcms_country` (
 
 CREATE TABLE `phpwcms_crossreference` (
   `cref_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cref_type` varchar(255) NOT NULL DEFAULT ',
+  `cref_type` varchar(255) NOT NULL DEFAULT '',
   `cref_module` varchar(255) NOT NULL DEFAULT '',
   `cref_rid` int(11) NOT NULL DEFAULT '0',
   `cref_int` int(11) NOT NULL DEFAULT '0',

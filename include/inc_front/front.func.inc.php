@@ -2953,9 +2953,17 @@ function pregReplaceHighlightWrapper($matches) {
 
 function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
-	// @string $parameter = "menu_type, start_id, max_level_depth, class_path, class_active_li|class_active_a,
-	// ul_id_name, wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
-	// wrap_link_text(<em>|</em>, articlemenu_start_level)"
+	/*
+		@string $parameter:
+			menu_type,
+			start_id,
+			max_level_depth,
+			class_path|ul_class_level1|ul_class_level2|...,
+			class_active_li|class_active_a,
+			ul_id_name,
+			wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
+			wrap_link_text(<em>|</em>, articlemenu_start_level)
+	*/
 
 	if($param == 'string') {
 
@@ -3006,6 +3014,14 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$active_class	= empty($parameter[4]) ? '' : trim($parameter[4]);
 		$level_id_name	= empty($parameter[5]) ? '' : trim($parameter[5]);
 		$wrap_ul_div	= empty($parameter[6]) ? 0  : intval($parameter[6]);
+		if($path_class) {
+			$path_class = explode('|', $path_class);
+			foreach($path_class as $key => $class_name) {
+				$path_class[$key] = trim($class_name);
+			}
+		} else {
+			$path_class = array(0 => '');
+		}		
 		if($active_class) {
 			$active_class		= explode('|', $active_class, 2);
 			$active_class[0]	= trim($active_class[0]);
@@ -3106,8 +3122,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$li .= ' id="li_'.$level_id_name.'_'.$key.'"';
 			}
 			$li_class = ($li_ul) ? 'sub_ul' : (getHasSubStructureStatus($key) ? 'sub_no sub_ul_true' : 'sub_no');
-			if($path_class != '' && isset($GLOBALS['LEVEL_KEY'][$key])) {
-				$li_class = trim($li_class.' '.$path_class);
+			if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
+				$li_class = trim($li_class.' '.$path_class[0]);
 			}
 			if($active_class[0] != '' && $key == $GLOBALS['aktion'][0]) {
 				$li_class = trim($li_class.' '.$active_class[0]);
@@ -3171,8 +3187,14 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		if($level_id_name) {
 			$ul .= ' id="'.$level_id_name.'_'.$start_id.'"';
 		}
-		if(isset($GLOBALS['LEVEL_KEY'][$start_id]) && $path_class) {
-			$ul .= ' class="'.$path_class.'"';
+
+		$ul_class = empty($path_class[$counter+1]) ? '' : $path_class[$counter+1];
+		if(isset($GLOBALS['LEVEL_KEY'][$start_id]) && $counter && isset($path_class[0])) {
+			$ul_class .= ' ' . $path_class[0];
+		}
+		$ul_class = trim($ul_class);
+		if($ul_class) {
+			$ul .= ' class="' . $ul_class . '"';
 		}
 		$ul .= '>'.LF;
 		
