@@ -1,42 +1,43 @@
-# These settings are recommend
-# Check phpinfo() before try these
+# PHP: These settings are recommend - check phpinfo() before try these
 #	register_globals ON
 #	php_flag magic_quotes_gpc Off
 # 	php_flag magic_quotes_runtime Off
 #	php_flag register_globals Off
 
-#<IfModule mod_rewrite.c>
+#Sometimes neccessary to add those
+#	AddType application/x-javascript .js
+#	AddType text/css .css
 
-# Check that you have set Options FollowSymLinks
-# and right Allow
-#	RewriteEngine On
+# Options:
+#	Options +FollowSymlinks
+#	AcceptPathInfo On
 
-#	RewriteCond %{REQUEST_FILENAME} !-f
-#	RewriteCond %{REQUEST_FILENAME} !-d
+# Rewrite:
+<IfModule mod_rewrite.c>
 
-# maybe you need this
-#	DirectoryIndex index.html index.php 
+	RewriteEngine On
 
+	DirectoryIndex index.html index.php 
 
-# Default ReWrite settings for phpwcms
-# ====================================
-
-#	RewriteBase /mysubdir
+# Use RewriteBase - always start in Document Root
+# If installed in subfolder see the ReWrite Rule section
+	RewriteBase /
 
 # Ignore
-#	RewriteRule ^(include|img|template|picture|filearchive|content)/ - [L]
+	RewriteRule $1 !^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)
+	RewriteRule ^index\.php$ - [L]
 
-# Rewrite 0.0.0.0.0.0.html => index.php?id=0.0.0.0.0.0
-# Rewrite 0.0.0.0.0.0.html?query-string => index.php?id=0.0.0.0.0.0&query-string
-#	RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
 
-# Rewrite mypage.html => index.php?mypage
-# Rewrite mypage.html?query-string => index.php?mypage&query-string
-#	RewriteRule ^(.+)\.html$ index.php?$1&%{QUERY_STRING}
 
-#</IfModule>
+# Installed in Document Root www.example.com/
+	RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ /index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
+#	RewriteRule ^(.+)\.html$ /index.php?$1&%{QUERY_STRING}
 
-#Sometimes neccessary to add those
-#
-#AddType application/x-javascript .js
-#AddType text/css .css
+# Installed in Subfolder www.example.com/subfolder/
+	RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ /subfolder/index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
+#	RewriteRule ^(.+)\.html$ /subfolder/index.php?$1&%{QUERY_STRING}
+
+
+</IfModule>

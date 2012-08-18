@@ -421,8 +421,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 						"article_archive_status=".$article['article_archive_status'].", ".
 						"article_menutitle='".aporeplace($article["article_menutitle"])."',".
 						"article_description='".aporeplace($article["article_description"])."', ".
-						"article_lang="._dbEscape($article["article_lang"]).", ";
-						"article_lang_type="._dbEscape($article["article_lang_type"]).", ";
+						"article_lang="._dbEscape($article["article_lang"]).", ".
+						"article_lang_type="._dbEscape($article["article_lang_type"]).", ".
 						"article_lang_id="._dbEscape($article["article_lang_id"])." ";
 						
 						if($_SESSION["wcs_user_admin"]) {
