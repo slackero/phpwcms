@@ -55,7 +55,7 @@ if($wysiwyg_editor['editor'] == 2) {
 	
 	$wysiwyg_editor['template'] = $_SESSION['WYSIWYG_TEMPLATE'];
 	if(empty($wysiwyg_editor['template']) || $wysiwyg_editor['template'] == 'phpwcms_basic') {
-		$wysiwyg_editor['template'] = 'phpwcms';
+		$wysiwyg_editor['template'] = 'Basic';
 	} elseif($wysiwyg_editor['template'] == 'Default') {
 		$wysiwyg_editor['template'] = 'Full';
 	}

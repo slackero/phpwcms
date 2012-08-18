@@ -39,13 +39,12 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 require_once (PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php');
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head >
+<head>
 <title>Upgrade phpwcms</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link href="../include/inc_css/install.css" rel="stylesheet" type="text/css" />
+<link href="inc/install.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 <!--
 body {

@@ -223,7 +223,6 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 	<title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/additional.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 <?php
 
@@ -259,26 +258,21 @@ if($BE['LANG'] == 'ar') {
 
 ?>
 <!-- phpwcms HEADER -->
+	<!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
 </head>
 
-<body<?php echo $body_onload ?>><!-- phpwcms BODY_OPEN -->
+<body<?php echo $body_onload ?> class="gradient"><!-- phpwcms BODY_OPEN -->
 <table width="770" border="0" align="center" cellpadding="0" cellspacing="0" summary="main layout structure">
 	<tr>
-	  <td colspan="6"><img src="img/leer.gif" alt="" width="1" height="7"></td>
-  </tr>
-	<tr>
 		<td colspan="6">
-		<div style="position:relative">
-	  		<a href="phpwcms.php" target="_top"><img src="img/backend/backend_r1_c3.jpg" alt="phpwcms v<?php echo  html_specialchars(PHPWCMS_VERSION); ?>" width="95" height="24" border="0" hspace="15"></a>
-			<a href="<?php echo PHPWCMS_URL ?>" class="v10" style="position:absolute;right:15px;bottom:4px;color:#FFFFFF" target="_blank"><?php echo PHPWCMS_HOST ?></a>
+		<div style="position:relative;margin:15px 15px 7px 15px;">
+	  		<a href="phpwcms.php" target="_top"><img src="img/backend/phpwcms-signet-be-small.png" alt="phpwcms v<?php echo  html_specialchars(PHPWCMS_VERSION); ?>" width="104" height="26" border="0" /></a>
+			<a href="<?php echo PHPWCMS_URL ?>" class="v10" style="position:absolute;right:0;bottom:5px;color:#FFFFFF" target="_blank"><?php echo PHPWCMS_HOST ?></a>
 		</div>
 		</td>
     </tr>
 	<tr>
-	  <td colspan="6"><img src="img/leer.gif" alt="" width="1" height="7"></td>
-  </tr>
-	<tr bgcolor="#FFFFFF">
-	 <td valign="top" style="background-image:url(img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="img/backend/backend_r3_c1.jpg" alt="" width="15" height="40"></td>
+	 <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
 	  <td colspan="4" valign="top" style="background-image:url(img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><table width="740" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
         <tr>
           <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="9"></td>
@@ -299,7 +293,7 @@ if($BE['LANG'] == 'ar') {
           <td align="right" valign="top" class="navtext"><a href="phpwcms.php?do=logout" target="_top"><?php echo $BL['be_nav_logout'] ?></a></td>
         </tr>
       </table></td>
-	  <td valign="top" style="background-image:url(img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="img/backend/backend_r3_c7.jpg" alt="" width="15" height="40"></td>
+	  <td valign="top"><img src="img/backend/backend_r3_c7.png" alt="" width="15" height="40"></td>
   </tr>
 	<tr bgcolor="#FFFFFF">
 	  <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
@@ -531,10 +525,12 @@ if($BE['LANG'] == 'ar') {
   </tr>
 	<tr>
 	  <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
-	  <td colspan="5" valign="bottom" class="navtext" style="padding: 8px 0 15px 0;">
-	  	<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">phpwcms <?php echo PHPWCMS_VERSION ?> 
-			&copy; 2002&#8212;<?php echo date('Y'); ?> Oliver Georgi. Licensed under GPL. Extensions are copyright
-			of their respective owners.</a></td>
+	  <td colspan="5" valign="bottom" class="navtext darkblue" style="padding: 8px 0 15px 0;">
+			<a href="http://www.phpwcms.org" title="phpwcms">phpwcms <?php echo PHPWCMS_VERSION ?></a>
+			&copy; 2002&#8212;<?php echo date('Y'); ?> 
+			<a href="mailto:oliver@phpwcms.de?subject=phpwcms">Oliver Georgi</a>.
+			<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">Licensed under GPL. Extensions are copyright	of their respective owners.</a>
+		</td>
   </tr>
 </table>
 <?php
@@ -545,7 +541,6 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 2500);
 
-$BE['BODY_CLOSE']['wz_tooltip.js'] = getJavaScriptSourceLink('include/inc_js/wz_tooltip.js', '');
 
 ?>
 <!-- phpwcms BODY_CLOSE -->
@@ -558,6 +553,11 @@ list($usec, $sec) = explode(' ', microtime());
 header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $phpwcms_rendering_start), 3) .' ms');
 
 $BE['HTML'] = ob_get_clean();
+
+// Load ToolTip JS only when necessary
+if(strpos($BE['HTML'], '"Tip(')) {
+	$BE['BODY_CLOSE']['wz_tooltip.js'] = getJavaScriptSourceLink('include/inc_js/wz_tooltip.js', '');
+}
 
 //	parse for backend languages
 backend_language_parser();

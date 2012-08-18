@@ -39,8 +39,6 @@ function phpwcms_revision_r497() {
 		if($result) {
 			_dbQuery('UPDATE '.DB_PREPEND.'phpwcms_log_seo SET hash=MD5(LOWER(CONCAT(domain,query)))', 'UPDATE');
 			_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_log_seo ADD INDEX (hash)", 'ALTER');
-		} else {
-			$status = false;
 		}
 	}
 	
@@ -53,10 +51,6 @@ function phpwcms_revision_r497() {
 		
 		// Update feedimport References
 		_dbUpdate('phpwcms_crossreference', array('cref_type'=>'feed_to_article_import'), "cref_str LIKE 'feedimport_%'");		
-	
-	} else {
-	
-		$status = false;
 	
 	}
 

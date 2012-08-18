@@ -17,6 +17,7 @@ require_once ($_root.'/include/inc_lib/default.inc.php');
 FCKConfig.BaseHref = '<?php echo PHPWCMS_URL ?>' ;
 FCKConfig.ProcessHTMLEntities    = <?php echo (PHPWCMS_CHARSET != 'iso-8859-1' && PHPWCMS_CHARSET != 'iso-8859-15') ? 'false' : 'true' ?> ;
 FCKConfig.Plugins.Add( 'autogrow' );
+FCKConfig.Plugins.Add( 'dragresizetable' );
 FCKConfig.AutoGrowMax = 500;
 
 // default FCKeditor toolbars, but removed unnecessary buttons
@@ -41,10 +42,6 @@ FCKConfig.ToolbarSets["Default"] = [
 	['FitWindow','ShowBlocks','-','About']		// No comma for the last row.
 ] ;
 
-FCKConfig.ToolbarSets["Basic"] = [
-	['Bold','Italic','-','OrderedList','UnorderedList','-','Link','Unlink','-','About']
-] ;
-
 // an optimized FCKeditor Toolbar for phpwcms
 FCKConfig.ToolbarSets["phpwcms_default"] = [
 	['Source','FitWindow','Preview','ShowBlocks','-','Templates'],
@@ -64,10 +61,11 @@ FCKConfig.ToolbarSets["phpwcms_default"] = [
 ] ;
 
 // a minimized FCKeditor Toolbar for phpwcms
-FCKConfig.ToolbarSets["phpwcms_basic"] = [
+FCKConfig.ToolbarSets["Basic"] = [
 	['Bold','Italic','Underline','OrderedList','UnorderedList','Outdent','Indent','JustifyLeft','JustifyCenter','JustifyRight','JustifyFull','Link','Unlink','TextColor','BGColor','Image'],
 	['FitWindow','Source']
 ] ;
+
 
 <?php
 

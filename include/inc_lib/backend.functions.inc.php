@@ -891,13 +891,13 @@ function initMootools($mode='1.1', $more=array()) {
 	switch($mode) {
 		// MooTools 1.1
 		case '1.1':
-			$GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js');
+			$GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.1-yc.js');
 			break;
 			
 		// MooTools 1.2 + More
 		default:
 			unset($GLOBALS['BE']['HEADER']['mootools.js']);
-			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.2-core-yc.js');
+			$GLOBALS['BE']['HEADER']['mootools-1.2-core.js'] = getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-core-yc.js');
 			
 			if(is_array($more) && count($more)) {
 				array_unshift($more, 'Core/More');

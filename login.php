@@ -218,24 +218,13 @@ if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || 
 }
 
 ?>
+	<!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
 </head>
 
-<body>
-<table width="504" border="0" align="center" cellpadding="0" cellspacing="0" summary="Login Screen">
+<body class="gradient">
+<table width="504" border="0" align="center" cellpadding="0" cellspacing="0" summary="Login Screen" style="margin-top: 50px;">
   <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="12" /></td>
-  </tr>
-  <tr>
-    <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/preinfo2.jpg" alt="phpwcms" width="122" height="31" border="0" hspace="18" /></a></td>
-  </tr>
-  <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7" /></td>
-  </tr>
-  <tr>
-    <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/preinfo2_r4_c2.jpg" alt="phpwcms" width="504" height="154" border="0" /></a></td>
-  </tr>
-  <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="11" /></td>
+    <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/phpwcms-signet-be.png" alt="phpwcms" border="0" style="margin:0 18px 12px 18px" /></a></td>
   </tr>
   <tr>
     <td width="15" style="width:15px;"><img src="img/backend/preinfo2_r6_c2.gif" alt="" width="15" height="15" border="0" /></td>
@@ -276,7 +265,7 @@ if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || 
 ob_start();
 
 ?>
-<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" style="margin:0;padding:0;" onsubmit="return login(this);" autocomplete="off">
+<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" onsubmit="return login(this);" autocomplete="off">
 <input type="hidden" name="json" id="json" value="0" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
 <input type="hidden" name="ref_url" value="<?php echo html_entities($ref_url) ?>" />

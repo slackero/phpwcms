@@ -169,11 +169,10 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 	<script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
 	<script src="include/inc_js/filebrowser.js" type="text/javascript"></script>
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">body{margin:5px;}</style>
-
+	<!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
 </head>
 
-<body>
+<body class="gradient">
 <table summary="" border="0" cellspacing="0" cellpadding="0">
   <tr>
 		<td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>

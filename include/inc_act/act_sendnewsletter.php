@@ -35,13 +35,29 @@ if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was se
 	include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
 }
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>phpwcms: Send Newsletter</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link href="../inc_css/newsletter.iframe.css" rel="stylesheet" type="text/css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
+	<style type="text/css">
+	body {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		background-color: #F1F3F5;
+		margin: 0;
+		padding: 8px;
+		color: #000000;
+	}
+	a {
+		text-decoration: none;
+		color: #CC3300;
+	}
+	a:hover {
+		text-decoration: underline;
+		color: #CC3300;
+	}
+	</style>
 </head>
 <body>
 <?php

@@ -27,6 +27,16 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+// initialize Mootools for autocomplete
+//initMootoolsAutocompleter();
+
+
+// Be more modern here — we start switch to jQuery and overwrite non-used MooTools with jQuery call
+$GLOBALS['BE']['HEADER']['mootools.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+$GLOBALS['BE']['HEADER']['autosuggest.js']	= getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
+$GLOBALS['BE']['HEADER']['autosuggest.css']	= '	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
+
+
 unset($_SESSION['filebrowser_image_target']);
 
 $template_default['article']['image_default_width']		 = isset($template_default['article']['image_default_width']) ? $template_default['article']['image_default_width'] : '' ;
@@ -163,30 +173,49 @@ calEnd.setYearCombo(false);
 	
 		<tr>
 			<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
-		  	<td><table border="0" cellpadding="0" cellspacing="0" style="background:#E7E8EB;border:2px solid #E7E8EB;">
-				<tr>
+		  	<td>
+			
+			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;" class="lang-select">
+				<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						
+						<td><label><input type="radio" name="article_lang" class="lang-default" value=""<?php is_checked('', $article['article_lang']); ?> />
+								<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($lang) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" /><?php echo ' ('.$BL['be_admin_tmpl_default'].')' ?>
+								&nbsp;
+							</label>
+						</td>
+					
+					
 <?php		foreach($phpwcms['allowed_lang'] as $key => $lang):	
+					
+					$lang			= strtolower($lang);
 				
-				$lang			= strtolower($lang);
-				$lang_value		= $lang;
-				$lang_default	= '';
-				
-				if($lang == $phpwcms['default_lang']) {
-					$lang_value		= '';
-					$lang_default	= ' ('.$BL['be_admin_tmpl_default'].')';
-				}
-
+					if($lang == $phpwcms['default_lang']) {
+						continue;
+					}
+	
 ?>
-					<td><label for="article_lang<?php echo $key ?>"><input type="radio" name="article_lang" id="article_lang<?php echo $key ?>" value="<?php echo $lang_value ?>"<?php is_checked($lang_value, $article['article_lang']) ?> />
-							<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) . $lang_default ?>" /><?php echo $lang_default ?>
-							&nbsp;
-						</label>
-					</td>
-
+						<td><label><input type="radio" name="article_lang" value="<?php echo $lang ?>"<?php is_checked($lang, $article['article_lang']) ?> class="lang-opt" />
+								<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) ?>" />
+								&nbsp;
+							</label>
+						</td>
+	
 <?php		endforeach;	?>
+	
+					</tr>
+				</table>
 
-				</tr>
-			</table></td>
+				<div style="margin:5px 0 0 0;border-top:1px solid #D9DEE3;padding-top:5px;<?php if($article['article_lang'] == ''): ?>display:none;<?php endif; ?>" id="lang-id-select">
+					<label><input type="radio" name="article_lang_type" value="category"<?php is_checked('category', $article['article_lang_type']); ?> /> <?php echo $BL['be_article_cat'] ?> ID</label>
+					&nbsp;
+					<label><input type="radio" name="article_lang_type" value="article"<?php is_checked('article', $article['article_lang_type']); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
+					&nbsp;
+					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" />&nbsp;
+					<input name="article_lang_id" type="text" class="f11b width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" />
+				</div>
+		
+			</div></td>
 	</tr>
 
 <?php	endif;	?>
@@ -220,7 +249,7 @@ calEnd.setYearCombo(false);
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
-				<td><textarea name="article_keyword" rows="2" class="f10 width440" id="article_keyword"><?php echo html_specialchars($article["article_keyword"]) ?></textarea></td>
+				<td><input type="text" id="article_keyword_autosuggest" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html_specialchars($article["article_keyword"]) ?>" /></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
@@ -657,25 +686,33 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 </table>
 </form>
 <script type="text/javascript">
-window.addEvent('domready', function(){
-									 
-	/* Autocompleter for keywords (=tags) */
-	var searchKeyword = $('article_keyword');
-	var completer = new Autocompleter.Ajax.Json(searchKeyword, 'include/inc_act/ajax_connector.php', {
-		multi: true,
-		maxChoices: 30,
-		autotrim: true,
-		minLength: 0,
-		allowDupes: false,
-		postData: {action: 'category', method: 'json'},
-		onRequest: function(el) {
-			searchKeyword.addClass('ajax-loading');
-		},
-		onComplete: function(el) {
-			searchKeyword.removeClass('ajax-loading');
-		}
+$(function(){
+	$("#article_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+		selectedItemProp: "cat_name",
+		selectedValuesProp: 'cat_name',
+		searchObjProps: "cat_name",
+		queryParam: 'value',
+		extraParams: '&method=json&action=category',
+		startText: '',
+		preFill: $("#article_keyword").val(),
+		neverSubmit: true,
+		asHtmlID: 'keyword-autosuggest'
 	});
 	
+	$('#article').submit(function(){
+		$("#article_keyword").val($('#as-values-keyword-autosuggest').val());
+	});
+	
+	// Handle language switch click
+	var langIdSelect = $('#lang-id-select');
+	
+	$('input.lang-opt').change(function(){
+		langIdSelect.show();
+	});
+	
+	$('input.lang-default').change(function(){
+		langIdSelect.hide();
+	});
 
 });
 

@@ -1,48 +1,52 @@
-/* CSS Document */
-
+html, body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: auto !important;
+	height: 100%;
+	min-height: 100%;
+}
 body {
-	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	line-height: 145%;
 	color: #282F42;
-	background-image: url(../../img/backend/background.jpg);
-	background-repeat: repeat-x;
-	background-color: #C1D2E2; /*#D9DEE3*/
-	margin: 0px;
-	line-height: 125%;
+	background: #C1D2E2;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM0NzE5OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjMWQyZTIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top, #347199 0%, #c1d2e2 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #347199), color-stop(100%, #c1d2e2));
+	background: -webkit-linear-gradient(top, #347199 0%, #c1d2e2 100%);
+	background: -o-linear-gradient(top, #347199 0%, #c1d2e2 100%);
+	background: -ms-linear-gradient(top, #347199 0%, #c1d2e2 100%);
+	background: linear-gradient(to bottom, #347199 0%, #c1d2e2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0 );
 }
-a:link {
-	color: #000000;
-}
-a:visited {
+a {
 	color: #000000;
 }
 a:hover {
 	color: #CC3300;
 }
-a:active {
-	color: #000000;
-}
-
 p, div, form, h1, h2, h3, h4, h5, h6, hr {
 	margin: 0;
 	padding: 0;
 }
 input, select {
-	font-size: 13px;
-	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 p {
-	font-size: 11px;
+	font-size: 13px;
 }
 h1 {
-	color: #6288AD;
-	font-family: "Helvetica Neue Light", Helvetica, Arial, sans-serif;
-	font-size: 17px;
-	font-weight:bold;
-	margin-bottom: 5px;
+	color: #347199;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-weight: normal;
+	margin: .25em 0 .75em 0;
 }
 td, .v10, .v11, .error {
-	font-size:11px;
+	font-size: 13px;
 }
 .error {
 	color: #CC3300;

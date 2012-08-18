@@ -31,7 +31,6 @@ if (!defined('PHPWCMS_ROOT')) {
 // Tabs
 
 initMootools();
-$BE['HEADER']['tabs.css']	= '	<link href="include/inc_css/tabs.css" rel="stylesheet" type="text/css" />';
 
 // set default values
 if(empty($content['tabs']) || !is_array($content['tabs'])) {
@@ -49,7 +48,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 	$content['wysiwyg']				= true;
 	
 	// check if FCKeditor is enabled
-	$content['wysiwyg_toolbar']		= $_SESSION["WYSIWYG_EDITOR"] == 2 ? $_SESSION['WYSIWYG_TEMPLATE'] : 'phpwcms_basic';
+	$content['wysiwyg_toolbar']		= $_SESSION["WYSIWYG_EDITOR"] == 2 ? $_SESSION['WYSIWYG_TEMPLATE'] : 'Basic';
 
 } else {
 
@@ -145,22 +144,13 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 </tr>
 
 <tr>
-	<td colspan="2" class="rowspacer0x7">
-	<script type="text/javascript">
-	<!--
+	<td colspan="2" class="rowspacer0x7"><script type="text/javascript">
 
-	var wysiwyg	= <?php echo $content['wysiwyg'] ? 'true' : 'false'; ?>;
-	var fckbase	= '<?php echo PHPWCMS_URL.'include/inc_ext/fckeditor/'; ?>';
-	var toolbar	= '<?php echo $content['wysiwyg_toolbar']; ?>';
-	var entries = 0;
-	var FCK		= new Array();
+	var entries = 0, FCK = [];
 	
 	window.addEvent('domready', function() {
 
-		var head	= document.getElementsByTagName('head');
-		//new Element('style', {'type': 'text/css'} ).setText('td.col1w {width: ' + col1w['width'] + 'px;}').injectInside( head[0] );
-		
-		var entries = $('tabs').getChildren().length;
+		entries = $('tabs').getChildren().length;
 		
 		$('btn_add_tab').addEvent('click', function(event) {
 			event = new Event(event).stop();
@@ -175,60 +165,44 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 			entry    +=	'style="width:536px;height:150px;"><'+'/textarea><'+'/td><'+'/tr><'+'/table>';
 			
 			var tab = new Element('li', {'id': 'tab'+entries, 'class': 'tab nomove'} ).setHTML( entry ).injectInside( $('tabs') );
-						
-			if(wysiwyg) {
-				EnableFCK(entries);
-			}
+
+<?php if($content['wysiwyg']): ?>			EnableFCK(entries);<?php endif; ?>
 			
-			//makeSortable();
-	
 			window.scrollTo(0, tab.getCoordinates()['top']);
 			
-			entries++;
-			
+			entries++;			
 		});
-		
-		if(wysiwyg && entries > 0) {
 
+<?php if($content['wysiwyg']): ?>		
+		if(entries > 0) {
 			for(x = 0; x < entries; x++) {
 				EnableFCK(x);
 			}
 		}
+<?php endif; ?>
 		
-		makeSortable();
-		
-		/*
-		var col1w	= $('col_1_width').getCoordinates();
-		
-		alert(col1w['width']);
-		$$('td.col1w').each( function(el) {
-			el.setStyle('width', col1w['width'] + 'px');
-		});
-		*/
-	
-	});
-	
-	function makeSortable() {
 		var s = new Sortables( $('tabs'), { handles: 'em' } );
-	}
-	
+	});
+
+<?php if($content['wysiwyg']): ?>
 	function EnableFCK(x) {
 
 		if( $('tabtext'+x) ) {
 	
 			FCK[x] = new FCKeditor('tabtext'+x);
 					
-			FCK[x].BasePath = fckbase;
-			FCK[x].Config['CustomConfigurationsPath'] = fckbase+'fckeditor_config.js.php';
+			FCK[x].BasePath = '<?php echo PHPWCMS_URL.'include/inc_ext/fckeditor/'; ?>';
+			FCK[x].Config['CustomConfigurationsPath'] = '<?php echo PHPWCMS_URL.'include/inc_ext/fckeditor/'; ?>fckeditor_config.js.php';
 			FCK[x].Config['StartupFocus'] = false;
 			FCK[x].Width = 536;
 			FCK[x].Height = 150;
-			FCK[x].ToolbarSet = toolbar;	
+			FCK[x].ToolbarSet = '<?php echo $content['wysiwyg_toolbar']; ?>';	
 								
 			FCK[x].ReplaceTextarea() ;
 		}
 	
 	}
+<?php endif; ?>
 	
 	function deleteTab(e) {
 		if(confirm('<?php echo $BL['be_tab_delete_js'] ?>')) {
@@ -237,8 +211,5 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 		return false;
 	}
 
-	
-	//-->
-	</script>
-	</td>
+	</script></td>
 </tr>

@@ -31,8 +31,6 @@ if (!defined('PHPWCMS_ROOT')) {
 //images special
 
 initMootools();
-$BE['HEADER']['imagespecial.css']	= '	<link href="include/inc_css/imagespecial.css" rel="stylesheet" type="text/css">';
-
 
 // some predefinitions
 if(empty($template_default['imagegallery_default_column'])) {

@@ -1,12 +1,11 @@
 /*
-	Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
+	Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 	For licensing, see LICENSE.html or http://ckeditor.com/license
 	
 	Adopted for phpwcms, Oliver Georgi
 */
 
-CKEDITOR.editorConfig = function( config )
-{
+CKEDITOR.editorConfig = function( config ) {
 	// Set CKEditor UI color
 	config.uiColor = '#cccccc';
 	
@@ -21,15 +20,15 @@ CKEDITOR.editorConfig = function( config )
 	config.toolbar_phpwcms = [
         ['Source','Maximize', 'ShowBlocks'],
 		['Undo','Redo','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Find','Replace','-','SelectAll','RemoveFormat'],
-		'/',
+		['Link','Unlink','Anchor'],
 		['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 		['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-		['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
-		['Link','Unlink','Anchor'],
-		['Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
-		'/',
+		['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+			
+		['Image','Table','HorizontalRule','SpecialChar'],
+		['TextColor','BGColor'],
 		['Styles','Format','Font','FontSize'],
-		['TextColor','BGColor']
+		['About']
 	];
-	
+
 };

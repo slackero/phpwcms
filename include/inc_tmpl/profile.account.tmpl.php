@@ -119,7 +119,7 @@ if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
 	$wysiwygTemplates['FCKeditor'] = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
 }
 if(empty($wysiwygTemplates['FCKeditor']) || count($wysiwygTemplates['FCKeditor']) == 0) {
-	$wysiwygTemplates['FCKeditor'] = array('phpwcms_basic','phpwcms_default','Default','Basic');
+	$wysiwygTemplates['FCKeditor'] = array('Basic','Default','phpwcms_default');
 }
 if(!empty($phpwcms['wysiwyg_template']['CKEditor'])) {
 	$wysiwygTemplates['CKEditor'] = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);

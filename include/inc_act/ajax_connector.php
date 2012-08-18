@@ -34,9 +34,21 @@ if(empty($_SESSION["wcs_user"])) {
 	die('Sorry, access forbidden');
 }
 
-$action		= isset($_POST['action']) ? $_POST['action'] : false;
-$method		= isset($_POST['method']) ? $_POST['method'] : 'json';
-$value		= isset($_POST['value']) ? $_POST['value'] : 'json';
+if(isset($_POST['action'])) {
+	$action		= isset($_POST['action']) ? $_POST['action'] : false;
+	$method		= isset($_POST['method']) ? $_POST['method'] : 'json';
+	$value		= isset($_POST['value']) ? clean_slweg($_POST['value']) : '';
+	$jquery		= false;
+} elseif($_GET['action']) {
+	$action		= isset($_GET['action']) ? $_GET['action'] : false;
+	$method		= isset($_GET['method']) ? $_GET['method'] : 'json';
+	$value		= isset($_GET['value']) ? clean_slweg($_GET['value']) : '';
+	$jquery		= true;
+}
+
+if(empty($value)) {
+	$action = 'empty';
+}
 
 // do charset conversions for value
 if(PHPWCMS_CHARSET != 'utf-8') {
@@ -58,25 +70,41 @@ $data		= array();
 switch($action) {
 
 	case 'category':		$where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
-							$where .= "cat_name LIKE '" . aporeplace( preg_replace('/[^\w\- ]/', '', $value) ) . "%'";
+							$where .= "cat_name LIKE '" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
 							$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 	
 							if(isset($result[0])) {
-	
-								foreach($result as $value) {
-									$data[] = utf8_encode($value['cat_name']);
+								
+								if($jquery) {
+									
+									$data = $result;
+									
+								} else {
+								
+									foreach($result as $value) {
+										$data[] = utf8_encode($value['cat_name']);
+									}
+								
 								}
 							}
 							break;
 							
 	case 'newstags':		$where  = "cat_status=1 AND cat_type='news' AND ";
-							$where .= "cat_name LIKE '" . aporeplace( preg_replace('/[^\w\- ]/', '', $value) ) . "%'";
+							$where .= "cat_name LIKE '" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
 							$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 	
 							if(isset($result[0])) {
+								
+								if($jquery) {
+									
+									$data = $result;
+									
+								} else {
 	
-								foreach($result as $value) {
-									$data[] = utf8_encode($value['cat_name']);
+									foreach($result as $value) {
+										$data[] = utf8_encode($value['cat_name']);
+									}
+									
 								}
 							}
 							break;

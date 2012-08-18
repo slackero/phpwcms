@@ -27,7 +27,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-$acat_struct_mode = 'STRUCT';
+$acat_struct_mode	= 'STRUCT';
+$acat_lang_mode		= $_GET['struct'] != 'index' && count($phpwcms['allowed_lang']) > 1 ? true : false;
 
 if($_GET['struct'] === 'index') {
 
@@ -60,6 +61,8 @@ if($_GET['struct'] === 'index') {
 	$acat_keywords		= empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'];
 	$acat_cpdefault		= empty($indexpage['acat_cpdefault']) ? 0 : intval($indexpage['acat_cpdefault']);
 	$acat_lang			= '';
+	$acat_lang_type		= '';
+	$acat_lang_id		= 0;
 	
 	$acat_struct_mode = 'INDEX';
 	
@@ -91,6 +94,8 @@ if($_GET['struct'] === 'index') {
 	$acat_keywords		= '';
 	$acat_cpdefault		= 0;
 	$acat_lang			= '';
+	$acat_lang_type		= '';
+	$acat_lang_id		= 0;
 
 }
 
@@ -157,31 +162,40 @@ switch($acat_hidden) {
 			</td>
 		  </tr>
   
-<?php	if($_GET['struct'] != 'index' && count($phpwcms['allowed_lang']) > 1):	?>
+<?php	if($acat_lang_mode):
+
+			$lang_default	= ' ('.$BL['be_admin_tmpl_default'].')';
+
+?>
 
    		<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	
 		<tr><td class="v09"><?php echo $BL['be_profile_label_lang'] ?>:</td></tr>
 		  <tr><td class="tdtop2">
 		  
-			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;">
+			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;" class="lang-select">
 			<table border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
+				
+				<td>
+					<label><input type="radio" name="acat_lang" class="lang-default" value=""<?php is_checked('', $acat_lang); ?> />
+						<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . $lang_default ?>" /><?php echo $lang_default ?>
+						&nbsp;
+					</label>
+				</td>
+				
+				
 <?php		foreach($phpwcms['allowed_lang'] as $key => $lang):	
 				
 				$lang			= strtolower($lang);
-				$lang_value		= $lang;
-				$lang_default	= '';
 				
 				if($lang == $phpwcms['default_lang']) {
-					$lang_value		= '';
-					$lang_default	= ' ('.$BL['be_admin_tmpl_default'].')';
+					continue;
 				}
 
 ?>
-				
-					<td><label for="acat_lang<?php echo $key ?>"><input type="radio" name="acat_lang" id="acat_lang<?php echo $key ?>" value="<?php echo $lang_value ?>"<?php is_checked($lang_value, $acat_lang) ?> />
-							<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) . $lang_default ?>" /><?php echo $lang_default ?>
+					<td><label><input type="radio" name="acat_lang" class="lang-opt" value="<?php echo $lang ?>"<?php is_checked($lang, $acat_lang); ?> />
+							<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) ?>" />
 							&nbsp;
 						</label>
 					</td>
@@ -191,9 +205,19 @@ switch($acat_hidden) {
 				</tr>
 
 			</table>
-            </div>		  
+				<div style="margin:5px 0 0 0;border-top:1px solid #D9DEE3;padding-top:5px;<?php if($acat_lang == ''): ?>display:none;<?php endif; ?>" id="lang-id-select">
+					<label><input type="radio" name="acat_lang_type" value="category"<?php is_checked('category', $acat_lang_type); ?> /> <?php echo $BL['be_article_cat'] ?> ID</label>
+					&nbsp;
+					<label><input type="radio" name="acat_lang_type" value="article"<?php is_checked('article', $acat_lang_type); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
+					&nbsp;
+					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . $lang_default ?>" />&nbsp;
+					<input name="acat_lang_id" type="text" class="f11b width75" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" size="11" maxlength="11" />
+				</div>
+			
+			</div>		  
 		  
 		  </td></tr>
+	  
 
 <?php	endif;	?>
 
@@ -522,12 +546,39 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 				<input name="acat_new" type="hidden" id="acat_new" value="<?php echo $acat_new; ?>" />
 				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" /></td>
           </tr>
-		  <tr><td><input name="submit" type="submit" class="button10" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
+		  <tr><td>
+		  		<input name="submit" type="submit" class="button10" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
 		  		<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-		  &nbsp;&nbsp;&nbsp;&nbsp;
-		  <input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" /></td></tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
-		  <tr><td><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+		  		&nbsp;&nbsp;&nbsp;&nbsp;
+		 		<input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" />
+			</td></tr>
+            <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 </table>
 </form>
+<?php
+
+if($acat_lang_mode):
+
+	// Be more modern here — we start switch to jQuery and overwrite non-used MooTools with jQuery call
+	$GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+
+?>
+<script type="text/javascript">
+// Handle language switch click
+$(function() {
+	
+	var langIdSelect = $('#lang-id-select');
+	
+	$('input.lang-opt').change(function(){
+		langIdSelect.show();
+	});
+	
+	$('input.lang-default').change(function(){
+		langIdSelect.hide();
+	});
+	
+});
+</script>
+<?php
+endif;
+?>
