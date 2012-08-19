@@ -103,32 +103,19 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
 //2 = FCKeditor
-$phpwcms["wysiwyg_editor"]		= abs(intval($phpwcms["wysiwyg_editor"]));
+$phpwcms["wysiwyg_editor"] = abs(intval($phpwcms["wysiwyg_editor"]));
 if($phpwcms["wysiwyg_editor"] > 2) {
 	$phpwcms["wysiwyg_editor"] = 1;
 }
 $_SESSION["WYSIWYG_EDITOR"]		= $phpwcms["wysiwyg_editor"];
-$wysiwyg_template				= '';
 
-if($phpwcms["wysiwyg_editor"]) {
-					
-	if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
-		$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
-	} elseif(!empty($phpwcms['wysiwyg_template']['CKEditor'])) {
-		$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);
-	}
-	
-	if(empty($wysiwyg_template) || count($wysiwyg_template) == 0) {
-		$wysiwyg_template = array('Basic');
-	}
-
-}
 
 if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_POST['json']) && $_POST['json'] == '1') {
 
-	$login_passed = 0;
-	$wcs_user = slweg($_POST['form_loginname']);
-	$wcs_pass = slweg($_POST['md5pass']);
+	$login_passed		= 0;
+	$wysiwyg_template	= '';
+	$wcs_user			= slweg($_POST['form_loginname']);
+	$wcs_pass			= slweg($_POST['md5pass']);
 	
 	$sql_query =	"SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".
 					aporeplace($wcs_user)."' AND usr_pass='".
@@ -151,17 +138,26 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			}
 			
 			set_language_cookie();
-						
+			
 			$_SESSION["structure"]			= @unserialize($row["usr_var_structure"]);
 			$_SESSION["klapp"]				= @unserialize($row["usr_var_privatefile"]);
 			$_SESSION["pklapp"]				= @unserialize($row["usr_var_publicfile"]);
 			$row["usr_vars"]				= @unserialize($row["usr_vars"]);
-			$_SESSION["WYSIWYG_TEMPLATE"]	= empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
+
+			// Fallback to CKeditor?
+			$_SESSION["WYSIWYG_EDITOR"]		= $row["usr_wysiwyg"] > 2 ? 1 : $row["usr_wysiwyg"];
 			
-			$row["usr_wysiwyg"]				= abs(intval($row["usr_wysiwyg"]));
-			// Fallback to FCKeditor?
-			$_SESSION["WYSIWYG_EDITOR"]		= $row["usr_wysiwyg"] > 2 ? 2 : $row["usr_wysiwyg"];
+			if(!empty($phpwcms['wysiwyg_template']['FCKeditor']) && $_SESSION["WYSIWYG_EDITOR"] == 2) {
+				$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
+			} elseif(!empty($phpwcms['wysiwyg_template']['CKEditor']) && $_SESSION["WYSIWYG_EDITOR"] == 1) {
+				$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);
+			}
+			if(empty($wysiwyg_template) || count($wysiwyg_template) == 0) {
+				$wysiwyg_template = array('Basic');
+			}
 			
+			$_SESSION["WYSIWYG_TEMPLATE"] = empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
+				
 			$login_passed = 1;
 		}
 		mysql_free_result($result);
@@ -184,6 +180,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 		mysql_free_result($check);
 		$_SESSION['PHPWCMS_ROOT'] = PHPWCMS_ROOT;
 		set_status_message('Welcome '.$wcs_user.'!');
+		
 		if($ref_url) {
 			headerRedirect($ref_url.'&'.session_name().'='.session_id());
 		} else {
@@ -339,8 +336,8 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 
 ?>
 <script type="text/javascript">
-getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
-getObjectById('form_loginname').focus();
+	getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
+	getObjectById('form_loginname').focus();
 </script>
 </body>
 </html>
