@@ -46,7 +46,7 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_name` varchar(200) NOT NULL default '',
   `group_member` mediumtext NOT NULL,
   `group_value` longblob NOT NULL,
-  `group_timestamp` timestamp(14) NOT NULL,
+  `group_timestamp` timestamp NOT NULL,
   `group_trash` int(1) NOT NULL default '0',
   `group_active` int(1) NOT NULL default '0',
   PRIMARY KEY  (`group_id`),
@@ -87,7 +87,7 @@ CREATE TABLE `phpwcms_forum` (
   `forum_cpost` int(11) NOT NULL default '0',
   `forum_title` text NOT NULL,
   `forum_created` int(10) NOT NULL default '0',
-  `forum_changed` timestamp(14) NOT NULL,
+  `forum_changed` timestamp NOT NULL,
   `forum_status` int(1) NOT NULL default '0',
   `forum_deleted` int(1) NOT NULL default '0',
   `forum_text` mediumtext NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `phpwcms_imgcache` (
   `imgcache_width` int(11) NOT NULL default '0',
   `imgcache_height` int(11) NOT NULL default '0',
   `imgcache_wh` varchar(255) NOT NULL default '',
-  `imgcache_timestamp` timestamp(14) NOT NULL,
+  `imgcache_timestamp` timestamp NOT NULL,
   `imgcache_trash` int(1) NOT NULL default '0',
   PRIMARY KEY  (`imgcache_id`),
   KEY `imgcache_hash` (`imgcache_hash`)
@@ -117,7 +117,7 @@ CREATE TABLE `phpwcms_imgcache` (
 
 CREATE TABLE `phpwcms_sysvalue` (
   `sysvalue_key` varchar(255) NOT NULL default '',
-  `sysvalue_tstamp` timestamp(14) NOT NULL,
+  `sysvalue_tstamp` timestamp NOT NULL,
   `sysvalue_value` mediumblob NOT NULL,
   PRIMARY KEY  (`sysvalue_key`),
   FULLTEXT KEY `sysvalue_key` (`sysvalue_key`)
@@ -128,7 +128,7 @@ CREATE TABLE `phpwcms_sysvalue` (
 
 CREATE TABLE `phpwcms_module` (
   `module_id` int(11) NOT NULL auto_increment,
-  `module_timestamp` timestamp(14) NOT NULL,
+  `module_timestamp` timestamp NOT NULL,
   `module_name` varchar(30) NOT NULL default '',
   `module_mode` tinyint(1) NOT NULL default '0',
   `module_title` text NOT NULL,
@@ -422,7 +422,7 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_id` INT NOT NULL AUTO_INCREMENT,
   `formtracking_hash` VARCHAR( 50 ) NOT NULL default '',
   `formtracking_ip` VARCHAR( 20 ) NOT NULL default '',
-  `formtracking_created` TIMESTAMP(14) NOT NULL,
+  `formtracking_created` TIMESTAMP NOT NULL,
   `formtracking_sentdate` VARCHAR( 20 ) NOT NULL default '',
   `formtracking_sent` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`formtracking_id`)

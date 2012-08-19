@@ -230,7 +230,8 @@ calEnd.setYearCombo(false);
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
-		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>:&nbsp;</td>
+		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>&nbsp;&nbsp;<br />
+		(+<a href="#" id="struct_alias"><?php echo $BL['be_admin_struct_title'] ?></a>):&nbsp;</td>
 		<td><input name="article_alias" type="text" class="f11b" id="article_alias" style="width: 440px" value="<?php echo html_specialchars($article["article_alias"]) ?>" size="40" maxlength="200" onfocus="set_article_alias(true);" onchange="this.value=create_alias(this.value);" /></td>
 	</tr>		
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
@@ -712,6 +713,23 @@ $(function(){
 	
 	$('input.lang-default').change(function(){
 		langIdSelect.hide();
+	});
+	
+	$('#struct_alias').click(function() {
+		var struct		= $('#article_cid option:selected').text();
+		var title		= $('#article_title').val().trim();
+		var alias		= $('#article_alias');
+		
+		if(struct.length) {
+			struct = struct.replace(/^-+/gi, '').trim();
+			
+			if(title) {
+				struct += '<?php if($phpwcms['alias_allow_slash']): ?>/<?php else: ?>-<?php endif; ?>'+title;
+			}
+			
+		};
+		
+		alias.val( create_alias(struct) );
 	});
 
 });

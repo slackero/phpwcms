@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `phpwcms_newsletter`;
 CREATE TABLE `phpwcms_newsletter` (
   `newsletter_id` int(11) NOT NULL auto_increment,
   `newsletter_subject` text NOT NULL,
-  `newsletter_changed` timestamp(14) NOT NULL,
+  `newsletter_changed` timestamp NOT NULL,
   `newsletter_vars` mediumblob NOT NULL,
   `newsletter_trashed` int(1) NOT NULL default '0',
   PRIMARY KEY  (`newsletter_id`)

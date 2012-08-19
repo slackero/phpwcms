@@ -19,7 +19,7 @@ CREATE TABLE `phpwcms_imgcache` (
 	`imgcache_width` int(11) NOT NULL default '0',
 	`imgcache_height` int(11) NOT NULL default '0',
 	`imgcache_wh` varchar(255) NOT NULL default '',
-	`imgcache_timestamp` timestamp(14) NOT NULL,
+	`imgcache_timestamp` timestamp NOT NULL,
 	`imgcache_trash` int(1) NOT NULL default '0',
 	PRIMARY KEY  (`imgcache_id`),
 	KEY `imgcache_hash` (`imgcache_hash`)

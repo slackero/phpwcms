@@ -13,7 +13,7 @@ CREATE TABLE `phpwcms_bid` (
   `bid_email` text NOT NULL,
   `bid_hash` varchar(255) NOT NULL default '',
   `bid_amount` float NOT NULL default '0',
-  `bid_created` timestamp(14) NOT NULL,
+  `bid_created` timestamp NOT NULL,
   `bid_verified` int(1) NOT NULL default '0',
   `bid_trashed` int(1) NOT NULL default '0',
   `bid_vars` mediumblob NOT NULL,

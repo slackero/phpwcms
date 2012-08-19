@@ -11,7 +11,7 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_id` INT NOT NULL AUTO_INCREMENT,
   `formtracking_hash` VARCHAR( 50 ) NOT NULL default '',
   `formtracking_ip` VARCHAR( 20 ) NOT NULL default '',
-  `formtracking_created` TIMESTAMP(14) NOT NULL,
+  `formtracking_created` TIMESTAMP NOT NULL,
   `formtracking_sentdate` VARCHAR( 20 ) NOT NULL default '',
   `formtracking_sent` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`formtracking_id`)

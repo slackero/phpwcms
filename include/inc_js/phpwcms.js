@@ -379,6 +379,7 @@ function create_alias(str,encoding,ucfirst) {
 	if(aliasAllowSlashes) {
 		str = str.replace(/[^a-z0-9_\-\/]+/g,'');
 	} else {
+		str = str.replace('/', '-');
 		str = str.replace(/[^a-z0-9_\-]+/g,'');
 	}
 	str = str.replace(/\-+/g,'-');
