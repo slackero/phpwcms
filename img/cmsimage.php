@@ -109,7 +109,13 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 			$attribute	= explode('x', $data[0]);
 			$width		= intval($attribute[0]);
 			$height		= isset($attribute[1]) ? intval($attribute[1]) : 0;
-			$crop		= isset($attribute[2]) ? (intval($attribute[2]) ? 1 : 0) : 0;
+			$crop		= isset($attribute[2]) ? intval($attribute[2]) : 0;
+			if($crop) {
+				$grid	= $crop > 1 ? $crop : 0;
+				$crop	= 1;
+			} else {
+				$grid	= 0;
+			}
 			
 			// quality
 			if(isset($attribute[3]) && ($quality = intval($attribute[3])) ) {
@@ -128,6 +134,43 @@ if(isset($data[1]) && !preg_match('/[^a-fgijpnxA-FGIJPN0-9\/\.]/', $data[1])) {
 			$value['image_name']	= $hash . '.' . $ext;
 			$value['thumb_name']	= md5($hash.$value["max_width"].$value["max_height"].$phpwcms['sharpen_level'].$crop.$quality);
 			$value['crop_image']	= $crop;
+			
+			// Set width/height based on grid
+			if($grid) {
+				if(!$value["max_width"] || !$value["max_height"]) {
+					if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']) && ($imgdata = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']))) {
+					
+						if($value["max_height"] && !$value["max_width"]) {
+							$resize_factor = $imgdata[1] / $value["max_height"];
+							$value["max_width"] = floor($imgdata[0] / $resize_factor);
+						}
+						if($value["max_width"] && !$value["max_height"]) {
+							$resize_factor = $imgdata[0] / $value["max_width"];
+							$value["max_height"] = floor($imgdata[1] / $resize_factor);
+						}
+						if(!$value["max_width"] && !$value["max_height"]) {
+							$value["max_width"]  = $imgdata[0];
+							$value["max_height"] = $imgdata[1];
+						}
+						
+					} elseif(!$value["max_width"]) {
+						$value["max_width"] = $value["max_height"];
+					} elseif(!$value["max_height"]) {
+						$value["max_height"] = $value["max_width"];
+					}
+				}
+				$basis = floor($value["max_width"] / $grid);
+				if(!$basis) {
+					$basis = 1;
+				}
+				$value["max_width"] = $basis * $grid;
+				
+				$basis = floor($value["max_height"] / $grid);
+				if(!$basis) {
+					$basis = 1;
+				}
+				$value["max_height"] = $basis * $grid;
+			}
 			
 			$image = get_cached_image( $value, false, false );
 			

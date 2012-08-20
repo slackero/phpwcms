@@ -57,7 +57,7 @@ foreach($phpwcms_modules as $value) {
 			$phpwcms['modules'][$_module_name]['cntp']		= $_module_contentpart;
 			$phpwcms['modules'][$_module_name]['path']		= PHPWCMS_ROOT.'/include/inc_module/'.$value.'/';
 			$phpwcms['modules'][$_module_name]['dir']		= 'include/inc_module/'.$value.'/';
-			$phpwcms['modules'][$_module_name]['search']	= $_module_fe_search;
+			$phpwcms['modules'][$_module_name]['search']	= empty($_module_fe_search) ? false : true;
 			
 			// main module language include -> english is always neccessary
 			// but not necessary in frontend

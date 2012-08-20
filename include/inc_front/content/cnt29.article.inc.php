@@ -135,7 +135,7 @@ if($image['template']) {
 				$image['tmpl_images'][$x]  = '';
 			
 			}
-
+			
 			$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$image['images'][$key][3],
 								"image_name"	=>	$image['images'][$key][2] . '.' . $image['images'][$key][3],
@@ -162,7 +162,18 @@ if($image['template']) {
         					  )
 						);
 			}
-
+			
+			if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false && is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {
+				$img_landscape = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3]);
+				if($img_landscape) {
+					$img_landscape = $img_landscape[1] > $img_landscape[0] ? '' : 'L';
+				} else {
+					$img_landscape = null;
+				}
+			} else {
+				$img_landscape = null;
+			}
+			
 			// now try to build caption and if neccessary add alt to image or set external link for image
 			$caption	= getImageCaption($image['images'][$key][6]);
 			// set caption and ALT Image Text for imagelist
@@ -307,6 +318,9 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 			
+			if($img_landscape !== null) {
+				$img_a = render_cnt_template($img_a, 'LANDSCAPE', $img_landscape);
+			}			
 			
 			// check if this is the last image in row
 			if($image['col'] == $col || $image['count'] == $total) {

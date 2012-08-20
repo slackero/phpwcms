@@ -198,6 +198,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$img_zoom_abs		= '';
 		$img_zoom_width		= 0;
 		$img_zoom_height	= 0;
+		$img_thumb_ext		= 'jpg';
 		
 		if(!empty($row["article_image"]["hash"])) {
 
@@ -219,6 +220,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
 				$img_thumb_width	= $thumb_image[1];
 				$img_thumb_height	= $thumb_image[2];
+				$img_thumb_ext		= which_ext($thumb_image[0]);
 
 				if($row["article_image"]["zoom"]) {
 
@@ -393,10 +395,10 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$row["article_image"]['tmplfull'] = str_replace( 
 								array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
 										'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
-										'{IMAGE_ID}',	'{IMAGE_HASH}' ),
+										'{IMAGE_ID}',	'{IMAGE_HASH}', '{IMAGE_EXT}' ),
 								array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
 										$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
-										$row["article_image"]['id'], $row["article_image"]['hash'] ),
+										$row["article_image"]['id'], $row["article_image"]['hash'], $img_thumb_ext),
 								$row["article_image"]['tmplfull'] );
 			
 			// check if TITLE should be hidden

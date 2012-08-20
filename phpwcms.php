@@ -105,7 +105,11 @@ switch ($do) {
 						$wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
 						
 						foreach($phpwcms['modules'] as $value) {
-						
+														
+							if($value['type'] == 2) {
+								continue;
+							}
+							
 							$subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'phpwcms.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
 						
 						}

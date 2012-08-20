@@ -370,6 +370,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						$img_thumb_id		= empty($row['article_image']['list_id']) ? '' : $row['article_image']['list_id'];
 						$img_thumb_hash		= '';
 						$img_thumb_crop		= 0;
+						$img_thumb_ext		= 'jpg';
 						
 						// check if image available
 						if($img_thumb_id) {
@@ -424,6 +425,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 									$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
 									$img_thumb_width	= $thumb_image[1];
 									$img_thumb_height	= $thumb_image[2];
+									$img_thumb_ext		= which_ext($thumb_image[0]);
 								}
 							}
 							
@@ -437,8 +439,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						
 						// replace thumbnail and zoom image information
 						$content['alink']['tr'][$key] = str_replace(
-							array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}', '{THUMB_ID}', '{THUMB_HASH}', '{THUMB_CROP}' ),
-							array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height, $img_thumb_id, $img_thumb_hash, $img_thumb_crop ),
+							array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}', '{THUMB_ID}', '{THUMB_HASH}', '{THUMB_CROP}', '{THUMB_EXT}' ),
+							array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height, $img_thumb_id, $img_thumb_hash, $img_thumb_crop, $img_thumb_ext ),
 							$content['alink']['tr'][$key] 
 						);
 						
