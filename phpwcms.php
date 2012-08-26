@@ -262,10 +262,8 @@ if($BE['LANG'] == 'ar') {
 
 ?>
 <!-- phpwcms HEADER -->
-	<!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
 </head>
-
-<body<?php echo $body_onload ?> class="gradient"><!-- phpwcms BODY_OPEN -->
+<body<?php echo $body_onload ?>><!-- phpwcms BODY_OPEN -->
 <table width="770" border="0" align="center" cellpadding="0" cellspacing="0" summary="main layout structure">
 	<tr>
 		<td colspan="6">

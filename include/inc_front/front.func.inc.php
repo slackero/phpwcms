@@ -541,7 +541,8 @@ function get_actcat_articles_data($act_cat_id) {
 									"article_end"		=> $row["article_end"],
 									"article_alias"		=> $row["article_alias"],
 									'article_livedate'	=> $row["article_livedate"],
-									'article_killdate'	=> $row["article_killdate"]
+									'article_killdate'	=> $row["article_killdate"],
+									'article_uid'		=> $row["article_uid"]
 											);
 			// now check for article alias ID
 			if($row["article_aliasid"]) {
@@ -565,6 +566,7 @@ function get_actcat_articles_data($act_cat_id) {
 					if($alias_row = mysql_fetch_assoc($alias_result)) {
 						$data[$aid]["article_id"] = $alias_row["article_id"];
 						$data[$aid]["article_alias"] = $alias_row["article_alias"];
+						$data[$aid]["article_uid"] = $alias_row["article_uid"];
 						// use alias article header data
 						if(!$row["article_headerdata"]) {
 							$data[$aid]["article_title"]		= $alias_row["article_title"];
@@ -1368,7 +1370,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			if($tmpllist[ $article["article_image"]['tmpllist'] ]) {
 			
 				// set frontend edit link
-				$tmpl  = getFrontendEditLink('summary', $article['article_id']);
+				if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $article["article_uid"])) {
+					$tmpl = getFrontendEditLink('summary', $article['article_id']);
+				} else {
+					$tmpl = '';
+				}
 			
 				//rendering
 				$tmpl .= $tmpllist[ $article["article_image"]['tmpllist'] ];
@@ -1441,8 +1447,10 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			$listing .= $template_default["list_headline_before"];
 			
 			// set frontend edit link
-			$listing .= getFrontendEditLink('article', $article['article_id']);
-			$listing .= getFrontendEditLink('summary', $article['article_id']);			
+			if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $article["article_uid"])) {
+				$listing .= getFrontendEditLink('article', $article['article_id']);
+				$listing .= getFrontendEditLink('summary', $article['article_id']);
+			}
 			
 			$listing .= '<a href="'.$article_link.'">';
 			$listing .= $template_default["list_startimage"];
@@ -3579,7 +3587,7 @@ function set_css_link($css='', $add_template_path=true) {
 	$GLOBALS['block']['custom_htmlhead'][$css_var] .= $css.'" rel="stylesheet" type="text/css" />';
 }
 
-function getFrontendEditLink($type='', $id_1=0, $id_2=0) {
+function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 
 	// check if frontend edit link allowed
 	if(!FE_EDIT_LINK) return '';
@@ -3606,11 +3614,25 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0) {
 
 		case 'structure':	break;
 							
-		case 'CP':			$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$id_1.'&amp;acid='.$id_2;
+		case 'CP':			if(!$_SESSION["wcs_user_admin"] && $id_1) {
+								$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_1);
+								$sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
+								if(!_dbCount($sql)) {
+									return '';
+								}
+							}
+							$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$id_1.'&amp;acid='.$id_2;
 							$title = 'backend: edit Content Part';
 							break;
 							
-		case 'module':		$href = 'do=modules&amp;module='.$id_1;
+		case 'module':		if(!$_SESSION["wcs_user_admin"] && $id_2) {
+								$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_2);
+								$sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
+								if(!_dbCount($sql)) {
+									return '';
+								}
+							}
+							$href = 'do=modules&amp;module='.$id_1;
 							$title = 'backend: goto Module';
 							break;
 	}

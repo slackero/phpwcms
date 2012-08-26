@@ -467,7 +467,7 @@ function showSelectedContent($param='') {
 					
 					} elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
 				
-						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name']);
+						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
 				
 						// now try to include module content part code
 						include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');

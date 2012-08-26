@@ -297,7 +297,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 				if($value == $row['article_id'] && isset($content['struct'][ $row['article_cid'] ])) {
 					
 					// enable frontend edit link
-					$content['alink']['tr'][$key] = getFrontendEditLink('summary', $row["article_id"]);
+					if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $row["article_uid"])) {
+						$content['alink']['tr'][$key] = getFrontendEditLink('summary', $row["article_id"]);
+					}
 										
 					// set columns/row class
 					if($content['alink']['alink_columns'] > 0) {

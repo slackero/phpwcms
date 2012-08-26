@@ -215,10 +215,9 @@ if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || 
 }
 
 ?>
-	<!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
+	
 </head>
-
-<body class="gradient">
+<body>
 <table width="504" border="0" align="center" cellpadding="0" cellspacing="0" summary="Login Screen" style="margin-top: 50px;">
   <tr>
     <td colspan="3"><a href="index.php" target="_top"><img src="img/backend/phpwcms-signet-be.png" alt="phpwcms" border="0" style="margin:0 18px 12px 18px" /></a></td>

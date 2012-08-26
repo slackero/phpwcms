@@ -113,10 +113,9 @@ if($file_id) {
 ?>
 	
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
-	<!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
 </head>
 
-<body class="gradient" onload="ResizeAndCenter();">
+<body onload="ResizeAndCenter();">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#C1D2E2" summary="">
   <tr bgcolor="#C1D2E2"><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
   <tr bgcolor="#C1D2E2">

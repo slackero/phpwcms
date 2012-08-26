@@ -43,10 +43,12 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 	// check if in POST mode (form submitted) and NOT add new article
 	if((!isset($_POST["article_update"]) || !intval($_POST["article_update"])) && !isset($_GET['struct'])) {
 		$read_done = false;
-		$sql =	"SELECT DISTINCT *, date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ".
-				"FROM ".DB_PREPEND."phpwcms_article LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ON ".
-				DB_PREPEND."phpwcms_article.article_cid=".DB_PREPEND."phpwcms_articlecat.acat_id WHERE ".
-				DB_PREPEND."phpwcms_article.article_id='".$article["article_id"]."' LIMIT 1"; 
+		$sql  =	"SELECT DISTINCT *, date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ";
+		$sql .= "FROM ".DB_PREPEND."phpwcms_article LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ON ";
+		$sql .=	DB_PREPEND."phpwcms_article.article_cid=".DB_PREPEND."phpwcms_articlecat.acat_id WHERE ";
+		$sql .= DB_PREPEND."phpwcms_article.article_id='".$article["article_id"]."' ";
+		$sql .= $_SESSION["wcs_user_admin"] ? '' : 'AND '.DB_PREPEND.'phpwcms_article.article_uid='._dbEscape($_SESSION["wcs_user_id"]).' ';
+		$sql .= "LIMIT 1";
 		if($result = mysql_query($sql, $db) or die("error getting info about article")) {
 			if($row = mysql_fetch_assoc($result)) {
 				$article["article_id"]			= $row["article_id"];

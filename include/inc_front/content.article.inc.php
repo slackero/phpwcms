@@ -158,9 +158,13 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		}
 		
 		// enable frontend edit link
-		$content["main"] .= getFrontendEditLink('article', $row["article_id"]);
-		$content["main"] .= getFrontendEditLink('summary', $row["article_id"]);
-		
+		if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $row["article_uid"])) {
+			$content["main"] .= getFrontendEditLink('article', $row["article_id"]);
+			$content["main"] .= getFrontendEditLink('summary', $row["article_id"]);
+			$content['article_frontend_edit'] = true;
+		} else {
+			$content['article_frontend_edit'] = false;
+		}
 
 		// only copy the catname to a special var for multiple for use in any block
 		$content["cat"]					= html_specialchars($article["cat"]);
@@ -497,7 +501,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			}
 			
 			// set frontend edit link
-			$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
+			if($content['article_frontend_edit']) {
+				$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
+			}
 			
 			// include content part code section
 			if($crow["acontent_type"] != 30) {
@@ -505,8 +511,10 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				@include(PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php");
 			
 			} elseif($crow["acontent_type"] == 30 && is_file($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
-
-				$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name']);
+				
+				if($content['article_frontend_edit']) {
+					$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
+				}
 				// now try to include module content part code
 				include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
 			
