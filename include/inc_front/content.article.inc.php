@@ -660,7 +660,19 @@ if($content['set_canonical']) {
 		$content['set_canonical'] = get_structurelevel_single_article_alias($content['cat_id']);
 	}
 	if($content['set_canonical']) {
-		$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
+		
+		if($phpwcms["rewrite_url"]) {
+			
+			$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" '.url_search(array(1 => 'href', 3 => $content['set_canonical'])) . ' />';
+			
+			if(PHPWCMS_REWRITE_EXT && strpos($block['custom_htmlhead']['canonical'], PHPWCMS_REWRITE_EXT.'&amp;')) {
+				$block['custom_htmlhead']['canonical'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $block['custom_htmlhead']['canonical']);
+			};
+			
+		} else {
+			$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
+		}
+		
 	}
 }
 

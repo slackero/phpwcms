@@ -524,6 +524,8 @@ if( $_shop_load_list !== false ) {
 		$shop_cat_selected	= 0;
 	}
 	
+	$shop_pagetitle = '';
+	
 	$sql  = "SELECT * FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
 	$sql .= "shopprod_status=1";
 
@@ -563,7 +565,7 @@ if( $_shop_load_list !== false ) {
 
 		$shop_prod_detail = rel_url(array(), array('shop_detail'));
 		
-		$_tmpl['config']['init_lightbox'] = false;
+		$_tmpl['config']['init_lightbox']	= false;
 
 		foreach($data as $row) {
 		
@@ -662,6 +664,12 @@ if( $_shop_load_list !== false ) {
 				
 				$_tmpl['config']['mode']		= 'detail';
 				$_tmpl['config']['lightbox_id']	= '[product_'.$x.'_'.$shop_detail_id.']';
+				$shop_pagetitle					= $row['shopprod_name1'];
+				/*
+				if(!empty($row['shopprod_model'])) {
+					$shop_pagetitle .= ' / ' . $row['shopprod_model'];
+				}
+				*/
 				
 				// product detail
 				$entry[$x] = str_replace('{PRODUCT_DETAIL_LINK}', $shop_prod_detail, $entry[$x]);
@@ -688,7 +696,6 @@ if( $_shop_load_list !== false ) {
 				// Files
 				$_prod_list_files = isset($row['shopprod_var']['files'][0]['f_id']) ? shop_files($row['shopprod_var']['files']) : '';
 			
-				
 				// Update product view count
 				// ToDo: Maybe use cookie or session to avoid tracking in case showed once
 				$sql = 'UPDATE LOW_PRIORITY '.DB_PREPEND.'phpwcms_shop_products SET shopprod_track_view=shopprod_track_view+1 WHERE shopprod_id='.$shop_detail_id;
@@ -752,6 +759,32 @@ if( $_shop_load_list !== false ) {
 
 	$content['all'] = str_replace('{SHOP_PRODUCTLIST}', $entries, $content['all']);
 	
+	if(preg_match('/<!--\s{0,}RENDER_SHOP_PAGETITLE:(BEFORE|AFTER)\s{0,}-->/', $content['all'], $match)) {
+		
+		if(empty($GLOBALS['pagelayout']['layout_title_spacer'])) {
+			$title_spacer = ' | ';
+			$GLOBALS['pagelayout']['layout_title_spacer'] = $title_spacer;
+		} else {
+			$title_spacer = $GLOBALS['pagelayout']['layout_title_spacer'];
+		}
+		
+		if($shop_pagetitle) {
+			$shop_pagetitle .= $title_spacer;
+		}
+		
+		$shop_pagetitle .= $shop_cat_name;
+		
+		if(empty($content['pagetitle'])) {
+			$content['pagetitle'] = html_specialchars($shop_pagetitle);
+		} elseif($match[1] == 'BEFORE') {
+			$content['pagetitle'] = html_specialchars($shop_pagetitle . $title_spacer) . $content['pagetitle'];
+		} else {
+			$content['pagetitle'] .= html_specialchars($title_spacer . $shop_pagetitle);
+		}
+		
+		$content['all'] = str_replace($match[0], '', $content['all']);
+	
+	}	
 }
 
 if( $_shop_load_order ) {

@@ -138,12 +138,16 @@ function image_manipulate($config=array()) {
 		$IMG->width					= $IMG->orig_width;
 		$IMG->height				= $IMG->orig_height;
 	}
-		
+	
+	/*	
 	if($phpwcms['image_library'] == 'imagemagick' && $config['crop_image']) {
 		
 		$IMG->crop_centered_resize();
 	
-	} elseif($config['crop_image']) {
+	} else
+	*/
+	
+	if($config['crop_image']) {
 		
 		$image_config = set_cropped_imagesize($image_config, $IMG->orig_width, $IMG->orig_height);
 		

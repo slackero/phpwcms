@@ -2586,26 +2586,35 @@ function build_sitemap_articlelist($cat, $counter=0) {
 	$sql .= "ORDER BY ".$ao[2];
 
 	$s = '';
-	$c = '';
-	if($GLOBALS['sitemap']['classcount']) {
-		if($GLOBALS['sitemap']['articleclass']) $c = ' class="'.$GLOBALS['sitemap']['articleclass'].$counter.'"';
-	} else {
-		if($GLOBALS['sitemap']['articleclass']) $c = ' class="'.$GLOBALS['sitemap']['articleclass'].'"';
-	}
 
 	if($result = mysql_query($sql, $GLOBALS['db'])) {
-		while($row = mysql_fetch_row($result)) {
-
-			$s .= '<li'.$GLOBALS['sitemap']['article_style'].'>';	//.$c
-			$s .= '<a href="index.php?aid='.$row[0].'">';
-			$s .= html_specialchars($row[1]);
-			$s .= "</a></li>\n";
-
+		
+		if(mysql_num_rows($result) > 1) {
+			
+			$c = '';
+			
+			if($GLOBALS['sitemap']['articleclass']) {
+				$c .= ' class="'.$GLOBALS['sitemap']['articleclass'];
+				if($GLOBALS['sitemap']['classcount']) {
+					$c .= $counter;
+				}
+				$c .= '"';
+			}
+		
+			while($row = mysql_fetch_row($result)) {
+	
+				$s .= '<li'.$GLOBALS['sitemap']['article_style'].'>';
+				$s .= '<a href="index.php?aid='.$row[0].'">';
+				$s .= html_specialchars($row[1]);
+				$s .= "</a></li>\n";
+	
+			}
+			
+			$s = "\n<ul".$c.">\n".$s.'</ul>';
+			
 		}
 		mysql_free_result($result);
 	}
-
-	if($s) $s = "\n<ul".$c.">\n".$s.'</ul>';
 
 	return $s;
 

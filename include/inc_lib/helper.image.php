@@ -49,7 +49,7 @@ if (!defined('PHPWCMS_ROOT')) {
  */
 class Phpwcms_Image_lib {
 
-	var $image_library		= 'gd2';	// Can be: imagemagick, grpahicsmagick, netpbm, gd, gd2
+	var $image_library		= 'gd2';	// Can be: imagemagick, graphicsmagick, netpbm, gd, gd2
 	var $library_path		= '';
 	var $dynamic_output		= FALSE;	// Whether to send to browser or write to disk
 	var $source_image		= '';
@@ -730,7 +730,7 @@ class Phpwcms_Image_lib {
 		$retval = 1;
 		
 		// debug commands
-		//write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
+		write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
 
 		@exec($cmd, $output, $retval);
 
