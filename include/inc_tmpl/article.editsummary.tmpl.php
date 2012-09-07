@@ -332,7 +332,9 @@ if(count($tmpllist)) {
 	  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
 				<td><input name="article_morelink" type="checkbox" id="article_morelink" value="1"<?php is_checked(1, $article['article_morelink']); ?> /></td>
-				<td class="v10"><label for="article_morelink">&nbsp;<?php echo $BL['be_article_morelink'] ?></label></td>
+				<td class="v10"><label for="article_morelink">&nbsp;<?php echo $BL['be_article_morelink'] ?></label>&nbsp;&nbsp;&nbsp;</td>
+				<td><input name="article_noteaser" type="checkbox" id="article_noteaser" value="1"<?php is_checked(1, $article['article_noteaser']); ?> /></td>
+				<td class="v10"><label for="article_noteaser">&nbsp;<?php echo $BL['be_article_noteaser'] ?></label></td>
 			</tr>
 			</table></td>
 	  <td>&nbsp;</td>

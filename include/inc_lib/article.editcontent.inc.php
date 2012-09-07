@@ -90,6 +90,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 				$article['article_aliasid']		= $row['article_aliasid'];
 				$article['article_headerdata']	= $row['article_headerdata'];
 				$article['article_morelink']	= $row['article_morelink'];
+				$article['article_noteaser']	= $row['article_noteaser'];
 				$article['article_pagetitle']	= $row['article_pagetitle'];
 				$article['article_paginate']	= $row['article_paginate'];
 				$article['article_sort']		= $row['article_sort'];
@@ -136,6 +137,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article['article_aliasid']				= '';
 		$article['article_headerdata']			= 0;
 		$article['article_morelink']			= 1;
+		$article['article_noteaser']			= 0;
 		$article["article_pagetitle"]			= '';
 		$article['article_paginate']			= 0;
 		$article['article_sort']				= 0;
@@ -208,6 +210,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article['article_aliasid']		= intval($_POST["article_aliasid"]);
 		$article['article_headerdata']	= isset($_POST["article_headerdata"]) ? 1 : 0;
 		$article['article_morelink']	= isset($_POST["article_morelink"]) ? 1 : 0;
+		$article['article_noteaser']	= isset($_POST["article_noteaser"]) ? 1 : 0;
 		$article["article_pagetitle"]	= clean_slweg($_POST["article_pagetitle"]);
 		$article['article_paginate']	= isset($_POST["article_paginate"]) ? 1 : 0;
 		$article['article_sort']		= empty($_POST["article_sort"]) ? 0 : intval($_POST["article_sort"]);
@@ -361,6 +364,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					"article_aliasid"		=> $article['article_aliasid'],
 					"article_headerdata"	=> $article['article_headerdata'],
 					"article_morelink"		=> $article['article_morelink'],
+					"article_noteaser"		=> $article['article_noteaser'],
 					"article_pagetitle"		=> $article['article_pagetitle'],
 					"article_paginate"		=> $article['article_paginate'],
 					"article_priorize"		=> $article['article_priorize'],
@@ -416,6 +420,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 						"article_aliasid=".$article['article_aliasid'].", ".
 						"article_headerdata=".$article['article_headerdata'].", ".
 						"article_morelink=".$article['article_morelink'].", ".
+						"article_noteaser=".$article['article_noteaser'].", ".
 						"article_pagetitle='".aporeplace($article['article_pagetitle'])."', ".
 						"article_paginate=".$article['article_paginate'].", ".
 						"article_priorize=".$article['article_priorize'].", ".

@@ -184,7 +184,7 @@ if(!empty($step)) {
 									@mysql_query($value, $db);
 									$value = "SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'");
 									@mysql_query($value, $db);
-								}		
+								}
 								
 								$db_create_sql = explode(';', $sql_data);
 								foreach($db_create_sql as $key => $value) {

@@ -34,5 +34,8 @@ CREATE TABLE `phpwcms_crossreference` (
   `cref_int` int(11) NOT NULL default '0',
   `cref_str` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`cref_id`),
-  KEY `cref_type` (`cref_type`,`cref_rid`,`cref_int`,`cref_str`)
+  KEY `cref_type` (`cref_type`),
+  KEY `cref_rid` (`cref_rid`),
+  KEY `cref_int` (`cref_int`),
+  KEY `cref_str` (`cref_str`)
 );

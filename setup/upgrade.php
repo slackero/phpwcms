@@ -201,6 +201,15 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 
 if($do) {
 
+	@mysql_query('SET storage_engine=MYISAM', $db);
+	
+	if($phpwcms['db_version'] > 40100) {
+		$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
+		@mysql_query($value, $db);
+		$value = "SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'");
+		@mysql_query($value, $db);
+	}
+
 	$sql_data = read_textfile("update_sql/".$file);
 	$sql_data = preg_replace("/#.*.\n/", "", $sql_data );
 	$sql_data = preg_replace("/ `phpwcms/", " `".DB_PREPEND."phpwcms", $sql_data );
