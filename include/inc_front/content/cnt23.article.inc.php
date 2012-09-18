@@ -1392,18 +1392,24 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 				} else {
 				
 					if($cnt_form["fields"][$key]['required']) {
-						$cnt_form['labelClass']   = 'form-label required';
-						$cnt_form['labelReqMark'] = $cnt_form["cform_reqmark"];
+						$cnt_form['labelReqMark']  = $cnt_form["cform_reqmark"];
+						$cnt_form['requiredClass'] = ' required';
 					} else {
-						$cnt_form['labelClass']   = 'form-label';
-						$cnt_form['labelReqMark'] = '';
+						$cnt_form['labelReqMark']  = '';
+						$cnt_form['requiredClass'] = '';
+					}
+					
+					$cnt_form['typeClass'] = 'form-type-'.$cnt_form["fields"][$key]['type'];
+					
+					if($cnt_form["fields"][$key]['class']) {
+						$cnt_form['typeClass'] .= ' ftc-'.$cnt_form["fields"][$key]['class'];
 					}
 				
 					if($cnt_form['labelpos'] == 0) {
 				
 						// label: field
 						if($cnt_form["fields"][$key]['type'] != 'break') {
-							$form_cnt .= "<tr>\n".'<td class="'.$cnt_form['labelClass'].'">';
+							$form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'">'.'<td class="form-label'.$cnt_form['requiredClass'].'">';
 							if($cnt_form["fields"][$key]['label'] != '') {
 								$form_cnt .= $cnt_form['label_wrap'][0];
 								$form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
@@ -1422,9 +1428,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 					} elseif($cnt_form['labelpos'] == 3) {
 				
 						// DIV based
-						$form_cnt .= '<div class="form-field';
+						$form_cnt .= '<div class="'.$cnt_form['typeClass'].' form-field'.$cnt_form['requiredClass'];
 						if($cnt_form["fields"][$key]['label'] != '') {
-							$form_cnt .= '">' . LF . '	<label class="'.$cnt_form['labelClass'].'">';
+							$form_cnt .= '">' . LF . '	<label class="form-label'.$cnt_form['requiredClass'].'">';
 							$form_cnt .= $cnt_form['label_wrap'][0];
 							$form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
 							$form_cnt .= $cnt_form['labelReqMark'];
@@ -1440,12 +1446,12 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 						// label:
 						// field
 						if($cnt_form["fields"][$key]['label'] != '') {
-							$form_cnt .= '<tr><td class="'.$cnt_form['labelClass'].'">'.$cnt_form['label_wrap'][0];
+							$form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">'.$cnt_form['label_wrap'][0];
 							$form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
 							$form_cnt .= $cnt_form['labelReqMark'];
 							$form_cnt .= $cnt_form['label_wrap'][1]."</td></tr>\n";
 						}
-						$form_cnt .= '<tr><td class="form-field">'.$form_field."</td></tr>\n";
+						$form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-field">'.$form_field."</td></tr>\n";
 					
 					}
 				}
@@ -1970,7 +1976,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			
 				$form_error = "<tr>\n";
 				if($cnt_form['labelpos'] == 0) { // label: field
-					$form_error .= '<td class="'.$cnt_form['labelClass'].'">'."&nbsp;</td>\n";
+					$form_error .= '<td class="form-label">'."&nbsp;</td>\n";
 				}
 				$form_error .= '<td'.(!empty($cnt_form["error_class"]) ? ' class="'.$cnt_form["error_class"].'"' : '').'>';
 				$form_error .= implode("<br />", $POST_ERR);

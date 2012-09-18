@@ -299,6 +299,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					// enable frontend edit link
 					if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $row["article_uid"])) {
 						$content['alink']['tr'][$key] = getFrontendEditLink('summary', $row["article_id"]);
+					} else {
+						$content['alink']['tr'][$key] = '';
 					}
 										
 					// set columns/row class
