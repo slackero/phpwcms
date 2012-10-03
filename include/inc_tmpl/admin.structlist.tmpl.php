@@ -68,7 +68,7 @@ $a .= "<img src=\"img/symbole/plus_".(($child_count) ? (($_SESSION["structure"][
 $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($child_count) ? "</a>" : "");
 $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" alt=\"ID:0\"></td>\n";
 $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-$a .= "<td class=\"dir\"><strong>".$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<td class="dir" width="95%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
 //-- 19-11-2004 Fernando Batista start-----------------------------------------------------------------------------------------------------------

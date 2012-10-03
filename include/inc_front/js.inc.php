@@ -103,8 +103,10 @@ function renderHeadJS($js) {
 	if(empty($js)) {
 		return '';
 	}
+	
+	$remote = substr($js, 0, 4) == 'http' ? true : false;
 
-	if(substr($js, 0, 4) != 'http' && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
+	if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
 		
 		$key = md5($js);
 		
@@ -122,12 +124,9 @@ function renderHeadJS($js) {
 		initJSLib();
 		
 	} else {
-	
-		// test for .js
-		$ext = which_ext($js);
 		
-		// decide it is a  plugin or qualified .js
-		if($ext == 'js') {
+		// decide if plugin or script
+		if($remote || which_ext($js) == 'js') {
 			
 			// replace {TEMPLATE}
 			$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);

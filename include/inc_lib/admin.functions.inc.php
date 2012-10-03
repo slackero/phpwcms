@@ -77,7 +77,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	
 	$a .= "></td>\n";
 	$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-	$a .= "<td class=\"dir\"><strong>".$an."</strong></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
+	$a .= '<td class="dir" width="95%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
 	
 	$a .= listmode_edits ($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 	
@@ -284,7 +284,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		//$a .= getAltTitle($info);
 		$a .= " /></td>\n";
 		$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-		$a .= "<td class=\"dir\"><a href=\"index.php?aid=".$article[$akey]["article_id"].'"';
+		$a .= '<td class="dir" width="95%"><a href="index.php?aid='.$article[$akey]["article_id"].'"';
 		$a .= "target=\"_blank\" title=\"".$BL['be_func_struct_preview'].": ".$at."\">";
 		$a .= $at."</a></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
 
