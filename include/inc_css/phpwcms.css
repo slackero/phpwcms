@@ -89,6 +89,9 @@ form {
 .chat {
 	color: #55638A;
 }
+.chatlist {
+	white-space: nowrap;	
+}
 .chatlist,
 .chatlist a {
 	color: #406C94;
@@ -267,14 +270,14 @@ button.button10 {
 	background-color: #F5F9FA;
 }
 .subnavactive,
+.subnavinactive {
+	white-space: nowrap;
+}
+.subnavactive,
 .subnavactive a {
 	color: #305270;
 	font-size: 10px;
 	text-decoration: none;
-}
-.subnavactive a:hover {
-	color: #FF572D;
-	text-decoration: underline;
 }
 .subnavinactive,
 .subnavinactive a {
@@ -282,6 +285,7 @@ button.button10 {
 	font-size: 10px;
 	text-decoration: none;
 }
+.subnavactive a:hover,
 .subnavinactive a:hover {
 	color: #FF572D;
 	text-decoration: underline;
