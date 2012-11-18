@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -53,7 +42,7 @@ function forward_to($to, $link, $time=2500) { //Javascript forwarding
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
 	//generate subnavigation based on text
-	$id = "subnavid".randpassword(5);
+	$id = "subnavid".generic_string(5);
 	$sn = '';
 	if($is == $should) {
 		$sn .= '<tr><td><img src="img/subnav/subnav_B.gif" width="15" height="13" border="0" alt="" /></td>';	
@@ -74,7 +63,7 @@ function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
 
 function subnavtextext($text, $link, $target='_blank', $getback=1) {
 	//generate subnavigation based on text and links to new page
-	$id  = 'subnavid'.randpassword(5);
+	$id  = 'subnavid'.generic_string(5);
 	$sn  = '<tr><td><img src="img/subnav/subnav_A.gif" width="15" height="13" border="0" name="'.$id.'" alt="" /></td>';	
 	$sn .= '<td class="subnavinactive"><a href="'.$link.'" target="'.$target.'" ';
 	$sn .= "onMouseOver=\"".$id.".src='img/subnav/subnav_B.gif'\" onMouseOut=\"".$id.".src='img/subnav/subnav_A.gif'\"";
@@ -84,7 +73,7 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
 }
 
 function subnavback($text, $link, $h_before=0, $h_after=0) {
-	$id = "subbackid".randpassword(5);
+	$id = "subbackid".generic_string(5);
 	$sn  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	$sn .= (intval($h_before)) ? "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_before)."\" alt=\"\" /></td></tr>\n" : "";
 	$sn .= "<tr>";
@@ -920,22 +909,6 @@ function initMootoolsAutocompleter($mode='1.1') {
 function initJsOptionSelect() {
 	$GLOBALS['BE']['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
 }
-function initMultipleUpload($mode='1.2') {
-	switch($mode) {
-		case '1.1':
-			initMootools('1.1');
-			$GLOBALS['BE']['HEADER']['Swiff.Base.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/v1/Swiff.Base.js');
-			$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/v1/Swiff.Uploader.js');
-			$GLOBALS['BE']['HEADER']['FancyUpload.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/v1/FancyUpload.js');
-			break;
-
-		default:
-			initMootools('1.2');
-			$GLOBALS['BE']['HEADER']['Swiff.Uploader.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Swiff.Uploader.js');
-			$GLOBALS['BE']['HEADER']['FX.ProgressBar.js']	= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/Fx.ProgressBar.js');
-			$GLOBALS['BE']['HEADER']['FancyUpload2.js']		= getJavaScriptSourceLink('include/inc_js/mootools/FancyUpload/FancyUpload2.js');
-	}
-}
 
 // make phpwcms compatibility and upgrade check
 function phpwcms_revision_check($revision) {
@@ -1141,6 +1114,42 @@ function get_language_name($lang='', $default=true) {
 	
 	return isset($GLOBALS['BL'][$lang]) ? $GLOBALS['BL'][$lang] : $lang;
 	
+}
+
+function get_pix_or_percent($val) {
+	//is used to return configuration width/height values
+	//whether based on pixel or percent
+	//that's why the default empty return value is ""
+	//returns a string
+	$val = trim($val);
+	$intval = intval($val);
+	if(strlen($val) > 1 && strlen($val)-1 == strrpos($val, "%") && $intval) {
+		$val = (($intval > 100) ? "100" : $intval)."%";
+	} else {
+		$val = ($intval) ? $intval : "";
+	}
+	return $val;
+}
+
+// List private files
+function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
+	$pid = intval($pid);
+	$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
+		   "f_pid=".intval($pid)." AND ";
+		   if(empty($_SESSION["wcs_user_admin"])) {
+		   		$sql .= "f_uid=".intval($userID)." AND ";
+		   }
+	$sql .= "f_kid=0 AND f_trash=0 ORDER BY f_name";
+	$result = mysql_query($sql, $dbcon);
+	while($row = mysql_fetch_row($result)) {
+		$dirname = html_specialchars($row["1"]);
+		echo "<option value='".$row[0]."'";
+		if(intval($zid) == $row[0]) echo " selected";
+		echo ">".$vor.' '.$dirname."</option>\n";
+		dir_menu($row["0"], $zid, $dbcon, $vor.$vorzeichen, $userID, $vorzeichen);
+	}
+	mysql_free_result($result);
+	return $vor;
 }
 
 ?>

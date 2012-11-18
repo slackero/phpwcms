@@ -1,26 +1,14 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
-// session_name('hashID');
 session_start();
 $phpwcms = array();
 
@@ -33,6 +21,7 @@ checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 
 $ref = $_SESSION['REFERER_URL'];
+$ftp = array();
 $ftp["error"] = 0;
 
 $ftp["mark"]		= isset($_POST["ftp_mark"]) ? $_POST["ftp_mark"] : false;
@@ -77,10 +66,9 @@ if(!$ftp["error"]) {
 	$ftp["aktiv"]		= empty($_POST["file_aktiv"]) ? 0 : 1;
 	$ftp["public"]		= empty($_POST["file_public"]) ? 0 : 1;
 	$ftp["replace"] 	= empty($_POST["file_replace"]) ? 0 : 1;
-	$ftp["long_info"]	= clean_slweg($_POST["file_longinfo"]);
-	$ftp["copyright"]	= clean_slweg($_POST["file_copyright"]);
+	$ftp["long_info"]	= slweg($_POST["file_longinfo"]);
+	$ftp["copyright"]	= slweg($_POST["file_copyright"]);
 	$ftp["tags"]		= trim( trim( clean_slweg($_POST["file_tags"]), ',') );
-	
 	$ftp["keywords"]	= isset($_POST["file_keywords"]) ? $_POST["file_keywords"] : array();
 	$ftp["keys"] 		= "";
 	if(is_array($ftp["keywords"]) && count($ftp["keywords"])) {
@@ -95,6 +83,30 @@ if(!$ftp["error"]) {
 			}		
 		}
 	}
+	
+	$ftp['fileVarsField'] = '';
+	$ftp['fileVarsValue'] = '';
+	
+	if(count($phpwcms['allowed_lang']) > 1) {
+		
+		$ftp['file_vars'] = array();
+		
+		foreach($phpwcms['allowed_lang'] as $lang) {
+			$lang = strtolower($lang);
+			
+			if(isset($_POST['file_longinfo_'.$lang])) {
+				$ftp['file_vars'][$lang]['longinfo'] = slweg($_POST['file_longinfo_'.$lang]);
+			}
+			if(isset($_POST['file_copyright_'.$lang])) {
+				$ftp['file_vars'][$lang]['copyright'] = slweg($_POST['file_copyright_'.$lang]);
+			}
+		}
+		
+		if(count($ftp['file_vars'])) {
+			$ftp['fileVarsField'] = ',f_vars';
+			$ftp['fileVarsValue'] = ','._dbEscape(serialize($ftp['file_vars']));
+		}		
+	} 
 	
 	
 ?><p><img src="../../img/symbole/rotation.gif" alt="" width="15" height="15"><strong class="title">&nbsp;selected files uploaded via ftp will be taken over!</strong></p><?php
@@ -139,12 +151,12 @@ if(!$ftp["error"]) {
 			
 			$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
 					"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
-					"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags) VALUES (".
+					"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags".$ftp['fileVarsField'].") VALUES (".
 					$ftp["dir"].", ".intval($_SESSION["wcs_user_id"]).", 1, ".$ftp["aktiv"].", ".$ftp["public"].", '".
 					aporeplace($file_name)."', '".time()."', '".$file_size."', '".aporeplace($file_type)."', '".
 					aporeplace($file_ext)."', '".aporeplace($ftp["short_info"])."', '".
 					aporeplace($ftp["long_info"])."', '".$ftp["keys"]."', '".$file_hash."', '".
-					aporeplace($ftp["copyright"])."', '".aporeplace($ftp["tags"])."')";
+					aporeplace($ftp["copyright"])."', '".aporeplace($ftp["tags"])."'".$ftp['fileVarsValue'].")";
 					
 			if($result = mysql_query($sql, $db) or die("error while insert file information")) {
 				$new_fileId = mysql_insert_id($db); //Festlegen der aktuellen File-ID
@@ -206,22 +218,22 @@ if(!$ftp["error"]) {
 								// update file size of old file with new filesize
 								_dbUpdate('phpwcms_file', array('f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()), 'f_id='.$oldFileID);
 								
-								//now try to delete all temp images if available
-								$isql = "SELECT imgcache_imgname FROM ".DB_PREPEND."phpwcms_imgcache WHERE imgcache_hash='".aporeplace($oldFileHash)."'";
-								if($iresult = mysql_query($isql, $db)) {
-									$cImagePath = PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES;
-									while($irow = mysql_fetch_row($iresult)) {
-										if(file_exists($cImagePath.$irow[0])) {
-											@unlink($cImagePath.$irow[0]);
-										}
+								// empty temp images directory
+								$thumbnails = returnFileListAsArray(PHPWCMS_THUMB, 'jpg,jpeg,gif,png');
+								if(is_array($thumbnails) && count($thumbnails)) {
+									
+									foreach($thumbnails as $thumbnail) {
+									
+										@unlink(PHPWCMS_THUMB.$thumbnail['filename']);
+									
 									}
-								}				
+								}
+									
 							}
 						}
 						mysql_free_result($rresult);				
 					
 					}
-			
 			
 				}
 				
@@ -248,6 +260,7 @@ if(empty($file_error["upload"]) && empty($ftp["error"])) {
 } else {
 	echo "<p class=\"error\"><strong>error while file take over</strong></p>\n";
 	echo "<p class='v10'><a href=\"".$ref."\" style=\"font-weight: bold;\">click here to go back</a></p>\n";
+	echo "<script type=\"text/javascript\"> history.back(); </script>\n";
 }
 echo "</body>\n</html>\n";
 

@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // general wrapper for ajax based queries
 
@@ -37,12 +26,12 @@ if(empty($_SESSION["wcs_user"])) {
 if(isset($_POST['action'])) {
 	$action		= isset($_POST['action']) ? $_POST['action'] : false;
 	$method		= isset($_POST['method']) ? $_POST['method'] : 'json';
-	$value		= isset($_POST['value']) ? clean_slweg($_POST['value']) : '';
+	$value		= isset($_POST['value']) ? clean_slweg($_POST['value'], 0, false) : '';
 	$jquery		= false;
 } elseif($_GET['action']) {
 	$action		= isset($_GET['action']) ? $_GET['action'] : false;
 	$method		= isset($_GET['method']) ? $_GET['method'] : 'json';
-	$value		= isset($_GET['value']) ? clean_slweg($_GET['value']) : '';
+	$value		= isset($_GET['value']) ? clean_slweg($_GET['value'], 0, false) : '';
 	$jquery		= true;
 }
 
@@ -70,7 +59,7 @@ $data		= array();
 switch($action) {
 
 	case 'category':		$where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
-							$where .= "cat_name LIKE '" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
+							$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
 							$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 	
 							if(isset($result[0])) {
@@ -90,7 +79,7 @@ switch($action) {
 							break;
 							
 	case 'newstags':		$where  = "cat_status=1 AND cat_type='news' AND ";
-							$where .= "cat_name LIKE '" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
+							$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
 							$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 	
 							if(isset($result[0])) {
@@ -131,9 +120,7 @@ switch($method) {
 					echo json_encode( $data );
 				
 				}
-				
 
 }
-
 
 ?>

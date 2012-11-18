@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -107,7 +96,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		$template["layout"]		= intval($_POST["template_layout"]);
 		$template["name"]		= clean_slweg($_POST["template_name"], 150);
 		if(empty($template["name"])) {
-			$template["name"] = "template_".randpassword(3);
+			$template["name"] = "template_".generic_string(3);
 		}
 		if(is_array($_POST["template_css"])) {
 			$template["css"] = $_POST["template_css"];
@@ -236,7 +225,7 @@ function doPageLayoutChange() {
 if(empty($createcopy)) {
 	echo '<input name="template_name" type="text" class="f11b width350" id="template_name" value="'.html_specialchars($template["name"]).'" size="50" maxlength="150">';
 } else {    
-	echo '<img src="img/symbole/achtung.gif" width="13" height="11" alt="" border="0" style="margin-right:2px;" /><input name="template_name" type="text" class="f11b width350" id="template_name" style="color:FF3300" value="'.html_specialchars($template["name"]).'_'.randpassword(2).'" size="50" maxlength="150">';
+	echo '<img src="img/symbole/achtung.gif" width="13" height="11" alt="" border="0" style="margin-right:2px;" /><input name="template_name" type="text" class="f11b width350" id="template_name" style="color:FF3300" value="'.html_specialchars($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
 }
 ?></td>
 		    <td>&nbsp;</td>

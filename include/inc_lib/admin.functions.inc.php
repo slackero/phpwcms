@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
-
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license
-   from the author is found in LICENSE.txt distributed with these scripts.
-
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 //26-04-2004 Oliver Georgi -> $level seems to be unused
 //19-11-2004 Fernando Batista -> Copy article, Copy strutures :http://fernandobatista.web.pt
@@ -57,7 +46,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	
 	$an = html_specialchars($struct[$key]["acat_name"]);
 	$a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
-	$a .= "<td width=\"428\">";
+	$a .= '<td width="450">'; //428
 	$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 	$a .= '<td nowrap="nowrap"><img src="img/leer.gif" width="'.(14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />"; //14
 	$a .= ($child_count) ? "<a href=\"phpwcms.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
@@ -77,7 +66,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	
 	$a .= "></td>\n";
 	$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-	$a .= '<td class="dir" width="95%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
+	$a .= '<td class="dir" width="95%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n<td width=\"88\" nowrap=\"nowrap\">"; //110
 	
 	$a .= listmode_edits ($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 	
@@ -247,7 +236,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 			$a = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
 		}	
 
-		$a .= "<td width=\"428\">";
+		$a .= '<td width="450">'; // 428
 		$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 
 		$acontent_count =  get_article_content_count($article[$akey]["article_id"], $GLOBALS['db']);
@@ -286,7 +275,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
 		$a .= '<td class="dir" width="95%"><a href="index.php?aid='.$article[$akey]["article_id"].'"';
 		$a .= "target=\"_blank\" title=\"".$BL['be_func_struct_preview'].": ".$at."\">";
-		$a .= $at."</a></td>\n</tr>\n</table></td>\n<td width=\"110\" nowrap=\"nowrap\">";
+		$a .= $at."</a></td>\n</tr>\n</table></td>\n<td width=\"88\" nowrap=\"nowrap\">"; //110
 
 		if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 			$a .= "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=".$article[$akey]["article_id"];
@@ -451,7 +440,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$gk = 14+14+29+(14*($counter-1));
 			$a .= "<td width=\"".$gk."\"><img src=\"img/leer.gif\" width=\"".$gk."\" height=\"1\" alt=\"\" /></td>";	//$counter-1           
 			$a .= "<td width=\"13\"><img src=\"img/symbole/content_9x11.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" onmouseover=\"".$info."\" /></td>";
-			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;\" width=\"".(538-$gk-14-15-110-98)."\" onmouseover=\"".$info."\">";
+			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;\" width=\"".(538-$gk-14-15-88-98)."\" onmouseover=\"".$info."\">"; //110
 			
 			$ab  = '[ID:'.$article_content["acontent_id"].'] ';
 			$ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];    
@@ -464,7 +453,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$a .= "</td>";                                                   
 			$a .= "<td width=\"16\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";  
 			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html_specialchars(' {'.$article_content['acontent_block'].'} ')."</td>";                     
-			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;" onmouseover="'.$info.'">'; //width="110"
+			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:88px;" onmouseover="'.$info.'">'; //width="110"
 			
 			$at  = ' '.$ab.' ';                       
 			

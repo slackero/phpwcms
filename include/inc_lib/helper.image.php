@@ -1,34 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This file incorporates work covered by the following copyright and  
-   license notice:
-
-      Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
- 
-      Parts of this source file is subject to the Open Software License (OSL 3.0).
-      It is also available through the world wide web at this URL:
-	  http://opensource.org/licenses/OSL-3.0
-   
-   This copyright notice MUST APPEAR in all copies of the script!
-
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -730,7 +709,7 @@ class Phpwcms_Image_lib {
 		$retval = 1;
 		
 		// debug commands
-		write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
+		//write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
 
 		@exec($cmd, $output, $retval);
 
@@ -741,7 +720,7 @@ class Phpwcms_Image_lib {
 			return FALSE;
 		}
 
-		// Set the file to 777
+		// Set the file to 666
 		@chmod($this->full_dst_path, 0666);
 
 		return TRUE;

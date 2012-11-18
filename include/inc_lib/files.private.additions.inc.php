@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 
 // ----------------------------------------------------------------
@@ -28,21 +17,34 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+$klapp = array();
 
 if(isset($_GET["all"])) { //Übernehmen der Aufklappwerte aus Session-Variable
+	
+	$_SESSION["klapp"] = array();
+	
 	if($_GET["all"] == "open") { //alle aufklappen
-		$sql = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_kid=0 AND f_trash=0 AND f_uid=".$_SESSION["wcs_user_id"];
+		$sql = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_kid=0 AND f_trash=0";
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
+		}
 		if($result = mysql_query($sql, $db) or die ("error while open all directories")) {
 			while($row = mysql_fetch_row($result)) {
-				$klapp[$row[0]] = 1;
+				$_SESSION["klapp"][$row[0]] = 1;
 			}
-			$_SESSION["klapp"] = $klapp;
 		}
 	}
-	if($_GET["all"] == "close") if(isset($_SESSION["klapp"])) unset($_SESSION["klapp"]);
+	if($_GET["all"] == "close") {
+		
+	}
+	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile='".serialize($_SESSION["klapp"])."' WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
 }
 
-if(isset($_SESSION["klapp"])) $klapp = $_SESSION["klapp"];
+if(isset($_SESSION["klapp"])) {
+	$klapp = $_SESSION["klapp"];
+} else {
+	$_SESSION["klapp"] = array();
+}
 
 if(isset($_GET["klapp"])) {
 	list($klapp_id, $klapp_value) = explode("|", $_GET["klapp"]);
@@ -54,16 +56,16 @@ if(isset($_GET["klapp"])) {
 //Zähler für die Listenfunktion setzen
 $_SESSION["list_zaehler"] = 0;
 
-//Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
-	   "f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 LIMIT 1";
-if($result = mysql_query($sql, $db) or die ("error while counting user files")) {
-	if($row = mysql_fetch_row($result)) $count_user_files = $row[0];
-	mysql_free_result($result);
+//Feststellen, ob überhaupt Dateien/Ordner vorhanden sind
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0";
+if(empty($_SESSION["wcs_user_admin"])) {
+	$sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
 }
+$sql .= " LIMIT 1";
+$count_user_files = _dbCount($sql);
 
 //Wenn überhaupt Dateien für User vorhanden, dann Listing
-if(isset($count_user_files) && $count_user_files) {
+if($count_user_files) {
 	//Beginn Tabelle für Dateilisting
 	echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";

@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -28,8 +17,10 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-// initialize Mootools for autocomplete
-initMootoolsAutocompleter();
+// Be more modern here — we start switch to jQuery and overwrite non-used MooTools with jQuery call
+$GLOBALS['BE']['HEADER']['mootools.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+$GLOBALS['BE']['HEADER']['autosuggest.js']	= getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
+$GLOBALS['BE']['HEADER']['autosuggest.css']	= '	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
 
 // Upload new file
 $file_aktiv				= 1;
@@ -57,6 +48,22 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	$file_gallerydownload	= empty($_POST["file_gallerydownload"]) ? 0 : 1;
 	$file_keys				= '';
 	$file_sort 				= intval($_POST["file_sort"]);
+	
+	if(count($phpwcms['allowed_lang']) > 1) {
+		
+		$file_vars = array();
+		
+		foreach($phpwcms['allowed_lang'] as $lang) {
+			$lang = strtolower($lang);
+			
+			if(isset($_POST['file_longinfo_'.$lang])) {
+				$file_vars[$lang]['longinfo'] = slweg($_POST['file_longinfo_'.$lang]);
+			}
+			if(isset($_POST['file_copyright_'.$lang])) {
+				$file_vars[$lang]['copyright'] = slweg($_POST['file_copyright_'.$lang]);
+			}
+		}
+	}
 	
 	$file_keywords	= empty($_POST["file_keywords"]) ? array() : $_POST["file_keywords"];
 	if(count($file_keywords)) {
@@ -89,15 +96,23 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		$fileHash	= md5( $fileName . microtime() );
 		$fileType	= is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
 		
+		if(isset($file_vars)) {
+			$fileVarsField = ',f_vars';
+			$fileVarsValue = ','._dbEscape(serialize($file_vars));
+		} else {
+			$fileVarsField = '';
+			$fileVarsValue = '';
+		}
+		
 		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
 				"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
-				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, f_sort) VALUES (".
+				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, f_sort".$fileVarsField.") VALUES (".
 				$file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
 				$fileName."', '".time()."', '".intval($_FILES["file"]["size"])."', '".
 				aporeplace($fileType)."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
 				aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
 				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".
-				$file_gallerydownload.", ".$file_sort.")";
+				$file_gallerydownload.", ".$file_sort.$fileVarsValue.")";
 		
 		if($result = mysql_query($sql, $db) or die("error while insert file information")) {
 			$new_fileId = mysql_insert_id($db); //Festlegen der aktuellen File-ID	
@@ -147,7 +162,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
 ?>
 <form action="phpwcms.php?do=files&amp;f=0" method="post" enctype="multipart/form-data" name="uploadfile" id="uploadfile">
-<table border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
+<table border="0" cellpadding="0" cellspacing="0" bgcolor="#EBF2F4" summary="">
 	<tr>
 		<td rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0" /></a></td>
 		<td><img src="img/leer.gif" alt="" width="1" height="6" /></td>
@@ -157,8 +172,8 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
 		<td class="v10"><select name="file_pid" id="file_pid" class="width400">
-<option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-<?php dir_menu(0, $file_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
+			<option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+			<?php dir_menu(0, $file_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
 	</select></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -184,6 +199,86 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		<td align="right" class="v09"><?php echo $BL['be_fprivup_upload'] ?>:&nbsp;</td>
 		<td><input name="file" type="file" id="file" size="40" /></td>
 	</tr>
+
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+	
+<?php	if(count($phpwcms['allowed_lang']) > 1): ?>
+
+	<tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
+
+	<tr>
+		<td>&nbsp;</td>
+		<td class="incell-tabs">
+			
+			<a href="#" rel="<?php echo $phpwcms['default_lang'] ?>" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" class="active">
+				<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" /> <?php echo $BL['be_admin_tmpl_default'] ?>
+			</a>
+			
+			<?php foreach($phpwcms['allowed_lang'] as $lang):
+			
+				$lang = strtolower($lang);
+
+				if($lang == $phpwcms['default_lang']) {
+					continue;
+				}
+			
+			?>
+			
+			<a href="#" rel="<?php echo $lang ?>" title="<?php echo get_language_name($lang) ?>">
+				<img src="img/famfamfam/lang/<?php echo $lang ?>.png" /> <?php echo strtoupper($lang) ?>
+			</a>
+			
+			<?php	endforeach; ?>			
+			
+		</td>
+	</tr>
+	
+<?php	endif; ?>	
+	
+	<tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
+		<td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
+		<td valign="top tdbottom3"><textarea name="file_longinfo" cols="40" rows="4" class="v12 width400" id="file_longinfo"><?php echo html_specialchars($file_longinfo) ?></textarea></td>
+	</tr>
+	<tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
+		<td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
+		<td><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="255" value="<?php echo html_specialchars($file_copyright) ?>" /></td>
+	</tr>
+
+
+<?php	if(count($phpwcms['allowed_lang']) > 1):
+
+			foreach($phpwcms['allowed_lang'] as $lang):
+			
+				$lang = strtolower($lang);
+
+				if($lang == $phpwcms['default_lang']) {
+					continue;
+				}
+				
+				if(!isset($file_vars[$lang]['longinfo'])) {
+					$file_vars[$lang]['longinfo'] = '';
+				}
+				if(!isset($file_vars[$lang]['copyright'])) {
+					$file_vars[$lang]['copyright'] = '';
+				}
+
+?>
+
+	<tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
+		<td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_longinfo'] ?> (<?php echo strtoupper($lang) ?>):&nbsp;</td>
+		<td valign="top tdbottom3"><textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="v12 width400" id="file_longinfo_<?php echo $lang ?>"><?php echo html_specialchars($file_vars[$lang]['longinfo']) ?></textarea></td>
+	</tr>
+	<tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
+		<td align="right" class="v09"><?php echo $BL['be_copyright'] ?> (<?php echo strtoupper($lang) ?>):&nbsp;</td>
+		<td><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" size="40" class="width400" maxlength="255" value="<?php echo html_specialchars($file_vars[$lang]['copyright']) ?>" /></td>
+	</tr>
+
+
+<?php		endforeach;
+		endif;
+?>
+	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	<tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
 	<tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -222,7 +317,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	
 	?>
 	<tr bgcolor="#F5F8F9">
-		<td align="right" valign="top" class="v09"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
+		<td align="right" valign="top" class="v09 tdtop5"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<?php if($k) echo $k; ?>
 		<tr>
@@ -231,36 +326,18 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		</tr>		
 		</table></td>
 	</tr>
-	<tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-	</tr>
-	<tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td>
-	</tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-	</tr>
-	<tr>
-		<td align="right" valign="top" class="v09"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="file_longinfo" cols="40" rows="10" class="v12 width400" id="file_longinfo"><?php echo html_specialchars($file_longinfo) ?></textarea></td>
-	</tr>	
 	
+	<tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
-	</tr>
-	
-	<tr>
-		<td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
-		<td><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="255" value="<?php echo html_specialchars($file_copyright) ?>" /></td>
-	</tr>	
-	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
-	<tr>
+	<tr bgcolor="#F5F8F9">
 		<td align="right" class="v09">&nbsp;<?php echo $BL['be_tags'] ?>:&nbsp;</td>
-		<td><input name="file_tags" type="text" id="file_tags" size="40" class="width400" maxlength="255" value="<?php echo html_specialchars($file_tags) ?>" /></td>
+		<td><input type="text" id="file_tags_autosuggest" /><input name="file_tags" type="hidden" id="file_tags" value="<?php echo html_specialchars($file_tags) ?>" /></td>
 	</tr>
 	
 	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-
+	<tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+	<tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	
 	<tr>
 		<td align="right" class="v09">&nbsp;<?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
@@ -295,7 +372,10 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	<tr>
 		<td valign="top"><input name="file_aktion" type="hidden" id="file_aktion" value="1" />
 			<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $phpwcms["file_maxsize"] ?>" /></td>
-		<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fprivup_button'] ?>" /></td>
+		<td>
+			<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fprivup_button'] ?>" />
+			<input type="button" class="button10" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+		</td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 	<tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
@@ -304,29 +384,49 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 <script type="text/javascript">
 <!--
 
-window.addEvent('domready', function(){
-									 
-	/* Autocompleter for keywords (=tags) */
-	var searchKeyword = $('file_tags');
-	var indicator = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchKeyword);
-	var completer = new Autocompleter.Ajax.Json(searchKeyword, 'include/inc_act/ajax_connector.php', {
-		multi: true,
-		maxChoices: 30,
-		autotrim: true,
-		minLength: 0,
-		allowDupes: false,
-		postData: {action: 'category', method: 'json'},
-		onRequest: function(el) {
-			indicator.setStyle('display', '');
-		},
-		onComplete: function(el) {
-			indicator.setStyle('display', 'none');
-		}
+$(function(){
+	
+	$("#file_tags_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+		selectedItemProp: "cat_name",
+		selectedValuesProp: 'cat_name',
+		searchObjProps: "cat_name",
+		queryParam: 'value',
+		extraParams: '&method=json&action=category',
+		startText: '',
+		preFill: $("#file_tags").val(),
+		neverSubmit: true,
+		asHtmlID: 'keyword-autosuggest'
 	});
 	
+	$('#uploadfile').submit(function(){
+		$("#file_tags").val($('#as-values-keyword-autosuggest').val());
+	});
+	
+<?php	if(count($phpwcms['allowed_lang']) > 1): ?>
+
+	var tab_content = $('tr.tab-content');
+	var tabs		= $('td.incell-tabs a');
+	
+	tabs.click(function(event) {
+		event.preventDefault();
+		
+		var $_this = $(this);
+		
+		if($_this.hasClass('active')) {
+			return false;
+		}
+	
+		tab_content.hide();
+		tabs.removeClass('active');
+		
+		$_this.addClass('active');
+		$('tr.finfo'+$_this.attr('rel')).show();
+		
+	});
+
+<?php	endif; ?>
 
 });
-
 
 //-->
 </script>

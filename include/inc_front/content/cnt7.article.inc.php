@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -218,6 +207,20 @@ if($content['files_sql']) {
 					
 					}
 					
+					// language specific long description and copyright
+					if($content['files_result'][ $_files_x ]['f_vars'] && count($phpwcms['allowed_lang']) > 1) {
+				
+						$content['files_result'][ $_files_x ]['f_vars'] = @unserialize($content['files_result'][ $_files_x ]['f_vars']);
+						
+						if(!empty($content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['longinfo'])) {
+							$content['files_result'][ $_files_x ]['f_longinfo'] = $content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['longinfo'];
+						}
+						if(!empty($content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['copyright'])) {
+							$content['files_result'][ $_files_x ]['f_copyright'] = $content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['copyright'];
+						}
+
+					}
+					
 					$_file_info[5] = empty($_file_info[5]) ? $content['files_result'][ $_files_x ]['f_copyright'] : trim($_file_info[5]);
 
 				
@@ -250,8 +253,8 @@ if($content['files_sql']) {
 					}
 					
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html_specialchars($_file_info[2]));
-					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html_specialchars($_file_info[0]));
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_LONGINFO', empty($content['files_result'][ $_files_x ]['f_longinfo']) ? '' : plaintext_htmlencode($content['files_result'][ $_files_x ]['f_longinfo']));
+					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html_specialchars($_file_info[0]));
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_COPYRIGHT', html_specialchars($_file_info[5]));
 					
 					// now check file for possible thumbnail image

@@ -1,35 +1,29 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 //Funktionen zum Listen der privaten Dateien
 
 function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, $phpwcms) {
 	$cutID = intval($cutID);
+	if(empty($_SESSION["klapp"])) {
+		$_SESSION["klapp"] = array();
+	}
 	$klapp = $_SESSION["klapp"];
 	$pid = intval($pid);
-	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ".
-		   "f_pid=".intval($pid)." AND ".
-		   "f_uid=".intval($userID)." AND ".
-		   "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name";
+	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ";
+	$sql .= "f_pid=".intval($pid)." AND ";
+	if(empty($_SESSION["wcs_user_admin"])) {
+		$sql .= "f_uid=".intval($userID)." AND ";
+	}
+	$sql .= "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 		
@@ -39,10 +33,12 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 		$klapp_status = isset($klapp[$row["f_id"]]) ? true_false($klapp[$row["f_id"]]) : 1;
 		
 		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
-		$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
-					 "f_pid=".$row["f_id"]." AND ".
-					 "f_uid=".intval($userID)." AND ".
-					 "f_trash=0 LIMIT 1";
+		$count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ";
+		$count_sql .= "f_pid=".$row["f_id"]." AND ";
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$count_sql .= "f_uid=".intval($userID)." AND ";
+		}
+		$count_sql .= "f_trash=0 LIMIT 1";
 		if($count_result = mysql_query($count_sql, $dbcon)) {
 			if($count_row = mysql_fetch_row($count_result)) {
 				$count = '<img src="img/leer.gif" width="2" height="1">'.
@@ -123,18 +119,26 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			list_private($row["f_id"], $dbcon, $vor+18, $zieldatei, $userID, $cutID, $show_thumb, $phpwcms);
 			
 			//Listing eventuell im Verzeichnis enthaltener Dateien
-			$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"].
-						" AND f_uid=".$userID." AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
+			$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"];
+			if(empty($_SESSION["wcs_user_admin"])) {
+				$file_sql .= " AND f_uid=".$userID;
+			}
+			$file_sql .= " AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
+			
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
 					$filename = html_specialchars($file_row["f_name"]);
+					
+					$file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
+					
 					if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tavbelle
 						echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"; 
 						echo "<!-- start file list: private-functions //-->\n";
 					} else {
 						echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" border=\"0\" alt=\"\" /></td></tr>\n";
 					}
+					
 					echo "<tr>\n";
 					echo "<td width=\"".($vor+37)."\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+37)."\" border=\"0\" alt=\"\" /></td>\n";
 					echo "<td width=\"13\" class=\"msglist\">";
@@ -147,9 +151,9 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					echo '\');" onmouseout="UnTip()" alt=""';
 					echo " /></td>\n";
 					echo "<td width=\"".(388-$vor)."\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\" border=\"0\" alt=\"\" />";
-					echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
-					echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
-					echo $filename."</a></td>\n";
+					//echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
+					//echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
+					echo $file_row["edit"] . $filename . "</a></td>\n";
 					//Aufbauen Buttonleiste für jeweilige Datei
 					echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
 					//Button zum Downloaden der Datei
@@ -164,7 +168,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 						echo "<img src=\"img/button/cut_13x13_0.gif\" border=\"0\" alt=\"\" /></a>";
 					}
 					//Button zum Bearbeiten der Dateiinformationn
-					echo "<a href=\"".$zieldatei."&amp;editfile=".$file_row["f_id"]."\" title=\"".$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename."\">";
+					echo $file_row["edit"];
 					echo "<img src=\"img/button/edit_22x13.gif\" border=\"0\" alt=\"\" /></a>";					
 					//Button zum Umschalten zwischen Aktiv/Inaktiv
 					echo "<a href=\"include/inc_act/act_file.php?aktiv=".$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
@@ -206,9 +210,10 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 							echo "<tr>\n";
 							echo "<td width=\"".($vor+37)."\"><img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+37)."\" border=\"0\" alt=\"\" /></td>\n";
 							echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\" alt=\"\" /></td>\n<td width=\"";
-							echo (388-$vor)."\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\" border=\"0\" alt=\"\" /><a href=\"fileinfo.php?fid=";
-							echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
-							echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
+							echo (388-$vor)."\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\" border=\"0\" alt=\"\" />"; //<a href=\"fileinfo.php?fid=";
+							//echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
+							//echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
+							echo $file_row["edit"];
 							echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' ';
 							echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
 							echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);

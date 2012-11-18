@@ -498,10 +498,8 @@ CREATE TABLE `phpwcms_file` (
   `f_ext` varchar(50) NOT NULL default '',
   `f_shortinfo` varchar(255) NOT NULL default '',
   `f_longinfo` text NOT NULL,
-  `f_thumb_list` varchar(255) NOT NULL default '',
-  `f_thumb_preview` varchar(255) NOT NULL default '',
   `f_keywords` varchar(255) NOT NULL default '',
-  `f_hash` varchar(50) NOT NULL default '',
+  `f_hash` varchar(255) NOT NULL default '',
   `f_dlstart` int(11) NOT NULL default '0',
   `f_dlfinal` int(11) NOT NULL default '0',
   `f_refid` int(11) NOT NULL default '0',
@@ -627,25 +625,6 @@ CREATE TABLE `phpwcms_guestbook` (
   `guestbook_image` varchar(255) NOT NULL default '',
   `guestbook_imagename` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`guestbook_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_imgcache`
---
-
-CREATE TABLE `phpwcms_imgcache` (
-  `imgcache_id` int(11) NOT NULL auto_increment,
-  `imgcache_hash` varchar(50) NOT NULL default '',
-  `imgcache_imgname` varchar(255) NOT NULL default '',
-  `imgcache_width` int(11) NOT NULL default '0',
-  `imgcache_height` int(11) NOT NULL default '0',
-  `imgcache_wh` varchar(255) NOT NULL default '',
-  `imgcache_timestamp` timestamp NOT NULL,
-  `imgcache_trash` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`imgcache_id`),
-  KEY `imgcache_hash` (`imgcache_hash`)
 ) ;
 
 -- --------------------------------------------------------

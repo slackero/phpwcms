@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 /**
  * Sept. 2009
@@ -34,7 +23,7 @@
 session_start();
 
 $phpwcms			= array();
-$phpwcms_root		= dirname(__FILE__);
+$phpwcms_root		= rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
 $js_files_all		= array();
 $js_files_select	= array();
 
@@ -47,8 +36,13 @@ if( empty($_SESSION["wcs_user_lang"]) ) {
 	headerRedirect( PHPWCMS_URL );
 
 } else {
-
+	
+	require(PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
 	require(PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.ext.inc.php');
+	$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.inc.php';
+	if(is_file($cust_lang)) {
+		include($cust_lang);
+	}
 	$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.ext.inc.php';
 	if(is_file($cust_lang)) {
 		include($cust_lang);
@@ -163,15 +157,52 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 	<title><?php echo $titel ?></title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
-	<meta http-equiv="Expires" content="0" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="cache-control" content="no-cache" />
-	<script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
-	<script src="include/inc_js/filebrowser.js" type="text/javascript"></script>
+	
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
+	<link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />
+	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />
+	<script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function addFile(obj,text,value) {
+			if(obj!=null && obj.options!=null) {
+				newOpt = new Option(text, value);
+				obj.options.length++;
+				obj.options[obj.length-1].text  = newOpt.text;
+				obj.options[obj.length-1].value = newOpt.value;
+				obj.options[obj.length-1].selected = false;
+			}
+		}
+	</script>
+	<script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
+	<script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
+	<script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
 </head>
-<body>
-<table summary="" border="0" cellspacing="0" cellpadding="0">
+<body class="filebrowser">
+<div class="uploader filebrowser-uploader closed" id="filebrowser-uploader">
+	
+	<h1 class="title" id="fileupload-switch"><?php echo $BL['be_file_multiple_upload'] ?></h1>
+	
+	<div class="uploader-button" id="upload-file-select"></div>
+	
+	<div class="filebrowser-form">
+		<p>
+			<label class="chatlist"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+			<textarea cols="40" rows="3" id="file_longinfo"></textarea>
+		</p>
+		<p>
+			<label class="chatlist"><?php echo $BL['be_copyright'] ?></label>
+			<input name="file_copyright" type="text" id="file_copyright" size="40" maxlength="255" value="" />
+		</p>
+		<p>
+			<label class="chatlist"><?php echo $BL['be_tags'] ?></label>
+			<input type="text" id="file_tags_autosuggest" />
+		</p>
+		
+		<div class="uploader-button qq-upload-button" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>
+	</div>
+
+</div>
+<table summary="" border="0" cellspacing="0" cellpadding="0" style="margin:4px;">
   <tr>
 		<td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
 		<td rowspan="4"><img src="img/leer.gif" alt="" width="5" height="1" border="0" /></td>
@@ -182,8 +213,8 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
     <td bgcolor="#7C98A2" class="msgreiter">&nbsp;<?php echo $filetype ?>&nbsp;</td>
   </tr>
   <tr>
-    <td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
-	<td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
+		<td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
+		<td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
   </tr>
   <tr>
     <td valign="top"><?php
@@ -404,7 +435,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         		if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
         			echo "<td class=\"msglist\">".$filename."</td>\n<td><img src=\"img/leer.gif\" width=\"5\" height=\"1\" alt=\"\" border=\"0\" />";
 				} else {
-					echo "<td class=\"msglist\"><a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename."</a></td>\n<td>";
+					echo "<td class=\"msglist\"><a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename."</a></td>\n<td align=\"right\">";
 				}
 			
 				echo "<a href=\"#\" onclick=\"".$js."return false;\" title=\"".$BL['TAKE_IMAGE']."\">";
@@ -453,18 +484,109 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 		
 		echo LF . SCRIPT_CDATA_END;
 		echo LF . '</script>' . LF;
-		
-		
+	
 	}
 	
 	?></td>
   </tr>
 </table>
+<script type="text/javascript">
+<!--
+$(function() {
+	
+	var fileuploader = $('#filebrowser-uploader'),
+		fileuploadSwitch = $('#fileupload-switch'),
+		uploadTrigger = $('#upload-trigger-send'),
+		fileBrowserForm = $('div.filebrowser-form'),
+		uploadFileCount = 0;
+	
+	fileuploadSwitch.click(function(){
+		if(fileuploader.hasClass('closed')) {
+			fileuploader.removeClass('closed');
+			if(uploadFileCount) {
+				fileBrowserForm.show();
+			}
+		} else {
+			fileBrowserForm.hide();
+			fileuploader.addClass('closed');
+		}
+	});
+
+	// File Uploading
+	var uploader = new qq.FileUploader({
+		element: $('#upload-file-select')[0],
+		action: '<?php echo PHPWCMS_URL ?>include/inc_act/act_upload.php',
+		multiple: true,
+		autoUpload: false,
+		uploadButtonText: '<?php echo $BL['be_fileuploader_uploadButtonText'] ?>',
+		cancelButtonText: '<?php echo $BL['be_newsletter_button_cancel'] ?>',
+		failUploadText: '<?php echo $BL['be_error_while_save'] ?>',
+		dragText: '<?php echo $BL['be_fileuploader_dragText'] ?>',
+		sizeLimit: <?php echo $phpwcms['file_maxsize'] ?>,
+		messages: {
+			typeError: "<?php echo $BL['be_fileuploader_typeError'] ?>",
+			sizeError: "<?php echo $BL['be_fileuploader_sizeError'] ?>",
+			minSizeError: "<?php echo $BL['be_fileuploader_minSizeError'] ?>",
+			emptyError: "<?php echo $BL['be_fileuploader_emptyError'] ?>",
+			noFilesError: "<?php echo $BL['be_fileuploader_noFilesError'] ?>",
+			onLeave: "<?php echo $BL['be_fileuploader_onLeave'] ?>"
+		},
+		disableDefaultDropzone: false,
+		onSubmit: function(id, fileName) {
+			if(uploadFileCount == 0) {
+				fileBrowserForm.show();
+			}
+			uploadFileCount++;
+		},
+		onCancel: function(id, fileName) {
+			uploadFileCount--;
+			if(uploadFileCount == 0) {
+				fileBrowserForm.hide();
+			}
+		},
+		onComplete: function(id, fileName, responseJSON) {
+			if(responseJSON.success) {
+				uploadFileCount--;
+				if(uploadFileCount == 0) {
+					document.location.reload(true);
+				}
+			}
+		}
+	});
+	
+	uploadTrigger.click(function() {
+		
+		uploader.setParams({
+			file_dir: <?php echo $_SESSION["imgdir"] ?>,
+			file_aktiv: 1,
+			file_public: 1,
+			file_longinfo: $('#file_longinfo').val(),
+			file_copyright: $('#file_copyright').val(),
+			file_tags: $('#as-values-keyword-autosuggest').val()
+		});
+	
+		uploader.uploadStoredFiles();
+	});
+
+	$("#file_tags_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+		selectedItemProp: "cat_name",
+		selectedValuesProp: 'cat_name',
+		searchObjProps: "cat_name",
+		queryParam: 'value',
+		extraParams: '&method=json&action=category',
+		startText: '',
+		neverSubmit: true,
+		asHtmlID: 'keyword-autosuggest'
+	});
+
+});
+
+
+</script>
 </body>
 </html>
 <?php
 
-//function folder_list($pid, $dbcon, $vor, $zieldatei) {
 function folder_list($pid, $dbcon, $vor, $zieldatei) {
 	global $current_dirname;
 	$folder = $_SESSION["folder"];

@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
-
-This script is part of PHPWCMS. The PHPWCMS web content management system is
-free software; you can redistribute it and/or modify it under the terms of
-the GNU General Public License as published by the Free Software Foundation;
-either version 2 of the License, or (at your option) any later version.
-
-The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-A copy is found in the textfile GPL.txt and important notices to the license
-from the author is found in LICENSE.txt distributed with these scripts.
-
-This script is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // set page processiong start time
 list($usec, $sec) = explode(' ', microtime());
@@ -97,8 +86,7 @@ switch ($do) {
 	case "files":		//files
 						$wcsnav["files"] = "<strong class=\"navtexta\">".$wcsnav["files"]."</strong>";
 						$subnav .= subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, "", 0);
-						$subnav .= subnavtext($BL['be_subnav_file_ftptakeover'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
-						$subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=9", $p, "9", 0);
+						$subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
 						break;
 
 	case "modules":		//modules
@@ -169,7 +157,7 @@ switch ($do) {
 						break;
 
 	case "admin":		//Admin
-						if(isset($_SESSION["wcs_user_admin"]) && $_SESSION["wcs_user_admin"] == 1) {
+						if(!empty($_SESSION["wcs_user_admin"])) {
 							include(PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php');
 							$subnav .= subnavtext($BL['be_subnav_admin_sitestructure'], "phpwcms.php?do=admin&amp;p=6", $p, "6", 0);
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
@@ -302,12 +290,30 @@ if($BE['LANG'] == 'ar') {
 		<td width="175" valign="top" bgcolor="#FFFFFF"><?php 
 
 		echo $subnav . LF;
-		echo '<img src="img/leer.gif" width="1" height="5" alt="" /><br /><span class="title">';
-		echo $BL['usr_online'];
-		echo '</span><br /><img src="img/leer.gif" width="1" height="3" alt="" /><br />';
-		echo online_users($db, "<br />", "<span class=\"subnavinactive\">|</span>");
-
-		?><img src="img/leer.gif" alt="" width="175" height="1"></td>
+		
+		?>
+		<form action="phpwcms.php" method="POST" class="backend-search">
+			
+			<h1 class="title" style="margin:0 0 3px 0;"><?php echo $BL['be_ctype_search'] ?></h1>
+			<input type="text" name="backend_search_input" value="<?php
+			
+				if(isset($_POST['backend_search_input'])) {
+					$_SESSION['phpwcms_backend_search'] = clean_slweg($_POST['backend_search_input']);
+				}
+			
+				if(!empty($_SESSION['phpwcms_backend_search'])) {
+					echo html_specialchars($_SESSION['phpwcms_backend_search']);
+				}
+			?>" class="backend-search-input v11" /><input type="image" src="img/famfamfam/magnifier.png" class="backend-search-button" />
+			
+		</form>
+		
+		
+		<h1 class="title" style="margin:1em 0 3px 0;"><?php echo $BL['usr_online'] ?></h1>
+		
+		<?php echo online_users($db, "<br />", "<span class=\"subnavinactive\">|</span>"); ?>
+		
+		</td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/dividerA.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
       <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540" id="be_main_content">{STATUS_MESSAGE}{BE_PARSE_LANG}<!--BE_MAIN_CONTENT_START//-->
@@ -331,14 +337,7 @@ if($BE['LANG'] == 'ar') {
       	case "files":	//Hochladen sowie Downloaden und Verwalten von Dateien
       	switch($p) {
       		case 8:		//FTP File upload
-						include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
 						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php');
-						break;
-					
-						// Multiple, queued file upload
-			case 9:		include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
-						include(PHPWCMS_ROOT.'/include/inc_lib/files.multipleupload.inc.php');
-						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.multipleupload.tmpl.php');
 						break;
 						
       		default:	include(PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'); //Files Navigation/Reiter
@@ -351,11 +350,9 @@ if($BE['LANG'] == 'ar') {
 					include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php');
 				}
       			if(isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) ) {
-      				include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
       				include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php');
       			}
       			if(isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) ) {
-      				include(PHPWCMS_ROOT.'/include/inc_lib/files.create.dirmenu.inc.php');
       				include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php');
       			}
       			include(PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'); //Listing-Funktionen einfügen

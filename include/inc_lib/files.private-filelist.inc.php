@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -28,15 +17,22 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-//Listing eventuell im Verzeichnis enthaltener Dateien
-$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$_SESSION["wcs_user_id"].
-			" AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
+// List available files
+$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 ";
+if(empty($_SESSION["wcs_user_admin"])) {
+	$file_sql .= "AND f_uid=".$_SESSION["wcs_user_id"].' ';
+}
+$file_sql .= "AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
+
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 	$file_durchlauf = 0;
 	$zieldatei = "phpwcms.php?do=files&amp;f=0";
 	while($file_row = mysql_fetch_array($file_result)) {
 		$filename = html_specialchars($file_row["f_name"]);
-		if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tavbelle
+		
+		$file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
+		
+		if(!$file_durchlauf) {
 			echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 		} else {
 			echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
@@ -53,9 +49,9 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo '\');" onmouseout="UnTip()" alt=""';
 		echo " /></td>\n";
 		echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\" />";
-		echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
-		echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
-		echo $filename."</a></td>\n";
+		//echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
+		//echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
+		echo $file_row['edit'] . $filename."</a></td>\n";
 		//Aufbauen Buttonleiste für jeweilige Datei
 		echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
 		//Button zum Downloaden der Datei
@@ -70,8 +66,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 			echo "<img src=\"img/button/cut_13x13_0.gif\" border=\"0\"></a>";
 		}
 		//Button zum Bearbeiten der Dateiinformationn
-		echo "<a href=\"".$zieldatei."&amp;editfile=".$file_row["f_id"]."\" title=\"".$BL['be_fprivfunc_editfile'].": ".$filename."\">";
-		echo "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";					
+		echo $file_row['edit'] . "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";					
 		//Button zum Umschalten zwischen Aktiv/Inaktiv
 		echo "<a href=\"include/inc_act/act_file.php?aktiv=".$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
 			 "\" title=\"".$BL['be_fprivfunc_cactivefile'].": ".$filename."\">";
@@ -109,9 +104,10 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 				echo "<tr>\n";
 				echo "<td width=\"19\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n";
 				echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
-				echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\"><a href=\"fileinfo.php?fid=";
-				echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
-				echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
+				echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">"; //<a href=\"fileinfo.php?fid=";
+				//echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
+				//echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
+				echo $file_row['edit'];
 				echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
 				echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";

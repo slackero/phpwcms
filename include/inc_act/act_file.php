@@ -1,42 +1,24 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
-// session_name('hashID');
 session_start();
 $phpwcms = array();
 $ref = $_SESSION['REFERER_URL'];
 
-
 require_once ('../../config/phpwcms/conf.inc.php');
 require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-
-//list($id, $wert) = explode(".", $_GET["do"]);
-//$do		= intval($do);
-//$id		= intval($id);
 
 //Wechseln des Status AKTIV für Datei/Ordner
 if(isset($_GET["aktiv"])) {
@@ -134,19 +116,6 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 				
 					$sql_f  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_trash=8 WHERE f_id=".$row['f_id']." AND f_kid=1";
 					@mysql_query($sql_f, $db);
-					
-					$temp_img = _dbQuery('SELECT * FROM '.DB_PREPEND."phpwcms_imgcache WHERE imgcache_hash='".aporeplace($row['f_hash'])."'");
-					$g = 0;
-					foreach($temp_img as $value) {
-						if(is_file($tempimg_path.$value['imgcache_imgname'])) {
-							if(@rename($tempimg_path.$value['imgcache_imgname'], $default_path.'can_be_deleted/'.$value['imgcache_imgname'])) {
-								$g++;
-							}
-						}
-					}
-					if($g) {
-						@_dbQuery('DELETE FROM '.DB_PREPEND."phpwcms_imgcache WHERE imgcache_hash='".aporeplace($row['f_hash'])."'", 'DELETE');
-					}
 				
 				}
 			
@@ -154,6 +123,17 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			}
 			mysql_free_result($result);
 		
+		}
+		
+		// clean pre-rendered thumbnail images
+		$thumbnails = returnFileListAsArray(PHPWCMS_THUMB, 'jpg,jpeg,gif,png');
+		if(is_array($thumbnails) && count($thumbnails)) {
+			
+			foreach($thumbnails as $thumbnail) {
+			
+				@unlink(PHPWCMS_THUMB.$thumbnail['filename']);
+			
+			}
 		}
 	
 	}

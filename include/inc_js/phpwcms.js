@@ -36,12 +36,11 @@ function MM_swapImage() { //v3.0
 }
 
 function clearText(thefield){
-if (thefield.defaultValue==thefield.value)
-thefield.value = ""
+	if (thefield.defaultValue==thefield.value) { thefield.value = ""; }
 }
 
 function confirmGoUrl(confirmtext, jumpurl) {
-	if(confirm(confirmtext)) {location.href=jumpurl;}
+	if (confirm(confirmtext)) {location.href=jumpurl;}
 }
 
 function wordcount(s) {
@@ -397,12 +396,12 @@ function create_alias(str,encoding,ucfirst) {
 	return str;
 }
 
-var fbw = 400, fbh = 575;
+var fbw = 450, fbh = 575;
 if(screen.width !== undefined) {
-	fbw = Math.ceil(Math.max(screen.width / 6, fbw));
+	fbw = Math.ceil(Math.max(screen.width / 5, fbw));
 }
 if(screen.height !== undefined) {
-	fbh = Math.ceil(Math.max(screen.height / 1.5, fbh));
+	fbh = Math.ceil(Math.max(screen.height / 2, fbh));
 }
 function openFileBrowser(url) {
 	if(url != null && url != '') {

@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -34,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 $cform = explode("#:#", $crow["acontent_form"]);
 if(trim($cform[0])) {
-	$form_name = "form_".randpassword(6);
+	$form_name = "form_".generic_string(6);
 	$cform_fields	= explode("\n", base64_decode($cform[0]));
 	$form_hidden_field = '';
 
@@ -56,12 +45,12 @@ if(trim($cform[0])) {
 		switch($cfield[0]) {
 						//INPUT TEXT
 			case "IT":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\">".must_filled($cfield[2]).$cfield[3]."</td><td>";
-						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".trimhtml($cfield[5])."\" size=\"".$cfield_length."\" ";
+						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".html_specialchars(trim($cfield[5]))."\" size=\"".$cfield_length."\" ";
 						$CNT_TMP .= ($cfield_max_height) ? "maxlength=\"".$cfield_max_height."\" " : "";
 						$CNT_TMP .= "id=\"".$cfield[1]."\" class=\"inputText\"".(($cfield[6])?" style=\"width:".$cfield[6]."px\"":"")." /></td></tr>\n";
 						break;
 			case "IN":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\">".must_filled($cfield[2]).$cfield[3]."</td><td>";
-						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".trimhtml($cfield[5])."\" size=\"".$cfield_length."\" ";
+						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".html_specialchars(trim($cfield[5]))."\" size=\"".$cfield_length."\" ";
 						$CNT_TMP .= "onKeyUp=\"if(!parseInt(this.value*1)) {var x=this.value; this.value=x.substr(0, x.length-1)}\" ";
 						$CNT_TMP .= ($cfield_max_height) ? "maxlength=\"".$cfield_max_height."\" " : "";
 						$CNT_TMP .= "id=\"".$cfield[1]."\" class=\"inputText\"".(($cfield[6])?" style=\"width:".$cfield[6]."px\"":"")." /></td></tr>\n";
@@ -74,13 +63,13 @@ if(trim($cform[0])) {
 						break;
 						//INPUT HIDDEN
 			case "IH":	$form_hidden_field .= "<input type=\"hidden\" name=\"".$cfield[1]."\" ";
-						$form_hidden_field .= "value=\"".trimhtml($cfield[5])."\" id=\"".$cfield[1]."\" />";
+						$form_hidden_field .= "value=\"".html_specialchars(trim($cfield[5]))."\" id=\"".$cfield[1]."\" />";
 						break;
 						//TEXTAREA
 			case "TA":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\" valign=\"top\">".spacer(1,14).must_filled($cfield[2]).$cfield[3]."</td><td>";
 						$CNT_TMP .= "<textarea name=\"".$cfield[1]."\" cols=\"".$cfield_length."\" rows=\"".$cfield_max_height."\" ";
 						$CNT_TMP .= "id=\"".$cfield[1]."\" class=\"formTextArea\"".(($cfield[6])?" style=\"width:".$cfield[6]."px\"":"").">";
-						$CNT_TMP .= trimhtml($cfield[5])."</textarea></td></tr>\n";
+						$CNT_TMP .= html_specialchars(trim($cfield[5]))."</textarea></td></tr>\n";
 						break;
 						//SELECT MENU
 			case "SM":	$cfield_select = explode("#", $cfield[5]);
@@ -131,7 +120,7 @@ if(trim($cform[0])) {
 								$check = explode("%", $check_value);
 								//list($check_text, $check_marked, $check_val) = explode("%", $check_value);
 								$check_marked = (!empty($check[1]) && intval($check[1])) ? 1 : 0;
-								$check_val = (empty($check[2])) ? 1 : trimhtml($check[2]);
+								$check_val = (empty($check[2])) ? 1 : html_specialchars(trim($check[2]));
 								
 								$CNT_TMP .= (!$count_cell) ? "<tr>" : "";
 								$CNT_TMP .= "<td><input type=\"checkbox\" name=\"".$cfield[1]."\" value=\"".$check_val."\"";
@@ -168,13 +157,7 @@ if(trim($cform[0])) {
 							
 								$radio = explode("%", $radio_value);
 								$radio_marked = (!empty($radio[1]) && intval($radio[1])) ? 1 : 0;
-								$radio_val = (empty($radio[2])) ? 1 : trimhtml($radio[2]);
-								
-								/*
-								list($radio_text, $radio_marked, $radio_val) = explode("%", $radio_value);
-								$radio_marked = (intval($radio_marked)) ? 1 : 0;
-								$radio_val = (isEmpty($radio_val)) ? 1 : trimhtml($radio_val);
-								*/
+								$radio_val = (empty($radio[2])) ? 1 : html_specialchars(trim($radio[2]));
 								
 								$CNT_TMP .= (!$count_cell) ? "<tr>" : "";
 								$CNT_TMP .= "<td><input type=\"radio\" name=\"".$cfield[1]."\" value=\"".$radio_val."\"";
@@ -188,8 +171,6 @@ if(trim($cform[0])) {
 									$CNT_TMP .= "</tr>\n";
 									$count_cell = 0;
 								}
-								
-								//echo $count_cell."->".$cfield_max_height."<br />";
 								
 							}
 							if(!$cfield_max_height) $CNT_TMP .= "</tr>\n"; //if only 1 row
@@ -212,7 +193,7 @@ if(trim($cform[0])) {
 						// Captcha Image	
 			case "CA":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\">".must_filled($cfield[2]).$cfield[3]."</td><td>";
 						$CNT_TMP .= '<table cellpadding="0" cellspacing="0" border="0"><tr><td>';
-						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".trimhtml($cfield[5])."\" size=\"".$cfield_length."\" ";
+						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".html_specialchars(trim($cfield[5]))."\" size=\"".$cfield_length."\" ";
 						$CNT_TMP .= ($cfield_max_height) ? "maxlength=\"".$cfield_max_height."\" " : "";
 						$CNT_TMP .= "id=\"".$cfield[1]."\" class=\"inputText\"".(($cfield[6])?" style=\"width:".$cfield[6]."px\"":"")." />";
 						$CNT_TMP .= "</td><td>&nbsp;&nbsp;</td><td>".'<img src="img/captcha.php?regen=y&amp;'.time().'" alt="Captcha" border="0" />'."</tr></table></td></tr>\n";
@@ -222,7 +203,7 @@ if(trim($cform[0])) {
 	
 	$CNT_TMP .= "<tr><td colspan=\"2\">".spacer(1,10)."</td></tr>\n";
 	$CNT_TMP .= "<tr><td>".spacer(1,1)."</td><td>".$form_hidden_field;
-	$CNT_TMP .= "<input type=\"submit\" name=\"submit\" value=\"".trimhtml($cform[3])."\" class=\"formButton\" />";
+	$CNT_TMP .= "<input type=\"submit\" name=\"submit\" value=\"".html_specialchars(trim($cform[3]))."\" class=\"formButton\" />";
 	$CNT_TMP .= "<input type=\"hidden\" name=\"subject\" value=\"".$cform[1]."\" />";
 	$CNT_TMP .= "<input type=\"hidden\" name=\"recipient\" value=\"".$cform[2]."\" />";
 	$CNT_TMP .=	getFormTrackingValue();

@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -70,7 +59,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 			<tr>
-				<td align="right" class="chatlist"><?php echo $BL['be_article_atitle'] ?>:&nbsp;</td>
+				<td align="right" class="chatlist"><a href="#" id="cat-as-articletitle"><?php echo $BL['be_article_atitle'] ?></a>:&nbsp;</td>
 				<td style="padding:2px 0 3px 0;"><table border="0" cellpadding="0" cellspacing="0" summary="">
 				 <tr>
 					<td><input name="article_title" type="text" class="f11b" id="article_title" style="width: 325px" value="<?php echo html_specialchars($article["article_title"]) ?>" size="40" maxlength="1000" /></td>
@@ -690,6 +679,7 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 </form>
 <script type="text/javascript">
 $(function(){
+	
 	$("#article_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
 		selectedItemProp: "cat_name",
 		selectedValuesProp: 'cat_name',
@@ -732,6 +722,14 @@ $(function(){
 		};
 		
 		alias.val( create_alias(struct) );
+	});
+	
+	$('#cat-as-articletitle').click(function(evnt){
+		evnt.preventDefault();
+		var currentCat = $('#article_cid option:selected').text();
+		if(currentCat) {
+			$('#article_title').val(currentCat);
+		}
 	});
 
 });

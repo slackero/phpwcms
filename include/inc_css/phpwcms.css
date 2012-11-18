@@ -1,22 +1,27 @@
-html, body {
+html {
 	padding: 0;
 	margin: 0;
-	width: 100%;
 	height: auto !important;
 	height: 100%;
 	min-height: 100%;
 }
 body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	min-height: 100%;
+}
+body {
+	position: relative;
 	font-size: 11px;
 	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 	color: #282F42;
 	background: #C1D2E2;
-	background: -moz-linear-gradient(top, #347199 0%, #c1d2e2 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #347199), color-stop(100%, #c1d2e2));
-	background: -webkit-linear-gradient(top, #347199 0%, #c1d2e2 100%);
-	background: -o-linear-gradient(top, #347199 0%, #c1d2e2 100%);
-	background: -ms-linear-gradient(top, #347199 0%, #c1d2e2 100%);
-	background: linear-gradient(to bottom, #347199 0%, #c1d2e2 100%);
+	background: -moz-linear-gradient(top, #347199, #c1d2e2);
+	background: -webkit-linear-gradient(top, #347199, #c1d2e2);
+	background: -o-linear-gradient(top, #347199, #c1d2e2);
+	background: -ms-linear-gradient(top, #347199, #c1d2e2);
+	background: linear-gradient(to bottom, #347199, #c1d2e2);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0 );
 }
 input, textarea, select, button {
@@ -27,11 +32,10 @@ ul {
 }
 li {
 	font-size: 10px;
-	list-style: disc;
 }
 form {
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
+	margin: 0;
+	padding: 0;
 }
 .v09 {
 	font-size: 9px
@@ -170,9 +174,9 @@ form {
 }
 .add_all_files a {
 	display: block;
-	padding: 2px 1px 0 19px;
-	height: 14px;
+	padding: 2px 23px 0 5px;
 	font-size: 10px;
+	line-height: 14px;
 	font-weight: bold;
 	position: relative;
 }
@@ -183,7 +187,7 @@ form {
 }
 .add_all_files a img {
 	position: absolute;
-	right: 6px;
+	right: 7px;
 	top: 4px;
 }
 .useronline {
@@ -1212,113 +1216,6 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
 	font-weight: bold;
 }
 
-/* Fancy Upload */
-#upload-buttons .progress {
-	background: transparent url(../../img/ajax/progress.gif) no-repeat center 0;
-	margin-right: 0.5em;
-	vertical-align: middle;
-	position: relative;
-}
-#upload-buttons .progress-text {
-	font-size: 0.9em;
-	font-weight: bold;
-	position: relative;
-}
-#upload-buttons .upload-title {
-	margin: 2px 0 5px 0;
-}
-#upload-buttons .upload-title img {
-	margin: 3px 3px 3px 0;
-}
-#upload-buttons a {
-	padding: 2px 5px 2px 5px;
-	color: #000000;
-	text-decoration: none;
-}
-#upload-buttons a.hover {
-	background-image: url(../../img/button/bg_button_blue.gif);
-	border-color: #3C7FB1;
-	color: #000000;
-	text-decoration: none;
-}
-.upload-queue {
-	list-style: none;
-	margin: 20px 0 0 0;
-	padding: 0;
-	width: 530px;
-	position: relative;
-}
-.upload-queue li:hover {
-	background-color: #DEE9EC;
-}
-#upload-queue li {
-	position: relative;
-	font-size: 11px;
-	background: #F5F9FA url(../../img/famfamfam/drive_go.gif) no-repeat 5px 4px;
-	padding: 5px 22px 6px 28px;
-	list-style: none;
-	border-bottom: 1px solid #fff;
-	position: relative;
-	height: auto !important;
-	height: 12px;
-	min-height: 12px;
-}
-#upload-queue li.validation-error {
-	line-height: 135%;
-	color: #8a1f11;
-	cursor: pointer;
-	border-bottom: 1px solid #fff;
-	background: #fcc url(../../img/famfamfam/exclamation.gif) no-repeat 5px 5px;
-}
-#upload-queue li.validation-error em {
-	font-style: normal;
-	font-weight: bold;
-}
-#upload-queue li.file.file-uploading {
-	background: #C1D2E2 url(../../img/ajax/ajax-indicator-16x16.gif) no-repeat 5px 5px;
-}
-#upload-queue li.file.file-success {
-	background: #cfc url(../../img/famfamfam/accept.gif) no-repeat 5px 5px;
-}
-#upload-queue li.file.file-failed {
-	background: #fcc url(../../img/famfamfam/exclamation.gif) no-repeat 5px 5px;
-}
-#upload-queue li.file .file-name {
-	display: block;
-	clear: left;
-	line-height: 12px;
-	height: 13px;
-	font-weight: bold;
-}
-#upload-queue li.file .file-size {
-	font-size: 0.9em;
-	line-height: 12px;
-	float: right;
-	margin-top: 0;
-	margin-right: 6px;
-}
-#upload-queue li.file .file-info {
-	display: block;
-	font-size: 0.9em;
-	line-height: 10px;
-	clear: left;
-}
-#upload-queue li.file .file-remove {
-	position: absolute;
-	height: 16px;
-	width: 16px;
-	text-decoration: none;
-	border: none;
-	overflow: hidden;
-	background: transparent url(../../img/famfamfam/delete.gif) no-repeat 0 0;
-	text-indent: -100em;
-	right: 5px;
-	top: 3px;
-}
-#upload-queue li.file.file-success .file-remove {
-	display: none;
-}
-
 /* Backend Content Language Parser */
 #be_lang {
 	list-style: none;
@@ -1471,7 +1368,153 @@ em.handle {
 	right: 2px;
 }
 
+.incell-tabs {
+	padding: 6px 0 4px 0;
+	position: relative;
+}
+.incell-tabs a {
+	position: relative;
+	display: inline-block;
+	margin-right: -1px;
+	padding: 3px 7px 2px 7px;
+	line-height: 18px;
+	height: 18px;
+	vertical-align: middle;
+	text-decoration: none;
+	border-radius: 5px 5px 0 0;
+	border: 1px solid #9BBECA;
+	float: left;
+}
+.incell-tabs a img {
+	position: relative;
+	top: 1px;
+	border: 0;
+}
+.incell-tabs a:hover {
+	text-decoration: none;
+	background: #363E57;
+	color: #ffffff;
+}
+.incell-tabs a.active,
+.incell-tabs a.active:hover {
+	background: #9BBECA;
+}
+
+.backend-search {
+	position: relative;
+	width: 175px;
+	margin: 0;	
+}
+.backend-search-input {
+	margin: 0;
+	width: 140px;
+	vertical-align: middle;
+}
+.backend-search-button {
+	margin: 0 0 0 3px;
+	width: 16px;
+	height: 16px;
+	padding: 1px 2px;
+	border: 1px solid #dcdcdc;
+	vertical-align: middle;
+	-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+	box-shadow: inset 0px 1px 0px 0px #ffffff;
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9) );
+	background: -moz-linear-gradient( center top, #f9f9f9 5%, #e9e9e9 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9');
+	background-color: #f9f9f9;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.backend-search-button:hover {
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9) );
+    background: -moz-linear-gradient( center top, #e9e9e9 5%, #f9f9f9 100% );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9');
+    background-color: #e9e9e9;
+}
+
+
+#filebrowser-uploader {
+	position: relative;
+	margin-bottom: 6px;
+	padding: 1em 1em 1em 2em;
+	background-color: #FFFFFF;
+	border-top: 1px solid #347199;
+	-moz-box-shadow: 0px 3px 8px rgba(0,0,0,.25);
+	-webkit-box-shadow: 0px 3px 8px rgba(0,0,0,.25);
+	box-shadow: 0px 3px 8px rgba(0,0,0,.25);
+}
+.filebrowser-form {
+	position: relative;
+	margin: 1em 0 0 0;	
+	width: 100%;
+	display: none;
+}
+#filebrowser-uploader p {
+	position: relative;
+	margin: 0 0 .25em 0;
+	width: 100%;
+}
+#filebrowser-uploader p label {
+	position: relative;
+	display: block;
+	margin-bottom: 2px;
+	margin-left: 1px;
+}
+#filebrowser-uploader p input,
+#filebrowser-uploader p textarea {
+	position: relative;
+	margin: 0;
+	width: 95%;
+	display: block;
+}
+#filebrowser-uploader h1 {
+	margin: 0;
+	position: absolute;
+	background: url(../../img/symbols/klapp_auf.gif) no-repeat left bottom;
+	top: .75em;
+	left: .35em;
+	cursor: pointer;
+	padding-left: 0;
+	width: 16px;
+	text-indent: -999em;
+	overflow: hidden;
+}
+#filebrowser-uploader.closed {
+	height: 1em;
+}
+#filebrowser-uploader.closed h1 {
+	width: auto;
+	text-indent: 0;
+	top: .65em;
+	padding-left: 1em;
+	background-image: url(../../img/symbols/klapp_zu.gif);
+	background-position: left center;
+}
+#filebrowser-uploader.closed div {
+	display: none;
+}
+.uploader {
+	margin: 0;
+}
+.qq-upload-button {
+	margin: 0;
+	font-size: 11px !important;
+	padding-bottom: 4px !important;
+}
+#upload-trigger-send {
+	margin-bottom: 0;
+	margin-top: .5em;
+}
+
 /* additional colors */
 .darkblue, .darkblue a, .darkblue a:hover {
 	color: #2B6183;
+}
+
+#WzTtDiV td,
+label {
+	white-space: nowrap;
 }

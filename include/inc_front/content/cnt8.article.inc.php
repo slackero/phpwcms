@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -302,7 +291,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					} else {
 						$content['alink']['tr'][$key] = '';
 					}
-										
+								
 					// set columns/row class
 					if($content['alink']['alink_columns'] > 0) {
 						
@@ -311,19 +300,22 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 							$content['alink']['tr'][$key] .= str_replace('{ROW}', $content['alink']['row'], $content['alink']['alink_template_row']);
 						}
 						
+						$content['alink']['column_current'] = $content['alink']['column'];
+						
 						// now make the tests
 						if($content['alink']['column'] % $content['alink']['alink_columns']) {
 							// New column
 							$content['alink']['column']++;
 							$content['alink']['row_space'] = false;
-							$content['alink']['column_minus'] = 1;
+							//$content['alink']['column_minus'] = 1;
 							$content['alink']['row_minus'] = 0;
+							
 						} else {
 							// New row
 							$content['alink']['column'] = 1;
 							$content['alink']['row']++;
 							$content['alink']['row_space'] = true;
-							$content['alink']['column_minus'] = 0;
+							//$content['alink']['column_minus'] = 0;
 							$content['alink']['row_minus'] = 1;
 						}
 						
@@ -339,9 +331,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 							$content['alink']['tr'][$key] .= $content['alink']['alink_template_space'];
 						}
 						
+						$content['alink']['column_current'] = $content['alink']['column'];
+						
 						$content['alink']['column']++;
 						
-						$content['alink']['column_minus'] = 1;
+						//$content['alink']['column_minus'] = 1;
 						$content['alink']['row_minus'] = 0;
 
 					}
@@ -350,7 +344,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					
 					$content['alink']['tr'][$key]	= str_replace('{ARTICLEID}', $row['article_id'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= str_replace('{CATEGORYID}', $row['article_cid'], $content['alink']['tr'][$key]);
-					$content['alink']['tr'][$key]	= str_replace('{COLUMN}', $content['alink']['column']-$content['alink']['column_minus'], $content['alink']['tr'][$key]);
+					//$content['alink']['tr'][$key]	= str_replace('{COLUMN}', $content['alink']['column']-$content['alink']['column_minus'], $content['alink']['tr'][$key]);
+					$content['alink']['tr'][$key]	= str_replace('{COLUMN}', $content['alink']['column_current'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= str_replace('{ROW}', $content['alink']['row']-$content['alink']['row_minus'], $content['alink']['tr'][$key]);
 					
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'MENUTITLE', html_specialchars($row['article_menutitle']));

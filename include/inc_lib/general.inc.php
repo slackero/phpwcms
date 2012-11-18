@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -78,10 +67,6 @@ function html_despecialchars($h='') {
 	$h = str_replace( '&#039;', "'", $h );
 	$h = str_replace( '&#92;' , "\\", $h );	
 	return $h;
-}
-
-function trimhtml($h='') {
-	return html_specialchars(trim($h));
 }
 
 function list_country($c, $lang='') {
@@ -287,11 +272,6 @@ function extimg($ext) {
 		"mpeg" =>	"icon_vid.gif"					
 				);
 	return (isset($img[$ext])) ? $img[$ext] : "icon_generic.gif";
-}
-
-function randpassword($length=6) {
-	//totally random password creation
-	return generic_string($length);
 }
 
 function generic_string($length, $i=0) {
@@ -566,28 +546,6 @@ function get_list_of_file_keywords() {
 	return (!empty($file_key) && count($file_key)) ? $file_key : false;
 }
 
-function get_int_or_empty($value, $emptyreturn='""') {
-	//is used to return configuration values
-	//that's why the default empty return value is ""
-	$value = intval($value);
-	return ($value) ? $value : $emptyreturn;
-}
-
-function get_pix_or_percent($val) {
-	//is used to return configuration width/height values
-	//whether based on pixel or percent
-	//that's why the default empty return value is ""
-	//returns a string
-	$val = trim($val);
-	$intval = intval($val);
-	if(strlen($val) > 1 && strlen($val)-1 == strrpos($val, "%") && $intval) {
-		$val = (($intval > 100) ? "100" : $intval)."%";
-	} else {
-		$val = ($intval) ? $intval : "";
-	}
-	return $val;
-}
-
 function check_URL($url) {
 	//checks if URL is valid
 	$fp = @fopen($url, "r");
@@ -655,41 +613,6 @@ function validate_url_email($text) {
 	}
 }
 
-function remove_multiple_whitespaces($text) {
-	// removes all multiple whitespaces from string
-	return preg_replace("/(\s)+/"," ",$text);
-}
-
-function cut_redirect($text) {
-	// formats the redirect string
-	// returns only the first 2 parts if availabe like
-	// "part1 part2 part3" -> "part1 part2" 
-	// if only 1 part is returned trim the string
-	return trim(preg_replace("/((.*?)\s(.*?))\s(.*)/","$1",$text));
-}
-
-function format_redirect($text) {
-	// combines remove_multiple_whitespaces and cut_redirect
-	return cut_redirect(remove_multiple_whitespaces($text));
-}
-
-function gd_image_check($file) {
-	// when GD thumbnail creation is enabled
-	// then check if image can be used by GD image function
-	// GIF, JPG, PNG
-	$status = 1;
-	if(!IMAGICK_ON) {
-		$image_check = getimagesize($file);
-		$status = (!$image_check) ? 0 : 1;
-		if($status && $image_check["channels"] < 4 && ($image_check[2] == 1 || $image_check[2] == 2 || $image_check[2] == 3)) {
-			$status = 1;
-		} else { 
-			$status = 0;
-		}
-	}	
-	return $status;
-}
-
 function encode($in_str, $charset) {
    $out_str = $in_str;
    if ($out_str && $charset) {
@@ -720,19 +643,12 @@ function encode($in_str, $charset) {
 
 function js_singlequote($t='') {
 	// make singe quotes js compatible
-	$t = str_replace("\\", "\\\\", $t );
-	$t = str_replace("&#92;", "\\\\", $t );
-	$t = str_replace("'", '&#39;', $t);
-	//$t = str_replace("&#039;", "\\'", $t);
-	$t = str_replace('"', '&quot;', $t );
-	//$t = str_replace('&quot;', '\"', $t );
-	//$t = str_replace('&#58;', ':', $t ); //send by pappnase
-	return $t;
+	return str_replace(array("\\", "&#92;", "'", '"'), array("\\\\", "\\\\", '&#39;', '&quot;'), $t);
 }
 
 function get_tmpl_files($dir='', $ext='', $sort=true) {
 	//browse a dir and return all template files
-	$c = '\.html|\.htm|\.php|\.inc|\.tmpl'; //$c = '\.html|\.htm|\.txt|\.php|\.inc|\.tmpl';
+	$c = '\.html|\.htm|\.php|\.inc|\.tmpl';
 	if($ext) {
 		$ext = explode(',', $ext);
 		if(count($ext)) {
@@ -1035,28 +951,6 @@ function checkFormTrackingValue() {
 	}
 	return $valid;
 }
-
-// -------------------------------------------------------------
-
-function dumpVar($var, $commented=false) {
-	//just a simple funcction returning formatted print_r()
-	switch($commented) {
-		case 1:		echo "\n<!--\n";
-					print_r($var);
-					echo "\n//-->\n";
-					return NULL;
-					break;
-		case 2:		return '<pre>'.html_entities(print_r($var, true)).'</pre>';
-					break;
-		default: 	echo '<pre>';
-					echo html_entities(print_r($var, true));
-					echo '</pre>';
-					return NULL;
-	}
-}
-
-
-// -------------------------------------------------------------
 
 // workaround functions for PHP < 4.3
 
@@ -1466,7 +1360,6 @@ function replaceGlobalRT($string='') {
 	$string = str_replace(array('{SITE}', '{PHPWCMS_URL}'), PHPWCMS_URL, $string);
 	$string = str_replace('{PHPWCMS_TEMPLATE}', TEMPLATE_PATH, $string);
 	$string = str_replace('{IP}', getRemoteIP(), $string);
-	//$string = preg_replace_callback('/\{(DATE|GMDATE):(.*?)\}/', 'formatRTDate', $string);
 	$string = renderRTDate($string);
 	return $string;
 }

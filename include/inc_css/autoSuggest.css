@@ -3,7 +3,7 @@
 ul.as-selections {
 	list-style: none;
 	padding: 0;
-	margin: 0;
+	margin: 0 1em 0 0;
 	overflow: auto;
 	  background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -23,6 +23,7 @@ ul.as-selections li {
 	padding: 0;
 	font-size: 12px;
 	line-height: 100%;
+	white-space: nowrap;
 }
 
 ul.as-selections li.as-selection-item {
@@ -32,7 +33,7 @@ ul.as-selections li.as-selection-item {
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddeefe), to(#bfe0f1));
 	border: 1px solid #acc3ec;
 	border-top-color: #c0d9e9;
-	padding: 1px 7px 0 10px;
+	padding: 1px 7px 0 8px;
 	border-radius: 12px;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
@@ -47,12 +48,12 @@ ul.as-selections li.as-selection-item:last-child {
 
 ul.as-selections li.as-selection-item a.as-close {
 	float: right;
-	margin: 1px 0 0 5px;
-	padding: 0 2px;
+	margin: 0 0 0 4px;
+	padding: 0;
 	cursor: pointer;
 	color: #5491be;
 	font-family: "Helvetica", helvetica, arial, sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: bold;
 	text-shadow: 0 1px 1px #fff;
 	-webkit-transition: color .1s ease-in;
@@ -112,7 +113,7 @@ ul.as-selections li.as-original input {
 
 ul.as-list {
 	position: absolute;
-	list-style-type: none;
+	list-style: none;
 	margin: 2px 0 0 0;
 	padding: 0;
 	background-color: #fff;
@@ -139,6 +140,7 @@ li.as-result-item, li.as-message {
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
+	list-style: none;
 }
 
 li:first-child.as-result-item {
@@ -187,9 +189,6 @@ li.as-result-item.active em {
 
 /* Opera Hacks  */
 @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {
-	ul.as-list {
-		border: 1px solid #888;
-	}
 	ul.as-selections li.as-selection-item a.as-close {
 		margin-left: 4px;
 		margin-top: 0;
@@ -198,7 +197,6 @@ li.as-result-item.active em {
 
 /* IE Hacks  */
 ul.as-list {
-	list-style: none;
 	border: 1px solid #888\9;
 }
 ul.as-selections li.as-selection-item a.as-close {
@@ -208,7 +206,6 @@ ul.as-selections li.as-selection-item a.as-close {
 
 /* Firefox 3.0 Hacks */
 ul.as-list,  x:-moz-any-link, x:default {
-	list-style: none;
 	border: 1px solid #888;
 }
 BODY:first-of-type ul.as-list, x:-moz-any-link, x:default { /* Target FF 3.5+ */

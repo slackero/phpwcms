@@ -1,24 +1,13 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2012 Oliver Georgi <oliver@phpwcms.de> // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -166,14 +155,15 @@ $phpwcms["ftp_path"]     		= 	'/'.$phpwcms["ftp_path"].'/'  ;  // "/phpwcms_ftp/
 
 define ('PHPWCMS_TEMPLATE', 		PHPWCMS_ROOT.$phpwcms["templates"]);
 define ('PHPWCMS_URL', 				$phpwcms["site"].$phpwcms["root"]);
-
 $phpwcms['parse_url']			=	parse_url(PHPWCMS_URL);
+
 define ('PHPWCMS_HOST',				$phpwcms['parse_url']['host'].$phpwcms["host_root"]);
 define ('PHPWCMS_IMAGES', 			$phpwcms["content_path"].$phpwcms["cimage_path"]);
 define ('PHPWCMS_TEMP', 			PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
 define ('PHPWCMS_CONTENT',			PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
 define ('PHPWCMS_THUMB',			PHPWCMS_CONTENT.$phpwcms["cimage_path"]);
 define ('PHPWCMS_RSS', 				PHPWCMS_CONTENT.'rss');
+define ('PHPWCMS_STORAGE',			PHPWCMS_ROOT.$phpwcms["file_path"]);
 define ('LF', 						"\n"); 	//global new line Feed
 define ('FEUSER_REGKEY',			empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
 
@@ -313,6 +303,22 @@ function removeSessionName($str='') {
 	return $str;
 }
 
+function dumpVar($var, $commented=false) {
+	//just a simple funcction returning formatted print_r()
+	switch($commented) {
+		case 1:		echo "\n<!--\n";
+					print_r($var);
+					echo "\n//-->\n";
+					return NULL;
+					break;
+		case 2:		return '<pre>'.html_entities(print_r($var, true)).'</pre>';
+					break;
+		default: 	echo '<pre>';
+					echo html_entities(print_r($var, true));
+					echo '</pre>';
+					return NULL;
+	}
+}
 
 function buildGlobalGET($return = '') {
 	// build internal array containing all GET values
