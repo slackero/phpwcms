@@ -1,6 +1,9 @@
 phpwcms Changelog
 =======
 
+### Version 1.6.515 – November 18, 2012
+- Fix var index ("href" instead of "url")
+
 ### Version 1.6.514 – November 18, 2012
 - Issue 342: CP Plain Text listing encode HTML special chars
 - Issue 343: click on label "article title" will set article title to the selected category
