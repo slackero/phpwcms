@@ -169,7 +169,7 @@ calEnd.setYearCombo(false);
 					<tr>
 						
 						<td><label><input type="radio" name="article_lang" class="lang-default" value=""<?php is_checked('', $article['article_lang']); ?> />
-								<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($lang) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" /><?php echo ' ('.$BL['be_admin_tmpl_default'].')' ?>
+								<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" /><?php echo ' ('.$BL['be_admin_tmpl_default'].')' ?>
 								&nbsp;
 							</label>
 						</td>

@@ -99,7 +99,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		if(empty($template["name"])) {
 			$template["name"] = "template_".generic_string(3);
 		}
-		if(is_array($_POST["template_css"])) {
+		if(isset($_POST["template_css"]) && is_array($_POST["template_css"])) {
 			$template["css"] = $_POST["template_css"];
 		} else {
 			$template["css"] = array();

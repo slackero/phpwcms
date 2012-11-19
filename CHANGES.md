@@ -1,6 +1,9 @@
 phpwcms Changelog
 =======
 
+### Version 1.6.517 – November 19, 2012
+- Some fixes
+
 ### Version 1.6.516 – November 19, 2012
 - Remove leading dashes while copy structure name as article title
 - Add missing fields to default SQL
