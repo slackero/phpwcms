@@ -89,7 +89,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 
 	$content['glossary']['detail_entry']	= get_tmpl_section('GLOSSARY_DETAIL_ENTRY',		$content['glossary']['glossary_template']);
 	$content['glossary']['detail_entry']	= render_cnt_template($content['glossary']['detail_entry'], 'TEXT', $content['glossary']['entry']['glossary_text']);
-	$content['glossary']['detail_entry']	= render_cnt_template($content['glossary']['detail_entry'], 'TITLE', html_entities($content['glossary']['entry']['glossary_title']));
+	$content['glossary']['detail_entry']	= render_cnt_template($content['glossary']['detail_entry'], 'TITLE', html_specialchars($content['glossary']['entry']['glossary_title']));
 
 	$content['glossary']['item'] = $content['glossary']['detail_head'] . $content['glossary']['detail_entry'] . $content['glossary']['detail_footer'];
 	$content['glossary']['item'] = str_replace('{GLOSSARY_ID}', $content['glossary']['entry']['glossary_id'], $content['glossary']['item']);

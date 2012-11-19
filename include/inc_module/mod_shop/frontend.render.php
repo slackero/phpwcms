@@ -621,7 +621,7 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = preg_replace('/\[CART_ADD\](.*?)\[\/CART_ADD\]/is', $_cart_add , $entry[$x]);
 			
 			// product name
-			$entry[$x] = str_replace('{CURRENCY_SYMBOL}', html_entities($_shopPref['shop_pref_currency']), $entry[$x]);
+			$entry[$x] = str_replace('{CURRENCY_SYMBOL}', html_specialchars($_shopPref['shop_pref_currency']), $entry[$x]);
 			$entry[$x] = render_cnt_template($entry[$x], 'ON_REQUEST', $_cart_on_request);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_TITLE', html_specialchars($row['shopprod_name1']));
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html_specialchars($row['shopprod_name2']));

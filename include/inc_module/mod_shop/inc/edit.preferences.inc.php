@@ -41,7 +41,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		
 			<tr>
-				<td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo html_entities($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo html_specialchars($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td class="chatlist">&nbsp;&nbsp;EUR, USD, &#8364;, $, &pound;, &yen;</td>
 			</tr>
 				
@@ -149,7 +149,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
 			<tr>
 				<td><input type="checkbox" name="pref_loworder" id="pref_loworder" value="1"<?php is_checked('1', $plugin['data']['shop_pref_loworder']['loworder']) ?> onchange="enableSubmit();" /></td>
-				<td align="right" class="chatlist">&nbsp;<?php echo trim($BLM['shopprod_loworder_under'].' '.html_entities($plugin['data']['shop_pref_currency'])) ?>:&nbsp;</td>
+				<td align="right" class="chatlist">&nbsp;<?php echo trim($BLM['shopprod_loworder_under'].' '.html_specialchars($plugin['data']['shop_pref_currency'])) ?>:&nbsp;</td>
 				<td><input name="pref_loworder_under" type="text" id="pref_loworder_under" class="v12 width60" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['under'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BLM['shopprod_loworder_charge'] ?>:&nbsp;</td>
 				<td><input name="pref_loworder_charge" type="text" id="pref_loworder_charge" class="v12 width50" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['charge'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>

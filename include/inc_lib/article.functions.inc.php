@@ -46,10 +46,13 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 				
 			} else {
 				
-				echo "<option value=\"".$value["acat_id"]."\"";
-				echo ( ($selected_id==$value["acat_id"]) ? " selected" : "" ).">";
-				echo html_entities($value["acat_name"]);
-				echo "</option>\n";
+				$value["acat_name"] = html_specialchars($value["acat_name"]);
+				
+				echo '<option value="', $value["acat_id"], '"';
+				if($selected_id==$value["acat_id"]) {
+					echo ' selected="selected"';
+				}
+				echo '>', $value["acat_name"], '</option>', LF;
 				struct_select_menu($counter, $value["acat_id"], $selected_id, 'option');
 			
 			}

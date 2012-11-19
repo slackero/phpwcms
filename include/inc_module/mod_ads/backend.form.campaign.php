@@ -455,7 +455,7 @@ if(empty($plugin['data']['adcampaign_id'])) {
 	<tr>
 	
 		<td align="right" class="chatlist tdtop3"><a href="#" onclick="showHtmlAds();return false;" title="Preview"><?php echo $BLM['ad_type_2'] ?><img src="img/symbole/redirect.gif" alt="" border="0" style="margin:0 1px 0 4px;position:relative;top:1px;" /></a>:&nbsp;</td>
-		<td><textarea name="adcampaign_html" id="adcampaign_html" rows="5" class="v12 width400 code"><?php echo html_entities($plugin['data']['adcampaign_data']['html']) ?></textarea></td>
+		<td><textarea name="adcampaign_html" id="adcampaign_html" rows="5" class="v12 width400 code"><?php echo html_specialchars($plugin['data']['adcampaign_data']['html']) ?></textarea></td>
 	
 	</tr>
 	

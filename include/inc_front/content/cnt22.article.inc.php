@@ -179,8 +179,8 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 		}
 		
 		// whole rss feed
-		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'TITLE', html_entities($crow['acontent_title']) );
-		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'SUBTITLE', html_entities($crow['acontent_subtitle']) );
+		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'TITLE', html_specialchars($crow['acontent_title']) );
+		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']) );
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'ITEMS', implode( LF , $rss['items'] ) );
 		$rss['template_RSSFEED'] = str_replace('{FEEDINFO}', $rss['template_FEEDINFO'], $rss['template_RSSFEED']);
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'LINK', $rss_obj->get_permalink() );

@@ -58,7 +58,8 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
                 // ERICH COPY TEMPLATE END 7.6.2005
 
 		echo '<a href="include/inc_act/act_frontendsetup.php?do=2|'.$row["template_id"].'" ';
-		echo 'title="delete template: '.html_specialchars($row["template_name"]).'">';
+		echo 'title="'.$BL['be_cnt_delete'].': '.html_specialchars($row["template_name"]).'" ';
+		echo 'onclick="return confirm(\''.js_singlequote($BL['be_cnt_delete'].': '.html_specialchars($row["template_name"])).'\');">';
 		echo '<img src="img/button/del_11x11.gif" width="11" height="11" border="0"></a>';
 		echo '<img src="img/leer.gif" width="2" height="1">'."</td>\n</tr>\n";
 		$row_count++;
@@ -339,13 +340,13 @@ if(is_dir(PHPWCMS_TEMPLATE."inc_css")) {
 // now run the css information
 foreach($template["css"] as $value) {
 	if(isset($unselected_css[$value])) {
-		$css_file = html_entities($value);
+		$css_file = html_specialchars($value);
 		echo '		<option value="'.$css_file.'" selected="selected" style="font-weight: bold;">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
 		unset($unselected_css[$value]);
 	}
 }
 foreach($unselected_css as $value) {
-	$css_file = html_entities($value);
+	$css_file = html_specialchars($value);
 	echo '		<option value="'.$css_file.'">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
 }
 

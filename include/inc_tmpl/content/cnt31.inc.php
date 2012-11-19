@@ -274,21 +274,21 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-		<td colspan="3"><textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html_entities($value['caption']) ?></textarea></td>
+		<td colspan="3"><textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html_specialchars($value['caption']) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="3" class="spacerrow"></td></tr>
 	
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;</td>
-		<td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html_entities(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
+		<td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html_specialchars(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="3" class="spacerrow"></td></tr>
 	
 	<tr>
 		<td class="chatlist right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
-		<td><input type="text" name="cimage_url[<?php echo $key ?>]" id="cimage_url_<?php echo $key ?>" class="v11 w300" size="30" value="<?php echo html_entities($value['url']) ?>" /></td>
+		<td><input type="text" name="cimage_url[<?php echo $key ?>]" id="cimage_url_<?php echo $key ?>" class="v11 w300" size="30" value="<?php echo html_specialchars($value['url']) ?>" /></td>
 		<td><em title="<?php echo $sort_up_down; ?>" class="handle">&nbsp;</em></td>
 		<td><a href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /></a></td>
 	</tr>

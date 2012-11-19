@@ -1186,8 +1186,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 				
 								$mathspam_question		 = $cnt_form["fields"][$key]['value'][ $mathspam_operator ];
 								$mathspam_question		.= ' <span class="calc">' . $mathspam_number_1 . '&nbsp;';
-								$mathspam_question		.= html_entities( $mathspam_operator );
-								//$mathspam_question		.= '<i style="display:none;">(%'.mt_rand(0,10000).')</i>';
+								$mathspam_question		.= html_specialchars( $mathspam_operator );
 								$mathspam_question		.= '&nbsp;' . $mathspam_number_2 . '</span>';
 								
 								switch($mathspam_operation) {

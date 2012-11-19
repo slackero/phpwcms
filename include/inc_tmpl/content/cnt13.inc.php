@@ -174,7 +174,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<tr>
 				<td colspan="2">&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_cnt_target'].'/'.$BL['be_profile_label_website'] ?>:&nbsp;</td>
-				<td><input type="text" name="csearch_news_url" id="news_url" value="<?php echo html_entities($content['search']["news_url"]) ?>" class="width200" /></td>
+				<td><input type="text" name="csearch_news_url" id="news_url" value="<?php echo html_specialchars($content['search']["news_url"]) ?>" class="width200" /></td>
 				<td>&nbsp;</td>
 			</tr>
 		</table>

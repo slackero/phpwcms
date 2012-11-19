@@ -3770,7 +3770,7 @@ function getArticleMenu($data=array()) {
 		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.'>';
 		
 		$li[$key] .= $data['wrap_title_prefix'];
-		$li[$key] .= html_entities( getArticleMenuTitle($item) );
+		$li[$key] .= html_specialchars( getArticleMenuTitle($item) );
 		$li[$key] .= $data['wrap_title_suffix'];
 		
 		$li[$key] .= '</a>';

@@ -1762,7 +1762,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	@umask(0);
 	if(!@move_uploaded_file($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
 		if(!copy($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
-			$file_status['error'] = 'Saving uploaded file <b>'.html_entities($file_status['name']).'</b> to <b>'.html_entities(str_replace(PHPWCMS_ROOT, '', $target.$file_status['rename'])).'</b> failed';
+			$file_status['error'] = 'Saving uploaded file <b>'.html_specialchars($file_status['name']).'</b> to <b>'.html_specialchars(str_replace(PHPWCMS_ROOT, '', $target.$file_status['rename'])).'</b> failed';
 			$file_status['error_num'] = 412;
 			@unlink($_FILES[$file]['tmp_name']);
 			return $file_status;

@@ -728,7 +728,7 @@ $(function(){
 		evnt.preventDefault();
 		var currentCat = $('#article_cid option:selected').text();
 		if(currentCat) {
-			$('#article_title').val(currentCat);
+			$('#article_title').val(currentCat.replace(/^-+ /, ''));
 		}
 	});
 

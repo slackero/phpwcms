@@ -1,6 +1,15 @@
 phpwcms Changelog
 =======
 
+### Version 1.6.516 – November 19, 2012
+- Remove leading dashes while copy structure name as article title
+- Add missing fields to default SQL
+- Fix CP Text with image title and subtitle in case there is no image
+- CP Code does not replace spaces, tabs and line breaks by HTML equivalent when \<pre\> detected in template
+- CP News template enhanced by {ID}
+- Several html_entities() replaced by html_specialchars() for better special char support
+- Add Confirm message for deleting template
+
 ### Version 1.6.515 – November 18, 2012
 - Fix var index ("href" instead of "url")
 

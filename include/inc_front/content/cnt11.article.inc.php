@@ -20,14 +20,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //code
 
-/*
-$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-if($crow["acontent_text"]) {
-	$crow["acontent_text"] = str_replace(" ", "&nbsp;", html_specialchars($crow["acontent_text"]));
-	$CNT_TMP .= nl2br(div_class($crow["acontent_text"], $template_default["article"]["code_class"]));
-}
-*/
-
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/code.tmpl')) {
 
@@ -43,12 +35,14 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/co
 
 }
 
-
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TITLE', html_entities($crow['acontent_title']));
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_entities($crow['acontent_subtitle']));
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'CODE', nl2br( str_replace(' ', '&nbsp;', html_entities($crow["acontent_text"]) ) ) );
-
-$CNT_TMP .= LF.$crow["acontent_template"].LF;
-
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+if(strpos($crow["acontent_template"], '<pre') !== false) {
+	$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'CODE', html_specialchars($crow["acontent_text"]));
+} else {
+	$crow["acontent_text"] = str_replace(array(' ', "\t"), array('&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;'), html_specialchars($crow["acontent_text"]));
+	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CODE', nl2br($crow["acontent_text"]) );
+}
+$CNT_TMP .= $crow["acontent_template"];
 
 ?>

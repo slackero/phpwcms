@@ -176,7 +176,7 @@ if($image) {
 	$GLOBALS['cnt_image_lightbox'] = $cnt_image_lightbox = 0;
 	
 } else {
-	$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+	//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 	if($crow["acontent_text"]) {
 		$image_text .= div_class($crow["acontent_text"], $template_default["article"]["text_class"]);
 	}
