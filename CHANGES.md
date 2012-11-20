@@ -1,10 +1,25 @@
 phpwcms Changelog
 =======
 
-### Version 1.6.517 – November 19, 2012
+
+Version 1.6.518 – November 20, 2012
+-----------------------------------
+
+- Issue 345: check file upload size against php.ini values post_max_size and upload_max_filesize
+- Cleanup deprecated functions, remove unused files
+- CP Image with text useless text wrapper div removed
+- News detail default template enhanced by {IMAGE_EXT} too
+
+
+Version 1.6.517 – November 19, 2012
+-----------------------------------
+
 - Some fixes
 
-### Version 1.6.516 – November 19, 2012
+
+Version 1.6.516 – November 19, 2012
+-----------------------------------
+
 - Remove leading dashes while copy structure name as article title
 - Add missing fields to default SQL
 - Fix CP Text with image title and subtitle in case there is no image
@@ -13,10 +28,16 @@ phpwcms Changelog
 - Several html_entities() replaced by html_specialchars() for better special char support
 - Add Confirm message for deleting template
 
-### Version 1.6.515 – November 18, 2012
+
+Version 1.6.515 – November 18, 2012
+-----------------------------------
+
 - Fix var index ("href" instead of "url")
 
-### Version 1.6.514 – November 18, 2012
+
+Version 1.6.514 – November 18, 2012
+-----------------------------------
+
 - Issue 342: CP Plain Text listing encode HTML special chars
 - Issue 343: click on label "article title" will set article title to the selected category
 - Unused and/or deprecated functions, libraries, files removed

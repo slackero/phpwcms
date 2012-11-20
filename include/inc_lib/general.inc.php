@@ -25,9 +25,6 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/htmlfilter/htmlfilter.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/rfc822.php');
-if(IS_PHP5) {
-	require_once (PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php');
-}
 
 function isEmpty($string) {
 	return ($string == NULL || $string == '') ? 1 : 0;
@@ -154,43 +151,43 @@ function list_profession($c){
 	if(isEmpty($c)) $c = " n/a";
 	$sql = mysql_query("SELECT prof_name FROM ".DB_PREPEND."phpwcms_profession ORDER BY prof_name");
 	while($a = mysql_fetch_assoc($sql)) {
+		
+		echo '		<option value="'.$a["prof_name"].'"';
 		if($a["prof_name"] != $c) {
-			echo "\t\t\t<option value=\"".$a["prof_name"]."\">".trim($a["prof_name"])."</option>\n";
-		} else {
-			echo "\t\t\t<option value=\"".$a["prof_name"]."\" selected>".trim($a["prof_name"])."</option>\n";
-		}		
+			echo ' selected="selected"';
+		}
+		echo '>'.trim($a["prof_name"])."</option>\n";
+	
 	}
 	mysql_free_result($sql);
 }
 
 function is_selected($c, $chkvalue, $xhtml=1, $echoit=1) {
-	$e = '';
-	if(strval($c) == strval($chkvalue)) {
-		$e = (!$xhtml) ? ' selected' : ' selected="selected"' ;
-	}
+	
+	$e = strval($c) == strval($chkvalue) ? ' selected="selected"' : '';
+	
 	if($echoit) {
 		echo $e;
-	} else {
-		return $e;
 	}
+	
+	return $e;
 }
 
 function is_checked($c, $chkvalue, $xhtml=1, $echoit=1) {
-	$e = '';
-	if(strval($c) == strval($chkvalue)) {
-		$e = (!$xhtml) ? ' checked' : ' checked="checked"' ;
-	}
+	
+	$e = strval($c) == strval($chkvalue) ? ' checked="checked"' : '';
+	
 	if($echoit) {
 		echo $e;
-	} else {
-		return $e;
 	}
+	
+	return $e;
 }
 
 function check_checkbox($c) {
 	//Prüft, ob korrekte Werte via Checkbox übergeben wurden
 	$c = intval($c);
-	if($c != 0 AND $c != 1) $c = 0;
+	if($c != 0 && $c != 1) $c = 0;
 	return $c;
 }
 
@@ -455,6 +452,11 @@ function is_valid_email($email, $options=array()) {
  * @return string
  */
 function idn_encode($string='') {
+	
+	if(IS_PHP5) {
+		require_once (PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php');
+	}
+	
 	// convert to utf-8 first
 	$string = makeCharsetConversion($string, PHPWCMS_CHARSET, 'utf-8');
 	
@@ -544,101 +546,6 @@ function get_list_of_file_keywords() {
 		mysql_free_result($result);
 	}
 	return (!empty($file_key) && count($file_key)) ? $file_key : false;
-}
-
-function check_URL($url) {
-	//checks if URL is valid
-	$fp = @fopen($url, "r");
-	if(!$fp) {
-		$url_status = 0;
-	} else {
-		$url_status = 1;
-		fclose($fp);
-	}
-	return $url_status;
-}
-
-function validate_email($email) {
-	// checks if the Email is well formatted
-	return preg_match("/[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email); 
-}
-
-function validate_url($url) {
-	// checks if the URL is well formatted
-    return preg_match("/(((ht|f)tps*:\/\/)*)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((\/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)$/", $url); 
-}
-
-function convert_url($text) {
-	// converts URLs in Texts to link
-    $text = @eregi_replace("((ht|f)tp(s*)://www\.|www\.)([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})((/|\?)[a-z0-9~#%&\\/'_\+=:\?\.-]*)*)", "http\\3://www.\\4", $text); 
-    return @eregi_replace("((ht|f)tp(s*)://)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)", "\\0", $text); 
-}
-
-function link_url($text) {
-	// converts URLs in Texts to link
-    $text = @eregi_replace("((ht|f)tp(s*)://www\.|www\.)([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})((/|\?)[a-z0-9~#%&\\/'_\+=:\?\.-]*)*)", "http\\3://www.\\4", $text); 
-    return @eregi_replace("((ht|f)tp(s*)://)((([a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))|(([0-9]{1,3}\.){3}([0-9]{1,3})))((/|\?)[a-z0-9~#%&'_\+=:\?\.-]*)*)", "<a href=\"\\0\">\\0</a>", $text); 
-}
-
-function convert_email($text) {
-	// converts Email addresses in Texts to mailto link
-	return @eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))", "mailto:\\0", $text); 
-}
-
-function link_email($text) {
-	// converts Email addresses in Texts to mailto link
-	return @eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}))", "<a href='mailto:\\0'>\\0</a>", $text); 
-}
-
-function convert_all_links($text) {
-	// combines convertMail and convertURL
-	$text = link_url($text);
-    $text = link_email($text);
-    return $text;
-}
-
-function convert_url_email($text) {
-	// combines convertMail and convertURL
-	$text = convert_email($text);
-    $text = convert_url($text);
-    return $text;
-}
-
-function validate_url_email($text) {
-	// combined url email validation
-	if(validate_email($text) || validate_url($text)) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-function encode($in_str, $charset) {
-   $out_str = $in_str;
-   if ($out_str && $charset) {
-
-       // define start delimimter, end delimiter and spacer
-       $end = "?=";
-       $start = "=?" . $charset . "?B?";
-       $spacer = $end . "\r\n " . $start;
-
-       // determine length of encoded text within chunks
-       // and ensure length is even
-       $length = 75 - strlen($start) - strlen($end);
-       $length = floor($length/2) * 2;
-
-       // encode the string and split it into chunks 
-       // with spacers after each chunk
-       $out_str = base64_encode($out_str);
-       $out_str = chunk_split($out_str, $length, $spacer);
-
-       // remove trailing spacer and 
-       // add start and end delimiters
-       $spacer = preg_quote($spacer);
-       $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
-       $out_str = $start . $out_str . $end;
-   }
-   return $out_str;
 }
 
 function js_singlequote($t='') {

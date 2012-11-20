@@ -371,7 +371,28 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	
 	<tr>
 		<td valign="top"><input name="file_aktion" type="hidden" id="file_aktion" value="1" />
-			<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $phpwcms["file_maxsize"] ?>" /></td>
+			<input type="hidden" name="MAX_FILE_SIZE" value="<?php 
+		
+			if(ini_get('post_max_size')) {
+				$post_max_size = return_bytes(ini_get('post_max_size'));
+				if($post_max_size < $phpwcms['file_maxsize']) {
+					$phpwcms['file_maxsize'] = $post_max_size;
+				}
+			} else {
+				$post_max_size = $phpwcms['file_maxsize'];
+			}
+			if(ini_get('upload_max_filesize')) {
+				$upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
+				if($upload_max_filesize < $phpwcms['file_maxsize']) {
+					$phpwcms['file_maxsize'] = $upload_max_filesize;
+				}
+			} else {
+				$upload_max_filesize = $phpwcms['file_maxsize'];
+			}
+			
+			echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+	
+		?>" /></td>
 		<td>
 			<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fprivup_button'] ?>" />
 			<input type="button" class="button10" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />

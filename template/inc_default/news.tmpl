@@ -119,13 +119,13 @@ files_direct_download = 0
 	[IMAGE]
 		[ZOOM_ELSE]
 			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}>[/IMAGE_URL]
-				<img src="img/cmsimage.php/150x150x1/{IMAGE_ID}" alt="{IMAGE}" border="0" />
+				<img src="img/cmsimage.php/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
 			[IMAGE_URL]</a>[/IMAGE_URL]
 			[CAPTION]<p>{CAPTION}</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
-			<a href="img/cmsimage.php/600x400/{IMAGE_ID}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}"[/LIGHTBOX_CAPTION]>
-				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}" alt="{IMAGE}" border="0" />
+			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}"[/LIGHTBOX_CAPTION]>
+				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
 			</a>
 		[/ZOOM]		
 	[/IMAGE]

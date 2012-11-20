@@ -96,79 +96,74 @@ if($image) {
 	switch($image[7]) {
 
 		//oben links
-		case 0: 
-		$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_top_left']);
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$image_text .= ($crow["acontent_text"]) ? div_class($crow["acontent_text"], $template_default["article"]["text_class"]) : "";
-		break;
+		case 0:
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_top_left']);
+			$image_text .= LF . $crow["acontent_text"];
+			break;
+		
 		//oben mitte
 		case 1:
-		$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_top_center']);
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$image_text .= ($crow["acontent_text"]) ? div_class($crow["acontent_text"], $template_default["article"]["text_class"]) : "";
-		break;
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_top_center']);
+			$image_text .= LF . $crow["acontent_text"];
+			break;
+		
 		//oben rechts
 		case 2:	
-		$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_top_right']);
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$image_text .= ($crow["acontent_text"]) ? div_class($crow["acontent_text"], $template_default["article"]["text_class"]) : "";
-		break;
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_top_right']);
+			$image_text .= LF . $crow["acontent_text"];
+			break;
+		
 		//unten links
 		case 3: 
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$image_text.= ($crow["acontent_text"]) ? div_class($crow["acontent_text"], $template_default["article"]["text_class"]) : "";
-		$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_bottom_left']);
-		break;
+			$image_text .= $crow["acontent_text"] . LF;
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_bottom_left']);
+			break;
+		
 		//unten mitte
 		case 4: 
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$image_text .= ($crow["acontent_text"]) ? div_class($crow["acontent_text"],$template_default["article"]["text_class"]) : "";
-		$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_bottom_center']);
-		break;
+			$image_text .= $crow["acontent_text"] . LF;
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_bottom_center']);
+			break;
+		
 		//unten rechts
 		case 5: 
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$image_text .= ($crow["acontent_text"]) ? div_class($crow["acontent_text"],$template_default["article"]["text_class"]) : "";
-		$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_bottom_right']);
-		break;
+			$image_text .= $crow["acontent_text"] . LF;
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_bottom_right']);
+			break;
+		
 		//im Text links
-		case 6: 
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$icontent = ($crow["acontent_text"]) ? "###image_replace###".div_class($crow["acontent_text"], $template_default["article"]["text_class"]) : "###image_replace###";
-		$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_float_left']);
-		$image_text .= str_replace("###image_replace###", $iconimg, $icontent);
-		break;
+		case 6:
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_float_left']);
+			$image_text .= LF . $crow["acontent_text"];
+			break;
+		
 		//im Text rechts
-		case 7: 
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		$icontent = ($crow["acontent_text"]) ? "###image_replace###".div_class($crow["acontent_text"], $template_default["article"]["text_class"]) : "###image_replace###";
-		$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_float_right']);
-		$image_text .= str_replace("###image_replace###", $iconimg, $icontent);
-		break;
+		case 7:
+			$image_text .= imagediv($phpwcms, $image, $crow["settings"]['class_float_right']);
+			$image_text .= LF . $crow["acontent_text"];	
+			break;
 		
-		case 9: 
 		// Tabelle, links
-		$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_left'].'-image');
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		if(trim($iconimg.$crow["acontent_text"])) {
-			$image_text .= '<div class="'.$crow["settings"]['class_column_left'].'">'.LF;
-			$image_text .= '	<div class="'.$crow["settings"]['class_column_left'].'-text">'.$crow["acontent_text"].'</div>' . LF;
-			$image_text .= '	' . $iconimg . LF;
-			$image_text .= '</div>';
-		}
-		break;
+		case 9: 
+			$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_left'].'-image');
+			if(trim($iconimg.$crow["acontent_text"])) {
+				$image_text .= '<div class="'.$crow["settings"]['class_column_left'].'">'.LF;
+				$image_text .= '	<div class="'.$crow["settings"]['class_column_left'].'-text">'.$crow["acontent_text"].'</div>' . LF;
+				$image_text .= '	' . $iconimg . LF;
+				$image_text .= '</div>';
+			}
+			break;
 		
-		case 8: 
 		// Tabelle, rechts
-		$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_right'].'-image');
-		//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-		if(trim($iconimg.$crow["acontent_text"])) {
-			$image_text .= '<div class="'.$crow["settings"]['class_column_right'].'">' . LF;
-			$image_text .= '	<div class="'.$crow["settings"]['class_column_right'].'-text">'.$crow["acontent_text"].'</div>' . LF;
-			$image_text .= '	' . $iconimg . LF;
-			$image_text .= '</div>';
-		}
-		break;
+		case 8:
+			$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_right'].'-image');
+			if(trim($iconimg.$crow["acontent_text"])) {
+				$image_text .= '<div class="'.$crow["settings"]['class_column_right'].'">' . LF;
+				$image_text .= '	<div class="'.$crow["settings"]['class_column_right'].'-text">'.$crow["acontent_text"].'</div>' . LF;
+				$image_text .= '	' . $iconimg . LF;
+				$image_text .= '</div>';
+			}
+			break;
 		
 	}
 	
@@ -176,13 +171,13 @@ if($image) {
 	$GLOBALS['cnt_image_lightbox'] = $cnt_image_lightbox = 0;
 	
 } else {
-	//$image_text .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-	if($crow["acontent_text"]) {
-		$image_text .= div_class($crow["acontent_text"], $template_default["article"]["text_class"]);
-	}
+	
+	$image_text .= $crow["acontent_text"];
+
 }
+
 unset($image);
 
-$CNT_TMP	.= LF . trim(str_replace('{ID}', $crow["acontent_id"], render_cnt_template($crow["acontent_template"], 'IMAGETEXT', $image_text ))) . LF;
+$CNT_TMP .= LF . trim(str_replace('{ID}', $crow["acontent_id"], render_cnt_template($crow["acontent_template"], 'IMAGETEXT', $image_text ))) . LF;
 
 ?>

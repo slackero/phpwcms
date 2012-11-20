@@ -339,7 +339,28 @@ $(function() {
 			cancelButtonText: '<?php echo $BL['be_newsletter_button_cancel'] ?>',
 			failUploadText: '<?php echo $BL['be_error_while_save'] ?>',
 			dragText: '<?php echo $BL['be_fileuploader_dragText'] ?>',
-			sizeLimit: <?php echo $phpwcms['file_maxsize'] ?>,
+			sizeLimit: <?php 
+		
+				if(ini_get('post_max_size')) {
+					$post_max_size = return_bytes(ini_get('post_max_size'));
+					if($post_max_size < $phpwcms['file_maxsize']) {
+						$phpwcms['file_maxsize'] = $post_max_size;
+					}
+				} else {
+					$post_max_size = $phpwcms['file_maxsize'];
+				}
+				if(ini_get('upload_max_filesize')) {
+					$upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
+					if($upload_max_filesize < $phpwcms['file_maxsize']) {
+						$phpwcms['file_maxsize'] = $upload_max_filesize;
+					}
+				} else {
+					$upload_max_filesize = $phpwcms['file_maxsize'];
+				}
+				
+				echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+		
+			?>,
 			messages: {
 				typeError: "<?php echo $BL['be_fileuploader_typeError'] ?>",
 				sizeError: "<?php echo $BL['be_fileuploader_sizeError'] ?>",

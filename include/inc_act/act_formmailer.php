@@ -38,10 +38,6 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 include_once (PHPWCMS_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_ext/phpmailer/class.phpmailer.php');
 
-
-require_once (PHPWCMS_ROOT.'/include/inc_module/mod_bad-behavior/bad-behavior-phpwcms.php');
-
-
 if(!checkFormTrackingValue()) {
 
 	echo '<html><head><title>phpwcms Formmailer</title></head>';
@@ -52,6 +48,34 @@ if(!checkFormTrackingValue()) {
 	echo '</pre></body></html>';
 	exit();
 
+}
+
+function phpwcms_form_encode($in_str, $charset) {
+   $out_str = $in_str;
+   if ($out_str && $charset) {
+
+       // define start delimimter, end delimiter and spacer
+       $end = "?=";
+       $start = "=?" . $charset . "?B?";
+       $spacer = $end . "\r\n " . $start;
+
+       // determine length of encoded text within chunks
+       // and ensure length is even
+       $length = 75 - strlen($start) - strlen($end);
+       $length = floor($length/2) * 2;
+
+       // encode the string and split it into chunks 
+       // with spacers after each chunk
+       $out_str = base64_encode($out_str);
+       $out_str = chunk_split($out_str, $length, $spacer);
+
+       // remove trailing spacer and 
+       // add start and end delimiters
+       $spacer = preg_quote($spacer);
+       $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
+       $out_str = $start . $out_str . $end;
+   }
+   return $out_str;
 }
 
 
@@ -139,7 +163,7 @@ if(isset($_POST["recipient_name"])) {
 //subject:
 if(isset($_POST["subject"])) {
 	$subject = cleanUpFormMailerPostValue($_POST["subject"]);
-	$subject_encoded = encode($subject, $charset);
+	$subject_encoded = phpwcms_form_encode($subject, $charset);
 	unset($_POST["subject"]);
 }
 if(empty($subject)) { //if recipient mail address is invalid
