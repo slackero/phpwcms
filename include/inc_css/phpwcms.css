@@ -37,6 +37,20 @@ form {
 	margin: 0;
 	padding: 0;
 }
+
+/* Modern Clearfix */
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+    clear: both;
+}
+.cf {
+    *zoom: 1;
+}
+
 .v09 {
 	font-size: 9px
 }
@@ -1053,7 +1067,8 @@ table.listing th.colfirst, table.listing td.colfirst {
 table.listing td.colfirst {
 	background: url(../../img/famfamfam/page_white.gif) no-repeat 1px center;
 }
-form.free p {
+form.free p,
+form.free > div {
 	padding: 0 0 6px 0;
 	margin: 0 0 0 0;
 	clear: both;
@@ -1262,6 +1277,19 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
 .nowrap td, .nowrap label, label.nowrap {
 	white-space: nowrap;
 }
+
+form.free span.lang-select {
+
+}
+form.free span.lang-select img {
+	vertical-align: middle;
+}
+form.free .lang-select label {
+	float: none;
+	width: auto;
+	font-size: 12px;
+}
+
 
 /* Tabs */
 button.btn_add_tab {

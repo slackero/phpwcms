@@ -38,8 +38,7 @@ $content['news_default'] = array(
 $content['news'] = $content['id'] > 0 && is_array($content['news']) ? array_merge($content['news_default'], $content['news']) : $content['news_default'];
 
 // necessary JavaScript libraries
-initMootools();
-initMootoolsAutocompleter();
+initJsAutocompleter();
 
 
 ?>
@@ -99,11 +98,10 @@ initMootoolsAutocompleter();
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
-	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
+	<td><table cellpadding="0" cellspacing="0" border="0" summary="" width="100%">
 		<tr>
-			<td><input type="text" name="news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['news']['news_category'])) ?>" class="width350 bold" /></td>
-			<td>&nbsp;</td>
-			<td><select name="news_andor" id="news_andor">
+			<td width="95%"><input type="text" id="news_keyword_autosuggest" /><input type="hidden" name="news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['news']['news_category'])) ?>" /></td>
+			<td style="padding-right:4px"><select name="news_andor" id="news_andor">
 				
 				<option value="OR"<?php is_selected('OR', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
 				<option value="AND"<?php is_selected('AND', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
@@ -114,12 +112,37 @@ initMootoolsAutocompleter();
 		</table></td>		
 </tr>
 
+<?php	if(count($phpwcms['allowed_lang']) > 1):	?>
+
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
-	<td><input type="text" name="news_lang" id="news_lang" value="<?php echo html_specialchars(implode(', ', $content['news']['news_lang'])) ?>" class="width200" /></td>
+	<td class="v11">
+			<label title="<?php echo $BL['be_admin_tmpl_default'] ?>">
+				<input type="checkbox" name="news_lang[]" class="lang-default" id="langAll" value=""<?php 
+					if(empty($content['news']['news_lang']) || (isset($content['news']['news_lang'][0]) && $content['news']['news_lang'][0] == '')) {
+						echo ' checked="checked"';
+					}
+				?> />
+				<img src="img/famfamfam/lang/all.png" /><?php echo ' '.$BL['be_admin_tmpl_default'] ?>&nbsp;
+			</label>					
+					
+			<?php foreach($phpwcms['allowed_lang'] as $key => $lang):	
+			
+				$lang = strtolower($lang);
+	
+			?>
+			<label title="<?php echo get_language_name($lang) ?>">
+				<input type="checkbox" name="news_lang[]" class="allowedLang" value="<?php echo $lang ?>"<?php if(in_array($lang, $content['news']['news_lang'])): ?> checked="checked"<?php endif; ?> class="lang-opt" />
+				<img src="img/famfamfam/lang/<?php echo $lang ?>.png" />&nbsp;
+			</label>
+	
+			<?php endforeach; ?>
+	</td>
 </tr>
+
+<?php	endif; ?>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
@@ -206,62 +229,53 @@ initMootoolsAutocompleter();
 
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script type="text/javascript">
-<!--
 
-window.addEvent('domready', function(){
-									 
-	/* Autocompleter for categories/tags */
-	var searchCategory = $('news_category');
-	var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchCategory);
-	var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
-		multi: true,
-		maxChoices: 30,
-		autotrim: true,
-		minLength: 0,
-		allowDupes: false,
-		postData: {action: 'newstags', method: 'json'},
-		onRequest: function(el) {
-			indicator2.setStyle('display', '');
-		},
-		onComplete: function(el) {
-			indicator2.setStyle('display', 'none');
+	function setPaginateBasis() {
+	
+		if($('#news_paginate_basis').prop('selectedIndex') == 0) {
+			$('#news_paginate_count').css('visibility', 'visible');
+		} else {
+			$('#news_paginate_count').css('visibility', 'hidden');
 		}
-	});
-	
-	var selectLang = $('news_lang');
-	var indicator1 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(selectLang);
-	var completer1 = new Autocompleter.Ajax.Json(selectLang, 'include/inc_act/ajax_connector.php', {
-		multi: true,
-		allowDupes: false,
-		autotrim: true,
-		minLength: 0,
-		maxChoices: 20,
-		postData: {action: 'lang', method: 'json'},
-		onRequest: function(el) {
-			indicator1.setStyle('display', '');
-		},
-		onComplete: function(el) {
-			indicator1.setStyle('display', 'none');
-		}
-	});
-	
-	selectLang.addEvent('keyup', function(){
-		this.value = this.value.replace(/[^a-z\-\, ]/g, '');
-	});
-	
-	setPaginateBasis();
-
-});
-
-function setPaginateBasis() {
-	if($('news_paginate_basis').selectedIndex == 0) {
-		$('news_paginate_count').setStyle('visibility', 'visible');
-	} else {
-		$('news_paginate_count').setStyle('visibility', 'hidden');
 	}
-}
 
-//-->
+	$(function(){
+
+		$("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+			selectedItemProp: "cat_name",
+			selectedValuesProp: 'cat_name',
+			searchObjProps: "cat_name",
+			queryParam: 'value',
+			extraParams: '&method=json&action=newstags',
+			startText: '',
+			preFill: $("#news_category").val(),
+			neverSubmit: true,
+			asHtmlID: 'keyword-autosuggest'
+		});
+		
+		$('#articlecontent').submit(function(event){	
+			$("#news_category").val($('#as-values-keyword-autosuggest').val());
+		});
+		
+		setPaginateBasis();
+		
+		var allowedLang = $('input.allowedLang');
+		var langAll = $('#langAll');
+		
+		langAll.change(function(){
+			if($(this).is(':checked')) {
+				allowedLang.attr('checked', false);
+			}
+		});
+		
+		allowedLang.change(function(){
+			if($(this).is(':checked')) {
+				langAll.attr('checked', false);
+			}
+		});
+	
+	});
+
 </script></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
 

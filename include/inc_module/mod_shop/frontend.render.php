@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Module/Plug-in Shop & Products
 
 $_shop_load_cat  		= strpos($content['all'], '{SHOP_CATEGOR');
@@ -554,7 +553,7 @@ if( $_shop_load_list !== false ) {
 
 		$shop_prod_detail = rel_url(array(), array('shop_detail'));
 		
-		$_tmpl['config']['init_lightbox']	= false;
+		$_tmpl['config']['init_lightbox'] = false;
 
 		foreach($data as $row) {
 		

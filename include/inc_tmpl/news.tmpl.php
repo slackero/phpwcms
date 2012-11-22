@@ -42,7 +42,7 @@ $news = new phpwcmsNews();
 		<a href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><img src="img/famfamfam/page_white_add.gif" alt="New" border="0" /><span><?php echo $BL['be_news_create'] ?></span></a>
 	</div>
 	
-<form action="<?php echo $news->base_url ?>" method="post" name="paginate" id="paginate">
+<form action="<?php echo $news->base_url ?>" method="post" id="paginate">
 <input type="hidden" name="filter" value="1" />
 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
 	<tr>
@@ -69,8 +69,6 @@ $news = new phpwcmsNews();
 </table>
 </form>
 	
-	
-	
 <?php
 		echo $news->listBackend();
 		
@@ -84,34 +82,33 @@ $news = new phpwcmsNews();
 		// some JavaScripts wee need
 		initJsCalendar();
 		initJsOptionSelect();
-		initMootoolsAutocompleter();
+		initJsAutocompleter();
 
 ?>
 <script type="text/javascript">
-<!--
 
 function setImgIdName(file_id, file_name) {
 	if(file_id == null) var file_id=0;
 	if(file_name == null) var file_name='';
-	$('cnt_image_id').value = file_id;
-	$('cnt_image_name').value = file_name;
+	$('#cnt_image_id').val(file_id);
+	$('#cnt_image_name').val(file_name);
 	
 	showImage();
 }
 
 function showImage() {
-	var id	= parseInt($('cnt_image_id').value);
-	var img	= $('cnt_image');
+	var id	= parseInt($('#cnt_image_id').val());
+	var img	= $('#cnt_image');
 	if(id > 0) {
-		img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
-		img.style.display = '';
+		img.html('<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />');
+		img.show();
 	} else {
-		img.style.display = 'none';
+		img.hide();
 	}
 }
 
 function addFile(file_id, file_name) {
-	obj = $('cfile_list');
+	var obj = document.getElementById('cfile_list');
 	if(obj!=null && obj.options!=null) {
 		var newOpt = new Option(file_name, file_id);
 		obj.options.length++;
@@ -120,7 +117,8 @@ function addFile(file_id, file_name) {
 		obj.options[obj.length-1].selected	= false;
 		if(obj.options.length > 5) {
 			obj.size = obj.options.length;
-			$('cnt_file_caption').rows = obj.size;
+			$('#cnt_file_caption').attr('rows', obj.size+1);
+			$('#cnt_file_caption').attr('rows', obj.size+1);
 		}
 	}	
 }
@@ -138,112 +136,88 @@ function closeForm() {
 
 // Calendar
 function aStart(date, month, year) {
-	$('calendar_start_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+	$('#calendar_start_date').val(subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year);
 }
 function aEnd(date, month, year) {
-	$('calendar_end_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+	$('#calendar_end_date').val(subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year);
 }
 function aSort(date, month, year) {
-	$('sort_date').value = subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year;
+	$('#sort_date').val(subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year);
 }
 
-window.addEvent('domready', function(){
-									 
-	/* setup tooltips */
-	var as = [];
-	$$('input').each(function(a){ if (a.getAttribute('title')) as.push(a); });
-	new Tips(as, { maxTitleChars: 25, offsets: {'x': 2, 'y': 5} });
-			 
+$(function(){
+		 
 	/* Autocompleter for categories/tags */
-	var searchCategory = $('cnt_category');
-	var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchCategory);
-	var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
-		multi: true,
-		maxChoices: 30,
-		autotrim: true,
-		minLength: 0,
-		allowDupes: false,
-		postData: {action: 'category', method: 'json'},
-		onRequest: function(el) {
-			indicator2.setStyle('display', '');
-		},
-		onComplete: function(el) {
-			indicator2.setStyle('display', 'none');
-		}
+	$("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+		selectedItemProp: "cat_name",
+		selectedValuesProp: 'cat_name',
+		searchObjProps: "cat_name",
+		queryParam: 'value',
+		extraParams: '&method=json&action=category',
+		startText: '',
+		preFill: $("#cnt_category").val(),
+		neverSubmit: true,
+		asHtmlID: 'keyword-autosuggest'
 	});
 	
-	var selectLang = $('cnt_lang');
-	var indicator1 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(selectLang);
-	var completer1 = new Autocompleter.Ajax.Json(selectLang, 'include/inc_act/ajax_connector.php', {
-		multi: false,
-		allowDupes: false,
-		autotrim: true,
-		minLength: 0,
-		maxChoices: 20,
-		postData: {action: 'lang', method: 'json'},
-		onRequest: function(el) {
-			indicator1.setStyle('display', '');
-		},
-		onComplete: function(el) {
-			indicator1.setStyle('display', 'none');
-		}
-	});
-	
-	selectLang.addEvent('keyup', function(){
-		this.value = this.value.replace(/[^a-z\-]/g, '');
+	$('#newsform').submit(function(event){
+		
+		$("#cnt_category").val($('#as-values-keyword-autosuggest').val());
+		$('#cfile_list').find('option').attr('selected', 'selected');
+
 	});
 
 
-
-	var cnt_title = $('cnt_title');
-	
-	// set name field
-	$('cnt_name_click').addEvent('click', function(){
-		var cnt_name = cnt_title.value.trim();
-		if(cnt_name === '') {
-			cnt_title.value = $('cnt_name').value.trim();
-		} else {
-			$('cnt_name').value = cnt_name;
-		}		
-	});
-	
-	$('cnt_alias_click').addEvent('click', function(){
-		var cnt_alias = $('cnt_name').value.trim();
-		if(cnt_alias === '') {
-			cnt_alias = cnt_title.value.trim();
-			$('cnt_name').value = cnt_alias;
-		}
-		if(cnt_alias !== '') {
-			$('cnt_alias').value = create_alias(cnt_alias);
-		}
-	});
-	
+	var cnt_title = $('#cnt_title');
 	var change_name_value	= '-';
 	var change_alias_value	= '-';
 	
-	cnt_title.addEvent('focus', function(){
-	
-		change_name_value 	= $('cnt_name').value.trim();
-		change_alias_value	= $('cnt_alias').value.trim();
-
+	// set name field
+	$('#cnt_name_click').click(function(){
+		var cnt_name = cnt_title.val().trim();
+		if(cnt_name === '') {
+			cnt_title.val( $('#cnt_name').val().trim() );
+		} else {
+			$('#cnt_name').val(cnt_name);
+		}		
 	});
 	
-	cnt_title.addEvent('keyup', function() {
-		if(change_name_value == ''){
-			$('cnt_name').value = cnt_title.value;
+	$('#cnt_alias_click').click(function(){
+		var cnt_alias = $('#cnt_name').val().trim();
+		if(cnt_alias === '') {
+			cnt_alias = cnt_title.val().trim();
+			$('#cnt_name').val(cnt_alias);
+		} else {
+			$('#cnt_alias').val( create_alias(cnt_alias) );
 		}
-		if(change_alias_value == '') {
-			$('cnt_alias').value = create_alias( $('cnt_name').value );
+	});
+		
+	cnt_title.on({
+		
+		focus: function(){
+			change_name_value 	= $('#cnt_name').val().trim();
+			change_alias_value	= $('#cnt_alias').val().trim();
+		},
+		keyup: function() {
+			if(change_name_value == ''){
+				$('#cnt_name').val(cnt_title.val());
+			}
+			if(change_alias_value == '') {
+				$('#cnt_alias').val(create_alias( $('#cnt_name').val() ));
+			}
 		}
 	});
 	
+	$('#cnt_image_lightbox').click(function(){
+		if($(this).is(':checked')) {
+			$('#cnt_image_zoom').attr('checked', true);
+		}
+	});
 
 });
 
-
-//-->
 </script>
-<form action="<?php echo $news->formAction() ?>" method="post" class="free" onsubmit="selectAllOptions(this.cfile_list);">
+<form action="<?php echo $news->formAction() ?>" method="post" class="free" id="newsform">
 
 
 	<p class="break filled important">
@@ -275,15 +249,13 @@ window.addEvent('domready', function(){
 				<td><label><?php echo $BL['be_article_cnt_start'] ?></label></td>
 				<td><input name="calendar_start_date" type="text" id="calendar_start_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_date_start'] ?>" size="30" /></td>
 		<td><script type="text/javascript">
-<!--
-	
-		// Calendar start
-	var calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
-	calStart.setMonthCombo(true);
-	calStart.setYearCombo(true);
 
-//-->
-</script>&nbsp;</td>
+		// Calendar start
+		var calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
+		calStart.setMonthCombo(true);
+		calStart.setYearCombo(true);
+
+		</script></td>
 		<td><input name="calendar_start_time" type="text" id="calendar_start_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_start'] ?>" size="30" /></td>
 			</tr>
 			
@@ -300,23 +272,18 @@ window.addEvent('domready', function(){
 				<td><label><?php echo $BL['be_article_cnt_end'] ?></label></td>
 				<td><input name="calendar_end_date" type="text" id="calendar_end_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_date_end'] ?>" size="30" /></td>
 		<td><script type="text/javascript">
-<!--
-
-	var calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
-	calEnd.setMonthCombo(true);
-	calEnd.setYearCombo(true);
 	
+		var calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
+		calEnd.setMonthCombo(true);
+		calEnd.setYearCombo(true);
 
-//-->
-</script>&nbsp;</td>
+		</script></td>
 		<td><input name="calendar_end_time" type="text" id="calendar_end_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_end'] ?>" size="30" /></td>
 			</tr>
 
 
 		<tr><td colspan="4" style="font:5px;line-height:5px">&nbsp;</td></tr>
-		
-
-		<!-- sort date -->
+	
 			<tr>
 				<td class="chatlist">&nbsp;</td>
 				<td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_date_format'] ?></td>
@@ -328,13 +295,10 @@ window.addEvent('domready', function(){
 				<td><label><?php echo $BL['be_sort_date'] ?></label></td>
 				<td><input name="sort_date" type="text" id="sort_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_sort_date'] ?>" size="30" /></td>
 		<td><script type="text/javascript">
-<!--
-	var calSort = new dynCalendar('calSort', 'aSort', 'img/dynCal/');
-	calSort.setMonthCombo(true);
-	calSort.setYearCombo(true);
-
-//-->
-</script>&nbsp;</td>
+		var calSort = new dynCalendar('calSort', 'aSort', 'img/dynCal/');
+		calSort.setMonthCombo(true);
+		calSort.setYearCombo(true);
+		</script></td>
 		<td><input name="sort_time" type="text" id="sort_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_sort_time'] ?>" size="30" /></td>
 			</tr>	
 			
@@ -344,20 +308,51 @@ window.addEvent('domready', function(){
 
 	<p class="space_top">	
 		<label><a id="cnt_name_click"><?php echo $BL['be_title'] ?></a>/<a id="cnt_alias_click"><?php echo $BL['be_alias'] ?></a></label>
-		<input type="text" name="cnt_name" id="cnt_name" value="<?php echo html_specialchars($news->data['cnt_name']) ?>" class="text short" maxlength="200" title="<?php echo $BL['be_title'] ?>" />
-		<input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html_specialchars($news->data['cnt_alias']) ?>" class="text short" maxlength="200" title="<?php echo $BL['be_alias'] ?>" />
+		<input type="text" name="cnt_name" id="cnt_name" value="<?php echo html_specialchars($news->data['cnt_name']) ?>" class="text short" maxlength="200" placeholder="<?php echo $BL['be_title'] ?>" />
+		<input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html_specialchars($news->data['cnt_alias']) ?>" class="text short" maxlength="200" placeholder="<?php echo $BL['be_alias'] ?>" />
 	</p>
 	
-	<p>	
+	<div class="cf">	
 		<label><?php echo $BL['be_tags'] ?></label>
-		<input type="text" name="cnt_category" id="cnt_category" value="<?php echo html_specialchars($news->data['cnt_category']) ?>" class="text" maxlength="250" />
-	</p>
+		<div style="float:left;position:relative;" class="width400">
+			<input type="text" id="news_keyword_autosuggest" /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html_specialchars($news->data['cnt_category']) ?>" />
+		</div>
+	</div>
 
-	<p>	
+<?php	if(count($phpwcms['allowed_lang']) > 1):	?>
+
+
+	<div class="cf">	
 		<label><?php echo $BL['be_profile_label_lang'] ?></label>
-		<input type="text" name="cnt_lang" id="cnt_lang" value="<?php echo html_specialchars($news->data['cnt_lang']) ?>" class="text short" maxlength="10" title="<?php echo $BL['be_profile_label_lang'] ?>" />
-	</p>
+
+		<span class="lang-select">
+		
+			<label title="<?php echo $BL['be_admin_tmpl_default'] ?>">
+				<input type="radio" name="cnt_lang" class="lang-default" value=""<?php if(empty($news->data['cnt_lang'])): ?> checked="checked"<?php endif; ?> />
+				<img src="img/famfamfam/lang/all.png" /><?php echo ' '.$BL['be_admin_tmpl_default'] ?>
+			</label>					
+					
+<?php	foreach($phpwcms['allowed_lang'] as $key => $lang):	
+			
+			$lang = strtolower($lang);
+?>
+			<label title="<?php echo get_language_name($lang) ?>">
+				<input type="radio" name="cnt_lang" value="<?php echo $lang ?>"<?php is_checked($lang, $news->data['cnt_lang']) ?> class="lang-opt" />
+				<img src="img/famfamfam/lang/<?php echo $lang ?>.png" />
+			</label>
 	
+<?php		endforeach;	?>
+		
+		</span>
+	</div>
+
+<?php	else:	?>
+	
+	<input type="hidden" name="cnt_lang" value="<?php echo html_specialchars($news->data['cnt_lang']) ?>" />
+
+<?php	endif;	?>
+
+
 	<p>	
 		<label><?php echo $BL['be_priorize'] ?></label>
 		<select name="cnt_prio" id="cnt_prio" style="width:auto" title="<?php echo $BL['be_priorize'] ?>">
@@ -398,7 +393,7 @@ window.addEvent('domready', function(){
 			  <td><input name="cnt_image_zoom" type="checkbox" id="cnt_image_zoom" value="1" <?php is_checked(1, $news->data['cnt_image']['zoom']); ?> /></td>
 				  <td><label for="cnt_image_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
 
-				  <td><input name="cnt_image_lightbox" type="checkbox" id="cnt_image_lightbox" value="1" <?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> onchange="if(this.checked){$('cnt_image_zoom').checked=true;}" /></td>
+				  <td><input name="cnt_image_lightbox" type="checkbox" id="cnt_image_lightbox" value="1" <?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> /></td>
 				  <td><label for="cnt_image_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>		
 				</tr>
 				</table>
@@ -426,13 +421,21 @@ window.addEvent('domready', function(){
 	<div class="paragraph border_bottom">
 	<table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-		<td class="top"><label><?php echo $BL['be_cnt_files'] ?></label></td>
-		<td style="padding:0 5px 5px 0;"><select name="cnt_files[]" size="5" multiple="multiple" id="cfile_list" class="">
+		<td class="top"><label><?php echo $BL['be_cnt_files'];
+		
+		$news->files = $news->getFiles();
+		$news->fileCount = count($news->files);
+		$news->fileRows = $news->fileCount ? $news->fileCount+1 : 3;
+		
+		 ?></label></td>
+		<td style="padding:0 5px 5px 0;"><select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="">
 <?php
-		foreach( $news->getFiles() as $item ) {
-
-			echo '<option value="' . $item['f_id'] . '">' . html_specialchars($item['f_name']) . '</option>' . LF;
-
+		if($news->fileCount) {
+			foreach($news->files  as $item ) {
+	
+				echo '<option value="' . $item['f_id'] . '">' . html_specialchars($item['f_name']) . '</option>' . LF;
+	
+			}
 		}
 ?>
 		</select></td>
@@ -445,7 +448,7 @@ window.addEvent('domready', function(){
 	
 	<tr>
  		<td class="top"><label><?php echo $BL['be_cnt_description'] ?></label></td>
-  		<td colspan="2"><textarea name="cnt_file_caption" cols="40" rows="5" class="text" id="cnt_file_caption"><?php echo html_specialchars($news->data['cnt_files']['caption']) ?></textarea></td>
+  		<td colspan="2"><textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text" id="cnt_file_caption"><?php echo html_specialchars($news->data['cnt_files']['caption']) ?></textarea></td>
 	</tr>
 	
   </table>

@@ -16,15 +16,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-// initialize Mootools for autocomplete
-//initMootoolsAutocompleter();
-
-
 // Be more modern here — we start switch to jQuery and overwrite non-used MooTools with jQuery call
-$GLOBALS['BE']['HEADER']['mootools.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
-$GLOBALS['BE']['HEADER']['autosuggest.js']	= getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
-$GLOBALS['BE']['HEADER']['autosuggest.css']	= '	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
-
+initJsAutocompleter();
 
 unset($_SESSION['filebrowser_image_target']);
 

@@ -2,6 +2,14 @@ phpwcms Changelog
 =======
 
 
+Version 1.6.519 – November 22, 2012
+-----------------------------------
+
+- News enhanced by new Autocompleter
+- News language selection changed
+- Some fixes
+
+
 Version 1.6.518 – November 20, 2012
 -----------------------------------
 

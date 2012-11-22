@@ -909,6 +909,12 @@ function initMootoolsAutocompleter($mode='1.1') {
 function initJsOptionSelect() {
 	$GLOBALS['BE']['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
 }
+function initJsAutocompleter() {
+	unset($GLOBALS['BE']['HEADER']['mootools.js']);
+	$GLOBALS['BE']['HEADER']['jquery.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+	$GLOBALS['BE']['HEADER']['autosuggest.js']	= getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
+	$GLOBALS['BE']['HEADER']['autosuggest.css']	= '	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
+}
 
 // make phpwcms compatibility and upgrade check
 function phpwcms_revision_check($revision) {

@@ -311,8 +311,8 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 </table>
 <?php } 
 
+initJsAutocompleter();
 $GLOBALS['BE']['HEADER']['fileuploader.css']	= '	<link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />';
-$GLOBALS['BE']['HEADER']['mootools.js']			= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
 $GLOBALS['BE']['HEADER']['fileuploader.js']		= getJavaScriptSourceLink('include/inc_js/uploader/fileuploader.min.js');
 
 ?>
@@ -388,12 +388,7 @@ $(function() {
 
 	}
 
-<?php if($fx):
-	
-	$GLOBALS['BE']['HEADER']['autosuggest.css']	= '	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
-	$GLOBALS['BE']['HEADER']['autosuggest.js']	= getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
-
-?>
+<?php if($fx): ?>
 	
 	var ftpTakeOverForm = $('#ftptakeover');
 	var deleteFiles = $('#delete-selected-files');

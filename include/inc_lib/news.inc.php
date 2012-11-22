@@ -268,8 +268,7 @@ class phpwcmsNews {
 		$this->select  .= 'IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)) AS cnt_startdate, ';
 		$this->select  .= 'UNIX_TIMESTAMP(cnt_killdate) AS cnt_enddate, ';
 		$this->select  .= 'IF(cnt_sort=0, IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)), cnt_sort) AS cnt_sortdate';
-		
-		//$this->where		= array();
+
 		$this->order_by	= array('cnt_prio DESC', 'cnt_sortdate DESC');
 		
 		$this->getNews();
@@ -280,7 +279,7 @@ class phpwcmsNews {
 		
 		if(count($this->news)) {
 		
-			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing">';
+			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing" style="width:750px">';
 			$list[] = '<tr class="header">';
 
 			$list[] = '<th class="column colfirst news">'.$this->BL['be_title'].'</th>';
@@ -303,7 +302,14 @@ class phpwcmsNews {
 				$news['kill'] = phpwcms_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
 				$news['sort'] = $news['cnt_sortdate'] == false || $news['cnt_sortdate'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['cnt_sortdate']);
 				
-				$list[] = '<td class="column colfirst news">'.html_specialchars($news['cnt_name']).'</td>';
+				if(!$news['cnt_lang']) {
+					$news['bgimage'] = ' style="background-image:url(img/famfamfam/lang/all.png)"';
+				} else {
+					$news['bgimage'] = ' style="background-image:url(img/famfamfam/lang/'.$news['cnt_lang'].'.png)"';
+				}
+				
+			
+				$list[] = '<td class="column colfirst news"'.$news['bgimage'].'>'.html_specialchars($news['cnt_name']).'</td>';
 				$list[] = '<td class="column">'.$news['live'].'</td>';
 				$list[] = '<td class="column">'.$news['kill'].'</td>';
 				$list[] = '<td class="column">'.$news['sort'].'</td>';
@@ -690,7 +696,7 @@ class phpwcmsNews {
 		
 		$post['cnt_object']['cnt_category']				= $category;
 		
-		$post['cnt_object']['cnt_readmore']				= empty($_POST['cnt_readmore']) ? 0 : 1;	
+		$post['cnt_object']['cnt_readmore']				= empty($_POST['cnt_readmore']) ? 0 : 1;
 	
 		return $post;
 	

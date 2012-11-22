@@ -532,7 +532,7 @@ if(count($plugin['data']['shopprod_files'])) {
 </table>
 </form>
 <script type="text/javascript">
-<!--
+
 var img_field = getObjectById('shopprod_images');
 var files_field = getObjectById('shopprod_files');
 function addFile(value,text) {
@@ -544,5 +544,5 @@ function addFile(value,text) {
 		files_field.options[files_field.length-1].selected = false;
 	}
 }
-//-->
+
 </script>
