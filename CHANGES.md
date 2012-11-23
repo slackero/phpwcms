@@ -2,10 +2,16 @@ phpwcms Changelog
 =======
 
 
+Version 1.6.522 – November 23, 2012
+-----------------------------------
+
+- Add missing folder template_lang to Git
+
+
 Version 1.6.521 – November 23, 2012
 -----------------------------------
 
-- Fix for FCKeditor and Firefox 17+
+- Fix FCKeditor for use with Firefox 17+
 
 
 Version 1.6.520 – November 23, 2012
