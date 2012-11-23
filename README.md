@@ -33,7 +33,7 @@ Keep up to date on announcements and more by following ** phpwcms ** on Twitter 
 Author
 ------
 
-** Oliver Georgi **
+**Oliver Georgi**
 
 + <http://webverbund.de>
 + <http://twitter.com/slackero>

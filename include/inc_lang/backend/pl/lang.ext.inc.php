@@ -1,57 +1,45 @@
 <?php
-/*************************************************************************************
-   Copyright notice
-   
-   (c) 2002-2006 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
- 
-   This script is part of PHPWCMS. The PHPWCMS web content management system is
-   free software; you can redistribute it and/or modify it under the terms of
-   the GNU General Public License as published by the Free Software Foundation;
-   either version 2 of the License, or (at your option) any later version.
-  
-   The GNU General Public License can be found at http://www.gnu.org/copyleft/gpl.html
-   A copy is found in the textfile GPL.txt and important notices to the license 
-   from the author is found in LICENSE.txt distributed with these scripts.
-  
-   This script is distributed in the hope that it will be useful, but WITHOUT ANY 
-   WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-   PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
-   This copyright notice MUST APPEAR in all copies of the script!
-*************************************************************************************/
+/**
+ * phpwcms content management system
+ *
+ * @author Oliver Georgi <oliver@phpwcms.de>
+ * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ * @link http://www.phpwcms.de
+ *
+ **/
 // Language: Polish
 // Language Code: pl
-
+// charset UTF-8 for ver.1.6.519  Zibi http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY
 // this is neccessary to reduce the processing time
-
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-$BL['FOLDER_LIST']       = 'lista folderów';
-$BL['FILES']             = 'pliki';
-$BL['SHOW_FILES']        = 'poka¿ pliki z g³ównego katalogu';
-$BL['SHOW_FILES1']       = 'poka¿ pliki z katalogu';
-$BL['TAKE_IMAGE']        = 'wybierz plik i dodaj&#8230;';
-$BL['NO_FILE']           = 'brak pliku';
-$BL['OPEN_DIR']          = 'otwórz katalog';
-$BL['CLOSE_DIR']         = 'zamknij katalog';
-$BL['FILE_TITLE']        = 'przegl±darka plików phpwcms ';
-$BL['IMAGE_TITLE']       = 'przegl±darka grafiki phpwcms';
-$BL['MEDIA_TITLE']       = 'przegl±darka multimediów phpwcms';
-$BL['IMAGE_FILES']       = 'pliki graficzne';
-$BL['MEDIA_FILES']       = 'pliki multimdialne';
-$BL['ROOT_DIR']          = 'pamiêæ (g³ówny katalog)';
-$BL['DOWNLOAD_ERR1']     = 'Podczas ¶ci±gania pliku wyst±pi³ b³±d (NR:{VAL}).';
-$BL['DOWNLOAD_ERR2']     = 'Je¿eli ma problemy techniczne wy¶lij email do <a href="mailto:{VAL}"><strong>administratora</strong></a>.';
-$BL['DOWNLOAD_TITLE']    = 'B³±d podczas ¶ci±gania pliku(ów)';
+$BL['FOLDER_LIST']       = 'Lista folderÃ³w';
+$BL['FILES']             = 'Pliki';
+$BL['SHOW_FILES']        = 'PokaÅ¼ pliki z gÅ‚Ã³wnego katalogu';
+$BL['SHOW_FILES1']       = 'PokaÅ¼ pliki z katalogu';
+$BL['TAKE_IMAGE']        = 'Wybierz plik i dodaj&#8230;';
+$BL['NO_FILE']           = 'Brak pliku';
+$BL['OPEN_DIR']          = 'OtwÃ³rz katalog';
+$BL['CLOSE_DIR']         = 'Zamknij katalog';
+$BL['FILE_TITLE']        = 'PrzeglÄ…darka plikÃ³w phpwcms ';
+$BL['IMAGE_TITLE']       = 'PrzeglÄ…darka grafiki phpwcms';
+$BL['MEDIA_TITLE']       = 'PrzeglÄ…darka multimediÃ³w phpwcms';
+$BL['IMAGE_FILES']       = 'Pliki graficzne';
+$BL['MEDIA_FILES']       = 'Pliki multimdialne';
+$BL['ROOT_DIR']          = 'PamiÄ™Ä‡ (gÅ‚Ã³wny katalog)';
+$BL['DOWNLOAD_ERR1']     = 'Podczas Å›ciÄ…gania pliku wystÄ…piÅ‚ bÅ‚Ä…d (NR:{VAL}).';
+$BL['DOWNLOAD_ERR2']     = 'JeÅ¼eli ma problemy techniczne wyÅ›lij email do <a href="mailto:{VAL}"><strong>administratora</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'BÅ‚Ä…d podczas Å›ciÄ…gania pliku(Ã³w)';
 $BL['FILEINFO_TITLE']    = 'phpwcms: info o pliku';
-$BL['CREATED']           = 'utworzony';
+$BL['CREATED']           = 'Utworzony';
 $BL['DATE_FORMAT']       = 'Y-m-d H:i';
-$BL['SIZE']              = 'rozmiar';
-$BL['DOWNLOAD_FILE']     = '¶ci±gnij plik';
-$BL['FILE_IN_TRASH']     = 'plik jest w koszu';
-$BL['KEYWORDS']          = 's³owa kluczowe';
-$BL['DOWNLOAD_ERR3']     = 'b³±d podczas odczytu pliku<br />czamknij okno i spróbuj ponownie...';
-
-
+$BL['SIZE']              = 'Rozmiar';
+$BL['DOWNLOAD_FILE']     = 'Pobierz plik';
+$BL['FILE_IN_TRASH']     = 'Plik jest w koszu';
+$BL['KEYWORDS']          = 'SÅ‚owa kluczowe';
+$BL['DOWNLOAD_ERR3']     = 'BÅ‚Ä…d podczas odczytu pliku<br />zamknij okno i sprÃ³buj ponownie...';
+$BL['ADD_ALL_FILES']     = 'Dodaj wszystkie pliki';
+$BL['ADD_ALL_CONFIRM']   = 'Wszystkie pliki wewnÄ…trz katalogu Â»{VAL}Â« were taken!\n\nKliknij [OK] aby zamknÄ…Ä‡ przeglÄ…darkÄ™ plikÃ³w â€¦';
 ?>

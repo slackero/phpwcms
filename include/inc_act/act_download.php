@@ -15,11 +15,9 @@ $phpwcms = array();
 require_once ('../../config/phpwcms/conf.inc.php');
 require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-
 
 $dl = isset($_GET["dl"]) ? intval($_GET["dl"]) : 0;
 $pl = isset($_GET["pl"]) ? intval($_GET["pl"]) : 0;
@@ -27,12 +25,19 @@ $pl = isset($_GET["pl"]) ? intval($_GET["pl"]) : 0;
 if($dl) {
 	$err = 0;
 	if(!$pl) {
-		$sql =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND ".
-				"f_id=".$dl." AND f_kid=1 AND f_uid=".intval($_SESSION["wcs_user_id"])." LIMIT 1";
-				//09-20-2003: WHERE f_aktiv=1 AND... not neccessary
+		$sql  =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND ";
+		$sql .=	"f_id=".$dl." AND f_kid=1 ";
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
+		}
+		$sql .=	"LIMIT 1";
 	} else {
-		$sql =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND ".
-				"f_id=".$dl." AND f_kid=1 AND (f_public=1 OR f_uid=".intval($_SESSION["wcs_user_id"]).") LIMIT 1";
+		$sql  =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND ";
+		$sql .=	"f_id=".$dl." AND f_kid=1 AND (f_public=1";
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
+		}
+		$sql .=	") LIMIT 1";
 	}
 
 	if($result = mysql_query($sql, $db) or die ("error while retrieving file download infos")) {;
@@ -46,11 +51,6 @@ if($dl) {
 			$dl_path = PHPWCMS_ROOT.$phpwcms["file_path"];
 			
 			if(file_exists($dl_path.$dl_filename)) { 
-				//Send file to user
-				//Downloads must downloaded to harddisk
-				//are not opened and showed inside browser
-				//if possible file format (PDF/JPG...)
-				//$att = (stristr($_SERVER['HTTP_USER_AGENT'],"MSIE")) ? "" : "attachment; ";
 				if(!is_mimetype_format($download["f_type"])) {
 					$download["f_type"] = get_mimetype_by_extension($download["f_ext"]);
 				}				
@@ -61,21 +61,22 @@ if($dl) {
 				if(readfile($dl_path.$dl_filename)) {
 					exit();
 				} else {
-					$err = 4; // Error reading file
+					$err = 'Error reading file (4)';
 				}				
 				
 			} else {
-				$err = 1; // File does not exist
+				$err = 'File does not exist (1)';
 			}
 		} else {
-			$err = 2; // File not found in database
+			$err = 'File not found in database (2)';
 		}
 	}
 } else {
-	$err = 3; // False ID given
+	$err = 'False ID given (3)';
 }
 
-if($err) {
+if($err):
+
 	session_destroy();	
 
 ?><html>
@@ -85,21 +86,14 @@ if($err) {
 <link href="../inc_css/phpwcms.css" rel="stylesheet" type="text/css">
 </head>
 
-<body bgcolor="#FFFFFF" text="#000000" link="#FF9900" vlink="#FF9900" alink="#FF9900" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<table border="0" cellpadding="0" cellspacing="0" summary="">
-  <tr>
-    <td width="9"><img src="../../img/leer.gif" alt="" width="9" height="1"></td>
-    <td width="250"><img src="../../img/leer.gif" alt="" width="1" height="15"><br />
-      An error (ID:<?php echo $err ?>) occured while trying to download a file of your directory.<br />
-      <img src="../../img/leer.gif" alt="" width="1" height="10"><br />
-      Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again<br />
-      and try another file.<br />
-      <img src="../../img/leer.gif" alt="" width="1" height="10"><br />
-      If you think that this might be a technical problem send an email to the webmaster.</td>
-  </tr>
-</table>
+<body>
+
+	<h1>Download Error</h1>
+
+	<p><strong><?php echo $err ?></strong> occured while trying to download a file of your directory.</p>
+	<p>Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again and try another file.</p>
+	<p>If you think that this might be a technical problem send an email to the webmaster.</p>
+
 </body>
 </html>
-<?php
-}
-?>
+<?php endif; ?>

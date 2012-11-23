@@ -41,13 +41,20 @@ if($file_id) {
 
 	if($public) {
 		//public file
-		$sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id." ".
-				"AND f_kid=1 AND f_trash=0 AND (f_public=1 OR ".
-				"f_uid=".$_SESSION["wcs_user_id"].") AND f_aktiv=1 LIMIT 1";
+		$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id." ";
+		$sql .= "AND f_kid=1 AND f_trash=0 AND f_aktiv=1 AND (f_public=1";
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
+		}
+		$sql .= ") LIMIT 1";
 	} else {
 		//private file
-		$sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id.
-				" AND f_kid=1 AND (f_trash=0 OR f_trash=1) AND f_uid=".$_SESSION["wcs_user_id"]." LIMIT 1";
+		$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id.' AND ';
+		$sql .= "f_kid=1 AND f_trash IN (0, 1) ";
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
+		}
+		$sql .= "LIMIT 1";
 	}
 	if($result = mysql_query($sql, $db) or die("error")) {
 		if($row = mysql_fetch_assoc($result)) {
