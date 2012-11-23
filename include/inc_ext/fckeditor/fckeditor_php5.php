@@ -52,10 +52,11 @@ function FCKeditor_IsCompatibleBrowser()
 		$iVersion = (float)substr($sAgent, strpos($sAgent, 'MSIE') + 5, 3) ;
 		return ($iVersion >= 5.5) ;
 	}
-	else if ( strpos($sAgent, 'Gecko/') !== false )
-	{
+	else if ( strpos($sAgent, 'Gecko/') !== false)
+	{	
+		$alt = phpwcms_getUserAgent();
 		$iVersion = (int)substr($sAgent, strpos($sAgent, 'Gecko/') + 6, 8) ;
-		return ($iVersion >= 20030210) ;
+		return ($iVersion >= 20030210) || (isset($alt['version']) && $alt['version'] > 10);
 	}
 	else if ( strpos($sAgent, 'Opera/') !== false )
 	{
