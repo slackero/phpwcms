@@ -1,11 +1,13 @@
 phpwcms Changelog
-=======
+=================
 
 
-Version 1.6.522 – November 23, 2012
+Version 1.6.522 – November 24, 2012
 -----------------------------------
 
 - Add missing folder template_lang to Git
+- More updated Polish translations (UTF-8), Thanks Bogdan!
+- Updated some more file headers with updated copyright info
 
 
 Version 1.6.521 – November 23, 2012

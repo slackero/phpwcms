@@ -26,7 +26,7 @@ Have a bug? Please create an issue here on GitHub that conforms with [necolas's 
 Share with us
 -------------
 
-Keep up to date on announcements and more by following ** phpwcms ** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
+Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
 
 
 
