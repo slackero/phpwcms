@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $BE['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
 $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
-$BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module]['dir'].'template/js/ads.js');
+$BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module]['dir'].'template/ads.js');
 
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['form_title'] ?></h1>

@@ -846,8 +846,7 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 		set_meta('keywords', implode(', ', $content['all_keywords']));
 	}
 }
-$phpwcms["generator"] = PHPWCMS_VERSION . ' (r'.PHPWCMS_REVISION.')';
-set_meta('generator', 'phpwcms '.$phpwcms["generator"]);
+set_meta('generator', 'phpwcms '.PHPWCMS_VERSION);
 
 // replace Print URL
 if(strpos($content["all"], '[PRINT]') !== false) {

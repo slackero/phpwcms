@@ -100,25 +100,25 @@ td.upload input {
 
 td.newimage {
 	padding: 0 0 0 23px;
-	background-image: url(../../../../../img/famfamfam/image_add.gif);
+	background-image: url(../../../../img/famfamfam/image_add.gif);
 	background-repeat:no-repeat;
 	background-position: 4px;
 }
 td.newflash {
 	padding: 0 0 0 23px;
-	background-image: url(../../../../../img/famfamfam/film_add.gif);
+	background-image: url(../../../../img/famfamfam/film_add.gif);
 	background-repeat:no-repeat;
 	background-position: 4px;
 }
 td.newcss {
 	padding: 0 0 0 23px;
-	background-image: url(../../../../../img/famfamfam/css_add.gif);
+	background-image: url(../../../../img/famfamfam/css_add.gif);
 	background-repeat:no-repeat;
 	background-position: 4px;
 }
 td.warning {
 	padding: 0 20px 15px 20px;
-	background-image: url(../../../../../img/famfamfam/icon_alert.gif);
+	background-image: url(../../../../img/famfamfam/icon_alert.gif);
 	background-repeat: no-repeat;
 	background-position: 0px -1px;
 	color: #CC3300;
@@ -126,7 +126,7 @@ td.warning {
 }
 td.warning1 {
 	padding: 5px 20px 5px 20px;
-	background-image: url(../../../../../img/famfamfam/icon_alert.gif);
+	background-image: url(../../../../img/famfamfam/icon_alert.gif);
 	background-repeat: no-repeat;
 	background-position: 0px 4px;
 	color: #CC3300;

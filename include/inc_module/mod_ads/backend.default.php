@@ -41,7 +41,7 @@ if(isset($phpwcms['modules'][$module]['path']) && file_exists($phpwcms['modules'
 	// module default stuff
 	
 	// load special backend CSS
-	$BE['HEADER']['module_ads.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/css/backend.ads.css" rel="stylesheet" type="text/css">';
+	$BE['HEADER']['module_ads.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/backend.ads.css" rel="stylesheet" type="text/css">';
 	
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];

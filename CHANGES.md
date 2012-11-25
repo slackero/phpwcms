@@ -5,9 +5,12 @@ phpwcms Changelog
 Version 1.6.522 – November 24, 2012
 -----------------------------------
 
-- Add missing folder template_lang to Git
+- Add .gitignore to empty folders
 - More updated Polish translations (UTF-8), Thanks Bogdan!
 - Updated some more file headers with updated copyright info
+- Updated version info
+- Remove sample MooTools based Tab templates
+- Some more cleaning
 
 
 Version 1.6.521 – November 23, 2012

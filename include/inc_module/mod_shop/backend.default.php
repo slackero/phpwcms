@@ -49,7 +49,7 @@ if(isset($phpwcms['modules'][$module]['path']) && is_file($phpwcms['modules'][$m
 	$BLM = & $BL['modules'][$module];
 	
 	// load special backend CSS
-	$BE['HEADER']['module.shop.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/css/module.shop.css" rel="stylesheet" type="text/css" />';
+	$BE['HEADER']['module.shop.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/module.shop.css" rel="stylesheet" type="text/css" />';
 
 
 	
