@@ -191,14 +191,19 @@ $buttonAction .= '</tr></table>';
 				  <td><img src="img/leer.gif" alt="" width="7" height="1" /></td>
                   <td><img src="img/symbole/add_content.gif" alt="" width="11" height="9" /><img src="img/leer.gif" alt="" width="5" height="1" /></td>
                   <td><select name="ctype" class="v12" id="ctype" onchange="this.form.submit();">
-                    <?php
+<?php
 
-$temp_count    = 0;
+$temp_count = 0;
+$user_selected_cp = isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"])  ? true : false;
 
 if(is_array($article["article_cntpart"]) && count($article["article_cntpart"])) {
-
+		
 	// list all content parts usable for this article category
 	foreach($article["article_cntpart"] as $value) {
+	
+		if($user_selected_cp && !isset($_SESSION["wcs_user_cp"][$value])) {
+			continue;
+		}
 
 		if(isset($wcs_content_type[$value])) {
 		
@@ -216,7 +221,11 @@ if(is_array($article["article_cntpart"]) && count($article["article_cntpart"])) 
 if(!$temp_count) {
 	//list all available content parts
 	foreach($wcs_content_type as $key => $value) {
-		//echo "<option value=\"".$key."\">".$value."</option>";
+		
+		if($user_selected_cp && !isset($_SESSION["wcs_user_cp"][$key])) {
+			continue;
+		}
+	
 		echo getContentPartOptionTag($key, $value, $article['article_cpdefault']);
 	}
 }

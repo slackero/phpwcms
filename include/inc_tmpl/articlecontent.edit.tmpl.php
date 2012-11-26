@@ -158,10 +158,21 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	$temp_select				= '';
 	$temp_count    				= 0;
 	$contentpart_temp_selected	= 0;
+	$user_selected_cp			= isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"])  ? true : false;
 	
 	if(is_array($article["article_cntpart"]) && count($article["article_cntpart"])) {
+		
+		if(!in_array($content['type'], $article["article_cntpart"])) {
+			$article["article_cntpart"][] = $content['type'];
+		}	
+	
 		// list all content parts usable for this article category
 		foreach($article["article_cntpart"] as $value) {
+			
+			if($user_selected_cp && !isset($_SESSION["wcs_user_cp"][$value]) && $value != $content['type']) {
+				continue;
+			}
+			
 			if(isset($wcs_content_type[$value])) {
 				
 				$temp_select .= getContentPartOptionTag($value, $wcs_content_type[$value], $content['type'], $content['module']);
@@ -177,6 +188,11 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	if(!$temp_count) {
 		//list all available content parts
 		foreach($wcs_content_type as $key => $value) {
+		
+			if($user_selected_cp && !isset($_SESSION["wcs_user_cp"][$key]) && $key != $content['type']) {
+				continue;
+			}
+		
 			$temp_select .= getContentPartOptionTag($key, $value, $content['type'], $content['module']);
 			$temp_count++;
 		}	

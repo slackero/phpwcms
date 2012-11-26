@@ -145,6 +145,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			}
 			
 			$_SESSION["WYSIWYG_TEMPLATE"] = empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
+			$_SESSION["wcs_user_cp"] = isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
 				
 			$login_passed = 1;
 		}

@@ -59,13 +59,13 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					$article["article_cat"]			= $row["acat_name"].' [ID:'.$row["acat_id"].']';
 					$article["article_catid"]		= $row["acat_id"];
 					$article["template_id"]			= $row['acat_template'];
-					$article["article_cntpart"]		= isset($row['acat_cntpart']) ? explode(',', $row['acat_cntpart']) : false;
+					$article["article_cntpart"]		= isset($row['acat_cntpart']) ? convertStringToArray($row['acat_cntpart']) : false;
 					$article['article_cpdefault']	= empty($row['acat_cpdefault']) ? 0 : intval($row['acat_cpdefault']);
 				} else {
-					$article["article_cat"]			= $indexpage['acat_name'].' [ID:0]'; //"index (website start)";
+					$article["article_cat"]			= $indexpage['acat_name'].' [ID:0]';
 					$article["article_catid"]		= 0;
 					$article["template_id"]			= $indexpage['acat_template'];
-					$article["article_cntpart"]		= isset($indexpage['acat_cntpart']) ? explode(',', $indexpage['acat_cntpart']) : false;
+					$article["article_cntpart"]		= isset($indexpage['acat_cntpart']) ? convertStringToArray($indexpage['acat_cntpart']) : false;
 					$article['article_cpdefault']	= empty($indexpage['acat_cpdefault']) ? 0 : intval($indexpage['acat_cpdefault']);
 				}
 				$article["article_keyword"]		= $row["article_keyword"];

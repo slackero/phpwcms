@@ -327,7 +327,8 @@ if($BE['LANG'] == 'ar') {
       	switch($p) {
       		case 1:		include(PHPWCMS_ROOT.'/include/inc_tmpl/profile.data.tmpl.php');
       					break;
-      		default:	include(PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php');
+      		default:	include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php');
+      					include(PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php');
       	}
       	break;
       	

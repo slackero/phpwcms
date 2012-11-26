@@ -58,6 +58,33 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 	$new_wysiwyg = empty($_POST['form_wysiwyg']) ? 0 : intval($_POST['form_wysiwyg']);
 	$user_var['template'] = empty($_POST['form_wysiwyg_template']) ? '' : clean_slweg($_POST['form_wysiwyg_template']);
 	
+	if(isset($_POST['profile_cp_total'])) {
+		
+		$profile_cp_total			= intval($_POST['profile_cp_total']);
+		$profile_account_cp_total	= isset($_POST['profile_account_cp']) && is_array($_POST['profile_account_cp']) ? count($_POST['profile_account_cp']) : 0;
+		
+		if(!$profile_account_cp_total || $profile_account_cp_total === $profile_cp_total) {
+		
+			$user_var['selected_cp'] = array();
+		
+		} else {
+
+			$user_var['selected_cp'] = array();
+			
+			foreach($_POST['profile_account_cp'] as $cp) {
+			
+				$cp = intval($cp);
+				$user_var['selected_cp'][$cp] = $cp;
+				
+			}
+		
+		}
+		
+	} else {
+	
+		$user_var['selected_cp'] = array();
+	
+	}
 	
 	//Jetzt die Daten aktualisieren
 	
@@ -85,6 +112,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 			$_SESSION["wcs_user_lang"] 		= $new_language;
 			$_SESSION["WYSIWYG_EDITOR"]		= $new_wysiwyg;
 			$_SESSION["WYSIWYG_TEMPLATE"]	= $user_var['template'];
+			$_SESSION["wcs_user_cp"]		= $user_var['selected_cp'];
 			
 			set_language_cookie();
 			

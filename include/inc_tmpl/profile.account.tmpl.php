@@ -93,8 +93,32 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 		</td>
 	</tr>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="25"><input name="form_aktion" type="hidden" id="form_aktion" value="update_account"></td>
+
+	
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+	
+	<tr> 
+		<td align="right" valign="top" class="tdtop5 nowrap"><?php echo $BL['be_structform_select_cp'] ?>:&nbsp;</td>
+		<td class="checkbox-list">
+<?php	
+		$has_selected_cp = isset($_SESSION["wcs_user_cp"]) ? count($_SESSION["wcs_user_cp"]) : 0;
+	
+		foreach($wcs_content_type as $key => $value):	?>
+
+			<label>
+				<input type="checkbox" name="profile_account_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_selected_cp || isset($_SESSION["wcs_user_cp"][$key])): ?> checked="checked"<?php endif; ?> />
+				<?php echo html_specialchars($value) ?>
+			</label>
+
+<?php	endforeach;	?>
+			<input type="hidden" name="profile_cp_total" value="<?php echo count($wcs_content_type) ?>" />
+		</td>
 	</tr>
+
+
+
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="25"><input name="form_aktion" type="hidden" id="form_aktion" value="update_account"></td></tr>
 	<tr> 
 		<td align="right">&nbsp;</td>
 		<td><input type="submit" name="Submit" value="<?php echo $BL['be_profile_account_button'] ?>" class="button12"></td>
@@ -151,7 +175,6 @@ $wysiwygTemplates['CKEditor_select'] .= '<\'+\'/select>';
 
 ?>
 <script language="javascript" type="text/javascript">
-<!--
 setWYSIWYGtemplate();
 
 function setWYSIWYGtemplate() {
@@ -171,5 +194,4 @@ function setWYSIWYGtemplate() {
 	}
 	document.getElementById('wysiwyg_template').innerHTML = baseVal;
 }
-//-->
 </script>

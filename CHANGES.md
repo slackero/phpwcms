@@ -13,6 +13,7 @@ Version 1.6.522 – November 26, 2012
 - Some more cleaning
 - Frontend edit link for structure level (admin only) and news
 - Implement user groups again (needs intensive tests and `$phpwcms['usergroup_support']=true;`)
+- Extend user profile for selected editable content parts
 
 
 Version 1.6.521 – November 23, 2012
