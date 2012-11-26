@@ -2,7 +2,7 @@ phpwcms Changelog
 =================
 
 
-Version 1.6.522 – November 24, 2012
+Version 1.6.522 – November 26, 2012
 -----------------------------------
 
 - Add .gitignore to empty folders
@@ -11,6 +11,8 @@ Version 1.6.522 – November 24, 2012
 - Updated version info
 - Remove sample MooTools based Tab templates
 - Some more cleaning
+- Frontend edit link for structure level (admin only) and news
+- Implement user groups again (needs intensive tests and `$phpwcms['usergroup_support']=true;`)
 
 
 Version 1.6.521 – November 23, 2012

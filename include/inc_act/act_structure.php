@@ -32,13 +32,19 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 
 	if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 		$acat_permit = implode(',', $_POST["acat_access"]);
+		
+		// enym, limited access requires some default settings
+		$_POST["acat_regonly"] = 1;
+		unset($_POST["acat_nositemap"]);        
+		$_POST["acat_nosearch"] = 1;
+		
 	} else {
 		$acat_permit = '';
 	}
 	
 	$acat_hidden = 0;
 	if(isset($_POST["acat_hidden"])) {
-		$acat_hidden	= 1;
+		$acat_hidden = 1;
 		if(isset($_POST["acat_hiddenactive"])) {
 			$acat_hidden = 2;
 		}

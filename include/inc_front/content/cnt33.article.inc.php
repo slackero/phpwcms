@@ -428,8 +428,9 @@ if($news['template']) {
 	foreach($news['result'] as $key => $value) {
 	
 		$value['cnt_object']	= @unserialize($value['cnt_object']);
-	
-		$news['entries'][$key]	= $news['tmpl_entry'];
+
+		$news['entries'][$key]  = getFrontendEditLink('news', $value['cnt_id']);
+		$news['entries'][$key] .= $news['tmpl_entry'];
 		
 		if($news['config']['news_teaser_limit_chars']) {
 			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_chars'], $news['config']['news_teaser_limit_ellipse'], 'char');

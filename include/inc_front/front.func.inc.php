@@ -3590,7 +3590,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 	// check if frontend edit link allowed
 	if(!FE_EDIT_LINK) return '';
 	
-	// init Mootools
+	// init JSLib
 	initJSLib();
 	
 	// set specific frontend editing link
@@ -3603,14 +3603,20 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 	switch($type) {
 
 		case 'article':		$href  = 'do=articles&amp;p=2&amp;s=1&amp;id='.$id_1;
-							$title = 'backend: goto Article';
+							$title = '@@Backend: goto Article@@';
 							break;
 							
 		case 'summary':		$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id='.$id_1;
-							$title = 'backend: edit Article Summary';
+							$title = '@@Backend: edit Article Summary@@';
 							break;
 
-		case 'structure':	break;
+		//enym new edit structure
+		case 'structure':	if(isset($GLOBALS['content']['struct'][$id_1]['acat_struct'])) {
+								$href  = 'do=admin&amp;p=6&amp;struct=';
+								$href .= $id_1 ? $GLOBALS['content']['struct'][$id_1]['acat_struct'].'&amp;cat='.$id_1 : 'index';
+								$title = '@@Backend: edit Structure Level@@';
+							}
+							break;
 							
 		case 'CP':			if(!$_SESSION["wcs_user_admin"] && $id_1) {
 								$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_1);
@@ -3620,9 +3626,15 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 								}
 							}
 							$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$id_1.'&amp;acid='.$id_2;
-							$title = 'backend: edit Content Part';
+							$title = '@@Backend: edit Content Part@@';
 							break;
-							
+
+		//enym new block to make news items editable
+    	case 'news':		$href  = 'do=articles&amp;p=3&amp;cntid='.$id_1.'&amp;action=edit';	
+    	 					$title = '@@Backend: edit News@@';
+							break;
+		//end enym 
+			
 		case 'module':		if(!$_SESSION["wcs_user_admin"] && $id_2) {
 								$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_2);
 								$sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
@@ -3631,13 +3643,13 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 								}
 							}
 							$href = 'do=modules&amp;module='.$id_1;
-							$title = 'backend: goto Module';
+							$title = '@@Backend: goto Module@@';
 							break;
 	}
 	
 	if($href) {
 	
-		$link  = '<a href="'.PHPWCMS_URL.'phpwcms.php?'.$href.'" target="_blank" ';
+		$link  = '<a href="'.PHPWCMS_URL.'phpwcms.php?'.$href.'" target="backend" ';
 		$link .= 'class="fe-link fe-'.$type.'" title="'.$title.'">';
 		$link .= '<span>'.$title.'</span></a> ';
 	

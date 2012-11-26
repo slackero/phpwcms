@@ -148,11 +148,19 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		
 		// enable frontend edit link
 		if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $row["article_uid"])) {
+			
+			// enym add structure level frontend edit link for admins only
+			if($_SESSION["wcs_user_admin"]) {
+				$content["main"] .= getFrontendEditLink('structure', $content['cat_id']);
+			}
 			$content["main"] .= getFrontendEditLink('article', $row["article_id"]);
 			$content["main"] .= getFrontendEditLink('summary', $row["article_id"]);
 			$content['article_frontend_edit'] = true;
+		
 		} else {
+		
 			$content['article_frontend_edit'] = false;
+		
 		}
 
 		// only copy the catname to a special var for multiple for use in any block

@@ -166,7 +166,9 @@ switch ($do) {
 							$subnav .= subnavtext($BL['be_subnav_admin_css'], "phpwcms.php?do=admin&amp;p=10", $p, "10", 0);
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtext($BL['be_subnav_admin_users'], "phpwcms.php?do=admin", $p, "", 0);
-							//$subnav .= subnavtext($BL['be_subnav_admin_groups'], "phpwcms.php?do=admin&amp;p=1", $p, "1", 0);
+							if(!empty($phpwcms['usergroup_support'])) {
+								$subnav .= subnavtext($BL['be_subnav_admin_groups'], "phpwcms.php?do=admin&amp;p=1", $p, "1", 0);
+							}
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
 							//$subnav .= subnavtext($BL['be_admin_keywords'], "phpwcms.php?do=admin&amp;p=5", $p, "5", 0);
 							$subnav .= subnavtext($BL['be_subnav_admin_filecat'], "phpwcms.php?do=admin&amp;p=7", $p, "7", 0);
@@ -421,8 +423,8 @@ if($BE['LANG'] == 'ar') {
       			break;
 				
 				case 1: //Users and Groups
-				include(PHPWCMS_ROOT.'/include/inc_lib/admin.groups.inc.php');
-				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.'.$_entry['mode'].'.tmpl.php');				
+					//enym new group management tool
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php');			
 				break;
 				
 				case 2: //Settings

@@ -23,28 +23,22 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 
 if($_SESSION["wcs_user_admin"] == 1) { //If user has admin rights
 
-	list($do, $id) = explode('|', $_GET['do']);
-	$do = intval($do);
-	$id = intval($id);
-	
-	if($id) {
-	
-		switch($do) {
-	
-			/*
-			case 1:	// delete usergroup
-					mysql_query("UPDATE ".DB_PREPEND."phpwcms_pagelayout SET pagelayout_default=0, ".
-								"pagelayout_trash=9 WHERE pagelayout_id=".$id.";", $db);
-					break;
-			*/
-				
-			case 2:	// delete usergroup
-					mysql_query("UPDATE ".DB_PREPEND."phpwcms_usergroup SET ".
-								"group_trash=9 WHERE group_id=".$id.";", $db);
-					break;	
-	
+	// enym
+	if(isset($_GET["del"])) {
+		$gi = explode(":", clean_slweg($_GET["del"]));
+		$gi = intval($gi[0]);
+		if($gi) {
+			_dbUpdate('phpwcms_usergroup', array('group_active' => 9), 'group_id='.$gi);
 		}
-		
+	}
+	
+	if(isset($_GET["aktiv"])) {
+		$gi		= explode(":", clean_slweg($_GET["aktiv"]));
+		$gi[0]	= intval($gi[0]);
+		$gi[1]	= empty($gi[1]) ? 0 : 1;
+		if($gi[0]) {
+			_dbUpdate('phpwcms_usergroup', array('group_active' => $gi[1]), 'group_id='.$gi[0]);
+		}
 	}
 
 	

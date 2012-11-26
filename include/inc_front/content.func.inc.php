@@ -318,7 +318,11 @@ if(isset($result[0]['pagelayout_var'])) {
 	$pagelayout = @unserialize($result[0]['pagelayout_var']);
 	// if print action
 	if($aktion[2] === 1) {
-		$pagelayout = array('layout_title' => $pagelayout['layout_title'], 'layout_customblocks' => $pagelayout['layout_customblocks']);
+		$pagelayout = array(
+			'layout_title' => $pagelayout['layout_title'],
+			'layout_customblocks' => $pagelayout['layout_customblocks'],
+			'layout_noborder' => $pagelayout['layout_noborder']
+		);
 	}
 }
 if(empty($pagelayout)) {
@@ -412,7 +416,14 @@ if(!$aktion[4]) {
 			$content['set_canonical'] = true;
 
 		} else {
+			
 			// there is more than 1 article inside this category
+			
+			//enym enable structure fe link for listing mode      
+      		if(FE_EDIT_LINK && $_SESSION["wcs_user_admin"]) {
+				$content["main"] .= getFrontendEditLink('structure', $content['cat_id']);
+			}
+			
 			// -> list all - the 1st will be shown with summary and such stuff
 			$content["main"] .= list_articles_summary();
 

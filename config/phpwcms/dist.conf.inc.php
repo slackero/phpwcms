@@ -109,6 +109,7 @@ $phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) mig
 $phpwcms['wkhtmltopdf_path']  = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
 $phpwcms['render_clean_html'] = 1; // clean up HTML source a bit
 $phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
+$phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

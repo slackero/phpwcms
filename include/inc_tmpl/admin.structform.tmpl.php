@@ -370,7 +370,85 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		  
 		  
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
+
+<?php	if(!empty($phpwcms['usergroup_support'])): ?>
 		  
+		<!-- enym group selector -->	   
+		<tr><td><img src="img/leer.gif" width="1" height="10"></td></tr>
+		<tr><td class="v09"><?php echo $BL['be_cnt_access']; ?> (<?php echo $BL['be_subnav_admin_groups']; ?>):</td></tr>
+		<tr><td><img src="img/leer.gif" width="1" height="2"></td></tr>
+		<tr>
+			<td valign="top"><?php
+
+		// list all available groups and put into temp array
+		$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_active != 9 ORDER BY group_id DESC";
+		if($result = mysql_query($sql, $db) or die("error while listing groups")) {
+			$_temp_group = array();
+			while($row = mysql_fetch_assoc($result)) {
+				$_temp_group[$row['group_id']]['name']   = html_specialchars($row['group_name']);
+				$_temp_group[$row['group_id']]['active'] = $row['group_active'];
+			}
+			mysql_free_result($result);
+		}
+		
+		?><table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td><select name="acat_access[]" id="acat_access" size="7" 
+						onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);" 
+						multiple="multiple" style="width: 255px" class="f10">
+		<?php
+			
+			if(count($_temp_group)) {
+				// list groups that have rights in here! acat_permit used for groups too
+				foreach($_temp_group as $key => $value) {
+					if(in_array($key, $acat_permit)) {
+						echo '<option value="'.$key.'"';
+						if(empty($_temp_group[$key]['active'])) {
+							echo ' style="color:#999999;"';
+						}
+						echo '>'.html_specialchars($_temp_group[$key]['name'])."</option>";
+						unset($_temp_group[$key]);
+					}
+				}
+			}
+			
+		?></select></td>
+				<td valign="top" style="padding-left:5px;padding-right:5px;">
+				
+<img src="img/button/put_left.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><br />
+<img src="img/leer.gif" width="1" height="3" /><br />
+<img src="img/button/put_left_a.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><br />
+<img src="img/leer.gif" width="1" height="6" /><br />
+<img src="img/button/put_right_a.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);" /><br />
+<img src="img/leer.gif" width="1" height="3"><br />
+<img src="img/button/put_right.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);" />
+				</td>
+				<td><select name="acat_feusers" size="7" id="acat_feusers" 
+							onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"
+							style="width: 255px" class="f10" multiple="multiple">
+		<?php
+			
+			if(count($_temp_group)) {
+				// list all available groups
+				foreach($_temp_group as $key => $value) {
+					echo '<option value="'.$key.'"';
+					if(empty($_temp_group[$key]['active'])) {
+						echo ' style="color:#999999;"';
+					}
+					echo '>'.html_specialchars($_temp_group[$key]['name'])."</option>\n";
+				}
+			}
+		?>
+					</select></td>
+				</tr>
+			</table></td>
+			</tr>
+		
+			<tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+			<!-- enym end new add group selector--> 
+
+<?php	endif; ?>
+
 		  
 <!-- Content Part Selection -->
 		  
