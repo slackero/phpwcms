@@ -62,7 +62,7 @@ if(!empty($_SESSION['phpwcms_backend_search'])) {
 $_asql_1 .= 'ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
 $_last10_articlecontent = _dbQuery($_asql_1);
 
-$_asql_1  = "SELECT article_id, article_cid, article_title, article_public, article_aktiv, article_uid, ";
+$_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_public, article_aktiv, article_uid, ";
 $_asql_1 .= "date_format(article_tstamp, '%d/%m/%Y %H:%i') AS article_date ";
 $_asql_1 .= "FROM ".DB_PREPEND."phpwcms_article ";
 $_asql_1 .= 'WHERE article_deleted=0 ';
@@ -111,10 +111,14 @@ $_last10_article = _dbQuery($_asql_1);
 		
 			echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
 			echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'\'" title="'.$BL['be_func_struct_edit'].'">'.LF;
-			echo '	<td style="padding:1px 4px 1px 2px;"><img src="img/symbole/text_1.gif" alt="" /></td>'.LF;
-			echo '	<td width="80%"><strong>'.html_specialchars($value['article_title']).'</strong></td>'.LF;
-			echo '	<td align="center" nowrap="nowrap">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
-			echo '	<td style="padding:3px;" nowrap="nowrap">';
+			echo '	<td style="width:11px;padding:1px 4px 1px 2px;"><img src="img/symbole/text_1.gif" alt="" /></td>'.LF;
+			echo '	<td class="overflow-ellipsis home-article">'.html_specialchars($value['article_title']);
+			if($value['article_subtitle']) {
+				echo ' / ' . html_specialchars($value['article_subtitle']);
+			}
+			echo '</td>'.LF;
+			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
+			echo '	<td style="padding:3px;width:42px;" nowrap="nowrap">';
 			echo '<img src="img/button/visible_12x13_'.$value["article_aktiv"].'.gif" alt="" border="0" style="margin-right:2px;" />';
 			echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'];
 			echo '"><img src="img/button/edit_22x13.gif" alt="Edit" border="0" /></a>';
@@ -159,7 +163,7 @@ $_last10_article = _dbQuery($_asql_1);
 	<tr class="tableHeadRow">
 		<th width="20">&nbsp;</th>
 		<th style="text-align:left"><?php echo $BL['be_cnt_type'] ?>&nbsp;</th>
-		<th style="text-align:left"><?php echo $BL['be_article_cnt_ctitle'] ?></th>
+		<th style="text-align:left"><?php echo $BL['be_profile_label_notes'] ?></th>
 		<th><?php echo $BL['be_cnt_last_edited'] ?>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -185,20 +189,25 @@ $_last10_article = _dbQuery($_asql_1);
 			echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
 			echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'\'" title="'.$BL['be_func_content_edit'].'">'.LF;
 			
-			echo '	<td style="padding:1px 4px 1px 2px;"><img src="img/symbole/add_content.gif" alt="" /></td>'.LF;
+			echo '	<td style="padding:1px 4px 1px 2px;width:11px;"><img src="img/symbole/add_content.gif" alt="" /></td>'.LF;
 			
-			echo '	<td nowrap="nowrap">'.$wcs_content_type[$value["acontent_type"]];
+			echo '	<td class="overflow-ellipsis home-type">'.$wcs_content_type[$value["acontent_type"]];
 			if($value["acontent_type"] == 30) {
 				echo ': '.$BL['modules'][$value["acontent_module"]]['listing_title'];
 			}
 			echo '&nbsp;</td>'.LF;
 			
-			$trenner = ($value['acontent_title'] && $value['acontent_subtitle']) ? '/' : '';
+			$value['notice'] = str_replace('###', ', ', trim($value['acontent_title'].'###'.$value['acontent_subtitle'].'###'.$value['acontent_comment'], '#'));
+			if($value['notice']) {
+				$value['notice'] = html_specialchars(preg_replace('/\s+/', ' ', $value['notice']));
+			} else {
+				$value['notice'] = '&nbsp;';
+			}
 			
-			echo '	<td width="80%"><strong>'.html_specialchars(getCleanSubString($value['acontent_title'].$trenner.$value['acontent_subtitle'], 27, '&#8230;')).'&nbsp;</strong></td>'.LF;
-			echo '	<td align="center" nowrap="nowrap">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
+			echo '	<td class="overflow-ellipsis home-cp">'.$value['notice'].'</td>'.LF;
+			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
 			
-			echo '	<td style="padding:3px;" nowrap="nowrap">';
+			echo '	<td style="padding:3px;width:42px;" nowrap="nowrap">';
 			echo '<img src="img/button/visible_12x13_'.$value["acontent_visible"].'.gif" alt="" border="0" style="margin-right:2px;" />';
 			echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
 			echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'];

@@ -2,7 +2,7 @@ phpwcms Changelog
 =================
 
 
-Version 1.6.522 – November 26, 2012
+Version 1.6.522 – November 27, 2012
 -----------------------------------
 
 - Add .gitignore to empty folders
@@ -15,6 +15,7 @@ Version 1.6.522 – November 26, 2012
 - Implement user groups again (needs intensive tests and `$phpwcms['usergroup_support']=true;`)
 - Extend user profile for selected editable content parts
 - Admin can define allowed content parts per user. This is not strict, so user still can edit existing non-allowed content parts.
+- Backend home lists more information about article and content part.
 
 
 Version 1.6.521 – November 23, 2012

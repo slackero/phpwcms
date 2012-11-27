@@ -1559,6 +1559,27 @@ em.handle {
 	cursor: default;
 }
 
+.overflow-ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.overflow-ellipsis.home-article {
+	font-weight: bold;
+	width: 450px;
+	max-width: 450px;
+}
+.overflow-ellipsis.home-cp {
+	font-weight: bold;
+	width: 320px;
+	max-width: 320px;
+}
+.overflow-ellipsis.home-type {
+	width: 130px;
+	max-width: 130px;
+}
+
+
 .darkblue, .darkblue a, .darkblue a:hover {
 	color: #2B6183;
 }
