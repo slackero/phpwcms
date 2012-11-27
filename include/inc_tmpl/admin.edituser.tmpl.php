@@ -16,8 +16,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 if(isset($_GET["u"]) && intval($_GET["u"])) {
+	
 	if(empty($_POST["form_aktion"]) || $_POST["form_aktion"] != "edit_account") {
 		$new_user_id = intval($_GET["u"]);
 		$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_id=".$new_user_id." AND usr_aktiv<>9;";
@@ -29,13 +29,19 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 				$set_user_aktiv = $row["usr_aktiv"];
 				$set_user_admin = $row["usr_admin"];
 				$set_user_fe	= $row["usr_fe"];
+				$set_user_var	= @unserialize($row["usr_vars"]);
 				$send_verification = 0;			
 				$new_password = '';	
 			}
 		}
 	}
+	
+	$set_allowed_cp = isset($set_user_var['allowed_cp']) && is_array($set_user_var['allowed_cp']) ? $set_user_var['allowed_cp'] : array();
+		
 	if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "edit_account") {
-		//Create Account Daten verarbeiten
+		
+		// Handle account data
+		
 		$new_user_id = intval($_POST["form_uid"]);
 		$new_login = slweg($_POST["form_newloginname"]);
 		$new_password = slweg($_POST["form_newpassword"]);
@@ -44,33 +50,57 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 		$set_user_aktiv = isset($_POST["form_active"]) ? 1 : 0;
 		$set_user_admin = isset($_POST["form_admin"]) ? 1 : 0;
 		$set_user_fe = isset($_POST["form_feuser"]) ? intval($_POST["form_feuser"]) : 0;
+		$set_allowed_cp = isset($_POST["allowed_cp"]) && is_array($_POST["allowed_cp"]) && count($_POST["allowed_cp"]) ? $_POST["allowed_cp"] : array();
+		$set_allowed_cp_total = count($set_allowed_cp);
+		$cp_total = empty($_POST["cp_total"]) ? 0 : intval($_POST["cp_total"]);
+		if(!$set_allowed_cp_total || $cp_total == $set_allowed_cp_total) {
+			$set_allowed_cp = array();
+		}		
 		if($set_user_admin) {
 			$set_user_fe = 2;
 		}
 		$send_verification = isset($_POST["verification_email"]) ? 1 : 0;
 		$user_err = '';
-		if(isEmpty($new_login)) {
+		if(empty($new_login)) {
 			$user_err = $BL['be_admin_usr_err2']."\n";
 		} else {
-			$sql = "SELECT usr_id, COUNT(*) AS anzahl FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."' GROUP BY usr_id;";
+			$sql = "SELECT usr_id, usr_vars, COUNT(*) AS anzahl FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."' GROUP BY usr_id";
 			if($result = mysql_query($sql, $db)) {
 				if($check_anzahl = mysql_fetch_array($result)) {
-					if($check_anzahl["usr_id"] != $new_user_id && $check_anzahl["anzahl"]) $user_err .= $BL['be_admin_usr_err1']."\n";
+					if($check_anzahl["usr_id"] != $new_user_id && $check_anzahl["anzahl"]) {
+						$user_err .= $BL['be_admin_usr_err1']."\n";
+					}
+					
+					if(empty($user_err)) {
+						$set_user_var = @unserialize($check_anzahl["usr_vars"]);
+						if(!is_array($set_user_var)) {
+							$set_user_var = array();
+						}
+						$set_user_var['allowed_cp'] = $set_allowed_cp;
+					}
 				}
 			}
 		}
-		if(!is_valid_email($new_email)) $user_err .= $BL['be_admin_usr_err4']."\n";
+	
+		if(!is_valid_email($new_email)) {
+			$user_err .= $BL['be_admin_usr_err4']."\n";
+		}
 		if(empty($user_err)) { //Insert new User
-			$upd_password = ($new_password) ? "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', " : '';
-			$sql =	"UPDATE ".DB_PREPEND."phpwcms_user SET ".
-					"usr_login='".aporeplace($new_login)."', ".$upd_password.
-					"usr_email='".aporeplace($new_email)."', ".
+			
+			$sql =	"UPDATE ".DB_PREPEND."phpwcms_user SET usr_login='".aporeplace($new_login)."', ";
+			if($new_password) {
+				$sql .= "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', ";
+			}
+			$sql .= "usr_email='".aporeplace($new_email)."', ".
 					"usr_admin='".$set_user_admin."', ".
 					"usr_aktiv='".$set_user_aktiv."', ".
 					"usr_name='".aporeplace($new_name)."', ".
-					"usr_wysiwyg='".$GLOBALS['phpwcms']['wysiwyg_editor']."', ".
-					"usr_fe='".$set_user_fe."' ".
-					"WHERE usr_id=".$new_user_id.";";								
+					"usr_wysiwyg='".aporeplace($GLOBALS['phpwcms']['wysiwyg_editor'])."', ";
+			if(isset($set_user_var['allowed_cp'])) {
+				$sql .= "usr_vars="._dbEscape(serialize($set_user_var)).", ";
+			}				
+			$sql .= "usr_fe='".$set_user_fe."' WHERE usr_id=".$new_user_id;
+									
 			if($result = mysql_query($sql, $db) or die("error")) {
 				$user_ok = 1;
 				$new_user_id = NULL;
@@ -116,22 +146,22 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 		  ?>
           <tr> 
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_login ?>" size="30" maxlength="30"></td>
+            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250 f11b" value="<?php echo $new_login ?>" size="30" maxlength="30"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr> 
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td><input name="form_newpassword" type="text" id="form_newpassword" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_password ?>" size="30" maxlength="20"></td>
+            <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250 f11b" value="<?php echo $new_password ?>" size="30" maxlength="20"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr> 
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-            <td><input name="form_newemail" type="text" id="form_newemail" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_email ?>" size="30" maxlength="150"></td>
+            <td><input name="form_newemail" type="text" id="form_newemail" class="width250 f11b" value="<?php echo $new_email ?>" size="30" maxlength="150"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr> 
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
-            <td><input name="form_newrealname" type="text" id="form_newrealname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
+            <td><input name="form_newrealname" type="text" id="form_newrealname" class="width250 f11b" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
           </tr>
 
 		  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
@@ -183,18 +213,49 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
               </table></td>
           </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"><input name="form_aktion" type="hidden" value="edit_account"><input name="form_uid" type="hidden" value="<?php echo $new_user_id ?>"></td></tr>
+          
+          	<tr> 
+          		<td align="right" class="chatlist tdtop6 nowrap"><?php echo $BL['be_structform_select_cp'] ?>:&nbsp;</td>
+          		<td class="checkbox-list v11">
+          <?php	
+          		$has_allowed_cp = isset($set_allowed_cp) ? count($set_allowed_cp) : 0;
+          	
+          		foreach($wcs_content_type as $key => $value):	?>
+          
+          			<label>
+          				<input type="checkbox" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
+          				<?php echo html_specialchars($value) ?>
+          			</label>
+          
+          <?php	endforeach;	?>
+          			<input type="hidden" name="cp_total" value="<?php echo count($wcs_content_type) ?>" />
+          		</td>
+          	</tr>
+          
+          
           <tr> 
             <td>&nbsp;</td>
-            <td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_usr_ebutton'] ?>"></td>
-          </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-       
-      </table></form><img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br /><img src="img/leer.gif" alt="" width="1" height="5"><?php
+            <td class="tdbottom10 tdtop6">
+            	<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_usr_ebutton'] ?>">
+            	<input name="form_aktion" type="hidden" value="edit_account" />
+            	<input name="form_uid" type="hidden" value="<?php echo $new_user_id ?>" />
+            </td>
+          </tr>       
+      </table>
+      
+      
+      </form>
+      
+      <img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br />
+      <img src="img/leer.gif" alt="" width="1" height="5">
+      
+      <?php
+ 	
+ 	
  	} else {
-		echo "<script language=\"JavaScript\" type=\"text/JavaScript\">\n<!--\n";
-		echo "timer=setTimeout(\"self.location.href='phpwcms.php?do=admin'\", 0);\n";
-		echo "//-->\n</script>\n";
+	
+		echo "<script type=\"text/JavaScript\"> timer=setTimeout(\"self.location.href='phpwcms.php?do=admin'\", 0); </script>";
+	
 	}
 }	
 //Dialog New User bis hierher

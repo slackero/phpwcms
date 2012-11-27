@@ -6,13 +6,11 @@ html {
 	min-height: 100%;
 }
 body {
+	position: relative;
 	padding: 0;
 	margin: 0;
 	height: 100%;
 	min-height: 100%;
-}
-body {
-	position: relative;
 	font-size: 11px;
 	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 	color: #282F42;
@@ -1542,10 +1540,23 @@ em.handle {
 	display: block;
 	font-size: 12px;
 }
+.checkbox-list.v11 label {
+	font-size: 11px;
+}
 .checkbox-list label:hover {
 	font-weight: bold;
 	color: #2B6183;
 	background-color: #F3F5F8;
+	cursor: pointer;
+}
+.checkbox-list label.disabled {
+	color: #cccccc;
+}
+.checkbox-list label.disabled:hover {
+	background-color: transparent;
+	color: #cccccc;
+	font-weight: normal;
+	cursor: default;
 }
 
 .darkblue, .darkblue a, .darkblue a:hover {

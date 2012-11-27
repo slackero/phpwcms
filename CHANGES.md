@@ -14,6 +14,7 @@ Version 1.6.522 – November 26, 2012
 - Frontend edit link for structure level (admin only) and news
 - Implement user groups again (needs intensive tests and `$phpwcms['usergroup_support']=true;`)
 - Extend user profile for selected editable content parts
+- Admin can define allowed content parts per user. This is not strict, so user still can edit existing non-allowed content parts.
 
 
 Version 1.6.521 – November 23, 2012

@@ -17,7 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 ?><form action="phpwcms.php?do=profile" method="post" name="formprofiledetail" id="formprofiledetail" autocomplete="off">
 	<table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr><td colspan="2" class="title"><?php echo $BL['be_profile_account_title'] ?></td></tr>
@@ -101,10 +100,18 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 		<td align="right" valign="top" class="tdtop5 nowrap"><?php echo $BL['be_structform_select_cp'] ?>:&nbsp;</td>
 		<td class="checkbox-list">
 <?php	
-		$has_selected_cp = isset($_SESSION["wcs_user_cp"]) ? count($_SESSION["wcs_user_cp"]) : 0;
+		$has_selected_cp	= isset($_SESSION["wcs_user_cp"]) ? count($_SESSION["wcs_user_cp"]) : 0;
+		$has_allowed_cp		= isset($_SESSION["wcs_allowed_cp"]) ? count($_SESSION["wcs_allowed_cp"]) : 0;
 	
-		foreach($wcs_content_type as $key => $value):	?>
-
+		foreach($wcs_content_type as $key => $value):	
+		
+			if($has_allowed_cp && !isset($_SESSION["wcs_allowed_cp"][$key])):
+?>
+				<label class="disabled"> <input type="checkbox" disabled="disabled" /> <?php echo html_specialchars($value) ?> </label>
+<?php			
+				continue;
+			endif;
+?>
 			<label>
 				<input type="checkbox" name="profile_account_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_selected_cp || isset($_SESSION["wcs_user_cp"][$key])): ?> checked="checked"<?php endif; ?> />
 				<?php echo html_specialchars($value) ?>

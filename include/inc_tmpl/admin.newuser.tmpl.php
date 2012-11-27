@@ -62,16 +62,16 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 				$set_user_admin."', '".
 				$set_user_aktiv."', '".
 				aporeplace($new_name)."', '".
-				$GLOBALS['phpwcms']['wysiwyg_editor']."', '".
+				aporeplace($GLOBALS['phpwcms']['wysiwyg_editor'])."', '".
 				$set_user_fe."')";
 		if(mysql_query($sql, $db) or die('error while creating new user')) {
 			$new_user_id = mysql_insert_id($db);
 			$user_ok = 1;
 			if($send_verification) {
-				$emailbody = str_replace('{LOGIN}',    $new_login,       $BL['be_admin_usr_mailbody']);
-				$emailbody = str_replace('{PASSWORD}', $new_password,    $emailbody);
-				$emailbody = str_replace('{SITE}',     PHPWCMS_URL, $emailbody);
-				$emailbody = str_replace('{LOGIN_PAGE}',     PHPWCMS_URL.get_login_file(), $emailbody);
+				$emailbody = str_replace('{LOGIN}', $new_login, $BL['be_admin_usr_mailbody']);
+				$emailbody = str_replace('{PASSWORD}', $new_password, $emailbody);
+				$emailbody = str_replace('{SITE}', PHPWCMS_URL, $emailbody);
+				$emailbody = str_replace('{LOGIN_PAGE}', PHPWCMS_URL.get_login_file(), $emailbody);
 
 				sendEmail(	array(
 					'recipient'	=> $new_email,
@@ -81,8 +81,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 					'text'		=> $emailbody,
 					'from'		=> $phpwcms["admin_email"],
 					'sender'	=> $phpwcms["admin_email"]
-				        ));
-				//@mail($new_email,$BL['be_admin_usr_mailsubject'],$emailbody, "From: ".$phpwcms["admin_email"]."\nReply-To: ".$phpwcms["admin_email"]."\n");
+				));
 			}
 		}					
 	}				
@@ -170,11 +169,7 @@ if(empty($user_ok)) {
                   <td><label for="form_admin"><?php echo  $BL['be_admin_usr_ifadmin'] ?> <strong style="color:#FF0000">!!!</strong></label></td>
                 </tr>
               </table></td>
-          </tr>
-		  
-		  
-		  
-		  
+          </tr>		  
           <tr> 
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_verify'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -194,9 +189,10 @@ if(empty($user_ok)) {
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
       </table></form><img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br /><img src="img/leer.gif" alt="" width="1" height="5"><?php
+
+
 } else {
-	echo "<script language=\"JavaScript\" type=\"text/JavaScript\">\n<!--\n";
-	echo "timer=setTimeout(\"self.location.href='phpwcms.php?do=admin'\", 0);\n";
-	echo "//-->\n</script>\n";
+	echo "<script type=\"text/JavaScript\"> timer=setTimeout(\"self.location.href='phpwcms.php?do=admin'\", 0); </script>";
 }
+
 ?>

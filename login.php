@@ -146,6 +146,21 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			
 			$_SESSION["WYSIWYG_TEMPLATE"] = empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
 			$_SESSION["wcs_user_cp"] = isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
+			$_SESSION["wcs_allowed_cp"] = isset($row["usr_vars"]['allowed_cp']) && is_array($row["usr_vars"]['allowed_cp']) ? $row["usr_vars"]['allowed_cp'] : array();
+			
+			// Test if there are CPs that use had choosen but no longer available for
+			if(count($_SESSION["wcs_allowed_cp"])) {
+				if(count($_SESSION["wcs_user_cp"])) {
+					// Remove selected CP if not allowed CP
+					foreach($_SESSION["wcs_user_cp"] as $key => $value) {
+						if(!isset($_SESSION["wcs_allowed_cp"][$key])) {
+							unset($_SESSION["wcs_user_cp"][$key]);
+						}
+					}
+				} else {
+					$_SESSION["wcs_user_cp"] = $_SESSION["wcs_allowed_cp"];
+				}
+			}
 				
 			$login_passed = 1;
 		}

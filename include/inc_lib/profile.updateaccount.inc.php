@@ -17,12 +17,15 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-
-//Prüfen, ob der Benutzername bereits vergeben ist, aber nur, wenn sich der
-//Benutzername geändert hat
 if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 	
 	$err = '';
+	
+	$user_var = array(
+		'template'	=> $_SESSION["WYSIWYG_TEMPLATE"],
+		'selected_cp' => $_SESSION["wcs_user_cp"],
+		'allowed_cp' => $_SESSION["wcs_allowed_cp"]
+	);
 
 	$new_username = slweg($_POST["form_loginname"]);
 	if ($new_username != $_SESSION["wcs_user"]) {
