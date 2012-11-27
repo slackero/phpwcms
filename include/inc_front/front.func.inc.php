@@ -3386,6 +3386,7 @@ function _getFeUserLoginStatus() {
 	} elseif(isset($_POST[$login_key])) {
 		return false;	// hm, somebody is trying to inject by POST in case register_globals ON
 	}
+	headerAvoidPageCaching();
 	return true;
 }
 

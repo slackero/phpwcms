@@ -80,7 +80,7 @@ $phpwcms['sharpen_level']     = 1; // Sharpen Level - only ImageMagick: 0, 1, 2,
 $phpwcms['allow_ext_init']    = 1; // allow including of custom external scripts at frontend initialization
 $phpwcms['allow_ext_render']  = 1; // allow including of custom external scripts at frontend rendering
 $phpwcms['cache_enabled']     = 0; // cache On/Off - 1 = caching On / 0 = caching Off (default)
-$phpwcms['cache_timeout']     = 14400; // default cache timeout setting in seconds - 0 = caching Off
+$phpwcms['cache_timeout']     = 0; // default cache timeout setting in seconds - 0 = caching Off
 $phpwcms['imgext_disabled']   = ''; // comma seperated list of imagetypes which should not be handled 'pdf,ps'
 $phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia
 $phpwcms['recipient_count']   = 0;
@@ -113,6 +113,11 @@ $phpwcms['js_lib']			  = array('mootools-1.4'=>'MooTools 1.4','mootools-1.4-comp
 $phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)
 $phpwcms['render_device']     = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
+$phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB
+$phpwcms['wkhtmltopdf_path']  = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
+$phpwcms['render_clean_html'] = 1; // clean up HTML source a bit
+$phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
+$phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = ''; // reply/from email address

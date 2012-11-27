@@ -72,7 +72,7 @@ $phpwcms['sharpen_level']     = 1; // Sharpen Level - only ImageMagick: 0, 1, 2,
 $phpwcms['allow_ext_init']    = 1; // allow including of custom external scripts at frontend initialization
 $phpwcms['allow_ext_render']  = 1; // allow including of custom external scripts at frontend rendering
 $phpwcms['cache_enabled']     = 0; // cache On/Off - 1 = caching On / 0 = caching Off (default)
-$phpwcms['cache_timeout']     = 14400; // default cache timeout setting in seconds - 0 = caching Off
+$phpwcms['cache_timeout']     = 0; // default cache timeout setting in seconds - 0 = caching Off
 $phpwcms['imgext_disabled']   = ''; // comma seperated list of imagetypes which should not be handled 'pdf,ps'
 $phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia
 $phpwcms['recipient_count']   = 0;

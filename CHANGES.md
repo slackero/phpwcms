@@ -16,6 +16,7 @@ Version 1.6.522 – November 27, 2012
 - Extend user profile for selected editable content parts
 - Admin can define allowed content parts per user. This is not strict, so user still can edit existing non-allowed content parts.
 - Backend home lists more information about article and content part.
+- Send expired cache header when frontend login is active
 
 
 Version 1.6.521 – November 23, 2012
