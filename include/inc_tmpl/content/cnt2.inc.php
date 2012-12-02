@@ -267,6 +267,10 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+	<td valign="top" class="chatlist"><a href="#" onclick="javascript: document.getElementById('cimage_caption').value += '\ncaption|alt|http://www.yourdomian.com _blank|title';return false;">caption text|alt text|link target|title text -> if empty alt text</a> </td>
+</tr>
+<tr>
+	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13">&nbsp;</td>
 	<td valign="top"><textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="f11" id="cimage_caption" style="width: 440px;"><?php echo $caption_box; ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
