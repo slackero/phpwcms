@@ -40,7 +40,7 @@ if($action == 'edit') {
 			$plugin['error']['cat_name'] = 'No name';
 		} else {	
 			$sql  = 'SELECT COUNT(cat_id) FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
-			$sql .= "cat_type='module_shop' AND cat_name LIKE '". aporeplace($plugin['data']['cat_name']) ."'";
+			$sql .= "cat_type='module_shop' AND cat_status != 9 AND cat_name LIKE '". aporeplace($plugin['data']['cat_name']) ."'";
 			$sql .= $plugin['data']['cat_id'] ? ' AND cat_id != ' . $plugin['data']['cat_id'] : '';
 			if( _dbQuery($sql, 'COUNT') ) {
 				$plugin['error']['cat_name'] = 'Duplicate category name';
