@@ -9,7 +9,7 @@
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.6.515 Zibi http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.6.525 Zibi http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -36,6 +36,7 @@ $BL['be_nav_profile']   = 'PROFILE';
 $BL['be_nav_admin']     = 'ADMINISTRACJA';
 $BL['be_nav_discuss']   = 'DYSKUSJA';
 $BL['be_page_title']    = 'System zarządzania phpwcms';
+
 $BL['be_subnav_article_center']         = 'Centrum artykułów';
 $BL['be_subnav_article_new']            = 'Nowy artykuł';
 $BL['be_subnav_file_center']            = 'Centrum plików';
@@ -189,6 +190,7 @@ $BL['be_fpriv_rootdir']          = 'Główny katalog';
 $BL['be_fpriv_title']            = 'Utwórz nowy katalog';
 $BL['be_fpriv_inside']           = 'Wewnątrz';
 $BL['be_fpriv_error']            = 'Błąd: wypełnij pole nazwa dla katalogu';
+$BL['be_fpriv_errordir']         = 'Błąd: katalog nie może być sam w sobie podfolderem';
 $BL['be_fpriv_name']             = 'Nazwa';
 $BL['be_fpriv_status']           = 'Status';
 $BL['be_fpriv_button']           = 'Utwórz nowy katalog';
@@ -669,9 +671,9 @@ $BL['be_admin_struct_regonly']  = 'widoczne tylko dla zalogowanych użytkownikó
 $BL['be_admin_struct_status']   = 'status dostępności w menu';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']		= 'menu artykułów';
-$BL['be_cnt_sitelevel']			  = 'poziom struktury';
-$BL['be_cnt_sitecurrent']		  = 'obecny poziom struktury';
+$BL['be_ctype_articlemenu']	= 'menu artykułów';
+$BL['be_cnt_sitelevel']		= 'poziom struktury';
+$BL['be_cnt_sitecurrent']	= 'obecny poziom struktury';
 
 // added: 24-03-2004
 
@@ -698,14 +700,14 @@ $BL['be_admin_startup_text']        = 'Treść tekstu';
 $BL['be_admin_startup_button']      = 'Zapisz tekst';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']		    = 'księga gości/komentarze';
+$BL['be_ctype_guestbook']		= 'księga gości/komentarze';
 $BL['be_cnt_guestbook_listing']		= 'pokazuj';
 $BL['be_cnt_guestbook_listing_all']	= 'pokaż&nbsp;wszystkie&nbsp;wpisy';
 $BL['be_cnt_guestbook_list']		= 'wpisów';
 $BL['be_cnt_guestbook_perpage']		= 'na&nbsp;stronę';
 $BL['be_cnt_guestbook_form']		= 'formularz';
 $BL['be_cnt_guestbook_signed']		= 'podpisane';
-$BL['be_cnt_guestbook_nav']		    = 'nawig';
+$BL['be_cnt_guestbook_nav']		= 'nawig';
 $BL['be_cnt_guestbook_before']		= 'przed';
 $BL['be_cnt_guestbook_after']		= 'po';
 $BL['be_cnt_guestbook_entry']		= 'wpis';
@@ -749,7 +751,7 @@ $BL['be_newsletter_readyfailed']        = 'Nie udało się wysłać nowości do'
 $BL['be_subnav_msg_subscribers']        = 'Subskrynenci nowości';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']			        = 'mapa witryny';
+$BL['be_ctype_sitemap']			= 'mapa witryny';
 $BL['be_cnt_sitemap_catimage']          = 'ikona poziomu';
 $BL['be_cnt_sitemap_articleimage']      = 'ikona artykułu';
 $BL['be_cnt_sitemap_display']           = 'wyświetl';
@@ -762,13 +764,14 @@ $BL['be_cnt_sitemap_classcount']        = 'dodaj do nazwy klasy';
 $BL['be_cnt_sitemap_noclasscount']      = 'nie dodawaj do nazwy klasy';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']			            = 'Oferta';
+$BL['be_ctype_bid']			= 'Oferta';
 $BL['be_cnt_bid_bidtext']               = 'treść oferty';
 $BL['be_cnt_bid_sendtext']              = 'tekst do&nbsp; wysłania';
 $BL['be_cnt_bid_verifiedtext']          = 'tekst&nbsp; weryfikacji';
 $BL['be_cnt_bid_errortext']             = 'oferta&nbsp; usunięta';
 $BL['be_cnt_bid_verifyemail']           = 'weryfikacja&nbsp; emaila';
 $BL['be_cnt_bid_startbid']              = 'rozpocznij od';
+
 // added: 29-04-2004
 $BL['be_cnt_bid_nextbidadd']            = 'zwiększ&nbsp;o';
 
@@ -848,14 +851,17 @@ $BL['be_cnt_map_title']      = 'tytuł lokalizacji';
 $BL['be_cnt_map_info']       = 'wpis/informacja';
 $BL['be_cnt_map_list']       = 'lista lokalizacji';
 $BL['be_btn_delete']         = 'Czy na pewno chcesz\nusunąć lokalizację?';
+
 // added: 05-11-2004
 $BL['be_ctype_phpvar']       = 'Zmienne PHP';
 $BL['be_cnt_vars']           = 'zmienne';
+
 // added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
 $BL['be_func_struct_copy']         = 'kopiuj artykuł';
 $BL['be_func_struct_nocopy']       = 'anuluj kopiowanie';
 $BL['be_func_struct_copy_level']   = 'kopiuj poziom struktury';
 $BL['be_func_struct_no_copy']      = "Nie można kopiować głównego poziomu struktury!";
+
 // added: 27-11-2004
 $BL['be_date_minute']   = 'minuta';
 $BL['be_date_minutes']  = 'minuty';
@@ -876,12 +882,13 @@ $BL['be_cache_timeout'] = 'czas wygaśn.';
 $BL['be_subnav_admin_groups']	= 'użytkownicy i grupy';
 $BL['be_admin_group_add']		= 'dodaj grupę';
 $BL['be_admin_group_nogroup']	= 'nie znaleziono użytkownika grupy';
+
 // added: 20-12-2004
 $BL['be_ctype_forum']	   = 'forum';
 $BL['be_subnav_msg_forum'] = 'lista forów';
 $BL['be_forum_title']	   = 'tytuł forum';
 $BL['be_forum_permission'] = 'uprawnienia';
-$BL['be_forum_add']		   = 'dodaj forum';
+$BL['be_forum_add']	   = 'dodaj forum';
 $BL['be_forum_titleedit']  = 'edytuj forum';
 
 // added: 15-01-2005
@@ -889,27 +896,31 @@ $BL['be_admin_page_customblocks']   = 'własne';
 $BL['be_show_content']       = 'wyświetl';
 $BL['be_main_content']       = 'główna kolumna';
 $BL['be_admin_template_jswarning']  = 'UWAGA!!! \nWłasne bloki mogą się zmienić! \n\nJeżeli anulujesz \nlub zresetujesz ustawienia układu! \n\nZmienić szablon?\n\n';
+
 $BL['be_ctype_rssfeed']		= 'RSS';
 $BL['be_cnt_rssfeed_url']	= 'adres url RSS';
 $BL['be_cnt_rssfeed_item']	= 'elementy';
 $BL['be_cnt_rssfeed_max']	= 'maks.';
 $BL['be_cnt_rssfeed_cut']	= 'ukryj 1szy element';
 $BL['be_ctype_simpleform']	= 'formularz email';
-$BL['be_cnt_onsuccess']			= 'przy sukcesie';
-$BL['be_cnt_onerror']			  = 'przy błędzie';
+
+$BL['be_cnt_onsuccess']		= 'przy sukcesie';
+$BL['be_cnt_onerror']		= 'przy błędzie';
 $BL['be_cnt_onsuccess_redirect']  = 'przekieruj gdy sukces';
 $BL['be_cnt_onerror_redirect']	  = 'przekieruj gdy błąd';
-$BL['be_cnt_form_class']		= 'klasa formularza';
-$BL['be_cnt_label_wrap']		= 'wcięcie etykiety';
-$BL['be_cnt_error_class']		= 'klasa błędu';
-$BL['be_cnt_req_mark']			= 'oznaczenie wymagalności';
-$BL['be_cnt_mark_as_req']		= 'znak jako wymagalny';
-$BL['be_cnt_mark_as_del']		= 'znak elementu do usunięcia';
-$BL['be_cnt_type']		= 'typ';
-$BL['be_cnt_label']		= 'etykieta';
+
+$BL['be_cnt_form_class']	= 'klasa formularza';
+$BL['be_cnt_label_wrap']	= 'wcięcie etykiety';
+$BL['be_cnt_error_class']	= 'klasa błędu';
+$BL['be_cnt_req_mark']		= 'oznaczenie wymagalności';
+$BL['be_cnt_mark_as_req']	= 'znak jako wymagalny';
+$BL['be_cnt_mark_as_del']	= 'znak elementu do usunięcia';
+
+$BL['be_cnt_type']	= 'typ';
+$BL['be_cnt_label']	= 'etykieta';
 $BL['be_cnt_needed']	= 'wymagana';
 $BL['be_cnt_delete']	= 'usunięta';
-$BL['be_cnt_value']		= 'wartość';
+$BL['be_cnt_value']	= 'wartość';
 $BL['be_cnt_error_text']	= 'tekst błędu';
 $BL['be_cnt_css_style']		= 'styl CSS';
 $BL['be_cnt_css_class']		= 'CSS class';
@@ -949,9 +960,9 @@ $BL['be_cnt_access']	= 'dostęp';
 $BL['be_cnt_activated']	= 'aktywowany';
 $BL['be_cnt_available']	= 'dostępny';
 $BL['be_cnt_guests']	= 'goście';
-$BL['be_cnt_admin']		= 'administrator';
-$BL['be_cnt_write']		= 'zapisz';
-$BL['be_cnt_read']		= 'czytaj';
+$BL['be_cnt_admin']	= 'administrator';
+$BL['be_cnt_write']	= 'zapisz';
+$BL['be_cnt_read']	= 'czytaj';
 
 $BL['be_cnt_no_wysiwyg_editor']	 = 'wyłącz edytor WYSIWYG';
 $BL['be_cnt_cache_update']	   = 'zresetuj cache';
@@ -976,7 +987,7 @@ $BL['be_func_content_paste_cancel'] = 'anuluj zmiany';
 $BL['be_cnt_move_deleted'] 	   = 'Skasuj usunięte pliki';
 $BL['be_cnt_move_deleted_msg'] = 'Czy na pewno chcesz przesunąć wszystkie \noznaczone pliki do specjalnego folderu?  \n';
 
-$BL['be_admin_struct_permit'] 		= 'autoryzacja dostępu (pozostawione puste - dostęp dla wszystkich)';
+$BL['be_admin_struct_permit'] 	    = 'autoryzacja dostępu (pozostawione puste - dostęp dla wszystkich)';
 $BL['be_admin_struct_adduser_all']  = 'dodaj wszystkich użytkowników';
 $BL['be_admin_struct_adduser_this'] = 'dodaj wybranych uzytkowników';
 $BL['be_admin_struct_remove_all']   = 'usuń wszystkich użytkowników';
@@ -1000,13 +1011,14 @@ $BL['be_admin_tmpl_copy']  = 'kopiuj szablon';
 $BL['be_ctype_filelist1']  = 'lista plików pro';
 $BL['be_cnt_fpro_usecaption']   = 'użyj centrum plików &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
-$BL['be_admin_keywords']		= 'Słowa kluczowe';
+$BL['be_admin_keywords']	= 'Słowa kluczowe';
 $BL['be_admin_keywords_key']	= 'SŁOWO KLUCZOWE';
 $BL['be_admin_keywords_err']	= 'Wstaw unikalne SŁOWO KLUCZOWE o nazwie';
 $BL['be_admin_keyword_edit']	= 'edytuj SŁOWO KLUCZOWE';
-$BL['be_admin_keyword_del']		= 'usuń SŁOWO KLUCZOWE';
+$BL['be_admin_keyword_del']	= 'usuń SŁOWO KLUCZOWE';
 $BL['be_admin_keyword_delmsg']	= 'Rzeczywiście chcesz\nto usunąć SŁOWO KLUCZOWE?';
-$BL['be_admin_keyword_add']		= 'dodaj SŁOWO KLUCZOWE';
+$BL['be_admin_keyword_add']	= 'dodaj SŁOWO KLUCZOWE';
+
 $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
@@ -1020,7 +1032,7 @@ $BL['be_cnt_pos9']   = 'tabela, prawo';
 $BL['be_cnt_pos8i']  = 'wyrównaj obraz w lewo w tabeli';
 $BL['be_cnt_pos9i']  = 'wyrównaj obraz w prawo w tabeli';
 
-$BL['be_WYSIWYG']		= 'WYSIWYG edytor';
+$BL['be_WYSIWYG']    = 'WYSIWYG edytor';
 $BL['be_WYSIWYG_disabled']	= 'WYSIWYG edytor wyłączony';
 $BL['be_admin_struct_acat_hiddenactive'] = 'widoczny kiedy aktywny';
 
@@ -1038,11 +1050,11 @@ $BL['Current_version_info']			= 'Twój bieżący <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']			= 'Nie można otworzyć połączenia do serwera phpwcms , zgłaszany jest błąd:<br />%s';
 $BL['Socket_functions_disabled']	= 'Niemożliwe jest użycie funkcji socket';
 $BL['Mailing_list_subscribe_reminder']	= 'Aby otrzymywać informacje o aktualizacjach do Twojego phpwcms,prenumeruj <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">listę mailingową</a>.';
-$BL['Version_information'] 			= 'Informacja o wersji phpwcms';
+$BL['Version_information'] 		= 'Informacja o wersji phpwcms';
 
 $BL['be_cnt_search_highlight']		= 'podświetlenie';
 $BL['be_cnt_results_wordlimit']		= 'maks. słów dla podsumowania';
-$BL['be_cnt_page_of_pages']			= 'search navi';
+$BL['be_cnt_page_of_pages']		= 'search navi';
 $BL['be_cnt_page_of_pages_descr']	= '{PREV:Wróć} strona #/##, wynik ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Nast.}';
 $BL['be_cnt_search_show_top']		= 'góra';
 $BL['be_cnt_search_show_bottom']	= 'dół';
@@ -1051,8 +1063,8 @@ $BL['be_cnt_search_show_prev']		= 'poprzedni (także jeżeli nie link)';
 $BL['be_cnt_search_show_forall']	= 'pokaż zawsze';
 $BL['be_cnt_search_startlevel']	= 'zacznij szukać';
 $BL['be_cnt_results_minchar']	= 'minimalna liczba znaków w zapytaniu';
-$BL['be_cnt_search_hidesummary']		= 'hide search teaser text';
-$BL['be_cnt_search_searchnot']			= 'no search for';
+$BL['be_cnt_search_hidesummary']	= 'hide search teaser text';
+$BL['be_cnt_search_searchnot']		= 'no search for';
 
 $BL['be_cnt_pagination']	= 'paginuj elementy zawartości';
 $BL['be_article_pagination']	= 'paginuj artykuły';
@@ -1069,26 +1081,27 @@ $BL['be_cnt_sorting']		= 'sortowanie';
 $BL['be_cnt_imgupload']		= 'prześlij&nbsp;obraz';
 $BL['be_cnt_filesize']		= 'rozmiar pliku';
 $BL['be_cnt_captchalength']	= 'captcha długość kodu';
-$BL['be_cnt_chars']			= 'znaków';
+$BL['be_cnt_chars']		= 'znaków';
 $BL['be_cnt_download']		= 'pobierz';
 $BL['be_cnt_download_direct']	= 'bezpośredni';
-$BL['be_cnt_database']			= 'baza danych';
+$BL['be_cnt_database']		= 'baza danych';
 $BL['be_cnt_formsave_in_db']	= 'zapisz wyniki formularza';
 
-$BL['be_cnt_email_notify']		= 'powiadom przez e-mail';
+$BL['be_cnt_email_notify']	= 'powiadom przez e-mail';
 $BL['be_cnt_notify_by_email']	= 'przez e-mail do';
-$BL['be_cnt_last_edited']		= 'ostatnio zmieniane';
+$BL['be_cnt_last_edited']	= 'ostatnio zmieniane';
+
 $BL['be_cnt_export_selection']	= 'eksportuj wybrane';
 $BL['be_cnt_delete_duplicates']	= 'usuń duplikaty';
-$BL['be_cnt_new_recipient']		= 'dodaj  odbiorcę';
+$BL['be_cnt_new_recipient']	= 'dodaj odbiorcę';
 
 $BL['be_cnt_newsletter_prepare']    = 'biuletyn aktywny';
-$BL['be_cnt_newsletter_prepare1']	= 'wszyscy odbiorcy będą przyjęci do kolejki wysyłania';
-$BL['be_cnt_newsletter_prepare2']	= 'kolejka wysyłania została zaktualizowana&#8230;';
+$BL['be_cnt_newsletter_prepare1']   = 'wszyscy odbiorcy będą przyjęci do kolejki wysyłania';
+$BL['be_cnt_newsletter_prepare2']   = 'kolejka wysyłania została zaktualizowana&#8230;';
 
-$BL['be_cnt_export']			= 'export';
+$BL['be_cnt_export']		= 'export';
 $BL['be_cnt_formsave_profile']	= 'zapisz dane profilu użytkownika';
-$BL['be_profile_label_add']		= 'dodatkowe';
+$BL['be_profile_label_add']	= 'dodatkowe';
 $BL['be_profile_label_website']	= 'url';
 $BL['be_profile_label_gender']	= 'rodzaj';
 $BL['be_profile_label_birthday']	= 'urodziny';
@@ -1106,11 +1119,11 @@ $BL['be_confirm_text']	= 'Tak, wyślij newsletter do wszystkich odbiorców!';
 $BL['be_cnt_queued']	= 'kolejkowanie';
 $BL['be_last_sending']	= 'ostatnia wysyłka';
 $BL['be_last_edited']	= 'ostatnio zmieniane';
-$BL['be_total']			= 'łącznie';
+$BL['be_total']		= 'łącznie';
 
-$BL['be_settings']		= 'ustawienia';
-$BL['be_ctype']			= 'zawartość';
-$BL['be_selection']		= 'zaznaczenie';
+$BL['be_settings']	= 'ustawienia';
+$BL['be_ctype']		= 'zawartość';
+$BL['be_selection']	= 'zaznaczenie';
 
 $BL['be_ctype_module']	= 'moduł';
 $BL['be_cnt_lightbox']	= 'lightbox';
@@ -1147,16 +1160,19 @@ $BL['be_dialog_warn_nosave']	= 'Jeżeli będziesz kontynuował zmiany nie zostan
 $BL['be_cnt_paginate_subsection']	= 'podrozdział';
 $BL['be_cnt_subsection_tite']		= 'tytuł podrozdziału';
 $BL['be_cnt_subsection_warning']	= 'Numeracja podrozdziałów (paginate content parts) jest możliwa dla\nmain column (CONTENT) tylko!';
-$BL['be_no_search']			= 'nie szukaj';
-$BL['be_priorize']			= 'priorytet';
+
+$BL['be_no_search']		= 'nie szukaj';
+$BL['be_priorize']		= 'priorytet';
 $BL['be_change_articleID']	= 'zmień ID artykułu';
 $BL['be_title_wrap']		= 'zawijaj tytuł artykułu';
-$BL['be_no_rss']			= 'RSS';
+
+$BL['be_no_rss']		= 'RSS';
 $BL['be_article_urlalias']	= 'Alias artykułu';
 
 $BL['be_image_crop']	= 'kadruj miniaturę';
 $BL['be_image_cropit']	= 'kadruj obrazek';
 $BL['be_image_align']	= 'wyrównanie obrazka';
+
 $BL['be_ctype_flashplayer']	= 'flash media player';
 $BL['be_flashplayer_caption']   = 'podpis';
 $BL['be_flashplayer_thumbnail']	= 'miniaturka';
@@ -1179,11 +1195,12 @@ $BL['be_check_feuser_manage']		= 'Zarządzane przez użytkownika';
 $BL['be_hide_active_articlelink']	= 'Ukryj aktywne artykuły w menu artykułów';
 
 $BL['be_module_search']			 = 'szukaj również';
+
 $BL['be_ctype_imagesspecial']	= 'obrazy specjalne';
 $BL['be_image_WxHpx']	= 'W x H px';
-$BL['be_fx_1']			= 'efekt 1';
-$BL['be_fx_2']			= 'efekt 2';
-$BL['be_fx_3']			= 'efekt 3';
+$BL['be_fx_1']		= 'efekt 1';
+$BL['be_fx_2']		= 'efekt 2';
+$BL['be_fx_3']		= 'efekt 3';
 $BL['be_image_zoom']	= 'powiększony widok';
 $BL['be_image_delete_js']	= 'Czy chcesz usunąć wybrany wpis obrazka?';
 
@@ -1198,10 +1215,10 @@ $BL['be_action_status']		= 'Stan wybranego zestawu danych mającego ID {ID} zost
 $BL['be_data_select_failed']	= 'Dostęp do wybranych danych nie powiódł się. Proszę dowód ponowić wybór.';
 $BL['be_alias']		= 'Alias';
 $BL['be_url_value']	= 'Tytuł URL';
-$BL['default_date_format']		= 'DD/MM/YYYY';
-$BL['default_date']				= 'd/m/Y'; // do not use something diffrent than "d, m, Y" here
+$BL['default_date_format']	= 'DD/MM/YYYY';
+$BL['default_date']		= 'd/m/Y'; // do not use something diffrent than "d, m, Y" here
 $BL['default_date_delimiter']	= '/';
-$BL['default_time_format']		= 'HH:MM';
+$BL['default_time_format']	= 'HH:MM';
 $BL['default_time']		= 'H:i';  // do not use something diffrent than "H, i" here
 $BL['be_place']			= 'Miejsce';
 $BL['be_teasertext']	= 'Tekst zwiastuna';
@@ -1216,7 +1233,7 @@ $BL['be_error_while_save']	= 'Zapisywanie danych nie powiodło się.';
 $BL['be_copyright']		= 'Prawa autorskie';
 $BL['be_file_multiple_upload']	= 'Przesyłanie wielu plików';
 $BL['be_files_select_available'] = 'Wybierz poprzednio przesłane pliki';
-$BL['be_files_browse']	= 'Przeglądanie plików';
+$BL['be_files_browse']		 = 'Przeglądanie plików';
 $BL['be_files_upload']	= 'Prześlij wybrane pliki';
 $BL['be_archive']	= 'archiwum';
 $BL['be_off']		= 'wył';
@@ -1225,7 +1242,6 @@ $BL['be_random']	= 'losowo';
 $BL['be_sorted']	= 'posortowane';
 $BL['be_granted_download'] = 'secured frontend download only';
 $BL['be_granted_feuser'] = 'Tylko dla zalogowanych użytkowników serwisu';
-
 $BL['be_fileuploader_typeError']	= "{file} ma nieprawidłowe rozszerzenie. Prawidłowe rozszerzenie(a): {extensions}.";
 $BL['be_fileuploader_sizeError']	= "{file} jest zbyt duży, maksymalny rozmiar pliku to {sizeLimit}.";
 $BL['be_fileuploader_minSizeError']	= "{file} jest zbyt mały, minimalny rozmiar pliku to {minSizeLimit}.";
@@ -1255,10 +1271,12 @@ $BL['be_archive_link']	= 'link archiwum';
 $BL['be_use_prio']		= 'zastosuj priorytetyzację';
 $BL['be_skip_first_items']	= 'pomiń górne elementy';
 $BL['be_news_detail_link']	= 'artykuł nowości';
+
 $BL['be_gallerydownload']	= 'pozwól na pobieranie w galerii';
 $BL['be_gallery_root']		= 'katalog główny galerii';
 $BL['be_gallery_directory']	= 'podkatalog galerii';
 $BL['be_gallery']	= 'galeria';
+
 $BL['be_sort_date']	= 'sortuj daty';
 $BL['group_superuser']	= 'superuser';
 $BL['group_admin']	= 'administrator';
@@ -1266,6 +1284,7 @@ $BL['group_editor']	= 'redaktor';
 $BL['group_newsletter']	= 'redaktor biuletynu';
 $BL['group_client']	= 'klient';
 $BL['group_guest']	= 'gość';
+
 $BL['php_function']	= 'funkcja php';
 $BL['article_menu_title']	= 'tytuł menu';
 
@@ -1273,7 +1292,8 @@ $BL['content_type']		= 'content-type';
 $BL['automatic']		= 'automatycznie';
 
 $BL['random_image']		= 'losowy obraz';
-$BL['random_image_from_list']  = 'Wybierz 1 losowy obraz z listy';
+$BL['limit_image_from_list']	= 'Obrazów max.';
+
 $BL['alt_image']	= 'alt. image';
 $BL['alt_text']		= 'alt. text';
 $BL['over']		= 'over';
@@ -1289,10 +1309,14 @@ $BL['fancyupload_adblock_error']	= 'Aby włączyć wbudowany uploader, odblokuj 
 $BL['fancyupload_flashblock_error']	= 'Aby włączyć wbudowany uploader, włącz zablokowany film Flash (zobacz Flashblock).';
 $BL['fancyupload_required_error']	= 'Wymagany plik nie został znaleziony, prosimy o cierpliwość, a my to naprawimy.';
 $BL['fancyupload_flash_error']		= 'Aby włączyć wbudowany uploader, należy zainstalować najnowszy plugin Adobe Flash.';
+
 $BL['be_cnt_function_validate']		= 'Walidacja PHP';
 $BL['be_structform_selected_cp']	= 'Wybór Limitu użytecznych części zawartości';
+$BL['be_structform_select_cp']		= 'Wybierz elementy treści';
+
 $BL['source_image_not_found']		= 'Błąd źródła obrazu: Obraz %s wydaje się nie istnieć.';
 $BL['form_force_ssl']			= 'Wymuś wysyłanie formularzy z SSL';
 $BL['numerize_title']			= 'Numerowane zamiast tytułów artykułów';
 $BL['be_article_noteaser']		= 'bez zapowiedzi';
+
 ?>

@@ -2914,7 +2914,7 @@ function get_fe_userinfo($forum_userID) {
 					'admin'		=> 0,					'fe'	=> 0,
 					'aktiv'		=> 1,					'name'	=> 'Guest',
 					'lang'		=> $GLOBALS['phpwcms']['default_lang'],
-					'wysiwyg'	=> $GLOBALS['phpwcms']['wysiwyg_editor']
+					'wysiwyg'	=> empty($GLOBALS['phpwcms']['wysiwyg_editor']) 0 : 1
 				);
 	}
 }

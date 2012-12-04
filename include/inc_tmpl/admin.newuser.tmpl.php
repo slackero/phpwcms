@@ -61,8 +61,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 				aporeplace($new_email)."', '".
 				$set_user_admin."', '".
 				$set_user_aktiv."', '".
-				aporeplace($new_name)."', '".
-				aporeplace($GLOBALS['phpwcms']['wysiwyg_editor'])."', '".
+				aporeplace($new_name)."', 1, '".
 				$set_user_fe."')";
 		if(mysql_query($sql, $db) or die('error while creating new user')) {
 			$new_user_id = mysql_insert_id($db);

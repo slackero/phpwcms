@@ -1,34 +1,45 @@
-/*
-	Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
-	For licensing, see LICENSE.html or http://ckeditor.com/license
-	
-	Adopted for phpwcms, Oliver Georgi
-*/
+/**
+ * @license Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.html or http://ckeditor.com/license
+ */
 
 CKEDITOR.editorConfig = function( config ) {
-	// Set CKEditor UI color
-	config.uiColor = '#cccccc';
-	
-	// Set editor default height
-	config.height = 400;
-	
-	// Set AutoGrow: Editor input area will autofit the content
-	// http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html#.autoGrow_maxHeight
-	config.autoGrow_maxHeight = 0;
-	config.autoGrow_minHeight = 400;
-	
-	config.toolbar_phpwcms = [
-        ['Source','Maximize', 'ShowBlocks'],
-		['Undo','Redo','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Find','Replace','-','SelectAll','RemoveFormat'],
-		['Link','Unlink','Anchor'],
-		['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-		['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-		['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-			
-		['Image','Table','HorizontalRule','SpecialChar'],
-		['TextColor','BGColor'],
-		['Styles','Format','Font','FontSize'],
-		['About']
+	// Define changes to default configuration here.
+	// For the complete reference:
+	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+
+	// The toolbar groups arrangement, optimized for two toolbar rows.
+	// http://nightly.ckeditor.com/latest/ckeditor/samples/plugins/toolbar/toolbar.html
+	config.toolbarGroups = [
+		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing',     groups: [ 'find', 'selection' ] }, //, 'spellchecker'
+		{ name: 'links' },
+		{ name: 'tools' },
+		{ name: 'about' },
+		//{ name: 'forms' },
+		//{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+		//'/',
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'paragraph',   groups: [ 'align', 'list', 'indent', 'blocks'] },
+		//{ name: 'others' },
+		//'/',
+		{ name: 'insert' },
+		{ name: 'colors' },
+		{ name: 'styles' }
+		
 	];
 
+	// Remove some buttons, provided by the standard plugins, which we don't
+	// need to have in the Standard(s) toolbar.
+	config.removeButtons = 'Iframe,Flash,Smiley,PageBreak,FontSize';
+	
+	config.width = 538;
+	config.height = 400;
+	
+	config.extraPlugins = 'magicline';
+	
+	config.toolbarCanCollapse = true;
+	config.toolbarStartupExpanded = true;
+	
+	//config.removePlugins = 'resize';
 };

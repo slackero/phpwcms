@@ -33,16 +33,12 @@ unset($content['tabs']['tabwysiwygoff']);
 // or WYSIWYG disabled
 if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 
-	$BE['HEADER']['fckeditor.js']	= '	<script type="text/javascript" src="include/inc_ext/fckeditor/fckeditor.js"></script>';
+	$BE['HEADER']['ckeditor.js']		 = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
 	$content['wysiwyg']				= true;
-	
-	// check if FCKeditor is enabled
-	$content['wysiwyg_toolbar']		= $_SESSION["WYSIWYG_EDITOR"] == 2 ? $_SESSION['WYSIWYG_TEMPLATE'] : 'Basic';
 
 } else {
 
 	$content['wysiwyg']				= false;
-	$content['wysiwyg_toolbar']		= '';
 
 }
 
@@ -106,22 +102,22 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 ?>
 
 			<li id="tab<?php echo $key ?>" class="tab">
-			<table cellpadding="0" cellspacing="0" border="0" summary="">
-			
-				<tr>
-					<td class="chatlist col1w" align="right"><em class="handle" title="<?php echo $sort_up_down; ?>">&nbsp;</em><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
-					<td class="tdbottom2"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html_specialchars($value['tabtitle']) ?>" class="f11b width400" /></td>			
-					<td><a href="#" onclick="return deleteTab('tab<?php echo $key ?>');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a></td>
-				</tr>				
-				<tr>
-					<td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;</td>
-					<td colspan="2"><input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html_specialchars($value['tabheadline']) ?>" class="v11 width400" /></td>			
-				</tr>
-				<tr>
-					<td colspan="3" class="tdtop5"><textarea name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10" class="v12" style="width:536px;height:150px;"><?php echo html_specialchars($value['tabtext']) ?></textarea></td>
-				</tr>
-			
-			</table>
+				<table cellpadding="0" cellspacing="0" border="0" summary="">
+				
+					<tr>
+						<td class="chatlist col1w" align="right"><em class="handle" title="<?php echo $sort_up_down; ?>">&nbsp;</em><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
+						<td class="tdbottom2"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html_specialchars($value['tabtitle']) ?>" class="f11b width400" /></td>			
+						<td><a href="#" onclick="return deleteTab('tab<?php echo $key ?>');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a></td>
+					</tr>				
+					<tr>
+						<td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;</td>
+						<td colspan="2"><input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html_specialchars($value['tabheadline']) ?>" class="v11 width400" /></td>			
+					</tr>
+					<tr>
+						<td colspan="3" class="tdtop5"><textarea class="width540 v12" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10"><?php echo html_specialchars($value['tabtext']) ?></textarea></td>
+					</tr>
+				
+				</table>
 			</li>	
 
 <?php
@@ -135,7 +131,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 <tr>
 	<td colspan="2" class="rowspacer0x7"><script type="text/javascript">
 
-	var entries = 0, FCK = [];
+	var entries = 0;
 	
 	window.addEvent('domready', function() {
 
@@ -150,12 +146,12 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 			entry    +=	'<td><a href="#" onclick="return deleteTab(\'tab' + entries + '\');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a><'+'/td><'+'/tr>';
 			entry    +=	'<tr><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td colspan="2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="v12" ';
-			entry    +=	'style="width:536px;height:150px;"><'+'/textarea><'+'/td><'+'/tr><'+'/table>';
+			entry    +=	'<tr><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540 v12">';
+			entry    +=	'<'+'/textarea><'+'/td><'+'/tr><'+'/table>';
 			
 			var tab = new Element('li', {'id': 'tab'+entries, 'class': 'tab nomove'} ).setHTML( entry ).injectInside( $('tabs') );
 
-<?php if($content['wysiwyg']): ?>			EnableFCK(entries);<?php endif; ?>
+<?php if($content['wysiwyg']): ?>			EnableCKEditor(entries);<?php endif; ?>
 			
 			window.scrollTo(0, tab.getCoordinates()['top']);
 			
@@ -165,7 +161,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 <?php if($content['wysiwyg']): ?>		
 		if(entries > 0) {
 			for(x = 0; x < entries; x++) {
-				EnableFCK(x);
+				EnableCKEditor(x);
 			}
 		}
 <?php endif; ?>
@@ -173,21 +169,35 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 		var s = new Sortables( $('tabs'), { handles: 'em' } );
 	});
 
-<?php if($content['wysiwyg']): ?>
-	function EnableFCK(x) {
+<?php if($content['wysiwyg']): 
+
+	// CKEditor Tabs configuration
+	$content['ckconfig'] = array();
+	
+	//$content['ckconfig'][] = 'toolbar: "Basic"';
+	
+	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
+		$content['ckconfig'][] = 'customConfig: "' . PHPWCMS_URL.TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
+	}
+	if(isset($_SESSION["wcs_user_lang"])) {
+		$content['ckconfig'][] = 'language: "' . $_SESSION["wcs_user_lang"] .'"';
+	}
+	if(!empty($GLOBALS['phpwcms']['FCK_FileBrowser'])) {
+		$content['ckconfig'][] = 'filebrowserBrowseUrl: "'.PHPWCMS_URL.'filebrowser.php?opt=16"';
+		$content['ckconfig'][] = 'filebrowserImageBrowseUrl: "'.PHPWCMS_URL.'filebrowser.php?opt=17"';
+		$content['ckconfig'][] = 'filebrowserWindowWidth: 640';
+		$content['ckconfig'][] = 'filebrowserWindowHeight: 480';
+	}
+	$content['ckconfig'] = implode(','.LF.'				', $content['ckconfig']);
+	if($content['ckconfig']) {
+		$content['ckconfig'] = ', {'. LF . '				' . $content['ckconfig'] . LF . '			}';
+	}
+
+?>
+	function EnableCKEditor(x) {
 
 		if( $('tabtext'+x) ) {
-	
-			FCK[x] = new FCKeditor('tabtext'+x);
-					
-			FCK[x].BasePath = '<?php echo PHPWCMS_URL.'include/inc_ext/fckeditor/'; ?>';
-			FCK[x].Config['CustomConfigurationsPath'] = '<?php echo PHPWCMS_URL.'include/inc_ext/fckeditor/'; ?>fckeditor_config.js.php';
-			FCK[x].Config['StartupFocus'] = false;
-			FCK[x].Width = 536;
-			FCK[x].Height = 150;
-			FCK[x].ToolbarSet = '<?php echo $content['wysiwyg_toolbar']; ?>';	
-								
-			FCK[x].ReplaceTextarea() ;
+			CKEDITOR.replace( 'tabtext'+x<?php echo $content['ckconfig'] ?> );
 		}
 	
 	}

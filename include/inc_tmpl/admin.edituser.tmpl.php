@@ -94,8 +94,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 			$sql .= "usr_email='".aporeplace($new_email)."', ".
 					"usr_admin='".$set_user_admin."', ".
 					"usr_aktiv='".$set_user_aktiv."', ".
-					"usr_name='".aporeplace($new_name)."', ".
-					"usr_wysiwyg='".aporeplace($GLOBALS['phpwcms']['wysiwyg_editor'])."', ";
+					"usr_name='".aporeplace($new_name)."', ";
 			if(isset($set_user_var['allowed_cp'])) {
 				$sql .= "usr_vars="._dbEscape(serialize($set_user_var)).", ";
 			}				

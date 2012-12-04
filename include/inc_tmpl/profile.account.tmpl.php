@@ -83,17 +83,19 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 	<tr> 
 		<td align="right" valign="top" style="padding-top: 3px;"><?php echo $BL['be_WYSIWYG'] ?>:&nbsp;</td>
-		<td><select name="form_wysiwyg" id="form_wysiwyg" class="v12 width250" style="margin-bottom:2px;" onchange="setWYSIWYGtemplate();">
-				<option value="0"<?php is_selected(0, $_SESSION["WYSIWYG_EDITOR"]) ?>><?php echo $BL['be_WYSIWYG_disabled'] ?></option>
-				<option value="1"<?php is_selected(1, $_SESSION["WYSIWYG_EDITOR"]) ?>>CKEditor 3.6.5</option>
-				<option value="2"<?php is_selected(2, $_SESSION["WYSIWYG_EDITOR"]) ?>>FCKeditor 2.6.8</option>
-        </select>
-		<div id="wysiwyg_template"><input type="hidden" name="form_wysiwyg_toolbar" value="" /></div>
+		<td><label>
+				<input type="radio" name="form_wysiwyg" value="1"<?php if(!empty($_SESSION["WYSIWYG_EDITOR"])): ?> checked="checked"<?php endif; ?> />
+				<?php echo $BL['be_on']; ?> (CKEditor 4)
+			</label>
+			&nbsp;
+			<label>
+				<input type="radio" name="form_wysiwyg" value="1"<?php if(empty($_SESSION["WYSIWYG_EDITOR"])): ?> checked="checked"<?php endif; ?> />
+				<?php echo $BL['be_off']; ?>
+			</label>
+			<input type="hidden" name="form_wysiwyg_toolbar" value="" />
 		</td>
 	</tr>
 
-
-	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 	
 	<tr> 
@@ -132,73 +134,3 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="20"></td></tr>
 </table></form>
-<?php
-
-// set templates for WYSIWYG editor
-if(!empty($phpwcms['wysiwyg_template']['FCKeditor'])) {
-	$wysiwygTemplates['FCKeditor'] = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
-}
-if(empty($wysiwygTemplates['FCKeditor']) || count($wysiwygTemplates['FCKeditor']) == 0) {
-	$wysiwygTemplates['FCKeditor'] = array('Basic','Default','phpwcms_default');
-}
-if(!empty($phpwcms['wysiwyg_template']['CKEditor'])) {
-	$wysiwygTemplates['CKEditor'] = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);
-}
-if(empty($wysiwygTemplates['CKEditor']) || count($wysiwygTemplates['CKEditor']) == 0) {
-	$wysiwygTemplates['CKEditor'] = array('phpwcms','Default','Basic');
-}
-
-$wysiwygTemplates['userTemplate']		= empty($_SESSION["WYSIWYG_TEMPLATE"]) ? '' : $_SESSION["WYSIWYG_TEMPLATE"];
-
-// FCKeditor
-$wysiwygTemplates['FCKeditor_options'] 	= '';
-foreach($wysiwygTemplates['FCKeditor'] as $value) {
-	$value = html_specialchars($value);
-	$wysiwygTemplates['FCKeditor_options'] .= '	<option value="'.$value.'"';
-	if($wysiwygTemplates['userTemplate'] == $value) {
-		$wysiwygTemplates['FCKeditor_options'] .= ' selected="selected"';
-	}
-	$wysiwygTemplates['FCKeditor_options'] .= '>FCKeditor: '.$value.'<\'+\'/option>';
-}
-
-$wysiwygTemplates['FCKeditor_select']  = '<select name="form_wysiwyg_template" class="v12 width250">';
-$wysiwygTemplates['FCKeditor_select'] .= $wysiwygTemplates['FCKeditor_options'];
-$wysiwygTemplates['FCKeditor_select'] .= '<\'+\'/select>';
-
-// CKEditor
-$wysiwygTemplates['CKEditor_options'] 	= '';
-foreach($wysiwygTemplates['CKEditor'] as $value) {
-	$value = html_specialchars($value);
-	$wysiwygTemplates['CKEditor_options'] .= '	<option value="'.$value.'"';
-	if($wysiwygTemplates['userTemplate'] == $value) {
-		$wysiwygTemplates['CKEditor_options'] .= ' selected="selected"';
-	}
-	$wysiwygTemplates['CKEditor_options'] .= '>CKEditor: '.$value.'<\'+\'/option>';
-}
-
-$wysiwygTemplates['CKEditor_select']  = '<select name="form_wysiwyg_template" class="v12 width250">';
-$wysiwygTemplates['CKEditor_select'] .= $wysiwygTemplates['CKEditor_options'];
-$wysiwygTemplates['CKEditor_select'] .= '<\'+\'/select>';
-
-?>
-<script language="javascript" type="text/javascript">
-setWYSIWYGtemplate();
-
-function setWYSIWYGtemplate() {
-	var templateObj = document.getElementById('form_wysiwyg');
-	var templateVal = templateObj.options[templateObj.selectedIndex].value;
-	switch(templateVal) {
-		case 2:
-		case '2': 
-			var baseVal = '<?php echo $wysiwygTemplates['FCKeditor_select'] ?>';
-			break;
-		case 1:
-		case '1': 
-			var baseVal = '<?php echo $wysiwygTemplates['CKEditor_select'] ?>';
-			break;
-		default:
-			var baseVal = '<input type="hidden" name="form_wysiwyg_toolbar" value="" />';
-	}
-	document.getElementById('wysiwyg_template').innerHTML = baseVal;
-}
-</script>

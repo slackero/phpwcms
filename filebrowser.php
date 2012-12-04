@@ -70,6 +70,9 @@ if(isset($_GET['target'])) {
 if(isset($_GET['entry_id'])) {
 	$_SESSION['filebrowser_image_entry_id'] = preg_replace('/[^a-z0-9_]/', '', $_GET['entry_id']);
 }
+if(isset($_GET['CKEditorFuncNum'])) {
+	$_SESSION['CKEditorFuncNum'] = intval($_GET['CKEditorFuncNum']);
+}
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
@@ -322,6 +325,8 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 	$file_sql .= "(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") ";
 	$file_sql .= "ORDER BY f_sort, f_name";
 	
+	$ckeditor_action = empty($_SESSION['CKEditorFuncNum']) ? 3 : $_SESSION['CKEditorFuncNum'];
+	
 	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br />".html_entities($file_sql))) {
 		$file_durchlauf = 0;
 		
@@ -349,6 +354,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 			
 				$js_files_select[$file_durchlauf] = '	  [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
 				$add_all = false;
+				
 			
 				switch($js_aktion) {
 					case 0:  $jst = empty($_SESSION['filebrowser_image_target']) ? '_' : $_SESSION['filebrowser_image_target']; 
@@ -400,10 +406,10 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 							 break;
 							 
 					//CKEditor
-					case 16: $js  = "window.opener.CKEDITOR.tools.callFunction(2, 'download.php?f=".$file_row["f_hash"] . "&target=0');";
+					case 16: $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=".$file_row["f_hash"] . "&target=0');";
 							 break;
 					
-					case 17: $js  = "window.opener.CKEDITOR.tools.callFunction(2,'img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+					case 17: $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
 							 break;
 						
 						 

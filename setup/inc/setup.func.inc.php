@@ -184,7 +184,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['rewrite_url']       = 0; // whether URL should be rewritable\n";
 	$conf_file .= "\$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten\n";
 	$conf_file .= "\$phpwcms['alias_allow_slash'] = 0; // Allow slashes / in ALIAS\n";
-	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor, 2 = FCKeditor\n";
+	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor 4\n";
 	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
 	$conf_file .= "\$phpwcms['allowed_lang']      = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
 	$conf_file .= "\$phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
@@ -210,7 +210,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE\n";
 	$conf_file .= "\$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
-	$conf_file .= "\$phpwcms['wysiwyg_template']  = array( 'FCKeditor' => 'Default,Basic,phpwcms_default', 'CKEditor' => 'Basic,phpwcms_default,Default' );\n";
+	$conf_file .= "\$phpwcms['wysiwyg_template']  = array();\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
 	$conf_file .= "\$phpwcms['version_check']     = 1; // checks for current release of phpwcms online \n";
 	$conf_file .= "\$phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";

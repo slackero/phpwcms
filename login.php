@@ -90,12 +90,8 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
-//2 = FCKeditor
-$phpwcms["wysiwyg_editor"] = abs(intval($phpwcms["wysiwyg_editor"]));
-if($phpwcms["wysiwyg_editor"] > 2) {
-	$phpwcms["wysiwyg_editor"] = 1;
-}
-$_SESSION["WYSIWYG_EDITOR"]		= $phpwcms["wysiwyg_editor"];
+$phpwcms["wysiwyg_editor"]	= empty($phpwcms["wysiwyg_editor"]) ? 0 : 1;
+$_SESSION["WYSIWYG_EDITOR"]	= $phpwcms["wysiwyg_editor"];
 
 
 if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_POST['json']) && $_POST['json'] == '1') {
@@ -133,8 +129,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			$row["usr_vars"]				= @unserialize($row["usr_vars"]);
 
 			// Fallback to CKeditor?
-			$_SESSION["WYSIWYG_EDITOR"]		= $row["usr_wysiwyg"] > 2 ? 1 : $row["usr_wysiwyg"];
+			$_SESSION["WYSIWYG_EDITOR"]		= empty($row["usr_wysiwyg"]) ? false : true;
 			
+			/*
 			if(!empty($phpwcms['wysiwyg_template']['FCKeditor']) && $_SESSION["WYSIWYG_EDITOR"] == 2) {
 				$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
 			} elseif(!empty($phpwcms['wysiwyg_template']['CKEditor']) && $_SESSION["WYSIWYG_EDITOR"] == 1) {
@@ -145,6 +142,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			}
 			
 			$_SESSION["WYSIWYG_TEMPLATE"] = empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
+			*/
+			
 			$_SESSION["wcs_user_cp"] = isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
 			$_SESSION["wcs_allowed_cp"] = isset($row["usr_vars"]['allowed_cp']) && is_array($row["usr_vars"]['allowed_cp']) ? $row["usr_vars"]['allowed_cp'] : array();
 			

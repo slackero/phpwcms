@@ -1298,6 +1298,7 @@ button.btn_add_tab span {
 	background: url(../../img/famfamfam/tab_add.gif) no-repeat 5px center;
 	float: left;
 	font-size: 11px;
+	line-height: 1.5em;
 }
 td.col1w {
 	width: 76px;
@@ -1308,10 +1309,12 @@ ul#tabs {
 	padding: 0;
 	list-style: none;
 }
+li.tab {
+	list-style: none;
+}
 ul#tabs li.tab {
 	margin: 0 0 0 0;
 	padding: 7px 0 7px 0;
-	list-style: none;
 	background: transparent url(../../img/lines/be_dotted_line.gif) repeat-x left top;
 }
 ul#tabs li:hover {
@@ -1319,8 +1322,9 @@ ul#tabs li:hover {
 }
 ul#tabs li.nomove, ul#tabs li.nomove:hover {
 	background: #F3F5F8;
+	list-style: none;
 }
-em.handle {
+ul#tabs li em.handle {
 	float: left;
 	width: 16px;
 	height: 16px;
@@ -1381,7 +1385,7 @@ button span.btn_image_add {
 	background: url(../../img/famfamfam/image_add.gif) no-repeat left center;
 	float: left;
 }
-em.handle {
+ul#images em.handle {
 	float: right;
 	width: 16px;
 	height: 16px;

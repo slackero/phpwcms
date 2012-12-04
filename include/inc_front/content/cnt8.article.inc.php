@@ -354,12 +354,14 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], phpwcms_strtotime($row['article_begin']), phpwcms_strtotime($row['article_end']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
 
-					$row['article_image'] = @unserialize( $row['article_image'] );
+					$row['article_image']					= setArticleSummaryImageData( @unserialize( $row['article_image'] ) );
+					$content['alink']['caption']			= getImageCaption($row['article_image']['list_caption']);
+					$row['article_image']['list_caption']	= html_specialchars($content['alink']['caption'][0]);
+					$content['alink']['caption'][3]			= html_specialchars($content['alink']['caption'][3]);
+					$content['alink']['caption'][1]			= html_specialchars($content['alink']['caption'][1]);
 					
 					// article list image
 					if(strpos($content['alink']['tr'][$key], 'IMAGE') !== false) {
-					
-						$row['article_image'] = setArticleSummaryImageData( $row['article_image'] );
 					
 						$img_thumb_name		= '';
 						$img_thumb_rel		= '';
@@ -389,8 +391,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 							$thumb_img 								= '';
 							$img_thumb_hash							= empty($row['article_image']['list_hash']) ? '' : $row['article_image']['list_hash'];
 							$img_thumb_crop							= empty($content['alink']['alink_crop']) ? 0 : 1;
-							$content['alink']['caption'] 			= getImageCaption($row['article_image']['list_caption']);
-							$row['article_image']['list_caption']	= $content['alink']['caption'][0]; // caption text
 							
 							if(strpos($content['alink']['tr'][$key], 'cmsimage.php') !== false && $img_thumb_hash) {
 								
@@ -414,10 +414,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 								if($thumb_image != false) {
 				
-									$content['alink']['caption'][3] = empty($content['alink']['caption'][3]) ? '' : ' title="'.html_specialchars($content['alink']['caption'][3]).'"';
-									$content['alink']['caption'][1] = html_specialchars($content['alink']['caption'][1]);
-				
-									$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$content['alink']['caption'][1].'"'.$content['alink']['caption'][3].' />';
+									$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$content['alink']['caption'][1].'"';
+									if($content['alink']['caption'][3]) {
+										$thumb_img .= ' title="'.$content['alink']['caption'][3].'"';
+									}
+									$thumb_img .= ' />';
 				
 									$img_thumb_name		= $thumb_image[0];
 									$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];
@@ -443,9 +444,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 							$content['alink']['tr'][$key] 
 						);
 						
-						// Image Caption
-						$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION', empty($row['article_image']['list_caption']) ? '' : html_specialchars($row['article_image']['list_caption']));
-					
 					}
 					
 					// article summary
@@ -485,6 +483,12 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					
 					// article category
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CATEGORY', html_specialchars($content['struct'][ $row['article_cid'] ]['acat_name']));
+					
+					// Image Caption, Alt, Title
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION', $row['article_image']['list_caption']);
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION_ALT', $content['alink']['caption'][1]);
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION_TITLE', $content['alink']['caption'][3]);
+					
 					
 					// article class based on keyword *CSS-classname*
 					$row['article_class'] = '';
