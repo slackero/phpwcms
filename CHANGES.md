@@ -1,6 +1,12 @@
 phpwcms Changelog
 =================
 
+Version 1.6.524 – December 4, 2012
+----------------------------------
+
+- Missing ?
+
+
 Version 1.6.523 – December 4, 2012
 ----------------------------------
 
@@ -43,7 +49,6 @@ Version 1.6.520 – November 23, 2012
 - Updated versions of editors under profile account data
 - Removed mediabox from lib
 - Updated some more file headers with updated copyright info
-- Missing ?
 
 
 Version 1.6.519 – November 22, 2012
