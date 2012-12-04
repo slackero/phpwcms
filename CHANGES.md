@@ -7,6 +7,7 @@ Version 1.6.523 – December 4, 2012
 - WYSIWYG editors replaced by CKEditor 4 (only)
 - CP Teaser enhanced by IMAGE_ALT/IMAGE_TITLE replacer, rendered also when there is no image
 - Updated Polish translations (UTF-8), Thanks Bogdan!
+- LofSlider JavaScript/CSS/images removed
 
 
 Version 1.6.522 – November 27, 2012
