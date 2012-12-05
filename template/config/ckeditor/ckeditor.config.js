@@ -3,6 +3,7 @@
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  *	
  * Adopted for phpwcms, Oliver Georgi
+ * Default CKEditor configuration in phpwcms backend
  */
 
 CKEDITOR.editorConfig = function( config ) {
@@ -44,4 +45,13 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbarStartupExpanded = true;
 	
 	//config.removePlugins = 'resize';
+	
+	
+	//config.forcePasteAsPlainText = true;
+	//config.pasteFromWordRemoveFontStyles = true;
+	//config.pasteFromWordRemoveStyles = true;
+	//config.pasteFromWordPromptCleanup = true;
+	
+	//config.contentsCss = 'assets/config/ckeditor/ckeditor.custom.css';
+	
 };
