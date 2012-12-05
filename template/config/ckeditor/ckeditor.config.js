@@ -17,10 +17,12 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection' ] }, //, 'spellchecker'
 		{ name: 'links' },
+		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'tools' },
 		{ name: 'about' },
+		
 		//{ name: 'forms' },
-		//{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+		
 		//'/',
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'paragraph',   groups: [ 'align', 'list', 'indent', 'blocks'] },
@@ -34,7 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
-	config.removeButtons = 'Iframe,Flash,Smiley,PageBreak,FontSize';
+	config.removeButtons = 'Copy,Iframe,Flash,Smiley,PageBreak,FontSize,Save,Print,NewPage,Preview,Templates,PasteFromWord,PasteText';
 	
 	config.width = 538;
 	config.height = 400;
@@ -47,11 +49,11 @@ CKEDITOR.editorConfig = function( config ) {
 	//config.removePlugins = 'resize';
 	
 	
-	//config.forcePasteAsPlainText = true;
-	//config.pasteFromWordRemoveFontStyles = true;
-	//config.pasteFromWordRemoveStyles = true;
-	//config.pasteFromWordPromptCleanup = true;
-	
+	config.forcePasteAsPlainText = true;
+	config.pasteFromWordRemoveFontStyles = true;
+	config.pasteFromWordRemoveStyles = true;
+	config.pasteFromWordPromptCleanup = true;
+
 	//config.contentsCss = 'assets/config/ckeditor/ckeditor.custom.css';
 	
 };

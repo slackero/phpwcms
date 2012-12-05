@@ -17,10 +17,10 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection' ] }, //, 'spellchecker'
 		{ name: 'links' },
+		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'tools' },
 		{ name: 'about' },
 		//{ name: 'forms' },
-		//{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		//'/',
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'paragraph',   groups: [ 'align', 'list', 'indent', 'blocks'] },
@@ -34,7 +34,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
-	config.removeButtons = 'Iframe,Flash,Smiley,PageBreak,FontSize';
+	config.removeButtons = 'Copy,Iframe,Flash,Smiley,PageBreak,FontSize,Save,Print,NewPage,Preview,Templates,PasteFromWord,PasteText';
 	config.toolbarCanCollapse = true;
 	config.toolbarStartupExpanded = false;
 	//config.removePlugins = 'elementspath,resize';
