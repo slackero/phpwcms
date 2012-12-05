@@ -372,6 +372,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						$img_thumb_hash		= '';
 						$img_thumb_crop		= 0;
 						$img_thumb_ext		= 'jpg';
+						$row['article_image']['list_name'] = html_specialchars($row['article_image']['list_name']);
 						
 						// check if image available
 						if($img_thumb_id) {
@@ -413,8 +414,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 													  ));
 
 								if($thumb_image != false) {
-				
-									$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$content['alink']['caption'][1].'"';
+								
+									$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
 									if($content['alink']['caption'][3]) {
 										$thumb_img .= ' title="'.$content['alink']['caption'][3].'"';
 									}
@@ -439,8 +440,30 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						
 						// replace thumbnail and zoom image information
 						$content['alink']['tr'][$key] = str_replace(
-							array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}', '{THUMB_ID}', '{THUMB_HASH}', '{THUMB_CROP}', '{THUMB_EXT}' ),
-							array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height, $img_thumb_id, $img_thumb_hash, $img_thumb_crop, $img_thumb_ext ),
+							array(
+								'{THUMB_NAME}',
+								'{THUMB_REL}',
+								'{THUMB_ABS}',
+								'{THUMB_WIDTH}',
+								'{THUMB_HEIGHT}',
+								'{THUMB_ID}',
+								'{THUMB_HASH}',
+								'{THUMB_CROP}',
+								'{THUMB_EXT}',
+								'{IMAGE_NAME}'
+							),
+							array(
+								$img_thumb_name,
+								$img_thumb_rel,
+								$img_thumb_abs,
+								$img_thumb_width,
+								$img_thumb_height,
+								$img_thumb_id,
+								$img_thumb_hash,
+								$img_thumb_crop,
+								$img_thumb_ext,
+								$row['article_image']['list_name']
+							),
 							$content['alink']['tr'][$key] 
 						);
 						
@@ -488,7 +511,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION', $row['article_image']['list_caption']);
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION_ALT', $content['alink']['caption'][1]);
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION_TITLE', $content['alink']['caption'][3]);
-					
 					
 					// article class based on keyword *CSS-classname*
 					$row['article_class'] = '';
