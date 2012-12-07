@@ -187,8 +187,6 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 	$cnt_image_lightbox = empty($GLOBALS['cnt_image_lightbox']) ? 0 : 1;
 	$crop = empty($image['crop']) ? 0 : 1;
 
-	$classname = empty($classname) ? 'imgDIV' : $classname;
-
 	$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$image[3],
 								"image_name"	=>	$image[2] . '.' . $image[3],
@@ -224,16 +222,16 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
 		$image_class 	= $GLOBALS["template_default"]["article"]["image_class"];
 		$image_class	= ($image_class) ? ' class="'.$image_class.'"' : ' class="imgClass"';
-		$caption_class 	= $GLOBALS["template_default"]["article"]["image_caption_class"];
-		$caption_class	= ($caption_class) ? ' class="'.$caption_class.'"' : ' class="caption"';
-		$capt_before 	= $GLOBALS["template_default"]["article"]["image_caption_before"];
-		$capt_after 	= $GLOBALS["template_default"]["article"]["image_caption_after"];
-
+		
 		// image caption
-		$caption = getImageCaption(base64_decode($image[6]));
+		$caption	= getImageCaption(base64_decode($image[6]));
 		$caption[0]	= html_specialchars($caption[0]);
-		$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
-		$caption[1] = empty($caption[1]) ? html_specialchars($image[1]) : html_specialchars($caption[1]);
+		$caption[3]	= empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
+		$caption[1]	= html_specialchars(empty($caption[1]) ? $image[1] : $caption[1]);
+		
+		if(empty($classname)) {
+			$classname = 'imgDIV';
+		}
 
 		// image source
 		$img  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3];
@@ -272,23 +270,23 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		} else {
 		
 			$image_block .= '<div'.$image_class.">";
-			if($caption[2][0]) {
-			
-				$image_block .= '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$img.'</a>';
-			
-			} else {
-			
-				$image_block .= $img;
-			
-			}
+			$image_block .= $caption[2][0] ? '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$img.'</a>' : $img;
 			$image_block .= '</div>';
+		
 		}
+		
 		if($caption[0] && empty($image['nocaption'])) {
-			$image_block .= '<p'.$caption_class.'>'.$capt_before.$caption[0];
+
+			$caption_class	= empty($GLOBALS["template_default"]["article"]["image_caption_class"]) ? 'caption' : $GLOBALS["template_default"]["article"]["image_caption_class"];
+			
+			$image_block .= '<p style="width:'.$thumb_image[1].'px" class="'.$caption_class.'">'.$GLOBALS["template_default"]["article"]["image_caption_before"].$caption[0];
+			
 			if($caption[4] !== '') {
 				$image_block .= ' <span class="copyright">'.html_specialchars($caption[4]).'</span>';
 			}
-			$image_block .= $capt_after."</p>";
+		
+			$image_block .= $GLOBALS["template_default"]["article"]["image_caption_after"]."</p>";
+		
 		}
 
 		$image_block .= "</div>";
