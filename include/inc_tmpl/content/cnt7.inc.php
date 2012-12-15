@@ -117,7 +117,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
-  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
+  <td align="right" valign="top" class="chatlist"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
+  <td valign="top" class="chatlist"><a href="#" onclick="javascript: document.getElementById('cfile_descr').value += 'description|filename|title|_blank|50x50\n';return false;">file description|filename|title|target|WIDTHxHEIGHT(thumbnail)</a> </td>
+</tr>
+<tr>
+  <td align="right" valign="top" class="chatlist">&nbsp;</td>
   <td valign="top"><textarea name="cfile_descr" cols="40" rows="8" class="f11" id="cfile_descr" style="width: 440px;"><?php 
   
 	if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
