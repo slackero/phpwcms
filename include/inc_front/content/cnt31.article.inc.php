@@ -51,10 +51,10 @@ if($image['template']) {
 		
 		if($image['text_render'] == 'markdown') {
 			// Load MarkDown function and class
-			require_once(PHPWCMS_ROOT.'/include/inc_ext/php-markdown/markdown.php');
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/markdown.php');
 		} elseif($image['text_render'] == 'textile') {
 			// Load Textile function and class
-			require_once(PHPWCMS_ROOT.'/include/inc_ext/php-textile/classTextile.php');
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
 			if(!isset($phpwcms['textile'])) {
 				$phpwcms['textile'] = new Textile();
 			}

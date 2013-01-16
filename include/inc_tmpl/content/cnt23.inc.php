@@ -827,7 +827,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo "</td></tr>";
 		// Show "sign up for reCAPCHA API key"
 		if($content['form']["fields"][$key]['type'] == 'recaptcha') {
-			include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptcha/recaptchalib.php');			
+			include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php');			
 			echo '<tr><td colspan="2" class="chatlist" style="padding:10px 5px 0 3px"><a href="'.recaptcha_get_signup_url($phpwcms['parse_url']['host'], 'phpwcms').'" target="_blank">'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a></td></tr>';	
 		}
 		echo "</table></td>\n";

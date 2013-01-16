@@ -117,7 +117,7 @@ if(isset($_POST["required"])) {
 }
 
 if(isset($_POST["Captcha_Validation"])) {
-	include_once (PHPWCMS_ROOT.'/include/inc_ext/SOLMETRA_FormValidator/SPAF_FormValidator.class.php');
+	include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
 	$spaf_obj = new SPAF_FormValidator();
 	if($spaf_obj->validRequest($_POST["Captcha_Validation"])) {
 		$spaf_obj->destroy();

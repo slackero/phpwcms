@@ -1105,7 +1105,7 @@ switch($phpwcms['mode_XHTML']) {
 	case 3:
 		// put it as first item
 		if(empty($phpwcms['html5shiv_disabled'])) {
-			$block['custom_htmlhead'] = array('html5shiv' => '  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->') + $block['custom_htmlhead'];
+			$block['custom_htmlhead'] = array('html5shiv' => '  <!--[if lt IE 9]><script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.js"></script><![endif]-->') + $block['custom_htmlhead'];
 		}
 		break;
 }

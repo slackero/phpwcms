@@ -182,9 +182,6 @@ switch ($do) {
 							$subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
-							if($phpwcms["phpmyadmin"]) {
-								$subnav .= subnavtextext('phpMyAdmin', 'include/inc_ext/phpMyAdmin/', '_blank', 0);
-							}
 						}
 						break;
 

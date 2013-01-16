@@ -110,7 +110,7 @@ switch($method) {
 	default:	header('Content-type: application/json');
 				if(!function_exists('json_encode')) {
 					
-					require(PHPWCMS_ROOT.'/include/inc_ext/JSON/JSON.php');
+					require(PHPWCMS_ROOT.'/include/inc_ext/JSON.php');
 					$json = new Services_JSON();
 
 					echo $json->encode( $data );

@@ -5,7 +5,7 @@ require_once ('../config/phpwcms/conf.inc.php');
 require_once ('../include/inc_lib/default.inc.php');
 
 // include FormValidator class
-include_once (PHPWCMS_ROOT.'/include/inc_ext/SOLMETRA_FormValidator/SPAF_FormValidator.class.php');
+include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
 
 // start session
 // NOTICE: we have removed session_start() from this script since as of

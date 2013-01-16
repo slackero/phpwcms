@@ -528,7 +528,10 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 			
 			}
 			
-			$content["sorting"]	= isset($_POST["csorting"]) ? intval($_POST["csorting"]) : 0;
+			$content["sorting"] = 10;
+			if(isset($_POST["csorting"])) {
+				$content["sorting"]	+= intval($_POST["csorting"]);
+			}
 		}
 		//list($content["category"], $content["article"], $content["template_id"]) = explode("#|#", $_SESSION["article_path"]);
 		

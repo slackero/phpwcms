@@ -4,7 +4,7 @@
 
 if(strpos($content["all"],'{CALENDAR') !== false) {
 
-	include_once(PHPWCMS_ROOT.'/include/inc_ext/php_calendar/php_calendar.php');
+	include_once(PHPWCMS_ROOT.'/include/inc_ext/php_calendar.php');
 	include_once(PHPWCMS_ROOT.'/include/inc_front/calendar.func.inc.php');
 
 	$_baseCalVal = initializeCalendar(PHPWCMS_TEMPLATE.'calendar/calendar.ini');

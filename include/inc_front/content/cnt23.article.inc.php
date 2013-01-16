@@ -152,7 +152,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								 */
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
-									include_once (PHPWCMS_ROOT.'/include/inc_ext/SOLMETRA_FormValidator/SPAF_FormValidator.class.php');
+									include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
 									$spaf_obj = new SPAF_FormValidator();
 									if($spaf_obj->validRequest($POST_val[$POST_name])) {
 										$spaf_obj->destroy();
@@ -182,7 +182,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			case 'recaptcha':	/*
 								 * reCAPTCHA
 								 */
-								include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptcha/recaptchalib.php');
+								include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php');
 								
 								$cnt_form['recaptcha'] = array(
 									'public_key' => empty($cnt_form["fields"][$key]['value']['public_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['public_key'],

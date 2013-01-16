@@ -131,7 +131,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['db_charset']        = '".$val["db_charset"]."';\n";
 	$conf_file .= "\$phpwcms['db_collation']      = '".$val["db_collation"]."';\n";
 	$conf_file .= "\$phpwcms['db_version']        = ".intval($val["db_version"]).";\n";
-	$conf_file .= "\$phpwcms['db_timezone']       = '".trim($val["db_timezone"])."';\n // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html";
+	$conf_file .= "\$phpwcms['db_timezone']       = '".trim($val["db_timezone"])."'; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
 	
 	$conf_file .= "\n// site values\n";
 	if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
@@ -185,7 +185,6 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten\n";
 	$conf_file .= "\$phpwcms['alias_allow_slash'] = 0; // Allow slashes / in ALIAS\n";
 	$conf_file .= "\$phpwcms['wysiwyg_editor']    = 1;  //0 = no wysiwyg editor, 1 = CKEditor 4\n";
-	$conf_file .= "\$phpwcms['phpmyadmin']        = 0;  //enable/disable phpMyAdmin in Backend\n";
 	$conf_file .= "\$phpwcms['allowed_lang']      = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
 	$conf_file .= "\$phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
@@ -232,7 +231,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
 	$conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB\n";
 	$conf_file .= "\$phpwcms['wkhtmltopdf_path']  = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'\n";
-	$conf_file .= "\$phpwcms['render_clean_html'] = 1; // clean up HTML source a bit\n";
+	$conf_file .= "\$phpwcms['render_clean_html'] = 0; // clean up HTML source a bit\n";
 	$conf_file .= "\$phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
 	$conf_file .= "\$phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimentaln";
 	

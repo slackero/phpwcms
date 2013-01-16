@@ -65,8 +65,7 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	}
 	
 	// Load SimplePie
-	require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/simplepie.inc.php');
-	//require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/idn/idna_convert.class.php');
+	require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie.inc.php');
 	
 	$rss_obj = new SimplePie();
 	

@@ -45,13 +45,13 @@ switch($crow["acontent_form"]) {
 	
 	case 'markdown':
 		// Load MarkDown function and class
-		require_once(PHPWCMS_ROOT.'/include/inc_ext/php-markdown/markdown.php');
+		require_once(PHPWCMS_ROOT.'/include/inc_ext/markdown.php');
 		$crow['acontent_text'] = Markdown($crow['acontent_text']);
 		break;
 	
 	case 'textile':
 		// Load Textile function and class
-		require_once(PHPWCMS_ROOT.'/include/inc_ext/php-textile/classTextile.php');
+		require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
 		if(!isset($phpwcms['textile'])) {
 			$phpwcms['textile'] = new Textile();
 		}

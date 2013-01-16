@@ -218,9 +218,11 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist">&nbsp;</td>
-  <td valign="top" class="chatlist">HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###,
-    ###SENDER_EMAIL###,<br>
-  ###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###,<br>###SENDER_MESSAGE###, ###ECARD_CHOOSER###,<br>&lt;!--FORM_ERROR_START--&gt; &lt;!--FORM_ERROR_END--&gt;</td>
+  <td valign="top" class="chatlist">
+  	HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###,  ###SENDER_EMAIL###,<br>
+  	###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, <br />###ECARD_CHOOSER###,
+  	&lt;!--FORM_ERROR_START--&gt; &lt;!--FORM_ERROR_END--&gt;
+  </td>
 </tr>
 <tr>
   <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td>
@@ -287,7 +289,8 @@ if(!$content["ecard"]["form"]) {
 <tr>
   <td align="right" valign="top" class="chatlist">&nbsp;</td>
   <td valign="top" class="chatlist">HTML: ###ECARD_SUBJECT###, ###RECIPIENT_NAME###,
-    ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, ###ECARD_TITLE###, ###ECARD_IMAGE###</td>
+		###RECIPIENT_EMAIL###,<br /> ###SENDER_MESSAGE###,
+		###ECARD_TITLE###, ###ECARD_IMAGE###</td>
 </tr>
 <tr>
   <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td>
@@ -302,7 +305,8 @@ if(!$content["ecard"]["form"]) {
 <tr>
   <td align="right" valign="top" class="chatlist">&nbsp;</td>
   <td valign="top" class="chatlist">HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###,
-    ###SENDER_EMAIL###, ###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###,
+    ###SENDER_EMAIL###, <br />###RECIPIENT_NAME###, 
+    ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, <br />
     ###ECARD_IMAGE###, ###ECARD_TITLE###</td>
 </tr>
 <tr>

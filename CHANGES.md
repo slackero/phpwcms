@@ -1,10 +1,12 @@
 phpwcms Changelog
 =================
 
-Version 1.6.524 – December 4, 2012
+Version 1.6.528 – December 5, 2012
 ----------------------------------
 
 - Missing ?
+- Teaser enhanced by replace {IMAGE_NAME}
+- CKEditor enhanced by sample custom config (partially commented out)
 
 
 Version 1.6.523 – December 4, 2012

@@ -330,7 +330,7 @@ if($guestbook['visible']) {
 	
 	if(isset($_POST['guestbook_email']) && !empty($guestbook['captcha'])) {
 	
-		include_once (PHPWCMS_ROOT.'/include/inc_ext/SOLMETRA_FormValidator/SPAF_FormValidator.class.php');
+		include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
 		// instantiate the object
 		$spaf_obj = new SPAF_FormValidator();
 		$guestbook['post']['captcha'] = isset($_POST['guestbook_captcha']) ? clean_slweg($_POST['guestbook_captcha']) : '';

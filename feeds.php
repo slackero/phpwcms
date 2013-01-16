@@ -15,14 +15,11 @@ $phpwcms = array();
 
 require_once ('config/phpwcms/conf.inc.php');
 require_once ('include/inc_lib/default.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/feedcreator/feedcreator.class.php');
+require_once (PHPWCMS_ROOT.'/include/inc_ext/feedcreator.class.php');
 require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
-
 
 $feeds_formats	= array('0.91', 'RSS0.91', '1.0', 'RSS1.0', '2.0', 'RSS2.0', 'ATOM', 'ATOM1.0', 'ATOM0.3');
 $feeds 			= array();

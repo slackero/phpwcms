@@ -43,7 +43,7 @@ if(!empty($_getVar['feedimport'])) {
 		
 		// retrieve Feed now
 		// Load SimplePie
-		require_once(PHPWCMS_ROOT.'/include/inc_ext/SimplePie/simplepie.inc.php');
+		require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie.inc.php');
 
 		$rss_obj = new SimplePie();
 	

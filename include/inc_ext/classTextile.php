@@ -9,8 +9,8 @@
  */
 
 /*
-$HeadURL: http://textpattern.googlecode.com/svn/releases/4.5.0/source/textpattern/lib/classTextile.php $
-$LastChangedRevision: 4067 $
+$HeadURL: https://textpattern.googlecode.com/svn/releases/4.5.4/source/textpattern/lib/classTextile.php $
+$LastChangedRevision: 4096 $
 */
 
 /*
@@ -384,7 +384,7 @@ class Textile
 	var $max_span_depth = 5;
 
 	var $ver = '2.4.1';
-	var $rev = '$Rev: 4067 $';
+	var $rev = '$Rev: 4096 $';
 
 	var $doc_root;
 
@@ -1484,8 +1484,8 @@ class Textile
 	 **/
 	function parseURI( $uri, &$m )
 	{
-		$r = "@^((?<scheme>[^:/?#]+):)?(//(?<authority>[^/?#]*))?(?<path>[^?#]*)(\?(?<query>[^#]*))?(#(?<fragment>.*))?@";
-		#       12                     3  4                      5              6  7                8 9
+		$r = "@^((?P<scheme>[^:/?#]+):)?(//(?P<authority>[^/?#]*))?(?P<path>[^?#]*)(\?(?P<query>[^#]*))?(#(?P<fragment>.*))?@";
+		#       12                      3  4                       5               6  7                 8 9
 		#
 		#	scheme    = $2
 		#	authority = $4

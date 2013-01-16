@@ -77,10 +77,10 @@ if(isset($_POST['ecard_chooser'])) {
 		$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
 								"image_name"	=>	$ecard['images'][$ecard["chooser"]][2] . '.' . $ecard['images'][$ecard["chooser"]][3],
-								"max_width"		=>	$ecard['images'][$ecard["chooser"]][4],
-								"max_height"	=>	$ecard['images'][$ecard["chooser"]][5],
+								"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
+								"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
 								"thumb_name"	=>	md5(	$ecard['images'][$ecard["chooser"]][2].$GLOBALS['phpwcms']["img_prev_width"].
-															$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"]
+															$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].'ecard'
 														)
         					  )
 						);

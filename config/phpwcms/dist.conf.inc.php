@@ -60,7 +60,6 @@ $phpwcms['rewrite_url']       = 0; // whether URL should be rewritable
 $phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
 $phpwcms['alias_allow_slash'] = 0; // Allow slashes / in ALIAS
 $phpwcms['wysiwyg_editor']    = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
-$phpwcms['phpmyadmin']        = 0; // enable/disable phpmyadmin in Admin section
 $phpwcms['default_lang']      = 'en'; // default language
 $phpwcms['DOCTYPE_LANG']      = ''; // by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es'); //array of allowed languages
@@ -107,7 +106,7 @@ $phpwcms['render_device']     = 0; // allow user agent specific rendering templa
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB
 $phpwcms['wkhtmltopdf_path']  = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
-$phpwcms['render_clean_html'] = 1; // clean up HTML source a bit
+$phpwcms['render_clean_html'] = 1; // clean up HTML source a bit, experimental can have unexpected side effects
 $phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
 $phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental
 
