@@ -92,7 +92,7 @@ $phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = H
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
 $phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE
 $phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php
-$phpwcms['wysiwyg_template']  = array();								   
+$phpwcms['wysiwyg_template']  = array(); // deprecated
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online
 $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend

@@ -89,7 +89,7 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 			</label>
 			&nbsp;
 			<label>
-				<input type="radio" name="form_wysiwyg" value="1"<?php if(empty($_SESSION["WYSIWYG_EDITOR"])): ?> checked="checked"<?php endif; ?> />
+				<input type="radio" name="form_wysiwyg" value="0"<?php if(empty($_SESSION["WYSIWYG_EDITOR"])): ?> checked="checked"<?php endif; ?> />
 				<?php echo $BL['be_off']; ?>
 			</label>
 			<input type="hidden" name="form_wysiwyg_toolbar" value="" />

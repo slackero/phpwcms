@@ -84,7 +84,7 @@ $phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = H
 $phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html
 $phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE
 $phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php
-$phpwcms['wysiwyg_template']  = array(); // maybe we need later again
+$phpwcms['wysiwyg_template']  = array(); // deprecated
 $phpwcms['GET_pageinfo']      = 0; // will add "&pageinfo=/cat1/cat2/page-title.htm" based on the breadcrumb information for each site link
 $phpwcms['version_check']     = 1; // checks for current release of phpwcms online
 $phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend
@@ -106,7 +106,7 @@ $phpwcms['render_device']     = 0; // allow user agent specific rendering templa
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB
 $phpwcms['wkhtmltopdf_path']  = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
-$phpwcms['render_clean_html'] = 1; // clean up HTML source a bit, experimental can have unexpected side effects
+$phpwcms['render_clean_html'] = 0; // clean up HTML source a bit, experimental can have unexpected side effects
 $phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
 $phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental
 

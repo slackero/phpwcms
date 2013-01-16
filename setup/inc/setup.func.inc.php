@@ -209,7 +209,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE\n";
 	$conf_file .= "\$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
-	$conf_file .= "\$phpwcms['wysiwyg_template']  = array();\n";
+	$conf_file .= "\$phpwcms['wysiwyg_template']  = array(); // deprecated\n";
 	$conf_file .= "\$phpwcms['GET_pageinfo']      = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
 	$conf_file .= "\$phpwcms['version_check']     = 1; // checks for current release of phpwcms online \n";
 	$conf_file .= "\$phpwcms['SESSION_FEinit']    = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";
@@ -231,7 +231,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
 	$conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB\n";
 	$conf_file .= "\$phpwcms['wkhtmltopdf_path']  = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'\n";
-	$conf_file .= "\$phpwcms['render_clean_html'] = 0; // clean up HTML source a bit\n";
+	$conf_file .= "\$phpwcms['render_clean_html'] = 0; // clean up HTML source a bit, experimental can have unexpected side effects\n";
 	$conf_file .= "\$phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
 	$conf_file .= "\$phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimentaln";
 	

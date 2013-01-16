@@ -22,7 +22,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 	$err = '';
 	
 	$user_var = array(
-		'template'	=> $_SESSION["WYSIWYG_TEMPLATE"],
+		'template'	=> '', //$_SESSION["WYSIWYG_TEMPLATE"]
 		'selected_cp' => $_SESSION["wcs_user_cp"],
 		'allowed_cp' => $_SESSION["wcs_allowed_cp"]
 	);
@@ -114,7 +114,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 			$_SESSION["wcs_user_email"] 	= $new_email;
 			$_SESSION["wcs_user_lang"] 		= $new_language;
 			$_SESSION["WYSIWYG_EDITOR"]		= $new_wysiwyg;
-			$_SESSION["WYSIWYG_TEMPLATE"]	= $user_var['template'];
+			//$_SESSION["WYSIWYG_TEMPLATE"]	= $user_var['template'];
 			$_SESSION["wcs_user_cp"]		= $user_var['selected_cp'];
 			
 			set_language_cookie();
