@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @copyright Copyright (c) 2002-2013, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -17,7 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 //predefine values
-
 $content['cat']					= '';
 $content['metakey']				= '';
 $content['struct']				= get_struct_data(); //reads the complete structure as array
@@ -67,27 +66,38 @@ if(isset($_GET["id"])) {
 		$GLOBALS['_getVar']['id'] = implode(',', $aktion);
 		headerRedirect(PHPWCMS_URL.'index.php'.returnGlobalGET_QueryString(), 404);
 	}
+	
+	// Force 301 Redirect when alias is available
+	if(!empty($phpwcms['force301_id2alias']) && !empty($content['struct'][ $aktion[0] ]['acat_alias'])) {		
+		headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
+	}
 
 } elseif(isset($_GET['aid'])) {
 	// try to find correct structure
 	$aktion = array(0,0,0,0,1,0);
 
-	$_GET['aid']			= explode('-', $_GET['aid'], 2);	// now check for cp pagination
+	$_GET['aid']			= explode('-', $_GET['aid'], 2); // now check for cp pagination
 	$content['aId_CpPage']	= isset($_GET['aid'][1]) ? intval($_GET['aid'][1]) : 0; // set cp paginate page
 	$_GET['aid']			= intval($_GET['aid'][0]);
 	if($_GET['aid']) {
-		$sql  =	'SELECT article_cid FROM '.DB_PREPEND.'phpwcms_article WHERE ';
-		$sql .= 'article_deleted=0 ';
+		$sql  =	'SELECT article_cid, article_alias FROM '.DB_PREPEND.'phpwcms_article WHERE ';
+		$sql .= 'article_deleted=0 AND article_id='.$_GET['aid'].' ';
 		if(VISIBLE_MODE !== 2) {
 			$sql .= 'AND article_aktiv=1 AND article_public=1 ';
 		} elseif(VISIBLE_MODE === 1) {
 			$sql .= 'AND ((article_aktiv=1 AND article_public=1) OR article_uid='.intval($_SESSION["wcs_user_id"]).') ';
 		}
-		$sql .= 'AND article_id='.$_GET['aid'].' LIMIT 1';
+		$sql .= 'LIMIT 1';
 		if($result = mysql_query($sql, $db)) {
 			if($row = mysql_fetch_row($result)) {
 				$aktion[0] = $row[0];
 				$aktion[1] = $_GET['aid'];
+				
+				// Force 301 Redirect when alias is available
+				if(!empty($phpwcms['force301_id2alias']) && !empty($row[1])) {		
+					headerRedirect(abs_url(array(), array(), $row[1], 'urlencode'), 301);
+				}
+				
 			} else {
 				$content['404error'] = true;
 			}
@@ -97,7 +107,7 @@ if(isset($_GET["id"])) {
 		}
 	}
 	if(!$aktion[1]) {
-		$content['aId_CpPage']	= 0;	// no article = no pagination
+		$content['aId_CpPage'] = 0; // no article = no pagination
 	}
 
 } else {
@@ -223,7 +233,6 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 		$phpwcms['output_action'] = false;
 	}
 }
-
 
 //define the current article category ID
 $content["cat_id"]	= $aktion[0];
@@ -440,6 +449,11 @@ if(!$aktion[4]) {
 	// enable canonical <link> tag
 	$content['set_canonical'] = true;
 
+}
+
+// Force 301 Redirect to structure alias
+if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && !empty($content['struct'][ $aktion[0] ]['acat_alias']) && (!defined('PHPWCMS_ALIAS') || PHPWCMS_ALIAS != $content['struct'][ $aktion[0] ]['acat_alias'])) {
+	headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
 }
 
 // -------------------------------------------------------------

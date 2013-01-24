@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @copyright Copyright (c) 2002-2013, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -96,9 +96,13 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
   </tr>
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
-    <td colspan="2" valign="bottom" class="navtext"><a href="http://www.phpwcms.de" target="_blank">phpwcms</a> &copy; 2003&#8212;<?php echo date('Y') ?>  <a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver
-        Georgi</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
-        Extensions are copyright of their respective owners.</td>
+    <td colspan="2" valign="bottom" class="navtext">
+		<a href="http://www.phpwcms.de" target="_blank">phpwcms</a> 
+		&copy; 2003&#8212;<?php echo date('Y') ?>
+		<a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver Georgi</a>.
+		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
+        Extensions are copyright of their respective owners.
+	</td>
   </tr>
   <tr>
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="8" /></td>

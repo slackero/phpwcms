@@ -4,7 +4,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2012, Oliver Georgi
+ * @copyright Copyright (c) 2002-2013, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -56,7 +56,7 @@ function renderAds($match) {
 					//check how often selected ad was viewed by user
 					$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_ads_tracking WHERE ';
 					$sql .= 'adtracking_campaignid='.$ad['adcampaign_id'].' AND ';
-					$sql .= "adtracking_cookieid='".mysql_escape_string($ads_userid)."'";
+					$sql .= "adtracking_cookieid="._dbEscape($ads_userid);
 					$ads_viewed = _dbQuery($sql, 'COUNT');
 					
 					if($ads_viewed <= $ad['adcampaign_maxviewuser']) {
