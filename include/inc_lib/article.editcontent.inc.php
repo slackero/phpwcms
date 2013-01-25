@@ -165,7 +165,6 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 	} else {
 
 		// Take article Post data
-
 		$article_err = array();
 		
 		$article["article_catid"]		= intval($_POST["article_cid"]);
@@ -368,7 +367,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 					'article_lang_id'		=> $article["article_lang_id"]
 
 							);
-								
+				
 				$result = _dbInsert('phpwcms_article', $data);
 				
 				if(isset($result['INSERT_ID'])) {
@@ -383,9 +382,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 
 			
 			} else {
-		
-				// Update article summary data
-		
+			
+				// Update article summary data	
 				$sql =	"UPDATE ".DB_PREPEND."phpwcms_article SET ".
 						"article_cid=".$article["article_catid"].",".
 						"article_title='".aporeplace($article["article_title"])."', ".

@@ -562,34 +562,26 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		'feedimport'
 	);
 	
-	if($mode == 'CATEGORY' && $alias == '' && isset($_POST["acat_name"])) {
-		$alias = $_POST["acat_name"];
-		$set = true;
-	} elseif($mode == 'ARTICLE' && $alias == '' && isset($_POST["article_title"])) {
-		$alias = $_POST["article_title"];
-		$set = true;
-	} elseif($mode == 'CONTENT' && $alias == '' && ( isset($_POST["cnt_title"]) || isset($_POST["cnt_name"]) )) {
-		$alias = trim($_POST["cnt_title"]) == '' ? $_POST["cnt_name"] : $_POST["cnt_title"];
-		$set = true;
-	} else {
-		$set = false;
-	}
-	
-	if($set && $alias) {		
-		$alias = clean_slweg($alias);
-		$alias = strtolower(pre_remove_accents($alias));
-		$alias = get_alnum_dashes($alias, true, '-', PHPWCMS_ALIAS_WSLASH);
-		if($alias != '') {
-			$alias		= trim( preg_replace('/\-+/', '-', $alias), '-' );
-			$alias		= trim( preg_replace('/_+/', '_', $alias), '_' );
-			if(PHPWCMS_ALIAS_WSLASH) {
-				$alias	= trim( preg_replace('/\/+/', '/', $alias), '/' );
-				$alias	= preg_replace('/\-\/\-/', '/', $alias);
-			}
+	if($alias === '') {
+		
+		if(!empty($GLOBALS['phpwcms']['allow_empty_alias'])) {	
+			return '';
+		} elseif($mode == 'CATEGORY' && isset($_POST["acat_name"])) {
+			$alias = $_POST["acat_name"];
+		} elseif($mode == 'ARTICLE' && isset($_POST["article_title"])) {
+			$alias = $_POST["article_title"];
+		} elseif($mode == 'CONTENT' && ( isset($_POST["cnt_title"]) || isset($_POST["cnt_name"]) )) {
+			$alias = trim($_POST["cnt_title"]) == '' ? $_POST["cnt_name"] : $_POST["cnt_title"];
+		}
+			
+		$alias = strtolower( uri_sanitize( clean_slweg($alias) ) );
+		
+		if($alias === '') {
+			return '';
 		}
 	}
-	
-	$alias = substr($alias, 0, 150);
+
+	$alias = substr($alias, 0, 200);
 	
 	// new reserved alias can be defined in $phpwcms['reserved_alias']
 	if( isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias']) ) {

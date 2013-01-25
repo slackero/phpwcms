@@ -236,6 +236,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental\n";
 	$conf_file .= "\$phpwcms['force301_id2alias'] = false; // send 301 HTTP Redirect when article/structure has alias but ID is given\n";
 	$conf_file .= "\$phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure level when only 1 article is inside\n";
+	$conf_file .= "\$phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty\n";
 	
 	$conf_file .= "\n// smtp values\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";
@@ -246,6 +247,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['SMTP_AUTH']         = ".intval($val["SMTP_AUTH"])."; // sets SMTP_AUTH to ON/OFF\n";
 	$conf_file .= "\$phpwcms['SMTP_USER']         = '".$val["SMTP_USER"]."'; // default SMTP login (user) name\n";
 	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".$val["SMTP_PASS"]."'; // default SMTP password\n";
+	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";
 	
 	$conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
 	

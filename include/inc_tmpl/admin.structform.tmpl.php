@@ -142,7 +142,8 @@ switch($acat_hidden) {
 						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
 					</tr>
 		 			<tr>
-						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html_specialchars($acat_alias) ?>" size="50" maxlength="150" onfocus="set_article_alias(true, 'struct');" onchange="this.value=create_alias(this.value);" /></td>
+						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html_specialchars($acat_alias) ?>" size="50" maxlength="150"<?php
+							if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
 						<td>&nbsp;</td>
 						<td><input name="acat_class" type="text" id="acat_class" class="f11 width185" value="<?php echo html_specialchars($acat_class) ?>" size="50" maxlength="150" /></td>
 					</tr>

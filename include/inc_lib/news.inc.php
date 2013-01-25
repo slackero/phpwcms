@@ -656,7 +656,7 @@ class phpwcmsNews {
 		}
 		
 		$post['cnt_alias']			= isset($_POST['cnt_alias']) ? clean_slweg($_POST['cnt_alias']) : '';
-		if($post['cnt_alias'] == '') {
+		if(empty($this->phpwcms['allow_empty_alias']) && $post['cnt_alias'] == '') {
 			$post['cnt_alias'] = empty($post['cnt_title']) ? $post['cnt_name'] : $post['cnt_title'];
 		}
 		$post['cnt_alias']			= proof_alias($this->newsId, $post['cnt_alias'], 'CONTENT');

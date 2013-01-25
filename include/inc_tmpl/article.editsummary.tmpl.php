@@ -214,8 +214,9 @@ calEnd.setYearCombo(false);
 	<tr>
 		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>&nbsp;&nbsp;<br />
 		(+<a href="#" id="struct_alias"><?php echo $BL['be_admin_struct_title'] ?></a>):&nbsp;</td>
-		<td><input name="article_alias" type="text" class="f11b" id="article_alias" style="width: 440px" value="<?php echo html_specialchars($article["article_alias"]) ?>" size="40" maxlength="200" onfocus="set_article_alias(true);" onchange="this.value=create_alias(this.value);" /></td>
-	</tr>		
+		<td><input name="article_alias" type="text" class="f11b" id="article_alias" style="width: 440px" value="<?php echo html_specialchars($article["article_alias"]) ?>" size="40" maxlength="200"<?php
+			if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
+	</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>

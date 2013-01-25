@@ -119,6 +119,8 @@ $phpwcms['browser_check']     = array('fe'=>false, 'be'=>true, 'vs' => ''); // e
 $phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental
 $phpwcms['force301_id2alias'] = false; // send 301 HTTP Redirect when article/structure has alias but ID is given
 $phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure level when only 1 article is inside
+$phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty
+$phpwcms['reserved_alias']    = array(); // use this to block custom alias
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = ''; // reply/from email address
