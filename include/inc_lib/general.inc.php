@@ -1900,7 +1900,17 @@ function render_bbcode_url($text) {
 		return $text;
 	}
 	$text = preg_replace_callback( array('/\[url=([^ ]+)(.*)\](.*)\[\/url\]/', '/\[a=([^ ]+)(.*)\](.*)\[\/a\]/'), 'get_bbcode_ahref', $text );
-	return  preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*)\]/', 'get_link_ahref', $text );
+	// Fallback for URL parameter having =[http://
+	if(strpos($text, '=[') !== false) {
+		$text = str_replace('=[[', '=####[#[####', $text);
+		$text = str_replace('=[', '=####[####', $text);
+		$text = preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*)\]/', 'get_link_ahref', $text );
+		$text = str_replace('=####[#[####', '=[[', $text);
+		$text = str_replace('=####[####', '=[', $text);
+	} else {
+		$text = preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*)\]/', 'get_link_ahref', $text );
+	}
+	return $text;
 }
 
 function get_bbcode_ahref($match) {
