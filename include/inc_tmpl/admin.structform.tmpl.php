@@ -52,6 +52,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang			= '';
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
+	$acat_disable301	= empty($indexpage['acat_disable301']) ? 0 : 1;
 	
 	$acat_struct_mode = 'INDEX';
 	
@@ -85,6 +86,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang			= '';
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
+	$acat_disable301	= 0;
 
 }
 
@@ -548,7 +550,8 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
 			
 				<tr>
 				  <td class="v09 inactive" colspan="5"><?php echo  $BL['be_cache'] ?>:</td>
-				  <td class="v09" colspan="2"><?php echo  $BL['be_ctype_search'] ?>:</td>
+				  <td class="v09" colspan="3"><?php echo  $BL['be_ctype_search'] ?>:</td>
+				  <?php if(!empty($phpwcms['force301_2struct'])): ?><td class="v09" colspan="3"><?php echo  $BL['be_acat_disable301'] ?>:</td><?php endif; ?>
 				</tr>
 		 		<tr><td colspan="7"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 		 		</tr>
@@ -578,6 +581,12 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 				  <td bgcolor="#FFFFFF">&nbsp;&nbsp;</td>
 				  <td><input name="acat_nosearch" type="checkbox" id="acat_nosearch" value="1" <?php if($acat_nosearch === '1') echo 'checked="checked"'; ?> /></td>
 				  <td>&nbsp;<label for="acat_nosearch"><?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
+				  <td bgcolor="#FFFFFF">&nbsp;&nbsp;<?php if(empty($phpwcms['force301_2struct'])): ?><input type="hidden" name="acat_disable301" value="<?php echo $acat_disable301 ?>" /><?php endif; ?></td>
+				<?php if(!empty($phpwcms['force301_2struct'])): ?>
+				  <td><input name="acat_disable301" type="checkbox" id="acat_disable301" value="1" <?php if($acat_disable301) echo 'checked="checked"'; ?> /></td>
+				  <td>&nbsp;<label for="acat_disable301"><?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
+				  <td bgcolor="#FFFFFF" width="90%">&nbsp;&nbsp;</td>
+				 <?php endif; ?>
                 </tr>
               </table></td>
           </tr>

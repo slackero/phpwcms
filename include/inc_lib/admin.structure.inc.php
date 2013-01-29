@@ -59,6 +59,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_lang			= $row_acat["acat_lang"];
 			$acat_lang_type		= $row_acat["acat_lang_type"];
 			$acat_lang_id		= $row_acat["acat_lang_id"];
+			$acat_disable301	= $row_acat['acat_disable301'];
 		}
 		
 		mysql_free_result($result_acat);

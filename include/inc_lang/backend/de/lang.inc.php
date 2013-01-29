@@ -1304,5 +1304,6 @@ $BL['source_image_not_found']			= 'Quelldatei Fehler: Die Datei %s konnte nicht 
 $BL['form_force_ssl']					= 'Formularversand per SSL erzwingen';
 $BL['numerize_title']					= 'Nummerieren anstatt Artikeltitel';
 $BL['be_article_noteaser']				= 'kein Teaser';
+$BL['be_acat_disable301']				= 'Artikel 301 Weiterleitung';
 
 ?>

@@ -452,7 +452,7 @@ if(!$aktion[4]) {
 }
 
 // Force 301 Redirect to structure alias
-if($content['set_canonical'] && isset($LEVEL_ID[1]) && !empty($phpwcms['force301_2struct']) && !empty($content['struct'][ $aktion[0] ]['acat_alias']) && (!defined('PHPWCMS_ALIAS') || PHPWCMS_ALIAS != $content['struct'][ $aktion[0] ]['acat_alias'])) {
+if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && empty($content['struct'][ $aktion[0] ]['acat_disable301']) && !empty($content['struct'][ $aktion[0] ]['acat_alias']) && (!defined('PHPWCMS_ALIAS') || PHPWCMS_ALIAS != $content['struct'][ $aktion[0] ]['acat_alias'])) {
 	headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
 }
 

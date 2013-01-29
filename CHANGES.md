@@ -1,12 +1,15 @@
 phpwcms Changelog
 =================
 
-Version 1.6.528 – December 5, 2012
+Version 1.6.528 – January 29, 2013
 ----------------------------------
 
 - Missing ?
 - Teaser enhanced by replace {IMAGE_NAME}
 - CKEditor enhanced by sample custom config (partially commented out)
+- new config setting to force 301 redirect for id/aid to alias
+- new config setting to force 301 redirect to structure for topcount -1 and single article
+- new option for structure level to disable article 301 redirect (only availabe when enabled in config)
 
 
 Version 1.6.523 – December 4, 2012

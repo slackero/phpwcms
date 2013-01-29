@@ -1314,5 +1314,6 @@ $BL['source_image_not_found']			= 'Source image error: The image %s seems not to
 $BL['form_force_ssl']					= 'Force sending forms with SSL';
 $BL['numerize_title']					= 'Numbered instead of article titles';
 $BL['be_article_noteaser']				= 'no teaser';
+$BL['be_acat_disable301']				= 'article 301 redirect';
 
 ?>
