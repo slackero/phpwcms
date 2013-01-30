@@ -94,7 +94,7 @@ if(isset($_GET["id"])) {
 				$aktion[1] = $_GET['aid'];
 				
 				// Force 301 Redirect when alias is available
-				if(!empty($phpwcms['force301_id2alias']) && !empty($row[1])) {		
+				if(!empty($phpwcms['force301_id2alias']) && !$content['aId_CpPage'] && !empty($row[1])) {		
 					headerRedirect(abs_url(array(), array(), $row[1], 'urlencode'), 301);
 				}
 				
