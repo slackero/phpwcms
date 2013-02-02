@@ -751,24 +751,29 @@ function parse_downloads($match) {
 
 	if(isset($match[1])) {
 
-		$value											= array();
-
-		$value['cnt_object']['cnt_files']['id']			= convertStringToArray($match[1]);
+		$value = array();
+		$value['cnt_object']['cnt_files']['id'] = convertStringToArray($match[1]);
 
 		if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
 		
 			global $phpwcms;
-		
-			$IS_NEWS_CP										= true;
 			
-			$news											= array();
-			$news['files_result']							= '';
+			$value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? @html_entity_decode(trim($match[3]), ENT_QUOTES, PHPWCMS_CHARSET) : '';		
+			$value['files_direct_download'] = 0;
+			$value['files_template'] = 'download-inline';
+			if(!empty($match[2])) {
+				$match[2] = explode('=', trim($match[2]));
+				if(!empty($match[2][1])) {
+					$value['files_template'] = trim($match[2][1]);
+					if(which_ext($value['files_template']) == '') {
+						$value['files_template'] .= '.tmpl';
+					}
+				}
+			}
 			
-			$crow											= array();
-			
-			$value['cnt_object']['cnt_files']['caption']	= isset($match[2]) ? @html_entity_decode(trim($match[2]), ENT_QUOTES, PHPWCMS_CHARSET) : '';		
-			$value['files_direct_download']					= 0;
-			$value['files_template']						= 'download-inline';
+			$IS_NEWS_CP	= true;
+			$crow		= array();
+			$news		= array('files_result' => '');
 			
 			// include content part files renderer
 			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');

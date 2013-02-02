@@ -783,8 +783,8 @@ $content["all"] = html_parser($content["all"]);
 
 $content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i', 'parse_images', $content["all"]);
 $content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_images', $content["all"]);
-$content["all"] = preg_replace_callback('/\[download=(.*?)\/\]/i', 'parse_downloads', $content["all"]);
-$content["all"] = preg_replace_callback('/\[download=(.*?)\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
+$content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\/\]/i', 'parse_downloads', $content["all"]);
+$content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
 
 // -------------------------------------------------------------
 

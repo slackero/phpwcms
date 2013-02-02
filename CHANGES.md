@@ -1,7 +1,7 @@
 phpwcms Changelog
 =================
 
-Version 1.6.528 – January 29, 2013
+Version 1.6.528 – February 2, 2013
 ----------------------------------
 
 - Missing ?
@@ -10,6 +10,12 @@ Version 1.6.528 – January 29, 2013
 - new config setting to force 301 redirect for id/aid to alias
 - new config setting to force 301 redirect to structure for topcount -1 and single article
 - new option for structure level to disable article 301 redirect (only availabe when enabled in config)
+- extend `[download=ID,ID…]` by template option. No need to add `template=` by default.  
+[download=1,2 template=myfiles.tmpl /]  
+[download=1,2 template=myfiles.tmpl]  
+  Download 1  
+  Download 2  
+[/download]
 
 
 Version 1.6.523 – December 4, 2012
