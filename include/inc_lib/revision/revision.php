@@ -10,7 +10,7 @@
  **/
 
 define('PHPWCMS_VERSION',		'1.6.528');
-define('PHPWCMS_RELEASE_DATE',	'2013/02/02');
+define('PHPWCMS_RELEASE_DATE',	'2013/02/04');
 define('PHPWCMS_REVISION',		'528');
 
 ?>

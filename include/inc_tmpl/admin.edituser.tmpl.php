@@ -219,11 +219,15 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           <?php	
           		$has_allowed_cp = isset($set_allowed_cp) ? count($set_allowed_cp) : 0;
           	
-          		foreach($wcs_content_type as $key => $value):	?>
+				foreach($wcs_content_type as $key => $value):
+          			
+					// count used CPs so it is easier to decide if needed or not
+					$used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key));
+          ?>
           
           			<label>
           				<input type="checkbox" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
-          				<?php echo html_specialchars($value) ?>
+          				<?php echo html_specialchars($value).' ('.$used_count.')' ?>
           			</label>
           
           <?php	endforeach;	?>
@@ -257,5 +261,5 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 	
 	}
 }	
-//Dialog New User bis hierher
+
 ?>

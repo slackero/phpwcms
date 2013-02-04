@@ -1,21 +1,22 @@
 phpwcms Changelog
 =================
 
-Version 1.6.528 – February 2, 2013
+Version 1.6.528 – February 4, 2013
 ----------------------------------
 
 - Missing ?
 - Teaser enhanced by replace {IMAGE_NAME}
 - CKEditor enhanced by sample custom config (partially commented out)
-- new config setting to force 301 redirect for id/aid to alias
-- new config setting to force 301 redirect to structure for topcount -1 and single article
-- new option for structure level to disable article 301 redirect (only availabe when enabled in config)
-- extend `[download=ID,ID…]` by template option. No need to add `template=` by default.  
+- New config setting to force 301 redirect for id/aid to alias
+- New config setting to force 301 redirect to structure for topcount -1 and single article
+- New option for structure level to disable article 301 redirect (only availabe when enabled in config)
+- Extend `[download=ID,ID…]` by template option. No need to add `template=` by default.  
 [download=1,2 template=myfiles.tmpl /]  
 [download=1,2 template=myfiles.tmpl]  
   Download 1  
   Download 2  
 [/download]
+- Added count of CPs used for the specific type in the CP selector section of admin’s user profile edit.
 
 
 Version 1.6.523 – December 4, 2012
