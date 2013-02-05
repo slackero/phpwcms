@@ -21,8 +21,8 @@ function initJSLib() {
 		if(!USE_GOOGLE_AJAX_LIB) {
 			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.9.min.js');
 		} else {
-			// at the moment not available on Google
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery.min.js'); //USE_GOOGLE_AJAX_LIB.'jquery/1.9/jquery.min.js');
+			// at the moment not available on Google, no https
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('http://code.jquery.com/jquery.min.js'); //USE_GOOGLE_AJAX_LIB.'jquery/1.9.1/jquery.min.js');
 		}
 	}
 	return TRUE;
