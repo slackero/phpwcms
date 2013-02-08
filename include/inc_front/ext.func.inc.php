@@ -407,6 +407,7 @@ function showSelectedContent($param='') {
 				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 				$sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
 				$sql .= "WHERE acontent_id = " . $value . " AND acontent_visible = 1 ";
+				$sql .= "AND acontent_block != 'CPSET' ";
 				
 				if( !FEUSER_LOGIN_STATUS ) {
 					$sql .= 'AND acontent_granted=0 ';
@@ -420,6 +421,7 @@ function showSelectedContent($param='') {
 				// content parts based on article ID				
 				$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent ";
 				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
+				$sql .= "AND acontent_block != 'CPSET' ";
 				
 				if( !FEUSER_LOGIN_STATUS ) {
 					$sql .= 'AND acontent_granted=0 ';

@@ -1,6 +1,17 @@
 phpwcms Changelog
 =================
 
+
+Version 1.6.529 – February 8, 2013
+----------------------------------
+
+- New content part type implemented — used especially for settings, usable via module only at the moment and when `$_module_fe_setting = true`. Disables several CP specific input fields like title, subtitle…
+- jQuery 1.9.1
+- jQuery Migrate 1.1.0
+- optimized version check
+- some other fixes
+
+
 Version 1.6.528 – February 4, 2013
 ----------------------------------
 

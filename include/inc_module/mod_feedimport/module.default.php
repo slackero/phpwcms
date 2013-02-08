@@ -27,5 +27,6 @@ $_module_contentpart	= false;
 $_module_fe_render		= false;
 $_module_fe_init		= true;
 $_module_fe_search		= false;
+$_module_fe_setting		= false;
 
 ?>

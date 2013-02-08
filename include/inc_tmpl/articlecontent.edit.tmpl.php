@@ -22,6 +22,7 @@ $sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'phpwcms_article ar LEFT JOIN '.DB_
 $sql .= "ar.article_cid=ac.acat_id WHERE ar.article_id='".$content["aid"]."' LIMIT 1";
 $content['article'] = _dbQuery($sql);
 $content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>1);
+$content['cp_setting_mode'] = false;
 
 if(empty($content['article']['acat_id'])) { // Root structure
 
@@ -87,6 +88,11 @@ if(empty($content['article']['acat_id'])) { // Root structure
 		
 		echo ': '.$BL['modules'][$content["module"]]['listing_title'];
 		
+		// check if Module is in setting mode
+		if(!empty($phpwcms['modules'][$content["module"]]['setting'])) {
+			$content['cp_setting_mode'] = true;
+		}
+		
 	}
 	echo '</span>';
 	
@@ -101,9 +107,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
 		if(empty($content['article']['acat_id'])) {
 			echo 'index';
 		} else {
-			echo $content['article']['acat_struct'];
-			echo '&amp;cat=';
-			echo $content['article']['acat_id'];
+			echo $content['article']['acat_struct'], '&amp;cat=', $content['article']['acat_id'];
 		}
 		
 		?>" onclick="return confirm('<?php echo $BL['be_dialog_warn_nosave']; 
@@ -126,15 +130,15 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	</tr>
 	
 	
-	<tr bgcolor="#D9DEE3"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /><script language="javascript" type="text/javascript">
-	<!--
+	<tr bgcolor="#D9DEE3"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /><script type="text/javascript">
+
 	var istuff_done = false;
 	function showEditArticleID(istuff) {
 		if(istuff_done) return false;
 		istuff.innerHTML += '&nbsp; <'+'span class="chatlist"'+'><?php echo $BL['be_func_struct_articleID'] ?>:&nbsp;<'+'/span><'+'input type="text" name="ctype_change_aid" value="<?php echo $content["aid"] ?>" class="v11 width35" /'+'>';
 		istuff_done = true;
 	}	
-	//-->
+
 	</script></td></tr>
 	<tr><td colspan="2" class="rowspacer"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -213,9 +217,32 @@ if(empty($content['article']['acat_id'])) { // Root structure
                 </table></td>
    	 </tr>
 
-	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>  
+	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /><?php
+	
+// Content Part Setting Mode — hide all settings related to article and content part rendering
+if($content['cp_setting_mode']):
+		// some hidden fields with default content
+
+?>
+		<input type="hidden" name="cblock" value="CPSET" />
+		<input type="hidden" name="csorting" value="0" />
+		<input type="hidden" name="cbefore" value="" />
+		<input type="hidden" name="ctab_title" value="" />
+		<input type="hidden" name="ctab_number" value="" />
+		<input type="hidden" name="ctitle" value="" />
+		<input type="hidden" name="csubtitle" value="" />
+		<input type="hidden" name="cpaginate_title" value="" />
+		<input type="hidden" name="cpaginate_page" value="" />
+
+<?php
+
+	// normal contentpart edit mode
+	else:
+	
+	?></td></tr>
+	
 	<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-			
+
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
 		  <td><table summary="" border="0" cellspacing="0" cellpadding="0" width="440">
@@ -238,7 +265,7 @@ if(isset($result[0]['template_var'])) {
 			$value = trim($value);
 			if($value != '') {
 				$valhtml = html_specialchars($value);
-				echo '				<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>'.LF;				
+				echo '<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>';				
 			}
 		}
 	}
@@ -439,10 +466,14 @@ if(isset($result[0]['template_var'])) {
 	}
 	// end paginate check
 
+
+// end non content part setting mode
+endif;
+
 ?>
 
 	<tr><td colspan="2" class="rowspacer"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-	
+
 	<tr bgcolor="#F3F5F8">
 		<td>&nbsp;</td>
 		<td style="padding:7px 0 7px 0;">
@@ -482,11 +513,9 @@ echo $_save_close_buttons;
 		</td>
 	</tr>
 
-
-
 <?php
+
 	// show content part specific form elements
-	
 	if($content['type'] != 30 && file_exists(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php')) {
 	
 		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php');

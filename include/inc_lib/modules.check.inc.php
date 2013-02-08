@@ -31,6 +31,7 @@ foreach($phpwcms_modules as $value) {
 	$_module_fe_render		= false;
 	$_module_fe_init		= false;
 	$_module_fe_search		= false;
+	$_module_fe_setting		= false;
 
 	if(is_file(PHPWCMS_ROOT.'/include/inc_module/'.$value.'/module.default.php')) {
 	
@@ -46,7 +47,8 @@ foreach($phpwcms_modules as $value) {
 			$phpwcms['modules'][$_module_name]['cntp']		= $_module_contentpart;
 			$phpwcms['modules'][$_module_name]['path']		= PHPWCMS_ROOT.'/include/inc_module/'.$value.'/';
 			$phpwcms['modules'][$_module_name]['dir']		= 'include/inc_module/'.$value.'/';
-			$phpwcms['modules'][$_module_name]['search']	= empty($_module_fe_search) ? false : true;
+			$phpwcms['modules'][$_module_name]['search']	= $_module_fe_search;
+			$phpwcms['modules'][$_module_name]['setting']	= $_module_fe_setting;
 			
 			// main module language include -> english is always neccessary
 			// but not necessary in frontend

@@ -160,29 +160,28 @@ if(!isset($_GET["s"])) {
 		$pagelayout["layout_footer_class"]        = clean_slweg($_POST["layout_footer_class"]);
 		
 		$pagelayout["layout_render"]			  = intval($_POST["layout_render"]);
-		$pagelayout["layout_customblocks"]		  = strtoupper(clean_slweg($_POST['layout_customblocks']));
 		
-		$pagelayout["layout_customblocks"] = str_replace(' ', ',', $pagelayout["layout_customblocks"]);
-		$pagelayout["layout_customblocks"] = phpwcms_remove_accents($pagelayout["layout_customblocks"]);
-		$pagelayout["layout_customblocks"] = explode(',', $pagelayout["layout_customblocks"]);
+		$pagelayout["layout_customblocks"]		= phpwcms_remove_accents(str_replace(' ', ',', strtoupper(clean_slweg($_POST['layout_customblocks']))));
+		$pagelayout["layout_customblocks"]		= convertStringToArray($pagelayout["layout_customblocks"]);
 		if(is_array($pagelayout["layout_customblocks"]) && count($pagelayout["layout_customblocks"])) {
-		
-			$pagelayout["layout_customblocks"] = array_unique($pagelayout["layout_customblocks"]);
-			$pagelayout["layout_customblocks"] = array_diff($pagelayout["layout_customblocks"], array(''));
+
 			// now remove the default pre-defined block name CONTENT and cut to max length of 50
 			if(is_array($pagelayout["layout_customblocks"]) && count($pagelayout["layout_customblocks"])) {
 				foreach($pagelayout["layout_customblocks"] as $key => $value) {
 					$value = substr($value, 0, 20);
 					$pagelayout["layout_customblocks"][$key] = $value;
-					if($value == 'CONTENT' || $value == 'LEFT' || $value == 'RIGHT' || $value == 'HEADER' || $value == 'FOOTER') {
+					if(in_array($value, array('CONTENT', 'LEFT', 'RIGHT', 'HEADER', 'FOOTER', 'CPSET'))) {
 						unset($pagelayout["layout_customblocks"][$key]);
 					}
 				}
-			}			
+			}
+		
 			$pagelayout["layout_customblocks"] = implode(', ', $pagelayout["layout_customblocks"]);		
 		
 		} else {
+		
 			$pagelayout["layout_customblocks"] = '';
+		
 		}
 	
 		if($pagelayout["id"]) {

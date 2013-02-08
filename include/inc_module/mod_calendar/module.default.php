@@ -9,7 +9,7 @@
  *
  **/
 
-// Module/Plug-in Glossary
+// Module/Plug-in Calendar
 
 // register module name
 //DO NOT USE SPECIAL CHARS HERE, NO WHITE SPACES, USE LOWER CASE!!!
@@ -26,6 +26,8 @@ $_module_contentpart	= false;
 // simple switch to allow fe render or fe init
 $_module_fe_render		= false;
 $_module_fe_init		= false;
+$_module_fe_search		= false;
+$_module_fe_setting		= false;
 
 
 ?>

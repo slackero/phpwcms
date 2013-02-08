@@ -339,11 +339,14 @@ if(!$temp_count) {
 							case 'FOOTER'	:	$contentpart_block_name = $BL['be_admin_page_footer'].$contentpart_block_name;
 												$contentpart_block_color = ' bgcolor="#E1E8F7"';
 												break;
+							case 'CPSET'	:	$contentpart_block_name = $BL['be_settings'];
+												$contentpart_block_color = ' bgcolor="#cceaf5"';
+												break;
 						}
 				
 			?>
 			<tr<?php echo $contentpart_block_color ?>>
-				<td align="right" style="padding-right:5px;"><img src="img/symbole/block.gif" alt="" width="9" height="11" border="0" /></td>
+				<td align="right" style="padding-right:5px;"><img src="img/symbole/<?php echo $contentpart_block == 'CPSET' ? 'cpset' : 'block' ?>.gif" alt="" width="9" height="11" border="0" /></td>
 				<td style="font-size:9px;font-weight:bold;"><?php echo  $contentpart_block_name ?></td>
 				<td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
@@ -365,10 +368,10 @@ if(!$temp_count) {
 			<tr<?php echo $contentpart_block_color ?>>
 				<td align="right" style="padding-right:5px;"><img src="img/symbole/tabbed.gif" alt="" width="9" height="11" border="0" /></td>
 				<td style="font-size:9px;"><?php 
-					echo html_specialchars($contentpart_tab_title);
-					if(empty($contentpart_tab_title)) {
-						echo ' [' . $contentpart_tab_number . ']';
-					}
+						echo html_specialchars($contentpart_tab_title);
+						if(empty($contentpart_tab_title)) {
+							echo ' [' . $contentpart_tab_number . ']';
+						}
 				 ?>&nbsp;</td>
 				<td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
@@ -377,8 +380,8 @@ if(!$temp_count) {
 						
 					} elseif($contentpart_tab && empty($row['acontent_tab'])) {
 						
-					// not the same tab but following cp is not tabbed
-					$contentpart_tab = '';
+						// not the same tab but following cp is not tabbed
+						$contentpart_tab = '';
 			?>
 			<tr<?php echo $contentpart_block_color ?>><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr><td colspan="3" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -407,35 +410,36 @@ if(!$temp_count) {
 				  ?></td>
 				  <td width="23" nowrap="nowrap"><?php echo $sbutton_string[$row["acontent_id"]]; ?></td>
 				  <td class="v09" style="color:#727889;padding:0 4px 0 5px" width="60" nowrap="nowrap">[ID:<?php echo $row["acontent_id"] ?>]</td>
-	              <td class="v09" nowrap="nowrap"><?php 
+	              <td class="v09" nowrap="nowrap"><?php
 				  
 				  echo date($BL['be_shortdatetime'], $row["acontent_date"]).'&nbsp;';
 				  
-				  //Display cp paginate page number
-				  if($article["article_paginate"]) {
-
-					echo '<img src="img/symbole/content_cppaginate.gif" alt="subsection" title="subsection" />';
-					echo $row["acontent_paginate_page"] == 0 ? 1 : $row["acontent_paginate_page"];
-				  }
+				  if($contentpart_block != 'CPSET') {
 				  
-				  				  
-				  //Anzeigen der Space Before/After Info
-				  if(intval($row["acontent_before"])) {
-				  	//echo "<td><img src=\"img/symbole/content_space_before.gif\" width=\"12\" height=\"6\"></td>";
-				  	//echo "<td class=\"v09\">".$row["acontent_before"]."</td>";
-					echo '<img src="img/symbole/content_space_before.gif" alt="" />'.$row["acontent_before"];
+						//Display cp paginate page number
+						if($article["article_paginate"]) {
+						
+							echo '<img src="img/symbole/content_cppaginate.gif" alt="subsection" title="subsection" />';
+							echo $row["acontent_paginate_page"] == 0 ? 1 : $row["acontent_paginate_page"];
+						
+						}
+							  
+						//Anzeigen der Space Before/After Info
+						if(intval($row["acontent_before"])) {
+							echo '<img src="img/symbole/content_space_before.gif" alt="" />'.$row["acontent_before"];
+						}
+						if(intval($row["acontent_after"])) {
+							echo '<img src="img/symbole/content_space_after.gif" alt="" />'.$row["acontent_after"];
+						}
+						if($row["acontent_top"]) {
+							echo '<img src="img/symbole/content_top.gif" alt="TOP" title="TOP" />';
+						}
+						if($row["acontent_anchor"]) {
+							echo '<img src="img/symbole/content_anchor.gif" alt="Anchor" title="Anchor" />';
+						}
+						
 				  }
-				  if(intval($row["acontent_after"])) {
-				  	//echo "<td><img src=\"img/symbole/content_space_after.gif\" width=\"12\" height=\"6\"></td>";
-				  	//echo "<td class=\"v09\">".$row["acontent_after"]."</td>";
-					echo '<img src="img/symbole/content_space_after.gif" alt="" />'.$row["acontent_after"];
-				  }
-				  if($row["acontent_top"]) {
-				  	echo '<img src="img/symbole/content_top.gif" alt="TOP" title="TOP" />';
-				  }
-		 		 if($row["acontent_anchor"]) {
-				  	echo '<img src="img/symbole/content_anchor.gif" alt="Anchor" title="Anchor" />';
-				  }
+						
 				  ?></td>
                 </tr>
               </table></td>

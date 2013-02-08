@@ -540,8 +540,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 			}
 			
-			
-			// wrap tab 
+			// wrap tab
 			if(!empty($crow['acontent_tab'])) {
 				
 				$crow['acontent_tab']			= explode('_', $crow['acontent_tab'], 2);
