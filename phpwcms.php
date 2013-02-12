@@ -88,8 +88,12 @@ switch ($do) {
 	case "files":		//files
 						$wcsnav["files"] = "<strong class=\"navtexta\">".$wcsnav["files"]."</strong>";
 						$subnav .= subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, "", 0);
+						
+						// based on pwmod by pagewerkstatt.ch 12/2012
+						$subnav .= subnavtext($BL['be_subnav_file_actions'], "phpwcms.php?do=files&amp;p=4", $p, "4", 0);
+						
 						$subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
-						break;
+					break;
 
 	case "modules":		//modules
 						$wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
@@ -328,8 +332,15 @@ if($BE['LANG'] == 'ar') {
 
       	case "files":	// File manager
 				      	if($p === 8) { //FTP File upload
-							include(PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php');
-						} else {
+
+						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php');
+
+				      	// based on pwmod by pagewerkstatt.ch 12/2012
+				      	} elseif ($p === 4) {
+
+						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.actions.tmpl.php');
+							
+				      	} else {
 										
 				      		include(PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'); //Files Navigation/Reiter
 				      		switch($files_folder) {

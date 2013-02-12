@@ -586,7 +586,7 @@ function get_actcat_articles_data($act_cat_id) {
 function setArticleSummaryImageData($img) {
 	// used to set correct list image values based on given data
 
-	//first check if lis_image data is set - will not for all old articles
+	//first check if list_image data is set - will not for all old articles
 	if(!isset($img['list_usesummary'])) {
 		$img['list_usesummary'] = 1;
 	}

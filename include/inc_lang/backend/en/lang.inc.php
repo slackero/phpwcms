@@ -41,6 +41,7 @@ $BL['be_page_title']                    = 'phpwcms backend (administration)';
 $BL['be_subnav_article_center']         = 'article center';
 $BL['be_subnav_article_new']            = 'new article';
 $BL['be_subnav_file_center']            = 'file center';
+$BL['be_subnav_file_actions']           = 'file actions';
 $BL['be_subnav_file_ftptakeover']       = 'ftp takeover';
 $BL['be_subnav_mod_artists']            = 'artist, category, genre';
 $BL['be_subnav_msg_center']             = 'message center';
@@ -1315,5 +1316,24 @@ $BL['form_force_ssl']					= 'Force sending forms with SSL';
 $BL['numerize_title']					= 'Numbered instead of article titles';
 $BL['be_article_noteaser']				= 'no teaser';
 $BL['be_acat_disable301']				= 'article 301 redirect';
+
+$BL['file_actions_step1']				= "Step 1: select folder";
+$BL['file_actions_step2']				= "Step 2: select file";
+$BL['file_actions_step3']				= "Step 3: select action";
+$BL['file_actions_button']				= 'Perform action';
+$BL['file_actions_no']					= 'No files for editing. Please select another folder ';
+$BL['file_actions_delete']				= 'Are you sure that the selected files should be deleted?';
+$BL['file_actions_bemuser']				= 'The selected files will be assigned to the new user and moved to its root.';
+$BL['file_actions_bemfolder']			= 'Please select the destination folder. The selected files are moved to this folder. ';
+$BL['file_actions_pdl_empty']			= 'select action';
+$BL['file_actions_pdl_delete']			= 'delete files';
+$BL['file_actions_pdl_move']			= 'move files';
+$BL['file_actions_pdl_status']			= 'change status';
+$BL['file_actions_pdl_user']			= 'change owner';
+$BL['file_actions_msg_move']			= 'Files were moved successfully';
+$BL['file_actions_msg_delete']			= 'Files were deleted successfully';
+$BL['file_actions_msg_status']			= 'The status of files successfully changed';
+$BL['file_actions_msg_error']			= 'There are no files selected';
+$BL['file_actions_msg_user']			= 'Files were successfully assigned to the new user';
 
 ?>

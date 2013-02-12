@@ -42,6 +42,7 @@ $BL['be_subnav_article_center']         = 'Artikelzentrale';
 $BL['be_subnav_article_new']            = 'Neuer Artikel';
 $BL['be_subnav_file_center']            = 'Dateizentrale';
 $BL['be_subnav_file_ftptakeover']       = 'FTP &Uuml;bernahme';
+$BL['be_subnav_file_actions']           = 'Dateiaktionen';
 $BL['be_subnav_mod_artists']            = 'K&uuml;nstler, Kategorie, Genre';
 $BL['be_subnav_msg_center']             = 'Nachrichtenzentrale';
 $BL['be_subnav_msg_new']                = 'Neue Nachricht';
@@ -1305,5 +1306,24 @@ $BL['form_force_ssl']					= 'Formularversand per SSL erzwingen';
 $BL['numerize_title']					= 'Nummerieren anstatt Artikeltitel';
 $BL['be_article_noteaser']				= 'kein Teaser';
 $BL['be_acat_disable301']				= 'Artikel 301 Weiterleitung';
+
+$BL['file_actions_step1']				= "Schritt 1: Verzeichnis ausw&auml;hlen";
+$BL['file_actions_step2']				= "Schritt 2: Dateien ausw&auml;hlen";
+$BL['file_actions_step3']				= "Schritt 3: Gew&uuml;nschte Aktion ausw&auml;hlen";
+$BL['file_actions_button']				= 'Aktion ausf&uuml;hren';
+$BL['file_actions_no']					= 'Keine Datein zum Bearbeiten. Bitte anderen Ordner ausw&auml;hlen';
+$BL['file_actions_delete']				= 'Sind sie sicher, dass die gew&auml;hlten Dateien gel&ouml;schen werden sollen?';
+$BL['file_actions_bemuser']				= 'Die ausgew&auml;hlten Dateien werden dem neuen Benutzer zugeordnet und in dessen Wurzelverzeichnis verschoben.';
+$BL['file_actions_bemfolder']			= 'Bitte w&auml;hlen sie den Zielordner. Die ausgew&auml;hlten Dateien werden in diesen Order verschoben.';
+$BL['file_actions_pdl_empty']			= 'Aktion w&auml;hlen';
+$BL['file_actions_pdl_delete']			= 'Dateien l&ouml;schen';
+$BL['file_actions_pdl_move']			= 'Dateien verschieben';
+$BL['file_actions_pdl_status']			= 'Status &auml;ndern';
+$BL['file_actions_pdl_user']			= 'Inhaber &auml;ndern';
+$BL['file_actions_msg_move']			= 'Dateien wurden erfolgreich verschoben';
+$BL['file_actions_msg_delete']			= 'Dateien wurden erfolgreich gel&ouml;scht';
+$BL['file_actions_msg_status']			= 'Der Status der Dateien wurde erfolgreich ge&auml;ndert';
+$BL['file_actions_msg_error']			= 'Es wurden keine Dateien ausgew&auml;hlt';
+$BL['file_actions_msg_user']			= 'Dateien wurden erfolgreich dem neuen Benutzer zugeordnet';
 
 ?>
