@@ -94,6 +94,8 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 												
 				$article['article_archive_status']	= $row['article_archive_status'];
 				
+				$article["acat_overwrite"] = $row['acat_overwrite'];
+				
 				$read_done = true;
 			}
 			mysql_free_result($result);
@@ -187,7 +189,7 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		$article['article_lang_type']	= $article["article_lang"] == '' || empty($_POST["article_lang_type"]) ? '' : in_array($_POST["article_lang_type"], array('category', 'article')) ? $_POST["article_lang_type"] : '';
 		$article['article_lang_id']		= $article['article_lang_type'] == '' || empty($_POST["article_lang_id"]) ? 0 : intval($_POST["article_lang_id"]);
 		
-		$article["article_keyword"]		= implode(', ',  convertStringToArray( trim($article["article_keyword"], ',') , ',') );
+		$article["article_keyword"]		= implode(', ', convertStringToArray( trim($article["article_keyword"], ',') , ',') );
 		
 		$article["article_redirect"]	= clean_slweg($_POST["article_redirect"]);
 		$set_begin						= isset($_POST["set_begin"]) ? 1 : 0;
@@ -446,8 +448,26 @@ if( (isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct']) ) {
 		}
 
 	}
-
 	
+	// check if it is recommend to overwrite template defaults
+	if(!isset($article["acat_overwrite"])) {
+		
+		if($article['article_catid']) {
+			$article["acat_overwrite"] = _dbGet('phpwcms_articlecat', 'acat_overwrite', 'acat_trash != 9 AND acat_id = '.$article['article_catid'], '', '', 1);
+			$article["acat_overwrite"] = empty($article["acat_overwrite"][0]['acat_overwrite']) ? '' : $article["acat_overwrite"][0]['acat_overwrite'];
+		} elseif($article['article_catid'] === 0 && !empty($indexpage['acat_overwrite'])) {
+			$article["acat_overwrite"] = $indexpage['acat_overwrite'];		
+		} else {
+			$article["acat_overwrite"] = '';
+		}
+	
+	}
+	
+	// include template defaults which should be overwritten by custom settings
+	if($article["acat_overwrite"] && is_file(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"])) {
+		@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"]);
+	}
+
 	// list mode
 	if( (!isset($_GET["aktion"]) || !intval($_GET["aktion"])) && !isset($_GET['struct'])) {
 	

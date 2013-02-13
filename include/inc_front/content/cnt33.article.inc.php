@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // News
 
-$news	= @unserialize($crow["acontent_form"]);
+$news = @unserialize($crow["acontent_form"]);
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/news.tmpl')) {
