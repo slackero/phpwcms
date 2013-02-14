@@ -418,7 +418,7 @@ $(function(){
 		</table>
 	</div>
 	
-	<div class="paragraph border_bottom">
+	<div class="paragraph">
 	<table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 		<td class="top"><label><?php echo $BL['be_cnt_files'];
@@ -451,6 +451,25 @@ $(function(){
   		<td colspan="2"><textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text" id="cnt_file_caption"><?php echo html_specialchars($news->data['cnt_files']['caption']) ?></textarea></td>
 	</tr>
 	
+	<tr>
+		<td>&nbsp;</td>
+		<td colspan="2" class="tdtop5">
+			<table cellpadding="0" cellspacing="0" border="0" summary="">
+		
+				<tr>
+					<td><input name="cnt_file_gallery" type="checkbox" id="cnt_file_gallery" value="1" <?php is_checked(1, $news->data['cnt_files']['gallery']); ?> /></td>
+					<td><label class="checkbox" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label></td>
+				</tr>
+				
+				<tr>
+					<td><input name="cnt_file_gallery_download" type="checkbox" id="cnt_file_gallery_download" value="1" <?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> /></td>
+					<td><label class="checkbox" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label></td>
+				</tr>
+				
+			</table>
+		</td>	
+	</tr>
+	
   </table>
   	
 	</div>
@@ -474,7 +493,7 @@ $(function(){
 		?>
 	</div>
 	
-	<p class="space_top border_top">	
+	<p class="space_top">	
 		<label><?php echo $BL['be_read_more_link'] ?></label>
 		<input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="text" maxlength="250" title="<?php echo $BL['be_read_more_link'] ?>" />
 	</p>

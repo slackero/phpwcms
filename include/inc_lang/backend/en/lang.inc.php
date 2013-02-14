@@ -1336,4 +1336,6 @@ $BL['file_actions_msg_status']			= 'The status of files successfully changed';
 $BL['file_actions_msg_error']			= 'There are no files selected';
 $BL['file_actions_msg_user']			= 'Files were successfully assigned to the new user';
 
+$BL['be_imagefiles_as_gallery']			= 'create gallery from image files';
+
 ?>

@@ -1326,4 +1326,6 @@ $BL['file_actions_msg_status']			= 'Der Status der Dateien wurde erfolgreich ge&
 $BL['file_actions_msg_error']			= 'Es wurden keine Dateien ausgew&auml;hlt';
 $BL['file_actions_msg_user']			= 'Dateien wurden erfolgreich dem neuen Benutzer zugeordnet';
 
+$BL['be_imagefiles_as_gallery']			= 'Bildergalerie aus Bilddateien generieren';
+
 ?>

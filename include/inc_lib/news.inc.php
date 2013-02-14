@@ -442,8 +442,10 @@ class phpwcmsNews {
 																	'link'			=> ''
 																 ),
 																 
-								'cnt_files'				=> array(	'id'			=> array(),
-																	'caption'		=> ''
+								'cnt_files'				=> array(	'id'				=> array(),
+																	'caption'			=> '',
+																	'gallery'			=> 0,
+																	'gallery_download'	=> 0
 																 ),
 								'cnt_link'				=> '',
 								'cnt_linktext'			=> '',
@@ -627,9 +629,7 @@ class phpwcmsNews {
 		$post['cnt_type']			= '';
 		$post['cnt_module']			= 'news';
 		$post['cnt_changed']		= time();
-		
-		//$duplicate					= empty($_POST['cnt_duplicate']) ? 0 : 1;
-		
+	
 		$post['cnt_status']			= empty($_POST['cnt_status']) ? 0 : 1;
 		$post['cnt_archive_status']	= empty($_POST['cnt_archive_status']) ? 0 : 1;
 		$post['cnt_prio']			= empty($_POST['cnt_prio']) ? 0 : intval($_POST['cnt_prio']);
@@ -672,31 +672,30 @@ class phpwcmsNews {
 		
 		$post['cnt_lang']			= isset($_POST['cnt_lang']) ? preg_replace('/[^a-z\-]/', '', strtolower($_POST['cnt_lang'])) : '';
 		
+		$post['cnt_object']			= array(
+			
+			'cnt_image' => array(
+				'id'		=> isset($_POST['cnt_image_id']) ? intval($_POST['cnt_image_id']) : '',
+				'name'		=> isset($_POST['cnt_image_name']) ? clean_slweg($_POST['cnt_image_name']) : '',
+				'zoom'		=> empty($_POST['cnt_image_zoom']) ? 0 : 1,
+				'lightbox'	=> empty($_POST['cnt_image_lightbox']) ? 0 : 1,
+				'caption'	=> isset($_POST['cnt_image_caption']) ? clean_slweg($_POST['cnt_image_caption']) : '',
+				'link'		=> isset($_POST['cnt_image_link']) ? clean_slweg($_POST['cnt_image_link']) : ''
+			), 
+			
+			'cnt_files' => array(
+				'id'				=> isset($_POST['cnt_files']) && is_array($_POST['cnt_files']) && count($_POST['cnt_files']) ? $_POST['cnt_files'] : array(),
+				'caption'			=> isset($_POST['cnt_file_caption']) ? clean_slweg($_POST['cnt_file_caption'], 0, false) : '',
+				'gallery'			=> empty($_POST['cnt_file_gallery']) ? 0 : 1,
+				'gallery_download'	=> empty($_POST['cnt_file_gallery_download']) ? 0 : 1
+			),
+			
+			'cnt_link'		=> isset($_POST['cnt_link']) ? clean_slweg($_POST['cnt_link']) : '',
+			'cnt_linktext'	=> isset($_POST['cnt_linktext']) ? clean_slweg($_POST['cnt_linktext']) : '',
+			'cnt_category'	=> $category,
+			'cnt_readmore'	=> empty($_POST['cnt_readmore']) ? 0 : 1
 		
-		$post['cnt_object']			= array( 	'cnt_image'		=> array(), 
-												'cnt_files'		=> array(), 
-												'cnt_link'		=> '', 
-												'cnt_linktext'	=> '', 
-												'cnt_category'	=> '',
-												'cnt_readmore'	=> 0
-											);
-		
-		$post['cnt_object']['cnt_image']['id']			= isset($_POST['cnt_image_id']) ? intval($_POST['cnt_image_id']) : '';
-		$post['cnt_object']['cnt_image']['name']		= isset($_POST['cnt_image_name']) ? clean_slweg($_POST['cnt_image_name']) : '';
-		$post['cnt_object']['cnt_image']['zoom']		= empty($_POST['cnt_image_zoom']) ? 0 : 1;
-		$post['cnt_object']['cnt_image']['lightbox']	= empty($_POST['cnt_image_lightbox']) ? 0 : 1;
-		$post['cnt_object']['cnt_image']['caption']		= isset($_POST['cnt_image_caption']) ? clean_slweg($_POST['cnt_image_caption']) : '';
-		$post['cnt_object']['cnt_image']['link']		= isset($_POST['cnt_image_link']) ? clean_slweg($_POST['cnt_image_link']) : '';
-		
-		$post['cnt_object']['cnt_files']['id']			= isset($_POST['cnt_files']) && is_array($_POST['cnt_files']) && count($_POST['cnt_files']) ? $_POST['cnt_files'] : array();
-		$post['cnt_object']['cnt_files']['caption']		= isset($_POST['cnt_file_caption']) ? clean_slweg($_POST['cnt_file_caption'], 0, false) : '';
-
-		$post['cnt_object']['cnt_link']					= isset($_POST['cnt_link']) ? clean_slweg($_POST['cnt_link']) : '';
-		$post['cnt_object']['cnt_linktext']				= isset($_POST['cnt_linktext']) ? clean_slweg($_POST['cnt_linktext']) : '';
-		
-		$post['cnt_object']['cnt_category']				= $category;
-		
-		$post['cnt_object']['cnt_readmore']				= empty($_POST['cnt_readmore']) ? 0 : 1;
+		);
 	
 		return $post;
 	

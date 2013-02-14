@@ -18,6 +18,12 @@ news_teaser_limit_ellipse = …
 files_template_list = default
 files_template_detail = default
 files_direct_download = 0
+
+; gallery supported image formats
+gallery_allowed_ext = jpg,jpeg,png,gif
+; use the file info/copyright as used defined in file center
+gallery_filecenter_info = 1
+
 <!--NEWS_SETTINGS_END//-->
 
 
@@ -69,6 +75,20 @@ files_direct_download = 0
 	[URL]
 		<p><a href="{URL}"{URL_TARGET}>[URL_TEXT]{URL_TEXT}[/URL_TEXT][URL_TEXT_ELSE]more[/URL_TEXT_ELSE]</a></p>
 	[/URL]
+	[GALLERY]
+		<div class="image-gallery">
+			<!--GALLERY_ITEM_START//-->
+			<div class="image-gallery-item">
+				<!-- Zoom -->
+				<a href="img/cmsimage.php/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox">
+					<!-- Thumbnail -->
+					<img src="img/cmsimage.php/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
+				</a>
+			</div>
+			<!--GALLERY_ITEM_END//-->
+			{GALLERY}
+		</div>
+	[/GALLERY]
 	[FILES]{FILES}[/FILES]
 	[NEWS_DETAIL_LINK]
 		<p class="link"><a href="{NEWS_DETAIL_LINK}">read</a></p>
@@ -134,6 +154,20 @@ files_direct_download = 0
 	[URL]
 		<p><a href="{URL}"{URL_TARGET}>[URL_TEXT]{URL_TEXT}[/URL_TEXT][URL_TEXT_ELSE]more[/URL_TEXT_ELSE]</a></p>
 	[/URL]
+		[GALLERY]
+		<div class="image-gallery">
+			<!--GALLERY_ITEM_START//-->
+			<div class="image-gallery-item">
+				<!-- Zoom -->
+				<a href="img/cmsimage.php/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox">
+					<!-- Thumbnail -->
+					<img src="img/cmsimage.php/150x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
+				</a>
+			</div>
+			<!--GALLERY_ITEM_END//-->
+			{GALLERY}
+		</div>
+	[/GALLERY]
 	[FILES]{FILES}[/FILES]
 	
 	[NEWS_LIST_LINK]

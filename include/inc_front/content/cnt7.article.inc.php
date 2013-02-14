@@ -281,18 +281,19 @@ if($content['files_sql']) {
 							case 'jpg':
 							case 'png':
 							
-								$_files_image = get_cached_image(
-												array(	"target_ext"	=>	$target_ext,
-														"image_name"	=>	$content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
-														"max_width"		=>	$_file_info[4][0],
-														"max_height"	=>	$_file_info[4][1],
-														"thumb_name"	=>	md5(	$content['files_result'][ $_files_x ]['f_hash'].
-																					$_file_info[4][0].$_file_info[4][1].
-																					$GLOBALS['phpwcms']["sharpen_level"].
-																					$_file_info[4][2]
-																				),
-														'crop_image'	=>	$_file_info[4][2]
-												));
+								$_files_image = get_cached_image(array(
+									"target_ext"	=>	$target_ext,
+									"image_name"	=>	$content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
+									"max_width"		=>	$_file_info[4][0],
+									"max_height"	=>	$_file_info[4][1],
+									"thumb_name"	=>	md5(
+										$content['files_result'][ $_files_x ]['f_hash'].
+										$_file_info[4][0].$_file_info[4][1].
+										$GLOBALS['phpwcms']["sharpen_level"].
+										$_file_info[4][2]
+															),
+									'crop_image'	=>	$_file_info[4][2]
+								));
 								break;
 					
 						}
@@ -305,6 +306,7 @@ if($content['files_sql']) {
 							$_files_get_imagesize = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$content['files_result'][$_files_x ]['f_hash'].'.'.$content['files_result'][ $_files_x ]['f_ext']);
 							
 							if(isset($_files_get_imagesize[0])) {
+							
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', $_files_get_imagesize[0]);
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', $_files_get_imagesize[1]);
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', isset($_files_get_imagesize['mime']) ? $_files_get_imagesize['mime'] : '');
@@ -317,10 +319,13 @@ if($content['files_sql']) {
 								} else {
 									$_files_get_imagesize['channels'] = '';
 								}
+							
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', $_files_get_imagesize['channels']);
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', $_files_get_imagesize[0] >= $_files_get_imagesize[1] ? '@@landscape@@' : '');
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', $_files_get_imagesize[1] > $_files_get_imagesize[0] ? '@@portrait@@' : '');
+							
 							} else {
+							
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', '');
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', '');
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', '');
@@ -329,6 +334,15 @@ if($content['files_sql']) {
 								$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', '');
 							}
 							
+					} else {
+					
+						$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', '');
+						$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', '');
+						$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', '');
+						$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', '');
+						$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', '');
+						$_files_entries[$fkey]	= render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', '');
+					
 					}
 					
 					$_files_image			= ($_files_image != false) ? PHPWCMS_IMAGES . $_files_image[0] : '';

@@ -364,6 +364,7 @@ if($news['template']) {
 
 	// check if news is in list mode
 	if($news['list_mode']) {
+		
 		$news['tmpl_news']			= get_tmpl_section('NEWS_LIST', $news['template']);
 		$news['tmpl_entry']			= get_tmpl_section('NEWS_LIST_ENTRY', $news['template']);
 		$news['tmpl_entry_space']	= get_tmpl_section('NEWS_LIST_ENTRY_SPACE', $news['template']);
@@ -378,16 +379,20 @@ if($news['template']) {
 		$news['tmpl_row_space']		= '';
 	
 	}
-
+	
+	$news['tmpl_gallery_item']		= '';
+	
 	// get template based config and merge with defaults
 	$news['config']	= array_merge(	array(	'news_per_row'				=> 1,
 											'news_teaser_text'			=> 'p',
 											'news_teaser_limit_chars'	=> 0,
 											'news_teaser_limit_words'	=> 0,
 											'news_teaser_limit_ellipse'	=> $GLOBALS['template_default']['ellipse_sign'],
-											'files_template_list'	=> 'default',
-											'files_template_detail'	=> 'default',
-											'files_direct_download'	=> 0
+											'files_template_list'		=> 'default',
+											'files_template_detail'		=> 'default',
+											'files_direct_download'		=> 0,
+											'gallery_allowed_ext'		=> 'jpg,jpeg,png',
+											'gallery_filecenter_info'	=> 1
 										  ),
 									parse_ini_str( get_tmpl_section('NEWS_SETTINGS', $news['template']), false )
 								  );
@@ -396,6 +401,7 @@ if($news['template']) {
 	$news['config']['news_teaser_limit_chars']	= intval($news['config']['news_teaser_limit_chars']);
 	$news['config']['news_teaser_limit_words']	= intval($news['config']['news_teaser_limit_words']);
 	$news['config']['news_teaser_text']			= trim($news['config']['news_teaser_text']);
+	$news['config']['check_lang']				= (count($phpwcms['allowed_lang']) > 1) ? true : false;
 	
 	// set function used to render teaser text, custom can be registered
 	switch( $news['config']['news_teaser_text'] ) {
@@ -428,9 +434,18 @@ if($news['template']) {
 	foreach($news['result'] as $key => $value) {
 	
 		$value['cnt_object']	= @unserialize($value['cnt_object']);
-
+		
 		$news['entries'][$key]  = getFrontendEditLink('news', $value['cnt_id']);
-		$news['entries'][$key] .= $news['tmpl_entry'];
+		
+		if(empty($value['cnt_object']['cnt_files']['gallery'])) {
+			$news['tmpl_gallery_item'] = '';
+			$news['entries'][$key] .= $news['tmpl_entry'];
+		} else {
+			if(empty($news['tmpl_gallery_item'])) {
+				$news['tmpl_gallery_item'] = get_tmpl_section('GALLERY_ITEM', $news['tmpl_entry']);
+			}
+			$news['entries'][$key] .= replace_tmpl_section('GALLERY_ITEM', $news['tmpl_entry']);
+		}
 		
 		if($news['config']['news_teaser_limit_chars']) {
 			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_chars'], $news['config']['news_teaser_limit_ellipse'], 'char');
@@ -534,32 +549,184 @@ if($news['template']) {
 		
 		// Files
 		if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
+
+			// should image files used for gallery
+			if(!empty($value['cnt_object']['cnt_files']['gallery']) && strpos($news['entries'][$key], '/GALLERY')) {
+				
+				$news['config']['gallery_allowed_ext'] = convertStringToArray(strtolower($news['config']['gallery_allowed_ext']));
+				
+				if(!count($news['config']['gallery_allowed_ext'])) {
+				
+					$value['cnt_object']['cnt_files']['gallery'] = false;
+				
+				// Get Image files
+				} else {
+					
+					foreach($news['config']['gallery_allowed_ext'] as $ikey => $ivalue) {
+						$news['config']['gallery_allowed_ext'][$ikey] = _dbEscape($ivalue);
+					}
+					
+					$value['cnt_object']['cnt_files']['where']  = 'f_id IN (' . implode(',', $value['cnt_object']['cnt_files']['id']) . ') AND ';
+					$value['cnt_object']['cnt_files']['where'] .= 'f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ';
+					$value['cnt_object']['cnt_files']['where'] .= 'f_ext IN(' . implode(',', $news['config']['gallery_allowed_ext']) . ')';
+									
+					$value['cnt_object']['cnt_files']['images'] = _dbGet('phpwcms_file', 'f_id,f_hash,f_name,f_ext,f_longinfo,f_copyright,f_vars', $value['cnt_object']['cnt_files']['where']);
+					
+					if(!isset($value['cnt_object']['cnt_files']['images'][0])) {
+						
+						$value['cnt_object']['cnt_files']['gallery'] = false;
+					
+					// create gallery
+					} else {
+
+						$value['gallery_id'] = array();
+						
+						// just to have relation between file ID and query result
+						foreach($value['cnt_object']['cnt_files']['images'] as $ikey => $ivalue) {
+							
+							$value['gallery_id'][ $ivalue['f_id'] ] = $ikey;
+
+						}
+						
+						// Need to parse file list caption too
+						if(!$news['config']['gallery_filecenter_info']) {
+							
+							// check if info for the file is available
+							// [0] = normal file description like before
+							// [1] = name the file (it's not the file name)
+							// [2] = title
+							// [3] = target (where to open a new file -> default is _blank even if empty
+							// [4] = if it is an image try to show a thumbnail instead of the file icon -> here thumbnail WIDTHxHEIGHT
+							// [5] = copyright information
+							
+							$value['gallery_captions'] = explode("\n", $value['cnt_object']['cnt_files']['caption']);
+							
+							if(count($value['gallery_captions'])) {
+								
+								foreach($value['gallery_captions'] as $ikey => $ivalue) {
+									
+									$ivalue = trim($ivalue);
+									
+									if($ivalue) {
+										
+										$ivalue = explode('|', $ivalue);
+										$value['gallery_captions'][$ikey] = array(
+											'caption' => trim($ivalue[0]),
+											'copyright' => empty($ivalue[5]) ? '' : trim($ivalue[5])
+										);
+									
+									} else {
+										unset($value['gallery_captions'][$ikey]);
+									}
+									
+								}
+								
+							}
+
+						}
+						
+						$value['cnt_object']['cnt_files']['gallery'] = '';
+						
+						// now render and test which file should still be available for download
+						foreach($value['cnt_object']['cnt_files']['id'] as $ikey => $ivalue) {
+							
+							if(isset($value['gallery_id'][ $ivalue ])) {
+								
+								// not downloadable
+								if(empty($value['cnt_object']['cnt_files']['gallery_download'])) {
+									unset($value['cnt_object']['cnt_files']['id'][$ikey]);
+								}
+								
+								// render gallery item
+								$ivalue =& $value['cnt_object']['cnt_files']['images'][ $value['gallery_id'][ $ivalue ] ];
+								
+								// check for caption and copyright
+								if($news['config']['gallery_filecenter_info'] && !isset($value['gallery_captions'][$ikey])) {
+									
+									if($news['config']['check_lang'] && $ivalue['f_vars']) {
+										
+										$ivalue['f_vars'] = @unserialize($ivalue['f_vars']);
+										
+										if(!empty($ivalue['f_vars'][$phpwcms['DOCTYPE_LANG']]['longinfo'])) {
+											$ivalue['f_longinfo'] = $ivalue['f_vars'][$phpwcms['DOCTYPE_LANG']]['longinfo'];
+										}
+										if(!empty($ivalue['f_vars'][$phpwcms['DOCTYPE_LANG']]['copyright'])) {
+											$ivalue['f_copyright'] = $ivalue['f_vars'][$phpwcms['DOCTYPE_LANG']]['copyright'];
+										}
+										
+									}
+									
+									$value['gallery_captions'][$ikey] = array(
+										'caption' => $ivalue['f_longinfo'],
+										'copyright' => $ivalue['f_copyright']
+									);
+									
+								}
+								
+								$ivalue['tmpl'] = $news['tmpl_gallery_item'];
+								$ivalue['tmpl'] = str_replace('{IMAGE_HASH}', $ivalue['f_hash'], $ivalue['tmpl']);
+								$ivalue['tmpl'] = str_replace('{IMAGE_EXT}', $ivalue['f_ext'], $ivalue['tmpl']);
+								$ivalue['tmpl'] = str_replace('{IMAGE_ID}', $ivalue['f_id'], $ivalue['tmpl']);
+								$ivalue['tmpl'] = str_replace('{IMAGE_NAME}', $ivalue['f_name'], $ivalue['tmpl']);
+								
+								$ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'CAPTION', empty($value['gallery_captions'][$ikey]['caption']) ? '' : html_specialchars($value['gallery_captions'][$ikey]['caption']));
+								$ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'COPYRIGHT', empty($value['gallery_captions'][$ikey]['copyright']) ? '' : html_specialchars($value['gallery_captions'][$ikey]['copyright']));
+								
+								$value['cnt_object']['cnt_files']['gallery'] .= $ivalue['tmpl'];
+								
+							}
+							
+						}
+						
+						// cleanup some memory
+						unset(
+							$value['cnt_object']['cnt_files']['images'],
+							$value['gallery_id']
+						);
+					
+					}
+					
+				}				
+			}
 		
-			$IS_NEWS_CP = true;
-		
-			$value['files_direct_download'] = intval($news['config']['files_direct_download']) ? 1 : 0;
-			
-			// set correct template for files based on list or detail mode
-			if($news['list_mode']) {
-				$value['files_template']	= $news['config']['files_template_list'] == 'default' ? '' : $news['config']['files_template_list'];
+			// No Gallery
+			if(empty($value['cnt_object']['cnt_files']['gallery'])) {
+				$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'GALLERY', '' );
 			} else {
-				$value['files_template']	= $news['config']['files_template_detail'] == 'default' ? '' : $news['config']['files_template_detail'];
+				$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'GALLERY', $value['cnt_object']['cnt_files']['gallery'] );
 			}
 			
-			// include content part files renderer
-			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+			if(count($value['cnt_object']['cnt_files']['id'])) {
+				
+				$IS_NEWS_CP = true;
 			
-			$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'FILES', $news['files_result'] );
+				$value['files_direct_download'] = intval($news['config']['files_direct_download']) ? 1 : 0;
+				
+				// set correct template for files based on list or detail mode
+				if($news['list_mode']) {
+					$value['files_template'] = $news['config']['files_template_list'] == 'default' ? '' : $news['config']['files_template_list'];
+				} else {
+					$value['files_template'] = $news['config']['files_template_detail'] == 'default' ? '' : $news['config']['files_template_detail'];
+				}
 			
-			unset($IS_NEWS_CP);
+				// include content part files renderer
+				include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+				
+				$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FILES', $news['files_result'] );
+				
+				unset($IS_NEWS_CP);
+			
+			} else {
+				
+				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'FILES', '' );
+				
+			}
 		
 		} else {
 			$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'FILES', '' );
+			$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'GALLERY', '' );
 		}
-		
-		
-		//$news['entries'][$key]	= $news['entries'][$key];
-		
+
 		// row and entry spacer
 		if($news['list_mode']) {
 
