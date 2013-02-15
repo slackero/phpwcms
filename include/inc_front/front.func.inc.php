@@ -308,69 +308,68 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	$start_id 	= intval($start_id);
 	$end_id 	= intval($end_id);
 	$act_id 	= $start_id; //store actual ID for later comparing
-	$breadcrumb = '';
-	global $template_default;
+	$breadcrumb = array();
+	$data		= array();
 
 	while ($start_id) { //get the breadcrumb path starting with given start_id
-		if($end_id && $start_id == $end_id) break;
+		if($end_id && $start_id == $end_id) {
+			break;
+		}
 		$data[$start_id] = $struct_array[$start_id]["acat_name"];
 		$start_id		 = $struct_array[$start_id]["acat_struct"];
 	}
-	$data[$start_id] = $struct_array[$start_id]["acat_name"];
-	$crumbs_part = array_reverse($data, 1);
-	if(is_array($crumbs_part) && count($crumbs_part)) {
-		foreach($crumbs_part as $key => $value) {
-
-			$alias = '';
+	$data[$start_id]	= $struct_array[$start_id]["acat_name"];
+	$data				= array_reverse($data, 1);
+	
+	if(count($data)) {
+		
+		foreach($data as $key => $value) {
 
 			if($struct_array[$key]["acat_hidden"] != 1) { // check if the structure should be unvisible when active
-
-				if($breadcrumb) {
-					$breadcrumb .= $spacer;
-				}
+			
+				$breadcrumb[$key] = '';
 
 				if ($act_id != $key) {
 
 					if(!$struct_array[$key]["acat_redirect"]) {
-						$breadcrumb .= '<a href="index.php?';
-						$alias 		 = $struct_array[$key]["acat_alias"];
-						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key;
-						$breadcrumb .= '">';
+						$breadcrumb[$key] .= '<a href="index.php?';
+						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
+						$breadcrumb[$key] .= '">';
 					} else {
 						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
-						$breadcrumb .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
 					}
 
-					$breadcrumb .= html_specialchars($crumbs_part[$key]).'</a>';
+					$breadcrumb[$key] .= html_specialchars($data[$key]);
 
 				} else {
 				
 					if(!$struct_array[$key]["acat_redirect"]) {
-						$breadcrumb .= '<a href="index.php?';
-						$alias 		 = $struct_array[$key]["acat_alias"];
-						$breadcrumb .= ($alias) ? html_specialchars($alias) : 'id='.$key;
-						$breadcrumb .= '" class="active">';
+						$breadcrumb[$key] .= '<a href="index.php?';
+						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
+						$breadcrumb[$key] .= '" class="active">';
 					} else {
 						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
-						$breadcrumb .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="active">';
+						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="active">';
 					}
 
-					if(!empty($template_default['breadcrumb_active_prefix'])) {
-						$breadcrumb .= $template_default['breadcrumb_active_prefix'];
+					if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
+						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
 					}
 					
-					$breadcrumb .= html_specialchars($crumbs_part[$key]);
+					$breadcrumb[$key] .= html_specialchars($data[$key]);
 					
-					if(!empty($template_default['breadcrumb_active_suffix'])) {
-						$breadcrumb .= $template_default['breadcrumb_active_suffix'];
+					if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
+						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
 					}
-					
-					$breadcrumb .= '</a>';
 				}
+
+				$breadcrumb[$key] .= '</a>';
 			}
 		}
 	}
-	return $breadcrumb;
+	
+	return implode($spacer, $breadcrumb);
 }
 
 function get_redirect_link($link='#', $pre='', $after=' ') {
