@@ -275,7 +275,7 @@ function table_attributes($val, $var_part, $top=1, $tr=false) {
 	return $td_attrib;
 }
 
-function get_breadcrumb ($start_id, &$struct_array, $key="acat_name") {
+function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
 	//returns the breadcrumb path starting with given start_id
 
 	$data = array();
@@ -289,7 +289,12 @@ function get_breadcrumb ($start_id, &$struct_array, $key="acat_name") {
 	return array_reverse($data, 1);
 }
 
-function breadcrumb ($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
+// wrapper for breadcrumb frontend render
+function breadcrumb_wrapper($match) {
+	return breadcrumb($GLOBALS['content']["cat_id"],$GLOBALS['content']["struct"], empty($match[1]) ? 0 : $match[1], $GLOBALS['template_default']["breadcrumb_spacer"]);
+}
+
+function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	//builds the breadcrumb menu based on given values
 	//$link_to = the page on which the breadcrum part links
 	//$root_name = name of the breadcrumb part if empty/false/0 $start_id

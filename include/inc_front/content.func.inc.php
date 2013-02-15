@@ -268,8 +268,6 @@ define('PERMIT_ACCESS', $PERMIT_ACCESS);
 // frontend login check
 _checkFrontendUserAutoLogin();
 
-// -------------------------------------------------------------
-
 // read the template information for page based on structure
 if($content["struct"][ $content["cat_id"] ]["acat_template"]) {
 	//if there is a template defined for this structure level
@@ -314,8 +312,6 @@ if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
 // load frontend JavaScript lib file
 require PHPWCMS_ROOT.'/include/inc_front/js.inc.php';
 
-// -------------------------------------------------------------
-
 // retrieve pagelayout info
 // check how the content should be rendered based on pagelayout render value
 $block["layout"] = intval($block["layout"]);
@@ -346,8 +342,6 @@ $content["pagetitle"] = empty($pagelayout["layout_title"]) ? '' : $pagelayout["l
 //generate the colspan attribute
 $colspan = get_colspan($pagelayout);
 
-// -------------------------------------------------------------
-
 // now initialize content blocks like CONTENT, HEADER, LEFT, RIGHT, FOOTER
 $content['main']			= ''; // {CONTENT}
 $content['CB']['LEFT']		= ''; // {LEFT}
@@ -362,8 +356,6 @@ if(!empty($pagelayout['layout_customblocks'])) {
 	}
 	unset($custom_blocks);
 }
-
-// -------------------------------------------------------------
 
 // try to include custom functions or what ever you want to do at this point of the script
 // default dir: "phpwcms_template/inc_script/frontend_init"; only *.php files are allowed there
@@ -397,13 +389,9 @@ if(!PERMIT_ACCESS && !_getFeUserLoginStatus()) {
 	headerRedirect($template_default['login_form_url'], 401);
 }
 
-// -------------------------------------------------------------
-
 //reads all articles for active cat into array
 $content["articles"]			= get_actcat_articles_data($content["cat_id"]);
 $content["article_list_count"]	= count($content["articles"]);
-
-// -------------------------------------------------------------
 
 // generating a list of articles inside the current article category
 if(!$aktion[4]) {
@@ -456,16 +444,12 @@ if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && empty($c
 	headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
 }
 
-// -------------------------------------------------------------
-
 // check if current category should be cached
 if($content['struct'][$content['cat_id']]['acat_timeout'] != '') {
 	$phpwcms['cache_timeout'] = $content['struct'][$content['cat_id']]['acat_timeout'];
 }
 // set search status for current category
 $cache_searchable = $content['struct'][$content['cat_id']]['acat_nosearch'];
-
-// -------------------------------------------------------------
 
 $content['list_mode'] = true;
 
@@ -486,8 +470,6 @@ if($aktion[1]) {
 
 }
 
-// -------------------------------------------------------------
-
 //check for no content error
 $content["main"] = trim($content["main"]);
 if($content['404error'] || $no_content_for_this_page || $content["main"] == '') {
@@ -495,14 +477,10 @@ if($content['404error'] || $no_content_for_this_page || $content["main"] == '') 
 	$content["main"] .= $block["errortext"];
 }
 
-// -------------------------------------------------------------
-
 //check if one of needed block texts and values are empty and if then fill with content
 if(!$block["maintext"]) {
 	$block["maintext"] = $content["main"];
 }
-
-// -------------------------------------------------------------
 
 //normal page operation
 if($aktion[2] == 0) {
@@ -602,15 +580,11 @@ if($aktion[2] == 0) {
 	
 }
 
-// -------------------------------------------------------------
-
 // Render possible PHP Values in category or article keyword field
 $content["struct"][$aktion[0]]["acat_info"] = render_PHPcode($content["struct"][$aktion[0]]["acat_info"]);
 if(!empty($content["articles"][$aktion[1]]["article_keyword"]) && strpos($content["articles"][$aktion[1]]["article_keyword"], 'PHP') !== FALSE) {
 	$content["articles"][$aktion[1]]["article_keyword"]	= render_PHPcode($content["articles"][$aktion[1]]["article_keyword"]);
 }
-
-// -------------------------------------------------------------
 
 // put in the complete rendered content
 $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
@@ -651,51 +625,34 @@ if( ! ( strpos($content["all"],'{SHOW_CONTENT:')===false ) ) {
 	$content["all"] = preg_replace('/\{SHOW_CONTENT:(.*?)\}/e', 'showSelectedContent("$1");', $content["all"]);
 }
 
-// -------------------------------------------------------------
-
 // include external PHP script (also normal HTML snippets) or return PHP var value
 if(strpos($content["all"],'PHP') !== false) {
 	$content["all"] = render_PHPcode($content["all"]);
 }
 
-// -------------------------------------------------------------
-
 //breadcrumb replacement
 if(strpos($content["all"],'{BREADCRUMB') !== false) {
-	$content["all"] = str_replace('{BREADCRUMB}', '{BREADCRUMB:0}', $content["all"]);
-	$replace = 'breadcrumb($content["cat_id"], $content["struct"], $1, $template_default["breadcrumb_spacer"]);';
-	$content["all"] = preg_replace('/\{BREADCRUMB:(\d+)\}/e', $replace, $content["all"]);
+	//$content["all"] = str_replace('{BREADCRUMB}', '{BREADCRUMB:0}', $content["all"]);
+	//$replace = 'breadcrumb($content["cat_id"], $content["struct"], $1, $template_default["breadcrumb_spacer"]);';
+	//$content["all"] = preg_replace('/\{BREADCRUMB:(\d+)\}/e', $replace, $content["all"]);
+	$content['all'] = preg_replace_callback('/\{BREADCRUMB(:\d+){0,1}\}/', 'breadcrumb_wrapper', $content['all']);
 }
 
-// -------------------------------------------------------------
+// ul/li based navigation, the default one
+if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
+	
+	// build complete menu structure starting at a specific ID
+	// {NAV_LIST_UL:Parameter} Parameter: "menu_type, start_id, class_path, class_active, ul_id_name"
+	$content["all"] = preg_replace('/\{NAV_LIST_UL:(.*?)\}/e', 'buildCascadingMenu("$1");', $content["all"]);
 
-// Simple row based navigation
-if(strpos($content["all"],'{NAV_ROW') !== false) {
+}
+
+// some more navigations, do not use - not recommend any longer
+if(strpos($content["all"],'{NAV_') !== false) {
+
+	// Simple row based navigation
 	$content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);
 	$content["all"] = preg_replace('/\{NAV_ROW:(\w+|\d+):(0|1)\}/e',"nav_level_row('$1',$2);",$content["all"]);
-}
-
-// -------------------------------------------------------------
-
-// Simple Navigation table
-if(strpos($content["all"],'{NAV_TABLE_SIMPLE}') !== false) {
-	$replace = nav_table_simple_struct($content["struct"], $content["cat_id"]);
-	$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', $replace, $content["all"]);
-}
-
-// -------------------------------------------------------------
-
-// Left table based rollover navigation
-if(strpos($content["all"],'{NAV_TABLE_COLUMN') !== false) {
-	$content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
-	$replace = 'nav_table_struct($content["struct"], $content["cat_id"], "$1", $template_default["nav_table_struct"]);';
-	$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
-}
-
-// -------------------------------------------------------------
-
-// some list based navigations
-if(strpos($content["all"],'{NAV_LIST') !== false) {
 
 	//reads all active category IDs beginning with the current cat ID - without HOME
 	$content["cat_path"] = get_active_categories($content["struct"], $content["cat_id"]);
@@ -703,12 +660,8 @@ if(strpos($content["all"],'{NAV_LIST') !== false) {
 	// some general list replacements first
 	$content["all"] = str_replace('{NAV_LIST}', '{NAV_LIST:0}', $content["all"]);
 	$content["all"] = str_replace('{NAV_LIST_TOP}', css_level_list($content["struct"], $content["cat_path"], 0, '', 1), $content["all"]);
-	$content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"],$content["cat_path"],$content["cat_id"]), $content["all"]);
+	$content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
 	
-	// build complete menu structure starting at a specific ID
-	// {NAV_LIST_UL:Parameter} Parameter: "menu_type, start_id, class_path, class_active, ul_id_name"
-	$content["all"] = preg_replace('/\{NAV_LIST_UL:(.*?)\}/e', 'buildCascadingMenu("$1");', $content["all"]);
-
 	// list based navigation starting at given level
 	$replace = 'nav_list_struct($content["struct"],$content["cat_id"],"$1", "$2");';
 	$content["all"] = preg_replace('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/e', $replace, $content["all"]);
@@ -720,9 +673,20 @@ if(strpos($content["all"],'{NAV_LIST') !== false) {
 	// List based navigation with Top Level - default settings
 	// creates a list styled nav menu of current level {NAV_LIST_CURRENT:1:back_name:class_name} | default class name = list_top
 	$content["all"] = preg_replace('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/e', 'css_level_list($content["struct"],$content["cat_path"],$content["cat_id"],"$2","$1","$3")', $content["all"]);
-}
 
-// -------------------------------------------------------------
+	// Table based navigation, outdated
+	if(strpos($content["all"],'{NAV_TABLE') !== false) {
+
+		$replace = nav_table_simple_struct($content["struct"], $content["cat_id"]);
+		$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', $replace, $content["all"]);
+		
+		$content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
+		$replace = 'nav_table_struct($content["struct"], $content["cat_id"], "$1", $template_default["nav_table_struct"]);';
+		$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
+
+	}
+
+}
 
 // date replacement
 if(strpos($content["all"],'{DATE_') !== false) {
@@ -732,16 +696,12 @@ if(strpos($content["all"],'{DATE_') !== false) {
 	$content["all"] = str_replace('{DATE_ARTICLE}', international_date_format($template_default["date"]["language"], $template_default["date"]["article"],   $content["article_date"]),  $content["all"]);
 }
 
-// -------------------------------------------------------------
-
 // time replacement
 if(strpos($content["all"],'{TIME_') !== false) {
 	$content["all"] = str_replace('{TIME_LONG}',    date($template_default["time"]["long"]) ,                            $content["all"] );
 	$content["all"] = str_replace('{TIME_SHORT}',   date($template_default["time"]["short"]),                            $content["all"] );
 	$content["all"] = str_replace('{TIME_ARTICLE}', date($template_default["time"]["short"] , $content["article_date"]), $content["all"] );
 }
-
-// -------------------------------------------------------------
 
 // replace custom search form input field and action with right target
 if(strpos($content["all"],'###search_input_action') !== false) {
@@ -752,8 +712,6 @@ if(strpos($content["all"],'###search_input_action') !== false) {
 		$content["all"] = preg_replace('/###search_input_action:(\d+)###/e','get_search_action("$1", $db);', $content["all"]);
 	}
 }
-
-// -------------------------------------------------------------
 
 // related articles based on keywords, inspired by Magnar Stav Johanssen
 if(strpos($content["all"],'{RELATED:') !== false) {
@@ -766,14 +724,10 @@ if(strpos($content["all"],'{RELATED:') !== false) {
 	$content["all"] = preg_replace('/\{RELATED:(\d+):(.*?)\}/e','get_related_articles("$2",$aktion[1],$template_default["related"],"$1",$db);',$content["all"]);
 }
 
-// -------------------------------------------------------------
-
 // all new article list sorted by date
 if(strpos($content["all"],'{NEW:') !== false) {
 	$content["all"] = preg_replace('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/e','get_new_articles($template_default["news"],"$1","$2",$db);',$content["all"]);
 }
-
-// -------------------------------------------------------------
 
 // some more general parsing 
 $content["all"]	= str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
@@ -786,18 +740,12 @@ $content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_ima
 $content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\/\]/i', 'parse_downloads', $content["all"]);
 $content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
 
-// -------------------------------------------------------------
-
 // create link to articles for found keywords
 $content["all"] = preg_replace('/\{KEYWORD:(.*?)\}/e', 'get_keyword_link("$1", $db);', $content["all"]);
 //}
 
-// -------------------------------------------------------------
-
 // include external HTML page but only part between <body></body>
 $content["all"] = preg_replace_callback('/\{URL:(.*?)\}/i', 'include_url', $content["all"]);
-
-// -------------------------------------------------------------
 
 // special browse the content links: UP, NEXT, PREVIOUS
 // echo get_index_link_up('UP')." | ".get_index_link_prev('PREV',1).' | '.get_index_link_next('NEXT',1);
@@ -806,8 +754,6 @@ if(strpos($content["all"],'{BROWSE:') !== false) {
 	$content["all"] = preg_replace('/\{BROWSE:NEXT:(.*?):(0|1)\}/e','get_index_link_next("$1",$2);',$content["all"]);
 	$content["all"] = preg_replace('/\{BROWSE:PREV:(.*?):(0|1)\}/e','get_index_link_prev("$1",$2);',$content["all"]);
 }
-
-// -------------------------------------------------------------
 
 // replace all "hardcoded" global replacement tags
 if(count($content['globalRT'])) {
@@ -818,13 +764,8 @@ if(count($content['globalRT'])) {
 	}
 }
 
-// -------------------------------------------------------------
-
 // add possible redirection code (article summary) to $block["htmlhead"];
 $block["htmlhead"] = $content["redirect"]["code"] . render_PHPcode($block["htmlhead"]) . LF;
-
-// -------------------------------------------------------------
-
 
 if(!defined('PHPWCMS_ALIAS')) {
 	define('PHPWCMS_ALIAS', empty($content['struct'][ $content["cat_id"] ]['acat_alias']) ? '' : $content['struct'][ $content["cat_id"] ]['acat_alias'] );
@@ -897,8 +838,6 @@ if(isset($content['article_livedate'])) {
 	$content['all'] = render_cnt_template($content['all'], 'CATEGORY', html_specialchars($content['struct'][ $content['cat_id'] ]['acat_name']));
 
 }
-
-// -------------------------------------------------------------
 
 // render JavaScript Plugins and/or JavaScript scripts that should be loaded in <head>
 $content['all'] = preg_replace_callback('/<!--\s+JS:\s+(.*?)\s+-->/s', 'renderHeadJS', $content['all']);
