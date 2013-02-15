@@ -2,14 +2,22 @@ phpwcms Changelog
 =================
 
 
-Version 1.6.529 – February 8, 2013
+Version 1.6.529 – February 15, 2013
 ----------------------------------
 
 - New content part type implemented — used especially for settings, usable via module only at the moment and when `$_module_fe_setting = true`. Disables several CP specific input fields like title, subtitle…
 - jQuery 1.9.1
 - jQuery Migrate 1.1.0
-- optimized version check
-- some other fixes
+- Optimized version check
+- Some phpwcms related classes now customizable via `$template_default['classes']` in `conf.template_default.inc.php`
+- Some functions and replacers deprecated (like `{NAV_TABLE}`, `{NAV_ROW}`…), if needed set `$phpwcms['enable_deprecated'] = false;`
+- behavior of `{BREADCRUMB}` changed – linked menu title added as last part of the breadcrumb menu, but only if in article detail mode and parental structure holds more than 1 article
+- News enhanced by gallery option
+- Load custom defaults in backend when defined for the category
+- File actions in file center, quick move, delete, status change, owner change
+- Module Content Part type "setting" implemented
+- MooTools 1.4.5 and MooTools More updated (MooTools will be deprecated in the future)
+- Lot more fixes, cleanup, optimizations
 
 
 Version 1.6.528 – February 4, 2013
