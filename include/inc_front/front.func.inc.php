@@ -326,9 +326,6 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	$data[$start_id]	= $struct_array[$start_id]["acat_name"];
 	$data				= array_reverse($data, 1);
 	
-	// decide how to handle when in article detail or list mode
-	dumpVar($GLOBALS['content']['list_mode'] ? 'LIST' : 'NOLIST');
-	
 	if(count($data)) {
 		
 		foreach($data as $key => $value) {
