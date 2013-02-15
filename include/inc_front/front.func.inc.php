@@ -291,7 +291,12 @@ function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
 
 // wrapper for breadcrumb frontend render
 function breadcrumb_wrapper($match) {
-	return breadcrumb($GLOBALS['content']["cat_id"],$GLOBALS['content']["struct"], empty($match[1]) ? 0 : $match[1], $GLOBALS['template_default']["breadcrumb_spacer"]);
+	return breadcrumb(
+		$GLOBALS['content']["cat_id"],
+		$GLOBALS['content']["struct"],
+		empty($match[1]) ?  0 : substr($match[1], 1),
+		$GLOBALS['template_default']["breadcrumb_spacer"]
+	);
 }
 
 function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
