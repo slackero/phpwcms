@@ -1117,7 +1117,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 	if($content['struct'][ $content['cat_id'] ]['acat_paginate'] && $content['struct'][ $content['cat_id'] ]['acat_maxlist'] && $max_articles > $content['struct'][ $content['cat_id'] ]['acat_maxlist']) {
 
 		$paginate 		= true;
-		$paginate_navi	= empty($template_default['article_paginate_navi']) ? '<div class="phpwcmsArticleListNavi">{PREV:&laquo;} {NEXT:&raquo;}</div>' : $template_default['article_paginate_navi'];
+		$paginate_navi	= empty($template_default['article_paginate_navi']) ? '<div class="'.$template_default['classes']['article-list-paginate'].'">{PREV:&laquo;} {NEXT:&raquo;}</div>' : $template_default['article_paginate_navi'];
 		$max_pages		= ceil($max_articles / $content['struct'][ $content['cat_id'] ]['acat_maxlist']);
 
 		// always do full top article listing because of paginating
@@ -1565,114 +1565,90 @@ function html_parser($string) {
 	}
 	
 	$string = render_bbcode_basics($string, '');
+	
+	$search			= array();
+	$replace		= array();
 
 	// page TOP link
 	$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/is';
-	$replace[0]		= '<a href="'.rel_url().'#top" class="phpwcmsTopLink">$1</a>';
+	$replace[0]		= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
 
 	// internal Link to article ID
 	$search[1]		= '/\[ID (\d+)\](.*?)\[\/ID\]/s';
-	$replace[1]		= '<a href="index.php?aid=$1" class="phpwcmsIntLink">$2</a>';
+	$replace[1]		= '<a href="index.php?aid=$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
 
 	// external Link (string)
 	$search[2]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
-	$replace[2]		= '<a href="$1" target="_blank" class="phpwcmsExtLink">$2</a>';
+	$replace[2]		= '<a href="$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
 
 	// internal Link (string)
 	$search[3]		= '/\[INT (.*?)\](.*?)\[\/INT\]/s';
-	$replace[3]		= '<a href="$1" class="phpwcmsIntLink">$2</a>';
-
-	// random GIF Image
-	$search[4]		= '/\{RANDOM_GIF:(.*?)\}/';
-	$replace[4]		= '<img src="img/random_image.php?type=0&imgdir=$1" border="0" alt="" />';
-
-	// random JPEG Image
-	$search[5]		= '/\{RANDOM_JPEG:(.*?)\}/';
-	$replace[5]		= '<img src="img/random_image.php?type=1&amp;imgdir=$1" border="0" alt="" />';
-
-	// random PNG Image
-	$search[6]		= '/\{RANDOM_PNG:(.*?)\}/';
-	$replace[6]		= '<img src="img/random_image.php?type=2&amp;imgdir=$1" border="0" alt="" />';
-
-	// insert non db image standard
-	$search[7]		= '/\{IMAGE:(.*?)\}/';
-	$replace[7]		= '<img src="picture/$1" border="0" alt="" />';
-
-	// insert non db image left
-	$search[8]		= '/\{IMAGE_LEFT:(.*?)\}/';
-	$replace[8]		= '<img src="picture/$1" border="0" align="left" alt="" />';
+	$replace[3]		= '<a href="$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
 
 	// insert non db image right
-	$search[9]		= '/\{IMAGE_RIGHT:(.*?)\}/';
-	$replace[9]		= '<img src="picture/$1" border="0" align="right" alt="" />';
-
-	// insert non db image center
-	$search[10]		= '/\{IMAGE_CENTER:(.*?)\}/';
-	$replace[10]		= '<div align="center"><img src="picture/$1" border="0" alt="" /></div>';
-
-	// insert non db image right
-	$search[11]	 	= '/\{SPACER:(\d+)x(\d+)\}/';
-	$replace[11] 	= '<img src="img/leer.gif" border="0" width="$1" height="$2" alt="" />';
+	$search[4]	 	= '/\{SPACER:(\d+)x(\d+)\}/';
+	$replace[4] 	= '<span class="'.$GLOBALS['template_default']['classes']['spaceholder'].'" style="width:$1px;height:$2px;display:inline-block;"></span>';
 
 	// RSS feed link 
-	$search[13]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
-	$replace[13]	= '<a href="feeds.php?feed=$1" target="_blank" class="phpwcmsRSSLink">$2</a>';
+	$search[5]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
+	$replace[5]		= '<a href="feeds.php?feed=$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
 
 	// back Link (string)
-	$search[14]		= '/\[BACK\](.*?)\[\/BACK\]/i';
-	$replace[14] 	= '<a href="#" target="_top" title="go back" onclick="history.back();return false;" class="phpwcmsBackLink">$1</a>';
-
-	// random Image Tag
-	$search[15]		= '/\{RANDOM:(.*?)\}/e';
-	$replace[15]	= 'get_random_image_tag("$1");';
+	$search[6]		= '/\[BACK\](.*?)\[\/BACK\]/i';
+	$replace[6] 	= '<a href="#" target="_top" title="go back" onclick="history.back();return false;" class="'.$GLOBALS['template_default']['classes']['link-back'].'">$1</a>';
 
 	// span or div style
-	$search[16]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
-	$replace[16]	= '<$1 style="$2">$3</$1>';
+	$search[7]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
+	$replace[7]	= '<$1 style="$2">$3</$1>';
 
 	// span or div class
-	$search[17]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
-	$replace[17]	= '<$1 class="$2">$3</$1>';
+	$search[8]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
+	$replace[8]		= '<$1 class="$2">$3</$1>';
 
 	// anchor link
-	$search[22]		= '/\{A:(.*?)\}/is';
-	$replace[22]	= '<a name="$1" class="phpwcmsAnchorLink"></a>';
+	$search[9]		= '/\{A:(.*?)\}/is';
+	$replace[9]		= '<a name="$1" class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"></a>';
 
 	// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
-	$search[23]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
-	$replace[23]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$2</a>';
+	$search[10]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[10]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
 
 	// this tags out a Mailaddress with an predifined subject (by Florian, 21-11-2003)
-	$search[24]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
-	$replace[24]    = '<a href="mailto:$1?subject=$2" class="phpwcmsMailtoLink">$3</a>';
+	$search[11]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
+	$replace[11]    = '<a href="mailto:$1?subject=$2" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$3</a>';
 
-	$search[26]     = '/\<br>/i';
-	$replace[26]    = '<br />';
+	$search[12]     = '/\<br>/i';
+	$replace[12]    = '<br />';
 
 	// create "make bookmark" javascript code
-	$search[27]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/is';
-	$replace[27]    = '<a href="#" onclick="return BookMark_Page(\'$1\');" title="$1" class="phpwcmsBookmarkLink">$2</a>';
+	$search[13]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/is';
+	$replace[13]    = '<a href="#" onclick="return BookMark_Page(\'$1\');" title="$1" class="'.$GLOBALS['template_default']['classes']['link-bookmark'].'">$2</a>';
 
 	// ABBreviation
-	$search[28]		= '/\[abbr (.*?)\](.*?)\[\/abbr\]/is';
-	$replace[28]	= '<abbr title="$1">$2</abbr>';
+	$search[14]		= '/\[abbr (.*?)\](.*?)\[\/abbr\]/is';
+	$replace[14]	= '<abbr title="$1">$2</abbr>';
 
-	$search[29]		= '/\[dfn (.*?)\](.*?)\[\/dfn\]/is';
-	$replace[29]	= '<dfn title="$1">$2</dfn>';
+	$search[15]		= '/\[dfn (.*?)\](.*?)\[\/dfn\]/is';
+	$replace[15]	= '<dfn title="$1">$2</dfn>';
 
-	$search[34]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
-	$replace[34]	= '<blockquote cite="$1">$2</blockquote>';
+	$search[16]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
+	$replace[16]	= '<blockquote cite="$1">$2</blockquote>';
 
-	$search[35]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
-	$replace[35]	= '<acronym title="$1">$2</acronym>';
+	$search[17]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
+	$replace[17]	= '<acronym title="$1">$2</acronym>';
 
-	$search[36]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
-	$replace[36]	= '<a href="index.php?$1" class="phpwcmsIntLink">$2</a>';
+	$search[18]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
+	$replace[18]	= '<a href="index.php?$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
 
-	$search[49]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
-	$replace[49]    = '<a href="mailto:$1" class="phpwcmsMailtoLink">$1</a>';
+	$search[19]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[19]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
 	
 	$string = preg_replace($search, $replace, $string);
+	
+	if(function_exists('html_parser_deprecated')) {
+		$string = html_parser_deprecated($string);	
+	}
+	
 	$string = str_replace(
 		array(
 			'&#92;&#039;',
@@ -1783,61 +1759,6 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 	}
 	
 	return date($format, $date_now);
-}
-
-function get_random_image_tag($path) {
-	// returns an random image from the give path
-	// it looks for image of following type: gif, jpg, jpeg, png
-	// {RANDOM:path} willl return <img src="path/rand_image" />
-	// {RANDOM:SRC:path} willl return absolute URI PHPWCMS_URL/path/rand_image
-
-	$imgArray	= array();
-	$path		= trim($path);
-	if(strtoupper(substr($path, 0, 4)) == 'SRC:') {
-		$tag	= false;
-		$path	= trim(substr($path, 4));
-	} else {
-		$tag	= true;
-	}
-	
-	$path		= trim($path, '/');
-	$imgpath	= PHPWCMS_ROOT . '/' . $path . '/';
-	$imageinfo	= false;
-
-	if(is_dir($imgpath)) {
-		$handle = opendir( $imgpath );
-		while($file = readdir( $handle )) {
-   			if( $file{0} != '.' && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
-				$imgArray[] = $file;
-			}
-		}
-		closedir( $handle );
-	}
-
-	if(count($imgArray) && ($imageinfo = is_random_image($imgArray, $imgpath))) {
-		if($tag) {
-			return '<img src="'.$path.'/'.urlencode($imageinfo['imagename']).'" '.$imageinfo[3].' border="0" alt="'.html_specialchars($imageinfo["imagename"]).'"'.HTML_TAG_CLOSE;
-		} else {
-			return PHPWCMS_URL . $path . '/' . urlencode($imageinfo['imagename']);
-		}
-	}
-
-	return '';
-}
-
-function is_random_image($imgArray, $imagepath, $count=0) {
-	// tests if the random choosed image is really an image
-	$count++;
-	$randval = mt_rand( 0, count( $imgArray ) - 1 );
-	$file = $imagepath.$imgArray[ $randval ];
-	$imageinfo = @getimagesize($file);
-	//if $imageinfo is not true repeat function and count smaller count all images
-	if(!$imageinfo && $count < count($imgArray)) {
-		$imageinfo = is_random_image($imgArray, $imagepath, $count);
-	} else {
-		$imageinfo["imagename"] = $imgArray[ $randval ];
-	}
-	return $imageinfo;
 }
 
 function return_struct_level(&$struct, $struct_id) {

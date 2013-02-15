@@ -37,7 +37,7 @@ if(is_array($image) && count($image)) {
 				$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				break;
 		//oben rechts
-		case 2:	$CNT_TMP .= '<div class="phpwcmsImgListRight">'.LF;
+		case 2:	$CNT_TMP .= '<div class="'.$template_default['classes']['img-list-right'].'">'.LF;
 				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "", $template_default["article"]);
 				$CNT_TMP .= '</div>'.LF;
 				$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
@@ -52,7 +52,7 @@ if(is_array($image) && count($image)) {
 				break;
 		//unten rechts
 		case 5:	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-				$CNT_TMP .= '<div class="phpwcmsImgListRight">'.LF;
+				$CNT_TMP .= '<div class="'.$template_default['classes']['img-list-right'].'">'.LF;
 				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
 				$CNT_TMP .= '</div>'.LF;
 				break;

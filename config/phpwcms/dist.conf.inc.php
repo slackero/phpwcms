@@ -113,6 +113,7 @@ $phpwcms['force301_id2alias'] = false; // send 301 HTTP Redirect when article/st
 $phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure level when only 1 article is inside
 $phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty
 $phpwcms['reserved_alias']    = array(); // use this to block custom alias
+$phpwcms['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

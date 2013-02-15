@@ -414,7 +414,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					continue;
 				}
 			
-				$s_result_list .= '<div class="search-result">'.LF;
+				$s_result_list .= '<div class="'.$template_default['classes']['search-result-item'].'">'.LF;
 				$s_result_list .= '	<h3><a href="';
 				
 				if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
@@ -550,12 +550,12 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			}
 			$_search_pages_of = str_replace('{NAVI}', $GLOBALS['_search_navi'], $_search_pages_of);
 			
-			$_search_linkblock  = '<div class="phpwcmsSearchNextPrev">';
+			$_search_linkblock  = '<div class="'.$template_default['classes']['search-nextprev'].'">';
 			$_search_linkblock .= $_search_pages_of;
 			$_search_linkblock .= '</div>' . LF;
 			
 			if($s_result_list) {
-				$s_result_listing  = '<div class="'. ($content["search"]["style_result"] ? $content["search"]["style_result"] : 'phpwcmsSearchResult') .'">';
+				$s_result_listing  = '<div class="'. ($content["search"]["style_result"] ? $content["search"]["style_result"] : $template_default['classes']['search-result']) .'">';
 				if($content["search"]["show_top"] && ($_search_max_pages > 1 || $content["search"]["show_always"])) {
 					$s_result_listing .= $_search_linkblock;
 				}

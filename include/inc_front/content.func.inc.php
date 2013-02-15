@@ -299,6 +299,50 @@ if(!isset($block)) {
 if(is_string($block['css'])) {
 	$block['css'] = array($block['css']);
 }
+
+// template defaults
+if(isset($template_default['classes'])) {
+	
+	$template_default['classes'] = array_merge(array(
+		'link-top'				=> 'link-top',
+		'link-internal'			=> 'link-internal',
+		'link-external'			=> 'link-external',
+		'link-rss'				=> 'link-rss',
+		'link-back'				=> 'link-back',
+		'link-anchor'			=> 'link-anchor',
+		'link-email'			=> 'link-email',
+		'link-bookmark'			=> 'link-bookmark',
+		'link-rss'				=> 'link-rss',
+		'spaceholder'			=> 'spaceholder',
+		'img-list-right'		=> 'img-list-right',
+		'search-nextprev'		=> 'search-nextprev',
+		'search-result'			=> 'search-result',
+		'search-result-item'	=> 'search-result-item',
+		'article-list-paginate'	=> 'article-list-paginate'
+	), $template_default['classes']);
+	
+} else {
+	
+	$template_default['classes'] = array(
+		'link-top'				=> 'link-top',
+		'link-internal'			=> 'link-internal',
+		'link-external'			=> 'link-external',
+		'link-rss'				=> 'link-rss',
+		'link-back'				=> 'link-back',
+		'link-anchor'			=> 'link-anchor',
+		'link-email'			=> 'link-email',
+		'link-bookmark'			=> 'link-bookmark',
+		'link-rss'				=> 'link-rss',
+		'spaceholder'			=> 'spaceholder',
+		'img-list-right'		=> 'img-list-right',
+		'search-nextprev'		=> 'search-nextprev',
+		'search-result'			=> 'search-result',
+		'search-result-item'	=> 'search-result-item',
+		'article-list-paginate'	=> 'article-list-paginate'
+	);
+	
+}
+
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $block['overwrite']);
@@ -442,6 +486,13 @@ if(!$aktion[4]) {
 // Force 301 Redirect to structure alias
 if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && empty($content['struct'][ $aktion[0] ]['acat_disable301']) && !empty($content['struct'][ $aktion[0] ]['acat_alias']) && (!defined('PHPWCMS_ALIAS') || PHPWCMS_ALIAS != $content['struct'][ $aktion[0] ]['acat_alias'])) {
 	headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
+}
+
+// Include depricated functionality if needed
+if(!empty($phpwcms['enable_deprecated'])) {
+	include_once(PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php");
+} else {
+	$phpwcms['enable_deprecated'] = false;	
 }
 
 // check if current category should be cached
@@ -644,8 +695,8 @@ if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
 
 }
 
-// some more navigations, do not use - not recommend any longer
-if(strpos($content["all"],'{NAV_') !== false) {
+// some more navigations, do not use - not recommend any longer, need deprecated config enabled
+if($phpwcms['enable_deprecated'] && strpos($content["all"],'{NAV_') !== false) {
 
 	// Simple row based navigation
 	$content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);

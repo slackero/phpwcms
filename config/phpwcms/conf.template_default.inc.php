@@ -216,7 +216,7 @@ $template_default['imagegallery_default_space']				= 3;
 $template_default['imagegallery_default_column']			= 2;
 
 
-$template_default['article']['keyword_before']          = '<span class="phpwcmsKeywords">';
+$template_default['article']['keyword_before']          = '<span class="keywords">';
 $template_default['article']['keyword_after']           = '</span>';
 $template_default['article']['newsletter_error']		= 'Please check email address!';
 
@@ -288,6 +288,25 @@ $template_default['login_form_url'] = PHPWCMS_URL;
 // some texts are cut by default and if cutted the missing part is 
 // shorten by "..." - that sign is defined here - default "&#8230;"
 $template_default['ellipse_sign'] = '&#8230;';
+
+// some more default classes
+$template_default['classes'] = array(
+	'link-top'				=> 'link-top',
+	'link-internal'			=> 'link-internal',
+	'link-external'			=> 'link-external',
+	'link-rss'				=> 'link-rss',
+	'link-back'				=> 'link-back',
+	'link-anchor'			=> 'link-anchor',
+	'link-email'			=> 'link-email',
+	'link-bookmark'			=> 'link-bookmark',
+	'link-rss'				=> 'link-rss',
+	'spaceholder'			=> 'spaceholder',
+	'img-list-right'		=> 'img-list-right',
+	'search-nextprev'		=> 'search-nextprev',
+	'search-result'			=> 'search-result',
+	'search-result-item'	=> 'search-result-item',
+	'article-list-paginate'	=> 'article-list-paginate'
+);
 
 
 ?>

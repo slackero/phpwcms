@@ -192,9 +192,9 @@ if(function_exists('mb_substr')) {
 	}
 }
 
-$phpwcms['modules']				 = array();
-$phpwcms['modules_fe_render']	 = array();
-$phpwcms['modules_fe_init']		 = array();
+$phpwcms['modules']				= array();
+$phpwcms['modules_fe_render']	= array();
+$phpwcms['modules_fe_init']		= array();
 
 // 2011-12-27
 // Changed Image Manipulation class to CodeIgniter based class
@@ -288,9 +288,9 @@ if(empty($phpwcms['mode_XHTML'])) {
 }
 
 // Todo: Later remove these
-$phpwcms["release"]			= PHPWCMS_VERSION;
-$phpwcms["release_date"]	= PHPWCMS_RELEASE_DATE;
-$phpwcms["revision"]		= PHPWCMS_REVISION;
+$phpwcms["release"]				= PHPWCMS_VERSION;
+$phpwcms["release_date"]		= PHPWCMS_RELEASE_DATE;
+$phpwcms["revision"]			= PHPWCMS_REVISION;
 
 // -------------------------------------------------------------
 

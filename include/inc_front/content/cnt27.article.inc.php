@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //FAQ
 
-$crow["acontent_form"]	= unserialize($crow["acontent_form"]);
+$crow["acontent_form"]	= @unserialize($crow["acontent_form"]);
 $crow["acontent_image"]	= empty($crow["acontent_image"]) ? '' : explode(":", $crow["acontent_image"]);
 
 if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template'])) {
@@ -28,15 +28,15 @@ if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLAT
 	$crow["acontent_form"]['faq_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template']) );
 
 } else {
-	$crow["acontent_form"]['faq_template'] = '<div class="phpwcmsFAQ">
+	$crow["acontent_form"]['faq_template'] = '<div class="faq">
 	<!-- hidden title/subtitle [TITLE]
 	<h3 id="faq_id{FAQ_ID}">{TITLE}</h3>[/TITLE][SUBTITLE]
 	<h4>{SUBTITLE}</h4>[/SUBTITLE] 
 	-->
 	[FAQ_QUESTION]<h3>{FAQ_QUESTION}</h3>[/FAQ_QUESTION]
-	[FAQ_IMAGE]<div class="faqImage">
+	[FAQ_IMAGE]<div class="faq-image">
 	{FAQ_IMAGE}[FAQ_CAPTION]
-	<div class="faqCaption">{FAQ_CAPTION}</div>[/FAQ_CAPTION]
+	<div class="faq-caption">{FAQ_CAPTION}</div>[/FAQ_CAPTION]
 	</div>[/FAQ_IMAGE]
 	[FAQ_ANSWER]<p>{FAQ_ANSWER}</p>[/FAQ_ANSWER]
 </div>';

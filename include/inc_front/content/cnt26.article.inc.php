@@ -27,7 +27,7 @@ $crow["acontent_form"] = unserialize($crow["acontent_form"]);
 if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template'])) {
 	$crow["acontent_form"]['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template']) );
 } else {
-	$crow["acontent_form"]['template'] = '<div class="phpwcmsRecipe">[TITLE]
+	$crow["acontent_form"]['template'] = '<div class="recipe">[TITLE]
 	<h3>{TITLE}</h3>[/TITLE][SUBTITLE]
 	<h4>{SUBTITLE}</h4>[/SUBTITLE][INGREDIENTS]
 	<p>{INGREDIENTS}</p>[/INGREDIENTS][CALORIES]
