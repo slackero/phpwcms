@@ -277,6 +277,11 @@ function table_attributes($val, $var_part, $top=1, $tr=false) {
 
 function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
 	//returns the breadcrumb path starting with given start_id
+	$hash = 'breadcrumbdata_'.md5($start_id.$key);
+	
+	if(isset($GLOBALS['content'][$hash])) {
+		return $GLOBALS['content'][$hash];
+	}
 
 	$data = array();
 	while ($start_id && isset($struct_array[$start_id])) {
@@ -286,7 +291,7 @@ function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
 	if(!empty($struct_array[$start_id][$key])) {
 		$data[$start_id] = $struct_array[$start_id][$key];
 	}
-	return array_reverse($data, 1);
+	return ($GLOBALS['content'][$hash] = array_reverse($data, 1));
 }
 
 // wrapper for breadcrumb frontend render
@@ -325,7 +330,10 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	}
 	$data[$start_id]	= $struct_array[$start_id]["acat_name"];
 	$data				= array_reverse($data, 1);
-	
+
+	// decide how to handle when in article detail or list mode
+	$with_article		= (!$GLOBALS['content']['list_mode'] && $GLOBALS['content']["article_list_count"] > 1);
+
 	if(count($data)) {
 		
 		foreach($data as $key => $value) {
@@ -347,6 +355,20 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 
 					$breadcrumb[$key] .= html_specialchars($data[$key]);
 
+				} elseif($with_article) {
+					
+					if(!$struct_array[$key]["acat_redirect"]) {
+						$breadcrumb[$key] .= '<a href="index.php?';
+						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
+						$breadcrumb[$key] .= '">';
+					} else {
+						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
+						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+					}
+					
+					$breadcrumb[$key] .= html_specialchars($data[$key]);
+					
+				
 				} else {
 				
 					if(!$struct_array[$key]["acat_redirect"]) {
@@ -367,11 +389,33 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 					if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
 						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
 					}
+				
 				}
 
 				$breadcrumb[$key] .= '</a>';
 			}
 		}
+	
+	}
+		
+	// add current article information
+	if($with_article) {
+		
+		$breadcrumb['article']  = '<a href="index.php?';
+		$breadcrumb['article'] .= defined('PHPWCMS_ALIAS') ? html_specialchars(PHPWCMS_ALIAS) : 'aid='.$GLOBALS['content']["article_id"];
+		$breadcrumb['article'] .= '" class="active">';
+		
+		if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
+			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
+		}
+	
+		$breadcrumb['article'] .= html_specialchars($GLOBALS['content']["article_menutitle"]);
+		
+		if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
+			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
+		}
+		
+		$breadcrumb['article'] .= '</a>';
 	}
 	
 	return ($GLOBALS['content'][$hash] = implode($spacer, $breadcrumb));

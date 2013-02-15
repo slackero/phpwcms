@@ -69,6 +69,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 						$row["article_image"]		= $alias_row["article_image"];
 						$row["article_pagetitle"]	= $alias_row["article_pagetitle"];
 						$row['article_description']	= $alias_row['article_description'];
+						$row['article_menutitle']	= $alias_row['article_menutitle'];
 					}
 				}
 				mysql_free_result($alias_result);
@@ -170,7 +171,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$content["summary"]				= '';
 		$content['article_title']		= $row["article_title"];
 		$content['article_summary']		= $row["article_summary"];
-		
+		$content['article_menutitle']	= empty($row['article_menutitle']) ? $row['article_title'] : $row['article_menutitle'];
 		$content["article_date"]		= $row["article_date"]; // article date
 		$content["article_created"]		= $row["article_created"]; // article created
 		$content['article_livedate']	= $row['article_livedate'];
