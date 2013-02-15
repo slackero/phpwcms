@@ -632,9 +632,6 @@ if(strpos($content["all"],'PHP') !== false) {
 
 //breadcrumb replacement
 if(strpos($content["all"],'{BREADCRUMB') !== false) {
-	//$content["all"] = str_replace('{BREADCRUMB}', '{BREADCRUMB:0}', $content["all"]);
-	//$replace = 'breadcrumb($content["cat_id"], $content["struct"], $1, $template_default["breadcrumb_spacer"]);';
-	//$content["all"] = preg_replace('/\{BREADCRUMB:(\d+)\}/e', $replace, $content["all"]);
 	$content['all'] = preg_replace_callback('/\{BREADCRUMB(:\d+){0,1}\}/', 'breadcrumb_wrapper', $content['all']);
 }
 

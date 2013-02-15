@@ -310,6 +310,11 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	$act_id 	= $start_id; //store actual ID for later comparing
 	$breadcrumb = array();
 	$data		= array();
+	$hash		= 'breadcrumb_'.md5($start_id.$end_id.$spacer);
+	
+	if(isset($GLOBALS['content'][$hash])) {
+		return $GLOBALS['content'][$hash];
+	}
 
 	while ($start_id) { //get the breadcrumb path starting with given start_id
 		if($end_id && $start_id == $end_id) {
@@ -320,6 +325,9 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	}
 	$data[$start_id]	= $struct_array[$start_id]["acat_name"];
 	$data				= array_reverse($data, 1);
+	
+	// decide how to handle when in article detail or list mode
+	dumpVar($GLOBALS['content']['list_mode'] ? 'LIST' : 'NOLIST');
 	
 	if(count($data)) {
 		
@@ -369,7 +377,7 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 		}
 	}
 	
-	return implode($spacer, $breadcrumb);
+	return ($GLOBALS['content'][$hash] = implode($spacer, $breadcrumb));
 }
 
 function get_redirect_link($link='#', $pre='', $after=' ') {
