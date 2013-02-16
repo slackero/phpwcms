@@ -1166,18 +1166,24 @@ function get_pix_or_percent($val) {
 
 // List private files
 function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
-	$pid = intval($pid);
-	$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
-		   "f_pid=".intval($pid)." AND ";
-		   if(empty($_SESSION["wcs_user_admin"])) {
-		   		$sql .= "f_uid=".intval($userID)." AND ";
-		   }
-	$sql .= "f_kid=0 AND f_trash=0 ORDER BY f_name";
+	$pid  = intval($pid);
+	$sql  = "SELECT f_id, f_name, f_uid, usr_login FROM ".DB_PREPEND."phpwcms_file f ";
+	$sql .= "LEFT JOIN phpwcms_user u ON u.usr_id=f.f_uid ";
+	$sql .= "WHERE f.f_pid=".$pid." AND ";
+	if(empty($_SESSION["wcs_user_admin"])) {
+		$sql .= "f.f_uid=".intval($userID)." AND ";
+	}
+	$sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_row($result)) {
 		$dirname = html_specialchars($row["1"]);
+		if($_SESSION["wcs_user_id"] != $row[2]) {
+			$dirname .= ' (' . html_specialchars($row[3]) . ')';
+		}
 		echo "<option value='".$row[0]."'";
-		if(intval($zid) == $row[0]) echo " selected";
+		if(intval($zid) == $row[0]) {
+			echo " selected";
+		}
 		echo ">".$vor.' '.$dirname."</option>\n";
 		dir_menu($row["0"], $zid, $dbcon, $vor.$vorzeichen, $userID, $vorzeichen);
 	}

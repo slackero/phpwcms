@@ -18,16 +18,22 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 	}
 	$klapp = $_SESSION["klapp"];
 	$pid = intval($pid);
-	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE ";
-	$sql .= "f_pid=".intval($pid)." AND ";
+	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file f ";
+	$sql .= "LEFT JOIN phpwcms_user u ON u.usr_id=f.f_uid ";
+	$sql .= "WHERE ";
+	$sql .= "f.f_pid=".intval($pid)." AND ";
 	if(empty($_SESSION["wcs_user_admin"])) {
-		$sql .= "f_uid=".intval($userID)." AND ";
+		$sql .= "f.f_uid=".intval($userID)." AND ";
 	}
-	$sql .= "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name";
+	$sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_sort, f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 		
 		$dirname = html_specialchars($row["f_name"]);
+		
+		if($_SESSION["wcs_user_id"] != $row["f_uid"]) {
+			$dirname .= ' (' . html_specialchars($row["usr_login"]) . ')';
+		}
 		
 		//Ermitteln des Aufklappwertes
 		$klapp_status = isset($klapp[$row["f_id"]]) ? true_false($klapp[$row["f_id"]]) : 1;
