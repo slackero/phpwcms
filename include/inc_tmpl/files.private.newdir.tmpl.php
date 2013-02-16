@@ -29,56 +29,67 @@ if (!defined('PHPWCMS_ROOT')) {
 				
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
-					$dir_pid 		= intval($_POST["dir_pid"]);
-					$dir_aktiv		= empty($_POST["dir_aktiv"]) ? 0 : 1;
-					$dir_public 	= empty($_POST["dir_public"]) ? 0 : 1;
-					$dir_newname	= clean_slweg($_POST["dir_newname"]);
-					$dir_longinfo	= clean_slweg($_POST["dir_longinfo"]);
-					$dir_gallery	= empty($_POST["dir_gallery"]) ? 0 : intval($_POST["dir_gallery"]);
-					$dir_sort		= intval($_POST["dir_sort"]);
-					
-					switch($dir_gallery) {
-					
-						case 2:
-						case 3: break;
-						
-						default: $dir_gallery = 0;
-					
-					}
-					
-					if(isEmpty($dir_newname)) $dir_error = 1;
-					//Eintragen des neuen verzeichnisnamens
-					if(!isset($dir_error)) {
-						$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
-								"f_created, f_kid, f_longinfo, f_gallerystatus, f_sort) VALUES (".
-								$dir_pid.", ".
-								$_SESSION["wcs_user_id"].", '".
-								aporeplace($dir_newname)."', ".
-								$dir_aktiv.", ".
-								$dir_public.", '".
-								time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.", ".
-								$dir_sort.")";
-						if($result = mysql_query($sql, $db) or die ("error while writing new dir info")) {
-							headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
-						}
-					}
+		$dir_pid 		= intval($_POST["dir_pid"]);
+		$dir_aktiv		= empty($_POST["dir_aktiv"]) ? 0 : 1;
+		$dir_public 	= empty($_POST["dir_public"]) ? 0 : 1;
+		$dir_newname	= clean_slweg($_POST["dir_newname"]);
+		$dir_longinfo	= clean_slweg($_POST["dir_longinfo"]);
+		$dir_gallery	= empty($_POST["dir_gallery"]) ? 0 : intval($_POST["dir_gallery"]);
+		$dir_sort		= intval($_POST["dir_sort"]);
+		
+		switch($dir_gallery) {
+		
+			case 2:
+			case 3: break;
+			
+			default: $dir_gallery = 0;
+		
+		}
+		
+		if(isEmpty($dir_newname)) $dir_error = 1;
+		//Eintragen des neuen verzeichnisnamens
+		if(!isset($dir_error)) {
+			$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
+					"f_created, f_kid, f_longinfo, f_gallerystatus, f_sort) VALUES (".
+					$dir_pid.", ".
+					$_SESSION["wcs_user_id"].", '".
+					aporeplace($dir_newname)."', ".
+					$dir_aktiv.", ".
+					$dir_public.", '".
+					time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.", ".
+					$dir_sort.")";
+			if($result = mysql_query($sql, $db) or die ("error while writing new dir info")) {
+				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
+			}
+		}
+	}
+	//Ende Auswerten Formular
+	
+	//Wenn ID angegeben, dann -> oder aber Root Verzeichnis
+	if($dir_pid) {
+		$sql  = "SELECT f.f_id, f.f_name, f.f_uid, u.usr_login FROM ".DB_PREPEND."phpwcms_file f ";
+		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
+		$sql .= "WHERE f.f_id=".$dir_pid;
+		if(empty($_SESSION["wcs_user_admin"])) {
+			$sql .= " AND f.f_uid=".$_SESSION["wcs_user_id"];
+		}
+		$sql .= " AND f.f_trash=0 AND f.f_kid=0 LIMIT 1";
+		if($result = mysql_query($sql, $db) or die("error while reading parent folder name")) {
+			if($row = mysql_fetch_row($result)) {
+				$dir_parent_name	= html_specialchars($row[1]);
+				$dir_pid			= intval($row[0]);
+				if($_SESSION["wcs_user_id"] != $row[2]) {
+					$dir_parent_name .= ' (' . html_specialchars($row[3]) . ')';
 				}
-				//Ende Auswerten Formular
-				
-				//Wenn ID angegeben, dann -> oder aber Root Verzeichnis
-				if($dir_pid) {
-					$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$dir_pid.
-						   " AND f_uid=".$_SESSION["wcs_user_id"]." AND f_trash=0 AND f_kid=0 LIMIT 1";
-					if($result = mysql_query($sql, $db) or die("error while reading parent folder name")) {
-						if($row = mysql_fetch_row($result)) {
-							$dir_parent_name	= html_specialchars($row[1]);
-							$dir_pid			= intval($row[0]);
-						}
-					}
-				} else {
-					$dir_parent_name = $BL['be_fpriv_rootdir'];
-					$dir_pid		 = 0;
-				}
+			}
+		} else {
+			$dir_parent_name = $BL['be_fpriv_rootdir'];
+			$dir_pid		 = 0;
+		}
+	} else {
+		$dir_parent_name = $BL['be_fpriv_rootdir'];
+		$dir_pid		 = 0;
+	}
 				
 		
 ?>

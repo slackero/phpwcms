@@ -19,7 +19,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 	$klapp = $_SESSION["klapp"];
 	$pid = intval($pid);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file f ";
-	$sql .= "LEFT JOIN phpwcms_user u ON u.usr_id=f.f_uid ";
+	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
 	$sql .= "WHERE ";
 	$sql .= "f.f_pid=".intval($pid)." AND ";
 	if(empty($_SESSION["wcs_user_admin"])) {

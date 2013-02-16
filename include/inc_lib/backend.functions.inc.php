@@ -1168,7 +1168,7 @@ function get_pix_or_percent($val) {
 function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
 	$pid  = intval($pid);
 	$sql  = "SELECT f_id, f_name, f_uid, usr_login FROM ".DB_PREPEND."phpwcms_file f ";
-	$sql .= "LEFT JOIN phpwcms_user u ON u.usr_id=f.f_uid ";
+	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
 	$sql .= "WHERE f.f_pid=".$pid." AND ";
 	if(empty($_SESSION["wcs_user_admin"])) {
 		$sql .= "f.f_uid=".intval($userID)." AND ";
