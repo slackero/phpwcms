@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 function spacer($width=1, $height=1) {
 	//creates a placeholder image (transparent gif)
-	return '<img src="img/leer.gif" width="'.intval($width).'" height="'.intval($height).'" border="0" alt="" />';
+	return '<span style="display:inline-block;width:'.intval($width).'px;height:'.intval($height).'px" class="'.$GLOBALS['template_default']['classes']['spaceholder'].'"></span>';
 }
 
 function headline(& $head, & $subhead, & $layout) {
@@ -374,10 +374,10 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 					if(!$struct_array[$key]["acat_redirect"]) {
 						$breadcrumb[$key] .= '<a href="index.php?';
 						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
-						$breadcrumb[$key] .= '" class="active">';
+						$breadcrumb[$key] .= '" class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
 					} else {
 						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
-						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="active">';
+						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
 					}
 
 					if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
@@ -403,7 +403,7 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 		
 		$breadcrumb['article']  = '<a href="index.php?';
 		$breadcrumb['article'] .= defined('PHPWCMS_ALIAS') ? html_specialchars(PHPWCMS_ALIAS) : 'aid='.$GLOBALS['content']["article_id"];
-		$breadcrumb['article'] .= '" class="active">';
+		$breadcrumb['article'] .= '" class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
 		
 		if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
 			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
@@ -3044,9 +3044,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$parameter[12]['item_tag']				= 'li';
 			$parameter[12]['wrap_tag']				= '';
 			$parameter[12]['attribute_wrap_tag']	= '';
-			$parameter[12]['class_item_tag']		= 'asub_no';
-			$parameter[12]['class_first_item_tag']	= 'asub_first';
-			$parameter[12]['class_last_item_tag']	= 'asub_last';
+			$parameter[12]['class_item_tag']		= $GLOBALS['template_default']['classes']['navlist-asub_no'];
+			$parameter[12]['class_first_item_tag']	= $GLOBALS['template_default']['classes']['navlist-asub_first'];
+			$parameter[12]['class_last_item_tag']	= $GLOBALS['template_default']['classes']['navlist-asub_last'];
 			$parameter[12]['return_format']			= 'array';
 		}
 	
@@ -3108,7 +3108,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($level_id_name) {
 				$li .= ' id="li_'.$level_id_name.'_'.$key.'"';
 			}
-			$li_class = ($li_ul) ? 'sub_ul' : (getHasSubStructureStatus($key) ? 'sub_no sub_ul_true' : 'sub_no');
+			if($li_ul) {
+				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
+			} elseif(getHasSubStructureStatus($key)) {
+				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'].' '.$GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
+			} else {
+				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'];
+			}
 			if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
 				$li_class = trim($li_class.' '.$path_class[0]);
 			}
@@ -3116,13 +3122,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$li_class = trim($li_class.' '.$active_class[0]);
 			}
 			if($x==0) {
-				$li_class .= ' sub_first';
+				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_first'];
 			}
 			
 			$x++;
 			
 			if($x==$last_item) {
-				$li_class .= ' sub_last';
+				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_last'];
 			}
 
 			$li .= ' class="' . trim($li_class . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
@@ -3164,7 +3170,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			case 2:		$ul = LF.$TAB.'<div id="ul_div_'.$start_id.'">';
 						$close_wrap_ul = '</div>'.LF.$TAB;
 						break;
-			case 3:		$ul = LF.$TAB.'<div class="navLevel-'.$counter.'">';
+			case 3:		$ul = LF.$TAB.'<div class="'.$GLOBALS['template_default']['classes']['navlist-navLevel'].$counter.'">';
 						$close_wrap_ul = '</div>'.LF.$TAB;
 						break;
 			default:	$ul = '';
@@ -3192,7 +3198,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($level_id_name) {
 				$ul .= ' id="li_'.$level_id_name.'_'.$start_id.'"';
 			}
-			$li_class = 'sub_parent';
+			$li_class = $GLOBALS['template_default']['classes']['navlist-sub_parent'];
 			if($active_class[0] != '' && $start_id == $GLOBALS['aktion'][0]) {
 				$li_class = trim($li_class.' '.$active_class[0]);
 			}

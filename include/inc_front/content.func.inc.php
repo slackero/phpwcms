@@ -302,45 +302,9 @@ if(is_string($block['css'])) {
 
 // template defaults
 if(isset($template_default['classes'])) {
-	
-	$template_default['classes'] = array_merge(array(
-		'link-top'				=> 'link-top',
-		'link-internal'			=> 'link-internal',
-		'link-external'			=> 'link-external',
-		'link-rss'				=> 'link-rss',
-		'link-back'				=> 'link-back',
-		'link-anchor'			=> 'link-anchor',
-		'link-email'			=> 'link-email',
-		'link-bookmark'			=> 'link-bookmark',
-		'link-rss'				=> 'link-rss',
-		'spaceholder'			=> 'spaceholder',
-		'img-list-right'		=> 'img-list-right',
-		'search-nextprev'		=> 'search-nextprev',
-		'search-result'			=> 'search-result',
-		'search-result-item'	=> 'search-result-item',
-		'article-list-paginate'	=> 'article-list-paginate'
-	), $template_default['classes']);
-	
+	$template_default['classes'] = array_merge($phpwcms['default_template_classes'], $template_default['classes']);
 } else {
-	
-	$template_default['classes'] = array(
-		'link-top'				=> 'link-top',
-		'link-internal'			=> 'link-internal',
-		'link-external'			=> 'link-external',
-		'link-rss'				=> 'link-rss',
-		'link-back'				=> 'link-back',
-		'link-anchor'			=> 'link-anchor',
-		'link-email'			=> 'link-email',
-		'link-bookmark'			=> 'link-bookmark',
-		'link-rss'				=> 'link-rss',
-		'spaceholder'			=> 'spaceholder',
-		'img-list-right'		=> 'img-list-right',
-		'search-nextprev'		=> 'search-nextprev',
-		'search-result'			=> 'search-result',
-		'search-result-item'	=> 'search-result-item',
-		'article-list-paginate'	=> 'article-list-paginate'
-	);
-	
+	$template_default['classes'] = $phpwcms['default_template_classes'];
 }
 
 // check if template_defaults should be overwritten

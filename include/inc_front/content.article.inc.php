@@ -486,15 +486,15 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			
 			// each content part will get an anchor
 			if($crow["acontent_anchor"]) {
-				$CNT_TMP .= '<a name="cpid'.$crow["acontent_id"].'" id="cpid'.$crow["acontent_id"].'" class="cpidClass"></a>';
+				$CNT_TMP .= '<a name="cpid'.$crow["acontent_id"].'" id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
 			}
 
 			// Space before
 			if($crow["acontent_before"]) {
 				if(!empty($template_default["article"]["div_spacer"])) {
-					$CNT_TMP .= '<div style="margin:'.$crow["acontent_before"].'px 0 0 0;padding:0;" class="spaceBeforeCP"></div>';
+					$CNT_TMP .= '<div style="margin:'.$crow["acontent_before"].'px 0 0 0;padding:0;" class="'.$template_default['classes']['spaceholder-cp-before'].'"></div>';
 				} else {
-					$CNT_TMP .= '<br class="spaceBeforeCP" />'.spacer(1,$crow["acontent_before"]);
+					$CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1,$crow["acontent_before"]);
 				}
 			}
 			
@@ -524,9 +524,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// Space after
 			if($crow["acontent_after"]) {
 				if(!empty($template_default["article"]["div_spacer"])) {
-					$CNT_TMP .= '<div style="margin:0 0 '.$crow["acontent_after"].'px 0;padding:0;" class="spaceAfterCP"></div>';
+					$CNT_TMP .= '<div style="margin:0 0 '.$crow["acontent_after"].'px 0;padding:0;" class="'.$template_default['classes']['spaceholder-cp-after'].'"></div>';
 				} else {
-					$CNT_TMP .= '<br class="spaceAfterCP" />'.spacer(1,$crow["acontent_after"]);
+					$CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1,$crow["acontent_after"]);
 				}
 			}
 			
@@ -601,9 +601,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// define helper var
 			$g = array('wrap' => array(), 'cnt' => array(), 'counter' => 1, 'max' => count($trow), 'href' => rel_url());
 	
-			$g['wrap'][]	= '<div id="'.$CNT_TAB.'" class="tab-container">';
+			$g['wrap'][]	= '<div id="'.$CNT_TAB.'" class="'.$template_default['classes']['tab-container'].'">';
 			
-			$g['wrap'][]	= '	<ul class="tab-navigation">';
+			$g['wrap'][]	= '	<ul class="'.$template_default['classes']['tab-navigation'].'">';
 			
 			foreach($trow as $tabkey => $tabitem) {
 				
@@ -612,14 +612,14 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$tabitem['class']	= '';
 				
 				if($g['counter'] === 1) {
-					$tabitem['class'] .= ' tab-first';
+					$tabitem['class'] .= ' '.$template_default['classes']['tab-first'];
 				}
 				if($g['counter'] === $g['max']) {
-					$tabitem['class'] .= ' tab-last';
+					$tabitem['class'] .= ' '.$template_default['classes']['tab-last'];
 				}
 				
-				$g['wrap'][]	= '		<li class="tab-item-'.$g['counter'].$tabitem['class'].'"><a href="'.$g['href'].'#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
-				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'" class="tab-content">' . LF . $tabitem['content'] . LF . '	</div>';
+				$g['wrap'][]	= '		<li class="'.$template_default['classes']['tab-item'].'-'.$g['counter'].$tabitem['class'].'"><a href="'.$g['href'].'#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
+				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'" class="'.$template_default['classes']['tab-content'].'">' . LF . $tabitem['content'] . LF . '	</div>';
 				
 				$tab_counter++;
 				$g['counter']++;
@@ -627,7 +627,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			
 			$g['wrap'][]	= '	</ul>';
 			$g['wrap'][]	= implode(LF, $g['cnt']);
-			$g['wrap'][]	= '	<div class="tab-container-clear"></div>';
+			if($template_default['classes']['tab-container-clear']) {
+				$g['wrap'][]	= '	<div class="'.$template_default['classes']['tab-container-clear'].'"></div>';
+			}
 			$g['wrap'][]	= '</div>';
 			
 			$content['cptab'][$CNT_TAB] = implode(LF, $g['wrap']);

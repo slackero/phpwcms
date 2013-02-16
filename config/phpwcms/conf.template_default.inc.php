@@ -301,11 +301,32 @@ $template_default['classes'] = array(
 	'link-bookmark'			=> 'link-bookmark',
 	'link-rss'				=> 'link-rss',
 	'spaceholder'			=> 'spaceholder',
+	'spaceholder-cp-after'	=> 'spaceAfterCP',
+	'spaceholder-cp-before'	=> 'spaceBeforeCP',
 	'img-list-right'		=> 'img-list-right',
 	'search-nextprev'		=> 'search-nextprev',
 	'search-result'			=> 'search-result',
 	'search-result-item'	=> 'search-result-item',
-	'article-list-paginate'	=> 'article-list-paginate'
+	'article-list-paginate'	=> 'article-list-paginate',
+	'tab-container'			=> 'tab-container',
+	'tab-navigation'		=> 'tab-navigation',
+	'tab-first'				=> 'tab-first',
+	'tab-last'				=> 'tab-last',
+	'tab-content'			=> 'tab-content',
+	'tab-container-clear'	=> 'tab-container-clear',
+	'tab-item'				=> 'tab-item',
+	'navlist-sub_ul_true'	=> 'sub_ul_true',
+	'navlist-sub_ul'		=> 'sub_ul',
+	'navlist-sub_no'		=> 'sub_no',
+	'navlist-sub_first'		=> 'sub_first',
+	'navlist-sub_last'		=> 'sub_last',
+	'navlist-sub_parent'	=> 'sub_parent',
+	'navlist-asub_no'		=> 'asub_no',
+	'navlist-asub_first'	=> 'asub_first',
+	'navlist-asub_last'		=> 'asub_last',
+	'navlist-navLevel'		=> 'navLevel-',
+	'breadcrumb-active'		=> 'active',
+	'cp-anchor'				=> 'cpidClass'
 );
 
 
