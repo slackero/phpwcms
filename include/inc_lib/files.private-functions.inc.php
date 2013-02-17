@@ -13,10 +13,6 @@
 
 function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, $phpwcms) {
 	$cutID = intval($cutID);
-	if(empty($_SESSION["klapp"])) {
-		$_SESSION["klapp"] = array();
-	}
-	$klapp = $_SESSION["klapp"];
 	$pid = intval($pid);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file f ";
 	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
@@ -36,7 +32,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 		}
 		
 		//Ermitteln des Aufklappwertes
-		$klapp_status = isset($klapp[$row["f_id"]]) ? true_false($klapp[$row["f_id"]]) : 1;
+		$klapp_status = empty($_SESSION["klapp"][$row["f_id"]]) ? 1 : 0;
 		
 		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
 		$count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ";

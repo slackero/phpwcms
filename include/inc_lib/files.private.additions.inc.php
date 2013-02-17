@@ -17,40 +17,54 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-$klapp = array();
-
 if(isset($_GET["all"])) { //Übernehmen der Aufklappwerte aus Session-Variable
 	
-	$_SESSION["klapp"] = array();
-	
 	if($_GET["all"] == "open") { //alle aufklappen
+	
+		$_SESSION["klapp"] = array();
+	
 		$sql = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_kid=0 AND f_trash=0";
 		if(empty($_SESSION["wcs_user_admin"])) {
 			$sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
 		}
 		if($result = mysql_query($sql, $db) or die ("error while open all directories")) {
 			while($row = mysql_fetch_row($result)) {
-				$_SESSION["klapp"][$row[0]] = 1;
+				$_SESSION["klapp"][intval($row[0])] = 1;
 			}
 		}
+	
+	} else { // close
+	
+		$_SESSION["klapp"] = array();
+	
 	}
-	if($_GET["all"] == "close") {
-		
-	}
-	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile='".serialize($_SESSION["klapp"])."' WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
-}
+	
+	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
 
-if(isset($_SESSION["klapp"])) {
-	$klapp = $_SESSION["klapp"];
-} else {
+} elseif(!isset($_SESSION["klapp"])) {
+
 	$_SESSION["klapp"] = array();
+
 }
 
 if(isset($_GET["klapp"])) {
+	
 	list($klapp_id, $klapp_value) = explode("|", $_GET["klapp"]);
-	$klapp[intval($klapp_id)] = intval($klapp_value);
-	$_SESSION["klapp"] = $klapp; //Rückgabe des Aktuellen Array mit Aufklappwerten in die Session
-	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile='".serialize($_SESSION["klapp"])."' WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
+	$klapp_id = intval($klapp_id);
+	
+	if(intval($klapp_value)) {
+		$_SESSION["klapp"][$klapp_id] = 1;
+	} else {
+		unset($_SESSION["klapp"][$klapp_id]);
+	}
+	
+	foreach($_SESSION["klapp"] as $klapp_id => $klapp_value) {
+		if(!$klapp_value) {
+			unset($_SESSION["klapp"][$klapp_id]);
+		}
+	}
+	
+	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
 }
 
 //Zähler für die Listenfunktion setzen
@@ -80,4 +94,5 @@ if($count_user_files) {
 	echo "[<a href=\"phpwcms.php?do=files&amp;f=0&amp;mkdir=0\">".$BL['be_fpriv_button']."</a>]";
 	echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }
+
 ?>

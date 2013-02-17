@@ -20,22 +20,31 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //Default for listing public files
 $vor = 0;
-if(isset($pklapp)) unset($pklapp);
 
-if(isset($_GET["all"])) {
-	if($_GET["all"] == "close") {
-		if(isset($_SESSION["pklapp"])) unset($_SESSION["pklapp"]);
-	}
-}			
-
-if(isset($_SESSION["pklapp"])) $pklapp = $_SESSION["pklapp"]; 
+if(!isset($_SESSION["pklapp"]) || (isset($_GET["all"]) && $_GET["all"] == "close")) {
+	$_SESSION["pklapp"] = array();
+}
 
 if(isset($_GET["pklapp"])) {
+	
 	list($pklapp_id, $pklapp_value) = explode("|", $_GET["pklapp"]);
-	$pklapp[$pklapp_id] = intval($pklapp_value);
-	$_SESSION["pklapp"] = $pklapp; //Rückgabe des Aktuellen Array mit Aufklappwerten in die Session
-	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile='".serialize($_SESSION["pklapp"])."' WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
+		
+	if(intval($pklapp_value)) {
+		$_SESSION["pklapp"][$pklapp_id] = 1;
+	} else {
+		unset($_SESSION["pklapp"][$pklapp_id]);
+	}
+	
+	foreach($_SESSION["pklapp"] as $pklapp_id => $pklapp_value) {
+		if(!$pklapp_value) {
+			unset($_SESSION["pklapp"][$pklapp_id]);
+		}
+	}
+	
+	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
+
 }
+
 $_SESSION["list_zaehler"] = 0; //Zähler für die Public-Listenfunktion setzen
 			
 //Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
@@ -62,7 +71,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 		$user_counter=0;
 		while($row = mysql_fetch_array($result)) {
 			//Prüfen
-			$pklapp_status = isset($pklapp[ "u".$row["f_uid"] ]) ? true_false($pklapp[ "u".$row["f_uid"] ]) : 1;
+			$pklapp_status = empty($_SESSION["pklapp"][ "u".$row["f_uid"] ]) ? 1 : 0;
 			$root_user_id = intval($row["f_uid"]);
 			$user_naming = html_specialchars($row["usr_name"]." (".$row["usr_login"].")");
 			$count = "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">".

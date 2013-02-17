@@ -11,9 +11,7 @@
 
 
 //Funktionen zum Listen der privaten Dateien
-
 function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
-	$klapp = $_SESSION["pklapp"];
 	$pid = intval($pid);
 	//Folder Listing für Public files
 	$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
@@ -27,7 +25,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 		$dirname = html_specialchars($row["f_name"]);
 		
 		//Ermitteln des Aufklappwertes
-		$klapp_status = isset($klapp[$row["f_id"]]) ? true_false($klapp[$row["f_id"]]) : 0;
+		$klapp_status = empty($_SESSION["pklapp"][$row["f_id"]]) ? 1 : 0;
 		
 		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
 		$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".

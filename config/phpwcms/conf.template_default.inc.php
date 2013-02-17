@@ -129,7 +129,7 @@ $template_default['list_headline_before']   = '<div class="articleListListhead">
 $template_default['list_headline_after']    = '</div>';
 
 // breadcrumb
-$template_default['breadcrumb_spacer']		= ' <span class="breadcrumb_spacer">&gt;</span> ';
+$template_default['breadcrumb_spacer']		= ' <span class="breadcrumb-spacer">&gt;</span> ';
 $template_default['breadcrumb_active_prefix'] = '<strong>';
 $template_default['breadcrumb_active_suffix'] = '</strong>';
 
