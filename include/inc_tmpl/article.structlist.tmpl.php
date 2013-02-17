@@ -36,18 +36,27 @@ $copy_id = (isset($_GET["cop"])) ? intval($_GET["cop"]) : 0;
 $copy_article = (isset($_GET["acopy"])) ? intval($_GET["acopy"]) : 0;
 
 if(isset($_GET["open"])) {
-        list($open_id, $open_value) = explode(":", $_GET["open"]);
-        $_SESSION["structure"][intval($open_id)] = $open_value;
-        mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure='".aporeplace(serialize($_SESSION["structure"]))."' WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), $db);
+	list($open_id, $open_value) = explode(":", $_GET["open"]);
+	$open_id = intval($open_id);
+	if(empty($open_value)) {
+		unset($_SESSION["structure"][$open_id]);
+	}
+	$_SESSION["structure"][$open_id] = $open_value;
+	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), $db);
 }
 
 //31-03-2005 Fernando Batista  start---------------------------------------------------------------------------
 $cut_article_content = (isset($_GET["accut"])) ? intval($_GET["accut"]) : 0;
 $copy_article_content = (isset($_GET["accopy"])) ? intval($_GET["accopy"]) : 0;
 if(isset($_GET["opena"])) {
-        list($open_id, $open_value) = explode(":", $_GET["opena"]);
-        $_SESSION["structure"]["article"][intval($open_id)] = $open_value;
-        mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure='".aporeplace(serialize($_SESSION["structure"]))."' WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), $db);
+	list($open_id, $open_value) = explode(":", $_GET["opena"]);
+	$open_id = intval($open_id);
+	if(empty($open_value)) {
+		unset($_SESSION["structure"]["article"][$open_id]);
+	} else {
+		$_SESSION["structure"]["article"][$open_id] = $open_value;
+	}
+	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), $db);
 }
 //31-03-2005 Fernando Batista  end-------------------
 

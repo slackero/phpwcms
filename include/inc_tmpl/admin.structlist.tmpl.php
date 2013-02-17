@@ -41,11 +41,15 @@ $copy_article_content = (isset($_GET["accopy"])) ? intval($_GET["accopy"]) : 0;
 
 if(isset($_GET["open"])) {
 	list($open_id, $open_value) = explode(":", $_GET["open"]);
-	$_SESSION["structure"][intval($open_id)] = $open_value;
+	$open_id = intval($open_id);
+	if(empty($open_value)) {
+		unset($_SESSION["structure"][$open_id]);
+	} else {
+		$_SESSION["structure"][$open_id] = $open_value;
+	}
 }
 
 $child_count = get_root_childcount(0, $db);
-//$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 
 $a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
