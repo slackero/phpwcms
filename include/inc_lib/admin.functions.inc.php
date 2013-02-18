@@ -10,8 +10,8 @@
  **/
 
 //26-04-2004 Oliver Georgi -> $level seems to be unused
-//19-11-2004 Fernando Batista -> Copy article, Copy strutures :http://fernandobatista.web.pt
-//31-03-2005 Fernando Batista -> copy&cut Article Content :http://fernandobatista.web.pt
+//19-11-2004 Fernando Batista -> Copy article, Copy strutures :http://fernandobatista.net
+//31-03-2005 Fernando Batista -> copy&cut Article Content :http://fernandobatista.net
 
 function struct_list ($id, $dbcon, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode=1, $forbid_cut=0, $forbid_copy=0, $counter=0) {
 
@@ -326,7 +326,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		$a .= '" title="'.$BL['be_func_struct_spublic'].'">';
 		$a .= "<img src=\"img/button/public_11x11_".$article[$akey]["article_public"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 
-		//Article Löschen
+		//Article Lï¿½schen
 		if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 			$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=1,".$article[$akey]["article_id"];
 			$a .= "\" title=\"".$BL['be_func_struct_del_article']." \n[".$at."]\" ";
@@ -341,7 +341,7 @@ function struct_articlelist ($struct_id, $counter, $copy_article_content, $cut_a
 		$sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
 		$sql .= "WHERE acontent_aid=".$article[$akey]["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";
 		if($result = mysql_query($sql, $GLOBALS['db']) or die("error while listing contents for this article")) {
-			$sc = 0; $scc = 0; //Sort-Zwischenzähler
+			$sc = 0; $scc = 0; //Sort-Zwischenzï¿½hler
 			while($row = mysql_fetch_row($result)) {
 				$scc++;
 				if($row[2] == 0) {
