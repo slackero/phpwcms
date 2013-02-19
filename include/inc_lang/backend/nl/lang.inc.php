@@ -848,7 +848,7 @@ $BL['be_btn_delete']                    = 'Will je deze plaats echt \nverwijdere
 $BL['be_ctype_phpvar']                  = 'PHP variabelen';
 $BL['be_cnt_vars']                      = 'variabelen';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'Artikel kopieren en ergens anders plakken';
 $BL['be_func_struct_nocopy']            = 'Artikel kopieren annuleren';
 $BL['be_func_struct_copy_level']        = 'Kopieer structuur niveau';
@@ -946,7 +946,7 @@ $BL['be_admin_usr_ifsection0']			= 'Frontend';
 $BL['be_admin_usr_ifsection1']			= 'Backend';
 $BL['be_admin_usr_ifsection2']			= 'Frontend en backend';
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'Bewerk dit artikelinhoudsdeel';
 $BL['be_func_content_paste0']            = 'Kopieer in artikel';
 $BL['be_func_content_paste']             = 'Kopieer latere artikelinhoudsdeel';

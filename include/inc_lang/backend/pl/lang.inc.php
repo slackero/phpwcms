@@ -856,7 +856,7 @@ $BL['be_btn_delete']         = 'Czy na pewno chcesz\nusunąć lokalizację?';
 $BL['be_ctype_phpvar']       = 'Zmienne PHP';
 $BL['be_cnt_vars']           = 'zmienne';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']         = 'kopiuj artykuł';
 $BL['be_func_struct_nocopy']       = 'anuluj kopiowanie';
 $BL['be_func_struct_copy_level']   = 'kopiuj poziom struktury';
@@ -974,7 +974,7 @@ $BL['be_admin_usr_ifsection0'] = 'witryna';
 $BL['be_admin_usr_ifsection1'] = 'system wcms';
 $BL['be_admin_usr_ifsection2'] = 'witryn i system wcms';
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']    = 'Edytuj treść artykułu';
 $BL['be_func_content_paste0']  = 'Wklej do artykułu';
 $BL['be_func_content_paste']   = 'Wklej później do artykułu';

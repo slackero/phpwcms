@@ -17,8 +17,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-//19-11-2004 Fernando Batista -> Copy article, Copy strutures :http://fernandobatista.web.pt
-//31-03-2005 Fernando Batista -> copy&cut Article Content :http://fernandobatista.web.pt
+//19-11-2004 Fernando Batista -> Copy article, Copy strutures http://fernandobatista.net
+//31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 ?>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">

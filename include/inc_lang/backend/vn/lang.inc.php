@@ -911,7 +911,7 @@ $BL['be_btn_delete']                    = 'B&#7841;n c&#243; mu&#7889;n \nx&#243
 $BL['be_ctype_phpvar']                  = 'c&#225;c bi&#7871;n PHP';
 $BL['be_cnt_vars']                      = 'bi&#7871;n';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'sao ch&#233;p b&#224;i vi&#7871;t';
 $BL['be_func_struct_nocopy']            = 'kh&#244;ng sao ch&#233;p b&#224;i vi&#7871;t n&#7919;a';
 $BL['be_func_struct_copy_level']        = 'sao ch&#233;p m&#7913;c c&#7845;u tr&#250;c n&#224;y';

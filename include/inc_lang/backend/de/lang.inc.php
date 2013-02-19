@@ -839,7 +839,7 @@ $BL['be_btn_delete']                    = 'Soll folgende Lage gel&ouml;scht werd
 $BL['be_ctype_phpvar']                  = 'PHP Variablen';
 $BL['be_cnt_vars']                      = 'Variablen';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'Artikel kopieren';
 $BL['be_func_struct_nocopy']            = 'Artikel kopieren beenden';
 $BL['be_func_struct_copy_level']        = 'Strukturebene kopieren';
@@ -959,7 +959,7 @@ $BL['be_admin_usr_ifsection1']			= 'Backend';
 $BL['be_admin_usr_ifsection2']			= 'Frontend und Backend';
 
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'Diesen Content Part bearbeiten';
 $BL['be_func_content_paste0']            = 'Diesem Artikel hinzuf&uuml;gen';
 $BL['be_func_content_paste']             = 'Nach dem letzten Content Part einf&uuml;gen';

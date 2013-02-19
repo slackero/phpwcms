@@ -838,7 +838,7 @@ $BL['be_btn_delete']                    = 'Haluatko varmasti \npoistaa sijaintit
 $BL['be_ctype_phpvar']                  = 'PHP-muuttujat';
 $BL['be_cnt_vars']                      = 'muuttujat';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'kopioi artikkeli';
 $BL['be_func_struct_nocopy']            = 'poista artikkeleiden kopiointi k&auml;yt&ouml;st&auml;';
 $BL['be_func_struct_copy_level']        = 'kopioi rakennehakemisto';

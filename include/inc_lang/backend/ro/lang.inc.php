@@ -841,7 +841,7 @@ $BL['be_btn_delete']                    = 'Doresti sa \nstergi aceasta locatie?'
 $BL['be_ctype_phpvar']                  = 'variabile PHP';
 $BL['be_cnt_vars']                      = 'variabile';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'copiaza articol';
 $BL['be_func_struct_nocopy']            = 'dezactiveaza copiere articol';
 $BL['be_func_struct_copy_level']        = 'copiaza nivel structura';
@@ -934,7 +934,7 @@ $BL['be_admin_usr_ifsection0']			= 'fatada';
 $BL['be_admin_usr_ifsection1']			= 'intrare spate';
 $BL['be_admin_usr_ifsection2']			= 'fatada si intrare spate';
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'editeaza continulul acestui articol';
 $BL['be_func_content_paste0']            = 'paste in articol';
 $BL['be_func_content_paste']             = 'paste continut articol mai tarziu';

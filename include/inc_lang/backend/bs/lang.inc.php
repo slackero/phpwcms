@@ -841,7 +841,7 @@ $BL['be_btn_delete']                    = 'Da li stvarno zelite da \nizbrisete o
 $BL['be_ctype_phpvar']                  = 'PHP varijable';
 $BL['be_cnt_vars']                      = 'varijable';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'kopiraj sadrzaj';
 $BL['be_func_struct_nocopy']            = 'iskljuci kopiranje sadrzaja';
 $BL['be_func_struct_copy_level']        = 'kopiraj nivo strukture';
@@ -938,7 +938,7 @@ $BL['be_admin_usr_ifsection0']			= 'frontend';
 $BL['be_admin_usr_ifsection1']			= 'backend';
 $BL['be_admin_usr_ifsection2']			= 'frontend and backend';
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'izmjeni sadrzaj ovog clanka';
 $BL['be_func_content_paste0']            = 'zalijepi u clanak';
 $BL['be_func_content_paste']             = 'zalijepi sadrzaj ovog clanka';

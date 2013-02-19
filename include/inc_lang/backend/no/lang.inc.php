@@ -842,7 +842,7 @@ $BL['be_btn_delete']                    = 'Er du sikker p&#229; at du vil \nslet
 $BL['be_ctype_phpvar']                  = 'PHP variabler';
 $BL['be_cnt_vars']                      = 'variabler';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'kopier artikkel';
 $BL['be_func_struct_nocopy']            = 'disable kopier artikkel';
 $BL['be_func_struct_copy_level']        = 'kopier strukturniv&#229;';
@@ -934,7 +934,7 @@ $BL['be_admin_usr_ifsection0']			= 'frontend';
 $BL['be_admin_usr_ifsection1']			= 'backend';
 $BL['be_admin_usr_ifsection2']			= 'frontend og backend';
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'rediger denne artikkelens innhold';
 $BL['be_func_content_paste0']            = 'lim inn i artikkel';
 $BL['be_func_content_paste']             = 'paste later article content part';

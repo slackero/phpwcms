@@ -10,8 +10,8 @@
  **/
 
 //26-04-2004 Oliver Georgi -> $level seems to be unused
-//19-11-2004 Fernando Batista -> Copy article, Copy strutures :http://fernandobatista.net
-//31-03-2005 Fernando Batista -> copy&cut Article Content :http://fernandobatista.net
+//19-11-2004 Fernando Batista -> Copy article, Copy strutures http://fernandobatista.net
+//31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 function struct_list ($id, $dbcon, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode=1, $forbid_cut=0, $forbid_copy=0, $counter=0) {
 

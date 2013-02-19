@@ -840,7 +840,7 @@ $BL['be_btn_delete']                    = 'bu alan&#305; silmek istedi&#287;iniz
 $BL['be_ctype_phpvar']                  = 'PHP de&#287;iskenleri';
 $BL['be_cnt_vars']                      = 'de&#287;i&#351;kenler';
 
-// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.web.pt
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'konuyu kopyala';
 $BL['be_func_struct_nocopy']            = 'konu kopyalama devredisi';
 $BL['be_func_struct_copy_level']        = 'kategoriyi kopyala';
@@ -935,7 +935,7 @@ $BL['be_admin_usr_ifsection0']			= '&ouml;ny&uuml;z';
 $BL['be_admin_usr_ifsection1']			= 'arkaplan';
 $BL['be_admin_usr_ifsection2']			= '&ouml;ny&uuml;z ve arkaplan';
 
-// added: 31-03-2005 -- copy&paste Article Content - Fernando Batista http://fernandobatista.web.pt
+// added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'Bu i&ccedil;erik par&ccedil;as&#305;n&#305; d&uuml;zenle';
 $BL['be_func_content_paste0']            = 'b&ouml;l&uuml;m i&ccedil;erisine yap&#305;&#351;t&#305;r';
 $BL['be_func_content_paste']             = 'i&ccedil;erik par&ccedil;as&#305;n&#305; sonra yap&#305;&#351;t&#305;r';
