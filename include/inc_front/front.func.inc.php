@@ -78,7 +78,7 @@ function plugin_size($mediatype, $player, $width, $height) {
 function must_filled($c) {
 	//spaceholder for form fields that have to be filled
 	//with some content or has to be marked or like that
-	return intval($c) ? '<img src="img/article/fill_in_here.gif" border="0" alt="" />' : '';
+	return intval($c) ? '<img src="img/article/fill_in_here.gif" alt="" />' : '';
 }
 
 function add_attribute($baseval, $attribute, $val, $space=" ") {
@@ -1333,7 +1333,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"';
 					$caption[1] = html_specialchars($caption[1]);
 
-					$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' />';
+					$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-thumb'].'" />';
 
 					if($article["article_image"]["list_zoom"]) {
 
@@ -1372,7 +1372,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 								$article["article_image"]["poplink"] .= 'onclick="checkClickZoom();clickZoom(\''.$open_link;
 								$article["article_image"]["poplink"] .= "','previewpic','width=".$zoominfo[1];
 								$article["article_image"]["poplink"] .= ",height=".$zoominfo[2]."');".$return_false;
-								$article["article_image"]["poplink"] .= '"'.$caption[2][1].'>';
+								$article["article_image"]["poplink"] .= '"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
 							} else {
 								// lightbox
 								initSlimbox();
@@ -1381,7 +1381,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 								if($article["article_image"]["list_caption"]) {
 									$article["article_image"]["poplink"] .= 'title="'.parseLightboxCaption($article["article_image"]["list_caption"]).'" ';
 								}
-								$article["article_image"]["poplink"] .= 'target="_blank">';
+								$article["article_image"]["poplink"] .= 'class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
 							}
 																   
 							$article["article_image"]["poplink"] .= $thumb_img.'</a>';
@@ -1501,7 +1501,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$listing .= getFrontendEditLink('summary', $article['article_id']);
 			}
 			
-			$listing .= '<a href="'.$article_link.'">';
+			$listing .= '<a href="'.$article_link.'" class="'.$GLOBALS['template_default']['classes']['link-article-listing'].'">';
 			$listing .= $template_default["list_startimage"];
 			$listing .= html_specialchars($article["article_title"]);
 			$listing .= '</a>'.$template_default["list_headline_after"];
@@ -1653,12 +1653,14 @@ function html_parser($string) {
 		array(
 			'&#92;&#039;',
 			'&amp;quot;',
-			'-//-'
+			'-//-',
+			' class=""'
 		), 
 		array(
 			'&#039;',
 			'&quot;',
-			' '
+			' ',
+			''
 		),
 		$string
 	);

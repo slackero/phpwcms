@@ -326,7 +326,27 @@ $template_default['classes'] = array(
 	'navlist-asub_last'		=> 'asub_last',
 	'navlist-navLevel'		=> 'navLevel-',
 	'breadcrumb-active'		=> 'active',
-	'cp-anchor'				=> 'cpidClass'
+	'cp-anchor'				=> 'cpidClass',
+	'image-thumb'			=> 'image-thumb',
+	'image-wrapper'			=> 'image-wrapper',
+	'image-link'			=> 'image-link',
+	'image-zoom'			=> 'image-zoom',
+	'image-lightbox'		=> 'image-lightbox',
+	'imgtxt-top-left'		=> 'imgtxt-top-left',
+	'imgtxt-top-center'		=> 'imgtxt-top-center',
+	'imgtxt-top-right'		=> 'imgtxt-top-right',
+	'imgtxt-bottom-left'	=> 'imgtxt-bottom-left',
+	'imgtxt-bottom-center'	=> 'imgtxt-bottom-center',
+	'imgtxt-bottom-right'	=> 'imgtxt-bottom-right',
+	'imgtxt-left'			=> 'imgtxt-left',
+	'imgtxt-right'			=> 'imgtxt-right',
+	'imgtxt-column-left'	=> 'imgtxt-column-left',
+	'imgtxt-column-right'	=> 'imgtxt-column-right',
+	'copyright'				=> 'copyright',
+	'image-list-table'		=> 'image-list-table-',
+	'link-article-listing'	=> 'article-listing',
+	'link-print'			=> 'print',
+	'link-print-pdf'		=> 'print-pdf'
 );
 
 

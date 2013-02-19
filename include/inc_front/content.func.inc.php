@@ -828,11 +828,11 @@ set_meta('generator', 'phpwcms '.PHPWCMS_VERSION);
 
 // replace Print URL
 if(strpos($content["all"], '[PRINT]') !== false) {
-	$content["all"] = str_replace('[PRINT]', '<a href="'.rel_url(array('print'=>1),array(), PHPWCMS_ALIAS).'" target="_blank" rel="nofollow">', $content["all"]);
+	$content["all"] = str_replace('[PRINT]', '<a href="'.rel_url(array('print'=>1),array(), PHPWCMS_ALIAS).'" class="'.$template_default['classes']['link-print'].'" target="_blank" rel="nofollow">', $content["all"]);
 	$content["all"] = str_replace('[/PRINT]', '</a>', $content["all"]);
 }
 if(strpos($content["all"], '[PRINT_PDF]') !== false) {
-	$content["all"] = str_replace('[PRINT_PDF]', '<a href="'.rel_url(array('print'=>2),array(), PHPWCMS_ALIAS).'" target="_blank" rel="nofollow">', $content["all"]);
+	$content["all"] = str_replace('[PRINT_PDF]', '<a href="'.rel_url(array('print'=>2),array(), PHPWCMS_ALIAS).'" class="'.$template_default['classes']['link-print-pdf'].'" target="_blank" rel="nofollow">', $content["all"]);
 	$content["all"] = str_replace('[/PRINT_PDF]', '</a>', $content["all"]);
 }
 

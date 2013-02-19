@@ -233,7 +233,7 @@ if($image['template']) {
 				$list_img_style		= '';
 				$list_ahref_style	= '';
 			}
-			$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' border="0" />';
+			$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' border="0" class="'.$template_default['classes']['image-thumb'].'" />';
 			$img_a			= '';
 			$lightbox_capt  = '';
 
@@ -256,7 +256,7 @@ if($image['template']) {
 					
 					$img_thumb_link  = '<a href="'.$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
 					$img_thumb_link .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1];
-					$img_thumb_link .= $list_ahref_style.'>';
+					$img_thumb_link .= $list_ahref_style.' class="'.$template_default['classes']['image-zoom'].'">';
 					
 					$img_a .= $img_thumb_link;
 					
@@ -265,7 +265,7 @@ if($image['template']) {
 					// lightbox
 					$img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']" ';
 					$img_thumb_link .= $lightbox_capt;
-					$img_thumb_link .= $list_ahref_style.'target="_blank">';
+					$img_thumb_link .= $list_ahref_style.' class="'.$template_default['classes']['image-lightbox'].'">';
 					
 					$img_a .= $img_thumb_link;
 				
@@ -286,7 +286,7 @@ if($image['template']) {
 			} else {
 				// if not click enlarge
 				if($caption[2][0]) {
-					$img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].'>';
+					$img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
 					$img_a .= $img_thumb_link.$list_img_temp.'</a>';
 				} else {
 					$img_a .= $list_img_temp;

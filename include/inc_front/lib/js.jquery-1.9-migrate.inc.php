@@ -23,8 +23,8 @@ function initJSLib() {
 			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate.min.js');
 		} else {
 			// at the moment not available on Google
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('http://code.jquery.com/jquery.min.js'); //USE_GOOGLE_AJAX_LIB.'jquery/1.9.1/jquery.min.js');
-			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink('http://code.jquery.com/jquery-migrate-1.1.0.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'jquery/1.9.1/jquery.min.js'); //'http://code.jquery.com/jquery.min.js'
+			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink('http://code.jquery.com/jquery-migrate-1.1.1.min.js');
 		}
 	}
 	return TRUE;

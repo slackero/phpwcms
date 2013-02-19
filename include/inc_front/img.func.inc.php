@@ -137,7 +137,7 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 			if(!$cnt_image_lightbox || $caption[2][0]) {
 			
 				$table .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
-				$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false."\"".$caption[2][1].">";
+				$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false."\"".$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
 				
 			} else {
 			
@@ -145,14 +145,14 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 				if($caption[0]) {
 					$table .= ' title="'.parseLightboxCaption($caption[0]).'"';
 				}
-				$table .= ' target="_blank">';
+				$table .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
 			
 			}
 			$table .= $img.'</a></td>';
 		} else {
 			$table .= '<td'.$image_align.$image_valign.$image_bgcolor.$image_class.">";
 			if($caption[2][0]) {
-				$table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$img.'</a>';
+				$table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-link'].'">'.$img.'</a>';
 			} else {
 				$table .= $img;
 			}
@@ -165,7 +165,7 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 			$table .= ($rand[2]) ? "<td>".spacer($rand[2],1)."</td>" : "";
 			$table .= '<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$caption[0];
 			if($caption[4] !== '') {
-				$table .= ' <span class="copyright">'.html_specialchars($caption[4]).'</span>';
+				$table .= ' <span class="'.$GLOBALS['template_default']['classes']['copyright'].'">'.html_specialchars($caption[4]).'</span>';
 			}
 			$table .= $capt_after."</td>";
 			$table .= ($rand[3]) ? "<td>".spacer($rand[3],1)."</td>" : "";
@@ -221,7 +221,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		$image_imgclass	= $GLOBALS["template_default"]["article"]["image_imgclass"];
 		$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
 		$image_class 	= $GLOBALS["template_default"]["article"]["image_class"];
-		$image_class	= ($image_class) ? ' class="'.$image_class.'"' : ' class="imgClass"';
+		$image_class	= ($image_class) ? $image_class : $GLOBALS['template_default']['classes']['image-thumb'];
 		
 		// image caption
 		$caption	= getImageCaption(base64_decode($image[6]));
@@ -230,7 +230,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		$caption[1]	= html_specialchars(empty($caption[1]) ? $image[1] : $caption[1]);
 		
 		if(empty($classname)) {
-			$classname = 'imgDIV';
+			$classname = $GLOBALS['template_default']['classes']['image-wrapper'];
 		}
 
 		// image source
@@ -242,7 +242,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		if($image[8]) {
 
 			$open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
-			$image_block .= '<div'.$image_class.">";
+			$image_block .= '<div class="'.$image_class.'">';
 			if($caption[2][0]) {
 				$open_link = $caption[2][0];
 				$return_false = '';
@@ -254,7 +254,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 			if(!$cnt_image_lightbox || $caption[2][0]) {
 			
 				$image_block .= '<a href="'.$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
-				$image_block .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false."\"".$caption[2][1].">";
+				$image_block .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false."\"".$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
 			
 			} else {
 				
@@ -262,15 +262,15 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 				if($caption[0]) {
 					$image_block .= ' title="'.parseLightboxCaption($caption[0]).'"';
 				}
-				$image_block .= ' target="_blank">';
+				$image_block .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
 			
 			}
 			$image_block .= $img.'</a></div>';
 			
 		} else {
 		
-			$image_block .= '<div'.$image_class.">";
-			$image_block .= $caption[2][0] ? '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$img.'</a>' : $img;
+			$image_block .= '<div class="'.$image_class.'">';
+			$image_block .= $caption[2][0] ? '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-link'].'">'.$img.'</a>' : $img;
 			$image_block .= '</div>';
 		
 		}
@@ -282,7 +282,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 			$image_block .= '<p style="width:'.$thumb_image[1].'px" class="'.$caption_class.'">'.$GLOBALS["template_default"]["article"]["image_caption_before"].$caption[0];
 			
 			if($caption[4] !== '') {
-				$image_block .= ' <span class="copyright">'.html_specialchars($caption[4]).'</span>';
+				$image_block .= ' <span class="'.$GLOBALS['template_default']['classes']['copyright'].'">'.html_specialchars($caption[4]).'</span>';
 			}
 		
 			$image_block .= $GLOBALS["template_default"]["article"]["image_caption_after"]."</p>";
@@ -311,15 +311,12 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 	$caption_on = empty($imagelist['nocaption']) ? true : false;
 	$crop		= empty($imagelist['crop']) ? 0 : 1;
 
-	$table_class 	= $GLOBALS["template_default"]["article"][$template_type."_table_class"];
+	$table_class = $GLOBALS["template_default"]["article"][$template_type."_table_class"];
 	if($align) {
-		$table_class .= ' imgListTable'.ucfirst($align);
+		$table_class .= ' '.$GLOBALS['template_default']['classes']['image-list-table'].$align;
 	}
 	
-	$table_class	= trim($table_class);
-	if($table_class) {
-		$table_class = ' class="'.$table_class.'"';
-	}
+	$table_class	= ' class="'.trim($table_class).'"';
 	$table_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"];
 	$table_bgcolor	= ($table_bgcolor) ? ' bgcolor="'.$table_bgcolor.'"' : '';
 	$image_align	= $GLOBALS["template_default"]["article"][$template_type."_align"];
@@ -452,7 +449,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			$caption[1] = empty($caption[1]) ? html_specialchars($imagelist['images'][$key][1]) : html_specialchars($caption[1]);
 
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass;
-			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' />';
+			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-thumb'].'" />';
 
 			if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
 				// if click enlarge the image
@@ -468,7 +465,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				if(!$lightbox || $caption[2][0]) {
 				
 					$table .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
-					$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1].'>';
+					$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
 					
 				} else {
 				
@@ -477,7 +474,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					if($capt_cur) {
 						$table .= ' title="'.parseLightboxCaption($capt_cur).'"';
 					}
-					$table .= ' target="_blank">';
+					$table .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
 				
 				}
 				
@@ -485,7 +482,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			} else {
 				// if not click enlarge
 				if($caption[2][0]) {
-					$table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$list_img_temp.'</a>';
+					$table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-link'].'">'.$list_img_temp.'</a>';
 				} else {
 					$table .= $list_img_temp;
 				}

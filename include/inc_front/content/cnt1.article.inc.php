@@ -43,19 +43,19 @@ $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'S
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8
 // dbid:filename:hash:extension:width:height:caption:position:zoom
-$image						= ($crow["acontent_image"]) ? explode(":", $crow["acontent_image"]) : false ;
+$image = ($crow["acontent_image"]) ? explode(":", $crow["acontent_image"]) : false ;
 
 $crow["default_settings"] = array(
-	'class_top_left'		=> 'imgtxt-top-left',
-	'class_top_center'		=> 'imgtxt-top-center',
-	'class_top_right'		=> 'imgtxt-top-right',
-	'class_bottom_left'		=> 'imgtxt-bottom-left',
-	'class_bottom_center'	=> 'imgtxt-bottom-center',
-	'class_bottom_right'	=> 'imgtxt-bottom-right',
-	'class_float_left'		=> 'imgtxt-left',
-	'class_float_right'		=> 'imgtxt-right',
-	'class_column_left'		=> 'imgtxt-column-left',
-	'class_column_right'	=> 'imgtxt-column-right',
+	'class_top_left'		=> $template_default['classes']['imgtxt-top-left'],
+	'class_top_center'		=> $template_default['classes']['imgtxt-top-center'],
+	'class_top_right'		=> $template_default['classes']['imgtxt-top-right'],
+	'class_bottom_left'		=> $template_default['classes']['imgtxt-bottom-left'],
+	'class_bottom_center'	=> $template_default['classes']['imgtxt-bottom-center'],
+	'class_bottom_right'	=> $template_default['classes']['imgtxt-bottom-right'],
+	'class_float_left'		=> $template_default['classes']['imgtxt-left'],
+	'class_float_right'		=> $template_default['classes']['imgtxt-right'],
+	'class_column_left'		=> $template_default['classes']['imgtxt-column-left'],
+	'class_column_right'	=> $template_default['classes']['imgtxt-column-right'],
 	'width'					=> $image[4],
 	'height'				=> $image[5],
 	'zoom'					=> $image[8],

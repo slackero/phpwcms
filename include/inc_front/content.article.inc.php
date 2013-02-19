@@ -215,7 +215,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			if($thumb_image != false) {
 			
 				$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
-				$thumb_img .= ' alt="'.html_specialchars($caption[1]).'" title="'.html_specialchars($caption[3]).'" />';
+				$thumb_img .= ' alt="'.html_specialchars($caption[1]).'" title="'.html_specialchars($caption[3]).'"';
+				$thumb_img .= ' class="'.$template_default['classes']['image-thumb'].'" />';
 				
 				$img_thumb_name		= $thumb_image[0];
 				$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];
@@ -259,7 +260,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 							if(!empty($caption[2][1])) {
 								$thumb_href .= $caption[2][1];
 							}
-							$thumb_href .= '>';
+							$thumb_href .= ' class="'.$template_default['classes']['image-zoom'].'">';
 						} else {
 						
 							//lightbox
@@ -269,7 +270,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 							if($row["article_image"]["caption"]) {
 								$thumb_href .= ' title="'.parseLightboxCaption($row["article_image"]["caption"]).'"';
 							}
-							$thumb_href .= ' rel="lightbox" target="_blank">';
+							$thumb_href .= ' rel="lightbox" class="'.$template_default['classes']['image-lightbox'].'">';
 						}
 						
 						$thumb_img = $thumb_href.$thumb_img.'</a>';
@@ -279,7 +280,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				} else {
 						
 					if($caption[2][0]) {
-						$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
+						$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">'.$thumb_img.'</a>';
 					}
 				}
 			}
@@ -492,7 +493,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// Space before
 			if($crow["acontent_before"]) {
 				if(!empty($template_default["article"]["div_spacer"])) {
-					$CNT_TMP .= '<div style="margin:'.$crow["acontent_before"].'px 0 0 0;padding:0;" class="'.$template_default['classes']['spaceholder-cp-before'].'"></div>';
+					$CNT_TMP .= '<div style="margin-top:'.$crow["acontent_before"].'px;" class="'.$template_default['classes']['spaceholder-cp-before'].'"></div>';
 				} else {
 					$CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1,$crow["acontent_before"]);
 				}
@@ -524,7 +525,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// Space after
 			if($crow["acontent_after"]) {
 				if(!empty($template_default["article"]["div_spacer"])) {
-					$CNT_TMP .= '<div style="margin:0 0 '.$crow["acontent_after"].'px 0;padding:0;" class="'.$template_default['classes']['spaceholder-cp-after'].'"></div>';
+					$CNT_TMP .= '<div style="margin-bottom:'.$crow["acontent_after"].'px;" class="'.$template_default['classes']['spaceholder-cp-after'].'"></div>';
 				} else {
 					$CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1,$crow["acontent_after"]);
 				}
