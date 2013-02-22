@@ -1095,109 +1095,128 @@ if(count($block['custom_htmlhead'])) {
 $content["pagetitle"] = sanitize_replacement_tags($content["pagetitle"]);
 
 // now we should search all ?aid=123 and/or ?id=123 and replace'em by the real alias if available
-$match = array();
-preg_match_all('/index.php\?(aid|id)=([\d\,]+)(["|&])/', $content['all'], $match);
-
-if( isset($match[1]) && isset($match[2]) ) {
-
-	$all_id		= array();
-	$sql_id		= '';
+if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.php?id=')) {
 	
-	$all_aid	= array();
-	$sql_aid	= '';
-	
-	$old_style	= false;
+	if(strpos($content['all'], PHPWCMS_URL.'index.php?')) {
+		$all_reset_url = true;
+		$content['all'] = str_replace(PHPWCMS_URL.'index.php?', '###PHPWCMS_URL###index.php?', $content['all']);
+	} else {
+		$all_reset_url = false;
+	}
 
-	foreach($match[2] as $key => $value) {
+	$match = array();
+	preg_match_all('/[^\/]index.php\?(aid|id)=([\d\,]+)(["|&])/', $content['all'], $match);
 	
-		if($match[1][$key] == 'id') {
+	if( isset($match[1]) && isset($match[2]) ) {
+	
+		$all_id		= array();
+		$sql_id		= '';
+		
+		$all_aid	= array();
+		$sql_aid	= '';
+		
+		$all_close	= array();
+		
+		$old_style	= false;
+		
+		foreach($match[2] as $key => $value) {
 			
-			if(strpos($match[2][$key], ',')) {
-			
-				$old_style	= true;
+			$all_close[ $match[1][$key].$match[2][$key] ] = $match[3][$key];			
+		
+			if($match[1][$key] == 'id') {
 				
-				$this_id	= 0;
-				$this_aid	= 0;
+				if(strpos($match[2][$key], ',')) {
 				
-				list($this_id, $this_aid) = explode(',', $match[2][$key]);
-				
-				if( $this_aid = intval($this_aid) ) {
-				
-					$all_aid[ $this_aid ]	= $this_aid;
+					$old_style	= true;
 					
-				} elseif( $this_id = intval($this_id) ) {
+					$this_id	= 0;
+					$this_aid	= 0;
+					
+					list($this_id, $this_aid) = explode(',', $match[2][$key]);
+					
+					if( $this_aid = intval($this_aid) ) {
+					
+						$all_aid[ $this_aid ]	= $this_aid;
+						
+					} elseif( $this_id = intval($this_id) ) {
+					
+						$all_id[ $this_id ]		= $this_id;
+					
+					}
 				
-					$all_id[ $this_id ]		= $this_id;
-				
-				}
-			
+				} else {
+		
+					$all_id[ $match[2][$key] ]	= $match[2][$key];
+		
+				}			
+					
 			} else {
+			
+				$all_aid[ $match[2][$key] ]	= $match[2][$key];
+			
+			}
 	
-				$all_id[ $match[2][$key] ]	= $match[2][$key];
+		}
+		
+		if(count($all_id)) {
+			$sql_id   = "SELECT 'id' AS alias_type, acat_id AS id, 0 AS aid, acat_alias AS alias FROM ".DB_PREPEND.'phpwcms_articlecat ';
+			$sql_id  .= 'WHERE acat_id IN (' . implode(',', $all_id) . ") AND acat_alias != ''";
+		}	
+		
+		if(count($all_aid)) {
+			$sql_aid  = "SELECT 'aid' AS alias_type, article_cid AS id, article_id AS aid, article_alias AS alias FROM ".DB_PREPEND.'phpwcms_article ';
+			$sql_aid .= 'WHERE article_id IN (' . implode(',', $all_aid) . ") AND article_alias != ''";
+		}
 	
-			}			
-				
+		if($sql_id && $sql_aid) {
+		
+			$sql = '(' . $sql_id . ') UNION (' . $sql_aid . ')';
+		
 		} else {
 		
-			$all_aid[ $match[2][$key] ]	= $match[2][$key];
+			$sql = $sql_id . $sql_aid ;
 		
 		}
-	}
+		
+		$match = _dbQuery($sql);
 	
-	if(count($all_id)) {
-		$sql_id   = "SELECT 'id' AS alias_type, acat_id AS id, 0 AS aid, acat_alias AS alias FROM ".DB_PREPEND.'phpwcms_articlecat ';
-		$sql_id  .= 'WHERE acat_id IN (' . implode(',', $all_id) . ") AND acat_alias != ''";
-	}	
-	
-	if(count($all_aid)) {
-		$sql_aid  = "SELECT 'aid' AS alias_type, article_cid AS id, article_id AS aid, article_alias AS alias FROM ".DB_PREPEND.'phpwcms_article ';
-		$sql_aid .= 'WHERE article_id IN (' . implode(',', $all_aid) . ") AND article_alias != ''";
-	}
-
-	if($sql_id && $sql_aid) {
-	
-		$sql = '(' . $sql_id . ') UNION (' . $sql_aid . ')';
-	
-	} else {
-	
-		$sql = $sql_id . $sql_aid ;
-	
-	}
-	
-	$match = _dbQuery($sql);
-
-	if(isset($match[0])) {
-	
-		foreach($match as $value) {
-	
-			$value['alias'] = html_specialchars($value['alias']);
-
-			if($value['alias_type'] == 'id') { 
+		if(isset($match[0])) {
 			
-				$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
-				$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
-			
-			} else {
-			
-				$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
-				$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
-			
+			foreach($match as $value) {
+		
+				$value['alias'] = html_specialchars($value['alias']);
+	
+				if($value['alias_type'] == 'id') {
+					
+					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
+					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
+				
+				} else {
+				
+					//$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
+					//$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+					$content['all'] = str_replace('index.php?aid=' . $value['aid'] . $all_close['aid'.$value['aid']], 'index.php?' . $value['alias'] . $all_close['aid'.$value['aid']], $content['all']);
+				
+				}
+				
+				// search also for id=0,0,...
+				if( $old_style == true ) {
+				
+					$value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
+				
+					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
+					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
+				
+				}	
 			}
-			
-			// search also for id=0,0,...
-			if( $old_style == true ) {
-			
-				$value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
-			
-				$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
-				$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
-
-			}
-			
 		}
-	
 	}
 	
+	if($all_reset_url) {
+		$content['all'] = str_replace('###PHPWCMS_URL###index.php?', PHPWCMS_URL.'index.php?', $content['all']);
+	}
 }
 
 // Global parsing for i18 @@Text@@ replacements
