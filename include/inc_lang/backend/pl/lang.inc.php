@@ -9,10 +9,10 @@
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.6.530 Zibi http://www.krynica.malopolska.pl
+ 
+// Language: Polish, Language Code: pl UTF-8 for ver.1.6.530 Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
-
 
 
 $BL['usr_online']       = 'Zalogowani użytkownicy';
@@ -35,11 +35,13 @@ $BL['be_nav_chat']      = 'CHAT';
 $BL['be_nav_profile']   = 'PROFILE';
 $BL['be_nav_admin']     = 'ADMINISTRACJA';
 $BL['be_nav_discuss']   = 'DYSKUSJA';
-$BL['be_page_title']    = 'System zarządzania phpwcms';
+
+$BL['be_page_title']    = 'Zaplecze phpwcms (administracja)';
 
 $BL['be_subnav_article_center']         = 'Centrum artykułów';
 $BL['be_subnav_article_new']            = 'Nowy artykuł';
 $BL['be_subnav_file_center']            = 'Centrum plików';
+$BL['be_subnav_file_actions']           = 'działania pliku';
 $BL['be_subnav_file_ftptakeover']       = 'Wgrane przez ftp';
 $BL['be_subnav_mod_artists']            = 'wykonawca, kategoria, rodzaj';
 $BL['be_subnav_msg_center']             = 'Centrum wiadomości';
@@ -55,6 +57,7 @@ $BL['be_subnav_admin_css']              = 'Domyślny styl css';
 $BL['be_subnav_admin_sitestructure']    = 'Struktura witryny';
 $BL['be_subnav_admin_users']            = 'Administracja użytkownikami';
 $BL['be_subnav_admin_filecat']          = 'Kategorie plików';
+
 
 // admin.functions.inc.php
 $BL['be_func_struct_articleID']      = 'ID artykułu';
@@ -150,6 +153,7 @@ $BL['be_profile_label_email']      = 'E-mail';
 $BL['be_profile_account_button']   = 'Uaktualnij';
 $BL['be_profile_label_lang']       = 'Język';
 
+
 // files.ftptakeover.tmpl.php
 $BL['be_ftptakeover_title']        = 'Pliki wgrane przez ftp';
 $BL['be_ftptakeover_mark']         = 'Zaznacz';
@@ -211,10 +215,7 @@ $BL['be_fprivup_title']         = 'wgrywanie pliki';
 $BL['be_fprivup_button']        = 'wgraj pliki';
 $BL['be_fprivup_upload']        = 'wgraj';
 
-
-
 // files.private.editfile.tmpl.php
-
 $BL['be_fprivedit_title']       = 'edycja informacji o pliku';
 $BL['be_fprivedit_filename']    = 'nazwa pliku';
 $BL['be_fprivedit_created']     = 'utworzony';
@@ -247,10 +248,7 @@ $BL['be_fprivfunc_movetrash']     = 'przesuń do kosza';
 $BL['be_fprivfunc_jsmovetrash1']  = 'Czy napewno chcesz ten plik';
 $BL['be_fprivfunc_jsmovetrash2']  = 'przesunąć do kosza?';
 
-
-
 // files.private.additions.inc.php
-
 $BL['be_fprivadd_nofolders']      = 'brak prywatnych plików lub folderów';
 
 // files.public.list.tmpl.php
@@ -325,7 +323,6 @@ $BL['be_msg_all']           = 'wyślij widomość do wszystkich wybranych odbior
 // message.subscription.tmpl.php
 $BL['be_newsletter_title']         = 'Subskrypcja wiadomości o nowościach';
 $BL['be_newsletter_titleedit']     = 'Edytuj subskrypcję';
-
 $BL['be_newsletter_new']           = 'Utwórz nowy/ą';
 $BL['be_newsletter_add']           = 'Dodaj&nbsp;wiadomość&nbsp;do&nbsp;subskrypcji';
 $BL['be_newsletter_name']          = 'Nazwa';
@@ -456,13 +453,8 @@ $BL['be_admin_tmpl_error']        = 'Błąd';
 $BL['be_admin_tmpl_button']       = 'Zapisz szablon';
 $BL['be_admin_tmpl_name']         = 'Nazwa';
 
-
-
 // article.structlist.tmpl.php
-
 $BL['be_article_title']           = 'Struktura witryny i lista artykułów';
-
-
 
 // article.new.tmpl.php
 $BL['be_article_err1']            = 'Tytuł tego artykułu jest pusty';
@@ -479,10 +471,7 @@ $BL['be_article_akeywords']       = 'Słowa <br/>kluczowe';
 $BL['be_article_asummary']        = 'Podsumowanie';
 $BL['be_article_abutton']         = 'Utwórz nowy artykuł';
 
-
-
 // article.editcontent.inc.php
-
 $BL['be_article_err4']            = 'Data zakończenia wyświetlania jest podana. Ale-ustaw na tydzień od dziś';
 
 // article.editsummary.tmpl.php
@@ -524,8 +513,6 @@ $BL['be_article_cnt_edit']        = 'Edytuj treść';
 $BL['be_article_cnt_delpart']     = 'Usuń treść z artykułu';
 $BL['be_article_cnt_delpartjs']   = 'Czy na pewno usunąć treść z artykułu?';
 $BL['be_article_cnt_center']      = 'Centrum artykułów';
-
-
 
 // content forms
 $BL['be_cnt_plaintext']          = 'czysty tekst';
@@ -655,6 +642,7 @@ $BL['be_cnt_searchformtext']     = 'Wstaw swoje komunikaty gdy użytkownik otwor
 $BL['be_cnt_intro']              = 'nagłówek';
 $BL['be_cnt_noresult']           = 'brak&nbsp; rezultatów';
 $BL['be_cnt_search_default_type']       = 'default search type';
+
 // added: 02-01-2004
 $BL['be_admin_page_disable']    = 'wyłączone';
 
@@ -676,7 +664,6 @@ $BL['be_cnt_sitelevel']		= 'poziom struktury';
 $BL['be_cnt_sitecurrent']	= 'obecny poziom struktury';
 
 // added: 24-03-2004
-
 $BL['be_subnav_admin_starttext']	= 'Tekst na stronie startowej';
 $BL['be_ctype_ecard']			= 'kartka elektroniczna';
 $BL['be_ctype_blog']			= 'blog';
@@ -902,6 +889,7 @@ $BL['be_cnt_rssfeed_url']	= 'adres url RSS';
 $BL['be_cnt_rssfeed_item']	= 'elementy';
 $BL['be_cnt_rssfeed_max']	= 'maks.';
 $BL['be_cnt_rssfeed_cut']	= 'ukryj 1szy element';
+
 $BL['be_ctype_simpleform']	= 'formularz email';
 
 $BL['be_cnt_onsuccess']		= 'przy sukcesie';
@@ -915,6 +903,7 @@ $BL['be_cnt_error_class']	= 'klasa błędu';
 $BL['be_cnt_req_mark']		= 'oznaczenie wymagalności';
 $BL['be_cnt_mark_as_req']	= 'znak jako wymagalny';
 $BL['be_cnt_mark_as_del']	= 'znak elementu do usunięcia';
+
 
 $BL['be_cnt_type']	= 'typ';
 $BL['be_cnt_label']	= 'etykieta';
@@ -1021,6 +1010,7 @@ $BL['be_admin_keyword_add']	= 'dodaj SŁOWO KLUCZOWE';
 
 $BL['be_cnt_transparent'] = 'Flash transparent';
 
+
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']   = 'daty usunięcia';
 $BL['be_func_switch_contentpart'] = 'Czy naprawdę chcesz przełączyć część zawartości ? \n\nJest to bardzo ważna zmiana więc! \nIstotne parametry mogą zostać zmienione! \n';
@@ -1032,14 +1022,18 @@ $BL['be_cnt_pos9']   = 'tabela, prawo';
 $BL['be_cnt_pos8i']  = 'wyrównaj obraz w lewo w tabeli';
 $BL['be_cnt_pos9i']  = 'wyrównaj obraz w prawo w tabeli';
 
+
 $BL['be_WYSIWYG']    = 'WYSIWYG edytor';
 $BL['be_WYSIWYG_disabled']	= 'WYSIWYG edytor wyłączony';
 $BL['be_admin_struct_acat_hiddenactive'] = 'widoczny kiedy aktywny';
 
 $BL['be_login_jsinfo']	= 'Proszę włącz JavaScript który jest niezbędny wewnątrz!';
+
 $BL['be_admin_struct_maxlist']	= 'maks. artykułów w trybie listy';
+
 $BL['be_admin_optgroup_label']	= array(1 => 'text', 2 => 'image', 3 => 'form', 4 => 'admin', 5 => 'special');
 $BL['be_cnt_articlemenu_maxchar']	= 'max. znaków';
+
 $BL['be_cnt_sysadmin_system']		= 'system';
 
 // version check - taken from phpBB ;-)
@@ -1071,6 +1065,7 @@ $BL['be_article_pagination']	= 'paginuj artykuły';
 $BL['be_article_per_page']	= 'artykułów na stronę';
 $BL['be_pagination']		= 'paginacja';
 
+
 $BL['be_ctype_recipe']		= 'odbiorca';
 $BL['be_ctype_faq']			= 'faq';
 $BL['be_cnt_additional']	= 'dodatkowe';
@@ -1094,6 +1089,7 @@ $BL['be_cnt_last_edited']	= 'ostatnio zmieniane';
 $BL['be_cnt_export_selection']	= 'eksportuj wybrane';
 $BL['be_cnt_delete_duplicates']	= 'usuń duplikaty';
 $BL['be_cnt_new_recipient']	= 'dodaj odbiorcę';
+
 
 $BL['be_cnt_newsletter_prepare']    = 'biuletyn aktywny';
 $BL['be_cnt_newsletter_prepare1']   = 'wszyscy odbiorcy będą przyjęci do kolejki wysyłania';
@@ -1278,6 +1274,7 @@ $BL['be_gallery_directory']	= 'podkatalog galerii';
 $BL['be_gallery']	= 'galeria';
 
 $BL['be_sort_date']	= 'sortuj daty';
+
 $BL['group_superuser']	= 'superuser';
 $BL['group_admin']	= 'administrator';
 $BL['group_editor']	= 'redaktor';
@@ -1318,5 +1315,27 @@ $BL['source_image_not_found']		= 'Błąd źródła obrazu: Obraz %s wydaje się 
 $BL['form_force_ssl']			= 'Wymuś wysyłanie formularzy z SSL';
 $BL['numerize_title']			= 'Numerowane zamiast tytułów artykułów';
 $BL['be_article_noteaser']		= 'bez zapowiedzi';
+$BL['be_acat_disable301']		= 'artykuł 301 przekierowanie';
+
+$BL['file_actions_step1']		= "Krok 1: wybierz folder";
+$BL['file_actions_step2']		= "Krok 2: wybierz plik";
+$BL['file_actions_step3']		= "Krok 3: wybierz działanie";
+$BL['file_actions_button']		= 'Wykonaj operację';
+$BL['file_actions_no']			= 'Brak plików do edycji. Wybierz inny folder ';
+$BL['file_actions_delete']		= 'Czy jesteś pewien, że należy usunąć wybrane pliki?';
+$BL['file_actions_bemuser']		= 'Wybrane pliki zostaną przypisane do nowego użytkownika i przeniesione do katalogu głównego.';
+$BL['file_actions_bemfolder']		= 'Proszę wybrać folder docelowy. Wybrane pliki zostaną przeniesione do tego folderu. ';
+$BL['file_actions_pdl_empty']		= 'wybierz działanie';
+$BL['file_actions_pdl_delete']		= 'usuń pliki';
+$BL['file_actions_pdl_move']		= 'przenieś pliki';
+$BL['file_actions_pdl_status']		= 'zmień status';
+$BL['file_actions_pdl_user']		= 'zmień właściciela';
+$BL['file_actions_msg_move']		= 'Pliki zostały pomyślnie przeniesione';
+$BL['file_actions_msg_delete']		= 'Pliki zostały pomyślnie usunięte';
+$BL['file_actions_msg_status']		= 'Status plików pomyślnie zmienio';
+$BL['file_actions_msg_error']		= 'Nie wybrano plików';
+$BL['file_actions_msg_user']		= 'Pliki zostały pomyślnie przypisany do nowego użytkownika';
+
+$BL['be_imagefiles_as_gallery']		= 'utwórz galerię z plików graficznych';
 
 ?>
