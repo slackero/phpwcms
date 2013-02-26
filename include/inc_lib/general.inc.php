@@ -1855,8 +1855,8 @@ function render_bbcode_basics($text='', $mode='basic') {
 	
 	if($mode == 'basic') {
 	
-		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]',   '[p]', '[/p]');
-		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>');
+		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]',   '[p]', '[/p]', '[strong]', '[/strong]');
+		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>', '<strong>', '</strong>');
 	
 		return str_replace($search, $replace, $text);
 		
@@ -1865,30 +1865,31 @@ function render_bbcode_basics($text='', $mode='basic') {
 	$search		= array();
 	$replace	= array();
 
-	$search[0]		= '/\[i\](.*?)\[\/i\]/is';			$replace[0]		= '<i>$1</i>';
-	$search[1]		= '/\[u\](.*?)\[\/u\]/is';			$replace[1]		= '<u>$1</u>';
-	$search[2]		= '/\[s\](.*?)\[\/s\]/is';			$replace[2]		= '<strike>$1</strike>';
-	$search[3]		= '/\[b\](.*?)\[\/b\]/is';			$replace[3]		= '<strong>$1</strong>';
-	$search[4]		= '/\[br\]/i';						$replace[4]		= '<br />';
-	$search[5]		= '/\[em\](.*?)\[\/em\]/is';		$replace[5]		= '<em>$1</em>';
-	$search[6]		= '/\[code\](.*?)\[\/code\]/is';	$replace[6]		= '<code>$1</code>';
-	$search[7]		= '/\[cite\](.*?)\[\/cite\]/is';	$replace[7]		= '<cite>$1</cite>';
-	$search[8]		= '/\[li\](.*?)\[\/li\]/is';		$replace[8]		= '<li>$1</li>';
-	$search[9]		= '/\[dt\](.*?)\[\/dt\]/is';		$replace[9]		= '<dt>$1</dt>';
-	$search[10]		= '/\[dd\](.*?)\[\/dd\]/is';		$replace[10]	= '<dd>$1</dd>';
-	$search[11]		= '/\[ul\](.*?)\[\/ul\]/is';		$replace[11]	= '<ul>$1</ul>';
-	$search[12]		= '/\[ol\](.*?)\[\/ol\]/is';		$replace[12]	= '<ol>$1</ol>';
-	$search[13]		= '/\[dl\](.*?)\[\/dl\]/is';		$replace[13]	= '<dl>$1</dl>';
-	$search[14]		= '/\[h1\](.*?)\[\/h1\]/is';		$replace[14]	= '<h1>$1</h1>';
-	$search[15]		= '/\[h2\](.*?)\[\/h2\]/is';		$replace[15]	= '<h2>$1</h2>';
-	$search[16]		= '/\[h3\](.*?)\[\/h3\]/is';		$replace[16]	= '<h3>$1</h3>';
-	$search[17]		= '/\[h4\](.*?)\[\/h4\]/is';		$replace[17]	= '<h4>$1</h4>';
-	$search[18]		= '/\[h5\](.*?)\[\/h5\]/is';		$replace[18]	= '<h5>$1</h5>';
-	$search[19]		= '/\[h6\](.*?)\[\/h6\]/is';		$replace[19]	= '<h6>$1</h6>';
-	$search[20]		= '/\[p\](.*?)\[\/p\]/is';		$replace[20]	= '<p>$1</p>';
+	$search[0]		= '/\[i\](.*?)\[\/i\]/is';				$replace[0]		= '<i>$1</i>';
+	$search[1]		= '/\[u\](.*?)\[\/u\]/is';				$replace[1]		= '<u>$1</u>';
+	$search[2]		= '/\[s\](.*?)\[\/s\]/is';				$replace[2]		= '<strike>$1</strike>';
+	$search[3]		= '/\[b\](.*?)\[\/b\]/is';				$replace[3]		= '<b>$1</b>';
+	$search[4]		= '/\[br\]/i';							$replace[4]		= '<br />';
+	$search[5]		= '/\[em\](.*?)\[\/em\]/is';			$replace[5]		= '<em>$1</em>';
+	$search[6]		= '/\[code\](.*?)\[\/code\]/is';		$replace[6]		= '<code>$1</code>';
+	$search[7]		= '/\[cite\](.*?)\[\/cite\]/is';		$replace[7]		= '<cite>$1</cite>';
+	$search[8]		= '/\[li\](.*?)\[\/li\]/is';			$replace[8]		= '<li>$1</li>';
+	$search[9]		= '/\[dt\](.*?)\[\/dt\]/is';			$replace[9]		= '<dt>$1</dt>';
+	$search[10]		= '/\[dd\](.*?)\[\/dd\]/is';			$replace[10]	= '<dd>$1</dd>';
+	$search[11]		= '/\[ul\](.*?)\[\/ul\]/is';			$replace[11]	= '<ul>$1</ul>';
+	$search[12]		= '/\[ol\](.*?)\[\/ol\]/is';			$replace[12]	= '<ol>$1</ol>';
+	$search[13]		= '/\[dl\](.*?)\[\/dl\]/is';			$replace[13]	= '<dl>$1</dl>';
+	$search[14]		= '/\[h1\](.*?)\[\/h1\]/is';			$replace[14]	= '<h1>$1</h1>';
+	$search[15]		= '/\[h2\](.*?)\[\/h2\]/is';			$replace[15]	= '<h2>$1</h2>';
+	$search[16]		= '/\[h3\](.*?)\[\/h3\]/is';			$replace[16]	= '<h3>$1</h3>';
+	$search[17]		= '/\[h4\](.*?)\[\/h4\]/is';			$replace[17]	= '<h4>$1</h4>';
+	$search[18]		= '/\[h5\](.*?)\[\/h5\]/is';			$replace[18]	= '<h5>$1</h5>';
+	$search[19]		= '/\[h6\](.*?)\[\/h6\]/is';			$replace[19]	= '<h6>$1</h6>';
+	$search[20]		= '/\[p\](.*?)\[\/p\]/is';				$replace[20]	= '<p>$1</p>';
+	$search[21]		= '/\[strong\](.*?)\[\/strong\]/is';	$replace[21]	= '<strong>$1</strong>';
 	
-	$search[21]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
-	$replace[21]	= '<blockquote>$1</blockquote>';
+	$search[22]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
+	$replace[22]	= '<blockquote>$1</blockquote>';
 	
 	return preg_replace($search, $replace, $text);
 	
