@@ -1645,10 +1645,6 @@ function html_parser($string) {
 	
 	$string = preg_replace($search, $replace, $string);
 	
-	if(function_exists('html_parser_deprecated')) {
-		$string = html_parser_deprecated($string);	
-	}
-	
 	$string = str_replace(
 		array(
 			'&#92;&#039;',

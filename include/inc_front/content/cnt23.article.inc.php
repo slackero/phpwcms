@@ -903,13 +903,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									}
 								}
 								if(empty($cnt_form['upload_value']['folder'])) {
-									$cnt_form['upload_value']['folder'] = 'content/form/';
+									$cnt_form['upload_value']['folder'] = 'content/form';
+								} else {
+									$cnt_form['upload_value']['folder'] = trim($cnt_form['upload_value']['folder'], '/');
 								}
 								if(empty($cnt_form['upload_value']['attachment'])) {
 									$cnt_form['upload_value']['attachment'] = 0;
 								}
 								if(empty($cnt_form['upload_value']['exclude'])) {
-									$cnt_form['upload_value']['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js';
+									$cnt_form['upload_value']['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js,exe,bat,com,jar,java';
 								}
 								//
 								if($POST_DO && isset($_FILES[$POST_name])) {

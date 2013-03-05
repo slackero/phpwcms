@@ -697,6 +697,8 @@ if($phpwcms['enable_deprecated'] && strpos($content["all"],'{NAV_') !== false) {
 		$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
 
 	}
+	
+	$content["all"] = html_parser_deprecated($content["all"]);
 
 }
 

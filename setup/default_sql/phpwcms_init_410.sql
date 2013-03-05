@@ -233,6 +233,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_lang` varchar(255) NOT NULL DEFAULT '',
   `acat_lang_type` varchar(255) NOT NULL DEFAULT '',
   `acat_lang_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `acat_disable301` int(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),
