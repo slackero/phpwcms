@@ -132,7 +132,8 @@ if($file_id) {
 			$file_size		= intval($row["f_size"]);
 			$file_id		= $row["f_id"];
 			$file_ext		= $row["f_ext"];
-			//$file_makethumb	= "thumb=".$row["f_id"]."&ext=".$row["f_ext"];
+			$file_hash		= $row["f_hash"];
+			
 			if(empty($_POST["file_aktion"]) || intval($_POST["file_aktion"]) != 2) {
 				$file_pid				= $row["f_pid"];
 				$file_name				= $row["f_name"];
@@ -211,10 +212,12 @@ if($ja) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
       <td><img src="img/leer.gif" alt="" width="1" height="1"></td>
-      <td class="v09"><?php 
-	  	echo $BL['be_fprivedit_created'].': '.date($BL['be_fprivedit_dateformat'], $file_created);
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;'.$BL['be_fprivedit_size'].': '.fsizelong($file_size);
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;EXT: '.strtoupper($file_ext); 
+      <td class="v09">
+	  	ID: <strong class="v10"><?php echo $file_id ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;Hash: <strong class="v10"><?php echo $file_hash ?></strong><br />
+	  <?php 
+	  	echo $BL['be_fprivedit_created'], ': <strong class="v10">', date($BL['be_fprivedit_dateformat'], $file_created), '</strong>';
+		echo '&nbsp;&nbsp;&nbsp;', $BL['be_fprivedit_size'], ': <strong class="v10">', fsizelong($file_size), '</strong>';
+		echo '&nbsp;&nbsp;&nbsp;EXT: <strong class="v10">', strtoupper($file_ext), '</strong>'; 
 	  ?></td>
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
