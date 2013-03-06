@@ -33,10 +33,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 ?>
 <h1 class="title"><?php echo $BL['be_file_multiple_upload'] ?></h1>
 <div class="uploader">
-	
 	<div class="uploader-button" id="upload-file-select"></div>
-	<!-- <div class="uploader-button qq-upload-button" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div> -->
-
 </div>
 
 <h1 class="title"><?php echo $BL['be_files_select_available'] ?></h1>

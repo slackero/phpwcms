@@ -23,10 +23,25 @@ require ('../inc_lib/default.inc.php');
 require (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require (PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php');
 
-$uploader			= new qqFileUploader(array(), $phpwcms['file_maxsize']);
-$uploadDir			= PHPWCMS_ROOT.$phpwcms["ftp_path"];
+if(@ini_get('post_max_size')) {
+	$post_max_size = return_bytes(ini_get('post_max_size'));
+	if($post_max_size < $phpwcms['file_maxsize']) {
+		$phpwcms['file_maxsize'] = $post_max_size;
+	}
+} else {
+	$post_max_size = $phpwcms['file_maxsize'];
+}
+if(@ini_get('upload_max_filesize')) {
+	$upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
+	if($upload_max_filesize < $phpwcms['file_maxsize']) {
+		$phpwcms['file_maxsize'] = $upload_max_filesize;
+	}
+} else {
+	$upload_max_filesize = $phpwcms['file_maxsize'];
+}
 
-//write_textfile(PHPWCMS_TEMP.'upload.log', date('Y-m-d H:i:s').' - GET: '.json_encode($_GET).LF, 'a');
+$uploader	= new qqFileUploader(array(), min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']));
+$uploadDir	= PHPWCMS_ROOT.$phpwcms["ftp_path"];
 
 // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
 $result = $uploader->handleUpload($uploadDir, NULL, TRUE, FALSE);
@@ -62,10 +77,7 @@ if($result['success'] && !empty($_GET['file_public'])) {
 	}
 	
 	$insert = _dbInsert('phpwcms_file', $data);
-	
-	//write_textfile(PHPWCMS_TEMP.'upload.log', date('Y-m-d H:i:s').' - Data: '.json_encode($data).LF, 'a');
-	//write_textfile(PHPWCMS_TEMP.'upload.log', date('Y-m-d H:i:s').' - DB: '.json_encode($insert).' (Error: '.mysql_error().')'.LF, 'a');
-	
+
 	// move uploaded file
 	if(!empty($insert['INSERT_ID'])) {
 		
@@ -77,7 +89,6 @@ if($result['success'] && !empty($_GET['file_public'])) {
 			$usernewfile .= '.'.$data['f_ext'];
 		}
 		
-		//write_textfile(PHPWCMS_TEMP.'upload.log', date('Y-m-d H:i:s').' - Old: '.$userftppath.$result['filename'].' | New: '.$usernewfile.LF, 'a');
 		$oldmask = umask(0);
 
 		if($dir = @opendir($useruploadpath) && @copy($userftppath.$result['filename'], $usernewfile)) {
@@ -106,8 +117,6 @@ if($result['success'] && !empty($_GET['file_public'])) {
 	}
 
 }
-
-//write_textfile(PHPWCMS_TEMP.'upload.log', date('Y-m-d H:i:s').' - Result: '.json_encode($result).LF, 'a');
 
 // to pass data through iframe you will need to encode all html tags
 echo html_entities(json_encode($result), ENT_NOQUOTES);
