@@ -130,6 +130,7 @@ define ('PHPWCMS_BASEPATH',			'/' . $phpwcms["root"]);
 define ('On',						true);
 define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
+define ('PHPWCMS_REWRITE',			empty($phpwcms["rewrite_url"]) ? false : true);
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define ('PHPWCMS_ALIAS_WSLASH',		empty($phpwcms['alias_allow_slash']) ? false : true);
 define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
@@ -419,11 +420,18 @@ function buildGlobalGET($return = '') {
 
 // build phpwcms specific relative url
 function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
-	return 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+	$query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+	if(empty($query)) {
+		return PHPWCMS_URL;	
+	}
+	$index = PHPWCMS_REWRITE ? '' : 'index.php';
+	return $index . $query;
 }
 // build phpwcms specific absolute url
 function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
-	return PHPWCMS_URL . 'index.php' . returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+	$query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+	$index = PHPWCMS_REWRITE ? '' : 'index.php';
+	return PHPWCMS_URL . $index . $query;
 }
 
 // build a URL query string based on current values
@@ -477,20 +485,32 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 	}
 	
 	if(count($pairs)) {
+		
+		$c			= 0;
+		$rewrite	= '';
 	
 		foreach($pairs as $key => $value) {
-		
+			
+			$c++;
+			
+			if($c === 1 && PHPWCMS_REWRITE) {
+				
+				$rewrite = $funct($key, $value, $bind) . PHPWCMS_REWRITE_EXT;
+				
+				continue;
+			}
+			
 			$queryString[] = $funct($key, $value, $bind);
-	
+			
 		}
+		
+		$queryString = count($queryString) ? ( $query_string_separator . implode($glue, $queryString)) : '';
+
+		return $rewrite . $queryString;
 	
-		return $query_string_separator.implode($glue, $queryString);
+	} 
 	
-	} else {
-	
-		return '';
-	
-	}
+	return '';
 }
 
 function getQueryString_htmlentities($key='', $value='', $bind='=') {
