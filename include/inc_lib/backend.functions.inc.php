@@ -255,7 +255,7 @@ function phpwcmsversionCheck() {
 	$identify .= '&url='.rawurlencode(PHPWCMS_URL);
 	$identify .= '&revision='.rawurlencode(PHPWCMS_REVISION);
 
-	if ($fsock = @fsockopen('www.phpwcms.de', 80, $errno, $errstr, 10))	{
+	if(function_exists('fsockopen') && $fsock = @fsockopen('www.phpwcms.de', 80, $errno, $errstr, 10))	{
 
 		@fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
 		@fputs($fsock, "HOST: www.phpwcms.de\r\n");
@@ -263,7 +263,7 @@ function phpwcmsversionCheck() {
 
 		$get_info = false;
 		while (!@feof($fsock)) {
-			if ($get_info) {
+			if($get_info) {
 				$version_info .= @fread($fsock, 1024);
 			} elseif (@fgets($fsock, 1024) == "\r\n") {
 				$get_info = true;
@@ -274,6 +274,7 @@ function phpwcmsversionCheck() {
 	} elseif(function_exists('file_get_contents')) {
 
 		$version_info = @file_get_contents('http://www.phpwcms.de/versioncheck/'.$identify);
+		$get_info = true;
 	
 	} elseif($errstr) {
 	
@@ -284,7 +285,7 @@ function phpwcmsversionCheck() {
 		$version_info = '<p>' . $BL['Socket_functions_disabled'] . '</p>';
 	}
 		
-	if(preg_match('/.*BEGIN -->(.+)<!-- END.*/s', $version_info, $match)) {
+	if($get_info && preg_match('/.*BEGIN -->(.+)<!-- END.*/s', $version_info, $match)) {
 	
 		$version_info		= explode(LF, $match[1]);
 		$latest_version		= trim($version_info[0]);
@@ -293,7 +294,7 @@ function phpwcmsversionCheck() {
 		$latest_time		= strtotime($latest_revdate.' 00:00:00');
 		$version_time		= strtotime(PHPWCMS_RELEASE_DATE.' 00:00:00');
 	
-		if ($latest_revision >= $phpwcms['revision'] || $latest_time >= $version_time || strpos(PHPWCMS_VERSION, '-dev'))	{
+		if($latest_revision <= $phpwcms['revision'] || $latest_time <= $version_time || strpos(PHPWCMS_VERSION, '-dev'))	{
 			
 			$version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
 			
