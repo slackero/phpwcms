@@ -91,7 +91,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			// make a redirection to avoid message when using browser back
 			$GLOBALS['_getVar']['searchstart'] = 1;
 			$GLOBALS['_getVar']['searchwords'] = $s_result_highlight;
-			headerRedirect(PHPWCMS_URL.'index.php' . returnGlobalGET_QueryString('rawurlencode'));
+			headerRedirect(abs_url(array(), array(), '', 'rawurlencode'));
 		}
 		
 		$s_result_highlight = rawurlencode($s_result_highlight);
@@ -449,7 +449,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			// create link to search page
 			unset($GLOBALS['_getVar']['searchstart']);
 			$GLOBALS['_getVar']['searchwords'] = $s_result_highlight;
-			$_search_page_link = 'index.php' . returnGlobalGET_QueryString('htmlentities');
+			$_search_page_link = rel_url();
 			
 			if($_search_end_at > $_search_results) $_search_end_at = $_search_results;
 			
@@ -603,7 +603,7 @@ if(isset($content["search"]["result_per_page"])) {
 	
 	unset($GLOBALS['_getVar']['searchwords'], $GLOBALS['_getVar']['searchstart']);
 	
-	$CNT_TMP .= '<form action="index.php' . returnGlobalGET_QueryString('htmlentities') . '" method="post">'.LF;
+	$CNT_TMP .= '<form action="' . rel_url() . '" method="post">'.LF;
 	$CNT_TMP .= '<table cellspacing="0" cellpadding="0" border="0" summary="Search">'.LF.'<tr>'.LF;
 	if($content["search"]["label_input"]) {
 		$CNT_TMP .= '<td class="formLabel">';

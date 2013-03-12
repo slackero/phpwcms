@@ -194,9 +194,11 @@ if($image['template']) {
 				$caption[1] 	= html_specialchars(empty($caption[3]) ? $value['thumb_name'] : $caption[3]);
 				$caption[4]		= html_specialchars($caption[0]);
 			}
-			$caption[2]			= explode(' ', $value['url']);
-			$caption[2][1]		= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
-			$caption[3] 		= empty($value['caption']) ? '' : ' title="'.$capt_cur.'"'; //title
+			if(empty($caption[2])) {
+				$caption[2]			= explode(' ', $value['url']);
+				$caption[2][1]		= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
+			}
+			$caption[3] = empty($capt_cur) ? '' : ' title="'.$capt_cur.'"'; //title
 
 			$list_img_temp  	= '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
 			
@@ -376,7 +378,6 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 			
-						
 			// check if this is the last image in row
 			if($image['col'] == $col || $image['count'] == $total) {
 				

@@ -718,7 +718,7 @@ if(strpos($content["all"],'{TIME_') !== false) {
 }
 
 // replace custom search form input field and action with right target
-if(strpos($content["all"],'###search_input_action') !== false) {
+if(strpos($content["all"],'###search_input_') !== false) {
 	$content["all"] = str_replace('###search_input_field###', 'search_input_field', $content["all"]);
 	$content["all"] = str_replace('###search_input_value###', (empty($content["search_word"]) ? '' : $content["search_word"]), $content["all"]);
 	// create serahc form action
