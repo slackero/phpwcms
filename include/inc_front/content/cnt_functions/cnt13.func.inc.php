@@ -134,7 +134,7 @@ class search_News {
 		if(count($this->search_category)) {
 		
 			if(empty($this->search_target_url)) {
-				$this->search_target_url = 'index.php' . returnGlobalGET_QueryString('htmlentities', array(), array('newsdetail'));
+				$this->search_target_url = rel_url(array(), array('newsdetail'));
 			} else {	
 				$this->search_target_url = html_specialchars($this->search_target_url);
 			}

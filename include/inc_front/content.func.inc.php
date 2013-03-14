@@ -64,7 +64,7 @@ if(isset($_GET["id"])) {
 			}
 		}
 		$GLOBALS['_getVar']['id'] = implode(',', $aktion);
-		headerRedirect(PHPWCMS_URL.'index.php'.returnGlobalGET_QueryString(), 404);
+		headerRedirect(abs_url( array(), array(), '', 'urlencode'), 404);
 	}
 	
 	// Force 301 Redirect when alias is available

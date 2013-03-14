@@ -139,7 +139,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 		
 			$_loginData['reminder'] = $_loginData['reminder_success'];
 		
-			$_loginData['LOGIN_URL'] = 'index.php'.returnGlobalGET_QueryString('', array(), array('profile_manage', 'profile_register', 'profile_reminder') );
+			$_loginData['LOGIN_URL'] = rel_url(array(), array('profile_manage', 'profile_register', 'profile_reminder') );
 		
 			$_loginData['reminder_email'] = str_replace('{LOGIN_URL}', PHPWCMS_URL . $_loginData['LOGIN_URL'], $_loginData['reminder_email']);
 			
@@ -238,7 +238,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 	// check register profile
 	if($_loginData['felogin_profile_registration']) {
 		// possible -> set link to form
-		$_loginData['uri'] = 'index.php'.returnGlobalGET_QueryString('htmlentities', array('profile_register'=>$_loginData['get_profile_register']), array('profile_manage', 'profile_reminder') );
+		$_loginData['uri'] = rel_url( array('profile_register'=>$_loginData['get_profile_register']), array('profile_manage', 'profile_reminder') );
 		$_loginData['template'] = render_cnt_template($_loginData['template'], 'REGISTER_PROFILE', $_loginData['uri'] );
 	} else {
 		// not possible
@@ -265,10 +265,10 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 		$_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', '' );
 	}
 	
-	$_loginData['uri'] = 'index.php'.returnGlobalGET_QueryString('htmlentities', array('profile_reminder'=>'1'), array('profile_manage', 'profile_register') );
+	$_loginData['uri'] = rel_url( array('profile_reminder'=>'1'), array('profile_manage', 'profile_register') );
 	$_loginData['template'] = render_cnt_template($_loginData['template'], 'REMINDER_FORM', $_loginData['uri'] );
 	
-	$_loginData['uri'] = 'index.php'.returnGlobalGET_QueryString('htmlentities', array(), array('profile_manage', 'profile_register', 'profile_reminder') );
+	$_loginData['uri'] = rel_url( array(), array('profile_manage', 'profile_register', 'profile_reminder') );
 	$CNT_TMP .=  str_replace(array('{FORM_TARGET}', '{LOGIN_URL}'), $_loginData['uri'], $_loginData['template']);
 
 }

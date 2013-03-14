@@ -82,12 +82,9 @@ if($userFontSize != 'default') {
 }
 
 unset($GLOBALS['_getVar']['switchFontSize']);
-$newFontSizeURL = returnGlobalGET_QueryString('htmlentities');
-$newFontSizeURL = PHPWCMS_URL . 'index.php' .(($newFontSizeURL == '') ? '?' : $newFontSizeURL);
  
-$content['all'] = str_replace('[FontSize+]', $newFontSizeURL.'&amp;switchFontSize='.$newFontSizeBigger, $content['all']);
-$content['all'] = str_replace('[FontSize=]', $newFontSizeURL.'&amp;switchFontSize=default', $content['all']);
-$content['all'] = str_replace('[FontSize-]', $newFontSizeURL.'&amp;switchFontSize='.$newFontSizeSmaller, $content['all']);
-$content['all'] = str_replace('?&amp;switchFontSize', '?switchFontSize', $content['all']);
+$content['all'] = str_replace('[FontSize+]', abs_url(array('switchFontSize' => $newFontSizeBigger)), $content['all']);
+$content['all'] = str_replace('[FontSize=]', abs_url(array('switchFontSize' => 'default')), $content['all']);
+$content['all'] = str_replace('[FontSize-]', abs_url(array('switchFontSize' => $newFontSizeSmaller)), $content['all']);
 
 ?>

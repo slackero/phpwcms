@@ -88,10 +88,10 @@ function listRecipeCategories($option) {
 	$cat = '';
 
 	unset($_getVar['recipecat']);
-	$base_link = 'index.php' . returnGlobalGET_QueryString('htmlentities');
+
 	foreach($cat_all as $temp) {
 
-		$cat .= '	<li><a href="'.$base_link.'&amp;recipecat='.rawurlencode($temp).'" ';
+		$cat .= '	<li><a href="'.rel_url(array('recipecat' => $temp)).'" ';
 		$temp = html_specialchars($temp);
 		$cat .= 'title="'.$temp.'">'.$temp.'</a></li>' . LF;
 

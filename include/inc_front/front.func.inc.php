@@ -1165,7 +1165,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 		// next page link
 		if($GLOBALS['paginate_temp']['next'] && $page_current < $max_pages) {
 			$_getVar['listpage'] = $page_next;
-			$page_next_link = '<a href="index.php' . returnGlobalGET_QueryString('htmlentities') . '">' . $GLOBALS['paginate_temp']['next'] . '</a>';
+			$page_next_link = '<a href="' . rel_url() . '">' . $GLOBALS['paginate_temp']['next'] . '</a>';
 		} else {
 			$page_next_link = $GLOBALS['paginate_temp']['next'];
 		}
@@ -1173,7 +1173,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 		// previous page link
 		if($GLOBALS['paginate_temp']['prev'] && $page_current > 1) {
 			$_getVar['listpage'] = $page_prev;
-			$page_prev_link = '<a href="index.php' . returnGlobalGET_QueryString('htmlentities') . '">' . $GLOBALS['paginate_temp']['prev'] . '</a>';
+			$page_prev_link = '<a href="' . rel_url() . '">' . $GLOBALS['paginate_temp']['prev'] . '</a>';
 		} else {
 			$page_prev_link = $GLOBALS['paginate_temp']['prev'];
 		}

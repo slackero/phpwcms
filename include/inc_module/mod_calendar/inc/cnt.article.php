@@ -83,7 +83,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 	}
 		
 	unset($GLOBALS['_getVar']['glossaryid']);
-	$content['glossary']['base_link'] = 'index.php'.returnGlobalGET_QueryString('htmlentities');
+	$content['glossary']['base_link'] = rel_url();
 
 	$content['glossary']['detail_head']		= str_replace('{BACKLINK}', $content['glossary']['base_link'], $content['glossary']['detail_head']);
 	$content['glossary']['detail_footer']	= str_replace('{BACKLINK}', $content['glossary']['base_link'], $content['glossary']['detail_footer']);
@@ -160,7 +160,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 	$content['glossary']['entries'] = _dbQuery($sql);
 	
 	unset($GLOBALS['_getVar']['glossary']);
-	$content['glossary']['base_link'] = 'index.php'.returnGlobalGET_QueryString('htmlentities');
+	$content['glossary']['base_link'] = rel_url();
 	if(strpos($content['glossary']['base_link'], '?') === false) {
 		$content['glossary']['base_link'] .= '?';
 	} else {

@@ -54,7 +54,7 @@ if( strpos($content['all'], '{GALLERY}') !== FALSE ) {
 			$subgallery				= $subgallery[0];
 			$subgallery_get			= '';
 			$subgallery_class		= 'root';
-			$gallery_breadcrumb_url	= 'index.php'.returnGlobalGET_QueryString('htmlentities', array(), array('gallery', 'subgallery'), $gallery->alias);
+			$gallery_breadcrumb_url	= rel_url(array(), array('gallery', 'subgallery'), $gallery->alias);
 		
 			// check if parent directory exists
 			if(!empty($subgallery['f_root_id'])) {

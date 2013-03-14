@@ -30,7 +30,7 @@ function buildCalendarLink($date_value='') {
 	$_oldCalValue = '';
 	if(!empty($_getVar['calendardate'])) $_oldCalValue = $_getVar['calendardate']; //save old value
 	if(!empty($date_value)) $_getVar['calendardate'] = $date_value; //set new value
-	$link = 'index.php' . returnGlobalGET_QueryString('urlencode'); //build Link
+	$link = rel_url(array(), array(), '', 'urlencode'); //build Link
 	if($_oldCalValue) $_getVar['calendardate'] = $_oldCalValue; //restore old value
 	return $link;
 }

@@ -159,7 +159,7 @@ class phpwcmsImageGallery {
 		if($alias !== '') {
 			$this->alias = $alias;
 		}
-		$this->url = PHPWCMS_URL.'index.php'.returnGlobalGET_QueryString('htmlentities', array(), array('gallery'), $this->alias);
+		$this->url = abs_url(array(), array('gallery'), $this->alias);
 	}
 	
 	function setGallerySort($sort='') {

@@ -22,20 +22,18 @@ $_user_CSS = 'default';
 if(!empty($_GET['switchCSS'])) {
 	
 	$_user_CSS = clean_slweg($_GET['switchCSS']);
+	
 	// try to write FontSizeCookie
 	setcookie('switchCSS', $_user_CSS, time()+86400);
 
-} else {
+} elseif(isset($_SESSION['switchCSS'])) {
 	
-	if(isset($_SESSION['switchCSS'])) {
-		$_user_CSS = $_SESSION['switchCSS'];
-	} else {
+	$_user_CSS = $_SESSION['switchCSS'];
 
-		if(!empty($_COOKIE['switchCSS'])) {
-			$_user_CSS = $_COOKIE['switchCSS'];
-		}
-		
-	}
+} elseif(!empty($_COOKIE['switchCSS'])) {
+	
+	$_user_CSS = $_COOKIE['switchCSS'];
+
 }
 
 if(session_id()) {
@@ -45,16 +43,17 @@ if(session_id()) {
 }
 
 unset($GLOBALS['_getVar']['switchCSS']);
-$newCSSURL = returnGlobalGET_QueryString('htmlentities');
-$newCSSURL = PHPWCMS_URL . 'index.php' .(($newCSSURL == '') ? '?' : $newCSSURL);
 
 if($_user_CSS != 'default') {
-	$block['css'][]  = 'alternate/'.$_user_CSS.'.css';
-	$content['all'] = str_replace('[ALTCSS_URL]', $newCSSURL.'&amp;switchCSS=default', $content['all']);
-} else {
-	$content['all'] = str_replace('[ALTCSS_URL]', $newCSSURL.'&amp;switchCSS=alt', $content['all']);
-}
 
+	$block['css'][]  = 'alternate/'.$_user_CSS.'.css';
+	$content['all'] = str_replace('[ALTCSS_URL]', abs_url(array('switchCSS' => 'default')), $content['all']);
+
+} else {
+
+	$content['all'] = str_replace('[ALTCSS_URL]', abs_url(array('switchCSS' => 'alt')), $content['all']);
+
+}
 
 
 ?>

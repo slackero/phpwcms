@@ -437,7 +437,7 @@ if($guestbook['visible']) {
 				
 				$GLOBALS['_getVar']['guestbookentry'] = $guestbook['new_entry_id'];
 				// to avoid double Post
-				headerRedirect(PHPWCMS_URL.'index.php'.returnGlobalGET_QueryString());
+				headerRedirect(abs_url( array(), array(), '', 'urlencode'));
 				
 			} else {
 				$guestbook['readform'] = 0;
@@ -524,7 +524,7 @@ if($guestbook['visible']) {
 			$guestbook['form'] = str_replace('{GBSHOW_2}', $guestbook['GBSHOW_2'], $guestbook['form']);
 			
 			// build sign guestbook form
-			$guestbook['form']  = '<form name="sign_guestbook" action="index.php'.returnGlobalGET_QueryString('htmlentities').'" method="post"' .
+			$guestbook['form']  = '<form name="sign_guestbook" action="'.rel_url().'" method="post"' .
 								  (empty($guestbook["image_upload"]) ? '' : ' enctype="multipart/form-data"') .
 								  '>'.$guestbook['form'];
 			if(!empty($guestbook['hidden'])) {

@@ -1602,7 +1602,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			
 		}
 		
-		$cnt_form['fe_current_url'] = PHPWCMS_URL . 'index.php' . returnGlobalGET_QueryString('rawurlencode');
+		$cnt_form['fe_current_url'] = abs_url(array(), array(), '', 'rawurlencode');
 		
 		$cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
 		$cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
