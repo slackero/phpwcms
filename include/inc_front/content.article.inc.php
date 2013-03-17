@@ -224,6 +224,17 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$img_thumb_width	= $thumb_image[1];
 				$img_thumb_height	= $thumb_image[2];
 				$img_thumb_ext		= which_ext($thumb_image[0]);
+				
+				$content['images']['article'] = array(
+					'name'	=> $row["article_image"]["name"],
+					'hash'	=> $row["article_image"]["hash"],
+					'ext'	=> $img_thumb_ext,
+					'image' => array(
+						'width'		=> $img_thumb_width,
+						'height'	=> $img_thumb_height,
+						'src'		=> $img_thumb_rel
+					)
+				);
 
 				if($row["article_image"]["zoom"]) {
 
@@ -242,6 +253,12 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 						$img_zoom_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
 						$img_zoom_width		= $zoominfo[1];
 						$img_zoom_height	= $zoominfo[2];
+						
+						$content['images']['article']['zoom'] = array(
+							'width'		=> $img_zoom_width,
+							'height'	=> $img_zoom_height,
+							'src'		=> $img_zoom_rel			
+						);
 
 						$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
 					
@@ -277,20 +294,20 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 						$popup_img = $thumb_img;
 						
 					}
-				} else {
-						
-					if($caption[2][0]) {
-						$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">'.$thumb_img.'</a>';
-					}
+					
+				} elseif($caption[2][0]) {
+					
+					$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">'.$thumb_img.'</a>';
+				
 				}
 			}
+
 		} else {
 		
 			$row["article_image"]['id']		= 0;
 			$row["article_image"]['hash']	= '';
 		
 		}
-		
 
 		// make some elementary checks regarding content part pagination
 		$_CpPaginate = false;

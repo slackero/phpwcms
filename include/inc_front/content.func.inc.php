@@ -29,6 +29,7 @@ $content['CpTrigger']			= array(); // array to hold content part trigger functio
 $content['404error']			= false;
 $content['set_canonical']		= false;
 $content['cptab']				= array(); // array to hold content part based tabs
+$content['images']				= array();
 $pagelayout						= array();
 $no_content_for_this_page		= 0;
 $alias							= '';
@@ -1189,15 +1190,11 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 				$value['alias'] = html_specialchars($value['alias']);
 	
 				if($value['alias_type'] == 'id') {
-					
-					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
-					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+
 					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
 				
 				} else {
-				
-					//$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
-					//$content['all'] = str_replace('index.php?aid=' . $value['aid'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+
 					$content['all'] = str_replace('index.php?aid=' . $value['aid'] . $all_close['aid'.$value['aid']], 'index.php?' . $value['alias'] . $all_close['aid'.$value['aid']], $content['all']);
 				
 				}
@@ -1206,9 +1203,7 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 				if( $old_style == true ) {
 				
 					$value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
-				
-					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '"', 'index.php?' . $value['alias'] . '"', $content['all']);
-					//$content['all'] = str_replace('index.php?id=' . $value['id'] . '&', 'index.php?' . $value['alias'] . '&', $content['all']);
+
 					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
 				
 				}	
