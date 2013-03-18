@@ -36,14 +36,26 @@ class qqUploadedFileXhr {
         if(!$temp) {
         	$temp = fopen("php://temp", "wb");
         }
-        $realSize = stream_copy_to_stream($input, $temp);
+		if(!$input || !$temp) {
+			
+			if($input) {
+				fclose($input);	
+			}
+			
+			return false;	
+		}
+        
+		$realSize = stream_copy_to_stream($input, $temp);
         fclose($input);
         
         if ($realSize != $this->getSize()){            
             return false;
         }
         
-        $target = fopen($path, "w");        
+        $target = fopen($path, "w");
+		if(!$target) {
+			return false;
+		}
         fseek($temp, 0, SEEK_SET);
         stream_copy_to_stream($temp, $target);
         fclose($target);
