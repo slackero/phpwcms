@@ -195,8 +195,8 @@ if($image['template']) {
 				$caption[4]		= html_specialchars($caption[0]);
 			}
 			if(empty($caption[2])) {
-				$caption[2]			= explode(' ', $value['url']);
-				$caption[2][1]		= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
+				$caption[2]		= explode(' ', $value['url']);
+				$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 			}
 			$caption[3] = empty($capt_cur) ? '' : ' title="'.$capt_cur.'"'; //title
 
