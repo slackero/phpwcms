@@ -143,19 +143,19 @@ if($image) {
 			$image_text .= LF . $crow["acontent_text"];	
 			break;
 		
-		// Tabelle, links
-		case 9: 
+		// table mode left
+		case 8: 
 			$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_left'].'-image');
 			if(trim($iconimg.$crow["acontent_text"])) {
 				$image_text .= '<div class="'.$crow["settings"]['class_column_left'].'">'.LF;
-				$image_text .= '	<div class="'.$crow["settings"]['class_column_left'].'-text">'.$crow["acontent_text"].'</div>' . LF;
 				$image_text .= '	' . $iconimg . LF;
+				$image_text .= '	<div class="'.$crow["settings"]['class_column_left'].'-text">'.$crow["acontent_text"].'</div>' . LF;
 				$image_text .= '</div>';
 			}
 			break;
 		
-		// Tabelle, rechts
-		case 8:
+		// table mode right
+		case 9:
 			$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_right'].'-image');
 			if(trim($iconimg.$crow["acontent_text"])) {
 				$image_text .= '<div class="'.$crow["settings"]['class_column_right'].'">' . LF;
