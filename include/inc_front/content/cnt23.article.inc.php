@@ -1266,6 +1266,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 											case 'url_unsubscribe':	$form_newletter_setting['url_unsubscribe']	= $form_value_nl[1];					break;
 											case 'subject':			$form_newletter_setting['subject']			= $form_value_nl[1];					break;
 											case 'double_optin':	$form_newletter_setting['double_optin'] 	= intval($form_value_nl[1]) ? 1 : 0;	break;
+											case 'optin_template':	$form_newletter_setting['optin_template']	= $form_value_nl[1];					break;
 											
 											default:	
 												if( ($form_value_nl[0] = intval($form_value_nl[0])) ) {
@@ -1852,8 +1853,15 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 				if(!empty($form_newletter_setting['double_optin'])) {
 				
 					if(empty($cnt_form['verifyemail'])) {
-						$cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
-						if(empty($cnt_form['verifyemail'])) {
+						if(empty($form_newletter_setting['optin_template']) || !is_file(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']))) {
+							$cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
+						} else {
+							$cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']));
+							if(trim($cnt_form['verifyemail']) === '') {
+								$cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
+							}
+						}
+						if(trim($cnt_form['verifyemail']) === '') {
 							$cnt_form['verifyemail']  = 'Hi {NEWSLETTER_NAME},'.LF.LF.'Someone (presumably you) on {SITE}'.LF.'subscribed to these newsletters:'.LF;
 							$cnt_form['verifyemail'] .= '{SUBSCRIPTIONS}'.LF.LF.'The following email was requested for subscription'.LF.'{NEWSLETTER_EMAIL}'.LF.LF;
 							$cnt_form['verifyemail'] .= 'If you requested this subscription, visit the following URL'.LF.'{NEWSLETTER_VERIFY}'.LF.'to verify and activate it.'.LF.LF;
@@ -1876,6 +1884,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 					$cnt_form['verifyemail'] = str_replace('{NEWSLETTER_EMAIL}', $form_newletter_setting['email_field'], $cnt_form['verifyemail']);
 					$cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', PHPWCMS_URL.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
 					$cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', PHPWCMS_URL.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+					$cnt_form['verifyemail'] = str_replace(array('[br]', '[BR]'), LF, $cnt_form['verifyemail']);
 					$cnt_form['verifyemail'] = replaceGlobalRT($cnt_form['verifyemail']);
 					
 					if(empty($form_newletter_setting['sender_email'])) $form_newletter_setting['sender_email'] = $cnt_form['sender'];

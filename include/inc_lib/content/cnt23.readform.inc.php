@@ -329,6 +329,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 											case 'url_subscribe':	$newletter_array['url_subscribe'] 	= $newsletter[1];					break;
 											case 'url_unsubscribe':	$newletter_array['url_unsubscribe']	= $newsletter[1];					break;
 											case 'double_optin':	$newletter_array['double_optin'] 	= intval($newsletter[1]) ? 1 : 0;	break;
+											case 'optin_template':	$newletter_array['optin_template'] 	= $newsletter[1];					break;
 											case 'subject':			$newletter_array['subject']			= $newsletter[1];					break;
 											
 											default:	if(intval($newsletter[0])) {
