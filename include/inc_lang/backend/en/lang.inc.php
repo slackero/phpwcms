@@ -749,6 +749,7 @@ $BL['be_cnt_sitemap_articleclass']      = 'article class';
 $BL['be_cnt_sitemap_count']             = 'counter';
 $BL['be_cnt_sitemap_classcount']        = 'add to class name';
 $BL['be_cnt_sitemap_noclasscount']      = 'don\'t add to class name';
+$BL['be_cnt_sitemap_without_parent']	= 'without start level';
 
 // added: 23-04-2004
 $BL['be_ctype_bid']				        = 'bid';

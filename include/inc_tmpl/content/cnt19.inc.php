@@ -21,15 +21,16 @@ if (!defined('PHPWCMS_ROOT')) {
 
 if(!isset($content['sitemap'])) {
 
-	$content['sitemap']["before"]		= '';
-	$content['sitemap']["after"]		= '';
-	$content['sitemap']["catimg"]		= '';
-	$content['sitemap']["articleimg"]	= '';
-	$content['sitemap']["startid"]		= 0;
-	$content['sitemap']["display"]		= 0;
-	$content['sitemap']["catclass"]		= '';
-	$content['sitemap']["articleclass"]	= '';
-	$content['sitemap']["classcount"]	= 0;
+	$content['sitemap']["before"]			= '';
+	$content['sitemap']["after"]			= '';
+	$content['sitemap']["catimg"]			= '';
+	$content['sitemap']["articleimg"]		= '';
+	$content['sitemap']["startid"]			= 0;
+	$content['sitemap']["display"]			= 0;
+	$content['sitemap']["catclass"]			= '';
+	$content['sitemap']["articleclass"]		= '';
+	$content['sitemap']["classcount"]		= 0;
+	$content['sitemap']["without_parent"]	= 0;
 
 }
 
@@ -75,10 +76,12 @@ if(!isset($content['sitemap'])) {
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_display'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
   <tr>
-  	<td><input name="csitemap_display" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["display"]) ?>></td>
-	<td><?php echo $BL['be_cnt_sitemap_structuronly'] ?>&nbsp;&nbsp;</td>
-	<td><input name="csitemap_display" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["display"]) ?>></td>
-	<td><?php echo $BL['be_cnt_sitemap_structurarticle'] ?>&nbsp;&nbsp;&nbsp;</td>
+  	<td><input name="csitemap_display" id="csitemap_display0" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["display"]) ?>></td>
+	<td><label for="csitemap_display0"><?php echo $BL['be_cnt_sitemap_structuronly'] ?></label>&nbsp;&nbsp;</td>
+	<td><input name="csitemap_display" id="csitemap_display1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["display"]) ?>></td>
+	<td><label for="csitemap_display1"><?php echo $BL['be_cnt_sitemap_structurarticle'] ?></label>&nbsp;&nbsp;</td>
+	<td><input name="csitemap_without_parent" id="csitemap_without_parent" type="checkbox" value="1" <?php is_checked(1, $content["sitemap"]["without_parent"]) ?>></td>
+	<td><label for="csitemap_without_parent"><?php echo $BL['be_cnt_sitemap_without_parent'] ?></label>&nbsp;&nbsp;</td>
   </tr></table></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
@@ -96,10 +99,10 @@ if(!isset($content['sitemap'])) {
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_count'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
   <tr>
-  	<td><input name="csitemap_classcount" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["classcount"]) ?>></td>
-	<td><?php echo $BL['be_cnt_sitemap_noclasscount'] ?>&nbsp;&nbsp;</td>
-	<td><input name="csitemap_classcount" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["classcount"]) ?>></td>
-	<td><?php echo $BL['be_cnt_sitemap_classcount'] ?>&nbsp;&nbsp;&nbsp;</td>
+  	<td><input name="csitemap_classcount" id="csitemap_classcount0" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["classcount"]) ?>></td>
+	<td><label for="csitemap_classcount0"><?php echo $BL['be_cnt_sitemap_noclasscount'] ?></label>&nbsp;&nbsp;</td>
+	<td><input name="csitemap_classcount" id="csitemap_classcount1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["classcount"]) ?>></td>
+	<td><label for="csitemap_classcount1"><?php echo $BL['be_cnt_sitemap_classcount'] ?></label>&nbsp;&nbsp;</td>
   </tr></table></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>

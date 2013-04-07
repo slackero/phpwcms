@@ -747,6 +747,7 @@ $BL['be_cnt_sitemap_articleclass']      = 'Artikel CSS Class';
 $BL['be_cnt_sitemap_count']             = 'Z&auml;hler';
 $BL['be_cnt_sitemap_classcount']        = 'im CSS Class Namen mitf&uuml;hren';
 $BL['be_cnt_sitemap_noclasscount']      = 'nicht im CSS Class Namen mitf&uuml;hren';
+$BL['be_cnt_sitemap_without_parent']	= 'ohne Startebene';
 
 // added: 23-04-2004
 $BL['be_ctype_bid']				        = 'Angebot';
