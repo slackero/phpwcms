@@ -3247,17 +3247,18 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 function get_level_ahref($key=0, $custom_link_add='') {
 	$link = '<a href="';
-	if(!$GLOBALS['content']['struct'][$key]["acat_redirect"]) {
-		$link .= 'index.php?';
-		if($GLOBALS['content']['struct'][$key]['acat_alias']) {
-			$link .= $GLOBALS['content']['struct'][$key]['acat_alias'];
-		} else {
-			$link .= 'id='.$key.',0,0,1,0,0';
-		}
-		$link .= '"';
-	} else {
+	if($GLOBALS['content']['struct'][$key]["acat_redirect"]) {
 		$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
 		$link .= html_specialchars($redirect['link']).'"'.$redirect['target'];
+	} else {
+		if(!PHPWCMS_REWRITE) {
+			$link .= 'index.php?';
+		}
+		$link .= $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key;
+		if(PHPWCMS_REWRITE) {
+			$link .= PHPWCMS_REWRITE_EXT;
+		}
+		$link .= '"';
 	}
 	return $link.$custom_link_add.'>';
 }
@@ -3279,7 +3280,7 @@ function getStructureChildData($level_id=0) {
 	$struct_data = array();
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 		if( _getStructureLevelDisplayStatus($key, $level_id) ) {
-			$struct_data[$key]	= $value;
+			$struct_data[$key] = $value;
 		}
 	}
 	return $struct_data;
@@ -3288,13 +3289,18 @@ function getStructureChildData($level_id=0) {
 function getStructureChildEntryHref($childData) {
 
 	$a = array('link'=>'', 'target'=>'');
-	if(!$childData["acat_redirect"]) {
-		$a['link'] .= 'index.php?';
-		$a['link'] .= $childData['acat_alias'] ? $childData['acat_alias'] : 'id='.$childData['acat_id'].',0,0,1,0,0';
-	} else {
+	if($childData["acat_redirect"]) {
 		$redirect = get_redirect_link($childData["acat_redirect"], ' ', '');
 		$a['link']   .= $redirect['link'];
 		$a['target'] .= $redirect['target'];
+	} else {
+		if(!PHPWCMS_REWRITE) {
+			$a['link'] .= 'index.php?';
+		}
+		$a['link'] .= $childData['acat_alias'] ? $childData['acat_alias'] : 'id='.$childData['acat_id'];
+		if(PHPWCMS_REWRITE) {
+			$a['link'] .= PHPWCMS_REWRITE_EXT;
+		}
 	}
 	return $a;
 
@@ -3822,6 +3828,28 @@ function set_meta($name='', $content='', $type=FALSE) {
 		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'" />';
+}
+
+/**
+ * Add HTML Head link tag
+ */
+function set_link($attributes) {
+	if(empty($attributes)) {
+		return NULL;
+	}
+	if(is_array($attributes)) {
+		if(!count($attributes)) {
+			return NULL;
+		}
+		$hash = md5(implode('', $attributes));
+		foreach($attributes as $key => $attribute) {
+			$attributes[$key] = $key.'="' . html_specialchars($attribute) . '"';
+		}
+		$attributes = implode(' ', $attributes);
+	} else {
+		$hash = md5($attributes);
+	}
+	$GLOBALS['block']['custom_htmlhead']['link.'.$hash] = '  <link ' . $attributes . HTML_TAG_CLOSE;
 }
 
 /**
