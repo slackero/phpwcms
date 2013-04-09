@@ -344,7 +344,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					
 					$content['alink']['tr'][$key]	= str_replace('{ARTICLEID}', $row['article_id'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= str_replace('{CATEGORYID}', $row['article_cid'], $content['alink']['tr'][$key]);
-					//$content['alink']['tr'][$key]	= str_replace('{COLUMN}', $content['alink']['column']-$content['alink']['column_minus'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= str_replace('{COLUMN}', $content['alink']['column_current'], $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= str_replace('{ROW}', $content['alink']['row']-$content['alink']['row_minus'], $content['alink']['tr'][$key]);
 					
@@ -353,6 +352,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
 					$content['alink']['tr'][$key]	= render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], phpwcms_strtotime($row['article_begin']), phpwcms_strtotime($row['article_end']));
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
+					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'ACTIVE', isset($content["article_id"]) && $content["article_id"] == $row['article_id'] ? 'active' : '');
 
 					$row['article_image']					= setArticleSummaryImageData( @unserialize( $row['article_image'] ) );
 					$content['alink']['caption']			= getImageCaption($row['article_image']['list_caption']);
@@ -522,10 +522,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					break;
 					
 				}
-			
 			}
 		}
-		
 	}
 	
 	// combine all teaser items

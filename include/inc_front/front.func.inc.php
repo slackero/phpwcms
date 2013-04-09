@@ -3827,7 +3827,7 @@ function set_meta($name='', $content='', $type=FALSE) {
 	} else {
 		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
 	}
-	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'" />';
+	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'"'.HTML_TAG_CLOSE;
 }
 
 /**
