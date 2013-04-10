@@ -33,8 +33,12 @@ if(!isset($content['poll_list'])) {
 if(empty($content["poll_form"])) {
 	$content["poll_form"] = array();
 }
-
-
+if(!isset($content['poll_text']['poll_buttonstyle'])) {
+	$content['poll_text']['poll_buttonstyle'] = '';
+}
+if(!isset($content['poll_text']['poll_buttontext'])) {
+	$content['poll_text']['poll_buttontext'] = '';
+}
 if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["choice"]) && count($content["poll_form"]["choice"])) {
 	foreach($content["poll_form"]["choice"] as $key => $value) {
 		$caption_box .= html_specialchars($content["poll_form"]["choice"][$key])."\n";
