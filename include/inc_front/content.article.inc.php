@@ -666,7 +666,7 @@ if(empty($template_default["article"]["div_spacer"])) {
 
 // set canonical <link> in page <head> section to avoid lower SEO ranking
 // see: http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
-if($content['set_canonical']) {
+if($content['set_canonical'] && empty($phpwcms['canonical_off']) && empty($phpwcms['force301_2struct'])) {
 	if($content['aId_CpPage']) {
 		$content['set_canonical'] = 'aid='.$row["article_id"].'-'.$content['aId_CpPage'];
 		if(!empty($content['struct'][ $content['cat_id'] ]['acat_alias'])) {

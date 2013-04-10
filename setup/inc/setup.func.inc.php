@@ -238,6 +238,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure level when only 1 article is inside\n";
 	$conf_file .= "\$phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty\n";
 	$conf_file .= "\$phpwcms['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things\n";
+	$conf_file .= "\$phpwcms['canonical_off']     = false; // disable canonical link tag\n";
 	
 	$conf_file .= "\n// smtp values\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";

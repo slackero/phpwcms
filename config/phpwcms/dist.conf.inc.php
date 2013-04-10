@@ -114,6 +114,7 @@ $phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure le
 $phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty
 $phpwcms['reserved_alias']    = array(); // use this to block custom alias
 $phpwcms['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things
+$phpwcms['canonical_off']     = false; // disable canonical link tag
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address
