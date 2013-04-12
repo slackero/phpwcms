@@ -1590,16 +1590,13 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			// replace tags in email form
 			$cnt_form['template'] = str_replace('{'. $POST_key . '}', $POST_keyval, $cnt_form['template']);
 			
-			//replace tags in the success form but not for redirect.
-			if($cnt_form["onsuccess_redirect"] !== 1) {
-				
+			
 				// check if it is htmlentity
 				if(!$cnt_form['is_html_entity'] && $cnt_form["onsuccess_redirect"] === 2) {
 					$POST_keyval = html_specialchars($POST_keyval);
 				}
 				$cnt_form["onsuccess"] = str_replace('{'. $POST_key . '}', $POST_keyval, $cnt_form["onsuccess"]);
 				$cnt_form["onsuccess"] = render_cnt_template($cnt_form["onsuccess"], 'EMAIL_COPY', empty($cnt_form['sendcopy']) || $cnt_form['option_email_copy'] === false ? '' : html_specialchars($cnt_form["copyto"]));
-			}
 			
 		}
 		
