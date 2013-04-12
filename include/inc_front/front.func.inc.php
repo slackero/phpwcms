@@ -2898,7 +2898,10 @@ function get_fe_userinfo($forum_userID) {
 	}
 }
 
-function highlightSearchResult($string='', $search, $wrap='<em class="highlight">|</em>') {
+function highlightSearchResult($string='', $search) {
+	global $template_default;
+  	$wrap = $template_default['search_highlight'];
+  	
 	// string will be highlighted by $search - can be string or array
 	if(!empty($string) && !empty($search)) {
 
@@ -2933,7 +2936,8 @@ function highlightSearchResult($string='', $search, $wrap='<em class="highlight"
 function pregReplaceHighlightWrapper($matches) {
 	// just a wrapper for frontend sectional highlighting
 	global $highlight_words;
-	return highlightSearchResult($matches[1], $highlight_words, '<em class="highlight">|</em>');
+	global $template_default;
+	return highlightSearchResult($matches[1], $highlight_words, $template_default['search_highlight']);
 }
 
 function buildCascadingMenu($parameter='', $counter=0, $param='string') {
