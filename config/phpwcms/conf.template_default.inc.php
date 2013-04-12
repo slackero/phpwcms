@@ -7,6 +7,9 @@ $template_default['nav_table_simple_struct']['border']		= '0';
 $template_default['nav_table_simple_struct']['cellpadding']	= '0';
 $template_default['nav_table_simple_struct']['cellspacing']	= '0';
 
+//search highlight wrap
+$template_default['search_highlight']				= '<em class="highlight">|</em>';
+
 // row based navigation
 $template_default['nav_row']['before']						= '';
 $template_default['nav_row']['after']						= '';
