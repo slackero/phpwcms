@@ -10,7 +10,7 @@
  **/
 
  
-// Language: Polish, Language Code: pl UTF-8 for ver.1.6.530 Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.6.531 Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -137,7 +137,7 @@ $BL['be_profile_label_signature']  = 'Podpis';
 $BL['be_profile_label_notes']      = 'Notatka';
 $BL['be_profile_label_profession'] = 'Zawód';
 $BL['be_profile_label_newsletter'] = 'Listy nowości';
-$BL['be_profile_text_newsletter']  = 'Zgadzam się na otrzymywanie ogólnych listów nowości z serwisu krynica.malopolska.pl.';
+$BL['be_profile_text_newsletter']  = 'Zgadzam się na otrzymywanie ogólnych listów nowości z serwisu.';
 $BL['be_profile_label_public']     = 'publiczne';
 $BL['be_profile_text_public']      = 'Każdy może widzieć moje dane osobiste.';
 $BL['be_profile_label_button']     = 'Uaktualnij dane osobiste';
@@ -749,6 +749,7 @@ $BL['be_cnt_sitemap_articleclass']      = 'klasa artykułu';
 $BL['be_cnt_sitemap_count']             = 'licznik';
 $BL['be_cnt_sitemap_classcount']        = 'dodaj do nazwy klasy';
 $BL['be_cnt_sitemap_noclasscount']      = 'nie dodawaj do nazwy klasy';
+$BL['be_cnt_sitemap_without_parent']	= 'bez poziomu początkowego';
 
 // added: 23-04-2004
 $BL['be_ctype_bid']			= 'Oferta';
