@@ -112,27 +112,19 @@ function renderHeadJS($js) {
 		
 		initJSLib();
 		
-	} else {
-		
-		// decide if plugin or script
-		if($remote || which_ext($js) == 'js') {
+	} elseif($remote || which_ext($js) == 'js') { // decide if plugin or script
 			
 			// replace {TEMPLATE}
 			$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
 			$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
 			
-		} else {
-			
-			initJSLib();
-			
-			if(strtolower($js) != 'initlib') {
-	
-				initJSPlugin($js);
-				
-			}
-			
+	} else {
+		
+		initJSLib();
+
+		if(strtolower($js) != 'initlib') {
+			initJSPlugin($js);		
 		}
-	
 	}
 	
 	return '';
