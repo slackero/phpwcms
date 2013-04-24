@@ -289,7 +289,7 @@ if(!empty($db_init)) {
 		$c = 0;
 		foreach($sql_data as $key => $value) {
 		
-			$value = trim($value);
+			$value = trim(preg_replace('/--\s/', '', trim($value)));
 			
 			if(empty($value)) {
 				unset($sql_data[$key]);
@@ -312,7 +312,7 @@ if(!empty($db_init)) {
 				$sql_data[$key] .= ' COLLATE '.$phpwcms['db_collation'];
 			}
 						
-			$sql_data[$key] .= '&nbsp;;</p></div>';
+			$sql_data[$key] .= ';</p></div>';
 			$c++;
 		}
 		
