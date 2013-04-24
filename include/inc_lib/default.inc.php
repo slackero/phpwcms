@@ -229,21 +229,32 @@ if(empty($phpwcms['SMTP_FROM_EMAIL'])) {
 $phpwcms['default_lang']	= strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
-if(empty($phpwcms['js_lib'])) {
-	$phpwcms['js_lib'] = array(
-		'jquery-1.9'			=> 'jQuery 1.9',
-		'jquery-1.9-migrate'	=> 'jQuery 1.9 Migrate',
-		'jquery-1.8'			=> 'jQuery 1.8',
-		'jquery-1.7'			=> 'jQuery 1.7',
-		'jquery-1.6'			=> 'jQuery 1.6',
-		'jquery-1.5'			=> 'jQuery 1.5',
-		'jquery-1.4'			=> 'jQuery 1.4',
-		'jquery'				=> 'jQuery 1.3',
-		'mootools-1.4'			=> 'MooTools 1.4',
-		'mootools-1.4-compat'	=> 'MooTools 1.4 Compat',
-		'mootools-1.2'			=> 'MooTools 1.2',
-		'mootools-1.1'			=> 'MooTools 1.1'
-	);
+$phpwcms['js_lib_default'] = array(
+	'jquery-2.0'			=> 'jQuery 2.0',
+	'jquery-2.0-migrate'	=> 'jQuery 2.0 Migrate',
+	'jquery-1.9'			=> 'jQuery 1.9',
+	'jquery-1.9-migrate'	=> 'jQuery 1.9 Migrate',
+	'jquery-1.8'			=> 'jQuery 1.8',
+	'jquery-1.7'			=> 'jQuery 1.7',
+	'jquery-1.6'			=> 'jQuery 1.6'
+);
+$phpwcms['js_lib_deprecated'] = array(
+	'jquery-1.5'			=> 'jQuery 1.5',
+	'jquery-1.4'			=> 'jQuery 1.4',
+	'jquery'				=> 'jQuery 1.3',
+	'mootools-1.4'			=> 'MooTools 1.4',
+	'mootools-1.4-compat'	=> 'MooTools 1.4 Compat',
+	'mootools-1.2'			=> 'MooTools 1.2',
+	'mootools-1.1'			=> 'MooTools 1.1'
+);
+
+if(isset($phpwcms['js_lib'])) {
+	$phpwcms['js_lib'] = array_merge($phpwcms['js_lib_default'], $phpwcms['js_lib']);
+} else {
+	$phpwcms['js_lib'] = $phpwcms['js_lib_default'];
+}
+if(!empty($phpwcms['enable_deprecated'])) {
+	$phpwcms['js_lib'] = array_merge($phpwcms['js_lib'], $phpwcms['js_lib_deprecated']);
 }
 
 $phpwcms['default_template_classes'] = array(
