@@ -19,7 +19,7 @@ if(empty($content['images']['article']['image'])) {
 	// Based on default article detail / zoom image
 	set_meta('og:image', PHPWCMS_URL . $content['images']['article'][ isset($content['images']['article']) ? 'zoom' : 'image' ]['src'], 'property');
 	
-	// This can be set dynamically ad allow always the same size
+	// This can be set dynamically and allow always the same size
 	//set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/1000x1000x0/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
 	
 }

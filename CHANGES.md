@@ -2,8 +2,25 @@ phpwcms Changelog
 =================
 
 
+Version 1.6.531 – May 4, 2013
+-----------------------------
+
+- CKEDitor 4.1.1
+- HTML5 Shiv 3.6.2
+- jQuery 2.0.0
+- Better handling for file uploads
+- Better Rewrite support
+- Better HTML5 support, HTML5 is default now
+- More options for Sitemap
+- Canonical setting
+- Changed behavior for config $phpwcms['js_lib']
+- Custom Opt-In eail template
+- CP Text with Image fiexed rendering left/right column
+- Fixes, changes and enhancements
+
+
 Version 1.6.529 – February 15, 2013
-----------------------------------
+-----------------------------------
 
 - New content part type implemented — used especially for settings, usable via module only at the moment and when `$_module_fe_setting = true`. Disables several CP specific input fields like title, subtitle…
 - jQuery 1.9.1

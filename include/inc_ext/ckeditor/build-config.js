@@ -1,4 +1,4 @@
-﻿
+
 /**
  * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
@@ -96,6 +96,7 @@ var CKBUILDER_CONFIG = {
 	},
 	languages : {
 		'af' : 1,
+		'sq' : 1,
 		'ar' : 1,
 		'eu' : 1,
 		'bn' : 1,
