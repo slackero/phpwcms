@@ -68,9 +68,7 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie.inc.php');
 	
 	$rss_obj = new SimplePie();
-	
-	//$CNT_TMP .= dumpVar($rssfeed['rssurl'], 2);
-	
+
 	// Feed URL
 	$rss_obj->set_feed_url( $rssfeed['rssurl'] );
 	
@@ -81,7 +79,6 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	if(!empty($rssfeed['content_type'])) {
 		$rss_obj->set_input_encoding( $rssfeed['content_type'] );
 	}
-	
 	
 	// Feed Cache Timeout
 	if(!$rssfeed["timeout"]) {
@@ -105,8 +102,6 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	
 	}
 	
-	//$rss_obj->enable_cache( false );
-	
 	// Remove surrounding DIV
 	$rss_obj->remove_div( true );
 	
@@ -121,14 +116,6 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	// Init Feed
 	$rss_obj->init();
 	
-	/*
-	if($rss_obj->error()) {
-	
-		$CNT_TMP .= $rss_obj->error();
-	
-	}
-	*/
-	
 	if( $rss_obj->data ) {
 	
 		// check RSS image
@@ -141,20 +128,17 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 			$rss['template_FEEDINFO'] = render_cnt_template($rss['template_FEEDINFO'], 'IMAGE', $rss['temp_feedinfo']);
 		
 		} else {
-			
-			$rss['template_FEEDINFO'] = render_cnt_template($rss['template_FEEDINFO'], 'IMAGE', '');
-		
+			$rss['template_FEEDINFO'] = render_cnt_template($rss['template_FEEDINFO'], 'IMAGE', '');	
 		}
 		
 		$rss['template_FEEDINFO'] = render_cnt_template($rss['template_FEEDINFO'], 'TITLE', $rss_obj->get_title());
 		$rss['template_FEEDINFO'] = render_cnt_template($rss['template_FEEDINFO'], 'DESCRIPTION', $rss_obj->get_description());
-		
-		
+	
 		$c				= 0;
 		$rss['items']	= array();
 		
 		foreach($rss_obj->get_items() as $rssvalue) {
-		
+			
 			// general item info
 			$rss['items'][$c] = render_cnt_template($rss['template_ITEM'], 'LINK', $rssvalue->get_permalink() );
 			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'TITLE', $rssvalue->get_title() );
@@ -167,6 +151,24 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 			
 			// item date
 			$rss['items'][$c] = render_cnt_date($rss['items'][$c], $rssvalue->get_date('U') );
+			
+			// Thumbnail
+			$rss['item_thumbnail'] = '';
+			if($rss['enclosure'] = $rssvalue->get_enclosure()) {
+								
+				$rss['item_thumbnail'] = $rss['enclosure']->get_thumbnail();
+				if(!$rss['item_thumbnail'] && $rss['enclosure']->get_link()) {
+					$rss['item_thumbnail'] = $rss['enclosure']->get_link();
+					if($rss['item_thumbnail'] && ($rss['item_thumbnail_ext'] = which_ext($rss['item_thumbnail']))) {
+						if(!in_array($rss['item_thumbnail_ext'], array('jpg', 'jpeg', 'png', 'gif'))) {
+							$rss['item_thumbnail'] = '';
+						}
+					} else {
+						$rss['item_thumbnail'] = '';	
+					}
+				}
+			}
+			$rss['items'][$c] = render_cnt_template($rss['items'][$c], 'IMAGE', $rss['item_thumbnail']);
 			
 			$c++;
 			
