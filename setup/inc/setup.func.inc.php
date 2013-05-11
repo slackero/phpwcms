@@ -239,7 +239,10 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty\n";
 	$conf_file .= "\$phpwcms['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things\n";
 	$conf_file .= "\$phpwcms['canonical_off']     = false; // disable canonical link tag\n";
-	
+	$conf_file .= "\$phpwcms['viewport']		  = ''; // set viewport like \"width=device-width, initial-scale=1.0, user-scalable=no\"\n";
+	$conf_file .= "\$phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible\n";
+	$conf_file .= "\$phpwcms['base_href']		  = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
+
 	$conf_file .= "\n// smtp values\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_NAME']    = '".$val["SMTP_FROM_NAME"]."'; // reply/from name\n";

@@ -88,13 +88,39 @@ $content['page_start']  .= '<!--
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
 	phpwcms is copyright 2002-'.date('Y').' of Oliver Georgi. Extensions are copyright of
 	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'-->'.LF;
+	
+// Compatibility Mode
+if(!empty($phpwcms['X-UA-Compatible'])) {
+	$content['page_start']  .= '  <meta http-equiv="X-UA-Compatible" content="' . $phpwcms['X-UA-Compatible'] . '"'.HTML_TAG_CLOSE.LF;
+}
 
 // HTML5 does not like content-style-type
 if($phpwcms['mode_XHTML'] != 3) {
-	$content['page_start']  .= '  <meta http-equiv="content-type" content="'.$_use_content_type.'; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
+	$content['page_start']  .= '  <meta http-equiv="content-type" content="' . $_use_content_type . '; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
 	$content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
 } else {
 	$content['page_start']  .= '  <meta charset="' . PHPWCMS_CHARSET . '"'.HTML_TAG_CLOSE.LF;	
+}
+
+// Viewport setting
+if(!empty($phpwcms['viewport'])) {
+	$content['page_start']  .= '  <meta name="viewport" content="' . $phpwcms['viewport'] . '"'.HTML_TAG_CLOSE.LF;
+}
+
+// Base Href
+if(!empty($phpwcms['base_href'])) {
+	
+	if($phpwcms['base_href'] === true) {
+		$content['page_start'] .= '  <base href="'.PHPWCMS_URL.'"'.HTML_TAG_CLOSE . LF;
+	} else {	
+		$content['page_start'] .= '  <base href="'.$phpwcms['base_href'].'"'.HTML_TAG_CLOSE . LF;
+		$phpwcms['base_href']   = true;
+	}
+
+} else {
+
+	$phpwcms['base_href'] = false;
+	
 }
 
 $content['page_start']  .= '  <title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
@@ -119,8 +145,8 @@ if($phpwcms['USER_AGENT']['agent'] == 'IE' && !empty($phpwcms['IE7-js']) && vers
 
 $content['page_start'] .= '</head>'.LF;
 
-if($phpwcms['rewrite_url'] && strpos($content['page_start'], '<base href') === false) {
-	$content['page_start'] = str_replace('</title>', '</title>'.LF.'  <base href="'.PHPWCMS_URL.'"'.HTML_TAG_CLOSE, $content['page_start']);
+if(!$phpwcms['base_href'] && $phpwcms['rewrite_url'] && strpos($content['page_start'], '<base href') === false) {
+	$content['page_start'] = str_replace('<title>', '<base href="'.PHPWCMS_URL.'"'.HTML_TAG_CLOSE . LF . '  <title>', $content['page_start']);
 }
 
 // inject body tag in case of class or id attribute

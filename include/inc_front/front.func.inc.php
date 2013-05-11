@@ -3809,25 +3809,31 @@ function getArticleMenuTitle(& $data) {
 /**
  * Add HTML Head meta tag
  */
-function set_meta($name='', $content='', $type=FALSE) {
+function set_meta($name='', $content='', $type=FALSE, $return=false) {
 	if(empty($name) || empty($content)) {
 		return NULL;
 	}
-	$GLOBALS['block']['custom_htmlhead']['meta.'.$name]  = '  <meta ';
+	
+	$meta  = '  <meta ';
 	if($type === FALSE) {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
+		$meta .= 'name';
 	} elseif($type == 'prop' || $type == 'property') {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'property';
+		$meta .= 'property';
 	} elseif($type == 'itemprop') {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'itemprop';	
+		$meta .= 'itemprop';	
 	} elseif($type === TRUE || $type == 'http-equiv') {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'http-equiv';
+		$meta .= 'http-equiv';
 	} elseif($type) {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= $type;	
+		$meta .= $type;	
 	} else {
-		$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= 'name';
+		$meta .= 'name';
 	}
-	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] .= '="' . $name . '" content="'.html_specialchars($content).'"'.HTML_TAG_CLOSE;
+	$meta .= '="' . $name . '" content="'.html_specialchars($content).'"'.HTML_TAG_CLOSE;
+	
+	if($return) {
+		return $meta;
+	}
+	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] = $meta;
 }
 
 /**
