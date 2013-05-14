@@ -15,7 +15,7 @@
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
 
-$BL['usr_online']                       = 'Benutzer Online';
+$BL['usr_online']                       = 'Benutzer online';
 
 // Login Page
 $BL["login_text"]                       = 'Anmelde-Daten eingeben';
@@ -23,7 +23,7 @@ $BL['login_error']                      = 'Fehler beim Anmelden!';
 $BL["login_username"]                   = 'Benutzer';
 $BL["login_userpass"]                   = 'Passwort';
 $BL["login_button"]                     = 'Anmelden';
-$BL["login_lang"]                       = 'Backend Sprache';
+$BL["login_lang"]                       = 'Backend-Sprache';
 
 // phpwcms.php
 $BL['be_nav_logout']                    = 'LOGOUT';
@@ -102,7 +102,7 @@ $BL['be_ctype_linkarticle']             = 'Teaser/Artikellink';
 $BL['be_ctype_multimedia']              = 'Multimedia';
 $BL['be_ctype_filelist']                = 'Dateiliste';
 $BL['be_ctype_emailform']               = 'E-Mail Formulargenerator';
-$BL['be_ctype_newsletter']              = 'Newsletter';
+$BL['be_ctype_newsletter']              = 'Newsletter-Anmeldung';
 
 // profile.create.inc.php
 $BL['be_profile_create_success']        = 'Profil erfolgreich erstellt.';
@@ -110,7 +110,7 @@ $BL['be_profile_create_error']          = 'Fehler beim Erzeugen des Profils.';
 
 // profile.update.inc.php
 $BL['be_profile_update_success']        = 'Profil erfolgreich aktualisiert.';
-$BL['be_profile_update_error']          = 'Fehler beim Aktualisieren des Profils.';
+$BL['be_profile_update_error']          = 'Fehler beim aktualisieren des Profils.';
 
 // profile.updateaccount.inc.php
 $BL['be_profile_account_err1']          = 'Benutzername {VAL} ist ung&uuml;ltig';
@@ -120,7 +120,7 @@ $BL['be_profile_account_err4']          = 'E-Mail {VAL} ist ung&uuml;ltig';
 
 // profile.data.tmpl.php
 $BL['be_profile_data_title']            = 'Ihre pers&ouml;nlichen Daten';
-$BL['be_profile_data_text']             = 'Pers&ouml;nliche Daten sind optional. Andere Benutzer k&ouml;nnen hierdurch mehr &uuml;ber Sie erfahren (Ausbildung, Interessen). Je nach Wahl k&ouml;nnen andere Benutzer Ihre pers&ouml;nlichen Daten einsehen (oder eben nicht).';
+$BL['be_profile_data_text']             = 'Pers&ouml;nliche Daten sind optional. Andere Benutzer k&ouml;nnen hierdurch mehr &uuml;ber Sie erfahren (Ausbildung, Interessen). Je nach Auswahl k&ouml;nnen andere Benutzer Ihre pers&ouml;nlichen Daten einsehen.';
 $BL['be_profile_label_title']           = 'Titel';
 $BL['be_profile_label_firstname']       = 'Vorname';
 $BL['be_profile_label_name']            = 'Nachname';
@@ -139,8 +139,8 @@ $BL['be_profile_label_profession']      = 'Ausbildung';
 $BL['be_profile_label_newsletter']      = 'Newsletter';
 $BL['be_profile_text_newsletter']       = 'Ich m&ouml;chte den allgemeinen Newsletter abonnieren.';
 $BL['be_profile_label_public']          = '&Ouml;ffentlich';
-$BL['be_profile_text_public']           = 'Jeder kann meine pers. Informationen sehen.';
-$BL['be_profile_label_button']          = 'Pers. Daten aktualisieren';
+$BL['be_profile_text_public']           = 'Jeder kann meine pers&ouml;nlichen  Informationen sehen.';
+$BL['be_profile_label_button']          = 'Pers&ouml;nliche Daten aktualisieren';
 
 // profile.account.tmpl.php
 $BL['be_profile_account_title']         = 'Ihre Anmelde-Daten';
@@ -162,14 +162,14 @@ $BL['be_ftptakeover_nofile']            = 'Momentan sind keine Dateien verf&uuml
 $BL['be_ftptakeover_all']               = 'Alle';
 $BL['be_ftptakeover_directory']         = 'Ordner';
 $BL['be_ftptakeover_rootdir']           = 'Wurzelverzeichnis';
-$BL['be_ftptakeover_needed']            = 'ben&ouml;tigt!!! (unbedingt ausw&auml;hlen)';
-$BL['be_ftptakeover_optional']          = 'optional';
+$BL['be_ftptakeover_needed']            = 'Ben&ouml;tigt!!! (unbedingt ausw&auml;hlen)';
+$BL['be_ftptakeover_optional']          = 'Optional';
 $BL['be_ftptakeover_keywords']          = 'Keywords';
 $BL['be_ftptakeover_additional']        = 'Zus&auml;tzlich';
 $BL['be_ftptakeover_longinfo']          = 'Info';
 $BL['be_ftptakeover_status']            = 'Status';
-$BL['be_ftptakeover_active']            = 'aktiv';
-$BL['be_ftptakeover_public']            = '&ouml;ffentlich';
+$BL['be_ftptakeover_active']            = 'Aktiv';
+$BL['be_ftptakeover_public']            = '&Ouml;ffentlich';
 $BL['be_ftptakeover_createthumb']       = 'Vorschau erzeugen';
 $BL['be_ftptakeover_button']            = 'Dateien &uuml;bernehmen';
 
@@ -233,7 +233,7 @@ $BL['be_fprivfunc_edit']                = 'Verzeichnis bearbeiten';
 $BL['be_fprivfunc_cactive']             = 'Wechsel aktiv/inaktiv';
 $BL['be_fprivfunc_cpublic']             = 'Wechsel &ouml;ffentlich/nicht &ouml;ffentlich';
 $BL['be_fprivfunc_deldir']              = 'Verzeichnis l&ouml;schen';
-$BL['be_fprivfunc_jsdeldir']            = 'M&ouml;chten Sie wirklich \ndas Verzeichnis l&ouml;schen?';
+$BL['be_fprivfunc_jsdeldir']            = 'M&ouml;chten Sie das Verzeichnis\n wirklich l&ouml;schen?';
 $BL['be_fprivfunc_notempty']            = 'Das Verzeichnis {VAL} ist nicht leer!';
 $BL['be_fprivfunc_opendir']             = 'Verzeichnis &ouml;ffnen';
 $BL['be_fprivfunc_closedir']            = 'Verzeichnis schlie&szlig;en';
@@ -680,9 +680,9 @@ $BL['be_cnt_ecardform_button']          = 'E-Card versenden';
 $BL['be_cnt_ecardsend']                 = 'Gesendet';
 
 // added: 28-03-2004
-$BL['be_admin_startup_title']           = 'Backend Standard Starttext';
+$BL['be_admin_startup_title']           = 'Backend standard Starttext';
 $BL['be_admin_startup_text']            = 'Starttext';
-$BL['be_admin_startup_button']          = 'Starttext Speichern';
+$BL['be_admin_startup_button']          = 'Starttext speichern';
 
 // added: 17-04-2004
 $BL['be_ctype_guestbook']				= 'G&auml;stebuch/Kommentar';
@@ -820,9 +820,9 @@ $BL['be_admin_struct_orderarticle']     = 'Anordnung zugeordneter Artikel';
 $BL['be_admin_struct_orderdate']        = 'Erstellungsdatum';
 $BL['be_admin_struct_orderchangedate']  = '&Auml;nderungsdatum';
 $BL['be_admin_struct_orderstartdate']   = 'Startdatum';
-$BL['be_admin_struct_orderdesc']        = 'absteigend';
-$BL['be_admin_struct_orderasc']         = 'aufsteigend';
-$BL['be_admin_struct_ordermanual']      = 'manuell (Pfeil auf/ab)';
+$BL['be_admin_struct_orderdesc']        = 'Neu nach alt';
+$BL['be_admin_struct_orderasc']         = 'Alt nach neu';
+$BL['be_admin_struct_ordermanual']      = 'Manuell (Pfeil auf/ab)';
 $BL['be_cnt_sitemap_startid']           = 'Startet ab';
 
 // added: 20-10-2004
