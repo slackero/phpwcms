@@ -54,6 +54,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.pasteFromWordRemoveStyles = true;
 	config.pasteFromWordPromptCleanup = true;
 
-	//config.contentsCss = 'assets/config/ckeditor/ckeditor.custom.css';
+	//config.contentsCss = 'template/config/ckeditor/ckeditor.custom.css';
 	
 };
