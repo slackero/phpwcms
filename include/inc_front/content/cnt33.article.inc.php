@@ -473,7 +473,7 @@ if($news['template']) {
 			} else {
 				$value['detail_link']	= date('Ymd', $value['cnt_ts_livedate']) . '-' . $crow['acontent_aid'] . '_' ;
 				$value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
-				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . (strpos($news['base_href'], '?') !== false ? '&amp;' : '') . 'newsdetail=' . $value['detail_link']);
+				$news['entries'][$key]	= render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . (strpos($news['base_href'], '?') !== false ? '&amp;' : '?') . 'newsdetail=' . $value['detail_link']);
 			}
 			
 		// news list link (back)
