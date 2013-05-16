@@ -48,7 +48,7 @@ if($_GET['struct'] === 'index') {
 	$acat_archive		= empty($indexpage['acat_archive']) ? 0 : $indexpage['acat_archive'];
 	$acat_class			= empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'];
 	$acat_keywords		= empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'];
-	$acat_cpdefault		= empty($indexpage['acat_cpdefault']) ? 0 : intval($indexpage['acat_cpdefault']);
+	$acat_cpdefault		= empty($indexpage['acat_cpdefault']) ? (empty($phpwcms['cp_default']) ? 0 : intval($phpwcms['cp_default'])) : intval($indexpage['acat_cpdefault']);
 	$acat_lang			= '';
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
@@ -82,7 +82,7 @@ if($_GET['struct'] === 'index') {
 	$acat_archive		= 0;
 	$acat_class			= '';
 	$acat_keywords		= '';
-	$acat_cpdefault		= 0;
+	$acat_cpdefault		= empty($phpwcms['cp_default']) ? 0 : intval($phpwcms['cp_default']);
 	$acat_lang			= '';
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;

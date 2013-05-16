@@ -126,6 +126,7 @@ $phpwcms['canonical_off']     = false; // disable canonical link tag
 $phpwcms['viewport']		  = ''; // set viewport like "width=device-width, initial-scale=1.0, user-scalable=no"
 $phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible
 $phpwcms['base_href']		  = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
+$phpwcms['cp_default']		  = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = ''; // reply/from email address
