@@ -402,6 +402,15 @@ if($news['template']) {
 	$news['config']['news_teaser_limit_words']	= intval($news['config']['news_teaser_limit_words']);
 	$news['config']['news_teaser_text']			= trim($news['config']['news_teaser_text']);
 	$news['config']['check_lang']				= (count($phpwcms['allowed_lang']) > 1) ? true : false;
+	$news['config']['gallery_allowed_ext']		= convertStringToArray(strtolower($news['config']['gallery_allowed_ext']));
+	if(count($news['config']['gallery_allowed_ext'])) {
+		foreach($news['config']['gallery_allowed_ext'] as $ikey => $ivalue) {
+			$news['config']['gallery_allowed_ext'][$ikey] = _dbEscape($ivalue);
+		}
+		$news['config']['gallery_allowed_ext'] = implode(',', $news['config']['gallery_allowed_ext']);
+	} else {
+		$news['config']['gallery_allowed_ext'] = '';
+	}
 	
 	// set function used to render teaser text, custom can be registered
 	switch( $news['config']['news_teaser_text'] ) {
@@ -549,29 +558,23 @@ if($news['template']) {
 		
 		// Files
 		if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
-
+			
 			// should image files used for gallery
 			if(!empty($value['cnt_object']['cnt_files']['gallery']) && strpos($news['entries'][$key], '/GALLERY')) {
 				
-				$news['config']['gallery_allowed_ext'] = convertStringToArray(strtolower($news['config']['gallery_allowed_ext']));
-				
-				if(!count($news['config']['gallery_allowed_ext'])) {
+				if(!$news['config']['gallery_allowed_ext']) {
 				
 					$value['cnt_object']['cnt_files']['gallery'] = false;
 				
 				// Get Image files
 				} else {
 					
-					foreach($news['config']['gallery_allowed_ext'] as $ikey => $ivalue) {
-						$news['config']['gallery_allowed_ext'][$ikey] = _dbEscape($ivalue);
-					}
-					
 					$value['cnt_object']['cnt_files']['where']  = 'f_id IN (' . implode(',', $value['cnt_object']['cnt_files']['id']) . ') AND ';
 					$value['cnt_object']['cnt_files']['where'] .= 'f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ';
-					$value['cnt_object']['cnt_files']['where'] .= 'f_ext IN(' . implode(',', $news['config']['gallery_allowed_ext']) . ')';
+					$value['cnt_object']['cnt_files']['where'] .= 'f_ext IN(' . $news['config']['gallery_allowed_ext'] . ')';
 									
 					$value['cnt_object']['cnt_files']['images'] = _dbGet('phpwcms_file', 'f_id,f_hash,f_name,f_ext,f_longinfo,f_copyright,f_vars', $value['cnt_object']['cnt_files']['where']);
-					
+										
 					if(!isset($value['cnt_object']['cnt_files']['images'][0])) {
 						
 						$value['cnt_object']['cnt_files']['gallery'] = false;
