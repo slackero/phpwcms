@@ -11,19 +11,19 @@
 
 require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('PHPWCMS_JSLIB', 'jquery-2.0-migrate');
+define('PHPWCMS_JSLIB', 'jquery-1.10-migrate');
 
 /**
- * Init jQuery 2.0.x + jQuery Migrate Library
+ * Init jQuery 1.10.x + jQuery Migrate Library
  */
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
 		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.1.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.10.min.js');
 			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate.min.js');
 		} else {
-			// not available at Google
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-2.0.1.min.js');
+			// at the moment not available on Google
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-1.10.0.min.js');
 			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-migrate-1.2.1.min.js');
 		}
 	}

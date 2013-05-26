@@ -11,17 +11,18 @@
 
 require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('PHPWCMS_JSLIB', 'jquery-2.0');
+define('PHPWCMS_JSLIB', 'jquery-1.10');
 
 /**
- * Init jQuery 2.0.x Library
+ * Init jQuery 1.10.x
  */
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
 		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.1.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.10.min.js');
 		} else {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-2.0.1.min.js');
+			// at the moment not available on Google
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-1.10.0.min.js');
 		}
 	}
 	return TRUE;
