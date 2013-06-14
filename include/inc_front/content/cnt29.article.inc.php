@@ -171,6 +171,7 @@ if($image['template']) {
 			$caption[1] = html_specialchars(empty($caption[1]) ? $image['images'][$key][1] : $caption[1]);
 
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
+			$list_img_temp .= 'data-image-id="'.$image['images'][$key][0].'" data-image-hash="'.$image['images'][$key][2].'" ';
 			
 			$img_thumb_name		= $thumb_image[0];
 			$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];

@@ -200,7 +200,8 @@ if($image['template']) {
 			}
 			$caption[3] = empty($capt_cur) ? '' : ' title="'.$capt_cur.'"'; //title
 
-			$list_img_temp  	= '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
+			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
+			$list_img_temp .= 'data-image-id="'.$value['thumb_id'].'" data-image-hash="'.$value['thumb_hash'].'" ';
 			
 			$img_thumb_name		= $thumb_image[0];
 			$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];

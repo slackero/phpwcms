@@ -23,10 +23,10 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 	// creates the image tags if text w/image
 	// 0   :1       :2   :3        :4    :5     :6      :7       :8
 	// dbid:filename:hash:extension:width:height:caption:position:zoom
-	
+
 	$cnt_image_lightbox = empty($GLOBALS['cnt_image_lightbox']) ? 0 : 1;
 	$crop = empty($image['crop']) ? 0 : 1;
-	
+
 	if(!isset($image[8]) && isset($image['zoom'])) {
 		$image[8] = $image['zoom'];
 	} elseif(isset($image['zoom'])) {
@@ -99,7 +99,8 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 		$caption[1] = empty($caption[1]) ? html_specialchars($image[1]) : html_specialchars($caption[1]);
 
 		// image source
-		$img = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' alt="'.$caption[1].'"'.$caption[3].' />';
+		$img  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' alt="'.$caption[1].'" ';
+		$img .= 'data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"'.$caption[3].' />';
 
 		$tablewidth = $thumb_image[1];
 
@@ -138,20 +139,20 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 				$open_link = $open_popup_link;
 				$return_false = 'return false;';
 			}
-			
+
 			if(!$cnt_image_lightbox || $caption[2][0]) {
-			
+
 				$table .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
 				$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false."\"".$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
-				
+
 			} else {
-			
+
 				$table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"';
 				if($caption[0]) {
 					$table .= ' title="'.parseLightboxCaption($caption[0]).'"';
 				}
 				$table .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
-			
+
 			}
 			$table .= $img.'</a></td>';
 		} else {
@@ -188,7 +189,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 	// creates the image tags if text w/image
 	// 0   :1       :2   :3        :4    :5     :6      :7       :8
 	// dbid:filename:hash:extension:width:height:caption:position:zoom
-	
+
 	$cnt_image_lightbox = empty($GLOBALS['cnt_image_lightbox']) ? 0 : 1;
 	$crop = empty($image['crop']) ? 0 : 1;
 
@@ -227,19 +228,20 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
 		$image_class 	= $GLOBALS["template_default"]["article"]["image_class"];
 		$image_class	= ($image_class) ? $image_class : $GLOBALS['template_default']['classes']['image-thumb'];
-		
+
 		// image caption
 		$caption	= getImageCaption(base64_decode($image[6]));
 		$caption[0]	= html_specialchars($caption[0]);
 		$caption[3]	= empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
 		$caption[1]	= html_specialchars(empty($caption[1]) ? $image[1] : $caption[1]);
-		
+
 		if(empty($classname)) {
 			$classname = $GLOBALS['template_default']['classes']['image-wrapper'];
 		}
 
 		// image source
 		$img  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3];
+		$img .= ' data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"';
 		$img .= $image_border.$image_imgclass.' alt="'.$caption[1].'"'.$caption[3].' />';
 
 		$image_block .= '<div class="'.$classname.'">';
@@ -255,43 +257,43 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 				$open_link = $open_popup_link;
 				$return_false = 'return false;';
 			}
-			
+
 			if(!$cnt_image_lightbox || $caption[2][0]) {
-			
+
 				$image_block .= '<a href="'.$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
 				$image_block .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false."\"".$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
-			
+
 			} else {
-				
+
 				$image_block .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"';
 				if($caption[0]) {
 					$image_block .= ' title="'.parseLightboxCaption($caption[0]).'"';
 				}
 				$image_block .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
-			
+
 			}
 			$image_block .= $img.'</a></div>';
-			
+
 		} else {
-		
+
 			$image_block .= '<div class="'.$image_class.'">';
 			$image_block .= $caption[2][0] ? '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-link'].'">'.$img.'</a>' : $img;
 			$image_block .= '</div>';
-		
+
 		}
-		
+
 		if($caption[0] && empty($image['nocaption'])) {
 
 			$caption_class	= empty($GLOBALS["template_default"]["article"]["image_caption_class"]) ? 'caption' : $GLOBALS["template_default"]["article"]["image_caption_class"];
-			
+
 			$image_block .= '<p style="width:'.$thumb_image[1].'px" class="'.$caption_class.'">'.$GLOBALS["template_default"]["article"]["image_caption_before"].$caption[0];
-			
+
 			if($caption[4] !== '') {
 				$image_block .= ' <span class="'.$GLOBALS['template_default']['classes']['copyright'].'">'.html_specialchars($caption[4]).'</span>';
 			}
-		
+
 			$image_block .= $GLOBALS["template_default"]["article"]["image_caption_after"]."</p>";
-		
+
 		}
 
 		$image_block .= "</div>";
@@ -307,22 +309,22 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 	// ecard: type = 1
 	$template_type	= $type ? 'ecard' : 'imagelist';
 	$usetable		= !isset($imagelist['usetable']) || $imagelist['usetable'] ? true : false;
-	
+
 	if(empty($GLOBALS['cnt_image_lightbox'])) {
 		$lightbox	= 0;
 	} else {
 		$lightbox	= generic_string(5);
 	}
-	
+
 	$caption_on = empty($imagelist['nocaption']) ? true : false;
 	$crop		= empty($imagelist['crop']) ? 0 : 1;
-	
+
 	if($usetable) {
 		$table_class = $GLOBALS["template_default"]["article"][$template_type."_table_class"];
 		if($align) {
 			$table_class .= ' '.$GLOBALS['template_default']['classes']['image-list-table'].$align;
 		}
-		
+
 		$table_class	= ' class="'.trim($table_class).'"';
 		$table_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"];
 		$table_bgcolor	= ($table_bgcolor) ? ' bgcolor="'.$table_bgcolor.'"' : '';
@@ -347,10 +349,10 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$caption_align	= ($caption_align) ? ' align="'.$caption_align.'"' : '';
 		$capt_before 	= $GLOBALS["template_default"]["article"][$template_type."_caption_before"];
 		$capt_after 	= $GLOBALS["template_default"]["article"][$template_type."_caption_after"];
-		
+
 		$align = (!$align) ? '' : ' align="'.$align.'"';
 	}
-		
+
 	$rand = explode(":", $rand);
 	if(count($rand)) {
 		foreach($rand as $key => $value) {
@@ -360,21 +362,21 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$rand = array(0,0,0,0);
 	}
 	$col_rand = ($rand[2] && $rand[3]) ? 2 : (($rand[2] || $rand[3]) ? 1 : 0 );
-	
+
 	if(($count_images = count($imagelist['images']))) {
-		
+
 		// randomize image
 		if(!empty($imagelist['random'])) {
 			shuffle($imagelist['images']);
 		}
-		
+
 		if(empty($imagelist['limit'])) {
 			$imagelist['limit'] = 0;
 		}
 
 		//Tabelle starten
 		$table = LF;
-		
+
 		if($usetable) {
 			$table .= '	<table border="0" cellspacing="0" cellpadding="0"'.$align.$table_bgcolor.$table_class.' summary="">'.LF;
 		} else {
@@ -386,12 +388,17 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			}
 			$table .= '">'.LF;
 		}
-			
+
 		$x=0;
 		$y=0;
 		$z=0;
 		foreach($imagelist['images'] as $key => $value) {
-			
+
+			if(isset($imagelist['width'])) {
+				$imagelist['images'][$key][4] = $imagelist['width'];
+				$imagelist['images'][$key][5] = $imagelist['height'];
+			}
+
 			$y++;
 			if($usetable && $z && $x==1) {
 				if($col_space) {
@@ -425,7 +432,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				//Neue Tabellenzeile
 				$capt_tmp	 = '';
 				$capt_row	 = '<tr>'.LF.$table_tmp;
-				
+
 				if($caption_on) {
 					$table 	.= $capt_row;
 				} else {
@@ -437,15 +444,16 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			if($usetable) {
 				$table .= '	<td'.$image_align.$image_valign.$image_bgcolor.$image_class.'>';
 			} else {
-				
+
 				if(!$x) {
-					$x = 1;	
+					$x = 1;
 				}
-				
+
 				$table .= '		<div class="'.$imagelist['class_image_wrapper'];
 				if($x === 1) {
-					$table .= ' first';	
+					$table .= ' first';
 				}
+				$table .= ' row-'.($z+1);
 				$table .= '">' . LF . '			';
 			}
 
@@ -482,6 +490,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			$caption[1] = empty($caption[1]) ? html_specialchars($imagelist['images'][$key][1]) : html_specialchars($caption[1]);
 
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass;
+			$list_img_temp .= ' data-image-id="'.$imagelist['images'][$key][0].'" data-image-hash="'.$imagelist['images'][$key][2].'"';
 			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-thumb'].'" />';
 
 			if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
@@ -494,23 +503,23 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					$open_link = $open_popup_link;
 					$return_false = 'return false;';
 				}
-				
+
 				if(!$lightbox || $caption[2][0]) {
-				
+
 					$table .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
 					$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
-					
+
 				} else {
-				
+
 					// lightbox
 					$table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$lightbox.']"';
 					if($capt_cur) {
 						$table .= ' title="'.parseLightboxCaption($capt_cur).'"';
 					}
 					$table .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
-				
+
 				}
-				
+
 				$table .= $list_img_temp."</a>";
 			} else {
 				// if not click enlarge
@@ -520,31 +529,31 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					$table .= $list_img_temp;
 				}
 			}
-			
+
 			if($usetable) {
 				$table .= '</td>'.LF;
-			
+
 				$capt_tmp .= $capt_cur;
-			
+
 				$capt_row .= '	<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$capt_cur.$capt_after.'</td>'.LF;
 			} else {
-			
+
 				if(empty($imagelist['nocaption']) && $capt_cur) {
-	
+
 					$caption_class	= empty($GLOBALS["template_default"]["article"]["image_caption_class"]) ? 'caption' : $GLOBALS["template_default"]["article"]["image_caption_class"];
-					
+
 					$table .= LF . '			<p style="width:'.$thumb_image[1].'px" class="'.$caption_class.'">'.$GLOBALS["template_default"]["article"]["image_caption_before"];
 					$table .= $capt_cur;
-					
+
 					if($caption[4] !== '') {
 						$table .= ' <span class="'.$GLOBALS['template_default']['classes']['copyright'].'">'.html_specialchars($caption[4]).'</span>';
 					}
-				
+
 					$table .= $GLOBALS["template_default"]["article"]["image_caption_after"]."</p>" ;
-				
+
 				}
-				
-				
+
+
 				$table .=  LF . '		</div>'.LF;
 			}
 
@@ -571,7 +580,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 						$x++;
 					}
 				}
-	
+
 				if($x==$col_count) {	//Wenn maximale Anzahl Bildspalten erreicht
 					$xct = ($rand[3]) ? '<td width="'.$rand[3].'">'.spacer($rand[3],1).'</td>'.LF : '';
 					$table 		.= $xct;
@@ -592,23 +601,24 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					$capt_row 	.= $xct;
 					$x++;
 				}
-			
+
 			} else {
-							
+
 				if($x==$imagelist['col']) {
 					$x = 0;
+					$z++;
 				} else {
 					$x++;
 				}
-				
+
 			}
-			
+
 			// end if max image count
 			if($imagelist['limit'] == $y) {
 				break;
 			}
 		}
-		
+
 		if($usetable) {
 			if($rand[1]) {
 				$table .= '<tr>'.LF.'	<td'.(($col_total>1)?" colspan=\"".$col_total."\"":"").">".spacer(1,$rand[1]).'</td>'.LF.'</tr>'.LF;

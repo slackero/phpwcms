@@ -415,7 +415,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 								if($thumb_image != false) {
 								
-									$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
+									$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
+									$thumb_img .= ' data-image-id="'.$img_thumb_id.'" data-image-hash="'.$img_thumb_hash.'"';
+									$thumb_img .= ' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
 									if($content['alink']['caption'][3]) {
 										$thumb_img .= ' title="'.$content['alink']['caption'][3].'"';
 									}
