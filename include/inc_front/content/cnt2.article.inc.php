@@ -77,80 +77,86 @@ if(is_array($image) && count($image)) {
 		$image['zoom'] = 1;
 
 	}
+	
+	$imagetable = '';
 
 	switch($image['pos']) {
 		//oben mitte
 		case 1:	$image['class'] = $image['class_top_center'];
-				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "center");
+				$imagetable .= imagelisttable($image, "0:0:0:0", "center");
 				if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				break;
 		//oben rechts
 		case 2:	if($image['usetable']) {
-					$CNT_TMP .= '<div class="'.$template_default['classes']['img-list-right'].'">'.LF;
-					$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
-					$CNT_TMP .= '</div>'.LF;
+					$imagetable .= '<div class="'.$template_default['classes']['img-list-right'].'">'.LF;
+					$imagetable .= imagelisttable($image, "0:0:0:0", "");
+					$imagetable .= '</div>'.LF;
 				} else {
 					$image['class'] = $image['class_top_right'];
-					$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
+					$imagetable .= imagelisttable($image, "0:0:0:0", "");
 				}
 				if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				break;
 		//unten links
 		case 3: if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				$image['class'] = $image['class_bottom_left'];
-				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
+				$imagetable .= imagelisttable($image, "0:0:0:0", "");
 				break;
 		//unten mitte
 		case 4: if($crow['render_titles']) {
 					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				$image['class'] = $image['class_bottom_center'];
-				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "center");
+				$imagetable .= imagelisttable($image, "0:0:0:0", "center");
 				break;
 		//unten rechts
 		case 5:	if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				if($image['usetable']) {
-					$CNT_TMP .= '<div class="'.$template_default['classes']['img-list-right'].'">'.LF;
-					$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
-					$CNT_TMP .= '</div>'.LF;
+					$imagetable .= '<div class="'.$template_default['classes']['img-list-right'].'">'.LF;
+					$imagetable .= imagelisttable($image, "0:0:0:0", "");
+					$imagetable .= '</div>'.LF;
 				} else {
 					$image['class'] = $image['class_bottom_right'];
-					$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
+					$imagetable .= imagelisttable($image, "0:0:0:0", "");
 				}
 				break;
 		//im Text links
 		case 6:	if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				$image['class'] = $image['class_float_left'];
-				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "left");
+				$imagetable .= imagelisttable($image, "0:0:0:0", "left");
 				break;
 		//im Text rechts
 		case 7: if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 				$image['class'] = $image['class_float_right'];
-				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "right");
+				$imagetable .= imagelisttable($image, "0:0:0:0", "right");
 				break;
 		//oben links
 		default:
 				$image['class'] = $image['class_top_left'];
-				$CNT_TMP .= imagelisttable($image, "0:0:0:0", "");
+				$imagetable .= imagelisttable($image, "0:0:0:0", "");
 				if($crow['render_titles']) {
-					$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 	}
 	
 	$GLOBALS['cnt_image_lightbox'] = 0;
 	$cnt_image_lightbox = 0;
+	
+	$CNT_TMP .= LF . trim(str_replace('{ID}', $crow["acontent_id"], render_cnt_template($crow["acontent_template"], 'IMAGETABLE', $imagetable ))) . LF;
+	
+	unset($imagetable);
 	
 } else {
 	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
