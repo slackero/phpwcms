@@ -346,7 +346,15 @@ $template_default['classes'] = array(
 	'image-list-table'		=> 'image-list-table-',
 	'link-article-listing'	=> 'article-listing',
 	'link-print'			=> 'print',
-	'link-print-pdf'		=> 'print-pdf'
+	'link-print-pdf'		=> 'print-pdf',
+	'imgtable-top-left'		=> 'imgtable-top-left',
+	'imgtable-top-center'	=> 'imgtable-top-center',
+	'imgtable-top-right'	=> 'imgtable-top-right',
+	'imgtable-bottom-left'	=> 'imgtable-bottom-left',
+	'imgtable-bottom-center'=> 'imgtable-bottom-center',
+	'imgtable-bottom-right'	=> 'imgtable-bottom-right',
+	'imgtable-left'			=> 'imgtable-left',
+	'imgtable-right'		=> 'imgtable-right'
 );
 
 

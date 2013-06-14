@@ -21,6 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Images
 
-$SQL .= "acontent_form	='".aporeplace(serialize($content['image_list']))."' ";
+$SQL .= "acontent_form	='".aporeplace(serialize($content['image_list']))."', ";
+$SQL .= "acontent_template	= '".aporeplace($content["template"])."' ";
 
 ?>

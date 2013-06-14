@@ -26,29 +26,38 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 	
 	$cnt_image_lightbox = empty($GLOBALS['cnt_image_lightbox']) ? 0 : 1;
 	$crop = empty($image['crop']) ? 0 : 1;
+	
+	if(!isset($image[8]) && isset($image['zoom'])) {
+		$image[8] = $image['zoom'];
+	} elseif(isset($image['zoom'])) {
+		$image[8] = $image['zoom'];
+	}
 
 	$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$image[3],
-								"image_name"	=>	$image[2] . '.' . $image[3],
-								"max_width"		=>	$image[4],
-								"max_height"	=>	$image[5],
-								"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop),
-								'crop_image'	=>	$crop
-        					  )
-						);
+		array(	"target_ext"	=>	$image[3],
+			"image_name"	=>	$image[2] . '.' . $image[3],
+			"max_width"		=>	$image[4],
+			"max_height"	=>	$image[5],
+			"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop),
+			'crop_image'	=>	$crop
+		)
+	);
 
-	if($image[8]) {
+	if($thumb_image && $image[8]) {
 
 		$zoominfo = get_cached_image(
-						array(	"target_ext"	=>	$image[3],
-								"image_name"	=>	$image[2] . '.' . $image[3],
-								"max_width"		=>	$phpwcms["img_prev_width"],
-								"max_height"	=>	$phpwcms["img_prev_height"],
-								"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
-        					  )
-						);
+			array(
+				"target_ext"	=>	$image[3],
+				"image_name"	=>	$image[2] . '.' . $image[3],
+				"max_width"		=>	$phpwcms["img_prev_width"],
+				"max_height"	=>	$phpwcms["img_prev_height"],
+				"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
+			)
+		);
 
-		if($zoominfo == false) $image[8] = 0;
+		if($zoominfo == false) {
+			$image[8] = 0;
+		}
 
 	}
 
@@ -84,15 +93,13 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 		$capt_after 	= $GLOBALS["template_default"]["article"]["image_caption_after"];
 
 		// image caption
-		//$caption	= explode('|', base64_decode($image[6]));
 		$caption = getImageCaption(base64_decode($image[6]));
 		$caption[0]	= html_specialchars($caption[0]);
 		$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
 		$caption[1] = empty($caption[1]) ? html_specialchars($image[1]) : html_specialchars($caption[1]);
 
 		// image source
-		$img  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3];
-		$img .= $image_border.$image_imgclass.' alt="'.$caption[1].'"'.$caption[3].' />';
+		$img = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' alt="'.$caption[1].'"'.$caption[3].' />';
 
 		$tablewidth = $thumb_image[1];
 
@@ -107,12 +114,10 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 		}
 		if($rand[2] && $rand[3]) {
 			$colspan = ' colspan="3"';
+		} elseif($rand[2] || $rand[3]) {
+			$colspan = ' colspan="2"';
 		} else {
-			if($rand[2] || $rand[3]) {
-				$colspan = ' colspan="2"';
-			} else {
 				$colspan = '';
-			}
 		}
 		$tablewidth += $rand[2] + $rand[3];
 
@@ -300,7 +305,8 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 	// build imagelist or ecard chooser table
 	// image: type = 0
 	// ecard: type = 1
-	$template_type = (!$type) ? 'imagelist' : 'ecard';
+	$template_type	= $type ? 'ecard' : 'imagelist';
+	$usetable		= !isset($imagelist['usetable']) || $imagelist['usetable'] ? true : false;
 	
 	if(empty($GLOBALS['cnt_image_lightbox'])) {
 		$lightbox	= 0;
@@ -310,38 +316,41 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 	
 	$caption_on = empty($imagelist['nocaption']) ? true : false;
 	$crop		= empty($imagelist['crop']) ? 0 : 1;
-
-	$table_class = $GLOBALS["template_default"]["article"][$template_type."_table_class"];
-	if($align) {
-		$table_class .= ' '.$GLOBALS['template_default']['classes']['image-list-table'].$align;
+	
+	if($usetable) {
+		$table_class = $GLOBALS["template_default"]["article"][$template_type."_table_class"];
+		if($align) {
+			$table_class .= ' '.$GLOBALS['template_default']['classes']['image-list-table'].$align;
+		}
+		
+		$table_class	= ' class="'.trim($table_class).'"';
+		$table_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"];
+		$table_bgcolor	= ($table_bgcolor) ? ' bgcolor="'.$table_bgcolor.'"' : '';
+		$image_align	= $GLOBALS["template_default"]["article"][$template_type."_align"];
+		$image_align	= ($image_align) ? ' align="'.$image_align.'"' : '';
+		$image_valign	= $GLOBALS["template_default"]["article"][$template_type."_valign"];
+		$image_valign	= ($image_valign) ? ' valign="'.$image_valign.'"' : '';
+		$image_border	= ' border="'.intval($GLOBALS["template_default"]["article"][$template_type."_border"]).'"';
+		$image_imgclass	= $GLOBALS["template_default"]["article"][$template_type."_imgclass"];
+		$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
+		$image_class 	= $GLOBALS["template_default"]["article"][$template_type."_class"];
+		$image_class	= ($image_class) ? ' class="'.$image_class.'"' : '';
+		$image_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_bgcolor"];
+		$image_bgcolor	= ($image_bgcolor) ? ' bgcolor="'.$image_bgcolor.'"' : '';
+		$caption_class 	= $GLOBALS["template_default"]["article"][$template_type."_caption_class"];
+		$caption_class	= ($caption_class) ? ' class="'.$caption_class.'"' : '';
+		$caption_bgcolor= $GLOBALS["template_default"]["article"][$template_type."_caption_bgcolor"];
+		$caption_bgcolor= ($caption_bgcolor) ? ' bgcolor="'.$caption_bgcolor.'"' : '';
+		$caption_valign	= $GLOBALS["template_default"]["article"][$template_type."_caption_valign"];
+		$caption_valign	= ($caption_valign) ? ' valign="'.$caption_valign.'"' : '';
+		$caption_align	= $GLOBALS["template_default"]["article"][$template_type."_caption_align"];
+		$caption_align	= ($caption_align) ? ' align="'.$caption_align.'"' : '';
+		$capt_before 	= $GLOBALS["template_default"]["article"][$template_type."_caption_before"];
+		$capt_after 	= $GLOBALS["template_default"]["article"][$template_type."_caption_after"];
+		
+		$align = (!$align) ? '' : ' align="'.$align.'"';
 	}
-	
-	$table_class	= ' class="'.trim($table_class).'"';
-	$table_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"];
-	$table_bgcolor	= ($table_bgcolor) ? ' bgcolor="'.$table_bgcolor.'"' : '';
-	$image_align	= $GLOBALS["template_default"]["article"][$template_type."_align"];
-	$image_align	= ($image_align) ? ' align="'.$image_align.'"' : '';
-	$image_valign	= $GLOBALS["template_default"]["article"][$template_type."_valign"];
-	$image_valign	= ($image_valign) ? ' valign="'.$image_valign.'"' : '';
-	$image_border	= ' border="'.intval($GLOBALS["template_default"]["article"][$template_type."_border"]).'"';
-	$image_imgclass	= $GLOBALS["template_default"]["article"][$template_type."_imgclass"];
-	$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
-	$image_class 	= $GLOBALS["template_default"]["article"][$template_type."_class"];
-	$image_class	= ($image_class) ? ' class="'.$image_class.'"' : '';
-	$image_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_bgcolor"];
-	$image_bgcolor	= ($image_bgcolor) ? ' bgcolor="'.$image_bgcolor.'"' : '';
-	$caption_class 	= $GLOBALS["template_default"]["article"][$template_type."_caption_class"];
-	$caption_class	= ($caption_class) ? ' class="'.$caption_class.'"' : '';
-	$caption_bgcolor= $GLOBALS["template_default"]["article"][$template_type."_caption_bgcolor"];
-	$caption_bgcolor= ($caption_bgcolor) ? ' bgcolor="'.$caption_bgcolor.'"' : '';
-	$caption_valign	= $GLOBALS["template_default"]["article"][$template_type."_caption_valign"];
-	$caption_valign	= ($caption_valign) ? ' valign="'.$caption_valign.'"' : '';
-	$caption_align	= $GLOBALS["template_default"]["article"][$template_type."_caption_align"];
-	$caption_align	= ($caption_align) ? ' align="'.$caption_align.'"' : '';
-	$capt_before 	= $GLOBALS["template_default"]["article"][$template_type."_caption_before"];
-	$capt_after 	= $GLOBALS["template_default"]["article"][$template_type."_caption_after"];
-	
-	$align = (!$align) ? '' : ' align="'.$align.'"';
+		
 	$rand = explode(":", $rand);
 	if(count($rand)) {
 		foreach($rand as $key => $value) {
@@ -364,14 +373,27 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		}
 
 		//Tabelle starten
-		$table = LF.'<table border="0" cellspacing="0" width="10%" cellpadding="0"'.$align.$table_bgcolor.$table_class.' summary="">'.LF;
+		$table = LF;
+		
+		if($usetable) {
+			$table .= '	<table border="0" cellspacing="0" cellpadding="0"'.$align.$table_bgcolor.$table_class.' summary="">'.LF;
+		} else {
+			$table .= '	<div class="';
+			if(empty($imagelist['class'])) {
+				$table .= 'image-table';
+			} else {
+				$table .= $imagelist['class'];
+			}
+			$table .= '">'.LF;
+		}
+			
 		$x=0;
 		$y=0;
 		$z=0;
 		foreach($imagelist['images'] as $key => $value) {
 			
 			$y++;
-			if($z && $x==1) {
+			if($usetable && $z && $x==1) {
 				if($col_space) {
 					$table .= LF.'<tr>'.LF.'	<td';
 					$table .= (($col_total>1)?" colspan=\"".$col_total."\"":"");
@@ -384,7 +406,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				}
 			}
 
-			if(!$x) {
+			if($usetable && !$x) {
 				//Some default values
 				$col_space = $imagelist['space'];	//Space between images
 				$col_count = $imagelist['col'];		//columns
@@ -395,7 +417,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				}
 				$x=1;
 			}
-			if($x==1) {
+			if($usetable && $x==1) {
 
 				// if left border
 				$table_tmp	 = ($rand[2]) ? '	<td width="'.$rand[2].'">'.spacer($rand[2],1).'</td>'.LF : '';
@@ -412,9 +434,20 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 
 			}
 			//Aktuelle Bildspalte ausgeben
-			$table .= '	<td'.$image_align.$image_valign.$image_bgcolor.$image_class.'>';
-			//width="'.$imagelist[$key]["w"].'" removed because no centered image possible
-
+			if($usetable) {
+				$table .= '	<td'.$image_align.$image_valign.$image_bgcolor.$image_class.'>';
+			} else {
+				
+				if(!$x) {
+					$x = 1;	
+				}
+				
+				$table .= '		<div class="'.$imagelist['class_image_wrapper'];
+				if($x === 1) {
+					$table .= ' first';	
+				}
+				$table .= '">' . LF . '			';
+			}
 
 			$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$imagelist['images'][$key][3],
@@ -427,7 +460,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
         					  )
 						);
 
-			if($imagelist['zoom']) {
+			if($thumb_image && $imagelist['zoom']) {
 
 				$zoominfo = get_cached_image(
 						array(	"target_ext"	=>	$imagelist['images'][$key][3],
@@ -487,53 +520,87 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					$table .= $list_img_temp;
 				}
 			}
-			$table .= '</td>'.LF;
-
-			$capt_tmp .= $capt_cur;
-			$capt_row .= '	<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$capt_cur.$capt_after.'</td>'.LF;
+			
+			if($usetable) {
+				$table .= '</td>'.LF;
+			
+				$capt_tmp .= $capt_cur;
+			
+				$capt_row .= '	<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$capt_cur.$capt_after.'</td>'.LF;
+			} else {
+			
+				if(empty($imagelist['nocaption']) && $capt_cur) {
+	
+					$caption_class	= empty($GLOBALS["template_default"]["article"]["image_caption_class"]) ? 'caption' : $GLOBALS["template_default"]["article"]["image_caption_class"];
+					
+					$table .= LF . '			<p style="width:'.$thumb_image[1].'px" class="'.$caption_class.'">'.$GLOBALS["template_default"]["article"]["image_caption_before"];
+					$table .= $capt_cur;
+					
+					if($caption[4] !== '') {
+						$table .= ' <span class="'.$GLOBALS['template_default']['classes']['copyright'].'">'.html_specialchars($caption[4]).'</span>';
+					}
+				
+					$table .= $GLOBALS["template_default"]["article"]["image_caption_after"]."</p>" ;
+				
+				}
+				
+				
+				$table .=  LF . '		</div>'.LF;
+			}
 
 
 			//Gegenchecken wieviele Tabellenspalten als Rest bleiben und ergänzen
-			if($y == $count_images && $col_count > 1) {	//wenn eigentlich alle Bilder durchlaufen sind
-				if ($col_space && $x<$col_count) {
-					$xct = '	<td>'.spacer($col_space,1).'</td>'.LF;
+			if($usetable) {
+				if($y == $count_images && $col_count > 1) {	//wenn eigentlich alle Bilder durchlaufen sind
+					if ($col_space && $x<$col_count) {
+						$xct = '	<td>'.spacer($col_space,1).'</td>'.LF;
+						$table 		.= $xct;
+						$capt_row 	.= $xct;
+					}
+					$rest_image = (ceil($count_images / $col_count) * $col_count) - $count_images;
+					for ($i=1; $i <= $rest_image; $i++) {
+						$table 		.= '	<td>&nbsp;</td>';
+						$capt_row 	.= '	<td>&nbsp;</td>';
+						if($i < $rest_image) {
+							if($col_space) {
+								$xct = '	<td width="'.$col_space.'">'.spacer($col_space,1).'</td>'.LF;
+								$table 		.= $xct;
+								$capt_row 	.= $xct;
+							}
+						}
+						$x++;
+					}
+				}
+	
+				if($x==$col_count) {	//Wenn maximale Anzahl Bildspalten erreicht
+					$xct = ($rand[3]) ? '<td width="'.$rand[3].'">'.spacer($rand[3],1).'</td>'.LF : '';
 					$table 		.= $xct;
 					$capt_row 	.= $xct;
-				}
-				$rest_image = (ceil($count_images / $col_count) * $col_count) - $count_images;
-				for ($i=1; $i <= $rest_image; $i++) {
-					$table 		.= '	<td>&nbsp;</td>';
-					$capt_row 	.= '	<td>&nbsp;</td>';
-					if($i < $rest_image) {
-						if($col_space) {
-							$xct = '	<td width="'.$col_space.'">'.spacer($col_space,1).'</td>'.LF;
-							$table 		.= $xct;
-							$capt_row 	.= $xct;
+					$table		.= "</tr>".LF;
+					$capt_row	.= "</tr>".LF;
+					if($capt_tmp) {
+						if($caption_on) {
+							$table	.= $capt_row;
 						}
+						$capt_row = '';
+						$capt_tmp = '';
 					}
+					$x=1; $z++;
+				} else {
+					$xct 	 	 = ($col_space) ? '	<td width="'.$col_space.'">'.spacer($col_space,1).'</td>'.LF : '';
+					$table 		.= $xct;
+					$capt_row 	.= $xct;
 					$x++;
 				}
-			}
-
-			if($x==$col_count) {	//Wenn maximale Anzahl Bildspalten erreicht
-				$xct = ($rand[3]) ? '<td width="'.$rand[3].'">'.spacer($rand[3],1).'</td>'.LF : '';
-				$table 		.= $xct;
-				$capt_row 	.= $xct;
-				$table		.= "</tr>".LF;
-				$capt_row	.= "</tr>".LF;
-				if($capt_tmp) {
-					if($caption_on) {
-						$table	.= $capt_row;
-					}
-					$capt_row = '';
-					$capt_tmp = '';
-				}
-				$x=1; $z++;
+			
 			} else {
-				$xct 	 	 = ($col_space) ? '	<td width="'.$col_space.'">'.spacer($col_space,1).'</td>'.LF : '';
-				$table 		.= $xct;
-				$capt_row 	.= $xct;
-				$x++;
+							
+				if($x==$imagelist['col']) {
+					$x = 0;
+				} else {
+					$x++;
+				}
+				
 			}
 			
 			// end if max image count
@@ -542,10 +609,14 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			}
 		}
 		
-		if($rand[1]) {
-			$table .= '<tr>'.LF.'	<td'.(($col_total>1)?" colspan=\"".$col_total."\"":"").">".spacer(1,$rand[1]).'</td>'.LF.'</tr>'.LF;
+		if($usetable) {
+			if($rand[1]) {
+				$table .= '<tr>'.LF.'	<td'.(($col_total>1)?" colspan=\"".$col_total."\"":"").">".spacer(1,$rand[1]).'</td>'.LF.'</tr>'.LF;
+			}
+			$table .= '	</table>'.LF;
+		} else {
+			$table .= '	</div>'.LF;
 		}
-		$table .= '</table>'.LF;
 	}
 	return $table;
 }

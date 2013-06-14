@@ -61,7 +61,34 @@ if(!isset($content['image_list']['limit'])) {
 	$content['image_list']['limit'] = 0;
 }
 
-?><tr>
+?>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
+	<td><select name="template" id="template" class="f11b">
+<?php
+	
+	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+
+// templates for frontend login
+$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/imgtable');
+if(is_array($tmpllist) && count($tmpllist)) {
+	foreach($tmpllist as $val) {
+		$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
+		$val = html_specialchars($val);
+		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+	}
+}
+
+?>				  
+		</select></td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+
+<tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
@@ -162,6 +189,11 @@ if($img_thumbs) {
 		          <td><a href="javascript:;" onclick="changeImagePos(6);this.blur();return false;" title="<?php echo $BL['be_cnt_pos6i'] ?>"><img src="img/button/image_pos6.gif" alt="" width="15" height="15" border="0"></a></td>
 			      <td><img src="img/leer.gif" alt="" name="imgpos7" width="7" height="10" id="imgpos7"></td>
 			      <td><a href="javascript:;" onclick="changeImagePos(7);this.blur();return false;" title="<?php echo $BL['be_cnt_pos7i'] ?>"><img src="img/button/image_pos7.gif" alt="" width="15" height="15" border="0"></a></td>
+				  
+				  <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				  <td><input type="checkbox" name="cimage_usetable" id="cimage_usetable" value="1" <?php is_checked(1, empty($content['image_list']['usetable']) ? 0 : 1); ?> /></td>
+				  <td class="v10"><label for="cimage_usetable" class="checkbox"><?php echo $BL['be_admin_page_table'] ?></label></td>
+				  
 			    </tr>
 		      </table><script language="JavaScript" type="text/javascript">
 			  <!--
@@ -199,7 +231,7 @@ if($img_thumbs) {
 if($imgx) {
 	$max_limit = $imgx + 10;
 } else {
-	$max_limit = 20;	
+	$max_limit = 10;	
 }
 for($max_image_limit = 1; $max_image_limit <= $max_limit; $max_image_limit++) {
 
