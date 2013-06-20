@@ -26,12 +26,12 @@ $content['all_keywords']		= '';
 $content['globalRT']			= array();
 $content['aId_CpPage']			= 0; // set default content part pagination page (0 and 1) are the same
 $content['CpTrigger']			= array(); // array to hold content part trigger functions
-$content['404error']			= false;
+$content['404error']			= array('status' => false, 'id' => '', 'aid' => '', 'alias' => '');
 $content['set_canonical']		= false;
 $content['cptab']				= array(); // array to hold content part based tabs
 $content['images']				= array();
 $pagelayout						= array();
-$no_content_for_this_page		= 0;
+$no_content_for_this_page		= false;
 $alias							= '';
 $PERMIT_ACCESS					= true; // by default set all content without permissions
 $CUSTOM							= array(); // var that holds result of content part "php var"
@@ -41,7 +41,7 @@ $CUSTOM							= array(); // var that holds result of content part "php var"
 if(isset($_GET["id"])) {
 
 	$aktion = explode(',', $_GET["id"], 6);
-	$aktion[0] = intval($aktion[0]); //$aktion[0] will be always available
+	$aktion[0] = intval($aktion[0]);
 	$aktion[1] = isset($aktion[1]) ? intval($aktion[1]) : 0;
 	$aktion[2] = isset($aktion[2]) ? intval($aktion[2]) : 0;
 	$aktion[3] = isset($aktion[3]) ? intval($aktion[3]) : 1;
@@ -50,7 +50,13 @@ if(isset($_GET["id"])) {
 	
 	// check if article category is given and available
 	if(!isset($content['struct'][ $aktion[0] ])) {
+		
+		$content['404error']['id']		= $aktion[0];
+		$content['404error']['aid']		= $aktion[1];
+		$content['404error']['status']	= true;
+		
 		$aktion[0] = 0;
+		
 		// OK in case not we should check if given article ID is correct
 		if($aktion[1]) {
 			$sql  =	'SELECT article_id, article_cid FROM '.DB_PREPEND.'phpwcms_article WHERE ';
@@ -60,16 +66,20 @@ if(isset($_GET["id"])) {
 				if($row = mysql_fetch_row($result)) {
 					$aktion[0] = $row[1];
 					$aktion[1] = $row[0];
+					$content['404error']['status'] = false;
 				}
 				mysql_free_result($result);
 			}
 		}
-		$GLOBALS['_getVar']['id'] = implode(',', $aktion);
-		headerRedirect(abs_url( array(), array(), '', 'urlencode'), 404);
+		
+		if($content['404error']['status'] === false) {
+			$GLOBALS['_getVar']['id'] = implode(',', $aktion);
+			headerRedirect(abs_url( array(), array(), '', 'urlencode'), 404);
+		}
 	}
 	
 	// Force 301 Redirect when alias is available
-	if(!empty($phpwcms['force301_id2alias']) && !empty($content['struct'][ $aktion[0] ]['acat_alias'])) {		
+	if($content['404error']['status'] === false && !empty($phpwcms['force301_id2alias']) && !empty($content['struct'][ $aktion[0] ]['acat_alias'])) {		
 		headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
 	}
 
@@ -81,6 +91,7 @@ if(isset($_GET["id"])) {
 	$content['aId_CpPage']	= isset($_GET['aid'][1]) ? intval($_GET['aid'][1]) : 0; // set cp paginate page
 	$_GET['aid']			= intval($_GET['aid'][0]);
 	if($_GET['aid']) {
+		
 		$sql  =	'SELECT article_cid, article_alias FROM '.DB_PREPEND.'phpwcms_article WHERE ';
 		$sql .= 'article_deleted=0 AND article_id='.$_GET['aid'].' ';
 		if(VISIBLE_MODE !== 2) {
@@ -100,13 +111,22 @@ if(isset($_GET["id"])) {
 				}
 				
 			} else {
-				$content['404error'] = true;
+			
+				$content['404error']['status'] = true;
+			
 			}
 			mysql_free_result($result);
+		
 		} else {
-			$content['404error'] = true;
+		
+			$content['404error']['status'] = true;
+		
 		}
+		
+		$content['404error']['id']	= $aktion[0];
+		$content['404error']['aid']	= $aktion[1];
 	}
+	
 	if(!$aktion[1]) {
 		$content['aId_CpPage'] = 0; // no article = no pagination
 	}
@@ -169,9 +189,13 @@ if(isset($_GET["id"])) {
 			
 			} else {
 			
-				$content['404error'] = true;
+				$content['404error']['status'] = true;
 			
 			}
+
+			$content['404error']['id']		= $aktion[0];
+			$content['404error']['aid']		= $aktion[1];
+			$content['404error']['alias']	= $alias;
 			
 		}
 	}
@@ -182,6 +206,81 @@ if(isset($_GET['print'])) {
 	$aktion[2] = 1;
 	define('PRINT_PDF', $_GET['print'] == 2 && !empty($phpwcms['wkhtmltopdf_path']) ? true : false);
 	unset($_getVar['print'], $_GET['print']);
+
+}
+
+// in case of detected 404 error
+if($content['404error']['status'] === true) {
+	
+	// does the combination still exists in the database
+	$content['404error']['result'] = _dbGet('phpwcms_redirect', '*', sprintf(
+		'id=%d AND aid=%d AND alias=%s',
+		$content['404error']['id'],
+		$content['404error']['aid'],
+		_dbEscape($content['404error']['alias'])
+	));
+	
+	if(isset($content['404error']['result'][0])) {
+		
+		$content['404error']['result'] = $content['404error']['result'][0];
+		
+		_dbUpdate('phpwcms_redirect', array('views'	=> intval($content['404error']['result']['views']) + 1), 'rid='.$content['404error']['result']['rid']);
+		
+		// Test for redirect
+		if($content['404error']['result']['active'] == 1) {
+			
+			// HTTP Status
+			// 301, 302 (default), 307, 401, 404, 503
+			$content['404error']['result']['code'] = empty($content['404error']['result']['code']) ? 302 : intval($content['404error']['result']['code']);
+			
+			// Redirect to Home
+			// home (empty), alias, id, aid, link
+			if(empty($content['404error']['result']['type'])) {
+				
+				$content['404error']['result']['target'] = getStructureChildEntryHref($content['struct'][0]);
+				$content['404error']['result']['target'] = PHPWCMS_URL . $content['404error']['result']['target']['link'];
+				headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+			
+			} elseif($content['404error']['result']['target']) {
+				
+				switch($content['404error']['result']['type']) {
+					
+					case 'alias':
+						$content['404error']['result']['target'] = abs_url(array(), array(), $content['404error']['result']['target'], 'rawurlencode');
+						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+						break;
+					
+					case 'id':
+						$content['404error']['result']['target'] = abs_url(array(), array(), 'id='.$content['404error']['result']['target'], 'rawurlencode');
+						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+						break;
+					
+					case 'aid':
+						$content['404error']['result']['target'] = abs_url(array(), array(), 'aid='.$content['404error']['result']['target'], 'rawurlencode');
+						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+						break;
+					
+					case 'link':
+						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+						break;
+				
+				}
+
+			}
+		}
+		
+		$content['404error']['result'] = NULL;
+		
+	} else {
+		
+		// Store in DB
+		_dbInsert('phpwcms_redirect', array(
+			'id'	=> $content['404error']['id'],
+			'aid'	=> $content['404error']['aid'],
+			'alias'	=> $content['404error']['alias']
+		));	
+		
+	}
 
 }
 
@@ -237,7 +336,7 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 
 //define the current article category ID
 $content["cat_id"]	= $aktion[0];
-$content['body_id']	= $content["cat_id"];
+$content['body_id']	= $aktion[0];
 
 // check if current level is a redirect level
 if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
@@ -361,7 +460,9 @@ $content['CB']['FOOTER']	= ''; // {FOOTER}
 if(!empty($pagelayout['layout_customblocks'])) {
 	$custom_blocks = explode(', ', $pagelayout['layout_customblocks']);
 	foreach($custom_blocks as $value) {
-		if($value != '') $content['CB'][$value] = '';
+		if($value !== '') {
+			$content['CB'][$value] = '';
+		}
 	}
 	unset($custom_blocks);
 }
@@ -405,7 +506,7 @@ $content["article_list_count"]	= count($content["articles"]);
 // generating a list of articles inside the current article category
 if(!$aktion[4]) {
 	
-	if(!$content['404error'] && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
+	if($content['404error']['status'] === false && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
 		
 		if($content["article_list_count"] == 1 || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1) {
 		    // if($temp_counter == 1) {
@@ -437,7 +538,7 @@ if(!$aktion[4]) {
 	
 	} else {
 
-		$no_content_for_this_page = 1;
+		$no_content_for_this_page = true;
 
 	}
 
@@ -488,7 +589,8 @@ if($aktion[1]) {
 
 //check for no content error
 $content["main"] = trim($content["main"]);
-if($content['404error'] || $no_content_for_this_page || $content["main"] == '') {
+if($content['404error']['status'] === true || $no_content_for_this_page || $content["main"] == '') {
+	// Show 404 error page
 	header('HTTP/1.0 404 Not Found');
 	$content["main"] .= $block["errortext"];
 }
@@ -610,7 +712,9 @@ foreach($content['CB'] as $key => $value) {
 	if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '' && $value !== '') {
 		$value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
 	}
-	$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
+	//$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
+	// Blocks should render now as [BLOCK] and [BLOCK_ELSE] if no content
+	$content["all"] = render_cnt_template($content["all"], $key, $value);
 }
 
 // render Tab replacement code
@@ -730,7 +834,7 @@ if(strpos($content["all"],'###search_input_') !== false) {
 
 // related articles based on keywords, inspired by Magnar Stav Johanssen
 if(strpos($content["all"],'{RELATED:') !== false) {
-	if (!$no_content_for_this_page && !empty($content["articles"][$aktion[1]]["article_keyword"])) {
+	if ($no_content_for_this_page === false && !empty($content["articles"][$aktion[1]]["article_keyword"])) {
 		$related_keywords = $content["articles"][$aktion[1]]["article_keyword"];
 	} else {
 		$related_keywords = '';

@@ -1007,7 +1007,8 @@ div.status_message_success {
 	font-size: 12px;
 	font-weight: normal;
 }
-div.status_message_warning {
+div.status_message_warning,
+div.status_message_error {
 	margin: 0 0 15px 0;
 	border: 1px solid #CC3300;
 	background-color: #FFC6C6;
@@ -1583,7 +1584,9 @@ ul#images em.handle {
 	max-width: 130px;
 }
 
-
+.formrowdark {
+	background:#E6EAED;
+}
 .darkblue, .darkblue a, .darkblue a:hover {
 	color: #2B6183;
 }

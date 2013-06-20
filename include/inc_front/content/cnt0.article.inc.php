@@ -64,7 +64,7 @@ switch($crow["acontent_form"]) {
 
 }
 
-$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow['acontent_text']).'<!-- '.$crow["acontent_form"].' -->';
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow['acontent_text']);
 
 
 $CNT_TMP .= LF.trim($crow["acontent_template"]).LF;

@@ -1270,73 +1270,92 @@ $BL['be_skip_first_items']				= 'skip top items';
 $BL['be_news_detail_link']				= 'news article';
 
 $BL['be_gallerydownload']				= 'allow download in gallery';
-$BL['be_gallery_root']					= 'gallery root directory';
-$BL['be_gallery_directory']				= 'gallery subdirectory';
+$BL['be_gallery_root']				= 'gallery root directory';
+$BL['be_gallery_directory']			= 'gallery subdirectory';
 $BL['be_gallery']						= 'gallery';
 
-$BL['be_sort_date']						= 'sort date';
+$BL['be_sort_date']					= 'sort date';
 
-$BL['group_superuser']					= 'superuser';
+$BL['group_superuser']				= 'superuser';
 $BL['group_admin']						= 'administrator';
-$BL['group_editor']						= 'editor';
-$BL['group_newsletter']					= 'newsletter editor';
-$BL['group_client']						= 'client';
+$BL['group_editor']					= 'editor';
+$BL['group_newsletter']				= 'newsletter editor';
+$BL['group_client']					= 'client';
 $BL['group_guest']						= 'guest';
 
-$BL['php_function']						= 'php function';
+$BL['php_function']					= 'php function';
 $BL['article_menu_title']				= 'menu title';
 
-$BL['content_type']						= 'content-type';
+$BL['content_type']					= 'content-type';
 $BL['automatic']						= 'automatic';
 
-$BL['random_image']						= 'select images randomly';
+$BL['random_image']					= 'select images randomly';
 $BL['limit_image_from_list']			= 'Images max.';
 
 $BL['alt_image']						= 'alt. image';
-$BL['alt_text']							= 'alt. text';
+$BL['alt_text']						= 'alt. text';
 $BL['over']								= 'over';
 $BL['js_lib']							= 'JS Library';
 $BL['js_lib_alwaysload']				= 'always load';
-$BL['frontendjs_load']					= 'load frontend.js (more for historical reasons)';
+$BL['frontendjs_load']				= 'load frontend.js (more for historical reasons)';
 $BL['googleapi_load']					= 'use Google Ajax Lib';
 
 $BL['fancyupload_clear_list']			= 'Clear List';
 $BL['fancyupload_file_uploaded']		= 'File was uploaded';
 $BL['fancyupload_file_error']			= 'An error occured';
 $BL['fancyupload_adblock_error']		= 'To enable the embedded uploader, unblock it in your browser and refresh (see Adblock).';
-$BL['fancyupload_flashblock_error']		= 'To enable the embedded uploader, enable the blocked Flash movie (see Flashblock).';
-$BL['fancyupload_required_error']		= 'A required file was not found, please be patient and we fix this.';
-$BL['fancyupload_flash_error']			= 'To enable the embedded uploader, install the latest Adobe Flash plugin.';
+$BL['fancyupload_flashblock_error']	= 'To enable the embedded uploader, enable the blocked Flash movie (see Flashblock).';
+$BL['fancyupload_required_error']	= 'A required file was not found, please be patient and we fix this.';
+$BL['fancyupload_flash_error']		= 'To enable the embedded uploader, install the latest Adobe Flash plugin.';
 
-$BL['be_cnt_function_validate']			= 'PHP validation';
+$BL['be_cnt_function_validate']		= 'PHP validation';
 $BL['be_structform_selected_cp']		= 'Limit selection of usable content parts';
-$BL['be_structform_select_cp']			= 'Select content parts';
+$BL['be_structform_select_cp']		= 'Select content parts';
 
 $BL['source_image_not_found']			= 'Source image error: The image %s seems not to exist';
 $BL['form_force_ssl']					= 'Force sending forms with SSL';
 $BL['numerize_title']					= 'Numbered instead of article titles';
-$BL['be_article_noteaser']				= 'no teaser';
+$BL['be_article_noteaser']			= 'no teaser';
 $BL['be_acat_disable301']				= 'article 301 redirect';
 
 $BL['file_actions_step1']				= "Step 1: select folder";
 $BL['file_actions_step2']				= "Step 2: select file";
 $BL['file_actions_step3']				= "Step 3: select action";
-$BL['file_actions_button']				= 'Perform action';
-$BL['file_actions_no']					= 'No files for editing. Please select another folder ';
-$BL['file_actions_delete']				= 'Are you sure that the selected files should be deleted?';
-$BL['file_actions_bemuser']				= 'The selected files will be assigned to the new user and moved to its root.';
+$BL['file_actions_button']			= 'Perform action';
+$BL['file_actions_no']				= 'No files for editing. Please select another folder ';
+$BL['file_actions_delete']			= 'Are you sure that the selected files should be deleted?';
+$BL['file_actions_bemuser']			= 'The selected files will be assigned to the new user and moved to its root.';
 $BL['file_actions_bemfolder']			= 'Please select the destination folder. The selected files are moved to this folder. ';
 $BL['file_actions_pdl_empty']			= 'select action';
-$BL['file_actions_pdl_delete']			= 'delete files';
+$BL['file_actions_pdl_delete']		= 'delete files';
 $BL['file_actions_pdl_move']			= 'move files';
-$BL['file_actions_pdl_status']			= 'change status';
+$BL['file_actions_pdl_status']		= 'change status';
 $BL['file_actions_pdl_user']			= 'change owner';
 $BL['file_actions_msg_move']			= 'Files were moved successfully';
-$BL['file_actions_msg_delete']			= 'Files were deleted successfully';
-$BL['file_actions_msg_status']			= 'The status of files successfully changed';
+$BL['file_actions_msg_delete']		= 'Files were deleted successfully';
+$BL['file_actions_msg_status']		= 'The status of files successfully changed';
 $BL['file_actions_msg_error']			= 'There are no files selected';
 $BL['file_actions_msg_user']			= 'Files were successfully assigned to the new user';
 
-$BL['be_imagefiles_as_gallery']			= 'create gallery from image files';
+$BL['be_imagefiles_as_gallery']		= 'create gallery from image files';
+
+$BL['be_link']							= 'link';
+$BL['be_links']						= 'links';
+$BL['be_redirect']						= 'redirect';
+$BL['be_redirects']					= 'redirects';
+$BL['be_views']						= 'views';
+$BL['be_structure_id']				= 'structure ID';
+$BL['be_shortcut']						= 'shortcut';
+$BL['be_target_type']					= 'target type';
+$BL['be_http_status']					= 'HTTP status';
+$BL['be_http_status301']				= 'moved permanently';
+$BL['be_http_status307']				= 'temporary redirect';
+$BL['be_http_status404']				= 'not found';
+$BL['be_http_status401']				= 'unauthorized';
+$BL['be_http_status503']				= 'service unavailable';
+$BL['be_redirect_error1']				= 'Alias/Shortcut, structure or article ID is required';
+$BL['be_redirect_error2']				= 'Target is required';
+$BL['be_redirect_error3']				= 'For target type article ID and structure ID only integers are allowed as target';
+
 
 ?>

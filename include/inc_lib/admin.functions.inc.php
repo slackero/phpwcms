@@ -659,4 +659,59 @@ function listmode_edits ($listmode, $struct, $key, $an, $copy_article_content, $
 	return $a;
 }
 
+function update_404redirect() {
+	
+	$data = array(
+		'error'	=> array(),
+		'data'	=> array(
+			'rid'		=> intval($_POST['rid']),
+			'alias'		=> clean_slweg($_POST['alias']),
+			'id'		=> trim($_POST['id']) === '' ? '' : intval($_POST['id']),
+			'aid'		=> trim($_POST['aid']) === '' || !intval($_POST['aid']) ? '' : intval($_POST['aid']),
+			'type'		=> empty($_POST['type']) || !in_array($_POST['type'], array('alias', 'id', 'aid', 'link')) ? '' : clean_slweg($_POST['type']),
+			'active'	=> empty($_POST['active']) ? 0 : 1,
+			'shortcut'	=> empty($_POST['shortcut']) ? 0 : 1,
+			'code'		=> empty($_POST['code']) || !in_array($_POST['code'], array('301', '307', '404', '401', '503')) ? '' : clean_slweg($_POST['code']),
+			'target'	=> clean_slweg($_POST['target']),
+			'changed'	=> date('Y-m-d H:i:s')
+		)
+	);
+	
+	if(!$data['data']['aid'] && !$data['data']['alias'] && $data['data']['id'] == '') {
+		$data['error'][] = $GLOBALS['BL']['be_redirect_error1'];
+	}
+	if($data['data']['type'] && $data['data']['target'] === '') {
+		$data['error'][] = $GLOBALS['BL']['be_redirect_error2'];
+	} elseif(($data['data']['type'] == 'id' || $data['data']['type'] == 'aid') && !is_intval($data['data']['target'])) {
+		$data['error'][] = $GLOBALS['BL']['be_redirect_error3'];
+	}
+	
+	if(count($data['error'])) {
+		$data['data']['active'] = 0;		
+		set_status_message(implode('<br />', $data['error']), 'error');
+	} else {
+		$data['error'] = NULL;
+		$rid = $data['data']['rid'];
+		unset($data['data']['rid']);
+		if($rid) {
+			$result = _dbUpdate('phpwcms_redirect', $data['data'], 'rid='.$rid);
+		} else {
+			$result = _dbInsert('phpwcms_redirect', $data['data']);
+			if(isset($result['INSERT_ID'])) {
+				$rid = $result['INSERT_ID'];
+			}
+		}		
+		$data['data']['rid'] = $rid;
+		
+		if($result) {
+			set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');				
+		} else {
+			set_status_message($GLOBALS['BL']['be_error_while_save'], 'error');
+		}
+	}
+	
+	return $data;
+	
+}
+
 ?>

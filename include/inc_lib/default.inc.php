@@ -616,11 +616,12 @@ function headerRedirect($target='', $type=0) {
 		session_write_close();
 	}
 	switch($type) {
+		case 301:	header('HTTP/1.1 301 Moved Permanently');		break;
+		case 302:	header('HTTP/1.1 302 Found');						break;
 		case 307:	header('HTTP/1.1 307 Temporary Redirect');		break;
 		case 401:	header('HTTP/1.1 401 Authorization Required'); 	break;
 		case 404:	header('HTTP/1.1 404 Not Found');				break;
 		case 503:	header('HTTP/1.1 503 Service Unavailable'); 	break;
-		case 301:	header('HTTP/1.1 301 Moved Permanently');		break;
 	}
 	if($target !== '') {
 		header('Location: '.$target);
