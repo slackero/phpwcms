@@ -277,7 +277,8 @@ if($content['404error']['status'] === true) {
 		_dbInsert('phpwcms_redirect', array(
 			'id'	=> $content['404error']['id'],
 			'aid'	=> $content['404error']['aid'],
-			'alias'	=> $content['404error']['alias']
+			'alias'	=> $content['404error']['alias'],
+			'views'	=> 1
 		));	
 		
 	}
