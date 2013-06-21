@@ -10,7 +10,7 @@
  **/
 
  
-// Language: Polish, Language Code: pl UTF-8 for ver.1.6.531 Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.7.0 (2013/06/20, r532) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1040,9 +1040,9 @@ $BL['be_cnt_sysadmin_system']		= 'system';
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']			= 'Twoja instalacja jest aktualna,brak możliwych aktualizacji tej wersji phpwcms.';
 $BL['Version_not_up_to_date']		= 'Twoja instalacja <b>nie</b> wydaje się być aktualna. Dostępne są,aktualizacje tej wersji phpwcms-a. Proszę odwiedź <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a> aby poznać szczegóły.';
-$BL['Latest_version_info']			= 'Ostatnia dostępna wersja to <b>phpwcms %s</b>.';
-$BL['Current_version_info']			= 'Twój bieżący <b>phpwcms %s</b>.';
-$BL['Connect_socket_error']			= 'Nie można otworzyć połączenia do serwera phpwcms , zgłaszany jest błąd:<br />%s';
+$BL['Latest_version_info']		= 'Ostatnia dostępna wersja to <b>phpwcms %s</b>.';
+$BL['Current_version_info']		= 'Twój bieżący <b>phpwcms %s</b>.';
+$BL['Connect_socket_error']		= 'Nie można otworzyć połączenia do serwera phpwcms , zgłaszany jest błąd:<br />%s';
 $BL['Socket_functions_disabled']	= 'Niemożliwe jest użycie funkcji socket';
 $BL['Mailing_list_subscribe_reminder']	= 'Aby otrzymywać informacje o aktualizacjach do Twojego phpwcms,prenumeruj <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">listę mailingową</a>.';
 $BL['Version_information'] 		= 'Informacja o wersji phpwcms';
@@ -1059,7 +1059,7 @@ $BL['be_cnt_search_show_forall']	= 'pokaż zawsze';
 $BL['be_cnt_search_startlevel']	= 'zacznij szukać';
 $BL['be_cnt_results_minchar']	= 'minimalna liczba znaków w zapytaniu';
 $BL['be_cnt_search_hidesummary']	= 'hide search teaser text';
-$BL['be_cnt_search_searchnot']		= 'no search for';
+$BL['be_cnt_search_searchnot']	= 'no search for';
 
 $BL['be_cnt_pagination']	= 'paginuj elementy zawartości';
 $BL['be_article_pagination']	= 'paginuj artykuły';
@@ -1068,7 +1068,7 @@ $BL['be_pagination']		= 'paginacja';
 
 
 $BL['be_ctype_recipe']		= 'odbiorca';
-$BL['be_ctype_faq']			= 'faq';
+$BL['be_ctype_faq']		= 'faq';
 $BL['be_cnt_additional']	= 'dodatkowe';
 $BL['be_cnt_question']		= 'pytanie';
 $BL['be_cnt_answer']		= 'odpowiedź';
@@ -1338,5 +1338,24 @@ $BL['file_actions_msg_error']		= 'Nie wybrano plików';
 $BL['file_actions_msg_user']		= 'Pliki zostały pomyślnie przypisany do nowego użytkownika';
 
 $BL['be_imagefiles_as_gallery']		= 'utwórz galerię z plików graficznych';
+
+$BL['be_link']				= 'link';
+$BL['be_links']				= 'linki';
+$BL['be_redirect']			= 'przekieruj';
+$BL['be_redirects']			= 'przekierowania';
+$BL['be_views']				= 'wywołań';
+$BL['be_structure_id']			= 'ID struktury';
+$BL['be_shortcut']			= 'skrót';
+$BL['be_target_type']			= 'typ docelowy';
+$BL['be_http_status']			= 'HTTP status';
+$BL['be_http_status301']		= 'trwale przeniesiony';
+$BL['be_http_status307']		= 'przekierowanie tymczasowe';
+$BL['be_http_status404']		= 'nie znaleziono';
+$BL['be_http_status401']		= 'nieautoryzowany';
+$BL['be_http_status503']		= 'usługa niedostępna';
+$BL['be_redirect_error1']		= 'Alias/Skrót, wymagana jest struktura lub ID artykułu';
+$BL['be_redirect_error2']		= 'Cel jest wymagany';
+$BL['be_redirect_error3']		= 'Dla docelowego typu, ID artykułu i ID struktury dozwolone są tylko liczby całkowite jako docelowe';
+
 
 ?>
