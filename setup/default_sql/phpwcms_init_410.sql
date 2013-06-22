@@ -1055,7 +1055,7 @@ CREATE TABLE `phpwcms_log_seo` (
   PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `phpwcms_log` (
+CREATE TABLE `phpwcms_log` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
   `log_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `log_type` varchar(50) NOT NULL DEFAULT '',
@@ -1072,4 +1072,23 @@ CREATE TABLE IF NOT EXISTS `phpwcms_log` (
   PRIMARY KEY (`log_id`),
   KEY `log_referrer_id` (`log_referrer_id`),
   KEY `log_type` (`log_type`)
+);
+
+CREATE TABLE `phpwcms_redirect` (
+	`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`id` bigint(20) unsigned NOT NULL DEFAULT '0',
+	`aid` bigint(20) unsigned NOT NULL DEFAULT '0',
+	`alias` varchar(255) NOT NULL DEFAULT '',
+	`link` varchar(255) NOT NULL DEFAULT '',
+	`views` bigint(20) unsigned NOT NULL DEFAULT '0',
+	`active` int(1) unsigned NOT NULL DEFAULT '0',
+	`shortcut` int(1) unsigned NOT NULL DEFAULT '0',
+	`type` varchar(255) NOT NULL DEFAULT '',
+	`code` varchar(255) NOT NULL DEFAULT '',
+	`target` varchar(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (`rid`),
+	KEY `id` (`id`,`aid`,`alias`),
+	KEY `active` (`active`),
+	KEY `link` (`link`)
 );
