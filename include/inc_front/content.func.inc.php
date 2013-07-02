@@ -36,6 +36,12 @@ $alias							= '';
 $PERMIT_ACCESS					= true; // by default set all content without permissions
 $CUSTOM							= array(); // var that holds result of content part "php var"
 
+// reset force redirect in case it is a POST
+if(isset($_POST) && count($_POST)) {
+	$phpwcms['force301_id2alias']	= false;
+	$phpwcms['force301_2struct']	= false;
+}
+
 //method to get the right action values
 //if there is only the ?alias try to find the right category
 if(isset($_GET["id"])) {
@@ -47,16 +53,16 @@ if(isset($_GET["id"])) {
 	$aktion[3] = isset($aktion[3]) ? intval($aktion[3]) : 1;
 	$aktion[4] = isset($aktion[4]) ? intval($aktion[4]) : 0;
 	$aktion[5] = isset($aktion[5]) ? intval($aktion[5]) : 0;
-	
+
 	// check if article category is given and available
 	if(!isset($content['struct'][ $aktion[0] ])) {
-		
+
 		$content['404error']['id']		= $aktion[0];
 		$content['404error']['aid']		= $aktion[1];
 		$content['404error']['status']	= true;
-		
+
 		$aktion[0] = 0;
-		
+
 		// OK in case not we should check if given article ID is correct
 		if($aktion[1]) {
 			$sql  =	'SELECT article_id, article_cid FROM '.DB_PREPEND.'phpwcms_article WHERE ';
@@ -71,15 +77,15 @@ if(isset($_GET["id"])) {
 				mysql_free_result($result);
 			}
 		}
-		
+
 		if($content['404error']['status'] === false) {
 			$GLOBALS['_getVar']['id'] = implode(',', $aktion);
 			headerRedirect(abs_url( array(), array(), '', 'urlencode'), 404);
 		}
 	}
-	
+
 	// Force 301 Redirect when alias is available
-	if($content['404error']['status'] === false && !empty($phpwcms['force301_id2alias']) && !empty($content['struct'][ $aktion[0] ]['acat_alias'])) {		
+	if($content['404error']['status'] === false && !empty($phpwcms['force301_id2alias']) && !empty($content['struct'][ $aktion[0] ]['acat_alias'])) {
 		headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
 	}
 
@@ -91,7 +97,7 @@ if(isset($_GET["id"])) {
 	$content['aId_CpPage']	= isset($_GET['aid'][1]) ? intval($_GET['aid'][1]) : 0; // set cp paginate page
 	$_GET['aid']			= intval($_GET['aid'][0]);
 	if($_GET['aid']) {
-		
+
 		$sql  =	'SELECT article_cid, article_alias FROM '.DB_PREPEND.'phpwcms_article WHERE ';
 		$sql .= 'article_deleted=0 AND article_id='.$_GET['aid'].' ';
 		if(VISIBLE_MODE !== 2) {
@@ -104,29 +110,29 @@ if(isset($_GET["id"])) {
 			if($row = mysql_fetch_row($result)) {
 				$aktion[0] = $row[0];
 				$aktion[1] = $_GET['aid'];
-				
+
 				// Force 301 Redirect when alias is available
-				if(!empty($phpwcms['force301_id2alias']) && !$content['aId_CpPage'] && !empty($row[1])) {		
+				if(!empty($phpwcms['force301_id2alias']) && !$content['aId_CpPage'] && !empty($row[1])) {
 					headerRedirect(abs_url(array(), array(), $row[1], 'urlencode'), 301);
 				}
-				
+
 			} else {
-			
+
 				$content['404error']['status'] = true;
-			
+
 			}
 			mysql_free_result($result);
-		
+
 		} else {
-		
+
 			$content['404error']['status'] = true;
-		
+
 		}
-		
+
 		$content['404error']['id']	= $aktion[0];
 		$content['404error']['aid']	= $aktion[1];
 	}
-	
+
 	if(!$aktion[1]) {
 		$content['aId_CpPage'] = 0; // no article = no pagination
 	}
@@ -139,67 +145,67 @@ if(isset($_GET["id"])) {
 		reset($GLOBALS['_getVar']);
 		$alias = trim(key($GLOBALS['_getVar']));
 		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
-		
+
 			$where_alias = aporeplace($alias);
-			
+
 			// we have to check against MySQL < 4.0 -> UNION unknown
 			// so use a workaround
-			
+
 			if(PHPWCMS_DB_VERSION < 40000) {
-			
+
 				$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
 				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "' LIMIT 1";
-				
+
 				$row = _dbQuery($sql);
-				
+
 				if(!isset($row[0]['acat_id'])) {
-					
+
 					$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
 					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "' LIMIT 1";
-				
+
 					$row = _dbQuery($sql);
-				
+
 				}
-			
+
 			} else {
-		
+
 				$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "')";			 
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "')";
 				$sql .= " UNION ";
 				$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
 				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "') ";
 				$sql .= "LIMIT 1";
-			
+
 				$row = _dbQuery($sql);
-					
+
 			}
-			
+
 			if(isset($row[0]['acat_id'])) {
-			
+
 				$aktion[0] = $row[0]['acat_id'];
 				$aktion[1] = $row[0]['article_id'];
 				$aktion[3] = $row[0]['aktion3'];
 				$aktion[4] = $row[0]['aktion4'];
-						
+
 				define('PHPWCMS_ALIAS', $alias);
-			
+
 			} elseif($alias == $indexpage['acat_alias']) {
-			
+
 				define('PHPWCMS_ALIAS', $alias);
-			
+
 			} else {
-			
+
 				$content['404error']['status'] = true;
-			
+
 			}
 
 			$content['404error']['id']		= $aktion[0];
 			$content['404error']['aid']		= $aktion[1];
 			$content['404error']['alias']	= $alias;
-			
+
 		}
 	}
-	
+
 }
 if(isset($_GET['print'])) {
 
@@ -211,7 +217,7 @@ if(isset($_GET['print'])) {
 
 // in case of detected 404 error
 if($content['404error']['status'] === true) {
-	
+
 	// does the combination still exists in the database
 	$content['404error']['result'] = _dbGet('phpwcms_redirect', '*', sprintf(
 		'id=%d AND aid=%d AND alias=%s',
@@ -219,68 +225,68 @@ if($content['404error']['status'] === true) {
 		$content['404error']['aid'],
 		_dbEscape($content['404error']['alias'])
 	));
-	
+
 	if(isset($content['404error']['result'][0])) {
-		
+
 		$content['404error']['result'] = $content['404error']['result'][0];
-		
+
 		_dbUpdate('phpwcms_redirect', array('views'	=> intval($content['404error']['result']['views']) + 1), 'rid='.$content['404error']['result']['rid']);
-		
+
 		// Test for redirect
 		if($content['404error']['result']['active'] == 1) {
-			
+
 			// HTTP Status
 			// 301, 302 (default), 307, 401, 404, 503
 			$content['404error']['result']['code'] = empty($content['404error']['result']['code']) ? 302 : intval($content['404error']['result']['code']);
-			
+
 			// Redirect to Home
 			// home (empty), alias, id, aid, link
 			if(empty($content['404error']['result']['type'])) {
-				
+
 				$content['404error']['result']['target'] = getStructureChildEntryHref($content['struct'][0]);
 				$content['404error']['result']['target'] = PHPWCMS_URL . $content['404error']['result']['target']['link'];
 				headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
-			
+
 			} elseif($content['404error']['result']['target']) {
-				
+
 				switch($content['404error']['result']['type']) {
-					
+
 					case 'alias':
 						$content['404error']['result']['target'] = abs_url(array(), array(), $content['404error']['result']['target'], 'rawurlencode');
 						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
 						break;
-					
+
 					case 'id':
 						$content['404error']['result']['target'] = abs_url(array(), array(), 'id='.$content['404error']['result']['target'], 'rawurlencode');
 						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
 						break;
-					
+
 					case 'aid':
 						$content['404error']['result']['target'] = abs_url(array(), array(), 'aid='.$content['404error']['result']['target'], 'rawurlencode');
 						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
 						break;
-					
+
 					case 'link':
 						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
 						break;
-				
+
 				}
 
 			}
 		}
-		
+
 		$content['404error']['result'] = NULL;
-		
+
 	} else {
-		
+
 		// Store in DB
 		_dbInsert('phpwcms_redirect', array(
 			'id'	=> $content['404error']['id'],
 			'aid'	=> $content['404error']['aid'],
 			'alias'	=> $content['404error']['alias'],
 			'views'	=> 1
-		));	
-		
+		));
+
 	}
 
 }
@@ -296,14 +302,14 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 		$_POST['phpwcms_output_action'],
 		$_getVar['phpwcms_output_action']
 	);
-	
+
 	if(is_array($phpwcms['output_action'])) {
-		
+
 		$phpwcms['output_function']	= array();
 		$phpwcms['output_section']	= array();
-		
+
 		foreach($phpwcms['output_action'] as $value) {
-			
+
 			$value = trim($value);
 			if($value{0} == 'F') {
 				$value = explode('|', substr($value, 2));
@@ -316,18 +322,18 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 			}
 
 			if(is_array($value)) {
-			
+
 				foreach($value as $_value) {
-					
+
 					$_value = trim($_value);
-					
+
 					if($_value != '') {
 						$phpwcms[$output_key][$_value] = $_value;
 					}
 				}
 			}
 		}
-		
+
 		$phpwcms['output_action'] = count($phpwcms['output_function']) || count($phpwcms['output_section']) ? true : false;
 
 	} else {
@@ -361,7 +367,7 @@ foreach($level_ID_array as $key => $value) {
 	$LEVEL_STRUCT[$level_count]	= $content['struct'][$key]['acat_name'];
 	if($PERMIT_ACCESS && $content['struct'][$key]['acat_regonly']) {
 		$PERMIT_ACCESS			= false; // only users have been logged in get access
-	} 
+	}
 	$level_count++;
 }
 
@@ -395,7 +401,7 @@ if(!isset($block)) {
 	}
 }
 
-// compatibility for older releases where only 
+// compatibility for older releases where only
 // 1 css file could be stored per template
 if(is_string($block['css'])) {
 	$block['css'] = array($block['css']);
@@ -492,10 +498,10 @@ if(!PERMIT_ACCESS && !_getFeUserLoginStatus()) {
 	} elseif(empty($template_default['login_form_url'])) {
 		$template_default['login_form_url'] = PHPWCMS_URL;
 	}
-	
+
 	// store current URL
 	$_SESSION['LOGIN_REDIRECT'] = decode_entities(FE_CURRENT_URL);
-	
+
 	// redirect to login form
 	headerRedirect($template_default['login_form_url'], 401);
 }
@@ -506,9 +512,9 @@ $content["article_list_count"]	= count($content["articles"]);
 
 // generating a list of articles inside the current article category
 if(!$aktion[4]) {
-	
+
 	if($content['404error']['status'] === false && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
-		
+
 		if($content["article_list_count"] == 1 || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1) {
 		    // if($temp_counter == 1) {
 			// if only 1 article for this category available
@@ -519,24 +525,24 @@ if(!$aktion[4]) {
 				break;
 			}
 			$aktion[4] = 1; // this needs to be set to 1 for showing the article
-			
+
 			// enable canonical <link> tag
 			$content['set_canonical'] = true;
 
 		} else {
-			
+
 			// there is more than 1 article inside this category
-			
-			//enym enable structure fe link for listing mode      
+
+			//enym enable structure fe link for listing mode
       		if(FE_EDIT_LINK && $_SESSION["wcs_user_admin"]) {
 				$content["main"] .= getFrontendEditLink('structure', $content['cat_id']);
 			}
-			
+
 			// -> list all - the 1st will be shown with summary and such stuff
 			$content["main"] .= list_articles_summary();
 
 		}
-	
+
 	} else {
 
 		$no_content_for_this_page = true;
@@ -559,7 +565,7 @@ if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && !$conten
 if(!empty($phpwcms['enable_deprecated'])) {
 	include_once(PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php");
 } else {
-	$phpwcms['enable_deprecated'] = false;	
+	$phpwcms['enable_deprecated'] = false;
 }
 
 // check if current category should be cached
@@ -603,9 +609,9 @@ if(!$block["maintext"]) {
 
 //normal page operation
 if($aktion[2] == 0) {
-	
+
 	switch($pagelayout["layout_render"]) {
-	
+
 		case 0:	//create the page layout table (header, left, content, right, footer)
 				$content["all"]  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"";	//start main table
 				$content["all"] .= td_attributes($pagelayout, "all", 0);
@@ -626,12 +632,12 @@ if($aktion[2] == 0) {
 				}
 				$content["all"] .= colspan_table_row($pagelayout, "footer", $colspan, $block["footertext"]); //footer row
 				$content["all"] .= '</table>'.LF; //end main table
-				
+
 				break;
-		
-				
+
+
 		case 1:	//create the page layout based on DIV (layer)
-		
+
 				//contentContainer DIV start
 				$content["all"] = '';
 				$pagelayout['additional_wrap_div'] = false;
@@ -644,7 +650,7 @@ if($aktion[2] == 0) {
 								break;
 				}
 				$content["all"] .= '<div id="container">'.LF;
-		
+
 				//header DIV
 				if($block["headertext"] || $pagelayout['layout_header_height']) {
 					$content["all"] .= '	<div id="headerBlock">'.$block["headertext"]."</div>\n";
@@ -668,15 +674,15 @@ if($aktion[2] == 0) {
 					$content["all"] .= "</div>";
 				}
 				$content["all"] .= "</div>\n";
-		
+
 				break;
-		
-		
+
+
 		case 2: //create the page layout based only on the content of main block
 				$content["all"]	= $block["maintext"];
-				
+
 				break;
-	
+
 	}
 
 } elseif ($aktion[2] == 1) {
@@ -689,14 +695,14 @@ if($aktion[2] == 0) {
 		$content['all']		= replace_tmpl_section('PDF_SETTINGS', $content['all']);
 		$_print_settings	= parse_ini_str($_print_settings, false);
 	}
-	
+
 	if($content['all']) {
 		$content["all"]	= str_replace('{CURRENT_URL}', abs_url(), $content["all"]);
 		$content["all"]	= str_replace('{CONTENT}', $block["maintext"], $content["all"]);
 	} else {
 		$content['all']	= $block["maintext"];
 	}
-	
+
 }
 
 // Render possible PHP Values in category or article keyword field
@@ -758,7 +764,7 @@ if(strpos($content["all"],'{BREADCRUMB') !== false) {
 
 // ul/li based navigation, the default one
 if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
-	
+
 	// build complete menu structure starting at a specific ID
 	// {NAV_LIST_UL:Parameter} Parameter: "menu_type, start_id, class_path, class_active, ul_id_name"
 	$content["all"] = preg_replace('/\{NAV_LIST_UL:(.*?)\}/e', 'buildCascadingMenu("$1");', $content["all"]);
@@ -779,15 +785,15 @@ if($phpwcms['enable_deprecated'] && strpos($content["all"],'{NAV_') !== false) {
 	$content["all"] = str_replace('{NAV_LIST}', '{NAV_LIST:0}', $content["all"]);
 	$content["all"] = str_replace('{NAV_LIST_TOP}', css_level_list($content["struct"], $content["cat_path"], 0, '', 1), $content["all"]);
 	$content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
-	
+
 	// list based navigation starting at given level
 	$replace = 'nav_list_struct($content["struct"],$content["cat_id"],"$1", "$2");';
 	$content["all"] = preg_replace('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/e', $replace, $content["all"]);
-	
+
 	// List based navigation with Top Level - default settings
 	// creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
 	$content["all"] = preg_replace('/\{NAV_LIST_TOP:(.*?):(.*?)\}/e', 'css_level_list($content["struct"], $content["cat_path"], 0, "$1", 1, "$2")', $content["all"]);
-	
+
 	// List based navigation with Top Level - default settings
 	// creates a list styled nav menu of current level {NAV_LIST_CURRENT:1:back_name:class_name} | default class name = list_top
 	$content["all"] = preg_replace('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/e', 'css_level_list($content["struct"],$content["cat_path"],$content["cat_id"],"$2","$1","$3")', $content["all"]);
@@ -797,13 +803,13 @@ if($phpwcms['enable_deprecated'] && strpos($content["all"],'{NAV_') !== false) {
 
 		$replace = nav_table_simple_struct($content["struct"], $content["cat_id"]);
 		$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', $replace, $content["all"]);
-		
+
 		$content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
 		$replace = 'nav_table_struct($content["struct"], $content["cat_id"], "$1", $template_default["nav_table_struct"]);';
 		$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
 
 	}
-	
+
 	$content["all"] = html_parser_deprecated($content["all"]);
 
 }
@@ -849,7 +855,7 @@ if(strpos($content["all"],'{NEW:') !== false) {
 	$content["all"] = preg_replace('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/e','get_new_articles($template_default["news"],"$1","$2",$db);',$content["all"]);
 }
 
-// some more general parsing 
+// some more general parsing
 $content["all"]	= str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
 $content["all"] = str_replace('{RSSIMG}', $template_default["rss"]["image"], $content["all"]);
 
@@ -1006,18 +1012,18 @@ $content['all'] = str_replace(array('<!--SEARCH_HIGHLIGHT_START//-->', '<!--SEAR
 if(!empty($_CpPaginate)) {
 
 	$content['all'] = str_replace(array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->'), '', $content['all']);
-	
+
 	unset($_getVar['aid'], $_getVar['id']);
 	$content['CpPaginateNaviGET']	= returnGlobalGET_QueryString('htmlentities', array(), defined('PHPWCMS_ALIAS') ? array(PHPWCMS_ALIAS) : array());
 	if(!empty($content['CpPaginateNaviGET']) && $content['CpPaginateNaviGET']{0} == '?') {
 		$content['CpPaginateNaviGET'] = '&amp;'.substr($content['CpPaginateNaviGET'], 1);
 	}
 
-	// first build [1][2][3] paginate pages	
+	// first build [1][2][3] paginate pages
 	if(strpos($content['all'], '{CP_PAGINATE}')) {
 		$content['CpPaginateNavi'] = array();
 		foreach($content['CpPages'] as $key => $value) {
-			
+
 			$content['CpPaginateNavi'][ $key ]  = '	<a href="index.php?aid='.$aktion[1];
 			if($key) {
 				$content['CpPaginateNavi'][ $key ] .= '-'.$key;
@@ -1025,14 +1031,14 @@ if(!empty($_CpPaginate)) {
 			$content['CpPaginateNavi'][ $key ] .= $content['CpPaginateNaviGET'].'" class="';
 			$content['CpPaginateNavi'][ $key ] .= ($key == $content['aId_CpPage']) ? 'cpPaginateActive' : 'cpPaginate';
 			$content['CpPaginateNavi'][ $key ] .= '">'.$value.'</a>';
-		
-		}	
+
+		}
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE', implode(LF, $content['CpPaginateNavi']));
 	}
-	
+
 	// is there PREV
 	if(in_array($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages'])) {
-		
+
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages']);
 		$value = 'index.php?aid='.$aktion[1];
 		if($key) { $value .= '-'.$key; }
@@ -1041,10 +1047,10 @@ if(!empty($_CpPaginate)) {
 	} else {
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_PREV');
 	}
-	
+
 	// is there NEXT
 	if(in_array($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages'])) {
-		
+
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages']);
 		$value = 'index.php?aid='.$aktion[1];
 		if($key) { $value .= '-'.$key; }
@@ -1053,10 +1059,10 @@ if(!empty($_CpPaginate)) {
 	} else {
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT');
 	}
-	
+
 	// search for content part pagination title menu
 	if(strpos($content['all'], '[CP_PAGINATE_MENU')) {
-	
+
 		/**
 		 * search for custom cp menu parameters
 		 *
@@ -1068,7 +1074,7 @@ if(!empty($_CpPaginate)) {
 		 * [5] => menu_suffix
 		 */
 		if( preg_match('/\[CP_PAGINATE_MENU:(.*?)\]/', $content['all'], $match) ) {
-		
+
 			$content['all']					= str_replace($match[0], '[CP_PAGINATE_MENU]', $content['all']);
 			$content['CpTitleParams']		= explode('|', $match[1]);
 			if(!isset($content['CpTitleParams'][1])) {
@@ -1078,47 +1084,47 @@ if(!empty($_CpPaginate)) {
 			$content['CpTitleParams'][3] = empty($content['CpTitleParams'][3]) ? 0 : 1 ;
 			$content['CpTitleParams'][4]	= '';
 			$content['CpTitleParams'][5]	= '';
-		
+
 		} else {
-		
+
 			$content['CpTitleParams'][0]	= '<li>';
 			$content['CpTitleParams'][1]	= '</li>';
 			$content['CpTitleParams'][2]	= 'active';
 			$content['CpTitleParams'][3]	= 0;
 			$content['CpTitleParams'][4]	= '<ul class="cpmenu">';
-			$content['CpTitleParams'][5]	= '</ul>';			
-		
+			$content['CpTitleParams'][5]	= '</ul>';
+
 		}
-		
+
 		$content['CpTitleMenu'] = array();
 
 		// cp menu items
 		foreach($content['CpPageTitles'] as $key => $value) {
-			
+
 			$content['CpItem']  = '<a href="index.php?aid='.$aktion[1];
-			
+
 			if($key) {
 				$content['CpItem'] .= '-'.$key;
 			}
-			
+
 			$content['CpItem'] .= $content['CpPaginateNaviGET'].'"';
-			
+
 			if($key == $content['aId_CpPage']) {
-				
+
 				if(!empty($content['CpTitleParams'][3])) {
 					continue;
 				}
-				
+
 				if(!empty($content['CpTitleParams'][2])) {
 					$content['CpItem'] .= ' class="'.$content['CpTitleParams'][2].'"';
 				}
-				
+
 			}
 
 			$content['CpItem'] .= '>'.html_specialchars($value).'</a>';
 			$content['CpTitleMenu'][] = $content['CpTitleParams'][0] . $content['CpItem'] . $content['CpTitleParams'][1];
 		}
-		
+
 		// cp menu prefix/suffix
 		if(count($content['CpTitleMenu'])) {
 			$content['CpTitleMenu'][] = $content['CpTitleParams'][5];
@@ -1127,13 +1133,13 @@ if(!empty($_CpPaginate)) {
 
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_MENU', implode(LF, $content['CpTitleMenu']));
 	}
-	
-	
+
+
 } elseif(strpos($content['all'], 'CP_PAGINATE')) {
 
 	// remove CP_paginate block
 	$content['all'] = replace_tmpl_section('CP_PAGINATE', $content['all']);
-	
+
 }
 
 // check if print mode - then try to replace "no-print" sections from source
@@ -1156,7 +1162,7 @@ if(strpos($content['all'], '--LOGGED_')) {
 	if( _getFeUserLoginStatus() ) {
 		// if user IS logged in
 		$content['all'] = str_replace(array('<!--LOGGED_IN_START//-->', '<!--LOGGED_IN_END//-->'), '', $content['all']);
-		$content['all'] = replace_tmpl_section('LOGGED_OUT', $content['all']);	
+		$content['all'] = replace_tmpl_section('LOGGED_OUT', $content['all']);
 	} else {
 		// user is NOT logged
 		$content['all'] = str_replace(array('<!--LOGGED_OUT_START//-->', '<!--LOGGED_OUT_END//-->'), '', $content['all']);
@@ -1204,7 +1210,7 @@ $content["pagetitle"] = sanitize_replacement_tags($content["pagetitle"]);
 
 // now we should search all ?aid=123 and/or ?id=123 and replace'em by the real alias if available
 if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.php?id=')) {
-	
+
 	if(strpos($content['all'], PHPWCMS_URL.'index.php?')) {
 		$all_reset_url = true;
 		$content['all'] = str_replace(PHPWCMS_URL.'index.php?', '###PHPWCMS_URL###index.php?', $content['all']);
@@ -1214,108 +1220,108 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
 	$match = array();
 	preg_match_all('/[^\/]index.php\?(aid|id)=([\d\,]+)(["|&])/', $content['all'], $match);
-	
+
 	if( isset($match[1]) && isset($match[2]) ) {
-	
+
 		$all_id		= array();
 		$sql_id		= '';
-		
+
 		$all_aid	= array();
 		$sql_aid	= '';
-		
+
 		$all_close	= array();
-		
+
 		$old_style	= false;
-		
+
 		foreach($match[2] as $key => $value) {
-			
-			$all_close[ $match[1][$key].$match[2][$key] ] = $match[3][$key];			
-		
+
+			$all_close[ $match[1][$key].$match[2][$key] ] = $match[3][$key];
+
 			if($match[1][$key] == 'id') {
-				
+
 				if(strpos($match[2][$key], ',')) {
-				
+
 					$old_style	= true;
-					
+
 					$this_id	= 0;
 					$this_aid	= 0;
-					
+
 					list($this_id, $this_aid) = explode(',', $match[2][$key]);
-					
+
 					if( $this_aid = intval($this_aid) ) {
-					
+
 						$all_aid[ $this_aid ]	= $this_aid;
-						
+
 					} elseif( $this_id = intval($this_id) ) {
-					
+
 						$all_id[ $this_id ]		= $this_id;
-					
+
 					}
-				
+
 				} else {
-		
+
 					$all_id[ $match[2][$key] ]	= $match[2][$key];
-		
-				}			
-					
+
+				}
+
 			} else {
-			
+
 				$all_aid[ $match[2][$key] ]	= $match[2][$key];
-			
+
 			}
-	
+
 		}
-		
+
 		if(count($all_id)) {
 			$sql_id   = "SELECT 'id' AS alias_type, acat_id AS id, 0 AS aid, acat_alias AS alias FROM ".DB_PREPEND.'phpwcms_articlecat ';
 			$sql_id  .= 'WHERE acat_id IN (' . implode(',', $all_id) . ") AND acat_alias != ''";
-		}	
-		
+		}
+
 		if(count($all_aid)) {
 			$sql_aid  = "SELECT 'aid' AS alias_type, article_cid AS id, article_id AS aid, article_alias AS alias FROM ".DB_PREPEND.'phpwcms_article ';
 			$sql_aid .= 'WHERE article_id IN (' . implode(',', $all_aid) . ") AND article_alias != ''";
 		}
-	
+
 		if($sql_id && $sql_aid) {
-		
+
 			$sql = '(' . $sql_id . ') UNION (' . $sql_aid . ')';
-		
+
 		} else {
-		
+
 			$sql = $sql_id . $sql_aid ;
-		
+
 		}
-		
+
 		$match = _dbQuery($sql);
-	
+
 		if(isset($match[0])) {
-			
+
 			foreach($match as $value) {
-		
+
 				$value['alias'] = html_specialchars($value['alias']);
-	
+
 				if($value['alias_type'] == 'id') {
 
 					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
-				
+
 				} else {
 
 					$content['all'] = str_replace('index.php?aid=' . $value['aid'] . $all_close['aid'.$value['aid']], 'index.php?' . $value['alias'] . $all_close['aid'.$value['aid']], $content['all']);
-				
+
 				}
-				
+
 				// search also for id=0,0,...
 				if( $old_style == true ) {
-				
+
 					$value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
 
 					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
-				
-				}	
+
+				}
 			}
 		}
 	}
-	
+
 	if($all_reset_url) {
 		$content['all'] = str_replace('###PHPWCMS_URL###index.php?', PHPWCMS_URL.'index.php?', $content['all']);
 	}
@@ -1329,11 +1335,11 @@ if(!empty($phpwcms['i18n_parse'])) {
 
 // Replace all deprecated GT Mod tags
 if(!empty($phpwcms['gt_mod']) && strpos($content["all"], '{GT') !== false) {
-	
+
 	function deprecated_get_gt_by_style($matches) {
 		return '<span class="gt-'.trim($matches[1]).'">' . $matches[2] . '</span>';
 	}
-	
+
 	$content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
 
