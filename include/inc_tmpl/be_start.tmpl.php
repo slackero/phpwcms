@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-// set backend listing values 
+// set backend listing values
 $_phpwcms_home['homeMaxArticles'] = empty($_COOKIE['homeMaxArticles']) ? 10 : intval($_COOKIE['homeMaxArticles']);
 $_phpwcms_home['homeMaxCntParts'] = empty($_COOKIE['homeMaxCntParts']) ? 10 : intval($_COOKIE['homeMaxCntParts']);
 $_phpwcms_home['homeCntType'] = empty($_COOKIE['homeCntType']) ? '' : $_COOKIE['homeCntType'];
@@ -33,6 +33,7 @@ if(isset($_POST['homeMaxCntParts'])) {
 	}
 	$_phpwcms_home['homeCntType'] = clean_slweg($_POST['homeCntType']);
 	@setcookie('homeCntType', $_phpwcms_home['homeCntType'], time()+31536000); // store cookie for 1 year
+	$_SESSION['phpwcms_backend_search'] = '';
 }
 
 // set if user has admin rights
@@ -41,7 +42,7 @@ $_usql = $_SESSION["wcs_user_admin"] ? '' : 'AND article_uid='.intval($_SESSION[
 // first list last edited articles
 $_asql_1  = "SELECT *, DATE_FORMAT(acontent_tstamp, '%d/%m/%Y %H:%i') AS acontent_changed FROM ".DB_PREPEND."phpwcms_articlecontent t1 ";
 $_asql_1 .= "LEFT JOIN ".DB_PREPEND."phpwcms_article t2 ON ";
-$_asql_1 .= "t1.acontent_aid = t2.article_id "; 
+$_asql_1 .= "t1.acontent_aid = t2.article_id ";
 $_asql_1 .= 'WHERE t1.acontent_trash=0 AND t2.article_deleted=0 ';
 $_asql_1 .= $_usql;
 if(is_intval($_phpwcms_home['homeCntType'])) {
@@ -53,9 +54,9 @@ if(!empty($_SESSION['phpwcms_backend_search'])) {
 	$_asql_1 .= " OR ";
 	$_asql_1 .= "	CONCAT(t2.article_title,t2.article_subtitle,t2.article_summary) LIKE '%"._dbEscape($_SESSION['phpwcms_backend_search'], FALSE)."%'";
 	$_asql_1 .= " ) ";
-	
+
 	$_be_search = $BL['be_ctype_search'].': ' . html_specialchars($_SESSION['phpwcms_backend_search']) ;
-	
+
 } else {
 	$_be_search = $BL['be_last_edited'];
 }
@@ -87,28 +88,28 @@ $_last10_article = _dbQuery($_asql_1);
 	<h1 class="title" style="margin-top:5px;"><?php echo $BL['be_cnt_articles'] .' <span class="v10">('. $_be_search . ')</span>' ?></h1>
 </div>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-	
+
 	<tr class="tableHeadRow">
 		<th>&nbsp;</th>
 		<th style="text-align:left"><?php echo $BL['be_article_atitle'] ?></th>
 		<th><?php echo $BL['be_cnt_last_edited'] ?></th>
 		<th>&nbsp;</th>
 	</tr>
-	
+
 	<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <?php
-	
+
 	if(count($_last10_article)) {
-		
+
 		$row_count = 0;
-	
+
 		foreach($_last10_article as $value) {
-		
+
 			if($row_count) {
 				echo '<tr><td colspan="4" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>'.LF;
 			}
-		
+
 			echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
 			echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'\'" title="'.$BL['be_func_struct_edit'].'">'.LF;
 			echo '	<td style="width:11px;padding:1px 4px 1px 2px;"><img src="img/symbole/text_1.gif" alt="" /></td>'.LF;
@@ -124,15 +125,15 @@ $_last10_article = _dbQuery($_asql_1);
 			echo '"><img src="img/button/edit_22x13.gif" alt="Edit" border="0" /></a>';
 			echo '</td>'.LF;
 			echo '</tr>'.LF;
-		
+
 			$row_count++;
-	
+
 		}
-	
+
 		echo '<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>'.LF;
 	}
 
-?>	
+?>
 	<tr>
 		<td colspan="4" style="padding: 6px 0 0 3px;">
 			<input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="button10" onclick="document.location.href='phpwcms.php?do=articles'" />
@@ -148,7 +149,7 @@ $_last10_article = _dbQuery($_asql_1);
 			<option value="">&#8211;</option>
 	<?php foreach($wcs_content_type as $key => $value): ?>
 			<option value="<?php echo $key ?>"<?php is_selected($_phpwcms_home['homeCntType'], $key) ?>><?php echo $value ?></option>
-	<?php endforeach; ?>	
+	<?php endforeach; ?>
 		</select><select name="homeMaxCntParts" onchange="this.form.submit();">
 	<?php foreach(array(5,10,15,25,50,75,100,150,200,250) as $x): ?>
 			<option value="<?php echo $x ?>"<?php is_selected($_phpwcms_home['homeMaxCntParts'], $x) ?>><?php echo $x ?></option>
@@ -159,7 +160,7 @@ $_last10_article = _dbQuery($_asql_1);
 	<h1 class="title" style="margin:0;"><?php echo $BL['be_ctype'] .' <span class="v10">('. $_be_search .')</span>' ?></h1>
 </div>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-	
+
 	<tr class="tableHeadRow">
 		<th width="20">&nbsp;</th>
 		<th style="text-align:left"><?php echo $BL['be_cnt_type'] ?>&nbsp;</th>
@@ -167,46 +168,46 @@ $_last10_article = _dbQuery($_asql_1);
 		<th><?php echo $BL['be_cnt_last_edited'] ?>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
-	
+
 	<tr><td colspan="5" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <?php
 
 	if(count($_last10_articlecontent)) {
 
 		$row_count = 0;
-		
+
 		foreach($_last10_articlecontent as $value) {
-		
+
 			if(($value["acontent_type"] == 30 && !isset($phpwcms['modules'][$value["acontent_module"] ])) || !isset($wcs_content_type[$value["acontent_type"]])) {
 				continue;
 			}
-		
+
 			if($row_count) {
 				echo '<tr><td colspan="5" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>'.LF;
 			}
-		
+
 			echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
 			echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
 			echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'\'" title="'.$BL['be_func_content_edit'].'">'.LF;
-			
+
 			echo '	<td style="padding:1px 4px 1px 2px;width:11px;"><img src="img/symbole/add_content.gif" alt="" /></td>'.LF;
-			
+
 			echo '	<td class="overflow-ellipsis home-type">'.$wcs_content_type[$value["acontent_type"]];
 			if($value["acontent_type"] == 30) {
 				echo ': '.$BL['modules'][$value["acontent_module"]]['listing_title'];
 			}
 			echo '&nbsp;</td>'.LF;
-			
+
 			$value['notice'] = str_replace('###', ', ', trim($value['acontent_title'].'###'.$value['acontent_subtitle'].'###'.$value['acontent_comment'], '#'));
 			if($value['notice']) {
 				$value['notice'] = html_specialchars(preg_replace('/\s+/', ' ', $value['notice']));
 			} else {
 				$value['notice'] = '&nbsp;';
 			}
-			
+
 			echo '	<td class="overflow-ellipsis home-cp">'.$value['notice'].'</td>'.LF;
 			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
-			
+
 			echo '	<td style="padding:3px;width:42px;" nowrap="nowrap">';
 			echo '<img src="img/button/visible_12x13_'.$value["acontent_visible"].'.gif" alt="" border="0" style="margin-right:2px;" />';
 			echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
@@ -214,11 +215,11 @@ $_last10_article = _dbQuery($_asql_1);
 			echo '"><img src="img/button/edit_22x13.gif" alt="Edit" border="0" /></a>';
 			echo '</td>'.LF;
 			echo '</tr>'.LF;
-	
+
 			$row_count++;
-	
+
 		}
-	
+
 		echo '<tr><td colspan="5" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>'.LF;
 	}
 
