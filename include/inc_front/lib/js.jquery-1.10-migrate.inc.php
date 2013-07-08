@@ -22,8 +22,8 @@ function initJSLib() {
 			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.10.min.js');
 			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate.min.js');
 		} else {
-			// at the moment not available on Google
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-1.10.1.min.js');
+			// not always available at Google, so use jQuery CDN
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-1.10.2.min.js');
 			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-migrate-1.2.1.min.js');
 		}
 	}

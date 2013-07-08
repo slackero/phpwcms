@@ -19,9 +19,10 @@ define('PHPWCMS_JSLIB', 'jquery-2.0');
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
 		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.1.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.3.min.js');
 		} else {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-2.0.1.min.js');
+			// not always available at Google, so use jQuery CDN
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-2.0.3.min.js');
 		}
 	}
 	return TRUE;
