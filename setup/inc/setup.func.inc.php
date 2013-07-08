@@ -27,7 +27,7 @@ function read_textfile($filename) {
 		$fd = @fopen($filename, "rb");
 		$text = fread($fd, filesize($filename));
 		fclose($fd);
-		return $text;				
+		return $text;
 	} else {
 		return false;
 	}
@@ -37,7 +37,7 @@ function write_textfile($filename, $text) {
 	if($fp = @fopen($filename, "w+b")) {;
 		fwrite($fp, $text);
 		fclose($fp);
-		return true;	
+		return true;
 	} else {
 		return false;
 	}
@@ -83,7 +83,7 @@ function gib_bg_color($status) {
 				break;
 	}
 	return $color;
-	
+
 }
 
 function gib_status_text($status) {
@@ -132,7 +132,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['db_collation']      = '".$val["db_collation"]."';\n";
 	$conf_file .= "\$phpwcms['db_version']        = ".intval($val["db_version"]).";\n";
 	$conf_file .= "\$phpwcms['db_timezone']       = '".trim($val["db_timezone"])."'; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
-	
+
 	$conf_file .= "\n// site values\n";
 	if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
 		$conf_file .= "\$phpwcms['site']              = 'http://'.\$_SERVER['SERVER_NAME'].'/';";
@@ -143,7 +143,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['site_ssl_mode']     = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
 	$conf_file .= "\$phpwcms['site_ssl_url']      = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
 	$conf_file .= "\$phpwcms['site_ssl_port']     = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
-	
+
 	$conf_file .= "\$phpwcms['admin_name']        = '".$val["admin_name"]."'; //default: Webmaster\n";
 	$conf_file .= "\$phpwcms['admin_user']        = '".$val["admin_user"]."'; //default: admin\n";
 	$conf_file .= "\$phpwcms['admin_pass']        = '".$val["admin_pass"]."'; //MD5(phpwcms)\n";
@@ -155,7 +155,7 @@ function write_conf_file($val) {
 	} else {
 		$conf_file .= "\$phpwcms['DOC_ROOT']          = '".$val["DOC_ROOT"]."';         //default: \$_SERVER['DOCUMENT_ROOT']";
 	}
-	
+
 	$real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
 	if(isset($val["root"]) && $val["root"] !== '') {
 		$real_doc = explode($val["root"], $real_doc);
@@ -205,7 +205,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
 	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
-	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
+	$conf_file .= "\$phpwcms['mode_XHTML']        = 3; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE\n";
 	$conf_file .= "\$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
@@ -254,12 +254,12 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['SMTP_USER']         = '".$val["SMTP_USER"]."'; // default SMTP login (user) name\n";
 	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".$val["SMTP_PASS"]."'; // default SMTP password\n";
 	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";
-	
+
 	$conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
-	
+
 	$conf_file .= "\n?>";
-	
-	write_textfile("setup.conf.inc.php", $conf_file);	
+
+	write_textfile("setup.conf.inc.php", $conf_file);
 }
 
 function aporeplace($string_to_convert="") {
@@ -286,7 +286,7 @@ function html_specialchars($h="") {
 function parsePHPModules() {
  ob_start();
  phpinfo(INFO_MODULES);
- $s = ob_get_clean(); 
+ $s = ob_get_clean();
  $s = strip_tags($s,'<h2><th><td>');
  $s = preg_replace('/<th[^>]*>([^<]+)<\/th>/',"<info>\\1</info>",$s);
  $s = preg_replace('/<td[^>]*>([^<]+)<\/td>/',"<info>\\1</info>",$s);
@@ -471,40 +471,40 @@ $available_languages = array(
 function _dbQuery($query='', $_queryMode='ASSOC') {
 
 	if(empty($query)) return false;
-	
+
 	global $db;
 	$queryResult	= array();
 	$queryCount		= 0;
-	
+
 	if($result = @mysql_query($query, $db)) {
-	
+
 		switch($_queryMode) {
 
 			// INSERT, UPDATE, DELETE
 			case 'INSERT':	$queryResult['INSERT_ID']		= mysql_insert_id($db);
-			case 'DELETE':	
-			case 'UPDATE':	
+			case 'DELETE':
+			case 'UPDATE':
 							$queryResult['AFFECTED_ROWS']	= mysql_affected_rows($db);
 							return $queryResult;
 							break;
 
-			// SELECT Queries	
+			// SELECT Queries
 			case 'ROW':		$_queryMode = 'mysql_fetch_row';	break;
 			case 'ARRAY':	$_queryMode = 'mysql_fetch_array';	break;
 			default: 		$_queryMode = 'mysql_fetch_assoc';
-	
+
 		}
-	
+
 		while($row = $_queryMode($result)) {
-			
+
 			$queryResult[$queryCount] = $row;
 			$queryCount++;
 
 		}
 		mysql_free_result($result);
-	
+
 		return $queryResult;
-	
+
 	} else {
 		return false;
 	}
