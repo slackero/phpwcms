@@ -76,7 +76,7 @@ define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($p
 if(defined('CUSTOM_CONTENT_TYPE')) {
 
 	header(CUSTOM_CONTENT_TYPE);
-	
+
 } else {
 
 	header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
@@ -201,22 +201,22 @@ $phpwcms['modules_fe_init']		= array();
 // Changed Image Manipulation class to CodeIgniter based class
 // which supports GD, GD2, ImageMagick and NetPBM
 if(isset($phpwcms['image_library'])) {
-	
+
 	$phpwcms['image_library']	= strtolower($phpwcms['image_library']);
 	$phpwcms['library_path']	= empty($phpwcms['library_path']) ? '' : $phpwcms['library_path'];
-	
+
 	if(!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'))) {
 		$phpwcms['image_library'] = 'gd2';
 	}
 
 // Fallback to old setting
 } else {
-	
+
 	$phpwcms['image_library']	= empty($phpwcms["imagick"]) ? 'gd2' : 'imagemagick';
 	$phpwcms['library_path']	= empty($phpwcms["imagick_path"]) ? '' : str_replace('//', '/', str_replace("\\", '/', $phpwcms["imagick_path"].'/') );
 
 	unset($phpwcms["imagick_path"], $phpwcms["imagick"]);
-	
+
 }
 
 if(empty($phpwcms['SMTP_MAILER'])) {
@@ -327,39 +327,39 @@ $phpwcms['default_template_classes'] = array(
 );
 
 if(empty($phpwcms['mode_XHTML'])) {
-	
+
 	$phpwcms['mode_XHTML'] = 0;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'%s<html%s%s>%s'.LF.'<head>%s'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', false);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
-	
+
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s'.LF);
 	define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
 	define('SCRIPT_CDATA_END'  , '  /* ]]> */');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
-	
+
 } elseif($phpwcms['mode_XHTML'] == 3) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'%s<html%s%s>%s'.LF.'<head>%s'.LF);
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
-	
+
 } else {
-	
+
 	$phpwcms['mode_XHTML'] = 1;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s'.LF);
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , ' />');
@@ -367,6 +367,17 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
 
 }
+
+$phpwcms['htmlhead_inject_prefix']	= '';
+$phpwcms['htmlhead_inject_suffix']	= '';
+$phpwcms['htmlhead_inject']			= '
+  <!--
+	phpwcms | free open source content management system
+	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
+	phpwcms is copyright 2002-'.date('Y').' of Oliver Georgi. Extensions are copyright of
+	their respective owners. Visit project page for details: http://www.phpwcms.org/
+  -->
+';
 
 // Todo: Later remove these
 $phpwcms["release"]				= PHPWCMS_VERSION;
@@ -407,11 +418,11 @@ function buildGlobalGET($return = '') {
 	// build internal array containing all GET values
 	// and remove session from this array
 	$GLOBALS['_getVar'] = array();
-	
+
 	$_queryVal		= empty($_SERVER['QUERY_STRING']) ? array() : explode('&', $_SERVER['QUERY_STRING']);
 	$_queryCount	= count($_queryVal);
 	$_getCount		= is_array($_GET) ? count($_GET) : 0;
-	
+
 	if($_getCount && $_getCount >= $_queryCount) {
 		$GLOBALS['_getVar'] = $_GET;
 	} elseif($_queryCount) {
@@ -422,18 +433,18 @@ function buildGlobalGET($return = '') {
 			$GLOBALS['_getVar'][$key] = $val;
 		}
 	}
-	
-	unset(	$_GET[session_name()], 
-			$GLOBALS['_getVar'][session_name()], 
+
+	unset(	$_GET[session_name()],
+			$GLOBALS['_getVar'][session_name()],
 			$GLOBALS['_getVar']['']
 		  );
-		  
+
 	if( get_magic_quotes_gpc() ) {
 		foreach($GLOBALS['_getVar'] as $key => $value) {
 			$GLOBALS['_getVar'][$key] = stripslashes($value);
 		}
 	}
-	
+
 	if($return == 'getQuery') {
 		return returnGlobalGET_QueryString('htmlentities');
 	}
@@ -443,7 +454,7 @@ function buildGlobalGET($return = '') {
 function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
 	$query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
 	if(empty($query)) {
-		return PHPWCMS_URL;	
+		return PHPWCMS_URL;
 	}
 	$index = PHPWCMS_REWRITE ? '' : 'index.php';
 	return $index . $query;
@@ -460,7 +471,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 	$queryString	= array();
 	$_getVarTemp	= empty($GLOBALS['_getVar']) ? array() : $GLOBALS['_getVar'];
-	
+
 	// replace first value with $id_alias
 	if($id_alias !== '') {
 
@@ -481,56 +492,56 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
 	switch($format) {
-	
+
 		case 'htmlentities':
 			$glue	= html_entities($glue);
 			$funct	= 'getQueryString_htmlentities';
 			break;
-								
+
 		case 'htmlspecialchars':
 			$glue	= html_specialchars($glue);
 			$funct	= 'getQueryString_htmlspecialchars';
 			break;
-								
+
 		case 'urlencode':
 			$funct	= 'getQueryString_urlencode';
 			break;
-								
+
 		case 'rawurlencode':
 			$funct	= 'getQueryString_rawurlencode';
 			break;
-								
+
 		default:
 			$funct	= 'getQueryString_default';
 
 	}
-	
+
 	if(count($pairs)) {
-		
+
 		$c			= 0;
 		$rewrite	= '';
-	
+
 		foreach($pairs as $key => $value) {
-			
+
 			$c++;
-			
+
 			if($c === 1 && PHPWCMS_REWRITE) {
-				
+
 				$rewrite = $funct($key, $value, $bind) . PHPWCMS_REWRITE_EXT;
-				
+
 				continue;
 			}
-			
+
 			$queryString[] = $funct($key, $value, $bind);
-			
+
 		}
-		
+
 		$queryString = count($queryString) ? ( $query_string_separator . implode($glue, $queryString)) : '';
 
 		return $rewrite . $queryString;
-	
-	} 
-	
+
+	}
+
 	return '';
 }
 
@@ -583,7 +594,7 @@ function cleanupPOSTandGET() {
 		foreach($_POST as $key => $value) {
 			if(!is_array($_POST[$key])) {
 				$_POST[$key] = remove_unsecure_rptags($value);
-			}		
+			}
 		}
 	}
 	if(isset($_GET) && count($_GET)) {
@@ -597,7 +608,7 @@ function remove_unsecure_rptags($check) {
 	// this is for security reasons
 	// where you can use input fields for
 	// code injection
-	
+
 	//remove special replacement tags
 	$check = preg_replace('/\{PHP:(.*?)\}/i', '$1', $check);
 	$check = preg_replace('/\{PHPVAR:(.*?)\}/si', '$1', $check);
@@ -656,18 +667,18 @@ function getRemoteIP() {
 
 // Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
 function phpwcms_getUserAgent($USER_AGENT='') {
-	
+
 	if(empty($USER_AGENT)) {
 		$USER_AGENT	= isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 		$index		= 'USER_AGENT';
 	} else {
 		$index		= 'USER_AGENT_'.md5($USER_AGENT);
 	}
-	
+
 	if(isset($GLOBALS['phpwcms'][$index])) {
 		return $GLOBALS['phpwcms'][$index];
 	}
-	
+
 	if(empty($GLOBALS['phpwcms']['detect_pixelratio'])) {
 		$pixelratio = 1;
 	} elseif(isset($_COOKIE['phpwcms_pixelratio'])) {
@@ -691,7 +702,7 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 			'pixelratio'	=> $pixelratio
 		);
 	}
-	
+
 	$mobile		= 0;
 	$bot		= 0;
 	$device		= 'Other';
@@ -739,9 +750,9 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$agent	= 'Konqueror';
 		$engine	= 'KHTML';
 	}
-	
+
 	$USER_AGENT = strtolower($USER_AGENT);
-	
+
 	if(strpos($USER_AGENT, 'windows phone os') !== false) {
 		$agent		= 'IEMobile';
 		$platform	= 'WinPhone';
@@ -817,22 +828,22 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$mobile		= 1;
 		$device		= 'Smartphone';
 	} elseif($USER_AGENT) {
-		
+
 		if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
 			$mobile	= 1;
 		}
-		
+
 		if(empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
 			$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 		}
-		
+
 		if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/', $USER_AGENT, $match_bot)) {
 			$agent	= $match_bot[1];
 			$bot	= 1;
 			$device	= 'Bot';
 		}
 	}
-		
+
 	return $GLOBALS['phpwcms'][$index] = array(
 		'agent'			=> $agent,
 		'version'		=> intval($ver),
@@ -886,16 +897,16 @@ function log_message($type='UNDEFINED', $message='', $userid=0) {
 		$log['log_user_id']	= intval($userid);
 		$log['log_msg']		= trim($message);
 	}
-	
+
 	$log['log_type'] = strtoupper($log['log_type']);
-	
+
 	if($log['log_user_agent'] == '') {
 		$log['log_user_agent'] = empty($_SERVER['HTTP_USER_AGENT']) ? implode( ', ', phpwcms_getUserAgent() ) : $_SERVER['HTTP_USER_AGENT'];
 	}
 	if(empty($log['log_referrer_url']) && isset($_SERVER['HTTP_REFERER'])) {
 		$log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
 	}
-	
+
 	_dbInsert( 'phpwcms_log', $log, 'DELAYED' );
 
 }

@@ -79,16 +79,14 @@ if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strp
 
 $phpwcms["templates"]    = TEMPLATE_PATH;
 $content['page_start']   = sprintf(
-	PHPWCMS_DOCTYPE, 
+	PHPWCMS_DOCTYPE,
+	$phpwcms['htmlhead_inject_prefix'],
 	str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG ) . ' id="'.str_replace(array('.','/'), '-', PHPWCMS_HOST).'"',
-	empty($content['htmltag_inject']) ? '' : ' '.$content['htmltag_inject']
+	empty($content['htmltag_inject']) ? '' : ' '.$content['htmltag_inject'],
+	$phpwcms['htmlhead_inject_suffix'],
+	$phpwcms['htmlhead_inject']
 );
-$content['page_start']  .= '<!--
-	phpwcms | free open source content management system
-	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
-	phpwcms is copyright 2002-'.date('Y').' of Oliver Georgi. Extensions are copyright of
-	their respective owners. Visit project page for details: http://www.phpwcms.org/'.LF.'-->'.LF;
-	
+
 // Compatibility Mode
 if(!empty($phpwcms['X-UA-Compatible'])) {
 	$content['page_start']  .= '  <meta http-equiv="X-UA-Compatible" content="' . $phpwcms['X-UA-Compatible'] . '"'.HTML_TAG_CLOSE.LF;
@@ -99,7 +97,7 @@ if($phpwcms['mode_XHTML'] != 3) {
 	$content['page_start']  .= '  <meta http-equiv="content-type" content="' . $_use_content_type . '; charset='.PHPWCMS_CHARSET.'"'.HTML_TAG_CLOSE.LF;
 	$content['page_start']  .= '  <meta http-equiv="content-style-type" content="text/css"'.HTML_TAG_CLOSE.LF;
 } else {
-	$content['page_start']  .= '  <meta charset="' . PHPWCMS_CHARSET . '"'.HTML_TAG_CLOSE.LF;	
+	$content['page_start']  .= '  <meta charset="' . PHPWCMS_CHARSET . '"'.HTML_TAG_CLOSE.LF;
 }
 
 // Viewport setting
@@ -109,10 +107,10 @@ if(!empty($phpwcms['viewport'])) {
 
 // Base Href
 if(!empty($phpwcms['base_href'])) {
-	
+
 	if($phpwcms['base_href'] === true) {
 		$content['page_start'] .= '  <base href="'.PHPWCMS_URL.'"'.HTML_TAG_CLOSE . LF;
-	} else {	
+	} else {
 		$content['page_start'] .= '  <base href="'.$phpwcms['base_href'].'"'.HTML_TAG_CLOSE . LF;
 		$phpwcms['base_href']   = true;
 	}
@@ -120,7 +118,7 @@ if(!empty($phpwcms['base_href'])) {
 } else {
 
 	$phpwcms['base_href'] = false;
-	
+
 }
 
 $content['page_start']  .= '  <title>'.html_specialchars($content["pagetitle"]).'</title>'.LF;
@@ -206,16 +204,16 @@ header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $php
 
 // print PDF
 if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
-	
+
 	require_once (PHPWCMS_ROOT.'/include/inc_front/pdf.inc.php');
 
 // handle output action and section
 } elseif($phpwcms['output_action']) {
-	
+
 	if(empty($phpwcms['output_function_filter']) || !is_array($phpwcms['output_function_filter'])) {
 		$phpwcms['output_function_filter'] = array('trim', 'strip_tags');
 	}
-	
+
 	$phpwcms['output_function'] = array_intersect($phpwcms['output_function_filter'], $phpwcms['output_function']);
 
 	$content = ob_get_clean();
@@ -223,21 +221,21 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 	$sections = '';
 
 	foreach($phpwcms['output_section'] as $section) {
-	
+
 		$section = get_tmpl_section($section, $content);
-		
+
 		foreach($phpwcms['output_function'] as $function) {
-	
+
 			$section = $function($section);
-	
+
 		}
-		
+
 		$sections .= $section;
 	}
-	
+
 	// return preg_replace('/<!--(.|\s)*?-->/', '', $buffer);
 	echo trim($sections) == '' ? $content : $sections;
-	
+
 	exit();
 }
 
