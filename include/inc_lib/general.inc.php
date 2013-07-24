@@ -62,7 +62,7 @@ function html_despecialchars($h='') {
 	$h = str_replace( '&gt;'  , '>', $h );
 	$h = str_replace( '&quot;', '"', $h );
 	$h = str_replace( '&#039;', "'", $h );
-	$h = str_replace( '&#92;' , "\\", $h );	
+	$h = str_replace( '&#92;' , "\\", $h );
 	return $h;
 }
 
@@ -85,36 +85,36 @@ function list_country($c, $lang='') {
 }
 
 function getCountry($lang='', $get='COUNTRY_ARRAY') {
-	
+
 	global $phpwcms;
 
 	if(empty($lang)) {
 		$lang = isset($_SESSION["wcs_user_lang"]) ? strtolower($_SESSION["wcs_user_lang"]) : $GLOBALS['phpwcms']['default_lang'];
 	}
 	$lang = strtolower(substr($lang, 0, 2));
-	
+
 	$country_lang_var = $get . '_' . $lang;
-	
+
 	if(!empty($phpwcms['country'][$country_lang_var])) {
 
 		return $phpwcms['country'][$country_lang_var];
 	}
-		
+
 	$country_name	= 'country_name_'.aporeplace($lang);
 	$sql			= 'SHOW COLUMNS FROM '.DB_PREPEND."phpwcms_country WHERE Field='".$country_name."'";
 	$result			= _dbQuery($sql);
 	if(!isset($result[0])) {
 		$country_name = 'country_name';
 	}
-	
+
 	if($get == 'COUNTRY_NAME') {
-		
+
 		$phpwcms['country'][$country_lang_var] = strtoupper($lang);
-		
+
 		$sql  = 'SELECT '.$country_name.' AS country FROM '.DB_PREPEND."phpwcms_country WHERE ";
 		$sql .= "country_iso='".aporeplace($phpwcms['country'][$country_lang_var])."' LIMIT 1";
 		$result	= _dbQuery($sql);
-		
+
 		if(isset($result[0]['country'])) {
 
 			$phpwcms['country'][$country_lang_var] = $result[0]['country'];
@@ -122,7 +122,7 @@ function getCountry($lang='', $get='COUNTRY_ARRAY') {
 		}
 
 	} else {
-		
+
 		$country_lang_var = 'COUNTRY_ARRAY_' . $lang;
 
 		$phpwcms['country'][$country_lang_var] = array();
@@ -131,56 +131,56 @@ function getCountry($lang='', $get='COUNTRY_ARRAY') {
 		$result	= _dbQuery($sql);
 
 		if(isset($result[0])) {
-	
+
 			foreach($result as $row) {
-	
+
 				$phpwcms['country'][ $country_lang_var ][ $row['country_iso'] ] = $row['country'];
-	
+
 			}
 		}
 	}
-	
+
 	return $phpwcms['country'][$country_lang_var];
 }
 
 
 function list_profession($c){
-	//Create the profession list menu for forms 
+	//Create the profession list menu for forms
 	//with the given value selected
 	//$c = selected value
 	if(isEmpty($c)) $c = " n/a";
 	$sql = mysql_query("SELECT prof_name FROM ".DB_PREPEND."phpwcms_profession ORDER BY prof_name");
 	while($a = mysql_fetch_assoc($sql)) {
-		
+
 		echo '		<option value="'.$a["prof_name"].'"';
 		if($a["prof_name"] != $c) {
 			echo ' selected="selected"';
 		}
 		echo '>'.trim($a["prof_name"])."</option>\n";
-	
+
 	}
 	mysql_free_result($sql);
 }
 
 function is_selected($c, $chkvalue, $xhtml=1, $echoit=1) {
-	
+
 	$e = strval($c) == strval($chkvalue) ? ' selected="selected"' : '';
-	
+
 	if($echoit) {
 		echo $e;
 	}
-	
+
 	return $e;
 }
 
 function is_checked($c, $chkvalue, $xhtml=1, $echoit=1) {
-	
+
 	$e = strval($c) == strval($chkvalue) ? ' checked="checked"' : '';
-	
+
 	if($echoit) {
 		echo $e;
 	}
-	
+
 	return $e;
 }
 
@@ -266,7 +266,7 @@ function extimg($ext) {
 		"snd" =>	"icon_snd.gif",		"wav" =>	"icon_snd.gif",
 		"mid" =>	"icon_snd.gif",		"mov" =>	"icon_vid.gif",
 		"avi" =>	"icon_vid.gif",		"qt"  =>	"icon_vid.gif",
-		"mpeg" =>	"icon_vid.gif"					
+		"mpeg" =>	"icon_vid.gif"
 				);
 	return (isset($img[$ext])) ? $img[$ext] : "icon_generic.gif";
 }
@@ -296,9 +296,9 @@ function generic_string($length, $i=0) {
 function genlogname() {
 	$usercount = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_user WHERE usr_login LIKE 'user%'", 'COUNT');
 	$usercount = $usercount ? $usercount+1 : 1;
-	return 'user'.$usercount; 
+	return 'user'.$usercount;
 }
- 
+
 function gib_part($value, $part, $separator) {
 	//Gibt den Wert an Stelle $part von $value zurück
 	$value_array = explode($separator, $value);
@@ -343,11 +343,11 @@ function convert_into($extension) {
 }
 
 function is_ext_true($extension) {
-	
+
 	global $phpwcms;
-	
+
 	$ext = false;
-	
+
 	if($phpwcms['image_library'] == 'gd2' || $phpwcms['image_library'] == 'gd') {
 		// if GD is used
 		switch($extension) {
@@ -359,7 +359,7 @@ function is_ext_true($extension) {
 		}
 
 	} else {
-	
+
 		// if ImageMagick for thumbnail creation
 		switch($extension) {
 			case "jpg":		$ext="jpg"; break;
@@ -386,7 +386,7 @@ function is_ext_true($extension) {
 			case "ico":		$ext="jpg"; break;
 			case "fax":		$ext="jpg"; break;
 		}
-		
+
 	}
 	if($ext && !empty($GLOBALS['phpwcms']["imgext_disabled"])) {
 		$GLOBALS['phpwcms']["imgext_disabled"] = str_replace(' ', '', $GLOBALS['phpwcms']["imgext_disabled"]);
@@ -434,7 +434,7 @@ function get_filecat_childcount ($fcatid, $dbcon) {
 /**
  * Test email based on RFC 822/2822/5322 Email Parser
  * @copyright Cal Henderson <cal@iamcal.com>
- * 
+ *
  * @param string email address
  * @return bool
  */
@@ -452,14 +452,14 @@ function is_valid_email($email, $options=array()) {
  * @return string
  */
 function idn_encode($string='') {
-	
+
 	if(IS_PHP5) {
 		require_once (PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php');
 	}
-	
+
 	// convert to utf-8 first
 	$string = makeCharsetConversion($string, PHPWCMS_CHARSET, 'utf-8');
-	
+
 	// include punicode conversion if >= PHP5
 	if(empty($string) || !class_exists('idna_convert')) {
 		return $string;
@@ -474,7 +474,7 @@ function read_textfile($filename, $mode='rb') {
 		$fd = @fopen($filename, $mode);
 		$text = fread($fd, filesize($filename));
 		fclose($fd);
-		return $text;				
+		return $text;
 	} else {
 		return false;
 	}
@@ -497,13 +497,13 @@ function check_cache($file, $cache_timeout=0) {
 
 		$filetime	= filemtime($file);
 		$fileage	= time() - $filetime;
-		
+
         if($cache_timeout > $fileage) {
 			return 'VALID';		// file is up-to-date
 		} else {
 			return 'EXPIRED';	// file is too old and expired
 		}
-	
+
 	} else {
 
 		return 'MISSING';		// file not present
@@ -528,7 +528,7 @@ function add_keywords_to_search ($list_of_keywords, $keywords, $spacer=" ", $sta
 				if(isset($list_of_keywords[$kw_id])) {
 					$kw_string .= $list_of_keywords[$kw_id];
 				}
-				
+
 			}
 		}
 	}
@@ -576,7 +576,7 @@ function get_tmpl_files($dir='', $ext='', $sort=true) {
 			}
 		}
 		closedir($ph);
-		
+
 		if(count($fa) && $sort === true) {
 			sort($fa);
 		}
@@ -601,18 +601,18 @@ function replace_tmpl_section($s='',$t='',$r='') {
 function importedFile_toString($filename='') {
 
 	$file = array();
-	
+
 	if(isset($_FILES[$filename]) && !$_FILES[$filename]['error']) {
-		
+
 		$file['name'] = $_FILES[$filename]['name'];
 		$file['data'] = file_get_contents($_FILES[$filename]['tmp_name']);
 
 	} else {
-		
+
 		$file = false;
-	
+
 	}
-	
+
 	return $file;
 }
 
@@ -676,7 +676,7 @@ function build_QueryString() {
 
 function getAltTitle($string='', $altAndTitle=0, $echo=0) {
 	$attribute = trim($string);
-	switch(intval($altAndTitle)) {	
+	switch(intval($altAndTitle)) {
 		case 0:	// alt and title attribute
 				$attribute = 'alt="'.$attribute.'" title="'.$attribute.'"';
 				break;
@@ -699,18 +699,18 @@ function getAltTitle($string='', $altAndTitle=0, $echo=0) {
 function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','isHTML'=>0,'html'=>'','text'=>'',
 									'attach'=>array(),'from'=>'','fromName'=>'','sender'=>'','stringAttach'=>array())  ) {
 	// used to send a standardized email message
-	
+
 	global $phpwcms;
-	
+
 	$mailInfo		= array(0 => false, 1 => '');
-	
+
 	$sendTo			= array();
 	$from			= empty($data['from']) || !is_valid_email($data['from']) 		? $phpwcms['SMTP_FROM_EMAIL'] 	: $data['from'];
 	$sender			= empty($data['sender']) || !is_valid_email($data['sender']) 	? $from 						: $data['sender'];
 	$fromName		= empty($data['fromName'])										? '' 							: cleanUpForEmailHeader($data['fromName']);
 	$toName			= empty($data['toName'])										? ''							: cleanUpForEmailHeader($data['toName']);
 	$subject		= empty($data['subject'])										? 'Email sent by phpwcms'		: cleanUpForEmailHeader($data['subject']);
-	
+
 	if(empty($data['html'])) {
 		$data['html']	= '';
 		$data['isHTML']	= 0;
@@ -722,16 +722,16 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 	if(empty($data['text'])) {
 		$data['text']	= '';
 	}
-	
+
 	if(!is_array($data['recipient'])) {
 		$recipient = str_replace(' ', '', trim($data['recipient']));
 		$recipient = str_replace(',', ';', $recipient);
 		$recipient = str_replace(' ', '', $recipient);
-		$recipient = explode(';', $recipient);		
+		$recipient = explode(';', $recipient);
 	} else {
 		$recipient = $data['recipient'];
 	}
-	
+
 	if(is_array($recipient) && count($recipient)) {
 		foreach($recipient as $value) {
 			if(is_valid_email($value)) {
@@ -739,11 +739,11 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 			}
 		}
 	}
-	
+
 	if(count($sendTo)) {
-	
+
 		include_once(PHPWCMS_ROOT.'/include/inc_ext/phpmailer/class.phpmailer.php');
-	
+
 		$mail = new PHPMailer();
 		$mail->Mailer 			= $phpwcms['SMTP_MAILER'];
 		$mail->Host 			= $phpwcms['SMTP_HOST'];
@@ -754,7 +754,7 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 			$mail->Password 	= $phpwcms['SMTP_PASS'];
 		}
 		$mail->CharSet	 		= $phpwcms["charset"];
-		
+
 		$mail->IsHTML($data['isHTML']);
 		$mail->Subject			= $data['subject'];
 		if($data['isHTML']) {
@@ -765,11 +765,11 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 		} else {
 			$mail->Body 		= $data['text'];
 		}
-		
+
 		if(!$mail->SetLanguage($phpwcms['default_lang'])) {
 			$mail->SetLanguage('en');
 		}
-		
+
 		$mail->From 		= $from;
 		$mail->FromName		= $fromName;
 		$mail->Sender	 	= $sender;
@@ -781,13 +781,13 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 				$mail->AddBCC($value);
 			}
 		}
-		
+
 		if(isset($data['attach']) && is_array($data['attach']) && count($data['attach'])) {
 			foreach($data['attach'] as $attach_file) {
 				$mail->AddAttachment($attach_file);
 			}
 		}
-		
+
 		if(isset($data['stringAttach']) && is_array($data['stringAttach']) && count($data['stringAttach'])) {
 			$attach_counter = 1;
 			foreach($data['stringAttach'] as $attach_string) {
@@ -800,7 +800,7 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 				}
 			}
 		}
-	
+
 		if(!$mail->Send()) {
 			$mailInfo[0]  = false;
 			$mailInfo[1]  = $mail->ErrorInfo;
@@ -808,7 +808,7 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 			$mailInfo[0]  = true;
 		}
 		unset($mail);
-		
+
 	} else {
 		$mailInfo[0]  = false;
 		$mailInfo[1]  = 0; //means no recipient
@@ -824,7 +824,7 @@ function getFormTrackingValue() {
 	//returns a <input type="hidden">
 	$ip   		= getRemoteIP();
 	$hash 		= md5($ip.$GLOBALS['phpwcms']["db_pass"].date('G'));
-	$entry_id 	= time();	
+	$entry_id 	= time();
 	if(!empty($GLOBALS['phpwcms']["form_tracking"])) {
 		$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_formtracking SET ";
 		$sql .= "formtracking_hash = '".$hash."', ";
@@ -892,37 +892,37 @@ function cleanUpSpecialHtmlEntities($string='') {
 function encode_SpecialHtmlEntities($string='', $mode='ALL') {
 	global $SPECIAL_ENTITIES_TABLES;
 	switch($mode) {
-	
+
 		case 'LATIN':
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
 			break;
-			
+
 		case 'SYMBOL':
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
 			break;
-			
+
 		case 'LATIN SYMBOL':
 		case 'SYMBOL LATIN':
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
 			break;
-			
+
 		case 'SPECIALCHARS':
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
 			break;
-			
+
 		case 'LATIN SPECIALCHARS':
 		case 'SPECIALCHARS LATIN':
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
 			break;
-			
+
 		case 'SYMBOL SPECIALCHARS':
 		case 'SPECIALCHARS SYMBOL':
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
 			break;
-	
+
 		default:
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
 			$string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
@@ -956,9 +956,9 @@ function cleanUpForEmailHeader($text='') {
 function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='char', $sanitize=NULL) {
 	// used to cut a string by words or chars
 	if(empty($maxLength) || $maxLength < 0) return $cutString;
-	
+
 	if($cutMode == 'word') {
-	
+
 		$words		= preg_split("/[\s]+/", $cutString, -1, PREG_SPLIT_NO_EMPTY);
 		$cutString	= '';
 		for($i = 0; $i < $maxLength; $i++) {
@@ -975,15 +975,15 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 
 		$curString = trim($cutString);
 		if($curString == '') {
-		
+
 			return '';
-		
+
 		} elseif($sanitize===NULL && $maxLength >= (MB_SAFE ? mb_strlen($curString) : strlen($curString))) {
-		
+
 			return $curString;
-		
+
 		}
-		
+
 		preg_match_all('/&[^;]+;|./', $curString, $match);
 		if(is_array($match[0]) && count($match[0]) > $maxLength) {
 
@@ -1008,14 +1008,14 @@ function headerAvoidPageCaching() {
 }
 
 function getFileInformation($fileID) {
-	
+
 	if(empty($fileID)) return false;
 
 	$f = '';
 	if(is_array($fileID)) {
-	
+
 		if(count($fileID) == 0) return false;
-		
+
 		$x		= 0;
 		foreach($fileID as $value) {
 			if($x) {
@@ -1027,19 +1027,19 @@ function getFileInformation($fileID) {
 
 
 	} elseif(intval($fileID)) {
-	
+
 		$f = 'f_id='.intval($fileID);
-	
+
 	} else {
-	
+
 		return false;
-	
+
 	}
-	
+
 	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (".$f.")";
-	
+
 	return _dbQuery($sql);
-	
+
 }
 
 function getJavaScriptSourceLink($src, $prefix='  ') {
@@ -1095,7 +1095,7 @@ function is_html($string='') {
 	$length_2 = strlen(decode_entities($string));
 	if($length_1 != $length_2) {
 		return true;
-	}	
+	}
 	return false;
 }
 
@@ -1117,7 +1117,7 @@ function optimizeForSearch() {
 		for ($i = 0; $i < $numargs; $i++) {
 			$text .= ' ' . func_get_arg($i);
 		}
-		
+
 		$text	= stripped_cache_content($text);
 		$text	= cleanUpSpecialHtmlEntities($text);
 		$text	= decode_entities($text);
@@ -1126,7 +1126,7 @@ function optimizeForSearch() {
 		$text	= preg_replace('/\{.*?\}/', '', $text);
 		$text	= strtoupper($text);
 		$text	= implode(' ', convertStringToArray($text, ' ', 'UNIQUE', false) );
-		
+
 	}
 	return $text;
 }
@@ -1215,18 +1215,18 @@ function return_upload_errormsg($value) {
 
 function csvFileToArray($csvfile, $delimiter=';', $heading=false, $enclosure='"', $linelength=1000) {
 	//import CSV file and convert to array
-	
+
 	if(!is_file($csvfile)) return false;
-	
+
 	$first	= 0;
 	$datas	= array();
-	
+
 	$phpver	= version_compare('4.3.0', phpversion(), '<');
 	if($phpver) {
 		$oldini = ini_get('auto_detect_line_endings');
 		@ini_set('auto_detect_line_endings', '1');
 	}
-	
+
 	$handle	= fopen($csvfile, 'rb');
 
 	while( ($data = fgetcsv($handle, $linelength, $delimiter, $enclosure)) !== false ) {
@@ -1243,17 +1243,17 @@ function csvFileToArray($csvfile, $delimiter=';', $heading=false, $enclosure='"'
 		if(trim(implode('', $data)) == '') {
 			continue;
 		}
-		$datas[$first] = $data;			
+		$datas[$first] = $data;
 		$first++;
 
 	}
 
 	fclose($handle);
-	
+
 	if ($phpver) {
 		@ini_set('auto_detect_line_endings', $oldini);
 	}
-	
+
 	return $datas;
 }
 
@@ -1311,7 +1311,7 @@ function makeCharsetConversion($string='', $in_charset='utf-8', $out_charset='ut
 		$convertInOut = $in_charset.$out_charset.'EntitiesOff';
 		$entityEncode = false;
 	}
-	
+
 	if(!isset($phpwcms['convert_charsets'])) {
 		$phpwcms['convert_charsets'] = array();
 	}
@@ -1319,7 +1319,7 @@ function makeCharsetConversion($string='', $in_charset='utf-8', $out_charset='ut
 		require_once (PHPWCMS_ROOT.'/include/inc_ext/ConvertCharset/ConvertCharset.class.php');
 		$phpwcms['convert_charsets'][$convertInOut] = new ConvertCharset($in_charset, $out_charset, $entityEncode);
 	}
-	
+
 	$NewEncoding =& $phpwcms['convert_charsets'][$convertInOut];
 	return $NewEncoding->Convert($string);
 
@@ -1336,64 +1336,64 @@ function returnCorrectCharset($in_charset='') {
 
 	$in_charset = strtolower($in_charset);
 	switch($in_charset) {
-	
+
 		case 'iso-8859-1':
 		case 'iso8859-1':		$in_charset = 'iso-8859-1';
 								break;
-								
+
 		case 'iso-8859-15':
 		case 'iso8859-15':		$in_charset = 'iso-8859-15';
 								break;
-								
+
 		case 'utf-8':			$in_charset = 'utf-8';
 								break;
-		
+
 		case 'cp866':
 		case 'ibm866':
 		case '866':				$in_charset = version_compare(phpversion(), '4.3.2', '<') ? false : 'cp866';
 								break;
-		
+
 		case 'cp1251':
 		case 'windows-1251':
 		case 'win-1251':
 		case '1251':			$in_charset = version_compare(phpversion(), '4.3.2', '<') ? false : 'windows-1251';
 								break;
-			
+
 		case 'cp1252':
 		case 'windows-1252':
 		case 'win-1252':
 		case '1252':			$in_charset = 'windows-1252';
 								break;
-			
+
 		case 'koi8-r':
 		case 'koi8-ru':
 		case 'koi8r':			$in_charset = version_compare(phpversion(), '4.3.2', '<') ? false : 'koi8-r';
 								break;
-								
+
 		case 'big5':
 		case '950':				$in_charset = 'big5';
 								break;
-								
+
 		case 'gb2312':
 		case '936':				$in_charset = 'gb2312';
 								break;
-								
+
 		case 'big5-hkscs':		$in_charset = 'big5-hkscs';
 								break;
-								
+
 		case 'shift_jis':
 		case 'sjis':
 		case '932':				$in_charset = 'shift_jis';
 								break;
-								
+
 		case 'euc-jp':
 		case 'eucjp':			$in_charset = 'euc-jp';
 								break;
-		
+
 		default:				$in_charset = false;
-	
+
 	}
-	
+
 	return $in_charset;
 
 }
@@ -1406,7 +1406,7 @@ function returnSubdirListAsArray($dir='') {
 	$subdir = array();
 	$ph = opendir($dir);
 	while($pf = readdir($ph)) {
-		if(is_dir($dir.'/'.$pf) && strpos($pf, '.') !== 0) { //$pf != '.' && $pf != '..' && 
+		if(is_dir($dir.'/'.$pf) && strpos($pf, '.') !== 0) { //$pf != '.' && $pf != '..' &&
 			$subdir[] = $pf;
 		}
 	}
@@ -1420,13 +1420,13 @@ function returnFileListAsArray($dir='', $extfilter='') {
 	if(empty($dir) || !is_dir($dir)) {
 		return false;
 	}
-	
+
 	$files		= array();
 	$ph			= opendir($dir);
 	$extfilter	= strtolower(trim($extfilter));
 	$extfilter	= $extfilter ? convertStringToArray($extfilter) : array();
 	$dofilter	= count($extfilter) ? true : false;
-	
+
 	while($pf = readdir($ph)) {
 		if(is_file($dir.'/'.$pf) && strpos($pf, '.') !== 0) { //$pf != '.' && $pf != '..' &&
 			$ext = which_ext($pf);
@@ -1436,7 +1436,7 @@ function returnFileListAsArray($dir='', $extfilter='') {
 				}
 			}
 			$files[$pf] = array(	'filename'	=> $pf,
-									'filesize'	=> filesize($dir.'/'.$pf), 
+									'filesize'	=> filesize($dir.'/'.$pf),
 									'filetime'	=> filemtime($dir.'/'.$pf),
 									'ext'		=> $ext
 								);
@@ -1462,17 +1462,17 @@ function parse_ini_str($Str, $ProcessSections=true, $SplitInNameValue=false) {
 	if ($Temp = strtok($Str,"\r\n")) {
 		do {
 			switch ($Temp{0}) {
-				
+
 				case ';':
-				
+
 				case '#':	break;
-				
+
 				case '[':	if (!$ProcessSections) break;
 							$Pos = strpos($Temp,'[');
 							$Section = mb_substr($Temp,$Pos+1,strpos($Temp,']',$Pos)-1);
 							if($Section) $Data[$Section] = array();
 							break;
-				
+
 				default:	$Pos = strpos($Temp,'=');
 							if ($Pos === FALSE) break;
 							if(!$SplitInNameValue) {
@@ -1537,7 +1537,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 		'tmp_name'	=> '',		'size'		=> 0,		'path'		=> '',
 		'ext'		=> '',		'rename'	=> '',		'maxsize'	=> intval($maxsize),
 		'error_num'	=> 0,		'type'		=> '' );
-		
+
 	if(!isset($_FILES[$file]) || !is_uploaded_file($_FILES[$file]['tmp_name'])) {
 		$file_status['error'] = 'Upload not defined';
 		return $file_status;
@@ -1551,7 +1551,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	$file_status['path']		= $target;
 	$file_status['rename']		= $file_status['name'];
 	$file_status['maxsize']		= empty($file_status['maxsize']) ? $GLOBALS['phpwcms']['file_maxsize'] : $file_status['maxsize'];
-	
+
 	if(intval($file_status['size']) > $file_status['maxsize']) {
 		$file_status['error'] = 'File is too large';
 		$file_status['error_num'] = 400;
@@ -1573,21 +1573,21 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 		$file_status['error_num'] = 409;
 		return $file_status;
 	}
-	
+
 	if($imgtype) {
 		$imgtype = convertStringToArray(strtolower($imgtype));
-		
+
 		if(count($imgtype)) {
-			
+
 			$data = @getimagesize($_FILES[$file]['tmp_name']);
-			
+
 			$exif_imagetype = array(
 					1=>'gif',	2=>'jpeg',	2=>'jpg',	3=>'png',	4=>'swf',	5=>'psd',
 					6=>'bmp',	7=>'tif',	8=>'tiff',	9=>'jpc',	10=>'jp2',	11=>'jpx',
 					12=>'jb2',	13=>'swc',	14=>'iff',	15=>'wbmp',	16=>'xbm'  );
-			
+
 			if(!$data && !$exttype) {
-				
+
 				$file_status['error']  = 'Format'.($file_status['ext'] ? ' *.'.$file_status['ext'] : '').' not supported (';
 				$allowed = array();
 				foreach($imgtype as $value) {
@@ -1597,9 +1597,9 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 				$file_status['error_num'] = 415;
 				@unlink($_FILES[$file]['tmp_name']);
 				return $file_status;
-			
+
 			} elseif($data) {
-			
+
 				if(empty($exif_imagetype[$data[2]]) || !in_array($data[2], $imgtype)) {
 					$file_status['error']  = 'File type ';
 					$file_status['error'] .= empty($exif_imagetype[$data[2]]) ? $data[2] : $exif_imagetype[$data[2]];
@@ -1610,12 +1610,12 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 					}
 					$file_status['error']  = trim(trim($file_status['error']), ',');
 					$file_status['error'] .= ' only)';
-					
+
 					$file_status['error_num'] = 415;
 					@unlink($_FILES[$file]['tmp_name']);
 					return $file_status;
 				}
-				
+
 				$file_status['image'] = $data;
 				$exttype = '';
 
@@ -1630,17 +1630,17 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 			$file_status['error_num'] = 415;
 			@unlink($_FILES[$file]['tmp_name']);
 			return $file_status;
-		}		
+		}
 	}
 	if(!is_writable($target)) {
 		$file_status['error'] = 'Target directory <b>'.str_replace(PHPWCMS_ROOT, '', $target).'</b> is not writable';
 		$file_status['error_num'] = 412;
 		@unlink($_FILES[$file]['tmp_name']);
-		return $file_status;	
-	}	
+		return $file_status;
+	}
 	$rename	= convertStringToArray($rename);
 	if(count($rename)) {
-	
+
 		$_temp_name	= cut_ext($file_status['rename']);
 
 		foreach($rename as $value) {
@@ -1662,9 +1662,9 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 							break;
 			}
 		}
-		
+
 		$file_status['rename'] = $_temp_name . ( $file_status['ext'] ? '.' . $file_status['ext'] : '' );
-		
+
 	}
 	@umask(0);
 	if(!@move_uploaded_file($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
@@ -1676,10 +1676,10 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 		}
 	}
 	@chmod($target.$file_status['rename'], 0644);
-	
+
 	$file_status['status']	= true;
 	return $file_status;
-	
+
 }
 
 function get_alnum_dashes($string, $remove_accents = false, $replace_space='-', $allow_slashes=false) {
@@ -1697,7 +1697,7 @@ function xss_clean($val) {
 	// this prevents some character re-spacing such as <java\0script>
 	// note that you have to handle splits with \n, \r, and \t later since they *are* allowed in some inputs
 	$val = preg_replace('/([\x00-\x08][\x0b-\x0c][\x0e-\x20])/', '', $val);
-	
+
 	// straight replacements, the user should never need these since they're normal characters
 	// this prevents like <IMG SRC=&#X40&#X61&#X76&#X61&#X73&#X63&#X72&#X69&#X70&#X74&#X3A&#X61&#X6C&#X65&#X72&#X74&#X28&#X27&#X58&#X53&#X53&#X27&#X29>
 	$search = 'abcdefghijklmnopqrstuvwxyz';
@@ -1707,30 +1707,30 @@ function xss_clean($val) {
 	for ($i = 0; $i < strlen($search); $i++) {
 		// ;? matches the ;, which is optional
 		// 0{0,7} matches any padded zeros, which are optional and go up to 8 chars
-		
+
 		// &#x0040 @ search for the hex values
 		$val = preg_replace('/(&#[x|X]0{0,8}'.dechex(ord($search[$i])).';?)/i', $search[$i], $val); // with a ;
 		// &#00064 @ 0{0,7} matches '0' zero to seven times
 		$val = preg_replace('/(&#0{0,8}'.ord($search[$i]).';?)/', $search[$i], $val); // with a ;
 	}
-	
+
 	// now the only remaining whitespace attacks are \t, \n, and \r
-	$ra1 = array(	'javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink', 'link', 'style', 
+	$ra1 = array(	'javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink', 'link', 'style',
 					'script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'title', 'base'
 				);
 	$ra2 = array(	'onabort', 'onactivate', 'onafterprint', 'onafterupdate', 'onbeforeactivate', 'onbeforecopy', 'onbeforecut',
-					'onbeforedeactivate', 'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload', 'onbeforeupdate', 
-					'onblur', 'onbounce', 'oncellchange', 'onchange', 'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut', 
-					'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick', 'ondeactivate', 'ondrag', 'ondragend', 
-					'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate', 'onfilterchange', 
-					'onfinish', 'onfocus', 'onfocusin', 'onfocusout', 'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete', 
-					'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 
-					'onmouseup', 'onmousewheel', 'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange', 'onreadystatechange', 
-					'onreset', 'onresize', 'onresizeend', 'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete', 'onrowsinserted', 
+					'onbeforedeactivate', 'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload', 'onbeforeupdate',
+					'onblur', 'onbounce', 'oncellchange', 'onchange', 'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut',
+					'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick', 'ondeactivate', 'ondrag', 'ondragend',
+					'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate', 'onfilterchange',
+					'onfinish', 'onfocus', 'onfocusin', 'onfocusout', 'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete',
+					'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover',
+					'onmouseup', 'onmousewheel', 'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange', 'onreadystatechange',
+					'onreset', 'onresize', 'onresizeend', 'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete', 'onrowsinserted',
 					'onscroll', 'onselect', 'onselectionchange', 'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload'
 				);
 	$ra = array_merge($ra1, $ra2);
-	
+
 	$found = true; // keep replacing as long as the previous round replaced something
 	while ($found == true) {
 		$val_before = $val;
@@ -1770,7 +1770,7 @@ function checkLogin($mode='REDIRECT') {
 	$sql .= "logged_in = 0, logged_change = '".time()."' ";
 	$sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($GLOBALS['phpwcms']["max_time"]);
 	_dbQuery($sql, 'UPDATE');
-	
+
 	if(!empty($_SESSION["wcs_user"])) {
 		$sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog ";
 		$sql .= "WHERE logged_user='".aporeplace($_SESSION["wcs_user"])."' AND ";
@@ -1778,9 +1778,9 @@ function checkLogin($mode='REDIRECT') {
 		if(!empty($phpwcms['Login_IPcheck'])) {
 			$sql .= " AND logged_ip='".aporeplace(getRemoteIP())."'";
 		}
-		
+
 		$check = _dbCount($sql);
-		
+
 		if($check == 0) {
 			unset($_SESSION["wcs_user"]);
 		} else {
@@ -1797,15 +1797,15 @@ function checkLogin($mode='REDIRECT') {
 			$ref_url = '?ref='.rawurlencode(PHPWCMS_URL.'phpwcms.php?'.xss_clean($_SERVER['QUERY_STRING']));
 		}
 		if($mode == 'REDIRECT') {
-			
+
 			// check again if user was logged in and this is a valid redirect request
 			$sql  = 'SELECT COUNT(*)  FROM '.DB_PREPEND.'phpwcms_userlog WHERE ';
 			$sql .= "logged_ip='".aporeplace(getRemoteIP())."' AND ";
 			$sql .= '( '.time().' - logged_change ) < 3600';
 			$ref_url	= _dbCount($sql) > 0 ? get_login_file().$ref_url : '';
-			
+
 			headerRedirect(PHPWCMS_URL . $ref_url);
-		
+
 		} else {
 			return false;
 		}
@@ -1852,14 +1852,14 @@ function render_bbcode_basics($text='', $mode='basic') {
 	}
 
 	$text = render_bbcode_url($text);
-	
+
 	if($mode == 'basic') {
-	
+
 		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]',   '[p]', '[/p]', '[strong]', '[/strong]');
 		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>', '<strong>', '</strong>');
-	
+
 		return str_replace($search, $replace, $text);
-		
+
 	}
 
 	$search		= array();
@@ -1887,12 +1887,12 @@ function render_bbcode_basics($text='', $mode='basic') {
 	$search[19]		= '/\[h6\](.*?)\[\/h6\]/is';			$replace[19]	= '<h6>$1</h6>';
 	$search[20]		= '/\[p\](.*?)\[\/p\]/is';				$replace[20]	= '<p>$1</p>';
 	$search[21]		= '/\[strong\](.*?)\[\/strong\]/is';	$replace[21]	= '<strong>$1</strong>';
-	
+
 	$search[22]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
 	$replace[22]	= '<blockquote>$1</blockquote>';
-	
+
 	return preg_replace($search, $replace, $text);
-	
+
 }
 
 function render_bbcode_url($text) {
@@ -1900,16 +1900,16 @@ function render_bbcode_url($text) {
 	if($text === '') {
 		return $text;
 	}
-	$text = preg_replace_callback( array('/\[url=([^ ]+)(.*)\](.*)\[\/url\]/', '/\[a=([^ ]+)(.*)\](.*)\[\/a\]/'), 'get_bbcode_ahref', $text );
+	$text = preg_replace_callback( array('/\[url=([^ ]+)(.*?)\](.*?)\[\/url\]/', '/\[a=([^ ]+)(.*?)\](.*?)\[\/a\]/'), 'get_bbcode_ahref', $text );
 	// Fallback for URL parameter having =[http://
 	if(strpos($text, '=[') !== false) {
 		$text = str_replace('=[[', '=####[#[####', $text);
 		$text = str_replace('=[', '=####[####', $text);
-		$text = preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*)\]/', 'get_link_ahref', $text );
+		$text = preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*?)\]/', 'get_link_ahref', $text );
 		$text = str_replace('=####[#[####', '=[[', $text);
 		$text = str_replace('=####[####', '=[', $text);
 	} else {
-		$text = preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*)\]/', 'get_link_ahref', $text );
+		$text = preg_replace_callback( '/\[(http|https|ftp):\/\/([^ ]+)(.*?)\]/', 'get_link_ahref', $text );
 	}
 	return $text;
 }
@@ -1931,44 +1931,44 @@ function get_link_ahref($match) {
  * Convert short file size (100M) to bytes
  */
 function getBytes($size) {
-	
+
 	if(is_numeric($size)) {
-		
+
 		return $size;
-		
+
 	} elseif($size) {
-	
+
 		$_unit = array(
-	
+
 			'B'			=> 1,
 			'K'			=> 1024,
 			'M'			=> 1048576,
 			'G'			=> 1073741824,
 			'T'			=> 1099511627776,
-			
+
 			'KB'		=> 1024,
 			'MB'		=> 1048576,
 			'GB'		=> 1073741824,
 			'TB'		=> 1099511627776,
-			
+
 			'BYTE'		=> 1,
 			'KILOBYTE'	=> 1024,
 			'MEGABYTE'	=> 1048576,
 			'GIGABYTE'	=> 1073741824,
 			'TERABYTE'	=> 1099511627776
-		
+
 		);
-		
+
 		$size = trim($size);
-		
+
 		foreach($_unit as $key => $value) {
-		
+
 			if( preg_match('/.*?'.$key.'$/i', $size) ) {
-			
+
 				$num = trim( preg_replace('/(.*?)'.$key.'$/i', '$1', $size) );
-				
+
 				return ceil($num * $value);
-			
+
 			}
 		}
 	}
@@ -1981,35 +1981,35 @@ function getBytes($size) {
  * Try to calculate the memory necessary to
  * handle the image in RAM to avoid
  * errors based on memory limit.
- */  
+ */
 function getRealImageSize(& $imginfo) {
 
 	$size = 0;
 
 	// check image width and height
 	if(!empty($imginfo[0]) && !empty($imginfo[1])) {
-		
+
 		$size = $imginfo[0] * $imginfo[1];
 
 	}
 	// handle possible alpha channel for PNG and TIF
 	$alpha = ($imginfo[2] == 3 || $imginfo[2] == 7 || $imginfo[2] == 6) ? 1 : 0;
 	if($size && !empty($imginfo['channels'])) {
-		
+
 		// channel - in general this is 3 (RGB) or 4 (CMYK)
 		$size = $size * ( $imginfo['channels'] + $alpha );
-		
+
 	} elseif($size && !empty($imginfo['bits'])) {
-	
+
 		// bits - general value is 8Bit, but can be higher too
 		$size = $size * ( log($imginfo['bits'], 2) + $alpha );
-	
+
 	} elseif($size) {
-		
+
 		// use a default of 4 like for CMYK
 		// should meet general usage
 		$size = $size * ( 4 + $alpha );
-	
+
 	}
 
 	return $size;
@@ -2023,8 +2023,8 @@ function is_intval($str) {
 function attribute_name_clean($name='') {
 	$name = trim(phpwcms_remove_accents($name));
 	$name = str_replace(
-				array(' ','/','\\','#','+',':','.'), 
-				array('_','-', '-','_','-','-','-'), 
+				array(' ','/','\\','#','+',':','.'),
+				array('_','-', '-','_','-','-','-'),
 				$name
 			);
 	$name = preg_replace('/[^a-zA-Z0-9\-_]/', '', $name);
@@ -2043,7 +2043,7 @@ function boolval($BOOL, $STRICT=false) {
 	if(is_string($BOOL)) {
 		$BOOL = strtoupper($BOOL);
 	}
-	
+
 	// no strict test, check only against false bool
 	if( !$STRICT && in_array($BOOL, array(false, 0, NULL, 'FALSE', 'NO', 'N', 'OFF', '0'), true) ) {
 
@@ -2062,7 +2062,7 @@ function boolval($BOOL, $STRICT=false) {
 
 // sanitize a text for nice URL/alias or whatever
 function uri_sanitize($text) {
-	
+
 	$text = pre_remove_accents($text);
 	$text = get_alnum_dashes($text, true, '-', PHPWCMS_ALIAS_WSLASH);
 	$text = trim($text);
@@ -2074,7 +2074,7 @@ function uri_sanitize($text) {
 			$text = preg_replace('/\-\/\-/', '/', $text);
 		}
 	}
-	
+
 	return $text;
 }
 
@@ -2083,7 +2083,7 @@ function phpwcms_strtotime($date, $date_format=NULL, $empty_return=false) {
 	if ($strtotime === -1 || $strtotime === false) {
 		return $empty_return;
 	}
-	
+
 	return is_string($date_format) ? date($date_format, $strtotime) : $strtotime;
 }
 

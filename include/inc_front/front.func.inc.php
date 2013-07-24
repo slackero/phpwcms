@@ -2960,6 +2960,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$create_css 	= false;
 		$parent			= false; // do not show parent link
 		$articlemenu	= false; // do not show category's article titles as menu entry
+		$bootstrap		= false; // bootstrap dropdown style
 
 		switch($menu_type) {
 			
@@ -2967,8 +2968,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 							break;
 
 							// show parent level too
+			case 'PBA':		$bootstrap		= true;
 			case 'PA':		$articlemenu	= true;
 			case 'P':		$parent			= true;
+							break;
+
+			case 'PB':		$parent			= true;
+							$bootstrap		= true;
 							break;
 
 							// vertical, active path unfolded
@@ -3029,7 +3035,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 									 3 => $path_class,		 4 => $active_class, 	 5 => $level_id_name,
 									 6 => $wrap_ul_div,		 7 => $wrap_link_text,	 8 => $unfold,
 									 9 => $ie_patch,		10 => $create_css,		11 => $amenu_level,
-									12 => array('articlemenu' => $articlemenu, 'level_id' => $start_id)
+									12 => array('articlemenu' => $articlemenu, 'level_id' => $start_id),
+									13 => $bootstrap
 							);
 		
 		if($articlemenu) {
@@ -3062,6 +3069,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$ie_patch		= $parameter[9];
 		$create_css 	= $parameter[10];
 		$amenu_level	= $parameter[11];
+		$bootstrap		= $parameter[13];
 		
 		$parent			= false;		// do not show parent link
 
@@ -3090,11 +3098,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 			$li_ul 		= '';
 			$li_ie		= '';
-			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? ' class="'.$active_class[1].'"' : ''; // set active link class
-			
-			$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"');
-			$li_a .= $wrap_link_text[0] . $li_a_title . $wrap_link_text[1];
+			$bs_toggle	= false;
 
 			if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
 				$parameter[1]	= $key;
@@ -3108,11 +3112,32 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			}
 			if($li_ul) {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
+				if($bootstrap) {
+					$li_class	= trim('dropdown '.$li_class);
+					$bs_toggle	= true;
+				}
 			} elseif(getHasSubStructureStatus($key)) {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'].' '.$GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
 			} else {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'];
 			}
+
+			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
+			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? $active_class[1] : ''; // set active link class
+			if($bs_toggle) {
+				$li_a_class		= trim('dropdown-toggle '.$li_a_class);
+				$bs_data_toggle = ' data-toggle="dropdown"';
+				$bs_caret		= ' <b class="caret"></b>';
+			} else {
+				$bs_data_toggle = '';
+				$bs_caret		= '';
+			}
+			if($li_a_class) {
+				$li_a_class = ' class="'.$li_a_class.'"';
+			}
+			$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"'.$bs_data_toggle);
+			$li_a .= $wrap_link_text[0] . $li_a_title . $bs_caret . $wrap_link_text[1];
+
 			if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
 				$li_class = trim($li_class.' '.$path_class[0]);
 			}
@@ -3182,6 +3207,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$ul_class = empty($path_class[$counter+1]) ? '' : $path_class[$counter+1];
 		if(isset($GLOBALS['LEVEL_KEY'][$start_id]) && $counter && isset($path_class[0])) {
 			$ul_class .= ' ' . $path_class[0];
+		}
+		if($bootstrap && $counter) {
+			$ul_class = 'dropdown-menu '.$ul_class;
 		}
 		$ul_class = trim($ul_class);
 		if($ul_class) {
