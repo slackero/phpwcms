@@ -313,6 +313,7 @@ $template_default['classes'] = array(
 	'tab-first'				=> 'tab-first',
 	'tab-last'				=> 'tab-last',
 	'tab-content'			=> 'tab-content',
+	'tab-content-item'		=> 'tab-content-item',
 	'tab-container-clear'	=> 'tab-container-clear',
 	'tab-item'				=> 'tab-item',
 	'navlist-sub_ul_true'	=> 'sub_ul_true',
