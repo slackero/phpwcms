@@ -37,7 +37,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 	if($row = mysql_fetch_assoc($result)) {
 		//Da max. 1 Datensatz -> sofort Datenbankverbindung kappen
 		mysql_free_result($result);
-		
+
 		// now try to retrieve alias article information
 		if($row["article_aliasid"]) {
 			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
@@ -116,7 +116,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		if(!isset($content['UNIQUE_ALINK'])) {
 			$content['UNIQUE_ALINK'] = array();
 		}
-		
+
 		$content['UNIQUE_ALINK'][ $row["article_id"] ] = $row["article_id"];
 
 
@@ -135,21 +135,21 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		} else {
 			$content["pagetitle"] = setPageTitle($content["pagetitle"], $article['cat'], $row["article_title"]);
 		}
-		
+
 		// check description
 		if(!empty($row['article_description'])) {
 			set_meta('description', $row['article_description']);
 		}
-		
+
 		$content['all_keywords'] = $row['article_keyword'];
 
 		if(!empty($template_default['article_render_anchor'])) {
 			$content["main"] .= '<a name="jump'.$row["article_id"].'" id="jump'.$row["article_id"].'" class="jump-anchor"></a>';
 		}
-		
+
 		// enable frontend edit link
 		if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $row["article_uid"])) {
-			
+
 			// enym add structure level frontend edit link for admins only
 			if($_SESSION["wcs_user_admin"]) {
 				$content["main"] .= getFrontendEditLink('structure', $content['cat_id']);
@@ -157,11 +157,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$content["main"] .= getFrontendEditLink('article', $row["article_id"]);
 			$content["main"] .= getFrontendEditLink('summary', $row["article_id"]);
 			$content['article_frontend_edit'] = true;
-		
+
 		} else {
-		
+
 			$content['article_frontend_edit'] = false;
-		
+
 		}
 
 		// only copy the catname to a special var for multiple for use in any block
@@ -183,25 +183,25 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$caption = getImageCaption($row["article_image"]["caption"]);
 		$row["article_image"]["caption"]	= $caption[0];
 		$row["article_image"]["copyright"]	= $caption[4];
-				
+
 		//build image/image link
 		$thumb_image = false;
 		$thumb_img = '';
 		$popup_img = '';
-		
+
 		$img_thumb_name		= '';
 		$img_thumb_rel		= '';
 		$img_thumb_abs		= '';
 		$img_thumb_width	= 0;
 		$img_thumb_height	= 0;
-		
+
 		$img_zoom_name		= '';
 		$img_zoom_rel		= '';
 		$img_zoom_abs		= '';
 		$img_zoom_width		= 0;
 		$img_zoom_height	= 0;
 		$img_thumb_ext		= 'jpg';
-		
+
 		if(!empty($row["article_image"]["hash"])) {
 
 			$thumb_image = get_cached_image(
@@ -213,18 +213,18 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			));
 
 			if($thumb_image != false) {
-			
+
 				$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
 				$thumb_img .= ' alt="'.html_specialchars($caption[1]).'" title="'.html_specialchars($caption[3]).'"';
 				$thumb_img .= ' class="'.$template_default['classes']['image-thumb'].'" />';
-				
+
 				$img_thumb_name		= $thumb_image[0];
 				$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];
 				$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
 				$img_thumb_width	= $thumb_image[1];
 				$img_thumb_height	= $thumb_image[2];
 				$img_thumb_ext		= which_ext($thumb_image[0]);
-				
+
 				$content['images']['article'] = array(
 					'name'	=> $row["article_image"]["name"],
 					'hash'	=> $row["article_image"]["hash"],
@@ -247,21 +247,21 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					));
 
 					if($zoominfo != false) {
-					
+
 						$img_zoom_name		= $zoominfo[0];
 						$img_zoom_rel		= PHPWCMS_IMAGES.$zoominfo[0];
 						$img_zoom_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
 						$img_zoom_width		= $zoominfo[1];
 						$img_zoom_height	= $zoominfo[2];
-						
+
 						$content['images']['article']['zoom'] = array(
 							'width'		=> $img_zoom_width,
 							'height'	=> $img_zoom_height,
-							'src'		=> $img_zoom_rel			
+							'src'		=> $img_zoom_rel
 						);
 
 						$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
-					
+
 						if(!empty($caption[2][0])) {
 							$open_link = $caption[2][0];
 							$return_false = '';
@@ -279,95 +279,95 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 							}
 							$thumb_href .= ' class="'.$template_default['classes']['image-zoom'].'">';
 						} else {
-						
+
 							//lightbox
 							initSlimbox();
-							
+
 							$thumb_href  = '<a href="'.PHPWCMS_IMAGES . $zoominfo[0].'"';
 							if($row["article_image"]["caption"]) {
 								$thumb_href .= ' title="'.parseLightboxCaption($row["article_image"]["caption"]).'"';
 							}
 							$thumb_href .= ' rel="lightbox" class="'.$template_default['classes']['image-lightbox'].'">';
 						}
-						
+
 						$thumb_img = $thumb_href.$thumb_img.'</a>';
 						$popup_img = $thumb_img;
-						
+
 					}
-					
+
 				} elseif($caption[2][0]) {
-					
+
 					$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">'.$thumb_img.'</a>';
-				
+
 				}
 			}
 
 		} else {
-		
+
 			$row["article_image"]['id']		= 0;
 			$row["article_image"]['hash']	= '';
-		
+
 		}
 
 		// make some elementary checks regarding content part pagination
 		$_CpPaginate = false;
-		
+
 		if($row['article_paginate'] && $aktion[2] != 1) { // no pagination in print mode
-			
+
 			// use an IF because acontent_paginate_page=1 is the same as acontent_paginate_page=0
 			$sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page, ";
 			$sql_cnt .= "acontent_paginate_title ";
 			$sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
 			$sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 ";
-			
+
 			if( !FEUSER_LOGIN_STATUS ) {
 				$sql_cnt .= 'AND acontent_granted=0 ';
 			}
-			
+
 			$sql_cnt .= "AND acontent_block IN ('', 'CONTENT') ORDER BY acontent_paginate_page DESC";
 			$sql_cnt  = _dbQuery($sql_cnt);
-			
+
 			if(($paginate_count = count($sql_cnt)) > 1) {
-			
+
 				$content['CpPages']			= array();
 				$content['CpPageTitles']	= array();
 				$_CpPaginate				= true;
-					
+
 				foreach($sql_cnt as $crow) {
-	
+
 					$content['CpPages'][ $crow['acontent_paginate_page'] ] = $paginate_count; // set page numbers
-					
+
 					// set content part pagination title
 					if(!isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ])) {
 
 						$content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] == '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
-					
+
 					// check if content part title is set but starts with '#'
-					} elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] != '' && $content['CpPageTitles'][ $crow['acontent_paginate_page'] ]{0} == '#') { 
-						
+					} elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] != '' && $content['CpPageTitles'][ $crow['acontent_paginate_page'] ]{0} == '#') {
+
 						$content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'];
-						
+
 					}
 
 					$paginate_count--;
 				}
-	
+
 				$content['CpPages']			= array_reverse($content['CpPages'], true);
 				$content['CpPageTitles']	= array_reverse($content['CpPageTitles'], true);
-				
+
 				// check if given cp paginate page is valid, and reset to page 1 (=0)
 				// same happens for 1 because this will always be used like it is 0
 				if(!isset($content['CpPages'][ $content['aId_CpPage'] ])) {
 					$content['aId_CpPage'] = 0;
 				}
-				
+
 			} else {
-			
+
 				$content['aId_CpPage'] = 0;
-			
+
 			}
-			
-		}		
+
+		}
 
 		// check for custom full article summary template
 		if(!empty($row["article_image"]['tmplfull']) && $row["article_image"]['tmplfull']!='default' && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/article/'.$row["article_image"]['tmplfull'])) {
@@ -379,19 +379,19 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			} else {
 				$row["article_image"]['tmplfull'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/article/'.$row["article_image"]['tmplfull']);
 			}
-		
+
 		} elseif(is_file(PHPWCMS_TEMPLATE.'inc_default/article_summary.tmpl')) {
-		
+
 			// load default template
-		
+
 			if($_CpPaginate && $content['aId_CpPage'] > 1 && is_file(PHPWCMS_TEMPLATE.'inc_default/article_summary_paginate.tmpl')) { // check for default cp paginate template
 				$row["article_image"]['tmplfull'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_default/article_summary_paginate.tmpl');
 			} else {
 				$row["article_image"]['tmplfull'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_default/article_summary.tmpl');
 			}
-		
+
 		} else {
-		
+
 			// template fallback
 			if($_CpPaginate && $content['aId_CpPage'] > 1) {
 				$row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>[/TITLE]'.LF.'<!--CP_PAGINATE_START//-->'.LF;
@@ -407,12 +407,12 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			}
 
 		}
-		
+
 		//rendering
 		if($row["article_image"]['tmplfull']) {
-		
+
 			// replace thumbnail and zoom image information
-			$row["article_image"]['tmplfull'] = str_replace( 
+			$row["article_image"]['tmplfull'] = str_replace(
 								array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
 										'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
 										'{IMAGE_ID}',	'{IMAGE_HASH}', '{IMAGE_EXT}' ),
@@ -420,7 +420,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 										$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
 										$row["article_image"]['id'], $row["article_image"]['hash'], $img_thumb_ext),
 								$row["article_image"]['tmplfull'] );
-			
+
 			// check if TITLE should be hidden
 			if(!$row["article_notitle"]) {
 				$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'TITLE', html_specialchars($row["article_title"]));
@@ -429,34 +429,34 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			}
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUB', html_specialchars($row["article_subtitle"]));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'EDITOR', html_specialchars($row["article_username"]));
-			
+
 			// when "hide summary" is enabled replace everything between [SUMMARY][/SUMMARY]
 			if(!$row["article_hidesummary"]) {
 				$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_summary"]);
 			} else {
 				$row["article_image"]['tmplfull'] = replace_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', '');
 			}
-			
+
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
 			$row["article_image"]['tmplfull'] = render_cnt_date($row["article_image"]['tmplfull'], $content["article_date"], $row['article_livedate'], $row['article_killdate']);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ZOOMIMAGE', $popup_img);
-			
+
 			$content["summary"] .= $row["article_image"]['tmplfull'];
 			$row["article_image"]['tmplfull'] = 1;
-		
+
 		} else {
-		
+
 			$row["article_image"]['tmplfull'] = 0;
-		
+
 		}
 
 		if($content["summary"]) {
-		
+
 			$content["main"] .= $content["summary"];
 			$content["main"] .= $template_default["article"]["head_after"];
-		
+
 		}
 
 		// render content parts
@@ -467,41 +467,41 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		}
 		$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
 		$cresult  = _dbQuery($sql_cnt);
-		
+
 		foreach($cresult as $crow) {
-		
+
 			// check for article content part pagination
 			if($_CpPaginate && ($crow['acontent_block'] == 'CONTENT' || $crow['acontent_block'] == '')) {
-	
+
 				// now check which content part should be rendered...
-				
+
 				// first - cp page 0 OR 1 = 1st page and the same
 				if(($content['aId_CpPage'] == 0 || $content['aId_CpPage'] == 1) && ($crow['acontent_paginate_page'] == 0 || $crow['acontent_paginate_page'] == 1)) {
-										
+
 					// then compare if selected page is same as paginate page
 				} elseif($content['aId_CpPage'] == $crow['acontent_paginate_page']) {
-										
+
 					// hm, do not render current content part
 				} else {
-				
+
 					continue;
 				}
-	
+
 			}
-		
-			// if type of content part not enabled available 
+
+			// if type of content part not enabled available
 			if(!isset($wcs_content_type[ $crow["acontent_type"] ]) ||  ($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]]))) {
 				continue;
 			}
-		
+
 			// do everything neccessary for alias content part
 			if($crow["acontent_type"] == 24) {
 				$crow = getContentPartAlias($crow);
 			}
-		
-			// every article content  will be rendered into temp var 
+
+			// every article content  will be rendered into temp var
 			$CNT_TMP  = '';
-			
+
 			// each content part will get an anchor
 			if($crow["acontent_anchor"]) {
 				$CNT_TMP .= '<a name="cpid'.$crow["acontent_id"].'" id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
@@ -515,25 +515,25 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					$CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1,$crow["acontent_before"]);
 				}
 			}
-			
+
 			// set frontend edit link
 			if($content['article_frontend_edit']) {
 				$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
 			}
-			
+
 			// include content part code section
 			if($crow["acontent_type"] != 30) {
 
 				@include(PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php");
-			
+
 			} elseif($crow["acontent_type"] == 30 && is_file($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
-				
+
 				if($content['article_frontend_edit']) {
 					$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
 				}
 				// now try to include module content part code
 				include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
-			
+
 			}
 
 			// check if top link should be shown
@@ -547,57 +547,57 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					$CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1,$crow["acontent_after"]);
 				}
 			}
-			
+
 			// Maybe content part ID should b used inside templates or for something different
 			$CNT_TMP = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
-			
+
 			// trigger content part functions
 			$CNT_TMP = trigger_cp($CNT_TMP, $crow);
-			
+
 			//check if PHP replacent tags are allowed for content
 			if(empty($phpwcms["allow_cntPHP_rt"])) {
 				$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 			}
-			
+
 			// wrap tab
 			if(!empty($crow['acontent_tab'])) {
-				
+
 				$crow['acontent_tab']			= explode('_', $crow['acontent_tab'], 2);
 				$crow['acontent_tab']['num']	= intval($crow['acontent_tab'][0]);
 				$crow['acontent_tab']['title']	= empty($crow['acontent_tab'][1]) ? '@@TabTitle@@' : $crow['acontent_tab'][1];
-				
+
 				// create a unique Tab ID based on title, content block and section
 				$CNT_TAB		= 'TABBOX-' . md5($crow['acontent_block'] . $crow['acontent_tab']['num']);
 				$CNT_TAB_ID 	= 'TAB-' . md5($crow['acontent_tab']['title'].$crow['acontent_block']);
 				$CNT_TAB_TMP	= $CNT_TMP;
-				
+
 				// check if Tab ID is registered
 				if(!isset($content['cptab'][$CNT_TAB])) {
-					
+
 					$content['cptab'][$CNT_TAB] = array();
-					
+
 					// write Tab Block Replacer
 					$CNT_TMP = '<!-- ' . $CNT_TAB . ' -->';
-					
+
 				} else {
-				
+
 					$CNT_TMP = '';
-					
+
 				}
 				if(!isset($content['cptab'][$CNT_TAB][$CNT_TAB_ID])) {
-					
+
 					$content['cptab'][$CNT_TAB][$CNT_TAB_ID] = array(
 						'title'		=> $crow['acontent_tab']['title'],
 						'content'	=> ''
 					);
-					
+
 				}
-				
+
 				$content['cptab'][$CNT_TAB][$CNT_TAB_ID]['content'] .= $CNT_TAB_TMP;
-			
+
 			}
-			
-			// now add rendered content part to right frontend content 
+
+			// now add rendered content part to right frontend content
 			// var given by block -> $content['CB'][$crow['acontent_block']]
 			if($crow['acontent_block'] == 'CONTENT' || $crow['acontent_block'] == '') {
 				// default content block
@@ -609,50 +609,62 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				}
 				$content['CB'][$crow['acontent_block']] .= $CNT_TMP;
 			}
-			
+
 		}
-		
+
 		// render Tabs
 		$tab_counter = 0;
 		foreach($content['cptab'] as $CNT_TAB => $trow) {
-			
+
 			// define helper var
 			$g = array('wrap' => array(), 'cnt' => array(), 'counter' => 1, 'max' => count($trow), 'href' => rel_url());
-	
+
 			$g['wrap'][]	= '<div id="'.$CNT_TAB.'" class="'.$template_default['classes']['tab-container'].'">';
-			
+
 			$g['wrap'][]	= '	<ul class="'.$template_default['classes']['tab-navigation'].'">';
-			
+
 			foreach($trow as $tabkey => $tabitem) {
-				
-				$tabitem['id']		= 'tab-' . uri_sanitize(strtolower($tabitem['title'])) . $tab_counter;
+
+				$tabitem['id']		= 'tab-' . uri_sanitize(strtolower($tabitem['title'])) . '-' . $g['counter'];
 				$tabitem['title']	= html_specialchars($tabitem['title']);
 				$tabitem['class']	= '';
-				
-				if($g['counter'] === 1) {
+
+				if($template_default['classes']['tab-content']) {
+					$tabitem['content-class'] = $template_default['classes']['tab-content'];
+				} else {
+					$tabitem['content-class'] = '';
+				}
+				if($template_default['classes']['tab-content-item']) {
+					$tabitem['content-class'] = trim($tabitem['content-class'] . ' ' . $template_default['classes']['tab-content-item']) . '-' . $g['counter'];
+				}
+				if($tabitem['content-class']) {
+					$tabitem['content-class'] = ' class="'.$tabitem['content-class'].'"';
+				}
+
+				if($template_default['classes']['tab-first'] && $g['counter'] === 1) {
 					$tabitem['class'] .= ' '.$template_default['classes']['tab-first'];
 				}
-				if($g['counter'] === $g['max']) {
+				if($template_default['classes']['tab-last'] && $g['counter'] === $g['max']) {
 					$tabitem['class'] .= ' '.$template_default['classes']['tab-last'];
 				}
-				
+
 				$g['wrap'][]	= '		<li class="'.$template_default['classes']['tab-item'].'-'.$g['counter'].$tabitem['class'].'"><a href="'.$g['href'].'#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
-				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'" class="'.$template_default['classes']['tab-content'].'">' . LF . $tabitem['content'] . LF . '	</div>';
-				
+				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'"'.$tabitem['content-class'].'>' . LF . $tabitem['content'] . LF . '	</div>';
+
 				$tab_counter++;
 				$g['counter']++;
 			}
-			
+
 			$g['wrap'][]	= '	</ul>';
 			$g['wrap'][]	= implode(LF, $g['cnt']);
 			if($template_default['classes']['tab-container-clear']) {
 				$g['wrap'][]	= '	<div class="'.$template_default['classes']['tab-container-clear'].'"></div>';
 			}
 			$g['wrap'][]	= '</div>';
-			
+
 			$content['cptab'][$CNT_TAB] = implode(LF, $g['wrap']);
 		}
-		
+
 		unset($g);
 
 	}
@@ -677,19 +689,19 @@ if($content['set_canonical'] && empty($phpwcms['canonical_off']) && empty($phpwc
 		$content['set_canonical'] = get_structurelevel_single_article_alias($content['cat_id']);
 	}
 	if($content['set_canonical']) {
-		
+
 		if($phpwcms["rewrite_url"]) {
-			
+
 			$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" '.url_search(array(1 => 'href', 3 => $content['set_canonical'])) . ' />';
-			
+
 			if(PHPWCMS_REWRITE_EXT && strpos($block['custom_htmlhead']['canonical'], PHPWCMS_REWRITE_EXT.'&amp;')) {
 				$block['custom_htmlhead']['canonical'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $block['custom_htmlhead']['canonical']);
 			};
-			
+
 		} else {
 			$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
 		}
-		
+
 	}
 }
 
