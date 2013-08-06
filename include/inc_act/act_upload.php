@@ -26,7 +26,7 @@ require (PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php');
 if(@ini_get('post_max_size')) {
 	$post_max_size = return_bytes(ini_get('post_max_size'));
 	if($post_max_size < $phpwcms['file_maxsize']) {
-		$phpwcms['file_maxsize'] = $post_max_size;
+		$phpwcms['file_maxsize'] = $post_max_size - 1;
 	}
 } else {
 	$post_max_size = $phpwcms['file_maxsize'];
@@ -34,7 +34,7 @@ if(@ini_get('post_max_size')) {
 if(@ini_get('upload_max_filesize')) {
 	$upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
 	if($upload_max_filesize < $phpwcms['file_maxsize']) {
-		$phpwcms['file_maxsize'] = $upload_max_filesize;
+		$phpwcms['file_maxsize'] = $upload_max_filesize - 1;
 	}
 } else {
 	$upload_max_filesize = $phpwcms['file_maxsize'];
