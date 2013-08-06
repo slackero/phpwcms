@@ -3154,7 +3154,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_last'];
 			}
 
-			$li .= ' class="' . trim($li_class . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
+			$li .= ' class="' . trim(trim($li_class) . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
 
 			$li .= '>' . $li_a . '</a>';
 
