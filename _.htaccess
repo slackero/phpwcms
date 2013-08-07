@@ -4,24 +4,41 @@
 # 	php_flag magic_quotes_runtime Off
 #	php_flag register_globals Off
 
-#Sometimes neccessary to add those
+#Sometimes neccessary to add special types
 #	AddType application/x-javascript .js
 #	AddType text/css .css
+#	AddType video/ogg .ogv
+#	AddType video/ogg .ogg
+#	AddType video/mp4 .mp4
+#	AddType video/x-m4v .m4v
+#	AddType video/webm .webm
+#	AddType image/svg+xml .svg
+#	AddType application/font-woff .woff
+#	AddType application/vnd.ms-fontobject .eot
+#	AddType application/x-font-ttf .ttf
+#	AddType application/x-font-opentype .otf
 
 # Options:
 #	Options +FollowSymlinks
 #	AcceptPathInfo On
+
+# All 404 error should link to phpwcms then
+# it is easy to define internal routing/redirection
+#	ErrorDocument 404 /index.php?r404
+# Installed in Subfolder www.example.com/subfolder/
+#	ErrorDocument 404 /subfolder/index.php?r404
 
 # Rewrite:
 <IfModule mod_rewrite.c>
 
 	RewriteEngine On
 
-	DirectoryIndex index.html index.php 
+	DirectoryIndex index.html index.php
 
 # Use RewriteBase - always start in Document Root
 # If installed in subfolder see the ReWrite Rule section
 	RewriteBase /
+
 
 # Ignore
 	RewriteRule $1 !^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)

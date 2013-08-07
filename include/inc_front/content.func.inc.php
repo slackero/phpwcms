@@ -218,13 +218,38 @@ if(isset($_GET['print'])) {
 // in case of detected 404 error
 if($content['404error']['status'] === true) {
 
+	// Check if it is a 404 error redirect
+	$content['404error']['redirect_url'] = '';
+
+	if($content['404error']['alias'] == 'r404' || (isset($_SERVER['REDIRECT_STATUS']) && $_SERVER['REDIRECT_STATUS'] == 404)) {
+
+		// test against $_SERVER[REDIRECT_URL] and check original
+		// try to detect and remove $phpwcms[root]
+		if(!empty($_SERVER['REDIRECT_URL'])) {
+
+			$content['404error']['redirect_url'] = trim($_SERVER['REDIRECT_URL'], '/');
+
+			if($phpwcms['root'] && $content['404error']['redirect_url']) {
+				$content['404error']['redirect_url'] = substr_replace($content['404error']['redirect_url'], '', 0, strlen($phpwcms['root']));
+			}
+		}
+	}
+
+	if($content['404error']['redirect_url']) {
+
+		// ToDo: maybe Check against structure/article alias and redirect
+		$content['404error']['where'] = sprintf('alias LIKE %s', _dbEscape($content['404error']['redirect_url']));
+		$content['404error']['alias'] = $content['404error']['redirect_url'];
+
+	} else {
+
+		$content['404error']['where'] = sprintf('id=%d AND aid=%d AND alias LIKE %s', $content['404error']['id'], $content['404error']['aid'], _dbEscape($content['404error']['alias']));
+
+	}
+
 	// does the combination still exists in the database
-	$content['404error']['result'] = _dbGet('phpwcms_redirect', '*', sprintf(
-		'id=%d AND aid=%d AND alias=%s',
-		$content['404error']['id'],
-		$content['404error']['aid'],
-		_dbEscape($content['404error']['alias'])
-	));
+	$content['404error']['result'] = _dbGet('phpwcms_redirect', '*', $content['404error']['where']);
+
 
 	if(isset($content['404error']['result'][0])) {
 
