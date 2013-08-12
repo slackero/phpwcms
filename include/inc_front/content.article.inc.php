@@ -422,20 +422,13 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 								$row["article_image"]['tmplfull'] );
 
 			// check if TITLE should be hidden
-			if(!$row["article_notitle"]) {
-				$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'TITLE', html_specialchars($row["article_title"]));
-			} else {
-				$row["article_image"]['tmplfull'] = replace_cnt_template($row["article_image"]['tmplfull'], 'TITLE', '');
-			}
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'TITLE', $row["article_notitle"] ? '' : html_specialchars($row["article_title"]));
+
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUB', html_specialchars($row["article_subtitle"]));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'EDITOR', html_specialchars($row["article_username"]));
 
 			// when "hide summary" is enabled replace everything between [SUMMARY][/SUMMARY]
-			if(!$row["article_hidesummary"]) {
-				$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_summary"]);
-			} else {
-				$row["article_image"]['tmplfull'] = replace_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', '');
-			}
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_hidesummary"] ? '' : $row["article_summary"]);
 
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
