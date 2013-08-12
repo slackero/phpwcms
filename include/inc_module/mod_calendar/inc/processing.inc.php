@@ -30,7 +30,7 @@ if(isset($_GET['edit'])) {
 if(isset($_POST['calendar_title'])) {
 
 	$plugin['data'] = array(
-	
+
 				'calendar_id'			=> intval($_POST['calendar_id']),
 				'calendar_title'		=> clean_slweg($_POST['calendar_title']),
 				'calendar_created'		=> date('Y-m-d H:i:s'),
@@ -53,44 +53,47 @@ if(isset($_POST['calendar_title'])) {
 				'calendar_rangestart'	=> clean_slweg($_POST['calendar_range_start']),
 				'calendar_rangeend'		=> clean_slweg($_POST['calendar_range_end']),
 				'calendar_image'		=> array(
-				
-							'id'		=> intval($_POST['cnt_image_id']), 
+
+							'id'		=> intval($_POST['cnt_image_id']),
 							'name'		=> clean_slweg($_POST['cnt_image_name']),
 							'zoom'		=> empty($_POST['cnt_image_zoom']) ? 0 : 1,
 							'lightbox'	=> empty($_POST['cnt_image_lightbox']) ? 0 : 1,
 							'caption'	=> clean_slweg($_POST['cnt_image_caption']),
-							'link'		=>clean_slweg($_POST['cnt_image_link'])				
+							'link'		=>clean_slweg($_POST['cnt_image_link'])
 											)
-	
+
 								);
 
-	// clean up date/time
-	include_once($phpwcms['modules'][$module]['path'].'inc/processing.datetime.inc.php');
-	
 	if($plugin['data']['calendar_range'] > 7) {
 		$plugin['data']['calendar_range'] = 0;
 	}
 
-	if(empty($plugin['data']['calendar_title'])) {
-	
-		$plugin['error']['calendar_title'] = 1;
-	
+	if(!$plugin['data']['calendar_range']) {
+		$plugin['data']['calendar_rangestart']	= $plugin['data']['calendar_start_date'];
+		$plugin['data']['calendar_rangeend']	= $plugin['data']['calendar_end_date'];
 	}
 
-	
+	// clean up date/time
+	include_once($phpwcms['modules'][$module]['path'].'inc/processing.datetime.inc.php');
+
+	if(empty($plugin['data']['calendar_title'])) {
+		$plugin['error']['calendar_title'] = 1;
+	}
+
+
 	if(!isset($glossary['error'])) {
-	
+
 		if($plugin['data']['calendar_duplicate']) {
 			$plugin['data']['calendar_id'] = 0;
 		}
-		
+
 		$plugin['data']['calendar_object']['image'] = $plugin['data']['calendar_image'];
-		
+
 		if($plugin['data']['calendar_id']) {
-		
+
 			// UPDATE
 			$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_calendar SET ';
-			
+
 			$sql .= "calendar_created='".aporeplace($plugin['data']['calendar_created'])."', ";
 			$sql .= "calendar_changed='".aporeplace($plugin['data']['calendar_changed'])."', ";
 			$sql .= "calendar_status=".$plugin['data']['calendar_status'].", ";
@@ -108,37 +111,37 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "calendar_object='".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
 			$sql .= "calendar_refid='".aporeplace($plugin['data']['calendar_refid'])."', ";
 			$sql .= "calendar_lang='".aporeplace($plugin['data']['calendar_lang'])."' ";
-			
+
 			$sql .= "WHERE calendar_id=".$plugin['data']['calendar_id'];
-			
+
 			if(@_dbQuery($sql, 'UPDATE')) {
-			
+
 				_dbSaveCategories($plugin['data']['calendar_tag'], 'calendar', $plugin['data']['calendar_id'], ',');
-			
+
 				if(isset($_POST['save'])) {
-					
+
 					headerRedirect(decode_entities(MODULE_HREF));
-					
+
 				}
-			
+
 			} else {
-			
+
 				$plugin['error']['update'] = mysql_error();
-			
+
 			}
-			
-		
+
+
 		} else {
-		
+
 			// INSERT
 			$sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_calendar (';
-			
+
 			$sql .= 'calendar_created, calendar_changed, calendar_status, ';
 			$sql .= 'calendar_start, calendar_end, calendar_allday, calendar_range, ';
 			$sql .= 'calendar_range_start, calendar_range_end, calendar_title, ';
 			$sql .= 'calendar_where, calendar_teaser, calendar_text, calendar_tag, ';
 			$sql .= 'calendar_object, calendar_refid, calendar_lang) VALUES (';
-			
+
 			$sql .= "'".aporeplace($plugin['data']['calendar_created'])."', ";
 			$sql .= "'".aporeplace($plugin['data']['calendar_changed'])."', ";
 			$sql .= $plugin['data']['calendar_status'].", ";
@@ -158,29 +161,29 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "'".aporeplace($plugin['data']['calendar_lang'])."'";
 
 			$sql .= ')';
-			
+
 			if($sql = @_dbQuery($sql, 'INSERT')) {
-			
+
 				$plugin['data']['calendar_id'] = $sql['INSERT_ID'];
-			
+
 				_dbSaveCategories($plugin['data']['calendar_tag'], 'calendar', $plugin['data']['calendar_id'], ',');
-			
+
 				if(isset($_POST['save'])) {
-					
+
 					headerRedirect(decode_entities(MODULE_HREF));
-					
+
 				} else {
-				
-					headerRedirect(decode_entities(MODULE_HREF).'&edit='.$plugin['data']['calendar_id']);		
+
+					headerRedirect(decode_entities(MODULE_HREF).'&edit='.$plugin['data']['calendar_id']);
 				}
-			
+
 			} else {
-			
+
 				$plugin['error']['update'] = mysql_error();
-			
+
 			}
-		
-		
+
+
 		}
 	}
 
@@ -199,9 +202,9 @@ if($plugin['id'] && !isset($plugin['error'])) {
 	$sql .= 'FROM '.DB_PREPEND.'phpwcms_calendar WHERE calendar_id='.$plugin['id'];
 	$plugin['data'] = _dbQuery($sql);
 	$plugin['data'] = $plugin['data'][0];
-	
+
 	$plugin['data']['calendar_object'] = @unserialize($plugin['data']['calendar_object']);
-	
+
 	if(is_array($plugin['data']['calendar_object'])) {
 		if(isset($plugin['data']['calendar_object']['image'])) {
 			$plugin['data']['calendar_image'] = $plugin['data']['calendar_object']['image'];
@@ -214,29 +217,29 @@ if($plugin['id'] && !isset($plugin['error'])) {
 if(empty($plugin['data'])) {
 
 	if(isset($_GET['defaultdate'])) {
-	
+
 		$plugin['default_date']	= explode('-', clean_slweg($_GET['defaultdate']));
-		
+
 		$plugin['default_date'][0]	= empty($plugin['default_date'][0]) ? gmdate('d') : $plugin['default_date'][0];
 		$plugin['default_date'][1]	= empty($plugin['default_date'][1]) ? gmdate('m') : $plugin['default_date'][1];
 		$plugin['default_date'][2]	= empty($plugin['default_date'][2]) ? gmdate('Y') : $plugin['default_date'][2];
-		
+
 		$plugin['default_date']		= gmmktime(0, 0, 0, $plugin['default_date'][1], $plugin['default_date'][0], $plugin['default_date'][2]);
 		$plugin['default_date_end']	= $plugin['default_date']+3600;
-		
+
 		$plugin['default_date']		= gmdate('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $plugin['default_date']);
 		$plugin['default_date_end']	= gmdate('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $plugin['default_date_end']);
-	
+
 	} else {
-	
+
 		$plugin['default_date']		= gmdate('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y');
 		$plugin['default_date_end']	= gmdate('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', time()+3600);
-	
+
 	}
 
 
 	$plugin['data'] = array(
-	
+
 				'calendar_id'			=> 0,
 				'calendar_title'		=> '',
 				'calendar_created'		=> '',
@@ -265,7 +268,7 @@ if(empty($plugin['data'])) {
 if(!isset($plugin['data']['calendar_image'])) {
 	$plugin['data']['calendar_image'] = array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>'');
 } else {
-	$plugin['data']['calendar_image'] = array_merge( 
+	$plugin['data']['calendar_image'] = array_merge(
 					array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''),
 					$plugin['data']['calendar_image']
 			);
