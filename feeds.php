@@ -236,6 +236,12 @@ $rss->saveFeed($FEED['defaultFormat'], $FEED['filename']);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//enym.com function  remove incompatible characters
+function utf8_for_xml($string)
+  {
+      return preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
+  }
+
 
 function combinedParser($string, $charset='utf-8', $allowed_tags='') {
 
@@ -251,6 +257,8 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
 		$string = makeCharsetConversion($string, PHPWCMS_CHARSET, $charset);
 	} else {
 		$string = html_specialchars($string);
+		//enym.com remove incompatible characters 
+		$string = utf8_for_xml($string);
 	}
 	
 	return $string;
