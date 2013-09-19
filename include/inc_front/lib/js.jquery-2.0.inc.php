@@ -19,10 +19,12 @@ define('PHPWCMS_JSLIB', 'jquery-2.0');
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
 		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.3.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery-1.10.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.10.min.js', '') . '<![endif]-->';
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.3.min.js', '') . '<![endif]-->';
 		} else {
 			// not always available at Google, so use jQuery CDN
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink('//code.jquery.com/jquery-2.0.3.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery-1.10.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink('//code.jquery.com/jquery-1.10.2.min.js', '') . '<![endif]-->';
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink('//code.jquery.com/jquery-2.0.3.min.js', '') . '<![endif]-->';
 		}
 	}
 	return TRUE;

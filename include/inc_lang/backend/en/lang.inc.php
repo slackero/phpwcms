@@ -726,7 +726,7 @@ $BL['be_newsletter_open']               = 'HTML and TEXT input';
 $BL['be_newsletter_open1']              = '(click on image to open)';
 $BL['be_newsletter_sendnow']            = 'Send newsletter';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Attention!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
-$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.'; 
+$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
@@ -916,32 +916,32 @@ $BL['be_cnt_css_style']					= 'CSS style';
 $BL['be_cnt_css_class']					= 'CSS class';
 $BL['be_cnt_send_copy_to']				= 'copy to';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', 
-												"email"=>'email', 
-												"textarea"=>'text (multi-line)', 
-												"hidden"=>'hidden', 
-												"password"=>'password', 
-												"select"=>'select menu', 
-												"list"=>'list menu', 
-												"checkbox"=>'checkbox', 
+$BL['be_cnt_field']						= array("text"=>'text (single-line)',
+												"email"=>'email',
+												"textarea"=>'text (multi-line)',
+												"hidden"=>'hidden',
+												"password"=>'password',
+												"select"=>'select menu',
+												"list"=>'list menu',
+												"checkbox"=>'checkbox',
 												"checkboxcopy"=>'checkbox (email copy on/off)',
-												"radio"=>'radio button', 
-												"upload"=>'file', 
-												"submit"=>'send button', 
-												"reset"=>'reset button', 
-												"break"=>'break', "breaktext"=>'break text', 
+												"radio"=>'radio button',
+												"upload"=>'file',
+												"submit"=>'send button',
+												"reset"=>'reset button',
+												"break"=>'break', "breaktext"=>'break text',
 												"special"=>'text (spezial)',
-												"captchaimg"=>'captcha image', 
-												"captcha"=>'captcha code', 
+												"captchaimg"=>'captcha image',
+												"captcha"=>'captcha code',
 												'newsletter'=>'newsletter',
-												'selectemail'=>'select email menu', 
+												'selectemail'=>'select email menu',
 												'country'=>'select country menu',
-												'mathspam'=>'math spam protect', 
-												'summing'=>'summing', 
-												'subtract'=>'subtract', 
-												'divide'=>'divide', 'multiply'=>'multiply', 
+												'mathspam'=>'math spam protect',
+												'summing'=>'summing',
+												'subtract'=>'subtract',
+												'divide'=>'divide', 'multiply'=>'multiply',
 												'calculation'=>'calculation:',
-												'formtracking_off'=>'disable form tracking', 
+												'formtracking_off'=>'disable form tracking',
 												'checktofrom'=>'email of recipient must be different from sender',
 												'recaptcha'=>'reCAPTCHA',
 												'recaptcha_signapikey'=>'Sign up for a reCAPTCHA API key');
@@ -996,7 +996,7 @@ $BL['be_file_replace'] = 'Replace eponymous files';
 $BL['be_alias_articleID'] = 'alias ID';
 $BL['be_alias_useAll'] = "use this article&#8217;s header data";
 $BL['be_article_morelink'] = '[more&#8230;] link';
-$BL['be_admin_tmpl_copy']               = 'copy template'; 
+$BL['be_admin_tmpl_copy']               = 'copy template';
 
 $BL['be_ctype_filelist1']                = 'file list pro';
 $BL['be_cnt_fpro_usecaption']            = 'use file center &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
@@ -1298,7 +1298,7 @@ $BL['over']								= 'over';
 $BL['js_lib']							= 'JS Library';
 $BL['js_lib_alwaysload']				= 'always load';
 $BL['frontendjs_load']				= 'load frontend.js (more for historical reasons)';
-$BL['googleapi_load']					= 'use Google Ajax Lib';
+$BL['googleapi_load']					= 'use CDN';
 
 $BL['fancyupload_clear_list']			= 'Clear List';
 $BL['fancyupload_file_uploaded']		= 'File was uploaded';
