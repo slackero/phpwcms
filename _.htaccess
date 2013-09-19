@@ -41,7 +41,7 @@
 
 
 # Ignore
-	RewriteRule $1 !^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)
+	RewriteRule ^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)($|/) - [L]
 	RewriteRule ^index\.php$ - [L]
 
 	RewriteCond %{REQUEST_FILENAME} !-f
