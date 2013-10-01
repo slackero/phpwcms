@@ -103,8 +103,10 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 		$phpwcms['site'] = $phpwcms['site_ssl_url'];
 	}
 	define ('PHPWCMS_SSL', true);
+	define ('PHPWCMS_HTTP_SCHEMA', 'https');
 } else {
 	define ('PHPWCMS_SSL', false);
+	define ('PHPWCMS_HTTP_SCHEMA', 'http');
 }
 
 $phpwcms["site"] .= '/';

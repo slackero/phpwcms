@@ -32,7 +32,7 @@ if(empty($block['jslib'])) {
 }
 
 // set if Google Ajax Library should be used and if it should from which base URI
-define('USE_GOOGLE_AJAX_LIB', !empty($block['googleapi']) || !isset($block['googleapi']) ? 'http://ajax.googleapis.com/ajax/libs/' : FALSE);
+define('USE_GOOGLE_AJAX_LIB', !empty($block['googleapi']) || !isset($block['googleapi']) ? PHPWCMS_HTTP_SCHEMA . '://ajax.googleapis.com/ajax/libs/' : FALSE);
 
 // include the related JavaScript Library wrapper
 @include PHPWCMS_ROOT.'/include/inc_front/lib/js.'.$block['jslib'].'.inc.php';
@@ -88,47 +88,47 @@ function renderHeadJS($js) {
 	}
 
 	$js = trim($js);
-	
+
 	if(empty($js)) {
 		return '';
 	}
-	
+
 	$remote = substr($js, 0, 4) == 'http' ? true : false;
 
 	if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
-		
+
 		$key = md5($js);
-		
+
 		// add the same section only once
 		if(empty($GLOBALS['block']['custom_htmlhead'][$key])) {
-					
+
 			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script type="text/javascript">' . LF . SCRIPT_CDATA_START . LF . '	';
 			$GLOBALS['block']['custom_htmlhead'][$key] .= $js;
 			$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </script>';
-			
+
 		}
-	
+
 	} elseif($js == 'initJSLib') {
-		
+
 		initJSLib();
-		
+
 	} elseif($remote || which_ext($js) == 'js') { // decide if plugin or script
-			
+
 			// replace {TEMPLATE}
 			$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
 			$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
-			
+
 	} else {
-		
+
 		initJSLib();
 
 		if(strtolower($js) != 'initlib') {
-			initJSPlugin($js);		
+			initJSPlugin($js);
 		}
 	}
-	
+
 	return '';
-	
+
 }
 
 
