@@ -2038,7 +2038,7 @@ function attribute_name_clean($name='') {
  * @param mixed
  * @param bool
  */
-function boolval($BOOL, $STRICT=false) {
+function phpwcms_boolval($BOOL, $STRICT=false) {
 
 	if(is_string($BOOL)) {
 		$BOOL = strtoupper($BOOL);
