@@ -45,7 +45,7 @@ $template_default['nav_table_struct']['cell_active_class']		= 'nav_table_active'
 //
 $template_default['nav_table_struct']['js_over_effects']		= 1;
 $template_default['nav_table_struct']['all_nodes_active']		= 1;
-//	
+//
 $template_default['nav_table_struct']['linkimage_norm']			= '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['linkimage_over']			= '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['linkimage_active']		= '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
@@ -57,7 +57,7 @@ $template_default['nav_table_struct']['link_active_after']		= '';
 //
 $template_default['nav_table_struct']['row_norm_bgcolor']		= '#D9DEE3';
 $template_default['nav_table_struct']['row_norm_class']			= '';
-//	
+//
 $template_default['nav_table_struct']['row_over_bgcolor']		= '#D3ED7D'; //#AAB7C1
 $template_default['nav_table_struct']['row_active_bgcolor']		= '#FFFFFF';
 $template_default['nav_table_struct']['row_active_class']		= '';
@@ -70,8 +70,8 @@ $template_default['nav_table_struct']['row_space_bgcolor']		= '#4A5966';
  * ===============
  * setup unique style for each node/level
  * ['array_struct'][1] => the number represents level ID
- * so root level is [0] and so on...  
- 
+ * so root level is [0] and so on...
+
 $template_default['nav_table_struct']['array_struct'][1]['linkimage_norm']		= '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['array_struct'][1]['linkimage_over']		= '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['array_struct'][1]['linkimage_active']	= '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
@@ -86,7 +86,7 @@ $template_default['nav_table_struct']['array_struct'][1]['row_norm_class']		= $t
 $template_default['nav_table_struct']['array_struct'][1]['row_over_bgcolor']	= '#FAEAC8';
 $template_default['nav_table_struct']['array_struct'][1]['row_active_bgcolor']	= '#FAEAC8';
 $template_default['nav_table_struct']['array_struct'][1]['row_active_class']	= $template_default['nav_table_struct']['row_active_class'];
-			
+
 $template_default['nav_table_struct']['array_struct'][1]['space_celltop']		= $template_default['nav_table_struct']['space_celltop'];
 $template_default['nav_table_struct']['array_struct'][1]['space_cellbottom']	= $template_default['nav_table_struct']['space_cellbottom'];
 
@@ -285,7 +285,7 @@ $template_default['body']['class'] = '';
 // target URL for login form - this is where the user is redirected to
 $template_default['login_form_url'] = PHPWCMS_URL;
 
-// some texts are cut by default and if cutted the missing part is 
+// some texts are cut by default and if cutted the missing part is
 // shorten by "..." - that sign is defined here - default "&#8230;"
 $template_default['ellipse_sign'] = '&#8230;';
 
@@ -358,5 +358,9 @@ $template_default['classes'] = array(
 	'imgtable-right'		=> 'imgtable-right'
 );
 
+$template_default['search_highlight'] = array(
+	'prefix' => '<em class="highlight">',
+	'suffix' => '</em>'
+);
 
 ?>

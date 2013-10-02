@@ -2888,44 +2888,38 @@ function get_fe_userinfo($forum_userID) {
 	if(($forum_userID === 0 && !isset($GLOBALS['FE_USER'][$forum_userID])) || !$got_the_info) {
 		$forum_userID = 0;
 		$GLOBALS['FE_USER'][$forum_userID] = array(
-					'FE_ID'		=> $forum_userID,		'login'	=> 'guest',
-					'pass'		=> '',					'email'	=> 'noreply@localhost',
-					'admin'		=> 0,					'fe'	=> 0,
-					'aktiv'		=> 1,					'name'	=> 'Guest',
-					'lang'		=> $GLOBALS['phpwcms']['default_lang'],
-					'wysiwyg'	=> empty($GLOBALS['phpwcms']['wysiwyg_editor']) ? 0 : 1
-				);
+			'FE_ID'		=> $forum_userID,		'login'	=> 'guest',
+			'pass'		=> '',					'email'	=> 'noreply@localhost',
+			'admin'		=> 0,					'fe'	=> 0,
+			'aktiv'		=> 1,					'name'	=> 'Guest',
+			'lang'		=> $GLOBALS['phpwcms']['default_lang'],
+			'wysiwyg'	=> empty($GLOBALS['phpwcms']['wysiwyg_editor']) ? 0 : 1
+		);
 	}
 }
 
-function highlightSearchResult($string='', $search, $wrap='<em class="highlight">|</em>') {
+function highlightSearchResult($string='', $search=null) {
+
 	// string will be highlighted by $search - can be string or array
 	if(!empty($string) && !empty($search)) {
 
-		// make $wrap[0] prefix and $wrap[1] suffix
-		$wrap = explode('|', $wrap);
-		if(empty($wrap[1])) $wrap[1] = '';
 		$highlight_match = '';
+		$search = is_array($search) ? array_unique($search) : array(strval($search));
 
-		// make all search values array fields
-		if(is_array($search)) {
-			// make unique
-			$search = array_unique($search);
-		} else {
-			$search = array(strval($search));
-		}
 		foreach($search as $key => $value) {
-			if($highlight_match != '') $highlight_match .= '|';
+			if($highlight_match !== '') {
+				$highlight_match .= '|';
+			}
 			$highlight_match .= preg_quote($value, '/');
 		}
-		$highlight_match = str_replace("\\?", '.?', $highlight_match);
-		$highlight_match = str_replace("\\*", '.*', $highlight_match);
-		$highlight_match = trim($highlight_match);
 
-		if(false == preg_match('/<.+>/', $string)) {
-			$string = preg_replace('/('.$highlight_match.')/i', $wrap[0].'$1'.$wrap[1], $string);
+		$highlight_match = str_replace("\\?", '.?', $highlight_match);
+		$highlight_match = trim(str_replace("\\*", '.*', $highlight_match));
+
+		if(preg_match('/<.+>/', $string) === false) {
+			$string = preg_replace('/('.$highlight_match.')/i', $GLOBALS['phpwcms']['search_highlight']['prefix'].'$1'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
 		} else {
-			$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$wrap[0].'$2'.$wrap[1], $string);
+			$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$GLOBALS['phpwcms']['search_highlight']['prefix'].'$2'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
 		}
 	}
 	return $string;
@@ -2933,7 +2927,7 @@ function highlightSearchResult($string='', $search, $wrap='<em class="highlight"
 function pregReplaceHighlightWrapper($matches) {
 	// just a wrapper for frontend sectional highlighting
 	global $highlight_words;
-	return highlightSearchResult($matches[1], $highlight_words, '<em class="highlight">|</em>');
+	return highlightSearchResult($matches[1], $highlight_words);
 }
 
 function buildCascadingMenu($parameter='', $counter=0, $param='string') {

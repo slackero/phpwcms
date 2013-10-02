@@ -1029,8 +1029,10 @@ if(count($block['js_inline'])) {
 }
 
 if(!empty($_GET['highlight'])) {
-	$highlight_words = clean_slweg(rawurldecode($_GET['highlight']));
-	$highlight_words = explode(' ', $highlight_words);
+	if(isset($template_default['search_highlight']['prefix'])) {
+		$phpwcms['search_highlight'] = array_merge($phpwcms['search_highlight'], $template_default['search_highlight']);
+	}
+	$highlight_words = explode(' ', clean_slweg(rawurldecode($_GET['highlight'])));
 	$content['all'] = preg_replace_callback("/<!--SEARCH_HIGHLIGHT_START\/\/-->(.*?)<!--SEARCH_HIGHLIGHT_END\/\/-->/si", "pregReplaceHighlightWrapper", $content['all']);
 }
 $content['all'] = str_replace(array('<!--SEARCH_HIGHLIGHT_START//-->', '<!--SEARCH_HIGHLIGHT_END//-->'), '', $content['all']);

@@ -329,6 +329,11 @@ $phpwcms['default_template_classes'] = array(
 	'imgtable-right'		=> 'imgtable-right'
 );
 
+$phpwcms['search_highlight'] = array(
+	'prefix' => '<em class="highlight">',
+	'suffix' => '</em>'
+);
+
 if(empty($phpwcms['mode_XHTML'])) {
 
 	$phpwcms['mode_XHTML'] = 0;
