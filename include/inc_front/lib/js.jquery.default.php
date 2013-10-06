@@ -23,30 +23,30 @@ function initSlimbox() {
  * Initialize Frontend Edit DomReady JavaScript
  */
 function init_frontend_edit_js() {
-	
-	initJSPlugin('switchClass');	
+
+	initJSPlugin('switchClass');
 	// based on work and idea by markus@localhorst (http://forum.phpwcms.org/viewtopic.php?f=8&t=19551)
 	$GLOBALS['block']['js_ondomready'][] = '		$("a.fe-link").toggle();$("#fe-link").click(function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
-	
+
 }
 
 /**
  * Create JavaScript Domready Section
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
-	
+
 	if($js) {
-		
+
 		initJSLib();
-		
-		$_js  = $prefix . '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+
+		$_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 		$_js .= '	jQuery(document).ready(function() {' . LF . $js . LF . '	});';
 		$_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
 
 		if($return) {
 			return $_js;
 		}
-		
+
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
 }
@@ -57,17 +57,17 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
 	if($js) {
-		
+
 		initJSLib();
-		
-		$_js  = $prefix . '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+
+		$_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 		$_js .= '	jQuery(window).unload(function() {' . LF . $js . LF . '	});';
 		$_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
-		
+
 		if($return) {
 			return $_js;
 		}
-		
+
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
 }

@@ -69,7 +69,7 @@ function initSwfObject() {
 }
 
 function initFrontendJS() {
-	$GLOBALS['block']['custom_htmlhead']['frontend.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>';
+	$GLOBALS['block']['custom_htmlhead']['frontend.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
 }
 
 function inlineJS($js='', $prefix='	') {
@@ -102,7 +102,7 @@ function renderHeadJS($js) {
 		// add the same section only once
 		if(empty($GLOBALS['block']['custom_htmlhead'][$key])) {
 
-			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script type="text/javascript">' . LF . SCRIPT_CDATA_START . LF . '	';
+			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '	';
 			$GLOBALS['block']['custom_htmlhead'][$key] .= $js;
 			$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </script>';
 

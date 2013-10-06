@@ -9,7 +9,7 @@ $_print_win_w = 500;
 
 if($GLOBALS['aktion'][2] == 1) { //wenn Print Modus
 
-   $GLOBALS['block']['custom_htmlhead']['resizeJS']  = '<script language="javascript" type="text/javascript">' . LF;
+   $GLOBALS['block']['custom_htmlhead']['resizeJS']  = '<script type="text/javascript">' . LF;
    $GLOBALS['block']['custom_htmlhead']['resizeJS'] .= SCRIPT_CDATA_START . LF;
    $GLOBALS['block']['custom_htmlhead']['resizeJS'] .=   'window.resizeTo('.$_print_win_w.','.$_print_win_h.');' . LF;
    $GLOBALS['block']['custom_htmlhead']['resizeJS'] .= SCRIPT_CDATA_END . LF;

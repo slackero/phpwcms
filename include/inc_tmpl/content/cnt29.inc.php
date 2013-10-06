@@ -39,7 +39,7 @@ $template_default['imagegallery_default_space']	 = isset($template_default['imag
 if(!isset($content['image_list']['col'])) {
 
 	$content['image_list'] = array(
-	
+
 			'pos'		=> 0,
 			'width'		=> $template_default['imagegallery_default_width'],
 			'height'	=> $template_default['imagegallery_default_height'],
@@ -50,7 +50,7 @@ if(!isset($content['image_list']['col'])) {
 			'lightbox'	=> 0,
 			'nocaption'	=> 0,
 			'crop'		=> 0
-	
+
 		);
 
 }
@@ -70,7 +70,7 @@ $img_count = isset($content["image_list"]['images']) && is_array($content["image
 		<tr>
 			<td><select name="template" id="template" class="f11b width150">
 <?php
-	
+
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
 // templates for frontend login
@@ -83,26 +83,26 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 		</select></td>
-		
+
 		<td class="chatlist">&nbsp;&nbsp;&nbsp;<?php echo $BL['be_image_align'] ?>:&nbsp;</td>
-		
+
 		 <td>
 			<select name="cimage_center" id="cimage_center" class="v11 width150">
-			
+
 				<option value="0"<?php is_selected(0, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagenocenter'] ?></option>
 				<option value="1"<?php is_selected(1, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagecenter'] ?></option>
 				<option value="2"<?php is_selected(2, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagecenterh'] ?></option>
 				<option value="3"<?php is_selected(3, $content['image_list']['center_image']); ?>><?php echo $BL['be_cnt_imagecenterv'] ?></option>
-				
+
 			</select>
 		</td>
-		
+
 		</tr>
-		
-	</table></td>		
-		
+
+	</table></td>
+
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
@@ -117,10 +117,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 			<td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onkeyup="setCimageCenterInactive();" value="<?php echo empty($content['image_list']['height']) ? $template_default['imagegallery_default_height'] : $content['image_list']['height']; ?>" /></td>
 			<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-			
+
 			<td><input type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> /></td>
 			<td class="v10"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
-		
+
 		</tr>
 	</table></td>
 </tr>
@@ -140,7 +140,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	echo '<option value="'.$max_image_col.'" ';
 	is_selected($max_image_col, $content['image_list']['col']);
 	echo '>'.$max_image_col."</option>\n";
-  
+
 }
 
 ?>
@@ -148,13 +148,13 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 				  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
 			      <td><input name="cimage_space" type="text" class="f11b" id="cimage_space" style="width: 50px;" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" /></td>
 				  <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-				  
-				  
+
+
 		        </tr>
 		      </table></td>
 			  </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script language="javascript" type="text/javascript">
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script type="text/javascript">
 	<!--
 	//if(!parseInt(this.value*1)) this.value='';
 	function setCimageCenterInactive() {
@@ -192,11 +192,11 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 			<tr>
 				<td><input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $content['image_list']['zoom']); ?> /></td>
 				<td class="v10"><label for="cimage_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
-				
+
 				<td>&nbsp;</td>
 				<td><input name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" /></td>
 				<td class="v10"><label for="cimage_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>
-				
+
 				<td>&nbsp;</td>
 				<td><input name="cimage_nocaption" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, $content['image_list']['nocaption']); ?> /></td>
 				<td class="v10"><label for="cimage_nocaption" class="checkbox"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label></td>
@@ -223,7 +223,7 @@ if($img_count) {
 	// browse images and list available
 	// will be visible only when aceessible
 	foreach($content['image_list']['images'] as $key => $value) {
-	
+
 		// 0   :1       :2   :3        :4    :5     :6      :7       :8
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
 		$thumb_image = get_cached_image(
@@ -238,7 +238,7 @@ if($img_count) {
 							);
 
 		if($thumb_image != false) {
-		
+
 			// image found
 			echo '<option value="' . $content['image_list']['images'][$key][0] . '">';
 			$img_name = html_specialchars($content['image_list']['images'][$key][1]);
@@ -273,7 +273,7 @@ if($img_count) {
 		      </table>
 <?php
 
-	if($img_thumbs) { 
+	if($img_thumbs) {
 		echo '
 		<table border="0" cellspacing="0" cellpadding="0" summary="">
 		<tr>
@@ -284,7 +284,7 @@ if($img_count) {
 
 ?></td>
 			  </tr>
-			  
+
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top"><textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11" id="cimage_caption" style="width: 440px;"><?php echo implode(' '.LF, $caption_box) ?></textarea></td>

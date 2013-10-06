@@ -33,7 +33,7 @@ if(empty($content['cimage']['cimage_crop'])) {
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><select name="template" id="template" class="f11b">
 <?php
-	
+
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
 // templates for frontend login
@@ -46,7 +46,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 		</select></td>
 </tr>
 
@@ -92,9 +92,9 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
 			      <td><select name="cimage_pos" class="f10" id="cimage_pos" onchange="changeImagePosMenu();">
-			    <option value="0" <?php 
+			    <option value="0" <?php
 				if(!isset($content["image_pos"])) $content["image_pos"] = 0;
-				
+
 				is_selected(0, $content["image_pos"]) ?>><?php echo  $BL['be_cnt_pos0'] ?></option>
 			    <option value="1" <?php is_selected(1, $content["image_pos"]) ?>><?php echo  $BL['be_cnt_pos1'] ?></option>
 			    <option value="2" <?php is_selected(2, $content["image_pos"]) ?>><?php echo  $BL['be_cnt_pos2'] ?></option>
@@ -128,12 +128,12 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			      <td><img src="img/leer.gif" alt="" name="imgpos9" width="7" height="10" id="imgpos9" /></td>
 			      <td><a href="javascript:;" onclick="changeImagePos(9);this.blur();return false;" title="<?php echo $BL['be_cnt_pos9i'] ?>"><img src="img/button/image_pos9.gif" alt="" width="15" height="15" border="0" /></a></td>
 			    </tr>
-		      </table><script language="JavaScript" type="text/javascript">
+		      </table><script type="text/javascript">
 			  <!--
 				changeImagePos(<?php echo intval($content["image_pos"]); ?>);
 			  //-->
 			  </script></td>
-			  </tr>			 
+			  </tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 			<tr>
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
@@ -141,16 +141,16 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			    <tr>
 			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content["image_width"]) ? $template_default['article']['image_default_width'] : $content["image_width"] ?>" /></td>
 			      <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-				  
+
 			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content["image_height"]) ? $template_default['article']['image_default_height'] : $content["image_height"] ?>" /></td>
 			      <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-			
+
 				<td><input type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['cimage']['cimage_crop']); ?> /></td>
 				<td class="v10"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
-				 
+
 		        </tr>
 		      </table></td> </tr>
-			  
+
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
 <tr>
@@ -159,11 +159,11 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			<tr>
 				<td><input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, empty($content["image_zoom"]) ? 0 : 1); ?> /></td>
 				<td class="v10"><label for="cimage_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
-				
+
 				<td>&nbsp;</td>
 				<td><input name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($content['cimage']['cimage_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" /></td>
 				<td class="v10"><label for="cimage_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>
-				
+
 				<td>&nbsp;</td>
 				<td><input name="cimage_nocaption" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, empty($content['cimage']['cimage_nocaption']) ? 0 : 1); ?> /></td>
 				<td class="v10"><label for="cimage_nocaption" class="checkbox"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label></td>
@@ -172,9 +172,9 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		</table>
 	</td>
 </tr>
-			  
-			  
-			  
+
+
+
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 			<tr>
 			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
@@ -183,7 +183,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php echo  isset($content["image_caption"]) ? html_specialchars($content["image_caption"]) : '' ?></textarea></td>
 			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
-	
+
 if(isset($content["image_hash"])) {
 	$thumb_image = get_cached_image(
 						array(	"target_ext"	=>	$content["image_ext"],

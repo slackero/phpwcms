@@ -98,7 +98,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$content["redirect"]["code"] .= '	<meta http-equiv="refresh" content="'.$content["redirect"]["timeout"].';URL=';
 				$content["redirect"]["code"] .= $content["redirect"]["link"];
 				$content["redirect"]["code"] .= '" />'.LF.'  </noscript>' . LF;
-				$content["redirect"]["code"] .= '  <script type="text/javascript">' . LF;
+				$content["redirect"]["code"] .= '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
 				$content["redirect"]["code"] .= '	var redirectWin;' . LF;
 				if($content["redirect"]["timeout"]) {
 					$content["redirect"]["code"] .= '	window.setTimeout(\'window.open("'.$content["redirect"]["link"].'", redirectWin)\', ';

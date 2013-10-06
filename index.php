@@ -170,11 +170,11 @@ if(PHPWCMS_REWRITE) {
 
 // real page ending
 if(!empty($phpwcms['browser_check']['fe'])) {
-	$content['page_end'] .= '<script type="text/javascript"> $buoop = {';
+	$content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'> $buoop = {';
 	if(!empty($phpwcms['browser_check']['vs'])) {
 		$content['page_end'] .= 'vs:' . $phpwcms['browser_check']['vs'];
 	}
-	$content['page_end'] .= '}; </script><script type="text/javascript" src="http://browser-update.org/update.js"></script>';
+	$content['page_end'] .= '}; </script><script'.SCRIPT_ATTRIBUTE_TYPE.' src="http://browser-update.org/update.js"></script>';
 }
 $content['page_end'] .= LF.'</body>'.LF.'</html>';
 
@@ -225,15 +225,12 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 		$section = get_tmpl_section($section, $content);
 
 		foreach($phpwcms['output_function'] as $function) {
-
 			$section = $function($section);
-
 		}
 
 		$sections .= $section;
 	}
 
-	// return preg_replace('/<!--(.|\s)*?-->/', '', $buffer);
 	echo trim($sections) == '' ? $content : $sections;
 
 	exit();

@@ -27,7 +27,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // -> this can be used as spaceholfer
 //	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
-// -> this is the tyical way to format rows with label and input 
+// -> this is the tyical way to format rows with label and input
 //	<tr>
 //		<td align="right" class="chatlist">Field label</td>
 //		<td><input type="text" value="" /></td>
@@ -55,7 +55,7 @@ if(empty($content['glossary']['glossary_noentry'])) {
 	$content['glossary']['glossary_noentry'] = '';
 }
 
-$BE['BODY_CLOSE'][] = '<script language="javascript" type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
+$BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
 
 ?>
 <!-- top spacer - seperate from title/subtitle section -->
@@ -80,8 +80,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
 	}
 }
-				  
-?>				  
+
+?>
 		</select></td>
 </tr>
 <!-- end templates -->

@@ -1023,7 +1023,7 @@ if(count($block['js_onunload'])) {
 }
 // set Inline JS
 if(count($block['js_inline'])) {
-	$block['custom_htmlhead']['inline']  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+	$block['custom_htmlhead']['inline']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 	$block['custom_htmlhead']['inline'] .= implode(LF, $block['js_inline']);
 	$block['custom_htmlhead']['inline'] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
 }
@@ -1220,7 +1220,7 @@ switch($phpwcms['mode_XHTML']) {
 
 // PixelRatio Check based on JavaScript and Cookie
 if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['phpwcms_pixelratio'])) {
-	$block['custom_htmlhead']['pixelratio']  = '  <script type="text/javascript">' . LF;
+	$block['custom_htmlhead']['pixelratio']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
 	$block['custom_htmlhead']['pixelratio'] .= '	var phpwcms_pixelratio = 1;' . LF;
 	$block['custom_htmlhead']['pixelratio'] .= '	if(window.devicePixelRatio !== undefined) phpwcms_pixelratio = window.devicePixelRatio;' . LF;
 	$block['custom_htmlhead']['pixelratio'] .= '	document.cookie = "phpwcms_pixelratio="+phpwcms_pixelratio+";expires='.date('r', now()+2592000).'");' . LF; // 30 days

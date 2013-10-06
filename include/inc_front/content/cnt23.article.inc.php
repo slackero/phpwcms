@@ -213,7 +213,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
-								$form_field .= '><script type="text/javascript">' . LF;
+								$form_field .= '><script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
 								$form_field .= '	var RecaptchaOptions = {lang:"'.$cnt_form['recaptcha']['lang'].'",';
 								$form_field .= 'theme:"'.$cnt_form['recaptcha']['theme'].'",tabindex:'.$cnt_form['recaptcha']['tabindex'] . '};' . LF;
 								$form_field .= '</script>';

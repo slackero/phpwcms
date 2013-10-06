@@ -23,7 +23,7 @@ function initSlimbox() {
  * Initialize Frontend Edit DomReady JavaScript
  */
 function init_frontend_edit_js() {
-	
+
 	initJSLib();
 	$GLOBALS['block']['js_ondomready'][] = '		var felink_status = 0;
 		$$("a.fe-link").each(function(r) { r.setStyle("display", "none"); });
@@ -36,26 +36,26 @@ function init_frontend_edit_js() {
 				$("fe-link").removeClass("disabled"); $("fe-link").addClass("enabled");	felink_status = 1;
 			}
 		});';
-	
+
 }
 
 /**
  * Create JavaScript Domready Section
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
-	
+
 	if($js) {
-		
+
 		initJSLib();
-		
-		$_js  = $prefix . '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+
+		$_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 		$_js .= '	window.addEvent("domready", function() {' . LF. $js . LF . '	});';
 		$_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
-		
+
 		if($return) {
 			return $_js;
 		}
-		
+
 		$GLOBALS['block']['custom_htmlhead'][md5($js)] = $_js;
 	}
 }
@@ -64,19 +64,19 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
  * Create JavaScript UnLoad Section
  */
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
-	
+
 	if($js) {
-		
+
 		initJSLib();
-		
-		$_js  = $prefix . '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+
+		$_js  = $prefix . '<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 		$_js .= '	window.addEvent("unload", function() {' . LF . $js . LF . '	});';
 		$_js .= LF.SCRIPT_CDATA_END.LF.$prefix.'</script>';
-		
+
 		if($return) {
 			return $_js;
 		}
-		
+
 		$GLOBALS['block']['custom_htmlhead'][md5($js)] = $_js;
 	}
 }
@@ -114,7 +114,7 @@ function initJSPlugin($plugin='', $more=false) {
 				}
 			}
 		}
-	}	
+	}
 	return TRUE;
 }
 

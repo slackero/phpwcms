@@ -414,7 +414,7 @@ function createOptionTransferSelectList($id='', $leftData, $rightData, $option =
 	$table .= '<input type="hidden" name="'.$id_left.'" id="'.$id_left.'" value="" />';
 	$table .= '<input type="hidden" name="'.$id_right.'" id="'.$id_right.'" value="" />';
 
-	$table .= '<script language="javascript">'.LF;
+	$table .= '<script>'.LF;
 	$table .= SCRIPT_CDATA_START.LF;
 	$table .= '	var '.$option_object.' = new OptionTransfer("'.$id_left_box.'","'.$id_right_box.'");'.LF;
 	$table .= '	'.$option_object.'.setAutoSort(false);'.LF;
