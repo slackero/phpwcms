@@ -195,8 +195,6 @@ $sql .= 'WHERE '.str_replace('cat_', 'C1.cat_', $_entry['query']).' ';
 $sql .= 'ORDER BY C1.cat_sort DESC, C2.cat_sort DESC, category ASC ';
 $sql .= 'LIMIT '.(($_SESSION['detail_page']-1) * $_SESSION['list_count']).','.$_SESSION['list_count'];
 
-//dumpVar($sql);
-
 $data = _dbQuery($sql);
 
 $_controller_link =  shop_url('controller=cat');

@@ -68,7 +68,7 @@ foreach($cart_data as $item_key => $row) {
 						break;
 	}
 	
-	$cart_items[$x] = str_replace('{PRODUCT_DETAIL_LINK}', $_tmpl['config']['shop_url'].'&amp;shop_detail=' . $prod_id, $cart_items[$x]);
+	$cart_items[$x] = str_replace('{PRODUCT_DETAIL_LINK}', rel_url(array('shop_detail' => $prod_id), array('shop_cart'), $_tmpl['config']['shop_url']), $cart_items[$x]);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_TITLE', html_specialchars($row['shopprod_name1']));
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_NET_PRICE', $_price['net']);

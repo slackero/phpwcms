@@ -31,4 +31,3 @@ $_entry['query']			= '';
 	</ul>
 	<br class="clear" />
 </div>
-

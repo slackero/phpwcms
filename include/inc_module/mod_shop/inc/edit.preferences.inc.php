@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 ?>
 <form action="<?php echo shop_url('controller=pref'); ?>" method="post" class="editform1">
 
@@ -80,8 +79,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 			</table></td>
 	</tr>
-
-
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
@@ -279,7 +276,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 </form>
 <script type="text/javascript">
-<!--
 	function enableSubmit() {
 		var submit_prefs = getObjectById('save_button');
 		submit_prefs.disabled=false;
@@ -288,5 +284,4 @@ if (!defined('PHPWCMS_ROOT')) {
 		var submit_prefs = getObjectById('save_button');
 		submit_prefs.disabled=true;
 	}
-//-->
 </script>

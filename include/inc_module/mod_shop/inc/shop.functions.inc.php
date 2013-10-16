@@ -40,8 +40,4 @@ function order_status($is='', $status='') {
 	return '';
 }
 
-
-
-
-
 ?>
