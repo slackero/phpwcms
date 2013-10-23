@@ -799,42 +799,46 @@ if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
 }
 
 // some more navigations, do not use - not recommend any longer, need deprecated config enabled
-if($phpwcms['enable_deprecated'] && strpos($content["all"],'{NAV_') !== false) {
+if($phpwcms['enable_deprecated']) {
+	
+	if(strpos($content["all"],'{NAV_') !== false) {
+	
+		// Simple row based navigation
+		$content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);
+		$content["all"] = preg_replace('/\{NAV_ROW:(\w+|\d+):(0|1)\}/e',"nav_level_row('$1',$2);",$content["all"]);
 
-	// Simple row based navigation
-	$content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);
-	$content["all"] = preg_replace('/\{NAV_ROW:(\w+|\d+):(0|1)\}/e',"nav_level_row('$1',$2);",$content["all"]);
+		//reads all active category IDs beginning with the current cat ID - without HOME
+		$content["cat_path"] = get_active_categories($content["struct"], $content["cat_id"]);
 
-	//reads all active category IDs beginning with the current cat ID - without HOME
-	$content["cat_path"] = get_active_categories($content["struct"], $content["cat_id"]);
+		// some general list replacements first
+		$content["all"] = str_replace('{NAV_LIST}', '{NAV_LIST:0}', $content["all"]);
+		$content["all"] = str_replace('{NAV_LIST_TOP}', css_level_list($content["struct"], $content["cat_path"], 0, '', 1), $content["all"]);
+		$content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
 
-	// some general list replacements first
-	$content["all"] = str_replace('{NAV_LIST}', '{NAV_LIST:0}', $content["all"]);
-	$content["all"] = str_replace('{NAV_LIST_TOP}', css_level_list($content["struct"], $content["cat_path"], 0, '', 1), $content["all"]);
-	$content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
+		// list based navigation starting at given level
+		$replace = 'nav_list_struct($content["struct"],$content["cat_id"],"$1", "$2");';
+		$content["all"] = preg_replace('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/e', $replace, $content["all"]);
 
-	// list based navigation starting at given level
-	$replace = 'nav_list_struct($content["struct"],$content["cat_id"],"$1", "$2");';
-	$content["all"] = preg_replace('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/e', $replace, $content["all"]);
+		// List based navigation with Top Level - default settings
+		// creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
+		$content["all"] = preg_replace('/\{NAV_LIST_TOP:(.*?):(.*?)\}/e', 'css_level_list($content["struct"], $content["cat_path"], 0, "$1", 1, "$2")', $content["all"]);
 
-	// List based navigation with Top Level - default settings
-	// creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
-	$content["all"] = preg_replace('/\{NAV_LIST_TOP:(.*?):(.*?)\}/e', 'css_level_list($content["struct"], $content["cat_path"], 0, "$1", 1, "$2")', $content["all"]);
+		// List based navigation with Top Level - default settings
+		// creates a list styled nav menu of current level {NAV_LIST_CURRENT:1:back_name:class_name} | default class name = list_top
+		$content["all"] = preg_replace('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/e', 'css_level_list($content["struct"],$content["cat_path"],$content["cat_id"],"$2","$1","$3")', $content["all"]);
 
-	// List based navigation with Top Level - default settings
-	// creates a list styled nav menu of current level {NAV_LIST_CURRENT:1:back_name:class_name} | default class name = list_top
-	$content["all"] = preg_replace('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/e', 'css_level_list($content["struct"],$content["cat_path"],$content["cat_id"],"$2","$1","$3")', $content["all"]);
+		// Table based navigation, outdated
+		if(strpos($content["all"],'{NAV_TABLE') !== false) {
 
-	// Table based navigation, outdated
-	if(strpos($content["all"],'{NAV_TABLE') !== false) {
+			$replace = nav_table_simple_struct($content["struct"], $content["cat_id"]);
+			$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', $replace, $content["all"]);
 
-		$replace = nav_table_simple_struct($content["struct"], $content["cat_id"]);
-		$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', $replace, $content["all"]);
+			$content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
+			$replace = 'nav_table_struct($content["struct"], $content["cat_id"], "$1", $template_default["nav_table_struct"]);';
+			$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
 
-		$content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
-		$replace = 'nav_table_struct($content["struct"], $content["cat_id"], "$1", $template_default["nav_table_struct"]);';
-		$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
-
+		}
+		
 	}
 
 	$content["all"] = html_parser_deprecated($content["all"]);
