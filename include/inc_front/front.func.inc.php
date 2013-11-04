@@ -1701,7 +1701,7 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 		$format = "Y/m/d";
 	}
 	if(!intval($date_now)) {
-		$date_now = time();
+		$date_now = now();
 	}
 
 	$language = strtolower(trim($language));
@@ -2617,28 +2617,50 @@ function render_urlencode($match) {
 	}
 	return rawurlencode(decode_entities($match));
 }
-
+// render date by replacing placeholder tags by value
 function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
-	// render date by replacing placeholder tags by value
-	$date = is_numeric($date) ? intval($date) : now();
-	$text = preg_replace('/\{DATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
-	$text = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1",'.$date.')', $text);
+	$date = intval($date);
+	if(!$date) {
+		$date = now();
+	}
+	$text = render_date($text, $date, 'DATE');
+	$text = render_date($text, now(), 'NOW');
 	if(intval($livedate)) {
-		$text = preg_replace('/\{LIVEDATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$livedate.'")', $text);
-		$text = preg_replace('/\{LIVEDATE:(.*?)\}/e', 'date("$1",'.$livedate.')', $text);
+		$text = render_date($text, $livedate, 'LIVEDATE');
 	}
 	if(intval($killdate)) {
-		$text = preg_replace('/\{KILLDATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$killdate.'")', $text);
-		$text = preg_replace('/\{KILLDATE:(.*?)\}/e', 'date("$1",'.$killdate.')', $text);
+		$text = render_date($text, $killdate, 'KILLDATE');
 	}
-	return preg_replace('/\{NOW:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.now().'")', $text);
+	return $text;
 }
-
+// render date by replacing placeholder tags by value
 function render_date($text='', $date, $rt='DATE') {
-	// render date by replacing placeholder tags by value
 	$rt = preg_quote($rt);
 	$text = preg_replace('/\{'.$rt.':(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
-	return preg_replace('/\{'.$rt.':(.*?)\}/e', 'date("$1",'.$date.')', $text);
+	$text = preg_replace('/\{'.$rt.':(.*?)\}/e', 'date("$1",'.$date.')', $text);
+	return $text;
+}
+
+function render_keywords($text='', $keywords=null, $separator=',') {
+
+	if($keywords === null || $text == '' || strpos($text, '{KEYWORDS') === false) {
+		return $text;
+	}
+	if(is_string($keywords)) {
+		$keywords = convertStringToArray($keywords, $separator);
+	} elseif(!is_array($keywords)) {
+		$keywords = array();
+	}
+
+	$prefix = '';
+	$suffix = '';
+	$spacer = ' ';
+
+	preg_match_all('/\{KEYWORDS(.*?)\}/', $text, $matches);
+
+	//dumpVar($matches);
+
+	return $text;
 }
 
 function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $tagClose=']') {
