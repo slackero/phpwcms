@@ -309,11 +309,3 @@ if (!defined('PHPWCMS_ROOT')) {
 </div>
 
 <input type="button" class="button10" style="margin-top:5px;" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?php echo shop_url('controller=order') ?>'" />
-
-<?php
-/*
-unset($plugin['data']['order_data']['mail_customer'], $plugin['data']['order_data']['address'], $plugin['data']['order_data']['mail_self'], $plugin['data']['order_data']['cart'][0]['shopprod_var']);
-dumpVar($plugin['data']['order_data']);
-*/
-
-?>
