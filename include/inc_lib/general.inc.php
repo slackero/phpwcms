@@ -1927,6 +1927,13 @@ function get_link_ahref($match) {
 	return '<a href="'.$match[1].'://'.$href.'" target="_blank">'.$text.'</a>';
 }
 
+function strip_bbcode($text) {
+	$text = str_replace(array('[br]', '[BR]'), ' ', $text);
+	$text = preg_replace('/\[(\w+)=.*?:(.*?)\](.*?)\[\/\1:\2\]/is', '$3', $text);
+	$text = preg_replace('/\s\s+/', ' ', $text);
+	return $text;
+}
+
 /**
  * Convert short file size (100M) to bytes
  */
