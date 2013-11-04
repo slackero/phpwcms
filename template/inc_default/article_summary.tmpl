@@ -1,14 +1,16 @@
-<!-- Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} -->
-[TITLE]<h1>{TITLE}</h1>
-[/TITLE][SUB]<h2>{SUB}</h2>
-[/SUB][SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}[CAPTION]<br />
-{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT][/CAPTION]</span>
-[/IMAGE]{SUMMARY}[/SUMMARY]
+[TITLE]	<h1>{TITLE}</h1>[/TITLE][SUB]
+	<h2>{SUB}</h2>[/SUB][SUMMARY][IMAGE]
+	<div class="image">
+		{IMAGE}[CAPTION]
+		<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
+	</div>[/IMAGE]
+	{SUMMARY}
+[/SUMMARY]
 <!--CP_PAGINATE_START//-->
-<div class="cpPagination">
-[CP_PAGINATE_PREV]<a href="{CP_PAGINATE_PREV}" class="cpPaginationPrev">&laquo; Previous</a>[/CP_PAGINATE_PREV]
+<div class="pagination">
+[CP_PAGINATE_PREV]<a href="{CP_PAGINATE_PREV}" class="pagination-prev">&laquo; Previous</a>[/CP_PAGINATE_PREV]
 [CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]
-[CP_PAGINATE_NEXT]<a href="{CP_PAGINATE_NEXT}" class="cpPaginationNext">Next &raquo;</a>[/CP_PAGINATE_NEXT]
+[CP_PAGINATE_NEXT]<a href="{CP_PAGINATE_NEXT}" class="pagination-next">Next &raquo;</a>[/CP_PAGINATE_NEXT]
 [CP_PAGINATE_MENU]
 	<!-- when no item prefix/suffix/... is given the default will be used (ul/li) -->
 	<!-- with parameter: [ CP_PAGINATE_MENU : item_prefix|item_suffix|active_class|hide_active ] -->
@@ -17,9 +19,9 @@
 </div>
 <!--CP_PAGINATE_END//-->
 
-<!-- 
+<!--
 	Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]
-	
+
 	Image ID   {IMAGE_ID}
 	Image Hash {IMAGE_HASH}
 	cmsImage   <img src="img/cmsimage.php/100x100/{IMAGE_ID}.jpg" alt="" border="0" />
@@ -34,4 +36,4 @@
 	Absolute   {IMAGE_ABS}
 	WxH        {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
 	[/ZOOMIMAGE][/IMAGE]
-//-->
+-->

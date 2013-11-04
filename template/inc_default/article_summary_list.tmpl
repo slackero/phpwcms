@@ -1,4 +1,4 @@
-[SPACE]<!-- space //-->[/SPACE]
+[SPACE]<!-- Space -->[/SPACE]
 <div class="article-list-entry">
 [IMAGE]
 	<div class="list-image">
@@ -7,34 +7,29 @@
 		[ARTICLELINK]</a>[/ARTICLELINK]
 
 		[CAPTION]
-			<div class="list-image-caption">
+			<p class="list-image-caption">
 				{CAPTION}
 				[COPYRIGHT]<span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
-			</div>
+			</p>
 		[/CAPTION]
 	</div>
 [/IMAGE]
-[TITLE]
-	<h1>{TITLE}</h1>
-[/TITLE]
-[SUB]
-	<h2>{SUB}</h2>
-[/SUB]
-[SUMMARY]
-	<div>
+[TITLE]	<h1>{TITLE}</h1>[/TITLE][SUB]
+	<h2>{SUB}</h2>[/SUB][SUMMARY]
+	<div class="article-list-summary">
 		<strong>{DATE:j. F Y lang=EN}</strong>
 		{SUMMARY}
 	</div>
 [/SUMMARY]
 [MORE]
-	<div class="article-list-more">
+	<p class="article-list-more">
 		<a href="{ARTICLELINK}"{TARGET}>{MORE}</a>
-	</div>
+	</p>
 [/MORE]
 </div>
-<!-- 
+<!--
 	Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]
-	
+
 	Image ID   {IMAGE_ID}
 	Image Hash {IMAGE_HASH}
 
@@ -48,4 +43,4 @@
 	Absolute   {IMAGE_ABS}
 	WxH        {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
 	[/ZOOMIMAGE][/IMAGE]
-//-->
+-->
