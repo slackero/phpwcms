@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $cinfo["result"]  = ($row["acontent_title"])?(cut_string($row["acontent_title"],'&#8230;', 55)):("");
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"])?(" / "):("");
 $cinfo["result"] .= ($row["acontent_subtitle"])?(cut_string($row["acontent_subtitle"],'&#8230;', 55)):("");
-							 
+
 $reference = unserialize($row["acontent_form"]);
 if(is_array($reference["list"]) && count($reference["list"])) {
 
@@ -33,12 +33,12 @@ if(is_array($reference["list"]) && count($reference["list"])) {
 	// browse images and list available
 	// will be visible only when aceessible
 	foreach($reference["list"] as $key => $value) {
-	
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$reference["list"][$key][3],
-								"image_name"	=>	$reference["list"][$key][2] . '.' . $reference["list"][$key][3],
-								"thumb_name"	=>	md5($reference["list"][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        					  ));
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$reference["list"][$key][3],
+			"image_name"	=>	$reference["list"][$key][2] . '.' . $reference["list"][$key][3],
+			"thumb_name"	=>	md5($reference["list"][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($thumb_image != false) {
 			if($imgx == 4) {
@@ -55,7 +55,7 @@ if(is_array($reference["list"]) && count($reference["list"])) {
 	if($imgx) {
 		if($cinfo["result"]) $cinfo["result"] .= '<br>';
 		$cinfo["result"] .= $cinfo_img;
-	}	
+	}
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo

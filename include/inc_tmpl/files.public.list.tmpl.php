@@ -26,27 +26,27 @@ if(!isset($_SESSION["pklapp"]) || (isset($_GET["all"]) && $_GET["all"] == "close
 }
 
 if(isset($_GET["pklapp"])) {
-	
+
 	list($pklapp_id, $pklapp_value) = explode("|", $_GET["pklapp"]);
-		
+
 	if(intval($pklapp_value)) {
 		$_SESSION["pklapp"][$pklapp_id] = 1;
 	} else {
 		unset($_SESSION["pklapp"][$pklapp_id]);
 	}
-	
+
 	foreach($_SESSION["pklapp"] as $pklapp_id => $pklapp_value) {
 		if(!$pklapp_value) {
 			unset($_SESSION["pklapp"][$pklapp_id]);
 		}
 	}
-	
+
 	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_publicfile="._dbEscape(serialize($_SESSION["pklapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
 
 }
 
 $_SESSION["list_zaehler"] = 0; //Zähler für die Public-Listenfunktion setzen
-			
+
 //Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0 LIMIT 1;";
 if($result = mysql_query($sql, $db) or die ("error while counting user files")) {
@@ -91,7 +91,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 			echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$user_naming."</strong></td>\n"; //Schließen Zelle 1. Spalte
 			echo "<td width=\"50\" align=\"right\" class=\"msglist\">"; //Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
 			echo "<img src=\"img/leer.gif\" width=\"50\" height=\"1\">"; //Spacer
-			echo "</td>\n"; 
+			echo "</td>\n";
 			echo "</tr>\n"; //Abschluss Tabellenzeile
 			//Aufbau trennende Tabellen-Zeile  bgcolor:#EBF2F4
 			echo "<tr bgcolor=\"#D8E4E9\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\"></td></tr>\n"; //Abstand nach
@@ -108,7 +108,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 					while($file_row = mysql_fetch_array($file_result)) {
 						$filename = html_specialchars($file_row["f_name"]);
 						if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
-							echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"; 
+							echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 						} else {
 							echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
 						}
@@ -133,30 +133,29 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 						echo "</td>\n";
 						//Ende Aufbau
 						echo "</tr>\n";
-						
+
 						if($_SESSION["wcs_user_thumb"]) {
-			
-							$thumb_image = get_cached_image(
-			 					array(	"target_ext"	=>	$file_row["f_ext"],
-										"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
-										"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        							  )
-								);
+
+							$thumb_image = get_cached_image(array(
+								"target_ext"	=>	$file_row["f_ext"],
+								"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
+								"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+							));
 
 							if($thumb_image != false) {
-							
+
 								echo "<tr>\n";
 								echo "<td width=\"37\"><img src=\"img/leer.gif\" height=\"1\" width=\"37\" border=\"0\"></td>\n";
 								echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
 								echo "473\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\"><a href=\"fileinfo.php?public&amp;fid=";
 								echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
 								echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-								echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n";	
+								echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n";
 								echo "<td width=\"15\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 								echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-		
+
 							}
-				
+
 						}
 
 						$file_durchlauf++;

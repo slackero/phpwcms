@@ -67,55 +67,26 @@ if($content['reference']['ref_count']) {
 	for($ci; $ci < $content['reference']['ref_count']; $ci++) {
 		$content['reference']['caption_list'][$ci] = '';
 	}
-	
+
 	// javascript ID
 	$content['reference']['ref_id'] = 'refimgid'.$crow['acontent_id'];
-	
+
 	// starting large image
-	$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$content['reference']["list"][0][3],
-								"image_name"	=>	$content['reference']["list"][0][2] . '.' . $content['reference']["list"][0][3],
-								"max_width"		=>	$content['reference']["list"][0][4],
-								"max_height"	=>	$content['reference']["list"][0][5],
-								"thumb_name"	=>	md5(	$content['reference']["list"][0][2].
-															$content['reference']["list"][0][4].
-															$content['reference']["list"][0][5].
-															$phpwcms["sharpen_level"])
-        					  )	);
-	
-	
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$content['reference']["list"][0][3],
+		"image_name"	=>	$content['reference']["list"][0][2] . '.' . $content['reference']["list"][0][3],
+		"max_width"		=>	$content['reference']["list"][0][4],
+		"max_height"	=>	$content['reference']["list"][0][5],
+		"thumb_name"	=>	md5($content['reference']["list"][0][2].$content['reference']["list"][0][4].$content['reference']["list"][0][5].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+	));
+
 	if($thumb_image != false) {
-	
-		//$img_name = html_specialchars($content['reference']["list"][0][1]);
 		$content['reference']['ref_image']  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] ;
 		$content['reference']['ref_image'] .= '" border="'.$content['reference']['border'].'" '; //.$thumb_image[3]
-		$content['reference']['ref_image'] .= ' alt="" ';//title="'.$img_name.'" 
+		$content['reference']['ref_image'] .= ' alt="" ';//title="'.$img_name.'"
 		$content['reference']['ref_image'] .= 'id="'.$content['reference']['ref_id'].'" name="'.$content['reference']['ref_id'].'" />';
-	
 	}
-	
-	/*
-	if($content['reference']["zoom"]) {
-	
-		$zoominfo = get_cached_image(
-						array(	"target_ext"	=>	$content['reference']["list"][0][3],
-								"image_name"	=>	$content['reference']["list"][0][2] . '.' . $content['reference']["list"][0][3],
-								"max_width"		=>	$phpwcms["img_prev_width"],
-								"max_height"	=>	$phpwcms["img_prev_height"],
-								"thumb_name"	=>	md5($content['reference']["list"][0][2].$phpwcms["img_prev_width"].
-														$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
-        					  )	);
-	
-		if($zoominfo != false) {
-			$popup_link  = 'image_zoom.php?show='.base64_encode($zoominfo[0].'?'.$zoominfo[3]);
-			$content['reference']['ref_image'] =	'<a href="'.$popup_link.'" onclick="window.open(\''.$popup_link.
-													"','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2].
-													"');return false;\">".$content['reference']['ref_image'].'</a>';
-		}
-	
-	}
-	*/
-	
+
 	if($content['reference']['ref_count'] > 1) {
 		$ci = 0;
 		// open table row if horizontal
@@ -133,21 +104,21 @@ if($content['reference']['ref_count']) {
 		}
 		$content['reference']['x5'] = '';
 		$content['reference']['x6'] = '';
-		
+
 		$content['reference']['x8'] = 0;
 		if(preg_match('/\[CAPTION\](.*?)\[\/CAPTION\]/is', $content['reference']["tmpl"])) {
 			$content['reference']['x8'] = 1;
 		}
-		
+
 		// loop images
 		foreach($content['reference']["list"] as $captkey => $captvalue) {
-		
+
 			$content['reference']['x5'] = '';
 			$content['reference']['x6'] = '';
-				
+
 			// space between images
 			if($ci && $content['reference']['space']) {
-			
+
 				$content['reference']['ref_list'] .= $content['reference']['x1'];
 				$content['reference']['ref_list'] .= '<td><img src="img/leer.gif" alt="" ';
 				$content['reference']['ref_list'] .= 'width="'.$content['reference']['space'].'" height="';
@@ -171,58 +142,48 @@ if($content['reference']['ref_count']) {
 			$content['reference']['ref_list'] .= '>';
 
 			if($content['reference']["zoom"]) {
-			
+
 				// build additional reference popup images
-				$zoominfo = get_cached_image(
-						array(	"target_ext"	=>	$content['reference']["list"][$captkey][3],
-								"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
-								"max_width"		=>	$phpwcms["img_prev_width"],
-								"max_height"	=>	$phpwcms["img_prev_height"],
-								"thumb_name"	=>	md5($content['reference']["list"][$captkey][2].$phpwcms["img_prev_width"].
-														$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
-        					  )	);
-			
-	
+				$zoominfo = get_cached_image(array(
+					"target_ext"	=>	$content['reference']["list"][$captkey][3],
+					"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
+					"max_width"		=>	$phpwcms["img_prev_width"],
+					"max_height"	=>	$phpwcms["img_prev_height"],
+					"thumb_name"	=>	md5($content['reference']["list"][$captkey][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+				));
+
+
 				if($zoominfo != false) {
 					$popup_link  = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
-		
-					$content['reference']['x5'] =	'<a href="'.$popup_link.'" onclick="window.open(\''.$popup_link.
-													"','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2].
-													"');return false;\">";
+
+					$content['reference']['x5'] = '<a href="'.$popup_link.'" onclick="window.open(\''.$popup_link."','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;\">";
 					$content['reference']['x6'] = '</a>';
 				}
-	
+
 			}
 
 			$content['reference']['ref_list'] .= $content['reference']['x5'];
-			
-			$over_image = get_cached_image(
-						array(	"target_ext"	=>	$content['reference']["list"][$captkey][3],
-								"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
-								"max_width"		=>	$content['reference']["list"][$captkey][4],
-								"max_height"	=>	$content['reference']["list"][$captkey][5],
-								"thumb_name"	=>	md5(	$content['reference']["list"][$captkey][2].
-															$content['reference']["list"][$captkey][4].
-															$content['reference']["list"][$captkey][5].
-															$phpwcms["sharpen_level"])
-        					  )	);
-			
-			
-			$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$content['reference']["list"][$captkey][3],
-								"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
-								"max_width"		=>	$content['reference']["temp_list_width"],
-								"max_height"	=>	$content['reference']["temp_list_height"],
-								"thumb_name"	=>	md5(	$content['reference']["list"][$captkey][2].
-															$content['reference']["temp_list_width"].
-															$content['reference']["temp_list_height"].
-															$phpwcms["sharpen_level"])
-        					  )	);
-			
+
+			$over_image = get_cached_image(array(
+				"target_ext"	=>	$content['reference']["list"][$captkey][3],
+				"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
+				"max_width"		=>	$content['reference']["list"][$captkey][4],
+				"max_height"	=>	$content['reference']["list"][$captkey][5],
+				"thumb_name"	=>	md5($content['reference']["list"][$captkey][2].$content['reference']["list"][$captkey][4].$content['reference']["list"][$captkey][5].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+			));
+
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$content['reference']["list"][$captkey][3],
+				"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
+				"max_width"		=>	$content['reference']["temp_list_width"],
+				"max_height"	=>	$content['reference']["temp_list_height"],
+				"thumb_name"	=>	md5($content['reference']["list"][$captkey][2].$content['reference']["temp_list_width"].$content['reference']["temp_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+			));
+
 			if($thumb_image != false) {
-				
+
 				initFrontendJS();
-	
+
 				if(!empty($content['reference']['caption_list'][$captkey])) {
 					$img_name = $content['reference']['caption_list'][$captkey];
 				} else {
@@ -233,7 +194,7 @@ if($content['reference']['ref_count']) {
 				$content['reference']['ref_list'] .= $thumb_image[3].' alt="'.$img_name.'" title="'.$img_name;
 				$content['reference']['ref_list'] .= '" id="'.$content['reference']['ref_id'].'a'.$captkey;
 				$content['reference']['ref_list'] .= '" name="'.$content['reference']['ref_id'].'a'.$captkey.'" ';
-				
+
 				// switch large image onmouseover
 				$content['reference']['ref_list'] .= 'onmouseover="';
 				if($over_image != false) {
@@ -250,7 +211,7 @@ if($content['reference']['ref_count']) {
 				$content['reference']['ref_list'] .= "MM_displayStatusMsg('".$content['reference']['x7']."');return ";
 				$content['reference']['ref_list'] .= 'document.MM_returnValue;" />'.$content['reference']['x6']."</td>\n";
 				$content['reference']['ref_list'] .= $content['reference']['x4'];
-	
+
 			}
 			$ci++;
 		}
@@ -259,7 +220,7 @@ if($content['reference']['ref_count']) {
 		// wrap it in the table
 		$content['reference']['ref_list']  = '<table border="0" cellspacing="0" cellpadding="0">'.$content['reference']['ref_list'].'</table>';
 	}
-	
+
 }
 
 

@@ -226,16 +226,11 @@ if($img_count) {
 
 		// 0   :1       :2   :3        :4    :5     :6      :7       :8
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$content['image_list']['images'][$key][3],
-								"image_name"	=>	$content['image_list']['images'][$key][2] . '.' . $content['image_list']['images'][$key][3],
-								"thumb_name"	=>	md5(	$content['image_list']['images'][$key][2].
-															$phpwcms["img_list_width"].
-															$phpwcms["img_list_height"].
-															$phpwcms["sharpen_level"]
-														)
-        					  )
-							);
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$content['image_list']['images'][$key][3],
+			"image_name"	=>	$content['image_list']['images'][$key][2] . '.' . $content['image_list']['images'][$key][3],
+			"thumb_name"	=>	md5($content['image_list']['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($thumb_image != false) {
 

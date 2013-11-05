@@ -57,8 +57,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
 	}
 }
-				  
-?>				  
+
+?>
 	  </select></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -76,24 +76,21 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <td valign="top"><select name="cimage_list[]" size="<?php echo (count($content['reference']["select"]))?(count($content['reference']["select"])+5):5; ?>" multiple class="f11" id="cimage_list" style="width: 300px;">
             <?php
 				    if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
-						
+
 						foreach($content['reference']["list"] as $key => $value) {
-				   			
-							$thumb_image = get_cached_image(
-												array(	"target_ext"	=>	$content['reference']["list"][$key][3],
-														"image_name"	=>	$content['reference']["list"][$key][2] . '.' . $content['reference']["list"][$key][3],
-														"thumb_name"	=>	md5(	$content['reference']["list"][$key][2].
-																					$phpwcms["img_list_width"].
-																					$phpwcms["img_list_height"].
-																					$phpwcms["sharpen_level"]
-																				) ) );
-																				
+
+							$thumb_image = get_cached_image(array(
+								"target_ext"	=>	$content['reference']["list"][$key][3],
+								"image_name"	=>	$content['reference']["list"][$key][2] . '.' . $content['reference']["list"][$key][3],
+								"thumb_name"	=>	md5($content['reference']["list"][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+							));
+
 							if($thumb_image != false) {
-							
+
 								echo "<option value=\"".$content['reference']["list"][$key][0]."\">";
 								$img_name = html_specialchars($content['reference']["list"][$key][1]);
 								echo $img_name."</option>\n";
-								
+
 								if($imgx == 4) {
 									$img_thumbs .= '<br><img src="img/leer.gif" alt="" border="0" width="1" height="2"><br>';
 									$imgx = 0;
@@ -104,11 +101,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
 								$img_thumbs .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
 
 								$imgx++;
-							
+
 							}
-							
+
 						}
-						
+
 				    }
 					?>
           </select></td>
@@ -121,7 +118,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
       </tr>
     </table><?php
 
-if($img_thumbs) { 
+if($img_thumbs) {
 	echo '<table border="0" cellspacing="0" cellpadding="0">
 		<tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
 		</table>';
@@ -193,7 +190,7 @@ if($img_thumbs) {
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_block'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-	    
+
 		<td><input name="creference_blockwidth" type="text" class="f11b" id="creference_blockwidth" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["blockwidth"] ?>"></td>
         <td class="chatlist">&nbsp;x&nbsp;</td>
         <td><input name="creference_blockheight" type="text" class="f11b" id="creference_blockheight" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['reference']["blockheight"] ?>"></td>

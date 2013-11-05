@@ -84,7 +84,7 @@ class Phpwcms_Image_lib {
 	var $image_current_vals	= array();
 	var $graphicsmagick		= '';
 	var $colorspace			= 'RGB';
-	
+
 	// Language strings
 	var $lang				= array(
 		'imglib_source_image_required'		=> "You must specify a source image in your preferences.",
@@ -155,7 +155,6 @@ class Phpwcms_Image_lib {
 			'size_str',
 			'full_src_path',
 			'full_dst_path',
-			'colorspace'
 		);
 
 		foreach ($props as $val)
@@ -196,12 +195,15 @@ class Phpwcms_Image_lib {
 	/**
 	 * initialize image preferences
 	 *
+	 * @access	public
 	 * @param	array
 	 * @return	bool
 	 */
 	function initialize($props = array())
 	{
-		// Convert array elements into class variables
+		/*
+		 * Convert array elements into class variables
+		 */
 		if (count($props) > 0)
 		{
 			foreach ($props as $key => $val)
@@ -236,42 +238,47 @@ class Phpwcms_Image_lib {
 			}
 		}
 
-		// Is there a source image? If not, there's no reason to continue
+		/*
+		 * Is there a source image?
+		 *
+		 * If not, there's no reason to continue
+		 *
+		 */
 		if ($this->source_image == '')
 		{
 			$this->set_error('imglib_source_image_required');
 			return FALSE;
 		}
 
-		/* Is getimagesize() available?
+		/*
+		 * Is getimagesize() Available?
 		 *
 		 * We use it to determine the image properties (width/height).
-		 * Note: We need to figure out how to determine image
+		 * Note:  We need to figure out how to determine image
 		 * properties using ImageMagick and NetPBM
+		 *
 		 */
 		if ( ! function_exists('getimagesize'))
 		{
 			$this->set_error('imglib_gd_required_for_props');
 			return FALSE;
 		}
-		
+
 		$this->image_library = strtolower($this->image_library);
 		if($this->image_library === 'graphicsmagick' || $this->image_library === 'gm') {
 			$this->graphicsmagick = 'gm ';
 			$this->image_library = 'imagemagick';
-			$this->colorspace = 'RGB';
 		} else {
 			$this->graphicsmagick = '';
-			if(!empty($GLOBALS['phpwcms']['im_fix_colorspace'])) {
-				$this->colorspace = $GLOBALS['phpwcms']['im_fix_colorspace'];
-			}
 		}
 
-		/* Set the full server path
+		/*
+		 * Set the full server path
 		 *
 		 * The source image may or may not contain a path.
 		 * Either way, we'll try use realpath to generate the
 		 * full server path in order to more reliably read it.
+		 *
 		 */
 		if (function_exists('realpath') && @realpath($this->source_image) !== FALSE)
 		{
@@ -292,15 +299,16 @@ class Phpwcms_Image_lib {
 			return FALSE;
 		}
 
-		$this->source_ext = $this->explode_name($this->source_image, TRUE);	
+		$this->source_ext = $this->explode_name($this->source_image, TRUE);
 
 		/*
 		 * Assign the "new" image name/path
 		 *
 		 * If the user has set a "new_image" name it means
 		 * we are making a copy of the source image. If not
-		 * it means we are altering the original. We'll
+		 * it means we are altering the original.  We'll
 		 * set the destination filename and path accordingly.
+		 *
 		 */
 		if ($this->new_image == '')
 		{
@@ -337,15 +345,17 @@ class Phpwcms_Image_lib {
 			}
 		}
 
-		/* Compile the finalized filenames/paths
+		/*
+		 * Compile the finalized filenames/paths
 		 *
 		 * We'll create two master strings containing the
 		 * full server path to the source image and the
 		 * full server path to the destination image.
 		 * We'll also split the destination image name
 		 * so we can insert the thumbnail marker if needed.
+		 *
 		 */
-		if ($this->create_thumb === FALSE OR $this->thumb_marker == '')
+		if ($this->create_thumb === FALSE || $this->thumb_marker == '')
 		{
 			$this->thumb_marker = '';
 		}
@@ -358,21 +368,26 @@ class Phpwcms_Image_lib {
 		$this->full_src_path = $this->source_folder.$this->source_image;
 		$this->full_dst_path = $this->dest_folder.$filename.$this->thumb_marker.$file_ext;
 
-		/* Should we maintain image proportions?
+		/*
+		 * Should we maintain image proportions?
 		 *
 		 * When creating thumbs or copies, the target width/height
 		 * might not be in correct proportion with the source
-		 * image's width/height. We'll recalculate it here.
+		 * image's width/height.  We'll recalculate it here.
+		 *
 		 */
-		if ($this->maintain_ratio === TRUE && ($this->width != 0 OR $this->height != 0))
+		if ($this->maintain_ratio === TRUE && ($this->width != 0 || $this->height != 0))
 		{
 			$this->image_reproportion();
 		}
 
-		/* Was a width and height specified?
+		/*
+		 * Was a width and height specified?
 		 *
-		 * If the destination width/height was not submitted we
-		 * will use the values from the actual file
+		 * If the destination width/height was
+		 * not submitted we will use the values
+		 * from the actual file
+		 *
 		 */
 		if ($this->width == '')
 		{
@@ -387,16 +402,32 @@ class Phpwcms_Image_lib {
 		// Set the quality
 		$this->quality = trim(str_replace('%', '', $this->quality));
 
-		if ($this->quality == '' OR $this->quality == 0 OR ! preg_match('/^[0-9]+$/', $this->quality))
+		if ($this->quality == '' || $this->quality == 0 || ! preg_match('/^[0-9]+$/', $this->quality))
 		{
 			$this->quality = 90;
 		}
 
 		// Set the x/y coordinates
-		$this->x_axis = ($this->x_axis == '' OR ! preg_match('/^[0-9]+$/', $this->x_axis)) ? 0 : $this->x_axis;
-		$this->y_axis = ($this->y_axis == '' OR ! preg_match('/^[0-9]+$/', $this->y_axis)) ? 0 : $this->y_axis;
+		$this->x_axis = ($this->x_axis == '' || ! preg_match('/^[0-9]+$/', $this->x_axis)) ? 0 : $this->x_axis;
+		$this->y_axis = ($this->y_axis == '' || ! preg_match('/^[0-9]+$/', $this->y_axis)) ? 0 : $this->y_axis;
 
 		// Watermark-related Stuff...
+		if ($this->wm_font_color != '')
+		{
+			if (strlen($this->wm_font_color) == 6)
+			{
+				$this->wm_font_color = '#'.$this->wm_font_color;
+			}
+		}
+
+		if ($this->wm_shadow_color != '')
+		{
+			if (strlen($this->wm_shadow_color) == 6)
+			{
+				$this->wm_shadow_color = '#'.$this->wm_shadow_color;
+			}
+		}
+
 		if ($this->wm_overlay_path != '')
 		{
 			$this->wm_overlay_path = str_replace('\\', '/', realpath($this->wm_overlay_path));
@@ -427,6 +458,7 @@ class Phpwcms_Image_lib {
 	 * This is a wrapper function that chooses the proper
 	 * resize function based on the protocol specified
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function resize()
@@ -434,9 +466,9 @@ class Phpwcms_Image_lib {
 		$protocol = 'image_process_' . ( $this->image_library == 'gd2' ? 'gd' : $this->image_library );
 		return $this->$protocol('resize');
 	}
-	
+
 	/**
-	 * Image Centered Crop and Resize 
+	 * Image Centered Crop and Resize
 	 *
 	 * This is a wrapper function that chooses the proper
 	 * cropping and resize function based on the protocol specified
@@ -460,6 +492,7 @@ class Phpwcms_Image_lib {
 	 * This is a wrapper function that chooses the proper
 	 * cropping function based on the protocol specified
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function crop()
@@ -476,6 +509,7 @@ class Phpwcms_Image_lib {
 	 * This is a wrapper function that chooses the proper
 	 * rotation function based on the protocol specified
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function rotate()
@@ -483,14 +517,14 @@ class Phpwcms_Image_lib {
 		// Allowed rotation values
 		$degs = array(90, 180, 270, 'vrt', 'hor');
 
-		if ($this->rotation_angle == '' OR ! in_array($this->rotation_angle, $degs))
+		if ($this->rotation_angle == '' || ! in_array($this->rotation_angle, $degs))
 		{
 			$this->set_error('imglib_rotation_angle_required');
 			return FALSE;
 		}
 
 		// Reassign the width and height
-		if ($this->rotation_angle == 90 OR $this->rotation_angle == 270)
+		if ($this->rotation_angle == 90 || $this->rotation_angle == 270)
 		{
 			$this->width	= $this->orig_height;
 			$this->height	= $this->orig_width;
@@ -502,13 +536,13 @@ class Phpwcms_Image_lib {
 		}
 
 		// Choose resizing function
-		if ($this->image_library === 'imagemagick' OR $this->image_library === 'netpbm')
+		if ($this->image_library === 'imagemagick' || $this->image_library === 'netpbm')
 		{
 			$protocol = 'image_process_'.$this->image_library;
 			return $this->$protocol('rotate');
 		}
 
-		if ($this->rotation_angle === 'hor' OR $this->rotation_angle === 'vrt')
+		if ($this->rotation_angle === 'hor' || $this->rotation_angle === 'vrt')
 		{
 			return $this->image_mirror_gd();
 		}
@@ -525,6 +559,7 @@ class Phpwcms_Image_lib {
 	 *
 	 * This function will resize or crop
 	 *
+	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -592,6 +627,10 @@ class Phpwcms_Image_lib {
 
 		$dst_img = $create($this->width, $this->height);
 
+		if($this->colorspace == 'GRAY' && $create == 'imagecreatetruecolor') {
+			imagefilter($dst_img, IMG_FILTER_GRAYSCALE);
+		}
+
 		if ($this->image_type == 3) // png we can actually preserve transparency
 		{
 			imagealphablending($dst_img, FALSE);
@@ -627,6 +666,7 @@ class Phpwcms_Image_lib {
 	 *
 	 * This function will resize, crop or rotate
 	 *
+	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -656,6 +696,13 @@ class Phpwcms_Image_lib {
 		}
 		elseif($this->target_ext == 'gif')
 		{
+			$cmd .= ' -colorspace '.$this->colorspace;
+			if($this->quality < 100) {
+				$cmd .= ' -dither';
+				if($this->graphicsmagick) {
+					$cms .= ' FloydSteinberg';
+				}
+			}
 			$cmd .= ' -colors 256';
 		}
 		$cmd .= ' -quality '.$this->quality;
@@ -663,7 +710,7 @@ class Phpwcms_Image_lib {
 			$cmd .= ' -define pdf:use-cropbox=true';
 		}
 		$cmd .= ' -antialias';
-		
+
 		if($this->sharpen)
 		{
 			//Sharpen Level
@@ -707,7 +754,7 @@ class Phpwcms_Image_lib {
 		}
 
 		$retval = 1;
-		
+
 		// debug commands
 		//write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
 
@@ -733,6 +780,7 @@ class Phpwcms_Image_lib {
 	 *
 	 * This function will resize, crop or rotate
 	 *
+	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -754,10 +802,16 @@ class Phpwcms_Image_lib {
 			case 2 :
 						$cmd_in		= 'jpegtopnm';
 						$cmd_out	= 'ppmtojpeg';
+						if($this->colorspace == 'GRAY') {
+							$cmd_out .= ' -grayscale';
+						}
 				break;
 			case 3 :
 						$cmd_in		= 'pngtopnm';
 						$cmd_out	= 'ppmtopng';
+						if(strtoupper($this->colorspace) == 'GRAY') {
+							$cmd_out .= ' -grayscale';
+						}
 				break;
 		}
 
@@ -791,6 +845,7 @@ class Phpwcms_Image_lib {
 		$cmd = $this->library_path.$cmd_in.' '.$this->full_src_path.' | '.$cmd_inner.' | '.$cmd_out.' > '.$this->dest_folder.'netpbm.tmp';
 
 		$retval = 1;
+
 		@exec($cmd, $output, $retval);
 
 		// Did it work?
@@ -815,6 +870,7 @@ class Phpwcms_Image_lib {
 	/**
 	 * Image Rotate Using GD
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function image_rotate_gd()
@@ -862,6 +918,7 @@ class Phpwcms_Image_lib {
 	 *
 	 * This function will flip horizontal or vertical
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function image_mirror_gd()
@@ -876,8 +933,11 @@ class Phpwcms_Image_lib {
 
 		if ($this->rotation_angle === 'hor')
 		{
-			for ($i = 0; $i < $height; $i++, $left = 0, $right = $width-1)
+			for ($i = 0; $i < $height; $i++)
 			{
+				$left  = 0;
+				$right = $width-1;
+
 				while ($left < $right)
 				{
 					$cl = imagecolorat($src_img, $left, $i);
@@ -893,8 +953,11 @@ class Phpwcms_Image_lib {
 		}
 		else
 		{
-			for ($i = 0; $i < $width; $i++, $top = 0, $bot = $height-1)
+			for ($i = 0; $i < $width; $i++)
 			{
+				$top = 0;
+				$bot = $height-1;
+
 				while ($top < $bot)
 				{
 					$ct = imagecolorat($src_img, $i, $top);
@@ -936,6 +999,7 @@ class Phpwcms_Image_lib {
 	 * This is a wrapper function that chooses the type
 	 * of watermarking based on the specified preference.
 	 *
+	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -949,6 +1013,7 @@ class Phpwcms_Image_lib {
 	/**
 	 * Watermark - Graphic Version
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function overlay_watermark()
@@ -979,8 +1044,8 @@ class Phpwcms_Image_lib {
 		// invert the offset. Same with the horizontal
 		// offset when the image is at the right
 
-		$this->wm_vrt_alignment = strtoupper($this->wm_vrt_alignment[0]);
-		$this->wm_hor_alignment = strtoupper($this->wm_hor_alignment[0]);
+		$this->wm_vrt_alignment = strtoupper(substr($this->wm_vrt_alignment, 0, 1));
+		$this->wm_hor_alignment = strtoupper(substr($this->wm_hor_alignment, 0, 1));
 
 		if ($this->wm_vrt_alignment == 'B')
 			$this->wm_vrt_offset = $this->wm_vrt_offset * -1;
@@ -992,24 +1057,26 @@ class Phpwcms_Image_lib {
 		$x_axis = $this->wm_hor_offset + $this->wm_padding;
 		$y_axis = $this->wm_vrt_offset + $this->wm_padding;
 
-		// Set the vertical position
-		if ($this->wm_vrt_alignment === 'M')
+		//  Set the vertical position
+		switch ($this->wm_vrt_alignment)
 		{
-			$y_axis += ($this->orig_height / 2) - ($wm_height / 2);
-		}
-		elseif ($this->wm_vrt_alignment === 'B')
-		{
-			$y_axis += $this->orig_height - $wm_height;
+			case 'T':
+				break;
+			case 'M':	$y_axis += ($this->orig_height / 2) - ($wm_height / 2);
+				break;
+			case 'B':	$y_axis += $this->orig_height - $wm_height;
+				break;
 		}
 
-		// Set the horizontal position
-		if ($this->wm_hor_alignment === 'C')
+		//  Set the horizontal position
+		switch ($this->wm_hor_alignment)
 		{
-			$x_axis += ($this->orig_width / 2) - ($wm_width / 2);
-		}
-		elseif ($this->wm_hor_alignment === 'R')
-		{
-			$x_axis += $this->orig_width - $wm_width;
+			case 'L':
+				break;
+			case 'C':	$x_axis += ($this->orig_width / 2) - ($wm_width / 2);
+				break;
+			case 'R':	$x_axis += $this->orig_width - $wm_width;
+				break;
 		}
 
 		//  Build the finalized image
@@ -1056,6 +1123,7 @@ class Phpwcms_Image_lib {
 	/**
 	 * Watermark - Text Version
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	function text_watermark()
@@ -1073,6 +1141,21 @@ class Phpwcms_Image_lib {
 
 		// Fetch source image properties
 		$this->get_image_properties();
+
+		// Set RGB values for text and shadow
+		$this->wm_font_color	= str_replace('#', '', $this->wm_font_color);
+		$this->wm_shadow_color	= str_replace('#', '', $this->wm_shadow_color);
+
+		$R1 = hexdec(substr($this->wm_font_color, 0, 2));
+		$G1 = hexdec(substr($this->wm_font_color, 2, 2));
+		$B1 = hexdec(substr($this->wm_font_color, 4, 2));
+
+		$R2 = hexdec(substr($this->wm_shadow_color, 0, 2));
+		$G2 = hexdec(substr($this->wm_shadow_color, 2, 2));
+		$B2 = hexdec(substr($this->wm_shadow_color, 4, 2));
+
+		$txt_color	= imagecolorclosest($src_img, $R1, $G1, $B1);
+		$drp_color	= imagecolorclosest($src_img, $R2, $G2, $B2);
 
 		// Reverse the vertical offset
 		// When the image is positioned at the bottom
@@ -1118,14 +1201,14 @@ class Phpwcms_Image_lib {
 		$this->wm_vrt_alignment = strtoupper(substr($this->wm_vrt_alignment, 0, 1));
 		$this->wm_hor_alignment = strtoupper(substr($this->wm_hor_alignment, 0, 1));
 
-		// Set verticle alignment
-		if ($this->wm_vrt_alignment === 'M')
+		switch ($this->wm_vrt_alignment)
 		{
-			$y_axis += ($this->orig_height / 2) + ($fontheight / 2);
-		}
-		elseif ($this->wm_vrt_alignment === 'B')
-		{
-			$y_axis += $this->orig_height - $fontheight - $this->wm_shadow_distance - ($fontheight / 2);
+			case	 "T" :
+				break;
+			case "M":	$y_axis += ($this->orig_height/2)+($fontheight/2);
+				break;
+			case "B":	$y_axis += ($this->orig_height - $fontheight - $this->wm_shadow_distance - ($fontheight/2));
+				break;
 		}
 
 		$x_shad = $x_axis + $this->wm_shadow_distance;
@@ -1134,60 +1217,32 @@ class Phpwcms_Image_lib {
 		// Set horizontal alignment
 		switch ($this->wm_hor_alignment)
 		{
-			case 'L':
+			case "L":
 				break;
-			case 'R':
-				if ($this->wm_use_drop_shadow)
-				{
-					$x_shad += ($this->orig_width - $fontwidth*strlen($this->wm_text));
-					$x_axis += ($this->orig_width - $fontwidth*strlen($this->wm_text));
-				}
+			case "R":
+						if ($this->wm_use_drop_shadow) {
+							$x_shad += ($this->orig_width - $fontwidth*strlen($this->wm_text));
+							$x_axis += ($this->orig_width - $fontwidth*strlen($this->wm_text));
+						}
 				break;
-			case 'C':
-				if ($this->wm_use_drop_shadow)
-				{
-					$x_shad += floor(($this->orig_width - $fontwidth*strlen($this->wm_text))/2);
-					$x_axis += floor(($this->orig_width - $fontwidth*strlen($this->wm_text))/2);
-				}
+			case "C":
+						if ($this->wm_use_drop_shadow) {
+							$x_shad += floor(($this->orig_width - $fontwidth*strlen($this->wm_text))/2);
+							$x_axis += floor(($this->orig_width  -$fontwidth*strlen($this->wm_text))/2);
+						}
 				break;
 		}
 
-		if ($this->wm_use_drop_shadow)
+		//  Add the text to the source image
+		if ($this->wm_use_truetype && $this->wm_use_drop_shadow)
 		{
-			// Set horizontal alignment
-			if ($this->wm_hor_alignment === 'R')
-			{
-				$x_shad += $this->orig_width - ($fontwidth * strlen($this->wm_text));
-				$x_axis += $this->orig_width - ($fontwidth * strlen($this->wm_text));
-			}
-			elseif ($this->wm_hor_alignment === 'C')
-			{
-				$x_shad += floor(($this->orig_width - ($fontwidth * strlen($this->wm_text))) / 2);
-				$x_axis += floor(($this->orig_width - ($fontwidth * strlen($this->wm_text))) / 2);
-			}
-
-			/* Set RGB values for text and shadow
-			 *
-			 * First character is #, so we don't really need it.
-			 * Get the rest of the string and split it into 2-length
-			 * hex values:
-			 */
-			$txt_color = str_split(substr($this->wm_font_color, 1, 6), 2);
-			$txt_color = imagecolorclosest($src_img, hexdec($txt_color[0]), hexdec($txt_color[1]), hexdec($txt_color[2]));
-			$drp_color = str_split(substr($this->wm_shadow_color, 1, 6), 2);
-			$drp_color = imagecolorclosest($src_img, hexdec($drp_color[0]), hexdec($drp_color[1]), hexdec($drp_color[2]));
-
-			// Add the text to the source image
-			if ($this->wm_use_truetype)
-			{
-				imagettftext($src_img, $this->wm_font_size, 0, $x_shad, $y_shad, $drp_color, $this->wm_font_path, $this->wm_text);
-				imagettftext($src_img, $this->wm_font_size, 0, $x_axis, $y_axis, $txt_color, $this->wm_font_path, $this->wm_text);
-			}
-			else
-			{
-				imagestring($src_img, $this->wm_font_size, $x_shad, $y_shad, $this->wm_text, $drp_color);
-				imagestring($src_img, $this->wm_font_size, $x_axis, $y_axis, $this->wm_text, $txt_color);
-			}
+			imagettftext($src_img, $this->wm_font_size, 0, $x_shad, $y_shad, $drp_color, $this->wm_font_path, $this->wm_text);
+			imagettftext($src_img, $this->wm_font_size, 0, $x_axis, $y_axis, $txt_color, $this->wm_font_path, $this->wm_text);
+		}
+		elseif ($this->wm_use_drop_shadow)
+		{
+			imagestring($src_img, $this->wm_font_size, $x_shad, $y_shad, $this->wm_text, $drp_color);
+			imagestring($src_img, $this->wm_font_size, $x_axis, $y_axis, $this->wm_text, $txt_color);
 		}
 
 		// Output the final image
@@ -1213,7 +1268,7 @@ class Phpwcms_Image_lib {
 	 * This simply creates an image resource handle
 	 * based on the type of image being processed
 	 *
-	 * @param	string
+	 * @access	public
 	 * @param	string
 	 * @return	resource
 	 */
@@ -1270,6 +1325,7 @@ class Phpwcms_Image_lib {
 	 * Takes an image resource as input and writes the file
 	 * to the specified destination
 	 *
+	 * @access	public
 	 * @param	resource
 	 * @return	bool
 	 */
@@ -1365,13 +1421,14 @@ class Phpwcms_Image_lib {
 	 * This function lets us re-proportion the width/height
 	 * if users choose to maintain the aspect ratio when resizing.
 	 *
+	 * @access	public
 	 * @return	void
 	 */
 	function image_reproportion()
 	{
-		if (($this->width == 0 && $this->height == 0) OR $this->orig_width == 0 OR $this->orig_height == 0
-			OR ( ! preg_match('/^[0-9]+$/', $this->width) && ! preg_match('/^[0-9]+$/', $this->height))
-			OR ! preg_match('/^[0-9]+$/', $this->orig_width) OR ! preg_match('/^[0-9]+$/', $this->orig_height))
+		if (($this->width == 0 && $this->height == 0) || $this->orig_width == 0 || $this->orig_height == 0
+			|| ( ! preg_match('/^[0-9]+$/', $this->width) && ! preg_match('/^[0-9]+$/', $this->height))
+			|| ! preg_match('/^[0-9]+$/', $this->orig_width) || ! preg_match('/^[0-9]+$/', $this->orig_height))
 		{
 			return;
 		}
@@ -1413,6 +1470,7 @@ class Phpwcms_Image_lib {
 	 *
 	 * A helper function that gets info about the file
 	 *
+	 * @access	public
 	 * @param	string
 	 * @param	bool
 	 * @return	mixed
@@ -1432,18 +1490,18 @@ class Phpwcms_Image_lib {
 			$this->set_error('imglib_invalid_path');
 			return FALSE;
 		}
-		
+
 		$cache	= md5($path);
-		
+
 		if (!isset($this->image_cache[$cache]))
 		{
 
 			$vals	= getimagesize($path);
 			$types	= array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
 			$mime	= (isset($types[$vals[2]])) ? 'image/'.$types[$vals[2]] : 'image/jpg';
-			
+
 			$this->image_current_vals = $vals;
-			
+
 			$this->image_cache[$cache] = array(
 				'orig_width'	=> $vals[0],
 				'orig_height'	=> $vals[1],
@@ -1451,15 +1509,15 @@ class Phpwcms_Image_lib {
 				'size_str'		=> $vals[3],
 				'mime_type'		=> $mime
 			);
-			
+
 
 		}
-		
+
 		if ($return == TRUE)
 		{
 			return $this->image_cache[$cache];
 		}
-		
+
 		$this->orig_width	= $this->image_cache[$cache]['orig_width'];
 		$this->orig_height	= $this->image_cache[$cache]['orig_height'];
 		$this->image_type	= $this->image_cache[$cache]['image_type'];
@@ -1485,6 +1543,7 @@ class Phpwcms_Image_lib {
 	 *			'new_height'	=> ''
 	 *		);
 	 *
+	 * @access	public
 	 * @param	array
 	 * @return	array
 	 */
@@ -1499,11 +1558,11 @@ class Phpwcms_Image_lib {
 
 		foreach ($allowed as $item)
 		{
-			if ( ! isset($vals[$item]) OR $vals[$item] == '')
+			if ( ! isset($vals[$item]) || $vals[$item] == '')
 				$vals[$item] = 0;
 		}
 
-		if ($vals['width'] == 0 OR $vals['height'] == 0)
+		if ($vals['width'] == 0 || $vals['height'] == 0)
 		{
 			return $vals;
 		}
@@ -1532,6 +1591,7 @@ class Phpwcms_Image_lib {
 	 * $array['ext']  = '.jpg';
 	 * $array['name'] = 'my.cool';
 	 *
+	 * @access	public
 	 * @param	array
 	 * @param	bool
 	 * @return	array
@@ -1569,6 +1629,7 @@ class Phpwcms_Image_lib {
 	/**
 	 * Get GD version
 	 *
+	 * @access	public
 	 * @return	mixed
 	 */
 	function gd_version()
@@ -1591,7 +1652,7 @@ class Phpwcms_Image_lib {
 	 * @return	void
 	 */
 	function set_error($msg)
-	{	
+	{
 		if(!$this->lang_localized) {
 			$local_lang = strtolower( isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : $GLOBALS['phpwcms']['DOCTYPE_LANG'] );
 			if($local_lang && is_file(PHPWCMS_ROOT.'/include/inc_lang/image/image.'.$local_lang.'.php')) {
@@ -1600,7 +1661,7 @@ class Phpwcms_Image_lib {
 				$this->lang_localized	= TRUE;
 			}
 		}
-	
+
 		if (is_array($msg))
 		{
 			foreach ($msg as $val)

@@ -125,31 +125,24 @@ if($image['template']) {
 
 			}
 
-			$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$image['images'][$key][3],
-								"image_name"	=>	$image['images'][$key][2] . '.' . $image['images'][$key][3],
-								"max_width"		=>	$image['width'],
-								"max_height"	=>	$image['height'],
-								"thumb_name"	=>	md5(	$image['images'][$key][2].$image['width'].
-															$image['height'].$phpwcms["sharpen_level"].
-															$image['crop']
-														),
-								'crop_image'	=>	$image['crop']
-        					  )
-						);
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$image['images'][$key][3],
+				"image_name"	=>	$image['images'][$key][2] . '.' . $image['images'][$key][3],
+				"max_width"		=>	$image['width'],
+				"max_height"	=>	$image['height'],
+				"thumb_name"	=>	md5($image['images'][$key][2].$image['width'].$image['height'].$phpwcms["sharpen_level"].$image['crop'].$phpwcms['colorspace']),
+				'crop_image'	=>	$image['crop']
+			));
 
 			if($image['zoom']) {
 
-				$zoominfo = get_cached_image(
-						array(	"target_ext"	=>	$image['images'][$key][3],
-								"image_name"	=>	$image['images'][$key][2] . '.' . $image['images'][$key][3],
-								"max_width"		=>	$phpwcms["img_prev_width"],
-								"max_height"	=>	$phpwcms["img_prev_height"],
-								"thumb_name"	=>	md5(	$image['images'][$key][2].$phpwcms["img_prev_width"].
-															$phpwcms["img_prev_height"].$phpwcms["sharpen_level"]
-														)
-        					  )
-						);
+				$zoominfo = get_cached_image(array(
+					"target_ext"	=>	$image['images'][$key][3],
+					"image_name"	=>	$image['images'][$key][2] . '.' . $image['images'][$key][3],
+					"max_width"		=>	$phpwcms["img_prev_width"],
+					"max_height"	=>	$phpwcms["img_prev_height"],
+					"thumb_name"	=>	md5($image['images'][$key][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+				));
 			}
 
 			if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false && is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {

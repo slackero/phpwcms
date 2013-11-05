@@ -30,7 +30,7 @@ $ecard["selected"]		= '';
 
 // check if e-card was posted
 if(isset($_POST['ecard_chooser'])) {
-									
+
 	$ecard["chooser"] 			= isset($_POST['ecard_chooser']) ? intval($_POST['ecard_chooser']) : 0;
 	$ecard["selected"]			= $ecard["chooser"];
 	$ecard["sender_name"]		= clean_slweg(remove_unsecure_rptags($_POST["ecard_sender_name"]));
@@ -38,24 +38,22 @@ if(isset($_POST['ecard_chooser'])) {
 	$ecard["recipient_name"]	= clean_slweg(remove_unsecure_rptags($_POST["ecard_recipient_name"]));
 	$ecard["recipient_email"]	= clean_slweg(remove_unsecure_rptags($_POST["ecard_recipient_email"]));
 	$ecard["sender_msg"]		= clean_slweg(remove_unsecure_rptags($_POST["ecard_sender_msg"]));
-									
+
 	if(!is_valid_email($ecard["sender_email"]) || !is_valid_email($ecard["recipient_email"])) {
 		$ecard["send_err"] = 1;
 	} else {
 		//send message
 		include_once('include/inc_ext/phpmailer/class.phpmailer.php');
 		$ecard["capt"] = explode("\n", $ecard["caption"]);
-		
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
-								"image_name"	=>	$ecard['images'][$ecard["chooser"]][2] . '.' . $ecard['images'][$ecard["chooser"]][3],
-								"max_width"		=>	$ecard['images'][$ecard["chooser"]][4],
-								"max_height"	=>	$ecard['images'][$ecard["chooser"]][5],
-								"thumb_name"	=>	md5(	$ecard['images'][$ecard["chooser"]][2].$ecard['images'][$ecard["chooser"]][4].
-															$ecard['images'][$ecard["chooser"]][5].$GLOBALS['phpwcms']["sharpen_level"]
-														)
-        					  )
-						);
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
+			"image_name"	=>	$ecard['images'][$ecard["chooser"]][2] . '.' . $ecard['images'][$ecard["chooser"]][3],
+			"max_width"		=>	$ecard['images'][$ecard["chooser"]][4],
+			"max_height"	=>	$ecard['images'][$ecard["chooser"]][5],
+			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$ecard['images'][$ecard["chooser"]][4].$ecard['images'][$ecard["chooser"]][5].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        ));
+
 		$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].' alt="'.html_specialchars($ecard['images'][$ecard["chooser"]][1]).'" />';
 
 		$ecard["send"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["send"]);
@@ -73,19 +71,16 @@ if(isset($_POST['ecard_chooser'])) {
 		if($ecard["sender_name"]) $ecard["mailer"]->FromName = $ecard["sender_name"];
 		$ecard["mailer"]->AddAddress($ecard["recipient_email"], $ecard["recipient_name"]);
 		$ecard["mailer"]->Subject = ($ecard["subject"]) ? $ecard["subject"] : 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
-		
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
-								"image_name"	=>	$ecard['images'][$ecard["chooser"]][2] . '.' . $ecard['images'][$ecard["chooser"]][3],
-								"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-								"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-								"thumb_name"	=>	md5(	$ecard['images'][$ecard["chooser"]][2].$GLOBALS['phpwcms']["img_prev_width"].
-															$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].'ecard'
-														)
-        					  )
-						);
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
+			"image_name"	=>	$ecard['images'][$ecard["chooser"]][2] . '.' . $ecard['images'][$ecard["chooser"]][3],
+			"max_width"		=>	$phpwcms["img_prev_width"],
+			"max_height"	=>	$phpwcms["img_prev_height"],
+			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'].'ecard')
+		));
 		$list_img_temp  = '<img src="'.PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].' alt="'.html_specialchars($ecard['images'][$ecard["chooser"]][1]).'" />';
-		
+
 		if($ecard["mail"]) {
 			$ecard["mail"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["mail"]);
 			$ecard["mail"] = str_replace('###ECARD_IMAGE###', $list_img_temp, $ecard["mail"]);
@@ -110,36 +105,36 @@ if(isset($_POST['ecard_chooser'])) {
 			$ecard["mailer"]->Username = $phpwcms['SMTP_USER'];
 			$ecard["mailer"]->Password = $phpwcms['SMTP_PASS'];
 		}
-		
+
 		$ecard["mailer"]->Send();
 
 		$CNT_TMP .= $ecard["send"];
 		$ecard["send_success"]	= 1;
 	}
 }
-									
+
 if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_success"]) {
 	//Nochmal Prüfen auf leere Werte oder Dopplungen und Zuweisen der einzelnen Werte
-	
+
 	$ecard["onover"]	= preg_replace('/;{1,}$/', '', $ecard["onover"])	.';';
 	$ecard["onclick"]	= preg_replace('/;{1,}$/', '', $ecard["onclick"])	.';';
 	$ecard["onout"]		= preg_replace('/;{1,}$/', '', $ecard["onout"])		.';';
-	
+
 	//$ecard["capt"] = explode("\n", $ecard["caption"]);
 	$ecard["show"] = array();
-	
+
 	$ecard_count = 0;
-	
+
 	foreach($ecard['images'] as $key => $value) {
 
 			$ecard['temp_caption'] = explode('|', $ecard['images'][$key][6], 2);
 			$ecard['images'][$key][6] = $ecard['temp_caption'][0];
 			//check if image should be available as e-card
 			if(substr($ecard['images'][$key][6], 0, 1) != '~') {
-			
+
 				//check if radio button or javascript
 				if(!$ecard["selector"]) {
-				
+
 					$temp_cap  = '<table '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">'."\n<tr>\n";
 					$temp_cap .= '<td valign="top"><input type="radio" name="ecard_chooser" id="ecard_chooser_'.$ecard_count.'" value="'.$key.'" ';
 					if(isset($ecard["chooser"]) && $ecard["chooser"] == $key) {
@@ -147,9 +142,9 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 					}
 					$temp_cap .= "/></td>\n<td ".$template_default["article"]["ecard_chooser_text"].">";
 					$temp_cap .= html_specialchars(trim($ecard['images'][$key][6]))."</td>\n</tr>\n</table>"; //Bildunterschrift
-			
+
 				} else {
-			
+
 					$temp_cap  = '<table width="100%" '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">';
 					$temp_cap .= '<tr><td id="ecard'.$key.'" '.$template_default["article"]["ecard_chooser_text"];
 					if($ecard["onover"]) {
@@ -162,23 +157,23 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 						$temp_cap .= ' onmouseout="'.$ecard["onout"].'"';
 					}
 					$temp_cap .= '>'.html_specialchars(trim($ecard['images'][$key][6])).'</td></tr></table>';
-				
+
 				}
-				
+
 			} else {
-			
+
 				// show image caption only
 				$temp_cap = html_specialchars(substr($ecard['images'][$key][6], 1));
-			
+
 			}
-			
+
 			$ecard['images'][$key][6] = $temp_cap;
 			if(!empty($ecard['temp_caption'][1])) {
 				$ecard['images'][$key][6] .= '|'.$ecard['temp_caption'][1];
 			}
-			
+
 			$ecard_count++;
-			
+
 	}
 	switch($ecard["pos"]) {
 		case 0: $ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", '', 1); 		break;	//links

@@ -1214,15 +1214,14 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 	$caption	= empty($img['caption']) ? '' : ' :: '.$img['caption'];
 	$title		= empty($title) ? '' : ' title="'.html_specialchars($title.$caption).'"';
 
-	$thumb_image = get_cached_image(
-			array(	"target_ext"	=>	$img['f_ext'],
-					"image_name"	=>	$img['f_hash'] . '.' . $img['f_ext'],
-					"max_width"		=>	$width,
-					"max_height"	=>	$height,
-					"thumb_name"	=>	md5($img['f_hash'].$width.$height.$GLOBALS['phpwcms']["sharpen_level"].$crop),
-					'crop_image'	=>	$crop
-				  )
-			);
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$img['f_ext'],
+		"image_name"	=>	$img['f_hash'] . '.' . $img['f_ext'],
+		"max_width"		=>	$width,
+		"max_height"	=>	$height,
+		"thumb_name"	=>	md5($img['f_hash'].$width.$height.$GLOBALS['phpwcms']["sharpen_level"].$crop.$GLOBALS['phpwcms']['colorspace']),
+		'crop_image'	=>	$crop
+	));
 
 	if($thumb_image) {
 

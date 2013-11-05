@@ -20,19 +20,18 @@ if (!defined('PHPWCMS_ROOT')) {
 // Text with image
 $cinfo[1] = cut_string($row["acontent_title"],'&#8230;', 55);
 $cinfo[2] = cut_string($row["acontent_subtitle"],'&#8230;', 55);
-$cinfo[3] = str_replace("\n", " ", cut_string($row["acontent_text"],'&#8230;', 150));	
+$cinfo[3] = str_replace("\n", " ", cut_string($row["acontent_text"],'&#8230;', 150));
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8
 // dbid:filename:hash:extension:width:height:caption:position:zoom
 $cinfo_image = explode(":", $row["acontent_image"]);
 if(isset($cinfo_image[2]) && is_array($cinfo_image) && count($cinfo_image)) {
 
-	$thumb_image = get_cached_image(
-			 					array(	"target_ext"	=>	$cinfo_image[3],
-										"image_name"	=>	$cinfo_image[2] . '.' . $cinfo_image[3],
-										"thumb_name"	=>	md5($cinfo_image[2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        							  )
-								);
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$cinfo_image[3],
+		"image_name"	=>	$cinfo_image[2] . '.' . $cinfo_image[3],
+		"thumb_name"	=>	md5($cinfo_image[2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+	));
 
 	if($thumb_image != false) {
 		$cinfo_image = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';

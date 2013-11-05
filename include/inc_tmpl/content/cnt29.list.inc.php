@@ -35,12 +35,12 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 	// browse images and list available
 	// will be visible only when aceessible
 	foreach($image_list['images'] as $key => $value) {
-	
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$image_list['images'][$key][3],
-								"image_name"	=>	$image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
-								"thumb_name"	=>	md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        					  ));
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$image_list['images'][$key][3],
+			"image_name"	=>	$image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
+			"thumb_name"	=>	md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($thumb_image != false) {
 			if($imgx == 4) {

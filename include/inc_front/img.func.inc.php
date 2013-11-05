@@ -33,27 +33,24 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 		$image[8] = $image['zoom'];
 	}
 
-	$thumb_image = get_cached_image(
-		array(	"target_ext"	=>	$image[3],
-			"image_name"	=>	$image[2] . '.' . $image[3],
-			"max_width"		=>	$image[4],
-			"max_height"	=>	$image[5],
-			"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop),
-			'crop_image'	=>	$crop
-		)
-	);
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$image[3],
+		"image_name"	=>	$image[2] . '.' . $image[3],
+		"max_width"		=>	$image[4],
+		"max_height"	=>	$image[5],
+		"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop.$phpwcms['colorspace']),
+		'crop_image'	=>	$crop
+	));
 
 	if($thumb_image && $image[8]) {
 
-		$zoominfo = get_cached_image(
-			array(
-				"target_ext"	=>	$image[3],
-				"image_name"	=>	$image[2] . '.' . $image[3],
-				"max_width"		=>	$phpwcms["img_prev_width"],
-				"max_height"	=>	$phpwcms["img_prev_height"],
-				"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
-			)
-		);
+		$zoominfo = get_cached_image(array(
+			"target_ext"	=>	$image[3],
+			"image_name"	=>	$image[2] . '.' . $image[3],
+			"max_width"		=>	$phpwcms["img_prev_width"],
+			"max_height"	=>	$phpwcms["img_prev_height"],
+			"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($zoominfo == false) {
 			$image[8] = 0;
@@ -193,26 +190,24 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 	$cnt_image_lightbox = empty($GLOBALS['cnt_image_lightbox']) ? 0 : 1;
 	$crop = empty($image['crop']) ? 0 : 1;
 
-	$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$image[3],
-								"image_name"	=>	$image[2] . '.' . $image[3],
-								"max_width"		=>	$image[4],
-								"max_height"	=>	$image[5],
-								"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop),
-								'crop_image'	=>	$crop
-        					  )
-						);
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$image[3],
+		"image_name"	=>	$image[2] . '.' . $image[3],
+		"max_width"		=>	$image[4],
+		"max_height"	=>	$image[5],
+		"thumb_name"	=>	md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop.$phpwcms['colorspace']),
+		'crop_image'	=>	$crop
+	));
 
 	if($image[8]) {
 
-		$zoominfo = get_cached_image(
-						array(	"target_ext"	=>	$image[3],
-								"image_name"	=>	$image[2] . '.' . $image[3],
-								"max_width"		=>	$phpwcms["img_prev_width"],
-								"max_height"	=>	$phpwcms["img_prev_height"],
-								"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"])
-        					  )
-						);
+		$zoominfo = get_cached_image(array(
+			"target_ext"	=>	$image[3],
+			"image_name"	=>	$image[2] . '.' . $image[3],
+			"max_width"		=>	$phpwcms["img_prev_width"],
+			"max_height"	=>	$phpwcms["img_prev_height"],
+			"thumb_name"	=>	md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($zoominfo == false) $image[8] = 0;
 
@@ -225,9 +220,9 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 		// read content image info
 		$image_border	= ' border="'.intval($GLOBALS["template_default"]["article"]["image_border"]).'"';
 		$image_imgclass	= $GLOBALS["template_default"]["article"]["image_imgclass"];
-		$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
+		$image_imgclass	= $image_imgclass ? ' class="'.$image_imgclass.'"' : '';
 		$image_class 	= $GLOBALS["template_default"]["article"]["image_class"];
-		$image_class	= ($image_class) ? $image_class : $GLOBALS['template_default']['classes']['image-thumb'];
+		$image_class	= $image_class ? $image_class : $GLOBALS['template_default']['classes']['image-thumb'];
 
 		// image caption
 		$caption	= getImageCaption(base64_decode($image[6]));
@@ -457,29 +452,24 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				$table .= '">' . LF . '			';
 			}
 
-			$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$imagelist['images'][$key][3],
-								"image_name"	=>	$imagelist['images'][$key][2] . '.' . $imagelist['images'][$key][3],
-								"max_width"		=>	$imagelist['images'][$key][4],
-								"max_height"	=>	$imagelist['images'][$key][5],
-								"thumb_name"	=>	md5(	$imagelist['images'][$key][2].$imagelist['images'][$key][4].
-															$imagelist['images'][$key][5].$GLOBALS['phpwcms']["sharpen_level"].$crop),
-								'crop_image'	=>	$crop
-        					  )
-						);
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$imagelist['images'][$key][3],
+				"image_name"	=>	$imagelist['images'][$key][2] . '.' . $imagelist['images'][$key][3],
+				"max_width"		=>	$imagelist['images'][$key][4],
+				"max_height"	=>	$imagelist['images'][$key][5],
+				"thumb_name"	=>	md5($imagelist['images'][$key][2].$imagelist['images'][$key][4].$imagelist['images'][$key][5].$GLOBALS['phpwcms']["sharpen_level"].$crop.$GLOBALS['phpwcms']['colorspace']),
+				'crop_image'	=>	$crop
+        	));
 
 			if($thumb_image && $imagelist['zoom']) {
 
-				$zoominfo = get_cached_image(
-						array(	"target_ext"	=>	$imagelist['images'][$key][3],
-								"image_name"	=>	$imagelist['images'][$key][2] . '.' . $imagelist['images'][$key][3],
-								"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-								"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-								"thumb_name"	=>	md5(	$imagelist['images'][$key][2].$GLOBALS['phpwcms']["img_prev_width"].
-															$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"]
-														)
-        					  )
-						);
+				$zoominfo = get_cached_image(array(
+					"target_ext"	=>	$imagelist['images'][$key][3],
+					"image_name"	=>	$imagelist['images'][$key][2] . '.' . $imagelist['images'][$key][3],
+					"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
+					"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
+					"thumb_name"	=>	md5($imagelist['images'][$key][2].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+				));
 			}
 
 			// now try to build caption and if neccessary add alt to image or set external link for image

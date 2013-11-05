@@ -325,16 +325,11 @@ if($img_count) {
 
 		// 0   :1       :2   :3        :4    :5     :6      :7       :8
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$plugin['data']['shopprod_images'][$key]['f_ext'],
-								"image_name"	=>	$plugin['data']['shopprod_images'][$key]['f_hash'] . '.' . $plugin['data']['shopprod_images'][$key]['f_ext'],
-								"thumb_name"	=>	md5(	$plugin['data']['shopprod_images'][$key]['f_hash'].
-															$phpwcms["img_list_width"].
-															$phpwcms["img_list_height"].
-															$phpwcms["sharpen_level"]
-														)
-        					  )
-							);
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$plugin['data']['shopprod_images'][$key]['f_ext'],
+			"image_name"	=>	$plugin['data']['shopprod_images'][$key]['f_hash'] . '.' . $plugin['data']['shopprod_images'][$key]['f_ext'],
+			"thumb_name"	=>	md5($plugin['data']['shopprod_images'][$key]['f_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        ));
 
 		if($thumb_image != false) {
 

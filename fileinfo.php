@@ -59,17 +59,15 @@ if($file_id) {
 	if($result = mysql_query($sql, $db) or die("error")) {
 		if($row = mysql_fetch_assoc($result)) {
 			$filename = html_specialchars($row["f_name"]);
-			
-			
-			$thumb_image = get_cached_image(
-					array(	"target_ext"	=>	$row["f_ext"],
-							"image_name"	=>	$row["f_hash"] . '.' . $row["f_ext"],
-							"thumb_name"	=>	md5($row["f_hash"].'538538'.$phpwcms["sharpen_level"]),
-							"max_width"		=>	538,
-							"max_height"	=>	538
-        			)
-				);
-		
+
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$row["f_ext"],
+				"image_name"	=>	$row["f_hash"] . '.' . $row["f_ext"],
+				"thumb_name"	=>	md5($row["f_hash"].'538538'.$phpwcms["sharpen_level"].$phpwcms['colorspace']),
+				"max_width"		=>	538,
+				"max_height"	=>	538
+			));
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -97,7 +95,7 @@ if($file_id) {
 	} else {
 		echo '	var height = 300;';
 	}
-	
+
 	echo '
 		window.moveTo(5,5);
 		window.resizeTo(width,height);
@@ -106,7 +104,7 @@ if($file_id) {
 	';
 
 ?>
-	
+
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -128,15 +126,15 @@ if($file_id) {
     <td bgcolor="#F5F8F9"><table width="518" border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
         <td width="422" class="v10"><?php echo $BL['CREATED'] ?>: <strong><?php echo date($BL['DATE_FORMAT'], intval($row["f_created"])) ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $BL['SIZE'] ?>: <strong><?php echo fsizelong($row["f_size"]) ?></strong></td>
-        <td width="96" align="right"><?php 
+        <td width="96" align="right"><?php
 		if(!$row["f_trash"]) {
-		?><a href="include/inc_act/act_download.php?dl=<?php 
-		
+		?><a href="include/inc_act/act_download.php?dl=<?php
+
 		echo $row["f_id"];
 		//download public file too
 		if($public) echo '&amp;pl=1';
-		
-		?>" target="_blank" title="<?php echo $BL['DOWNLOAD_FILE'].": ".$filename ?>"><img src="img/button/download_disc_large.gif" alt="" width="61" height="13" border="0" /></a><?php 
+
+		?>" target="_blank" title="<?php echo $BL['DOWNLOAD_FILE'].": ".$filename ?>"><img src="img/button/download_disc_large.gif" alt="" width="61" height="13" border="0" /></a><?php
 		} else {
 		 echo "<img src=\"img/button/file_in_trash.gif\" width=\"61\" height=\"13\" border=\"0\" title=\"".$BL['FILE_IN_TRASH']."\">";
 		}
@@ -164,15 +162,15 @@ if($file_id) {
   <tr>
     <td bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
     <td colspan="2" align="center" bgcolor="#F5F8F9"><?php
-	
+
 	echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
 
 	?></td>
     <td bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
   </tr>
   <tr><td colspan="4" bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<?php 
-	} 
+<?php
+	}
 	if($row["f_longinfo"]) {
 ?>
   <tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

@@ -1313,13 +1313,13 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 			if(!empty($article["article_image"]["list_hash"])) {
 
-				$thumb_image = get_cached_image(
-									array(	"target_ext"	=>	$article["article_image"]['list_ext'],
-											"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
-											"max_width"		=>	$article["article_image"]['list_width'],
-											"max_height"	=>	$article["article_image"]['list_height'],
-											"thumb_name"	=>	md5($article["article_image"]['list_hash'].$article["article_image"]['list_width'].$article["article_image"]['list_height'].$GLOBALS['phpwcms']["sharpen_level"])
-        							  ));
+				$thumb_image = get_cached_image(array(
+					"target_ext"	=>	$article["article_image"]['list_ext'],
+					"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
+					"max_width"		=>	$article["article_image"]['list_width'],
+					"max_height"	=>	$article["article_image"]['list_height'],
+					"thumb_name"	=>	md5($article["article_image"]['list_hash'].$article["article_image"]['list_width'].$article["article_image"]['list_height'].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+				));
 
 				if($thumb_image != false) {
 
@@ -1337,14 +1337,13 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 					if($article["article_image"]["list_zoom"]) {
 
-						$zoominfo = get_cached_image(
-											array(	"target_ext"	=>	$article["article_image"]['list_ext'],
-													"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
-													"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-													"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-													"thumb_name"	=>	md5($article["article_image"]['list_hash'].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"])
-        					  						)
-												);
+						$zoominfo = get_cached_image(array(
+							"target_ext"	=>	$article["article_image"]['list_ext'],
+							"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
+							"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
+							"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
+							"thumb_name"	=>	md5($article["article_image"]['list_hash'].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+        				));
 
 						if($zoominfo != false) {
 

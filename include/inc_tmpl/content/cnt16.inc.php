@@ -26,7 +26,7 @@ $caption_box = '';
 if(!isset($content["ecard"])) {
 
 	$content["ecard"] = array(
-	
+
 		"subject"	=> '',
 		"selector"	=> 0,
 		"onover"	=> '',
@@ -43,7 +43,7 @@ if(!isset($content["ecard"])) {
 		'col'		=> 1,
 		'space'		=> '',
 		'zoom'	=> 0
-		
+
 	);
 
 }
@@ -95,22 +95,17 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
 	// browse images and list available
 	// will be visible only when aceessible
 	foreach($content['ecard']['images'] as $key => $value) {
-	
+
 		$caption_box .= html_specialchars($content['ecard']['images'][$key][6])."\n";
-	
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$content['ecard']['images'][$key][3],
-								"image_name"	=>	$content['ecard']['images'][$key][2] . '.' . $content['ecard']['images'][$key][3],
-								"thumb_name"	=>	md5(	$content['ecard']['images'][$key][2].
-															$phpwcms["img_list_width"].
-															$phpwcms["img_list_height"].
-															$phpwcms["sharpen_level"]
-														)
-        					  )
-							);
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$content['ecard']['images'][$key][3],
+			"image_name"	=>	$content['ecard']['images'][$key][2] . '.' . $content['ecard']['images'][$key][3],
+			"thumb_name"	=>	md5($content['ecard']['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($thumb_image != false) {
-		
+
 			// image found
 			echo '<option value="' . $content['ecard']['images'][$key][0] . '">';
 			$img_name = html_specialchars($content['ecard']['images'][$key][1]);
@@ -143,7 +138,7 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
       </tr>
     </table><?php
 
-if(isset($img_thumbs) && $img_thumbs) { 
+if(isset($img_thumbs) && $img_thumbs) {
 	echo '<table border="0" cellspacing="0" cellpadding="0">
 		<tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
 		</table>';
@@ -191,7 +186,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	echo '<option value="'.$max_image_col.'" ';
 	is_selected($max_image_col, $content['ecard']['col']);
 	echo '>'.$max_image_col."</option>\n";
-  
+
 }
 
 ?>
@@ -305,7 +300,7 @@ if(!$content["ecard"]["form"]) {
 <tr>
   <td align="right" valign="top" class="chatlist">&nbsp;</td>
   <td valign="top" class="chatlist">HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###,
-    ###SENDER_EMAIL###, <br />###RECIPIENT_NAME###, 
+    ###SENDER_EMAIL###, <br />###RECIPIENT_NAME###,
     ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, <br />
     ###ECARD_IMAGE###, ###ECARD_TITLE###</td>
 </tr>

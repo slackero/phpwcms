@@ -221,6 +221,12 @@ if(isset($phpwcms['image_library'])) {
 
 }
 
+// Set default colorspace in General RGB or sRGB
+if(empty($phpwcms['im_fix_colorspace'])) {
+	$phpwcms['im_fix_colorspace'] = 'RGB';
+}
+$phpwcms['colorspace'] = $phpwcms['im_fix_colorspace'];
+
 if(empty($phpwcms['SMTP_MAILER'])) {
 	$phpwcms['SMTP_MAILER'] = 'mail';
 }

@@ -39,7 +39,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 	</select></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
@@ -49,9 +49,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 </tr>
 <tr><td colspan="2"><textarea name="faq_question" rows="4" class="msgtext" id="faq_question" style="width: 536px"><?php
-	
+
 	echo empty($content["faq_question"]) ? '' : $content["faq_question"];
-	 
+
 ?></textarea></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 </tr>
@@ -118,14 +118,13 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php echo  isset($content["image_caption"]) ? html_specialchars($content["image_caption"]) : '' ?></textarea></td>
 			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
-	
+
 if(isset($content["image_hash"])) {
-	$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$content["image_ext"],
-								"image_name"	=>	$content["image_hash"] . '.' . $content["image_ext"],
-								"thumb_name"	=>	md5($content["image_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        					  )
-							);
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$content["image_ext"],
+		"image_name"	=>	$content["image_hash"] . '.' . $content["image_ext"],
+		"thumb_name"	=>	md5($content["image_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+	));
 
 	if($thumb_image != false) {
 		echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';

@@ -75,34 +75,28 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 
 if(isset($content['poll_list']['images']) && is_array($content['poll_list']['images']) && count($content['poll_list']['images'])) {
 	foreach($content['poll_list']['images'] as $key => $value) {
-	
+
 		// 0   :1       :2   :3        :4    :5     :6      :7       :8
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$content['poll_list']['images'][$key][3],
-								"poll_name"	=>	$content['poll_list']['images'][$key][2] . '.' . $content['poll_list']['images'][$key][3],
-								"thumb_name"	=>	md5(	$content['poll_list']['images'][$key][2].
-															$phpwcms["img_list_width"].
-															$phpwcms["img_list_height"].
-															$phpwcms["sharpen_level"]
-														)
-        					  )
-							);
+		$thumb_image = get_cached_image(array(
+			"target_ext" =>	$content['poll_list']['images'][$key][3],
+			"poll_name"  =>	$content['poll_list']['images'][$key][2] . '.' . $content['poll_list']['images'][$key][3],
+			"thumb_name" =>	md5($content['poll_list']['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
-		if($thumb_image != false) 
-		{
+		if($thumb_image != false) {
 			echo '<option value="' . $content['poll_list']['images'][$key][0] . '">';
 			$img_name = html_specialchars($content['poll_list']['images'][$key][1]);
 			echo $img_name . "</option>\n";
 
 			if($imgx == 4) {
-				$img_thumbs .= '<br><img src="img/leer.gif" alt="" border="0" width="1" height="2"><br>';
+				$img_thumbs .= '<br /><img src="img/leer.gif" alt="" border="0" width="1" height="2"><br />';
 				$imgx = 0;
 			}
 			if($imgx) {
-				$img_thumbs .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1">';
+				$img_thumbs .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1" />';
 			}
-			$img_thumbs .= '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
+			$img_thumbs .= '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
 
 			$imgx++;
 		}
@@ -116,11 +110,11 @@ if(isset($content['poll_list']['images']) && is_array($content['poll_list']['ima
 <a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=1&amp;target=nolist')"> <img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a><br /><img src="img/leer.gif" alt="" width="1" height="4"><br /><a href="javascript:;" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0"></a><a href="javascript:;" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0"></a><br /><img src="img/leer.gif" alt="" width="1" height="4"><br /><a href="javascript:;" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" title="<?php echo $BL['be_cnt_delimage'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0"></a></td>
 </tr>
 </table>
-				
+
 <?php
 
-if($img_thumbs) 
-{ 
+if($img_thumbs)
+{
 	echo '<table border="0" cellspacing="0" cellpadding="0">
 		<tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
 		</table>';

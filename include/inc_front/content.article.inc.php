@@ -204,12 +204,12 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 		if(!empty($row["article_image"]["hash"])) {
 
-			$thumb_image = get_cached_image(
-			array(	"target_ext"	=>	$row["article_image"]['ext'],
-					"image_name"	=>	$row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-					"max_width"		=>	$row["article_image"]['width'],
-					"max_height"	=>	$row["article_image"]['height'],
-					"thumb_name"	=>	md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$GLOBALS['phpwcms']["sharpen_level"])
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$row["article_image"]['ext'],
+				"image_name"	=>	$row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+				"max_width"		=>	$row["article_image"]['width'],
+				"max_height"	=>	$row["article_image"]['height'],
+				"thumb_name"	=>	md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
 			));
 
 			if($thumb_image != false) {
@@ -238,12 +238,12 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 				if($row["article_image"]["zoom"]) {
 
-					$zoominfo = get_cached_image(
-					array(	"target_ext"	=>	$row["article_image"]['ext'],
-					"image_name"	=>	$row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-					"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-					"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-					"thumb_name"	=>	md5($row["article_image"]['hash'].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"])
+					$zoominfo = get_cached_image(array(
+						"target_ext"	=>	$row["article_image"]['ext'],
+						"image_name"	=>	$row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+						"max_width"		=>	$phpwcms["img_prev_width"],
+						"max_height"	=>	$phpwcms["img_prev_height"],
+						"thumb_name"	=>	md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
 					));
 
 					if($zoominfo != false) {

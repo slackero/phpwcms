@@ -10,51 +10,47 @@
  **/
 
 
-//enhance you custom frontend funtions here 
+//enhance you custom frontend funtions here
 
 // -------------------------------------------------------------
 
 
 // added by jens for content type 89: poll
 function showPollImage($image, $zoom = 0) {
-	
+
 	$image_border		= ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
 	if(empty($GLOBALS["template_default"]["article"]["imagelist_imgclass"])) {
 		$image_imgclass	= '';
 	} else {
 		$image_imgclass	= ' class="'.$GLOBALS["template_default"]["article"]["imagelist_imgclass"].'"';
 	}
-	
-	$thumb_image = get_cached_image(
-		array(	
+
+	$thumb_image = get_cached_image(array(
 			"target_ext"	=>	$image[3],
 			"image_name"	=>	$image[2].'.'.$image[3],
 			"max_width"		=>	$image[4],
 			"max_height"	=>	$image[5],
-			"thumb_name"	=>	md5($image[2].$image[4].$image[5].$GLOBALS['phpwcms']["sharpen_level"])
-		)
-	);
-	
+			"thumb_name"	=>	md5($image[2].$image[4].$image[5].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+	));
+
 	if($zoom) {
-		$zoominfo = get_cached_image(
-				array(	
-							"target_ext"	=>	$image[3],
-							"image_name"	=>	$image[2] . '.' . $image[3],
-							"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-							"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-							"thumb_name"	=>	md5($image[2].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"])
-				)
-		);
+		$zoominfo = get_cached_image(array(
+			"target_ext"	=>	$image[3],
+			"image_name"	=>	$image[2] . '.' . $image[3],
+			"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
+			"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
+			"thumb_name"	=>	md5($image[2].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+		));
 	}
 
 	$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
-	
+
 	if($zoom && !empty($zoominfo)) {
 		// if click enlarge the image
 		$open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
 		$open_link = $open_popup_link;
 		$return_false = 'return false;';
-			
+
 		$html .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
 		$html .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'">';
 		$html .= $list_img_temp."</a>";
@@ -83,188 +79,188 @@ function utf2html($str) {
 			$c1 >>= 2; // c1 shifts 2 to the right
 			$ret .= "&#" . ($c1 * 100 + $c2) . ";"; // this is the fastest string concatenation
 			$last = $i+1;
-		} 
+		}
 	}
 	return $ret . substr($str, $last, $i); // append the last batch of regular characters
 }
 
 // http://www.evilwalrus.com/viewcode.php?codeEx=627
-function is_date($PASSED,$TXT_DATE_FORMAT='m/d/Y') { 
-    $lib_import_datearr=array(); 
-    $lib_import_datearr['h'] = 2; // 01-12 - time - hours 12 
-    $lib_import_datearr['H'] = 2; // 00-23 - time - hours 24 
-    $lib_import_datearr['g'] = 0; // 1-12  - time - hours 12 
-    $lib_import_datearr['G'] = 0; // 0-23  - time - hours 24 
-    $lib_import_datearr['i'] = 2; // 00-59 - time - minutes 
-    $lib_import_datearr['k'] = 0; // 0-59  - time - minutes ** k - non standard code. 
-    $lib_import_datearr['s'] = 2; // 00-59 - time - seconds 
-    $lib_import_datearr['x'] = 0; // 0-59  - time - seconds ** x - non standard code. 
-    $lib_import_datearr['a'] = 2; // am/pm - time 
-    $lib_import_datearr['A'] = 2; // AM/PM - time 
-    $lib_import_datearr['j'] = 0; // 1-31  - date - day 
-    $lib_import_datearr['d'] = 2; // 01-31 - date - day 
-    $lib_import_datearr['n'] = 0; // 1-12  - date - month 
-    $lib_import_datearr['m'] = 2; // 01-12 - date - month 
-    $lib_import_datearr['y'] = 2; // 04    - date - year 
-    $lib_import_datearr['Y'] = 4; // 2004  - date - year 
-    $PASSED = trim($PASSED); // No spaces at beginning or end of date value. 
-    $TXT_DATE_FORMAT = trim($TXT_DATE_FORMAT); // No spaces at beginning or end of formatter string 
-    $store_arr = array(); // Storage array 
-    $lastchar = ""; // Badly named. This really stores the data chunk we are working with 
-    $dte_frmt_lstchr = ""; // Current date formatting character 
-    $dte_frmt_idx = 0; // Index of where we are in date formatting rule string 
-    $bln_formatter = FALSE; // Boolean. Is the formatting character a value or a place holder (ie 'm' vs '/' or ':') 
-    $bln_twelve_hour_cycle = FALSE; // Boolean. Whether or not stored hours are 1-12 or 0-23. TRUE = 1-12 
-    for ($i=0;$i < strlen($PASSED); $i++) { 
-        $dte_frmt_lstchr=substr($TXT_DATE_FORMAT, $dte_frmt_idx,1); // Get first date formatting character 
-        $dte_frmt_idx ++; // Move index for format string ahead one. 
-        if ((is_int($dte_frmt_lstchr) || is_string($dte_frmt_lstchr)) && array_key_exists($dte_frmt_lstchr, $lib_import_datearr)) { // See if this formatting character is a date value or a spacer value of some sort 
-            $bln_formatter = FALSE; // This value needs to be parsed for the date value 
-        } 
-        else { 
-            $bln_formatter = TRUE; // This is a placeholder character 
-        } 
-        // *** Get the value 
-        if ($bln_formatter) { // Just get the character and test for equivalence 
-            $lastchar = substr($PASSED,$i,1); 
-            if ($lastchar!=$dte_frmt_lstchr) { // The current character does not match the expected formatting character. Crash and Burn! 
-                $store_arr = FALSE; // Set the return value to false 
-                $i = strlen($PASSED)+1; // Break the loop 
-            } 
-        } // END get character value 
-        else { // Get the date value 
-            switch ($lib_import_datearr[$dte_frmt_lstchr]) { // How many characters to get? Remember, type 0 means you must find the end. (As in month, 1 or 2 characters?). 
-                case 0: // Zero is for those with either 1 or 2 places. Rule: if 2nd character is also a number, it belongs to the item. 
-                    $lastchar = substr($PASSED,$i,1); 
-                    if ($i+1 < strlen($PASSED)) { // are there more characters? 
-                        if (is_numeric(substr($PASSED,$i+1,1))) { $lastchar=$lastchar.substr($PASSED,$i+1,1); $i++; } // tack on next character. Move in string pointer forward 1 
-                    } 
-                    switch ($dte_frmt_lstchr) { 
-                        case "j": 
-                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                            else { $store_arr['mday']=$lastchar; } // assign the value to the array 
-                            break; 
-                        case "n": 
-                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                            else { $store_arr['mon']=$lastchar; } // assign the value to the array 
-                            break; 
-                        case "k": 
-                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                            else { $store_arr['minutes']=$lastchar; } // assign the value to the array 
-                            break; 
-                        case "x": 
-                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                            else { $store_arr['seconds']=$lastchar; } // assign the value to the array 
-                            break; 
-                        case "g": 
-                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                            else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= TRUE; } // assign the value to the array 
-                            break; 
-                        case "G": 
-                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                            else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= FALSE; } // assign the value to the array 
-                            break; 
-                    } 
-                    break; 
-                case 2: 
-                    $lastchar = substr($PASSED,$i,2); 
-                    if (strlen($lastchar)!=2) { // Crap. We ran off the end of the string. Error out 
-                        $store_arr = FALSE; // Set the return value to false 
-                        $i = strlen($PASSED)+1; // Break the loop 
-                    } 
-                    else { // Right length. Test Type 
-                        $i++; // Move in string pointer forward 1 
-                        switch ($dte_frmt_lstchr) { 
-                            case "A": 
-                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn 
-                                else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array 
-                                break;   
-                            case "a": 
-                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn 
-                                else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array 
-                                break; 
-                            case "H": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= FALSE; } // assign the value to the array 
-                                break;   
-                            case "h": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= TRUE; } // assign the value to the array 
-                                break;   
-                            case "i": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['minutes']=$lastchar; } // assign the value to the array 
-                                break;   
-                            case "s": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['seconds']=$lastchar; } // assign the value to the array 
-                                break;   
-                            case "d": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['mday']=$lastchar; } // assign the value to the array 
-                                break;                          
-                            case "m": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['mon']=$lastchar; } // assign the value to the array 
-                                break; 
-                            case "y": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { 
-                                    if ($lastchar<70) { $lastchar="20".$lastchar; } 
-                                    else { $lastchar="19".$lastchar; } 
-                                    $store_arr['year']=$lastchar; 
-                                } // assign the value to the array 
-                                break; 
-                        } 
-                    } 
-                    break; 
-                case 4: 
-                    $lastchar = substr($PASSED,$i,4); 
-                    if (strlen($lastchar)!=4) { // Crap. We ran off the end of the string. Error out 
-                        $store_arr = FALSE; // Set the return value to false 
-                        $i = strlen($PASSED)+1; // Break the loop 
-                    } 
-                    else { // Right length. Test Type 
-                        $i=$i+3; // Move in string pointer forward 3 
-                        switch ($dte_frmt_lstchr) { 
-                            case "Y": 
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out 
-                                else { $store_arr['year']=$lastchar; } // assign the value to the array 
-                                break; 
-                        } 
-                    } 
-                    break; 
-            } // END switch 
-        } // END else get the date value 
-    } 
-    if (isset($store_arr['hours'])) { // are hours are set? 
-        if ($bln_twelve_hour_cycle) { // If the recieved data was 12-hour cycle, we may need to test for PM and do some math! 
-            if (isset($store_arr['ampm'])) { 
-                if ($store_arr['ampm']=="PM") { // Is it PM? If so test to see if hour is set 
-                    $store_arr['hours']=$store_arr['hours']+12; // The 12 hour date was in PM. Example 11 pm really is 11+12 or 23! 
-                } 
-                else { // This is AM. Only 1 test needs to be done: 12 am! 
-                    if ($store_arr['hours']==12) { $store_arr['hours']=0; } // 12am in 24 cycle is really 0 (0-23!) 
-                } 
-            } 
-        } 
-    } 
-    if (isset($store_arr['ampm'])) { 
-        unset($store_arr['ampm']); 
-    } 
-    return $store_arr; 
+function is_date($PASSED,$TXT_DATE_FORMAT='m/d/Y') {
+    $lib_import_datearr=array();
+    $lib_import_datearr['h'] = 2; // 01-12 - time - hours 12
+    $lib_import_datearr['H'] = 2; // 00-23 - time - hours 24
+    $lib_import_datearr['g'] = 0; // 1-12  - time - hours 12
+    $lib_import_datearr['G'] = 0; // 0-23  - time - hours 24
+    $lib_import_datearr['i'] = 2; // 00-59 - time - minutes
+    $lib_import_datearr['k'] = 0; // 0-59  - time - minutes ** k - non standard code.
+    $lib_import_datearr['s'] = 2; // 00-59 - time - seconds
+    $lib_import_datearr['x'] = 0; // 0-59  - time - seconds ** x - non standard code.
+    $lib_import_datearr['a'] = 2; // am/pm - time
+    $lib_import_datearr['A'] = 2; // AM/PM - time
+    $lib_import_datearr['j'] = 0; // 1-31  - date - day
+    $lib_import_datearr['d'] = 2; // 01-31 - date - day
+    $lib_import_datearr['n'] = 0; // 1-12  - date - month
+    $lib_import_datearr['m'] = 2; // 01-12 - date - month
+    $lib_import_datearr['y'] = 2; // 04    - date - year
+    $lib_import_datearr['Y'] = 4; // 2004  - date - year
+    $PASSED = trim($PASSED); // No spaces at beginning or end of date value.
+    $TXT_DATE_FORMAT = trim($TXT_DATE_FORMAT); // No spaces at beginning or end of formatter string
+    $store_arr = array(); // Storage array
+    $lastchar = ""; // Badly named. This really stores the data chunk we are working with
+    $dte_frmt_lstchr = ""; // Current date formatting character
+    $dte_frmt_idx = 0; // Index of where we are in date formatting rule string
+    $bln_formatter = FALSE; // Boolean. Is the formatting character a value or a place holder (ie 'm' vs '/' or ':')
+    $bln_twelve_hour_cycle = FALSE; // Boolean. Whether or not stored hours are 1-12 or 0-23. TRUE = 1-12
+    for ($i=0;$i < strlen($PASSED); $i++) {
+        $dte_frmt_lstchr=substr($TXT_DATE_FORMAT, $dte_frmt_idx,1); // Get first date formatting character
+        $dte_frmt_idx ++; // Move index for format string ahead one.
+        if ((is_int($dte_frmt_lstchr) || is_string($dte_frmt_lstchr)) && array_key_exists($dte_frmt_lstchr, $lib_import_datearr)) { // See if this formatting character is a date value or a spacer value of some sort
+            $bln_formatter = FALSE; // This value needs to be parsed for the date value
+        }
+        else {
+            $bln_formatter = TRUE; // This is a placeholder character
+        }
+        // *** Get the value
+        if ($bln_formatter) { // Just get the character and test for equivalence
+            $lastchar = substr($PASSED,$i,1);
+            if ($lastchar!=$dte_frmt_lstchr) { // The current character does not match the expected formatting character. Crash and Burn!
+                $store_arr = FALSE; // Set the return value to false
+                $i = strlen($PASSED)+1; // Break the loop
+            }
+        } // END get character value
+        else { // Get the date value
+            switch ($lib_import_datearr[$dte_frmt_lstchr]) { // How many characters to get? Remember, type 0 means you must find the end. (As in month, 1 or 2 characters?).
+                case 0: // Zero is for those with either 1 or 2 places. Rule: if 2nd character is also a number, it belongs to the item.
+                    $lastchar = substr($PASSED,$i,1);
+                    if ($i+1 < strlen($PASSED)) { // are there more characters?
+                        if (is_numeric(substr($PASSED,$i+1,1))) { $lastchar=$lastchar.substr($PASSED,$i+1,1); $i++; } // tack on next character. Move in string pointer forward 1
+                    }
+                    switch ($dte_frmt_lstchr) {
+                        case "j":
+                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                            else { $store_arr['mday']=$lastchar; } // assign the value to the array
+                            break;
+                        case "n":
+                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                            else { $store_arr['mon']=$lastchar; } // assign the value to the array
+                            break;
+                        case "k":
+                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                            else { $store_arr['minutes']=$lastchar; } // assign the value to the array
+                            break;
+                        case "x":
+                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                            else { $store_arr['seconds']=$lastchar; } // assign the value to the array
+                            break;
+                        case "g":
+                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                            else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= TRUE; } // assign the value to the array
+                            break;
+                        case "G":
+                            if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                            else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= FALSE; } // assign the value to the array
+                            break;
+                    }
+                    break;
+                case 2:
+                    $lastchar = substr($PASSED,$i,2);
+                    if (strlen($lastchar)!=2) { // Crap. We ran off the end of the string. Error out
+                        $store_arr = FALSE; // Set the return value to false
+                        $i = strlen($PASSED)+1; // Break the loop
+                    }
+                    else { // Right length. Test Type
+                        $i++; // Move in string pointer forward 1
+                        switch ($dte_frmt_lstchr) {
+                            case "A":
+                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
+                                else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
+                                break;
+                            case "a":
+                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
+                                else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
+                                break;
+                            case "H":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= FALSE; } // assign the value to the array
+                                break;
+                            case "h":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['hours']=$lastchar; $bln_twelve_hour_cycle= TRUE; } // assign the value to the array
+                                break;
+                            case "i":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['minutes']=$lastchar; } // assign the value to the array
+                                break;
+                            case "s":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['seconds']=$lastchar; } // assign the value to the array
+                                break;
+                            case "d":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['mday']=$lastchar; } // assign the value to the array
+                                break;
+                            case "m":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['mon']=$lastchar; } // assign the value to the array
+                                break;
+                            case "y":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else {
+                                    if ($lastchar<70) { $lastchar="20".$lastchar; }
+                                    else { $lastchar="19".$lastchar; }
+                                    $store_arr['year']=$lastchar;
+                                } // assign the value to the array
+                                break;
+                        }
+                    }
+                    break;
+                case 4:
+                    $lastchar = substr($PASSED,$i,4);
+                    if (strlen($lastchar)!=4) { // Crap. We ran off the end of the string. Error out
+                        $store_arr = FALSE; // Set the return value to false
+                        $i = strlen($PASSED)+1; // Break the loop
+                    }
+                    else { // Right length. Test Type
+                        $i=$i+3; // Move in string pointer forward 3
+                        switch ($dte_frmt_lstchr) {
+                            case "Y":
+                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
+                                else { $store_arr['year']=$lastchar; } // assign the value to the array
+                                break;
+                        }
+                    }
+                    break;
+            } // END switch
+        } // END else get the date value
+    }
+    if (isset($store_arr['hours'])) { // are hours are set?
+        if ($bln_twelve_hour_cycle) { // If the recieved data was 12-hour cycle, we may need to test for PM and do some math!
+            if (isset($store_arr['ampm'])) {
+                if ($store_arr['ampm']=="PM") { // Is it PM? If so test to see if hour is set
+                    $store_arr['hours']=$store_arr['hours']+12; // The 12 hour date was in PM. Example 11 pm really is 11+12 or 23!
+                }
+                else { // This is AM. Only 1 test needs to be done: 12 am!
+                    if ($store_arr['hours']==12) { $store_arr['hours']=0; } // 12am in 24 cycle is really 0 (0-23!)
+                }
+            }
+        }
+    }
+    if (isset($store_arr['ampm'])) {
+        unset($store_arr['ampm']);
+    }
+    return $store_arr;
 }
 
 // http://de3.php.net/manual/en/function.is-numeric.php
 // kiss dot pal at expert-net dot hu
-// 05-Jan-2005 09:13 
+// 05-Jan-2005 09:13
 function is_float_ex($pNum) {
 	$num_chars = "0123456789.,+-";
 	if(strlen(trim($pNum)) == 0) { // empty $pNum -> null
 		return false;
 	} else {
 		$i = 0;
-		$f = 1;  // modify 
+		$f = 1;  // modify
 		$v = strlen($num_chars) - $f;
 		while(($i < strlen($pNum)) && ($v >= 0)) {
 			$v=strlen($num_chars)-$f;
@@ -285,7 +281,7 @@ function is_float_ex($pNum) {
 
 
 /*
- * {SHOW_CONTENT} 
+ * {SHOW_CONTENT}
  * thanks to Jens Zetterström who has initiated this in 2005
  * Shows the content of the article content part with the specified id.
  * use it {SHOW_CONTENT:MODE,id[,id[,...]]}
@@ -306,10 +302,10 @@ function showSelectedContent($param='') {
 	global $block;
 	global $phpwcms;
 	global $aktion;
-	
+
 	$topcount = 999999;
 	$template = '';
-	
+
 	if($cp = explode(',', $param)) {
 		$mode	= strtoupper(trim($cp[0]));
 		if(substr($mode, 0, 2) == 'AS') {
@@ -331,7 +327,7 @@ function showSelectedContent($param='') {
 				}
 			}
 			$mode = strtoupper(trim($mode[0]));
-			if(isset($cp[1])) { // now check if 
+			if(isset($cp[1])) { // now check if
 				$cp[1] = trim($cp[1]);
 				if(!is_numeric($cp[1])) {
 					switch($cp[1]) {
@@ -345,7 +341,7 @@ function showSelectedContent($param='') {
 											}
 											$cp = array('related' => 1); break;
 										}
-					
+
 						default:		$cp = array('new'		=> 1);
 					}
 				}
@@ -367,20 +363,20 @@ function showSelectedContent($param='') {
 		// oh no ID given, end function
 		return '';
 	}
-	
+
 	$CNT_TMP = '';
-	
+
 	if(substr($mode, 0, 2) == 'AS') {
-	
+
 		if(substr($mode, -1) == 'P') {
 			$mode = substr($mode, 0, -1);
 			$priorize = 'article_priorize DESC, ';
 		} else {
 			$priorize = '';
 		}
-		
+
 		switch($mode) {
-							
+
 			case 'ASL':		$sort = $priorize.'article_begin ASC';		break; // sorted by livedate ascending
 			case 'ASLD':	$sort = $priorize.'article_begin DESC';		break; // sorted by livedate descending
 			case 'ASK':		$sort = $priorize.'article_end ASC';		break; // sorted by killdate ascending
@@ -396,93 +392,93 @@ function showSelectedContent($param='') {
 
 
 	} elseif($mode == 'CP' || $mode == 'CPA' || $mode == 'CPAD') {
-	
+
 		$sort = ($mode=='CPAD') ? ' DESC' : ''; //means ASCENDING
-	
+
 		foreach($cp as $value) {
-		
-			if($mode == 'CP') { 
+
+			if($mode == 'CP') {
 				// content part listing
 				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 				$sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
 				$sql .= "WHERE acontent_id = " . $value . " AND acontent_visible = 1 ";
 				$sql .= "AND acontent_block != 'CPSET' ";
-				
+
 				if( !FEUSER_LOGIN_STATUS ) {
 					$sql .= 'AND acontent_granted=0 ';
 				}
-				
+
 				$sql .= "AND acontent_trash = 0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
 				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
 				$sql .= "LIMIT 1";
-				
+
 			} else {
-				// content parts based on article ID				
+				// content parts based on article ID
 				$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent ";
 				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
 				$sql .= "AND acontent_block != 'CPSET' ";
-				
+
 				if( !FEUSER_LOGIN_STATUS ) {
 					$sql .= 'AND acontent_granted=0 ';
 				}
-				
+
 				$sql .= "ORDER BY acontent_sorting".$sort.", acontent_id";
-				
+
 			}
-		
+
 			if($cresult = mysql_query($sql, $db)) {
 				while($crow = mysql_fetch_assoc($cresult))	{
-				
+
 					if($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]])) {
 						continue;
 					}
-				
+
 					if($crow["acontent_type"] == 24) {
 						// first retrieve alias ID information and settings
 						$crow = getContentPartAlias($crow);
 					}
-				
+
 					$space = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
-					
+
 					// Space before
 					$CNT_TMP .= $space['before'];
-					
+
 					// set frontend edit link
 					$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
-											
+
 					// include content part code section
 					if($crow["acontent_type"] != 30) {
-					
+
 						include(PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php');
-					
+
 					} elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
-				
+
 						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
-				
+
 						// now try to include module content part code
 						include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
-				
+
 					}
-			
+
 					//check if top link should be shown
 					$CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
-					
+
 					//Maybe content part ID should b used inside templates or for something different
 					$CNT_TMP  = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
-					
+
 					// trigger content part functions
 					$CNT_TMP = trigger_cp($CNT_TMP, $crow);
-			
+
 					// Space after
 					$CNT_TMP .= $space['after'];
-					
+
 				}
 				mysql_free_result($cresult);
 			}
 		}
 	}
-	
+
 	if(empty($phpwcms["allow_cntPHP_rt"])) {
 		$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 	}
@@ -531,7 +527,7 @@ function getContentPartAlias($crow) {
 		if( !FEUSER_LOGIN_STATUS ) {
 			$sql_alias .= 'AND acontent_granted=0 ';
 		}
-		$sql_alias .= "LIMIT 1"; 
+		$sql_alias .= "LIMIT 1";
 		if($alias_result = mysql_query($sql_alias, $db)) {
 			if($alias_row = mysql_fetch_assoc($alias_result)) {
 				if(empty($alias['alias_block'])) {
@@ -580,7 +576,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 	$sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 	$sql .= 'FROM '.DB_PREPEND.'phpwcms_article ';
 	$sql .= 'WHERE ';
-	
+
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
 		case 0: $sql .= 'article_public=1 AND article_aktiv=1 AND ';
@@ -590,7 +586,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 		//case 2: admin mode no additional neccessary
 	}
 	$sql .= 'article_deleted=0 AND article_begin < NOW() AND article_end > NOW() AND ';
-	
+
 	if($where === '') {
 		$sql .= 'article_id IN (' . implode( ',', $article_id ) . ') ';
 	} else {
@@ -603,20 +599,20 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 	if($limit) {
 		$sql .= ' LIMIT '.$limit;
 	}
-	
+
 	$data	= array();
 	$result	= _dbQuery($sql);
-	
+
 	if(!is_array($result)) {
 		return array();
 	}
-	
+
 	if($sort == '') {
 		foreach($article_id as $row) {
 			$data[$row] = '';
 		}
 	}
-	
+
 	foreach($result as $row) {
 
 		$data[$row["article_id"]] = array(
@@ -650,7 +646,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 			$aid = $row["article_id"];
 			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
 			$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
-			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate "; 
+			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 			$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 			if(!$row["article_headerdata"]) {
@@ -683,11 +679,11 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 			}
 		}
 	}
-	
+
 	if($sort == '') {
 		return array_diff($data, array(''));
 	}
-	
+
 	return $data;
 }
 
@@ -706,43 +702,43 @@ function convert2htmlspecialchars($matches) {
 function parse_images($matches) {
 
 	if(isset($matches[1])) {
-		
+
 		// Image file ID
 		$img_id 	= intval($matches[1]);
-		
+
 		// check for Alt-Text
 		$alt		= explode(' ', trim($matches[2]), 2);
 		$value		= explode('x', trim(strtolower($alt[0])));
 
 		$alt		= isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';
-		
+
 		if(substr($value[0], 0, 1) == '.') {
 			$ext	= trim($value[0]);
 		} else {
 			$ext	= '.jpg';
 		}
-		
+
 		$width		= isset($value[ 1 ]) ? intval($value[ 1 ]) : 0;
 		$height		= isset($value[ 2 ]) ? intval($value[ 2 ]) : 0;
 		$crop		= isset($value[ 3 ]) && intval($value[ 3 ]) === 1 ? 1 : 0;
 		$quality	= isset($value[ 4 ]) ? intval($value[ 4 ]) : 0;
-		
+
 		$image		= '<img src="'.PHPWCMS_URL.'img/cmsimage.php/'.$width.'x'.$height.'x'.$crop;
 		if($quality <= 100 && $quality >= 10) {
 			$image .= 'x'.$quality;
 		}
 		$image	   .= '/'.$img_id.$ext.'" alt="'.$alt.'" border="0"';
 		if(isset($matches[3])) {
-		
+
 			$title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
 			if($title !== '') {
 				$image .= ' title="'.$title.'"';
 			}
 		}
 		$image	   .= ' />';
-		
+
 		return $image;
-		
+
 	}
 
 	return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" border="0" />';
@@ -757,10 +753,10 @@ function parse_downloads($match) {
 		$value['cnt_object']['cnt_files']['id'] = convertStringToArray($match[1]);
 
 		if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
-		
+
 			global $phpwcms;
-			
-			$value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? @html_entity_decode(trim($match[3]), ENT_QUOTES, PHPWCMS_CHARSET) : '';		
+
+			$value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? @html_entity_decode(trim($match[3]), ENT_QUOTES, PHPWCMS_CHARSET) : '';
 			$value['files_direct_download'] = 0;
 			$value['files_template'] = 'download-inline';
 			if(!empty($match[2])) {
@@ -772,16 +768,16 @@ function parse_downloads($match) {
 					}
 				}
 			}
-			
+
 			$IS_NEWS_CP	= true;
 			$crow		= array();
 			$news		= array('files_result' => '');
-			
+
 			// include content part files renderer
 			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
 
 			return $news['files_result'];
-		
+
 		}
 
 	}
@@ -823,16 +819,16 @@ function trigger_cp($CP, & $CPDATA) {
 function register_cp_trigger($function='', $method='LAST') {
 	if(is_string($function)) {
 		switch($method) {
-			case 'FIRST': 	
+			case 'FIRST':
 				array_unshift($GLOBALS['content']['CpTrigger'], $function);
 				break;
-		
+
 			case 'RFIRST':
 				if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
 					array_unshift($GLOBALS['content']['CpTrigger'], $function);
 				}
 				break;
-				
+
 			case 'RLAST':
 				if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
 					array_push($GLOBALS['content']['CpTrigger'], $function);
@@ -886,27 +882,27 @@ function seReferrer($ref = false) {
 			$SeQuery	= $pcs[1];
 			}
 		}
-	
+
 		// We Do Not have a query
 		if(!isset($SeQuery)){
 			return false;
 		}
 	}
-	
+
 	$OldQ		= $SeQuery;
 	$SeQuery	= urldecode($SeQuery);
-	
+
 	// The Multiple URLDecode Trick to fix DogPile %XXXX Encodes
 	while($SeQuery != $OldQ){
 		$OldQ		= $SeQuery;
 		$SeQuery	= urldecode($SeQuery);
 	}
-	
+
 	// check given query and decode utf-8
 	if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($SeQuery)) {
 		$SeQuery = makeCharsetConversion($SeQuery, 'utf-8', PHPWCMS_CHARSET, false);
 	}
-	
+
 	return array(	"domain"	=> $SeDomain,
 					"query"		=> $SeQuery,
 					"pos"		=> $SePos,

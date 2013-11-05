@@ -27,12 +27,11 @@ $cinfo[3] = str_replace("\n", " ", $row["acontent_text"]);
 $cinfo_image = explode(":", $row["acontent_image"]);
 if(isset($cinfo_image[2]) && is_array($cinfo_image) && count($cinfo_image)) {
 
-	$thumb_image = get_cached_image(
-			 					array(	"target_ext"	=>	$cinfo_image[3],
-										"image_name"	=>	$cinfo_image[2] . '.' . $cinfo_image[3],
-										"thumb_name"	=>	md5($cinfo_image[2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        							  )
-								);
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$cinfo_image[3],
+		"image_name"	=>	$cinfo_image[2] . '.' . $cinfo_image[3],
+		"thumb_name"	=>	md5($cinfo_image[2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+	));
 
 	if($thumb_image != false) {
 		$cinfo_image = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
