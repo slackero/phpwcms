@@ -16,27 +16,27 @@ if(is_array($image) && count($image)) {
 
 	// load special functions
 	require_once(PHPWCMS_ROOT.'/include/inc_front/img.func.inc.php');
-	
-	
+
+
 	// read template
 	if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/imagetable.tmpl')) {
-	
+
 		$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/imagetable.tmpl') );
-		
+
 	} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/imagetable/'.$crow["acontent_template"])) {
-	
+
 		$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/imagetable/'.$crow["acontent_template"]) );
-	
+
 	} else {
-	
+
 		$crow["acontent_template"]	= '[IMAGETABLE]{IMAGETABLE}[/IMAGETABLE]';
-	
+
 	}
-	
+
 	$crow["settings"]			= get_tmpl_section('IMAGETABLE_SETTINGS', $crow["acontent_template"]);
 	$crow["settings"]			= parse_ini_str($crow["settings"], false);
 	$crow["acontent_template"]	= replace_tmpl_section('IMAGETABLE_SETTINGS', $crow["acontent_template"]);
-	
+
 	if(strpos($crow["acontent_template"], 'TITLE')) {
 		$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
 		$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
@@ -44,7 +44,7 @@ if(is_array($image) && count($image)) {
 	} else {
 		$crow['render_titles']		= true;
 	}
-	
+
 	$image['class_top_left']		= $template_default['classes']['imgtable-top-left'];
 	$image['class_top_center']		= $template_default['classes']['imgtable-top-center'];
 	$image['class_top_right']		= $template_default['classes']['imgtable-top-right'];
@@ -53,15 +53,15 @@ if(is_array($image) && count($image)) {
 	$image['class_bottom_right']	= $template_default['classes']['imgtable-bottom-right'];
 	$image['class_float_left']		= $template_default['classes']['imgtable-left'];
 	$image['class_float_right']		= $template_default['classes']['imgtable-right'];
-	
+
 	$image['class_image_thumb']		= $template_default['classes']['image-thumb'];
 	$image['class_image_wrapper']	= $template_default['classes']['image-wrapper'];
 	$image['class_image_link']		= $template_default['classes']['image-link'];
 	$image['class_image_zoom']		= $template_default['classes']['image-zoom'];
 	$image['class_image_lightbox']	= $template_default['classes']['image-lightbox'];
-	
+
 	$image = array_merge($image, $crow["settings"]);
-	
+
 	$image['usetable'] = empty($image['usetable']) ? 0 : 1;
 
 	if(empty($image['lightbox'])) {
@@ -77,7 +77,7 @@ if(is_array($image) && count($image)) {
 		$image['zoom'] = 1;
 
 	}
-	
+
 	$imagetable = '';
 
 	switch($image['pos']) {
@@ -150,14 +150,14 @@ if(is_array($image) && count($image)) {
 					$imagetable .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 				}
 	}
-	
+
 	$GLOBALS['cnt_image_lightbox'] = 0;
 	$cnt_image_lightbox = 0;
-	
+
 	$CNT_TMP .= LF . trim(str_replace('{ID}', $crow["acontent_id"], render_cnt_template($crow["acontent_template"], 'IMAGETABLE', $imagetable ))) . LF;
-	
+
 	unset($imagetable);
-	
+
 } else {
 	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 }

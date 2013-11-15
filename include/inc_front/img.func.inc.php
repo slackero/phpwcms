@@ -481,7 +481,8 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass;
 			$list_img_temp .= ' data-image-id="'.$imagelist['images'][$key][0].'" data-image-hash="'.$imagelist['images'][$key][2].'"';
-			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-thumb'].'" />';
+			$list_img_temp .= ' data-image-ext="'.$imagelist['images'][$key][3].'"';
+			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' class="'.$imagelist['class_image_thumb'].'" />';
 
 			if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
 				// if click enlarge the image
@@ -497,7 +498,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 				if(!$lightbox || $caption[2][0]) {
 
 					$table .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
-					$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-zoom'].'">';
+					$table .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1].' class="'.$imagelist['class_image_zoom'].'">';
 
 				} else {
 
@@ -506,7 +507,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					if($capt_cur) {
 						$table .= ' title="'.parseLightboxCaption($capt_cur).'"';
 					}
-					$table .= ' class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
+					$table .= ' class="'.$imagelist['class_image_lightbox'].'">';
 
 				}
 
@@ -514,7 +515,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			} else {
 				// if not click enlarge
 				if($caption[2][0]) {
-					$table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$GLOBALS['template_default']['classes']['image-link'].'">'.$list_img_temp.'</a>';
+					$table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$imagelist['class_image_link'].'">'.$list_img_temp.'</a>';
 				} else {
 					$table .= $list_img_temp;
 				}
