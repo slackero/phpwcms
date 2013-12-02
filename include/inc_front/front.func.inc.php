@@ -299,7 +299,7 @@ function breadcrumb_wrapper($match) {
 	return breadcrumb(
 		$GLOBALS['content']["cat_id"],
 		$GLOBALS['content']["struct"],
-		empty($match[1]) ?  0 : substr($match[1], 1),
+		empty($match[1]) ? 0 : $match[1],
 		$GLOBALS['template_default']["breadcrumb_spacer"]
 	);
 }
@@ -309,7 +309,6 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	//$link_to = the page on which the breadcrum part links
 	//$root_name = name of the breadcrumb part if empty/false/0 $start_id
 	//$spacer = how should breadcrumb parts be divided
-
 	$start_id 	= intval($start_id);
 	$end_id 	= intval($end_id);
 	$act_id 	= $start_id; //store actual ID for later comparing
