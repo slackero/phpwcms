@@ -42,7 +42,7 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/im
 
 if($image['template']) {
 
-	$image['tmpl_settings']			= parse_ini_str( get_tmpl_section('IMAGE_SETTINGS', $image['template']), false);
+	$image['tmpl_settings'] = parse_ini_str( get_tmpl_section('IMAGE_SETTINGS', $image['template']), false);
 
 	if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
 		$image = array_merge($image, $image['tmpl_settings']);
@@ -108,6 +108,16 @@ if($image['template']) {
 		$x		= 0;
 		$col	= 0;
 		$total	= 0;
+
+		// Randomize?
+		if(!empty($image['random']) && $image['count'] > 1) {
+			shuffle($image['images']);
+		}
+		// Limit images?
+		if(!empty($image['limit']) && $image['count'] > $image['limit']) {
+			$image['count'] = $image['limit'];
+			$image['images'] = array_slice($image['images'], 0, $image['limit']);
+		}
 
 		foreach($image['images'] as $key => $value) {
 

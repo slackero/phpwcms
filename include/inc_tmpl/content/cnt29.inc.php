@@ -49,7 +49,9 @@ if(!isset($content['image_list']['col'])) {
 			'caption'	=> '',
 			'lightbox'	=> 0,
 			'nocaption'	=> 0,
-			'crop'		=> 0
+			'crop'		=> 0,
+			'limit'		=> 0,
+			'random'	=> 0
 
 		);
 
@@ -119,7 +121,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 
 			<td><input type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> /></td>
-			<td class="v10"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
+			<td class="chatlist"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
 
 		</tr>
 	</table></td>
@@ -146,8 +148,14 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 ?>
 				  </select></td>
 				  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
-			      <td><input name="cimage_space" type="text" class="f11b" id="cimage_space" style="width: 50px;" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" /></td>
+			      <td><input name="cimage_space" type="text" class="f11b width25" id="cimage_space" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" /></td>
 				  <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
+
+				  <td><input type="checkbox" name="cimage_random" id="cimage_random" value="1" <?php is_checked(1, empty($content['image_list']['random']) ? 0 : 1); ?> /></td>
+				  <td class="chatlist"><label for="cimage_random" class="checkbox"><?php echo $BL['random_image'] ?></label>&nbsp;&nbsp;&nbsp;</td>
+
+				  <td class="chatlist"><label for="cimage_limit" class="checkbox"><?php echo $BL['limit_image_from_list'] ?></label></td>
+				  <td><input name="cimage_limit" type="text" class="f11b width25" id="cimage_limit" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo empty($content['image_list']['limit']) ? '' : $content['image_list']['limit']; ?>" /></td>
 
 
 		        </tr>

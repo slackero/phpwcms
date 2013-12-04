@@ -24,19 +24,15 @@ $content["image_template"]	= $row["acontent_template"];
 $content["image_list"]		= unserialize($row["acontent_form"]);
 
 if(!isset($content["image_list"]['lightbox'])) {
-
 	$content["image_list"]['lightbox'] = 0;
-
 }
 if(!isset($content["image_list"]['nocaption'])) {
-
 	$content["image_list"]['nocaption'] = 0;
-
 }
 if(!isset($content['image_list']['crop'])) {
 	$content['image_list']['crop'] = 0;
 }
 
-$content["text"]			= $row["acontent_text"];
+$content["text"] = $row["acontent_text"];
 
 ?>
