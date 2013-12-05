@@ -177,8 +177,12 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		_getConfig( $value, '_shopPref' );
 	}
 
-	$_tmpl['config']['shop_url'] = _getConfig( 'shop_pref_id_shop', '_shopPref' );
-	$_tmpl['config']['cart_url'] = _getConfig( 'shop_pref_id_cart', '_shopPref' );
+	if(!isset($_tmpl['config']['shop_url'])) {
+		$_tmpl['config']['shop_url'] = _getConfig( 'shop_pref_id_shop', '_shopPref' );
+	}
+	if(!isset($_tmpl['config']['cart_url'])) {
+		$_tmpl['config']['cart_url'] = _getConfig( 'shop_pref_id_cart', '_shopPref' );
+	}
 
 	if(!is_intval($_tmpl['config']['shop_url']) && is_string($_tmpl['config']['shop_url'])) {
 		$_tmpl['config']['shop_url'] = trim($_tmpl['config']['shop_url']);
