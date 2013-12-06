@@ -59,10 +59,9 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 		}
 	}
 
-
-	$file_keywords			= $_POST["file_keywords"];
-	if(count($file_keywords)) {
-		$file_keys = "";
+	$file_keys = "";
+	if(isset($_POST["file_keywords"]) && is_array($_POST["file_keywords"]) && count($_POST["file_keywords"])) {
+		$file_keywords = $_POST["file_keywords"];
 		foreach($file_keywords as $key => $value) {
 			unset($file_keywords[$key]);
 			$key = intval($key);
@@ -152,7 +151,7 @@ if($file_id) {
 				if($file_keys) {
 					$file_keys_temp = explode(":", $file_keys);
 					if(count($file_keys_temp)) {
-						if(isset($file_keywords)) unset($file_keywords);
+						$file_keywords = array();
 						foreach($file_keys_temp as $value) {
 							list($k1, $k2) = explode("_", $value);
 							$file_keywords[intval($k1)] = intval($k2);
