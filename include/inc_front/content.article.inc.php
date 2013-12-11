@@ -461,6 +461,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
 		$cresult  = _dbQuery($sql_cnt);
 
+		$content['cptab_types'] = array(
+			1 => array('id' => 'tabbox', 'item' => 'tab', 'title' => 'TabTitle'),
+			2 => array('id' => 'cpgroup', 'item' => 'cpgroup', 'title' => 'ContentPartGroupTitle')
+		);
+
 		foreach($cresult as $crow) {
 
 			// check for article content part pagination
@@ -556,18 +561,21 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			if(!empty($crow['acontent_tab'])) {
 
 				$crow['acontent_tab']			= explode('_', $crow['acontent_tab'], 2);
-				$crow['acontent_tab']['num']	= intval($crow['acontent_tab'][0]);
-				$crow['acontent_tab']['title']	= empty($crow['acontent_tab'][1]) ? '@@TabTitle@@' : $crow['acontent_tab'][1];
+				$crow['acontent_tab']['num']	= explode('|' ,$crow['acontent_tab'][0]);
+				$crow['acontent_tab']['type']	= empty($crow['acontent_tab']['num'][1]) ? 1 : intval($crow['acontent_tab']['num'][1]);
+				$crow['acontent_tab']['num']	= intval($crow['acontent_tab']['num'][0]);
+				$crow['acontent_tab']['title']	= empty($crow['acontent_tab'][1]) ? i18n_substitute_text_token($content['cptab_types'][ $crow['acontent_tab']['type'] ]['title']) : $crow['acontent_tab'][1];
 
 				// create a unique Tab ID based on title, content block and section
-				$CNT_TAB		= 'TABBOX-' . md5($crow['acontent_block'] . $crow['acontent_tab']['num']);
-				$CNT_TAB_ID 	= 'TAB-' . md5($crow['acontent_tab']['title'].$crow['acontent_block']);
+				$CNT_TAB		= $content['cptab_types'][ $crow['acontent_tab']['type'] ]['id'] . '-' . md5($crow['acontent_block'] . $crow['acontent_tab']['num']);
+				$CNT_TAB_ID 	= $content['cptab_types'][ $crow['acontent_tab']['type'] ]['item'] . '-' . md5($crow['acontent_tab']['title'].$crow['acontent_block']);
 				$CNT_TAB_TMP	= $CNT_TMP;
 
 				// check if Tab ID is registered
 				if(!isset($content['cptab'][$CNT_TAB])) {
 
 					$content['cptab'][$CNT_TAB] = array();
+					$content['cptab_types'][$CNT_TAB] = $crow['acontent_tab']['type'];
 
 					// write Tab Block Replacer
 					$CNT_TMP = '<!-- ' . $CNT_TAB . ' -->';
@@ -606,59 +614,113 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		}
 
 		// render Tabs
-		$tab_counter = 0;
-		foreach($content['cptab'] as $CNT_TAB => $trow) {
+		if(count($content['cptab'])) {
 
-			// define helper var
-			$g = array('wrap' => array(), 'cnt' => array(), 'counter' => 1, 'max' => count($trow), 'href' => rel_url());
+			foreach($content['cptab'] as $CNT_TAB => $trow) {
 
-			$g['wrap'][]	= '<div id="'.$CNT_TAB.'" class="'.$template_default['classes']['tab-container'].'">';
+				// define helper var
+				$g = array(
+					'wrap'		=> array(),
+					'counter' 	=> 1,
+					'max'		=> count($trow)
+				);
 
-			$g['wrap'][]	= '	<ul class="'.$template_default['classes']['tab-navigation'].'">';
+				// Behavior: Group
+				if($content['cptab_types'][$CNT_TAB] === 2) {
 
-			foreach($trow as $tabkey => $tabitem) {
+					$g['wrap'][]	= '<div id="'.$CNT_TAB.'"' . ($template_default['classes']['cpgroup-container'] ? ' class="'.$template_default['classes']['cpgroup-container'].'"' : '') . '>';
 
-				$tabitem['id']		= 'tab-' . uri_sanitize(strtolower($tabitem['title'])) . '-' . $g['counter'];
-				$tabitem['title']	= html_specialchars($tabitem['title']);
-				$tabitem['class']	= '';
+					foreach($trow as $tabkey => $tabitem) {
 
-				if($template_default['classes']['tab-content']) {
-					$tabitem['content-class'] = $template_default['classes']['tab-content'];
+						$tabitem['id']				= 'cpgroup-' . uri_sanitize(strtolower($tabitem['title'])) . '-' . $g['counter'];
+						$tabitem['class']			= $template_default['classes']['cpgroup-title'] ? $template_default['classes']['cpgroup-title'] : '';
+						$tabitem['content-class']	= $template_default['classes']['cpgroup'] ? $template_default['classes']['cpgroup'] . ' ' . $template_default['classes']['cpgroup'] . '-' . $g['counter'] : '';
+
+						if($template_default['classes']['cpgroup-first'] && $g['counter'] === 1) {
+							$tabitem['content-class'] .= ' '.$template_default['classes']['cpgroup-first'];
+						}
+						if($template_default['classes']['cpgroup-last'] && $g['counter'] === $g['max']) {
+							$tabitem['content-class'] .= ' '.$template_default['classes']['cpgroup-last'];
+						}
+
+						$tabitem['class'] = trim($tabitem['class']);
+						$tabitem['class'] = $tabitem['class'] ? ' class="'.$tabitem['class'].'"' : '';
+
+						$tabitem['content-class'] = trim($tabitem['content-class']);
+
+						if($tabitem['content-class']) {
+							$tabitem['content-class'] = ' class="'.$tabitem['content-class'].'"';
+						}
+
+						$g['wrap'][]	= '	<div'.$tabitem['content-class'].'>';
+						$g['wrap'][]	= '		<h3'.$tabitem['class'].'>';
+						$g['wrap'][]	= '			<span data-cpgroupid="'.$tabitem['id'].'">'.html_specialchars($tabitem['title']).'</span>';
+						$g['wrap'][]	= '		</h3>';
+						$g['wrap'][]	= '		<div id="'.$tabitem['id'].'"'.($template_default['classes']['cpgroup-content'] ? ' class="'.$template_default['classes']['cpgroup-content'].'"' : '').'>';
+						$g['wrap'][]	= '			' . $tabitem['content'];
+						$g['wrap'][]	= '		</div>';
+						$g['wrap'][]	= '	</div>';
+
+						$g['counter']++;
+					}
+
+					if($template_default['classes']['cpgroup-container-clear']) {
+						$g['wrap'][]	= '	<span class="'.$template_default['classes']['cpgroup-container-clear'].'"></span>';
+					}
+					$g['wrap'][]	= '</div>';
+
+
+				// Default behavior: Tabs
 				} else {
-					$tabitem['content-class'] = '';
-				}
-				if($template_default['classes']['tab-content-item']) {
-					$tabitem['content-class'] = trim($tabitem['content-class'] . ' ' . $template_default['classes']['tab-content-item']) . '-' . $g['counter'];
-				}
-				if($tabitem['content-class']) {
-					$tabitem['content-class'] = ' class="'.$tabitem['content-class'].'"';
+
+					$g['cnt']		= array();
+
+					$g['wrap'][]	= '<div id="'.$CNT_TAB.'"' . ($template_default['classes']['tab-container'] ? ' class="'.$template_default['classes']['tab-container'].'"' : '') . '>';
+					$g['wrap'][]	= '	<ul' . ($template_default['classes']['tab-navigation'] ? ' class="'.$template_default['classes']['tab-navigation'].'"' : '') . '>';
+
+					foreach($trow as $tabkey => $tabitem) {
+
+						$tabitem['id']				= 'tab-' . uri_sanitize(strtolower($tabitem['title'])) . '-' . $g['counter'];
+						$tabitem['class']			= $template_default['classes']['tab-item'] ? $template_default['classes']['tab-item'].'-'.$g['counter'] : '';
+						$tabitem['content-class']	= $template_default['classes']['tab-content'];
+
+						if($template_default['classes']['tab-content-item']) {
+							$tabitem['content-class'] = trim($tabitem['content-class'] . ' ' . $template_default['classes']['tab-content-item']) . '-' . $g['counter'];
+						}
+						if($tabitem['content-class']) {
+							$tabitem['content-class'] = ' class="'.$tabitem['content-class'].'"';
+						}
+
+						if($template_default['classes']['tab-first'] && $g['counter'] === 1) {
+							$tabitem['class'] .= ' '.$template_default['classes']['tab-first'];
+						}
+						if($template_default['classes']['tab-last'] && $g['counter'] === $g['max']) {
+							$tabitem['class'] .= ' '.$template_default['classes']['tab-last'];
+						}
+
+						$tabitem['class'] = trim($tabitem['class']);
+						$tabitem['class'] = $tabitem['class'] ? ' class="'.$tabitem['class'].'"' : '';
+
+						$g['wrap'][]	= '		<li'.$tabitem['class'].'><a href="'.rel_url().'#'.$tabitem['id'].'">'.html_specialchars($tabitem['title']).'</a></li>';
+						$g['cnt'][]		= '	<div id="'.$tabitem['id'].'"'.$tabitem['content-class'].'>' . LF . $tabitem['content'] . LF . '	</div>';
+
+						$g['counter']++;
+					}
+
+					$g['wrap'][]	= '	</ul>';
+					$g['wrap'][]	= implode(LF, $g['cnt']);
+					if($template_default['classes']['tab-container-clear']) {
+						$g['wrap'][]	= '	<span class="'.$template_default['classes']['tab-container-clear'].'"></span>';
+					}
+					$g['wrap'][]	= '</div>';
+
 				}
 
-				if($template_default['classes']['tab-first'] && $g['counter'] === 1) {
-					$tabitem['class'] .= ' '.$template_default['classes']['tab-first'];
-				}
-				if($template_default['classes']['tab-last'] && $g['counter'] === $g['max']) {
-					$tabitem['class'] .= ' '.$template_default['classes']['tab-last'];
-				}
-
-				$g['wrap'][]	= '		<li class="'.$template_default['classes']['tab-item'].'-'.$g['counter'].$tabitem['class'].'"><a href="'.$g['href'].'#'.$tabitem['id'].'" title="'.$tabitem['title'].'">'.$tabitem['title'].'</a></li>';
-				$g['cnt'][]		= '	<div id="'.$tabitem['id'].'"'.$tabitem['content-class'].'>' . LF . $tabitem['content'] . LF . '	</div>';
-
-				$tab_counter++;
-				$g['counter']++;
+				$content['cptab'][$CNT_TAB] = implode(LF, $g['wrap']);
 			}
 
-			$g['wrap'][]	= '	</ul>';
-			$g['wrap'][]	= implode(LF, $g['cnt']);
-			if($template_default['classes']['tab-container-clear']) {
-				$g['wrap'][]	= '	<div class="'.$template_default['classes']['tab-container-clear'].'"></div>';
-			}
-			$g['wrap'][]	= '</div>';
-
-			$content['cptab'][$CNT_TAB] = implode(LF, $g['wrap']);
+			unset($g);
 		}
-
-		unset($g);
 
 	}
 }

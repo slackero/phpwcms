@@ -36,20 +36,32 @@ if(empty($content['article']['acat_id'])) { // Root structure
 
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $content["aid"]."&amp;acid=".$content["id"] ?>" method="post" name="articlecontent" id="articlecontent" <?php
 
-	switch($content["type"]) { //Übergeben bestimmter onSubmit JavaScript Aktionen
-		case  2: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
-		case 29: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
-		case 16: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
-		case 50: echo 'onsubmit="selectAllOptions(this.cimage_list);"'; 		break;
-		case  7: echo 'onsubmit="selectAllOptions(this.cfile_list);"'; 			break;
-		//case 25: echo 'onsubmit="selectAllOptions(this.cfile_list);"'; 			break;
-		case  8: echo 'onsubmit="selectAllOptions(this.calink);"'; 				break;
-		case 53: echo 'onsubmit="selectAllOptions(this.cforum_selection);"'; 	break;
+	// Some javascript actions neccessary on submit
+	switch($content["type"]) {
 
-		//Poll by Jens
-		case 89: echo 'onsubmit="selectAllOptions(this.cimage_list);"';			break;
+		case 2:
+		case 29:
+		case 16:
+		case 50:
+		case 89:
+			echo 'onsubmit="selectAllOptions(this.cimage_list);"';
+			break;
 
-		default: echo 'onsubmit="var ct=getElementById(\'target_ctype\');if(ct.disabled)ct.disabled=false;"';
+		//case 25:
+		case 7:
+			echo 'onsubmit="selectAllOptions(this.cfile_list);"';
+			break;
+
+		case 8:
+			echo 'onsubmit="selectAllOptions(this.calink);"';
+			break;
+
+		case 53:
+			echo 'onsubmit="selectAllOptions(this.cforum_selection);"';
+			break;
+
+		default:
+			echo 'onsubmit="var ct=document.getElementById(\'target_ctype\');if(ct.disabled){ct.disabled=false;}"';
 
 	}
 
@@ -298,21 +310,23 @@ if(isset($result[0]['template_var'])) {
 
 	$anchor_title = empty($content["id"]) ? '' : ' title="cpid'.$content["id"].'"';
 
-
 	// handle tab settings
-	$content["tab_style"] = ' style="display:none"';
+	$content["tab_style"]	= ' style="display:none"';
 
 	if(empty($content["tab"])) {
 
-		$content["tab"]				= '';
-		$content["tab_number"]		= '';
-		$content["tab_title"]		= '';
+		$content["tab"]			= '';
+		$content["tab_number"]	= '';
+		$content["tab_title"]	= '';
+		$content["tab_type"]	= 0;
 
 	} else {
 
 		$content["tab"]				= explode('_', $content["tab"], 2);
 		$content["tab_title"]		= empty($content["tab"][1]) ? '' : $content["tab"][1];
-		$content["tab_number"]		= empty($content["tab"][0]) ? '' : intval($content["tab"][0]);
+		$content["tab_number"]		= explode('|', $content["tab"][0]);
+		$content["tab_type"]		= empty($content["tab_number"][1]) ? 1 : intval($content["tab_number"][1]);
+		$content["tab_number"]		= intval($content["tab_number"][0]);
 
 		if($content["tab_number"].$content["tab_title"]) {
 			$content["tab"]			= 1;
@@ -322,20 +336,26 @@ if(isset($result[0]['template_var'])) {
 	}
 
 ?>
-			<td class="chatlist"><label for="canchor"<?php echo $anchor_title ?>>&nbsp;&nbsp;<?php echo $BL['be_article_cnt_anchor'] ?>:</label></td>
+			<td class="chatlist"><label for="canchor"<?php echo $anchor_title ?>>&nbsp;<?php echo $BL['be_article_cnt_anchor'] ?>:</label></td>
 			<td><input name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); ?><?php echo $anchor_title ?> /></td>
 
-			<td class="chatlist"><label for="ctab">&nbsp;&nbsp;<?php echo $BL['be_ctype_tabs'] ?>:</label></td>
-			<td><input name="ctab" type="checkbox" id="ctab" value="1"<?php is_checked(1, $content["tab"]); ?> onclick="checkTabStatus(this);" /></td>
+			<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_paginate_subsection']; ?>:&nbsp;</td>
+			<td><select name="ctab" id="ctab" class="v11 width100" onchange="checkTabStatus(this);">
+				<option value="0"<?php is_selected(0, $content["tab_type"]); ?>><?php echo $BL['be_off'] ?></option>
+				<option value="1"<?php is_selected(1, $content["tab_type"]); ?>><?php echo $BL['be_ctype_tabs'] ?></option>
+				<option value="2"<?php is_selected(2, $content["tab_type"]); ?>><?php echo $BL['be_ctype_accordion'] ?></option>
+			</select><!-- <input name="ctab" type="checkbox" id="ctab" value="1"<?php is_checked(1, $content["tab"]); ?> onclick="checkTabStatus(this);" /> --></td>
 
 		</tr>
 		</table><script type="text/javascript">
 
-	var cTabStatus = <?php echo $content["tab"] ? 'true' : 'false' ?>;
+	var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>;
 
 	function checkTabStatus(tabVal) {
 
-		cTabStatus = tabVal.checked;
+		var tabValue = parseInt(tabVal.options[tabVal.selectedIndex].value, 10);
+
+		cTabStatus = tabValue > 0 ? true : false;
 
 		if(cTabStatus == false) {
 
@@ -351,6 +371,8 @@ if(isset($result[0]['template_var'])) {
 
 		}
 
+		tabVal.blur();
+
 	}
 
 		</script></td>
@@ -360,11 +382,11 @@ if(isset($result[0]['template_var'])) {
 	<tr id="ctab1"<?php echo $content["tab_style"] ?>><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr id="ctab2"<?php echo $content["tab_style"] ?>><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	<tr id="ctab3"<?php echo $content["tab_style"] ?>>
-	  <td align="right" class="chatlist"><?php echo $BL['be_tab_name'] ?>:&nbsp;</td>
+	  <td align="right" class="chatlist"><?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
 	  <td><table summary="" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
 		  	<td><input name="ctab_title" type="text" id="ctab_title" class="f11b width225" value="<?php echo html_specialchars($content["tab_title"]) ?>" size="40" maxlength="100" /></td>
-			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
+			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_ctype_number'] ?>:&nbsp;</td>
 			<td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="4" onkeyup="if(!parseInt(this.value))this.value='';" /></td>
 		  </tr>
 		</table></td>
@@ -553,13 +575,13 @@ echo $_save_close_buttons;
 
 	<tr>
 
-	<td>&nbsp;</td>
-	<td style="padding: 12px 0 12px 0;">
-<input name="caktion" type="hidden" id="caktion" value="1" />
-<input name="caid" type="hidden" id="caid" value="<?php echo $article["article_id"] ?>" />
-<input name="cid" type="hidden" id="cid" value="<?php echo  $content["id"] ?>" />
-<input name="ctype" type="hidden" id="ctype" value="<?php echo  $content["type"] ?>" />
-<?php echo $_save_close_buttons ?>
+		<td>&nbsp;</td>
+		<td style="padding: 12px 0 12px 0;">
+			<input name="caktion" type="hidden" id="caktion" value="1" />
+			<input name="caid" type="hidden" id="caid" value="<?php echo $article["article_id"] ?>" />
+			<input name="cid" type="hidden" id="cid" value="<?php echo  $content["id"] ?>" />
+			<input name="ctype" type="hidden" id="ctype" value="<?php echo  $content["type"] ?>" />
+			<?php echo $_save_close_buttons ?>
 		</td>
 	</tr>
 

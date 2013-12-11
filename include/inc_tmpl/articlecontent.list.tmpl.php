@@ -359,17 +359,20 @@ if(!$temp_count) {
 
 						$contentpart_tabbed		= explode('_', $contentpart_tab, 2);
 						$contentpart_tab_title	= empty($contentpart_tabbed[1]) ? '' : $contentpart_tabbed[1];
-						$contentpart_tab_number	= empty($contentpart_tabbed[0]) ? 0 : intval($contentpart_tabbed[0]);
-						$contentpart_tab_number++;
+						$contentpart_tab_number	= explode('|', $contentpart_tabbed[0]);
+						$contentpart_tab_type	= empty($contentpart_tab_number[1]) ? 1 : intval($contentpart_tab_number[1]);
+						$contentpart_tab_number = intval($contentpart_tab_number[0]);
+						//$contentpart_tab_number++;
 
 			?>
 			<tr<?php echo $contentpart_block_color ?>>
 				<td align="right" style="padding-right:5px;"><img src="img/symbole/tabbed.gif" alt="" width="9" height="11" border="0" /></td>
 				<td style="font-size:9px;"><?php
-						echo html_specialchars($contentpart_tab_title);
-						if(empty($contentpart_tab_title)) {
-							echo ' [' . $contentpart_tab_number . ']';
-						}
+
+						echo $contentpart_tab_type === 2 ? $BL['be_ctype_accordion'] : $BL['be_ctype_tabs'];
+						echo ' / ' . $BL['be_cnt_paginate_subsection'] . ': ';
+						echo empty($contentpart_tab_title) ? '[' . $contentpart_tab_number . ']' : html_specialchars($contentpart_tab_title);
+
 				 ?>&nbsp;</td>
 				<td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
@@ -386,7 +389,6 @@ if(!$temp_count) {
 			<?php
 
 					}
-
 
 			?>
 			<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
