@@ -386,7 +386,7 @@ if( $_shop_load_cat !== false ) {
 			}
 
 			$shop_cat_prods = '';
-			$shop_cat[$x]   = '<li';
+			$shop_cat[$x]   = '<li id="shopcat-'.$row['cat_id'].'"';
 			if($row['cat_id'] == $shop_cat_selected) {
 				$shop_cat[$x] .= ' class="active"';
 
@@ -406,7 +406,7 @@ if( $_shop_load_cat !== false ) {
 					$z = 0;
 					foreach($sdata as $srow) {
 
-						$shop_subcat[$z]   = '<li';
+						$shop_subcat[$z]   = '<li id="shopsubcat-'.$row['cat_id'].'"';
 						if($srow['cat_id'] == $shop_subcat_selected) {
 							$shop_subcat[$z] .= ' class="active"';
 						}
@@ -446,7 +446,7 @@ if( $_shop_load_cat !== false ) {
 	if( count($shop_cat) ) {
 
 		if( ! $shop_limited_cat ) {
-			$shop_cat[$x]  = '<li';
+			$shop_cat[$x]  = '<li id="shopcat-all"';
 			if($shop_cat_selected == 'all') {
 				$shop_cat[$x] .= ' class="active"';
 			}
@@ -455,7 +455,7 @@ if( $_shop_load_cat !== false ) {
 			$shop_cat[$x] .= '@@</a>';
 			$shop_cat[$x] .= '</li>';
 		}
-		$shop_cat = '<ul class="shop_cat">' . LF.'	' . implode(LF.'	', $shop_cat) . LF . '</ul>';
+		$shop_cat = '<ul class="'.$template_default['classes']['shop-category-menu'].'">' . LF.'	' . implode(LF.'	', $shop_cat) . LF . '</ul>';
 
 	} else {
 
@@ -1324,7 +1324,7 @@ function get_category_products($selected_product_cat, $shop_detail_id, $shop_cat
 		$shop_cat_prods = array();
 		foreach($pdata as $prow) {
 
-			$shop_cat_prods[$z] = '<li';
+			$shop_cat_prods[$z] = '<li id="shopcat-product-'.$prow['shopprod_id'].'"';
 			if($prow['shopprod_id'] == $shop_detail_id) {
 				$shop_cat_prods[$z] .= ' class="active"';
 			}
@@ -1346,7 +1346,7 @@ function get_category_products($selected_product_cat, $shop_detail_id, $shop_cat
 		}
 
 		if(count($shop_cat_prods)) {
-			$shop_cat_prods = LF . '		<ul class="products">' . LF.'			' . implode(LF.'			', $shop_cat_prods) . LF .'		</ul>' . LF.'	';
+			$shop_cat_prods = LF . '		<ul class="'.$template_default['classes']['shop-products-menu'].'">' . LF.'			' . implode(LF.'			', $shop_cat_prods) . LF .'		</ul>' . LF.'	';
 		}
 
 	}

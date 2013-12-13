@@ -362,7 +362,9 @@ $template_default['classes'] = array(
 	'cpgroup-last'				=> 'cpgroup-last',
 	'cpgroup'					=> 'cpgroup',
 	'cpgroup-container-clear'	=> '', // cpgroup-container-clear, better use clearfix
-	'cpgroup-content'			=> 'cpgroup-content'
+	'cpgroup-content'			=> 'cpgroup-content',
+	'shop-category-menu'		=> 'shop-categories',
+	'shop-products-menu'		=> 'shop-products'
 );
 
 $template_default['search_highlight'] = array(

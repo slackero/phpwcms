@@ -339,7 +339,9 @@ $phpwcms['default_template_classes'] = array(
 	'cpgroup-last'				=> 'cpgroup-last',
 	'cpgroup'					=> 'cpgroup',
 	'cpgroup-container-clear'	=> '', //cpgroup-container-clear
-	'cpgroup-content'			=> 'cpgroup-content'
+	'cpgroup-content'			=> 'cpgroup-content',
+	'shop-category-menu'		=> 'shop-categories',
+	'shop-products-menu'		=> 'shop-products'
 );
 
 $phpwcms['search_highlight'] = array(
