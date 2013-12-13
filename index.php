@@ -129,9 +129,7 @@ $content['page_start']  .= get_body_attributes($pagelayout);
 // Add all CSS files here
 if(count($block['css'])) {
 	foreach($block['css'] as $value) {
-		$content['page_start'] .= '  <link rel="stylesheet" type="text/css" href="'.TEMPLATE_PATH.'inc_css/';
-		$content['page_start'] .= str_replace(' ', '%20', $value);
-		$content['page_start'] .= '"'.HTML_TAG_CLOSE.LF;
+		$content['page_start'] .= '  <link rel="stylesheet" type="text/css" href="'.TEMPLATE_PATH.'inc_css/' . str_replace(' ', '%20', $value) . '"'.HTML_TAG_CLOSE.LF;
 	}
 }
 
@@ -169,8 +167,11 @@ if(PHPWCMS_REWRITE) {
 }
 
 // real page ending
+if(count($block['bodyjs'])) {
+	$content['page_end'] .= implode(LF, $block['bodyjs']);
+}
 if(!empty($phpwcms['browser_check']['fe'])) {
-	$content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'> $buoop = {';
+	$content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'> var $buoop = {';
 	if(!empty($phpwcms['browser_check']['vs'])) {
 		$content['page_end'] .= 'vs:' . $phpwcms['browser_check']['vs'];
 	}

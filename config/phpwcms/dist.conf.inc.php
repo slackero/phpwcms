@@ -119,6 +119,7 @@ $phpwcms['viewport']		  = ''; // set viewport like "width=device-width, initial-
 $phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible
 $phpwcms['base_href']		  = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $phpwcms['cp_default']		  = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
+$phpwcms['js_in_body']		  = 0; // add <script> direct before </body> instead inside of <head>
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

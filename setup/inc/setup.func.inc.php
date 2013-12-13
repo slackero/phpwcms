@@ -243,6 +243,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible\n";
 	$conf_file .= "\$phpwcms['base_href']		  = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
 	$conf_file .= "\$phpwcms['cp_default']		  = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
+	$conf_file .= "\$phpwcms['js_in_body']		  = 0; // add <script> direct before </body> instead inside of <head>\n";
 
 	$conf_file .= "\n// smtp values\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";

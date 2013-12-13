@@ -426,6 +426,8 @@ if(!isset($block)) {
 	}
 }
 
+$block['bodyjs'] = array();
+
 // compatibility for older releases where only
 // 1 css file could be stored per template
 if(is_string($block['css'])) {
@@ -800,9 +802,9 @@ if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
 
 // some more navigations, do not use - not recommend any longer, need deprecated config enabled
 if($phpwcms['enable_deprecated']) {
-	
+
 	if(strpos($content["all"],'{NAV_') !== false) {
-	
+
 		// Simple row based navigation
 		$content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);
 		$content["all"] = preg_replace('/\{NAV_ROW:(\w+|\d+):(0|1)\}/e',"nav_level_row('$1',$2);",$content["all"]);
@@ -838,7 +840,7 @@ if($phpwcms['enable_deprecated']) {
 			$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
 
 		}
-		
+
 	}
 
 	$content["all"] = html_parser_deprecated($content["all"]);
@@ -1210,16 +1212,17 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 parse_CKEDitor_resized_images();
 
 // cleanup document to enhance XHTML Strict compatibility
-switch($phpwcms['mode_XHTML']) {
-	case 2:
-		$content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
-		break;
-	case 3:
-		// put it as first item
-		if(empty($phpwcms['html5shiv_disabled'])) {
-			$block['custom_htmlhead'] = array('html5shiv' => '  <!--[if lt IE 9]><script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.js"></script><![endif]-->') + $block['custom_htmlhead'];
-		}
-		break;
+if($phpwcms['mode_XHTML'] === 3) {
+
+	// put it as first item
+	if(empty($phpwcms['html5shiv_disabled'])) {
+		$block['custom_htmlhead'] = array('html5shiv' => '  <!--[if lt IE 9]><script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.js"></script><![endif]-->') + $block['custom_htmlhead'];
+	}
+
+} elseif($phpwcms['mode_XHTML'] === 2) {
+
+	$content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
+
 }
 
 // PixelRatio Check based on JavaScript and Cookie
@@ -1235,7 +1238,41 @@ if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['p
 // you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
 // always check if you want to use same head code only once
 if(count($block['custom_htmlhead'])) {
-	$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
+
+	if(!empty($phpwcms['js_in_body'])) {
+
+		$block['bodyjs_temp'] = '';
+
+		// Ensure jQuery is put as first item
+		if(isset($block['custom_htmlhead']['jquery.js'])) {
+			$block['bodyjs_temp'] .= $block['custom_htmlhead']['jquery.js'] . LF;
+			unset($block['custom_htmlhead']['jquery.js']);
+		}
+
+		foreach($block['custom_htmlhead'] as $key => $value) {
+
+			$value = trim($value);
+
+			if(substr($value, 0, 7) == '<script') {
+				$block['bodyjs_temp'] .= '  ' . $value . LF;
+			} else {
+				$block['htmlhead'] .= '  ' . $value . LF;
+			}
+
+		}
+
+		array_unshift($block['bodyjs'], $block['bodyjs_temp']);
+
+		unset($block['bodyjs_temp']);
+
+	} else {
+
+		$block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
+
+	}
+
+	unset($block['custom_htmlhead']);
+
 }
 
 // remove all useless replacement tags
