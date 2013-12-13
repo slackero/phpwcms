@@ -38,7 +38,7 @@ if( empty($IS_NEWS_CP) ) {
 	// news cp rendering
 	// take some default values by news
 	$crow["acontent_files"]		= $value['cnt_object']['cnt_files']['id'];
-	$crow["acontent_text"]		= explode("\n", $value['cnt_object']['cnt_files']['caption']);
+	$crow["acontent_text"]		= is_string($value['cnt_object']['cnt_files']['caption']) ? explode("\n", $value['cnt_object']['cnt_files']['caption']) : $value['cnt_object']['cnt_files']['caption'];
 	$content['files_direct']	= $value['files_direct_download'];
 	$crow["acontent_template"]	= $value['files_template'];
 	$crow["acontent_html"]		= '';
