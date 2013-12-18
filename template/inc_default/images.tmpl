@@ -12,6 +12,8 @@
 ;nocaption		= 0
 ;random			= 0
 ;limit			= 0
+; if set to 1 and total amount of images > limit render hidden feature
+;hide_limited	= 0
 ; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
 ;center_image	= 0
 <!--IMAGE_SETTINGS_END//-->
@@ -27,11 +29,11 @@
 
 
 <!--IMAGES_ENTRY_START//-->
-	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}">
+	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
 		{IMAGE}
 		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
 	</div>
-	<!-- 
+	<!--
 
 		Thumbnail image:    {THUMB_NAME}
 		  relative:         {THUMB_REL}
@@ -42,14 +44,14 @@
 		  image ID:         {IMAGE_ID}
 		  image Hash:       {IMAGE_HASH}
 		  image Extension:	{IMAGE_EXT}
-		
+
 		If you are not sure wrap zoomed image:
 		[ZOOM]
 		Zoomed (big) image: {IMAGE_NAME}
 		  relative: {IMAGE_REL}
 		  absolute: {IMAGE_ABS}
 		  height/width: {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
-		[/ZOOM]		
+		[/ZOOM]
 
 	//-->
 <!--IMAGES_ENTRY_END//-->

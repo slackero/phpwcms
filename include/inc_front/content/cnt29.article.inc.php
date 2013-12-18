@@ -25,6 +25,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $image	= @unserialize($crow["acontent_form"]);
 
+
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/images.tmpl')) {
 
@@ -114,9 +115,13 @@ if($image['template']) {
 			shuffle($image['images']);
 		}
 		// Limit images?
-		if(!empty($image['limit']) && $image['count'] > $image['limit']) {
-			$image['count'] = $image['limit'];
-			$image['images'] = array_slice($image['images'], 0, $image['limit']);
+		$image['limit'] = empty($image['limit']) ? 0 : intval($image['limit']);
+		if($image['limit'] && $image['count'] > $image['limit']) {
+			$image['hide_limited'] = isset($image['hide_limited']) ? intval($image['hide_limited']) : 0;
+			if(!$image['hide_limited']) {
+				$image['count'] = $image['limit'];
+				$image['images'] = array_slice($image['images'], 0, $image['limit']);
+			}
 		}
 
 		foreach($image['images'] as $key => $value) {
@@ -302,6 +307,7 @@ if($image['template']) {
 
 			$img_a = str_replace('{IMAGE_EXT}',	$img_thumb_ext, $img_a);
 
+			$img_a = render_cnt_template($img_a, 'HIDDEN', ($image['hide_limited'] && $total > $image['limit']  ? ' style="display:hidden"' : '') );
 			$img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
 			$img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
 			$img_a = render_cnt_template($img_a, 'FIRST', ($col > 1 ? '' : $col) );
