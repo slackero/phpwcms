@@ -307,7 +307,7 @@ if($image['template']) {
 
 			$img_a = str_replace('{IMAGE_EXT}',	$img_thumb_ext, $img_a);
 
-			$img_a = render_cnt_template($img_a, 'HIDDEN', ($image['hide_limited'] && $total > $image['limit']  ? ' style="display:hidden"' : '') );
+			$img_a = render_cnt_template($img_a, 'HIDDEN', ($image['limit'] && $image['hide_limited'] && $total > $image['limit']  ? ' style="display:hidden"' : '') );
 			$img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );
 			$img_a = render_cnt_template($img_a, 'COPYRIGHT', $caption[4] );
 			$img_a = render_cnt_template($img_a, 'FIRST', ($col > 1 ? '' : $col) );
