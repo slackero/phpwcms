@@ -33,5 +33,6 @@ if(!isset($content["image_list"]['crop'])) {
 if(!isset($content["image_list"]['random'])) {
 	$content["image_list"]['random'] = 0;
 }
+$content["template"]		= $row["acontent_template"];
 
 ?>

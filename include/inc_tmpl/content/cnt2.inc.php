@@ -72,7 +72,7 @@ if(!isset($content['image_list']['limit'])) {
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
 // templates for frontend login
-$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/imgtable');
+$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/imagetable');
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
