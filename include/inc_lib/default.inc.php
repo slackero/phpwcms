@@ -956,18 +956,12 @@ function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHAR
 }
 
 function html_specialchars($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
-	return htmlspecialchars($string, $quote_mode, $charset);
 	//used to replace the htmlspecialchars original php function
 	//not compatible with many internation chars like turkish, polish
-	/*
-	$h = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $h ); //works correct for "&#8230;" and/or "&ndash;"
-	$h = str_replace( '<', '&lt;'  , $h );
-	$h = str_replace( '>', '&gt;'  , $h );
-	$h = str_replace( '"', '&quot;', $h );
-	$h = str_replace( "'", '&#039;', $h );
-	$h = str_replace( "\\", '&#92;', $h );
-	return $h;
-	*/
+	$string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $string ); //works correct for "&#8230;" and/or "&ndash;"
+	$string = str_replace( array('<', '>', '"', "'", "\\"), array('&lt;','&gt;', '&quot;', '&#039;', '&#92;'), $string);
+	return $string;
+
 }
 
 function getMicrotime() {
