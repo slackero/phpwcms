@@ -523,15 +523,18 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 
 			if($usetable) {
 				$table .= '</td>'.LF;
-
-				$capt_tmp .= $capt_cur;
-
+				if($caption_on && $capt_cur) {
+					$capt_tmp .= $capt_cur;
+					$capt_cur = '<span style="width:'.$thumb_image[1].'px">' . $capt_cur . '</span>';
+				} else {
+					$capt_cur = '&nbsp;';
+				}
 				$capt_row .= '	<td'.$caption_valign.$caption_align.$caption_bgcolor.$caption_class.'>'.$capt_before.$capt_cur.$capt_after.'</td>'.LF;
 			} else {
 
-				if(empty($imagelist['nocaption']) && $capt_cur) {
+				if($caption_on && $capt_cur) {
 
-					$caption_class	= empty($GLOBALS["template_default"]["article"]["image_caption_class"]) ? 'caption' : $GLOBALS["template_default"]["article"]["image_caption_class"];
+					$caption_class = empty($GLOBALS["template_default"]["article"]["image_caption_class"]) ? 'caption' : $GLOBALS["template_default"]["article"]["image_caption_class"];
 
 					$table .= LF . '			<p style="width:'.$thumb_image[1].'px" class="'.$caption_class.'">'.$GLOBALS["template_default"]["article"]["image_caption_before"];
 					$table .= $capt_cur;
@@ -543,7 +546,6 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 					$table .= $GLOBALS["template_default"]["article"]["image_caption_after"]."</p>" ;
 
 				}
-
 
 				$table .=  LF . '		</div>'.LF;
 			}
