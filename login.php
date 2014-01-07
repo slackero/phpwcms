@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -78,10 +78,10 @@ if(isset($BL[strtoupper($_SESSION["wcs_user_lang"])]) && is_file(PHPWCMS_ROOT.'/
 	$_SESSION["wcs_user_lang"] 			= 'en'; //by ono
 	$_SESSION["wcs_user_lang_custom"] 	= 0;
 }
-if(!empty($_SESSION["wcs_user_lang_custom"])) { 
+if(!empty($_SESSION["wcs_user_lang_custom"])) {
 	//use custom lang if available -> was set in login.php
 	$BL['merge_lang_array'][0] = $BL['be_admin_optgroup_label'];
-	$BL['merge_lang_array'][1] = $BL['be_cnt_field'];	
+	$BL['merge_lang_array'][1] = $BL['be_cnt_field'];
 	include_once (PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php');
 	$BL['be_admin_optgroup_label'] = array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
 	$BL['be_cnt_field'] = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
@@ -100,7 +100,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 	$wysiwyg_template	= '';
 	$wcs_user			= slweg($_POST['form_loginname']);
 	$wcs_pass			= slweg($_POST['md5pass']);
-	
+
 	$sql_query =	"SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".
 					aporeplace($wcs_user)."' AND usr_pass='".
 					aporeplace($wcs_pass)."' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
@@ -120,9 +120,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			if($row["usr_lang"]) {
 				$_SESSION["wcs_user_lang"]	= $row["usr_lang"];
 			}
-			
+
 			set_language_cookie();
-			
+
 			$_SESSION["structure"]			= @unserialize($row["usr_var_structure"]);
 			$_SESSION["klapp"]				= @unserialize($row["usr_var_privatefile"]);
 			$_SESSION["pklapp"]				= @unserialize($row["usr_var_publicfile"]);
@@ -130,7 +130,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
 			// Fallback to CKeditor?
 			$_SESSION["WYSIWYG_EDITOR"]		= empty($row["usr_wysiwyg"]) ? false : true;
-			
+
 			/*
 			if(!empty($phpwcms['wysiwyg_template']['FCKeditor']) && $_SESSION["WYSIWYG_EDITOR"] == 2) {
 				$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
@@ -140,13 +140,13 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 			if(empty($wysiwyg_template) || count($wysiwyg_template) == 0) {
 				$wysiwyg_template = array('Basic');
 			}
-			
+
 			$_SESSION["WYSIWYG_TEMPLATE"] = empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
 			*/
-			
+
 			$_SESSION["wcs_user_cp"] = isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
 			$_SESSION["wcs_allowed_cp"] = isset($row["usr_vars"]['allowed_cp']) && is_array($row["usr_vars"]['allowed_cp']) ? $row["usr_vars"]['allowed_cp'] : array();
-			
+
 			// Test if there are CPs that use had choosen but no longer available for
 			if(count($_SESSION["wcs_allowed_cp"])) {
 				if(count($_SESSION["wcs_user_cp"])) {
@@ -160,12 +160,12 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 					$_SESSION["wcs_user_cp"] = $_SESSION["wcs_allowed_cp"];
 				}
 			}
-				
+
 			$login_passed = 1;
 		}
 		mysql_free_result($result);
 	}
-	
+
 	if($login_passed) {
 		// Store login information in DB
 		$check = mysql_query(	"SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user='".
@@ -177,13 +177,13 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 							"(logged_user, logged_username, logged_start, logged_change, ".
 							"logged_in, logged_ip) VALUES ('".
 							aporeplace($wcs_user)."', '".aporeplace($_SESSION["wcs_user_name"])."', ".time().", ".
-							time().", 1, '".aporeplace(getRemoteIP())."')", $db );				
+							time().", 1, '".aporeplace(getRemoteIP())."')", $db );
 			}
 		}
 		mysql_free_result($check);
 		$_SESSION['PHPWCMS_ROOT'] = PHPWCMS_ROOT;
 		set_status_message('Welcome '.$wcs_user.'!');
-		
+
 		if($ref_url) {
 			headerRedirect($ref_url.'&'.session_name().'='.session_id());
 		} else {
@@ -200,8 +200,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
 }
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -218,7 +217,7 @@ if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || 
 }
 
 ?>
-	
+
 </head>
 <body>
 <table width="504" border="0" align="center" cellpadding="0" cellspacing="0" summary="Login Screen" style="margin-top: 50px;">
@@ -234,21 +233,21 @@ if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || 
     <td style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;" bgcolor="#FFFFFF">&nbsp;</td>
     <td bgcolor="#FFFFFF" style="padding-left:3px;padding-right:3px;" id="loginFormArea">
 		<div class="error" style="font-weight:bold;padding:0 0 15px 0;font-size:12px;text-align:center"><?php
-	
+
 			echo $BL['be_login_jsinfo'];
-	
+
 		?></div></td>
     <td style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
   <tr>
     <td style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;" bgcolor="#FFFFFF">&nbsp;</td>
     <td bgcolor="#FFFFFF" style="padding: 0 3px 5px 3px;">
-		<strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong> 
+		<strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
 		Copyright &copy; 2003&#8212;<?php echo date('Y'); ?>
         Oliver Georgi. Extensions are copyright of their respective owners.
         Visit <a href="http://www.phpwcms.de" target="_blank">http://www.phpwcms.de</a> for
-        details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a> 
-		and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited  by law. 
+        details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a>
+		and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited  by law.
     </td>
     <td style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -269,26 +268,26 @@ ob_start();
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
 <input type="hidden" name="ref_url" value="<?php echo html_specialchars($ref_url) ?>" />
 <input name="form_aktion" type="hidden" id="form_aktion" value="login" />
-<?php 
-	  
+<?php
+
 	echo '<h1>'.$BL["login_text"].'</h1>';
-	
+
 	if(file_exists(PHPWCMS_ROOT.'/setup')) {
 		echo '<div class="error" style="margin-top:10px;">'.$BL["setup_dir_exists"].'</div>';
 	}
 	if(file_exists(PHPWCMS_ROOT.'/phpwcms_code_snippets')) {
 		echo '<div class="error" style="margin-top:10px;">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
 	}
-	
+
 	if(isset($_POST['json']) && $_POST['json'] == 2) $err = 0;
-	
+
 	if($err) {
 		echo '<div class="error" style="margin-top:10px;font-weight:bold;">'.$BL["login_error"].'</div>';
 	}
-	
-	echo '<div class="error" style="margin-top:10px;font-weight:bold;display:none;" id="jserr">'.$BL["login_error"].'</div>';	
-	
-	?>	
+
+	echo '<div class="error" style="margin-top:10px;font-weight:bold;display:none;" id="jserr">'.$BL["login_error"].'</div>';
+
+	?>
 
 	<table border="0" cellpadding="0" cellspacing="0" summary="Login Form" style="margin:15px 0 20px 10px">
         <tr>
