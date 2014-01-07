@@ -466,6 +466,79 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 					}
 
+					// article detail image
+					if(strpos($content['alink']['tr'][$key], 'IMAGE_DETAIL') !== false && isset($row['article_image']['hash'])) {
+
+						$row['article_image']['name'] = html_specialchars($row['article_image']['name']);
+
+						if(!empty($content['alink']['alink_width'])) {
+							$row['article_image']['width'] = $content['alink']['alink_width'];
+						}
+						if(!empty($content['alink']['alink_height'])) {
+							$row['article_image']['height'] = $content['alink']['alink_height'];
+						}
+
+						// build image/image link
+						$row['article_image']['poplink']	= '';
+						$row['article_image']['detail']		= false;
+						$row['article_image']['img'] 		= '';
+						$row['article_image']['crop']		= empty($content['alink']['alink_crop']) ? 0 : 1;
+						if($row['article_image']['caption']) {
+							$row['article_image']['caption']	= getImageCaption($row['article_image']['caption']);
+							$row['article_image']['caption'][0]	= html_specialchars($row['article_image']['caption'][0]);
+							$row['article_image']['caption'][3]	= html_specialchars($row['article_image']['caption'][3]);
+							$row['article_image']['caption'][1]	= html_specialchars($row['article_image']['caption'][1]);
+						} else {
+							$row['article_image']['caption'] = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+						}
+
+						$row['article_image']['detail'] = get_cached_image(array(
+							"target_ext"	=>	$row['article_image']['ext'],
+							"image_name"	=>	$row['article_image']['hash'] . '.' . $row['article_image']['ext'],
+							"max_width"		=>	$row['article_image']['width'],
+							"max_height"	=>	$row['article_image']['height'],
+							"thumb_name"	=>	md5($row['article_image']['hash'].$row['article_image']['width'].$row['article_image']['height'].$phpwcms['sharpen_level'].$row['article_image']['crop'].$phpwcms['colorspace']),
+							'crop_image'	=>	$row['article_image']['crop']
+						));
+
+						if($row['article_image']['detail'] != false) {
+
+							$row['article_image']['img']  = '<img src="'.PHPWCMS_IMAGES . $row['article_image']['detail'][0] .'" border="0" '.$row['article_image']['detail'][3];
+							$row['article_image']['img'] .= ' data-detail-id="'.$row['article_image']['id'].'" data-detail-hash="'.$row['article_image']['hash'].'"';
+							$row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ? $row['article_image']['caption'][1] : $row['article_image']['name']).'"';
+							if($row['article_image']['caption'][3]) {
+								$row['article_image']['img'] .= ' title="'.$row['article_image']['caption'][3].'"';
+							}
+							$row['article_image']['img'] .= ' />';
+
+						}
+
+						// replace thumbnail and zoom image information
+						$content['alink']['tr'][$key] = str_replace(
+							array(
+								'{IMAGE_DETAIL_ID}',
+								'{IMAGE_DETAIL_HASH}',
+								'{IMAGE_DETAIL_EXT}',
+								'{IMAGE_DETAIL_NAME}'
+							),
+							array(
+								$row['article_image']['id'],
+								$row['article_image']['hash'],
+								$row['article_image']['ext'],
+								$row['article_image']['name']
+							),
+							$content['alink']['tr'][$key]
+						);
+
+						$content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'IMAGE_DETAIL', $row['article_image']['img']);
+						$content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_DETAIL', $row['article_image']['caption'][0]);
+
+					} else {
+
+						$content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'IMAGE_DETAIL', '');
+
+					}
+
 					// article summary
 					if(strpos($content['alink']['tr'][$key], 'SUMMARY_RAW') !== false) {
 
