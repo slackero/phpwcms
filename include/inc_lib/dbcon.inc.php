@@ -258,7 +258,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 }
 
 // simplified db select
-function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $limit='', $prefix=NULL) {
+function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $limit='', $prefix=NULL, $_queryMode='ASSOC') {
 	
 	if(empty($table)) return false;
 	
@@ -312,7 +312,7 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 
 	$query = trim( 'SELECT ' . $select . ' FROM ' . $table . $where . $group_by . $order_by . $limit);
 
-	return _dbQuery($query);
+	return _dbQuery($query, $_queryMode);
 }
 
 // function for simplified update
