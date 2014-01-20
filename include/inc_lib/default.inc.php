@@ -632,21 +632,10 @@ function cleanupPOSTandGET() {
 }
 
 function remove_unsecure_rptags($check) {
-	// this is for security reasons
-	// where you can use input fields for
-	// code injection
-
-	//remove special replacement tags
-	$check = preg_replace('/\{PHP:(.*?)\}/i', '$1', $check);
-	$check = preg_replace('/\{PHPVAR:(.*?)\}/si', '$1', $check);
-	$check = preg_replace('/\[PHP\](.*?)\[\/PHP\]/si', '$1', $check);
-	$check = preg_replace('/\{URL:(.*?)\}/i', '$1', $check);
-	$check = str_replace('[PHP]', '[ PHP ]', $check);
-	$check = str_replace('[/PHP]', '[ /PHP ]', $check);
-	$check = str_replace('{PHP:', '{ PHP :', $check);
-	$check = str_replace('{PHPVAR:', '{ PHPVAR :', $check);
-	$check = str_replace('{URL:', '{ URL :', $check);
-	return $check;
+	// remove special replacement tags for security reasons
+	// bc input fields can be used for code injection
+	$check = preg_replace(array('/\{PHP:(.*?)\}/i', '/\{PHPVAR:(.*?)\}/si', '/\[PHP\](.*?)\[\/PHP\]/si', '/\{URL:(.*?)\}/i'), '$1', $check);
+	return str_replace(array('[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'), array('[ PHP ]', '[ /PHP ]', '{ PHP :' , '{ PHPVAR :', '{ URL :'), $check);
 }
 
 function headerRedirect($target='', $type=0) {
@@ -668,7 +657,9 @@ function headerRedirect($target='', $type=0) {
 }
 
 function _initSession() {
-	if(!session_id()) session_start();
+	if(!session_id()) {
+		session_start();
+	}
 	if(empty($_SESSION['phpwcmsSessionInit']) && function_exists("session_regenerate_id")) {
 		session_regenerate_id();
 		$_SESSION['phpwcmsSessionInit'] = true;
