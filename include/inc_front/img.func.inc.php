@@ -311,41 +311,34 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$lightbox	= generic_string(5);
 	}
 
-	$caption_on = empty($imagelist['nocaption']) ? true : false;
-	$crop		= empty($imagelist['crop']) ? 0 : 1;
+	$caption_on 	= empty($imagelist['nocaption']) ? true : false;
+	$crop			= empty($imagelist['crop']) ? 0 : 1;
+	$image_border	= ' border="' . (empty($GLOBALS["template_default"]["article"][$template_type."_border"]) ? '0' : $GLOBALS["template_default"]["article"][$template_type."_border"]) . '"';
 
 	if($usetable) {
 		$table_class = $GLOBALS["template_default"]["article"][$template_type."_table_class"];
-		if($align) {
+		if(empty($align)) {
+			$align = '';
+		} else {
 			$table_class .= ' '.$GLOBALS['template_default']['classes']['image-list-table'].$align;
+			$align = ' align="'.$align.'"';
 		}
 
 		$table_class	= ' class="'.trim($table_class).'"';
-		$table_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"];
-		$table_bgcolor	= ($table_bgcolor) ? ' bgcolor="'.$table_bgcolor.'"' : '';
-		$image_align	= $GLOBALS["template_default"]["article"][$template_type."_align"];
-		$image_align	= ($image_align) ? ' align="'.$image_align.'"' : '';
-		$image_valign	= $GLOBALS["template_default"]["article"][$template_type."_valign"];
-		$image_valign	= ($image_valign) ? ' valign="'.$image_valign.'"' : '';
-		$image_border	= ' border="'.intval($GLOBALS["template_default"]["article"][$template_type."_border"]).'"';
-		$image_imgclass	= $GLOBALS["template_default"]["article"][$template_type."_imgclass"];
-		$image_imgclass	= ($image_imgclass) ? ' class="'.$image_imgclass.'"' : '';
-		$image_class 	= $GLOBALS["template_default"]["article"][$template_type."_class"];
-		$image_class	= ($image_class) ? ' class="'.$image_class.'"' : '';
-		$image_bgcolor 	= $GLOBALS["template_default"]["article"][$template_type."_bgcolor"];
-		$image_bgcolor	= ($image_bgcolor) ? ' bgcolor="'.$image_bgcolor.'"' : '';
-		$caption_class 	= $GLOBALS["template_default"]["article"][$template_type."_caption_class"];
-		$caption_class	= ($caption_class) ? ' class="'.$caption_class.'"' : '';
-		$caption_bgcolor= $GLOBALS["template_default"]["article"][$template_type."_caption_bgcolor"];
-		$caption_bgcolor= ($caption_bgcolor) ? ' bgcolor="'.$caption_bgcolor.'"' : '';
-		$caption_valign	= $GLOBALS["template_default"]["article"][$template_type."_caption_valign"];
-		$caption_valign	= ($caption_valign) ? ' valign="'.$caption_valign.'"' : '';
-		$caption_align	= $GLOBALS["template_default"]["article"][$template_type."_caption_align"];
-		$caption_align	= ($caption_align) ? ' align="'.$caption_align.'"' : '';
+		$table_bgcolor	= empty($GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"]) ? '' : ' bgcolor="'.$GLOBALS["template_default"]["article"][$template_type."_table_bgcolor"].'"';
+		$image_align	= empty($GLOBALS["template_default"]["article"][$template_type."_align"]) ? '' : ' align="'.$GLOBALS["template_default"]["article"][$template_type."_align"].'"';
+		$image_valign	= empty($GLOBALS["template_default"]["article"][$template_type."_valign"]) ? '' : ' valign="'.$GLOBALS["template_default"]["article"][$template_type."_valign"].'"';
+		$image_class 	= empty($GLOBALS["template_default"]["article"][$template_type."_class"]) ? '' : ' class="'.$GLOBALS["template_default"]["article"][$template_type."_class"].'"';
+		$image_bgcolor 	= empty($GLOBALS["template_default"]["article"][$template_type."_bgcolor"]) ? '' : ' bgcolor="'.$GLOBALS["template_default"]["article"][$template_type."_bgcolor"].'"';
+		$caption_class 	= empty($GLOBALS["template_default"]["article"][$template_type."_caption_class"]) ? '' : ' class="'.$GLOBALS["template_default"]["article"][$template_type."_caption_class"].'"';
+		$caption_bgcolor= empty($GLOBALS["template_default"]["article"][$template_type."_caption_bgcolor"]) ? '' : ' bgcolor="'.$GLOBALS["template_default"]["article"][$template_type."_caption_bgcolor"].'"';
+		$caption_valign	= empty($GLOBALS["template_default"]["article"][$template_type."_caption_valign"]) ? '' : ' valign="'.$GLOBALS["template_default"]["article"][$template_type."_caption_valign"].'"';
+		$caption_align	= empty($GLOBALS["template_default"]["article"][$template_type."_caption_align"]) ? '' : ' align="'.$GLOBALS["template_default"]["article"][$template_type."_caption_align"].'"';
 		$capt_before 	= $GLOBALS["template_default"]["article"][$template_type."_caption_before"];
 		$capt_after 	= $GLOBALS["template_default"]["article"][$template_type."_caption_after"];
-
-		$align = (!$align) ? '' : ' align="'.$align.'"';
+		$image_imgclass	= empty($GLOBALS["template_default"]["article"][$template_type."_imgclass"]) ? '' : ' class="'.$image_imgclass.'"';
+	} else {
+		$image_imgclass	= ' class="'.$imagelist['class_image_thumb'].'"';
 	}
 
 	$rand = explode(":", $rand);
@@ -482,7 +475,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass;
 			$list_img_temp .= ' data-image-id="'.$imagelist['images'][$key][0].'" data-image-hash="'.$imagelist['images'][$key][2].'"';
 			$list_img_temp .= ' data-image-ext="'.$imagelist['images'][$key][3].'"';
-			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' class="'.$imagelist['class_image_thumb'].'" />';
+			$list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' />';
 
 			if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
 				// if click enlarge the image
