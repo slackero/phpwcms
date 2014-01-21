@@ -44,7 +44,11 @@ if($all = _dbQuery("SELECT article_id, article_alias, article_title FROM ".DB_PR
 			if($result === false) {
 				echo ' style="color:#CC3300"';
 			}
-			echo '>[ID:'.sprintf('%04s', $all[$key]['article_id']).'] '.html_specialchars($value['article_title'].' -> new: ' . $alias);
+			echo '>[ID:'.sprintf('%04s', $all[$key]['article_id']).'] ';
+			if(!empty($value['article_alias'])) {
+				echo ' OLD ALIAS: '.html_specialchars($value['article_alias']).' ';
+			}
+			echo html_specialchars('-> NEW ALIAS: ' . $alias . ', TITLE: ' . $value['article_title']);
 			echo '</pre>'.LF;
 		}
 
