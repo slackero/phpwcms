@@ -327,6 +327,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 		$image_imgclass	= ' class="'.$imagelist['class_image_thumb'].'"';
 	}
 
+
 	$rand = explode(":", $rand);
 	if(count($rand)) {
 		foreach($rand as $key => $value) {

@@ -239,7 +239,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		foreach($_POST['shop_prod_amount'] as $prod_id => $prod_qty) {
 
 			$prod_id  = intval($prod_id);
-			$prod_qty = abs( intval($prod_qty) );
+			$prod_qty = isset($_POST['shop_cart_delete']) ? 0 : abs( intval($prod_qty) );
 			if(isset($_SESSION[CART_KEY]['products'][$prod_id])) {
 				if($prod_qty) {
 					$_SESSION[CART_KEY]['products'][$prod_id] = $prod_qty;
@@ -1112,18 +1112,25 @@ if( $_shop_load_order ) {
 		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
 
 		// Update Cart Button
-		$_cart_button = preg_match("/\[UPDATE\](.*?)\[\/UPDATE\]/is", $order_process, $g) ? $g[1] : '';
+		$_cart_button = preg_match("/\[UPDATE\](.*?)\[\/UPDATE\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_update" value="' . html_specialchars($_cart_button) . '" class="cart_update_button" />';
+			$_cart_button = '<input type="submit" name="shop_cart_update" value="' . html_specialchars($_cart_button) . '" class="cart-update-button" />';
 		}
-		$order_process  = preg_replace('/\[UPDATE\](.*?)\[\/UPDATE\]/is', $_cart_button , $order_process);
+		$order_process  = preg_replace('/\[UPDATE\](.*?)\[\/UPDATE\]/s', $_cart_button , $order_process);
 
 		// Checkout Button
-		$_cart_button = preg_match("/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/is", $order_process, $g) ? $g[1] : '';
+		$_cart_button = preg_match("/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_checkout" value="' . html_specialchars($_cart_button) . '" class="cart_checkout_button" />';
+			$_cart_button = '<input type="submit" name="shop_cart_checkout" value="' . html_specialchars($_cart_button) . '" class="cart-checkout-button" />';
 		}
-		$order_process  = preg_replace('/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/is', $_cart_button , $order_process);
+		$order_process  = preg_replace('/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/s', $_cart_button , $order_process);
+
+		// Empty Cart Button
+		$_cart_button = preg_match("/\[DELETE\](.*?)\[\/DELETE\]/s", $order_process, $g) ? $g[1] : '';
+		if(strpos($_cart_button, 'input ') === false) {
+			$_cart_button = '<input type="submit" name="shop_cart_delete" value="' . html_specialchars($_cart_button) . '" class="cart-delete-button" />';
+		}
+		$order_process  = preg_replace('/\[DELETE\](.*?)\[\/DELETE\]/s', $_cart_button , $order_process);
 
 		// Is Shipping?
 		$order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
