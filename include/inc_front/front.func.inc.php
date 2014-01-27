@@ -2482,26 +2482,28 @@ function include_int_phpcode($string) {
 	return ob_get_clean();
 }
 
-function build_sitemap($start=0, $counter=0) {
+function build_sitemap($start=0, $counter=0, & $sitemap) {
 	// create sitemap
 
 	$s = '';
 	$c = '';
 	$counter++;
 
-
-	if($GLOBALS['sitemap']['classcount']) {
-		if($GLOBALS['sitemap']['catclass']) $c = ' class="'.$GLOBALS['sitemap']['catclass'].$counter.'"';
+	if(empty($sitemap['catclass'])) {
+		$c = '';
 	} else {
-		if($GLOBALS['sitemap']['catclass']) $c = ' class="'.$GLOBALS['sitemap']['catclass'].'"';
+		$c = ' class="'.$sitemap['catclass'];
+		if($sitemap['classcount']) {
+			$c .= $counter;
+		}
+		$c .= '"';
 	}
 
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 
-		//if ($key && $GLOBALS['content']['struct'][$key]['acat_nositemap'] && $start == $GLOBALS['content']['struct'][$key]['acat_struct'])
 		if( $GLOBALS['content']['struct'][$key]['acat_nositemap'] && _getStructureLevelDisplayStatus($key, $start) ) {
 
-			$s .= '<li'.$GLOBALS['sitemap']['cat_style'].'>';	//$c.
+			$s .= '<li'.$sitemap['cat_style'].'>';
 
 			if(!$GLOBALS['content']['struct'][$key]["acat_redirect"]) {
 				$s .= '<a href="index.php?';
@@ -2519,21 +2521,22 @@ function build_sitemap($start=0, $counter=0) {
 			$s .= '>';
 			$s .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
 			$s .= '</a>';
-			if($GLOBALS['sitemap']["display"]) $s .= build_sitemap_articlelist($key, $counter);
-
-			$s .= build_sitemap($key, $counter);
-
-			$s .= "</li>\n";
+			if($sitemap["display"]) {
+				$s .= build_sitemap_articlelist($key, $counter, $sitemap);
+			}
+			$s .= build_sitemap($key, $counter, $sitemap);
+			$s .= '</li>' . LF;
 		}
 	}
 
-
-	if($s) $s = "\n<ul".$c.">\n".$s.'</ul>';
+	if($s) {
+		$s = LF . '<ul'.$c.'>' . LF . $s . '</ul>';
+	}
 
 	return $s;
 }
 
-function build_sitemap_articlelist($cat, $counter=0) {
+function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 	// create list of articles for given category
 
 	$ao = get_order_sort($GLOBALS['content']['struct'][ $cat ]['acat_order']);
@@ -2559,9 +2562,9 @@ function build_sitemap_articlelist($cat, $counter=0) {
 
 			$c = '';
 
-			if($GLOBALS['sitemap']['articleclass']) {
-				$c .= ' class="'.$GLOBALS['sitemap']['articleclass'];
-				if($GLOBALS['sitemap']['classcount']) {
+			if($sitemap['articleclass']) {
+				$c .= ' class="'.$sitemap['articleclass'];
+				if($sitemap['classcount']) {
 					$c .= $counter;
 				}
 				$c .= '"';
@@ -2569,7 +2572,7 @@ function build_sitemap_articlelist($cat, $counter=0) {
 
 			while($row = mysql_fetch_row($result)) {
 
-				$s .= '<li'.$GLOBALS['sitemap']['article_style'].'>';
+				$s .= '<li'.$sitemap['article_style'].'>';
 				$s .= '<a href="index.php?aid='.$row[0].'">';
 				$s .= html_specialchars($row[1]);
 				$s .= "</a></li>\n";
@@ -2583,7 +2586,6 @@ function build_sitemap_articlelist($cat, $counter=0) {
 	}
 
 	return $s;
-
 }
 
 function render_cnt_template($text='', $tag='', $value='') {
