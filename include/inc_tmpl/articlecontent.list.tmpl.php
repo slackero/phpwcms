@@ -23,7 +23,7 @@ $buttonAction .= '<td><input type="button" value="'.$BL['be_article_cnt_center']
 $buttonAction .= '" class="button10" title="'.$BL['be_article_cnt_center'].'" onclick="';
 $buttonAction .= "location.href='phpwcms.php?do=articles';return false;\"></td>\n<td>&nbsp;</td>\n";
 // Article Preview (new window)
-$buttonActionLink = 'index.php?id='.$article["article_catid"].','.$article["article_id"].',0,0,1,0';
+$buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($article["article_alias"]) ? 'aid='.$article["article_id"] : $article["article_alias"]);
 $buttonAction .= '<td>';
 $buttonAction .= '<input type="button" value="'.$BL['be_func_struct_preview'];
 $buttonAction .= '" class="button10" title="'.$BL['be_func_struct_preview'].'" onclick="';

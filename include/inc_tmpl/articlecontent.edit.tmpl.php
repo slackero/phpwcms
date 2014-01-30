@@ -344,7 +344,7 @@ if(isset($result[0]['template_var'])) {
 				<option value="0"<?php is_selected(0, $content["tab_type"]); ?>><?php echo $BL['be_off'] ?></option>
 				<option value="1"<?php is_selected(1, $content["tab_type"]); ?>><?php echo $BL['be_ctype_tabs'] ?></option>
 				<option value="2"<?php is_selected(2, $content["tab_type"]); ?>><?php echo $BL['be_ctype_accordion'] ?></option>
-			</select><!-- <input name="ctab" type="checkbox" id="ctab" value="1"<?php is_checked(1, $content["tab"]); ?> onclick="checkTabStatus(this);" /> --></td>
+			</select></td>
 
 		</tr>
 		</table><script type="text/javascript">
@@ -503,7 +503,7 @@ endif;
 
 // render buttons only once and save the buffer
 if(!empty($content["id"])) {
-	$buttonActionLink	= 'index.php?id='.$content['article']['acat_id'].','.$content["aid"].',0,0,1,0';
+	$buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
 	$buttonAction  = '	<div style="float:right;margin-right:5px;padding:0;">';
 	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" ';
 	$buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";

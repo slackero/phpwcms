@@ -1573,7 +1573,7 @@ function html_parser($string) {
 
 	// internal Link to article ID
 	$search[1]		= '/\[ID (\d+)\](.*?)\[\/ID\]/s';
-	$replace[1]		= '<a href="index.php?aid=$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
+	$replace[1]		= '<a href="'.rel_url(array(), array(), 'aid=$1').'" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
 
 	// external Link (string)
 	$search[2]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
@@ -2302,7 +2302,9 @@ function get_index_link_next($linktext, $cat_down=0) {
 	// return the link to next article in current ctageory
 	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
 	$linktext = trim($linktext);
-	if(!$linktext) $linktext = 'NEXT';
+	if($linktext === '') {
+		$linktext = 'NEXT';
+	}
 	$link = '';
 
 	if(count($content['articles']) > 1) {
@@ -2310,7 +2312,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 		$c = 0; //temp counter
 		foreach($content['articles'] as $key => $value) {
 			if($c || !$a_id) {
-				$link  = '<a href="index.php?aid='.$key.'">';
+				$link = '<a href="'.rel_url(array(), array(), empty($content['articles'][$key]['article_alias']) ? 'aid='.$key : $content['articles'][$key]['article_alias']).'">';
 				break;
 			}
 			if($key == $a_id) $c++;
@@ -2323,9 +2325,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 		if($content['cat_id']) {
 			foreach($content['struct'] as $key => $value) {
 				if($content['struct'][$key]['acat_struct'] == $content['cat_id']) {
-					$link  = '<a href="index.php?';
-					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-					$link .= '">';
+					$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 					break;
 				}
 			}
@@ -2333,9 +2333,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 			$c = 0;
 			foreach($content['struct'] as $key => $value) {
 				if($c) {
-					$link  = '<a href="index.php?';
-					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-					$link .= '">';
+					$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 					break;
 				}
 				$c++;
@@ -2355,13 +2353,8 @@ function get_index_link_next($linktext, $cat_down=0) {
 				$c=0;
 				foreach($temp_key as $value) {
 					if($value == $content['cat_id'] && $c+1 < $count_temp) {
-						//$link = '<a href="index.php?id='.$temp_key[$c+1].',0,0,1,0,0">';
-
 						$key = $temp_key[$c+1];
-
-						$link  = '<a href="index.php?';
-						$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-						$link .= '">';
+						$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 						break;
 					}
 					$c++;
@@ -2378,9 +2371,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 						foreach($content['struct'] as $key => $value) {
 							if($content['struct'][$key]['acat_struct'] == $parent_struct_id) {
 								if($c) {
-									$link  = '<a href="index.php?';
-									$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-									$link .= '">';
+									$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 									break;
 								}
 								if($key == $parent_id) $c=1;
@@ -2393,57 +2384,53 @@ function get_index_link_next($linktext, $cat_down=0) {
 						} else {
 							$current_id = $parent_id;
 						}
-
 					}
-
-
 				}
 			}
 		}
-
 	}
 
 	return ($link) ? $link.$linktext.'</a>' : $linktext;
 }
 
 function get_index_link_prev($linktext, $cat_up=0) {
+	global $content;
 	// return the link to next article in current ctageory
-	$a_id = isset($GLOBALS['content']['article_id']) ? $GLOBALS['content']['article_id'] : $GLOBALS['aktion'][1];
+	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
 	$linktext = trim($linktext);
-	if(!$linktext) $linktext = 'PREV';
+	if($linktext === '') $linktext = 'PREV';
 	$link = '';
 	$c = 0; //temp counter
+	if(count($content['articles']) > 1 && $a_id) {
 
-	if(count($GLOBALS['content']['articles']) > 1 && $a_id) {
-
-		foreach($GLOBALS['content']['articles'] as $key => $value) {
+		foreach($content['articles'] as $key => $value) {
 			if($key == $a_id && $c) {
-				$link  = '<a href="index.php?aid='.$prev_art_id.'">';
+				$link = '<a href="'.rel_url(array(), array(), empty($content['articles'][$prev_art_id]['article_alias']) ? 'aid='.$prev_art_id : $content['articles'][$prev_art_id]['article_alias']).'">';
 				break;
 			}
 			$c++;
-			$prev_cat_id = $GLOBALS['content']['articles'][$key]['article_cid'];
+			$prev_cat_id = $content['articles'][$key]['article_cid'];
 			$prev_art_id = $key;
 		}
 	}
 	if($cat_up && $a_id && $c && !$link) {
-		$link = '<a href="index.php?id='.$GLOBALS['content']['cat_id'].',0,0,1,0,0">';
+		$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$content['cat_id']]['acat_alias']) ? 'id='.$content['cat_id'] : $content['struct'][$content['cat_id']]['acat_alias']).'">';
 	}
 
 	if($cat_up && !$link) {
 		// go cat down or to next cat above
 		$temp_key = array();
-		foreach($GLOBALS['content']['struct'] as $key => $value) {
-			if($GLOBALS['content']['struct'][$key]['acat_struct'] == $GLOBALS['content']['struct'][ $GLOBALS['content']['cat_id'] ]['acat_struct']) {
+		foreach($content['struct'] as $key => $value) {
+			if($content['struct'][$key]['acat_struct'] == $content['struct'][ $content['cat_id'] ]['acat_struct']) {
 				$temp_key[] = $key;
 			}
 		}
-		if(count($temp_key) && $GLOBALS['content']['cat_id']) {
+		if(count($temp_key) && $content['cat_id']) {
 			$c = 0;
 			foreach($temp_key as $value) {
-				if($value == $GLOBALS['content']['cat_id']) {
-					$prev_cat_id = (!$c) ? $GLOBALS['content']['struct'][$value]['acat_struct'] : $temp_key[$c-1];
-					$link = '<a href="index.php?id='.$prev_cat_id.',0,0,1,0,0">';
+				if($value == $content['cat_id']) {
+					$prev_cat_id = (!$c) ? $content['struct'][$value]['acat_struct'] : $temp_key[$c-1];
+					$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$prev_cat_id]['acat_alias']) ? 'id='.$prev_cat_id : $content['struct'][$prev_cat_id]['acat_alias']).'">';
 					break;
 				}
 				$c++;
@@ -2506,13 +2493,7 @@ function build_sitemap($start=0, $counter=0, & $sitemap) {
 			$s .= '<li'.$sitemap['cat_style'].'>';
 
 			if(!$GLOBALS['content']['struct'][$key]["acat_redirect"]) {
-				$s .= '<a href="index.php?';
-				if($GLOBALS['content']['struct'][$key]['acat_alias']) {
-					$s .= $GLOBALS['content']['struct'][$key]['acat_alias'];
-				} else {
-					$s .= 'id='.$key;
-				}
-				$s .= '"';
+				$s .= '<a href="'.rel_url(array(), array(), empty($GLOBALS['content']['struct'][$key]['acat_alias']) ? 'id='.$key : $GLOBALS['content']['struct'][$key]['acat_alias']).'"';
 			} else {
 				$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
 				$s .= '<a href="'.$redirect['link'].'"'.$redirect['target'];
@@ -2541,7 +2522,7 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 
 	$ao = get_order_sort($GLOBALS['content']['struct'][ $cat ]['acat_order']);
 
-	$sql  = "SELECT article_id, article_title FROM ".DB_PREPEND."phpwcms_article ";
+	$sql  = "SELECT article_id, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article ";
 	$sql .= "WHERE article_cid=".intval($cat)." AND article_nositemap=1 AND ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
@@ -2573,7 +2554,7 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 			while($row = mysql_fetch_row($result)) {
 
 				$s .= '<li'.$sitemap['article_style'].'>';
-				$s .= '<a href="index.php?aid='.$row[0].'">';
+				$s .= '<a href="'.rel_url(array(), array(), empty($row[2]) ? 'aid='.$row[0] : $row[2]).'">';
 				$s .= html_specialchars($row[1]);
 				$s .= "</a></li>\n";
 

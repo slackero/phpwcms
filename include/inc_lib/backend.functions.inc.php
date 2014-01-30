@@ -596,7 +596,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		's',
 		'q',
 		'feedimport',
-		'r404'
+		'r404',
+		'phpwcms-preview'
 	);
 
 	if($alias === '') {
