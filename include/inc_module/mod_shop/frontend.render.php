@@ -135,6 +135,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	// merge config settings like translations and so on
 	$_tmpl['config'] = array_merge(	array(
 							'cat_all'					=> '@@All products@@',
+							'cat_all_pos'				=> 'bottom',
 							'cat_list_products'			=> false,
 							'cat_subcat_spacer'			=> ' / ',
 							'price_decimals'			=> 2,
@@ -172,7 +173,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 						),	$_tmpl['config'] );
 
 	foreach( array( 'shop_pref_currency', 'shop_pref_unit_weight', 'shop_pref_vat', 'shop_pref_email_to',
-					'shop_pref_email_from', 'shop_pref_email_paypal', 'shop_pref_shipping',
+					'shop_pref_email_from', 'shop_pref_email_paypal', 'shop_pref_shipping', 'shop_pref_shipping_calc',
 					'shop_pref_payment', 'shop_pref_discount', 'shop_pref_loworder' ) as $value ) {
 		_getConfig( $value, '_shopPref' );
 	}
@@ -215,27 +216,22 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	$_tmpl['config']['weight_decimals'] = (int) $_tmpl['config']['weight_decimals'];
 
 	if($_tmpl['config']['shop_css']) {
-		renderHeadCSS(array(1=>$_tmpl['config']['shop_css']));
+		renderHeadCSS($_tmpl['config']['shop_css']);
 	}
 
 	// OK get cart post data
-	if( isset($_POST['shop_action']) ) {
+	if( isset($_POST['shop_action']) && $_POST['shop_action'] == 'add' ) {
 
-		switch($_POST['shop_action']) {
-
-			case 'add':		$shop_prod_id		= intval($_POST['shop_prod_id']);
-							$shop_prod_amount	= abs( intval($_POST['shop_prod_amount']) );
-							if(empty($shop_prod_id) || empty($shop_prod_amount)) break; // leave
-
-							// add product to shopping
-							if(isset($_SESSION[CART_KEY]['products'][$shop_prod_id])) {
-								$_SESSION[CART_KEY]['products'][$shop_prod_id] += $shop_prod_amount;
-							} else {
-								$_SESSION[CART_KEY]['products'][$shop_prod_id]  = $shop_prod_amount;
-							}
-
-							break;
-
+		$shop_prod_id		= intval($_POST['shop_prod_id']);
+		$shop_prod_amount	= abs( intval($_POST['shop_prod_amount']) );
+		if(empty($shop_prod_id) || empty($shop_prod_amount)) {
+			break; // leave
+		}
+		// add product to shopping
+		if(isset($_SESSION[CART_KEY]['products'][$shop_prod_id])) {
+			$_SESSION[CART_KEY]['products'][$shop_prod_id] += $shop_prod_amount;
+		} else {
+			$_SESSION[CART_KEY]['products'][$shop_prod_id]  = $shop_prod_amount;
 		}
 
 	} elseif( isset($_POST['shop_prod_amount']) && is_array($_POST['shop_prod_amount']) ) {
@@ -258,7 +254,6 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		// handle invoice address -> checkout
 
 		$_SESSION[CART_KEY]['step1'] = array(
-
 			'INV_FIRSTNAME'	=> isset($_POST['shop_inv_firstname']) ? clean_slweg($_POST['shop_inv_firstname']) : '',
 			'INV_NAME'		=> isset($_POST['shop_inv_name']) ? clean_slweg($_POST['shop_inv_name']) : '',
 			'INV_ADDRESS'	=> isset($_POST['shop_inv_address']) ? clean_slweg($_POST['shop_inv_address']) : '',
@@ -268,8 +263,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			'INV_COUNTRY'	=> isset($_POST['shop_inv_country']) ? clean_slweg($_POST['shop_inv_country']) : '',
 			'EMAIL'			=> isset($_POST['shop_email']) ? clean_slweg($_POST['shop_email']) : '',
 			'PHONE'			=> isset($_POST['shop_phone']) ? clean_slweg($_POST['shop_phone']) : ''
-
-					);
+		);
 
 		// retrieve all custom field POST data
 		foreach($_tmpl['config']['shop_field'] as $key => $row) {
@@ -314,7 +308,6 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			unset($_SESSION[CART_KEY]['error']['step1']);
 		}
 
-
 	} elseif( isset($_POST['shop_order_submit']) ) {
 
 		if(empty($_POST['shop_terms_agree'])) {
@@ -328,7 +321,6 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		unset($_SESSION[CART_KEY]['error']['step2']);
 
 	}
-
 }
 
 
@@ -345,7 +337,6 @@ if( $_shop_load_cat !== false ) {
 	} else {
 		$shop_limited_cat = false;
 	}
-
 
 	$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
 	$sql .= "cat_type='module_shop' AND cat_status=1 AND cat_pid=0 ";
@@ -444,27 +435,40 @@ if( $_shop_load_cat !== false ) {
 
 			$x++;
 		}
-
 	}
 
-	if( count($shop_cat) ) {
+	$shop_cat = count($shop_cat) ? implode(LF.'	', $shop_cat) : '';
+	$shop_cat_all = '';
 
-		if( ! $shop_limited_cat ) {
-			$shop_cat[$x]  = '<li id="shopcat-all"';
-			if($shop_cat_selected == 'all') {
-				$shop_cat[$x] .= ' class="active"';
-			}
-			$shop_cat[$x] .= '><a href="' . rel_url(array('shop_cat' => 'all'), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">@@';
-			$shop_cat[$x] .= html_specialchars($_tmpl['config']['cat_all']);
-			$shop_cat[$x] .= '@@</a>';
-			$shop_cat[$x] .= '</li>';
-		}
-		$shop_cat = '<ul class="'.$template_default['classes']['shop-category-menu'].'">' . LF.'	' . implode(LF.'	', $shop_cat) . LF . '</ul>';
-
+	if(empty($_tmpl['config']['cat_all_pos'])) {
+		// fallback for older templates
+		$_tmpl['config']['cat_all_pos'] = 'bottom';
 	} else {
+		$_tmpl['config']['cat_all_pos'] = strtolower($_tmpl['config']['cat_all_pos']);
+		if($_tmpl['config']['cat_all_pos'] != 'top' && $_tmpl['config']['cat_all_pos'] != 'bottom') {
+			$_tmpl['config']['cat_all_pos'] = 'none';
+		}
+	}
 
-		$shop_cat = '';
+	if( ! $shop_limited_cat && $_tmpl['config']['cat_all_pos'] != 'none') {
+		$shop_cat_all .= '	<li id="shopcat-all"';
+		if($shop_cat_selected == 'all') {
+			$shop_cat_all .= ' class="active"';
+		}
+		$shop_cat_all .= '><a href="' . rel_url(array('shop_cat' => 'all'), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">@@';
+		$shop_cat_all .= html_specialchars($_tmpl['config']['cat_all']);
+		$shop_cat_all .= '@@</a>';
+		$shop_cat_all .= '</li>';
 
+		if($_tmpl['config']['cat_all_pos'] == 'top') {
+			$shop_cat = $shop_cat_all . LF . '	' . $shop_cat;
+		} else {
+			$shop_cat .= LF . $shop_cat_all;
+		}
+	}
+
+	if($shop_cat !== '') {
+		$shop_cat = '<ul class="'.$template_default['classes']['shop-category-menu'].'">' . LF . $shop_cat . LF . '</ul>';
 	}
 
 	$content['all'] = str_replace('{SHOP_CATEGORIES}', $shop_cat, $content['all']);
@@ -476,7 +480,6 @@ if( $_shop_load_cat !== false ) {
 			$GLOBALS['_getVar']['shop_cat'] .= '_' . $shop_subcat_selected;
 		}
 	}
-
 }
 
 
@@ -1211,8 +1214,6 @@ function get_cart_data() {
 	return $data;
 }
 
-
-
 function shop_image_tag($img=array(), $counter=0, $title='') {
 
 	$config =& $GLOBALS['_tmpl']['config'];
@@ -1386,6 +1387,5 @@ function shop_files($data=array()) {
 	return $news['files_result'];
 
 }
-
 
 ?>
