@@ -9,7 +9,7 @@
  *
  **/
 
- 
+
 // Language: Polish, Language Code: pl UTF-8 for ver.1.7.0 (2013/06/20, r532) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -281,7 +281,7 @@ $BL['be_fsearch_public']        = 'publiczne';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
 $BL['be_chat_title']        = 'wewnętrzny chat';
-$BL['be_chat_info']         = 'Tutaj możesz porozumieć się z innymi użytkownikami swojego systemu phpWCMS. To medium jest przeznaczone głównie do porozumiewania się w czasie rzeczywistym, ale możesz również zostawiać poprzez niego wiadomości dla innych.';
+$BL['be_chat_info']         = 'Tutaj możesz porozumieć się z innymi użytkownikami swojego systemu phpwcms. To medium jest przeznaczone głównie do porozumiewania się w czasie rzeczywistym, ale możesz również zostawiać poprzez niego wiadomości dla innych.';
 $BL['be_chat_start']        = 'kliknij tutaj aby uruchomić chat';
 $BL['be_chat_lines']        = 'linie chata';
 
@@ -336,7 +336,7 @@ $BL['be_admin_usr_err2']           = 'Nazwa użytkownika nie może być pusta';
 $BL['be_admin_usr_err3']           = 'Hasło użytkownika nie może być puste';
 $BL['be_admin_usr_err4']           = "Adres email jest nieprawidłowy";
 $BL['be_admin_usr_err']            = 'Błąd';
-$BL['be_admin_usr_mailsubject']    = 'Witajcie w systemie zarządzania phpWCMS';
+$BL['be_admin_usr_mailsubject']    = 'Witajcie w systemie zarządzania phpwcms';
 $BL['be_admin_usr_mailbody']       = "WITAJ W SYSTEMIE ZARZĄDZANIA PHPWCMS\n\n    użytkownik: {LOGIN}\n    hasło: {PASSWORD}\n\n\nPrzez tą stronę możesz się zalogować: {SITE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']          = 'Dodaj nowe konto użytkownika';
 $BL['be_admin_usr_realname']       = 'Prawdziwe imię';
@@ -682,7 +682,7 @@ $BL['be_cnt_ecardform_button']      = 'Wyślij kartkę';
 $BL['be_cnt_ecardsend']             = 'Szablon wysyłki';
 
 // added: 28-03-2004
-$BL['be_admin_startup_title']       = 'Domyślny tekst na stronie startowej systemu phpWCMS';
+$BL['be_admin_startup_title']       = 'Domyślny tekst na stronie startowej systemu phpwcms';
 $BL['be_admin_startup_text']        = 'Treść tekstu';
 $BL['be_admin_startup_button']      = 'Zapisz tekst';
 
@@ -726,7 +726,7 @@ $BL['be_newsletter_open']               = 'pola wprowadzania treści nowości';
 $BL['be_newsletter_open1']              = '(kliknij żeby otworzyć edytor)';
 $BL['be_newsletter_sendnow']            = 'wyślij teraz';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Uwaga!</strong> Wysyłanie wielu nowości naraz do dużej ilość odbiorców jest niebezpieczne. Odbiorcy powinni być zweryfikowani inaczej Twoja wysyłka może zostać potraktowana jako SPAM. .Pomyśl dwa razy zanim wyślesz nowości. Sprawdź nowości poprzez wysyłkę testu.';
-$BL['be_newsletter_attention1']         = 'Jeśli dokonałeś zmian w nowości, zapisz ją najpierw inaczej nie zostanie ona użyta.'; 
+$BL['be_newsletter_attention1']         = 'Jeśli dokonałeś zmian w nowości, zapisz ją najpierw inaczej nie zostanie ona użyta.';
 $BL['be_newsletter_testemail']          = 'Testuj email';
 $BL['be_newsletter_sendnlbutton']       = 'Wyślij nowość';
 $BL['be_newsletter_sendprocess']        = 'Proces wysyłania';
@@ -934,14 +934,14 @@ $BL['be_cnt_field']		= array("text"=>'text (jedno-liniowy)',
 								"captchaimg"=>'obraz captcha',
 								"captcha"=>'kod captcha',
 								'newsletter'=>'newsletter',
-								'selectemail'=>'wybierz menu e-mail', 
+								'selectemail'=>'wybierz menu e-mail',
 								'country'=>'wybierz menu kraju',
-								'mathspam'=>'ochrona spamowa', 
-								'summing'=>'podsumowanie', 
-								'subtract'=>'odejmij', 
-								'divide'=>'podziel', 'multiply'=>'pomnóż', 
+								'mathspam'=>'ochrona spamowa',
+								'summing'=>'podsumowanie',
+								'subtract'=>'odejmij',
+								'divide'=>'podziel', 'multiply'=>'pomnóż',
 								'calculation'=>'kalkulacja:',
-								'formtracking_off'=>'wyłącz śledzenie formularza', 
+								'formtracking_off'=>'wyłącz śledzenie formularza',
 								'checktofrom'=>'e-mail odbiorcy musi się różnić od nadawcy',
                                 'recaptcha'=>'reCAPTCHA',
 								'recaptcha_signapikey'=>'Sign up for a reCAPTCHA API key');

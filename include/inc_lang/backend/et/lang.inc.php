@@ -719,7 +719,7 @@ $BL['be_newsletter_open']               = 'HTML/TEXT sisend';
 $BL['be_newsletter_open1']              = '(avamiseks kliki ikoonile)';
 $BL['be_newsletter_sendnow']            = 'Saada uudiskiri';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Tähelepanu!</strong> Uudiskirja saatmist paljudele saajatele korraga võib käsitleda spämmina, kontrolli saajate nimekirja ning saada uudiskiri igaks juhuks eelnevalt testiks oma aadressil.';
-$BL['be_newsletter_attention1']         = 'Kui oled teinud muudatusi, palun salvesta need kõigepealt!'; 
+$BL['be_newsletter_attention1']         = 'Kui oled teinud muudatusi, palun salvesta need kõigepealt!';
 $BL['be_newsletter_testemail']          = 'test e-mail';
 $BL['be_newsletter_sendnlbutton']       = 'saada uudiskiri';
 $BL['be_newsletter_sendprocess']        = 'saadan';
@@ -782,7 +782,7 @@ $BL['be_article_forlist']               = 'artiklite loetelu';
 $BL['be_article_forfull']               = 'kuva terve artikkel';
 
 // added: 08-07-2004
-$BL["setup_dir_exists"]                 = '<div style="font-size: 14px;">TÄHELEPANU!</div>SETUP&quot; kataloog on kustutamata!<br>Kui oled phpWCMS-i edukalt seadistanud, siis kustuta see kataloog. Jättes kataloogi kustutamata ning vaikimisi kasutajanime ja parooli, jätad ka võimaluse oma server üle võtta.';
+$BL["setup_dir_exists"]                 = '<div style="font-size: 14px;">TÄHELEPANU!</div>SETUP&quot; kataloog on kustutamata!<br>Kui oled phpwcms-i edukalt seadistanud, siis kustuta see kataloog. Jättes kataloogi kustutamata ning vaikimisi kasutajanime ja parooli, jätad ka võimaluse oma server üle võtta.';
 
 // added: 12-08-2004
 $BL['be_cnt_guestbook_banned']          = 'keelatud sõnad';

@@ -39,7 +39,7 @@ $BL['be_nav_profile']                   = 'LOGIN GEGEVENS';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'DISCUSSIE';
 
-$BL['be_page_title']                    = 'Phpwcms-backend (beheer)';
+$BL['be_page_title']                    = 'phpwcms backend (beheer)';
 
 $BL['be_subnav_article_center']         = 'Artikelbeheer';
 $BL['be_subnav_article_new']            = 'Nieuw artikel';
@@ -140,7 +140,7 @@ $BL['be_profile_label_signature']       = 'Ondertekening';
 $BL['be_profile_label_notes']           = 'Notities';
 $BL['be_profile_label_profession']      = 'Beroep';
 $BL['be_profile_label_newsletter']      = 'Nieuwsbrief';
-$BL['be_profile_text_newsletter']       = 'Aanmelden voor phpwcms-nieuwsbrief.';
+$BL['be_profile_text_newsletter']       = 'Aanmelden voor phpwcms nieuwsbrief.';
 $BL['be_profile_label_public']          = 'Zichtbaarheid';
 $BL['be_profile_text_public']           = 'Profielgegevens voor iedereen zichtbaar maken.';
 $BL['be_profile_label_button']          = 'Opslaan';
@@ -283,7 +283,7 @@ $BL['be_fsearch_public']                = 'Openbaar';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
 $BL['be_chat_title']                    = 'Chatten (onderling)';
-$BL['be_chat_info']                     = 'Hier kunt u chatten met andere phpwcms-backend (administratie) gebruikers. Dit is bedoeld voor "realtime"-communicatie, maar u kunt ook een bericht achterlaten zodat andere gebruikers op een later tijdstip dit kunnen lezen.';
+$BL['be_chat_info']                     = 'Hier kunt u chatten met andere phpwcms backend (administratie) gebruikers. Dit is bedoeld voor "realtime"-communicatie, maar u kunt ook een bericht achterlaten zodat andere gebruikers op een later tijdstip dit kunnen lezen.';
 $BL['be_chat_start']                    = 'Start met chatten';
 $BL['be_chat_lines']                    = 'Chat-zinnen';
 
@@ -925,8 +925,8 @@ $BL['be_cnt_field']						= array("text"=>'texst (1 lijn)', "email"=>'email', "te
 												"upload"=>'bestand', "submit"=>'verzend drukknop', "reset"=>'resetknop',
 												"break"=>'break', "breaktext"=>'breaktekst', "special"=>'tekst (speciaal)'
 												, "captcha"=>'captcha code', "captchaimg"=>'captcha image');
-												
-																																							
+
+
 
 $BL['be_cnt_access']					= 'Toegang';
 $BL['be_cnt_activated']					= 'Geactiveerd';
@@ -978,7 +978,7 @@ $BL['be_file_replace']                   = 'Vervang titel bestanden';
 $BL['be_alias_articleID']                = 'Alias ID';
 $BL['be_alias_useAll']                   = "Gebruik dit artikel&#8217;s header data";
 $BL['be_article_morelink']               = '[Meer&#8230;] link';
-$BL['be_admin_tmpl_copy']                = 'Kopieer template'; 
+$BL['be_admin_tmpl_copy']                = 'Kopieer template';
 
 $BL['be_ctype_filelist1']                = 'Bestanden lijst pro';
 $BL['be_cnt_fpro_usecaption']            = 'Gebruik bestandsbeheer &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
@@ -1026,7 +1026,7 @@ $BL['Version_up_to_date']				= 'De installatie is up to dat. Er zijn geen update
 $BL['Version_not_up_to_date']			= 'De installatie is <b>niet</b> up to date. Er zijn updates beschikbaar. Ga naar <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a> om de laatste versie te downloaden.';
 $BL['Latest_version_info']				= 'De laatste versie is <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'Versie: <b>phpwcms %s</b>.';
-$BL['Connect_socket_error']				= 'Kan geen verbinding maken met de Phpwcms server. De foutcode is:<br />%s';
+$BL['Connect_socket_error']				= 'Kan geen verbinding maken met de phpwcms server. De foutcode is:<br />%s';
 $BL['Socket_functions_disabled']		= 'Niet mogelijk om socket functies te gebruiken.';
 $BL['Mailing_list_subscribe_reminder']	= 'Schrijf je in voor de mailing list om up to date te blijve van de laatste informatie en versies. <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">Abonneer</a>.';
 $BL['Version_information'] 				= 'phpwcms Versie Informatie';
@@ -1085,7 +1085,7 @@ $BL['be_profile_label_gender']			= 'Geslacht';
 $BL['be_profile_label_birthday']		= 'Geboortedatum';
 
 $BL['be_cnt_store_in']					= 'Opslaan in veld';
-$BL['be_aboutlink_title']				= 'Informatie over Phpwcms en licentie';
+$BL['be_aboutlink_title']				= 'Informatie over phpwcms en licentie';
 
 $BL['be_shortdate']          			= 'n/j/y';
 $BL['be_shortdatetime']          		= 'n/j/y G:i';
