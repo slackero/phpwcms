@@ -2094,4 +2094,13 @@ function phpwcms_strtotime($date, $date_format=NULL, $empty_return=false) {
 	return is_string($date_format) ? date($date_format, $strtotime) : $strtotime;
 }
 
+function dec_num_count($value) {
+	if((int)$value == $value) {
+		return 0;
+	} elseif(!is_numeric($value)) {
+		return false;
+	}
+	return strlen($value) - strrpos($value, '.') - 1;
+}
+
 ?>

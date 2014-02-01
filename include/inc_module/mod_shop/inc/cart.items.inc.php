@@ -23,11 +23,15 @@ $subtotal	= array('net' => 0, 'vat' => 0, 'gross' => 0, 'weight' => 0);
 
 
 foreach($cart_data as $item_key => $row) {
-	
+
 	$prod_id = $row['shopprod_id'];
-	
-	$total[$prod_id]['quantity']	= $_SESSION[CART_KEY]['products'][$prod_id];
-	$total[$prod_id]['vat']			= $row['shopprod_vat'];
+
+	$total[$prod_id]['quantity']		= $_SESSION[CART_KEY]['products'][$prod_id];
+	$total[$prod_id]['vat']				= (float) $row['shopprod_vat'];
+	$total[$prod_id]['vat_decimals']	= dec_num_count($total[$prod_id]['vat']);
+	if($total[$prod_id]['vat_decimals'] < $_tmpl['config']['vat_decimals']) {
+		$total[$prod_id]['vat_decimals'] = $_tmpl['config']['vat_decimals'];
+	}
 	if($row['shopprod_netgross'] == 1) {
 		// price given is GROSS price, including VAT
 		$total[$prod_id]['net']		= $row['shopprod_price'] / (1 + $row['shopprod_vat'] / 100);
@@ -37,16 +41,16 @@ foreach($cart_data as $item_key => $row) {
 		$total[$prod_id]['net']		= $row['shopprod_price'];
 		$total[$prod_id]['gross']	= $row['shopprod_price'] * (1 + $row['shopprod_vat'] / 100);
 	}
-	
+
 	$subtotal['net']	+= $total[$prod_id]['quantity'] * $total[$prod_id]['net'];
 	$subtotal['vat']	+= $total[$prod_id]['quantity'] * ($total[$prod_id]['gross'] - $total[$prod_id]['net']);
 	$subtotal['gross']	+= $total[$prod_id]['quantity'] * $total[$prod_id]['gross'];
 	$subtotal['weight']	+= $total[$prod_id]['quantity'] * $row['shopprod_weight'];
 
-	$_price['vat']		= number_format($total[$prod_id]['vat'],   $_tmpl['config']['vat_decimals'],   $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-	$_price['net']		= number_format($total[$prod_id]['net'],   $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-	$_price['gross']	= number_format($total[$prod_id]['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-	$_price['weight']	= $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
+	$row['vat']		= number_format($total[$prod_id]['vat'],   $total[$prod_id]['vat_decimals'],   $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+	$row['net']		= number_format($total[$prod_id]['net'],   $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+	$row['gross']	= number_format($total[$prod_id]['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+	$row['weight']	= $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
 
 	switch($cart_mode) {
 
@@ -67,17 +71,17 @@ foreach($cart_data as $item_key => $row) {
 						}
 						break;
 	}
-	
+
 	$cart_items[$x] = str_replace('{PRODUCT_DETAIL_LINK}', rel_url(array('shop_detail' => $prod_id), array('shop_cart'), $_tmpl['config']['shop_url']), $cart_items[$x]);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_TITLE', html_specialchars($row['shopprod_name1']));
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_NET_PRICE', $_price['net']);
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_GROSS_PRICE', $_price['gross']);
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_WEIGHT', $_price['weight']);
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_VAT', $_price['vat']);
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_NET_PRICE', $row['net']);
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_GROSS_PRICE', $row['gross']);
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_WEIGHT', $row['weight']);
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_VAT', $row['vat']);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'MODEL', html_specialchars($row['shopprod_model']));
-	
+
 	switch($cart_mode) {
 		case 'cart':
 			$cart_items[$x] = str_replace('{COUNT}', '<input type="text" name="shop_prod_amount['.$prod_id.']" value="' . $total[$prod_id]['quantity'] . '" size="3" />', $cart_items[$x]);
@@ -86,7 +90,7 @@ foreach($cart_data as $item_key => $row) {
 			$cart_items[$x] = str_replace('{COUNT}', $total[$prod_id]['quantity'], $cart_items[$x]);
 	}
 
-	
+
 	$x++;
 
 }
@@ -98,29 +102,29 @@ $subtotal['shipping_gross'] = 0;
 $subtotal['shipping_calc']	= false;
 
 foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) {
-	
+
 	// do nothing as long shipping fee = 0
 	if( $row['net'] == 0 ) {
 		continue;
 	}
-	
+
 	// lower weight and current shipping fee lower then this
 	if( $subtotal['weight'] <= $row['weight'] ) { /* && $subtotal['shipping_net'] <= $row['net'] ) {
 
 		$subtotal['shipping_calc'] = true;
 
 	} elseif( $subtotal['weight'] > $row['weight'] && $subtotal['shipping_net'] < $row['net'] ) { */
-	
+
 		$subtotal['shipping_calc'] = true;
-		
+
 	}
-	
+
 	if( $subtotal['shipping_calc'] ) {
-	
+
 		$subtotal['shipping_net']	= $row['net'];
 		$subtotal['shipping_gross']	= $subtotal['shipping_net'] * ( 1 + ($row['vat'] / 100) );
 		$subtotal['shipping_vat']	= $subtotal['shipping_gross'] - $subtotal['shipping_net'];
-		
+
 		break;
 	}
 

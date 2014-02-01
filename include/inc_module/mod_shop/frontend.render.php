@@ -138,8 +138,8 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 							'cat_list_products'			=> false,
 							'cat_subcat_spacer'			=> ' / ',
 							'price_decimals'			=> 2,
-							'vat_decimals'				=> 0,
-							'weight_decimals'			=> 0,
+							'vat_decimals'				=> 1,
+							'weight_decimals'			=> 1,
 							'dec_point'					=> ".",
 							'thousands_sep'				=> ",",
 							'image_list_width'			=> 200,
@@ -209,6 +209,10 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	} else {
 		$_tmpl['config']['shop_wrap'] = array('prefix'=>'', 'suffix'=>'');
 	}
+
+	$_tmpl['config']['price_decimals'] = (int) $_tmpl['config']['price_decimals'];
+	$_tmpl['config']['vat_decimals'] = (int) $_tmpl['config']['vat_decimals'];
+	$_tmpl['config']['weight_decimals'] = (int) $_tmpl['config']['weight_decimals'];
 
 	if($_tmpl['config']['shop_css']) {
 		renderHeadCSS(array(1=>$_tmpl['config']['shop_css']));
@@ -551,21 +555,25 @@ if( $_shop_load_list !== false ) {
 
 		foreach($data as $row) {
 
-			$_price['vat'] = $row['shopprod_vat'];
+			$row['vat'] = (float) $row['shopprod_vat'];
+			$row['vat_decimals'] = dec_num_count($row['vat']);
+			if($row['vat_decimals'] < $_tmpl['config']['vat_decimals']) {
+				$row['vat_decimals'] = $_tmpl['config']['vat_decimals'];
+			}
 			if($row['shopprod_netgross'] == 1) {
 				// price given is GROSS price, including VAT
-				$_price['net']		= $row['shopprod_price'] / (1 + $_price['vat'] / 100);
-				$_price['gross']	= $row['shopprod_price'];
+				$row['net']		= $row['shopprod_price'] / (1 + $row['vat'] / 100);
+				$row['gross']	= $row['shopprod_price'];
 			} else {
 				// price given is NET price, excluding VAT
-				$_price['net']		= $row['shopprod_price'];
-				$_price['gross']	= $row['shopprod_price'] * (1 + $_price['vat'] / 100);
+				$row['net']		= $row['shopprod_price'];
+				$row['gross']	= $row['shopprod_price'] * (1 + $row['vat'] / 100);
 			}
 
-			$_price['vat']		= number_format($_price['vat'],   $_tmpl['config']['vat_decimals'],   $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-			$_price['net']		= number_format($_price['net'],   $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-			$_price['gross']	= number_format($_price['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-			$_price['weight']	= $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
+			$row['vat']		= number_format($row['vat'],   $row['vat_decimals'],   $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+			$row['net']		= number_format($row['net'],   $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+			$row['gross']	= number_format($row['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+			$row['weight']	= $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
 
 			$row['shopprod_var'] = @unserialize($row['shopprod_var']);
 
@@ -580,7 +588,7 @@ if( $_shop_load_list !== false ) {
 			// select template based on listing or detail view
 			$entry[$x] = $shop_detail_id ? $_tmpl['detail'] : $_tmpl['list_entry'];
 
-			if($_tmpl['config']['on_request_trigger'] == $_price['net']) {
+			if($_tmpl['config']['on_request_trigger'] == $row['net']) {
 
 				$_cart = '';
 				$_cart_add = '';
@@ -621,10 +629,10 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html_specialchars($row['shopprod_name2']));
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_LONG', $row['shopprod_description1']);
-			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_WEIGHT', $_price['weight']);
-			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_NET_PRICE', $_price['net']);
-			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_GROSS_PRICE', $_price['gross']);
-			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $_price['vat']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_WEIGHT', $row['weight']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_NET_PRICE', $row['net']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_GROSS_PRICE', $row['gross']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $row['vat']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_URL', $row['prod_url']['link']);
 
 			if(empty($_shopPref['shop_pref_discount']['discount']) || empty($_shopPref['shop_pref_discount']['percent'])) {
@@ -847,17 +855,8 @@ if( $_shop_load_order ) {
 
 		foreach($_step1 as $item_key => $row) {
 			$field_error	= empty($ERROR['inv_address'][$item_key]) ? '' : $ERROR['inv_address'][$item_key];
-			/*
-			$row_checked	= '';
-			if($field_error == '' && $row != '' && preg_match('/^shop_field_(\d+)$/', $item_key, $row_match)) {
-				$row_match = intval($row_match[1]);
-				if(isset($_tmpl['config']['shop_field'][$row_match]['type']) && $_tmpl['config']['shop_field'][$row_match]['type'] === 'CHECK') {
-					if(!empty($_POST[$item_key] && ))
-					$row_checked = ' checked="checked';
-				}
-			}*/
 			$row = html_specialchars($row);
-			$order_process	= render_cnt_template($order_process, $item_key, $row); //.$row_checked
+			$order_process	= render_cnt_template($order_process, $item_key, $row);
 			$order_process	= render_cnt_template($order_process, 'ERROR_'.$item_key, $field_error);
 		}
 
