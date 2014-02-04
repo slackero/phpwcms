@@ -290,6 +290,10 @@ if($img_count) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+  <td valign="top" class="chatlist tdtop4"><a href="#" onclick="javascript: document.getElementById('cimage_caption').value += 'caption|alt|http://www.yourdomian.com _blank|title\n';return false;">caption text|alt text|link target|title text -> if empty alt text</a> </td>
+</tr>
+<tr>
+  <td align="right" valign="top" class="chatlist">&nbsp;</td>
 	<td valign="top"><textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11" id="cimage_caption" style="width: 440px;"><?php echo implode(' '.LF, $caption_box) ?></textarea></td>
 </tr>
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

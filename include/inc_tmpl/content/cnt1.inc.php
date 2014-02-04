@@ -177,7 +177,11 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 			<tr>
-			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+			  <td align="right" valign="top" class="chatlist"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+      	<td valign="top" class="chatlist"><a href="#" onclick="javascript: document.getElementById('cimage_caption').value += 'caption|alt|http://www.yourdomian.com _blank|title\n';return false;">caption text|alt text|link target|title text -> if empty alt text</a> </td>
+      </tr>
+      <tr>
+        <td align="right" valign="top" class="chatlist">&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php echo  isset($content["image_caption"]) ? html_specialchars($content["image_caption"]) : '' ?></textarea></td>

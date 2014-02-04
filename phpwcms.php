@@ -22,7 +22,7 @@ $wcsnav 					= array();
 $indexpage 					= array();
 $phpwcms 					= array();
 $BL							= array();
-$BE							= array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
+$BE							= array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en', 'BODY_MODULEWIDGET' => array());
 
 // check against user's language
 if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wcs_user_lang"])) {
@@ -315,7 +315,7 @@ if($BE['LANG'] == 'ar') {
 		<h1 class="title" style="margin:1em 0 3px 0;"><?php echo $BL['usr_online'] ?></h1>
 		
 		<?php echo online_users($db, "<br />", "<span class=\"subnavinactive\">|</span>"); ?>
-		
+		<!-- phpwcms BODY_MODULEWIDGET -->
 		</td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/dividerA.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
@@ -591,6 +591,9 @@ $BE['HTML'] = str_replace('<!-- phpwcms HEADER -->', implode(LF, $BE['HEADER']),
 
 // body open area
 $BE['HTML'] = str_replace('<!-- phpwcms BODY_OPEN -->', implode(LF, $BE['BODY_OPEN']), $BE['HTML']);
+
+// body module widget insert area
+$BE['HTML'] = str_replace('<!-- phpwcms BODY_MODULEWIDGET -->', implode(LF, $BE['BODY_MODULEWIDGET']), $BE['HTML']);
 
 // body close area
 $BE['HTML'] = str_replace('<!-- phpwcms BODY_CLOSE -->', implode(LF, $BE['BODY_CLOSE']), $BE['HTML']);
