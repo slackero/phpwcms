@@ -2569,17 +2569,19 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 	return $s;
 }
 
-function render_cnt_template($text='', $tag='', $value='') {
+function render_cnt_template($text='', $tag='', $value='', $value_else='') {
 	// render content part by replacing placeholder tags by value
 	$value = strval($value);
 	if($value) {
 		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '$1', $text);
 		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '', $text);
+		$text = str_replace('{'.$tag.'}', $value, $text);
 	} else {
 		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '$1', $text);
 		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '', $text);
+		$text = str_replace('{'.$tag.'_ELSE}', $value_else, $text);
 	}
-	return str_replace('{'.$tag.'}', $value, $text);
+	return $text;
 }
 
 function replace_cnt_template($text='', $tag='', $value='') {
