@@ -1349,5 +1349,8 @@ $BL['be_redirect_error3']			= 'Zieltyp Artikel-ID und Struktur-ID gestatten nur 
 
 $BL['be_ctype_accordion']			= 'Gruppe (Accordion)';
 $BL['be_ctype_number']				= 'Nummer';
+$BL['be_inactive']					= 'inaktiv';
+$BL['be_locked']					= 'gesch&uuml;tzt';
+
 
 ?>

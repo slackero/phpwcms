@@ -1359,5 +1359,7 @@ $BL['be_redirect_error3']				= 'For target type article ID and structure ID only
 
 $BL['be_ctype_accordion']				= 'group (accordion)';
 $BL['be_ctype_number']					= 'number';
+$BL['be_inactive']						= 'inactive';
+$BL['be_locked']						= 'locked';
 
 ?>
