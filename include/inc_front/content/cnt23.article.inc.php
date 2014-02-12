@@ -144,6 +144,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
 								$form_field .= ' />';
 								break;
 
@@ -175,6 +178,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
 								$form_field .= ' />';
 								break;
@@ -331,6 +337,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
 								$form_field .= ' />';
 								break;
 
@@ -373,6 +382,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
 								$form_field .= ' />';
 								break;
 
@@ -403,6 +415,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
 								$form_field .= '>'.html_specialchars($cnt_form["fields"][$key]['value']).'</textarea>';
 								break;
@@ -449,6 +464,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
 								$form_field .= ' autocomplete="off" />';
 								break;
@@ -1129,6 +1147,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
+									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
 								$form_field .= ' />';
 

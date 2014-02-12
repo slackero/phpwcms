@@ -657,9 +657,9 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		switch($content['form']["fields"][$key]['type']) {
 
 			case 'newsletter':		// default hide/show
-									echo ', 4';
+									echo ', 5';
 
-									$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">'.LF;
+									$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">'.LF;
 									$field_row4 .= '<td colspan="2" class="chatlist" align="right" valign="top">&nbsp;<img src="img/leer.gif" width="1" height="15" alt="" />';
 									$field_row4 .= $BL['be_cnt_bid_verifyemail'].':&nbsp;</td>'.LF;
 									$field_row4 .= '<td colspan="6"><textarea name="cform_field_verifyemail" ';
@@ -667,8 +667,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 									$field_row4 .= html_specialchars($content['form']['verifyemail']).'</textarea></td>';
 									$field_row4 .= LF.'</tr>'.LF;
 
-									$field_js['showAll'][$key] .= ', 4';
-									$field_js['hideAll'][$key] .= ', 4';
+									$field_js['showAll'][$key] .= ', 5';
+									$field_js['hideAll'][$key] .= ', 5';
 
 									break;
 
@@ -682,9 +682,9 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 			case 'country':
 			case 'radio':			// default hide/show
 									if($content['form']["saveprofile"]) {
-										echo ', 4';
+										echo ', 5';
 
-										$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">'.LF;
+										$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">'.LF;
 										$field_row4 .= '<td colspan="2" class="chatlist" align="right">'.$BL['be_cnt_store_in'].':&nbsp;</td>'.LF;
 										$field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
 
@@ -702,8 +702,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
 										$field_row4 .= '</td>'.LF.'</tr>'.LF;
 
-										$field_js['showAll'][$key] .= ', 4';
-										$field_js['hideAll'][$key] .= ', 4';
+										$field_js['showAll'][$key] .= ', 5';
+										$field_js['hideAll'][$key] .= ', 5';
 									}
 									break;
 
@@ -713,9 +713,9 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 			case 'checkboxcopy':
 			case 'list':			// default hide/show
 									if($content['form']["saveprofile"]) {
-										echo ', 4';
+										echo ', 5';
 
-										$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">'.LF;
+										$field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">'.LF;
 										$field_row4 .= '<td colspan="2" class="chatlist" align="right">'.$BL['be_cnt_store_in'].':&nbsp;</td>'.LF;
 										$field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
 
@@ -732,8 +732,8 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
 										$field_row4 .= '</td>'.LF.'</tr>'.LF;
 
-										$field_js['showAll'][$key] .= ', 4';
-										$field_js['hideAll'][$key] .= ', 4';
+										$field_js['showAll'][$key] .= ', 5';
+										$field_js['hideAll'][$key] .= ', 5';
 									}
 									break;
 
@@ -846,13 +846,21 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '</tr>'.LF;
 
 		echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_2">';
+		echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_newsletter_placeholder'].':&nbsp;</td>';
+		echo '<td colspan="6"><input type="text" name="cform_field_placeholder['.$field_counter.']" value="';
+		echo empty($content['form']["fields"][$key]['placeholder']) ? '' : html_specialchars($content['form']["fields"][$key]['placeholder']);
+		echo '" class="v10" style="width:323px;"></td>'.LF.'</tr>'.LF;
+
+		echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_3">';
 		echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_cnt_error_text'].':&nbsp;</td>';
 		echo '<td colspan="6"><input type="text" name="cform_field_error['.$field_counter.']" value="';
 		echo  html_specialchars($content['form']["fields"][$key]['error']).'" class="v10" style="width:323px;"';
 		if($content['form']["fields"][$key]['type'] == 'upload') {
 			echo ' title="{MAXLENGTH}, {FILESIZE}, {FILENAME}, {FILEEXT}"';
 		}
-		echo '></td>'.LF.'</tr>'.LF.'<tr'.$field_bg.' id="formRow_'.$field_counter.'_3">';
+		echo '></td>'.LF.'</tr>'.LF;
+
+		echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">';
 		echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_cnt_css_class'].':&nbsp;</td>';
 		echo '<td><input type="text" name="cform_field_class['.$field_counter.']" value="';
 		echo  html_specialchars($content['form']["fields"][$key]['class']).'" class="v10" style="width:120px;"></td>'.LF;
@@ -925,6 +933,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 	  <a href="#field_value_0" onclick="growField('cform_field_value_0', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a></div></td>
 </tr>
 <tr bgcolor="#E7E8EB">
+	<td colspan="2" class="chatlist" align="right">&nbsp;<?php echo $BL['be_newsletter_placeholder'] ?>:&nbsp;</td>
+	<td colspan="6"><input type="text" name="cform_field_placeholder[0]" class="v10" style="width:323px;" /></td>
+</tr>
+<tr bgcolor="#E7E8EB">
 	<td colspan="2" class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_error_text'] ?>:&nbsp;</td>
 	<td colspan="6"><input type="text" name="cform_field_error[0]" class="v10" style="width:323px;" /></td>
 </tr>
@@ -946,7 +958,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
 if(!empty($field_counter) && $field_counter > 1) {
 
-	echo '<script type="text/javascript">'.LF.'<!--'.LF;
+	echo '<script type="text/javascript">'.LF;
 
 	echo 'function hideAllFormFields() {'.LF;
 	echo implode(LF, $field_js['hideAll']);
@@ -997,13 +1009,9 @@ if(!empty($field_counter) && $field_counter > 1) {
 			echo $field_value;
 
 		}
-
-
-
 	}
 
-
-	echo '//-->'.LF.'</script>';
+	echo LF.'</script>';
 }
 
 ?></td>

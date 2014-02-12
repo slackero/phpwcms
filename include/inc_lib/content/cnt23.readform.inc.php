@@ -36,7 +36,7 @@ foreach($content["form"]["cc"] as $e_key => $e_value) {
 		unset($content["form"]["cc"][$e_key]);
 	}
 }
-$content["form"]["cc"] = implode(';', $content["form"]["cc"]);			
+$content["form"]["cc"] = implode(';', $content["form"]["cc"]);
 
 $content["form"]["targettype"]	= clean_slweg($_POST["cform_targettype"]);
 
@@ -116,10 +116,10 @@ $content['form']["template_copy"]			= slweg($_POST["cform_template_copy"]);
 $content['form']["function_to"]	= preg_replace('/[^a-zA-Z0-9_]/', '', $_POST["cform_function_to"]);
 $content['form']["function_cc"]	= preg_replace('/[^a-zA-Z0-9_]/', '', $_POST["cform_function_cc"]);
 if(is_callable($content['form']["function_to"])) {
-	$content['form']["function_to"] = '_Proof_'.$content['form']["function_to"];	
+	$content['form']["function_to"] = '_Proof_'.$content['form']["function_to"];
 }
 if(is_callable($content['form']["function_cc"])) {
-	$content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];	
+	$content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];
 }
 
 
@@ -141,36 +141,35 @@ $content["form"]["fields"] = array();
 foreach($_POST['cform_field_type'] as $key => $value) {
 
 	if(!isset($_POST['cform_field_delete'][$key])) {
-	
+
 		$value = clean_slweg($value);
 		$field_counter = intval($_POST['cform_order'][$key]);
-		$content["form"]["fields"][$field_counter]['type'] 		= $value;
-		
+		$content["form"]["fields"][$field_counter]['type'] 			= $value;
+
 		// field name cannot include spaces and also should not include any special chars
-		$content['form']["fields"][$field_counter]['name']		= attribute_name_clean(clean_slweg($_POST['cform_field_name'][$key]));		
-		
-		$content['form']["fields"][$field_counter]['label']		= clean_slweg($_POST['cform_field_label'][$key]);
-		$content['form']["fields"][$field_counter]['required']	= isset($_POST['cform_field_required'][$key]) ? 1 : 0;
-		$content['form']["fields"][$field_counter]['value']		= slweg($_POST['cform_field_value'][$key]);
-		$content['form']["fields"][$field_counter]['error']		= clean_slweg($_POST['cform_field_error'][$key]);
-		$content['form']["fields"][$field_counter]['style']		= clean_slweg($_POST['cform_field_style'][$key]);
-		$content['form']["fields"][$field_counter]['class']		= clean_slweg($_POST['cform_field_class'][$key]);
-		
-		$content['form']["fields"][$field_counter]['profile']	= empty($_POST['cform_field_profile'][$key]) ? '' : clean_slweg($_POST['cform_field_profile'][$key]);
-		
+		$content['form']["fields"][$field_counter]['name']			= attribute_name_clean(clean_slweg($_POST['cform_field_name'][$key]));
+		$content['form']["fields"][$field_counter]['label']			= clean_slweg($_POST['cform_field_label'][$key]);
+		$content['form']["fields"][$field_counter]['required']		= isset($_POST['cform_field_required'][$key]) ? 1 : 0;
+		$content['form']["fields"][$field_counter]['value']			= slweg($_POST['cform_field_value'][$key]);
+		$content['form']["fields"][$field_counter]['error']			= clean_slweg($_POST['cform_field_error'][$key]);
+		$content['form']["fields"][$field_counter]['style']			= clean_slweg($_POST['cform_field_style'][$key]);
+		$content['form']["fields"][$field_counter]['class']			= clean_slweg($_POST['cform_field_class'][$key]);
+		$content['form']["fields"][$field_counter]['placeholder']	= clean_slweg($_POST['cform_field_placeholder'][$key]);
+		$content['form']["fields"][$field_counter]['profile']		= empty($_POST['cform_field_profile'][$key]) ? '' : clean_slweg($_POST['cform_field_profile'][$key]);
+
 		switch($value) {
-	
+
 			case 'text'		:	/*
 								 * Text
 								 */
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\r\n", ' ', $content['form']["fields"][$field_counter]['value']);
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\r", ' ', $content['form']["fields"][$field_counter]['value']);
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\n", ' ', $content['form']["fields"][$field_counter]['value']);
-								
+
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
 								break;
-								
+
 			case 'special'	:	/*
 								 * Special
 								 */
@@ -185,7 +184,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 										if(isset($_special[0])) {
 											$_special[0] = strtolower(trim($_special[0]));
 											switch($_special[0]) {
-											
+
 												case 'type': 		if(!empty($_special[1])) {
 																		$_special[1] = trim($_special[1]);
 																		if($_special[1] !== 'a-Z' && $_special[1] !== 'a-z') {
@@ -215,13 +214,13 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 																		$special_attribute['type'] = 'MIX';
 																	}
 																	break;
-																
+
 												case 'default': 	$special_attribute['default'] = isset($_special[1]) ? trim($_special[1]) : '';
 																	break;
-																	
+
 												case 'dateformat': 	$special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
 																	break;
-																	
+
 												case 'pattern': 	$special_attribute['pattern'] = isset($_special[1]) ? trim($_special[1]) : '/.*?/';
 																	break;
 											}
@@ -241,21 +240,21 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
 								break;
-								
+
 			case 'email'	:	/*
 								 * Email
 								 */
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\r\n", ' ', $content['form']["fields"][$field_counter]['value']);
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\r", ' ', $content['form']["fields"][$field_counter]['value']);
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\n", ' ', $content['form']["fields"][$field_counter]['value']);
-								
+
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
 								break;
 
 			case 'textarea'	:	/*
 								 * Textarea
-								 */								
+								 */
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : 3;
 								break;
@@ -276,7 +275,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\r\n", ' ', $content['form']["fields"][$field_counter]['value']);
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\r", ' ', $content['form']["fields"][$field_counter]['value']);
 								$content['form']["fields"][$field_counter]['value'] = str_replace("\n", ' ', $content['form']["fields"][$field_counter]['value']);
-								
+
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
 								break;
@@ -296,31 +295,31 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : 3;
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? 1 : 0; //mutiple or not
 								break;
-								
+
 			case 'newsletter':	/*
 								 * Newsletter
-								 */								
+								 */
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= '';
 								$content['form']["fields"][$field_counter]['value']	= convertStringToArray($content['form']["fields"][$field_counter]['value'], "\n", 'UNIQUE', false);
 								$newletter_array 									= array();
 								$newletter_array['double_optin']					= 0;
 								$newletter_array['subject']							= 'Verify your newsletter subscription';
-								
+
 								foreach($content['form']["fields"][$field_counter]['value'] as $newsletter) {
-								
+
 									$newsletter		= explode('=', $newsletter, 2);
 									$newsletter[0]	= trim($newsletter[0]);
 									$newsletter[1]	= empty($newsletter[1]) ? '' : trim($newsletter[1]);
-									
+
 									if(empty($newsletter[0]) || empty($newsletter[1])) {
-									
+
 										continue;
-									
+
 									} else {
-									
+
 										switch($newsletter[0]) {
-										
+
 											case 'all':				$newletter_array['all'] 			= $newsletter[1];					break;
 											case 'email_field':		$newletter_array['email_field'] 	= $newsletter[1];					break;
 											case 'name_field':		$newletter_array['name_field'] 		= $newsletter[1];					break;
@@ -331,7 +330,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 											case 'double_optin':	$newletter_array['double_optin'] 	= intval($newsletter[1]) ? 1 : 0;	break;
 											case 'optin_template':	$newletter_array['optin_template'] 	= $newsletter[1];					break;
 											case 'subject':			$newletter_array['subject']			= $newsletter[1];					break;
-											
+
 											default:	if(intval($newsletter[0])) {
 															$newsletter[0]  = intval($newsletter[0]);
 															$query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$newsletter[0].' AND subscription_active=1');
@@ -344,15 +343,15 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 																continue;
 															}
 														} else {
-														
+
 															continue;
-														
+
 														}
-						
+
 										}
-									
+
 									}
-	
+
 								}
 
 								$content['form']["fields"][$field_counter]['value'] = '';
@@ -365,7 +364,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 			case 'checkboxcopy':
 			case 'checkbox'	:	/*
 								 * Checkbox
-								 */								
+								 */
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= '';
 								break;
@@ -391,10 +390,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 										if(isset($upload[0])) {
 											$upload[0] = strtolower(trim($upload[0]));
 											switch($upload[0]) {
-											
+
 												case 'maxlength': 	$upload_value['maxlength'] = isset($upload[1]) ? intval($upload[1]) : '';
 																	break;
-																	
+
 												case 'folder':		$upload_value['folder'] = isset($upload[1]) ? trim($upload[1]) : 'content/form/';
 																	$upload_value['folder'] = preg_replace('/\/{1,}$/', '', $upload_value['folder']);
 																	$upload_value['folder'] = preg_replace('/^\//', '', $upload_value['folder']);
@@ -402,13 +401,13 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 																		$upload_value['folder'] = 'content/form/';
 																	}
 																	break;
-																	
+
 												case 'accept':		$upload_value['accept'] = isset($upload[1]) ? trim($upload[1]) : '';
 																	break;
-																	
+
 												case 'attachment':	$upload_value['attachment'] = isset($upload[1]) && intval($upload[1]) ? 1 : 0;
 																	break;
-																	
+
 												case 'exclude':		if(isset($upload[1])) {
 																		$upload_value['exclude'] = strtolower(trim($upload[1]));
 																		$upload_value['exclude'] = str_replace(' ', '', $upload_value['exclude']);
@@ -416,7 +415,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 																	} else {
 																		$upload_value['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js';
 																	}
-																	
+
 											}
 										}
 									}
@@ -436,7 +435,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								}
 								$content['form']["fields"][$field_counter]['size']	= intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
 								$content['form']["fields"][$field_counter]['max']	= intval($_POST['cform_field_max'][$key]) ? intval($_POST['cform_field_max'][$key]) : '';
-								
+
 								break;
 
 			case 'submit'	:	/*
@@ -466,7 +465,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['size']	= '';
 								$content['form']["fields"][$field_counter]['max']	= '';
 								break;
-	
+
 			case 'break'	:	/*
 								 * Break
 								 */
@@ -474,14 +473,14 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['max']	= '';
 								$content['form']["fields"][$field_counter]['value']	= slweg($_POST['cform_field_value'][$key]);
 								break;
-	
+
 			case 'breaktext':	/*
 								 * Breaktext
 								 */
 								$content['form']["fields"][$field_counter]['size']	= '';
 								$content['form']["fields"][$field_counter]['max']	= '';
 								break;
-								
+
 			case 'captcha':		/*
 								 * Captcha Code Input Field
 								 */
@@ -490,7 +489,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['value']	= '';
 								$content['form']["fields"][$field_counter]['required'] = 1;
 								break;
-								
+
 			case 'captchaimg':	/*
 								 * Captcha Image
 								 */
@@ -498,7 +497,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								$content['form']["fields"][$field_counter]['max']	= '';
 								$content['form']["fields"][$field_counter]['value']	= slweg($_POST['cform_field_value'][$key]);
 								break;
-								
+
 			case 'mathspam':	/*
 								 * Math Spam Protect
 								 */
@@ -530,12 +529,12 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								if(isset($content['form']["fields"][$field_counter]['value']['calc'])) {
 									$mathspam['calc'] = $content['form']["fields"][$field_counter]['value']['calc'];
 								}
-								
+
 								$content['form']["fields"][$field_counter]['value'] = $mathspam;
 								unset($mathspam);
-								
+
 								break;
-			
+
 			case 'recaptcha':	/*
 								 * reCAPTCHA
 								 */
@@ -551,7 +550,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 									'theme' => 'clear',
 									'tabindex' => 0
 								);
-								
+
 								if(isset($content['form']["fields"][$field_counter]['value']['public_key'])) {
 									$content['form']['recaptcha']['public_key'] = trim($content['form']["fields"][$field_counter]['value']['public_key']);
 								}
@@ -561,7 +560,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								if(!empty($content['form']["fields"][$field_counter]['value']['lang'])) {
 									$content['form']['recaptcha']['lang'] = strtolower($content['form']["fields"][$field_counter]['value']['lang']);
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['theme']) 
+								if(isset($content['form']["fields"][$field_counter]['value']['theme'])
 									&& in_array(strtolower($content['form']["fields"][$field_counter]['value']['theme']), array('red', 'white', 'blackglass', 'clean'))
 								) {
 									// no 'custom' at the moment
@@ -572,13 +571,13 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								if(!empty($content['form']["fields"][$field_counter]['value']['public_key'])) {
 									$content['form']['recaptcha']['tabindex'] = abs(intval($content['form']["fields"][$field_counter]['value']['tabindex']));
 								}
-								
+
 								$content['form']["fields"][$field_counter]['value'] = $content['form']['recaptcha'];
 								unset($content['form']['recaptcha']);
-								
+
 								break;
 		}
-		
+
 		/*
 		 * Test if values are filled in
 		 */
@@ -588,29 +587,29 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 		$all_fields_empty .= $content['form']["fields"][$field_counter]['error'];
 		$all_fields_empty .= $content['form']["fields"][$field_counter]['style'];
 
-		
+
 		if(trim($all_fields_empty) == '') {
 			unset($content['form']["fields"][$field_counter]);
 		} else {
-		
+
 			if($content['form']["fields"][$field_counter]['name'] == '') {
 				$content['form']["fields"][$field_counter]['name'] = attribute_name_clean($content["form"]["fields"][$field_counter]['type']);
 			}
 			if($content['form']["fields"][$field_counter]['name'] == 'reset' || $content['form']["fields"][$field_counter]['name'] == 'submit') {
 				$content['form']["fields"][$field_counter]['name'] .= 'It';
 			}
-			
+
 			$current_field_name = preg_replace('/(.*?)(\d+){1,}$/', '$1', $content['form']["fields"][$field_counter]['name']);
-			
+
 			if(!isset($field_name[$current_field_name])) {
 				$field_name[$current_field_name] = 0;
 			} else {
 				$content['form']["fields"][$field_counter]['name'] = $current_field_name . $field_name[$current_field_name];
 				$field_name[$current_field_name]++;
 			}
-					
+
 		}
-	
+
 	}
 
 }
