@@ -1369,7 +1369,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 		}
 
 		// Build the form elements
-
 		if($form_field && $cnt_form["fields"][$key]['type'] != 'hidden') {
 
 
@@ -1378,16 +1377,16 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 				// custom form template
 				$POST_name_quoted = preg_quote($POST_name, '/');
 
-				if(empty($POST_ERR[$key])) {
-					// if error for field empty
-					$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\].*?\[\/IF_ERROR\]/s', '', $form_cnt);
-					$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
-					$form_cnt = str_replace('{ERROR:'.$POST_name.'}', '', $form_cnt);
-				} else {
-					// field error available
+				if(isset($POST_ERR[$key])) {
+					// field error
 					$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\](.*?)\[\/IF_ERROR\]/s', '$1', $form_cnt);
 					$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\].*?\[\/ELSE_ERROR\]/s', '', $form_cnt);
 					$form_cnt = str_replace('{ERROR:'.$POST_name.'}', html_specialchars($POST_ERR[$key]), $form_cnt);
+				} else {
+					// no field error
+					$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\].*?\[\/IF_ERROR\]/s', '', $form_cnt);
+					$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
+					$form_cnt = str_replace('{ERROR:'.$POST_name.'}', '', $form_cnt);
 				}
 
 				$form_cnt = str_replace('{'.$POST_name.'}', $form_field, $form_cnt);
@@ -1396,7 +1395,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			} else {
 
 				// default table
-
 				if($cnt_form["fields"][$key]['type'] == 'reset' && strpos($form_cnt, '###RESET###')) {
 
 					$form_cnt = str_replace('###RESET###', $form_field, $form_cnt);
@@ -1455,8 +1453,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
 					} else {
 
-						// label:
-						// field
+						// label:field
 						if($cnt_form["fields"][$key]['label'] != '') {
 							$form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">'.$cnt_form['label_wrap'][0];
 							$form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
@@ -1476,16 +1473,16 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			// custom form template
 			$POST_name_quoted = preg_quote($POST_name, '/');
 
-			if(empty($POST_ERR[$key])) {
-				// if error for field empty
-				$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\].*?\[\/IF_ERROR\]/s', '', $form_cnt);
-				$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
-				$form_cnt = str_replace('{ERROR:'.$POST_name.'}', '', $form_cnt);
-			} else {
-				// field error available
+			if(isset($POST_ERR[$key])) {
+				// field error
 				$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\](.*?)\[\/IF_ERROR\]/s', '$1', $form_cnt);
 				$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\].*?\[\/ELSE_ERROR\]/s', '', $form_cnt);
 				$form_cnt = str_replace('{ERROR:'.$POST_name.'}', html_specialchars($POST_ERR[$key]), $form_cnt);
+			} else {
+				// no field error
+				$form_cnt = preg_replace('/\[IF_ERROR:'.$POST_name_quoted.'\].*?\[\/IF_ERROR\]/s', '', $form_cnt);
+				$form_cnt = preg_replace('/\[ELSE_ERROR:'.$POST_name_quoted.'\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
+				$form_cnt = str_replace('{ERROR:'.$POST_name.'}', '', $form_cnt);
 			}
 
 			$form_cnt = str_replace('{'.$POST_name.'}', $form_field, $form_cnt);
