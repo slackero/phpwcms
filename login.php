@@ -43,13 +43,11 @@ if(!empty($_POST['ref_url'])) {
 	$ref_url = '';
 }
 
-
 // reset all inactive users
 $sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
 $sql .= "logged_in = 0, logged_change = '".time()."' ";
 $sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($phpwcms["max_time"]);
 mysql_query($sql, $db);
-
 
 //load default language EN
 require_once (PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
@@ -93,6 +91,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 $phpwcms["wysiwyg_editor"]	= empty($phpwcms["wysiwyg_editor"]) ? 0 : 1;
 $_SESSION["WYSIWYG_EDITOR"]	= $phpwcms["wysiwyg_editor"];
 
+destroyBackendSessionData();
 
 if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_POST['json']) && $_POST['json'] == '1') {
 
@@ -130,22 +129,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
 			// Fallback to CKeditor?
 			$_SESSION["WYSIWYG_EDITOR"]		= empty($row["usr_wysiwyg"]) ? false : true;
-
-			/*
-			if(!empty($phpwcms['wysiwyg_template']['FCKeditor']) && $_SESSION["WYSIWYG_EDITOR"] == 2) {
-				$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['FCKeditor']);
-			} elseif(!empty($phpwcms['wysiwyg_template']['CKEditor']) && $_SESSION["WYSIWYG_EDITOR"] == 1) {
-				$wysiwyg_template = convertStringToArray($phpwcms['wysiwyg_template']['CKEditor']);
-			}
-			if(empty($wysiwyg_template) || count($wysiwyg_template) == 0) {
-				$wysiwyg_template = array('Basic');
-			}
-
-			$_SESSION["WYSIWYG_TEMPLATE"] = empty($row["usr_vars"]['template']) || !in_array($row["usr_vars"]['template'], $wysiwyg_template) ? $wysiwyg_template[0] : $row["usr_vars"]['template'];
-			*/
-
-			$_SESSION["wcs_user_cp"] = isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
-			$_SESSION["wcs_allowed_cp"] = isset($row["usr_vars"]['allowed_cp']) && is_array($row["usr_vars"]['allowed_cp']) ? $row["usr_vars"]['allowed_cp'] : array();
+			$_SESSION["wcs_user_cp"]		= isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
+			$_SESSION["wcs_allowed_cp"]		= isset($row["usr_vars"]['allowed_cp']) && is_array($row["usr_vars"]['allowed_cp']) ? $row["usr_vars"]['allowed_cp'] : array();
 
 			// Test if there are CPs that use had choosen but no longer available for
 			if(count($_SESSION["wcs_allowed_cp"])) {
@@ -210,14 +195,9 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 	<link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="include/inc_js/phpwcms.js"></script>
 	<script type="text/javascript" src="include/inc_js/md5.js"></script>
-<?php
-
-if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || strtolower($phpwcms['default_lang']) == 'ar') {
-	echo '	<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
-}
-
-?>
-
+<?php if((isset($_SESSION["wcs_user_lang"]) && $_SESSION["wcs_user_lang"] == 'ar') || strtolower($phpwcms['default_lang']) == 'ar'): ?>
+	<style type="text/css">* {direction: rtl;}</style>
+<?php endif; ?>
 </head>
 <body>
 <table width="504" border="0" align="center" cellpadding="0" cellspacing="0" summary="Login Screen" style="margin-top: 50px;">
