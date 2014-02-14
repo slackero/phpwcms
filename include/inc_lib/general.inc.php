@@ -1764,45 +1764,6 @@ function sanitize_multiple_emails($string) {
 	return $string;
 }
 
-function destroyBackendSessionData() {
-	unset(
-		$_SESSION["wcs_user"],
-		$_SESSION["wcs_user_name"],
-		$_SESSION["wcs_user_id"],
-		$_SESSION["wcs_user_aktiv"],
-		$_SESSION["wcs_user_rechte"],
-		$_SESSION["wcs_user_email"],
-		$_SESSION["wcs_user_avatar"],
-		$_SESSION["structure"],
-		$_SESSION["klapp"],
-		$_SESSION["pklapp"],
-		$_SESSION["wcs_user_admin"],
-		$_SESSION["wcs_user_thumb"],
-		$_SESSION["wcs_user_cp"],
-		$_SESSION["wcs_allowed_cp"]
-	);
-}
-
-function checkLoginCount() {
-	$check = 0;
-	if(!empty($_SESSION["wcs_user"])) {
-		$sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
-		if(!empty($phpwcms['Login_IPcheck'])) {
-			$sql .= " AND logged_ip='".aporeplace(getRemoteIP())."'";
-		}
-		$check = _dbCount($sql);
-
-		if($check) {
-			$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_change=".time()." WHERE ";
-			$sql .= "logged_user='".aporeplace($_SESSION["wcs_user"])."' AND logged_in=1";
-			_dbQuery($sql, 'UPDATE');
-		} else {
-			destroyBackendSessionData();
-		}
-	}
-	return $check;
-}
-
 function checkLogin($mode='REDIRECT') {
 	$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_in=0, logged_change='".time()."' ";
 	$sql .= "WHERE logged_in=1 AND (".time()."-logged_change) > ".intval($GLOBALS['phpwcms']["max_time"]);
