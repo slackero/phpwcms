@@ -45,7 +45,7 @@ $BL['modules']				= array();
 if(!empty($_SESSION["wcs_user_lang_custom"])) {
 	//use custom lang if available -> was set in login.php
 	$BL['merge_lang_array'][0]		= $BL['be_admin_optgroup_label'];
-	$BL['merge_lang_array'][1]		= $BL['be_cnt_field'];	
+	$BL['merge_lang_array'][1]		= $BL['be_cnt_field'];
 	include PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.inc.php';
 	$BL['be_admin_optgroup_label']	= array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
 	$BL['be_cnt_field']				= array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
@@ -58,7 +58,7 @@ require_once PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
-// check modules 
+// check modules
 require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';
 
 // load array with actual content types
@@ -88,26 +88,26 @@ switch ($do) {
 	case "files":		//files
 						$wcsnav["files"] = "<strong class=\"navtexta\">".$wcsnav["files"]."</strong>";
 						$subnav .= subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, "", 0);
-						
+
 						// based on pwmod by pagewerkstatt.ch 12/2012
 						$subnav .= subnavtext($BL['be_subnav_file_actions'], "phpwcms.php?do=files&amp;p=4", $p, "4", 0);
-						
+
 						$subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
 					break;
 
 	case "modules":		//modules
 						$wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
-						
+
 						foreach($phpwcms['modules'] as $value) {
-														
+
 							if($value['type'] == 2) {
 								continue;
 							}
-							
+
 							$subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'phpwcms.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
-						
+
 						}
-						
+
 						break;
 
 	case "messages":	//messages
@@ -116,7 +116,7 @@ switch ($do) {
 							$subnav .= subnavtext($BL['be_subnav_msg_newslettersend'], "phpwcms.php?do=messages&amp;p=3", $p, "3", 0);
 							$subnav .= subnavtext($BL['be_subnav_msg_subscribers'], "phpwcms.php?do=messages&amp;p=4", $p, "4", 0);
 							$subnav .= subnavtext($BL['be_subnav_msg_newsletter'], "phpwcms.php?do=messages&amp;p=2", $p, "2", 0);
-							
+
 							if(!empty($phpwcms['enable_messages'])) {
 								$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							}
@@ -143,9 +143,9 @@ switch ($do) {
 							switch($_POST["form_aktion"]) { //Aktualisieren der wcs account & profile Daten
 								case "update_account":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.updateaccount.inc.php');
 														break;
-								case "update_detail":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.update.inc.php'); 
+								case "update_detail":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.update.inc.php');
 														break;
-								case "create_detail":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.create.inc.php'); 
+								case "create_detail":	include(PHPWCMS_ROOT.'/include/inc_lib/profile.create.inc.php');
 														break;
 							}
 						}
@@ -154,10 +154,9 @@ switch ($do) {
 						break;
 
 	case "logout":		//Logout
-						$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
-						$sql .= "logged_change=".time().", logged_in=0 ";
-						$sql .= "WHERE logged_user='".$_SESSION["wcs_user"]."' AND logged_in=1";
-						@mysql_query($sql, $db);
+						$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_change="._dbEscape(time()).", logged_in=0 ";
+						$sql .= "WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+						_dbQuery($sql, 'UPDATE');
 						session_destroy();
 						headerRedirect(PHPWCMS_URL.get_login_file());
 						break;
@@ -181,7 +180,7 @@ switch ($do) {
 							$subnav .= subnavtext($BL['be_subnav_admin_starttext'], "phpwcms.php?do=admin&amp;p=12", $p, "12", 0);
 							$subnav .= subnavtext($BL['be_article_urlalias'].' ('.$BL['be_ftptakeover_active'].')', 'phpwcms.php?do=admin&amp;p=13', $p, "13", 0);
 							$subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'phpwcms.php?do=admin&amp;p=14', $p, "14", 0);
-							
+
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
 							//$subnav .= subnavtext($BL['be_cnt_cache_update'], 'include/inc_act/act_cache.php', 1, 0, 0);
 							//$subnav .= subnavtext($BL['be_cnt_cache_delete'], 'include/inc_act/act_cache.php?do=9', 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_cache_delete_msg'].'\');" ');
@@ -271,8 +270,8 @@ if($BE['LANG'] == 'ar') {
           <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="9"></td>
         </tr>
         <tr>
-          <td valign="top" class="navtext"><?php 
-		  
+          <td valign="top" class="navtext"><?php
+
 		  // create backend main navigation
 		  if($do == 'default') {
 		  	echo '<strong class="navtexta"><a href="phpwcms.php">HOME</a></strong>&nbsp;&nbsp;&nbsp;';
@@ -290,38 +289,38 @@ if($BE['LANG'] == 'ar') {
   </tr>
 	<tr bgcolor="#FFFFFF">
 	  <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
-		<td width="175" valign="top" bgcolor="#FFFFFF"><?php 
+		<td width="175" valign="top" bgcolor="#FFFFFF"><?php
 
 		echo $subnav . LF;
-		
+
 		?>
 		<form action="phpwcms.php" method="POST" class="backend-search">
-			
+
 			<h1 class="title" style="margin:0 0 3px 0;"><?php echo $BL['be_ctype_search'] ?></h1>
 			<input type="text" name="backend_search_input" value="<?php
-			
+
 				if(isset($_POST['backend_search_input'])) {
 					$_SESSION['phpwcms_backend_search'] = clean_slweg($_POST['backend_search_input']);
 				}
-			
+
 				if(!empty($_SESSION['phpwcms_backend_search'])) {
 					echo html_specialchars($_SESSION['phpwcms_backend_search']);
 				}
 			?>" class="backend-search-input v11" /><input type="image" src="img/famfamfam/magnifier.png" class="backend-search-button" />
-			
+
 		</form>
-		
-		
+
+
 		<h1 class="title" style="margin:1em 0 3px 0;"><?php echo $BL['usr_online'] ?></h1>
-		
+
 		<?php echo online_users($db, "<br />", "<span class=\"subnavinactive\">|</span>"); ?>
-		
+
 		</td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/dividerA.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
       <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540" id="be_main_content">{STATUS_MESSAGE}{BE_PARSE_LANG}<!--BE_MAIN_CONTENT_START//-->
 <?php
-		 
+
       switch($do) {
 
       	case "profile":	//Profile
@@ -341,9 +340,9 @@ if($BE['LANG'] == 'ar') {
 				      	} elseif ($p === 4) {
 
 						include(PHPWCMS_ROOT.'/include/inc_tmpl/files.actions.tmpl.php');
-							
+
 				      	} else {
-										
+
 				      		include(PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'); //Files Navigation/Reiter
 				      		switch($files_folder) {
 				      			case 0:	//Listing der Privaten Dateien
@@ -362,16 +361,16 @@ if($BE['LANG'] == 'ar') {
 						      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'); //Listing-Funktionen einfügen
 						      			include(PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'); //Zusätzliche Private Funktionen
 						      			break;
-				      			
+
 				      			case 1: //Funktionen zum Listen von Public Files
 						      			include(PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'); //Public Listing-Funktionen einfügen
 						      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'); //Elemetares für Public Listing
 						      			break;
-				      			
+
 				      			case 2:	//Dateien im Papierkorb
 						      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.private.trash.tmpl.php');
 						      			break;
-				      			
+
 				      			case 3:	//Dateisuche
 						      			include(PHPWCMS_ROOT.'/include/inc_tmpl/files.search.tmpl.php');
 						      			break;
@@ -402,19 +401,19 @@ if($BE['LANG'] == 'ar') {
 						      		if($_SESSION["wcs_user_admin"] == 1) {
 										include(PHPWCMS_ROOT.'/include/inc_tmpl/message.subscribers.tmpl.php');
 									}
-				      				break;	
+				      				break;
 				      	}
       					break;
 
       	case "modules":	//Modules
-		
+
 			// if a module is selected
 			if(isset($phpwcms['modules'][$module])) {
-			
+
 				include($phpwcms['modules'][$module]['path'].'backend.default.php');
-			
+
 			}
-			
+
 			break;
 
       	case "admin":	//Administration
@@ -427,22 +426,22 @@ if($BE['LANG'] == 'ar') {
       			}
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php');
       			break;
-				
+
 				case 1: //Users and Groups
 					//enym new group management tool
-				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php');			
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php');
 				break;
-				
+
 				case 2: //Settings
-				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.settings.tmpl.php');				
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.settings.tmpl.php');
 				break;
-				
+
 				case 5: //Keywords
-				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.keyword.tmpl.php');	
+				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.keyword.tmpl.php');
 				break;
-				
+
       			case 6: //article structure
-				
+
       			include(PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php');
       			if(isset($_GET["struct"])) {
 					//include(PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'); //loading array with actual content types
@@ -452,34 +451,34 @@ if($BE['LANG'] == 'ar') {
 					$phpwcms['be_parse_lang_process'] = true;
       			}
       			break;
-      			
+
 				case 7:	//File Categories
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.filecat.tmpl.php');
       			break;
-				
+
       			case 8:	//Page Layout
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php');
       			break;
-      			
+
 				case 10:	//Frontend CSS
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.frontendcss.tmpl.php');
       			break;
-      			
+
 				case 11:	//Templates
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php');
       			break;
-				
+
       			case 12:	//Default backend starup HTML
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php');
       			break;
-				
+
 				//Default backend sitemap HTML
-				case 13: 
+				case 13:
 				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php');
         		break;
-				
+
 				//Default backend sitemap HTML
-				case 14: 
+				case 14:
 				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.redirect.tmpl.php');
         		break;
 
@@ -491,19 +490,19 @@ if($BE['LANG'] == 'ar') {
       	case "articles":
 			$_SESSION['image_browser_article'] = 0; //set how image file browser should work
 			switch($p) {
-				
+
 				// List articles
-				case 0: 
+				case 0:
 					include(PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php');
 					$phpwcms['be_parse_lang_process'] = true;
 					break;
-				
+
 				// Edit/create article
 				case 1:
-				case 2: 
+				case 2:
 					include(PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php');
 					break;
-				
+
 				// News
 				case 3:
 					include(PHPWCMS_ROOT.'/include/inc_lib/news.inc.php');
@@ -511,12 +510,12 @@ if($BE['LANG'] == 'ar') {
 					break;
 			}
 			break;
-		
+
 		// about phpwcms
 		case "about":
 			include(PHPWCMS_ROOT.'/include/inc_tmpl/about.tmpl.php');
 			break;
-		
+
 		// start
 		default:
 			include(PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php');
@@ -526,7 +525,7 @@ if($BE['LANG'] == 'ar') {
 	}
 
 ?>
-	
+
 	<!--BE_MAIN_CONTENT_END//--></td>
       <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
 	</tr>
@@ -539,7 +538,7 @@ if($BE['LANG'] == 'ar') {
 	  <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
 	  <td colspan="5" valign="bottom" class="navtext darkblue" style="padding: 8px 0 15px 0;">
 			<a href="http://www.phpwcms.org" title="phpwcms">phpwcms <?php echo PHPWCMS_VERSION ?></a>
-			&copy; 2002&#8212;<?php echo date('Y'); ?> 
+			&copy; 2002&#8212;<?php echo date('Y'); ?>
 			<a href="mailto:oliver@phpwcms.de?subject=phpwcms">Oliver Georgi</a>.
 			<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">Licensed under GPL. Extensions are copyright	of their respective owners.</a>
 		</td>
