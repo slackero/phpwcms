@@ -37,10 +37,17 @@ $PERMIT_ACCESS					= true; // by default set all content without permissions
 $CUSTOM							= array(); // var that holds result of content part "php var"
 
 // reset force redirect in case it is a POST
-if(empty($_POST) || isset($_GET['phpwcms-preview'])) {
+if(!empty($_POST)) {
+	$phpwcms['force301_id2alias']	= false;
+	$phpwcms['force301_2struct']	= false;
+} elseif(isset($_GET['phpwcms-preview'])) {
 	$phpwcms['force301_id2alias']	= false;
 	$phpwcms['force301_2struct']	= false;
 	unset($_GET['phpwcms-preview'], $_getVar['phpwcms-preview']);
+	checkLoginCount();
+	if(empty($_SESSION["wcs_user"])) {
+		headerRedirect(abs_url());
+	}
 }
 
 //method to get the right action values
