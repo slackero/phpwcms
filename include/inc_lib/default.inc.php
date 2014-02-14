@@ -933,17 +933,64 @@ function log_message($type='UNDEFINED', $message='', $userid=0) {
 
 }
 
+function destroyBackendSessionData() {
+	unset(
+		$_SESSION["wcs_user"],
+		$_SESSION["wcs_user_name"],
+		$_SESSION["wcs_user_id"],
+		$_SESSION["wcs_user_aktiv"],
+		$_SESSION["wcs_user_rechte"],
+		$_SESSION["wcs_user_email"],
+		$_SESSION["wcs_user_avatar"],
+		$_SESSION["structure"],
+		$_SESSION["klapp"],
+		$_SESSION["pklapp"],
+		$_SESSION["wcs_user_admin"],
+		$_SESSION["wcs_user_thumb"],
+		$_SESSION["wcs_user_cp"],
+		$_SESSION["wcs_allowed_cp"]
+	);
+}
+
+function checkLoginCount() {
+	$check = 0;
+	if(!empty($_SESSION["wcs_user"])) {
+		$sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+		if(!empty($phpwcms['Login_IPcheck'])) {
+			$sql .= " AND logged_ip='".aporeplace(getRemoteIP())."'";
+		}
+		$check = _dbCount($sql);
+
+		if($check) {
+			$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_change=".time()." WHERE ";
+			$sql .= "logged_user='".aporeplace($_SESSION["wcs_user"])."' AND logged_in=1";
+			_dbQuery($sql, 'UPDATE');
+		} else {
+			destroyBackendSessionData();
+		}
+	}
+	return $check;
+}
+
+// set VISIBLE_MODE
+// 0 = frontend (all) mode
+// 1 = article user mode
+// 2 = admin user mode
 function init_frontend_edit() {
-	// define VISIBLE_MODE
-	// 0 = frontend (all) mode
-	// 1 = article user mode
-	// 2 = admin user mode
+	if(empty($GLOBALS['phpwcms']['frontend_edit']) || empty($_SESSION["wcs_user_id"])) {
+		define('VISIBLE_MODE', 0);
+		define('FE_EDIT_LINK', false);
+		return true;
+	}
+	// Check Backend session
+	checkLoginCount();
 	if(empty($_SESSION["wcs_user_id"])) {
 		define('VISIBLE_MODE', 0);
+		define('FE_EDIT_LINK', false);
 	} else {
 		define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] === 1 ? 2 : 1);
+		define('FE_EDIT_LINK', empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 	}
-	define ('FE_EDIT_LINK', VISIBLE_MODE == 0 || empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 }
 
 function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
