@@ -39,7 +39,7 @@ $IS_A_BOT = $phpwcms['USER_AGENT']['bot'];
 // start session - neccessary if frontend users are available
 // but neccessary also to check if a bot is visiting the site
 // -> if so then do not initialize session for larger search engines
-if(!$IS_A_BOT && !empty($phpwcms['SESSION_FEinit'])) {
+if(!$IS_A_BOT && (!empty($phpwcms['SESSION_FEinit']) || isset($_GET['phpwcms-preview']))) {
 	_initSession();
 }
 
