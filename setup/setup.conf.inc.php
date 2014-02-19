@@ -46,23 +46,23 @@ $ptemp = preg_replace('/^\//', '', $ptemp);
 $ptemp = preg_replace('/\/$/', '', $ptemp);
 
 $phpwcms['root']              = $ptemp;
-$phpwcms['file_path']         = 'filearchive';    //default: 'filearchive'
-$phpwcms['templates']         = 'template';    //default: 'template'
-$phpwcms['content_path']      = 'content'; //default: 'content'
-$phpwcms['cimage_path']       = 'images';  //default: 'images'
-$phpwcms['ftp_path']          = 'upload';     //default: 'upload'
+$phpwcms['file_path']         = 'filearchive';
+$phpwcms['templates']         = 'template';
+$phpwcms['content_path']      = 'content';
+$phpwcms['cimage_path']       = 'images';
+$phpwcms['ftp_path']          = 'upload';
 
 // content values
-$phpwcms['file_maxsize']      = 52428800; //Bytes (50 x 1024 x 1024)
-$phpwcms['content_width']     = 538;      //max width of the article content column - important for rendering multi column images
-$phpwcms['img_list_width']    = 100;      //max with of the list thumbnail image
-$phpwcms['img_list_height']   = 75;       //max height of the list thumbnail image
-$phpwcms['img_prev_width']    = 538;      //max width of the large preview image
-$phpwcms['img_prev_height']   = 538;      //max height of the large preview image
-$phpwcms['max_time']          = 1800;     //logout after max_time/60 seconds
+$phpwcms['file_maxsize']      = 52428800; // Bytes (50 x 1024 x 1024)
+$phpwcms['content_width']     = 538; // max width of the article content column - important for rendering multi column images
+$phpwcms['img_list_width']    = 100; // max with of the list thumbnail image
+$phpwcms['img_list_height']   = 75; // max height of the list thumbnail image
+$phpwcms['img_prev_width']    = 538; // max width of the large preview image
+$phpwcms['img_prev_height']   = 538; // max height of the large preview image
+$phpwcms['max_time']          = 1800; // logout after max_time/60 seconds
 
 // other stuff
-$phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, NetPBM
+$phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM
 $phpwcms['library_path']      = ''; // Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url']       = 0; // whether URL should be rewritable
 $phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
@@ -109,7 +109,7 @@ $phpwcms['JW_FLV_License']    = ''; // insert your JW FLV Media Player License C
 $phpwcms['feuser_regkey']	  = 'FEUSER';
 $phpwcms['login.php']	  	  = 'login.php';
 $phpwcms['js_lib']			  = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js']          = 'http://vjs.zencdn.net/4.1.0/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)
+$phpwcms['video-js']          = 'http://vjs.zencdn.net/4.3/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)
 $phpwcms['render_device']     = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB
@@ -127,15 +127,16 @@ $phpwcms['viewport']		  = ''; // set viewport like "width=device-width, initial-
 $phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible
 $phpwcms['base_href']		  = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $phpwcms['cp_default']		  = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
+$phpwcms['js_in_body']		  = 0; // add <script> direct before </body> instead inside of <head>
 
 // smtp values
-$phpwcms['SMTP_FROM_EMAIL']   = ''; // reply/from email address
-$phpwcms['SMTP_FROM_NAME']    = 'phpwcms webmaster'; // reply/from name
-$phpwcms['SMTP_HOST']         = ''; // SMTP server (host/IP)
+$phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address
+$phpwcms['SMTP_FROM_NAME']    = 'My Name'; // reply/from name
+$phpwcms['SMTP_HOST']         = 'localhost'; // SMTP server (host/IP)
 $phpwcms['SMTP_PORT']         = 25; // SMTP-Server port (default 25)
 $phpwcms['SMTP_MAILER']       = 'mail'; // default phpMailer: smtp, mail (default), sendmail
 $phpwcms['SMTP_AUTH']         = 0; // sets SMTP_AUTH to ON/OFF
-$phpwcms['SMTP_USER']         = ''; // default SMTP login (user) name
-$phpwcms['SMTP_PASS']         = ''; // default SMTP password
+$phpwcms['SMTP_USER']         = 'user'; // default SMTP login (user) name
+$phpwcms['SMTP_PASS']         = 'pass'; // default SMTP password
 
 ?>
