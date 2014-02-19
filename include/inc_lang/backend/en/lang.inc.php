@@ -1361,5 +1361,6 @@ $BL['be_ctype_accordion']				= 'group (accordion)';
 $BL['be_ctype_number']					= 'number';
 $BL['be_inactive']						= 'inactive';
 $BL['be_locked']						= 'locked';
+$BL['be_n/a']							= 'n/a';
 
 ?>

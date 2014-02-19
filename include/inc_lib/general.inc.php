@@ -145,19 +145,17 @@ function getCountry($lang='', $get='COUNTRY_ARRAY') {
 
 
 function list_profession($c){
-	//Create the profession list menu for forms
-	//with the given value selected
-	//$c = selected value
-	if(isEmpty($c)) $c = " n/a";
+	//Create the profession list menu for forms with the given value selected
+	if(empty($c)) {
+		$c = $GLOBALS['BL']['be_n/a'];
+	}
 	$sql = mysql_query("SELECT prof_name FROM ".DB_PREPEND."phpwcms_profession ORDER BY prof_name");
 	while($a = mysql_fetch_assoc($sql)) {
-
-		echo '		<option value="'.$a["prof_name"].'"';
-		if($a["prof_name"] != $c) {
+		echo '<option value="'.html_specialchars($a["prof_name"]).'"';
+		if($a["prof_name"] == $c) {
 			echo ' selected="selected"';
 		}
-		echo '>'.trim($a["prof_name"])."</option>\n";
-
+		echo '>'.html_specialchars($a["prof_name"])."</option>";
 	}
 	mysql_free_result($sql);
 }
