@@ -4,7 +4,7 @@
 # 	php_flag magic_quotes_runtime Off
 #	php_flag register_globals Off
 
-#Sometimes neccessary to add special types
+#Sometimes necessary to add special types
 #	AddType application/x-javascript .js
 #	AddType text/css .css
 #	AddType video/ogg .ogv
