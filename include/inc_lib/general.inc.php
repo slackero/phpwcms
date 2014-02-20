@@ -2026,6 +2026,10 @@ function attribute_name_clean($name='') {
  */
 function phpwcms_boolval($BOOL, $STRICT=false) {
 
+	if(function_exists('boolval')) {
+		return boolval($BOOL);
+	}
+
 	if(is_string($BOOL)) {
 		$BOOL = strtoupper($BOOL);
 	}
