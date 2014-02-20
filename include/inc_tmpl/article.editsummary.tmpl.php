@@ -619,6 +619,8 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 							&nbsp;
 							<label for="article_norss"><input name="article_norss" type="checkbox" id="article_norss" value="1" <?php is_checked(1, $article['article_norss']); ?> />&nbsp;<?php echo $BL['be_no_rss'] ?></label>
 							&nbsp;
+							<label for="article_opengraph"><input name="article_opengraph" type="checkbox" id="article_opengraph" value="1" <?php is_checked(1, $article['article_opengraph']); ?> />&nbsp;<?php echo $BL['be_opengraph_support'] ?></label>
+							&nbsp;
 						</td>
 					</tr>
 

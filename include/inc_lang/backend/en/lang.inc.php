@@ -1362,5 +1362,6 @@ $BL['be_ctype_number']					= 'number';
 $BL['be_inactive']						= 'inactive';
 $BL['be_locked']						= 'locked';
 $BL['be_n/a']							= 'n/a';
+$BL['be_opengraph_support']				= 'Open Graph support';
 
 ?>
