@@ -1,10 +1,17 @@
-[TITLE]	<h1>{TITLE}</h1>[/TITLE][SUB]
-	<h2>{SUB}</h2>[/SUB][SUMMARY][IMAGE]
-	<div class="image">
-		{IMAGE}[CAPTION]
-		<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
-	</div>[/IMAGE]
-	{SUMMARY}
+[TITLE]<h1>{TITLE}</h1>[/TITLE]
+[SUB]<h2>{SUB}</h2>[/SUB]
+[IMAGE]
+	<div class="article-summary-image">
+		{IMAGE}[CAPTION]<span class="caption">
+			{CAPTION}[COPYRIGHT]
+			<span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+		</span>[/CAPTION]
+	</div>
+[/IMAGE]
+[SUMMARY]
+	<div class="article-summary-text">
+		{SUMMARY}
+	</div>
 [/SUMMARY]
 <!--CP_PAGINATE_START//-->
 <div class="pagination">
