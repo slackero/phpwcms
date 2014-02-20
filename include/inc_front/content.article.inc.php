@@ -128,7 +128,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$cache_searchable = '1';
 		}
 
-		$content['opengraph']['support'] = boolval($row["article_opengraph"]);
+		$content['opengraph']['support'] = phpwcms_boolval($row["article_opengraph"]);
 		$content['opengraph']['type'] = 'article'; // Open Graph type
 
 		//check if article has custom pagetitle
