@@ -9,21 +9,47 @@
  *
  **/
 
-// Just a simple example how to set the Open Graph meta tags
-if(empty($content['images']['article']['image'])) {
-	
-	set_meta('og:image', 'http://example.com/default-image.jpg', 'property');
-	
-} else {
-	
-	// Based on default article detail / zoom image
-	set_meta('og:image', PHPWCMS_URL . $content['images']['article'][ isset($content['images']['article']) ? 'zoom' : 'image' ]['src'], 'property');
-	
-	// This can be set dynamically and allow always the same size
-	//set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/1000x1000x0/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
-	
+// An example how to set the Open Graph meta tags
+// For more visit:
+// - http://ogp.me/
+// - https://developers.facebook.com/docs/opengraph/using-objects#selfhosted
+// - https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags
+if($content['opengraph']['support']) {
+
+	set_meta('og:type', $content['opengraph']['type'], 'property');
+
+	// maybe clean your title by sanitize_replacement_tags()
+	set_meta('og:title', $content['opengraph']['title'], 'property');
+
+	set_meta('og:url', abs_url(array(), array('phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe')), 'property');
+
+	if(!empty($content['opengraph']['description'])) {
+		// maybe clean description by sanitize_replacement_tags()
+		set_meta('og:description', $content['opengraph']['description'], 'property');
+	}
+
+	// Open Graph images
+	$content['opengraph']['has_image'] = false;
+	if(isset($content['images']['news']) && count($content['images']['news'])) {
+		foreach($content['images']['news'] as $og_news_img) {
+				$content['opengraph']['has_image'] = true;
+				set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$og_news_img['id'].'.'.$og_news_img['ext'], 'property', false, true);
+		}
+	}
+	if(isset($content['images']['article']['image'])) {
+		$content['opengraph']['has_image'] = true;
+
+		// Based on default article detail / zoom image
+		//set_meta('og:image', PHPWCMS_URL . $content['images']['article'][ isset($content['images']['article']) ? 'zoom' : 'image' ]['src'], 'property');
+
+		// This can be set dynamically ad allow always the same size
+		set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
+	}
+	if(!$content['opengraph']['has_image']) {
+		// Default Open Graph image
+		set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');
+	}
+
 }
-
-
 
 ?>
