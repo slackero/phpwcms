@@ -249,7 +249,7 @@ function phpwcms_revision_r535() {
 			'sign language Interpreter',
 			'singer',
 			'social media manager',
-			'socialphotographer',
+			'social photographer',
 			'software analyst',
 			'software developer',
 			'software engineer',
