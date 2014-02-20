@@ -30,6 +30,7 @@ $content['404error']			= array('status' => false, 'id' => '', 'aid' => '', 'alia
 $content['set_canonical']		= false;
 $content['cptab']				= array(); // array to hold content part based tabs
 $content['images']				= array();
+$content['opengraph']			= array('type'=>'website'); // will hold all relevant open graph information
 $pagelayout						= array();
 $no_content_for_this_page		= false;
 $alias							= '';
@@ -109,9 +110,9 @@ if(isset($_GET["id"])) {
 		$sql  =	'SELECT article_cid, article_alias FROM '.DB_PREPEND.'phpwcms_article WHERE ';
 		$sql .= 'article_deleted=0 AND article_id='.$_GET['aid'].' ';
 		if(VISIBLE_MODE !== 2) {
-			$sql .= 'AND article_aktiv=1 AND article_public=1 ';
+			$sql .= 'AND article_aktiv=1 ';
 		} elseif(VISIBLE_MODE === 1) {
-			$sql .= 'AND ((article_aktiv=1 AND article_public=1) OR article_uid='.intval($_SESSION["wcs_user_id"]).') ';
+			$sql .= 'AND (article_aktiv=1 OR article_uid='.intval($_SESSION["wcs_user_id"]).') ';
 		}
 		$sql .= 'LIMIT 1';
 		if($result = mysql_query($sql, $db)) {
@@ -443,11 +444,7 @@ if(is_string($block['css'])) {
 }
 
 // template defaults
-if(isset($template_default['classes'])) {
-	$template_default['classes'] = array_merge($phpwcms['default_template_classes'], $template_default['classes']);
-} else {
-	$template_default['classes'] = $phpwcms['default_template_classes'];
-}
+$template_default['classes'] = isset($template_default['classes']) ? array_merge($phpwcms['default_template_classes'], $template_default['classes']) : $phpwcms['default_template_classes'];
 
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
@@ -487,7 +484,12 @@ if(empty($pagelayout)) {
 		PHPWCMS_URL.'phpwcms.php?do=admin&p=8">create one here</a>!');
 }
 // Pagetitle
-$content["pagetitle"] = empty($pagelayout["layout_title"]) ? '' : $pagelayout["layout_title"];
+if(empty($pagelayout["layout_title"])) {
+	$content["pagetitle"] = '';
+} else {
+	$content["pagetitle"] = $pagelayout["layout_title"];
+	$content['opengraph']['title'] = $pagelayout["layout_title"];
+}
 
 //generate the colspan attribute
 $colspan = get_colspan($pagelayout);
@@ -549,6 +551,8 @@ $content["article_list_count"]	= count($content["articles"]);
 if(!$aktion[4]) {
 
 	if($content['404error']['status'] === false && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
+
+		$content['opengraph']['type'] = 'article';
 
 		if($content["article_list_count"] == 1 || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1) {
 		    // if($temp_counter == 1) {
@@ -624,10 +628,12 @@ if($aktion[1]) {
 
 	// a custom pagetitle for structure level exists
 	$content["pagetitle"] = $content['struct'][$content['cat_id']]['acat_pagetitle'];
+	$content['opengraph']['title'] = $content["pagetitle"];
 
 } else {
 
 	$content["pagetitle"] = setPageTitle($content["pagetitle"], $content['struct'][$content['cat_id']]['acat_name'], '');
+	$content['opengraph']['title'] = $content['struct'][$content['cat_id']]['acat_name'];
 
 }
 
@@ -966,6 +972,7 @@ if(FE_EDIT_LINK) {
 
 // insert description meta tag if not definied
 if(empty($block['custom_htmlhead']['meta.description']) && !empty($content["struct"][$aktion[0]]["acat_info"]) && !stristr($block["htmlhead"], '"description"')) {
+	$content['opengraph']['description'] = $content["struct"][$aktion[0]]["acat_info"];
 	set_meta('description', $content["struct"][$aktion[0]]["acat_info"]);
 }
 // add structure level keywords

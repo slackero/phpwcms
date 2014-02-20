@@ -22,7 +22,7 @@ echo '<h1 class="title">'.$BL['be_article_urlalias'].' ('.$BL['be_ftptakeover_ac
 // now retrieve all articles
 $sql  =	"SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_timestamp ";
 $sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ";
-$sql .= "article_public=1 AND article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
+$sql .= "article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
 $sql .= "article_nositemap=1 AND article_begin < NOW() AND article_end > NOW() ";
 $sql .= "ORDER BY article_alias";
 
@@ -52,8 +52,8 @@ foreach($result as $data) {
 	echo '		<td class="nowrap">'.date($BL['default_date'], $data["article_timestamp"])."</td>" . LF;
 	echo '		<td align="right" width="30"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id='.$data["article_id"].'">';
 	echo '<img src="img/button/edit_22x13.gif" alt="" border="0" height="13" width="22" /></a>';
-	echo '</td>' . LF . '	</tr>' . LF;  
-	
+	echo '</td>' . LF . '	</tr>' . LF;
+
 	$x++;
 }
 

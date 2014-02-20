@@ -1,22 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.6
+-- version 4.0.6
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 18. Juni 2008 um 08:15
--- Server Version: 5.0.51
--- PHP-Version: 5.2.5
-
-
---
--- Datenbank: `dev_phpwcms`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_address`
---
+-- Erstellungszeit: 20. Feb 2014 um 08:17
+-- Server Version: 5.5.33
+-- PHP-Version: 5.4.19
 
 CREATE TABLE `phpwcms_address` (
   `address_id` int(11) NOT NULL auto_increment,
@@ -29,14 +18,8 @@ CREATE TABLE `phpwcms_address` (
   `address_iddetail` int(11) NOT NULL default '0',
   `address_url1` varchar(255) NOT NULL default '',
   `address_url2` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`address_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_campaign`
---
+  PRIMARY KEY (`address_id`)
+);
 
 CREATE TABLE `phpwcms_ads_campaign` (
   `adcampaign_id` int(11) NOT NULL auto_increment,
@@ -56,17 +39,11 @@ CREATE TABLE `phpwcms_ads_campaign` (
   `adcampaign_type` int(11) NOT NULL default '0',
   `adcampaign_place` int(11) NOT NULL default '0',
   `adcampaign_data` mediumtext NOT NULL,
-  PRIMARY KEY  (`adcampaign_id`),
+  PRIMARY KEY (`adcampaign_id`),
   KEY `adcampaign_status` (`adcampaign_status`,`adcampaign_datestart`,`adcampaign_dateend`,`adcampaign_type`,`adcampaign_place`),
   KEY `adcampaign_maxview` (`adcampaign_maxview`,`adcampaign_maxclick`,`adcampaign_maxviewuser`),
   KEY `adcampaign_curview` (`adcampaign_curview`,`adcampaign_curclick`,`adcampaign_curviewuser`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_formats`
---
+);
 
 CREATE TABLE `phpwcms_ads_formats` (
   `adformat_id` int(11) NOT NULL auto_increment,
@@ -77,15 +54,9 @@ CREATE TABLE `phpwcms_ads_formats` (
   `adformat_width` int(5) NOT NULL default '0',
   `adformat_height` int(5) NOT NULL default '0',
   `adformat_comment` text NOT NULL,
-  PRIMARY KEY  (`adformat_id`),
+  PRIMARY KEY (`adformat_id`),
   KEY `adformat_status` (`adformat_status`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_place`
---
+);
 
 CREATE TABLE `phpwcms_ads_place` (
   `adplace_id` int(11) NOT NULL auto_increment,
@@ -98,15 +69,9 @@ CREATE TABLE `phpwcms_ads_place` (
   `adplace_height` int(11) NOT NULL default '0',
   `adplace_prefix` varchar(255) NOT NULL default '',
   `adplace_suffix` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`adplace_id`),
+  PRIMARY KEY (`adplace_id`),
   KEY `adplace_status` (`adplace_status`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_tracking`
---
+);
 
 CREATE TABLE `phpwcms_ads_tracking` (
   `adtracking_id` int(11) NOT NULL auto_increment,
@@ -120,16 +85,10 @@ CREATE TABLE `phpwcms_ads_tracking` (
   `adtracking_ref` text NOT NULL,
   `adtracking_catid` int(11) NOT NULL default '0',
   `adtracking_articleid` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`adtracking_id`),
+  PRIMARY KEY (`adtracking_id`),
   KEY `adtracking_campaignid` (`adtracking_campaignid`,`adtracking_ip`,`adtracking_countclick`,`adtracking_countview`),
   KEY `adtracking_cookieid` (`adtracking_cookieid`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_article`
---
+);
 
 CREATE TABLE `phpwcms_article` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -141,13 +100,13 @@ CREATE TABLE `phpwcms_article` (
   `article_title` text NOT NULL,
   `article_alias` varchar(255) NOT NULL DEFAULT '',
   `article_keyword` text NOT NULL,
-  `article_public` int(1) NOT NULL DEFAULT '0',
+  `article_public` int(1) NOT NULL DEFAULT '1',
   `article_deleted` int(1) NOT NULL DEFAULT '0',
   `article_begin` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `article_end` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `article_aktiv` int(1) NOT NULL DEFAULT '0',
   `article_subtitle` text NOT NULL,
-  `article_summary` text NOT NULL,
+  `article_summary` mediumtext NOT NULL,
   `article_redirect` text NOT NULL,
   `article_sort` int(11) NOT NULL DEFAULT '0',
   `article_notitle` int(1) NOT NULL DEFAULT '0',
@@ -172,6 +131,7 @@ CREATE TABLE `phpwcms_article` (
   `article_lang` varchar(255) NOT NULL DEFAULT '',
   `article_lang_type` varchar(255) NOT NULL DEFAULT '',
   `article_lang_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `article_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`article_id`),
   KEY `article_aktiv` (`article_aktiv`),
   KEY `article_public` (`article_public`),
@@ -188,14 +148,9 @@ CREATE TABLE `phpwcms_article` (
   KEY `article_lang` (`article_lang`),
   KEY `article_lang_type` (`article_lang_type`),
   KEY `article_lang_id` (`article_lang_id`),
-  KEY `article_noteaser` (`article_noteaser`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_articlecat`
---
+  KEY `article_noteaser` (`article_noteaser`),
+  KEY `article_opengraph` (`article_opengraph`)
+);
 
 CREATE TABLE `phpwcms_articlecat` (
   `acat_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -241,13 +196,7 @@ CREATE TABLE `phpwcms_articlecat` (
   KEY `acat_lang` (`acat_lang`),
   KEY `acat_lang_type` (`acat_lang_type`),
   KEY `acat_lang_id` (`acat_lang_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_articlecontent`
---
+);
 
 CREATE TABLE `phpwcms_articlecontent` (
   `acontent_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -256,7 +205,7 @@ CREATE TABLE `phpwcms_articlecontent` (
   `acontent_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `acontent_tstamp` timestamp NOT NULL,
   `acontent_title` text NOT NULL,
-  `acontent_text` text NOT NULL,
+  `acontent_text` mediumtext NOT NULL,
   `acontent_type` int(10) NOT NULL DEFAULT '0',
   `acontent_sorting` int(11) NOT NULL DEFAULT '0',
   `acontent_image` text NOT NULL,
@@ -267,10 +216,10 @@ CREATE TABLE `phpwcms_articlecontent` (
   `acontent_after` varchar(10) NOT NULL DEFAULT '',
   `acontent_top` int(1) NOT NULL DEFAULT '0',
   `acontent_redirect` text NOT NULL,
-  `acontent_html` text NOT NULL,
+  `acontent_html` mediumtext NOT NULL,
   `acontent_trash` int(1) NOT NULL DEFAULT '0',
   `acontent_alink` text NOT NULL,
-  `acontent_media` text NOT NULL,
+  `acontent_media` mediumtext NOT NULL,
   `acontent_form` mediumtext NOT NULL,
   `acontent_newsletter` mediumtext NOT NULL,
   `acontent_block` varchar(200) NOT NULL DEFAULT 'CONTENT',
@@ -296,13 +245,7 @@ CREATE TABLE `phpwcms_articlecontent` (
   KEY `acontent_paginate` (`acontent_paginate_page`),
   KEY `acontent_granted` (`acontent_granted`),
   KEY `acontent_lang` (`acontent_lang`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_cache`
---
+);
 
 CREATE TABLE `phpwcms_cache` (
   `cache_id` int(11) NOT NULL auto_increment,
@@ -317,16 +260,10 @@ CREATE TABLE `phpwcms_cache` (
   `cache_searchable` int(1) NOT NULL default '0',
   `cache_page` longtext NOT NULL,
   `cache_stripped` longtext NOT NULL,
-  PRIMARY KEY  (`cache_id`),
+  PRIMARY KEY (`cache_id`),
   KEY `cache_hash` (`cache_hash`),
   FULLTEXT KEY `cache_stripped` (`cache_stripped`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_calendar`
---
 
 CREATE TABLE `phpwcms_calendar` (
   `calendar_id` int(11) NOT NULL auto_increment,
@@ -345,9 +282,9 @@ CREATE TABLE `phpwcms_calendar` (
   `calendar_text` mediumtext NOT NULL,
   `calendar_tag` varchar(255) NOT NULL default '',
   `calendar_object` longtext NOT NULL,
-  `calendar_refid` varchar(255) NOT NULL default '',
+  `calendar_refid` int(11) NOT NULL default '0',
   `calendar_lang` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`calendar_id`),
+  PRIMARY KEY (`calendar_id`),
   KEY `calendar_status` (`calendar_status`),
   KEY `calendar_start` (`calendar_start`),
   KEY `calendar_end` (`calendar_end`),
@@ -355,13 +292,7 @@ CREATE TABLE `phpwcms_calendar` (
   KEY `calendar_refid` (`calendar_refid`),
   KEY `calendar_range` (`calendar_range`),
   KEY `calendar_lang` (`calendar_lang`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_categories`
---
+);
 
 CREATE TABLE `phpwcms_categories` (
   `cat_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -379,12 +310,6 @@ CREATE TABLE `phpwcms_categories` (
   KEY `cat_sort` (`cat_sort`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_chat`
---
-
 CREATE TABLE `phpwcms_chat` (
   `chat_id` int(11) NOT NULL auto_increment,
   `chat_uid` int(11) NOT NULL default '0',
@@ -392,14 +317,8 @@ CREATE TABLE `phpwcms_chat` (
   `chat_tstamp` timestamp NOT NULL,
   `chat_text` varchar(255) NOT NULL default '',
   `chat_cat` int(5) NOT NULL default '0',
-  PRIMARY KEY  (`chat_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_content`
---
+  PRIMARY KEY (`chat_id`)
+);
 
 CREATE TABLE `phpwcms_content` (
   `cnt_id` int(11) NOT NULL auto_increment,
@@ -426,7 +345,7 @@ CREATE TABLE `phpwcms_content` (
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL default '',
   `cnt_object` text NOT NULL,
-  PRIMARY KEY  (`cnt_id`),
+  PRIMARY KEY (`cnt_id`),
   KEY `cnt_livedate` (`cnt_livedate`),
   KEY `cnt_killdate` (`cnt_killdate`),
   KEY `cnt_module` (`cnt_module`),
@@ -437,13 +356,7 @@ CREATE TABLE `phpwcms_content` (
   KEY `cnt_pid` (`cnt_pid`),
   KEY `cnt_sort` (`cnt_sort`),
   KEY `cnt_prio` (`cnt_prio`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_country`
---
+);
 
 CREATE TABLE `phpwcms_country` (
   `country_id` int(4) NOT NULL auto_increment,
@@ -452,22 +365,16 @@ CREATE TABLE `phpwcms_country` (
   `country_iso3` char(3) NOT NULL default '',
   `country_isonum` int(11) NOT NULL default '0',
   `country_continent_code` char(2) NOT NULL default '',
-  `country_name` varchar(100) NOT NULL,
-  `country_name_de` varchar(255) NOT NULL,
+  `country_name` varchar(255) NOT NULL default '',
+  `country_name_de` varchar(255) NOT NULL default '',
   `country_continent` varchar(255) NOT NULL default '',
   `country_continent_de` varchar(255) NOT NULL default '',
   `country_region` varchar(255) NOT NULL default '',
   `country_region_de` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`country_id`),
+  PRIMARY KEY (`country_id`),
   UNIQUE KEY `country_iso` (`country_iso`),
   UNIQUE KEY `country_name` (`country_name`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_crossreference`
---
+);
 
 CREATE TABLE `phpwcms_crossreference` (
   `cref_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -483,12 +390,6 @@ CREATE TABLE `phpwcms_crossreference` (
   KEY `cref_str` (`cref_str`),
   KEY `cref_module` (`cref_module`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_file`
---
 
 CREATE TABLE `phpwcms_file` (
   `f_id` int(11) NOT NULL auto_increment,
@@ -520,18 +421,12 @@ CREATE TABLE `phpwcms_file` (
   `f_gallerystatus` int(1) NOT NULL default '0',
   `f_vars` blob NOT NULL,
   `f_sort` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`f_id`),
+  PRIMARY KEY (`f_id`),
   KEY `f_granted` (`f_granted`),
   KEY `f_sort` (`f_sort`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_filecat`
---
+);
 
 CREATE TABLE `phpwcms_filecat` (
   `fcat_id` int(11) NOT NULL auto_increment,
@@ -540,14 +435,8 @@ CREATE TABLE `phpwcms_filecat` (
   `fcat_deleted` int(1) NOT NULL default '0',
   `fcat_needed` int(1) NOT NULL default '0',
   `fcat_sort` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`fcat_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_filekey`
---
+  PRIMARY KEY (`fcat_id`)
+);
 
 CREATE TABLE `phpwcms_filekey` (
   `fkey_id` int(11) NOT NULL auto_increment,
@@ -556,14 +445,8 @@ CREATE TABLE `phpwcms_filekey` (
   `fkey_aktiv` int(1) NOT NULL default '0',
   `fkey_deleted` int(1) NOT NULL default '0',
   `fkey_sort` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`fkey_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_formresult`
---
+  PRIMARY KEY (`fkey_id`)
+);
 
 CREATE TABLE `phpwcms_formresult` (
   `formresult_id` int(11) NOT NULL auto_increment,
@@ -571,15 +454,9 @@ CREATE TABLE `phpwcms_formresult` (
   `formresult_createdate` timestamp NULL,
   `formresult_ip` varchar(50) NOT NULL default '',
   `formresult_content` mediumblob NOT NULL,
-  PRIMARY KEY  (`formresult_id`),
+  PRIMARY KEY (`formresult_id`),
   KEY `formresult_pid` (`formresult_pid`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_formtracking`
---
+);
 
 CREATE TABLE `phpwcms_formtracking` (
   `formtracking_id` int(11) NOT NULL auto_increment,
@@ -588,14 +465,8 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_created` timestamp NOT NULL,
   `formtracking_sentdate` varchar(20) NOT NULL default '',
   `formtracking_sent` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`formtracking_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_glossary`
---
+  PRIMARY KEY (`formtracking_id`)
+);
 
 CREATE TABLE `phpwcms_glossary` (
   `glossary_id` int(11) NOT NULL auto_increment,
@@ -608,18 +479,12 @@ CREATE TABLE `phpwcms_glossary` (
   `glossary_highlight` int(1) NOT NULL default '0',
   `glossary_object` mediumtext NOT NULL,
   `glossary_status` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`glossary_id`),
+  PRIMARY KEY (`glossary_id`),
   KEY `glossary_status` (`glossary_status`),
   KEY `glossary_tag` (`glossary_tag`),
   KEY `glossary_keyword` (`glossary_keyword`),
   KEY `glossary_highlight` (`glossary_highlight`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_guestbook`
---
+);
 
 CREATE TABLE `phpwcms_guestbook` (
   `guestbook_id` int(11) NOT NULL auto_increment,
@@ -635,14 +500,8 @@ CREATE TABLE `phpwcms_guestbook` (
   `guestbook_useragent` varchar(255) NOT NULL default '',
   `guestbook_image` varchar(255) NOT NULL default '',
   `guestbook_imagename` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`guestbook_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_keyword`
---
+  PRIMARY KEY (`guestbook_id`)
+);
 
 CREATE TABLE `phpwcms_keyword` (
   `keyword_id` int(11) NOT NULL auto_increment,
@@ -655,15 +514,9 @@ CREATE TABLE `phpwcms_keyword` (
   `keyword_sort` int(11) NOT NULL default '0',
   `keyword_important` int(1) NOT NULL default '0',
   `keyword_abbr` varchar(10) NOT NULL default '',
-  PRIMARY KEY  (`keyword_id`),
+  PRIMARY KEY (`keyword_id`),
   KEY `keyword_abbr` (`keyword_abbr`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_language`
---
+);
 
 CREATE TABLE `phpwcms_language` (
   `lang_id` varchar(255) NOT NULL default '',
@@ -691,14 +544,8 @@ CREATE TABLE `phpwcms_language` (
   `SE` text NOT NULL,
   `SK` text NOT NULL,
   `VN` text NOT NULL,
-  PRIMARY KEY  (`lang_id`)
+  PRIMARY KEY (`lang_id`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_map`
---
 
 CREATE TABLE `phpwcms_map` (
   `map_id` int(11) NOT NULL auto_increment,
@@ -711,14 +558,8 @@ CREATE TABLE `phpwcms_map` (
   `map_deleted` int(1) NOT NULL default '0',
   `map_entry` text NOT NULL,
   `map_vars` text NOT NULL,
-  PRIMARY KEY  (`map_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_message`
---
+  PRIMARY KEY (`map_id`)
+);
 
 CREATE TABLE `phpwcms_message` (
   `msg_id` int(11) NOT NULL auto_increment,
@@ -732,14 +573,8 @@ CREATE TABLE `phpwcms_message` (
   `msg_to` blob NOT NULL,
   `msg_from` int(11) NOT NULL default '0',
   `msg_from_del` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`msg_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_newsletter`
---
+  PRIMARY KEY (`msg_id`)
+);
 
 CREATE TABLE `phpwcms_newsletter` (
   `newsletter_id` int(11) NOT NULL auto_increment,
@@ -750,14 +585,8 @@ CREATE TABLE `phpwcms_newsletter` (
   `newsletter_vars` mediumblob NOT NULL,
   `newsletter_trashed` int(1) NOT NULL default '0',
   `newsletter_active` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`newsletter_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_newsletterqueue`
---
+  PRIMARY KEY (`newsletter_id`)
+);
 
 CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_id` int(11) NOT NULL auto_increment,
@@ -767,15 +596,9 @@ CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_pid` int(11) NOT NULL default '0',
   `queue_rid` int(11) NOT NULL default '0',
   `queue_errormsg` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`queue_id`),
+  PRIMARY KEY (`queue_id`),
   KEY `nlqueue` (`queue_pid`,`queue_status`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_pagelayout`
---
+);
 
 CREATE TABLE `phpwcms_pagelayout` (
   `pagelayout_id` int(11) NOT NULL auto_increment,
@@ -783,26 +606,14 @@ CREATE TABLE `phpwcms_pagelayout` (
   `pagelayout_default` int(1) NOT NULL default '0',
   `pagelayout_var` mediumblob NOT NULL,
   `pagelayout_trash` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`pagelayout_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_profession`
---
+  PRIMARY KEY (`pagelayout_id`)
+);
 
 CREATE TABLE `phpwcms_profession` (
   `prof_id` int(4) NOT NULL auto_increment,
-  `prof_name` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`prof_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_shop_orders`
---
+  `prof_name` varchar(255) NOT NULL default '',
+  PRIMARY KEY (`prof_id`)
+);
 
 CREATE TABLE `phpwcms_shop_orders` (
   `order_id` int(10) unsigned NOT NULL auto_increment,
@@ -816,15 +627,9 @@ CREATE TABLE `phpwcms_shop_orders` (
   `order_payment` varchar(255) NOT NULL default '',
   `order_data` mediumtext NOT NULL,
   `order_status` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`order_id`),
+  PRIMARY KEY (`order_id`),
   KEY `order_number` (`order_number`,`order_status`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_shop_products`
---
+);
 
 CREATE TABLE `phpwcms_shop_products` (
   `shopprod_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -853,7 +658,8 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_listall` int(1) unsigned DEFAULT '0',
   `shopprod_special_price` text NOT NULL,
   `shopprod_track_view` int(11) NOT NULL DEFAULT '0',
-  `shopprod_lang` varchar(255) NOT NULL default '',
+  `shopprod_lang` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_overwrite_meta` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
@@ -861,13 +667,7 @@ CREATE TABLE `phpwcms_shop_products` (
   KEY `all` (`shopprod_listall`),
   KEY `shopprod_track_view` (`shopprod_track_view`),
   KEY `shopprod_lang` (`shopprod_lang`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_subscription`
---
+);
 
 CREATE TABLE `phpwcms_subscription` (
   `subscription_id` int(11) NOT NULL auto_increment,
@@ -876,14 +676,8 @@ CREATE TABLE `phpwcms_subscription` (
   `subscription_active` int(1) NOT NULL default '0',
   `subscription_lang` varchar(100) NOT NULL default '',
   `subscription_tstamp` timestamp NOT NULL,
-  PRIMARY KEY  (`subscription_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_sysvalue`
---
+  PRIMARY KEY (`subscription_id`)
+);
 
 CREATE TABLE `phpwcms_sysvalue` (
   `sysvalue_key` varchar(255) NOT NULL default '',
@@ -892,16 +686,10 @@ CREATE TABLE `phpwcms_sysvalue` (
   `sysvalue_status` int(1) NOT NULL default '0',
   `sysvalue_vartype` varchar(255) NOT NULL default '',
   `sysvalue_value` mediumtext NOT NULL,
-  PRIMARY KEY  (`sysvalue_key`),
+  PRIMARY KEY (`sysvalue_key`),
   KEY `sysvalue_group` (`sysvalue_group`),
   KEY `sysvalue_status` (`sysvalue_status`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_template`
---
 
 CREATE TABLE `phpwcms_template` (
   `template_id` int(11) NOT NULL auto_increment,
@@ -910,14 +698,8 @@ CREATE TABLE `phpwcms_template` (
   `template_default` int(1) NOT NULL default '0',
   `template_var` mediumblob NOT NULL,
   `template_trash` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`template_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_user`
---
+  PRIMARY KEY (`template_id`)
+);
 
 CREATE TABLE `phpwcms_user` (
   `usr_id` int(11) NOT NULL auto_increment,
@@ -937,14 +719,8 @@ CREATE TABLE `phpwcms_user` (
   `usr_wysiwyg` int(2) NOT NULL default '0',
   `usr_fe` int(1) NOT NULL default '0',
   `usr_vars` mediumtext NOT NULL,
-  PRIMARY KEY  (`usr_id`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_userdetail`
---
+  PRIMARY KEY (`usr_id`)
+);
 
 CREATE TABLE `phpwcms_userdetail` (
   `detail_id` int(11) NOT NULL auto_increment,
@@ -1000,19 +776,13 @@ CREATE TABLE `phpwcms_userdetail` (
   `detail_float3` double NOT NULL default '0',
   `detail_float4` double NOT NULL default '0',
   `detail_float5` double NOT NULL default '0',
-  PRIMARY KEY  (`detail_id`),
+  PRIMARY KEY (`detail_id`),
   KEY `detail_pid` (`detail_pid`),
   KEY `detail_formid` (`detail_formid`),
   KEY `detail_password` (`detail_password`),
   KEY `detail_aktiv` (`detail_aktiv`),
   KEY `detail_regkey` (`detail_regkey`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_usergroup`
---
+);
 
 CREATE TABLE `phpwcms_usergroup` (
   `group_id` int(11) NOT NULL auto_increment,
@@ -1022,15 +792,9 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_timestamp` timestamp NOT NULL,
   `group_trash` int(1) NOT NULL default '0',
   `group_active` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`group_id`),
+  PRIMARY KEY (`group_id`),
   KEY `group_member` (`group_member`(255))
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_userlog`
---
+);
 
 CREATE TABLE `phpwcms_userlog` (
   `userlog_id` int(11) NOT NULL auto_increment,
@@ -1041,8 +805,8 @@ CREATE TABLE `phpwcms_userlog` (
   `logged_in` int(1) NOT NULL default '0',
   `logged_ip` varchar(24) NOT NULL default '',
   `logged_section` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`userlog_id`)
-) ;
+  PRIMARY KEY (`userlog_id`)
+);
 
 CREATE TABLE `phpwcms_log_seo` (
   `id` int(11) NOT NULL auto_increment,
@@ -1051,7 +815,7 @@ CREATE TABLE `phpwcms_log_seo` (
   `query` varchar(255) NOT NULL,
   `pos` int(11) NOT NULL,
   `referrer` text NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `phpwcms_log` (

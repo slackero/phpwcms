@@ -480,32 +480,33 @@ function get_struct_data($root_name='', $root_info='') {
 
 	if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
-			$data[$row["acat_id"]] = array(	"acat_id"		=> $row["acat_id"],
-										"acat_name"			=> $row["acat_name"],
-										"acat_info"			=> $row["acat_info"],
-										"acat_struct"		=> $row["acat_struct"],
-										"acat_sort"			=> $row["acat_sort"],
-										"acat_hidden"		=> $row["acat_hidden"],
-										"acat_regonly"		=> $row["acat_regonly"],
-										"acat_ssl"			=> $row["acat_ssl"],
-										"acat_template"		=> $row["acat_template"],
-										"acat_alias"		=> $row["acat_alias"],
-										"acat_topcount"		=> $row["acat_topcount"],
-										"acat_maxlist"		=> $row["acat_maxlist"],
-										"acat_redirect"		=> $row["acat_redirect"],
-										"acat_order"		=> $row["acat_order"],
-										"acat_timeout"		=> $row["acat_cache"],
-										"acat_nosearch"		=> $row["acat_nosearch"],
-										"acat_nositemap"	=> $row["acat_nositemap"],
-										"acat_permit"		=> empty($row["acat_permit"]) ? array() : explode(',', $row["acat_permit"]),
-										"acat_pagetitle"	=> $row["acat_pagetitle"],
-										"acat_paginate"		=> $row["acat_paginate"],
-										"acat_overwrite"	=> $row["acat_overwrite"],
-										"acat_archive"		=> $row["acat_archive"],
-										"acat_class"		=> $row["acat_class"],
-										"acat_keywords"		=> $row["acat_keywords"],
-										"acat_disable301"	=> $row["acat_disable301"]
-									  );
+			$data[$row["acat_id"]] = array(
+				"acat_id"		=> $row["acat_id"],
+				"acat_name"			=> $row["acat_name"],
+				"acat_info"			=> $row["acat_info"],
+				"acat_struct"		=> $row["acat_struct"],
+				"acat_sort"			=> $row["acat_sort"],
+				"acat_hidden"		=> $row["acat_hidden"],
+				"acat_regonly"		=> $row["acat_regonly"],
+				"acat_ssl"			=> $row["acat_ssl"],
+				"acat_template"		=> $row["acat_template"],
+				"acat_alias"		=> $row["acat_alias"],
+				"acat_topcount"		=> $row["acat_topcount"],
+				"acat_maxlist"		=> $row["acat_maxlist"],
+				"acat_redirect"		=> $row["acat_redirect"],
+				"acat_order"		=> $row["acat_order"],
+				"acat_timeout"		=> $row["acat_cache"],
+				"acat_nosearch"		=> $row["acat_nosearch"],
+				"acat_nositemap"	=> $row["acat_nositemap"],
+				"acat_permit"		=> empty($row["acat_permit"]) ? array() : explode(',', $row["acat_permit"]),
+				"acat_pagetitle"	=> $row["acat_pagetitle"],
+				"acat_paginate"		=> $row["acat_paginate"],
+				"acat_overwrite"	=> $row["acat_overwrite"],
+				"acat_archive"		=> $row["acat_archive"],
+				"acat_class"		=> $row["acat_class"],
+				"acat_keywords"		=> $row["acat_keywords"],
+				"acat_disable301"	=> $row["acat_disable301"]
+			);
 		}
 		mysql_free_result($result);
 	}
@@ -542,9 +543,9 @@ function get_actcat_articles_data($act_cat_id) {
 	$sql .= "WHERE article_cid=".$act_cat_id;
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .= " AND article_public=1 AND article_aktiv=1";
+		case 0: $sql .= " AND article_aktiv=1";
 				break;
-		case 1: $sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
+		case 1: $sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 				break;
 		//case 2: admin mode no additional neccessary
 	}
@@ -565,33 +566,33 @@ function get_actcat_articles_data($act_cat_id) {
 	if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
 			$data[$row["article_id"]] = array(
-									"article_id"		=> $row["article_id"],
-									"article_cid"		=> $row["article_cid"],
-									"article_title"		=> $row["article_title"],
-									"article_subtitle"	=> $row["article_subtitle"],
-									"article_menutitle"	=> $row["article_menutitle"],
-									"article_keyword"	=> $row["article_keyword"],
-									"article_summary"	=> $row["article_summary"],
-									"article_redirect"	=> $row["article_redirect"],
-									"article_date"		=> $row["article_date"],
-									"article_username"	=> $row["article_username"],
-									"article_sort"		=> $row["article_sort"],
-									"article_notitle"	=> $row["article_notitle"],
-									"article_created"	=> $row["article_created"],
-									"article_image"		=> @unserialize($row["article_image"]),
-									"article_timeout"	=> $row["article_cache"],
-									"article_nosearch"	=> $row["article_nosearch"],
-									"article_nositemap"	=> $row["article_nositemap"],
-									"article_aliasid"	=> $row["article_aliasid"],
-									"article_headerdata"=> $row["article_headerdata"],
-									"article_morelink"	=> $row["article_morelink"],
-									"article_begin"		=> $row["article_begin"],
-									"article_end"		=> $row["article_end"],
-									"article_alias"		=> $row["article_alias"],
-									'article_livedate'	=> $row["article_livedate"],
-									'article_killdate'	=> $row["article_killdate"],
-									'article_uid'		=> $row["article_uid"]
-											);
+				"article_id"		=> $row["article_id"],
+				"article_cid"		=> $row["article_cid"],
+				"article_title"		=> $row["article_title"],
+				"article_subtitle"	=> $row["article_subtitle"],
+				"article_menutitle"	=> $row["article_menutitle"],
+				"article_keyword"	=> $row["article_keyword"],
+				"article_summary"	=> $row["article_summary"],
+				"article_redirect"	=> $row["article_redirect"],
+				"article_date"		=> $row["article_date"],
+				"article_username"	=> $row["article_username"],
+				"article_sort"		=> $row["article_sort"],
+				"article_notitle"	=> $row["article_notitle"],
+				"article_created"	=> $row["article_created"],
+				"article_image"		=> @unserialize($row["article_image"]),
+				"article_timeout"	=> $row["article_cache"],
+				"article_nosearch"	=> $row["article_nosearch"],
+				"article_nositemap"	=> $row["article_nositemap"],
+				"article_aliasid"	=> $row["article_aliasid"],
+				"article_headerdata"=> $row["article_headerdata"],
+				"article_morelink"	=> $row["article_morelink"],
+				"article_begin"		=> $row["article_begin"],
+				"article_end"		=> $row["article_end"],
+				"article_alias"		=> $row["article_alias"],
+				'article_livedate'	=> $row["article_livedate"],
+				'article_killdate'	=> $row["article_killdate"],
+				'article_uid'		=> $row["article_uid"]
+			);
 			// now check for article alias ID
 			if($row["article_aliasid"]) {
 				$aid = $row["article_id"];
@@ -602,9 +603,9 @@ function get_actcat_articles_data($act_cat_id) {
 				$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 				if(!$row["article_headerdata"]) {
 					switch(VISIBLE_MODE) {
-						case 0: $alias_sql .= " AND article_public=1 AND article_aktiv=1";
+						case 0: $alias_sql .= " AND article_aktiv=1";
 								break;
-						case 1: $alias_sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
+						case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 					}
 					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
@@ -1960,9 +1961,9 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		$sql .=	"article_id<>".intval($current_article_id)." AND ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 		switch(VISIBLE_MODE) {
-			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+			case 0: $sql .=	"article_aktiv=1 AND ";
 					break;
-			case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+			case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 					break;
 			//case 2: admin mode no additional neccessary
 		}
@@ -2078,9 +2079,9 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	$sql .=	"FROM ".DB_PREPEND."phpwcms_article WHERE ".$cat;
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+		case 0: $sql .=	"article_aktiv=1 AND ";
 				break;
-		case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+		case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 				break;
 		//case 2: admin mode no additional neccessary
 	}
@@ -2144,10 +2145,8 @@ function get_article_idlink($article_id=0, $link_text="", $db) {
 
 	if($article_id) {
 		$sql =	"SELECT article_id, article_title, article_cid, article_alias ".
-				"FROM ".DB_PREPEND."phpwcms_article ".
-				"WHERE article_id=".$article_id." AND ".
-				"article_public=1 AND article_aktiv=1 AND article_deleted=0 AND ".
-				"article_begin < NOW() AND article_end > NOW() LIMIT 1";
+				"FROM ".DB_PREPEND."phpwcms_article WHERE article_id=".$article_id." AND ".
+				"article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() AND article_end > NOW() LIMIT 1";
 		$data = _dbQuery($sql);
 
 		if(isset($data[0])) {
@@ -2188,9 +2187,9 @@ function get_keyword_link($keywords="", $db) {
 		$sql  = "SELECT article_id, article_cid, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 		switch(VISIBLE_MODE) {
-			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+			case 0: $sql .=	"article_aktiv=1 AND ";
 					break;
-			case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+			case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 					break;
 			//case 2: admin mode no additional neccessary
 		}
@@ -2269,7 +2268,7 @@ function get_search_action($id, $dbcon) {
 	$id = intval($id); $cid = 0;
 	if($id) {
 		$sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
-		$sql .=	"article_public=1 AND article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() ";
+		$sql .=	"article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() ";
 		$sql .=	"AND article_end > NOW() AND article_id=".$id." LIMIT 1";
 		if($result = mysql_query($sql, $dbcon)) {
 			if($row = mysql_fetch_row($result)) {
@@ -2526,9 +2525,9 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 	$sql .= "WHERE article_cid=".intval($cat)." AND article_nositemap=1 AND ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+		case 0: $sql .=	"article_aktiv=1 AND ";
 				break;
-		case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+		case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 				break;
 		//case 2: admin mode no additional neccessary
 	}
@@ -3836,7 +3835,7 @@ function getArticleMenuTitle(& $data) {
 /**
  * Add HTML Head meta tag
  */
-function set_meta($name='', $content='', $type=FALSE, $return=false) {
+function set_meta($name='', $content='', $type=FALSE, $return=false, $allow_multiple=false) {
 	if(empty($name) || empty($content)) {
 		return NULL;
 	}
@@ -3859,6 +3858,9 @@ function set_meta($name='', $content='', $type=FALSE, $return=false) {
 
 	if($return) {
 		return $meta;
+	}
+	if($allow_multiple) {
+		$name .= md5($content);
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] = $meta;
 }
@@ -4004,9 +4006,8 @@ function get_structurelevel_single_article_alias($article_cid=0) {
 
 	if(empty($content['struct'][ $article_cid ]['acat_articlecount'])) {
 		$sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'phpwcms_article ';
-		$sql .= 'WHERE article_cid='.$article_cid.' AND ';
-		$sql .= 'article_public=1 AND article_aktiv=1 AND article_deleted=0 AND ';
-		$sql .= 'article_begin < NOW() AND article_end > NOW()';
+		$sql .= 'WHERE article_cid='.$article_cid.' AND article_aktiv=1 AND article_deleted=0 ';
+		$sql .= 'AND article_begin < NOW() AND article_end > NOW()';
 		$content['struct'][ $article_cid ]['acat_articlecount'] = _dbCount($sql);
 	}
 

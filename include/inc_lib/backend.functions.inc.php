@@ -16,8 +16,21 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-// general functions used in backend only
+// Overwrite some defaults
+if(!isset($phpwcms['set_article_active'])) {
+	$phpwcms['set_article_active'] = 1;
+}
+if(!isset($phpwcms['set_category_active'])) {
+	$phpwcms['set_category_active'] = 1;
+}
+if(!isset($phpwcms['set_file_active'])) {
+	$phpwcms['set_file_active'] = 1;
+}
+if(!isset($phpwcms['set_news_active'])) {
+	$phpwcms['set_news_active'] = 1;
+}
 
+// general functions used in backend only
 function update_cache() {
 	// used to update cache setting all current cache entries
 	// will be forced to update cache but will not be deleted
@@ -185,7 +198,7 @@ function getArticleReSorted(& $cat_id, & $ordered_by) {
 	$count_article		= 0;
 	$ao 				= get_order_sort($ordered_by);
 
-	$sql  = "SELECT article_id, article_cid, article_title, article_public, article_aktiv, article_uid, ";
+	$sql  = "SELECT article_id, article_cid, article_title, article_aktiv, article_uid, ";
 	$sql .= "date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date, article_sort, article_deleted, article_tstamp ";
 	$sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 	$sql .= "WHERE article_cid='".$cat_id."' ORDER BY ".$ao[2];

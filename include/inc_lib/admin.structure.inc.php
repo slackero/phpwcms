@@ -61,7 +61,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_lang_id		= $row_acat["acat_lang_id"];
 			$acat_disable301	= $row_acat['acat_disable301'];
 		}
-		
+
 		mysql_free_result($result_acat);
 	}
 } else {
@@ -76,6 +76,5 @@ if(isset($_GET["sort"])) {
 }
 
 $acat_order = get_order_sort($acat_order);
-
 
 ?>

@@ -579,9 +579,9 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .= 'article_public=1 AND article_aktiv=1 AND ';
+		case 0: $sql .= 'article_aktiv=1 AND ';
 				break;
-		case 1: $sql .= '((article_public=1 AND article_aktiv=1) OR article_uid='.$_SESSION["wcs_user_id"].') AND ';
+		case 1: $sql .= '(article_aktiv=1 OR article_uid='.$_SESSION["wcs_user_id"].') AND ';
 				break;
 		//case 2: admin mode no additional neccessary
 	}
@@ -651,9 +651,9 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 			if(!$row["article_headerdata"]) {
 				switch(VISIBLE_MODE) {
-					case 0: $alias_sql .= " AND article_public=1 AND article_aktiv=1";
+					case 0: $alias_sql .= " AND article_aktiv=1";
 							break;
-					case 1: $alias_sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
+					case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 							break;
 				}
 				$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";

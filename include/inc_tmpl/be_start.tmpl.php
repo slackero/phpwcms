@@ -63,10 +63,9 @@ if(!empty($_SESSION['phpwcms_backend_search'])) {
 $_asql_1 .= 'ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
 $_last10_articlecontent = _dbQuery($_asql_1);
 
-$_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_public, article_aktiv, article_uid, ";
+$_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_aktiv, article_uid, ";
 $_asql_1 .= "date_format(article_tstamp, '%d/%m/%Y %H:%i') AS article_date ";
-$_asql_1 .= "FROM ".DB_PREPEND."phpwcms_article ";
-$_asql_1 .= 'WHERE article_deleted=0 ';
+$_asql_1 .= 'FROM '.DB_PREPEND.'phpwcms_article WHERE article_deleted=0 ';
 $_asql_1 .= $_usql;
 if(!empty($_SESSION['phpwcms_backend_search'])) {
 	$_asql_1 .= " AND CONCAT(article_title,article_subtitle,article_summary) LIKE '%"._dbEscape($_SESSION['phpwcms_backend_search'], FALSE)."%' ";

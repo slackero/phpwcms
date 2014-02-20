@@ -143,10 +143,8 @@ if(isset($FEED['structureID']) && $FEED['structureID'] != '') {
 
 }
 
-$sql .= "ar.article_public=1 AND ar.article_aktiv=1 AND ";
-$sql .= "ar.article_deleted=0 AND ar.article_begin < NOW() ";
-$sql .= "AND ar.article_end > NOW() AND ar.article_nosearch=0 ";
-$sql .= "AND article_norss=1 AND IF(ar.article_cid=0, ";
+$sql .= "ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_begin < NOW() ";
+$sql .= "AND ar.article_end > NOW() AND ar.article_nosearch=0 AND article_norss=1 AND IF(ar.article_cid=0, ";
 $sql .= $indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) ? '1' : '0';
 $sql .= ", ac.acat_aktiv=1 AND ac.acat_trash=0 AND ac.acat_regonly=0) ";
 

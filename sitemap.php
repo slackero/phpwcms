@@ -25,7 +25,7 @@ require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
 
-// start XML 
+// start XML
 echo '<?xml version="1.0" encoding="utf-8"?>' . LF;
 echo '<urlset xmlns="http://www.google.com/schemas/sitemap/0.84" ';
 echo 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ';
@@ -51,19 +51,19 @@ if(function_exists('phpwcms_getCustomSitemap')) {
 }
 
 if($phpwcms['sitemap_set_default']) {
-	
+
 	// now retrieve all articles
 	$sql  =	"SELECT article_id, article_cid, DATE_FORMAT(article_tstamp, '%Y-%m-%d') AS article_tstamp, ";
 	$sql .= "article_title, article_redirect, article_aliasid, article_alias ";
 	$sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ";
-	$sql .= "article_public=1 AND article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
+	$sql .= "article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
 	$sql .= "article_nositemap=1 AND article_begin < NOW() AND article_end > NOW() ";
 	$sql .= "ORDER BY article_tstamp DESC";
-	
+
 	if($result = mysql_query($sql, $db)) {
-	
+
 		while($data = mysql_fetch_assoc($result)) {
-		
+
 			// first proof if this article is within an "public" structure section
 			if(isset($struct[$data['article_cid']])) {
 				$_CAT = $struct[$data['article_cid']];
@@ -71,7 +71,7 @@ if($phpwcms['sitemap_set_default']) {
 					// no it is no public article - so jump to next entry
 					continue;
 				}
-				
+
 				// now add article URL to Google sitemap
 				if(empty($phpwcms['rewrite_url']) || empty($data['article_alias'])) {
 					$_link = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
@@ -81,12 +81,12 @@ if($phpwcms['sitemap_set_default']) {
 				echo '	<url>'.LF;
 				echo '		<loc>'.$_link.'</loc>'.LF;
 				echo '		<lastmod>'.$data["article_tstamp"].'</lastmod>'.LF;
-				echo '	</url>'.LF;  
-				
+				echo '	</url>'.LF;
+
 				// yes we have a minimum of 1 article link
 				$phpwcms['sitemap_set_base'] = false;
 			}
-	
+
 		}
 	}
 }
@@ -95,7 +95,7 @@ if(is_file(PHPWCMS_ROOT.'/config/phpwcms/sitemap.custom.ini')) {
 	$customSitemapLinks = parse_ini_file (PHPWCMS_ROOT.'/config/phpwcms/sitemap.custom.ini', true);
 	if(is_array($customSitemapLinks) && count($customSitemapLinks)) {
 		$_addURL += $customSitemapLinks;
-		unset($customSitemapLinks);	
+		unset($customSitemapLinks);
 	}
 }
 
@@ -113,8 +113,8 @@ if(count($_addURL)) {
 		echo '	<url>'.LF;
     	echo '		<loc>'.$_link.'</loc>'.LF;
 		echo '		<lastmod>'.$_lastmod.'</lastmod>'.LF;
-		echo '	</url>'.LF;  
-	
+		echo '	</url>'.LF;
+
 	}
 }
 
@@ -123,7 +123,7 @@ if($phpwcms['sitemap_set_base']) {
 	echo '	<url>'.LF;
     echo '		<loc>'.PHPWCMS_URL.'</loc>'.LF;
 	echo '		<lastmod>'.date('Y-m-d').'</lastmod>'.LF;
-	echo '	</url>'.LF;  
+	echo '	</url>'.LF;
 }
 
 echo '</urlset>';

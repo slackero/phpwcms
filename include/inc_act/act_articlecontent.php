@@ -50,11 +50,7 @@ if(isset($_GET["do"])) {
 						   " WHERE article_id=".intval($values[1]).";";
 					mysql_query($sql, $db) or die("error while changing article visible/invisible");
 					break;
-			case 4: //make article public/nonpublic
-					$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_public=".intval($values[3]).
-						   " WHERE article_id=".intval($values[1]).";";
-					mysql_query($sql, $db) or die("error while changing article visible/invisible");
-					break;
+
 		}
 	}
 }
@@ -63,7 +59,7 @@ if(isset($_GET["sort"])) {
 	list($value1, $value2)	= explode("|", $_GET["sort"]);
 	list($id1, $sort1) = explode(":", $value1); list($id2, $sort2) = explode(":", $value2);
 	$id1 = intval($id1); $id2 = intval($id2); $sort1 = intval($sort1); $sort2	= intval($sort2);
-	
+
 	$sql1 = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort1.
 		    " WHERE (acontent_uid=".$_SESSION["wcs_user_id"]." OR ".$_SESSION["wcs_user_admin"].")".
 		    " AND acontent_id=".$id1.";";

@@ -97,9 +97,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 	}
 
-
-	$alink_sql .= "WHERE ar.article_public=1 AND ar.article_aktiv=1 AND ar.article_deleted=0 ";
-	$alink_sql .= "AND ar.article_noteaser=0 AND ar.article_begin < NOW() AND ar.article_end > NOW() ";
+	$alink_sql .= "WHERE ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_noteaser=0 AND ar.article_begin < NOW() AND ar.article_end > NOW() ";
 
 	// add possible WHERE clauses when tags/categories are used
 	$alink_sql .= $content['alink']['tags_where'];

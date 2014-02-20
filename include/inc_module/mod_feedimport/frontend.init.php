@@ -13,11 +13,11 @@
 // Init used to import feed to articles
 
 if(!empty($_getVar['feedimport'])) {
-	
+
 	// catch the Feed to be imported to article
 	$feedimport_source = $_getVar['feedimport'];
 	$feedimport_where  = "cnt_status=1 AND cnt_module='feedimport' AND ";
-	
+
 	if(strlen($feedimport_source) > 32 && substr($feedimport_source, 32) == '-now') {
 		$feedimport_source = substr($feedimport_source, 0, 32);
 	} else {
@@ -25,70 +25,70 @@ if(!empty($_getVar['feedimport'])) {
 	}
 
 	$feedimport_where .= 'MD5(CONCAT(cnt_id,cnt_text))='._dbEscape($feedimport_source);
-	
-	
+
+
 	unset($_getVar['feedimport']);
-	
+
 	$feedimport_result = _dbGet('phpwcms_content', 'cnt_id,cnt_name,cnt_text,cnt_object', $feedimport_where);
-	
+
 	if(isset($feedimport_result[0]['cnt_id'])) {
-		
+
 		$feedimport_result = $feedimport_result[0];
-		
+
 		$feedimport_result['cnt_object'] = @unserialize($feedimport_result['cnt_object']);
-		
+
 	}
-	
+
 	if(isset($feedimport_result['cnt_object']['structure_level_id'])) {
-		
+
 		// retrieve Feed now
 		// Load SimplePie
 		require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie.inc.php');
 
 		$rss_obj = new SimplePie();
-	
+
 		// Feed URL
 		$rss_obj->set_feed_url( $feedimport_result['cnt_text'] );
-	
+
 		// Output Encoding Charset
 		$rss_obj->set_output_encoding( PHPWCMS_CHARSET );
-	
+
 		// Disable Feed cache
 		$rss_obj->enable_cache( false );
-	
+
 		// Remove surrounding DIV
 		$rss_obj->remove_div( true );
 
-	
+
 		// Init Feed
 		$rss_obj->init();
-	
+
 		if( $rss_obj->data ) {
-			
+
 			$feedimport_result['status'] = array(
 				'Feed Importer Status - ' . date('Y-m-d, H:i:s') . LF . '===========================================',
 				$feedimport_result['cnt_name'] . LF . $feedimport_result['cnt_text'] . LF
 			);
-		
+
 			// need some additional functions
 			include_once(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-			
+
 			foreach($rss_obj->get_items() as $rssvalue) {
-				
+
 				$article_unique_hash	= md5( $feedimport_result['cnt_text'] . $rssvalue->get_title() . $rssvalue->get_date('U') );
-				
+
 				// check against crossreference table
 				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_crossreference c ';
 				$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_article a ';
 				$sql .= 'ON c.cref_rid=a.article_id ';
 				$sql .= "WHERE c.cref_type='feed_to_article_import' AND c.cref_str="._dbEscape('feedimport_'.$article_unique_hash).' AND ';
 				$sql .= 'a.article_deleted=0 LIMIT 1';
-				
+
 				if(_dbQuery($sql, 'COUNT') > 0) {
 					continue;
 				}
-				
-				
+
+
 				$article_title			= html_entity_decode($rssvalue->get_title(), ENT_COMPAT, PHPWCMS_CHARSET);
 				$article_alias			= proof_alias(0, $article_title, 'ARTICLE');
 				$article_begin			= $rssvalue->get_date('U');
@@ -105,21 +105,20 @@ if(!empty($_getVar['feedimport'])) {
 				} else {
 					$article_author		= $feedimport_result['cnt_object']['author_name'];
 				}
-				
+
 				if($feedimport_result['cnt_object']['source_link_add'] && $rssvalue->get_permalink()) {
 					$article_content .= '<p><a href="'.$rssvalue->get_permalink().'" class="feed-permalink">' . (empty($feedimport_result['cnt_object']['source_link_text']) ? '@@Source@@' : $feedimport_result['cnt_object']['source_link_text']) . '</a></p>';
 				}
-				
+
 				// define article data
 				$data = array(
-					
+
 					'article_created'		=> now(),
 					"article_cid"			=> $feedimport_result['cnt_object']['structure_level_id'],
 					"article_uid"			=> $feedimport_result['cnt_object']['author_id'],
 					"article_title"			=> $article_title,
 					"article_alias"			=> $article_alias,
 					"article_keyword"		=> '',
-					"article_public"		=> 1,
 					"article_aktiv"			=> $feedimport_result['cnt_object']['activate_after_import'],
 					"article_begin"			=> date('Y-m-d H:i:s', $article_begin),
 					"article_end"			=> date('Y-m-d 23:59:59', $article_end),
@@ -163,34 +162,34 @@ if(!empty($_getVar['feedimport'])) {
 					'article_serialized'	=> ''
 
 				);
-	
-				
+
+
 				$data['article_image'] = serialize($data['article_image']);
-				
+
 				$result = _dbInsert('phpwcms_article', $data);
-				
+
 				if(isset($result['INSERT_ID'])) {
-					
+
 					$feedimport_result['status'][] = date('Y-m-d, H:i:s', $article_begin) . LF . $article_title . LF . $rssvalue->get_permalink() . LF . PHPWCMS_URL . 'phpwcms.php?do=articles&p=2&s=1&id='.$result['INSERT_ID'];
-					
+
 					$data = array(
 						'cref_type'	=> 'feed_to_article_import',
 						'cref_rid'	=> $result['INSERT_ID'],
 						'cref_str'	=> 'feedimport_'.$article_unique_hash
 					);
-					
+
 					_dbInsert('phpwcms_crossreference', $data);
-				
+
 				}
 
 			}
-			
-			
+
+
 			// check if status email should be sent
 			if(!empty($feedimport_result['cnt_object']['import_status_email']) && is_valid_email($feedimport_result['cnt_object']['import_status_email'])) {
-				
+
 				$feedimport_result['status'] = implode(LF.LF, $feedimport_result['status']);
-				
+
 				sendEmail(array(
 					'recipient'	=> $feedimport_result['cnt_object']['import_status_email'],
 					'subject'	=> 'Import Status: ' . $feedimport_result['cnt_name'],
@@ -198,17 +197,17 @@ if(!empty($_getVar['feedimport'])) {
 					'text'		=> $feedimport_result['status'],
 					'fromName'	=> 'Feed Importer'
 				));
-				
+
 			}
-			
+
 		}
-		
-			
+
+
 	}
-	
+
 	// we quit here
 	exit();
-	
+
 }
 
 

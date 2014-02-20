@@ -120,6 +120,10 @@ $phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility
 $phpwcms['base_href']		  = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $phpwcms['cp_default']		  = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
 $phpwcms['js_in_body']		  = 0; // add <script> direct before </body> instead inside of <head>
+$phpwcms['set_article_active']	= 1; // activate (1) or disable (0) article by default on create
+$phpwcms['set_category_active']	= 1; // activate (1) or disable (0) category/structure level by default on create
+$phpwcms['set_file_active']		= 1; // activate (1) or disable (0) files and folders by default on create
+$phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default on create
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

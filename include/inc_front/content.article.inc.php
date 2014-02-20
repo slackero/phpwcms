@@ -22,12 +22,12 @@ $sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
 $sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 $sql .=	"FROM ".DB_PREPEND."phpwcms_article ar LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
 $sql .=	"ar.article_cid = ac.acat_id WHERE ";
-$sql .= "ar.article_id=".$aktion[1]." AND ";
+$sql .= "ar.article_id=".intval($aktion[1])." AND ";
 // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 switch(VISIBLE_MODE) {
-	case 0: $sql .= "ar.article_public=1 AND ar.article_aktiv=1 AND ";
+	case 0: $sql .= "ar.article_aktiv=1 AND ";
 			break;
-	case 1: $sql .= "((ar.article_public=1 AND ar.article_aktiv=1) OR ar.article_uid=".$_SESSION["wcs_user_id"].") AND ";
+	case 1: $sql .= "(ar.article_aktiv=1 OR ar.article_uid=".intval($_SESSION["wcs_user_id"]).") AND ";
 			break;
 }
 $sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() ";
@@ -47,9 +47,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 			if(!$row["article_headerdata"]) {
 				switch(VISIBLE_MODE) {
-					case 0: $alias_sql .= " AND article_public=1 AND article_aktiv=1";
+					case 0: $alias_sql .= " AND article_aktiv=1";
 								break;
-					case 1: $alias_sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
+					case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 				}
 				$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
@@ -119,7 +119,6 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 		$content['UNIQUE_ALINK'][ $row["article_id"] ] = $row["article_id"];
 
-
 		//set cache timeout for this article
 		if($row['article_cache'] != '') {
 			$phpwcms['cache_timeout'] = $row['article_cache'];
@@ -129,16 +128,22 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$cache_searchable = '1';
 		}
 
+		// Open Graph type
+		$content['opengraph']['type'] = 'article';
+
 		//check if article has custom pagetitle
 		if(!empty($row["article_pagetitle"])) {
 			$content["pagetitle"] = $row["article_pagetitle"];
+			$content['opengraph']['title'] = $content["pagetitle"];
 		} else {
 			$content["pagetitle"] = setPageTitle($content["pagetitle"], $article['cat'], $row["article_title"]);
+			$content['opengraph']['title'] = $row["article_title"];
 		}
 
 		// check description
 		if(!empty($row['article_description'])) {
 			set_meta('description', $row['article_description']);
+			$content['opengraph']['description'] = $row["article_description"];
 		}
 
 		$content['all_keywords'] = $row['article_keyword'];

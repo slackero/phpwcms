@@ -46,7 +46,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
 	$an = html_specialchars($struct[$key]["acat_name"]);
 	$a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
-	$a .= '<td width="450">'; //428
+	$a .= '<td width="461">';
 	$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 	$a .= '<td nowrap="nowrap"><img src="img/leer.gif" width="'.(14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />"; //14
 	$a .= ($child_count) ? "<a href=\"phpwcms.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
@@ -69,7 +69,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$a .= '<td class="dir" width="95%"><strong><a href="';
 	$a .= rel_url(array('phpwcms-preview'=>1), array(), empty($struct[$key]["acat_alias"]) ? 'id='.$struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
 	$a .= '" target="_blank" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
-	$a .= $an . "</a></strong></td>\n</tr>\n</table></td>\n<td width=\"88\" nowrap=\"nowrap\">";
+	$a .= $an . "</a></strong></td>\n</tr>\n</table></td>\n<td width=\"77\" nowrap=\"nowrap\">";
 
 	$a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 
@@ -239,7 +239,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 			$a = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
 		}
 
-		$a .= '<td width="450">'; // 428
+		$a .= '<td width="461">';
 		$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 
 		$acontent_count =  get_article_content_count($article[$akey]["article_id"], $GLOBALS['db']);
@@ -279,7 +279,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 		$a .= '<td class="dir" width="95%"><a href="';
 		$a .= rel_url(array('phpwcms-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
 		$a .= '" target="_blank" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
-		$a .= $at."</a></td>\n</tr>\n</table></td>\n<td width=\"88\" nowrap=\"nowrap\">"; //110
+		$a .= $at."</a></td>\n</tr>\n</table></td>\n<td width=\"77\" nowrap=\"nowrap\">";
 
 		if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 			$a .= "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=".$article[$akey]["article_id"];
@@ -322,15 +322,12 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 		//dahinter sortieren
 		$a .= $sort_down;
 
-		//active und visible Status wechseln
+		//switch active status
 		$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=3,".$article[$akey]["article_id"].",,".(($article[$akey]["article_aktiv"])?0:1);
 		$a .= '" title="'.$BL['be_func_struct_svisible'].'">';
 		$a .= "<img src=\"img/button/visible_11x11_".$article[$akey]["article_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
-		$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=4,".$article[$akey]["article_id"].",,".(($article[$akey]["article_public"])?0:1);
-		$a .= '" title="'.$BL['be_func_struct_spublic'].'">';
-		$a .= "<img src=\"img/button/public_11x11_".$article[$akey]["article_public"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 
-		//Article L�schen
+		//delete article
 		if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 			$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=1,".$article[$akey]["article_id"];
 			$a .= "\" title=\"".$BL['be_func_struct_del_article']." \n[".$at."]\" ";
@@ -444,7 +441,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$gk = 14+14+29+(14*($counter-1));
 			$a .= "<td width=\"".$gk."\"><img src=\"img/leer.gif\" width=\"".$gk."\" height=\"1\" alt=\"\" /></td>";	//$counter-1
 			$a .= "<td width=\"13\"><img src=\"img/symbole/content_9x11.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" onmouseover=\"".$info."\" /></td>";
-			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;\" width=\"".(538-$gk-14-15-88-98)."\" onmouseover=\"".$info."\">"; //110
+			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;width:".(538-$gk-14-15-77-98)."px;\" onmouseover=\"".$info."\">";
 
 			$ab  = '[ID:'.$article_content["acontent_id"].'] ';
 			$ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];
@@ -457,7 +454,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$a .= "</td>";
 			$a .= "<td width=\"16\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";
 			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html_specialchars(' {'.$article_content['acontent_block'].'} ')."</td>";
-			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:88px;" onmouseover="'.$info.'">'; //width="110"
+			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:77px;white-space:nowrap;" onmouseover="'.$info.'">';
 
 			$at  = ' '.$ab.' ';
 
@@ -517,7 +514,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$a .= "<img src=\"img/button/visible_11x11_".$article_content["acontent_visible"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" /></a>";
 
 			// added space between visible icon and delete icon
-			$a .= '<img src="img/leer.gif" width="11" height="1" border="0" alt="" />';
+			//$a .= '<img src="img/leer.gif" width="11" height="1" border="0" alt="" />';
 
 			if($article_content["acontent_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
 				$a .= "<a href=\"include/inc_act/act_articlecontent.php?do=9,".$article_content["acontent_aid"].",".$article_content["acontent_id"];
