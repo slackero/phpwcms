@@ -498,31 +498,45 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
-				<td><input type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> /></td>
-				<td><label for="shopprod_status"><?php echo $BL['be_cnt_activated'] ?></label>&nbsp;&nbsp;</td>
-				<td><input type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> /></td>
-				<td><label for="shopprod_listall"><?php echo $BLM['shopprod_listall'] ?></label></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> /></td>
-				<td colspan="3"><label for="shopprod_overwrite_meta"><?php echo $BLM['shopprod_overwrite_meta'] ?></label></td>
-			</tr>
+		<td class="tdtop1">
+			<div>
+				<label>
+					<input type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> />
+					<strong><?php echo $BL['be_cnt_activated'] ?></strong>
+				</label>
+				&nbsp;
+				<label>
+					<input type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> />
+					<?php echo $BLM['shopprod_listall'] ?>
+				</label>
+			</div>
+			<div>
+				<label>
+					<input type="checkbox" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> />
+					<?php echo $BLM['shopprod_overwrite_meta'] ?>
+				</label>
+			</div>
+			<div>
+				<label>
+					<input type="checkbox" name="shopprod_opengraph" id="shopprod_opengraph" value="1"<?php is_checked($plugin['data']['shopprod_opengraph'], 1) ?> />
+					<?php echo $BL['be_opengraph_support'] ?>
+				</label>
+			</div>
 
 <!-- save as duplicate -->
 <?php	if($plugin['data']['shopprod_id']):	?>
-			<tr>
-				<td><input type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> /></td>
-				<td colspan="3"><label for="shopprod_duplicate"><?php echo $BL['be_save_copy'] ?></label></td>
-			</tr>
+			<div>
+				<label>
+					<input type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> />
+					<?php echo $BL['be_save_copy'] ?>
+				</label>
+			</div>
 <?php	endif;	?>
 
-		</table></td>
+		</td>
 	</tr>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-	</tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 	<tr>
 		<td>&nbsp;</td>
 		<td>
