@@ -21,7 +21,11 @@ if($content['opengraph']['support']) {
 	// maybe clean your title by sanitize_replacement_tags()
 	set_meta('og:title', $content['opengraph']['title'], 'property');
 
-	set_meta('og:url', abs_url(array(), array('phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe')), 'property');
+	if(empty($content['opengraph']['url'])) {
+		set_meta('og:url', abs_url(array(), array('phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe')), 'property');
+	} else {
+		set_meta('og:url', $content['opengraph']['url'], 'property');
+	}
 
 	if(!empty($content['opengraph']['description'])) {
 		// maybe clean description by sanitize_replacement_tags()
@@ -30,10 +34,16 @@ if($content['opengraph']['support']) {
 
 	// Open Graph images
 	$content['opengraph']['has_image'] = false;
-	if(isset($content['images']['news']) && count($content['images']['news'])) {
-		foreach($content['images']['news'] as $og_news_img) {
+	if(isset($content['images']['shop']) && count($content['images']['shop'])) {
+		foreach($content['images']['shop'] as $og_img) {
 				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$og_news_img['id'].'.'.$og_news_img['ext'], 'property', false, true);
+				set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
+		}
+	}
+	if(isset($content['images']['news']) && count($content['images']['news'])) {
+		foreach($content['images']['news'] as $og_img) {
+				$content['opengraph']['has_image'] = true;
+				set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
 		}
 	}
 	if(isset($content['images']['article']['image'])) {
@@ -50,6 +60,8 @@ if($content['opengraph']['support']) {
 		set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');
 	}
 
+	// Disable the built-in Open Graph rendering
+	$content['opengraph']['support'] = false;
 }
 
 ?>
