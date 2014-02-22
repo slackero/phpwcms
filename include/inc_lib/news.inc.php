@@ -452,7 +452,9 @@ class phpwcmsNews {
 								'cnt_category'			=> '',
 								'cnt_livedate'			=> '',
 								'cnt_killdate'			=> '',
-								'cnt_sort'				=> 0
+								'cnt_sort'				=> 0,
+								'cnt_opengraph'			=> 1,
+								'cnt_textformat'		=> 'plain'
 
 							  );
 
@@ -569,6 +571,9 @@ class phpwcmsNews {
 				if(isset($result[0]['cnt_object']['cnt_readmore'])) {
 					$result[0]['cnt_readmore'] = $result[0]['cnt_object']['cnt_readmore'];
 				}
+				if(isset($result[0]['cnt_object']['cnt_textformat'])) {
+					$result[0]['cnt_textformat'] = $result[0]['cnt_object']['cnt_textformat'];
+				}
 
 				$this->data = array_merge($this->data, $result[0]);
 
@@ -671,6 +676,7 @@ class phpwcmsNews {
 		$category					= trim( trim( preg_replace('/\s+/', ' ', $category), ',' ) );
 
 		$post['cnt_lang']			= isset($_POST['cnt_lang']) ? preg_replace('/[^a-z\-]/', '', strtolower($_POST['cnt_lang'])) : '';
+		$post['cnt_opengraph']		= empty($_POST['cnt_opengraph']) ? 0 : 1;
 
 		$post['cnt_object']			= array(
 
@@ -690,10 +696,11 @@ class phpwcmsNews {
 				'gallery_download'	=> empty($_POST['cnt_file_gallery_download']) ? 0 : 1
 			),
 
-			'cnt_link'		=> isset($_POST['cnt_link']) ? clean_slweg($_POST['cnt_link']) : '',
-			'cnt_linktext'	=> isset($_POST['cnt_linktext']) ? clean_slweg($_POST['cnt_linktext']) : '',
-			'cnt_category'	=> $category,
-			'cnt_readmore'	=> empty($_POST['cnt_readmore']) ? 0 : 1
+			'cnt_link'			=> isset($_POST['cnt_link']) ? clean_slweg($_POST['cnt_link']) : '',
+			'cnt_linktext'		=> isset($_POST['cnt_linktext']) ? clean_slweg($_POST['cnt_linktext']) : '',
+			'cnt_category'		=> $category,
+			'cnt_readmore'		=> empty($_POST['cnt_readmore']) ? 0 : 1,
+			'cnt_textformat'	=> isset($_POST['cnt_textformat']) ? clean_slweg($_POST['cnt_textformat']) : 'plain'
 
 		);
 

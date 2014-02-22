@@ -334,7 +334,6 @@ if($news['template']) {
 	$news['config']	= array_merge(
 		array(
 			'news_per_row'				=> 1,
-			'news_teaser_text'			=> 'p',
 			'news_teaser_limit_chars'	=> 0,
 			'news_teaser_limit_words'	=> 0,
 			'news_teaser_limit_ellipse'	=> $GLOBALS['template_default']['ellipse_sign'],
@@ -350,7 +349,6 @@ if($news['template']) {
 	$news['config']['news_per_row']				= abs(intval($news['config']['news_per_row']));
 	$news['config']['news_teaser_limit_chars']	= intval($news['config']['news_teaser_limit_chars']);
 	$news['config']['news_teaser_limit_words']	= intval($news['config']['news_teaser_limit_words']);
-	$news['config']['news_teaser_text']			= trim($news['config']['news_teaser_text']);
 	$news['config']['check_lang']				= (count($phpwcms['allowed_lang']) > 1) ? true : false;
 	$news['config']['gallery_allowed_ext']		= convertStringToArray(strtolower($news['config']['gallery_allowed_ext']));
 	if(count($news['config']['gallery_allowed_ext'])) {
@@ -360,19 +358,6 @@ if($news['template']) {
 		$news['config']['gallery_allowed_ext'] = implode(',', $news['config']['gallery_allowed_ext']);
 	} else {
 		$news['config']['gallery_allowed_ext'] = '';
-	}
-
-	// set function used to render teaser text, custom can be registered
-	switch( $news['config']['news_teaser_text'] ) {
-		case 'br':
-		case 'BR':	$news['config']['news_teaser_text'] = 'br_htmlencode';
-					break;
-		case 'p':
-		case 'P':	$news['config']['news_teaser_text'] = 'plaintext_htmlencode';
-					break;
-		default:	if(!function_exists($news['config']['news_teaser_text'])) {
-						$news['config']['news_teaser_text'] = 'plaintext_htmlencode';
-					}
 	}
 
 	// start parsing news entries
@@ -406,17 +391,39 @@ if($news['template']) {
 			$news['entries'][$key] .= replace_tmpl_section('GALLERY_ITEM', $news['tmpl_entry']);
 		}
 
-		if($news['config']['news_teaser_limit_chars']) {
-			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_chars'], $news['config']['news_teaser_limit_ellipse'], 'char');
-		} elseif($news['config']['news_teaser_limit_words']) {
-			$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_words'], $news['config']['news_teaser_limit_ellipse'], 'word');
+		if($value['cnt_teasertext']) {
+			$value['cnt_opengraph_teasertext'] = $value['cnt_teasertext'];
+			if($news['config']['news_teaser_limit_chars']) {
+				$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_chars'], $news['config']['news_teaser_limit_ellipse'], 'char');
+			} elseif($news['config']['news_teaser_limit_words']) {
+				$value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_words'], $news['config']['news_teaser_limit_ellipse'], 'word');
+			}
+
+			if(empty($value['cnt_object']['cnt_textformat']) || $value['cnt_object']['cnt_textformat'] == 'plain') {
+				$value['cnt_teasertext'] = plaintext_htmlencode($value['cnt_teasertext']);
+			} elseif($value['cnt_object']['cnt_textformat'] == 'br') {
+				$value['cnt_teasertext'] = br_htmlencode($value['cnt_teasertext']);
+			} elseif($value['cnt_object']['cnt_textformat'] == 'markdown') {
+				require_once(PHPWCMS_ROOT.'/include/inc_ext/markdown.php');
+				$value['cnt_teasertext'] = Markdown($value['cnt_teasertext']);
+			} elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
+				require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
+				if(!isset($phpwcms['textile'])) {
+					$phpwcms['textile'] = new Textile();
+				}
+				$value['cnt_teasertext'] = $phpwcms['textile']->TextileThis($value['cnt_teasertext']);
+			} else {
+				$value['cnt_teasertext'] = html_specialchars($value['cnt_teasertext']);
+			}
+		} else {
+			$value['cnt_opengraph_teasertext'] = '';
 		}
 
 		$news['entries'][$key] = str_replace('{ID}', $value['cnt_id'], $news['entries'][$key]);
 		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
 		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));
 		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_SUBTITLE', html_specialchars($value['cnt_subtitle']));
-		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TEASER', $news['config']['news_teaser_text']($value['cnt_teasertext']));
+		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TEASER', $value['cnt_teasertext']);
 		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TEXT', $value['cnt_text']);
 		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'AUTHOR', html_specialchars($value['cnt_editor']));
 		$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'PLACE', html_specialchars($value['cnt_place']));
@@ -441,8 +448,11 @@ if($news['template']) {
 
 			$content['opengraph']['type'] = 'article';
 			$content['opengraph']['title'] = $value['cnt_title'];
-			if($value['cnt_teasertext']) {
-				$content['opengraph']['description'] = $value['cnt_teasertext'];
+			if($value['cnt_opengraph_teasertext']) {
+				$content['opengraph']['description'] = $value['cnt_opengraph_teasertext'];
+			}
+			if(!$value['cnt_opengraph']) {
+				$content['opengraph']['support'] = false;
 			}
 		}
 
