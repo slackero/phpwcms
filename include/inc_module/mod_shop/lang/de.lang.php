@@ -88,7 +88,7 @@ $BLM['shop_order']				= 'Bestellung';
 $BLM['shopprod_order_subject']	= 'Ihre Bestellung';
 $BLM['shopprod_subcategory']	= 'Subkategorie&nbsp;von';
 $BLM['shopprod_is_main_cat']	= 'Hauptkategorie';
-$BLM['shopprod_listall']		= 'Unter &quot;Alle Produkte&quot; listen';
+$BLM['shopprod_listall']		= 'Unter &bdquo;Alle Produkte&ldquo; listen';
 
 $BLM['shopprod_id_shop']		= 'Shop&nbsp;Ziel';
 $BLM['shopprod_id_cart']		= 'Warenkorb&nbsp;Ziel';

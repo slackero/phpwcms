@@ -14,23 +14,49 @@ cat_list_products = Off
 ; sort by Name - "shopprod_name1 ASC"
 ; sort by Viewed - "shopprod_track_view DESC"
 cat_list_sort_by = "shopprod_name1 ASC"
+cat_subcat_spacer = "_>_"
+
+shop_css = "shop.css"
+shop_wrap = "<div class="shop">|</div>"
 
 price_decimals = 2
-vat_decimals = 0
+vat_decimals = 1
 weight_decimals = 0
 dec_point = ","
 thousands_sep = "."
 
-image_list_width = 200
-image_list_height = 200
-image_list_crop = FALSE
-image_detail_width = 150
-image_detail_height = 150
-image_detail_crop = TRUE
-image_zoom_width = 750
-image_zoom_height = 500
-image_list_lightbox = TRUE
+; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
+; for leading and trailing spaces use replacer %S
+pagetitle_productname = "%s"
+pagetitle_model = ", Model: %s"
+pagetitle_add = "%S- %s"
+pagetitle_ordernumber = "%S(Order No. %s)"
+; %1$s = product name
+; %2$s = product add
+; %3$s = model
+; %4$s = order number
+pagetitle = "%1$s%2$s%3$s%4$s"
+
+image_list_width = 55
+image_list_height = 55
+image_list_crop = 0
+image_detail_width = 324
+image_detail_height = 500
+image_detail_crop = false
+image_detail_more_width = 90
+image_detail_more_height = 65
+image_detail_more_crop = true
+image_detail_more_lightbox = true
+image_detail_more_start = 2
+image_zoom_width = 800
+image_zoom_height = 800
+image_list_lightbox = true
 image_detail_lightbox = TRUE
+
+files_direct_download = 0
+files_template = shop.tmpl
+
+on_request_trigger = -999
 
 mail_customer_subject = "[#{ORDER}] Your order at MyShop"
 mail_neworder_subject = "[#{ORDER}] New order"
@@ -71,11 +97,17 @@ order_number_style = %05s
 		<div>
 			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
 			{PRODUCT_SHORT}
+		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
 			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
 			<em>{PRODUCT_VAT}%</em>
 			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]
 			<a href="{PRODUCT_DETAIL_LINK}">Show product details</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>More&#8230;</a>[/PRODUCT_URL]
+		[ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
+			Send price inquiry
+		</a>[/ON_REQUEST][ON_REQUEST_ELSE]
 			[CART_ADD]Add to cart[/CART_ADD]
+		[/ON_REQUEST_ELSE]
 			[VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
 		</div>
 
@@ -106,17 +138,17 @@ order_number_style = %05s
 		{PRODUCT_LONG}
 
 		[IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
-
+		[ON_REQUEST_ELSE]
 		<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
 		<em>{PRODUCT_VAT}%</em>
 		<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
-
+		[/ON_REQUEST_ELSE]
 		[ORDER_NUM]<p>Order number: {ORDER_NUM}</p>[/ORDER_NUM]
 		[MODEL]<p>Model: {MODEL}</p>[/MODEL]
 		[VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
 		[PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-		[CART_ADD]Add to cart[/CART_ADD]
+		[ON_REQUEST_ELSE][CART_ADD]Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
 	</div>
 	<div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 

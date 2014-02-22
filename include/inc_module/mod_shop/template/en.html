@@ -20,10 +20,22 @@ shop_css = "shop.css"
 shop_wrap = "<div class="shop">|</div>"
 
 price_decimals = 2
-vat_decimals = 0
+vat_decimals = 1
 weight_decimals = 0
 dec_point = ","
 thousands_sep = "."
+
+; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
+; for leading and trailing spaces use replacer %S
+pagetitle_productname = "%s"
+pagetitle_model = ", Model: %s"
+pagetitle_add = "%S- %s"
+pagetitle_ordernumber = "%S(Order No. %s)"
+; %1$s = product name
+; %2$s = product add
+; %3$s = model
+; %4$s = order number
+pagetitle = "%1$s%2$s%3$s%4$s"
 
 image_list_width = 55
 image_list_height = 55
