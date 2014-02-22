@@ -106,7 +106,10 @@ form {
 	color: #55638A;
 }
 .chatlist {
-	white-space: nowrap;	
+	white-space: nowrap;
+}
+.chatlist.wrap {
+	white-space: normal;
 }
 .chatlist,
 .chatlist a {
@@ -799,6 +802,10 @@ table.tdMorepace td {
 .tdleft10 {
 	padding-left: 10px;
 }
+.tdtop1 {
+	vertical-align: top;
+	padding-top: 1px;
+}
 .tdtop2 {
 	vertical-align: top;
 	padding-top: 2px;
@@ -818,6 +825,14 @@ table.tdMorepace td {
 .tdtop6 {
 	vertical-align: top;
 	padding-top: 6px;
+}
+.tdtop10 {
+	vertical-align: top;
+	padding-top: 10px;
+}
+.tdbottom1 {
+	vertical-align: top;
+	padding-bottom: 1px;
 }
 .tdbottom2 {
 	vertical-align: top;
@@ -1135,7 +1150,6 @@ form.free label.checkbox {
 	padding: 0 8px 0 3px;
 	width: auto;
 	font-size: 11px;
-	;
 }
 form.free input, form.free textarea, form.free select {
 	font-size: 12px;
@@ -1431,7 +1445,7 @@ ul#images em.handle {
 .backend-search {
 	position: relative;
 	width: 175px;
-	margin: 0;	
+	margin: 0;
 }
 .backend-search-input {
 	margin: 0;
@@ -1476,7 +1490,7 @@ ul#images em.handle {
 }
 .filebrowser-form {
 	position: relative;
-	margin: 1em 0 0 0;	
+	margin: 1em 0 0 0;
 	width: 100%;
 	display: none;
 }
@@ -1594,4 +1608,11 @@ ul#images em.handle {
 #WzTtDiV td,
 label {
 	white-space: nowrap;
+}
+
+pull-left {
+	float: left;
+}
+pull-right {
+	float: right;
 }
