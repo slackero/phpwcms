@@ -64,7 +64,7 @@ if(empty($content['search']['type'])) {
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><select name="template" id="template" class="f11b">
 <?php
-	
+
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
 // templates for search listing
@@ -77,7 +77,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 		</select></td>
 </tr>
 
@@ -96,7 +96,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	  </tr>
 	  <tr>
 	  	<td><input name="csearch_wordlimit" type="text" id="csearch_wordlimit" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["wordlimit"]) ? $content["search"]["wordlimit"] : '' ?>" size="3" maxlength="5" /></td>
-      	<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>  
+      	<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	  	<td><input name="csearch_highlight" type="checkbox" id="csearch_highlight" value="1" <?php is_checked(1, $content["search"]["highlight_result"]) ?> /></td>
       	<td class="v10"><label for="csearch_highlight"><?php echo $BL['be_cnt_search_highlight'] ?></label></td>
 	  </tr>
@@ -111,13 +111,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
     </table></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-  
+
 <tr>
 	<td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_search_startlevel'] ?>:&nbsp;</td>
 	<td><select name="csearch_start_at[]" size="10" multiple="multiple" class="f11" id="csearch_start_at" style="width: 440px">
 <?php
 				if(!isset($content["search"]["start_at"]) || !is_array($content["search"]["start_at"])) $content["search"]["start_at"] = array();
-								
+
 				echo '<option value="0"';
 				if(in_array(0, $content["search"]["start_at"])) echo ' selected';
 				echo '>'.$BL['be_admin_struct_index'].'</option>'.LF;
@@ -134,15 +134,15 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <tr>
         <td><input name="csearch_nofilenames" type="checkbox" id="csearch_nofilenames" value="1" <?php is_checked(1, $content["search"]["no_filenames"]) ?> /></td>
       	<td class="v10"><label for="csearch_nofilenames"><?php echo $BL['be_fprivedit_filename'] ?></label></td>
-		
+
 		<td class="width75">&nbsp;</td>
-		
+
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_search_default_type'] ?>:&nbsp;</td>
 		<td><select name="csearch_type">
 				<option value="OR"<?php is_selected('OR', $content['search']['type']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
 				<option value="AND"<?php is_selected('AND', $content['search']['type']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
 		</select></td>
-		
+
 	  </tr>
     </table></td>
 </tr>
@@ -158,17 +158,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				<td class="v10"><label for="csearch_news"><strong><?php echo $BL['be_news'] ?></strong></label>&nbsp;&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
 				<td colspan="2"><input type="text" name="csearch_news_lang" id="news_lang" value="<?php echo html_specialchars(implode(', ', $content['search']["news_lang"])) ?>" class="width200" /></td>
-			</tr>			
+			</tr>
 			<tr>
 				<td colspan="2">&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
 				<td><input type="text" name="csearch_news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['search']["news_category"])) ?>" class="width200" /></td>
 				<td><select name="csearch_news_andor" id="news_andor">
-				
+
 					<option value="OR"<?php is_selected('OR', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
 					<option value="AND"<?php is_selected('AND', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
 					<option value="NOT"<?php is_selected('NOT', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
-			
+
 				</select></td>
 			</tr>
 			<tr>
@@ -180,9 +180,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		</table>
 	<script type="text/javascript">
 	<!--
-	
+
 	window.addEvent('domready', function(){
-										 
+
 		/* Autocompleter for categories/tags */
 		var searchCategory = $('news_category');
 		var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(searchCategory);
@@ -200,7 +200,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				indicator2.setStyle('display', 'none');
 			}
 		});
-		
+
 		var selectLang = $('news_lang');
 		var indicator1 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter(selectLang);
 		var completer1 = new Autocompleter.Ajax.Json(selectLang, 'include/inc_act/ajax_connector.php', {
@@ -217,18 +217,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				indicator1.setStyle('display', 'none');
 			}
 		});
-		
+
 		selectLang.addEvent('keyup', function(){
 			this.value = this.value.replace(/[^a-z\-\, ]/g, '');
 		});
-	
+
 	});
-	
+
 	//-->
 	</script>
 	</td>
 </tr>
-  
+
 <?php
 
 $content['search']['module_search'] = array();
@@ -238,7 +238,7 @@ foreach($phpwcms['modules'] as $value) {
 
 	// check if module is fe searchable
 	if($value['search'] === true && is_file($value['path'].'frontend.search.php')) {
-		
+
 		$value['tr']  = '<tr>';
 		$value['tr'] .= '<td><input name="csearch_module['.$value['name'].']" type="checkbox" ';
 		$value['tr'] .= 'id="csearch_module_'.$value['name'].'" value="1"';
@@ -247,11 +247,11 @@ foreach($phpwcms['modules'] as $value) {
 		}
 		$value['tr'] .= ' /></td>';
         $value['tr'] .= '<td class="v10"><label for="csearch_module_'.$value['name'].'">';
-		$value['tr'] .= $BL['be_ctype_module'].': '.$BL['modules'][ $value['name'] ]['backend_menu'] . '</label></td>';		
+		$value['tr'] .= $BL['be_ctype_module'].': '.$BL['modules'][ $value['name'] ]['backend_menu'] . '</label></td>';
 		$value['tr'] .= '</tr>';
-		
+
 		$content['search']['module_search'][] = $value['tr'];
-	
+
 	}
 
 }
@@ -268,10 +268,10 @@ if(count($content['search']['module_search'])) {
 ?>
 
  <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-  
+
    <tr>
-    <td align="right" class="chatlist">&nbsp;&nbsp;</td>
-    <td valign="top" class="chatlist"><?php echo $BL['be_cnt_searchlabeltext'] ?></td>
+    <td align="right" class="chatlist">&nbsp;</td>
+    <td valign="top" class="chatlist wrap"><?php echo $BL['be_cnt_searchlabeltext'] ?></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 
@@ -310,51 +310,46 @@ if(count($content['search']['module_search'])) {
     </table>
     </td>
   </tr>
-  
+
  <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-  
+
   <tr>
     <td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_page_of_pages'] ?>:&nbsp;</td>
-    <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-	
-	  <tr>
-	  <td class="chatlist"><?php echo $BL['be_cnt_page_of_pages_descr'] ?></td>
-	  </tr>
-	</table>
-	
+    <td valign="top"><div class="chatlist wrap"><?php echo $BL['be_cnt_page_of_pages_descr'] ?></div>
+
 	<table border="0" cellpadding="1" cellspacing="0" style="margin-top:3px;margin-bottom:1px;" summary="">
 		<tr bgcolor="#E7E8EB">
 	  <?php
-	  
+
 	  if(!isset($content["search"]["show_always"]))		$content["search"]["show_always"] 	= 1;
 	  if(!isset($content["search"]["show_top"]))		$content["search"]["show_top"] 		= 1;
 	  if(!isset($content["search"]["show_bottom"]))		$content["search"]["show_bottom"] 	= 1;
 	  if(!isset($content["search"]["show_next"]))		$content["search"]["show_next"] 	= 1;
-	  if(!isset($content["search"]["show_prev"]))		$content["search"]["show_prev"] 	= 1;	  
-	  
+	  if(!isset($content["search"]["show_prev"]))		$content["search"]["show_prev"] 	= 1;
+
 	  ?>
         <td><input name="csearch_show_always" id="csearch_show_always" type="checkbox" value="1" <?php is_checked(1, $content["search"]["show_always"]) ?> /></td>
         <td class="v10"><label for="csearch_show_always"><?php echo $BL['be_cnt_search_show_forall'] ?></label>&nbsp;</td>
-		
+
 		<td><input name="csearch_show_top" id="csearch_show_top" type="checkbox" value="1" <?php is_checked(1, $content["search"]["show_top"]) ?> /></td>
         <td class="v10"><label for="csearch_show_top"><?php echo $BL['be_cnt_search_show_top'] ?></label>&nbsp;</td>
-		
+
 		<td><input name="csearch_show_bottom" id="csearch_show_bottom" type="checkbox" value="1" <?php is_checked(1, $content["search"]["show_bottom"]) ?> /></td>
         <td class="v10"><label for="csearch_show_bottom"><?php echo $BL['be_cnt_search_show_bottom'] ?></label>&nbsp;</td>
 	</tr>
 	</table>
 	<table border="0" cellpadding="1" cellspacing="0" summary="">
-		<tr bgcolor="#E7E8EB">	
+		<tr bgcolor="#E7E8EB">
 		<td><input name="csearch_show_prev" id="csearch_show_prev" type="checkbox" value="1" <?php is_checked(1, $content["search"]["show_prev"]) ?> /></td>
         <td class="v10"><label for="csearch_show_prev"><?php echo $BL['be_cnt_search_show_prev'] ?></label>&nbsp;</td>
-		
+
 		<td><input name="csearch_show_next" id="csearch_show_next" type="checkbox" value="1" <?php is_checked(1, $content["search"]["show_next"]) ?> /></td>
         <td class="v10"><label for="csearch_show_next"><?php echo $BL['be_cnt_search_show_next'] ?></label>&nbsp;</td>
-		
+
       </tr>
     </table></td>
-  </tr> 
-    
+  </tr>
+
   <tr>
     <td align="right" class="chatlist" valign="top" >&nbsp;</td>
     <td><textarea name="csearch_label_pages" rows="4" class="f11" id="csearch_label_pages" style="width: 440px"><?php echo  isset($content["search"]["label_pages"]) ? html_specialchars($content["search"]["label_pages"]) : '' ?></textarea></td>
@@ -362,15 +357,15 @@ if(count($content['search']['module_search'])) {
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 </tr>
   <tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_cnt_align'] ?>:&nbsp;</td>
+    <td align="right" class="chatlist wrap"><?php echo $BL['be_cnt_align'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
 	  <?php
-	  
+
 	  if(!isset($content["search"]["align"])) {
 	  	$content["search"]["align"] = 0;
 	  }
-	  
+
 	  ?>
         <td><input name="csearch_align" id="csearch_align0" type="radio" value="0" <?php is_checked(0, $content["search"]["align"]) ?> /></td>
         <td class="v10">&nbsp;<label for="csearch_align0"><?php echo $BL['be_cnt_mediapos0'] ?></label>&nbsp;&nbsp;&nbsp;</td>
@@ -384,8 +379,8 @@ if(count($content['search']['module_search'])) {
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 </tr>
   <tr>
-    <td align="right" class="chatlist">&nbsp;&nbsp;</td>
-    <td valign="top" class="chatlist"><?php echo $BL['be_cnt_searchformtext'] ?></td>
+    <td align="right" class="chatlist">&nbsp;</td>
+    <td valign="top" class="chatlist wrap"><?php echo $BL['be_cnt_searchformtext'] ?></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td>
 </tr>
@@ -400,7 +395,7 @@ if(count($content['search']['module_search'])) {
 			</tr>
 		</table>
 		</td>
-	</tr>  
+	</tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_intro'] ?>:&nbsp;</td>
     <td valign="top"><textarea name="csearch_text_intro" rows="6" class="f10" id="csearch_text_intro" style="width: 440px"><?php echo  isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
@@ -417,5 +412,5 @@ if(count($content['search']['module_search'])) {
     <td align="right" class="chatlist tdtop3" nowrap="nowrap"><?php echo $BL['be_cnt_noresult'] ?>:&nbsp;</td>
     <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="f10"  id="csearch_text_noresult" style="width: 440px"><?php echo  isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
   </tr>
-  
+
  <tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

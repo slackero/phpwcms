@@ -94,21 +94,25 @@ class ModuleShopSearch {
 				$s_title  = html_specialchars($s_title);
 
 				$s_text   = trim($s_text);
-				$s_text   = getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word');
+				if($this->search_wordlimit) {
+					$s_text = getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word');
+				}
 				$s_text   = html_specialchars($s_text);
 
 				$this->search_results[$id]["id"]	= $value['shopprod_id'];
 				$this->search_results[$id]["cid"]	= 0;
 				$this->search_results[$id]["rank"]	= $s_count;
-				$this->search_results[$id]["title"]	= $this->search_highlight ? highlightSearchResult($s_title, $this->search_highlight_words) : $s_title;
 				$this->search_results[$id]["date"]	= $value['shopprod_date'];
 				$this->search_results[$id]["user"]	= '';
 				$this->search_results[$id]['query']	= $shop_url.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
 
 				if($this->search_highlight) {
-					$s_text = highlightSearchResult($s_text, $this->search_highlight_words);
+					$this->search_results[$id]["title"]	= highlightSearchResult($s_title, $this->search_highlight_words);
+					$this->search_results[$id]["text"]	= highlightSearchResult($s_text, $this->search_highlight_words);
+				} else {
+					$this->search_results[$id]["title"]	= $s_title;
+					$this->search_results[$id]["text"]	= $s_text;
 				}
-				$this->search_results[$id]["text"]	= $s_text;
 
 				$this->search_result_entry++;
 			}

@@ -9,10 +9,6 @@
  *
  **/
 
-if(isset($template_default['search_highlight']['prefix'])) {
-	$phpwcms['search_highlight'] = array_merge($phpwcms['search_highlight'], $template_default['search_highlight']);
-}
-
 // neccessary frontend functions for search
 function get_SearchForStructureID($search_at) {
 

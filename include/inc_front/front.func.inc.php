@@ -444,37 +444,39 @@ function get_struct_data($root_name='', $root_info='') {
 	global $indexpage;
 	$data = array();
 
-	$data[0] = array(	"acat_id"		=> 0,
-					"acat_name"			=> $indexpage['acat_name'],
-					"acat_info"			=> $indexpage['acat_info'],
-					"acat_struct"		=> 0,
-					"acat_sort"			=> 0,
-					"acat_hidden"		=> intval($indexpage['acat_hidden']),
-					"acat_regonly"		=> intval($indexpage['acat_regonly']),
-					"acat_ssl"			=> intval($indexpage['acat_ssl']),
-					"acat_template"		=> intval($indexpage['acat_template']),
-					"acat_alias"		=> $indexpage['acat_alias'],
-					"acat_topcount"		=> intval($indexpage['acat_topcount']),
-					"acat_maxlist"		=> intval($indexpage['acat_maxlist']),
-					"acat_redirect"		=> $indexpage['acat_redirect'],
-					"acat_order"		=> intval($indexpage['acat_order']),
-					"acat_timeout"		=> $indexpage['acat_timeout'],
-					"acat_nosearch"		=> $indexpage['acat_nosearch'],
-					"acat_nositemap"	=> $indexpage['acat_nositemap'],
-					"acat_permit"		=> !empty($indexpage['acat_permit']) && is_array($indexpage['acat_permit']) ? $indexpage['acat_permit'] : array(),
-					"acat_pagetitle"	=> empty($indexpage['acat_pagetitle']) ? '' : $indexpage['acat_pagetitle'],
-					"acat_paginate"		=> empty($indexpage['acat_paginate']) ? 0 : 1,
-					"acat_overwrite"	=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'],
-					"acat_archive"		=> empty($indexpage['acat_archive']) ? 0 : 1,
-					"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
-					"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
-					"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1
-				);
+	$data[0] = array(
+		"acat_id"		=> 0,
+		"acat_name"			=> $indexpage['acat_name'],
+		"acat_info"			=> $indexpage['acat_info'],
+		"acat_struct"		=> 0,
+		"acat_sort"			=> 0,
+		"acat_hidden"		=> intval($indexpage['acat_hidden']),
+		"acat_regonly"		=> intval($indexpage['acat_regonly']),
+		"acat_ssl"			=> intval($indexpage['acat_ssl']),
+		"acat_template"		=> intval($indexpage['acat_template']),
+		"acat_alias"		=> $indexpage['acat_alias'],
+		"acat_topcount"		=> intval($indexpage['acat_topcount']),
+		"acat_maxlist"		=> intval($indexpage['acat_maxlist']),
+		"acat_redirect"		=> $indexpage['acat_redirect'],
+		"acat_order"		=> intval($indexpage['acat_order']),
+		"acat_timeout"		=> $indexpage['acat_timeout'],
+		"acat_nosearch"		=> $indexpage['acat_nosearch'],
+		"acat_nositemap"	=> $indexpage['acat_nositemap'],
+		"acat_permit"		=> !empty($indexpage['acat_permit']) && is_array($indexpage['acat_permit']) ? $indexpage['acat_permit'] : array(),
+		"acat_pagetitle"	=> empty($indexpage['acat_pagetitle']) ? '' : $indexpage['acat_pagetitle'],
+		"acat_paginate"		=> empty($indexpage['acat_paginate']) ? 0 : 1,
+		"acat_overwrite"	=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'],
+		"acat_archive"		=> empty($indexpage['acat_archive']) ? 0 : 1,
+		"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
+		"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
+		"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1,
+		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1
+	);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	if(VISIBLE_MODE != 2) {
 		// for 0 AND 1
-		$sql .= "acat_aktiv=1 AND acat_public=1 AND ";
+		$sql .= "acat_aktiv=1 AND ";
 	}
 	$sql .= "acat_trash=0 ORDER BY acat_struct, acat_sort";
 
@@ -505,7 +507,8 @@ function get_struct_data($root_name='', $root_info='') {
 				"acat_archive"		=> $row["acat_archive"],
 				"acat_class"		=> $row["acat_class"],
 				"acat_keywords"		=> $row["acat_keywords"],
-				"acat_disable301"	=> $row["acat_disable301"]
+				"acat_disable301"	=> $row["acat_disable301"],
+				"acat_opengraph"	=> $row["acat_opengraph"]
 			);
 		}
 		mysql_free_result($result);
@@ -2904,13 +2907,24 @@ function get_fe_userinfo($forum_userID) {
 
 function highlightSearchResult($string='', $search=null) {
 
+	if(empty($string) || empty($search)) {
+		return $string;
+	}
+
 	// string will be highlighted by $search - can be string or array
-	if(!empty($string) && !empty($search)) {
+	if(!is_array($search)) {
+		$search = array(strval($search));
+	}
+
+	if(isset($GLOBALS['phpwcms']['current_highlight_match'])) {
+
+		$highlight_match = $GLOBALS['phpwcms']['current_highlight_match'];
+
+	} else {
 
 		$highlight_match = '';
-		$search = is_array($search) ? array_unique($search) : array(strval($search));
 
-		foreach($search as $key => $value) {
+		foreach($search as $value) {
 			if($highlight_match !== '') {
 				$highlight_match .= '|';
 			}
@@ -2920,12 +2934,14 @@ function highlightSearchResult($string='', $search=null) {
 		$highlight_match = str_replace("\\?", '.?', $highlight_match);
 		$highlight_match = trim(str_replace("\\*", '.*', $highlight_match));
 
-		if(preg_match('/<.+>/', $string) === false) {
-			$string = preg_replace('/('.$highlight_match.')/i', $GLOBALS['phpwcms']['search_highlight']['prefix'].'$1'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
-		} else {
-			$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$GLOBALS['phpwcms']['search_highlight']['prefix'].'$2'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
-		}
 	}
+
+	if(!preg_match('/<.+?>/', $string)) {
+		$string = preg_replace('/('.$highlight_match.')/i', $GLOBALS['phpwcms']['search_highlight']['prefix'].'$1'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
+	} else {
+		$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$GLOBALS['phpwcms']['search_highlight']['prefix'].'$2'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
+	}
+
 	return $string;
 }
 function pregReplaceHighlightWrapper($matches) {

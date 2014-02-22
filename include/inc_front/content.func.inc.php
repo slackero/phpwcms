@@ -456,6 +456,11 @@ if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
 	@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite']);
 }
 
+// search highlight prefix/suffix
+if(isset($template_default['search_highlight']['prefix'])) {
+	$phpwcms['search_highlight'] = array_merge($phpwcms['search_highlight'], $template_default['search_highlight']);
+}
+
 // load frontend JavaScript lib file
 require PHPWCMS_ROOT.'/include/inc_front/js.inc.php';
 
@@ -612,6 +617,10 @@ if(!empty($phpwcms['enable_deprecated'])) {
 // check if current category should be cached
 if($content['struct'][$content['cat_id']]['acat_timeout'] != '') {
 	$phpwcms['cache_timeout'] = $content['struct'][$content['cat_id']]['acat_timeout'];
+}
+// check if social sharing is allowed for current category
+if(!$content['struct'][$content['cat_id']]['acat_opengraph']) {
+	$content['opengraph']['support'] = false;
 }
 // set search status for current category
 $cache_searchable = $content['struct'][$content['cat_id']]['acat_nosearch'];
@@ -858,7 +867,6 @@ if($phpwcms['enable_deprecated']) {
 	}
 
 	$content["all"] = html_parser_deprecated($content["all"]);
-
 }
 
 // date replacement
@@ -1050,9 +1058,6 @@ if(count($block['js_inline'])) {
 }
 
 if(!empty($_GET['highlight'])) {
-	if(isset($template_default['search_highlight']['prefix'])) {
-		$phpwcms['search_highlight'] = array_merge($phpwcms['search_highlight'], $template_default['search_highlight']);
-	}
 	$highlight_words = explode(' ', clean_slweg(rawurldecode($_GET['highlight'])));
 	$content['all'] = preg_replace_callback("/<!--SEARCH_HIGHLIGHT_START\/\/-->(.*?)<!--SEARCH_HIGHLIGHT_END\/\/-->/si", "pregReplaceHighlightWrapper", $content['all']);
 }
