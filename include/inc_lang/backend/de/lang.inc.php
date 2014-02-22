@@ -1353,6 +1353,6 @@ $BL['be_ctype_number']					= 'Nummer';
 $BL['be_inactive']						= 'inaktiv';
 $BL['be_locked']						= 'gesch&uuml;tzt';
 $BL['be_n/a']							= 'n. a.';
-$BL['be_opengraph_support']				= 'Open Graph';
+$BL['be_opengraph_support']				= 'Social Sharing erlaubt';
 
 ?>
