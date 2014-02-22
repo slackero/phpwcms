@@ -3,7 +3,6 @@ $indexpage['acat_name']		= 'Home';
 $indexpage['acat_info']		= '';
 $indexpage['acat_alias']	= 'index';
 $indexpage['acat_aktiv']	= 1;
-$indexpage['acat_public']	= 1;
 $indexpage['acat_template']	= 1;
 $indexpage['acat_hidden']	= 0;
 $indexpage['acat_ssl']		= 0;

@@ -114,7 +114,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 		}
 
-		$sql .= " AND ac.acat_nosearch != 1 AND ac.acat_aktiv=1 AND ac.acat_public=1 AND ";
+		$sql .= " AND ac.acat_nosearch != 1 AND ac.acat_aktiv=1 AND ";
 		if(!FEUSER_LOGIN_STATUS) {
 			$sql .= "ac.acat_regonly=0 AND ";
 		}

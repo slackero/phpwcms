@@ -26,7 +26,6 @@ if($_GET['struct'] === 'index') {
 	$acat_id			= 'index';
 	$acat_new			= 0;
 	$acat_aktiv			= $indexpage['acat_aktiv'];
-	$acat_public		= $indexpage['acat_public'];
 	$acat_sort			= isset($acat_sort) ? $acat_sort : '';
 	$acat_alias			= $indexpage['acat_alias'];
 	$acat_hidden		= $indexpage['acat_hidden'];
@@ -53,6 +52,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
 	$acat_disable301	= empty($indexpage['acat_disable301']) ? 0 : 1;
+	$acat_opengraph		= isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1;
 
 	$acat_struct_mode = 'INDEX';
 
@@ -63,7 +63,6 @@ if($_GET['struct'] === 'index') {
 	$acat_title			= '';
 	$acat_info			= '';
 	$acat_aktiv			= $phpwcms['set_category_active'];
-	$acat_public		= $phpwcms['set_category_active'];
 	$acat_sort			= isset($acat_sort) ? $acat_sort : '';
 	$acat_alias			= '';
 	$acat_hidden		= 0;
@@ -87,6 +86,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
 	$acat_disable301	= 0;
+	$acat_opengraph		= 1;
 
 }
 
@@ -105,7 +105,6 @@ switch($acat_hidden) {
 
 }
 
-// this -> document.editsitestructure
 ?>
 <form action="include/inc_act/act_structure.php" method="post" name="editsitestructure" id="editsitestructure" onsubmit="selectAllOptions(this.acat_access);selectAllOptions(this.acat_cp);var x = wordcount(this.acat_name.value);if(x&lt;1) {alert('Fill in a category title! \n\n('+x+' words total)');this.acat_name.focus();return false;}">
 	<table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
@@ -591,45 +590,34 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
               </table></td>
           </tr>
 
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+		  <tr><td class="v09 tdbottom1 tdtop10"><?php echo  $BL['be_ftptakeover_status'] ?>:</td></tr>
 
           <tr>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="" class="nowrap">
-
-				<tr><td class="v09" colspan="8"><?php echo  $BL['be_ftptakeover_status'] ?>:</td></tr>
-		 		<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-
-                <tr bgcolor="#D9DEE3">
-                  <td><input name="acat_aktiv" type="checkbox" id="acat_aktiv" value="1" <?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> /></td>
-                  <td>&nbsp;<label for="acat_aktiv"><?php echo $BL['be_admin_struct_visible'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="acat_public" type="checkbox" id="acat_public" value="1" <?php if($acat_public == 1) echo 'checked="checked"'; ?> /></td>
-                  <td>&nbsp;<label for="acat_public"><?php echo $BL['be_ftptakeover_public'] ?></label>&nbsp;&nbsp;</td>
-				  <td><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> /></td>
-                  <td>&nbsp;<label for="acat_ssl">SSL</label>&nbsp;&nbsp;</td>
-
-			     <td><input name="acat_nositemap" type="checkbox" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> /></td>
-				 <td>&nbsp;<label for="acat_nositemap"><?php echo $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>
-
-				 <td><input name="acat_archive" type="checkbox" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> /></td>
-				 <td>&nbsp;<label for="acat_archive"><?php echo $BL['be_archive'] ?></label>&nbsp;&nbsp;</td>
-
-                </tr>
-              </table></td>
+              <td>
+              	<span class="nowrap" style="display:inline-block;background:#D9DEE3;padding:2px 7px 2px 2px;">
+	              	<label><input name="acat_aktiv" type="checkbox" id="acat_aktiv" value="1" <?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> />&nbsp;<?php echo $BL['be_admin_struct_visible'] ?></label>
+	              	&nbsp;
+	              	<label><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> />&nbsp;SSL</label>
+	              	&nbsp;
+	              	<label><input name="acat_nositemap" type="checkbox" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> />&nbsp;<?php echo $BL['be_ctype_sitemap'] ?></label>
+	              	&nbsp;
+	              	<label><input name="acat_archive" type="checkbox" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> />&nbsp;<?php echo $BL['be_archive'] ?></label>
+	              	&nbsp;
+	              	<label><input name="acat_opengraph" type="checkbox" id="acat_opengraph" value="1" <?php if($acat_opengraph == 1) echo 'checked="checked"'; ?> />&nbsp;<?php echo $BL['be_opengraph_support'] ?></label>
+              	</span>
+              </td>
           </tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="20" />
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="20" /></td></tr>
+		  <tr><td class="tdbottom5">
 		  		<input name="acat_sort_temp" type="hidden" value="<?php echo $acat_sort; ?>" />
 				<input name="acat_struct" type="hidden" id="acat_struct" value="<?php echo $acat_struct; ?>" />
 				<input name="acat_new" type="hidden" id="acat_new" value="<?php echo $acat_new; ?>" />
-				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" /></td>
-          </tr>
-		  <tr><td>
+				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" />
 		  		<input name="submit" type="submit" class="button10" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
 		  		<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 		  		&nbsp;&nbsp;&nbsp;&nbsp;
 		 		<input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" />
 			</td></tr>
-            <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 </table>
 </form>
 <?php

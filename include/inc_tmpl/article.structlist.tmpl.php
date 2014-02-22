@@ -88,7 +88,6 @@ echo '<td width="77" nowrap="nowrap">';
 
 $struct[0]["acat_id"]		= 0;
 $struct[0]["acat_aktiv"]	= 1;
-$struct[0]["acat_public"]	= 1;
 $struct[0]["acat_struct"]	= 0;
 
 echo listmode_edits($listmode, $struct, 0, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, 0, 0, 0, 0);

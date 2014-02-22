@@ -156,7 +156,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_id` int(11) NOT NULL AUTO_INCREMENT,
   `acat_name` text NOT NULL,
   `acat_info` text NOT NULL,
-  `acat_public` int(1) NOT NULL DEFAULT '0',
+  `acat_public` int(1) NOT NULL DEFAULT '1',
   `acat_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `acat_aktiv` int(1) NOT NULL DEFAULT '0',
   `acat_uid` int(11) NOT NULL DEFAULT '0',
@@ -188,6 +188,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_lang_type` varchar(255) NOT NULL DEFAULT '',
   `acat_lang_id` int(11) unsigned NOT NULL DEFAULT '0',
   `acat_disable301` int(1) unsigned NOT NULL DEFAULT '0',
+  `acat_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),
@@ -195,7 +196,8 @@ CREATE TABLE `phpwcms_articlecat` (
   KEY `acat_archive` (`acat_archive`),
   KEY `acat_lang` (`acat_lang`),
   KEY `acat_lang_type` (`acat_lang_type`),
-  KEY `acat_lang_id` (`acat_lang_id`)
+  KEY `acat_lang_id` (`acat_lang_id`),
+  KEY `acat_opengraph` (`acat_opengraph`)
 );
 
 CREATE TABLE `phpwcms_articlecontent` (
@@ -304,10 +306,12 @@ CREATE TABLE `phpwcms_categories` (
   `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_info` text NOT NULL,
   `cat_sort` int(11) NOT NULL DEFAULT '0',
+  `cat_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`cat_id`),
   KEY `cat_type` (`cat_type`,`cat_status`),
   KEY `cat_pid` (`cat_pid`),
-  KEY `cat_sort` (`cat_sort`)
+  KEY `cat_sort` (`cat_sort`),
+  KEY `cat_opengraph` (`cat_opengraph`)
 );
 
 CREATE TABLE `phpwcms_chat` (
@@ -345,6 +349,7 @@ CREATE TABLE `phpwcms_content` (
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL DEFAULT '',
   `cnt_object` text NOT NULL,
+  `cnt_opengraph` text NOT NULL,
   PRIMARY KEY (`cnt_id`),
   KEY `cnt_livedate` (`cnt_livedate`),
   KEY `cnt_killdate` (`cnt_killdate`),
@@ -355,7 +360,8 @@ CREATE TABLE `phpwcms_content` (
   KEY `cnt_alias` (`cnt_alias`),
   KEY `cnt_pid` (`cnt_pid`),
   KEY `cnt_sort` (`cnt_sort`),
-  KEY `cnt_prio` (`cnt_prio`)
+  KEY `cnt_prio` (`cnt_prio`),
+  KEY `cnt_opengraph` (`cnt_opengraph`)
 );
 
 CREATE TABLE `phpwcms_country` (
@@ -710,13 +716,15 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_track_view` int(11) NOT NULL DEFAULT '0',
   `shopprod_lang` varchar(255) NOT NULL DEFAULT '',
   `shopprod_overwrite_meta` int(1) NOT NULL DEFAULT '1',
+  `shopprod_opengraph` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
   KEY `all` (`shopprod_listall`),
   KEY `shopprod_track_view` (`shopprod_track_view`),
-  KEY `shopprod_lang` (`shopprod_lang`)
+  KEY `shopprod_lang` (`shopprod_lang`),
+  KEY `shopprod_opengraph` (`shopprod_opengraph`)
 );
 
 CREATE TABLE `phpwcms_subscription` (

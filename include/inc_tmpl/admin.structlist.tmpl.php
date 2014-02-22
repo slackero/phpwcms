@@ -53,7 +53,7 @@ $child_count = get_root_childcount(0, $db);
 $an = $indexpage['acat_name'];
 
 $a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
-$a .= "<td width=\"450\">";
+$a .= "<td width=\"439\">";
 $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
 $a .= ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(($_SESSION["structure"][0])?0:1)."\">" : "";
@@ -61,17 +61,16 @@ $a .= "<img src=\"img/symbole/plus_".(($child_count) ? (($_SESSION["structure"][
 $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($child_count) ? "</a>" : "");
 $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" alt=\"ID:0\"></td>\n";
 $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-$a .= '<td class="dir" width="95%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
 //-- 19-11-2004 Fernando Batista start-----------------------------------------------------------------------------------------------------------
 // echo "<td width=\"77\">\n";
-echo '<td width="110" nowrap="nowrap">';
+echo '<td width="99" nowrap="nowrap">';
 //-- 19-11-2004 Fernando Batista end-----------------------------------------------------------------------------------------------------------
 
 $struct[0]["acat_id"]     = 0;
 $struct[0]["acat_aktiv"]  = 1;
-$struct[0]["acat_public"] = 1;
 $struct[0]["acat_struct"] = 0;
 
 //-- 19-11-2004 Fernando Batista start-----------------------------------------------------------------------------------------------------------

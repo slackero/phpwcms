@@ -33,7 +33,6 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_id			= $row_acat["acat_id"];
 			$acat_new			= 0;
 			$acat_aktiv			= $row_acat["acat_aktiv"];
-			$acat_public		= $row_acat["acat_public"];
 			$acat_sort			= $row_acat["acat_sort"];
 			$acat_alias			= $row_acat["acat_alias"];
 			$acat_hidden		= $row_acat["acat_hidden"];
@@ -60,6 +59,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_lang_type		= $row_acat["acat_lang_type"];
 			$acat_lang_id		= $row_acat["acat_lang_id"];
 			$acat_disable301	= $row_acat['acat_disable301'];
+			$acat_opengraph		= $row_acat['acat_opengraph'];
 		}
 
 		mysql_free_result($result_acat);

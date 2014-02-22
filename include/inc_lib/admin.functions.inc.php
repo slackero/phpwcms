@@ -565,7 +565,6 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 				$a .= "<img src=\"img/button/sort_1_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
 				$a .= "<img src=\"img/button/sort_2_0.gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
 				$a .= "<img src=\"img/button/visible_11x11a_".$struct[$key]["acat_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
-				$a .= "<img src=\"img/button/public_11x11a_".$struct[$key]["acat_public"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
 
 				break;
 
@@ -639,12 +638,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 				$a .= ($sort_down)? '<a href="include/inc_act/act_structure.php?do=2'.'%7C'.$struct[$key]["acat_id"].'%7C'.(($key+2)*10).'%7C'.$struct[$key+1]["acat_id"].
 				'%7C'.(($key+1)*10).'" title="'.$GLOBALS['BL']['be_func_struct_sort_down'].'">':'';
 				$a .= "<img src=\"img/button/sort_2_".$sort_down.".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />".(($sort_down)?"</a>":"");
-
-
 				$a .= "<img src=\"img/button/visible_11x11_".$struct[$key]["acat_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
-				$a .= "<img src=\"img/button/public_11x11_".$struct[$key]["acat_public"].".gif\" width=\"11\" height=\"11\" border=\"0\" alt=\"\" />";
-
-
 
 				if($struct[$key]["acat_id"]) {
 					$a .= '<a href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"];
