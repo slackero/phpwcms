@@ -349,7 +349,7 @@ CREATE TABLE `phpwcms_content` (
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL DEFAULT '',
   `cnt_object` text NOT NULL,
-  `cnt_opengraph` text NOT NULL,
+  `cnt_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`cnt_id`),
   KEY `cnt_livedate` (`cnt_livedate`),
   KEY `cnt_killdate` (`cnt_killdate`),
@@ -608,8 +608,8 @@ CREATE TABLE `phpwcms_message` (
   `msg_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `msg_read` tinyint(1) NOT NULL DEFAULT '0',
   `msg_to` blob NOT NULL,
-  `msg_from` int(11) NOT NULL default '0',
-  `msg_from_del` int(1) NOT NULL default '0',
+  `msg_from` int(11) NOT NULL DEFAULT '0',
+  `msg_from_del` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`msg_id`)
 );
 
@@ -716,7 +716,7 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_track_view` int(11) NOT NULL DEFAULT '0',
   `shopprod_lang` varchar(255) NOT NULL DEFAULT '',
   `shopprod_overwrite_meta` int(1) NOT NULL DEFAULT '1',
-  `shopprod_opengraph` int(1) NOT NULL DEFAULT '1',
+  `shopprod_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),

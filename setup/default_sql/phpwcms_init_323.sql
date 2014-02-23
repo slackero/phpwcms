@@ -349,7 +349,7 @@ CREATE TABLE `phpwcms_content` (
   `cnt_text` text NOT NULL,
   `cnt_lang` varchar(10) NOT NULL default '',
   `cnt_object` text NOT NULL,
-  `cnt_opengraph` text NOT NULL,
+  `cnt_opengraph` int(1) NOT NULL default '1',
   PRIMARY KEY (`cnt_id`),
   KEY `cnt_livedate` (`cnt_livedate`),
   KEY `cnt_killdate` (`cnt_killdate`),
