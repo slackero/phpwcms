@@ -248,6 +248,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['set_category_active']	= 1; // activate (1) or disable (0) category/structure level by default on create\n";
 	$conf_file .= "\$phpwcms['set_file_active']		= 1; // activate (1) or disable (0) files and folders by default on create\n";
 	$conf_file .= "\$phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default on create\n";
+	$conf_file .= "\$phpwcms['log_404error']		= false; // log each 404 for redirect edit\n";
 
 	$conf_file .= "\n// smtp values\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";

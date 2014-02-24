@@ -124,6 +124,7 @@ $phpwcms['set_article_active']	= 1; // activate (1) or disable (0) article by de
 $phpwcms['set_category_active']	= 1; // activate (1) or disable (0) category/structure level by default on create
 $phpwcms['set_file_active']		= 1; // activate (1) or disable (0) files and folders by default on create
 $phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default on create
+$phpwcms['log_404error']		= false; // log each 404 for redirect edit
 
 // smtp values
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

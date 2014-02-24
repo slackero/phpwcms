@@ -311,18 +311,16 @@ if($content['404error']['status'] === true) {
 
 		$content['404error']['result'] = NULL;
 
-	} else {
+	} elseif(!empty($phpwcms['log_404error'])) {
 
-		// Store in DB
+		// Store failed page access
 		_dbInsert('phpwcms_redirect', array(
 			'id'	=> $content['404error']['id'],
 			'aid'	=> $content['404error']['aid'],
 			'alias'	=> $content['404error']['alias'],
 			'views'	=> 1
 		));
-
 	}
-
 }
 
 // define special OUTPUT format/action
