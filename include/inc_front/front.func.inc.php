@@ -2975,13 +2975,24 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$parent			= false; // do not show parent link
 		$articlemenu	= false; // do not show category's article titles as menu entry
 		$bootstrap		= false; // bootstrap dropdown style
-
+		
+		/**
+		 * P = Show parent level
+		 * B = Bootstrap compatible rendering
+		 * A = Articles as menu items
+		 * F = Folded, unfold only active level
+		 * HCSS = Sample horizontal CSS based menu
+		 * VCSS = Sample vertical CSS based menu
+		 **/
 		switch($menu_type) {
-
+			
+			case 'B':		$bootstrap		= true;
+							break;
+			
+			case 'BA':		$bootstrap		= true;
 			case 'A':		$articlemenu	= true;
 							break;
 
-							// show parent level too
 			case 'PBA':		$bootstrap		= true;
 			case 'PA':		$articlemenu	= true;
 			case 'P':		$parent			= true;
@@ -3001,16 +3012,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 							$unfold			= 'active_path';
 							break;
 
-							// horizontal, all levels unfolded, add special code for horizontal flyout menu
 			case 'HCSSP':	$parent		= true;
 			case 'HCSS':	$create_css	= true;
 							break;
 
-							// horizontal, all levels unfolded, add special code for vertical flyout menu
 			case 'VCSSP':	$parent		= true;
 			case 'VCSS':	$create_css = true;
 							break;
-
 		}
 
 		$start_id		= empty($parameter[1]) ? 0  : intval($parameter[1]);
