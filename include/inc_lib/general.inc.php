@@ -1527,6 +1527,18 @@ function _mkdir($target) {
 	return false;
 }
 
+function sanitize_filename($filename) {
+	//Filename anpassen und säubern
+	if(get_magic_quotes_gpc()) {
+		$filename = stripslashes($filename);
+	}
+	$remove = array("?", "[", "]", "/", "\\", "=", "<", ">", ":", ";", ",", "'", '"', "&", "$", "#", "*", "(", ")", "|", "~", "`", "!", "{", "}", chr(0));
+	$filename = str_replace($remove, '', $filename);
+	$filename = preg_replace('/[\s-]+/', '-', $filename);
+	$filename = trim($filename, ' .-_');
+	return $filename;
+}
+
 function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $maxsize=0) {
 	// imgtype can be all exif_imagetype supported by your PHP install
 	// see http://www.php.net/exif_imagetype
@@ -1534,14 +1546,15 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 		'status'	=> false, 	'error'		=> '',		'name'		=> '',
 		'tmp_name'	=> '',		'size'		=> 0,		'path'		=> '',
 		'ext'		=> '',		'rename'	=> '',		'maxsize'	=> intval($maxsize),
-		'error_num'	=> 0,		'type'		=> '' );
+		'error_num'	=> 0,		'type'		=> ''
+	);
 
 	if(!isset($_FILES[$file]) || !is_uploaded_file($_FILES[$file]['tmp_name'])) {
 		$file_status['error'] = 'Upload not defined';
 		return $file_status;
 	}
 
-	$file_status['name']		= trim($_FILES[$file]['name']);
+	$file_status['name']		= sanitize_filename($_FILES[$file]['name']);
 	$file_status['ext']			= which_ext($file_status['name']);
 	$file_status['tmp_name']	= $_FILES[$file]['tmp_name'];
 	$file_status['size']		= $_FILES[$file]['size'];
@@ -1684,9 +1697,8 @@ function get_alnum_dashes($string, $remove_accents = false, $replace_space='-', 
 	if($remove_accents) {
 		$string = phpwcms_remove_accents($string);
 	}
-	$string		= str_replace(' ', $replace_space, $string);
-	$pattern	= $allow_slashes ? '/[^a-z0-9\-_\/]/i' : '/[^a-z0-9\-_]/i';
-	return preg_replace($pattern, '', $string);
+	$string = str_replace(' ', $replace_space, $string);
+	return preg_replace($allow_slashes ? '/[^a-z0-9\-_\/]/i' : '/[^a-z0-9\-_]/i', '', $string);
 }
 
 // Thanks to: http://quickwired.com/smallprojects/php_xss_filter_function.php
@@ -2052,8 +2064,6 @@ function phpwcms_boolval($BOOL, $STRICT=false) {
 
 // sanitize a text for nice URL/alias or whatever
 function uri_sanitize($text) {
-
-	$text = pre_remove_accents($text);
 	$text = get_alnum_dashes($text, true, '-', PHPWCMS_ALIAS_WSLASH);
 	$text = trim($text);
 	if($text != '') {

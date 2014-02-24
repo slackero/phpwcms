@@ -88,9 +88,9 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
 	//Create new file in database and give hashed
 	if(!isset($file_error)) {
-		$fileExt	= check_image_extension($_FILES["file"]["tmp_name"], $_FILES["file"]["name"]);
-		$fileExt	= $fileExt === false ? which_ext($_FILES["file"]["name"]) : $fileExt;
-		$fileName	= clearfilename($_FILES["file"]["name"]);
+		$fileName	= sanitize_filename($_FILES["file"]["name"]);
+		$fileExt	= check_image_extension($_FILES["file"]["tmp_name"], $fileName);
+		$fileExt	= $fileExt === false ? which_ext($fileName) : $fileExt;
 		$fileHash	= md5( $fileName . microtime() );
 		$fileType	= is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
 

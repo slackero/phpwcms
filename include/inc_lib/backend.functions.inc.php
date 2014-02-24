@@ -99,14 +99,6 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
 	echo $sn;
 }
 
-function clearfilename($formvar) {
-	//Filename anpassen und säubern
-	$formvar = trim($formvar);
-	if( get_magic_quotes_gpc() ) $formvar = stripslashes ($formvar);
-	$formvar = str_replace(array("'", ':', '/', '\\', '"'), '_', $formvar);
-	return $formvar;
-}
-
 function check_image_extension($file, $filename='') {
 	// only checks against correct image extension
 	$image_info	= getimagesize($file);
@@ -128,7 +120,7 @@ function check_image_extension($file, $filename='') {
 
 			case 13: // there is a problem in some cases swf -> swc ? why ever!
 					 // do an additional extension check and compare against swf
-					 $result = (strtolower(which_ext($file)) == 'swf') ? 'swf' : 'swc';
+					 $result = strtolower(which_ext($filename)) == 'swf' ? 'swf' : 'swc';
 					 break;
 
 			case 14: $result = 'iff';	break;
@@ -136,7 +128,7 @@ function check_image_extension($file, $filename='') {
 			case 15: // there seems to be a problem with getimagesize and Quicktime VR
 					 // mov -> wmbf ? why ever!
 					 // do an additional extension check and compare against mov
-					 $result = (strtolower(which_ext( empty($filename) ? $file : $filename )) == 'mov') ? 'mov' : 'wbmp';
+					 $result = strtolower(which_ext($filename)) == 'mov' ? 'mov' : 'wbmp';
 					 break;
 
 			case 16: $result = 'xbm';	break;

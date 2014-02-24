@@ -950,7 +950,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 										$POST_ERR[$key] = str_replace('{FILENAME}', '"n.a."', $POST_ERR[$key]);
 										$POST_ERR[$key] = str_replace('{FILEEXT}', '"n.a."', $POST_ERR[$key]);
 									} elseif(!empty($_FILES[$POST_name]['name'])) {
-										$cnt_form['upload_value']['filename'] = time().'_'.$_FILES[$POST_name]['name'];
+										$cnt_form['upload_value']['filename'] = time().'_'.sanitize_filename($_FILES[$POST_name]['name']);
 										if( (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
 											|| preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name']))
 											|| !@move_uploaded_file($_FILES[$POST_name]['tmp_name'],
