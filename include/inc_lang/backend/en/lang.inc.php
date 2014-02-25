@@ -1356,6 +1356,7 @@ $BL['be_http_status503']				= 'service unavailable';
 $BL['be_redirect_error1']				= 'Alias/Shortcut, structure or article ID is required';
 $BL['be_redirect_error2']				= 'Target is required';
 $BL['be_redirect_error3']				= 'For target type article ID and structure ID only integers are allowed as target';
+$BL['be_new_linkredirect']				= 'Add link/redirect';
 
 $BL['be_ctype_accordion']				= 'group (accordion)';
 $BL['be_ctype_number']					= 'number';

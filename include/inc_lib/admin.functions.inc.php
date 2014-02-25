@@ -689,6 +689,10 @@ function update_404redirect() {
 		$rid = $data['data']['rid'];
 		unset($data['data']['rid']);
 		if($rid) {
+			// Mark for deletion
+			if(isset($_POST['delete_'.md5($rid)])) {
+				$data['data']['active'] = 9;
+			}
 			$result = _dbUpdate('phpwcms_redirect', $data['data'], 'rid='.$rid);
 		} else {
 			$result = _dbInsert('phpwcms_redirect', $data['data']);
@@ -699,7 +703,12 @@ function update_404redirect() {
 		$data['data']['rid'] = $rid;
 
 		if($result) {
-			set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');
+			if($data['data']['active'] == 9) {
+				set_status_message(str_replace('{ID}', $data['data']['rid'], $GLOBALS['BL']['be_action_deleted']), 'success');
+				headerRedirect('phpwcms.php?do=admin&p=14');
+			} else {
+				set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');
+			}
 		} else {
 			set_status_message($GLOBALS['BL']['be_error_while_save'], 'error');
 		}

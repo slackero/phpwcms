@@ -1347,6 +1347,7 @@ $BL['be_http_status503']				= 'Nicht verf&uuml;gbar';
 $BL['be_redirect_error1']				= 'Alias/Shortcut, Struktur- oder Artikel-ID m&uuml;ssen angegeben werden';
 $BL['be_redirect_error2']				= 'Ziel muss angegeben werden';
 $BL['be_redirect_error3']				= 'Zieltyp Artikel-ID und Struktur-ID gestatten nur Ganzzahlen als Ziel';
+$BL['be_new_linkredirect']				= 'Neue Verlinkung/Weiterleitung';
 
 $BL['be_ctype_accordion']				= 'Gruppe (Accordion)';
 $BL['be_ctype_number']					= 'Nummer';
