@@ -24,4 +24,5 @@ $indexpage['acat_class']	= '';
 $indexpage['acat_keywords']	= '';
 $indexpage['acat_cpdefault']	= 0;
 $indexpage['acat_disable301']	= 0;
+$indexpage['acat_opengraph']	= 1;
 ?>
