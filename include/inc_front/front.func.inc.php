@@ -1572,48 +1572,51 @@ function html_parser($string) {
 	$replace		= array();
 
 	// page TOP link
-	$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/is';
-	$replace[0]		= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
-
-	// internal Link to article ID
-	$search[1]		= '/\[ID (\d+)\](.*?)\[\/ID\]/s';
-	$replace[1]		= '<a href="'.rel_url(array(), array(), 'aid=$1').'" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
+	if(strpos($string, '[TOP]') !== false) {
+		$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/s';
+		$replace[0]		= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
+	}
 
 	// external Link (string)
-	$search[2]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
-	$replace[2]		= '<a href="$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
+	$search[1]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
+	$replace[1]		= '<a href="$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
 
 	// internal Link (string)
-	$search[3]		= '/\[INT (.*?)\](.*?)\[\/INT\]/s';
-	$replace[3]		= '<a href="$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
+	$search[2]		= '/\[INT (.*?)\](.*?)\[\/INT\]/s';
+	$replace[2]		= '<a href="$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
 
 	// insert non db image right
-	$search[4]	 	= '/\{SPACER:(\d+)x(\d+)\}/';
-	$replace[4] 	= '<span class="'.$GLOBALS['template_default']['classes']['spaceholder'].'" style="width:$1px;height:$2px;display:inline-block;"></span>';
+	$search[3]	 	= '/\{SPACER:(\d+)x(\d+)\}/';
+	$replace[3] 	= '<span class="'.$GLOBALS['template_default']['classes']['spaceholder'].'" style="width:$1px;height:$2px;display:inline-block;"></span>';
 
 	// RSS feed link
-	$search[5]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
-	$replace[5]		= '<a href="feeds.php?feed=$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
+	$search[4]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
+	$replace[4]		= '<a href="feeds.php?feed=$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
 
 	// back Link (string)
-	$search[6]		= '/\[BACK\](.*?)\[\/BACK\]/i';
-	$replace[6] 	= '<a href="#" target="_top" title="go back" onclick="history.back();return false;" class="'.$GLOBALS['template_default']['classes']['link-back'].'">$1</a>';
+	$search[5]		= '/\[BACK\](.*?)\[\/BACK\]/i';
+	$replace[5] 	= '<a href="#" target="_top" title="go back" onclick="history.back();return false;" class="'.$GLOBALS['template_default']['classes']['link-back'].'">$1</a>';
 
 	// span or div style
-	$search[7]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
-	$replace[7]	= '<$1 style="$2">$3</$1>';
+	$search[6]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
+	$replace[6]	= '<$1 style="$2">$3</$1>';
 
 	// span or div class
-	$search[8]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
-	$replace[8]		= '<$1 class="$2">$3</$1>';
+	$search[7]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
+	$replace[7]		= '<$1 class="$2">$3</$1>';
 
 	// anchor link
-	$search[9]		= '/\{A:(.*?)\}/is';
-	$replace[9]		= '<a name="$1" class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"></a>';
+	$search[8]		= '/\{A:(.*?)\}/is';
+	$replace[8]		= '<a name="$1" class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"></a>';
 
-	// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
-	$search[10]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
-	$replace[10]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
+	if(strpos($string, 'MAIL]')) {
+		// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
+		$search[9]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
+		$replace[9]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
+
+		$search[10]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
+		$replace[10]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
+	}
 
 	// this tags out a Mailaddress with an predifined subject (by Florian, 21-11-2003)
 	$search[11]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
@@ -1639,13 +1642,12 @@ function html_parser($string) {
 	$search[17]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
 	$replace[17]	= '<acronym title="$1">$2</acronym>';
 
-	$search[18]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
-	$replace[18]	= '<a href="index.php?$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
-
-	$search[19]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
-	$replace[19]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
-
 	$string = preg_replace($search, $replace, $string);
+
+	// internal Link to article ID or alias
+	if(strpos($string, '[ID ') !== false) {
+		$string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
+	}
 
 	$string = str_replace(
 		array(
@@ -1663,6 +1665,19 @@ function html_parser($string) {
 		$string
 	);
 	return $string;
+}
+
+function html_parse_idlink($matches) {
+	$replace = '<a href="';
+	if(is_intval($matches[1], false)) {
+		$replace .= rel_url(array(), array(), 'aid='.$matches[1]);
+	} else {
+		$replace .= rel_url(array(), array(), $matches[1]);
+	}
+	$replace .= '" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">';
+	$replace .= $matches[2];
+	$replace .= '</a>';
+	return $replace;
 }
 
 function include_ext_php($inc_file, $t=0) {
@@ -2975,7 +2990,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$parent			= false; // do not show parent link
 		$articlemenu	= false; // do not show category's article titles as menu entry
 		$bootstrap		= false; // bootstrap dropdown style
-		
+
 		/**
 		 * P = Show parent level
 		 * B = Bootstrap compatible rendering
@@ -2985,10 +3000,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		 * VCSS = Sample vertical CSS based menu
 		 **/
 		switch($menu_type) {
-			
+
 			case 'B':		$bootstrap		= true;
 							break;
-			
+
 			case 'BA':		$bootstrap		= true;
 			case 'A':		$articlemenu	= true;
 							break;
