@@ -2014,8 +2014,9 @@ function getRealImageSize(& $imginfo) {
 
 }
 
-function is_intval($str) {
-     return (bool)preg_match( '/^[\-+]?[0-9]+$/', $str );
+function is_intval($str, $signed=true) {
+	$reg_expr = $signed ? '/^[\-+]?[0-9]+$/' : '/^[0-9]+$/';
+	return (bool) preg_match($reg_expr, $str);
 }
 
 function attribute_name_clean($name='') {
