@@ -21,19 +21,16 @@ if (!defined('PHPWCMS_ROOT')) {
 $sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'phpwcms_article ar LEFT JOIN '.DB_PREPEND.'phpwcms_articlecat ac ON ';
 $sql .= "ar.article_cid=ac.acat_id WHERE ar.article_id='".$content["aid"]."' LIMIT 1";
 $content['article'] = _dbQuery($sql);
-$content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>1);
+$content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>0);
 $content['cp_setting_mode'] = false;
 
 if(empty($content['article']['acat_id'])) { // Root structure
-
 	$content['article']['acat_name']		= $indexpage['acat_name'];
 	$content['article']['acat_id']			= 0;
 	$content['article']['acat_template']	= $indexpage['acat_template'];
-
 }
 
 ?>
-
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $content["aid"]."&amp;acid=".$content["id"] ?>" method="post" name="articlecontent" id="articlecontent" <?php
 
 	// Some javascript actions neccessary on submit
@@ -251,6 +248,43 @@ if($content['cp_setting_mode']):
 	// normal contentpart edit mode
 	else:
 
+		// Detect Template
+		if(!empty($content['article']['acat_template'])) {
+			$content['template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($content['article']['acat_template']), '', '', 1);
+		}
+		if(!isset($content['template'][0])) {
+			$content['template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_default=1', '', '', 1);
+		}
+		if(!isset($content['template'][0])) {
+			$content['template'] = _dbGet('phpwcms_template', '*', 'template_trash=0', '', 'template_default DESC', 1);
+		}
+
+		$content['blocks'] = '';
+
+		if(isset($content['template'][0]['template_var'])) {
+			$content['template_name'] = html_specialchars($content['template'][0]['template_name']);
+			if($content['template'][0]['template_default']) {
+				$content['template_name'] .= ' ('.$BL['be_admin_tmpl_default'].')';
+			}
+			$content['template'] = unserialize($content['template'][0]['template_var']);
+			if(!empty($content['template']['customblock'])) {
+				$content['template'] = explode(',', $content['template']['customblock']);
+				if(count($content['template'])) {
+					$content['blocks'] .= '<optgroup label="'.$BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'].'">';
+					foreach($content['template'] as $value) {
+						$value = trim($value);
+						if($value !== '') {
+							$valhtml = html_specialchars($value);
+							$content['blocks'] .= '<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>';
+						}
+					}
+					$content['blocks'] .= '</optgroup>';
+				}
+			}
+		} else {
+			$content['template_name'] = $BL['be_admin_tmpl_default'];
+		}
+
 	?></td></tr>
 
 	<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -260,30 +294,15 @@ if($content['cp_setting_mode']):
 		  <td><table summary="" border="0" cellspacing="0" cellpadding="0" width="440">
 		  	<tr>
 		  		<td width="75%"><select name="cblock" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
-				<option value="CONTENT"<?php echo  is_selected('CONTENT', $content["block"]) ?>><?php echo  $BL['be_main_content'] ?> (CONTENT)</option>
-				<option value="LEFT"<?php echo  is_selected('LEFT', $content["block"]) ?>><?php echo  $BL['be_cnt_left'] ?> (LEFT)</option>
-				<option value="RIGHT"<?php echo  is_selected('RIGHT', $content["block"]) ?>><?php echo  $BL['be_cnt_right'] ?> (RIGHT)</option>
-				<option value="HEADER"<?php echo  is_selected('HEADER', $content["block"]) ?>><?php echo  $BL['be_admin_page_header'] ?> (HEADER)</option>
-				<option value="FOOTER"<?php echo  is_selected('FOOTER', $content["block"]) ?>><?php echo  $BL['be_admin_page_footer'] ?> (FOOTER)</option>
-<?php
 
-$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_id=".$content['article']['acat_template']." LIMIT 1";
-$result = _dbQuery($sql);
-if(isset($result[0]['template_var'])) {
-	$result = unserialize($result[0]['template_var']);
-	if(isset($result['customblock'])) {
-		$result = explode(',', $result['customblock']);
-		foreach($result as $value) {
-			$value = trim($value);
-			if($value != '') {
-				$valhtml = html_specialchars($value);
-				echo '<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>';
-			}
-		}
-	}
-}
-
-?>
+		  			<optgroup label="<?php echo $BL['be_admin_struct_template'].': '.$content['template_name'] ?>">
+						<option value="CONTENT"<?php echo  is_selected('CONTENT', $content["block"]) ?>><?php echo  $BL['be_main_content'] ?> (CONTENT)</option>
+						<option value="LEFT"<?php echo  is_selected('LEFT', $content["block"]) ?>><?php echo  $BL['be_cnt_left'] ?> (LEFT)</option>
+						<option value="RIGHT"<?php echo  is_selected('RIGHT', $content["block"]) ?>><?php echo  $BL['be_cnt_right'] ?> (RIGHT)</option>
+						<option value="HEADER"<?php echo  is_selected('HEADER', $content["block"]) ?>><?php echo  $BL['be_admin_page_header'] ?> (HEADER)</option>
+						<option value="FOOTER"<?php echo  is_selected('FOOTER', $content["block"]) ?>><?php echo  $BL['be_admin_page_footer'] ?> (FOOTER)</option>
+					</optgroup>
+						<?php echo $content['blocks'] ?>
 				</select></td>
 
 				<td class="chatlist" width="100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
