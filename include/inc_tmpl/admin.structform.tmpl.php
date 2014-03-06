@@ -384,7 +384,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 		// list all available groups and put into temp array
 		$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_active != 9 ORDER BY group_id DESC";
-		if($result = mysql_query($sql, $db) or die("error while listing groups")) {
+		if($result = mysql_query($sql, $db) or die("error while listing groups: ".html_specialchars(mysql_error()))) {
 			$_temp_group = array();
 			while($row = mysql_fetch_assoc($result)) {
 				$_temp_group[$row['group_id']]['name']   = html_specialchars($row['group_name']);
@@ -416,7 +416,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 		?></select></td>
 				<td valign="top" style="padding-left:5px;padding-right:5px;">
-
 <img src="img/button/put_left.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><br />
 <img src="img/leer.gif" width="1" height="3" /><br />
 <img src="img/button/put_left_a.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><br />

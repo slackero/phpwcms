@@ -26,10 +26,8 @@ $template = array(	"name" => '', "default" => 0, "layout" => '', "css" => array(
 if(!isset($_GET["s"])) {
 // check if template should be edited
 ?>
+<h1 class="title"><?php echo $BL['be_admin_tmpl_title'] ?></h1>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-	<tr><td colspan="3" class="title"><?php echo $BL['be_admin_tmpl_title'] ?></td></tr>
-	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-	</tr>
 	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 	</tr>
 <?php
@@ -87,7 +85,6 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 	$createcopy = isset($_GET["c"]) ? intval($_GET["c"]) : 0;
 
 	if(isset($_POST["template_id"])) {
-
 
 		$createcopy = empty($_POST["c"]) ? 0 : intval($_POST["c"]); // ERICH COPY TEMPLATE 08.06.2005
 
@@ -196,19 +193,18 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 	}
 
 	// show form
-?><script type="text/javascript">
-<!--
-function doPageLayoutChange() {
-	var returnValue = confirm('<?php echo $BL['be_admin_template_jswarning'] ?>');
-	if(returnValue) {
-		document.blocks.submit();
-		return true;
-	} else {
-		return false;
+?>
+<script type="text/javascript">
+	function doPageLayoutChange() {
+		if(confirm('<?php echo $BL['be_admin_template_jswarning'] ?>')) {
+			document.blocks.submit();
+			return true;
+		} else {
+			return false;
+		}
 	}
-}
-//-->
-</script><form action="phpwcms.php?do=admin&amp;p=11&amp;s=<?php echo $template["id"] ?>" method="post" name="blocks" target="_self" id="blocks">
+</script>
+<form action="phpwcms.php?do=admin&amp;p=11&amp;s=<?php echo $template["id"] ?>" method="post" name="blocks" target="_self" id="blocks">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr><td colspan="2" class="title"><?php echo (empty($createcopy) ? $BL['be_admin_tmpl_edit'] : $BL['be_admin_tmpl_copy']) ?>: <?php echo ($template["id"]) ? html_specialchars($template["name"]) : $BL['be_admin_tmpl_new']; ?>
