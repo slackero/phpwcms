@@ -28,7 +28,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><select name="template" id="template" class="f11b">
 <?php
-	
+
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
 	$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/wysiwyg');
@@ -40,7 +40,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 	}
 
-?>				  
+?>
 		</select></td>
 </tr>
 
