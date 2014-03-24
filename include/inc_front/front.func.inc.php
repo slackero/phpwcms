@@ -1706,7 +1706,7 @@ function include_ext_php($inc_file, $t=0) {
 
 	ob_start();
 	@include($inc_file);
-	return ob_get_clean();;
+	return ob_get_clean();
 }
 
 function international_date_format($language='', $format="Y/m/d", $date_now=0) {
