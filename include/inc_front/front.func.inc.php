@@ -1668,15 +1668,22 @@ function html_parser($string) {
 }
 
 function html_parse_idlink($matches) {
-	$replace = '<a href="';
-	if(is_intval($matches[1], false)) {
-		$replace .= rel_url(array(), array(), 'aid='.$matches[1]);
+	if(strpos($matches[1], '#') !== false) {
+		list($matches[1], $anchor) = explode('#', $matches[1], 2);
+		if($anchor) {
+			$anchor = '#'.$anchor;
+		}
 	} else {
-		$replace .= rel_url(array(), array(), $matches[1]);
+		$anchor = '';
 	}
-	$replace .= '" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">';
-	$replace .= $matches[2];
-	$replace .= '</a>';
+	if(is_intval($matches[1], false)) {
+		$matches[1] = 'aid='.$matches[1];
+	}
+	$replace = '<a href="' . rel_url(array(), array(), $matches[1]) . $anchor . '"';
+	if(!empty($GLOBALS['template_default']['classes']['link-internal'])) {
+		$replace .= ' class="'.$GLOBALS['template_default']['classes']['link-internal'].'"';
+	}
+	$replace .= '>' . $matches[2] . '</a>';
 	return $replace;
 }
 
