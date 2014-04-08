@@ -56,8 +56,8 @@ $a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#F
 $a .= "<td width=\"439\">";
 $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
-$a .= ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(($_SESSION["structure"][0])?0:1)."\">" : "";
-$a .= "<img src=\"img/symbole/plus_".(($child_count) ? (($_SESSION["structure"][0]) ? "close" : "open") : "empty");
+$a .= ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
+$a .= "<img src=\"img/symbole/plus_".(($child_count) ? (empty($_SESSION["structure"][0]) ? "open" : "close") : "empty");
 $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($child_count) ? "</a>" : "");
 $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" alt=\"ID:0\"></td>\n";
 $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
@@ -85,7 +85,7 @@ echo "</td>\n</tr>\n";
 // if($_SESSION["structure"][0]) struct_list (0, $db, $cut_id, $cut_article, $listmode);
 // if($_SESSION["structure"][0]) struct_list(0, $db, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 //-- 19-11-2004 Fernando Batista end-----------------------------------------------------------------------------------------------------------
-if($_SESSION["structure"][0]) {
+if(!empty($_SESSION["structure"][0])) {
 	struct_list(0, $db, $copy_article_content, $cut_article_content,$copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 
