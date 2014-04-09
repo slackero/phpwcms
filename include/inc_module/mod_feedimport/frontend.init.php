@@ -90,6 +90,14 @@ if(!empty($_getVar['feedimport'])) {
 			// need some additional functions
 			include_once(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 
+			// set import sort counter
+			$article_sort_counter = _dbGet('phpwcms_article', 'article_sort', 'article_cid='._dbEscape($feedimport_result['cnt_object']['structure_level_id']), '', 'article_sort DESC', 1);
+			if(isset($article_sort_counter[0])) {
+				$article_sort_counter = $article_sort_counter[0]['article_sort'] + 10;
+			} else {
+				$article_sort_counter = 100;
+			}
+
 			foreach($rss_obj->get_items() as $rssvalue) {
 
 				$article_unique_hash	= md5( $feedimport_result['cnt_text'] . $rssvalue->get_title() . $rssvalue->get_date('U') );
@@ -276,7 +284,7 @@ if(!empty($_getVar['feedimport'])) {
 					"article_subtitle"		=> '',
 					"article_summary"		=> $article_summary,
 					"article_redirect"		=> '',
-					"article_sort"			=> $article_begin,
+					"article_sort"			=> $article_sort_counter,
 					"article_username"		=> $article_author,
 					"article_notitle"		=> 0,
 					"article_hidesummary"	=> 0,
@@ -371,6 +379,8 @@ if(!empty($_getVar['feedimport'])) {
 					);
 
 					_dbInsert('phpwcms_crossreference', $data);
+
+					$article_sort_counter = $article_sort_counter + 10;
 				}
 			}
 
