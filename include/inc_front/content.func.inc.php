@@ -384,7 +384,7 @@ if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
 }
 // Check if curret level is forced for SSL
 if(!PHPWCMS_SSL && (!empty($phpwcms['site_ssl_mode']) || $content['struct'][ $content["cat_id"] ]['acat_ssl'])) {
-	headerRedirect($phpwcms['site_ssl_url'] . rel_url(), 301);
+	headerRedirect($phpwcms['site_ssl_url'] . (count($_getVar) ? rel_url() : ''), 301);
 }
 
 //try to find current tree depth
