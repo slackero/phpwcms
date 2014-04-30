@@ -77,7 +77,7 @@ if(!function_exists('get_mediaplayer_stream')) {
 
 }
 
-$fmp_data	= @unserialize($crow["acontent_form"]);
+$fmp_data = @unserialize($crow["acontent_form"]);
 
 if(isset($fmp_data['fmp_template'])) {
 
@@ -110,7 +110,7 @@ if(isset($fmp_data['fmp_template'])) {
 	$fmp_data['fmp_displayheight'] = $fmp_data['fmp_height'];
 
 	if(empty($fmp_data['fmp_set_flashversion'])) {
-		$fmp_data['fmp_set_flashversion'] = 10;
+		$fmp_data['fmp_set_flashversion'] = 11;
 	}
 
 	$fmp_data['fmp_set_bgcolor']	= empty($fmp_data['fmp_set_bgcolor']) ? '000000' : trim($fmp_data['fmp_set_bgcolor'], '#');
@@ -176,7 +176,7 @@ if(isset($fmp_data['fmp_template'])) {
 
 		// internal
 		$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_internal_id'];
-		if( !FEUSER_LOGIN_STATUS ) {
+		if(!FEUSER_LOGIN_STATUS) {
 			$sql .= ' AND f_granted=0';
 		}
 		$fmp_data['file'] = _dbQuery($sql);
@@ -195,12 +195,10 @@ if(isset($fmp_data['fmp_template'])) {
 				if(in_array($fmp_data['file']['f_ext'], array('jpeg', 'jpg', 'png', 'gif', 'swf'))) {
 					$fmp_data['fmp_img_id']  = 0;
 				}
-
 			}
 
 			$fmp_data['fmp_file'] .= '&type='.urlencode($fmp_data['file']['f_type']);
-
-			$fmp_data['file']  = $fmp_data['fmp_file'];
+			$fmp_data['file'] = $fmp_data['fmp_file'];
 
 		} else {
 			$fmp_data['file'] = '';
@@ -247,7 +245,7 @@ if(isset($fmp_data['fmp_template'])) {
 	// JW Player
 	if(empty($fmp_data['fmp_player']) ) {
 
-		$fmp_data['player_swf']		= PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/player.swf';
+		$fmp_data['player_swf'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/player.swf';
 
 		$fmp_data['flashvars']['file']			= rawurlencode($fmp_data['file']);
 		$fmp_data['flashvars']['width']			= $fmp_data['fmp_width'];
@@ -297,6 +295,11 @@ if(isset($fmp_data['fmp_template'])) {
 		$fmp_data['params']['play']				= 'true';
 		$fmp_data['params']['wmode']			= 'opaque';
 
+		if(isset($fmp_data['fmp_set_volume'])) {
+			$fmp_data['flashvars']['volume'] = $fmp_data['fmp_set_volume'];
+			$fmp_data['params']['volume'] = $fmp_data['fmp_set_volume'];
+		}
+
 		// Licensed Player
 		if(!empty($phpwcms['JW_FLV_License'])) {
 			$fmp_data['host'] = parse_url(PHPWCMS_URL);
@@ -315,7 +318,7 @@ if(isset($fmp_data['fmp_template'])) {
 		$fmp_data['flashvars']['showScalingButton']	= 'true';
 		$fmp_data['flashvars']['scaleIfFullScreen']	= 'true';
 		$fmp_data['flashvars']['crop']				= 'false';
-		$fmp_data['flashvars']['defaultVolume']		= '100';
+		$fmp_data['flashvars']['defaultVolume']		= isset($fmp_data['fmp_set_volume']) ? $fmp_data['fmp_set_volume'] : '100';
 		$fmp_data['flashvars']['buffer']			= '6';
 		$fmp_data['flashvars']['allowSmoothing']	= 'true';
 		$fmp_data['flashvars']['controlsEnabled']	= $fmp_data['fmp_set_showcontrols'];
@@ -418,10 +421,10 @@ if(isset($fmp_data['fmp_template'])) {
 	// Video JS
 	if(count($fmp_data['video'])) {
 
-		$phpwcms['video-js'] = empty($phpwcms['video-js']) ? 'http://vjs.zencdn.net/c/' : rtrim($phpwcms['video-js'], '/') . '/';
+		$phpwcms['video-js'] = empty($phpwcms['video-js']) ? 'http://vjs.zencdn.net/4.5.1/' : rtrim($phpwcms['video-js'], '/') . '/';
 
 		// load default video-js.css
-		$block['custom_htmlhead']['video-js.css']  = '  <link rel="stylesheet" type="text/css" href="' . $phpwcms['video-js'] . 'video-js.css" />';
+		$block['custom_htmlhead']['video-js.css'] = '  <link rel="stylesheet" type="text/css" href="' . $phpwcms['video-js'] . 'video-js.css" />';
 
 		// check for video-js Skin
 		if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default' && is_file(PHPWCMS_TEMPLATE.'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css')) {
@@ -434,15 +437,33 @@ if(isset($fmp_data['fmp_template'])) {
 		}
 
 		// Put Video JS scripts to the body end
-		$block['custom_htmlhead']['video.js']     = '  <script'.SCRIPT_ATTRIBUTE_TYPE.' src="' . $phpwcms['video-js'] . 'video.js" charset="utf-8"></script>';
+		$block['custom_htmlhead']['video.js'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.' src="' . $phpwcms['video-js'] . 'video.js" charset="utf-8"></script>';
 
 		$fmp_data['video_tag'] = array();
 
 		// build Video JS leading tag
-		$fmp_data['video_tag']['header']  = '<video id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" ';
-		$fmp_data['video_tag']['header'] .= $fmp_data['fmp_set_showcontrols'] == 'none' ? '' : 'controls="controls" ';
-		$fmp_data['video_tag']['header'] .= $fmp_data['fmp_set_autostart'] ? 'autoplay="autoplay" ' : '';
-		$fmp_data['video_tag']['header'] .= empty($fmp_data['fmp_preview']) ? '' : 'poster="'.$fmp_data['preview'].'" ';
+		$fmp_data['video_tag']['header']  = '<video id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" ';
+		$fmp_data['video_tag']['header'] .= 'width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" ';
+		if($fmp_data['fmp_set_showcontrols'] !== 'none') {
+			$fmp_data['video_tag']['header'] .= 'controls="controls" ';
+		}
+		if($fmp_data['fmp_set_autostart']) {
+			$fmp_data['video_tag']['header'] .= 'autoplay="autoplay" ';
+		}
+		if(!empty($fmp_data['fmp_preview'])) {
+			$fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
+		}
+		if(isset($fmp_data['fmp_set_volume'])) {
+			if($fmp_data['fmp_set_volume']) {
+				$block['custom_htmlhead']['videojs_'.$fmp_data['id']]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
+				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	videojs("video-js-'.$fmp_data['id'].'").ready(function() {' . LF;
+				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
+				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	});' . LF;
+				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '  </script>';
+			} else {
+				$fmp_data['video_tag']['header'] .= 'muted ';
+			}
+		}
 		$fmp_data['video_tag']['header'] .= 'preload="auto">';
 
 		foreach($fmp_data['video'] as $param_name => $param_value) {
@@ -450,7 +471,7 @@ if(isset($fmp_data['fmp_template'])) {
 		}
 
 		$fmp_data['video_tag']['fallback'] = $fmp_data['fallback'];
-		$fmp_data['video_tag']['footer']   = '</video><script'.SCRIPT_ATTRIBUTE_TYPE.'>var videojs_'.$fmp_data['id'].'=_V_("video-js-'.$fmp_data['id'].'");</script>';
+		$fmp_data['video_tag']['footer'] = '</video>';
 
 		$fmp_data['fallback'] = implode(LF, $fmp_data['video_tag']);
 

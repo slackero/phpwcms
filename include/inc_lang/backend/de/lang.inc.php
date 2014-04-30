@@ -1355,5 +1355,7 @@ $BL['be_inactive']						= 'inaktiv';
 $BL['be_locked']						= 'gesch&uuml;tzt';
 $BL['be_n/a']							= 'n. a.';
 $BL['be_opengraph_support']				= 'Social Sharing erlaubt';
+$BL['be_player_volume']					= 'Lautst&auml;rke';
+$BL['be_player_volume_muted']			= 'stumm';
 
 ?>
