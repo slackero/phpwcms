@@ -383,7 +383,7 @@ if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
 	headerRedirect($redirect['link'], 301);
 }
 // Check if curret level is forced for SSL
-if(!PHPWCMS_SSL && (!empty($phpwcms['site_ssl_mode']) || $content['struct'][ $content["cat_id"] ]['acat_ssl'])) {
+if(!PHPWCMS_SSL && (!empty($phpwcms['site_ssl_mode']) || !empty($content['struct'][ $content["cat_id"] ]['acat_ssl']))) {
 	headerRedirect($phpwcms['site_ssl_url'] . (count($_getVar) ? rel_url() : ''), 301);
 }
 
@@ -408,7 +408,7 @@ define('PERMIT_ACCESS', $PERMIT_ACCESS);
 _checkFrontendUserAutoLogin();
 
 // read the template information for page based on structure
-if($content["struct"][ $content["cat_id"] ]["acat_template"]) {
+if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 	//if there is a template defined for this structure level
 	//then choose the template information based on this ID
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND ";
