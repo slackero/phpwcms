@@ -453,17 +453,27 @@ if(isset($fmp_data['fmp_template'])) {
 		if(!empty($fmp_data['fmp_preview'])) {
 			$fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
 		}
+
+		$block['custom_htmlhead']['videojs_'.$fmp_data['id']]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
+		$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	videojs("video-js-'.$fmp_data['id'].'")';
+
 		if(isset($fmp_data['fmp_set_volume'])) {
-			if($fmp_data['fmp_set_volume']) {
-				$block['custom_htmlhead']['videojs_'.$fmp_data['id']]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	videojs("video-js-'.$fmp_data['id'].'").ready(function() {' . LF;
-				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
-				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	});' . LF;
-				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '  </script>';
-			} else {
+
+			//$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= ', {volume: 0}';
+
+			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '.ready(function() {' . LF;
+			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
+			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	})';
+
+			if(!$fmp_data['fmp_set_volume']) {
 				$fmp_data['video_tag']['header'] .= 'muted ';
 			}
 		}
+
+		$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= ';' . LF;
+		$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '  </script>';
+
+
 		$fmp_data['video_tag']['header'] .= 'preload="auto">';
 
 		foreach($fmp_data['video'] as $param_name => $param_value) {
