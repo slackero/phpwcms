@@ -454,25 +454,21 @@ if(isset($fmp_data['fmp_template'])) {
 			$fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
 		}
 
-		$block['custom_htmlhead']['videojs_'.$fmp_data['id']]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-		$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	videojs("video-js-'.$fmp_data['id'].'")';
+		$fmp_data['init_videojs']  = '<script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
+		$fmp_data['init_videojs'] .= '	videojs("video-js-'.$fmp_data['id'].'")';
 
 		if(isset($fmp_data['fmp_set_volume'])) {
-
-			//$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= ', {volume: 0}';
-
-			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '.ready(function() {' . LF;
-			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
-			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '	})';
+			$fmp_data['init_videojs'] .= '.ready(function() {' . LF;
+			$fmp_data['init_videojs'] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
+			$fmp_data['init_videojs'] .= '	})';
 
 			if(!$fmp_data['fmp_set_volume']) {
 				$fmp_data['video_tag']['header'] .= 'muted ';
 			}
 		}
 
-		$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= ';' . LF;
-		$block['custom_htmlhead']['videojs_'.$fmp_data['id']] .= '  </script>';
-
+		$fmp_data['init_videojs'] .= ';' . LF;
+		$fmp_data['init_videojs'] .= '  </script>';
 
 		$fmp_data['video_tag']['header'] .= 'preload="auto">';
 
@@ -482,6 +478,12 @@ if(isset($fmp_data['fmp_template'])) {
 
 		$fmp_data['video_tag']['fallback'] = $fmp_data['fallback'];
 		$fmp_data['video_tag']['footer'] = '</video>';
+
+		if(empty($phpwcms['js_in_body'])) {
+			$fmp_data['video_tag']['footer'] .= $fmp_data['init_videojs'];
+		} else {
+			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] = '  ' . $fmp_data['init_videojs'];
+		}
 
 		$fmp_data['fallback'] = implode(LF, $fmp_data['video_tag']);
 
@@ -506,13 +508,11 @@ if(isset($fmp_data['fmp_template'])) {
 
 	}
 
-
 	// add rendering result to current listing
 	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'TITLE',    html_specialchars($crow['acontent_title']));
 	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 	$CNT_TMP				  .= str_replace('{PLAYER}', '<div id="'.$fmp_data['id'].'" class="video-js-box'.$fmp_data['fmp_set_skin_html5'].'">'. LF . $fmp_data['fallback'] . LF . '</div>', $fmp_data['fmp_template']);
 
 }
-
 
 ?>
