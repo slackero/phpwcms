@@ -1625,13 +1625,13 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		$cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
 		$cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
-		$cnt_form['template'] = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1")', $cnt_form['template']);
+		$cnt_form['template'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template']);
 
 		if( !$cnt_form['template_equal'] ) {
 
 			$cnt_form['template_copy'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template_copy']);
 			$cnt_form['template_copy'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_copy']);
-			$cnt_form['template_copy'] = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1")', $cnt_form['template_copy']);
+			$cnt_form['template_copy'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_copy']);
 			$cnt_form['template_copy'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_copy']);
 
 		}

@@ -23,20 +23,10 @@ if (!defined('PHPWCMS_ROOT')) {
 // include neccessary frontend functions, but only once
 include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php');
 
-
 $CNT_TMP 				.= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-
 $guestbook 				 = unserialize($crow["acontent_form"]);
 $guestbook['error']		 = array();
-
-
-if(!$guestbook['aliasID']) {
-	$guestbook['cid'] = $crow["acontent_id"];
-} else {
-	$guestbook['cid'] = $guestbook['aliasID'];
-}
-$guestbook['cid'] = intval($guestbook['cid']);
-
+$guestbook['cid']		 = intval( empty($guestbook['aliasID']) ? $crow["acontent_id"] : $guestbook['aliasID'] );
 $guestbook['image_dir']	 = PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'guestbook_'.$guestbook['cid'];
 
 // getting guestbook template
@@ -49,13 +39,13 @@ if(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/guestbook/'.$guestbook['template'])) {
 
 // check 'visible' status
 if(empty($guestbook['gb_login_show'])) {
-	$guestbook['visible']		= true;
+	$guestbook['visible'] = true;
 } elseif(_getFeUserLoginStatus()) {
-	$guestbook['visible']		= true;
+	$guestbook['visible'] = true;
 } else {
-	$guestbook['visible']		= false;
+	$guestbook['visible'] = false;
 	// get template replacement in case login necessary and user not logged in
-	$CNT_TMP 				   .= get_tmpl_section('LOGIN_INFO', $guestbook['template']);
+	$CNT_TMP .= get_tmpl_section('LOGIN_INFO', $guestbook['template']);
 }
 
 if($guestbook['visible']) {
@@ -727,19 +717,20 @@ if($guestbook['visible']) {
 
 	if($guestbook['result'] = mysql_query($guestbook['sql'], $db)) {
 
+		if(!function_exists('guestbook_date_callback')) {
+			function guestbook_date_callback($matches) {
+				return date($matches[1], empty($GLOBALS['guestbook']['row']['guestbook_created']) ? now() : $GLOBALS['guestbook']['row']['guestbook_created']);
+			}
+		}
+
 		while($guestbook['row'] = mysql_fetch_assoc($guestbook['result'])) {
 
-			/*
-			if($guestbook['ban_count']) {
-				$guestbook['row']['guestbook_msg'] = preg_replace($guestbook['ban'], $guestbook['replace'], $guestbook['row']['guestbook_msg']);
-			}
-			*/
 			$guestbook['row']['guestbook_msg'] = html_specialchars($guestbook['row']['guestbook_msg']);
 
 			$guestbook['c'] = str_replace('{ID}', 	$guestbook['counter'], 				$guestbook['entry']);
 			$guestbook['c'] = str_replace('{DBID}', $guestbook['row']['guestbook_id'],	$guestbook['c']);
 
-			$guestbook['c'] = render_cnt_template($guestbook['c'], 'URL',	empty($guestbook['row']['guestbook_url']) ? '' : html_specialchars('http://'.$guestbook['row']['guestbook_url']));
+			$guestbook['c'] = render_cnt_template($guestbook['c'], 'URL', empty($guestbook['row']['guestbook_url']) ? '' : html_specialchars('http://'.$guestbook['row']['guestbook_url']));
 
 			switch($guestbook['row']['guestbook_show']) {
 				case 1:		$guestbook['row']['guestbook_email'] = '';
@@ -754,8 +745,7 @@ if($guestbook['visible']) {
 			$guestbook['c'] = render_cnt_template($guestbook['c'], 'EMAIL',	html_specialchars($guestbook['row']['guestbook_email']));
 			$guestbook['c'] = render_cnt_template($guestbook['c'], 'NAME',	html_specialchars($guestbook['row']['guestbook_name']));
 			$guestbook['c'] = render_cnt_template($guestbook['c'], 'MSG',	nl2br($guestbook['row']['guestbook_msg']));
-
-			$guestbook['c'] = preg_replace('/{TIMESTAMP:(.*)}/e', "date('$1',\$guestbook['row']['guestbook_created'])", $guestbook['c']);
+			$guestbook['c'] = preg_replace_callback('/{TIMESTAMP:(.*)}/', 'guestbook_date_callback', $guestbook['c']);
 
 			// do gb image ;-)
 			$guestbook['entry_image'] = '';

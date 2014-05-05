@@ -303,11 +303,12 @@ function showSelectedContent($param='') {
 	global $phpwcms;
 	global $aktion;
 
-	$topcount = 999999;
-	$template = '';
+	$topcount	= 999999;
+	$template	= '';
+	$param		= isset($param[1]) ? $param[1] : $param;
 
 	if($cp = explode(',', $param)) {
-		$mode	= strtoupper(trim($cp[0]));
+		$mode = strtoupper(trim($cp[0]));
 		if(substr($mode, 0, 2) == 'AS') {
 			$mode = explode('|', $cp[0]);
 			if(isset($mode[1])) {

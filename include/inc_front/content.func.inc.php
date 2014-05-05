@@ -799,7 +799,7 @@ $content['all'] = preg_replace_callback('/\{LEVEL(\d+)_ID\}/', 'replace_level_id
 
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
 if( ! ( strpos($content["all"],'{SHOW_CONTENT:')===false ) ) {
-	$content["all"] = preg_replace('/\{SHOW_CONTENT:(.*?)\}/e', 'showSelectedContent("$1");', $content["all"]);
+	$content["all"] = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $content["all"]);
 }
 
 // include external PHP script (also normal HTML snippets) or return PHP var value
@@ -817,7 +817,7 @@ if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
 
 	// build complete menu structure starting at a specific ID
 	// {NAV_LIST_UL:Parameter} Parameter: "menu_type, start_id, class_path, class_active, ul_id_name"
-	$content["all"] = preg_replace('/\{NAV_LIST_UL:(.*?)\}/e', 'buildCascadingMenu("$1");', $content["all"]);
+	$content["all"] = preg_replace_callback('/\{NAV_LIST_UL:(.*?)\}/', 'buildCascadingMenu', $content["all"]);
 
 }
 
@@ -828,7 +828,7 @@ if($phpwcms['enable_deprecated']) {
 
 		// Simple row based navigation
 		$content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);
-		$content["all"] = preg_replace('/\{NAV_ROW:(\w+|\d+):(0|1)\}/e',"nav_level_row('$1',$2);",$content["all"]);
+		$content["all"] = preg_replace_callback('/\{NAV_ROW:(\w+|\d+):(0|1)\}/', 'nav_level_row', $content["all"]);
 
 		//reads all active category IDs beginning with the current cat ID - without HOME
 		$content["cat_path"] = get_active_categories($content["struct"], $content["cat_id"]);
@@ -839,29 +839,22 @@ if($phpwcms['enable_deprecated']) {
 		$content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
 
 		// list based navigation starting at given level
-		$replace = 'nav_list_struct($content["struct"],$content["cat_id"],"$1", "$2");';
-		$content["all"] = preg_replace('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/e', $replace, $content["all"]);
+		$content["all"] = preg_replace_callback('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/', 'nav_list_struct_callback', $content["all"]);
 
 		// List based navigation with Top Level - default settings
 		// creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
-		$content["all"] = preg_replace('/\{NAV_LIST_TOP:(.*?):(.*?)\}/e', 'css_level_list($content["struct"], $content["cat_path"], 0, "$1", 1, "$2")', $content["all"]);
+		$content["all"] = preg_replace_callback('/\{NAV_LIST_TOP:(.*?):(.*?)\}/', 'css_level_list_top_callback', $content["all"]);
 
 		// List based navigation with Top Level - default settings
 		// creates a list styled nav menu of current level {NAV_LIST_CURRENT:1:back_name:class_name} | default class name = list_top
-		$content["all"] = preg_replace('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/e', 'css_level_list($content["struct"],$content["cat_path"],$content["cat_id"],"$2","$1","$3")', $content["all"]);
+		$content["all"] = preg_replace_callback('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/', 'css_level_list_current_callback', $content["all"]);
 
 		// Table based navigation, outdated
 		if(strpos($content["all"],'{NAV_TABLE') !== false) {
-
-			$replace = nav_table_simple_struct($content["struct"], $content["cat_id"]);
-			$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', $replace, $content["all"]);
-
+			$content["all"] = str_replace('{NAV_TABLE_SIMPLE}', nav_table_simple_struct($content["struct"], $content["cat_id"]), $content["all"]);
 			$content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
-			$replace = 'nav_table_struct($content["struct"], $content["cat_id"], "$1", $template_default["nav_table_struct"]);';
-			$content["all"] = preg_replace('/\{NAV_TABLE_COLUMN:(\d+)\}/e', $replace, $content["all"]);
-
+			$content["all"] = preg_replace_callback('/\{NAV_TABLE_COLUMN:(\d+)\}/', 'nav_table_struct_callback', $content["all"]);
 		}
-
 	}
 
 	$content["all"] = html_parser_deprecated($content["all"]);
@@ -872,7 +865,7 @@ if(strpos($content["all"],'{DATE_') !== false) {
 	$content["all"] = str_replace('{DATE_LONG}',    international_date_format($template_default["date"]["language"], $template_default["date"]["long"]),   $content["all"]);
 	$content["all"] = str_replace('{DATE_MEDIUM}',  international_date_format($template_default["date"]["language"], $template_default["date"]["medium"]), $content["all"]);
 	$content["all"] = str_replace('{DATE_SHORT}',   international_date_format($template_default["date"]["language"], $template_default["date"]["short"]),  $content["all"]);
-	$content["all"] = str_replace('{DATE_ARTICLE}', international_date_format($template_default["date"]["language"], $template_default["date"]["article"],   $content["article_date"]),  $content["all"]);
+	$content["all"] = str_replace('{DATE_ARTICLE}', international_date_format($template_default["date"]["language"], $template_default["date"]["article"], $content["article_date"]),  $content["all"]);
 }
 
 // time replacement
@@ -888,24 +881,20 @@ if(strpos($content["all"],'###search_input_') !== false) {
 	$content["all"] = str_replace('###search_input_value###', (empty($content["search_word"]) ? '' : $content["search_word"]), $content["all"]);
 	// create serahc form action
 	if(strpos($content["all"],'###search_input_action:') !== false) {
-		$content["all"] = preg_replace('/###search_input_action:(\d+)###/e','get_search_action("$1", $db);', $content["all"]);
+		$content["all"] = preg_replace_callback('/###search_input_action:(\d+)###/', 'get_search_action', $content["all"]);
 	}
 }
 
 // related articles based on keywords, inspired by Magnar Stav Johanssen
 if(strpos($content["all"],'{RELATED:') !== false) {
-	if ($no_content_for_this_page === false && !empty($content["articles"][$aktion[1]]["article_keyword"])) {
-		$related_keywords = $content["articles"][$aktion[1]]["article_keyword"];
-	} else {
-		$related_keywords = '';
-	}
-	$content["all"] = preg_replace('/\{RELATED:(\d+)\}/e','get_related_articles($related_keywords,$aktion[1],$template_default["related"],"$1",$db);',$content["all"]);
-	$content["all"] = preg_replace('/\{RELATED:(\d+):(.*?)\}/e','get_related_articles("$2",$aktion[1],$template_default["related"],"$1",$db);',$content["all"]);
+	$related_keywords = ($no_content_for_this_page === false && !empty($content["articles"][$aktion[1]]["article_keyword"])) ? $content["articles"][$aktion[1]]["article_keyword"] : '';
+	$content["all"] = preg_replace_callback('/\{RELATED:(\d+)\}/', 'get_related_articles_callback', $content["all"]);
+	$content["all"] = preg_replace_callback('/\{RELATED:(\d+):(.*?)\}/', 'get_related_articles_callback', $content["all"]);
 }
 
 // all new article list sorted by date
 if(strpos($content["all"],'{NEW:') !== false) {
-	$content["all"] = preg_replace('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/e','get_new_articles($template_default["news"],"$1","$2",$db);',$content["all"]);
+	$content["all"] = preg_replace_callback('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/', 'get_new_articles_callback', $content["all"]);
 }
 
 // some more general parsing
@@ -920,7 +909,7 @@ $content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){
 $content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
 
 // create link to articles for found keywords
-$content["all"] = preg_replace('/\{KEYWORD:(.*?)\}/e', 'get_keyword_link("$1", $db);', $content["all"]);
+$content["all"] = preg_replace_callback('/\{KEYWORD:(.*?)\}/', 'get_keyword_link', $content["all"]);
 //}
 
 // include external HTML page but only part between <body></body>
@@ -929,9 +918,9 @@ $content["all"] = preg_replace_callback('/\{URL:(.*?)\}/i', 'include_url', $cont
 // special browse the content links: UP, NEXT, PREVIOUS
 // echo get_index_link_up('UP')." | ".get_index_link_prev('PREV',1).' | '.get_index_link_next('NEXT',1);
 if(strpos($content["all"],'{BROWSE:') !== false) {
-	$content["all"] = preg_replace('/\{BROWSE:UP:(.*?)\}/e','get_index_link_up("$1");',$content["all"]);
-	$content["all"] = preg_replace('/\{BROWSE:NEXT:(.*?):(0|1)\}/e','get_index_link_next("$1",$2);',$content["all"]);
-	$content["all"] = preg_replace('/\{BROWSE:PREV:(.*?):(0|1)\}/e','get_index_link_prev("$1",$2);',$content["all"]);
+	$content["all"] = preg_replace_callback('/\{BROWSE:UP:(.*?)\}/', 'get_index_link_up', $content["all"]);
+	$content["all"] = preg_replace_callback('/\{BROWSE:NEXT:(.*?):(0|1)\}/', 'get_index_link_next',$content["all"]);
+	$content["all"] = preg_replace_callback('/\{BROWSE:PREV:(.*?):(0|1)\}/', 'get_index_link_prev',$content["all"]);
 }
 
 // replace all "hardcoded" global replacement tags
