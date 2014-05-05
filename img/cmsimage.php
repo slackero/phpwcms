@@ -50,15 +50,16 @@ if(isset($data[1])) {
 
 			if(!empty($convert_function) && $hash && $ext && function_exists('phpwcms_convertimage_'.$convert_function)) {
 
-				$source_image = $hash.'.'.$ext;
-				$target_image = $hash.'-'.$convert_function.'.'.$ext;
+				$source_image		= $hash.'.'.$ext;
+				$target_image		= $hash.'-'.$convert_function.'.'.$ext;
+				$convert_function	= 'phpwcms_convertimage_'.$convert_function;
 
 				// deliver cached image first
 				if(is_file(PHPWCMS_THUMB.$target_image)) {
 					headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$target_image, 301);
 				}
 
-				$result = phpwcms_convertimage_gs(PHPWCMS_THUMB.$source_image, PHPWCMS_THUMB.$target_image);
+				$result = $convert_function(PHPWCMS_THUMB.$source_image, PHPWCMS_THUMB.$target_image);
 
 				if(empty($result['error']) && !empty($result['image'])) {
 
@@ -77,7 +78,7 @@ if(isset($data[1])) {
 			phpwcms_empty_gif();
 
 		} else {
-			$data[0]	= preg_replace('/[^0-9xgsXGS]/', '', $data[0]);
+			$data[0] = preg_replace('/[^0-9xgsXGS]/', '', $data[0]);
 		}
 
 		if(is_intval($hash)) {
