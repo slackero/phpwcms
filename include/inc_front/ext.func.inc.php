@@ -305,7 +305,7 @@ function showSelectedContent($param='') {
 
 	$topcount	= 999999;
 	$template	= '';
-	$param		= isset($param[1]) ? $param[1] : $param;
+	$param		= is_array($param) && isset($param[1]) ? $param[1] : $param;
 
 	if($cp = explode(',', $param)) {
 		$mode = strtoupper(trim($cp[0]));

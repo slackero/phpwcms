@@ -29,7 +29,7 @@ function get_random_image_tag($path) {
 	// {RANDOM:SRC:path} willl return absolute URI PHPWCMS_URL/path/rand_image
 
 	$imgArray	= array();
-	$path		= trim(isset($path[1]) ? $path[1] : $path);
+	$path		= trim(is_array($path) && isset($path[1]) ? $path[1] : $path);
 	if(strtoupper(substr($path, 0, 4)) == 'SRC:') {
 		$tag	= false;
 		$path	= trim(substr($path, 4));
@@ -263,7 +263,7 @@ function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $li
 
 function nav_level_row($show_id, $show_home=1) {
 	//returns a simple row based navigation
-	if(isset($show_id[1])) {
+	if(is_array($show_id) && isset($show_id[1])) {
 		$show_home	= $show_id[2];
 		$show_id	= $show_id[1];
 	}

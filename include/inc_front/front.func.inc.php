@@ -1465,7 +1465,7 @@ function html_parse_idlink($matches) {
 function include_ext_php($inc_file, $t=0) {
 	// includes an external PHP script file and returns
 	// the result as string from buffered include content
-	if(!empty($inc_file[1])) {
+	if(is_array($inc_file) && !empty($inc_file[1])) {
 		$inc_file = $inc_file[1];
 	}
 
@@ -1911,7 +1911,7 @@ function get_keyword_link($keywords) {
 	// returns a link or linklist for special article keywords
 	// used for replacement tag {KEYWORD:Charlie}
 
-	$keywords		= explode(',', isset($keywords[1]) ? $keywords[1] : $keywords);
+	$keywords		= explode(',', is_array($keywords) && isset($keywords[1]) ? $keywords[1] : $keywords);
 	$where			= '';
 	$keyword_list	= '';
 	$link			= '';
@@ -2022,7 +2022,7 @@ function get_search_action($matches) {
 function get_index_link_up($linktext) {
 	// return the link to parent category of current category
 	$cat_id = $GLOBALS['content']['cat_id'];
-	$linktext = trim(isset($linktext[1]) ? $linktext[1] : $linktext);
+	$linktext = trim(is_array($linktext) && isset($linktext[1]) ? $linktext[1] : $linktext);
 	$link = '';
 	if(!$linktext) $linktext = 'UP';
 	if($cat_id && !$GLOBALS['content']['struct'][$cat_id]['acat_hidden']) {
@@ -2038,10 +2038,10 @@ function get_index_link_next($linktext, $cat_down=0) {
 
 	// return the link to next article in current ctageory
 	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
-	if(isset($linktext[2])) {
+	if(is_array($linktext) && isset($linktext[2])) {
 		$cat_down = intval($linktext[2]);
 	}
-	$linktext = trim(isset($linktext[1]) ? $linktext[1] : $linktext);
+	$linktext = trim(is_array($linktext) && isset($linktext[1]) ? $linktext[1] : $linktext);
 	if($linktext === '') {
 		$linktext = 'NEXT';
 	}
@@ -2137,10 +2137,10 @@ function get_index_link_prev($linktext, $cat_up=0) {
 	global $content;
 	// return the link to next article in current ctageory
 	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
-	if(isset($linktext[2])) {
+	if(is_array($linktext) && isset($linktext[2])) {
 		$cat_up = intval($linktext[2]);
 	}
-	$linktext = trim(isset($linktext[1]) ? $linktext[1] : $linktext);
+	$linktext = trim(is_array($linktext) && isset($linktext[1]) ? $linktext[1] : $linktext);
 	if($linktext === '') {
 		$linktext = 'PREV';
 	}
@@ -2686,7 +2686,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 	if($param == 'string') {
 
-		$parameter 		= explode(',', isset($parameter[1]) ? $parameter[1] : $parameter);
+		$parameter 		= explode(',', is_array($parameter) && isset($parameter[1]) ? $parameter[1] : $parameter);
 		$menu_type		= empty($parameter[0]) ? '' : strtoupper(trim($parameter[0]));
 
 		$unfold 		= 'all';
