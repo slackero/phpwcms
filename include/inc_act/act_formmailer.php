@@ -64,12 +64,12 @@ function phpwcms_form_encode($in_str, $charset) {
        $length = 75 - strlen($start) - strlen($end);
        $length = floor($length/2) * 2;
 
-       // encode the string and split it into chunks 
+       // encode the string and split it into chunks
        // with spacers after each chunk
        $out_str = base64_encode($out_str);
        $out_str = chunk_split($out_str, $length, $spacer);
 
-       // remove trailing spacer and 
+       // remove trailing spacer and
        // add start and end delimiters
        $spacer = preg_quote($spacer);
        $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
@@ -145,8 +145,8 @@ if(isset($_POST["recipient"])) {
 	unset($_POST["recipient"]);
 }
 //check if recipient's email address is defined in conf.inc.php
-if(	isset($phpwcms["formmailer_set"]) 
-	&& !empty($phpwcms["formmailer_set"]['global_recipient_email']) 
+if(	isset($phpwcms["formmailer_set"])
+	&& !empty($phpwcms["formmailer_set"]['global_recipient_email'])
 	&& $phpwcms["formmailer_set"]['global_recipient_email'] != 'form@localhost'
 	&& is_valid_email($phpwcms["formmailer_set"]['global_recipient_email'])) {
 	$recipient = $phpwcms["formmailer_set"]['global_recipient_email'];
@@ -205,17 +205,17 @@ if(isset($_POST["type"])) unset($_POST["type"]);
 if(count($_POST)) {
 	$err_num = 0;
 	foreach($_POST as $key => $value) {
-		
+
 		//Check for required fields
 		if(!empty($required_val[$key]) && isEmpty($value) && $key != 'Captcha_Validation') {
 			if(isset($form_label[$key])) {
 				$form_error[500+$err_num] = str_replace("###value###", $form_label[$key], $translate[$lang]["error400"]);
 			} else {
 				$form_error[500+$err_num] = str_replace("###value###", strtoupper($key), $translate[$lang]["error400"]);
-			}			
+			}
 			$err_num+=10;
 		}
-				
+
 		if(is_array($value)) { //if field value is an array then split form name
 			$x = 1;
 			foreach($value as $field_value) {
@@ -237,14 +237,14 @@ if(isset($form_error)) {
 		foreach($form_error as $key => $value) {
   			$table .= "<tr bgcolor=\"#F4F4F4\">";
     		$table .= "<td class=\"error\">[".$key."]</td>";
-    		$table .= "<td class=\"error\">".html_specialchars($value)."</td>";
+    		$table .= "<td class=\"error\">".html($value)."</td>";
   			$table .= "</tr>\n";
 		}
-		
+
 		$error_template = read_textfile(PHPWCMS_ROOT.'/include/inc_lang/formmailer/'.$lang.'_formmailer.error.html');
 		$error_template = str_replace("<!-- RESULT //-->", $table, $error_template);
 		echo $error_template;
-		
+
 	}
 
 } else {
@@ -264,7 +264,7 @@ if(isset($form_error)) {
 	$body.= "====================================================================\n\n";
 	$body.= $subject."\n";
 	$body.= "--------------------------------------------------------------------\n";
-	
+
 	$l=0;
 	if(is_array($form) && count($form)) {
 		foreach($form as $key => $value) {
@@ -278,10 +278,10 @@ if(isset($form_error)) {
 		$body .= LF.LF.LF;
 		$form = array();
 	}
-	
+
 	$body.= "\n====================================================================\n";
 	$body.= "phpwcms formmailer  | Copyright (C) 2003 \n";
-	
+
 	// phpMailer Class
 	$mail = new PHPMailer();
 	$mail->Mailer 			= $phpwcms['SMTP_MAILER'];
@@ -308,42 +308,42 @@ if(isset($form_error)) {
 		//} else {
 		//mail($send_copy_to, $subject_encoded, $body, "From: ".$recipient."\nReply-To: ".$recipient."\n".$content_type);
 		//}
-		
+
 		$mail->From 		= $recipient;
 		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
 		$mail->Sender	 	= $recipient;
 		$mail->AddAddress($send_copy_to);
-		
+
 		if(!$mail->Send()) {
-			$false .= '(1) '.html_specialchars($mail->ErrorInfo).'<br>';
+			$false .= '(1) '.html($mail->ErrorInfo).'<br>';
 		}
-		
+
 		$mail->From 		= $send_copy_to;
 		$mail->FromName 	= '';
 		$mail->Sender	 	= $send_copy_to;
-		
-		
+
+
 	} else {
 
 		$mail->From 		= $recipient;
 		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
 		$mail->Sender	 	= $recipient;
-		
+
 	}
-	
+
 	$mail->ClearAddresses();
 	$mail->AddAddress($recipient);
-	
+
 	if(!$mail->Send()) {
-		$false .= '(2) '.html_specialchars($mail->ErrorInfo).'<br>';
+		$false .= '(2) '.html($mail->ErrorInfo).'<br>';
 	}
-	
+
 	$mail->SmtpClose();
-	
+
 	if(isset($redirect) && !$false) {
 		headerRedirect($redirect);
 	} else {
-	
+
 		//Success show form success template
 		$table = "";
 		if($false) {
@@ -352,18 +352,18 @@ if(isset($form_error)) {
 			$table .= "<td>".$false."</td>";
 			$table .= "</tr>\n";
 		}
-		
+
 		foreach($form as $key => $value) {
 			$table .= "<tr bgcolor=\"#F4F4F4\">";
-			$table .= "<td>".html_specialchars($key)."</td>";
-			$table .= "<td>".html_specialchars($value)."</td>";
+			$table .= "<td>".html($key)."</td>";
+			$table .= "<td>".html($value)."</td>";
 			$table .= "</tr>\n";
 		}
-		
+
 		$success_template = read_textfile(PHPWCMS_ROOT.'/include/inc_lang/formmailer/'.$lang.'_formmailer.success.html');
 		$success_template = str_replace("<!-- RESULT //-->", $table, $success_template);
 		echo $success_template;
-				
+
 	}
 }
 

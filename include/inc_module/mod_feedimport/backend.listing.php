@@ -37,7 +37,7 @@ foreach($data as $row) {
 	echo ' onclick="document.location=\''.MODULE_HREF.'&amp;edit='.$row["cnt_id"].'\';">'.LF;
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
 	echo '<img src="img/famfamfam/rss.png" alt="'.$BLM['backend_menu'].'" /></td>'.LF;
-	echo '<td class="dir" width="55%" style="padding-left:3px" nowrap="nowrap">'.html_specialchars($row['cnt_name'])."</td>\n";
+	echo '<td class="dir" width="55%" style="padding-left:3px" nowrap="nowrap">'.html($row['cnt_name'])."</td>\n";
 
 	echo '<td class="dir" width="35%" nowrap="nowrap">&nbsp;'.$url."&nbsp;&nbsp;</td>\n";
 
@@ -51,7 +51,7 @@ foreach($data as $row) {
 	echo '<img src="img/button/aktiv_12x13_'.$row["cnt_status"].'.gif" border="0" alt="" /></a>';
 
 	echo '<a href="'.MODULE_HREF.'&amp;delete='.$row["cnt_id"];
-	echo '" title="' . $BL['be_cnt_delete'] .': '.html_specialchars($row['cnt_name']).'"';
+	echo '" title="' . $BL['be_cnt_delete'] .': '.html($row['cnt_name']).'"';
 	echo ' onclick="return confirm(\''.js_singlequote($BLM['delete_entry'] . ' ' . $row['cnt_name']).'\');">';
 	echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 

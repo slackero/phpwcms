@@ -27,7 +27,7 @@ $cinfo[1] = cut_string($row["acontent_title"],'&#8230;', 55);
 							 foreach($cinfo as $value) {
 								 if($value) $cinfo["result"] .= $value."\n";
 							 }
-							 $cinfo["result"] = str_replace("\n", " / ", html_specialchars(chop($cinfo["result"])));
+							 $cinfo["result"] = str_replace("\n", " / ", html(chop($cinfo["result"])));
 							 if($cinfo["result"]) { //Zeige Inhaltinfo
 								 echo "<tr><td>&nbsp;</td><td class=\"v10\">";
 								 echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";

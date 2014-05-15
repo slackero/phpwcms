@@ -143,7 +143,7 @@ if($msg_send_ok) {
 		$sql = "SELECT usr_id, usr_login, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE ".$where." ORDER BY usr_name ASC;";
 		if($result = mysql_query($sql, $db)) {
 			while($row = mysql_fetch_array($result)) {
-				echo "\t\t\t<option value=\"".$row['usr_id']."\">".html_specialchars($row['usr_name']." (".$row['usr_login']).")"."</option>\n";
+				echo "\t\t\t<option value=\"".$row['usr_id']."\">".html($row['usr_name']." (".$row['usr_login']).")"."</option>\n";
 			}
 		}
 	} 
@@ -156,7 +156,7 @@ if($msg_send_ok) {
 	$sql = "SELECT usr_id, usr_login, usr_name FROM ".DB_PREPEND."phpwcms_user ".$where1." ORDER BY usr_name ASC;";
 	if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
-			echo "\t\t\t<option value=\"".$row['usr_id']."\">".html_specialchars($row['usr_name']." (".$row['usr_login']).")"."</option>\n";
+			echo "\t\t\t<option value=\"".$row['usr_id']."\">".html($row['usr_name']." (".$row['usr_login']).")"."</option>\n";
 		}
 	}
 ?>
@@ -164,9 +164,9 @@ if($msg_send_ok) {
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_subject'] ?>:</td></tr>
-	<tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" style="font-family: Monaco, 'Courier New', Courier, monospace; font-size: 9pt; font-weight: bold; width: 537px" value="<?php echo html_specialchars($msg_subject); ?>" size="40" maxlength="125"></td></tr>
+	<tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" style="font-family: Monaco, 'Courier New', Courier, monospace; font-size: 9pt; font-weight: bold; width: 537px" value="<?php echo html($msg_subject); ?>" size="40" maxlength="125"></td></tr>
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_msg'] ?>:</td></tr>
-	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" style="font-family: Monaco, 'Courier New', Courier, monospace; font-size: 9pt; width: 537px"><?php echo html_specialchars($msg_message); ?></textarea></td></tr>
+	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" style="font-family: Monaco, 'Courier New', Courier, monospace; font-size: 9pt; width: 537px"><?php echo html($msg_message); ?></textarea></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="3"><input name="submit" type="image" id="submit" src="img/button/send_message.gif" alt="<?php echo $BL['be_msg_all'] ?>" width="87" height="17" border="0"></td></tr>
 	<tr><td colspan="3">&nbsp;</td></tr>

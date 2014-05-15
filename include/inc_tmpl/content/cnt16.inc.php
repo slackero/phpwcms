@@ -50,7 +50,7 @@ if(!isset($content["ecard"])) {
 
 ?><tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_subject'] ?>:&nbsp;</td>
-	<td><input name="cecard_subject" type="text" id="cecard_subject" class="f11b" style="width: 440px" value="<?php echo html_specialchars($content["ecard"]["subject"]) ?>" size="40" maxlength="250"></td>
+	<td><input name="cecard_subject" type="text" id="cecard_subject" class="f11b" style="width: 440px" value="<?php echo html($content["ecard"]["subject"]) ?>" size="40" maxlength="250"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -69,17 +69,17 @@ if(!isset($content["ecard"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_over'] ?>:&nbsp;</td>
-	<td><input name="cecard_onover" type="text" id="cecard_over" class="f11" style="width: 440px" value="<?php echo html_specialchars($content["ecard"]["onover"]) ?>" size="40" /></td>
+	<td><input name="cecard_onover" type="text" id="cecard_over" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onover"]) ?>" size="40" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_click'] ?>:&nbsp;</td>
-	<td><input name="cecard_onclick" type="text" id="cecard_onclick" class="f11" style="width: 440px" value="<?php echo html_specialchars($content["ecard"]["onclick"]) ?>" size="40" /></td>
+	<td><input name="cecard_onclick" type="text" id="cecard_onclick" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onclick"]) ?>" size="40" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_out'] ?>:&nbsp;</td>
-	<td><input name="cecard_onout" type="text" id="cecard_onout" class="f11" style="width: 440px" value="<?php echo html_specialchars($content["ecard"]["onout"]) ?>" size="40" /></td>
+	<td><input name="cecard_onout" type="text" id="cecard_onout" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onout"]) ?>" size="40" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -96,7 +96,7 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
 	// will be visible only when aceessible
 	foreach($content['ecard']['images'] as $key => $value) {
 
-		$caption_box .= html_specialchars($content['ecard']['images'][$key][6])."\n";
+		$caption_box .= html($content['ecard']['images'][$key][6])."\n";
 
 		$thumb_image = get_cached_image(array(
 			"target_ext"	=>	$content['ecard']['images'][$key][3],
@@ -108,7 +108,7 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
 
 			// image found
 			echo '<option value="' . $content['ecard']['images'][$key][0] . '">';
-			$img_name = html_specialchars($content['ecard']['images'][$key][1]);
+			$img_name = html($content['ecard']['images'][$key][1]);
 			echo $img_name . "</option>\n";
 
 			if($imgx == 4) {
@@ -225,7 +225,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <?php
 
 // fill in the default template if form value is empty
-//<form action="<?php echo html_specialchars($_SERVER['REQUEST_URI']) ? >" method="post" name="send_ecard" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+//<form action="<?php echo html($_SERVER['REQUEST_URI']) ? >" method="post" name="send_ecard" style="margin: 0 0 0 0; padding: 0 0 0 0;">
 
 if(!$content["ecard"]["form"]) {
 	$content["ecard"]["form"]  = '<div align="center" style="margin:0 0 0 0;padding:10px 0 10px 0;">###ECARD_CHOOSER###</div>'."\n";
@@ -276,7 +276,7 @@ if(!$content["ecard"]["form"]) {
 ?>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_ecardform'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cecard_form" rows="15" wrap="VIRTUAL" class="code" id="cecard_form" style="width: 440px"><?php echo html_specialchars($content["ecard"]["form"]); ?></textarea></td>
+  <td valign="top"><textarea name="cecard_form" rows="15" wrap="VIRTUAL" class="code" id="cecard_form" style="width: 440px"><?php echo html($content["ecard"]["form"]); ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -292,7 +292,7 @@ if(!$content["ecard"]["form"]) {
 </tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_ecardsend'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cecard_send" rows="5" wrap="VIRTUAL" class="code" id="cecard_send" style="width: 440px"><?php echo html_specialchars($content["ecard"]["send"]); ?></textarea></td>
+  <td valign="top"><textarea name="cecard_send" rows="5" wrap="VIRTUAL" class="code" id="cecard_send" style="width: 440px"><?php echo html($content["ecard"]["send"]); ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -309,7 +309,7 @@ if(!$content["ecard"]["form"]) {
 </tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_ecardtmpl'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cecard_mail" rows="15" wrap="VIRTUAL" class="code" id="cecard_mail" style="width: 440px"><?php echo  html_specialchars($content["ecard"]["mail"]) ?></textarea></td>
+  <td valign="top"><textarea name="cecard_mail" rows="15" wrap="VIRTUAL" class="code" id="cecard_mail" style="width: 440px"><?php echo  html($content["ecard"]["mail"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

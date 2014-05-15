@@ -35,7 +35,7 @@ if($cinfo["result"] || count($row["acontent_form"])) {
 	
 	foreach($row["acontent_form"] as $value) {
 		
-		echo $cinfo["result"] . '&raquo; '.html_specialchars($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
+		echo $cinfo["result"] . '&raquo; '.html($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
 		$cinfo["result"] = '<br />';
 		
 	}

@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Flash/HTML5 Media Player
 $cinfo["result"] = array();
 
-$cinfo["result"][] = html_specialchars(
+$cinfo["result"][] = html(
 						($row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : '') .
 						($cinfo["result"] && $row["acontent_subtitle"] ? " / " : "") .
 						($row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '')
@@ -30,34 +30,34 @@ if( $row["acontent_form"] = @unserialize($row["acontent_form"]) ) {
 
 	// Flash
 	if(!empty($row["acontent_form"]['fmp_internal_id'])) {
-		$cinfo['result'][] = $BL['be_flash_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html_specialchars($row["acontent_form"]['fmp_internal_name']);
+		$cinfo['result'][] = $BL['be_flash_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html($row["acontent_form"]['fmp_internal_name']);
 	}
 	if(!empty($row["acontent_form"]['fmp_external_file'])) {
-		$cinfo['result'][] = $BL['be_flash_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html_specialchars($row["acontent_form"]['fmp_external_file']);
+		$cinfo['result'][] = $BL['be_flash_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html($row["acontent_form"]['fmp_external_file']);
 	}
 
 	// H.264
 	if(!empty($row["acontent_form"]['fmp_internal_id_h264'])) {
-		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html_specialchars($row["acontent_form"]['fmp_internal_name_h264']);
+		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html($row["acontent_form"]['fmp_internal_name_h264']);
 	}
 	if(!empty($row["acontent_form"]['fmp_external_file_h264'])) {
-		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html_specialchars($row["acontent_form"]['fmp_external_file_h264']);
+		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html($row["acontent_form"]['fmp_external_file_h264']);
 	}
 
 	// WebM
 	if(!empty($row["acontent_form"]['fmp_internal_id_webm'])) {
-		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html_specialchars($row["acontent_form"]['fmp_internal_name_webm']);
+		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html($row["acontent_form"]['fmp_internal_name_webm']);
 	}
 	if(!empty($row["acontent_form"]['fmp_external_file_webm'])) {
-		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html_specialchars($row["acontent_form"]['fmp_external_file_webm']);
+		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html($row["acontent_form"]['fmp_external_file_webm']);
 	}
 
 	// Flash
 	if(!empty($row["acontent_form"]['fmp_internal_id_ogg'])) {
-		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html_specialchars($row["acontent_form"]['fmp_internal_name_ogg']);
+		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_internal'] . ': ' . html($row["acontent_form"]['fmp_internal_name_ogg']);
 	}
 	if(!empty($row["acontent_form"]['fmp_external_file_ogg'])) {
-		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html_specialchars($row["acontent_form"]['fmp_external_file_ogg']);
+		$cinfo['result'][] = $BL['be_html5_media'] . ' ' . $BL['be_cnt_external'] . ': ' . html($row["acontent_form"]['fmp_external_file_ogg']);
 	}
 
 }

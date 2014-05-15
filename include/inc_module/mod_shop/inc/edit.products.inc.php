@@ -43,14 +43,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
 		<td class="v10" width="410"><?php
 
-		echo html_specialchars(date($BL['be_fprivedit_dateformat'], $plugin['data']['shopprod_changedate'])) ;
+		echo html(date($BL['be_fprivedit_dateformat'], $plugin['data']['shopprod_changedate'])) ;
 
 		if(!empty($plugin['data']['shopprod_createdate'])) {
 		?>
 		&nbsp;&nbsp;&nbsp;<span class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:</span>
 		<?php
 
-			echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
+			echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
 		}
 
 		?></td>
@@ -68,10 +68,10 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		//error class
 		if(!empty($plugin['error']['shopprod_ordernumber'])) echo ' errorInputText';
 
-		?>" value="<?php echo html_specialchars($plugin['data']['shopprod_ordernumber']) ?>" size="30" maxlength="20" /></td>
+		?>" value="<?php echo html($plugin['data']['shopprod_ordernumber']) ?>" size="30" maxlength="20" /></td>
 
 				<td align="right" class="chatlist width100"><?php echo $BLM['shopprod_model'] ?>:&nbsp;</td>
-				<td><input name="shopprod_model" type="text" id="shopprod_model" class="v12 width170" value="<?php echo html_specialchars($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" /></td>
+				<td><input name="shopprod_model" type="text" id="shopprod_model" class="v12 width170" value="<?php echo html($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" /></td>
 			</tr>
 
 			</table></td>
@@ -111,14 +111,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		//error class
 		if(!empty($plugin['error']['shopprod_name1'])) echo ' errorInputText';
 
-		?>" value="<?php echo html_specialchars($plugin['data']['shopprod_name1']) ?>" size="30" maxlength="200" /></td>
+		?>" value="<?php echo html($plugin['data']['shopprod_name1']) ?>" size="30" maxlength="200" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_name2'] ?>:&nbsp;</td>
-		<td><input name="shopprod_name2" type="text" id="shopprod_name2" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" /></td>
+		<td><input name="shopprod_name2" type="text" id="shopprod_name2" class="v12 width400" value="<?php echo html($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
@@ -141,7 +141,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 				$plugin['data']['shop_pref_unit_weight'] = 'kg';
 				_setConfig('shop_pref_unit_weight', 	$plugin['data']['shop_pref_unit_weight'], 	'module_shop');
 			}
-			echo html_specialchars($plugin['data']['shop_pref_unit_weight']);
+			echo html($plugin['data']['shop_pref_unit_weight']);
 
 			?></td>
 
@@ -228,10 +228,10 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 			<tr>
-				<td><textarea name="shopprod_size" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea></td>
+				<td><textarea name="shopprod_size" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_size']) ?></textarea></td>
 
 				<td align="right" class="chatlist width100 tdtop4"><?php echo $BLM['shopprod_color'] ?>:&nbsp;</td>
-				<td><textarea name="shopprod_color" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea></td>
+				<td><textarea name="shopprod_color" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_color']) ?></textarea></td>
 
 				</tr>
 
@@ -290,12 +290,12 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description1'] ?>:&nbsp;</td>
-		<td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="v12 width400"><?php echo html_specialchars($plugin['data']['shopprod_description2']) ?></textarea></td>
+		<td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="v12 width400"><?php echo html($plugin['data']['shopprod_description2']) ?></textarea></td>
 	</tr>
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description2'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="v12 width400"><?php echo html_specialchars($plugin['data']['shopprod_description3']) ?></textarea></td>
+		<td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="v12 width400"><?php echo html($plugin['data']['shopprod_description3']) ?></textarea></td>
 	</tr>
 
 
@@ -335,7 +335,7 @@ if($img_count) {
 
 			// image found
 			echo '<option value="' . $plugin['data']['shopprod_images'][$key]['f_id'] . '">';
-			$img_name = html_specialchars($plugin['data']['shopprod_images'][$key]['f_name']);
+			$img_name = html($plugin['data']['shopprod_images'][$key]['f_name']);
 			echo $img_name . '</option>'.LF;
 
 			if($imgx == 4) {
@@ -347,7 +347,7 @@ if($img_count) {
 			}
 			$img_thumbs .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
 
-			$plugin['data']['shopprod_caption'][] = html_specialchars($plugin['data']['shopprod_images'][$key]['caption']);
+			$plugin['data']['shopprod_caption'][] = html($plugin['data']['shopprod_images'][$key]['caption']);
 
 			$imgx++;
 		}
@@ -408,10 +408,10 @@ if(count($plugin['data']['shopprod_files'])) {
 	foreach($plugin['data']['shopprod_files'] as $key => $value) {
 
 		echo '<option value="' . $plugin['data']['shopprod_files'][$key]['f_id'] . '">';
-		echo html_specialchars($plugin['data']['shopprod_files'][$key]['f_name']);
+		echo html($plugin['data']['shopprod_files'][$key]['f_name']);
 		echo '</option>'.LF;
 
-		$plugin['data']['shopprod_filecaption'][] = html_specialchars($plugin['data']['shopprod_files'][$key]['caption']);
+		$plugin['data']['shopprod_filecaption'][] = html($plugin['data']['shopprod_files'][$key]['caption']);
 
 	}
 
@@ -440,7 +440,7 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_url'] ?>:&nbsp;</td>
-		<td><input name="shopprod_url" type="text" id="shopprod_url" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" /></td>
+		<td><input name="shopprod_url" type="text" id="shopprod_url" class="v12 width400" value="<?php echo html($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" /></td>
 	</tr>
 
 	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -468,7 +468,7 @@ if(count($plugin['data']['shopprod_files'])) {
 			if($value['cat_pid']) {
 				echo '&nbsp;&nbsp;&nbsp;';
 			}
-			echo html_specialchars($value['cat_name']).'</option>'.LF;
+			echo html($value['cat_name']).'</option>'.LF;
 
 		}
 
@@ -477,7 +477,7 @@ if(count($plugin['data']['shopprod_files'])) {
 			</tr>
 		<?php	if(count($t)) {		?>
 			<tr>
-				<td class="tdtop3 v10"><?php echo nl2br(html_specialchars(implode(', ', $t))) ?></td>
+				<td class="tdtop3 v10"><?php echo nl2br(html(implode(', ', $t))) ?></td>
 			</tr>
 		<?php	}	?>
 
@@ -490,7 +490,7 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_tag'] ?>:&nbsp;</td>
-		<td><input name="shopprod_tag" type="text" id="shopprod_tag" class="v12 width400" value="<?php echo html_specialchars( trim($plugin['data']['shopprod_tag'], ',') ) ?>" size="30" maxlength="250" /></td>
+		<td><input name="shopprod_tag" type="text" id="shopprod_tag" class="v12 width400" value="<?php echo html( trim($plugin['data']['shopprod_tag'], ',') ) ?>" size="30" maxlength="250" /></td>
 	</tr>
 
 

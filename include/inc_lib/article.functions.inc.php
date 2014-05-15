@@ -46,7 +46,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 
 			} else {
 
-				$value["acat_name"] = html_specialchars($value["acat_name"]);
+				$value["acat_name"] = html($value["acat_name"]);
 				if(!$value["acat_aktiv"] || $value["acat_regonly"]) {
 					$value['status'] = array();
 					if(!$value["acat_aktiv"]) {
@@ -108,7 +108,7 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id) {
 			if(in_array($struct[$key]["acat_id"], $selected_id)) {
 				echo ' selected';
 			}
-			echo '>'.str_repeat("&#8212;", $counter).' '.html_specialchars($struct[$key]["acat_name"]);
+			echo '>'.str_repeat("&#8212;", $counter).' '.html($struct[$key]["acat_name"]);
 			echo '</option>'.LF;
 			struct_select_list($counter, $struct[$key]["acat_id"], $selected_id);
 		}

@@ -22,7 +22,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 
-		$dirname = html_specialchars($row["f_name"]);
+		$dirname = html($row["f_name"]);
 
 		//Ermitteln des Aufklappwertes
 		$klapp_status = empty($_SESSION["pklapp"][$row["f_id"]]) ? 1 : 0;
@@ -70,7 +70,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
-					$filename = html_specialchars($file_row["f_name"]);
+					$filename = html($file_row["f_name"]);
 					if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieﬂen der Filelisten-Tabelle
 						echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 					} else {

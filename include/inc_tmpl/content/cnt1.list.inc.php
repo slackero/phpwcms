@@ -45,7 +45,7 @@ $cinfo["result"] = '';
 foreach($cinfo as $value) {
 	if($value) $cinfo["result"] .= $value."\n";
 }
-$cinfo["result"] = str_replace("\n", " / ", html_specialchars(trim($cinfo["result"])));
+$cinfo["result"] = str_replace("\n", " / ", html(trim($cinfo["result"])));
 if($cinfo["result"] || $cinfo_image) { //Zeige Inhaltinfo
 	echo "<tr><td>&nbsp;</td><td class=\"v10\">";
 	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";

@@ -40,7 +40,7 @@ if(!empty($c1)) {
 	
 	foreach($_userInfo['nonImported'] as $c => $row) {
 	
-		echo '<p>'.sprintf('%0'.strlen(strval($c1*10)).'s', $c).':&nbsp;'.html_specialchars($row).'</p>'.LF;
+		echo '<p>'.sprintf('%0'.strlen(strval($c1*10)).'s', $c).':&nbsp;'.html($row).'</p>'.LF;
 	
 	}
 	echo '</div>';

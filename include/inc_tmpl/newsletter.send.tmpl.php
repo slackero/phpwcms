@@ -31,7 +31,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 	
 	<tr bgcolor="#DEF9AC">
 		<td align="right" class="chatlist" style="padding-top: 1px;"><?php echo $BL['be_msg_subject'] ?>:&nbsp;</td>
-		<td class="title"><?php echo html_specialchars($newsletter['newsletter_subject']); ?></td>
+		<td class="title"><?php echo html($newsletter['newsletter_subject']); ?></td>
 	</tr>
 
 	<tr bgcolor="#DEF9AC"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -138,7 +138,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 
 	<tr bgcolor="#DEF9AC">
 		<td align="right" class="chatlist" style="padding-top: 1px;width:100px;"><?php echo $BL['be_msg_subject'] ?>:&nbsp;</td>
-		<td class="title"><?php echo html_specialchars($newsletter['newsletter_subject']); ?></td>
+		<td class="title"><?php echo html($newsletter['newsletter_subject']); ?></td>
 	</tr>
 
 	<tr bgcolor="#DEF9AC"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>

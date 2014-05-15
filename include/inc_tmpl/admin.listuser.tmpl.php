@@ -154,7 +154,7 @@ if($_userInfo['pages_total'] > 1) {
 	<td><input type="text" name="filter" id="filter" size="10" value="<?php 
 	
 	if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
-		echo html_specialchars(implode(' ', $_SESSION['filter_results']));
+		echo html(implode(' ', $_SESSION['filter_results']));
 	}
 	
 	?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
@@ -215,9 +215,9 @@ if($_userInfo['pages_total'] > 1) {
           <td width="458" <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"inaktiv\"";} ?>><a href="<?php echo $goto ?>"><?php 
 		  
 	if($userlist["usr_name"]) {
-		$userlist["usr_name"] = html_specialchars($userlist["usr_name"]." (".$userlist["usr_login"].")");
+		$userlist["usr_name"] = html($userlist["usr_name"]." (".$userlist["usr_login"].")");
 	} else {
-		$userlist["usr_name"] = html_specialchars($userlist["usr_login"]);
+		$userlist["usr_name"] = html($userlist["usr_login"]);
 	}
 	echo $userlist["usr_name"];
 		  
@@ -231,9 +231,9 @@ if($_userInfo['pages_total'] > 1) {
 			} 
 			?>"><img src="img/button/<?php 
 			if(!$userlist["usr_aktiv"]) echo "in";
-			?>aktiv_mini.gif" alt="" width="14" height="15" border="0"></a><a href="<?php echo $goto ?>"><img src="img/button/edit.gif" alt="" width="24" height="15" border="0" title="<?php echo $BL['be_admin_usr_editusr'].": ".html_specialchars($userlist["usr_login"]) ?>"></a><a href="include/inc_act/act_user.php?del=<?php 
+			?>aktiv_mini.gif" alt="" width="14" height="15" border="0"></a><a href="<?php echo $goto ?>"><img src="img/button/edit.gif" alt="" width="24" height="15" border="0" title="<?php echo $BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]) ?>"></a><a href="include/inc_act/act_user.php?del=<?php 
 		  echo urlencode($userlist["usr_id"].":".$userlist["usr_email"]);
-		  ?>" onclick="return confirm('Delete user <?php echo js_singlequote($userlist["usr_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php echo $BL['be_admin_usr_ldel']." ".html_specialchars($userlist["usr_login"]) ?>"></a></td>
+		  ?>" onclick="return confirm('Delete user <?php echo js_singlequote($userlist["usr_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php echo $BL['be_admin_usr_ldel']." ".html($userlist["usr_login"]) ?>"></a></td>
         </tr>
         <?php
 				$zaehler++;

@@ -73,7 +73,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			
 			if(empty($_temp_gb_data['aliasID'])) {
 				echo '	<option value="'.$_aliasValue['acontent_id'].'">['.$_aliasValue['acontent_id'].'] ';
-				echo html_specialchars(getCleanSubString($_aliasValue['article_title'], 6, '&#8230;', 'word'));
+				echo html(getCleanSubString($_aliasValue['article_title'], 6, '&#8230;', 'word'));
 				echo '</option>'.LF;
 			}
 	
@@ -269,7 +269,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_guestbook_banned'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cguestbook_banned" cols="40" rows="3" class="f11" style="width:440px"><?php echo  isset($content["guestbook"]["banned"]) ? html_specialchars($content["guestbook"]["banned"]) : '' ?></textarea></td>
+  <td valign="top"><textarea name="cguestbook_banned" cols="40" rows="3" class="f11" style="width:440px"><?php echo  isset($content["guestbook"]["banned"]) ? html($content["guestbook"]["banned"]) : '' ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
 </tr>
@@ -316,7 +316,7 @@ if(!isset($content["guestbook"]["notify_email"])) {
 	 <tr>
 	 	<td><input name="cguestbook_notify" id="cguestbook_notify" type="checkbox" value="1" <?php is_checked(1, $content["guestbook"]["notify"]); ?> /></td>
 	 	<td class="v10"><label for="cguestbook_notify"><?php echo $BL['be_cnt_notify_by_email'] ?></label>&nbsp;</td>
-		<td><input name="cguestbook_notify_email" type="text" class="f11" id="cguestbook_notify_email" style="width: 200px;" size="10" value="<?php echo html_specialchars($content["guestbook"]["notify_email"]) ?>" /></td>
+		<td><input name="cguestbook_notify_email" type="text" class="f11" id="cguestbook_notify_email" style="width: 200px;" size="10" value="<?php echo html($content["guestbook"]["notify_email"]) ?>" /></td>
 	 </tr>
 	 
 	 </table></td>

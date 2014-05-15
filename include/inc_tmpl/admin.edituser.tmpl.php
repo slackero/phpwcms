@@ -227,7 +227,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           
           			<label>
           				<input type="checkbox" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
-          				<?php echo html_specialchars($value).' ('.$used_count.')' ?>
+          				<?php echo html($value).' ('.$used_count.')' ?>
           			</label>
           
           <?php	endforeach;	?>

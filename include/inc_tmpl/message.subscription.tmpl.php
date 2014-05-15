@@ -51,7 +51,7 @@ if($result = mysql_query($sql, $db) or die("error while listing subscriptions"))
 		
 		echo '<td width="473" class="dir">';
 		echo '<a href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1">';
-		echo '<strong>'.html_specialchars($row["subscription_name"])."</strong></a></td>\n";
+		echo '<strong>'.html($row["subscription_name"])."</strong></a></td>\n";
 		
 		echo '<td align="right" nowrap="nowrap" class="button_td">';
 

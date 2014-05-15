@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Plain Text
 
-$cinfo[1] = html_specialchars(cut_string($row["acontent_title"],'&#8230;', 55));
-$cinfo[2] = html_specialchars(cut_string($row["acontent_subtitle"],'&#8230;', 55));
+$cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
+$cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 $cinfo["result"] = "";
 foreach($cinfo as $value) {
 	if($value) $cinfo["result"] .= $value."\n";
@@ -36,7 +36,7 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 $form = unserialize($row["acontent_form"]);
 if($form['subject']) {
 	if($cinfo["result"]) echo '<br>';
-	echo html_specialchars($form['subject']);
+	echo html($form['subject']);
 }
 unset($form);
 echo "</td><td>&nbsp;</td></tr>";

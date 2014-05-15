@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html_specialchars($_userInfo['subscriber_data']['address_tstamp']) ?></td>
+		<td class="v10"><?php echo html($_userInfo['subscriber_data']['address_tstamp']) ?></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
@@ -36,7 +36,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		//error class
 		if(!empty($_userInfo['error']['email'])) echo ' errorInputText';
 		
-		?>" style="width:300px;" value="<?php echo html_specialchars($_userInfo['subscriber_data']['address_email']) ?>" size="30" /></td>
+		?>" style="width:300px;" value="<?php echo html($_userInfo['subscriber_data']['address_email']) ?>" size="30" /></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
@@ -44,7 +44,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	
 	<tr> 
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_name']  ?>:&nbsp;</td>
-		<td><input name="subscribe_name" type="text" id="subscribe_name" class="f11b" style="width:300px;" value="<?php echo html_specialchars($_userInfo['subscriber_data']['address_name']) ?>" size="30" /></td>
+		<td><input name="subscribe_name" type="text" id="subscribe_name" class="f11b" style="width:300px;" value="<?php echo html($_userInfo['subscriber_data']['address_name']) ?>" size="30" /></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -75,7 +75,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			}
 			$_userInfo['select_subscr'] .= ' /></td>
 				<td><label for="subscribe_to'.$value['subscription_id'].'">'.
-				html_specialchars($value['subscription_name']).
+				html($value['subscription_name']).
 				'</label></td>
 			</tr>
 			';

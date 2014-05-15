@@ -73,7 +73,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 			//Prüfen
 			$pklapp_status = empty($_SESSION["pklapp"][ "u".$row["f_uid"] ]) ? 1 : 0;
 			$root_user_id = intval($row["f_uid"]);
-			$user_naming = html_specialchars($row["usr_name"]." (".$row["usr_login"].")");
+			$user_naming = html($row["usr_name"]." (".$row["usr_login"].")");
 			$count = "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">".
 					 "<a href=\"phpwcms.php?do=files&f=1&pklapp=u".$row["f_uid"].
 					 "|".$pklapp_status."\">".on_off($pklapp_status, "\n".$BL['be_fpublic_user'].": ".$user_naming, 0)."</a>";
@@ -106,7 +106,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 				if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 					$file_durchlauf = 0;
 					while($file_row = mysql_fetch_array($file_result)) {
-						$filename = html_specialchars($file_row["f_name"]);
+						$filename = html($file_row["f_name"]);
 						if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
 							echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 						} else {

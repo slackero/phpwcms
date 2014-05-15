@@ -52,7 +52,7 @@ require_once(PHPWCMS_ROOT."/include/inc_lib/autolink.inc.php");
 			$chatclass="";
 		}
 	  	echo "<tr valign='top'>\n<td align='right'".$chatclass.">".$row["chat_name"].":&nbsp;</td>\n";
-		echo "<td width='90%'".$chatclass.">".auto_link(html_specialchars($row["chat_text"]))."</td>\n</tr>\n";
+		echo "<td width='90%'".$chatclass.">".auto_link(html($row["chat_text"]))."</td>\n</tr>\n";
 		} //Chatlisting Ende
 		
 	  ?>

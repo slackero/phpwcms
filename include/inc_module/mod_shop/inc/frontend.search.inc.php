@@ -91,13 +91,13 @@ class ModuleShopSearch {
 
 				$s_title  = $value['shopprod_ordernumber'] ? trim($value['shopprod_ordernumber']).': ' : '';
 				$s_title .= $value['shopprod_name1'];
-				$s_title  = html_specialchars($s_title);
+				$s_title  = html($s_title);
 
 				$s_text   = trim($s_text);
 				if($this->search_wordlimit) {
 					$s_text = getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word');
 				}
-				$s_text   = html_specialchars($s_text);
+				$s_text   = html($s_text);
 
 				$this->search_results[$id]["id"]	= $value['shopprod_id'];
 				$this->search_results[$id]["cid"]	= 0;

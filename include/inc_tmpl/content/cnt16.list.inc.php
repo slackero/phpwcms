@@ -52,7 +52,7 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 			if($imgx) {
 				$cinfo_img .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1">';
 			}
-			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html_specialchars($image_list['images'][$key][1]).'">';
+			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'">';
 			$imgx++;
 		}
 	}
@@ -97,12 +97,12 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 
 							 $cinfo["result"] = trim($cinfo["result"]);
 							 if($cinfo["result"] && $cinfo_imagelist) {
-							 	$cinfo["result"] = html_specialchars($cinfo["result"])."<br />".$cinfo_imagelist;
+							 	$cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_imagelist;
 							 } else {
 							 	if($cinfo_imagelist) {
 									$cinfo["result"] = $cinfo_imagelist;
 								} else {
-									$cinfo["result"] = html_specialchars($cinfo["result"]);
+									$cinfo["result"] = html($cinfo["result"]);
 								}
 							 }
 

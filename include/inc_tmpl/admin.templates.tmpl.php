@@ -42,7 +42,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"28\">"; //#F9FAFB
 		echo '<img src="img/symbole/template_list_icon.gif" width="28" height="18"></td>'."\n";
 		echo '<td width="470" class="dir"><a href="phpwcms.php?'.$edit_link;
-		echo '"><strong>'.html_specialchars($row["template_name"])."</strong>";
+		echo '"><strong>'.html($row["template_name"])."</strong>";
 		echo ($row["template_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : "";
 		echo "</a></td>\n".'<td width="60" align="right">';
 		echo '<a href="phpwcms.php?'.$edit_link;
@@ -56,8 +56,8 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
                 // ERICH COPY TEMPLATE END 7.6.2005
 
 		echo '<a href="include/inc_act/act_frontendsetup.php?do=2|'.$row["template_id"].'" ';
-		echo 'title="'.$BL['be_cnt_delete'].': '.html_specialchars($row["template_name"]).'" ';
-		echo 'onclick="return confirm(\''.js_singlequote($BL['be_cnt_delete'].': '.html_specialchars($row["template_name"])).'\');">';
+		echo 'title="'.$BL['be_cnt_delete'].': '.html($row["template_name"]).'" ';
+		echo 'onclick="return confirm(\''.js_singlequote($BL['be_cnt_delete'].': '.html($row["template_name"])).'\');">';
 		echo '<img src="img/button/del_11x11.gif" width="11" height="11" border="0"></a>';
 		echo '<img src="img/leer.gif" width="2" height="1">'."</td>\n</tr>\n";
 		$row_count++;
@@ -207,7 +207,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 <form action="phpwcms.php?do=admin&amp;p=11&amp;s=<?php echo $template["id"] ?>" method="post" name="blocks" target="_self" id="blocks">
   <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 
-	<tr><td colspan="2" class="title"><?php echo (empty($createcopy) ? $BL['be_admin_tmpl_edit'] : $BL['be_admin_tmpl_copy']) ?>: <?php echo ($template["id"]) ? html_specialchars($template["name"]) : $BL['be_admin_tmpl_new']; ?>
+	<tr><td colspan="2" class="title"><?php echo (empty($createcopy) ? $BL['be_admin_tmpl_edit'] : $BL['be_admin_tmpl_copy']) ?>: <?php echo ($template["id"]) ? html($template["name"]) : $BL['be_admin_tmpl_new']; ?>
 	    <input type="hidden" name="c" value="<?php echo $createcopy; ?>" /></td></tr>
 	<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
 	</tr>
@@ -220,9 +220,9 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		    <td><?php
 // ERICH COPY TEMPLATE 08.06.2005
 if(empty($createcopy)) {
-	echo '<input name="template_name" type="text" class="f11b width350" id="template_name" value="'.html_specialchars($template["name"]).'" size="50" maxlength="150">';
+	echo '<input name="template_name" type="text" class="f11b width350" id="template_name" value="'.html($template["name"]).'" size="50" maxlength="150">';
 } else {
-	echo '<img src="img/symbole/achtung.gif" width="13" height="11" alt="" border="0" style="margin-right:2px;" /><input name="template_name" type="text" class="f11b width350" id="template_name" style="color:FF3300" value="'.html_specialchars($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
+	echo '<img src="img/symbole/achtung.gif" width="13" height="11" alt="" border="0" style="margin-right:2px;" /><input name="template_name" type="text" class="f11b width350" id="template_name" style="color:FF3300" value="'.html($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
 }
 ?></td>
 		    <td>&nbsp;</td>
@@ -255,7 +255,7 @@ if($result = mysql_query($sql, $db) or die("error while listing pagelayouts")) {
 				$jsOnChange = '';
 			}
 		}
-		$opt .= '>'.html_specialchars($row['pagelayout_name']).'</option>'."\n";
+		$opt .= '>'.html($row['pagelayout_name']).'</option>'."\n";
 	}
 	mysql_free_result($result);
 }
@@ -292,7 +292,7 @@ $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_settings/template_default', 'ph
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($template["overwrite"]) && $val == $template["overwrite"]) ? ' selected="selected"' : '';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 	}
 }
@@ -336,13 +336,13 @@ if(is_dir(PHPWCMS_TEMPLATE."inc_css")) {
 // now run the css information
 foreach($template["css"] as $value) {
 	if(isset($unselected_css[$value])) {
-		$css_file = html_specialchars($value);
+		$css_file = html($value);
 		echo '		<option value="'.$css_file.'" selected="selected" style="font-weight: bold;">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
 		unset($unselected_css[$value]);
 	}
 }
 foreach($unselected_css as $value) {
-	$css_file = html_specialchars($value);
+	$css_file = html($value);
 	echo '		<option value="'.$css_file.'">'.$css_file.'&nbsp;&nbsp;</option>'.LF;
 }
 
@@ -379,7 +379,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
 
 	echo '		<option value="' . $key . '"';
 	is_selected($template['jslib'], $key);
-	echo '>' . html_specialchars($value) . '</option>' . LF;
+	echo '>' . html($value) . '</option>' . LF;
 
 }
 ?>
@@ -476,12 +476,12 @@ if(!empty($jsOnChange))  {
 	echo '<tr><td colspan="2"><img src="img/leer.gif" width="1" height="5" alt="" /></td></tr>';
 	echo '<tr><td colspan="2"><img src="img/lines/l538_70.gif" width="538" height="1" alt="" /></td></tr>';
 	echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" width="1" height="8" alt="" />';
-	echo '<input type="hidden" name="customblock" value="'.html_specialchars(implode(',', $custom_blocks)).'" />';
+	echo '<input type="hidden" name="customblock" value="'.html(implode(',', $custom_blocks)).'" />';
 	echo "</td></tr>\n";
 	// list custom blocks
 	foreach($custom_blocks as $value) {
 
-		$custom_block = html_specialchars($value);
+		$custom_block = html($value);
 
 		echo '<tr bgcolor="#F3F5F8"><td><img src="img/leer.gif" width="1" height="14" alt="" /></td>';
 		echo '<td class="chatlist" valign="top">'.$custom_block." {".$custom_block."}</td>\n</tr>\n";

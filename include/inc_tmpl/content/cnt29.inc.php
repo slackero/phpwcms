@@ -80,7 +80,7 @@ $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/images');
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($content["image_template"]) && $val == $content["image_template"]) ? ' selected="selected"' : '';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 	}
 }
@@ -244,7 +244,7 @@ if($img_count) {
 
 			// image found
 			echo '<option value="' . $content['image_list']['images'][$key][0] . '">';
-			$img_name = html_specialchars($content['image_list']['images'][$key][1]);
+			$img_name = html($content['image_list']['images'][$key][1]);
 			echo $img_name . '</option>'.LF;
 
 			if($imgx == 4) {
@@ -256,7 +256,7 @@ if($img_count) {
 			}
 			$img_thumbs .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
 
-			$caption_box[] = html_specialchars($content['image_list']['images'][$key][6]);
+			$caption_box[] = html($content['image_list']['images'][$key][6]);
 
 			$imgx++;
 		}

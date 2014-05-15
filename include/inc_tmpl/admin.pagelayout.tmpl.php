@@ -36,7 +36,7 @@ if(!isset($_GET["s"])) {
 			echo '<img src="img/famfamfam/layout.gif" alt="" border="0" /></td>'."\n";
 			
 			echo '<td class="dir"><a href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"];
-			echo '"><strong>'.html_specialchars($row["pagelayout_name"])."</strong>";
+			echo '"><strong>'.html($row["pagelayout_name"])."</strong>";
 			
 			echo ($row["pagelayout_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : "";
 			
@@ -46,8 +46,8 @@ if(!isset($_GET["s"])) {
 			echo '<img src="img/button/edit_22x13.gif" alt="" border="0" /></a>';
 			
 			echo '<a href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
-			echo 'title="delete pagelayout: '.html_specialchars($row["pagelayout_name"]);
-			echo '" style="margin-left:3px" onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html_specialchars($row["pagelayout_name"])).'?  \')">';
+			echo 'title="delete pagelayout: '.html($row["pagelayout_name"]);
+			echo '" style="margin-left:3px" onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
 			echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 			
 			echo "</td>\n</tr>\n";
@@ -305,7 +305,7 @@ if(!isset($_GET["s"])) {
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_name'] ?>:&nbsp;</td>
 			  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 				 <tr>
-					<td><input name="layout_name" type="text" class="f11b" id="layout_name" style="width: 350px;" value="<?php echo  isset($pagelayout["layout_name"]) ? html_specialchars($pagelayout["layout_name"]) : '' ?>" size="20" maxlength="150"></td>
+					<td><input name="layout_name" type="text" class="f11b" id="layout_name" style="width: 350px;" value="<?php echo  isset($pagelayout["layout_name"]) ? html($pagelayout["layout_name"]) : '' ?>" size="20" maxlength="150"></td>
 					<td>&nbsp;&nbsp;</td>
 					<td><input name="layout_default" id="layout_default" type="checkbox" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>></td>
 					<td class="v10"><label for="layout_default"><?php echo $BL['be_admin_tmpl_default'] ?></label></td>
@@ -339,7 +339,7 @@ if(!isset($_GET["s"])) {
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'] ?>:&nbsp;</td>
               <td bgcolor="#E6EAED" class="tdtop3 tdbottom3">
-			  	&nbsp;<input name="layout_customblocks" type="text" class="f10" id="layout_customblocks" style="width: 400px;" value="<?php echo  isset($pagelayout["layout_customblocks"]) ? html_specialchars($pagelayout["layout_customblocks"]) : '' ?>" size="20">
+			  	&nbsp;<input name="layout_customblocks" type="text" class="f10" id="layout_customblocks" style="width: 400px;" value="<?php echo  isset($pagelayout["layout_customblocks"]) ? html($pagelayout["layout_customblocks"]) : '' ?>" size="20">
 				</td>
 			</tr>		
 			
@@ -347,7 +347,7 @@ if(!isset($_GET["s"])) {
 
 		<tr>
 			  <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-			  <td><input name="layout_title" type="text" class="f11b" id="layout_title" style="width: 400px;" value="<?php echo html_specialchars($pagelayout["layout_title"]); ?>" size="20" maxlength="100"></td>
+			  <td><input name="layout_title" type="text" class="f11b" id="layout_title" style="width: 400px;" value="<?php echo html($pagelayout["layout_title"]); ?>" size="20" maxlength="100"></td>
 			</tr>
 			<tr><td colspan="2" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 			<tr>
@@ -384,7 +384,7 @@ if(!isset($_GET["s"])) {
 				  </select></td>
 				  
 				  <td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_field']['break'] ?>:&nbsp;</td>
-				  <td><input name="layout_title_spacer" type="text" class="v11 width40" id="layout_title_spacer" value="<?php echo html_specialchars($pagelayout["layout_title_spacer"]); ?>" size="20" maxlength="100"></td>
+				  <td><input name="layout_title_spacer" type="text" class="v11 width40" id="layout_title_spacer" value="<?php echo html($pagelayout["layout_title_spacer"]); ?>" size="20" maxlength="100"></td>
 			
 				</tr>
               </table></td>
@@ -441,9 +441,9 @@ if(!isset($_GET["s"])) {
               <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
                   <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td><input name="layout_bgcolor" type="text" class="f10" id="layout_bgcolor2" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td><input name="layout_bgcolor" type="text" class="f10" id="layout_bgcolor2" style="width: 55px;" value="<?php echo html($pagelayout["layout_bgcolor"]); ?>" size="7" maxlength="7"></td>
                   <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td><input name="layout_bgimage" type="text" class="f10" id="layout_bgimage" style="width: 270px;" value="<?php echo html_specialchars($pagelayout["layout_bgimage"]); ?>" size="20"></td>
+                  <td><input name="layout_bgimage" type="text" class="f10" id="layout_bgimage" style="width: 270px;" value="<?php echo html($pagelayout["layout_bgimage"]); ?>" size="20"></td>
                   <td><img src="img/leer.gif" alt="" width="1" height="20"></td>
                 </tr>
               </table></td>
@@ -453,13 +453,13 @@ if(!isset($_GET["s"])) {
               <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
 				  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_text'] ?>:&nbsp;</td>
-                  <td><input name="layout_textcolor" type="text" class="f10" id="layout_textcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_textcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td><input name="layout_textcolor" type="text" class="f10" id="layout_textcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_textcolor"]); ?>" size="7" maxlength="7"></td>
                   <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_link'] ?>:&nbsp;</td>
-                  <td><input name="layout_linkcolor" type="text" class="f10" id="layout_linkcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_linkcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td><input name="layout_linkcolor" type="text" class="f10" id="layout_linkcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_linkcolor"]); ?>" size="7" maxlength="7"></td>
                   <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_visited'] ?>:&nbsp;</td>
-                  <td><input name="layout_vcolor" type="text" class="f10" id="layout_vcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_vcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td><input name="layout_vcolor" type="text" class="f10" id="layout_vcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_vcolor"]); ?>" size="7" maxlength="7"></td>
                   <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_ftptakeover_active'] ?>:&nbsp;</td>
-                  <td><input name="layout_acolor" type="text" class="f10" id="layout_acolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_acolor"]); ?>" size="7" maxlength="7"></td>
+                  <td><input name="layout_acolor" type="text" class="f10" id="layout_acolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_acolor"]); ?>" size="7" maxlength="7"></td>
                   <td><img src="img/leer.gif" alt="" width="1" height="20"></td>
 				</tr>
               </table></td>
@@ -469,7 +469,7 @@ if(!isset($_GET["s"])) {
               <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
   				<tr>
     				<td class="v10">&nbsp;&nbsp;onload:&nbsp;</td>
-   					<td><input name="layout_jsonload" type="text" class="f10" id="layout_jsonload" style="width: 382px;" value="<?php echo html_specialchars($pagelayout["layout_jsonload"]); ?>" size="20"></td>
+   					<td><input name="layout_jsonload" type="text" class="f10" id="layout_jsonload" style="width: 382px;" value="<?php echo html($pagelayout["layout_jsonload"]); ?>" size="20"></td>
   				    <td><img src="img/leer.gif" alt="" width="1" height="20"></td>
 				</tr>
 			   </table></td>
@@ -514,11 +514,11 @@ if(!isset($_GET["s"])) {
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
                     <td width="35"><input name="layout_all_width" type="text" class="f10" id="layout_all_width" style="width: 35px;" value="<?php echo $pagelayout["layout_all_width"] ?>" size="4" maxlength="4"></td>
                     <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_all_bgcolor" type="text" class="f10" id="layout_all_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_all_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                    <td width="55"><input name="layout_all_bgcolor" type="text" class="f10" id="layout_all_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_all_bgcolor"]); ?>" size="7" maxlength="7"></td>
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_all_bgimage" type="text" class="f10" id="layout_all_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_all_bgimage"]); ?>" size="7"></td>
+                    <td width="100"><input name="layout_all_bgimage" type="text" class="f10" id="layout_all_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_all_bgimage"]); ?>" size="7"></td>
                     <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_all_class" type="text" class="f10" id="layout_all_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_all_class"]); ?>" size="7"></td>
+                    <td width="55"><input name="layout_all_class" type="text" class="f10" id="layout_all_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_all_class"]); ?>" size="7"></td>
                     <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                   </tr>
                 </table></td>
@@ -530,11 +530,11 @@ if(!isset($_GET["s"])) {
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
                   <td width="35"><input name="layout_left_width" type="text" class="f10" id="layout_left_width" style="width: 35px;" value="<?php echo $pagelayout["layout_left_width"] ?>" size="4" maxlength="4"></td>
                   <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_left_bgcolor" type="text" class="f10" id="layout_left_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_left_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td width="55"><input name="layout_left_bgcolor" type="text" class="f10" id="layout_left_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_left_bgcolor"]); ?>" size="7" maxlength="7"></td>
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_left_bgimage" type="text" class="f10" id="layout_left_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_left_bgimage"]); ?>" size="7"></td>
+                  <td width="100"><input name="layout_left_bgimage" type="text" class="f10" id="layout_left_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_left_bgimage"]); ?>" size="7"></td>
                   <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_left_class" type="text" class="f10" id="layout_left_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_left_class"]); ?>" size="7"></td>
+                  <td width="55"><input name="layout_left_class" type="text" class="f10" id="layout_left_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_left_class"]); ?>" size="7"></td>
                   <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                 </tr>
               </table></td>
@@ -546,11 +546,11 @@ if(!isset($_GET["s"])) {
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
                   <td width="35"><input name="layout_leftspace_width" type="text" class="f10" id="layout_leftspace_width" style="width: 35px;" value="<?php echo $pagelayout["layout_leftspace_width"] ?>" size="4" maxlength="4"></td>
                   <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_leftspace_bgcolor" type="text" class="f10" id="layout_leftspace_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_leftspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td width="55"><input name="layout_leftspace_bgcolor" type="text" class="f10" id="layout_leftspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_leftspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_leftspace_bgimage" type="text" class="f10" id="layout_leftspace_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_leftspace_bgimage"]); ?>" size="7"></td>
+                  <td width="100"><input name="layout_leftspace_bgimage" type="text" class="f10" id="layout_leftspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_leftspace_bgimage"]); ?>" size="7"></td>
                   <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_leftspace_class" type="text" class="f10" id="layout_leftspace_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_leftspace_class"]); ?>" size="7"></td>
+                  <td width="55"><input name="layout_leftspace_class" type="text" class="f10" id="layout_leftspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_leftspace_class"]); ?>" size="7"></td>
                   <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                 </tr>
               </table></td>
@@ -562,11 +562,11 @@ if(!isset($_GET["s"])) {
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
                   <td width="35"><input name="layout_content_width" type="text" class="f10" id="layout_content_width" style="width: 35px;" value="<?php echo $pagelayout["layout_content_width"] ?>" size="4" maxlength="4"></td>
                   <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_content_bgcolor" type="text" class="f10" id="layout_content_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_content_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td width="55"><input name="layout_content_bgcolor" type="text" class="f10" id="layout_content_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_content_bgcolor"]); ?>" size="7" maxlength="7"></td>
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_content_bgimage" type="text" class="f10" id="layout_content_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_content_bgimage"]); ?>" size="7"></td>
+                  <td width="100"><input name="layout_content_bgimage" type="text" class="f10" id="layout_content_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_content_bgimage"]); ?>" size="7"></td>
                   <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_content_class" type="text" class="f10" id="layout_content_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_content_class"]); ?>" size="7"></td>
+                  <td width="55"><input name="layout_content_class" type="text" class="f10" id="layout_content_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_content_class"]); ?>" size="7"></td>
                   <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                 </tr>
               </table></td>
@@ -578,11 +578,11 @@ if(!isset($_GET["s"])) {
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
                   <td width="35"><input name="layout_rightspace_width" type="text" class="f10" id="layout_rightspace_width" style="width: 35px;" value="<?php echo $pagelayout["layout_rightspace_width"] ?>" size="4" maxlength="4"></td>
                   <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_rightspace_bgcolor" type="text" class="f10" id="layout_rightspace_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_rightspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td width="55"><input name="layout_rightspace_bgcolor" type="text" class="f10" id="layout_rightspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_rightspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_rightspace_bgimage" type="text" class="f10" id="layout_rightspace_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_rightspace_bgimage"]); ?>" size="7"></td>
+                  <td width="100"><input name="layout_rightspace_bgimage" type="text" class="f10" id="layout_rightspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_rightspace_bgimage"]); ?>" size="7"></td>
                   <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_rightspace_class" type="text" class="f10" id="layout_rightspace_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_rightspace_class"]); ?>" size="7"></td>
+                  <td width="55"><input name="layout_rightspace_class" type="text" class="f10" id="layout_rightspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_rightspace_class"]); ?>" size="7"></td>
                   <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                 </tr>
               </table></td>
@@ -594,11 +594,11 @@ if(!isset($_GET["s"])) {
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
                   <td width="35"><input name="layout_right_width" type="text" class="f10" id="layout_right_width" style="width: 35px;" value="<?php echo $pagelayout["layout_right_width"] ?>" size="4" maxlength="4"></td>
                   <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_right_bgcolor" type="text" class="f10" id="layout_right_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_right_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                  <td width="55"><input name="layout_right_bgcolor" type="text" class="f10" id="layout_right_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_right_bgcolor"]); ?>" size="7" maxlength="7"></td>
                   <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_right_bgimage" type="text" class="f10" id="layout_right_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_right_bgimage"]); ?>" size="7"></td>
+                  <td width="100"><input name="layout_right_bgimage" type="text" class="f10" id="layout_right_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_right_bgimage"]); ?>" size="7"></td>
                   <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_right_class" type="text" class="f10" id="layout_right_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_right_class"]); ?>" size="7"></td>
+                  <td width="55"><input name="layout_right_class" type="text" class="f10" id="layout_right_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_right_class"]); ?>" size="7"></td>
                   <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                 </tr>
               </table></td>
@@ -613,11 +613,11 @@ if(!isset($_GET["s"])) {
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
                     <td width="35"><input name="layout_header_height" type="text" class="f10" id="layout_header_height" style="width: 35px;" value="<?php echo $pagelayout["layout_header_height"] ?>" size="4" maxlength="4"></td>
                     <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_header_bgcolor" type="text" class="f10" id="layout_header_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_header_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                    <td width="55"><input name="layout_header_bgcolor" type="text" class="f10" id="layout_header_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_header_bgcolor"]); ?>" size="7" maxlength="7"></td>
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_header_bgimage" type="text" class="f10" id="layout_header_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_header_bgimage"]); ?>" size="7"></td>
+                    <td width="100"><input name="layout_header_bgimage" type="text" class="f10" id="layout_header_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_header_bgimage"]); ?>" size="7"></td>
                     <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_header_class" type="text" class="f10" id="layout_header_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_header_class"]); ?>" size="7"></td>
+                    <td width="55"><input name="layout_header_class" type="text" class="f10" id="layout_header_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_header_class"]); ?>" size="7"></td>
                     <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                   </tr>
                 </table></td>
@@ -629,11 +629,11 @@ if(!isset($_GET["s"])) {
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
                     <td width="35"><input name="layout_topspace_height" type="text" class="f10" id="layout_topspace_height" style="width: 35px;" value="<?php echo $pagelayout["layout_topspace_height"] ?>" size="4" maxlength="4"></td>
                     <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_topspace_bgcolor" type="text" class="f10" id="layout_topspace_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_topspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                    <td width="55"><input name="layout_topspace_bgcolor" type="text" class="f10" id="layout_topspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_topspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_topspace_bgimage" type="text" class="f10" id="layout_topspace_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_topspace_bgimage"]); ?>" size="7"></td>
+                    <td width="100"><input name="layout_topspace_bgimage" type="text" class="f10" id="layout_topspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_topspace_bgimage"]); ?>" size="7"></td>
                     <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_topspace_class" type="text" class="f10" id="layout_topspace_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_topspace_class"]); ?>" size="7"></td>
+                    <td width="55"><input name="layout_topspace_class" type="text" class="f10" id="layout_topspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_topspace_class"]); ?>" size="7"></td>
                     <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                   </tr>
                 </table></td>
@@ -645,11 +645,11 @@ if(!isset($_GET["s"])) {
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
                     <td width="35"><input name="layout_bottomspace_height" type="text" class="f10" id="layout_bottomspace_height" style="width: 35px;" value="<?php echo $pagelayout["layout_bottomspace_height"] ?>" size="4" maxlength="4"></td>
                     <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_bottomspace_bgcolor" type="text" class="f10" id="layout_bottomspace_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_bottomspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                    <td width="55"><input name="layout_bottomspace_bgcolor" type="text" class="f10" id="layout_bottomspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_bottomspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_bottomspace_bgimage" type="text" class="f10" id="layout_bottomspace_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_bottomspace_bgimage"]); ?>" size="7"></td>
+                    <td width="100"><input name="layout_bottomspace_bgimage" type="text" class="f10" id="layout_bottomspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_bottomspace_bgimage"]); ?>" size="7"></td>
                     <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_bottomspace_class" type="text" class="f10" id="layout_bottomspace_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_bottomspace_class"]); ?>" size="7"></td>
+                    <td width="55"><input name="layout_bottomspace_class" type="text" class="f10" id="layout_bottomspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_bottomspace_class"]); ?>" size="7"></td>
                     <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                   </tr>
                 </table></td>
@@ -661,11 +661,11 @@ if(!isset($_GET["s"])) {
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
                     <td width="35"><input name="layout_footer_height" type="text" class="f10" id="layout_footer_height" style="width: 35px;" value="<?php echo $pagelayout["layout_footer_height"] ?>" size="4" maxlength="4"></td>
                     <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_footer_bgcolor" type="text" class="f10" id="layout_footer_bgcolor" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_footer_bgcolor"]); ?>" size="7" maxlength="7"></td>
+                    <td width="55"><input name="layout_footer_bgcolor" type="text" class="f10" id="layout_footer_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_footer_bgcolor"]); ?>" size="7" maxlength="7"></td>
                     <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_footer_bgimage" type="text" class="f10" id="layout_footer_bgimage" style="width: 100px;" value="<?php echo html_specialchars($pagelayout["layout_footer_bgimage"]); ?>" size="7"></td>
+                    <td width="100"><input name="layout_footer_bgimage" type="text" class="f10" id="layout_footer_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_footer_bgimage"]); ?>" size="7"></td>
                     <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_footer_class" type="text" class="f10" id="layout_footer_class" style="width: 55px;" value="<?php echo html_specialchars($pagelayout["layout_footer_class"]); ?>" size="7"></td>
+                    <td width="55"><input name="layout_footer_class" type="text" class="f10" id="layout_footer_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_footer_class"]); ?>" size="7"></td>
                     <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
                   </tr>
                 </table></td>

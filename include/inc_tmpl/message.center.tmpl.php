@@ -135,12 +135,12 @@ $no_durchlauf = 0;
 		<tr bgcolor="#FFF8DF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
         <tr bgcolor="#FFF8DF">
 		  <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-          <td class="msgtext"><strong><?php echo html_specialchars($msgdetail["msg_subject"]) ?></strong></td>
+          <td class="msgtext"><strong><?php echo html($msgdetail["msg_subject"]) ?></strong></td>
 		  <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
         </tr>
         <tr bgcolor="#FFF8DF">
 		  <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-          <td class="msgtext"><?php echo auto_link(nl2br(html_specialchars($msgdetail["msg_text"]))) ?></td>
+          <td class="msgtext"><?php echo auto_link(nl2br(html($msgdetail["msg_text"]))) ?></td>
 		  <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
         </tr>
         <tr bgcolor="#FFF8DF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>

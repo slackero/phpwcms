@@ -136,6 +136,7 @@ define ('PHPWCMS_REWRITE',			empty($phpwcms["rewrite_url"]) ? false : true);
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define ('PHPWCMS_ALIAS_WSLASH',		empty($phpwcms['alias_allow_slash']) ? false : true);
 define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
+define ('IS_PHP523',				version_compare(PHP_VERSION, '5.2.3', '>='));
 
 // Mime-Type definitions
 require_once(PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php');
@@ -439,10 +440,10 @@ function dumpVar($var, $commented=false) {
 					echo "\n//-->\n";
 					return NULL;
 					break;
-		case 2:		return '<pre>'.html_specialchars(print_r($var, true)).'</pre>';
+		case 2:		return '<pre>'.html(print_r($var, true)).'</pre>';
 					break;
 		default: 	echo '<pre>';
-					echo html_specialchars(print_r($var, true));
+					echo html(print_r($var, true));
 					echo '</pre>';
 					return NULL;
 	}
@@ -533,7 +534,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 			break;
 
 		case 'htmlspecialchars':
-			$glue	= html_specialchars($glue);
+			$glue	= html($glue);
 			$funct	= 'getQueryString_htmlspecialchars';
 			break;
 
@@ -590,11 +591,11 @@ function getQueryString_htmlentities($key='', $value='', $bind='=') {
 
 function getQueryString_htmlspecialchars($key='', $value='', $bind='=') {
 	if($value !== '') {
-		return html_specialchars(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
+		return html(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
 	} elseif(PHPWCMS_ALIAS_WSLASH) {
-		return html_specialchars(str_replace('%2F', '/', urlencode($key)));
+		return html(str_replace('%2F', '/', urlencode($key)));
 	}
-	return html_specialchars(urlencode($key));
+	return html(urlencode($key));
 }
 
 function getQueryString_urlencode($key='', $value='', $bind='=') {
@@ -996,17 +997,24 @@ function init_frontend_edit() {
 	}
 }
 
+if(IS_PHP523) {
+	function html($string, $double_encode=true) {
+		return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+	}
+} else {
+	function html($string, $double_encode=true) {
+		return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET);
+	}
+}
 function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
 	return htmlentities($string, $quote_mode, $charset);
 }
-
 function html_specialchars($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
 	//used to replace the htmlspecialchars original php function
-	//not compatible with many internation chars like turkish, polish
+	//not compatible with many international chars like turkish, polish
 	$string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $string ); //works correct for "&#8230;" and/or "&ndash;"
 	$string = str_replace( array('<', '>', '"', "'", "\\"), array('&lt;','&gt;', '&quot;', '&#039;', '&#92;'), $string);
 	return $string;
-
 }
 
 function getMicrotime() {

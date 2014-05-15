@@ -16,8 +16,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-$order_process  = str_replace('{CURRENCY_SYMBOL}', html_specialchars($_shopPref['shop_pref_currency']), $order_process);
-$order_process  = str_replace('{WEIGHT_UNIT}', html_specialchars($_shopPref['shop_pref_unit_weight']), $order_process);
+$order_process  = str_replace('{CURRENCY_SYMBOL}', html($_shopPref['shop_pref_currency']), $order_process);
+$order_process  = str_replace('{WEIGHT_UNIT}', html($_shopPref['shop_pref_unit_weight']), $order_process);
 
 $subtotal['float_net']		= $subtotal['net'];
 $subtotal['float_gross']	= $subtotal['gross'];
@@ -49,11 +49,11 @@ $order_process 		= str_replace('{SUBTOTAL_WEIGHT}', $subtotal['weight'], $order_
 
 // calculate discount
 if(empty($_shopPref['shop_pref_discount']['discount']) || empty($_shopPref['shop_pref_discount']['percent'])) {
-	
+
 	$subtotal['float_discount_net']		= 0;
 	$subtotal['float_discount_vat']		= 0;
 	$subtotal['float_discount_gross']	= 0;
-	
+
 } else {
 
 	$subtotal['float_discount_net']		= round($subtotal['float_net'] * $_shopPref['shop_pref_discount']['percent'] / 100, 2);
@@ -75,17 +75,17 @@ $order_process  = str_replace('{DISCOUNT_GROSS}', $subtotal['total_discount_gros
 // calculate low oder surcharge
 $_shopPref['shop_pref_loworder']['under'] = floatval($_shopPref['shop_pref_loworder']['under']);
 if(empty($_shopPref['shop_pref_loworder']['loworder']) || empty($_shopPref['shop_pref_loworder']['charge']) || $subtotal['float_net'] > $_shopPref['shop_pref_loworder']['under']) {
-	
+
 	$subtotal['float_loworder_net']		= 0;
 	$subtotal['float_loworder_vat']		= 0;
 	$subtotal['float_loworder_gross']	= 0;
-	
+
 } else {
 
 	$subtotal['float_loworder_net']		= $_shopPref['shop_pref_loworder']['charge'];
 	$subtotal['float_loworder_gross']	= round( $subtotal['float_loworder_net'] * ( 1 + ($_shopPref['shop_pref_loworder']['vat'] / 100) ), 2 );
 	$subtotal['float_loworder_vat']		= $subtotal['float_loworder_gross'] - $subtotal['float_loworder_net'];
-	
+
 }
 $subtotal['total_loworder_net']		= number_format($subtotal['float_loworder_net'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
 $subtotal['total_loworder_vat']		= number_format($subtotal['float_loworder_vat'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);

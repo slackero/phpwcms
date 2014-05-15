@@ -44,7 +44,7 @@ if(isset($_POST['do_pagination'])) {
 		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
 		$_POST['filter']	= $_SESSION['filter'];
 	}
-	
+
 	$_SESSION['detail_page'] = intval($_POST['page']);
 
 }
@@ -59,34 +59,34 @@ $_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_i
 
 // set correct status query
 if($_entry['list_active'] != $_entry['list_inactive']) {
-	
+
 	if(!$_entry['list_active']) {
 		$_entry['query'] .= 'shopprod_status=0';
 	}
 	if(!$_entry['list_inactive']) {
 		$_entry['query'] .= 'shopprod_status=1';
 	}
-	
+
 } else {
 	$_entry['query'] .= 'shopprod_status!=9';
 }
 
 if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
-	
+
 	$_entry['filter_array'] = array();
 
 	foreach($_SESSION['filter'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
-		$_entry['filter_array'][] = "CONCAT(	shopprod_ordernumber, 	shopprod_model,			shopprod_name1,		
+		$_entry['filter_array'][] = "CONCAT(	shopprod_ordernumber, 	shopprod_model,			shopprod_name1,
 												shopprod_name2,			shopprod_tag,			(shopprod_price+' '),
 												shopprod_description1,	shopprod_description2,	shopprod_description3
-											) LIKE '%".aporeplace($_entry['filter'])."%'";		
+											) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
-		
+
 		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
 		$_entry['query'] .= $_SESSION['filter'];
-	
+
 	}
 
 } elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
@@ -119,13 +119,13 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
-				
+
 				<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> /></td>
 				<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
 				<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> /></td>
 				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
 
-<?php 
+<?php
 if($_entry['pages_total'] > 1) {
 
 	echo '<td class="chatlist">|&nbsp;</td>';
@@ -155,15 +155,15 @@ if($_entry['pages_total'] > 1) {
 
 }
 ?>
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php 
-				
+				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html_specialchars(implode(' ', $_POST['filter']));
+					echo html(implode(' ', $_POST['filter']));
 				}
-				
+
 				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
 				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-			
+
 			</tr>
 		</table></td>
 
@@ -181,7 +181,7 @@ if($_entry['pages_total'] > 1) {
 </form>
 
 <table width="700" border="0" cellpadding="0" cellspacing="0" summary="" class="shop">
-		
+
 	<tr>
 		<th>&nbsp;</th>
 		<th>&nbsp;<?php echo $BLM['th_ordnr'] ?></th>
@@ -190,11 +190,11 @@ if($_entry['pages_total'] > 1) {
 		<th style="text-align:right;padding-right:5px;">&nbsp;<?php echo $BLM['th_price'] ?>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
-	
-	
+
+
 <?php
 // loop listing available newsletters
-$row_count = 0;                
+$row_count = 0;
 
 $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_shop_products WHERE '.$_entry['query'].' ';
 //$sql .= 'ORDER BY shopprod_name ASC ';
@@ -207,35 +207,35 @@ $_controller_link =  shop_url('controller=prod');
 foreach($data as $row) {
 
 	echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
-	
+
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
 	echo '<img src="img/famfamfam/package.gif" alt="'.$BLM['shop_product'].'" /></td>'.LF;
-	
+
 	echo '<td class="dir">';
 	if(SHOP_FELANG_SUPPORT) {
-		$row['shopprod_lang'] = html_specialchars(strtolower($row['shopprod_lang']));
+		$row['shopprod_lang'] = html(strtolower($row['shopprod_lang']));
 		echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ? $row['shopprod_lang'] : 'all').'.png" alt="'.$row['shopprod_lang'].'" />';
 	}
-	echo '&nbsp;' . html_specialchars($row['shopprod_ordernumber']) . "</td>\n";
-	echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
-	echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_name1'])."</td>\n";
-	echo '<td class="dir listNumber">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
+	echo '&nbsp;' . html($row['shopprod_ordernumber']) . "</td>\n";
+	echo '<td class="dir">&nbsp;'.html($row['shopprod_model'])."</td>\n";
+	echo '<td class="dir">&nbsp;'.html($row['shopprod_name1'])."</td>\n";
+	echo '<td class="dir listNumber">&nbsp;'.html( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
 
 	echo '<td align="right" nowrap="nowrap" class="button_td">';
-	
-		echo '<a href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';		
+
+		echo '<a href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
 		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
-	
+
 		echo '<a href="'.$_controller_link.'&amp;status=' . $row["shopprod_id"] . '-' . $row["shopprod_status"] .'">';
 		echo '<img src="img/button/aktiv_12x13_'.$row["shopprod_status"].'.gif" border="0" alt="" /></a>';
-	
+
 		echo '<a href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
-		echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
+		echo '" title="delete: '.html($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
 		echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
 		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
-	
+
 	echo '</td>'.LF;
-	
+
 	echo '</tr>'.LF;
 
 	$row_count++;
@@ -245,6 +245,6 @@ if($row_count) {
 	echo '<tr><td colspan="6" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
 }
 
-?>	
+?>
 
 </table>

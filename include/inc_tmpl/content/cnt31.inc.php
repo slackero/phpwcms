@@ -80,7 +80,7 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 	if(is_array($tmpllist) && count($tmpllist)) {
 		foreach($tmpllist as $val) {
 			$selected_val = (isset($content["image_template"]) && $val == $content["image_template"]) ? ' selected="selected"' : '';
-			$val = html_specialchars($val);
+			$val = html($val);
 			echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 		}
 	}
@@ -251,7 +251,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 			<input name="cimage_id_thumb[<?php echo $key ?>]" id="cimage_id_thumb_<?php echo $key ?>" type="hidden" value="<?php echo $value['thumb_id'] ?>" />
 			<input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
 			<?php echo $BL['be_flashplayer_thumbnail'] ?>:&nbsp;</td>
-		<td><input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="f11b imagename" value="<?php echo html_specialchars($value['thumb_name']) ?>" size="30" onfocus="this.blur();" /></td>
+		<td><input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="f11b imagename" value="<?php echo html($value['thumb_name']) ?>" size="30" onfocus="this.blur();" /></td>
 		<td><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="return openImageFileBrowser('thumb_<?php echo $key ?>');"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
 		<td><a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $key ?>', this);"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>
 	</tr>
@@ -262,7 +262,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 		<td class="chatlist right">
 			<input name="cimage_id_zoom[<?php echo $key ?>]" id="cimage_id_zoom_<?php echo $key ?>" type="hidden" value="<?php echo $value['zoom_id'] ?>" />
 			<?php echo $BL['be_image_zoom'] ?>:&nbsp;</td>
-		<td><input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="f11b imagename" value="<?php echo html_specialchars($value['zoom_name']) ?>" size="30" onfocus="this.blur();" /></td>
+		<td><input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="f11b imagename" value="<?php echo html($value['zoom_name']) ?>" size="30" onfocus="this.blur();" /></td>
 		<td><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="return openImageFileBrowser('zoom_<?php echo $key ?>');"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
 		<td><a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('zoom_<?php echo $key ?>', this);"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>
 	</tr>
@@ -274,21 +274,21 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-		<td colspan="3"><textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html_specialchars($value['caption']) ?></textarea></td>
+		<td colspan="3"><textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="3" class="spacerrow"></td></tr>
 	
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;</td>
-		<td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html_specialchars(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
+		<td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
 	</tr>
 	
 	<tr><td colspan="3" class="spacerrow"></td></tr>
 	
 	<tr>
 		<td class="chatlist right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
-		<td><input type="text" name="cimage_url[<?php echo $key ?>]" id="cimage_url_<?php echo $key ?>" class="v11 w300" size="30" value="<?php echo html_specialchars($value['url']) ?>" /></td>
+		<td><input type="text" name="cimage_url[<?php echo $key ?>]" id="cimage_url_<?php echo $key ?>" class="v11 w300" size="30" value="<?php echo html($value['url']) ?>" /></td>
 		<td><em title="<?php echo $sort_up_down; ?>" class="handle">&nbsp;</em></td>
 		<td><a href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /></a></td>
 	</tr>

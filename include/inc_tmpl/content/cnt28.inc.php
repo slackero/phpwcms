@@ -63,7 +63,7 @@ $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/felogin');
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($content['felogin_template']) && $val == $content['felogin_template']) ? ' selected="selected"' : '';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 	}
 }
@@ -121,7 +121,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	  </tr>
 	<tr>
 		<td align="right" class="chatlist"><?php //echo $BL['be_article_aredirect']: ?>&nbsp;</td>
-		<td><input name="profile_manage_redirect" type="text" class="f11b width150" id="profile_manage_redirect" size="10" value="<?php echo html_specialchars($content['felogin']['felogin_profile_manage_redirect']); ?>" /></td>
+		<td><input name="profile_manage_redirect" type="text" class="f11b width150" id="profile_manage_redirect" size="10" value="<?php echo html($content['felogin']['felogin_profile_manage_redirect']); ?>" /></td>
 		<td class="f10">&nbsp;<?php 
 			echo $BL['be_alias'], ', aid=ID', ', id=ID' ?></td>
 	</tr>

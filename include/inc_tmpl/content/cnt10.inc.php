@@ -25,17 +25,17 @@ if(!isset($content["mailhtml"])) {
 
 ?><tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_subject'] ?>:&nbsp;</td>
-	<td><input name="cmailsubject" type="text" id="cmailsubject" class="f11b" style="width: 440px" value="<?php echo  isset($content["mailsubject"]) ?  html_specialchars($content["mailsubject"]) : '' ?>" size="40" maxlength="250"></td>
+	<td><input name="cmailsubject" type="text" id="cmailsubject" class="f11b" style="width: 440px" value="<?php echo  isset($content["mailsubject"]) ?  html($content["mailsubject"]) : '' ?>" size="40" maxlength="250"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_recipient'] ?>:&nbsp;</td>
-	<td><input name="cmailrecipient" type="text" id="cmailrecipient" class="f11b" style="width: 440px" value="<?php echo  isset($content["mailrecipient"]) ? html_specialchars($content["mailrecipient"]) : '' ?>" size="40" maxlength="250"></td>
+	<td><input name="cmailrecipient" type="text" id="cmailrecipient" class="f11b" style="width: 440px" value="<?php echo  isset($content["mailrecipient"]) ? html($content["mailrecipient"]) : '' ?>" size="40" maxlength="250"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_buttontext']  ?>:&nbsp;</td>
-	<td><input name="cmailbutton" type="text" id="cmailbutton" class="f11b" style="width: 150px" value="<?php echo  isset($content["mailbutton"]) ? html_specialchars($content["mailbutton"]) : '' ?>" size="20" maxlength="35"></td>
+	<td><input name="cmailbutton" type="text" id="cmailbutton" class="f11b" style="width: 150px" value="<?php echo  isset($content["mailbutton"]) ? html($content["mailbutton"]) : '' ?>" size="20" maxlength="35"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
@@ -54,18 +54,18 @@ if(!isset($content["mailhtml"])) {
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_formfields'] ?>:&nbsp;</td>
 	<td valign="top"><textarea name="cmailform" rows="15" wrap="off" class="msgtext" id="cmailform" style="width: 440px"><?php
-	
-	if(isset($content["mailform"])) {	
+
+	if(isset($content["mailform"])) {
 		if(is_array($content["mailform"])) {
 			foreach($content["mailform"] as $formkey => $valform) {
-				echo html_specialchars($content["mailform"][$formkey]['field'])."\n";
+				echo html($content["mailform"][$formkey]['field'])."\n";
 			}
 		} else {
-			echo html_specialchars($content["mailform"]);
+			echo html($content["mailform"]);
 		}
 	} else {
 		echo '';
 	}
-	 
+
 	 ?></textarea></td>
 </tr>

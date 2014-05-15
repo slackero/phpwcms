@@ -28,10 +28,10 @@ if (!defined('PHPWCMS_ROOT')) {
 		<th class="listFormat" nowrap="nowrap"><?php echo $BLM['ad_wxh'] ?></th>
 		<th>&nbsp;</th>
 	</tr>
-	
+
 <?php
 // loop listing available newsletters
-$row_count = 0;                
+$row_count = 0;
 
 $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_place ap ';
 $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_ads_formats af ON ';
@@ -47,28 +47,28 @@ foreach($data as $row) {
 	echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
 	echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/layout.gif" alt="'.$BLM['adplace'].'" /></td>'.LF;
 
-	echo '	<td width="50%">'.html_specialchars($row["adplace_title"])."</td>\n";
-	
-	echo '	<td class="listFormat" nowrap="nowrap">'.html_specialchars($row["adformat_title"])."</td>\n";
+	echo '	<td width="50%">'.html($row["adplace_title"])."</td>\n";
+
+	echo '	<td class="listFormat" nowrap="nowrap">'.html($row["adformat_title"])."</td>\n";
 	echo '	<td class="listFormat">{ADS_'.$row["adplace_id"]."}</td>\n";
 	echo '	<td class="listFormat">'.$row["adplace_width"].'x'.$row["adplace_height"]."&nbsp;</td>\n";
-	
-	
+
+
 	echo '	<td align="right" nowrap="nowrap" class="button_td">';
-	
-	echo '<a href="'.MODULE_HREF.'&amp;adplace=1&amp;edit='.$row["adplace_id"].'">';		
+
+	echo '<a href="'.MODULE_HREF.'&amp;adplace=1&amp;edit='.$row["adplace_id"].'">';
 	echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
-	
+
 	echo '<a href="'.MODULE_HREF.'&amp;adplace=1&amp;editid='.$row["adplace_id"].'&amp;verify=';
-	echo (($row["adplace_status"]) ? '0' : '1').'">';		
+	echo (($row["adplace_status"]) ? '0' : '1').'">';
 	echo '<img src="img/button/aktiv_12x13_'.$row["adplace_status"].'.gif" border="0" alt="" /></a>';
-	
+
 	// check if campaign for place is available - then it's not possible t delete place
 	if(_dbQuery($sql.$row['adplace_id'], 'COUNT')) {
 		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" class="inactive" />';
 	} else {
 		echo '<a href="'.MODULE_HREF.'&amp;adplace=1&amp;delete='.$row["adplace_id"];
-		echo '" title="delete: '.html_specialchars($row["adplace_title"]).'"';
+		echo '" title="delete: '.html($row["adplace_title"]).'"';
 		echo ' onclick="return confirm(\''.$BLM['delete_adplace'].js_singlequote($row["adplace_title"]).'\');">';
 		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 	}
@@ -83,5 +83,5 @@ if($row_count) {
 	echo '<tr><td colspan="6" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
 }
 
-?>	
+?>
 </table>

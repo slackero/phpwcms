@@ -37,18 +37,18 @@ if(!isset($content['sitemap'])) {
 ?>
 <tr>
   <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo $BL['be_cnt_guestbook_before'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="csitemap_before" cols="40" rows="3" class="code" id="csitemap_before" style="width: 440px"><?php echo html_specialchars($content["sitemap"]["before"]) ?></textarea></td>
+  <td valign="top"><textarea name="csitemap_before" cols="40" rows="3" class="code" id="csitemap_before" style="width: 440px"><?php echo html($content["sitemap"]["before"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
   <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo $BL['be_cnt_guestbook_after'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="csitemap_after" cols="40" rows="3" class="code" id="csitemap_after" style="width: 440px"><?php echo html_specialchars($content["sitemap"]["after"]) ?></textarea></td>
+  <td valign="top"><textarea name="csitemap_after" cols="40" rows="3" class="code" id="csitemap_after" style="width: 440px"><?php echo html($content["sitemap"]["after"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_catimage'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-  <tr><td><input name="csitemap_catimg" type="text" id="csitemap_catimg" class="f11" style="width: 350px" value="<?php echo html_specialchars($content["sitemap"]["catimg"]) ?>" size="40"></td><td>&nbsp;<?php
+  <tr><td><input name="csitemap_catimg" type="text" id="csitemap_catimg" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["catimg"]) ?>" size="40"></td><td>&nbsp;<?php
   if($content["sitemap"]["catimg"]) echo '<img src="'.$content["sitemap"]["catimg"].'" border="0">';
   ?></td></tr></table></td>
 </tr>
@@ -56,7 +56,7 @@ if(!isset($content['sitemap'])) {
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_articleimage'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-  <tr><td><input name="csitemap_articleimg" type="text" id="csitemap_articleimg" class="f11" style="width: 350px" value="<?php echo html_specialchars($content["sitemap"]["articleimg"]) ?>" size="40"></td><td>&nbsp;<?php
+  <tr><td><input name="csitemap_articleimg" type="text" id="csitemap_articleimg" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["articleimg"]) ?>" size="40"></td><td>&nbsp;<?php
   if($content["sitemap"]["articleimg"]) echo '<img src="'.$content["sitemap"]["articleimg"].'" border="0">';
   ?></td></tr></table></td>
 </tr>
@@ -87,12 +87,12 @@ if(!isset($content['sitemap'])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_catclass'] ?>:&nbsp;</td>
-  <td valign="top"><input name="csitemap_catclass" type="text" id="csitemap_catclass" class="f11" style="width: 350px" value="<?php echo html_specialchars($content["sitemap"]["catclass"]) ?>" size="40"></td>
+  <td valign="top"><input name="csitemap_catclass" type="text" id="csitemap_catclass" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["catclass"]) ?>" size="40"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_articleclass'] ?>:&nbsp;</td>
-  <td valign="top"><input name="csitemap_articleclass" type="text" id="csitemap_articleclass" class="f11" style="width: 350px" value="<?php echo html_specialchars($content["sitemap"]["articleclass"]) ?>" size="40"></td>
+  <td valign="top"><input name="csitemap_articleclass" type="text" id="csitemap_articleclass" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["articleclass"]) ?>" size="40"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>

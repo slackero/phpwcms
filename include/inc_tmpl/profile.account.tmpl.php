@@ -36,7 +36,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	</tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_username'] ?>:&nbsp;</td>
-		<td><input name="form_loginname" type="text" id="form_loginname" class="v12b width250" size="30" maxlength="30" value="<?php echo html_specialchars($_SESSION["wcs_user"]); ?>"></td>
+		<td><input name="form_loginname" type="text" id="form_loginname" class="v12b width250" size="30" maxlength="30" value="<?php echo html($_SESSION["wcs_user"]); ?>"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
@@ -51,7 +51,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-		<td><input name="form_useremail" type="text" id="form_useremail" class="v12b width250" value="<?php echo html_specialchars($_SESSION["wcs_user_email"]); ?>" size="30" maxlength="150"></td>
+		<td><input name="form_useremail" type="text" id="form_useremail" class="v12b width250" value="<?php echo html($_SESSION["wcs_user_email"]); ?>" size="30" maxlength="150"></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
@@ -109,14 +109,14 @@ $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
 		
 			if($has_allowed_cp && !isset($_SESSION["wcs_allowed_cp"][$key])):
 ?>
-				<label class="disabled"> <input type="checkbox" disabled="disabled" /> <?php echo html_specialchars($value) ?> </label>
+				<label class="disabled"> <input type="checkbox" disabled="disabled" /> <?php echo html($value) ?> </label>
 <?php			
 				continue;
 			endif;
 ?>
 			<label>
 				<input type="checkbox" name="profile_account_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_selected_cp || isset($_SESSION["wcs_user_cp"][$key])): ?> checked="checked"<?php endif; ?> />
-				<?php echo html_specialchars($value) ?>
+				<?php echo html($value) ?>
 			</label>
 
 <?php	endforeach;	?>

@@ -37,7 +37,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	// retrieve all available subscriptions first
 	$result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
 	foreach($result as $row) {
-		$content["newsletter"]['right'][ $row["subscription_id"] ] = html_specialchars($row["subscription_name"]);
+		$content["newsletter"]['right'][ $row["subscription_id"] ] = html($row["subscription_name"]);
 	}
 	
 	if(isset($content["newsletter"]["subscription"]) && is_array($content["newsletter"]["subscription"])) {
@@ -116,12 +116,12 @@ if (!defined('PHPWCMS_ROOT')) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
 	<td align="right" class="chatlist">URL 1:&nbsp;</td>
-	<td><input name="cnewsletter_url1" type="text" id="cnewsletter_url1" class="f11b" style="width: 440px" value="<?php echo isset($content["newsletter"]["url1"]) ? html_specialchars($content["newsletter"]["url1"]) : '' ?>" size="20" /></td>
+	<td><input name="cnewsletter_url1" type="text" id="cnewsletter_url1" class="f11b" style="width: 440px" value="<?php echo isset($content["newsletter"]["url1"]) ? html($content["newsletter"]["url1"]) : '' ?>" size="20" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
 	<td align="right" class="chatlist">URL 2:&nbsp;</td>
-	<td><input name="cnewsletter_url2" type="text" id="cnewsletter_url2" class="f11b" style="width: 440px" value="<?php echo isset($content["newsletter"]["url2"]) ? html_specialchars($content["newsletter"]["url2"]) : '' ?>" size="20" /></td>
+	<td><input name="cnewsletter_url2" type="text" id="cnewsletter_url2" class="f11b" style="width: 440px" value="<?php echo isset($content["newsletter"]["url2"]) ? html($content["newsletter"]["url2"]) : '' ?>" size="20" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

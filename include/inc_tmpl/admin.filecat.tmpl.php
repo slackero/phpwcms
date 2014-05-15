@@ -89,7 +89,7 @@ if(isset($_GET["open"])) {
 			<?php } ?>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_admin_fcat_name'] ?>:&nbsp;</td>
-		      <td><input name="fcat_name" type="text" id="fcat_name" class="width400" value="<?php echo  empty($fcat["name"]) ? '' : html_specialchars($fcat["name"]) ?>" size="40" maxlength="250" /></td>
+		      <td><input name="fcat_name" type="text" id="fcat_name" class="width400" value="<?php echo  empty($fcat["name"]) ? '' : html($fcat["name"]) ?>" size="40" maxlength="250" /></td>
 		    </tr>
 			
 
@@ -196,7 +196,7 @@ if(isset($_GET["open"])) {
 					while($row = mysql_fetch_array($result)) {
 						echo "<option value=\"".$row["fcat_id"]."\"".
 							 (($row["fcat_id"]==$fkey["cid"])?" selected":"").
-							 ">".html_specialchars($row["fcat_name"])."</option>\n";
+							 ">".html($row["fcat_name"])."</option>\n";
 					}
 					mysql_free_result($result);
 				}
@@ -216,7 +216,7 @@ if(isset($_GET["open"])) {
 			<?php } ?>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_admin_fcat_fkeyname'] ?>:&nbsp;</td>
-		      <td><input name="fkey_name" type="text" id="fkey_name" class="width400" value="<?php echo html_specialchars(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" size="40" maxlength="250" /></td>
+		      <td><input name="fkey_name" type="text" id="fkey_name" class="width400" value="<?php echo html(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" size="40" maxlength="250" /></td>
 		    </tr>
 		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 			
@@ -279,7 +279,7 @@ if(isset($_GET["open"])) {
 					echo ".gif\" width=\"15\" height=\"15\" border=\"0\">".(($child_count) ? "</a>" : "")."</td>\n";
 						
               		echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-					echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html_specialchars($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
+					echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
               		echo "</tr>\n</table></td>".LF;
 					
 					echo "<td width=\"55\">";
@@ -294,7 +294,7 @@ if(isset($_GET["open"])) {
 					echo "<img src=\"img/button/active_11x11_".$row["fcat_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 					
 					echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" title =\"".$BL['be_admin_fcat_delcat']."\" ";
-					echo "onclick=\"return confirm('".$BL['be_admin_fcat_delcatmsg']."\\n[".html_specialchars($row["fcat_name"])."] ');\">";
+					echo "onclick=\"return confirm('".$BL['be_admin_fcat_delcatmsg']."\\n[".html($row["fcat_name"])."] ');\">";
 					echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 					
 					echo "</td>\n</tr>\n";
@@ -310,7 +310,7 @@ if(isset($_GET["open"])) {
 								echo "<td><img src=\"img/leer.gif\" width=\"16\" height=\"1\">";
 								echo "<img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";
 								echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-								echo "<td>".html_specialchars($krow["fkey_name"])." [".$krow["fkey_sort"]."]</td>\n";
+								echo "<td>".html($krow["fkey_name"])." [".$krow["fkey_sort"]."]</td>\n";
 								echo "</tr>\n</table></td>\n";
 								echo "<td><img src=\"img/leer.gif\" width=\"11\" height=\"11\">";
 							
@@ -321,7 +321,7 @@ if(isset($_GET["open"])) {
 								echo "<img src=\"img/button/active_11x11_".$krow["fkey_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 								
 								echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow["fkey_id"].",".($krow["fkey_cid"])."\" title =\"".$BL['be_admin_fcat_delkey']."\" ";
-								echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html_specialchars($krow["fkey_name"])."] ');\">";
+								echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html($krow["fkey_name"])."] ');\">";
 								echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 								echo "</td>\n</tr>\n";
 							}

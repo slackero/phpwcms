@@ -60,7 +60,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_rssfeed_url'] ?>:&nbsp;</td>
-	<td valign="top"><input name="crss_url" type="text" id="crss_url" class="f11b" style="width:440px" value="<?php echo html_specialchars($content['rssfeed']["rssurl"]) ?>" size="40"></td>
+	<td valign="top"><input name="crss_url" type="text" id="crss_url" class="f11b" style="width:440px" value="<?php echo html($content['rssfeed']["rssurl"]) ?>" size="40"></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>

@@ -84,47 +84,47 @@ if($form_detail_aktion == 'create_detail') {
 	</tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_title'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_title" type="text" id="form_title" class="v12 width250" value="<?php echo html_specialchars($detail["detail_title"]) ?>" size="30" maxlength="50"></td>
+		<td colspan="2"><input name="form_title" type="text" id="form_title" class="v12 width250" value="<?php echo html($detail["detail_title"]) ?>" size="30" maxlength="50"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_firstname'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_firstname" type="text" id="form_firstname" class="v12 width250" value="<?php echo html_specialchars($detail["detail_firstname"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_firstname" type="text" id="form_firstname" class="v12 width250" value="<?php echo html($detail["detail_firstname"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_name'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_lastname" type="text" id="form_lastname" class="v12 width250" value="<?php echo html_specialchars($detail["detail_lastname"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_lastname" type="text" id="form_lastname" class="v12 width250" value="<?php echo html($detail["detail_lastname"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_company'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_company" type="text" id="form_company" class="v12 width250" value="<?php echo html_specialchars($detail["detail_company"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_company" type="text" id="form_company" class="v12 width250" value="<?php echo html($detail["detail_company"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_street'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_street" type="text" id="form_street" class="v12 width250" value="<?php echo html_specialchars($detail["detail_street"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_street" type="text" id="form_street" class="v12 width250" value="<?php echo html($detail["detail_street"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right">&nbsp;</td>
-		<td colspan="2"><input name="form_add" type="text" id="form_add" class="v12 width250" value="<?php echo html_specialchars($detail["detail_add"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_add" type="text" id="form_add" class="v12 width250" value="<?php echo html($detail["detail_add"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_city'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_city" type="text" id="form_city" class="v12 width250" value="<?php echo html_specialchars($detail["detail_city"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_city" type="text" id="form_city" class="v12 width250" value="<?php echo html($detail["detail_city"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_state'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_region" type="text" id="form_region" class="v12 width250" value="<?php echo html_specialchars($detail["detail_region"]) ?>" size="30" maxlength="100"></td>
+		<td colspan="2"><input name="form_region" type="text" id="form_region" class="v12 width250" value="<?php echo html($detail["detail_region"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_zip'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_zip" type="text" id="form_zip" class="v12 width100" value="<?php echo html_specialchars($detail["detail_zip"]) ?>" size="30" maxlength="50"></td>
+		<td colspan="2"><input name="form_zip" type="text" id="form_zip" class="v12 width100" value="<?php echo html($detail["detail_zip"]) ?>" size="30" maxlength="50"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
@@ -136,27 +136,27 @@ if($form_detail_aktion == 'create_detail') {
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_phone'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_fon" type="text" id="form_fon" class="v12 width250" value="<?php echo html_specialchars($detail["detail_fon"]) ?>" size="30" maxlength="30"></td>
+		<td colspan="2"><input name="form_fon" type="text" id="form_fon" class="v12 width250" value="<?php echo html($detail["detail_fon"]) ?>" size="30" maxlength="30"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_fax'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_fax" type="text" id="form_fax" class="v12 width250" value="<?php echo html_specialchars($detail["detail_fax"]) ?>" size="30" maxlength="30"></td>
+		<td colspan="2"><input name="form_fax" type="text" id="form_fax" class="v12 width250" value="<?php echo html($detail["detail_fax"]) ?>" size="30" maxlength="30"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right"><?php echo $BL['be_profile_label_cellphone'] ?>:&nbsp;</td>
-		<td colspan="2"><input name="form_mobile" type="text" id="form_mobile" class="v12 width250" value="<?php echo html_specialchars($detail["detail_mobile"]) ?>" size="30" maxlength="30"></td>
+		<td colspan="2"><input name="form_mobile" type="text" id="form_mobile" class="v12 width250" value="<?php echo html($detail["detail_mobile"]) ?>" size="30" maxlength="30"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr> 
 		<td align="right" valign="top"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_profile_label_signature'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="form_signature" cols="30" rows="3" id="form_signature" class="v12 width400"><?php echo html_specialchars($detail["detail_signature"]) ?></textarea></td>
+		<td colspan="2"><textarea name="form_signature" cols="30" rows="3" id="form_signature" class="v12 width400"><?php echo html($detail["detail_signature"]) ?></textarea></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr> 
 		<td align="right" valign="top"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="form_notes" cols="30" rows="6" id="form_notes" class="v12 width400"><?php echo html_specialchars($detail["detail_notes"]) ?></textarea></td>
+		<td colspan="2"><textarea name="form_notes" cols="30" rows="6" id="form_notes" class="v12 width400"><?php echo html($detail["detail_notes"]) ?></textarea></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr> 

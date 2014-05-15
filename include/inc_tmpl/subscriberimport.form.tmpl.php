@@ -35,7 +35,7 @@ if($_userInfo['subscriptions']) {
 		}
 		$_userInfo['select_subscr'] .= ' /></td>
 			<td><label for="subscribe_select'.$value['subscription_id'].'">'.
-			html_specialchars($value['subscription_name']).
+			html($value['subscription_name']).
 			'</label></td>
 		</tr>
 		';
@@ -66,7 +66,7 @@ if($_userInfo['subscriptions']) {
 	
 		echo '	<tr> 
 		<td align="right" valign="top"><img src="img/famfamfam/icon_alert.gif" alt="Error" />&nbsp;</td>
-		<td class="error1" style="padding: 2px 0 10px 0">'.html_specialchars($_userInfo['csvError']).'</td>
+		<td class="error1" style="padding: 2px 0 10px 0">'.html($_userInfo['csvError']).'</td>
 	</tr>';
 	
 	}
@@ -96,7 +96,7 @@ if($_userInfo['subscriptions']) {
 	  <td align="right" class="chatlist"><?php echo $BL['be_newsletter_delimeter'] ?>:&nbsp;</td>
 	  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 	  	<tr>		
-			<td><input type="text" class="f11b" style="width:30px;text-align:center;" name="delimeter" size="5" value="<?php echo html_specialchars($_userInfo['delimeter']) ?>" /></td>
+			<td><input type="text" class="f11b" style="width:30px;text-align:center;" name="delimeter" size="5" value="<?php echo html($_userInfo['delimeter']) ?>" /></td>
 			<td class="v10">&nbsp;<?php echo $BL['be_newsletter_shouldbe2'] ?></td>
 		</tr>
 		</table></td>

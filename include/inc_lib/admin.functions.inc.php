@@ -44,7 +44,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$forbid_cut		= ($struct[$key]["acat_struct"] == $cut_id || $forbid_cut) ? 1 : 0;
 	$forbid_copy	= ($struct[$key]["acat_struct"] == $copy_id || $forbid_copy) ? 1 : 0;
 
-	$an = html_specialchars($struct[$key]["acat_name"]);
+	$an = html($struct[$key]["acat_name"]);
 	$a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
 	$a .= '<td width="461">';
 	$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
@@ -59,7 +59,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$a .= ".gif\" width=\"11\" height=\"15\" ";
 
 	$info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
-	$info .= 'ALIAS: '.html_specialchars($struct[$key]["acat_alias"]).'<br />';
+	$info .= 'ALIAS: '.html($struct[$key]["acat_alias"]).'<br />';
 	$info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
 
 	$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt=""';
@@ -229,7 +229,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
 		}
 
-		$at = html_specialchars($article[$akey]["article_title"]);
+		$at = html($article[$akey]["article_title"]);
 
 		if($cut_article == $article[$akey]["article_id"] ) {
 			$a = "<tr bgColor='#B4E101'>\n";
@@ -421,13 +421,13 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$info  = "Tip('";
 			$info .= 'ID: '.$article_content["acontent_id"];
 			if($article_content['acontent_title']) {
-				$info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html_specialchars(js_singlequote($article_content['acontent_title'])).'</nobr>';
+				$info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html(js_singlequote($article_content['acontent_title'])).'</nobr>';
 			}
 			if($article_content['acontent_title']) {
-				$info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_asubtitle'].': '.html_specialchars(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
+				$info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_asubtitle'].': '.html(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
 			}
 			if($article_content["acontent_comment"]) {
-				$info .= '<br />' . nl2br( html_specialchars(js_singlequote($article_content["acontent_comment"])) );
+				$info .= '<br />' . nl2br( html(js_singlequote($article_content["acontent_comment"])) );
 			}
 			$info .= "');";
 
@@ -453,7 +453,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 
 			$a .= "</td>";
 			$a .= "<td width=\"16\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";
-			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html_specialchars(' {'.$article_content['acontent_block'].'} ')."</td>";
+			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html(' {'.$article_content['acontent_block'].'} ')."</td>";
 			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:77px;white-space:nowrap;" onmouseover="'.$info.'">';
 
 			$at  = ' '.$ab.' ';

@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 $frontend_css = read_textfile(PHPWCMS_TEMPLATE."inc_css/frontend.css"); //reads the css template
-$frontend_css = ($frontend_css) ? html_specialchars($frontend_css) : "";
+$frontend_css = ($frontend_css) ? html($frontend_css) : "";
 		
 ?><form action="include/inc_act/act_frontendcss.php" method="post" name="css" target="_self"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 	

@@ -50,8 +50,8 @@ if($subscription["id"]) {
 	if($result = mysql_query($sql, $db)) {
 		if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$subscription["id"] = $row["subscription_id"];
-			$subscription["name"] = html_specialchars($row["subscription_name"]);
-			$subscription["info"] = html_specialchars($row["subscription_info"]);
+			$subscription["name"] = html($row["subscription_name"]);
+			$subscription["info"] = html($row["subscription_info"]);
 		}
 		mysql_free_result($result);
 	}
@@ -65,13 +65,13 @@ if($subscription["id"]) {
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_newsletter_name'] ?>:&nbsp;</td>
-		<td><input name="subscription_name" type="text" class="f11b" id="subscription_name" style="width:440px" value="<?php echo  empty($subscription["name"]) ? '' : html_specialchars($subscription["name"]) ?>" size="50" maxlength="250" /></td>
+		<td><input name="subscription_name" type="text" class="f11b" id="subscription_name" style="width:440px" value="<?php echo  empty($subscription["name"]) ? '' : html($subscription["name"]) ?>" size="50" maxlength="250" /></td>
 	</tr>
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_newsletter_info'] ?>:&nbsp;</td>
-		<td><textarea name="subscription_info" cols="35" rows="6" class="f11" id="subscription_info" style="width:440px"><?php echo  empty($subscription["info"]) ? '' : html_specialchars($subscription["info"]); ?></textarea></td>
+		<td><textarea name="subscription_info" cols="35" rows="6" class="f11" id="subscription_info" style="width:440px"><?php echo  empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>

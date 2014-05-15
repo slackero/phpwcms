@@ -48,7 +48,7 @@ if(is_array($reference["list"]) && count($reference["list"])) {
 			if($imgx) {
 				$cinfo_img .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1">';
 			}
-			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html_specialchars($reference["list"][$key][1]).'">';
+			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html($reference["list"][$key][1]).'">';
 			$imgx++;
 		}
 	}

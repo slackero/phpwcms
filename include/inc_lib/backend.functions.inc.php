@@ -544,7 +544,7 @@ function show_status_message($return_status=false) {
 		$status = '';
 	} else {
 		$status  = '<div class="status_message_' . $_SESSION['system_status']['type'] .'">';
-		$status .= nl2br( trim( html_specialchars($_SESSION['system_status']['msg']) ) ) . '</div>';
+		$status .= nl2br( trim( html($_SESSION['system_status']['msg']) ) ) . '</div>';
 		$_SESSION['system_status']['msg'] = '';
 	}
 	if($return_status) {
@@ -1184,9 +1184,9 @@ function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
 	$sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_row($result)) {
-		$dirname = html_specialchars($row["1"]);
+		$dirname = html($row["1"]);
 		if($_SESSION["wcs_user_id"] != $row[2]) {
-			$dirname .= ' (' . html_specialchars($row[3]) . ')';
+			$dirname .= ' (' . html($row[3]) . ')';
 		}
 		echo "<option value='".$row[0]."'";
 		if(intval($zid) == $row[0]) {

@@ -76,7 +76,7 @@ $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/imagetable');
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 	}
 }
@@ -100,7 +100,7 @@ if(isset($content['image_list']['images']) && is_array($content['image_list']['i
 	// will be visible only when aceessible
 	foreach($content['image_list']['images'] as $key => $value) {
 
-		$caption_box .= html_specialchars($content['image_list']['images'][$key][6])."\n";
+		$caption_box .= html($content['image_list']['images'][$key][6])."\n";
 
 		// 0   :1       :2   :3        :4    :5     :6      :7       :8
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
@@ -114,7 +114,7 @@ if(isset($content['image_list']['images']) && is_array($content['image_list']['i
 
 			// image found
 			echo '<option value="' . $content['image_list']['images'][$key][0] . '">';
-			$img_name = html_specialchars($content['image_list']['images'][$key][1]);
+			$img_name = html($content['image_list']['images'][$key][1]);
 			echo $img_name . "</option>\n";
 
 			if($imgx == 4) {

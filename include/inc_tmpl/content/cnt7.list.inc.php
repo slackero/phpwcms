@@ -42,7 +42,7 @@ if($row["acontent_files"]) {
 			while($file_row = mysql_fetch_row($file_result)) {
 				foreach($fxb as $key => $value) {
 					if($fxb[$key]["fid"] == $file_row[0]) {
-						$fxb[$key]["fname"] = html_specialchars($file_row[1]);
+						$fxb[$key]["fname"] = html($file_row[1]);
 						$fxb[$key]["fext"] = $file_row[2];
 					}
 				}
@@ -69,12 +69,12 @@ if($row["acontent_files"]) {
  
 $cinfo["result"] = trim($cinfo["result"]);
 if($cinfo["result"] && $cinfo_files) {
-	$cinfo["result"] = html_specialchars($cinfo["result"])."<br />".$cinfo_files;
+	$cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_files;
 } else {
 	if($cinfo_files) {
 		$cinfo["result"] = $cinfo_files;
 	} else {
-		$cinfo["result"] = html_specialchars($cinfo["result"]);
+		$cinfo["result"] = html($cinfo["result"]);
 	}
 }	
  

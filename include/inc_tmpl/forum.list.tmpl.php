@@ -41,7 +41,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 		echo '<td width="473" class="dir"><a href="phpwcms.php?';
 		$tempQuery = build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$row["forum_id"]);
 		echo $tempQuery;
-		echo '"><strong>'.html_specialchars($row["forum_title"])."</strong></a></td>\n".'<td width="40" align="right">';
+		echo '"><strong>'.html($row["forum_title"])."</strong></a></td>\n".'<td width="40" align="right">';
 		echo '<a href="phpwcms.php?';
 		echo $tempQuery;
 		echo '"><img src="img/button/edit_22x11.gif" width="22" height="11" border="0"></a>';
@@ -106,8 +106,8 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 		if($result = mysql_query($sql, $db)) {
 			if($row = mysql_fetch_assoc($result)) {
 				$forum["id"] = $row["forum_id"];
-				$forum["title"] = html_specialchars($row["forum_title"]);
-				$forum["text"] = html_specialchars($row["forum_text"]);
+				$forum["title"] = html($row["forum_title"]);
+				$forum["text"] = html($row["forum_text"]);
 			}
 			mysql_free_result($result);
 		}

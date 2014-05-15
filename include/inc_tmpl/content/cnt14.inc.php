@@ -35,7 +35,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	if(is_array($tmpllist) && count($tmpllist)) {
 		foreach($tmpllist as $val) {
 			$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
-			$val = html_specialchars($val);
+			$val = html($val);
 			echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 		}
 	}

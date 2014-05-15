@@ -29,58 +29,58 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 <input type="hidden" name="adcampaign_id" value="<?php echo $plugin['data']['adcampaign_id'] ?>" />
 <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
 
-	<tr> 
+	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html_specialchars(phpwcms_strtotime($plugin['data']['adcampaign_changed'], $BL['be_fprivedit_dateformat'], '')) ?></td>
+		<td class="v10"><?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_changed'], $BL['be_fprivedit_dateformat'], '')) ?></td>
 	</tr>
-	
+
 	<?php if(!empty($plugin['data']['adcampaign_created'])) { ?>
-	
-	<tr> 
+
+	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html_specialchars(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?></td>
+		<td class="v10"><?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?></td>
 	</tr>
-	
+
 	<?php } ?>
-	
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
-	<tr> 
+	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['campaign_entry'] ?>:&nbsp;</td>
-		<td><input name="adcampaign_title" type="text" id="adcampaign_title" class="v12<?php 
-		
+		<td><input name="adcampaign_title" type="text" id="adcampaign_title" class="v12<?php
+
 		//error class
 		if(!empty($plugin['error']['adcampaign_title'])) echo ' errorInputText';
-		
-		?>" style="width:400px;" value="<?php echo html_specialchars($plugin['data']['adcampaign_title']) ?>" size="30" maxlength="200" /></td>
+
+		?>" style="width:400px;" value="<?php echo html($plugin['data']['adcampaign_title']) ?>" size="30" maxlength="200" /></td>
 	</tr>
-	
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-	
-	<tr> 
+
+	<tr>
 		<td align="right" class="chatlist" valign="top" style="padding-top:18px"><?php echo $BLM['calendar_start'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-		
+
 			<tr>
 				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['date_format'] ?></td>
 				<td class="chatlist">&nbsp;</td>
 				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['time_format'] ?></td>
 				<td colspan="2">&nbsp;</td>
 			</tr>
-		
+
 			<tr>
-				<td><input name="adcampaign_date_start" type="text" id="adcampaign_date_start" class="v12<?php 
-		
+				<td><input name="adcampaign_date_start" type="text" id="adcampaign_date_start" class="v12<?php
+
 		//error class
 		if(!empty($plugin['error']['adcampaign_date_start'])) echo ' errorInputText';
-		
-		?>" style="width:100px;" value="<?php echo html_specialchars($plugin['data']['adcampaign_date_start']) ?>" size="30" /></td>
+
+		?>" style="width:100px;" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" size="30" /></td>
 		<td>&nbsp;</td>
-		<td><input name="adcampaign_time_start" type="text" id="adcampaign_time_start" class="v12" style="width:80px;" value="<?php echo html_specialchars($plugin['data']['adcampaign_time_start']) ?>" size="30" /></td>
+		<td><input name="adcampaign_time_start" type="text" id="adcampaign_time_start" class="v12" style="width:80px;" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" size="30" /></td>
 		<td>&nbsp;<script type="text/javascript">
 		function aStart(date, month, year) {
 			getFieldById('adcampaign_date_start').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
-			
+
 			var timestart = getFieldById('adcampaign_time_start');
 			if(Trim(timestart.value) == '') {
 				timestart.value = '00:00';
@@ -90,33 +90,33 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 		calStart.setMonthCombo(false);
 		calStart.setYearCombo(false);
 		</script></td>
-	
+
 			</tr>
 		</table></td>
-		
-	</tr>	
-	
+
+	</tr>
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
-	<tr> 
+
+	<tr>
 		<td align="right" class="chatlist" valign="top" style="padding-top:18px"><?php echo $BLM['calendar_end'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-		
+
 			<tr>
 				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['date_format'] ?></td>
 				<td class="chatlist">&nbsp;</td>
 				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['time_format'] ?></td>
 			</tr>
-		
+
 			<tr>
-				<td><input name="adcampaign_date_end" type="text" id="adcampaign_date_end" class="v12<?php 
-		
+				<td><input name="adcampaign_date_end" type="text" id="adcampaign_date_end" class="v12<?php
+
 		//error class
 		if(!empty($plugin['error']['adcampaign_date_end'])) echo ' errorInputText';
-		
-		?>" style="width:100px;" value="<?php echo html_specialchars($plugin['data']['adcampaign_date_end']) ?>" size="30" /></td>
+
+		?>" style="width:100px;" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" size="30" /></td>
 		<td>&nbsp;</td>
-		<td><input name="adcampaign_time_end" type="text" id="adcampaign_time_end" class="v12" style="width:80px;" value="<?php echo html_specialchars($plugin['data']['adcampaign_time_end']) ?>" size="30" /></td>
+		<td><input name="adcampaign_time_end" type="text" id="adcampaign_time_end" class="v12" style="width:80px;" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" size="30" /></td>
 		<td>&nbsp;<script type="text/javascript">
 		function aEnd(date, month, year) {
 			getFieldById('adcampaign_date_end').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
@@ -129,18 +129,18 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 		calEnd.setMonthCombo(false);
 		calEnd.setYearCombo(false);
 		</script></td>
-		
+
 			</tr>
 		</table></td>
-		
-	</tr>		
-	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>	
 
-	<tr> 
+	</tr>
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+
+	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['ad_format'] ?>:&nbsp;</td>
 		<td><select name="adcampaign_format" id="adcampaign_format" class="v12" onchange="setFormat(this.options[this.selectedIndex].value);">
-				
+
 <?php
 
 	$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_formats WHERE adformat_status=1';
@@ -150,30 +150,30 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 
 		echo '	<option value="'.$_entry['value']['adformat_id'].'"';
 		if($_entry['value']['adformat_id'] == $plugin['data']['adcampaign_format']) {
-		
+
 			$plugin['data']['adcampaign_data']['width']		= $_entry['value']['adformat_width'];
 			$plugin['data']['adcampaign_data']['height']	= $_entry['value']['adformat_height'];
-			
+
 			echo ' selected="selected"';
-		
+
 		}
 		echo '>';
-		echo html_specialchars($_entry['value']['adformat_title'].' ('.$_entry['value']['adformat_width'].'x'.$_entry['value']['adformat_height'].')');
+		echo html($_entry['value']['adformat_title'].' ('.$_entry['value']['adformat_width'].'x'.$_entry['value']['adformat_height'].')');
 		echo '</option>'.LF;
-		
+
 		$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ]  = '		ad_formats['.$_entry['value']['adformat_id'].'] = ';
 		$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ] .= '["'.$_entry['value']['adformat_width'].'", "';
 		$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ] .= $_entry['value']['adformat_height'].'"];';
 
 	}
-				
+
 ?>
-				
-				</select></td>				
+
+				</select></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
-	
+
 		<td>&nbsp;</td>
 		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
 			<tr>
@@ -188,21 +188,21 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 <?php echo implode(LF, $plugin['ad_formats_js']) ?>
 
 		function setFormat(value) {
-		
+
 			if(ad_formats[value]) {
 				getFieldById('adcampaign_width').value = ad_formats[value][0];
 				getFieldById('adcampaign_height').value = ad_formats[value][1];
 			}
-		
+
 		}
 		</script></td>
-	
+
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-	
+
 	<tr>
-	
+
 		<td align="right" class="chatlist"><?php echo $BLM['tracking_base'] ?>:&nbsp;</td>
 		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
 			<tr>
@@ -212,58 +212,58 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 				<td class="chatlist">&nbsp;<?php echo $BLM['max_click'] ?></td>
 			</tr>
 		</table></td>
-	
-	</tr>	
+
+	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
-	
+
 	<tr>
-	
+
 		<td align="right" class="chatlist"><?php echo $BLM['target_url'] ?>:&nbsp;</td>
 		<td><input type="text" name="adcampaign_url" id="adcampaign_url" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['url'] ?>" class="v12 width400" /></td>
-	
-	</tr>	
-	
+
+	</tr>
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
+
 	<tr>
-	
+
 		<td align="right" class="chatlist"><?php echo $BLM['open_in'] ?>:&nbsp;</td>
 		<td><select name="adcampaign_target" id="adcampaign_target" class="v12">
 		<option value=""<?php is_selected('', $plugin['data']['adcampaign_data']['target']) ?>>&nbsp;</option>
 		<option value="_blank"<?php is_selected('_blank', $plugin['data']['adcampaign_data']['target']) ?>>_blank</option>
 		<option value="_top"<?php is_selected('_top', $plugin['data']['adcampaign_data']['target']) ?>>_top</option>
 		<option value="_self"<?php is_selected('_self', $plugin['data']['adcampaign_data']['target']) ?>>_self</option>
-		<option value="_parent"<?php is_selected('_parent', $plugin['data']['adcampaign_data']['target']) ?>>_parent</option>		
+		<option value="_parent"<?php is_selected('_parent', $plugin['data']['adcampaign_data']['target']) ?>>_parent</option>
 		</select></td>
-	
-	</tr>	
-	
-	
-	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-	
-	<tr> 
-		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BLM['comment'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" style="width:400px" rows="5" class="v12"><?php echo html_specialchars($plugin['data']['adcampaign_comment']) ?></textarea></td>
+
 	</tr>
-	
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>	
-	
+
+
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+	<tr>
+		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BLM['comment'] ?>:&nbsp;</td>
+		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" style="width:400px" rows="5" class="v12"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea></td>
+	</tr>
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">		
+		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
 				<td><input type="checkbox" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> /></td>
 				<td><label for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label></td>
 			</tr>
 		</table></td>
 	</tr>
-	
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
 	</tr>
-	<tr> 
+	<tr>
 		<td>&nbsp;</td>
 		<td>
 			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />

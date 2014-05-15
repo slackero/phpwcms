@@ -48,7 +48,7 @@ if(!isset($content['glossary'])) {
 
 					// get keywords to store each in cache
 					$keywords	= convertStringToArray($entry[0]['glossary_keyword']);
-					$title		= empty($entry[0]['glossary_title']) ? $inner : html_specialchars($entry[0]['glossary_title']);
+					$title		= empty($entry[0]['glossary_title']) ? $inner : html($entry[0]['glossary_title']);
 					$text		= trim(clean_slweg($entry[0]['glossary_text']));
 
 					// store glossary item in cache

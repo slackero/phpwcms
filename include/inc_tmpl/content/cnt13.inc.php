@@ -72,7 +72,7 @@ $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/search');
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 	}
 }
@@ -157,12 +157,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				<td><input name="csearch_news" type="checkbox" id="csearch_news" value="1"<?php is_checked(1, $content['search']["search_news"]) ?> /></td>
 				<td class="v10"><label for="csearch_news"><strong><?php echo $BL['be_news'] ?></strong></label>&nbsp;&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
-				<td colspan="2"><input type="text" name="csearch_news_lang" id="news_lang" value="<?php echo html_specialchars(implode(', ', $content['search']["news_lang"])) ?>" class="width200" /></td>
+				<td colspan="2"><input type="text" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="width200" /></td>
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
-				<td><input type="text" name="csearch_news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['search']["news_category"])) ?>" class="width200" /></td>
+				<td><input type="text" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="width200" /></td>
 				<td><select name="csearch_news_andor" id="news_andor">
 
 					<option value="OR"<?php is_selected('OR', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
@@ -174,7 +174,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<tr>
 				<td colspan="2">&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_cnt_target'].'/'.$BL['be_profile_label_website'] ?>:&nbsp;</td>
-				<td><input type="text" name="csearch_news_url" id="news_url" value="<?php echo html_specialchars($content['search']["news_url"]) ?>" class="width200" /></td>
+				<td><input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="width200" /></td>
 				<td>&nbsp;</td>
 			</tr>
 		</table>
@@ -303,7 +303,7 @@ if(count($content['search']['module_search'])) {
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_result'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td><input name="csearch_label_result" type="text" id="csearch_label_result" class="f11b" style="width: 150px" value="<?php echo  isset($content["search"]["label_result"]) ? html_specialchars($content["search"]["label_result"]) : '' ?>" size="10" maxlength="250" /></td>
+        <td><input name="csearch_label_result" type="text" id="csearch_label_result" class="f11b" style="width: 150px" value="<?php echo  isset($content["search"]["label_result"]) ? html($content["search"]["label_result"]) : '' ?>" size="10" maxlength="250" /></td>
         <td class="chatlist">&nbsp;&nbsp;&nbsp;<?php echo $BL['be_cnt_css_class'] ?>:&nbsp;</td>
         <td><input name="csearch_style_result" type="text" id="csearch_style_result" class="f11b" style="width: 200px" value="<?php echo  isset($content["search"]["style_result"]) ? $content["search"]["style_result"] : '' ?>" size="20" /></td>
       </tr>
@@ -352,7 +352,7 @@ if(count($content['search']['module_search'])) {
 
   <tr>
     <td align="right" class="chatlist" valign="top" >&nbsp;</td>
-    <td><textarea name="csearch_label_pages" rows="4" class="f11" id="csearch_label_pages" style="width: 440px"><?php echo  isset($content["search"]["label_pages"]) ? html_specialchars($content["search"]["label_pages"]) : '' ?></textarea></td>
+    <td><textarea name="csearch_label_pages" rows="4" class="f11" id="csearch_label_pages" style="width: 440px"><?php echo  isset($content["search"]["label_pages"]) ? html($content["search"]["label_pages"]) : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 </tr>

@@ -188,7 +188,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		} else {
 			$filename = $file_row["f_name"];
 		}
-		$filename = html_specialchars($filename);
+		$filename = html($filename);
 ?>
 	<tr<?php echo $fxb ?>>
 		<td align="center"><input name="ftp_mark[<?php echo $file_row["f_id"] ?>]" type="checkbox" id="ftp_mark_<?php echo $file_row["f_id"] ?>" value="1" class="ftp_mark" /></td>
@@ -290,7 +290,7 @@ if($fx) {
 		"ORDER BY usr_name";
 	$result = mysql_query($sql, $db);
 	while($row = mysql_fetch_row($result)) {
-		echo "<option value='".$row[0]."'>".html_specialchars($row[1])."</option>\n";
+		echo "<option value='".$row[0]."'>".html($row[1])."</option>\n";
 	}
 	mysql_free_result($result);
 					?>

@@ -63,7 +63,7 @@ if(count($content['recipe']['all_keywords'])) {
 	echo '\', \'+document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">';
 	
 	foreach($content['recipe']['all_keywords'] as $temp_val) {
-		$temp_val = html_specialchars($temp_val);
+		$temp_val = html($temp_val);
 		echo '	<option value="'.$temp_val.'">'.$temp_val.'</option>'.LF;
 	}
 	
@@ -77,7 +77,7 @@ if(count($content['recipe']['all_keywords'])) {
 ?>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="f11" style="width:440px"><?php echo html_specialchars($content['recipe']['category']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="f11" style="width:440px"><?php echo html($content['recipe']['category']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
@@ -107,7 +107,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13">Zutaten:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="f11" style="width:440px"><?php echo html_specialchars($content['recipe']['ingredients']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="f11" style="width:440px"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
@@ -117,7 +117,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td><input name="recipe_time" type="text" id="recipe_time" class="f11" style="width:35px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=int_only(this.value);" size="5" /></td>
 			<td class="chatlist" style="width:60px;">&nbsp;<?php echo $BL['be_date_minutes'] ?>&nbsp;</td>
 			<td align="right" class="chatlist" style="width:75px;"><?php echo $BL['be_cnt_additional'] ?>:&nbsp;</td>
-			<td><input name="recipe_time_add" type="text" id="recipe_time_add" class="f11" style="width:250px;" value="<?php echo html_specialchars($content['recipe']['time_add']) ?>" size="40" /></td>
+			<td><input name="recipe_time_add" type="text" id="recipe_time_add" class="f11" style="width:250px;" value="<?php echo html($content['recipe']['time_add']) ?>" size="40" /></td>
 		</tr>
 	</table></td>
 </tr>
@@ -129,7 +129,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td><input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="f11" style="width:35px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=int_only(this.value);" /></td>
 			<td class="chatlist" style="width:60px;">&nbsp;kJ&nbsp;</td>
 			<td align="right" class="chatlist" style="width:75px;"><?php echo $BL['be_cnt_additional'] ?>:&nbsp;</td>
-			<td><input name="recipe_calorificvalue_add" type="text" id="recipe_calorificvalue_add" class="f11" style="width:250px;" value="<?php echo html_specialchars($content['recipe']['calorificvalue_add']) ?>" size="40" /></td>
+			<td><input name="recipe_calorificvalue_add" type="text" id="recipe_calorificvalue_add" class="f11" style="width:250px;" value="<?php echo html($content['recipe']['calorificvalue_add']) ?>" size="40" /></td>
 		</tr>
 	</table></td>
 </tr>

@@ -88,7 +88,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 							if($thumb_image != false) {
 
 								echo "<option value=\"".$content['reference']["list"][$key][0]."\">";
-								$img_name = html_specialchars($content['reference']["list"][$key][1]);
+								$img_name = html($content['reference']["list"][$key][1]);
 								echo $img_name."</option>\n";
 
 								if($imgx == 4) {
@@ -129,7 +129,7 @@ if($img_thumbs) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="creference_caption" cols="40" rows="<?php echo (count($content['reference']["list"])) ? (count($content['reference']["list"]) + 4) : 5 ?>" wrap="off" class="f11" id="creference_caption" style="width:440px"><?php echo html_specialchars($content['reference']["caption"]) ?></textarea></td>
+  <td valign="top"><textarea name="creference_caption" cols="40" rows="<?php echo (count($content['reference']["list"])) ? (count($content['reference']["list"]) + 4) : 5 ?>" wrap="off" class="f11" id="creference_caption" style="width:440px"><?php echo html($content['reference']["caption"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>

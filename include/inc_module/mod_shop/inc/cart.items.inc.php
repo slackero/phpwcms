@@ -73,14 +73,14 @@ foreach($cart_data as $item_key => $row) {
 	}
 
 	$cart_items[$x] = str_replace('{PRODUCT_DETAIL_LINK}', rel_url(array('shop_detail' => $prod_id), array('shop_cart'), $_tmpl['config']['shop_url']), $cart_items[$x]);
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_TITLE', html_specialchars($row['shopprod_name1']));
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_TITLE', html($row['shopprod_name1']));
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_NET_PRICE', $row['net']);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_GROSS_PRICE', $row['gross']);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_WEIGHT', $row['weight']);
 	$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_VAT', $row['vat']);
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
-	$cart_items[$x] = render_cnt_template($cart_items[$x], 'MODEL', html_specialchars($row['shopprod_model']));
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'ORDER_NUM', html($row['shopprod_ordernumber']));
+	$cart_items[$x] = render_cnt_template($cart_items[$x], 'MODEL', html($row['shopprod_model']));
 
 	switch($cart_mode) {
 		case 'cart':

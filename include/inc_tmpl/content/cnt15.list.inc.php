@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Article Menu
 
-$cinfo[1] = html_specialchars(cut_string($row["acontent_title"],'&#8230;', 55));
-							 $cinfo[2] = html_specialchars(cut_string($row["acontent_subtitle"],'&#8230;', 55));
+$cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
+							 $cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 							 $calist = unserialize($row["acontent_form"]);
 							 $cinfo[3] = ($cinfo[1] || $cinfo[2]) ? "<br />" : "";
 							 $cinfo[3] .= (empty($calist['cat'])) ? $BL['be_cnt_sitecurrent'] : $BL['be_cnt_sitelevel'].' [ID:'.$calist['catid'].']';

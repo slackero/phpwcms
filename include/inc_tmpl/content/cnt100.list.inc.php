@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // List
 
-$cinfo[1] = html_specialchars(cut_string($row["acontent_title"],'&#8230;', 55));
-$cinfo[2] = html_specialchars(cut_string($row["acontent_subtitle"],'&#8230;', 55));
+$cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
+$cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 $cinfo_list_type = unserialize($row["acontent_form"]);
 switch($cinfo_list_type['list_type']) {
 	case 1:		$cinfo_list_type = '&lt;ol&gt;'; break;

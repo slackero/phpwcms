@@ -48,10 +48,10 @@ if (!defined('PHPWCMS_ROOT')) {
 		if(empty($plugin['file_'.$key]) && empty($plugin['data'][$key])) {
 			$plugin['file_'.$key] = '';
 		} elseif(!empty($plugin['file_'.$key])) {
-			$plugin['file_'.$key] = html_specialchars($plugin['file_'.$key]);
+			$plugin['file_'.$key] = html($plugin['file_'.$key]);
 		} elseif($plugin['data'][$key]) {
 			$plugin['file_'.$key] = getFileInformation($plugin['data'][$key]);
-			$plugin['file_'.$key] = empty($plugin['file_'.$key][0]['f_name']) ? '' : html_specialchars($plugin['file_'.$key][0]['f_name']);
+			$plugin['file_'.$key] = empty($plugin['file_'.$key][0]['f_name']) ? '' : html($plugin['file_'.$key][0]['f_name']);
 		} else {
 			$plugin['file_'.$key] = '';
 		}
@@ -60,7 +60,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF.'<td><table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
 		echo '<input name="file_'.$key.'" type="text" id="file_'.$key.'" class="v12 width300 greyed" value="'.$plugin['file_'.$key].'" onfocus="this.blur();" />';
-		echo '<input type="hidden" name="'.$key.'" id="fileid_'.$key.'" value="'.html_specialchars($plugin['data'][$key]).'" /></td>';
+		echo '<input type="hidden" name="'.$key.'" id="fileid_'.$key.'" value="'.html($plugin['data'][$key]).'" /></td>';
 		echo '<td>&nbsp;<a href="#" title="'.$BL['be_cnt_openfilebrowser'].'" onclick="return openFileBrowser(\''.$key.'\');"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>';
 		echo '<td>&nbsp;<a href="#" title="'.$BL['be_cnt_delfile'].'" onclick="return deleteIdData(\''.$key.'\',this);"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>';
 
@@ -69,7 +69,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 			case 'HIDDEN':
-		$plugin['hidden_fields'] .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.html_specialchars($plugin['data'][$key]).'" />';
+		$plugin['hidden_fields'] .= '<input type="hidden" name="'.$key.'" id="'.$key.'" value="'.html($plugin['data'][$key]).'" />';
 							break;
 
 
@@ -83,7 +83,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width400" value="'.html_specialchars($plugin['data'][$key]).'" size="30" maxlength="200" /></td>'.LF;
+		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width400" value="'.html($plugin['data'][$key]).'" size="30" maxlength="200" /></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -92,7 +92,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width400" value="'.html_specialchars($plugin['data'][$key]).'" size="30" maxlength="200" disabled="disabled" /></td>'.LF;
+		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width400" value="'.html($plugin['data'][$key]).'" size="30" maxlength="200" disabled="disabled" /></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -101,7 +101,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea type="text" class="v12 width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html_specialchars($plugin['data'][$key]).'</textarea></td>'.LF;
+		echo '<td><textarea type="text" class="v12 width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -111,7 +111,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea name="'.$key.'" id="'.$key.'" class="v12 width400" rows="4">'.html_specialchars($plugin['data'][$key]).'</textarea></td>'.LF;
+		echo '<td><textarea name="'.$key.'" id="'.$key.'" class="v12 width400" rows="4">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -122,7 +122,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width150" value="'.html_specialchars($plugin['data'][$key]).'" size="30" maxlength="200" /></td>'.LF;
+		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width150" value="'.html($plugin['data'][$key]).'" size="30" maxlength="200" /></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -181,7 +181,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		foreach($plugin['select'] as $item => $row) {
 
 			$_selected = false;
-			$_option  = '	<option value="' . html_specialchars($item) .'"';
+			$_option  = '	<option value="' . html($item) .'"';
 			if($value == 'MULTISELECT') {
 				if( in_array($item, $plugin['data'][$key]) ) {
 					$_option .= ' selected="selected"';
@@ -194,7 +194,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					$_selected = true;
 				}
 			}
-			$_option .= '>' . html_specialchars(trim($row)) . '</option>';
+			$_option .= '>' . html(trim($row)) . '</option>';
 
 			if($value == 'MULTISELECT' && $_selected) {
 				$_options_pre[] = $_option;
@@ -211,7 +211,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		if(count($_option_remember)) {
 			echo '<tr>'.LF;
 			echo '<td align="right">&nbsp;</td>'.LF;
-			echo '<td class="tdtop3"><em>'.html_specialchars(implode(', ', $_option_remember)).'</em></td>'.LF.'</tr>'.LF;
+			echo '<td class="tdtop3"><em>'.html(implode(', ', $_option_remember)).'</em></td>'.LF.'</tr>'.LF;
 		}
 
 							break;
@@ -255,12 +255,12 @@ if (!defined('PHPWCMS_ROOT')) {
 		foreach($plugin['multicheck'] as $item => $row) {
 
 			$_selected = false;
-			$_option  = '	<li><label><input type="checkbox" name="'.$key.'[]" value="' . html_specialchars($item) .'"';
+			$_option  = '	<li><label><input type="checkbox" name="'.$key.'[]" value="' . html($item) .'"';
 			if( in_array($item, $plugin['data'][$key]) ) {
 					$_option .= ' checked="checked"';
 					$_selected = true;
 			}
-			$_option .= ' />' . html_specialchars(trim($row)) . '</label></li>';
+			$_option .= ' />' . html(trim($row)) . '</label></li>';
 
 			if($_selected) {
 				$_options_pre[] = $_option;
@@ -311,12 +311,12 @@ if (!defined('PHPWCMS_ROOT')) {
 		foreach($plugin['radiobutton'] as $item => $row) {
 
 			$_selected = false;
-			$_option  = '	<li><label><input type="radio" name="'.$key.'" value="' . html_specialchars($item) .'"';
+			$_option  = '	<li><label><input type="radio" name="'.$key.'" value="' . html($item) .'"';
 			if( strval($item) == strval($plugin['data'][$key]) ) {
 					$_option .= ' checked="checked"';
 					$_selected = true;
 			}
-			$_option .= ' />' . html_specialchars(trim($row)) . '</label></li>';
+			$_option .= ' />' . html(trim($row)) . '</label></li>';
 
 			$_options_pre[] = $_option;
 
@@ -357,7 +357,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 dateselect" value="'.html_specialchars($plugin['data'][$key]).'" size="30" maxlength="10" /></td>'.LF;
+		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 dateselect" value="'.html($plugin['data'][$key]).'" size="30" maxlength="10" /></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -423,7 +423,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
 		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width100 '.$BLM[$key.'_class'].'" ';
-		echo 'value="'.html_specialchars(decformat($plugin['data'][$key])).'" size="30" maxlength="200" /> '.$BLM[$key.'_add'].'</td>'.LF;
+		echo 'value="'.html(decformat($plugin['data'][$key])).'" size="30" maxlength="200" /> '.$BLM[$key.'_add'].'</td>'.LF;
 		echo '</tr>'.LF;
 							break;
 

@@ -75,7 +75,7 @@ $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\">".(($child_count)
 $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" ";
 
 $info  = 'ID: <b>0</b><br />';
-$info .= 'ALIAS: '.html_specialchars($indexpage["acat_alias"]);
+$info .= 'ALIAS: '.html($indexpage["acat_alias"]);
 
 $a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt="" />';
 

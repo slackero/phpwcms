@@ -26,7 +26,7 @@ $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 	$file_durchlauf = 0;
 	while($file_row = mysql_fetch_array($file_result)) {
-		$filename = html_specialchars($file_row["f_name"]);
+		$filename = html($file_row["f_name"]);
 		if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieﬂen der Filelisten-Tabelle
 			echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 		} else {

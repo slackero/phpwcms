@@ -40,7 +40,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 			<tr>
-				<td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo html_specialchars($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo html($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td class="chatlist">&nbsp;&nbsp;EUR, USD, &#8364;, $, &pound;, &yen;</td>
 			</tr>
 
@@ -54,7 +54,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 			<tr>
-				<td><input name="pref_unit_weight" type="text" id="pref_unit_weight" class="v12 width125" value="<?php echo html_specialchars($plugin['data']['shop_pref_unit_weight']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_unit_weight" type="text" id="pref_unit_weight" class="v12 width125" value="<?php echo html($plugin['data']['shop_pref_unit_weight']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td class="chatlist">&nbsp;&nbsp;<?php echo $BLM['shopprod_units_weight'] ?></td>
 			</tr>
 
@@ -84,28 +84,28 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_email_to'] ?>:&nbsp;</td>
-		<td><input name="pref_email_to" type="text" id="pref_email_to" class="v12 width375" value="<?php echo html_specialchars(str_replace(';', '; ', $plugin['data']['shop_pref_email_to'])) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
+		<td><input name="pref_email_to" type="text" id="pref_email_to" class="v12 width375" value="<?php echo html(str_replace(';', '; ', $plugin['data']['shop_pref_email_to'])) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_email_from'] ?>:&nbsp;</td>
-		<td><input name="pref_email_from" type="text" id="pref_email_from" class="v12 width375" value="<?php echo html_specialchars($plugin['data']['shop_pref_email_from']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
+		<td><input name="pref_email_from" type="text" id="pref_email_from" class="v12 width375" value="<?php echo html($plugin['data']['shop_pref_email_from']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_id_shop'] ?>:&nbsp;</td>
-		<td><input name="pref_shop_id" type="text" id="pref_shop_id" class="v12 width375" value="<?php echo html_specialchars($plugin['data']['shop_pref_id_shop']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
+		<td><input name="pref_shop_id" type="text" id="pref_shop_id" class="v12 width375" value="<?php echo html($plugin['data']['shop_pref_id_shop']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_id_cart'] ?>:&nbsp;</td>
-		<td><input name="pref_cart_id" type="text" id="pref_cart_id" class="v12 width375" value="<?php echo html_specialchars($plugin['data']['shop_pref_id_cart']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
+		<td><input name="pref_cart_id" type="text" id="pref_cart_id" class="v12 width375" value="<?php echo html($plugin['data']['shop_pref_id_cart']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
 	</tr>
 
 
@@ -125,9 +125,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		echo '
 			<tr>
-				<td class="tdtop3"><input name="pref_shipping_weight['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
-				<td class="tdtop3"><input name="pref_shipping_net['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['net'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
-				<td class="tdtop3"><input name="pref_shipping_vat['.$x.']" type="text" class="v12 width100" value="' . html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td class="tdtop3"><input name="pref_shipping_weight['.$x.']" type="text" class="v12 width100" value="' . html( @number_format($plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
+				<td class="tdtop3"><input name="pref_shipping_net['.$x.']" type="text" class="v12 width100" value="' . html( @number_format($plugin['data']['shop_pref_shipping'][$x]['net'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" />&nbsp;</td>
+				<td class="tdtop3"><input name="pref_shipping_vat['.$x.']" type="text" class="v12 width100" value="' . html( @number_format($plugin['data']['shop_pref_shipping'][$x]['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) . '" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 			</tr>
 			';
 
@@ -146,12 +146,12 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
 			<tr>
 				<td><input type="checkbox" name="pref_loworder" id="pref_loworder" value="1"<?php is_checked('1', $plugin['data']['shop_pref_loworder']['loworder']) ?> onchange="enableSubmit();" /></td>
-				<td align="right" class="chatlist">&nbsp;<?php echo trim($BLM['shopprod_loworder_under'].' '.html_specialchars($plugin['data']['shop_pref_currency'])) ?>:&nbsp;</td>
-				<td><input name="pref_loworder_under" type="text" id="pref_loworder_under" class="v12 width60" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['under'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td align="right" class="chatlist">&nbsp;<?php echo trim($BLM['shopprod_loworder_under'].' '.html($plugin['data']['shop_pref_currency'])) ?>:&nbsp;</td>
+				<td><input name="pref_loworder_under" type="text" id="pref_loworder_under" class="v12 width60" value="<?php echo html( @number_format($plugin['data']['shop_pref_loworder']['under'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BLM['shopprod_loworder_charge'] ?>:&nbsp;</td>
-				<td><input name="pref_loworder_charge" type="text" id="pref_loworder_charge" class="v12 width50" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['charge'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_loworder_charge" type="text" id="pref_loworder_charge" class="v12 width50" value="<?php echo html( @number_format($plugin['data']['shop_pref_loworder']['charge'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td class="chatlist">&nbsp;&nbsp;<?php echo $BLM['shopprod_vat'] ?>:&nbsp;</td>
-				<td><input name="pref_loworder_vat" type="text" id="pref_loworder_vat" class="v12 width40" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_loworder_vat" type="text" id="pref_loworder_vat" class="v12 width40" value="<?php echo html( @number_format($plugin['data']['shop_pref_loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td class="chatlist">&nbsp;%</td>
 			</tr>
 		</table></td>
@@ -167,7 +167,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			<tr>
 				<td><input type="checkbox" name="pref_discount" id="pref_discount" value="1"<?php is_checked('1', $plugin['data']['shop_pref_discount']['discount']) ?> onchange="enableSubmit();" /></td>
 				<td>&nbsp;</td>
-				<td><input name="pref_discount_percent" type="text" id="pref_discount_percent" class="v12 width60" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
+				<td><input name="pref_discount_percent" type="text" id="pref_discount_percent" class="v12 width60" value="<?php echo html( @number_format($plugin['data']['shop_pref_discount']['percent'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
 				<td align="right" class="chatlist">&nbsp;%</td>
 			</tr>
 		</table></td>
@@ -186,7 +186,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				<td><input type="checkbox" name="pref_payment_paypal" id="pref_payment_paypal" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['paypal']) ?> onchange="enableSubmit();" /></td>
 				<td><label for="pref_payment_paypal">&nbsp;<?php echo $BLM['shopprod_payby_paypal'] ?>&nbsp;&nbsp;&nbsp;</label></td>
 				<td align="right" class="chatlist"><?php echo $BLM['shopprod_email_paypal'] ?>:&nbsp;</td>
-				<td><input name="pref_email_paypal" type="text" id="pref_email_paypal" class="v12 width175" value="<?php echo html_specialchars($plugin['data']['shop_pref_email_paypal']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
+				<td><input name="pref_email_paypal" type="text" id="pref_email_paypal" class="v12 width175" value="<?php echo html($plugin['data']['shop_pref_email_paypal']) ?>" size="30" maxlength="200" onchange="enableSubmit();" /></td>
 			</tr>
 
 			<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
@@ -254,7 +254,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_terms'] ?>:&nbsp;</td>
 		<td><textarea name="pref_terms" id="pref_terms" class="v12 width375" onchange="enableSubmit();" rows="10"><?php
 
-		echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html_specialchars($plugin['data']['shop_pref_terms']);
+		echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html($plugin['data']['shop_pref_terms']);
 
 		?></textarea></td>
 	</tr>

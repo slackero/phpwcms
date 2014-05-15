@@ -25,10 +25,10 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
 
-		$dirname = html_specialchars($row["f_name"]);
+		$dirname = html($row["f_name"]);
 
 		if($_SESSION["wcs_user_id"] != $row["f_uid"]) {
-			$dirname .= ' (' . html_specialchars($row["usr_login"]) . ')';
+			$dirname .= ' (' . html($row["usr_login"]) . ')';
 		}
 
 		//Ermitteln des Aufklappwertes
@@ -130,7 +130,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
-					$filename = html_specialchars($file_row["f_name"]);
+					$filename = html($file_row["f_name"]);
 
 					$file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
@@ -146,9 +146,9 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					echo "<td width=\"13\" class=\"msglist\">";
 					echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
 					echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-					echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);
+					echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
 					if($file_row["f_copyright"]) {
-						echo '&lt;br&gt;&copy;: '.html_specialchars($file_row["f_copyright"]);
+						echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
 					}
 					echo '\');" onmouseout="UnTip()" alt=""';
 					echo " /></td>\n";
@@ -217,9 +217,9 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 							echo $file_row["edit"];
 							echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' ';
 							echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-							echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);
+							echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
 							if($file_row["f_copyright"]) {
-								echo '&lt;br&gt;&copy;: '.html_specialchars($file_row["f_copyright"]);
+								echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
 							}
 							echo '\');" onmouseout="UnTip()" alt=""';
 							echo " /></a></td>\n";

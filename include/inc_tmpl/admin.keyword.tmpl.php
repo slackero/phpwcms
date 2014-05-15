@@ -127,7 +127,7 @@ $keyword["id"] = 0;
 			<?php } ?>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_admin_keywords_key'] ?>:&nbsp;</td>
-		      <td><input name="keyword_name" type="text" id="keyword_name" class="f11b" style="width: 430px" value="<?php echo empty($keyword["name"]) ? '' : html_specialchars($keyword["name"]) ?>" size="40" maxlength="250"></td>
+		      <td><input name="keyword_name" type="text" id="keyword_name" class="f11b" style="width: 430px" value="<?php echo empty($keyword["name"]) ? '' : html($keyword["name"]) ?>" size="40" maxlength="250"></td>
 		    </tr>
 		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 		    <tr>
@@ -155,14 +155,14 @@ $keyword["id"] = 0;
 					echo "<img src=\"img/symbole/plus_empty.gif\" width=\"15\" height=\"15\" border=\"0\"></td>\n";
 						
               		echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-					echo "<td class=\"dir\"><strong>".html_specialchars($row["keyword_name"])."</strong></td>\n";
+					echo "<td class=\"dir\"><strong>".html($row["keyword_name"])."</strong></td>\n";
               		echo "</tr>\n</table></td>\n<td width=\"55\" align=\"right\">";
 					
 					echo "<a href=\"phpwcms.php?do=admin&p=5&keyid=".$row["keyword_id"]."\" title =\"".$BL['be_admin_keyword_edit']."\">";
 					echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
 					
 					echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["keyword_id"]."\" title =\"".$BL['be_admin_keyword_del']."\" ";
-					echo "onclick=\"return confirm('".$BL['be_admin_keyword_delmsg']."\\n[".html_specialchars($row["keyword_name"])."] ');\">";
+					echo "onclick=\"return confirm('".$BL['be_admin_keyword_delmsg']."\\n[".html($row["keyword_name"])."] ');\">";
 					echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 					
 					echo "</td>\n</tr>\n";

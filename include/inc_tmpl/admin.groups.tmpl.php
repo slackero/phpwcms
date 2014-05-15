@@ -59,7 +59,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		 	$grouparray = convertStringToArray($grouplist["group_member"]);
 		  	$total_member = empty($grouparray[0]) ? 0 : count($grouparray);
 		
-			echo $grouplist["group_name"] ? html_specialchars($grouplist["group_name"]).' <span style="color:#999999;">('.$total_member.' '.$BL['be_cnt_rssfeed_item'].')</span>' : 'n.a.';
+			echo $grouplist["group_name"] ? html($grouplist["group_name"]).' <span style="color:#999999;">('.$total_member.' '.$BL['be_cnt_rssfeed_item'].')</span>' : 'n.a.';
 
 		  
 		  ?></a></td>
@@ -70,11 +70,11 @@ if (!defined('PHPWCMS_ROOT')) {
 			?>"><img src="img/button/<?php 
 				if(empty($grouplist["group_active"])) echo "in"; 
 			?>aktiv_mini.gif" alt="" width="14" height="15" border="0" /></a><a href="<?php echo $goto ?>"><img src="img/button/edit.gif" alt="" width="24" height="15" border="0" title="<?php 
-				echo $BL['modules']['usergroup']['be_admin_group_edit'].": ".html_specialchars($grouplist["group_name"]) 
+				echo $BL['modules']['usergroup']['be_admin_group_edit'].": ".html($grouplist["group_name"]) 
 			?>"></a><a href="<?php echo $phpwcms['modules']['usergroup']['dir']; ?>include/inc_act/act_usergroup.php?del=<?php 
 				echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
 			?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php 
-				echo $BL['modules']['usergroup']['be_admin_group_ldel']." ".html_specialchars($grouplist["group_login"])
+				echo $BL['modules']['usergroup']['be_admin_group_ldel']." ".html($grouplist["group_login"])
 			?>"></a></td>
         </tr>
         <?php
@@ -194,7 +194,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			<?php } ?>
 		    <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_fpriv_name'] ?>:&nbsp;</td>       
-		      <td><input name="group_name" type="text" id="group_name" class="width400" value="<?php echo  empty($group["name"]) ? '' : html_specialchars($group["name"]) ?>" size="40" maxlength="250" /></td>
+		      <td><input name="group_name" type="text" id="group_name" class="width400" value="<?php echo  empty($group["name"]) ? '' : html($group["name"]) ?>" size="40" maxlength="250" /></td>
 		    </tr>
 			
 
@@ -204,7 +204,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		
         <tr>
 		      <td align="right" class="chatlist"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-		      <td><textarea name="group_value" id="group_value" class="width400" rows="3"><?php echo html_specialchars($group["value"]) ?></textarea></td>
+		      <td><textarea name="group_value" id="group_value" class="width400" rows="3"><?php echo html($group["value"]) ?></textarea></td>
 		    </tr>
         
         <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -222,8 +222,8 @@ $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv != 9 ORDER BY u
 if($result = mysql_query($sql, $db) or die("error while listing frontend users")) {
 	$_temp_usr = array();
 	while($row = mysql_fetch_assoc($result)) {
-		$_temp_usr[$row['usr_id']]['name']   = html_specialchars($row['usr_name']);
-		$_temp_usr[$row['usr_id']]['login']  = html_specialchars($row['usr_login']);
+		$_temp_usr[$row['usr_id']]['name']   = html($row['usr_name']);
+		$_temp_usr[$row['usr_id']]['login']  = html($row['usr_login']);
 		$_temp_usr[$row['usr_id']]['fe']     = $row['usr_fe'];
 		$_temp_usr[$row['usr_id']]['active'] = $row['usr_aktiv'];
 		$_temp_usr[$row['usr_id']]['admin'] = $row['usr_admin'];

@@ -76,7 +76,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$vals = '';
 		if($val == $content['glossary']['glossary_template']) $vals= ' selected="selected"';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
 	}
 }
@@ -97,7 +97,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['modules'][$content["module"]]['input_filter'] ?>:&nbsp;</td>
-	<td><input type="text" name="glossary_filter" id="glossary_filter" value="<?php echo html_specialchars($content['glossary']['glossary_filter']) ?>" class="f11b" style="width: 440px" maxlength="1000" /></td>
+	<td><input type="text" name="glossary_filter" id="glossary_filter" value="<?php echo html($content['glossary']['glossary_filter']) ?>" class="f11b" style="width: 440px" maxlength="1000" /></td>
 </tr>
 <!-- end field -->
 
@@ -117,14 +117,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['modules'][$content["module"]]['glossary_token'] ?>:&nbsp;</td>
-	<td><input type="text" name="glossary_tag" id="glossary_tag" value="<?php echo html_specialchars($content['glossary']['glossary_tag']) ?>" class="f11b" style="width: 440px" maxlength="1000" /></td>
+	<td><input type="text" name="glossary_tag" id="glossary_tag" value="<?php echo html($content['glossary']['glossary_tag']) ?>" class="f11b" style="width: 440px" maxlength="1000" /></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist" style="padding:3px 5px 0 0" valign="top"><?php echo $BL['modules'][$content["module"]]['no_entry'] ?>:</td>
-	<td><textarea name="glossary_noentry" id="glossary_noentry" class="f11" rows="5" style="width: 440px"><?php echo html_specialchars($content['glossary']['glossary_noentry']) ?></textarea></td>
+	<td><textarea name="glossary_noentry" id="glossary_noentry" class="f11" rows="5" style="width: 440px"><?php echo html($content['glossary']['glossary_noentry']) ?></textarea></td>
 </tr>
 
 <!-- end custom fields -->

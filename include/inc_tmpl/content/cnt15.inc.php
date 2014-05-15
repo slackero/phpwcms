@@ -108,7 +108,7 @@ if(empty($content["alist"]["label"])) {
 	<td>&nbsp;&nbsp;</td>
 	
 	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>:&nbsp;</td>
-	<td><input type="text" name="calist_class" id="calist_class" class="v11 width100" value="<?php echo html_specialchars($content["alist"]["class"]) ?>"></td>
+	<td><input type="text" name="calist_class" id="calist_class" class="v11 width100" value="<?php echo html($content["alist"]["class"]) ?>"></td>
 	
 	</tr>
 	</table>
@@ -122,12 +122,12 @@ if(empty($content["alist"]["label"])) {
 		<td>&nbsp;&nbsp;&nbsp;</td>
 	
 		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_label'] ?>:&nbsp;</td>
-		<td><input type="text" name="calist_label" id="calist_label" class="v11 width100" value="<?php echo html_specialchars($content["alist"]["label"]) ?>"></td>
+		<td><input type="text" name="calist_label" id="calist_label" class="v11 width100" value="<?php echo html($content["alist"]["label"]) ?>"></td>
 	
 		<td>&nbsp;</td>
 	
 		<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_field']['break'] ?>:&nbsp;</td>
-		<td><input type="text" name="calist_break" id="calist_break" class="v11 width35" value="<?php echo html_specialchars($content["alist"]["break"]) ?>"></td>
+		<td><input type="text" name="calist_break" id="calist_break" class="v11 width35" value="<?php echo html($content["alist"]["break"]) ?>"></td>
 		
 		
 	</tr>
@@ -145,7 +145,7 @@ if(empty($content["alist"]["label"])) {
 	<td><input type="text" name="calist_maxchar" id="calist_maxchar" class="v11" style="width:35px;" value="<?php echo $content["alist"]["maxchar"] ?>"></td>
 	<td>&nbsp;</td>
 	<td class="chatlist">&nbsp;<?php echo $BL['be_article_morelink'] ?>:&nbsp;</td>
-	<td><input type="text" name="calist_morelink" id="calist_morelink" class="v11 width100" value="<?php echo html_specialchars($content["alist"]["morelink"]) ?>"></td>
+	<td><input type="text" name="calist_morelink" id="calist_morelink" class="v11 width100" value="<?php echo html($content["alist"]["morelink"]) ?>"></td>
 	
 	</tr>
 	</table>

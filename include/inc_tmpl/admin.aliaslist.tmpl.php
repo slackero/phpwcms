@@ -46,8 +46,8 @@ $x = 0;
 foreach($result as $data) {
 
 	// now add article URL
-	echo '	<tr class="row'.($x%2?' alt': '').'" title="'.html_specialchars('[ID:'.$data["article_id"].'] '.$data["article_title"]).'">';
-   	echo '		<td width="80%">' . (empty($data["article_alias"]) ? '-' : html_specialchars($data["article_alias"]) ) . "&nbsp;</td>" . LF;
+	echo '	<tr class="row'.($x%2?' alt': '').'" title="'.html('[ID:'.$data["article_id"].'] '.$data["article_title"]).'">';
+   	echo '		<td width="80%">' . (empty($data["article_alias"]) ? '-' : html($data["article_alias"]) ) . "&nbsp;</td>" . LF;
 	echo '		<td align="right">'.$data["article_id"]."&nbsp;</td>" . LF;
 	echo '		<td class="nowrap">'.date($BL['default_date'], $data["article_timestamp"])."</td>" . LF;
 	echo '		<td align="right" width="30"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id='.$data["article_id"].'">';

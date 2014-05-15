@@ -111,7 +111,7 @@ if(isset($_POST["file_search"])) {
 				  	$zz=0;
 	  				foreach($search["error"] as $value) {
 						if($zz) echo "<br />";
-	  					echo html_specialchars($value);
+	  					echo html($value);
 						$zz++;
 	  				}
 	  ?></td>
@@ -125,7 +125,7 @@ if(isset($_POST["file_search"])) {
 		    <td>
 		    <input name="file_search" type="text" class="v11" id="file_search" style="font-weight:bold;width:260px;" value="<?php
 				if(!empty($_SESSION['file_search_query']["file_search"])) {
-					echo html_specialchars($_SESSION['file_search_query']["file_search"]);
+					echo html($_SESSION['file_search_query']["file_search"]);
 				}
 			?>" size="40" maxlength="250" /><script type="text/javascript">
 			<!--
@@ -175,7 +175,7 @@ if(isset($search["result"])) {
 	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 		$file_durchlauf = 0;
 		while($file_row = mysql_fetch_array($file_result)) {
-			$filename = html_specialchars($file_row["f_name"]);
+			$filename = html($file_row["f_name"]);
 			if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tavbelle
 				echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 			} else {

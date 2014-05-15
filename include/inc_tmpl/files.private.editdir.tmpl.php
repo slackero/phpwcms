@@ -84,7 +84,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		if($result = mysql_query($sql, $db) or die("error while reading folder name")) {
 			if($row = mysql_fetch_row($result)) {
-				$dir_oldname = html_specialchars($row[1]);
+				$dir_oldname = html($row[1]);
 				$dir_id		 = intval($row[0]);
 				if(empty($_POST["dir_aktion"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) != 2)) {
 					$dir_newname	= $dir_oldname;
@@ -147,12 +147,12 @@ if(!empty($ja)) {
 	
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_newname'] ?>:&nbsp;</td>
-		<td><input name="dir_newname" type="text" class="width440 v12" id="dir_newname" value="<?php echo html_specialchars($dir_newname) ?>" size="40" maxlength="250" /></td>
+		<td><input name="dir_newname" type="text" class="width440 v12" id="dir_newname" value="<?php echo html($dir_newname) ?>" size="40" maxlength="250" /></td>
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr>
 		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="v12 width440" id="dir_longinfo"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
+		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="v12 width440" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea></td>
 	</tr>	
 	
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>

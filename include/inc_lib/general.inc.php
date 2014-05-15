@@ -75,11 +75,11 @@ function list_country($c, $lang='') {
 	$country_list = '';
 	$country = getCountry($lang);
 	foreach($country as $key => $value) {
-		$country_list .= '	<option value="'.html_specialchars($key).'"';
+		$country_list .= '	<option value="'.html($key).'"';
 		if($key == $c) {
 			$country_list .= ' selected="selected"';
 		}
-		$country_list .= '>'.html_specialchars($value).'</option>' . LF;
+		$country_list .= '>'.html($value).'</option>' . LF;
 	}
 	return $country_list;
 }
@@ -151,11 +151,11 @@ function list_profession($c){
 	}
 	$sql = mysql_query("SELECT prof_name FROM ".DB_PREPEND."phpwcms_profession ORDER BY prof_name");
 	while($a = mysql_fetch_assoc($sql)) {
-		echo '<option value="'.html_specialchars($a["prof_name"]).'"';
+		echo '<option value="'.html($a["prof_name"]).'"';
 		if($a["prof_name"] == $c) {
 			echo ' selected="selected"';
 		}
-		echo '>'.html_specialchars($a["prof_name"])."</option>";
+		echo '>'.html($a["prof_name"])."</option>";
 	}
 	mysql_free_result($sql);
 }
@@ -412,7 +412,7 @@ function online_users($dbcon, $spacer="<br />", $wrap="<span class=\"useronline\
 	if($o = mysql_query("SELECT logged_user FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_in=1", $dbcon)) {
 		while($uo = mysql_fetch_row($o)) {
 			$xo .= ($x) ? $spacer : "";
-			$xo .= html_specialchars($uo[0]);
+			$xo .= html($uo[0]);
 			$x++;
 		}
 		mysql_free_result($o);
@@ -539,7 +539,7 @@ function get_list_of_file_keywords() {
 	//else it returns false
 	if($result = mysql_query("SELECT * FROM ".DB_PREPEND."phpwcms_filekey")) {
 		while($row = mysql_fetch_assoc($result)) {
-			$file_key[intval($row["fkey_id"])] = html_specialchars($row["fkey_name"]);
+			$file_key[intval($row["fkey_id"])] = html($row["fkey_name"]);
 		}
 		mysql_free_result($result);
 	}
@@ -1680,7 +1680,7 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 	@umask(0);
 	if(!@move_uploaded_file($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
 		if(!copy($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
-			$file_status['error'] = 'Saving uploaded file <b>'.html_specialchars($file_status['name']).'</b> to <b>'.html_specialchars(str_replace(PHPWCMS_ROOT, '', $target.$file_status['rename'])).'</b> failed';
+			$file_status['error'] = 'Saving uploaded file <b>'.html($file_status['name']).'</b> to <b>'.html(str_replace(PHPWCMS_ROOT, '', $target.$file_status['rename'])).'</b> failed';
 			$file_status['error_num'] = 412;
 			@unlink($_FILES[$file]['tmp_name']);
 			return $file_status;

@@ -55,7 +55,7 @@ if(!empty($_SESSION['phpwcms_backend_search'])) {
 	$_asql_1 .= "	CONCAT(t2.article_title,t2.article_subtitle,t2.article_summary) LIKE '%"._dbEscape($_SESSION['phpwcms_backend_search'], FALSE)."%'";
 	$_asql_1 .= " ) ";
 
-	$_be_search = $BL['be_ctype_search'].': ' . html_specialchars($_SESSION['phpwcms_backend_search']) ;
+	$_be_search = $BL['be_ctype_search'].': ' . html($_SESSION['phpwcms_backend_search']) ;
 
 } else {
 	$_be_search = $BL['be_last_edited'];
@@ -112,9 +112,9 @@ $_last10_article = _dbQuery($_asql_1);
 			echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
 			echo 'onclick="document.location.href=\'phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'\'" title="'.$BL['be_func_struct_edit'].'">'.LF;
 			echo '	<td style="width:11px;padding:1px 4px 1px 2px;"><img src="img/symbole/text_1.gif" alt="" /></td>'.LF;
-			echo '	<td class="overflow-ellipsis home-article">'.html_specialchars($value['article_title']);
+			echo '	<td class="overflow-ellipsis home-article">'.html($value['article_title']);
 			if($value['article_subtitle']) {
-				echo ' / ' . html_specialchars($value['article_subtitle']);
+				echo ' / ' . html($value['article_subtitle']);
 			}
 			echo '</td>'.LF;
 			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
@@ -199,7 +199,7 @@ $_last10_article = _dbQuery($_asql_1);
 
 			$value['notice'] = str_replace('###', ', ', trim($value['acontent_title'].'###'.$value['acontent_subtitle'].'###'.$value['acontent_comment'], '#'));
 			if($value['notice']) {
-				$value['notice'] = html_specialchars(preg_replace('/\s+/', ' ', $value['notice']));
+				$value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice']));
 			} else {
 				$value['notice'] = '&nbsp;';
 			}

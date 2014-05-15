@@ -31,12 +31,12 @@ if(count($clink)) {
 	 $clink_target = isset($clink_link[1]) ? $clink_link[1] : '';
 	 $clink_link = $clink_link[0];
 	 $clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ".
-					 "title=\"Link: ".html_specialchars($clink_link.trim(' '.$clink_target))."\">".
+					 "title=\"Link: ".html($clink_link.trim(' '.$clink_target))."\">".
 					 "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
 	 if(isEmpty($clink_name)) {
-		$clink_liste .= html_specialchars($clink_link)."</a>\n";
+		$clink_liste .= html($clink_link)."</a>\n";
 	 } else {
-		$clink_liste .= html_specialchars($clink_name)."</a>\n";
+		$clink_liste .= html($clink_name)."</a>\n";
 	 }
  }
  unset($clink);
@@ -46,7 +46,7 @@ $cinfo["result"] = "";
 foreach($cinfo as $value) {
  if($value) $cinfo["result"] .= $value."\n";
 }
-$cinfo["result"] = str_replace("\n", " / ", html_specialchars(chop($cinfo["result"])));
+$cinfo["result"] = str_replace("\n", " / ", html(chop($cinfo["result"])));
 if($cinfo["result"] || $clink_liste) { //Zeige Inhaltinfo
  echo "<tr><td>&nbsp;</td><td class=\"v10\">";
  if($cinfo["result"]) {

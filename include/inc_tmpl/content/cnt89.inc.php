@@ -41,7 +41,7 @@ if(!isset($content['poll_text']['poll_buttontext'])) {
 }
 if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["choice"]) && count($content["poll_form"]["choice"])) {
 	foreach($content["poll_form"]["choice"] as $key => $value) {
-		$caption_box .= html_specialchars($content["poll_form"]["choice"][$key])."\n";
+		$caption_box .= html($content["poll_form"]["choice"][$key])."\n";
 	}
 } else {
 	$content["poll_form"]["choice"] = array();
@@ -51,12 +51,12 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
 	<td align="right" class="chatlist">Class:&nbsp;</td>
-	<td><input name="cpoll_buttonstyle" type="text" class="f11" id="cpoll_buttonstyle" style="width: 250px;" value="<?php echo html_specialchars($content['poll_text']['poll_buttonstyle']) ?>" /></td>
+	<td><input name="cpoll_buttonstyle" type="text" class="f11" id="cpoll_buttonstyle" style="width: 250px;" value="<?php echo html($content['poll_text']['poll_buttonstyle']) ?>" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 <tr>
 	<td align="right" class="chatlist">Button:&nbsp;</td>
-	<td><input name="cpoll_buttontext" type="text" class="f11" id="cpoll_buttontext" style="width: 250px;" value="<?php echo html_specialchars($content['poll_text']['poll_buttontext']) ?>" /></td>
+	<td><input name="cpoll_buttontext" type="text" class="f11" id="cpoll_buttontext" style="width: 250px;" value="<?php echo html($content['poll_text']['poll_buttontext']) ?>" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr>
@@ -86,7 +86,7 @@ if(isset($content['poll_list']['images']) && is_array($content['poll_list']['ima
 
 		if($thumb_image != false) {
 			echo '<option value="' . $content['poll_list']['images'][$key][0] . '">';
-			$img_name = html_specialchars($content['poll_list']['images'][$key][1]);
+			$img_name = html($content['poll_list']['images'][$key][1]);
 			echo $img_name . "</option>\n";
 
 			if($imgx == 4) {

@@ -50,7 +50,7 @@ if(is_array($image_list['images']) && count($image_list['images'])) {
 			if($imgx) {
 				$cinfo_img .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1" />';
 			}
-			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html_specialchars($image_list['images'][$key][1]).'" />';
+			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
 			$imgx++;
 		}
 	}

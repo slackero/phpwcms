@@ -35,7 +35,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 	?>:&nbsp;</td>
-		<td><input name="newsletter_subject" type="text" class="f11b" id="newsletter_subject" style="width:400px" value="<?php echo html_specialchars($newsletter["newsletter_subject"]) ?>" size="50" maxlength="250" onchange="hideLayer('messagesend');" /></td>
+		<td><input name="newsletter_subject" type="text" class="f11b" id="newsletter_subject" style="width:400px" value="<?php echo html($newsletter["newsletter_subject"]) ?>" size="50" maxlength="250" onchange="hideLayer('messagesend');" /></td>
 	</tr>
 	<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
@@ -63,7 +63,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_newsletter_fromname'] ?>:&nbsp;</td>
-		<td><input name="newsletter_fromname" type="text" class="f11" id="newsletter_fromname" style="width:400px" value="<?php echo html_specialchars($newsletter["newsletter_vars"]['from_name']) ?>" size="50" maxlength="250" /></td>
+		<td><input name="newsletter_fromname" type="text" class="f11" id="newsletter_fromname" style="width:400px" value="<?php echo html($newsletter["newsletter_vars"]['from_name']) ?>" size="50" maxlength="250" /></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 	<tr>
@@ -75,7 +75,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		?>:&nbsp;</td>
-		<td><input name="newsletter_fromemail" type="text" class="f11" id="newsletter_fromemail" style="width:400px" value="<?php echo html_specialchars($newsletter["newsletter_vars"]['from_email']) ?>" size="50" maxlength="250" /></td>
+		<td><input name="newsletter_fromemail" type="text" class="f11" id="newsletter_fromemail" style="width:400px" value="<?php echo html($newsletter["newsletter_vars"]['from_email']) ?>" size="50" maxlength="250" /></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 	<tr>
@@ -87,7 +87,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		?>:&nbsp;</td>
-		<td><input name="newsletter_replyto" type="text" class="f11" id="newsletter_replyto" style="width:400px" value="<?php echo html_specialchars($newsletter["newsletter_vars"]['replyto']) ?>" size="50" maxlength="250" /></td>
+		<td><input name="newsletter_replyto" type="text" class="f11" id="newsletter_replyto" style="width:400px" value="<?php echo html($newsletter["newsletter_vars"]['replyto']) ?>" size="50" maxlength="250" /></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
@@ -116,7 +116,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					}
 				}
 			}
-			$i .= ' /></td><td><label for="nls'.$row[0].'">'.html_specialchars($row[1])."</label></td>\n</tr>\n";
+			$i .= ' /></td><td><label for="nls'.$row[0].'">'.html($row[1])."</label></td>\n</tr>\n";
 		}
 		mysql_free_result($result);
 		echo $i;
@@ -144,7 +144,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 		$i = 0;
 		foreach($tmpllist as $value) {
-			$value1 = html_specialchars($value);
+			$value1 = html($value);
 			$tmpldata['options'][$i]  = '<option value="'.$value1.'"';
 			if($value == $newsletter["newsletter_vars"]['template']) {
 				$tmpldata['options'][$i] .= ' selected="selected"';
@@ -248,7 +248,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 	</tr>
 	<tr><td class="chatlist"><?php echo $BL['be_newsletter_textpart'] ?>:</td></tr>
 	<tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-	<tr><td><textarea name="newsletter_text" rows="25" wrap="off" class="code" style="width:536px;height:200px;background-color:#ffffff;"><?php echo html_specialchars($newsletter["newsletter_vars"]['text']) ?></textarea></td></tr>
+	<tr><td><textarea name="newsletter_text" rows="25" wrap="off" class="code" style="width:536px;height:200px;background-color:#ffffff;"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea></td></tr>
 
 	</table>
 	<!-- </div> --></td>

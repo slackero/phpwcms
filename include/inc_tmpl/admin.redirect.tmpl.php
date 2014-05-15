@@ -162,7 +162,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		}
 ?>
 				<td style="padding:0 10px 0 0;" class="nowrap">
-					<input type="text" name="filter" size="10" value="<?php	if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html_specialchars(implode(' ', $_POST['filter'])); ?>" class="width100" />
+					<input type="text" name="filter" size="10" value="<?php	if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" class="width100" />
 					<input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="vertical-align:middle;" />
 				</td>
 
@@ -203,13 +203,13 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
 		$data['source'] = array();
 		if($data['alias']) {
-			$data['source'][] = $BL['be_alias'].':&nbsp;'.html_specialchars($data['alias']);
+			$data['source'][] = $BL['be_alias'].':&nbsp;'.html($data['alias']);
 		}
 		if($data['aid']) {
-			$data['source'][] = $BL['be_func_struct_articleID'].':&nbsp;'.html_specialchars($data['aid']);
+			$data['source'][] = $BL['be_func_struct_articleID'].':&nbsp;'.html($data['aid']);
 		}
 		if($data['id']) {
-			$data['source'][] = $BL['be_structure_id'].':&nbsp;'.html_specialchars($data['id']);
+			$data['source'][] = $BL['be_structure_id'].':&nbsp;'.html($data['id']);
 		}
 
 		$data['source'] = implode(', ', $data['source']);
@@ -218,7 +218,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		}
 
 		//if($data["target"]) {
-			$data["target"] = $data["type"] ? ($target_types[$data["type"]] . ': '.html_specialchars($data["target"])) : $BL['be_admin_struct_index'];
+			$data["target"] = $data["type"] ? ($target_types[$data["type"]] . ': '.html($data["target"])) : $BL['be_admin_struct_index'];
 			$data['enable_switch_prefix']  = '<a href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"];
 			$data['enable_switch_prefix'] .= '&amp;active='.$data['active'].'" title="' . $BL['be_fprivfunc_cactive'];
 			$data['enable_switch_prefix'] .= ': '.$data['source'] . ' &gt; ' . $data["target"].'">';
@@ -315,7 +315,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
 	<tr class="formrowdark">
 		<td align="right" class="chatlist">&nbsp;<?php echo $BL['be_alias'].'/'.$BL['be_shortcut'] ?>:&nbsp;</td>
-		<td colspan="3"><input name="alias" type="text" class="width440" value="<?php echo html_specialchars($data['alias']) ?>" size="50" /></td>
+		<td colspan="3"><input name="alias" type="text" class="width440" value="<?php echo html($data['alias']) ?>" size="50" /></td>
 	</tr>
 
 	<tr class="formrowdark">
@@ -359,7 +359,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 
 	<tr>
 		<td align="right" class="chatlist">&nbsp;<?php echo $BL['be_cnt_target'] ?>:&nbsp;</td>
-		<td colspan="3"><input name="target" type="text" class="width440" value="<?php echo html_specialchars($data['target']) ?>" size="50" /></td>
+		<td colspan="3"><input name="target" type="text" class="width440" value="<?php echo html($data['target']) ?>" size="50" /></td>
 	</tr>
 
 	<tr><td colspan="4" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
