@@ -60,7 +60,7 @@ $plugin['days_in_month']	= gmdate('t', $plugin['first_of_month']);
 $plugin['week_start']		= date('W', $plugin['first_of_month']);
 $plugin['first_day']		= 0;
 $plugin['weekday']			= (gmstrftime('%w', $plugin['first_of_month']) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
-$plugin['this_date']		= html_entities(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])));
+$plugin['this_date']		= html(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])), false);
 
 $plugin['location']			= decode_entities(MODULE_HREF);
 $plugin['loc_this_month']	= $plugin['location'].'&calendardate='.date('m-Y');
@@ -193,7 +193,6 @@ if($plugin['current_month'] == 12) {
 	$plugin['end_month']	= $plugin['current_month'] + 1;
 	$plugin['end_year']		= $plugin['current_year'];
 }
-
 
 $sql  = 'SELECT *, ';
 $sql .= "DATE_FORMAT(calendar_start, '%d".$BLM['date_delimiter']."%m".$BLM['date_delimiter']."%Y') AS calendar_start_date, ";
@@ -355,7 +354,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 
 	$_entry['class'] = ($_entry['day_num'] == 7 || $_entry['x'] == $plugin['days_in_month']) ? ' calendarSunday' : '';
 
-	echo '	<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html(gmstrftime('%a', $_entry['timestamp'])).'</td>'.LF;
+	echo '	<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html(gmstrftime('%a', $_entry['timestamp']), false).'</td>'.LF;
 	echo '	<td class="calendarData'.$_entry['class'].'">';
 
 	// run available dates for current day
@@ -378,7 +377,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 			if($_entry['date']['calendar_range']) {
 				$_entry['link '] = $BLM['repeat_list'.$_entry['date']['calendar_range']].': '.$_entry['link '];
 			}
-			$_entry['link '] = html($_entry['link ']);
+			$_entry['link '] = html($_entry['link '], false);
 
 			echo '<p><a href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
 			if($_entry['date']['calendar_status'] == 0) echo ' class="off"';

@@ -41,6 +41,7 @@ class phpwcmsCalendar {
 	var $no_calendar_item_found	= 'No date found for current calendar search. <a href="{CALENDAR_RESET}" title="Reset">Reset</a>';
 	var $template				= '';
 	var $expired				= '';
+	var $expired_date			= 'END';
 	var $expired_prefix			= '';
 	var $expired_suffix			= '';
 
@@ -144,11 +145,20 @@ class phpwcmsCalendar {
 
 		foreach($this->dates as $key => $date) {
 
-			$url		= '';
-			$target		= '';
-			$href		= $this->href ? $this->href . '&amp;show_date='.date('Y-m-d', $date['calendar_start_date']).'_'.$date['calendar_id'] : '';
-			$itemgroup	= 'default';
-			if($date['calendar_start_date'] < $now) {
+			$url			= '';
+			$target			= '';
+			$href			= $this->href ? $this->href . '&amp;show_date='.date('Y-m-d', $date['calendar_start_date']).'_'.$date['calendar_id'] : '';
+			$itemgroup		= 'default';
+
+			if($date['calendar_range']) {
+				$date['calendar_range_start_date']	= strtotime($date['calendar_range_start'].' '.date('H:i', $date['calendar_start_date']));
+				$date['calendar_range_end_date']	= strtotime($date['calendar_range_end']);
+				$expired_date = $this->expired === 'START' ? 'calendar_range_start_date' : 'calendar_range_end_date';
+			} else {
+				$expired_date = $this->expired === 'START' ? 'calendar_start_date' : 'calendar_end_date';
+			}
+
+			if($this->expired !== '' && $date[$expired_date] < $now) {
 				if($this->expired === 'bottom' || $this->expired === 'top') {
 					$itemgroup = $this->expired;
 				} elseif($this->expired === 'hide') {
@@ -206,8 +216,6 @@ class phpwcmsCalendar {
 			// Detect if range date
 			if($date['calendar_range']) {
 				$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'RANGEDATE', ' ');
-				$date['calendar_range_start_date']	= strtotime($date['calendar_range_start'].' '.date('H:i', $date['calendar_start_date']));
-				$date['calendar_range_end_date']	= strtotime($date['calendar_range_end']);
 				$items[$itemgroup][$key] = render_cnt_date($items[$itemgroup][$key], $date['calendar_range_start_date'], $date['calendar_range_start_date'], $date['calendar_range_end_date']);
 			} else {
 				$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'RANGEDATE', '');
@@ -262,7 +270,18 @@ class phpwcmsCalendar {
 			$default['place']			= empty($match['place']) ? '' : trim($match['place']);
 			$default['gettype']			= empty($match['gettype']) ? '' : $match['gettype'];
 			$default['teaserwords']		= empty($match['teaserwords']) ? 0 : intval($match['teaserwords']);
-			$default['expired']			= !empty($match['expired']) && in_array('hide', 'bottom', 'top') ? $match['expired'] : '';
+			if(!empty($match['expired'])) {
+				$match['expired'] 		= strtolower(trim($match['expired']));
+				$default['expired']		= in_array($match['expired'], array('hide', 'bottom', 'top')) ? $match['expired'] : '';
+			} else {
+				$default['expired']		= '';
+			}
+			if(!empty($match['expired_date'])) {
+				$match['expired_date'] 	 = strtoupper(trim($match['expired_date']));
+				$default['expired_date'] = in_array($match['expired_date'], array('START', 'END')) ? $match['expired_date'] : 'END';
+			} else {
+				$default['expired_date'] = 'END';
+			}
 			$default['expired_prefix']	= empty($match['expired_prefix']) ? '' : trim($match['expired_prefix']);
 			$default['expired_suffix']	= empty($match['expired_suffix']) ? '' : trim($match['expired_suffix']);
 
@@ -282,6 +301,7 @@ class phpwcmsCalendar {
 			$default['gettype']			= '';
 			$default['teaserwords']		= 0;
 			$default['expired']			= '';
+			$default['expired_date']	= 'END';
 			$default['expired_prefix']	= '';
 			$default['expired_suffix']	= '';
 
@@ -433,6 +453,7 @@ class phpwcmsCalendar {
 		$this->gettype 			= $default['gettype'];
 		$this->teaserwords		= $default['teaserwords'];
 		$this->expired			= $default['expired'];
+		$this->expired_date		= $default['expired_date'];
 		$this->expired_prefix	= $default['expired_prefix'];
 		$this->expired_suffix	= $default['expired_suffix'];
 
