@@ -9,10 +9,6 @@
  *
  **/
 
-
-
-
-
 // THE FOLLOWIN FUNCTION IS RELEASED UNDER THE FOLLOWING OPEN SOUCE LICENCE
 // http://keithdevens.com/software/license
 
