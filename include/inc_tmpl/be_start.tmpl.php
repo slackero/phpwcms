@@ -199,12 +199,15 @@ $_last10_article = _dbQuery($_asql_1);
 
 			$value['notice'] = str_replace('###', ', ', trim($value['acontent_title'].'###'.$value['acontent_subtitle'].'###'.$value['acontent_comment'], '#'));
 			if($value['notice']) {
-				$value['notice'] = ' > ' . $value['notice'];
+				$value['notice_long'] = $value['article_title'] . ' > ' . $value['notice'];
+				$value['notice'] = getCleanSubString($value['article_title'], 15, '.') . ' > ' . $value['notice'];
+			} else {
+				$value['notice_long'] = $value['notice'] = $value['article_title'];
 			}
 
-			$value['notice'] = html(preg_replace('/\s+/', ' ', $value['article_title'] . $value['notice']));
+			$value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice'], false));
 
-			echo '	<td class="overflow-ellipsis home-cp">'.$value['notice'].'</td>'.LF;
+			echo '	<td class="overflow-ellipsis home-cp" title="'.$BL['be_func_content_edit'].': '.html($value['notice_long'], false).'" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
 			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
 
 			echo '	<td style="padding:3px;width:42px;" nowrap="nowrap">';
