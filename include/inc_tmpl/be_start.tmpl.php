@@ -163,7 +163,7 @@ $_last10_article = _dbQuery($_asql_1);
 	<tr class="tableHeadRow">
 		<th width="20">&nbsp;</th>
 		<th style="text-align:left"><?php echo $BL['be_cnt_type'] ?>&nbsp;</th>
-		<th style="text-align:left"><?php echo $BL['be_profile_label_notes'] ?></th>
+		<th style="text-align:left"><?php echo $BL['be_article_atitle'].'/'.$BL['be_profile_label_notes'] ?></th>
 		<th><?php echo $BL['be_cnt_last_edited'] ?>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -199,10 +199,10 @@ $_last10_article = _dbQuery($_asql_1);
 
 			$value['notice'] = str_replace('###', ', ', trim($value['acontent_title'].'###'.$value['acontent_subtitle'].'###'.$value['acontent_comment'], '#'));
 			if($value['notice']) {
-				$value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice']));
-			} else {
-				$value['notice'] = '&nbsp;';
+				$value['notice'] = ' > ' . $value['notice'];
 			}
+
+			$value['notice'] = html(preg_replace('/\s+/', ' ', $value['article_title'] . $value['notice']));
 
 			echo '	<td class="overflow-ellipsis home-cp">'.$value['notice'].'</td>'.LF;
 			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
