@@ -25,20 +25,24 @@ class phpwcmsCalendar {
 	var $select_format_month	= 'name'; // %02s -> 05, %s -> 5, 'name' like defined in $select_month_option
 	var $select_format_year		= 4; // 4 = 2010, 2 = 10
 	var $select_month_option	= array(
-			1	=> 'January',
-			2	=> 'February',
-			3	=> 'March',
-			4	=> 'April',
-			5	=> 'May',
-			6	=> 'June',
-			7	=> 'July',
-			8	=> 'August',
-			9	=> 'September',
-			10	=> 'October',
-			11	=> 'November',
-			12	=> 'December'
-		);
+		1	=> 'January',
+		2	=> 'February',
+		3	=> 'March',
+		4	=> 'April',
+		5	=> 'May',
+		6	=> 'June',
+		7	=> 'July',
+		8	=> 'August',
+		9	=> 'September',
+		10	=> 'October',
+		11	=> 'November',
+		12	=> 'December'
+	);
 	var $no_calendar_item_found	= 'No date found for current calendar search. <a href="{CALENDAR_RESET}" title="Reset">Reset</a>';
+	var $template				= '';
+	var $expired				= '';
+	var $expired_prefix			= '';
+	var $expired_suffix			= '';
 
 	/**
 	 * Initialize class
@@ -74,8 +78,19 @@ class phpwcmsCalendar {
 	}
 
 	function defaultTemplate() {
-		$this->template = '';
-		$this->href		= '';
+		$this->template  = '<div class="calendar-item[TEXT] calendar-item-has-text[/TEXT]">'.LF;
+		$this->template .= '	<p class="calendar-list-date">'.LF;
+		$this->template .= '		[RANGEDATE]{STARTDATE:m/d}-{ENDDATE:m/d/Y}[/RANGEDATE][RANGEDATE_ELSE]{STARTDATE:m/d/Y}[/RANGEDATE_ELSE][ALLDAY_ELSE], {STARTDATE:H:i}[/ALLDAY_ELSE][TYPE],'.LF;
+		$this->template .= '		<span class="calendar-list-type">{TYPE}</span>[/TYPE]'.LF;
+		$this->template .= '	</p>[TITLE]'.LF;
+		$this->template .= '	<h2>[URL]<a href="{URL}"{TARGET}>[/URL]{TITLE}[URL]</a>[/URL]</h2>[/TITLE][TEASER]'.LF;
+		$this->template .= '	<div class="calendar-list-teaser">{TEASER}</div>[/TEASER][TEXT]'.LF;
+		$this->template .= '	<div class="calendar-list-text">{TEXT}'.LF;
+		$this->template .= '		[URL]<p class="calendar-list-more"><a href="{URL}"{TARGET}>@@more@@&#8230;</a></p>[/URL]'.LF;
+		$this->template .= '	</div>[/TEXT][TEXT_ELSE][URL]'.LF;
+		$this->template .= '	<p class="calendar-list-more"><a href="{URL}"{TARGET}>@@more@@&#8230;</a></p>[/URL][/TEXT_ELSE]'.LF;
+		$this->template .= '</div>';
+		$this->href		 = '';
 	}
 
 	/**
@@ -118,13 +133,29 @@ class phpwcmsCalendar {
 
 	function render() {
 
-		$items		= array();
+		$items = array(
+			'top' => array(),
+			'default' => array(),
+			'bottom' => array(),
+			'hide' => array()
+		);
+
+		$now = now();
 
 		foreach($this->dates as $key => $date) {
 
-			$url	= '';
-			$target	= '';
-			$href	= $this->href ? $this->href . '&amp;show_date='.date('Y-m-d', $date['calendar_start_date']).'_'.$date['calendar_id'] : '';
+			$url		= '';
+			$target		= '';
+			$href		= $this->href ? $this->href . '&amp;show_date='.date('Y-m-d', $date['calendar_start_date']).'_'.$date['calendar_id'] : '';
+			$itemgroup	= 'default';
+			if($date['calendar_start_date'] < $now) {
+				if($this->expired === 'bottom' || $this->expired === 'top') {
+					$itemgroup = $this->expired;
+				} elseif($this->expired === 'hide') {
+					unset($this->dates[$key]);
+					continue;
+				}
+			}
 
 			if(!empty($date['calendar_refid'])) {
 
@@ -162,35 +193,44 @@ class phpwcmsCalendar {
 				$date['calendar_teaser'] = plaintext_htmlencode($date['calendar_teaser']);
 			}
 
-			$items[$key] = $this->template;
-			$items[$key] = render_cnt_template($items[$key], 'HREF', $href);
-			$items[$key] = render_cnt_template($items[$key], 'URL', $url);
-			$items[$key] = render_cnt_template($items[$key], 'TARGET', $target);
-			$items[$key] = render_cnt_template($items[$key], 'TITLE', html_specialchars($date['calendar_title']));
-			$items[$key] = render_cnt_template($items[$key], 'TYPE', $date['calendar_type'] ? html_specialchars($date['calendar_type']) : '');
-			$items[$key] = render_cnt_template($items[$key], 'TEASER', $date['calendar_teaser']);
-			$items[$key] = render_cnt_template($items[$key], 'TEXT', $date['calendar_text']);
-			$items[$key] = render_cnt_template($items[$key], 'PLACE', html_specialchars($date['calendar_where']));
-			$items[$key] = render_cnt_template($items[$key], 'ALLDAY', $date['calendar_allday'] ? ' ' : '');
+			$items[$itemgroup][$key] = $this->template;
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'HREF', $href);
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'URL', $url);
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TARGET', $target);
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TITLE', html_specialchars($date['calendar_title']));
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TYPE', $date['calendar_type'] ? html_specialchars($date['calendar_type']) : '');
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TEASER', $date['calendar_teaser']);
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TEXT', $date['calendar_text']);
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'PLACE', html_specialchars($date['calendar_where']));
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'ALLDAY', $date['calendar_allday'] ? ' ' : '');
 			// Detect if range date
 			if($date['calendar_range']) {
-				$items[$key] = render_cnt_template($items[$key], 'RANGEDATE', ' ');
+				$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'RANGEDATE', ' ');
 				$date['calendar_range_start_date']	= strtotime($date['calendar_range_start'].' '.date('H:i', $date['calendar_start_date']));
 				$date['calendar_range_end_date']	= strtotime($date['calendar_range_end']);
-				$items[$key] = render_cnt_date($items[$key], $date['calendar_range_start_date'], $date['calendar_range_start_date'], $date['calendar_range_end_date']);
+				$items[$itemgroup][$key] = render_cnt_date($items[$itemgroup][$key], $date['calendar_range_start_date'], $date['calendar_range_start_date'], $date['calendar_range_end_date']);
 			} else {
-				$items[$key] = render_cnt_template($items[$key], 'RANGEDATE', '');
+				$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'RANGEDATE', '');
 			}
-			$items[$key] = render_cnt_date($items[$key], $date['calendar_start_date'], $date['calendar_start_date'], $date['calendar_end_date']);
+			$items[$itemgroup][$key] = render_cnt_date($items[$itemgroup][$key], $date['calendar_start_date'], $date['calendar_start_date'], $date['calendar_end_date']);
 
 		}
 
-		if(!count($items)) {
-			$items[] = str_replace('{CALENDAR_RESET}', $this->resetCalendarLink(), $this->no_calendar_item_found);
+		if(!count($items['default']) && !count($items['top']) && !count($items['bottom'])) {
+			$items['default'][] = str_replace('{CALENDAR_RESET}', $this->resetCalendarLink(), $this->no_calendar_item_found);
+		} elseif($this->expired && count($items[$this->expired])) {
+			array_unshift($items[$this->expired], $this->expired_prefix);
+			$items[$this->expired][] = $this->expired_suffix;
+			if($this->expired === 'top') {
+				$items = implode(LF, $items['top']) . LF . implode(LF, $items['default']);
+			} else {
+				$items = implode(LF, $items['default']) . LF . implode(LF, $items['bottom']);
+			}
+		} else {
+			$items = implode(LF, $items['default']);
 		}
 
-		return implode(LF, $items);
-
+		return $items;
 	}
 
 	/**
@@ -213,15 +253,18 @@ class phpwcmsCalendar {
 			// result is a normal array
 			$match = parse_ini_str($match, false);
 
-			$default['items']		= isset($match['items']) ? intval($match['items']) : $this->limit;
-			$default['template']	= empty($match['template']) ? '' : trim($match['template']);
-			$default['lang']		= empty($match['lang']) ? '' : trim($match['lang']);
-			$default['tag']			= empty($match['tag']) ? '' : trim($match['tag']);
-			$default['tagmode']		= empty($match['tagmode']) ? 'OR' : ( trim($match['tagmode']) == 'AND' ? 'AND' : 'OR' );
-			$default['href']		= empty($match['href']) ? '' : trim($match['href']);
-			$default['place']		= empty($match['place']) ? '' : trim($match['place']);
-			$default['gettype']		= empty($match['gettype']) ? '' : $match['gettype'];
-			$default['teaserwords']	= empty($match['teaserwords']) ? 0 : intval($match['teaserwords']);
+			$default['items']			= isset($match['items']) ? intval($match['items']) : $this->limit;
+			$default['template']		= empty($match['template']) ? '' : trim($match['template']);
+			$default['lang']			= empty($match['lang']) ? '' : trim($match['lang']);
+			$default['tag']				= empty($match['tag']) ? '' : trim($match['tag']);
+			$default['tagmode']			= empty($match['tagmode']) ? 'OR' : (trim(strtoupper($match['tagmode'])) === 'AND' ? 'AND' : 'OR');
+			$default['href']			= empty($match['href']) ? '' : trim($match['href']);
+			$default['place']			= empty($match['place']) ? '' : trim($match['place']);
+			$default['gettype']			= empty($match['gettype']) ? '' : $match['gettype'];
+			$default['teaserwords']		= empty($match['teaserwords']) ? 0 : intval($match['teaserwords']);
+			$default['expired']			= !empty($match['expired']) && in_array('hide', 'bottom', 'top') ? $match['expired'] : '';
+			$default['expired_prefix']	= empty($match['expired_prefix']) ? '' : trim($match['expired_prefix']);
+			$default['expired_suffix']	= empty($match['expired_suffix']) ? '' : trim($match['expired_suffix']);
 
 		} else {
 
@@ -230,14 +273,17 @@ class phpwcmsCalendar {
 			// [item count,[template[,language(en de - separated by space)[, href, tags, tag, tag, tag]]]]
 			$match = explode(',', $match, 5);
 
-			$default['items']		= intval($match[0]);
-			$default['lang']		= empty($match[1]) ? '' : $match[1];
-			$default['template']	= empty($match[2]) ? '' : trim($match[2]) ;
-			$default['href']		= empty($match[3]) ? '' : trim($match[3]);
-			$default['tagmode']		= 'OR';
-			$default['place']		= '';
-			$default['gettype']		= '';
-			$default['teaserwords']	= 0;
+			$default['items']			= intval($match[0]);
+			$default['lang']			= empty($match[1]) ? '' : $match[1];
+			$default['template']		= empty($match[2]) ? '' : trim($match[2]) ;
+			$default['href']			= empty($match[3]) ? '' : trim($match[3]);
+			$default['tagmode']			= 'OR';
+			$default['place']			= '';
+			$default['gettype']			= '';
+			$default['teaserwords']		= 0;
+			$default['expired']			= '';
+			$default['expired_prefix']	= '';
+			$default['expired_suffix']	= '';
 
 			if(empty($match[4])) {
 				$default['tag']		= '';
@@ -254,7 +300,7 @@ class phpwcmsCalendar {
 					if(!empty($match[4][1][1])) {
 						$match['date_end'] = $match[4][1][1];
 					} else {
-						$match['date_end'] = 364 * 24 * 60 * 60; // + 364 days
+						$match['date_end'] = (365 * 24 * 60 * 60) - 1; // + 365 days - 1 second
 					}
 					if(!empty($match[4][1][2])) {
 						$default['place'] = trim($match[4][1][2]);
@@ -381,20 +427,24 @@ class phpwcmsCalendar {
 			$this->date_end = mktime(0, 0, 0, $this->current_date['mon'], $this->current_date['mday'], $this->current_date['year'] + 1) - 1;
 		}
 
-		$this->limit		= $default['items'];
-		$this->limit_item	= $default['items'];
-		$this->href 		= $default['href'];
-		$this->gettype 		= $default['gettype'];
-		$this->teaserwords	= $default['teaserwords'];
+		$this->limit			= $default['items'];
+		$this->limit_item		= $default['items'];
+		$this->href 			= $default['href'];
+		$this->gettype 			= $default['gettype'];
+		$this->teaserwords		= $default['teaserwords'];
+		$this->expired			= $default['expired'];
+		$this->expired_prefix	= $default['expired_prefix'];
+		$this->expired_suffix	= $default['expired_suffix'];
 
 		if($default['template'] !== '') {
 			$default['template'] = preg_replace('/[\/\\:]/', '', $default['template']);
 			if(is_file(PHPWCMS_TEMPLATE.'calendar/'.$default['template'])) {
-				$this->template = file_get_contents(PHPWCMS_TEMPLATE.'calendar/'.$default['template']);
-				$this->template = str_replace('{STARTDATE', '{LIVEDATE', $this->template);
-				$this->template = str_replace('{ENDDATE', '{KILLDATE', $this->template);
-			} else {
-				$default['template'] = '';
+				$default['template'] = file_get_contents(PHPWCMS_TEMPLATE.'calendar/'.$default['template']);
+				if($default['template']) {
+					$default['template'] = str_replace('{STARTDATE', '{LIVEDATE', $default['template']);
+					$default['template'] = str_replace('{ENDDATE', '{KILLDATE', $default['template']);
+					$this->template = $default['template'];
+				}
 			}
 		}
 
@@ -452,8 +502,7 @@ class phpwcmsCalendar {
 			};
 		}
 
-		$this->where = implode(' AND ', $where);
-
+		$this->where 			= implode(' AND ', $where);
 		$this->datetime_start	= date('Y-m-d H:i:s', $this->date_start);
 		$this->datetime_end		= date('Y-m-d H:i:s', $this->date_end);
 		$this->place			= $default['place'];
