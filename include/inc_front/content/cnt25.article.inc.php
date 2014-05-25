@@ -421,10 +421,7 @@ if(isset($fmp_data['fmp_template'])) {
 	// Video JS
 	if(count($fmp_data['video'])) {
 
-		$phpwcms['video-js'] = empty($phpwcms['video-js']) ? 'http://vjs.zencdn.net/4.5.1/' : rtrim($phpwcms['video-js'], '/') . '/';
-
-		// load default video-js.css
-		$block['custom_htmlhead']['video-js.css'] = '  <link rel="stylesheet" type="text/css" href="' . $phpwcms['video-js'] . 'video-js.css" />';
+		initVideoJs();
 
 		// check for video-js Skin
 		if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default' && is_file(PHPWCMS_TEMPLATE.'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css')) {
