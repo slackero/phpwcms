@@ -953,7 +953,9 @@ function cleanUpForEmailHeader($text='') {
 
 function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='char', $sanitize=NULL) {
 	// used to cut a string by words or chars
-	if(empty($maxLength) || $maxLength < 0) return $cutString;
+	if(empty($maxLength) || $maxLength < 0) {
+		return $cutString;
+	}
 
 	if($cutMode == 'word') {
 

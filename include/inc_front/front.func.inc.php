@@ -569,32 +569,33 @@ function get_actcat_articles_data($act_cat_id) {
 	if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
 			$data[$row["article_id"]] = array(
-				"article_id"		=> $row["article_id"],
-				"article_cid"		=> $row["article_cid"],
-				"article_title"		=> $row["article_title"],
-				"article_subtitle"	=> $row["article_subtitle"],
-				"article_menutitle"	=> $row["article_menutitle"],
-				"article_keyword"	=> $row["article_keyword"],
-				"article_summary"	=> $row["article_summary"],
-				"article_redirect"	=> $row["article_redirect"],
-				"article_date"		=> $row["article_date"],
-				"article_username"	=> $row["article_username"],
-				"article_sort"		=> $row["article_sort"],
-				"article_notitle"	=> $row["article_notitle"],
-				"article_created"	=> $row["article_created"],
-				"article_image"		=> @unserialize($row["article_image"]),
-				"article_timeout"	=> $row["article_cache"],
-				"article_nosearch"	=> $row["article_nosearch"],
-				"article_nositemap"	=> $row["article_nositemap"],
-				"article_aliasid"	=> $row["article_aliasid"],
-				"article_headerdata"=> $row["article_headerdata"],
-				"article_morelink"	=> $row["article_morelink"],
-				"article_begin"		=> $row["article_begin"],
-				"article_end"		=> $row["article_end"],
-				"article_alias"		=> $row["article_alias"],
-				'article_livedate'	=> $row["article_livedate"],
-				'article_killdate'	=> $row["article_killdate"],
-				'article_uid'		=> $row["article_uid"]
+				"article_id"			=> $row["article_id"],
+				"article_cid"			=> $row["article_cid"],
+				"article_title"			=> $row["article_title"],
+				"article_subtitle"		=> $row["article_subtitle"],
+				"article_menutitle"		=> $row["article_menutitle"],
+				"article_keyword"		=> $row["article_keyword"],
+				"article_summary"		=> $row["article_summary"],
+				"article_redirect"		=> $row["article_redirect"],
+				"article_date"			=> $row["article_date"],
+				"article_username"		=> $row["article_username"],
+				"article_sort"			=> $row["article_sort"],
+				"article_notitle"		=> $row["article_notitle"],
+				"article_created"		=> $row["article_created"],
+				"article_image"			=> @unserialize($row["article_image"]),
+				"article_timeout"		=> $row["article_cache"],
+				"article_nosearch"		=> $row["article_nosearch"],
+				"article_nositemap"		=> $row["article_nositemap"],
+				"article_aliasid"		=> $row["article_aliasid"],
+				"article_headerdata"	=> $row["article_headerdata"],
+				"article_morelink"		=> $row["article_morelink"],
+				"article_begin"			=> $row["article_begin"],
+				"article_end"			=> $row["article_end"],
+				"article_alias"			=> $row["article_alias"],
+				'article_livedate'		=> $row["article_livedate"],
+				'article_killdate'		=> $row["article_killdate"],
+				'article_uid'			=> $row["article_uid"],
+				'article_description'	=> $row["article_description"]
 			);
 			// now check for article alias ID
 			if($row["article_aliasid"]) {
@@ -633,6 +634,7 @@ function get_actcat_articles_data($act_cat_id) {
 							$data[$aid]['article_livedate']		= $alias_row["article_livedate"];
 							$data[$aid]['article_killdate']		= $alias_row["article_killdate"];
 							$data[$aid]['article_menutitle']	= $alias_row["article_menutitle"];
+							$data[$aid]['article_description']	= $alias_row["article_description"];
 						}
 					}
 					mysql_free_result($alias_result);
@@ -2681,7 +2683,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			class_active_li|class_active_a,
 			ul_id_name,
 			wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
-			wrap_link_text(<em>|</em>, articlemenu_start_level)
+			wrap_link_text(<em>|</em>),
+			articlemenu_start_level|articlemenu_list_image_size (WxHxCROPx0 or WxHxCROPx1)|articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN)|articlemenu_position (inside|outside)
 	*/
 
 	if($param == 'string') {
@@ -2747,6 +2750,16 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$active_class	= empty($parameter[4]) ? '' : trim($parameter[4]);
 		$level_id_name	= empty($parameter[5]) ? '' : trim($parameter[5]);
 		$wrap_ul_div	= empty($parameter[6]) ? 0  : intval($parameter[6]);
+		$amenu_options	= array(
+			'enable'		=> false,
+			'image'			=> false,
+			'text'			=> false,
+			'width'			=> 0,
+			'height'		=> 0,
+			'crop'			=> 0,
+			'textlength'	=> 0,
+			'position'		=> 'inside'
+		);
 		if($path_class) {
 			$path_class = explode('|', $path_class);
 			foreach($path_class as $key => $class_name) {
@@ -2771,15 +2784,52 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		if(empty($wrap_link_text[1])) {
 			$wrap_link_text[1] = '';
 		}
-		$amenu_level	= empty($parameter[8]) ? 0 : intval($parameter[8]);
+		if(empty($parameter[8])) {
+			$amenu_level = 0;
+		} else {
+			$parameter[8]	= explode('|', $parameter[8]);
+			$amenu_level	= intval($parameter[8][0]);
+			if(!empty($parameter[8][1]) && ($parameter[8][1] = trim($parameter[8][1]))) { // articlemenu_list_image_size
+				$parameter[8][1] = explode('x', $parameter[8][1]);
+				$amenu_options['width']		= intval($parameter[8][1][0]); // width
+				$amenu_options['height']	= empty($parameter[8][1][1]) ? 0 : intval($parameter[8][1][1]); // height
+				$amenu_options['crop']		= empty($parameter[8][1][2]) ? 0 : 1; // crop
+				$amenu_options['image']		= empty($parameter[8][1][3]) ? 'img' : 'bgimg'; // article list image as bgimage or <img>
+				$amenu_options['enable']	= true;
+			}
+			if(!empty($parameter[8][2]) && ($parameter[8][2] = trim($parameter[8][2]))) { // articlemenu_use_text
+				$parameter[8][2]	= explode(':', $parameter[8][2]);
+				$parameter[8][2][0]	= strtolower(trim($parameter[8][2][0]));
+				if($parameter[8][2][0] == 'description' || $parameter[8][2][0] == 'menutitle' || $parameter[8][2][0] == 'teaser') { // default is description
+					$amenu_options['text']			= $parameter[8][2][0];
+					$amenu_options['textlength']	= empty($parameter[8][2][1]) ? 0 : intval($parameter[8][2][1]); // set max text length
+					$amenu_options['enable']		= true;
+				}
+			}
+			if($amenu_options['enable'] && !empty($parameter[8][3]) && ($parameter[8][3] = trim($parameter[8][3])) && strtolower($parameter[8][3]) == 'outside') { // articlemenu_position
+				$amenu_options['position'] = 'outside';
+			}
+		}
 
-		$parameter		= array(	 0 => $menu_type, 		 1 => $start_id, 		 2 => $max_depth,
-									 3 => $path_class,		 4 => $active_class, 	 5 => $level_id_name,
-									 6 => $wrap_ul_div,		 7 => $wrap_link_text,	 8 => $unfold,
-									 9 => $ie_patch,		10 => $create_css,		11 => $amenu_level,
-									12 => array('articlemenu' => $articlemenu, 'level_id' => $start_id),
-									13 => $bootstrap
-							);
+		$parameter = array(
+			 0 => $menu_type,
+			 1 => $start_id,
+			 2 => $max_depth,
+			 3 => $path_class,
+			 4 => $active_class,
+			 5 => $level_id_name,
+			 6 => $wrap_ul_div,
+			 7 => $wrap_link_text,
+			 8 => $unfold,
+			 9 => $ie_patch,
+			10 => $create_css,
+			11 => $amenu_level,
+			12 => array(
+				'articlemenu'	=> $articlemenu,
+				'level_id'		=> $start_id
+			),
+			13 => $bootstrap
+		);
 
 		if($articlemenu) {
 			$parameter[12]['class_active']			= $active_class;
@@ -2795,10 +2845,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$parameter[12]['class_first_item_tag']	= $GLOBALS['template_default']['classes']['navlist-asub_first'];
 			$parameter[12]['class_last_item_tag']	= $GLOBALS['template_default']['classes']['navlist-asub_last'];
 			$parameter[12]['return_format']			= 'array';
+			$parameter[12]['articlemenu_options']	= $amenu_options;
 		}
 
 	} else {
-
 		$menu_type		= $parameter[0];
 		$start_id		= $parameter[1];
 		$max_depth		= $parameter[2];
@@ -2812,9 +2862,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$create_css 	= $parameter[10];
 		$amenu_level	= $parameter[11];
 		$bootstrap		= $parameter[13];
-
 		$parent			= false;		// do not show parent link
-
 	}
 
 	$li				= '';
@@ -2910,7 +2958,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$parameter[12]['level_id']		= $start_id;
 		$parameter[12]['item_prefix']	= $TAB.$TAB.$TAB;
 
-		$ali = getArticleMenu( $parameter[12] );
+		$ali = getArticleMenu($parameter[12]);
 
 		if(count($ali) > 1) {
 
@@ -3492,7 +3540,6 @@ function getArticleMenu($data=array()) {
 	global $aktion;
 
 	$defaults = array(
-
 		'level_id'				=> 0,
 		'class_active'			=> array(0 => 'active', 1 => ''),
 		'wrap_title_prefix'		=> '',
@@ -3506,17 +3553,24 @@ function getArticleMenu($data=array()) {
 		'class_item_tag'		=> '',
 		'class_first_item_tag'	=> '',
 		'class_last_item_tag'	=> '',
-		'return_format'			=> 'string' // string or array
-
-					  );
+		'return_format'			=> 'string', // string or array
+		'articlemenu_options'	=> array(
+			'enable'		=> false,
+			'image'			=> false,
+			'text'			=> false,
+			'width'			=> 0,
+			'height'		=> 0,
+			'crop'			=> 0,
+			'textlength'	=> 0,
+			'position'		=> 'inside'
+		)
+	);
 
 	$data		= is_array($data) && count($data) ? array_merge($defaults, $data) : $defaults;
 	$li			= array();
-
-	$articles = get_actcat_articles_data( $data['level_id'] );
-
-	$key	= 0;
-	$total	= count($articles) - 1;
+	$articles	= get_actcat_articles_data( $data['level_id'] );
+	$key		= 0;
+	$total		= count($articles) - 1;
 	foreach($articles as $item) {
 
 		$class		= '';
@@ -3539,15 +3593,73 @@ function getArticleMenu($data=array()) {
 		}
 		$class = trim($class);
 
+		$item['outside']	= '';
+		$item['inside']		= '';
+		$item['img_style']	= '';
+
+		if($data['articlemenu_options']['enable']) {
+			$item['amenu'] = array();
+			$item['img_tag'] = '';
+			$item['amenu_text'] = '';
+			if($data['articlemenu_options']['image'] && (!empty($item['article_image']['list_id']) || !empty($item['article_image']['id']))) {
+				$item['img_src'] = '';
+				$item['img_name'] = '';
+				if(!empty($item['article_image']['list_usesummary']) && !empty($item['article_image']['id'])) {
+					$item['img_src'] = $item['article_image']['hash'].'.'.$item['article_image']['ext'];
+					$item['img_name'] = $item['article_image']['name'];
+				} elseif(!empty($item['article_image']['list_id'])) {
+					$item['img_src'] = $item['article_image']['list_hash'].'.'.$item['article_image']['list_ext'];
+					$item['img_name'] = $item['article_image']['list_name'];
+				}
+				if($item['img_src']) {
+					$item['img_src'] = 'x'.$data['articlemenu_options']['height'].'x'.$data['articlemenu_options']['crop'].'/'.$item['img_src'];
+					$item['img_src'] = 'img/cmsimage.php/'.$data['articlemenu_options']['width'].$item['img_src'];
+					if($data['articlemenu_options']['image'] === 'bgimg') {
+						$item['img_style'] = ' style="background-image:url('.$item['img_src'].');"';
+					} else {
+						$item['img_tag'] = LF. '		<img src="'.$item['img_src'].'" alt="'.html($item['img_name']).'" />';
+					}
+				}
+			}
+
+			$item['amenu']['prefix'] = '	<span class="amenu-extended"';
+			if($data['articlemenu_options']['position'] == 'inside') {
+				$item['amenu']['prefix'] .= $item['img_style'];
+				$item['img_style'] = '';
+			}
+			$item['amenu']['prefix'] .= '>' . $item['img_tag'];
+			if($data['articlemenu_options']['text']) {
+				switch($data['articlemenu_options']['text']) {
+					case 'description':
+						$item['amenu_text'] = html(getCleanSubString($item['article_description'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word'));
+						break;
+					case 'menutitle':
+						$item['amenu_text'] = html(getCleanSubString($item['article_menutitle'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word'));
+						break;
+					case 'teaser':
+						$item['amenu_text'] = trim(strip_tags($item['article_summary']));
+						$item['amenu_text'] = getCleanSubString($item['amenu_text'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word');
+						break;
+				}
+				if($item['amenu_text']) {
+					$item['amenu']['text'] = LF . '		<span class="amenu-extended-text">' . $item['amenu_text'] . '</span>';
+				}
+			}
+			$item['amenu']['suffix']  = LF . '	</span>';
+
+			$item[ $data['articlemenu_options']['position'] ] = LF . implode('', $item['amenu']);
+		}
+
 		$li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
 
-		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.'>';
-
+		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.$item['img_style'].'>';
 		$li[$key] .= $data['wrap_title_prefix'];
-		$li[$key] .= html_specialchars( getArticleMenuTitle($item) );
+		$li[$key] .= html(getArticleMenuTitle($item));
 		$li[$key] .= $data['wrap_title_suffix'];
-
+		$li[$key] .= $item['inside'];
 		$li[$key] .= '</a>';
+
+		$li[$key] .= $item['outside'];
 
 		$li[$key] .= '</'.$data['item_tag'].'>' . $data['item_suffix'];
 
