@@ -1659,7 +1659,7 @@ function get_related_articles_callback($matches) {
 	return get_related_articles((isset($matches[2]) ? $matches[2] : $GLOBALS['related_keywords']), $GLOBALS['aktion'][1], $GLOBALS['template_default']["related"], $matches[1]);
 }
 
-function get_related_articles($keywords, $current_article_id, $template_default, $max_cnt_links=0, $dbcon) {
+function get_related_articles($keywords, $current_article_id, $template_default, $max_cnt_links=0, $dbcon=null) {
 	// find keyword for current article used for RELATED replacementtag
 	// prepared and inspired by Magnar Stav Johanssen
 
@@ -1798,13 +1798,13 @@ function get_new_articles_callback($matches) {
 	return get_new_articles($GLOBALS['template_default']['news'], $matches[1], $matches[2]);
 }
 
-function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
+function get_new_articles(&$template_default, $max_cnt_links=0, $cat=0, $dbcon=null) {
 	// find all new articles
 
 	$max_cnt_links = intval($max_cnt_links);
 	$limit = empty($max_cnt_links) ?  '' : ' LIMIT '.$max_cnt_links;
 	$cat = trim($cat);
-	$cat = (intval($cat) || $cat == '0') ? 'article_cid='.intval($cat).' AND ' : '';
+	$cat = is_intval($cat, false) ? 'article_cid='.intval($cat).' AND ' : '';
 
 	$sql = 'SELECT article_id, article_title, article_cid, article_alias, article_redirect, article_morelink, ';
 
@@ -1888,7 +1888,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	return $new_links;
 }
 
-function get_article_idlink($article_id=0, $link_text="", $db) {
+function get_article_idlink($article_id=0, $link_text="", $db=null) {
 	// returns the internal article link to given article ID/category
 	$article_id		= intval($article_id);
 	$article_cid	= 0;
