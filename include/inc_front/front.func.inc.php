@@ -2684,7 +2684,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			ul_id_name,
 			wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
 			wrap_link_text(<em>|</em>),
-			articlemenu_start_level|articlemenu_list_image_size (WxHxCROPx0 or WxHxCROPx1)|articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN)|articlemenu_position (inside|outside)
+			articlemenu_start_level|articlemenu_list_image_size (WxHxCROP OR WxHxCROP)|_
+				articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN OR teaser:HTML)|_
+				articlemenu_position (inside|outside)|_
+				<custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
 	*/
 
 	if($param == 'string') {
@@ -2758,7 +2761,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			'height'		=> 0,
 			'crop'			=> 0,
 			'textlength'	=> 0,
-			'position'		=> 'inside'
+			'position'		=> 'outside',
+			'template'		=> '<span class="amenu-extended">[IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}" />[/IMAGE][TEXT]<span class="p">{TEXT}</span>[/TEXT]</span>'
 		);
 		if($path_class) {
 			$path_class = explode('|', $path_class);
@@ -2794,20 +2798,29 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$amenu_options['width']		= intval($parameter[8][1][0]); // width
 				$amenu_options['height']	= empty($parameter[8][1][1]) ? 0 : intval($parameter[8][1][1]); // height
 				$amenu_options['crop']		= empty($parameter[8][1][2]) ? 0 : 1; // crop
-				$amenu_options['image']		= empty($parameter[8][1][3]) ? 'img' : 'bgimg'; // article list image as bgimage or <img>
 				$amenu_options['enable']	= true;
+				$amenu_options['image']		= true;
 			}
 			if(!empty($parameter[8][2]) && ($parameter[8][2] = trim($parameter[8][2]))) { // articlemenu_use_text
 				$parameter[8][2]	= explode(':', $parameter[8][2]);
 				$parameter[8][2][0]	= strtolower(trim($parameter[8][2][0]));
 				if($parameter[8][2][0] == 'description' || $parameter[8][2][0] == 'menutitle' || $parameter[8][2][0] == 'teaser') { // default is description
-					$amenu_options['text']			= $parameter[8][2][0];
-					$amenu_options['textlength']	= empty($parameter[8][2][1]) ? 0 : intval($parameter[8][2][1]); // set max text length
-					$amenu_options['enable']		= true;
+					$amenu_options['text'] = $parameter[8][2][0];
+					if(empty($parameter[8][2][1])) {
+						$amenu_options['textlength'] = 0;
+					} elseif($parameter[8][2][0] == 'teaser' && strtoupper($parameter[8][2][1]) == 'HTML') {
+						$amenu_options['textlength'] = 'HTML';
+					} else {
+						$amenu_options['textlength'] = intval($parameter[8][2][1]); // set max text length
+					}
+					$amenu_options['enable'] = true;
 				}
 			}
-			if($amenu_options['enable'] && !empty($parameter[8][3]) && ($parameter[8][3] = trim($parameter[8][3])) && strtolower($parameter[8][3]) == 'outside') { // articlemenu_position
-				$amenu_options['position'] = 'outside';
+			if($amenu_options['enable'] && !empty($parameter[8][3]) && ($parameter[8][3] = trim($parameter[8][3])) && strtolower($parameter[8][3]) == 'inside') { // articlemenu_position
+				$amenu_options['position'] = 'inside';
+			}
+			if($amenu_options['enable'] && !empty($parameter[8][4])) { // template
+				$amenu_options['template'] = $parameter[8][4];
 			}
 		}
 
@@ -3562,7 +3575,8 @@ function getArticleMenu($data=array()) {
 			'height'		=> 0,
 			'crop'			=> 0,
 			'textlength'	=> 0,
-			'position'		=> 'inside'
+			'position'		=> 'inside',
+			'template'		=> '<span class="amenu-extended">[IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}" />[/IMAGE][TEXT]<span class="p">{TEXT}</span>[/TEXT]</span>'
 		)
 	);
 
@@ -3595,39 +3609,24 @@ function getArticleMenu($data=array()) {
 
 		$item['outside']	= '';
 		$item['inside']		= '';
-		$item['img_style']	= '';
 
 		if($data['articlemenu_options']['enable']) {
-			$item['amenu'] = array();
-			$item['img_tag'] = '';
+			$item['img_src'] = '';
+			$item['img_name'] = '';
 			$item['amenu_text'] = '';
 			if($data['articlemenu_options']['image'] && (!empty($item['article_image']['list_id']) || !empty($item['article_image']['id']))) {
-				$item['img_src'] = '';
-				$item['img_name'] = '';
 				if(!empty($item['article_image']['list_usesummary']) && !empty($item['article_image']['id'])) {
 					$item['img_src'] = $item['article_image']['hash'].'.'.$item['article_image']['ext'];
-					$item['img_name'] = $item['article_image']['name'];
+					$item['img_name'] = html($item['article_image']['name']);
 				} elseif(!empty($item['article_image']['list_id'])) {
 					$item['img_src'] = $item['article_image']['list_hash'].'.'.$item['article_image']['list_ext'];
-					$item['img_name'] = $item['article_image']['list_name'];
+					$item['img_name'] = html($item['article_image']['list_name']);
 				}
 				if($item['img_src']) {
 					$item['img_src'] = 'x'.$data['articlemenu_options']['height'].'x'.$data['articlemenu_options']['crop'].'/'.$item['img_src'];
 					$item['img_src'] = 'img/cmsimage.php/'.$data['articlemenu_options']['width'].$item['img_src'];
-					if($data['articlemenu_options']['image'] === 'bgimg') {
-						$item['img_style'] = ' style="background-image:url('.$item['img_src'].');"';
-					} else {
-						$item['img_tag'] = LF. '		<img src="'.$item['img_src'].'" alt="'.html($item['img_name']).'" />';
-					}
 				}
 			}
-
-			$item['amenu']['prefix'] = '	<span class="amenu-extended"';
-			if($data['articlemenu_options']['position'] == 'inside') {
-				$item['amenu']['prefix'] .= $item['img_style'];
-				$item['img_style'] = '';
-			}
-			$item['amenu']['prefix'] .= '>' . $item['img_tag'];
 			if($data['articlemenu_options']['text']) {
 				switch($data['articlemenu_options']['text']) {
 					case 'description':
@@ -3637,30 +3636,29 @@ function getArticleMenu($data=array()) {
 						$item['amenu_text'] = html(getCleanSubString($item['article_menutitle'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word'));
 						break;
 					case 'teaser':
-						$item['amenu_text'] = trim(strip_tags($item['article_summary']));
-						$item['amenu_text'] = getCleanSubString($item['amenu_text'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word');
+						if($data['articlemenu_options']['textlength'] === 'HTML') {
+							$item['amenu_text'] = $item['article_summary'];
+						} else {
+							$item['amenu_text'] = trim(strip_tags($item['article_summary']));
+							$item['amenu_text'] = getCleanSubString($item['amenu_text'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word');
+						}
 						break;
 				}
-				if($item['amenu_text']) {
-					$item['amenu']['text'] = LF . '		<span class="amenu-extended-text">' . $item['amenu_text'] . '</span>';
-				}
 			}
-			$item['amenu']['suffix']  = LF . '	</span>';
-
-			$item[ $data['articlemenu_options']['position'] ] = LF . implode('', $item['amenu']);
+			$item[ $data['articlemenu_options']['position'] ] = $data['articlemenu_options']['template'];
+			$item[ $data['articlemenu_options']['position'] ] = str_replace('{IMAGE_NAME}', $item['img_name'], $item[ $data['articlemenu_options']['position'] ]);
+			$item[ $data['articlemenu_options']['position'] ] = render_cnt_template($item[ $data['articlemenu_options']['position'] ], 'IMAGE', $item['img_src']);
+			$item[ $data['articlemenu_options']['position'] ] = render_cnt_template($item[ $data['articlemenu_options']['position'] ], 'TEXT', $item['amenu_text']);
 		}
 
 		$li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
-
-		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.$item['img_style'].'>';
+		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.'>';
 		$li[$key] .= $data['wrap_title_prefix'];
 		$li[$key] .= html(getArticleMenuTitle($item));
 		$li[$key] .= $data['wrap_title_suffix'];
 		$li[$key] .= $item['inside'];
 		$li[$key] .= '</a>';
-
 		$li[$key] .= $item['outside'];
-
 		$li[$key] .= '</'.$data['item_tag'].'>' . $data['item_suffix'];
 
 		$key++;
