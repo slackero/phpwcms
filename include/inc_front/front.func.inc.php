@@ -1795,6 +1795,9 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 }
 
 function get_new_articles_callback($matches) {
+	if(!isset($matches[2])) {
+		$matches[2] = 0;
+	}
 	return get_new_articles($GLOBALS['template_default']['news'], $matches[1], $matches[2]);
 }
 
