@@ -2765,7 +2765,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			'crop'			=> 0,
 			'textlength'	=> 0,
 			'position'		=> 'outside',
-			'template'		=> '<span class="amenu-extended">[IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}" />[/IMAGE][TEXT]<span class="p">{TEXT}</span>[/TEXT]</span>'
+			'template'		=> '<span class="amenu-extended">[IMAGE]<img src="[%IMAGE%]" alt="[%IMAGE_NAME%]" />[/IMAGE][TEXT]<span class="p">[%TEXT%]</span>[/TEXT]</span>'
 		);
 		if($path_class) {
 			$path_class = explode('|', $path_class);
@@ -2823,7 +2823,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$amenu_options['position'] = 'inside';
 			}
 			if($amenu_options['enable'] && !empty($parameter[8][4])) { // template
-				$amenu_options['template'] = $parameter[8][4];
+				$amenu_options['template'] = str_replace(array('[%', '%]'), array('{', '}'), $parameter[8][4]);
 			}
 		}
 
