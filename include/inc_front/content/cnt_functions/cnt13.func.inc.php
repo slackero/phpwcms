@@ -60,7 +60,6 @@ function get_SearchForStructureID($search_at) {
 			$k = array();
 		}
 
-
 	}
 
 	return $k;
@@ -129,12 +128,6 @@ class search_News {
 		// choose by category
 		if(count($this->search_category)) {
 
-			if(empty($this->search_target_url)) {
-				$this->search_target_url = rel_url(array(), array('newsdetail'));
-			} else {
-				$this->search_target_url = html_specialchars($this->search_target_url);
-			}
-
 			$cat_sql = array();
 
 			// and/or/not mode
@@ -160,9 +153,7 @@ class search_News {
 			}
 
 			$sql       .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='news' AND pcat.cat_pid=pc.cnt_id) ";
-
 			$sql_where .= 'AND (' . implode($news_andor, $cat_sql) . ') ';
-
 			$sql_group  = 'GROUP BY pc.cnt_id ';
 		}
 
@@ -176,6 +167,27 @@ class search_News {
 		$sql  = trim($sql);
 
 		$data = _dbQuery($sql);
+
+		$search_target_url_test = strtolower(substr($this->search_target_url, 0, 4));
+
+		if($search_target_url_test !== 'http' && $search_target_url_test !== '{sit') {
+			// expected alias here or aid=123 or id=123
+			if($this->search_highlight) {
+				$this->search_target_url = rel_url(array('newsdetail' => '___NEWSDETAIL__', 'highlight' => '___HIGHLIGHT__'), array('searchstart', 'searchwords'), $this->search_target_url);
+			} else {
+				$this->search_target_url = rel_url(array('newsdetail' => '___NEWSDETAIL__'), array('highlight', 'searchstart', 'searchwords'), $this->search_target_url);
+			}
+			$search_replace_newsdetail = true;
+		} else {
+			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false ? true : false;
+			$this->search_target_url = html_specialchars($this->search_target_url);
+		}
+
+		if($this->search_highlight_words && is_array($this->search_highlight_words)) {
+			$s_highlight_words = rawurlencode(implode(' ', $this->search_highlight_words));
+		} else {
+			$s_highlight_words = '';
+		}
 
 		foreach($data as $value) {
 
@@ -195,9 +207,7 @@ class search_News {
 			}
 			$s_text  = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text); // strip all <script> Tags
 			$s_text  = str_replace( array('~', '|', ':', 'http', '//', '_blank', '&nbsp;') , ' ', $s_text );
-			$s_text  = clean_replacement_tags($s_text, '');
-			$s_text  = remove_unsecure_rptags($s_text);
-			$s_text  = cleanUpSpecialHtmlEntities($s_text);
+			$s_text  = clean_search_text($s_text);
 
 			preg_match_all('/'.$this->search_words.'/is', $s_text, $s_result );
 
@@ -219,28 +229,39 @@ class search_News {
 
 				$id = $this->search_result_entry;
 
-				$s_title  = html_specialchars($value['cnt_title']);
-
 				$this->search_results[$id]["id"]	= $value['cnt_id'];
 				$this->search_results[$id]["cid"]	= 0;
 				$this->search_results[$id]["rank"]	= $s_count;
-				$this->search_results[$id]["title"]	= $this->search_highlight ? highlightSearchResult($s_title, $this->search_highlight_words) : $s_title;
+				if($this->search_highlight) {
+					$this->search_results[$id]["title"]		= highlightSearchResult(html($value['cnt_title']), $this->search_highlight_words);
+					$this->search_results[$id]["subtitle"]	= highlightSearchResult(html($value['cnt_subtitle']), $this->search_highlight_words);
+				} else {
+					$this->search_results[$id]["title"]		= html($value['cnt_title']);
+					$this->search_results[$id]["subtitle"]	= html($value['cnt_subtitle']);
+				}
 				$this->search_results[$id]["date"]	= $value['cnt_ts_livedate'];
-				$this->search_results[$id]["user"]	= html_specialchars($value['cnt_editor']);
+				$this->search_results[$id]["user"]	= html($value['cnt_editor']);
 
 				$value['detail_link']	= date('Ymd', $value['cnt_ts_livedate']) . '-' . $value['cnt_id'] . '_' ; //$crow['acontent_aid']
 				$value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
 
-				$this->search_results[$id]['query']	= $this->search_target_url.'&amp;newsdetail='.$value['detail_link'];
+				if(strpos($this->search_target_url, '___NEWSDETAIL__') !== false) {
+					$this->search_results[$id]['link'] = str_replace(array('___NEWSDETAIL__', '___HIGHLIGHT__'), array($value['detail_link'], $s_highlight_words), $this->search_target_url);
+				} else {
+					$this->search_results[$id]['link'] = $this->search_target_url.'&amp;newsdetail='.$value['detail_link'];
+					if($this->search_highlight) {
+						$this->search_results[$id]['link'] .= '&amp;highlight='.$s_highlight_words;
+					}
+				}
 
 				$s_text = trim(trim(str_replace(', ,', ',', $s_text)), ' ,');
-				$s_text = getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word');
-				$s_text = html_specialchars($s_text);
+				$s_text = html(getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word'), false);
 
 				if($this->search_highlight) {
 					$s_text = highlightSearchResult($s_text, $this->search_highlight_words);
 				}
 				$this->search_results[$id]["text"]	= $s_text;
+				$this->search_results[$id]["image"]	= '';
 
 				$this->search_result_entry++;
 			}
@@ -253,10 +274,23 @@ function clean_search_text($string='') {
 	$string = clean_replacement_tags($string);
 	$string = remove_unsecure_rptags($string);
 	$string = str_replace('&nbsp;', ' ', $string);
-	$string = preg_replace('/\s+/i', ' ', $string);
+	$string = preg_replace('/\s+/', ' ', $string);
 	$string = cleanUpSpecialHtmlEntities($string);
 
 	return $string;
+}
+
+function get_SearchPaginateNext($matches) {
+	$GLOBALS['_search_next_link_t'] = $matches[1];
+	return '{NEXT}';
+}
+function get_SearchPaginatePrevious($matches) {
+	$GLOBALS['_search_prev_link_t'] = $matches[1];
+	return '{PREV}';
+}
+function get_SearchPaginateNavigate($matches) {
+	$GLOBALS['_search_navi'] = $matches[1];
+	return '{NAVI}';
 }
 
 ?>

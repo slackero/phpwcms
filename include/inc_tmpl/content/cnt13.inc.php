@@ -157,12 +157,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				<td><input name="csearch_news" type="checkbox" id="csearch_news" value="1"<?php is_checked(1, $content['search']["search_news"]) ?> /></td>
 				<td class="v10"><label for="csearch_news"><strong><?php echo $BL['be_news'] ?></strong></label>&nbsp;&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
-				<td colspan="2"><input type="text" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="width200" /></td>
+				<td colspan="2"><input type="text" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="width175" /></td>
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp;</td>
 				<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
-				<td><input type="text" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="width200" /></td>
+				<td><input type="text" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="width175" /></td>
 				<td><select name="csearch_news_andor" id="news_andor">
 
 					<option value="OR"<?php is_selected('OR', $content['search']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
@@ -173,8 +173,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp;</td>
-				<td align="right" class="chatlist"><?php echo $BL['be_cnt_target'].'/'.$BL['be_profile_label_website'] ?>:&nbsp;</td>
-				<td><input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="width200" /></td>
+				<td align="right" class="chatlist"><?php echo $BL['be_cnt_target'].' ('.$BL['be_alias'] ?>/aid=1/id=3):&nbsp;</td>
+				<td><input type="text" name="csearch_news_url" id="news_url" value="<?php echo html($content['search']["news_url"]) ?>" class="width175" /></td>
 				<td>&nbsp;</td>
 			</tr>
 		</table>

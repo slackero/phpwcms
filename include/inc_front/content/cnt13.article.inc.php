@@ -17,9 +17,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 //search form
-$CNT_TMP				.= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 $content["search"]		 = unserialize($crow["acontent_form"]);
-$s_result_list			 = '';
+$s_result_list			 = array();
 $content["search_word"]	 = '';
 $content['highlight']	 = array();
 $s_list					 = array();
@@ -31,6 +30,25 @@ if(empty($content['search']["text_html"])) {
 
 $content['search']['search_filenames'] = empty($content['search']["no_filenames"]) ? true : false;	// search/list for file/imagenames
 $content['search']['show_summary'] = empty($content['search']["hide_summary"]) ? true : false; // show search tester text
+
+// read template
+if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/search.tmpl')) {
+	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/search.tmpl') );
+} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/search/'.$crow["acontent_template"])) {
+	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/search/'.$crow["acontent_template"]) );
+} else {
+	$crow["acontent_template"]	= '';
+}
+
+$crow['template'] = array(
+	'header'		=> get_tmpl_section('SEARCH_HEADER', $crow["acontent_template"]),
+	'footer'		=> get_tmpl_section('SEARCH_FOOTER', $crow["acontent_template"]),
+	'item_space'	=> get_tmpl_section('SEARCH_ITEM_SPACER', $crow["acontent_template"]),
+	'item'			=> get_tmpl_section('SEARCH_ITEM', $crow["acontent_template"]),
+	'pagination'	=> trim(get_tmpl_section('SEARCH_PAGINATE', $crow["acontent_template"])),
+	'text'			=> '',
+	'form'			=> ''
+);
 
 if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
@@ -96,9 +114,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 		$s_result_highlight = rawurlencode($s_result_highlight);
 
 		$sql  = "SELECT article_id, article_cid, article_title, article_username, article_subtitle, ";
-		$sql .= "article_summary, article_keyword, UNIX_TIMESTAMP(article_tstamp) AS article_date ";
+		$sql .= "article_summary, article_keyword, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+		$sql .= "article_image, article_alias ";
 		$sql .= "FROM ".DB_PREPEND."phpwcms_article ar ";
-
 		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
 		$sql .= "(ar.article_cid = ac.acat_id OR ar.article_cid = 0)";
 		$sql .= " WHERE ";
@@ -300,19 +318,25 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$s_list[$s_run]["id"]		= $s_id;
 					$s_list[$s_run]["cid"]		= $s_cid;
 					$s_list[$s_run]["rank"]		= $s_count;
-					$s_list[$s_run]["title"]	= $content['search']['highlight_result'] ? highlightSearchResult($s_title, $content['highlight']) : $s_title;
+					$s_list[$s_run]["title"]	= html($s_title);
+					$s_list[$s_run]['subtitle']	= html($srow['article_subtitle']);
+					if($content['search']['highlight_result']) {
+						$s_list[$s_run]["title"]	= highlightSearchResult($s_list[$s_run]["title"], $content['highlight']);
+						$s_list[$s_run]['subtitle']	= highlightSearchResult($s_list[$s_run]['subtitle'], $content['highlight']);
+					}
 					$s_list[$s_run]["date"]		= $s_date;
 					$s_list[$s_run]["user"]		= $s_user;
-					$s_list[$s_run]['query']	= 'aid='.$s_id;
+					$s_list[$s_run]['query']	= $srow['article_alias'] ? $srow['article_alias'] : 'aid='.$s_id;
+					$s_list[$s_run]['link']		= '';
+					$s_list[$s_run]['image']	= $srow['article_image'];
+					$s_list[$s_run]["text"]		= '';
 
 					if($content['search']['show_summary'] && $content['search']['wordlimit'] > 0) {
 						$s_list[$s_run]["text"]	= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
-						$s_list[$s_run]["text"]	= html_specialchars($s_list[$s_run]["text"]);
+						$s_list[$s_run]["text"]	= html($s_list[$s_run]["text"], false);
 						if($content['search']['highlight_result']) {
 							$s_list[$s_run]["text"] = highlightSearchResult($s_list[$s_run]["text"], $content['highlight']);
 						}
-					} else {
-						$s_list[$s_run]["text"]	= '';
 					}
 
 					$s_run++;
@@ -364,9 +388,8 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			unset($s_news);
 		}
 
-
 		if($s_run) {
-			$CNT_TMP .= $content['search']['text_html'] ? $content["search"]["text_result"] : nl2br(html_specialchars($content['search']['text_result']));
+			$crow['template']['text'] = $content['search']['text_html'] ? $content["search"]["text_result"] : plaintext_htmlencode($content['search']['text_result']);
 
 			// create search result listing
 			// ranking
@@ -405,6 +428,8 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			$_search_pagination_counter	= 1;
 			$_search_start_at			= ($_search_current_page-1) * $content["search"]["result_per_page"];
 			$_search_end_at				= $content["search"]["result_per_page"] * $_search_current_page;
+			$_search_link_basis			= rel_url(array(), array('searchstart', 'searchwords'), '___GOTO___');
+			$_search_link_highlight		= rel_url(array('highlight' => '___HIGHLIGHT__'), array('searchstart', 'searchwords'), '___GOTO___');
 
 			foreach($s_rank as $s_key => $svalue) {
 
@@ -413,25 +438,23 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					continue;
 				}
 
-				$s_result_list .= '<div class="'.$template_default['classes']['search-result-item'].'">'.LF;
-				$s_result_list .= '	<h3><a href="';
-
-				if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
-					$s_result_list .= $s_list[$s_key]['query'];
-				} else {
-					$s_result_list .= 'index.php?'.$s_list[$s_key]['query'];
+				if(empty($s_list[$s_key]['link'])) {
+					if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
+						$s_list[$s_key]['link'] = $s_list[$s_key]['query'];
+					} elseif($content['search']['highlight_result']) {
+						$s_list[$s_key]['link'] = str_replace(array('___GOTO___', '___HIGHLIGHT__'), array($s_list[$s_key]['query'], $s_result_highlight), $_search_link_highlight);
+					} else {
+						$s_list[$s_key]['link'] = str_replace('___GOTO___', $s_list[$s_key]['query'], $_search_link_basis);
+					}
 				}
 
-				if($content['search']['highlight_result']) {
-					$s_result_list .= '&amp;highlight='.$s_result_highlight;
-				}
-				$s_result_list .= ($content["search"]["newwin"]) ? '" target="_blank">' : '">';
-				$s_result_list .= $s_list[$s_key]["title"].'</a></h3>'.LF;
-
-				if($content['search']['show_summary'] && $s_list[$s_key]["text"]) {
-					$s_result_list .= '	<p>'.$s_list[$s_key]["text"].'</p>'.LF;
-				}
-				$s_result_list .= '</div>'.LF;
+				$s_result_list[$s_key] = str_replace('{LINK}', $s_list[$s_key]['link'], $crow['template']['item']); // Replace link and set template
+				$s_result_list[$s_key] = str_replace('{LINK_TARGET}', $content["search"]["newwin"] ? ' target="_blank"' : '', $s_result_list[$s_key]);
+				$s_result_list[$s_key] = str_replace('{RANKING}', $s_list[$s_key]['rank'], $s_result_list[$s_key]);
+				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'TITLE', $s_list[$s_key]["title"]);
+				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'SUBTITLE', $s_list[$s_key]["subtitle"]);
+				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'TEXT', $content['search']['show_summary'] ? $s_list[$s_key]["text"] : '');
+				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'IMAGE', '');
 
 				if($_search_pagination_counter == $_search_end_at) {
 					break;
@@ -441,63 +464,67 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 			}
 
-			$_search_next_link = '';
-			$_search_prev_link = '';
-			$_search_linkblock = '';
-
-			// create link to search page
-			unset($GLOBALS['_getVar']['searchstart']);
-			$GLOBALS['_getVar']['searchwords'] = $s_result_highlight;
-			$_search_page_link = rel_url();
-
-			if($_search_end_at > $_search_results) $_search_end_at = $_search_results;
-
-			$_search_pages_of  = $content["search"]["label_pages"];
-			$_search_pages_of  = str_replace('#####',	$_search_results, 		$_search_pages_of);
-			$_search_pages_of  = str_replace('####',	$_search_end_at, 		$_search_pages_of);
-			$_search_pages_of  = str_replace('###', 	$_search_start_at+1,	$_search_pages_of);
-			$_search_pages_of  = str_replace('##', 		$_search_max_pages, 	$_search_pages_of);
-			$_search_pages_of  = str_replace('#', 		$_search_current_page, 	$_search_pages_of);
-
-			if($_search_next_page != $_search_current_page) {
-
-				$_search_next_link = '<a href="'.$_search_page_link.'&amp;searchstart='. ($_search_current_page + 1 ).'">';
-
+			if($_search_end_at > $_search_results) {
+				$_search_end_at = $_search_results;
 			}
-			if($_search_prev_page != $_search_current_page) {
 
-				$_search_prev_link = '<a href="'.$_search_page_link.'&amp;searchstart='. ($_search_current_page - 1 ).'">';
-
+			if($content["search"]["label_pages"]) {
+				$crow['template']['pagination'] = $content["search"]["label_pages"];
+				$crow['template']['paginate_custom'] = true;
+			} elseif($crow['template']['pagination']) {
+				$crow['template']['pagination'] = $crow['template']['pagination'];
+				$crow['template']['paginate_custom'] = false;
+			} else {
+				$crow['template']['pagination'] = '[PREV]{PREV:&laquo; Previous} | [/PREV]Page #/##[NEXT] | {NEXT:Next &raquo;}[/NEXT]';
+				$crow['template']['paginate_custom'] = true;
 			}
+
+			$crow['template']['pagination'] = str_replace('#####', $_search_results, $crow['template']['pagination']);
+			$crow['template']['pagination'] = str_replace('####', $_search_end_at, $crow['template']['pagination']);
+			$crow['template']['pagination'] = str_replace('###', $_search_start_at+1, $crow['template']['pagination']);
+			$crow['template']['pagination'] = str_replace('##', $_search_max_pages, $crow['template']['pagination']);
+			$crow['template']['pagination'] = str_replace('#', $_search_current_page, $crow['template']['pagination']);
 
 			$GLOBALS['_search_next_link_t']	= '';
 			$GLOBALS['_search_prev_link_t']	= '';
 			$GLOBALS['_search_navi'] 		= '';
 
-			$_search_pages_of = preg_replace_callback('/\{NEXT:(.*?)\}/', create_function('$matches', '$GLOBALS["_search_next_link_t"]=$matches[1]; return "{NEXT}";'), $_search_pages_of);
-			$_search_pages_of = preg_replace_callback('/\{PREV:(.*?)\}/', create_function('$matches', '$GLOBALS["_search_prev_link_t"]=$matches[1]; return "{PREV}";'), $_search_pages_of);
-			$_search_pages_of = preg_replace_callback('/\{NAVI:(.*?)\}/', create_function('$matches', '$GLOBALS["_search_navi"]=$matches[1]; return "{NAVI}";'), $_search_pages_of);
+			$crow['template']['pagination'] = preg_replace_callback('/\{NEXT:(.*?)\}/', 'get_SearchPaginateNext', $crow['template']['pagination']);
+			$crow['template']['pagination'] = preg_replace_callback('/\{PREV:(.*?)\}/', 'get_SearchPaginatePrevious', $crow['template']['pagination']);
+			$crow['template']['pagination'] = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_SearchPaginateNavigate', $crow['template']['pagination']);
 
-			if($_search_prev_link) {
-				$_search_prev_link = $_search_prev_link.$GLOBALS['_search_prev_link_t'].'</a>';
-			} elseif($content["search"]["show_prev"]) {
-				$_search_prev_link = $GLOBALS['_search_prev_link_t'];
+			// create link to search page
+			unset($GLOBALS['_getVar']['searchstart']);
+			$GLOBALS['_getVar']['searchwords'] = $s_result_highlight;
+			$_search_page_link = rel_url(array('searchstart' => '___SEARCHSTART___'), array());
+
+			$_search_next_link = '';
+			$_search_prev_link = '';
+
+			if($_search_next_page != $_search_current_page) {
+				$_search_next_link = '<a href="' . str_replace('___SEARCHSTART___', ($_search_current_page + 1), $_search_page_link) . '">';
 			}
 			if($_search_next_link) {
 				$_search_next_link = $_search_next_link.$GLOBALS['_search_next_link_t'].'</a>';
 			} elseif($content["search"]["show_next"]) {
 				$_search_next_link = $GLOBALS['_search_next_link_t'];
 			}
-
-			$_search_pages_of = str_replace('{NEXT}', $_search_next_link, $_search_pages_of);
-			$_search_pages_of = str_replace('{PREV}', $_search_prev_link, $_search_pages_of);
-
+			if($_search_prev_page != $_search_current_page) {
+				$_search_prev_link = '<a href="' . str_replace('___SEARCHSTART___', ($_search_current_page - 1), $_search_page_link) . '">';
+			}
+			if($_search_prev_link) {
+				$_search_prev_link = $_search_prev_link.$GLOBALS['_search_prev_link_t'].'</a>';
+			} elseif($content["search"]["show_prev"]) {
+				$_search_prev_link = $GLOBALS['_search_prev_link_t'];
+			}
+			$crow['template']['pagination'] = render_cnt_template($crow['template']['pagination'], 'NEXT', $_search_next_link);
+			$crow['template']['pagination'] = render_cnt_template($crow['template']['pagination'], 'PREV', $_search_prev_link);
 
 			$GLOBALS['_search_navi'] 	= explode(',', $GLOBALS['_search_navi'], 2);
 			$GLOBALS['_search_navi'][0] = trim($GLOBALS['_search_navi'][0]);
 			$GLOBALS['_search_navi'][1]	= empty($GLOBALS['_search_navi'][1]) ? '' : explode('|', $GLOBALS['_search_navi'][1]);
 
-			if($GLOBALS['_search_navi'][0] == '123') {
+			if($GLOBALS['_search_navi'][0] === '123') {
 
 				$GLOBALS['_search_navi'][1][0] = empty($GLOBALS['_search_navi'][1][0]) ? ' ' : $GLOBALS['_search_navi'][1][0]; // spacer
 				$GLOBALS['_search_navi'][1][1] = empty($GLOBALS['_search_navi'][1][1]) ? '' : $GLOBALS['_search_navi'][1][1]; // link prefix
@@ -510,7 +537,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					if($_search_current_page == $_search_page_i) {
 						$_search_navi_x[$_search_page_i] .= $_search_page_i;
 					} else {
-						$_search_navi_x[$_search_page_i] .= '<a href="'.$_search_page_link.'&amp;searchstart='. $_search_page_i .'">' . $_search_page_i . '</a>';
+						$_search_navi_x[$_search_page_i] .= '<a href="' . str_replace('___SEARCHSTART___', $_search_page_i, $_search_page_link) . '">' . $_search_page_i . '</a>';
 					}
 					$_search_navi_x[$_search_page_i] .= $GLOBALS['_search_navi'][1][2];
 
@@ -536,96 +563,146 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					if($_search_current_page == $_search_page_i) {
 						$_search_navi_x[$_search_page_i] .= $_search_page_i_start.'-'.$_search_page_i_end;
 					} else {
-						$_search_navi_x[$_search_page_i] .= '<a href="'.$_search_page_link.'&amp;searchstart='. $_search_page_i .'">' . $_search_page_i_start.'-'.$_search_page_i_end . '</a>';
+						$_search_navi_x[$_search_page_i] .= '<a href="' . str_replace('___SEARCHSTART___', $_search_page_i, $_search_page_link) . '">' . $_search_page_i_start.'-'.$_search_page_i_end . '</a>';
 					}
 					$_search_navi_x[$_search_page_i] .= $GLOBALS['_search_navi'][1][2];
 
 				}
 				$GLOBALS['_search_navi'] = implode($GLOBALS['_search_navi'][1][0], $_search_navi_x);
 
-
 			} else {
+
 				$GLOBALS['_search_navi'] = '';
+
 			}
-			$_search_pages_of = str_replace('{NAVI}', $GLOBALS['_search_navi'], $_search_pages_of);
 
-			$_search_linkblock  = '<div class="'.$template_default['classes']['search-nextprev'].'">';
-			$_search_linkblock .= $_search_pages_of;
-			$_search_linkblock .= '</div>' . LF;
-
-			if($s_result_list) {
-				$s_result_listing  = '<div class="'. ($content["search"]["style_result"] ? $content["search"]["style_result"] : $template_default['classes']['search-result']) .'">';
-				if($content["search"]["show_top"] && ($_search_max_pages > 1 || $content["search"]["show_always"])) {
-					$s_result_listing .= $_search_linkblock;
-				}
-				$s_result_listing .= $s_result_list;
-				if($content["search"]["show_bottom"] && ($_search_max_pages > 1 || $content["search"]["show_always"])) {
-					$s_result_listing .= $_search_linkblock;
-				}
-				$s_result_listing .= '</div>';
-
-				$s_result_list = $s_result_listing;
+			$crow['template']['pagination'] = render_cnt_template($crow['template']['pagination'], 'NAVI', $GLOBALS['_search_navi']);
+			if($crow['template']['paginate_custom']) {
+				$crow['template']['pagination'] = '<div class="'.$template_default['classes']['search-nextprev'].'">' . LF . '	' . $crow['template']['pagination'] . LF . '</div>';
 			}
 
 		} else {
 
-			$CNT_TMP .= $content['search']['text_html'] ? $content["search"]["text_noresult"] : nl2br(html_specialchars($content['search']['text_noresult']));
+			$crow['template']['text'] = $content['search']['text_html'] ? $content["search"]["text_noresult"] : plaintext_htmlencode($content['search']['text_noresult']);
 		}
 
 	} else {
 
-		$CNT_TMP .= $content['search']['text_html'] ? $content["search"]["text_noresult"] : nl2br(html_specialchars($content['search']['text_noresult']));
+		$crow['template']['text'] = $content['search']['text_html'] ? $content["search"]["text_noresult"] : plaintext_htmlencode($content['search']['text_noresult']);
 
 	}
+
 } else {
 
-	$CNT_TMP .= $content['search']['text_html'] ? $content["search"]["text_intro"] : nl2br(html_specialchars($content['search']['text_intro']));
+	$crow['template']['text'] = $content['search']['text_html'] ? $content["search"]["text_intro"] : plaintext_htmlencode($content['search']['text_intro']);
 
 }
 
-if(count($content['highlight'])) {
-	$content["search_word"] = html_specialchars(implode(' ', $content['highlight']));
-} else {
-	$content["search_word"] = '';
-}
+$content["search_word"] = count($content['highlight']) ? html(implode(' ', $content['highlight'])) : '';
+
+$crow['template']['result']  = $crow['template']['header'];
+$crow['template']['result'] .= $crow['template']['footer'];
 
 if(isset($content["search"]["result_per_page"])) {
 
 	//build search form
-	$CNT_TMP .= LF;
-	$CNT_TMP .= '<div class="search_form"';
-	switch($content["search"]["align"]) {
-		case 1: $CNT_TMP .= ' align="right"'; break;
-		case 2: $CNT_TMP .= ' align="center"'; break;
-	}
-	$CNT_TMP .= '>';
-
 	unset($GLOBALS['_getVar']['searchwords'], $GLOBALS['_getVar']['searchstart']);
 
-	$CNT_TMP .= '<form action="' . rel_url() . '" method="post">'.LF;
-	$CNT_TMP .= '<table cellspacing="0" cellpadding="0" border="0" summary="Search">'.LF.'<tr>'.LF;
-	if($content["search"]["label_input"]) {
-		$CNT_TMP .= '<td class="formLabel">';
-		$CNT_TMP .= $content["search"]["label_input"]."</td>\n<td>&nbsp;</td>\n";
+	if(empty($content["search"]["label_button"])) {
+		$content["search"]["label_button"] = '@@Search@@';
 	}
-	$CNT_TMP .= '<td class="formSearch">';
-	$CNT_TMP .= '<input name="search_input_field" id="search_input_field" type="text" size="20" maxlength="200" ';
-	$CNT_TMP .= 'value="'.$content["search_word"].'"';
-	if($content["search"]["style_input"]) {
-		$CNT_TMP .= ' class="'.$content["search"]["style_input"].'"';
+
+	$crow['template']['form'] = ' ';
+
+	if(strpos($crow['template']['result'], '{FORM}') !== false) {
+
+		dumpVar('hier');
+
+		$crow['template']['form'] = '<div class="search_form"';
+		if($content["search"]["align"] === 1) {
+			$crow['template']['form'] .= ' style="text-align:right;"';
+		} elseif($content["search"]["align"] === 2) {
+			$crow['template']['form'] .= ' style="text-align:center;"';
+		}
+		$crow['template']['form'] .= '>';
+		$crow['template']['form'] .= '<form action="' . rel_url() . '" method="post">'.LF;
+		$crow['template']['form'] .= '<table cellspacing="0" cellpadding="0" border="0" summary="Search"><tr>';
+		if($content["search"]["label_input"]) {
+			$crow['template']['form'] .= '<td class="formLabel">';
+			$crow['template']['form'] .= $content["search"]["label_input"]."</td>";
+		}
+		$crow['template']['form'] .= '<td class="formSearch">';
+		$crow['template']['form'] .= '<input name="search_input_field" id="search_input_field" type="text" size="30" maxlength="200" ';
+		$crow['template']['form'] .= 'value="'.$content["search_word"].'"';
+		if($content["search"]["style_input"]) {
+			$crow['template']['form'] .= ' class="'.$content["search"]["style_input"].'"';
+		}
+		$crow['template']['form'] .= " /></td><td>";
+		$crow['template']['form'] .= '<input type="submit" name="submit" id="search_submit_button" value="';
+
+		$crow['template']['form'] .= $content["search"]["label_button"];
+		$crow['template']['form'] .= '"';
+		if($content["search"]["style_button"]) {
+			$crow['template']['form'] .= ' class="'.$content["search"]["style_button"].'"';
+		}
+		$crow['template']['form'] .= " /></td>";
+		$crow['template']['form'] .= "</tr></table></form></div>";
+
+	} else {
+
+		$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'SEARCH_INPUT_LABEL', $content["search"]["label_input"]);
+		$crow['template']['result'] = str_replace(
+			array(
+				'{SEARCH_INPUT}',
+				'{SEARCH_ACTION}',
+				'{SEARCH_BUTTON}',
+				'{SEARCH_VALUE}'
+			), array(
+				'search_input_field',
+				rel_url(),
+				$content["search"]["label_button"],
+				$content["search_word"]
+			),
+			$crow['template']['result']
+		);
+
 	}
-	$CNT_TMP .= " /></td>\n<td>&nbsp;</td>\n<td>";
-	$CNT_TMP .= '<input type="submit" name="submit" id="search_submit_button" value="';
-	$CNT_TMP .= ($content["search"]["label_button"]) ? $content["search"]["label_button"] : 'Search';
-	$CNT_TMP .= '"';
-	if($content["search"]["style_button"]) {
-		$CNT_TMP .= ' class="'.$content["search"]["style_button"].'"';
-	}
-	$CNT_TMP .= " /></td>\n";
-	$CNT_TMP .= "</tr>\n</table>\n</form>\n</div>\n";
+
 }
 
-$CNT_TMP .= $s_result_list;
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'TITLE', html($crow["acontent_title"]));
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'SUBTITLE', html($crow["acontent_subtitle"]));
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'TEXT', $crow['template']['text']);
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'FORM', $crow['template']['form']);
 
+if(count($s_result_list)) {
+
+	if($content["search"]["show_top"] && ($_search_max_pages > 1 || $content["search"]["show_always"])) {
+		//$s_result_listing .= $crow['template']['pagination'];
+		$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'PAGINATE_TOP', $crow['template']['pagination']);
+	} else {
+		$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'PAGINATE_TOP', '');
+	}
+
+	if($content["search"]["show_bottom"] && ($_search_max_pages > 1 || $content["search"]["show_always"])) {
+		//$s_result_listing .= $crow['template']['pagination'];
+		$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'PAGINATE_BOTTOM', $crow['template']['pagination']);
+	} else {
+		$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'PAGINATE_BOTTOM', '');
+	}
+
+	$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'RESULTS', implode($crow['template']['item_space'], $s_result_list));
+
+} else {
+
+	$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'RESULTS', '');
+	$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'PAGINATE_TOP', '');
+	$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'PAGINATE_BOTTOM', '');
+
+}
+
+$CNT_TMP .= $crow['template']['result'];
+
+unset($crow['template']);
 
 ?>

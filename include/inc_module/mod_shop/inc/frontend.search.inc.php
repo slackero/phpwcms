@@ -38,6 +38,13 @@ class ModuleShopSearch {
 			$shop_url	= $GLOBALS['aktion'][1] ? 'aid='.$GLOBALS['aktion'][1] : 'id='.$GLOBALS['aktion'][0];
 		}
 
+		if($this->search_highlight_words && is_array($this->search_highlight_words)) {
+			$s_highlight_words = implode(' ', $this->search_highlight_words);
+		} else {
+			$s_highlight_words = '';
+			$this->search_highlight = false;
+		}
+
 		$sql  = 'SELECT shopprod_id, shopprod_category, shopprod_ordernumber, ';
 		$sql .= 'shopprod_name1, ';
 		$sql .= 'UNIX_TIMESTAMP(shopprod_changedate) AS shopprod_date, ';
@@ -64,10 +71,8 @@ class ModuleShopSearch {
 			$s_result	= array();
 
 			$s_text		= $value['shopprod_search'];
-			$s_text		= str_replace( array('~', '|', ':', 'http', '//', '_blank', '&nbsp;') , ' ', $s_text );
-			$s_text		= clean_replacement_tags($s_text, '');
-			$s_text		= remove_unsecure_rptags($s_text);
-			$s_text		= cleanUpSpecialHtmlEntities($s_text);
+			$s_text		= str_replace(array('~', '|', ':', 'http', '//', '_blank', '&nbsp;') , ' ', $s_text);
+			$s_text		= clean_search_text($s_text);
 
 			preg_match_all('/'.$this->search_words.'/is', $s_text, $s_result );
 
@@ -99,19 +104,23 @@ class ModuleShopSearch {
 				}
 				$s_text   = html($s_text);
 
-				$this->search_results[$id]["id"]	= $value['shopprod_id'];
-				$this->search_results[$id]["cid"]	= 0;
-				$this->search_results[$id]["rank"]	= $s_count;
-				$this->search_results[$id]["date"]	= $value['shopprod_date'];
-				$this->search_results[$id]["user"]	= '';
-				$this->search_results[$id]['query']	= $shop_url.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
+				$this->search_results[$id]["id"]		= $value['shopprod_id'];
+				$this->search_results[$id]["cid"]		= 0;
+				$this->search_results[$id]["rank"]		= $s_count;
+				$this->search_results[$id]["date"]		= $value['shopprod_date'];
+				$this->search_results[$id]["user"]		= '';
+				$this->search_results[$id]["subtitle"]	= '';
+				$this->search_results[$id]['query']		= $shop_url; //.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
+				$this->search_results[$id]['image']		= '';
 
 				if($this->search_highlight) {
 					$this->search_results[$id]["title"]	= highlightSearchResult($s_title, $this->search_highlight_words);
 					$this->search_results[$id]["text"]	= highlightSearchResult($s_text, $this->search_highlight_words);
+					$this->search_results[$id]['link']	= rel_url(array('shop_cat' => $value['shopprod_category'], 'shop_detail' => $value['shopprod_id'], 'highlight' => $s_highlight_words), array('searchstart', 'searchwords'), $shop_url);
 				} else {
 					$this->search_results[$id]["title"]	= $s_title;
 					$this->search_results[$id]["text"]	= $s_text;
+					$this->search_results[$id]['link']	= rel_url(array('shop_cat' => $value['shopprod_category'], 'shop_detail' => $value['shopprod_id']), array('highlight', 'searchstart', 'searchwords'), $shop_url);
 				}
 
 				$this->search_result_entry++;

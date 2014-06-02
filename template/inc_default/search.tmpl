@@ -1,0 +1,72 @@
+<!--SEARCH_HEADER_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+[FORM]
+	<!-- The default search form, bit outdated table -->
+	<!-- { FORM } // strip out white spaces after/before {} -->
+	<!-- Or use a custom one -->
+	<form action="{SEARCH_ACTION}" method="post">
+		<p>
+			[SEARCH_INPUT_LABEL]<label>{SEARCH_INPUT_LABEL}</label>[/SEARCH_INPUT_LABEL]
+			<input type="text" name="{SEARCH_INPUT}" value="{SEARCH_VALUE}" />
+			<input type="submit" value="{SEARCH_BUTTON}" />
+		</p>
+	</form>
+
+[/FORM]
+[RESULTS]
+<div class="search-results">
+[PAGINATE_TOP]
+	<div class="pagination">
+		{PAGINATE_TOP}
+	</div>
+[/PAGINATE_TOP]
+	<div class="search-listing">
+		{RESULTS}
+[/RESULTS]
+<!--SEARCH_HEADER_END//-->
+
+
+<!--SEARCH_ITEM_START//-->
+	<div class="search-item search-item-ranking-{RANKING}">
+		<!-- <a href="{LINK}"{LINK_TARGET}> Yes, this is allowed with HTML5 -->
+			[TITLE]<h3><a href="{LINK}"{LINK_TARGET}>{TITLE}</a></h3>[/TITLE]
+			[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+			<div class="search-item-details">
+				[IMAGE]<img src="img/cmsimage.php/100x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" class="search-item-image" />[/IMAGE]
+				[TEXT]<p>{TEXT}</p>[/TEXT]
+			</div>
+		<!-- </a> Yes, this is allowed with HTML5 -->
+	</div>
+<!--SEARCH_ITEM_END//-->
+
+
+<!--SEARCH_ITEM_SPACER_START//-->
+	<!-- space between search results -->
+<!--SEARCH_ITEM_SPACER_END//-->
+
+
+<!--SEARCH_FOOTER_START//-->
+[RESULTS]
+	</div>
+[PAGINATE_BOTTOM]
+	<div class="pagination">
+		{PAGINATE_BOTTOM}
+	</div>
+[/PAGINATE_BOTTOM]
+</div>
+[/RESULTS]
+<!--SEARCH_FOOTER_END//-->
+
+<!--SEARCH_PAGINATE_START//-->
+	[PREV]{PREV:&laquo; Previous} | [/PREV]Page #/## | Results ###-####[NAVI] | {NAVI:1-3}[/NAVI][NEXT]| {NEXT:next &raquo;}[/NEXT]
+<!--SEARCH_PAGINATE_END//-->
+
+	// Pagination Replacement Tags
+	- {PREV:&raquo; previous}
+	- {NEXT:next &laquo;}
+	- page #/##
+	- results ###-####
+	- {NAVI:123}
+	- {NAVI:1-3}
