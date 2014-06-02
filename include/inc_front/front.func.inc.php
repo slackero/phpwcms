@@ -1796,12 +1796,12 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 
 function get_new_articles_callback($matches) {
 	if(!isset($matches[2])) {
-		$matches[2] = 0;
+		$matches[2] = '';
 	}
 	return get_new_articles($GLOBALS['template_default']['news'], $matches[1], $matches[2]);
 }
 
-function get_new_articles(&$template_default, $max_cnt_links=0, $cat=0, $dbcon=null) {
+function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=null) {
 	// find all new articles
 
 	$max_cnt_links = intval($max_cnt_links);
