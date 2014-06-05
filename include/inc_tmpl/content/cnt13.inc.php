@@ -398,19 +398,19 @@ if(count($content['search']['module_search'])) {
 	</tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_intro'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_intro" rows="6" class="f10" id="csearch_text_intro" style="width: 440px"><?php echo  isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_intro" rows="6" class="f10" id="csearch_text_intro" style="width: 440px"><?php echo isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 </tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_result'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_result" rows="6" class="f10"  id="csearch_text_result" style="width: 440px"><?php echo  isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_result" rows="6" class="f10"  id="csearch_text_result" style="width: 440px"><?php echo isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 </tr>
   <tr>
     <td align="right" class="chatlist tdtop3" nowrap="nowrap"><?php echo $BL['be_cnt_noresult'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="f10"  id="csearch_text_noresult" style="width: 440px"><?php echo  isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="f10"  id="csearch_text_noresult" style="width: 440px"><?php echo isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
   </tr>
 
  <tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

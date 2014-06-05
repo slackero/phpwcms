@@ -998,11 +998,11 @@ function init_frontend_edit() {
 }
 
 if(IS_PHP523) {
-	function html($string, $double_encode=true) {
+	function html($string, $double_encode=false) {
 		return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
 	}
 } else {
-	function html($string, $double_encode=true) {
+	function html($string, $double_encode=false) {
 		return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET);
 	}
 }

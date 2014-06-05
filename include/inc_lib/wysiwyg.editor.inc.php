@@ -28,11 +28,11 @@ $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_use
 
 if($wysiwyg_editor['editor']) {
 
-	$BE['HEADER']['ckeditor.js']		 = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
 
 	// simple textarea - no WYSIWYG editor
 	echo '<textarea class="ckeditor" name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'].'" id="'.$wysiwyg_editor['field'].'">';
-	echo html($wysiwyg_editor['value']).'</textarea>';
+	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 	echo '<script type="text/javascript">' . LF;
 	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {' . LF;
@@ -51,14 +51,13 @@ if($wysiwyg_editor['editor']) {
 	echo '	});' . LF;
 	echo '</script>';
 
-
 } else {
 
 	// simple textarea - no WYSIWYG editor
 	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
 	echo '" class="v12 editor-textarea" id="'.$wysiwyg_editor['field'].'" ';
 	echo 'style="width:'.$wysiwyg_editor['width'].';height:'.$wysiwyg_editor['height'].';">';
-	echo html($wysiwyg_editor['value']).'</textarea>';
+	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 }
 

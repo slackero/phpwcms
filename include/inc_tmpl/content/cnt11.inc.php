@@ -57,7 +57,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		if($firstchar == "\r" || $firstchar == "\n") {
 			$content["code"] = ' '.$content["code"];
 		}
-		echo html($content["code"]);
+		echo html($content["code"], true);
 	}
 
 	?></textarea></td>

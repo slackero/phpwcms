@@ -71,7 +71,7 @@ $buttonAction .= '</tr></table>';
 			<?php if(!empty($article["article_summary"])) { ?>
 			<tr>
 			  <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_asummary'] ?>:&nbsp;</td>
-			  <td valign="top" class="v10"><?php echo html(getCleanSubString(strip_tags($article["article_summary"]), 250, '&#8230;')); ?></td>
+			  <td valign="top" class="v10"><?php echo html(getCleanSubString(strip_tags($article["article_summary"]), 250, '&#8230;'), false); ?></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 			</tr>
