@@ -957,6 +957,11 @@ if(count($phpwcms['modules_fe_render'])) {
 // Final Render Device
 $content['all'] = render_device($content['all']);
 
+// And again check against possible {PHP needs to be rendered
+if(strpos($content['all'],'PHP') !== false) {
+	$content['all'] = render_PHPcode($content["all"]);
+}
+
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {
 
