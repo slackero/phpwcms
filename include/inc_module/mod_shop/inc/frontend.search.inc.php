@@ -111,7 +111,7 @@ class ModuleShopSearch {
 				$this->search_results[$id]["user"]		= '';
 				$this->search_results[$id]["subtitle"]	= '';
 				$this->search_results[$id]['query']		= $shop_url; //.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
-				$this->search_results[$id]['image']		= '';
+				$this->search_results[$id]['image']		= false;
 
 				if($this->search_highlight) {
 					$this->search_results[$id]["title"]	= highlightSearchResult($s_title, $this->search_highlight_words);
