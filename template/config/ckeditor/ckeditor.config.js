@@ -11,43 +11,50 @@ CKEDITOR.editorConfig = function( config ) {
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	// The toolbar groups arrangement, optimized for two toolbar rows.
-	// http://nightly.ckeditor.com/latest/ckeditor/samples/plugins/toolbar/toolbar.html
-	config.toolbarGroups = [
-		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-		{ name: 'editing',     groups: [ 'find', 'selection' ] }, //, 'spellchecker'
-		{ name: 'links' },
-		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
-		{ name: 'tools' },
-		{ name: 'about' },
+	/* The full default CKEditor toolbar
+	config.toolbar = [
+		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
+		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+		{ name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+		'/',
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+		{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
+		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+		{ name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
+		'/',
+		{ name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+		{ name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+		{ name: 'others', items: [ '-' ] },
+		{ name: 'about', items: [ 'About' ] }
+	];
+	*/
 
-		//{ name: 'forms' },
-
-		//'/',
-		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'paragraph',   groups: [ 'align', 'list', 'indent', 'blocks'] },
-		//{ name: 'others' },
-		//'/',
-		{ name: 'insert' },
-		{ name: 'colors' },
-		{ name: 'styles' }
-
+	config.toolbar = [
+		{ name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks' ] },
+		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+		{ name: 'paragraph', groups: [ 'align', 'list', 'indent', 'blocks' ], items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv'] },
+		{ name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'leaflet', 'Iframe', 'SpecialChar' ] },
+		{ name: 'styles', items: [ 'Styles', 'Format', 'Font' ] },
+		{ name: 'about', items: [ 'About' ] }
 	];
 
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
-	config.removeButtons = 'Copy,Iframe,Flash,Smiley,PageBreak,FontSize,Save,Print,NewPage,Preview,Templates,PasteFromWord,PasteText';
+	//config.removeButtons = 'Copy,Iframe,Flash,Smiley,PageBreak,FontSize,Save,Print,NewPage,Preview,Templates,PasteFromWord,PasteText';
 
 	config.width = 538;
 	config.height = 400;
 
-	config.extraPlugins = 'magicline';
+	config.extraPlugins = 'magicline,lineutils,widget,leaflet';
 
 	config.toolbarCanCollapse = true;
 	config.toolbarStartupExpanded = true;
 
 	//config.removePlugins = 'resize';
-
 
 	config.forcePasteAsPlainText = true;
 	config.pasteFromWordRemoveFontStyles = true;
