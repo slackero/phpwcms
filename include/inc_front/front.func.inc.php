@@ -938,9 +938,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 		$GLOBALS['paginate_temp'] = array('next' => '', 'prev' => '', 'navi' => '');
 
-		$paginate_navi = preg_replace_callback('/\{NEXT:(.*?)\}/', create_function('$matches', '$GLOBALS["paginate_temp"]["next"]=$matches[1]; return "{NEXT}";'), $paginate_navi);
-		$paginate_navi = preg_replace_callback('/\{PREV:(.*?)\}/', create_function('$matches', '$GLOBALS["paginate_temp"]["prev"]=$matches[1]; return "{PREV}";'), $paginate_navi);
-		$paginate_navi = preg_replace_callback('/\{NAVI:(.*?)\}/', create_function('$matches', '$GLOBALS["paginate_temp"]["navi"]=$matches[1]; return "{NAVI}";'), $paginate_navi);
+		$paginate_navi = preg_replace_callback('/\{NEXT:(.*?)\}/', 'get_PaginateNext', $paginate_navi);
+		$paginate_navi = preg_replace_callback('/\{PREV:(.*?)\}/', 'get_PaginatePrevious', $paginate_navi);
+		$paginate_navi = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_PaginateNavigate', $paginate_navi);
 
 		// next page link
 		if($GLOBALS['paginate_temp']['next'] && $page_current < $max_pages) {
@@ -4005,6 +4005,31 @@ function render_device($string) {
 	}
 
 	return $string;
+}
+
+function get_PaginateNext($matches) {
+	if(isset($GLOBALS['paginate_temp'])) {
+		$GLOBALS['paginate_temp']['next'] = $matches[1];
+	} else {
+		$GLOBALS['_search_next_link_t'] = $matches[1];
+	}
+	return '{NEXT}';
+}
+function get_PaginatePrevious($matches) {
+	if(isset($GLOBALS['paginate_temp'])) {
+		$GLOBALS['paginate_temp']['prev'] = $matches[1];
+	} else {
+		$GLOBALS['_search_prev_link_t'] = $matches[1];
+	}
+	return '{PREV}';
+}
+function get_PaginateNavigate($matches) {
+	if(isset($GLOBALS['paginate_temp'])) {
+		$GLOBALS['paginate_temp']['navi'] = $matches[1];
+	} else {
+		$GLOBALS['_search_navi'] = $matches[1];
+	}
+	return '{NAVI}';
 }
 
 ?>
