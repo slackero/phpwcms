@@ -230,11 +230,10 @@ class phpwcmsNews {
 			}
 
 			$_SESSION['PAGE_FILTER']['news'] = array(
-
-							'status'	=> $status,
-							'filter'	=> $filter,
-							'page'		=> $page
-					);
+				'status'	=> $status,
+				'filter'	=> $filter,
+				'page'		=> $page
+			);
 
 		}
 
@@ -415,49 +414,48 @@ class phpwcmsNews {
 		$start_date	= 0;
 		$end_date	= 0;
 
-		$this->data = array(	'cnt_id'				=> 0,
-								'cnt_pid'				=> 0,
-								'cnt_status'			=> intval($this->phpwcms['set_news_active']),
-								'cnt_livedate'			=> '0000-00-00 00:00:00',
-								'cnt_killdate'			=> '0000-00-00 00:00:00',
-								'cnt_archive_status'	=> 1,
-								'cnt_alias'				=> '',
-								'cnt_name'				=> '',
-								'cnt_title'				=> '',
-								'cnt_subtitle'			=> '',
-								'cnt_editor'			=> '',
-								'cnt_place'				=> '',
-								'cnt_teasertext'		=> '',
-								'cnt_text'				=> '',
-								'cnt_duplicate'			=> 0,
-								'cnt_lang'				=> '',
-								'cnt_prio'				=> 0,
-								'cnt_readmore'			=> 1,
-
-								'cnt_image'				=> array(	'id'			=> 0,
-																	'name'			=> '',
-																	'zoom'			=> 0,
-																	'lightbox'		=> 0,
-																	'caption'		=> '',
-																	'link'			=> ''
-																 ),
-
-								'cnt_files'				=> array(	'id'				=> array(),
-																	'caption'			=> '',
-																	'gallery'			=> 0,
-																	'gallery_download'	=> 0
-																 ),
-								'cnt_link'				=> '',
-								'cnt_linktext'			=> '',
-								'cnt_category'			=> '',
-								'cnt_livedate'			=> '',
-								'cnt_killdate'			=> '',
-								'cnt_sort'				=> 0,
-								'cnt_opengraph'			=> 1,
-								'cnt_textformat'		=> 'plain'
-
-							  );
-
+		$this->data = array(
+			'cnt_id'				=> 0,
+			'cnt_pid'				=> 0,
+			'cnt_status'			=> intval($this->phpwcms['set_news_active']),
+			'cnt_livedate'			=> '0000-00-00 00:00:00',
+			'cnt_killdate'			=> '0000-00-00 00:00:00',
+			'cnt_archive_status'	=> 1,
+			'cnt_alias'				=> '',
+			'cnt_name'				=> '',
+			'cnt_title'				=> '',
+			'cnt_subtitle'			=> '',
+			'cnt_editor'			=> '',
+			'cnt_place'				=> '',
+			'cnt_teasertext'		=> '',
+			'cnt_text'				=> '',
+			'cnt_duplicate'			=> 0,
+			'cnt_lang'				=> '',
+			'cnt_prio'				=> 0,
+			'cnt_readmore'			=> 1,
+			'cnt_image'				=> array(
+				'id'		=> 0,
+				'name'		=> '',
+				'zoom'		=> 0,
+				'lightbox'	=> 0,
+				'caption'	=> '',
+				'link'		=> ''
+			 ),
+			'cnt_files'				=> array(
+				'id'				=> array(),
+				'caption'			=> '',
+				'gallery'			=> 0,
+				'gallery_download'	=> 0
+			 ),
+			'cnt_link'				=> '',
+			'cnt_linktext'			=> '',
+			'cnt_category'			=> '',
+			'cnt_livedate'			=> '',
+			'cnt_killdate'			=> '',
+			'cnt_sort'				=> 0,
+			'cnt_opengraph'			=> 1,
+			'cnt_textformat'		=> 'plain'
+		);
 
 		// check form post
 		if( isset($_POST['cnt_name']) ) {

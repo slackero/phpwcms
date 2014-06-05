@@ -47,7 +47,8 @@ $crow['template'] = array(
 	'item'			=> get_tmpl_section('SEARCH_ITEM', $crow["acontent_template"]),
 	'pagination'	=> trim(get_tmpl_section('SEARCH_PAGINATE', $crow["acontent_template"])),
 	'text'			=> '',
-	'form'			=> ''
+	'form'			=> '',
+	'image_render'	=> false
 );
 
 if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
@@ -101,6 +102,10 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 	}
 
 	if(count($content['highlight'])) {
+
+		if(strpos($crow['template']['item'], '{IMAGE') !== false) {
+			$crow['template']['image_render'] = true;
+		}
 
 		$s_result_highlight = implode(' ', $content['highlight']);
 
@@ -163,7 +168,6 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$csql .= 'acontent_granted=0 AND ';
 				}
 				$csql .= "acontent_type IN (0, 1, 2, 4, 5, 6, 7, 11, 14, 26, 27, 29, 100, 31, 32)";
-
 
 				if($scresult = mysql_query($csql, $db)) {
 					while($scrow = mysql_fetch_row($scresult)) {
@@ -328,8 +332,19 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$s_list[$s_run]["user"]		= $s_user;
 					$s_list[$s_run]['query']	= $srow['article_alias'] ? $srow['article_alias'] : 'aid='.$s_id;
 					$s_list[$s_run]['link']		= '';
-					$s_list[$s_run]['image']	= $srow['article_image'];
 					$s_list[$s_run]["text"]		= '';
+					$s_list[$s_run]['image']	= false;
+					if($crow['template']['image_render'] && $srow["article_image"]) {
+						$srow["article_image"] = setArticleSummaryImageData(unserialize($srow["article_image"]));
+						if(!empty($srow["article_image"]['list_hash'])) {
+							$s_list[$s_run]['image'] = array(
+								'id'	=> $srow["article_image"]['list_id'],
+								'hash'	=> $srow["article_image"]['list_hash'],
+								'ext'	=> $srow["article_image"]['list_ext'],
+								'name'	=> $srow["article_image"]['list_name']
+							);
+						}
+					}
 
 					if($content['search']['show_summary'] && $content['search']['wordlimit'] > 0) {
 						$s_list[$s_run]["text"]	= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
@@ -376,6 +391,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			$s_news->search_andor				= $content['search']['news_andor'];
 			$s_news->ellipse_sign				= $template_default['ellipse_sign'];
 			$s_news->search_target_url			= $content['search']['news_url'];
+			$s_news->image_render				= $crow['template']['image_render'];
 
 			$s_news->search();
 
@@ -454,7 +470,16 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'TITLE', $s_list[$s_key]["title"]);
 				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'SUBTITLE', $s_list[$s_key]["subtitle"]);
 				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'TEXT', $content['search']['show_summary'] ? $s_list[$s_key]["text"] : '');
-				$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'IMAGE', '');
+
+				if($crow['template']['image_render'] && isset($s_list[$s_key]['image']['hash']) && is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$s_list[$s_key]['image']['hash'].'.'.$s_list[$s_key]['image']['ext'])) {
+					$s_result_list[$s_key] = str_replace('{IMAGE_HASH}', $s_list[$s_key]['image']['hash'], $s_result_list[$s_key]);
+					$s_result_list[$s_key] = str_replace('{IMAGE_ID}', $s_list[$s_key]['image']['id'], $s_result_list[$s_key]);
+					$s_result_list[$s_key] = str_replace('{IMAGE_NAME}', html($s_list[$s_key]['image']['name']), $s_result_list[$s_key]);
+					$s_result_list[$s_key] = str_replace('{IMAGE_EXT}', $s_list[$s_key]['image']['ext'], $s_result_list[$s_key]);
+					$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'IMAGE', ' ');
+				} else {
+					$s_result_list[$s_key] = render_cnt_template($s_result_list[$s_key], 'IMAGE', '');
+				}
 
 				if($_search_pagination_counter == $_search_end_at) {
 					break;
@@ -489,9 +514,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			$GLOBALS['_search_prev_link_t']	= '';
 			$GLOBALS['_search_navi'] 		= '';
 
-			$crow['template']['pagination'] = preg_replace_callback('/\{NEXT:(.*?)\}/', 'get_SearchPaginateNext', $crow['template']['pagination']);
-			$crow['template']['pagination'] = preg_replace_callback('/\{PREV:(.*?)\}/', 'get_SearchPaginatePrevious', $crow['template']['pagination']);
-			$crow['template']['pagination'] = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_SearchPaginateNavigate', $crow['template']['pagination']);
+			$crow['template']['pagination'] = preg_replace_callback('/\{NEXT:(.*?)\}/', 'get_PaginateNext', $crow['template']['pagination']);
+			$crow['template']['pagination'] = preg_replace_callback('/\{PREV:(.*?)\}/', 'get_PaginatePrevious', $crow['template']['pagination']);
+			$crow['template']['pagination'] = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_PaginateNavigate', $crow['template']['pagination']);
 
 			// create link to search page
 			unset($GLOBALS['_getVar']['searchstart']);

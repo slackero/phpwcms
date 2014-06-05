@@ -100,6 +100,7 @@ class search_News {
 	var $search_language		= array();
 	var $search_andor			= 'OR';
 	var $ellipse_sign			= '&#8230;';
+	var $image_render			= false;
 
 	function search() {
 
@@ -261,7 +262,18 @@ class search_News {
 					$s_text = highlightSearchResult($s_text, $this->search_highlight_words);
 				}
 				$this->search_results[$id]["text"]	= $s_text;
-				$this->search_results[$id]["image"]	= '';
+				$this->search_results[$id]["image"]	= false;
+
+				if($this->image_render && !empty($value['cnt_object']['cnt_image']['id'])) {
+					$value['cnt_object']['cnt_image'] = _dbGet(
+						'phpwcms_file',
+						'f_id AS `id`, f_hash AS `hash`, f_ext AS `ext`, f_name AS `name`',
+						'f_id='._dbEscape($value['cnt_object']['cnt_image']['id']).' AND f_trash=0 AND f_aktiv=1 AND f_public=1'
+					);
+					if(isset($value['cnt_object']['cnt_image'][0]['id'])) {
+						$this->search_results[$id]["image"] = $value['cnt_object']['cnt_image'][0];
+					}
+				}
 
 				$this->search_result_entry++;
 			}
@@ -278,19 +290,6 @@ function clean_search_text($string='') {
 	$string = cleanUpSpecialHtmlEntities($string);
 
 	return $string;
-}
-
-function get_SearchPaginateNext($matches) {
-	$GLOBALS['_search_next_link_t'] = $matches[1];
-	return '{NEXT}';
-}
-function get_SearchPaginatePrevious($matches) {
-	$GLOBALS['_search_prev_link_t'] = $matches[1];
-	return '{PREV}';
-}
-function get_SearchPaginateNavigate($matches) {
-	$GLOBALS['_search_navi'] = $matches[1];
-	return '{NAVI}';
 }
 
 ?>
