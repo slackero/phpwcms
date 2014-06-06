@@ -33,6 +33,7 @@ $s_module->search_highlight			= $content['search']['highlight_result'];
 $s_module->search_highlight_words	= $content['highlight'];
 $s_module->search_wordlimit			= $content['search']['wordlimit'];
 $s_module->ellipse_sign				= $template_default['ellipse_sign'];
+$s_module->image_render				= $crow['template']['image_render'];
 
 $s_module->search();
 

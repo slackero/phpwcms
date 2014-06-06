@@ -20,6 +20,7 @@ class ModuleShopSearch {
 	var $search_highlight_words	= false;
 	var $search_wordlimit		= 0;
 	var $ellipse_sign			= '&#8230;';
+	var $image_render			= false;
 
 	function search() {
 
@@ -46,7 +47,7 @@ class ModuleShopSearch {
 		}
 
 		$sql  = 'SELECT shopprod_id, shopprod_category, shopprod_ordernumber, ';
-		$sql .= 'shopprod_name1, ';
+		$sql .= 'shopprod_name1, shopprod_var, ';
 		$sql .= 'UNIX_TIMESTAMP(shopprod_changedate) AS shopprod_date, ';
 		$sql .= 'CONCAT(';
 		$sql .= "	shopprod_description0,' ',";
@@ -112,6 +113,17 @@ class ModuleShopSearch {
 				$this->search_results[$id]["subtitle"]	= '';
 				$this->search_results[$id]['query']		= $shop_url; //.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
 				$this->search_results[$id]['image']		= false;
+				if($this->image_render) {
+					$value['shopprod_var'] = unserialize($value['shopprod_var']);
+					if(isset($value['shopprod_var']['images'][0]['f_hash'])) {
+						$this->search_results[$id]['image'] = array(
+							'id'	=> $value['shopprod_var']['images'][0]['f_id'],
+							'hash'	=> $value['shopprod_var']['images'][0]['f_hash'],
+							'ext'	=> $value['shopprod_var']['images'][0]['f_ext'],
+							'name'	=> $value['shopprod_var']['images'][0]['f_name']
+						);
+					}
+				}
 
 				if($this->search_highlight) {
 					$this->search_results[$id]["title"]	= highlightSearchResult($s_title, $this->search_highlight_words);
