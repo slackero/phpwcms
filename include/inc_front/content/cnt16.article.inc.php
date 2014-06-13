@@ -43,7 +43,7 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["send_err"] = 1;
 	} else {
 		//send message
-		include_once('include/inc_ext/phpmailer/class.phpmailer.php');
+		require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 		$ecard["capt"] = explode("\n", $ecard["caption"]);
 
 		$thumb_image = get_cached_image(array(
@@ -65,11 +65,16 @@ if(isset($_POST['ecard_chooser'])) {
 
 		$ecard["mailer"] = new PHPMailer();
 		$ecard["mailer"]->Mailer = $phpwcms['SMTP_MAILER'];
-		$ecard["mailer"]->IsHTML(1);
+		$ecard["mailer"]->isHTML(1);
 		$ecard['mailer']->CharSet = $phpwcms["charset"];
+
+		if(!$ecard['mailer']->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+			$ecard['mailer']->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+		}
+
 		$ecard["mailer"]->From = $ecard["sender_email"];
 		if($ecard["sender_name"]) $ecard["mailer"]->FromName = $ecard["sender_name"];
-		$ecard["mailer"]->AddAddress($ecard["recipient_email"], $ecard["recipient_name"]);
+		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);
 		$ecard["mailer"]->Subject = ($ecard["subject"]) ? $ecard["subject"] : 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
 
 		$thumb_image = get_cached_image(array(
@@ -106,7 +111,7 @@ if(isset($_POST['ecard_chooser'])) {
 			$ecard["mailer"]->Password = $phpwcms['SMTP_PASS'];
 		}
 
-		$ecard["mailer"]->Send();
+		$ecard["mailer"]->send();
 
 		$CNT_TMP .= $ecard["send"];
 		$ecard["send_success"]	= 1;

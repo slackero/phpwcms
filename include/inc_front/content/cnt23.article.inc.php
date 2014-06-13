@@ -1707,7 +1707,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 
 	// send mail, include phpmailer class
-	require_once ('include/inc_ext/phpmailer/class.phpmailer.php');
+	require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
 	// now run all CC -> but sent as full email to each CC recipient
 	if(count($cnt_form['cc'])) {
@@ -1727,11 +1727,11 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			@$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
 		}
 
-		$mail->IsHTML($cnt_form['template_format_copy']);
+		$mail->isHTML($cnt_form['template_format_copy']);
 		$mail->Subject			= $cnt_form["subject"];
 		$mail->Body 			= $cnt_form['template_copy'];
-		if(!$mail->SetLanguage($phpwcms['default_lang'], '')) {
-			$mail->SetLanguage('en');
+		if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
 		$mail->From 		= $cnt_form['sender'];
@@ -1742,13 +1742,13 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		foreach($cnt_form['cc'] as $cc_email) {
 
-			$mail->AddAddress($cc_email);
+			$mail->addAddress($cc_email);
 
-			if(!$mail->Send()) {
+			if(!$mail->send()) {
 				$cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
 			}
 
-			$mail->ClearAddresses();
+			$mail->clearAddresses();
 
 		}
 
@@ -1777,12 +1777,12 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		@$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
 	}
 
-	$mail->IsHTML($cnt_form['template_format']);
+	$mail->isHTML($cnt_form['template_format']);
 	$mail->Subject			= $cnt_form["subject"];
 	$mail->Body 			= $cnt_form['template'];
 
-	if(!$mail->SetLanguage($phpwcms['default_lang'], '')) {
-		$mail->SetLanguage('en');
+	if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+		$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 	}
 	if(empty($cnt_form["fromEmail"])) {
 		$cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
@@ -1794,21 +1794,21 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 
 		foreach($cnt_form["target"] as $e_value) {
-			$mail->AddAddress(trim($e_value));
+			$mail->addAddress(trim($e_value));
 		}
 
 	} else {
 		// use default email address
-		$mail->AddAddress($phpwcms['SMTP_FROM_EMAIL']);
+		$mail->addAddress($phpwcms['SMTP_FROM_EMAIL']);
 	}
 
 	if(count($POST_attach)) {
 		foreach($POST_attach as $attach_file) {
-			$mail->AddAttachment($attach_file);
+			$mail->addAttachment($attach_file);
 		}
 	}
 
-	if(!$mail->Send()) {
+	if(!$mail->send()) {
 		$CNT_TMP .= '<p>'.html_specialchars($mail->ErrorInfo).'</p>';
 	} else {
 

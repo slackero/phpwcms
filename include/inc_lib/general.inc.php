@@ -740,7 +740,7 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 
 	if(count($sendTo)) {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_ext/phpmailer/class.phpmailer.php');
+		require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
 		$mail = new PHPMailer();
 		$mail->Mailer 			= $phpwcms['SMTP_MAILER'];
@@ -753,7 +753,7 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 		}
 		$mail->CharSet	 		= $phpwcms["charset"];
 
-		$mail->IsHTML($data['isHTML']);
+		$mail->isHTML($data['isHTML']);
 		$mail->Subject			= $data['subject'];
 		if($data['isHTML']) {
 			if($data['text'] != '') {
@@ -764,25 +764,25 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 			$mail->Body 		= $data['text'];
 		}
 
-		if(!$mail->SetLanguage($phpwcms['default_lang'])) {
-			$mail->SetLanguage('en');
+		if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
 		$mail->From 		= $from;
 		$mail->FromName		= $fromName;
 		$mail->Sender	 	= $sender;
 
-		$mail->AddAddress($sendTo[0], $toName);
+		$mail->addAddress($sendTo[0], $toName);
 		unset($sendTo[0]);
 		if(is_array($sendTo) && count($sendTo)) {
 			foreach($sendTo as $value) {
-				$mail->AddBCC($value);
+				$mail->addBCC($value);
 			}
 		}
 
 		if(isset($data['attach']) && is_array($data['attach']) && count($data['attach'])) {
 			foreach($data['attach'] as $attach_file) {
-				$mail->AddAttachment($attach_file);
+				$mail->addAttachment($attach_file);
 			}
 		}
 
@@ -793,13 +793,13 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 					$attach_string['filename']	= empty($attach_string['filename']) ? 'attachment_'.$attach_counter : $attach_string['filename'];
 					$attach_string['mime']		= empty($attach_string['mime']) ? 'application/octet-stream' : $attach_string['mime'];
 					$attach_string['encoding']	= empty($attach_string['encoding']) ? 'base64' : $attach_string['encoding'];
-					$mail->AddStringAttachment($attach_string['data'], $attach_string['filename'], $attach_string['encoding'], $attach_string['mime']);
+					$mail->addStringAttachment($attach_string['data'], $attach_string['filename'], $attach_string['encoding'], $attach_string['mime']);
 					$attach_counter++;
 				}
 			}
 		}
 
-		if(!$mail->Send()) {
+		if(!$mail->send()) {
 			$mailInfo[0]  = false;
 			$mailInfo[1]  = $mail->ErrorInfo;
 		} else {

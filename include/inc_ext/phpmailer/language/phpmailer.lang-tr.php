@@ -1,25 +1,27 @@
 <?php
 /**
- * PHPMailer dil dosyası.
- * Türkçe Versiyonu
- * İZYAZILIM - Elçin Özel - Can Yılmaz - Mehmet Benlioğlu
- */
+* PHPMailer language file: refer to English translation for definitive list
+* Turkish version
+* TÃ¼rkÃ§e Versiyonu
+* ElÃ§in Ã–zel - Can YÄ±lmaz - Mehmet BenlioÄŸlu
+* Updated by: github.com/yasinaydin
+*/
 
-$PHPMAILER_LANG = array();
-
-$PHPMAILER_LANG["provide_address"] = 'En az bir tane mail adresi belirtmek zorundasınız ' .
-                                     'alıcının email adresi.';
-$PHPMAILER_LANG["mailer_not_supported"] = ' mailler desteklenmemektedir.';
-$PHPMAILER_LANG["execute"] = 'Çalıştırılamıyor: ';
-$PHPMAILER_LANG["instantiate"] = 'Örnek mail fonksiyonu yaratılamadı.';
-$PHPMAILER_LANG["authenticate"] = 'SMTP Hatası: Doğrulanamıyor.';
-$PHPMAILER_LANG["from_failed"] = 'Başarısız olan gönderici adresi: ';
-$PHPMAILER_LANG["recipients_failed"] = 'SMTP Hatası:  ' .
-                                       'alıcılara ulaşmadı: ';
-$PHPMAILER_LANG["data_not_accepted"] = 'SMTP Hatası: Veri kabul edilmedi.';
-$PHPMAILER_LANG["connect_host"] = 'SMTP Hatası: SMTP hosta bağlanılamıyor.';
-$PHPMAILER_LANG["file_access"] = 'Dosyaya erişilemiyor: ';
-$PHPMAILER_LANG["file_open"] = 'Dosya Hatası: Dosya açılamıyor: ';
-$PHPMAILER_LANG["encoding"] = 'Bilinmeyen şifreleme: ';
-
-?>
+$PHPMAILER_LANG['authenticate']         = 'SMTP HatasÄ±: Oturum aÃ§Ä±lamadÄ±.';
+$PHPMAILER_LANG['connect_host']         = 'SMTP HatasÄ±: SMTP sunucusuna baÄŸlanÄ±lamadÄ±.';
+$PHPMAILER_LANG['data_not_accepted']    = 'SMTP HatasÄ±: Veri kabul edilmedi.';
+$PHPMAILER_LANG['empty_message']        = 'MesajÄ±n iÃ§eriÄŸi boÅŸ';
+$PHPMAILER_LANG['encoding']             = 'Bilinmeyen karakter kodlama: ';
+$PHPMAILER_LANG['execute']              = 'Ã‡alÄ±ÅŸtÄ±rÄ±lamadÄ±: ';
+$PHPMAILER_LANG['file_access']          = 'Dosyaya eriÅŸilemedi: ';
+$PHPMAILER_LANG['file_open']            = 'Dosya HatasÄ±: Dosya aÃ§Ä±lamadÄ±: ';
+$PHPMAILER_LANG['from_failed']          = 'Belirtilen adreslere gÃ¶nderme baÅŸarÄ±sÄ±z: ';
+$PHPMAILER_LANG['instantiate']          = 'Ã–rnek e-posta fonksiyonu oluÅŸturulamadÄ±.';
+$PHPMAILER_LANG['invalid_address']      = 'GeÃ§ersiz e-posta adresi: ';
+$PHPMAILER_LANG['mailer_not_supported'] = ' e-posta kÃ¼tÃ¼phanesi desteklenmiyor.';
+$PHPMAILER_LANG['provide_address']      = 'En az bir alÄ±cÄ± e-posta adresi belirtmelisiniz.';
+$PHPMAILER_LANG['recipients_failed']    = 'SMTP HatasÄ±: Belirtilen alÄ±cÄ±lara ulaÅŸÄ±lamadÄ±: ';
+$PHPMAILER_LANG['signing']              = 'Ä°mzalama hatasÄ±: ';
+$PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP connect() fonksiyonu baÅŸarÄ±sÄ±z.';
+$PHPMAILER_LANG['smtp_error']           = 'SMTP sunucu hatasÄ±: ';
+$PHPMAILER_LANG['variable_set']         = 'DeÄŸiÅŸken ayarlanamadÄ± ya da sÄ±fÄ±rlanamadÄ±: ';

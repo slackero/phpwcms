@@ -36,7 +36,7 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 include_once (PHPWCMS_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/phpmailer/class.phpmailer.php');
+require_once (PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php');
 
 if(!checkFormTrackingValue()) {
 
@@ -294,34 +294,30 @@ if(isset($form_error)) {
 	}
 	$mail->SMTPKeepAlive 	= true;
 	$mail->CharSet	 		= $phpwcms["charset"];
-	$mail->IsHTML(0);
+	$mail->isHTML(0);
 	$mail->Subject			= $subject;
 	$mail->Body 			= $body;
-	if(!$mail->SetLanguage($phpwcms['default_lang'], '')) $mail->SetLanguage('en', '');
+
+	if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+		$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+	}
+
 	$false = '';
 
-
 	if(isset($send_copy_to)) {
-		//$from = "From: ".$send_copy_to."\nReply-To: ".$send_copy_to."\n";
-		//if(!ini_get('safe_mode')) {
-		//	mail($send_copy_to, $subject_encoded, $body, "From: ".$recipient."\n".$content_type, "-f".$recipient);
-		//} else {
-		//mail($send_copy_to, $subject_encoded, $body, "From: ".$recipient."\nReply-To: ".$recipient."\n".$content_type);
-		//}
 
 		$mail->From 		= $recipient;
 		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
 		$mail->Sender	 	= $recipient;
-		$mail->AddAddress($send_copy_to);
+		$mail->addAddress($send_copy_to);
 
-		if(!$mail->Send()) {
+		if(!$mail->send()) {
 			$false .= '(1) '.html($mail->ErrorInfo).'<br>';
 		}
 
 		$mail->From 		= $send_copy_to;
 		$mail->FromName 	= '';
 		$mail->Sender	 	= $send_copy_to;
-
 
 	} else {
 
@@ -331,14 +327,14 @@ if(isset($form_error)) {
 
 	}
 
-	$mail->ClearAddresses();
-	$mail->AddAddress($recipient);
+	$mail->clearAddresses();
+	$mail->addAddress($recipient);
 
-	if(!$mail->Send()) {
+	if(!$mail->send()) {
 		$false .= '(2) '.html($mail->ErrorInfo).'<br>';
 	}
 
-	$mail->SmtpClose();
+	$mail->smtpClose();
 
 	if(isset($redirect) && !$false) {
 		headerRedirect($redirect);
