@@ -1097,7 +1097,7 @@ if(!empty($_CpPaginate)) {
 	$content['all'] = str_replace(array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->'), '', $content['all']);
 
 	unset($_getVar['aid'], $_getVar['id']);
-	$content['CpPaginateNaviGET']	= returnGlobalGET_QueryString('htmlentities', array(), defined('PHPWCMS_ALIAS') ? array(PHPWCMS_ALIAS) : array());
+	$content['CpPaginateNaviGET'] = returnGlobalGET_QueryString('htmlentities', array(), defined('PHPWCMS_ALIAS') ? array(PHPWCMS_ALIAS) : array());
 	if(!empty($content['CpPaginateNaviGET']) && $content['CpPaginateNaviGET']{0} == '?') {
 		$content['CpPaginateNaviGET'] = '&amp;'.substr($content['CpPaginateNaviGET'], 1);
 	}
@@ -1124,7 +1124,9 @@ if(!empty($_CpPaginate)) {
 
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages']);
 		$value = 'index.php?aid='.$aktion[1];
-		if($key) { $value .= '-'.$key; }
+		if($key) {
+			$value .= '-'.$key;
+		}
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_PREV', $value);
 
 	} else {
@@ -1136,7 +1138,9 @@ if(!empty($_CpPaginate)) {
 
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages']);
 		$value = 'index.php?aid='.$aktion[1];
-		if($key) { $value .= '-'.$key; }
+		if($key) {
+			$value .= '-'.$key;
+		}
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT', $value);
 
 	} else {
