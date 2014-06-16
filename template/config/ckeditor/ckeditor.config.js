@@ -30,14 +30,13 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about', items: [ 'About' ] }
 	];
 	*/
-
 	config.toolbar = [
 		{ name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks' ] },
 		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
 		{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
 		{ name: 'paragraph', groups: [ 'align', 'list', 'indent', 'blocks' ], items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv'] },
-		{ name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'leaflet', 'Iframe', 'SpecialChar' ] },
+		{ name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar' ] },
 		{ name: 'styles', items: [ 'Styles', 'Format', 'Font' ] },
 		{ name: 'about', items: [ 'About' ] }
 	];
@@ -49,7 +48,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.width = 538;
 	config.height = 400;
 
-	config.extraPlugins = 'magicline,lineutils,widget,leaflet';
+	config.extraPlugins = 'magicline';
 
 	config.toolbarCanCollapse = true;
 	config.toolbarStartupExpanded = true;
