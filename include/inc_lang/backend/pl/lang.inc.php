@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.7.0 (2013/06/20, r532) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.7.3 (2014/06/13, r537) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1237,7 +1237,7 @@ $BL['be_off']		= 'wył';
 $BL['be_on']		= 'wł';
 $BL['be_random']	= 'losowo';
 $BL['be_sorted']	= 'posortowane';
-$BL['be_granted_download'] = 'secured frontend download only';
+$BL['be_granted_download'] = 'bezpieczne pobieranie tylko w witrynie';
 $BL['be_granted_feuser'] = 'Tylko dla zalogowanych użytkowników serwisu';
 $BL['be_fileuploader_typeError']	= "{file} ma nieprawidłowe rozszerzenie. Prawidłowe rozszerzenie(a): {extensions}.";
 $BL['be_fileuploader_sizeError']	= "{file} jest zbyt duży, maksymalny rozmiar pliku to {sizeLimit}.";
@@ -1298,7 +1298,7 @@ $BL['over']		= 'over';
 $BL['js_lib']		= 'Biblioteka JS';
 $BL['js_lib_alwaysload'] = 'zawsze ładuj';
 $BL['frontendjs_load']	 = 'ładuj frontend.js (more for historical reasons)';
-$BL['googleapi_load']	 = 'użyj Google Ajax Lib';
+$BL['googleapi_load']	 = 'użyj CDN';
 
 $BL['fancyupload_clear_list']		= 'Wyczyść Listę';
 $BL['fancyupload_file_uploaded']	= 'Plik został przesłany';
@@ -1356,6 +1356,15 @@ $BL['be_http_status503']		= 'usługa niedostępna';
 $BL['be_redirect_error1']		= 'Alias/Skrót, wymagana jest struktura lub ID artykułu';
 $BL['be_redirect_error2']		= 'Cel jest wymagany';
 $BL['be_redirect_error3']		= 'Dla docelowego typu, ID artykułu i ID struktury dozwolone są tylko liczby całkowite jako docelowe';
+$BL['be_new_linkredirect']		= 'Dodaj link/przekierowanie';
 
+$BL['be_ctype_accordion']		= 'grupa (accordion)';
+$BL['be_ctype_number']			= 'numer';
+$BL['be_inactive']			= 'nieaktywne';
+$BL['be_locked']			= 'zablokowane';
+$BL['be_n/a']				= 'n/a';
+$BL['be_opengraph_support']		= 'Zezwalaj na Dzielenie się z innymi';
+$BL['be_player_volume']			= 'Głośność';
+$BL['be_player_volume_muted']		= 'wyciszone';
 
 ?>
