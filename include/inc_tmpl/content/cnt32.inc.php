@@ -174,7 +174,13 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 	// CKEditor Tabs configuration
 	$content['ckconfig'] = array();
 
-	$content['ckconfig'][] = "				toolbar: [
+	if(isset($_SESSION["wcs_user_lang"])) {
+		$content['ckconfig'][] = "language: '" . $_SESSION["wcs_user_lang"] ."'";
+	}
+	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
+		$content['ckconfig'][] = 'customConfig: "' . PHPWCMS_URL.TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
+	} else {
+		$content['ckconfig'][] = "				toolbar: [
 					{name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
 					{name: 'links', items: ['Link', 'Unlink', 'Anchor']},
 					{name: 'colors', items: ['TextColor', 'BGColor']},
@@ -185,21 +191,15 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 					{name: 'about', items: ['About']}
 				]";
 
-	$content['ckconfig'][] = 'width: 538';
-	$content['ckconfig'][] = 'height: 200';
-	$content['ckconfig'][] = "extraPlugins: 'magicline'";
-	$content['ckconfig'][] = 'toolbarCanCollapse: true';
-	$content['ckconfig'][] = 'toolbarStartupExpanded: false';
-	$content['ckconfig'][] = 'forcePasteAsPlainText: true';
-	$content['ckconfig'][] = 'pasteFromWordRemoveFontStyles: true';
-	$content['ckconfig'][] = 'pasteFromWordRemoveStyles: true';
-	$content['ckconfig'][] = 'pasteFromWordPromptCleanup: true';
-
-	if(isset($_SESSION["wcs_user_lang"])) {
-		$content['ckconfig'][] = "language: '" . $_SESSION["wcs_user_lang"] ."'";
-	}
-	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
-		$content['ckconfig'][] = 'customConfig: "' . PHPWCMS_URL.TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
+		$content['ckconfig'][] = 'width: 538';
+		$content['ckconfig'][] = 'height: 200';
+		$content['ckconfig'][] = "extraPlugins: 'magicline'";
+		$content['ckconfig'][] = 'toolbarCanCollapse: true';
+		$content['ckconfig'][] = 'toolbarStartupExpanded: false';
+		$content['ckconfig'][] = 'forcePasteAsPlainText: true';
+		$content['ckconfig'][] = 'pasteFromWordRemoveFontStyles: true';
+		$content['ckconfig'][] = 'pasteFromWordRemoveStyles: true';
+		$content['ckconfig'][] = 'pasteFromWordPromptCleanup: true';
 	}
 	if(!empty($GLOBALS['phpwcms']['FCK_FileBrowser'])) {
 		$content['ckconfig'][] = 'filebrowserBrowseUrl: "'.PHPWCMS_URL.'filebrowser.php?opt=16"';

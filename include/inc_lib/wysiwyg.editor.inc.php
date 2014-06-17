@@ -36,7 +36,14 @@ if($wysiwyg_editor['editor']) {
 
 	echo '<script type="text/javascript">' . LF;
 	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {';
-	echo "
+
+	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
+
+		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
+
+	} else {
+
+		echo "
 		toolbar: [
 			{name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
 			{name: 'links', items: ['Link', 'Unlink', 'Anchor']},
@@ -58,9 +65,6 @@ if($wysiwyg_editor['editor']) {
 		pasteFromWordPromptCleanup: true,
 		language: '".$wysiwyg_editor['lang']."'";
 
-	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
-		echo ',' . LF;
-		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js",' . LF;
 	}
 
 	if (!empty($phpwcms['FCK_FileBrowser'])) {
@@ -68,9 +72,9 @@ if($wysiwyg_editor['editor']) {
 		echo '		filebrowserBrowseUrl: "'.PHPWCMS_URL.'filebrowser.php?opt=16",' . LF;
 		echo '		filebrowserImageBrowseUrl : "'.PHPWCMS_URL.'filebrowser.php?opt=17",' . LF;
 		echo '		filebrowserWindowWidth: "640",' . LF;
-		echo '		filebrowserWindowHeight: "480"' . LF;
+		echo '		filebrowserWindowHeight: "480"';
 	}
-	echo '	});' . LF;
+	echo LF . '	});' . LF;
 	echo '</script>';
 
 } else {
