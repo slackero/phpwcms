@@ -1,9 +1,8 @@
 /**
- * @license Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  *
- * Adopted for phpwcms, Oliver Georgi
- * Default CKEditor configuration in phpwcms backend
+ * CP Tabs loads this configration
  */
 
 CKEDITOR.editorConfig = function( config ) {
@@ -30,6 +29,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about', items: [ 'About' ] }
 	];
 	*/
+	/* phpwcms default toolbar setting
 	config.toolbar = [
 		{ name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks' ] },
 		{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
@@ -40,28 +40,31 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'styles', items: [ 'Styles', 'Format', 'Font' ] },
 		{ name: 'about', items: [ 'About' ] }
 	];
+	*/
 
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
 	//config.removeButtons = 'Copy,Iframe,Flash,Smiley,PageBreak,FontSize,Save,Print,NewPage,Preview,Templates,PasteFromWord,PasteText';
 
-	config.width = 538;
-	config.height = 400;
+	//config.width = 538;
+	//config.height = 200;
 
-	config.extraPlugins = 'magicline';
+	//config.extraPlugins = 'magicline';
 
-	config.toolbarCanCollapse = true;
-	config.toolbarStartupExpanded = true;
+	//config.toolbarCanCollapse = true;
+	//config.toolbarStartupExpanded = false;
 
 	//config.removePlugins = 'resize';
 
-	config.forcePasteAsPlainText = true;
-	config.pasteFromWordRemoveFontStyles = true;
-	config.pasteFromWordRemoveStyles = true;
-	config.pasteFromWordPromptCleanup = true;
+	//config.forcePasteAsPlainText = true;
+	//config.pasteFromWordRemoveFontStyles = true;
+	//config.pasteFromWordRemoveStyles = true;
+	//config.pasteFromWordPromptCleanup = true;
 
 	//config.contentsCss = 'template/config/ckeditor/ckeditor.custom.css';
 	//config.protectedSource.push( /<i[\s\S]*?\>/g ); //allows beginning <i> tag
 	//config.protectedSource.push( /<\/i[\s\S]*?\>/g ); //allows ending </i> tag
 
+	//config.contentsCss = 'assets/config/ckeditor/ckeditor.custom.css';
+	//config.colorButton_colors = "00F"; //000,FFF,...
 };

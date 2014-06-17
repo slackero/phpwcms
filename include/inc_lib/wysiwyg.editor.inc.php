@@ -35,11 +35,33 @@ if($wysiwyg_editor['editor']) {
 	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 	echo '<script type="text/javascript">' . LF;
-	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {' . LF;
+	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {';
+	echo "
+		toolbar: [
+			{name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
+			{name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+			{name: 'colors', items: ['TextColor', 'BGColor']},
+			{name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+			{name: 'paragraph', groups: ['align', 'list', 'indent', 'blocks'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']},
+			{name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar']},
+			{name: 'styles', items: ['Styles', 'Format', 'Font']},
+			{name: 'about', items: ['About']}
+		],
+		width: 538,
+		height: 400,
+		extraPlugins: 'magicline',
+		toolbarCanCollapse: true,
+		toolbarStartupExpanded: true,
+		forcePasteAsPlainText: true,
+		pasteFromWordRemoveFontStyles: true,
+		pasteFromWordRemoveStyles: true,
+		pasteFromWordPromptCleanup: true,
+		language: '".$wysiwyg_editor['lang']."'";
+
 	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
+		echo ',' . LF;
 		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js",' . LF;
 	}
-	echo '		language: "'.$wysiwyg_editor['lang'].'"';
 
 	if (!empty($phpwcms['FCK_FileBrowser'])) {
 		echo ',' . LF;
