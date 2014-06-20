@@ -466,7 +466,7 @@ $BL['be_article_asubtitle']             = 'Untertitel';
 $BL['be_article_abegin']                = 'Anzeige von';
 $BL['be_article_aend']                  = 'bis';
 $BL['be_article_aredirect']             = 'Weiterleiten';
-$BL['be_article_akeywords']             = 'Schl&uuml;sselw&ouml;rt.';
+$BL['be_article_akeywords']             = 'Schl&uuml;sselw&ouml;rter';
 $BL['be_article_asummary']              = 'Schlagtext';
 $BL['be_article_abutton']               = 'Artikel erstellen';
 
@@ -639,7 +639,7 @@ $BL['be_cnt_align']                     = 'Ausrichtung';
 $BL['be_cnt_searchformtext']            = 'Die folgenden Texte werden angezeigt, wenn das Suchformular aufgerufen, ein Ergebnis angezeigt oder kein Ergebnis zur&uuml;ckgegeben wird.';
 $BL['be_cnt_intro']                     = 'Intro';
 $BL['be_cnt_noresult']                  = 'Kein Ergebnis';
-$BL['be_cnt_search_default_type']       = 'Standard Suchtyp';
+$BL['be_cnt_search_default_type']       = 'Suchtyp';
 
 // added: 02-01-2004
 $BL['be_admin_page_disable']            = 'abschalten';

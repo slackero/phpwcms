@@ -53,6 +53,15 @@ if(empty($content["search"]["newwin"])) {
 if(empty($content["search"]["no_filenames"])) {
 	$content["search"]["no_filenames"] = 0;
 }
+if(empty($content["search"]["no_username"])) {
+	$content["search"]["no_username"] = 0;
+}
+if(empty($content["search"]["no_caption"])) {
+	$content["search"]["no_caption"] = 0;
+}
+if(empty($content["search"]["no_keyword"])) {
+	$content["search"]["no_keyword"] = 0;
+}
 if(empty($content['search']['type'])) {
 	$content['search']['type'] = 'OR';
 }
@@ -126,6 +135,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	</select></td>
 </tr>
 
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+
+<tr>
+	<td align="right" class="chatlist"><?php echo $BL['be_cnt_search_default_type'] ?>:&nbsp;</td>
+	<td>
+		<select name="csearch_type">
+			<option value="OR"<?php is_selected('OR', $content['search']['type']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
+			<option value="AND"<?php is_selected('AND', $content['search']['type']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
+		</select>
+	</td>
+</tr>
+
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
@@ -133,16 +154,16 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td><table border="0" cellpadding="1" cellspacing="0" summary="">
       <tr>
         <td><input name="csearch_nofilenames" type="checkbox" id="csearch_nofilenames" value="1" <?php is_checked(1, $content["search"]["no_filenames"]) ?> /></td>
-      	<td class="v10"><label for="csearch_nofilenames"><?php echo $BL['be_fprivedit_filename'] ?></label></td>
+      	<td class="v10"><label for="csearch_nofilenames"><?php echo $BL['be_fprivedit_filename'] ?></label>&nbsp;&nbsp;</td>
 
-		<td class="width75">&nbsp;</td>
+      	<td><input name="csearch_nousername" type="checkbox" id="csearch_nousername" value="1" <?php is_checked(1, $content["search"]["no_username"]) ?> /></td>
+      	<td class="v10"><label for="csearch_nousername"><?php echo$BL['be_article_username'] ?></label>&nbsp;&nbsp;</td>
 
-		<td align="right" class="chatlist"><?php echo $BL['be_cnt_search_default_type'] ?>:&nbsp;</td>
-		<td><select name="csearch_type">
-				<option value="OR"<?php is_selected('OR', $content['search']['type']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
-				<option value="AND"<?php is_selected('AND', $content['search']['type']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
-		</select></td>
+      	<td><input name="csearch_nocaption" type="checkbox" id="csearch_nocaption" value="1" <?php is_checked(1, $content["search"]["no_caption"]) ?> /></td>
+      	<td class="v10"><label for="csearch_nocaption"><?php echo$BL['be_cnt_caption'] ?></label>&nbsp;&nbsp;</td>
 
+      	<td><input name="csearch_nokeyword" type="checkbox" id="csearch_nokeyword" value="1" <?php is_checked(1, $content["search"]["no_keyword"]) ?> /></td>
+      	<td class="v10"><label for="csearch_nokeyword"><?php echo$BL['be_article_akeywords'] ?></label></td>
 	  </tr>
     </table></td>
 </tr>

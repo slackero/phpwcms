@@ -101,6 +101,10 @@ class search_News {
 	var $search_andor			= 'OR';
 	var $ellipse_sign			= '&#8230;';
 	var $image_render			= false;
+	var $search_filename		= true;
+	var $search_username		= true;
+	var $search_caption			= true;
+	var $search_keyword			= true;
 
 	function search() {
 
@@ -195,16 +199,21 @@ class search_News {
 			$s_result = array();
 
 			$s_text  = $value['cnt_text'] . ', ' . $value['cnt_teasertext'] . ', ' . $value['cnt_place'] . ', ';
-			$s_text .= $value['cnt_subtitle'] . ', ' . $value['cnt_editor'] . ', ' . $value['cnt_title'];
+			$s_text .= $value['cnt_subtitle'] . ', '.$value['cnt_title'];
+			if($this->search_username) {
+				$s_text .= ', '.$value['cnt_editor'];
+			}
 
 			$value['cnt_object'] = @unserialize($value['cnt_object']);
 
 			if(isset($value['cnt_object']['cnt_category'])) {
-
-				$s_text .= ' ' . $value['cnt_object']['cnt_category'];
-				$s_text .= ' ' . $value['cnt_object']['cnt_image']['caption'];
-				$s_text .= ' ' . $value['cnt_object']['cnt_files']['caption'];
-
+				if($this->search_keyword) {
+					$s_text .= ' ' . $value['cnt_object']['cnt_category'];
+				}
+				if($this->search_caption) {
+					$s_text .= ' ' . $value['cnt_object']['cnt_image']['caption'];
+					$s_text .= ' ' . $value['cnt_object']['cnt_files']['caption'];
+				}
 			}
 			$s_text  = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text); // strip all <script> Tags
 			$s_text  = str_replace( array('~', '|', ':', 'http', '//', '_blank', '&nbsp;') , ' ', $s_text );

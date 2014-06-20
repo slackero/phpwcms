@@ -29,6 +29,9 @@ if(empty($content['search']["text_html"])) {
 }
 
 $content['search']['search_filenames'] = empty($content['search']["no_filenames"]) ? true : false;	// search/list for file/imagenames
+$content['search']['search_username'] = empty($content['search']["no_username"]) ? true : false;
+$content['search']['search_caption'] = empty($content['search']["no_caption"]) ? true : false;
+$content['search']['search_keyword'] = empty($content['search']["no_keyword"]) ? true : false;
 $content['search']['show_summary'] = empty($content['search']["hide_summary"]) ? true : false; // show search tester text
 
 // read template
@@ -238,38 +241,45 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 										break;
 
 							case 29:	$s_text .= ' '.$scrow[2];
-							case 2:		$scrow[6] = @unserialize($scrow[6]);
-										if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
-											$s_imgname = '';
-											foreach($scrow[6]['images'] as $s_imgtext) {
+							case 2:		if($content['search']['search_caption'] || $content['search']['search_filenames']) {
+											$scrow[6] = @unserialize($scrow[6]);
+											if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
+												$s_imgname = '';
+												foreach($scrow[6]['images'] as $s_imgtext) {
 
-												$s_imgtext[6] = getImageCaption($s_imgtext[6], '', true);
+													$s_imgtext[6] = getImageCaption($s_imgtext[6], '', true);
 
-												if($s_imgtext[6]['caption']) {
-													$s_text .= ' '.$s_imgtext[6]['caption'];
-												} elseif($s_imgtext[6]['title']) {
-													$s_text .= ' '.$s_imgtext[6]['title'];
-												} elseif($s_imgtext[6]['alt']) {
-													$s_text .= ' '.$s_imgtext[6]['alt'];
+													if($content['search']['search_caption']) {
+														if($s_imgtext[6]['caption']) {
+															$s_text .= ' '.$s_imgtext[6]['caption'];
+														} elseif($s_imgtext[6]['title']) {
+															$s_text .= ' '.$s_imgtext[6]['title'];
+														} elseif($s_imgtext[6]['alt']) {
+															$s_text .= ' '.$s_imgtext[6]['alt'];
+														}
+													}
+
+													if($content['search']['search_filenames']) {
+														$s_imgname .= ' '.$s_imgtext[1];
+													}
 												}
-
-												if($content['search']['search_filenames']) {
-													$s_imgname .= ' '.$s_imgtext[1];
-												}
+												$s_text .= $s_imgname;
 											}
-											$s_text .= $s_imgname;
 										}
 										break;
 
 							case 31:	$s_text .= ' '.$scrow[3];
-										$scrow[6] = @unserialize($scrow[6]);
-										if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
-											foreach($scrow[6]['images'] as $s_imgtext) {
-												$s_text .= ' '.$s_imgtext['caption'];
-												//$s_text .= ' '.$s_imgtext['url'];
-												if($content['search']['search_filenames']) {
-													$s_text .= ' '.$s_imgtext['thumb_name'];
-													$s_text .= ' '.$s_imgtext['zoom_name'];
+										if($content['search']['search_caption'] || $content['search']['search_filenames']) {
+											$scrow[6] = @unserialize($scrow[6]);
+											if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
+												foreach($scrow[6]['images'] as $s_imgtext) {
+													if($content['search']['search_caption']) {
+														$s_text .= ' '.$s_imgtext['caption'];
+													}
+													if($content['search']['search_filenames']) {
+														$s_text .= ' '.$s_imgtext['thumb_name'];
+														$s_text .= ' '.$s_imgtext['zoom_name'];
+													}
 												}
 											}
 										}
@@ -295,8 +305,19 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					mysql_free_result($scresult);
 				}
 
-				$s_result	= array();
-				$s_text		= clean_search_text($s_text.' --##-'.$srow["article_keyword"].' '.$s_title.' '.$s_user.'-##--');
+				$s_result = array();
+
+				$s_text .= ' --##-';
+				if($content['search']['search_keyword']) {
+					$s_text .= $srow["article_keyword"].' ';
+				}
+				$s_text .= $s_title;
+				if($content['search']['search_username']) {
+					$s_text .= ' '.$s_user;
+				}
+				$s_text .= '-##--';
+
+				$s_text = clean_search_text($s_text);
 
 				preg_match_all('/'.$s_search_words.'/is', $s_text, $s_result ); //search string
 
@@ -392,6 +413,10 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			$s_news->ellipse_sign				= $template_default['ellipse_sign'];
 			$s_news->search_target_url			= $content['search']['news_url'];
 			$s_news->image_render				= $crow['template']['image_render'];
+			$s_news->search_filename			= $content['search']['search_filename'];
+			$s_news->search_username			= $content['search']['search_username'];
+			$s_news->search_caption				= $content['search']['search_caption'];
+			$s_news->search_keyword				= $content['search']['search_keyword'];
 
 			$s_news->search();
 
