@@ -295,7 +295,7 @@ class phpwcmsNews {
 				$list[] = '<tr class="row'.($x%2?' alt':'').'">';
 
 				$news['live'] = $news['cnt_startdate'];
-				$news['kill'] = strtotime($news['cnt_killdate']);
+				//$news['kill'] = strtotime($news['cnt_killdate']);
 
 				$news['live'] = $news['live'] == false || $news['live'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
 				$news['kill'] = phpwcms_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
@@ -309,11 +309,11 @@ class phpwcmsNews {
 
 
 				$list[] = '<td class="column colfirst news"'.$news['bgimage'].'>'.html($news['cnt_name']).'</td>';
-				$list[] = '<td class="column">'.$news['live'].'</td>';
-				$list[] = '<td class="column">'.$news['kill'].'</td>';
-				$list[] = '<td class="column">'.$news['sort'].'</td>';
+				$list[] = '<td class="column nowrap">'.$news['live'].'</td>';
+				$list[] = '<td class="column nowrap">'.$news['kill'].'</td>';
+				$list[] = '<td class="column nowrap">'.$news['sort'].'</td>';
 				$list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
-				$list[] = '<td class="column collast">
+				$list[] = '<td class="column collast nowrap">
 
 					<a href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">'.
 					'<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>'.
@@ -454,7 +454,8 @@ class phpwcmsNews {
 			'cnt_killdate'			=> '',
 			'cnt_sort'				=> 0,
 			'cnt_opengraph'			=> 1,
-			'cnt_textformat'		=> 'plain'
+			'cnt_textformat'		=> 'plain',
+			'cnt_searchoff'			=> 0
 		);
 
 		// check form post
@@ -571,6 +572,9 @@ class phpwcmsNews {
 				}
 				if(isset($result[0]['cnt_object']['cnt_textformat'])) {
 					$result[0]['cnt_textformat'] = $result[0]['cnt_object']['cnt_textformat'];
+				}
+				if(isset($result[0]['cnt_object']['cnt_searchoff'])) {
+					$result[0]['cnt_searchoff'] = $result[0]['cnt_object']['cnt_searchoff'];
 				}
 
 				$this->data = array_merge($this->data, $result[0]);
@@ -698,7 +702,8 @@ class phpwcmsNews {
 			'cnt_linktext'		=> isset($_POST['cnt_linktext']) ? clean_slweg($_POST['cnt_linktext']) : '',
 			'cnt_category'		=> $category,
 			'cnt_readmore'		=> empty($_POST['cnt_readmore']) ? 0 : 1,
-			'cnt_textformat'	=> isset($_POST['cnt_textformat']) ? clean_slweg($_POST['cnt_textformat']) : 'plain'
+			'cnt_textformat'	=> isset($_POST['cnt_textformat']) ? clean_slweg($_POST['cnt_textformat']) : 'plain',
+			'cnt_searchoff'		=> empty($_POST['cnt_searchoff']) ? 0 : 1,
 
 		);
 
