@@ -721,7 +721,7 @@ function parse_images($matches) {
 
 		$width		= isset($value[ 1 ]) ? intval($value[ 1 ]) : 0;
 		$height		= isset($value[ 2 ]) ? intval($value[ 2 ]) : 0;
-		$crop		= isset($value[ 3 ]) && intval($value[ 3 ]) === 1 ? 1 : 0;
+		$crop		= isset($value[ 3 ]) ? intval($value[ 3 ]) : 0;
 		$quality	= isset($value[ 4 ]) ? intval($value[ 4 ]) : 0;
 
 		$image		= '<img src="'.PHPWCMS_URL.'img/cmsimage.php/'.$width.'x'.$height.'x'.$crop;
