@@ -206,6 +206,10 @@ class search_News {
 
 			$value['cnt_object'] = @unserialize($value['cnt_object']);
 
+			if(!empty($value['cnt_object']['cnt_searchoff'])) {
+				continue;
+			}
+
 			if(isset($value['cnt_object']['cnt_category'])) {
 				if($this->search_keyword) {
 					$s_text .= ' ' . $value['cnt_object']['cnt_category'];

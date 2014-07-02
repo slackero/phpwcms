@@ -542,6 +542,12 @@ $(function(){
 
 			<tr>
 				<td>&nbsp;</td>
+				<td><input name="cnt_searchoff" type="checkbox" id="cnt_searchoff" value="1" <?php is_checked(1, $news->data['cnt_searchoff']); ?> /></td>
+				<td><label class="checkbox" for="cnt_searchoff"><?php echo $BL['be_no_search'] ?></label></td>
+			</tr>
+
+			<tr>
+				<td>&nbsp;</td>
 				<td><input name="cnt_opengraph" type="checkbox" id="cnt_opengraph" value="1" <?php is_checked(1, $news->data['cnt_opengraph']); ?> /></td>
 				<td><label class="checkbox" for="cnt_opengraph"><?php echo $BL['be_opengraph_support'] ?></label></td>
 			</tr>
