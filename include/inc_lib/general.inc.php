@@ -2083,7 +2083,7 @@ function uri_sanitize($text) {
 
 function phpwcms_strtotime($date, $date_format=NULL, $empty_return=false) {
 	$strtotime = strtotime($date);
-	if ($strtotime === -1 || $strtotime === false) {
+	if ($strtotime < 0 || $strtotime === false) {
 		return $empty_return;
 	}
 
