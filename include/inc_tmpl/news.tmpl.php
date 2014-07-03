@@ -72,7 +72,7 @@ $news = new phpwcmsNews();
 <?php	if(count($news_categories)):
 			foreach($news_categories as $item):
 ?>
-							<option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html($item) ?></option>
+							<option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html(ucfirst($item)) ?></option>
 <?php
 			endforeach;
 		endif;

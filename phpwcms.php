@@ -265,7 +265,7 @@ if($BE['LANG'] == 'ar') {
     </tr>
 	<tr>
 	 <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
-	  <td colspan="4" valign="top" style="background-image:url(img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><table width="740" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
+	  <td colspan="4" valign="top" style="background-image:url(img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><table style="width:100%;min-width:740px" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
         <tr>
           <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="9"></td>
         </tr>
