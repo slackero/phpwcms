@@ -1050,6 +1050,27 @@ table.listing th {
 	font-size: 10px;
 	padding: 3px 2px 2px 4px;
 }
+
+table.listing .sort-off {
+	font-weight: normal;
+}
+table.listing .sort-asc:after,
+table.listing .sort-desc:after {
+	content: '';
+	position: relative;
+	top: -1px;
+	display: inline-block;
+	width: 7px;
+	height: 6px;
+	background: transparent no-repeat -3px 0;
+}
+table.listing .sort-asc:after {
+	background-image: url(../../img/symbole/content_space_after.gif);
+}
+table.listing .sort-desc:after {
+	background-image: url(../../img/symbole/content_space_before.gif);
+}
+
 table.listing tr.row.alt {
 	background-color: #f3f5f8;
 }

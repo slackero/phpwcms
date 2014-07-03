@@ -1366,5 +1366,7 @@ $BL['be_n/a']							= 'n/a';
 $BL['be_opengraph_support']				= 'Allow Social Sharing';
 $BL['be_player_volume']					= 'Volume';
 $BL['be_player_volume_muted']			= 'muted';
+$BL['be_keyword']						= 'Keyword';
+$BL['be_tag']							= 'tag';
 
 ?>

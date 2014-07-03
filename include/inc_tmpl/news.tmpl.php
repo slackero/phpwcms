@@ -32,6 +32,7 @@ $news = new phpwcmsNews();
 
 		$news->filter();
 		$news->countAll();
+		$news_categories = $news->getNewsCategories();
 
 ?>
 	<div class="navBarLeft imgButton chatlist">
@@ -45,23 +46,48 @@ $news = new phpwcmsNews();
 		<tr>
 			<td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
-
 					<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 1 ) ? 1 : 0 ) ?> /></td>
 					<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" /></label></td>
 					<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php  is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 2 ) ? 1 : 0 ) ?> /></td>
 					<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" /></label></td>
-					<td><input type="text" name="filter" id="filter" size="10" value="<?php echo html($news->filter) ?>" /></td>
-					<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" /></td>
+					<td class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:</td>
+					<td>
+						<select name="sort" onchange="this.form.submit();" class="v11">
+							<option value="prio_asc"<?php is_selected('prio_asc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+							<option value="prio_desc"<?php is_selected('prio_desc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+							<option value="name_asc"<?php is_selected('name_asc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+							<option value="name_desc"<?php is_selected('name_desc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+							<option value="start_asc"<?php is_selected('start_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+							<option value="start_desc"<?php is_selected('start_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+							<option value="end_asc"<?php is_selected('end_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+							<option value="end_desc"<?php is_selected('end_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+							<option value="sort_asc"<?php is_selected('sort_asc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+							<option value="sort_desc"<?php is_selected('sort_desc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+						</select>
+					</td>
+					<td class="chatlist">&nbsp;<?php echo $BL['be_tag'] ?>:</td>
+					<td>
+						<select name="keyword" onchange="this.form.submit();" class="v11">
+							<option value=""<?php is_selected('', $news->filter_keyword) ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+<?php	if(count($news_categories)):
+			foreach($news_categories as $item):
+?>
+							<option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html($item) ?></option>
+<?php
+			endforeach;
+		endif;
+?>
+						</select>
+					</td>
 
+					<td><input type="text" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
+					<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-left:2px" /></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $news->getPagination(); ?></td>
-
 				</tr>
 			</table></td>
-
 			<td class="chatlist items-per-page" align="right">
 				<?php echo getItemsPerPageMenu( $news->base_url ); ?>
 			</td>
-
 		</tr>
 	</table>
 	</form>

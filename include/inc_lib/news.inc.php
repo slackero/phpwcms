@@ -25,6 +25,7 @@ class phpwcmsNews {
 	var $news_total			= 0;
 	var $where				= array('status' => 'cnt_status != 9');
 	var $order_by			= array('cnt_startdate DESC');
+	var $group_by			= '';
 	var $sql				= '';
 	var $limit				= 0;
 	var $start_at			= 0;
@@ -32,7 +33,19 @@ class phpwcmsNews {
 	var $base_url			= '';
 	var $base_url_decoded	= '';
 	var $data				= array();
-
+	var $sort_options		= array(
+		'prio_asc'		=> 'cnt_prio ASC',
+		'prio_desc'		=> 'cnt_prio DESC',
+		'name_asc'		=> 'cnt_name ASC',
+		'name_desc'		=> 'cnt_name DESC',
+		'start_asc'		=> 'cnt_startdate ASC',
+		'start_desc'	=> 'cnt_startdate DESC',
+		'sort_asc'		=> 'cnt_sortdate ASC',
+		'sort_desc'		=> 'cnt_sortdate DESC',
+		'end_asc'		=> 'cnt_enddate ASC',
+		'end_desc'		=> 'cnt_enddate DESC'
+	);
+	var $filter_sort		= '';
 
 	function phpwcmsNews() {
 
@@ -79,7 +92,18 @@ class phpwcmsNews {
 
 		} elseif(is_string($this->where) ) {
 
-			$sql = ' ' . $this->where;
+			if(strtoupper(substr($this->where, 0, 2)) == 'OR') {
+
+				$sql .= ' '.$this->where;
+
+			} elseif(strtoupper(substr($this->where, 0, 3)) == 'AND') {
+
+				$sql .= ' '.$this->where;
+
+			} else {
+
+				$sql = ' AND ' . $this->where;
+			}
 
 		}
 
@@ -95,13 +119,17 @@ class phpwcmsNews {
 		$this->news = array();
 
 		$sql  = 'SELECT '.$this->select.' FROM '.DB_PREPEND.'phpwcms_content WHERE ';
-		$sql .= "cnt_module = 'news'";
+		$sql .= "cnt_module='news'";
 
 		$sql .= $this->_where();
 
 		if(is_array($this->order_by) && count($this->order_by)) {
 
 			$sql .= ' ORDER BY '.implode(',', $this->order_by);
+
+		} elseif(is_string($this->order_by) && !empty($this->order_by)) {
+
+			$sql .= ' ORDER BY '.$this->order_by;
 
 		}
 
@@ -196,6 +224,8 @@ class phpwcmsNews {
 		$this->sql		= '';
 		$this->limit	= 0;
 		$this->start_at	= 0;
+		$this->group_by	= '';
+		$this->where	= array('status' => 'cnt_status != 9');
 
 	}
 
@@ -206,9 +236,12 @@ class phpwcmsNews {
 		// 1 = all active
 		// 2 = all inactive
 
-		$status	= isset($_SESSION['PAGE_FILTER']['news']['status']) ? intval($_SESSION['PAGE_FILTER']['news']['status']) : 0;
-		$filter	= isset($_SESSION['PAGE_FILTER']['news']['filter']) ? $_SESSION['PAGE_FILTER']['news']['filter'] : '';
-		$page	= isset($_SESSION['PAGE_FILTER']['news']['page']) ? intval($_SESSION['PAGE_FILTER']['news']['page']) : 0;
+		$status		= isset($_SESSION['PAGE_FILTER']['news']['status']) ? intval($_SESSION['PAGE_FILTER']['news']['status']) : 0;
+		$filter		= isset($_SESSION['PAGE_FILTER']['news']['filter']) ? $_SESSION['PAGE_FILTER']['news']['filter'] : '';
+		$page		= isset($_SESSION['PAGE_FILTER']['news']['page']) ? intval($_SESSION['PAGE_FILTER']['news']['page']) : 0;
+		$sort		= isset($_SESSION['PAGE_FILTER']['news']['sort']) ? $_SESSION['PAGE_FILTER']['news']['sort'] : 'start_desc';
+		$lang		= isset($_SESSION['PAGE_FILTER']['news']['lang']) ? $_SESSION['PAGE_FILTER']['news']['lang'] : '';
+		$keyword	= isset($_SESSION['PAGE_FILTER']['news']['keyword']) ? $_SESSION['PAGE_FILTER']['news']['keyword'] : '';
 
 		if(isset($_POST['filter'])) {
 
@@ -216,6 +249,9 @@ class phpwcmsNews {
 			$inactive	= empty($_POST['showinactive']) ? false : true;
 			$filter		= clean_slweg($_POST['filter']);
 			$page		= empty($_POST['page']) ? 0 : intval($_POST['page']);
+			$sort		= empty($_POST['sort']) || !isset($this->sort_options[$_POST['sort']]) ? 'start_desc' : $_POST['sort'];
+			$lang		= empty($_POST['lang']) ? '' : $_POST['lang'];
+			$keyword	= clean_slweg($_POST['keyword']);
 
 			if($active && $inactive) {
 				$status = 0;
@@ -232,7 +268,10 @@ class phpwcmsNews {
 			$_SESSION['PAGE_FILTER']['news'] = array(
 				'status'	=> $status,
 				'filter'	=> $filter,
-				'page'		=> $page
+				'page'		=> $page,
+				'sort'		=> $sort,
+				'lang'		=> $lang,
+				'keyword'	=> $keyword
 			);
 
 		}
@@ -251,15 +290,57 @@ class phpwcmsNews {
 			$this->where['filter'] .= mysql_real_escape_string($filter)."%'";
 		}
 
+		if($keyword) {
+
+			$this->where['cat']  = '(';
+			$this->where['cat'] .= 	'SELECT COUNT(pcat.cat_pid) ';
+			$this->where['cat'] .= 	'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
+			$this->where['cat'] .= 	"pcat.cat_type='news' AND pcat.cat_pid=cnt_id AND ";
+			$this->where['cat'] .= 	'pcat.cat_name=' . _dbEscape($keyword) . ' ';
+			$this->where['cat'] .= 	'GROUP BY pcat.cat_pid';
+			$this->where['cat'] .= ')';
+
+		}
+
+		$this->order_by	= array($this->sort_options[$sort]);
+
 		$this->filter_status	= $status;
 		$this->filter			= $filter;
 		$this->filter_page		= $page;
+		$this->filter_sort		= $sort;
+		$this->filter_lang		= $lang;
+		$this->filter_keyword	= $keyword;
 
 		$this->limit			= setItemsPerPage();
 		$this->start_at			= $page * $this->limit;
 
 	}
 
+	function getNewsCategories() {
+
+		$where = '(SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_content WHERE  cnt_id=cat_pid AND cnt_status != 9 AND cnt_module='news')";
+		$result = _dbGet('phpwcms_categories', 'cat_name', "cat_type='news' AND ".$where, 'cat_name', 'cat_name');
+		$categories = array();
+
+		if(isset($result[0]['cat_name'])) {
+			foreach($result as $item) {
+				$categories[] = $item['cat_name'];
+			}
+		}
+
+		return $categories;
+	}
+
+	function getNewsLanguages() {
+
+		$this->select			= 'DISTINCT cnt_lang';
+		$this->order_by			= 'cnt_lang';
+		$this->where['lang']	= "cnt_lang != ''";
+		$this->getNews();
+
+		return $this->news;
+
+	}
 
 	function listBackend() {
 
@@ -268,7 +349,7 @@ class phpwcmsNews {
 		$this->select  .= 'UNIX_TIMESTAMP(cnt_killdate) AS cnt_enddate, ';
 		$this->select  .= 'IF(cnt_sort=0, IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)), cnt_sort) AS cnt_sortdate';
 
-		$this->order_by	= array('cnt_prio DESC', 'cnt_sortdate DESC');
+		//$this->order_by	= array('cnt_prio DESC', 'cnt_sortdate DESC');
 
 		$this->getNews();
 
@@ -281,11 +362,32 @@ class phpwcmsNews {
 			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing" style="width:750px">';
 			$list[] = '<tr class="header">';
 
-			$list[] = '<th class="column colfirst news">'.$this->BL['be_title'].'</th>';
-			$list[] = '<th class="column">'.$this->BL['be_article_cnt_start'].'</th>';
-			$list[] = '<th class="column">'.$this->BL['be_article_cnt_end'].'</th>';
-			$list[] = '<th class="column">'.$this->BL['be_sort_date'].'</th>';
-			$list[] = '<th class="column">Prio</th>';
+			$sort_class = array(
+				'prio'	=> 'sort-off',
+				'name'	=> 'sort-off',
+				'start'	=> 'sort-off',
+				'sort'	=> 'sort-off',
+				'end'	=> 'sort-off'
+			);
+
+			switch($this->filter_sort) {
+				case 'prio_asc':	$sort_class['prio'] = 'sort-asc'; break;
+				case 'prio_desc':	$sort_class['prio'] = 'sort-desc'; break;
+				case 'name_asc':	$sort_class['name'] = 'sort-asc'; break;
+				case 'name_desc':	$sort_class['name'] = 'sort-desc'; break;
+				case 'start_asc':	$sort_class['start'] = 'sort-asc'; break;
+				case 'start_desc':	$sort_class['start'] = 'sort-desc'; break;
+				case 'sort_asc':	$sort_class['sort'] = 'sort-asc'; break;
+				case 'sort_desc':	$sort_class['sort'] = 'sort-desc'; break;
+				case 'end_asc':		$sort_class['end'] = 'sort-asc'; break;
+				case 'end_desc':	$sort_class['end'] = 'sort-desc'; break;
+			}
+
+			$list[] = '<th class="column colfirst news"><span class="'.$sort_class['name'].'">'.$this->BL['be_title'].'</span></th>';
+			$list[] = '<th class="column"><span class="'.$sort_class['start'].'">'.$this->BL['be_article_cnt_start'].'</span></th>';
+			$list[] = '<th class="column"><span class="'.$sort_class['end'].'">'.$this->BL['be_article_cnt_end'].'</span></th>';
+			$list[] = '<th class="column"><span class="'.$sort_class['sort'].'">'.$this->BL['be_sort_date'].'</span></th>';
+			$list[] = '<th class="column"><span class="'.$sort_class['prio'].'">Prio</span></th>';
 			$list[] = '<th class="column collast">&nbsp;</th>';
 
 			$list[] = '</tr>';
@@ -294,21 +396,14 @@ class phpwcmsNews {
 
 				$list[] = '<tr class="row'.($x%2?' alt':'').'">';
 
-				$news['live'] = $news['cnt_startdate'];
-				//$news['kill'] = strtotime($news['cnt_killdate']);
+				$news['live']		= $news['cnt_startdate'];
+				$news['live']		= $news['live'] == false || $news['live'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
+				$news['kill']		= phpwcms_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
+				$news['sort']		= $news['cnt_sortdate'] == false || $news['cnt_sortdate'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['cnt_sortdate']);
 
-				$news['live'] = $news['live'] == false || $news['live'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
-				$news['kill'] = phpwcms_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
-				$news['sort'] = $news['cnt_sortdate'] == false || $news['cnt_sortdate'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['cnt_sortdate']);
-
-				if(!$news['cnt_lang']) {
-					$news['bgimage'] = ' style="background-image:url(img/famfamfam/lang/all.png)"';
-				} else {
-					$news['bgimage'] = ' style="background-image:url(img/famfamfam/lang/'.$news['cnt_lang'].'.png)"';
-				}
-
-
-				$list[] = '<td class="column colfirst news"'.$news['bgimage'].'>'.html($news['cnt_name']).'</td>';
+				$list[] = '<td class="column colfirst news" style="background-image:url(img/famfamfam/lang/'.(!$news['cnt_lang'] ? 'all' : $news['cnt_lang']).'.png)">';
+				$list[] = html($news['cnt_name']);
+				$list[] = '</td>';
 				$list[] = '<td class="column nowrap">'.$news['live'].'</td>';
 				$list[] = '<td class="column nowrap">'.$news['kill'].'</td>';
 				$list[] = '<td class="column nowrap">'.$news['sort'].'</td>';
@@ -330,7 +425,6 @@ class phpwcmsNews {
 				</td>';
 
 				$list[] = '</tr>';
-
 
 				$x++;
 			}

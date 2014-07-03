@@ -839,14 +839,15 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 
 	if(is_array($categories) && count($categories) && $type && $pid) {
 
-		$data = array(	'cat_type'			=> $type,
-						'cat_pid' 			=> $pid,
-						'cat_status'		=> 1,
-						'cat_createdate'	=> date('Y-m-d H:i:s'),
-						'cat_changedate'	=> date('Y-m-d H:i:s'),
-						'cat_name'			=> '',
-						'cat_info'			=> ''
-						);
+		$data = array(
+			'cat_type'			=> $type,
+			'cat_pid' 			=> $pid,
+			'cat_status'		=> 1,
+			'cat_createdate'	=> date('Y-m-d H:i:s'),
+			'cat_changedate'	=> date('Y-m-d H:i:s'),
+			'cat_name'			=> '',
+			'cat_info'			=> ''
+		);
 
 		foreach($categories as $value) {
 			$value = trim($value);
@@ -945,10 +946,13 @@ function initJsOptionSelect() {
 	$GLOBALS['BE']['HEADER']['optionselect.js']	= getJavaScriptSourceLink('include/inc_js/optionselect.js');
 }
 function initJsAutocompleter() {
-	unset($GLOBALS['BE']['HEADER']['mootools.js']);
-	$GLOBALS['BE']['HEADER']['jquery.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+	initJQuery();
 	$GLOBALS['BE']['HEADER']['autosuggest.js']	= getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
 	$GLOBALS['BE']['HEADER']['autosuggest.css']	= '	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
+}
+function initJQuery() {
+	unset($GLOBALS['BE']['HEADER']['mootools.js']);
+	$GLOBALS['BE']['HEADER']['jquery.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
 }
 
 // make phpwcms compatibility and upgrade check
