@@ -195,11 +195,11 @@ class phpwcmsNews {
 			} else {
 				$paginate .= ' onclick="$(\'filterPage\').value='.$prev_page.';$(\'paginate\').submit();"';
 			}
-			$paginate .= ' /></td><td>';
+			$paginate .= ' /></td><td class="chatlist nowrap">';
 
 			$paginate .= '&nbsp;<b>' . $current_page . '</b>/' . $max_page . '&nbsp;';
 
-			$paginate .= '</td><td><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
+			$paginate .= '</td><td class="nowrap"><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
 			if($current_page == $max_page) {
 				$paginate .= ' class="inactive"';
 			} else {
@@ -359,7 +359,7 @@ class phpwcmsNews {
 
 		if(count($this->news)) {
 
-			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing" style="width:750px">';
+			$list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing" style="width:100%; min-width:750px">';
 			$list[] = '<tr class="header">';
 
 			$sort_class = array(

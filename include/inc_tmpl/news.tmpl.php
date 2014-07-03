@@ -82,7 +82,7 @@ $news = new phpwcmsNews();
 
 					<td><input type="text" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
 					<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-left:2px" /></td>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $news->getPagination(); ?></td>
+					<td class="nowrap">&nbsp;&nbsp;<?php echo $news->getPagination(); ?>&nbsp;&nbsp;</td>
 				</tr>
 			</table></td>
 			<td class="chatlist items-per-page" align="right">
