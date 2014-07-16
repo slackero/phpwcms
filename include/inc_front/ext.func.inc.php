@@ -309,7 +309,8 @@ function showSelectedContent($param='') {
 
 	if($cp = explode(',', $param)) {
 		$mode = strtoupper(trim($cp[0]));
-		if(substr($mode, 0, 2) == 'AS') {
+		$type = substr($mode, 0, 2);
+		if($type === 'AS') {
 			$mode = explode('|', $cp[0]);
 			if(isset($mode[1])) {
 				$mode[1] = trim($mode[1]);
@@ -332,8 +333,8 @@ function showSelectedContent($param='') {
 				$cp[1] = trim($cp[1]);
 				if(!is_numeric($cp[1])) {
 					switch($cp[1]) {
-						case 'new':		$cp = array('new'		=> 1);	break;
-						case 'random':	$cp = array('random'	=> 1);	break;
+						case 'new':		$cp = array('new' => 1);	break;
+						case 'random':	$cp = array('random' => 1);	break;
 						case 'related':	if(isset($cp[2])) {
 											unset($cp[0], $cp[1]);
 											$related = array();
@@ -343,14 +344,14 @@ function showSelectedContent($param='') {
 											$cp = array('related' => 1); break;
 										}
 
-						default:		$cp = array('new'		=> 1);
+						default:		$cp = array('new' => 1);
 					}
 				}
 			}
 		}
 		unset($cp[0]);
 		foreach($cp as $key => $value) {
-			$value	= intval($value);
+			$value = intval($value);
 			if(!$value) {
 				unset($cp[$key]);
 			} else {
@@ -367,7 +368,8 @@ function showSelectedContent($param='') {
 
 	$CNT_TMP = '';
 
-	if(substr($mode, 0, 2) == 'AS') {
+	// Article Mode
+	if($type === 'AS') {
 
 		if(substr($mode, -1) == 'P') {
 			$mode = substr($mode, 0, -1);
@@ -391,34 +393,54 @@ function showSelectedContent($param='') {
 
 		$CNT_TMP = list_articles_summary( get_article_data( $cp, $topcount, $sort ) , $topcount, $template);
 
+	// Content Part mode CP, CPA, CPAD, CPS, CPAS, CPASD
+	} elseif($type === 'CP') {
 
-	} elseif($mode == 'CP' || $mode == 'CPA' || $mode == 'CPAD') {
-
-		$sort = ($mode=='CPAD') ? ' DESC' : ''; //means ASCENDING
+		$sort = ($mode == 'CPAD' || $mode == 'CPASD') ? ' DESC' : ''; //means ASCENDING
 
 		foreach($cp as $value) {
 
+			$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
+
 			if($mode == 'CP') {
 				// content part listing
-				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
-				$sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-				$sql .= "WHERE acontent_id = " . $value . " AND acontent_visible = 1 ";
-				$sql .= "AND acontent_block != 'CPSET' ";
+				$sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
+				$sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
+				$sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
 
 				if( !FEUSER_LOGIN_STATUS ) {
 					$sql .= 'AND acontent_granted=0 ';
 				}
 
-				$sql .= "AND acontent_trash = 0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
+				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
+				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+				$sql .= "LIMIT 1";
+
+			} elseif($mode == 'CPS') {
+
+				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
+				$sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
+				$sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
+				$sql .= "AND acontent_block='SYSTEM' ";
+
+				if( !FEUSER_LOGIN_STATUS ) {
+					$sql .= 'AND acontent_granted=0 ';
+				}
+
+				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
 				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
 				$sql .= "LIMIT 1";
 
 			} else {
 				// content parts based on article ID
-				$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent ";
 				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
-				$sql .= "AND acontent_block != 'CPSET' ";
+
+				if($mode == 'CPAS' || $mode == 'CPASD') {
+					$sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
+				} else {
+					$sql .= "AND acontent_block='SYSTEM' ";
+				}
 
 				if( !FEUSER_LOGIN_STATUS ) {
 					$sql .= 'AND acontent_granted=0 ';

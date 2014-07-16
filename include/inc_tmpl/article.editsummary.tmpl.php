@@ -638,7 +638,6 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 				</table></td>
 			</tr>
 
-
 <?php if(isset($article["article_date"])) { ?>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 

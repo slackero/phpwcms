@@ -296,11 +296,12 @@ if($content['cp_setting_mode']):
 		  		<td width="75%"><select name="cblock" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
 
 		  			<optgroup label="<?php echo $BL['be_admin_struct_template'].': '.$content['template_name'] ?>">
-						<option value="CONTENT"<?php echo  is_selected('CONTENT', $content["block"]) ?>><?php echo  $BL['be_main_content'] ?> (CONTENT)</option>
-						<option value="LEFT"<?php echo  is_selected('LEFT', $content["block"]) ?>><?php echo  $BL['be_cnt_left'] ?> (LEFT)</option>
-						<option value="RIGHT"<?php echo  is_selected('RIGHT', $content["block"]) ?>><?php echo  $BL['be_cnt_right'] ?> (RIGHT)</option>
-						<option value="HEADER"<?php echo  is_selected('HEADER', $content["block"]) ?>><?php echo  $BL['be_admin_page_header'] ?> (HEADER)</option>
-						<option value="FOOTER"<?php echo  is_selected('FOOTER', $content["block"]) ?>><?php echo  $BL['be_admin_page_footer'] ?> (FOOTER)</option>
+						<option value="CONTENT"<?php echo is_selected('CONTENT', $content["block"]) ?>><?php echo $BL['be_main_content'] ?> (CONTENT)</option>
+						<option value="LEFT"<?php echo is_selected('LEFT', $content["block"]) ?>><?php echo $BL['be_cnt_left'] ?> (LEFT)</option>
+						<option value="RIGHT"<?php echo is_selected('RIGHT', $content["block"]) ?>><?php echo $BL['be_cnt_right'] ?> (RIGHT)</option>
+						<option value="HEADER"<?php echo is_selected('HEADER', $content["block"]) ?>><?php echo $BL['be_admin_page_header'] ?> (HEADER)</option>
+						<option value="FOOTER"<?php echo is_selected('FOOTER', $content["block"]) ?>><?php echo $BL['be_admin_page_footer'] ?> (FOOTER)</option>
+						<option value="SYSTEM"<?php echo is_selected('SYSTEM', $content["block"]) ?>><?php echo $BL['be_system_container'] ?> (SYSTEM)</option>
 					</optgroup>
 						<?php echo $content['blocks'] ?>
 				</select></td>

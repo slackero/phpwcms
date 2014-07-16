@@ -16,20 +16,16 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-$buttonAction  = '<table cellpadding="0" cellspacing="0" border="0"><tr>'."\n";
+$buttonAction  = '<table cellpadding="0" cellspacing="0" border="0"><tr>'.LF;
 // Article List
 $buttonAction .= '<td><input type="button" value="'.$BL['be_article_cnt_center'];
 $buttonAction .= '" class="button10" title="'.$BL['be_article_cnt_center'].'" onclick="';
 $buttonAction .= "location.href='phpwcms.php?do=articles';return false;\"></td>\n<td>&nbsp;</td>\n";
 // Article Preview (new window)
 $buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($article["article_alias"]) ? 'aid='.$article["article_id"] : $article["article_alias"]);
-$buttonAction .= '<td>';
-$buttonAction .= '<input type="button" value="'.$BL['be_func_struct_preview'];
-$buttonAction .= '" class="button10" title="'.$BL['be_func_struct_preview'].'" onclick="';
-$buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');return false;\"></td>\n";
+$buttonAction .= '<td><input type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" onclick="';
+$buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');return false;\"></td>";
 $buttonAction .= '</tr></table>';
-
 
 ?>
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article["article_id"] ?>" method="post" name="addcontent" id="addcontent">
@@ -59,6 +55,14 @@ $buttonAction .= '</tr></table>';
 		  <td><table border="0" cellpadding="0" cellspacing="0" summary="" class="tdMorepace">
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
 			</tr>
+
+			<tr>
+			  <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
+			  <td valign="top" class="v10"><strong><?php echo html($article["article_alias"]); ?></strong></td>
+			</tr>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+			</tr>
+
 			<?php	if($article["article_subtitle"]) { ?>
 			<tr>
 			  <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
@@ -167,9 +171,26 @@ $buttonAction .= '</tr></table>';
 			</tr>
 
 			<tr>
-			  <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_archive'] ?>:&nbsp;</td>
-			  <td class="v10"><?php echo '[ '.strtoupper($article["article_archive_status"] == 1 ? $BL['be_on'] : $BL['be_off'] ).' ] ' . $BL['be_show_archived'] ?></td>
+			  <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+			  <td class="v10"><?php echo ($article["article_nositemap"] == 1 ? '&check;' : '-') . ' ' . $BL['be_ctype_sitemap'] ?></td>
 			</tr>
+			<tr>
+			  <td class="v10">&nbsp;</td>
+			  <td class="v10"><?php echo ($article["article_nosearch"] == 1 ? '-' : '&check;') . ' ' . $BL['be_fsearch_searchlabel'] ?></td>
+			</tr>
+			<tr>
+			  <td class="v10">&nbsp;</td>
+			  <td class="v10"><?php echo ($article["article_norss"] == 1 ? '&check;' : '-') . ' ' . $BL['be_no_rss'] ?></td>
+			</tr>
+			<tr>
+			  <td class="v10">&nbsp;</td>
+			  <td class="v10"><?php echo ($article["article_opengraph"] == 1 ? '&check;' : '-') . ' ' . $BL['be_opengraph_support'] ?></td>
+			</tr>
+			<tr>
+			  <td class="v10">&nbsp;</td>
+			  <td class="v10"><?php echo ($article["article_archive_status"] == 1 ? '&check;' : '-') . ' ' . $BL['be_show_archived']; //&#x2610; ?></td>
+			</tr>
+
 
 		  </table></td>
 			<td>&nbsp;</td>
@@ -315,31 +336,45 @@ if(!$temp_count) {
 						$contentpart_block_color = ' bgcolor="#E0D6EB"';
 
 						switch($contentpart_block) {
-							case ''			:	$contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
-												$contentpart_block_color = ' bgcolor="#F5CCCC"';
-												break;
-							case 'CONTENT'	:	$contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
-												if($article['article_paginate']) {
-													$contentpart_block_name .= ' / <img src="img/symbole/content_cppaginate.gif" alt="" style="margin-right:2px;" />';
-													$contentpart_block_name .= $BL['be_cnt_pagination'];
-												}
-												$contentpart_block_color = ' bgcolor="#F5CCCC"';
-												break;
-							case 'LEFT'		:	$contentpart_block_name = $BL['be_cnt_left'].$contentpart_block_name;
-												$contentpart_block_color = ' bgcolor="#E0EBD6"';
-												break;
-							case 'RIGHT'	:	$contentpart_block_name = $BL['be_cnt_right'].$contentpart_block_name;
-												$contentpart_block_color = ' bgcolor="#FFF5CC"';
-												break;
-							case 'HEADER'	:	$contentpart_block_name = $BL['be_admin_page_header'].$contentpart_block_name;
-												$contentpart_block_color = ' bgcolor="#EBEBD6"';
-												break;
-							case 'FOOTER'	:	$contentpart_block_name = $BL['be_admin_page_footer'].$contentpart_block_name;
-												$contentpart_block_color = ' bgcolor="#E1E8F7"';
-												break;
-							case 'CPSET'	:	$contentpart_block_name = $BL['be_settings'];
-												$contentpart_block_color = ' bgcolor="#cceaf5"';
-												break;
+							case '':
+							case 'CONTENT':
+								$contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
+								if($article['article_paginate']) {
+									$contentpart_block_name .= ' / <img src="img/symbole/content_cppaginate.gif" alt="" style="margin-right:2px;" />';
+									$contentpart_block_name .= $BL['be_cnt_pagination'];
+								}
+								$contentpart_block_color = ' bgcolor="#F5CCCC"';
+								break;
+
+							case 'LEFT':
+								$contentpart_block_name = $BL['be_cnt_left'].$contentpart_block_name;
+								$contentpart_block_color = ' bgcolor="#E0EBD6"';
+								break;
+
+							case 'RIGHT':
+								$contentpart_block_name = $BL['be_cnt_right'].$contentpart_block_name;
+								$contentpart_block_color = ' bgcolor="#FFF5CC"';
+								break;
+
+							case 'HEADER':
+								$contentpart_block_name = $BL['be_admin_page_header'].$contentpart_block_name;
+								$contentpart_block_color = ' bgcolor="#EBEBD6"';
+								break;
+
+							case 'FOOTER':
+								$contentpart_block_name = $BL['be_admin_page_footer'].$contentpart_block_name;
+								$contentpart_block_color = ' bgcolor="#E1E8F7"';
+								break;
+
+							case 'CPSET':
+								$contentpart_block_name = $BL['be_settings'].' <span style="font-weight:normal">('.$BL['be_system_container_norender'].')</span>';
+								$contentpart_block_color = ' bgcolor="#cceaf5"';
+								break;
+
+							case 'SYSTEM':
+								$contentpart_block_name = $BL['be_system_container'].' <span style="font-weight:normal">('.$BL['be_system_container_norender'].')</span>';
+								$contentpart_block_color = ' bgcolor="#ffdc9d"';
+								break;
 						}
 
 			?>
@@ -354,15 +389,12 @@ if(!$temp_count) {
 
 					// now check if content part is tabbed
 					if($row['acontent_tab'] && $contentpart_tab != $row['acontent_tab']) {
-
 						$contentpart_tab		= $row['acontent_tab'];
-
 						$contentpart_tabbed		= explode('_', $contentpart_tab, 2);
 						$contentpart_tab_title	= empty($contentpart_tabbed[1]) ? '' : $contentpart_tabbed[1];
 						$contentpart_tab_number	= explode('|', $contentpart_tabbed[0]);
 						$contentpart_tab_type	= empty($contentpart_tab_number[1]) ? 1 : intval($contentpart_tab_number[1]);
 						$contentpart_tab_number = intval($contentpart_tab_number[0]);
-						//$contentpart_tab_number++;
 
 			?>
 			<tr<?php echo $contentpart_block_color ?>>

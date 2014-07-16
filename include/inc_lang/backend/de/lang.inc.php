@@ -1360,4 +1360,7 @@ $BL['be_player_volume_muted']			= 'stumm';
 $BL['be_keyword']						= 'Schl&uuml&sselwort';
 $BL['be_tag']							= 'Tag';
 
+$BL['be_system_container']				= 'Systemcontainer';
+$BL['be_system_container_norender']		= 'ohne regul&auml;re Ausgabe im Frontend';
+
 ?>
