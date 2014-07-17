@@ -1272,11 +1272,11 @@ if($phpwcms['mode_XHTML'] === 3) {
 	// put it as first item
 	if(!$phpwcms['html5shiv_disabled'] && !$phpwcms['respondjs_disabled']) {
 		$block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]>
-	<script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.js"></script>
+	<script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.min.js"></script>
 	<script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/respond/respond.min.js"></script>
   <![endif]-->';
 	} elseif(!$phpwcms['html5shiv_disabled']) {
-		$block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.js"></script><![endif]-->';
+		$block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.min.js"></script><![endif]-->';
 	} elseif(!$phpwcms['respondjs_disabled']) {
 		$block['custom_htmlhead']['respondjs'] = '  <!--[if lt IE 9]><script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/respond/respond.min.js"></script><![endif]-->';
 	}
