@@ -158,20 +158,22 @@ if(!$newsletter) {
 		}
 
 		$mail = new PHPMailer();
-		$mail->Mailer 		= $phpwcms['SMTP_MAILER'];
-		$mail->Host 		= $phpwcms['SMTP_HOST'];
-		$mail->Port 		= $phpwcms['SMTP_PORT'];
-		$mail->CharSet	 	= $phpwcms["charset"];
+		$mail->Mailer 			= $phpwcms['SMTP_MAILER'];
+		$mail->Host 			= $phpwcms['SMTP_HOST'];
+		$mail->Port 			= $phpwcms['SMTP_PORT'];
+		$mail->CharSet	 		= $phpwcms["charset"];
 		if($phpwcms['SMTP_AUTH']) {
-			$mail->SMTPAuth = 1;
-			$mail->Username = $phpwcms['SMTP_USER'];
-			$mail->Password = $phpwcms['SMTP_PASS'];
+			$mail->SMTPAuth 	= 1;
+			$mail->Username 	= $phpwcms['SMTP_USER'];
+			$mail->Password 	= $phpwcms['SMTP_PASS'];
 		}
-
-		$mail->From 		= $newsletter['newsletter_vars']['from_email'];
-		$mail->FromName 	= $newsletter['newsletter_vars']['from_name'];
-		$mail->Sender	 	= $newsletter['newsletter_vars']['replyto'];
-		$mail->Subject		= $newsletter['newsletter_subject'];
+		if(!empty($phpwcms['SMTP_SECURE'])) {
+			$mail->SMTPSecure 	= $phpwcms['SMTP_SECURE'];
+		}
+		$mail->From 			= $newsletter['newsletter_vars']['from_email'];
+		$mail->FromName 		= $newsletter['newsletter_vars']['from_name'];
+		$mail->Sender	 		= $newsletter['newsletter_vars']['replyto'];
+		$mail->Subject			= $newsletter['newsletter_subject'];
 
 		if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');

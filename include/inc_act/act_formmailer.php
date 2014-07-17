@@ -292,6 +292,9 @@ if(isset($form_error)) {
 		$mail->Username 	= $phpwcms['SMTP_USER'];
 		$mail->Password 	= $phpwcms['SMTP_PASS'];
 	}
+	if(!empty($phpwcms['SMTP_SECURE'])) {
+		$mail->SMTPSecure 	= $phpwcms['SMTP_SECURE'];
+	}
 	$mail->SMTPKeepAlive 	= true;
 	$mail->CharSet	 		= $phpwcms["charset"];
 	$mail->isHTML(0);

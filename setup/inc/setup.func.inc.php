@@ -257,6 +257,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['SMTP_PORT']         = ".intval($val["SMTP_PORT"])."; // SMTP-Server port (default 25)\n";
 	$conf_file .= "\$phpwcms['SMTP_MAILER']       = '".$val["SMTP_MAILER"]."'; // default phpMailer: smtp, mail (default), sendmail\n";
 	$conf_file .= "\$phpwcms['SMTP_AUTH']         = ".intval($val["SMTP_AUTH"])."; // sets SMTP_AUTH to ON/OFF\n";
+	$conf_file .= "\$phpwcms['SMTP_SECURE']       = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
 	$conf_file .= "\$phpwcms['SMTP_USER']         = '".$val["SMTP_USER"]."'; // default SMTP login (user) name\n";
 	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".$val["SMTP_PASS"]."'; // default SMTP password\n";
 	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";

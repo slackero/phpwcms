@@ -1721,6 +1721,9 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$mail->Username 	= $phpwcms['SMTP_USER'];
 			$mail->Password 	= $phpwcms['SMTP_PASS'];
 		}
+		if(!empty($phpwcms['SMTP_SECURE'])) {
+			$mail->SMTPSecure 	= $phpwcms['SMTP_SECURE'];
+		}
 		$mail->CharSet	 		= $phpwcms["charset"];
 
 		if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {

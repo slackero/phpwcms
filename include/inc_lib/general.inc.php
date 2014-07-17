@@ -751,6 +751,9 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 			$mail->Username 	= $phpwcms['SMTP_USER'];
 			$mail->Password 	= $phpwcms['SMTP_PASS'];
 		}
+		if(!empty($phpwcms['SMTP_SECURE'])) {
+			$mail->SMTPSecure 	= $phpwcms['SMTP_SECURE'];
+		}
 		$mail->CharSet	 		= $phpwcms["charset"];
 
 		$mail->isHTML($data['isHTML']);

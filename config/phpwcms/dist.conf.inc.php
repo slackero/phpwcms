@@ -133,6 +133,7 @@ $phpwcms['SMTP_HOST']         = 'localhost'; // SMTP server (host/IP)
 $phpwcms['SMTP_PORT']         = 25; // SMTP-Server port (default 25)
 $phpwcms['SMTP_MAILER']       = 'mail'; // default phpMailer: smtp, mail (default), sendmail
 $phpwcms['SMTP_AUTH']         = 0; // sets SMTP_AUTH to ON/OFF
+$phpwcms['SMTP_SECURE']       = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
 $phpwcms['SMTP_USER']         = 'user'; // default SMTP login (user) name
 $phpwcms['SMTP_PASS']         = 'pass'; // default SMTP password
 

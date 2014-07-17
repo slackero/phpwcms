@@ -67,6 +67,16 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["mailer"]->Mailer = $phpwcms['SMTP_MAILER'];
 		$ecard["mailer"]->isHTML(1);
 		$ecard['mailer']->CharSet = $phpwcms["charset"];
+		$ecard["mailer"]->Host = $phpwcms['SMTP_HOST'];
+		$ecard["mailer"]->Port = $phpwcms['SMTP_PORT'];
+		if($phpwcms['SMTP_AUTH']) {
+			$ecard["mailer"]->SMTPAuth = 1;
+			$ecard["mailer"]->Username = $phpwcms['SMTP_USER'];
+			$ecard["mailer"]->Password = $phpwcms['SMTP_PASS'];
+		}
+		if(!empty($phpwcms['SMTP_SECURE'])) {
+			$ecard["mailer"]->SMTPSecure = $phpwcms['SMTP_SECURE'];
+		}
 
 		if(!$ecard['mailer']->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
 			$ecard['mailer']->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
@@ -101,14 +111,6 @@ if(isset($_POST['ecard_chooser'])) {
 									 '<p><strong>sent to you from '.html_specialchars($ecard["sender_name"].(($ecard["sender_name"]) ? ' ('.$ecard["sender_email"].')': $ecard["sender_email"])).'</strong></p>'.
 									 '<p>'.$list_img_temp.'</p>'.
 									 '<p>'.nl2br(html_specialchars($ecard["sender_msg"])).'</p><hr /><a href="'.$phpwcms["site"].'" target="_blank">'.$phpwcms["site"].'</a></div>';
-		}
-
-		if(strtolower($phpwcms['SMTP_MAILER']) == 'smtp') {
-			$ecard["mailer"]->Port = (!$phpwcms['SMTP_PORT']) ? 25 : $phpwcms['SMTP_PORT'];
-			$ecard["mailer"]->Host = $phpwcms['SMTP_HOST'];
-			$ecard["mailer"]->SMTPAuth = $phpwcms['SMTP_AUTH'];
-			$ecard["mailer"]->Username = $phpwcms['SMTP_USER'];
-			$ecard["mailer"]->Password = $phpwcms['SMTP_PASS'];
 		}
 
 		$ecard["mailer"]->send();
