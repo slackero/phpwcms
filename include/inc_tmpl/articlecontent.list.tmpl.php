@@ -424,6 +424,7 @@ if(!$temp_count) {
 
 			?>
 			<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+
 			<tr>
 			  <td align="right" style="padding-right:5px;"><img src="img/symbole/content_9x11<?php if($row["acontent_granted"]) echo '_granted'; ?>.gif" alt="" width="9" height="11" border="0" /></td>
 	          <td><table border="0" cellpadding="0" cellspacing="0" summary="" width="100%">
@@ -496,7 +497,29 @@ if(!$temp_count) {
 	          echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]
 			  ?>]\n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
 			</tr>
-<?php
+
+<?php	if($row["acontent_block"] === 'SYSTEM'):	?>
+			<tr>
+				<td align="right" class="v09">&nbsp;</td>
+				<td colspan="2" class="v09"><?php
+					echo '<span class="greyed">', $BL['be_article_rendering'], ':</span> <span class="tool-title">';
+
+					if(empty($row["acontent_tid"])) {
+						echo $BL['be_custom_scriptlogic'];
+					} elseif($row["acontent_tid"] == 3) {
+						echo $BL['be_article_forlist'].' + '.$BL['be_article_forfull'];
+					} elseif($row["acontent_tid"] == 2) {
+						echo $BL['be_article_forfull'];
+					} else { // == 1
+						echo $BL['be_article_forlist'];
+					}
+
+					echo '</span>';
+
+				?></td>
+			</tr>
+			<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+<?php	endif;
 
 	// list content type overview
 	$cinfo = NULL;

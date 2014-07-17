@@ -259,7 +259,7 @@ if($content['cp_setting_mode']):
 			$content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0', '', 'template_default DESC', 1);
 		}
 
-		$content['blocks'] = '';
+		$content['blocks'] = array();
 
 		if(isset($content['current_template'][0]['template_var'])) {
 			$content['template_name'] = html($content['current_template'][0]['template_name']);
@@ -270,20 +270,22 @@ if($content['cp_setting_mode']):
 			if(!empty($content['current_template']['customblock'])) {
 				$content['current_template'] = explode(',', $content['current_template']['customblock']);
 				if(count($content['current_template'])) {
-					$content['blocks'] .= '<optgroup label="'.$BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'].'">';
+					$content['blocks'][] = '<optgroup label="'.$BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'].'">';
 					foreach($content['current_template'] as $value) {
 						$value = trim($value);
 						if($value !== '') {
 							$valhtml = html($value);
-							$content['blocks'] .= '<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>';
+							$content['blocks'][] = '	<option value="'.$valhtml.'"'.is_selected($value, $content["block"], 0, 0).'>'.$valhtml.'</option>';
 						}
 					}
-					$content['blocks'] .= '</optgroup>';
+					$content['blocks'][] = '</optgroup>';
 				}
 			}
 		} else {
 			$content['template_name'] = $BL['be_admin_tmpl_default'];
 		}
+
+		$content['blocks'] = implode(LF.'			  			', $content['blocks']);
 
 	?></td></tr>
 
@@ -291,27 +293,42 @@ if($content['cp_setting_mode']):
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_show_content'] ?>:&nbsp;</td>
-		  <td><table summary="" border="0" cellspacing="0" cellpadding="0" width="440">
+		<td><table summary="" border="0" cellspacing="0" cellpadding="0" width="440">
 		  	<tr>
-		  		<td width="75%"><select name="cblock" id="cblock"<?php if($content['article']['article_paginate']) echo ' onchange="checkCntBlockPaginate(this);"' ?>>
-
-		  			<optgroup label="<?php echo $BL['be_admin_struct_template'].': '.$content['template_name'] ?>">
-						<option value="CONTENT"<?php echo is_selected('CONTENT', $content["block"]) ?>><?php echo $BL['be_main_content'] ?> (CONTENT)</option>
-						<option value="LEFT"<?php echo is_selected('LEFT', $content["block"]) ?>><?php echo $BL['be_cnt_left'] ?> (LEFT)</option>
-						<option value="RIGHT"<?php echo is_selected('RIGHT', $content["block"]) ?>><?php echo $BL['be_cnt_right'] ?> (RIGHT)</option>
-						<option value="HEADER"<?php echo is_selected('HEADER', $content["block"]) ?>><?php echo $BL['be_admin_page_header'] ?> (HEADER)</option>
-						<option value="FOOTER"<?php echo is_selected('FOOTER', $content["block"]) ?>><?php echo $BL['be_admin_page_footer'] ?> (FOOTER)</option>
-						<option value="SYSTEM"<?php echo is_selected('SYSTEM', $content["block"]) ?>><?php echo $BL['be_system_container'] ?> (SYSTEM)</option>
-					</optgroup>
+		  		<td width="75%">
+		  			<select name="cblock" id="cblock" onchange="checkCntBlockPaginate(this);">
+			  			<optgroup label="<?php echo $BL['be_admin_struct_template'].': '.$content['template_name'] ?>">
+							<option value="CONTENT"<?php echo is_selected('CONTENT', $content["block"]) ?>><?php echo $BL['be_main_content'] ?> (CONTENT)</option>
+							<option value="LEFT"<?php echo is_selected('LEFT', $content["block"]) ?>><?php echo $BL['be_cnt_left'] ?> (LEFT)</option>
+							<option value="RIGHT"<?php echo is_selected('RIGHT', $content["block"]) ?>><?php echo $BL['be_cnt_right'] ?> (RIGHT)</option>
+							<option value="HEADER"<?php echo is_selected('HEADER', $content["block"]) ?>><?php echo $BL['be_admin_page_header'] ?> (HEADER)</option>
+							<option value="FOOTER"<?php echo is_selected('FOOTER', $content["block"]) ?>><?php echo $BL['be_admin_page_footer'] ?> (FOOTER)</option>
+							<option value="SYSTEM"<?php echo is_selected('SYSTEM', $content["block"]) ?>><?php echo $BL['be_system_container'] ?> (SYSTEM)</option>
+						</optgroup>
 						<?php echo $content['blocks'] ?>
-				</select></td>
 
-				<td class="chatlist" width="100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
+					</select>
+				</td>
+
+				<td class="chatlist width100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
 				<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width30" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
 
 			</tr>
 		</table></td>
     </tr>
+
+	<tr id="system1"<?php if($content["block"] !== 'SYSTEM'): ?> style="display:none;"<?php endif; ?>>
+		<td align="right" class="chatlist"><?php echo $BL['be_article_rendering'] ?>:&nbsp;</td>
+		<td>
+			<select name="ctid" id="ctid">
+				<option value="0"<?php echo is_selected(0, $content['tid']) ?>><?php echo $BL['be_custom_scriptlogic'] ?></option>
+				<option value="1"<?php echo is_selected(1, $content['tid']) ?>><?php echo $BL['be_article_forlist'] ?></option>
+				<option value="2"<?php echo is_selected(2, $content['tid']) ?>><?php echo $BL['be_article_forfull'] ?></option>
+				<option value="3"<?php echo is_selected(3, $content['tid']) ?>><?php echo $BL['be_article_forlist'].' + '.$BL['be_article_forfull'] ?></option>
+			</select>
+		</td>
+	</tr>
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 
 	<tr>
@@ -331,7 +348,7 @@ if($content['cp_setting_mode']):
 	$anchor_title = empty($content["id"]) ? '' : ' title="cpid'.$content["id"].'"';
 
 	// handle tab settings
-	$content["tab_style"]	= ' style="display:none"';
+	$content["tab_style"] = ' style="display:none"';
 
 	if(empty($content["tab"])) {
 
@@ -357,10 +374,10 @@ if($content['cp_setting_mode']):
 
 ?>
 			<td class="chatlist"><label for="canchor"<?php echo $anchor_title ?>>&nbsp;<?php echo $BL['be_article_cnt_anchor'] ?>:</label></td>
-			<td><input name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); ?><?php echo $anchor_title ?> /></td>
+			<td><input name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> /></td>
 
 			<td class="chatlist">&nbsp;<?php echo $BL['be_cnt_paginate_subsection']; ?>:&nbsp;</td>
-			<td><select name="ctab" id="ctab" class="v11 width100" onchange="checkTabStatus(this);">
+			<td><select name="ctab" id="ctab" class="v11 width100" onchange="checkTabStatus(this);"<?php if($content["block"] == 'SYSTEM'): ?> disabled="disabled"<?php endif; ?> >
 				<option value="0"<?php is_selected(0, $content["tab_type"]); ?>><?php echo $BL['be_off'] ?></option>
 				<option value="1"<?php is_selected(1, $content["tab_type"]); ?>><?php echo $BL['be_ctype_tabs'] ?></option>
 				<option value="2"<?php is_selected(2, $content["tab_type"]); ?>><?php echo $BL['be_ctype_accordion'] ?></option>
@@ -369,31 +386,54 @@ if($content['cp_setting_mode']):
 		</tr>
 		</table><script type="text/javascript">
 
-	var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>;
+			var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>, loadblock = true;
 
-	function checkTabStatus(tabVal) {
+			function checkTabStatus(tabVal) {
 
-		var tabValue = parseInt(tabVal.options[tabVal.selectedIndex].value, 10);
+				var tabValue = parseInt(tabVal.options[tabVal.selectedIndex].value, 10);
 
-		cTabStatus = tabValue > 0 ? true : false;
+				cTabStatus = tabValue > 0 ? true : false;
 
-		if(cTabStatus == false) {
+				if(cTabStatus == false) {
 
-			$('ctab1').setStyle('display', 'none');
-			$('ctab2').setStyle('display', 'none');
-			$('ctab3').setStyle('display', 'none');
+					$('ctab1').setStyle('display', 'none');
+					$('ctab2').setStyle('display', 'none');
+					$('ctab3').setStyle('display', 'none');
 
-		} else {
+				} else {
 
-			$('ctab1').setStyle('display', '');
-			$('ctab2').setStyle('display', '');
-			$('ctab3').setStyle('display', '');
+					$('ctab1').setStyle('display', '');
+					$('ctab2').setStyle('display', '');
+					$('ctab3').setStyle('display', '');
 
-		}
+				}
 
-		tabVal.blur();
+				tabVal.blur();
 
-	}
+			}
+
+			function setTabStatus(enabled) {
+				document.getElementById('ctab').disabled = (enabled ? false : true);
+			}
+
+			function checkCntBlockPaginate(obj) {
+				var paginate = document.getElementById("cpaginate_page");
+				var block = obj.options[obj.selectedIndex].value;
+
+				document.getElementById('system1').style.display = (block == 'SYSTEM' ? 'table-row' : 'none');
+
+				if(block != "CONTENT") {
+					if(paginate.value != "0" && loadblock == false) {
+						if(!confirm("<?php echo $BL['be_cnt_subsection_warning'] ?>")) {
+							getObjectById("cblock").selectedIndex = 0;
+							return false;
+						}
+					}
+					paginate.disabled = true;
+				} else {
+					paginate.disabled = false;
+				}
+			}
 
 		</script></td>
     </tr>
@@ -455,7 +495,7 @@ if($content['cp_setting_mode']):
 
 	$content["paginate_page"] = empty($content["paginate_page"]) ? 0 : intval($content["paginate_page"]);
 
-	if(empty($content['article']['article_paginate'])) {
+	if(empty($content['article']['article_paginate']) || $content["block"] !== 'SYSTEM') {
 
 		echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" />';
 		echo '<input name="cpaginate_title" type="hidden" id="cpaginate_title" value="'.html($content["paginate_title"]).'" />';
@@ -479,24 +519,8 @@ if($content['cp_setting_mode']):
 		  </tr>
 		</table><script type="text/javascript">
 
-	var loadblock  = true;
-	checkCntBlockPaginate(getObjectById("cblock"));
-	loadblock      = false;
-
-	function checkCntBlockPaginate(obj) {
-		var paginate = getObjectById("cpaginate_page");
-		if(obj.options[obj.selectedIndex].value != "CONTENT") {
-			if(paginate.value != "0" && loadblock == false) {
-				if(!confirm("<?php echo $BL['be_cnt_subsection_warning'] ?>")) {
-					getObjectById("cblock").selectedIndex = 0;
-					return false;
-				}
-			}
-			paginate.disabled = true;
-		} else {
-			paginate.disabled = false;
-		}
-	}
+			checkCntBlockPaginate(getObjectById("cblock"));
+			loadblock = false;
 
 		</script></td>
 	</tr>
@@ -524,7 +548,7 @@ endif;
 // render buttons only once and save the buffer
 if(!empty($content["id"])) {
 	$buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
-	$buttonAction  = '	<div style="float:right;margin-right:5px;padding:0;">';
+	$buttonAction  = '	<div style="float:right;margin-right:25px;padding:0;">';
 	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" ';
 	$buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
 	$buttonAction .= $BL['be_func_struct_preview']."</button></div>" . LF;

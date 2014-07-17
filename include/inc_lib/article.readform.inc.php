@@ -19,8 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // read content type form vars
-if($content["aid"] != intval($_POST["caid"])) die("error: wrong form data!");
-
+if($content["aid"] != intval($_POST["caid"])) {
+	die("error: wrong form data!");
+}
 
 $content["title"] 			= clean_slweg($_POST["ctitle"]);
 $content["subtitle"] 		= clean_slweg($_POST["csubtitle"]);
@@ -34,6 +35,7 @@ $content["top"] 			= isset($_POST["ctop"]) ? 1 : 0;
 $content["anchor"] 			= isset($_POST["canchor"]) ? 1 : 0;
 $content["id"] 				= intval($_POST["cid"]);
 $content["granted"] 		= empty($_POST["cgranted"]) ? 0 : 1;
+$content["tid"] 			= empty($_POST["ctid"]) || !in_array(intval($_POST["ctid"]), array(0, 1, 2, 3)) ? 0 : intval($_POST["ctid"]);
 
 if(!empty($_POST['ctype_change_aid'])) {
 
@@ -49,10 +51,12 @@ if(!empty($_POST['ctype_change_aid'])) {
 	}
 }
 
-
-if(!$content["before"] || $content["before"] > 9999) $content["before"] = '';
-if(!$content["after"] || $content["after"] > 9999) $content["after"] = '';
-
+if(!$content["before"] || $content["before"] > 9999) {
+	$content["before"] = '';
+}
+if(!$content["after"] || $content["after"] > 9999) {
+	$content["after"] = '';
+}
 
 if(isset($_POST["target_ctype"])) {
 
@@ -67,14 +71,12 @@ if(isset($_POST["target_ctype"])) {
 
 }
 
-$content["sorting"] 	= intval($_POST["csorting"]);
-
-$content["block"]	 	= clean_slweg($_POST["cblock"]);
+$content["sorting"]	= intval($_POST["csorting"]);
+$content["block"]	= clean_slweg($_POST["cblock"]);
 // reset paginate page number to 0 > pagination support for CONTENT block only
 if($content["paginate_page"] && $content["block"] != 'CONTENT') {
 	$content["paginate_page"] = 0;
 }
-
 
 $content["tab"]			= '';
 $content['tab_type']	= empty($_POST['ctab']) ? 0 : intval($_POST['ctab']);
@@ -90,14 +92,12 @@ if($content['tab_type']) {
 	}
 }
 
-
 $content["module"]	 	= empty($_POST["ctype_module"]) ? '' : clean_slweg($_POST["ctype_module"]);
 
 // check if content type possibly changed
 $content["update_type"] = ($content["target_type"] != $content["type"]) ? 1 : 0;
 
 // read form vars for special content parts
-
 if($content["type"] != 30 && file_exists(PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php")) {
 	$content["module"]	= '';
 	include_once(PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php");

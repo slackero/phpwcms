@@ -1211,13 +1211,39 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'SUB', html_specialchars($article["article_subtitle"]));
 
 				// replace thumbnail and zoom image information
-				$tmpl = str_replace( array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
-											'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
-											'{IMAGE_ID}', 	'{IMAGE_HASH}', '{IMAGE_EXT}' ),
-									 array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
-											$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
-											$article["article_image"]["list_id"], $article["article_image"]["list_hash"], $img_thumb_ext ),
-									 $tmpl );
+				$tmpl = str_replace(
+					array(
+						'{THUMB_NAME}',
+						'{THUMB_REL}',
+						'{THUMB_ABS}',
+						'{THUMB_WIDTH}',
+						'{THUMB_HEIGHT}',
+						'{IMAGE_NAME}',
+						'{IMAGE_REL}',
+						'{IMAGE_ABS}',
+						'{IMAGE_WIDTH}',
+						'{IMAGE_HEIGHT}',
+						'{IMAGE_ID}',
+						'{IMAGE_HASH}',
+						'{IMAGE_EXT}'
+					),
+					array(
+						$img_thumb_name,
+						$img_thumb_rel,
+						$img_thumb_abs,
+						$img_thumb_width,
+						$img_thumb_height,
+						$img_zoom_name,
+						$img_zoom_rel,
+						$img_zoom_abs,
+						$img_zoom_width,
+						$img_zoom_height,
+						$article["article_image"]["list_id"],
+						$article["article_image"]["list_hash"],
+						$img_thumb_ext
+					),
+					$tmpl
+				);
 
 				if( preg_match('/\{SUMMARY:(\d+)\}/', $tmpl, $matches) ) {
 					if(empty($article['article_image']['list_maxwords'])) {
@@ -1236,8 +1262,30 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 						$article["article_summary"] = implode(' ', $article["article_summary"]);
 					}
 				}
+				$tmpl = render_cnt_template(
+					$tmpl,
+					'SUMMARY',
+					empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString(
+						$article["article_summary"],
+						$article['article_image']['list_maxwords'],
+						$template_default['ellipse_sign'], 'word', true
+					)
+				);
 
-				$tmpl = render_cnt_template($tmpl, 'SUMMARY', empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString($article["article_summary"], $article['article_image']['list_maxwords'], $template_default['ellipse_sign'], 'word', true));
+				// Render SYSTEM
+				if(strpos($tmpl, '[SYSTEM]') !== false) {
+					// Search for all system related content parts
+					$sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
+					$sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (1, 3) "; // 1 = article list, 3 = article detail OR list
+					if(!FEUSER_LOGIN_STATUS) {
+						$sql_cnt .= 'AND acontent_granted=0 ';
+					}
+					$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
+					$tmpl = render_cnt_template($tmpl, 'SYSTEM', showSelectedContent('CPC', $sql_cnt));
+				} else {
+					$tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
+				}
+
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
@@ -1252,12 +1300,10 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'BEFORE', '<!--before//-->');
 				$tmpl = render_cnt_template($tmpl, 'AFTER', '<!--after//-->');
 				$tmpl = render_cnt_date($tmpl, $article["article_date"], $article["article_livedate"], $article["article_killdate"] );
-				if($space_counter) {
-					$tmpl = render_cnt_template($tmpl, 'SPACE', '<!--space//-->');
-				} else {
-					$tmpl = render_cnt_template($tmpl, 'SPACE', '');
-				}
+				$tmpl = render_cnt_template($tmpl, 'SPACE', $space_counter ? '<!--space//-->' : '');
+
 				$listing .= $tmpl;
+
 				$article["article_image"]['tmpllist'] = 1;
 			} else {
 				$article["article_image"]['tmpllist'] = 0;

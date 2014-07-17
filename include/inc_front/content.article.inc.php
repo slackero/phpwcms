@@ -418,22 +418,57 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 			// replace thumbnail and zoom image information
 			$row["article_image"]['tmplfull'] = str_replace(
-								array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
-										'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
-										'{IMAGE_ID}',	'{IMAGE_HASH}', '{IMAGE_EXT}' ),
-								array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
-										$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
-										$row["article_image"]['id'], $row["article_image"]['hash'], $img_thumb_ext),
-								$row["article_image"]['tmplfull'] );
+				array(
+					'{THUMB_NAME}',
+					'{THUMB_REL}',
+					'{THUMB_ABS}',
+					'{THUMB_WIDTH}',
+					'{THUMB_HEIGHT}',
+					'{IMAGE_NAME}',
+					'{IMAGE_REL}',
+					'{IMAGE_ABS}',
+					'{IMAGE_WIDTH}',
+					'{IMAGE_HEIGHT}',
+					'{IMAGE_ID}',
+					'{IMAGE_HASH}',
+					'{IMAGE_EXT}'
+				),
+				array(
+					$img_thumb_name,
+					$img_thumb_rel,
+					$img_thumb_abs,
+					$img_thumb_width,
+					$img_thumb_height,
+					$img_zoom_name,
+					$img_zoom_rel,
+					$img_zoom_abs,
+					$img_zoom_width,
+					$img_zoom_height,
+					$row["article_image"]['id'],
+					$row["article_image"]['hash'],
+					$img_thumb_ext
+				),
+				$row["article_image"]['tmplfull']
+			);
 
-			// check if TITLE should be hidden
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'TITLE', $row["article_notitle"] ? '' : html_specialchars($row["article_title"]));
-
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUB', html_specialchars($row["article_subtitle"]));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'EDITOR', html_specialchars($row["article_username"]));
-
-			// when "hide summary" is enabled replace everything between [SUMMARY][/SUMMARY]
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_hidesummary"] ? '' : $row["article_summary"]);
+
+			// Render SYSTEM
+			if(strpos($row["article_image"]['tmplfull'], '[SYSTEM]') !== false) {
+				// Search for all system related content parts
+				$sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
+				$sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (2, 3) "; // 2 = article detail, 3 = article detail OR list
+				if(!FEUSER_LOGIN_STATUS) {
+					$sql_cnt .= 'AND acontent_granted=0 ';
+				}
+				$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
+				$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SYSTEM', showSelectedContent('CPC', $sql_cnt));
+			} else {
+				$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SYSTEM', '');
+			}
 
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));

@@ -8,8 +8,8 @@
  * @link http://www.phpwcms.de
  *
  **/
-define('PHPWCMS_VERSION',		'1.7.3');
-define('PHPWCMS_RELEASE_DATE',	'2014/07/03');
+define('PHPWCMS_VERSION',		'1.7.4');
+define('PHPWCMS_RELEASE_DATE',	'2014/07/17');
 define('PHPWCMS_REVISION',		'537');
 
 ?>

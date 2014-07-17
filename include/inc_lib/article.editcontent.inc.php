@@ -463,15 +463,16 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 
 	} elseif(intval($_GET["aktion"]) == 2) { //Neuen Artikelcontent erstellen
 
-		if(isset($content["error"])) unset($content["error"]); //fehler zurücksetzen
+		if(isset($content["error"])) {
+			unset($content["error"]); //reset Error
+		}
 		$content["media_control"] = 1; //Vordefinierte Werte
 
 		if(isset($_GET["acid"]) && intval($_GET["acid"])) {
 			$content["id"]  = intval($_GET["acid"]);
 			$content["aid"]	= intval($_GET["id"]);
 
-			$sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$content["id"]." AND ".
-					"acontent_aid=".$content["aid"]." LIMIT 1";
+			$sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$content["id"]." AND acontent_aid=".$content["aid"]." LIMIT 1";
 			if($result = mysql_query($sql, $db) or die("error while reading article content data")) {
 				if($row = mysql_fetch_array($result)) {
 					$content["title"]	 		= $row["acontent_title"];
@@ -490,6 +491,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 					$content["paginate_page"]	= $row["acontent_paginate_page"];
 					$content["granted"]			= $row["acontent_granted"];
 					$content["tab"]				= $row["acontent_tab"];
+					$content['tid']				= $row['acontent_tid'];
 
 					if($content["type"] != 30 && is_file(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 
@@ -512,14 +514,15 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 			}
 
 		} else {
-			$content["id"] 		= 0;
-			$content["aid"]		= intval($_GET["id"]);
+			$content["id"] 	= 0;
+			$content["aid"]	= intval($_GET["id"]);
+			$content['tid']	= 0;
 
 			if(isset($_POST["ctype"])) {
 
 				$content["type"]	= explode(':', $_POST["ctype"]);
 				$content["module"]	= empty($content["type"][1]) ? '' : trim($content["type"][1]);
-				$content["type"] = intval($content["type"][0]);
+				$content["type"]	= intval($content["type"][0]);
 
 			} else {
 
@@ -560,6 +563,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				$SQL .= "acontent_paginate_title	= '".aporeplace($content["paginate_title"])."', ";
 				$SQL .= "acontent_granted			= '".$content["granted"]."', ";
 				$SQL .= "acontent_tab				= '".aporeplace($content["tab"])."', ";
+				$SQL .= "acontent_tid				= '".aporeplace($content["tid"])."', ";
 
 				$WHERE = '';
 

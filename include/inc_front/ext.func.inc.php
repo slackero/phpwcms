@@ -283,18 +283,15 @@ function is_float_ex($pNum) {
 /*
  * {SHOW_CONTENT}
  * thanks to Jens Zetterström who has initiated this in 2005
- * Shows the content of the article content part with the specified id.
+ * Shows the content of the article content parts with the specified id.
  * use it {SHOW_CONTENT:MODE,id[,id[,...]]}
- * where MODE is what should returned
- * and id is the corresponding ID
- * MODE options:
- *   CP   - list of Content Parts | id = id of the content part, one or more possible, comma seperated.
- *   CPA  - ascending list of Content Parts but based on selected article  | id = id of article, comma seperated
- *   CPAD - same as CPA, but descending
- *   AS   - list of Article Summaries | id = id of articles, comma separated
- *   CAS  - list of Article Summaries | id = id of structure level, comma separated
+ * There are now even more possible options:
+ * CP, CPA, CPAD, CPS, CPAS, CPASD, AS, ASP, ASL, ASLD, ASK, ASKD, ASC, ASCD, ASR
+ * All AS* can have additional options:
+ * - AS*|topcount; AS*|topcount|template; AS*|template
+ * - AS*,new; AS*,random, AS*,related,keyword1,kewyword2,…
  */
-function showSelectedContent($param='') {
+function showSelectedContent($param='', $cpsql=null) {
 
 	global $template_default;
 	global $db;
@@ -306,64 +303,77 @@ function showSelectedContent($param='') {
 	$topcount	= 999999;
 	$template	= '';
 	$param		= is_array($param) && isset($param[1]) ? $param[1] : $param;
+	$type		= null;
+	$mode		= null;
 
-	if($cp = explode(',', $param)) {
-		$mode = strtoupper(trim($cp[0]));
-		$type = substr($mode, 0, 2);
-		if($type === 'AS') {
-			$mode = explode('|', $cp[0]);
-			if(isset($mode[1])) {
-				$mode[1] = trim($mode[1]);
-				if(is_numeric($mode[1])) {
-					$topcount = intval($mode[1]);
-				} elseif(empty($mode[2]) && strlen($mode[1]) > 4 && ($mode[1] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[1]))) {
-					$template = $mode[1];
+	if($cpsql === null) {
+		if($cp = explode(',', $param)) {
+			$mode = strtoupper(trim($cp[0]));
+			$type = substr($mode, 0, 2);
+			if($type === 'AS') {
+				$mode = explode('|', $cp[0]);
+				if(isset($mode[1])) {
+					$mode[1] = trim($mode[1]);
+					if(is_numeric($mode[1])) {
+						$topcount = intval($mode[1]);
+					} elseif(empty($mode[2]) && strlen($mode[1]) > 4 && ($mode[1] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[1]))) {
+						$template = $mode[1];
+					}
 				}
-			}
-			if(isset($mode[2])) {
-				$mode[2] = trim($mode[2]);
-				if(is_numeric($mode[2])) {
-					$topcount = intval($mode[2]);
-				} elseif(strlen($mode[2]) > 4 && ($mode[2] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[2]))) {
-					$template = $mode[2];
+				if(isset($mode[2])) {
+					$mode[2] = trim($mode[2]);
+					if(is_numeric($mode[2])) {
+						$topcount = intval($mode[2]);
+					} elseif(strlen($mode[2]) > 4 && ($mode[2] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[2]))) {
+						$template = $mode[2];
+					}
 				}
-			}
-			$mode = strtoupper(trim($mode[0]));
-			if(isset($cp[1])) { // now check if
-				$cp[1] = trim($cp[1]);
-				if(!is_numeric($cp[1])) {
-					switch($cp[1]) {
-						case 'new':		$cp = array('new' => 1);	break;
-						case 'random':	$cp = array('random' => 1);	break;
-						case 'related':	if(isset($cp[2])) {
-											unset($cp[0], $cp[1]);
-											$related = array();
-											foreach($cp as $value) {
-												$related[] = "article_keyword LIKE '%".aporeplace(strtoupper(trim($value)))."%'";
+				$mode = strtoupper(trim($mode[0]));
+				if(isset($cp[1])) { // now check if
+					$cp[1] = trim($cp[1]);
+					if(!is_numeric($cp[1])) {
+						switch($cp[1]) {
+							case 'new':		$cp = array('new' => 1);	break;
+							case 'random':	$cp = array('random' => 1);	break;
+							case 'related':	if(isset($cp[2])) {
+												unset($cp[0], $cp[1]);
+												$related = array();
+												foreach($cp as $value) {
+													$related[] = "article_keyword LIKE '%".aporeplace(strtoupper(trim($value)))."%'";
+												}
+												$cp = array('related' => 1); break;
 											}
-											$cp = array('related' => 1); break;
-										}
 
-						default:		$cp = array('new' => 1);
+							default:		$cp = array('new' => 1);
+						}
 					}
 				}
 			}
-		}
-		unset($cp[0]);
-		foreach($cp as $key => $value) {
-			$value = intval($value);
-			if(!$value) {
-				unset($cp[$key]);
-			} else {
-				$cp[$key] = $value;
+			unset($cp[0]);
+			foreach($cp as $key => $value) {
+				$value = intval($value);
+				if(!$value) {
+					unset($cp[$key]);
+				} else {
+					$cp[$key] = $value;
+				}
 			}
-		}
-		if(!is_array($cp) || !count($cp)) {
+			if(!is_array($cp) || !count($cp)) {
+				return '';
+			}
+		} else {
+			// oh no ID given, end function
 			return '';
 		}
-	} else {
-		// oh no ID given, end function
-		return '';
+
+	} elseif(is_string($cpsql)) {
+
+		// Otherwise custom SQL
+		// and fallback to CPC mode
+		$type	= 'CP';
+		$mode	= 'CPC';
+		$cp		= array(0);
+
 	}
 
 	$CNT_TMP = '';
@@ -400,10 +410,9 @@ function showSelectedContent($param='') {
 
 		foreach($cp as $value) {
 
-			$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-
 			if($mode == 'CP') {
 				// content part listing
+				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 				$sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
 				$sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
@@ -419,6 +428,7 @@ function showSelectedContent($param='') {
 
 			} elseif($mode == 'CPS') {
 
+				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 				$sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
 				$sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
@@ -432,8 +442,14 @@ function showSelectedContent($param='') {
 				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
 				$sql .= "LIMIT 1";
 
+			} elseif($mode == 'CPC') {
+
+				$sql = $cpsql;
+
 			} else {
+
 				// content parts based on article ID
+				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
 
 				if($mode == 'CPAS' || $mode == 'CPASD') {
@@ -450,7 +466,7 @@ function showSelectedContent($param='') {
 
 			}
 
-			if($cresult = mysql_query($sql, $db)) {
+			if(!empty($sql) && ($cresult = mysql_query($sql, $db))) {
 				while($crow = mysql_fetch_assoc($cresult))	{
 
 					if($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]])) {
@@ -505,7 +521,7 @@ function showSelectedContent($param='') {
 	if(empty($phpwcms["allow_cntPHP_rt"])) {
 		$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 	}
-	return $CNT_TMP;
+	return trim($CNT_TMP);
 }
 
 function getContentPartSpacer($space_before=0, $space_after=0) {

@@ -1371,5 +1371,6 @@ $BL['be_tag']							= 'tag';
 
 $BL['be_system_container']				= 'system container';
 $BL['be_system_container_norender']		= 'no regular frontend rendering';
+$BL['be_custom_scriptlogic']			= 'custom (script logic)';
 
 ?>
