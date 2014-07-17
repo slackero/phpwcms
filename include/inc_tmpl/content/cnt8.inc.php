@@ -327,11 +327,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td align="right" valign="top" class="chatlist" style="padding-top:6px;"><?php echo $BL['be_cnt_sitelevel'] ?>:&nbsp;</td>
 	<td style="padding-top:3px;"><select name="calink_level[]" size="15" multiple="multiple" class="f11 optionhover" id="calink_level" style="width: 440px">
 <?php
-
-				echo '<option value="0"';
-				if(in_array(0, $content['alink']['alink_level'])) echo ' selected="selected"';
-				echo '>'.html($indexpage['acat_name']).'</option>'.LF;
-				struct_select_list(0, 0, $content['alink']['alink_level']);
+		echo '<option value="0"';
+		if(in_array(0, $content['alink']['alink_level'])) {
+			echo ' selected="selected"';
+		}
+		echo '>'.html($indexpage['acat_name']).'</option>'.LF;
+		struct_select_list(0, 0, $content['alink']['alink_level']);
 ?>
 	</select></td>
 </tr>

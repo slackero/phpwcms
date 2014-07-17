@@ -40,10 +40,10 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 		  	<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_article_cat'] ?>:&nbsp;</td>
 				<td><select name="article_cid" id="article_cid" style="width: 325px" class="f11b">
-      		<?php
-				//keine definierte Kategorie = allgemeine Artikelkategorie
-				echo "<option value='0'".((!$article["article_catid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
-				struct_select_menu(0, 0, $article["article_catid"]);
+				<?php
+					//keine definierte Kategorie = allgemeine Artikelkategorie
+					echo '<option value="0"'.((!$article["article_catid"])?' selected="selected"':'').">".$BL['be_admin_struct_index']."</option>\n";
+					struct_select_menu(0, 0, $article["article_catid"]);
 				?>
 				</select></td>
 			</tr>
@@ -170,7 +170,7 @@ calEnd.setYearCombo(false);
 
 <?php		foreach($phpwcms['allowed_lang'] as $key => $lang):
 
-					$lang			= strtolower($lang);
+					$lang = strtolower($lang);
 
 					if($lang == $phpwcms['default_lang']) {
 						continue;
@@ -697,7 +697,7 @@ $(function(){
 	});
 
 	$('#struct_alias').click(function() {
-		var struct		= $('#article_cid option:selected').text();
+		var struct		= '<?php echo get_struct_alias($article["article_catid"]) ?>'; //$('#article_cid option:selected').text();
 		var title		= $('#article_title').val().trim();
 		var alias		= $('#article_alias');
 

@@ -9,7 +9,6 @@
  *
  **/
 
-
 //Baut das Level Struktur Auswahlmenü
 function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='option') {
 
@@ -106,7 +105,7 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id) {
 		foreach($struct as $key => $value) {
 			echo '<option value="'.$struct[$key]["acat_id"].'"';
 			if(in_array($struct[$key]["acat_id"], $selected_id)) {
-				echo ' selected';
+				echo ' selected="selected"';
 			}
 			echo '>'.str_repeat("&#8212;", $counter).' '.html($struct[$key]["acat_name"]);
 			echo '</option>'.LF;

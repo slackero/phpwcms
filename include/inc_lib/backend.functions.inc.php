@@ -1203,4 +1203,44 @@ function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
 	return $vor;
 }
 
+function get_struct_alias($start_id=0) {
+
+	if($start_id == 0) {
+		return '';
+	}
+	$start_id = intval($start_id);
+
+	$sql  = "SELECT acat_id, acat_struct, acat_name, acat_pagetitle FROM ".DB_PREPEND."phpwcms_articlecat ";
+	$sql .= "WHERE acat_trash=0 ORDER BY acat_struct, acat_sort";
+
+	$result = _dbQuery($sql);
+	$struct_array = array();
+
+	if(isset($result[0]['acat_id'])) {
+		foreach($result as $value) {
+			$value['acat_id']					= intval($value['acat_id']);
+			$value['acat_struct']				= intval($value['acat_struct']);
+			$struct_array[$value['acat_id']]	= $value;
+		}
+	}
+
+	$data = array();
+	while($start_id && isset($struct_array[$start_id])) {
+		if(!empty($struct_array[$start_id]['acat_pagetitle'])) {
+			$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
+		} else {
+			$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
+		}
+		$start_id = $struct_array[$start_id]["acat_struct"];
+	}
+	if(!empty($struct_array[$start_id]['acat_pagetitle'])) {
+		$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
+	} elseif(!empty($struct_array[$start_id]['acat_name'])) {
+		$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
+	}
+
+	return implode($GLOBALS['phpwcms']['alias_allow_slash'] ? '/' : '-', array_reverse($data));
+}
+
+
 ?>

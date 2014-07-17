@@ -125,10 +125,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_search_startlevel'] ?>:&nbsp;</td>
 	<td><select name="csearch_start_at[]" size="10" multiple="multiple" class="f11" id="csearch_start_at" style="width: 440px">
 <?php
-				if(!isset($content["search"]["start_at"]) || !is_array($content["search"]["start_at"])) $content["search"]["start_at"] = array();
+				if(!isset($content["search"]["start_at"]) || !is_array($content["search"]["start_at"])) {
+					$content["search"]["start_at"] = array();
+				}
 
 				echo '<option value="0"';
-				if(in_array(0, $content["search"]["start_at"])) echo ' selected';
+				if(in_array(0, $content["search"]["start_at"])) {
+					echo ' selected="selected"';
+				}
 				echo '>'.$BL['be_admin_struct_index'].'</option>'.LF;
 				struct_select_list(0, 0, $content["search"]["start_at"]);
 ?>

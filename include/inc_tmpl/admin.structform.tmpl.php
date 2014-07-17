@@ -135,10 +135,9 @@ switch($acat_hidden) {
 		  <tr>
 		  	<td>
 				<table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
-
 					<tr>
 						<td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>
-						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $parentStructData["acat_name"] ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
+						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo get_struct_alias($acat_struct) ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
 						<td style="width:10px">&nbsp;</td>
 						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
 					</tr>
