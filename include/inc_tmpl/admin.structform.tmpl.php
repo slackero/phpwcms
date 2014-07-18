@@ -58,7 +58,7 @@ if($_GET['struct'] === 'index') {
 
 } elseif(!isset($acat_title)) {
 
-	$parentStructData = getParentStructArray($_GET["struct"]);
+	$parentStructData	= getParentStructArray($_GET["struct"]);
 
 	$acat_title			= '';
 	$acat_info			= '';
@@ -86,7 +86,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
 	$acat_disable301	= 0;
-	$acat_opengraph		= 1;
+	$acat_opengraph		= empty($phpwcms['set_sociallink']['articlecat']) ? 0 : 1;
 
 }
 

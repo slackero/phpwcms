@@ -30,7 +30,7 @@ $content['404error']			= array('status' => false, 'id' => '', 'aid' => '', 'alia
 $content['set_canonical']		= false;
 $content['cptab']				= array(); // array to hold content part based tabs
 $content['images']				= array();
-$content['opengraph']			= array('support' => true, 'type' => 'website'); // will hold all relevant open graph information
+$content['opengraph']			= array('support' => empty($phpwcms['set_sociallink']['render']) ? false : true, 'type' => 'website'); // will hold all relevant open graph information
 $pagelayout						= array();
 $no_content_for_this_page		= false;
 $alias							= '';

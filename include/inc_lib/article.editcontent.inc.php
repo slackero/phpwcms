@@ -142,7 +142,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		$article['article_lang']				= '';
 		$article['article_lang_type']			= '';
 		$article['article_lang_id']				= 0;
-		$article['article_opengraph']			= 1;
+		$article['article_opengraph']			= empty($phpwcms['set_sociallink']['article']) ? 0 : 1;
 
 		$article['image']						= array();
 		$article['image']['tmpllist']			= 'default';

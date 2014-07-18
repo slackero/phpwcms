@@ -20,7 +20,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 		$structure = array();
 	}
 
-	$sql = "SELECT acat_id, acat_name, acat_aktiv, acat_regonly FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
+	$sql = "SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
 	if($result = mysql_query($sql, $GLOBALS['db']) or die ("error while building struct select menu (ID:".$struct_id)) {
 		$sx=0;
 		while($row = mysql_fetch_assoc($result)) {
@@ -61,6 +61,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 
 				echo '<option value="', $value["acat_id"], '"';
 				if($selected_id==$value["acat_id"]) {
+					define('ACAT_OPENGRAPH_STATUS', empty($value["acat_opengraph"]) ? false : true);
 					echo ' selected="selected"';
 				}
 				echo '>', $value["acat_name"], '</option>', LF;

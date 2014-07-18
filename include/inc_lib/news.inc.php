@@ -547,7 +547,7 @@ class phpwcmsNews {
 			'cnt_livedate'			=> '',
 			'cnt_killdate'			=> '',
 			'cnt_sort'				=> 0,
-			'cnt_opengraph'			=> 1,
+			'cnt_opengraph'			=> empty($this->phpwcms['set_sociallink']['news']) ? 0 : 1,
 			'cnt_textformat'		=> 'plain',
 			'cnt_searchoff'			=> 0
 		);

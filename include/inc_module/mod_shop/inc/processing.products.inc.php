@@ -329,7 +329,7 @@ if($action == 'edit') {
 		$plugin['data']['shopprod_listall']			= 0;
 		$plugin['data']['shopprod_lang']			= '';
 		$plugin['data']['shopprod_overwrite_meta']	= 1;
-		$plugin['data']['shopprod_opengraph']		= 1;
+		$plugin['data']['shopprod_opengraph']		= empty($phpwcms['set_sociallink']['shop']) ? 0 : 1;
 
 	} else {
 

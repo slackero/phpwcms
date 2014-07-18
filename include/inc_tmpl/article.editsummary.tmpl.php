@@ -48,7 +48,6 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 				</select></td>
 			</tr>
 
-
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 			<tr>
@@ -597,6 +596,7 @@ echo '<option value="172800"'.is_selected($article["article_timeout"], '172800',
 echo '<option value="604800"'.is_selected($article["article_timeout"], '604800', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_week']."</option>\n";
 echo '<option value="1209600"'.is_selected($article["article_timeout"], '1209600', 0, 0).'>&nbsp;&nbsp;2 '.$BL['be_date_weeks']."</option>\n";
 echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_month']."</option>\n";
+
 ?>
 				        </select></td>
 				  <td>&nbsp;<?php echo $BL['be_cache_timeout'] ?>&nbsp;&nbsp;</td>
@@ -619,6 +619,12 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 							&nbsp;
 							<label for="article_norss"><input name="article_norss" type="checkbox" id="article_norss" value="1" <?php is_checked(1, $article['article_norss']); ?> />&nbsp;<?php echo $BL['be_no_rss'] ?></label>
 							&nbsp;
+<?php
+							// Opengraph fallback when creating a new article
+							if(!isset($_POST['article_title']) && empty($article["article_id"]) && defined('ACAT_OPENGRAPH_STATUS') && ACAT_OPENGRAPH_STATUS === false) {
+								$article['article_opengraph'] = 0;
+							}
+?>
 							<label for="article_opengraph"><input name="article_opengraph" type="checkbox" id="article_opengraph" value="1" <?php is_checked(1, $article['article_opengraph']); ?> />&nbsp;<?php echo $BL['be_opengraph_support'] ?></label>
 							&nbsp;
 						</td>

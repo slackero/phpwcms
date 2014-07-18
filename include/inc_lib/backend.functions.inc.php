@@ -29,6 +29,11 @@ if(!isset($phpwcms['set_file_active'])) {
 if(!isset($phpwcms['set_news_active'])) {
 	$phpwcms['set_news_active'] = 1;
 }
+if(isset($phpwcms['set_sociallink']) && is_array($phpwcms['set_sociallink'])) {
+	$phpwcms['set_sociallink'] = array_merge(array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true), $phpwcms['set_sociallink']);
+} else {
+	$phpwcms['set_sociallink'] = array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true);
+}
 
 // general functions used in backend only
 function update_cache() {
