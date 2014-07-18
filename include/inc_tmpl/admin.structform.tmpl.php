@@ -121,6 +121,12 @@ switch($acat_hidden) {
 				echo $BL['be_admin_struct_index'];
 				$parentStructData = array("acat_name" => $BL['be_admin_struct_index']);
 			}
+
+			$acat_struct_alias = get_struct_alias($acat_struct);
+			if(empty($acat_struct_alias) && $acat_id != 'index') {
+				$acat_struct_alias = $parentStructData["acat_name"];
+			}
+
 		  ?></strong></td>
           </tr>
 		  <tr><td><img src="img/leer.gif" width="1" height="4" alt="" /></td></tr>
@@ -137,7 +143,7 @@ switch($acat_hidden) {
 				<table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
 					<tr>
 						<td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>
-						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo get_struct_alias($acat_struct) ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
+						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
 						<td style="width:10px">&nbsp;</td>
 						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
 					</tr>
@@ -177,7 +183,7 @@ switch($acat_hidden) {
 
 <?php		foreach($phpwcms['allowed_lang'] as $key => $lang):
 
-				$lang			= strtolower($lang);
+				$lang = strtolower($lang);
 
 				if($lang == $phpwcms['default_lang']) {
 					continue;

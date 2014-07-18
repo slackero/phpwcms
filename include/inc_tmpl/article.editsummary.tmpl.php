@@ -703,7 +703,7 @@ $(function(){
 	});
 
 	$('#struct_alias').click(function() {
-		var struct		= '<?php echo get_struct_alias($article["article_catid"]) ?>'; //$('#article_cid option:selected').text();
+		var struct		= '<?php echo get_struct_alias($article["article_catid"]) ?>' || $('#article_cid option:selected').text();
 		var title		= $('#article_title').val().trim();
 		var alias		= $('#article_alias');
 
