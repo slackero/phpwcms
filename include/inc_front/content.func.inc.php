@@ -30,7 +30,7 @@ $content['404error']			= array('status' => false, 'id' => '', 'aid' => '', 'alia
 $content['set_canonical']		= false;
 $content['cptab']				= array(); // array to hold content part based tabs
 $content['images']				= array();
-$content['opengraph']			= array('support' => empty($phpwcms['set_sociallink']['render']) ? false : true, 'type' => 'website'); // will hold all relevant open graph information
+$content['opengraph']			= array('support' => true, 'type' => 'website', 'render' => empty($phpwcms['set_sociallink']['render']) ? false : true); // will hold all relevant open graph information
 $pagelayout						= array();
 $no_content_for_this_page		= false;
 $alias							= '';
@@ -988,7 +988,7 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 }
 
 // Built-in Open Graph rendering
-if($content['opengraph']['support']) {
+if($content['opengraph']['render']) {
 	set_meta('og:type', $content['opengraph']['type'], 'property');
 	set_meta('og:title', sanitize_replacement_tags($content['opengraph']['title']), 'property');
 	if(empty($content['opengraph']['url'])) {
