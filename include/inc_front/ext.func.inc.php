@@ -453,9 +453,9 @@ function showSelectedContent($param='', $cpsql=null) {
 				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
 
 				if($mode == 'CPAS' || $mode == 'CPASD') {
-					$sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
-				} else {
 					$sql .= "AND acontent_block='SYSTEM' ";
+				} else {
+					$sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
 				}
 
 				if( !FEUSER_LOGIN_STATUS ) {
