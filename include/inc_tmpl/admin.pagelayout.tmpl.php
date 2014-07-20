@@ -73,7 +73,7 @@ if(!isset($_GET["s"])) {
 
 		// read the full pagelayout values
 		$pagelayout["id"]                         = intval($_POST["layout_id"]);
-		$pagelayout["layout_name"]                = empty($pagelayout["layout_name"]) ? $BL['be_subnav_admin_pagelayout'].' ('.date('Ymd-His', now()).')' : clean_slweg($_POST["layout_name"], 200);
+		$pagelayout["layout_name"]                = empty($_POST["layout_name"]) ? $BL['be_subnav_admin_pagelayout'].' ('.date('Ymd-His', now()).')' : clean_slweg($_POST["layout_name"], 200);
 		$pagelayout["layout_default"]             = isset($_POST["layout_default"]) ? intval($_POST["layout_default"]) : 0;
 
 		$pagelayout["layout_align"]               = intval($_POST["layout_align"]);
