@@ -17,30 +17,35 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-
 // Content Type Reference
 
 $content['reference'] = unserialize($crow["acontent_form"]);
-$content['reference']["tmpl"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/reference/'.$content['reference']["tmpl"]) );
-if(!$content['reference']["tmpl"]) {
 
-	$content['reference']["tmpl"] = '<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="1%" valign="top"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
-      <tr><td>[REF]{REF}[/REF]</td></tr>
-      [CAPTION]<tr><td>{CAPTION}</td></tr>[/CAPTION]
-    </table>
-    [LIST]{LIST}[/LIST]</td>
-    <td width="14" valign="top">&nbsp;</td>
-    <td width="98%" valign="top">[TITLE]<h3>{TITLE}</h3>[/TITLE]
-[SUB]<h4>{SUB}</h4>[/SUB]
-[TEXT]<p>{TEXT}</p>[/TEXT]</td>
-  </tr>
-</table>';
+if(empty($content['reference']["tmpl"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/reference.tmpl')) {
+
+	$content['reference']["tmpl"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/reference.tmpl') );
+
+} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/reference/'.$content['reference']["tmpl"])) {
+
+	$content['reference']["tmpl"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/reference/'.$content['reference']["tmpl"]) );
+
+} else {
+
+	$content['reference']["tmpl"] = '	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td width="1%" valign="top"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	      <tr><td>[REF]{REF}[/REF]</td></tr>
+	      [CAPTION]<tr><td>{CAPTION}</td></tr>[/CAPTION]
+	    </table>
+	    [LIST]{LIST}[/LIST]</td>
+	    <td width="14" valign="top">&nbsp;</td>
+	    <td width="98%" valign="top">[TITLE]<h3>{TITLE}</h3>[/TITLE]
+	[SUB]<h4>{SUB}</h4>[/SUB]
+	[TEXT]<p>{TEXT}</p>[/TEXT]</td>
+	  </tr>
+	</table>';
 
 }
-
-
 
 $content['reference']['ref_caption'] = '';
 $content['reference']['ref_image']   = '[NO&nbsp;IMAGE]';
@@ -223,14 +228,12 @@ if($content['reference']['ref_count']) {
 
 }
 
-
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'TITLE', html_specialchars($crow["acontent_title"]));
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'SUB', html_specialchars($crow["acontent_subtitle"]));
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'TEXT', nl2br($content['reference']["text"]));
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'CAPTION', $content['reference']['ref_caption']);
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'LIST', $content['reference']['ref_list']);
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'REF', $content['reference']['ref_image']);
-
 
 $CNT_TMP .= $content['reference']["tmpl"];
 

@@ -46,17 +46,17 @@ $img_thumbs = '';
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
 	<td><select name="creference_tmpl" id="creference_tmpl" class="f11b">
-  <?php
-// templates for Reference
-$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/reference');
-if(is_array($tmpllist) && count($tmpllist)) {
-	foreach($tmpllist as $val) {
-		$vals = '';
-		if($val == $content["reference"]['tmpl']) $vals= ' selected="selected"';
-		$val = htmlspecialchars($val);
-		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
+<?php
+
+	// templates for Reference
+	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+	$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/reference');
+	if(is_array($tmpllist) && count($tmpllist)) {
+		foreach($tmpllist as $val) {
+			$val = htmlspecialchars($val);
+			echo '<option value="' . $val . '"' . ($val == $content["reference"]['tmpl'] ? ' selected="selected"' : '' ).'>' . $val . "</option>\n";
+		}
 	}
-}
 
 ?>
 	  </select></td></tr>
@@ -73,7 +73,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td valign="top"><select name="cimage_list[]" size="<?php echo (count($content['reference']["select"]))?(count($content['reference']["select"])+5):5; ?>" multiple class="f11" id="cimage_list" style="width: 300px;">
+        <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 5 : 5; ?>" multiple class="f11 width300" id="cimage_list">
             <?php
 				    if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
 
