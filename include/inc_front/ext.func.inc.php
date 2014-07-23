@@ -291,7 +291,7 @@ function is_float_ex($pNum) {
  * - AS*|topcount; AS*|topcount|template; AS*|template
  * - AS*,new; AS*,random, AS*,related,keyword1,kewyword2,…
  */
-function showSelectedContent($param='', $cpsql=null) {
+function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
 	global $template_default;
 	global $db;
@@ -477,6 +477,10 @@ function showSelectedContent($param='', $cpsql=null) {
 						// first retrieve alias ID information and settings
 						$crow = getContentPartAlias($crow);
 					}
+
+					// Set listmode setting, allows fallback listmode content part template
+					// for content parts which supports it (ToDo extend it)
+					$crow['acontent_template_listmode'] = $listmode;
 
 					$space = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
 

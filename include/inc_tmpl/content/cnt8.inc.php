@@ -77,16 +77,19 @@ initMootoolsAutocompleter();
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].' &lt;ul&gt;&lt;li&gt;</option>'.LF;
 
-// templates for forum
-$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/teaser');
-if(is_array($tmpllist) && count($tmpllist)) {
-	foreach($tmpllist as $val) {
-		$vals = '';
-		if($val == $content['alink']['alink_template']) $vals= ' selected="selected"';
-		$val = html($val);
-		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
+	// templates for forum
+	$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/teaser');
+	if(is_array($tmpllist) && count($tmpllist)) {
+		foreach($tmpllist as $val) {
+			// do not show listmode templates
+			if(substr($val, 0, 5) == 'list.') {
+				continue;
+			}
+			$vals = ($val == $content['alink']['alink_template']) ? ' selected="selected"' : '';
+			$val = html($val);
+			echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
+		}
 	}
-}
 
 ?>
 	</select></td>
@@ -104,7 +107,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<td>&nbsp;&nbsp;&nbsp;</td>
 		<td class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
 		<td><input name="calink_columns" type="text" id="calink_columns" class="f11b" style="width: 35px" value="<?php echo $content['alink']['alink_columns']; ?>" size="3" maxlength="3" /></td>
-
 	</tr>
 	</table>
 	</td>

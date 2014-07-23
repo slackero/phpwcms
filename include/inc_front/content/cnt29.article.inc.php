@@ -19,25 +19,30 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 //images (gallery)
+$image = @unserialize($crow["acontent_form"]);
+$crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
 
+// get template
+if($crow['acontent_template_listmode'] && empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/list.images.tmpl')) {
 
-$image	= @unserialize($crow["acontent_form"]);
+	$image['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/list.images.tmpl') );
 
+} elseif(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/images.tmpl')) {
 
-// read template
-if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/images.tmpl')) {
+	$image['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/images.tmpl') );
 
-	$image['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/images.tmpl') );
+} elseif($crow['acontent_template_listmode'] && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/images/list.'.$crow["acontent_template"])) {
+
+	$image['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/images/list.'.$crow["acontent_template"]) );
 
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/images/'.$crow["acontent_template"])) {
 
-	$image['template']	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/images/'.$crow["acontent_template"]) );
+	$image['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/images/'.$crow["acontent_template"]) );
 
 } else {
 
-	$image['template']	= '';
+	$image['template'] = '';
 
 }
 

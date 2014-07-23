@@ -75,15 +75,19 @@ $img_count = isset($content["image_list"]['images']) && is_array($content["image
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
-// templates for frontend login
-$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/images');
-if(is_array($tmpllist) && count($tmpllist)) {
-	foreach($tmpllist as $val) {
-		$selected_val = (isset($content["image_template"]) && $val == $content["image_template"]) ? ' selected="selected"' : '';
-		$val = html($val);
-		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+	// templates for frontend login
+	$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/images');
+	if(is_array($tmpllist) && count($tmpllist)) {
+		foreach($tmpllist as $val) {
+			// do not show listmode templates
+			if(substr($val, 0, 5) == 'list.') {
+				continue;
+			}
+			$selected_val = (isset($content["image_template"]) && $val == $content["image_template"]) ? ' selected="selected"' : '';
+			$val = html($val);
+			echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+		}
 	}
-}
 
 ?>
 		</select></td>

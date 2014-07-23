@@ -61,10 +61,7 @@ $content['image_default'] = array(
 
 $content['image_special'] = isset($content['image_special']) ? array_merge($content['image_default'], $content['image_special']) : $content['image_default'];
 
-
-
 ?>
-
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
@@ -79,6 +76,10 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 	$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/imagespecial');
 	if(is_array($tmpllist) && count($tmpllist)) {
 		foreach($tmpllist as $val) {
+			// do not show listmode templates
+			if(substr($val, 0, 5) == 'list.') {
+				continue;
+			}
 			$selected_val = (isset($content["image_template"]) && $val == $content["image_template"]) ? ' selected="selected"' : '';
 			$val = html($val);
 			echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;

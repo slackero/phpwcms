@@ -92,8 +92,7 @@ function add_attribute($baseval, $attribute, $val, $space=" ") {
 function add_style_attribute($attribute='', $val='') {
 	//to add all relevant attributes that contains
 	//values to a string maybe a html tag
-	$attribute = isEmpty(strval($val)) ? '' : $attribute.': '.$val.';';
-	return $attribute;
+	return $attribute.': '.$val.';';
 }
 
 function html_attribute($attribute='', $val='') {
@@ -110,75 +109,72 @@ function get_body_attributes(& $values) {
 	//return a standard list of standard html body attributes
 	//based on the pagelayout definitions
 	$body_class	= '';
-	$link_class	= '';
 	if(is_array($values)) {
+		$link_class	= '';
 		if(empty($values["layout_noborder"])) {
-			$body_class .= add_style_attribute('		margin', '0').LF;
-			$body_class .= add_style_attribute('		padding-top',		empty($values["layout_border_top"])		? '0' : intval($values["layout_border_top"])   .'px').LF;
-			$body_class .= add_style_attribute('		padding-bottom',	empty($values["layout_border_bottom"])	? '0' : intval($values["layout_border_bottom"]).'px').LF;
-			$body_class .= add_style_attribute('		padding-left',	empty($values["layout_border_left"]) 	? '0' : intval($values["layout_border_left"])  .'px').LF;
-			$body_class .= add_style_attribute('		padding-right', 	empty($values["layout_border_right"]) 	? '0' : intval($values["layout_border_right"]) .'px').LF;
-			$body_class .= LF;
+			$body_class .= add_style_attribute('margin', '0');
+			$body_class .= add_style_attribute('padding-top', empty($values["layout_border_top"]) ? '0' : intval($values["layout_border_top"]).'px');
+			$body_class .= add_style_attribute('padding-bottom', empty($values["layout_border_bottom"]) ? '0' : intval($values["layout_border_bottom"]).'px');
+			$body_class .= add_style_attribute('padding-left', empty($values["layout_border_left"]) ? '0' : intval($values["layout_border_left"]).'px');
+			$body_class .= add_style_attribute('padding-right', empty($values["layout_border_right"]) ? '0' : intval($values["layout_border_right"]).'px');
 		}
 		if(!empty($values["layout_bgcolor"])) {
-			$body_class .= add_style_attribute('		background-color', $values["layout_bgcolor"]);
-			$body_class .= LF;
+			$body_class .= add_style_attribute('background-color', $values["layout_bgcolor"]);
 		}
 		if(!empty($values["layout_bgimage"])) {
-			$body_class .= add_style_attribute('		background-image', 'url('.$values["layout_bgimage"].')');
-			$body_class .= LF;
+			$body_class .= add_style_attribute('background-image', 'url('.$values["layout_bgimage"].')');
 		}
 		if(!empty($values["layout_textcolor"])) {
-			$body_class .= add_style_attribute('		color', $values["layout_textcolor"]);
-			$body_class .= LF;
+			$body_class .= add_style_attribute('color', $values["layout_textcolor"]);
 		}
-		if(!empty($body_class)) {
-			$body_class  = '	body {'.LF.$body_class.'	}'.LF;
+		if($body_class) {
+			$body_class  = '	body {'.$body_class.'}'.LF;
 		}
 		if(!empty($values["layout_linkcolor"])) {
-			$link_class .= '	a, a:link, a:active, a:visited, a:hover { color: '.$values["layout_linkcolor"].'; }';
-			$link_class .= LF;
+			$link_class .= '	a, a:link, a:active, a:visited, a:hover {color:'.$values["layout_linkcolor"].';}'.LF;
 		}
 		if(!empty($values["layout_vcolor"])) {
-			$link_class .= '	a:visited { color: '.$values["layout_vcolor"].'; }';
-			$link_class .= LF;
+			$link_class .= '	a:visited {color:'.$values["layout_vcolor"].';}'.LF;
 		}
 		if(!empty($values["layout_acolor"])) {
-			$link_class .= '	a:active { color: '.$values["layout_acolor"].'; }';
-			$link_class .= LF;
+			$link_class .= '	a:active {color:'.$values["layout_acolor"].';}'.LF;
 		}
 		if(!empty($body_class) || !empty($link_class)) {
-			$body_class  = '  <style type="text/css">'.LF. $body_class;
-			$body_class .= $link_class . '  </style>'.LF;
+			$body_class  = '  <style type="text/css">'.LF.$body_class.$link_class.'  </style>'.LF;
 		}
-		return $body_class;
 	}
-	return '';
+	return $body_class;
 }
 
 function align_base_layout($value) {
 	//to get the alignment of the base layout table
-	switch($value) {
-		case  1: $align = "center"; break;
-		case  2: $align = "right"; break;
-		default: $align = 0;
+	if($value === 1) {
+		return ' align="center"';
+	} elseif($value === 2) {
+		return ' align="right"';
 	}
-	return ($align) ? ' align="'.$align.'"' : '';
+	return '';
 }
 
 function get_colspan($value) {
 	//returns colspan value back to table row
-	if(!isset($value["layout_type"]))				$value["layout_type"] = 0;
+	if(empty($value["layout_type"])) {
+		$value["layout_type"] = 0;
+	}
 	switch($value["layout_type"]) {
-		case  0:	$col=3; break;
-		case  1:	$col=2; break;
-		case  2:	$col=2; break;
-		case  3:	$col=0; break;
+		case 0:		$col=3; break;
+		case 1:		$col=2; break;
+		case 2:		$col=2; break;
+		case 3:		$col=0; break;
 		default:	$col=3;
 	}
-	if(!empty($value["layout_leftspace_width"]))  $col++;
-	if(!empty($value["layout_rightspace_width"])) $col++;
-	return ($col) ? (' colspan="'.$col.'"') : '';
+	if(!empty($value["layout_leftspace_width"])) {
+		$col++;
+	}
+	if(!empty($value["layout_rightspace_width"])) {
+		$col++;
+	}
+	return $col ? ' colspan="'.$col.'"' : '';
 }
 
 function colspan_table_row($val, $block, $colspan="", $rowcontent="&nbsp;") {
@@ -1176,7 +1172,6 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 			}
 
-
 			// set default template
 			if(empty($article["article_image"]['tmpllist']) || $article["article_image"]['tmpllist'] == 'default') {
 
@@ -1281,7 +1276,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 						$sql_cnt .= 'AND acontent_granted=0 ';
 					}
 					$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
-					$tmpl = render_cnt_template($tmpl, 'SYSTEM', showSelectedContent('CPC', $sql_cnt));
+					$tmpl = render_cnt_template($tmpl, 'SYSTEM', showSelectedContent('CPC', $sql_cnt, true));
 				} else {
 					$tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
 				}

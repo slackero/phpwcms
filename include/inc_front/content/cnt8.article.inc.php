@@ -33,9 +33,19 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 		$content['UNIQUE_ALINK'] = array();
 	}
 
-	if(!empty($content['alink']['alink_template']) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/'.$content['alink']['alink_template'])) {
+	$crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
+
+	if($crow['acontent_template_listmode'] && !empty($content['alink']['alink_template']) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/list.'.$content['alink']['alink_template'])) {
+
+		$content['alink']['alink_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/list.'.$content['alink']['alink_template']) );
+
+	} elseif(!empty($content['alink']['alink_template']) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/'.$content['alink']['alink_template'])) {
 
 		$content['alink']['alink_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/'.$content['alink']['alink_template']) );
+
+	} elseif($crow['acontent_template_listmode'] && is_file(PHPWCMS_TEMPLATE.'inc_default/list.teaser.tmpl')) {
+
+		$content['alink']['alink_template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/list.teaser.tmpl') );
 
 	} elseif(is_file(PHPWCMS_TEMPLATE.'inc_default/teaser.tmpl')) {
 
