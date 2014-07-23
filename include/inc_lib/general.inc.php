@@ -1424,25 +1424,29 @@ function returnFileListAsArray($dir='', $extfilter='') {
 		return false;
 	}
 
-	$files		= array();
-	$ph			= opendir($dir);
-	$extfilter	= strtolower(trim($extfilter));
-	$extfilter	= $extfilter ? convertStringToArray($extfilter) : array();
-	$dofilter	= count($extfilter) ? true : false;
+	$files	= array();
+	$ph		= opendir($dir);
+	if(empty($extfilter)) {
+		$extfilter = array();
+	} elseif(is_string($extfilter)) {
+		$extfilter = convertStringToArray(strtolower(trim($extfilter)));
+	} elseif(!is_array($extfilter)) {
+		$extfilter = array();
+	}
+	$dofilter = count($extfilter) ? true : false;
 
 	while($pf = readdir($ph)) {
 		if(is_file($dir.'/'.$pf) && strpos($pf, '.') !== 0) { //$pf != '.' && $pf != '..' &&
 			$ext = which_ext($pf);
-			if($dofilter) {
-				if(!in_array($ext, $extfilter)) {
-					continue;
-				}
+			if($dofilter && !in_array($ext, $extfilter)) {
+				continue;
 			}
-			$files[$pf] = array(	'filename'	=> $pf,
-									'filesize'	=> filesize($dir.'/'.$pf),
-									'filetime'	=> filemtime($dir.'/'.$pf),
-									'ext'		=> $ext
-								);
+			$files[$pf] = array(
+				'filename'	=> $pf,
+				'filesize'	=> filesize($dir.'/'.$pf),
+				'filetime'	=> filemtime($dir.'/'.$pf),
+				'ext'		=> $ext
+			);
 		}
 	}
 	closedir($ph);
