@@ -1640,3 +1640,12 @@ pull-right {
 .center-text {
 	text-align: center;
 }
+
+.ajax-running {
+	position: relative;
+	padding-right: 18px;
+	background-image: url(../../img/indicator/indicator_arrows_green.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+	white-space: nowrap;
+}

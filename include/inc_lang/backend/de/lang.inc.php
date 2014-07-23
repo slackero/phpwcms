@@ -1363,5 +1363,6 @@ $BL['be_tag']							= 'Tag';
 $BL['be_system_container']				= 'Systemcontainer';
 $BL['be_system_container_norender']		= 'ohne regul&auml;re Ausgabe im Frontend';
 $BL['be_custom_scriptlogic']			= 'benutzerdefiniert (Scriptlogik)';
+$BL['be_flush_image_cache']				= 'Bildcache leeren';
 
 ?>
