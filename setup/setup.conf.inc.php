@@ -135,15 +135,18 @@ $phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default
 $phpwcms['log_404error']		= false; // log each 404 for redirect edit
 $phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend
 
-// smtp values
+// Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address
 $phpwcms['SMTP_FROM_NAME']    = 'My Name'; // reply/from name
 $phpwcms['SMTP_HOST']         = 'localhost'; // SMTP server (host/IP)
-$phpwcms['SMTP_PORT']         = 25; // SMTP-Server port (default 25)
-$phpwcms['SMTP_MAILER']       = 'mail'; // default phpMailer: smtp, mail (default), sendmail
-$phpwcms['SMTP_AUTH']         = 0; // sets SMTP_AUTH to ON/OFF
-$phpwcms['SMTP_SECURE']       = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
+$phpwcms['SMTP_PORT']         = 25; // SMTP server port (default 25)
+$phpwcms['SMTP_MAILER']       = 'mail'; // mail method: mail (default), smtp, sendmail
 $phpwcms['SMTP_USER']         = 'user'; // default SMTP login (user) name
 $phpwcms['SMTP_PASS']         = 'pass'; // default SMTP password
+$phpwcms['SMTP_SECURE']       = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
+$phpwcms['SMTP_AUTH']         = 0; // SMTP authentication, ON=1/OFF=0
+$phpwcms['SMTP_AUTH_TYPE']    = ''; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5
+$phpwcms['SMTP_REALM']        = ''; // SMTP realm, used for NTLM auth type
+$phpwcms['SMTP_WORKSTATION']  = ''; // SMTP workstation, used for NTLM auth type
 
 ?>

@@ -238,6 +238,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure level when only 1 article is inside\n";
 	$conf_file .= "\$phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty\n";
 	$conf_file .= "\$phpwcms['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things\n";
+	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";
 	$conf_file .= "\$phpwcms['canonical_off']     = false; // disable canonical link tag\n";
 	$conf_file .= "\$phpwcms['viewport']		  = ''; // set viewport like \"width=device-width, initial-scale=1.0, user-scalable=no\"\n";
 	$conf_file .= "\$phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible\n";
@@ -251,20 +252,21 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['log_404error']		= false; // log each 404 for redirect edit\n";
 	$conf_file .= "\$phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend\n";
 
-	$conf_file .= "\n// smtp values\n";
-	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";
-	$conf_file .= "\$phpwcms['SMTP_FROM_NAME']    = '".$val["SMTP_FROM_NAME"]."'; // reply/from name\n";
+	$conf_file .= "\n// Email specific settings (based on phpMailer)\n";
+	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"])."'; // reply/from email address\n";
+	$conf_file .= "\$phpwcms['SMTP_FROM_NAME']    = '".str_replace("'", "\\'", $val["SMTP_FROM_NAME"])."'; // reply/from name\n";
 	$conf_file .= "\$phpwcms['SMTP_HOST']         = '".$val["SMTP_HOST"]."'; // SMTP server (host/IP)\n";
-	$conf_file .= "\$phpwcms['SMTP_PORT']         = ".intval($val["SMTP_PORT"])."; // SMTP-Server port (default 25)\n";
-	$conf_file .= "\$phpwcms['SMTP_MAILER']       = '".$val["SMTP_MAILER"]."'; // default phpMailer: smtp, mail (default), sendmail\n";
-	$conf_file .= "\$phpwcms['SMTP_AUTH']         = ".intval($val["SMTP_AUTH"])."; // sets SMTP_AUTH to ON/OFF\n";
-	$conf_file .= "\$phpwcms['SMTP_SECURE']       = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
-	$conf_file .= "\$phpwcms['SMTP_USER']         = '".$val["SMTP_USER"]."'; // default SMTP login (user) name\n";
-	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".$val["SMTP_PASS"]."'; // default SMTP password\n";
-	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";
+	$conf_file .= "\$phpwcms['SMTP_PORT']         = ".intval($val["SMTP_PORT"])."; // SMTP server port (default 25)\n";
+	$conf_file .= "\$phpwcms['SMTP_MAILER']       = '".$val["SMTP_MAILER"]."'; // mail method: mail (default), smtp, sendmail\n";
+	$conf_file .= "\$phpwcms['SMTP_USER']         = '".str_replace("'", "\\'", $val["SMTP_USER"])."'; // default SMTP login (user) name\n";
+	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".str_replace("'", "\\'", $val["SMTP_PASS"])."'; // default SMTP password\n";
+	$conf_file .= "\$phpwcms['SMTP_SECURE']       = '".$val["SMTP_SECURE"]."'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
+	$conf_file .= "\$phpwcms['SMTP_AUTH']         = ".intval($val["SMTP_AUTH"])."; // SMTP authentication, ON=1/OFF=0\n";
+	$conf_file .= "\$phpwcms['SMTP_AUTH_TYPE']    = '".$val["SMTP_AUTH_TYPE"]."'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
+	$conf_file .= "\$phpwcms['SMTP_REALM']        = '".$val["SMTP_REALM"]."'; // SMTP realm, used for NTLM auth type\n";
+	$conf_file .= "\$phpwcms['SMTP_WORKSTATION']  = '".$val["SMTP_WORKSTATION"]."'; // SMTP workstation, used for NTLM auth type\n";
 
 	$conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
-
 	$conf_file .= "\n?>";
 
 	write_textfile("setup.conf.inc.php", $conf_file);
@@ -288,7 +290,6 @@ function html_specialchars($h="") {
 	$h = str_replace( "\\", "&#92;", $h );
 	return $h;
 }
-
 
 // taken from http://de.php.net/manual/de/function.phpinfo.php#59573
 function parsePHPModules() {
@@ -319,7 +320,6 @@ function parsePHPModules() {
  return $vModules;
 }
 
-
 function errorWarning($warning='') {
 	$t  = '<p class="error"><img src="../img/famfamfam/icon_alert.gif" alt="Alert" border="0" class="icon1" /><b>';
 	$t .= $warning;
@@ -328,7 +328,6 @@ function errorWarning($warning='') {
 }
 
 // based on definitions of phpMyAdmin
-
 $mysql_charset_map = array(
     'big5'         => 'big5',
     'cp-866'       => 'cp866',

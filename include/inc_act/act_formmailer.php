@@ -295,6 +295,17 @@ if(isset($form_error)) {
 	if(!empty($phpwcms['SMTP_SECURE'])) {
 		$mail->SMTPSecure 	= $phpwcms['SMTP_SECURE'];
 	}
+	if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
+		$mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
+		if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
+			if(!empty($phpwcms['SMTP_REALM'])) {
+				$mail->Realm = $phpwcms['SMTP_REALM'];
+			}
+			if(!empty($phpwcms['SMTP_WORKSTATION'])) {
+				$mail->Workstation = $phpwcms['SMTP_WORKSTATION'];
+			}
+		}
+	}
 	$mail->SMTPKeepAlive 	= true;
 	$mail->CharSet	 		= $phpwcms["charset"];
 	$mail->isHTML(0);
