@@ -1386,13 +1386,13 @@ function html_parser($string) {
 
 	$string = render_bbcode_basics($string, '');
 
-	$search			= array();
-	$replace		= array();
+	$search		= array();
+	$replace	= array();
 
 	// page TOP link
 	if(strpos($string, '[TOP]') !== false) {
-		$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/s';
-		$replace[0]		= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
+		$search[0]	= '/\[TOP\](.*?)\[\/TOP\]/s';
+		$replace[0]	= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
 	}
 
 	// external Link (string)
@@ -1417,31 +1417,28 @@ function html_parser($string) {
 
 	// span or div style
 	$search[6]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
-	$replace[6]	= '<$1 style="$2">$3</$1>';
+	$replace[6]		= '<$1 style="$2">$3</$1>';
 
 	// span or div class
 	$search[7]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
 	$replace[7]		= '<$1 class="$2">$3</$1>';
 
-	// anchor link
-	$search[8]		= '/\{A:(.*?)\}/is';
-	$replace[8]		= '<a name="$1" class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"></a>';
+	$search[8]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
+	$replace[8]		= '<acronym title="$1">$2</acronym>';
 
-	if(strpos($string, 'MAIL]')) {
-		// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
-		$search[9]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
-		$replace[9]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
+	// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
+	$search[9]		= '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[9]		= '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
 
-		$search[10]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
-		$replace[10]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
-	}
+	$search[10]		= '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[10]	= '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
 
 	// this tags out a Mailaddress with an predifined subject (by Florian, 21-11-2003)
 	$search[11]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
 	$replace[11]    = '<a href="mailto:$1?subject=$2" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$3</a>';
 
-	$search[12]     = '/\<br>/i';
-	$replace[12]    = '<br />';
+	$search[12]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
+	$replace[12]	= '<blockquote cite="$1">$2</blockquote>';
 
 	// create "make bookmark" javascript code
 	$search[13]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/is';
@@ -1454,31 +1451,28 @@ function html_parser($string) {
 	$search[15]		= '/\[dfn (.*?)\](.*?)\[\/dfn\]/is';
 	$replace[15]	= '<dfn title="$1">$2</dfn>';
 
-	$search[16]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
-	$replace[16]	= '<blockquote cite="$1">$2</blockquote>';
-
-	$search[17]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
-	$replace[17]	= '<acronym title="$1">$2</acronym>';
-
 	$string = preg_replace($search, $replace, $string);
 
 	// internal Link to article ID or alias
-	if(strpos($string, '[ID ') !== false) {
-		$string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
-	}
+	$string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
+
+	// anchor or page link
+	$string = preg_replace_callback('/\{[aA]:(.+?)\}/', 'get_link_anchor', $string);
 
 	$string = str_replace(
 		array(
 			'&#92;&#039;',
 			'&amp;quot;',
 			'-//-',
-			' class=""'
+			' class=""',
+			'<br>'
 		),
 		array(
 			'&#039;',
 			'&quot;',
 			' ',
-			''
+			'',
+			'<br />'
 		),
 		$string
 	);
@@ -4071,6 +4065,23 @@ function get_PaginateNavigate($matches) {
 		$GLOBALS['_search_navi'] = $matches[1];
 	}
 	return '{NAVI}';
+}
+
+function get_link_anchor($matches) {
+	$anchor = trim($matches[1]);
+	$anchor = explode('#', $anchor);
+	if(!empty($anchor[1])) {
+		if($anchor[0] === '') {
+			return '<a id="'.$anchor[1].'"'.(empty($GLOBALS['template_default']['classes']['link-anchor']) ? '' : ' class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"').'></a>';
+		}
+		$anchor[0] = strtoupper($anchor[0]);
+		if($anchor[0] === 'REL') {
+			return rel_url().'#'.$anchor[1];
+		} elseif($anchor[0] === 'ABS') {
+			return abs_url().'#'.$anchor[1];
+		}
+	}
+	return $matches[0];
 }
 
 ?>

@@ -149,7 +149,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$content['all_keywords'] = $row['article_keyword'];
 
 		if(!empty($template_default['article_render_anchor'])) {
-			$content["main"] .= '<a name="jump'.$row["article_id"].'" id="jump'.$row["article_id"].'" class="jump-anchor"></a>';
+			$content["main"] .= '<a id="jump'.$row["article_id"].'" class="jump-anchor"></a>';
 		}
 
 		// enable frontend edit link
