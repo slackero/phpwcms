@@ -84,6 +84,7 @@ $content['page_start']   = sprintf(
 	str_replace( '{DOCTYPE_LANG}', $phpwcms['DOCTYPE_LANG'], PHPWCMS_DOCTYPE_LANG ) . ' id="'.str_replace(array('.','/'), '-', PHPWCMS_HOST).'"',
 	empty($content['htmltag_inject']) ? '' : ' '.$content['htmltag_inject'],
 	$phpwcms['htmlhead_inject_suffix'],
+	sprintf(PHPWCMS_HEADER_COMMENT, empty($phpwcms['header_comment']) ? '' : LF . '	' . trim($phpwcms['header_comment']) . LF),
 	$phpwcms['htmlhead_inject']
 );
 

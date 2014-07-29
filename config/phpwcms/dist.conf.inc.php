@@ -126,6 +126,7 @@ $phpwcms['set_file_active']		= 1; // activate (1) or disable (0) files and folde
 $phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default on create
 $phpwcms['log_404error']		= false; // log each 404 for redirect edit
 $phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend
+$phpwcms['header_comment']		= '';
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

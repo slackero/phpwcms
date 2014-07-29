@@ -214,7 +214,7 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head><?php printf(PHPWCMS_HEADER_COMMENT, ''); ?>
 	<title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">

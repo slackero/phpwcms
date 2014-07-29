@@ -251,6 +251,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default on create\n";
 	$conf_file .= "\$phpwcms['log_404error']		= false; // log each 404 for redirect edit\n";
 	$conf_file .= "\$phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend\n";
+	$conf_file .= "\$phpwcms['header_comment']		= '';\n";
 
 	$conf_file .= "\n// Email specific settings (based on phpMailer)\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"])."'; // reply/from email address\n";

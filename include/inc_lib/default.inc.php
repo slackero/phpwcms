@@ -358,7 +358,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 	$phpwcms['mode_XHTML'] = 0;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'%s<html%s%s>%s'.LF.'<head>%s'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'%s<html%s%s>%s'.LF.'<head>%s%s');
 	define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
@@ -368,7 +368,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s%s');
 	define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
 	define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
 	define('SCRIPT_CDATA_END'  , '  /* ]]> */');
@@ -378,7 +378,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 } elseif($phpwcms['mode_XHTML'] == 3) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'%s<html%s%s>%s'.LF.'<head>%s'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'%s<html%s%s>%s'.LF.'<head>%s%s');
 	define('SCRIPT_ATTRIBUTE_TYPE', '');
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
@@ -390,7 +390,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 	$phpwcms['mode_XHTML'] = 1;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s%s');
 	define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
@@ -402,14 +402,16 @@ if(empty($phpwcms['mode_XHTML'])) {
 
 $phpwcms['htmlhead_inject_prefix']	= '';
 $phpwcms['htmlhead_inject_suffix']	= '';
-$phpwcms['htmlhead_inject']			= '
-  <!--
+$phpwcms['htmlhead_inject']			= '';
+
+define('PHPWCMS_HEADER_COMMENT', '
+  <!--%s
 	phpwcms | free open source content management system
 	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
 	phpwcms is copyright 2002-'.date('Y').' of Oliver Georgi. Extensions are copyright of
 	their respective owners. Visit project page for details: http://www.phpwcms.org/
   -->
-';
+');
 
 // Todo: Later remove these
 $phpwcms["release"]				= PHPWCMS_VERSION;
