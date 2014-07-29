@@ -1231,14 +1231,14 @@ function get_struct_alias($start_id=0) {
 
 	$data = array();
 	while($start_id && isset($struct_array[$start_id])) {
-		if(!empty($struct_array[$start_id]['acat_pagetitle'])) {
+		if(!empty($struct_array[$start_id]['acat_pagetitle']) && strlen($struct_array[$start_id]['acat_name']) > strlen($struct_array[$start_id]['acat_pagetitle'])) {
 			$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
 		} else {
 			$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));
 		}
 		$start_id = $struct_array[$start_id]["acat_struct"];
 	}
-	if(!empty($struct_array[$start_id]['acat_pagetitle'])) {
+	if(!empty($struct_array[$start_id]['acat_pagetitle']) && strlen($struct_array[$start_id]['acat_name']) > strlen($struct_array[$start_id]['acat_pagetitle'])) {
 		$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
 	} elseif(!empty($struct_array[$start_id]['acat_name'])) {
 		$data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_name']));

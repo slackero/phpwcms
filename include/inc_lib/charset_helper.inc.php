@@ -36,6 +36,7 @@ function phpwcms_seems_utf8($str) {
  * Converts all accent characters to ASCII characters.
  *
  * If there are no accent characters, then the string given is just returned.
+ * Extended for phpwcms, better ISO part
  *
  * @since WordPress 1.2.1
  *
@@ -237,23 +238,149 @@ function phpwcms_remove_accents($string) {
 		$string = strtr($string, $chars);
 	} else {
 		// Assume ISO-8859-1 if not UTF-8
-		$chars['in'] = chr(128).chr(131).chr(138).chr(142).chr(154).chr(158)
-			.chr(159).chr(162).chr(165).chr(181).chr(192).chr(193).chr(194)
-			.chr(195).chr(196).chr(197).chr(199).chr(200).chr(201).chr(202)
-			.chr(203).chr(204).chr(205).chr(206).chr(207).chr(209).chr(210)
-			.chr(211).chr(212).chr(213).chr(214).chr(216).chr(217).chr(218)
-			.chr(219).chr(220).chr(221).chr(224).chr(225).chr(226).chr(227)
-			.chr(228).chr(229).chr(231).chr(232).chr(233).chr(234).chr(235)
-			.chr(236).chr(237).chr(238).chr(239).chr(241).chr(242).chr(243)
-			.chr(244).chr(245).chr(246).chr(248).chr(249).chr(250).chr(251)
-			.chr(252).chr(253).chr(255);
-
-		$chars['out'] = "EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy";
-
-		$string = strtr($string, $chars['in'], $chars['out']);
-		$double_chars['in'] = array(chr(140), chr(156), chr(198), chr(208), chr(222), chr(223), chr(230), chr(240), chr(254));
-		$double_chars['out'] = array('OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th');
-		$string = str_replace($double_chars['in'], $double_chars['out'], $string);
+		$chars_in = array(
+			char(128),
+			char(131),
+			char(138),
+			char(142),
+			char(154),
+			char(158),
+			char(159),
+			char(162),
+			char(195),
+			char(196),
+			char(197),
+			char(199),
+			char(200),
+			char(201),
+			char(202),
+			char(203),
+			char(204),
+			char(205),
+			char(206),
+			char(207),
+			char(209),
+			char(210),
+			char(211),
+			char(212),
+			char(213),
+			char(214),
+			char(216),
+			char(217),
+			char(218),
+			char(219),
+			char(220),
+			char(221),
+			char(224),
+			char(225),
+			char(226),
+			char(227),
+			char(228),
+			char(229),
+			char(231),
+			char(232),
+			char(233),
+			char(234),
+			char(235),
+			char(236),
+			char(237),
+			char(238),
+			char(239),
+			char(241),
+			char(242),
+			char(243),
+			char(244),
+			char(245),
+			char(246),
+			char(248),
+			char(249),
+			char(250),
+			char(251),
+			char(252),
+			char(253),
+			char(255),
+			char(140),
+			char(156),
+			char(198),
+			char(208),
+			char(222),
+			char(223),
+			char(230),
+			char(240),
+			char(254)
+		);
+		$chars_out = array(
+			'EUR',
+			'f',
+			'S',
+			'Z',
+			's',
+			'z',
+			'Y',
+			'c',
+			'A',
+			'Ae',
+			'A',
+			'C',
+			'E',
+			'E',
+			'E',
+			'E',
+			'I',
+			'I',
+			'I',
+			'I',
+			'N',
+			'O',
+			'O',
+			'O',
+			'O',
+			'OE',
+			'O',
+			'U',
+			'U',
+			'U',
+			'UE',
+			'Y',
+			'a',
+			'a',
+			'a',
+			'a',
+			'ae',
+			'a',
+			'c',
+			'e',
+			'e',
+			'e',
+			'e',
+			'i',
+			'i',
+			'i',
+			'i',
+			'n',
+			'o',
+			'o',
+			'o',
+			'o',
+			'oe',
+			'o',
+			'u',
+			'u',
+			'u',
+			'ue',
+			'y',
+			'y',
+			'OE',
+			'oe',
+			'AE',
+			'D',
+			'th',
+			'ss',
+			'ae',
+			'o',
+			'th'
+		);
+		$string = str_replace($chars_in, $chars_out, $string);
 	}
 
 	return $string;
