@@ -259,13 +259,11 @@ ob_start();
 		echo '<div class="error" style="margin-top:10px;">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
 	}
 
-	if(isset($_POST['json']) && $_POST['json'] == 2) $err = 0;
-
-	if($err) {
-		echo '<div class="error" style="margin-top:10px;font-weight:bold;">'.$BL["login_error"].'</div>';
+	if(isset($_POST['json']) && $_POST['json'] == 2) {
+		$err = 0;
 	}
 
-	echo '<div class="error" style="margin-top:10px;font-weight:bold;display:none;" id="jserr">'.$BL["login_error"].'</div>';
+	echo '<div class="error" style="margin-top:10px;font-weight:bold;'.($err ? '' : 'display:none;') . '" id="jserr">'.$BL["login_error"].'</div>';
 
 	?>
 
