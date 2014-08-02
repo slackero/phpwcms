@@ -16,10 +16,10 @@ define('PHPWCMS_JSLIB', 'mootools-1.1');
  */
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['mootools.js'])) {
-		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js');
+		if(PHPWCMS_USE_CDN) {
+			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA . '://ajax.googleapis.com/ajax/libs/mootools/1.1/mootools-yui-compressed.js');
 		} else {
-			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'mootools/1.1/mootools-yui-compressed.js');
+			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js');
 		}
 	}
 	return TRUE;

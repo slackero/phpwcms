@@ -18,13 +18,13 @@ define('PHPWCMS_JSLIB', 'jquery-1.11-migrate');
  */
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
-		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.11.1.min.js');
-			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate.min.js');
-		} else {
-			// not always available at Google, so use jQuery CDN
+		if(PHPWCMS_USE_CDN) {
+			// use jQuery CDN
 			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA . '://code.jquery.com/jquery-1.11.1.min.js');
 			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA . '://code.jquery.com/jquery-migrate-1.2.1.min.js');
+		} else {
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.11.1.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-1.2.1.min.js');
 		}
 	}
 	return TRUE;

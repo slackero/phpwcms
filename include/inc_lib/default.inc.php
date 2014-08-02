@@ -257,9 +257,9 @@ $phpwcms['js_lib_deprecated'] = array(
 	'jquery-1.5'			=> 'jQuery 1.5.2',
 	'jquery-1.4'			=> 'jQuery 1.4.4',
 	'jquery'				=> 'jQuery 1.3.2',
-	'mootools-1.4'			=> 'MooTools 1.4',
-	'mootools-1.4-compat'	=> 'MooTools 1.4 Compat',
-	'mootools-1.2'			=> 'MooTools 1.2',
+	'mootools-1.4'			=> 'MooTools 1.4.5',
+	'mootools-1.4-compat'	=> 'MooTools 1.4.5 Compat',
+	'mootools-1.2'			=> 'MooTools 1.2.6',
 	'mootools-1.1'			=> 'MooTools 1.1'
 );
 

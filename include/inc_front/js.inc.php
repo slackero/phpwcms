@@ -31,8 +31,8 @@ if(empty($block['jslib'])) {
 	$block['jslib'] = key($phpwcms['js_lib']);
 }
 
-// set if Google Ajax Library should be used and if it should from which base URI
-define('USE_GOOGLE_AJAX_LIB', !empty($block['googleapi']) || !isset($block['googleapi']) ? PHPWCMS_HTTP_SCHEMA . '://ajax.googleapis.com/ajax/libs/' : FALSE);
+// set if CDN can be used
+define('PHPWCMS_USE_CDN', empty($block['googleapi']) ? FALSE : TRUE);
 
 // include the related JavaScript Library wrapper
 @include PHPWCMS_ROOT.'/include/inc_front/lib/js.'.$block['jslib'].'.inc.php';
@@ -59,11 +59,7 @@ function initializeLightbox() {
  */
 function initSwfObject() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['swfobject.js'])) {
-		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/swfobject/swfobject.js');
-		} else {
-			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'swfobject/2/swfobject.js');
-		}
+		$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(PHPWCMS_USE_CDN ? PHPWCMS_HTTP_SCHEMA.'://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject.js' : TEMPLATE_PATH.'lib/swfobject/swfobject.js');
 	}
 	return TRUE;
 }
@@ -135,7 +131,7 @@ function renderHeadJS($js) {
  * Init Video JS
  */
 function initVideoJs() {
-	$GLOBALS['phpwcms']['video-js'] = empty($GLOBALS['phpwcms']['video-js']) ? 'http://vjs.zencdn.net/4.6.1/' : rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
+	$GLOBALS['phpwcms']['video-js'] = empty($GLOBALS['phpwcms']['video-js']) ? PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/4.6.4/' : rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
 	$GLOBALS['block']['custom_htmlhead']['video-js.css'] = '  <link rel="stylesheet" type="text/css" href="' . $GLOBALS['phpwcms']['video-js'] . 'video-js.css" />';
 }
 

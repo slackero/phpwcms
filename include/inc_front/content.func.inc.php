@@ -484,7 +484,7 @@ if(empty($pagelayout)) {
 	// if no pagelayout could be found
 	die('There is no pagelayout available. Please <a href="'.
 		PHPWCMS_URL.get_login_file().'">login</a> to the admin section and <a href="'.
-		PHPWCMS_URL.'phpwcms.php?do=admin&p=8">create one here</a>!');
+		PHPWCMS_URL.'phpwcms.php?do=admin&amp;p=8">create one here</a>!');
 }
 // Pagetitle
 if(empty($pagelayout["layout_title"])) {
