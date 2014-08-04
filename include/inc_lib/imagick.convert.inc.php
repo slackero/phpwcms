@@ -257,6 +257,7 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
 	$config['resize_height']	= $config['height'];
 	$config['x_axis']			= 0;
 	$config['y_axis']			= 0;
+	$config['do_cropping']		= false;
 
 	if($orig_width && $orig_height) {
 
@@ -265,13 +266,9 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
 		$ratio_height	= $orig_height / $config['height'];
 
 		// check if cropping is necessary
-		if( $ratio_width == $ratio_height ) {
+		if( $ratio_width !== $ratio_height ) {
 
-			$config['do_cropping'] = FALSE;
-
-		} else {
-
-			$config['do_cropping'] = TRUE;
+			$config['do_cropping'] = true;
 
 			// source image dimensions are both larger than target
 			if( $ratio_width >= 1 && $ratio_height >= 1 ) {
