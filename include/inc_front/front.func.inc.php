@@ -394,7 +394,7 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	}
 
 	// add current article information
-	if($with_article) {
+	if($with_article && isset($GLOBALS['content']["article_menutitle"])) {
 
 		$breadcrumb['article']  = '<a href="index.php?';
 		$breadcrumb['article'] .= defined('PHPWCMS_ALIAS') ? html_specialchars(PHPWCMS_ALIAS) : 'aid='.$GLOBALS['content']["article_id"];
