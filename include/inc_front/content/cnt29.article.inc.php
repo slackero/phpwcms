@@ -165,15 +165,17 @@ if($image['template']) {
 				));
 			}
 
-			if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false && is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {
-				$img_landscape = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3]);
-				if($img_landscape) {
-					$img_landscape = $img_landscape[1] > $img_landscape[0] ? '' : 'L';
-				} else {
-					$img_landscape = null;
+			$img_landscape = null;
+			if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false)) {
+				$img_landscape = false;
+				if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {
+					$img_landscape = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3]);
+					if($img_landscape) {
+						$img_landscape = $img_landscape[1] > $img_landscape[0] ? '' : 'L';
+					} else {
+						$img_landscape = false;
+					}
 				}
-			} else {
-				$img_landscape = null;
 			}
 
 			// now try to build caption and if neccessary add alt to image or set external link for image
@@ -329,7 +331,12 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 
 			if($img_landscape !== null) {
-				$img_a = render_cnt_template($img_a, 'LANDSCAPE', $img_landscape);
+				if($img_landscape === false) {
+					$img_a = replace_cnt_template($img_a, 'LANDSCAPE', '');
+					$img_a = replace_cnt_template($img_a, 'LANDSCAPE_ELSE', '');
+				} else {
+					$img_a = render_cnt_template($img_a, 'LANDSCAPE', $img_landscape);
+				}
 			}
 
 			// check if this is the last image in row
