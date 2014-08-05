@@ -467,7 +467,13 @@ if(isset($fmp_data['fmp_template'])) {
 		$fmp_data['init_videojs'] .= ';' . LF;
 		$fmp_data['init_videojs'] .= '  </script>';
 
-		$fmp_data['video_tag']['header'] .= 'preload="auto">';
+		$fmp_data['video_tag']['header'] .= 'preload="';
+		if(isset($fmp_data['fmp_set_preload'])) {
+			$fmp_data['video_tag']['header'] .= $fmp_data['fmp_set_preload'];
+		} else {
+			$fmp_data['video_tag']['header'] .= 'auto';
+		}
+		$fmp_data['video_tag']['header'] .= '">';
 
 		foreach($fmp_data['video'] as $param_name => $param_value) {
 			$fmp_data['video_tag'][] = '	<source src="'.html_specialchars($param_value).'" type="'.$param_name.'" />';

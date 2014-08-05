@@ -71,7 +71,8 @@ $fmp_data = array(
 		'fmp_set_skin'				=> clean_slweg($_POST['fmp_set_skin']),
 		'fmp_set_skin_html5'		=> clean_slweg($_POST['fmp_set_skin_html5']),
 		'fmp_player'				=> empty($_POST['fmp_player']) ? 0 : 1,
-		'fmp_set_volume'			=> empty($_POST['fmp_set_volume']) ? 0 : intval($_POST['fmp_set_volume'])
+		'fmp_set_volume'			=> empty($_POST['fmp_set_volume']) ? 0 : intval($_POST['fmp_set_volume']),
+		'fmp_set_preload'			=> empty($_POST['fmp_set_preload']) ? 'none' : clean_slweg($_POST['fmp_set_preload']) // auto, none, metadata
 
 );
 

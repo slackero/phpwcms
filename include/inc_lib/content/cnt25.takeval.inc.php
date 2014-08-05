@@ -69,7 +69,8 @@ $fmp_data = array(
 	'fmp_set_skin'				=> 'default',
 	'fmp_set_skin_html5'		=> '',
 	'fmp_player'				=> 1,
-	'fmp_set_volume'			=> 80
+	'fmp_set_volume'			=> 80,
+	'fmp_set_preload'			=> 'auto'
 );
 
 if($content["id"]) {

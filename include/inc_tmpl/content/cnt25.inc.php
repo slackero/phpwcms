@@ -55,6 +55,9 @@ $fmp_data['fmp_player'] = empty($fmp_data['fmp_player']) ? 0 : 1;
 if(!isset($fmp_data['fmp_set_volume'])) {
 	$fmp_data['fmp_set_volume'] = 80;
 }
+if(!isset($fmp_data['fmp_set_preload'])) {
+	$fmp_data['fmp_set_preload'] = 'auto';
+}
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -310,6 +313,16 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td class="chatlist" align="right"><label for="fmp_set_autostart">Autostart:&nbsp;</label></td>
 			<td><input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> /></td>
 		</tr>
+
+		<tr>
+			<td class="chatlist" align="right"><label for="fmp_set_preload">Preload:&nbsp;</label></td>
+			<td><select name="fmp_set_preload" id="fmp_set_preload">
+				<option value="auto"<?php is_selected('auto', $fmp_data['fmp_set_preload']) ?>><?php echo $BL['automatic']; ?></option>
+				<option value="metadata"<?php is_selected('metadata', $fmp_data['fmp_set_preload']) ?>>Metadata</option>
+				<option value="none"<?php is_selected('none', $fmp_data['fmp_set_preload']) ?>><?php echo $BL['be_off'] ?></option>
+			</select></td>
+		</tr>
+
 		<tr class="jw-player">
 			<td class="chatlist" align="right"><label for="fmp_set_overstretch">Display:&nbsp;</label></td>
 			<td><select name="fmp_set_overstretch" id="fmp_set_overstretch">
