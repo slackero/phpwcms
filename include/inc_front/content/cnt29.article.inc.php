@@ -166,7 +166,7 @@ if($image['template']) {
 			}
 
 			$img_landscape = null;
-			if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false)) {
+			if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false) {
 				$img_landscape = false;
 				if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {
 					$img_landscape = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3]);

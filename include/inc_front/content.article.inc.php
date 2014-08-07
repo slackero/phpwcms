@@ -562,7 +562,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// include content part code section
 			if($crow["acontent_type"] != 30) {
 
-				@include(PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php");
+				include(PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php");
 
 			} elseif($crow["acontent_type"] == 30 && is_file($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
 
