@@ -495,7 +495,7 @@ if($content['cp_setting_mode']):
 
 	$content["paginate_page"] = empty($content["paginate_page"]) ? 0 : intval($content["paginate_page"]);
 
-	if(empty($content['article']['article_paginate']) || $content["block"] !== 'SYSTEM') {
+	if(empty($content['article']['article_paginate']) || $content["block"] === 'SYSTEM') {
 
 		echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" />';
 		echo '<input name="cpaginate_title" type="hidden" id="cpaginate_title" value="'.html($content["paginate_title"]).'" />';
