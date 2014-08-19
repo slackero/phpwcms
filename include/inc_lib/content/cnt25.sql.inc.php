@@ -20,8 +20,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Flash Media Player
 
-$SQL .= "acontent_template	='".aporeplace($fmp_data['fmp_template'])."', ";
-$SQL .= "acontent_form	='".aporeplace(@serialize($fmp_data))."' ";
+$SQL .= "acontent_template="._dbEscape($fmp_data['fmp_template']).", ";
+$SQL .= "acontent_form="._dbEscape(@serialize($fmp_data))." ";
 
 
 ?>

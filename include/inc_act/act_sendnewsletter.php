@@ -228,7 +228,7 @@ if(!$newsletter) {
 			if( ( $mailresult = $mail->send() ) == false ) {
 				// save error information
 				$sql .= 'queue_status=2, ';
-				$sql .= "queue_errormsg='".aporeplace($mail->ErrorInfo)."' ";
+				$sql .= "queue_errormsg="._dbEscape($mail->ErrorInfo)." ";
 			} else {
 				// save success
 				$sql .= 'queue_status=1 ';

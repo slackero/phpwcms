@@ -289,10 +289,10 @@ if($guestbook['visible']) {
 		if(!$guestbook['flooding']) {
 
 			$guestbook['sql']  = "SELECT MAX(guestbook_created) FROM ".DB_PREPEND."phpwcms_guestbook WHERE ";
-			$guestbook['sql'] .= "guestbook_cid='".$guestbook['cid']."' AND ";
+			$guestbook['sql'] .= "guestbook_cid="._dbEscape($guestbook['cid'])." AND ";
 			$guestbook['sql'] .= "guestbook_trashed != '9' AND ";
-			$guestbook['sql'] .= "guestbook_ip='".aporeplace(getRemoteIP())."' AND ";
-			$guestbook['sql'] .= "guestbook_useragent=MD5('".aporeplace($_SERVER['HTTP_USER_AGENT'])."')";
+			$guestbook['sql'] .= "guestbook_ip="._dbEscape(getRemoteIP())." AND ";
+			$guestbook['sql'] .= "guestbook_useragent=MD5("._dbEscape($_SERVER['HTTP_USER_AGENT']).")";
 
 			if($guestbook['result'] = mysql_query($guestbook['sql'], $db)) {
 				if($guestbook['row'] = mysql_fetch_row($guestbook['result'])) {
@@ -362,21 +362,21 @@ if($guestbook['visible']) {
 		if(!count($guestbook['error'])) {
 
 			$guestbook['sql']  = "INSERT INTO ".DB_PREPEND."phpwcms_guestbook SET ";
-			$guestbook['sql'] .= "guestbook_cid='".$guestbook['cid']."', ";
-			$guestbook['sql'] .= "guestbook_msg='".aporeplace($guestbook['post']['msg'])."', ";
-			$guestbook['sql'] .= "guestbook_name='".aporeplace($guestbook['post']['name'])."', ";
-			$guestbook['sql'] .= "guestbook_email='".aporeplace($guestbook['post']['email'])."', ";
+			$guestbook['sql'] .= "guestbook_cid="._dbEscape($guestbook['cid']).", ";
+			$guestbook['sql'] .= "guestbook_msg="._dbEscape($guestbook['post']['msg']).", ";
+			$guestbook['sql'] .= "guestbook_name="._dbEscape($guestbook['post']['name']).", ";
+			$guestbook['sql'] .= "guestbook_email="._dbEscape($guestbook['post']['email']).", ";
 			$guestbook['sql'] .= "guestbook_created='".time()."', ";
-			$guestbook['sql'] .= "guestbook_url='".aporeplace($guestbook['post']['url'])."', ";
+			$guestbook['sql'] .= "guestbook_url="._dbEscape($guestbook['post']['url']).", ";
 			$guestbook['sql'] .= "guestbook_show='".$guestbook['post']['show']."', ";
-			$guestbook['sql'] .= "guestbook_ip='".aporeplace(getRemoteIP())."', ";
-			$guestbook['sql'] .= "guestbook_useragent=MD5('".aporeplace($_SERVER['HTTP_USER_AGENT'])."')";
+			$guestbook['sql'] .= "guestbook_ip="._dbEscape(getRemoteIP()).", ";
+			$guestbook['sql'] .= "guestbook_useragent=MD5("._dbEscape($_SERVER['HTTP_USER_AGENT']).")";
 
 			if(!empty($guestbook["image_upload"]) && !empty($guestbook['image']['file']) && !empty($guestbook['image']['name'])) {
 
 				$guestbook['sql'] .= ', ';
-				$guestbook['sql'] .= "guestbook_image='".aporeplace($guestbook['image']['file'])."', ";
-				$guestbook['sql'] .= "guestbook_imagename='".aporeplace($guestbook['image']['name'])."'";
+				$guestbook['sql'] .= "guestbook_image="._dbEscape($guestbook['image']['file']).", ";
+				$guestbook['sql'] .= "guestbook_imagename="._dbEscape($guestbook['image']['name']);
 
 			}
 
@@ -443,7 +443,7 @@ if($guestbook['visible']) {
 
 		$guestbook['sql']  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_guestbook ';
 		$guestbook['sql'] .= 'WHERE guestbook_id='.intval($GLOBALS['_getVar']['guestbookentry']);
-		$guestbook['sql'] .= " AND guestbook_ip='".aporeplace(getRemoteIP())."'";
+		$guestbook['sql'] .= " AND guestbook_ip="._dbEscape(getRemoteIP());
 
 		$guestbook['new_entry'] = _dbQuery($guestbook['sql']);
 
@@ -554,15 +554,15 @@ if($guestbook['visible']) {
 		//$aktion[5] = 0;
 		$guestbook['archivedate'] 	= $_GET['gbd'];
 		$guestbook['archiveselect']	= $_GET['gbs'];
-		$guestbook['sql'] .= "AND FROM_UNIXTIME(guestbook_created,'".aporeplace($guestbook['archivedate']);
-		$guestbook['sql'] .= "')='".aporeplace($guestbook['archiveselect'])."' ";
+		$guestbook['sql'] .= "AND FROM_UNIXTIME(guestbook_created,"._dbEscape($guestbook['archivedate']);
+		$guestbook['sql'] .= ")="._dbEscape($guestbook['archiveselect'])." ";
 	}
 	if(isset($_POST['showarchive']) && $_POST['showarchive']) {
 		//$aktion[5] = 0;
 		$guestbook['archivedate'] 	= $_POST['archivedate'];
 		$guestbook['archiveselect']	= $_POST['showarchive'];
-		$guestbook['sql'] .= "AND FROM_UNIXTIME(guestbook_created,'".aporeplace($guestbook['archivedate']);
-		$guestbook['sql'] .= "')='".aporeplace($guestbook['archiveselect'])."' ";
+		$guestbook['sql'] .= "AND FROM_UNIXTIME(guestbook_created,"._dbEscape($guestbook['archivedate']);
+		$guestbook['sql'] .= ")="._dbEscape($guestbook['archiveselect'])." ";
 	}
 	$guestbook['sql'] .= "AND guestbook_msg NOT LIKE '%[url%' ";
 	$guestbook['sql'] .= "ORDER BY guestbook_created ";
@@ -634,8 +634,8 @@ if($guestbook['visible']) {
 					$guestbook['archiveval'][0] = '%m/%Y';
 				}
 
-				$guestbook['asql']  = "SELECT DISTINCT FROM_UNIXTIME(guestbook_created,'".aporeplace($guestbook['archiveval'][0]);
-				$guestbook['asql'] .= "') AS guestbook_date FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
+				$guestbook['asql']  = "SELECT DISTINCT FROM_UNIXTIME(guestbook_created,"._dbEscape($guestbook['archiveval'][0]);
+				$guestbook['asql'] .= ") AS guestbook_date FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
 				$guestbook['asql'] .= $guestbook['cid']." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
 
 				if($guestbook['result'] = mysql_query($guestbook['asql'], $db)) {

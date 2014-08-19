@@ -28,7 +28,7 @@ $content["map"]['image']	= isset($_POST["cmap_image"]) ? clean_slweg($_POST["cma
 if(isset($_POST['cmap_location_x']) && $content['id']) {
 //if(isset($_POST['cmap_location_x']) && isset($_POST['cmap_location_edited']) && intval($_POST['cmap_location_edited']) && $content['id']) {
 	//if location should be updated or ceated
-	// cmap_location_x, cmap_location_y, cmap_location_title, 
+	// cmap_location_x, cmap_location_y, cmap_location_title,
 	// cmap_location_zip, cmap_location_city, cmap_location_entry
 	$content["location"]			= array();
 	$content["location"]['id']		= intval($_POST["cmap_location_id"]);
@@ -44,19 +44,19 @@ if(isset($_POST['cmap_location_x']) && $content['id']) {
 		$content["location"]['entry'] = str_replace("\r\n", '', $content["location"]['entry']);
 		$content["location"]['entry'] = str_replace("\n", '', $content["location"]['entry']);
 	}
-	
+
 	if(!$content["location"]['title']) {
 		$content["error"][] = $BL['be_cmap_location_error_notitle'];
 	} else {
-	
+
 		$content["location"]['sql']  = "map_cid='".$content['id']."', ";
 		$content["location"]['sql'] .= "map_x='".$content["location"]['x']."', ";
 		$content["location"]['sql'] .= "map_y='".$content["location"]['y']."', ";
-		$content["location"]['sql'] .= "map_title='".aporeplace($content["location"]['title'])."', ";
-		$content["location"]['sql'] .= "map_zip='".aporeplace($content["location"]['zip'])."', ";
-		$content["location"]['sql'] .= "map_city='".aporeplace($content["location"]['city'])."', ";
-		$content["location"]['sql'] .= "map_entry='".aporeplace($content["location"]['entry'])."'";
-	
+		$content["location"]['sql'] .= "map_title="._dbEscape($content["location"]['title']).", ";
+		$content["location"]['sql'] .= "map_zip="._dbEscape($content["location"]['zip']).", ";
+		$content["location"]['sql'] .= "map_city="._dbEscape($content["location"]['city']).", ";
+		$content["location"]['sql'] .= "map_entry="._dbEscape($content["location"]['entry']);
+
 		// create UPDATE or INSERT query for location
 		if(!$content["location"]['id']) {
 			// INSERT

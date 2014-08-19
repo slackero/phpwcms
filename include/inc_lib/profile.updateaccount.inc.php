@@ -29,7 +29,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 
 	$new_username = slweg($_POST["form_loginname"]);
 	if ($new_username != $_SESSION["wcs_user"]) {
-		$sql = "SELECT COUNT(usr_login) FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_username)."';";
+		$sql = "SELECT COUNT(usr_login) FROM ".DB_PREPEND."phpwcms_user WHERE usr_login="._dbEscape($new_username);
 		if($result = mysql_query($sql, $db)) {
 			if($row = mysql_fetch_row($result)) {
 				if($row[0])	$err = str_replace('{VAL}', html($new_username), $BL['be_profile_account_err1'])."\n";
@@ -94,16 +94,16 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 	if(empty($err)) {
 
 		$sql  = "UPDATE ".DB_PREPEND."phpwcms_user SET ";
-		$sql .= "   usr_login='".aporeplace($new_username)."', ";
+		$sql .= "   usr_login="._dbEscape($new_username).", ";
 
 		if(!empty($new_password)) {
-			$sql .= "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', ";
+			$sql .= "usr_pass="._dbEscape(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'))).", ";
 		}
 
-		$sql .= "usr_email='".aporeplace($new_email);
-		$sql .= "', usr_lang='".aporeplace($new_language);
-		$sql .= "', usr_wysiwyg=".$new_wysiwyg;
-		$sql .= " , usr_vars='".aporeplace(serialize($user_var))."'";
+		$sql .= "usr_email="._dbEscape($new_email);
+		$sql .= ", usr_lang="._dbEscape($new_language);
+		$sql .= ", usr_wysiwyg=".$new_wysiwyg;
+		$sql .= " , usr_vars="._dbEscape(serialize($user_var));
 		$sql .= " WHERE usr_id=".$_SESSION["wcs_user_id"];
 		$sql .= " AND usr_login='".$_SESSION["wcs_user"]."' LIMIT 1";
 

@@ -26,9 +26,11 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 // export form results
 if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET['fid']))) {
 
-	$data		= _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM ".DB_PREPEND.'phpwcms_formresult WHERE formresult_pid='.$fid);
+	$data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM ".DB_PREPEND.'phpwcms_formresult WHERE formresult_pid='.$fid);
 
-	if(!$data) die('Just a problem!');
+	if(!$data) {
+		die('Just a problem!');
+	}
 
 	$export		= array();
 	$row		= 1;
@@ -90,15 +92,6 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		$filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
 	}
 
-	//header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-	//header('Last-Modified: '.gmdate('D, d M Y H:i:s GMT', time()) );
-	//header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
-
-
-	//header('Content-type: application/force-download');
- 	//header('Content-Disposition: attachment; filename="'.$filename.'"');
-	//header('Content-Transfer-Encoding: binary'.LF);
-
 	echo '<table border="1" cellspacing="1" cellpadding="2">'.LF;
 	echo implode(LF, $elements);
 	echo LF.'</table>';
@@ -148,11 +141,9 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	echo '<head>'.LF;
 	echo '	<title>Formresult Detail Export ID'.$fid.'</title>'.LF;
 	echo '	<style type="text/css">
-	<!--
 		body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
 		hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
 		td {font-size: 10pt;}
-	// -->
 	</style>'.LF;
 	echo '</head>'.LF;
 	echo '<body>'.LF;
@@ -226,15 +217,12 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 
 		foreach($_SESSION['filter_subscriber'] as $_userInfo['filter']) {
 			//usr_name, usr_login, usr_email
-			$_userInfo['filter_array'][] = "CONCAT(address_email, address_name) LIKE '%".aporeplace($_userInfo['filter'])."%'";
+			$_userInfo['filter_array'][] = "CONCAT(address_email, address_name) LIKE "._dbEscape($_userInfo['filter'], true, '%', '%');
 		}
 		if(count($_userInfo['filter_array'])) {
-
 			$_userInfo['where_query'] .= $_userInfo['where_query'] ? ' AND ' : ' WHERE ';
 			$_userInfo['where_query'] .= '('.implode('OR', $_userInfo['filter_array']).')';
-
 		}
-
 	}
 
 	// get all subscribers from db
@@ -292,7 +280,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 
 				$value['all'] = '';
 
-				$value['address_subscription']	= unserialize($value['address_subscription']);
+				$value['address_subscription'] = unserialize($value['address_subscription']);
 				if(in_array(0, $value['address_subscription'])) $value['all'] = 'X';
 
 			} else {
@@ -300,7 +288,6 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 				$value['all'] = 'X';
 
 			}
-
 
 			echo '<tr>'.LF;
 			echo '<td align="center">'.($value['address_verified'] ? 'X' : '').'</td>'.LF;
@@ -346,6 +333,5 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	die('Just a problem!');
 
 }
-
 
 ?>

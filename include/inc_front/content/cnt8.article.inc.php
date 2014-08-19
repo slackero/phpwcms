@@ -94,7 +94,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 		foreach($content['alink']['alink_category'] as $value) {
 
-			$content['alink']['tags_sql'][] = 'pcat.cat_name' . $content['alink']['alink_compare'] . "'" . aporeplace($value) . "'";
+			$content['alink']['tags_sql'][] = 'pcat.cat_name' . $content['alink']['alink_compare'] . _dbEscape($value);
 
 		}
 

@@ -21,10 +21,10 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type File List
 
-$SQL .= "acontent_text		='".aporeplace($content["file_descr"])."', ";
-$SQL .= "acontent_html		='".aporeplace($content["html"])."', ";
-$SQL .= "acontent_files		='".aporeplace(isset($content["file_id_list"]) ? $content["file_id_list"] : '')."', ";
-$SQL .= "acontent_template	='".aporeplace($content["file_template"])."', ";
-$SQL .= "acontent_form		='".aporeplace(serialize($content['file']))."' ";
+$SQL .= "acontent_text="._dbEscape($content["file_descr"]).", ";
+$SQL .= "acontent_html="._dbEscape($content["html"]).", ";
+$SQL .= "acontent_files="._dbEscape(isset($content["file_id_list"]) ? $content["file_id_list"] : '').", ";
+$SQL .= "acontent_template="._dbEscape($content["file_template"]).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['file']))." ";
 
 ?>

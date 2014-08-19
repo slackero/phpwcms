@@ -20,6 +20,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // RSS feed
-$SQL .= "acontent_form	='".aporeplace(serialize($content['rssfeed']))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['rssfeed']))." ";
 
 ?>

@@ -1736,8 +1736,8 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		foreach($keywordarray as $value) {
 				//build where keyword = blabla
 				$where .= ($where) ? " OR " : "";
-				//replace every "'" to "''" for security reasons with aporeplace()
-				$where .= "article_keyword LIKE '%".aporeplace($value)."%'";
+				//replace every "'" to "''" for security reasons with _dbEscape()
+				$where .= "article_keyword LIKE "._dbEscape($value, true, '%', '%');
 		}
 		$limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
 		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias, article_redirect, article_morelink ";
@@ -1964,7 +1964,7 @@ function get_keyword_link($keywords) {
 					$where .= " AND ";
 					$keyword_list .= ", ";
 				}
-				$where .= "article_keyword LIKE '%*".aporeplace($value)."*%'";
+				$where .= "article_keyword LIKE "._dbEscape($value, true, '%*', '*%');
 				$keyword_list .= html_specialchars($value);
 			}
 		}
@@ -3255,8 +3255,8 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
 	// check against database
 	if(!empty($validate_db['userdetail'])) {
 		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
-		$sql .= "detail_login='".aporeplace($user)."' AND ";
-		$sql .= "detail_password='".aporeplace($pass)."' AND ";
+		$sql .= "detail_login="._dbEscape($user)." AND ";
+		$sql .= "detail_password="._dbEscape($pass)." AND ";
 		$sql .= "detail_aktiv=1 LIMIT 1";
 		$result = _dbQuery($sql);
 	}
@@ -3265,8 +3265,8 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
 		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_user ';
 		$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_userdetail ON ';
 		$sql .= 'usr_id = detail_pid WHERE ';
-		$sql .= "usr_login='".aporeplace($user)."' AND ";
-		$sql .= "usr_pass='".aporeplace($pass)."' AND ";
+		$sql .= "usr_login="._dbEscape($user)." AND ";
+		$sql .= "usr_pass="._dbEscape($pass)." AND ";
 		$sql .= "usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1";
 		$result = _dbQuery($sql);
 	}

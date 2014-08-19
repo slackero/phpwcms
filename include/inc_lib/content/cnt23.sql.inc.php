@@ -22,6 +22,6 @@ if (!defined('PHPWCMS_ROOT')) {
 _dbSetVar('max_allowed_packet', 16*1024*1024, '<');
 
 // Form
-$SQL .= "acontent_form = '".aporeplace(serialize($content['form']))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['form']))." ";
 
 ?>

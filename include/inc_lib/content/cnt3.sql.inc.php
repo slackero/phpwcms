@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Redirect
 
-$SQL .= "acontent_redirect	='".aporeplace($content["redirect"])."', ";
-$SQL .= "acontent_template	= '".aporeplace($content["template"])."' ";
+$SQL .= "acontent_redirect="._dbEscape($content["redirect"]).", ";
+$SQL .= "acontent_template="._dbEscape($content["template"])." ";
 
 ?>

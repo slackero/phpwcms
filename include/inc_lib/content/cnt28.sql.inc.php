@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Part Frontend Login
 
-$SQL .= "acontent_template	='".aporeplace($content['felogin_template'])."', ";
-$SQL .= "acontent_form		='".aporeplace(serialize($content['felogin']))."' ";
+$SQL .= "acontent_template="._dbEscape($content['felogin_template']).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['felogin']))." ";
 
 ?>

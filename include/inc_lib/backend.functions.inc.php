@@ -660,36 +660,36 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 	// check alias against all structure alias
 	$sql  = "SELECT COUNT(acat_id) FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	$sql .= $where_acat;
-	$sql .= "acat_alias='".aporeplace($alias)."'";
+	$sql .= "acat_alias="._dbEscape($alias);
 	$acat_count = _dbQuery($sql, 'COUNT');
 
 	// check alias against all articles
 	$sql  = "SELECT COUNT(article_id) FROM ".DB_PREPEND."phpwcms_article WHERE ";
 	$sql .= $where_article;
-	$sql .= "article_alias='".aporeplace($alias)."'";
+	$sql .= "article_alias="._dbEscape($alias);
 	$article_count = _dbQuery($sql, 'COUNT');
 
 	// check alias against all "sub" contents like news
 	$sql  = "SELECT COUNT(cnt_id) FROM ".DB_PREPEND."phpwcms_content WHERE ";
 	$sql .= $where_content;
-	$sql .= "cnt_alias='".aporeplace($alias)."'";
+	$sql .= "cnt_alias="._dbEscape($alias);
 	$content_count = _dbQuery($sql, 'COUNT');
 
 	if( $acat_count > 0 || $article_count > 0 || $content_count > 0 ) {
 
 		$sql  = "SELECT acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 		$sql .= $where_acat;
-		$sql .= "acat_alias LIKE '".aporeplace($alias)."%'";
+		$sql .= "acat_alias LIKE "._dbEscape($alias, true, '', '%');
 		$all_acat_alias = _dbQuery($sql);
 
 		$sql  = "SELECT article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
 		$sql .= $where_article;
-		$sql .= "article_alias LIKE '".aporeplace($alias)."%'";
+		$sql .= "article_alias LIKE "._dbEscape($alias, true, '', '%');
 		$all_article_alias = _dbQuery($sql);
 
 		$sql  = "SELECT cnt_alias FROM ".DB_PREPEND."phpwcms_content WHERE ";
 		$sql .= $where_content;
-		$sql .= "cnt_alias LIKE '".aporeplace($alias)."%'";
+		$sql .= "cnt_alias LIKE "._dbEscape($alias, true, '', '%');
 		$all_content_alias = _dbQuery($sql);
 
 		$all_alias = array();
@@ -837,7 +837,7 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 	// delete all related categories first
 	if($type && $pid) {
 
-		$sql = 'DELETE FROM '.DB_PREPEND.'phpwcms_categories WHERE cat_pid='.$pid." AND cat_type='".aporeplace( $type )."'";
+		$sql = 'DELETE FROM '.DB_PREPEND.'phpwcms_categories WHERE cat_pid='.$pid." AND cat_type="._dbEscape( $type );
 		_dbQuery($sql, 'DELETE');
 
 	}

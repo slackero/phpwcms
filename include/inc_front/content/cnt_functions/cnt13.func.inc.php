@@ -153,7 +153,7 @@ class search_News {
 
 			foreach($this->search_category as $value) {
 
-				$cat_sql[] = 'pcat.cat_name' . $news_compare . "'" . aporeplace($value) . "'";
+				$cat_sql[] = 'pcat.cat_name' . $news_compare . _dbEscape($value);
 
 			}
 
@@ -164,7 +164,7 @@ class search_News {
 
 		// language selection
 		if(count($this->search_language)) {
-			$sql_where .= "AND pc.cnt_lang IN ('". str_replace('#', "','", aporeplace( implode('#', $this->search_language) ) ) . "') ";
+			$sql_where .= "AND pc.cnt_lang IN ('". str_replace('#', "','", _dbEscape( implode('#', $this->search_language), false ) ) . "') ";
 		}
 
 		$sql .= $sql_where;

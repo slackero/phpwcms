@@ -56,7 +56,7 @@ if($media["media_src"]) {
 	if( !FEUSER_LOGIN_STATUS ) {
 		$media["sql"] .= 'f_granted=0 AND ';
 	}
-	$media["sql"] .= "f_name='".aporeplace($media["media_name"])."' LIMIT 1";
+	$media["sql"] .= "f_name="._dbEscape($media["media_name"])." LIMIT 1";
 
 	$media["result"] = _dbQuery($media["sql"]);
 

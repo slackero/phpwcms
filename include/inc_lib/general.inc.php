@@ -52,7 +52,7 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {
 
 function getpostvar($formvar, $string_laenge=0) {
 	//combines trim, stripslashes und apostrophe replace
-	return aporeplace( slweg( $formvar, $string_laenge ) );
+	return _dbEscape( slweg( $formvar, $string_laenge ), false );
 }
 
 function html_despecialchars($h='') {
@@ -100,7 +100,7 @@ function getCountry($lang='', $get='COUNTRY_ARRAY') {
 		return $phpwcms['country'][$country_lang_var];
 	}
 
-	$country_name	= 'country_name_'.aporeplace($lang);
+	$country_name	= 'country_name_'._dbEscape($lang, false);
 	$sql			= 'SHOW COLUMNS FROM '.DB_PREPEND."phpwcms_country WHERE Field='".$country_name."'";
 	$result			= _dbQuery($sql);
 	if(!isset($result[0])) {
@@ -112,7 +112,7 @@ function getCountry($lang='', $get='COUNTRY_ARRAY') {
 		$phpwcms['country'][$country_lang_var] = strtoupper($lang);
 
 		$sql  = 'SELECT '.$country_name.' AS country FROM '.DB_PREPEND."phpwcms_country WHERE ";
-		$sql .= "country_iso='".aporeplace($phpwcms['country'][$country_lang_var])."' LIMIT 1";
+		$sql .= "country_iso="._dbEscape($phpwcms['country'][$country_lang_var])." LIMIT 1";
 		$result	= _dbQuery($sql);
 
 		if(isset($result[0]['country'])) {
@@ -839,8 +839,8 @@ function getFormTrackingValue() {
 	$entry_id 	= time();
 	if(!empty($GLOBALS['phpwcms']["form_tracking"])) {
 		$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_formtracking SET ";
-		$sql .= "formtracking_hash = '".$hash."', ";
-		$sql .= "formtracking_ip = '".aporeplace($ip)."'";
+		$sql .= "formtracking_hash="._dbEscape($hash).", ";
+		$sql .= "formtracking_ip="._dbEscape($ip);
 		if($entry_created = mysql_query($sql, $GLOBALS['db'])) {
 			$entry_id = mysql_insert_id($GLOBALS['db']);
 		}
@@ -1811,7 +1811,7 @@ function checkLogin($mode='REDIRECT') {
 
 			// check again if user was logged in and this is a valid redirect request
 			$sql  = 'SELECT COUNT(*)  FROM '.DB_PREPEND.'phpwcms_userlog WHERE ';
-			$sql .= "logged_ip='".aporeplace(getRemoteIP())."' AND ";
+			$sql .= "logged_ip="._dbEscape(getRemoteIP())." AND ";
 			$sql .= '( '.time().' - logged_change ) < 3600';
 			$ref_url = _dbCount($sql) > 0 ? get_login_file().$ref_url : '';
 

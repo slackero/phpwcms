@@ -18,8 +18,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Code
-										
-$SQL .= "acontent_text = '".aporeplace($content["code"])."', ";
-$SQL .= "acontent_template = '".aporeplace($content["template"])."' ";
+
+$SQL .= "acontent_text = "._dbEscape($content["code"]).", ";
+$SQL .= "acontent_template = "._dbEscape($content["template"])." ";
 
 ?>

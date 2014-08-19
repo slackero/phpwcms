@@ -376,34 +376,34 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				// Update article summary data
 				$sql =	"UPDATE ".DB_PREPEND."phpwcms_article SET ".
 						"article_cid=".$article["article_catid"].",".
-						"article_title='".aporeplace($article["article_title"])."', ".
-						"article_alias='".aporeplace($article["article_alias"])."', ".
-						"article_keyword='".aporeplace($article["article_keyword"])."', ".
+						"article_title="._dbEscape($article["article_title"]).", ".
+						"article_alias="._dbEscape($article["article_alias"]).", ".
+						"article_keyword="._dbEscape($article["article_keyword"]).", ".
 						"article_aktiv=".$article["article_aktiv"].", ".
-						"article_begin='".aporeplace($article["article_begin"])."', ".
-						"article_end='".aporeplace($article["article_end"])."', ".
-						"article_subtitle='".aporeplace($article["article_subtitle"])."', ".
-						"article_summary='".aporeplace($article["article_summary"])."', ".
-						"article_redirect='".aporeplace($article["article_redirect"])."', ".
-						"article_sort='".aporeplace($article["article_sort"])."', ".
-						"article_username='".aporeplace($article["article_username"])."', ".
+						"article_begin="._dbEscape($article["article_begin"]).", ".
+						"article_end="._dbEscape($article["article_end"]).", ".
+						"article_subtitle="._dbEscape($article["article_subtitle"]).", ".
+						"article_summary="._dbEscape($article["article_summary"]).", ".
+						"article_redirect="._dbEscape($article["article_redirect"]).", ".
+						"article_sort="._dbEscape($article["article_sort"]).", ".
+						"article_username="._dbEscape($article["article_username"]).", ".
 						"article_notitle=".$article["article_notitle"].", ".
 						"article_hidesummary=".$article["article_hidesummary"].", ".
-						"article_image='".aporeplace(serialize($article['image']))."', ".
-						"article_cache='".aporeplace($article["article_timeout"])."', ".
-						"article_nosearch='".aporeplace($article['article_nosearch'])."', ".
+						"article_image="._dbEscape(serialize($article['image'])).", ".
+						"article_cache="._dbEscape($article["article_timeout"]).", ".
+						"article_nosearch="._dbEscape($article['article_nosearch']).", ".
 						"article_nositemap=".$article['article_nositemap'].", ".
 						"article_aliasid=".$article['article_aliasid'].", ".
 						"article_headerdata=".$article['article_headerdata'].", ".
 						"article_morelink=".$article['article_morelink'].", ".
 						"article_noteaser=".$article['article_noteaser'].", ".
-						"article_pagetitle='".aporeplace($article['article_pagetitle'])."', ".
+						"article_pagetitle="._dbEscape($article['article_pagetitle']).", ".
 						"article_paginate=".$article['article_paginate'].", ".
 						"article_priorize=".$article['article_priorize'].", ".
 						"article_norss=".$article['article_norss'].", ".
 						"article_archive_status=".$article['article_archive_status'].", ".
-						"article_menutitle='".aporeplace($article["article_menutitle"])."',".
-						"article_description='".aporeplace($article["article_description"])."', ".
+						"article_menutitle="._dbEscape($article["article_menutitle"]).",".
+						"article_description="._dbEscape($article["article_description"]).", ".
 						"article_lang="._dbEscape($article["article_lang"]).", ".
 						"article_lang_type="._dbEscape($article["article_lang_type"]).", ".
 						"article_lang_id="._dbEscape($article["article_lang_id"]).", ".
@@ -546,24 +546,24 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 			if(!isset($content["error"])) { //if no error
 
 				$SQL  = "acontent_aid				= '".$content["aid"]."', ";
-				$SQL .= "acontent_uid				= '".$_SESSION["wcs_user_id"]."', ";
-				$SQL .= "acontent_title				= '".aporeplace($content["title"])."', ";
-				$SQL .= "acontent_subtitle			= '".aporeplace($content["subtitle"])."', ";
+				$SQL .= "acontent_uid				= "._dbEscape($_SESSION["wcs_user_id"]).", ";
+				$SQL .= "acontent_title				= "._dbEscape($content["title"]).", ";
+				$SQL .= "acontent_subtitle			= "._dbEscape($content["subtitle"]).", ";
 				$SQL .= "acontent_type				= '".$content["type"]."', ";
 				$SQL .= "acontent_sorting			= '".$content["sorting"]."', ";
 				$SQL .= "acontent_visible			= '".$content["visible"]."', ";
-				$SQL .= "acontent_before			= '".aporeplace($content["before"])."', ";
-				$SQL .= "acontent_after				= '".aporeplace($content["after"])."', ";
-				$SQL .= "acontent_top				= '".$content["top"]."', ";
-				$SQL .= "acontent_block				= '".aporeplace($content["block"])."', ";
-				$SQL .= "acontent_anchor			= '".$content["anchor"]."', ";
-				$SQL .= "acontent_module			= '".aporeplace($content["module"])."', ";
-				$SQL .= "acontent_comment			= '".aporeplace($content["comment"])."', ";
-				$SQL .= "acontent_paginate_page		= '".aporeplace($content["paginate_page"])."', ";
-				$SQL .= "acontent_paginate_title	= '".aporeplace($content["paginate_title"])."', ";
-				$SQL .= "acontent_granted			= '".$content["granted"]."', ";
-				$SQL .= "acontent_tab				= '".aporeplace($content["tab"])."', ";
-				$SQL .= "acontent_tid				= '".aporeplace($content["tid"])."', ";
+				$SQL .= "acontent_before			= "._dbEscape($content["before"]).", ";
+				$SQL .= "acontent_after				= "._dbEscape($content["after"]).", ";
+				$SQL .= "acontent_top				= "._dbEscape($content["top"]).", ";
+				$SQL .= "acontent_block				= "._dbEscape($content["block"]).", ";
+				$SQL .= "acontent_anchor			= "._dbEscape($content["anchor"]).", ";
+				$SQL .= "acontent_module			= "._dbEscape($content["module"]).", ";
+				$SQL .= "acontent_comment			= "._dbEscape($content["comment"]).", ";
+				$SQL .= "acontent_paginate_page		= "._dbEscape($content["paginate_page"]).", ";
+				$SQL .= "acontent_paginate_title	= "._dbEscape($content["paginate_title"]).", ";
+				$SQL .= "acontent_granted			= "._dbEscape($content["granted"]).", ";
+				$SQL .= "acontent_tab				= "._dbEscape($content["tab"]).", ";
+				$SQL .= "acontent_tid				= "._dbEscape($content["tid"]).", ";
 
 				$WHERE = '';
 

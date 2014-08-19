@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // News
-$SQL .= "acontent_template	='".aporeplace($content["template"])."', ";
-$SQL .= "acontent_form		='".aporeplace(serialize($content["news"]))."'";
+$SQL .= "acontent_template="._dbEscape($content["template"]).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["news"]))." ";
 
 ?>

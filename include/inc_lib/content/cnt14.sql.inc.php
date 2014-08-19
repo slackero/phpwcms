@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type WYSIWYG HTML
 
-$SQL .= "acontent_html = '".aporeplace($content["html"])."', ";
-$SQL .= "acontent_template = '".aporeplace($content["template"])."' ";
+$SQL .= "acontent_html = "._dbEscape($content["html"]).", ";
+$SQL .= "acontent_template = "._dbEscape($content["template"])." ";
 
 ?>

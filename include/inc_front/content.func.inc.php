@@ -155,7 +155,7 @@ if(isset($_GET["id"])) {
 		$alias = trim(key($GLOBALS['_getVar']));
 		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-			$where_alias = aporeplace($alias);
+			$where_alias = _dbEscape($alias);
 
 			// we have to check against MySQL < 4.0 -> UNION unknown
 			// so use a workaround
@@ -163,14 +163,14 @@ if(isset($_GET["id"])) {
 			if(PHPWCMS_DB_VERSION < 40000) {
 
 				$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "' LIMIT 1";
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . $where_alias . " LIMIT 1";
 
 				$row = _dbQuery($sql);
 
 				if(!isset($row[0]['acat_id'])) {
 
 					$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "' LIMIT 1";
+					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . $where_alias . " LIMIT 1";
 
 					$row = _dbQuery($sql);
 
@@ -179,10 +179,10 @@ if(isset($_GET["id"])) {
 			} else {
 
 				$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias='" . $where_alias . "')";
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . $where_alias . ")";
 				$sql .= " UNION ";
 				$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias='" . $where_alias . "') ";
+				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . $where_alias . ") ";
 				$sql .= "LIMIT 1";
 
 				$row = _dbQuery($sql);

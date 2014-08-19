@@ -2312,8 +2312,8 @@ class GoogleMapAPI {
 			   polylines".$this->map_id."[$polyline_id] = new google.maps.Polyline({
 				  path: polylineCoords".$this->map_id."[$polyline_id]
 				  ".(($_polyline['color']!="")?", strokeColor: '".$_polyline['color']."'":"")."
-				  ".(($_polyline['opacity']!=0)?", strokeOpacity: ".$_polyline['opacity']."":"")."
-				  ".(($_polyline['weight']!=0)?", strokeWeight: ".$_polyline['weight']."":"")."
+				  ".(($_polyline['opacity']!=0)?", strokeOpacity: ".$_polyline['opacity']:"")."
+				  ".(($_polyline['weight']!=0)?", strokeWeight: ".$_polyline['weight']:"")."
 			  });
 			  polylines".$this->map_id."[$polyline_id].setMap(map".$this->map_id.");
 			";
@@ -2913,10 +2913,10 @@ class GoogleMapAPI {
 			   polygon".$this->map_id."[$polygon_id] = new google.maps.Polygon({
 				  paths: polygonCoords".$this->map_id."[$polygon_id]
 				  ".(($_polygon['color']!="")?", strokeColor: '".$_polygon['color']."'":"")."
-				  ".(($_polygon['opacity']!=0)?", strokeOpacity: ".$_polygon['opacity']."":"")."
-				  ".(($_polygon['weight']!=0)?", strokeWeight: ".$_polygon['weight']."":"")."
+				  ".(($_polygon['opacity']!=0)?", strokeOpacity: ".$_polygon['opacity']:"")."
+				  ".(($_polygon['weight']!=0)?", strokeWeight: ".$_polygon['weight']:"")."
 				  ".(($_polygon['fill_color']!="")?", fillColor: '".$_polygon['fill_color']."'":"")."
-				  ".(($_polygon['fill_opacity']!=0)?", fillOpacity: ".$_polygon['fill_opacity']."":"")."
+				  ".(($_polygon['fill_opacity']!=0)?", fillOpacity: ".$_polygon['fill_opacity']:"")."
 			  });
 			  polygon".$this->map_id."[$polygon_id].setMap(map".$this->map_id.");
 			";

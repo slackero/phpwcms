@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Link List
 
-$SQL .= "acontent_text	='".aporeplace($content["text"])."', ";
-$SQL .= "acontent_template	= '".aporeplace($content["template"])."' ";
+$SQL .= "acontent_text="._dbEscape($content["text"]).", ";
+$SQL .= "acontent_template="._dbEscape($content["template"])." ";
 
 ?>

@@ -20,8 +20,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Images Special
-$SQL .= "acontent_html	='".aporeplace($content["image_html"])."', ";
-$SQL .= "acontent_template	='".aporeplace($content["image_template"])."', ";
-$SQL .= "acontent_form	='".aporeplace(serialize($content['image_special']))."' ";
+$SQL .= "acontent_html="._dbEscape($content["image_html"]).", ";
+$SQL .= "acontent_template="._dbEscape($content["image_template"]).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['image_special']))." ";
 
 ?>

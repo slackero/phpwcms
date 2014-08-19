@@ -25,7 +25,7 @@ function _getFileInfo($value, $limit='1', $mode='hash') {
 
 		case 'hash':	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND ";
 						$sql .= "f_trash=0 AND f_public=1 AND ";
-						$sql .= "f_hash='".aporeplace($value)."'";
+						$sql .= "f_hash="._dbEscape($value);
 						if( !FEUSER_LOGIN_STATUS ) {
 							$sql .= ' AND f_granted=0';
 						}
@@ -36,7 +36,7 @@ function _getFileInfo($value, $limit='1', $mode='hash') {
 	}
 
 	return _dbQuery($sql);
-	
+
 }
 
 function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
@@ -46,54 +46,54 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
 	//First, see if the file exists
 	if (!is_file($file) && connection_status()) return false;
-	
+
 	//Gather relevent info about file
 	$filename 		= empty($fileinfo['realfname'])	? basename($file) : $fileinfo['realfname'];
 	$disposition	= empty($fileinfo['method'])	? 'attachment' : $fileinfo['method'];
-	
+
 	if($disposition == 'attachment') {
-	
+
 		$fileinfo['mimetype'] = "application/force-download";
-	
+
 	}
-	
+
 	if(empty($fileinfo['mimetype']) && empty($fileinfo['extension'])) {
-	
+
 		$file_extension	= strtolower(substr(strrchr($filename,"."),1));
 		$ctype			= isset($GLOBALS['phpwcms']['mime_types'][$file_extension]) ? $GLOBALS['phpwcms']['mime_types'][$file_extension] : 'application/force-download';
-	
+
 	} else {
-	
+
 		$ctype 			= $fileinfo['mimetype'];
 		$file_extension	= $fileinfo['extension'];
-	
+
 	}
 
 	//Begin writing headers
 	header('Cache-Control: ');
 	header('Cache-Control: public');
 	header('Pragma: ');
-	
+
 	//Use the switch-generated Content-Type
 	header('Content-Type: '.$ctype);
-	
-	
+
+
 	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
 		// workaround for IE filename bug with multiple periods / multiple dots in filename
 		// that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe
 		$filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
 	}
-	
-	
+
+
 	//header('Accept-Ranges: bytes');
-	
+
 	$size = filesize($file);
 
-	
+
 	header('Content-Length: '.$size);
 	header('Content-Transfer-Encoding: binary'.LF);
 	header('Content-Disposition: '.$disposition.'; filename="'.$filename.'"');
-	
+
 
 	//reset time limit for big files
 	@set_time_limit(0);
@@ -106,7 +106,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
 	//start buffered download
 	while(!feof($fp) && !connection_status()){
-	
+
 		print(fread($fp, 1024*8));
 		flush();
 		//ob_flush();
@@ -118,9 +118,9 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
 // http://www.thomthom.net/blog/2007/09/php-resumable-download-server/
 function rangeDownload($file) {
- 
+
 	$fp = @fopen($file, 'rb');
- 
+
 	$size   = filesize($file); // File size
 	$length = $size;           // Content length
 	$start  = 0;               // Start byte
@@ -142,14 +142,14 @@ function rangeDownload($file) {
 	// multipart/byteranges
 	// http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.2
 	if (isset($_SERVER['HTTP_RANGE'])) {
- 
+
 		$c_start = $start;
 		$c_end   = $end;
 		// Extract the range string
 		list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
 		// Make sure the client hasn't sent us a multibyte range
 		if (strpos($range, ',') !== false) {
- 
+
 			// (?) Shoud this be issued here, or should the first
 			// range be used? Or should the header be ignored and
 			// we output the whole content?
@@ -162,12 +162,12 @@ function rangeDownload($file) {
 		// If not, we forward the file pointer
 		// And make sure to get the end byte if spesified
 		if ($range0 == '-') {
- 
+
 			// The n-number of the last bytes is requested
 			$c_start = $size - substr($range, 1);
 		}
 		else {
- 
+
 			$range  = explode('-', $range);
 			$c_start = $range[0];
 			$c_end   = (isset($range[1]) && is_numeric($range[1])) ? $range[1] : $size;
@@ -179,7 +179,7 @@ function rangeDownload($file) {
 		$c_end = ($c_end > $end) ? $end : $c_end;
 		// Validate the requested range and return an error if it's not correct.
 		if ($c_start > $c_end || $c_start > $size - 1 || $c_end >= $size) {
- 
+
 			header('HTTP/1.1 416 Requested Range Not Satisfiable');
 			header("Content-Range: bytes $start-$end/$size");
 			// (?) Echo some info to the client?
@@ -194,13 +194,13 @@ function rangeDownload($file) {
 	// Notify the client the byte range we'll be outputting
 	header("Content-Range: bytes $start-$end/$size");
 	header("Content-Length: $length");
- 
+
 	// Start buffered download
 	$buffer = 1024 * 8;
 	while(!feof($fp) && ($p = ftell($fp)) <= $end) {
- 
+
 		if ($p + $buffer > $end) {
- 
+
 			// In case we're only outputtin a chunk, make sure we don't
 			// read past the length
 			$buffer = $end - $p + 1;
@@ -209,9 +209,9 @@ function rangeDownload($file) {
 		echo fread($fp, $buffer);
 		flush(); // Free up memory. Otherwise large files will trigger PHP's memory limit.
 	}
- 
+
 	fclose($fp);
- 
+
 }
 
 

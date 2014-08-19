@@ -23,42 +23,42 @@ checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 
 if(isset($_GET['del']) && intval($_GET['del'])) {
-	
-	$sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET ";
-	$sql .= "guestbook_trashed=9 WHERE guestbook_cid=";
-	$sql .= intval($_GET['cid'])." AND guestbook_id=".intval($_GET['del']);
-	$sql .= " LIMIT 1;";
-	mysql_query($sql, $db);
+
+	$sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET guestbook_trashed=9 WHERE guestbook_cid=";
+	$sql .= intval($_GET['cid'])." AND guestbook_id=".intval($_GET['del'])." LIMIT 1;";
+	_dbQuery($sql, 'UPDATE');
 
 }
 
 if(isset($_GET['edit']) && intval($_GET['edit'])) {
 
 	$gberror = '';
-	
+
 	if(isset($_POST['gbsubmit'])) {
 		$gbemail	= clean_slweg(remove_unsecure_rptags($_POST['gbemail']));
 		$gbname		= clean_slweg(remove_unsecure_rptags($_POST['gbname']));
 		$gburl		= clean_slweg(remove_unsecure_rptags($_POST['gburl']));
 		$gbmsg		= clean_slweg(remove_unsecure_rptags($_POST['gbmsg']));
 		$gbshow		= intval($_POST['gbshow']);
-		if($gbshow > 2) $gbshow = 0;
+		if($gbshow > 2) {
+			$gbshow = 0;
+		}
 		$gbid		= intval($_POST['gbid']);
 		$gbcid		= intval($_POST['gbcid']);
-	
+
 		if(!$gbemail || !$gbname) {
 			$gberror = 'Old values recovered - no changes made';
 		}
 
 		if(!$gberror) {
-	
+
 			$sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET ";
-			$sql .= "guestbook_msg='".aporeplace($gbmsg)."', ";
-			$sql .= "guestbook_name='".aporeplace($gbname)."', ";
-			$sql .= "guestbook_email='".aporeplace($gbemail)."', ";
-			$sql .= "guestbook_url='".aporeplace($gburl)."', ";
-			$sql .= "guestbook_show='".$gbshow."' WHERE ";
-			$sql .= "guestbook_cid='".$gbcid."' AND guestbook_id='".$gbid."' LIMIT 1;";
+			$sql .= "guestbook_msg="._dbEscape($gbmsg).", ";
+			$sql .= "guestbook_name="._dbEscape($gbname).", ";
+			$sql .= "guestbook_email="._dbEscape($gbemail).", ";
+			$sql .= "guestbook_url="._dbEscape($gburl).", ";
+			$sql .= "guestbook_show=".$gbshow."' WHERE ";
+			$sql .= "guestbook_cid='".$gbcid."' AND guestbook_id='".$gbid."'";
 			mysql_query($sql, $db);
 		}
 	}
@@ -68,14 +68,12 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
 	$edit_ID = '';
 }
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>phpwcms Backend Guestbook</title>
 <style type="text/css">
-<!--
 body,td,th {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
@@ -111,16 +109,14 @@ input, textarea {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 }
--->
-</style></head>
-
+</style>
+</head>
 <body>
 <table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
 <?php
 
-
 $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
-$sql .= intval($_GET['cid']).$edit_ID." AND guestbook_trashed=0 ORDER BY guestbook_created DESC;";
+$sql .= intval($_GET['cid']).$edit_ID." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
 $c = 0;
 if($result = mysql_query($sql, $db)) {
 
@@ -135,7 +131,7 @@ if($result = mysql_query($sql, $db)) {
   </tr>
   <tr>
     <td colspan="2"><?php
-	
+
 	echo htmlspecialchars($row['guestbook_name']);
 	echo ', ';
 	echo '<a href="mailto:'.htmlspecialchars($row['guestbook_email']);
@@ -146,7 +142,7 @@ if($result = mysql_query($sql, $db)) {
 	if($row['guestbook_msg']) {
 		echo '<br />'.nl2br(htmlspecialchars($row['guestbook_msg']));
 	}
-	
+
 	?></td>
   </tr>
   <tr>
@@ -157,7 +153,7 @@ if($result = mysql_query($sql, $db)) {
 		}
 
 	} else {
-	
+
 		while($row = mysql_fetch_assoc($result)) {
 ?>
   <tr bgcolor="#E7E8EB">
@@ -166,15 +162,15 @@ if($result = mysql_query($sql, $db)) {
   </tr>
   <tr><td colspan="2"><img src="../../img/leer.gif" alt="" width="1" height="1" /></td></tr>
   <?php
-  
+
   if($gberror) {
   ?>  <tr>
   <td style="color:#FF3333;">error:&nbsp;</td>
   <td><strong style="color:#FF3333;"><?php echo $gberror ?></strong></td>
   </tr><?php
-  
+
   }
-  
+
   ?>
   <form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
   <tr>
@@ -211,7 +207,7 @@ if($result = mysql_query($sql, $db)) {
 		}
 
 	}
-	
+
 	mysql_free_result($result);
 }
 

@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type E-Card
 
-$SQL .= "acontent_form	='".aporeplace(serialize($content["ecard"]))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["ecard"]))." ";
 
 ?>

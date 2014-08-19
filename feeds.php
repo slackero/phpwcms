@@ -263,9 +263,8 @@ function getFeedStructureID($value) {
 		if($indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) && strtolower($indexpage['acat_alias']) == $value) {
 			return '0';
 		}
-		$sql  = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
-		$sql .= "acat_aktiv=1 AND acat_trash=0 AND acat_regonly=0 AND acat_alias LIKE '";
-		$sql .= aporeplace($value)."' LIMIT 1";
+		$sql  = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_aktiv=1 AND ";
+		$sql .= "acat_trash=0 AND acat_regonly=0 AND acat_alias LIKE "._dbEscape($value)." LIMIT 1";
 		$value = '';
 		if($result = mysql_query($sql, $GLOBALS['db'])) {
 			if($row = mysql_fetch_row($result)) {

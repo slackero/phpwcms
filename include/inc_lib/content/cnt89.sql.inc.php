@@ -21,8 +21,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type 89: Poll		jens
 
-$SQL .= "acontent_image	='".aporeplace(serialize($content['poll_list']))."', ";
-$SQL .= "acontent_text	='".aporeplace(serialize($content['poll_text']))."', ";
-$SQL .= "acontent_form	='".aporeplace(serialize($content['poll_form']))."' ";
+$SQL .= "acontent_image="._dbEscape(serialize($content['poll_list'])).", ";
+$SQL .= "acontent_text="._dbEscape(serialize($content['poll_text'])).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['poll_form']))." ";
 
 ?>

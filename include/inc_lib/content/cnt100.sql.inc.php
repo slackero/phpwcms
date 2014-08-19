@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type List
-									
-$SQL .= "acontent_text='".aporeplace($content["text"])."', ";
-$SQL .= "acontent_form='".aporeplace(serialize($content["bulletlist"]))."' ";
+
+$SQL .= "acontent_text="._dbEscape($content["text"]).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["bulletlist"]))." ";
 
 ?>

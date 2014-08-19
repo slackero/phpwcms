@@ -139,9 +139,9 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			set_correct_ordersort().",'".
 			$cache_timeout."', '".(isset($_POST['acat_nosearch']) ? 1 : '')."',".
 			(isset($_POST["acat_nositemap"]) ? 1 : 0).",".
-			"'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", '".aporeplace($acat_cntpart)."','".
+			"'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
 			getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
-			(empty($_POST["acat_archive"]) ? 0 : 1).", '".aporeplace($acat_class)."', '".aporeplace($acat_keywords)."', ".intval($_POST["acat_cpdefault"]).",".
+			(empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
 			_dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
 			(empty($_POST["acat_opengraph"]) ? 0 : 1).')';
 			if($result = mysql_query($sql, $db) or die("MySQL Error: ".mysql_error())) {
@@ -154,12 +154,14 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		if(trim($_POST["acat_name"])) {
 
 			$cache_timeout = clean_slweg($_POST["acat_timeout"]);
-			if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
+			if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) {
+				$cache_timeout = 0; //check if cache = Off
+			}
 
 			$sql =	"UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
 				"acat_name='".getpostvar($_POST["acat_name"])."', ".
 				"acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
-				"acat_alias='".aporeplace(proof_alias($_POST["acat_id"], $_POST["acat_alias"]))."', ".
+				"acat_alias="._dbEscape(proof_alias($_POST["acat_id"], $_POST["acat_alias"])).", ".
 				"acat_aktiv=".(isset($_POST["acat_aktiv"]) ? 1 : 0).", ".
 				"acat_struct=".intval($_POST["acat_struct"]).", ".
 				"acat_template=".intval($_POST["acat_template"]).", ".
@@ -171,18 +173,18 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 				"acat_topcount=".intval($_POST["acat_topcount"]).", ".
 				"acat_redirect='".getpostvar($_POST["acat_redirect"])."',".
 				"acat_order=".set_correct_ordersort().", ".
-				"acat_cache='".aporeplace($cache_timeout)."', ".
+				"acat_cache="._dbEscape($cache_timeout).", ".
 				"acat_nosearch='".(isset($_POST['acat_nosearch']) ? 1 : '')."', ".
 				"acat_nositemap=".(isset($_POST["acat_nositemap"]) ? 1 : 0).", ".
-				"acat_permit='".aporeplace($acat_permit)."', ".
+				"acat_permit="._dbEscape($acat_permit).", ".
 				"acat_maxlist=".intval($_POST["acat_maxlist"]).", ".
-				"acat_cntpart='".aporeplace($acat_cntpart)."', ".
+				"acat_cntpart="._dbEscape($acat_cntpart).", ".
 				"acat_pagetitle='".getpostvar($_POST["acat_pagetitle"])."', ".
 				"acat_paginate=".(isset($_POST["acat_paginate"]) ? 1 : 0).", ".
 				"acat_overwrite='".getpostvar($_POST["acat_overwrite"])."', ".
 				"acat_archive=".(empty($_POST["acat_archive"]) ? 0 : 1).", ".
-				"acat_class='".aporeplace($acat_class)."', ".
-				"acat_keywords='".aporeplace($acat_keywords)."',".
+				"acat_class="._dbEscape($acat_class).", ".
+				"acat_keywords="._dbEscape($acat_keywords).",".
 				"acat_cpdefault=".intval($_POST["acat_cpdefault"]).','.
 				"acat_lang="._dbEscape($acat_lang).','.
 				"acat_lang_type="._dbEscape($acat_lang_type).','.
@@ -318,7 +320,7 @@ switch(intval($do[0])) {
 							$value1s .= ", '".$do[3]."'";
 						}else{
 							$key1s   .= ", ".$key;
-							$value1s .= ", '".aporeplace($value)."'";
+							$value1s .= ", "._dbEscape($value);
 						}
 					}
 					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
@@ -449,7 +451,7 @@ function copy_article_to_level($do, $dbcon) {
 					$values = "''";
 				} else {
 					$keys   .= ", ".$key;
-					$values .= ", '".aporeplace($value)."'";
+					$values .= ", "._dbEscape($value);
 				}
 			}
 		}
@@ -471,7 +473,7 @@ function copy_article_to_level($do, $dbcon) {
 							$value1s = "''";
 						} else {
 							$key1s   .= ", ".$key1;
-							$value1s .= ", '".aporeplace($value1)."'";
+							$value1s .= ", "._dbEscape($value1);
 						}
 					}
 					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
@@ -509,7 +511,7 @@ function copy_level_to_level($do, $dbcon) {
 					$values = "''";
 				} else {
 					$keys   .= ", ".$key;
-					$values .= ", '".aporeplace($value)."'";
+					$values .= ", "._dbEscape($value);
 				}
 			}
 		}

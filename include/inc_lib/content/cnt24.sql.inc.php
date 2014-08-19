@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Alias ID
 
-$SQL .= "acontent_form		= '".aporeplace(serialize($content["alias"]))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["alias"]))." ";
 
 ?>

@@ -161,7 +161,7 @@ if($news['list_mode']) {
 
 	// language selection
 	if(count($news['news_lang'])) {
-		$news['sql_where'][] = "AND pc.cnt_lang IN ('". str_replace('#', "','", aporeplace( implode('#', $news['news_lang']) ) ) . "')";
+		$news['sql_where'][] = "AND pc.cnt_lang IN ('". str_replace('#', "','", _dbEscape( implode('#', $news['news_lang']), false ) ) . "')";
 	}
 }
 

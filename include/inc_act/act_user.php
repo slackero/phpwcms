@@ -37,7 +37,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 					"usr_admin=0, ".
 					"usr_aktiv=9 ".
 					"WHERE usr_id=".$user_id." AND ".
-					"usr_email='".aporeplace($user_email)."';";
+					"usr_email="._dbEscape($user_email);
 			if($result = mysql_query($sql, $db)) {
 				if(is_valid_email($user_email)) {
 					@mail($user_email, "your account", "YOUR PHPWCMS ACCOUNT WAS DELETED\n \ncontact the admin if you have any question.\n\nSee you at ".$phpwcms["site"], "From: ".$phpwcms["admin_email"]."\nReply-To: ".$phpwcms["admin_email"]."\n");
@@ -45,7 +45,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			}
 		}
 	}
-	
+
 	if(isset($_GET["aktiv"])) {
 		$ui = explode(":", clean_slweg($_GET["aktiv"]));
 		$user_id = intval($ui[0]);
@@ -55,7 +55,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			mysql_query($sql, $db) or die ("error");
 		}
 	}
-	
+
 } //Ende Abarbeiten Aktion
 
 headerRedirect(PHPWCMS_URL.'phpwcms.php?do=admin');

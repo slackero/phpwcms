@@ -21,10 +21,10 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Tabs
 
-//$SQL .= "acontent_html	='".aporeplace($content["image_html"])."', ";
-$SQL .= "acontent_template	='".aporeplace($content["tabs_template"])."', ";
-$SQL .= "acontent_form		='".aporeplace(serialize($content["tabs"]))."', ";
-$SQL .= "acontent_text		='".aporeplace($content['search'])."', ";
-$SQL .= "acontent_html		='".aporeplace($content['html'])."' ";
+//$SQL .= "acontent_html="._dbEscape($content["image_html"]).", ";
+$SQL .= "acontent_template="._dbEscape($content["tabs_template"]).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["tabs"])).", ";
+$SQL .= "acontent_text="._dbEscape($content['search']).", ";
+$SQL .= "acontent_html="._dbEscape($content['html'])." ";
 
 ?>

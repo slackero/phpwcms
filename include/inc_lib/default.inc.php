@@ -963,13 +963,13 @@ function checkLoginCount() {
 	if(!empty($_SESSION["wcs_user"])) {
 		$sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
 		if(!empty($phpwcms['Login_IPcheck'])) {
-			$sql .= " AND logged_ip='".aporeplace(getRemoteIP())."'";
+			$sql .= " AND logged_ip="._dbEscape(getRemoteIP());
 		}
 		$check = _dbCount($sql);
 
 		if($check) {
 			$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_change=".time()." WHERE ";
-			$sql .= "logged_user='".aporeplace($_SESSION["wcs_user"])."' AND logged_in=1";
+			$sql .= "logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
 			_dbQuery($sql, 'UPDATE');
 		} else {
 			destroyBackendSessionData();

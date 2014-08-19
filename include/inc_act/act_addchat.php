@@ -21,13 +21,9 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 $chat_message = clean_slweg(trim($_POST['chatmsg']));
 $chatlist = intval($_POST['chatlist']);
 if($chat_message) {
-	$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_chat ".
-			"(chat_uid, chat_name, chat_text, chat_cat) VALUES (".
-			$_SESSION['wcs_user_id'].",'".
-			$_SESSION['wcs_user']."','".
-			aporeplace($chat_message)."',".
-			"0)";
-	mysql_query($sql, $db);
+	$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_chat (chat_uid, chat_name, chat_text, chat_cat) ";
+	$sql .= "VALUES (".$_SESSION['wcs_user_id'].","._dbEscape($_SESSION['wcs_user']).","._dbEscape($chat_message).",0)";
+	_dbQuery($sql, 'INSERT');
 }
 
 headerRedirect(PHPWCMS_URL."phpwcms.php?do=chat&p=1&l=".$chatlist);

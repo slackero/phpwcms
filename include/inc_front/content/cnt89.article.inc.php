@@ -34,11 +34,11 @@ $poll_count	= max(count($poll_form["choice"]), count($poll_image["images"]));
 if($poll_id == $crow['acontent_id'] && isset($_POST["poll"]) && !in_array($remoteIP, $poll_form["ip"])) {
 	$poll_choosen 						= intval($_POST["poll"]);
 	$poll_form["count"][$poll_choosen] += 1;
-	$poll_form["ip"][] = $remoteIP; 
+	$poll_form["ip"][] = $remoteIP;
 	$poll_choice_count = $poll_form["count"][$poll_choosen];
-		
+
 	$sql  = "UPDATE ".DB_PREPEND."phpwcms_articlecontent ";
-	$sql .= "SET acontent_form	='".aporeplace(serialize($poll_form))."' ";
+	$sql .= "SET acontent_form="._dbEscape(serialize($poll_form))." ";
 	$sql .= "WHERE acontent_id = ".$poll_id." LIMIT 1";
 	@mysql_query($sql, $db);
 }
@@ -59,7 +59,7 @@ if(in_array($remoteIP, $poll_form["ip"])) {
 	}
 	if($poll_total_votes > 0) {
 		$poll_html .= '<table cellpadding="0" cellspacing="0" border="0">';
-	
+
 		for($key = 0; $key < $poll_count; $key++)
 		{
 			$poll_html .= "\n<tr>\n\t<td>";
@@ -87,16 +87,16 @@ if(in_array($remoteIP, $poll_form["ip"])) {
 	$form_name  = "form_".generic_string(6);
 	$poll_html .= '<form action="'.FE_CURRENT_URL.'" method="post" name="'.$form_name.'" id="'.$form_name.'">';
 	$poll_html .= '<table cellpadding="0" cellspacing="0" border="0">';
-		
+
 	for($key = 0; $key < $poll_count; $key++) {
-	
+
 		$poll_html .= "\n<tr>\n\t".'<td class="pollRadioCell">';
 		$poll_html .= '<input type="radio" name="poll" value="'.$key.'" />';
 		$poll_html .= "</td>\n\t";
 		$poll_html .= '<td class="pollInfo">';
-		
+
 		$poll_do_br = '';
-		
+
 		$poll_form["choice"][$key] = isset($poll_form["choice"][$key]) ? trim($poll_form["choice"][$key]) : '';
 		if(!empty($poll_form["choice"][$key])) {
 			$poll_html .= $poll_form["choice"][$key];

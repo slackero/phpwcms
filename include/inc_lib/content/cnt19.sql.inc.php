@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Sitemap
 
-$SQL .= "acontent_form	='".aporeplace(serialize($content["sitemap"]))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["sitemap"]))." ";
 
 ?>

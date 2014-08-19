@@ -291,13 +291,13 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 		}
 	}
 	if($group_by !== '') {
-		$group_by = ' GROUP BY '.aporeplace($group_by);
+		$group_by = ' GROUP BY '._dbEscape($group_by, false);
 	} else {
 		$group_by = '';
 	}
 
 	if($order_by !== '') {
-		$order_by = ' ORDER BY '.aporeplace($order_by);
+		$order_by = ' ORDER BY '._dbEscape($order_by, false);
 	} else {
 		$order_by = '';
 	}
@@ -430,7 +430,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
 
 	$table	= (is_string($prefix) ? $prefix : DB_PREPEND).$table;
 
-	$where_value = is_string($id_value) ? "'".aporeplace($id_value)."'" : $id_value;
+	$where_value = is_string($id_value) ? _dbEscape($id_value) : $id_value;
 	$row = _dbQuery('SELECT * FROM '.$table.' WHERE '.$unique_field.'='.$where_value.' LIMIT 1');
 
 	// check against result

@@ -1700,8 +1700,8 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		$POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
 		$POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
-		$POST_savedb_sql .= $crow['acontent_id'].", '".aporeplace(getRemoteIP())."', '";
-		$POST_savedb_sql .= aporeplace(serialize($POST_savedb))  . "')";
+		$POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(getRemoteIP()).", ";
+		$POST_savedb_sql .= _dbEscape(serialize($POST_savedb)) . ")";
 		$POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
 
 	}
@@ -1869,13 +1869,13 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 				$form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
 				$form_newletter_setting['sql'] .= '(address_key, address_email, address_name, address_verified, ';
 				$form_newletter_setting['sql'] .= 'address_subscription, address_url1, address_url2) VALUES (';
-				$form_newletter_setting['sql'] .= "'".aporeplace($form_newletter_setting['hash'])."', ";
-				$form_newletter_setting['sql'] .= "'".aporeplace($form_newletter_setting['email_field'])."', ";
-				$form_newletter_setting['sql'] .= "'".aporeplace($form_newletter_setting['name_field'])."', ";
+				$form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['hash']).", ";
+				$form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['email_field']).", ";
+				$form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['name_field']).", ";
 				$form_newletter_setting['sql'] .= (empty($form_newletter_setting['double_optin']) ? 1 : 0) .", ";
-				$form_newletter_setting['sql'] .= "'".aporeplace(serialize($form_newletter_setting['selection']))."', ";
-				$form_newletter_setting['sql'] .= "'".aporeplace(empty($form_newletter_setting['url_subscribe']) ? '' : $form_newletter_setting['url_subscribe'])."', ";
-				$form_newletter_setting['sql'] .= "'".aporeplace(empty($form_newletter_setting['url_unsubscribe']) ? '' : $form_newletter_setting['url_unsubscribe'])."'";
+				$form_newletter_setting['sql'] .= _dbEscape(serialize($form_newletter_setting['selection'])).", ";
+				$form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_subscribe']) ? '' : $form_newletter_setting['url_subscribe']).", ";
+				$form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_unsubscribe']) ? '' : $form_newletter_setting['url_unsubscribe']);
 				$form_newletter_setting['sql'] .= ')';
 
 				// save recipient in db and send verify message in case of double opt-in

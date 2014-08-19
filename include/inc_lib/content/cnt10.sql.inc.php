@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Form Email
-										
-$SQL .= "acontent_form='".aporeplace($content["form"])."' ";
+
+$SQL .= "acontent_form="._dbEscape($content["form"])." ";
 
 ?>

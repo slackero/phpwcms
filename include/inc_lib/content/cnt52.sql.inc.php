@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // PHP variables
 
-$SQL .= "acontent_text	='".aporeplace($content["var"])."' ";
+$SQL .= "acontent_text="._dbEscape($content["var"])." ";
 
 ?>

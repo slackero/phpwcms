@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Guestbook
 
-$SQL .= "acontent_form='".aporeplace(serialize($content["guestbook"]))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["guestbook"]))." ";
 
 ?>

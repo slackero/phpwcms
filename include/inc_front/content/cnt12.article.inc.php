@@ -73,8 +73,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 		//Success
 		$content["newsletter"]["success"] = 1;
 		$content["newsletter"]["reffering_key"] = "";
-		$check_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_address WHERE address_email='".
-		aporeplace($content["newsletter"]["email_address"])."' LIMIT 1";
+		$check_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_address WHERE address_email="._dbEscape($content["newsletter"]["email_address"])." LIMIT 1";
 		if($check_result = mysql_query($check_sql, $db)) {
 			if($check_row = mysql_fetch_array($check_result, MYSQL_ASSOC)) {
 				$content["newsletter"]["reffering_key"] = $check_row["address_key"];
@@ -85,26 +84,24 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 		if($content["newsletter"]["reffering_key"]) {
 			//if email exists in newsletter address list update entry
 			$e_sql = "UPDATE ".DB_PREPEND."phpwcms_address SET ".
-			"address_name='".aporeplace($content["newsletter"]["email_name"])."', ".
+			"address_name="._dbEscape($content["newsletter"]["email_name"]).", ".
 			"address_verified=0, ".
-			"address_subscription='".aporeplace(serialize($content["newsletter"]["email_subscription"]))."', ".
-			"address_url1='".aporeplace($content["newsletter"]["url1"])."', ".
-			"address_url2='".aporeplace($content["newsletter"]["url2"])."' ".
-			"WHERE address_id=".aporeplace($content["newsletter"]["reffering_id"]).";";
+			"address_subscription="._dbEscape(serialize($content["newsletter"]["email_subscription"])).", ".
+			"address_url1="._dbEscape($content["newsletter"]["url1"]).", ".
+			"address_url2="._dbEscape($content["newsletter"]["url2"])." ".
+			"WHERE address_id="._dbEscape($content["newsletter"]["reffering_id"]);
 			$content["newsletter"]["updated"] = 1;
 		} else {
 			$content["newsletter"]["reffering_key"] = preg_replace('/[^a-z0-9]/i', '', shortHash($content["newsletter"]["email_address"].time()) );
 			//if email not exists in newsletter address list insert entry
 			$e_sql = "INSERT INTO ".DB_PREPEND."phpwcms_address (".
-			"address_email, address_name, address_key, address_subscription, address_url1, address_url2) VALUES ('".
-			aporeplace($content["newsletter"]["email_address"])."', '".
-			aporeplace($content["newsletter"]["email_name"])."', '".
-			aporeplace($content["newsletter"]["reffering_key"])."', '".
-			aporeplace(serialize($content["newsletter"]["email_subscription"]))."', '".
-			aporeplace($content["newsletter"]["url1"]).
-			"', '".
-			aporeplace($content["newsletter"]["url2"]).
-			"');";
+			"address_email, address_name, address_key, address_subscription, address_url1, address_url2) VALUES (".
+			_dbEscape($content["newsletter"]["email_address"]).", ".
+			_dbEscape($content["newsletter"]["email_name"]).", ".
+			_dbEscape($content["newsletter"]["reffering_key"]).", ".
+			_dbEscape(serialize($content["newsletter"]["email_subscription"])).", ".
+			_dbEscape($content["newsletter"]["url1"]).", ".
+			_dbEscape($content["newsletter"]["url2"]).")";
 			$content["newsletter"]["updated"] = 0;
 		}
 		mysql_query($e_sql, $db);

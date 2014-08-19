@@ -1520,7 +1520,7 @@ class GoogleMapAPI
 	function getCache( $address )
 	{
 		$_ret = array();
-		$_row = _dbQuery( 'SELECT lon,lat FROM ' . DB_PREPEND . $this->_db_cache_table . " WHERE address = '" . aporeplace( $address ) . "'" );
+		$_row = _dbQuery( 'SELECT lon,lat FROM ' . DB_PREPEND . $this->_db_cache_table . " WHERE address = " . _dbEscape( $address ) );
 		if ( isset( $_row[0] ) ) {
 
 			$_ret['lon'] = $_row[0]['lon'];

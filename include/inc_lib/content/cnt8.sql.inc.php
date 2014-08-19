@@ -21,8 +21,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Link Article
 
-$SQL .= "acontent_alink	='', ";
-$SQL .= "acontent_form	='".aporeplace(serialize($content['alink']))."' ";
+$SQL .= "acontent_alink='', ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['alink']))." ";
 
 
 ?>

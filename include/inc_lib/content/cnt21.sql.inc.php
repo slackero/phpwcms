@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 /// Content Type Page / ext. Content
 
-$SQL .= "acontent_form	='".aporeplace(serialize($content['page_file']))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['page_file']))." ";
 
 ?>

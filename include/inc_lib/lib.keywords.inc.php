@@ -75,9 +75,9 @@ function backend_edit_keywords() {
 		} else {
 
 			$sql 	 = "UPDATE ".DB_PREPEND."phpwcms_keyword SET ";
-			$sql	.= "keyword_name='" . aporeplace($update['keyword_name']) ."' ";
+			$sql	.= "keyword_name=" . _dbEscape($update['keyword_name']) ." ";
 			$sql	.= "WHERE keyword_id=".$keyword_id." ";
-			$sql	.= "AND keyword_name!='" . aporeplace($update['keyword_name']) ."' LIMIT 1";
+			$sql	.= "AND keyword_name!=" . _dbEscape($update['keyword_name']) ." LIMIT 1";
 
 			$update['result'] = _dbQuery($sql, 'UPDATE');
 
@@ -95,13 +95,13 @@ function backend_edit_keywords() {
 
 			// 1st check if keyword does not exist
 			$sql  	 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword ";
-			$sql	.= "WHERE keyword_trash=0 AND keyword_name='" . aporeplace($insert['keyword_name']) ."'";
+			$sql	.= "WHERE keyword_trash=0 AND keyword_name=" . _dbEscape($insert['keyword_name']);
 			$check	 = _dbQuery($sql);
 
 			if(empty($check[0])) {
 
 				$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_keyword SET ";
-				$sql .= "keyword_name='" . aporeplace($insert['keyword_name']) ."'";
+				$sql .= "keyword_name=" . _dbEscape($insert['keyword_name']);
 
 				$insert['result'] = _dbQuery($sql, 'INSERT');
 				$keyword_id		  = $insert['result']['INSERT_ID'];

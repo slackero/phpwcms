@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Article Menu
-										
-$SQL .= "acontent_form='".aporeplace(serialize($content["alist"]))."' ";
+
+$SQL .= "acontent_form="._dbEscape(serialize($content["alist"]))." ";
 
 ?>

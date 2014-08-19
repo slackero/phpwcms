@@ -19,6 +19,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Newsletter Subscription
 
-$SQL .= "acontent_newsletter='".aporeplace(serialize($content["newsletter"]))."' ";
+$SQL .= "acontent_newsletter="._dbEscape(serialize($content["newsletter"]))." ";
 
 ?>

@@ -21,8 +21,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Multimedia
 
-$SQL .= "acontent_media	='', ";
-$SQL .= "acontent_form	='".aporeplace(serialize($content["media"]))."', ";
-$SQL .= "acontent_template	= '".aporeplace($content["template"])."' ";
+$SQL .= "acontent_media='', ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["media"])).", ";
+$SQL .= "acontent_template="._dbEscape($content["template"])." ";
 
 ?>

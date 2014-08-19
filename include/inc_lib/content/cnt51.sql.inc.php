@@ -21,6 +21,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Map
 
-$SQL .= "acontent_form	='".aporeplace(serialize($content["map"]))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content["map"]))." ";
 
 ?>

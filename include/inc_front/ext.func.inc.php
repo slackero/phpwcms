@@ -339,7 +339,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 												unset($cp[0], $cp[1]);
 												$related = array();
 												foreach($cp as $value) {
-													$related[] = "article_keyword LIKE '%".aporeplace(strtoupper(trim($value)))."%'";
+													$related[] = "article_keyword LIKE "._dbEscape(strtoupper(trim($value)), true, '%', '%');
 												}
 												$cp = array('related' => 1); break;
 											}
