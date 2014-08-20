@@ -398,11 +398,7 @@ class Textile
 			'html5',
 		);
 		$doctype = strtolower( $doctype );
-		if( !in_array( $doctype, $doctype_whitelist ) )
-			$this->doctype = 'xhtml';
-		else
-			$this->doctype = $doctype;
-
+		$this->doctype = !in_array( $doctype, $doctype_whitelist ) ? 'xhtml' : $this->doctype = $doctype;
 		$this->hlgn = "(?:\<(?!>)|(?<!<)\>|\<\>|\=|[()]+(?! ))";
 		$this->vlgn = "[\-^~]";
 		$this->clas = "(?:\([^)\n]+\))";	# Don't allow classes/ids/languages/styles to span across newlines
@@ -1856,8 +1852,17 @@ class Textile
 // -------------------------------------------------------------
 	function footnoteRef($text)
 	{
-		return preg_replace('/(?<=\S)\[([0-9]+)([\!]?)\](\s)?/Ue',
-			'$this->footnoteID(\'\1\',\'\2\',\'\3\')', $text);
+		if($text) {
+			$text = preg_replace_callback(
+				'/(?<=\S)\[([0-9]+)([\!]?)\](\s)?/U',
+				function($matches){
+					return $this->footnoteID($matches[1], $matches[2], $matches[3]);
+				},
+				$text
+			);
+		}
+
+		return $text;
 	}
 
 // -------------------------------------------------------------
