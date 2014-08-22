@@ -255,7 +255,10 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 			$_temp_cat = @unserialize($row['template_var']);
 			$_temp_cat = empty($_temp_cat['overwrite']) ? '' : $_temp_cat['overwrite'];
 		}
-		echo ">".html($row["template_name"]).( ($row["template_default"])?" (default)":" ");
+		echo ">".html($row["template_name"]);
+		if($row["template_default"]) {
+			echo ' (', $BL['be_admin_tmpl_default'], ')';
+		}
 		echo "</option>\n";
 	}
 	mysql_free_result($result);

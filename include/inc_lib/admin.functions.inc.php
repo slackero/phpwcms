@@ -16,7 +16,9 @@
 function struct_list($id, $dbcon, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode=1, $forbid_cut=0, $forbid_copy=0, $counter=0) {
 
 	$counter++;
-	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".intval($id)." ORDER BY acat_sort";
+	$sql  = "SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ".DB_PREPEND."phpwcms_articlecat t1 ";
+	$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_template t2 ON t1.acat_template=t2.template_id ";
+	$sql .= "WHERE acat_trash=0 AND acat_struct=".intval($id)." ORDER BY acat_sort";
 	if($result = mysql_query($sql, $dbcon) or die("error while browsing structure".$sql)) {
 		$count_row = 0;
 		while($row = mysql_fetch_assoc($result)) {
@@ -59,8 +61,17 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$a .= ".gif\" width=\"11\" height=\"15\" ";
 
 	$info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
-	$info .= 'ALIAS: '.html($struct[$key]["acat_alias"]).'<br />';
+	$info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';
 	$info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
+	$info .= '<br>'.$BL['be_admin_struct_template'].': ';
+	if(empty($struct[$key]['template_trash'])) {
+		$info .= html($struct[$key]["template_name"]);
+		if($struct[$key]["template_default"]) {
+			$info .= ' ('.$BL['be_admin_tmpl_default'].')';
+		}
+	} else {
+		$info .= $BL['be_admin_tmpl_default'];
+	}
 
 	$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt=""';
 
