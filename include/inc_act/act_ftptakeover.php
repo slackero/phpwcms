@@ -195,7 +195,7 @@ if(!$ftp["error"]) {
 
 					$rrow = _dbQuery($rsql);
 
-					if(isset($rrow[0]['f_id']) {
+					if(isset($rrow[0]['f_id'])) {
 
 						$rrow = $rrow[0];
 
