@@ -479,7 +479,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
 									if($POST_val[$POST_name] != '' && $cnt_form["fields"][$key]['type'] == 'selectemail') { // decrypt
-										$POST_val[$POST_name] = decrypt(base64_decode($POST_val[$POST_name]));
+										$POST_val[$POST_name] = phpwcms_decrypt((base64_decode($POST_val[$POST_name]));
 									}
 									if($cnt_form["fields"][$key]['required'] && $POST_val[$POST_name] == '') {
 										$POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
@@ -589,10 +589,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 												$form_field .= '<option value=""';
 												$option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
 											} elseif(strtolower(substr($option_value, -9)) != ' selected') {
-												$form_field .= '<option value="'.($cnt_form["fields"][$key]['type'] == 'selectemail' ? base64_encode(encrypt($option_value)) : $option_value).'"';
+												$form_field .= '<option value="'.($cnt_form["fields"][$key]['type'] == 'selectemail' && $option_value ? base64_encode(phpwcms_encrypt($option_value)) : $option_value).'"';
 											} else {
 												$option_value = str_replace(' selected', '', $option_value);
-												$form_field .= '<option value="'.($cnt_form["fields"][$key]['type'] == 'selectemail' ? base64_encode(encrypt($option_value)) : $option_value).'" selected="selected"';
+												$form_field .= '<option value="'.($cnt_form["fields"][$key]['type'] == 'selectemail' && $option_value ? base64_encode(phpwcms_encrypt($option_value)) : $option_value).'" selected="selected"';
 											}
 											$form_field .= '>'.html_specialchars($option_label)."</option>\n";
 										}
