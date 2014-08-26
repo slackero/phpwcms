@@ -1052,7 +1052,7 @@ function get_login_file() {
 /**
  * Encrypt string
  */
-function encrypt($plaintext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode='cfb') {
+function phpwcms_encrypt($plaintext, $key=PHPWCMS_USER_KEY, $cypher='blowfish', $mode='cfb') {
 	$td = mcrypt_module_open($cypher, '', $mode, '');
 	$iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
 	mcrypt_generic_init($td, $key, $iv);
@@ -1064,7 +1064,7 @@ function encrypt($plaintext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode
 /**
  * Decrypt string
  */
-function decrypt($crypttext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode='cfb') {
+function phpwcms_decrypt($crypttext, $key=PHPWCMS_USER_KEY, $cypher='blowfish', $mode='cfb') {
 	$plaintext = '';
 	$td = mcrypt_module_open($cypher, '', $mode, '');
 	$ivsize = mcrypt_enc_get_iv_size($td);
