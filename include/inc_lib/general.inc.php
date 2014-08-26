@@ -871,27 +871,6 @@ function checkFormTrackingValue() {
 	return $valid;
 }
 
-// workaround functions for PHP < 4.3
-
-if(!function_exists('file_get_contents')) {
-	function file_get_contents($file) {
-		$f = fopen($file,'r');
-		if (!$f) return '';
-		$t = '';
-		while ($s = fread($f,100000)) $t .= $s;
-		fclose($f);
-		return $t;
-	}
-}
-
-if(!function_exists('html_entity_decode')) {
-	function html_entity_decode($string, $test='', $charset='') {
-		$trans_tbl = get_html_translation_table(HTML_ENTITIES);
-		$trans_tbl = array_flip($trans_tbl);
-		return strtr($string, $trans_tbl);
-	}
-}
-
 function cleanUpSpecialHtmlEntities($string='') {
 	if(isset($GLOBALS['SPECIAL_ENTITIES_TABLES'])) {
 		$string = str_replace($GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_encode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_decode'], $string);
