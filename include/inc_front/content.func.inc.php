@@ -443,6 +443,7 @@ if(is_string($block['css'])) {
 
 // template defaults
 $template_default['classes'] = isset($template_default['classes']) ? array_merge($phpwcms['default_template_classes'], $template_default['classes']) : $phpwcms['default_template_classes'];
+$template_default['attributes'] = isset($template_default['attributes']) ? array_merge($phpwcms['default_template_attributes'], $template_default['attributes']) : $phpwcms['default_template_attributes'];
 
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {

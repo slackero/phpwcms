@@ -2954,7 +2954,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($li_ul) {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
 				if($bootstrap) {
-					$li_class	= trim('dropdown '.$li_class);
+					$li_class	= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown'].' '.$li_class);
 					$bs_toggle	= true;
 				}
 			} elseif(getHasSubStructureStatus($key)) {
@@ -2966,9 +2966,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
 			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? $active_class[1] : ''; // set active link class
 			if($bs_toggle) {
-				$li_a_class		= trim('dropdown-toggle '.$li_a_class);
-				$bs_data_toggle = ' data-toggle="dropdown"';
-				$bs_caret		= ' <b class="caret"></b>';
+				$li_a_class		= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'].' '.$li_a_class);
+				$bs_data_toggle = ' '.$GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
+				$bs_caret		= $GLOBALS['template_default']['attributes']['navlist-bs-dropdown-caret'];
 			} else {
 				$bs_data_toggle = '';
 				$bs_caret		= '';
@@ -2999,7 +2999,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 			$li .= '>' . $li_a . '</a>';
 
-			$li .= $li_ul.'</li>'.LF; // remove $li_ul from this line of code if $ie_patch is used
+			$li .= $li_ul.'</li>'.LF;
 
 	}
 
