@@ -218,11 +218,15 @@ if($news['list_mode']) {
 		}
 
 		// test and set page
-		if(isset($_getVar['newspage'])) {
-			$_getVar['newspage'] = intval($_getVar['newspage']);
+		if(empty($_getVar['newspage'])) {
+			$news['current_page']	= 1;
+		} else {
+			$news['current_page']	= intval($_getVar['newspage']);
+			if($news['current_page'] == 0) {
+				$news['current_page'] = 1;
+			}
 		}
-		$news['current_page']	= $_getVar['newspage'] > 0 ? $_getVar['newspage'] : 1;
-		$news['total_pages']	= ceil( $news['count_all'] / $news['news_paginate_count'] );
+		$news['total_pages'] = ceil( $news['count_all'] / $news['news_paginate_count'] );
 
 		if($news['current_page'] > $news['total_pages']) {
 			$news['current_page'] = $news['total_pages'];
