@@ -146,7 +146,7 @@ if(!$ftp["error"]) {
 			}
 
 			$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_file (";
-			$sql .=	"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
+			$sql .=	"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ";
 			$sql .=	"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags".$ftp['fileVarsField'].") VALUES (";
 			$sql .=	$ftp["dir"].", ".intval($_SESSION["wcs_user_id"]).", 1, ".$ftp["aktiv"].", ".$ftp["public"].", ";
 			$sql .=	_dbEscape($file_name).", '".time()."', "._dbEscape($file_size).", "._dbEscape($file_type).", ";
@@ -182,6 +182,10 @@ if(!$ftp["error"]) {
 						$file_error["upload"] = "Error while writing file to storage (1).";
 					}
 				}
+			} elseif(mysql_error()) {
+
+				$file_error["upload"] = 'MySQL Error while insert to DB: '.mysql_error();
+
 			}
 
 			if(empty($file_error["upload"])) {
@@ -258,8 +262,11 @@ if(empty($file_error["upload"]) && empty($ftp["error"])) {
 
 } else {
 	echo "<p class=\"error\"><strong>error while file take over</strong></p>\n";
+	if($file_error["upload"]) {
+		echo dumpVar($file_error["upload"], 2);
+	}
 	echo "<p class='v10'><a href=\"".$ref."\" style=\"font-weight: bold;\">click here to go back</a></p>\n";
-	echo "<script type=\"text/javascript\"> history.back(); </script>\n";
+	//echo "<script type=\"text/javascript\"> history.back(); </script>\n";
 }
 echo "</body>\n</html>\n";
 
