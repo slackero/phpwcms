@@ -153,9 +153,8 @@ if(isset($_GET["id"])) {
 	if(count($GLOBALS['_getVar'])) {
 		reset($GLOBALS['_getVar']);
 		$alias = trim(key($GLOBALS['_getVar']));
-		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-			$where_alias = _dbEscape($alias);
+		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
 			// we have to check against MySQL < 4.0 -> UNION unknown
 			// so use a workaround
@@ -163,14 +162,14 @@ if(isset($_GET["id"])) {
 			if(PHPWCMS_DB_VERSION < 40000) {
 
 				$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . $where_alias . " LIMIT 1";
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
 
 				$row = _dbQuery($sql);
 
 				if(!isset($row[0]['acat_id'])) {
 
 					$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . $where_alias . " LIMIT 1";
+					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
 
 					$row = _dbQuery($sql);
 
@@ -179,10 +178,10 @@ if(isset($_GET["id"])) {
 			} else {
 
 				$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . $where_alias . ")";
+				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
 				$sql .= " UNION ";
 				$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . $where_alias . ") ";
+				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
 				$sql .= "LIMIT 1";
 
 				$row = _dbQuery($sql);
@@ -228,7 +227,7 @@ if(isset($_GET['print'])) {
 if($content['404error']['status'] === true) {
 
 	// Check if it is a 404 error redirect
-	$content['404error']['redirect_url'] = '';
+	$content['404error']['redirect_url']	= '';
 
 	if($content['404error']['alias'] == 'r404' || (isset($_SERVER['REDIRECT_STATUS']) && $_SERVER['REDIRECT_STATUS'] == 404)) {
 
@@ -246,9 +245,67 @@ if($content['404error']['status'] === true) {
 
 	if($content['404error']['redirect_url']) {
 
-		// ToDo: maybe Check against structure/article alias and redirect
-		$content['404error']['where'] = sprintf('alias LIKE %s', _dbEscape($content['404error']['redirect_url']));
-		$content['404error']['alias'] = $content['404error']['redirect_url'];
+		if($phpwcms['rewrite_url'] && $phpwcms['rewrite_ext']) {
+
+			$content['404error']['rewrite_ext_length'] = strlen($phpwcms['rewrite_ext']);
+
+			if(substr($content['404error']['redirect_url'], $content['404error']['rewrite_ext_length'] * -1) === $phpwcms['rewrite_ext']) {
+
+				$alias = substr($content['404error']['redirect_url'], 0, strlen($content['404error']['redirect_url']) - $content['404error']['rewrite_ext_length']);
+
+				if(PHPWCMS_DB_VERSION < 40000) {
+
+					$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+					$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
+
+					$row = _dbQuery($sql);
+
+					if(!isset($row[0]['acat_id'])) {
+
+						$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+						$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
+
+						$row = _dbQuery($sql);
+
+					}
+
+				} else {
+
+					$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+					$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+					$sql .= " UNION ";
+					$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+					$sql .= "LIMIT 1";
+
+					$row = _dbQuery($sql);
+
+				}
+
+				if(isset($row[0]['acat_id'])) {
+
+					$aktion[0] = $row[0]['acat_id'];
+					$aktion[1] = $row[0]['article_id'];
+					$aktion[3] = $row[0]['aktion3'];
+					$aktion[4] = $row[0]['aktion4'];
+
+					define('PHPWCMS_ALIAS', $alias);
+					$content['404error']['status'] = false;
+
+				} elseif($alias == $indexpage['acat_alias']) {
+
+					define('PHPWCMS_ALIAS', $alias);
+					$content['404error']['status'] = false;
+
+				}
+			}
+		}
+
+		if($content['404error']['status']) {
+			// ToDo: maybe Check against structure/article alias and redirect
+			$content['404error']['where'] = sprintf('alias LIKE %s', _dbEscape($content['404error']['alias']));
+			$content['404error']['alias'] = $content['404error']['redirect_url'];
+		}
 
 	} else {
 
@@ -256,70 +313,78 @@ if($content['404error']['status'] === true) {
 
 	}
 
-	// does the combination still exists in the database
-	$content['404error']['result'] = _dbGet('phpwcms_redirect', '*', $content['404error']['where']);
+	if($content['404error']['status']) {
 
+		// does the combination still exists in the database
+		$content['404error']['result'] = _dbGet('phpwcms_redirect', '*', $content['404error']['where']);
 
-	if(isset($content['404error']['result'][0])) {
+		if(isset($content['404error']['result'][0])) {
 
-		$content['404error']['result'] = $content['404error']['result'][0];
+			$content['404error']['result'] = $content['404error']['result'][0];
 
-		_dbUpdate('phpwcms_redirect', array('views'	=> intval($content['404error']['result']['views']) + 1), 'rid='.$content['404error']['result']['rid']);
+			_dbUpdate('phpwcms_redirect', array('views'	=> intval($content['404error']['result']['views']) + 1), 'rid='.$content['404error']['result']['rid']);
 
-		// Test for redirect
-		if($content['404error']['result']['active'] == 1) {
+			// Test for redirect
+			if($content['404error']['result']['active'] == 1) {
 
-			// HTTP Status
-			// 301, 302 (default), 307, 401, 404, 503
-			$content['404error']['result']['code'] = empty($content['404error']['result']['code']) ? 302 : intval($content['404error']['result']['code']);
+				// HTTP Status
+				// 301, 302 (default), 307, 401, 404, 503
+				$content['404error']['result']['code'] = empty($content['404error']['result']['code']) ? 302 : intval($content['404error']['result']['code']);
 
-			// Redirect to Home
-			// home (empty), alias, id, aid, link
-			if(empty($content['404error']['result']['type'])) {
+				// Redirect to Home
+				// home (empty), alias, id, aid, link
+				if(empty($content['404error']['result']['type'])) {
 
-				$content['404error']['result']['target'] = getStructureChildEntryHref($content['struct'][0]);
-				$content['404error']['result']['target'] = PHPWCMS_URL . $content['404error']['result']['target']['link'];
-				headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+					$content['404error']['result']['target'] = getStructureChildEntryHref($content['struct'][0]);
+					$content['404error']['result']['target'] = PHPWCMS_URL . $content['404error']['result']['target']['link'];
+					headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
 
-			} elseif($content['404error']['result']['target']) {
+				} elseif($content['404error']['result']['target']) {
 
-				switch($content['404error']['result']['type']) {
+					switch($content['404error']['result']['type']) {
 
-					case 'alias':
-						$content['404error']['result']['target'] = abs_url(array(), array(), $content['404error']['result']['target'], 'rawurlencode');
-						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
-						break;
+						case 'alias':
+							$content['404error']['result']['target'] = abs_url(array(), array(), $content['404error']['result']['target'], 'rawurlencode');
+							headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+							break;
 
-					case 'id':
-						$content['404error']['result']['target'] = abs_url(array(), array(), 'id='.$content['404error']['result']['target'], 'rawurlencode');
-						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
-						break;
+						case 'id':
+							$content['404error']['result']['target'] = abs_url(array(), array(), 'id='.$content['404error']['result']['target'], 'rawurlencode');
+							headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+							break;
 
-					case 'aid':
-						$content['404error']['result']['target'] = abs_url(array(), array(), 'aid='.$content['404error']['result']['target'], 'rawurlencode');
-						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
-						break;
+						case 'aid':
+							$content['404error']['result']['target'] = abs_url(array(), array(), 'aid='.$content['404error']['result']['target'], 'rawurlencode');
+							headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+							break;
 
-					case 'link':
-						headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
-						break;
+						case 'link':
+							headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
+							break;
+
+					}
 
 				}
-
 			}
+
+			$content['404error']['result'] = NULL;
+
+		} elseif(!empty($phpwcms['log_404error'])) {
+
+			// Store failed page access
+			_dbInsert('phpwcms_redirect', array(
+				'id'	=> $content['404error']['id'],
+				'aid'	=> $content['404error']['aid'],
+				'alias'	=> $content['404error']['alias'],
+				'views'	=> 1
+			));
 		}
 
-		$content['404error']['result'] = NULL;
+	} else {
 
-	} elseif(!empty($phpwcms['log_404error'])) {
+		// Send 200 OK
+		headerRedirect('', 200, false);
 
-		// Store failed page access
-		_dbInsert('phpwcms_redirect', array(
-			'id'	=> $content['404error']['id'],
-			'aid'	=> $content['404error']['aid'],
-			'alias'	=> $content['404error']['alias'],
-			'views'	=> 1
-		));
 	}
 }
 
