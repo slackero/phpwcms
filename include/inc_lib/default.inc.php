@@ -312,7 +312,8 @@ $phpwcms['default_template_classes'] = array(
 	'navlist-bs-dropdown'			=> 'dropdown',
 	'navlist-bs-dropdown-toggle'	=> 'dropdown-toggle',
 	'breadcrumb-active'				=> 'active',
-	'cp-anchor'						=> 'cpidClass',
+	'cp-anchor'						=> 'anchor-cp',
+	'jump-anchor'					=> 'anchor-article',
 	'image-thumb'					=> 'image-thumb',
 	'image-wrapper'					=> 'image-wrapper',
 	'image-link'					=> 'image-link',
@@ -373,6 +374,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', false);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
+	define('HTML5_MODE', false);
 
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
@@ -383,6 +385,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
+	define('HTML5_MODE', false);
 
 } elseif($phpwcms['mode_XHTML'] == 3) {
 
@@ -393,6 +396,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
+	define('HTML5_MODE', true);
 
 } else {
 
@@ -405,6 +409,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
+	define('HTML5_MODE', false);
 
 }
 

@@ -1265,7 +1265,7 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 parse_CKEDitor_resized_images();
 
 // cleanup document to enhance XHTML Strict compatibility
-if($phpwcms['mode_XHTML'] === 3) {
+if(HTML5_MODE) {
 
 	$phpwcms['html5shiv_disabled'] = empty($phpwcms['html5shiv_disabled']) ? false : true;
 	$phpwcms['respondjs_disabled'] = empty($phpwcms['respondjs_disabled']) ? false : true;

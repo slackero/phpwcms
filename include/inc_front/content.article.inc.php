@@ -149,7 +149,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$content['all_keywords'] = $row['article_keyword'];
 
 		if(!empty($template_default['article_render_anchor'])) {
-			$content["main"] .= '<a id="jump'.$row["article_id"].'" class="jump-anchor"></a>';
+			$content["main"] .= '<a ';
+			if(!HTML5_MODE) {
+				$content["main"] .= 'name="jump'.$row["article_id"].'" ';
+			}
+			$content["main"] .= 'id="jump'.$row["article_id"].'" class="'.$template_default['classes']['jump-anchor'].'"></a>';
 		}
 
 		// enable frontend edit link
@@ -542,7 +546,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 			// each content part will get an anchor
 			if($crow["acontent_anchor"]) {
-				$CNT_TMP .= '<a name="cpid'.$crow["acontent_id"].'" id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
+				$CNT_TMP .= '<a ';
+				if(!HTML5_MODE) {
+					$CNT_TMP .= 'name="cpid'.$crow["acontent_id"].'" ';
+				}
+				$CNT_TMP .= 'id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
 			}
 
 			// Space before

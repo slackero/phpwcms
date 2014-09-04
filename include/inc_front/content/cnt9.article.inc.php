@@ -103,8 +103,8 @@ if($media["source"]) {
 				$media["width"]  = $media["media_width"]  ? 'width="'.$media["media_width"].'" '   : '';
 				$media["height"] = $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
 
-				$media["code"]  = LF.'<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
-				$media['code'] .= empty($phpwcms['mode_XHTML']) ? '	QT_WriteOBJECT' : '	QT_WriteOBJECT_XHTML';
+				$media["code"]  = LF.'<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
+				$media['code'] .= XHTML_MODE ? '	QT_WriteOBJECT_XHTML' : '	QT_WriteOBJECT';
 				$media['code'] .= "('".$media["source"]."', '".$media["media_width"]."', '".$media["media_height"]."', '', ";
 				$media['code'] .= "'autoplay', '".$media["media_auto"]."', ";
 				$media['code'] .= "'bgcolor', 'black', 'align', 'middle', 'cache', 'true', ";
@@ -134,7 +134,7 @@ if($media["source"]) {
 		case 1:	//Real Player/Plugin
 				$console = 'real'.$randomID;
 
-				$block['custom_htmlhead']['AC_WriteActiveX.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_WriteActiveX.js" type="text/javascript"></script>';
+				$block['custom_htmlhead']['AC_WriteActiveX.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_WriteActiveX.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
 
 				$media["width"]			= $media["media_width"]  ? 'width="'.$media["media_width"].  '" ' : '';
 				$media["height"]		= $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
@@ -174,7 +174,7 @@ if($media["source"]) {
 
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
 					$media["code"]    = trim($media["code"]);
-					$media["iecode"]  = LF.'<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+					$media["iecode"]  = LF.'<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 					$media["iecode"] .= "	_writeActiveXObject('".str_replace(LF, '', $media["code"])."');";
 					$media["iecode"] .= LF.SCRIPT_CDATA_END.LF.'</script>'.LF;
 					$media["iecode"] .= '<noscript>'.$media["code"].'</noscript>'.LF;
@@ -185,7 +185,7 @@ if($media["source"]) {
 
 
 		case 2:	//Windows Media Player/Plugin
-				$block['custom_htmlhead']['AC_WriteActiveX.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_WriteActiveX.js" type="text/javascript"></script>';
+				$block['custom_htmlhead']['AC_WriteActiveX.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_WriteActiveX.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
 
 				$media["width"]			= $media["media_width"]  ? 'width="'.$media["media_width"].'" ' : '';
 				$media["media_height"]	= $media["media_height"] + ($media["media_control"] == "true" ? 45 : 0);
@@ -220,7 +220,7 @@ if($media["source"]) {
 
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
 					$media["code"]    = trim($media["code"]);
-					$media["iecode"]  = LF.'<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+					$media["iecode"]  = LF.'<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 					$media["iecode"] .= "	_writeActiveXObject('".str_replace(LF, '', $media["code"])."');";
 					$media["iecode"] .= LF.SCRIPT_CDATA_END.LF.'</script>'.LF;
 					$media["iecode"] .= '<noscript>'.$media["code"].'</noscript>'.LF;
@@ -267,7 +267,7 @@ if($media["source"]) {
 
 				initSwfObject();
 
-				$block['custom_htmlhead'][$randomID]  = '  <script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
+				$block['custom_htmlhead'][$randomID]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
 				$block['custom_htmlhead'][$randomID] .= '	swfobject.registerObject("'.$randomID.'", "9.0.0", "'.PHPWCMS_URL.TEMPLATE_PATH.'inc_js/swfobject/2.1/expressInstall.swf");';
 				$block['custom_htmlhead'][$randomID] .= LF.SCRIPT_CDATA_END.LF.'  </script>';
 
