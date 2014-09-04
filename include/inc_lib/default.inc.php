@@ -661,17 +661,18 @@ function remove_unsecure_rptags($check) {
 	return str_replace(array('[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'), array('[ PHP ]', '[ /PHP ]', '{ PHP :' , '{ PHPVAR :', '{ URL :'), $check);
 }
 
-function headerRedirect($target='', $type=0) {
-	if(isset($_SESSION)) {
+function headerRedirect($target='', $type=0, $session_close=true) {
+	if($session_close && isset($_SESSION)) {
 		session_write_close();
 	}
 	switch($type) {
-		case 301:	header('HTTP/1.1 301 Moved Permanently');		break;
-		case 302:	header('HTTP/1.1 302 Found');					break;
-		case 307:	header('HTTP/1.1 307 Temporary Redirect');		break;
-		case 401:	header('HTTP/1.1 401 Authorization Required'); 	break;
-		case 404:	header('HTTP/1.1 404 Not Found');				break;
-		case 503:	header('HTTP/1.1 503 Service Unavailable'); 	break;
+		case 200: header('HTTP/1.1 200 OK'); break;
+		case 301: header('HTTP/1.1 301 Moved Permanently'); break;
+		case 302: header('HTTP/1.1 302 Found'); break;
+		case 307: header('HTTP/1.1 307 Temporary Redirect'); break;
+		case 401: header('HTTP/1.1 401 Authorization Required'); break;
+		case 404: header('HTTP/1.1 404 Not Found'); break;
+		case 503: header('HTTP/1.1 503 Service Unavailable'); break;
 	}
 	if($target !== '') {
 		header('Location: '.$target);
