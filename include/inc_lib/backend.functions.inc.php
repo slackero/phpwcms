@@ -629,23 +629,64 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 		}
 	}
 
-	$alias = substr($alias, 0, 200);
+	// Test against existing folders to avoid problems with rewrite
+	if(PHPWCMS_ALIAS_WSLASH && strpos($alias, '/') !== false) {
 
-	// new reserved alias can be defined in $phpwcms['reserved_alias']
-	if( isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias']) ) {
-		$reserved = array_merge($reserved, $phpwcms['reserved_alias']);
-	}
+		$root_folders = returnSubdirListAsArray(PHPWCMS_ROOT);
 
-	if( $alias == '' || in_array($alias, $reserved) || ($alias == 'index' && $current_id != 'index') ) {
+		if($root_folders !== false) {
 
-		if($mode == 'CONTENT') {
-			$alias .= date('-Y-n-j');
-		} else {
-			$alias .= '-view';
+			// Only check first "path" section
+			$alias_sections = explode('/', $alias);
+			$alias_proof = strtolower($alias_sections[0]);
+			$alias_proof_suffix = '';
+			$alias_proof_suffix_count = 0;
+
+			foreach($root_folders as $key => $folder) {
+				$root_folders[$key] = strtolower($folder);
+			}
+
+			while(in_array($alias_proof.$alias_proof_suffix, $root_folders)) {
+				$alias_proof_suffix_count++;
+				$alias_proof_suffix = '-'.$alias_proof_suffix_count;
+			}
+
+			if($alias_proof_suffix_count) {
+				$alias_sections[0] .= $alias_proof_suffix;
+				$alias = implode('/', $alias_sections);
+			}
 		}
 	}
 
-	$alias = trim( $alias, '-' );
+	$alias = substr($alias, 0, 230);
+
+	if(PHPWCMS_ALIAS_WSLASH) {
+		$alias = trim($alias, '/');
+	}
+
+	$alias_proof_suffix = '';
+	$alias_proof_suffix_count = 0;
+
+	// Now test against existing files to avoid problems with rewrite
+	while(is_file(PHPWCMS_ROOT.'/'.$alias.$alias_proof_suffix.PHPWCMS_REWRITE_EXT)) {
+		$alias_proof_suffix_count++;
+		$alias_proof_suffix = '-'.$alias_proof_suffix_count;
+	}
+
+	if($alias_proof_suffix_count) {
+		$alias .= $alias_proof_suffix;
+	}
+
+	// new reserved alias can be defined in $phpwcms['reserved_alias']
+	if(isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias'])) {
+		$reserved = array_merge($reserved, $phpwcms['reserved_alias']);
+	}
+
+	if($alias == '' || in_array($alias, $reserved) || ($alias == 'index' && $current_id != 'index') ) {
+		$alias .= ($mode == 'CONTENT') ? date('_Ymd') : '-view';
+	}
+
+	$alias = trim($alias, '-');
 
 	$where_acat		= '';
 	$where_article	= '';
