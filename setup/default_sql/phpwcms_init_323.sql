@@ -163,7 +163,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_trash` int(1) NOT NULL DEFAULT '0',
   `acat_struct` int(11) NOT NULL DEFAULT '0',
   `acat_sort` int(11) NOT NULL DEFAULT '0',
-  `acat_alias` varchar(250) NOT NULL DEFAULT '',
+  `acat_alias` varchar(255) NOT NULL DEFAULT '',
   `acat_hidden` int(1) NOT NULL DEFAULT '0',
   `acat_template` int(11) NOT NULL DEFAULT '0',
   `acat_ssl` int(1) NOT NULL DEFAULT '0',
