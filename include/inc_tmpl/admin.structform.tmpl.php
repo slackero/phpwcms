@@ -134,7 +134,7 @@ switch($acat_hidden) {
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_cat'] ?>:</td></tr>
-          <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b" style="width: 450px" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="95" /></td></tr>
+          <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b width450" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="95" /></td></tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
@@ -148,7 +148,7 @@ switch($acat_hidden) {
 						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
 					</tr>
 		 			<tr>
-						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html($acat_alias) ?>" size="50" maxlength="150"<?php
+						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html($acat_alias) ?>" size="50" maxlength="230"<?php
 							if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
 						<td>&nbsp;</td>
 						<td><input name="acat_class" type="text" id="acat_class" class="f11 width185" value="<?php echo html($acat_class) ?>" size="50" maxlength="150" /></td>
