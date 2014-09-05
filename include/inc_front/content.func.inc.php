@@ -227,7 +227,7 @@ if(isset($_GET['print'])) {
 if($content['404error']['status'] === true) {
 
 	// Check if it is a 404 error redirect
-	$content['404error']['redirect_url']	= '';
+	$content['404error']['redirect_url'] = '';
 
 	if($content['404error']['alias'] == 'r404' || (isset($_SERVER['REDIRECT_STATUS']) && $_SERVER['REDIRECT_STATUS'] == 404)) {
 
