@@ -137,8 +137,8 @@ if($success) {
 
 } else {
 
-	header("HTTP/1.0 404 Not Found");
-	echo '<strong>404 File Not Found</strong>';
+	headerRedirect('', 404);
+	echo '<h1>404 File Not Found</h1>';
 
 }
 
