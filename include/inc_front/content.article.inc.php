@@ -132,12 +132,12 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$content['opengraph']['type'] = 'article'; // Open Graph type
 
 		//check if article has custom pagetitle
-		if(!empty($row["article_pagetitle"])) {
-			$content["pagetitle"] = $row["article_pagetitle"];
-			$content['opengraph']['title'] = $content["pagetitle"];
-		} else {
+		if(empty($row["article_pagetitle"])) {
 			$content["pagetitle"] = setPageTitle($content["pagetitle"], $article['cat'], $row["article_title"]);
 			$content['opengraph']['title'] = $row["article_title"];
+		} else {
+			$content["pagetitle"] = $row["article_pagetitle"];
+			$content['opengraph']['title'] = $content["pagetitle"];
 		}
 
 		// check description
