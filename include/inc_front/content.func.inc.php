@@ -672,10 +672,10 @@ if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && !$conten
 }
 
 // Include depricated functionality if needed
-if(!empty($phpwcms['enable_deprecated'])) {
-	include_once(PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php");
-} else {
+if(empty($phpwcms['enable_deprecated'])) {
 	$phpwcms['enable_deprecated'] = false;
+} else {
+	include_once(PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php");
 }
 
 // check if current category should be cached
@@ -712,14 +712,18 @@ if($aktion[1]) {
 
 //check for no content error
 $content["main"] = trim($content["main"]);
-if($content['404error']['status'] === true || $no_content_for_this_page || $content["main"] == '') {
+if($content['404error']['status'] === true) {
 	// Show 404 error page
-	header('HTTP/1.0 404 Not Found');
-	$content["main"] .= $block["errortext"];
+	headerRedirect('', 404, false);
+	// [404] … {404} … [/404]
+	$content["main"] .= render_cnt_template($block["errortext"], '404', '<!-- 404 Not Found -->');
+} elseif($no_content_for_this_page || $content["main"] === '') {
+	// [404_ELSE] … {404_ELSE} … [/404_ELSE]
+	$content["main"] .= render_cnt_template($block["errortext"], '404', '', '<!-- Just empty: Why ever, there is no content! -->');
 }
 
 //check if one of needed block texts and values are empty and if then fill with content
-if(!$block["maintext"]) {
+if(empty($block["maintext"])) {
 	$block["maintext"] = $content["main"];
 }
 
