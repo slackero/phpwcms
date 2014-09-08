@@ -105,7 +105,12 @@ form {
 .chat {
 	color: #55638A;
 }
-.chatlist {
+.chatlist,
+.nowrap,
+.nowrap td,
+.nowrap label,
+.subnavactive,
+.subnavinactive {
 	white-space: nowrap;
 }
 .chatlist.wrap {
@@ -287,10 +292,6 @@ button.button10 {
 .table2 {
 	border: 1px solid #DEE9EC;
 	background-color: #F5F9FA;
-}
-.subnavactive,
-.subnavinactive {
-	white-space: nowrap;
 }
 .subnavactive,
 .subnavactive a {
@@ -1311,9 +1312,6 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 	filter: alpha(opacity=100);
 }
-.nowrap td, .nowrap label, label.nowrap, td.nowrap {
-	white-space: nowrap;
-}
 
 form.free span.lang-select img {
 	vertical-align: middle;
@@ -1651,4 +1649,11 @@ pull-right {
 	background-repeat: no-repeat;
 	background-position: right center;
 	white-space: nowrap;
+}
+
+.caption {
+	display: block;
+	margin-top: 3px;
+	font-size: 10px;
+	color: #7f7f7f;
 }
