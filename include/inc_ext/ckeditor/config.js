@@ -25,4 +25,12 @@ CKEDITOR.editorConfig = function( config ) {
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
 	//config.removeButtons = 'Underline,Subscript,Superscript';
+
+	// set some recommend defaults
+	config.extraAllowedContent = '*(*)'; // allow classes for all tags
+	config.forcePasteAsPlainText = true;
+	config.pasteFromWordRemoveFontStyles = true;
+	config.pasteFromWordRemoveStyles = true;
+	config.pasteFromWordPromptCleanup = true;
+
 };
