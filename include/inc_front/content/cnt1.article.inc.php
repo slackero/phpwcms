@@ -50,22 +50,26 @@ $crow['has_image']			= false;
 $image = $crow["acontent_image"] ? explode(":", $crow["acontent_image"]) : false;
 
 $crow["default_settings"] = array(
-	'class_top_left'		=> $template_default['classes']['imgtxt-top-left'],
-	'class_top_center'		=> $template_default['classes']['imgtxt-top-center'],
-	'class_top_right'		=> $template_default['classes']['imgtxt-top-right'],
-	'class_bottom_left'		=> $template_default['classes']['imgtxt-bottom-left'],
-	'class_bottom_center'	=> $template_default['classes']['imgtxt-bottom-center'],
-	'class_bottom_right'	=> $template_default['classes']['imgtxt-bottom-right'],
-	'class_float_left'		=> $template_default['classes']['imgtxt-left'],
-	'class_float_right'		=> $template_default['classes']['imgtxt-right'],
-	'class_column_left'		=> $template_default['classes']['imgtxt-column-left'],
-	'class_column_right'	=> $template_default['classes']['imgtxt-column-right'],
-	'width'					=> $image[4],
-	'height'				=> $image[5],
-	'zoom'					=> $image[8],
-	'crop'					=> 0,
-	'lightbox'				=> 0,
-	'nocaption'				=> 0
+	'class_top_left'			=> $template_default['classes']['imgtxt-top-left'],
+	'class_top_center'			=> $template_default['classes']['imgtxt-top-center'],
+	'class_top_right'			=> $template_default['classes']['imgtxt-top-right'],
+	'class_bottom_left'			=> $template_default['classes']['imgtxt-bottom-left'],
+	'class_bottom_center'		=> $template_default['classes']['imgtxt-bottom-center'],
+	'class_bottom_right'		=> $template_default['classes']['imgtxt-bottom-right'],
+	'class_float_left'			=> $template_default['classes']['imgtxt-left'],
+	'class_float_right'			=> $template_default['classes']['imgtxt-right'],
+	'class_column_left'			=> $template_default['classes']['imgtxt-column-left'],
+	'class_column_right'		=> $template_default['classes']['imgtxt-column-right'],
+	'class_column_left_image'	=> $template_default['classes']['imgtxt-column-left-image'],
+	'class_column_right_image'	=> $template_default['classes']['imgtxt-column-right-image'],
+	'class_column_left_text'	=> $template_default['classes']['imgtxt-column-left-text'],
+	'class_column_right_text'	=> $template_default['classes']['imgtxt-column-right-text'],
+	'width'						=> $image[4],
+	'height'					=> $image[5],
+	'zoom'						=> $image[8],
+	'crop'						=> 0,
+	'lightbox'					=> 0,
+	'nocaption'					=> 0
 );
 
 $image_text	= '';
@@ -137,19 +141,19 @@ if($image) {
 				$image_text .= LF . $crow["acontent_text"];
 				break;
 			case 8: // column left
-				$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_left'].'-image');
+				$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_left_image']);
 				if(trim($iconimg.$crow["acontent_text"])) {
 					$image_text .= '<div class="'.$crow["settings"]['class_column_left'].'">'.LF;
 					$image_text .= '	' . $iconimg . LF;
-					$image_text .= '	<div class="'.$crow["settings"]['class_column_left'].'-text">'.$crow["acontent_text"].'</div>' . LF;
+					$image_text .= '	<div class="'.$crow["settings"]['class_column_left_text'].'">'.$crow["acontent_text"].'</div>' . LF;
 					$image_text .= '</div>';
 				}
 				break;
 			case 9: // column right
-				$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_right'].'-image');
+				$iconimg = imagediv($phpwcms, $image, $crow["settings"]['class_column_right_image']);
 				if(trim($iconimg.$crow["acontent_text"])) {
 					$image_text .= '<div class="'.$crow["settings"]['class_column_right'].'">' . LF;
-					$image_text .= '	<div class="'.$crow["settings"]['class_column_right'].'-text">'.$crow["acontent_text"].'</div>' . LF;
+					$image_text .= '	<div class="'.$crow["settings"]['class_column_right_text'].'">'.$crow["acontent_text"].'</div>' . LF;
 					$image_text .= '	' . $iconimg . LF;
 					$image_text .= '</div>';
 				}
