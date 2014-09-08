@@ -46,7 +46,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 		</select></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
@@ -59,7 +59,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <tr>
 	   <td><input name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php is_checked(1, $content['file']['direct_download']); ?>></td>
 	   <td class="v10"><label for="cfile_direct">&nbsp;<?php echo $BL['be_cnt_download_direct'] ?></label>&nbsp;&nbsp;</td>
-	   <td><img src="img/leer.gif" alt="" width="1" height="22"></td>	
+	   <td><img src="img/leer.gif" alt="" width="1" height="22"></td>
 	  </tr>
 	  </table></td>
 </tr>
@@ -102,8 +102,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			unset($fxb); unset($content["file_list"]);
 		}
 	  }
-	  
-	  
+
+
 	  ?>
 	  </select></td>
 	  <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1"></td>                                           <!-- browser_file.php //-->
@@ -118,14 +118,29 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cfile_descr" cols="40" rows="8" class="f11" id="cfile_descr" style="width: 440px;"><?php 
-  
+  <td valign="top">
+  	<textarea name="cfile_descr" cols="40" rows="8" class="f11 width440" id="cfile_descr"><?php
+
 	if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
 		echo ' ';
 	}
-	echo html($content["file_descr"]); 
-  
-  ?></textarea></td>
+	echo html($content["file_descr"]);
+
+  ?></textarea>
+  	<span class="caption width440">
+		<?php echo $BL['be_cnt_description']; ?>
+		|
+		<?php echo $BL['be_fprivedit_filename']; ?>
+		|
+		<?php echo $BL['be_caption_file_title']; ?>
+		|
+		<?php echo $BL['be_cnt_target']; ?>
+		|
+		<?php echo $BL['be_caption_file_imagesize']; ?>
+		|
+		<?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+	</span>
+  </td>
 </tr>
 
 

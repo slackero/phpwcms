@@ -275,7 +275,20 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-		<td colspan="3"><textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea></td>
+		<td colspan="3">
+			<textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 width300" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea>
+			<span class="caption width440">
+				<?php echo $BL['be_cnt_caption']; ?>
+				|
+				<?php echo $BL['be_caption_alt']; ?>
+				|
+				<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+				|
+				<?php echo $BL['be_caption_title']; ?>
+				|
+				<?php echo $BL['be_copyright']; ?>
+			</span>
+		</td>
 	</tr>
 
 	<tr><td colspan="3" class="spacerrow"></td></tr>
@@ -471,7 +484,9 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'tr>';
 		new_entry += '<'+'td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;<'+'/td>';
-		new_entry += '<'+'td colspan="3"><textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="v11 w300" cols="30" rows="2"><'+'/textarea><'+'/td>';
+		new_entry += '<'+'td colspan="3"><textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="v11 width300" cols="30" rows="2"><'+'/textarea>';
+		new_entry += '<span class="caption width300"><?php echo $BL['be_cnt_caption']; ?> | <?php echo $BL['be_caption_alt']; ?> | <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em> | <?php echo $BL['be_caption_title']; ?> | <?php echo $BL['be_copyright']; ?></span>';
+		new_entry += '<'+'/td>';
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'tr><td colspan="3" class="spacerrow"><'+'/td><'+'/tr>';
 		new_entry += '<'+'tr>';

@@ -477,7 +477,18 @@ $(function(){
 		<tr>
 				<td class="top"><label><?php echo $BL['be_cnt_caption'] ?></label></td>
 				<td colspan="2" class="tdbottom4">
-				<textarea name="cnt_image_caption" id="cnt_image_caption" class="text" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
+					<textarea name="cnt_image_caption" id="cnt_image_caption" class="text" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
+					<span class="caption width350">
+						<?php echo $BL['be_cnt_caption']; ?>
+						|
+						<?php echo $BL['be_caption_alt']; ?>
+						|
+						<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+						|
+						<?php echo $BL['be_caption_title']; ?>
+						|
+						<?php echo $BL['be_copyright']; ?>
+					</span>
 				</td>
 			</tr>
 
@@ -516,7 +527,22 @@ $(function(){
 
 		<tr>
 	 		<td class="top"><label><?php echo $BL['be_cnt_description'] ?></label></td>
-	  		<td colspan="2"><textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea></td>
+	  		<td colspan="2">
+	  			<textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
+	  			<span class="caption width350 nowrap">
+					<?php echo $BL['be_caption_descr.']; ?>
+					|
+					<?php echo $BL['be_fprivedit_filename']; ?>
+					|
+					<?php echo $BL['be_caption_file_title']; ?>
+					|
+					<?php echo $BL['be_cnt_target']; ?>
+					|
+					<?php echo $BL['be_caption_file_imagesize']; ?>
+					|
+					<?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+				</span>
+	  		</td>
 		</tr>
 
 		<tr>

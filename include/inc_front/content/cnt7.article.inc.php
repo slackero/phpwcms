@@ -92,11 +92,11 @@ if($content['files_sql']) {
 		// get filelist template
 		if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl')) {
 
-			$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl') );
+			$crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl') );
 
 		} elseif($crow["acontent_template"] == 'download-inline') {
 
-			$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl') );
+			$crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl') );
 
 		} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"])) {
 
@@ -111,23 +111,27 @@ if($content['files_sql']) {
 
 		}
 
-		$_files_settings				= get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
-		$_files_settings				= parse_ini_str($_files_settings, false);
-		$_files_settings				= array_merge(	array(	'icon_path' => 'img/icons/',
-																'icon_name' => 'small_icon_{FILE_EXT}.gif',
-																'thumbnail'	=> 0,
-																'thumbnail_width' => 50,
-																'thumbnail_height' => 50,
-																'thumbnail_crop' => 1,
-																'lightbox_init' => 0,
-																'file_size_round' => 3,
-																'file_size_space' => ' ',
-																'date_format' => "%m/%d/%y",
-																'set_locale' => '')
-														, $_files_settings );
+		$_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
+		$_files_settings = parse_ini_str($_files_settings, false);
+		$_files_settings = array_merge(
+			array(
+				'icon_path' => 'img/icons/',
+				'icon_name' => 'small_icon_{FILE_EXT}.gif',
+				'thumbnail'	=> 0,
+				'thumbnail_width' => 50,
+				'thumbnail_height' => 50,
+				'thumbnail_crop' => 1,
+				'lightbox_init' => 0,
+				'file_size_round' => 3,
+				'file_size_space' => ' ',
+				'date_format' => "%m/%d/%y",
+				'set_locale' => ''
+			),
+			$_files_settings
+		);
 
-		$crow["acontent_template"]		= replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
-		$content['template_file']		= get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
+		$crow["acontent_template"]	= replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
+		$content['template_file']	= get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
 
 		if($_files_settings['set_locale']) {
 			$_files_old_locale				= setlocale(LC_ALL, "0");

@@ -40,20 +40,20 @@ if(!isset($content['image_list'])) {
 
 	$content['image_list'] = array(
 
-			'pos'		=> 0,
-			'width'		=> $template_default['imagegallery_default_width'],
-			'height'	=> $template_default['imagegallery_default_height'],
-			'col'		=> $template_default['imagegallery_default_column'],
-			'space'		=> $template_default['imagegallery_default_space'],
-			'zoom'		=> 0,
-			'caption'	=> '',
-			'lightbox'	=> 0,
-			'nocaption'	=> 0,
-			'crop'		=> 0,
-			'random'	=> 0,
-			'limit'		=> 0
+		'pos'		=> 0,
+		'width'		=> $template_default['imagegallery_default_width'],
+		'height'	=> $template_default['imagegallery_default_height'],
+		'col'		=> $template_default['imagegallery_default_column'],
+		'space'		=> $template_default['imagegallery_default_space'],
+		'zoom'		=> 0,
+		'caption'	=> '',
+		'lightbox'	=> 0,
+		'nocaption'	=> 0,
+		'crop'		=> 0,
+		'random'	=> 0,
+		'limit'		=> 0
 
-		);
+	);
 
 }
 
@@ -294,7 +294,20 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="f11" id="cimage_caption" style="width: 440px;"><?php echo $caption_box; ?></textarea></td>
+	<td valign="top">
+		<textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="f11 width440" id="cimage_caption"><?php echo $caption_box; ?></textarea>
+		<span class="caption width440">
+			<?php echo $BL['be_cnt_caption']; ?>
+			|
+			<?php echo $BL['be_caption_alt']; ?>
+			|
+			<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+			|
+			<?php echo $BL['be_caption_title']; ?>
+			|
+			<?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+		</span>
+	</td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>

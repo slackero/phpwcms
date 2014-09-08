@@ -183,7 +183,7 @@ if($image['template']) {
 			}
 
 			// set caption and ALT Image Text for imagelist
-			$caption			= getImageCaption($value['caption']); // Caption | Title | Alt
+			$caption = getImageCaption($value['caption']); // Caption | Title | Alt
 
 			// no ALT, no TITLE
 			if(empty($caption[1])) {

@@ -1374,4 +1374,10 @@ $BL['be_system_container_norender']		= 'no regular frontend rendering';
 $BL['be_custom_scriptlogic']			= 'custom (script logic)';
 $BL['be_flush_image_cache']				= 'flush image cache';
 
+$BL['be_caption_alt']					= 'alt attr.';
+$BL['be_caption_title']					= 'title attr.';
+$BL['be_caption_file_imagesize']		= 'WxHxC <em>(if image)</em>';
+$BL['be_caption_file_title']			= 'file title';
+$BL['be_caption_descr.']				= 'descr.';
+
 ?>

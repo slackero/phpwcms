@@ -294,7 +294,20 @@ if($img_count) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11" id="cimage_caption" style="width: 440px;"><?php echo implode(' '.LF, $caption_box) ?></textarea></td>
+	<td valign="top">
+		<textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width440" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
+		<span class="caption width440">
+			<?php echo $BL['be_cnt_caption']; ?>
+			|
+			<?php echo $BL['be_caption_alt']; ?>
+			|
+			<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+			|
+			<?php echo $BL['be_caption_title']; ?>
+			|
+			<?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+		</span>
+	</td>
 </tr>
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 

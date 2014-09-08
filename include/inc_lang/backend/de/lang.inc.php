@@ -1365,4 +1365,10 @@ $BL['be_system_container_norender']		= 'ohne regul&auml;re Ausgabe im Frontend';
 $BL['be_custom_scriptlogic']			= 'benutzerdefiniert (Scriptlogik)';
 $BL['be_flush_image_cache']				= 'Bildcache leeren';
 
+$BL['be_caption_alt']					= 'alt Attr.';
+$BL['be_caption_title']					= 'title Attr.';
+$BL['be_caption_file_imagesize']		= 'BxHxC <em>(wenn Bild)</em>';
+$BL['be_caption_file_title']			= 'Dateititel';
+$BL['be_caption_descr.']				= 'Beschr.';
+
 ?>

@@ -180,11 +180,24 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
-			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php
+			        <td valign="top">
+			        	<textarea name="cimage_caption" cols="30" rows="4" class="f11 width300" id="cimage_caption"><?php
 			        	if(isset($content["image_caption"])) {
 			        		echo html($content["image_caption"]);
 			        	}
-			        ?></textarea></td>
+			        ?></textarea>
+			        	<span class="caption width300">
+							<?php echo $BL['be_cnt_caption']; ?>
+							|
+							<?php echo $BL['be_caption_alt']; ?>
+							|
+							<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+							|
+							<?php echo $BL['be_caption_title']; ?>
+							|
+							<?php echo $BL['be_copyright']; ?>
+						</span>
+			        </td>
 			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
 
