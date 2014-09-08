@@ -51,11 +51,13 @@ CKEDITOR.editorConfig = function( config ) {
 	config.height = 400;
 
 	config.extraPlugins = 'magicline';
+	//config.removePlugins = 'resize';
+
+	// Allow classes for all tags
+	config.extraAllowedContent = '*(*)';
 
 	config.toolbarCanCollapse = true;
 	config.toolbarStartupExpanded = true;
-
-	//config.removePlugins = 'resize';
 
 	config.forcePasteAsPlainText = true;
 	config.pasteFromWordRemoveFontStyles = true;
