@@ -593,7 +593,10 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					// article class based on keyword *CSS-classname*
 					$row['article_class'] = '';
 					if(strpos($row['article_keyword'], '*CSS-') !== false) {
-						$row['article_class'] = trim(preg_replace('/^.*\*CSS\-(.+)\*.*$/', '$1', $row['article_keyword']));
+						preg_match_all('/\*CSS\-(.+?)\*/', $row['article_keyword'], $row['css']);
+						if(isset($row['css'][1]) && is_array($row['css'][1]) && count($row['css'][1])) {
+							$row['article_class'] = implode(' ', $row['css'][1]);
+						}
 					}
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CLASS', $row['article_class']);
 
