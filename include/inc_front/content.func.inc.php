@@ -1051,6 +1051,9 @@ if(!empty($content['struct'][ $content["cat_id"] ]['acat_keywords'])) {
 }
 // insert keywords meta tag if not yet definied
 if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_keywords']) && !stristr($block["htmlhead"], '"keywords"')) {
+	if(strpos($content['all_keywords'], '*CSS-') !== false) {
+		$content['all_keywords'] = preg_replace('/\*CSS\-.+?\*/', '', $content['all_keywords']);
+	}
 	$content['all_keywords'] = convertStringToArray($content['all_keywords']);
 	if(count($content['all_keywords'])) {
 		set_meta('keywords', implode(', ', $content['all_keywords']));
