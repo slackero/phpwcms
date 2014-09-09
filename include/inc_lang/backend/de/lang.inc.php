@@ -1370,5 +1370,7 @@ $BL['be_caption_title']					= 'title Attr.';
 $BL['be_caption_file_imagesize']		= 'BxHxC <em>(wenn Bild)</em>';
 $BL['be_caption_file_title']			= 'Dateititel';
 $BL['be_caption_descr.']				= 'Beschr.';
+$BL['be_display_html5_only']			= 'ausschlie&szlig;lich HTML5';
+$BL['be_audio_only']					= 'nur Audio';
 
 ?>

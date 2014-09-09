@@ -58,6 +58,13 @@ if(!isset($fmp_data['fmp_set_volume'])) {
 if(!isset($fmp_data['fmp_set_preload'])) {
 	$fmp_data['fmp_set_preload'] = 'auto';
 }
+if(!isset($fmp_data['fmp_set_html5only'])) {
+	$fmp_data['fmp_set_html5only'] = 0;
+}
+if(!isset($fmp_data['fmp_set_audio'])) {
+	$fmp_data['fmp_set_audio'] = 0;
+}
+
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -308,6 +315,16 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td align="right" class="chatlist tdtop3"><?php echo $BL['be_settings'] ?>:&nbsp;</td>
 
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="" class="settings">
+
+		<tr>
+			<td class="chatlist" align="right"><label for="fmp_set_html5only"><?php echo $BL['be_display_html5_only'] ?>:&nbsp;</label></td>
+			<td><input type="checkbox" name="fmp_set_html5only" id="fmp_set_html5only" value="1"<?php is_checked(1, $fmp_data['fmp_set_html5only']) ?> /></td>
+		</tr>
+
+		<tr>
+			<td class="chatlist" align="right"><label for="fmp_set_audio"><?php echo $BL['be_audio_only'] ?>:&nbsp;</label></td>
+			<td><input type="checkbox" name="fmp_set_audio" id="fmp_set_audio" value="1"<?php is_checked(1, $fmp_data['fmp_set_audio']) ?> /></td>
+		</tr>
 
 		<tr>
 			<td class="chatlist" align="right"><label for="fmp_set_autostart">Autostart:&nbsp;</label></td>

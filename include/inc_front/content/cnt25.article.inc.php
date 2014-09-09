@@ -96,18 +96,21 @@ if(isset($fmp_data['fmp_template'])) {
 
 	}
 
+	$fmp_data['fmp_set_html5only']	= empty($fmp_data['fmp_set_html5only']) ? false : true;
+	$fmp_data['fmp_set_audio']		= empty($fmp_data['fmp_set_audio']) ? 'video' : 'audio';
+
 	// Set some defaults used to build SwfObject Call
-	$fmp_data['flashvars'] 		= array();
-	$fmp_data['attributes'] 	= array();
-	$fmp_data['params'] 		= array();
-	$fmp_data['flashvars_type']	= '';
+	$fmp_data['flashvars'] 			= array();
+	$fmp_data['attributes'] 		= array();
+	$fmp_data['params'] 			= array();
+	$fmp_data['flashvars_type']		= '';
 
 	// set player dimensions first
 	if(empty($fmp_data['fmp_width'])) {
-		$fmp_data['fmp_width']	= 320;
+		$fmp_data['fmp_width']		= 320;
 	}
 	// check if controls should be shown and add controls' height to player height
-	$fmp_data['fmp_displayheight'] = $fmp_data['fmp_height'];
+	$fmp_data['fmp_displayheight']	= $fmp_data['fmp_height'];
 
 	if(empty($fmp_data['fmp_set_flashversion'])) {
 		$fmp_data['fmp_set_flashversion'] = 11;
@@ -421,74 +424,95 @@ if(isset($fmp_data['fmp_template'])) {
 	// Video JS
 	if(count($fmp_data['video'])) {
 
-		initVideoJs();
+		$fmp_data['video_tag'] = array();
+		$fmp_data['video_tag']['header']  = '<'.$fmp_data['fmp_set_audio'].' ';
 
-		// check for video-js Skin
-		if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default' && is_file(PHPWCMS_TEMPLATE.'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css')) {
-			$block['custom_htmlhead']['skin_html5.css']  = '  <link rel="stylesheet" type="text/css" href="' . TEMPLATE_PATH . 'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css" />';
-			$fmp_data['fmp_set_skin_html5'] = ' ' . strtolower($fmp_data['fmp_set_skin_html5']).'-css';
-			$fmp_data['fmp_set_skin_video'] = strtolower($fmp_data['fmp_set_skin_html5']);
+		if(!$fmp_data['fmp_set_html5only']) {
+
+			initVideoJs();
+
+			// check for video-js Skin
+			if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default' && is_file(PHPWCMS_TEMPLATE.'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css')) {
+				$block['custom_htmlhead']['skin_html5.css']  = '  <link rel="stylesheet" type="text/css" href="' . TEMPLATE_PATH . 'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css" />';
+				$fmp_data['fmp_set_skin_html5'] = ' ' . strtolower($fmp_data['fmp_set_skin_html5']).'-css';
+				$fmp_data['fmp_set_skin_video'] = strtolower($fmp_data['fmp_set_skin_html5']);
+			} else {
+				$fmp_data['fmp_set_skin_html5'] = '';
+				$fmp_data['fmp_set_skin_video'] = 'vjs-default-skin';
+			}
+
+			// Put Video JS scripts to the body end
+			$block['custom_htmlhead']['video.js'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.' src="' . $phpwcms['video-js'] . 'video.js" charset="utf-8"></script>';
+
+			$fmp_data['video_js_attributes'] = 'id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" ';
+
+			$fmp_data['init_videojs']  = '<script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
+			$fmp_data['init_videojs'] .= '	videojs("video-js-'.$fmp_data['id'].'")';
+
+			if(isset($fmp_data['fmp_set_volume'])) {
+				$fmp_data['init_videojs'] .= '.ready(function() {' . LF;
+				$fmp_data['init_videojs'] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
+				$fmp_data['init_videojs'] .= '	})';
+
+				if(!$fmp_data['fmp_set_volume']) {
+					$fmp_data['video_tag']['header'] .= 'muted ';
+				}
+			}
+
+			$fmp_data['init_videojs'] .= ';' . LF;
+			$fmp_data['init_videojs'] .= '  </script>';
+
+
 		} else {
-			$fmp_data['fmp_set_skin_html5'] = '';
-			$fmp_data['fmp_set_skin_video'] = 'vjs-default-skin';
+
+			$fmp_data['video_js_attributes'] = '';
+
+			if(isset($fmp_data['fmp_set_volume']) && !$fmp_data['fmp_set_volume']) {
+				$fmp_data['video_tag']['header'] .= 'muted ';
+			}
+
 		}
 
-		// Put Video JS scripts to the body end
-		$block['custom_htmlhead']['video.js'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.' src="' . $phpwcms['video-js'] . 'video.js" charset="utf-8"></script>';
-
-		$fmp_data['video_tag'] = array();
-
 		// build Video JS leading tag
-		$fmp_data['video_tag']['header']  = '<video id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" ';
-		$fmp_data['video_tag']['header'] .= 'width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" ';
+		$fmp_data['video_tag']['header'] .= $fmp_data['video_js_attributes'];
+		if($fmp_data['fmp_set_audio'] === 'video') {
+			$fmp_data['video_tag']['header'] .= 'width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" ';
+			if(!empty($fmp_data['fmp_preview'])) {
+				$fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
+			}
+		}
 		if($fmp_data['fmp_set_showcontrols'] !== 'none') {
 			$fmp_data['video_tag']['header'] .= 'controls="controls" ';
 		}
 		if($fmp_data['fmp_set_autostart']) {
 			$fmp_data['video_tag']['header'] .= 'autoplay="autoplay" ';
 		}
-		if(!empty($fmp_data['fmp_preview'])) {
-			$fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
-		}
 
-		$fmp_data['init_videojs']  = '<script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-		$fmp_data['init_videojs'] .= '	videojs("video-js-'.$fmp_data['id'].'")';
-
-		if(isset($fmp_data['fmp_set_volume'])) {
-			$fmp_data['init_videojs'] .= '.ready(function() {' . LF;
-			$fmp_data['init_videojs'] .= '		this.volume('.($fmp_data['fmp_set_volume']/100).');' . LF;
-			$fmp_data['init_videojs'] .= '	})';
-
-			if(!$fmp_data['fmp_set_volume']) {
-				$fmp_data['video_tag']['header'] .= 'muted ';
-			}
-		}
-
-		$fmp_data['init_videojs'] .= ';' . LF;
-		$fmp_data['init_videojs'] .= '  </script>';
-
-		$fmp_data['video_tag']['header'] .= 'preload="';
-		if(isset($fmp_data['fmp_set_preload'])) {
-			$fmp_data['video_tag']['header'] .= $fmp_data['fmp_set_preload'];
-		} else {
-			$fmp_data['video_tag']['header'] .= 'auto';
-		}
-		$fmp_data['video_tag']['header'] .= '">';
+		$fmp_data['video_tag']['header'] .= 'preload="' . (isset($fmp_data['fmp_set_preload']) ? $fmp_data['fmp_set_preload'] : 'auto') . '">';
 
 		foreach($fmp_data['video'] as $param_name => $param_value) {
 			$fmp_data['video_tag'][] = '	<source src="'.html_specialchars($param_value).'" type="'.$param_name.'" />';
 		}
 
-		$fmp_data['video_tag']['fallback'] = $fmp_data['fallback'];
-		$fmp_data['video_tag']['footer'] = '</video>';
 
-		if(empty($phpwcms['js_in_body'])) {
-			$fmp_data['video_tag']['footer'] .= $fmp_data['init_videojs'];
+		if($fmp_data['fmp_set_html5only']) {
+
+			$fmp_data['video_tag']['footer'] = '</'.$fmp_data['fmp_set_audio'].'>';
+
 		} else {
-			$block['custom_htmlhead']['videojs_'.$fmp_data['id']] = '  ' . $fmp_data['init_videojs'];
+
+			$fmp_data['video_tag']['fallback']	= $fmp_data['fallback'];
+			$fmp_data['video_tag']['footer']	= '</'.$fmp_data['fmp_set_audio'].'>';
+
+			if(empty($phpwcms['js_in_body'])) {
+				$fmp_data['video_tag']['footer'] .= $fmp_data['init_videojs'];
+			} else {
+				$block['custom_htmlhead']['videojs_'.$fmp_data['id']] = '  ' . $fmp_data['init_videojs'];
+			}
+
 		}
 
-		$fmp_data['fallback'] = implode(LF, $fmp_data['video_tag']);
+		$fmp_data['fallback'] = '	' . implode(LF.'	', $fmp_data['video_tag']);
 
 		unset($fmp_data['video'], $fmp_data['video_tag']);
 
@@ -514,7 +538,8 @@ if(isset($fmp_data['fmp_template'])) {
 	// add rendering result to current listing
 	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'TITLE',    html_specialchars($crow['acontent_title']));
 	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
-	$CNT_TMP				  .= str_replace('{PLAYER}', '<div id="'.$fmp_data['id'].'" class="video-js-box'.$fmp_data['fmp_set_skin_html5'].'">'. LF . $fmp_data['fallback'] . LF . '</div>', $fmp_data['fmp_template']);
+	$fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'PLAYER', $fmp_data['fallback']);
+	$CNT_TMP				  .= str_replace('{ID}', $fmp_data['id'], $fmp_data['fmp_template']);
 
 }
 
