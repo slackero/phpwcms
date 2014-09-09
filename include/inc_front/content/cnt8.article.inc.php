@@ -254,7 +254,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 	$content['alink']['alink_template_space']	= get_tmpl_section('TEASER_ENTRY_SPACER', $content['alink']['alink_template']);
 	$content['alink']['alink_template_row']		= get_tmpl_section('TEASER_ROW_SPACER', $content['alink']['alink_template']);
 	$content['alink']['alink_template_column']	= trim( get_tmpl_section('TEASER_COLUMN_OVERWRITE', $content['alink']['alink_template']) );
-
 	$content['alink']['alink_template_head']	= str_replace('{LINK_ARTICLE_CLASS}', get_class_attrib($template_default["article"]["link_article_class"]), $content['alink']['alink_template_head']);
 
 	$content['alink']['result']					= _dbQuery($alink_sql);
@@ -362,11 +361,19 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'ACTIVE', isset($content["article_id"]) && $content["article_id"] == $row['article_id'] ? 'active' : '');
 
-					$row['article_image']					= setArticleSummaryImageData( @unserialize( $row['article_image'] ) );
-					$content['alink']['caption']			= getImageCaption($row['article_image']['list_caption']);
-					$row['article_image']['list_caption']	= html_specialchars($content['alink']['caption'][0]);
-					$content['alink']['caption'][3]			= html_specialchars($content['alink']['caption'][3]);
-					$content['alink']['caption'][1]			= html_specialchars($content['alink']['caption'][1]);
+
+					$row['article_image'] = @unserialize($row['article_image']);
+					$row['article_image'] = setArticleSummaryImageData($row['article_image']);
+
+					if(!empty($row['article_image']['list_caption'])) {
+						$content['alink']['caption']			= getImageCaption($row['article_image']['list_caption']);
+						$row['article_image']['list_caption']	= html_specialchars($content['alink']['caption'][0]);
+						$content['alink']['caption'][3]			= html_specialchars($content['alink']['caption'][3]);
+						$content['alink']['caption'][1]			= html_specialchars($content['alink']['caption'][1]);
+					} else {
+						$row['article_image']['list_caption']	= '';
+						$content['alink']['caption']			= array('', '', '', '', '');
+					}
 
 					// article list image
 					if(strpos($content['alink']['tr'][$key], 'IMAGE') !== false) {
