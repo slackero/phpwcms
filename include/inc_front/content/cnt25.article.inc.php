@@ -462,7 +462,6 @@ if(isset($fmp_data['fmp_template'])) {
 			$fmp_data['init_videojs'] .= ';' . LF;
 			$fmp_data['init_videojs'] .= '  </script>';
 
-
 		} else {
 
 			$fmp_data['video_js_attributes'] = '';
