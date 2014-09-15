@@ -603,26 +603,26 @@ if( $_shop_load_list !== false ) {
 
 			} else {
 
-			$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
+				$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
 
-			$_cart_add  = '<form action="' . $shop_prod_detail . '" method="post">';
-			$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
-			$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
-			if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
-				// user has set amount manually
-				$_cart_add .= '<input type="text" name="shop_prod_amount" class="shop-list-amount" value="1" size="2" />';
-				$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
-			} else {
-				$_cart_add .= '<input type="hidden" name="shop_prod_amount" value="1" />';
-			}
-			if(strpos($_cart, 'input ') !== false) {
-				// user has set input button
-				$_cart_add .= $_cart;
-			} else {
-				$_cart_add .= '<input type="submit" name="shop_cart_add" value="' . html($_cart) . '" class="list-add-button" />';
-			}
+				$_cart_add  = '<form action="' . $shop_prod_detail . '" method="post">';
+				$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
+				$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
+				if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
+					// user has set amount manually
+					$_cart_add .= '<input type="text" name="shop_prod_amount" class="shop-list-amount" value="1" size="2" />';
+					$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
+				} else {
+					$_cart_add .= '<input type="hidden" name="shop_prod_amount" value="1" />';
+				}
+				if(strpos($_cart, 'input ') !== false) {
+					// user has set input button
+					$_cart_add .= $_cart;
+				} else {
+					$_cart_add .= '<input type="submit" name="shop_cart_add" value="' . html($_cart) . '" class="list-add-button" />';
+				}
 
-			$_cart_add .= '</form>';
+				$_cart_add .= '</form>';
 
 				$_cart_on_request = FALSE;
 			}
