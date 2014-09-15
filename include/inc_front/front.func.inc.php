@@ -1536,6 +1536,9 @@ function international_date_format_callback($matches) {
 	return international_date_format($matches[2], $matches[1], $GLOBALS['phpwcms']['callback']);
 }
 function date_callback($matches) {
+	if($GLOBALS['phpwcms']['DOCTYPE_LANG'] !== 'en' && preg_match('/[MFDl]/', $matches[1])) {
+		return international_date_format($GLOBALS['phpwcms']['default_lang'], $matches[1], $GLOBALS['phpwcms']['callback']);
+	}
 	return date($matches[1], $GLOBALS['phpwcms']['callback']);
 }
 
@@ -1553,7 +1556,7 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 
 	$language = strtolower(trim($language));
 
-	if($language == "EN") {
+	if($language === 'en') {
 
 		return date($format, $date_now);
 
