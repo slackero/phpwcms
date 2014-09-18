@@ -1583,8 +1583,11 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 			"D" => 0, "F" => 0, "l" => 0, "M" => 0, "S" => 0
 		);
 
-		$str_length = strlen($format); $date = "";
-		for($i = 0; $i < $str_length; $i++) $date_format[$i] = substr($format, $i, 1);
+		$str_length = strlen($format);
+		$date = '';
+		for($i = 0; $i < $str_length; $i++) {
+			$date_format[$i] = substr($format, $i, 1);
+		}
 		foreach($date_format as $key => $value) {
 			if(isset($date_format_function[$value])) {
 				if($date_format_function[$value]) {
