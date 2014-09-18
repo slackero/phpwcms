@@ -868,14 +868,14 @@ $content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all'
 $content['all'] = preg_replace_callback('/\{LEVEL(\d+)_ID\}/', 'replace_level_id', $content['all']);
 
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
-if( ! ( strpos($content["all"],'{SHOW_CONTENT:')===false ) ) {
+if(strpos($content["all"],'{SHOW_CONTENT:') !== false) {
 	$content["all"] = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $content["all"]);
 }
 
 // include external PHP script (also normal HTML snippets) or return PHP var value
-if(strpos($content["all"],'PHP') !== false) {
-	$content["all"] = render_PHPcode($content["all"]);
-}
+$content["all"] = str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
+$content["all"] = str_replace('{TEMPLATE}', TEMPLATE_PATH, $content["all"]);
+$content["all"] = render_PHPcode($content["all"]);
 
 //breadcrumb replacement
 if(strpos($content["all"],'{BREADCRUMB') !== false) {
