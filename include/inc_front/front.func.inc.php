@@ -2559,14 +2559,16 @@ function make_absoluteURL($matches) {
 
 }
 
+// combined PHP replace renderer
 function render_PHPcode($string='') {
-	// combined PHP replace renderer
-	// includes external PHP script and returns the content
-	$string = preg_replace_callback('/\{PHP:(.*?)\}/', 'include_ext_php', $string);
-	// do complete PHP code
-	$string = preg_replace_callback("/\[PHP\](.*?)\[\/PHP\]/s", 'include_int_phpcode', $string);
-	// includes external PHP script and returns the content
-	$string = preg_replace_callback("/\{PHPVAR:(.*?)\}/s", 'include_int_php', $string);
+	if($string && strpos($string,'PHP') !== false) {
+		// includes external PHP script and returns the content
+		$string = preg_replace_callback('/\{PHP:(.*?)\}/', 'include_ext_php', $string);
+		// do complete PHP code
+		$string = preg_replace_callback("/\[PHP\](.*?)\[\/PHP\]/s", 'include_int_phpcode', $string);
+		// includes external PHP script and returns the content
+		$string = preg_replace_callback("/\{PHPVAR:(.*?)\}/s", 'include_int_php', $string);
+	}
 	return $string;
 }
 
