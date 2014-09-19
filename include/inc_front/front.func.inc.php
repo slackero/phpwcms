@@ -1507,15 +1507,14 @@ function include_ext_php($inc_file, $t=0) {
 	}
 
 	//check if this is a local file
-	if(!$t && is_file($inc_file)) {
+	if(!$t && preg_match('~^(?:ht)tps?://~i', $inc_file, $match) && is_file($inc_file)) {
 
-		$this_path = str_replace("\\", '/', dirname(realpath($inc_file)));
-		$this_path = preg_replace('/\/$/', '', $this_path);
+		$this_path = rtrim(str_replace("\\", '/', dirname(realpath($inc_file))), '/');
+		$root_path = rtrim(str_replace("\\", '/', realpath(PHPWCMS_ROOT)), '/');
 
-		$root_path = str_replace("\\", '/', realpath(PHPWCMS_ROOT));
-		$root_path = preg_replace('/\/$/', '', $root_path);
-
-		if(strpos($this_path, $root_path) === 0) $t = 1;
+		if(strpos($this_path, $root_path) === 0) {
+			$t = 1;
+		}
 
 	} elseif(!$t && !empty($GLOBALS['phpwcms']['allow_remote_URL'])) {
 		//if remote URL is allowed in conf.inc.php
@@ -1524,6 +1523,16 @@ function include_ext_php($inc_file, $t=0) {
 
 	if(!$t) {
 		return '';
+	} elseif(!empty($match[0]) && substr(strtolower($match[0]), 0, 4) === 'http') {
+		if(ini_get('allow_url_fopen')) {
+			$result = file_get_contents($inc_file);
+			if($result !== false) {
+				return $result;
+			}
+		}
+		if(!ini_get('allow_url_include')) {
+			return '<!-- @@allow_url_include is disabled in your PHP.ini@@ - @@remote website cannot be loaded@@ -->';
+		}
 	}
 
 	ob_start();
