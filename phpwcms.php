@@ -566,7 +566,7 @@ header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $php
 $BE['HTML'] = ob_get_clean();
 
 // Load ToolTip JS only when necessary
-if(strpos($BE['HTML'], '"Tip(')) {
+if(strpos($BE['HTML'], 'Tip(')) {
 	$BE['BODY_CLOSE']['wz_tooltip.js'] = getJavaScriptSourceLink('include/inc_js/wz_tooltip.js', '');
 }
 

@@ -70,8 +70,8 @@ if(is_array($imglist) && count($imglist)) {
 		$g .= '<input type="radio" name="cmap_image" value="'.$val.'"'.$vals.' />&nbsp;';
 		$g .= '</td><td class="f11b">'.$val.'&nbsp;&nbsp;</td><td>';
 		$g .= '<a href="javascript:void(0);" onmouseover="this.T_WIDTH=150;this.T_DELAY=100;this.T_PADDING=6;this.T_BGCOLOR=\'#ffffff\';';
-		$gp = substr($phpwcms["templates"],1).'inc_cntpart/map/map_img/'.$val;
-		$g .= 'Tip(\'<img src=image_resized.php?imgfile='.$gp.'&format=jpg&q=80&w=250&h=250>\');">';
+		$gp = trim($phpwcms["templates"], '/').'/inc_cntpart/map/map_img/'.$val;
+		$g .= 'Tip(\'<img style=\\\'min-width:100px;max-width:225px\\\' src=\\\''.$gp.'\\\'>\');">';
 		$g .= '<img src="img/button/button_img_mouseover.gif" alt="" width="11" height="11" border="0">';
 		$g .= "</a></td></tr>\n";
 	}
