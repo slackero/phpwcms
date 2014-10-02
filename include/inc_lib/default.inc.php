@@ -364,7 +364,8 @@ $phpwcms['search_highlight'] = array(
 
 $phpwcms['default_template_attributes'] = array(
 	'navlist-bs-dropdown-data'	=> 'data-toggle="dropdown"',
-	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>'
+	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>',
+	'cpgroup'					=> 'data' // data = <span>, href = <a>
 );
 
 if(empty($phpwcms['mode_XHTML'])) {

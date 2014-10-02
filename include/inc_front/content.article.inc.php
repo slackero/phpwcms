@@ -702,7 +702,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 						$g['wrap'][]	= '	<div'.$tabitem['content-class'].'>';
 						$g['wrap'][]	= '		<h3'.$tabitem['class'].'>';
-						$g['wrap'][]	= '			<span data-cpgroupid="'.$tabitem['id'].'">'.html_specialchars($tabitem['title']).'</span>';
+						if($template_default['attributes']['cpgroup'] === 'href') {
+							$g['wrap'][]	= '			<a href="'.rel_url().'#'.$tabitem['id'].'">'.html_specialchars($tabitem['title']).'</a>';
+						} else {
+							$g['wrap'][]	= '			<span data-cpgroupid="'.$tabitem['id'].'">'.html_specialchars($tabitem['title']).'</span>';
+						}
 						$g['wrap'][]	= '		</h3>';
 						$g['wrap'][]	= '		<div id="'.$tabitem['id'].'"'.($template_default['classes']['cpgroup-content'] ? ' class="'.$template_default['classes']['cpgroup-content'].'"' : '').'>';
 						$g['wrap'][]	= '			' . $tabitem['content'];
