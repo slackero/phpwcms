@@ -422,8 +422,10 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 					$sql .= 'AND acontent_granted=0 ';
 				}
 
-				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
-				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
+				if(!PREVIEW_MODE) {
+					$sql .= ' AND' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+				}
 				$sql .= "LIMIT 1";
 
 			} elseif($mode == 'CPS') {
@@ -438,8 +440,10 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 					$sql .= 'AND acontent_granted=0 ';
 				}
 
-				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 AND ";
-				$sql .= DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
+				if(!PREVIEW_MODE) {
+					$sql .= ' AND' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+				}
 				$sql .= "LIMIT 1";
 
 			} elseif($mode == 'CPC') {
@@ -628,7 +632,9 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= 'article_deleted=0 AND article_begin < NOW() AND article_end > NOW() AND ';
+	if(!PREVIEW_MODE) {
+		$sql .= 'article_deleted=0 AND article_begin < NOW() AND article_end > NOW() AND ';
+	}
 
 	if($where === '') {
 		$sql .= 'article_id IN (' . implode( ',', $article_id ) . ') ';
@@ -699,7 +705,9 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 					case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 							break;
 				}
-				$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+				if(!PREVIEW_MODE) {
+					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+				}
 			}
 			$alias_sql .= " AND article_deleted=0 LIMIT 1";
 			$alias_result = _dbQuery($alias_sql);

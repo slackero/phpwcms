@@ -30,8 +30,12 @@ switch(VISIBLE_MODE) {
 	case 1: $sql .= "(ar.article_aktiv=1 OR ar.article_uid=".intval($_SESSION["wcs_user_id"]).") AND ";
 			break;
 }
-$sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() ";
-$sql .= "AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, ar.article_end>NOW()) LIMIT 1";
+$sql .= 'ar.article_deleted=0 ';
+if(!PREVIEW_MODE) {
+	$sql .= 'AND ar.article_begin<NOW() ';
+	$sql .= 'AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, ar.article_end>NOW()) ';
+}
+$sql .= 'LIMIT 1';
 
 if($result = mysql_query($sql, $db) or die("error while reading article datas")) {
 	if($row = mysql_fetch_assoc($result)) {
@@ -52,7 +56,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 				}
-				$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+				if(!PREVIEW_MODE) {
+					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+				}
 			}
 			$alias_sql .= " AND article_deleted=0 LIMIT 1";
 			if($alias_result = mysql_query($alias_sql, $db)) {

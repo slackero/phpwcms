@@ -548,15 +548,16 @@ function get_actcat_articles_data($act_cat_id) {
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= ' AND article_deleted=0 AND article_begin < NOW() ';
-
-	if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
-		$sql .= 'AND article_end > NOW() ';
-	} else {
-		$sql .= 'AND IF( article_archive_status=1 , 1 , article_end > NOW() ) ';
+	$sql .= ' AND article_deleted=0';
+	if(!PREVIEW_MODE) {
+		$sql .= ' AND article_begin < NOW() ';
+		if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
+			$sql .= ' AND article_end > NOW()';
+		} else {
+			$sql .= ' AND IF(article_archive_status=1, 1 , article_end > NOW())';
+		}
 	}
-
-	$sql .= "ORDER BY ".$ao[2];
+	$sql .= ' ORDER BY '.$ao[2];
 
 	if(empty($as['acat_paginate']) && $as['acat_maxlist'] && $as['acat_topcount'] >= $as['acat_maxlist']) {
 		$sql .= ' LIMIT '.$as['acat_maxlist'];
@@ -608,7 +609,9 @@ function get_actcat_articles_data($act_cat_id) {
 						case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 					}
-					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+					if(!PREVIEW_MODE) {
+						$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+					}
 				}
 				$alias_sql .= " AND article_deleted=0 LIMIT 1";
 				if($alias_result = mysql_query($alias_sql, $db)) {
@@ -1766,7 +1769,10 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 					break;
 			//case 2: admin mode no additional neccessary
 		}
-		$sql .=	"article_begin < NOW() AND article_end > NOW() AND (".$where.") ";
+		if(!PREVIEW_MODE) {
+			$sql .=	'article_begin < NOW() AND article_end > NOW() AND ';
+		}
+		$sql .= '('.$where.') ';
 
 		if(empty($template_default['sort_by'])) $template_default['sort_by'] = '';
 
@@ -1891,7 +1897,10 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= "article_deleted=0 AND article_begin < NOW() AND article_end > NOW() ";
+	$sql .= 'article_deleted=0 ';
+	if(!PREVIEW_MODE) {
+		$sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+	}
 	$sql .= "ORDER BY ".$sorting." DESC".$limit;
 
 	// new articles list
@@ -1952,7 +1961,11 @@ function get_article_idlink($article_id=0, $link_text="", $db=null) {
 	if($article_id) {
 		$sql =	"SELECT article_id, article_title, article_cid, article_alias ".
 				"FROM ".DB_PREPEND."phpwcms_article WHERE article_id=".$article_id." AND ".
-				"article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() AND article_end > NOW() LIMIT 1";
+				"article_aktiv=1 AND article_deleted=0 ";
+		if(!PREVIEW_MODE) {
+			$sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+		}
+		$sql .= "LIMIT 1";
 		$data = _dbQuery($sql);
 
 		if(isset($data[0])) {
@@ -1998,8 +2011,11 @@ function get_keyword_link($keywords) {
 					break;
 			//case 2: admin mode no additional neccessary
 		}
-		$sql .= "article_deleted=0 AND article_begin < NOW() ";
-		$sql .=	"AND article_end > NOW() AND (".$where.")";
+		$sql .= 'article_deleted=0 AND ';
+		if(!PREVIEW_MODE) {
+			$sql .= 'article_begin < NOW() AND article_end > NOW() ';
+		}
+		$sql .=	"AND (".$where.")";
 
 		$result = _dbQuery($sql);
 
@@ -2062,8 +2078,11 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
 function get_search_action($matches) {
 	// return the search form action
 	$sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
-	$sql .=	"article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() ";
-	$sql .=	"AND article_end > NOW() AND article_id=".intval($matches[1])." LIMIT 1";
+	$sql .=	"article_aktiv=1 AND article_deleted=0 ";
+	if(!PREVIEW_MODE) {
+		$sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+	}
+	$sql .=	"AND article_id=".intval($matches[1])." LIMIT 1";
 
 	$result = _dbQuery($sql);
 
@@ -2332,7 +2351,11 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= "article_deleted=0 AND article_begin<NOW() AND article_end>NOW() ";
+	$sql .= 'article_deleted=0 ';
+	if(!PREVIEW_MODE) {
+		$sql .= 'AND article_begin<NOW() ';
+		$sql .= 'AND article_end>NOW() ';
+	}
 	$sql .= "ORDER BY ".$ao[2];
 
 	$s = '';
@@ -3915,8 +3938,10 @@ function get_structurelevel_single_article_alias($article_cid=0) {
 
 	if(empty($content['struct'][ $article_cid ]['acat_articlecount'])) {
 		$sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'phpwcms_article ';
-		$sql .= 'WHERE article_cid='.$article_cid.' AND article_aktiv=1 AND article_deleted=0 ';
-		$sql .= 'AND article_begin < NOW() AND article_end > NOW()';
+		$sql .= 'WHERE article_cid='.$article_cid.' AND article_aktiv=1 AND article_deleted=0';
+		if(!PREVIEW_MODE) {
+			$sql .= ' AND article_begin < NOW() AND article_end > NOW()';
+		}
 		$content['struct'][ $article_cid ]['acat_articlecount'] = _dbCount($sql);
 	}
 

@@ -17,7 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-
 //article menu
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
@@ -34,11 +33,15 @@ $ao 						= get_order_sort($content['struct'][ $alinkmenu["catid"] ]['acat_order
 
 $alink_sql  = "SELECT article_id, article_title, article_cid, article_summary, article_alias, article_menutitle FROM ";
 $alink_sql .= DB_PREPEND."phpwcms_article WHERE article_aktiv=1 AND article_deleted=0 AND article_cid=";
-$alink_sql .= intval($alinkmenu["catid"]).' AND article_begin<NOW() AND article_end>NOW() ';
-if(!empty($alinkmenu['hideactive'])) {
-	$alink_sql .= 'AND article_id != '. $aktion[1] . ' ';
+$alink_sql .= intval($alinkmenu["catid"]);
+if(!PREVIEW_MODE) {
+	$alink_sql .= ' AND article_begin<NOW()';
+	$alink_sql .= ' AND article_end>NOW()';
 }
-$alink_sql .= 'ORDER BY ' . $ao[2] ;
+if(!empty($alinkmenu['hideactive'])) {
+	$alink_sql .= ' AND article_id != '. $aktion[1];
+}
+$alink_sql .= ' ORDER BY ' . $ao[2] ;
 
 if($result = mysql_query($alink_sql, $db) or die("error while getting link article list: ".$alink_sql)) {
 

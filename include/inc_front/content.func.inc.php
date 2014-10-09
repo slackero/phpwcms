@@ -36,11 +36,14 @@ $no_content_for_this_page		= false;
 $alias							= '';
 $PERMIT_ACCESS					= true; // by default set all content without permissions
 $CUSTOM							= array(); // var that holds result of content part "php var"
+$phpwcms['preview_mode']		= false;
 
 // reset force redirect in case it is a POST
 if(!empty($_POST)) {
 	$phpwcms['force301_id2alias']	= false;
 	$phpwcms['force301_2struct']	= false;
+
+// handle preview mode
 } elseif(isset($_GET['phpwcms-preview'])) {
 	$phpwcms['force301_id2alias']	= false;
 	$phpwcms['force301_2struct']	= false;
@@ -49,7 +52,10 @@ if(!empty($_POST)) {
 	if(empty($_SESSION["wcs_user"])) {
 		headerRedirect(abs_url());
 	}
+	$phpwcms['preview_mode']		= true;
 }
+
+define('PREVIEW_MODE', $phpwcms['preview_mode']);
 
 //method to get the right action values
 //if there is only the ?alias try to find the right category
