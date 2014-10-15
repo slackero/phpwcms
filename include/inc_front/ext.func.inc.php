@@ -9,12 +9,6 @@
  *
  **/
 
-
-//enhance you custom frontend funtions here
-
-// -------------------------------------------------------------
-
-
 // added by jens for content type 89: poll
 function showPollImage($image, $zoom = 0) {
 
@@ -85,8 +79,8 @@ function utf2html($str) {
 }
 
 // http://www.evilwalrus.com/viewcode.php?codeEx=627
-function is_date($PASSED,$TXT_DATE_FORMAT='m/d/Y') {
-    $lib_import_datearr=array();
+function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
+    $lib_import_datearr = array();
     $lib_import_datearr['h'] = 2; // 01-12 - time - hours 12
     $lib_import_datearr['H'] = 2; // 00-23 - time - hours 24
     $lib_import_datearr['g'] = 0; // 1-12  - time - hours 12
@@ -424,7 +418,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
 				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
 				if(!PREVIEW_MODE) {
-					$sql .= ' AND' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+					$sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
 				}
 				$sql .= "LIMIT 1";
 
@@ -442,7 +436,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
 				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
 				if(!PREVIEW_MODE) {
-					$sql .= ' AND' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+					$sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
 				}
 				$sql .= "LIMIT 1";
 
