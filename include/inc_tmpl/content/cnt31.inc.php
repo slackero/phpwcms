@@ -521,7 +521,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		updatePreviewImageAll();
 
 		new Sortables($('images'), {
-			handles: 'em'
+			handles: 'em.handle'
 		});
 
 	});
