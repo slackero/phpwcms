@@ -868,8 +868,19 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$engine		= 'Webkit';
 	} elseif(strpos($USER_AGENT, 'linux') !== false) {
 		$platform	= 'Linux';
+		if(strpos($USER_AGENT, 'x11')) {
+			$device		= 'Desktop';
+		}
 	} elseif(strpos($USER_AGENT, 'unix') !== false) {
 		$platform	= 'Unix';
+		if(strpos($USER_AGENT, 'x11')) {
+			$device		= 'Desktop';
+		}
+	} elseif(strpos($USER_AGENT, 'freebsd') !== false) {
+		$platform	= 'FreeBSD';
+		if(strpos($USER_AGENT, 'x11')) {
+			$device		= 'Desktop';
+		}
 	} elseif(strpos($USER_AGENT, 'symbian') !== false) {
 	    $platform	= 'Symbian';
 		$mobile		= 1;
