@@ -233,7 +233,8 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 		$sections .= $section;
 	}
 
-	echo trim($sections) == '' ? $content : $sections;
+	// Return sections content ONLY
+	echo $sections;
 
 	exit();
 }
