@@ -73,6 +73,7 @@ $phpwcms['DOCTYPE_LANG']      = ''; // by default same as $phpwcms['default_lang
 $phpwcms['allowed_lang']      = array('en', 'de', 'fr', 'es'); //array of allowed languages
 $phpwcms['be_lang_parse']     = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $phpwcms['charset']           = 'utf-8'; // default charset 'utf-8' do not use soemthing different any longer
+$phpwcms['php_charset']       = false; // set PHP default charset to $phpwcms['charset']
 $phpwcms['allow_remote_URL']  = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['jpg_quality']       = 85; // JPG Quality Range 25-100
 $phpwcms['sharpen_level']     = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp

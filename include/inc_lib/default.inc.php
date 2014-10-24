@@ -73,6 +73,15 @@ $phpwcms['charsets'] = array(
 
 define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
+if(!empty($phpwcms['php_charset'])) {
+	@ini_set('default_charset', PHPWCMS_CHARSET);
+	@ini_set('iconv.input_encoding', PHPWCMS_CHARSET);
+	@ini_set('iconv.internal_encoding', PHPWCMS_CHARSET);
+	@ini_set('iconv.output_encoding', PHPWCMS_CHARSET);
+	@ini_set('mbstring.internal_encoding', PHPWCMS_CHARSET);
+	@ini_set('mbstring.http_output', PHPWCMS_CHARSET);
+}
+
 if(defined('CUSTOM_CONTENT_TYPE')) {
 
 	header(CUSTOM_CONTENT_TYPE);
