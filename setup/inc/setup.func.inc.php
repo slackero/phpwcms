@@ -28,9 +28,8 @@ function read_textfile($filename) {
 		$text = fread($fd, filesize($filename));
 		fclose($fd);
 		return $text;
-	} else {
-		return false;
 	}
+	return false;
 }
 
 function write_textfile($filename, $text) {
@@ -38,9 +37,8 @@ function write_textfile($filename, $text) {
 		fwrite($fp, $text);
 		fclose($fp);
 		return true;
-	} else {
-		return false;
 	}
+	return false;
 }
 
 function set_chmod($path, $rights, $status, $file_folder=0) {
@@ -190,7 +188,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'utf-8'\n";
-	$conf_file .= "\$phpwcms['php_charset']       = false; // set PHP default charset to $phpwcms['charset']\n";
+	$conf_file .= "\$phpwcms['php_charset']       = false; // set PHP default charset to \$phpwcms['charset']\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
 	$conf_file .= "\$phpwcms['jpg_quality']       = 85; //JPG Quality Range 25-100\n";
 	$conf_file .= "\$phpwcms['sharpen_level']     = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
