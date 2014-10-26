@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_INCLUDE_CHECK')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -30,24 +30,34 @@ function isEmpty($string) {
 	return ($string == NULL || $string == '') ? 1 : 0;
 }
 
-function slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {
-	// Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
-	// sollen die Slashes herausgenommen werden, anderenfalls nicht
-	if($trim) $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-	if( get_magic_quotes_gpc() ) $string_wo_slashes_weg = stripslashes ($string_wo_slashes_weg);
-	if($string_laenge && strlen($string_wo_slashes_weg) > $string_laenge) $string_wo_slashes_weg = mb_substr($string_wo_slashes_weg, 0, $string_laenge);
-	$string_wo_slashes_weg = preg_replace( array('/<br>$/i','/<br \/>$/i','/<p><\/p>$/i','/<p>&nbsp;<\/p>$/i') , '', $string_wo_slashes_weg);
-	return $string_wo_slashes_weg;
+function slweg($text='', $maxlen=0, $trim=true) {
+	if(get_magic_quotes_gpc()) {
+		$text = stripslashes($text);
+	}
+	if($text && substr($text, -1) === '>') {
+		$text = preg_replace( array('/<br>$/i','/<br \/>$/i','/<p><\/p>$/i','/<p>&nbsp;<\/p>$/i') , '', rtrim($text));
+	}
+	if($trim) {
+		$text = trim($text);
+	}
+	if($maxlen && strlen($text) > $maxlen) {
+		$text = mb_substr($text, 0, $maxlen);
+	}
+	return $text;
 }
 
-function clean_slweg($string_wo_slashes_weg, $string_laenge=0, $trim=true) {
-	// Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
-	// sollen die Slashes herausgenommen werden, anderenfalls nicht
-	if($trim) $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-	if( get_magic_quotes_gpc() ) $string_wo_slashes_weg = stripslashes ($string_wo_slashes_weg);
-	$string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
-	if($string_laenge && strlen($string_wo_slashes_weg) > $string_laenge) $string_wo_slashes_weg = mb_substr($string_wo_slashes_weg, 0, $string_laenge);
-	return $string_wo_slashes_weg;
+function clean_slweg($text, $maxlen=0, $trim=true) {
+	if(get_magic_quotes_gpc()) {
+		$text = stripslashes($text);
+	}
+	$text = strip_tags($text);
+	if($trim) {
+		$text = trim($text);
+	}
+	if($maxlen && strlen($text) > $maxlen) {
+		$text = mb_substr($text, 0, $maxlen);
+	}
+	return $text;
 }
 
 function getpostvar($formvar, $string_laenge=0) {
@@ -142,7 +152,6 @@ function getCountry($lang='', $get='COUNTRY_ARRAY') {
 
 	return $phpwcms['country'][$country_lang_var];
 }
-
 
 function list_profession($c){
 	//Create the profession list menu for forms with the given value selected
@@ -318,7 +327,7 @@ function which_folder_active($ist, $soll, $ac="#9BBECA", $nc="#363E57", $nclass=
 }
 
 function FileExtension($filename) {
-	return mb_substr(strrchr($filename, "."), 1, strlen(strrchr($filename, ".")));
+	return mb_substr(strrchr($filename, "."), 1);
 }
 
 function convert_into($extension) {
@@ -473,9 +482,8 @@ function read_textfile($filename, $mode='rb') {
 		$text = fread($fd, filesize($filename));
 		fclose($fd);
 		return $text;
-	} else {
-		return false;
 	}
+	return false;
 }
 
 function write_textfile($filename, $text, $mode='w+b') {
@@ -484,9 +492,8 @@ function write_textfile($filename, $text, $mode='w+b') {
 		fwrite($fp, $text);
 		fclose($fp);
 		return true;
-	} else {
-		return false;
 	}
+	return false;
 }
 
 function check_cache($file, $cache_timeout=0) {
@@ -594,8 +601,6 @@ function replace_tmpl_section($s='',$t='',$r='') {
 	return preg_replace("/<!--".$s."_START\/\/-->(.*?)<!--".$s."_END\/\/-->/si", $r, $t);
 }
 
-// -------------------------------------------------------------
-
 function importedFile_toString($filename='') {
 
 	$file = array();
@@ -613,8 +618,6 @@ function importedFile_toString($filename='') {
 
 	return $file;
 }
-
-// -------------------------------------------------------------
 
 function get_order_sort($order=0, $resort=0) {
 	// for getting right article structure sorting INT
@@ -639,8 +642,6 @@ function get_order_sort($order=0, $resort=0) {
 	return $o;
 }
 
-// -------------------------------------------------------------
-
 function getRefererURL() {
 	if(strtolower(substr($GLOBALS['phpwcms']['site'],0,5)) != 'https') {
 		$url = 'http://';
@@ -650,8 +651,6 @@ function getRefererURL() {
 	$url .= $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 	return $url;
 }
-
-// -------------------------------------------------------------
 
 function build_QueryString() {
 	// used to build a query string based on given parameters
@@ -669,8 +668,6 @@ function build_QueryString() {
 	}
 	return implode($delimeter, $query);
 }
-
-// -------------------------------------------------------------
 
 function getAltTitle($string='', $altAndTitle=0, $echo=0) {
 	$attribute = trim($string);
@@ -691,8 +688,6 @@ function getAltTitle($string='', $altAndTitle=0, $echo=0) {
 		return $attribute;
 	}
 }
-
-// -------------------------------------------------------------
 
 function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','isHTML'=>0,'html'=>'','text'=>'',
 									'attach'=>array(),'from'=>'','fromName'=>'','sender'=>'','stringAttach'=>array())  ) {
@@ -828,8 +823,6 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 
 	return $mailInfo;
 }
-
-// -------------------------------------------------------------
 
 function getFormTrackingValue() {
 	//creates a new form tracking entry in database
@@ -971,7 +964,7 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 
 			return '';
 
-		} elseif($sanitize===NULL && $maxLength >= (MB_SAFE ? mb_strlen($curString) : strlen($curString))) {
+		} elseif($sanitize===NULL && $maxLength >= mb_strlen($curString)) {
 
 			return $curString;
 

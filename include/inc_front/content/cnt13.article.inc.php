@@ -93,8 +93,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 	$content['highlight'] = array();
 	foreach($content["search_word"] as $key => $value) {
-		//$_strlen_value = MB_SAFE ? mb_strlen($value) : strlen($value);
-		$_strlen_value = strlen($value);
+		$_strlen_value = mb_strlen($value);
 		if($_strlen_value >= $content["search"]["minchar"]) {
 			$value = trim($value);
 			$content["search_word"][$key] = preg_quote($value);
