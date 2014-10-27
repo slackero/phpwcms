@@ -64,7 +64,8 @@ if($image['template']) {
 	$image['tmpl_thumb_height_max']	= 0;
 	$image['tmpl_images']			= array();
 
-	$image['template']  = $image['tmpl_header'];
+	$image['template']				= $image['tmpl_header'];
+	$image['tmpl_data']				= array();
 
 	if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
@@ -289,12 +290,14 @@ if($image['template']) {
 				$img_zoom_width		= 0;
 				$img_zoom_height	= 0;
 			}
-
+			
 			$img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
 			$img_a = str_replace('{IMGID}', $key, $img_a);
 			$img_a = str_replace('{IMAGE_ID}', $image['images'][$key][0], $img_a);
 			$img_a = str_replace('{IMAGE_HASH}', $image['images'][$key][2], $img_a);
 			$img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key][1]), $img_a);
+			$img_a = str_replace('{ENTRY_ID}', $total-1, $img_a);
+			$img_a = str_replace('{ENTRY_NUM}', $total, $img_a);
 
 			// replace thumbnail and zoom image information
 			$img_a = str_replace('{THUMB_NAME}',	$img_thumb_name, $img_a);
@@ -343,20 +346,25 @@ if($image['template']) {
 			if($image['col'] == $col || $image['count'] == $total) {
 
 				$img_a = render_cnt_template($img_a, 'LAST', $col);
-
-				$image['tmpl_images'][$x] .= $img_a;
+				
+				$xx = $x;
 
 				$x++;
 				$col = 0;
 
 			} else {
-
+				
 				$img_a = render_cnt_template($img_a, 'LAST', '');
-
-				$image['tmpl_images'][$x] .= $img_a;
+				
+				$xx = $x;
 
 			}
-
+			
+			// Get the entry data
+			$image['tmpl_data'][] = get_tmpl_section('ENTRY_DATA', $img_a);
+			$img_a = replace_tmpl_section('ENTRY_DATA', $img_a, '');
+			
+			$image['tmpl_images'][$xx] .= $img_a;
 		}
 
 		$image['template'] .= implode($image['tmpl_row_space'], $image['tmpl_images']);
@@ -365,7 +373,10 @@ if($image['template']) {
 
 	$image['template'] .= $image['tmpl_footer'];
 
+	$image['tmpl_data'] = implode('', $image['tmpl_data']);
+	
 	// now do main replacements
+	$image['template']  = render_cnt_template($image['template'], 'DATA', $image['tmpl_data']);
 	$image['template']  = str_replace('{ID}', $crow['acontent_id'], $image['template']);
 	$image['template']  = str_replace('{SPACE}', $image['space'], $image['template']);
 	$image['template']  = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);

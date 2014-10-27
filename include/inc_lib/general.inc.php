@@ -589,13 +589,13 @@ function get_tmpl_files($dir='', $ext='', $sort=true) {
 	return $fa;
 }
 
-function get_tmpl_section($s='',$t='') {
+function get_tmpl_section($s='', $t='') {
 	// try to return the matching section of template
 	// within HTML comments like <!--SECTION_START//-->...<!--SECTION_END//-->
-	return (preg_match("/<!--".$s."_START\/\/-->(.*?)<!--".$s."_END\/\/-->/si", $t, $g)) ? $g[1] : '';
+	return preg_match("/<!--".$s."_START\/\/-->(.*?)<!--".$s."_END\/\/-->/si", $t, $g) ? $g[1] : '';
 }
 
-function replace_tmpl_section($s='',$t='',$r='') {
+function replace_tmpl_section($s='', $t='', $r='') {
 	// try to delete the matching section of template
 	// within HTML comments like <!--SECTION_START//-->...<!--SECTION_END//-->
 	return preg_replace("/<!--".$s."_START\/\/-->(.*?)<!--".$s."_END\/\/-->/si", $r, $t);
