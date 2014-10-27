@@ -372,7 +372,6 @@ if($image['template']) {
 	}
 
 	$image['template'] .= $image['tmpl_footer'];
-
 	$image['tmpl_data'] = implode('', $image['tmpl_data']);
 	
 	// now do main replacements

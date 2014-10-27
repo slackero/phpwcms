@@ -29,17 +29,17 @@
 
 
 <!--IMAGES_ENTRY_START//-->
+	
 	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW] slide{ENTRY_ID} num{ENTRY_NUM}" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
 		{IMAGE}
 		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
 	</div>
-	
-	<!-- keep entry render result for later use in IMAGES_HEADER and/or IMAGES_FOOTER -->
 	<!--ENTRY_DATA_START//-->
 		<li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
 			<a href="#img{IMGID}">Image {ENTRY_NUM}</a>
 		</li>
 	<!--ENTRY_DATA_END//-->
+	
 <!--IMAGES_ENTRY_END//-->
 
 <!--IMAGES_ENTRY_SPACER_START//-->
@@ -58,11 +58,9 @@
 
 <!--IMAGES_FOOTER_START//-->
 	[DATA]
-		<!-- Indicators -->
 		<ol class="indicators">
 			{DATA}
 		</ol>
-		<!-- Controls -->
 		<div class="controls">
 			<a class="prev" href="#images{ID}" role="button" data-slide="prev">
 				<span>Previous</span>
@@ -72,8 +70,6 @@
 			</a>
 		</div>
 	[/DATA]
-	
-	Dadadadad
 </div>
 <!--IMAGES_FOOTER_END//-->
 
