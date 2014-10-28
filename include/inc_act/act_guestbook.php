@@ -17,7 +17,6 @@ $ref = $_SESSION['REFERER_URL'];
 require_once ('../../config/phpwcms/conf.inc.php');
 require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 checkLogin();
 require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
@@ -51,14 +50,13 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
 		}
 
 		if(!$gberror) {
-
 			$sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET ";
 			$sql .= "guestbook_msg="._dbEscape($gbmsg).", ";
 			$sql .= "guestbook_name="._dbEscape($gbname).", ";
 			$sql .= "guestbook_email="._dbEscape($gbemail).", ";
 			$sql .= "guestbook_url="._dbEscape($gburl).", ";
-			$sql .= "guestbook_show=".$gbshow."' WHERE ";
-			$sql .= "guestbook_cid='".$gbcid."' AND guestbook_id='".$gbid."'";
+			$sql .= "guestbook_show="._dbEscape($gbshow)." WHERE ";
+			$sql .= "guestbook_cid="._dbEscape($gbcid)." AND guestbook_id="._dbEscape($gbid);
 			mysql_query($sql, $db);
 		}
 	}
