@@ -1,5 +1,6 @@
-# www.robotstxt.org/
-# www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
+# http://www.robotstxt.org/
+# https://www.google.com/support/webmasters/bin/answer.py?answer=156449
+# https://support.google.com/webmasters/answer/35769
 
 User-Agent: *
 Disallow: /download.php*
