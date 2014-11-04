@@ -3464,12 +3464,14 @@ function parseLightboxCaption($caption='') {
 }
 
 function get_article_morelink(& $article) {
-	if($article['article_redirect'] && strpos($article['article_redirect'], ' ')) {
+	if($article['article_redirect']) {
 		$link = explode(' ', $article['article_redirect']);
 		if($link[0]) {
 			$link[0] = str_replace('{SITE}', PHPWCMS_URL, $link[0]);
 		}
-		if(empty($link[1])) $link[1] = '';
+		if(empty($link[1])) {
+			$link[1] = '';
+		}
 	} else {
 		$link[0] = 'index.php?'.setGetArticleAid($article);
 		$link[1] = '';
