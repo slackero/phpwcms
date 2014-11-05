@@ -901,10 +901,10 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		}
 
 		if(empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
-			$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+			$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'baiduspider', 'yandex', 'sosospider', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 		}
 
-		if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/', $USER_AGENT, $match_bot)) {
+		if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/i', $USER_AGENT, $match_bot)) {
 			$agent	= $match_bot[1];
 			$bot	= 1;
 			$device	= 'Bot';
