@@ -512,8 +512,8 @@ $(function(){
 			 ?></label></td>
 			<td style="padding:0 5px 5px 0;"><select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="">
 <?php 	if($news->fileCount) {
-			foreach($news->files  as $item ) {
-				echo '<option value="' . $item['f_id'] . '">' . html($item['f_name']) . '</option>' . LF;
+			foreach($news->files as $f_id => $item) {
+				echo '<option value="' . $f_id . '">' . (empty($item['f_name']) ? '-- ' . $BL['be_msg_del'] . ' --' : html($item['f_name'])) . '</option>' . LF;
 			}
 		}
 ?>
