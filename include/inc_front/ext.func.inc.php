@@ -474,6 +474,9 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 					if($crow["acontent_type"] == 24) {
 						// first retrieve alias ID information and settings
 						$crow = getContentPartAlias($crow);
+						if($crow === false) {
+							continue;
+						}
 					}
 
 					// Set listmode setting, allows fallback listmode content part template
@@ -561,10 +564,14 @@ function getContentPartTopLink($param=0) {
 function getContentPartAlias($crow) {
 	global $db;
 	$alias = unserialize($crow["acontent_form"]);
+	$alias_visible = false;
 	if(!empty($alias['alias_ID'])) {
 		$alias['alias_ID'] = intval($alias['alias_ID']);
 		$sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
 		$sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
+		if(!empty($alias['alias_status'])) {
+			$sql_alias .= 'AND acontent_visible=1 ';
+		}
 		if( !FEUSER_LOGIN_STATUS ) {
 			$sql_alias .= 'AND acontent_granted=0 ';
 		}
@@ -586,9 +593,13 @@ function getContentPartAlias($crow) {
 					$alias_row['acontent_top'] = $crow['acontent_top'];
 				}
 				$crow = $alias_row;
+				$alias_visible = true;
 			}
 			mysql_free_result($alias_result);
 		}
+	}
+	if(!$alias_visible) {
+		$crow = false;
 	}
 	return $crow;
 }

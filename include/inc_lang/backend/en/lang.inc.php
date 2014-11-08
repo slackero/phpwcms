@@ -990,6 +990,8 @@ $BL['be_cnt_spaces'] = 'spaces of contentpart alias';
 $BL['be_cnt_toplink'] = 'top link setting of contentpart alias';
 $BL['be_cnt_block'] = 'display (block) setting of contentpart alias';
 $BL['be_cnt_title'] = 'titles of contentpart alias';
+$BL['be_cnt_status'] = 'visibility of contentpart alias';
+$BL['be_cnt_plugin_n.a.'] = 'plugin not available';
 
 $BL['be_file_replace'] = 'Replace eponymous files';
 

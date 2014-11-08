@@ -545,6 +545,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// do everything neccessary for alias content part
 			if($crow["acontent_type"] == 24) {
 				$crow = getContentPartAlias($crow);
+				if($crow === false) {
+					continue;
+				}
 			}
 
 			// every article content  will be rendered into temp var

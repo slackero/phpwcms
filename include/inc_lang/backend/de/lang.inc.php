@@ -987,6 +987,8 @@ $BL['be_cnt_spaces'] = 'Abst&auml;nde des Alias Contentparts';
 $BL['be_cnt_toplink'] = 'Top-Link Einstellung des Alias Contentparts';
 $BL['be_cnt_block'] = 'Ausgabe-Einstellung des Alias Contentparts';
 $BL['be_cnt_title'] = '&Uuml;berschriften des Alias Contentparts';
+$BL['be_cnt_status'] = 'Sichtbarkeit des Alias Contentparts';
+$BL['be_cnt_plugin_n.a.'] = 'Plugin nicht verf&uuml;gbar';
 
 $BL['be_file_replace'] = 'Ersetze gleichnamige Dateien';
 $BL['be_admin_tmpl_copy']               = 'Vorlage kopieren';

@@ -25,7 +25,8 @@ $content["alias"]['alias_ID'] 		= isset($_POST["calias"]) ? intval($_POST["calia
 $content["alias"]['alias_block']	= empty($_POST["cablock"]) ? 0 : 1;
 $content["alias"]['alias_spaces']	= empty($_POST["caspaces"]) ? 0 : 1;
 $content["alias"]['alias_title']	= empty($_POST["catitle"]) ? 0 : 1;
-$content["alias"]['alias_toplink']	= empty($_POST["catop"]) ? 0 : 1;	
+$content["alias"]['alias_toplink']	= empty($_POST["catop"]) ? 0 : 1;
+$content["alias"]['alias_status']	= empty($_POST["castatus"]) ? 0 : 1;
 if(empty($content["alias"]['alias_ID'])) {
 	$content["alias"]['alias_ID'] = '';
 } else {
