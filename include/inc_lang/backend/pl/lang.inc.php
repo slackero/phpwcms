@@ -9,7 +9,7 @@
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.7.5 (2014/10/15, r538) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.7.5 (2014/11/08, r538) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -72,7 +72,7 @@ $BL['be_func_struct_del_article']    = 'Usuń artykuł';
 $BL['be_func_struct_del_jsmsg']      = 'Czy na pewno chcesz \nusunąć artykuł?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']    = 'Utwórz nowy artykuł na tym poziomie struktury';
 $BL['be_func_struct_paste_article']  = 'Wklej artykuł na ten poziom struktury';
-$BL['be_func_struct_insert_level']   = 'Wstaw na ten poziom w strukturę';
+$BL['be_func_struct_insert_level']   = 'Wstaw w poziom struktury';
 $BL['be_func_struct_paste_level']    = 'Wklej na ten poziom struktury';
 $BL['be_func_struct_cut_level']      = 'Wytnij ten poziom struktury';
 $BL['be_func_struct_no_cut']         = "Nie można wyciąć głównego poziomu struktury!";
@@ -985,6 +985,8 @@ $BL['be_cnt_spaces']  = 'odstępy oryginalnej treści';
 $BL['be_cnt_toplink'] = 'odnośnik na górę oryginalnej treści';
 $BL['be_cnt_block']   = 'wyświetl ustawienie bloku oryginalnej treści';
 $BL['be_cnt_title']   = 'tytuły oryginalnej treści';
+$BL['be_cnt_status']  = 'widoczność treści aliasu';
+$BL['be_cnt_plugin_n.a.'] = 'wtyczka jest niedostępna';
 
 $BL['be_file_replace']       = 'Zastąp tytuły plików';
 
