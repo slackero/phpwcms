@@ -158,24 +158,18 @@ piwikTracker.enableLinkTracking();
 
 if($_Tracking_GoogleAnalytics) {
 
-	$_TrackingCode  = '<script src="';
-	$_TrackingCode .= $_Tracking_GoogleSSL ? 'https://ssl' : 'http://www';
-	//$_TrackingCode .= '.google-analytics.com/urchin.js" type="text/javascript">< /script>' . LF;
-	$_TrackingCode .= '.google-analytics.com/ga.js" type="text/javascript"></script>' . LF;
-	$_TrackingCode .= '<script type="text/javascript">' .LF;
-//	$_TrackingCode .= SCRIPT_CDATA_START . LF;
-	$_TrackingCode .= '	try {' . LF;
-	$_TrackingCode .= '		var pageTracker = _gat._getTracker("' . $_Tracking_GoogleAnalyticsCode . '");' .LF;
-//	$_TrackingCode .= '	pageTracker._initData();' .LF;
-// _gaq.push(['_gat._anonymizeIp']);
-	$_TrackingCode .= '		pageTracker._trackPageview("'.$_TrackingPageName.'");' .LF;
-	$_TrackingCode .= '	} catch(err) {}' . LF;
-	//$_TrackingCode .= '	_uacct = "' . $_Tracking_GoogleAnalyticsCode . '";' .LF;
-	//$_TrackingCode .= '	urchinTracker("'.$_TrackingPageName.'");' .LF;
-//	$_TrackingCode .= SCRIPT_CDATA_END . LF;
-	$_TrackingCode .= '</script>';
+$block['custom_htmlhead']['google.analytics'] = "
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	$content['all'] .= $_TrackingCode;
+  ga('create', '" . $_Tracking_GoogleAnalyticsCode . "', 'auto');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+  </script>
+";
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
