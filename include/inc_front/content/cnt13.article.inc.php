@@ -667,8 +667,6 @@ if(isset($content["search"]["result_per_page"])) {
 
 	if(strpos($crow['template']['result'], '{FORM}') !== false) {
 
-		dumpVar('hier');
-
 		$crow['template']['form'] = '<div class="search_form"';
 		if($content["search"]["align"] === 1) {
 			$crow['template']['form'] .= ' style="text-align:right;"';

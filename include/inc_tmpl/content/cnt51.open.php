@@ -30,7 +30,6 @@ require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
 		var ns4 = document.layers;
 
 		function setLocationXY(kx,ky) {
-			//alert('hier');
 			window.opener.document.articlecontent.cmap_location_x.value=kx;
 			window.opener.document.articlecontent.cmap_location_y.value=ky;
 			window.opener.document.articlecontent.cmap_location_edited.value='1';
