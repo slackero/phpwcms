@@ -60,7 +60,7 @@ if(!empty($_SESSION['phpwcms_backend_search'])) {
 } else {
 	$_be_search = $BL['be_last_edited'];
 }
-$_asql_1 .= 'ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
+$_asql_1 .= ' ORDER BY acontent_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxCntParts'];
 $_last10_articlecontent = _dbQuery($_asql_1);
 
 $_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_aktiv, article_uid, ";
@@ -72,7 +72,6 @@ if(!empty($_SESSION['phpwcms_backend_search'])) {
 }
 $_asql_1 .= 'ORDER BY article_tstamp DESC LIMIT '.$_phpwcms_home['homeMaxArticles'];
 $_last10_article = _dbQuery($_asql_1);
-
 
 ?>
 <div style="margin:0 0 10px 0;padding:0;">
