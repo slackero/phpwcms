@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 if($crow["acontent_text"]) {
 	$crow["acontent_text"] = parse_ini_str($crow["acontent_text"]);
 	if(is_array($crow["acontent_text"]) && count($crow["acontent_text"])) {
-		$CUSTOM = array_merge( $CUSTOM, $crow["acontent_text"]);
+		$GLOBALS['CUSTOM'] = array_merge( $GLOBALS['CUSTOM'], $crow["acontent_text"]);
 	}
 }
 
