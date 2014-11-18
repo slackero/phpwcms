@@ -188,8 +188,8 @@ $template_default['article']['image_caption_before']	= '';
 $template_default['article']['image_caption_after']		= '';
 $template_default['article']['image_div']				= true;
 
-$template_default['article']['image_default_width']		= '200';
-$template_default['article']['image_default_height']	= '200';
+$template_default['article']['image_default_width']		= '490';
+$template_default['article']['image_default_height']	= '370';
 
 $template_default['article']['imagelist_table_class']		= '';
 $template_default['article']['imagelist_table_bgcolor']		= '';
@@ -207,13 +207,13 @@ $template_default['article']['imagelist_caption_align']		= '';
 $template_default['article']['imagelist_caption_before']	= '';
 $template_default['article']['imagelist_caption_after']		= '';
 
-$template_default['article']['imagelist_default_width']		= 100;
-$template_default['article']['imagelist_default_height']	= 100;
+$template_default['article']['imagelist_default_width']		= 245;
+$template_default['article']['imagelist_default_height']	= 185;
 
-$template_default['imagegallery_default_width']				= 200;
-$template_default['imagegallery_default_height']			= 175;
-$template_default['imagegallery_default_space']				= 3;
-$template_default['imagegallery_default_column']			= 2;
+$template_default['imagegallery_default_width']				= 490;
+$template_default['imagegallery_default_height']			= 370;
+$template_default['imagegallery_default_space']				= 0;
+$template_default['imagegallery_default_column']			= 1;
 
 
 $template_default['article']['keyword_before']          = '<span class="keywords">';

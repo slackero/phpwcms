@@ -60,6 +60,7 @@ $phpwcms['img_list_height']   = 75; // max height of the list thumbnail image
 $phpwcms['img_prev_width']    = 538; // max width of the large preview image
 $phpwcms['img_prev_height']   = 538; // max height of the large preview image
 $phpwcms['max_time']          = 1800; // logout after max_time/60 seconds
+$phpwcms['responsive']        = 1; // 0 max. image width = $phpwcms['content_width'], 1 = as given
 
 // other stuff
 $phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM

@@ -34,13 +34,15 @@ $content["image_zoom"] 		= isset($_POST["cimage_zoom"]) ? 1 : 0;
 $content["image_width"] 	= (intval($_POST["cimage_width"])) ? intval($_POST["cimage_width"]) : "";
 $content["image_height"] 	= (intval($_POST["cimage_height"])) ? intval($_POST["cimage_height"]): "";
 $temp_img_maxwidth = ($content["image_pos"] == 6 || $content["image_pos"] == 7) ? intval($phpwcms["content_width"] / 1.75) : $phpwcms["content_width"];
-if (($content["image_width"] > $temp_img_maxwidth) || ($content["image_width"] == "")) $content["image_width"] = $temp_img_maxwidth;
+if ((!RESPONSIVE_MODE && $content["image_width"] > $temp_img_maxwidth) || ($content["image_width"] == "")) {
+	$content["image_width"] = $temp_img_maxwidth;
+}
 
 // check for image information and get alle infos from file
 $img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=" . $content["image_id"] . " LIMIT 1;";
 if ($img_result = mysql_query($img_sql, $db) or die("error while getting content image info")) {
 	if ($img_row = mysql_fetch_assoc($img_result)) {
-	
+
 		// new structure of image information
 		// dbid:filename:hash:extension:width:height:caption:position:zoom
 		$content["image_info"]  = $img_row['f_id'];

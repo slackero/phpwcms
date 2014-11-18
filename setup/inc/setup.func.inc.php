@@ -175,6 +175,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['img_prev_width']    = ".intval($val["img_prev_width"])."; //max width of the large preview image\n";
 	$conf_file .= "\$phpwcms['img_prev_height']   = ".intval($val["img_prev_height"])."; //max height of the large preview image\n";
 	$conf_file .= "\$phpwcms['max_time']          = ".intval($val["max_time"])."; //logout after max_time/60 seconds\n";
+	$conf_file .= "\$phpwcms['responsive']        = 1; // 0 max. image width = \$phpwcms['content_width'], 1 = as given\n";
 
 	$conf_file .= "\n// other stuff\n";
 	$conf_file .= "\$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";

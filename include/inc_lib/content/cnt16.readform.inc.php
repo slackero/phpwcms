@@ -49,12 +49,12 @@ $content["ecard"]["image_cctext"] 	= explode("\n", $content["ecard"]["caption"])
 
 // remove form tag from form template
 $content["ecard"]["form"] = preg_replace("'<form[^>]*?>(.*?)</form>'si", '$1', $content["ecard"]["form"]);
-				
+
 if(is_array($content["ecard"]["list"]) && count($content["ecard"]["list"])) {
 
 	$img_sql 	= "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE (";
 	$img_sort 	= array();
-	
+
 	foreach($content["ecard"]["list"] as $key => $value) {
 		if ($imgx) $img_sql .= " OR ";
 		$img_sql .= "f_id=" . intval($value);
@@ -64,26 +64,26 @@ if(is_array($content["ecard"]["list"]) && count($content["ecard"]["list"])) {
 		$img_sql .= "0";
 	}
 	$img_sql .= ");";
-					
+
 	// check for image information and get alle infos from file
 	if ($img_result = mysql_query($img_sql, $db) or die("error while getting content image only info")) {
-	
+
 		// Gegenrechnen von Breite zu Anzahl Spalten und Bildabstand
 		$temp_count_img = mysql_num_rows($img_result);
 		if($content["ecard"]["col"] > $temp_count_img) $content["ecard"]["col"] = $temp_count_img;
 		$temp_img_maxwidth = $phpwcms["content_width"] - (($content["ecard"]["col"] - 1) * $content["ecard"]["space"]);
 		$temp_img_maxwidth = intval($temp_img_maxwidth / $content["ecard"]["col"]);
-						
-		if (($content["ecard"]["width"] > $temp_img_maxwidth) || ($content["ecard"]["width"] == "")) {
+
+		if ((!RESPONSIVE_MODE && $content["ecard"]["width"] > $temp_img_maxwidth) || ($content["ecard"]["width"] == "")) {
 			$content["ecard"]["width"] = $temp_img_maxwidth;
 			$temp_width = $content["ecard"]["width"];
 		}
-		
+
 		$imgx = 0;
 		$current_img_key = 0;
-						
+
 		while ($img_row = mysql_fetch_assoc($img_result)) {
-		
+
 			// set correct sorting
 			foreach($content["ecard"]["list"] as $key => $value) {
 				if($value == $img_row['f_id']) {
@@ -99,9 +99,9 @@ if(is_array($content["ecard"]["list"]) && count($content["ecard"]["list"])) {
 			$content['ecard']['images'][$current_img_key][4]	= $temp_width;
 			$content['ecard']['images'][$current_img_key][5]	= $temp_height;
 			$content['ecard']['images'][$current_img_key][6]	= isset($content["ecard"]["image_cctext"][$current_img_key]) ? trim($content["ecard"]["image_cctext"][$current_img_key]) : '';
-			
+
 			$imgx++;
-							
+
 		}
 		mysql_free_result($img_result);
 		ksort($content['ecard']['images']);

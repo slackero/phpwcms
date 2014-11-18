@@ -670,31 +670,32 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 	foreach($result as $row) {
 
 		$data[$row["article_id"]] = array(
-								"article_id"		=> $row["article_id"],
-								"article_cid"		=> $row["article_cid"],
-								"article_title"		=> $row["article_title"],
-								"article_subtitle"	=> $row["article_subtitle"],
-								"article_keyword"	=> $row["article_keyword"],
-								"article_summary"	=> $row["article_summary"],
-								"article_redirect"	=> $row["article_redirect"],
-								"article_date"		=> $row["article_date"],
-								"article_username"	=> $row["article_username"],
-								"article_sort"		=> $row["article_sort"],
-								"article_notitle"	=> $row["article_notitle"],
-								"article_created"	=> $row["article_created"],
-								"article_image"		=> @unserialize($row["article_image"]),
-								"article_timeout"	=> $row["article_cache"],
-								"article_nosearch"	=> $row["article_nosearch"],
-								"article_nositemap"	=> $row["article_nositemap"],
-								"article_aliasid"	=> $row["article_aliasid"],
-								"article_headerdata"=> $row["article_headerdata"],
-								"article_morelink"	=> $row["article_morelink"],
-								"article_begin"		=> $row["article_begin"],
-								"article_end"		=> $row["article_end"],
-								"article_alias"		=> $row["article_alias"],
-								'article_livedate'	=> $row["article_livedate"],
-								'article_killdate'	=> $row["article_killdate"]
-										);
+			"article_id"		=> $row["article_id"],
+			"article_cid"		=> $row["article_cid"],
+			"article_title"		=> $row["article_title"],
+			"article_subtitle"	=> $row["article_subtitle"],
+			"article_keyword"	=> $row["article_keyword"],
+			"article_summary"	=> $row["article_summary"],
+			"article_redirect"	=> $row["article_redirect"],
+			"article_date"		=> $row["article_date"],
+			"article_username"	=> $row["article_username"],
+			"article_sort"		=> $row["article_sort"],
+			"article_notitle"	=> $row["article_notitle"],
+			"article_created"	=> $row["article_created"],
+			"article_image"		=> @unserialize($row["article_image"]),
+			"article_timeout"	=> $row["article_cache"],
+			"article_nosearch"	=> $row["article_nosearch"],
+			"article_nositemap"	=> $row["article_nositemap"],
+			"article_aliasid"	=> $row["article_aliasid"],
+			"article_headerdata"=> $row["article_headerdata"],
+			"article_morelink"	=> $row["article_morelink"],
+			"article_begin"		=> $row["article_begin"],
+			"article_end"		=> $row["article_end"],
+			"article_alias"		=> $row["article_alias"],
+			'article_livedate'	=> $row["article_livedate"],
+			'article_killdate'	=> $row["article_killdate"]
+		);
+
 		// now check for article alias ID
 		if($row["article_aliasid"]) {
 			$aid = $row["article_id"];

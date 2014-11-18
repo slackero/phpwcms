@@ -260,7 +260,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article['image']['zoom']		= empty($_POST["cimage_zoom"]) ? 0 : 1;
 		$article['image']['lightbox']	= empty($_POST["cimage_lightbox"]) ? 0 : 1;
 
-		if ($article['image']['width'] > $phpwcms["content_width"] || $article['image']['width'] == '') {
+		if ((!RESPONSIVE_MODE && $article['image']['width'] > $phpwcms["content_width"]) || $article['image']['width'] == '') {
 			$article['image']['width'] = $phpwcms["content_width"];
 		}
 
@@ -294,7 +294,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 
 		$article['image']['list_maxwords']		= empty($_POST["article_listmaxwords"]) ? 0 : intval($_POST["article_listmaxwords"]);
 
-		if($article['image']['list_width'] > $phpwcms["content_width"] || $article['image']['list_width'] == '') {
+		if((!RESPONSIVE_MODE && $article['image']['list_width'] > $phpwcms["content_width"]) || $article['image']['list_width'] == '') {
 			$article['image']['list_width'] = $phpwcms["content_width"];
 		}
 
