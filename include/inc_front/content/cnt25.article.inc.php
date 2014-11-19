@@ -175,7 +175,7 @@ if(isset($fmp_data['fmp_template'])) {
 		// external
 		$fmp_data['file'] = $fmp_data['fmp_external_file'];
 
-	} else {
+	} elseif($fmp_data['fmp_internal_id']) {
 
 		// internal
 		$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE f_aktiv=1 AND f_public=1 AND f_id='.$fmp_data['fmp_internal_id'];
@@ -206,6 +206,10 @@ if(isset($fmp_data['fmp_template'])) {
 		} else {
 			$fmp_data['file'] = '';
 		}
+	} else {
+
+		$fmp_data['file'] = '';
+
 	}
 
 	// retrieve preview image
@@ -239,153 +243,161 @@ if(isset($fmp_data['fmp_template'])) {
 
 	}
 
-	// Define Flash Vars
-
 	// set ID
 	$fmp_data['id']					= 'fmp'.$crow["acontent_id"];
-	$fmp_data['jw_license_info']	= '';
 
-	// JW Player
-	if(empty($fmp_data['fmp_player']) ) {
+	if($fmp_data['file']) {
+		// Define Flash Vars
 
-		$fmp_data['player_swf'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/player.swf';
+		$fmp_data['jw_license_info']	= '';
 
-		$fmp_data['flashvars']['file']			= rawurlencode($fmp_data['file']);
-		$fmp_data['flashvars']['width']			= $fmp_data['fmp_width'];
-		$fmp_data['flashvars']['controlbar']	= $fmp_data['fmp_set_showcontrols'];
-		$fmp_data['flashvars']['autostart']		= $fmp_data['fmp_set_autostart'] ? 'true' : 'false';
-		$fmp_data['flashvars']['usecaptions']	= 'false';
-		$fmp_data['flashvars']['stretching']	= $fmp_data['fmp_set_overstretch'];
+		// JW Player
+		if(empty($fmp_data['fmp_player']) ) {
 
-		if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
-			$fmp_data['flashvars']['image'] = rawurlencode($fmp_data['preview']);
-		}
+			$fmp_data['player_swf'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/player.swf';
 
-		if($fmp_data['flashvars_type']) {
-			$fmp_data['flashvars']['type'] = $fmp_data['flashvars_type'];
-		}
+			$fmp_data['flashvars']['file']			= rawurlencode($fmp_data['file']);
+			$fmp_data['flashvars']['width']			= $fmp_data['fmp_width'];
+			$fmp_data['flashvars']['controlbar']	= $fmp_data['fmp_set_showcontrols'];
+			$fmp_data['flashvars']['autostart']		= $fmp_data['fmp_set_autostart'] ? 'true' : 'false';
+			$fmp_data['flashvars']['usecaptions']	= 'false';
+			$fmp_data['flashvars']['stretching']	= $fmp_data['fmp_set_overstretch'];
 
-		if($fmp_data['fmp_set_logo']) {
-			$fmp_data['flashvars']['logo'] = rawurlencode($fmp_data['fmp_set_logo']);
-		}
-
-		if($fmp_data['fmp_link']) {
-
-			$fmp_data['fmp_link']						= explode(' ', $fmp_data['fmp_link']);
-			$fmp_data['flashvars']['link']				= rawurlencode(trim($fmp_data['fmp_link'][0]));
-			$fmp_data['flashvars']['linkfromdisplay']	= 'true';
-
-			if(!empty($fmp_data['fmp_link'][1])) {
-				$fmp_data['flashvars']['linktarget']	= trim($fmp_data['fmp_link'][1]);
+			if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
+				$fmp_data['flashvars']['image'] = rawurlencode($fmp_data['preview']);
 			}
+
+			if($fmp_data['flashvars_type']) {
+				$fmp_data['flashvars']['type'] = $fmp_data['flashvars_type'];
+			}
+
+			if($fmp_data['fmp_set_logo']) {
+				$fmp_data['flashvars']['logo'] = rawurlencode($fmp_data['fmp_set_logo']);
+			}
+
+			if($fmp_data['fmp_link']) {
+
+				$fmp_data['fmp_link']						= explode(' ', $fmp_data['fmp_link']);
+				$fmp_data['flashvars']['link']				= rawurlencode(trim($fmp_data['fmp_link'][0]));
+				$fmp_data['flashvars']['linkfromdisplay']	= 'true';
+
+				if(!empty($fmp_data['fmp_link'][1])) {
+					$fmp_data['flashvars']['linktarget']	= trim($fmp_data['fmp_link'][1]);
+				}
+			}
+
+			if($fmp_data['fmp_set_showdownload']) {
+				$fmp_data['flashvars']['showdownload'] = 'false';
+			}
+
+			$fmp_data['flashvars']['backcolor']		= '0x' . $fmp_data['fmp_set_bgcolor'];
+			$fmp_data['flashvars']['lightcolor']	= '0x' . $fmp_data['fmp_set_hcolor'];
+			$fmp_data['flashvars']['frontcolor']	= '0x' . $fmp_data['fmp_set_color'];
+
+			if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin'])) {
+				$fmp_data['flashvars']['skin'] = rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin']);
+			}
+
+			$fmp_data['flashvars']['displayheight']	= $fmp_data['fmp_displayheight'];
+
+			$fmp_data['params']['allowfullscreen']	= 'true';
+			$fmp_data['params']['play']				= 'true';
+			$fmp_data['params']['wmode']			= 'opaque';
+
+			if(isset($fmp_data['fmp_set_volume'])) {
+				$fmp_data['flashvars']['volume'] = $fmp_data['fmp_set_volume'];
+				$fmp_data['params']['volume'] = $fmp_data['fmp_set_volume'];
+			}
+
+			// Licensed Player
+			if(!empty($phpwcms['JW_FLV_License'])) {
+				$fmp_data['host'] = parse_url(PHPWCMS_URL);
+				$fmp_data['flashvars']['abouttext']	= rawurlencode($fmp_data['host']['host'].' FLV Player');
+				$fmp_data['flashvars']['aboutlink']	= rawurlencode(PHPWCMS_URL);
+				$fmp_data['jw_license_info']		= '	// JW FLV Media Player licensed for: '.$fmp_data['host']['host'] . LF;
+			}
+
+		// NonverBlaster:hover
+		} else {
+
+			$fmp_data['player_swf']		= PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf';
+
+			$fmp_data['flashvars']['mediaURL']			= rawurlencode($fmp_data['file']);
+			$fmp_data['flashvars']['loop']				= 'false';
+			$fmp_data['flashvars']['showScalingButton']	= 'true';
+			$fmp_data['flashvars']['scaleIfFullScreen']	= 'true';
+			$fmp_data['flashvars']['crop']				= 'false';
+			$fmp_data['flashvars']['defaultVolume']		= isset($fmp_data['fmp_set_volume']) ? $fmp_data['fmp_set_volume'] : '100';
+			$fmp_data['flashvars']['buffer']			= '6';
+			$fmp_data['flashvars']['allowSmoothing']	= 'true';
+			$fmp_data['flashvars']['controlsEnabled']	= $fmp_data['fmp_set_showcontrols'];
+			$fmp_data['flashvars']['autoPlay']			= $fmp_data['fmp_set_autostart'] ? 'true' : 'false';
+
+			$fmp_data['flashvars']['controlBackColor']	= '0x' . $fmp_data['fmp_set_bgcolor'];
+			$fmp_data['flashvars']['controlColor']		= '0x' . $fmp_data['fmp_set_color'];
+
+			if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
+				$fmp_data['flashvars']['teaserURL']		= rawurlencode($fmp_data['preview']);
+			}
+
+			if($fmp_data['fmp_set_logo']) {
+				$fmp_data['flashvars']['indentImageURL'] = rawurlencode($fmp_data['fmp_set_logo']);
+			}
+
+			$fmp_data['params']['allowfullscreen']		= 'true';
+			$fmp_data['params']['menu']					= 'false';
+			$fmp_data['params']['wmode']				= 'opaque';
+			$fmp_data['params']['allowScriptAccess']	= 'always';
+
+			if($fmp_data['fmp_link']) {
+
+				$fmp_data['fmp_link'] = explode(' ', trim($fmp_data['fmp_link']));
+				$fmp_data['flashvars']['onClick'] = rawurlencode(trim($fmp_data['fmp_link'][0]));
+
+			}
+
 		}
 
-		if($fmp_data['fmp_set_showdownload']) {
-			$fmp_data['flashvars']['showdownload'] = 'false';
+		$fmp_data['attributes'][] = 'id: "'.$fmp_data['id'].'"';
+		$fmp_data['attributes'][] = 'name: "'.$fmp_data['id'].'"';
+		$fmp_data['attributes'][] = 'bgcolor: "#'.$fmp_data['fmp_set_bgcolor'].'"';
+
+		// Prepare Fallback Flash Object
+		$fmp_data['fallback'] = array();
+
+		$fmp_data['fallback']['object_header']  = '	<object class="vjs-flash-fallback" type="application/x-shockwave-flash"';
+		$fmp_data['fallback']['object_header'] .= ' width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" data="'.$fmp_data['player_swf'].'">';
+
+		$fmp_data['fallback']['param_movie']	 = '		<param name="movie" value="'.$fmp_data['player_swf'].'" />';
+
+		foreach($fmp_data['params'] as $param_name => $param_value) {
+			$fmp_data['fallback'][] = '		<param name="'.$param_name.'" value="'.$param_value.'" />';
+			$fmp_data['params'][$param_name] = $param_name.': "'.$param_value.'"';
 		}
 
-		$fmp_data['flashvars']['backcolor']		= '0x' . $fmp_data['fmp_set_bgcolor'];
-		$fmp_data['flashvars']['lightcolor']	= '0x' . $fmp_data['fmp_set_hcolor'];
-		$fmp_data['flashvars']['frontcolor']	= '0x' . $fmp_data['fmp_set_color'];
+		$fmp_data['fallback']['flashvars'] = array();
 
-		if(!empty($fmp_data['fmp_set_skin']) && is_file(PHPWCMS_TEMPLATE.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin'])) {
-			$fmp_data['flashvars']['skin'] = rawurlencode(PHPWCMS_URL.TEMPLATE_PATH.'lib/jw_media_player/skins/'.$fmp_data['fmp_set_skin']);
+		foreach($fmp_data['flashvars'] as $param_name => $param_value) {
+			$fmp_data['fallback']['flashvars'][] = $param_name.'='.$param_value;
+			$fmp_data['flashvars'][$param_name] = $param_name.': "'.$param_value.'"';
 		}
 
-		$fmp_data['flashvars']['displayheight']	= $fmp_data['fmp_displayheight'];
+		$fmp_data['fallback']['flashvars'] = '		<param name="flashvars" value="'.implode('&amp;', $fmp_data['fallback']['flashvars']).'" />';
 
-		$fmp_data['params']['allowfullscreen']	= 'true';
-		$fmp_data['params']['play']				= 'true';
-		$fmp_data['params']['wmode']			= 'opaque';
 
-		if(isset($fmp_data['fmp_set_volume'])) {
-			$fmp_data['flashvars']['volume'] = $fmp_data['fmp_set_volume'];
-			$fmp_data['params']['volume'] = $fmp_data['fmp_set_volume'];
+		if(!empty($fmp_data['fmp_preview'])) {
+			$fmp_data['fallback']['poster']  = '		<img alt="Poster Image" title="@@No video playback capabilities.@@" src="'.$fmp_data['preview'].'" ';
+			$fmp_data['fallback']['poster'] .= 'width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" />';
 		}
 
-		// Licensed Player
-		if(!empty($phpwcms['JW_FLV_License'])) {
-			$fmp_data['host'] = parse_url(PHPWCMS_URL);
-			$fmp_data['flashvars']['abouttext']	= rawurlencode($fmp_data['host']['host'].' FLV Player');
-			$fmp_data['flashvars']['aboutlink']	= rawurlencode(PHPWCMS_URL);
-			$fmp_data['jw_license_info']		= '	// JW FLV Media Player licensed for: '.$fmp_data['host']['host'] . LF;
-		}
+		$fmp_data['fallback']['object_footer']  = '	</object>';
+		$fmp_data['fallback'] = implode(LF, $fmp_data['fallback']);
 
-	// NonverBlaster:hover
 	} else {
 
-		$fmp_data['player_swf']		= PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf';
-
-		$fmp_data['flashvars']['mediaURL']			= rawurlencode($fmp_data['file']);
-		$fmp_data['flashvars']['loop']				= 'false';
-		$fmp_data['flashvars']['showScalingButton']	= 'true';
-		$fmp_data['flashvars']['scaleIfFullScreen']	= 'true';
-		$fmp_data['flashvars']['crop']				= 'false';
-		$fmp_data['flashvars']['defaultVolume']		= isset($fmp_data['fmp_set_volume']) ? $fmp_data['fmp_set_volume'] : '100';
-		$fmp_data['flashvars']['buffer']			= '6';
-		$fmp_data['flashvars']['allowSmoothing']	= 'true';
-		$fmp_data['flashvars']['controlsEnabled']	= $fmp_data['fmp_set_showcontrols'];
-		$fmp_data['flashvars']['autoPlay']			= $fmp_data['fmp_set_autostart'] ? 'true' : 'false';
-
-		$fmp_data['flashvars']['controlBackColor']	= '0x' . $fmp_data['fmp_set_bgcolor'];
-		$fmp_data['flashvars']['controlColor']		= '0x' . $fmp_data['fmp_set_color'];
-
-		if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
-			$fmp_data['flashvars']['teaserURL']		= rawurlencode($fmp_data['preview']);
-		}
-
-		if($fmp_data['fmp_set_logo']) {
-			$fmp_data['flashvars']['indentImageURL'] = rawurlencode($fmp_data['fmp_set_logo']);
-		}
-
-		$fmp_data['params']['allowfullscreen']		= 'true';
-		$fmp_data['params']['menu']					= 'false';
-		$fmp_data['params']['wmode']				= 'opaque';
-		$fmp_data['params']['allowScriptAccess']	= 'always';
-
-		if($fmp_data['fmp_link']) {
-
-			$fmp_data['fmp_link'] = explode(' ', trim($fmp_data['fmp_link']));
-			$fmp_data['flashvars']['onClick'] = rawurlencode(trim($fmp_data['fmp_link'][0]));
-
-		}
+		$fmp_data['fallback'] = '';
 
 	}
-
-	$fmp_data['attributes'][] = 'id: "'.$fmp_data['id'].'"';
-	$fmp_data['attributes'][] = 'name: "'.$fmp_data['id'].'"';
-	$fmp_data['attributes'][] = 'bgcolor: "#'.$fmp_data['fmp_set_bgcolor'].'"';
-
-	// Prepare Fallback Flash Object
-	$fmp_data['fallback'] = array();
-
-	$fmp_data['fallback']['object_header']  = '	<object class="vjs-flash-fallback" type="application/x-shockwave-flash"';
-	$fmp_data['fallback']['object_header'] .= ' width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" data="'.$fmp_data['player_swf'].'">';
-
-	$fmp_data['fallback']['param_movie']	 = '		<param name="movie" value="'.$fmp_data['player_swf'].'" />';
-
-	foreach($fmp_data['params'] as $param_name => $param_value) {
-		$fmp_data['fallback'][] = '		<param name="'.$param_name.'" value="'.$param_value.'" />';
-		$fmp_data['params'][$param_name] = $param_name.': "'.$param_value.'"';
-	}
-
-	$fmp_data['fallback']['flashvars'] = array();
-
-	foreach($fmp_data['flashvars'] as $param_name => $param_value) {
-		$fmp_data['fallback']['flashvars'][] = $param_name.'='.$param_value;
-		$fmp_data['flashvars'][$param_name] = $param_name.': "'.$param_value.'"';
-	}
-
-	$fmp_data['fallback']['flashvars'] = '		<param name="flashvars" value="'.implode('&amp;', $fmp_data['fallback']['flashvars']).'" />';
-
-
-	if(!empty($fmp_data['fmp_preview'])) {
-		$fmp_data['fallback']['poster']  = '		<img alt="Poster Image" title="@@No video playback capabilities.@@" src="'.$fmp_data['preview'].'" ';
-		$fmp_data['fallback']['poster'] .= 'width="'.$fmp_data['fmp_width'].'" height="'.$fmp_data['fmp_height'].'" />';
-	}
-
-	$fmp_data['fallback']['object_footer']  = '	</object>';
-	$fmp_data['fallback'] = implode(LF, $fmp_data['fallback']);
 
 	// Set Video-JS
 	$fmp_data['video']		= array();
@@ -516,7 +528,7 @@ if(isset($fmp_data['fmp_template'])) {
 		unset($fmp_data['video'], $fmp_data['video_tag']);
 
 	// Flash Video Fallback
-	} else {
+	} elseif($fmp_data['fallback']) {
 
 		// Load SwfObject 2.1
 		initSwfObject();
