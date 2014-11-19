@@ -131,7 +131,7 @@ function renderHeadJS($js) {
  * Init Video JS
  */
 function initVideoJs() {
-	$GLOBALS['phpwcms']['video-js'] = empty($GLOBALS['phpwcms']['video-js']) ? PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/4.8/' : rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
+	$GLOBALS['phpwcms']['video-js'] = empty($GLOBALS['phpwcms']['video-js']) ? PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/4.10/' : rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
 	$GLOBALS['block']['custom_htmlhead']['video-js.css'] = '  <link rel="stylesheet" type="text/css" href="' . $GLOBALS['phpwcms']['video-js'] . 'video-js.css" />';
 }
 
