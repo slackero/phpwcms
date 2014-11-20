@@ -870,8 +870,14 @@ $content['all'] = render_device($content['all']);
 $content['all'] = str_replace('{CURRENT_ARTICLEID}', $aktion[1], $content['all']);
 $content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all']);
 
-// search for level related replacement tags and replace it, sample: {LEVEL2_ID}
-$content['all'] = preg_replace_callback('/\{LEVEL(\d+)_ID\}/', 'replace_level_id', $content['all']);
+// search for level related replacement tags and replace it, sample: [LEVEL2_ID]{LEVEL2_ID}[/LEVEL2_ID]
+if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
+	// get unique IDs
+	$match = array_unique($match[1]);
+	foreach($match as $id) {
+		$content['all'] = render_cnt_template($content['all'], 'LEVEL'.$id.'_ID', isset($LEVEL_ID[(int) $id]) ? $id : '');
+	}
+}
 
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
 if(strpos($content["all"],'{SHOW_CONTENT:') !== false) {
