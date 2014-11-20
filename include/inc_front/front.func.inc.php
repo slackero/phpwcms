@@ -300,7 +300,7 @@ function breadcrumb_wrapper($match) {
 	);
 }
 
-function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
+function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
 	//builds the breadcrumb menu based on given values
 	//$link_to = the page on which the breadcrum part links
 	//$root_name = name of the breadcrumb part if empty/false/0 $start_id
