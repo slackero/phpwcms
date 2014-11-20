@@ -385,8 +385,8 @@ $template_default['attributes'] = array(
 	'cpgroup'					=> 'data', // data = <span>, href = <a>
 	'cpgroup_custom'			=> array(
 		'bs-row-container' => array( // No underscore allowed here for group index!!!
-			'title'		=> 'Bootstrap Row/Container',
-			'prefix'	=> '<div class="row"><div class="container">',
+			'title'		=> 'Bootstrap Container/Row',
+			'prefix'	=> '<div class="container"><div class="row">',
 			'suffix'	=> '</div></div>'
 		) /* ,
 		'sample' => array( // No underscore allowed here for group index!!!
