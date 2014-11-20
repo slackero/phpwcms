@@ -875,7 +875,8 @@ if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
 	// get unique IDs
 	$match = array_unique($match[1]);
 	foreach($match as $id) {
-		$content['all'] = render_cnt_template($content['all'], 'LEVEL'.$id.'_ID', isset($LEVEL_ID[(int) $id]) ? $id : '');
+		$id = intval($id);
+		$content['all'] = render_cnt_template($content['all'], 'LEVEL'.$id.'_ID', isset($LEVEL_ID[$id]) ? $LEVEL_ID[$id] : '');
 	}
 }
 
