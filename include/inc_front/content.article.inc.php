@@ -619,9 +619,22 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 				$crow['acontent_tab']			= explode('_', $crow['acontent_tab'], 2);
 				$crow['acontent_tab']['num']	= explode('|' ,$crow['acontent_tab'][0]);
-				$crow['acontent_tab']['type']	= empty($crow['acontent_tab']['num'][1]) ? 1 : intval($crow['acontent_tab']['num'][1]);
+				$crow['acontent_tab']['type']	= empty($crow['acontent_tab']['num'][1]) ? 1 : $crow['acontent_tab']['num'][1];
 				$crow['acontent_tab']['num']	= intval($crow['acontent_tab']['num'][0]);
-				$crow['acontent_tab']['title']	= empty($crow['acontent_tab'][1]) ? i18n_substitute_text_token($content['cptab_types'][ $crow['acontent_tab']['type'] ]['title']) : $crow['acontent_tab'][1];
+				if($crow['acontent_tab']['type'] == 2) {
+					$crow['acontent_tab']['title'] = empty($crow['acontent_tab'][1]) ? i18n_substitute_text_token($content['cptab_types'][2]['title']) : $crow['acontent_tab'][1];
+					$crow['acontent_tab']['type'] = 2;
+				} elseif(isset($template_default['attributes']['cpgroup_custom'][$crow['acontent_tab']['type']])) {
+					$crow['acontent_tab']['title'] = empty($crow['acontent_tab'][1]) ? $template_default['attributes']['cpgroup_custom'][$crow['acontent_tab']['type']]['title'] : $crow['acontent_tab'][1];
+					$content['cptab_types'][ $crow['acontent_tab']['type'] ] = array(
+						'id' => $crow['acontent_tab']['type'],
+						'item' => $crow['acontent_tab']['type'],
+						'title' => $template_default['attributes']['cpgroup_custom'][$crow['acontent_tab']['type']]['title']
+					);
+				} else {
+					$crow['acontent_tab']['title'] = empty($crow['acontent_tab'][1]) ? i18n_substitute_text_token($content['cptab_types'][1]['title']) : $crow['acontent_tab'][1];
+					$crow['acontent_tab']['type'] = 1;
+				}
 
 				// create a unique Tab ID based on title, content block and section
 				$CNT_TAB		= $content['cptab_types'][ $crow['acontent_tab']['type'] ]['id'] . '-' . md5($crow['acontent_block'] . $crow['acontent_tab']['num']);
@@ -730,6 +743,15 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					}
 					$g['wrap'][]	= '</div>';
 
+				// Custom CP group wrapper
+				} elseif(isset($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]])) {
+
+					foreach($trow as $tabkey => $tabitem) {
+						$tabitem['title'] = html_specialchars($tabitem['title']);
+						$g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['prefix'], $tabitem['title'], $CNT_TAB);
+						$g['wrap'][] = $tabitem['content'];
+						$g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['suffix'], $tabitem['title'], $CNT_TAB);
+					}
 
 				// Default behavior: Tabs
 				} else {

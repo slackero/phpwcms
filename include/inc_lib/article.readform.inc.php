@@ -79,7 +79,7 @@ if($content["paginate_page"] && $content["block"] != 'CONTENT') {
 }
 
 $content["tab"]			= '';
-$content['tab_type']	= empty($_POST['ctab']) ? 0 : intval($_POST['ctab']);
+$content['tab_type']	= empty($_POST['ctab']) ? 0 : clean_slweg($_POST['ctab']);
 if($content['tab_type']) {
 
 	$content["tab_number"]	= empty($_POST['ctab_number']) ? 0 : intval($_POST['ctab_number']);
@@ -92,7 +92,7 @@ if($content['tab_type']) {
 	}
 }
 
-$content["module"]	 	= empty($_POST["ctype_module"]) ? '' : clean_slweg($_POST["ctype_module"]);
+$content["module"] = empty($_POST["ctype_module"]) ? '' : clean_slweg($_POST["ctype_module"]);
 
 // check if content type possibly changed
 $content["update_type"] = ($content["target_type"] != $content["type"]) ? 1 : 0;

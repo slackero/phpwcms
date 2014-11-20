@@ -382,7 +382,19 @@ $template_default['search_highlight'] = array(
 $template_default['attributes'] = array(
 	'navlist-bs-dropdown-data'	=> 'data-toggle="dropdown"',
 	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>',
-	'cpgroup'					=> 'data' // data = <span>, href = <a>
+	'cpgroup'					=> 'data', // data = <span>, href = <a>
+	'cpgroup_custom'			=> array(
+		'bs-row-container' => array( // No underscore allowed here for group index!!!
+			'title'		=> 'Bootstrap Row/Container',
+			'prefix'	=> '<div class="row"><div class="container">',
+			'suffix'	=> '</div></div>'
+		) /* ,
+		'sample' => array( // No underscore allowed here for group index!!!
+			'title'		=> 'Wrapper',
+			'prefix'	=> '%1$s<div class="wrapper">', // optional: %1$s = title, %2$s = tab id
+			'suffix'	=> '</div>' // optional: %1$s, %2$s
+		) */
+	)
 );
 
 ?>

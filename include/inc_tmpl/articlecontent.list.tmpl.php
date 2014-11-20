@@ -322,11 +322,17 @@ if(!$temp_count) {
 				$contentpart_block		= ' ';
 				$contentpart_block_name	= '';
 				$contentpart_tab		= '';
+				$contentpart_tab_close	= '';
 				while($row = mysql_fetch_assoc($result)) {
 
 					// if type of content part not enabled available
 					if(!isset($wcs_content_type[ $row["acontent_type"] ]) || ($row["acontent_type"] == 30 && !isset($phpwcms['modules'][$row["acontent_module"]]))) {
 						continue;
+					}
+
+					if($contentpart_tab_close) {
+						echo $contentpart_tab_close;
+						$contentpart_tab_close = '';
 					}
 
 					// now show current block name
@@ -393,7 +399,7 @@ if(!$temp_count) {
 						$contentpart_tabbed		= explode('_', $contentpart_tab, 2);
 						$contentpart_tab_title	= empty($contentpart_tabbed[1]) ? '' : $contentpart_tabbed[1];
 						$contentpart_tab_number	= explode('|', $contentpart_tabbed[0]);
-						$contentpart_tab_type	= empty($contentpart_tab_number[1]) ? 1 : intval($contentpart_tab_number[1]);
+						$contentpart_tab_type	= empty($contentpart_tab_number[1]) ? 1 : $contentpart_tab_number[1];
 						$contentpart_tab_number = intval($contentpart_tab_number[0]);
 
 			?>
@@ -401,7 +407,13 @@ if(!$temp_count) {
 				<td align="right" style="padding-right:5px;"><img src="img/symbole/tabbed.gif" alt="" width="9" height="11" border="0" /></td>
 				<td style="font-size:9px;"><?php
 
-						echo $contentpart_tab_type === 2 ? $BL['be_ctype_accordion'] : $BL['be_ctype_tabs'];
+						if($contentpart_tab_type == 2) {
+							echo $BL['be_ctype_accordion'];
+						} elseif(isset($template_default['attributes']['cpgroup_custom'][$contentpart_tab_type])) {
+							echo html($template_default['attributes']['cpgroup_custom'][$contentpart_tab_type]['title']);
+						} else {
+							echo $BL['be_ctype_tabs'];
+						}
 						echo ' / ' . $BL['be_cnt_paginate_subsection'] . ': ';
 						echo empty($contentpart_tab_title) ? '[' . $contentpart_tab_number . ']' : html($contentpart_tab_title);
 
@@ -415,10 +427,9 @@ if(!$temp_count) {
 
 						// not the same tab but following cp is not tabbed
 						$contentpart_tab = '';
-			?>
-			<tr<?php echo $contentpart_block_color ?>><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-			<tr><td colspan="3" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-			<?php
+
+						$contentpart_tab_close  = '<tr'.$contentpart_block_color.'><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>';
+						$contentpart_tab_close .= '<tr><td colspan="3" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
 
 					}
 

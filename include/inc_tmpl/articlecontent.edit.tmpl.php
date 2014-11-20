@@ -362,7 +362,7 @@ if($content['cp_setting_mode']):
 		$content["tab"]				= explode('_', $content["tab"], 2);
 		$content["tab_title"]		= empty($content["tab"][1]) ? '' : $content["tab"][1];
 		$content["tab_number"]		= explode('|', $content["tab"][0]);
-		$content["tab_type"]		= empty($content["tab_number"][1]) ? 1 : intval($content["tab_number"][1]);
+		$content["tab_type"]		= empty($content["tab_number"][1]) ? 1 : $content["tab_number"][1];
 		$content["tab_number"]		= intval($content["tab_number"][0]);
 
 		if($content["tab_number"].$content["tab_title"]) {
@@ -381,6 +381,15 @@ if($content['cp_setting_mode']):
 				<option value="0"<?php is_selected(0, $content["tab_type"]); ?>><?php echo $BL['be_off'] ?></option>
 				<option value="1"<?php is_selected(1, $content["tab_type"]); ?>><?php echo $BL['be_ctype_tabs'] ?></option>
 				<option value="2"<?php is_selected(2, $content["tab_type"]); ?>><?php echo $BL['be_ctype_accordion'] ?></option>
+<?php
+	if(isset($template_default['attributes']['cpgroup_custom'])	&& is_array($template_default['attributes']['cpgroup_custom']) && count($template_default['attributes']['cpgroup_custom'])):
+		foreach($template_default['attributes']['cpgroup_custom'] as $tab_type_value => $value):
+?>
+				<option value="<?php echo $tab_type_value ?>"<?php is_selected($tab_type_value, $content["tab_type"]); ?>><?php echo html($value['title']) ?></option>
+<?php
+		endforeach;
+	endif;
+?>
 			</select></td>
 
 		</tr>
@@ -390,9 +399,9 @@ if($content['cp_setting_mode']):
 
 			function checkTabStatus(tabVal) {
 
-				var tabValue = parseInt(tabVal.options[tabVal.selectedIndex].value, 10);
+				var tabValue = tabVal.options[tabVal.selectedIndex].value;
 
-				cTabStatus = tabValue > 0 ? true : false;
+				cTabStatus = tabValue ? true : false;
 
 				if(cTabStatus == false) {
 
