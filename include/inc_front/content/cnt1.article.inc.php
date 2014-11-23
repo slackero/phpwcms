@@ -288,7 +288,7 @@ if($crow['is_imagetext']) {
 				$crow['image_tag'] .= '" title="'.$caption[3];
 				$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', $caption[3]);
 			}
-			$crow['image_tag'] .= '" border="0" />';
+			$crow['image_tag'] .= '" />';
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', empty($caption[4]) ? '' : html($caption[4]));
 		}
 

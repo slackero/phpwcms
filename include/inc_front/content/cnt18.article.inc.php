@@ -314,7 +314,7 @@ if($guestbook['visible']) {
 	} else {
 
 		$guestbook['captcha_maxchar'] = empty($guestbook['captcha_maxchar']) ? 5 : $guestbook['captcha_maxchar'];
-		$guestbook['form'] = str_replace('{CAPTCHA}', '<img src="img/captcha.php?regen=y&amp;length='.$guestbook['captcha_maxchar'].'&amp;'.time().'" alt="Captcha" border="0" id="gbCaptchaImage" />', $guestbook['form']);
+		$guestbook['form'] = str_replace('{CAPTCHA}', '<img src="img/captcha.php?regen=y&amp;length='.$guestbook['captcha_maxchar'].'&amp;'.time().'" alt="Captcha" id="gbCaptchaImage" />', $guestbook['form']);
 
 	}
 
@@ -660,7 +660,7 @@ if($guestbook['visible']) {
 					$guestbook['archive'] .= (empty($guestbook['archiveval'][3])) ? '' : $guestbook['archiveval'][3];
 					// check if send button is image or text
 					if(preg_match('/[\.png|\.jpg|\.jpeg|\.gif]$/i', $guestbook['archiveval'][2], $matches)) {
-						$guestbook['archive'] .= '<input name="archivesubmit" class="guestbookArchiveSubmit" type="image" src="'.trim($guestbook['archiveval'][2]).'" border="0" />';
+						$guestbook['archive'] .= '<input name="archivesubmit" class="guestbookArchiveSubmit" type="image" src="'.trim($guestbook['archiveval'][2]).'" />';
 					} else {
 						$guestbook['archive'] .= '<input name="archivesubmit" class="guestbookArchiveSubmit" type="submit" value="'.$guestbook['archiveval'][2].'" />';
 					}
@@ -692,7 +692,7 @@ if($guestbook['visible']) {
 					$guestbook['jump'] .= empty($guestbook['jumpval'][2]) ? '' : $guestbook['jumpval'][2];
 					// check if send button is image or text
 					if(preg_match('/[\.png|\.jpg|\.jpeg|\.gif]$/i', $guestbook['jumpval'][1], $matches)) {
-						$guestbook['jump'] .= '<input name="jumpsubmit" class="guestbookJumpSubmit" type="image" src="'.trim($guestbook['jumpval'][1]).'" border="0" />';
+						$guestbook['jump'] .= '<input name="jumpsubmit" class="guestbookJumpSubmit" type="image" src="'.trim($guestbook['jumpval'][1]).'" />';
 					} else {
 						$guestbook['jump'] .= '<input name="jumpsubmit" class="guestbookJumpSubmit" type="submit" value="'.$guestbook['jumpval'][1].'" />';
 					}
@@ -767,7 +767,7 @@ if($guestbook['visible']) {
 
 					if($thumb_image != false) {
 
-						$guestbook['entry_image']  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
+						$guestbook['entry_image']  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
 						$guestbook['entry_image'] .= ' alt="'.html_specialchars($guestbook['row']['guestbook_imagename']).'" />';
 
 						//zoom

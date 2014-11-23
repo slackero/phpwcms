@@ -66,7 +66,7 @@ if(!empty($crow["acontent_image"][2])) {
 
 	if($thumb_image != false) {
 
-		$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
+		$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
 		$thumb_img .= ' alt="'.$caption[1].'"'.$caption[3].' />';
 
 		if($crow["acontent_image"][8]) {

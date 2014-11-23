@@ -784,11 +784,11 @@ function parse_images($matches) {
 		if($quality <= 100 && $quality >= 10) {
 			$image .= 'x'.$quality;
 		}
-		$image	   .= '/'.$img_id.$ext.'" alt="'.$alt.'" border="0"';
+		$image	   .= '/'.$img_id.$ext.'" alt="'.$alt.'"';
 		if(isset($matches[3])) {
 
 			$title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
-			if($title !== '') {
+			if($title) {
 				$image .= ' title="'.$title.'"';
 			}
 		}
@@ -798,7 +798,7 @@ function parse_images($matches) {
 
 	}
 
-	return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" border="0" />';
+	return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" />';
 
 }
 

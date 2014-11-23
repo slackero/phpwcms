@@ -75,7 +75,7 @@ if(!empty($media["image_id"])) {
 
 	$media["alt"] .= '<div class="alt-image">';
 	$media["alt"] .= '<img src="img/cmsimage.php/' . $media["media_width"] . 'x' . $media["media_height"] . 'x1/' . $media["image_id"] . '" ';
-	$media["alt"] .= 'alt="'.html_specialchars($media["image_name"]).'" border="0" />';
+	$media["alt"] .= 'alt="'.html_specialchars($media["image_name"]).'" />';
 	$media["alt"] .= '</div>';
 
 }
@@ -111,7 +111,7 @@ if($media["source"]) {
 				$media['code'] .= "'controller', '".$media["media_control"]."', 'type', 'video/quicktime')";
 				$media["code"] .= LF.SCRIPT_CDATA_END.LF.'</script>';
 
-				$media["code"] .= '<noscript><object '.$media["width"].$media["height"].'border="0" id="'.$randomID.'" ';
+				$media["code"] .= '<noscript><object '.$media["width"].$media["height"].' id="'.$randomID.'" ';
 				if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
 					$media["code"] .= 'classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"';
 				} else {
@@ -147,7 +147,7 @@ if($media["source"]) {
 				$media["code"] .= '	<param name="controls" value="ImageWindow"'.HTML_TAG_CLOSE.LF;
 				$media["code"] .= '	<param name="console" value="'.$media['console'].'"'.HTML_TAG_CLOSE.LF;
 				if(BROWSER_NAME == 'Mozilla') {
-					$media["code"] .= '	<embed src="'.$media["source"].'" border="0" autostart="'.$media["media_auto"].'" ';
+					$media["code"] .= '	<embed src="'.$media["source"].'" autostart="'.$media["media_auto"].'" ';
 					$media["code"] .= 'id="e'.$randomID.'" name="e'.$randomID.'" '.$media["width"].$media["height"];
 					$media["code"] .= 'controls="ImageWindow" console="'.$media['console'].'" type="audio/x-pn-realaudio-plugin">';
 					$media["code"] .= '</embed>';
@@ -164,7 +164,7 @@ if($media["source"]) {
 					$media["code"] .= '	<param name="controls" value="ControlPanel"'.HTML_TAG_CLOSE.LF;
 					$media["code"] .= '	<param name="console" value="'.$media['console'].'"'.HTML_TAG_CLOSE.LF;
 					if(BROWSER_NAME == 'Mozilla') {
-						$media["code"] .= '	<embed src="'.$media["source"].'" border="0" autostart="'.$media["media_auto"].'" ';
+						$media["code"] .= '	<embed src="'.$media["source"].'" autostart="'.$media["media_auto"].'" ';
 						$media["code"] .= 'id="e'.$randomID.'_C" name="e'.$randomID.'_C" height="32" '.$media["width"];
 						$media["code"] .= 'controls="ControlPanel" console="'.$media['console'].'" type="audio/x-pn-realaudio-plugin">';
 						$media["code"] .= '</embed>';

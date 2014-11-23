@@ -428,7 +428,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 								if($thumb_image != false) {
 
-									$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
+									$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
 									$thumb_img .= ' data-image-id="'.$img_thumb_id.'" data-image-hash="'.$img_thumb_hash.'"';
 									$thumb_img .= ' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
 									if($content['alink']['caption'][3]) {
@@ -521,7 +521,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 						if($row['article_image']['detail'] != false) {
 
-							$row['article_image']['img']  = '<img src="'.PHPWCMS_IMAGES . $row['article_image']['detail'][0] .'" border="0" '.$row['article_image']['detail'][3];
+							$row['article_image']['img']  = '<img src="'.PHPWCMS_IMAGES . $row['article_image']['detail'][0] .'" '.$row['article_image']['detail'][3];
 							$row['article_image']['img'] .= ' data-detail-id="'.$row['article_image']['id'].'" data-detail-hash="'.$row['article_image']['hash'].'"';
 							$row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ? $row['article_image']['caption'][1] : $row['article_image']['name']).'"';
 							if($row['article_image']['caption'][3]) {

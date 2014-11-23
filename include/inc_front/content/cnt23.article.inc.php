@@ -1055,7 +1055,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									if($cnt_form["fields"][$key]['style']) {
 										$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 									}
-									$form_field .= ' border="0" onclick="document.phpwcmsForm'.$crow["acontent_id"].'.reset();" />';
+									$form_field .= ' onclick="document.phpwcmsForm'.$crow["acontent_id"].'.reset();" />';
 								}
 								break;
 
@@ -1114,7 +1114,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								} else {
 									$form_field .= '{CAPTCHA}';
 								}
-								$form_field = str_replace('{CAPTCHA}', '<img src="img/captcha.php?regen=y&amp;'.time().'" alt="Captcha" border="0" />', $form_field);
+								$form_field = str_replace('{CAPTCHA}', '<img src="img/captcha.php?regen=y&amp;'.time().'" alt="Captcha" />', $form_field);
 								break;
 
 			case 'mathspam':	/*
