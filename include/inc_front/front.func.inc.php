@@ -3217,7 +3217,7 @@ function getStructureChildEntryHref($childData) {
 
 function getImageCaption($caption='', $array_index='NUM', $short=false) {
 	// splits given image caption and returns an array
-	$caption	= explode('|', $caption);
+	$caption = explode('|', $caption);
 
 	// following is default for the exploded $caption
 	// [0] caption text
@@ -3225,39 +3225,49 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
 	// [2] link -> array(0 => link, 1 => target)
 	// [3] title text -> if empty alt text will be used
 	// [4] copyright information
-	$caption[0]			= trim($caption[0]);
-	$caption[1]			= isset($caption[1]) ? trim($caption[1]) : '';
-	$caption[3]			= isset($caption[3]) ? trim($caption[3]) : $caption[1];
+	$caption[0]	= trim($caption[0]);
+	$caption[1]	= isset($caption[1]) ? trim($caption[1]) : '';
+	$caption[3]	= isset($caption[3]) ? trim($caption[3]) : '';
 
-	// cut here Ð just return caption and alt text
+	// cut here – just return caption and alt text
 	if($short) {
-		return array('caption' => $caption[0], 'alt' => $caption[1], 'title' => $caption[3]);
+		return array(
+			'caption' => $caption[0],
+			'alt' => $caption[1],
+			'title' => $caption[3]
+		);
 	}
 
-	$caption[2]			= isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
-	$caption[2][0]		= trim($caption[2][0]);
+	$caption[2]		= isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
+	$caption[2][0]	= trim($caption[2][0]);
 	if(empty($caption[2][0]) || empty($caption[2][1])) {
 		$caption[2][1]	= '';
 	} else {
 		$caption[2][1]	= trim($caption[2][1]);
 		$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 	}
-	$caption[4]			= isset($caption[4]) ? trim($caption[4]) : '';
 
-	if($caption[4] == '') {
-		$copyright		= returnTagContent($caption[3], 'copyright');
-		$caption[3]		= $copyright['new'];
-		$caption[4]		= $copyright['tag'];
+	$caption[4] = isset($caption[4]) ? trim($caption[4]) : '';
+
+	if($caption[4] === '') {
+		$copyright	= returnTagContent($caption[3], 'copyright');
+		$caption[3]	= $copyright['new'];
+		$caption[4]	= $copyright['tag'];
 	} else {
-		$caption[3]		= replace_cnt_template($caption[3], 'copyright', '');
+		$caption[3]	= replace_cnt_template($caption[3], 'copyright', '');
 	}
 
 	if($array_index == 'NUM') {
 		return $caption;
 	} else {
-		return array(	'caption_text'		=> $caption[0],		'caption_alt'		=> $caption[1],
-						'caption_link'		=> $caption[2][0],	'caption_target'	=> $caption[2][1],
-						'caption_title'		=> $caption[3]		);
+		return $caption + array(
+			'caption_text' => $caption[0],
+			'caption_alt' => $caption[1],
+			'caption_link' => $caption[2][0],
+			'caption_target' => $caption[2][1],
+			'caption_title' => $caption[3],
+			'caption_copyright' => $caption[4]
+		);
 	}
 
 }

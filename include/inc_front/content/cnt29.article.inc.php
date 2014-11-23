@@ -187,10 +187,13 @@ if($image['template']) {
 				$capt_title = '';
 				$caption[3] = '';
 			} else {
-				$capt_title = html_specialchars($caption[3]);
-				$caption[3] = ' title="'.$capt_title.'"'; //title
+				$caption[3] = html_specialchars($caption[3]);
+				$capt_title = $caption[3];
 			}
 			$caption[1] = html_specialchars(empty($caption[1]) ? $image['images'][$key][1] : $caption[1]);
+			if($caption[4]) {
+				$caption[4] = html_specialchars($caption[4]);
+			}
 
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
 			$list_img_temp .= 'data-image-id="'.$image['images'][$key][0].'" data-image-hash="'.$image['images'][$key][2].'" ';
@@ -228,7 +231,11 @@ if($image['template']) {
 				$list_img_style		= '';
 				$list_ahref_style	= '';
 			}
-			$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' border="0" class="'.$template_default['classes']['image-thumb'].'" />';
+			$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"';
+			if($caption[3]) {
+				$list_img_temp .= ' title="'.$caption[3].'"';
+			}
+			$list_img_temp .= ' class="'.$template_default['classes']['image-thumb'].'" />';
 			$img_a			= '';
 
 			if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
@@ -327,9 +334,9 @@ if($image['template']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');
 				$img_a = render_cnt_template($img_a, 'CAPTION', '');
 			} else {
-				$img_a = render_cnt_template($img_a, 'CAPTION', $capt_cur);
+				$img_a = render_cnt_template($img_a, 'CAPTION', $caption[0]);
 			}
-			$img_a = render_cnt_template($img_a, 'TITLE', $capt_title);
+			$img_a = render_cnt_template($img_a, 'TITLE', $caption[3]);
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 

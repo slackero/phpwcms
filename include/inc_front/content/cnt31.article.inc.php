@@ -184,23 +184,24 @@ if($image['template']) {
 			}
 
 			// set caption and ALT Image Text for imagelist
-			$caption = getImageCaption($value['caption']); // Caption | Title | Alt
+			$caption = getImageCaption($value['caption']);
+
+			if($caption[0]) {
+				$caption[0] = html_specialchars($caption[0]);
+			}
 
 			// no ALT, no TITLE
 			if(empty($caption[1])) {
-				$capt_cur		= html_specialchars($caption[0]);
-				$caption[1]		= $value['thumb_name'];
-				$caption[4]		= $capt_cur;
+				$capt_cur		= $caption[0];
+				$caption[1]		= html_specialchars($value['thumb_name']);
 			} else {
-				$capt_cur		= html_specialchars($caption[1]);
-				$caption[1] 	= html_specialchars(empty($caption[3]) ? $value['thumb_name'] : $caption[3]);
-				$caption[4]		= html_specialchars($caption[0]);
+				$caption[1]		= html_specialchars($caption[1]);
+				$capt_cur		= $caption[1];
 			}
 			if(empty($caption[2])) {
 				$caption[2]		= explode(' ', $value['url']);
 				$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 			}
-			$caption[3] = empty($capt_cur) ? '' : ' title="'.$capt_cur.'"'; //title
 
 			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
 			$list_img_temp .= 'data-image-id="'.$value['thumb_id'].'" data-image-hash="'.$value['thumb_hash'].'" ';
@@ -238,7 +239,12 @@ if($image['template']) {
 				$list_img_style		= '';
 				$list_ahref_style	= '';
 			}
-			$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' border="0" class="'.$template_default['classes']['image-thumb'].'" />';
+			$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"';
+			if($caption[3]) {
+				$caption[3] = html_specialchars($caption[3]);
+				$list_img_temp .= ' title="'.$caption[3].'"';
+			}
+			$list_img_temp .= ' class="'.$template_default['classes']['image-thumb'].'" />';
 			$img_a			= '';
 			$lightbox_capt  = '';
 
@@ -377,9 +383,9 @@ if($image['template']) {
 				$img_a = render_cnt_template($img_a, 'CAPTION_ELSE', '');
 				$img_a = render_cnt_template($img_a, 'CAPTION', '');
 			} else {
-				$img_a = render_cnt_template($img_a, 'CAPTION', $capt_cur);
+				$img_a = render_cnt_template($img_a, 'CAPTION', $caption[0]);
 			}
-			$img_a = render_cnt_template($img_a, 'TITLE', $caption[4]);
+			$img_a = render_cnt_template($img_a, 'TITLE', $caption[3]);
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
 
@@ -387,7 +393,7 @@ if($image['template']) {
 			if($image['col'] == $col || $image['count'] == $total) {
 
 				$img_a = render_cnt_template($img_a, 'LAST', $col);
-				
+
 				$xx = $x;
 				$x++;
 				$col = 0;
@@ -395,15 +401,15 @@ if($image['template']) {
 			} else {
 
 				$img_a = render_cnt_template($img_a, 'LAST', '');
-				
+
 				$xx = $x;
 
 			}
-			
+
 			// Get the entry data
 			$image['tmpl_data'][] = get_tmpl_section('ENTRY_DATA', $img_a);
 			$img_a = replace_tmpl_section('ENTRY_DATA', $img_a, '');
-			
+
 			$image['tmpl_images'][$xx] .= $img_a;
 
 		}

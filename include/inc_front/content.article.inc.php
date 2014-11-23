@@ -229,8 +229,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
 			if($thumb_image != false) {
 
-				$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
-				$thumb_img .= ' alt="'.html_specialchars($caption[1]).'" title="'.html_specialchars($caption[3]).'"';
+				$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
+				$thumb_img .= ' alt="'.html_specialchars($caption[1]).'"';
+				if($caption[3]) {
+					$thumb_img .= ' title="'.html_specialchars($caption[3]).'"';
+				}
 				$thumb_img .= ' class="'.$template_default['classes']['image-thumb'].'" />';
 
 				$img_thumb_name		= $thumb_image[0];
