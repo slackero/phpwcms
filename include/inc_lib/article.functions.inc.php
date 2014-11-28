@@ -86,14 +86,14 @@ function change_articledate($article_id=0) {
 	}
 }
 
-function struct_select_list($counter=0, $struct_id=0, & $selected_id) {
+function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias=false) {
 
 	global $db;
 
-	$struct_id		= intval($struct_id);
-	$counter		= intval($counter) + 1;
+	$struct_id	= intval($struct_id);
+	$counter	= intval($counter) + 1;
 
-	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort;";
+	$sql = "SELECT acat_id,acat_name,acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort;";
 	if($result = mysql_query($sql, $db) or die ("error while building struct select menu (ID:".$struct_id)) {
 		$sx=0;
 		while($row = mysql_fetch_assoc($result)) {
@@ -104,13 +104,20 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id) {
 	}
 	if(isset($struct[0])) {
 		foreach($struct as $key => $value) {
-			echo '<option value="'.$struct[$key]["acat_id"].'"';
+
+			$value['acat_name'] = html($struct[$key]["acat_name"]);
+			if($add_alias && $struct[$key]["acat_alias"]) {
+				$value['acat_name'] .= ' ('.$struct[$key]["acat_alias"].')';
+			}
+
+			echo '<option value="', $struct[$key]["acat_id"], '"';
 			if(in_array($struct[$key]["acat_id"], $selected_id)) {
 				echo ' selected="selected"';
 			}
-			echo '>'.str_repeat("&#8212;", $counter).' '.html($struct[$key]["acat_name"]);
+			echo ' title="', $value['acat_name'], '">';
+			echo str_repeat("&#8212;", $counter), ' ', $value['acat_name'];
 			echo '</option>'.LF;
-			struct_select_list($counter, $struct[$key]["acat_id"], $selected_id);
+			struct_select_list($counter, $struct[$key]["acat_id"], $selected_id, $add_alias);
 		}
 	}
 }
