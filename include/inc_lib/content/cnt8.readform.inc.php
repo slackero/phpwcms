@@ -27,8 +27,10 @@ $content['alink']['alink_id']			= (isset($_POST["calink"]) && is_array($_POST["c
 $content['alink']['alink_level']		= (isset($_POST["calink_level"]) && is_array($_POST["calink_level"])) ? $_POST["calink_level"] : array();
 
 // article select type
-$content['alink']['alink_type']			= intval($_POST['calink_type']);
-if($content['alink']['alink_type'] > 21) $content['alink']['alink_type'] = 0;
+$content['alink']['alink_type'] = abs(intval($_POST['calink_type']));
+if($content['alink']['alink_type'] > 23) {
+	$content['alink']['alink_type'] = 0;
+}
 
 // summary wordlimit
 $content['alink']['alink_wordlimit']	= intval($_POST['calink_wordlimit']);
@@ -57,7 +59,7 @@ if( empty($_POST['calink_andor']) ) {
 	$content['alink']['alink_andor'] = in_array($_POST['calink_andor'], array('OR', 'AND', 'NOT') ) ? $_POST['calink_andor'] : 'OR';
 }
 
-$content['alink']['alink_category']		= convertStringToArray( clean_slweg($_POST['calink_category']) );
+$content['alink']['alink_category'] = convertStringToArray( clean_slweg($_POST['calink_category']) );
 
 if(empty($content['alink']['alink_width'])) $content['alink']['alink_width'] = '';
 if(empty($content['alink']['alink_height'])) $content['alink']['alink_height'] = '';
