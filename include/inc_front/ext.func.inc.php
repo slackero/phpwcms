@@ -280,10 +280,14 @@ function is_float_ex($pNum) {
  * Shows the content of the article content parts with the specified id.
  * use it {SHOW_CONTENT:MODE,id[,id[,...]]}
  * There are now even more possible options:
- * CP, CPA, CPAD, CPS, CPAS, CPASD, AS, ASP, ASL, ASLD, ASK, ASKD, ASC, ASCD, ASR
+ * CP, CPA, CPAD, CPS, CPAS, CPASD,
+ * AS, ASP, ASL, ASLD, ASK, ASKD, ASC, ASCD, ASR, AST, ASTD
+ * - L = live, K = kill, C = change date, R = random, T = keyword
+ * All AS* work as AS*P = Priorize mode
  * All AS* can have additional options:
  * - AS*|topcount; AS*|topcount|template; AS*|template
  * - AS*,new; AS*,random, AS*,related,keyword1,kewyword2,…
+ * - AS*,related|AND,keyword1,kewyword2,…
  */
 function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
@@ -294,11 +298,14 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 	global $phpwcms;
 	global $aktion;
 
-	$topcount	= 999999;
-	$template	= '';
-	$param		= is_array($param) && isset($param[1]) ? $param[1] : $param;
-	$type		= null;
-	$mode		= null;
+	$topcount		= 999999;
+	$template		= '';
+	$param			= is_array($param) && isset($param[1]) ? $param[1] : $param;
+	$type			= null;
+	$mode			= null;
+	$related_type	= 'OR';
+	$where			= '';
+	$not			= array();
 
 	if($cpsql === null) {
 		if($cp = explode(',', $param)) {
@@ -326,34 +333,54 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 				if(isset($cp[1])) { // now check if
 					$cp[1] = trim($cp[1]);
 					if(!is_numeric($cp[1])) {
-						switch($cp[1]) {
-							case 'new':		$cp = array('new' => 1);	break;
-							case 'random':	$cp = array('random' => 1);	break;
-							case 'related':	if(isset($cp[2])) {
-												unset($cp[0], $cp[1]);
-												$related = array();
-												foreach($cp as $value) {
-													$related[] = "article_keyword LIKE "._dbEscape(strtoupper(trim($value)), true, '%', '%');
-												}
-												$cp = array('related' => 1); break;
-											}
-
-							default:		$cp = array('new' => 1);
+						$cp[1] = explode('|', $cp[1], 2);
+						// Check for OR or AND
+						if(isset($cp[1][1])) {
+							$related_type = strtoupper(trim($cp[1][1]));
+							if($related_type !== 'AND' && $related_type !== 'OR') {
+								$related_type = 'OR';
+							}
 						}
+						$cp[1] = trim($cp[1][0]);
+						switch($cp[1]) {
+							case 'random':
+								$where = 'RANDOM';
+								break;
+							case 'related':
+								if(isset($cp[2])) {
+									unset($cp[0], $cp[1]);
+									$related = array();
+									foreach($cp as $value) {
+										$related[] = "article_keyword LIKE "._dbEscape(strtoupper(trim($value)), true, '%', '%');
+									}
+									if(count($related)) {
+										$where = '('.implode(' '.$related_type.' ', $related).')';
+									}
+								}
+								break;
+							case 'new':
+							default:
+								$where = 'NEW';
+								break;
+						}
+						$not[] = $aktion[1];
+						$cp = array();
 					}
 				}
 			}
-			unset($cp[0]);
-			foreach($cp as $key => $value) {
-				$value = intval($value);
-				if(!$value) {
-					unset($cp[$key]);
-				} else {
-					$cp[$key] = $value;
+			if(count($cp)) {
+				unset($cp[0]);
+				foreach($cp as $key => $value) {
+					$value = intval($value);
+					if(!$value) {
+						unset($cp[$key]);
+					} else {
+						$cp[$key] = $value;
+					}
 				}
-			}
-			if(!is_array($cp) || !count($cp)) {
-				return '';
+				if(!count($cp)) {
+					return '';
+				}
 			}
 		} else {
 			// oh no ID given, end function
@@ -390,12 +417,14 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 			case 'ASKD':	$sort = $priorize.'article_end DESC';		break; // sorted by killdate descending
 			case 'ASC':		$sort = $priorize.'article_tstamp ASC';		break; // sorted by change date ascending
 			case 'ASCD':	$sort = $priorize.'article_tspamp DESC';	break; // sorted by change date descending
+			case 'AST':		$sort = $priorize.'article_keyword ASC';	break; // sorted by keyword ascending
+			case 'ASTD':	$sort = $priorize.'article_keyword DESC';	break; // sorted by keyword descending
 			case 'ASR':		$sort = 'RAND()';							break; // random sort
 			default:		$sort = '';
 
 		}
 
-		$CNT_TMP = list_articles_summary( get_article_data( $cp, $topcount, $sort ) , $topcount, $template);
+		$CNT_TMP = list_articles_summary( get_article_data( $cp, $topcount, $sort, $where, $not ) , $topcount, $template);
 
 	// Content Part mode CP, CPA, CPAD, CPS, CPAS, CPASD
 	} elseif($type === 'CP') {
@@ -605,7 +634,7 @@ function getContentPartAlias($crow) {
 }
 
 
-function get_article_data($article_id, $limit=0, $sort='', $where='') {
+function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array()) {
 
 	if(is_string($article_id)) {
 		$article_id = explode(',', $article_id);
@@ -619,34 +648,66 @@ function get_article_data($article_id, $limit=0, $sort='', $where='') {
 		}
 	}
 	if(!is_array($article_id) || !count($article_id)) {
-		return array();
+		if($where === '') {
+			return array();
+		}
+		$article_id = array();
 	}
-	$article_id	= array_unique($article_id);
+	if(count($article_id)) {
+		$article_id	= array_unique($article_id);
+	}
 
 	$sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
 	$sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
 	$sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 	$sql .= 'FROM '.DB_PREPEND.'phpwcms_article ';
-	$sql .= 'WHERE ';
+
+	$sql_where = array('article_deleted=0');
 
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .= 'article_aktiv=1 AND ';
+		case 0: $sql_where[] = 'article_aktiv=1';
 				break;
-		case 1: $sql .= '(article_aktiv=1 OR article_uid='.$_SESSION["wcs_user_id"].') AND ';
+		case 1: $sql_where[] = '(article_aktiv=1 OR article_uid='.$_SESSION["wcs_user_id"].')';
 				break;
-		//case 2: admin mode no additional neccessary
 	}
 	if(!PREVIEW_MODE) {
-		$sql .= 'article_deleted=0 AND article_begin < NOW() AND article_end > NOW() AND ';
+		$sql_where[] = 'article_begin < NOW() AND article_end > NOW()';
+	}
+
+	if(count($not)) {
+		$sql_where[] = 'article_id NOT IN (' . implode( ',', $not ) . ')';
+		$article_id = array_diff($article_id, $not);
 	}
 
 	if($where === '') {
-		$sql .= 'article_id IN (' . implode( ',', $article_id ) . ') ';
+		$sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
+	} elseif($where === 'RANDOM') {
+
+		$sort = 'RAND()';
+
+		if(count($article_id)) {
+			$sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
+		}
+
+	} elseif($where === 'NEW') {
+
+		if($sort) {
+			$sort = ','.$sort;
+		}
+		$sort = 'article_created DESC'.$sort;
+
+		if(count($article_id)) {
+			$sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
+		}
+
 	} else {
-		$sql .= ' ' . $where . ' ';
+		$sql_where[] = $where;
 	}
-	$sql .= 'GROUP BY article_id ';
+	if(count($sql_where)) {
+		$sql .= 'WHERE '.implode(' AND ', $sql_where).' ';
+		$sql .= 'GROUP BY article_id ';
+	}
 	if($sort) {
 		$sql .= 'ORDER BY '.$sort;
 	}
