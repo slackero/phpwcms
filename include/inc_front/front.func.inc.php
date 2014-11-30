@@ -2397,10 +2397,10 @@ function render_cnt_template($text='', $tag='', $value='', $value_else='') {
 	$value = strval($value);
 	if($value !== '') {
 		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '$1', $text);
-		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '', $text);
+		$text = preg_replace('/\['.$tag.'_ELSE\].*?\[\/'.$tag.'_ELSE\]/is', '', $text);
 	} else {
 		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '$1', $text);
-		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '', $text);
+		$text = preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/is', '', $text);
 		$text = str_replace('{'.$tag.'_ELSE}', $value_else, $text);
 	}
 	$text = str_replace('{'.$tag.'}', $value, $text); // Keep it compatible with older templates
