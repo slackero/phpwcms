@@ -2,11 +2,10 @@ html, body {
 	padding: 0;
 	margin: 0;
 	height: 100%;
-	min-height: 100%;
 }
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 145%;
 	color: #282F42;
 	background: #C1D2E2;
@@ -16,7 +15,8 @@ body {
 	background: -o-linear-gradient(top, #347199 0%, #c1d2e2 100%);
 	background: -ms-linear-gradient(top, #347199 0%, #c1d2e2 100%);
 	background: linear-gradient(to bottom, #347199 0%, #c1d2e2 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0 );
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0);
+	min-width: 100%;
 }
 a {
 	color: #000000;
@@ -29,8 +29,12 @@ p, div, form, h1, h2, h3, h4, h5, h6, hr {
 	padding: 0;
 }
 input, select {
-	font-size: 14px;
+	font-size: 16px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 4px 0 4px 3px;
+}
+.button {
+	margin-top: 10px;
 }
 p {
 	font-size: 13px;
