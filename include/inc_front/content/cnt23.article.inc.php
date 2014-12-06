@@ -147,6 +147,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
+								}
 								$form_field .= ' />';
 								break;
 
@@ -181,6 +184,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
 								}
 								$form_field .= ' />';
 								break;
@@ -340,6 +346,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
+								}
 								$form_field .= ' />';
 								break;
 
@@ -368,7 +377,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 									$cnt_form['sender'] = $cnt_form["fields"][$key]['value'];
 								}
 								//
-								$form_field .= '<input type="text" name="'.$form_name.'" id="'.$form_name.'" ';
+								$form_field .= '<input type="'.(HTML5_MODE ? 'email' : 'text').'" name="'.$form_name.'" id="'.$form_name.'" ';
 								$form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
 								if($cnt_form["fields"][$key]['size']) {
 									$form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
@@ -384,6 +393,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
 								}
 								$form_field .= ' />';
 								break;
@@ -418,6 +430,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
 								}
 								$form_field .= '>'.html_specialchars($cnt_form["fields"][$key]['value']).'</textarea>';
 								break;
@@ -468,6 +483,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
 								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
+								}
 								$form_field .= ' autocomplete="off" />';
 								break;
 
@@ -513,6 +531,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
 								}
 								$form_field .= '>' . LF;
 
@@ -641,6 +662,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
+								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
 								}
 								$form_field .= '>'.LF;
 								$form_value = explode("\n", $cnt_form["fields"][$key]['value']);
@@ -1150,6 +1174,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if(!empty($cnt_form["fields"][$key]['placeholder'])) {
 									$form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
+								}
+								if($cnt_form["fields"][$key]['required']) {
+									$form_field .= ' required="required"';
 								}
 								$form_field .= ' />';
 
