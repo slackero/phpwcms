@@ -3779,8 +3779,8 @@ function getArticleMenuTitle(& $data) {
 /**
  * Add HTML Head meta tag
  */
-function set_meta($name='', $content='', $type=FALSE, $return=false, $allow_multiple=false) {
-	if(empty($name) || empty($content)) {
+function set_meta($name='', $content=null, $type=FALSE, $return=false, $allow_multiple=false) {
+	if(empty($name) || !is_string($content)) {
 		return NULL;
 	}
 
