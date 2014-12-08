@@ -60,4 +60,13 @@ if(count($phpwcms['modules'])) {
 	}
 }
 
+if(!empty($phpwcms['cnt_sort'])) {
+	if($phpwcms['cnt_sort'] == 'a-z') {
+		natcasesort($wcs_content_type);
+	} elseif($phpwcms['cnt_sort'] == 'z-a') {
+		natcasesort($wcs_content_type);
+		$wcs_content_type = array_reverse($wcs_content_type, true);
+	}
+}
+
 ?>
