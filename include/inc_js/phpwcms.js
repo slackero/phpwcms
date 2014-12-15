@@ -177,7 +177,7 @@ function switchToggleFTP(field) {
 	} else {
 		field.value='0';
 	}
-	return parseInt(field.value);
+	return parseInt(field.value,10);
 }
 
 function toggleAllFTP(field, proof) {

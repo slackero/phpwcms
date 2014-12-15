@@ -174,9 +174,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			  <td align="right" class="chatlist"><?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><input name="cmedia_width" type="text" class="f11b" id="cmedia_width" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo  isset($content["media_width"]) ? $content["media_width"] : '' ?>" /></td>
+			      <td><input name="cmedia_width" type="text" class="f11b" id="cmedia_width" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["media_width"]) ? $content["media_width"] : '' ?>" /></td>
 			      <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-			      <td><input name="cmedia_height" type="text" class="f11b" id="cmedia_height" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo  isset($content["media_height"]) ? $content["media_height"] : '' ?>" /></td>
+			      <td><input name="cmedia_height" type="text" class="f11b" id="cmedia_height" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["media_height"]) ? $content["media_height"] : '' ?>" /></td>
 			      <td class="chatlist">&nbsp;px</td>
 		          <td><img src="img/leer.gif" alt="" width="30" height="1" /></td>
 				  <td class="chatlist"><?php echo $BL['be_cnt_setsize'] ?>:&nbsp;</td>

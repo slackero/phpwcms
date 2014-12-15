@@ -107,7 +107,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td align="right" class="chatlist"><?php echo $BL['modules'][$content["module"]]['listview'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input name="glossary_maxwords" type="text" class="f11b" id="glossary_maxwords" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value)) this.value='';" value="<?php echo $content['glossary']['glossary_maxwords'] ?>" /></td>
+			<td><input name="glossary_maxwords" type="text" class="f11b" id="glossary_maxwords" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['glossary']['glossary_maxwords'] ?>" /></td>
 			<td class="chatlist">&nbsp;<?php echo $BL['modules'][$content["module"]]['max_words'] ?></td>
 		</tr>
 	</table></td>

@@ -120,7 +120,7 @@ function setImgIdName(file_id, file_name) {
 }
 
 function showImage() {
-	var id	= parseInt($('#cnt_image_id').val());
+	var id	= parseInt($('#cnt_image_id').val(),10);
 	var img	= $('#cnt_image');
 	if(id > 0) {
 		img.html('<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />');

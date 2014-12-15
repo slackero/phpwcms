@@ -27,7 +27,7 @@ function MM_showHideLayers() { //v6.0
 }
 
 function int_only(value) {
-	value = parseInt(value);
+	value = parseInt(value,10);
 	if(value<0) value = value * -1;
 	return (value) ? value+"" : "";
 }

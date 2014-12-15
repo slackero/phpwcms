@@ -477,8 +477,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		var indx = sval.selectedIndex;
 		if(indx > 0) {
 			var val = sval.options[indx].value.split('x');
-			$('fmp_width').value = parseInt(val[0]);
-			$('fmp_height').value = parseInt(val[1]);
+			$('fmp_width').value = parseInt(val[0],10);
+			$('fmp_height').value = parseInt(val[1],10);
 		}
 		sval.options[0].selected = true;
 		sval.blur();

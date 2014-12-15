@@ -311,7 +311,7 @@ if($content['cp_setting_mode']):
 				</td>
 
 				<td class="chatlist width100" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
-				<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width30" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
+				<td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width30" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
 
 			</tr>
 		</table></td>
@@ -337,10 +337,10 @@ if($content['cp_setting_mode']):
 		  <tr>
 			<td class="v10" bgcolor="#E7E8EB"><label for="ccb">&nbsp;<?php echo $BL['be_article_cnt_before'] ?></label></td>
 			<td bgcolor="#E7E8EB"><input name="ccb" type="checkbox" id="ccb" value="1" <?php if(intval($content["before"])) echo "checked"; ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" /></td>
-			<td bgcolor="#E7E8EB"><input name="cbefore" type="text" id="cbefore" class="width20" value="<?php echo $content["before"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.ccb.checked=true;}else{this.form.ccb.checked=false;this.value=''}" /></td>
+			<td bgcolor="#E7E8EB"><input name="cbefore" type="text" id="cbefore" class="width20" value="<?php echo $content["before"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value,10)){this.form.ccb.checked=true;}else{this.form.ccb.checked=false;this.value=''}" /></td>
 			<td class="v10" bgcolor="#E7E8EB"><label for="cca">&nbsp;<?php echo $BL['be_article_cnt_after'] ?></label></td>
 			<td bgcolor="#E7E8EB"><input name="cca" type="checkbox" id="cca" value="1" <?php if(intval($content["after"])) echo "checked"; ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" /></td>
-			<td style="padding:1px 1px 1px 0" bgcolor="#E7E8EB"><input name="cafter" type="text" id="cafter" class="width20" value="<?php echo $content["after"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value)){this.form.cca.checked=true;}else{this.form.cca.checked=false;this.value=''}" /></td>
+			<td style="padding:1px 1px 1px 0" bgcolor="#E7E8EB"><input name="cafter" type="text" id="cafter" class="width20" value="<?php echo $content["after"] ?>" size="2" maxlength="4" onkeyup="if(parseInt(this.value,10)){this.form.cca.checked=true;}else{this.form.cca.checked=false;this.value=''}" /></td>
 			<td class="chatlist"><label for="ctop">&nbsp;&nbsp;<?php echo $BL['be_article_cnt_toplink'] ?>:</label></td>
 			<td><input name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> /></td>
 <?php
@@ -456,7 +456,7 @@ if($content['cp_setting_mode']):
 		  <tr>
 		  	<td><input name="ctab_title" type="text" id="ctab_title" class="f11b width225" value="<?php echo html($content["tab_title"]) ?>" size="40" maxlength="100" /></td>
 			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_ctype_number'] ?>:&nbsp;</td>
-			<td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="4" onkeyup="if(!parseInt(this.value))this.value='';" /></td>
+			<td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10))this.value='';" /></td>
 		  </tr>
 		</table></td>
 	</tr>
@@ -522,7 +522,7 @@ if($content['cp_setting_mode']):
 	  <td align="right" class="chatlist"><?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
 	  <td><table summary="" border="0" cellspacing="0" cellpadding="0" width="444">
 		  <tr>
-		  	<td><input name="cpaginate_page" type="text" id="cpaginate_page" class="v11 width25" value="<?php echo $content["paginate_page"] ?>" size="3" maxlength="3" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
+		  	<td><input name="cpaginate_page" type="text" id="cpaginate_page" class="v11 width25" value="<?php echo $content["paginate_page"] ?>" size="3" maxlength="3" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
 			<td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_subsection_tite'].' ('.$BL['be_pagination'].')' ?>:&nbsp;</td>
 			<td width="200"><input name="cpaginate_title" type="text" id="cpaginate_title" class="f11b width225" value="<?php echo html($content["paginate_title"]) ?>" size="40" maxlength="200" /></td>
 		  </tr>

@@ -10,10 +10,10 @@ function showImageAds() {
 			box2 = 770;
 			set  = false;
 		}
-		
-		wh = parseInt(boxh)+50;
-		ww = parseInt(boxw)+30;
-		
+
+		wh = parseInt(boxh,10)+50;
+		ww = parseInt(boxw,10)+30;
+
 		newwindow2=window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
 		tmp.write('<html><head><title>banner image</title>');
@@ -29,14 +29,14 @@ function showImageAds() {
 		tmp.write('<p align="center"><a href="javascript:self.close()">close</a> the popup.</p>');
 		tmp.write('</body></html>');
 		tmp.close();
-		
+
 	}
 }
 
 function showHtmlAds() {
 	val = getFieldById('adcampaign_html').value;
 	if(val && val != '') {
-		
+
 		var boxw = getFieldById('adcampaign_width').value;
 		var boxh = getFieldById('adcampaign_height').value;
 		var set  = true;
@@ -46,9 +46,9 @@ function showHtmlAds() {
 			set  = false;
 		}
 
-		wh = parseInt(boxh)+50;
-		ww = parseInt(boxw)+30;
-		
+		wh = parseInt(boxh,10)+50;
+		ww = parseInt(boxw,10)+30;
+
 		newwindow2=window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
 		tmp.write('<html><head><title>banner image</title>');
@@ -65,7 +65,7 @@ function showHtmlAds() {
 		tmp.write('<p align="center"><a href="javascript:self.close()">close</a> the popup.</p>');
 		tmp.write('</body></html>');
 		tmp.close();
-		
+
 	}
 }
 
@@ -73,7 +73,7 @@ function showFlashAds() {
 	obj = getObjectById('adcampaign_flash');
 	val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
-		
+
 		var boxw = getFieldById('adcampaign_width').value;
 		var boxh = getFieldById('adcampaign_height').value;
 		var set  = true;
@@ -83,9 +83,9 @@ function showFlashAds() {
 			set  = false;
 		}
 
-		wh = parseInt(boxh)+50;
-		ww = parseInt(boxw)+30;
-		
+		wh = parseInt(boxh,10)+50;
+		ww = parseInt(boxw,10)+30;
+
 		newwindow2=window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
 		tmp.write('<html><head><title>banner image</title>');
@@ -99,13 +99,13 @@ function showFlashAds() {
 		}
 		tmp.write('\n</style></head><body>');
 		tmp.write('<div id="box">');
-		
+
 		tmp.write('<object width="'+boxw+'" height="'+boxh+'"><param name="movie" value="'+adsPath+val+'"></param><param name="wmode" value="transparent"></param><embed src="'+adsPath+val+'" type="application/x-shockwave-flash" wmode="transparent" width="'+boxw+'" height="'+boxh+'"></embed></object>');
-		
+
 		tmp.write('</div>');
 		tmp.write('<p align="center"><a href="javascript:self.close()">close</a> the popup.</p>');
 		tmp.write('</body></html>');
 		tmp.close();
-		
+
 	}
 }

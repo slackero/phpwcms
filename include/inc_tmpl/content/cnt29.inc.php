@@ -152,14 +152,14 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 ?>
 				  </select></td>
 				  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
-			      <td><input name="cimage_space" type="text" class="f11b width25" id="cimage_space" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" /></td>
+			      <td><input name="cimage_space" type="text" class="f11b width25" id="cimage_space" size="2" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" /></td>
 				  <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 
 				  <td><input type="checkbox" name="cimage_random" id="cimage_random" value="1" <?php is_checked(1, empty($content['image_list']['random']) ? 0 : 1); ?> /></td>
 				  <td class="chatlist"><label for="cimage_random" class="checkbox"><?php echo $BL['random_image'] ?></label>&nbsp;&nbsp;&nbsp;</td>
 
 				  <td class="chatlist"><label for="cimage_limit" class="checkbox"><?php echo $BL['limit_image_from_list'] ?></label></td>
-				  <td><input name="cimage_limit" type="text" class="f11b width25" id="cimage_limit" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo empty($content['image_list']['limit']) ? '' : $content['image_list']['limit']; ?>" /></td>
+				  <td><input name="cimage_limit" type="text" class="f11b width25" id="cimage_limit" size="2" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['limit']) ? '' : $content['image_list']['limit']; ?>" /></td>
 
 
 		        </tr>
@@ -167,35 +167,29 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 			  </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script type="text/javascript">
-	<!--
-	//if(!parseInt(this.value*1)) this.value='';
 	function setCimageCenterInactive() {
 		var cih = getObjectById('cimage_width');
 		var ciw = getObjectById('cimage_height');
 		var cic = getObjectById('cimage_center');
-		//var cil = getObjectById('cimage_center_label');
 		var ccp = getObjectById('cimage_crop');
 		var dis = false;
-		if(!parseInt(cih.value*1)) {
+		if(!parseInt(cih.value,10)) {
 			cih.value = '';
 			dis = true;
 		}
-		if(!parseInt(ciw.value*1)) {
+		if(!parseInt(ciw.value,10)) {
 			ciw.value = '';
 			dis = true;
 		}
 		if(dis) {
 			cic.disabled = true;
 			ccp.disabled = true;
-			//cil.className = 'checkbox inactive';
 		} else {
 			cic.disabled = false;
 			ccp.disabled = false;
-			//cil.className = 'checkbox';
 		}
 	}
 	setCimageCenterInactive();
-	//-->
 	</script></td></tr>
 
 <tr>

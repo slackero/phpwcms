@@ -51,7 +51,7 @@ if(trim($cform[0])) {
 						break;
 			case "IN":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\">".must_filled($cfield[2]).$cfield[3]."</td><td>";
 						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".html_specialchars(trim($cfield[5]))."\" size=\"".$cfield_length."\" ";
-						$CNT_TMP .= "onKeyUp=\"if(!parseInt(this.value*1)) {var x=this.value; this.value=x.substr(0, x.length-1)}\" ";
+						$CNT_TMP .= "onKeyUp=\"if(!parseInt(this.value,10)) {var x=this.value; this.value=x.substr(0, x.length-1)}\" ";
 						$CNT_TMP .= ($cfield_max_height) ? "maxlength=\"".$cfield_max_height."\" " : "";
 						$CNT_TMP .= "id=\"".$cfield[1]."\" class=\"inputText\"".(($cfield[6])?" style=\"width:".$cfield[6]."px\"":"")." /></td></tr>\n";
 						break;

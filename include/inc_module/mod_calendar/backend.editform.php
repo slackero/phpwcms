@@ -422,7 +422,7 @@ function setCalendarAllDay() {
 }
 
 function setRangeDates(value) {
-	value = parseInt(value);
+	value = parseInt(value,10);
 	if(!value) {
 		toggleDisplayById('rDate0', 'none');
 		toggleDisplayById('rDate1', 'none');
@@ -443,7 +443,7 @@ function setImgIdName(file_id, file_name) {
 }
 
 function showImage() {
-	id	= parseInt(getObjectById('cnt_image_id').value);
+	id	= parseInt(getObjectById('cnt_image_id').value,10);
 	img	= getObjectById('cnt_image');
 	if(id > 0) {
 		img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';

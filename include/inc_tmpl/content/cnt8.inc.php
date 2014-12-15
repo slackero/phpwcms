@@ -160,9 +160,9 @@ initMootoolsAutocompleter();
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-			<td><input name="calink_width" type="text" class="f11b" id="calink_width" style="width: 35px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>" /></td>
+			<td><input name="calink_width" type="text" class="f11b" id="calink_width" style="width: 35px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>" /></td>
 			<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-			<td><input name="calink_height" type="text" class="f11b" id="calink_height" style="width: 35px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>" /></td>
+			<td><input name="calink_height" type="text" class="f11b" id="calink_height" style="width: 35px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>" /></td>
 			<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 
 			<td><input type="checkbox" name="calink_crop" id="calink_crop" value="1" <?php is_checked(1, $content['alink']['alink_crop']); ?> /></td>
@@ -380,8 +380,8 @@ window.addEvent('domready', function(){
 
 });
 
-var teaser_items = $('calink');
-var source_items = $('calinklist');
+var teaser_items = document.getElementById('calink');
+var source_items = document.getElementById('calinklist');
 
 //-->
 </script></td></tr>

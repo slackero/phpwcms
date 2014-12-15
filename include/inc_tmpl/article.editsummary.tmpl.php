@@ -113,7 +113,7 @@ calEnd.setYearCombo(false);
 				<td align="right" class="chatlist"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 				 <tr>
-					<td><input name="article_sort" type="text" id="article_sort" value="<?php echo empty($article["article_sort"]) ? 0 : intval($article["article_sort"]) ?>" class="v11 width75" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
+					<td><input name="article_sort" type="text" id="article_sort" value="<?php echo empty($article["article_sort"]) ? 0 : intval($article["article_sort"]) ?>" class="v11 width75" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
 					<td align="right" class="chatlist">&nbsp;&nbsp;&nbsp;<?php echo $BL['be_priorize'] ?>:&nbsp;</td>
 					<td><select name="article_priorize" id="article_priorize" class="v11">
 
@@ -380,9 +380,9 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" /></td>
+			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" /></td>
 			      <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" /></td>
+			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" /></td>
 			      <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 
 				  <td>&nbsp;</td>
@@ -493,9 +493,9 @@ if(!isset($article['image']['list_usesummary'])) {
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-	<td><input name="cimage_list_width" type="text" class="f11b" id="cimage_list_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" /></td>
+	<td><input name="cimage_list_width" type="text" class="f11b" id="cimage_list_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" /></td>
 	<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-	<td><input name="cimage_list_height" type="text" class="f11b" id="cimage_list_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" /></td>
+	<td><input name="cimage_list_height" type="text" class="f11b" id="cimage_list_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" /></td>
 	<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 	<td>&nbsp;</td>
 	<td><input name="cimage_list_zoom" type="checkbox" id="cimage_list_zoom" value="1" <?php is_checked(1, $article['image']['list_zoom']); ?> /></td>

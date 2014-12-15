@@ -150,7 +150,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 ?>
 			  </select></td>
 			  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
-			  <td><input name="cimage_space" type="text" class="f11b" id="cimage_space" style="width: 50px;" size="2" maxlength="3" onkeyup="if(!parseInt(this.value*1)) this.value='';" value="<?php echo $content['image_special']['space']; ?>" /></td>
+			  <td><input name="cimage_space" type="text" class="f11b" id="cimage_space" style="width: 50px;" size="2" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['image_special']['space']; ?>" /></td>
 			  <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 
 			</tr>
@@ -376,11 +376,11 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		var cic = $('cimage_center');
 		var ccp = $('cimage_crop');
 		var dis = false;
-		if(!parseInt(cih.value*1)) {
+		if(!parseInt(cih.value,10)) {
 			cih.value = '';
 			dis = true;
 		}
-		if(!parseInt(ciw.value*1)) {
+		if(!parseInt(ciw.value,10)) {
 			ciw.value = '';
 			dis = true;
 		}
@@ -431,7 +431,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 	}
 
 	function getBackendImgSrc(image_file_id) {
-		var image_file_id = parseInt(image_file_id);
+		var image_file_id = parseInt(image_file_id,10);
 		if(image_file_id) {
 			return '<'+'img src="'+site_url+'img/cmsimage.php/'+max_img_w+'x'+max_img_h+'/'+image_file_id+'" border="0" alt="" /'+'> ';
 		}
