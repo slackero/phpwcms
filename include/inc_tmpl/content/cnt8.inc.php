@@ -60,6 +60,23 @@ if(empty($content['alink']['alink_hidesummary'])) {
 	$content['alink']['alink_hidesummary'] = 0;
 }
 
+// Get/set and reset filter
+if(isset($_SESSION['teaser_filter_category'])) {
+	$content['alink']['filter_category'] = $_SESSION['teaser_filter_category'];
+	$_SESSION['teaser_filter_category'] = '';
+	unset($_SESSION['teaser_filter_category']);
+} else {
+	$content['alink']['filter_category'] = null;
+}
+if(isset($_SESSION['teaser_filter_category_by_tags'])) {
+	$content['alink']['filter_tags'] = $_SESSION['teaser_filter_category_by_tags'] ? $content['alink']['alink_category'] : array();
+	$_SESSION['teaser_filter_category_by_tags'] = false;
+	unset($_SESSION['teaser_filter_category_by_tags']);
+} else {
+	$content['alink']['filter_tags'] = null;
+}
+
+
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 
 // necessary JavaScript libraries
@@ -231,13 +248,13 @@ initMootoolsAutocompleter();
 
 <tr id="calink_manual_0"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
 <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_selection'] ?>:&nbsp;</td>
-<td style="padding-bottom:3px;"><table border="0" cellpadding="0" cellspacing="0" summary="">
+<td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
 		<td rowspan="2"><select name="calink[]" size="8" multiple="multiple" class="f11 listrow" id="calink" style="width: 420px" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
 <?php
 	  	//Auslesen der kompletten Public Artikel
-	  	$sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv ";
+	  	$sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv, article_keyword ";
 		$sql .= "FROM ".DB_PREPEND."phpwcms_article ar ";
 		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ar.article_cid = ac.acat_id ";
 		$sql .= "WHERE ar.article_deleted = 0 AND ar.article_noteaser = 0 ";
@@ -270,8 +287,27 @@ initMootoolsAutocompleter();
 				}
 
 				if(!$k) {
-					$carticle_list .= '<option value="'.$row[0].'" title="'.$k1;
-					$carticle_list .= '">'.html($row[1]).$alias_add.'</option>'.LF;
+
+					// filter by category
+					if($content['alink']['filter_category'] !== null && $content['alink']['filter_category'] !== intval($row[4])) {
+						continue;
+					}
+
+					// filter by tag
+					if(is_array($content['alink']['filter_tags']) && count($content['alink']['filter_tags'])) {
+						$content['alink']['filter_tags_active'] = false;
+						foreach($content['alink']['filter_tags'] as $_tag) {
+							if(strpos($row[6], $_tag) !== false) {
+								$content['alink']['filter_tags_active'] = true;
+								break;
+							}
+						}
+						if($content['alink']['filter_tags_active'] === false) {
+							continue;
+						}
+					}
+
+					$carticle_list .= '<option value="'.$row[0].'" title="'.$k1.'">'.html($row[1]).$alias_add.'</option>'.LF;
 				}
 			}
 	  	}
@@ -292,6 +328,7 @@ initMootoolsAutocompleter();
 	 </tr>
 	</table></td>
 </tr>
+
 <tr id="calink_manual_1"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
     <td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_articles'] ?>:&nbsp;</td>
       <td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -306,7 +343,33 @@ initMootoolsAutocompleter();
 	</tr>
 	</table></td>
 </tr>
-
+<tr id="calink_manual_2"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+    <td align="right" class="chatlist tdtop6"><?php echo $BL['be_filter'] ?>:&nbsp;</td>
+    <td class="tdtop3">
+	      <table border="0" cellpadding="0" cellspacing="0" summary="">
+		  	<tr>
+				<td>
+					<select name="teaser_filter_category" class="f11 width250">
+						<option value=""><?php echo $BL['be_filter_not_selected'] ?></option>
+						<option value="0"<?php
+							if($content['alink']['filter_category'] !== null) {
+								is_selected(0, $content['alink']['filter_category']);
+								$content['alink']['filter_category'] = array($content['alink']['filter_category']);
+							} else {
+								$content['alink']['filter_category'] = array();
+							}
+						?>><?php echo html($indexpage['acat_name']) ?></option>
+						<?php struct_select_list(0, 0, $content['alink']['filter_category'], true); ?>
+					</select>
+		    	</td>
+				<td>&nbsp;</td>
+				<td><input type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> /></td>
+				<td class="chatlist"><label for="teaser_filter_category_by_tags">&nbsp;<?php echo $BL['be_filter_with_tags'] ?>&nbsp;</label></td>
+				<td><input type="image" src="img/famfamfam/magnifier.png" class="backend-search-button" name="Submit"></td>
+			</tr>
+		</table>
+	</td>
+</tr>
 
 <tr id="calink_auto_0"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
 	<td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_rssfeed_max'] ?>:&nbsp;</td>
@@ -386,4 +449,3 @@ var source_items = document.getElementById('calinklist');
 //-->
 </script></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-

@@ -76,4 +76,5 @@ foreach($content['alink']['alink_id'] as $key => $value) {
 	}
 }
 
+
 ?>

@@ -1375,4 +1375,8 @@ $BL['be_caption_descr.']				= 'Beschr.';
 $BL['be_display_html5_only']			= 'ausschlie&szlig;lich HTML5';
 $BL['be_audio_only']					= 'nur Audio';
 
+$BL['be_filter']						= 'Filter';
+$BL['be_filter_with_tags']				= 'nach Schlagwort';
+$BL['be_filter_not_selected']			= 'Keine Kategorie ausgew&auml;hlt';
+
 ?>

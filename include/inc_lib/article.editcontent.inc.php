@@ -625,7 +625,14 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 						change_articledate($content["aid"]); //update article date too
 						update_cache(); // set cache timeout = 0
 						if(empty($_POST['SubmitClose'])) {
-							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$content["aid"]."&acid=".$content["id"]); //erfolgreich neuer Content angelegt
+							// cnt teaser has some special filter options
+							if(isset($_POST['teaser_filter_category']) && is_intval($_POST['teaser_filter_category'])) {
+								$_SESSION['teaser_filter_category'] = intval($_POST['teaser_filter_category']);
+							}
+							if(!empty($_POST['teaser_filter_category_by_tags'])) {
+								$_SESSION['teaser_filter_category_by_tags'] = true;
+							}
+							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$content["aid"]."&acid=".$content["id"]);
 						} else {
 							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&id=".$content["aid"]);
 						}
