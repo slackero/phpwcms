@@ -9,7 +9,7 @@
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.7.5 (2014/11/08, r538) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.7.6 (2014/12/16, r538) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1202,7 +1202,7 @@ $BL['be_delete_dataset']    = 'Usunąć wybrane dane?';
 $BL['be_action_notvalid']    = 'Twoje ostatnio wybrane działanie zostało pominięte, ponieważ nie było prawidłowe!';
 $BL['be_action_deleted']    = 'Wybrany zestaw danych mający ID {ID} został usunięty.';
 $BL['be_action_status']        = 'Stan wybranego zestawu danych mającego ID {ID} został zmieniony.';
-$BL['be_data_select_failed']    = 'Dostęp do wybranych danych nie powiódł się. Proszę dowód ponowić wybór.';
+$BL['be_data_select_failed']    = 'Dostęp do wybranych danych nie powiódł się. Proszę potwierdzić swój wybór.';
 $BL['be_alias']        = 'Alias';
 $BL['be_url_value']    = 'Tytuł URL';
 $BL['default_date_format']    = 'DD/MM/YYYY';
@@ -1369,10 +1369,13 @@ $BL['be_flush_image_cache']        = 'opróżnij pamięć podręczną grafik';
 
 $BL['be_caption_alt']            = 'poprz. atr.';
 $BL['be_caption_title']            = 'tytuł atr.';
-$BL['be_caption_file_imagesize']    = 'WxHxC <em>(if image)</em>';
+$BL['be_caption_file_imagesize']    = 'WxHxC <em>(jeżeli obraz)</em>';
 $BL['be_caption_file_title']        = 'tytuł pliku';
 $BL['be_caption_descr.']        = 'opis';
 $BL['be_display_html5_only']        = 'tylko HTML5';
 $BL['be_audio_only']            = 'tylko audio';
 
+$BL['be_filter']		= 'filtr';
+$BL['be_filter_with_tags']	= 'w/g etykiet';
+$BL['be_filter_not_selected']	= 'Nie wybrano kategorii';
 ?>
