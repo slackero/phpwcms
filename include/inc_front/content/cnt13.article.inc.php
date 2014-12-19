@@ -368,8 +368,8 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 						}
 					}
 
-					if($content['search']['show_summary'] && $content['search']['wordlimit'] > 0) {
-						$s_list[$s_run]["text"]	= getCleanSubString($s_text, $content['search']['wordlimit'], $template_default['ellipse_sign'], 'word');
+					if($content['search']['show_summary'] && !empty($content['search']['wordlimit'])) {
+						$s_list[$s_run]["text"]	= getCleanSubString($s_text, abs($content['search']['wordlimit']), $template_default['ellipse_sign'], $content['search']['wordlimit'] < 0 ? 'char' : 'word');
 						$s_list[$s_run]["text"]	= html($s_list[$s_run]["text"], false);
 						if($content['search']['highlight_result']) {
 							$s_list[$s_run]["text"] = highlightSearchResult($s_list[$s_run]["text"], $content['highlight']);

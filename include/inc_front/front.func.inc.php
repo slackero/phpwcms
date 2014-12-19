@@ -1265,8 +1265,8 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					'SUMMARY',
 					empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString(
 						$article["article_summary"],
-						$article['article_image']['list_maxwords'],
-						$template_default['ellipse_sign'], 'word', true
+						abs($article['article_image']['list_maxwords']),
+						$template_default['ellipse_sign'], $article['article_image']['list_maxwords'] < 0 ? 'char' : 'word', true
 					)
 				);
 
@@ -3720,17 +3720,17 @@ function getArticleMenu($data=array()) {
 			if($data['articlemenu_options']['text']) {
 				switch($data['articlemenu_options']['text']) {
 					case 'description':
-						$item['amenu_text'] = html(getCleanSubString($item['article_description'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word'));
+						$item['amenu_text'] = html(getCleanSubString($item['article_description'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word'));
 						break;
 					case 'menutitle':
-						$item['amenu_text'] = html(getCleanSubString($item['article_menutitle'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word'));
+						$item['amenu_text'] = html(getCleanSubString($item['article_menutitle'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word'));
 						break;
 					case 'teaser':
 						if($data['articlemenu_options']['textlength'] === 'HTML') {
 							$item['amenu_text'] = $item['article_summary'];
 						} else {
 							$item['amenu_text'] = trim(strip_tags($item['article_summary']));
-							$item['amenu_text'] = getCleanSubString($item['amenu_text'], $data['articlemenu_options']['textlength'], $GLOBALS['template_default']['ellipse_sign'], 'word');
+							$item['amenu_text'] = getCleanSubString($item['amenu_text'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word');
 						}
 						break;
 				}
