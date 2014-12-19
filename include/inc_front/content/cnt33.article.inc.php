@@ -408,14 +408,17 @@ if($news['template']) {
 			} elseif($value['cnt_object']['cnt_textformat'] == 'br') {
 				$value['cnt_teasertext'] = br_htmlencode($value['cnt_teasertext']);
 			} elseif($value['cnt_object']['cnt_textformat'] == 'markdown') {
-				require_once(PHPWCMS_ROOT.'/include/inc_ext/markdown.php');
-				$value['cnt_teasertext'] = Markdown($value['cnt_teasertext']);
-			} elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
-				require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
-				if(!isset($phpwcms['textile'])) {
-					$phpwcms['textile'] = new Textile();
+				if(!isset($phpwcms['parsedown_class'])) {
+					require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
+					$phpwcms['parsedown_class'] = new Parsedown();
 				}
-				$value['cnt_teasertext'] = $phpwcms['textile']->TextileThis($value['cnt_teasertext']);
+				$value['cnt_teasertext'] = $phpwcms['parsedown_class']->text($value['cnt_teasertext']);
+			} elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
+				if(!isset($phpwcms['textile_class'])) {
+					require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
+					$phpwcms['textile_class'] = new Textile();
+				}
+				$value['cnt_teasertext'] = $phpwcms['textile_class']->TextileThis($value['cnt_teasertext']);
 			} else {
 				$value['cnt_teasertext'] = html_specialchars($value['cnt_teasertext']);
 			}

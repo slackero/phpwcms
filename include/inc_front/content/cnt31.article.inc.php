@@ -59,13 +59,16 @@ if($image['template']) {
 		$image = array_merge($image, $image['tmpl_settings']);
 
 		if($image['text_render'] == 'markdown') {
-			// Load MarkDown function and class
-			require_once(PHPWCMS_ROOT.'/include/inc_ext/markdown.php');
+			// Load ParseDown class
+			if(!isset($phpwcms['parsedown_class'])) {
+				require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
+				$phpwcms['parsedown_class'] = new Parsedown();
+			}
 		} elseif($image['text_render'] == 'textile') {
 			// Load Textile function and class
-			require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
-			if(!isset($phpwcms['textile'])) {
-				$phpwcms['textile'] = new Textile();
+			if(!isset($phpwcms['textile_class'])) {
+				require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
+				$phpwcms['textile_class'] = new Textile();
 			}
 		}
 	}
@@ -350,11 +353,11 @@ if($image['template']) {
 			switch($image['text_render']) {
 
 				case 'markdown':
-					$value['freetext'] = Markdown($value['freetext']);
+					$value['freetext'] = $phpwcms['parsedown_class']->text($value['freetext']);
 					break;
 
 				case 'textile':
-					$value['freetext'] = $phpwcms['textile']->TextileThis($value['freetext']);
+					$value['freetext'] = $phpwcms['textile_class']->TextileThis($value['freetext']);
 					break;
 
 				case 'html':
