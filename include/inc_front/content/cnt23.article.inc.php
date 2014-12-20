@@ -1635,20 +1635,32 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			// replace tags in email form
 			$cnt_form['template'] = str_replace('{'. $POST_key . '}', $POST_keyval, $cnt_form['template']);
 
-			//replace tags in the success form but not for redirect.
-			if($cnt_form["onsuccess_redirect"] !== 1) {
+			// replace tags in the success form
+			if($cnt_form["onsuccess_redirect"] === 1) {
 
-				// check if it is htmlentity
-				if(!$cnt_form['is_html_entity'] && $cnt_form["onsuccess_redirect"] === 2) {
-					$POST_keyval = html_specialchars($POST_keyval);
-				}
-				$cnt_form["onsuccess"] = str_replace('{'. $POST_key . '}', $POST_keyval, $cnt_form["onsuccess"]);
-				$cnt_form["onsuccess"] = render_cnt_template($cnt_form["onsuccess"], 'EMAIL_COPY', empty($cnt_form['sendcopy']) || $cnt_form['option_email_copy'] === false ? '' : html_specialchars($cnt_form["copyto"]));
+				$cnt_form["onsuccess"] = str_replace('{'. $POST_key . '}', rawurlencode($POST_keyval), $cnt_form["onsuccess"]);
+
+			} else {
+
+				$cnt_form["onsuccess"] = str_replace('{'. $POST_key . '}', (!$cnt_form['is_html_entity'] && $cnt_form["onsuccess_redirect"] === 2 ? html_specialchars($POST_keyval) : $POST_keyval), $cnt_form["onsuccess"]);
+
 			}
 
 		}
 
 		$phpwcms['callback'] = now();
+
+		$cnt_form["onsuccess"]	= str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
+
+		if(strpos($cnt_form["onsuccess"], 'EMAIL_COPY') !== false) {
+			if($cnt_form["onsuccess_redirect"] === 1) {
+				$cnt_form["onsuccess"] = render_cnt_template($cnt_form["onsuccess"], 'EMAIL_COPY', empty($cnt_form['sendcopy']) || $cnt_form['option_email_copy'] === false ? '' : rawurlencode($cnt_form["copyto"]));
+			} else {
+				$cnt_form["onsuccess"] = render_cnt_template($cnt_form["onsuccess"], 'EMAIL_COPY', empty($cnt_form['sendcopy']) || $cnt_form['option_email_copy'] === false ? '' : html_specialchars($cnt_form["copyto"]));
+			}
+		}
+
+		$cnt_form['onsuccess'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['onsuccess']);
 
 		$cnt_form['fe_current_url'] = abs_url(array(), array(), '', 'rawurlencode');
 
@@ -1665,14 +1677,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		}
 
-		if($cnt_form["onsuccess_redirect"] !== 1) {
-
-			$cnt_form["onsuccess"] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
-			$cnt_form['onsuccess'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['onsuccess']);
-
-		}
-
-		$cnt_form['template'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template']);
+		$cnt_form['template']	= preg_replace('/\{(.*?)\}/', '', $cnt_form['template']);
 
 		// check if "copy to" email template is equal recipient
 		// email template and set it the same
@@ -1685,7 +1690,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 
 	// get email addresses of recipients and senders
-	$cnt_form["target"]			= convertStringToArray($cnt_form["target"], ';');
+	$cnt_form["target"] = convertStringToArray($cnt_form["target"], ';');
 	if(empty($cnt_form["subject"])) {
 		$cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
 		$cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, trim($phpwcms['site'], '/'));
