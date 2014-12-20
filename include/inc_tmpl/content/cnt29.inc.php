@@ -70,7 +70,7 @@ $img_count = isset($content["image_list"]['images']) && is_array($content["image
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><select name="template" id="template" class="f11b width150">
+			<td><select name="template" id="template" class="width150">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -137,7 +137,7 @@ $img_count = isset($content["image_list"]['images']) && is_array($content["image
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><select name="cimage_col" class="f11b" id="cimage_col">
+			<td><select name="cimage_col" id="cimage_col">
 <?php
 
 // list select menu for max image columns
@@ -222,7 +222,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 		<td valign="top">
-		<select name="cimage_list[]" size="<?php echo $img_count+5 ?>" multiple="multiple" class="f11" id="cimage_list" style="width: 360px;">
+		<select name="cimage_list[]" size="<?php echo $img_count+5 ?>" multiple="multiple" class="width360" id="cimage_list">
 <?php
 if($img_count) {
 
@@ -289,7 +289,7 @@ if($img_count) {
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top">
-		<textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width440" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
+		<textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width440" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
 		<span class="caption width440">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|

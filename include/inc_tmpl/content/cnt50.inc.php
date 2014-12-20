@@ -45,7 +45,7 @@ $img_thumbs = '';
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="creference_tmpl" id="creference_tmpl" class="f11b">
+	<td><select name="creference_tmpl" id="creference_tmpl">
 <?php
 
 	// templates for Reference
@@ -66,14 +66,14 @@ $img_thumbs = '';
 
 <tr>
 <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_plaintext'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="creference_text" rows="15" wrap="VIRTUAL" class="f11" id="creference_text" style="width: 440px"><?php echo  $content['reference']["text"] ?></textarea></td>
+<td valign="top"><textarea name="creference_text" rows="15" wrap="VIRTUAL" class="width440" id="creference_text"><?php echo  $content['reference']["text"] ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 5 : 5; ?>" multiple class="f11 width300" id="cimage_list">
+        <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 5 : 5; ?>" multiple="multiple" class="width300" id="cimage_list">
             <?php
 				    if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
 
@@ -129,7 +129,7 @@ if($img_thumbs) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="creference_caption" cols="40" rows="<?php echo (count($content['reference']["list"])) ? (count($content['reference']["list"]) + 4) : 5 ?>" wrap="off" class="f11" id="creference_caption" style="width:440px"><?php echo html($content['reference']["caption"]) ?></textarea></td>
+  <td valign="top"><textarea name="creference_caption" cols="40" rows="<?php echo (count($content['reference']["list"])) ? (count($content['reference']["list"]) + 4) : 5 ?>" wrap="off" class="width440" id="creference_caption"><?php echo html($content['reference']["caption"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
@@ -169,7 +169,7 @@ if($img_thumbs) {
       <td bgcolor="#E7E8EB"><input name="creference_basis" type="radio" value="1" <?php is_checked(1, $content["reference"]["basis"]); ?>></td>
       <td class="v10" bgcolor="#E7E8EB"><?php echo $BL['be_cnt_reference_vertical'] ?>&nbsp;&nbsp;</td>
 	  <td class="chatlist">&nbsp;&nbsp;&nbsp;</td>
-  	  <td><select name="creference_pos" class="f10" id="creference_pos">
+  	  <td><select name="creference_pos" id="creference_pos">
 		<option value="0" <?php is_selected(0, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_default'] ?></option>
 		<option value="1" <?php is_selected(1, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'].', '.$BL['be_admin_page_top'] ?></option>
 		<option value="2" <?php is_selected(2, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'].', '.$BL['be_cnt_reference_middle'] ?></option>

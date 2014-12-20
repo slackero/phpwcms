@@ -228,10 +228,10 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 			<tr>
-				<td><textarea name="shopprod_size" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_size']) ?></textarea></td>
+				<td><textarea name="shopprod_size" id="shopprod_size" class="width125" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_size']) ?></textarea></td>
 
 				<td align="right" class="chatlist width100 tdtop4"><?php echo $BLM['shopprod_color'] ?>:&nbsp;</td>
-				<td><textarea name="shopprod_color" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_color']) ?></textarea></td>
+				<td><textarea name="shopprod_color" id="shopprod_color" class="width170" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_color']) ?></textarea></td>
 
 				</tr>
 
@@ -290,12 +290,12 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description1'] ?>:&nbsp;</td>
-		<td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="v12 width400"><?php echo html($plugin['data']['shopprod_description2']) ?></textarea></td>
+		<td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="width400"><?php echo html($plugin['data']['shopprod_description2']) ?></textarea></td>
 	</tr>
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description2'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="v12 width400"><?php echo html($plugin['data']['shopprod_description3']) ?></textarea></td>
+		<td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="width400"><?php echo html($plugin['data']['shopprod_description3']) ?></textarea></td>
 	</tr>
 
 
@@ -381,7 +381,7 @@ if($img_count) {
 
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
+		<td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -432,7 +432,7 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea></td>
+		<td valign="top"><textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width400" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea></td>
 	</tr>
 	<!-- End Attachments -->
 
@@ -540,10 +540,10 @@ if(count($plugin['data']['shopprod_files'])) {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="close" type="submit" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+			<input name="close" type="submit" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" />
 		</td>
 	</tr>
 </table>

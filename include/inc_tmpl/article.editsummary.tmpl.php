@@ -39,7 +39,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 
 		  	<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_article_cat'] ?>:&nbsp;</td>
-				<td><select name="article_cid" id="article_cid" style="width: 325px" class="f11b">
+				<td><select name="article_cid" id="article_cid" class="width325">
 				<?php
 					//keine definierte Kategorie = allgemeine Artikelkategorie
 					echo '<option value="0"'.((!$article["article_catid"])?' selected="selected"':'').">".$BL['be_admin_struct_index']."</option>\n";
@@ -237,7 +237,7 @@ calEnd.setYearCombo(false);
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-				<td><textarea name="article_description" rows="2" class="f10 width440" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
+				<td><textarea name="article_description" rows="2" class="width440" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
@@ -249,7 +249,7 @@ calEnd.setYearCombo(false);
 					<td width="215" class="chatlist"><?php echo $BL['be_article_forfull'] ?>:&nbsp;</td></tr>
 				<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 				<tr>
-				  <td><select name="article_tmpllist" id="article_tmpllist" style="width: 215px" class="f11">
+				  <td><select name="article_tmpllist" id="article_tmpllist" class="width215">
 <?php
 // templates for article listing
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list');
@@ -271,7 +271,7 @@ if(count($tmpllist)) {
 ?>
 				  </select></td>
 				  <td>&nbsp;</td>
-				  <td><select name="article_tmplfull" id="article_tmplfull" style="width: 215px" class="f11">
+				  <td><select name="article_tmplfull" id="article_tmplfull" class="width215">
 <?php
 // templates for full article
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/article');
@@ -403,7 +403,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top">
-			        	<textarea name="cimage_caption" cols="30" rows="3" class="f11 width300" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
+			        	<textarea name="cimage_caption" cols="30" rows="3" class="width300" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
 						<span class="caption width300">
 							<?php echo $BL['be_cnt_caption']; ?>
 							|
@@ -515,7 +515,7 @@ if(!isset($article['image']['list_usesummary'])) {
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 	<td valign="top">
-		<textarea name="cimage_list_caption" cols="30" rows="3" class="f11" id="cimage_list_caption" style="width: 300px;"><?php echo html($article['image']['list_caption']) ?></textarea>
+		<textarea name="cimage_list_caption" cols="30" rows="3" class="width300" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
 		<span class="caption width300">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|
@@ -567,7 +567,7 @@ if(!isset($article['image']['list_usesummary'])) {
 				<td align="right" class="chatlist"><?php echo $BL['be_article_articleowner'] ?>:&nbsp;</td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
-					<td><select name="article_uid" id="article_uid" style="width: 300px" class="f11b">
+					<td><select name="article_uid" id="article_uid" class="width300">
 				<?php
 				$u_sql = "SELECT usr_id, usr_name, usr_login, usr_admin FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv=1 ORDER BY usr_admin DESC, usr_name";
 				if($u_result = mysql_query($u_sql, $db)) {
@@ -607,7 +607,7 @@ if(!isset($article['image']['list_usesummary'])) {
 						<td><input name="article_cacheoff" type="checkbox" id="article_cacheoff" value="1" <?php if($article["article_timeout"] === '0') echo "checked"; ?> /></td>
 						<td><label for="article_cacheoff">&nbsp;<?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
 						<td>&nbsp;</td>
-						<td><select name="article_timeout" class="f11" style="margin:1px;" onchange="document.article.article_cacheoff.checked=false;">
+						<td><select name="article_timeout" style="margin:1px;" onchange="document.article.article_cacheoff.checked=false;">
 <?php
 echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
 echo '<option value="60"'.is_selected($article["article_timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
@@ -687,11 +687,11 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 				<td><input name="article_update" type="hidden" id="article_update" value="1" /></td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 					<tr>
-					<td><input name="updatesubmit" type="submit" class="button10" value="<?php echo $article["article_id"] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" /></td>
+					<td><input name="updatesubmit" type="submit" class="button" value="<?php echo $article["article_id"] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" /></td>
 					<td>&nbsp;</td>
-					<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" /></td>
+					<td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" /></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><input name="donotsubmit" type="submit" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" /></td>
+					<td><input name="donotsubmit" type="submit" class="button" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" /></td>
 					</tr></table></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>

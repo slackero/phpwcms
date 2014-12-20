@@ -51,17 +51,17 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
 	<td align="right" class="chatlist">Class:&nbsp;</td>
-	<td><input name="cpoll_buttonstyle" type="text" class="f11" id="cpoll_buttonstyle" style="width: 250px;" value="<?php echo html($content['poll_text']['poll_buttonstyle']) ?>" /></td>
+	<td><input name="cpoll_buttonstyle" type="text" class="width250" id="cpoll_buttonstyle" value="<?php echo html($content['poll_text']['poll_buttonstyle']) ?>" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 <tr>
 	<td align="right" class="chatlist">Button:&nbsp;</td>
-	<td><input name="cpoll_buttontext" type="text" class="f11" id="cpoll_buttontext" style="width: 250px;" value="<?php echo html($content['poll_text']['poll_buttontext']) ?>" /></td>
+	<td><input name="cpoll_buttontext" type="text" class="width250" id="cpoll_buttontext" value="<?php echo html($content['poll_text']['poll_buttontext']) ?>" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo 'choices' ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cpoll_caption" cols="40" rows="8" wrap="off" class="f11" id="cpoll_caption" style="width: 440px;"><?php echo $caption_box; ?></textarea></td>
+  <td valign="top"><textarea name="cpoll_caption" cols="40" rows="8" wrap="off" class="width440" id="cpoll_caption"><?php echo $caption_box; ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr>
@@ -70,7 +70,7 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 	<table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 		<td valign="top">
-		<select name="cimage_list[]" size="<?php echo is_array($content["poll_select"]) && count($content["poll_select"]) ? count($content["poll_select"])+5 : 5 ?>" multiple class="f11" id="cimage_list" style="width: 300px;">
+		<select name="cimage_list[]" size="<?php echo is_array($content["poll_select"]) && count($content["poll_select"]) ? count($content["poll_select"])+5 : 5 ?>" multiple="multiple" class="width300" id="cimage_list">
 <?php
 
 if(isset($content['poll_list']['images']) && is_array($content['poll_list']['images']) && count($content['poll_list']['images'])) {

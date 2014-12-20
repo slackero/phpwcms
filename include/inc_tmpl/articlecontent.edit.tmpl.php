@@ -558,7 +558,7 @@ endif;
 if(!empty($content["id"])) {
 	$buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
 	$buttonAction  = '	<div style="float:right;margin-right:25px;padding:0;">';
-	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" ';
+	$buttonAction .= '	<button type="button" value="'.$BL['be_func_struct_preview'].'" class="button" title="'.$BL['be_func_struct_preview'].'" ';
 	$buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
 	$buttonAction .= $BL['be_func_struct_preview']."</button></div>" . LF;
 } else {
@@ -572,10 +572,10 @@ ob_start();
 <div>
 	<?php echo $buttonAction; ?>
 	<div style="float:left;padding:0;">
-	<input name="Submit" type="submit" class="button10" value="<?php echo  $sendbutton ?>" />
-	<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+	<input name="Submit" type="submit" class="button" value="<?php echo  $sendbutton ?>" />
+	<input name="SubmitClose" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 	&nbsp; &nbsp;
-	<input name="donotsubmit" type="button" class="button10" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
+	<input name="donotsubmit" type="button" class="button" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
 	</div>
 </div>
 <?php
@@ -642,7 +642,7 @@ echo $_save_close_buttons;
 
 	<tr>
 	  <td align="right" class="chatlist tdtop3"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</td>
-	  <td><textarea name="ccomment" id="ccomment" class="v11 width440" rows="5"><?php echo html($content["comment"]) ?></textarea></td>
+	  <td><textarea name="ccomment" id="ccomment" class="width440" rows="5"><?php echo html($content["comment"]) ?></textarea></td>
 	</tr>
 
 </table>

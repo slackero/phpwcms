@@ -60,7 +60,7 @@ if(!isset($_GET["s"])) {
 	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="8"></td>
 	</tr>
-	<tr><td colspan="3"><form action="phpwcms.php?do=admin&p=8&s=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_page_add'] ?>" class="button10" title="<?php echo $BL['be_admin_page_add'] ?>"></form></td>
+	<tr><td colspan="3"><form action="phpwcms.php?do=admin&p=8&s=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_page_add'] ?>" class="button" title="<?php echo $BL['be_admin_page_add'] ?>"></form></td>
 	</tr>
 </table>
 <?php
@@ -670,7 +670,7 @@ if(!isset($_GET["s"])) {
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="20"></td></tr>
 			<tr>
 				<td><img src="img/leer.gif" alt="" width="90" height="1"><input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>"></td>
-				<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_page_button'] ?>">&nbsp;&nbsp;<input type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';"></td>
+				<td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_page_button'] ?>">&nbsp;&nbsp;<input type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';"></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
 </table></form><?php

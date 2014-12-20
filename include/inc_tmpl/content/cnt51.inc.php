@@ -28,7 +28,7 @@ if(!isset($content["map"])) {
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="cmap_template" id="cmap_template" class="f11b">
+	<td><select name="cmap_template" id="cmap_template">
 <?php
 // templates for article listing
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/map');
@@ -224,5 +224,5 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_admin_page_text'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="f11" style="width:440px"><?php echo  empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>
+  <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="width440"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>
 </tr>

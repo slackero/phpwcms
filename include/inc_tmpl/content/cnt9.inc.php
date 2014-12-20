@@ -53,7 +53,7 @@ if(empty($content["image_caption"])) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -148,7 +148,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_position'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><select name="cimage_pos" class="f10" id="cimage_pos" onchange="changeImagePosMenu();">
+			      <td><select name="cimage_pos" id="cimage_pos" onchange="changeImagePosMenu();">
 			    <option value="0" <?php is_selected(0, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos0'] ?></option>
 			    <option value="1" <?php is_selected(1, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos1'] ?></option>
 			    <option value="2" <?php is_selected(2, $content["media_pos"]) ?>><?php echo $BL['be_cnt_mediapos2'] ?></option>
@@ -216,7 +216,7 @@ changeImagePos(<?php echo intval($content["media_pos"]) ?>);
   <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['alt_text'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	  <tr>
-		<td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php echo html($content["image_caption"]) ?></textarea></td>
+		<td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300" id="cimage_caption"><?php echo html($content["image_caption"]) ?></textarea></td>
 		<td valign="top"><img src="img/leer.gif" alt="" width="10" height="1" /></td>
 		<td valign="top"><?php if($content["image_id"]): ?><img src="img/cmsimage.php/<?= $phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$content["image_id"] ?>" border="0" /><?php endif; ?>&nbsp;</td>
 	  </tr>

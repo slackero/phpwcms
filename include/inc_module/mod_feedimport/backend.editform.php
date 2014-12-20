@@ -101,7 +101,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea type="text" class="v12 width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
+		echo '<td><textarea type="text" class="width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -111,7 +111,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea name="'.$key.'" id="'.$key.'" class="v12 width400" rows="4">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
+		echo '<td><textarea name="'.$key.'" id="'.$key.'" class="width400" rows="4">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 
@@ -438,12 +438,12 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button10" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo MODULE_HREF ?>&amp;edit=0';return false;" />
-			<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo MODULE_HREF ?>';return false;" />
-			<input type="reset" class="button10" value="<?php echo $BL['be_cnt_field']['reset'] ?>" />
+			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo MODULE_HREF ?>&amp;edit=0';return false;" />
+			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo MODULE_HREF ?>';return false;" />
+			<input type="reset" class="button" value="<?php echo $BL['be_cnt_field']['reset'] ?>" />
 		</td>
 	</tr>
 

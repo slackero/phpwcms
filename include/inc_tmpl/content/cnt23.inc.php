@@ -491,7 +491,7 @@ if($content["id"]) {
 		<td class="v10"><label for="cform_startup_html1">HTML&nbsp;</label>&nbsp;</td>
 	</tr>
 	</table>
-	<textarea name="cform_startup" id="cform_startup" rows="5" class="f11" style="width:440px;"><?php echo html($content['form']["startup"]) ?></textarea></td>
+	<textarea name="cform_startup" id="cform_startup" rows="5" class="width440"><?php echo html($content['form']["startup"]) ?></textarea></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -525,7 +525,7 @@ if($content["id"]) {
 
 	</tr>
 </table>
-<textarea name="cform_onsuccess" id="cform_onsuccess" rows="3" class="f11" style="font-size:11px;width:440px;"><?php echo html($content['form']["onsuccess"]) ?></textarea>
+<textarea name="cform_onsuccess" id="cform_onsuccess" rows="3" class="width440"><?php echo html($content['form']["onsuccess"]) ?></textarea>
 </td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
@@ -543,7 +543,7 @@ if($content["id"]) {
 		&nbsp;&nbsp;</td>
 	</tr>
 </table>
-<textarea name="cform_onerror" rows="3" class="f11" style="font-size:11px;width:440px;"><?php echo html($content['form']["onerror"]) ?></textarea>
+<textarea name="cform_onerror" rows="3" class="width440"><?php echo html($content['form']["onerror"]) ?></textarea>
 </td>
 </tr>
 
@@ -928,7 +928,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 </tr>
 <tr bgcolor="#E7E8EB">
 	<td colspan="2" class="chatlist" valign="top" align="right"><a name="field_value_0" id="field_value_0"></a>&nbsp;<img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_value'] ?>:&nbsp;</td>
-	<td colspan="4"><textarea name="cform_field_value[0]" id="cform_field_value_0" rows="5" class="code" style="font-size:11px;width:323px;"></textarea></td>
+	<td colspan="4"><textarea name="cform_field_value[0]" id="cform_field_value_0" rows="5" class="code width325"></textarea></td>
 	<td colspan="2" valign="bottom"><div style="padding:2px"><a href="#field_value_0" onclick="contractField('cform_field_value_0', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><br />
 	  <a href="#field_value_0" onclick="growField('cform_field_value_0', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a></div></td>
 </tr>
@@ -1070,7 +1070,7 @@ if($content['form']["template_format"]) {
 	include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 } else {
 
-	echo '<textarea name="cform_template" id="cform_template" rows="5" class="code" style="width:536px;" ';
+	echo '<textarea name="cform_template" id="cform_template" rows="5" class="code width540" ';
 	echo 'onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);">';
 	echo html($content['form']["template"]).'</textarea>';
 	?>
@@ -1185,7 +1185,7 @@ if($content['form']["template_format_copy"]) {
 	include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 } else {
 
-	echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="code" style="width:536px;" ';
+	echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="code width540" ';
 	echo 'onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);">';
 	echo html($content['form']["template_copy"]).'</textarea>';
 	?>
@@ -1230,7 +1230,7 @@ if($for_select_2 != '') {
 
 <tr>
 	<td colspan="2">
-	<textarea name="cform_customform" id="cform_customform" rows="5" class="code" style="width:536px;" onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);"><?php echo html($content['form']["customform"]) ?></textarea>
+	<textarea name="cform_customform" id="cform_customform" rows="5" class="code width540" onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);"><?php echo html($content['form']["customform"]) ?></textarea>
 	<div style="text-align:right;padding:2px;padding-right:5px;">
 	<a href="#anchor_customform" onclick="contractField('cform_customform', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_customform" onclick="growField('cform_customform', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>	</div>
 	</td>

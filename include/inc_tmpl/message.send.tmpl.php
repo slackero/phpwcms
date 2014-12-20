@@ -126,8 +126,8 @@ if($msg_send_ok) {
 		<td width="255" class="v09"><?php echo $BL['be_msg_available'] ?>:</td>
 	</tr>
 	<tr valign="top">
-		<td class="v09"><select name="msg_send_to" size="10" multiple style="width: 253px" class="f10" onDblClick="opt.transferRight()">
-<?php 
+		<td class="v09"><select name="msg_send_to" size="10" multiple="multiple" class="width250" onDblClick="opt.transferRight()">
+<?php
 	$where1 = 'WHERE  usr_aktiv=1 ';
 	if(!empty($msg_to)) {
 		$msg_receivers = explode(":", $msg_to);
@@ -146,11 +146,11 @@ if($msg_send_ok) {
 				echo "\t\t\t<option value=\"".$row['usr_id']."\">".html($row['usr_name']." (".$row['usr_login']).")"."</option>\n";
 			}
 		}
-	} 
+	}
 ?>
 		</select></td>
 	<td class="v09"><a href="javascript: opt.transferRight();"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a><input name="msg_send_receiver" type="hidden" id="msg_send_receiver2"><input name="msg_send_aktion" type="hidden" id="msg_send_aktion" value="1"><input name="msg_send_pid" type="hidden" value="<?php echo intval($msg) ?>"></td>
-	<td class="v09"><select name="msg_send_list" size="10" multiple id="msg_send_list" style="width: 253px" class="f10" onChange="opt.transferLeft()">
+	<td class="v09"><select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="width250" onChange="opt.transferLeft()">
 <?php
 	//Create the list of possible recipients
 	$sql = "SELECT usr_id, usr_login, usr_name FROM ".DB_PREPEND."phpwcms_user ".$where1." ORDER BY usr_name ASC;";
@@ -164,9 +164,9 @@ if($msg_send_ok) {
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_subject'] ?>:</td></tr>
-	<tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" style="font-family: Monaco, 'Courier New', Courier, monospace; font-size: 9pt; font-weight: bold; width: 537px" value="<?php echo html($msg_subject); ?>" size="40" maxlength="125"></td></tr>
+	<tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" class="code width540" value="<?php echo html($msg_subject); ?>" size="40" maxlength="125"></td></tr>
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_msg'] ?>:</td></tr>
-	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" style="font-family: Monaco, 'Courier New', Courier, monospace; font-size: 9pt; width: 537px"><?php echo html($msg_message); ?></textarea></td></tr>
+	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" class="code width540"><?php echo html($msg_message); ?></textarea></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="3"><input name="submit" type="image" id="submit" src="img/button/send_message.gif" alt="<?php echo $BL['be_msg_all'] ?>" width="87" height="17" border="0"></td></tr>
 	<tr><td colspan="3">&nbsp;</td></tr>

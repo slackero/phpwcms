@@ -68,7 +68,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 			<tr>
-				<td><textarea name="pref_vat" id="pref_vat" class="v12 width125 right" onchange="enableSubmit();" rows="3"><?php
+				<td><textarea name="pref_vat" id="pref_vat" class="width125 right" onchange="enableSubmit();" rows="3"><?php
 
 	foreach( $plugin['data']['shop_pref_vat'] as $value ) {
 		echo number_format($value, 2, $BLM['dec_point'], $BLM['thousands_sep']) . LF;
@@ -252,7 +252,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_terms'] ?>:&nbsp;</td>
-		<td><textarea name="pref_terms" id="pref_terms" class="v12 width375" onchange="enableSubmit();" rows="10"><?php
+		<td><textarea name="pref_terms" id="pref_terms" class="width375" onchange="enableSubmit();" rows="10"><?php
 
 		echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html($plugin['data']['shop_pref_terms']);
 
@@ -265,9 +265,9 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="save" type="submit" class="button10" id="save_button" value="<?php echo $BL['be_article_cnt_button3'] ?>" disabled="disabled" />
+			<input name="save" type="submit" class="button" id="save_button" value="<?php echo $BL['be_article_cnt_button3'] ?>" disabled="disabled" />
 			&nbsp;
-			<input name="reset" type="reset" class="button10" value="<?php echo $BL['be_cnt_field']['reset'] ?>" onclick="disableSubmit();" />
+			<input name="reset" type="reset" class="button" value="<?php echo $BL['be_cnt_field']['reset'] ?>" onclick="disableSubmit();" />
 		</td>
 	</tr>
 

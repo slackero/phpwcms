@@ -637,18 +637,18 @@ $(function(){
 
 		<?php if($news->data['cnt_id']) { ?>
 
-			<input name="submit" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 
 		<?php } else { ?>
 
-			<input name="submit" type="submit" class="button10" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 
 		<?php }	?>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<input name="new" type="button" class="button10" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="emptyNews();" />
-		<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+		<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="emptyNews();" />
+		<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
 
 	</p>
 

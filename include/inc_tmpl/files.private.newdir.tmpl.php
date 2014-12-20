@@ -122,7 +122,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr>
 		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="v12 width440" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea></td>
+		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="width440" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -163,8 +163,8 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td width="67" valign="top"><input name="dir_pid" type="hidden" id="dir_pid" value="<?php echo $dir_pid ?>" />
 		<input name="dir_aktion" type="hidden" id="dir_aktion" value="1" /></td>
 		<td>
-			<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fpriv_button'] ?>" />
-			<input type="button" class="button10" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+			<input name="Submit" type="submit" class="button" value="<?php echo $BL['be_fpriv_button'] ?>" />
+			<input type="button" class="button" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
 		</td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>

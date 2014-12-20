@@ -68,7 +68,7 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><select name="template" id="template" class="f11b width150">
+			<td><select name="template" id="template" class="width150">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -135,7 +135,7 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
 			<td class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
-			<td><select name="cimage_col" class="f11b" id="cimage_col">
+			<td><select name="cimage_col" id="cimage_col">
 <?php
 
 // list select menu for max image columns
@@ -276,7 +276,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 		<td colspan="3">
-			<textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="v11 width300" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea>
+			<textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="width300" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea>
 			<span class="caption width440">
 				<?php echo $BL['be_cnt_caption']; ?>
 				|
@@ -295,7 +295,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
 	<tr>
 		<td class="chatlist right tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;</td>
-		<td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="v11 w300" cols="30" rows="2"><?php echo html(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
+		<td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="w300" cols="30" rows="2"><?php echo html(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="3" class="spacerrow"></td></tr>
@@ -484,14 +484,14 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'tr>';
 		new_entry += '<'+'td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;<'+'/td>';
-		new_entry += '<'+'td colspan="3"><textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="v11 width300" cols="30" rows="2"><'+'/textarea>';
+		new_entry += '<'+'td colspan="3"><textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="width300" cols="30" rows="2"><'+'/textarea>';
 		new_entry += '<span class="caption width300"><?php echo $BL['be_cnt_caption']; ?> | <?php echo $BL['be_caption_alt']; ?> | <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em> | <?php echo $BL['be_caption_title']; ?> | <?php echo $BL['be_copyright']; ?></span>';
 		new_entry += '<'+'/td>';
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'tr><td colspan="3" class="spacerrow"><'+'/td><'+'/tr>';
 		new_entry += '<'+'tr>';
 		new_entry += '<'+'td class="chatlist right tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;<'+'/td>';
-		new_entry += '<'+'td colspan="3"><textarea name="cimage_freetext['+entry_number+']" id="cimage_freetext_'+entry_number+'" class="v11 w300" cols="30" rows="2"><'+'/textarea><'+'/td>';
+		new_entry += '<'+'td colspan="3"><textarea name="cimage_freetext['+entry_number+']" id="cimage_freetext_'+entry_number+'" class="w300" cols="30" rows="2"><'+'/textarea><'+'/td>';
 		new_entry += '<'+'/tr>';
 		new_entry += '<'+'tr><td colspan="3" class="spacerrow"><'+'/td><'+'/tr>';
 		new_entry += '<'+'tr>';

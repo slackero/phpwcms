@@ -89,7 +89,7 @@ initMootoolsAutocompleter();
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="calink_template" id="calink_template" class="f11b">
+	<td><select name="calink_template" id="calink_template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].' &lt;ul&gt;&lt;li&gt;</option>'.LF;
@@ -199,7 +199,7 @@ initMootoolsAutocompleter();
 		<tr>
 			<td>
 
-	<select name="calink_type" class="f11b" id="calink_type" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
+	<select name="calink_type" id="calink_type" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
 
 		<optgroup label="<?php echo $BL['be_sorted']; ?>">
 			<option value="0"<?php is_selected(0, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_ordermanual'] ?></option>
@@ -251,7 +251,7 @@ initMootoolsAutocompleter();
 <td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
-		<td rowspan="2"><select name="calink[]" size="8" multiple="multiple" class="f11 listrow" id="calink" style="width: 420px" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
+		<td rowspan="2"><select name="calink[]" size="8" multiple="multiple" class=" width420 listrow" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
 <?php
 	  	//Auslesen der kompletten Public Artikel
 	  	$sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv, article_keyword ";
@@ -334,7 +334,7 @@ initMootoolsAutocompleter();
       <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
-		<td><select name="calinklist" size="16" multiple="multiple" class="f11 listrow" id="calinklist" style="width:420px;" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
+		<td><select name="calinklist" size="16" multiple="multiple" class="listrow" id="calinklist" style="width:420px;" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
 	  <?php echo $carticle_list; ?>
       			</select></td>
 
@@ -349,7 +349,7 @@ initMootoolsAutocompleter();
 	      <table border="0" cellpadding="0" cellspacing="0" summary="">
 		  	<tr>
 				<td>
-					<select name="teaser_filter_category" class="f11 width250">
+					<select name="teaser_filter_category" class="width250">
 						<option value=""><?php echo $BL['be_filter_not_selected'] ?></option>
 						<option value="0"<?php
 							if($content['alink']['filter_category'] !== null) {
@@ -386,7 +386,7 @@ initMootoolsAutocompleter();
 </tr>
 <tr id="calink_auto_1"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
 	<td align="right" valign="top" class="chatlist" style="padding-top:6px;"><?php echo $BL['be_cnt_sitelevel'] ?>:&nbsp;</td>
-	<td style="padding-top:3px;"><select name="calink_level[]" size="15" multiple="multiple" class="f11 optionhover" id="calink_level" style="width: 440px">
+	<td style="padding-top:3px;"><select name="calink_level[]" size="15" multiple="multiple" class="optionhover" id="calink_level" style="width: 440px">
 <?php
 		echo '<option value="0"';
 		if(in_array(0, $content['alink']['alink_level'])) {

@@ -308,4 +308,4 @@ if (!defined('PHPWCMS_ROOT')) {
 
 </div>
 
-<input type="button" class="button10" style="margin-top:5px;" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?php echo shop_url('controller=order') ?>'" />
+<input type="button" class="button" style="margin-top:5px;" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?php echo shop_url('controller=order') ?>'" />

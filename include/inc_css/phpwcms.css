@@ -11,8 +11,8 @@ body {
 	margin: 0;
 	height: 100%;
 	min-height: 100%;
-	font-size: 11px;
-	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-family: "Helvetica Neue", sans-serif;
 	color: #282F42;
 	background: #C1D2E2;
 	background: -moz-linear-gradient(top, #347199, #c1d2e2);
@@ -21,15 +21,16 @@ body {
 	background: -ms-linear-gradient(top, #347199, #c1d2e2);
 	background: linear-gradient(to bottom, #347199, #c1d2e2);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0 );
+	line-height: 1.4166;
 }
 input, textarea, select, button {
-	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
 }
 ul {
 	margin: 0px 0px 0px 20px;
 }
 li {
-	font-size: 10px;
+	font-size: 12px;
 }
 form {
 	margin: 0;
@@ -50,13 +51,13 @@ form {
 }
 
 .v09 {
-	font-size: 9px
+	font-size: 11px
 }
 .v10 {
-	font-size: 10px
+	font-size: 12px
 }
 .v11 {
-	font-size: 11px
+	font-size: 12px
 }
 .v12 {
 	font-size: 12px
@@ -68,13 +69,13 @@ form {
 	font-size: 14px
 }
 .v09b {
-	font-size: 9px;
+	font-size: 11px;
 }
 .v10b {
-	font-size: 10px;
+	font-size: 12px;
 }
 .v11b {
-	font-size: 11px;
+	font-size: 12px;
 }
 .v12b {
 	font-size: 12px;
@@ -86,8 +87,8 @@ form {
 	font-size: 14px;
 }
 .title {
-	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-	font-size: 13px;
+	font-family: "Helvetica Neue", sans-serif;
+	font-size: 14px;
 	color: #6288AD;
 	font-weight: bold;
 }
@@ -98,8 +99,8 @@ form {
 	color: #2CAD00;
 }
 .columnhead {
-	font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-	font-size: 9px;
+	font-family: "Helvetica Neue", sans-serif;
+	font-size: 11px;
 	color: #406C94
 }
 .chat {
@@ -119,17 +120,17 @@ form {
 .chatlist,
 .chatlist a {
 	color: #406C94;
-	font-size: 10px;
+	font-size: 11px;
 }
 .chatlist a:hover {
 	color: #CC3300;
-	font-size: 10px;
+	font-size: 11px;
 }
 .msgreiter,
 .msgreiter a {
 	color: #FFFFFF;
 	font-weight: bold;
-	font-size: 10px;
+	font-size: 11px;
 	text-decoration: none;
 }
 .msgreiter a:hover {
@@ -141,7 +142,7 @@ form {
 	color: #406C94;
 	font-weight: normal;
 	text-decoration: none;
-	font-size: 10px
+	font-size: 13px
 }
 .navtext a:hover {
 	color: #406C94;
@@ -152,7 +153,7 @@ form {
 	color: #305270;
 	font-weight: bold;
 	text-decoration: none;
-	font-size: 10px
+	font-size: 13px
 }
 .navtexta a:hover {
 	color: #305270;
@@ -160,7 +161,7 @@ form {
 }
 .msglist,
 .msglist a {
-	font-size: 10px
+	font-size: 11px
 	color: #000000;
 	text-decoration: none
 }
@@ -169,8 +170,8 @@ form {
 	text-decoration: underline
 }
 .msgtext {
-	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
-	font-size: 9pt
+	font-family: Menlo, "Courier New", monospace;
+	font-size: 12px
 }
 .msgtext a {
 	text-decoration : underline;
@@ -211,7 +212,7 @@ form {
 	top: 4px;
 }
 .useronline {
-	font-size: 10px;
+	font-size: 11px;
 	color: #406C94;
 }
 a {
@@ -225,39 +226,27 @@ a:hover {
 	background-color: transparent;
 }
 .mnav {
-	font-size: 11px;
+	font-size: 12px;
 	font-weight : bold;
 }
 .f10b {
 	font-weight: bold;
-	font-size: 10px;
+	font-size: 11px;
 }
 .f10 {
 	font-weight: normal;
-	font-size: 10px;
+	font-size: 11px;
 }
 .f11b {
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 12px;
 }
 .f11 {
 	font-weight: normal;
-	font-size: 11px;
-}
-.button10 {
-	font-size: 11px;
-	width: auto;
-	padding: 1px;
-}
-.button12 {
 	font-size: 12px;
 }
-button.button10 {
-	padding: 0 6px;
-	line-height: 18px;
-}
 .dir {
-	font-size: 11px;
+	font-size: 12px;
 	color: #000000;
 }
 .dir,
@@ -271,7 +260,7 @@ button.button10 {
 }
 .inaktiv,
 .inaktiv a {
-	font-size: 11px;
+	font-size: 12px;
 	text-decoration : none;
 	color: #ADB2BE
 }
@@ -296,13 +285,13 @@ button.button10 {
 .subnavactive,
 .subnavactive a {
 	color: #305270;
-	font-size: 10px;
+	font-size: 12px;
 	text-decoration: none;
 }
 .subnavinactive,
 .subnavinactive a {
 	color: #406C94;
-	font-size: 10px;
+	font-size: 12px;
 	text-decoration: none;
 }
 .subnavactive a:hover,
@@ -311,7 +300,7 @@ button.button10 {
 	text-decoration: underline;
 }
 .code {
-	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", monospace;
 	font-size: 12px;
 }
 .clickMenu {
@@ -359,8 +348,6 @@ button.button10 {
 	white-space: nowrap;
 }
 .dynCalendar_header select {
-	font-size: 10px !important;
-	font-size: 10px;
 	width: auto;
 }
 .dynCalendar_dayname {
@@ -386,7 +373,6 @@ td.dynCalendar_day:hover, td.dynCalendar_today:hover {
 	background-color: #FFCC33;
 }
 .dynCalendar select {
-	font-size: 10px !important;
 	width: auto !important;
 }
 h1 {
@@ -450,7 +436,7 @@ h1 {
 	text-align: left;
 }
 .listingTable button {
-	font-size: 10px;
+	font-size: 11px;
 }
 .listingTable .actions {
 	text-align: right;
@@ -475,7 +461,7 @@ h1 {
 	margin-top: 15px;
 }
 .inputButton button {
-	font-size: 11px;
+	font-size: 12px;
 	margin-right: 10px;
 }
 .inactive {
@@ -499,7 +485,6 @@ tr.inactive td {
 	border: 1px solid #7599BB;
 }
 .paginate select.drop {
-	font-size: 10px;
 	color: #406C94;
 	padding: 0;
 	margin: 0;
@@ -565,7 +550,7 @@ td.button_td img {
 }
 .csv {
 	color: #000000;
-	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", monospace;
 	font-size: 12px;
 	border: 1px solid #5BAE00;
 	background-color: #D7E9C7;
@@ -582,13 +567,13 @@ td.button_td img {
 	border: 1px solid #7599BB;
 	margin: 0;
 	padding: 5px;
-	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", monospace;
 	font-weight: normal;
 	background-color: #FFFFFF;
 }
 #codebox p {
 	border-bottom: 1px solid #E9E9E9;
-	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", monospace;
 	font-weight: normal;
 	margin: 0 0 2px 0;
 	padding: 0 0 2px 0;
@@ -633,7 +618,6 @@ td.button_td img {
 }
 select.optionTransfer {
 	width: 218px;
-	font-size: 11px;
 	font-weight: bold;
 	margin-bottom: 4px;
 }
@@ -675,7 +659,7 @@ tr.listrow:hover {
 }
 #licenseExtensions {
 	margin-top: 15px;
-	font-size: 11px;
+	font-size: 12px;
 }
 #licenseExtensions ul {
 	margin: 0 0 0 23px;
@@ -683,7 +667,7 @@ tr.listrow:hover {
 }
 #licenseExtensions li {
 	margin: 0 0 6px 0;
-	font-size: 11px;
+	font-size: 12px;
 	list-style: disc;
 }
 select.listrow option {
@@ -739,6 +723,9 @@ table.tdMorepace td {
 .width75 {
 	width: 75px;
 }
+.width85 {
+	width: 85px;
+}
 .width100 {
 	width: 100px;
 }
@@ -757,11 +744,17 @@ table.tdMorepace td {
 .width175 {
 	width: 175px;
 }
+.width180 {
+	width: 180px;
+}
 .width185 {
 	width: 185px;
 }
 .width200 {
 	width: 200px;
+}
+.width215 {
+	width: 215px;
 }
 .width225 {
 	width: 225px;
@@ -771,6 +764,12 @@ table.tdMorepace td {
 }
 .width300 {
 	width: 300px;
+}
+.width325 {
+	width: 325px;
+}
+.width330 {
+	width: 330px;
 }
 .width350 {
 	width: 350px;
@@ -784,6 +783,9 @@ table.tdMorepace td {
 .width400 {
 	width: 400px;
 }
+.width420 {
+	width: 420px;
+}
 .width440 {
 	width: 440px;
 }
@@ -793,6 +795,9 @@ table.tdMorepace td {
 .width440p5 {
 	width: 433px;
 	margin-right: 5px;
+}
+.width500 {
+	width: 500px;
 }
 .width540 {
 	width: 540px;
@@ -941,7 +946,7 @@ td.inlineCheckbox label {
 
 #tabsG {
 	background: #FFFFFF;
-	font-size: 11px;
+	font-size: 12px;
 	line-height: normal;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
@@ -1174,9 +1179,6 @@ form.free label.checkbox {
 	float: left;
 	padding: 0 8px 0 3px;
 	width: auto;
-	font-size: 11px;
-}
-form.free input, form.free textarea, form.free select {
 	font-size: 12px;
 }
 form.free input.text, form.free textarea, form.free select {
@@ -1191,7 +1193,6 @@ form.free input.veryshort {
 form.free input.file {
 	width: 250px;
 	color: #727889;
-	font-size: 11px;
 }
 form.free input.checkbox_left {
 	float: left;
@@ -1252,7 +1253,7 @@ ul.autocompleter-choices li {
 	font-weight: normal;
 	font-size: 14px;
 	list-style: none;
-	font-family: "Lucida Grande", Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-family: "Helvetica Neue", sans-serif
 	line-height: 135%;
 }
 ul.autocompleter-choices li.autocompleter-selected {
@@ -1334,7 +1335,7 @@ button.btn_add_tab span {
 	padding: 2px 4px 2px 30px;
 	background: url(../../img/famfamfam/tab_add.gif) no-repeat 5px center;
 	float: left;
-	font-size: 11px;
+	font-size: 12px;
 	line-height: 1.5em;
 }
 td.col1w {
@@ -1416,7 +1417,7 @@ ul#images input.w300, ul#images textarea.w300 {
 	width: 300px;
 }
 button span.btn_image_add {
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	padding: 2px 4px 2px 22px;
 	background: url(../../img/famfamfam/image_add.gif) no-repeat left center;
@@ -1565,7 +1566,7 @@ ul#images em.handle {
 }
 .qq-upload-button {
 	margin: 0;
-	font-size: 11px !important;
+	font-size: 12px !important;
 	padding-bottom: 4px !important;
 }
 #upload-trigger-send {
@@ -1582,7 +1583,7 @@ ul#images em.handle {
 	font-size: 12px;
 }
 .checkbox-list.v11 label {
-	font-size: 11px;
+	font-size: 12px;
 }
 .checkbox-list label:hover {
 	font-weight: bold;

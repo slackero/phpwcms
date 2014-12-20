@@ -124,11 +124,11 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button10" value="<?php echo empty($glossary['data']['glossary_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo empty($glossary['data']['glossary_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button10" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>&edit=0';return false;" />
-			<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>';return false;" />
+			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>&edit=0';return false;" />
+			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>';return false;" />
 		</td>
 	</tr>
 

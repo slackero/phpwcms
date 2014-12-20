@@ -71,7 +71,7 @@ if(empty($content['search']['type'])) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -123,7 +123,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_search_startlevel'] ?>:&nbsp;</td>
-	<td><select name="csearch_start_at[]" size="10" multiple="multiple" class="f11" id="csearch_start_at" style="width: 440px">
+	<td><select name="csearch_start_at[]" size="10" multiple="multiple" class="width440" id="csearch_start_at">
 <?php
 				if(!isset($content["search"]["start_at"]) || !is_array($content["search"]["start_at"])) {
 					$content["search"]["start_at"] = array();
@@ -377,7 +377,7 @@ if(count($content['search']['module_search'])) {
 
   <tr>
     <td align="right" class="chatlist" valign="top" >&nbsp;</td>
-    <td><textarea name="csearch_label_pages" rows="4" class="f11" id="csearch_label_pages" style="width: 440px"><?php echo  isset($content["search"]["label_pages"]) ? html($content["search"]["label_pages"]) : '' ?></textarea></td>
+    <td><textarea name="csearch_label_pages" rows="4" class="width440" id="csearch_label_pages"><?php echo  isset($content["search"]["label_pages"]) ? html($content["search"]["label_pages"]) : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 </tr>
@@ -423,19 +423,19 @@ if(count($content['search']['module_search'])) {
 	</tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_intro'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_intro" rows="6" class="f10" id="csearch_text_intro" style="width: 440px"><?php echo isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_intro" rows="6" class="width440" id="csearch_text_intro"><?php echo isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 </tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_result'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_result" rows="6" class="f10"  id="csearch_text_result" style="width: 440px"><?php echo isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_result" rows="6" class="width440"  id="csearch_text_result"><?php echo isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 </tr>
   <tr>
     <td align="right" class="chatlist tdtop3" nowrap="nowrap"><?php echo $BL['be_cnt_noresult'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="f10"  id="csearch_text_noresult" style="width: 440px"><?php echo isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="width440"  id="csearch_text_noresult"><?php echo isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
   </tr>
 
  <tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

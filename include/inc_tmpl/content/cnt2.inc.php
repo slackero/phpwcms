@@ -66,7 +66,7 @@ if(!isset($content['image_list']['limit'])) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -92,7 +92,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-		<td valign="top"><select name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+5 : 5 ?>" multiple class="f11" id="cimage_list" style="width: 300px;">
+		<td valign="top"><select name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+5 : 5 ?>" multiple="multiple" class="width300" id="cimage_list">
 <?php
 if(isset($content['image_list']['images']) && is_array($content['image_list']['images']) && count($content['image_list']['images'])) {
 
@@ -157,7 +157,7 @@ if($img_thumbs) {
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_position'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><select name="cimage_pos" class="f10" id="cimage_pos" onChange="changeImagePosMenu();">
+			      <td><select name="cimage_pos" id="cimage_pos" onChange="changeImagePosMenu();">
 			    <option value="0" <?php is_selected(0, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos0'] ?></option>
 			    <option value="1" <?php is_selected(1, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos1'] ?></option>
 			    <option value="2" <?php is_selected(2, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos2'] ?></option>
@@ -219,7 +219,7 @@ if($img_thumbs) {
    <td align="right" class="chatlist"><?php echo $BL['limit_image_from_list'] ?>:&nbsp;</td>
    <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
          <tr>
-            <td><select name="cimage_limit" class="f10" id="cimage_limit">
+            <td><select name="cimage_limit" id="cimage_limit">
 		<option value="0"<?php is_selected(0, $content['image_list']['limit']); ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
 <?php
 // take max images from list
@@ -248,7 +248,7 @@ for($max_image_limit = 1; $max_image_limit <= $max_limit; $max_image_limit++) {
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-				  <td><select name="cimage_col" class="f10" id="cimage_col">
+				  <td><select name="cimage_col" id="cimage_col">
 <?php
 
 // list select menu for max image columns
@@ -295,7 +295,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top">
-		<textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="f11 width440" id="cimage_caption"><?php echo $caption_box; ?></textarea>
+		<textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="width440" id="cimage_caption"><?php echo $caption_box; ?></textarea>
 		<span class="caption width440">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|

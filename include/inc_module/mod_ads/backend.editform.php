@@ -246,7 +246,7 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 
 	<tr>
 		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BLM['comment'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" style="width:400px" rows="5" class="v12"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea></td>
+		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="width400"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
@@ -266,11 +266,11 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button10" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&campaign=1&edit=0';return false;" />
-			<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
+			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&campaign=1&edit=0';return false;" />
+			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
 		</td>
 	</tr>
 

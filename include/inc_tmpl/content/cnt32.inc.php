@@ -50,7 +50,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><select name="template" id="template" class="f11b width150">
+			<td><select name="template" id="template" class="width150">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -118,7 +118,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 						<td colspan="2"><input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="v11 width400" /></td>
 					</tr>
 					<tr>
-						<td colspan="3" class="tdtop5"><textarea class="width540 v12" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10"><?php echo html($value['tabtext']); ?></textarea></td>
+						<td colspan="3" class="tdtop5"><textarea class="width540" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10"><?php echo html($value['tabtext']); ?></textarea></td>
 					</tr>
 
 				</table>
@@ -152,7 +152,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 			entry    +=	'<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
 			entry    +=	'<tr><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540 v12">';
+			entry    +=	'<tr><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
 			entry    +=	'<'+'/textarea><'+'/td><'+'/tr><'+'/table>';
 
 			var tab = new Element('li', {'id': 'tab'+entries, 'class': 'tab nomove'} ).setHTML( entry ).injectInside( $('tabs') );

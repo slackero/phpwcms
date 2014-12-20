@@ -91,7 +91,7 @@
 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="15"></td></tr>
           <tr>
             <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2"><input name="Submit" type="submit" class="button10" value="send path values"></td>
+            <td colspan="2"><input name="Submit" type="submit" class="button" value="send path values"></td>
           </tr>
 </table>
   <input name="do" type="hidden" value="1"></form>

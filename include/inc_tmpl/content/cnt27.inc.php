@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="faq_template" id="faq_template" class="f11b">
+	<td><select name="faq_template" id="faq_template">
 <?php
 
 // templates for recipes
@@ -48,7 +48,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2" class="chatlist">&nbsp;<?php echo $BL['be_cnt_question'] ?>:&nbsp;</td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 </tr>
-<tr><td colspan="2"><textarea name="faq_question" rows="4" class="msgtext" id="faq_question" style="width: 536px"><?php
+<tr><td colspan="2"><textarea name="faq_question" rows="4" class="width540" id="faq_question"><?php
 
 	echo empty($content["faq_question"]) ? '' : $content["faq_question"];
 
@@ -115,7 +115,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
-			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="f11" id="cimage_caption" style="width: 300px;"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
+			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300" id="cimage_caption"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
 			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
 

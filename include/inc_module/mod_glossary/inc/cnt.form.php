@@ -65,7 +65,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 <!-- retrieve templates -->
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="glossary_template" id="glossary_template" class="f11b">
+	<td><select name="glossary_template" id="glossary_template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -124,7 +124,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist" style="padding:3px 5px 0 0" valign="top"><?php echo $BL['modules'][$content["module"]]['no_entry'] ?>:</td>
-	<td><textarea name="glossary_noentry" id="glossary_noentry" class="f11" rows="5" style="width: 440px"><?php echo html($content['glossary']['glossary_noentry']) ?></textarea></td>
+	<td><textarea name="glossary_noentry" id="glossary_noentry" class="width440" rows="5"><?php echo html($content['glossary']['glossary_noentry']) ?></textarea></td>
 </tr>
 
 <!-- end custom fields -->

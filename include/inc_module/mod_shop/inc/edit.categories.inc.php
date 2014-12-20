@@ -92,7 +92,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	<tr>
 		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="cat_info" id="cat_info" rows="10" class="v12 width400"><?php echo html($plugin['data']['cat_info']) ?></textarea></td>
+		<td colspan="2"><textarea name="cat_info" id="cat_info" rows="10" class="width400"><?php echo html($plugin['data']['cat_info']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
@@ -114,10 +114,10 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['cat_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['cat_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="close" type="submit" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+			<input name="close" type="submit" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" />
 		</td>
 	</tr>
 </table>

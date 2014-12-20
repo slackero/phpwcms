@@ -26,7 +26,7 @@ $set_user_admin 	= 0;
 $set_user_fe		= 0;
 $send_verification	= 1;
 $user_err			= '';
-				
+
 if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 	//Create Account Daten verarbeiten
 	$new_login 			= slweg($_POST["form_newloginname"]);
@@ -82,14 +82,14 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 					'sender'	=> $phpwcms["admin_email"]
 				));
 			}
-		}					
-	}				
+		}
+	}
 }
-				
+
 if(empty($user_ok)) {
-		
+
 ?><form action="phpwcms.php?do=admin&amp;s=1" method="post" name="edituser"><table border="0" cellpadding="0" cellspacing="0" summary="">
-          <tr> 
+          <tr>
             <td colspan="2"><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
                   <td><img src="img/usricon/usr_add.gif" alt="" width="19" height="16"></td>
@@ -97,7 +97,7 @@ if(empty($user_ok)) {
                 </tr>
               </table></td>
           </tr>
-          <tr> 
+          <tr>
             <td><img src="img/leer.gif" alt="" width="105" height="1"></td>
             <td><img src="img/leer.gif" alt="" width="1" height="5"></td>
           </tr>
@@ -112,31 +112,31 @@ if(empty($user_ok)) {
 		  <?php
 		  } //Ende Fehler New User
 		  ?>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
             <td><input name="form_newloginname" type="text" id="form_newloginname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_login ?>" size="30" maxlength="30"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
             <td><input name="form_newpassword" type="text" id="form_newpassword" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_password ?>" size="30" maxlength="20"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
             <td><input name="form_newemail" type="text" id="form_newemail" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_email ?>" size="30" maxlength="150"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
             <td><input name="form_newrealname" type="text" id="form_newrealname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
           </tr>
-		  
+
 		  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_issection']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
-                <tr> 
+                <tr>
                   <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?>></td>
                   <td><label for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>&nbsp;&nbsp;</td>
 				  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?>></td>
@@ -146,34 +146,34 @@ if(empty($user_ok)) {
 				  <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
                 </tr>
               </table></td>
-          </tr>	
-		  
+          </tr>
+
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_setactive'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr> 
+                <tr>
                   <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?>></td>
                   <td><label for="form_active"><?php echo  $BL['be_admin_usr_iflogin'] ?></label></td>
                 </tr>
               </table></td>
           </tr>
-		  
+
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist" style="color:#FF0000"><?php echo $BL['be_admin_usr_isadmin']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr> 
+                <tr>
                   <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?>></td>
                   <td><label for="form_admin"><?php echo  $BL['be_admin_usr_ifadmin'] ?> <strong style="color:#FF0000">!!!</strong></label></td>
                 </tr>
               </table></td>
-          </tr>		  
-          <tr> 
+          </tr>
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_verify'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-                <tr bgcolor="#E7E8EB"> 
+                <tr bgcolor="#E7E8EB">
                   <td><input name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?>></td>
                   <td><label for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label></td>
                   <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
@@ -182,9 +182,9 @@ if(empty($user_ok)) {
               </table></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"><input name="form_aktion" type="hidden" value="create_account"></td></tr>
-          <tr> 
+          <tr>
             <td>&nbsp;</td>
-            <td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_usr_button'] ?>"></td>
+            <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_button'] ?>"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
       </table></form><img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br /><img src="img/leer.gif" alt="" width="1" height="5"><?php

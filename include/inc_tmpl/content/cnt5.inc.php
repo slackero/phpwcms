@@ -24,7 +24,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -48,5 +48,5 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_linklist'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="ctext" rows="20" wrap="VIRTUAL" class="f11" id="ctext" style="width: 440px"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea></td>
+	<td valign="top"><textarea name="ctext" rows="20" wrap="VIRTUAL" class="width440" id="ctext"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea></td>
 </tr>

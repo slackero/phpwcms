@@ -31,7 +31,7 @@ if(empty($content['cimage']['cimage_crop'])) {
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -91,7 +91,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" class="chatlist"><?php echo  $BL['be_cnt_position'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><select name="cimage_pos" class="f10" id="cimage_pos" onchange="changeImagePosMenu();">
+			      <td><select name="cimage_pos" id="cimage_pos" onchange="changeImagePosMenu();">
 			    <option value="0" <?php
 				if(!isset($content["image_pos"])) $content["image_pos"] = 0;
 
@@ -181,7 +181,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top">
-			        	<textarea name="cimage_caption" cols="30" rows="4" class="f11 width300" id="cimage_caption"><?php
+			        	<textarea name="cimage_caption" cols="30" rows="4" class="width300" id="cimage_caption"><?php
 			        	if(isset($content["image_caption"])) {
 			        		echo html($content["image_caption"]);
 			        	}

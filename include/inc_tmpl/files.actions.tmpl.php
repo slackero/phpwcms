@@ -315,7 +315,7 @@ if($fx) {
 
 			<td>&nbsp;</td>
 
-			<td><div id="div_button" style="display: none;"><input name="Submit" type="submit" class="button10" value="<?php echo $BL['file_actions_button'] ?>" /></div></td>
+			<td><div id="div_button" style="display: none;"><input name="Submit" type="submit" class="button" value="<?php echo $BL['file_actions_button'] ?>" /></div></td>
 		</tr>
 
 	</table>

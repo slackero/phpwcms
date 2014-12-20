@@ -219,7 +219,7 @@ initMootoolsAutocompleter();
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['calendar_teasertext'] ?>:&nbsp;</td>
-		<td><textarea name="calendar_teaser" id="calendar_teaser" class="v12 width375" rows="5"><?php echo html($plugin['data']['calendar_teaser']) ?></textarea></td>
+		<td><textarea name="calendar_teaser" id="calendar_teaser" class="width375" rows="5"><?php echo html($plugin['data']['calendar_teaser']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
@@ -289,7 +289,7 @@ initMootoolsAutocompleter();
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 		<td class="tdbottom4">
-		<textarea name="cnt_image_caption" id="cnt_image_caption" class="v12 width350" rows="2"><?php echo html($plugin['data']['calendar_image']['caption']) ?></textarea>
+		<textarea name="cnt_image_caption" id="cnt_image_caption" class="width350" rows="2"><?php echo html($plugin['data']['calendar_image']['caption']) ?></textarea>
 		</td>
 	</tr>
 
@@ -329,11 +329,11 @@ initMootoolsAutocompleter();
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['calendar_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['calendar_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button10" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&edit=0';return false;" />
-			<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
+			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&edit=0';return false;" />
+			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
 		</td>
 	</tr>
 

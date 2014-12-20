@@ -383,14 +383,14 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 	<tr class="formrowdark">
 		<td>&nbsp;</td>
 		<td colspan="2">
-			<input type="submit" class="button10" value="<?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?>" />
-			<input type="reset" class="button10" value="<?php echo $BL['be_cnt_field']['reset'] ?>" />
+			<input type="submit" class="button" value="<?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?>" />
+			<input type="reset" class="button" value="<?php echo $BL['be_cnt_field']['reset'] ?>" />
 			&nbsp;&nbsp;
-			<input name="donotsubmit" type="button" class="button10" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&p=14'" />
+			<input name="donotsubmit" type="button" class="button" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&p=14'" />
 			<input type="hidden" name="rid" value="<?php echo $data['rid'] ?>" />
 		</td>
 		<td align="right">
-			<?php if($rid): ?><input type="submit" class="button10" name="delete_<?php echo md5($rid) ?>" value="<?php echo $BL['be_cnt_delete'] ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');" /><?php endif; ?>&nbsp;&nbsp;
+			<?php if($rid): ?><input type="submit" class="button" name="delete_<?php echo md5($rid) ?>" value="<?php echo $BL['be_cnt_delete'] ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');" /><?php endif; ?>&nbsp;&nbsp;
 		</td>
 	</tr>
 

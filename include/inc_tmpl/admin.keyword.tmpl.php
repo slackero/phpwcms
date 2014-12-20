@@ -74,7 +74,7 @@ $keyword["id"] = 0;
           <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 		  <?php
 		  	$keyword["id"] = intval($_GET["keyid"]);
-			if($keyword["id"]) {	
+			if($keyword["id"]) {
 				$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_id=".$keyword["id"]." LIMIT 1;";
 				if($result = mysql_query($sql, $db) or die("error while retrieving keywords")) {
 					if($row = mysql_fetch_array($result)) {
@@ -86,22 +86,22 @@ $keyword["id"] = 0;
 			} else {
 				$sendbutton = $BL['be_admin_fcat_button2'];
 			}
-		  
+
 			if(isset($_POST["keyword_aktion"]) && intval($_POST["keyword_aktion"])) { // show form for editing keywords
-				
+
 				$keyword["name"]	= clean_slweg($_POST["keyword_name"], 250);
 				$keyword["id"]		= intval($_POST["keyword_id"]);
-			
+
 				$keyword["name"]	= str_replace(';', ' ', $keyword["name"]);
 				$keyword["name"]	= str_replace(',', ' ', $keyword["name"]);
 				$keyword["name"]	= preg_replace('/\s{1,}/', ' ', $keyword["name"]);
-			
+
 				if(empty($keyword["name"])) {
-					$keyword["error"] = 1; 
+					$keyword["error"] = 1;
 				} else {
 					if(!$keyword["id"]) {
 						$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_keyword SET ";
-						$sql .= "keyword_name = '".aporeplace($keyword["name"])."'";	
+						$sql .= "keyword_name = '".aporeplace($keyword["name"])."'";
 					} else {
 						$sql  = "UPDATE ".DB_PREPEND."phpwcms_keyword SET ";
 						$sql .= "keyword_name='".aporeplace($keyword["name"]);
@@ -110,11 +110,11 @@ $keyword["id"] = 0;
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating keyword")) {
 						if(!$keyword["id"]) $keyword["id"] = mysql_insert_id($db);
 						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=5");
-					}			
+					}
 				}
-			
+
 			}
-		  
+
 		  ?>
 		  <form action="phpwcms.php?do=admin&amp;p=5&amp;keyid=<?php echo $keyword["id"] ?>" method="post" name="keywords">
 		  <tr align="center" bgcolor="#F0F2F4"><td colspan="2"><table border="0" cellspacing="0" cellpadding="0">
@@ -132,7 +132,7 @@ $keyword["id"] = 0;
 		    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 		    <tr>
 		      <td><input name="keyword_id" type="hidden" id="keyword_id" value="<?php echo intval($keyword["id"]) ?>"><input name="keyword_aktion" type="hidden" id="keyword_aktion" value="1"></td>
-		      <td><input name="Submit" type="submit" class="button10" style="width: 150px;" value="<?php echo $sendbutton ?>">&nbsp;&nbsp;<input name="donotsubmit" type="button" class="button10" style="width: 80px;" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&p=5';"></td>
+		      <td><input name="Submit" type="submit" class="button" style="width: 150px;" value="<?php echo $sendbutton ?>">&nbsp;&nbsp;<input name="donotsubmit" type="button" class="button" style="width: 80px;" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&p=5';"></td>
 		      </tr>
 		    </table></td>
 		  </tr>
@@ -147,26 +147,26 @@ $keyword["id"] = 0;
 			$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 ORDER BY keyword_name;";
 			if($result = mysql_query($sql, $db) or die("error while browsing keyword list")) {
 				while($row = mysql_fetch_assoc($result)) {
-					
+
 		 			echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
 					echo "<td width=\"483\"><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
 
 					echo "<td>";
 					echo "<img src=\"img/symbole/plus_empty.gif\" width=\"15\" height=\"15\" border=\"0\"></td>\n";
-						
+
               		echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
 					echo "<td class=\"dir\"><strong>".html($row["keyword_name"])."</strong></td>\n";
               		echo "</tr>\n</table></td>\n<td width=\"55\" align=\"right\">";
-					
+
 					echo "<a href=\"phpwcms.php?do=admin&p=5&keyid=".$row["keyword_id"]."\" title =\"".$BL['be_admin_keyword_edit']."\">";
 					echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
-					
+
 					echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["keyword_id"]."\" title =\"".$BL['be_admin_keyword_del']."\" ";
 					echo "onclick=\"return confirm('".$BL['be_admin_keyword_delmsg']."\\n[".html($row["keyword_name"])."] ');\">";
 					echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
-					
+
 					echo "</td>\n</tr>\n";
-					
+
 		  		}
 		  		mysql_free_result($result);
 			}
@@ -177,6 +177,6 @@ $keyword["id"] = 0;
             <td><img src="img/leer.gif" alt="" width="483" height="1"></td>
 			<td><img src="img/leer.gif" alt="" width="55" height="5"></td>
           </tr>
-          <tr><td colspan="2"><form action="phpwcms.php?do=admin&amp;p=5&amp;keyid=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_keyword_add'] ?>" class="button10" title="<?php echo $BL['be_admin_keyword_add'] ?>"></form></td></tr>
+          <tr><td colspan="2"><form action="phpwcms.php?do=admin&amp;p=5&amp;keyid=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_keyword_add'] ?>" class="button" title="<?php echo $BL['be_admin_keyword_add'] ?>"></form></td></tr>
 </table>
 // -->

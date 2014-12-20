@@ -220,27 +220,27 @@ switch($acat_hidden) {
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
-		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="f11b" style="width: 450px" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
+		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width450" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_article_aredirect'] ?>:</td></tr>
-		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="f11b" style="width: 450px" value="<?php echo html($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
+		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="width450" value="<?php echo html($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		<tr><td class="v09"><?php echo $BL['be_article_akeywords'] ?>:</td></tr>
-          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="f11 width540"><?php echo html($acat_keywords) ?></textarea></td></tr>
+          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="width540"><?php echo html($acat_keywords) ?></textarea></td></tr>
 
 		<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_info'] ?>:</td></tr>
-          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="f11 width540"><?php echo html($acat_info) ?></textarea></td></tr>
+          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="width540"><?php echo html($acat_info) ?></textarea></td></tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 		  <tr>
-		  	<td><select name="acat_template" id="acat_template" class="f11b width300">
+		  	<td><select name="acat_template" id="acat_template" class="width300">
 <?php
 
 $_temp_cat = '';
@@ -274,7 +274,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		  <tr><td class="v09"><?php echo $BL['be_settings'] ?>:&nbsp;<i><?php echo $BL['be_overwrite_default'] ?></i></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 		  <tr>
-		  	<td><select name="acat_overwrite" id="acat_overwrite" class="f11b width300">
+		  	<td><select name="acat_overwrite" id="acat_overwrite" class="width300">
 			<option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
 <?php
 
@@ -315,18 +315,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		  <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 		  <tr>
-		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="f11b width125" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
+		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="width125" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
 			<td>&nbsp;</td>
 
 			<td bgcolor="#D9DEE3"><input name="acat_paginate" type="checkbox" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo "checked"; ?> /></td>
 			<td bgcolor="#D9DEE3">&nbsp;<label for="acat_paginate"><?php echo $BL['be_article_pagination'] ?></label>&nbsp;&nbsp;</td>
 
 			<td>&nbsp;</td>
-			<td><input name="acat_maxlist" type="text" id="acat_maxlist" class="f11b width75" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" /></td>
+			<td><input name="acat_maxlist" type="text" id="acat_maxlist" class="width75" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" /></td>
 
 <?php if($acat_struct_mode != 'INDEX'): ?>
 		 	<td>&nbsp;</td>
-		 	<td><input name="acat_sort" type="text" id="acat_sort" class="f11b width75" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" /></td>
+		 	<td><input name="acat_sort" type="text" id="acat_sort" class="width75" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" /></td>
 <?php endif; ?>
 
 		  </tr>
@@ -465,7 +465,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<tr>
 		  		<td class="v09" style="width:280px;"><?php echo $BL['be_structform_selected_cp'] ?>:</td>
 				<td class="v09"><?php echo $BL['be_admin_tmpl_default'] ?>:&nbsp;</td>
-				<td style="padding:2px 0;"><select name="acat_cpdefault" class="f10">
+				<td style="padding:2px 0;"><select name="acat_cpdefault">
 <?php
 foreach($wcs_content_type as $key => $value) {
 	echo '<option value="'.$key.'"'.is_selected($acat_cpdefault, $key,1, 0).'>'.$value."</option>\n";
@@ -479,7 +479,7 @@ foreach($wcs_content_type as $key => $value) {
           <tr>
             <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
               <tr>
-                <td><select name="acat_cp[]" id="acat_cp" size="9" multiple="multiple" style="width: 255px" class="f10" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);">
+                <td><select name="acat_cp[]" id="acat_cp" size="9" multiple="multiple" class="width250" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);">
 
 <?php
 
@@ -511,7 +511,7 @@ foreach($acat_cntpart as $value) {
 <img src="img/button/list_pos_up.gif" alt="" width="15" height="15" border="0" onclick="moveOptionUp(document.editsitestructure.acat_cp);" /><br />
 <img src="img/leer.gif" width="1" height="3" alt="" /><br />
 <img src="img/button/list_pos_down.gif" alt="" width="15" height="15" border="0" onclick="moveOptionDown(document.editsitestructure.acat_cp);" /></td>
-<td><select name="acat_cpa" size="9" multiple="multiple" id="acat_cpa" style="width: 255px" class="f10" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
+<td><select name="acat_cpa" size="9" multiple="multiple" id="acat_cpa" class="width225" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
 
 <?php
 //Menü mit Content Typen erstellen
@@ -566,7 +566,7 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
                 <tr bgcolor="#D9DEE3">
                   <td class="inactive"><input name="acat_cacheoff" type="checkbox" id="acat_cacheoff" value="1"<?php if($acat_timeout === '0') echo "checked"; ?> /></td>
 				  <td class="inactive">&nbsp;<label for="acat_cacheoff"><?php echo $BL['be_off'] ?></label>&nbsp;</td>
-				  <td class="inactive"><select name="acat_timeout" class="f11" style="margin:2px;width:85px;" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
+				  <td class="inactive"><select name="acat_timeout" class="width85" style="margin:2px;" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
 <?php
 echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
 echo '<option value="60"'.is_selected($acat_timeout, '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
@@ -620,10 +620,10 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 				<input name="acat_struct" type="hidden" id="acat_struct" value="<?php echo $acat_struct; ?>" />
 				<input name="acat_new" type="hidden" id="acat_new" value="<?php echo $acat_new; ?>" />
 				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" />
-		  		<input name="submit" type="submit" class="button10" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
-		  		<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+		  		<input name="submit" type="submit" class="button" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
+		  		<input name="SubmitClose" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 		  		&nbsp;&nbsp;&nbsp;&nbsp;
-		 		<input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" />
+		 		<input name="donotsubmit" type="button" class="button" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" />
 			</td></tr>
 </table>
 </form>

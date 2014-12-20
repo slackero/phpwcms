@@ -173,19 +173,19 @@ if($result = mysql_query($sql, $db)) {
   <form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
   <tr>
   <td>name:&nbsp;</td>
-  <td><input name="gbname" type="text" id="gbname" style="width:350px;" value="<?php echo htmlspecialchars($row['guestbook_name']) ?>" /></td>
+  <td><input name="gbname" type="text" id="gbname" class="width350" value="<?php echo htmlspecialchars($row['guestbook_name']) ?>" /></td>
   </tr>
   <tr>
   <td>email:&nbsp;</td>
-  <td><input name="gbemail" type="text" id="gbemail" style="width:350px;" value="<?php echo htmlspecialchars($row['guestbook_email']) ?>" /></td>
+  <td><input name="gbemail" type="text" id="gbemail" class="width350" value="<?php echo htmlspecialchars($row['guestbook_email']) ?>" /></td>
   </tr>
   <tr>
   <td>URL:&nbsp;</td>
-  <td><input name="gburl" type="text" id="gburl" style="width:350px;" value="<?php echo htmlspecialchars($row['guestbook_url']) ?>" /></td>
+  <td><input name="gburl" type="text" id="gburl" class="width350" value="<?php echo htmlspecialchars($row['guestbook_url']) ?>" /></td>
   </tr>
   <tr>
   <td valign="top">msg:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
-  <td><textarea name="gbmsg" rows="10" id="gbmsg" style="width:350px;"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
+  <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
   </tr>
   <tr>
     <td valign="top" class="v10">display:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
@@ -196,8 +196,8 @@ if($result = mysql_query($sql, $db)) {
   <tr>
   <td><img src="../../img/leer.gif" alt="" width="1" height="30" /><input name="gbcid" type="hidden" value="<?php echo intval($row['guestbook_cid']) ?>" /><input name="gbid" type="hidden" value="<?php echo intval($row['guestbook_id']) ?>" /></td>
   <td valign="bottom">
-  	<input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" style="font-size:10px;" />
-    <input name="gbcancel" type="button" id="gbcancel" value="close" style="font-size:10px;" onclick="location.href='act_guestbook.php?cid=<?php echo $row['guestbook_cid'] ?>';" /></td>
+  	<input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" />
+    <input name="gbcancel" type="button" id="gbcancel" value="close" onclick="location.href='act_guestbook.php?cid=<?php echo $row['guestbook_cid'] ?>';" /></td>
   </tr>
   </form>
 <?php

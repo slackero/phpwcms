@@ -19,11 +19,11 @@ if (!defined('PHPWCMS_ROOT')) {
 $buttonAction  = '<table cellpadding="0" cellspacing="0" border="0"><tr>'.LF;
 // Article List
 $buttonAction .= '<td><input type="button" value="'.$BL['be_article_cnt_center'];
-$buttonAction .= '" class="button10" title="'.$BL['be_article_cnt_center'].'" onclick="';
+$buttonAction .= '" class="button" title="'.$BL['be_article_cnt_center'].'" onclick="';
 $buttonAction .= "location.href='phpwcms.php?do=articles';return false;\"></td>\n<td>&nbsp;</td>\n";
 // Article Preview (new window)
 $buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($article["article_alias"]) ? 'aid='.$article["article_id"] : $article["article_alias"]);
-$buttonAction .= '<td><input type="button" value="'.$BL['be_func_struct_preview'].'" class="button10" title="'.$BL['be_func_struct_preview'].'" onclick="';
+$buttonAction .= '<td><input type="button" value="'.$BL['be_func_struct_preview'].'" class="button" title="'.$BL['be_func_struct_preview'].'" onclick="';
 $buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');return false;\"></td>";
 $buttonAction .= '</tr></table>';
 

@@ -68,7 +68,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
 	<tr>
             <td align="right" class="v10">mail&nbsp;method :&nbsp;</td>
-            <td><select name="smtp_mailer" id="smtp_mailer" class="f11b">
+            <td><select name="smtp_mailer" id="smtp_mailer">
               <option value="mail" <?php if(strtolower($phpwcms['SMTP_MAILER']) == 'mail') echo 'selected="selected"'; ?>>PHP mail()</option>
               <option value="smtp" <?php if(strtolower($phpwcms['SMTP_MAILER']) == 'smtp') echo 'selected="selected"'; ?>>SMTP</option>
               <option value="sendmail" <?php if(strtolower($phpwcms['SMTP_MAILER']) == 'sendmail') echo 'selected="selected"'; ?>>UNIX sendmail</option>
@@ -107,7 +107,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
 
     <tr>
             <td align="right" class="v10">secure connection:&nbsp;</td>
-            <td><select name="smtp_secure" id="smtp_secure" class="f11b">
+            <td><select name="smtp_secure" id="smtp_secure">
               <option value="" <?php if(empty($phpwcms['SMTP_SECURE'])) echo 'selected="selected"'; ?>>default (no secure connection)</option>
               <option value="ssl" <?php if(strtolower($phpwcms['SMTP_SECURE']) == 'ssl') echo 'selected="selected"'; ?>>SSL</option>
               <option value="tls" <?php if(strtolower($phpwcms['SMTP_SECURE']) == 'tls') echo 'selected="selected"'; ?>>TLS</option>
@@ -121,7 +121,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
           <tr>
             <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2"><input name="Submit" type="submit" class="button10" value="send site data"></td>
+            <td colspan="2"><input name="Submit" type="submit" class="button" value="send site data"></td>
           </tr>
 </table>
 <input name="do" type="hidden" value="1"></form>

@@ -188,7 +188,7 @@ if (!defined('PHPWCMS_ROOT')) {
 ?>
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-		<td><select name="newsletter_template" id="newsletter_template" class="f11" onchange="showNewsletterTemplateData(this.options[this.selectedIndex].value);">
+		<td><select name="newsletter_template" id="newsletter_template" onchange="showNewsletterTemplateData(this.options[this.selectedIndex].value);">
 			<option value=""<?php if(empty($newsletter["newsletter_vars"]['template'])) echo ' selected="selected"' ?>><?php echo $BL['be_admin_tmpl_default'].' ('.$BL['be_func_struct_empty'].')' ?></option>
 			<?php echo implode($tmpldata['options']) ?>
 		</select></td>
@@ -248,7 +248,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 	</tr>
 	<tr><td class="chatlist"><?php echo $BL['be_newsletter_textpart'] ?>:</td></tr>
 	<tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-	<tr><td><textarea name="newsletter_text" rows="25" wrap="off" class="code" style="width:536px;height:200px;background-color:#ffffff;"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea></td></tr>
+	<tr><td><textarea name="newsletter_text" rows="25" wrap="off" class="code width540"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea></td></tr>
 
 	</table>
 	<!-- </div> --></td>
@@ -289,11 +289,11 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 		<td>
 		<input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
 		<div id="newsletterButtons">
-		<input name="submit" type="submit" class="button10" value="<?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
+		<input name="submit" type="submit" class="button" value="<?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
 		&nbsp;
-		<input name="close" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+		<input name="close" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=3';" />
+		<input type="button" class="button" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=3';" />
 		</div>
 		<div id="statusMessage"><img src="img/indicator/indicator_arrows_green.gif" alt="Indicator" width="16" height="16" class="icon" /><p><?php echo $BL['be_cnt_newsletter_prepare2'] ?></p></div></td></tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>

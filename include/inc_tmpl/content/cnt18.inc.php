@@ -23,10 +23,9 @@ if (!defined('PHPWCMS_ROOT')) {
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
-
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="cguestbook_template" id="cguestbook_template" class="f11b">
+	<td><select name="cguestbook_template" id="cguestbook_template">
 <?php
 // templates for article listing
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/guestbook');
@@ -269,7 +268,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_guestbook_banned'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cguestbook_banned" cols="40" rows="3" class="f11" style="width:440px"><?php echo  isset($content["guestbook"]["banned"]) ? html($content["guestbook"]["banned"]) : '' ?></textarea></td>
+  <td valign="top"><textarea name="cguestbook_banned" cols="40" rows="3" class="width440"><?php echo  isset($content["guestbook"]["banned"]) ? html($content["guestbook"]["banned"]) : '' ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
 </tr>

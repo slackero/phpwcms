@@ -455,7 +455,7 @@ if(empty($plugin['data']['adcampaign_id'])) {
 	<tr>
 
 		<td align="right" class="chatlist tdtop3"><a href="#" onclick="showHtmlAds();return false;" title="Preview"><?php echo $BLM['ad_type_2'] ?><img src="img/symbole/redirect.gif" alt="" border="0" style="margin:0 1px 0 4px;position:relative;top:1px;" /></a>:&nbsp;</td>
-		<td><textarea name="adcampaign_html" id="adcampaign_html" rows="5" class="v12 width400 code"><?php echo html($plugin['data']['adcampaign_data']['html']) ?></textarea></td>
+		<td><textarea name="adcampaign_html" id="adcampaign_html" rows="5" class="width400 code"><?php echo html($plugin['data']['adcampaign_data']['html']) ?></textarea></td>
 
 	</tr>
 
@@ -504,7 +504,7 @@ if(empty($plugin['data']['adcampaign_id'])) {
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['comment'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="v12 width400"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea></td>
+		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="width400"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
@@ -548,15 +548,15 @@ if(empty($plugin['data']['adcampaign_id'])) {
 		<td>
 		<?php
 		if(empty($plugin['data']['adcampaign_id'])) {
-			echo '<input name="submit" type="submit" class="button10" value="'.$BL['be_admin_fcat_button2'].'" />'.LF;
+			echo '<input name="submit" type="submit" class="button" value="'.$BL['be_admin_fcat_button2'].'" />'.LF;
 		} else {
-			echo '<input name="submit" type="submit" class="button10" value="'.$BL['be_article_cnt_button1'].'" />'.LF;
-			echo '<input name="save" type="submit" class="button10" value="'.$BL['be_article_cnt_button3'].'" />'.LF;
+			echo '<input name="submit" type="submit" class="button" value="'.$BL['be_article_cnt_button1'].'" />'.LF;
+			echo '<input name="save" type="submit" class="button" value="'.$BL['be_article_cnt_button3'].'" />'.LF;
 		}
 		?>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button10" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&campaign=1&edit=0';return false;" />
-			<input name="close" type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&listcampaign=1';return false;" />
+			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&campaign=1&edit=0';return false;" />
+			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&listcampaign=1';return false;" />
 		</td>
 	</tr>
 

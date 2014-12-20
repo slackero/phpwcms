@@ -44,10 +44,10 @@ if($content['recipe']['get_keywords']) {
 $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['all_keywords']);
 
 ?>
-<!-- 
+<!--
 <link href="../../inc_css/phpwcms.css" rel="stylesheet" type="text/css">
 <table cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF" width="440">
- 
+
 //-->
 
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
@@ -61,12 +61,12 @@ if(count($content['recipe']['all_keywords'])) {
 	echo '<select name="ph1" id="ph1" class="v10" ';
 	echo 'onChange="insertAtCursorPos(document.articlecontent.recipe_category, ';
 	echo '\', \'+document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">';
-	
+
 	foreach($content['recipe']['all_keywords'] as $temp_val) {
 		$temp_val = html($temp_val);
 		echo '	<option value="'.$temp_val.'">'.$temp_val.'</option>'.LF;
 	}
-	
+
 	echo '</select></td>';
 	echo '<td><img src="img/button/go04.gif" width="15" height="15" title="Insert" border="0" ';
 	echo 'onclick="insertAtCursorPos(document.articlecontent.recipe_category, ';
@@ -77,12 +77,12 @@ if(count($content['recipe']['all_keywords'])) {
 ?>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="f11" style="width:440px"><?php echo html($content['recipe']['category']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="width440"><?php echo html($content['recipe']['category']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="recipe_template" id="recipe_template" class="f11b">
+	<td><select name="recipe_template" id="recipe_template">
 <?php
 
 // templates for recipes
@@ -99,7 +99,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 		</select></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
@@ -107,7 +107,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13">Zutaten:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="f11" style="width:440px"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="width440"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>

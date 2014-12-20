@@ -26,7 +26,7 @@ $content['file']['direct_download'] = empty($content['file']['direct_download'])
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="cfile_template" id="cfile_template" class="f11b">
+	<td><select name="cfile_template" id="cfile_template">
 
 <?php
 
@@ -70,7 +70,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_files'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-	  <td valign="top"><select name="cfile_list[]" size="8" multiple class="f11" id="cfile_list" style="width: 300px;">
+	  <td valign="top"><select name="cfile_list[]" size="8" multiple class="width300" id="cfile_list">
 	  <?php
 	  if(isset($content["file_list"]) && is_array($content["file_list"]) && count($content["file_list"])) {
 		$fx  = 0;
@@ -119,7 +119,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
   <td valign="top">
-  	<textarea name="cfile_descr" cols="40" rows="8" class="f11 width440" id="cfile_descr"><?php
+  	<textarea name="cfile_descr" cols="40" rows="8" class="width440" id="cfile_descr"><?php
 
 	if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
 		echo ' ';

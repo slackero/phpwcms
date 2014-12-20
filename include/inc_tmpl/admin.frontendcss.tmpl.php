@@ -19,9 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $frontend_css = read_textfile(PHPWCMS_TEMPLATE."inc_css/frontend.css"); //reads the css template
 $frontend_css = ($frontend_css) ? html($frontend_css) : "";
-		
+
 ?><form action="include/inc_act/act_frontendcss.php" method="post" name="css" target="_self"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-	
+
 	<tr>
 	  <td colspan="2" class="title"><?php echo $BL['be_admin_css_title'] ?></td>
 	</tr>
@@ -37,13 +37,13 @@ $frontend_css = ($frontend_css) ? html($frontend_css) : "";
 		<a href="#frontend_css" onclick="contractField('frontend_css', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11"></a><a href="#frontend_css" onclick="growField('frontend_css', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11"></a>
 		</div>
 		</td>
-		<td><textarea name="frontend_css" cols="35" rows="25" wrap="OFF" class="msgtext" id="frontend_css" style="width:500px"><?php echo $frontend_css; ?></textarea></td>
+		<td><textarea name="frontend_css" cols="35" rows="25" wrap="off" class="width500" id="frontend_css"><?php echo $frontend_css; ?></textarea></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_css_button'] ?>"></td>
+		<td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_css_button'] ?>"></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-	
+
 </table></form>

@@ -71,7 +71,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 	</tr>
 	<tr><td colspan="3"><form action="phpwcms.php?do=admin&amp;p=11&amp;s=0" method="post">
-	  <input type="submit" value="<?php echo $BL['be_admin_tmpl_add'] ?>" class="button10" title="<?php echo $BL['be_admin_tmpl_add'] ?>" />
+	  <input type="submit" value="<?php echo $BL['be_admin_tmpl_add'] ?>" class="button" title="<?php echo $BL['be_admin_tmpl_add'] ?>" />
 	</form></td>
 	</tr>
 </table>
@@ -261,7 +261,7 @@ if($result = mysql_query($sql, $db) or die("error while listing pagelayouts")) {
 }
 
 if($opt) {
-	echo '<select name="template_layout" class="f11b width350" id="template_layout"'.$jsOnChange.'>'.LF;
+	echo '<select name="template_layout" class="width350" id="template_layout"'.$jsOnChange.'>'.LF;
 	echo $opt;
 	echo '</select>';
 } else {
@@ -283,7 +283,7 @@ if($opt) {
 
 	<tr bgcolor="#E6EAED">
 		<td align="right" class="chatlist" style="padding-left:2px"><?php echo $BL['be_settings'] ?>:&nbsp;</td>
-		<td><select name="template_overwrite" id="template_overwrite" class="f11b">
+		<td><select name="template_overwrite" id="template_overwrite">
 			<option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
 <?php
 
@@ -373,7 +373,7 @@ foreach($unselected_css as $value) {
       <td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 	  	<tr>
-	  		<td><select name="template_jslib" id="template_jslib" class="f11b">
+	  		<td><select name="template_jslib" id="template_jslib">
 <?php
 foreach($phpwcms['js_lib'] as $key => $value) {
 
@@ -430,9 +430,9 @@ foreach($phpwcms['js_lib'] as $key => $value) {
 	<tr>
 		<td>&nbsp;</td>
 		<td style="padding:7px 0 7px 0">
-			<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_tmpl_button'] ?>" />
+			<input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_tmpl_button'] ?>" />
 			&nbsp;&nbsp;
-			<input type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';" />
+			<input type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';" />
 		</td>
 	</tr>
 	<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
@@ -459,7 +459,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
 	</tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_left'] ?>:&nbsp;</td>
-		<td><textarea name="template_block_left" cols="35" rows="8" class="code" id="template_block_left" style="width:440px"><?php echo html_entities($template["lefttext"]); ?></textarea></td>
+		<td><textarea name="template_block_left" cols="35" rows="8" class="code width440" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 	</tr>
@@ -510,9 +510,9 @@ if(!empty($jsOnChange))  {
 	<tr>
 		<td>&nbsp;<input name="template_id" type="hidden" value="<?php echo $template["id"] ?>" /></td>
 		<td style="padding-bottom:10px;">
-		<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_tmpl_button'] ?>" />
+		<input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_tmpl_button'] ?>" />
 		&nbsp;&nbsp;
-		<input type="button" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';" /></td>
+		<input type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';" /></td>
 	</tr>
 
 </table></form><?php

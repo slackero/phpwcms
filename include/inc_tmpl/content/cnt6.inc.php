@@ -27,7 +27,7 @@ if(!isset($content["html"])) $content["html"] = '';
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -50,5 +50,5 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_plainhtml'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="chtml" rows="30" class="msgtext width440" id="chtml"><?php echo html($content["html"], true) ?></textarea></td>
+	<td valign="top"><textarea name="chtml" rows="30" class="width440" id="chtml"><?php echo html($content["html"], true) ?></textarea></td>
 </tr>

@@ -55,7 +55,7 @@ if(!isset($content['felogin']['felogin_profile_manage_redirect'])) {
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="template" id="template" class="f11b">
+	<td><select name="template" id="template">
 <?php
 
 // templates for frontend login
