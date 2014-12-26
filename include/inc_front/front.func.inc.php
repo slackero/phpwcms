@@ -4138,4 +4138,27 @@ function get_link_anchor($matches) {
 	return $matches[0];
 }
 
+function render_if_category($matches) {
+
+	$cat_ids = convertStringToArray($matches[1]);
+
+	if(!count($cat_ids)) {
+		return '';
+	}
+
+	$current = intval($GLOBALS['content']['cat_id']);
+
+	foreach($cat_ids as $id) {
+
+		$id = intval($id);
+
+		if($id === $current) {
+			return str_replace('{IF_CAT_ID}', $id, $matches[2]);
+		}
+
+	}
+
+	return '';
+}
+
 ?>

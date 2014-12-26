@@ -870,6 +870,12 @@ $content['all'] = render_device($content['all']);
 $content['all'] = str_replace('{CURRENT_ARTICLEID}', $aktion[1], $content['all']);
 $content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all']);
 
+// keep inner content if match category ID [IF_CAT:id,id,id],
+// the matching ID can be used inside with replacer {IF_CAT_ID}
+if(strpos($content["all"],'[IF_CAT:') !== false) {
+	$content['all'] = preg_replace_callback('/\[IF_CAT:([0-9, ]+?)\](.+?)\[\/IF_CAT\]/s', 'render_if_category', $content['all']);
+}
+
 // search for level related replacement tags and replace it, sample: [LEVEL2_ID]{LEVEL2_ID}[/LEVEL2_ID]
 if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
 	// get unique IDs
