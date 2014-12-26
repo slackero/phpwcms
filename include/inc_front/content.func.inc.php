@@ -880,6 +880,47 @@ if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
 	}
 }
 
+//================================
+//CONDITIONAL APPEND REPLACEMENT TAG
+//enym.com 2012
+//----------------------------------
+
+//{COND_APPEND:cat_id,cat_id,cat_id:cp_id}
+
+//FUNCTION: 
+//IF ACTIVE CATEGORY EQUALS OR IS BELOW THE ONE OF THOSE DEFINED IN THE TAG:("cat_id")
+//THEN SHOW THE CONTENT PART SPECIFIED WITHIN THE TAG ("cp_id")
+//YOU CAN USE MULTIPLE CATEGORIES SEPERATED BY COMMA
+
+if(strpos($content["all"],'{COND_APPEND:') !== false) {
+
+	function buildstruct_bottomtop($start=0, $top=0, $cp) { //aktuelle Ebene, suche unterhalb von X, CP
+		$cat_id    = $start;
+		$array1 = explode(",", $top); 
+		$stop     = false;
+
+		while (!$stop ) { 
+			$start = $GLOBALS['content']["struct"][$start]['acat_struct']; // Parent cat
+			$cat_id .= ($cat_id != '') ? ','.$start : $start;
+			if ($start == $top OR $start == 0) $stop = true;
+		}
+                        
+	$array2 = explode(",", $cat_id); 
+	$is_below = false;
+           
+	foreach ($array2 as $key => $value) {
+		if (in_array($value, $array1)) { // || in_array($GLOBALS['aktion'][0], $array1)
+			$is_below = '{SHOW_CONTENT:CP,'.$cp.'}';
+		}
+	}
+	return $is_below; 
+	
+	}
+    
+	$content["all"] = preg_replace('/\{COND_APPEND:(.*?):(.*?)\}/e','buildstruct_bottomtop($content["struct"][$content["cat_id"]]["acat_id"], "$1", "$2");',$content["all"]);
+}
+//================================
+
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
 if(strpos($content["all"],'{SHOW_CONTENT:') !== false) {
 	$content["all"] = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $content["all"]);
