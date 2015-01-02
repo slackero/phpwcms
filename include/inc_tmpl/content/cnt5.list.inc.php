@@ -25,21 +25,18 @@ $cinfo[2] = cut_string($row["acontent_subtitle"],'&#8230;', 55);
 $clink = explode(LF, $row["acontent_text"]);
 $clink_liste = "";
 if(count($clink)) {
- foreach($clink as $key => $value) {
-	 list($clink_name, $clink_link)   = explode("|", $value);
-	 $clink_link = explode(" ", $clink_link);
-	 $clink_target = isset($clink_link[1]) ? $clink_link[1] : '';
-	 $clink_link = $clink_link[0];
-	 $clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ".
-					 "title=\"Link: ".html($clink_link.trim(' '.$clink_target))."\">".
-					 "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
-	 if(isEmpty($clink_name)) {
-		$clink_liste .= html($clink_link)."</a>\n";
-	 } else {
-		$clink_liste .= html($clink_name)."</a>\n";
-	 }
- }
- unset($clink);
+	foreach($clink as $key => $value) {
+		list($clink_name, $clink_link)   = explode("|", $value);
+		$clink_name = trim($clink_name);
+		$clink_link = explode(" ", trim($clink_link));
+		$clink_target = isset($clink_link[1]) ? trim($clink_link[1]) : '';
+		$clink_link = trim($clink_link[0]);
+		$clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ";
+		$clink_liste .= "title=\"Link: ".html($clink_link.trim(' '.$clink_target))."\">";
+		$clink_liste .= "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
+		$clink_liste .= html($clink_name ? $clink_name : $clink_link)."</a>\n";
+	}
+	unset($clink);
 }
 $cinfo["result"] = "";
 
