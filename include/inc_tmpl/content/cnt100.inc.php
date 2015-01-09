@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -44,5 +44,5 @@ if(empty($content['bulletlist']["list_type"])) $content['bulletlist']["list_type
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><textarea name="ctext" rows="30" class="f11" id="ctext" style="width: 440px"><?php echo  isset($content["text"]) ? $content["text"] : '' ?></textarea></td>
+	<td><textarea name="ctext" rows="30" class="width440" id="ctext"><?php echo  isset($content["text"]) ? $content["text"] : '' ?></textarea></td>
 </tr>

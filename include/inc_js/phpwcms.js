@@ -104,7 +104,7 @@ function tmt_winOpen(u,id,f,df){
 	else{eval(id+"=window.open('"+u+"','"+id+"','"+f+"')");eval(id+".focus()");}
 }
 
-function tmt_winControl(id,c){ 
+function tmt_winControl(id,c){
 	var d=eval(id)==null||eval(id+".closed"); if(!d){eval(id+"."+c);}
 }
 
@@ -114,7 +114,7 @@ function get_cookie(Name) {
 	if (document.cookie.length > 0) {
 		offset = document.cookie.indexOf(search);
 		// if cookie exists
-		if (offset != -1) { 
+		if (offset != -1) {
 			offset += search.length; // set index of beginning of value
 			end = document.cookie.indexOf(";", offset); // set index of end of cookie value
 			if (end == -1) end = document.cookie.length;
@@ -177,7 +177,7 @@ function switchToggleFTP(field) {
 	} else {
 		field.value='0';
 	}
-	return parseInt(field.value);
+	return parseInt(field.value,10);
 }
 
 function toggleAllFTP(field, proof) {
@@ -230,7 +230,7 @@ function setCursorPos (textObj) {
 }
 function insertAtCursorPos (textObj, textFieldValue) {
 	textObj.focus();
-	if(document.all){ 
+	if(document.all){
 		if (textObj.createTextRange && textObj.cursorPos) {
 			var cursorPos = textObj.cursorPos;
 			cursorPos.text = cursorPos.text.charAt(cursorPos.text.length - 1) == ' ' ? textFieldValue + ' ' : textFieldValue;
@@ -359,7 +359,7 @@ function enableStatusMessage(fld, showHide, text) {
 function create_alias(str,encoding,ucfirst) {
 	var str = str.toUpperCase();
 	str = str.toLowerCase();
-	
+
 	str = str.replace(/[\u00E0\u00E1\u00E2\u00E3\u00E5]/g,'a');
 	str = str.replace(/[\u00E7]/g,'c');
 	str = str.replace(/[\u00E8\u00E9\u00EA\u00EB]/g,'e');
@@ -406,7 +406,7 @@ if(screen.height !== undefined) {
 function openFileBrowser(url) {
 	if(url != null && url != '') {
 		if(window.imageBrowser && temp_url != url) {
-			tmt_winControl('imageBrowser','close()');	
+			tmt_winControl('imageBrowser','close()');
 		}
 		tmt_winOpen(url,'imageBrowser','width='+fbw+',height='+fbh+',left=8,top=8,scrollbars=yes,resizable=yes',1);
 		temp_url = url;
@@ -425,5 +425,16 @@ function set_article_alias(onempty_only, alias_type, category) {
 	if(onempty_only && aalias.value != '') return false;
 	var atitle = getObjectById(alias_basis)
 	aalias.value = create_alias((category ? category+'/' : '') + atitle.value);
+	return false;
+}
+
+function flush_image_cache(link, url) {
+	link.addClass('ajax-running');
+	new Ajax(url, {
+		method: 'get',
+		onComplete: function(){
+			link.removeClass('ajax-running');
+		}
+	}).request();
 	return false;
 }

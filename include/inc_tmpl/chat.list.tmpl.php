@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -52,7 +52,7 @@ require_once(PHPWCMS_ROOT."/include/inc_lib/autolink.inc.php");
 			$chatclass="";
 		}
 	  	echo "<tr valign='top'>\n<td align='right'".$chatclass.">".$row["chat_name"].":&nbsp;</td>\n";
-		echo "<td width='90%'".$chatclass.">".auto_link(html_specialchars($row["chat_text"]))."</td>\n</tr>\n";
+		echo "<td width='90%'".$chatclass.">".auto_link(html($row["chat_text"]))."</td>\n</tr>\n";
 		} //Chatlisting Ende
 		
 	  ?>

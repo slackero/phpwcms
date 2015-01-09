@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -31,7 +31,7 @@ if(!empty($crow["acontent_form"]['faq_template']) && file_exists(PHPWCMS_TEMPLAT
 	$crow["acontent_form"]['faq_template'] = '<div class="faq">
 	<!-- hidden title/subtitle [TITLE]
 	<h3 id="faq_id{FAQ_ID}">{TITLE}</h3>[/TITLE][SUBTITLE]
-	<h4>{SUBTITLE}</h4>[/SUBTITLE] 
+	<h4>{SUBTITLE}</h4>[/SUBTITLE]
 	-->
 	[FAQ_QUESTION]<h3>{FAQ_QUESTION}</h3>[/FAQ_QUESTION]
 	[FAQ_IMAGE]<div class="faq-image">
@@ -56,33 +56,33 @@ if(!empty($crow["acontent_image"][2])) {
 	$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
 	$caption[1] = empty($caption[1]) ? html_specialchars($crow["acontent_image"][1]) : html_specialchars($caption[1]);
 
-	$thumb_image = get_cached_image(
-	array(	"target_ext"	=>	$crow["acontent_image"][3],
-			"image_name"	=>	$crow["acontent_image"][2] . '.' . $crow["acontent_image"][3],
-			"max_width"		=>	$crow["acontent_image"][4],
-			"max_height"	=>	$crow["acontent_image"][5],
-			"thumb_name"	=>	md5($crow["acontent_image"][2].$crow["acontent_image"][4].$crow["acontent_image"][5].$GLOBALS['phpwcms']["sharpen_level"])
+	$thumb_image = get_cached_image(array(
+		"target_ext"	=>	$crow["acontent_image"][3],
+		"image_name"	=>	$crow["acontent_image"][2] . '.' . $crow["acontent_image"][3],
+		"max_width"		=>	$crow["acontent_image"][4],
+		"max_height"	=>	$crow["acontent_image"][5],
+		"thumb_name"	=>	md5($crow["acontent_image"][2].$crow["acontent_image"][4].$crow["acontent_image"][5].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
 	));
 
 	if($thumb_image != false) {
-	
-		$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3];
+
+		$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
 		$thumb_img .= ' alt="'.$caption[1].'"'.$caption[3].' />';
 
 		if($crow["acontent_image"][8]) {
 
-			$zoominfo = get_cached_image(
-			array(	"target_ext"	=>	$crow["acontent_image"][3],
-					"image_name"	=>	$crow["acontent_image"][2] . '.' . $crow["acontent_image"][3],
-					"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-					"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-					"thumb_name"	=>	md5($crow["acontent_image"][2].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"])
+			$zoominfo = get_cached_image(array(
+				"target_ext"	=>	$crow["acontent_image"][3],
+				"image_name"	=>	$crow["acontent_image"][2] . '.' . $crow["acontent_image"][3],
+				"max_width"		=>	$phpwcms["img_prev_width"],
+				"max_height"	=>	$phpwcms["img_prev_height"],
+				"thumb_name"	=>	md5($crow["acontent_image"][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
 			));
 
 			if($zoominfo != false) {
-			
+
 				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
-			
+
 				if(!empty($caption[2][0])) {
 					$open_link = $caption[2][0];
 					$return_false = '';
@@ -94,8 +94,8 @@ if(!empty($crow["acontent_image"][2])) {
 				$thumb_img = '<a href="'.$popup_img.'" onclick="window.open(\''.$open_link.
 				"','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');".$return_false.
 				'"'.$caption[2][1].'>'.$thumb_img.'</a>';
-				
-				
+
+
 			}
 		} else {
 

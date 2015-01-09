@@ -33,16 +33,57 @@ text_render	= plain
 
 
 <!--IMAGES_ENTRY_START//-->
+	
 	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}">
 		{IMAGE}
 		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
 		[INFOTEXT]
-			<!-- check setting "text_render", default "plain" -->
 			{INFOTEXT}
 		[/INFOTEXT]
 		[URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>more &raquo;</a>[/URL]
 	</div>
-	<!-- 
+	
+	<!--ENTRY_DATA_START//-->
+		<li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
+			<a href="#img{IMGID}">Image {ENTRY_NUM}</a>
+		</li>
+	<!--ENTRY_DATA_END//-->
+	
+<!--IMAGES_ENTRY_END//-->
+
+
+<!--IMAGES_ENTRY_SPACER_START//-->
+
+	<!-- space between images {SPACE}px -->
+
+<!--IMAGES_ENTRY_SPACER_END//-->
+
+
+<!--IMAGES_ROW_SPACER_START//-->
+
+	<!-- space between image rows {SPACE}px -->
+
+<!--IMAGES_ROW_SPACER_END//-->
+
+
+<!--IMAGES_FOOTER_START//-->
+	[DATA]
+		<ol class="indicators">
+			{DATA}
+		</ol>
+		<div class="controls">
+			<a class="prev" href="#images{ID}" role="button" data-slide="prev">
+				<span>Previous</span>
+			</a>
+			<a class="next" href="#images{ID}" role="button" data-slide="next">
+				<span>Next</span>
+			</a>
+		</div>
+	[/DATA]
+</div>
+<!--IMAGES_FOOTER_END//-->
+
+
 
 		Thumbnail image: {THUMB_NAME}
 		  ID/Hash/Ext:      {THUMB_ID}/{THUMB_HASH}/{THUMB_EXT}
@@ -66,25 +107,3 @@ text_render	= plain
 		[EFFECT_1]Yes Effect 1[/EFFECT_1]
 		[EFFECT_2]Yes Effect 2[/EFFECT_2]
 		[EFFECT_3]Yes Effect 3[/EFFECT_3]
-
-	//-->
-<!--IMAGES_ENTRY_END//-->
-
-
-<!--IMAGES_ENTRY_SPACER_START//-->
-
-	<!-- space between images {SPACE}px -->
-
-<!--IMAGES_ENTRY_SPACER_END//-->
-
-
-<!--IMAGES_ROW_SPACER_START//-->
-
-	<!-- space between image rows {SPACE}px -->
-
-<!--IMAGES_ROW_SPACER_END//-->
-
-
-<!--IMAGES_FOOTER_START//-->
-</div>
-<!--IMAGES_FOOTER_END//-->

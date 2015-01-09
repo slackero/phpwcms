@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -15,9 +15,9 @@ if (!defined('PHPWCMS_ROOT')) {
    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-	
+
 	$dir_error = 0;
-	
+
 	//Auswerten des Formulars
 	if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
 		$dir_id 		= abs(intval($_POST["dir_id"]));
@@ -28,23 +28,23 @@ if (!defined('PHPWCMS_ROOT')) {
 		$dir_gallery	= empty($_POST["dir_gallery"]) ? 0 : intval($_POST["dir_gallery"]);
 		$dir_sort		= intval($_POST["dir_sort"]);
 		$dir_pid		= abs(intval($_POST['dir_pid']));
-					
+
 		switch($dir_gallery) {
-		
+
 			case 2:
 			case 3: break;
-			
+
 			default: $dir_gallery = 0;
-		
+
 		}
-		
+
 		if($dir_id == $dir_pid) {
 			$dir_error += 2;
 		}
 		if(empty($dir_newname)) {
 			$dir_error += 1;
 		}
-		
+
 		//Eintragen der aktualisierten Verzeichnisinfos
 		if(empty($dir_error)) {
 			$sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
@@ -64,15 +64,15 @@ if (!defined('PHPWCMS_ROOT')) {
 				//headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
 			}
 		}
-	
+
 	} else {
-	
+
 		//Editieren des Verzeichnisses
 		$dir_id = empty($_GET["editdir"]) ? 0 : intval($_GET["editdir"]);
-	
+
 	}
 	//Ende Auswerten Formular
-				
+
 	//Wenn ID angegeben, dann -> oder aber Root Verzeichnis
 	if($dir_id) {
 
@@ -84,7 +84,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		if($result = mysql_query($sql, $db) or die("error while reading folder name")) {
 			if($row = mysql_fetch_row($result)) {
-				$dir_oldname = html_specialchars($row[1]);
+				$dir_oldname = html($row[1]);
 				$dir_id		 = intval($row[0]);
 				if(empty($_POST["dir_aktion"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) != 2)) {
 					$dir_newname	= $dir_oldname;
@@ -127,7 +127,7 @@ if(!empty($ja)) {
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 	<?php } ?>
-	
+
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
 		<td class="v10"><select name="dir_pid" id="dir_pid" class="width400">
@@ -135,7 +135,7 @@ if(!empty($ja)) {
 			<?php dir_menu(0, $dir_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
 		</select></td>
 	</tr>
-	
+
 	<?php if($dir_error === 1 || $dir_error === 3) { ?>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	<tr>
@@ -144,19 +144,19 @@ if(!empty($ja)) {
 	</tr>
 	<?php } ?>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
-	
+
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_newname'] ?>:&nbsp;</td>
-		<td><input name="dir_newname" type="text" class="width440 v12" id="dir_newname" value="<?php echo html_specialchars($dir_newname) ?>" size="40" maxlength="250" /></td>
+		<td><input name="dir_newname" type="text" class="width440 v12" id="dir_newname" value="<?php echo html($dir_newname) ?>" size="40" maxlength="250" /></td>
 	</tr>
 	<tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 	<tr>
 		<td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="v12 width440" id="dir_longinfo"><?php echo html_specialchars($dir_longinfo) ?></textarea></td>
-	</tr>	
-	
+		<td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="width440" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea></td>
+	</tr>
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-	
+
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_gallery'] ?>:&nbsp;</td>
 		<td><select name="dir_gallery" id="dir_gallery">
@@ -165,17 +165,17 @@ if(!empty($ja)) {
 			<option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
 		</select></td>
 	</tr>
-	
-	
+
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-	
+
 	<tr>
 		<td align="right" class="v09">&nbsp;<?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
 		<td><input name="dir_sort" type="text" id="dir_sort" size="10" class="width50" maxlength="10" value="<?php echo intval($dir_sort) ?>" /></td>
-	</tr>	
+	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-	
+
 	<tr>
 		<td align="right" class="v09"><?php echo $BL['be_fpriv_status'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -194,8 +194,8 @@ if(!empty($ja)) {
 			<input name="dir_aktion" type="hidden" id="dir_aktion" value="2" />
 		</td>
 		<td>
-			<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_fpriv_updatebutton'] ?>" />
-			<input type="button" class="button10" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+			<input name="Submit" type="submit" class="button" value="<?php echo $BL['be_fpriv_updatebutton'] ?>" />
+			<input type="button" class="button" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
 		</td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>

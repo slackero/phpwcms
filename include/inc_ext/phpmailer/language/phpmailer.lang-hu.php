@@ -1,23 +1,25 @@
 <?php
 /**
- * PHPMailer language file.  
- * Hungarian Version
+ * Hungarian PHPMailer language file: refer to English translation for definitive list
+ * @package PHPMailer
+ * @author @dominicus-75
  */
 
-$PHPMAILER_LANG = array();
-
-$PHPMAILER_LANG["provide_address"] = 'Meg kell adnod legal·bb egy ' .
-                                     'cÌmzett email cÌmet.';
-$PHPMAILER_LANG["mailer_not_supported"] = ' levelezı nem t·mogatott.';
-$PHPMAILER_LANG["execute"] = 'Nem tudtam vÈgrehajtani: ';
-$PHPMAILER_LANG["instantiate"] = 'Nem siker¸lt pÈld·nyosÌtani a mail funkciÛt.';
-$PHPMAILER_LANG["authenticate"] = 'SMTP Hiba: Sikertelen autentik·ciÛ.';
-$PHPMAILER_LANG["from_failed"] = 'Az al·bbi FeladÛ cÌm hib·s: ';
-$PHPMAILER_LANG["recipients_failed"] = 'SMTP Hiba: Az al·bbi ' .
-                                       'cÌmzettek hib·sak: ';
-$PHPMAILER_LANG["data_not_accepted"] = 'SMTP Hiba: Nem elfogadhatÛ adat.';
-$PHPMAILER_LANG["connect_host"] = 'SMTP Hiba: Nem tudtam csatlakozni az SMTP host-hoz.';
-$PHPMAILER_LANG["file_access"] = 'Nem siker¸lt elÈrni a kˆvetkezı f·jlt: ';
-$PHPMAILER_LANG["file_open"] = 'F·jl Hiba: Nem siker¸lt megnyitni a kˆvetkezı f·jlt: ';
-$PHPMAILER_LANG["encoding"] = 'Ismeretlen kÛdol·s: ';
-?>
+$PHPMAILER_LANG['authenticate']         = 'SMTP hiba: az azonos√≠t√°s sikertelen.';
+$PHPMAILER_LANG['connect_host']         = 'SMTP hiba: nem lehet kapcsol√≥dni az SMTP-szerverhez.';
+$PHPMAILER_LANG['data_not_accepted']    = 'SMTP hiba: adatok visszautas√≠tva.';
+$PHPMAILER_LANG['empty_message']        = '√úres az √ºzenett√∂rzs.';
+$PHPMAILER_LANG['encoding']             = 'Ismeretlen k√≥dol√°s: ';
+$PHPMAILER_LANG['execute']              = 'Nem lehet v√©grehajtani: ';
+$PHPMAILER_LANG['file_access']          = 'A k√∂vetkez≈ë f√°jl nem el√©rhet≈ë: ';
+$PHPMAILER_LANG['file_open']            = 'F√°jl hiba: a k√∂vetkez≈ë f√°jlt nem lehet megnyitni: ';
+$PHPMAILER_LANG['from_failed']          = 'A felad√≥k√©nt megadott k√∂vetkez≈ë c√≠m hib√°s: ';
+$PHPMAILER_LANG['instantiate']          = 'A PHP mail() f√ºggv√©nyt nem siker√ºlt v√©grehajtani.';
+$PHPMAILER_LANG['invalid_address']      = '√ârv√©nytelen c√≠m: ';
+$PHPMAILER_LANG['mailer_not_supported'] = ' a mailer-oszt√°ly nem t√°mogatott.';
+$PHPMAILER_LANG['provide_address']      = 'Legal√°bb egy c√≠mzettet fel kell t√ºntetni.';
+$PHPMAILER_LANG['recipients_failed']    = 'SMTP hiba: a c√≠mzettk√©nt megadott k√∂vetkez≈ë c√≠mek hib√°sak: ';
+$PHPMAILER_LANG['signing']              = 'Hib√°s al√°√≠r√°s: ';
+$PHPMAILER_LANG['smtp_connect_failed']  = 'Hiba az SMTP-kapcsolatban.';
+$PHPMAILER_LANG['smtp_error']           = 'SMTP-szerver hiba: ';
+$PHPMAILER_LANG['variable_set']         = 'A k√∂vetkez≈ë v√°ltoz√≥k be√°ll√≠t√°sa nem siker√ºlt: ';

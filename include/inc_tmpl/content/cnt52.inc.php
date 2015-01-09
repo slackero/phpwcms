@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -21,5 +21,5 @@ if (!defined('PHPWCMS_ROOT')) {
 
 ?><tr>
 <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_vars'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="cvar" rows="30" wrap="VIRTUAL" class="code" id="cvar" style="width: 440px"><?php echo  isset($content["var"]) ? html_specialchars($content["var"]) : '' ?></textarea></td>
+<td valign="top"><textarea name="cvar" rows="30" wrap="VIRTUAL" class="code width440" id="cvar"><?php echo isset($content["var"]) ? html($content["var"]) : '' ?></textarea></td>
 </tr>

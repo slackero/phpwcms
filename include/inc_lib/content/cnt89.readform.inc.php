@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -44,48 +44,47 @@ if(empty($content["poll_buttontext"])) {
 $content['tmp_images']		= array();
 $imgx = 0;
 
-if (is_array($content["poll_list"]) && sizeof($content["poll_list"])) 
+if (is_array($content["poll_list"]) && sizeof($content["poll_list"]))
 {
 	$img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE (";
 	$img_sort = array();
 
-	foreach($content["poll_list"] as $key => $value) 
+	foreach($content["poll_list"] as $key => $value)
 	{
 		if ($imgx) $img_sql .= " OR ";
 		$img_sql .= "f_id=" . intval($value);
-		$imgx++; 
+		$imgx++;
 	}
-	if(!$imgx) 
+	if(!$imgx)
 	{
 		$img_sql .= "0";
 	}
 	$img_sql .= ")";
 
-	if ($img_result = mysql_query($img_sql, $db) or die("error while getting content image only info")) 
+	if ($img_result = mysql_query($img_sql, $db) or die("error while getting content image only info"))
 	{
-	
+
 		$temp_count_img = $imgx;
-		
+
 		$temp_img_maxwidth = $phpwcms["content_width"];
 
-		if (($content["img_width"] > $temp_img_maxwidth) || ($content["img_width"] == "")) 
-		{
+		if ((!RESPONSIVE_MODE && $content["img_width"] > $temp_img_maxwidth) || ($content["img_width"] == "")) {
 			$content["img_width"] = $temp_img_maxwidth;
 			$temp_width = $content["img_width"];
 		}
-		
+
 		$imgx = 0;
-		
+
 		$temp_img_row = array();
-		while ($img_row = mysql_fetch_assoc($img_result)) 
+		while ($img_row = mysql_fetch_assoc($img_result))
 		{
 			$temp_img_row[$img_row['f_id']] = $img_row;
 		}
 		mysql_free_result($img_result);
-		
-		foreach($content["poll_list"] as $key => $value) 
+
+		foreach($content["poll_list"] as $key => $value)
 		{
-			if(isset($temp_img_row[$value])) 
+			if(isset($temp_img_row[$value]))
 			{
 				$content['tmp_images'][$key][0]	= $temp_img_row[$value]['f_id'];
 				$content['tmp_images'][$key][1]	= $temp_img_row[$value]['f_name'];
@@ -94,7 +93,7 @@ if (is_array($content["poll_list"]) && sizeof($content["poll_list"]))
 				$content['tmp_images'][$key][4]	= $temp_width;
 				$content['tmp_images'][$key][5]	= $temp_height;
 			}
-		}		
+		}
 	}
 }
 

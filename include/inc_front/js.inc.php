@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -31,8 +31,8 @@ if(empty($block['jslib'])) {
 	$block['jslib'] = key($phpwcms['js_lib']);
 }
 
-// set if Google Ajax Library should be used and if it should from which base URI
-define('USE_GOOGLE_AJAX_LIB', !empty($block['googleapi']) || !isset($block['googleapi']) ? 'http://ajax.googleapis.com/ajax/libs/' : FALSE);
+// set if CDN can be used
+define('PHPWCMS_USE_CDN', empty($block['googleapi']) ? FALSE : TRUE);
 
 // include the related JavaScript Library wrapper
 @include PHPWCMS_ROOT.'/include/inc_front/lib/js.'.$block['jslib'].'.inc.php';
@@ -59,17 +59,13 @@ function initializeLightbox() {
  */
 function initSwfObject() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['swfobject.js'])) {
-		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/swfobject/swfobject.js');
-		} else {
-			$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'swfobject/2/swfobject.js');
-		}
+		$GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(PHPWCMS_USE_CDN ? PHPWCMS_HTTP_SCHEMA.'://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject.js' : TEMPLATE_PATH.'lib/swfobject/swfobject.js');
 	}
 	return TRUE;
 }
 
 function initFrontendJS() {
-	$GLOBALS['block']['custom_htmlhead']['frontend.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js" type="text/javascript"></script>';
+	$GLOBALS['block']['custom_htmlhead']['frontend.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/frontend.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
 }
 
 function inlineJS($js='', $prefix='	') {
@@ -88,48 +84,55 @@ function renderHeadJS($js) {
 	}
 
 	$js = trim($js);
-	
+
 	if(empty($js)) {
 		return '';
 	}
-	
+
 	$remote = substr($js, 0, 4) == 'http' ? true : false;
 
 	if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
-		
+
 		$key = md5($js);
-		
+
 		// add the same section only once
 		if(empty($GLOBALS['block']['custom_htmlhead'][$key])) {
-					
-			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script type="text/javascript">' . LF . SCRIPT_CDATA_START . LF . '	';
+
+			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '	';
 			$GLOBALS['block']['custom_htmlhead'][$key] .= $js;
 			$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </script>';
-			
+
 		}
-	
+
 	} elseif($js == 'initJSLib') {
-		
+
 		initJSLib();
-		
+
 	} elseif($remote || which_ext($js) == 'js') { // decide if plugin or script
-			
+
 			// replace {TEMPLATE}
 			$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
 			$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
-			
+
 	} else {
-		
+
 		initJSLib();
 
 		if(strtolower($js) != 'initlib') {
-			initJSPlugin($js);		
+			initJSPlugin($js);
 		}
 	}
-	
+
 	return '';
-	
+
 }
 
+/**
+ * Init Video JS
+ */
+function initVideoJs() {
+	$GLOBALS['phpwcms']['video-js'] = empty($GLOBALS['phpwcms']['video-js']) ? PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/4.10/' : rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
+	$GLOBALS['block']['custom_htmlhead']['video-js.css'] = '  <link rel="stylesheet" type="text/css" href="' . $GLOBALS['phpwcms']['video-js'] . 'video-js.css" />';
+}
 
 ?>

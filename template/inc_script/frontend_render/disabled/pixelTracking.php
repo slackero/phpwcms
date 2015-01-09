@@ -35,7 +35,7 @@ $_Tracking_phpMyVisites			= Off;
 $_Tracking_phpMyVisitesSite		= 1; //typically it is ID 1
 $_Tracking_phpMyVisistesURL 	= 'http://mystats.url/phpmyvisites.php';	// fill in the remote URL here
 $_Tracking_phpMyVisistesJS  	= 'http://mystats.url/phpmyvisites.js';
-$_Tracking_phpMyVisitesVars		= Off; // additional vars: full page title, cms page ID, form sender IP 
+$_Tracking_phpMyVisitesVars		= Off; // additional vars: full page title, cms page ID, form sender IP
 
 
 /*
@@ -62,8 +62,8 @@ $_Tracking_StatCounterCode		= '000000';
 $_Tracking_StatCounterSecCode	= 'aaaaaaaaa';
 $_Tracking_StatCounterPartition	= 5;
 $_Tracking_StatCounterSSL		= Off;
- 
- 
+
+
 /*
  * eTracker
  * eTracker is a widely used tracking solution in Germany
@@ -96,7 +96,7 @@ $_TrackingPageName = abs_url($_TrackingCategory, array(), $_TrackingAlias, 'rawu
 /// phpMyVisites /////////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_phpMyVisites) {
-	$_TrackingCode  = '<script language="javascript" type="text/javascript">' . LF;
+	$_TrackingCode  = '<script type="text/javascript">' . LF;
 	$_TrackingCode .= SCRIPT_CDATA_START . LF;
 	$_TrackingCode .= '	var a_vars = Array();' . LF;
 	if($_Tracking_phpMyVisitesVars) {
@@ -116,7 +116,7 @@ if($_Tracking_phpMyVisites) {
 	$_TrackingCode .= '	var phpmyvisitesURL = "'.$_Tracking_phpMyVisistesURL.'";' . LF;
 	$_TrackingCode .= SCRIPT_CDATA_END . LF;
 	$_TrackingCode .= '</script>' . LF;
-	$_TrackingCode .= '<script language="javascript" src="'.$_Tracking_phpMyVisistesJS.'" type="text/javascript"></script>' . LF;
+	$_TrackingCode .= '<script src="'.$_Tracking_phpMyVisistesJS.'" type="text/javascript"></script>' . LF;
 	$_TrackingCode .= '<noscript><img src="'.$_Tracking_phpMyVisistesURL.'" alt="" width="0" height="0" border="0" style="border:0" /></noscript>' . LF;
 
 	$content['all'] .= $_TrackingCode;
@@ -129,7 +129,7 @@ if($_Tracking_phpMyVisites) {
 /// Piwik ////////////////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_Piwik) {
-	
+
 	$_Tracking_PiwikURL = trim($_Tracking_PiwikURL, '/');
 	$_TrackingCode  = '<!-- Piwik -->
 <script type="text/javascript">
@@ -158,24 +158,18 @@ piwikTracker.enableLinkTracking();
 
 if($_Tracking_GoogleAnalytics) {
 
-	$_TrackingCode  = '<script src="';
-	$_TrackingCode .= $_Tracking_GoogleSSL ? 'https://ssl' : 'http://www';
-	//$_TrackingCode .= '.google-analytics.com/urchin.js" type="text/javascript">< /script>' . LF;
-	$_TrackingCode .= '.google-analytics.com/ga.js" type="text/javascript"></script>' . LF;
-	$_TrackingCode .= '<script type="text/javascript">' .LF;
-//	$_TrackingCode .= SCRIPT_CDATA_START . LF;
-	$_TrackingCode .= '	try {' . LF;
-	$_TrackingCode .= '		var pageTracker = _gat._getTracker("' . $_Tracking_GoogleAnalyticsCode . '");' .LF;
-//	$_TrackingCode .= '	pageTracker._initData();' .LF;
-// _gaq.push(['_gat._anonymizeIp']);
-	$_TrackingCode .= '		pageTracker._trackPageview("'.$_TrackingPageName.'");' .LF;
-	$_TrackingCode .= '	} catch(err) {}' . LF;
-	//$_TrackingCode .= '	_uacct = "' . $_Tracking_GoogleAnalyticsCode . '";' .LF;
-	//$_TrackingCode .= '	urchinTracker("'.$_TrackingPageName.'");' .LF;
-//	$_TrackingCode .= SCRIPT_CDATA_END . LF;
-	$_TrackingCode .= '</script>';
-	
-	$content['all'] .= $_TrackingCode;
+$block['custom_htmlhead']['google.analytics'] = "
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '" . $_Tracking_GoogleAnalyticsCode . "', 'auto');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+  </script>
+";
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -204,9 +198,9 @@ if($_Tracking_StatCounter) {
 	$_TrackingCode .= '<noscript><img src="http://c8.statcounter.com/'. $_Tracking_StatCounterCode . '/0/' . $_Tracking_StatCounterSecCode . '/1/" ';
 	$_TrackingCode .= 'width="0" height="0" border="0" style="border:0;overflow:hidden;" alt="" /></noscript>' .LF;
 	$_TrackingCode .= '<!-- End of StatCounter Code -->';
-	
+
 	$content['all'] .= $_TrackingCode;
-	
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

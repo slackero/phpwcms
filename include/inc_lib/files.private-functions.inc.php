@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -24,16 +24,16 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 	$sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_sort, f_name";
 	$result = mysql_query($sql, $dbcon);
 	while($row = mysql_fetch_array($result)) {
-		
-		$dirname = html_specialchars($row["f_name"]);
-		
+
+		$dirname = html($row["f_name"]);
+
 		if($_SESSION["wcs_user_id"] != $row["f_uid"]) {
-			$dirname .= ' (' . html_specialchars($row["usr_login"]) . ')';
+			$dirname .= ' (' . html($row["usr_login"]) . ')';
 		}
-		
+
 		//Ermitteln des Aufklappwertes
 		$klapp_status = empty($_SESSION["klapp"][$row["f_id"]]) ? 1 : 0;
-		
+
 		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
 		$count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ";
 		$count_sql .= "f_pid=".$row["f_id"]." AND ";
@@ -50,34 +50,34 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			}
 			mysql_free_result($count_result);
 		}
-		
+
 		//Aufbau der Zeile
 		echo '<tr bgcolor="#EBF2F4"><td colspan="2"><img src="img/leer.gif" height="1" width="1" alt="" /></td></tr>'."\n"; //Abstand vor
 		echo "<tr bgcolor=\"#EBF2F4\">\n"; //Einleitung Tabellenzeile
 		echo "<td width=\"438\" class=\"msglist\">"; //Einleiten der Tabellenzelle
 		echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\">";
-		
+
 		// Gallery status
 		switch($row["f_gallerystatus"]) {
-			
+
 			case 2:		// gallery root dir
 						echo '<img src="img/icons/folder_galleryroot.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_root'].'" title="'.$GLOBALS['BL']['be_gallery_root'].'" />';
 						break;
-			
+
 			case 3:		// gallery subdir
 						echo '<img src="img/icons/folder_gallerysub.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_directory'].'" title="'.$GLOBALS['BL']['be_gallery_directory'].'" />';
 						break;
-			
+
 			default:	echo "<img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
 		}
-		
+
 		echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
 		echo "</strong></td>\n"; //Schließen Zelle 1. Spalte
 		//Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
 		echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
 		//Button zum Uploaden einer Datei in dieses Verzeichnisses
 		echo "<a href=\"".$zieldatei."&amp;upload=".$row["f_id"]."\" title=\"".$GLOBALS['BL']['be_fprivfunc_upload'].": ".$dirname."\">";
-		echo "<img src=\"img/button/upload_13x13.gif\" border=\"0\" alt=\"\" /></a>";		
+		echo "<img src=\"img/button/upload_13x13.gif\" border=\"0\" alt=\"\" /></a>";
 		if(!$cutID) { //Button zum Erzeugen eines Neuen Unterverzeichnisses
 			echo "<a href=\"".$zieldatei."&amp;mkdir=".$row["f_id"]."\" title=\"".$GLOBALS['BL']['be_fprivfunc_makenew'].": ".$dirname."\">";
 			echo "<img src=\"img/button/add_13x13.gif\" border=\"0\" alt=\"\" /></a>";
@@ -109,46 +109,46 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			echo str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'" border="0" alt="" />';
 		}
 		echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\" border=\"0\" alt=\"\" />"; //Spacer
-		echo "</td>\n"; 
+		echo "</td>\n";
 		echo "</tr>\n"; //Abschluss Tabellenzeile
-		
+
 		//Aufbau trennende Tabellen-Zeile
 		echo "<tr bgcolor=\"#EBF2F4\"><td colspan=\"2\"><img src=\"img/leer.gif\" border=\"0\" alt=\"\" /></td></tr>\n"; //Abstand nach
 		echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" border=\"0\" alt=\"\" /></td></tr>\n"; //Trennlinie<img src='img/lines/line-lightgrey-dotted-538.gif'>
-		
+
 		//Weiter, wenn Unterstruktur
 		if(!$klapp_status && $count_wert) { //$vor."<img src='img/leer.gif' height=1 width=18 border=0>"
 			list_private($row["f_id"], $dbcon, $vor+18, $zieldatei, $userID, $cutID, $show_thumb, $phpwcms);
-			
+
 			//Listing eventuell im Verzeichnis enthaltener Dateien
 			$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"];
 			if(empty($_SESSION["wcs_user_admin"])) {
 				$file_sql .= " AND f_uid=".$userID;
 			}
 			$file_sql .= " AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
-			
+
 			if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
-					$filename = html_specialchars($file_row["f_name"]);
-					
+					$filename = html($file_row["f_name"]);
+
 					$file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
-					
+
 					if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tavbelle
-						echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"; 
+						echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 						echo "<!-- start file list: private-functions //-->\n";
 					} else {
 						echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" border=\"0\" alt=\"\" /></td></tr>\n";
 					}
-					
+
 					echo "<tr>\n";
 					echo "<td width=\"".($vor+37)."\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+37)."\" border=\"0\" alt=\"\" /></td>\n";
 					echo "<td width=\"13\" class=\"msglist\">";
 					echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
 					echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-					echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);
+					echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
 					if($file_row["f_copyright"]) {
-						echo '&lt;br&gt;&copy;: '.html_specialchars($file_row["f_copyright"]);
+						echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
 					}
 					echo '\');" onmouseout="UnTip()" alt=""';
 					echo " /></td>\n";
@@ -171,7 +171,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					}
 					//Button zum Bearbeiten der Dateiinformationn
 					echo $file_row["edit"];
-					echo "<img src=\"img/button/edit_22x13.gif\" border=\"0\" alt=\"\" /></a>";					
+					echo "<img src=\"img/button/edit_22x13.gif\" border=\"0\" alt=\"\" /></a>";
 					//Button zum Umschalten zwischen Aktiv/Inaktiv
 					echo "<a href=\"include/inc_act/act_file.php?aktiv=".$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
 			 			 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_cactivefile'].": ".$filename."\">";
@@ -180,7 +180,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					echo "<a href=\"include/inc_act/act_file.php?public=".$file_row["f_id"].'%7C'.true_false($file_row["f_public"]).
 			 			 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_cpublicfile'].": ".$filename."\">";
 					echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\" alt=\"\" /></a>";
-					echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer					
+					echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
 					//Button zum Löschen der Datei
 					echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
 				 		 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".
@@ -191,24 +191,23 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					echo "</td>\n";
 					//Ende Aufbau
 					echo "</tr>\n";
-					
-					
+
+
 					if($_SESSION["wcs_user_thumb"]) {
-		
-						// now try to get existing thumbnails or if not exists 
+
+						// now try to get existing thumbnails or if not exists
 						// build new based on default thumbnail listing sizes
-			
+
 						// build thumbnail image name
-						$thumb_image = get_cached_image(
-			 					array(	"target_ext"	=>	$file_row["f_ext"],
-										"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
-										"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        							  )
-								);
+						$thumb_image = get_cached_image(array(
+							"target_ext"	=>	$file_row["f_ext"],
+							"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
+							"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        				));
 
 						if($thumb_image != false) {
-						
-						
+
+
 							echo "<tr>\n";
 							echo "<td width=\"".($vor+37)."\"><img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+37)."\" border=\"0\" alt=\"\" /></td>\n";
 							echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\" alt=\"\" /></td>\n<td width=\"";
@@ -218,20 +217,20 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 							echo $file_row["edit"];
 							echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' ';
 							echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-							echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);
+							echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
 							if($file_row["f_copyright"]) {
-								echo '&lt;br&gt;&copy;: '.html_specialchars($file_row["f_copyright"]);
+								echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
 							}
 							echo '\');" onmouseout="UnTip()" alt=""';
 							echo " /></a></td>\n";
 							echo "<td width=\"100\"><img src=\"img/leer.gif\" border=\"0\" alt=\"\" /></td>\n</tr>\n";
 							echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\" alt=\"\" /></td>\n</tr>\n";
-				
+
 						}
-			
+
 					}
-					
-			
+
+
 					$file_durchlauf++;
 				}
 				if($file_durchlauf) { //Abschluss der Filelisten-Tabelle
@@ -240,7 +239,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 				}
 			} //Ende Liste Dateien
 		}
-		
+
 		//Zaehler mitführen
 		$_SESSION["list_zaehler"]++;
 	}

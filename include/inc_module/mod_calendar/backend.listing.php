@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -37,10 +37,10 @@ if(isset($_GET['calendardate'])) {
 if(!empty($_SESSION['calendardate'])) {
 
 	@list($plugin['current_month'], $plugin['current_year']) = explode('-', $_SESSION['calendardate']);
-	
+
 	$plugin['current_month']	= intval($plugin['current_month']);
 	$plugin['current_year']		= intval($plugin['current_year']);
-	
+
 	if(empty($plugin['current_year'])) {
 		$plugin['current_year']		= gmdate('Y');
 	}
@@ -60,7 +60,7 @@ $plugin['days_in_month']	= gmdate('t', $plugin['first_of_month']);
 $plugin['week_start']		= date('W', $plugin['first_of_month']);
 $plugin['first_day']		= 0;
 $plugin['weekday']			= (gmstrftime('%w', $plugin['first_of_month']) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
-$plugin['this_date']		= html_entities(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])));
+$plugin['this_date']		= html(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])), false);
 
 $plugin['location']			= decode_entities(MODULE_HREF);
 $plugin['loc_this_month']	= $plugin['location'].'&calendardate='.date('m-Y');
@@ -102,20 +102,20 @@ $_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_i
 
 // set correct status query
 if($_entry['list_active'] != $_entry['list_inactive']) {
-	
+
 	if(!$_entry['list_active']) {
 		$_entry['query'] .= 'calendar_status=0';
 	}
 	if(!$_entry['list_inactive']) {
 		$_entry['query'] .= 'calendar_status=1';
 	}
-	
+
 } else {
 	$_entry['query'] .= 'calendar_status!=9';
 }
 
 if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
-	
+
 	$_entry['filter_array'] = array();
 
 	foreach($_SESSION['filter'] as $_entry['filter']) {
@@ -123,10 +123,10 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 		$_entry['filter_array'][] = "CONCAT(calendar_title, calendar_tag, calendar_text) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
-		
+
 		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
 		$_entry['query'] .= $_SESSION['filter'];
-	
+
 	}
 
 } elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
@@ -145,7 +145,7 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
-			
+
 			<!--
 				<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> /></td>
 				<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
@@ -153,27 +153,27 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
 
 				<td class="chatlist">|&nbsp;</td>
-			
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php 
-				
+
+				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html_specialchars(implode(' ', $_POST['filter']));
+					echo html(implode(' ', $_POST['filter']));
 				}
-				
+
 				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
 				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-				
+
 				<td class="chatlist">|&nbsp;</td>
 			// -->
 				<td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;">&lt;</button></td>
 				<td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_this_month'] ?>';return false;"><?php echo $BLM['today'] ?></button></td>
 				<td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;">&gt;</button></td>
-				
+
 			</tr>
 		</table></td>
 
 	<td class="chatlist" align="right">&nbsp;
-		
+
 	</td>
 
 	</tr>
@@ -193,7 +193,6 @@ if($plugin['current_month'] == 12) {
 	$plugin['end_month']	= $plugin['current_month'] + 1;
 	$plugin['end_year']		= $plugin['current_year'];
 }
-
 
 $sql  = 'SELECT *, ';
 $sql .= "DATE_FORMAT(calendar_start, '%d".$BLM['date_delimiter']."%m".$BLM['date_delimiter']."%Y') AS calendar_start_date, ";
@@ -244,11 +243,11 @@ foreach($plugin['dates'] as $_entry['y']) {
 	$_entry['date_weekday']				= date('w', $_entry['this_timestamp']);
 	$_entry['day_month']				= date('j', $_entry['this_timestamp']);
 	$_entry['day_year']					= date('dm', $_entry['this_timestamp']);
-	
+
 	for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x'] <= $plugin['days_in_month']; $_entry['x']++, $_entry['timestamp']+=86400) {
-	
+
 		if($_entry['timestamp'] >= $_entry['range_start_timestamp'] && $_entry['timestamp'] <= $_entry['range_end_timestamp']) {
-		
+
 			$_entry['weekday']		= date('w', $_entry['timestamp']);
 			// 1 daily
 			// 2 Every weekday (Mon-Fri)
@@ -257,7 +256,7 @@ foreach($plugin['dates'] as $_entry['y']) {
 			// 5 Weekly
 			// 6 Monthly
 			// 7 yearly
-			
+
 			if(	$_entry['y']['calendar_range'] == 1
 				||
 				($_entry['y']['calendar_range'] == 2 && $_entry['weekday'] != 6 && $_entry['weekday'] != 0)
@@ -271,17 +270,17 @@ foreach($plugin['dates'] as $_entry['y']) {
 				($_entry['y']['calendar_range'] == 6 && $_entry['x'] == $_entry['day_month'])
 				||
 				($_entry['y']['calendar_range'] == 7 && date('dm', $_entry['timestamp']) == $_entry['day_year'])		)
-			{ 
+			{
 
 				$_entry['y']['calendar_start_date']	= date('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $_entry['timestamp']);
 				$_entry['y']['calendar_end_date']	= $_entry['y']['calendar_start_date'];
-				$_entry['dates'][ $_entry['x'] ][]	= $_entry['y'];		
+				$_entry['dates'][ $_entry['x'] ][]	= $_entry['y'];
 
 			}
-			
-			
+
+
 		}
-	
+
 	}
 
 
@@ -319,7 +318,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 		echo ' class="calendarAltRow"';
 	}
 	echo '>'.LF;
-	
+
 	if($_entry['day_num'] == 1) {
 
 		if($plugin['days_in_month'] - $_entry['x'] < 7) {
@@ -327,19 +326,19 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 		} else {
 			$_entry['rowspan'] = 7;
 		}
-	
+
 	}
-	
-	
+
+
 
 	if($_entry['rowspan']) {
-	
+
 		echo '	<td ';
 		echo ($_entry['rowspan'] > 1) ? 'rowspan="'.$_entry['rowspan'].'" ' : '';
 		echo 'class="calendarWeek';
 		echo ($_entry['c'] % 2) ? '' : ' calendarWeekAlt';
 		echo '">';
-		
+
 		$_entry['wno'] = gmstrftime('%W', $_entry['timestamp']) + $plugin['week_add'];
 		if($_entry['wno'] == 53) {
 			$_entry['wno'] = 1;
@@ -352,17 +351,17 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 		$_entry['c']++;
 
 	}
-	
+
 	$_entry['class'] = ($_entry['day_num'] == 7 || $_entry['x'] == $plugin['days_in_month']) ? ' calendarSunday' : '';
 
-	echo '	<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html_specialchars(gmstrftime('%a', $_entry['timestamp'])).'</td>'.LF;
+	echo '	<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html(gmstrftime('%a', $_entry['timestamp']), false).'</td>'.LF;
 	echo '	<td class="calendarData'.$_entry['class'].'">';
-	
+
 	// run available dates for current day
 	if(isset($_entry['dates'][ $_entry['x'] ])) {
-	
+
 		foreach($_entry['dates'][ $_entry['x'] ] as $_entry['date']) {
-			
+
 			$_entry['link '] = $_entry['date']['calendar_title'].' (';
 			if($_entry['date']['calendar_allday']) {
 				$_entry['link '] .= $BLM['all_day'];
@@ -374,35 +373,35 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 				$_entry['link '] .= $_entry['date']['calendar_end_time'];
 			}
 			$_entry['link '] .= ')';
-			
+
 			if($_entry['date']['calendar_range']) {
 				$_entry['link '] = $BLM['repeat_list'.$_entry['date']['calendar_range']].': '.$_entry['link '];
 			}
-			$_entry['link '] = html_specialchars($_entry['link ']);
-			
+			$_entry['link '] = html($_entry['link '], false);
+
 			echo '<p><a href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
 			if($_entry['date']['calendar_status'] == 0) echo ' class="off"';
 			echo '>' . $_entry['link '] . '</a>';
-			
+
 			echo '<a href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'].'" class="calendarDateDel"';
 			echo ' title="'.$BLM['delete'].': '. $_entry['link '] .'"';
 			echo ' onclick="return confirm(\''.$BLM['delete_entry'].' \n'.js_singlequote($_entry['date']['calendar_title']).'\');">';
 			echo '<img src="img/button/del_9x9.gif" alt="" border="0" /></a>';
-			
+
 			/*
 			echo '<img src="img/button/';
 			if($_entry['date']['calendar_status'] == 0) echo 'in';
 			echo 'aktiv_mini1.gif" alt="" border="0" />';
 			*/
-			
+
 			echo '</p>';
-		
+
 		}
-	
+
 	} else {
-		
+
 		echo '&nbsp;';
-	
+
 	}
 
 	echo '</td>'.LF;
@@ -422,7 +421,7 @@ if(!empty($BLM['locale_string'])) {
 	setlocale(LC_TIME, $_oldLocale); //switch current locale back to old value
 }
 
-		
-?>		
-	
+
+?>
+
 </table>

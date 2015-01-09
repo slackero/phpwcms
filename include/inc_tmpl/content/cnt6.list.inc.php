@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -27,7 +27,7 @@ $cinfo["result"] = "";
 foreach($cinfo as $value) {
 	if($value) $cinfo["result"] .= $value."\n";
 }
-$cinfo["result"] = str_replace("\n", " / ", html_specialchars(chop($cinfo["result"])));
+$cinfo["result"] = str_replace("\n", " / ", html(chop($cinfo["result"])));
 if($cinfo["result"]) { //Zeige Inhaltinfo
 	echo "<tr><td>&nbsp;</td><td class=\"v10\">";
 	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";

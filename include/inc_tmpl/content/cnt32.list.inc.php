@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -35,7 +35,7 @@ if($cinfo["result"] || count($row["acontent_form"])) {
 	
 	foreach($row["acontent_form"] as $value) {
 		
-		echo $cinfo["result"] . '&raquo; '.html_specialchars($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
+		echo $cinfo["result"] . '&raquo; '.html($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
 		$cinfo["result"] = '<br />';
 		
 	}

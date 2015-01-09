@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -41,10 +41,10 @@ $content['reference']['showlist']	= 0;
 
 
 if (is_array($content['reference']["list"]) && count($content['reference']["list"])) {
-	
+
 	$img_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE (";
 	$imgx = 0;
-	
+
 	foreach($content['reference']["list"] as $key => $value) {
 		unset ($content['reference']["list"][$key]);
 		$content['reference']["list"][$key]['img_id'] = intval($value);
@@ -59,17 +59,17 @@ if (is_array($content['reference']["list"]) && count($content['reference']["list
 		// count images
 		$content['reference']["col"] = mysql_num_rows($img_result);
 
-		if ($content['reference']["width"] > $phpwcms["content_width"] || $content['reference']["width"] == '') {
+		if((!RESPONSIVE_MODE && $content['reference']["width"] > $phpwcms["content_width"]) || $content['reference']["width"] == '') {
 			$content['reference']["width"] = $phpwcms["content_width"];
 		}
-			
+
 		$temp_width = $content['reference']["width"] - (2 * $content['reference']["border"]);
 		$temp_height = $content['reference']["height"] - (2 * $content['reference']["border"]);
-			
+
 		while ($img_row = mysql_fetch_assoc($img_result)) {
 			foreach($content['reference']["list"] as $key => $value) {
 				if ($content['reference']["list"][$key]['img_id'] == $img_row['f_id']) {
-	
+
 					$content['reference']["list"][$key][0]	= $img_row['f_id'];
 					$content['reference']["list"][$key][1]	= $img_row['f_name'];
 					$content['reference']["list"][$key][2]	= $img_row['f_hash'];
@@ -81,7 +81,7 @@ if (is_array($content['reference']["list"]) && count($content['reference']["list
 			}
 		}
 	}
-		
+
 	// check if more than 1 reference image available
 	$temp_list_count = count($content['reference']["list"]);
 	if($temp_list_count > 1) {
@@ -92,7 +92,7 @@ if (is_array($content['reference']["list"]) && count($content['reference']["list
 		if(!$content['reference']["blockheight"]) {
 			$content['reference']["blockheight"] = $phpwcms["img_prev_height"];
 		}
-				
+
 		$content['reference']['showlist'] = 1;
 
 		// alignment: 0 = horizontal
@@ -107,9 +107,9 @@ if (is_array($content['reference']["list"]) && count($content['reference']["list
 			if($temp_list_width <= 0) $temp_list_width = 10;
 			$content['reference']["temp_list_width"]  = $temp_list_width;
 			$content['reference']["temp_list_height"] = '';
-				
+
 		} else {
-			
+
 			$temp_list_height = $content['reference']["blockheight"] - (($temp_list_count - 1) * $content['reference']["space"]);
 			$temp_list_height = $temp_list_height / $temp_list_count;
 			$temp_list_height = $temp_list_height - (2 * $content['reference']["listborder"]);
@@ -117,10 +117,10 @@ if (is_array($content['reference']["list"]) && count($content['reference']["list
 			if($temp_list_height <= 0) $temp_list_height = 10;
 			$content['reference']["temp_list_height"] = $temp_list_height;
 			$content['reference']["temp_list_width"]  = '';
-							
+
 		}
 	}
-		
+
 
 }
 

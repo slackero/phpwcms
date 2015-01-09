@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -32,16 +32,16 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 
 	if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 		$acat_permit = implode(',', $_POST["acat_access"]);
-		
+
 		// enym, limited access requires some default settings
 		$_POST["acat_regonly"] = 1;
-		unset($_POST["acat_nositemap"]);        
+		unset($_POST["acat_nositemap"]);
 		$_POST["acat_nosearch"] = 1;
-		
+
 	} else {
 		$acat_permit = '';
 	}
-	
+
 	$acat_hidden = 0;
 	if(isset($_POST["acat_hidden"])) {
 		$acat_hidden = 1;
@@ -49,18 +49,18 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			$acat_hidden = 2;
 		}
 	}
-	
+
 	$acat_cntpart = '';
 	if(isset($_POST['acat_cp']) && is_array($_POST['acat_cp'])) {
 
 		$acat_cntpart = $_POST['acat_cp'];
-		$acat_cntpart = array_unique($acat_cntpart);		
+		$acat_cntpart = array_unique($acat_cntpart);
 		$acat_cntpart = implode(',', $acat_cntpart);
-	
+
 	}
-	
+
 	$acat_class = empty($_POST["acat_class"]) ? '' : preg_replace('/[^a-zA-Z0-9_\- ]/', '', clean_slweg($_POST["acat_class"], 150));
-	
+
 	if(empty($_POST["acat_keywords"])) {
 		$acat_keywords = '';
 	} else {
@@ -74,9 +74,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$sql .= "\$indexpage['acat_info']		= '".	str_replace("''", "\\'", getpostvar($_POST["acat_info"], 32000))."';\n";
 		$sql .= "\$indexpage['acat_alias']		= '".	proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
 		$sql .= "\$indexpage['acat_aktiv']		= ".	(isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_public']		= ".	(isset($_POST["acat_public"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_template']	= ".	intval($_POST["acat_template"]).";\n";
-	
 		$sql .= "\$indexpage['acat_hidden']		= ".	$acat_hidden.";\n";
 		$sql .= "\$indexpage['acat_ssl']		= ".	(isset($_POST["acat_ssl"]) ? 1 : 0).";\n";
 		$sql .= "\$indexpage['acat_regonly']	= ".	(isset($_POST["acat_regonly"]) ? 1 : 0).";\n";
@@ -99,37 +97,37 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$sql .= "\$indexpage['acat_keywords']	= '".	str_replace("'", "\\'", $acat_keywords)."';\n";
 		$sql .= "\$indexpage['acat_cpdefault']	= ".	intval($_POST["acat_cpdefault"]).";\n";
 		$sql .= "\$indexpage['acat_disable301']	= ".	(empty($_POST["acat_disable301"]) ? 0 : 1).";\n";
+		$sql .= "\$indexpage['acat_opengraph']	= ".	(empty($_POST["acat_opengraph"]) ? 0 : 1).";\n";
 		$sql .= "?>";
 		write_textfile(PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php', $sql);
 	}
-	
+
 	$acat_sort_fallback	= isset($_POST["acat_sort"]) ? intval(trim($_POST["acat_sort"])) : 0;
 	$acat_sort_temp		= isset($_POST["acat_sort_temp"]) ? intval($_POST["acat_sort_temp"]) : 0;
 	$acat_lang			= empty($_POST["acat_lang"]) ? '' : clean_slweg($_POST["acat_lang"]);
-	$acat_lang_type		= $acat_lang == '' || empty($_POST["acat_lang_type"]) ? '' : in_array($_POST["acat_lang_type"], array('category', 'article')) ? $_POST["acat_lang_type"] : ''; 
+	$acat_lang_type		= $acat_lang == '' || empty($_POST["acat_lang_type"]) ? '' : in_array($_POST["acat_lang_type"], array('category', 'article')) ? $_POST["acat_lang_type"] : '';
 	$acat_lang_id		= $acat_lang_type == '' || empty($_POST["acat_lang_id"]) ? 0 : intval($_POST["acat_lang_id"]);
-	
+
 	if($acat_sort_fallback === 0 && $acat_sort_temp > 0) {
 		$acat_sort_fallback = $acat_sort_temp;
 	}
 
 	if(isset($_POST["acat_new"]) && intval($_POST["acat_new"]) == 1 && intval($_POST["acat_id"]) == 0 && $_POST["acat_id"] != 'index') {
 		if(trim($_POST["acat_name"])) {
-		
+
 			$cache_timeout = clean_slweg($_POST["acat_timeout"]);
 			if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
-	
+
 			$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
-			"acat_public, acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
+			"acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
 			"acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
 			"acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, ".
-			"acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301) VALUES ('".
+			"acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301, acat_opengraph) VALUES ('".
 			getpostvar($_POST["acat_name"])."','".
 			getpostvar($_POST["acat_info"], 32000)."',".
 			(isset($_POST["acat_aktiv"]) ? 1 : 0).",".
 			(isset($_POST["acat_ssl"]) ? 1 : 0).",".
 			(isset($_POST["acat_regonly"]) ? 1 : 0).",".
-			(isset($_POST["acat_public"]) ? 1 : 0).",".
 			intval($_POST["acat_struct"]).",".
 			intval($_POST["acat_template"]).",".
 			$acat_sort_fallback.",".
@@ -141,10 +139,11 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			set_correct_ordersort().",'".
 			$cache_timeout."', '".(isset($_POST['acat_nosearch']) ? 1 : '')."',".
 			(isset($_POST["acat_nositemap"]) ? 1 : 0).",".
-			"'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", '".aporeplace($acat_cntpart)."','".
+			"'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
 			getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
-			(empty($_POST["acat_archive"]) ? 0 : 1).", '".aporeplace($acat_class)."', '".aporeplace($acat_keywords)."', ".intval($_POST["acat_cpdefault"]).",".
-			_dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').')';
+			(empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
+			_dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
+			(empty($_POST["acat_opengraph"]) ? 0 : 1).')';
 			if($result = mysql_query($sql, $db) or die("MySQL Error: ".mysql_error())) {
 				$ref .= "&cat=".mysql_insert_id($db);
 			}
@@ -153,16 +152,17 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 
 	if(isset($_POST["acat_new"]) && isset($_POST["acat_id"]) && intval($_POST["acat_new"]) == 0 && intval($_POST["acat_id"])) {
 		if(trim($_POST["acat_name"])) {
-		
+
 			$cache_timeout = clean_slweg($_POST["acat_timeout"]);
-			if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
-		
+			if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) {
+				$cache_timeout = 0; //check if cache = Off
+			}
+
 			$sql =	"UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
 				"acat_name='".getpostvar($_POST["acat_name"])."', ".
 				"acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
-				"acat_alias='".aporeplace(proof_alias($_POST["acat_id"], $_POST["acat_alias"]))."', ".
+				"acat_alias="._dbEscape(proof_alias($_POST["acat_id"], $_POST["acat_alias"])).", ".
 				"acat_aktiv=".(isset($_POST["acat_aktiv"]) ? 1 : 0).", ".
-				"acat_public=".(isset($_POST["acat_public"]) ? 1 : 0).", ".
 				"acat_struct=".intval($_POST["acat_struct"]).", ".
 				"acat_template=".intval($_POST["acat_template"]).", ".
 				"acat_sort=".$acat_sort_fallback.", ".
@@ -173,25 +173,26 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 				"acat_topcount=".intval($_POST["acat_topcount"]).", ".
 				"acat_redirect='".getpostvar($_POST["acat_redirect"])."',".
 				"acat_order=".set_correct_ordersort().", ".
-				"acat_cache='".aporeplace($cache_timeout)."', ".
+				"acat_cache="._dbEscape($cache_timeout).", ".
 				"acat_nosearch='".(isset($_POST['acat_nosearch']) ? 1 : '')."', ".
 				"acat_nositemap=".(isset($_POST["acat_nositemap"]) ? 1 : 0).", ".
-				"acat_permit='".aporeplace($acat_permit)."', ".
+				"acat_permit="._dbEscape($acat_permit).", ".
 				"acat_maxlist=".intval($_POST["acat_maxlist"]).", ".
-				"acat_cntpart='".aporeplace($acat_cntpart)."', ".
+				"acat_cntpart="._dbEscape($acat_cntpart).", ".
 				"acat_pagetitle='".getpostvar($_POST["acat_pagetitle"])."', ".
 				"acat_paginate=".(isset($_POST["acat_paginate"]) ? 1 : 0).", ".
 				"acat_overwrite='".getpostvar($_POST["acat_overwrite"])."', ".
 				"acat_archive=".(empty($_POST["acat_archive"]) ? 0 : 1).", ".
-				"acat_class='".aporeplace($acat_class)."', ".
-				"acat_keywords='".aporeplace($acat_keywords)."',".
+				"acat_class="._dbEscape($acat_class).", ".
+				"acat_keywords="._dbEscape($acat_keywords).",".
 				"acat_cpdefault=".intval($_POST["acat_cpdefault"]).','.
 				"acat_lang="._dbEscape($acat_lang).','.
 				"acat_lang_type="._dbEscape($acat_lang_type).','.
 				"acat_lang_id="._dbEscape($acat_lang_id).','.
-				"acat_disable301=".(empty($_POST["acat_disable301"]) ? '0' : '1').
+				"acat_disable301=".(empty($_POST["acat_disable301"]) ? '0' : '1').','.
+				"acat_opengraph=".(empty($_POST["acat_opengraph"]) ? '0' : '1').
 			" WHERE acat_id=".intval($_POST["acat_id"]);
-		
+
 			mysql_query($sql, $db) or die(_report_error('DB', $sql));
 		}
 	}
@@ -273,36 +274,36 @@ switch(intval($do[0])) {
 	$do[1] = intval($do[1]); //cut Article Content ID
 	$do[2] = intval($do[2]); //paste Article ID
 	$do[3] = intval($do[3]); //sort Number
-	if($do[1]) { 
-		
-	$sql = "SELECT acontent_aid, acontent_sorting FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];	
+	if($do[1]) {
+
+	$sql = "SELECT acontent_aid, acontent_sorting FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];
 	$result = mysql_query($sql, $db) or die("error while updating Article Content");
 	$row = mysql_fetch_assoc($result);
 
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting-10 WHERE acontent_aid=".$row['acontent_aid']." AND acontent_sorting >= ".$row['acontent_sorting']."+10";
-	mysql_query($sql, $db) or die("error while updating Article Content");	
-		
+	mysql_query($sql, $db) or die("error while updating Article Content");
+
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
-	mysql_query($sql, $db) or die("error while updating Article Content");	
-			
+	mysql_query($sql, $db) or die("error while updating Article Content");
+
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_aid=".$do[2].", acontent_sorting=".$do[3]."+10 WHERE acontent_id=".$do[1];
 	mysql_query($sql, $db) or die("error while updating Article Content");
 
 	}
-	break;	
+	break;
 //-------------
 	case 8:	//
 	$do[1] = intval($do[1]); //copy Article Content ID
 	$do[2] = intval($do[2]); //paste Article ID
 	$do[3] = intval($do[3]); //sort Number
-	if($do[1]) { 
-			
+	if($do[1]) {
+
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
-	mysql_query($sql, $db) or die("error while updating Article Content");	
+	mysql_query($sql, $db) or die("error while updating Article Content");
 
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];
 			if($result = mysql_query($sql, $db) or die("error sql")) {
-				  $row = mysql_fetch_assoc($result); 
+				  $row = mysql_fetch_assoc($result);
 					foreach($row as $key => $value) {
 						if($key == "acontent_created") {
 							$key1s   .= ", ".$key;
@@ -312,26 +313,26 @@ switch(intval($do[0])) {
 							$value1s = "''";
 						}elseif($key == "acontent_aid" ){
 							$key1s   .= ", ".$key;
-							$value1s .= ", '".$do[2]."'";								
+							$value1s .= ", '".$do[2]."'";
 						}elseif($key == "acontent_sorting" ){
 							$key1s   .= ", ".$key;
 							$do[3] = $do[3] + 10;
-							$value1s .= ", '".$do[3]."'";								
+							$value1s .= ", '".$do[3]."'";
 						}else{
 							$key1s   .= ", ".$key;
-							$value1s .= ", '".aporeplace($value)."'";
+							$value1s .= ", "._dbEscape($value);
 						}
 					}
-					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")" ;
+					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
 					$result = mysql_query($sql2, $db) or die("error while copy article content <br>error while connecting to database: <br><pre>".$sql2."</pre>");
-				
+
 			}
-	
+
 
 	}
-	break;		
+	break;
 //31-03-2005 Fernando Batista  end-------------------
-	
+
 
 	case 9: //Löschen des Levels
 	$do[1] = intval($do[1]); //delete ID
@@ -357,7 +358,7 @@ switch(intval($do[0])) {
 				//delete cached articles
 				$sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_aid=".intval($value);
 				mysql_query($sql, $db) or die("error while deleting cached article ID:".$value);
-				
+
 				$a_del .= ($a_del) ? " OR article_id=".$value : "article_id=".$value;
 			}
 
@@ -375,7 +376,7 @@ switch(intval($do[0])) {
 				//delete cached categories
 				$sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_cid=".intval($value);
 				mysql_query($sql, $db) or die("error while deleting cached category ID:".$value);
-			
+
 				$s_del .= ($s_del) ? " OR acat_id=".$value : "acat_id=".$value;
 			}
 
@@ -450,13 +451,13 @@ function copy_article_to_level($do, $dbcon) {
 					$values = "''";
 				} else {
 					$keys   .= ", ".$key;
-					$values .= ", '".aporeplace($value)."'";
+					$values .= ", "._dbEscape($value);
 				}
 			}
 		}
 		mysql_free_result($result);
 
-		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_article (".$keys.") VALUES (".$values.")" ;
+		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_article (".$keys.") VALUES (".$values.")";
 
 		if($result = mysql_query($sql, $dbcon) or die("error while copy article <br>error while connecting to database: <pre>".$sql."</pre>")) {
 
@@ -472,19 +473,19 @@ function copy_article_to_level($do, $dbcon) {
 							$value1s = "''";
 						} else {
 							$key1s   .= ", ".$key1;
-							$value1s .= ", '".aporeplace($value1)."'";
+							$value1s .= ", "._dbEscape($value1);
 						}
 					}
-					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")" ;
+					$sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
 					$result = mysql_query($sql2, $dbcon) or die("error while copy article content <br>error while connecting to database: <pre>".$sql2."</pre>");
 				}
 				mysql_free_result($result1);
 			}
 
 			if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open' && $article_insert_id) {
-			
+
 				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&id='.$article_insert_id);
-			
+
 			}
 
 		}
@@ -510,13 +511,13 @@ function copy_level_to_level($do, $dbcon) {
 					$values = "''";
 				} else {
 					$keys   .= ", ".$key;
-					$values .= ", '".aporeplace($value)."'";
+					$values .= ", "._dbEscape($value);
 				}
 			}
 		}
 		mysql_free_result($result);
 
-		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (".$keys.") VALUES (".$values.")" ;
+		$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (".$keys.") VALUES (".$values.")";
 		mysql_query($sql, $dbcon);
 		$acat_insert_id = mysql_insert_id($dbcon);
 	}
@@ -526,7 +527,7 @@ function copy_level_to_level($do, $dbcon) {
 	if($result = mysql_query($sql, $dbcon)) {
 		while($row = mysql_fetch_row($result)) {
 			$do_article[1] = $row[0];
-			$do_article[2] = $acat_insert_id;  
+			$do_article[2] = $acat_insert_id;
 			copy_article_to_level($do_article, $dbcon);
 		}
 		mysql_free_result($result);
@@ -537,7 +538,7 @@ function copy_level_to_level($do, $dbcon) {
 	if($result = mysql_query($sql, $dbcon)) {
 		while($row = mysql_fetch_row($result)) {
 			$do_struct[1] = $row[0];
-			$do_struct[2] = $acat_insert_id ;  
+			$do_struct[2] = $acat_insert_id;
 			$do_struct[3] = $row[1];
 			copy_level_to_level($do_struct, $dbcon);
 		}
@@ -549,7 +550,7 @@ function copy_level_to_level($do, $dbcon) {
 function set_correct_ordersort() {
 	// 0 = manual, 2 = creation date, 4 = start date -> + 0 = ASC, + 1 = DESC
 	$val = 0;
-	
+
 	// but why not - should be possible too based on new sorting
 	$val = intval($_POST["acat_order"]) + intval($_POST["acat_ordersort"]);
 

@@ -1,0 +1,39 @@
+<!--TEASER_HEAD_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEASER]<div class="teaser">
+<!--TEASER_HEAD_END//-->
+
+<!--TEASER_ENTRY_START//-->
+	<div class="col-{COLUMN} row-[PRIO] prio-{PRIO}[/PRIO]">
+		<h3>[ARTICLELINK]<a href="{ARTICLELINK}">[/ARTICLELINK]
+			[MENUTITLE]{MENUTITLE}[/MENUTITLE][MENUTITLE_ELSE]{TITLE}[/MENUTITLE_ELSE]
+		[ARTICLELINK] &raquo;</a>[/ARTICLELINK]</h3>
+		[IMAGE_DETAIL]<div class="teaser-image">
+			{IMAGE_DETAIL}[CAPTION_DETAIL]
+			<p>{CAPTION_DETAIL}</p>[/CAPTION_DETAIL]
+			<!--
+				Detail Image ID 	{IMAGE_DETAIL_ID}
+				Detail Image Hash  	{IMAGE_DETAIL_HASH}
+				Detail Image EXT  	{IMAGE_DETAIL_EXT}
+				Detail Image Name	{IMAGE_DETAIL_NAME}
+			-->
+		</div>[/IMAGE_DETAIL]
+		<div class="teaser-subline">{DATE:d/m/y lang=EN}[SUBTITLE] <b>{SUBTITLE}.</b>[/SUBTITLE]
+		{SUMMARY}[ARTICLELINK] <a href="{ARTICLELINK}">&raquo;</a>[/ARTICLELINK]</div>
+	</div>
+<!--TEASER_ENTRY_END//-->
+
+<!--TEASER_ENTRY_SPACER_START//-->
+	<!-- next teaser please -->
+<!--TEASER_ENTRY_SPACER_END//-->
+
+<!--TEASER_ROW_SPACER_START//-->
+	<hr />
+<!--TEASER_ROW_SPACER_END//-->
+
+<!--TEASER_FOOTER_START//-->
+</div>[/TEASER]
+<!--TEASER_FOOTER_END//-->
+
+<!--TEASER_COLUMN_OVERWRITE_START//--><!--TEASER_COLUMN_OVERWRITE_END//-->

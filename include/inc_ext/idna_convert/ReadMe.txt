@@ -4,7 +4,7 @@
 *                                                                             *
 * http://idnaconv.phlymail.de                     mailto:phlymail@phlylabs.de *
 *******************************************************************************
-* (c) 2004-2011 phlyLabs, Berlin                                              *
+* (c) 2004-2013 phlyLabs, Berlin                                              *
 * This file is encoded in UTF-8                                               *
 *******************************************************************************
 

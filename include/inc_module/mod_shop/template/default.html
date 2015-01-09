@@ -1,29 +1,62 @@
 <!--CONFIG_START//-->
 
-cat_all = "Top products"
+; Overwrites the backend settings
+; shop_url =
+; cart_url =
+
+cat_all = "All products"
+; Define where the "All products" should be positioned
+; Possible values are: bottom, top, none
+cat_all_pos = bottom
 cat_list_products = Off
 
 ; sort list by fieldnames, check DB
 ; sort by Name - "shopprod_name1 ASC"
 ; sort by Viewed - "shopprod_track_view DESC"
 cat_list_sort_by = "shopprod_name1 ASC"
+cat_subcat_spacer = "_>_"
+
+shop_css = "shop.css"
+shop_wrap = "<div class="shop">|</div>"
 
 price_decimals = 2
-vat_decimals = 0
+vat_decimals = 1
 weight_decimals = 0
 dec_point = ","
 thousands_sep = "."
 
-image_list_width = 200
-image_list_height = 200
-image_list_crop = FALSE
-image_detail_width = 150
-image_detail_height = 150
-image_detail_crop = TRUE
-image_zoom_width = 750
-image_zoom_height = 500
-image_list_lightbox = TRUE
+; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
+; for leading and trailing spaces use replacer %S
+pagetitle_productname = "%s"
+pagetitle_model = ", Model: %s"
+pagetitle_add = "%S- %s"
+pagetitle_ordernumber = "%S(Order No. %s)"
+; %1$s = product name
+; %2$s = product add
+; %3$s = model
+; %4$s = order number
+pagetitle = "%1$s%2$s%3$s%4$s"
+
+image_list_width = 55
+image_list_height = 55
+image_list_crop = 0
+image_detail_width = 324
+image_detail_height = 500
+image_detail_crop = false
+image_detail_more_width = 90
+image_detail_more_height = 65
+image_detail_more_crop = true
+image_detail_more_lightbox = true
+image_detail_more_start = 2
+image_zoom_width = 800
+image_zoom_height = 800
+image_list_lightbox = true
 image_detail_lightbox = TRUE
+
+files_direct_download = 0
+files_template = shop.tmpl
+
+on_request_trigger = -999
 
 mail_customer_subject = "[#{ORDER}] Your order at MyShop"
 mail_neworder_subject = "[#{ORDER}] New order"
@@ -59,19 +92,25 @@ order_number_style = %05s
 
 <!--LIST_ENTRY_START//-->
 	<div class="entry">
-	
+
 		<h2>{PRODUCT_TITLE}</h2>
 		<div>
 			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
 			{PRODUCT_SHORT}
+		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
 			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
 			<em>{PRODUCT_VAT}%</em>
-			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>			
+			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]
 			<a href="{PRODUCT_DETAIL_LINK}">Show product details</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>More&#8230;</a>[/PRODUCT_URL]
+		[ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
+			Send price inquiry
+		</a>[/ON_REQUEST][ON_REQUEST_ELSE]
 			[CART_ADD]Add to cart[/CART_ADD]
+		[/ON_REQUEST_ELSE]
 			[VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
 		</div>
-	
+
 	</div>
 <!--LIST_ENTRY_END//-->
 
@@ -97,19 +136,19 @@ order_number_style = %05s
 	[PRODUCT_ADD]<h2>{PRODUCT_ADD}</h2>[/PRODUCT_ADD]
 	<div>
 		{PRODUCT_LONG}
-		
+
 		[IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
-		
+		[ON_REQUEST_ELSE]
 		<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
 		<em>{PRODUCT_VAT}%</em>
 		<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
-		
+		[/ON_REQUEST_ELSE]
 		[ORDER_NUM]<p>Order number: {ORDER_NUM}</p>[/ORDER_NUM]
 		[MODEL]<p>Model: {MODEL}</p>[/MODEL]
 		[VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
 		[PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
-		
-		[CART_ADD]Add to cart[/CART_ADD]
+
+		[ON_REQUEST_ELSE][CART_ADD]Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
 	</div>
 	<div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 
@@ -168,7 +207,7 @@ order_number_style = %05s
 		<tr>
 			<td colspan="3"><hr /></td>
 		</tr>
-		
+
 		<tr>
 			<td colspan="3"><strong>Shipping Costs</strong></td>
 		</tr>
@@ -191,7 +230,7 @@ order_number_style = %05s
 			<td>Shipping Gross:</td>
 			<td align="right">{SHIPPING_GROSS}</td>
 			<td>{CURRENCY_SYMBOL}</td>
-		</tr>		
+		</tr>
 		[/SHIPPING]
 		[SHIPPING_ELSE]
 		<tr>
@@ -199,11 +238,11 @@ order_number_style = %05s
 		</tr>
 		<tr>
 			<td>Shipping Costs</td>
-			<td>free shipping</td>
-			<td>{CURRENCY_SYMBOL}</td>
+			<td colspan="2">free shipping</td>
+			<!-- <td>{CURRENCY_SYMBOL}</td> -->
 		</tr>
 		[/SHIPPING_ELSE]
-		
+
 		<tr>
 			<td colspan="3"><hr /></td>
 		</tr>
@@ -211,7 +250,7 @@ order_number_style = %05s
 		<tr>
 			<td colspan="3"><strong>Subtotal (all products)</strong></td>
 		</tr>
-		
+
 		<tr>
 			<td>Subtotal Net:</td>
 			<td align="right">{SUBTOTAL_NET}</td>
@@ -227,7 +266,7 @@ order_number_style = %05s
 			<td align="right">{SUBTOTAL_GROSS}</td>
 			<td>{CURRENCY_SYMBOL}</td>
 		</tr>
-		
+
 		<tr>
 			<td colspan="3"><hr /></td>
 		</tr>
@@ -235,7 +274,7 @@ order_number_style = %05s
 		<tr>
 			<td colspan="3"><strong>Total</strong></td>
 		</tr>
-		
+
 		<tr>
 			<td>Total Net:</td>
 			<td align="right">{TOTAL_NET}</td>
@@ -252,13 +291,14 @@ order_number_style = %05s
 			<td>{CURRENCY_SYMBOL}</td>
 		</tr>
 
-		
+
 	</table>
 
 	<div>
 		<a href="{SHOP_LINK}">Continue Shopping</a>
-		
+
 		[UPDATE]Update Cart[/UPDATE]
+		[DELETE]Empty Cart[/DELETE]
 		[CHECKOUT]Checkout[/CHECKOUT]
 	</div>
 </div>
@@ -321,7 +361,7 @@ order_number_style = %05s
 		<td>phone*:</td>
 		<td><input type="text" name="shop_phone" id="shop_phone" value="{PHONE}" size="20" maxlength="20" /></td>
 	</tr>
-	
+
 	<tr>
 		<td>custom 1*:</td>
 		<td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
@@ -335,7 +375,7 @@ order_number_style = %05s
 	<tr>
 		<td>payment*:</td>
 		<td>{PAYMENT}</td>
-	</tr>	
+	</tr>
 [/PAYMENT]
 	<tr>
 		<td colspan="2">&nbsp;</td>
@@ -351,7 +391,7 @@ order_number_style = %05s
 <h1>Last step</h1>
 <p>Please proof all information before sending your order</p>
 <div>
-	
+
 	[IF_ERROR]<p><strong>You have to agree our terms and conditions</strong></p>[/IF_ERROR]
 
 	<h2>Address</h2>
@@ -360,7 +400,7 @@ order_number_style = %05s
 		{INV_ADDRESS}<br />
 		{INV_ZIP} {INV_CITY}
 		[INV_REGION]<br />{INV_REGION}[/INV_REGION]
-		[INV_COUNTRY]<br />{INV_COUNTRY}[/INV_COUNTRY]	
+		[INV_COUNTRY]<br />{INV_COUNTRY}[/INV_COUNTRY]
 	</p>
 	<p>
 		Email: {EMAIL}<br />
@@ -374,25 +414,25 @@ order_number_style = %05s
 	[PAYMENT]<p>
 		Payment: {PAYMENT}
 	</p>[/PAYMENT]
-	<form action="{CART_LINK}" method="post"> 
+	<form action="{CART_LINK}" method="post">
 	<p>
-		Please correct address if necessary	
+		Please correct address if necessary
 		<input name="shop_edit_address" type="submit" value="Correct address" />
 	</p>
 	</form>
-	
+
 	<hr />
-	
+
 	<h2>Ordered Items</h2>
 	<table cellspacing="0" cellpadding="1" border="0" summary="items">
-	
+
 	{ITEMS}
-	
+
 		[SHIPPING]
 		<tr>
 			<td colspan="3"><hr /></td>
 		</tr>
-		
+
 		<tr>
 			<td colspan="3"><strong>Shipping Costs</strong></td>
 		</tr>
@@ -415,7 +455,7 @@ order_number_style = %05s
 			<td>Shipping Gross:</td>
 			<td align="right">{SHIPPING_GROSS}</td>
 			<td>{CURRENCY_SYMBOL}</td>
-		</tr>		
+		</tr>
 		[/SHIPPING]
 		[SHIPPING_ELSE]
 		<tr>
@@ -423,11 +463,11 @@ order_number_style = %05s
 		</tr>
 		<tr>
 			<td>Shipping Costs</td>
-			<td>free shipping</td>
-			<td>{CURRENCY_SYMBOL}</td>
+			<td colspan="2">free shipping</td>
+			<!-- <td>{CURRENCY_SYMBOL}</td> -->
 		</tr>
 		[/SHIPPING_ELSE]
-		
+
 		<tr>
 			<td colspan="3"><hr /></td>
 		</tr>
@@ -435,7 +475,7 @@ order_number_style = %05s
 		<tr>
 			<td colspan="3"><strong>Subtotal (all products)</strong></td>
 		</tr>
-		
+
 		<tr>
 			<td>Subtotal Net:</td>
 			<td align="right">{SUBTOTAL_NET}</td>
@@ -451,7 +491,7 @@ order_number_style = %05s
 			<td align="right">{SUBTOTAL_GROSS}</td>
 			<td>{CURRENCY_SYMBOL}</td>
 		</tr>
-		
+
 		<tr>
 			<td colspan="3"><hr /></td>
 		</tr>
@@ -459,7 +499,7 @@ order_number_style = %05s
 		<tr>
 			<td colspan="3"><strong>Total</strong></td>
 		</tr>
-		
+
 		<tr>
 			<td>Total Net:</td>
 			<td align="right">{TOTAL_NET}</td>
@@ -476,19 +516,19 @@ order_number_style = %05s
 			<td>{CURRENCY_SYMBOL}</td>
 		</tr>
 	</table>
-	
+
 	<p>
 		<a href="{CART_LINK}">Show cart</a>
 		<a href="{SHOP_LINK}">Continue shopping</a>
 	</p>
-	
+
 	<hr />
 
 	<h2>Terms and conditions</h2>
 	<div style="width:300px;height: 200px;padding:5px; overflow:auto;">
 		{TERMS}
 	</div>
-	<form action="{CART_LINK}" method="post"> 
+	<form action="{CART_LINK}" method="post">
 	<p>
 		<input type="checkbox" name="shop_terms_agree" value="1" />
 		I have read and agree your terms and conditions
@@ -497,7 +537,7 @@ order_number_style = %05s
 		<input name="shop_order_submit" type="submit" value="Submit order" />
 	</p>
 	</form>
-	
+
 </div>
 
 <!--ORDER_TERMS_END//-->
@@ -532,8 +572,8 @@ Thank you very much for your order.
 
 Your order: {ORDER}
             {DATE:d/m/Y H:i}
-			
-Payment: [PAYBY_PREPAY]You have choosen to pay by Cash with Order. 
+
+Payment: [PAYBY_PREPAY]You have choosen to pay by Cash with Order.
          We will send your order after we have received your payment.
 		 Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL]
 
@@ -542,7 +582,7 @@ Address: {INV_FIRSTNAME} {INV_NAME}
          {INV_ZIP} {INV_CITY}[INV_REGION]
          {INV_REGION}[/INV_REGION][INV_COUNTRY]
          {INV_COUNTRY}[/INV_COUNTRY]
-		 
+
 Email:   {EMAIL}
 Phone:   {PHONE}
 
@@ -583,7 +623,7 @@ A new order...
 
 Order#:  {ORDER}
          {DATE:d/m/Y H:i}
-		 
+
 Payment: {PAYMENT}
 
 Address: {INV_FIRSTNAME} {INV_NAME}
@@ -591,7 +631,7 @@ Address: {INV_FIRSTNAME} {INV_NAME}
          {INV_ZIP} {INV_CITY}[INV_REGION]
          {INV_REGION}[/INV_REGION][INV_COUNTRY]
          {INV_COUNTRY}[/INV_COUNTRY]
-		 
+
 Email:   {EMAIL}
 Phone:   {PHONE}
 

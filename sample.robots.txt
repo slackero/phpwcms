@@ -1,0 +1,12 @@
+# http://www.robotstxt.org/
+# https://www.google.com/support/webmasters/bin/answer.py?answer=156449
+# https://support.google.com/webmasters/answer/35769
+
+User-Agent: *
+Disallow: /download.php*
+Disallow: /login.php
+Disallow: /phpwcms.php
+Disallow: /content/
+Disallow: /template/
+Disallow: /filearchive/
+Disallow: /img/

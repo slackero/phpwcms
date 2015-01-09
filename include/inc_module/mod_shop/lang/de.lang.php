@@ -55,7 +55,7 @@ $BLM['shopprod_vat']			= 'MwSt.';
 $BLM['shopprod_tag']			= 'Tag (*,*)';
 
 $BLM['shopprod_weight']			= 'Gewicht';
-$BLM['shopprod_weight_max']		= 'maximal';
+$BLM['shopprod_weight_max']		= 'max.';
 $BLM['shopprod_units_weight']	= 'kg, oz, g';
 $BLM['shopprod_unit']			= 'Ma&szlig;einheit';
 $BLM['shopprod_currency']		= 'W&auml;hrung';
@@ -88,7 +88,7 @@ $BLM['shop_order']				= 'Bestellung';
 $BLM['shopprod_order_subject']	= 'Ihre Bestellung';
 $BLM['shopprod_subcategory']	= 'Subkategorie&nbsp;von';
 $BLM['shopprod_is_main_cat']	= 'Hauptkategorie';
-$BLM['shopprod_listall']		= 'Unter &quot;Alle Produkte&quot; listen';
+$BLM['shopprod_listall']		= 'Unter &bdquo;Alle Produkte&ldquo; listen';
 
 $BLM['shopprod_id_shop']		= 'Shop&nbsp;Ziel';
 $BLM['shopprod_id_cart']		= 'Warenkorb&nbsp;Ziel';
@@ -125,5 +125,6 @@ $BLM['shopprod_loworder_charge']	= 'Zuschlag';
 $BLM['shopprod_discount']			= 'Rabatt';
 
 $BLM['shopprod_lang_support']	= 'Frontend Sprachunterst&uuml;tzung';
+$BLM['shopprod_overwrite_meta']	= 'Produktdetail &uuml;berschreibt Metadaten';
 
 ?>

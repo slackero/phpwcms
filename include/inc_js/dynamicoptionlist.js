@@ -1,6 +1,6 @@
 /*===================================================================
  Author: Matt Kruse
- 
+
  View documentation, examples, and source code at:
      http://www.JavascriptToolbox.com/
 
@@ -9,11 +9,11 @@
  remove this notice from your final code if you wish, however it is
  appreciated by the author if at least the web site address is kept.
 
- This code may NOT be distributed for download from script sites, 
+ This code may NOT be distributed for download from script sites,
  open source CDs or sites, or any other distribution method. If you
- wish you share this code with others, please direct them to the 
+ wish you share this code with others, please direct them to the
  web site above.
- 
+
  Pleae do not link directly to the .js files on the server above. Copy
  the files to your own server for use with your site or webapp.
  ===================================================================*/
@@ -28,7 +28,7 @@ function initDynamicOptionLists() {
 		var dol = dynamicOptionListObjects[i];
 
 		// Find the form associated with this list
-		if (dol.formName!=null) { 
+		if (dol.formName!=null) {
 			dol.form = document.forms[dol.formName];
 		}
 		else if (dol.formIndex!=null) {
@@ -81,11 +81,11 @@ function initDynamicOptionLists() {
 			}
 		}
 	}
-	// Set the preselectd options on page load 
+	// Set the preselectd options on page load
 	resetDynamicOptionLists();
 }
 
-// This function populates lists with the preselected values. 
+// This function populates lists with the preselected values.
 // It's pulled out into a separate function so it can be hooked into a 'reset' button on a form
 // Optionally passed a form object which should be the only form reset
 function resetDynamicOptionLists(theform) {
@@ -126,9 +126,9 @@ function DynamicOptionList() {
 	this.fieldIndexes = new Object();// Hold the index within the list where fields exist
 	this.selectFirstOption = true;// Whether or not to select the first option by default if no options are default or preselected, otherwise set the selectedIndex = -1
 	this.numberOfOptions = new Array();// Store the max number of options for a given option list
-	this.longestString = new Array();// Store the longest possible string 
+	this.longestString = new Array();// Store the longest possible string
 	this.values = new Object(); // Will hold the preselected values for fields, by field name
-	
+
 	// Method mappings
 	this.forValue = DOL_forValue;
 	this.forText = DOL_forText;
@@ -160,7 +160,7 @@ function DynamicOptionList() {
 		}
 		this.fieldNames[this.fieldNames.length] = arguments;
 	}
-	
+
 	// Add this object to the global array of dynamicoptionlist objects
 	this.index = window.dynamicOptionListCount++;
 	window["dynamicOptionListObjects"][this.index] = this;
@@ -220,7 +220,7 @@ function DOL_addNewOptionToList(a, text, value, defaultSelected) {
 	if (a==null) { a = new Array(); }
 	for (var i=0; i<a.length; i++) {
 		if (a[i].text==o.text && a[i].value==o.value) {
-			if (o.selected) { 
+			if (o.selected) {
 				a[i].selected=true;
 			}
 			if (o.defaultSelected) {
@@ -300,7 +300,7 @@ function DOL_setDefaultOptions() {
 
 // Set the options which should be selected when the page loads. This is different than the default value and ONLY applies when the page LOADS
 function DOL_setValues() {
-	if (this.currentField==null) { 
+	if (this.currentField==null) {
 		alert("Can't call setValues() without using forField() first!");
 		return;
 	}
@@ -326,11 +326,11 @@ function DOL_setFormName(n) {
 // Print blank <option> objects for Netscape4, since it refuses to grow or shrink select boxes for new options
 function DOL_printOptions(name) {
 	// Only need to write out "dummy" options for Netscape4
-    if ((navigator.appName == 'Netscape') && (parseInt(navigator.appVersion) <= 4)){
+    if ((navigator.appName == 'Netscape') && (parseInt(navigator.appVersion,10) <= 4)){
 		var index = this.fieldIndexes[name];
 		var ret = "";
 		if (typeof(this.numberOfOptions[index])!="undefined") {
-			for (var i=0; i<this.numberOfOptions[index]; i++) { 
+			for (var i=0; i<this.numberOfOptions[index]; i++) {
 				ret += "<OPTION>";
 			}
 		}
@@ -405,7 +405,7 @@ function DOL_change(obj, usePreselected) {
 					}
 				}
 			}
-			if (!atLeastOneSelected) {	
+			if (!atLeastOneSelected) {
 				this.selectChildOptions(child,usePreselected);
 			}
 		}

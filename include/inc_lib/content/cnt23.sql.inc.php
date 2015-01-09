@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -22,6 +22,6 @@ if (!defined('PHPWCMS_ROOT')) {
 _dbSetVar('max_allowed_packet', 16*1024*1024, '<');
 
 // Form
-$SQL .= "acontent_form = '".aporeplace(serialize($content['form']))."' ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['form']))." ";
 
 ?>

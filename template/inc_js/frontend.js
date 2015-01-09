@@ -27,13 +27,10 @@ function MM_showHideLayers() { //v6.0
 }
 
 function int_only(value) {
-	value = parseInt(value);
+	value = parseInt(value,10);
 	if(value<0) value = value * -1;
 	return (value) ? value+"" : "";
 }
-
-
-
 
 function BookMark_Page(alerttext) {
 	var title = document.title;
@@ -44,26 +41,16 @@ function BookMark_Page(alerttext) {
 		window.external.AddFavorite( url, title);
 	} else {
 		if(!alerttext) alerttext = "To bookmark this page use [Ctrl+D]";
-		alert(alerttext);	
+		alert(alerttext);
 	}
 	return false;
 }
 
-var ie4 = document.all ? 1 : 0;
-var ns4 = document.layers ? 1 : 0;
-var ns6 = window.netscape ? 1 : 0;
 function addText(id,text) {
-	
-	menuobj = (ie4) ? document.all[id] : (ns6 ? document.getElementById(id) : (ns4 ? document.layers[id] : ''));
-	
-	if(ie4 || ns6) {
+	var menuobj = getObjectById(id);
+	if(menuobj !== false) {
 		menuobj.innerHTML=text;
-	} else {
-		menuobj.document.open();
-		menuobj.document.write(text);
-		menuobj.document.close();
 	}
-	
 }
 
 function MM_displayStatusMsg(msgStr) { //v1.0
@@ -89,42 +76,25 @@ var layerDisplayStatus = new Array;
 function toggleLayerDisplay(whichLayer, status) {
 	// store current layer status
 	layerDisplayStatus[whichLayer] = status;
-	// status: 'none', 'block'	
-	if (document.getElementById) {
-		// this is the way the standards work
-		document.getElementById(whichLayer).style.display = status;
-	}
-	else if (document.all) {
-		// this is the way old msie versions work
-		document.all[whichLayer].style.display = status;
-	}
-	else if (document.layers) {
-		// this is the way nn4 works
-		document.layers[whichLayer].display = status;
+	var layer = getObjectById(whichLayer);
+	if(layer !== false) {
+		layer.style.display = status;
 	}
 }
 
 function toggleClassName(whichLayer, newClassName) {
-	if (document.getElementById) {
-		// this is the way the standards work
-		document.getElementById(whichLayer).className = newClassName;
-	}
-	else if (document.all) {
-		// this is the way old msie versions work
-		document.all[whichLayer].className = newClassName;
-	}
-	else if (document.layers) {
-		// this is the way nn4 works
-		document.layers[whichLayer].className = newClassName;
+	var layer = getObjectById(whichLayer);
+	if(layer !== false && newClassName) {
+		layer.className = newClassName;
 	}
 }
 
-function mailtoLink(part1, part2) {	
+function mailtoLink(part1, part2) {
 	if(part1 && part2) {
 		window.location.href="mailto:"+part1+"@"+part2;
 		return true;
 	}
-	return false;		
+	return false;
 }
 
 function addLoadEvent(func) {

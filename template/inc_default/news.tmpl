@@ -2,10 +2,6 @@
 ; how many news should be listed per row
 news_per_row = 2
 
-; teaser text rendered as <p></p> = p
-; or just line break to <br> = br
-news_teaser_text = p
-
 ; cut teaser text
 ; 0 means no limit
 news_teaser_limit_chars = 0
@@ -46,7 +42,7 @@ gallery_filecenter_info = 1
 
 
 <!--NEWS_LIST_ENTRY_START//-->
-	<!-- 
+	<!--
 		Changedate: {DATE:m/d/Y H:i:s lang=EN}
 		Livedate:   {LIVEDATE:d.m.Y H:i:s lang=EN}
 		Killdate:   {KILLDATE:d.m.Y H:i:s lang=EN}
@@ -67,7 +63,7 @@ gallery_filecenter_info = 1
 			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}"[/LIGHTBOX_CAPTION]>
 				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
 			</a>
-		[/ZOOM]		
+		[/ZOOM]
 	[/IMAGE]
 	[NEWS_TEASER]{NEWS_TEASER}[/NEWS_TEASER]
 	[NEWS_TEASER_ELSE][NEWS_TEXT]{NEWS_TEXT}[/NEWS_TEXT][/NEWS_TEASER_ELSE]
@@ -125,7 +121,7 @@ gallery_filecenter_info = 1
 		[TITLE]<h3>{TITLE}</h3>[/TITLE]
 		[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 	</div>
-	<!-- 
+	<!--
 		Changedate: {DATE:m/d/Y H:i:s lang=EN}
 		Livedate:   {LIVEDATE:d.m.Y H:i:s lang=EN}
 		Killdate:   {KILLDATE:d.m.Y H:i:s lang=EN}
@@ -147,7 +143,7 @@ gallery_filecenter_info = 1
 			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}"[/LIGHTBOX_CAPTION]>
 				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
 			</a>
-		[/ZOOM]		
+		[/ZOOM]
 	[/IMAGE]
 	[NEWS_TEXT]{NEWS_TEXT}[/NEWS_TEXT]
 	[NEWS_TEXT_ELSE][NEWS_TEASER]{NEWS_TEASER}[/NEWS_TEASER][/NEWS_TEXT_ELSE]
@@ -169,10 +165,10 @@ gallery_filecenter_info = 1
 		</div>
 	[/GALLERY]
 	[FILES]{FILES}[/FILES]
-	
+
 	[NEWS_LIST_LINK]
 		<p class="link"><a href="{NEWS_LIST_LINK}">back</a></p>
 	[/NEWS_LIST_LINK]
-	
+
 </div>
 <!--NEWS_DETAIL_END//-->

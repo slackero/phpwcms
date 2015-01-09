@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -27,20 +27,18 @@ function read_textfile($filename) {
 		$fd = @fopen($filename, "rb");
 		$text = fread($fd, filesize($filename));
 		fclose($fd);
-		return $text;				
-	} else {
-		return false;
+		return $text;
 	}
+	return false;
 }
 
 function write_textfile($filename, $text) {
 	if($fp = @fopen($filename, "w+b")) {;
 		fwrite($fp, $text);
 		fclose($fp);
-		return true;	
-	} else {
-		return false;
+		return true;
 	}
+	return false;
 }
 
 function set_chmod($path, $rights, $status, $file_folder=0) {
@@ -83,7 +81,7 @@ function gib_bg_color($status) {
 				break;
 	}
 	return $color;
-	
+
 }
 
 function gib_status_text($status) {
@@ -132,7 +130,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['db_collation']      = '".$val["db_collation"]."';\n";
 	$conf_file .= "\$phpwcms['db_version']        = ".intval($val["db_version"]).";\n";
 	$conf_file .= "\$phpwcms['db_timezone']       = '".trim($val["db_timezone"])."'; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
-	
+
 	$conf_file .= "\n// site values\n";
 	if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
 		$conf_file .= "\$phpwcms['site']              = 'http://'.\$_SERVER['SERVER_NAME'].'/';";
@@ -143,7 +141,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['site_ssl_mode']     = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
 	$conf_file .= "\$phpwcms['site_ssl_url']      = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
 	$conf_file .= "\$phpwcms['site_ssl_port']     = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
-	
+
 	$conf_file .= "\$phpwcms['admin_name']        = '".$val["admin_name"]."'; //default: Webmaster\n";
 	$conf_file .= "\$phpwcms['admin_user']        = '".$val["admin_user"]."'; //default: admin\n";
 	$conf_file .= "\$phpwcms['admin_pass']        = '".$val["admin_pass"]."'; //MD5(phpwcms)\n";
@@ -155,7 +153,7 @@ function write_conf_file($val) {
 	} else {
 		$conf_file .= "\$phpwcms['DOC_ROOT']          = '".$val["DOC_ROOT"]."';         //default: \$_SERVER['DOCUMENT_ROOT']";
 	}
-	
+
 	$real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
 	if(isset($val["root"]) && $val["root"] !== '') {
 		$real_doc = explode($val["root"], $real_doc);
@@ -177,6 +175,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['img_prev_width']    = ".intval($val["img_prev_width"])."; //max width of the large preview image\n";
 	$conf_file .= "\$phpwcms['img_prev_height']   = ".intval($val["img_prev_height"])."; //max height of the large preview image\n";
 	$conf_file .= "\$phpwcms['max_time']          = ".intval($val["max_time"])."; //logout after max_time/60 seconds\n";
+	$conf_file .= "\$phpwcms['responsive']        = 1; // 0 max. image width = \$phpwcms['content_width'], 1 = as given\n";
 
 	$conf_file .= "\n// other stuff\n";
 	$conf_file .= "\$phpwcms['image_library']     = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
@@ -190,6 +189,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['DOCTYPE_LANG']      = '';		  //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
 	$conf_file .= "\$phpwcms['default_lang']      = '".$val["default_lang"]."';  //default language\n";
 	$conf_file .= "\$phpwcms['charset']           = '".$val["charset"]."';  //default charset 'utf-8'\n";
+	$conf_file .= "\$phpwcms['php_charset']       = false; // set PHP default charset to \$phpwcms['charset']\n";
 	$conf_file .= "\$phpwcms['allow_remote_URL']  = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
 	$conf_file .= "\$phpwcms['jpg_quality']       = 85; //JPG Quality Range 25-100\n";
 	$conf_file .= "\$phpwcms['sharpen_level']     = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
@@ -204,8 +204,8 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling\n";
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
 	$conf_file .= "\$phpwcms['GETparameterName']  = 'id'; //must have a minimum of 2 chars \n";
-	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
-	$conf_file .= "\$phpwcms['mode_XHTML']        = 1; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
+	$conf_file .= "\$phpwcms['BOTS']              = array('googlebot', 'msnbot', 'bingbot', 'baiduspider', 'yandex', 'sosospider', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'); //don't start session \n";
+	$conf_file .= "\$phpwcms['mode_XHTML']        = 3; // Doctype: 1 = XHTML 1.0 Transitional, 0 = HTML 4.01 Transitional, 2 = XHTML 1.0 Strict, 3 = HTML5 \n";
 	$conf_file .= "\$phpwcms['header_XML']        = 0; // Content Type: 1 = application/xhtml+xml, 0 = text/html \n";
 	$conf_file .= "\$phpwcms['IE7-js']        	  = 0; // load IE7-js - fix for HTML/CSS/PNG bugs in IE\n";
 	$conf_file .= "\$phpwcms['php_timezone']  	  = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
@@ -226,7 +226,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['feuser_regkey']	  = 'FEUSER';\n";
 	$conf_file .= "\$phpwcms['login.php']	  	  = 'login.php';\n";
 	$conf_file .= "\$phpwcms['js_lib']			  = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-	$conf_file .= "\$phpwcms['video-js']          = 'http://vjs.zencdn.net/c/'; // can be stored locally too 'template/lib/video-js/ (http://videojs.com/)\n";
+	$conf_file .= "\$phpwcms['video-js']          = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/4.10/)\n";
 	$conf_file .= "\$phpwcms['render_device']     = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
 	$conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
 	$conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB\n";
@@ -238,28 +238,40 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['force301_2struct']  = false; // send 301 HTTP Redirect to structure level when only 1 article is inside\n";
 	$conf_file .= "\$phpwcms['allow_empty_alias'] = false; // do not auto-create (default) alias when alias field is empty\n";
 	$conf_file .= "\$phpwcms['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things\n";
+	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";
 	$conf_file .= "\$phpwcms['canonical_off']     = false; // disable canonical link tag\n";
 	$conf_file .= "\$phpwcms['viewport']		  = ''; // set viewport like \"width=device-width, initial-scale=1.0, user-scalable=no\"\n";
 	$conf_file .= "\$phpwcms['X-UA-Compatible']   = 'IE=Edge,chrome=1'; // set browser compatibility mode using meta tag X-UA-Compatible\n";
 	$conf_file .= "\$phpwcms['base_href']		  = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
 	$conf_file .= "\$phpwcms['cp_default']		  = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
+	$conf_file .= "\$phpwcms['js_in_body']		  = 0; // add <script> direct before </body> instead inside of <head>\n";
+	$conf_file .= "\$phpwcms['set_article_active']	= 1; // activate (1) or disable (0) article by default on create\n";
+	$conf_file .= "\$phpwcms['set_category_active']	= 1; // activate (1) or disable (0) category/structure level by default on create\n";
+	$conf_file .= "\$phpwcms['set_file_active']		= 1; // activate (1) or disable (0) files and folders by default on create\n";
+	$conf_file .= "\$phpwcms['set_news_active']		= 1; // activate (1) or disable (0) news by default on create\n";
+	$conf_file .= "\$phpwcms['log_404error']		= false; // log each 404 for redirect edit\n";
+	$conf_file .= "\$phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend\n";
+	$conf_file .= "\$phpwcms['header_comment']		= '';\n";
+	$conf_file .= "\$phpwcms['cnt_sort']			= 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'\n";
 
-	$conf_file .= "\n// smtp values\n";
-	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".$val["SMTP_FROM_EMAIL"]."'; // reply/from email address\n";
-	$conf_file .= "\$phpwcms['SMTP_FROM_NAME']    = '".$val["SMTP_FROM_NAME"]."'; // reply/from name\n";
+	$conf_file .= "\n// Email specific settings (based on phpMailer)\n";
+	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"])."'; // reply/from email address\n";
+	$conf_file .= "\$phpwcms['SMTP_FROM_NAME']    = '".str_replace("'", "\\'", $val["SMTP_FROM_NAME"])."'; // reply/from name\n";
 	$conf_file .= "\$phpwcms['SMTP_HOST']         = '".$val["SMTP_HOST"]."'; // SMTP server (host/IP)\n";
-	$conf_file .= "\$phpwcms['SMTP_PORT']         = ".intval($val["SMTP_PORT"])."; // SMTP-Server port (default 25)\n";
-	$conf_file .= "\$phpwcms['SMTP_MAILER']       = '".$val["SMTP_MAILER"]."'; // default phpMailer: smtp, mail (default), sendmail\n";
-	$conf_file .= "\$phpwcms['SMTP_AUTH']         = ".intval($val["SMTP_AUTH"])."; // sets SMTP_AUTH to ON/OFF\n";
-	$conf_file .= "\$phpwcms['SMTP_USER']         = '".$val["SMTP_USER"]."'; // default SMTP login (user) name\n";
-	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".$val["SMTP_PASS"]."'; // default SMTP password\n";
-	$conf_file .= "\$phpwcms['reserved_alias']    = array(); // use this to block custom alias\n";
-	
+	$conf_file .= "\$phpwcms['SMTP_PORT']         = ".intval($val["SMTP_PORT"])."; // SMTP server port (default 25)\n";
+	$conf_file .= "\$phpwcms['SMTP_MAILER']       = '".$val["SMTP_MAILER"]."'; // mail method: mail (default), smtp, sendmail\n";
+	$conf_file .= "\$phpwcms['SMTP_USER']         = '".str_replace("'", "\\'", $val["SMTP_USER"])."'; // default SMTP login (user) name\n";
+	$conf_file .= "\$phpwcms['SMTP_PASS']         = '".str_replace("'", "\\'", $val["SMTP_PASS"])."'; // default SMTP password\n";
+	$conf_file .= "\$phpwcms['SMTP_SECURE']       = '".$val["SMTP_SECURE"]."'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
+	$conf_file .= "\$phpwcms['SMTP_AUTH']         = ".intval($val["SMTP_AUTH"])."; // SMTP authentication, ON=1/OFF=0\n";
+	$conf_file .= "\$phpwcms['SMTP_AUTH_TYPE']    = '".$val["SMTP_AUTH_TYPE"]."'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
+	$conf_file .= "\$phpwcms['SMTP_REALM']        = '".$val["SMTP_REALM"]."'; // SMTP realm, used for NTLM auth type\n";
+	$conf_file .= "\$phpwcms['SMTP_WORKSTATION']  = '".$val["SMTP_WORKSTATION"]."'; // SMTP workstation, used for NTLM auth type\n";
+
 	$conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
-	
 	$conf_file .= "\n?>";
-	
-	write_textfile("setup.conf.inc.php", $conf_file);	
+
+	write_textfile("setup.conf.inc.php", $conf_file);
 }
 
 function aporeplace($string_to_convert="") {
@@ -281,12 +293,11 @@ function html_specialchars($h="") {
 	return $h;
 }
 
-
 // taken from http://de.php.net/manual/de/function.phpinfo.php#59573
 function parsePHPModules() {
  ob_start();
  phpinfo(INFO_MODULES);
- $s = ob_get_clean(); 
+ $s = ob_get_clean();
  $s = strip_tags($s,'<h2><th><td>');
  $s = preg_replace('/<th[^>]*>([^<]+)<\/th>/',"<info>\\1</info>",$s);
  $s = preg_replace('/<td[^>]*>([^<]+)<\/td>/',"<info>\\1</info>",$s);
@@ -311,7 +322,6 @@ function parsePHPModules() {
  return $vModules;
 }
 
-
 function errorWarning($warning='') {
 	$t  = '<p class="error"><img src="../img/famfamfam/icon_alert.gif" alt="Alert" border="0" class="icon1" /><b>';
 	$t .= $warning;
@@ -320,7 +330,6 @@ function errorWarning($warning='') {
 }
 
 // based on definitions of phpMyAdmin
-
 $mysql_charset_map = array(
     'big5'         => 'big5',
     'cp-866'       => 'cp866',
@@ -471,40 +480,40 @@ $available_languages = array(
 function _dbQuery($query='', $_queryMode='ASSOC') {
 
 	if(empty($query)) return false;
-	
+
 	global $db;
 	$queryResult	= array();
 	$queryCount		= 0;
-	
+
 	if($result = @mysql_query($query, $db)) {
-	
+
 		switch($_queryMode) {
 
 			// INSERT, UPDATE, DELETE
 			case 'INSERT':	$queryResult['INSERT_ID']		= mysql_insert_id($db);
-			case 'DELETE':	
-			case 'UPDATE':	
+			case 'DELETE':
+			case 'UPDATE':
 							$queryResult['AFFECTED_ROWS']	= mysql_affected_rows($db);
 							return $queryResult;
 							break;
 
-			// SELECT Queries	
+			// SELECT Queries
 			case 'ROW':		$_queryMode = 'mysql_fetch_row';	break;
 			case 'ARRAY':	$_queryMode = 'mysql_fetch_array';	break;
 			default: 		$_queryMode = 'mysql_fetch_assoc';
-	
+
 		}
-	
+
 		while($row = $_queryMode($result)) {
-			
+
 			$queryResult[$queryCount] = $row;
 			$queryCount++;
 
 		}
 		mysql_free_result($result);
-	
+
 		return $queryResult;
-	
+
 	} else {
 		return false;
 	}

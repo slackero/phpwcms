@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -28,10 +28,10 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 	$file_durchlauf = 0;
 	$zieldatei = "phpwcms.php?do=files&amp;f=0";
 	while($file_row = mysql_fetch_array($file_result)) {
-		$filename = html_specialchars($file_row["f_name"]);
-		
+		$filename = html($file_row["f_name"]);
+
 		$file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
-		
+
 		if(!$file_durchlauf) {
 			echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 		} else {
@@ -42,9 +42,9 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<td width=\"13\" class=\"msglist\">";
 		echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
 		echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-		echo '&lt;br&gt;Name: '.html_specialchars($file_row["f_name"]);
+		echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
 		if($file_row["f_copyright"]) {
-			echo '&lt;br&gt;&copy;: '.html_specialchars($file_row["f_copyright"]);
+			echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
 		}
 		echo '\');" onmouseout="UnTip()" alt=""';
 		echo " /></td>\n";
@@ -66,7 +66,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 			echo "<img src=\"img/button/cut_13x13_0.gif\" border=\"0\"></a>";
 		}
 		//Button zum Bearbeiten der Dateiinformationn
-		echo $file_row['edit'] . "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";					
+		echo $file_row['edit'] . "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";
 		//Button zum Umschalten zwischen Aktiv/Inaktiv
 		echo "<a href=\"include/inc_act/act_file.php?aktiv=".$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
 			 "\" title=\"".$BL['be_fprivfunc_cactivefile'].": ".$filename."\">";
@@ -75,7 +75,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<a href=\"include/inc_act/act_file.php?public=".$file_row["f_id"].'%7C'.true_false($file_row["f_public"]).
 			 "\" title=\"".$BL['be_fprivfunc_cpublicfile'].": ".$filename."\">";
 		echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\"></a>";
-		echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer					
+		echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
 		//Button zum Löschen der Datei
 		echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
 	 		 "\" title=\"".$BL['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".$BL['be_fprivfunc_jsmovetrash1'].
@@ -87,33 +87,30 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "</tr>\n";
 
 		if($_SESSION["wcs_user_thumb"]) {
-		
-			// now try to get existing thumbnails or if not exists 
+
+			// now try to get existing thumbnails or if not exists
 			// build new based on default thumbnail listing sizes
-			
+
 			// build thumbnail image name
-			$thumb_image = get_cached_image(
-			 					array(	"target_ext"	=>	$file_row["f_ext"],
-										"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
-										"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        							  )
-								);
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$file_row["f_ext"],
+				"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
+				"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        	));
 
 			if($thumb_image != false) {
-			
+
 				echo "<tr>\n";
 				echo "<td width=\"19\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n";
 				echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
 				echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">"; //<a href=\"fileinfo.php?fid=";
-				//echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
-				//echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
 				echo $file_row['edit'];
 				echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
 				echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-				
+
 			}
-			
+
 		}
 		$file_durchlauf++;
 	}

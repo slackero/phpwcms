@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -32,18 +32,18 @@ $map['loc']	 = array();
 
 if($map['result'] = mysql_query($map['sql'], $db)) {
 	while($map['row'] = mysql_fetch_assoc($map['result'])) {
-	
+
 		$map['map'] .= '<area shape="rect" coords="'.($map['row']['map_x']-4).','.($map['row']['map_y']-4);
 		$map['map'] .= ','.($map['row']['map_x']+4).','.($map['row']['map_y']+4).'" href="index.php?id=';
 		$map['map'] .= implode(',', $aktion).'&amp;loc='.$map['row']['map_id'].'" title="';
 		$map['map'] .= html_specialchars($map['row']['map_title']).'" alt="';
 		$map['map'] .= html_specialchars($map['row']['map_title']).'" />';
 		$map['p'][]  = $map['row']['map_x'].'x'.$map['row']['map_y'];
-		
+
 		if($map['show'] == $map['row']['map_id']) {
-			$map['loc'] = $map['row'];		
+			$map['loc'] = $map['row'];
 		}
-	
+
 	}
 	mysql_free_result($map['result']);
 }
@@ -58,7 +58,7 @@ if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/map/map_img/'.$map['image'])) {
 	$map['map_img'] .= '<img src="img/mapimage.php?';
 	$map['map_img'] .= 'i='.rawurlencode($map['image']).'&amp;xy='.rawurlencode(implode(',', $map['p']));
 	$map['map_img'] .= '&amp;v='.rawurlencode(($map['tmpl_var']) ? $map['tmpl_var'] : '1,7,7,FFFFFF,FF4000');
-	$map['map_img'] .= '" hspace="0" vspace="0" border="0" alt="" usemap="#locations" />';
+	$map['map_img'] .= '" hspace="0" vspace="0" alt="" usemap="#locations" />';
 	if($map['map']) $map['map_img'] .= '<map name="locations">'.$map['map'].'</map>';
 }
 

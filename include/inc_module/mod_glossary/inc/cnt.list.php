@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -20,8 +20,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // Glossary module content part listing
 
 $cinfo["result"] = array();
-$cinfo["result"][] = trim(html_specialchars(cut_string($row["acontent_title"],'&#8230;', 55)));
-$cinfo["result"][] = trim(html_specialchars(cut_string($row["acontent_subtitle"],'&#8230;', 55)));
+$cinfo["result"][] = trim(html(cut_string($row["acontent_title"],'&#8230;', 55)));
+$cinfo["result"][] = trim(html(cut_string($row["acontent_subtitle"],'&#8230;', 55)));
 $cinfo["result"] = implode(' / ', $cinfo["result"]);
 if($cinfo["result"]) { //Zeige Inhaltinfo
 	echo '<tr><td>&nbsp;</td><td class="v10">';

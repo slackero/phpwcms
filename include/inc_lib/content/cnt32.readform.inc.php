@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -31,17 +31,18 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 	$x = 0;
 
 	foreach($_POST['tabtitle'] as $key => $value) {
-		
+
 		$content["tabs"][$x]['tabtitle'] = clean_slweg($value);
 		if($content["tabs"][$x]['tabtitle'] == '') {
 			$content["tabs"][$x]['tabtitle'] = $BL['be_tab_name'].' #'.($x+1);
 		}
 		$content["tabs"][$x]['tabheadline'] = empty($_POST['tabheadline'][$key]) ? '' : clean_slweg($_POST['tabheadline'][$key]);
 		$content["tabs"][$x]['tabtext']		= empty($_POST['tabtext'][$key]) ? '' : slweg($_POST['tabtext'][$key]);
-		
+		$content["tabs"][$x]['tablink']		= empty($_POST['tablink'][$key]) ? '' : clean_slweg($_POST['tablink'][$key]);
+
 		$content['search'] .= strip_tags( trim( $content["tabs"][$x]['tabtitle'].' '.$content["tabs"][$x]['tabheadline'].' '.$content["tabs"][$x]['tabtext'] ) ).' ';
-		
-		
+
+
 		$content['html'][] = '	<dt>'.html_specialchars($content["tabs"][$x]['tabtitle']).'</dt>';
 		$content['html'][] = '	<dd>';
 		if($content["tabs"][$x]['tabheadline']) {

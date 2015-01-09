@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -45,7 +45,7 @@ if(isset($_POST['do_pagination'])) {
 		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
 		$_POST['filter']	= $_SESSION['filter'];
 	}
-	
+
 	$_SESSION['seolog_page'] = intval($_POST['page']);
 
 }
@@ -61,7 +61,7 @@ $_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_i
 $_entry['query'] = '';
 
 if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
-	
+
 	$_entry['filter_array'] = array();
 
 	foreach($_SESSION['filter'] as $_entry['filter']) {
@@ -69,10 +69,10 @@ if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSIO
 		$_entry['filter_array'][] = "CONCAT(domain,query) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
-		
+
 		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
 		$_entry['query'] .= $_SESSION['filter'];
-	
+
 	}
 
 } elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
@@ -104,7 +104,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
-<?php 
+<?php
 if($_entry['pages_total'] > 1) {
 
 	echo '<td>';
@@ -133,15 +133,15 @@ if($_entry['pages_total'] > 1) {
 
 }
 ?>
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php 
-				
+				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html_specialchars(implode(' ', $_POST['filter']));
+					echo html(implode(' ', $_POST['filter']));
 				}
-				
+
 				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results" /></td>
 				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-			
+
 			</tr>
 		</table></td>
 
@@ -159,13 +159,13 @@ if($_entry['pages_total'] > 1) {
 </form>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-		
+
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-	
+
 <?php
 // loop listing available newsletters
-$row_count = 0;                
+$row_count = 0;
 
 $sql  = 'SELECT *, COUNT(*) AS occurance FROM '.DB_PREPEND.'phpwcms_log_seo ';
 if($_entry['query']) {
@@ -180,17 +180,17 @@ $data = _dbQuery($sql);
 foreach($data as $row) {
 
 	echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
-	
+
 	echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;';
 	echo $row['occurance'];
 	echo '&nbsp;</td>';
-		
+
 	echo '<td class="tdbottom3 tdtop3"><a href="';
-	echo html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']);
+	echo html($row['referrer']).'" target="_blank">'.html($row['domain']);
 	echo '</a></td>';
 
 	echo '<td class="tdbottom3 tdtop3">';
-	echo html_specialchars(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', PHPWCMS_CHARSET, false) : $row['query']);
+	echo html(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', PHPWCMS_CHARSET, false) : $row['query']);
 	echo '</td>';
 
 	echo "</tr>\n";
@@ -202,7 +202,7 @@ if($row_count) {
 	echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
 }
 
-?>	
+?>
 
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
 </table>

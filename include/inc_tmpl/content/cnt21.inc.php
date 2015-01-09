@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -40,7 +40,7 @@ if(!isset($content["page_file"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_pages_cust'] ?>:&nbsp;</td>
-  <td><input name="cpage_custom" type="text" class="f11" id="cpage_custom" style="width: 440px" value="<?php echo  html_specialchars($content["page_file"]["pfile"]) ?>" size="40"></td>
+  <td><input name="cpage_custom" type="text" class="f11" id="cpage_custom" style="width: 440px" value="<?php echo  html($content["page_file"]["pfile"]) ?>" size="40"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
@@ -84,19 +84,19 @@ function browse_pages_dir($dir) {
 			foreach($fa as $value) {
 				if(!$x) {
 					echo "\n<tr bgcolor=\"#E7E8EB\" style=\"height:19px;\"><td colspan=\"2\" class=\"chatlist\">";
-					echo '&nbsp;&nbsp;<strong>'.html_specialchars($dir);
+					echo '&nbsp;&nbsp;<strong>'.html($dir);
 					echo "</strong></td></tr>\n";
 					echo '<tr><td colspan="2"><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>';
 				}
 				echo "\n<tr><td align=\"center\">";
-				echo '<input name="cpage_file" type="radio" value="'.html_specialchars($dir.'/'.$value).'" ';
+				echo '<input name="cpage_file" type="radio" value="'.html($dir.'/'.$value).'" ';
 				
 				if($GLOBALS['content']['page_file']['pfile'] == ($dir.'/'.$value)) {
 					echo 'checked="checked" ';
 				}				
 				echo '/>';
 				echo '</td><td><strong>';
-				echo str_replace(' ', '&nbsp;', html_specialchars($value));
+				echo str_replace(' ', '&nbsp;', html($value));
 				echo '</strong></td></tr>';
 				$x++;
 			}

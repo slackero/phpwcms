@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -641,7 +641,7 @@ $BL['be_cnt_align']                     = 'align';
 $BL['be_cnt_searchformtext']            = 'the following texts are listed when the search form is opened or results for given search are (not) available.';
 $BL['be_cnt_intro']                     = 'intro';
 $BL['be_cnt_noresult']                  = 'no result';
-$BL['be_cnt_search_default_type']       = 'default search type';
+$BL['be_cnt_search_default_type']       = 'search type';
 
 // added: 02-01-2004
 $BL['be_admin_page_disable']            = 'disable';
@@ -726,7 +726,7 @@ $BL['be_newsletter_open']               = 'HTML and TEXT input';
 $BL['be_newsletter_open1']              = '(click on image to open)';
 $BL['be_newsletter_sendnow']            = 'Send newsletter';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Attention!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
-$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.'; 
+$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
@@ -916,32 +916,32 @@ $BL['be_cnt_css_style']					= 'CSS style';
 $BL['be_cnt_css_class']					= 'CSS class';
 $BL['be_cnt_send_copy_to']				= 'copy to';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', 
-												"email"=>'email', 
-												"textarea"=>'text (multi-line)', 
-												"hidden"=>'hidden', 
-												"password"=>'password', 
-												"select"=>'select menu', 
-												"list"=>'list menu', 
-												"checkbox"=>'checkbox', 
+$BL['be_cnt_field']						= array("text"=>'text (single-line)',
+												"email"=>'email',
+												"textarea"=>'text (multi-line)',
+												"hidden"=>'hidden',
+												"password"=>'password',
+												"select"=>'select menu',
+												"list"=>'list menu',
+												"checkbox"=>'checkbox',
 												"checkboxcopy"=>'checkbox (email copy on/off)',
-												"radio"=>'radio button', 
-												"upload"=>'file', 
-												"submit"=>'send button', 
-												"reset"=>'reset button', 
-												"break"=>'break', "breaktext"=>'break text', 
+												"radio"=>'radio button',
+												"upload"=>'file',
+												"submit"=>'send button',
+												"reset"=>'reset button',
+												"break"=>'break', "breaktext"=>'break text',
 												"special"=>'text (spezial)',
-												"captchaimg"=>'captcha image', 
-												"captcha"=>'captcha code', 
+												"captchaimg"=>'captcha image',
+												"captcha"=>'captcha code',
 												'newsletter'=>'newsletter',
-												'selectemail'=>'select email menu', 
+												'selectemail'=>'select email menu',
 												'country'=>'select country menu',
-												'mathspam'=>'math spam protect', 
-												'summing'=>'summing', 
-												'subtract'=>'subtract', 
-												'divide'=>'divide', 'multiply'=>'multiply', 
+												'mathspam'=>'math spam protect',
+												'summing'=>'summing',
+												'subtract'=>'subtract',
+												'divide'=>'divide', 'multiply'=>'multiply',
 												'calculation'=>'calculation:',
-												'formtracking_off'=>'disable form tracking', 
+												'formtracking_off'=>'disable form tracking',
 												'checktofrom'=>'email of recipient must be different from sender',
 												'recaptcha'=>'reCAPTCHA',
 												'recaptcha_signapikey'=>'Sign up for a reCAPTCHA API key');
@@ -990,13 +990,15 @@ $BL['be_cnt_spaces'] = 'spaces of contentpart alias';
 $BL['be_cnt_toplink'] = 'top link setting of contentpart alias';
 $BL['be_cnt_block'] = 'display (block) setting of contentpart alias';
 $BL['be_cnt_title'] = 'titles of contentpart alias';
+$BL['be_cnt_status'] = 'visibility of contentpart alias';
+$BL['be_cnt_plugin_n.a.'] = 'plugin not available';
 
 $BL['be_file_replace'] = 'Replace eponymous files';
 
 $BL['be_alias_articleID'] = 'alias ID';
 $BL['be_alias_useAll'] = "use this article&#8217;s header data";
 $BL['be_article_morelink'] = '[more&#8230;] link';
-$BL['be_admin_tmpl_copy']               = 'copy template'; 
+$BL['be_admin_tmpl_copy']               = 'copy template';
 
 $BL['be_ctype_filelist1']                = 'file list pro';
 $BL['be_cnt_fpro_usecaption']            = 'use file center &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
@@ -1298,7 +1300,7 @@ $BL['over']								= 'over';
 $BL['js_lib']							= 'JS Library';
 $BL['js_lib_alwaysload']				= 'always load';
 $BL['frontendjs_load']					= 'load frontend.js (more for historical reasons)';
-$BL['googleapi_load']					= 'use Google Ajax Lib';
+$BL['googleapi_load']					= 'use CDN';
 
 $BL['fancyupload_clear_list']			= 'Clear List';
 $BL['fancyupload_file_uploaded']		= 'File was uploaded';
@@ -1338,5 +1340,52 @@ $BL['file_actions_msg_error']			= 'There are no files selected';
 $BL['file_actions_msg_user']			= 'Files were successfully assigned to the new user';
 
 $BL['be_imagefiles_as_gallery']			= 'create gallery from image files';
+
+$BL['be_link']							= 'link';
+$BL['be_links']							= 'links';
+$BL['be_redirect']						= 'redirect';
+$BL['be_redirects']						= 'redirects';
+$BL['be_views']							= 'views';
+$BL['be_structure_id']					= 'structure ID';
+$BL['be_shortcut']						= 'shortcut';
+$BL['be_target_type']					= 'target type';
+$BL['be_http_status']					= 'HTTP status';
+$BL['be_http_status301']				= 'moved permanently';
+$BL['be_http_status307']				= 'temporary redirect';
+$BL['be_http_status404']				= 'not found';
+$BL['be_http_status401']				= 'unauthorized';
+$BL['be_http_status503']				= 'service unavailable';
+$BL['be_redirect_error1']				= 'Alias/Shortcut, structure or article ID is required';
+$BL['be_redirect_error2']				= 'Target is required';
+$BL['be_redirect_error3']				= 'For target type article ID and structure ID only integers are allowed as target';
+$BL['be_new_linkredirect']				= 'Add link/redirect';
+
+$BL['be_ctype_accordion']				= 'group (accordion)';
+$BL['be_ctype_number']					= 'number';
+$BL['be_inactive']						= 'inactive';
+$BL['be_locked']						= 'locked';
+$BL['be_n/a']							= 'n/a';
+$BL['be_opengraph_support']				= 'Allow Social Sharing';
+$BL['be_player_volume']					= 'Volume';
+$BL['be_player_volume_muted']			= 'muted';
+$BL['be_keyword']						= 'Keyword';
+$BL['be_tag']							= 'tag';
+
+$BL['be_system_container']				= 'system container';
+$BL['be_system_container_norender']		= 'no regular frontend rendering';
+$BL['be_custom_scriptlogic']			= 'custom (script logic)';
+$BL['be_flush_image_cache']				= 'flush image cache';
+
+$BL['be_caption_alt']					= 'alt attr.';
+$BL['be_caption_title']					= 'title attr.';
+$BL['be_caption_file_imagesize']		= 'WxHxC <em>(if image)</em>';
+$BL['be_caption_file_title']			= 'file title';
+$BL['be_caption_descr.']				= 'descr.';
+$BL['be_display_html5_only']			= 'HTML5 only';
+$BL['be_audio_only']					= 'audio only';
+
+$BL['be_filter']						= 'filter';
+$BL['be_filter_with_tags']				= 'by tag';
+$BL['be_filter_not_selected']			= 'no category selected';
 
 ?>

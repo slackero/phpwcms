@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -73,10 +73,19 @@ $phpwcms['charsets'] = array(
 
 define ('PHPWCMS_CHARSET', 	empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
+if(!empty($phpwcms['php_charset'])) {
+	@ini_set('default_charset', PHPWCMS_CHARSET);
+	@ini_set('iconv.input_encoding', PHPWCMS_CHARSET);
+	@ini_set('iconv.internal_encoding', PHPWCMS_CHARSET);
+	@ini_set('iconv.output_encoding', PHPWCMS_CHARSET);
+	@ini_set('mbstring.internal_encoding', PHPWCMS_CHARSET);
+	@ini_set('mbstring.http_output', PHPWCMS_CHARSET);
+}
+
 if(defined('CUSTOM_CONTENT_TYPE')) {
 
 	header(CUSTOM_CONTENT_TYPE);
-	
+
 } else {
 
 	header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
@@ -103,8 +112,10 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 		$phpwcms['site'] = $phpwcms['site_ssl_url'];
 	}
 	define ('PHPWCMS_SSL', true);
+	define ('PHPWCMS_HTTP_SCHEMA', 'https');
 } else {
 	define ('PHPWCMS_SSL', false);
+	define ('PHPWCMS_HTTP_SCHEMA', 'http');
 }
 
 $phpwcms["site"] .= '/';
@@ -133,7 +144,9 @@ define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["d
 define ('PHPWCMS_REWRITE',			empty($phpwcms["rewrite_url"]) ? false : true);
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define ('PHPWCMS_ALIAS_WSLASH',		empty($phpwcms['alias_allow_slash']) ? false : true);
-define ('IS_PHP5',					version_compare(PHP_VERSION, '5.0.0', '>='));
+define ('IS_PHP523',				version_compare(PHP_VERSION, '5.2.3', '>='));
+define ('IS_PHP5',					IS_PHP523);
+define ('IS_PHP540',				version_compare(PHP_VERSION, '5.4.0', '>='));
 
 // Mime-Type definitions
 require_once(PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php');
@@ -167,6 +180,7 @@ define ('PHPWCMS_RSS', 				PHPWCMS_CONTENT.'rss');
 define ('PHPWCMS_STORAGE',			PHPWCMS_ROOT.$phpwcms["file_path"]);
 define ('LF', 						"\n"); 	//global new line Feed
 define ('FEUSER_REGKEY',			empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
+define ('RESPONSIVE_MODE',			!empty($phpwcms['responsive']));
 
 if(function_exists('mb_substr')) {
 	define ('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -201,23 +215,29 @@ $phpwcms['modules_fe_init']		= array();
 // Changed Image Manipulation class to CodeIgniter based class
 // which supports GD, GD2, ImageMagick and NetPBM
 if(isset($phpwcms['image_library'])) {
-	
+
 	$phpwcms['image_library']	= strtolower($phpwcms['image_library']);
 	$phpwcms['library_path']	= empty($phpwcms['library_path']) ? '' : $phpwcms['library_path'];
-	
+
 	if(!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'))) {
 		$phpwcms['image_library'] = 'gd2';
 	}
 
 // Fallback to old setting
 } else {
-	
+
 	$phpwcms['image_library']	= empty($phpwcms["imagick"]) ? 'gd2' : 'imagemagick';
 	$phpwcms['library_path']	= empty($phpwcms["imagick_path"]) ? '' : str_replace('//', '/', str_replace("\\", '/', $phpwcms["imagick_path"].'/') );
 
 	unset($phpwcms["imagick_path"], $phpwcms["imagick"]);
-	
+
 }
+
+// Set default colorspace in General RGB or sRGB
+if(empty($phpwcms['im_fix_colorspace'])) {
+	$phpwcms['im_fix_colorspace'] = 'RGB';
+}
+$phpwcms['colorspace'] = $phpwcms['im_fix_colorspace'];
 
 if(empty($phpwcms['SMTP_MAILER'])) {
 	$phpwcms['SMTP_MAILER'] = 'mail';
@@ -230,21 +250,27 @@ $phpwcms['default_lang']	= strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
-	'jquery-2.0'			=> 'jQuery 2.0',
-	'jquery-2.0-migrate'	=> 'jQuery 2.0 Migrate',
-	'jquery-1.9'			=> 'jQuery 1.9',
-	'jquery-1.9-migrate'	=> 'jQuery 1.9 Migrate',
-	'jquery-1.8'			=> 'jQuery 1.8',
-	'jquery-1.7'			=> 'jQuery 1.7',
-	'jquery-1.6'			=> 'jQuery 1.6'
+	'jquery-2.1'			=> 'jQuery 2.1.1',
+	'jquery-2.1-migrate'	=> 'jQuery 2.1.1 + Migrate 1.2.1',
+	'jquery-2.0'			=> 'jQuery 2.0.3',
+	'jquery-2.0-migrate'	=> 'jQuery 2.0.3 + Migrate 1.2.1',
+	'jquery-1.11'			=> 'jQuery 1.11.1',
+	'jquery-1.11-migrate'	=> 'jQuery 1.11.1 + Migrate 1.2.1',
+	'jquery-1.10'			=> 'jQuery 1.10.2',
+	'jquery-1.10-migrate'	=> 'jQuery 1.10.2 + Migrate 1.2.1',
+	'jquery-1.9'			=> 'jQuery 1.9.1',
+	'jquery-1.9-migrate'	=> 'jQuery 1.9.1 + Migrate 1.2.1',
+	'jquery-1.8'			=> 'jQuery 1.8.3',
+	'jquery-1.7'			=> 'jQuery 1.7.2',
+	'jquery-1.6'			=> 'jQuery 1.6.4'
 );
 $phpwcms['js_lib_deprecated'] = array(
-	'jquery-1.5'			=> 'jQuery 1.5',
-	'jquery-1.4'			=> 'jQuery 1.4',
-	'jquery'				=> 'jQuery 1.3',
-	'mootools-1.4'			=> 'MooTools 1.4',
-	'mootools-1.4-compat'	=> 'MooTools 1.4 Compat',
-	'mootools-1.2'			=> 'MooTools 1.2',
+	'jquery-1.5'			=> 'jQuery 1.5.2',
+	'jquery-1.4'			=> 'jQuery 1.4.4',
+	'jquery'				=> 'jQuery 1.3.2',
+	'mootools-1.4'			=> 'MooTools 1.4.5',
+	'mootools-1.4-compat'	=> 'MooTools 1.4.5 Compat',
+	'mootools-1.2'			=> 'MooTools 1.2.6',
 	'mootools-1.1'			=> 'MooTools 1.1'
 );
 
@@ -258,110 +284,170 @@ if(!empty($phpwcms['enable_deprecated'])) {
 }
 
 $phpwcms['default_template_classes'] = array(
-	'link-top'				=> 'link-top',
-	'link-internal'			=> 'link-internal',
-	'link-external'			=> 'link-external',
-	'link-rss'				=> 'link-rss',
-	'link-back'				=> 'link-back',
-	'link-anchor'			=> 'link-anchor',
-	'link-email'			=> 'link-email',
-	'link-bookmark'			=> 'link-bookmark',
-	'link-rss'				=> 'link-rss',
-	'spaceholder'			=> 'spaceholder',
-	'spaceholder-cp-after'	=> 'spaceAfterCP',
-	'spaceholder-cp-before'	=> 'spaceBeforeCP',
-	'img-list-right'		=> 'img-list-right',
-	'search-nextprev'		=> 'search-nextprev',
-	'search-result'			=> 'search-result',
-	'search-result-item'	=> 'search-result-item',
-	'article-list-paginate'	=> 'article-list-paginate',
-	'tab-container'			=> 'tab-container',
-	'tab-navigation'		=> 'tab-navigation',
-	'tab-first'				=> 'tab-first',
-	'tab-last'				=> 'tab-last',
-	'tab-content'			=> 'tab-content',
-	'tab-container-clear'	=> 'tab-container-clear',
-	'tab-item'				=> 'tab-item',
-	'navlist-sub_ul_true'	=> 'sub_ul_true',
-	'navlist-sub_ul'		=> 'sub_ul',
-	'navlist-sub_no'		=> 'sub_no',
-	'navlist-sub_first'		=> 'sub_first',
-	'navlist-sub_last'		=> 'sub_last',
-	'navlist-sub_parent'	=> 'sub_parent',
-	'navlist-asub_no'		=> 'asub_no',
-	'navlist-asub_first'	=> 'asub_first',
-	'navlist-asub_last'		=> 'asub_last',
-	'navlist-navLevel'		=> 'navLevel-',
-	'breadcrumb-active'		=> 'active',
-	'cp-anchor'				=> 'cpidClass',
-	'image-thumb'			=> 'image-thumb',
-	'image-wrapper'			=> 'image-wrapper',
-	'image-link'			=> 'image-link',
-	'image-zoom'			=> 'image-zoom',
-	'image-lightbox'		=> 'image-lightbox',
-	'imgtxt-top-left'		=> 'imgtxt-top-left',
-	'imgtxt-top-center'		=> 'imgtxt-top-center',
-	'imgtxt-top-right'		=> 'imgtxt-top-right',
-	'imgtxt-bottom-left'	=> 'imgtxt-bottom-left',
-	'imgtxt-bottom-center'	=> 'imgtxt-bottom-center',
-	'imgtxt-bottom-right'	=> 'imgtxt-bottom-right',
-	'imgtxt-left'			=> 'imgtxt-left',
-	'imgtxt-right'			=> 'imgtxt-right',
-	'imgtxt-column-left'	=> 'imgtxt-column-left',
-	'imgtxt-column-right'	=> 'imgtxt-column-right',
-	'copyright'				=> 'copyright',
-	'image-list-table'		=> 'image-list-table-',
-	'link-article-listing'	=> 'article-listing',
-	'link-print'			=> 'print',
-	'link-print-pdf'		=> 'print-pdf'
+	'link-top'						=> 'link-top',
+	'link-internal'					=> 'link-internal',
+	'link-external'					=> 'link-external',
+	'link-rss'						=> 'link-rss',
+	'link-back'						=> 'link-back',
+	'link-anchor'					=> 'link-anchor',
+	'link-email'					=> 'link-email',
+	'link-bookmark'					=> 'link-bookmark',
+	'link-rss'						=> 'link-rss',
+	'spaceholder'					=> 'spaceholder',
+	'spaceholder-cp-after'			=> 'spaceAfterCP',
+	'spaceholder-cp-before'			=> 'spaceBeforeCP',
+	'img-list-right'				=> 'img-list-right',
+	'search-nextprev'				=> 'search-nextprev',
+	'search-result'					=> 'search-result',
+	'search-result-item'			=> 'search-result-item',
+	'article-list-paginate'			=> 'article-list-paginate',
+	'tab-container'					=> 'tab-container',
+	'tab-navigation'				=> 'tab-navigation',
+	'tab-first'						=> 'tab-first',
+	'tab-last'						=> 'tab-last',
+	'tab-content'					=> 'tab-content',
+	'tab-content-item'				=> 'tab-content-item',
+	'tab-container-clear'			=> '', //tab-container-clear
+	'tab-item'						=> 'tab-item',
+	'navlist-sub_ul_true'			=> 'sub_ul_true',
+	'navlist-sub_ul'				=> 'sub_ul',
+	'navlist-sub_no'				=> 'sub_no',
+	'navlist-sub_first'				=> 'sub_first',
+	'navlist-sub_last'				=> 'sub_last',
+	'navlist-sub_parent'			=> 'sub_parent',
+	'navlist-asub_no'				=> 'asub_no',
+	'navlist-asub_first'			=> 'asub_first',
+	'navlist-asub_last'				=> 'asub_last',
+	'navlist-navLevel'				=> 'navLevel-',
+	'navlist-bs-dropdown'			=> 'dropdown',
+	'navlist-bs-dropdown-toggle'	=> 'dropdown-toggle',
+	'breadcrumb-active'				=> 'active',
+	'cp-anchor'						=> 'anchor-cp',
+	'jump-anchor'					=> 'anchor-article',
+	'image-thumb'					=> 'image-thumb',
+	'image-wrapper'					=> 'image-wrapper',
+	'image-link'					=> 'image-link',
+	'image-zoom'					=> 'image-zoom',
+	'image-lightbox'				=> 'image-lightbox',
+	'imgtxt-top-left'				=> 'imgtxt-top-left',
+	'imgtxt-top-center'				=> 'imgtxt-top-center',
+	'imgtxt-top-right'				=> 'imgtxt-top-right',
+	'imgtxt-bottom-left'			=> 'imgtxt-bottom-left',
+	'imgtxt-bottom-center'			=> 'imgtxt-bottom-center',
+	'imgtxt-bottom-right'			=> 'imgtxt-bottom-right',
+	'imgtxt-left'					=> 'imgtxt-left',
+	'imgtxt-right'					=> 'imgtxt-right',
+	'imgtxt-column-left'			=> 'imgtxt-column-left',
+	'imgtxt-column-right'			=> 'imgtxt-column-right',
+	'imgtxt-column-left-image'		=> 'imgtxt-column-left-image',
+	'imgtxt-column-right-image'		=> 'imgtxt-column-right-image',
+	'imgtxt-column-left-text'		=> 'imgtxt-column-left-text',
+	'imgtxt-column-right-text'		=> 'imgtxt-column-right-text',
+	'copyright'						=> 'copyright',
+	'image-list-table'				=> 'image-list-table-',
+	'link-article-listing'			=> 'article-listing',
+	'link-print'					=> 'print',
+	'link-print-pdf'				=> 'print-pdf',
+	'imgtable-top-left'				=> 'imgtable-top-left',
+	'imgtable-top-center'			=> 'imgtable-top-center',
+	'imgtable-top-right'			=> 'imgtable-top-right',
+	'imgtable-bottom-left'			=> 'imgtable-bottom-left',
+	'imgtable-bottom-center'		=> 'imgtable-bottom-center',
+	'imgtable-bottom-right'			=> 'imgtable-bottom-right',
+	'imgtable-left'					=> 'imgtable-left',
+	'imgtable-right'				=> 'imgtable-right',
+	'cpgroup-container'				=> 'cpgroup-container',
+	'cpgroup-title'					=> 'cpgroup-title',
+	'cpgroup-first'					=> 'cpgroup-first',
+	'cpgroup-last'					=> 'cpgroup-last',
+	'cpgroup'						=> 'cpgroup',
+	'cpgroup-container-clear'		=> '', //cpgroup-container-clear
+	'cpgroup-content'				=> 'cpgroup-content',
+	'shop-category-menu'			=> 'shop-categories',
+	'shop-products-menu'			=> 'shop-products'
+);
+
+$phpwcms['search_highlight'] = array(
+	'prefix' => '<em class="highlight">',
+	'suffix' => '</em>'
+);
+
+$phpwcms['default_template_attributes'] = array(
+	'navlist-bs-dropdown-data'	=> 'data-toggle="dropdown"',
+	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>',
+	'cpgroup'					=> 'data' // data = <span>, href = <a>
 );
 
 if(empty($phpwcms['mode_XHTML'])) {
-	
+
 	$phpwcms['mode_XHTML'] = 0;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'<html%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'%s<html%s%s>%s'.LF.'<head>%s%s');
+	define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', false);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
-	
+	define('HTML5_MODE', false);
+
 } elseif($phpwcms['mode_XHTML'] == 2) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s%s');
+	define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
 	define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
 	define('SCRIPT_CDATA_END'  , '  /* ]]> */');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
-	
+	define('HTML5_MODE', false);
+
 } elseif($phpwcms['mode_XHTML'] == 3) {
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'<html%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>'.LF.'%s<html%s%s>%s'.LF.'<head>%s%s');
+	define('SCRIPT_ATTRIBUTE_TYPE', '');
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
-	
+	define('HTML5_MODE', true);
+
 } else {
-	
+
 	$phpwcms['mode_XHTML'] = 1;
 
-	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'<html xmlns="http://www.w3.org/1999/xhtml"%s%s>'.LF.'<head>'.LF);
+	define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s%s');
+	define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
 	define('SCRIPT_CDATA_START', '  <!-- ');
 	define('SCRIPT_CDATA_END'  , '  -->');
 	define('HTML_TAG_CLOSE'  , ' />');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
+	define('HTML5_MODE', false);
 
 }
+
+$phpwcms['htmlhead_inject_prefix']	= '';
+$phpwcms['htmlhead_inject_suffix']	= '';
+$phpwcms['htmlhead_inject']			= '';
+
+define('PHPWCMS_HEADER_COMMENT', '
+  <!--%s
+	phpwcms | free open source content management system
+	created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
+	phpwcms is copyright 2002-'.date('Y').' of Oliver Georgi. Extensions are copyright of
+	their respective owners. Visit project page for details: http://www.phpwcms.org/
+  -->
+');
 
 // Todo: Later remove these
 $phpwcms["release"]				= PHPWCMS_VERSION;
 $phpwcms["release_date"]		= PHPWCMS_RELEASE_DATE;
 $phpwcms["revision"]			= PHPWCMS_REVISION;
+
+// We need a global var for callback functions, mainly dates
+$phpwcms['callback']			= null;
 
 // -------------------------------------------------------------
 
@@ -384,10 +470,10 @@ function dumpVar($var, $commented=false) {
 					echo "\n//-->\n";
 					return NULL;
 					break;
-		case 2:		return '<pre>'.html_specialchars(print_r($var, true)).'</pre>';
+		case 2:		return '<pre>'.html(print_r($var, true)).'</pre>';
 					break;
 		default: 	echo '<pre>';
-					echo html_specialchars(print_r($var, true));
+					echo html(print_r($var, true));
 					echo '</pre>';
 					return NULL;
 	}
@@ -397,11 +483,11 @@ function buildGlobalGET($return = '') {
 	// build internal array containing all GET values
 	// and remove session from this array
 	$GLOBALS['_getVar'] = array();
-	
+
 	$_queryVal		= empty($_SERVER['QUERY_STRING']) ? array() : explode('&', $_SERVER['QUERY_STRING']);
 	$_queryCount	= count($_queryVal);
 	$_getCount		= is_array($_GET) ? count($_GET) : 0;
-	
+
 	if($_getCount && $_getCount >= $_queryCount) {
 		$GLOBALS['_getVar'] = $_GET;
 	} elseif($_queryCount) {
@@ -412,18 +498,18 @@ function buildGlobalGET($return = '') {
 			$GLOBALS['_getVar'][$key] = $val;
 		}
 	}
-	
-	unset(	$_GET[session_name()], 
-			$GLOBALS['_getVar'][session_name()], 
+
+	unset(	$_GET[session_name()],
+			$GLOBALS['_getVar'][session_name()],
 			$GLOBALS['_getVar']['']
 		  );
-		  
+
 	if( get_magic_quotes_gpc() ) {
 		foreach($GLOBALS['_getVar'] as $key => $value) {
 			$GLOBALS['_getVar'][$key] = stripslashes($value);
 		}
 	}
-	
+
 	if($return == 'getQuery') {
 		return returnGlobalGET_QueryString('htmlentities');
 	}
@@ -433,7 +519,7 @@ function buildGlobalGET($return = '') {
 function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
 	$query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
 	if(empty($query)) {
-		return PHPWCMS_URL;	
+		return PHPWCMS_URL;
 	}
 	$index = PHPWCMS_REWRITE ? '' : 'index.php';
 	return $index . $query;
@@ -450,7 +536,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 	$queryString	= array();
 	$_getVarTemp	= empty($GLOBALS['_getVar']) ? array() : $GLOBALS['_getVar'];
-	
+
 	// replace first value with $id_alias
 	if($id_alias !== '') {
 
@@ -471,56 +557,56 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
 	switch($format) {
-	
+
 		case 'htmlentities':
 			$glue	= html_entities($glue);
 			$funct	= 'getQueryString_htmlentities';
 			break;
-								
+
 		case 'htmlspecialchars':
-			$glue	= html_specialchars($glue);
+			$glue	= html($glue);
 			$funct	= 'getQueryString_htmlspecialchars';
 			break;
-								
+
 		case 'urlencode':
 			$funct	= 'getQueryString_urlencode';
 			break;
-								
+
 		case 'rawurlencode':
 			$funct	= 'getQueryString_rawurlencode';
 			break;
-								
+
 		default:
 			$funct	= 'getQueryString_default';
 
 	}
-	
+
 	if(count($pairs)) {
-		
+
 		$c			= 0;
 		$rewrite	= '';
-	
+
 		foreach($pairs as $key => $value) {
-			
+
 			$c++;
-			
+
 			if($c === 1 && PHPWCMS_REWRITE) {
-				
+
 				$rewrite = $funct($key, $value, $bind) . PHPWCMS_REWRITE_EXT;
-				
+
 				continue;
 			}
-			
+
 			$queryString[] = $funct($key, $value, $bind);
-			
+
 		}
-		
+
 		$queryString = count($queryString) ? ( $query_string_separator . implode($glue, $queryString)) : '';
 
 		return $rewrite . $queryString;
-	
-	} 
-	
+
+	}
+
 	return '';
 }
 
@@ -535,11 +621,11 @@ function getQueryString_htmlentities($key='', $value='', $bind='=') {
 
 function getQueryString_htmlspecialchars($key='', $value='', $bind='=') {
 	if($value !== '') {
-		return html_specialchars(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
+		return html(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
 	} elseif(PHPWCMS_ALIAS_WSLASH) {
-		return html_specialchars(str_replace('%2F', '/', urlencode($key)));
+		return html(str_replace('%2F', '/', urlencode($key)));
 	}
-	return html_specialchars(urlencode($key));
+	return html(urlencode($key));
 }
 
 function getQueryString_urlencode($key='', $value='', $bind='=') {
@@ -573,7 +659,7 @@ function cleanupPOSTandGET() {
 		foreach($_POST as $key => $value) {
 			if(!is_array($_POST[$key])) {
 				$_POST[$key] = remove_unsecure_rptags($value);
-			}		
+			}
 		}
 	}
 	if(isset($_GET) && count($_GET)) {
@@ -584,33 +670,24 @@ function cleanupPOSTandGET() {
 }
 
 function remove_unsecure_rptags($check) {
-	// this is for security reasons
-	// where you can use input fields for
-	// code injection
-	
-	//remove special replacement tags
-	$check = preg_replace('/\{PHP:(.*?)\}/i', '$1', $check);
-	$check = preg_replace('/\{PHPVAR:(.*?)\}/si', '$1', $check);
-	$check = preg_replace('/\[PHP\](.*?)\[\/PHP\]/si', '$1', $check);
-	$check = preg_replace('/\{URL:(.*?)\}/i', '$1', $check);
-	$check = str_replace('[PHP]', '[ PHP ]', $check);
-	$check = str_replace('[/PHP]', '[ /PHP ]', $check);
-	$check = str_replace('{PHP:', '{ PHP :', $check);
-	$check = str_replace('{PHPVAR:', '{ PHPVAR :', $check);
-	$check = str_replace('{URL:', '{ URL :', $check);
-	return $check;
+	// remove special replacement tags for security reasons
+	// bc input fields can be used for code injection
+	$check = preg_replace(array('/\{PHP:(.*?)\}/i', '/\{PHPVAR:(.*?)\}/si', '/\[PHP\](.*?)\[\/PHP\]/si', '/\{URL:(.*?)\}/i'), '$1', $check);
+	return str_replace(array('[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'), array('[ PHP ]', '[ /PHP ]', '{ PHP :' , '{ PHPVAR :', '{ URL :'), $check);
 }
 
-function headerRedirect($target='', $type=0) {
-	if(isset($_SESSION)) {
+function headerRedirect($target='', $type=0, $session_close=true) {
+	if($session_close && isset($_SESSION)) {
 		session_write_close();
 	}
 	switch($type) {
-		case 307:	header('HTTP/1.1 307 Temporary Redirect');		break;
-		case 401:	header('HTTP/1.1 401 Authorization Required'); 	break;
-		case 404:	header('HTTP/1.1 404 Not Found');				break;
-		case 503:	header('HTTP/1.1 503 Service Unavailable'); 	break;
-		case 301:	header('HTTP/1.1 301 Moved Permanently');		break;
+		case 200: header('HTTP/1.1 200 OK'); break;
+		case 301: header('HTTP/1.1 301 Moved Permanently'); break;
+		case 302: header('HTTP/1.1 302 Found'); break;
+		case 307: header('HTTP/1.1 307 Temporary Redirect'); break;
+		case 401: header('HTTP/1.1 401 Authorization Required'); break;
+		case 404: header('HTTP/1.1 404 Not Found'); break;
+		case 503: header('HTTP/1.1 503 Service Unavailable'); break;
 	}
 	if($target !== '') {
 		header('Location: '.$target);
@@ -619,7 +696,9 @@ function headerRedirect($target='', $type=0) {
 }
 
 function _initSession() {
-	if(!session_id()) session_start();
+	if(!session_id()) {
+		session_start();
+	}
 	if(empty($_SESSION['phpwcmsSessionInit']) && function_exists("session_regenerate_id")) {
 		session_regenerate_id();
 		$_SESSION['phpwcmsSessionInit'] = true;
@@ -645,18 +724,18 @@ function getRemoteIP() {
 
 // Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
 function phpwcms_getUserAgent($USER_AGENT='') {
-	
+
 	if(empty($USER_AGENT)) {
 		$USER_AGENT	= isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 		$index		= 'USER_AGENT';
 	} else {
 		$index		= 'USER_AGENT_'.md5($USER_AGENT);
 	}
-	
+
 	if(isset($GLOBALS['phpwcms'][$index])) {
 		return $GLOBALS['phpwcms'][$index];
 	}
-	
+
 	if(empty($GLOBALS['phpwcms']['detect_pixelratio'])) {
 		$pixelratio = 1;
 	} elseif(isset($_COOKIE['phpwcms_pixelratio'])) {
@@ -680,7 +759,7 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 			'pixelratio'	=> $pixelratio
 		);
 	}
-	
+
 	$mobile		= 0;
 	$bot		= 0;
 	$device		= 'Other';
@@ -728,9 +807,9 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$agent	= 'Konqueror';
 		$engine	= 'KHTML';
 	}
-	
+
 	$USER_AGENT = strtolower($USER_AGENT);
-	
+
 	if(strpos($USER_AGENT, 'windows phone os') !== false) {
 		$agent		= 'IEMobile';
 		$platform	= 'WinPhone';
@@ -799,29 +878,40 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 		$engine		= 'Webkit';
 	} elseif(strpos($USER_AGENT, 'linux') !== false) {
 		$platform	= 'Linux';
+		if(strpos($USER_AGENT, 'x11')) {
+			$device		= 'Desktop';
+		}
 	} elseif(strpos($USER_AGENT, 'unix') !== false) {
 		$platform	= 'Unix';
+		if(strpos($USER_AGENT, 'x11')) {
+			$device		= 'Desktop';
+		}
+	} elseif(strpos($USER_AGENT, 'freebsd') !== false) {
+		$platform	= 'FreeBSD';
+		if(strpos($USER_AGENT, 'x11')) {
+			$device		= 'Desktop';
+		}
 	} elseif(strpos($USER_AGENT, 'symbian') !== false) {
 	    $platform	= 'Symbian';
 		$mobile		= 1;
 		$device		= 'Smartphone';
 	} elseif($USER_AGENT) {
-		
+
 		if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
 			$mobile	= 1;
 		}
-		
+
 		if(empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
-			$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+			$GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'baiduspider', 'yandex', 'sosospider', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
 		}
-		
-		if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/', $USER_AGENT, $match_bot)) {
+
+		if(preg_match('/('.implode('|', $GLOBALS['phpwcms']["BOTS"]).')/i', $USER_AGENT, $match_bot)) {
 			$agent	= $match_bot[1];
 			$bot	= 1;
 			$device	= 'Bot';
 		}
 	}
-		
+
 	return $GLOBALS['phpwcms'][$index] = array(
 		'agent'			=> $agent,
 		'version'		=> intval($ver),
@@ -875,48 +965,98 @@ function log_message($type='UNDEFINED', $message='', $userid=0) {
 		$log['log_user_id']	= intval($userid);
 		$log['log_msg']		= trim($message);
 	}
-	
+
 	$log['log_type'] = strtoupper($log['log_type']);
-	
+
 	if($log['log_user_agent'] == '') {
 		$log['log_user_agent'] = empty($_SERVER['HTTP_USER_AGENT']) ? implode( ', ', phpwcms_getUserAgent() ) : $_SERVER['HTTP_USER_AGENT'];
 	}
 	if(empty($log['log_referrer_url']) && isset($_SERVER['HTTP_REFERER'])) {
 		$log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
 	}
-	
+
 	_dbInsert( 'phpwcms_log', $log, 'DELAYED' );
 
 }
 
+function destroyBackendSessionData() {
+	unset(
+		$_SESSION["wcs_user"],
+		$_SESSION["wcs_user_name"],
+		$_SESSION["wcs_user_id"],
+		$_SESSION["wcs_user_aktiv"],
+		$_SESSION["wcs_user_rechte"],
+		$_SESSION["wcs_user_email"],
+		$_SESSION["wcs_user_avatar"],
+		$_SESSION["structure"],
+		$_SESSION["klapp"],
+		$_SESSION["pklapp"],
+		$_SESSION["wcs_user_admin"],
+		$_SESSION["wcs_user_thumb"],
+		$_SESSION["wcs_user_cp"],
+		$_SESSION["wcs_allowed_cp"]
+	);
+}
+
+function checkLoginCount() {
+	$check = 0;
+	if(!empty($_SESSION["wcs_user"])) {
+		$sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+		if(!empty($phpwcms['Login_IPcheck'])) {
+			$sql .= " AND logged_ip="._dbEscape(getRemoteIP());
+		}
+		$check = _dbCount($sql);
+
+		if($check) {
+			$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_change=".time()." WHERE ";
+			$sql .= "logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+			_dbQuery($sql, 'UPDATE');
+		} else {
+			destroyBackendSessionData();
+		}
+	}
+	return $check;
+}
+
+// set VISIBLE_MODE
+// 0 = frontend (all) mode
+// 1 = article user mode
+// 2 = admin user mode
 function init_frontend_edit() {
-	// define VISIBLE_MODE
-	// 0 = frontend (all) mode
-	// 1 = article user mode
-	// 2 = admin user mode
+	if(empty($GLOBALS['phpwcms']['frontend_edit']) || empty($_SESSION["wcs_user_id"])) {
+		define('VISIBLE_MODE', 0);
+		define('FE_EDIT_LINK', false);
+		return true;
+	}
+	// Check Backend session
+	checkLoginCount();
 	if(empty($_SESSION["wcs_user_id"])) {
 		define('VISIBLE_MODE', 0);
+		define('FE_EDIT_LINK', false);
 	} else {
 		define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] === 1 ? 2 : 1);
+		define('FE_EDIT_LINK', empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 	}
-	define ('FE_EDIT_LINK', VISIBLE_MODE == 0 || empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
 }
 
+if(IS_PHP523) {
+	function html($string, $double_encode=false) {
+		return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+	}
+} else {
+	function html($string, $double_encode=false) {
+		return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET);
+	}
+}
 function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
-	return @htmlentities($string, $quote_mode, $charset);
+	return htmlentities($string, $quote_mode, $charset);
 }
-
-function html_specialchars($h='') {
+function html_specialchars($string='', $quote_mode=ENT_QUOTES, $charset=PHPWCMS_CHARSET) {
 	//used to replace the htmlspecialchars original php function
-	//not compatible with many internation chars like turkish, polish
-	$h = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $h ); //works correct for "&#8230;" and/or "&ndash;"
-	//$h = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $h );
-	$h = str_replace( '<', '&lt;'  , $h );
-	$h = str_replace( '>', '&gt;'  , $h );
-	$h = str_replace( '"', '&quot;', $h );
-	$h = str_replace( "'", '&#039;', $h );
-	$h = str_replace( "\\", '&#92;', $h );
-	return $h;
+	//not compatible with many international chars like turkish, polish
+	$string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $string ); //works correct for "&#8230;" and/or "&ndash;"
+	$string = str_replace( array('<', '>', '"', "'", "\\"), array('&lt;','&gt;', '&quot;', '&#039;', '&#92;'), $string);
+	return $string;
 }
 
 function getMicrotime() {
@@ -951,7 +1091,7 @@ function get_login_file() {
 /**
  * Encrypt string
  */
-function encrypt($plaintext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode='cfb') {
+function phpwcms_encrypt($plaintext, $key=PHPWCMS_USER_KEY, $cypher='blowfish', $mode='cfb') {
 	$td = mcrypt_module_open($cypher, '', $mode, '');
 	$iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
 	mcrypt_generic_init($td, $key, $iv);
@@ -963,7 +1103,7 @@ function encrypt($plaintext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode
 /**
  * Decrypt string
  */
-function decrypt($crypttext, $key='8936AeYcenBDLyMzN', $cypher='blowfish', $mode='cfb') {
+function phpwcms_decrypt($crypttext, $key=PHPWCMS_USER_KEY, $cypher='blowfish', $mode='cfb') {
 	$plaintext = '';
 	$td = mcrypt_module_open($cypher, '', $mode, '');
 	$ivsize = mcrypt_enc_get_iv_size($td);

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -18,10 +18,10 @@ define('PHPWCMS_JSLIB', 'jquery-1.8');
  */
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
-		if(!USE_GOOGLE_AJAX_LIB) {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.8.min.js');
+		if(PHPWCMS_USE_CDN) {
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-1.8.3.min.js');
 		} else {
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(USE_GOOGLE_AJAX_LIB.'jquery/1.8/jquery.min.js');
+			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.8.3.min.js');
 		}
 	}
 	return TRUE;

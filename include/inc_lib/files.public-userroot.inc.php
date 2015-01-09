@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -22,13 +22,13 @@ if (!defined('PHPWCMS_ROOT')) {
 //Listing eventuell im Verzeichnis enthaltener Dateien
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.
 			" AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_name";
-			
+
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 	$file_durchlauf = 0;
 	while($file_row = mysql_fetch_array($file_result)) {
-		$filename = html_specialchars($file_row["f_name"]);
+		$filename = html($file_row["f_name"]);
 		if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieﬂen der Filelisten-Tabelle
-			echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n"; 
+			echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 		} else {
 			echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
 		}
@@ -51,16 +51,15 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "</td>\n";
 		//Ende Aufbau
 		echo "</tr>\n";
-		
-		
+
+
 		if($_SESSION["wcs_user_thumb"]) {
-		
-			$thumb_image = get_cached_image(
-							array(	"target_ext"	=>	$file_row["f_ext"],
-									"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
-									"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-								  )
-							);
+
+			$thumb_image = get_cached_image(array(
+				"target_ext"	=>	$file_row["f_ext"],
+				"image_name"	=>	$file_row["f_hash"] . '.' . $file_row["f_ext"],
+				"thumb_name"	=>	md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+			));
 
 			if($thumb_image != false) {
 				echo "<tr>\n";
@@ -71,9 +70,9 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 				echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
 				echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n";
 				echo "<td width=\"15\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";			
+				echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 			}
-			
+
 		}
 
 		$file_durchlauf++;

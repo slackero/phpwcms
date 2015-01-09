@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -66,9 +66,9 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
 			  <tr>
 		    <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
     </tr>
-		  <tr>
+	<tr>
             <td align="right" class="v10">mail&nbsp;method :&nbsp;</td>
-            <td><select name="smtp_mailer" id="smtp_mailer" class="f11b">
+            <td><select name="smtp_mailer" id="smtp_mailer">
               <option value="mail" <?php if(strtolower($phpwcms['SMTP_MAILER']) == 'mail') echo 'selected="selected"'; ?>>PHP mail()</option>
               <option value="smtp" <?php if(strtolower($phpwcms['SMTP_MAILER']) == 'smtp') echo 'selected="selected"'; ?>>SMTP</option>
               <option value="sendmail" <?php if(strtolower($phpwcms['SMTP_MAILER']) == 'sendmail') echo 'selected="selected"'; ?>>UNIX sendmail</option>
@@ -94,17 +94,34 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
 		  <tr>
 		    <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
     </tr>
-		  <tr>
+	<tr>
             <td align="right" class="v10">SMTP&nbsp;password:&nbsp;</td>
             <td><input name="smtp_pass" type="text" class="f11b" id="smtp_pass" style="width:200px" value="<?php echo html_specialchars($phpwcms['SMTP_PASS']) ?>" size="30"></td>
             <td class="chatlist">&nbsp;</td>
     </tr>
+
+    </tr>
 		  <tr>
+		    <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
+    </tr>
+
+    <tr>
+            <td align="right" class="v10">secure connection:&nbsp;</td>
+            <td><select name="smtp_secure" id="smtp_secure">
+              <option value="" <?php if(empty($phpwcms['SMTP_SECURE'])) echo 'selected="selected"'; ?>>default (no secure connection)</option>
+              <option value="ssl" <?php if(strtolower($phpwcms['SMTP_SECURE']) == 'ssl') echo 'selected="selected"'; ?>>SSL</option>
+              <option value="tls" <?php if(strtolower($phpwcms['SMTP_SECURE']) == 'tls') echo 'selected="selected"'; ?>>TLS</option>
+            </select></td>
+            <td>&nbsp;</td>
+    </tr>
+
+
+	<tr>
 		    <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="15"></td>
     </tr>
           <tr>
             <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2"><input name="Submit" type="submit" class="button10" value="send site data"></td>
+            <td colspan="2"><input name="Submit" type="submit" class="button" value="send site data"></td>
           </tr>
 </table>
 <input name="do" type="hidden" value="1"></form>

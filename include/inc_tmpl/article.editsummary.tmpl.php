@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -39,23 +39,22 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 
 		  	<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_article_cat'] ?>:&nbsp;</td>
-				<td><select name="article_cid" id="article_cid" style="width: 325px" class="f11b">
-      		<?php
-				//keine definierte Kategorie = allgemeine Artikelkategorie
-				echo "<option value='0'".((!$article["article_catid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
-				struct_select_menu(0, 0, $article["article_catid"]);
+				<td><select name="article_cid" id="article_cid" class="width325">
+				<?php
+					//keine definierte Kategorie = allgemeine Artikelkategorie
+					echo '<option value="0"'.((!$article["article_catid"])?' selected="selected"':'').">".$BL['be_admin_struct_index']."</option>\n";
+					struct_select_menu(0, 0, $article["article_catid"]);
 				?>
 				</select></td>
 			</tr>
-			
-			
+
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
 			<tr>
 				<td align="right" class="chatlist"><a href="#" id="cat-as-articletitle"><?php echo $BL['be_article_atitle'] ?></a>:&nbsp;</td>
 				<td style="padding:2px 0 3px 0;"><table border="0" cellpadding="0" cellspacing="0" summary="">
 				 <tr>
-					<td><input name="article_title" type="text" class="f11b" id="article_title" style="width: 325px" value="<?php echo html_specialchars($article["article_title"]) ?>" size="40" maxlength="1000" /></td>
+					<td><input name="article_title" type="text" class="f11b" id="article_title" style="width: 325px" value="<?php echo html($article["article_title"]) ?>" size="40" maxlength="1000" /></td>
 					<td>&nbsp;&nbsp;</td>
 					<td><input name="article_notitle" id="article_notitle" type="checkbox" value="1" <?php is_checked($article["article_notitle"],1) ?> /></td>
 					<td class="v10"><label for="article_notitle"><?php echo $BL['be_admin_struct_hide1'] ?></label></td>
@@ -64,7 +63,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 			</tr>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
-              <td><input name="article_subtitle" type="text" class="f11b width440" id="article_subtitle" value="<?php echo html_specialchars($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
+              <td><input name="article_subtitle" type="text" class="f11b width440" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
@@ -105,37 +104,37 @@ calEnd.setYearCombo(false);
 					</tr>
 				</table></td>
 			</tr>
-			
-			
+
+
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td>
 			</tr>
-			
+
 			<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 				 <tr>
-					<td><input name="article_sort" type="text" id="article_sort" value="<?php echo empty($article["article_sort"]) ? 0 : intval($article["article_sort"]) ?>" class="v11 width75" maxlength="10" onkeyup="if(!parseInt(this.value))this.value='0';" /></td>
+					<td><input name="article_sort" type="text" id="article_sort" value="<?php echo empty($article["article_sort"]) ? 0 : intval($article["article_sort"]) ?>" class="v11 width75" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
 					<td align="right" class="chatlist">&nbsp;&nbsp;&nbsp;<?php echo $BL['be_priorize'] ?>:&nbsp;</td>
 					<td><select name="article_priorize" id="article_priorize" class="v11">
-					
+
 <?php
-	
-	for($x=30; $x>=-30; $x--) {				
-	
+
+	for($x=30; $x>=-30; $x--) {
+
 		echo '	<option value="'.$x.'"';
 		is_selected($x, $article["article_priorize"]);
 		echo '>'. ( $x==0 ? $BL['be_cnt_default'] : $x ) .'</option>'.LF;
-	
+
 	}
-					
-?>					
+
+?>
 					</select></td>
 				 </tr>
 			  </table></td>
 			</tr>
-			
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
+
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BL['be_alias_articleID'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -147,44 +146,44 @@ calEnd.setYearCombo(false);
 		 </tr>
 	  </table></td>
 	</tr>
-	
+
 
 <?php	if(count($phpwcms['allowed_lang']) > 1):	?>
 
    		<tr><td><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
+
 		<tr>
 			<td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang'] ?>:&nbsp;</td>
 		  	<td>
-			
+
 			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;" class="lang-select">
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tr>
-						
+
 						<td><label><input type="radio" name="article_lang" class="lang-default" value=""<?php is_checked('', $article['article_lang']); ?> />
 								<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" /><?php echo ' ('.$BL['be_admin_tmpl_default'].')' ?>
 								&nbsp;
 							</label>
 						</td>
-					
-					
-<?php		foreach($phpwcms['allowed_lang'] as $key => $lang):	
-					
-					$lang			= strtolower($lang);
-				
+
+
+<?php		foreach($phpwcms['allowed_lang'] as $key => $lang):
+
+					$lang = strtolower($lang);
+
 					if($lang == $phpwcms['default_lang']) {
 						continue;
 					}
-	
+
 ?>
 						<td><label><input type="radio" name="article_lang" value="<?php echo $lang ?>"<?php is_checked($lang, $article['article_lang']) ?> class="lang-opt" />
 								<img src="img/famfamfam/lang/<?php echo $lang ?>.png" title="<?php echo get_language_name($lang) ?>" />
 								&nbsp;
 							</label>
 						</td>
-	
+
 <?php		endforeach;	?>
-	
+
 					</tr>
 				</table>
 
@@ -196,51 +195,51 @@ calEnd.setYearCombo(false);
 					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" />&nbsp;
 					<input name="article_lang_id" type="text" class="f11b width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" />
 				</div>
-		
+
 			</div></td>
 	</tr>
 
 <?php	endif;	?>
 
-	
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
+
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['be_article_aredirect'] ?>:&nbsp;</td>
-	  <td><input name="article_redirect" type="text" id="article_redirect" class="f11" style="width: 440px" value="<?php echo html_specialchars($article["article_redirect"]) ?>" size="40" /></td>
+	  <td><input name="article_redirect" type="text" id="article_redirect" class="f11" style="width: 440px" value="<?php echo html($article["article_redirect"]) ?>" size="40" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
 		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>&nbsp;&nbsp;<br />
 		(+<a href="#" id="struct_alias"><?php echo $BL['be_admin_struct_title'] ?></a>):&nbsp;</td>
-		<td><input name="article_alias" type="text" class="f11b" id="article_alias" style="width: 440px" value="<?php echo html_specialchars($article["article_alias"]) ?>" size="40" maxlength="200"<?php
+		<td><input name="article_alias" type="text" class="f11b width440" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" size="40" maxlength="230"<?php
 			if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
 	</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-              <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11 width440" value="<?php echo html_specialchars($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
+              <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11 width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
 			</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-	
+
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['article_menu_title'] ?>:&nbsp;</td>
-	  <td><input name="article_menutitle" type="text" id="article_menutitle" class="f11 width440" value="<?php echo html_specialchars($article["article_menutitle"]) ?>" size="40" /></td>
-	</tr>			
-		
+	  <td><input name="article_menutitle" type="text" id="article_menutitle" class="f11 width440" value="<?php echo html($article["article_menutitle"]) ?>" size="40" /></td>
+	</tr>
+
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
-				<td><input type="text" id="article_keyword_autosuggest" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html_specialchars($article["article_keyword"]) ?>" /></td>
+				<td><input type="text" id="article_keyword_autosuggest" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article["article_keyword"]) ?>" /></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-				<td><textarea name="article_description" rows="2" class="f10 width440" id="article_description"><?php echo html_specialchars($article["article_description"]) ?></textarea></td>
+				<td><textarea name="article_description" rows="2" class="width440" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
 			</tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>		
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist" valign="top"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
 				<td valign="top"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
@@ -250,7 +249,7 @@ calEnd.setYearCombo(false);
 					<td width="215" class="chatlist"><?php echo $BL['be_article_forfull'] ?>:&nbsp;</td></tr>
 				<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 				<tr>
-				  <td><select name="article_tmpllist" id="article_tmpllist" style="width: 215px" class="f11">
+				  <td><select name="article_tmpllist" id="article_tmpllist" class="width215">
 <?php
 // templates for article listing
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list');
@@ -268,11 +267,11 @@ if(count($tmpllist)) {
 		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
 	}
 }
-				  
-?>				  
+
+?>
 				  </select></td>
 				  <td>&nbsp;</td>
-				  <td><select name="article_tmplfull" id="article_tmplfull" style="width: 215px" class="f11">
+				  <td><select name="article_tmplfull" id="article_tmplfull" class="width215">
 <?php
 // templates for full article
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/article');
@@ -286,11 +285,11 @@ if(count($tmpllist)) {
 		echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
 	}
 }
-				  
+
 ?>
 				  </select></td>
 				  </tr>
-				  
+
 	<tr>
 	<td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
 	</tr>
@@ -328,16 +327,16 @@ if(count($tmpllist)) {
           </tr>
         </table></td>
 	</tr>
-	
+
 				</table></td>
 			</tr>
-			
-			
+
+
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
 			</tr>
 
 			<tr>
-			  
+
 			  <td colspan="2"><?php
 
 $wysiwyg_editor = array(
@@ -368,7 +367,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 	<td align="right" class="chatlist">&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html_specialchars($article['image']['name']) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
+			<td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html($article['image']['name']) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
 			                                                                                                                                              <!-- browser_image.php //-->
 			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=summary');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
 			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.article.cimage_name.value='';document.article.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
@@ -381,19 +380,19 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			    <tr>
-			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" /></td>
+			      <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" /></td>
 			      <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" /></td>
+			      <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" /></td>
 			      <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-				  
+
 				  <td>&nbsp;</td>
 				  <td><input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $article['image']['zoom']); ?> /></td>
 				  <td class="v10"><label for="cimage_zoom">&nbsp;<?php echo $BL['be_cnt_enlarge'] ?></label>&nbsp;</td>
-				  
+
 				  <td>&nbsp;</td>
 				  <td><input name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($article['image']['lightbox']) ? 0 : 1); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" /></td>
 				  <td class="v10">&nbsp;<label for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>&nbsp;</td>
-				  
+
 		        </tr>
 		      </table></td>
 	</tr>
@@ -403,32 +402,44 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
-			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="3" class="f11" id="cimage_caption" style="width: 300px;"><?php echo html_specialchars($article['image']['caption']) ?></textarea></td>
+			        <td valign="top">
+			        	<textarea name="cimage_caption" cols="30" rows="3" class="width300" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
+						<span class="caption width300">
+							<?php echo $BL['be_cnt_caption']; ?>
+							|
+							<?php echo $BL['be_caption_alt']; ?>
+							|
+							<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+							|
+							<?php echo $BL['be_caption_title']; ?>
+							|
+							<?php echo $BL['be_copyright']; ?>
+						</span>
+			        </td>
 			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
-					
+
 					$_SESSION['image_browser_article'] = 1;
-					
+
 				$thumb_image = false;
 				if(!empty($article["image"]["hash"])) {
-					$thumb_image = get_cached_image(
-				 					array(	"target_ext"	=>	$article['image']['ext'],
-											"image_name"	=>	$article['image']['hash'] . '.' . $article['image']['ext'],
-											"thumb_name"	=>	md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        							  )
-								);
+					$thumb_image = get_cached_image(array(
+						"target_ext"	=>	$article['image']['ext'],
+						"image_name"	=>	$article['image']['hash'] . '.' . $article['image']['ext'],
+						"thumb_name"	=>	md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        			));
 				}
 				if($thumb_image != false) {
 					echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
 				} else {
 					echo '&nbsp;';
 				}
-					
+
 					?></td>
 		          </tr>
 	          </table></td>
 			</tr>
-			
+
 			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
 			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
@@ -437,7 +448,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 	<td class="chatlist"><?php echo $BL['be_article_forlist'] ?></td>
 </tr>
 <tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>		
+</tr>
 <tr bgcolor="#F3F6F9">
 	<td align="right" class="chatlist">&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -462,12 +473,12 @@ if(!isset($article['image']['list_usesummary'])) {
 	</table></td>
 </tr>
 <tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>	
+</tr>
 <tr bgcolor="#F3F6F9">
 	<td align="right" class="chatlist">&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 		<tr>
-			<td><input name="cimage_list_name" type="text" id="cimage_list_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html_specialchars($article['image']['list_name']) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
+			<td><input name="cimage_list_name" type="text" id="cimage_list_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html($article['image']['list_name']) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
 			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=list');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
 			<td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
 		      <input name="cimage_list_id" type="hidden" value="<?php echo $article['image']['list_id'] ?>" /></td>
@@ -476,24 +487,24 @@ if(!isset($article['image']['list_usesummary'])) {
 </tr>
 
 <tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>		
+</tr>
 
 <tr bgcolor="#F3F6F9">
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-	<td><input name="cimage_list_width" type="text" class="f11b" id="cimage_list_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" /></td>
+	<td><input name="cimage_list_width" type="text" class="f11b" id="cimage_list_width" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" /></td>
 	<td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-	<td><input name="cimage_list_height" type="text" class="f11b" id="cimage_list_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" /></td>
+	<td><input name="cimage_list_height" type="text" class="f11b" id="cimage_list_height" style="width: 40px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" /></td>
 	<td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
 	<td>&nbsp;</td>
 	<td><input name="cimage_list_zoom" type="checkbox" id="cimage_list_zoom" value="1" <?php is_checked(1, $article['image']['list_zoom']); ?> /></td>
 	<td class="v10"><label for="cimage_list_zoom">&nbsp;<?php echo $BL['be_cnt_enlarge'] ?></label>&nbsp;</td>
-	
+
 	<td>&nbsp;</td>
 	<td><input name="cimage_list_lightbox" type="checkbox" id="cimage_list_lightbox" value="1" <?php is_checked(1, empty($article['image']['list_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){getObjectById('cimage_list_zoom').checked=true;}" /></td>
 	<td class="v10"><label for="cimage_list_lightbox">&nbsp;<?php echo $BL['be_cnt_lightbox'] ?></label>&nbsp;</td>
-	
+
 	</tr>
 	</table></td>
 </tr>
@@ -503,32 +514,44 @@ if(!isset($article['image']['list_usesummary'])) {
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-	<td valign="top"><textarea name="cimage_list_caption" cols="30" rows="3" class="f11" id="cimage_list_caption" style="width: 300px;"><?php echo html_specialchars($article['image']['list_caption']) ?></textarea></td>
+	<td valign="top">
+		<textarea name="cimage_list_caption" cols="30" rows="3" class="width300" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
+		<span class="caption width300">
+			<?php echo $BL['be_cnt_caption']; ?>
+			|
+			<?php echo $BL['be_caption_alt']; ?>
+			|
+			<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+			|
+			<?php echo $BL['be_caption_title']; ?>
+			|
+			<?php echo $BL['be_copyright']; ?>
+		</span>
+	</td>
 	<td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 	<td valign="top"><?php
-	
+
 	$_SESSION['image_browser_article'] = 1;
-	
+
 	$thumb_image = false;
 	if(!empty($article["image"]["list_hash"])) {
-	$thumb_image = get_cached_image(
-					array(	"target_ext"	=>	$article['image']['list_ext'],
-							"image_name"	=>	$article['image']['list_hash'] . '.' . $article['image']['list_ext'],
-							"thumb_name"	=>	md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-					  	 )
-					);
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$article['image']['list_ext'],
+			"image_name"	=>	$article['image']['list_hash'] . '.' . $article['image']['list_ext'],
+			"thumb_name"	=>	md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 	}
 	if($thumb_image != false) {
 		echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
 	} else {
 		echo '&nbsp;';
 	}
-	
+
 	?></td>
 	</tr>
 	</table></td>
 </tr>
-	
+
 
 			<tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
 			</tr>
@@ -536,15 +559,15 @@ if(!isset($article['image']['list_usesummary'])) {
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
 			</tr>
-			<?php 
+			<?php
 			if($_SESSION["wcs_user_admin"]) {
-			
+
 			?>
 			<tr>
 				<td align="right" class="chatlist"><?php echo $BL['be_article_articleowner'] ?>:&nbsp;</td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
-					<td><select name="article_uid" id="article_uid" style="width: 300px" class="f11b">
+					<td><select name="article_uid" id="article_uid" class="width300">
 				<?php
 				$u_sql = "SELECT usr_id, usr_name, usr_login, usr_admin FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv=1 ORDER BY usr_admin DESC, usr_name";
 				if($u_result = mysql_query($u_sql, $db)) {
@@ -552,11 +575,11 @@ if(!isset($article['image']['list_usesummary'])) {
 						echo '<option value="'.$u_row[0].'"';
 						if($u_row[0] == $article["article_uid"]) echo ' selected';
 						if(intval($u_row[3])) echo ' style="background-color: #FFC299;"';
-						echo '>'.html_specialchars(($u_row[1]) ? $u_row[1] : $u_row[2]).'</option>'."\n";
+						echo '>'.html(($u_row[1]) ? $u_row[1] : $u_row[2]).'</option>'."\n";
 					}
 					mysql_free_result($u_result);
 				}
-				
+
 				?>
 				    </select></td>
 				<td>&nbsp;&nbsp;&nbsp;</td>
@@ -568,15 +591,15 @@ if(!isset($article['image']['list_usesummary'])) {
 			</tr>
 			<?php
 			}
-			?>			
+			?>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_article_username'] ?>:&nbsp;</td>
-              <td><input name="article_username" type="text" id="article_username" class="f11" style="width: 300px" value="<?php echo html_specialchars($article["article_username"]) ?>" size="40" maxlength="100" /></td>
+              <td><input name="article_username" type="text" id="article_username" class="f11" style="width: 300px" value="<?php echo html($article["article_username"]) ?>" size="40" maxlength="100" /></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
-			
-	
+
+
 			<tr>
 				<td align="right" class="chatlist inactive"><?php echo $BL['be_cache'] ?>:&nbsp;</td>
 				<td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="" class="inactive">
@@ -584,7 +607,7 @@ if(!isset($article['image']['list_usesummary'])) {
 						<td><input name="article_cacheoff" type="checkbox" id="article_cacheoff" value="1" <?php if($article["article_timeout"] === '0') echo "checked"; ?> /></td>
 						<td><label for="article_cacheoff">&nbsp;<?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
 						<td>&nbsp;</td>
-						<td><select name="article_timeout" class="f11" style="margin:1px;" onchange="document.article.article_cacheoff.checked=false;">
+						<td><select name="article_timeout" style="margin:1px;" onchange="document.article.article_cacheoff.checked=false;">
 <?php
 echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
 echo '<option value="60"'.is_selected($article["article_timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
@@ -599,53 +622,57 @@ echo '<option value="172800"'.is_selected($article["article_timeout"], '172800',
 echo '<option value="604800"'.is_selected($article["article_timeout"], '604800', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_week']."</option>\n";
 echo '<option value="1209600"'.is_selected($article["article_timeout"], '1209600', 0, 0).'>&nbsp;&nbsp;2 '.$BL['be_date_weeks']."</option>\n";
 echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_month']."</option>\n";
+
 ?>
 				        </select></td>
 				  <td>&nbsp;<?php echo $BL['be_cache_timeout'] ?>&nbsp;&nbsp;</td>
-								  
+
 					</tr>
 				</table></td>
 			</tr>
 
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-			
+
 			<tr>
 				<td align="right" class="chatlist tdtop4"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-				<td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="" class="nowrap">				
-		
+				<td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="" class="nowrap">
+
 					<tr>
-						<td><input name="article_nositemap" type="checkbox" id="article_nositemap" value="1"<?php is_checked(1, $article["article_nositemap"]); ?> /></td>
-						<td><label for="article_nositemap">&nbsp;<?php echo  $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>
-						
-						<td><input name="article_nosearch" type="checkbox" id="article_nosearch" value="1" <?php is_checked(1, $article['article_nosearch']); ?> /></td>
-						<td style="padding:1px 5px 1px 0;"><label for="article_nosearch">&nbsp;<?php echo $BL['be_no_search'] ?></label></td>
-						
-						<td><input name="article_norss" type="checkbox" id="article_norss" value="1" <?php is_checked(1, $article['article_norss']); ?> /></td>
-						<td style="padding:1px 5px 1px 0;"><label for="article_norss">&nbsp;<?php echo $BL['be_no_rss'] ?></label></td>
-						
-						<td colspan="2" style="background-color:#FFFFFF" width="200">&nbsp;</td>
+						<td style="padding:1px 0;white-space:nowrap;">
+							<label for="article_nositemap"><input name="article_nositemap" type="checkbox" id="article_nositemap" value="1"<?php is_checked(1, $article["article_nositemap"]); ?> />&nbsp;<?php echo  $BL['be_ctype_sitemap'] ?></label>
+							&nbsp;
+							<label for="article_nosearch"><input name="article_nosearch" type="checkbox" id="article_nosearch" value="1" <?php is_checked(1, $article['article_nosearch']); ?> />&nbsp;<?php echo $BL['be_no_search'] ?></label>
+							&nbsp;
+							<label for="article_norss"><input name="article_norss" type="checkbox" id="article_norss" value="1" <?php is_checked(1, $article['article_norss']); ?> />&nbsp;<?php echo $BL['be_no_rss'] ?></label>
+							&nbsp;
+<?php
+							// Opengraph fallback when creating a new article
+							if(!isset($_POST['article_title']) && empty($article["article_id"]) && defined('ACAT_OPENGRAPH_STATUS') && ACAT_OPENGRAPH_STATUS === false) {
+								$article['article_opengraph'] = 0;
+							}
+?>
+							<label for="article_opengraph"><input name="article_opengraph" type="checkbox" id="article_opengraph" value="1" <?php is_checked(1, $article['article_opengraph']); ?> />&nbsp;<?php echo $BL['be_opengraph_support'] ?></label>
+							&nbsp;
+						</td>
 					</tr>
-					
-					<tr><td colspan="8" style="background-color:#FFFFFF"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-					
+
+					<tr><td style="background-color:#FFFFFF"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+
 					<tr>
-						<td style="padding:1px 0 1px 0;"><input name="article_aktiv" type="checkbox" id="article_aktiv" value="1"<?php is_checked(1, $article["article_aktiv"]); ?> /></td>
-						<td><label for="article_aktiv">&nbsp;<?php echo $BL['be_admin_struct_visible'] ?></label>&nbsp;&nbsp;</td>
-						
-						<td><input name="article_public" type="checkbox" id="article_public" value="1"<?php is_checked(1, $article["article_public"]); ?> /></td>
-						<td><label for="article_public">&nbsp;<?php echo $BL['be_ftptakeover_public'] ?></label>&nbsp;&nbsp;</td>
-						
-						<td><input name="article_archive" type="checkbox" id="article_archive" value="1" <?php is_checked(1, $article['article_archive_status']); ?> /></td>
-						<td style="padding:1px 5px 1px 0;" colspan="3"><label for="article_archive">&nbsp;<?php echo $BL['be_show_archived'] ?>&nbsp;</label></td>
+						<td style="padding:1px 0;white-space:nowrap;">
+							<label for="article_aktiv"><input name="article_aktiv" type="checkbox" id="article_aktiv" value="1"<?php is_checked(1, $article["article_aktiv"]); ?> />&nbsp;<?php echo $BL['be_admin_struct_visible'] ?></label>
+							&nbsp;
+							<label for="article_archive"><input name="article_archive" type="checkbox" id="article_archive" value="1" <?php is_checked(1, $article['article_archive_status']); ?> />&nbsp;<?php echo $BL['be_show_archived'] ?></label>
+							&nbsp;
+						</td>
 					</tr>
-					
+
 				</table></td>
 			</tr>
 
-
-<?php if(isset($article["article_date"])) { ?>				
+<?php if(isset($article["article_date"])) { ?>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-	
+
 			<tr>
 			<td align="right" class="chatlist"><?php echo $BL['be_article_eslastedit'] ?>:&nbsp;</td>
 			<td><?php
@@ -653,18 +680,18 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 			?></td>
 			</tr>
 <?php } ?>
-			
+
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
 			</tr>
 			<tr>
 				<td><input name="article_update" type="hidden" id="article_update" value="1" /></td>
 				<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 					<tr>
-					<td><input name="updatesubmit" type="submit" class="button10" value="<?php echo $article["article_id"] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" /></td>
+					<td><input name="updatesubmit" type="submit" class="button" value="<?php echo $article["article_id"] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" /></td>
 					<td>&nbsp;</td>
-					<td><input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" /></td>
+					<td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" /></td>
 					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td><input name="donotsubmit" type="submit" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" /></td>
+					<td><input name="donotsubmit" type="submit" class="button" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" /></td>
 					</tr></table></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
@@ -673,7 +700,7 @@ echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000
 </form>
 <script type="text/javascript">
 $(function(){
-	
+
 	$("#article_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
 		selectedItemProp: "cat_name",
 		selectedValuesProp: 'cat_name',
@@ -685,39 +712,38 @@ $(function(){
 		neverSubmit: true,
 		asHtmlID: 'keyword-autosuggest'
 	});
-	
+
 	$('#article').submit(function(){
 		$("#article_keyword").val($('#as-values-keyword-autosuggest').val());
 	});
-	
+
 	// Handle language switch click
 	var langIdSelect = $('#lang-id-select');
-	
+
 	$('input.lang-opt').change(function(){
 		langIdSelect.show();
 	});
-	
+
 	$('input.lang-default').change(function(){
 		langIdSelect.hide();
 	});
-	
+
 	$('#struct_alias').click(function() {
-		var struct		= $('#article_cid option:selected').text();
+		var struct		= '<?php echo get_struct_alias($article["article_catid"]) ?>' || $('#article_cid option:selected').text();
 		var title		= $('#article_title').val().trim();
 		var alias		= $('#article_alias');
-		
+
 		if(struct.length) {
 			struct = struct.replace(/^-+/gi, '').trim();
-			
+
 			if(title) {
 				struct += '<?php if($phpwcms['alias_allow_slash']): ?>/<?php else: ?>-<?php endif; ?>'+title;
 			}
-			
 		};
-		
+
 		alias.val( create_alias(struct) );
 	});
-	
+
 	$('#cat-as-articletitle').click(function(evnt){
 		evnt.preventDefault();
 		var currentCat = $('#article_cid option:selected').text();
@@ -725,7 +751,6 @@ $(function(){
 			$('#article_title').val(currentCat.replace(/^-+ /, ''));
 		}
 	});
-
 });
 
 function cancelEdit() {

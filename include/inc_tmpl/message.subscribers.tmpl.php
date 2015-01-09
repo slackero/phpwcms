@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -271,7 +271,7 @@ if($_userInfo['pages_total'] > 1) {
 	<td><input type="text" name="filter" id="filter" size="10" value="<?php 
 	
 	if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber']) ) {
-		echo html_specialchars(implode(' ', $_SESSION['filter_subscriber']));
+		echo html(implode(' ', $_SESSION['filter_subscriber']));
 	}
 	
 	?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
@@ -318,7 +318,7 @@ if($_userInfo['list_channel']) {
 			
 			$_userInfo['select_subscr'] .= ' /></td>
 				<td><label for="subscribe_select'.$value['subscription_id'].'">'.
-				html_specialchars($value['subscription_name']).
+				html($value['subscription_name']).
 				'</label></td>
 			</tr>
 			';
@@ -384,11 +384,11 @@ foreach($data as $row) {
 	
 	}
 
-	$row["address_email"] = html_specialchars($row["address_email"]);
+	$row["address_email"] = html($row["address_email"]);
 	echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).$_userInfo['channel_select'].">\n<td width=\"25\" style=\"padding:1px 3px 3px 4px;\">";
 	echo '<img src="img/famfamfam/vcard.gif" alt="Recipient"></td>'."\n";
 	echo '<td width="1%" class="dir">&nbsp;<strong>'.$row["address_email"]."</strong></td>\n";
-	echo '<td class="dir" width="95%">&nbsp;'.html_specialchars($row["address_name"])."</td>\n";
+	echo '<td class="dir" width="95%">&nbsp;'.html($row["address_name"])."</td>\n";
 	echo '<td align="right" nowrap="nowrap" class="button_td">';
 	
 	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1">';		

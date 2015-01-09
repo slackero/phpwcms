@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -14,7 +14,8 @@ $BL['AR'] = '&#1593;&#1585;&#1576;&#1610;';
 $BL['BG'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
 $BL['BS'] = 'Bosanski';
 $BL['CA'] = 'Catal&agrave;';
-$BL['CS'] = '&#268;esky';
+$BL['CZ'] = '&#268;esky (CZ)';
+$BL['CS'] = '&#268;esky (CS)';
 $BL['DA'] = 'Dansk';
 $BL['DE'] = 'Deutsch';
 $BL['ET'] = 'Eesti';

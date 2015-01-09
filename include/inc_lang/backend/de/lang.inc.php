@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -466,7 +466,7 @@ $BL['be_article_asubtitle']             = 'Untertitel';
 $BL['be_article_abegin']                = 'Anzeige von';
 $BL['be_article_aend']                  = 'bis';
 $BL['be_article_aredirect']             = 'Weiterleiten';
-$BL['be_article_akeywords']             = 'Schl&uuml;sselw&ouml;rt.';
+$BL['be_article_akeywords']             = 'Schl&uuml;sselw&ouml;rter';
 $BL['be_article_asummary']              = 'Schlagtext';
 $BL['be_article_abutton']               = 'Artikel erstellen';
 
@@ -639,7 +639,7 @@ $BL['be_cnt_align']                     = 'Ausrichtung';
 $BL['be_cnt_searchformtext']            = 'Die folgenden Texte werden angezeigt, wenn das Suchformular aufgerufen, ein Ergebnis angezeigt oder kein Ergebnis zur&uuml;ckgegeben wird.';
 $BL['be_cnt_intro']                     = 'Intro';
 $BL['be_cnt_noresult']                  = 'Kein Ergebnis';
-$BL['be_cnt_search_default_type']       = 'Standard Suchtyp';
+$BL['be_cnt_search_default_type']       = 'Suchtyp';
 
 // added: 02-01-2004
 $BL['be_admin_page_disable']            = 'abschalten';
@@ -723,7 +723,7 @@ $BL['be_newsletter_verifypage']         = '&Auml;nderungslink';
 $BL['be_newsletter_open']               = 'HTML und TEXT Eingabe';
 $BL['be_newsletter_open1']              = '(Aufklappgrafik anklicken)';
 $BL['be_newsletter_sendnow']            = 'Newsletter versenden';
-$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Achtung!</strong> Das Versenden eines Newsletters ist eine sehr sensible Angelegenheit. Empf&auml;nger sollten best&auml;tigt sein, anderenfalls versenden Sie potentielle Spam E-Mails. &Uuml;berlegen Sie zweimal, vor dem Versenden eines Newsletters. Testen Sie den Newsletter, bevor Sie diesen endg&uuml;ltig versenden.'; 
+$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Achtung!</strong> Das Versenden eines Newsletters ist eine sehr sensible Angelegenheit. Empf&auml;nger sollten best&auml;tigt sein, anderenfalls versenden Sie potentielle Spam E-Mails. &Uuml;berlegen Sie zweimal, vor dem Versenden eines Newsletters. Testen Sie den Newsletter, bevor Sie diesen endg&uuml;ltig versenden.';
 $BL['be_newsletter_attention1']         = 'Sollten Sie soeben &Auml;nderungen an den Daten des Newsletter vorgenommen haben, so sichern Sie diese bitte zuerst, anderenfalls werden diese nicht &uuml;bernommen.';
 $BL['be_newsletter_testemail']          = 'Testempf&auml;nger';
 $BL['be_newsletter_sendnlbutton']       = 'VERSENDEN!!!';
@@ -909,37 +909,39 @@ $BL['be_cnt_css_style']					= 'CSS Stil';
 $BL['be_cnt_css_class']					= 'CSS Klasse';
 $BL['be_cnt_send_copy_to']				= 'Kopie an';
 
-$BL['be_cnt_field']						= array("text"=>'Text (einzeilig)', 
-												"email"=>'E-Mail', 
-												"textarea"=>'Text (mehrzeilig)', 
-												"hidden"=>'Versteckt', 
-												"password"=>'Passwort', 
-												"select"=>'Ausklappmen&uuml;', 
-												"list"=>'Liste', 
-												"checkbox"=>'Checkbox',
-												"checkboxcopy"=>'Checkbox (E-Mail Kopie an/aus)', 
-												"radio"=>'Optionsschalter', 
-												"upload"=>'Datei', 
-												"submit"=>'Sende-Taste', 
-												"reset"=>'Zur&uuml;cksetzen', 
-												"break"=>'Trenner', 
-												"breaktext"=>'Zwischentext', 
-												"special"=>'Text (spezial)',
-												"captchaimg"=>'Captcha Bild', 
-												"captcha"=>'Captcha Code', 
-												'newsletter'=>'Newsletter',
-												'selectemail'=>'E-Mail Ausklappmen&uuml;', 
-												'country'=>'L&auml;nder-Ausklappmen&uuml;',
-												'mathspam'=>'Mathe Spam Schutz', 
-												'summing'=>'Summieren', 
-												'subtract'=>'Subtrahieren', 
-												'divide'=>'Dividieren', 
-												'multiply'=>'Multiplizieren', 
-												'calculation'=>'Berechnung:',
-												'formtracking_off'=>'Formular-Tracking ausschalten', 
-												'checktofrom'=>'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
-												'recaptcha'=>'reCAPTCHA',
-												'recaptcha_signapikey'=>'Registrierung eines reCAPTCHA API-Schl&uuml;ssels');
+$BL['be_cnt_field']						= array(
+	"text"=>'Text (einzeilig)',
+	"email"=>'E-Mail',
+	"textarea"=>'Text (mehrzeilig)',
+	"hidden"=>'Versteckt',
+	"password"=>'Passwort',
+	"select"=>'Ausklappmen&uuml;',
+	"list"=>'Liste',
+	"checkbox"=>'Checkbox',
+	"checkboxcopy"=>'Checkbox (E-Mail Kopie an/aus)',
+	"radio"=>'Optionsschalter',
+	"upload"=>'Datei',
+	"submit"=>'Sende-Taste',
+	"reset"=>'Zur&uuml;cksetzen',
+	"break"=>'Trenner',
+	"breaktext"=>'Zwischentext',
+	"special"=>'Text (spezial)',
+	"captchaimg"=>'Captcha Bild',
+	"captcha"=>'Captcha Code',
+	'newsletter'=>'Newsletter',
+	'selectemail'=>'E-Mail Ausklappmen&uuml;',
+	'country'=>'L&auml;nder-Ausklappmen&uuml;',
+	'mathspam'=>'Mathe Spam Schutz',
+	'summing'=>'Summieren',
+	'subtract'=>'Subtrahieren',
+	'divide'=>'Dividieren',
+	'multiply'=>'Multiplizieren',
+	'calculation'=>'Berechnung:',
+	'formtracking_off'=>'Formular-Tracking ausschalten',
+	'checktofrom'=>'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
+	'recaptcha'=>'reCAPTCHA',
+	'recaptcha_signapikey'=>'Registrierung eines reCAPTCHA API-Schl&uuml;ssels'
+);
 
 $BL['be_cnt_access']					= 'Zugriff';
 $BL['be_cnt_activated']					= 'aktiviert';
@@ -985,9 +987,11 @@ $BL['be_cnt_spaces'] = 'Abst&auml;nde des Alias Contentparts';
 $BL['be_cnt_toplink'] = 'Top-Link Einstellung des Alias Contentparts';
 $BL['be_cnt_block'] = 'Ausgabe-Einstellung des Alias Contentparts';
 $BL['be_cnt_title'] = '&Uuml;berschriften des Alias Contentparts';
+$BL['be_cnt_status'] = 'Sichtbarkeit des Alias Contentparts';
+$BL['be_cnt_plugin_n.a.'] = 'Plugin nicht verf&uuml;gbar';
 
 $BL['be_file_replace'] = 'Ersetze gleichnamige Dateien';
-$BL['be_admin_tmpl_copy']               = 'Vorlage kopieren'; 
+$BL['be_admin_tmpl_copy']               = 'Vorlage kopieren';
 $BL['be_alias_articleID'] = 'Alias ID';
 $BL['be_alias_useAll'] = 'Aktuelle Artikelkopfdaten benutzen';
 $BL['be_article_morelink'] = '[Weiter&#8230;] Link';
@@ -1289,7 +1293,7 @@ $BL['over']								= 'dar&uuml;ber';
 $BL['js_lib']							= 'JS Bibliothek';
 $BL['js_lib_alwaysload']				= 'immer laden';
 $BL['frontendjs_load']					= 'frontend.js laden (mehr aus historischen Gr&uuml;nden)';
-$BL['googleapi_load']					= 'Google Ajax Lib benutzen';
+$BL['googleapi_load']					= 'CDN benutzen';
 $BL['fancyupload_clear_list']			= 'Dateiliste leeren';
 $BL['fancyupload_file_uploaded']		= 'Datei wurde hochgeladen';
 $BL['fancyupload_file_error']			= 'Fehler beim Hochladen';
@@ -1328,5 +1332,51 @@ $BL['file_actions_msg_error']			= 'Es wurden keine Dateien ausgew&auml;hlt';
 $BL['file_actions_msg_user']			= 'Dateien wurden erfolgreich dem neuen Benutzer zugeordnet';
 
 $BL['be_imagefiles_as_gallery']			= 'Bildergalerie aus Bilddateien generieren';
+$BL['be_link']							= 'Verlinkung';
+$BL['be_links']							= 'Verlinkungen';
+$BL['be_redirect']						= 'Umleitung';
+$BL['be_redirects']						= 'Umleitungen';
+$BL['be_views']							= 'Aufrufe';
+$BL['be_structure_id']					= 'Struktur-ID';
+$BL['be_shortcut']						= 'Shortcut';
+$BL['be_target_type']					= 'Typ des Ziels';
+$BL['be_http_status']					= 'HTTP Status';
+$BL['be_http_status301']				= 'Permanent';
+$BL['be_http_status307']				= 'Tempor&auml;r';
+$BL['be_http_status404']				= 'Nicht gefunden';
+$BL['be_http_status401']				= 'Nicht authorisiert';
+$BL['be_http_status503']				= 'Nicht verf&uuml;gbar';
+$BL['be_redirect_error1']				= 'Alias/Shortcut, Struktur- oder Artikel-ID m&uuml;ssen angegeben werden';
+$BL['be_redirect_error2']				= 'Ziel muss angegeben werden';
+$BL['be_redirect_error3']				= 'Zieltyp Artikel-ID und Struktur-ID gestatten nur Ganzzahlen als Ziel';
+$BL['be_new_linkredirect']				= 'Neue Verlinkung/Weiterleitung';
+
+$BL['be_ctype_accordion']				= 'Gruppe (Accordion)';
+$BL['be_ctype_number']					= 'Nummer';
+$BL['be_inactive']						= 'inaktiv';
+$BL['be_locked']						= 'gesch&uuml;tzt';
+$BL['be_n/a']							= 'n. a.';
+$BL['be_opengraph_support']				= 'Social Sharing erlaubt';
+$BL['be_player_volume']					= 'Lautst&auml;rke';
+$BL['be_player_volume_muted']			= 'stumm';
+$BL['be_keyword']						= 'Schl&uuml&sselwort';
+$BL['be_tag']							= 'Tag';
+
+$BL['be_system_container']				= 'Systemcontainer';
+$BL['be_system_container_norender']		= 'ohne regul&auml;re Ausgabe im Frontend';
+$BL['be_custom_scriptlogic']			= 'benutzerdefiniert (Scriptlogik)';
+$BL['be_flush_image_cache']				= 'Bildcache leeren';
+
+$BL['be_caption_alt']					= 'alt Attr.';
+$BL['be_caption_title']					= 'title Attr.';
+$BL['be_caption_file_imagesize']		= 'BxHxC <em>(wenn Bild)</em>';
+$BL['be_caption_file_title']			= 'Dateititel';
+$BL['be_caption_descr.']				= 'Beschr.';
+$BL['be_display_html5_only']			= 'ausschlie&szlig;lich HTML5';
+$BL['be_audio_only']					= 'nur Audio';
+
+$BL['be_filter']						= 'Filter';
+$BL['be_filter_with_tags']				= 'nach Schlagwort';
+$BL['be_filter_not_selected']			= 'Keine Kategorie ausgew&auml;hlt';
 
 ?>

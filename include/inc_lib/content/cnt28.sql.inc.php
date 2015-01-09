@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Part Frontend Login
 
-$SQL .= "acontent_template	='".aporeplace($content['felogin_template'])."', ";
-$SQL .= "acontent_form		='".aporeplace(serialize($content['felogin']))."' ";
+$SQL .= "acontent_template="._dbEscape($content['felogin_template']).", ";
+$SQL .= "acontent_form="._dbEscape(serialize($content['felogin']))." ";
 
 ?>

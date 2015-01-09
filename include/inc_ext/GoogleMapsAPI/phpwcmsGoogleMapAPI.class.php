@@ -314,7 +314,7 @@ class GoogleMapAPI
 	* @var boolean
 	*/
 	var $zoom_encompass = true;
-	
+
 	/**
 	* determines if we can zoom using a mouse's scroll wheel.
 	*
@@ -349,7 +349,7 @@ class GoogleMapAPI
 	* @var array
 	*/
 	var $_icons = array();
-	
+
 	/**
 	* icon cache array
 	*
@@ -363,7 +363,7 @@ class GoogleMapAPI
 	* @var string
 	*/
 	var $_db_cache_table = 'phpwcms_geocodes';
-	
+
 	/**
 	* JSON class path
 	*
@@ -371,7 +371,7 @@ class GoogleMapAPI
 	*/
 	var $class_json_path = 'JSON.php';
 	var $use_json = false;
-	
+
 	/**
 	* geocode placemarks returned by getGeocode
 	* it's helpful to check this too and show
@@ -380,29 +380,29 @@ class GoogleMapAPI
 	* @var array
 	*/
 	var $Geocode_Placemark = array();
-	
-	
+
+
 	/**
 	* debug enable
 	*
 	* @var bool
 	*/
 	var $_debug = false;
-	
+
 	/**
 	* debug log path/file
 	*
 	* @var string
 	*/
 	var $_debug_file = '';
-	
+
 	/**
 	* use MooTools to access element by ID
 	*
 	* @var bool
 	*/
 	var $_mootools = FALSE;
-	
+
 
 	/**
 	* class constructor
@@ -418,7 +418,7 @@ class GoogleMapAPI
 		$this->document_root = $_SERVER['DOCUMENT_ROOT'];
 		$this->_debug_file = empty($this->_debug_file) ? PHPWCMS_TEMP.'maps_url.log' : $this->_debug_file;
 	}
-	
+
 	function initMap($map_id = 'map', $app_id = 'MyMapApp')
 	{
 		$this->map_id = $map_id;
@@ -440,12 +440,12 @@ class GoogleMapAPI
 	{
 		$this->_mootools = TRUE;
 	}
-	
+
 	function disableMooTools()
 	{
 		$this->_mootools = FALSE;
 	}
-	
+
 	function useJson($path=NULL) {
 		if($path != NULL) {
 			$this->class_json_path = $path;
@@ -456,7 +456,7 @@ class GoogleMapAPI
 			$this->use_json = false;
 		}
 	}
-	
+
 	function useCSV() {
 		$this->use_json = false;
 	}
@@ -590,7 +590,7 @@ class GoogleMapAPI
 			case 'mars':			$this->map_type = 'G_MARS_VISIBLE_MAP';		break;
 			case 'mars_infrared':	$this->map_type = 'G_MARS_INFRARED_MAP';	break;
 			case 'nightsky':		$this->map_type = 'G_SKY_VISIBLE_MAP';		break;
-			
+
 			case 'map':
 			case 'normal':
 			default:			$this->map_type = 'G_NORMAL_MAP';		break;
@@ -947,7 +947,7 @@ class GoogleMapAPI
 		if(isset($this->_icon_cache[ $_icon_cache_key ]))
 		{
 			return $this->_icon_cache[ $_icon_cache_key ];
-		}		
+		}
 		if ( !( $_image_info = @getimagesize( $_icon_image_path ) ) )
 		{
 			return FALSE;
@@ -994,9 +994,9 @@ class GoogleMapAPI
 					'shadowWidth' => $_shadow_info[0],
 					'shadowHeight' => $_shadow_info[1] ) );
 		}
-		
+
 		$this->_icon_cache[ $_icon_cache_key ] = $icon_info;
-		
+
 		return $icon_info;
 	}
 
@@ -1055,7 +1055,7 @@ class GoogleMapAPI
 	*/
 	function getOnLoad()
 	{
-		return '<script language="javascript" type="text/javascript" charset="utf-8">window.onload=onLoad;</script>';
+		return '<script type="text/javascript" charset="utf-8">window.onload=onLoad;</script>';
 	}
 
 	/**
@@ -1125,10 +1125,10 @@ class GoogleMapAPI
 					$_output .= sprintf( 'icon[%s].iconSize = new GSize(%s,%s);', $i, $info['iconWidth'], $info['iconHeight'] ) . "\n";
 					$_output .= sprintf( 'icon[%s].iconAnchor = new GPoint(%s,%s);', $i, $info['iconAnchorX'], $info['iconAnchorY'] ) . "\n";
 					$_output .= sprintf( 'icon[%s].infoWindowAnchor = new GPoint(%s,%s);', $i, $info['infoWindowAnchorX'], $info['infoWindowAnchorY'] ) . "\n";
-					
+
 					// save current icon
 					$exist_icn[$icon_key] = $i;
-					
+
 				} else {
 					$_output .= 'icon['.$i.'] = icon[' . $exist_icn[ $icon_key] . "];\n";
 				}
@@ -1170,7 +1170,7 @@ class GoogleMapAPI
 			$_output .= "var bds = new GLatLngBounds(new GLatLng($this->_min_lat, $this->_min_lon), new GLatLng($this->_max_lat, $this->_max_lon));\n";
 			$_output .= 'map.setZoom(map.getBoundsZoomLevel(bds));' . "\n";
 		}
-		
+
 		if( $this->zoom_wheel ) {
 			$_output .= 'map.enableScrollWheelZoom();' . "\n";
 		} else {
@@ -1217,7 +1217,7 @@ class GoogleMapAPI
 			$_output .= 'alert("' . str_replace( '"', '\"', $this->browser_alert ) . '");' . "\n";
 			$_output .= '}' . "\n";
 		}
-		
+
 		if(isset($this->jump_index))
 		{
 			$_output .= 'click_sidebar('.$this->jump_index.');' . "\n";
@@ -1294,7 +1294,7 @@ class GoogleMapAPI
 			{
 				$iw_html = sprintf( '"%s"', str_replace( '"', '\"', '<div id="gmapmarker">' . str_replace( array( "\n", "\r" ), "", $_marker['html'] ) . '</div>' ) );
 			}
-			
+
 			// make it smaller, save all JS vars and do functions call direct in map.addOverlay
 			$_p  = 'new GLatLng('.$_marker['lat'].','.$_marker['lon'].')';
 			$_m  = 'createMarker('.$_p.',"'.str_replace( '"', '\"', $_marker['title'] );
@@ -1417,9 +1417,9 @@ class GoogleMapAPI
 	function getMap()
 	{
 		if($this->_mootools) {
-			
+
 			$js_alert = empty( $this->js_alert ) ? '' : '<span class="' . $this->map_id . '-jsalert">' . $this->js_alert . '</span>';
-			
+
 			if ( strlen( $this->width ) > 0 && strlen( $this->height ) > 0 )
 			{
 				$_output  = sprintf( '<div id="%s" style="width:%s;height:%s">', $this->map_id, $this->width, $this->height );
@@ -1428,11 +1428,11 @@ class GoogleMapAPI
 			{
 				$_output  = sprintf( '<div id="%s">', $this->map_id );
 			}
-			
+
 			$_output .= $js_alert . '</div>';
-			
+
 		} else {
-		
+
 			$_output  = '<script type="text/javascript" charset="utf-8">' . "\n" . '//<![CDATA[' . "\n";
 			$_output .= 'if (GBrowserIsCompatible()) {' . "\n";
 			if ( strlen( $this->width ) > 0 && strlen( $this->height ) > 0 )
@@ -1444,21 +1444,21 @@ class GoogleMapAPI
 				$_output .= sprintf( 'document.write(\'<div id="%s"><\/div>\');', $this->map_id ) . "\n";
 			}
 			$_output .= '}';
-	
+
 			if ( !empty( $this->browser_alert ) )
 			{
 				$_output .= ' else {' . "\n";
 				$_output .= sprintf( 'document.write(\'%s\');', str_replace( '/', '\/', $this->browser_alert ) ) . "\n";
 				$_output .= '}' . "\n";
 			}
-	
+
 			$_output .= '//]]>' . "\n" . '</script>' . "\n";
-	
+
 			if ( !empty( $this->js_alert ) )
 			{
 				$_output .= '<noscript>' . $this->js_alert . '</noscript>' . "\n";
 			}
-			
+
 		}
 
 		return $_output;
@@ -1489,17 +1489,17 @@ class GoogleMapAPI
 	function getGeocode( $address )
 	{
 		$this->Geocode_Placemark = array();
-	
+
 		if ( empty( $address ) ) {
 			return false;
-		}	
+		}
 
 		$_geocode = $this->getCache( $address );
 
 		if ( $_geocode === false )
 		{
 			$_geocode = $this->geoGetCoords( $address );
-			
+
 			if ( $_geocode !== false )
 			{
 				if( count($this->Geocode_Placemark) > 1) {
@@ -1520,14 +1520,14 @@ class GoogleMapAPI
 	function getCache( $address )
 	{
 		$_ret = array();
-		$_row = _dbQuery( 'SELECT lon,lat FROM ' . DB_PREPEND . $this->_db_cache_table . " WHERE address = '" . aporeplace( $address ) . "'" );
+		$_row = _dbQuery( 'SELECT lon,lat FROM ' . DB_PREPEND . $this->_db_cache_table . " WHERE address = " . _dbEscape( $address ) );
 		if ( isset( $_row[0] ) ) {
-			
+
 			$_ret['lon'] = $_row[0]['lon'];
 			$_ret['lat'] = $_row[0]['lat'];
-			
+
 		} elseif( $_row === false && $this->_db_cache_table ) {
-			
+
 			$sql  = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . $this->_db_cache_table . '` (';
 			$sql .= ' `address` varchar(255) NOT NULL, ';
 			$sql .= '`lon` double DEFAULT NULL, ';
@@ -1536,9 +1536,9 @@ class GoogleMapAPI
 			$sql .= 'KEY `lon` (`lon`), ';
 			$sql .= 'KEY `lat` (`lat`) ';
 			$sql .= ') ENGINE=MyISAM';
-			
+
 			_dbQuery($sql, 'CREATE');
-			
+
 		}
 		return isset( $_ret['lon'] ) ? $_ret : false;
 	}
@@ -1566,45 +1566,45 @@ class GoogleMapAPI
 	* @param string $address
 	*/
     function geoGetCoords($address,$depth=0) {
-        
+
 		$_coords = array('lon'=>NULL, 'lat'=>NULL);
-		
+
         switch($this->lookup_service) {
-                        
+
             case 'GOOGLE':
-			
+
 				$_result = false;
-                
+
 				// use JSON
 				if($this->use_json) {
-				
+
 					// changed to JSON, it's more accurate
 					$_url = sprintf( 'http://%s/maps/geo?&q=%s&output=json&key=%s', $this->lookup_server['GOOGLE'], rawurlencode( $address ), $this->api_key );
 					$_result = $this->fetchURL( $_url );
-					
+
 					if ( $_result ) {
-						
+
 						$json = new Services_JSON();
 						$_result_parts = $json->decode( $_result );
-						
+
 						if(!isset($_result_parts->Placemark[0]) || !isset($_result_parts->Status->code) || $_result_parts->Status->code != 200) {
 							return false;
 						}
-						
+
 						$_coords['lat']		= $_result_parts->Placemark[0]->Point->coordinates[1];
 						$_coords['lon']		= $_result_parts->Placemark[0]->Point->coordinates[0];
-						
+
 						$this->Geocode_Placemark = $_result_parts->Placemark;
-		
+
 					}
-				
+
 				// Use CSV
 				} else {
-	
+
 					$_url = sprintf('http://%s/maps/geo?&q=%s&output=csv&key=%s',$this->lookup_server['GOOGLE'],rawurlencode($address),$this->api_key);
 
 					if($_result = $this->fetchURL($_url)) {
-	
+
 						$_result_parts = explode(',',$_result);
 						if($_result_parts[0] != 200) {
 							return false;
@@ -1612,14 +1612,14 @@ class GoogleMapAPI
 						$_coords['lat'] = $_result_parts[2];
 						$_coords['lon'] = $_result_parts[3];
 					}
-					
+
 				}
-                
+
                 break;
-            
+
             case 'YAHOO':
             default:
-                        
+
                 $_url = 'http://%s/MapsService/V1/geocode';
                 $_url .= sprintf('?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
 
@@ -1633,11 +1633,11 @@ class GoogleMapAPI
                     $_coords['lat'] = $_match[1];
 
                 }
-                
-                break;
-        }         
 
-		return $_coords;       
+                break;
+        }
+
+		return $_coords;
     }
 
 	/**
@@ -1692,7 +1692,7 @@ class GoogleMapAPI
 				break;
 		}
 	}
-	
+
 	/**
 	* get distance between two geocoords using great circle distance formula and return in kilometer (KM)
 	*
@@ -1700,7 +1700,7 @@ class GoogleMapAPI
 	* @param float $lat2
 	* @param float $lon1
 	* @param float $lon2
-	*/	
+	*/
 	function geoGetDistanceInKM(  $lat1, $lon1, $lat2, $lon2 )
 	{
 		$earthRadius = 6371.0;

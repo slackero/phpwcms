@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -30,20 +30,24 @@ if($sitemap['articleimg']) {
 	$sitemap['article_style'] = '';
 }
 if($sitemap['catimg']) {
-	$sitemap['cat_style'] = ' style="list-style-image: url('.$sitemap['catimg'].');"';
+	$sitemap['cat_style'] = ' style="list-style-image:url('.$sitemap['catimg'].');"';
 } elseif(empty($sitemap['cat_style'])) {
 	$sitemap['cat_style'] = '';
 }
 
 $CNT_TMP .= $sitemap['before'];
 
-$sitemap['c'] = '';
-if($sitemap['classcount'] && $sitemap['catclass']) {
-	$sitemap['c'] = ' class="'.$sitemap['catclass'].$counter.'"';
-} elseif($sitemap['catclass']) {
-	$sitemap['c'] = ' class="'.$sitemap['catclass'].'"';
-}
 if($content['struct'][ $sitemap['startid'] ]['acat_nositemap']) {
+
+	$sitemap['c'] = '';
+	if($sitemap['catclass']) {
+		$sitemap['c'] .= ' class="'.$sitemap['catclass'];
+		if($sitemap['classcount']) {
+			$sitemap['c'] .= '0';
+		}
+		$sitemap['c'] .= '"';
+	}
+
 	if(empty($sitemap["without_parent"])) {
 		$CNT_TMP .= "<ul".$sitemap['c']."><li".$sitemap['cat_style'].">";
 		$CNT_TMP .= '<a href="index.php?';
@@ -55,9 +59,9 @@ if($content['struct'][ $sitemap['startid'] ]['acat_nositemap']) {
 		$CNT_TMP .= '">'.html_specialchars($content['struct'][ $sitemap['startid'] ]['acat_name']).'</a>';
 	}
 	if($sitemap["display"]) {
-		$CNT_TMP .= build_sitemap_articlelist( $sitemap['startid'] , 0);
+		$CNT_TMP .= build_sitemap_articlelist($sitemap['startid'], 0, $sitemap);
 	}
-	$CNT_TMP .= build_sitemap( $sitemap['startid'] , 0);
+	$CNT_TMP .= build_sitemap($sitemap['startid'], 0, $sitemap);
 	if(empty($sitemap["without_parent"])) {
 		$CNT_TMP .= "</li>\n</ul>";
 	}

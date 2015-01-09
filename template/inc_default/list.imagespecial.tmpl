@@ -1,0 +1,64 @@
+<!--IMAGE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; settings will overwrite CP settings
+;width		= 100
+;height		= 100
+;width_zoom	= 600
+;height_zoom	= 600
+;col			= 1
+;space		= 10
+;zoom		= 1
+;lightbox	= 1
+;nocaption	= 0
+; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
+;center		= 2
+;crop		= 0
+;crop_zoom	= 0
+;fx1			= 0
+;fx2			= 0
+;fx3			= 0
+; InfoText render: plain, html, markdown, textile
+text_render	= plain
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+
+<div class="images images-listmode" id="images{ID}">
+<!--IMAGES_HEADER_END//-->
+
+
+<!--IMAGES_ENTRY_START//-->
+	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}">
+		{IMAGE}
+		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
+		[INFOTEXT]
+			<!-- check setting "text_render", default "plain" -->
+			{INFOTEXT}
+		[/INFOTEXT]
+		[URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>more &raquo;</a>[/URL]
+	</div>
+<!--IMAGES_ENTRY_END//-->
+
+
+<!--IMAGES_ENTRY_SPACER_START//-->
+
+	<!-- space between images {SPACE}px -->
+
+<!--IMAGES_ENTRY_SPACER_END//-->
+
+
+<!--IMAGES_ROW_SPACER_START//-->
+
+	<!-- space between image rows {SPACE}px -->
+
+<!--IMAGES_ROW_SPACER_END//-->
+
+
+<!--IMAGES_FOOTER_START//-->
+</div>
+<!--IMAGES_FOOTER_END//-->

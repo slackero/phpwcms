@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -57,6 +57,15 @@ if(count($phpwcms['modules'])) {
 			$wcs_content_type[30] = $BL['be_ctype_module'];
 			break;
 		}
+	}
+}
+
+if(!empty($phpwcms['cnt_sort'])) {
+	if($phpwcms['cnt_sort'] == 'a-z') {
+		natcasesort($wcs_content_type);
+	} elseif($phpwcms['cnt_sort'] == 'z-a') {
+		natcasesort($wcs_content_type);
+		$wcs_content_type = array_reverse($wcs_content_type, true);
 	}
 }
 

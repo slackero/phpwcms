@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -29,12 +29,12 @@ if($cinfo["result"] && $row["acontent_subtitle"]) {
 if($row["acontent_subtitle"]) {
 	$cinfo["result"] .= getCleanSubString($row["acontent_subtitle"], 55, '&#8230;');
 }
-$cinfo["result"]  = html_specialchars($cinfo["result"]);
+$cinfo["result"]  = html($cinfo["result"]);
 if($row["acontent_template"]) {
 	if($cinfo["result"]) {
 		$cinfo["result"] .= ' / ';
 	}
-	$cinfo["result"] .= $BL['be_admin_struct_template'].': <strong>'.html_specialchars($row["acontent_template"]).'</strong>';
+	$cinfo["result"] .= $BL['be_admin_struct_template'].': <strong>'.html($row["acontent_template"]).'</strong>';
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo

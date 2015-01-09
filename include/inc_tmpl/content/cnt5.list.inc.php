@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -25,28 +25,25 @@ $cinfo[2] = cut_string($row["acontent_subtitle"],'&#8230;', 55);
 $clink = explode(LF, $row["acontent_text"]);
 $clink_liste = "";
 if(count($clink)) {
- foreach($clink as $key => $value) {
-	 list($clink_name, $clink_link)   = explode("|", $value);
-	 $clink_link = explode(" ", $clink_link);
-	 $clink_target = isset($clink_link[1]) ? $clink_link[1] : '';
-	 $clink_link = $clink_link[0];
-	 $clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ".
-					 "title=\"Link: ".html_specialchars($clink_link.trim(' '.$clink_target))."\">".
-					 "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
-	 if(isEmpty($clink_name)) {
-		$clink_liste .= html_specialchars($clink_link)."</a>\n";
-	 } else {
-		$clink_liste .= html_specialchars($clink_name)."</a>\n";
-	 }
- }
- unset($clink);
+	foreach($clink as $key => $value) {
+		list($clink_name, $clink_link)   = explode("|", $value);
+		$clink_name = trim($clink_name);
+		$clink_link = explode(" ", trim($clink_link));
+		$clink_target = isset($clink_link[1]) ? trim($clink_link[1]) : '';
+		$clink_link = trim($clink_link[0]);
+		$clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ";
+		$clink_liste .= "title=\"Link: ".html($clink_link.trim(' '.$clink_target))."\">";
+		$clink_liste .= "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
+		$clink_liste .= html($clink_name ? $clink_name : $clink_link)."</a>\n";
+	}
+	unset($clink);
 }
 $cinfo["result"] = "";
 
 foreach($cinfo as $value) {
  if($value) $cinfo["result"] .= $value."\n";
 }
-$cinfo["result"] = str_replace("\n", " / ", html_specialchars(chop($cinfo["result"])));
+$cinfo["result"] = str_replace("\n", " / ", html(chop($cinfo["result"])));
 if($cinfo["result"] || $clink_liste) { //Zeige Inhaltinfo
  echo "<tr><td>&nbsp;</td><td class=\"v10\">";
  if($cinfo["result"]) {

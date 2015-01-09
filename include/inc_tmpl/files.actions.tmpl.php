@@ -3,11 +3,11 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  *
  * @author Marus Köhl <info@pagewerkstatt.ch>
  * @link http://www.pagewerkstatt.ch
- * 
+ *
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -29,13 +29,13 @@ $file_action = array(
 //Get post variables
 if(isset($_POST['file_action'])) {
 
-	$file_action['action']		= intval($_POST['file_action']);
-	$file_action_msg			= $BL['file_actions_msg_error'];
-	
+	$file_action['action']	= intval($_POST['file_action']);
+	$file_action_msg		= $BL['file_actions_msg_error'];
+
 } else {
 
-	$file_action['action']		= 0;
-	$file_action_msg			= '';
+	$file_action['action']	= 0;
+	$file_action_msg		= '';
 
 }
 
@@ -51,7 +51,7 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
 			}
 		}
 		$file_action_msg = $BL['file_actions_msg_delete'];
-	} 
+	}
 } elseif($file_action['action'] === 2 && $file_action["mark"]) {
 	$newdir = intval($file_action["newdir"]);
 	if(is_array($file_action["mark"]) && count($file_action["mark"])) {
@@ -65,7 +65,7 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
 			}
 		}
 		$file_action_msg = $BL['file_actions_msg_move'];
-	} 
+	}
 } elseif($file_action['action'] === 3 && $file_action["mark"]) {
 	$file_action["aktiv"]	= empty($_POST["file_aktiv"]) ? 0 : 1;
 	$file_action["public"]	= empty($_POST["file_public"]) ? 0 : 1;
@@ -140,7 +140,7 @@ function showAction() {
 		//document.getElementById("div_delete").style.display='none';
 	}
 }
-</script> 
+</script>
 
 <h1 class="title"><?php echo $BL['be_subnav_file_actions'] ?></h1>
 <?php if($file_action_msg) { echo '<p><b>'.$file_action_msg.'</b></p>'; } ?>
@@ -153,7 +153,7 @@ function showAction() {
 			dir_menu(0, $file_action["file_dir"], $db, "+", $_SESSION["wcs_user_id"], "+");
 		?>
 	</select>
-</form> 
+</form>
 
 &nbsp;&nbsp;<strong><?php echo $BL['file_actions_step2'] ?><strong>
 <form action="phpwcms.php?do=files&amp;p=4" method="post" name="filetakeover" id="filetakeover" style="margin-top:3px">
@@ -175,7 +175,7 @@ function showAction() {
 <?php
 //Browse files in selected folder
 $fx = 0;
-$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=" . $file_action["file_dir"] . 
+$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=" . $file_action["file_dir"] .
 			" AND f_trash=0 AND f_kid = 1 AND f_uid = " . $_SESSION["wcs_user_id"] . " ORDER BY f_name;";
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
 
@@ -183,12 +183,12 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		$fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
 		//$fxsg += $fxs;
 		 // there is a big problem with special chars on Mac OS X and seems Windows too
-		if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file_row["f_name"])) { 
+		if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file_row["f_name"])) {
 			$filename = str_replace('?', '', utf8_decode($file_row["f_name"]));
 		} else {
 			$filename = $file_row["f_name"];
 		}
-		$filename = html_specialchars($filename);
+		$filename = html($filename);
 ?>
 	<tr<?php echo $fxb ?>>
 		<td align="center"><input name="ftp_mark[<?php echo $file_row["f_id"] ?>]" type="checkbox" id="ftp_mark_<?php echo $file_row["f_id"] ?>" value="1" class="ftp_mark" /></td>
@@ -197,7 +197,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		<td class="v10"><?php echo $filename ?></td>
 		<td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 		<td align="right" class="v10">
-			<?php 
+			<?php
 			//Icons Public/Non-Public
 			echo "<img src=\"img/button/aktiv_12x13_".$file_row["f_aktiv"].".gif\" border=\"0\">";
 			echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\">";
@@ -244,7 +244,7 @@ if(!$fx) {
 if($fx) {
 ?>
 <div style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
-	<strong style="display:block;margin-bottom:3px"><?php echo $BL['file_actions_step3'] ?></strong>		 
+	<strong style="display:block;margin-bottom:3px"><?php echo $BL['file_actions_step3'] ?></strong>
 		<div id="div_folder" style="display: none;">
 		<table>
 			<tr>
@@ -277,20 +277,20 @@ if($fx) {
 			</td>
 		</tr>
 		</table>
-		</div> 
+		</div>
 		<div id="div_user" style="display: none;">
 		<table>
 			<tr>
 				<td align="right" class="v09" valign="top"><?php echo $BL["login_username"] ?>:&nbsp;</td>
 				<td class="v10">
 				<select name="file_user" id="file_user" class="v11 width400">
-					<?php 
+					<?php
 	$sql = "SELECT usr_id, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE ".
 		"usr_aktiv=1 AND usr_id !=".intval($_SESSION["wcs_user_id"])." ".
 		"ORDER BY usr_name";
 	$result = mysql_query($sql, $db);
 	while($row = mysql_fetch_row($result)) {
-		echo "<option value='".$row[0]."'>".html_specialchars($row[1])."</option>\n";
+		echo "<option value='".$row[0]."'>".html($row[1])."</option>\n";
 	}
 	mysql_free_result($result);
 					?>
@@ -302,7 +302,7 @@ if($fx) {
 		 </div>
 
 	<table border="0" cellpadding="0" cellspacing="0" summary="" style="margin-top:3px">
-	
+
 		<tr>
 			<td>
 			<select name="file_action" id="file_action" class="v12" onChange="showAction()">
@@ -312,10 +312,10 @@ if($fx) {
 				<option value="3"><?php echo $BL['file_actions_pdl_status'] ?></option>
 				<option value="4"><?php echo $BL['file_actions_pdl_user'] ?></option>
 			</select></td>
-			
+
 			<td>&nbsp;</td>
-			
-			<td><div id="div_button" style="display: none;"><input name="Submit" type="submit" class="button10" value="<?php echo $BL['file_actions_button'] ?>" /></div></td>
+
+			<td><div id="div_button" style="display: none;"><input name="Submit" type="submit" class="button" value="<?php echo $BL['file_actions_button'] ?>" /></div></td>
 		</tr>
 
 	</table>

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -27,30 +27,55 @@ if(!isset($wysiwyg_editor['editor'])) {
 $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
 
 if($wysiwyg_editor['editor']) {
-	
-	$BE['HEADER']['ckeditor.js']		 = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
-	
+
+	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+
 	// simple textarea - no WYSIWYG editor
 	echo '<textarea class="ckeditor" name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'].'" id="'.$wysiwyg_editor['field'].'">';
-	echo html_specialchars($wysiwyg_editor['value']).'</textarea>';
-	
+	echo html($wysiwyg_editor['value'], true).'</textarea>';
+
 	echo '<script type="text/javascript">' . LF;
-	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {' . LF;
+	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {';
+
 	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
-		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js",' . LF;
+
+		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
+
+	} else {
+
+		echo "
+		toolbar: [
+			{name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
+			{name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+			{name: 'colors', items: ['TextColor', 'BGColor']},
+			{name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+			{name: 'paragraph', groups: ['align', 'list', 'indent', 'blocks'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']},
+			{name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar']},
+			{name: 'styles', items: ['Styles', 'Format', 'Font']},
+			{name: 'about', items: ['About']}
+		],
+		width: 538,
+		height: 400,
+		extraPlugins: 'magicline',
+		toolbarCanCollapse: true,
+		toolbarStartupExpanded: true,
+		forcePasteAsPlainText: true,
+		pasteFromWordRemoveFontStyles: true,
+		pasteFromWordRemoveStyles: true,
+		pasteFromWordPromptCleanup: true,
+		language: '".$wysiwyg_editor['lang']."'";
+
 	}
-	echo '		language: "'.$wysiwyg_editor['lang'].'"';
 
 	if (!empty($phpwcms['FCK_FileBrowser'])) {
 		echo ',' . LF;
 		echo '		filebrowserBrowseUrl: "'.PHPWCMS_URL.'filebrowser.php?opt=16",' . LF;
 		echo '		filebrowserImageBrowseUrl : "'.PHPWCMS_URL.'filebrowser.php?opt=17",' . LF;
 		echo '		filebrowserWindowWidth: "640",' . LF;
-		echo '		filebrowserWindowHeight: "480"' . LF;
+		echo '		filebrowserWindowHeight: "480"';
 	}
-	echo '	});' . LF;
+	echo LF . '	});' . LF;
 	echo '</script>';
-	
 
 } else {
 
@@ -58,7 +83,7 @@ if($wysiwyg_editor['editor']) {
 	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
 	echo '" class="v12 editor-textarea" id="'.$wysiwyg_editor['field'].'" ';
 	echo 'style="width:'.$wysiwyg_editor['width'].';height:'.$wysiwyg_editor['height'].';">';
-	echo html_specialchars($wysiwyg_editor['value']).'</textarea>';
+	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 }
 

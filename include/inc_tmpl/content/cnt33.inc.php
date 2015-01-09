@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -56,7 +56,7 @@ initJsAutocompleter();
 	if(is_array($tmpllist) && count($tmpllist)) {
 		foreach($tmpllist as $val) {
 			$selected_val = (isset($content["template"]) && $val == $content["template"]) ? ' selected="selected"' : '';
-			$val = html_specialchars($val);
+			$val = html($val);
 			echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
 		}
 	}
@@ -100,7 +100,7 @@ initJsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="" width="100%">
 		<tr>
-			<td width="95%"><input type="text" id="news_keyword_autosuggest" /><input type="hidden" name="news_category" id="news_category" value="<?php echo html_specialchars(implode(', ', $content['news']['news_category'])) ?>" /></td>
+			<td width="95%"><input type="text" id="news_keyword_autosuggest" /><input type="hidden" name="news_category" id="news_category" value="<?php echo html(implode(', ', $content['news']['news_category'])) ?>" /></td>
 			<td style="padding-right:4px"><select name="news_andor" id="news_andor">
 				
 				<option value="OR"<?php is_selected('OR', $content['news']['news_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
@@ -166,9 +166,9 @@ initJsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_rssfeed_item'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_limit" id="news_limit" value="<?php echo html_specialchars($content['news']['news_limit']) ?>" class="width50" /></td>
+			<td><input type="text" name="news_limit" id="news_limit" value="<?php echo html($content['news']['news_limit']) ?>" class="width50" /></td>
 			<td>&nbsp;<?php echo $BL['be_cnt_rssfeed_max'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td><input type="text" name="news_skip" id="news_skip" value="<?php echo html_specialchars($content['news']['news_skip']) ?>" class="width50" />
+			<td><input type="text" name="news_skip" id="news_skip" value="<?php echo html($content['news']['news_skip']) ?>" class="width50" />
 			<td>&nbsp;<?php echo $BL['be_skip_first_items'] ?></td>
 		</tr>
 		</table></td>
@@ -194,7 +194,7 @@ initJsAutocompleter();
 			
 			</select></td>
 			<td>&nbsp;&nbsp;</td>
-			<td><input type="text" name="news_paginate_count" id="news_paginate_count" value="<?php echo html_specialchars($content['news']['news_paginate_count']) ?>" class="width25" /></td>
+			<td><input type="text" name="news_paginate_count" id="news_paginate_count" value="<?php echo html($content['news']['news_paginate_count']) ?>" class="width25" /></td>
 		</tr>
 		</table></td>
 </tr>
@@ -207,7 +207,7 @@ initJsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_archive'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_archive_link" id="news_archive_link" value="<?php echo html_specialchars($content['news']['news_archive_link']) ?>" class="width250" /></td>
+			<td><input type="text" name="news_archive_link" id="news_archive_link" value="<?php echo html($content['news']['news_archive_link']) ?>" class="width250" /></td>
 			<td>&nbsp;<?php echo $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
 		</tr>
 		</table>
@@ -220,7 +220,7 @@ initJsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_news_detail_link'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="news_detail_link" id="news_detail_link" value="<?php echo html_specialchars($content['news']['news_detail_link']) ?>" class="width250" /></td>
+			<td><input type="text" name="news_detail_link" id="news_detail_link" value="<?php echo html($content['news']['news_detail_link']) ?>" class="width250" /></td>
 			<td>&nbsp;<?php echo $BL['be_article_urlalias'].'/'.$BL['be_func_struct_articleID'] ?></td>
 		</tr>
 		</table>

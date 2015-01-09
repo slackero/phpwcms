@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -89,7 +89,7 @@
  		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="20"></td></tr>
           <tr>
             <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2"><input name="Submit" type="submit" class="button10" value="send content values"></td>
+            <td colspan="2"><input name="Submit" type="submit" class="button" value="send content values"></td>
           </tr>
 </table>
 <input name="do" type="hidden" value="1"></form>

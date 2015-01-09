@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -37,12 +37,12 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 	// browse images and list available
 	// will be visible only when aceessible
 	foreach($image_list['images'] as $key => $value) {
-	
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$image_list['images'][$key][3],
-								"image_name"	=>	$image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
-								"thumb_name"	=>	md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        					  ));
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$image_list['images'][$key][3],
+			"image_name"	=>	$image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
+			"thumb_name"	=>	md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+		));
 
 		if($thumb_image != false) {
 			if($imgx == 4) {
@@ -52,7 +52,7 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 			if($imgx) {
 				$cinfo_img .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1">';
 			}
-			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html_specialchars($image_list['images'][$key][1]).'">';
+			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'">';
 			$imgx++;
 		}
 	}
@@ -70,13 +70,13 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 
 
 /*
-							 
+
 							 $ecard = unserialize($row["acontent_form"]);
 							 $cinfo_imagelist="";
 							 if(count($ecard["list"])) {
 									$imgx=0;
 									foreach($ecard["list"] as $key => $value) {
-										
+
 										if($imgx) {
 											if($imgx == 4) {
 												$cinfo_imagelist .= "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"2\" border=\"0\"><br />";
@@ -94,18 +94,18 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 										$cinfo_imagelist .= $ecard["list"][$key]["name"]."\">";
 									}
 							 }
-							 
+
 							 $cinfo["result"] = trim($cinfo["result"]);
 							 if($cinfo["result"] && $cinfo_imagelist) {
-							 	$cinfo["result"] = html_specialchars($cinfo["result"])."<br />".$cinfo_imagelist;
+							 	$cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_imagelist;
 							 } else {
 							 	if($cinfo_imagelist) {
 									$cinfo["result"] = $cinfo_imagelist;
 								} else {
-									$cinfo["result"] = html_specialchars($cinfo["result"]);
+									$cinfo["result"] = html($cinfo["result"]);
 								}
-							 }	
-							 
+							 }
+
 							 if($cinfo["result"]) { //Zeige Inhaltinfo
 								 echo "<tr><td>&nbsp;</td><td class=\"v10\">";
 								 echo "<a href=\"phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$article["article_id"]."&acid=".$row["acontent_id"]."\">";

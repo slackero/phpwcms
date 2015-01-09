@@ -1,0 +1,114 @@
+<!--IMAGETEXT_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+class_top_left		= imgtxt-top-left
+class_top_center	= imgtxt-top-center
+class_top_right		= imgtxt-top-right
+class_bottom_left	= imgtxt-bottom-left
+class_bottom_center	= imgtxt-bottom-center
+class_bottom_right	= imgtxt-bottom-right
+class_float_left	= imgtxt-left
+class_float_right	= imgtxt-right
+class_column_left	= imgtxt-column-left
+class_column_right	= imgtxt-column-right
+; width				= 300
+; height			= 200
+; zoom				= 1
+; crop				= 1
+; lightbox			= 1
+; nocaption			= 0
+<!--IMAGETEXT_SETTINGS_END//-->
+<div class="image-with-text[CLASS] {CLASS}[/CLASS]" id="imgtext-id-{ID}">
+[TITLE]	<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]	<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[IMAGE]<div class="image">{IMAGE}</div>
+[CAPTION]
+	<p class="caption">{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>
+[/CAPTION]
+<!--
+Image ID:        {IMAGE_ID}
+Image Hash:      {IMAGE_HASH}
+Image Name:      {IMAGE_NAME}
+Image Extension: {IMAGE_EXT}[IMAGE_TITLE]
+Title Attribute: {IMAGE_TITLE}[/IMAGE_TITLE][ALT]
+Alt Attribute:   {ALT}[/ALT]
+-->
+[/IMAGE]
+[TEXT]{TEXT}[/TEXT]
+[TOP_LEFT]<p>Top Left</p>[/TOP_LEFT]
+[TOP_CENTER]<p>Top Center</p>[/TOP_CENTER]
+[TOP_RIGHT]<p>Top Right</p>[/TOP_RIGHT]
+[BOTTOM_LEFT]<p>Bottom Left</p>[/BOTTOM_LEFT]
+[BOTTOM_CENTER]<p>Bottom Center</p>[/BOTTOM_CENTER]
+[BOTTOM_RIGHT]<p>Bottom Right</p>[/BOTTOM_RIGHT]
+[FLOAT_RIGHT]<p>Float Right</p>[/FLOAT_RIGHT]
+[FLOAT_LEFT]<p>Float Left</p>[/FLOAT_LEFT]
+[COLUMN_LEFT]<p>Column Left</p>[/COLUMN_LEFT]
+[COLUMN_RIGHT]<p>Column Right</p>[/COLUMN_RIGHT]
+</div>
+<!-- Sample CSS -->
+<!-- CSS:
+.imgtxt-top-left,
+.imgtxt-bottom-left {
+    position: relative;
+    margin: 1em 0;
+    clear: both;
+}
+.imgtxt-top-right,
+.imgtxt-bottom-right {
+    position: relative;
+    float: right;
+    margin: 1em 0;
+    clear: both;
+}
+.imgtxt-top-center,
+.imgtxt-bottom-center {
+    position: relative;
+    margin: 1em auto;
+    clear: both;
+}
+.imgtxt-left {
+    position: relative;
+    float: left;
+    margin: 0 1em 1em 0;
+}
+.imgtxt-right {
+    position: relative;
+    float: right;
+    margin: 0 0 1em 1em;
+}
+.imgtxt-column-left {
+    position: relative;
+    clear: both;
+    width: 100%;
+}
+.imgtxt-column-left .imgtxt-column-left-text {
+    position: relative;
+    float: left;
+    margin: 0 1em 1em 0;
+    width: 60%;
+}
+.imgtxt-column-left .imgtxt-column-left-image {
+    position: relative;
+    float: left;
+    margin: 0 0 1em 1em;
+    width: 35%;
+}
+.imgtxt-column-right {
+    position: relative;
+    clear: both;
+    width: 100%;
+}
+.imgtxt-column-right .imgtxt-column-right-text {
+    position: relative;
+    float: right;
+    margin: 0 0 1em 1em;
+    width: 60%;
+}
+.imgtxt-column-right .imgtxt-column-right-image {
+    position: relative;
+    float: left;
+    margin: 0 1em 1em 0;
+    width: 35%;
+}
+-->

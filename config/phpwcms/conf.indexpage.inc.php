@@ -3,7 +3,6 @@ $indexpage['acat_name']		= 'Home';
 $indexpage['acat_info']		= '';
 $indexpage['acat_alias']	= 'index';
 $indexpage['acat_aktiv']	= 1;
-$indexpage['acat_public']	= 1;
 $indexpage['acat_template']	= 1;
 $indexpage['acat_hidden']	= 0;
 $indexpage['acat_ssl']		= 0;
@@ -24,4 +23,6 @@ $indexpage['acat_archive']	= 0;
 $indexpage['acat_class']	= '';
 $indexpage['acat_keywords']	= '';
 $indexpage['acat_cpdefault']	= 0;
+$indexpage['acat_disable301']	= 0;
+$indexpage['acat_opengraph']	= 1;
 ?>

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/linklist.tmpl')) {
 
 	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/linklist.tmpl') );
-	
+
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/linklist/'.$crow["acontent_template"])) {
 
 	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/linklist/'.$crow["acontent_template"]) );
@@ -55,25 +55,38 @@ $content['linklist'] = render_cnt_template($content['linklist'], 'SUBTITLE', htm
 $link  = explode(LF, $crow["acontent_text"]);
 
 if(count($link)) {
+
 	$tmp = array();
+
 	foreach($link as $key => $value) {
 
-		list($link["name"], $link["link"])   = explode("|", $value);
+		$link = explode("|", $value);
+		$link["name"] = trim($link[0]);
+		if(empty($link[1])) {
+			$link["link"] = '#';
+			$link["target"] = '';
+		} else {
+			$link["link"] = explode(' ', trim($link[1]) );
+			$link["target"] = empty($link["link"][1]) ? '' : ' target="' . trim($link["link"][1]) .'"';
+			$link["link"] = trim($link["link"][0]);
+		}
+		$link['title'] = empty($link[2]) ? '' : ' title="' . html_specialchars(trim($link[2])) . '"';
 
-		$link["link"]	= explode(' ', $link["link"]);
-		$link["target"]	= empty($link["link"][1]) ? '' : trim($link["link"][1]);
-		$link["link"]	= trim($link["link"][0]);
-		
+		if($link["name"] === '') {
+			$link["name"] = $link["link"];
+		}
+
 		$tmp[$key] = render_cnt_template($content['linklist_entry'], 'LINK', html_specialchars($link["link"]));
-		$tmp[$key] = str_replace('{TARGET}', $link["target"] ? ' target="'.$link["target"].'"' : '', $tmp[$key]);
-		$tmp[$key] = str_replace('{LINKNAME}', html_specialchars( $link["name"] ? $link["name"] : $link["link"] ), $tmp[$key]);
+		$tmp[$key] = str_replace('{TARGET}', $link["target"], $tmp[$key]);
+		$tmp[$key] = str_replace('{LINKNAME}', html_specialchars($link["name"]), $tmp[$key]);
+		$tmp[$key] = str_replace('{LINKTITLE}', $link["title"], $tmp[$key]);
 
 	}
-	
+
 	$content['linklist'] = render_cnt_template($content['linklist'], 'LINKLIST', implode($content['linklist_space'], $tmp));
-	
+
 }
 
 $CNT_TMP .= $content['linklist'];
-									
+
 ?>

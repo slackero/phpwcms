@@ -1176,7 +1176,7 @@ function tt_Int(x)
 {
 	var y;
 
-	return(isNaN(y = parseInt(x)) ? 0 : y);
+	return(isNaN(y = parseInt(x,10)) ? 0 : y);
 }
 Number.prototype.Timer = function(s, iT, bUrge)
 {
@@ -1200,7 +1200,7 @@ function tt_GetWndCliSiz(s)
 		return(
 			// Gecko or Opera with scrollbar
 			// ... quirks mode
-			((db = document.body) && typeof(y2 = db[sC]) == sN && y2 &&  y2 <= y) ? y2 
+			((db = document.body) && typeof(y2 = db[sC]) == sN && y2 &&  y2 <= y) ? y2
 			// ... strict mode
 			: ((db = document.documentElement) && typeof(y2 = db[sC]) == sN && y2 && y2 <= y) ? y2
 			// No scrollbar, or clientarea size == 0, or other browser (KHTML etc.)
@@ -1211,7 +1211,7 @@ function tt_GetWndCliSiz(s)
 	return(
 		// document.documentElement.client+s functional, returns > 0
 		((db = document.documentElement) && (y = db[sC])) ? y
-		// ... not functional, in which case document.body.client+s 
+		// ... not functional, in which case document.body.client+s
 		// is the clientarea size, fortunately
 		: document.body[sC]
 	);

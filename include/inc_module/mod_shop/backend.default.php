@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -18,8 +18,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 /*
- * module ads/banner managament
- * ============================
+ * Module/Plug-in Shop & Products Extended
+ * =======================================
  *
  * some defaults for modules: $phpwcms['modules'][$module]
  * store all related in here and holds some default values
@@ -50,8 +50,6 @@ if(isset($phpwcms['modules'][$module]['path']) && is_file($phpwcms['modules'][$m
 	
 	// load special backend CSS
 	$BE['HEADER']['module.shop.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/module.shop.css" rel="stylesheet" type="text/css" />';
-
-
 	
 	$controller	= empty($_GET['controller']) ? 'order' : strtolower($_GET['controller']);
 	

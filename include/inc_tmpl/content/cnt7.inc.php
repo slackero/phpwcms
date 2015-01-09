@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -26,7 +26,7 @@ $content['file']['direct_download'] = empty($content['file']['direct_download'])
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="cfile_template" id="cfile_template" class="f11b">
+	<td><select name="cfile_template" id="cfile_template">
 
 <?php
 
@@ -46,7 +46,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-?>				  
+?>
 		</select></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
@@ -59,7 +59,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <tr>
 	   <td><input name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php is_checked(1, $content['file']['direct_download']); ?>></td>
 	   <td class="v10"><label for="cfile_direct">&nbsp;<?php echo $BL['be_cnt_download_direct'] ?></label>&nbsp;&nbsp;</td>
-	   <td><img src="img/leer.gif" alt="" width="1" height="22"></td>	
+	   <td><img src="img/leer.gif" alt="" width="1" height="22"></td>
 	  </tr>
 	  </table></td>
 </tr>
@@ -70,7 +70,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_files'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-	  <td valign="top"><select name="cfile_list[]" size="8" multiple class="f11" id="cfile_list" style="width: 300px;">
+	  <td valign="top"><select name="cfile_list[]" size="8" multiple class="width300" id="cfile_list">
 	  <?php
 	  if(isset($content["file_list"]) && is_array($content["file_list"]) && count($content["file_list"])) {
 		$fx  = 0;
@@ -89,7 +89,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				while($file_row = mysql_fetch_row($file_result)) {
 					foreach($fxb as $key => $value) {
 						if($fxb[$key]["fid"] == $file_row[0]) {
-							$fxb[$key]["fname"] = html_specialchars($file_row[1]);
+							$fxb[$key]["fname"] = html($file_row[1]);
 						}
 					}
 				}
@@ -102,8 +102,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			unset($fxb); unset($content["file_list"]);
 		}
 	  }
-	  
-	  
+
+
 	  ?>
 	  </select></td>
 	  <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1"></td>                                           <!-- browser_file.php //-->
@@ -118,14 +118,29 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cfile_descr" cols="40" rows="8" class="f11" id="cfile_descr" style="width: 440px;"><?php 
-  
+  <td valign="top">
+  	<textarea name="cfile_descr" cols="40" rows="8" class="width440" id="cfile_descr"><?php
+
 	if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
 		echo ' ';
 	}
-	echo html_specialchars($content["file_descr"]); 
-  
-  ?></textarea></td>
+	echo html($content["file_descr"]);
+
+  ?></textarea>
+  	<span class="caption width440">
+		<?php echo $BL['be_cnt_description']; ?>
+		|
+		<?php echo $BL['be_fprivedit_filename']; ?>
+		|
+		<?php echo $BL['be_caption_file_title']; ?>
+		|
+		<?php echo $BL['be_cnt_target']; ?>
+		|
+		<?php echo $BL['be_caption_file_imagesize']; ?>
+		|
+		<?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+	</span>
+  </td>
 </tr>
 
 

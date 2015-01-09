@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -68,6 +68,9 @@ $content['search']["news_andor"]	= clean_slweg($_POST['csearch_news_andor']);
 $content['search']["news_url"]		= clean_slweg($_POST['csearch_news_url']);
 
 $content['search']["no_filenames"]	= empty($_POST['csearch_nofilenames']) ? 0 : 1;
+$content['search']["no_username"]	= empty($_POST['csearch_nousername']) ? 0 : 1;
+$content['search']["no_caption"]	= empty($_POST['csearch_nocaption']) ? 0 : 1;
+$content['search']["no_keyword"]	= empty($_POST['csearch_nokeyword']) ? 0 : 1;
 $content['search']["hide_summary"]	= empty($_POST['csearch_hidesummary']) ? 0 : 1;
 $content['search']["type"]			= empty($_POST['csearch_type']) || strtoupper($_POST['csearch_type']) == 'OR' ? 'OR' : 'AND';
 

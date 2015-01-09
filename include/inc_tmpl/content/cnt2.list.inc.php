@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -35,12 +35,12 @@ if(is_array($image_list['images']) && count($image_list['images'])) {
 	// browse images and list available
 	// will be visible only when aceessible
 	foreach($image_list['images'] as $key => $value) {
-	
-		$thumb_image = get_cached_image(
-						array(	"target_ext"	=>	$image_list['images'][$key][3],
-								"image_name"	=>	$image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
-								"thumb_name"	=>	md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"])
-        					  ));
+
+		$thumb_image = get_cached_image(array(
+			"target_ext"	=>	$image_list['images'][$key][3],
+			"image_name"	=>	$image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
+			"thumb_name"	=>	md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        ));
 
 		if($thumb_image != false) {
 			if($imgx == 4) {
@@ -50,7 +50,7 @@ if(is_array($image_list['images']) && count($image_list['images'])) {
 			if($imgx) {
 				$cinfo_img .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1" />';
 			}
-			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html_specialchars($image_list['images'][$key][1]).'" />';
+			$cinfo_img .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
 			$imgx++;
 		}
 	}

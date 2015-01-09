@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -33,7 +33,6 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_id			= $row_acat["acat_id"];
 			$acat_new			= 0;
 			$acat_aktiv			= $row_acat["acat_aktiv"];
-			$acat_public		= $row_acat["acat_public"];
 			$acat_sort			= $row_acat["acat_sort"];
 			$acat_alias			= $row_acat["acat_alias"];
 			$acat_hidden		= $row_acat["acat_hidden"];
@@ -60,8 +59,9 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_lang_type		= $row_acat["acat_lang_type"];
 			$acat_lang_id		= $row_acat["acat_lang_id"];
 			$acat_disable301	= $row_acat['acat_disable301'];
+			$acat_opengraph		= $row_acat['acat_opengraph'];
 		}
-		
+
 		mysql_free_result($result_acat);
 	}
 } else {
@@ -76,6 +76,5 @@ if(isset($_GET["sort"])) {
 }
 
 $acat_order = get_order_sort($acat_order);
-
 
 ?>

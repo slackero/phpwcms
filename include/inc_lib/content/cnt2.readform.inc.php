@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -36,11 +36,13 @@ $content["image_caption"] 	= clean_slweg($_POST["cimage_caption"]);
 $content["image_zoom"] 		= empty($_POST["cimage_zoom"]) ? 0 : 1;
 $content["image_cctext"] 	= explode("\n", $content["image_caption"]);
 
+$content["template"]		= clean_slweg($_POST['template']);
+
 $content['tmp_images']		= array();
 $imgx = 0;
 
 if (is_array($content["image_list"]) && sizeof($content["image_list"])) {
-	
+
 	// zuweisen der passenden ImageID und Neuvergabe des Arrays
 	$img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE (";
 	$img_sort = array();
@@ -48,7 +50,7 @@ if (is_array($content["image_list"]) && sizeof($content["image_list"])) {
 	foreach($content["image_list"] as $key => $value) {
 		if ($imgx) $img_sql .= " OR ";
 		$img_sql .= "f_id=" . intval($value);
-		$imgx++; 
+		$imgx++;
 	}
 	if(!$imgx) {
 		$img_sql .= "0";
@@ -57,36 +59,40 @@ if (is_array($content["image_list"]) && sizeof($content["image_list"])) {
 
 	// check for image information and get alle infos from file
 	if ($img_result = mysql_query($img_sql, $db) or die("error while getting content image only info")) {
-	
+
 		// Gegenrechnen von Breite zu Anzahl Spalten und Bildabstand
 		//$temp_count_img = mysql_num_rows($img_result);
 		$temp_count_img = $imgx;
 		$content["image_col"] = ($content["image_col"] > $temp_count_img) ? $temp_count_img : $content["image_col"];
-		
-		$temp_img_maxwidth = $phpwcms["content_width"] - (($content["image_col"] - 1) * $content["image_space"]);
-		$temp_img_maxwidth = ($content["image_pos"] == 6 || $content["image_pos"] == 7) ? intval($temp_img_maxwidth / 1.75) : $temp_img_maxwidth;
-		$temp_img_maxwidth = intval($temp_img_maxwidth / $content["image_col"]);
 
-		if (($content["image_width"] > $temp_img_maxwidth) || ($content["image_width"] == "")) {
-			$content["image_width"] = $temp_img_maxwidth;
+		if(RESPONSIVE_MODE) {
 			$temp_width = $content["image_width"];
+		} else {
+			$temp_img_maxwidth = $phpwcms["content_width"] - (($content["image_col"] - 1) * $content["image_space"]);
+			$temp_img_maxwidth = ($content["image_pos"] == 6 || $content["image_pos"] == 7) ? intval($temp_img_maxwidth / 1.75) : $temp_img_maxwidth;
+			$temp_img_maxwidth = intval($temp_img_maxwidth / $content["image_col"]);
+
+			if ($content["image_width"] > $temp_img_maxwidth || $content["image_width"] == "") {
+				$content["image_width"] = $temp_img_maxwidth;
+				$temp_width = $content["image_width"];
+			}
 		}
-		
+
 		$imgx = 0;
-		
+
 		// try to handle multiple same image IDs
-		
+
 		$temp_img_row = array();
 		while ($img_row = mysql_fetch_assoc($img_result)) {
-			
+
 			$temp_img_row[$img_row['f_id']] = $img_row;
-		
+
 		}
 		mysql_free_result($img_result);
-		
+
 		foreach($content["image_list"] as $key => $value) {
 			if(isset($temp_img_row[$value])) {
-			
+
 				$content['tmp_images'][$key][0]	= $temp_img_row[$value]['f_id'];
 				$content['tmp_images'][$key][1]	= $temp_img_row[$value]['f_name'];
 				$content['tmp_images'][$key][2]	= $temp_img_row[$value]['f_hash'];
@@ -94,9 +100,9 @@ if (is_array($content["image_list"]) && sizeof($content["image_list"])) {
 				$content['tmp_images'][$key][4]	= $temp_width;
 				$content['tmp_images'][$key][5]	= $temp_height;
 				$content['tmp_images'][$key][6]	= isset($content["image_cctext"][$key]) ? trim($content["image_cctext"][$key]) : '';
-			
+
 			}
-		}		
+		}
 	}
 }
 
@@ -115,5 +121,6 @@ $content['image_list']['nocaption']	= empty($_POST["cimage_nocaption"]) ? 0 : 1;
 $content['image_list']['crop']		= empty($_POST["cimage_crop"]) ? 0 : 1;
 $content["image_list"]['random']	= empty($_POST["cimage_random"]) ? 0 : 1;
 $content["image_list"]['limit']		= intval($_POST["cimage_limit"]);
+$content["image_list"]['usetable']	= empty($_POST["cimage_usetable"]) ? 0 : 1;
 
 ?>

@@ -1,136 +1,94 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.6
+-- version 4.0.6
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 18. Juni 2008 um 08:15
--- Server Version: 5.0.51
--- PHP-Version: 5.2.5
-
-#SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
---
--- Datenbank: `dev_phpwcms`
---
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_address`
---
+-- Erstellungszeit: 20. Feb 2014 um 08:17
+-- Server Version: 5.5.33
+-- PHP-Version: 5.4.19
 
 CREATE TABLE `phpwcms_address` (
-  `address_id` int(11) NOT NULL auto_increment,
-  `address_key` varchar(255) NOT NULL default '',
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_key` varchar(255) NOT NULL DEFAULT '',
   `address_email` text NOT NULL,
   `address_name` text NOT NULL,
-  `address_verified` int(1) NOT NULL default '0',
-  `address_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `address_verified` int(1) NOT NULL DEFAULT '0',
+  `address_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `address_subscription` blob NOT NULL,
-  `address_iddetail` int(11) NOT NULL default '0',
-  `address_url1` varchar(255) NOT NULL default '',
-  `address_url2` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`address_id`)
+  `address_iddetail` int(11) NOT NULL DEFAULT '0',
+  `address_url1` varchar(255) NOT NULL DEFAULT '',
+  `address_url2` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`address_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_campaign`
---
-
 CREATE TABLE `phpwcms_ads_campaign` (
-  `adcampaign_id` int(11) NOT NULL auto_increment,
-  `adcampaign_created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adcampaign_changed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adcampaign_status` int(1) NOT NULL default '0',
-  `adcampaign_title` varchar(255) NOT NULL default '',
+  `adcampaign_id` int(11) NOT NULL AUTO_INCREMENT,
+  `adcampaign_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adcampaign_changed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adcampaign_status` int(1) NOT NULL DEFAULT '0',
+  `adcampaign_title` varchar(255) NOT NULL DEFAULT '',
   `adcampaign_comment` text NOT NULL,
-  `adcampaign_datestart` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adcampaign_dateend` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adcampaign_maxview` int(11) NOT NULL default '0',
-  `adcampaign_maxclick` int(11) NOT NULL default '0',
-  `adcampaign_maxviewuser` int(11) NOT NULL default '0',
-  `adcampaign_curview` int(11) NOT NULL default '0',
-  `adcampaign_curclick` int(11) NOT NULL default '0',
-  `adcampaign_curviewuser` int(11) NOT NULL default '0',
-  `adcampaign_type` int(11) NOT NULL default '0',
-  `adcampaign_place` int(11) NOT NULL default '0',
+  `adcampaign_datestart` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adcampaign_dateend` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adcampaign_maxview` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_maxclick` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_maxviewuser` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_curview` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_curclick` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_curviewuser` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_type` int(11) NOT NULL DEFAULT '0',
+  `adcampaign_place` int(11) NOT NULL DEFAULT '0',
   `adcampaign_data` mediumtext NOT NULL,
-  PRIMARY KEY  (`adcampaign_id`),
+  PRIMARY KEY (`adcampaign_id`),
   KEY `adcampaign_status` (`adcampaign_status`,`adcampaign_datestart`,`adcampaign_dateend`,`adcampaign_type`,`adcampaign_place`),
   KEY `adcampaign_maxview` (`adcampaign_maxview`,`adcampaign_maxclick`,`adcampaign_maxviewuser`),
   KEY `adcampaign_curview` (`adcampaign_curview`,`adcampaign_curclick`,`adcampaign_curviewuser`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_formats`
---
-
 CREATE TABLE `phpwcms_ads_formats` (
-  `adformat_id` int(11) NOT NULL auto_increment,
-  `adformat_created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adformat_changed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adformat_status` int(1) NOT NULL default '0',
-  `adformat_title` varchar(25) NOT NULL default '',
-  `adformat_width` int(5) NOT NULL default '0',
-  `adformat_height` int(5) NOT NULL default '0',
+  `adformat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `adformat_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adformat_changed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adformat_status` int(1) NOT NULL DEFAULT '0',
+  `adformat_title` varchar(25) NOT NULL DEFAULT '',
+  `adformat_width` int(5) NOT NULL DEFAULT '0',
+  `adformat_height` int(5) NOT NULL DEFAULT '0',
   `adformat_comment` text NOT NULL,
-  PRIMARY KEY  (`adformat_id`),
+  PRIMARY KEY (`adformat_id`),
   KEY `adformat_status` (`adformat_status`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_place`
---
-
 CREATE TABLE `phpwcms_ads_place` (
-  `adplace_id` int(11) NOT NULL auto_increment,
-  `adplace_created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adplace_changed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adplace_status` int(1) NOT NULL default '0',
-  `adplace_title` varchar(255) NOT NULL default '',
-  `adplace_format` int(11) NOT NULL default '0',
-  `adplace_width` int(11) NOT NULL default '0',
-  `adplace_height` int(11) NOT NULL default '0',
-  `adplace_prefix` varchar(255) NOT NULL default '',
-  `adplace_suffix` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`adplace_id`),
+  `adplace_id` int(11) NOT NULL AUTO_INCREMENT,
+  `adplace_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adplace_changed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adplace_status` int(1) NOT NULL DEFAULT '0',
+  `adplace_title` varchar(255) NOT NULL DEFAULT '',
+  `adplace_format` int(11) NOT NULL DEFAULT '0',
+  `adplace_width` int(11) NOT NULL DEFAULT '0',
+  `adplace_height` int(11) NOT NULL DEFAULT '0',
+  `adplace_prefix` varchar(255) NOT NULL DEFAULT '',
+  `adplace_suffix` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`adplace_id`),
   KEY `adplace_status` (`adplace_status`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_ads_tracking`
---
-
 CREATE TABLE `phpwcms_ads_tracking` (
-  `adtracking_id` int(11) NOT NULL auto_increment,
-  `adtracking_created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `adtracking_campaignid` int(11) NOT NULL default '0',
-  `adtracking_ip` varchar(30) NOT NULL default '',
-  `adtracking_cookieid` varchar(50) NOT NULL default '',
-  `adtracking_countclick` int(11) NOT NULL default '0',
-  `adtracking_countview` int(11) NOT NULL default '0',
-  `adtracking_useragent` varchar(255) NOT NULL default '',
+  `adtracking_id` int(11) NOT NULL AUTO_INCREMENT,
+  `adtracking_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `adtracking_campaignid` int(11) NOT NULL DEFAULT '0',
+  `adtracking_ip` varchar(30) NOT NULL DEFAULT '',
+  `adtracking_cookieid` varchar(50) NOT NULL DEFAULT '',
+  `adtracking_countclick` int(11) NOT NULL DEFAULT '0',
+  `adtracking_countview` int(11) NOT NULL DEFAULT '0',
+  `adtracking_useragent` varchar(255) NOT NULL DEFAULT '',
   `adtracking_ref` text NOT NULL,
-  `adtracking_catid` int(11) NOT NULL default '0',
-  `adtracking_articleid` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`adtracking_id`),
+  `adtracking_catid` int(11) NOT NULL DEFAULT '0',
+  `adtracking_articleid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`adtracking_id`),
   KEY `adtracking_campaignid` (`adtracking_campaignid`,`adtracking_ip`,`adtracking_countclick`,`adtracking_countview`),
   KEY `adtracking_cookieid` (`adtracking_cookieid`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_article`
---
 
 CREATE TABLE `phpwcms_article` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -142,13 +100,13 @@ CREATE TABLE `phpwcms_article` (
   `article_title` text NOT NULL,
   `article_alias` varchar(255) NOT NULL DEFAULT '',
   `article_keyword` text NOT NULL,
-  `article_public` int(1) NOT NULL DEFAULT '0',
+  `article_public` int(1) NOT NULL DEFAULT '1',
   `article_deleted` int(1) NOT NULL DEFAULT '0',
   `article_begin` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `article_end` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `article_aktiv` int(1) NOT NULL DEFAULT '0',
   `article_subtitle` text NOT NULL,
-  `article_summary` text NOT NULL,
+  `article_summary` mediumtext NOT NULL,
   `article_redirect` text NOT NULL,
   `article_sort` int(11) NOT NULL DEFAULT '0',
   `article_notitle` int(1) NOT NULL DEFAULT '0',
@@ -173,6 +131,7 @@ CREATE TABLE `phpwcms_article` (
   `article_lang` varchar(255) NOT NULL DEFAULT '',
   `article_lang_type` varchar(255) NOT NULL DEFAULT '',
   `article_lang_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `article_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`article_id`),
   KEY `article_aktiv` (`article_aktiv`),
   KEY `article_public` (`article_public`),
@@ -189,27 +148,22 @@ CREATE TABLE `phpwcms_article` (
   KEY `article_lang` (`article_lang`),
   KEY `article_lang_type` (`article_lang_type`),
   KEY `article_lang_id` (`article_lang_id`),
-  KEY `article_noteaser` (`article_noteaser`)
+  KEY `article_noteaser` (`article_noteaser`),
+  KEY `article_opengraph` (`article_opengraph`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_articlecat`
---
 
 CREATE TABLE `phpwcms_articlecat` (
   `acat_id` int(11) NOT NULL AUTO_INCREMENT,
   `acat_name` text NOT NULL,
   `acat_info` text NOT NULL,
-  `acat_public` int(1) NOT NULL DEFAULT '0',
+  `acat_public` int(1) NOT NULL DEFAULT '1',
   `acat_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `acat_aktiv` int(1) NOT NULL DEFAULT '0',
   `acat_uid` int(11) NOT NULL DEFAULT '0',
   `acat_trash` int(1) NOT NULL DEFAULT '0',
   `acat_struct` int(11) NOT NULL DEFAULT '0',
   `acat_sort` int(11) NOT NULL DEFAULT '0',
-  `acat_alias` varchar(250) NOT NULL DEFAULT '',
+  `acat_alias` varchar(255) NOT NULL DEFAULT '',
   `acat_hidden` int(1) NOT NULL DEFAULT '0',
   `acat_template` int(11) NOT NULL DEFAULT '0',
   `acat_ssl` int(1) NOT NULL DEFAULT '0',
@@ -234,6 +188,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_lang_type` varchar(255) NOT NULL DEFAULT '',
   `acat_lang_id` int(11) unsigned NOT NULL DEFAULT '0',
   `acat_disable301` int(1) unsigned NOT NULL DEFAULT '0',
+  `acat_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),
@@ -241,14 +196,9 @@ CREATE TABLE `phpwcms_articlecat` (
   KEY `acat_archive` (`acat_archive`),
   KEY `acat_lang` (`acat_lang`),
   KEY `acat_lang_type` (`acat_lang_type`),
-  KEY `acat_lang_id` (`acat_lang_id`)
+  KEY `acat_lang_id` (`acat_lang_id`),
+  KEY `acat_opengraph` (`acat_opengraph`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_articlecontent`
---
 
 CREATE TABLE `phpwcms_articlecontent` (
   `acontent_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -257,7 +207,7 @@ CREATE TABLE `phpwcms_articlecontent` (
   `acontent_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `acontent_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `acontent_title` text NOT NULL,
-  `acontent_text` text NOT NULL,
+  `acontent_text` mediumtext NOT NULL,
   `acontent_type` int(10) NOT NULL DEFAULT '0',
   `acontent_sorting` int(11) NOT NULL DEFAULT '0',
   `acontent_image` text NOT NULL,
@@ -268,10 +218,10 @@ CREATE TABLE `phpwcms_articlecontent` (
   `acontent_after` varchar(10) NOT NULL DEFAULT '',
   `acontent_top` int(1) NOT NULL DEFAULT '0',
   `acontent_redirect` text NOT NULL,
-  `acontent_html` text NOT NULL,
+  `acontent_html` mediumtext NOT NULL,
   `acontent_trash` int(1) NOT NULL DEFAULT '0',
   `acontent_alink` text NOT NULL,
-  `acontent_media` text NOT NULL,
+  `acontent_media` mediumtext NOT NULL,
   `acontent_form` mediumtext NOT NULL,
   `acontent_newsletter` mediumtext NOT NULL,
   `acontent_block` varchar(200) NOT NULL DEFAULT 'CONTENT',
@@ -299,56 +249,44 @@ CREATE TABLE `phpwcms_articlecontent` (
   KEY `acontent_lang` (`acontent_lang`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_cache`
---
-
 CREATE TABLE `phpwcms_cache` (
-  `cache_id` int(11) NOT NULL auto_increment,
-  `cache_hash` varchar(50) NOT NULL default '',
+  `cache_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cache_hash` varchar(50) NOT NULL DEFAULT '',
   `cache_uri` text NOT NULL,
-  `cache_cid` int(11) NOT NULL default '0',
-  `cache_aid` int(11) NOT NULL default '0',
-  `cache_timeout` varchar(20) NOT NULL default '0',
-  `cache_isprint` int(1) NOT NULL default '0',
-  `cache_changed` int(14) default NULL,
-  `cache_use` int(1) NOT NULL default '0',
-  `cache_searchable` int(1) NOT NULL default '0',
+  `cache_cid` int(11) NOT NULL DEFAULT '0',
+  `cache_aid` int(11) NOT NULL DEFAULT '0',
+  `cache_timeout` varchar(20) NOT NULL DEFAULT '0',
+  `cache_isprint` int(1) NOT NULL DEFAULT '0',
+  `cache_changed` int(14) DEFAULT NULL,
+  `cache_use` int(1) NOT NULL DEFAULT '0',
+  `cache_searchable` int(1) NOT NULL DEFAULT '0',
   `cache_page` longtext NOT NULL,
   `cache_stripped` longtext NOT NULL,
-  PRIMARY KEY  (`cache_id`),
+  PRIMARY KEY (`cache_id`),
   KEY `cache_hash` (`cache_hash`),
   FULLTEXT KEY `cache_stripped` (`cache_stripped`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_calendar`
---
+);
 
 CREATE TABLE `phpwcms_calendar` (
-  `calendar_id` int(11) NOT NULL auto_increment,
-  `calendar_created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `calendar_changed` datetime NOT NULL default '0000-00-00 00:00:00',
-  `calendar_status` int(1) NOT NULL default '0',
-  `calendar_start` datetime NOT NULL default '0000-00-00 00:00:00',
-  `calendar_end` datetime NOT NULL default '0000-00-00 00:00:00',
-  `calendar_allday` int(1) NOT NULL default '0',
-  `calendar_range` int(1) NOT NULL default '0',
-  `calendar_range_start` date NOT NULL default '0000-00-00',
-  `calendar_range_end` date NOT NULL default '0000-00-00',
-  `calendar_title` varchar(255) NOT NULL default '',
-  `calendar_where` varchar(255) NOT NULL default '',
+  `calendar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `calendar_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `calendar_changed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `calendar_status` int(1) NOT NULL DEFAULT '0',
+  `calendar_start` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `calendar_end` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `calendar_allday` int(1) NOT NULL DEFAULT '0',
+  `calendar_range` int(1) NOT NULL DEFAULT '0',
+  `calendar_range_start` date NOT NULL DEFAULT '0000-00-00',
+  `calendar_range_end` date NOT NULL DEFAULT '0000-00-00',
+  `calendar_title` varchar(255) NOT NULL DEFAULT '',
+  `calendar_where` varchar(255) NOT NULL DEFAULT '',
   `calendar_teaser` text NOT NULL,
   `calendar_text` mediumtext NOT NULL,
-  `calendar_tag` varchar(255) NOT NULL default '',
+  `calendar_tag` varchar(255) NOT NULL DEFAULT '',
   `calendar_object` longtext NOT NULL,
-  `calendar_refid` varchar(255) NOT NULL default '',
-  `calendar_lang` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`calendar_id`),
+  `calendar_refid` int(11) NOT NULL DEFAULT '0',
+  `calendar_lang` varchar(255) NOT NULL,
+  PRIMARY KEY (`calendar_id`),
   KEY `calendar_status` (`calendar_status`),
   KEY `calendar_start` (`calendar_start`),
   KEY `calendar_end` (`calendar_end`),
@@ -357,12 +295,6 @@ CREATE TABLE `phpwcms_calendar` (
   KEY `calendar_range` (`calendar_range`),
   KEY `calendar_lang` (`calendar_lang`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_categories`
---
 
 CREATE TABLE `phpwcms_categories` (
   `cat_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -374,60 +306,51 @@ CREATE TABLE `phpwcms_categories` (
   `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_info` text NOT NULL,
   `cat_sort` int(11) NOT NULL DEFAULT '0',
+  `cat_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`cat_id`),
   KEY `cat_type` (`cat_type`,`cat_status`),
   KEY `cat_pid` (`cat_pid`),
-  KEY `cat_sort` (`cat_sort`)
+  KEY `cat_sort` (`cat_sort`),
+  KEY `cat_opengraph` (`cat_opengraph`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_chat`
---
 
 CREATE TABLE `phpwcms_chat` (
-  `chat_id` int(11) NOT NULL auto_increment,
-  `chat_uid` int(11) NOT NULL default '0',
-  `chat_name` varchar(30) NOT NULL default '',
-  `chat_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `chat_text` varchar(255) NOT NULL default '',
-  `chat_cat` int(5) NOT NULL default '0',
-  PRIMARY KEY  (`chat_id`)
+  `chat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `chat_uid` int(11) NOT NULL DEFAULT '0',
+  `chat_name` varchar(30) NOT NULL DEFAULT '',
+  `chat_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `chat_text` varchar(255) NOT NULL DEFAULT '',
+  `chat_cat` int(5) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`chat_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_content`
---
-
 CREATE TABLE `phpwcms_content` (
-  `cnt_id` int(11) NOT NULL auto_increment,
-  `cnt_pid` int(11) NOT NULL default '0',
-  `cnt_created` int(11) NOT NULL default '0',
-  `cnt_changed` int(11) NOT NULL default '0',
-  `cnt_status` int(1) NOT NULL default '0',
+  `cnt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cnt_pid` int(11) NOT NULL DEFAULT '0',
+  `cnt_created` int(11) NOT NULL DEFAULT '0',
+  `cnt_changed` int(11) NOT NULL DEFAULT '0',
+  `cnt_status` int(1) NOT NULL DEFAULT '0',
   `cnt_type` varchar(255) NOT NULL,
   `cnt_module` varchar(255) NOT NULL,
-  `cnt_group` int(11) NOT NULL default '0',
-  `cnt_owner` int(11) NOT NULL default '0',
-  `cnt_livedate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `cnt_killdate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `cnt_archive_status` int(11) NOT NULL default '0',
-  `cnt_sort` int(11) NOT NULL default '0',
-  `cnt_prio` int(11) NOT NULL default '0',
+  `cnt_group` int(11) NOT NULL DEFAULT '0',
+  `cnt_owner` int(11) NOT NULL DEFAULT '0',
+  `cnt_livedate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cnt_killdate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cnt_archive_status` int(11) NOT NULL DEFAULT '0',
+  `cnt_sort` int(11) NOT NULL DEFAULT '0',
+  `cnt_prio` int(11) NOT NULL DEFAULT '0',
   `cnt_alias` varchar(255) NOT NULL,
-  `cnt_name` varchar(255) NOT NULL default '',
-  `cnt_title` varchar(255) NOT NULL default '',
-  `cnt_subtitle` varchar(255) NOT NULL default '',
+  `cnt_name` varchar(255) NOT NULL DEFAULT '',
+  `cnt_title` varchar(255) NOT NULL DEFAULT '',
+  `cnt_subtitle` varchar(255) NOT NULL DEFAULT '',
   `cnt_editor` varchar(255) NOT NULL,
   `cnt_place` varchar(255) NOT NULL,
   `cnt_teasertext` text NOT NULL,
   `cnt_text` text NOT NULL,
-  `cnt_lang` varchar(10) NOT NULL default '',
+  `cnt_lang` varchar(10) NOT NULL DEFAULT '',
   `cnt_object` text NOT NULL,
-  PRIMARY KEY  (`cnt_id`),
+  `cnt_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`cnt_id`),
   KEY `cnt_livedate` (`cnt_livedate`),
   KEY `cnt_killdate` (`cnt_killdate`),
   KEY `cnt_module` (`cnt_module`),
@@ -437,38 +360,27 @@ CREATE TABLE `phpwcms_content` (
   KEY `cnt_alias` (`cnt_alias`),
   KEY `cnt_pid` (`cnt_pid`),
   KEY `cnt_sort` (`cnt_sort`),
-  KEY `cnt_prio` (`cnt_prio`)
+  KEY `cnt_prio` (`cnt_prio`),
+  KEY `cnt_opengraph` (`cnt_opengraph`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_country`
---
-
 CREATE TABLE `phpwcms_country` (
-  `country_id` int(4) NOT NULL auto_increment,
-  `country_updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `country_iso` char(2) NOT NULL default '',
-  `country_iso3` char(3) NOT NULL default '',
-  `country_isonum` int(11) NOT NULL default '0',
-  `country_continent_code` char(2) NOT NULL default '',
-  `country_name` varchar(100) NOT NULL,
-  `country_name_de` varchar(255) NOT NULL,
-  `country_continent` varchar(255) NOT NULL default '',
-  `country_continent_de` varchar(255) NOT NULL default '',
-  `country_region` varchar(255) NOT NULL default '',
-  `country_region_de` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`country_id`),
+  `country_id` int(4) NOT NULL AUTO_INCREMENT,
+  `country_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `country_iso` char(2) NOT NULL DEFAULT '',
+  `country_iso3` char(3) NOT NULL DEFAULT '',
+  `country_isonum` int(11) NOT NULL DEFAULT '0',
+  `country_continent_code` char(2) NOT NULL DEFAULT '',
+  `country_name` varchar(255) NOT NULL DEFAULT '',
+  `country_name_de` varchar(255) NOT NULL DEFAULT '',
+  `country_continent` varchar(255) NOT NULL DEFAULT '',
+  `country_continent_de` varchar(255) NOT NULL DEFAULT '',
+  `country_region` varchar(255) NOT NULL DEFAULT '',
+  `country_region_de` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`country_id`),
   UNIQUE KEY `country_iso` (`country_iso`),
   UNIQUE KEY `country_name` (`country_name`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_crossreference`
---
 
 CREATE TABLE `phpwcms_crossreference` (
   `cref_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -485,191 +397,137 @@ CREATE TABLE `phpwcms_crossreference` (
   KEY `cref_module` (`cref_module`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_file`
---
-
 CREATE TABLE `phpwcms_file` (
-  `f_id` int(11) NOT NULL auto_increment,
-  `f_pid` int(11) NOT NULL default '0',
-  `f_uid` int(11) NOT NULL default '0',
-  `f_kid` int(2) NOT NULL default '0',
-  `f_order` int(11) NOT NULL default '0',
-  `f_trash` int(1) NOT NULL default '0',
-  `f_aktiv` int(1) NOT NULL default '0',
-  `f_public` int(1) NOT NULL default '0',
-  `f_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `f_name` varchar(255) NOT NULL default '',
+  `f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `f_pid` int(11) NOT NULL DEFAULT '0',
+  `f_uid` int(11) NOT NULL DEFAULT '0',
+  `f_kid` int(2) NOT NULL DEFAULT '0',
+  `f_order` int(11) NOT NULL DEFAULT '0',
+  `f_trash` int(1) NOT NULL DEFAULT '0',
+  `f_aktiv` int(1) NOT NULL DEFAULT '0',
+  `f_public` int(1) NOT NULL DEFAULT '0',
+  `f_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `f_name` varchar(255) NOT NULL DEFAULT '',
   `f_cat` varchar(255) NOT NULL,
-  `f_created` int(11) NOT NULL default '0',
-  `f_changed` int(11) NOT NULL default '0',
+  `f_created` int(11) NOT NULL DEFAULT '0',
+  `f_changed` int(11) NOT NULL DEFAULT '0',
   `f_size` int(15) unsigned NOT NULL,
-  `f_type` varchar(200) NOT NULL default '',
-  `f_ext` varchar(50) NOT NULL default '',
-  `f_shortinfo` varchar(255) NOT NULL default '',
+  `f_type` varchar(200) NOT NULL DEFAULT '',
+  `f_ext` varchar(50) NOT NULL DEFAULT '',
+  `f_shortinfo` varchar(255) NOT NULL DEFAULT '',
   `f_longinfo` text NOT NULL,
-  `f_keywords` varchar(255) NOT NULL default '',
-  `f_hash` varchar(255) NOT NULL default '',
-  `f_dlstart` int(11) NOT NULL default '0',
-  `f_dlfinal` int(11) NOT NULL default '0',
-  `f_refid` int(11) NOT NULL default '0',
+  `f_keywords` varchar(255) NOT NULL DEFAULT '',
+  `f_hash` varchar(255) NOT NULL DEFAULT '',
+  `f_dlstart` int(11) NOT NULL DEFAULT '0',
+  `f_dlfinal` int(11) NOT NULL DEFAULT '0',
+  `f_refid` int(11) NOT NULL DEFAULT '0',
   `f_copyright` varchar(255) NOT NULL,
   `f_tags` varchar(255) NOT NULL,
-  `f_granted` int(11) NOT NULL default '0',
-  `f_gallerystatus` int(1) NOT NULL default '0',
+  `f_granted` int(11) NOT NULL DEFAULT '0',
+  `f_gallerystatus` int(1) NOT NULL DEFAULT '0',
   `f_vars` blob NOT NULL,
-  `f_sort` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`f_id`),
+  `f_sort` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`f_id`),
   KEY `f_granted` (`f_granted`),
   KEY `f_sort` (`f_sort`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_filecat`
---
-
 CREATE TABLE `phpwcms_filecat` (
-  `fcat_id` int(11) NOT NULL auto_increment,
-  `fcat_name` varchar(255) NOT NULL default '',
-  `fcat_aktiv` int(1) NOT NULL default '0',
-  `fcat_deleted` int(1) NOT NULL default '0',
-  `fcat_needed` int(1) NOT NULL default '0',
-  `fcat_sort` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`fcat_id`)
+  `fcat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fcat_name` varchar(255) NOT NULL DEFAULT '',
+  `fcat_aktiv` int(1) NOT NULL DEFAULT '0',
+  `fcat_deleted` int(1) NOT NULL DEFAULT '0',
+  `fcat_needed` int(1) NOT NULL DEFAULT '0',
+  `fcat_sort` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`fcat_id`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_filekey`
---
 
 CREATE TABLE `phpwcms_filekey` (
-  `fkey_id` int(11) NOT NULL auto_increment,
-  `fkey_cid` int(11) NOT NULL default '0',
-  `fkey_name` varchar(255) NOT NULL default '',
-  `fkey_aktiv` int(1) NOT NULL default '0',
-  `fkey_deleted` int(1) NOT NULL default '0',
-  `fkey_sort` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`fkey_id`)
+  `fkey_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fkey_cid` int(11) NOT NULL DEFAULT '0',
+  `fkey_name` varchar(255) NOT NULL DEFAULT '',
+  `fkey_aktiv` int(1) NOT NULL DEFAULT '0',
+  `fkey_deleted` int(1) NOT NULL DEFAULT '0',
+  `fkey_sort` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`fkey_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_formresult`
---
-
 CREATE TABLE `phpwcms_formresult` (
-  `formresult_id` int(11) NOT NULL auto_increment,
-  `formresult_pid` int(11) NOT NULL default '0',
-  `formresult_createdate` timestamp NULL default CURRENT_TIMESTAMP,
-  `formresult_ip` varchar(50) NOT NULL default '',
+  `formresult_id` int(11) NOT NULL AUTO_INCREMENT,
+  `formresult_pid` int(11) NOT NULL DEFAULT '0',
+  `formresult_createdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `formresult_ip` varchar(50) NOT NULL DEFAULT '',
   `formresult_content` mediumblob NOT NULL,
-  PRIMARY KEY  (`formresult_id`),
+  PRIMARY KEY (`formresult_id`),
   KEY `formresult_pid` (`formresult_pid`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_formtracking`
---
-
 CREATE TABLE `phpwcms_formtracking` (
-  `formtracking_id` int(11) NOT NULL auto_increment,
-  `formtracking_hash` varchar(50) NOT NULL default '',
-  `formtracking_ip` varchar(20) NOT NULL default '',
-  `formtracking_created` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `formtracking_sentdate` varchar(20) NOT NULL default '',
-  `formtracking_sent` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`formtracking_id`)
+  `formtracking_id` int(11) NOT NULL AUTO_INCREMENT,
+  `formtracking_hash` varchar(50) NOT NULL DEFAULT '',
+  `formtracking_ip` varchar(20) NOT NULL DEFAULT '',
+  `formtracking_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `formtracking_sentdate` varchar(20) NOT NULL DEFAULT '',
+  `formtracking_sent` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`formtracking_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_glossary`
---
-
 CREATE TABLE `phpwcms_glossary` (
-  `glossary_id` int(11) NOT NULL auto_increment,
-  `glossary_created` datetime NOT NULL default '0000-00-00 00:00:00',
-  `glossary_changed` datetime NOT NULL default '0000-00-00 00:00:00',
+  `glossary_id` int(11) NOT NULL AUTO_INCREMENT,
+  `glossary_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `glossary_changed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `glossary_title` text NOT NULL,
-  `glossary_tag` varchar(255) NOT NULL default '',
-  `glossary_keyword` varchar(255) NOT NULL default '',
+  `glossary_tag` varchar(255) NOT NULL DEFAULT '',
+  `glossary_keyword` varchar(255) NOT NULL DEFAULT '',
   `glossary_text` mediumtext NOT NULL,
-  `glossary_highlight` int(1) NOT NULL default '0',
+  `glossary_highlight` int(1) NOT NULL DEFAULT '0',
   `glossary_object` mediumtext NOT NULL,
-  `glossary_status` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`glossary_id`),
+  `glossary_status` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`glossary_id`),
   KEY `glossary_status` (`glossary_status`),
   KEY `glossary_tag` (`glossary_tag`),
   KEY `glossary_keyword` (`glossary_keyword`),
   KEY `glossary_highlight` (`glossary_highlight`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_guestbook`
---
-
 CREATE TABLE `phpwcms_guestbook` (
-  `guestbook_id` int(11) NOT NULL auto_increment,
-  `guestbook_cid` int(11) NOT NULL default '0',
+  `guestbook_id` int(11) NOT NULL AUTO_INCREMENT,
+  `guestbook_cid` int(11) NOT NULL DEFAULT '0',
   `guestbook_msg` text NOT NULL,
   `guestbook_name` text NOT NULL,
   `guestbook_email` text NOT NULL,
-  `guestbook_created` int(11) NOT NULL default '0',
-  `guestbook_trashed` int(1) NOT NULL default '0',
+  `guestbook_created` int(11) NOT NULL DEFAULT '0',
+  `guestbook_trashed` int(1) NOT NULL DEFAULT '0',
   `guestbook_url` text NOT NULL,
-  `guestbook_show` int(1) NOT NULL default '0',
-  `guestbook_ip` varchar(20) NOT NULL default '',
-  `guestbook_useragent` varchar(255) NOT NULL default '',
-  `guestbook_image` varchar(255) NOT NULL default '',
-  `guestbook_imagename` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`guestbook_id`)
+  `guestbook_show` int(1) NOT NULL DEFAULT '0',
+  `guestbook_ip` varchar(20) NOT NULL DEFAULT '',
+  `guestbook_useragent` varchar(255) NOT NULL DEFAULT '',
+  `guestbook_image` varchar(255) NOT NULL DEFAULT '',
+  `guestbook_imagename` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`guestbook_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_keyword`
---
-
 CREATE TABLE `phpwcms_keyword` (
-  `keyword_id` int(11) NOT NULL auto_increment,
-  `keyword_name` varchar(255) NOT NULL default '',
-  `keyword_created` varchar(14) NOT NULL default '',
-  `keyword_trash` int(1) NOT NULL default '0',
-  `keyword_updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `keyword_id` int(11) NOT NULL AUTO_INCREMENT,
+  `keyword_name` varchar(255) NOT NULL DEFAULT '',
+  `keyword_created` varchar(14) NOT NULL DEFAULT '',
+  `keyword_trash` int(1) NOT NULL DEFAULT '0',
+  `keyword_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `keyword_description` text NOT NULL,
-  `keyword_link` varchar(255) NOT NULL default '',
-  `keyword_sort` int(11) NOT NULL default '0',
-  `keyword_important` int(1) NOT NULL default '0',
-  `keyword_abbr` varchar(10) NOT NULL default '',
-  PRIMARY KEY  (`keyword_id`),
+  `keyword_link` varchar(255) NOT NULL DEFAULT '',
+  `keyword_sort` int(11) NOT NULL DEFAULT '0',
+  `keyword_important` int(1) NOT NULL DEFAULT '0',
+  `keyword_abbr` varchar(10) NOT NULL DEFAULT '',
+  PRIMARY KEY (`keyword_id`),
   KEY `keyword_abbr` (`keyword_abbr`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_language`
---
-
 CREATE TABLE `phpwcms_language` (
-  `lang_id` varchar(255) NOT NULL default '',
-  `lang_html` int(1) NOT NULL default '1',
-  `lang_type` int(1) NOT NULL default '0',
+  `lang_id` varchar(255) NOT NULL DEFAULT '',
+  `lang_html` int(1) NOT NULL DEFAULT '1',
+  `lang_type` int(1) NOT NULL DEFAULT '0',
   `EN` text NOT NULL,
   `DE` text NOT NULL,
   `BG` text NOT NULL,
@@ -692,140 +550,142 @@ CREATE TABLE `phpwcms_language` (
   `SE` text NOT NULL,
   `SK` text NOT NULL,
   `VN` text NOT NULL,
-  PRIMARY KEY  (`lang_id`)
-) ;
+  PRIMARY KEY (`lang_id`)
+);
 
--- --------------------------------------------------------
+CREATE TABLE `phpwcms_log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `log_type` varchar(50) NOT NULL DEFAULT '',
+  `log_ip` varchar(30) NOT NULL DEFAULT '',
+  `log_user_agent` varchar(255) NOT NULL,
+  `log_user_id` int(11) NOT NULL DEFAULT '0',
+  `log_user_name` varchar(255) NOT NULL,
+  `log_referrer_id` int(11) NOT NULL DEFAULT '0',
+  `log_referrer_url` text NOT NULL,
+  `log_data1` varchar(255) NOT NULL DEFAULT '',
+  `log_data2` varchar(255) NOT NULL DEFAULT '',
+  `log_data3` varchar(255) NOT NULL DEFAULT '',
+  `log_msg` text NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `log_referrer_id` (`log_referrer_id`),
+  KEY `log_type` (`log_type`)
+);
 
---
--- Tabellenstruktur für Tabelle `phpwcms_map`
---
+CREATE TABLE `phpwcms_log_seo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `domain` varchar(255) NOT NULL,
+  `query` varchar(255) NOT NULL,
+  `pos` int(11) NOT NULL,
+  `referrer` text NOT NULL,
+  `hash` char(32) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `hash` (`hash`)
+);
 
 CREATE TABLE `phpwcms_map` (
-  `map_id` int(11) NOT NULL auto_increment,
-  `map_cid` int(11) NOT NULL default '0',
-  `map_x` int(5) NOT NULL default '0',
-  `map_y` int(5) NOT NULL default '0',
+  `map_id` int(11) NOT NULL AUTO_INCREMENT,
+  `map_cid` int(11) NOT NULL DEFAULT '0',
+  `map_x` int(5) NOT NULL DEFAULT '0',
+  `map_y` int(5) NOT NULL DEFAULT '0',
   `map_title` text NOT NULL,
-  `map_zip` varchar(255) NOT NULL default '',
+  `map_zip` varchar(255) NOT NULL DEFAULT '',
   `map_city` text NOT NULL,
-  `map_deleted` int(1) NOT NULL default '0',
+  `map_deleted` int(1) NOT NULL DEFAULT '0',
   `map_entry` text NOT NULL,
   `map_vars` text NOT NULL,
-  PRIMARY KEY  (`map_id`)
+  PRIMARY KEY (`map_id`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_message`
---
 
 CREATE TABLE `phpwcms_message` (
-  `msg_id` int(11) NOT NULL auto_increment,
-  `msg_pid` int(11) NOT NULL default '0',
-  `msg_uid` int(11) NOT NULL default '0',
-  `msg_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `msg_subject` varchar(150) NOT NULL default '',
+  `msg_id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg_pid` int(11) NOT NULL DEFAULT '0',
+  `msg_uid` int(11) NOT NULL DEFAULT '0',
+  `msg_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `msg_subject` varchar(150) NOT NULL DEFAULT '',
   `msg_text` blob NOT NULL,
-  `msg_deleted` tinyint(1) NOT NULL default '0',
-  `msg_read` tinyint(1) NOT NULL default '0',
+  `msg_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `msg_read` tinyint(1) NOT NULL DEFAULT '0',
   `msg_to` blob NOT NULL,
-  `msg_from` int(11) NOT NULL default '0',
-  `msg_from_del` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`msg_id`)
+  `msg_from` int(11) NOT NULL DEFAULT '0',
+  `msg_from_del` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`msg_id`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_newsletter`
---
 
 CREATE TABLE `phpwcms_newsletter` (
-  `newsletter_id` int(11) NOT NULL auto_increment,
-  `newsletter_created` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `newsletter_lastsending` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `newsletter_id` int(11) NOT NULL AUTO_INCREMENT,
+  `newsletter_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `newsletter_lastsending` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `newsletter_subject` text NOT NULL,
-  `newsletter_changed` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `newsletter_changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `newsletter_vars` mediumblob NOT NULL,
-  `newsletter_trashed` int(1) NOT NULL default '0',
-  `newsletter_active` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`newsletter_id`)
+  `newsletter_trashed` int(1) NOT NULL DEFAULT '0',
+  `newsletter_active` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`newsletter_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_newsletterqueue`
---
-
 CREATE TABLE `phpwcms_newsletterqueue` (
-  `queue_id` int(11) NOT NULL auto_increment,
-  `queue_created` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `queue_changed` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `queue_status` int(11) NOT NULL default '0',
-  `queue_pid` int(11) NOT NULL default '0',
-  `queue_rid` int(11) NOT NULL default '0',
-  `queue_errormsg` varchar(255) NOT NULL default '',
-  PRIMARY KEY  (`queue_id`),
+  `queue_id` int(11) NOT NULL AUTO_INCREMENT,
+  `queue_created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `queue_changed` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `queue_status` int(11) NOT NULL DEFAULT '0',
+  `queue_pid` int(11) NOT NULL DEFAULT '0',
+  `queue_rid` int(11) NOT NULL DEFAULT '0',
+  `queue_errormsg` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`queue_id`),
   KEY `nlqueue` (`queue_pid`,`queue_status`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_pagelayout`
---
-
 CREATE TABLE `phpwcms_pagelayout` (
-  `pagelayout_id` int(11) NOT NULL auto_increment,
-  `pagelayout_name` varchar(255) NOT NULL default '',
-  `pagelayout_default` int(1) NOT NULL default '0',
+  `pagelayout_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pagelayout_name` varchar(255) NOT NULL DEFAULT '',
+  `pagelayout_default` int(1) NOT NULL DEFAULT '0',
   `pagelayout_var` mediumblob NOT NULL,
-  `pagelayout_trash` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`pagelayout_id`)
+  `pagelayout_trash` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pagelayout_id`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_profession`
---
 
 CREATE TABLE `phpwcms_profession` (
-  `prof_id` int(4) NOT NULL auto_increment,
-  `prof_name` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`prof_id`)
+  `prof_id` int(4) NOT NULL AUTO_INCREMENT,
+  `prof_name` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`prof_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_shop_orders`
---
+CREATE TABLE `phpwcms_redirect` (
+  `rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `aid` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `alias` varchar(255) NOT NULL DEFAULT '',
+  `link` varchar(255) NOT NULL DEFAULT '',
+  `views` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `active` int(1) unsigned NOT NULL DEFAULT '0',
+  `shortcut` int(1) unsigned NOT NULL DEFAULT '0',
+  `type` varchar(255) NOT NULL DEFAULT '',
+  `code` varchar(255) NOT NULL DEFAULT '',
+  `target` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`rid`),
+  KEY `id` (`id`,`aid`,`alias`),
+  KEY `active` (`active`),
+  KEY `link` (`link`)
+);
 
 CREATE TABLE `phpwcms_shop_orders` (
-  `order_id` int(10) unsigned NOT NULL auto_increment,
-  `order_number` varchar(20) NOT NULL default '',
-  `order_date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `order_name` varchar(255) NOT NULL default '',
-  `order_firstname` varchar(255) NOT NULL default '',
-  `order_email` varchar(255) NOT NULL default '',
-  `order_net` float NOT NULL default '0',
-  `order_gross` float NOT NULL default '0',
-  `order_payment` varchar(255) NOT NULL default '',
+  `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `order_number` varchar(20) NOT NULL DEFAULT '',
+  `order_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `order_name` varchar(255) NOT NULL DEFAULT '',
+  `order_firstname` varchar(255) NOT NULL DEFAULT '',
+  `order_email` varchar(255) NOT NULL DEFAULT '',
+  `order_net` float NOT NULL DEFAULT '0',
+  `order_gross` float NOT NULL DEFAULT '0',
+  `order_payment` varchar(255) NOT NULL DEFAULT '',
   `order_data` mediumtext NOT NULL,
-  `order_status` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`order_id`),
+  `order_status` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`order_id`),
   KEY `order_number` (`order_number`,`order_status`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_shop_products`
---
 
 CREATE TABLE `phpwcms_shop_products` (
   `shopprod_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -854,154 +714,127 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_listall` int(1) unsigned DEFAULT '0',
   `shopprod_special_price` text NOT NULL,
   `shopprod_track_view` int(11) NOT NULL DEFAULT '0',
-  `shopprod_lang` varchar(255) NOT NULL default '',
+  `shopprod_lang` varchar(255) NOT NULL DEFAULT '',
+  `shopprod_overwrite_meta` int(1) NOT NULL DEFAULT '1',
+  `shopprod_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),
   KEY `tag` (`shopprod_tag`),
   KEY `all` (`shopprod_listall`),
   KEY `shopprod_track_view` (`shopprod_track_view`),
-  KEY `shopprod_lang` (`shopprod_lang`)
+  KEY `shopprod_lang` (`shopprod_lang`),
+  KEY `shopprod_opengraph` (`shopprod_opengraph`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_subscription`
---
 
 CREATE TABLE `phpwcms_subscription` (
-  `subscription_id` int(11) NOT NULL auto_increment,
+  `subscription_id` int(11) NOT NULL AUTO_INCREMENT,
   `subscription_name` text NOT NULL,
   `subscription_info` blob NOT NULL,
-  `subscription_active` int(1) NOT NULL default '0',
-  `subscription_lang` varchar(100) NOT NULL default '',
-  `subscription_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`subscription_id`)
+  `subscription_active` int(1) NOT NULL DEFAULT '0',
+  `subscription_lang` varchar(100) NOT NULL DEFAULT '',
+  `subscription_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`subscription_id`)
 );
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_sysvalue`
---
 
 CREATE TABLE `phpwcms_sysvalue` (
-  `sysvalue_key` varchar(255) NOT NULL default '',
-  `sysvalue_group` varchar(255) NOT NULL default '',
-  `sysvalue_lastchange` int(11) NOT NULL default '0',
-  `sysvalue_status` int(1) NOT NULL default '0',
-  `sysvalue_vartype` varchar(255) NOT NULL default '',
+  `sysvalue_key` varchar(255) NOT NULL DEFAULT '',
+  `sysvalue_group` varchar(255) NOT NULL DEFAULT '',
+  `sysvalue_lastchange` int(11) NOT NULL DEFAULT '0',
+  `sysvalue_status` int(1) NOT NULL DEFAULT '0',
+  `sysvalue_vartype` varchar(255) NOT NULL DEFAULT '',
   `sysvalue_value` mediumtext NOT NULL,
-  PRIMARY KEY  (`sysvalue_key`),
+  PRIMARY KEY (`sysvalue_key`),
   KEY `sysvalue_group` (`sysvalue_group`),
   KEY `sysvalue_status` (`sysvalue_status`)
-) ;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_template`
---
-
-CREATE TABLE `phpwcms_template` (
-  `template_id` int(11) NOT NULL auto_increment,
-  `template_type` int(11) NOT NULL default '1',
-  `template_name` varchar(255) NOT NULL default '',
-  `template_default` int(1) NOT NULL default '0',
-  `template_var` mediumblob NOT NULL,
-  `template_trash` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`template_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_user`
---
+CREATE TABLE `phpwcms_template` (
+  `template_id` int(11) NOT NULL AUTO_INCREMENT,
+  `template_type` int(11) NOT NULL DEFAULT '1',
+  `template_name` varchar(255) NOT NULL DEFAULT '',
+  `template_default` int(1) NOT NULL DEFAULT '0',
+  `template_var` mediumblob NOT NULL,
+  `template_trash` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`template_id`)
+);
 
 CREATE TABLE `phpwcms_user` (
-  `usr_id` int(11) NOT NULL auto_increment,
-  `usr_login` varchar(30) NOT NULL default '',
-  `usr_pass` varchar(255) NOT NULL default '',
-  `usr_email` varchar(150) NOT NULL default '',
-  `usr_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `usr_rechte` tinyint(4) NOT NULL default '0',
-  `usr_admin` tinyint(1) NOT NULL default '0',
-  `usr_avatar` varchar(50) NOT NULL default '',
-  `usr_aktiv` int(1) NOT NULL default '0',
-  `usr_name` varchar(100) NOT NULL default '',
+  `usr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `usr_login` varchar(30) NOT NULL DEFAULT '',
+  `usr_pass` varchar(255) NOT NULL DEFAULT '',
+  `usr_email` varchar(150) NOT NULL DEFAULT '',
+  `usr_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `usr_rechte` tinyint(4) NOT NULL DEFAULT '0',
+  `usr_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `usr_avatar` varchar(50) NOT NULL DEFAULT '',
+  `usr_aktiv` int(1) NOT NULL DEFAULT '0',
+  `usr_name` varchar(100) NOT NULL DEFAULT '',
   `usr_var_structure` blob NOT NULL,
   `usr_var_publicfile` blob NOT NULL,
   `usr_var_privatefile` blob NOT NULL,
-  `usr_lang` varchar(50) NOT NULL default '',
-  `usr_wysiwyg` int(2) NOT NULL default '0',
-  `usr_fe` int(1) NOT NULL default '0',
+  `usr_lang` varchar(50) NOT NULL DEFAULT '',
+  `usr_wysiwyg` int(2) NOT NULL DEFAULT '0',
+  `usr_fe` int(1) NOT NULL DEFAULT '0',
   `usr_vars` mediumtext NOT NULL,
-  PRIMARY KEY  (`usr_id`)
+  PRIMARY KEY (`usr_id`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_userdetail`
---
-
 CREATE TABLE `phpwcms_userdetail` (
-  `detail_id` int(11) NOT NULL auto_increment,
-  `detail_regkey` varchar(255) NOT NULL default '',
-  `detail_pid` int(11) NOT NULL default '0',
-  `detail_formid` int(11) NOT NULL default '0',
-  `detail_tstamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `detail_title` varchar(255) NOT NULL default '',
-  `detail_salutation` varchar(255) NOT NULL default '',
-  `detail_firstname` varchar(255) NOT NULL default '',
-  `detail_lastname` varchar(255) NOT NULL default '',
-  `detail_company` varchar(255) NOT NULL default '',
-  `detail_street` varchar(255) NOT NULL default '',
-  `detail_add` varchar(255) NOT NULL default '',
-  `detail_city` varchar(255) NOT NULL default '',
-  `detail_zip` varchar(255) NOT NULL default '',
-  `detail_region` varchar(255) NOT NULL default '',
-  `detail_country` varchar(255) NOT NULL default '',
-  `detail_fon` varchar(255) NOT NULL default '',
-  `detail_fax` varchar(255) NOT NULL default '',
-  `detail_mobile` varchar(255) NOT NULL default '',
-  `detail_signature` varchar(255) NOT NULL default '',
-  `detail_prof` varchar(255) NOT NULL default '',
+  `detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `detail_regkey` varchar(255) NOT NULL,
+  `detail_pid` int(11) NOT NULL DEFAULT '0',
+  `detail_formid` int(11) NOT NULL DEFAULT '0',
+  `detail_tstamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `detail_title` varchar(255) NOT NULL DEFAULT '',
+  `detail_salutation` varchar(255) NOT NULL DEFAULT '',
+  `detail_firstname` varchar(255) NOT NULL DEFAULT '',
+  `detail_lastname` varchar(255) NOT NULL DEFAULT '',
+  `detail_company` varchar(255) NOT NULL DEFAULT '',
+  `detail_street` varchar(255) NOT NULL DEFAULT '',
+  `detail_add` varchar(255) NOT NULL DEFAULT '',
+  `detail_city` varchar(255) NOT NULL DEFAULT '',
+  `detail_zip` varchar(255) NOT NULL DEFAULT '',
+  `detail_region` varchar(255) NOT NULL DEFAULT '',
+  `detail_country` varchar(255) NOT NULL DEFAULT '',
+  `detail_fon` varchar(255) NOT NULL DEFAULT '',
+  `detail_fax` varchar(255) NOT NULL DEFAULT '',
+  `detail_mobile` varchar(255) NOT NULL DEFAULT '',
+  `detail_signature` varchar(255) NOT NULL DEFAULT '',
+  `detail_prof` varchar(255) NOT NULL DEFAULT '',
   `detail_notes` blob NOT NULL,
-  `detail_public` int(1) NOT NULL default '1',
-  `detail_aktiv` int(1) NOT NULL default '1',
-  `detail_newsletter` int(11) NOT NULL default '0',
-  `detail_website` varchar(255) NOT NULL default '',
-  `detail_userimage` varchar(255) NOT NULL default '',
-  `detail_gender` varchar(255) NOT NULL default '',
-  `detail_birthday` date NOT NULL default '0000-00-00',
-  `detail_varchar1` varchar(255) NOT NULL default '',
-  `detail_varchar2` varchar(255) NOT NULL default '',
-  `detail_varchar3` varchar(255) NOT NULL default '',
-  `detail_varchar4` varchar(255) NOT NULL default '',
-  `detail_varchar5` varchar(255) NOT NULL default '',
+  `detail_public` int(1) NOT NULL DEFAULT '1',
+  `detail_aktiv` int(1) NOT NULL DEFAULT '1',
+  `detail_newsletter` int(11) NOT NULL DEFAULT '0',
+  `detail_website` varchar(255) NOT NULL DEFAULT '',
+  `detail_userimage` varchar(255) NOT NULL DEFAULT '',
+  `detail_gender` varchar(255) NOT NULL DEFAULT '',
+  `detail_birthday` date NOT NULL DEFAULT '0000-00-00',
+  `detail_varchar1` varchar(255) NOT NULL DEFAULT '',
+  `detail_varchar2` varchar(255) NOT NULL DEFAULT '',
+  `detail_varchar3` varchar(255) NOT NULL DEFAULT '',
+  `detail_varchar4` varchar(255) NOT NULL DEFAULT '',
+  `detail_varchar5` varchar(255) NOT NULL DEFAULT '',
   `detail_text1` text NOT NULL,
   `detail_text2` text NOT NULL,
   `detail_text3` text NOT NULL,
   `detail_text4` text NOT NULL,
   `detail_text5` text NOT NULL,
-  `detail_email` varchar(255) NOT NULL default '',
-  `detail_login` varchar(255) NOT NULL default '',
-  `detail_password` varchar(255) NOT NULL default '',
-  `userdetail_lastlogin` datetime NOT NULL default '0000-00-00 00:00:00',
-  `detail_int1` bigint(20) NOT NULL default '0',
-  `detail_int2` bigint(20) NOT NULL default '0',
-  `detail_int3` bigint(20) NOT NULL default '0',
-  `detail_int4` bigint(20) NOT NULL default '0',
-  `detail_int5` bigint(20) NOT NULL default '0',
-  `detail_float1` double NOT NULL default '0',
-  `detail_float2` double NOT NULL default '0',
-  `detail_float3` double NOT NULL default '0',
-  `detail_float4` double NOT NULL default '0',
-  `detail_float5` double NOT NULL default '0',
-  PRIMARY KEY  (`detail_id`),
+  `detail_email` varchar(255) NOT NULL DEFAULT '',
+  `detail_login` varchar(255) NOT NULL DEFAULT '',
+  `detail_password` varchar(255) NOT NULL DEFAULT '',
+  `userdetail_lastlogin` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `detail_int1` bigint(20) NOT NULL DEFAULT '0',
+  `detail_int2` bigint(20) NOT NULL DEFAULT '0',
+  `detail_int3` bigint(20) NOT NULL DEFAULT '0',
+  `detail_int4` bigint(20) NOT NULL DEFAULT '0',
+  `detail_int5` bigint(20) NOT NULL DEFAULT '0',
+  `detail_float1` double NOT NULL DEFAULT '0',
+  `detail_float2` double NOT NULL DEFAULT '0',
+  `detail_float3` double NOT NULL DEFAULT '0',
+  `detail_float4` double NOT NULL DEFAULT '0',
+  `detail_float5` double NOT NULL DEFAULT '0',
+  PRIMARY KEY (`detail_id`),
   KEY `detail_pid` (`detail_pid`),
   KEY `detail_formid` (`detail_formid`),
   KEY `detail_password` (`detail_password`),
@@ -1009,67 +842,26 @@ CREATE TABLE `phpwcms_userdetail` (
   KEY `detail_regkey` (`detail_regkey`)
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_usergroup`
---
-
 CREATE TABLE `phpwcms_usergroup` (
-  `group_id` int(11) NOT NULL auto_increment,
-  `group_name` varchar(200) NOT NULL default '',
+  `group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(200) NOT NULL DEFAULT '',
   `group_member` mediumtext NOT NULL,
   `group_value` longblob NOT NULL,
-  `group_timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `group_trash` int(1) NOT NULL default '0',
-  `group_active` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`group_id`),
+  `group_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `group_trash` int(1) NOT NULL DEFAULT '0',
+  `group_active` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`group_id`),
   KEY `group_member` (`group_member`(255))
 );
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `phpwcms_userlog`
---
-
 CREATE TABLE `phpwcms_userlog` (
-  `userlog_id` int(11) NOT NULL auto_increment,
-  `logged_user` varchar(30) NOT NULL default '',
-  `logged_username` varchar(100) NOT NULL default '',
-  `logged_start` int(11) unsigned NOT NULL default '0',
-  `logged_change` int(11) unsigned NOT NULL default '0',
-  `logged_in` int(1) NOT NULL default '0',
-  `logged_ip` varchar(24) NOT NULL default '',
-  `logged_section` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`userlog_id`)
-);
-
-CREATE TABLE `phpwcms_log_seo` (
-  `id` int(11) NOT NULL auto_increment,
-  `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `domain` varchar(255) NOT NULL,
-  `query` varchar(255) NOT NULL,
-  `pos` int(11) NOT NULL,
-  `referrer` text NOT NULL,
-  PRIMARY KEY  (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `phpwcms_log` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `log_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `log_type` varchar(50) NOT NULL DEFAULT '',
-  `log_ip` varchar(30) NOT NULL DEFAULT '',
-  `log_user_agent` varchar(255) NOT NULL,
-  `log_user_id` int(11) NOT NULL DEFAULT '0',
-  `log_user_name` varchar(255) NOT NULL,
-  `log_referrer_id` int(11) NOT NULL DEFAULT '0',
-  `log_referrer_url` text NOT NULL,
-  `log_data1` varchar(255) NOT NULL DEFAULT '',
-  `log_data2` varchar(255) NOT NULL DEFAULT '',
-  `log_data3` varchar(255) NOT NULL DEFAULT '',
-  `log_msg` text NOT NULL,
-  PRIMARY KEY (`log_id`),
-  KEY `log_referrer_id` (`log_referrer_id`),
-  KEY `log_type` (`log_type`)
+  `userlog_id` int(11) NOT NULL AUTO_INCREMENT,
+  `logged_user` varchar(30) NOT NULL DEFAULT '',
+  `logged_username` varchar(100) NOT NULL DEFAULT '',
+  `logged_start` int(11) unsigned NOT NULL DEFAULT '0',
+  `logged_change` int(11) unsigned NOT NULL DEFAULT '0',
+  `logged_in` int(1) NOT NULL DEFAULT '0',
+  `logged_ip` varchar(24) NOT NULL DEFAULT '',
+  `logged_section` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`userlog_id`)
 );

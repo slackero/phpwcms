@@ -45,7 +45,7 @@ $template_default['nav_table_struct']['cell_active_class']		= 'nav_table_active'
 //
 $template_default['nav_table_struct']['js_over_effects']		= 1;
 $template_default['nav_table_struct']['all_nodes_active']		= 1;
-//	
+//
 $template_default['nav_table_struct']['linkimage_norm']			= '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['linkimage_over']			= '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['linkimage_active']		= '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
@@ -57,7 +57,7 @@ $template_default['nav_table_struct']['link_active_after']		= '';
 //
 $template_default['nav_table_struct']['row_norm_bgcolor']		= '#D9DEE3';
 $template_default['nav_table_struct']['row_norm_class']			= '';
-//	
+//
 $template_default['nav_table_struct']['row_over_bgcolor']		= '#D3ED7D'; //#AAB7C1
 $template_default['nav_table_struct']['row_active_bgcolor']		= '#FFFFFF';
 $template_default['nav_table_struct']['row_active_class']		= '';
@@ -70,8 +70,8 @@ $template_default['nav_table_struct']['row_space_bgcolor']		= '#4A5966';
  * ===============
  * setup unique style for each node/level
  * ['array_struct'][1] => the number represents level ID
- * so root level is [0] and so on...  
- 
+ * so root level is [0] and so on...
+
 $template_default['nav_table_struct']['array_struct'][1]['linkimage_norm']		= '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['array_struct'][1]['linkimage_over']		= '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
 $template_default['nav_table_struct']['array_struct'][1]['linkimage_active']	= '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
@@ -86,7 +86,7 @@ $template_default['nav_table_struct']['array_struct'][1]['row_norm_class']		= $t
 $template_default['nav_table_struct']['array_struct'][1]['row_over_bgcolor']	= '#FAEAC8';
 $template_default['nav_table_struct']['array_struct'][1]['row_active_bgcolor']	= '#FAEAC8';
 $template_default['nav_table_struct']['array_struct'][1]['row_active_class']	= $template_default['nav_table_struct']['row_active_class'];
-			
+
 $template_default['nav_table_struct']['array_struct'][1]['space_celltop']		= $template_default['nav_table_struct']['space_celltop'];
 $template_default['nav_table_struct']['array_struct'][1]['space_cellbottom']	= $template_default['nav_table_struct']['space_cellbottom'];
 
@@ -188,8 +188,8 @@ $template_default['article']['image_caption_before']	= '';
 $template_default['article']['image_caption_after']		= '';
 $template_default['article']['image_div']				= true;
 
-$template_default['article']['image_default_width']		= '200';
-$template_default['article']['image_default_height']	= '200';
+$template_default['article']['image_default_width']		= '490';
+$template_default['article']['image_default_height']	= '370';
 
 $template_default['article']['imagelist_table_class']		= '';
 $template_default['article']['imagelist_table_bgcolor']		= '';
@@ -207,13 +207,13 @@ $template_default['article']['imagelist_caption_align']		= '';
 $template_default['article']['imagelist_caption_before']	= '';
 $template_default['article']['imagelist_caption_after']		= '';
 
-$template_default['article']['imagelist_default_width']		= 100;
-$template_default['article']['imagelist_default_height']	= 100;
+$template_default['article']['imagelist_default_width']		= 245;
+$template_default['article']['imagelist_default_height']	= 185;
 
-$template_default['imagegallery_default_width']				= 200;
-$template_default['imagegallery_default_height']			= 175;
-$template_default['imagegallery_default_space']				= 3;
-$template_default['imagegallery_default_column']			= 2;
+$template_default['imagegallery_default_width']				= 490;
+$template_default['imagegallery_default_height']			= 370;
+$template_default['imagegallery_default_space']				= 0;
+$template_default['imagegallery_default_column']			= 1;
 
 
 $template_default['article']['keyword_before']          = '<span class="keywords">';
@@ -285,69 +285,116 @@ $template_default['body']['class'] = '';
 // target URL for login form - this is where the user is redirected to
 $template_default['login_form_url'] = PHPWCMS_URL;
 
-// some texts are cut by default and if cutted the missing part is 
+// some texts are cut by default and if cutted the missing part is
 // shorten by "..." - that sign is defined here - default "&#8230;"
 $template_default['ellipse_sign'] = '&#8230;';
 
 // some more default classes
 $template_default['classes'] = array(
-	'link-top'				=> 'link-top',
-	'link-internal'			=> 'link-internal',
-	'link-external'			=> 'link-external',
-	'link-rss'				=> 'link-rss',
-	'link-back'				=> 'link-back',
-	'link-anchor'			=> 'link-anchor',
-	'link-email'			=> 'link-email',
-	'link-bookmark'			=> 'link-bookmark',
-	'link-rss'				=> 'link-rss',
-	'spaceholder'			=> 'spaceholder',
-	'spaceholder-cp-after'	=> 'spaceAfterCP',
-	'spaceholder-cp-before'	=> 'spaceBeforeCP',
-	'img-list-right'		=> 'img-list-right',
-	'search-nextprev'		=> 'search-nextprev',
-	'search-result'			=> 'search-result',
-	'search-result-item'	=> 'search-result-item',
-	'article-list-paginate'	=> 'article-list-paginate',
-	'tab-container'			=> 'tab-container',
-	'tab-navigation'		=> 'tab-navigation',
-	'tab-first'				=> 'tab-first',
-	'tab-last'				=> 'tab-last',
-	'tab-content'			=> 'tab-content',
-	'tab-container-clear'	=> 'tab-container-clear',
-	'tab-item'				=> 'tab-item',
-	'navlist-sub_ul_true'	=> 'sub_ul_true',
-	'navlist-sub_ul'		=> 'sub_ul',
-	'navlist-sub_no'		=> 'sub_no',
-	'navlist-sub_first'		=> 'sub_first',
-	'navlist-sub_last'		=> 'sub_last',
-	'navlist-sub_parent'	=> 'sub_parent',
-	'navlist-asub_no'		=> 'asub_no',
-	'navlist-asub_first'	=> 'asub_first',
-	'navlist-asub_last'		=> 'asub_last',
-	'navlist-navLevel'		=> 'navLevel-',
-	'breadcrumb-active'		=> 'active',
-	'cp-anchor'				=> 'cpidClass',
-	'image-thumb'			=> 'image-thumb',
-	'image-wrapper'			=> 'image-wrapper',
-	'image-link'			=> 'image-link',
-	'image-zoom'			=> 'image-zoom',
-	'image-lightbox'		=> 'image-lightbox',
-	'imgtxt-top-left'		=> 'imgtxt-top-left',
-	'imgtxt-top-center'		=> 'imgtxt-top-center',
-	'imgtxt-top-right'		=> 'imgtxt-top-right',
-	'imgtxt-bottom-left'	=> 'imgtxt-bottom-left',
-	'imgtxt-bottom-center'	=> 'imgtxt-bottom-center',
-	'imgtxt-bottom-right'	=> 'imgtxt-bottom-right',
-	'imgtxt-left'			=> 'imgtxt-left',
-	'imgtxt-right'			=> 'imgtxt-right',
-	'imgtxt-column-left'	=> 'imgtxt-column-left',
-	'imgtxt-column-right'	=> 'imgtxt-column-right',
-	'copyright'				=> 'copyright',
-	'image-list-table'		=> 'image-list-table-',
-	'link-article-listing'	=> 'article-listing',
-	'link-print'			=> 'print',
-	'link-print-pdf'		=> 'print-pdf'
+	'link-top'						=> 'link-top',
+	'link-internal'					=> 'link-internal',
+	'link-external'					=> 'link-external',
+	'link-rss'						=> 'link-rss',
+	'link-back'						=> 'link-back',
+	'link-anchor'					=> 'link-anchor',
+	'link-email'					=> 'link-email',
+	'link-bookmark'					=> 'link-bookmark',
+	'link-rss'						=> 'link-rss',
+	'spaceholder'					=> 'spaceholder',
+	'spaceholder-cp-after'			=> 'spaceAfterCP',
+	'spaceholder-cp-before'			=> 'spaceBeforeCP',
+	'img-list-right'				=> 'img-list-right',
+	'search-nextprev'				=> 'search-nextprev',
+	'search-result'					=> 'search-result',
+	'search-result-item'			=> 'search-result-item',
+	'article-list-paginate'			=> 'article-list-paginate',
+	'tab-container'					=> 'tab-container',
+	'tab-navigation'				=> 'tab-navigation',
+	'tab-first'						=> 'tab-first',
+	'tab-last'						=> 'tab-last',
+	'tab-content'					=> 'tab-content',
+	'tab-content-item'				=> 'tab-content-item',
+	'tab-container-clear'			=> '', //tab-container-clear
+	'tab-item'						=> 'tab-item',
+	'navlist-sub_ul_true'			=> 'sub_ul_true',
+	'navlist-sub_ul'				=> 'sub_ul',
+	'navlist-sub_no'				=> 'sub_no',
+	'navlist-sub_first'				=> 'sub_first',
+	'navlist-sub_last'				=> 'sub_last',
+	'navlist-sub_parent'			=> 'sub_parent',
+	'navlist-asub_no'				=> 'asub_no',
+	'navlist-asub_first'			=> 'asub_first',
+	'navlist-asub_last'				=> 'asub_last',
+	'navlist-navLevel'				=> 'navLevel-',
+	'navlist-bs-dropdown'			=> 'dropdown',
+	'navlist-bs-dropdown-toggle'	=> 'dropdown-toggle',
+	'breadcrumb-active'				=> 'active',
+	'cp-anchor'						=> 'anchor-cp',
+	'jump-anchor'					=> 'anchor-article',
+	'image-thumb'					=> 'image-thumb',
+	'image-wrapper'					=> 'image-wrapper',
+	'image-link'					=> 'image-link',
+	'image-zoom'					=> 'image-zoom',
+	'image-lightbox'				=> 'image-lightbox',
+	'imgtxt-top-left'				=> 'imgtxt-top-left',
+	'imgtxt-top-center'				=> 'imgtxt-top-center',
+	'imgtxt-top-right'				=> 'imgtxt-top-right',
+	'imgtxt-bottom-left'			=> 'imgtxt-bottom-left',
+	'imgtxt-bottom-center'			=> 'imgtxt-bottom-center',
+	'imgtxt-bottom-right'			=> 'imgtxt-bottom-right',
+	'imgtxt-left'					=> 'imgtxt-left',
+	'imgtxt-right'					=> 'imgtxt-right',
+	'imgtxt-column-left'			=> 'imgtxt-column-left',
+	'imgtxt-column-right'			=> 'imgtxt-column-right',
+	'imgtxt-column-left-image'		=> 'imgtxt-column-left-image',
+	'imgtxt-column-right-image'		=> 'imgtxt-column-right-image',
+	'imgtxt-column-left-text'		=> 'imgtxt-column-left-text',
+	'imgtxt-column-right-text'		=> 'imgtxt-column-right-text',
+	'copyright'						=> 'copyright',
+	'image-list-table'				=> 'image-list-table-',
+	'link-article-listing'			=> 'article-listing',
+	'link-print'					=> 'print',
+	'link-print-pdf'				=> 'print-pdf',
+	'imgtable-top-left'				=> 'imgtable-top-left',
+	'imgtable-top-center'			=> 'imgtable-top-center',
+	'imgtable-top-right'			=> 'imgtable-top-right',
+	'imgtable-bottom-left'			=> 'imgtable-bottom-left',
+	'imgtable-bottom-center'		=> 'imgtable-bottom-center',
+	'imgtable-bottom-right'			=> 'imgtable-bottom-right',
+	'imgtable-left'					=> 'imgtable-left',
+	'imgtable-right'				=> 'imgtable-right',
+	'cpgroup-container'				=> 'cpgroup-container',
+	'cpgroup-title'					=> 'cpgroup-title',
+	'cpgroup-first'					=> 'cpgroup-first',
+	'cpgroup-last'					=> 'cpgroup-last',
+	'cpgroup'						=> 'cpgroup',
+	'cpgroup-container-clear'		=> '', //cpgroup-container-clear
+	'cpgroup-content'				=> 'cpgroup-content',
+	'shop-category-menu'			=> 'shop-categories',
+	'shop-products-menu'			=> 'shop-products'
 );
 
+$template_default['search_highlight'] = array(
+	'prefix' => '<em class="highlight">',
+	'suffix' => '</em>'
+);
+
+$template_default['attributes'] = array(
+	'navlist-bs-dropdown-data'	=> 'data-toggle="dropdown"',
+	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>',
+	'cpgroup'					=> 'data', // data = <span>, href = <a>
+	'cpgroup_custom'			=> array(
+		'bs-row-container' => array( // No underscore allowed here for group index!!!
+			'title'		=> 'Bootstrap Container/Row',
+			'prefix'	=> '<div class="container"><div class="row">',
+			'suffix'	=> '</div></div>'
+		) /* ,
+		'sample' => array( // No underscore allowed here for group index!!!
+			'title'		=> 'Wrapper',
+			'prefix'	=> '%1$s<div class="wrapper">', // optional: %1$s = title, %2$s = tab id
+			'suffix'	=> '</div>' // optional: %1$s, %2$s
+		) */
+	)
+);
 
 ?>

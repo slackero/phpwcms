@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -65,7 +65,7 @@ $child_count = get_root_childcount(0, $db);
 $an = $indexpage['acat_name'];
 
 $a  = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
-$a .= "<td width=\"450\">";
+$a .= '<td width="461">';
 $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
 $a .= ($child_count) ? "<a href=\"phpwcms.php?do=articles&amp;open=0:".(($_SESSION["structure"][0])?0:1)."\">" : "";
@@ -75,29 +75,28 @@ $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\">".(($child_count)
 $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" ";
 
 $info  = 'ID: <b>0</b><br />';
-$info .= 'ALIAS: '.html_specialchars($indexpage["acat_alias"]);
-	
-$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt="" />';	
+$info .= 'ALIAS: '.html($indexpage["acat_alias"]);
+
+$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt="" />';
 
 $a .= "</td>\n";
 $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-$a .= '<td class="dir" width="95%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td width="88" nowrap="nowrap">';
+echo '<td width="77" nowrap="nowrap">';
 
 $struct[0]["acat_id"]		= 0;
 $struct[0]["acat_aktiv"]	= 1;
-$struct[0]["acat_public"]	= 1;
 $struct[0]["acat_struct"]	= 0;
 
-echo listmode_edits ($listmode, $struct, 0, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, 0, 0, 0, 0);
+echo listmode_edits($listmode, $struct, 0, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, 0, 0, 0, 0);
 
 echo "</td>\n</tr>\n";
 
 if($_SESSION["structure"][0]) {
-       struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);//$template_default["article_order"]
-       struct_list(0, $db, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
+	struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);//$template_default["article_order"]
+	struct_list(0, $db, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>

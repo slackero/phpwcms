@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -33,10 +33,10 @@ if(!isset($content['rssfeed'])) {
 ?>
 
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
- 
+
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-	<td><select name="crss_template" id="crss_template" class="f11b">
+	<td><select name="crss_template" id="crss_template">
   <?php
 
 	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -52,15 +52,15 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
-  
-?>				  
+
+?>
 	  </select></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_rssfeed_url'] ?>:&nbsp;</td>
-	<td valign="top"><input name="crss_url" type="text" id="crss_url" class="f11b" style="width:440px" value="<?php echo html_specialchars($content['rssfeed']["rssurl"]) ?>" size="40"></td>
+	<td valign="top"><input name="crss_url" type="text" id="crss_url" class="f11b" style="width:440px" value="<?php echo html($content['rssfeed']["rssurl"]) ?>" size="40"></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
@@ -69,7 +69,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   <td align="right" class="chatlist"><?php echo  $BL['be_cnt_rssfeed_item'] ?>:&nbsp;</td>
   <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
-	<td><input name="crss_item" type="text" class="f11b" id="crss_item" style="width: 50px;" size="10" maxlength="10" onKeyUp="if(!parseInt(this.value*1))this.value='';" value="<?php echo  $content["rssfeed"]["item"] ?>"></td>
+	<td><input name="crss_item" type="text" class="f11b" id="crss_item" style="width: 50px;" size="10" maxlength="10" onKeyUp="if(!parseInt(this.value,10))this.value='';" value="<?php echo  $content["rssfeed"]["item"] ?>"></td>
 	<td class="f10">&nbsp;<?php echo $BL['be_cnt_rssfeed_max'] ?></td>
 	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td class="chatlist"><label for="crss_contenttype"><?php echo $BL['be_cnt_source'].' '.$BL['content_type'] ?></label>:&nbsp;</td>
@@ -77,25 +77,25 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<option value=""<?php
 if(empty($content["rssfeed"]['content_type'])) {
 	echo ' selected="selected"';
-}		
+}
 		?>><?php echo $BL['automatic'] ?></option>
 <?php
-	
+
 	foreach($phpwcms['charsets'] as $value) {
-		echo '		<option value="'.$value.'"';	
+		echo '		<option value="'.$value.'"';
 		if(!empty($content["rssfeed"]['content_type']) && $value == $content["rssfeed"]['content_type']) {
-			echo ' selected="selected"';	
+			echo ' selected="selected"';
 		}
 		echo '>'.$value.'</option>' . LF;
 	}
-	
+
 		?>
 	</select></td>
-	
+
 	<!--
 	<td class="chatlist"><label for="crss_cut1st"><?php echo  $BL['be_cnt_rssfeed_cut'] ?></label>:&nbsp;</td>
 	<td bgcolor="#E7E8EB"><input name="crss_cut1st" type="checkbox" id="crss_cut1st" value="1"<?php echo  is_checked(1, $content['rssfeed']["cut1st"]) ?>></td>
-	
+
 	<td bgcolor="#E7E8EB"><img src="img/leer.gif" alt="" width="1" height="1"></td>
 	//-->
 	</tr>
@@ -111,7 +111,7 @@ if(empty($content["rssfeed"]['content_type'])) {
 	<td><input name="crss_cacheoff" type="checkbox" id="crss_cacheoff" value="1"<?php echo  is_checked(1, $content['rssfeed']["cacheoff"]) ?>></td>
 	<td style="font-size:10px;padding-left:3px;"><label for="crss_cacheoff"><?php echo $BL['be_off'] ?></label>&nbsp;</td>
 	<td>&nbsp;</td>
-	<td><select name="crss_timeout" class="f10" style="margin:2px;" onChange="document.articlecontent.crss_cacheoff.checked=false;">
+	<td><select name="crss_timeout" style="margin:2px;" onChange="document.articlecontent.crss_cacheoff.checked=false;">
 <?php
 echo '<option value="0"'.is_selected($content['rssfeed']["timeout"], '0', 0, 0).'>'.$BL['be_admin_tmpl_default']."</option>\n";
 echo '<option value="60"'.is_selected($content['rssfeed']["timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";

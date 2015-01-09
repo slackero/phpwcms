@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 if(isset($_GET["u"]) && intval($_GET["u"])) {
-	
+
 	if(empty($_POST["form_aktion"]) || $_POST["form_aktion"] != "edit_account") {
 		$new_user_id = intval($_GET["u"]);
 		$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_id=".$new_user_id." AND usr_aktiv<>9;";
@@ -30,18 +30,18 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 				$set_user_admin = $row["usr_admin"];
 				$set_user_fe	= $row["usr_fe"];
 				$set_user_var	= @unserialize($row["usr_vars"]);
-				$send_verification = 0;			
-				$new_password = '';	
+				$send_verification = 0;
+				$new_password = '';
 			}
 		}
 	}
-	
+
 	$set_allowed_cp = isset($set_user_var['allowed_cp']) && is_array($set_user_var['allowed_cp']) ? $set_user_var['allowed_cp'] : array();
-		
+
 	if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "edit_account") {
-		
+
 		// Handle account data
-		
+
 		$new_user_id = intval($_POST["form_uid"]);
 		$new_login = slweg($_POST["form_newloginname"]);
 		$new_password = slweg($_POST["form_newpassword"]);
@@ -55,7 +55,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 		$cp_total = empty($_POST["cp_total"]) ? 0 : intval($_POST["cp_total"]);
 		if(!$set_allowed_cp_total || $cp_total == $set_allowed_cp_total) {
 			$set_allowed_cp = array();
-		}		
+		}
 		if($set_user_admin) {
 			$set_user_fe = 2;
 		}
@@ -70,7 +70,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 					if($check_anzahl["usr_id"] != $new_user_id && $check_anzahl["anzahl"]) {
 						$user_err .= $BL['be_admin_usr_err1']."\n";
 					}
-					
+
 					if(empty($user_err)) {
 						$set_user_var = @unserialize($check_anzahl["usr_vars"]);
 						if(!is_array($set_user_var)) {
@@ -81,12 +81,12 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 				}
 			}
 		}
-	
+
 		if(!is_valid_email($new_email)) {
 			$user_err .= $BL['be_admin_usr_err4']."\n";
 		}
 		if(empty($user_err)) { //Insert new User
-			
+
 			$sql =	"UPDATE ".DB_PREPEND."phpwcms_user SET usr_login='".aporeplace($new_login)."', ";
 			if($new_password) {
 				$sql .= "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', ";
@@ -97,9 +97,9 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 					"usr_name='".aporeplace($new_name)."', ";
 			if(isset($set_user_var['allowed_cp'])) {
 				$sql .= "usr_vars="._dbEscape(serialize($set_user_var)).", ";
-			}				
+			}
 			$sql .= "usr_fe='".$set_user_fe."' WHERE usr_id=".$new_user_id;
-									
+
 			if($result = mysql_query($sql, $db) or die("error")) {
 				$user_ok = 1;
 				$new_user_id = NULL;
@@ -119,16 +119,16 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 						'sender'	=> $phpwcms["admin_email"]
 				        ));
 				}
-			}					
-		}				
+			}
+		}
 	}
-			
+
 	if(empty($user_ok)) {
-		
+
 ?><form action="phpwcms.php?do=admin&amp;s=2&amp;u=<?php echo $new_user_id ?>" method="post" name="edituser"><table border="0" cellpadding="0" cellspacing="0" summary="">
-		
+
           <tr><td colspan="2" class="title"><?php echo $BL['be_admin_usr_etitle'] ?></td></tr>
-          <tr> 
+          <tr>
             <td><img src="img/leer.gif" alt="" width="105" height="1"></td>
             <td><img src="img/leer.gif" alt="" width="1" height="7"></td>
           </tr>
@@ -143,31 +143,31 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 		  <?php
 		  } //Ende Fehler New User
 		  ?>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
             <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250 f11b" value="<?php echo $new_login ?>" size="30" maxlength="30"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
             <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250 f11b" value="<?php echo $new_password ?>" size="30" maxlength="20"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
             <td><input name="form_newemail" type="text" id="form_newemail" class="width250 f11b" value="<?php echo $new_email ?>" size="30" maxlength="150"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
             <td><input name="form_newrealname" type="text" id="form_newrealname" class="width250 f11b" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
           </tr>
 
 		  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_issection']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
-                <tr> 
+                <tr>
                   <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?>></td>
                   <td><label for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>&nbsp;&nbsp;</td>
 				  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?>></td>
@@ -177,34 +177,34 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 				  <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
                 </tr>
               </table></td>
-          </tr>	
+          </tr>
 
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_setactive'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr> 
+                <tr>
                   <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?>></td>
                   <td><label for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label></td>
                 </tr>
               </table></td>
           </tr>
-  
+
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist" style="color:#FF0000"><?php echo $BL['be_admin_usr_isadmin'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr> 
+                <tr>
                   <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked(1, $set_user_admin); ?>></td>
                   <td><label for="form_admin"><?php echo $BL['be_admin_usr_ifadmin'] ?> <strong style="color:#FF0000">!!!</strong></label></td>
                 </tr>
               </table></td>
           </tr>
-          <tr> 
+          <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_verify'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-                <tr bgcolor="#E7E8EB"> 
+                <tr bgcolor="#E7E8EB">
                   <td><input name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked(1, $send_verification); ?>></td>
 				  <td><label for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label></td>
                   <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
@@ -212,54 +212,54 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
               </table></td>
           </tr>
-          
-          	<tr> 
+
+          	<tr>
           		<td align="right" class="chatlist tdtop6 nowrap"><?php echo $BL['be_structform_select_cp'] ?>:&nbsp;</td>
           		<td class="checkbox-list v11">
-          <?php	
+          <?php
           		$has_allowed_cp = isset($set_allowed_cp) ? count($set_allowed_cp) : 0;
-          	
+
 				foreach($wcs_content_type as $key => $value):
-          			
+
 					// count used CPs so it is easier to decide if needed or not
 					$used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key));
           ?>
-          
+
           			<label>
           				<input type="checkbox" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
-          				<?php echo html_specialchars($value).' ('.$used_count.')' ?>
+          				<?php echo html($value).' ('.$used_count.')' ?>
           			</label>
-          
+
           <?php	endforeach;	?>
           			<input type="hidden" name="cp_total" value="<?php echo count($wcs_content_type) ?>" />
           		</td>
           	</tr>
-          
-          
-          <tr> 
+
+
+          <tr>
             <td>&nbsp;</td>
             <td class="tdbottom10 tdtop6">
-            	<input name="Submit" type="submit" class="button10" value="<?php echo $BL['be_admin_usr_ebutton'] ?>">
+            	<input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_ebutton'] ?>">
             	<input name="form_aktion" type="hidden" value="edit_account" />
             	<input name="form_uid" type="hidden" value="<?php echo $new_user_id ?>" />
             </td>
-          </tr>       
+          </tr>
       </table>
-      
-      
+
+
       </form>
-      
+
       <img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br />
       <img src="img/leer.gif" alt="" width="1" height="5">
-      
+
       <?php
- 	
- 	
+
+
  	} else {
-	
+
 		echo "<script type=\"text/JavaScript\"> timer=setTimeout(\"self.location.href='phpwcms.php?do=admin'\", 0); </script>";
-	
+
 	}
-}	
+}
 
 ?>

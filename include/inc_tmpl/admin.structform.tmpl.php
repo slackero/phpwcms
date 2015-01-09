@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -26,7 +26,6 @@ if($_GET['struct'] === 'index') {
 	$acat_id			= 'index';
 	$acat_new			= 0;
 	$acat_aktiv			= $indexpage['acat_aktiv'];
-	$acat_public		= $indexpage['acat_public'];
 	$acat_sort			= isset($acat_sort) ? $acat_sort : '';
 	$acat_alias			= $indexpage['acat_alias'];
 	$acat_hidden		= $indexpage['acat_hidden'];
@@ -53,17 +52,17 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
 	$acat_disable301	= empty($indexpage['acat_disable301']) ? 0 : 1;
-	
+	$acat_opengraph		= isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1;
+
 	$acat_struct_mode = 'INDEX';
-	
+
 } elseif(!isset($acat_title)) {
-	
-	$parentStructData = getParentStructArray($_GET["struct"]);
+
+	$parentStructData	= getParentStructArray($_GET["struct"]);
 
 	$acat_title			= '';
 	$acat_info			= '';
-	$acat_aktiv			= 1;
-	$acat_public		= 1;
+	$acat_aktiv			= $phpwcms['set_category_active'];
 	$acat_sort			= isset($acat_sort) ? $acat_sort : '';
 	$acat_alias			= '';
 	$acat_hidden		= 0;
@@ -87,6 +86,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_type		= '';
 	$acat_lang_id		= 0;
 	$acat_disable301	= 0;
+	$acat_opengraph		= empty($phpwcms['set_sociallink']['articlecat']) ? 0 : 1;
 
 }
 
@@ -95,65 +95,69 @@ switch($acat_hidden) {
 	case 1:		$acat_hidden 		= 1;
 				$acat_hiddenactive	= 0;
 				break;
-				
+
 	case 2:		$acat_hidden 		= 1;
 				$acat_hiddenactive	= 1;
 				break;
-	
+
 	default:	$acat_hidden 		= 0;
 				$acat_hiddenactive	= 0;
 
 }
 
-// this -> document.editsitestructure
 ?>
 <form action="include/inc_act/act_structure.php" method="post" name="editsitestructure" id="editsitestructure" onsubmit="selectAllOptions(this.acat_access);selectAllOptions(this.acat_cp);var x = wordcount(this.acat_name.value);if(x&lt;1) {alert('Fill in a category title! \n\n('+x+' words total)');this.acat_name.focus();return false;}">
 	<table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
-		
+
           <tr><td width="538" class="title"><?php echo $BL['be_admin_struct_title'] ?> <span style="font-weight: normal;"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong style="color: #FF3300"><?php
 		  	//Anzeigen des Kategorienamens (Menüpunkt)
 		  	$acat_struct = intval($_GET["struct"]);
 		  	if($acat_struct) {
-			
+
 				$parentStructData = getParentStructArray($acat_struct);
-				echo html_specialchars($parentStructData["acat_name"]);
+				echo html($parentStructData["acat_name"]);
 
 			} else {
 				echo $BL['be_admin_struct_index'];
 				$parentStructData = array("acat_name" => $BL['be_admin_struct_index']);
-			}		  
+			}
+
+			$acat_struct_alias = get_struct_alias($acat_struct);
+			if(empty($acat_struct_alias) && $acat_id != 'index') {
+				$acat_struct_alias = $parentStructData["acat_name"];
+			}
+
 		  ?></strong></td>
           </tr>
 		  <tr><td><img src="img/leer.gif" width="1" height="4" alt="" /></td></tr>
           <tr><td><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-         
+
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_cat'] ?>:</td></tr>
-          <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b" style="width: 450px" onchange="this.value=Trim(this.value);" value="<?php echo html_specialchars($acat_title) ?>" size="50" maxlength="95" /></td></tr>
+          <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b width450" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="95" /></td></tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-		  
+
 		  <tr>
 		  	<td>
 				<table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
-			
 					<tr>
 						<td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>
-						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $parentStructData["acat_name"] ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
+						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
 						<td style="width:10px">&nbsp;</td>
 						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
 					</tr>
 		 			<tr>
-						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html_specialchars($acat_alias) ?>" size="50" maxlength="150"<?php
+						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html($acat_alias) ?>" size="50" maxlength="230"<?php
 							if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
 						<td>&nbsp;</td>
-						<td><input name="acat_class" type="text" id="acat_class" class="f11 width185" value="<?php echo html_specialchars($acat_class) ?>" size="50" maxlength="150" /></td>
+						<td><input name="acat_class" type="text" id="acat_class" class="f11 width185" value="<?php echo html($acat_class) ?>" size="50" maxlength="150" /></td>
 					</tr>
-				
+
 				</table>
 			</td>
 		  </tr>
-  
+
 <?php	if($acat_lang_mode):
 
 			$lang_default	= ' ('.$BL['be_admin_tmpl_default'].')';
@@ -161,26 +165,26 @@ switch($acat_hidden) {
 ?>
 
    		<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-	
+
 		<tr><td class="v09"><?php echo $BL['be_profile_label_lang'] ?>:</td></tr>
 		  <tr><td class="tdtop2">
-		  
+
 			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;" class="lang-select">
 			<table border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
-				
+
 				<td>
 					<label><input type="radio" name="acat_lang" class="lang-default" value=""<?php is_checked('', $acat_lang); ?> />
 						<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . $lang_default ?>" /><?php echo $lang_default ?>
 						&nbsp;
 					</label>
 				</td>
-				
-				
-<?php		foreach($phpwcms['allowed_lang'] as $key => $lang):	
-				
-				$lang			= strtolower($lang);
-				
+
+
+<?php		foreach($phpwcms['allowed_lang'] as $key => $lang):
+
+				$lang = strtolower($lang);
+
 				if($lang == $phpwcms['default_lang']) {
 					continue;
 				}
@@ -205,43 +209,43 @@ switch($acat_hidden) {
 					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . $lang_default ?>" />&nbsp;
 					<input name="acat_lang_id" type="text" class="f11b width75" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" size="11" maxlength="11" />
 				</div>
-			
-			</div>		  
-		  
+
+			</div>
+
 		  </td></tr>
-	  
+
 
 <?php	endif;	?>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-		  
+
 		  <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
-		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
- 
+		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width450" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
+
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_article_aredirect'] ?>:</td></tr>
-		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="f11b" style="width: 450px" value="<?php echo html_specialchars($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
+		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="width450" value="<?php echo html($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		<tr><td class="v09"><?php echo $BL['be_article_akeywords'] ?>:</td></tr>
-          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="f11 width540"><?php echo html_specialchars($acat_keywords) ?></textarea></td></tr>
-		
+          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="width540"><?php echo html($acat_keywords) ?></textarea></td></tr>
+
 		<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_info'] ?>:</td></tr>
-          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="f11 width540"><?php echo html_specialchars($acat_info) ?></textarea></td></tr>
- 		 
+          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="width540"><?php echo html($acat_info) ?></textarea></td></tr>
+
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 		  <tr>
-		  	<td><select name="acat_template" id="acat_template" class="f11b width300">
+		  	<td><select name="acat_template" id="acat_template" class="width300">
 <?php
 
 $_temp_cat = '';
 
-// list available 
+// list available
 $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC";
 if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 	while($row = mysql_fetch_assoc($result)) {
@@ -251,7 +255,10 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 			$_temp_cat = @unserialize($row['template_var']);
 			$_temp_cat = empty($_temp_cat['overwrite']) ? '' : $_temp_cat['overwrite'];
 		}
-		echo ">".html_specialchars($row["template_name"]).( ($row["template_default"])?" (default)":" ");
+		echo ">".html($row["template_name"]);
+		if($row["template_default"]) {
+			echo ' (', $BL['be_admin_tmpl_default'], ')';
+		}
 		echo "</option>\n";
 	}
 	mysql_free_result($result);
@@ -260,41 +267,41 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 ?>
 		  	</select></td>
 		  </tr>
-		  
-		  
-		  
+
+
+
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 		  <tr><td class="v09"><?php echo $BL['be_settings'] ?>:&nbsp;<i><?php echo $BL['be_overwrite_default'] ?></i></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
 		  <tr>
-		  	<td><select name="acat_overwrite" id="acat_overwrite" class="f11b width300">
+		  	<td><select name="acat_overwrite" id="acat_overwrite" class="width300">
 			<option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
 <?php
-	
+
 // templates for frontend login
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_settings/template_default', 'php');
 if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		$selected_val = (isset($acat_overwrite) && $val == $acat_overwrite) ? ' selected="selected"' : '';
-		$val = html_specialchars($val);
+		$val = html($val);
 		echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . ($_temp_cat==$val ? ' ('.$BL['be_admin_struct_template'].')' : '') . '</option>' . LF;
 	}
 }
 
-?>				  
+?>
 		</select></td>
 		  </tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-		  
+
 	<tr>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		 <tr>
 		  	<td class="v09"><?php echo  $BL['be_admin_struct_topcount'] ?>:</td>
 			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			
+
 			<td class="v09" colspan="2"><?php echo  $BL['be_pagination'] ?>:</td>
-			
+
 			<td>&nbsp;&nbsp;</td>
 			<td class="v09"><?php echo $BL['be_article_per_page'] ?>:</td>
 
@@ -304,36 +311,36 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <?php endif; ?>
 
 	  	  </tr>
-		 
+
 		  <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-		 
+
 		  <tr>
-		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="f11b width125" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
+		  	<td><input name="acat_topcount" type="text" id="acat_topcount" class="width125" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" /></td>
 			<td>&nbsp;</td>
-			
+
 			<td bgcolor="#D9DEE3"><input name="acat_paginate" type="checkbox" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo "checked"; ?> /></td>
 			<td bgcolor="#D9DEE3">&nbsp;<label for="acat_paginate"><?php echo $BL['be_article_pagination'] ?></label>&nbsp;&nbsp;</td>
-			
-			<td>&nbsp;</td>
-			<td><input name="acat_maxlist" type="text" id="acat_maxlist" class="f11b width75" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" /></td>
 
-<?php if($acat_struct_mode != 'INDEX'): ?>	 
+			<td>&nbsp;</td>
+			<td><input name="acat_maxlist" type="text" id="acat_maxlist" class="width75" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" /></td>
+
+<?php if($acat_struct_mode != 'INDEX'): ?>
 		 	<td>&nbsp;</td>
-		 	<td><input name="acat_sort" type="text" id="acat_sort" class="f11b width75" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" /></td>
+		 	<td><input name="acat_sort" type="text" id="acat_sort" class="width75" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" /></td>
 <?php endif; ?>
 
 		  </tr>
 		  </table></td>
 	</tr>
-		  
+
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-		  
+
 		  <tr><td class="v09"><?php echo  $BL['be_admin_struct_orderarticle'] ?>:</td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
           <tr>
             <td valign="top">
 			<div style="margin:0;border:1px solid #D9DEE3;padding:5px;float:left;">
-			<table border="0" cellpadding="0" cellspacing="0" summary=""><!-- seems not neccessary anymore: onclick="noDESC()" --> 
+			<table border="0" cellpadding="0" cellspacing="0" summary=""><!-- seems not neccessary anymore: onclick="noDESC()" -->
                 <tr>
                   <td><input type="radio" name="acat_order" id="acat_order0" value="0"<?php is_checked(0, intval($acat_order[0])) ?> /></td>
                   <td>&nbsp;<label for="acat_order0"><?php echo  $BL['be_admin_struct_ordermanual'] ?></label>&nbsp;&nbsp;</td>
@@ -356,12 +363,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
                   <td><input type="radio" name="acat_order" id="acat_order3" value="6"<?php is_checked(6, $acat_order[0]) ?> /></td>
                   <td>&nbsp;<label for="acat_order3"><?php echo  $BL['be_admin_struct_orderstartdate'] ?></label>&nbsp;&nbsp;</td>
                 </tr>
-				
+
                 <tr>
                   <td><input type="radio" name="acat_order" id="acat_order5" value="10"<?php is_checked(10, $acat_order[0]) ?> /></td>
                   <td>&nbsp;<label for="acat_order5"><?php echo  $BL['be_admin_struct_orderkilldate'] ?></label>&nbsp;&nbsp;</td>
                 </tr>
-				
+
                 <tr>
                   <td><input type="radio" name="acat_order" id="acat_order4" value="8"<?php is_checked(8, $acat_order[0]) ?> /></td>
                   <td>&nbsp;<label for="acat_order4"><?php echo  $BL['be_article_atitle'] ?></label>&nbsp;&nbsp;</td>
@@ -370,13 +377,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
             </div>
 			</td>
           </tr>
-		  
-		  
+
+
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
 
 <?php	if(!empty($phpwcms['usergroup_support'])): ?>
-		  
-		<!-- enym group selector -->	   
+
+		<!-- enym group selector -->
 		<tr><td><img src="img/leer.gif" width="1" height="10"></td></tr>
 		<tr><td class="v09"><?php echo $BL['be_cnt_access']; ?> (<?php echo $BL['be_subnav_admin_groups']; ?>):</td></tr>
 		<tr><td><img src="img/leer.gif" width="1" height="2"></td></tr>
@@ -385,22 +392,22 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 		// list all available groups and put into temp array
 		$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_active != 9 ORDER BY group_id DESC";
-		if($result = mysql_query($sql, $db) or die("error while listing groups")) {
+		if($result = mysql_query($sql, $db) or die("error while listing groups: ".html(mysql_error()))) {
 			$_temp_group = array();
 			while($row = mysql_fetch_assoc($result)) {
-				$_temp_group[$row['group_id']]['name']   = html_specialchars($row['group_name']);
+				$_temp_group[$row['group_id']]['name']   = html($row['group_name']);
 				$_temp_group[$row['group_id']]['active'] = $row['group_active'];
 			}
 			mysql_free_result($result);
 		}
-		
+
 		?><table border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td><select name="acat_access[]" id="acat_access" size="7" 
-						onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);" 
+				<td><select name="acat_access[]" id="acat_access" size="7"
+						onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"
 						multiple="multiple" style="width: 255px" class="f10">
 		<?php
-			
+
 			if(count($_temp_group)) {
 				// list groups that have rights in here! acat_permit used for groups too
 				foreach($_temp_group as $key => $value) {
@@ -409,15 +416,14 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						if(empty($_temp_group[$key]['active'])) {
 							echo ' style="color:#999999;"';
 						}
-						echo '>'.html_specialchars($_temp_group[$key]['name'])."</option>";
+						echo '>'.html($_temp_group[$key]['name'])."</option>";
 						unset($_temp_group[$key]);
 					}
 				}
 			}
-			
+
 		?></select></td>
 				<td valign="top" style="padding-left:5px;padding-right:5px;">
-				
 <img src="img/button/put_left.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><br />
 <img src="img/leer.gif" width="1" height="3" /><br />
 <img src="img/button/put_left_a.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><br />
@@ -426,11 +432,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <img src="img/leer.gif" width="1" height="3"><br />
 <img src="img/button/put_right.gif" width="15" height="15" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);" />
 				</td>
-				<td><select name="acat_feusers" size="7" id="acat_feusers" 
+				<td><select name="acat_feusers" size="7" id="acat_feusers"
 							onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"
 							style="width: 255px" class="f10" multiple="multiple">
 		<?php
-			
+
 			if(count($_temp_group)) {
 				// list all available groups
 				foreach($_temp_group as $key => $value) {
@@ -438,7 +444,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 					if(empty($_temp_group[$key]['active'])) {
 						echo ' style="color:#999999;"';
 					}
-					echo '>'.html_specialchars($_temp_group[$key]['name'])."</option>\n";
+					echo '>'.html($_temp_group[$key]['name'])."</option>\n";
 				}
 			}
 		?>
@@ -446,26 +452,26 @@ if(is_array($tmpllist) && count($tmpllist)) {
 				</tr>
 			</table></td>
 			</tr>
-		
+
 			<tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-			<!-- enym end new add group selector--> 
+			<!-- enym end new add group selector-->
 
 <?php	endif; ?>
 
-		  
+
 <!-- Content Part Selection -->
-		  
+
 		  <tr><td><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
 		  		<td class="v09" style="width:280px;"><?php echo $BL['be_structform_selected_cp'] ?>:</td>
 				<td class="v09"><?php echo $BL['be_admin_tmpl_default'] ?>:&nbsp;</td>
-				<td style="padding:2px 0;"><select name="acat_cpdefault" class="f10">
+				<td style="padding:2px 0;"><select name="acat_cpdefault">
 <?php
 foreach($wcs_content_type as $key => $value) {
 	echo '<option value="'.$key.'"'.is_selected($acat_cpdefault, $key,1, 0).'>'.$value."</option>\n";
 }
-				
-?>			
+
+?>
 				</select></td>
 			</tr>
 			</table></td></tr>
@@ -473,7 +479,7 @@ foreach($wcs_content_type as $key => $value) {
           <tr>
             <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
               <tr>
-                <td><select name="acat_cp[]" id="acat_cp" size="9" multiple="multiple" style="width: 255px" class="f10" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);">
+                <td><select name="acat_cp[]" id="acat_cp" size="9" multiple="multiple" class="width250" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cp,document.editsitestructure.acat_cpa,false);">
 
 <?php
 
@@ -505,7 +511,7 @@ foreach($acat_cntpart as $value) {
 <img src="img/button/list_pos_up.gif" alt="" width="15" height="15" border="0" onclick="moveOptionUp(document.editsitestructure.acat_cp);" /><br />
 <img src="img/leer.gif" width="1" height="3" alt="" /><br />
 <img src="img/button/list_pos_down.gif" alt="" width="15" height="15" border="0" onclick="moveOptionDown(document.editsitestructure.acat_cp);" /></td>
-<td><select name="acat_cpa" size="9" multiple="multiple" id="acat_cpa" style="width: 255px" class="f10" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
+<td><select name="acat_cpa" size="9" multiple="multiple" id="acat_cpa" class="width225" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
 
 <?php
 //Menü mit Content Typen erstellen
@@ -522,8 +528,8 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
               </tr>
             </table></td>
           </tr>
-	  
-		  
+
+
           <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
           <tr><td><table border="0" cellpadding="0" cellspacing="0" summary="">
             <tr><td colspan="4" class="v09"><?php echo $BL['be_admin_struct_status'] ?>:</td></tr>
@@ -531,23 +537,23 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
             <tr>
               <td bgcolor="#D9DEE3"><input name="acat_hidden" type="checkbox" id="acat_hidden" value="1" <?php is_checked($acat_hidden, 1); ?> /></td>
               <td bgcolor="#D9DEE3">&nbsp;<label for="acat_hidden"><?php echo $BL['be_admin_struct_hide1'] ?></label>&nbsp;&nbsp;</td>
-			  
+
               <td bgcolor="#D9DEE3"><input name="acat_hiddenactive" type="checkbox" id="acat_hiddenactive" value="1" <?php is_checked($acat_hiddenactive, 1); ?> /></td>
               <td bgcolor="#D9DEE3">&nbsp;<label for="acat_hiddenactive"><?php echo $BL['be_admin_struct_acat_hiddenactive'] ?></label>&nbsp;&nbsp;</td>
-			  
+
 			  <td>&nbsp;&nbsp;</td>
-			  
+
 			  <td bgcolor="#D9DEE3"><input name="acat_regonly" type="checkbox" id="acat_regonly" value="1" <?php is_checked($acat_regonly, 1); ?> /></td>
               <td bgcolor="#D9DEE3" colspan="3">&nbsp;<label for="acat_regonly"><?php echo $BL['be_admin_struct_regonly'] ?></label>&nbsp;&nbsp;</td>
 			</tr>
-			
-          </table></td></tr>		  
-		  
+
+          </table></td></tr>
+
 		 <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
           <tr>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			
+
 				<tr>
 				  <td class="v09 inactive" colspan="5"><?php echo  $BL['be_cache'] ?>:</td>
 				  <td class="v09" colspan="3"><?php echo  $BL['be_ctype_search'] ?>:</td>
@@ -555,12 +561,12 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
 				</tr>
 		 		<tr><td colspan="7"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 		 		</tr>
-			
-			
+
+
                 <tr bgcolor="#D9DEE3">
                   <td class="inactive"><input name="acat_cacheoff" type="checkbox" id="acat_cacheoff" value="1"<?php if($acat_timeout === '0') echo "checked"; ?> /></td>
 				  <td class="inactive">&nbsp;<label for="acat_cacheoff"><?php echo $BL['be_off'] ?></label>&nbsp;</td>
-				  <td class="inactive"><select name="acat_timeout" class="f11" style="margin:2px;width:85px;" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
+				  <td class="inactive"><select name="acat_timeout" class="width85" style="margin:2px;" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
 <?php
 echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
 echo '<option value="60"'.is_selected($acat_timeout, '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
@@ -590,46 +596,35 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
                 </tr>
               </table></td>
           </tr>
-		  
-		  <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-		  
+
+		  <tr><td class="v09 tdbottom1 tdtop10"><?php echo  $BL['be_ftptakeover_status'] ?>:</td></tr>
+
           <tr>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="" class="nowrap">
-			
-				<tr><td class="v09" colspan="8"><?php echo  $BL['be_ftptakeover_status'] ?>:</td></tr>
-		 		<tr><td colspan="8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-			
-			
-                <tr bgcolor="#D9DEE3">
-                  <td><input name="acat_aktiv" type="checkbox" id="acat_aktiv" value="1" <?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> /></td>
-                  <td>&nbsp;<label for="acat_aktiv"><?php echo $BL['be_admin_struct_visible'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="acat_public" type="checkbox" id="acat_public" value="1" <?php if($acat_public == 1) echo 'checked="checked"'; ?> /></td>
-                  <td>&nbsp;<label for="acat_public"><?php echo $BL['be_ftptakeover_public'] ?></label>&nbsp;&nbsp;</td>
-				  <td><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> /></td>
-                  <td>&nbsp;<label for="acat_ssl">SSL</label>&nbsp;&nbsp;</td>
-				  
-			     <td><input name="acat_nositemap" type="checkbox" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> /></td>
-				 <td>&nbsp;<label for="acat_nositemap"><?php echo $BL['be_ctype_sitemap'] ?></label>&nbsp;&nbsp;</td>
-				 
-				 <td><input name="acat_archive" type="checkbox" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> /></td>
-				 <td>&nbsp;<label for="acat_archive"><?php echo $BL['be_archive'] ?></label>&nbsp;&nbsp;</td>
-				
-                </tr>
-              </table></td>
+              <td>
+              	<span class="nowrap" style="display:inline-block;background:#D9DEE3;padding:2px 7px 2px 2px;">
+	              	<label><input name="acat_aktiv" type="checkbox" id="acat_aktiv" value="1" <?php if($acat_aktiv == 1) echo 'checked="checked"'; ?> />&nbsp;<?php echo $BL['be_admin_struct_visible'] ?></label>
+	              	&nbsp;
+	              	<label><input name="acat_ssl" type="checkbox" id="acat_ssl" value="1"<?php is_checked(1, $acat_ssl); ?> />&nbsp;SSL</label>
+	              	&nbsp;
+	              	<label><input name="acat_nositemap" type="checkbox" id="acat_nositemap" value="1"<?php is_checked(1, $acat_nositemap); ?> />&nbsp;<?php echo $BL['be_ctype_sitemap'] ?></label>
+	              	&nbsp;
+	              	<label><input name="acat_archive" type="checkbox" id="acat_archive" value="1"<?php is_checked(1, $acat_archive); ?> />&nbsp;<?php echo $BL['be_archive'] ?></label>
+	              	&nbsp;
+	              	<label><input name="acat_opengraph" type="checkbox" id="acat_opengraph" value="1" <?php if($acat_opengraph == 1) echo 'checked="checked"'; ?> />&nbsp;<?php echo $BL['be_opengraph_support'] ?></label>
+              	</span>
+              </td>
           </tr>
-          <tr><td><img src="img/leer.gif" alt="" width="1" height="20" />
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="20" /></td></tr>
+		  <tr><td class="tdbottom5">
 		  		<input name="acat_sort_temp" type="hidden" value="<?php echo $acat_sort; ?>" />
 				<input name="acat_struct" type="hidden" id="acat_struct" value="<?php echo $acat_struct; ?>" />
 				<input name="acat_new" type="hidden" id="acat_new" value="<?php echo $acat_new; ?>" />
-				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" /></td>
-          </tr>
-		  <tr><td>
-		  		<input name="submit" type="submit" class="button10" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
-		  		<input name="SubmitClose" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+				<input name="acat_id" type="hidden" id="acat_id" value="<?php echo $acat_id; ?>" />
+		  		<input name="submit" type="submit" class="button" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
+		  		<input name="SubmitClose" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 		  		&nbsp;&nbsp;&nbsp;&nbsp;
-		 		<input name="donotsubmit" type="button" class="button10" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" />
+		 		<input name="donotsubmit" type="button" class="button" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=6';" />
 			</td></tr>
-            <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 </table>
 </form>
 <?php
@@ -643,17 +638,17 @@ if($acat_lang_mode):
 <script type="text/javascript">
 // Handle language switch click
 $(function() {
-	
+
 	var langIdSelect = $('#lang-id-select');
-	
+
 	$('input.lang-opt').change(function(){
 		langIdSelect.show();
 	});
-	
+
 	$('input.lang-default').change(function(){
 		langIdSelect.hide();
 	});
-	
+
 });
 </script>
 <?php

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -92,8 +92,7 @@ function add_attribute($baseval, $attribute, $val, $space=" ") {
 function add_style_attribute($attribute='', $val='') {
 	//to add all relevant attributes that contains
 	//values to a string maybe a html tag
-	$attribute = isEmpty(strval($val)) ? '' : $attribute.': '.$val.';';
-	return $attribute;
+	return $attribute.': '.$val.';';
 }
 
 function html_attribute($attribute='', $val='') {
@@ -110,75 +109,72 @@ function get_body_attributes(& $values) {
 	//return a standard list of standard html body attributes
 	//based on the pagelayout definitions
 	$body_class	= '';
-	$link_class	= '';
 	if(is_array($values)) {
+		$link_class	= '';
 		if(empty($values["layout_noborder"])) {
-			$body_class .= add_style_attribute('		margin', '0').LF;
-			$body_class .= add_style_attribute('		padding-top',		empty($values["layout_border_top"])		? '0' : intval($values["layout_border_top"])   .'px').LF;
-			$body_class .= add_style_attribute('		padding-bottom',	empty($values["layout_border_bottom"])	? '0' : intval($values["layout_border_bottom"]).'px').LF;
-			$body_class .= add_style_attribute('		padding-left',	empty($values["layout_border_left"]) 	? '0' : intval($values["layout_border_left"])  .'px').LF;
-			$body_class .= add_style_attribute('		padding-right', 	empty($values["layout_border_right"]) 	? '0' : intval($values["layout_border_right"]) .'px').LF;
-			$body_class .= LF;
+			$body_class .= add_style_attribute('margin', '0');
+			$body_class .= add_style_attribute('padding-top', empty($values["layout_border_top"]) ? '0' : intval($values["layout_border_top"]).'px');
+			$body_class .= add_style_attribute('padding-bottom', empty($values["layout_border_bottom"]) ? '0' : intval($values["layout_border_bottom"]).'px');
+			$body_class .= add_style_attribute('padding-left', empty($values["layout_border_left"]) ? '0' : intval($values["layout_border_left"]).'px');
+			$body_class .= add_style_attribute('padding-right', empty($values["layout_border_right"]) ? '0' : intval($values["layout_border_right"]).'px');
 		}
 		if(!empty($values["layout_bgcolor"])) {
-			$body_class .= add_style_attribute('		background-color', $values["layout_bgcolor"]);
-			$body_class .= LF;
+			$body_class .= add_style_attribute('background-color', $values["layout_bgcolor"]);
 		}
 		if(!empty($values["layout_bgimage"])) {
-			$body_class .= add_style_attribute('		background-image', 'url('.$values["layout_bgimage"].')');
-			$body_class .= LF;
+			$body_class .= add_style_attribute('background-image', 'url('.$values["layout_bgimage"].')');
 		}
 		if(!empty($values["layout_textcolor"])) {
-			$body_class .= add_style_attribute('		color', $values["layout_textcolor"]);
-			$body_class .= LF;
+			$body_class .= add_style_attribute('color', $values["layout_textcolor"]);
 		}
-		if(!empty($body_class)) {
-			$body_class  = '	body {'.LF.$body_class.'	}'.LF;
+		if($body_class) {
+			$body_class  = '	body {'.$body_class.'}'.LF;
 		}
 		if(!empty($values["layout_linkcolor"])) {
-			$link_class .= '	a, a:link, a:active, a:visited, a:hover { color: '.$values["layout_linkcolor"].'; }';
-			$link_class .= LF;
+			$link_class .= '	a, a:link, a:active, a:visited, a:hover {color:'.$values["layout_linkcolor"].';}'.LF;
 		}
 		if(!empty($values["layout_vcolor"])) {
-			$link_class .= '	a:visited { color: '.$values["layout_vcolor"].'; }';
-			$link_class .= LF;
+			$link_class .= '	a:visited {color:'.$values["layout_vcolor"].';}'.LF;
 		}
 		if(!empty($values["layout_acolor"])) {
-			$link_class .= '	a:active { color: '.$values["layout_acolor"].'; }';
-			$link_class .= LF;
+			$link_class .= '	a:active {color:'.$values["layout_acolor"].';}'.LF;
 		}
 		if(!empty($body_class) || !empty($link_class)) {
-			$body_class  = '  <style type="text/css">'.LF. $body_class;
-			$body_class .= $link_class . '  </style>'.LF;
+			$body_class  = '  <style type="text/css">'.LF.$body_class.$link_class.'  </style>'.LF;
 		}
-		return $body_class;
 	}
-	return '';
+	return $body_class;
 }
 
 function align_base_layout($value) {
 	//to get the alignment of the base layout table
-	switch($value) {
-		case  1: $align = "center"; break;
-		case  2: $align = "right"; break;
-		default: $align = 0;
+	if($value === 1) {
+		return ' align="center"';
+	} elseif($value === 2) {
+		return ' align="right"';
 	}
-	return ($align) ? ' align="'.$align.'"' : '';
+	return '';
 }
 
 function get_colspan($value) {
 	//returns colspan value back to table row
-	if(!isset($value["layout_type"]))				$value["layout_type"] = 0;
+	if(empty($value["layout_type"])) {
+		$value["layout_type"] = 0;
+	}
 	switch($value["layout_type"]) {
-		case  0:	$col=3; break;
-		case  1:	$col=2; break;
-		case  2:	$col=2; break;
-		case  3:	$col=0; break;
+		case 0:		$col=3; break;
+		case 1:		$col=2; break;
+		case 2:		$col=2; break;
+		case 3:		$col=0; break;
 		default:	$col=3;
 	}
-	if(!empty($value["layout_leftspace_width"]))  $col++;
-	if(!empty($value["layout_rightspace_width"])) $col++;
-	return ($col) ? (' colspan="'.$col.'"') : '';
+	if(!empty($value["layout_leftspace_width"])) {
+		$col++;
+	}
+	if(!empty($value["layout_rightspace_width"])) {
+		$col++;
+	}
+	return $col ? ' colspan="'.$col.'"' : '';
 }
 
 function colspan_table_row($val, $block, $colspan="", $rowcontent="&nbsp;") {
@@ -278,7 +274,7 @@ function table_attributes($val, $var_part, $top=1, $tr=false) {
 function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
 	//returns the breadcrumb path starting with given start_id
 	$hash = 'breadcrumbdata_'.md5($start_id.$key);
-	
+
 	if(isset($GLOBALS['content'][$hash])) {
 		return $GLOBALS['content'][$hash];
 	}
@@ -299,24 +295,23 @@ function breadcrumb_wrapper($match) {
 	return breadcrumb(
 		$GLOBALS['content']["cat_id"],
 		$GLOBALS['content']["struct"],
-		empty($match[1]) ?  0 : substr($match[1], 1),
+		empty($match[1]) ? 0 : $match[1],
 		$GLOBALS['template_default']["breadcrumb_spacer"]
 	);
 }
 
-function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
+function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
 	//builds the breadcrumb menu based on given values
 	//$link_to = the page on which the breadcrum part links
 	//$root_name = name of the breadcrumb part if empty/false/0 $start_id
 	//$spacer = how should breadcrumb parts be divided
-
 	$start_id 	= intval($start_id);
 	$end_id 	= intval($end_id);
 	$act_id 	= $start_id; //store actual ID for later comparing
 	$breadcrumb = array();
 	$data		= array();
 	$hash		= 'breadcrumb_'.md5($start_id.$end_id.$spacer);
-	
+
 	if(isset($GLOBALS['content'][$hash])) {
 		return $GLOBALS['content'][$hash];
 	}
@@ -335,11 +330,11 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 	$with_article		= (!$GLOBALS['content']['list_mode'] && $GLOBALS['content']["article_list_count"] > 1);
 
 	if(count($data)) {
-		
+
 		foreach($data as $key => $value) {
 
 			if($struct_array[$key]["acat_hidden"] != 1) { // check if the structure should be unvisible when active
-			
+
 				$breadcrumb[$key] = '';
 
 				if ($act_id != $key) {
@@ -356,7 +351,7 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 					$breadcrumb[$key] .= html_specialchars($data[$key]);
 
 				} elseif($with_article) {
-					
+
 					if(!$struct_array[$key]["acat_redirect"]) {
 						$breadcrumb[$key] .= '<a href="index.php?';
 						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
@@ -365,12 +360,12 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
 						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
 					}
-					
+
 					$breadcrumb[$key] .= html_specialchars($data[$key]);
-					
-				
+
+
 				} else {
-				
+
 					if(!$struct_array[$key]["acat_redirect"]) {
 						$breadcrumb[$key] .= '<a href="index.php?';
 						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
@@ -383,41 +378,41 @@ function breadcrumb($start_id, &$struct_array, $end_id, $spacer=' &gt; ') {
 					if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
 						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
 					}
-					
+
 					$breadcrumb[$key] .= html_specialchars($data[$key]);
-					
+
 					if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
 						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
 					}
-				
+
 				}
 
 				$breadcrumb[$key] .= '</a>';
 			}
 		}
-	
+
 	}
-		
+
 	// add current article information
-	if($with_article) {
-		
+	if($with_article && isset($GLOBALS['content']["article_menutitle"])) {
+
 		$breadcrumb['article']  = '<a href="index.php?';
 		$breadcrumb['article'] .= defined('PHPWCMS_ALIAS') ? html_specialchars(PHPWCMS_ALIAS) : 'aid='.$GLOBALS['content']["article_id"];
 		$breadcrumb['article'] .= '" class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
-		
+
 		if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
 			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
 		}
-	
+
 		$breadcrumb['article'] .= html_specialchars($GLOBALS['content']["article_menutitle"]);
-		
+
 		if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
 			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
 		}
-		
+
 		$breadcrumb['article'] .= '</a>';
 	}
-	
+
 	return ($GLOBALS['content'][$hash] = implode($spacer, $breadcrumb));
 }
 
@@ -432,91 +427,95 @@ function get_redirect_link($link='#', $pre='', $after=' ') {
 function get_struct_data($root_name='', $root_info='') {
 	//returns the complete active and public struct data as array
 	//so it is reusable by many menu functions -> lower db access
-	
+
 	// first check pre-rendered structure for current user mode
 	$sysvalue_key	= 'structure_array_vmode_'.get_user_vmode();
 	$data			= _getConfig($sysvalue_key);
-	
+
 	if(is_array($data)) {
-		return $data;	
+		return $data;
 	}
 
 	global $db;
 	global $indexpage;
 	$data = array();
 
-	$data[0] = array(	"acat_id"		=> 0,
-					"acat_name"			=> $indexpage['acat_name'],
-					"acat_info"			=> $indexpage['acat_info'],
-					"acat_struct"		=> 0,
-					"acat_sort"			=> 0,
-					"acat_hidden"		=> intval($indexpage['acat_hidden']),
-					"acat_regonly"		=> intval($indexpage['acat_regonly']),
-					"acat_ssl"			=> intval($indexpage['acat_ssl']),
-					"acat_template"		=> intval($indexpage['acat_template']),
-					"acat_alias"		=> $indexpage['acat_alias'],
-					"acat_topcount"		=> intval($indexpage['acat_topcount']),
-					"acat_maxlist"		=> intval($indexpage['acat_maxlist']),
-					"acat_redirect"		=> $indexpage['acat_redirect'],
-					"acat_order"		=> intval($indexpage['acat_order']),
-					"acat_timeout"		=> $indexpage['acat_timeout'],
-					"acat_nosearch"		=> $indexpage['acat_nosearch'],
-					"acat_nositemap"	=> $indexpage['acat_nositemap'],
-					"acat_permit"		=> !empty($indexpage['acat_permit']) && is_array($indexpage['acat_permit']) ? $indexpage['acat_permit'] : array(),
-					"acat_pagetitle"	=> empty($indexpage['acat_pagetitle']) ? '' : $indexpage['acat_pagetitle'],
-					"acat_paginate"		=> empty($indexpage['acat_paginate']) ? 0 : 1,
-					"acat_overwrite"	=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'],
-					"acat_archive"		=> empty($indexpage['acat_archive']) ? 0 : 1,
-					"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
-					"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
-					"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1
-				);
+	$data[0] = array(
+		"acat_id"		=> 0,
+		"acat_name"			=> $indexpage['acat_name'],
+		"acat_info"			=> $indexpage['acat_info'],
+		"acat_struct"		=> 0,
+		"acat_sort"			=> 0,
+		"acat_hidden"		=> intval($indexpage['acat_hidden']),
+		"acat_regonly"		=> intval($indexpage['acat_regonly']),
+		"acat_ssl"			=> intval($indexpage['acat_ssl']),
+		"acat_template"		=> intval($indexpage['acat_template']),
+		"acat_alias"		=> $indexpage['acat_alias'],
+		"acat_topcount"		=> intval($indexpage['acat_topcount']),
+		"acat_maxlist"		=> intval($indexpage['acat_maxlist']),
+		"acat_redirect"		=> $indexpage['acat_redirect'],
+		"acat_order"		=> intval($indexpage['acat_order']),
+		"acat_timeout"		=> $indexpage['acat_timeout'],
+		"acat_nosearch"		=> $indexpage['acat_nosearch'],
+		"acat_nositemap"	=> $indexpage['acat_nositemap'],
+		"acat_permit"		=> !empty($indexpage['acat_permit']) && is_array($indexpage['acat_permit']) ? $indexpage['acat_permit'] : array(),
+		"acat_pagetitle"	=> empty($indexpage['acat_pagetitle']) ? '' : $indexpage['acat_pagetitle'],
+		"acat_paginate"		=> empty($indexpage['acat_paginate']) ? 0 : 1,
+		"acat_overwrite"	=> empty($indexpage['acat_overwrite']) ? '' : $indexpage['acat_overwrite'],
+		"acat_archive"		=> empty($indexpage['acat_archive']) ? 0 : 1,
+		"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
+		"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
+		"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1,
+		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1
+	);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	if(VISIBLE_MODE != 2) {
 		// for 0 AND 1
-		$sql .= "acat_aktiv=1 AND acat_public=1 AND ";
+		$sql .= "acat_aktiv=1 AND ";
 	}
 	$sql .= "acat_trash=0 ORDER BY acat_struct, acat_sort";
 
 	if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
-			$data[$row["acat_id"]] = array(	"acat_id"		=> $row["acat_id"],
-										"acat_name"			=> $row["acat_name"],
-										"acat_info"			=> $row["acat_info"],
-										"acat_struct"		=> $row["acat_struct"],
-										"acat_sort"			=> $row["acat_sort"],
-										"acat_hidden"		=> $row["acat_hidden"],
-										"acat_regonly"		=> $row["acat_regonly"],
-										"acat_ssl"			=> $row["acat_ssl"],
-										"acat_template"		=> $row["acat_template"],
-										"acat_alias"		=> $row["acat_alias"],
-										"acat_topcount"		=> $row["acat_topcount"],
-										"acat_maxlist"		=> $row["acat_maxlist"],
-										"acat_redirect"		=> $row["acat_redirect"],
-										"acat_order"		=> $row["acat_order"],
-										"acat_timeout"		=> $row["acat_cache"],
-										"acat_nosearch"		=> $row["acat_nosearch"],
-										"acat_nositemap"	=> $row["acat_nositemap"],
-										"acat_permit"		=> empty($row["acat_permit"]) ? array() : explode(',', $row["acat_permit"]),
-										"acat_pagetitle"	=> $row["acat_pagetitle"],
-										"acat_paginate"		=> $row["acat_paginate"],
-										"acat_overwrite"	=> $row["acat_overwrite"],
-										"acat_archive"		=> $row["acat_archive"],
-										"acat_class"		=> $row["acat_class"],
-										"acat_keywords"		=> $row["acat_keywords"],
-										"acat_disable301"	=> $row["acat_disable301"]
-									  );
+			$data[$row["acat_id"]] = array(
+				"acat_id"		=> $row["acat_id"],
+				"acat_name"			=> $row["acat_name"],
+				"acat_info"			=> $row["acat_info"],
+				"acat_struct"		=> $row["acat_struct"],
+				"acat_sort"			=> $row["acat_sort"],
+				"acat_hidden"		=> $row["acat_hidden"],
+				"acat_regonly"		=> $row["acat_regonly"],
+				"acat_ssl"			=> $row["acat_ssl"],
+				"acat_template"		=> $row["acat_template"],
+				"acat_alias"		=> $row["acat_alias"],
+				"acat_topcount"		=> $row["acat_topcount"],
+				"acat_maxlist"		=> $row["acat_maxlist"],
+				"acat_redirect"		=> $row["acat_redirect"],
+				"acat_order"		=> $row["acat_order"],
+				"acat_timeout"		=> $row["acat_cache"],
+				"acat_nosearch"		=> $row["acat_nosearch"],
+				"acat_nositemap"	=> $row["acat_nositemap"],
+				"acat_permit"		=> empty($row["acat_permit"]) ? array() : explode(',', $row["acat_permit"]),
+				"acat_pagetitle"	=> $row["acat_pagetitle"],
+				"acat_paginate"		=> $row["acat_paginate"],
+				"acat_overwrite"	=> $row["acat_overwrite"],
+				"acat_archive"		=> $row["acat_archive"],
+				"acat_class"		=> $row["acat_class"],
+				"acat_keywords"		=> $row["acat_keywords"],
+				"acat_disable301"	=> $row["acat_disable301"],
+				"acat_opengraph"	=> $row["acat_opengraph"]
+			);
 		}
 		mysql_free_result($result);
 	}
-	
+
 	// set max_allowed_package to bigger value
 	_dbSetVar('max_allowed_packet', 16*1024*1024, '<');
 
 	// store pre-rendered serialized array in database
 	_setConfig($sysvalue_key, $data, 'frontend_render', 1);
-	
+
 	return $data;
 }
 
@@ -543,21 +542,22 @@ function get_actcat_articles_data($act_cat_id) {
 	$sql .= "WHERE article_cid=".$act_cat_id;
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .= " AND article_public=1 AND article_aktiv=1";
+		case 0: $sql .= " AND article_aktiv=1";
 				break;
-		case 1: $sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
+		case 1: $sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= ' AND article_deleted=0 AND article_begin < NOW() ';
-	
-	if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
-		$sql .= 'AND article_end > NOW() ';
-	} else {
-		$sql .= 'AND IF( article_archive_status=1 , 1 , article_end > NOW() ) ';	
+	$sql .= ' AND article_deleted=0';
+	if(!PREVIEW_MODE) {
+		$sql .= ' AND article_begin < NOW() ';
+		if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
+			$sql .= ' AND article_end > NOW()';
+		} else {
+			$sql .= ' AND IF(article_archive_status=1, 1 , article_end > NOW())';
+		}
 	}
-	
-	$sql .= "ORDER BY ".$ao[2];
+	$sql .= ' ORDER BY '.$ao[2];
 
 	if(empty($as['acat_paginate']) && $as['acat_maxlist'] && $as['acat_topcount'] >= $as['acat_maxlist']) {
 		$sql .= ' LIMIT '.$as['acat_maxlist'];
@@ -566,49 +566,52 @@ function get_actcat_articles_data($act_cat_id) {
 	if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
 			$data[$row["article_id"]] = array(
-									"article_id"		=> $row["article_id"],
-									"article_cid"		=> $row["article_cid"],
-									"article_title"		=> $row["article_title"],
-									"article_subtitle"	=> $row["article_subtitle"],
-									"article_menutitle"	=> $row["article_menutitle"],
-									"article_keyword"	=> $row["article_keyword"],
-									"article_summary"	=> $row["article_summary"],
-									"article_redirect"	=> $row["article_redirect"],
-									"article_date"		=> $row["article_date"],
-									"article_username"	=> $row["article_username"],
-									"article_sort"		=> $row["article_sort"],
-									"article_notitle"	=> $row["article_notitle"],
-									"article_created"	=> $row["article_created"],
-									"article_image"		=> @unserialize($row["article_image"]),
-									"article_timeout"	=> $row["article_cache"],
-									"article_nosearch"	=> $row["article_nosearch"],
-									"article_nositemap"	=> $row["article_nositemap"],
-									"article_aliasid"	=> $row["article_aliasid"],
-									"article_headerdata"=> $row["article_headerdata"],
-									"article_morelink"	=> $row["article_morelink"],
-									"article_begin"		=> $row["article_begin"],
-									"article_end"		=> $row["article_end"],
-									"article_alias"		=> $row["article_alias"],
-									'article_livedate'	=> $row["article_livedate"],
-									'article_killdate'	=> $row["article_killdate"],
-									'article_uid'		=> $row["article_uid"]
-											);
+				"article_id"			=> $row["article_id"],
+				"article_cid"			=> $row["article_cid"],
+				"article_title"			=> $row["article_title"],
+				"article_subtitle"		=> $row["article_subtitle"],
+				"article_menutitle"		=> $row["article_menutitle"],
+				"article_keyword"		=> $row["article_keyword"],
+				"article_summary"		=> $row["article_summary"],
+				"article_redirect"		=> $row["article_redirect"],
+				"article_date"			=> $row["article_date"],
+				"article_username"		=> $row["article_username"],
+				"article_sort"			=> $row["article_sort"],
+				"article_notitle"		=> $row["article_notitle"],
+				"article_created"		=> $row["article_created"],
+				"article_image"			=> @unserialize($row["article_image"]),
+				"article_timeout"		=> $row["article_cache"],
+				"article_nosearch"		=> $row["article_nosearch"],
+				"article_nositemap"		=> $row["article_nositemap"],
+				"article_aliasid"		=> $row["article_aliasid"],
+				"article_headerdata"	=> $row["article_headerdata"],
+				"article_morelink"		=> $row["article_morelink"],
+				"article_begin"			=> $row["article_begin"],
+				"article_end"			=> $row["article_end"],
+				"article_alias"			=> $row["article_alias"],
+				'article_livedate'		=> $row["article_livedate"],
+				'article_killdate'		=> $row["article_killdate"],
+				'article_uid'			=> $row["article_uid"],
+				'article_description'	=> $row["article_description"]
+			);
 			// now check for article alias ID
 			if($row["article_aliasid"]) {
 				$aid = $row["article_id"];
 				$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
 				$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
-				$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate "; 
+				$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
 				$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
 				$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
 				if(!$row["article_headerdata"]) {
 					switch(VISIBLE_MODE) {
-						case 0: $alias_sql .= " AND article_public=1 AND article_aktiv=1";
+						case 0: $alias_sql .= " AND article_aktiv=1";
 								break;
-						case 1: $alias_sql .= " AND ((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].')';
+						case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
 								break;
 					}
-					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+					if(!PREVIEW_MODE) {
+						$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+					}
 				}
 				$alias_sql .= " AND article_deleted=0 LIMIT 1";
 				if($alias_result = mysql_query($alias_sql, $db)) {
@@ -630,6 +633,7 @@ function get_actcat_articles_data($act_cat_id) {
 							$data[$aid]['article_livedate']		= $alias_row["article_livedate"];
 							$data[$aid]['article_killdate']		= $alias_row["article_killdate"];
 							$data[$aid]['article_menutitle']	= $alias_row["article_menutitle"];
+							$data[$aid]['article_description']	= $alias_row["article_description"];
 						}
 					}
 					mysql_free_result($alias_result);
@@ -659,231 +663,6 @@ function setArticleSummaryImageData($img) {
 		$img['list_height']		= empty($img['list_height']) ? $img['height'] : $img['list_height'];
 	}
 	return $img;
-}
-
-//menu creating
-function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
-	//returns a simple table based navigation menu of possible
-	//structure levels based on current structure level
-	$nav_table  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" summary=\"\">\n<tr>\n";
-	$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
-	$nav_table .= '<td width="100%"'.(empty($struct[$act_cat_id]["acat_class"]) ? '' : ' class="'.$struct[$act_cat_id]["acat_class"].'"').'><strong>';
-	$nav_table .= html_specialchars($struct[$act_cat_id]["acat_name"]);
-	$nav_table .= "</strong></td>\n<tr>";
-	foreach($struct as $key => $value) {
-
-		if($key != $act_cat_id && _getStructureLevelDisplayStatus($key, $act_cat_id) ) {
-			
-			$nav_table .= "<tr>\n";
-			$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
-			$nav_table .= '<td width="100%"'.(empty($struct[$key]["acat_class"]) ? '' : ' class="'.$struct[$key]["acat_class"].'"').'>';
-
-			if(!$struct[$key]["acat_redirect"]) {
-				$nav_table .= '<a href="index.php?';
-				if($struct[$key]["acat_alias"]) {
-					$nav_table .= html_specialchars($struct[$key]["acat_alias"]);
-				} else {
-					$nav_table .= 'id='.$key; //',0,0,1,0,0';
-				}
-				$nav_table .= '">';
-			} else {
-				$redirect = get_redirect_link($struct[$key]["acat_redirect"], ' ', '');
-				$nav_table .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
-			}
-
-			$nav_table .= html_specialchars($struct[$key]["acat_name"])."</a></td>\n<tr>";
-		}
-	}
-	$nav_table .= '</table>';
-	return $nav_table;
-}
-
-function nav_level_row($show_id, $show_home=1) {
-	//returns a simple row based navigation
-
-	if(strtoupper($show_id) == 'CURRENT') {
-		$act_cat_id = $GLOBALS['content']["cat_id"];
-	} else {
-		$act_cat_id = intval($show_id);
-	}
-
-	$nav = '';
-
-	if($show_home && $GLOBALS['content']['struct'][$act_cat_id]['acat_hidden'] != 1) {
-		if($GLOBALS['content']["cat_id"] == $act_cat_id) {
-			$before = $GLOBALS['template_default']["nav_row"]["link_before_active"];
-			$after  = $GLOBALS['template_default']["nav_row"]["link_after_active"];
-			$direct_before	= $GLOBALS['template_default']["nav_row"]["link_direct_before_active"];
-			$direct_after	= $GLOBALS['template_default']["nav_row"]["link_direct_after_active"];
-		} else {
-			$before = $GLOBALS['template_default']["nav_row"]["link_before"];
-			$after  = $GLOBALS['template_default']["nav_row"]["link_after"];
-			$direct_before	= $GLOBALS['template_default']["nav_row"]["link_direct_before"];
-			$direct_after	= $GLOBALS['template_default']["nav_row"]["link_direct_after"];
-		}
-		$nav .= $before;
-		$nav .= '<a href="index.php?';
-		$nav .= ($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) ? html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_alias']) : 'id='.$act_cat_id; //',0,0,1,0,0';
-		$nav .= '"'.(empty($GLOBALS['content']['struct'][$act_cat_id]["acat_class"]) ? '' : ' class="'.$GLOBALS['content']['struct'][$act_cat_id]["acat_class"].'"').'>'.$direct_before;
-		$nav .= html_specialchars($GLOBALS['content']['struct'][$act_cat_id]['acat_name']);
-		$nav .= $direct_after.'</a>'.$after;
-	}
-
-	// check against breadcrumb - active site tree
-	if($GLOBALS['content']['struct'][$GLOBALS['content']["cat_id"]]['acat_struct'] != 0) {
-		$breadcrumb = get_breadcrumb($GLOBALS['content']["cat_id"], $GLOBALS['content']['struct']);
-	}
-
-	foreach($GLOBALS['content']['struct'] as $key => $value) {
-	
-		if($key != $act_cat_id && _getStructureLevelDisplayStatus($key, $act_cat_id) ) {
-			
-			$class = empty($GLOBALS['content']['struct'][$key]["acat_class"]) ? '' : ' class="'.$GLOBALS['content']['struct'][$key]["acat_class"].'"';
-
-			if($nav) {
-				$nav .= $GLOBALS['template_default']["nav_row"]["between"];
-			}
-
-			if($GLOBALS['content']["cat_id"] == $key || isset($breadcrumb[$key])) {
-				$before = $GLOBALS['template_default']["nav_row"]["link_before_active"];
-				$after  = $GLOBALS['template_default']["nav_row"]["link_after_active"];
-				$direct_before	= $GLOBALS['template_default']["nav_row"]["link_direct_before_active"];
-				$direct_after	= $GLOBALS['template_default']["nav_row"]["link_direct_after_active"];
-			} else {
-				$before = $GLOBALS['template_default']["nav_row"]["link_before"];
-				$after  = $GLOBALS['template_default']["nav_row"]["link_after"];
-				$direct_before	= $GLOBALS['template_default']["nav_row"]["link_direct_before"];
-				$direct_after	= $GLOBALS['template_default']["nav_row"]["link_direct_after"];
-			}
-
-			$nav .= $before;
-
-			if(!$GLOBALS['content']['struct'][$key]["acat_redirect"]) {
-				$nav .= '<a href="index.php?';
-				if($GLOBALS['content']['struct'][$key]["acat_alias"]) {
-					$nav .= html_specialchars($GLOBALS['content']['struct'][$key]["acat_alias"]);
-				} else {
-					$nav .= 'id='.$key; //',0,0,1,0,0';
-				}
-				$nav .= '"'.$class.'>';
-			} else {
-				$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
-				$nav .= '<a href="'.$redirect['link'].'"'.$redirect['target'].$class.'>';
-			}
-			$nav .= $direct_before;
-			$nav .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);;
-			$nav .= $direct_after.'</a>'.$after;
-		}
-	}
-	if($nav) {
-		$nav  = $GLOBALS['template_default']["nav_row"]["before"].$nav;
-		$nav .= $GLOBALS['template_default']["nav_row"]["after"];
-	}
-	return $nav;
-}
-
-function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $link_to="index.php") {
-	// start with home directory for the listing = top nav structure
-	// 1. Build the recursive tree for given actual article category ID
-
-	// return the tree starting with given start_id (like breadcrumb)
-	// if the $start_id = 0 then this stops because 0 = top level
-
-	$level 			= intval($level);
-	$start_id 		= $act_cat_id;
-	$data 			= array();
-	$c 				= 0;
-	$total_levels 	= 0;
-	$level_depth 	= 0;
-	//$start_level 	= $level;
-	while ($start_id) {
-		$data[$start_id]	= 1;
-		$start_id			= $struct[$start_id]["acat_struct"];
-		$total_levels++;
-	}
-
-	if(is_array($data) && count($data)) {
-		$temp_tree = array_reverse($data, 1);
-	} else {
-		$temp_tree = false;
-	}
-
-	foreach($struct as $key => $value) {
-		if($struct[$key]["acat_struct"] == $act_cat_id && $key && (!$struct[$key]["acat_hidden"] || isset($GLOBALS['LEVEL_KEY'][$key]))) {
-			$c++;
-		}
-	}
-	$c = (!$c) ? 1 : 0;
-
-	//build image src path and real image tag
-	$nav_table_struct["linkimage_over_js"]  = get_real_imgsrc($nav_table_struct["linkimage_over"]);
-
-	$nav_table_struct["linkimage_norm"]		= add_linkid($nav_table_struct["linkimage_norm"],   '#');
-	$nav_table_struct["linkimage_over"]		= add_linkid($nav_table_struct["linkimage_over"],   '#');
-	$nav_table_struct["linkimage_active"]	= add_linkid($nav_table_struct["linkimage_active"], '#');
-
-	$lc = count($temp_tree);
-	$ld = false;
-	for($l = 0; $l <= $lc; $l++) {
-
-		if(isset($GLOBALS['LEVEL_ID'][$l])) {
-
-			$curStructID = $GLOBALS['LEVEL_ID'][$l];
-			// now all deeper levels can be deleted
-			if($ld) {
-				unset($temp_tree[$curStructID]);
-			}
-
-			if(!isset($nav_table_struct['array_struct'][$l])) {
-
-				$nav_table_struct['array_struct'][$l]["linkimage_over_js"]	= $nav_table_struct["linkimage_over_js"];
-				$nav_table_struct['array_struct'][$l]["linkimage_norm"]		= $nav_table_struct["linkimage_norm"];
-				$nav_table_struct['array_struct'][$l]["linkimage_over"]		= $nav_table_struct["linkimage_over"];
-				$nav_table_struct['array_struct'][$l]["linkimage_active"]	= $nav_table_struct["linkimage_active"];
-
-				$nav_table_struct['array_struct'][$l]["link_before"]		= $nav_table_struct["link_before"];
-				$nav_table_struct['array_struct'][$l]["link_after"]			= $nav_table_struct["link_after"];
-				$nav_table_struct['array_struct'][$l]["link_active_before"]	= $nav_table_struct["link_active_before"];
-				$nav_table_struct['array_struct'][$l]["link_active_after"]	= $nav_table_struct["link_active_after"];
-
-				$nav_table_struct['array_struct'][$l]["row_norm_bgcolor"]	= $nav_table_struct["row_norm_bgcolor"];
-				$nav_table_struct['array_struct'][$l]["row_norm_class"]		= $nav_table_struct["row_norm_class"];
-				$nav_table_struct['array_struct'][$l]["row_over_bgcolor"]	= $nav_table_struct["row_over_bgcolor"];
-				$nav_table_struct['array_struct'][$l]["row_active_bgcolor"]	= $nav_table_struct["row_active_bgcolor"];
-				$nav_table_struct['array_struct'][$l]["row_active_class"]	= $nav_table_struct["row_active_class"];
-
-				$nav_table_struct['array_struct'][$l]["space_celltop"]		= $nav_table_struct["space_celltop"];
-				$nav_table_struct['array_struct'][$l]["space_cellbottom"]	= $nav_table_struct["space_cellbottom"];
-
-				$nav_table_struct['array_struct'][$l]["cell_height"]		= $nav_table_struct["cell_height"];
-				$nav_table_struct['array_struct'][$l]["cell_class"]			= $nav_table_struct["cell_class"];
-				$nav_table_struct['array_struct'][$l]["cell_active_height"]	= $nav_table_struct["cell_active_height"];
-				$nav_table_struct['array_struct'][$l]["cell_active_class"]	= $nav_table_struct["cell_active_class"];
-
-			} else {
-
-				$nav_table_struct['array_struct'][$l]["linkimage_over_js"]	= get_real_imgsrc($nav_table_struct['array_struct'][$l]["linkimage_over"]);
-				$nav_table_struct['array_struct'][$l]["linkimage_norm"]		= add_linkid($nav_table_struct['array_struct'][$l]["linkimage_norm"],   '#');
-				$nav_table_struct['array_struct'][$l]["linkimage_over"]		= add_linkid($nav_table_struct['array_struct'][$l]["linkimage_over"],   '#');
-				$nav_table_struct['array_struct'][$l]["linkimage_active"]	= add_linkid($nav_table_struct['array_struct'][$l]["linkimage_active"], '#');
-
-			}
-
-			if($struct[$curStructID]['acat_hidden'] == 1) {
-				unset($temp_tree[$curStructID]);
-				$ld = true;
-			}
-
-		}
-
-	}
-
-	$temp_menu = build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $level_depth, $c, $link_to); //starts at root level
-	if($temp_menu) {
-		initFrontendJS();
-		return "<table".table_attributes($nav_table_struct, "table", 0)." summary=\"\">\n".$temp_menu."</table>";
-	}
-	return '';
 }
 
 function get_real_imgsrc($img='') {
@@ -965,7 +744,7 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 	foreach($struct as $key => $value) {
 
 		if( _getStructureLevelDisplayStatus($key, $level) ) {
-			
+
 			$link_image_id	= "linkid".generic_string(6);
 			$link_name_id 	= ' name="'.$link_image_id.'" id="'.$link_image_id.'"';
 
@@ -1005,7 +784,7 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 			} else {
 				$js = '';
 			}
-			
+
 			// add structure level based classes
 			if(!empty($struct[$key]["acat_class"])) {
 				$nav_table_struct_temp = $nav_table_struct;
@@ -1057,7 +836,7 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
 				$temp_menu .= $nav_table_struct["link_after"].'</a>';
 				$temp_menu .= $cell_bottom."</td>\n".$right_cell."</tr>\n";
 			}
-			
+
 			// reset table structure attributes
 			if($nav_table_struct_temp !== NULL) {
 				$nav_table_struct = $nav_table_struct_temp;
@@ -1158,9 +937,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 		$GLOBALS['paginate_temp'] = array('next' => '', 'prev' => '', 'navi' => '');
 
-		$paginate_navi = preg_replace_callback('/\{NEXT:(.*?)\}/', create_function('$matches', '$GLOBALS["paginate_temp"]["next"]=$matches[1]; return "{NEXT}";'), $paginate_navi);
-		$paginate_navi = preg_replace_callback('/\{PREV:(.*?)\}/', create_function('$matches', '$GLOBALS["paginate_temp"]["prev"]=$matches[1]; return "{PREV}";'), $paginate_navi);
-		$paginate_navi = preg_replace_callback('/\{NAVI:(.*?)\}/', create_function('$matches', '$GLOBALS["paginate_temp"]["navi"]=$matches[1]; return "{NAVI}";'), $paginate_navi);
+		$paginate_navi = preg_replace_callback('/\{NEXT:(.*?)\}/', 'get_PaginateNext', $paginate_navi);
+		$paginate_navi = preg_replace_callback('/\{PREV:(.*?)\}/', 'get_PaginatePrevious', $paginate_navi);
+		$paginate_navi = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_PaginateNavigate', $paginate_navi);
 
 		// next page link
 		if($GLOBALS['paginate_temp']['next'] && $page_current < $max_pages) {
@@ -1278,7 +1057,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			// show the complete article summary listing
 
 			$article["article_image"] = setArticleSummaryImageData($article["article_image"]);
-			
+
 			if($template) {
 				$article["article_image"]['tmpllist'] = $template;
 			}
@@ -1287,20 +1066,20 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			$article["article_image"]["poplink"]	= '';
 			$thumb_image 							= false;
 			$thumb_img 								= '';
-			
+
 			$img_thumb_name		= '';
 			$img_thumb_rel		= '';
 			$img_thumb_abs		= '';
 			$img_thumb_width	= 0;
 			$img_thumb_height	= 0;
 			$img_thumb_ext		= 'jpg';
-			
+
 			$img_zoom_name		= '';
 			$img_zoom_rel		= '';
 			$img_zoom_abs		= '';
 			$img_zoom_width		= 0;
 			$img_zoom_height	= 0;
-			
+
 			if(empty($article["article_image"]["list_caption"])) {
 				$article["article_image"]["list_caption"] = '';
 			}
@@ -1310,19 +1089,19 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			$article["article_image"]["copyright"]		= $caption[4]; // copyright information
 			$article["article_image"]["list_alt"]		= $caption[1]; // alt text
 			$article["article_image"]["list_title"]		= $caption[3]; // title text
-			
+
 			if(!empty($article["article_image"]["list_hash"])) {
 
-				$thumb_image = get_cached_image(
-									array(	"target_ext"	=>	$article["article_image"]['list_ext'],
-											"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
-											"max_width"		=>	$article["article_image"]['list_width'],
-											"max_height"	=>	$article["article_image"]['list_height'],
-											"thumb_name"	=>	md5($article["article_image"]['list_hash'].$article["article_image"]['list_width'].$article["article_image"]['list_height'].$GLOBALS['phpwcms']["sharpen_level"])
-        							  ));
+				$thumb_image = get_cached_image(array(
+					"target_ext"	=>	$article["article_image"]['list_ext'],
+					"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
+					"max_width"		=>	$article["article_image"]['list_width'],
+					"max_height"	=>	$article["article_image"]['list_height'],
+					"thumb_name"	=>	md5($article["article_image"]['list_hash'].$article["article_image"]['list_width'].$article["article_image"]['list_height'].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+				));
 
 				if($thumb_image != false) {
-				
+
 					$img_thumb_name		= $thumb_image[0];
 					$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];
 					$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
@@ -1337,17 +1116,16 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 					if($article["article_image"]["list_zoom"]) {
 
-						$zoominfo = get_cached_image(
-											array(	"target_ext"	=>	$article["article_image"]['list_ext'],
-													"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
-													"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-													"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-													"thumb_name"	=>	md5($article["article_image"]['list_hash'].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"])
-        					  						)
-												);
+						$zoominfo = get_cached_image(array(
+							"target_ext"	=>	$article["article_image"]['list_ext'],
+							"image_name"	=>	$article["article_image"]['list_hash'] . '.' . $article["article_image"]['list_ext'],
+							"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
+							"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
+							"thumb_name"	=>	md5($article["article_image"]['list_hash'].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+        				));
 
 						if($zoominfo != false) {
-						
+
 							$img_zoom_name		= $zoominfo[0];
 							$img_zoom_rel		= PHPWCMS_IMAGES.$zoominfo[0];
 							$img_zoom_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
@@ -1365,9 +1143,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 							}
 
 							if(empty($article["article_image"]["list_lightbox"]) && !empty($caption[2][0])) {
-								
+
 								initFrontendJS();
-								
+
 								$article["article_image"]["poplink"]  = '<a href="'.$article["article_image"]["poplink"].'" ';
 								$article["article_image"]["poplink"] .= 'onclick="checkClickZoom();clickZoom(\''.$open_link;
 								$article["article_image"]["poplink"] .= "','previewpic','width=".$zoominfo[1];
@@ -1376,14 +1154,14 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 							} else {
 								// lightbox
 								initSlimbox();
-								
+
 								$article["article_image"]["poplink"]  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox" ';
 								if($article["article_image"]["list_caption"]) {
 									$article["article_image"]["poplink"] .= 'title="'.parseLightboxCaption($article["article_image"]["list_caption"]).'" ';
 								}
 								$article["article_image"]["poplink"] .= 'class="'.$GLOBALS['template_default']['classes']['image-lightbox'].'">';
 							}
-																   
+
 							$article["article_image"]["poplink"] .= $thumb_img.'</a>';
 						}
 					}
@@ -1391,12 +1169,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					unset($caption);
 				}
 			} else {
-			
+
 				$article["article_image"]["list_id"]	= 0;
 				$article["article_image"]["list_hash"]	= '';
-	
-			}
 
+			}
 
 			// set default template
 			if(empty($article["article_image"]['tmpllist']) || $article["article_image"]['tmpllist'] == 'default') {
@@ -1417,36 +1194,62 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpllist[ $article["article_image"]['tmpllist'] ] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$article["article_image"]['tmpllist']);
 			}
 			if($tmpllist[ $article["article_image"]['tmpllist'] ]) {
-			
+
 				// set frontend edit link
 				if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $article["article_uid"])) {
 					$tmpl = getFrontendEditLink('summary', $article['article_id']);
 				} else {
 					$tmpl = '';
 				}
-			
+
 				//rendering
 				$tmpl .= $tmpllist[ $article["article_image"]['tmpllist'] ];
-				
+
 				$tmpl = render_cnt_template($tmpl, 'TITLE', empty($article['article_notitle']) ? html_specialchars($article["article_title"]) : '' );
 				$tmpl = render_cnt_template($tmpl, 'SUB', html_specialchars($article["article_subtitle"]));
-				
+
 				// replace thumbnail and zoom image information
-				$tmpl = str_replace( array(	'{THUMB_NAME}', '{THUMB_REL}', '{THUMB_ABS}', '{THUMB_WIDTH}', '{THUMB_HEIGHT}',
-											'{IMAGE_NAME}', '{IMAGE_REL}', '{IMAGE_ABS}', '{IMAGE_WIDTH}', '{IMAGE_HEIGHT}',
-											'{IMAGE_ID}', 	'{IMAGE_HASH}', '{IMAGE_EXT}' ),
-									 array(	$img_thumb_name, $img_thumb_rel, $img_thumb_abs, $img_thumb_width, $img_thumb_height,
-											$img_zoom_name, $img_zoom_rel, $img_zoom_abs, $img_zoom_width, $img_zoom_height,
-											$article["article_image"]["list_id"], $article["article_image"]["list_hash"], $img_thumb_ext ),
-									 $tmpl );
-				
+				$tmpl = str_replace(
+					array(
+						'{THUMB_NAME}',
+						'{THUMB_REL}',
+						'{THUMB_ABS}',
+						'{THUMB_WIDTH}',
+						'{THUMB_HEIGHT}',
+						'{IMAGE_NAME}',
+						'{IMAGE_REL}',
+						'{IMAGE_ABS}',
+						'{IMAGE_WIDTH}',
+						'{IMAGE_HEIGHT}',
+						'{IMAGE_ID}',
+						'{IMAGE_HASH}',
+						'{IMAGE_EXT}'
+					),
+					array(
+						$img_thumb_name,
+						$img_thumb_rel,
+						$img_thumb_abs,
+						$img_thumb_width,
+						$img_thumb_height,
+						$img_zoom_name,
+						$img_zoom_rel,
+						$img_zoom_abs,
+						$img_zoom_width,
+						$img_zoom_height,
+						$article["article_image"]["list_id"],
+						$article["article_image"]["list_hash"],
+						$img_thumb_ext
+					),
+					$tmpl
+				);
+
 				if( preg_match('/\{SUMMARY:(\d+)\}/', $tmpl, $matches) ) {
 					if(empty($article['article_image']['list_maxwords'])) {
 						$article['article_image']['list_maxwords'] = intval($matches[1]);
-					}					
+					}
 					$tmpl = preg_replace('/\{SUMMARY:\d+\}/', '{SUMMARY}', $tmpl);
 				}
-				
+
 				if(strpos($article["article_summary"], '-//-')) {
 					$article["article_summary"] = explode('-//-', $article["article_summary"]);
 					$article['article_image']['list_maxwords_temp'] = count(preg_split("/[\s,]+/", $article["article_summary"][0], -1, PREG_SPLIT_NO_EMPTY));
@@ -1457,8 +1260,30 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 						$article["article_summary"] = implode(' ', $article["article_summary"]);
 					}
 				}
-				
-				$tmpl = render_cnt_template($tmpl, 'SUMMARY', empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString($article["article_summary"], $article['article_image']['list_maxwords'], $template_default['ellipse_sign'], 'word', true));
+				$tmpl = render_cnt_template(
+					$tmpl,
+					'SUMMARY',
+					empty($article['article_image']['list_maxwords']) ? $article["article_summary"] : getCleanSubString(
+						$article["article_summary"],
+						abs($article['article_image']['list_maxwords']),
+						$template_default['ellipse_sign'], $article['article_image']['list_maxwords'] < 0 ? 'char' : 'word', true
+					)
+				);
+
+				// Render SYSTEM
+				if(strpos($tmpl, '[SYSTEM]') !== false) {
+					// Search for all system related content parts
+					$sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
+					$sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (1, 3) "; // 1 = article list, 3 = article detail OR list
+					if(!FEUSER_LOGIN_STATUS) {
+						$sql_cnt .= 'AND acontent_granted=0 ';
+					}
+					$sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
+					$tmpl = render_cnt_template($tmpl, 'SYSTEM', showSelectedContent('CPC', $sql_cnt, true));
+				} else {
+					$tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
+				}
+
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
@@ -1473,12 +1298,10 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'BEFORE', '<!--before//-->');
 				$tmpl = render_cnt_template($tmpl, 'AFTER', '<!--after//-->');
 				$tmpl = render_cnt_date($tmpl, $article["article_date"], $article["article_livedate"], $article["article_killdate"] );
-				if($space_counter) {
-					$tmpl = render_cnt_template($tmpl, 'SPACE', '<!--space//-->');
-				} else {
-					$tmpl = render_cnt_template($tmpl, 'SPACE', '');
-				}
+				$tmpl = render_cnt_template($tmpl, 'SPACE', $space_counter ? '<!--space//-->' : '');
+
 				$listing .= $tmpl;
+
 				$article["article_image"]['tmpllist'] = 1;
 			} else {
 				$article["article_image"]['tmpllist'] = 0;
@@ -1492,15 +1315,15 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 			} elseif ($temp_counter) {
 				$listing .= $template_default["space_between_list"];
 			}
-			
+
 			$listing .= $template_default["list_headline_before"];
-			
+
 			// set frontend edit link
 			if(FE_EDIT_LINK && ($_SESSION["wcs_user_admin"] || $_SESSION["wcs_user_id"] == $article["article_uid"])) {
 				$listing .= getFrontendEditLink('article', $article['article_id']);
 				$listing .= getFrontendEditLink('summary', $article['article_id']);
 			}
-			
+
 			$listing .= '<a href="'.$article_link.'" class="'.$GLOBALS['template_default']['classes']['link-article-listing'].'">';
 			$listing .= $template_default["list_startimage"];
 			$listing .= html_specialchars($article["article_title"]);
@@ -1559,66 +1382,66 @@ function get_class_attrib($class) {
 function html_parser($string) {
 	// parse the $string and replace all possible
 	// values with $replace
-	
+
 	if(trim($string) == '') {
-		return $string;	
+		return $string;
 	}
-	
+
 	$string = render_bbcode_basics($string, '');
-	
-	$search			= array();
-	$replace		= array();
+
+	$search		= array();
+	$replace	= array();
 
 	// page TOP link
-	$search[0]		= '/\[TOP\](.*?)\[\/TOP\]/is';
-	$replace[0]		= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
-
-	// internal Link to article ID
-	$search[1]		= '/\[ID (\d+)\](.*?)\[\/ID\]/s';
-	$replace[1]		= '<a href="index.php?aid=$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
+	if(strpos($string, '[TOP]') !== false) {
+		$search[0]	= '/\[TOP\](.*?)\[\/TOP\]/s';
+		$replace[0]	= '<a href="'.rel_url().'#top" class="'.$GLOBALS['template_default']['classes']['link-top'].'">$1</a>';
+	}
 
 	// external Link (string)
-	$search[2]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
-	$replace[2]		= '<a href="$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
+	$search[1]		= '/\[EXT (.*?)\](.*?)\[\/EXT\]/s';
+	$replace[1]		= '<a href="$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-external'].'">$2</a>';
 
 	// internal Link (string)
-	$search[3]		= '/\[INT (.*?)\](.*?)\[\/INT\]/s';
-	$replace[3]		= '<a href="$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
+	$search[2]		= '/\[INT (.*?)\](.*?)\[\/INT\]/s';
+	$replace[2]		= '<a href="$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
 
 	// insert non db image right
-	$search[4]	 	= '/\{SPACER:(\d+)x(\d+)\}/';
-	$replace[4] 	= '<span class="'.$GLOBALS['template_default']['classes']['spaceholder'].'" style="width:$1px;height:$2px;display:inline-block;"></span>';
+	$search[3]	 	= '/\{SPACER:(\d+)x(\d+)\}/';
+	$replace[3] 	= '<span class="'.$GLOBALS['template_default']['classes']['spaceholder'].'" style="width:$1px;height:$2px;display:inline-block;"></span>';
 
-	// RSS feed link 
-	$search[5]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
-	$replace[5]		= '<a href="feeds.php?feed=$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
+	// RSS feed link
+	$search[4]		= '/\[RSS (.*?)\](.*?)\[\/RSS\]/s';
+	$replace[4]		= '<a href="feeds.php?feed=$1" target="_blank" class="'.$GLOBALS['template_default']['classes']['link-rss'].'">$2</a>';
 
 	// back Link (string)
-	$search[6]		= '/\[BACK\](.*?)\[\/BACK\]/i';
-	$replace[6] 	= '<a href="#" target="_top" title="go back" onclick="history.back();return false;" class="'.$GLOBALS['template_default']['classes']['link-back'].'">$1</a>';
+	$search[5]		= '/\[BACK\](.*?)\[\/BACK\]/i';
+	$replace[5] 	= '<a href="#" target="_top" title="go back" onclick="history.back();return false;" class="'.$GLOBALS['template_default']['classes']['link-back'].'">$1</a>';
 
 	// span or div style
-	$search[7]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
-	$replace[7]	= '<$1 style="$2">$3</$1>';
+	$search[6]		= '/\[(span|div)_style:(.*?)\](.*?)\[\/style\]/s';
+	$replace[6]		= '<$1 style="$2">$3</$1>';
 
 	// span or div class
-	$search[8]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
-	$replace[8]		= '<$1 class="$2">$3</$1>';
+	$search[7]		= '/\[(span|div)_class:(.*?)\](.*?)\[\/class\]/s';
+	$replace[7]		= '<$1 class="$2">$3</$1>';
 
-	// anchor link
-	$search[9]		= '/\{A:(.*?)\}/is';
-	$replace[9]		= '<a name="$1" class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"></a>';
+	$search[8]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
+	$replace[8]		= '<acronym title="$1">$2</acronym>';
 
 	// this parses an E-Mail Link without subject (by Florian, 21-11-2003)
-	$search[10]     = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
-	$replace[10]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
+	$search[9]		= '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[9]		= '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$2</a>';
+
+	$search[10]		= '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
+	$replace[10]	= '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
 
 	// this tags out a Mailaddress with an predifined subject (by Florian, 21-11-2003)
 	$search[11]     = '/\[MAILSUB (.*?) (.*?)\](.*?)\[\/MAILSUB\]/is';
 	$replace[11]    = '<a href="mailto:$1?subject=$2" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$3</a>';
 
-	$search[12]     = '/\<br>/i';
-	$replace[12]    = '<br />';
+	$search[12]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
+	$replace[12]	= '<blockquote cite="$1">$2</blockquote>';
 
 	// create "make bookmark" javascript code
 	$search[13]     = '/\[BOOKMARK\s{0,}(.*)\](.*?)\[\/BOOKMARK\]/is';
@@ -1631,52 +1454,70 @@ function html_parser($string) {
 	$search[15]		= '/\[dfn (.*?)\](.*?)\[\/dfn\]/is';
 	$replace[15]	= '<dfn title="$1">$2</dfn>';
 
-	$search[16]		= '/\[blockquote (.*?)\](.*?)\[\/blockquote\]/is';
-	$replace[16]	= '<blockquote cite="$1">$2</blockquote>';
-
-	$search[17]		= '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
-	$replace[17]	= '<acronym title="$1">$2</acronym>';
-
-	$search[18]		= '/\[ID (.*?)\](.*?)\[\/ID\]/s';
-	$replace[18]	= '<a href="index.php?$1" class="'.$GLOBALS['template_default']['classes']['link-internal'].'">$2</a>';
-
-	$search[19]     = '/\[E{0,1}MAIL\](.*?)\[\/E{0,1}MAIL\]/is';
-	$replace[19]    = '<a href="mailto:$1" class="'.$GLOBALS['template_default']['classes']['link-email'].'">$1</a>';
-	
 	$string = preg_replace($search, $replace, $string);
-	
+
+	// internal Link to article ID or alias
+	$string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
+
+	// anchor or page link
+	$string = preg_replace_callback('/\{[aA]:(.+?)\}/', 'get_link_anchor', $string);
+
 	$string = str_replace(
 		array(
 			'&#92;&#039;',
 			'&amp;quot;',
 			'-//-',
-			' class=""'
-		), 
+			' class=""',
+			'<br>'
+		),
 		array(
 			'&#039;',
 			'&quot;',
 			' ',
-			''
+			'',
+			'<br />'
 		),
 		$string
 	);
 	return $string;
 }
 
+function html_parse_idlink($matches) {
+	if(strpos($matches[1], '#') !== false) {
+		list($matches[1], $anchor) = explode('#', $matches[1], 2);
+		if($anchor) {
+			$anchor = '#'.$anchor;
+		}
+	} else {
+		$anchor = '';
+	}
+	if(is_intval($matches[1], false)) {
+		$matches[1] = 'aid='.$matches[1];
+	}
+	$replace = '<a href="' . rel_url(array(), array(), $matches[1]) . $anchor . '"';
+	if(!empty($GLOBALS['template_default']['classes']['link-internal'])) {
+		$replace .= ' class="'.$GLOBALS['template_default']['classes']['link-internal'].'"';
+	}
+	$replace .= '>' . $matches[2] . '</a>';
+	return $replace;
+}
+
 function include_ext_php($inc_file, $t=0) {
 	// includes an external PHP script file and returns
 	// the result as string from buffered include content
+	if(is_array($inc_file) && !empty($inc_file[1])) {
+		$inc_file = $inc_file[1];
+	}
 
 	//check if this is a local file
-	if(!$t && is_file($inc_file)) {
+	if(!$t && preg_match('~^(?:ht)tps?://~i', $inc_file, $match) && is_file($inc_file)) {
 
-		$this_path = str_replace("\\", '/', dirname(realpath($inc_file)));
-		$this_path = preg_replace('/\/$/', '', $this_path);
+		$this_path = rtrim(str_replace("\\", '/', dirname(realpath($inc_file))), '/');
+		$root_path = rtrim(str_replace("\\", '/', realpath(PHPWCMS_ROOT)), '/');
 
-		$root_path = str_replace("\\", '/', realpath(PHPWCMS_ROOT));
-		$root_path = preg_replace('/\/$/', '', $root_path);
-
-		if(strpos($this_path, $root_path) === 0) $t = 1;
+		if(strpos($this_path, $root_path) === 0) {
+			$t = 1;
+		}
 
 	} elseif(!$t && !empty($GLOBALS['phpwcms']['allow_remote_URL'])) {
 		//if remote URL is allowed in conf.inc.php
@@ -1685,11 +1526,32 @@ function include_ext_php($inc_file, $t=0) {
 
 	if(!$t) {
 		return '';
+	} elseif(!empty($match[0]) && substr(strtolower($match[0]), 0, 4) === 'http') {
+		if(ini_get('allow_url_fopen')) {
+			$result = file_get_contents($inc_file);
+			if($result !== false) {
+				return $result;
+			}
+		}
+		if(!ini_get('allow_url_include')) {
+			return '<!-- @@allow_url_include is disabled in your PHP.ini@@ - @@remote website cannot be loaded@@ -->';
+		}
 	}
 
 	ob_start();
 	@include($inc_file);
-	return ob_get_clean();;
+	return ob_get_clean();
+}
+
+// callback wrapper functions
+function international_date_format_callback($matches) {
+	return international_date_format($matches[2], $matches[1], $GLOBALS['phpwcms']['callback']);
+}
+function date_callback($matches) {
+	if($GLOBALS['phpwcms']['DOCTYPE_LANG'] !== 'en' && preg_match('/[MFDl]/', $matches[1])) {
+		return international_date_format($GLOBALS['phpwcms']['default_lang'], $matches[1], $GLOBALS['phpwcms']['callback']);
+	}
+	return date($matches[1], $GLOBALS['phpwcms']['callback']);
 }
 
 function international_date_format($language='', $format="Y/m/d", $date_now=0) {
@@ -1701,39 +1563,43 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 		$format = "Y/m/d";
 	}
 	if(!intval($date_now)) {
-		$date_now = time();
+		$date_now = now();
 	}
-	
+
 	$language = strtolower(trim($language));
-	
-	if($language == "EN") {
-		
+
+	if($language === 'en') {
+
 		return date($format, $date_now);
-		
+
 	} elseif(empty($language) || $language=='@@') {
-		
+
 		if(empty($GLOBALS['phpwcms']['DOCTYPE_LANG'])) {
-		
+
 			return date($format, $date_now);
-		
+
 		}
 		$language = $GLOBALS['phpwcms']['DOCTYPE_LANG'];
-	
+
 	}
 
 	$lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.substr($language, 0, 2).'.date.lang.php';
 	if(is_file($lang_include)) {
 
 		include($lang_include);
-		$date_format_function = array (	"a" => 1, "A" => 1, "B" => 1, "d" => 1, "g" => 1, "G" => 1,
-								"h" => 1, "H" => 1, "i" => 1, "I" => 1, "j" => 1, "m" => 1,
-								"n" => 1, "s" => 1, "t" => 1, "T" => 1, "U" => 1, "w" => 1,
-								"Y" => 1, "y" => 1, "z" => 1, "Z" => 1,
-								"D" => 0, "F" => 0, "l" => 0, "M" => 0, "S" => 0
-							   );
+		$date_format_function = array (
+			"a" => 1, "A" => 1, "B" => 1, "d" => 1, "g" => 1, "G" => 1,
+			"h" => 1, "H" => 1, "i" => 1, "I" => 1, "j" => 1, "m" => 1,
+			"n" => 1, "s" => 1, "t" => 1, "T" => 1, "U" => 1, "w" => 1,
+			"Y" => 1, "y" => 1, "z" => 1, "Z" => 1,
+			"D" => 0, "F" => 0, "l" => 0, "M" => 0, "S" => 0
+		);
 
-		$str_length = strlen($format); $date = "";
-		for($i = 0; $i < $str_length; $i++) $date_format[$i] = substr($format, $i, 1);
+		$str_length = strlen($format);
+		$date = '';
+		for($i = 0; $i < $str_length; $i++) {
+			$date_format[$i] = substr($format, $i, 1);
+		}
 		foreach($date_format as $key => $value) {
 			if(isset($date_format_function[$value])) {
 				if($date_format_function[$value]) {
@@ -1751,11 +1617,10 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 				$date .= $value;
 			}
 		}
-		
-		return $date;
 
+		return $date;
 	}
-	
+
 	return date($format, $date_now);
 }
 
@@ -1782,74 +1647,6 @@ function get_active_categories($struct, $act_struct_id) {
 		$which_category = $GLOBALS['content']["struct"][$which_category]["acat_struct"];
 	}
 	return $which_cat_array;
-}
-
-function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $parent_level=1, $class='') {
-	// returns list <div><ul><li></li></ul></div> of the current structure level
-	// if $parent_level=1 the first list entry will be the parent level
-	// $parent_level=0 - only the list of all levels in this structure
-	// if $parent_leve_name != "" then it uses the given string
-	// predefined class for this menu is "list_level"
-	if(!trim($class)) {
-		$class = 'list_level';
-	}
-	$parent_level_name	= trim($parent_level_name);
-	$level 				= intval($level);
-	$parent_level 		= intval($parent_level);
-	$activated			= 0;
-	$css_list			= '';
-
-	//returns the complete level of NON hidden categories
-	$level_struct 		= return_struct_level($struct, $level);
-	$breadcrumb 		= get_breadcrumb(key($struct_path), $struct);
-
-	foreach($level_struct as $key => $value) {
-
-		if(!$level_struct[$key]["acat_redirect"]) {
-			$link = 'index.php?';
-			if($level_struct[$key]["acat_alias"]) {
-				$link .= html_specialchars($level_struct[$key]["acat_alias"]);
-			} else {
-				$link .= 'id='.$key;
-			}
-			$redirect['target'] = '';
-		} else {
-			$redirect = get_redirect_link($level_struct[$key]["acat_redirect"], ' ', '');
-			$link = $redirect['link'];
-		}
-		$css_list .= '	<li';
-		$liclass   = trim( (empty($breadcrumb[$key]) ? '' : 'active ') . $level_struct[$key]["acat_class"] );
-		$css_list .= empty($liclass) ? '' : ' class="'.$liclass.'"';
-		$css_list .= '><a href="'.$link.'"'.$redirect['target'].'>';
-		$css_list .= html_specialchars($level_struct[$key]["acat_name"]);
-		$css_list .= '</a></li>'.LF;
-
-	}
-
-	if($parent_level) {
-		if(!$struct[$level]["acat_redirect"]) {
-			$link = 'index.php?';
-			if($struct[$level]["acat_alias"]) {
-				$link .= html_specialchars($struct[$level]["acat_alias"]);
-			} else {
-				$link .= 'id='.$level;
-			}
-			$redirect['target'] = '';
-		} else {
-			$redirect = get_redirect_link($struct[$level]["acat_redirect"], ' ', '');
-			$link = $redirect['link'];
-		}
-
-		$css_list_home  = '	<li class="' . trim( ($GLOBALS['aktion'][0] == $level ? 'active' : 'parent') . ' ' . $struct[$level]["acat_class"] ) .'">';
-		$css_list_home .= '<a href="'.$link.'"'.$redirect['target'].'>';
-		$css_list_home .= html_specialchars((!$parent_level_name) ? $struct[$level]["acat_name"] : $parent_level_name);
-		$css_list_home .= '</a></li>'.LF;
-		$css_list = $css_list_home . $css_list;
-	}
-	if($css_list) {
-		$css_list = LF.'<ul class="'.$class.'">'.LF . $css_list .'</ul>'.LF;
-	}
-	return $css_list;
 }
 
 // REWRITE - PATCHED FOR 04/04 // jan212
@@ -1911,13 +1708,17 @@ function js_url_search($query) {
 	return "onclick=\"location.href='".$file.PHPWCMS_REWRITE_EXT.$query_string.$anchor."'";
 }
 
-function get_related_articles($keywords, $current_article_id, $template_default, $max_cnt_links=0, $dbcon) {
+function get_related_articles_callback($matches) {
+	return get_related_articles((isset($matches[2]) ? $matches[2] : $GLOBALS['related_keywords']), $GLOBALS['aktion'][1], $GLOBALS['template_default']["related"], $matches[1]);
+}
+
+function get_related_articles($keywords, $current_article_id, $template_default, $max_cnt_links=0, $dbcon=null) {
 	// find keyword for current article used for RELATED replacementtag
 	// prepared and inspired by Magnar Stav Johanssen
 
 	$keyword_links = '';
 	$max_cnt_links = intval($max_cnt_links);
-	
+
 	// replace unwanted chars and convert to wanted
 	$keywords = str_replace(
 		array("ALLKEYWORDS",";", "'", ' ', ',,'),
@@ -1927,7 +1728,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 
 	// choose comma separated keywords
 	$keywordarray = convertStringToArray($keywords);
-	
+
 	// check for empty keywords or keywords smaller than 3 chars
 	if(is_array($keywordarray) && count($keywordarray)) {
 		foreach($keywordarray as $key => $value) {
@@ -1953,8 +1754,8 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		foreach($keywordarray as $value) {
 				//build where keyword = blabla
 				$where .= ($where) ? " OR " : "";
-				//replace every "'" to "''" for security reasons with aporeplace()
-				$where .= "article_keyword LIKE '%".aporeplace($value)."%'";
+				//replace every "'" to "''" for security reasons with _dbEscape()
+				$where .= "article_keyword LIKE "._dbEscape($value, true, '%', '%');
 		}
 		$limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
 		$sql  =	"SELECT article_id, article_title, article_cid, article_subtitle, article_summary, article_alias, article_redirect, article_morelink ";
@@ -1962,54 +1763,57 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		$sql .=	"article_id<>".intval($current_article_id)." AND ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 		switch(VISIBLE_MODE) {
-			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+			case 0: $sql .=	"article_aktiv=1 AND ";
 					break;
-			case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+			case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 					break;
 			//case 2: admin mode no additional neccessary
 		}
-		$sql .=	"article_begin < NOW() AND article_end > NOW() AND (".$where.") ";
-		
+		if(!PREVIEW_MODE) {
+			$sql .=	'article_begin < NOW() AND article_end > NOW() AND ';
+		}
+		$sql .= '('.$where.') ';
+
 		if(empty($template_default['sort_by'])) $template_default['sort_by'] = '';
-		
+
 		switch($template_default['sort_by']) {
-		
-			case 'title_asc': 
+
+			case 'title_asc':
 						$sql .=	"ORDER BY article_title";
 						break;
-						
-			case 'title_desc': 
+
+			case 'title_desc':
 						$sql .=	"ORDER BY article_title DESC";
 						break;
-						
-			case 'ldate_asc': 
+
+			case 'ldate_asc':
 						$sql .=	"ORDER BY article_begin";
 						break;
-						
-			case 'ldate_desc': 
+
+			case 'ldate_desc':
 						$sql .=	"ORDER BY article_begin DESC";
 						break;
-						
-			case 'kdate_asc': 
+
+			case 'kdate_asc':
 						$sql .=	"ORDER BY article_end";
 						break;
-						
-			case 'kdate_desc': 
+
+			case 'kdate_desc':
 						$sql .=	"ORDER BY article_end DESC";
 						break;
-						
-			case 'cdate_asc': 
+
+			case 'cdate_asc':
 						$sql .=	"ORDER BY article_created";
 						break;
-						
-			case 'cdate_desc': 
+
+			case 'cdate_desc':
 						$sql .=	"ORDER BY article_created DESC";
 						break;
-		
+
 			default:
 						$sql .=	"ORDER BY article_tstamp DESC";
 		}
-		
+
 		$sql .= $limit;
 
 		// related things
@@ -2017,7 +1821,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 		$result = _dbQuery($sql);
 		if(isset($result[0])) {
 			foreach($result as $row) {
-				
+
 				if(empty($row['article_redirect'])) {
 					if(empty($row['article_morelink'])) {
 						continue;
@@ -2027,7 +1831,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 					$redirect = get_redirect_link($row['article_redirect'], ' ', '');
 					$article_link = $redirect['link'].'"'.$redirect['target'];
 				}
-				
+
 				if($template_default["link_length"] && strlen($row['article_title']) > $template_default["link_length"]) {
 					$article_title = substr($row['article_title'], 0, $template_default["link_length"]).$template_default["cut_title_add"];
 				} else {
@@ -2046,14 +1850,21 @@ function get_related_articles($keywords, $current_article_id, $template_default,
 	return empty($keyword_links) ? '' : $template_default["before"].$keyword_links.$template_default["after"];
 }
 
-function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
+function get_new_articles_callback($matches) {
+	if(!isset($matches[2])) {
+		$matches[2] = '';
+	}
+	return get_new_articles($GLOBALS['template_default']['news'], $matches[1], $matches[2]);
+}
+
+function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=null) {
 	// find all new articles
 
 	$max_cnt_links = intval($max_cnt_links);
 	$limit = empty($max_cnt_links) ?  '' : ' LIMIT '.$max_cnt_links;
 	$cat = trim($cat);
-	$cat = (intval($cat) || $cat == '0') ? 'article_cid='.intval($cat).' AND ' : '';
-	
+	$cat = is_intval($cat, false) ? 'article_cid='.intval($cat).' AND ' : '';
+
 	$sql = 'SELECT article_id, article_title, article_cid, article_alias, article_redirect, article_morelink, ';
 
 	switch( (empty($template_default["sort_by"]) ? '' : strtolower($template_default["sort_by"])) ) {
@@ -2080,24 +1891,27 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	$sql .=	"FROM ".DB_PREPEND."phpwcms_article WHERE ".$cat;
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+		case 0: $sql .=	"article_aktiv=1 AND ";
 				break;
-		case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+		case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= "article_deleted=0 AND article_begin < NOW() AND article_end > NOW() ";
+	$sql .= 'article_deleted=0 ';
+	if(!PREVIEW_MODE) {
+		$sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+	}
 	$sql .= "ORDER BY ".$sorting." DESC".$limit;
 
 	// new articles list
 	$new_links = "";
 	$target = ($template_default["link_target"]) ? ' target="'.$template_default["link_target"].'"' : '';
-	
+
 	$result = _dbQuery($sql);
 	$count  = 0;
-	
+
 	foreach($result as $row) {
-		
+
 			if(empty($row['article_redirect'])) {
 				if(empty($row['article_morelink'])) {
 					continue;
@@ -2107,7 +1921,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 				$redirect = get_redirect_link($row['article_redirect'], ' ', '');
 				$article_link = $redirect['link'].'"'.$redirect['target'];
 			}
-		
+
 			$count++;
 			if($template_default["link_length"] && strlen($row['article_title']) > $template_default["link_length"]) {
 				$article_title = substr($row['article_title'], 0, $template_default["link_length"]).$template_default["cut_title_add"];
@@ -2136,7 +1950,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat, $dbcon) {
 	return $new_links;
 }
 
-function get_article_idlink($article_id=0, $link_text="", $db) {
+function get_article_idlink($article_id=0, $link_text="", $db=null) {
 	// returns the internal article link to given article ID/category
 	$article_id		= intval($article_id);
 	$article_cid	= 0;
@@ -2146,12 +1960,14 @@ function get_article_idlink($article_id=0, $link_text="", $db) {
 
 	if($article_id) {
 		$sql =	"SELECT article_id, article_title, article_cid, article_alias ".
-				"FROM ".DB_PREPEND."phpwcms_article ".
-				"WHERE article_id=".$article_id." AND ".
-				"article_public=1 AND article_aktiv=1 AND article_deleted=0 AND ".
-				"article_begin < NOW() AND article_end > NOW() LIMIT 1";
+				"FROM ".DB_PREPEND."phpwcms_article WHERE article_id=".$article_id." AND ".
+				"article_aktiv=1 AND article_deleted=0 ";
+		if(!PREVIEW_MODE) {
+			$sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+		}
+		$sql .= "LIMIT 1";
 		$data = _dbQuery($sql);
-		
+
 		if(isset($data[0])) {
 			return '<a href="index.php?'.setGetArticleAid($data[0]).'" title="'.$article_title.'">'.$link_text.'</a>';
 		}
@@ -2159,14 +1975,14 @@ function get_article_idlink($article_id=0, $link_text="", $db) {
 	return '<a href="index.php?aid='.$article_id.'" title="'.$article_title.'">'.$link_text.'</a>';
 }
 
-function get_keyword_link($keywords="", $db) {
+function get_keyword_link($keywords) {
 	// returns a link or linklist for special article keywords
 	// used for replacement tag {KEYWORD:Charlie}
 
-	$keywords = explode(",", $keywords);
-	$where = "";
-	$keyword_list = "";
-	$link = "";
+	$keywords		= explode(',', is_array($keywords) && isset($keywords[1]) ? $keywords[1] : $keywords);
+	$where			= '';
+	$keyword_list	= '';
+	$link			= '';
 
 	if(count($keywords)) {
 		foreach($keywords as $value) {
@@ -2176,7 +1992,7 @@ function get_keyword_link($keywords="", $db) {
 					$where .= " AND ";
 					$keyword_list .= ", ";
 				}
-				$where .= "article_keyword LIKE '%*".aporeplace($value)."*%'";
+				$where .= "article_keyword LIKE "._dbEscape($value, true, '%*', '*%');
 				$keyword_list .= html_specialchars($value);
 			}
 		}
@@ -2186,52 +2002,45 @@ function get_keyword_link($keywords="", $db) {
 
 	if($where) {
 
-		$x = 0;
 		$sql  = "SELECT article_id, article_cid, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
 		// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 		switch(VISIBLE_MODE) {
-			case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+			case 0: $sql .=	"article_aktiv=1 AND ";
 					break;
-			case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+			case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 					break;
 			//case 2: admin mode no additional neccessary
 		}
-		$sql .= "article_deleted=0 AND article_begin < NOW() ";
-		$sql .=	"AND article_end > NOW() AND (".$where.")";
-
-		if($result = mysql_query($sql, $db)) {
-			$article_list = array();
-			while($row = mysql_fetch_row($result)) {
-				$article_list[$x][0] = $row[0]; //article ID
-				$article_list[$x][1] = $row[1]; //article catID
-				$article_list[$x][2] = html_specialchars($row[2]); //article title
-				$article_list[$x]['article_alias'] = $row[3];
-				$article_list[$x]['article_id'] = $row[0];
-				$x++;
-			}
-			mysql_free_result($result);
+		$sql .= 'article_deleted=0 AND ';
+		if(!PREVIEW_MODE) {
+			$sql .= 'article_begin < NOW() AND article_end > NOW() ';
 		}
+		$sql .=	"AND (".$where.")";
 
-		if($x) {
-			// if keyword(s) found
-			if($x == 1) {
+		$result = _dbQuery($sql);
+
+		if(isset($result[0])) {
+			if(count($result) === 1) {
 				// if only 1 article found
-				$link .= '<a href="index.php?'.setGetArticleAid($article_list[0]).'" title="'.$article_list[0][2].'">'.$keyword_list.'</a>';
+				$link .= '<a href="'.rel_url(array(), array(), setGetArticleAid($result[0])).'" title="'.html_specialchars($article_list[0]['article_title']).'">'.$keyword_list.'</a>';
 			} else {
 				// if more than one article found
-				foreach($article_list as $key => $value) {
-					if($link) $link .= '|';
-					$link .= '<a href="index.php?'.setGetArticleAid($value).'" title="'.$article_list[$key][2].'">'.($key+1).'</a>';
+				foreach($result as $key => $value) {
+					if($link) {
+						$link .= '|';
+					}
+					$link .= '<a href="'.rel_url(array(), array(), setGetArticleAid($value)).'" title="'.html_specialchars($value['article_title']).'">'.($key+1).'</a>';
 				}
 				$link = $keyword_list.' ['.$link.']';
 			}
 		}
 	}
-	if(!$link) $link = $keyword_list;
+	if(!$link) {
+		$link = $keyword_list;
+	}
 	$link  = $GLOBALS['template_default']["article"]["keyword_before"] . $link;
 	$link .= $GLOBALS['template_default']["article"]["keyword_after"];
 	return $link;
-
 }
 
 function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
@@ -2240,7 +2049,7 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
 	$text = str_replace('<td>', '<td> ', $text);
 	$text = strip_tags($text, $allowed_tags);
 	$text = str_replace('|', ' ', $text);
-	
+
 	$search = array(
 				'/\{.*?\}/si',
 				'/\[ID.*?\/ID\]/si',
@@ -2250,7 +2059,7 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
 				'/\[download=(.*?)\/\]/i',
 				'/\[download=(.*?)\](.*?)\[\/download\]/is'
 					);
-					
+
 	$replace = array(
 				'',
 				'',
@@ -2260,34 +2069,34 @@ function clean_replacement_tags($text = '', $allowed_tags='<a><b><i><strong>') {
 				'',
 				'$2'
 					);
-	
+
 	$text = preg_replace($search, $replace, $text);
 
 	return trim($text);
 }
 
-function get_search_action($id, $dbcon) {
+function get_search_action($matches) {
 	// return the search form action
-	$id = intval($id); $cid = 0;
-	if($id) {
-		$sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
-		$sql .=	"article_public=1 AND article_aktiv=1 AND article_deleted=0 AND article_begin < NOW() ";
-		$sql .=	"AND article_end > NOW() AND article_id=".$id." LIMIT 1";
-		if($result = mysql_query($sql, $dbcon)) {
-			if($row = mysql_fetch_row($result)) {
-				$cid = $row[0];
-				$data = array('article_id'=>$id, 'article_alias'=>$row[1]);
-			}
-			mysql_free_result($result);
-		}
+	$sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
+	$sql .=	"article_aktiv=1 AND article_deleted=0 ";
+	if(!PREVIEW_MODE) {
+		$sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
 	}
-	return ($cid) ? 'index.php?'.setGetArticleAid($data) : '';
+	$sql .=	"AND article_id=".intval($matches[1])." LIMIT 1";
+
+	$result = _dbQuery($sql);
+
+	if(isset($result[0])) {
+		return rel_url(array(), array(), setGetArticleAid($result[0]));
+	}
+
+	return '';
 }
 
 function get_index_link_up($linktext) {
 	// return the link to parent category of current category
 	$cat_id = $GLOBALS['content']['cat_id'];
-	$linktext = trim($linktext);
+	$linktext = trim(is_array($linktext) && isset($linktext[1]) ? $linktext[1] : $linktext);
 	$link = '';
 	if(!$linktext) $linktext = 'UP';
 	if($cat_id && !$GLOBALS['content']['struct'][$cat_id]['acat_hidden']) {
@@ -2303,8 +2112,13 @@ function get_index_link_next($linktext, $cat_down=0) {
 
 	// return the link to next article in current ctageory
 	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
-	$linktext = trim($linktext);
-	if(!$linktext) $linktext = 'NEXT';
+	if(is_array($linktext) && isset($linktext[2])) {
+		$cat_down = intval($linktext[2]);
+	}
+	$linktext = trim(is_array($linktext) && isset($linktext[1]) ? $linktext[1] : $linktext);
+	if($linktext === '') {
+		$linktext = 'NEXT';
+	}
 	$link = '';
 
 	if(count($content['articles']) > 1) {
@@ -2312,7 +2126,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 		$c = 0; //temp counter
 		foreach($content['articles'] as $key => $value) {
 			if($c || !$a_id) {
-				$link  = '<a href="index.php?aid='.$key.'">';
+				$link = '<a href="'.rel_url(array(), array(), empty($content['articles'][$key]['article_alias']) ? 'aid='.$key : $content['articles'][$key]['article_alias']).'">';
 				break;
 			}
 			if($key == $a_id) $c++;
@@ -2325,9 +2139,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 		if($content['cat_id']) {
 			foreach($content['struct'] as $key => $value) {
 				if($content['struct'][$key]['acat_struct'] == $content['cat_id']) {
-					$link  = '<a href="index.php?';
-					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-					$link .= '">';
+					$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 					break;
 				}
 			}
@@ -2335,9 +2147,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 			$c = 0;
 			foreach($content['struct'] as $key => $value) {
 				if($c) {
-					$link  = '<a href="index.php?';
-					$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-					$link .= '">';
+					$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 					break;
 				}
 				$c++;
@@ -2357,13 +2167,8 @@ function get_index_link_next($linktext, $cat_down=0) {
 				$c=0;
 				foreach($temp_key as $value) {
 					if($value == $content['cat_id'] && $c+1 < $count_temp) {
-						//$link = '<a href="index.php?id='.$temp_key[$c+1].',0,0,1,0,0">';
-						
 						$key = $temp_key[$c+1];
-						
-						$link  = '<a href="index.php?';
-						$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-						$link .= '">';
+						$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 						break;
 					}
 					$c++;
@@ -2380,9 +2185,7 @@ function get_index_link_next($linktext, $cat_down=0) {
 						foreach($content['struct'] as $key => $value) {
 							if($content['struct'][$key]['acat_struct'] == $parent_struct_id) {
 								if($c) {
-									$link  = '<a href="index.php?';
-									$link .= empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : html_specialchars($content['struct'][$key]['acat_alias']);
-									$link .= '">';
+									$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$key]['acat_alias']) ? 'id='.$key : $content['struct'][$key]['acat_alias']).'">';
 									break;
 								}
 								if($key == $parent_id) $c=1;
@@ -2395,57 +2198,58 @@ function get_index_link_next($linktext, $cat_down=0) {
 						} else {
 							$current_id = $parent_id;
 						}
-
 					}
-
-
 				}
 			}
 		}
-
 	}
 
 	return ($link) ? $link.$linktext.'</a>' : $linktext;
 }
 
 function get_index_link_prev($linktext, $cat_up=0) {
+	global $content;
 	// return the link to next article in current ctageory
-	$a_id = isset($GLOBALS['content']['article_id']) ? $GLOBALS['content']['article_id'] : $GLOBALS['aktion'][1];
-	$linktext = trim($linktext);
-	if(!$linktext) $linktext = 'PREV';
+	$a_id = isset($content['article_id']) ? $content['article_id'] : $GLOBALS['aktion'][1];
+	if(is_array($linktext) && isset($linktext[2])) {
+		$cat_up = intval($linktext[2]);
+	}
+	$linktext = trim(is_array($linktext) && isset($linktext[1]) ? $linktext[1] : $linktext);
+	if($linktext === '') {
+		$linktext = 'PREV';
+	}
 	$link = '';
 	$c = 0; //temp counter
+	if(count($content['articles']) > 1 && $a_id) {
 
-	if(count($GLOBALS['content']['articles']) > 1 && $a_id) {
-
-		foreach($GLOBALS['content']['articles'] as $key => $value) {
+		foreach($content['articles'] as $key => $value) {
 			if($key == $a_id && $c) {
-				$link  = '<a href="index.php?aid='.$prev_art_id.'">';
+				$link = '<a href="'.rel_url(array(), array(), empty($content['articles'][$prev_art_id]['article_alias']) ? 'aid='.$prev_art_id : $content['articles'][$prev_art_id]['article_alias']).'">';
 				break;
 			}
 			$c++;
-			$prev_cat_id = $GLOBALS['content']['articles'][$key]['article_cid'];
+			$prev_cat_id = $content['articles'][$key]['article_cid'];
 			$prev_art_id = $key;
 		}
 	}
 	if($cat_up && $a_id && $c && !$link) {
-		$link = '<a href="index.php?id='.$GLOBALS['content']['cat_id'].',0,0,1,0,0">';
+		$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$content['cat_id']]['acat_alias']) ? 'id='.$content['cat_id'] : $content['struct'][$content['cat_id']]['acat_alias']).'">';
 	}
 
 	if($cat_up && !$link) {
 		// go cat down or to next cat above
 		$temp_key = array();
-		foreach($GLOBALS['content']['struct'] as $key => $value) {
-			if($GLOBALS['content']['struct'][$key]['acat_struct'] == $GLOBALS['content']['struct'][ $GLOBALS['content']['cat_id'] ]['acat_struct']) {
+		foreach($content['struct'] as $key => $value) {
+			if($content['struct'][$key]['acat_struct'] == $content['struct'][ $content['cat_id'] ]['acat_struct']) {
 				$temp_key[] = $key;
 			}
 		}
-		if(count($temp_key) && $GLOBALS['content']['cat_id']) {
+		if(count($temp_key) && $content['cat_id']) {
 			$c = 0;
 			foreach($temp_key as $value) {
-				if($value == $GLOBALS['content']['cat_id']) {
-					$prev_cat_id = (!$c) ? $GLOBALS['content']['struct'][$value]['acat_struct'] : $temp_key[$c-1];
-					$link = '<a href="index.php?id='.$prev_cat_id.',0,0,1,0,0">';
+				if($value == $content['cat_id']) {
+					$prev_cat_id = (!$c) ? $content['struct'][$value]['acat_struct'] : $temp_key[$c-1];
+					$link = '<a href="'.rel_url(array(), array(), empty($content['struct'][$prev_cat_id]['acat_alias']) ? 'id='.$prev_cat_id : $content['struct'][$prev_cat_id]['acat_alias']).'">';
 					break;
 				}
 				$c++;
@@ -2484,35 +2288,31 @@ function include_int_phpcode($string) {
 	return ob_get_clean();
 }
 
-function build_sitemap($start=0, $counter=0) {
+function build_sitemap($start=0, $counter=0, & $sitemap) {
 	// create sitemap
 
 	$s = '';
 	$c = '';
 	$counter++;
 
-
-	if($GLOBALS['sitemap']['classcount']) {
-		if($GLOBALS['sitemap']['catclass']) $c = ' class="'.$GLOBALS['sitemap']['catclass'].$counter.'"';
+	if(empty($sitemap['catclass'])) {
+		$c = '';
 	} else {
-		if($GLOBALS['sitemap']['catclass']) $c = ' class="'.$GLOBALS['sitemap']['catclass'].'"';
+		$c = ' class="'.$sitemap['catclass'];
+		if($sitemap['classcount']) {
+			$c .= $counter;
+		}
+		$c .= '"';
 	}
 
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 
-		//if ($key && $GLOBALS['content']['struct'][$key]['acat_nositemap'] && $start == $GLOBALS['content']['struct'][$key]['acat_struct'])
 		if( $GLOBALS['content']['struct'][$key]['acat_nositemap'] && _getStructureLevelDisplayStatus($key, $start) ) {
 
-			$s .= '<li'.$GLOBALS['sitemap']['cat_style'].'>';	//$c.
+			$s .= '<li'.$sitemap['cat_style'].'>';
 
 			if(!$GLOBALS['content']['struct'][$key]["acat_redirect"]) {
-				$s .= '<a href="index.php?';
-				if($GLOBALS['content']['struct'][$key]['acat_alias']) {
-					$s .= $GLOBALS['content']['struct'][$key]['acat_alias'];
-				} else {
-					$s .= 'id='.$key;
-				}
-				$s .= '"';
+				$s .= '<a href="'.rel_url(array(), array(), empty($GLOBALS['content']['struct'][$key]['acat_alias']) ? 'id='.$key : $GLOBALS['content']['struct'][$key]['acat_alias']).'"';
 			} else {
 				$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
 				$s .= '<a href="'.$redirect['link'].'"'.$redirect['target'];
@@ -2521,84 +2321,90 @@ function build_sitemap($start=0, $counter=0) {
 			$s .= '>';
 			$s .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
 			$s .= '</a>';
-			if($GLOBALS['sitemap']["display"]) $s .= build_sitemap_articlelist($key, $counter);
-
-			$s .= build_sitemap($key, $counter);
-
-			$s .= "</li>\n";
+			if($sitemap["display"]) {
+				$s .= build_sitemap_articlelist($key, $counter, $sitemap);
+			}
+			$s .= build_sitemap($key, $counter, $sitemap);
+			$s .= '</li>' . LF;
 		}
 	}
 
-
-	if($s) $s = "\n<ul".$c.">\n".$s.'</ul>';
+	if($s) {
+		$s = LF . '<ul'.$c.'>' . LF . $s . '</ul>';
+	}
 
 	return $s;
 }
 
-function build_sitemap_articlelist($cat, $counter=0) {
+function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 	// create list of articles for given category
 
 	$ao = get_order_sort($GLOBALS['content']['struct'][ $cat ]['acat_order']);
 
-	$sql  = "SELECT article_id, article_title FROM ".DB_PREPEND."phpwcms_article ";
+	$sql  = "SELECT article_id, article_title, article_alias FROM ".DB_PREPEND."phpwcms_article ";
 	$sql .= "WHERE article_cid=".intval($cat)." AND article_nositemap=1 AND ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
 	switch(VISIBLE_MODE) {
-		case 0: $sql .=	"article_public=1 AND article_aktiv=1 AND ";
+		case 0: $sql .=	"article_aktiv=1 AND ";
 				break;
-		case 1: $sql .= "((article_public=1 AND article_aktiv=1) OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
+		case 1: $sql .= "(article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].") AND ";
 				break;
 		//case 2: admin mode no additional neccessary
 	}
-	$sql .= "article_deleted=0 AND article_begin<NOW() AND article_end>NOW() ";
+	$sql .= 'article_deleted=0 ';
+	if(!PREVIEW_MODE) {
+		$sql .= 'AND article_begin<NOW() ';
+		$sql .= 'AND article_end>NOW() ';
+	}
 	$sql .= "ORDER BY ".$ao[2];
 
 	$s = '';
 
 	if($result = mysql_query($sql, $GLOBALS['db'])) {
-		
+
 		if(mysql_num_rows($result) > 1) {
-			
+
 			$c = '';
-			
-			if($GLOBALS['sitemap']['articleclass']) {
-				$c .= ' class="'.$GLOBALS['sitemap']['articleclass'];
-				if($GLOBALS['sitemap']['classcount']) {
+
+			if($sitemap['articleclass']) {
+				$c .= ' class="'.$sitemap['articleclass'];
+				if($sitemap['classcount']) {
 					$c .= $counter;
 				}
 				$c .= '"';
 			}
-		
+
 			while($row = mysql_fetch_row($result)) {
-	
-				$s .= '<li'.$GLOBALS['sitemap']['article_style'].'>';
-				$s .= '<a href="index.php?aid='.$row[0].'">';
+
+				$s .= '<li'.$sitemap['article_style'].'>';
+				$s .= '<a href="'.rel_url(array(), array(), empty($row[2]) ? 'aid='.$row[0] : $row[2]).'">';
 				$s .= html_specialchars($row[1]);
 				$s .= "</a></li>\n";
-	
+
 			}
-			
+
 			$s = "\n<ul".$c.">\n".$s.'</ul>';
-			
+
 		}
 		mysql_free_result($result);
 	}
 
 	return $s;
-
 }
 
-function render_cnt_template($text='', $tag='', $value='') {
-	// render content part by replacing placeholder tags by value
+// render content part by replacing placeholder tags by value
+function render_cnt_template($text='', $tag='', $value='', $value_else='') {
 	$value = strval($value);
-	if($value) {
+	if($value !== '') {
 		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '$1', $text);
-		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '', $text);
+		$text = preg_replace('/\['.$tag.'_ELSE\].*?\[\/'.$tag.'_ELSE\]/is', '', $text);
 	} else {
 		$text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/is', '$1', $text);
-		$text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/is', '', $text);
+		$text = preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/is', '', $text);
+		$text = str_replace('{'.$tag.'_ELSE}', $value_else, $text);
 	}
-	return str_replace('{'.$tag.'}', $value, $text);
+	$text = str_replace('{'.$tag.'}', $value, $text); // Keep it compatible with older templates
+	return $text;
 }
 
 function replace_cnt_template($text='', $tag='', $value='') {
@@ -2613,32 +2419,55 @@ function parse_cnt_urlencode($value) {
 
 function render_urlencode($match) {
 	if(is_array($match) && isset($match[1])) {
-		$match = $match[1]; 
+		$match = $match[1];
 	}
 	return rawurlencode(decode_entities($match));
 }
-
+// render date by replacing placeholder tags by value
 function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
-	// render date by replacing placeholder tags by value
-	$date = is_numeric($date) ? intval($date) : now();
-	$text = preg_replace('/\{DATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
-	$text = preg_replace('/\{DATE:(.*?)\}/e', 'date("$1",'.$date.')', $text);
+	$date = intval($date);
+	if(!$date) {
+		$date = now();
+	}
+	$text = render_date($text, $date, 'DATE');
+	$text = render_date($text, now(), 'NOW');
 	if(intval($livedate)) {
-		$text = preg_replace('/\{LIVEDATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$livedate.'")', $text);
-		$text = preg_replace('/\{LIVEDATE:(.*?)\}/e', 'date("$1",'.$livedate.')', $text);
+		$text = render_date($text, $livedate, 'LIVEDATE');
 	}
 	if(intval($killdate)) {
-		$text = preg_replace('/\{KILLDATE:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$killdate.'")', $text);
-		$text = preg_replace('/\{KILLDATE:(.*?)\}/e', 'date("$1",'.$killdate.')', $text);
+		$text = render_date($text, $killdate, 'KILLDATE');
 	}
-	return preg_replace('/\{NOW:(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.now().'")', $text);
+	return $text;
+}
+// render date by replacing placeholder tags by value
+function render_date($text='', $date, $rt='DATE') {
+	$rt = preg_quote($rt);
+	$GLOBALS['phpwcms']['callback'] = $date;
+	$text = preg_replace_callback('/\{'.$rt.':(.*?) lang=(..)\}/', 'international_date_format_callback', $text);
+	$text = preg_replace_callback('/\{'.$rt.':(.*?)\}/', 'date_callback', $text);
+	return $text;
 }
 
-function render_date($text='', $date, $rt='DATE') {
-	// render date by replacing placeholder tags by value
-	$rt = preg_quote($rt);
-	$text = preg_replace('/\{'.$rt.':(.*?) lang=(..)\}/e', 'international_date_format("$2","$1","'.$date.'")', $text);
-	return preg_replace('/\{'.$rt.':(.*?)\}/e', 'date("$1",'.$date.')', $text);
+function render_keywords($text='', $keywords=null, $separator=',') {
+
+	if($keywords === null || $text == '' || strpos($text, '{KEYWORDS') === false) {
+		return $text;
+	}
+	if(is_string($keywords)) {
+		$keywords = convertStringToArray($keywords, $separator);
+	} elseif(!is_array($keywords)) {
+		$keywords = array();
+	}
+
+	$prefix = '';
+	$suffix = '';
+	$spacer = ' ';
+
+	preg_match_all('/\{KEYWORDS(.*?)\}/', $text, $matches);
+
+	//dumpVar($matches);
+
+	return $text;
 }
 
 function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $tagClose=']') {
@@ -2662,39 +2491,39 @@ function include_url($url) {
 	// include given URL but only take content between <body></body>
 
 	global $include_urlparts;
-	
+
 	if( is_string($url) ) {
 		$url = array( 1 => $url );
 	} elseif( ! isset($url[1]) ) {
 		return '';
 	}
-	
+
 	$k				= '';
 	$url			= trim($url[1]);
 	$url			= explode(' ', $url);
 	$cache			= isset($url[1]) ? intval(str_replace('CACHE=', '', strtoupper($url[1]))) : 0;
 	$url			= $url[0];
 	$cache_status	= 'MISSING';
-	
+
 	if($url && $cache) {
-	
+
 		$cache_filename	= md5($url).'-url';	// set cache file name
 		$cache_file		= PHPWCMS_CONTENT.'tmp/'.$cache_filename;	// set caching file
 		$cache_status	= check_cache($cache_file, $cache);	// ceck existence
-		
+
 		if($cache_status == 'VALID') {	// read cache
-			
+
 			$k	= read_textfile($cache_file);
 			$k	= trim($k);
-		
+
 			if(empty($k)) {
 				$cache_status == 'EXPIRED';	// check if cache content is available
 			}
-		
+
 		}
 
 	}
-	
+
 	if($cache_status != 'VALID' && $url) {	// cache file is missing or outdated
 
 		$include_urlparts = parse_url($url);
@@ -2730,7 +2559,7 @@ function include_url($url) {
 			if($charset != false) {
 				$k = makeCharsetConversion($k, $charset, PHPWCMS_CHARSET, 1);
 			}
-			
+
 			// now write or update cache file in case there is timeout or content
 			if($cache && $k) {
 				@write_textfile($cache_file, $k);
@@ -2762,42 +2591,20 @@ function make_absoluteURL($matches) {
 
 }
 
+// combined PHP replace renderer
 function render_PHPcode($string='') {
-	// combined PHP replace renderer
-	// includes external PHP script and returns the content
-	$string = preg_replace('/\{PHP:(.*?)\}/e', 'include_ext_php("$1");', $string);
-	// do complete PHP code
-	$string = preg_replace_callback("/\[PHP\](.*?)\[\/PHP\]/s", 'include_int_phpcode', $string);
-	// includes external PHP script and returns the content
-	$string = preg_replace_callback("/\{PHPVAR:(.*?)\}/s", 'include_int_php', $string);
+	if($string && strpos($string,'PHP') !== false) {
+		// includes external PHP script and returns the content
+		$string = preg_replace_callback('/\{PHP:(.*?)\}/', 'include_ext_php', $string);
+		// do complete PHP code
+		$string = preg_replace_callback("/\[PHP\](.*?)\[\/PHP\]/s", 'include_int_phpcode', $string);
+		// includes external PHP script and returns the content
+		$string = preg_replace_callback("/\{PHPVAR:(.*?)\}/s", 'include_int_php', $string);
+	}
 	return $string;
 }
 
-function nav_list_struct (&$struct, $act_cat_id, $level, $class='') {
-	// start with home directory for the listing = top nav structure
-	// 1. Build the recursive tree for given actual article category ID
-
-	// return the tree starting with given start_id (like breadcrumb)
-	// if the $start_id = 0 then this stops because 0 = top level
-
-	$level		= intval($level);
-	$data		= array();
-	$start_id 	= $act_cat_id;
-	$class 		= trim($class);
-	$depth		= 0;
-
-	while ($start_id) {
-		$data[$start_id] = 1;
-		$start_id		 = $struct[$start_id]["acat_struct"];
-	}
-	$temp_tree = sizeof($data) ? array_reverse($data, 1) : false;
-
-	$temp_menu = build_list ($struct, $level, $temp_tree, $act_cat_id, $class, $depth);
-	$temp_menu = str_replace("\n\n", LF, $temp_menu);
-	return $temp_menu ? $temp_menu : '';
-}
-
-function build_list ($struct, $level, $temp_tree, $act_cat_id, $class='', $depth=0) {
+function build_list($struct, $level, $temp_tree, $act_cat_id, $class='', $depth=0) {
 	// this returns the level structure based on given arrays
 	// it is special for browsing from root levels
 
@@ -2888,52 +2695,59 @@ function get_fe_userinfo($forum_userID) {
 	if(($forum_userID === 0 && !isset($GLOBALS['FE_USER'][$forum_userID])) || !$got_the_info) {
 		$forum_userID = 0;
 		$GLOBALS['FE_USER'][$forum_userID] = array(
-					'FE_ID'		=> $forum_userID,		'login'	=> 'guest',
-					'pass'		=> '',					'email'	=> 'noreply@localhost',
-					'admin'		=> 0,					'fe'	=> 0,
-					'aktiv'		=> 1,					'name'	=> 'Guest',
-					'lang'		=> $GLOBALS['phpwcms']['default_lang'],
-					'wysiwyg'	=> empty($GLOBALS['phpwcms']['wysiwyg_editor']) ? 0 : 1
-				);
+			'FE_ID'		=> $forum_userID,		'login'	=> 'guest',
+			'pass'		=> '',					'email'	=> 'noreply@localhost',
+			'admin'		=> 0,					'fe'	=> 0,
+			'aktiv'		=> 1,					'name'	=> 'Guest',
+			'lang'		=> $GLOBALS['phpwcms']['default_lang'],
+			'wysiwyg'	=> empty($GLOBALS['phpwcms']['wysiwyg_editor']) ? 0 : 1
+		);
 	}
 }
 
-function highlightSearchResult($string='', $search, $wrap='<em class="highlight">|</em>') {
-	// string will be highlighted by $search - can be string or array
-	if(!empty($string) && !empty($search)) {
+function highlightSearchResult($string='', $search=null) {
 
-		// make $wrap[0] prefix and $wrap[1] suffix
-		$wrap = explode('|', $wrap);
-		if(empty($wrap[1])) $wrap[1] = '';
+	if(empty($string) || empty($search)) {
+		return $string;
+	}
+
+	// string will be highlighted by $search - can be string or array
+	if(!is_array($search)) {
+		$search = array(strval($search));
+	}
+
+	if(isset($GLOBALS['phpwcms']['current_highlight_match'])) {
+
+		$highlight_match = $GLOBALS['phpwcms']['current_highlight_match'];
+
+	} else {
+
 		$highlight_match = '';
 
-		// make all search values array fields
-		if(is_array($search)) {
-			// make unique
-			$search = array_unique($search);
-		} else {
-			$search = array(strval($search));
-		}
-		foreach($search as $key => $value) {
-			if($highlight_match != '') $highlight_match .= '|';
+		foreach($search as $value) {
+			if($highlight_match !== '') {
+				$highlight_match .= '|';
+			}
 			$highlight_match .= preg_quote($value, '/');
 		}
-		$highlight_match = str_replace("\\?", '.?', $highlight_match);
-		$highlight_match = str_replace("\\*", '.*', $highlight_match);
-		$highlight_match = trim($highlight_match);
 
-		if(false == preg_match('/<.+>/', $string)) {
-			$string = preg_replace('/('.$highlight_match.')/i', $wrap[0].'$1'.$wrap[1], $string);
-		} else {
-			$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$wrap[0].'$2'.$wrap[1], $string);
-		}
+		$highlight_match = str_replace("\\?", '.?', $highlight_match);
+		$highlight_match = trim(str_replace("\\*", '.*', $highlight_match));
+
 	}
+
+	if(!preg_match('/<.+?>/', $string)) {
+		$string = preg_replace('/('.$highlight_match.')/i', $GLOBALS['phpwcms']['search_highlight']['prefix'].'$1'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
+	} else {
+		$string = preg_replace('/(?<=>)([^<]+)?('.$highlight_match.')/i', '$1'.$GLOBALS['phpwcms']['search_highlight']['prefix'].'$2'.$GLOBALS['phpwcms']['search_highlight']['suffix'], $string);
+	}
+
 	return $string;
 }
 function pregReplaceHighlightWrapper($matches) {
 	// just a wrapper for frontend sectional highlighting
 	global $highlight_words;
-	return highlightSearchResult($matches[1], $highlight_words, '<em class="highlight">|</em>');
+	return highlightSearchResult($matches[1], $highlight_words);
 }
 
 function buildCascadingMenu($parameter='', $counter=0, $param='string') {
@@ -2947,12 +2761,16 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			class_active_li|class_active_a,
 			ul_id_name,
 			wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
-			wrap_link_text(<em>|</em>, articlemenu_start_level)
+			wrap_link_text(<em>|</em>),
+			articlemenu_start_level|articlemenu_list_image_size (WxHxCROP OR WxHxCROP)|_
+				articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN OR teaser:HTML)|_
+				articlemenu_position (inside|outside)|_
+				<custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
 	*/
 
 	if($param == 'string') {
 
-		$parameter 		= explode(',', $parameter);
+		$parameter 		= explode(',', is_array($parameter) && isset($parameter[1]) ? $parameter[1] : $parameter);
 		$menu_type		= empty($parameter[0]) ? '' : strtoupper(trim($parameter[0]));
 
 		$unfold 		= 'all';
@@ -2960,15 +2778,32 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$create_css 	= false;
 		$parent			= false; // do not show parent link
 		$articlemenu	= false; // do not show category's article titles as menu entry
+		$bootstrap		= false; // bootstrap dropdown style
 
+		/**
+		 * P = Show parent level
+		 * B = Bootstrap compatible rendering
+		 * A = Articles as menu items
+		 * F = Folded, unfold only active level
+		 * HCSS = Sample horizontal CSS based menu
+		 * VCSS = Sample vertical CSS based menu
+		 **/
 		switch($menu_type) {
-			
+
+			case 'B':		$bootstrap		= true;
+							break;
+
+			case 'BA':		$bootstrap		= true;
 			case 'A':		$articlemenu	= true;
 							break;
 
-							// show parent level too
+			case 'PBA':		$bootstrap		= true;
 			case 'PA':		$articlemenu	= true;
 			case 'P':		$parent			= true;
+							break;
+
+			case 'PB':		$parent			= true;
+							$bootstrap		= true;
 							break;
 
 							// vertical, active path unfolded
@@ -2976,21 +2811,18 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			case 'FP':		$parent			= true;
 			case 'F':		$unfold			= 'active_path';
 							break;
-							
+
 			case 'FA':		$articlemenu	= true;
 							$unfold			= 'active_path';
 							break;
-							
-							// horizontal, all levels unfolded, add special code for horizontal flyout menu
+
 			case 'HCSSP':	$parent		= true;
 			case 'HCSS':	$create_css	= true;
 							break;
 
-							// horizontal, all levels unfolded, add special code for vertical flyout menu
 			case 'VCSSP':	$parent		= true;
 			case 'VCSS':	$create_css = true;
 							break;
-
 		}
 
 		$start_id		= empty($parameter[1]) ? 0  : intval($parameter[1]);
@@ -2999,6 +2831,17 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$active_class	= empty($parameter[4]) ? '' : trim($parameter[4]);
 		$level_id_name	= empty($parameter[5]) ? '' : trim($parameter[5]);
 		$wrap_ul_div	= empty($parameter[6]) ? 0  : intval($parameter[6]);
+		$amenu_options	= array(
+			'enable'		=> false,
+			'image'			=> false,
+			'text'			=> false,
+			'width'			=> 0,
+			'height'		=> 0,
+			'crop'			=> 0,
+			'textlength'	=> 0,
+			'position'		=> 'outside',
+			'template'		=> '<span class="amenu-extended">[IMAGE]<img src="[%IMAGE%]" alt="[%IMAGE_NAME%]" />[/IMAGE][TEXT]<span class="p">[%TEXT%]</span>[/TEXT]</span>'
+		);
 		if($path_class) {
 			$path_class = explode('|', $path_class);
 			foreach($path_class as $key => $class_name) {
@@ -3006,7 +2849,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			}
 		} else {
 			$path_class = array(0 => '');
-		}		
+		}
 		if($active_class) {
 			$active_class		= explode('|', $active_class, 2);
 			$active_class[0]	= trim($active_class[0]);
@@ -3023,15 +2866,62 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		if(empty($wrap_link_text[1])) {
 			$wrap_link_text[1] = '';
 		}
-		$amenu_level	= empty($parameter[8]) ? 0 : intval($parameter[8]);
+		if(empty($parameter[8])) {
+			$amenu_level = 0;
+		} else {
+			$parameter[8]	= explode('|', $parameter[8]);
+			$amenu_level	= intval($parameter[8][0]);
+			if(!empty($parameter[8][1]) && ($parameter[8][1] = trim($parameter[8][1]))) { // articlemenu_list_image_size
+				$parameter[8][1] = explode('x', $parameter[8][1]);
+				$amenu_options['width']		= intval($parameter[8][1][0]); // width
+				$amenu_options['height']	= empty($parameter[8][1][1]) ? 0 : intval($parameter[8][1][1]); // height
+				$amenu_options['crop']		= empty($parameter[8][1][2]) ? 0 : 1; // crop
+				$amenu_options['enable']	= true;
+				$amenu_options['image']		= true;
+			}
+			if(!empty($parameter[8][2]) && ($parameter[8][2] = trim($parameter[8][2]))) { // articlemenu_use_text
+				$parameter[8][2]	= explode(':', $parameter[8][2]);
+				$parameter[8][2][0]	= strtolower(trim($parameter[8][2][0]));
+				if($parameter[8][2][0] == 'description' || $parameter[8][2][0] == 'menutitle' || $parameter[8][2][0] == 'teaser') { // default is description
+					$amenu_options['text'] = $parameter[8][2][0];
+					if(empty($parameter[8][2][1])) {
+						$amenu_options['textlength'] = 0;
+					} elseif($parameter[8][2][0] == 'teaser' && strtoupper($parameter[8][2][1]) == 'HTML') {
+						$amenu_options['textlength'] = 'HTML';
+					} else {
+						$amenu_options['textlength'] = intval($parameter[8][2][1]); // set max text length
+					}
+					$amenu_options['enable'] = true;
+				}
+			}
+			if($amenu_options['enable'] && !empty($parameter[8][3]) && ($parameter[8][3] = trim($parameter[8][3])) && strtolower($parameter[8][3]) == 'inside') { // articlemenu_position
+				$amenu_options['position'] = 'inside';
+			}
+			if($amenu_options['enable'] && !empty($parameter[8][4])) { // template
+				$amenu_options['template'] = str_replace(array('[%', '%]'), array('{', '}'), $parameter[8][4]);
+			}
+		}
 
-		$parameter		= array(	 0 => $menu_type, 		 1 => $start_id, 		 2 => $max_depth,
-									 3 => $path_class,		 4 => $active_class, 	 5 => $level_id_name,
-									 6 => $wrap_ul_div,		 7 => $wrap_link_text,	 8 => $unfold,
-									 9 => $ie_patch,		10 => $create_css,		11 => $amenu_level,
-									12 => array('articlemenu' => $articlemenu, 'level_id' => $start_id)
-							);
-		
+		$parameter = array(
+			 0 => $menu_type,
+			 1 => $start_id,
+			 2 => $max_depth,
+			 3 => $path_class,
+			 4 => $active_class,
+			 5 => $level_id_name,
+			 6 => $wrap_ul_div,
+			 7 => $wrap_link_text,
+			 8 => $unfold,
+			 9 => $ie_patch,
+			10 => $create_css,
+			11 => $amenu_level,
+			12 => array(
+				'articlemenu'	=> $articlemenu,
+				'level_id'		=> $start_id
+			),
+			13 => $bootstrap
+		);
+
 		if($articlemenu) {
 			$parameter[12]['class_active']			= $active_class;
 			$parameter[12]['wrap_title_prefix']		= $wrap_link_text[0];
@@ -3046,10 +2936,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			$parameter[12]['class_first_item_tag']	= $GLOBALS['template_default']['classes']['navlist-asub_first'];
 			$parameter[12]['class_last_item_tag']	= $GLOBALS['template_default']['classes']['navlist-asub_last'];
 			$parameter[12]['return_format']			= 'array';
+			$parameter[12]['articlemenu_options']	= $amenu_options;
 		}
-	
-	} else {
 
+	} else {
 		$menu_type		= $parameter[0];
 		$start_id		= $parameter[1];
 		$max_depth		= $parameter[2];
@@ -3062,9 +2952,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$ie_patch		= $parameter[9];
 		$create_css 	= $parameter[10];
 		$amenu_level	= $parameter[11];
-		
+		$bootstrap		= $parameter[13];
 		$parent			= false;		// do not show parent link
-
 	}
 
 	$li				= '';
@@ -3076,7 +2965,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 	$x				= 0;
 	$items			= array();
 	$last_item		= 0;
-	
+
 	foreach($GLOBALS['content']['struct'] as $key => $value) {
 
 		if( _getStructureLevelDisplayStatus($key, $start_id) ) {
@@ -3090,11 +2979,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 			$li_ul 		= '';
 			$li_ie		= '';
-			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? ' class="'.$active_class[1].'"' : ''; // set active link class
-			
-			$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"');
-			$li_a .= $wrap_link_text[0] . $li_a_title . $wrap_link_text[1];
+			$bs_toggle	= false;
 
 			if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
 				$parameter[1]	= $key;
@@ -3108,11 +2993,32 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			}
 			if($li_ul) {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
+				if($bootstrap) {
+					$li_class	= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown'].' '.$li_class);
+					$bs_toggle	= true;
+				}
 			} elseif(getHasSubStructureStatus($key)) {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'].' '.$GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
 			} else {
 				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'];
 			}
+
+			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
+			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? $active_class[1] : ''; // set active link class
+			if($bs_toggle) {
+				$li_a_class		= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'].' '.$li_a_class);
+				$bs_data_toggle = ' '.$GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
+				$bs_caret		= $GLOBALS['template_default']['attributes']['navlist-bs-dropdown-caret'];
+			} else {
+				$bs_data_toggle = '';
+				$bs_caret		= '';
+			}
+			if($li_a_class) {
+				$li_a_class = ' class="'.$li_a_class.'"';
+			}
+			$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"'.$bs_data_toggle);
+			$li_a .= $wrap_link_text[0] . $li_a_title . $bs_caret . $wrap_link_text[1];
+
 			if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
 				$li_class = trim($li_class.' '.$path_class[0]);
 			}
@@ -3122,42 +3028,42 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 			if($x==0) {
 				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_first'];
 			}
-			
+
 			$x++;
-			
+
 			if($x==$last_item) {
 				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_last'];
 			}
 
-			$li .= ' class="' . trim($li_class . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
+			$li .= ' class="' . trim(trim($li_class) . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
 
 			$li .= '>' . $li_a . '</a>';
 
-			$li .= $li_ul.'</li>'.LF; // remove $li_ul from this line of code if $ie_patch is used
+			$li .= $li_ul.'</li>'.LF;
 
 	}
-	
+
 	// show article menu
 	if($parameter[12]['articlemenu'] && $amenu_level <= $counter) {
-		
+
 		$parameter[12]['level_id']		= $start_id;
 		$parameter[12]['item_prefix']	= $TAB.$TAB.$TAB;
 
-		$ali = getArticleMenu( $parameter[12] );
-		
+		$ali = getArticleMenu($parameter[12]);
+
 		if(count($ali) > 1) {
-		
+
 			$li .= implode(LF, $ali) . LF;
 			$ali = $TAB;
-			
+
 		} else {
-		
+
 			$ali = '';
-			
+
 		}
-		
-	}	
-	
+
+	}
+
 	// also check if $parent
 	if($li || ($parent && isset($GLOBALS['content']['struct'][$start_id]))) {
 
@@ -3183,14 +3089,17 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		if(isset($GLOBALS['LEVEL_KEY'][$start_id]) && $counter && isset($path_class[0])) {
 			$ul_class .= ' ' . $path_class[0];
 		}
+		if($bootstrap && $counter) {
+			$ul_class = 'dropdown-menu '.$ul_class;
+		}
 		$ul_class = trim($ul_class);
 		if($ul_class) {
 			$ul .= ' class="' . $ul_class . '"';
 		}
 		$ul .= '>'.LF;
-		
+
 		if($parent && isset($GLOBALS['content']['struct'][$start_id])) {
-		
+
 			$ul .= LF;
 			$ul .= $TAB.'	<li';
 			if($level_id_name) {
@@ -3201,16 +3110,16 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				$li_class = trim($li_class.' '.$active_class[0]);
 			}
 			$ul .= ' class="'.trim($li_class.' '.$GLOBALS['content']['struct'][$start_id]['acat_class']).'">';
-			
+
 			$link_text	= html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
 			$link_class	= ($active_class[1] && $start_id == $GLOBALS['aktion'][0]) ? ' class="'.$active_class[1].'"' : ''; // set active link class
-			
+
 			$ul .= get_level_ahref($start_id, $link_class.' title="'.$link_text.'"');
 			$ul .= $wrap_link_text[0] . $link_text . $wrap_link_text[1];
 			$ul .= '</a></li>'.LF;
-					
+
 		}
-		
+
 		$ul .= $li;
 		$ul .= $TAB . $ali . '</ul>' . LF . $TAB . $close_wrap_ul;
 
@@ -3308,7 +3217,7 @@ function getStructureChildEntryHref($childData) {
 
 function getImageCaption($caption='', $array_index='NUM', $short=false) {
 	// splits given image caption and returns an array
-	$caption	= explode('|', $caption);
+	$caption = explode('|', $caption);
 
 	// following is default for the exploded $caption
 	// [0] caption text
@@ -3316,39 +3225,49 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
 	// [2] link -> array(0 => link, 1 => target)
 	// [3] title text -> if empty alt text will be used
 	// [4] copyright information
-	$caption[0]			= trim($caption[0]);
-	$caption[1]			= isset($caption[1]) ? trim($caption[1]) : '';
-	$caption[3]			= isset($caption[3]) ? trim($caption[3]) : $caption[1];
-	
-	// cut here Ð just return caption and alt text
+	$caption[0]	= trim($caption[0]);
+	$caption[1]	= isset($caption[1]) ? trim($caption[1]) : '';
+	$caption[3]	= isset($caption[3]) ? trim($caption[3]) : '';
+
+	// cut here – just return caption and alt text
 	if($short) {
-		return array('caption' => $caption[0], 'alt' => $caption[1], 'title' => $caption[3]);
+		return array(
+			'caption' => $caption[0],
+			'alt' => $caption[1],
+			'title' => $caption[3]
+		);
 	}
-	
-	$caption[2]			= isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
-	$caption[2][0]		= trim($caption[2][0]);
+
+	$caption[2]		= isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
+	$caption[2][0]	= trim($caption[2][0]);
 	if(empty($caption[2][0]) || empty($caption[2][1])) {
 		$caption[2][1]	= '';
 	} else {
 		$caption[2][1]	= trim($caption[2][1]);
 		$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 	}
-	$caption[4]			= isset($caption[4]) ? trim($caption[4]) : '';
-	
-	if($caption[4] == '') {
-		$copyright		= returnTagContent($caption[3], 'copyright');
-		$caption[3]		= $copyright['new'];
-		$caption[4]		= $copyright['tag'];
+
+	$caption[4] = isset($caption[4]) ? trim($caption[4]) : '';
+
+	if($caption[4] === '') {
+		$copyright	= returnTagContent($caption[3], 'copyright');
+		$caption[3]	= $copyright['new'];
+		$caption[4]	= $copyright['tag'];
 	} else {
-		$caption[3]		= replace_cnt_template($caption[3], 'copyright', '');
+		$caption[3]	= replace_cnt_template($caption[3], 'copyright', '');
 	}
-	
+
 	if($array_index == 'NUM') {
 		return $caption;
 	} else {
-		return array(	'caption_text'		=> $caption[0],		'caption_alt'		=> $caption[1],
-						'caption_link'		=> $caption[2][0],	'caption_target'	=> $caption[2][1],
-						'caption_title'		=> $caption[3]		);
+		return $caption + array(
+			'caption_text' => $caption[0],
+			'caption_alt' => $caption[1],
+			'caption_link' => $caption[2][0],
+			'caption_target' => $caption[2][1],
+			'caption_title' => $caption[3],
+			'caption_copyright' => $caption[4]
+		);
 	}
 
 }
@@ -3386,8 +3305,8 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
 	// check against database
 	if(!empty($validate_db['userdetail'])) {
 		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
-		$sql .= "detail_login='".aporeplace($user)."' AND ";
-		$sql .= "detail_password='".aporeplace($pass)."' AND ";
+		$sql .= "detail_login="._dbEscape($user)." AND ";
+		$sql .= "detail_password="._dbEscape($pass)." AND ";
 		$sql .= "detail_aktiv=1 LIMIT 1";
 		$result = _dbQuery($sql);
 	}
@@ -3396,8 +3315,8 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
 		$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_user ';
 		$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_userdetail ON ';
 		$sql .= 'usr_id = detail_pid WHERE ';
-		$sql .= "usr_login='".aporeplace($user)."' AND ";
-		$sql .= "usr_pass='".aporeplace($pass)."' AND ";
+		$sql .= "usr_login="._dbEscape($user)." AND ";
+		$sql .= "usr_pass="._dbEscape($pass)." AND ";
 		$sql .= "usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1";
 		$result = _dbQuery($sql);
 	}
@@ -3420,7 +3339,7 @@ function _getFrontendUserBaseData(& $data) {
 			if(empty($t))	$t			= trim($data['detail_company']);
 			if($t) $userdata['name']	= $t;
 			$userdata['url']			= trim($data['detail_website']);
-		}		
+		}
 	} elseif($data['detail_login']) {
 		$t					= trim($data['detail_firstname'].' '.$data['detail_lastname']);
 		if(empty($t)) $t	= $data['detail_company'];
@@ -3455,7 +3374,7 @@ function _checkFrontendUserAutoLogin() {
 	}
 	// logout
 	if(session_id() && (isset($_POST['feLogout']) || isset($_GET['feLogout']))) {
-		unset($_SESSION[ session_id() ]); 
+		unset($_SESSION[ session_id() ]);
 		setcookie('phpwcmsFeLoginRemember', '', time()-3600, '/',  getCookieDomain() );
 	}
 	define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
@@ -3480,7 +3399,7 @@ function setPageTitle($pagetitle, $cattitle, $articletitle, $title_order=NULL) {
 	// get default pagetitle order value;
 	if($title_order === NULL) {
 		$title_order = empty($GLOBALS['pagelayout']['layout_title_order']) ? 0 : intval($GLOBALS['pagelayout']['layout_title_order']);
-	}	
+	}
 	if(empty($GLOBALS['pagelayout']['layout_title_spacer'])) {
 		$title_spacer = ' | ';
 		$GLOBALS['pagelayout']['layout_title_spacer'] = $title_spacer;
@@ -3488,7 +3407,7 @@ function setPageTitle($pagetitle, $cattitle, $articletitle, $title_order=NULL) {
 		$title_spacer = $GLOBALS['pagelayout']['layout_title_spacer'];
 	}
 	switch($title_order) {
-	
+
 		case 1:		$title = array($pagetitle, $articletitle, $cattitle); break;
 		case 2:		$title = array($cattitle, $articletitle, $pagetitle); break;
 		case 3:		$title = array($cattitle, $pagetitle, $articletitle); break;
@@ -3505,9 +3424,9 @@ function setPageTitle($pagetitle, $cattitle, $articletitle, $title_order=NULL) {
 		case 12:	$title = array($pagetitle); 	break;
 		case 13:	$title = array($cattitle); 		break;
 		case 14:	$title = array($articletitle); 	break;
-		
+
 		default:	$title = array($pagetitle, $cattitle, $articletitle);
-	
+
 	}
 	$title = array_diff($title, array('', NULL, false));
 	$title = array_unique($title);
@@ -3555,12 +3474,14 @@ function parseLightboxCaption($caption='') {
 }
 
 function get_article_morelink(& $article) {
-	if($article['article_redirect'] && strpos($article['article_redirect'], ' ')) {
+	if($article['article_redirect']) {
 		$link = explode(' ', $article['article_redirect']);
 		if($link[0]) {
 			$link[0] = str_replace('{SITE}', PHPWCMS_URL, $link[0]);
 		}
-		if(empty($link[1])) $link[1] = '';
+		if(empty($link[1])) {
+			$link[1] = '';
+		}
 	} else {
 		$link[0] = 'index.php?'.setGetArticleAid($article);
 		$link[1] = '';
@@ -3581,23 +3502,23 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 
 	// check if frontend edit link allowed
 	if(!FE_EDIT_LINK) return '';
-	
+
 	// init JSLib
 	initJSLib();
-	
+
 	// set specific frontend editing link
 	set_css_link('inc_css/specific/frontend_edit.css');
-	
+
 	$link  = '';
 	$href  = '';
 	$title = '';
-	
+
 	switch($type) {
 
 		case 'article':		$href  = 'do=articles&amp;p=2&amp;s=1&amp;id='.$id_1;
 							$title = '@@Backend: goto Article@@';
 							break;
-							
+
 		case 'summary':		$href = 'do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id='.$id_1;
 							$title = '@@Backend: edit Article Summary@@';
 							break;
@@ -3609,7 +3530,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 								$title = '@@Backend: edit Structure Level@@';
 							}
 							break;
-							
+
 		case 'CP':			if(!$_SESSION["wcs_user_admin"] && $id_1) {
 								$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_1);
 								$sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
@@ -3622,11 +3543,11 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 							break;
 
 		//enym new block to make news items editable
-    	case 'news':		$href  = 'do=articles&amp;p=3&amp;cntid='.$id_1.'&amp;action=edit';	
+    	case 'news':		$href  = 'do=articles&amp;p=3&amp;cntid='.$id_1.'&amp;action=edit';
     	 					$title = '@@Backend: edit News@@';
 							break;
-		//end enym 
-			
+		//end enym
+
 		case 'module':		if(!$_SESSION["wcs_user_admin"] && $id_2) {
 								$sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_article WHERE article_id='._dbEscape($id_2);
 								$sql .= ' AND article_uid='._dbEscape($_SESSION["wcs_user_id"]);
@@ -3638,15 +3559,15 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 							$title = '@@Backend: goto Module@@';
 							break;
 	}
-	
+
 	if($href) {
-	
+
 		$link  = '<a href="'.PHPWCMS_URL.'phpwcms.php?'.$href.'" target="backend" ';
 		$link .= 'class="fe-link fe-'.$type.'" title="'.$title.'">';
 		$link .= '<span>'.$title.'</span></a> ';
-	
+
 	}
-	
+
 	return $link;
 }
 
@@ -3663,66 +3584,65 @@ function setGetArticleAid(&$data) {
 /**
  * Return Link based on given structure level data
  *
- * @param mixed - structure level [integer] ID or Array(acat_redirect,acat_alias,acat_id,acat_name) 
+ * @param mixed - structure level [integer] ID or Array(acat_redirect,acat_alias,acat_id,acat_name)
  * @param string - additional link attributes
  * @param string - link prefix
  * @param string - link suffix
  */
 function getStructureLevelLink($acat, $attributes='', $prefix='', $suffix='') {
-	
+
 	if( !is_array($acat) ) {
-		
+
 		$id = is_int($acat) ? intval($acat) : -1;
-		
+
 		if($id >= 0 && isset($GLOBALS['content']['struct'][$id])) {
-		
+
 			$acat =& $GLOBALS['content']['struct'][$id];
-		
+
 		} else {
-			
+
 			$acat = trim($acat);
-			
+
 			if(empty($acat)) {
 				return '';
 			}
-			
+
 			return $prefix . html_specialchars( $acat ) . $suffix;
-		
+
 		}
-		
+
 	}
-	
+
 	if($acat['acat_redirect'] == false) {
-		
+
 		$target		= '';
 		$link		= rel_url( array(), array('newsdetail'), empty($acat['acat_alias']) ? 'id='.$acat['acat_id'] : $acat['acat_alias'] );
-		
+
 	} else {
-		
+
 		$redirect	= get_redirect_link($acat['acat_redirect'], ' ', '');
 		$target		= $redirect['target'];
 		$link		= $redirect['link'];
-		
+
 	}
-	
+
 	return trim( '<a href="' . $link . '"' . $target . ' ' . $attributes ) . '>' . $prefix . html_specialchars( $acat['acat_name'] ) . $suffix . '</a>';
-	
+
 }
 
 /**
- * Return menu or menu elements based on article menu title information 
+ * Return menu or menu elements based on article menu title information
  * starting at given structure level ID, limited to single level (non-nested)
  *
  * @return mixed (array/string)
  * @param array
  **/
 function getArticleMenu($data=array()) {
-	
+
 	global $content;
 	global $aktion;
-	
+
 	$defaults = array(
-		
 		'level_id'				=> 0,
 		'class_active'			=> array(0 => 'active', 1 => ''),
 		'wrap_title_prefix'		=> '',
@@ -3736,19 +3656,27 @@ function getArticleMenu($data=array()) {
 		'class_item_tag'		=> '',
 		'class_first_item_tag'	=> '',
 		'class_last_item_tag'	=> '',
-		'return_format'			=> 'string' // string or array
+		'return_format'			=> 'string', // string or array
+		'articlemenu_options'	=> array(
+			'enable'		=> false,
+			'image'			=> false,
+			'text'			=> false,
+			'width'			=> 0,
+			'height'		=> 0,
+			'crop'			=> 0,
+			'textlength'	=> 0,
+			'position'		=> 'inside',
+			'template'		=> '<span class="amenu-extended">[IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}" />[/IMAGE][TEXT]<span class="p">{TEXT}</span>[/TEXT]</span>'
+		)
+	);
 
-					  );	
-	
 	$data		= is_array($data) && count($data) ? array_merge($defaults, $data) : $defaults;
 	$li			= array();
-	
-	$articles = get_actcat_articles_data( $data['level_id'] );
-	
-	$key	= 0;
-	$total	= count($articles) - 1;
+	$articles	= get_actcat_articles_data( $data['level_id'] );
+	$key		= 0;
+	$total		= count($articles) - 1;
 	foreach($articles as $item) {
-		
+
 		$class		= '';
 		$class_a	= '';
 		if($data['class_item_tag']) {
@@ -3768,30 +3696,72 @@ function getArticleMenu($data=array()) {
 			}
 		}
 		$class = trim($class);
-		
+
+		$item['outside']	= '';
+		$item['inside']		= '';
+
+		if($data['articlemenu_options']['enable']) {
+			$item['img_src'] = '';
+			$item['img_name'] = '';
+			$item['amenu_text'] = '';
+			if($data['articlemenu_options']['image'] && (!empty($item['article_image']['list_id']) || !empty($item['article_image']['id']))) {
+				if(!empty($item['article_image']['list_usesummary']) && !empty($item['article_image']['id'])) {
+					$item['img_src'] = $item['article_image']['hash'].'.'.$item['article_image']['ext'];
+					$item['img_name'] = html($item['article_image']['name']);
+				} elseif(!empty($item['article_image']['list_id'])) {
+					$item['img_src'] = $item['article_image']['list_hash'].'.'.$item['article_image']['list_ext'];
+					$item['img_name'] = html($item['article_image']['list_name']);
+				}
+				if($item['img_src']) {
+					$item['img_src'] = 'x'.$data['articlemenu_options']['height'].'x'.$data['articlemenu_options']['crop'].'/'.$item['img_src'];
+					$item['img_src'] = 'img/cmsimage.php/'.$data['articlemenu_options']['width'].$item['img_src'];
+				}
+			}
+			if($data['articlemenu_options']['text']) {
+				switch($data['articlemenu_options']['text']) {
+					case 'description':
+						$item['amenu_text'] = html(getCleanSubString($item['article_description'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word'));
+						break;
+					case 'menutitle':
+						$item['amenu_text'] = html(getCleanSubString($item['article_menutitle'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word'));
+						break;
+					case 'teaser':
+						if($data['articlemenu_options']['textlength'] === 'HTML') {
+							$item['amenu_text'] = $item['article_summary'];
+						} else {
+							$item['amenu_text'] = trim(strip_tags($item['article_summary']));
+							$item['amenu_text'] = getCleanSubString($item['amenu_text'], abs($data['articlemenu_options']['textlength']), $GLOBALS['template_default']['ellipse_sign'], $data['articlemenu_options']['textlength'] < 0 ? 'char' : 'word');
+						}
+						break;
+				}
+			}
+			$item[ $data['articlemenu_options']['position'] ] = $data['articlemenu_options']['template'];
+			$item[ $data['articlemenu_options']['position'] ] = str_replace('{IMAGE_NAME}', $item['img_name'], $item[ $data['articlemenu_options']['position'] ]);
+			$item[ $data['articlemenu_options']['position'] ] = render_cnt_template($item[ $data['articlemenu_options']['position'] ], 'IMAGE', $item['img_src']);
+			$item[ $data['articlemenu_options']['position'] ] = render_cnt_template($item[ $data['articlemenu_options']['position'] ], 'TEXT', $item['amenu_text']);
+		}
+
 		$li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
-
 		$li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.'>';
-		
 		$li[$key] .= $data['wrap_title_prefix'];
-		$li[$key] .= html_specialchars( getArticleMenuTitle($item) );
+		$li[$key] .= html(getArticleMenuTitle($item));
 		$li[$key] .= $data['wrap_title_suffix'];
-		
+		$li[$key] .= $item['inside'];
 		$li[$key] .= '</a>';
-
+		$li[$key] .= $item['outside'];
 		$li[$key] .= '</'.$data['item_tag'].'>' . $data['item_suffix'];
-	
+
 		$key++;
-	
+
 	}
-	
+
 	if($data['wrap_tag'] && count($li)) {
-		
+
 		array_unshift($li, '<'.trim($data['wrap_tag'].' '.trim($data['attribute_wrap_tag'])).'>');
 		array_push($li, '</'.$data['wrap_tag'].'>');
-		
+
 	}
-	
+
 	return $data['return_format'] == 'string' ? implode(LF, $li) : $li;
 
 }
@@ -3809,29 +3779,32 @@ function getArticleMenuTitle(& $data) {
 /**
  * Add HTML Head meta tag
  */
-function set_meta($name='', $content='', $type=FALSE, $return=false) {
-	if(empty($name) || empty($content)) {
+function set_meta($name='', $content=null, $type=FALSE, $return=false, $allow_multiple=false) {
+	if(empty($name) || !is_string($content)) {
 		return NULL;
 	}
-	
+
 	$meta  = '  <meta ';
 	if($type === FALSE) {
 		$meta .= 'name';
 	} elseif($type == 'prop' || $type == 'property') {
 		$meta .= 'property';
 	} elseif($type == 'itemprop') {
-		$meta .= 'itemprop';	
+		$meta .= 'itemprop';
 	} elseif($type === TRUE || $type == 'http-equiv') {
 		$meta .= 'http-equiv';
 	} elseif($type) {
-		$meta .= $type;	
+		$meta .= $type;
 	} else {
 		$meta .= 'name';
 	}
 	$meta .= '="' . $name . '" content="'.html_specialchars($content).'"'.HTML_TAG_CLOSE;
-	
+
 	if($return) {
 		return $meta;
+	}
+	if($allow_multiple) {
+		$name .= md5($content);
 	}
 	$GLOBALS['block']['custom_htmlhead']['meta.'.$name] = $meta;
 }
@@ -3880,54 +3853,54 @@ function replace_level_id($match) {
  * <!-- CSS: img {} -->
  */
 function renderHeadCSS($css) {
-	
+
 	if(is_array($css) && isset($css[1])) {
 		$css = $css[1];
 	}
 
 	$css = trim($css);
-	
+
 	if(empty($css)) {
 		return '';
 	}
-	
+
 	// test for .css as file extension
 	$ext = which_ext($css);
 	$key = md5($css);
-	
+
 	// if it is a css file register it as external css file
 	if($ext == 'css') {
 
 		$css = str_replace(' ', '%20', str_replace('{TEMPLATE}', TEMPLATE_PATH, html_specialchars($css)));
-		
+
 		if(strpos($css, '/') !== false) {
 			$GLOBALS['block']['custom_htmlhead'][$key] = '  <link rel="stylesheet" type="text/css" href="' . $css . '"'.HTML_TAG_CLOSE;
 		} else {
 			$GLOBALS['block']['css'][$css] = $css;
 		}
-	
+
 	// otherwise create a CSS <style> section
 	} else {
-		
+
 		// add the same section only once
 		if(isset($GLOBALS['block']['custom_htmlhead'][$key])) {
 			return '';
 		}
-		
+
 		$GLOBALS['block']['custom_htmlhead'][$key]  = '  <style type="text/css">' . LF . SCRIPT_CDATA_START . LF . '	';
 		$GLOBALS['block']['custom_htmlhead'][$key] .= str_replace('{TEMPLATE}', TEMPLATE_PATH, $css);
 		$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </style>';
 
 	}
-	
+
 	return '';
-	
+
 }
 
 function parse_CKEDitor_resized_images() {
-	
+
 	$GLOBALS['content']['all'] = preg_replace_callback('/<img.*? src="(image_resized\.php\?format=.*?)".*? style="(.*?)px;"/', 'render_CKEDitor_resized_images', $GLOBALS['content']['all']);
-	
+
 }
 
 function render_CKEDitor_resized_images($match) {
@@ -3936,26 +3909,26 @@ function render_CKEDitor_resized_images($match) {
 	if(empty($src[1])) {
 		return $match[0];
 	}
-	
+
 	$sizes	= explode(';', str_replace('px', '', $match[2]));
 	$height	= 0;
 	$width	= 0;
 	foreach($sizes as $size) {
-		
+
 		$size = trim($size);
-		
+
 		if(substr($size, 0, 6) == 'width:') {
 			$width	= intval(trim(substr($size, 6)));
 		} elseif(substr($size, 0, 7) == 'height:') {
 			$height	= intval(trim(substr($size, 7)));
 		}
-		
+
 	}
-	
+
 	if(!$width || !$height) {
 		return $match[0];
 	}
-	
+
 	$src = 'img/cmsimage.php/'.$width.'x'.$height.'/'.$src[1];
 	if(strpos($match[0], 'alt="')) {
 		preg_match('/alt="(.*?)"/', $match[0], $alt);
@@ -3963,23 +3936,24 @@ function render_CKEDitor_resized_images($match) {
 	} else {
 		$alt = '';
 	}
-	
+
 	return '<img src="'.$src.'"'.$alt;
 }
 
 function get_structurelevel_single_article_alias($article_cid=0) {
-	
+
 	if(!is_intval($article_cid)) {
 		return '';
 	}
-	
+
 	global $content;
-	
+
 	if(empty($content['struct'][ $article_cid ]['acat_articlecount'])) {
 		$sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'phpwcms_article ';
-		$sql .= 'WHERE article_cid='.$article_cid.' AND ';
-		$sql .= 'article_public=1 AND article_aktiv=1 AND article_deleted=0 AND ';
-		$sql .= 'article_begin < NOW() AND article_end > NOW()';
+		$sql .= 'WHERE article_cid='.$article_cid.' AND article_aktiv=1 AND article_deleted=0';
+		if(!PREVIEW_MODE) {
+			$sql .= ' AND article_begin < NOW() AND article_end > NOW()';
+		}
 		$content['struct'][ $article_cid ]['acat_articlecount'] = _dbCount($sql);
 	}
 
@@ -3987,7 +3961,7 @@ function get_structurelevel_single_article_alias($article_cid=0) {
 	if($content['struct'][ $article_cid ]['acat_articlecount'] === 1) {
 		return empty($content['struct'][ $article_cid ]['acat_alias']) ? 'id='.$article_cid : $content['struct'][ $article_cid ]['acat_alias'];
 	}
-	
+
 	return '';
 }
 
@@ -4007,77 +3981,77 @@ function render_device($string) {
 	if(empty($GLOBALS['phpwcms']['render_device']) || strpos($string, '<!--if:') === false) {
 		return $string;
 	}
-	
+
 	preg_match_all('/<!--!{0,1}if:(.+?)-->.*?<!--\/!{0,1}if-->/s', $string, $matches);
 
 	if(!isset($matches[0][0])) {
-		return $string;		
+		return $string;
 	}
-	
+
 	// get agent information
 	$user_agent = phpwcms_getUserAgent();
-	
+
 	// Test against
 	$cache = array();
 
 	foreach($matches[1] as $match) {
-		
+
 		$hash = md5($match);
-		
+
 		if(isset($cache[$hash])) {
 			continue;
 		}
-		
+
 		$cache[$hash]	= true;
 		$validity		= array();
 		$values			= explode(';', strtolower($match));
-		
+
 		// parameters (AND)
 		foreach($values as $check) {
-			
+
 			// values (OR)
 			$check	= explode(':', trim($check));
 			$param	= trim($check[0]);
 			$value	= isset($check[1]) ? explode(',', trim($check[1])) : array();
-						
+
 			// mobile
 			if($param == 'mobile') {
-			
+
 				$validity[] = $user_agent['mobile'] ? 1 : 0;
-			
+
 			} elseif($param == 'desktop') {
-			
+
 				$validity[] = $user_agent['mobile'] ? 0 : 1;
-			
+
 			} elseif($param == 'platform') {
-			
-				// WinPhone, WinCE, Win, iOS, Mac, GoogleTV, Android, 
+
+				// WinPhone, WinCE, Win, iOS, Mac, GoogleTV, Android,
 				// BlackBerry, WebOS, Linux, Unix, Symbian, Other
 				$validity[] = in_array(strtolower($user_agent['platform']), $value) ? 1 : 0;
-			
+
 			} elseif($param == 'device') {
-			
+
 				// Default, Other, Smartphone, Tablet, Desktop, TV
 				$validity[] = in_array(strtolower($user_agent['device']), $value) ? 1 : 0;
-			
+
 			} elseif($param == 'browser') {
-				
+
 				// Other, Firefox, Chrome, Safari, IE, IEMobile, Opera, Mozilla
 				$validity[] = in_array(strtolower($user_agent['agent']), $value) ? 1 : 0;
-				
+
 			} elseif($param == 'engine') {
-				
-				// Gecko, Other, WebKit, Opera, KHTML, 
+
+				// Gecko, Other, WebKit, Opera, KHTML,
 				$validity[] = in_array(strtolower($user_agent['engine']), $value) ? 1 : 0;
-				
+
 			} elseif($param == 'version') {
-				
+
 				// Only first value will be used for comparison
 				// >Version, <Version, =Version, <=Version, >=Version
 				if(preg_match('/^([<>=]+)(\d+)$/', current($value), $value)) {
-					
+
 					$compare	= $value[1];
-					$value		= intval($value[2]);				
+					$value		= intval($value[2]);
 					if($compare == '=' && $user_agent['version'] == $value) {
 						$validity[] = 1;
 					} elseif($compare == '<' && $user_agent['version'] < $value) {
@@ -4089,17 +4063,17 @@ function render_device($string) {
 					} elseif($compare == '>=' && $user_agent['version'] >= $value) {
 						$validity[] = 1;
 					} else {
-						$validity[] = 0;			
+						$validity[] = 0;
 					}
-					
+
 				} else {
-					$validity[] = 0;					
+					$validity[] = 0;
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		$match = preg_quote($match);
 		if(array_sum($validity) == count($values)) {
 			// Valid – delete the !if and !if:default
@@ -4116,10 +4090,75 @@ function render_device($string) {
 				$string
 			);
 		}
-		
+
 	}
 
 	return $string;
+}
+
+function get_PaginateNext($matches) {
+	if(isset($GLOBALS['paginate_temp'])) {
+		$GLOBALS['paginate_temp']['next'] = $matches[1];
+	} else {
+		$GLOBALS['_search_next_link_t'] = $matches[1];
+	}
+	return '{NEXT}';
+}
+function get_PaginatePrevious($matches) {
+	if(isset($GLOBALS['paginate_temp'])) {
+		$GLOBALS['paginate_temp']['prev'] = $matches[1];
+	} else {
+		$GLOBALS['_search_prev_link_t'] = $matches[1];
+	}
+	return '{PREV}';
+}
+function get_PaginateNavigate($matches) {
+	if(isset($GLOBALS['paginate_temp'])) {
+		$GLOBALS['paginate_temp']['navi'] = $matches[1];
+	} else {
+		$GLOBALS['_search_navi'] = $matches[1];
+	}
+	return '{NAVI}';
+}
+
+function get_link_anchor($matches) {
+	$anchor = trim($matches[1]);
+	$anchor = explode('#', $anchor);
+	if(!empty($anchor[1])) {
+		if($anchor[0] === '') {
+			return '<a id="'.$anchor[1].'"'.(empty($GLOBALS['template_default']['classes']['link-anchor']) ? '' : ' class="'.$GLOBALS['template_default']['classes']['link-anchor'].'"').'></a>';
+		}
+		$anchor[0] = strtoupper($anchor[0]);
+		if($anchor[0] === 'REL') {
+			return rel_url().'#'.$anchor[1];
+		} elseif($anchor[0] === 'ABS') {
+			return abs_url().'#'.$anchor[1];
+		}
+	}
+	return $matches[0];
+}
+
+function render_if_category($matches) {
+
+	$cat_ids = convertStringToArray($matches[1]);
+
+	if(!count($cat_ids)) {
+		return '';
+	}
+
+	$current = intval($GLOBALS['content']['cat_id']);
+
+	foreach($cat_ids as $id) {
+
+		$id = intval($id);
+
+		if($id === $current) {
+			return str_replace('{IF_CAT_ID}', $id, $matches[2]);
+		}
+
+	}
+
+	return '';
 }
 
 ?>

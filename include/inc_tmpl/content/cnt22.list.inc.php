@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2013, Oliver Georgi
+ * @copyright Copyright (c) 2002-2014, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Plain Text
 
-$cinfo[1] = html_specialchars(cut_string($row["acontent_title"],'&#8230;', 55));
-$cinfo[2] = html_specialchars(cut_string($row["acontent_subtitle"],'&#8230;', 55));
+$cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
+$cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 $cinfo["result"] = "";
 foreach($cinfo as $value) {
 	if($value) $cinfo["result"] .= $value."\n";
@@ -35,7 +35,7 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 }
 $rssfeed = unserialize($row["acontent_form"]);
 if($rssfeed['rssurl']) {
-	echo ' <a href="'.html_specialchars($rssfeed['rssurl']).'" target="_blank">';
+	echo ' <a href="'.html($rssfeed['rssurl']).'" target="_blank">';
 	echo '<img src="img/symbole/xml.gif" width="36" height="14" border="0" style="vertical-align:middle;"></a>';
 }
 echo "</td><td>&nbsp;</td></tr>";
