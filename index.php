@@ -176,7 +176,7 @@ if(!empty($phpwcms['browser_check']['fe'])) {
 	if(!empty($phpwcms['browser_check']['vs'])) {
 		$content['page_end'] .= 'vs:' . $phpwcms['browser_check']['vs'];
 	}
-	$content['page_end'] .= '}; </script><script'.SCRIPT_ATTRIBUTE_TYPE.' src="http://browser-update.org/update.js"></script>';
+	$content['page_end'] .= '}; </script><script'.SCRIPT_ATTRIBUTE_TYPE.' src="//browser-update.org/update.js"></script>';
 }
 $content['page_end'] .= LF.'</body>'.LF.'</html>';
 

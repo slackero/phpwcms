@@ -296,9 +296,9 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 </script>
 <?php if(!empty($phpwcms['browser_check']['be'])): ?>
 <script type="text/javascript">
-	$buoop = {<?php if(!empty($phpwcms['browser_check']['vs'])) {	echo 'vs:'.$phpwcms['browser_check']['vs']; } ?>};
+	$buoop = {<?php if(!empty($phpwcms['browser_check']['vs'])) { echo 'vs:'.$phpwcms['browser_check']['vs']; } ?>};
 </script>
-<script type="text/javascript" src="http://browser-update.org/update.js"></script>
+<script type="text/javascript" src="//browser-update.org/update.js"></script>
 <?php endif; ?>
 </body>
 </html>
