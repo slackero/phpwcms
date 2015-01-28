@@ -16,10 +16,10 @@ if (!defined('PHPWCMS_ROOT')) {
  * Piwik is created from the team behind phpMyVisites.
  * visit: http://piwik.org
  */
-$_Tracking_Piwik				= Off;
+$_Tracking_Piwik				= false;
 $_Tracking_PiwikSiteID			= 1; //usually it is ID 1
 $_Tracking_PiwikURL 			= 'mystats.url/piwik';	// fill in the URI where Piwik is installed without http:// or https://
-$_Tracking_PiwikUsePageTitle	= Off;
+$_Tracking_PiwikUsePageTitle	= false;
 
 
 /*
@@ -31,46 +31,46 @@ $_Tracking_PiwikUsePageTitle	= Off;
  * switch to Piwik (http://www.piwik.org)
  *
  */
-$_Tracking_phpMyVisites			= Off;
+$_Tracking_phpMyVisites			= false;
 $_Tracking_phpMyVisitesSite		= 1; //typically it is ID 1
 $_Tracking_phpMyVisistesURL 	= 'http://mystats.url/phpmyvisites.php';	// fill in the remote URL here
 $_Tracking_phpMyVisistesJS  	= 'http://mystats.url/phpmyvisites.js';
-$_Tracking_phpMyVisitesVars		= Off; // additional vars: full page title, cms page ID, form sender IP
+$_Tracking_phpMyVisitesVars		= false; // additional vars: full page title, cms page ID, form sender IP
 
 
 /*
  * Google Analytics
  */
-$_Tracking_GoogleAnalytics		= Off;
+$_Tracking_GoogleAnalytics		= false;
 $_Tracking_GoogleAnalyticsCode	= 'UA-00000-1';
-$_Tracking_GoogleSSL			= Off;
+$_Tracking_GoogleSSL			= false;
 
 
 /*
  * Yahoo Analytics
  */
-$_Tracking_YahooAnalytics		= Off;
+$_Tracking_YahooAnalytics		= false;
 $_Tracking_YahooAnalyticsCode	= '01234567890';
-$_Tracking_YahooAnalyticsGroup	= Off;
+$_Tracking_YahooAnalyticsGroup	= false;
 
 /*
  * StatCounter
  * good tracking solution - basic service is free
  */
-$_Tracking_StatCounter			= Off;
+$_Tracking_StatCounter			= false;
 $_Tracking_StatCounterCode		= '000000';
 $_Tracking_StatCounterSecCode	= 'aaaaaaaaa';
 $_Tracking_StatCounterPartition	= 5;
-$_Tracking_StatCounterSSL		= Off;
+$_Tracking_StatCounterSSL		= false;
 
 
 /*
  * eTracker
  * eTracker is a widely used tracking solution in Germany
  */
-$_Tracking_eTracker				= Off;
+$_Tracking_eTracker				= false;
 $_Tracking_eTrackerCode 		= '000000';
-$_Tracking_eTrackerSSL			= Off;
+$_Tracking_eTrackerSSL			= false;
 
 
 

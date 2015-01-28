@@ -138,8 +138,6 @@ if( empty($phpwcms["root"]) ) {
 define ("PHPWCMS_ROOT", 			$phpwcms['DOC_ROOT']);
 define ('PHPWCMS_FILES', 			$phpwcms["file_path"] . '/');
 define ('PHPWCMS_BASEPATH',			'/' . $phpwcms["root"]);
-define ('On',						true);
-define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
 define ('PHPWCMS_REWRITE',			empty($phpwcms["rewrite_url"]) ? false : true);
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
