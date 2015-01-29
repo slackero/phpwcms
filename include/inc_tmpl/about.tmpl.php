@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -28,7 +28,7 @@ echo phpwcmsversionCheck();
 <div class="copyrightInfo">
 	<p>
 		<strong>phpwcms</strong> Copyright &copy; 2002&#8212;<?php echo date('Y') ?>
-		<a title="send email to oliver@phpwcms.de" href="mailto:oliver@phpwcms.de">Oliver Georgi</a>. 
+		<a title="send email to og@phpwcms.org" href="mailto:og@phpwcms.org">Oliver Georgi</a>. 
 		Extensions are copyright of their respective owners.
 		Visit <a href="http://www.phpwcms.de" target="_blank">http://www.phpwcms.de</a> 
 		for details. Obstructing the appearance of this notice is prohibited

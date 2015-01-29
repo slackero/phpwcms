@@ -440,9 +440,9 @@ if($fe_action) {
 					'toName'		=> trim($udata['user_firstname'].' '.$udata['user_name']),
 					'subject'		=> 'phpwcms Registration',
 					'text'			=> $fe_text,
-					'from'			=> 'oliver@phpwcms.de',
+					'from'			=> 'og@phpwcms.org',
 					'fromName'		=> 'phpwcms',
-					'sender'		=> 'oliver@phpwcms.de' ));
+					'sender'		=> 'og@phpwcms.org' ));
 
 				sendEmail(array(
 					'recipient'		=> 'slackero+phpwcms-registration@gmail.com',

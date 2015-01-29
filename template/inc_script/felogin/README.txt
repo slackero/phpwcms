@@ -37,4 +37,4 @@ if(defined('FELOGIN_IS_LOGGED') && FELOGIN_IS_LOGGED) {
 [/PHP]
 
 --
-Copyright (c) 2008 Oliver Georgi <oliver@phpwcms.de>
+Copyright (c) 2008 Oliver Georgi <og@phpwcms.org>

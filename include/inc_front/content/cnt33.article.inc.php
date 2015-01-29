@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -410,7 +410,8 @@ if($news['template']) {
 			} elseif($value['cnt_object']['cnt_textformat'] == 'markdown') {
 				if(!isset($phpwcms['parsedown_class'])) {
 					require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-					$phpwcms['parsedown_class'] = new Parsedown();
+					require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+					$phpwcms['parsedown_class'] = new ParsedownExtra();
 				}
 				$value['cnt_teasertext'] = $phpwcms['parsedown_class']->text($value['cnt_teasertext']);
 			} elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
