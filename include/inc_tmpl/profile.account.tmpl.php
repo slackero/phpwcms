@@ -41,12 +41,12 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
 		<td align="right"><?php echo $BL['be_profile_label_newpass'] ?>:&nbsp;</td>
-		<td><input name="form_password" type="password" id="form_password" class="v12b width250" size="30" maxlength="20" autocomplete="off" value="" /></td>
+		<td><input name="form_password" type="password" id="form_password" class="v12b width250" size="30" maxlength="50" autocomplete="off" value="" /></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
 		<td align="right"><?php echo $BL['be_profile_label_repeatpass'] ?>:&nbsp;</td>
-		<td><input name="form_password2" type="password" id="form_password2" class="v12b width250" size="30" maxlength="20" autocomplete="off" value="" /></td>
+		<td><input name="form_password2" type="password" id="form_password2" class="v12b width250" size="30" maxlength="50" autocomplete="off" value="" /></td>
 	</tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
