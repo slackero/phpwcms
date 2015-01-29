@@ -10,9 +10,8 @@ Better Markdown Parser in PHP
 * [Consistent](http://parsedown.org/consistency)
 * [GitHub flavored](https://help.github.com/articles/github-flavored-markdown)
 * [Tested](http://parsedown.org/tests/) in PHP 5.2, 5.3, 5.4, 5.5, 5.6 and [hhvm](http://www.hhvm.com/)
-* Extensible
-* [Markdown Extra extension](https://github.com/erusev/parsedown-extra) <sup>new</sup>
-* [JavaScript port](https://github.com/hkdobrev/parsedown.js) under development <sup>new</sup>
+* [Extensible](https://github.com/erusev/parsedown/wiki/Writing-Extensions)
+* [Markdown Extra extension](https://github.com/erusev/parsedown-extra)
 
 ### Installation
 
@@ -30,17 +29,20 @@ More examples in [the wiki](https://github.com/erusev/parsedown/wiki/Usage) and 
 
 ### Questions
 
-**How does Parsedown work?**<br/>
-Parsedown recognises that Markdown texts are optimised to be read by humans so it tries to read like one. It goes through texts line by line. It looks at how lines start to identify blocks. It looks for special characters to identify inline elements.
+**How does Parsedown work?**
 
-**Why doesn’t Parsedown use namespaces?**<br/>
-Using namespaces would mean dropping support for PHP 5.2. We believe that since Parsedown is a single class with an uncommon name, making this trade wouldn't be worth it.
+It tries to read Markdown like a human. First, it looks at the lines. It’s interested in how the lines start. This helps it recognise blocks. It knows, for example, that if a line start with a `-` then it perhaps belong to a list. Once it recognises the blocks, it continues to the content. As it reads, it watches out for special characters. This helps it recognise inline elements (or inlines).
 
-**Is Parsedown compliant with CommonMark?**<br/>
-We are [working on it](https://github.com/erusev/parsedown/tree/commonmark).
+We call this approach "line based". We believe that Parsedown is the first Markdown parser to use it. Since the release of Parsedown, other developers have used the same approach to develop other Markdown parsers in PHP and in other languages.
 
-**Who uses Parsedown?**<br/>
-[phpDocumentor](http://www.phpdoc.org/), [October CMS](http://octobercms.com/), [Bolt CMS](http://bolt.cm/), [Kirby CMS](http://getkirby.com/),  [RaspberryPi.org](http://www.raspberrypi.org/) and [more](https://www.versioneye.com/php/erusev:parsedown/references).
+**Is it compliant with CommonMark?**
 
-**How can I help?**<br/>
-Use the project, tell friends about it and if you feel generous, [donate some money](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=528P3NZQMP8N2).
+It passes most of the CommonMark tests. Most of the tests that don't pass deal with cases that are quite uncommon. Still, as CommonMark matures, compliance should improve.
+
+**Who uses it?**
+
+[phpDocumentor](http://www.phpdoc.org/), [October CMS](http://octobercms.com/), [Bolt CMS](http://bolt.cm/), [Kirby CMS](http://getkirby.com/), [Grav CMS](http://getgrav.org/), [Statamic CMS](http://www.statamic.com/),  [RaspberryPi.org](http://www.raspberrypi.org/) and [more](https://www.versioneye.com/php/erusev:parsedown/references).
+
+**How can I help?**
+
+Use it, star it, share it and if you feel generous, [donate some money](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=528P3NZQMP8N2).
