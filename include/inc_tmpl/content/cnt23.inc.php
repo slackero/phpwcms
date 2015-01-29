@@ -742,6 +742,20 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 			case 'recaptcha':		$_ini_values = $content['form']["fields"][$key]['value'];
 									$content['form']["fields"][$key]['value'] = '';
 
+									// Rewrite for reCaptcha v2
+									if(isset($_ini_values['public_key'])) {
+										if(!isset($_ini_values['site_key'])) {
+											$_ini_values['site_key'] = $_ini_values['public_key'];
+										}
+										unset($_ini_values['public_key']);
+									}
+									if(isset($_ini_values['private_key'])) {
+										if(!isset($_ini_values['secret_key'])) {
+											$_ini_values['secret_key'] = $_ini_values['private_key'];
+										}
+										unset($_ini_values['private_key']);
+									}
+
 									foreach($_ini_values as $item_key => $item) {
 
 										$content['form']["fields"][$key]['value'] .= $item_key . ' = ' . $item . LF;
@@ -827,8 +841,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo "</td></tr>";
 		// Show "sign up for reCAPCHA API key"
 		if($content['form']["fields"][$key]['type'] == 'recaptcha') {
-			include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php');
-			echo '<tr><td colspan="2" class="chatlist" style="padding:10px 5px 0 3px"><a href="'.recaptcha_get_signup_url($phpwcms['parse_url']['host'], 'phpwcms').'" target="_blank">'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a></td></tr>';
+			echo '<tr><td colspan="2" class="chatlist" style="padding:10px 5px 0 3px"><a href="https://www.google.com/recaptcha/admin" target="_blank">'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a></td></tr>';
 		}
 		echo "</table></td>\n";
 

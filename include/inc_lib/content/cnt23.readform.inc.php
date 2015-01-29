@@ -538,38 +538,37 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 			case 'recaptcha':	/*
 								 * reCAPTCHA
 								 */
-								$content['form']["fields"][$field_counter]['name']		= 'recaptcha_response_field';
+								$content['form']["fields"][$field_counter]['name']		= 'recaptcha';
 								$content['form']["fields"][$field_counter]['size']		= '';
 								$content['form']["fields"][$field_counter]['max']		= '';
 								$content['form']["fields"][$field_counter]['required']	= 1;
 								$content['form']["fields"][$field_counter]['value']		= parse_ini_str( slweg($_POST['cform_field_value'][$key]), false );
 								$content['form']['recaptcha'] = array(
-									'public_key' => '',
-									'private_key' => '',
+									'site_key' => '',
+									'secret_key' => '',
 									'lang' => $phpwcms['default_lang'],
-									'theme' => 'clear',
-									'tabindex' => 0
+									'theme' => 'light',
+									'type' => 'image'
 								);
 
-								if(isset($content['form']["fields"][$field_counter]['value']['public_key'])) {
-									$content['form']['recaptcha']['public_key'] = trim($content['form']["fields"][$field_counter]['value']['public_key']);
+								if(isset($content['form']["fields"][$field_counter]['value']['site_key'])) {
+									$content['form']['recaptcha']['site_key'] = trim($content['form']["fields"][$field_counter]['value']['site_key']);
+								} elseif(isset($content['form']["fields"][$field_counter]['value']['public_key'])) {
+									$content['form']['recaptcha']['site_key'] = trim($content['form']["fields"][$field_counter]['value']['public_key']);
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['private_key'])) {
-									$content['form']['recaptcha']['private_key'] = trim($content['form']["fields"][$field_counter]['value']['private_key']);
+								if(isset($content['form']["fields"][$field_counter]['value']['secret_key'])) {
+									$content['form']['recaptcha']['private_key'] = trim($content['form']["fields"][$field_counter]['value']['secret_key']);
+								} elseif(isset($content['form']["fields"][$field_counter]['value']['private_key'])) {
+									$content['form']['recaptcha']['secret_key'] = trim($content['form']["fields"][$field_counter]['value']['private_key']);
 								}
 								if(!empty($content['form']["fields"][$field_counter]['value']['lang'])) {
 									$content['form']['recaptcha']['lang'] = strtolower($content['form']["fields"][$field_counter]['value']['lang']);
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['theme'])
-									&& in_array(strtolower($content['form']["fields"][$field_counter]['value']['theme']), array('red', 'white', 'blackglass', 'clean'))
-								) {
-									// no 'custom' at the moment
-									$content['form']['recaptcha']['theme'] = strtolower($content['form']["fields"][$field_counter]['value']['theme']);
-								} else {
-									$content['form']['recaptcha']['theme'] = 'clean';
+								if(isset($content['form']["fields"][$field_counter]['value']['theme']) && in_array($content['form']["fields"][$field_counter]['value']['theme'], array('light', 'dark'))) {
+									$content['form']['recaptcha']['theme'] = $content['form']["fields"][$field_counter]['value']['theme'];
 								}
-								if(!empty($content['form']["fields"][$field_counter]['value']['public_key'])) {
-									$content['form']['recaptcha']['tabindex'] = abs(intval($content['form']["fields"][$field_counter]['value']['tabindex']));
+								if(isset($content['form']["fields"][$field_counter]['value']['type']) && in_array($content['form']["fields"][$field_counter]['value']['type'], array('image', 'audio'))) {
+									$content['form']['recaptcha']['type'] = abs(intval($content['form']["fields"][$field_counter]['value']['type']));
 								}
 
 								$content['form']["fields"][$field_counter]['value'] = $content['form']['recaptcha'];
