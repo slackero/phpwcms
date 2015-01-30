@@ -1,0 +1,719 @@
+<!--CONFIG_START//-->
+
+; Overwrites the backend settings
+; shop_url =
+; cart_url =
+
+cat_all = "All products"
+; Define where the "All products" should be positioned
+; Possible values are: bottom, top, none
+cat_all_pos = bottom
+cat_list_products = Off
+
+; sort list by fieldnames, check DB
+; sort by Name - "shopprod_name1 ASC"
+; sort by Viewed - "shopprod_track_view DESC"
+cat_list_sort_by = "shopprod_name1 ASC"
+cat_subcat_spacer = "_>_"
+
+shop_css = "shop.css"
+shop_wrap = "<div class="shop">|</div>"
+
+price_decimals = 2
+vat_decimals = 1
+weight_decimals = 0
+dec_point = ","
+thousands_sep = "."
+
+; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
+; for leading and trailing spaces use replacer %S
+pagetitle_productname = "%s"
+pagetitle_model = ", Model: %s"
+pagetitle_add = "%S- %s"
+pagetitle_ordernumber = "%S(Order No. %s)"
+; %1$s = product name
+; %2$s = product add
+; %3$s = model
+; %4$s = order number
+pagetitle = "%1$s%2$s%3$s%4$s"
+
+image_list_width = 55
+image_list_height = 55
+image_list_crop = 0
+image_detail_width = 324
+image_detail_height = 500
+image_detail_crop = false
+image_detail_more_width = 90
+image_detail_more_height = 65
+image_detail_more_crop = true
+image_detail_more_lightbox = true
+image_detail_more_start = 2
+image_zoom_width = 800
+image_zoom_height = 800
+image_list_lightbox = true
+image_detail_lightbox = TRUE
+
+files_direct_download = 0
+files_template = shop.tmpl
+
+on_request_trigger = -999
+
+mail_customer_subject = "[#{ORDER}] Your order at MyShop"
+mail_neworder_subject = "[#{ORDER}] New order"
+
+label_payby_prepay = "Cash with order"
+label_payby_pod = "Cash on delivery"
+label_payby_onbill = "On account"
+
+; Add custom fields, only for step 1
+; (where customer fill in address information)
+; The label information is just optional
+; and only used to set default error messages
+; format: shop_field_1 = STRING_REQ_Label
+shop_field_1 = STRING_REQ_Label
+shop_field_2 = STRING_My custom field
+
+; possible:
+; ---------
+; RANDOM or
+; sprintf() formatted http://php.net/sprintf
+; sample: %05s -> 00001
+order_number_style = EN%05s
+
+
+<!--CONFIG_END//-->
+
+
+<!--LIST_HEADER_START//-->
+<h1>{CATEGORY}</h1>
+<div>
+<!--LIST_HEADER_END//-->
+
+
+<!--LIST_ENTRY_START//-->
+	<div class="entry">
+
+		<h2>{PRODUCT_TITLE}</h2>
+		<div>
+			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
+			{PRODUCT_SHORT}
+		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
+			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
+			<em>{PRODUCT_VAT}%</em>
+			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]
+			<a href="{PRODUCT_DETAIL_LINK}">Show product details</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>More&#8230;</a>[/PRODUCT_URL]
+		[ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
+			Send price inquiry
+		</a>[/ON_REQUEST][ON_REQUEST_ELSE]
+			[CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD]
+		[/ON_REQUEST_ELSE]
+			[VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
+		</div>
+
+	</div>
+<!--LIST_ENTRY_END//-->
+
+<!--LIST_NONE_START//-->
+	<p>No product found</p>
+<!--LIST_NONE_END//-->
+
+
+<!--LIST_SPACE_START//-->
+	<hr />
+<!--LIST_SPACE_END//-->
+
+
+<!--LIST_FOOTER_START//-->
+</div>
+<!--LIST_FOOTER_END//-->
+
+
+<!--DETAIL_START//-->
+<div class="detail">
+
+	<h1>{PRODUCT_TITLE}</h1>
+	[PRODUCT_ADD]<h2>{PRODUCT_ADD}</h2>[/PRODUCT_ADD]
+	<div>
+		{PRODUCT_LONG}
+
+		[IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
+		[ON_REQUEST_ELSE]
+		<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
+		<em>{PRODUCT_VAT}%</em>
+		<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]
+		[ORDER_NUM]<p>Order number: {ORDER_NUM}</p>[/ORDER_NUM]
+		[MODEL]<p>Model: {MODEL}</p>[/MODEL]
+		[VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
+		[PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
+
+		[ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
+	</div>
+	<div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
+
+</div>
+<!--DETAIL_END//-->
+
+<!--IMAGE_SPACE_START//-->
+
+<!--IMAGE_SPACE_END//-->
+
+<!--CART_SMALL_START//-->
+<div style="padding:10px;border:1px solid #000000">
+	<h2>Cart</h2>
+	<p>
+		[COUNT]<a href="{CART_LINK}">{COUNT} products in cart</a>[/COUNT][COUNT_ELSE]Cart is empty[/COUNT_ELSE]
+	</p>
+</div>
+<!--CART_SMALL_END//-->
+
+
+<!--CART_HEADER_START//-->
+<div class="cart">
+	<h1>Cart</h1>
+
+	<table cellpadding="0" cellspacing="0" border="0" summary="cart">
+		<tr>
+			<td>Shopping Cart Item:</td>
+			<td>Price {CURRENCY_SYMBOL}:</td>
+			<td>Qty:</td>
+		</tr>
+<!--CART_HEADER_END//-->
+
+<!--CART_ENTRY_START//-->
+		<tr>
+			<td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_SHORT]<br />
+			{PRODUCT_SHORT}[/PRODUCT_SHORT] [PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]<br /> [PRODUCT_WEIGHT]
+			<p> weight: {PRODUCT_WEIGHT}{WEIGHT_UNIT}</p>[/PRODUCT_WEIGHT]
+<br /># {ORDER_NUM}
+      </td>
+			<td align="right">
+				{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL} <br />
+				VAT: {PRODUCT_VAT}% <br />
+				{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
+			</td>
+			<td>{COUNT}</td>
+		</tr>
+<!--CART_ENTRY_END//-->
+
+<!--CART_SPACE_START//-->
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+<!--CART_SPACE_END//-->
+
+<!--CART_FOOTER_START//-->
+
+		[SHIPPING]
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Shipping Costs</strong></td>
+		</tr>
+		<tr>
+			<td>Weight total:</td>
+			<td align="right">{SUBTOTAL_WEIGHT}</td>
+			<td>{WEIGHT_UNIT}</td>
+		</tr>
+		<tr>
+			<td>Shipping Net:</td>
+			<td align="right">{SHIPPING_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Shipping VAT:</td>
+			<td align="right">{SHIPPING_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Shipping Gross:</td>
+			<td align="right">{SHIPPING_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		[/SHIPPING]
+		[SHIPPING_ELSE]
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+		<tr>
+			<td>Shipping Costs</td>
+			<td colspan="2">free shipping</td>
+			<!-- <td>{CURRENCY_SYMBOL}</td> -->
+		</tr>
+		[/SHIPPING_ELSE]
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Subtotal (all products)</strong></td>
+		</tr>
+
+		<tr>
+			<td>Subtotal Net:</td>
+			<td align="right">{SUBTOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Subtotal VAT:</td>
+			<td align="right">{SUBTOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Subtotal Gross:</td>
+			<td align="right">{SUBTOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		[DISCOUNT]
+		<tr>
+			<td colspan="3"><strong>Discount</strong></td>
+		</tr>
+		<tr>
+			<td>Discount:</td>
+			<td align="right">{DISCOUNT}</td>
+			<td>%</td>
+		</tr>
+		<tr>
+			<td>Discount Net:</td>
+			<td align="right">{DISCOUNT_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Discount VAT:</td>
+			<td align="right">{DISCOUNT_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Discount Gross:</td>
+			<td align="right">{DISCOUNT_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+		[/DISCOUNT]
+
+		<tr>
+			<td colspan="3"><strong>Total</strong></td>
+		</tr>
+
+		<tr>
+			<td>Total Net:</td>
+			<td align="right">{TOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Total VAT:</td>
+			<td align="right">{TOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>You have to pay:</td>
+			<td align="right">{TOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+
+	</table>
+
+	<div>
+		<a href="{SHOP_LINK}">Continue Shopping</a>
+
+		[UPDATE]Update Cart[/UPDATE]
+		[DELETE]Empty Cart[/DELETE]
+		[CHECKOUT]Checkout[/CHECKOUT]
+	</div>
+</div>
+<!--CART_FOOTER_END//-->
+
+<!--CART_NONE_START//-->
+<div class="cart">
+	<h1>Cart</h1>
+	<p>Cart is empty! <a href="{SHOP_LINK}">Continue Shopping</a></p>
+</div>
+<!--CART_NONE_END//-->
+
+<!--ORDER_INV_ADDRESS_START//-->
+<h1>Your address</h1>
+<p>Please fill in invoice and shipping address</p>
+[IF_ERROR]<p>Please proof your data, fields or data are missing</p>[/IF_ERROR]
+[ERROR_INV_FIRSTNAME]<p>Firname error message</p>[/ERROR_INV_FIRSTNAME]
+[ERROR_INV_NAME]<p>Name error message</p>[/ERROR_INV_NAME]
+[ERROR_INV_ADDRESS]<p>Address error message</p>[/ERROR_INV_ADDRESS]
+[ERROR_INV_ZIP]<p>ZIP error message</p>[/ERROR_INV_ZIP]
+[ERROR_INV_CITY]<p>City error message</p>[/ERROR_INV_CITY]
+[ERROR_EMAIL]<p>Email error message</p>[/ERROR_EMAIL]
+[ERROR_PHONE]<p>Email error message</p>[/ERROR_PHONE]
+[ERROR_PAYMENT]<p>You must check preferred payment option</p>[/ERROR_PAYMENT]
+[ERROR_shop_field_1]<p>You must fill in custom shop field 1</p>[/ERROR_shop_field_1]
+<table cellpadding="1" cellspacing="0" border="0" summary="cart">
+	<tr>
+		<td>first name*:</td>
+		<td><input type="text" name="shop_inv_firstname" id="shop_inv_firstname" value="{INV_FIRSTNAME}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>name*:</td>
+		<td><input type="text" name="shop_inv_name" id="shop_inv_name" value="{INV_NAME}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>address*:</td>
+		<td><textarea name="shop_inv_address" id="shop_inv_address">{INV_ADDRESS}</textarea></td>
+	</tr>
+	<tr>
+		<td>zip*:</td>
+		<td><input type="text" name="shop_inv_zip" id="shop_inv_zip" value="{INV_ZIP}" size="5" maxlength="10" /></td>
+	</tr>
+	<tr>
+		<td>city*:</td>
+		<td><input type="text" name="shop_inv_city" id="shop_inv_city" value="{INV_CITY}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>region:</td>
+		<td><input type="text" name="shop_inv_region" id="shop_inv_region" value="{INV_REGION}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>country:</td>
+		<td><input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>email*:</td>
+		<td><input type="text" name="shop_email" id="shop_email" value="{EMAIL}" size="20" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>phone*:</td>
+		<td><input type="text" name="shop_phone" id="shop_phone" value="{PHONE}" size="20" maxlength="20" /></td>
+	</tr>
+
+	<tr>
+		<td>custom 1*:</td>
+		<td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
+	</tr>
+
+[PAYMENT]
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td>payment*:</td>
+		<td>{PAYMENT}</td>
+	</tr>
+[/PAYMENT]
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><input name="shop_order_step1" type="submit" value="Continue..." /></td>
+	</tr>
+</table>
+<!--ORDER_INV_ADDRESS_END//-->
+
+<!--ORDER_TERMS_START//-->
+<h1>Last step</h1>
+<p>Please proof all information before sending your order</p>
+<div>
+
+	[IF_ERROR]<p><strong>You have to agree our terms and conditions</strong></p>[/IF_ERROR]
+
+	<h2>Address</h2>
+	<p>
+		{INV_FIRSTNAME} {INV_NAME}<br />
+		{INV_ADDRESS}<br />
+		{INV_ZIP} {INV_CITY}
+		[INV_REGION]<br />{INV_REGION}[/INV_REGION]
+		[INV_COUNTRY]<br />{INV_COUNTRY}[/INV_COUNTRY]
+	</p>
+	<p>
+		Email: {EMAIL}<br />
+		Phone: {PHONE}
+	</p>
+	[shop_field_1]
+	<p>
+		custom 1: {shop_field_1}
+	</p>
+	[/shop_field_1]
+	[PAYMENT]<p>
+		Payment: {PAYMENT}
+	</p>[/PAYMENT]
+	<form action="{CART_LINK}" method="post">
+	<p>
+		Please correct address if necessary
+		<input name="shop_edit_address" type="submit" value="Correct address" />
+	</p>
+	</form>
+
+	<hr />
+
+	<h2>Ordered Items</h2>
+	<table cellspacing="0" cellpadding="1" border="0" summary="items">
+
+	{ITEMS}
+
+		[SHIPPING]
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Shipping Costs</strong></td>
+		</tr>
+		<tr>
+			<td>Weight total:</td>
+			<td align="right">{SUBTOTAL_WEIGHT}</td>
+			<td>{WEIGHT_UNIT}</td>
+		</tr>
+		<tr>
+			<td>Shipping Net:</td>
+			<td align="right">{SHIPPING_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Shipping VAT:</td>
+			<td align="right">{SHIPPING_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Shipping Gross:</td>
+			<td align="right">{SHIPPING_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		[/SHIPPING]
+		[SHIPPING_ELSE]
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+		<tr>
+			<td>Shipping Costs</td>
+			<td colspan="2">free shipping</td>
+			<!-- <td>{CURRENCY_SYMBOL}</td> -->
+		</tr>
+		[/SHIPPING_ELSE]
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Subtotal (all products)</strong></td>
+		</tr>
+
+		<tr>
+			<td>Subtotal Net:</td>
+			<td align="right">{SUBTOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Subtotal VAT:</td>
+			<td align="right">{SUBTOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Subtotal Gross:</td>
+			<td align="right">{SUBTOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Total</strong></td>
+		</tr>
+
+		<tr>
+			<td>Total Net:</td>
+			<td align="right">{TOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Total VAT:</td>
+			<td align="right">{TOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>You have to pay:</td>
+			<td align="right">{TOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+	</table>
+
+	<p>
+		<a href="{CART_LINK}">Show cart</a>
+		<a href="{SHOP_LINK}">Continue shopping</a>
+	</p>
+
+	<hr />
+
+	<h2>Terms and conditions</h2>
+	<div style="width:300px;height: 200px;padding:5px; overflow:auto;">
+		{TERMS}
+	</div>
+	<form action="{CART_LINK}" method="post">
+	<p>
+		<input type="checkbox" name="shop_terms_agree" value="1" />
+		I have read and agree your terms and conditions
+	</p>
+	<p>
+		<input name="shop_order_submit" type="submit" value="Submit order" />
+	</p>
+	</form>
+
+</div>
+
+<!--ORDER_TERMS_END//-->
+
+<!--ORDER_TERMS_ITEM_START//-->
+		<tr>
+			<td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]</td>
+			<td>
+				{PRODUCT_NET_PRICE} <br />
+				VAT: {PRODUCT_VAT}% <br />
+				{PRODUCT_GROSS_PRICE}
+			</td>
+			<td>{COUNT}</td>
+		</tr>
+<!--ORDER_TERMS_ITEM_END//-->
+
+<!--ORDER_TERMS_ITEMSPACE_START//-->
+
+<!--ORDER_TERMS_ITEMSPACE_END//-->
+
+<!--MAIL_ITEM_START//-->
+Qty:   {COUNT}
+Ord#:  {ORDER_NUM}
+Item:  {PRODUCT_TITLE} {PRODUCT_OPT1} {PRODUCT_OPT2}
+Net:   {PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}
+VAT:   {PRODUCT_VAT} %
+Gross: {PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
+<!--MAIL_ITEM_END//-->
+
+<!--MAIL_CUSTOMER_START//-->
+Thank you very much for your order.
+
+Your order: {ORDER}
+            {DATE:d/m/Y H:i}
+
+Payment: [PAYBY_PREPAY]You have choosen to pay by Cash with Order.
+         We will send your order after we have received your payment.
+		 Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL]
+
+Address: {INV_FIRSTNAME} {INV_NAME}
+         {INV_ADDRESS}
+         {INV_ZIP} {INV_CITY}[INV_REGION]
+         {INV_REGION}[/INV_REGION][INV_COUNTRY]
+         {INV_COUNTRY}[/INV_COUNTRY]
+
+Email:   {EMAIL}
+Phone:   {PHONE}
+
+Custom1: {shop_field_1}
+
+Ordered Items:
+==============
+
+{ITEMS}
+
+Subtotal:
+=========
+
+Subtotal Net:    {SUBTOTAL_NET} {CURRENCY_SYMBOL}
+Subtotal VAT:    {SUBTOTAL_VAT} {CURRENCY_SYMBOL}
+Subtotal Gross:  {SUBTOTAL_GROSS} {CURRENCY_SYMBOL}
+
+Shipping:
+=========
+
+Shipping Net:    {SHIPPING_NET} {CURRENCY_SYMBOL}
+Shipping VAT:    {SHIPPING_VAT} {CURRENCY_SYMBOL}
+Shipping Gross:  {SHIPPING_GROSS} {CURRENCY_SYMBOL}
+
+Discount: {DISCOUNT} %
+=========
+Discount Net:    {DISCOUNT_NET} {CURRENCY_SYMBOL}
+Discount VAT:    {DISCOUNT_VAT} {CURRENCY_SYMBOL}
+Discount Gross:  {DISCOUNT_GROSS} {CURRENCY_SYMBOL}
+
+Total:
+======
+
+Net:             {TOTAL_NET} {CURRENCY_SYMBOL}
+VAT:             {TOTAL_VAT} {CURRENCY_SYMBOL}
+You have to pay: {TOTAL_GROSS} {CURRENCY_SYMBOL}
+================================================
+
+Thank you.
+<!--MAIL_CUSTOMER_END//-->
+
+<!--MAIL_NEWORDER_START//-->
+A new order...
+
+Order#:  {ORDER}
+         {DATE:d/m/Y H:i}
+
+Payment: {PAYMENT}
+
+Address: {INV_FIRSTNAME} {INV_NAME}
+         {INV_ADDRESS}
+         {INV_ZIP} {INV_CITY}[INV_REGION]
+         {INV_REGION}[/INV_REGION][INV_COUNTRY]
+         {INV_COUNTRY}[/INV_COUNTRY]
+
+Email:   {EMAIL}
+Phone:   {PHONE}
+
+Custom1: {shop_field_1}
+
+
+Subtotal Net:    {SUBTOTAL_NET} {CURRENCY_SYMBOL}
+Subtotal VAT:    {SUBTOTAL_VAT} {CURRENCY_SYMBOL}
+Subtotal Gross:  {SUBTOTAL_GROSS} {CURRENCY_SYMBOL}
+
+Shipping Net:    {SHIPPING_NET} {CURRENCY_SYMBOL}
+Shipping VAT:    {SHIPPING_VAT} {CURRENCY_SYMBOL}
+Shipping Gross:  {SHIPPING_GROSS} {CURRENCY_SYMBOL}
+
+Discount:        {DISCOUNT} %
+Discount Net:    {DISCOUNT_NET} {CURRENCY_SYMBOL}
+Discount VAT:    {DISCOUNT_VAT} {CURRENCY_SYMBOL}
+Discount Gross:  {DISCOUNT_GROSS} {CURRENCY_SYMBOL}
+
+Net:             {TOTAL_NET} {CURRENCY_SYMBOL}
+VAT:             {TOTAL_VAT} {CURRENCY_SYMBOL}
+Total:           {TOTAL_GROSS} {CURRENCY_SYMBOL}
+
+
+Ordered Items:
+==============
+
+{ITEMS}
+
+
+Let's go.
+<!--MAIL_NEWORDER_END//-->
+
+<!--ORDER_DONE_START//-->
+	<h2>Order {ORDER} successfully sent</h2>
+	<p>Hello <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
+	Thanks for your order. You will receive a confirmation to your email <strong>{EMAIL}</strong> within next minutes.</p>
+	<p>Your order number is: <strong>{ORDER}</strong>. Please use this number in case you contact us by email.</p>
+<!--ORDER_DONE_END//-->
+
+<!--ORDER_NOT_DONE_START//-->
+	<h2>Order not send</h2>
+	<p>We are sorry, but due to technical problems your order could not stored or send.</p>
+	<p>Please try again or contact webmaster to inform about the problem.</p>
+	<p>Your potential order number is: <strong>{ORDER}</strong>.</p>
+	<p>If you wish <a href="mailto:shop@mydomain.com?subject={SUBJECT}&amp;body={MSG}">click this</a> to send your order message by email.</p>
+<!--ORDER_NOT_DONE_END//-->
