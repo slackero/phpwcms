@@ -128,4 +128,7 @@ $BLM['shopprod_freeshipping']		= 'versandkostenfrei';
 $BLM['shopprod_lang_support']	= 'Frontend Sprachunterst&uuml;tzung';
 $BLM['shopprod_overwrite_meta']	= 'Produktdetail &uuml;berschreibt Metadaten';
 
+$BLM['shopprod_distance'] = 'Entfernung (km)';
+$BLM['shopprod_distance_base'] = 'Ausgangsadresse';
+
 ?>
