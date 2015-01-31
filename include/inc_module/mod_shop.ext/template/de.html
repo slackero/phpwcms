@@ -148,7 +148,7 @@ order_number_style = DE%05s
 		[VIEWED]<p>Besucher: {VIEWED}</p>[/VIEWED]
 		[PRODUCT_URL]<p>Mehr: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Anzeigen&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-		[ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Dem Warenkorb hinzufügen[/CART_ADD][/ON_REQUEST_ELSE]
+		[ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Dem Warenkorb hinzuf&uuml;gen[/CART_ADD][/ON_REQUEST_ELSE]
 	</div>
 	<div><a href="{PRODUCT_DETAIL_LINK}">Zeige alle</a></div>
 
@@ -345,8 +345,8 @@ order_number_style = DE%05s
 
 <!--ORDER_INV_ADDRESS_START//-->
 <h1>Ihre Anschrift</h1>
-<p>Bitte Rechnungs- und Lieferanschift ausfüllen</p>
-[IF_ERROR]<p>Bitte prüfen sie nachfolgende Angaben. Diese sind unvollständig oder fehlen:</p>[/IF_ERROR]
+<p>Bitte Rechnungs- und Lieferanschift ausf&uuml;llen</p>
+[IF_ERROR]<p>Bitte pr&uuml;fen sie nachfolgende Angaben. Diese sind unvollst&aauml;ndig oder fehlen:</p>[/IF_ERROR]
 [ERROR_INV_FIRSTNAME]<p>Vorname</p>[/ERROR_INV_FIRSTNAME]
 [ERROR_INV_NAME]<p>Nachname</p>[/ERROR_INV_NAME]
 [ERROR_INV_ADDRESS]<p>Adressangaben</p>[/ERROR_INV_ADDRESS]
@@ -354,7 +354,7 @@ order_number_style = DE%05s
 [ERROR_INV_CITY]<p>Ort</p>[/ERROR_INV_CITY]
 [ERROR_EMAIL]<p>E-Mail</p>[/ERROR_EMAIL]
 [ERROR_PHONE]<p>Telefon</p>[/ERROR_PHONE]
-[ERROR_PAYMENT]<p>Wählen sie die bevorzugte Zahlungsmethode</p>[/ERROR_PAYMENT]
+[ERROR_PAYMENT]<p>W&auml;hlen sie die bevorzugte Zahlungsmethode</p>[/ERROR_PAYMENT]
 [ERROR_shop_field_1]<p>Benutzerdefiniertes Feld 1</p>[/ERROR_shop_field_1]
 <table cellpadding="1" cellspacing="0" border="0" summary="cart">
 	<tr>
@@ -420,11 +420,11 @@ order_number_style = DE%05s
 <!--ORDER_INV_ADDRESS_END//-->
 
 <!--ORDER_TERMS_START//-->
-<h1>Abschießender Bestellschritt</h1>
-<p>Bitte erneut alle Angaben vor Abschließen der Bestellung prüfen.</p>
+<h1>Abschlie&szlig;ender Bestellschritt</h1>
+<p>Bitte erneut alle Angaben vor Abschließen der Bestellung pr&uuml;fen.</p>
 <div>
 
-	[IF_ERROR]<p><strong>Sie müssen den Geschäftsbedingungen zustimmen</strong></p>[/IF_ERROR]
+	[IF_ERROR]<p><strong>Sie m&uuml;ssen den Gesch&auml;ftsbedingungen zustimmen</strong></p>[/IF_ERROR]
 
 	<h2>Adresse</h2>
 	<p>
@@ -586,14 +586,14 @@ order_number_style = DE%05s
 
 	<hr />
 
-	<h2>Allgemeine Geschäfts- und Lieferbedingungen</h2>
+	<h2>Allgemeine Gesch&auml;fts- und Lieferbedingungen</h2>
 	<div style="width:300px;height: 200px;padding:5px; overflow:auto;">
 		{TERMS}
 	</div>
 	<form action="{CART_LINK}" method="post">
 	<p>
 		<input type="checkbox" name="shop_terms_agree" value="1" />
-		Ich habe die Geschäfts- und Lieferbedingungen gelesen und stimme diesen zu.
+		Ich habe die Gesch&auml;fts- und Lieferbedingungen gelesen und stimme diesen zu.
 	</p>
 	<p>
 		<input name="shop_order_submit" type="submit" value="Zahlungspflichtig bestellen" />
@@ -753,16 +753,16 @@ Dann los! Bestellung abwicklen
 <!--ORDER_DONE_START//-->
 	<h2>Bestellung {ORDER} wurde erfolgreich vesendet</h2>
 	<p>Guten Tag <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
-	Vielen Dank für die Bestellung. Sie erhalten in den nächsten Minuten eine Bestätigung an die E-Mail <strong>{EMAIL}</strong>.</p>
-	<p>Die Bestellnummer lautet: <strong>{ORDER}</strong>. Bitte nutzen Sie diese Bestellnummer für alle Fragen zu Ihrer Bestellung.</p>
+	Vielen Dank f&uuml;r die Bestellung. Sie erhalten in den n&auml;chsten Minuten eine Best&auml;tigung an die E-Mail <strong>{EMAIL}</strong>.</p>
+	<p>Die Bestellnummer lautet: <strong>{ORDER}</strong>. Bitte nutzen Sie diese Bestellnummer f&uuml;r alle Fragen zu Ihrer Bestellung.</p>
 <!--ORDER_DONE_END//-->
 
 <!--ORDER_NOT_DONE_START//-->
 	<h2>Bestellung fehlgeschlagen</h2>
 	<p>Es tut uns leid, aber aufgrund eines technischen Problems wurde die Bestellung nicht erfolgreich verabeitet.</p>
 	<p>Bitte versuchen Sie es erneut oder informieren Sie uns.</p>
-	<p>Die temporäre Bestellnummer lautet: <strong>{ORDER}</strong>.</p>
-	<p>Sie können uns Ihre Bestellung direkt per E-Mail senden: <a href="mailto:shop@mydomain.com?subject={SUBJECT}&amp;body={MSG}">Jetzt senden</a>.</p>
+	<p>Die tempor&auml;re Bestellnummer lautet: <strong>{ORDER}</strong>.</p>
+	<p>Sie k&ouml;nnen uns Ihre Bestellung direkt per E-Mail senden: <a href="mailto:shop@mydomain.com?subject={SUBJECT}&amp;body={MSG}">Jetzt senden</a>.</p>
 <!--ORDER_NOT_DONE_END//-->
 
 
