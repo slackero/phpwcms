@@ -203,6 +203,17 @@ if(function_exists('mb_substr')) {
 	function mb_strlen($str='', $encoding='') {
 		return strlen(phpwcms_seems_utf8($str) ? utf8_decode($str) : $str);
 	}
+
+	// fallback for mb_convert_encoding()
+	function mb_convert_encoding($string='', $out_charset='utf-8', $in_charset='utf-8') {
+		if(strtolower($in_charset) == 'utf-16be') {
+			$in_charset = 'utf-8';
+		}
+		if(strtolower($out_charset) == 'utf-16be') {
+			$out_charset = 'utf-8';
+		}
+		return makeCharsetConversion($string, $in_charset, $out_charset);
+	}
 }
 
 $phpwcms['modules']				= array();
