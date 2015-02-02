@@ -197,16 +197,111 @@ foreach($cart_data as $item_key => $row) {
 }
 
 // set shipping fees
-$subtotal['shipping_net']		= 0;
-$subtotal['shipping_vat']		= 0;
-$subtotal['shipping_gross'] 	= 0;
-$subtotal['shipping_calc']		= false;
-$subtotal['shipping_calc_type']	= _getConfig( 'shop_pref_shipping_calc', '_shopPref' );
+$subtotal['shipping_net']				= 0;
+$subtotal['shipping_vat']				= 0;
+$subtotal['shipping_gross'] 			= 0;
+$subtotal['shipping_calc']				= false;
+$subtotal['shipping_calc_type']			= _getConfig( 'shop_pref_shipping_calc', '_shopPref' );
+$subtotal['shipping_distance']			= false; // not set yet
+$subtotal['shipping_distance_details']	= array(
+	'city' => '',
+	'postcode' => '',
+	'country' => '',
+	'country_code' => '',
+	'foreign' => false,
+	'label' => ''
+);
+
+// Catch distance first based on base and delivery address
+if($subtotal['shipping_calc_type'] === 2) {
+
+	if(isset($_SESSION[CART_KEY]['distance']) && $_SESSION[CART_KEY]['distance'] === false && !empty($_SESSION[CART_KEY]['delivery_address'])) {
+
+		$subtotal['shop_zone_base']	= _getConfig( 'shop_pref_zone_base', '_shopPref' );
+
+		if($subtotal['shop_zone_base']) {
+			// http://maps.googleapis.com/maps/api/directions/json?origin=Dessau&destination=Berlin&sensor=false
+			if(PHPWCMS_CHARSET !== 'utf-8') {
+				$_base_address = mb_convert_encoding($subtotal['shop_zone_base'], 'utf-8', PHPWCMS_CHARSET);
+				$_delivery_address = mb_convert_encoding($_SESSION[CART_KEY]['delivery_address'], 'utf-8', PHPWCMS_CHARSET);
+			} else {
+				$_base_address = $subtotal['shop_zone_base'];
+				$_delivery_address = $_SESSION[CART_KEY]['delivery_address'];
+			}
+
+			$_query = sprintf(
+				'http://maps.googleapis.com/maps/api/directions/json?origin=%s&destination=%s&sensor=false',
+				rawurlencode($_base_address),
+				rawurlencode($_delivery_address)
+			);
+			if($_response = @file_get_contents($_query)) {
+
+				$_response = json_decode($_response);
+
+				if(isset($_response->status) && $_response->status == 'OK' && isset($_response->routes[0]->legs[0]->distance->value)) {
+					// Result should be distance in meters (m)
+					$subtotal['shipping_distance'] = $_response->routes[0]->legs[0]->distance->value;
+					$_SESSION[CART_KEY]['distance'] = $subtotal['shipping_distance'];
+
+					// Try to get Geocoding informations
+					// http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false
+					// http://maps.googleapis.com/maps/api/geocode/json?latlng=%s,%s&sensor=false
+					$_query = sprintf('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=%s', rawurlencode($_delivery_address), $phpwcms['default_lang']);
+					if($_response = @file_get_contents($_query)) {
+
+						$_response = json_decode($_response);
+
+						if(isset($_response->status) && $_response->status == 'OK' && isset($_response->results[0]->address_components)) {
+							foreach($_response->results[0]->address_components as $_component) {
+								if(isset($_component->types[0])) {
+									if($_component->types[0] === 'locality') {
+										$_SESSION[CART_KEY]['distance_details']['city'] = PHPWCMS_CHARSET == 'utf-8' ? $_component->long_name : mb_convert_encoding($_component->long_name, PHPWCMS_CHARSET, 'utf-8');
+									} elseif($_component->types[0] === 'country') {
+										$_SESSION[CART_KEY]['distance_details']['country'] = PHPWCMS_CHARSET == 'utf-8' ? $_component->long_name : mb_convert_encoding($_component->long_name, PHPWCMS_CHARSET, 'utf-8');
+										$_SESSION[CART_KEY]['distance_details']['country_code'] = strtolower($_component->short_name);
+									} elseif($_component->types[0] === 'postal_code') {
+										$_SESSION[CART_KEY]['distance_details']['postcode'] = PHPWCMS_CHARSET == 'utf-8' ? $_component->long_name : mb_convert_encoding($_component->long_name, PHPWCMS_CHARSET, 'utf-8');
+									}
+								}
+							}
+
+							// Reset foreign
+							$_SESSION[CART_KEY]['distance_details']['foreign'] = false;
+							$subtotal['shipping_distance_details'] = array_merge($subtotal['shipping_distance_details'], $_SESSION[CART_KEY]['distance_details']);
+
+							// test against base country
+							$_query = sprintf('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=%s', rawurlencode($_base_address), $phpwcms['default_lang']);
+							if($subtotal['shipping_distance_details']['country_code'] && $_response = @file_get_contents($_query)) {
+								$_response = json_decode($_response);
+								if(isset($_response->status) && $_response->status == 'OK' && isset($_response->results[0]->address_components)) {
+									foreach($_response->results[0]->address_components as $_component) {
+										// Test agains delivery country code
+										if(isset($_component->types[0]) && $_component->types[0] === 'country' && strtolower($_component->short_name) !== $subtotal['shipping_distance_details']['country_code']) {
+											$subtotal['shipping_distance_details']['foreign'] = true;
+											$_SESSION[CART_KEY]['distance_details']['foreign'] = true;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+	} elseif(isset($_SESSION[CART_KEY]['distance']) && is_intval($_SESSION[CART_KEY]['distance'])) {
+
+		$subtotal['shipping_distance'] = $_SESSION[CART_KEY]['distance'];
+		$subtotal['shipping_distance_details'] = array_merge($subtotal['shipping_distance_details'], $_SESSION[CART_KEY]['distance_details']);
+
+	}
+
+}
 
 foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) {
 
 	// calculate shipping costs based on weight
-	if(!$subtotal['shipping_calc_type']) {
+	if($subtotal['shipping_calc_type'] === 0) {
 
 		// do nothing as long shipping fee = 0
 		if( $row['net'] == 0 ) {
@@ -228,6 +323,39 @@ foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) 
 
 			break;
 		}
+
+	// calculate shipping costs based on distance
+	} elseif($subtotal['shipping_calc_type'] === 2) {
+
+		// do nothing as long shipping fee = 0
+		if( $row['zone_net'] == 0 ) {
+			continue;
+		}
+
+		$subtotal['shipping_distance_details']['label'] = '';
+
+		if($subtotal['shipping_distance'] !== false) {
+
+			// km given and compare against
+			if( $subtotal['shipping_distance'] / 1000 <= $row['zone'] ) {
+
+				$subtotal['shipping_calc'] = true;
+
+			}
+
+			if( $subtotal['shipping_calc'] ) {
+
+				$subtotal['shipping_net']	= $row['zone_net'];
+				$subtotal['shipping_gross']	= $subtotal['shipping_net'] * ( 1 + ($row['zone_vat'] / 100) );
+				$subtotal['shipping_vat']	= $subtotal['shipping_gross'] - $subtotal['shipping_net'];
+
+				$subtotal['shipping_distance_details']['label'] = $row['zone_label'] ? $row['zone_label'] : $row['zone'];
+
+				break;
+			}
+
+		}
+
 
 	// calculate shipping costs based on total price
 	} else {

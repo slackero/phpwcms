@@ -204,46 +204,116 @@ order_number_style = DE%05s
 <!--CART_SPACE_END//-->
 
 <!--CART_FOOTER_START//-->
+		[SHIPPING_DISTANCE]
 
-		[SHIPPING]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
 
-		<tr>
-			<td colspan="3"><strong>Versandkosten</strong></td>
-		</tr>
-		<tr>
-			<td>Gesamtgewicht:</td>
-			<td align="right">{SUBTOTAL_WEIGHT}</td>
-			<td>{WEIGHT_UNIT}</td>
-		</tr>
-		<tr>
-			<td>Versand, netto:</td>
-			<td align="right">{SHIPPING_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Versand MwSt.:</td>
-			<td align="right">{SHIPPING_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Versand, brutto:</td>
-			<td align="right">{SHIPPING_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		[/SHIPPING]
-		[SHIPPING_ELSE]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
-		<tr>
-			<td>Versandkosten</td>
-			<td colspan="2">versandkostenfrei</td>
-			<!-- <td>{CURRENCY_SYMBOL}</td> -->
-		</tr>
-		[/SHIPPING_ELSE]
+			[SHIPPING_DISTANCE_ADDRESS]
+
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+
+				[SHIPPING_DISTANCE:LABEL]
+				<tr>
+					<td>Zone:</td>
+					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+				</tr>
+				[/SHIPPING_DISTANCE:LABEL]
+
+			<!-- Is it worth to know? -->
+			[SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Entfernung:</td>
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- km|mi|m -->
+			</tr>
+			[/SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Ziel:</td>
+				<td colspan="2">
+					[SHIPPING_DISTANCE:CITY]Lieferort: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+					[SHIPPING_DISTANCE:POSTCODE]Lieferort, PLZ: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+					[SHIPPING_DISTANCE:COUNTRY]Lieferort, Land: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+					[SHIPPING_DISTANCE:FOREIGN]Auslandslieferung[/SHIPPING_DISTANCE:FOREIGN]
+					[SHIPPING_DISTANCE:FOREIGN_ELSE]Inlandslieferung[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+				</td>
+			</tr>
+
+			<tr>
+				<td>Versand, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS]
+			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">
+					<strong>Entfernungsabh&auml;ngig:</strong>
+					eine endg&uuml;ltige Berechnung ist erst m&ouml;glich,
+					nachdem die Lieferanschrift eingegeben wurde
+				</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+		[/SHIPPING_DISTANCE]
+		[SHIPPING_DISTANCE_ELSE]
+
+			[SHIPPING]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+			<tr>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
+			<tr>
+				<td>Versand, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			[/SHIPPING]
+			[SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">versandkostenfrei</td>
+			</tr>
+			[/SHIPPING_ELSE]
+
+		[/SHIPPING_DISTANCE_ELSE]
 
 		<tr>
 			<td colspan="3"><hr /></td>
@@ -346,7 +416,7 @@ order_number_style = DE%05s
 <!--ORDER_INV_ADDRESS_START//-->
 <h1>Ihre Anschrift</h1>
 <p>Bitte Rechnungs- und Lieferanschift ausf&uuml;llen</p>
-[IF_ERROR]<p>Bitte pr&uuml;fen sie nachfolgende Angaben. Diese sind unvollst&aauml;ndig oder fehlen:</p>[/IF_ERROR]
+[IF_ERROR]<p>Bitte pr&uuml;fen sie nachfolgende Angaben. Diese sind unvollst&auml;ndig oder fehlen:</p>[/IF_ERROR]
 [ERROR_INV_FIRSTNAME]<p>Vorname</p>[/ERROR_INV_FIRSTNAME]
 [ERROR_INV_NAME]<p>Nachname</p>[/ERROR_INV_NAME]
 [ERROR_INV_ADDRESS]<p>Adressangaben</p>[/ERROR_INV_ADDRESS]
@@ -414,14 +484,14 @@ order_number_style = DE%05s
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input name="shop_order_step1" type="submit" value="Bestellung fortsetzen…" /></td>
+		<td><input name="shop_order_step1" type="submit" value="Bestellung fortsetzen &raquo;" /></td>
 	</tr>
 </table>
 <!--ORDER_INV_ADDRESS_END//-->
 
 <!--ORDER_TERMS_START//-->
-<h1>Abschlie&szlig;ender Bestellschritt</h1>
-<p>Bitte erneut alle Angaben vor Abschließen der Bestellung pr&uuml;fen.</p>
+<h1>Abschlie&szlig;en der Bestellschritte</h1>
+<p>Bitte erneut alle Angaben vor Abschlie&szlig;en der Bestellung pr&uuml;fen.</p>
 <div>
 
 	[IF_ERROR]<p><strong>Sie m&uuml;ssen den Gesch&auml;ftsbedingungen zustimmen</strong></p>[/IF_ERROR]
@@ -460,45 +530,112 @@ order_number_style = DE%05s
 
 	{ITEMS}
 
-		[SHIPPING]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+		[SHIPPING_DISTANCE]
 
-		<tr>
-			<td colspan="3"><strong>Versandkosten</strong></td>
-		</tr>
-		<tr>
-			<td>Gesamtgewicht:</td>
-			<td align="right">{SUBTOTAL_WEIGHT}</td>
-			<td>{WEIGHT_UNIT}</td>
-		</tr>
-		<tr>
-			<td>Versandkosten, netto:</td>
-			<td align="right">{SHIPPING_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Versandkosten, MwSt.:</td>
-			<td align="right">{SHIPPING_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Versandkosten, brutto:</td>
-			<td align="right">{SHIPPING_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		[/SHIPPING]
-		[SHIPPING_ELSE]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
-		<tr>
-			<td>Versandkosten</td>
-			<td colspan="2">versandkostenfrei</td>
-			<!-- <td>{CURRENCY_SYMBOL}</td> -->
-		</tr>
-		[/SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			[SHIPPING_DISTANCE_ADDRESS]
+
+				[SHIPPING_DISTANCE:LABEL]
+				<tr>
+					<td>Zone:</td>
+					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+				</tr>
+				[/SHIPPING_DISTANCE:LABEL]
+
+			<!-- Is it worth to know? -->
+			[SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Entfernung:</td>
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
+			</tr>
+			[/SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Ziel:</td>
+				<td colspan="2">
+					[SHIPPING_DISTANCE:CITY]Lieferort: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+					[SHIPPING_DISTANCE:POSTCODE]Lieferort, PLZ: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+					[SHIPPING_DISTANCE:COUNTRY]Lieferort, Land: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+					[SHIPPING_DISTANCE:FOREIGN]Auslandslieferung[/SHIPPING_DISTANCE:FOREIGN]
+					[SHIPPING_DISTANCE:FOREIGN_ELSE]Inlandslieferung[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+				</td>
+			</tr>
+
+			<tr>
+				<td>Versand, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS]
+			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">
+					<strong>Entfernungsabh&auml;ngig:</strong>
+					eine endg&uuml;ltige Berechnung ist erst m&ouml;glich,
+					nachdem die Lieferanschrift eingegeben wurde
+				</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+		[/SHIPPING_DISTANCE]
+		[SHIPPING_DISTANCE_ELSE]
+
+			[SHIPPING]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+			<tr>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
+			<tr>
+				<td>Versandkosten, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versandkosten, MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versandkosten, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			[/SHIPPING]
+			[SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">versandkostenfrei</td>
+			</tr>
+			[/SHIPPING_ELSE]
+
+		[/SHIPPING_DISTANCE_ELSE]
 
 		<tr>
 			<td colspan="3"><hr /></td>
@@ -673,7 +810,10 @@ Brutto:  {DISCOUNT_GROSS} {CURRENCY_SYMBOL}
 
 Versandkosten:
 ==============
-
+[SHIPPING_DISTANCE]
+Tarif: {SHIPPING_DISTANCE_LABEL}
+Entfernung: {SHIPPING_DISTANCE} km
+[/SHIPPING_DISTANCE]
 Netto:   {SHIPPING_NET} {CURRENCY_SYMBOL}
 MwSt.:   {SHIPPING_VAT} {CURRENCY_SYMBOL}
 Brutto:  {SHIPPING_GROSS} {CURRENCY_SYMBOL}
@@ -727,7 +867,10 @@ Brutto:  {DISCOUNT_GROSS} {CURRENCY_SYMBOL}
 
 Versandkosten:
 ==============
-
+[SHIPPING_DISTANCE]
+Tarif: {SHIPPING_DISTANCE_LABEL}
+Entfernung: {SHIPPING_DISTANCE} km
+[/SHIPPING_DISTANCE]
 Netto:   {SHIPPING_NET} {CURRENCY_SYMBOL}
 MwSt.:   {SHIPPING_VAT} {CURRENCY_SYMBOL}
 Brutto:  {SHIPPING_GROSS} {CURRENCY_SYMBOL}

@@ -96,6 +96,7 @@ if($action == 'edit') {
 			$plugin['data']['shop_pref_shipping'][$x]['zone']		= intval($_POST['pref_shipping_zone'][$x]);
 			$plugin['data']['shop_pref_shipping'][$x]['zone_net']	= clean_slweg($_POST['pref_shipping_zone_net'][$x]);
 			$plugin['data']['shop_pref_shipping'][$x]['zone_vat']	= clean_slweg($_POST['pref_shipping_zone_vat'][$x]);
+			$plugin['data']['shop_pref_shipping'][$x]['zone_label']	= clean_slweg($_POST['pref_shipping_zone_label'][$x]);
 
 			$plugin['data']['shop_pref_shipping'][$x]['zone']		= empty($plugin['data']['shop_pref_shipping'][$x]['zone']) ? '' : intval($plugin['data']['shop_pref_shipping'][$x]['zone']);
 
@@ -186,6 +187,18 @@ if($action == 'edit') {
 		}
 	}
 
+	$_checkPref_shipping_default = array(
+		'weight' => '',
+		'net' => 0,
+		'vat' => 0,
+		'price' => '',
+		'price_net' => 0,
+		'price_vat' => 0,
+		'zone' => '',
+		'zone_net' => 0,
+		'zone_vat' => 0,
+		'zone_label' => ''
+	);
 	$_checkPref = array(
 		'shop_pref_currency'		=>	'',
 		'shop_pref_unit_weight'		=>	'kg',
@@ -198,11 +211,11 @@ if($action == 'edit') {
 		'shop_pref_felang'			=>	0,
 		'shop_pref_shipping_calc'	=>	0,
 		'shop_pref_shipping'		=>	array(
-			0 => array('weight'=>'', 'net'=>0, 'vat'=>0, 'price'=>'', 'price_net'=>0, 'price_vat'=>0, 'zone' => '', 'zone_net' => 0, 'zone_vat' => 0),
-			1 => array('weight'=>'', 'net'=>0, 'vat'=>0, 'price'=>'', 'price_net'=>0, 'price_vat'=>0, 'zone' => '', 'zone_net' => 0, 'zone_vat' => 0),
-			2 => array('weight'=>'', 'net'=>0, 'vat'=>0, 'price'=>'', 'price_net'=>0, 'price_vat'=>0, 'zone' => '', 'zone_net' => 0, 'zone_vat' => 0),
-			3 => array('weight'=>'', 'net'=>0, 'vat'=>0, 'price'=>'', 'price_net'=>0, 'price_vat'=>0, 'zone' => '', 'zone_net' => 0, 'zone_vat' => 0),
-			4 => array('weight'=>'', 'net'=>0, 'vat'=>0, 'price'=>'', 'price_net'=>0, 'price_vat'=>0, 'zone' => '', 'zone_net' => 0, 'zone_vat' => 0)
+			0 => $_checkPref_shipping_default,
+			1 => $_checkPref_shipping_default,
+			2 => $_checkPref_shipping_default,
+			3 => $_checkPref_shipping_default,
+			4 => $_checkPref_shipping_default
 		),
 		'shop_pref_zone_base'		=>	'',
 		'shop_pref_payment'			=>	array(

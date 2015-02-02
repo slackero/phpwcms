@@ -150,53 +150,67 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
 	// merge config settings like translations and so on
 	$_tmpl['config'] = array_merge(	array(
-							'cat_all'					=> '@@All products@@',
-							'cat_all_pos'				=> 'bottom',
-							'cat_list_products'			=> false,
-							'cat_subcat_spacer'			=> ' / ',
-							'price_decimals'			=> 2,
-							'vat_decimals'				=> 1,
-							'weight_decimals'			=> 1,
-							'dec_point'					=> ".",
-							'thousands_sep'				=> ",",
-							'image_list_width'			=> 200,
-							'image_list_height'			=> 200,
-							'image_detail_width'		=> 200,
-							'image_detail_height'		=> 200,
-							'image_zoom_width'			=> 750,
-							'image_zoom_height'			=> 500,
-							'image_list_lightbox'		=> false,
-							'image_detail_lightbox'		=> true,
-							'image_detail_crop'			=> false,
-							'image_list_crop'			=> false,
-							'mail_customer_subject'		=> "[#{ORDER}] Your order at MyShop",
-							'mail_neworder_subject'		=> "[#{ORDER}] New order",
-							'label_payby_prepay'		=> "@@Cash with order@@",
-							'label_payby_pod'			=> "@@Cash on delivery@@",
-							'label_payby_onbill'		=> "@@On account@@",
-							'order_number_style'		=> 'RANDOM',
-							'cat_list_sort_by'			=> 'shopprod_name1 ASC',
-							'shop_css'					=> '',
-							'shop_wrap'					=> '',
-							'image_detail_more_width'	=> 50,
-							'image_detail_more_height'	=> 50,
-							'image_detail_more_crop'	=> false,
-							'image_detail_more_start'	=> 1,
-							'image_detail_more_lightbox'=> false,
-							'files_direct_download'		=> false,
-							'files_template'			=> '', // default
-							'on_request_trigger'		=> -999,
-							'pagetitle_productname'		=> '%s',
-							'pagetitle_model'			=> ', Model: %s',
-							'pagetitle_add'				=> '%S- %s',
-							'pagetitle_ordernumber'		=> '%S(Order No. %s)',
-							'pagetitle'					=> '%1$s%2$s%3$s%4$s'
-						),	$_tmpl['config'] );
+			'cat_all'					=> '@@All products@@',
+			'cat_all_pos'				=> 'bottom',
+			'cat_list_products'			=> false,
+			'cat_subcat_spacer'			=> ' / ',
+			'price_decimals'			=> 2,
+			'vat_decimals'				=> 1,
+			'weight_decimals'			=> 1,
+			'dec_point'					=> ".",
+			'thousands_sep'				=> ",",
+			'image_list_width'			=> 200,
+			'image_list_height'			=> 200,
+			'image_detail_width'		=> 200,
+			'image_detail_height'		=> 200,
+			'image_zoom_width'			=> 750,
+			'image_zoom_height'			=> 500,
+			'image_list_lightbox'		=> false,
+			'image_detail_lightbox'		=> true,
+			'image_detail_crop'			=> false,
+			'image_list_crop'			=> false,
+			'mail_customer_subject'		=> "[#{ORDER}] Your order at MyShop",
+			'mail_neworder_subject'		=> "[#{ORDER}] New order",
+			'label_payby_prepay'		=> "@@Cash with order@@",
+			'label_payby_pod'			=> "@@Cash on delivery@@",
+			'label_payby_onbill'		=> "@@On account@@",
+			'order_number_style'		=> 'RANDOM',
+			'cat_list_sort_by'			=> 'shopprod_name1 ASC',
+			'shop_css'					=> '',
+			'shop_wrap'					=> '',
+			'image_detail_more_width'	=> 50,
+			'image_detail_more_height'	=> 50,
+			'image_detail_more_crop'	=> false,
+			'image_detail_more_start'	=> 1,
+			'image_detail_more_lightbox'=> false,
+			'files_direct_download'		=> false,
+			'files_template'			=> '', // default
+			'on_request_trigger'		=> -999,
+			'pagetitle_productname'		=> '%s',
+			'pagetitle_model'			=> ', Model: %s',
+			'pagetitle_add'				=> '%S- %s',
+			'pagetitle_ordernumber'		=> '%S(Order No. %s)',
+			'pagetitle'					=> '%1$s%2$s%3$s%4$s'
+		),
+		$_tmpl['config']
+	);
 
-	foreach( array( 'shop_pref_currency', 'shop_pref_unit_weight', 'shop_pref_vat', 'shop_pref_email_to',
-					'shop_pref_email_from', 'shop_pref_email_paypal', 'shop_pref_shipping', 'shop_pref_shipping_calc',
-					'shop_pref_payment', 'shop_pref_discount', 'shop_pref_loworder' ) as $value ) {
+	foreach( array(
+			'shop_pref_currency',
+			'shop_pref_unit_weight',
+			'shop_pref_vat',
+			'shop_pref_email_to',
+			'shop_pref_email_from',
+			'shop_pref_email_paypal',
+			'shop_pref_shipping',
+			'shop_pref_shipping_calc',
+			'shop_pref_payment',
+			'shop_pref_discount',
+			'shop_pref_loworder'
+		) as $value ) {
+
 		_getConfig( $value, '_shopPref' );
+
 	}
 
 	if(!isset($_tmpl['config']['shop_url'])) {
@@ -341,6 +355,10 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
 	} elseif( isset($_POST['shop_order_step1']) ) {
 
+		// reset shipping distance related values
+		$_SESSION[CART_KEY]['delivery_address'] = '';
+		$_SESSION[CART_KEY]['distance'] = false;
+
 		// handle invoice address -> checkout
 
 		$_SESSION[CART_KEY]['step1'] = array(
@@ -396,6 +414,24 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			$_SESSION[CART_KEY]['error']['step1'] = true;
 		} elseif(isset($_SESSION[CART_KEY]['error']['step1'])) {
 			unset($_SESSION[CART_KEY]['error']['step1']);
+		}
+
+		// set address for zone calculation (in case needed)
+		if(!isset($_SESSION[CART_KEY]['error']['step1'])) {
+
+			$_SESSION[CART_KEY]['delivery_address']  = $_SESSION[CART_KEY]['step1']['INV_CITY'].', ';
+			$_SESSION[CART_KEY]['delivery_address'] .= $_SESSION[CART_KEY]['step1']['INV_ZIP'];
+			if($_SESSION[CART_KEY]['step1']['INV_COUNTRY']) {
+				$_SESSION[CART_KEY]['delivery_address'] .= ', ' . $_SESSION[CART_KEY]['step1']['INV_COUNTRY'];
+			}
+			$_SESSION[CART_KEY]['distance_details']  = array(
+				'city' => $_SESSION[CART_KEY]['step1']['INV_CITY'],
+				'postcode' => $_SESSION[CART_KEY]['step1']['INV_ZIP'],
+				'country' => $_SESSION[CART_KEY]['step1']['INV_COUNTRY'],
+				'country_code' => '',
+				'foreign' => false
+			);
+
 		}
 
 	} elseif( isset($_POST['shop_order_submit']) ) {
@@ -1053,16 +1089,16 @@ if( $_shop_load_order ) {
 		$order_process = $_tmpl['inv_address'];
 
 		$_step1 = array(
-					'INV_FIRSTNAME' => '',
-					'INV_NAME' => '',
-					'INV_ADDRESS' => '',
-					'INV_ZIP' => '',
-					'INV_CITY' => '',
-					'INV_REGION' => '',
-					'INV_COUNTRY' => '',
-					'EMAIL' => '',
-					'PHONE' => ''
-						);
+			'INV_FIRSTNAME' => '',
+			'INV_NAME' => '',
+			'INV_ADDRESS' => '',
+			'INV_ZIP' => '',
+			'INV_CITY' => '',
+			'INV_REGION' => '',
+			'INV_COUNTRY' => '',
+			'EMAIL' => '',
+			'PHONE' => ''
+		);
 
 		// handle custom fields
 		foreach($_tmpl['config']['shop_field'] as $item_key => $row) {
@@ -1148,7 +1184,7 @@ if( $_shop_load_order ) {
 		$order_process = str_replace('{TERMS}', $terms_format ? $terms_text : nl2br(html_specialchars($terms_text)), $order_process);
 
 		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
-
+		include($phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php');
 
 	} elseif( isset($_POST['shop_order_submit']) && !isset($_SESSION[CART_KEY]['error']['step2']) ) {
 
@@ -1210,6 +1246,16 @@ if( $_shop_load_order ) {
 			$payment = 'n.a.';
 		}
 
+		if($subtotal['shipping_calc_type'] === 2) {
+			$mail_customer = render_cnt_template($mail_customer, 'SHIPPING_DISTANCE', number_format($subtotal['shipping_distance'] / 1000, 1, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']));
+			$mail_neworder = render_cnt_template($mail_neworder, 'SHIPPING_DISTANCE', number_format($subtotal['shipping_distance'] / 1000, 1, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']));
+			$mail_customer = str_replace('{SHIPPING_DISTANCE_LABEL}', $subtotal['shipping_distance_details']['label'], $mail_customer);
+			$mail_neworder = str_replace('{SHIPPING_DISTANCE_LABEL}', $subtotal['shipping_distance_details']['label'], $mail_neworder);
+		} else {
+			$mail_customer = render_cnt_template($mail_customer, 'SHIPPING_DISTANCE', '');
+			$mail_neworder = render_cnt_template($mail_neworder, 'SHIPPING_DISTANCE', '');
+		}
+
 		$payment_options = get_payment_options();
 		foreach($payment_options  as $item_key => $row) {
 			$mail_customer = render_cnt_template($mail_customer, 'PAYBY_'.strtoupper($item_key), '');
@@ -1226,29 +1272,30 @@ if( $_shop_load_order ) {
 			'order_gross'		=> $subtotal['float_total_gross'],
 			'order_payment'		=> $payment,
 			'order_data'		=> @serialize( array(
-												'cart' => $cart_data,
-												'address' => $_SESSION[CART_KEY]['step1'],
-												'mail_customer' => $mail_customer,
-												'mail_self' => $mail_neworder,
-												'subtotal' => array(
-														'subtotal_net' => $subtotal['float_net'],
-														'subtotal_gross' => $subtotal['float_gross']
-																	),
-												'shipping' => array(
-														'shipping_net' => $subtotal['float_shipping_net'],
-														'shipping_gross' => $subtotal['float_shipping_gross']
-																	),
-												'discount' => array(
-														'discount_net' => $subtotal['float_discount_net'],
-														'discount_gross' => $subtotal['float_discount_gross']
-																	),
-												'loworder' => array(
-														'loworder_net' => $subtotal['float_loworder_net'],
-														'loworder_gross' => $subtotal['float_loworder_gross']
-																	),
-												'weight' => $subtotal['float_weight'],
-												'lang' => $phpwcms['default_lang']
-												) ),
+				'cart' => $cart_data,
+				'address' => $_SESSION[CART_KEY]['step1'],
+				'mail_customer' => $mail_customer,
+				'mail_self' => $mail_neworder,
+				'subtotal' => array(
+					'subtotal_net' => $subtotal['float_net'],
+					'subtotal_gross' => $subtotal['float_gross']
+				),
+				'shipping' => array(
+					'shipping_net' => $subtotal['float_shipping_net'],
+					'shipping_gross' => $subtotal['float_shipping_gross'],
+					'shipping_distance' => $subtotal['shipping_distance']
+				),
+				'discount' => array(
+					'discount_net' => $subtotal['float_discount_net'],
+					'discount_gross' => $subtotal['float_discount_gross']
+				),
+				'loworder' => array(
+					'loworder_net' => $subtotal['float_loworder_net'],
+					'loworder_gross' => $subtotal['float_loworder_gross']
+				),
+				'weight' => $subtotal['float_weight'],
+				'lang' => $phpwcms['default_lang']
+			) ),
 			'order_status'		=> 'NEW-ORDER'
 		);
 
@@ -1360,8 +1407,8 @@ if( $_shop_load_order ) {
 		}
 		$order_process  = preg_replace('/\[DELETE\](.*?)\[\/DELETE\]/s', $_cart_button , $order_process);
 
-		// Is Shipping?
-		$order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
+		include($phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php');
+
 		$order_process = '<form action="' . rel_url(array('shop_cart' => 'show'), array('shop_detail'), $_tmpl['config']['cart_url']) . '" method="post">' . LF . trim($order_process) . LF . '</form>';
 
 	}

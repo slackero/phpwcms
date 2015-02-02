@@ -9,7 +9,6 @@
  *
  **/
 
-
 function shop_url($get='', $type='htmlentities') {
 	$base = MODULE_HREF;
 	if(is_array($get) && count($get)) {
@@ -39,5 +38,7 @@ function order_status($is='', $status='') {
 	}
 	return '';
 }
+
+
 
 ?>

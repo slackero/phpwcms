@@ -205,45 +205,71 @@ order_number_style = EN%05s
 
 <!--CART_FOOTER_START//-->
 
-		[SHIPPING]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+		[SHIPPING_DISTANCE]
 
-		<tr>
-			<td colspan="3"><strong>Shipping Costs</strong></td>
-		</tr>
-		<tr>
-			<td>Weight total:</td>
-			<td align="right">{SUBTOTAL_WEIGHT}</td>
-			<td>{WEIGHT_UNIT}</td>
-		</tr>
-		<tr>
-			<td>Shipping Net:</td>
-			<td align="right">{SHIPPING_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Shipping VAT:</td>
-			<td align="right">{SHIPPING_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Shipping Gross:</td>
-			<td align="right">{SHIPPING_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		[/SHIPPING]
-		[SHIPPING_ELSE]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
-		<tr>
-			<td>Shipping Costs</td>
-			<td colspan="2">free shipping</td>
-			<!-- <td>{CURRENCY_SYMBOL}</td> -->
-		</tr>
-		[/SHIPPING_ELSE]
+			[SHIPPING_DISTANCE_ADDRESS]
+
+			<tr>
+				<td>Shipping Costs</td>
+				<td colspan="2">Zone xxx</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS]
+			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+			<tr>
+				<td>Shipping Costs</td>
+				<td colspan="2">
+					<strong>Depending on distance:</strong>
+					final calculation is not possible without delivery address
+				</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+		[/SHIPPING_DISTANCE]
+		[SHIPPING_DISTANCE_ELSE]
+
+			[SHIPPING]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3"><strong>Shipping Costs</strong></td>
+			</tr>
+			<tr>
+				<td>Weight total:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
+			<tr>
+				<td>Shipping Net:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping VAT:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping Gross:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			[/SHIPPING]
+			[SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td>Shipping Costs</td>
+				<td colspan="2">free shipping</td>
+			</tr>
+			[/SHIPPING_ELSE]
+
+		[/SHIPPING_DISTANCE_ELSE]
 
 		<tr>
 			<td colspan="3"><hr /></td>
@@ -414,7 +440,7 @@ order_number_style = EN%05s
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input name="shop_order_step1" type="submit" value="Continue..." /></td>
+		<td><input name="shop_order_step1" type="submit" value="Continue &raquo;" /></td>
 	</tr>
 </table>
 <!--ORDER_INV_ADDRESS_END//-->
@@ -460,45 +486,71 @@ order_number_style = EN%05s
 
 	{ITEMS}
 
-		[SHIPPING]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+		[SHIPPING_DISTANCE]
 
-		<tr>
-			<td colspan="3"><strong>Shipping Costs</strong></td>
-		</tr>
-		<tr>
-			<td>Weight total:</td>
-			<td align="right">{SUBTOTAL_WEIGHT}</td>
-			<td>{WEIGHT_UNIT}</td>
-		</tr>
-		<tr>
-			<td>Shipping Net:</td>
-			<td align="right">{SHIPPING_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Shipping VAT:</td>
-			<td align="right">{SHIPPING_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Shipping Gross:</td>
-			<td align="right">{SHIPPING_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		[/SHIPPING]
-		[SHIPPING_ELSE]
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
-		<tr>
-			<td>Shipping Costs</td>
-			<td colspan="2">free shipping</td>
-			<!-- <td>{CURRENCY_SYMBOL}</td> -->
-		</tr>
-		[/SHIPPING_ELSE]
+			[SHIPPING_DISTANCE_ADDRESS]
+
+			<tr>
+				<td>Shipping Costs</td>
+				<td colspan="2">Zone xxx</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS]
+			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+			<tr>
+				<td>Shipping Costs</td>
+				<td colspan="2">
+					<strong>Depending on distance:</strong>
+					final calculation is not possible without delivery address
+				</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+		[/SHIPPING_DISTANCE]
+		[SHIPPING_DISTANCE_ELSE]
+
+			[SHIPPING]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3"><strong>Shipping Costs</strong></td>
+			</tr>
+			<tr>
+				<td>Weight total:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
+			<tr>
+				<td>Shipping Net:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping VAT:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping Gross:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			[/SHIPPING]
+			[SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td>Shipping Costs</td>
+				<td colspan="2">free shipping</td>
+			</tr>
+			[/SHIPPING_ELSE]
+
+		[/SHIPPING_DISTANCE_ELSE]
 
 		<tr>
 			<td colspan="3"><hr /></td>
