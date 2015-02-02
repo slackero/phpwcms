@@ -62,7 +62,7 @@ $BLM['shopprod_cart']			= 'Cart';
 $BLM['shopprod_max_cartitem']	= 'Max. products/cart';
 $BLM['shopprod_vat_rates']		= 'VAT rates';
 
-$BLM['shopprod_size']			= 'e.g. size';
+$BLM['shopprod_size']			= 'e.g. size&nbsp;&nbsp;<br />title&nbsp;&nbsp;<br />descr|+/-price|#suffix';
 $BLM['shopprod_color']			= 'e.g. color';
 
 $BLM['shopprod_url']			= 'Product link';
@@ -104,8 +104,6 @@ $BLM['shopprod_total_vat']		= 'VAT';
 $BLM['shopprod_total_gross']	= 'Total gross';
 
 $BLM['shopprod_subtotal']		= 'Subtotal';
-$BLM['shopprod_shipping']		= 'Shipping costs';
-
 
 $BLM['shopprod_email_customer']	= 'Mail to customer';
 $BLM['shopprod_email_shop']		= 'Mail to shop';
@@ -123,8 +121,13 @@ $BLM['shopprod_loworder_under']		= 'below';
 $BLM['shopprod_loworder_charge']	= 'surcharge';
 
 $BLM['shopprod_discount']			= 'Discount';
+$BLM['shopprod_discount_from']		= 'from net amount';
+$BLM['shopprod_freeshipping']		= 'free shipping';
 
 $BLM['shopprod_lang_support']	= 'Frontend language support';
 $BLM['shopprod_overwrite_meta']	= 'Product detail overwrites metadata';
+
+$BLM['shopprod_distance'] = 'Distance (km)';
+$BLM['shopprod_distance_base'] = 'Starting address';
 
 ?>

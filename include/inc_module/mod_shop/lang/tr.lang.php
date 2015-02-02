@@ -62,7 +62,7 @@ $BLM['shopprod_cart']			= 'sat&#305;&#351;';
 $BLM['shopprod_max_cartitem']	= 'en fazla &uuml;r&uuml;nler/sat&#305;&#351;';
 $BLM['shopprod_vat_rates']		= 'vergi oranlar&#305;';
 
-$BLM['shopprod_size']			= '&ouml;r boy';
+$BLM['shopprod_size']			= '&ouml;r boy&nbsp;&nbsp;title&nbsp;&nbsp;<br />descr|+/-price|#suffix';
 $BLM['shopprod_color']			= '&ouml;r. renk';
 
 $BLM['shopprod_url']			= '&uuml;r&uuml;n linki';

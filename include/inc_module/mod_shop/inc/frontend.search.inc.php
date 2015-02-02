@@ -2,7 +2,7 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <og@phpwcms.org>
+ * @author Oliver Georgi <oliver@phpwcms.de>
  * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
@@ -23,14 +23,14 @@ class ModuleShopSearch {
 	var $image_render			= false;
 
 	function search() {
-
+	
 		if(!$this->search_word_count) {
 			return NULL;
 		}
-
+		
 		$shop_url			= _getConfig( 'shop_pref_id_shop', '_shopPref' );
 		$shop_lang_support	= _getConfig( 'shop_pref_felang' ) ? true : false;
-
+		
 		if(!is_intval($shop_url) && is_string($shop_url)) {
 			$shop_url	= trim($shop_url);
 		} elseif(is_intval($shop_url) && intval($shop_url)) {
@@ -38,7 +38,7 @@ class ModuleShopSearch {
 		} else {
 			$shop_url	= $GLOBALS['aktion'][1] ? 'aid='.$GLOBALS['aktion'][1] : 'id='.$GLOBALS['aktion'][0];
 		}
-
+	
 		if($this->search_highlight_words && is_array($this->search_highlight_words)) {
 			$s_highlight_words = implode(' ', $this->search_highlight_words);
 		} else {
@@ -66,35 +66,35 @@ class ModuleShopSearch {
 			$sql .= " AND (shopprod_lang='' OR shopprod_lang="._dbEscape($GLOBALS['phpwcms']['default_lang']).')';
 		}
 		$data = _dbQuery($sql);
-
+		
 		foreach($data as $value) {
-
+		
 			$s_result	= array();
-
+		
 			$s_text		= $value['shopprod_search'];
 			$s_text		= str_replace(array('~', '|', ':', 'http', '//', '_blank', '&nbsp;') , ' ', $s_text);
 			$s_text		= clean_search_text($s_text);
-
+			
 			preg_match_all('/'.$this->search_words.'/is', $s_text, $s_result );
 
 			$s_count	= count($s_result[0]);
-
+			
 			if($s_count && SEARCH_TYPE_AND) {
 				$s_and_or = array();
 				foreach($s_result[0] as $svalue) {
 					$s_and_or[strtolower($svalue)] = 1;
 				}
 				$s_and_or = count($s_and_or);
-
+				
 				if($s_and_or != $this->search_word_count) {
 					$s_count = 0;
 				}
 			}
-
+			
 			if($s_count) {
 
 				$id = $this->search_result_entry;
-
+				
 				$s_title  = $value['shopprod_ordernumber'] ? trim($value['shopprod_ordernumber']).': ' : '';
 				$s_title .= $value['shopprod_name1'];
 				$s_title  = html($s_title);
@@ -104,7 +104,7 @@ class ModuleShopSearch {
 					$s_text = getCleanSubString($s_text, $this->search_wordlimit, $this->ellipse_sign, 'word');
 				}
 				$s_text   = html($s_text);
-
+				
 				$this->search_results[$id]["id"]		= $value['shopprod_id'];
 				$this->search_results[$id]["cid"]		= 0;
 				$this->search_results[$id]["rank"]		= $s_count;
@@ -124,7 +124,7 @@ class ModuleShopSearch {
 						);
 					}
 				}
-
+				
 				if($this->search_highlight) {
 					$this->search_results[$id]["title"]	= highlightSearchResult($s_title, $this->search_highlight_words);
 					$this->search_results[$id]["text"]	= highlightSearchResult($s_text, $this->search_highlight_words);
@@ -134,7 +134,7 @@ class ModuleShopSearch {
 					$this->search_results[$id]["text"]	= $s_text;
 					$this->search_results[$id]['link']	= rel_url(array('shop_cat' => $value['shopprod_category'], 'shop_detail' => $value['shopprod_id']), array('highlight', 'searchstart', 'searchwords'), $shop_url);
 				}
-
+				
 				$this->search_result_entry++;
 			}
 		}

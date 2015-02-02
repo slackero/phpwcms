@@ -1,0 +1,911 @@
+<!--CONFIG_START//-->
+
+; Overwrites the backend settings
+; shop_url =
+; cart_url =
+
+cat_all = "Alle Produkte"
+; Define where the "All products" should be positioned
+; Possible values are: bottom, top, none
+cat_all_pos = bottom
+cat_list_products = Off
+
+; sort list by fieldnames, check DB
+; sort by Name - "shopprod_name1 ASC"
+; sort by Viewed - "shopprod_track_view DESC"
+cat_list_sort_by = "shopprod_name1 ASC"
+cat_subcat_spacer = "_>_"
+
+shop_css = "shop.css"
+shop_wrap = "<div class="shop">|</div>"
+
+price_decimals = 2
+vat_decimals = 1
+weight_decimals = 0
+dec_point = "."
+thousands_sep = ","
+
+; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
+; for leading and trailing spaces use replacer %S
+pagetitle_productname = "%s"
+pagetitle_model = ", Modell: %s"
+pagetitle_add = "%S- %s"
+pagetitle_ordernumber = "%S(Bestellnr.: %s)"
+; %1$s = product name
+; %2$s = product add
+; %3$s = model
+; %4$s = order number
+pagetitle = "%1$s%2$s%3$s%4$s"
+
+image_list_width = 55
+image_list_height = 55
+image_list_crop = 0
+image_detail_width = 324
+image_detail_height = 500
+image_detail_crop = false
+image_detail_more_width = 90
+image_detail_more_height = 65
+image_detail_more_crop = true
+image_detail_more_lightbox = true
+image_detail_more_start = 2
+image_zoom_width = 800
+image_zoom_height = 800
+image_list_lightbox = true
+image_detail_lightbox = TRUE
+
+files_direct_download = 0
+files_template = shop-de.tmpl
+
+on_request_trigger = -999
+
+mail_customer_subject = "[#{ORDER}] Bestellbestätigung von MeinOnlineShop"
+mail_neworder_subject = "[#{ORDER}] Neue Bestellung"
+
+label_payby_prepay = "Vorauskasse"
+label_payby_pod = "Nachnahme"
+label_payby_onbill = "Rechnung"
+
+; Add custom fields, only for step 1
+; (where customer fill in address information)
+; The label information is just optional
+; and only used to set default error messages
+; format: shop_field_1 = STRING_REQ_Label
+shop_field_1 = STRING_REQ_Label
+shop_field_2 = STRING_Benutzerdefiniertes Feld
+
+; possible:
+; ---------
+; RANDOM or
+; sprintf() formatted http://php.net/sprintf
+; sample: %05s -> 00001
+order_number_style = DE%05s
+
+
+<!--CONFIG_END//-->
+
+
+<!--LIST_HEADER_START//-->
+<h1>{CATEGORY}</h1>
+<div>
+<!--LIST_HEADER_END//-->
+
+
+<!--LIST_ENTRY_START//-->
+	<div class="entry">
+
+		<h2>{PRODUCT_TITLE}</h2>
+		<div>
+			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
+			{PRODUCT_SHORT}
+		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
+			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
+			<em>{PRODUCT_VAT}%</em>
+			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]
+			<a href="{PRODUCT_DETAIL_LINK}">Produktinformation anzeigen</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Mehr&#8230;</a>[/PRODUCT_URL]
+		[ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
+			Preisanfrage senden
+		</a>[/ON_REQUEST][ON_REQUEST_ELSE]
+			[CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}In den Warenkorb[/CART_ADD]
+		[/ON_REQUEST_ELSE]
+			[VIEWED]<em>Besucher: {VIEWED}</em> [/VIEWED]
+		</div>
+
+	</div>
+<!--LIST_ENTRY_END//-->
+
+<!--LIST_NONE_START//-->
+	<p>Es konnte kein Produkt gefunden werden</p>
+<!--LIST_NONE_END//-->
+
+
+<!--LIST_SPACE_START//-->
+	<hr />
+<!--LIST_SPACE_END//-->
+
+
+<!--LIST_FOOTER_START//-->
+</div>
+<!--LIST_FOOTER_END//-->
+
+
+<!--DETAIL_START//-->
+<div class="detail">
+
+	<h1>{PRODUCT_TITLE}</h1>
+	[PRODUCT_ADD]<h2>{PRODUCT_ADD}</h2>[/PRODUCT_ADD]
+	<div>
+		{PRODUCT_LONG}
+
+		[IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
+		[ON_REQUEST_ELSE]
+		<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
+		<em>{PRODUCT_VAT}%</em>
+		<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+		[/ON_REQUEST_ELSE]
+		[ORDER_NUM]<p>Bestellnummer: {ORDER_NUM}</p>[/ORDER_NUM]
+		[MODEL]<p>Modell: {MODEL}</p>[/MODEL]
+		[VIEWED]<p>Besucher: {VIEWED}</p>[/VIEWED]
+		[PRODUCT_URL]<p>Mehr: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Anzeigen&nbsp;&raquo;</a></p>[/PRODUCT_URL]
+
+		[ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Dem Warenkorb hinzuf&uuml;gen[/CART_ADD][/ON_REQUEST_ELSE]
+	</div>
+	<div><a href="{PRODUCT_DETAIL_LINK}">Zeige alle</a></div>
+
+</div>
+<!--DETAIL_END//-->
+
+<!--IMAGE_SPACE_START//-->
+
+<!--IMAGE_SPACE_END//-->
+
+<!--CART_SMALL_START//-->
+<div style="padding:10px;border:1px solid #000000">
+	<h2>Cart</h2>
+	<p>
+		[COUNT]<a href="{CART_LINK}">{COUNT} Produkt(e) im Warenkorb</a>[/COUNT][COUNT_ELSE]Der Warenkorb ist leer[/COUNT_ELSE]
+	</p>
+</div>
+<!--CART_SMALL_END//-->
+
+
+<!--CART_HEADER_START//-->
+<div class="cart">
+	<h1>Cart</h1>
+
+	<table cellpadding="0" cellspacing="0" border="0" summary="cart">
+		<tr>
+			<td>Produkt im Warenkorb:</td>
+			<td>Preis {CURRENCY_SYMBOL}:</td>
+			<td>Anzahl:</td>
+		</tr>
+<!--CART_HEADER_END//-->
+
+<!--CART_ENTRY_START//-->
+		<tr>
+			<td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_SHORT]<br />
+			{PRODUCT_SHORT}[/PRODUCT_SHORT] [PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]<br /> [PRODUCT_WEIGHT]
+			<p>Gewicht: {PRODUCT_WEIGHT}{WEIGHT_UNIT}</p>[/PRODUCT_WEIGHT]
+<br /># {ORDER_NUM}
+      </td>
+			<td align="right">
+				{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL} <br />
+				MwSt.: {PRODUCT_VAT}% <br />
+				{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
+			</td>
+			<td>{COUNT}</td>
+		</tr>
+<!--CART_ENTRY_END//-->
+
+<!--CART_SPACE_START//-->
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+<!--CART_SPACE_END//-->
+
+<!--CART_FOOTER_START//-->
+		[SHIPPING_DISTANCE]
+
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			[SHIPPING_DISTANCE_ADDRESS]
+
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+
+				[SHIPPING_DISTANCE:LABEL]
+				<tr>
+					<td>Zone:</td>
+					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+				</tr>
+				[/SHIPPING_DISTANCE:LABEL]
+
+			<!-- Is it worth to know? -->
+			[SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Entfernung:</td>
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- km|mi|m -->
+			</tr>
+			[/SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Ziel:</td>
+				<td colspan="2">
+					[SHIPPING_DISTANCE:CITY]Lieferort: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+					[SHIPPING_DISTANCE:POSTCODE]Lieferort, PLZ: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+					[SHIPPING_DISTANCE:COUNTRY]Lieferort, Land: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+					[SHIPPING_DISTANCE:FOREIGN]Auslandslieferung[/SHIPPING_DISTANCE:FOREIGN]
+					[SHIPPING_DISTANCE:FOREIGN_ELSE]Inlandslieferung[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+				</td>
+			</tr>
+
+			<tr>
+				<td>Versand, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS]
+			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">
+					<strong>Entfernungsabh&auml;ngig:</strong>
+					eine endg&uuml;ltige Berechnung ist erst m&ouml;glich,
+					nachdem die Lieferanschrift eingegeben wurde
+				</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+		[/SHIPPING_DISTANCE]
+		[SHIPPING_DISTANCE_ELSE]
+
+			[SHIPPING]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+			<tr>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
+			<tr>
+				<td>Versand, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			[/SHIPPING]
+			[SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">versandkostenfrei</td>
+			</tr>
+			[/SHIPPING_ELSE]
+
+		[/SHIPPING_DISTANCE_ELSE]
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Zwischensumme (alle Produkte)</strong></td>
+		</tr>
+
+		<tr>
+			<td>Zwischensumme, netto:</td>
+			<td align="right">{SUBTOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Zwischensumme, MwSt.:</td>
+			<td align="right">{SUBTOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Zwischensumme, brutto:</td>
+			<td align="right">{SUBTOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		[DISCOUNT]
+		<tr>
+			<td colspan="3"><strong>Nachlass</strong></td>
+		</tr>
+		<tr>
+			<td>Rabatt:</td>
+			<td align="right">{DISCOUNT}</td>
+			<td>%</td>
+		</tr>
+		<tr>
+			<td>Rabattbetrag, netto:</td>
+			<td align="right">{DISCOUNT_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Rabattbetrag, MwSt.:</td>
+			<td align="right">{DISCOUNT_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Rabattbetrag, brutto:</td>
+			<td align="right">{DISCOUNT_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+		[/DISCOUNT]
+
+		<tr>
+			<td colspan="3"><strong>Gesamtbetrag</strong></td>
+		</tr>
+
+		<tr>
+			<td>Netto:</td>
+			<td align="right">{TOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>MwSt.-Betrag:</td>
+			<td align="right">{TOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Zu zahlender Betrag:</td>
+			<td align="right">{TOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+
+	</table>
+
+	<div>
+		<a href="{SHOP_LINK}">Einkauf fortsetzen</a>
+
+		[UPDATE]Warenkorb aktualisieren[/UPDATE]
+		[DELETE]Warenkorb leeren[/DELETE]
+		[CHECKOUT]Zur Kasse[/CHECKOUT]
+	</div>
+</div>
+<!--CART_FOOTER_END//-->
+
+<!--CART_NONE_START//-->
+<div class="cart">
+	<h1>Warenkorb</h1>
+	<p>Der Warenkorb ist leer! <a href="{SHOP_LINK}">Einkauf fortsetzen</a></p>
+</div>
+<!--CART_NONE_END//-->
+
+<!--ORDER_INV_ADDRESS_START//-->
+<h1>Ihre Anschrift</h1>
+<p>Bitte Rechnungs- und Lieferanschift ausf&uuml;llen</p>
+[IF_ERROR]<p>Bitte pr&uuml;fen sie nachfolgende Angaben. Diese sind unvollst&auml;ndig oder fehlen:</p>[/IF_ERROR]
+[ERROR_INV_FIRSTNAME]<p>Vorname</p>[/ERROR_INV_FIRSTNAME]
+[ERROR_INV_NAME]<p>Nachname</p>[/ERROR_INV_NAME]
+[ERROR_INV_ADDRESS]<p>Adressangaben</p>[/ERROR_INV_ADDRESS]
+[ERROR_INV_ZIP]<p>Postleitzahl</p>[/ERROR_INV_ZIP]
+[ERROR_INV_CITY]<p>Ort</p>[/ERROR_INV_CITY]
+[ERROR_EMAIL]<p>E-Mail</p>[/ERROR_EMAIL]
+[ERROR_PHONE]<p>Telefon</p>[/ERROR_PHONE]
+[ERROR_PAYMENT]<p>W&auml;hlen sie die bevorzugte Zahlungsmethode</p>[/ERROR_PAYMENT]
+[ERROR_shop_field_1]<p>Benutzerdefiniertes Feld 1</p>[/ERROR_shop_field_1]
+<table cellpadding="1" cellspacing="0" border="0" summary="cart">
+	<tr>
+		<td>Vorname*:</td>
+		<td><input type="text" name="shop_inv_firstname" id="shop_inv_firstname" value="{INV_FIRSTNAME}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>Nachname*:</td>
+		<td><input type="text" name="shop_inv_name" id="shop_inv_name" value="{INV_NAME}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>Adresse*:</td>
+		<td><textarea name="shop_inv_address" id="shop_inv_address">{INV_ADDRESS}</textarea></td>
+	</tr>
+	<tr>
+		<td>PLZ*:</td>
+		<td><input type="text" name="shop_inv_zip" id="shop_inv_zip" value="{INV_ZIP}" size="5" maxlength="10" /></td>
+	</tr>
+	<tr>
+		<td>Ort*:</td>
+		<td><input type="text" name="shop_inv_city" id="shop_inv_city" value="{INV_CITY}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>Bundesland:</td>
+		<td><input type="text" name="shop_inv_region" id="shop_inv_region" value="{INV_REGION}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>Land:</td>
+		<td><input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>E-Mail*:</td>
+		<td><input type="text" name="shop_email" id="shop_email" value="{EMAIL}" size="20" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>Telefon*:</td>
+		<td><input type="text" name="shop_phone" id="shop_phone" value="{PHONE}" size="20" maxlength="20" /></td>
+	</tr>
+
+	<tr>
+		<td>Benutzerdefiniertes Feld 1*:</td>
+		<td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
+	</tr>
+
+[PAYMENT]
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td>Zahlungsweise*:</td>
+		<td>{PAYMENT}</td>
+	</tr>
+[/PAYMENT]
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><input name="shop_order_step1" type="submit" value="Bestellung fortsetzen &raquo;" /></td>
+	</tr>
+</table>
+<!--ORDER_INV_ADDRESS_END//-->
+
+<!--ORDER_TERMS_START//-->
+<h1>Abschlie&szlig;en der Bestellschritte</h1>
+<p>Bitte erneut alle Angaben vor Abschlie&szlig;en der Bestellung pr&uuml;fen.</p>
+<div>
+
+	[IF_ERROR]<p><strong>Sie m&uuml;ssen den Gesch&auml;ftsbedingungen zustimmen</strong></p>[/IF_ERROR]
+
+	<h2>Adresse</h2>
+	<p>
+		{INV_FIRSTNAME} {INV_NAME}<br />
+		{INV_ADDRESS}<br />
+		{INV_ZIP} {INV_CITY}
+		[INV_REGION]<br />{INV_REGION}[/INV_REGION]
+		[INV_COUNTRY]<br />{INV_COUNTRY}[/INV_COUNTRY]
+	</p>
+	<p>
+		E-Mail: {EMAIL}<br />
+		Telefon: {PHONE}
+	</p>
+	[shop_field_1]
+	<p>
+		Benutzerdefiniertes Feld 1: {shop_field_1}
+	</p>
+	[/shop_field_1]
+	[PAYMENT]<p>
+		Zahlungsweise: {PAYMENT}
+	</p>[/PAYMENT]
+	<form action="{CART_LINK}" method="post">
+	<p>
+		Bitte Adresse korrigieren, wenn erforderlich
+		<input name="shop_edit_address" type="submit" value="Adresse bearbeiten" />
+	</p>
+	</form>
+
+	<hr />
+
+	<h2>Bestellpositionen</h2>
+	<table cellspacing="0" cellpadding="1" border="0" summary="items">
+
+	{ITEMS}
+
+		[SHIPPING_DISTANCE]
+
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			[SHIPPING_DISTANCE_ADDRESS]
+
+				[SHIPPING_DISTANCE:LABEL]
+				<tr>
+					<td>Zone:</td>
+					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+				</tr>
+				[/SHIPPING_DISTANCE:LABEL]
+
+			<!-- Is it worth to know? -->
+			[SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Entfernung:</td>
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
+			</tr>
+			[/SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Ziel:</td>
+				<td colspan="2">
+					[SHIPPING_DISTANCE:CITY]Lieferort: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+					[SHIPPING_DISTANCE:POSTCODE]Lieferort, PLZ: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+					[SHIPPING_DISTANCE:COUNTRY]Lieferort, Land: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+					[SHIPPING_DISTANCE:FOREIGN]Auslandslieferung[/SHIPPING_DISTANCE:FOREIGN]
+					[SHIPPING_DISTANCE:FOREIGN_ELSE]Inlandslieferung[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+				</td>
+			</tr>
+
+			<tr>
+				<td>Versand, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versand, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS]
+			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">
+					<strong>Entfernungsabh&auml;ngig:</strong>
+					eine endg&uuml;ltige Berechnung ist erst m&ouml;glich,
+					nachdem die Lieferanschrift eingegeben wurde
+				</td>
+			</tr>
+
+			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+
+		[/SHIPPING_DISTANCE]
+		[SHIPPING_DISTANCE_ELSE]
+
+			[SHIPPING]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+			<tr>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
+			<tr>
+				<td>Versandkosten, netto:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versandkosten, MwSt.:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Versandkosten, brutto:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			[/SHIPPING]
+			[SHIPPING_ELSE]
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td>Versandkosten</td>
+				<td colspan="2">versandkostenfrei</td>
+			</tr>
+			[/SHIPPING_ELSE]
+
+		[/SHIPPING_DISTANCE_ELSE]
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><strong>Zwischensumme (alle Produkte)</strong></td>
+		</tr>
+
+		<tr>
+			<td>Zwischensumme, netto:</td>
+			<td align="right">{SUBTOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Zwischensumme, MwSt.:</td>
+			<td align="right">{SUBTOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Zwischensumme, brutto:</td>
+			<td align="right">{SUBTOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+
+		[DISCOUNT]
+		<tr>
+			<td colspan="3"><strong>Nachlass</strong></td>
+		</tr>
+		<tr>
+			<td>Rabatt:</td>
+			<td align="right">{DISCOUNT}</td>
+			<td>%</td>
+		</tr>
+		<tr>
+			<td>Rabattbetrag, netto:</td>
+			<td align="right">{DISCOUNT_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Rabattbetrag, MwSt.:</td>
+			<td align="right">{DISCOUNT_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Rabattbetrag, brutto:</td>
+			<td align="right">{DISCOUNT_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+		[/DISCOUNT]
+
+		<tr>
+			<td colspan="3"><strong>Gesamt</strong></td>
+		</tr>
+
+		<tr>
+			<td>Gesamt, netto:</td>
+			<td align="right">{TOTAL_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Gesamt, MwSt.:</td>
+			<td align="right">{TOTAL_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Gesamtbetrag:</td>
+			<td align="right">{TOTAL_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+	</table>
+
+	<p>
+		<a href="{CART_LINK}">Warenkorb anzeigen</a>
+		<a href="{SHOP_LINK}">Einkauf fortsetzen</a>
+	</p>
+
+	<hr />
+
+	<h2>Allgemeine Gesch&auml;fts- und Lieferbedingungen</h2>
+	<div style="width:300px;height: 200px;padding:5px; overflow:auto;">
+		{TERMS}
+	</div>
+	<form action="{CART_LINK}" method="post">
+	<p>
+		<input type="checkbox" name="shop_terms_agree" value="1" />
+		Ich habe die Gesch&auml;fts- und Lieferbedingungen gelesen und stimme diesen zu.
+	</p>
+	<p>
+		<input name="shop_order_submit" type="submit" value="Zahlungspflichtig bestellen" />
+	</p>
+	</form>
+
+</div>
+
+<!--ORDER_TERMS_END//-->
+
+<!--ORDER_TERMS_ITEM_START//-->
+		<tr>
+			<td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]</td>
+			<td>
+				{PRODUCT_NET_PRICE} <br />
+				MwSt.: {PRODUCT_VAT}% <br />
+				{PRODUCT_GROSS_PRICE}
+			</td>
+			<td>{COUNT}</td>
+		</tr>
+<!--ORDER_TERMS_ITEM_END//-->
+
+<!--ORDER_TERMS_ITEMSPACE_START//-->
+
+<!--ORDER_TERMS_ITEMSPACE_END//-->
+
+<!--MAIL_ITEM_START//-->
+Anzahl:      {COUNT}
+Bestell-Nr.: {ORDER_NUM}
+Position:    {PRODUCT_TITLE} {PRODUCT_OPT1} {PRODUCT_OPT2}
+Nettopreis:  {PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}
+MwSt.Betrag: {PRODUCT_VAT} %
+Bruttopreis: {PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
+<!--MAIL_ITEM_END//-->
+
+<!--MAIL_CUSTOMER_START//-->
+*Vielen Dak für Ihre Bestellung*
+
+Ihre Bestellung: {ORDER}
+Bestelldatum:    {DATE:d/m/Y H:i}
+
+Zahlungsweise: [PAYBY_PREPAY]Vorauskasse
+               Ihre Bestellung wird nach Zahlungseingang versendet
+               Überweisen Sie den Gesamtbetrag auf folgendes Konto:
+               Empfänger: xxx
+               IBAN:      xxx[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Ihrer Bestellung liegt eine Rechnung bei.[/PAYBY_ONBILL]
+
+Adresse: {INV_FIRSTNAME} {INV_NAME}
+         {INV_ADDRESS}
+         {INV_ZIP} {INV_CITY}[INV_REGION]
+         {INV_REGION}[/INV_REGION][INV_COUNTRY]
+         {INV_COUNTRY}[/INV_COUNTRY]
+
+E-Mail:  {EMAIL}
+Telefon: {PHONE}
+
+Feld 1:  {shop_field_1}
+
+Bestellpositionen:
+==================
+
+{ITEMS}
+
+Zwischensumme:
+==============
+
+Netto:   {SUBTOTAL_NET} {CURRENCY_SYMBOL}
+MwSt.:   {SUBTOTAL_VAT} {CURRENCY_SYMBOL}
+Brutto:  {SUBTOTAL_GROSS} {CURRENCY_SYMBOL}
+
+Rabatt:  {DISCOUNT} %
+=======
+
+Netto:   {DISCOUNT_NET} {CURRENCY_SYMBOL}
+MwSt.:   {DISCOUNT_VAT} {CURRENCY_SYMBOL}
+Brutto:  {DISCOUNT_GROSS} {CURRENCY_SYMBOL}
+
+Versandkosten:
+==============
+[SHIPPING_DISTANCE]
+Tarif: {SHIPPING_DISTANCE_LABEL}
+Entfernung: {SHIPPING_DISTANCE} km
+[/SHIPPING_DISTANCE]
+Netto:   {SHIPPING_NET} {CURRENCY_SYMBOL}
+MwSt.:   {SHIPPING_VAT} {CURRENCY_SYMBOL}
+Brutto:  {SHIPPING_GROSS} {CURRENCY_SYMBOL}
+
+Zahlbetrag:
+===========
+
+Netto:   {TOTAL_NET} {CURRENCY_SYMBOL}
+MwSt.:   {TOTAL_VAT} {CURRENCY_SYMBOL}
+Gesamt:  {TOTAL_GROSS} {CURRENCY_SYMBOL}
+========================================
+
+Vielen Dank.
+
+--
+Ihr XYZ Online Shop
+<!--MAIL_CUSTOMER_END//-->
+
+<!--MAIL_NEWORDER_START//-->
+Neue Bestellung
+
+{ORDER}
+Bestelldatum:    {DATE:d/m/Y H:i}
+
+Zahlungsweise: [PAYBY_PREPAY]Vorauskasse[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Rechnung[/PAYBY_ONBILL]
+
+Adresse: {INV_FIRSTNAME} {INV_NAME}
+         {INV_ADDRESS}
+         {INV_ZIP} {INV_CITY}[INV_REGION]
+         {INV_REGION}[/INV_REGION][INV_COUNTRY]
+         {INV_COUNTRY}[/INV_COUNTRY]
+
+E-Mail:  {EMAIL}
+Telefon: {PHONE}
+
+Feld 1:  {shop_field_1}
+
+Zwischensumme:
+==============
+
+Netto:   {SUBTOTAL_NET} {CURRENCY_SYMBOL}
+MwSt.:   {SUBTOTAL_VAT} {CURRENCY_SYMBOL}
+Brutto:  {SUBTOTAL_GROSS} {CURRENCY_SYMBOL}
+
+Rabatt:  {DISCOUNT} %
+=======
+
+Netto:   {DISCOUNT_NET} {CURRENCY_SYMBOL}
+MwSt.:   {DISCOUNT_VAT} {CURRENCY_SYMBOL}
+Brutto:  {DISCOUNT_GROSS} {CURRENCY_SYMBOL}
+
+Versandkosten:
+==============
+[SHIPPING_DISTANCE]
+Tarif: {SHIPPING_DISTANCE_LABEL}
+Entfernung: {SHIPPING_DISTANCE} km
+[/SHIPPING_DISTANCE]
+Netto:   {SHIPPING_NET} {CURRENCY_SYMBOL}
+MwSt.:   {SHIPPING_VAT} {CURRENCY_SYMBOL}
+Brutto:  {SHIPPING_GROSS} {CURRENCY_SYMBOL}
+
+Zahlbetrag:
+===========
+
+Netto:   {TOTAL_NET} {CURRENCY_SYMBOL}
+MwSt.:   {TOTAL_VAT} {CURRENCY_SYMBOL}
+Gesamt:  {TOTAL_GROSS} {CURRENCY_SYMBOL}
+========================================
+
+
+Bestellprositionen:
+==============
+
+{ITEMS}
+
+
+Dann los! Bestellung abwicklen
+<!--MAIL_NEWORDER_END//-->
+
+<!--ORDER_DONE_START//-->
+	<h2>Bestellung {ORDER} wurde erfolgreich vesendet</h2>
+	<p>Guten Tag <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
+	Vielen Dank f&uuml;r die Bestellung. Sie erhalten in den n&auml;chsten Minuten eine Best&auml;tigung an die E-Mail <strong>{EMAIL}</strong>.</p>
+	<p>Die Bestellnummer lautet: <strong>{ORDER}</strong>. Bitte nutzen Sie diese Bestellnummer f&uuml;r alle Fragen zu Ihrer Bestellung.</p>
+<!--ORDER_DONE_END//-->
+
+<!--ORDER_NOT_DONE_START//-->
+	<h2>Bestellung fehlgeschlagen</h2>
+	<p>Es tut uns leid, aber aufgrund eines technischen Problems wurde die Bestellung nicht erfolgreich verabeitet.</p>
+	<p>Bitte versuchen Sie es erneut oder informieren Sie uns.</p>
+	<p>Die tempor&auml;re Bestellnummer lautet: <strong>{ORDER}</strong>.</p>
+	<p>Sie k&ouml;nnen uns Ihre Bestellung direkt per E-Mail senden: <a href="mailto:shop@mydomain.com?subject={SUBJECT}&amp;body={MSG}">Jetzt senden</a>.</p>
+<!--ORDER_NOT_DONE_END//-->
+
+
