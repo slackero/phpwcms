@@ -207,11 +207,55 @@ order_number_style = EN%05s
 
 		[SHIPPING_DISTANCE]
 
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
 			[SHIPPING_DISTANCE_ADDRESS]
 
 			<tr>
-				<td>Shipping Costs</td>
-				<td colspan="2">Zone xxx</td>
+				<td colspan="3"><strong>Shipping Costs</strong></td>
+			</tr>
+
+				[SHIPPING_DISTANCE:LABEL]
+				<tr>
+					<td>Zone:</td>
+					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+				</tr>
+				[/SHIPPING_DISTANCE:LABEL]
+
+			<!-- Is it worth to know? -->
+			[SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
+			<tr>
+				<td>Entfernung:</td>
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
+			</tr>
+			[/SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Delivery:</td>
+				<td colspan="2">
+					[SHIPPING_DISTANCE:CITY]city: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+					[SHIPPING_DISTANCE:POSTCODE]post code: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+					[SHIPPING_DISTANCE:COUNTRY]country: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+					[SHIPPING_DISTANCE:FOREIGN]foreign shipping[/SHIPPING_DISTANCE:FOREIGN]
+					[SHIPPING_DISTANCE:FOREIGN_ELSE]domestic shipping[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+				</td>
+			</tr>
+
+			<tr>
+				<td>Shipping Net:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping VAT:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping Gross:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
 			</tr>
 
 			[/SHIPPING_DISTANCE_ADDRESS]
@@ -488,11 +532,55 @@ order_number_style = EN%05s
 
 		[SHIPPING_DISTANCE]
 
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+
 			[SHIPPING_DISTANCE_ADDRESS]
 
 			<tr>
-				<td>Shipping Costs</td>
-				<td colspan="2">Zone xxx</td>
+				<td colspan="3"><strong>Shipping Costs</strong></td>
+			</tr>
+
+				[SHIPPING_DISTANCE:LABEL]
+				<tr>
+					<td>Zone:</td>
+					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+				</tr>
+				[/SHIPPING_DISTANCE:LABEL]
+
+			<!-- Is it worth to know? -->
+			[SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
+			<tr>
+				<td>Entfernung:</td>
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
+			</tr>
+			[/SHIPPING_DISTANCE:KM]
+			<tr>
+				<td>Delivery:</td>
+				<td colspan="2">
+					[SHIPPING_DISTANCE:CITY]city: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+					[SHIPPING_DISTANCE:POSTCODE]post code: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+					[SHIPPING_DISTANCE:COUNTRY]country: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+					[SHIPPING_DISTANCE:FOREIGN]foreign shipping[/SHIPPING_DISTANCE:FOREIGN]
+					[SHIPPING_DISTANCE:FOREIGN_ELSE]domestic shipping[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+				</td>
+			</tr>
+
+			<tr>
+				<td>Shipping Net:</td>
+				<td align="right">{SHIPPING_NET}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping VAT:</td>
+				<td align="right">{SHIPPING_VAT}</td>
+				<td>{CURRENCY_SYMBOL}</td>
+			</tr>
+			<tr>
+				<td>Shipping Gross:</td>
+				<td align="right">{SHIPPING_GROSS}</td>
+				<td>{CURRENCY_SYMBOL}</td>
 			</tr>
 
 			[/SHIPPING_DISTANCE_ADDRESS]
@@ -503,6 +591,7 @@ order_number_style = EN%05s
 				<td colspan="2">
 					<strong>Depending on distance:</strong>
 					final calculation is not possible without delivery address
+
 				</td>
 			</tr>
 

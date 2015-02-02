@@ -224,10 +224,10 @@ order_number_style = DE%05s
 				[/SHIPPING_DISTANCE:LABEL]
 
 			<!-- Is it worth to know? -->
-			[SHIPPING_DISTANCE:KM]
+			[SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
 			<tr>
 				<td>Entfernung:</td>
-				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- km|mi|m -->
+				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
 			</tr>
 			[/SHIPPING_DISTANCE:KM]
 			<tr>
@@ -538,6 +538,10 @@ order_number_style = DE%05s
 
 			[SHIPPING_DISTANCE_ADDRESS]
 
+			<tr>
+				<td colspan="3"><strong>Versandkosten</strong></td>
+			</tr>
+
 				[SHIPPING_DISTANCE:LABEL]
 				<tr>
 					<td>Zone:</td>
@@ -546,7 +550,7 @@ order_number_style = DE%05s
 				[/SHIPPING_DISTANCE:LABEL]
 
 			<!-- Is it worth to know? -->
-			[SHIPPING_DISTANCE:KM]
+			[SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
 			<tr>
 				<td>Entfernung:</td>
 				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
