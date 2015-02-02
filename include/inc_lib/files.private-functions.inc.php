@@ -34,7 +34,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 		//Ermitteln des Aufklappwertes
 		$klapp_status = empty($_SESSION["klapp"][$row["f_id"]]) ? 1 : 0;
 
-		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
+		//Ermitteln, ob Ã¼berhaupt abhÃ¤ngige Dateien/Ordner existieren
 		$count_sql  = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ";
 		$count_sql .= "f_pid=".$row["f_id"]." AND ";
 		if(empty($_SESSION["wcs_user_admin"])) {
@@ -72,8 +72,8 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 		}
 
 		echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
-		echo "</strong></td>\n"; //Schließen Zelle 1. Spalte
-		//Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
+		echo "</strong></td>\n"; //SchlieÃŸen Zelle 1. Spalte
+		//Zelle 2. Spalte - vorgesehen fÃ¼r Buttons/Tasten Edit etc.
 		echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
 		//Button zum Uploaden einer Datei in dieses Verzeichnisses
 		echo "<a href=\"".$zieldatei."&amp;upload=".$row["f_id"]."\" title=\"".$GLOBALS['BL']['be_fprivfunc_upload'].": ".$dirname."\">";
@@ -81,7 +81,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 		if(!$cutID) { //Button zum Erzeugen eines Neuen Unterverzeichnisses
 			echo "<a href=\"".$zieldatei."&amp;mkdir=".$row["f_id"]."\" title=\"".$GLOBALS['BL']['be_fprivfunc_makenew'].": ".$dirname."\">";
 			echo "<img src=\"img/button/add_13x13.gif\" border=\"0\" alt=\"\" /></a>";
-		} else {  //Button zum Einfügen der Clipboard-Datei in das Verzeichnis
+		} else {  //Button zum EinfÃ¼gen der Clipboard-Datei in das Verzeichnis
 			echo "<a href=\"include/inc_act/act_file.php?paste=".$cutID.'%7C'.$row["f_id"].
 				 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_paste'].": ".$dirname."\">";
 			echo "<img src=\"img/button/paste_13x13.gif\" border=\"0\" alt=\"\" /></a>";
@@ -98,7 +98,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_cpublic'].": ".$dirname."\">";
 		echo "<img src=\"img/button/public_12x13_".$row["f_public"].".gif\" border=\"0\" alt=\"\" /></a>";
 		echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
-		//Button zum Löschen des Verzeichnisses, wenn leer
+		//Button zum LÃ¶schen des Verzeichnisses, wenn leer
 		if(!$count_wert) {
 			echo "<a href=\"include/inc_act/act_file.php?delete=".$row["f_id"].'%7C'."9".
 				 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_deldir'].": ".$dirname."\" onclick=\"return confirm('".
@@ -134,7 +134,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 
 					$file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
-					if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tavbelle
+					if(!$file_durchlauf) { //Aufbau der Zeile zum EinflieÃŸen der Filelisten-Tavbelle
 						echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 						echo "<!-- start file list: private-functions //-->\n";
 					} else {
@@ -156,7 +156,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 					//echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
 					//echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
 					echo $file_row["edit"] . $filename . "</a></td>\n";
-					//Aufbauen Buttonleiste für jeweilige Datei
+					//Aufbauen Buttonleiste fÃ¼r jeweilige Datei
 					echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
 					//Button zum Downloaden der Datei
 					echo "<a href=\"include/inc_act/act_download.php?dl=".$file_row["f_id"].
@@ -181,12 +181,17 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			 			 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_cpublicfile'].": ".$filename."\">";
 					echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\" alt=\"\" /></a>";
 					echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
-					//Button zum Löschen der Datei
-					echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
+					//Button zum LÃ¶schen der Datei
+					if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
+						//if user is owner then delete button is active
+						echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
 				 		 "\" title=\"".$GLOBALS['BL']['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".
 						 $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'].
 						 "');\">".
 						 "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\" alt=\"\" /></a>";
+					} else {
+						echo "<img src=\"img/button/trash_13x13_0.gif\" border=\"0\">";
+					}
 					echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\" border=\"0\" alt=\"\" />"; //Spacer
 					echo "</td>\n";
 					//Ende Aufbau
@@ -240,7 +245,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 			} //Ende Liste Dateien
 		}
 
-		//Zaehler mitführen
+		//Zaehler mitfÃ¼hren
 		$_SESSION["list_zaehler"]++;
 	}
 	mysql_free_result($result);
@@ -253,7 +258,7 @@ function true_false($wert) {
 }
 
 function on_off($wert, $string, $art = 1) {
-	//Erzeugt das Status-Zeichen für Klapp-Auf/Zu
+	//Erzeugt das Status-Zeichen fÃ¼r Klapp-Auf/Zu
 	//Wenn Art = 1 dann als Zeichen, ansonsten als Bild
 	if($wert) {
 		return ($art == 1) ? "+" : "<img src=\"img/symbols/klapp_zu.gif\" title=\"".$GLOBALS['BL']['be_fprivfunc_opendir'].": ".$string."\" border=\"0\" alt=\"\" />";
