@@ -720,6 +720,9 @@ table.tdMorepace td {
 .width50 {
 	width: 50px;
 }
+.width60 {
+	width: 60px;
+}
 .width75 {
 	width: 75px;
 }
@@ -866,6 +869,9 @@ table.tdMorepace td {
 .tdbottom10 {
 	vertical-align: top;
 	padding-bottom: 10px;
+}
+.valign-middle {
+	vertical-align: middle;
 }
 .rowspacer1x0 {
 	background-image: url(../../img/lines/be_dotted_line.gif);
