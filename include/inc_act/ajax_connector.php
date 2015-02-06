@@ -42,17 +42,7 @@ if(empty($value)) {
 
 // do charset conversions for value
 if(PHPWCMS_CHARSET != 'utf-8') {
-
-	if(function_exists('mb_convert_encoding')) {
-
-		$value = @mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
-
-	} else {
-
-		$value = utf8_decode($value);
-
-	}
-
+	$value = @mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
 }
 
 $data = array();
