@@ -1283,7 +1283,7 @@ if( $_shop_load_order ) {
 				'shipping' => array(
 					'shipping_net' => $subtotal['float_shipping_net'],
 					'shipping_gross' => $subtotal['float_shipping_gross'],
-					'shipping_distance' => $subtotal['shipping_distance']
+					'shipping_distance' => $subtotal['shipping_distance'] === false ? 0 : $subtotal['shipping_distance']
 				),
 				'discount' => array(
 					'discount_net' => $subtotal['float_discount_net'],
@@ -1294,7 +1294,8 @@ if( $_shop_load_order ) {
 					'loworder_gross' => $subtotal['float_loworder_gross']
 				),
 				'weight' => $subtotal['float_weight'],
-				'lang' => $phpwcms['default_lang']
+				'lang' => $phpwcms['default_lang'],
+				'distance' => $subtotal['shipping_distance'] === false ? null : $subtotal['shipping_distance_details']
 			) ),
 			'order_status'		=> 'NEW-ORDER'
 		);
