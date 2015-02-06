@@ -369,6 +369,21 @@ if (!defined('PHPWCMS_ROOT')) {
 		?></textarea></td>
 	</tr>
 
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+	<tr>
+		<td align="right" class="chatlist tdtop3"><?php echo $BLM['shopprod_api'] ?>:&nbsp;</td>
+		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td><input type="checkbox" name="pref_api_access" id="pref_api_access" value="1"<?php is_checked('1', $plugin['data']['shop_pref_api_access']); ?> onchange="enableSubmit();" /></td>
+				<td class="f10"><label for="pref_api_access"><?php echo $BLM['shopprod_api_access']; ?></label>&nbsp;&nbsp;&nbsp;</td>
+				<td class="chatlist"><?php echo trim($BLM['shopprod_api_key']) ?>:&nbsp;</td>
+				<td><input name="pref_api_key" type="text" id="pref_api_key" class="v12 width175" value="<?php echo html_specialchars($plugin['data']['shop_pref_api_key']) ?>" size="20" maxlength="50" onchange="enableSubmit();" /></td>
+			</tr>
+		</table></td>
+
+	</tr>
+
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="18" /></td></tr>
 
 	<tr>
