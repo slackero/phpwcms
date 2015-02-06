@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -138,8 +138,6 @@ if( empty($phpwcms["root"]) ) {
 define ("PHPWCMS_ROOT", 			$phpwcms['DOC_ROOT']);
 define ('PHPWCMS_FILES', 			$phpwcms["file_path"] . '/');
 define ('PHPWCMS_BASEPATH',			'/' . $phpwcms["root"]);
-define ('On',						true);
-define ('Off',						false);
 define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
 define ('PHPWCMS_REWRITE',			empty($phpwcms["rewrite_url"]) ? false : true);
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
@@ -205,6 +203,17 @@ if(function_exists('mb_substr')) {
 	function mb_strlen($str='', $encoding='') {
 		return strlen(phpwcms_seems_utf8($str) ? utf8_decode($str) : $str);
 	}
+
+	// fallback for mb_convert_encoding()
+	function mb_convert_encoding($string='', $out_charset='utf-8', $in_charset='utf-8') {
+		if(strtolower($in_charset) == 'utf-16be') {
+			$in_charset = 'utf-8';
+		}
+		if(strtolower($out_charset) == 'utf-16be') {
+			$out_charset = 'utf-8';
+		}
+		return makeCharsetConversion($string, $in_charset, $out_charset);
+	}
 }
 
 $phpwcms['modules']				= array();
@@ -250,12 +259,12 @@ $phpwcms['default_lang']	= strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
-	'jquery-2.1'			=> 'jQuery 2.1.1',
-	'jquery-2.1-migrate'	=> 'jQuery 2.1.1 + Migrate 1.2.1',
+	'jquery-2.1'			=> 'jQuery 2.1.3',
+	'jquery-2.1-migrate'	=> 'jQuery 2.1.3 + Migrate 1.2.1',
 	'jquery-2.0'			=> 'jQuery 2.0.3',
 	'jquery-2.0-migrate'	=> 'jQuery 2.0.3 + Migrate 1.2.1',
-	'jquery-1.11'			=> 'jQuery 1.11.1',
-	'jquery-1.11-migrate'	=> 'jQuery 1.11.1 + Migrate 1.2.1',
+	'jquery-1.11'			=> 'jQuery 1.11.2',
+	'jquery-1.11-migrate'	=> 'jQuery 1.11.2 + Migrate 1.2.1',
 	'jquery-1.10'			=> 'jQuery 1.10.2',
 	'jquery-1.10-migrate'	=> 'jQuery 1.10.2 + Migrate 1.2.1',
 	'jquery-1.9'			=> 'jQuery 1.9.1',

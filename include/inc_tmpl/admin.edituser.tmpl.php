@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -145,12 +145,12 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 		  ?>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250 f11b" value="<?php echo $new_login ?>" size="30" maxlength="30"></td>
+            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250 f11b" value="<?php echo $new_login ?>" size="30" maxlength="30" autocomplete="off"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250 f11b" value="<?php echo $new_password ?>" size="30" maxlength="20"></td>
+            <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250 f11b" value="<?php echo $new_password ?>" size="30" maxlength="50" autocomplete="off"></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>

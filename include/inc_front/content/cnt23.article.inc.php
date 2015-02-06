@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -194,43 +194,46 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			case 'recaptcha':	/*
 								 * reCAPTCHA
 								 */
-								include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php');
+								require_once PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php';
 
 								$cnt_form['recaptcha'] = array(
-									'public_key' => empty($cnt_form["fields"][$key]['value']['public_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['public_key'],
-									'private_key' => empty($cnt_form["fields"][$key]['value']['private_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['private_key'],
+									'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
+									'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
 									'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
-									'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'clear' : $cnt_form["fields"][$key]['value']['theme'],
-									'tabindex' => empty($cnt_form["fields"][$key]['value']['tabindex']) ? 0 : $cnt_form["fields"][$key]['value']['tabindex'],
+									'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'light' : $cnt_form["fields"][$key]['value']['theme'],
+									'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
 									'error' => NULL
 								);
 
-								if($POST_DO && isset($_POST['recaptcha_response_field']) && isset($_POST['recaptcha_challenge_field'])) {
+								$reCaptcha = new ReCaptcha($cnt_form['recaptcha']['secret_key']);
 
-									$cnt_form['recaptcha']['response'] = recaptcha_check_answer($cnt_form['recaptcha']['private_key'], $_SERVER["REMOTE_ADDR"], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+								if($POST_DO && isset($_POST['g-recaptcha-response'])) {
 
-									if(!$cnt_form['recaptcha']['response']->is_valid) {
+									$cnt_form['recaptcha']['response'] = $reCaptcha->verifyResponse(
+										getRemoteIP(),
+										$_POST['g-recaptcha-response']
+									);
 
-										$cnt_form['recaptcha']['error']	= $cnt_form['recaptcha']['response']->error;
+									if(empty($cnt_form['recaptcha']['response']->success)) {
+										if(is_array($cnt_form['recaptcha']['response']->errorCodes) && count($cnt_form['recaptcha']['response']->errorCodes)) {
+											$cnt_form['recaptcha']['error']	= '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']->errorCodes).'@@';
+										} else {
+											$cnt_form['recaptcha']['error'] = 'reCaptcha @@failed@@';
+										}
 										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
 										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
-
 									}
 								}
 								//
-								$form_field  = '<div';
-								if($cnt_form["fields"][$key]['class']) {
-									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
+								$form_field  = '<div class="g-recaptcha"';
+								$form_field .= ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
+								$form_field .= ' data-theme="'.$cnt_form['recaptcha']['theme'].'"';
+								$form_field .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
+								$form_field .= '></div>';
+								$form_field .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://www.google.com/recaptcha/api.js?hl='.$cnt_form['recaptcha']['lang'].'"></script>';
+								if($cnt_form["fields"][$key]['class'] || $cnt_form["fields"][$key]['style']) {
+									$form_field = '<div class="'.$cnt_form["fields"][$key]['class'].'" style="'.$cnt_form["fields"][$key]['style'].'">' . $form_field . '</div>';
 								}
-								if($cnt_form["fields"][$key]['style']) {
-									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
-								}
-								$form_field .= '><script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-								$form_field .= '	var RecaptchaOptions = {lang:"'.$cnt_form['recaptcha']['lang'].'",';
-								$form_field .= 'theme:"'.$cnt_form['recaptcha']['theme'].'",tabindex:'.$cnt_form['recaptcha']['tabindex'] . '};' . LF;
-								$form_field .= '</script>';
-								$form_field .= recaptcha_get_html($cnt_form['recaptcha']['public_key'], $cnt_form['recaptcha']['error'], PHPWCMS_SSL);
-								$form_field .= '</div>';
 
 								break;
 

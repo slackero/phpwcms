@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -24,7 +24,7 @@ if($action == 'delete') {
 	$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_shop_orders SET ';
 	$sql .= "order_status = 'CLOSED' ";
 	$sql .= "WHERE order_id = " . $plugin['data']['order_id'];
-	
+
 	_dbQuery($sql, 'UPDATE');
 
 	headerRedirect( shop_url('controller=order', '') );
@@ -34,7 +34,7 @@ if($action == 'delete') {
 	if(isset($_POST['order_status'])) {
 
 		$plugin['order_status'] = array();
-		
+
 		if(!empty($_POST['status_payment'])) {
 			$plugin['order_status'][] = 'PAYED';
 		}
@@ -47,39 +47,37 @@ if($action == 'delete') {
 		if(!empty($_POST['status_done'])) {
 			$plugin['order_status'][] = 'COMPLETED';
 		}
-		
+
 		$plugin['order_status'] = implode('-', $plugin['order_status']);
 		if($plugin['order_status'] == '') {
 			$plugin['order_status'] = 'NEW-ORDER';
-		}		
+		}
 		$sql  = 'UPDATE '.DB_PREPEND."phpwcms_shop_orders SET order_status='".aporeplace($plugin['order_status'])."' ";
 		$sql .= "WHERE order_id=" . intval($_POST['order_status']);
-		
+
 		if( _dbQuery($sql, 'UPDATE') ) {
 			set_status_message($BLM['shopprod_status_msg'], 'success');
 		}
 	}
-	
 
 	$sql  = 'SELECT *, UNIX_TIMESTAMP(order_date) AS order_date_unix FROM '.DB_PREPEND.'phpwcms_shop_orders ';
 	$sql .= "WHERE order_id = " . intval($_GET['show']);
 
 	$plugin['data'] = _dbQuery($sql);
-	
+
 	if(isset($plugin['data'][0])) {
-		
+
 		$plugin['data'] = $plugin['data'][0];
 		$plugin['data']['order_data'] = @unserialize($plugin['data']['order_data']);
-		
+
 	} else {
-	
+
 		headerRedirect( shop_url('controller=order', '') );
-	
+
 	}
-	
+
 	$BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];
 
 }
-
 
 ?>

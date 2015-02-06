@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -62,7 +62,8 @@ if($image['template']) {
 			// Load ParseDown class
 			if(!isset($phpwcms['parsedown_class'])) {
 				require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-				$phpwcms['parsedown_class'] = new Parsedown();
+				require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+				$phpwcms['parsedown_class'] = new ParsedownExtra();
 			}
 		} elseif($image['text_render'] == 'textile') {
 			// Load Textile function and class

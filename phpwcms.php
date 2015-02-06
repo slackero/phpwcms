@@ -2,8 +2,8 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2015, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.de
  *
@@ -539,7 +539,7 @@ if($BE['LANG'] == 'ar') {
 	  <td colspan="5" valign="bottom" class="navtext darkblue" style="padding: 8px 0 15px 0;">
 			<a href="http://www.phpwcms.org" title="phpwcms">phpwcms <?php echo PHPWCMS_VERSION ?></a>
 			&copy; 2002&#8212;<?php echo date('Y'); ?>
-			<a href="mailto:oliver@phpwcms.de?subject=phpwcms">Oliver Georgi</a>.
+			<a href="mailto:og@phpwcms.org?subject=phpwcms">Oliver Georgi</a>.
 			<a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">Licensed under GPL. Extensions are copyright	of their respective owners.</a>
 		</td>
   </tr>

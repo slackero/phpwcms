@@ -2,7 +2,7 @@
 
    Copyright notice
    
-   (c) 2007 Oliver Georgi (oliver@phpwcms.de) // All rights reserved.
+   (c) 2007 Oliver Georgi (og@phpwcms.org) // All rights reserved.
  
    This script is part of MODULE "BANNER ADS" FOR PHPWCMS. The PHPWCMS web 
    content management system is free software; you can redistribute it and/or 
@@ -30,7 +30,7 @@
    Module has built-in setup routine which will be processed in backend.
    
    
-   Support only available by email: <oliver@phpwcms.de>
+   Support only available by email: <og@phpwcms.org>
    
 
    ************************************************************************************

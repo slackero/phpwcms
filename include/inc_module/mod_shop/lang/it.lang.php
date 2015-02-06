@@ -62,7 +62,7 @@ $BLM['shopprod_cart']			= 'Carrello';
 $BLM['shopprod_max_cartitem']	= 'Max. prodotti/carrello';
 $BLM['shopprod_vat_rates']		= 'livelli iva';
 
-$BLM['shopprod_size']			= 'p.es. dimensione';
+$BLM['shopprod_size']			= 'p.es. dimensione&nbsp;&nbsp;<br />title&nbsp;&nbsp;<br />descr|+/-price|#suffix';
 $BLM['shopprod_color']			= 'p.es. colore';
 
 $BLM['shopprod_url']			= 'Link al prodotto';
