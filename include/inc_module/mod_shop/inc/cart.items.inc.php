@@ -46,30 +46,32 @@ foreach($cart_data as $item_key => $row) {
 			$opt1_numbr = "";
 			$value_opt1_float = 0;
 			$_cart_opt_1['data'] = explode(LF, $row['shopprod_size']);
-			foreach($_cart_opt_1['data'] as $key => $value){
+			if($_cart_opt_1['data']) {
+				foreach($_cart_opt_1['data'] as $key => $value){
 
-				//values - followin rows
-				if($_SESSION[CART_KEY]['options1'][$prod_id][$opt1_id][$opt2_id] == $key && $key > 0){
+					//values - followin rows
+					if($_SESSION[CART_KEY]['options1'][$prod_id][$opt1_id][$opt2_id] == $key && $key > 0){
 
-					$_cart_opt_1['value'] = explode('|', trim($value));
-					// following is default for the exploded $caption
-					// [0] string: description
-					// [1] float: price to add
-					// [2] string:# to add to prod#
+						$_cart_opt_1['value'] = explode('|', trim($value));
+						// following is default for the exploded $caption
+						// [0] string: description
+						// [1] float: price to add
+						// [2] string:# to add to prod#
 
-					$value_opt1_float = 0;
+						$value_opt1_float = 0;
 
-					if(isset($_cart_opt_1['value'][1])) {
-						$value_opt1_float = preg_replace("/[^-0-9\.\,]/", '',$_cart_opt_1['value'][1]);
-						$value_opt1_float = floatval(preg_replace("/\,/", ".", $value_opt1_float));
-						$opt1_price = number_format($value_opt1_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-						if($value_opt1_float >= 0) {
-							$opt1_price = "+".$opt1_price; //+ (wieder) hinzufügen
+						if(isset($_cart_opt_1['value'][1])) {
+							$value_opt1_float = preg_replace("/[^-0-9\.\,]/", '',$_cart_opt_1['value'][1]);
+							$value_opt1_float = floatval(preg_replace("/\,/", ".", $value_opt1_float));
+							$opt1_price = number_format($value_opt1_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+							if($value_opt1_float >= 0) {
+								$opt1_price = "+".$opt1_price; //+ (wieder) hinzufügen
+							}
 						}
-					}
-					$opt1_txt =  $_cart_opt_1['value'][0]." ".$opt1_price;
-					if(isset($_cart_opt_1['value'][2]) ) {
-						$opt1_numbr = $_cart_opt_1['value'][2];
+						$opt1_txt =  $_cart_opt_1['value'][0]." ".$opt1_price;
+						if(isset($_cart_opt_1['value'][2]) ) {
+							$opt1_numbr = $_cart_opt_1['value'][2];
+						}
 					}
 				}
 			}
@@ -80,29 +82,31 @@ foreach($cart_data as $item_key => $row) {
 			$opt2_numbr = "";
 			$value_opt2_float = 0;
 			$_cart_opt_2['data'] = explode(LF, $row['shopprod_color']);
-			foreach ($_cart_opt_2['data'] as $key => $value){
-				//values - followin rows
-				if ($_SESSION[CART_KEY]['options2'][$prod_id][$opt1_id][$opt2_id] == $key && $key > 0){
+			if($_cart_opt_2['data']) {
+				foreach ($_cart_opt_2['data'] as $key => $value){
+					//values - followin rows
+					if ($_SESSION[CART_KEY]['options2'][$prod_id][$opt1_id][$opt2_id] == $key && $key > 0){
 
-					$_cart_opt_2['value'] = explode('|', trim($value));
-					// following is default for the exploded $caption
-					// [0] string: description
-					// [1] float: price to add
-					// [2] string:# to add to prod#
+						$_cart_opt_2['value'] = explode('|', trim($value));
+						// following is default for the exploded $caption
+						// [0] string: description
+						// [1] float: price to add
+						// [2] string:# to add to prod#
 
-					$value_opt2_float = 0;
+						$value_opt2_float = 0;
 
-					if(isset($_cart_opt_2['value'][1])) {
-						$value_opt2_float = preg_replace("/[^-0-9\.\,]/", '', $_cart_opt_2['value'][1]);
-						$value_opt2_float = floatval(preg_replace("/\,/", ".", $value_opt2_float));
-						$opt2_price = number_format($value_opt2_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-						if($value_opt2_float >= 0) {
-							$opt2_price = "+".$opt2_price; //+ (wieder) hinzufügen
+						if(isset($_cart_opt_2['value'][1])) {
+							$value_opt2_float = preg_replace("/[^-0-9\.\,]/", '', $_cart_opt_2['value'][1]);
+							$value_opt2_float = floatval(preg_replace("/\,/", ".", $value_opt2_float));
+							$opt2_price = number_format($value_opt2_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
+							if($value_opt2_float >= 0) {
+								$opt2_price = "+".$opt2_price; //+ (wieder) hinzufügen
+							}
 						}
-					}
-					$opt2_txt =  $_cart_opt_2['value'][0]." ".$opt2_price;
-					if(isset($_cart_opt_2['value'][2])) {
-						$opt2_numbr = $_cart_opt_2['value'][2];
+						$opt2_txt = $_cart_opt_2['value'][0]." ".$opt2_price;
+						if(isset($_cart_opt_2['value'][2])) {
+							$opt2_numbr = $_cart_opt_2['value'][2];
+						}
 					}
 				}
 			}
