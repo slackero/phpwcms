@@ -520,6 +520,7 @@ if($BE['LANG'] == 'ar') {
 		default:
 			include(PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php');
 			include(PHPWCMS_TEMPLATE.'inc_default/startup.php');
+			echo phpwcmsversionCheck();
 			$phpwcms['be_parse_lang_process'] = true;
 
 	}
