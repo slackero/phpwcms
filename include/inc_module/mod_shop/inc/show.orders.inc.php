@@ -368,14 +368,31 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	<tr>
 		<td class="chatlist" style="padding-top:7px;"><?php echo $BLM['shopprod_email_customer'] ?>:&nbsp;</td>
-		<td class="tdbottom5 email"><pre><?php echo html($plugin['data']['order_data']['mail_customer']) ?></pre></td>
+		<td class="tdbottom5 email"><pre><?php
+
+			// only a slight fix
+			if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_customer'], 'Ã') !== false) {
+				$plugin['data']['order_data']['mail_customer'] = mb_convert_encoding($plugin['data']['order_data']['mail_customer'], PHPWCMS_CHARSET, 'utf-8');
+			}
+
+			echo html($plugin['data']['order_data']['mail_customer']);
+		?></pre></td>
 	</tr>
 
 <?php if(!empty($plugin['data']['order_data']['mail_self'])) { ?>
 
 	<tr>
 		<td class="chatlist" style="padding-top:7px;"><?php echo $BLM['shopprod_email_shop'] ?>:&nbsp;</td>
-		<td class="email"><pre><?php echo html($plugin['data']['order_data']['mail_self']) ?></pre></td>
+		<td class="email"><pre><?php
+
+			// only a slight fix
+			if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_self'], 'Ã') !== false) {
+				$plugin['data']['order_data']['mail_self'] = mb_convert_encoding($plugin['data']['order_data']['mail_self'], PHPWCMS_CHARSET, 'utf-8');
+			}
+
+			echo html($plugin['data']['order_data']['mail_self']);
+
+		?></pre></td>
 	</tr>
 
 <?php } ?>
