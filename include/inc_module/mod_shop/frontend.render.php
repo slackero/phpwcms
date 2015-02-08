@@ -359,15 +359,19 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 		// handle invoice address -> checkout
 
 		$_SESSION[CART_KEY]['step1'] = array(
-			'INV_FIRSTNAME'	=> isset($_POST['shop_inv_firstname']) ? clean_slweg($_POST['shop_inv_firstname']) : '',
-			'INV_NAME'		=> isset($_POST['shop_inv_name']) ? clean_slweg($_POST['shop_inv_name']) : '',
-			'INV_ADDRESS'	=> isset($_POST['shop_inv_address']) ? clean_slweg($_POST['shop_inv_address']) : '',
-			'INV_ZIP'		=> isset($_POST['shop_inv_zip']) ? clean_slweg($_POST['shop_inv_zip']) : '',
-			'INV_CITY'		=> isset($_POST['shop_inv_city']) ? clean_slweg($_POST['shop_inv_city']) : '',
-			'INV_REGION'	=> isset($_POST['shop_inv_region']) ? clean_slweg($_POST['shop_inv_region']) : '',
-			'INV_COUNTRY'	=> isset($_POST['shop_inv_country']) ? clean_slweg($_POST['shop_inv_country']) : '',
-			'EMAIL'			=> isset($_POST['shop_email']) ? clean_slweg($_POST['shop_email']) : '',
-			'PHONE'			=> isset($_POST['shop_phone']) ? clean_slweg($_POST['shop_phone']) : ''
+			'INV_SALUTATION'	=> isset($_POST['shop_inv_salutation']) ? clean_slweg($_POST['shop_inv_salutation']) : '',
+			'INV_TITLE'			=> isset($_POST['shop_inv_title']) ? clean_slweg($_POST['shop_inv_title']) : '',
+			'INV_COMPANY'		=> isset($_POST['shop_inv_company']) ? clean_slweg($_POST['shop_inv_company']) : '',
+			'INV_FIRSTNAME'		=> isset($_POST['shop_inv_firstname']) ? clean_slweg($_POST['shop_inv_firstname']) : '',
+			'INV_NAME'			=> isset($_POST['shop_inv_name']) ? clean_slweg($_POST['shop_inv_name']) : '',
+			'INV_ADDRESS'		=> isset($_POST['shop_inv_address']) ? clean_slweg($_POST['shop_inv_address']) : '',
+			'INV_ADDRESS2'		=> isset($_POST['shop_inv_address2']) ? clean_slweg($_POST['shop_inv_address2']) : '',
+			'INV_ZIP'			=> isset($_POST['shop_inv_zip']) ? clean_slweg($_POST['shop_inv_zip']) : '',
+			'INV_CITY'			=> isset($_POST['shop_inv_city']) ? clean_slweg($_POST['shop_inv_city']) : '',
+			'INV_REGION'		=> isset($_POST['shop_inv_region']) ? clean_slweg($_POST['shop_inv_region']) : '',
+			'INV_COUNTRY'		=> isset($_POST['shop_inv_country']) ? clean_slweg($_POST['shop_inv_country']) : '',
+			'EMAIL'				=> isset($_POST['shop_email']) ? clean_slweg($_POST['shop_email']) : '',
+			'PHONE'				=> isset($_POST['shop_phone']) ? clean_slweg($_POST['shop_phone']) : ''
 		);
 
 		// retrieve all custom field POST data
@@ -1028,9 +1032,13 @@ if( $_shop_load_order !== false ) {
 		$order_process = $_tmpl['inv_address'];
 
 		$_step1 = array(
+			'INV_SALUTATION' => '',
+			'INV_TITLE' => '',
+			'INV_COMPANY' => '',
 			'INV_FIRSTNAME' => '',
 			'INV_NAME' => '',
 			'INV_ADDRESS' => '',
+			'INV_ADDRESS2' => '',
 			'INV_ZIP' => '',
 			'INV_CITY' => '',
 			'INV_REGION' => '',
@@ -1058,7 +1066,47 @@ if( $_shop_load_order !== false ) {
 		}
 
 		foreach($_step1 as $item_key => $row) {
-			$field_error	= empty($ERROR['inv_address'][$item_key]) ? '' : $ERROR['inv_address'][$item_key];
+
+			// Handle special fields first, have no error setting yet
+			if($item_key === 'INV_SALUTATION' && strpos($order_process, '[INV_SALUTATION_') !== false) {
+				// [INV_SALUTATION_SELECTED:value] => selected="selected"
+				// [INV_SALUTATION_CHECKED:value] => checked="checked"
+				$order_process = preg_replace_callback(
+					'/\[INV_SALUTATION_(CHECKED|SELECTED):(.+?)\]/',
+					function($match) use ($row) {
+						if($row == $match[2]) {
+							return $match[1] == 'CHECKED' ? ' checked="checked"' : ' selected="selected"';
+						}
+						return '';
+					},
+					$order_process
+				);
+				continue;
+			} elseif($item_key === 'INV_COUNTRY' && strpos($order_process, '[COUNTRY_OPTIONS') !== false) {
+				// [COUNTRY_OPTIONS:DE]Land wählen[/COUNTRY_OPTIONS]
+				$order_process = preg_replace_callback(
+					'/\[COUNTRY_OPTIONS(:[A-Z]{2,2}){0,1}\](.*?)\[\/COUNTRY_OPTIONS\]/',
+					function($match) use ($row) {
+						if($row) {
+							$selected = $row;
+						} elseif($match[1] && ($match[1] = substr($match[1], 1))) {
+							$selected = $match[1];
+						} else {
+							$selected = '';
+						}
+						$options = '';
+						if($match[2]) {
+							$options .= '<option value="">' . $match[2] . '</option>';
+						}
+						$options .= list_country($selected);
+						return $options;
+					},
+					$order_process
+				);
+				continue;
+			}
+
+			$field_error = empty($ERROR['inv_address'][$item_key]) ? '' : $ERROR['inv_address'][$item_key];
 			$row = html($row);
 			$order_process	= render_cnt_template($order_process, $item_key, $row);
 			$order_process	= render_cnt_template($order_process, 'ERROR_'.$item_key, $field_error);

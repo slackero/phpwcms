@@ -210,7 +210,6 @@ order_number_style = EN%05s
 <!--CART_SPACE_END//-->
 
 <!--CART_FOOTER_START//-->
-
 		[SHIPPING_DISTANCE]
 
 			<tr>
@@ -434,6 +433,26 @@ order_number_style = EN%05s
 [ERROR_shop_field_1]<p>You must fill in custom shop field 1</p>[/ERROR_shop_field_1]
 <table cellpadding="1" cellspacing="0" border="0" summary="cart">
 	<tr>
+		<td>salutation:</td>
+		<td>
+			<select name="shop_inv_salutation">
+				<option value="">select salutation (optional)</option>
+				<option value="Herr"[INV_SALUTATION_SELECTED:Mr]>Mr</option>
+				<option value="Frau"[INV_SALUTATION_SELECTED:Ms]>Ms</option>
+				<option value="Firma"[INV_SALUTATION_SELECTED:Company]>Company</option>
+			</select>
+			<!--
+				possible replacement (remove the spaces inside the brackets):
+				- [ INV_SALUTATION_SELECTED:value ] => selected="selected"
+				- [ INV_SALUTATION_CHECKED:value ] => checked="checked"
+			-->
+		</td>
+	</tr>
+	<tr>
+		<td>title:</td>
+		<td><input type="text" name="shop_inv_title" id="shop_inv_title" value="{INV_TITLE}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
 		<td>first name*:</td>
 		<td><input type="text" name="shop_inv_firstname" id="shop_inv_firstname" value="{INV_FIRSTNAME}" size="40" maxlength="100" /></td>
 	</tr>
@@ -442,8 +461,16 @@ order_number_style = EN%05s
 		<td><input type="text" name="shop_inv_name" id="shop_inv_name" value="{INV_NAME}" size="40" maxlength="100" /></td>
 	</tr>
 	<tr>
+		<td>company:</td>
+		<td><input type="text" name="shop_inv_company" id="shop_inv_company" value="{INV_COMPANY}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
 		<td>address*:</td>
-		<td><textarea name="shop_inv_address" id="shop_inv_address">{INV_ADDRESS}</textarea></td>
+		<td><input type="text" name="shop_inv_address" id="shop_inv_address" value="{INV_ADDRESS}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>additional:</td>
+		<td><input type="text" name="shop_inv_address2" id="shop_inv_address2" value="{INV_ADDRESS2}" size="40" maxlength="100" /></td>
 	</tr>
 	<tr>
 		<td>zip*:</td>
@@ -459,7 +486,12 @@ order_number_style = EN%05s
 	</tr>
 	<tr>
 		<td>country:</td>
-		<td><input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /></td>
+		<td>
+			<select name="shop_inv_country">
+			[COUNTRY_OPTIONS:US]select country[/COUNTRY_OPTIONS]
+			</select>
+		</td>
+		<!-- <input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /> -->
 	</tr>
 	<tr>
 		<td>email*:</td>
