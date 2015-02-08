@@ -42,22 +42,6 @@ if(_getConfig( 'shop_pref_felang' )) {
 	define('CART_KEY', 'shopping_cart');
 }
 
-if(!function_exists('dec_num_count')) {
-	function dec_num_count($value) {
-		if((int)$value == $value) {
-			return 0;
-		} elseif(!is_numeric($value)) {
-			return false;
-		}
-		return strlen($value) - strrpos($value, '.') - 1;
-	}
-}
-if(!function_exists('phpwcms_boolval')) {
-	function phpwcms_boolval(&$BOOL, &$STRICT=false) {
-		return boolval($BOOL, $STRICT);
-	}
-}
-
 // set CART session value
 if(!isset($_SESSION[CART_KEY])) {
 	$_SESSION[CART_KEY] = array();

@@ -9,6 +9,22 @@
  *
  **/
 
+if(!function_exists('dec_num_count')) {
+	function dec_num_count($value) {
+		if((int)$value == $value) {
+			return 0;
+		} elseif(!is_numeric($value)) {
+			return false;
+		}
+		return strlen($value) - strrpos($value, '.') - 1;
+	}
+}
+if(!function_exists('phpwcms_boolval')) {
+	function phpwcms_boolval(&$BOOL, &$STRICT=false) {
+		return boolval($BOOL, $STRICT);
+	}
+}
+
 function get_shop_option_value($option) {
 
 	// first explode: Option|+/-0.00|-ADD
