@@ -67,6 +67,10 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
 	if($_tmpl['source']) {
 
+		if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($_tmpl['source'])) {
+			$_tmpl['source'] = mb_convert_encoding($_tmpl['source'], PHPWCMS_CHARSET, 'utf-8');
+		}
+
 		$_tmpl['config'] = parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);
 		$_tmpl['config']['cat_list_products']		= empty($_tmpl['config']['cat_list_products']) ? false : phpwcms_boolval($_tmpl['config']['cat_list_products']);
 		$_tmpl['config']['image_list_lightbox']		= empty($_tmpl['config']['image_list_lightbox']) ? false : phpwcms_boolval($_tmpl['config']['image_list_lightbox']);
