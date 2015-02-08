@@ -182,58 +182,27 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		$plugin['vat_factor'] = 1 + ( $plugin['product']['shopprod_vat'] / 100 );
 
-		//wr start changed 29.06.12
-		// get the value from textarea for options, prepare data, check against stored array, change the values for display
-
-		$_cart_opt_1['data'] = explode(LF, $plugin['product']['shopprod_size']);
-
-		if($_cart_opt_1['data']) {
-			foreach($_cart_opt_1['data'] as $key => $value){
+		if($plugin['product']['shopprod_size'] && $_cart_opt_1 = explode(LF, $plugin['product']['shopprod_size'])) {
+			foreach($_cart_opt_1 as $key => $value){
 				//title
 				if(!$key) {
 					continue;
 				}
-
-				//values - following rows
-				$_cart_opt_1['value'] = explode('|', trim($value));
-				// following is default for the exploded $caption
-				// [0] string: description
-				// [1] float: price to add
-				// [2] string:# to add to prod#
-				$_cart_opt_1['values'][$key] = $_cart_opt_1['value'];
-				$value_opt1_float = 0;
-
-				if(!empty($_cart_opt_1['value'][1])) {
-					$value_opt1_float = preg_replace("/[^-0-9\.\,]/", "", $_cart_opt_1['value'][1]);
-					$value_opt1_float = floatval(preg_replace("/\,/", ".", $value_opt1_float));
-					$_cart_opt_1['values'][$key][1] = $value_opt1_float;
-				}
+				$_cart_opt_1[$key] = get_shop_option_value($value);
 			}
+		} else {
+			$_cart_opt_1 = null;
 		}
-
-		$_cart_opt_2['data'] = explode(LF, $plugin['product']['shopprod_color']);
-
-		if($_cart_opt_2['data']) {
+		if($plugin['product']['shopprod_color'] && ($_cart_opt_2 = explode(LF, $plugin['product']['shopprod_color']))) {
 			foreach($_cart_opt_2['data'] as $key => $value){
 				//title
 				if(!$key) {
 					continue;
 				}
-
-				//values - following rows
-				$_cart_opt_2['value'] = explode('|', trim($value));
-				// following is default for the exploded $caption
-				// [0] string: description
-				// [1] float: price to add
-				// [2] string:# to add to prod#
-				$_cart_opt_2['values'][$key] = $_cart_opt_2['value'];
-				$value_opt2_float = 0;
-				if(!empty($_cart_opt_2['value'][1])) {
-					$value_opt2_float = preg_replace("/[^-0-9\.\,]/", "", $_cart_opt_2['value'][1]);
-					$value_opt2_float = floatval(preg_replace("/\,/", ".", $value_opt2_float));
-					$_cart_opt_2['values'][$key][1] = $value_opt2_float;
-				}
+				$_cart_opt_2[$key] = get_shop_option_value($value);
 			}
+		} else {
+			$_cart_opt_2 = null;
 		}
 
 		//loop all opt_1
@@ -252,45 +221,25 @@ if (!defined('PHPWCMS_ROOT')) {
 				foreach($plugin['product']['shopprod_quantity'][$key] as $k => $v) {
 
 					//opt_1
-					$opt1_txt = "";
-					$opt1_price = "";
-					$opt1_numbr = "";
-					$value_opt1_float = 0;
-
-					if(!empty($_cart_opt_1['values'][$key][1])) {
-						$value_opt1_float = $_cart_opt_1['values'][$key][1];
-						$opt1_price = number_format($_cart_opt_1['values'][$key][1], 2, $BLM['dec_point'], $BLM['thousands_sep']);
-						if($_cart_opt_1['values'][$key][1] >= 0) {
-							$opt1_price = "+".$opt1_price; //+ (wieder) hinzufügen
-						}
-					}
-
-					if(!empty($_cart_opt_1['values'][$key][0])) {
-						$opt1_txt = $_cart_opt_1['values'][$key][0]." ".$opt1_price;
-					}
-					if(!empty($_cart_opt_1['values'][$key][2])) {
-						$opt1_numbr = $_cart_opt_1['values'][$key][2];
+					if(isset($_cart_opt_1[$key][1])) {
+						$value_opt1_float = $_cart_opt_1[$key][1];
+						$opt1_txt = $_cart_opt_1[$key]['option'];
+						$opt1_numbr = $_cart_opt_1[$key][2];
+					} else {
+						$opt1_txt = '';
+						$opt1_numbr = '';
+						$value_opt1_float = 0;
 					}
 
 					//opt_2
-					$opt2_txt = "";
-					$opt2_price = "";
-					$opt2_numbr = "";
-					$value_opt2_float = 0;
-
-					if(!empty($_cart_opt_2['values'][$k][1])) {
-						$value_opt2_float = $_cart_opt_2['values'][$k][1];
-						$opt2_price = number_format($_cart_opt_2['values'][$k][1], 2, $BLM['dec_point'], $BLM['thousands_sep']);
-						if($_cart_opt_2['values'][$k][1] >= 0) {
-							$opt2_price = "+".$opt2_price; //+ (wieder) hinzufügen
-						}
-					}
-
-					if(!empty($_cart_opt_2['values'][$k][0])) {
-						$opt2_txt = $_cart_opt_2['values'][$k][0]." ".$opt2_price;
-					}
-					if(!empty($_cart_opt_2['values'][$k][2])) {
-						$opt2_numbr = $_cart_opt_2['values'][$k][2];
+					if(isset($_cart_opt_2[$key][1])) {
+						$value_opt2_float = $_cart_opt_2[$key][1];
+						$opt2_txt = $_cart_opt_2[$key]['option'];
+						$opt2_numbr = $_cart_opt_2[$key][2];
+					} else {
+						$opt2_txt = '';
+						$opt2_numbr = '';
+						$value_opt2_float = 0;
 					}
 
 					$pluginshopprod_price = $plugin['product']['shopprod_price'] + $value_opt1_float + $value_opt2_float;
@@ -309,19 +258,20 @@ if (!defined('PHPWCMS_ROOT')) {
 					?>
 					<tr class="product">
 						<td><?php echo $v ?></td>
-					<td><?php echo html_specialchars($pluginshopprod_numbr) ?></td>
-					<td><a href="<?php echo $_controller_link.'&amp;edit='.$plugin['product']["shopprod_id"] ?>" target="_blank"><?php echo html_specialchars($plugin['product']['shopprod_name1']) ?></a><br /><?php echo $opt1_txt.' '.$opt2_txt ?></td>
-					<td class="number"><?php echo number_format($plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-					<td class="number"><?php echo number_format($plugin['product']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
-					<td class="number"><?php echo number_format($v * $plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+						<td><?php echo html_specialchars($pluginshopprod_numbr) ?></td>
+						<td>
+							<a href="<?php echo $_controller_link.'&amp;edit='.$plugin['product']["shopprod_id"] ?>" target="_blank"><?php echo html($plugin['product']['shopprod_name1']); ?></a>
+							<?php if(($opt1_txt.$opt2_txt)) { echo '<br />' . html(trim($opt1_txt.' '.$opt2_txt)); } ?>
+						</td>
+						<td class="number"><?php echo number_format($plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+						<td class="number"><?php echo number_format($plugin['product']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
+						<td class="number"><?php echo number_format($v * $plugin['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>
 					</tr>
-
 					<?php
 				}
 			}
 		}
 	}
-	//wr end changed 29.06.12
 
 	if(isset($plugin['data']['order_data']['subtotal'])) {
 
@@ -385,7 +335,6 @@ if (!defined('PHPWCMS_ROOT')) {
 	}
 
 ?>
-
 		<tr class="product total">
 			<td colspan="3" class="chatlist"><?php echo $BLM['shopprod_total_net'].' '.$plugin['data']['currency'] ?>:&nbsp;</td>
 			<td colspan="3" class="v12 number"><?php echo number_format($plugin['data']['order_net'], 2, $BLM['dec_point'], $BLM['thousands_sep']); ?></td>

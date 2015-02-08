@@ -9,6 +9,11 @@
  *
  **/
 
+ /**
+  * Many thanks to WR who has brought in the idea and core development of optional prices
+  * and article numbers for article options on 2012-06-29
+  */
+
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -21,13 +26,9 @@ $cart_items = array();
 $total		= array();
 $subtotal	= array('net' => 0, 'vat' => 0, 'gross' => 0, 'weight' => 0);
 
-
 foreach($cart_data as $item_key => $row) {
 
 	$prod_id = $row['shopprod_id'];
-
-	//wr begin changed 29.06.12, optimized OG
-	//get the value from textarea for options, prepare data, change the varaibles for rendering
 
 	$row_shopprod_price = $row['shopprod_price']; //initial prize
 	$row_shopprod_numbr = $row['shopprod_ordernumber']; //initial odernr
@@ -41,85 +42,42 @@ foreach($cart_data as $item_key => $row) {
 			$opt2_id = $item_key2;
 
 			//order options 1
-			$opt1_txt = "";
-			$opt1_price = "";
-			$opt1_numbr = "";
+			$opt1_txt = '';
+			$opt1_numbr = '';
 			$value_opt1_float = 0;
-			$_cart_opt_1['data'] = explode(LF, $row['shopprod_size']);
-			if($_cart_opt_1['data']) {
-				foreach($_cart_opt_1['data'] as $key => $value){
-
-					//values - followin rows
-					if($_SESSION[CART_KEY]['options1'][$prod_id][$opt1_id][$opt2_id] == $key && $key > 0){
-
-						$_cart_opt_1['value'] = explode('|', trim($value));
-						// following is default for the exploded $caption
-						// [0] string: description
-						// [1] float: price to add
-						// [2] string:# to add to prod#
-
-						$value_opt1_float = 0;
-
-						if(isset($_cart_opt_1['value'][1])) {
-							$value_opt1_float = preg_replace("/[^-0-9\.\,]/", '',$_cart_opt_1['value'][1]);
-							$value_opt1_float = floatval(preg_replace("/\,/", ".", $value_opt1_float));
-							$opt1_price = number_format($value_opt1_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-							if($value_opt1_float >= 0) {
-								$opt1_price = "+".$opt1_price; //+ (wieder) hinzufügen
-							}
-						}
-						$opt1_txt =  $_cart_opt_1['value'][0]." ".$opt1_price;
-						if(isset($_cart_opt_1['value'][2]) ) {
-							$opt1_numbr = $_cart_opt_1['value'][2];
-						}
+			if($row['shopprod_size'] && ($_cart_opt_1 = explode(LF, $row['shopprod_size']))) {
+				foreach($_cart_opt_1 as $key => $value){
+					if($key && $_SESSION[CART_KEY]['options1'][$prod_id][$opt1_id][$opt2_id] == $key){
+						$value = get_shop_option_value($value);
+						$value_opt1_float = $value[1];
+						$opt1_txt = $value[0] . $value['option'];
+						$opt1_numbr = $value[2];
 					}
 				}
 			}
 
 			//order options 2
-			$opt2_txt = "";
-			$opt2_price = "";
-			$opt2_numbr = "";
+			$opt2_txt = '';
+			$opt2_numbr = '';
 			$value_opt2_float = 0;
-			$_cart_opt_2['data'] = explode(LF, $row['shopprod_color']);
-			if($_cart_opt_2['data']) {
+			if($row['shopprod_color'] && ($_cart_opt_2 = explode(LF, $row['shopprod_color']))) {
 				foreach ($_cart_opt_2['data'] as $key => $value){
-					//values - followin rows
-					if ($_SESSION[CART_KEY]['options2'][$prod_id][$opt1_id][$opt2_id] == $key && $key > 0){
-
-						$_cart_opt_2['value'] = explode('|', trim($value));
-						// following is default for the exploded $caption
-						// [0] string: description
-						// [1] float: price to add
-						// [2] string:# to add to prod#
-
-						$value_opt2_float = 0;
-
-						if(isset($_cart_opt_2['value'][1])) {
-							$value_opt2_float = preg_replace("/[^-0-9\.\,]/", '', $_cart_opt_2['value'][1]);
-							$value_opt2_float = floatval(preg_replace("/\,/", ".", $value_opt2_float));
-							$opt2_price = number_format($value_opt2_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-							if($value_opt2_float >= 0) {
-								$opt2_price = "+".$opt2_price; //+ (wieder) hinzufügen
-							}
-						}
-						$opt2_txt = $_cart_opt_2['value'][0]." ".$opt2_price;
-						if(isset($_cart_opt_2['value'][2])) {
-							$opt2_numbr = $_cart_opt_2['value'][2];
-						}
+					if($key && $_SESSION[CART_KEY]['options2'][$prod_id][$opt1_id][$opt2_id] == $key){
+						$value = get_shop_option_value($value);
+						$value_opt2_float = $value[1];
+						$opt2_txt = $value[0] . $value['option'];
+						$opt2_numbr = $value[2];
 					}
 				}
 			}
 
-			//add opt prize to normal prize
+			//add option's prize to normal prize
 			$row['shopprod_price'] = $row_shopprod_price + $value_opt1_float + $value_opt2_float;
 
-			//add # of opt to prod#
-			$row['shopprod_ordernumber'] = $row_shopprod_numbr.$opt1_numbr.$opt2_numbr;
+			//add option to article order number
+			$row['shopprod_ordernumber'] = $row_shopprod_numbr . $opt1_numbr . $opt2_numbr;
 
 			$total[$prod_id]['quantity'] = $_SESSION[CART_KEY]['products'][$prod_id][$opt1_id][$opt2_id];
-
-			//wr end changed 29.06.12
 
 			$total[$prod_id]['vat']				= (float) $row['shopprod_vat'];
 			$total[$prod_id]['vat_decimals']	= dec_num_count($total[$prod_id]['vat']);
@@ -176,28 +134,18 @@ foreach($cart_data as $item_key => $row) {
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'MODEL', html_specialchars($row['shopprod_model']));
 
-			//wr start changed 29.06.12
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_OPT1', $opt1_txt);
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_OPT2', $opt2_txt);
-			//wr end changed 29.06.12
 
-			switch($cart_mode) {
-				case 'cart':
-					//wr start changed 29.06.12
-					$cart_items[$x] = str_replace('{COUNT}', '<input type="text" name="shop_prod_amount['.$prod_id.']['.$opt1_id.']['.$opt2_id.']" value="' . $total[$prod_id]['quantity'] . '" size="3" />', $cart_items[$x]);
-					//wr end changed 29.06.12
-					break;
-
-				default:
-					$cart_items[$x] = str_replace('{COUNT}', $total[$prod_id]['quantity'], $cart_items[$x]);
+			if($cart_mode === 'cart') {
+				$cart_items[$x] = str_replace('{COUNT}', '<input type="text" name="shop_prod_amount['.$prod_id.']['.$opt1_id.']['.$opt2_id.']" value="' . $total[$prod_id]['quantity'] . '" size="3" />', $cart_items[$x]);
+			} else {
+				$cart_items[$x] = str_replace('{COUNT}', $total[$prod_id]['quantity'], $cart_items[$x]);
 			}
 
 			$x++;
-
-			//wr start changed 29.06.12
 		}
 	}
-	//wr end changed 29.06.12
 }
 
 // set shipping fees

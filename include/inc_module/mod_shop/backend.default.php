@@ -33,7 +33,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // first check if neccessary db exists
 if(isset($phpwcms['modules'][$module]['path'])) {
-	
+
 	// Proof existence of necessary fields only once per Session
 	if(empty($_SESSION['shop_db_proof'])) {
 		$result = _dbQuery("SHOW TABLES LIKE '".DB_PREPEND."phpwcms_shop_products'");
@@ -65,7 +65,8 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	// module default stuff
 	$plugin = array();
 	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
-	include_once($phpwcms['modules'][$module]['path'].'inc/shop.functions.inc.php');
+	include_once $phpwcms['modules'][$module]['path'].'inc/functions.backend.inc.php';
+	include_once $phpwcms['modules'][$module]['path'].'inc/functions.global.inc.php';
 
 	define('SHOP_FELANG_SUPPORT', _getConfig( 'shop_pref_felang' ) ? true : false);
 

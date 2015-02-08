@@ -9,6 +9,11 @@
  *
  **/
 
+ /**
+  * Many thanks to WR who has brought in the idea and core development of optional prices
+  * and article numbers for article options on 2012-06-29
+  */
+
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -22,6 +27,7 @@ $_shop_load_cat  		= strpos($content['all'], '{SHOP_CATEGOR');
 $_shop_load_list 		= strpos($content['all'], '{SHOP_PRODUCTLIST}');
 $_shop_load_cart_small	= strpos($content['all'], '{CART_SMALL}');
 $_shop_load_order		= strpos($content['all'], '{SHOP_ORDER_PROCESS}');
+$_shop_parsed			= false;
 
 // set preferences
 $_shopPref				= array();
@@ -63,6 +69,8 @@ if(isset($_getVar['shop_cart']) && $_getVar['shop_cart'] == 'show') {
 
 if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order !== false || $_shop_load_cart_small !== false) {
 
+	$_shop_parsed = true;
+
 	// load template
 	$_tmpl = array( 'config' => array(), 'source' => '', 'lang' => $phpwcms['default_lang'] );
 
@@ -76,7 +84,6 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	if($_tmpl['source']) {
 
 		$_tmpl['config'] = parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);
-
 		$_tmpl['config']['cat_list_products']		= empty($_tmpl['config']['cat_list_products']) ? false : phpwcms_boolval($_tmpl['config']['cat_list_products']);
 		$_tmpl['config']['image_list_lightbox']		= empty($_tmpl['config']['image_list_lightbox']) ? false : phpwcms_boolval($_tmpl['config']['image_list_lightbox']);
 		$_tmpl['config']['image_detail_lightbox']	= empty($_tmpl['config']['image_detail_lightbox']) ? false : phpwcms_boolval($_tmpl['config']['image_detail_lightbox']);
@@ -157,8 +164,11 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			'price_decimals'			=> 2,
 			'vat_decimals'				=> 1,
 			'weight_decimals'			=> 1,
-			'dec_point'					=> ".",
-			'thousands_sep'				=> ",",
+			'dec_point'					=> '.',
+			'thousands_sep'				=> ',',
+			'price_option_null'			=> false,
+			'price_option_prefix'		=> ' ',
+			'price_option_suffix'		=> ' {$}',
 			'image_list_width'			=> 200,
 			'image_list_height'			=> 200,
 			'image_detail_width'		=> 200,
@@ -263,7 +273,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
 		if(!empty($shop_prod_id) && !empty($shop_prod_amount)) {
 
-			//wr begin changed 29.06.12
+			// wr begin changed 29.06.12
 			// check for selections in $_POST
 			// the session var is now prod id|opt1 id|opt2 id
 			// addings with no options result in: prod id|0|0
@@ -320,19 +330,18 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 					$_SESSION[CART_KEY]['total'][$shop_prod_id.$opt_1.$opt_2]  = $shop_prod_amount;
 				}
 
-			} else {
+			} /* else {
 
 				// Set Cart error
 
-			}
+			} */
 
 		}
 
 	} elseif( isset($_POST['shop_prod_amount']) && is_array($_POST['shop_prod_amount']) ) {
 
-		//wr begin changed 29.06.12
+		// wr begin changed 29.06.12
 		// loop through options to get the amount
-
 		foreach($_POST['shop_prod_amount'] as $prod_id => $value_opt1) {
 			foreach($value_opt1 as $opt_1 => $value_opt2) {
 				foreach($value_opt2 as $opt_2 => $prod_qty) {
@@ -340,13 +349,13 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 					$prod_qty	= isset($_POST['shop_cart_delete']) ? 0 : abs(intval($prod_qty));
 					$opt_1		= intval($opt_1);
 					$opt_2		= intval($opt_2);
-					if(isset($_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2])) {
-						if($prod_qty) {
-							$_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2] = $prod_qty;
-						} else {
-							unset($_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2]);
-							unset($_SESSION[CART_KEY]['total'][$prod_id.$opt_1.$opt_2]);
-						}
+					if($prod_qty && isset($_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2])) {
+						$_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2] = $prod_qty;
+					} else {
+						unset(
+							$_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2],
+							$_SESSION[CART_KEY]['total'][$prod_id.$opt_1.$opt_2]
+						);
 					}
 				}
 			}
@@ -533,7 +542,7 @@ if( $_shop_load_cat !== false ) {
 						}
 
 						$shop_subcat[$z] .= '><a href="' . rel_url(array('shop_cat' => $srow['cat_pid'] . '_' . $srow['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">@@';
-						$shop_subcat[$z] .= html_specialchars($srow['cat_name']);
+						$shop_subcat[$z] .= html($srow['cat_name']);
 						$shop_subcat[$z] .= '@@</a>';
 						if($srow['cat_id'] == $shop_subcat_selected && $_tmpl['config']['cat_list_products']) {
 							$shop_subcat[$z] .= get_category_products($srow['cat_id'], $shop_detail_id, $shop_cat_selected, $shop_subcat_selected, $_tmpl['config']['shop_url']);
@@ -555,7 +564,7 @@ if( $_shop_load_cat !== false ) {
 
 			}
 			$shop_cat[$x] .= '><a href="' . rel_url(array('shop_cat' => $row['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">@@';
-			$shop_cat[$x] .= html_specialchars($row['cat_name']);
+			$shop_cat[$x] .= html($row['cat_name']);
 			$shop_cat[$x] .= '@@</a>' . $shop_cat_prods;
 			$shop_cat[$x] .= '</li>';
 
@@ -582,7 +591,7 @@ if( $_shop_load_cat !== false ) {
 			$shop_cat_all .= ' class="active"';
 		}
 		$shop_cat_all .= '><a href="' . rel_url(array('shop_cat' => 'all'), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">@@';
-		$shop_cat_all .= html_specialchars($_tmpl['config']['cat_all']);
+		$shop_cat_all .= html($_tmpl['config']['cat_all']);
 		$shop_cat_all .= '@@</a>';
 		$shop_cat_all .= '</li>';
 
@@ -710,107 +719,56 @@ if( $_shop_load_list !== false ) {
 				$row['prod_url'] = array('link'=>'', 'target'=>'');
 			} else {
 				$row['prod_url'] = get_redirect_link($row['shopprod_var']['url'], ' ', '');
-				$row['prod_url']['link'] = html_specialchars($row['prod_url']['link']);
+				$row['prod_url']['link'] = html($row['prod_url']['link']);
 			}
 
 			// select template based on listing or detail view
 			$entry[$x] = $shop_detail_id ? $_tmpl['detail'] : $_tmpl['list_entry'];
 
-			//wr begin changed 29.06.12, fixed OG
 			// get the value from the textarea for options, prepare the data, write select drop down
 
 			//order options 1
-			$_cart_opt_1 = array();
-			$_cart_opt_1['data'] = explode(LF, $row['shopprod_size']);
 			$_cart_prod_opt1 = '';
-			$k = 0;
-			foreach($_cart_opt_1['data'] as $key => $value){
-				//title - first row in textarea - string
-				if(!$k) {
-					$_cart_opt_1['title'] = clean_slweg($value);
-					if($_cart_opt_1['title']) {
-						$_cart_prod_opt1 .= '<option value="0">'.html_specialchars($_cart_opt_1['title']).'</option>' . LF;
+
+			if($row['shopprod_size'] && $_cart_opt_1 = explode(LF, $row['shopprod_size'])) {
+				foreach($_cart_opt_1 as $key => $value){
+					//title - first row in textarea - string
+					if($key === 0 && ($value = trim($value))) {
+						$_cart_prod_opt1 .= '<option value="0">'.html($value).'</option>';
+						continue;
 					}
-					$k++;
-					continue;
+
+					$value = get_shop_option_value($value);
+
+					$_cart_prod_opt1 .= '<option value="'.$key.'">';
+					$_cart_prod_opt1 .= html($value[0]) . $value['option'];
+					$_cart_prod_opt1 .= '</option>';
 				}
 
-				//values - followin rows
-				$_cart_opt_1['value'] = explode('|', trim($value));
-				// following is default for the exploded $caption
-				// [0] string: description
-				// [1] float: price to add
-				// [2] string:# to add to prod#
-				$_cart_opt_1['values'][$k] = $_cart_opt_1['value'];
-				$value_opt1_float = "";
-
-				if(isset($_cart_opt_1['value'][1])) {
-
-					$value_opt1_float = preg_replace("/[^-0-9\.\,]/","",$_cart_opt_1['value'][1]);
-					$value_opt1_float = floatval(preg_replace("/\,/",".",$value_opt1_float));
-					$_cart_opt_1['values'][$k][1] = $value_opt1_float;
-					$value_opt1_float = number_format($value_opt1_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-					if($value_opt1_float >= 0) {
-						$value_opt1_float = "+".$value_opt1_float; //+ (wieder) hinzufügen
-					}
-				}
-				if(isset($_cart_opt_1['value'][0]) || isset($_cart_opt_1['value'][1])){
-					$_cart_prod_opt1 .= '<option value="'.$k.'">'.html_specialchars($_cart_opt_1['value'][0])." ".$value_opt1_float.'</option>' . LF;
-				}
-
-				$k++;
-			}
-			if($_cart_prod_opt1) {
-				$_cart_prod_opt1 = '<select name="prod_opt1" id="prod_opt1" class="prod_opt1">'.$_cart_prod_opt1.'</select>'.LF;
+				$_cart_prod_opt1 = '<select name="prod_opt1" id="prod_opt1" class="prod_opt1">' . $_cart_prod_opt1 . '</select>';
 			}
 
 			//order options 2
-			$_cart_opt_2 = array();
-			$_cart_opt_2['data'] = explode(LF, $row['shopprod_color']);
 			$_cart_prod_opt2 = '';
-			$k = 0;
 
-			foreach($_cart_opt_2['data'] as $key => $value){
-				//title - first row in textarea - string
-				if(!$k) {
-					$_cart_opt_2['title'] = clean_slweg($value);
-					if($_cart_opt_2['title']) {
-						$_cart_prod_opt2 .= '<option value="0">'.html_specialchars($_cart_opt_2['title']).'</option>' . LF;
+			if($row['shopprod_color'] && $_cart_opt_2 = explode(LF, $row['shopprod_color'])) {
+				foreach($_cart_opt_2 as $key => $value){
+					//title - first row in textarea - string
+					if($key === 0 && ($value = trim($value))) {
+						$_cart_prod_opt2 .= '<option value="0">'.html($value).'</option>';
+						continue;
 					}
-					$k++;
-					continue;
+
+					$value = get_shop_option_value($value);
+
+					$_cart_prod_opt2 .= '<option value="'.$key.'">';
+					$_cart_prod_opt2 .= html($value[0]) . $value['option'];
+					$_cart_prod_opt2 .= '</option>';
+
 				}
 
-				//values - followin rows
-				$_cart_opt_2['value'] = explode('|', trim($value));
-				// following is default for the exploded $caption
-				// [0] string: description
-				// [1] float: price to add
-				// [2] string:# to add to prod#
-				$_cart_opt_2['values'][$k] = $_cart_opt_2['value'];
-				$value_opt2_float = '';
-
-				if(isset($_cart_opt_2['value'][1])) {
-					$value_opt2_float = preg_replace("/[^-0-9\.\,]/", "", $_cart_opt_2['value'][1]);
-					$value_opt2_float = floatval(preg_replace("/\,/", ".", $value_opt2_float));
-					$_cart_opt_2['values'][$k][1] = $value_opt2_float;
-					$value_opt2_float = number_format($value_opt2_float, 2, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
-					if ($value_opt2_float >= 0) {
-						$value_opt2_float = "+".$value_opt2_float; //+ (wieder) hinzufügen
-					}
-				}
-
-				if(isset($_cart_opt_2['value'][0]) || isset($_cart_opt_2['value'][1])){
-					$_cart_prod_opt2 .= '<option value="'.$k.'">'.html_specialchars($_cart_opt_2['value'][0])." ".$value_opt2_float."</option>" . LF;
-				}
-
-				$k++;
+				$_cart_prod_opt2 = '<select name="prod_opt2" id="prod_opt2" class="prod_opt2">' . $_cart_prod_opt2 . '</select>';
 			}
-			if($_cart_prod_opt2) {
-				$_cart_prod_opt2 = '<select name="prod_opt2" id="prod_opt2" class="prod_opt2">'.$_cart_prod_opt2.'</select>' . LF;
-			}
-
-			//wr end changed 29.06.12
 
 			if($_tmpl['config']['on_request_trigger'] == $row['net']) {
 
@@ -820,40 +778,36 @@ if( $_shop_load_list !== false ) {
 
 			} else {
 
-			$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
+				$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
 
-			$_cart_add  = '<form action="' . $shop_prod_detail . '" method="post">';
-			$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
-			$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
-			if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
-				// user has set amount manually
-				$_cart_add .= '<input type="text" name="shop_prod_amount" class="shop-list-amount" value="1" size="2" />';
-				$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
-			} else {
-				$_cart_add .= '<input type="hidden" name="shop_prod_amount" value="1" />';
-			}
+				$_cart_add  = '<form action="' . $shop_prod_detail . '" method="post">';
+				$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
+				$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
+				if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
+					// user has set amount manually
+					$_cart_add .= '<input type="text" name="shop_prod_amount" class="shop-list-amount" value="1" size="2" />';
+					$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
+				} else {
+					$_cart_add .= '<input type="hidden" name="shop_prod_amount" value="1" />';
+				}
 
-			//wr start changed 29.06.12, extended OG
+				if(strpos($_cart, '{PRODUCT_OPT1}') !== false) {
+					$_cart_add .= $_cart_prod_opt1;
+					$_cart = str_replace('{PRODUCT_OPT1}', '', $_cart);
+				}
+				if(strpos($_cart, '{PRODUCT_OPT2}') !== false) {
+					$_cart_add .= $_cart_prod_opt2;
+					$_cart = str_replace('{PRODUCT_OPT2}', '', $_cart);
+				}
 
-			if(strpos($_cart, '{PRODUCT_OPT1}') !== false) {
-				$_cart_add .= $_cart_prod_opt1;
-				$_cart = str_replace('{PRODUCT_OPT1}', '', $_cart);
-			}
-			if(strpos($_cart, '{PRODUCT_OPT2}') !== false) {
-				$_cart_add .= $_cart_prod_opt2;
-				$_cart = str_replace('{PRODUCT_OPT2}', '', $_cart);
-			}
+				if(strpos($_cart, 'input ') !== false) {
+					// user has set input button
+					$_cart_add .= $_cart;
+				} else {
+					$_cart_add .= '<input type="submit" name="shop_cart_add" value="' . html($_cart) . '" class="list-add-button" />';
+				}
 
-			//wr end changed 29.06.12
-
-			if(strpos($_cart, 'input ') !== false) {
-				// user has set input button
-				$_cart_add .= $_cart;
-			} else {
-				$_cart_add .= '<input type="submit" name="shop_cart_add" value="' . html_specialchars($_cart) . '" class="list-add-button" />';
-			}
-
-			$_cart_add .= '</form>';
+				$_cart_add .= '</form>';
 
 				$_cart_on_request = FALSE;
 			}
@@ -861,10 +815,9 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = preg_replace('/\[CART_ADD\](.*?)\[\/CART_ADD\]/is', $_cart_add , $entry[$x]);
 
 			// product name
-			$entry[$x] = str_replace('{CURRENCY_SYMBOL}', html_specialchars($_shopPref['shop_pref_currency']), $entry[$x]);
 			$entry[$x] = render_cnt_template($entry[$x], 'ON_REQUEST', $_cart_on_request);
-			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_TITLE', html_specialchars($row['shopprod_name1']));
-			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html_specialchars($row['shopprod_name2']));
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_TITLE', html($row['shopprod_name1']));
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html($row['shopprod_name2']));
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_LONG', $row['shopprod_description1']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_WEIGHT', $row['weight']);
@@ -885,8 +838,8 @@ if( $_shop_load_list !== false ) {
 			}
 			$entry[$x] = render_cnt_template($entry[$x], 'DISCOUNT', $row['discount']);
 			$entry[$x] = str_replace('{PRODUCT_URL_TARGET}', $row['prod_url']['target'], $entry[$x]);
-			$entry[$x] = render_cnt_template($entry[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
-			$entry[$x] = render_cnt_template($entry[$x], 'MODEL', html_specialchars($row['shopprod_model']));
+			$entry[$x] = render_cnt_template($entry[$x], 'ORDER_NUM', html($row['shopprod_ordernumber']));
+			$entry[$x] = render_cnt_template($entry[$x], 'MODEL', html($row['shopprod_model']));
 			$entry[$x] = render_cnt_template($entry[$x], 'VIEWED', number_format($row['shopprod_track_view'], 0, $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']));
 
 			if($shop_detail_id) {
@@ -1011,10 +964,8 @@ if( $_shop_load_list !== false ) {
 
 			$entry[$x] = render_cnt_template($entry[$x], 'IMAGE', $_prod_list_img);
 
-
 			// Render Files
 			$entry[$x] = render_cnt_template($entry[$x], 'FILES', $_prod_list_files);
-
 
 			$x++;
 		}
@@ -1038,7 +989,7 @@ if( $_shop_load_list !== false ) {
 		$entries = $_tmpl['config']['shop_wrap']['prefix'] . $_tmpl['list_header'] . LF . $entries . LF . $_tmpl['list_footer'] . $_tmpl['config']['shop_wrap']['suffix'];
 	}
 
-	$entries = str_replace('{CATEGORY}', html_specialchars($shop_cat_name), $entries);
+	$entries = str_replace('{CATEGORY}', html($shop_cat_name), $entries);
 	$entries = render_cnt_template($entries, 'CART_LINK', is_cart_filled() ? rel_url(array('shop_cart' => 'show'), array('shop_detail'), $_tmpl['config']['cart_url']) : '');
 	$entries = parse_cnt_urlencode($entries);
 
@@ -1060,11 +1011,11 @@ if( $_shop_load_list !== false ) {
 		$shop_pagetitle .= $shop_cat_name;
 
 		if(empty($content['pagetitle'])) {
-			$content['pagetitle'] = html_specialchars($shop_pagetitle);
+			$content['pagetitle'] = html($shop_pagetitle);
 		} elseif($match[1] == 'BEFORE') {
-			$content['pagetitle'] = html_specialchars($shop_pagetitle . $title_spacer) . $content['pagetitle'];
+			$content['pagetitle'] = html($shop_pagetitle . $title_spacer) . $content['pagetitle'];
 		} else {
-			$content['pagetitle'] .= html_specialchars($title_spacer . $shop_pagetitle);
+			$content['pagetitle'] .= html($title_spacer . $shop_pagetitle);
 		}
 
 		$content['all'] = str_replace($match[0], '', $content['all']);
@@ -1072,7 +1023,7 @@ if( $_shop_load_list !== false ) {
 	}
 }
 
-if( $_shop_load_order ) {
+if( $_shop_load_order !== false ) {
 
 	$cart_data = get_cart_data();
 
@@ -1105,9 +1056,9 @@ if( $_shop_load_order ) {
 			if($row['type'] === 'CHECK') {
 				$_step1['shop_field_'.$item_key] = $row['value'];
 				if($_SESSION[CART_KEY]['step1']['shop_field_'.$item_key] && $_SESSION[CART_KEY]['step1']['shop_field_'.$item_key] == $row['value']) {
-					$order_process	= render_cnt_template($order_process, 'shop_field_'.$item_key, html_specialchars($row['value']).'" checked="checked');
+					$order_process	= render_cnt_template($order_process, 'shop_field_'.$item_key, html($row['value']).'" checked="checked');
 				} else {
-					$order_process	= render_cnt_template($order_process, 'shop_field_'.$item_key, html_specialchars($row['value']));
+					$order_process	= render_cnt_template($order_process, 'shop_field_'.$item_key, html($row['value']));
 				}
 			} else {
 				$_step1['shop_field_'.$item_key] = '';
@@ -1120,7 +1071,7 @@ if( $_shop_load_order ) {
 
 		foreach($_step1 as $item_key => $row) {
 			$field_error	= empty($ERROR['inv_address'][$item_key]) ? '' : $ERROR['inv_address'][$item_key];
-			$row = html_specialchars($row);
+			$row = html($row);
 			$order_process	= render_cnt_template($order_process, $item_key, $row);
 			$order_process	= render_cnt_template($order_process, 'ERROR_'.$item_key, $field_error);
 		}
@@ -1140,7 +1091,7 @@ if( $_shop_load_order ) {
 					$payment_fields[$item_key] .= ' checked="checked"';
 				}
 				$payment_fields[$item_key] .= ' />';
-				$payment_fields[$item_key] .= '<span>' . html_specialchars($_tmpl['config']['label_payby_'.$item_key]) . '</span>';
+				$payment_fields[$item_key] .= '<span>' . html($_tmpl['config']['label_payby_'.$item_key]) . '</span>';
 				$payment_fields[$item_key] .= '</label></div>';
 			}
 			$order_process = render_cnt_template($order_process, 'PAYMENT', implode(LF, $payment_fields));
@@ -1164,13 +1115,13 @@ if( $_shop_load_order ) {
 		$order_process = str_replace('{CART_LINK}', rel_url(array('shop_cart' => 'show'), array('shop_detail'), $_tmpl['config']['cart_url']), $order_process);
 
 		foreach($_SESSION[CART_KEY]['step1'] as $item_key => $row) {
-			$order_process = render_cnt_template($order_process, $item_key, nl2br(html_specialchars($row)));
+			$order_process = render_cnt_template($order_process, $item_key, nl2br(html($row)));
 		}
 
 		$order_process = render_cnt_template($order_process, 'IF_ERROR', isset($_SESSION[CART_KEY]['error']['step2']) ? ' ' : '');
 
 		if(isset($_SESSION[CART_KEY]['payby'])) {
-			$order_process = render_cnt_template($order_process, 'PAYMENT', html_specialchars($_tmpl['config']['label_payby_'.$_SESSION[CART_KEY]['payby']]));
+			$order_process = render_cnt_template($order_process, 'PAYMENT', html($_tmpl['config']['label_payby_'.$_SESSION[CART_KEY]['payby']]));
 		} else {
 			$order_process = render_cnt_template($order_process, 'PAYMENT', '');
 		}
@@ -1181,7 +1132,7 @@ if( $_shop_load_order ) {
 
 		$terms_text		= _getConfig( 'shop_pref_terms', '_shopPref' );
 		$terms_format	= _getConfig( 'shop_pref_terms_format', '_shopPref' );
-		$order_process = str_replace('{TERMS}', $terms_format ? $terms_text : nl2br(html_specialchars($terms_text)), $order_process);
+		$order_process = str_replace('{TERMS}', $terms_format ? $terms_text : nl2br(html($terms_text)), $order_process);
 
 		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
 		include($phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php');
@@ -1204,7 +1155,7 @@ if( $_shop_load_order ) {
 		$order_process = $_tmpl['mail_customer'];
 
 		foreach($_SESSION[CART_KEY]['step1'] as $item_key => $row) {
-			$order_process = render_cnt_template($order_process, $item_key, html_specialchars($row));
+			$order_process = render_cnt_template($order_process, $item_key, html($row));
 		}
 
 		$cart_mode = 'mail1';
@@ -1222,7 +1173,7 @@ if( $_shop_load_order ) {
 		$order_process = $_tmpl['mail_neworder'];
 
 		foreach($_SESSION[CART_KEY]['step1'] as $item_key => $row) {
-			$order_process = render_cnt_template($order_process, $item_key, html_specialchars($row));
+			$order_process = render_cnt_template($order_process, $item_key, html($row));
 		}
 
 		$cart_mode = 'mail1';
@@ -1353,7 +1304,7 @@ if( $_shop_load_order ) {
 			$order_process = $_tmpl['order_success'];
 
 			foreach($_SESSION[CART_KEY]['step1'] as $item_key => $row) {
-				$order_process = render_cnt_template($order_process, $item_key, html_specialchars($row));
+				$order_process = render_cnt_template($order_process, $item_key, html($row));
 			}
 			unset($_SESSION[CART_KEY]);
 
@@ -1366,17 +1317,15 @@ if( $_shop_load_order ) {
 			$order_process = str_replace('{MSG}', rawurlencode('---- FALLBACK MESSAGE ---' . LF . LF . $mail_customer), $order_process);
 
 			foreach($_SESSION[CART_KEY]['step1'] as $item_key => $row) {
-				$order_process = render_cnt_template($order_process, $item_key, html_specialchars($row));
+				$order_process = render_cnt_template($order_process, $item_key, html($row));
 			}
 
 		}
 
 		$order_process = str_replace('{ORDER}', $order_num, $order_process);
 
-
+	// show cart
 	} else {
-
-		// show cart
 
 		$cart_mode = 'cart';
 		include($phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php');
@@ -1390,21 +1339,21 @@ if( $_shop_load_order ) {
 		// Update Cart Button
 		$_cart_button = preg_match("/\[UPDATE\](.*?)\[\/UPDATE\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_update" value="' . html_specialchars($_cart_button) . '" class="cart-update-button" />';
+			$_cart_button = '<input type="submit" name="shop_cart_update" value="' . html($_cart_button) . '" class="cart-update-button" />';
 		}
 		$order_process  = preg_replace('/\[UPDATE\](.*?)\[\/UPDATE\]/s', $_cart_button , $order_process);
 
 		// Checkout Button
 		$_cart_button = preg_match("/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_checkout" value="' . html_specialchars($_cart_button) . '" class="cart-checkout-button" />';
+			$_cart_button = '<input type="submit" name="shop_cart_checkout" value="' . html($_cart_button) . '" class="cart-checkout-button" />';
 		}
 		$order_process  = preg_replace('/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/s', $_cart_button , $order_process);
 
 		// Empty Cart Button
 		$_cart_button = preg_match("/\[DELETE\](.*?)\[\/DELETE\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_delete" value="' . html_specialchars($_cart_button) . '" class="cart-delete-button" />';
+			$_cart_button = '<input type="submit" name="shop_cart_delete" value="' . html($_cart_button) . '" class="cart-delete-button" />';
 		}
 		$order_process  = preg_replace('/\[DELETE\](.*?)\[\/DELETE\]/s', $_cart_button , $order_process);
 
@@ -1420,18 +1369,9 @@ if( $_shop_load_order ) {
 }
 
 // small cart
-if($_shop_load_cart_small) {
+if($_shop_load_cart_small !== false ) {
 
-	$_cart_count = 0;
-	//wr begin changed 29.06.12
-	// counter for small cart has own session var
-	if(isset($_SESSION[CART_KEY]['total']) && is_array($_SESSION[CART_KEY]['total']) && count($_SESSION[CART_KEY]['total'])) {
-		foreach($_SESSION[CART_KEY]['total'] as $cartval) {
-			$_cart_count += $cartval;
-		}
-	}
-
-	if(!$_cart_count) {
+	if(empty($_SESSION[CART_KEY]['total']) || !is_array($_SESSION[CART_KEY]['total']) || ($_cart_count = count($_SESSION[CART_KEY]['total'])) === 0) {
 		$_cart_count = '';
 	}
 
@@ -1453,232 +1393,9 @@ if($_shop_load_cart_small) {
 	$content['all'] = str_replace('{CART_SMALL}', $_tmpl['cart_small'], $content['all']);
 }
 
-
-function is_cart_filled() {
-
-	if(empty($_SESSION[CART_KEY]['products'])) {
-
-		return false;
-
-	} elseif(!is_array($_SESSION[CART_KEY]['products'])) {
-
-		return false;
-
-	} elseif(!count($_SESSION[CART_KEY]['products'])) {
-
-		return false;
-
-	} elseif(isset($_SESSION[CART_KEY]['total']) && empty($_SESSION[CART_KEY]['total'])) {
-
-		return false;
-	}
-
-	return true;
-}
-
-function get_cart_data() {
-
-	// retrieve all cart data
-	if(!is_cart_filled()) {
-		return array();
-	}
-
-	$in = array();
-	foreach($_SESSION[CART_KEY]['products'] as $key => $value) {
-		$key = intval($key);
-		$in[$key] = $key;
-	}
-
-	$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_shop_products WHERE shopprod_status=1 AND ';
-	$sql .= 'shopprod_id IN (' . implode(',', $in) . ')';
-
-	$data = _dbQuery($sql);
-
-	if(isset($data[0])) {
-
-		foreach($data as $key => $value) {
-
-			$data[$key]['shopprod_quantity'] = $_SESSION[CART_KEY]['products'][ $value['shopprod_id'] ];
-
-		}
-
-	}
-
-	return $data;
-}
-
-function shop_image_tag($img=array(), $counter=0, $title='') {
-
-	$config =& $GLOBALS['_tmpl']['config'];
-
-	// set image values
-	$width		= $config['image_'.$config['mode'].'_width'];
-	$height		= $config['image_'.$config['mode'].'_height'];
-	$crop		= $config['image_'.$config['mode'].'_crop'];
-	$caption	= empty($img['caption']) ? '' : ' :: '.$img['caption'];
-	$title		= empty($title) ? '' : ' title="'.html_specialchars($title.$caption).'"';
-
-	$thumb_image = get_cached_image(array(
-		"target_ext"	=>	$img['f_ext'],
-		"image_name"	=>	$img['f_hash'] . '.' . $img['f_ext'],
-		"max_width"		=>	$width,
-		"max_height"	=>	$height,
-		"thumb_name"	=>	md5($img['f_hash'].$width.$height.$GLOBALS['phpwcms']["sharpen_level"].$crop.$GLOBALS['phpwcms']['colorspace']),
-		'crop_image'	=>	$crop
-	));
-
-	if($thumb_image) {
-
-		// now try to build caption and if neccessary add alt to image or set external link for image
-		$caption	= getImageCaption($img['caption']);
-		// set caption and ALT Image Text for imagelist
-		$capt_cur	= html_specialchars($caption[0]);
-		$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
-		$caption[1] = html_specialchars(empty($caption[1]) ? $img['f_name'] : $caption[1]);
-
-		$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
-		$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].$title.' border="0" />';
-
-		// use lightbox effect
-		if($config['image_'.$config['mode'].'_lightbox']) {
-
-			$a  = '<a href="img/cmsimage.php/';
-			$a .= $config['image_zoom_width'] . 'x' . $config['image_zoom_height'] . '/';
-			$a .= $img['f_hash'] . '.' . $img['f_ext'] . '" ';
-			$a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . $caption[3] . $title . '>';
-
-			$list_img_temp = $a . $list_img_temp . '</a>';
-		}
-
-		$class = empty($counter) ? '' : ' img-num-'.$counter;
-
-		return '<span class="shop-article-img'.$class.'">' . $list_img_temp . '</span>';
-
-	}
-
-	return '';
-}
-
-function get_shop_category_name($id=0, $subid=0) {
-	if(empty($id)) {
-		return '';
-	}
-	$cat_name = '';
-
-	$sql  = 'SELECT cat_name FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
-	$sql .= "cat_type='module_shop' AND cat_status=1 AND cat_id=" . $id . ' LIMIT 1';
-	$data = _dbQuery($sql);
-
-	if(isset($data[0]['cat_name'])) {
-		$cat_name = $data[0]['cat_name'];
-	}
-
-	if($subid) {
-
-		$sql  = 'SELECT cat_name FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
-		$sql .= "cat_type='module_shop' AND cat_status=1 AND cat_id=" . $subid . ' LIMIT 1';
-		$data = _dbQuery($sql);
-
-		if(isset($data[0]['cat_name'])) {
-			if($cat_name) {
-				$cat_name .= str_replace('_', ' ', $GLOBALS['_tmpl']['config']['cat_subcat_spacer']);
-			}
-			$cat_name .= $data[0]['cat_name'];
-		}
-	}
-
-	return $cat_name;
-}
-
-function get_payment_options() {
-
-	$payment_prefs = _getConfig( 'shop_pref_payment', '_shopPref' );
-	$supported = array('prepay' => 0, 'pod' => 0, 'onbill' => 0);
-	$available = array();
-	foreach($supported as $key => $value) {
-		if($payment_prefs[$key]) $available[$key] = $payment_prefs[$key];
-	}
-	return $available;
-}
-
-
-function get_category_products($selected_product_cat, $shop_detail_id, $shop_cat_selected, $shop_subcat_selected, $shop_alias) {
-
-	$shop_cat_prods = '';
-
-	$sql  = "SELECT * FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
-	$sql .= "shopprod_status=1";
-	$sql .= ' AND (';
-	$sql .= "shopprod_category = '" . $selected_product_cat . "' OR ";
-	$sql .= "shopprod_category LIKE '%," . $selected_product_cat . ",%' OR ";
-	$sql .= "shopprod_category LIKE '" . $selected_product_cat . ",%' OR ";
-	$sql .= "shopprod_category LIKE '%," . $selected_product_cat . "'";
-	$sql .= ')';
-	// FE language
-	$sql .= SHOP_FELANG_SQL;
-	$pdata = _dbQuery($sql);
-
-	if(is_array($pdata) && count($pdata)) {
-
-		$z = 0;
-		$shop_cat_prods = array();
-		foreach($pdata as $prow) {
-
-			$shop_cat_prods[$z] = '<li id="shopcat-product-'.$prow['shopprod_id'].'"';
-			if($prow['shopprod_id'] == $shop_detail_id) {
-				$shop_cat_prods[$z] .= ' class="active"';
-			}
-			$shop_cat_prods[$z] .= '>';
-
-			$prow['get'] = array(
-				'shop_cat' => $shop_cat_selected,
-				'shop_detail' => $prow['shopprod_id']
-			);
-			if($shop_subcat_selected) {
-				$prow['get']['shop_cat'] .= '_' . $shop_subcat_selected;
-			}
-
-			$shop_cat_prods[$z] .= '<a href="' . rel_url($prow['get'], array(), $shop_alias) . '">';
-			$shop_cat_prods[$z] .= html_specialchars($prow['shopprod_name1']);
-			$shop_cat_prods[$z] .= '</a>';
-			$shop_cat_prods[$z] .= '</li>';
-			$z++;
-		}
-
-		if(count($shop_cat_prods)) {
-			$shop_cat_prods = LF . '		<ul class="'.$template_default['classes']['shop-products-menu'].'">' . LF.'			' . implode(LF.'			', $shop_cat_prods) . LF .'		</ul>' . LF.'	';
-		}
-
-	}
-
-	return $shop_cat_prods;
-
-}
-
-function shop_files($data=array()) {
-
-	global $phpwcms;
-
-	$value = array(
-		'cnt_object'			=> array('cnt_files' => array('id' => array(), 'caption' => array())), // id, caption
-		'files_direct_download'	=> $GLOBALS['_tmpl']['config']['files_direct_download'],
-		'files_template'		=> $GLOBALS['_tmpl']['config']['files_template']
-	);
-
-	foreach($data as $item) {
-		$value['cnt_object']['cnt_files']['id'][]		= $item['f_id'];
-		$value['cnt_object']['cnt_files']['caption'][]	= $item['caption'];
-	}
-
-	$IS_NEWS_CP	= true;
-	$news		= array('files_result' => '');
-	$crow		= array();
-
-	// include content part files renderer
-	include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
-
-	return $news['files_result'];
-
+// global shop relacer
+if($_shop_parsed) {
+	$content['all'] = $entry[$x] = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), html($_shopPref['shop_pref_currency']), $content['all']);
 }
 
 ?>
