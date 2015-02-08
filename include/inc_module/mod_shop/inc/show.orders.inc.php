@@ -182,10 +182,11 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		$plugin['vat_factor'] = 1 + ( $plugin['product']['shopprod_vat'] / 100 );
 
-		if($plugin['product']['shopprod_size'] && $_cart_opt_1 = explode(LF, $plugin['product']['shopprod_size'])) {
+		if($plugin['product']['shopprod_size'] && ($_cart_opt_1 = explode(LF, $plugin['product']['shopprod_size']))) {
 			foreach($_cart_opt_1 as $key => $value){
 				//title
 				if(!$key) {
+					unset($_cart_opt_1[$key]);
 					continue;
 				}
 				$_cart_opt_1[$key] = get_shop_option_value($value);
@@ -194,9 +195,10 @@ if (!defined('PHPWCMS_ROOT')) {
 			$_cart_opt_1 = null;
 		}
 		if($plugin['product']['shopprod_color'] && ($_cart_opt_2 = explode(LF, $plugin['product']['shopprod_color']))) {
-			foreach($_cart_opt_2['data'] as $key => $value){
+			foreach($_cart_opt_2 as $key => $value){
 				//title
 				if(!$key) {
+					unset($_cart_opt_2[$key]);
 					continue;
 				}
 				$_cart_opt_2[$key] = get_shop_option_value($value);
@@ -206,6 +208,9 @@ if (!defined('PHPWCMS_ROOT')) {
 		}
 
 		//loop all opt_1
+		if(!isset($plugin['product']['shopprod_quantity'])) {
+			$plugin['product']['shopprod_quantity'] = 1;
+		}
 		if(!is_array($plugin['product']['shopprod_quantity'])) {
 			$plugin['product']['shopprod_quantity'] = array(array($plugin['product']['shopprod_quantity']));
 		}
