@@ -288,14 +288,27 @@ if (!defined('PHPWCMS_ROOT')) {
 		<tr class="product linebottom">
 			<td colspan="3" class="chatlist"><?php
 
-			if(isset($plugin['data']['order_data']['weight'])) {
-				echo $BLM['shopprod_weight'].' ';
-				echo number_format($plugin['data']['order_data']['weight'], 0, $BLM['dec_point'], $BLM['thousands_sep']);
-				echo ' '.$plugin['data']['weight_unit'];
-				echo ' &#8211; ';
+			$_shipping_info = array();
+
+			if(isset($plugin['data']['order_data']['shipping']['shipping_distance'])) {
+				if(isset($plugin['data']['order_data']['distance']['label']) && $plugin['data']['order_data']['distance']['label'] !== '') {
+					$_shipping_info['zone'] = html($plugin['data']['order_data']['distance']['label']);
+				}
+				$_shipping_info['distance'] = number_format(($plugin['data']['order_data']['shipping']['shipping_distance']/1000), 1, $BLM['dec_point'], $BLM['thousands_sep']).' km';
+			}
+			if(!empty($plugin['data']['order_data']['weight'])) {
+				$_shipping_info['weight']  = $BLM['shopprod_weight'].' ';
+				$_shipping_info['weight'] .= number_format($plugin['data']['order_data']['weight'], 0, $BLM['dec_point'], $BLM['thousands_sep']);
+				$_shipping_info['weight'] .= ' '.$plugin['data']['weight_unit'];
 			}
 
-			echo $BLM['shopprod_shipping'].' '.$plugin['data']['currency'];
+			echo $BLM['shopprod_shipping'].' ';
+
+			if($_shipping_info) {
+				echo '(' . implode(' / ', $_shipping_info) . ') ';
+			}
+
+			echo $plugin['data']['currency'];
 
 			$plugin['data']['order_data']['shipping']['vat'] = $plugin['data']['order_data']['shipping']['shipping_gross'] - $plugin['data']['order_data']['shipping']['shipping_net'];
 
