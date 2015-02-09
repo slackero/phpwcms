@@ -181,9 +181,18 @@ if (!defined('PHPWCMS_ROOT')) {
 				<td colspan="4" class="tdtop5"></td>
 			</tr>
 
+<?php		if(!ini_get('allow_url_fopen')): ?>
+
+			<tr>
+				<td class="error tdtop5" colspan="4">
+					<strong>Set PHP INI Value 'allow_url_fopen = 1'</strong>
+				</td>
+			</tr>
+
+<?php		endif; ?>
 			<tr>
 				<td class="chatlist valign-middle">
-					<input type="radio" name="pref_shipping_calc" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
+					<input type="radio" name="pref_shipping_calc" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();"<?php if(!ini_get('allow_url_fopen')): ?> disabled="disabled"<?php endif; ?> />
 					<?php echo $BLM['shopprod_distance'] ?>&nbsp;
 				</td>
 				<td class="chatlist valign-middle tdtop4 right"><?php echo $BLM['shopprod_net'] ?>&nbsp;</td>
