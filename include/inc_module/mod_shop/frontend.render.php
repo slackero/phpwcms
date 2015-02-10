@@ -1248,6 +1248,9 @@ if( $_shop_load_order !== false ) {
 			$mail_customer = render_cnt_template($mail_customer, 'PAYBY_'.strtoupper($item_key), '');
 		}
 
+		$mail_customer = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), $_shopPref['shop_pref_currency'], $content['all']);
+		$mail_neworder = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), $_shopPref['shop_pref_currency'], $content['all']);
+
 		// store order in database
 		$order_data = array(
 			'order_number'		=> $order_num,
@@ -1292,7 +1295,9 @@ if( $_shop_load_order !== false ) {
 
 		// send mail to customer
 		$email_from = _getConfig( 'shop_pref_email_from', '_shopPref' );
-		if(!is_valid_email($email_from)) $email_from = $phpwcms['SMTP_FROM_EMAIL'];
+		if(!is_valid_email($email_from)) {
+			$email_from = $phpwcms['SMTP_FROM_EMAIL'];
+		}
 
 		$order_mail_customer = array(
 			'recipient'	=> $_SESSION[CART_KEY]['step1']['EMAIL'],
@@ -1429,9 +1434,9 @@ if($_shop_load_cart_small !== false ) {
 	$content['all'] = str_replace('{CART_SMALL}', $_tmpl['cart_small'], $content['all']);
 }
 
-// global shop relacer
+// global shop replacer, faster doing this only once
 if($_shop_parsed) {
-	$content['all'] = $entry[$x] = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), html($_shopPref['shop_pref_currency']), $content['all']);
+	$content['all'] = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), html($_shopPref['shop_pref_currency']), $content['all']);
 }
 
 ?>
