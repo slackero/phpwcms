@@ -80,6 +80,7 @@ if($_shopPref['shop_pref_discount_invalid'] || $_shopPref['shop_pref_discount_pe
 	if(!empty($_shopPref['shop_discount_use']['freeshipping'])) {
 		$subtotal['shipping_net']	= 0;
 		$subtotal['shipping_gross']	= 0;
+		$subtotal['shipping_vat']	= 0;
 	}
 }
 
