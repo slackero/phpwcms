@@ -248,20 +248,37 @@ order_number_style = DE%05s
 			</tr>
 
 			<tr>
-				<td>Versand, netto:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
 			</tr>
-			<tr>
-				<td>Versand MwSt.:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Versand, brutto:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
+
+				[SHIPPING]
+				<tr>
+					<td>Versand, netto:</td>
+					<td align="right">{SHIPPING_NET}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand MwSt.:</td>
+					<td align="right">{SHIPPING_VAT}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand, brutto:</td>
+					<td align="right">{SHIPPING_GROSS}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				[/SHIPPING]
+				[SHIPPING_ELSE]
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td>Versandkosten</td>
+					<td colspan="2">versandkostenfrei</td>
+				</tr>
+				[/SHIPPING_ELSE]
 
 			[/SHIPPING_DISTANCE_ADDRESS]
 			[SHIPPING_DISTANCE_ADDRESS_ELSE]
@@ -605,22 +622,38 @@ order_number_style = DE%05s
 					[SHIPPING_DISTANCE:FOREIGN_ELSE]Inlandslieferung[/SHIPPING_DISTANCE:FOREIGN_ELSE]
 				</td>
 			</tr>
+			<tr>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
 
-			<tr>
-				<td>Versand, netto:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Versand MwSt.:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Versand, brutto:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
+				[SHIPPING]
+				<tr>
+					<td>Versand, netto:</td>
+					<td align="right">{SHIPPING_NET}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand MwSt.:</td>
+					<td align="right">{SHIPPING_VAT}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand, brutto:</td>
+					<td align="right">{SHIPPING_GROSS}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				[/SHIPPING]
+				[SHIPPING_ELSE]
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td>Versandkosten</td>
+					<td colspan="2">versandkostenfrei</td>
+				</tr>
+				[/SHIPPING_ELSE]
 
 			[/SHIPPING_DISTANCE_ADDRESS]
 			[SHIPPING_DISTANCE_ADDRESS_ELSE]

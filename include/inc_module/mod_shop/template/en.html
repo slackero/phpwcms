@@ -248,20 +248,37 @@ order_number_style = EN%05s
 			</tr>
 
 			<tr>
-				<td>Shipping Net:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
+				<td>Weight total:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
 			</tr>
-			<tr>
-				<td>Shipping VAT:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Shipping Gross:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
+
+				[SHIPPING]
+				<tr>
+					<td>Shipping Net:</td>
+					<td align="right">{SHIPPING_NET}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Shipping VAT:</td>
+					<td align="right">{SHIPPING_VAT}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Shipping Gross:</td>
+					<td align="right">{SHIPPING_GROSS}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				[/SHIPPING]
+				[SHIPPING_ELSE]
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td>Shipping Costs</td>
+					<td colspan="2">free shipping</td>
+				</tr>
+				[/SHIPPING_ELSE]
 
 			[/SHIPPING_DISTANCE_ADDRESS]
 			[SHIPPING_DISTANCE_ADDRESS_ELSE]
@@ -606,20 +623,37 @@ order_number_style = EN%05s
 			</tr>
 
 			<tr>
-				<td>Shipping Net:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
+				<td>Weight total:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
 			</tr>
-			<tr>
-				<td>Shipping VAT:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Shipping Gross:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
+
+				[SHIPPING]
+				<tr>
+					<td>Shipping Net:</td>
+					<td align="right">{SHIPPING_NET}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Shipping VAT:</td>
+					<td align="right">{SHIPPING_VAT}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Shipping Gross:</td>
+					<td align="right">{SHIPPING_GROSS}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				[/SHIPPING]
+				[SHIPPING_ELSE]
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td>Shipping Costs</td>
+					<td colspan="2">free shipping</td>
+				</tr>
+				[/SHIPPING_ELSE]
 
 			[/SHIPPING_DISTANCE_ADDRESS]
 			[SHIPPING_DISTANCE_ADDRESS_ELSE]
