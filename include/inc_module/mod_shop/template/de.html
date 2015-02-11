@@ -24,6 +24,12 @@ vat_decimals = 1
 weight_decimals = 0
 dec_point = "."
 thousands_sep = ","
+; to keep leading and trailing spaces spaces intact
+; enclose the string by | => "| |" or just | |
+; {$} is an alias for {CURRENCY_SYMBOL}
+price_option_null = 0
+price_option_prefix = | |
+price_option_suffix = | {$}|
 
 ; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
 ; for leading and trailing spaces use replacer %S
@@ -242,20 +248,37 @@ order_number_style = DE%05s
 			</tr>
 
 			<tr>
-				<td>Versand, netto:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
 			</tr>
-			<tr>
-				<td>Versand MwSt.:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Versand, brutto:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
+
+				[SHIPPING]
+				<tr>
+					<td>Versand, netto:</td>
+					<td align="right">{SHIPPING_NET}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand MwSt.:</td>
+					<td align="right">{SHIPPING_VAT}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand, brutto:</td>
+					<td align="right">{SHIPPING_GROSS}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				[/SHIPPING]
+				[SHIPPING_ELSE]
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td>Versandkosten</td>
+					<td colspan="2">versandkostenfrei</td>
+				</tr>
+				[/SHIPPING_ELSE]
 
 			[/SHIPPING_DISTANCE_ADDRESS]
 			[SHIPPING_DISTANCE_ADDRESS_ELSE]
@@ -428,6 +451,26 @@ order_number_style = DE%05s
 [ERROR_shop_field_1]<p>Benutzerdefiniertes Feld 1</p>[/ERROR_shop_field_1]
 <table cellpadding="1" cellspacing="0" border="0" summary="cart">
 	<tr>
+		<td>Anrede:</td>
+		<td>
+			<select name="shop_inv_salutation">
+				<option value="">Anrede wählen (optional)</option>
+				<option value="Herr"[INV_SALUTATION_SELECTED:Herr]>Herr</option>
+				<option value="Frau"[INV_SALUTATION_SELECTED:Frau]>Frau</option>
+				<option value="Firma"[INV_SALUTATION_SELECTED:Firma]>Firma</option>
+			</select>
+			<!--
+				possible replacement (remove the spaces inside the brackets):
+				- [ INV_SALUTATION_SELECTED:value ] => selected="selected"
+				- [ INV_SALUTATION_CHECKED:value ] => checked="checked"
+			-->
+		</td>
+	</tr>
+	<tr>
+		<td>Titel:</td>
+		<td><input type="text" name="shop_inv_title" id="shop_inv_title" value="{INV_TITLE}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
 		<td>Vorname*:</td>
 		<td><input type="text" name="shop_inv_firstname" id="shop_inv_firstname" value="{INV_FIRSTNAME}" size="40" maxlength="100" /></td>
 	</tr>
@@ -436,8 +479,16 @@ order_number_style = DE%05s
 		<td><input type="text" name="shop_inv_name" id="shop_inv_name" value="{INV_NAME}" size="40" maxlength="100" /></td>
 	</tr>
 	<tr>
+		<td>Firma:</td>
+		<td><input type="text" name="shop_inv_company" id="shop_inv_company" value="{INV_COMPANY}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
 		<td>Adresse*:</td>
-		<td><textarea name="shop_inv_address" id="shop_inv_address">{INV_ADDRESS}</textarea></td>
+		<td><input type="text" name="shop_inv_address" id="shop_inv_address" value="{INV_ADDRESS}" size="40" maxlength="100" /></td>
+	</tr>
+	<tr>
+		<td>Zusatz:</td>
+		<td><input type="text" name="shop_inv_address2" id="shop_inv_address2" value="{INV_ADDRESS2}" size="40" maxlength="100" /></td>
 	</tr>
 	<tr>
 		<td>PLZ*:</td>
@@ -453,7 +504,12 @@ order_number_style = DE%05s
 	</tr>
 	<tr>
 		<td>Land:</td>
-		<td><input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /></td>
+		<td>
+			<select name="shop_inv_country">
+			[COUNTRY_OPTIONS:DE]Land wählen[/COUNTRY_OPTIONS]
+			</select>
+		</td>
+		<!-- <input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /> -->
 	</tr>
 	<tr>
 		<td>E-Mail*:</td>
@@ -566,22 +622,38 @@ order_number_style = DE%05s
 					[SHIPPING_DISTANCE:FOREIGN_ELSE]Inlandslieferung[/SHIPPING_DISTANCE:FOREIGN_ELSE]
 				</td>
 			</tr>
+			<tr>
+				<td>Gesamtgewicht:</td>
+				<td align="right">{SUBTOTAL_WEIGHT}</td>
+				<td>{WEIGHT_UNIT}</td>
+			</tr>
 
-			<tr>
-				<td>Versand, netto:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Versand MwSt.:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Versand, brutto:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
+				[SHIPPING]
+				<tr>
+					<td>Versand, netto:</td>
+					<td align="right">{SHIPPING_NET}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand MwSt.:</td>
+					<td align="right">{SHIPPING_VAT}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				<tr>
+					<td>Versand, brutto:</td>
+					<td align="right">{SHIPPING_GROSS}</td>
+					<td>{CURRENCY_SYMBOL}</td>
+				</tr>
+				[/SHIPPING]
+				[SHIPPING_ELSE]
+				<tr>
+					<td colspan="3"><hr /></td>
+				</tr>
+				<tr>
+					<td>Versandkosten</td>
+					<td colspan="2">versandkostenfrei</td>
+				</tr>
+				[/SHIPPING_ELSE]
 
 			[/SHIPPING_DISTANCE_ADDRESS]
 			[SHIPPING_DISTANCE_ADDRESS_ELSE]
@@ -844,11 +916,16 @@ Bestelldatum:    {DATE:d/m/Y H:i}
 
 Zahlungsweise: [PAYBY_PREPAY]Vorauskasse[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Rechnung[/PAYBY_ONBILL]
 
-Adresse: {INV_FIRSTNAME} {INV_NAME}
-         {INV_ADDRESS}
-         {INV_ZIP} {INV_CITY}[INV_REGION]
-         {INV_REGION}[/INV_REGION][INV_COUNTRY]
-         {INV_COUNTRY}[/INV_COUNTRY]
+Adresse:
+--------
+[INV_COMPANY]{INV_COMPANY}[/INV_COMPANY][INV_SALUTATION]
+{INV_SALUTATION}[/INV_SALUTATION]
+[INV_TITLE]{INV_TITLE} [/INV_TITLE]{INV_FIRSTNAME} {INV_NAME}
+{INV_ADDRESS}[INV_ADDRESS2]
+{INV_ADDRESS2}[/INV_ADDRESS2]
+{INV_ZIP} {INV_CITY}[INV_REGION]
+{INV_REGION}[/INV_REGION][INV_COUNTRY]
+{INV_COUNTRY}[/INV_COUNTRY]
 
 E-Mail:  {EMAIL}
 Telefon: {PHONE}

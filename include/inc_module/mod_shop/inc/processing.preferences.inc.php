@@ -27,6 +27,9 @@ if($action == 'edit') {
 		$plugin['data']['shop_pref_terms']				= slweg($_POST['pref_terms']);
 		$plugin['data']['shop_pref_terms_format']		= empty($_POST['pref_terms_format']) ? 0 : 1;
 
+		$plugin['data']['shop_pref_api_key']			= slweg($_POST['pref_api_key']);
+		$plugin['data']['shop_pref_api_access']			= empty($_POST['pref_api_access']) ? 0 : 1;
+
 		$plugin['data']['shop_pref_felang']				= empty($_POST['pref_felang']) ? 0 : 1;
 
 		$plugin['data']['shop_pref_id_shop']			= slweg($_POST['pref_shop_id']);
@@ -59,8 +62,16 @@ if($action == 'edit') {
 		}
 		$plugin['data']['shop_pref_email_to'] = strtolower( implode(';', $plugin['data']['shop_pref_email_to'] ) );
 
-		if(! is_valid_email($plugin['data']['shop_pref_email_from']) )		$plugin['data']['shop_pref_email_from']		= '';
-		if(! is_valid_email($plugin['data']['shop_pref_email_paypal']) )	$plugin['data']['shop_pref_email_paypal']	= '';
+		if(! is_valid_email($plugin['data']['shop_pref_email_from']) ) {
+			$plugin['data']['shop_pref_email_from'] = '';
+		}
+		if(! is_valid_email($plugin['data']['shop_pref_email_paypal']) ) {
+			$plugin['data']['shop_pref_email_paypal'] = '';
+		}
+
+		if($plugin['data']['shop_pref_api_access'] && $plugin['data']['shop_pref_api_key'] === '') {
+			$plugin['data']['shop_pref_api_key'] = preg_replace('/[^a-zA-Z0-9]/', '', shortHash(PHPWCMS_URL.$phpwcms['db_pass']));
+		}
 
 		for( $x = 0; $x <= 4; $x++ ) {
 
@@ -181,6 +192,8 @@ if($action == 'edit') {
 			_setConfig('shop_pref_loworder',		$plugin['data']['shop_pref_loworder'],		'module_shop');
 			_setConfig('shop_pref_felang',			$plugin['data']['shop_pref_felang'],		'module_shop');
 			_setConfig('shop_pref_zone_base',		$plugin['data']['shop_pref_zone_base'],		'module_shop');
+			_setConfig('shop_pref_api_access',		$plugin['data']['shop_pref_api_access'],	'module_shop');
+			_setConfig('shop_pref_api_key',			$plugin['data']['shop_pref_api_key'],		'module_shop');
 
 			// save and back to listing mode
 			headerRedirect( shop_url('controller=pref', '') );
@@ -233,7 +246,9 @@ if($action == 'edit') {
 			'discount_1' => 0, 'percent_1' => 0, 'amount_1' => 0, 'freeshipping_1' => 0,
 			'discount_2' => 0, 'percent_2' => 0, 'amount_2' => 0, 'freeshipping_2' => 0
 		),
-		'shop_pref_loworder'		=> array('loworder' => 0, 'under' => 0, 'charge' => 0, 'vat' => 0)
+		'shop_pref_loworder'		=> array('loworder' => 0, 'under' => 0, 'charge' => 0, 'vat' => 0),
+		'shop_pref_api_access'		=> 0,
+		'shop_pref_api_key'			=> ''
 	);
 
 	// retrieve all settings

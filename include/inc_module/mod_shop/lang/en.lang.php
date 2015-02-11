@@ -129,5 +129,8 @@ $BLM['shopprod_overwrite_meta']	= 'Product detail overwrites metadata';
 
 $BLM['shopprod_distance'] = 'Distance (km)';
 $BLM['shopprod_distance_base'] = 'Starting address';
+$BLM['shopprod_api'] = 'API';
+$BLM['shopprod_api_access'] = 'enable access';
+$BLM['shopprod_api_key'] = 'API key';
 
 ?>

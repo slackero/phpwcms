@@ -227,4 +227,3 @@ $_last10_article = _dbQuery($_asql_1);
 ?>
 	<tr><td colspan="5"><img src="img/leer.gif" alt="" width="1" height="25" /></td></tr>
 </table>
-<?php echo phpwcmsversionCheck(); ?>

@@ -168,25 +168,29 @@ switch ($do) {
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], "phpwcms.php?do=admin&amp;p=8", $p, "8", 0);
 							$subnav .= subnavtext($BL['be_subnav_admin_templates'], "phpwcms.php?do=admin&amp;p=11", $p, "11", 0);
-							$subnav .= subnavtext($BL['be_subnav_admin_css'], "phpwcms.php?do=admin&amp;p=10", $p, "10", 0);
+							if(!empty($phpwcms['enable_deprecated'])) {
+								$subnav .= subnavtext($BL['be_subnav_admin_css'], "phpwcms.php?do=admin&amp;p=10", $p, "10", 0);
+							}
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtext($BL['be_subnav_admin_users'], "phpwcms.php?do=admin", $p, "", 0);
 							if(!empty($phpwcms['usergroup_support'])) {
 								$subnav .= subnavtext($BL['be_subnav_admin_groups'], "phpwcms.php?do=admin&amp;p=1", $p, "1", 0);
 							}
-							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
+							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							//$subnav .= subnavtext($BL['be_admin_keywords'], "phpwcms.php?do=admin&amp;p=5", $p, "5", 0);
 							$subnav .= subnavtext($BL['be_subnav_admin_filecat'], "phpwcms.php?do=admin&amp;p=7", $p, "7", 0);
-							$subnav .= subnavtext($BL['be_subnav_admin_starttext'], "phpwcms.php?do=admin&amp;p=12", $p, "12", 0);
+							if(!empty($phpwcms['enable_deprecated'])) {
+								$subnav .= subnavtext($BL['be_subnav_admin_starttext'], "phpwcms.php?do=admin&amp;p=12", $p, "12", 0);
+							}
 							$subnav .= subnavtext($BL['be_alias'], 'phpwcms.php?do=admin&amp;p=13', $p, "13", 0);
 							$subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'phpwcms.php?do=admin&amp;p=14', $p, "14", 0);
 
-							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
+							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							//$subnav .= subnavtext($BL['be_cnt_cache_update'], 'include/inc_act/act_cache.php', 1, 0, 0);
 							//$subnav .= subnavtext($BL['be_cnt_cache_delete'], 'include/inc_act/act_cache.php?do=9', 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_cache_delete_msg'].'\');" ');
 							$subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?action=flush_image_cache&value=1\');" ');
 							$subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
-							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="15" width="1" alt="" /></td></tr>'."\n";
+							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
 						}
 						break;
@@ -460,16 +464,20 @@ if($BE['LANG'] == 'ar') {
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php');
       			break;
 
-				case 10:	//Frontend CSS
-      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.frontendcss.tmpl.php');
+				case 10: //Frontend CSS
+				if(!empty($phpwcms['enable_deprecated'])) {
+      				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.frontendcss.tmpl.php');
+      			}
       			break;
 
-				case 11:	//Templates
+				case 11: //Templates
       			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php');
       			break;
 
-      			case 12:	//Default backend starup HTML
-      			include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php');
+      			case 12: //Default backend starup HTML
+      			if(!empty($phpwcms['enable_deprecated'])) {
+      				include(PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php');
+      			}
       			break;
 
 				//Default backend sitemap HTML
@@ -520,6 +528,7 @@ if($BE['LANG'] == 'ar') {
 		default:
 			include(PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php');
 			include(PHPWCMS_TEMPLATE.'inc_default/startup.php');
+			echo phpwcmsversionCheck();
 			$phpwcms['be_parse_lang_process'] = true;
 
 	}
