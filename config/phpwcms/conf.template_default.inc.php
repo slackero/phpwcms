@@ -397,4 +397,10 @@ $template_default['attributes'] = array(
 	)
 );
 
+$template_default['settings'] = array(
+	 // the default behavior is to switch to article detail
+	 // mode if there is only 1 article left in the category
+	'force_article_list_mode' => 0
+);
+
 ?>
