@@ -181,9 +181,18 @@ if (!defined('PHPWCMS_ROOT')) {
 				<td colspan="4" class="tdtop5"></td>
 			</tr>
 
+<?php		if(!ini_get('allow_url_fopen')): ?>
+
+			<tr>
+				<td class="error tdtop5" colspan="4">
+					<strong>Set PHP INI Value 'allow_url_fopen = 1'</strong>
+				</td>
+			</tr>
+
+<?php		endif; ?>
 			<tr>
 				<td class="chatlist valign-middle">
-					<input type="radio" name="pref_shipping_calc" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
+					<input type="radio" name="pref_shipping_calc" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();"<?php if(!ini_get('allow_url_fopen')): ?> disabled="disabled"<?php endif; ?> />
 					<?php echo $BLM['shopprod_distance'] ?>&nbsp;
 				</td>
 				<td class="chatlist valign-middle tdtop4 right"><?php echo $BLM['shopprod_net'] ?>&nbsp;</td>
@@ -367,6 +376,21 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html_specialchars($plugin['data']['shop_pref_terms']);
 
 		?></textarea></td>
+	</tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+	<tr>
+		<td align="right" class="chatlist tdtop3"><?php echo $BLM['shopprod_api'] ?>:&nbsp;</td>
+		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td><input type="checkbox" name="pref_api_access" id="pref_api_access" value="1"<?php is_checked('1', $plugin['data']['shop_pref_api_access']); ?> onchange="enableSubmit();" /></td>
+				<td class="f10"><label for="pref_api_access"><?php echo $BLM['shopprod_api_access']; ?></label>&nbsp;&nbsp;&nbsp;</td>
+				<td class="chatlist"><?php echo trim($BLM['shopprod_api_key']) ?>:&nbsp;</td>
+				<td><input name="pref_api_key" type="text" id="pref_api_key" class="v12 width175" value="<?php echo html_specialchars($plugin['data']['shop_pref_api_key']) ?>" size="20" maxlength="50" onchange="enableSubmit();" /></td>
+			</tr>
+		</table></td>
+
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="18" /></td></tr>

@@ -25,20 +25,21 @@ function image_manipulate($config=array()) {
 
 	// Merge config values with default
 	$config = array_merge(array(
-			"max_width"		=> $phpwcms["img_list_width"],
-			"max_height"	=> $phpwcms["img_list_height"],
-			"error"			=> '',
-			"image_name"	=> '',
-			"thumb_name"	=> '',
-			"target_ext"	=> 'jpg',
-			"image_dir"		=> PHPWCMS_ROOT.'/'.PHPWCMS_FILES,
-			"thumb_dir"		=> PHPWCMS_THUMB,
-			'jpg_quality'	=> 85,
-			'sharpen_level'	=> 0,
-			'density'		=> 72,
-			'add_command'	=> '',
-			'crop_image'	=> false,
-			'master_dim'	=> 'auto'
+		"max_width"		=> $phpwcms["img_list_width"],
+		"max_height"	=> $phpwcms["img_list_height"],
+		"error"			=> '',
+		"image_name"	=> '',
+		"thumb_name"	=> '',
+		"target_ext"	=> 'jpg',
+		"image_dir"		=> PHPWCMS_ROOT.'/'.PHPWCMS_FILES,
+		"thumb_dir"		=> PHPWCMS_THUMB,
+		'jpg_quality'	=> 85,
+		'sharpen_level'	=> 0,
+		'density'		=> 72,
+		'add_command'	=> '',
+		'crop_image'	=> false,
+		'crop_pos'		=> '',
+		'master_dim'	=> 'auto'
 		), $config);
 
 	// Test width and height and set correct dimensions
@@ -68,7 +69,6 @@ function image_manipulate($config=array()) {
 
 	// Doubled config setting but especially for Image manipulation class
 	$image_config = array(
-
 		'image_library'		=> $phpwcms['image_library'],
 		'library_path'		=> $phpwcms['library_path'],
 		'source_image'		=> $config["image_dir"].$config["image_name"],
@@ -82,7 +82,6 @@ function image_manipulate($config=array()) {
 		'create_thumb'		=> false,
 		'target_ext'		=> $config["target_ext"],
 		'colorspace'		=> $phpwcms['colorspace']
-
 	);
 
 	$IMG = new Phpwcms_Image_lib($image_config);
@@ -130,7 +129,7 @@ function image_manipulate($config=array()) {
 
 	if($config['crop_image']) {
 
-		$image_config = set_cropped_imagesize($image_config, $IMG->orig_width, $IMG->orig_height);
+		$image_config = set_cropped_imagesize($image_config, $IMG->orig_width, $IMG->orig_height, $config['crop_pos']);
 
 		if( $image_config['do_cropping'] ) {
 
@@ -156,6 +155,7 @@ function image_manipulate($config=array()) {
 
 	} else {
 
+
 		$IMG->resize();
 
 	}
@@ -173,13 +173,14 @@ function image_manipulate($config=array()) {
 function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=true) {
 
 	$val = array_merge(array(
-		"max_width"		=>	$GLOBALS['phpwcms']["img_list_width"],
-		"max_height"	=>	$GLOBALS['phpwcms']["img_list_height"],
-		"image_dir"		=>	PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
-		"thumb_dir"		=>	PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES,
-		'jpg_quality'	=>	$GLOBALS['phpwcms']['jpg_quality'],
-		'sharpen_level'	=>	$GLOBALS['phpwcms']['sharpen_level'],
-		'crop_image'	=>	false
+		"max_width"		=> $GLOBALS['phpwcms']["img_list_width"],
+		"max_height"	=> $GLOBALS['phpwcms']["img_list_height"],
+		"image_dir"		=> PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
+		"thumb_dir"		=> PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES,
+		'jpg_quality'	=> $GLOBALS['phpwcms']['jpg_quality'],
+		'sharpen_level'	=> $GLOBALS['phpwcms']['sharpen_level'],
+		'crop_image'	=> false,
+		'crop_pos'		=> ''
 	), $val);
 
 	$imgCache = false; //do not insert file information in db image cache
@@ -188,20 +189,22 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 	$image_hash = substr($val['image_name'], 0, (strlen($val['target_ext']) * -1) - 1);
 
 	// now check if thumbnail was created - proof for GIF, PNG, JPG
-
 	$thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
 	if(is_file($thumb_check .'.jpg')) {
 
 		$thumb_image_info[0] = $val['thumb_name'] .'.jpg';
+		$thumb_image_info['type'] = 'image/jpeg';
 
 	} elseif(is_file($thumb_check .'.png')) {
 
 		$thumb_image_info[0] = $val['thumb_name'] .'.png';
+		$thumb_image_info['type'] = 'image/png';
 
 	} elseif(is_file($thumb_check .'.gif')) {
 
 		$thumb_image_info[0] = $val['thumb_name'] .'.gif';
+		$thumb_image_info['type'] = 'image/gif';
 
 	} else {
 
@@ -252,7 +255,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 	return $thumb_image_info;
 }
 
-function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
+function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos='') {
 	$config['resize_width']		= $config['width'];
 	$config['resize_height']	= $config['height'];
 	$config['x_axis']			= 0;
@@ -260,6 +263,19 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
 	$config['do_cropping']		= false;
 
 	if($orig_width && $orig_height) {
+
+		// fallback if $orig_width < $config['width'] or $orig_height < $config['height']
+		$resize_factor = 1;
+		if($orig_width < $config['width']) {
+			$resize_factor = $config['width'] / $orig_width;
+		}
+		if($orig_height < $config['height']) {
+			$resize_factor = max($resize_factor, ($config['height'] / $orig_height));
+		}
+		if($resize_factor > 1) {
+			$orig_width = ceil($orig_width * $resize_factor);
+			$orig_height = ceil($orig_height * $resize_factor);
+		}
 
 		// compare original image sizes against cropped image size
 		$ratio_width	= $orig_width / $config['width'];
@@ -275,10 +291,10 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
 
 				if( $ratio_width <= $ratio_height ) {
 					$config['resize_height']	= ceil( $orig_height / $ratio_width );
-					$config['y_axis']			= round( ( $config['resize_height'] - $config['height'] ) / 2 );
+					$config['y_axis']			= get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']); //round( ( $config['resize_height'] - $config['height'] ) / 2 );
 				} else {
 					$config['resize_width']		= ceil( $orig_width / $ratio_height );
-					$config['x_axis']			= round( ( $config['resize_width'] - $config['width'] ) / 2 );
+					$config['x_axis']			= get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']); //round( ( $config['resize_width'] - $config['width'] ) / 2 );
 				}
 
 			// source image dimensions width and/or height is smaller than target
@@ -286,17 +302,33 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0) {
 
 				if( $ratio_width <= $ratio_height ) {
 					$config['resize_width']		= ceil( $orig_width + ( $orig_width * ( 1 - $ratio_height ) ) );
-					$config['x_axis']			= round( ( $config['resize_width'] - $config['width'] ) / 2 );
+					$config['x_axis']			= get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']); //round( ( $config['resize_width'] - $config['width'] ) / 2 );
 				} else {
 					$config['resize_height']	= ceil( $orig_height + ( $orig_height * ( 1 - $ratio_width ) ) );
-					$config['y_axis']			= round( ( $config['resize_height'] - $config['height'] ) / 2 );
+					$config['y_axis']			= get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']); //round( ( $config['resize_height'] - $config['height'] ) / 2 );
 				}
 			}
-
 		}
 	}
 
 	return $config;
+}
+
+// set croppy x/y axis values
+function get_cropped_pos($axis, $pos, $default_size, $crop_value) {
+
+	// tl, tc, tr, cl, cc, cr , bl, bc, br
+	$distance = $default_size - $crop_value;
+	$pos = $axis == 'y' ? substr($pos, 0, 1) : substr($pos, -1);
+
+	if($pos == 't' || $pos == 'l') {
+		return 0;
+	} elseif($pos == 'b' || $pos == 'r') {
+		return $distance;
+	} else {
+		return round($distance / 2);
+	}
+
 }
 
 // something did not work - return transparent 1x1px GIF

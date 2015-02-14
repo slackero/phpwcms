@@ -16,7 +16,9 @@ function shop_url($get='', $type='htmlentities') {
 	} elseif(empty($get)) {
 		$get = '';
 	}
-	if($get) $get = '&'.$get;
+	if($get) {
+		$get = '&'.$get;
+	}
 	if(empty($type) || $type != 'htmlentities') {
 		$base = str_replace('&amp;', '&', MODULE_HREF);
 	} else {
@@ -26,19 +28,24 @@ function shop_url($get='', $type='htmlentities') {
 }
 
 function roundAll($a) {
-	$a = floatval($a);
-	return round($a, 2);
+	return round(floatval($a), 2);
 }
 
 function order_status($is='', $status='') {
-	$is		= strtoupper($is);
-	$status	= strtoupper($status);
-	if(strpos($status, $is) !== FALSE) {
+	if(strpos(strtoupper($status), strtoupper($is)) !== FALSE) {
 		return ' checked="checked"';
 	}
 	return '';
 }
 
-
+function get_shop_option_value_config() {
+	return array(
+		'dec_point' => isset($GLOBALS['BLM']['dec_point']) ? $GLOBALS['BLM']['dec_point'] : '.',
+		'thousands_sep' => isset($GLOBALS['BLM']['thousands_sep']) ? $GLOBALS['BLM']['thousands_sep'] : ',',
+		'null' => 1,
+		'prefix' => ', ',
+		'suffix' => '' // _getConfig( 'shop_pref_currency' )
+	);
+}
 
 ?>

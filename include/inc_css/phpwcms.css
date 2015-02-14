@@ -397,7 +397,7 @@ h1 {
 .versioncheck {
 	padding: 6px;
 	border: 1px solid #A0BBD6;
-	margin: 0 0 15px 0;
+	margin-top: 15px;
 }
 .versioncheck p {
 	padding: 0;

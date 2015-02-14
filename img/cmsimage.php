@@ -78,7 +78,7 @@ if(isset($data[1])) {
 			phpwcms_empty_gif();
 
 		} else {
-			$data[0] = preg_replace('/[^0-9xgsXGS]/', '', $data[0]);
+			$data[0] = preg_replace('/[^0-9xgsXGSctrlb\-]/', '', $data[0]);
 		}
 
 		if(is_intval($hash)) {
@@ -132,12 +132,23 @@ if(isset($data[1])) {
 			$attribute	= explode('x', $data[0]);
 			$width		= intval($attribute[0]);
 			$height		= isset($attribute[1]) ? intval($attribute[1]) : 0;
-			$crop		= isset($attribute[2]) ? intval($attribute[2]) : 0;
+			$crop		= isset($attribute[2]) ? $attribute[2] : 0;
+			$crop_pos	= ''; // the old behavior center,center | cc
+			$grid		= 0;
 			if($crop) {
-				$grid	= $crop > 1 ? $crop : 0;
-				$crop	= 1;
-			} else {
-				$grid	= 0;
+				$crop	= explode('-', $crop, 2);
+
+				if(isset($crop[1]) && in_array($crop[1], array('tl', 'tc', 'tr', 'cl', 'cr', 'bl', 'bc', 'br'))) {
+					$crop_pos = $crop[1];
+				}
+				$crop	= intval($crop[0]);
+				if($crop) {
+					$grid		= $crop > 1 ? $crop : 0;
+					$crop		= 1;
+				} else {
+					$crop_pos	= '';
+					$crop		= 0;
+				}
 			}
 
 			// quality
@@ -159,8 +170,9 @@ if(isset($data[1])) {
 			$value["max_height"]	= $height ? $height : '';
 			$value['target_ext']	= $ext;
 			$value['image_name']	= $hash . '.' . $ext;
-			$value['thumb_name']	= md5($hash.$value["max_width"].$value["max_height"].$phpwcms['sharpen_level'].$crop.$quality.$phpwcms['colorspace']);
+			$value['thumb_name']	= md5($hash.$value["max_width"].$value["max_height"].$phpwcms['sharpen_level'].$crop.$crop_pos.$quality.$phpwcms['colorspace']);
 			$value['crop_image']	= $crop;
+			$value['crop_pos']		= $crop_pos;
 
 			// Set width/height based on grid
 			if($grid) {
@@ -199,10 +211,18 @@ if(isset($data[1])) {
 				$value["max_height"] = $basis * $grid;
 			}
 
-			$image = get_cached_image( $value, false, false );
-
-			if(!empty($image[0])) {
-				headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0], 301);
+			if(($image = get_cached_image( $value, false, false )) && !empty($image[0])) {
+				// Redirect, the "old" way
+				if(!empty($phpwcms['cmsimage_redirect'])) {
+					headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0], 301);
+				}
+				if(empty($image['type'])) {
+					$image['type'] = get_mimetype_by_extension(which_ext($image[0]));
+				}
+				header('Content-Type: ' . $image['type']);
+				header('Content-Disposition: inline');
+				@readfile(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0]);
+				exit;
 			}
 
 		}

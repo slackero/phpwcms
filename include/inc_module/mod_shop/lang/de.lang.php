@@ -130,5 +130,8 @@ $BLM['shopprod_overwrite_meta']	= 'Produktdetail &uuml;berschreibt Metadaten';
 
 $BLM['shopprod_distance'] = 'Entfernung (km)';
 $BLM['shopprod_distance_base'] = 'Ausgangsadresse';
+$BLM['shopprod_api'] = 'API Schnittstelle';
+$BLM['shopprod_api_access'] = 'Zugriff gestatten';
+$BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';
 
 ?>
