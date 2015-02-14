@@ -155,6 +155,7 @@ function image_manipulate($config=array()) {
 
 	} else {
 
+
 		$IMG->resize();
 
 	}
@@ -262,6 +263,19 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos
 	$config['do_cropping']		= false;
 
 	if($orig_width && $orig_height) {
+
+		// fallback if $orig_width < $config['width'] or $orig_height < $config['height']
+		$resize_factor = 1;
+		if($orig_width < $config['width']) {
+			$resize_factor = $config['width'] / $orig_width;
+		}
+		if($orig_height < $config['height']) {
+			$resize_factor = max($resize_factor, ($config['height'] / $orig_height));
+		}
+		if($resize_factor > 1) {
+			$orig_width = ceil($orig_width * $resize_factor);
+			$orig_height = ceil($orig_height * $resize_factor);
+		}
 
 		// compare original image sizes against cropped image size
 		$ratio_width	= $orig_width / $config['width'];
