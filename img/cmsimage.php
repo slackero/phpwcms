@@ -211,10 +211,18 @@ if(isset($data[1])) {
 				$value["max_height"] = $basis * $grid;
 			}
 
-			$image = get_cached_image( $value, false, false );
-
-			if(!empty($image[0])) {
-				headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0], 301);
+			if(($image = get_cached_image( $value, false, false )) && !empty($image[0])) {
+				// Redirect, the "old" way
+				if(!empty($phpwcms['cmsimage_redirect'])) {
+					headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0], 301);
+				}
+				if(empty($image['type'])) {
+					$image['type'] = get_mimetype_by_extension(which_ext($image[0]));
+				}
+				header('Content-Type: ' . $image['type']);
+				header('Content-Disposition: inline');
+				@readfile(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0]);
+				exit;
 			}
 
 		}

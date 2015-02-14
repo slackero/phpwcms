@@ -193,14 +193,17 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 	if(is_file($thumb_check .'.jpg')) {
 
 		$thumb_image_info[0] = $val['thumb_name'] .'.jpg';
+		$thumb_image_info['type'] = 'image/jpeg';
 
 	} elseif(is_file($thumb_check .'.png')) {
 
 		$thumb_image_info[0] = $val['thumb_name'] .'.png';
+		$thumb_image_info['type'] = 'image/png';
 
 	} elseif(is_file($thumb_check .'.gif')) {
 
 		$thumb_image_info[0] = $val['thumb_name'] .'.gif';
+		$thumb_image_info['type'] = 'image/gif';
 
 	} else {
 
