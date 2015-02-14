@@ -138,6 +138,7 @@ $phpwcms['log_404error']		= false; // log each 404 for redirect edit
 $phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend
 $phpwcms['header_comment']		= '';
 $phpwcms['cnt_sort']			= 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'
+$phpwcms['cmsimage_redirect']	= false; // redirect to the resized/cropped image if true
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address
