@@ -629,7 +629,7 @@ if(!$aktion[4]) {
 
 		$content['opengraph']['type'] = 'article';
 
-		if($content['struct'][ $content['cat_id'] ]['acat_topcount'] === -1 || ($content["article_list_count"] === 1 && empty($template_default['settings']['force_article_list_mode']))) {
+		if($content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1 || ($content["article_list_count"] === 1 && empty($template_default['settings']['force_article_list_mode']))) {
 		    // if($temp_counter == 1) {
 			// if only 1 article for this category available
 			// then show this article directly
