@@ -221,7 +221,7 @@ if(isset($data[1])) {
 				}
 				header('Content-Type: ' . $image['type']);
 				header('Content-Disposition: inline');
-				@readfile(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0]);
+				@readfile(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES.$image[0]);
 				exit;
 			}
 
