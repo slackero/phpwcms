@@ -55,20 +55,35 @@ if(isset($data[1])) {
 				$convert_function	= 'phpwcms_convertimage_'.$convert_function;
 
 				// deliver cached image first
-				if(is_file(PHPWCMS_THUMB.$target_image)) {
-					headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$target_image, 301);
+				if(!is_file(PHPWCMS_THUMB.$target_image)) {
+
+					$result = $convert_function(PHPWCMS_THUMB.$source_image, PHPWCMS_THUMB.$target_image);
+
+					if(empty($result['error']) && !empty($result['image'])) {
+
+						$target_image = $result['image'];
+
+					} elseif(is_file(PHPWCMS_THUMB.$source_image)) {
+
+						$target_image = $source_image;
+
+					} else {
+
+						$target_image = '';
+					}
+
 				}
 
-				$result = $convert_function(PHPWCMS_THUMB.$source_image, PHPWCMS_THUMB.$target_image);
+				if($target_image) {
 
-				if(empty($result['error']) && !empty($result['image'])) {
+					if(!empty($phpwcms['cmsimage_redirect'])) {
+						headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$target_image, 301);
+					}
 
-					headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$result['image'], 301);
-
-				} elseif(is_file(PHPWCMS_THUMB.$source_image)) {
-
-					headerAvoidPageCaching();
-					headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$source_image, 301);
+					header('Content-Type: ' . get_mimetype_by_extension($ext));
+					header('Content-Disposition: inline');
+					@readfile(PHPWCMS_THUMB.$target_image);
+					exit;
 
 				}
 
@@ -221,7 +236,7 @@ if(isset($data[1])) {
 				}
 				header('Content-Type: ' . $image['type']);
 				header('Content-Disposition: inline');
-				@readfile(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES.$image[0]);
+				@readfile(PHPWCMS_THUMB.$image[0]);
 				exit;
 			}
 

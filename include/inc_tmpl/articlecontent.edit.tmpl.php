@@ -428,13 +428,21 @@ if($content['cp_setting_mode']):
 			function checkCntBlockPaginate(obj) {
 				var paginate = document.getElementById("cpaginate_page");
 				var block = obj.options[obj.selectedIndex].value;
+				var system1 = document.getElementById('system1');
+				var ctab = document.getElementById('ctab');
 
-				document.getElementById('system1').style.display = (block == 'SYSTEM' ? 'table-row' : 'none');
+				if(block == 'SYSTEM') {
+					system1.style.display = 'table-row';
+					ctab.disabled = true;
+				} else {
+					system1.style.display = 'none';
+					ctab.disabled = false;
+				}
 
 				if(block != "CONTENT") {
 					if(paginate.value != "0" && loadblock == false) {
 						if(!confirm("<?php echo $BL['be_cnt_subsection_warning'] ?>")) {
-							getObjectById("cblock").selectedIndex = 0;
+							obj.selectedIndex = 0;
 							return false;
 						}
 					}
