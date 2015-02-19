@@ -12,7 +12,7 @@
 // build Google Sitemap based on available articles
 
 $phpwcms = array();
-require_once ('config/phpwcms/conf.inc.php');
+require_once ('include/config/conf.inc.php');
 
 // set neccessary charset
 $phpwcms["charset"] = 'utf-8';
@@ -21,7 +21,7 @@ define('CUSTOM_CONTENT_TYPE', 'Content-Type: text/xml');
 require_once ('include/inc_lib/default.inc.php');
 define('VISIBLE_MODE', 0);
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php');
+require_once (PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
 
@@ -40,8 +40,8 @@ $struct = get_struct_data();
 $phpwcms['sitemap_set_base'] = true;
 $phpwcms['sitemap_set_default'] = true;
 
-if(is_file(PHPWCMS_ROOT.'/config/phpwcms/sitemap.custom.php')) {
-	include(PHPWCMS_ROOT.'/config/phpwcms/sitemap.custom.php');
+if(is_file(PHPWCMS_ROOT.'/include/config/sitemap.custom.php')) {
+	include(PHPWCMS_ROOT.'/include/config/sitemap.custom.php');
 }
 
 if(function_exists('phpwcms_getCustomSitemap')) {
@@ -91,8 +91,8 @@ if($phpwcms['sitemap_set_default']) {
 	}
 }
 
-if(is_file(PHPWCMS_ROOT.'/config/phpwcms/sitemap.custom.ini')) {
-	$customSitemapLinks = parse_ini_file (PHPWCMS_ROOT.'/config/phpwcms/sitemap.custom.ini', true);
+if(is_file(PHPWCMS_ROOT.'/include/config/sitemap.custom.ini')) {
+	$customSitemapLinks = parse_ini_file (PHPWCMS_ROOT.'/include/config/sitemap.custom.ini', true);
 	if(is_array($customSitemapLinks) && count($customSitemapLinks)) {
 		$_addURL += $customSitemapLinks;
 		unset($customSitemapLinks);

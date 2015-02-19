@@ -13,7 +13,7 @@
 
 // Only internal form sender allowed
 $phpwcms = array();
-require_once ('../../config/phpwcms/conf.inc.php');
+require_once ('../../include/config/conf.inc.php');
 
 $url = $phpwcms["site"];
 $url = str_replace('http://', '', $url);

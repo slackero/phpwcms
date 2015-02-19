@@ -22,14 +22,14 @@ $indexpage			= array();
 
 // load general configuration
 $basepath			= str_replace('\\', '/', dirname(__FILE__));
-if(!is_file($basepath.'/config/phpwcms/conf.inc.php')) {
+if(!is_file($basepath.'/include/config/conf.inc.php')) {
 	if(is_file($basepath.'/setup/index.php')) {
 		header('Location: setup/index.php');
 		exit();
 	}
 	die('Error: Config file missing. Check your setup!');
 }
-require_once $basepath.'/config/phpwcms/conf.inc.php';
+require_once $basepath.'/include/config/conf.inc.php';
 require_once $basepath.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
@@ -56,8 +56,8 @@ ob_start();
 
 $content['page_end'] = '';
 
-require_once PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php';
-require_once PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
+require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';

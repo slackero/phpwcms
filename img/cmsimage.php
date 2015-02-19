@@ -12,7 +12,7 @@
 
 $phpwcms	= array();
 $root		= rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
-require($root.'/config/phpwcms/conf.inc.php');
+require($root.'/include/config/conf.inc.php');
 require($root.'/include/inc_lib/default.inc.php');
 require($root.'/include/inc_lib/general.inc.php');
 require($root.'/include/inc_lib/imagick.convert.inc.php');

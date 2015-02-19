@@ -12,7 +12,7 @@
 session_start();
 
 $phpwcms = array();
-require_once ('config/phpwcms/conf.inc.php');
+require_once ('include/config/conf.inc.php');
 
 if(empty($_SESSION["wcs_user_lang"])) {
 	session_destroy();

@@ -277,7 +277,7 @@ if($opt) {
 	<tr bgcolor="#E6EAED">
 		<td>&nbsp;</td>
 		<td class="chatlist tdbottom3"><?php echo $BL['be_overwrite_default'] ?>
-		<br  /><strong>config/phpwcms/conf.template_default.inc.php</strong></td>
+		<br  /><strong>include/config/conf.template_default.inc.php</strong></td>
 	</tr>
 
 

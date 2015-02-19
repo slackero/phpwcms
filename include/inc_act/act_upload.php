@@ -18,7 +18,7 @@ if(empty($_SESSION["wcs_user_id"])) {
 }
 
 $phpwcms = array();
-require ('../../config/phpwcms/conf.inc.php');
+require ('../../include/config/conf.inc.php');
 require ('../inc_lib/default.inc.php');
 require (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
 require (PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php');
