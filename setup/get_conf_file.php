@@ -11,14 +11,14 @@
 
 $base_path = dirname(__FILE__);
 
-if(file_exists($base_path.'/setup.conf.inc.php')) {
+if(is_file($base_path.'/setup.conf.inc.php')) {
 
 	require_once($base_path.'/inc/setup.func.inc.php');
 	require_once($base_path.'/setup.conf.inc.php');
-	
-	
+
+
 	if(empty($NO_ACCESS)) {
-	
+
 		header('Cache-Control: no-cache, must-revalidate'); // HTTP/1.1
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Datum in der Vergangenheit
 		header('Content-type: text/plain');
@@ -31,13 +31,13 @@ if(file_exists($base_path.'/setup.conf.inc.php')) {
 		} else {
 			$temp = 'Sorry there was a problem downloading "conf.inc.php". Check manually!';
 		}
-		
+
 		echo $temp;
-			
+
 	} else {
-	
+
 		header('Location: '.$phpwcms['site'].$phpwcms['root']);
-	
+
 	}
 }
 
