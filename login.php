@@ -13,9 +13,31 @@ session_start();
 
 $phpwcms	= array();
 $BL			= array();
+$basepath	= str_replace('\\', '/', dirname(__FILE__));
 
-require_once ('./include/config/conf.inc.php');
-require_once ('./include/inc_lib/default.inc.php');
+// Check if config is still at the old position
+if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/phpwcms/conf.inc.php')) {
+
+	if(!@rename($basepath.'/config/phpwcms', $basepath.'/include/config')):
+?>
+	<html><body>
+		<h4 style="color:#cc3300">
+			<strong>Your configuration is placed at the wrong position.</strong>
+		</h4>
+		<p>
+			Beginning with <strong>phpwcms v1.7.8</strong> base config files were moved from
+			directory <code>config/phpwcms</code> to directory <code>include/config</code>. The fallback
+			to do it automatically has failed. Please do it manually before you continue.
+		</p>
+	</body></html>
+<?php
+		die();
+
+	endif;
+}
+
+require_once ($basepath.'/include/config/conf.inc.php');
+require_once ($basepath.'/include/inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
