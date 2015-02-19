@@ -819,7 +819,7 @@ function phpwcms_getUserAgent($USER_AGENT='') {
 
 	$USER_AGENT = strtolower($USER_AGENT);
 
-	if(strpos($USER_AGENT, 'windows phone os') !== false) {
+	if(strpos($USER_AGENT, 'windows phone') !== false) {
 		$agent		= 'IEMobile';
 		$platform	= 'WinPhone';
 		$mobile		= 1;
