@@ -85,12 +85,12 @@ if(isset($_POST['do_pagination'])) {
 	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
 	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
 
-	$_SESSION['filter']			= clean_slweg($_POST['filter']);
-	if(empty($_SESSION['filter'])) {
-		unset($_SESSION['filter']);
+	$_SESSION['filter_calendar'] = clean_slweg($_POST['filter']);
+	if(empty($_SESSION['filter_calendar'])) {
+		unset($_SESSION['filter_calendar']);
 	} else {
-		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
-		$_POST['filter']	= $_SESSION['filter'];
+		$_SESSION['filter_calendar'] = convertStringToArray($_SESSION['filter_calendar'], ' ');
+		$_POST['filter'] = $_SESSION['filter_calendar'];
 	}
 
 }
@@ -114,24 +114,24 @@ if($_entry['list_active'] != $_entry['list_inactive']) {
 	$_entry['query'] .= 'calendar_status!=9';
 }
 
-if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
+if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar']) && count($_SESSION['filter_calendar'])) {
 
 	$_entry['filter_array'] = array();
 
-	foreach($_SESSION['filter'] as $_entry['filter']) {
+	foreach($_SESSION['filter_calendar'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
 		$_entry['filter_array'][] = "CONCAT(calendar_title, calendar_tag, calendar_text) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
 
-		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
-		$_entry['query'] .= $_SESSION['filter'];
+		$_SESSION['filter_calendar'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
+		$_entry['query'] .= $_SESSION['filter_calendar'];
 
 	}
 
-} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+} elseif(isset($_SESSION['filter_calendar']) && is_string($_SESSION['filter_calendar'])) {
 
-	$_entry['query'] .= $_SESSION['filter'];
+	$_entry['query'] .= $_SESSION['filter_calendar'];
 
 }
 
@@ -209,11 +209,13 @@ $plugin['dates'] = _dbQuery($sql);
 
 // run through dates and put in right day, fist for all non-repeating dates
 $_entry['dates'] = array();
-foreach($plugin['dates'] as $_entry['x']) {
+if($plugin['dates']) {
+	foreach($plugin['dates'] as $_entry['x']) {
 
-	$_entry['day'] = intval($_entry['x']['calendar_day']);
-	$_entry['dates'][ $_entry['day'] ][] = $_entry['x'];
+		$_entry['day'] = intval($_entry['x']['calendar_day']);
+		$_entry['dates'][ $_entry['day'] ][] = $_entry['x'];
 
+	}
 }
 
 $sql  = 'SELECT *, ';
@@ -233,59 +235,54 @@ $sql .= 'ORDER BY calendar_range_start ASC';
 $plugin['dates'] = _dbQuery($sql);
 
 // run through dates and put in right day, fist for all non-repeating dates
+if($plugin['dates']) {
+	foreach($plugin['dates'] as $_entry['y']) {
 
-foreach($plugin['dates'] as $_entry['y']) {
+		$_entry['day']						= intval($_entry['y']['calendar_day']);
+		$_entry['range_start_timestamp']	= strtotime($_entry['y']['calendar_range_start'].' 00:00:00');
+		$_entry['range_end_timestamp']		= strtotime($_entry['y']['calendar_range_end'].' 23:59:59');
+		$_entry['this_timestamp']			= strtotime($_entry['y']['calendar_start']);
+		$_entry['date_weekday']				= date('w', $_entry['this_timestamp']);
+		$_entry['day_month']				= date('j', $_entry['this_timestamp']);
+		$_entry['day_year']					= date('dm', $_entry['this_timestamp']);
 
-	$_entry['day']						= intval($_entry['y']['calendar_day']);
-	$_entry['range_start_timestamp']	= strtotime($_entry['y']['calendar_range_start'].' 00:00:00');
-	$_entry['range_end_timestamp']		= strtotime($_entry['y']['calendar_range_end'].' 23:59:59');
-	$_entry['this_timestamp']			= strtotime($_entry['y']['calendar_start']);
-	$_entry['date_weekday']				= date('w', $_entry['this_timestamp']);
-	$_entry['day_month']				= date('j', $_entry['this_timestamp']);
-	$_entry['day_year']					= date('dm', $_entry['this_timestamp']);
+		for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x'] <= $plugin['days_in_month']; $_entry['x']++, $_entry['timestamp']+=86400) {
 
-	for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x'] <= $plugin['days_in_month']; $_entry['x']++, $_entry['timestamp']+=86400) {
+			if($_entry['timestamp'] >= $_entry['range_start_timestamp'] && $_entry['timestamp'] <= $_entry['range_end_timestamp']) {
 
-		if($_entry['timestamp'] >= $_entry['range_start_timestamp'] && $_entry['timestamp'] <= $_entry['range_end_timestamp']) {
+				$_entry['weekday']		= date('w', $_entry['timestamp']);
+				// 1 daily
+				// 2 Every weekday (Mon-Fri)
+				// 3 Every Mon., Wed. and Fri.
+				// 4 Every Tues. and Thurs.
+				// 5 Weekly
+				// 6 Monthly
+				// 7 yearly
 
-			$_entry['weekday']		= date('w', $_entry['timestamp']);
-			// 1 daily
-			// 2 Every weekday (Mon-Fri)
-			// 3 Every Mon., Wed. and Fri.
-			// 4 Every Tues. and Thurs.
-			// 5 Weekly
-			// 6 Monthly
-			// 7 yearly
+				if(	$_entry['y']['calendar_range'] == 1
+					||
+					($_entry['y']['calendar_range'] == 2 && $_entry['weekday'] != 6 && $_entry['weekday'] != 0)
+					||
+					($_entry['y']['calendar_range'] == 3 && ($_entry['weekday'] == 1 || $_entry['weekday'] == 3 || $_entry['weekday'] == 5))
+					||
+					($_entry['y']['calendar_range'] == 4 && ($_entry['weekday'] == 2 || $_entry['weekday'] == 4))
+					||
+					($_entry['y']['calendar_range'] == 5 && $_entry['weekday'] == $_entry['date_weekday'])
+					||
+					($_entry['y']['calendar_range'] == 6 && $_entry['x'] == $_entry['day_month'])
+					||
+					($_entry['y']['calendar_range'] == 7 && date('dm', $_entry['timestamp']) == $_entry['day_year'])		)
+				{
 
-			if(	$_entry['y']['calendar_range'] == 1
-				||
-				($_entry['y']['calendar_range'] == 2 && $_entry['weekday'] != 6 && $_entry['weekday'] != 0)
-				||
-				($_entry['y']['calendar_range'] == 3 && ($_entry['weekday'] == 1 || $_entry['weekday'] == 3 || $_entry['weekday'] == 5))
-				||
-				($_entry['y']['calendar_range'] == 4 && ($_entry['weekday'] == 2 || $_entry['weekday'] == 4))
-				||
-				($_entry['y']['calendar_range'] == 5 && $_entry['weekday'] == $_entry['date_weekday'])
-				||
-				($_entry['y']['calendar_range'] == 6 && $_entry['x'] == $_entry['day_month'])
-				||
-				($_entry['y']['calendar_range'] == 7 && date('dm', $_entry['timestamp']) == $_entry['day_year'])		)
-			{
+					$_entry['y']['calendar_start_date']	= date('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $_entry['timestamp']);
+					$_entry['y']['calendar_end_date']	= $_entry['y']['calendar_start_date'];
+					$_entry['dates'][ $_entry['x'] ][]	= $_entry['y'];
 
-				$_entry['y']['calendar_start_date']	= date('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $_entry['timestamp']);
-				$_entry['y']['calendar_end_date']	= $_entry['y']['calendar_start_date'];
-				$_entry['dates'][ $_entry['x'] ][]	= $_entry['y'];
-
+				}
 			}
-
-
 		}
-
 	}
-
-
 }
-
 
 
 
@@ -328,8 +325,6 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 		}
 
 	}
-
-
 
 	if($_entry['rowspan']) {
 
@@ -420,7 +415,6 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 if(!empty($BLM['locale_string'])) {
 	setlocale(LC_TIME, $_oldLocale); //switch current locale back to old value
 }
-
 
 ?>
 

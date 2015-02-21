@@ -102,12 +102,11 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 			$_entry['query'] .= $_SESSION['redirect_filter'];
 		}
 
-	} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+	} elseif(isset($_SESSION['redirect_filter']) && is_string($_SESSION['redirect_filter'])) {
 
-		$_entry['query'] .= $_SESSION['filter'];
+		$_entry['query'] .= $_SESSION['redirect_filter'];
 
 	}
-
 
 	// paginating values
 	$_entry['count_total'] = _dbCount('SELECT COUNT(rid) FROM '.DB_PREPEND.'phpwcms_redirect WHERE '.$_entry['query']);

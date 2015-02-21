@@ -35,12 +35,12 @@ if(isset($_POST['do_pagination'])) {
 	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
 	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
 
-	$_SESSION['filter']			= clean_slweg($_POST['filter']);
-	if(empty($_SESSION['filter'])) {
-		unset($_SESSION['filter']);
+	$_SESSION['filter_ad_campaign'] = clean_slweg($_POST['filter']);
+	if(empty($_SESSION['filter_ad_campaign'])) {
+		unset($_SESSION['filter_ad_campaign']);
 	} else {
-		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
-		$_POST['filter']	= $_SESSION['filter'];
+		$_SESSION['filter_ad_campaign']	= convertStringToArray($_SESSION['filter_ad_campaign'], ' ');
+		$_POST['filter'] = $_SESSION['filter_ad_campaign'];
 	}
 
 	$_SESSION['ads_page'] = intval($_POST['page']);
@@ -69,24 +69,24 @@ if($_entry['list_active'] != $_entry['list_inactive']) {
 	$_entry['query'] .= 'adcampaign_status!=9';
 }
 
-if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
+if(isset($_SESSION['filter_ad_campaign']) && is_array($_SESSION['filter_ad_campaign']) && count($_SESSION['filter_ad_campaign'])) {
 
 	$_entry['filter_array'] = array();
 
-	foreach($_SESSION['filter'] as $_entry['filter']) {
+	foreach($_SESSION['filter_ad_campaign'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
 		$_entry['filter_array'][] = "CONCAT(adcampaign_title, adcampaign_comment) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
 
-		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
-		$_entry['query'] .= $_SESSION['filter'];
+		$_SESSION['filter_ad_campaign'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
+		$_entry['query'] .= $_SESSION['filter_ad_campaign'];
 
 	}
 
-} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+} elseif(isset($_SESSION['filter_ad_campaign']) && is_string($_SESSION['filter_ad_campaign'])) {
 
-	$_entry['query'] .= $_SESSION['filter'];
+	$_entry['query'] .= $_SESSION['filter_ad_campaign'];
 
 }
 
@@ -193,42 +193,47 @@ if($_SESSION['ads_page'] > 0 && $_SESSION['list_user_count']) {
 }
 $data = _dbQuery($sql);
 
-foreach($data as $row) {
+if($data) {
 
-	echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
-	echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/transmit.gif" alt="'.$BLM['campaign_entry'].'" /></td>'.LF;
-	echo '	<td width="50%">'.html($row["adcampaign_title"])."</td>\n";
+	foreach($data as $row) {
 
-	echo '	<td class="listFormat">'.html(date($BLM['list_date_format'], $row["adcampaign_start"]).'&#8211;'.date($BLM['list_date_format'], $row["adcampaign_end"]))."</td>\n";
+		echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
+		echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/transmit.gif" alt="'.$BLM['campaign_entry'].'" /></td>'.LF;
+		echo '	<td width="50%">'.html($row["adcampaign_title"])."</td>\n";
 
-	echo '	<td class="listFormat" nowrap="nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"].' {ADS_'.$row["adplace_id"]."}&nbsp;</td>\n";
+		echo '	<td class="listFormat">'.html(date($BLM['list_date_format'], $row["adcampaign_start"]).'&#8211;'.date($BLM['list_date_format'], $row["adcampaign_end"]))."</td>\n";
 
-	echo '	<td align="right" nowrap="nowrap" class="button_td">';
+		echo '	<td class="listFormat" nowrap="nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"].' {ADS_'.$row["adplace_id"]."}&nbsp;</td>\n";
 
-	echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;edit='.$row["adcampaign_id"].'">';
-	echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
+		echo '	<td align="right" nowrap="nowrap" class="button_td">';
 
-	echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;duplicate='.$row["adcampaign_id"].'" ';
-	echo 'title="'.$BLM['duplicate_title'].'" onclick="return confirm(\''.js_singlequote($BLM['duplicate_campaign']).' \n'.js_singlequote($BLM['campaign_title'].': '.html('"'.$row["adcampaign_title"].'"')).'\');"';
-	echo '><img src="img/button/copy_13x13.gif" border="0" alt="" /></a>';
+		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;edit='.$row["adcampaign_id"].'">';
+		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
 
-	echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;editid='.$row["adcampaign_id"].'&amp;verify=';
-	echo (($row["adcampaign_status"]) ? '0' : '1').'">';
-	echo '<img src="img/button/aktiv_12x13_'.$row["adcampaign_status"].'.gif" border="0" alt="" /></a>';
+		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;duplicate='.$row["adcampaign_id"].'" ';
+		echo 'title="'.$BLM['duplicate_title'].'" onclick="return confirm(\''.js_singlequote($BLM['duplicate_campaign']).' \n'.js_singlequote($BLM['campaign_title'].': '.html('"'.$row["adcampaign_title"].'"')).'\');"';
+		echo '><img src="img/button/copy_13x13.gif" border="0" alt="" /></a>';
 
-	echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;delete='.$row["adcampaign_id"];
-	echo '" title="delete: '.html($row["adcampaign_title"]).'"';
-	echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row["adcampaign_title"]).'\');">';
-	echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
+		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;editid='.$row["adcampaign_id"].'&amp;verify=';
+		echo (($row["adcampaign_status"]) ? '0' : '1').'">';
+		echo '<img src="img/button/aktiv_12x13_'.$row["adcampaign_status"].'.gif" border="0" alt="" /></a>';
 
-	echo "</td>\n</tr>\n";
+		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;delete='.$row["adcampaign_id"];
+		echo '" title="delete: '.html($row["adcampaign_title"]).'"';
+		echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row["adcampaign_title"]).'\');">';
+		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
 
-	$row_count++;
-}
+		echo "</td>\n</tr>\n";
 
+		$row_count++;
+	}
 
-if($row_count) {
 	echo '<tr><td colspan="5" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
+
+} else {
+
+	echo '<tr><td colspan="5" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
+
 }
 
 ?>
