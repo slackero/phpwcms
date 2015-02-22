@@ -12,8 +12,8 @@
 $phpwcms = array();
 
 $_this_path = realpath(dirname(__FILE__).'/../');
-if(is_file($_this_path.'/config/phpwcms/conf.inc.php')) {
-	require_once ($_this_path.'/config/phpwcms/conf.inc.php');
+if(is_file($_this_path.'/include/config/conf.inc.php')) {
+	require_once ($_this_path.'/include/config/conf.inc.php');
 } else {
 	die('Please proof location of "conf.inc.php".');
 }
@@ -100,33 +100,33 @@ body {
         <tr>
           <td align="right" class="chatlist">php.ini:&nbsp;</td>
           <td class="chatlist"><?php
-		  
+
 		  if(ini_get('register_globals')) {
 		  	echo 'register_globals = On -&gt; should always be set Off because of <a href="http://phpsec.org/projects/guide/1.html#1.3" target="_blank" style="text-decoration:underline">security risks</a>';
 		  } else {
 		    echo 'register_globals = Off -&gt; that\'s good :)';
 		  }
-		  
-		  
-		  
+
+
+
 		  ?></td>
         </tr>
         <tr>
           <td align="right" class="chatlist">&nbsp;</td>
           <td class="chatlist"><?php
-		  
+
 		  if(ini_get('safe_mode')) {
 		  	echo 'safe_mode = On -&gt; you have limited permissions, you might not be able to use ImageMagick';
 		  } else {
 		    echo 'safe_mode = Off -&gt; good when you want to use ImageMagick, may have some <a href="http://phpsec.org/" target="_blank" style="text-decoration:underline">security risks</a>';
 		  }
-		  
+
 		  ?></td>
         </tr>
         <tr>
           <td align="right" class="chatlist">&nbsp;</td>
-          <td class="chatlist">GD = <?php 
-					
+          <td class="chatlist">GD = <?php
+
 				$_phpinfo = parsePHPModules();
 				if(isset($_phpinfo['gd']['GD Support']) && $_phpinfo['gd']['GD Support'] == 'enabled') {
 					echo 'On';
@@ -134,9 +134,9 @@ body {
 				} else {
 					echo 'Off';
 				}
-				
-				
-		
+
+
+
 		?></td>
         </tr>
         <tr>
@@ -150,13 +150,13 @@ body {
   images, settings and custom scripts.</p>
 </div></td>
         </tr>
-		
+
         <tr>
           <td colspan="4"><img src="../img/leer.gif" alt="" width="1" height="6" /></td>
         </tr>
-    </table>      
+    </table>
 
-	
+
 
   <h1>When upgrading from releases older than 1.1.9:</h1>
  <p> There are some deeper changes. After upgrading db frame the following<br />
@@ -191,7 +191,7 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 if($do) {
 
 	@mysql_query('SET storage_engine=MYISAM', $db);
-	
+
 	if($phpwcms['db_version'] > 40100) {
 		$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
 		@mysql_query($value, $db);
@@ -213,16 +213,16 @@ if($do) {
 		if(!$value) {
 			unset($sql[$key]);
 		} else {
-		
+
 			if($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']=='utf8') {
 				$value = utf8_encode($value);
 			}
-		
+
 			if(!mysql_query($value)) echo '<span class="error">ERROR: '.html_entities(@mysql_error())." -&gt; </span>";
 			echo html_specialchars($value).";\n";
 		}
 	}
-	
+
 	echo '</pre></div>';
 
 } else {
@@ -268,11 +268,11 @@ if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation']) || empty($ph
     <td align="right">DB table prefix:</td>
     <td style="font-weight:bold; "><?php echo $phpwcms["db_prepend"] ?>&nbsp;</td>
   </tr>
-  
-  
 
-  
-  
+
+
+
+
   <tr bgcolor="#FFFFFF">
     <td align="right">&nbsp;select&nbsp;SQL&nbsp;file:</td>
     <td><select name="sqlfile" id="sqlfile" onchange="window.open(this.options[this.selectedIndex].value,'sqlqueries')">
@@ -284,25 +284,25 @@ if(is_dir($dir)) {
 	$ph			= opendir($dir);
 	$dir_sql	= array();
 	while($pf = readdir($ph)) {
-   		if( $pf != '.' && $pf != '..' && !is_dir($dir.'/'.$pf) && preg_match('/(\.sql)$/', strtolower($pf)) ) 
+   		if( $pf != '.' && $pf != '..' && !is_dir($dir.'/'.$pf) && preg_match('/(\.sql)$/', strtolower($pf)) )
 		{
 			$dir_sql[] = html_specialchars($pf);
 		}
 	}
 	closedir($ph);
-	
+
 	natsort($dir_sql);
-	
+
 	foreach($dir_sql as $pf) {
-	
+
 		echo '<option value="inc/showsql.php?f='.$pf.'">'.$pf."</option>\n";
-	
+
 	}
-	
+
 }
-	
-	
-	
+
+
+
 ?>
     </select></td>
   </tr>
@@ -311,13 +311,13 @@ if(is_dir($dir)) {
 <iframe name="sqlqueries" id="sqlqueries" frameborder="0" scrolling="auto" src="inc/showsql.php"></iframe>
 <p><input name="submit" type="submit" value="Upgrade database" /></p>
 </form>
-<?php 
+<?php
 
 }
 
 ?>
 
-		
+
 	</td>
     <td width="15" bgcolor="#FFFFFF" style="background-image:url(../img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>

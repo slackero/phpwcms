@@ -13,7 +13,7 @@
 
 $phpwcms				= array();
 $phpwcms['THIS_ROOT']	= realpath(dirname(__FILE__).'/../../');
-require($phpwcms['THIS_ROOT'].'/config/phpwcms/conf.inc.php');
+require($phpwcms['THIS_ROOT'].'/include/config/conf.inc.php');
 require($phpwcms['THIS_ROOT'].'/include/inc_lib/default.inc.php');
 
 // first check

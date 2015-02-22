@@ -1387,5 +1387,6 @@ $BL['be_audio_only']					= 'audio only';
 $BL['be_filter']						= 'filter';
 $BL['be_filter_with_tags']				= 'by tag';
 $BL['be_filter_not_selected']			= 'no category selected';
+$BL['be_empty_search_result']			= 'The search returned no results.';
 
 ?>

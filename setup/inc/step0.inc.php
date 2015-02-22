@@ -17,7 +17,7 @@ $_SESSION['admin_set'] = false;
   which <strong>phpwcms</strong> is released you can continue to install or upgrade <strong>phpwcms</strong>.</p>
 
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
-<p>Please proof all information about your system (recommend PHP 5.3+, MySQL 5.0+).</p>
+<p>Please proof all information about your system (recommend PHP 5.3+, MySQL 5.1+).</p>
 <ol>
   <li>WWW server: <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong></li>
   <li>PHP version: <?php
@@ -51,7 +51,7 @@ $_SESSION['admin_set'] = false;
 
 	echo '<strong>'.html_specialchars(mysql_get_client_info()) .'</strong>';
 
-	switch(version_compare('5.00.00', mysql_get_client_info())) {
+	switch(version_compare('5.1.0', mysql_get_client_info())) {
 
 		case -1:	// current MySQL isOK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';

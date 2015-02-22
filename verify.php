@@ -12,7 +12,7 @@
 // redirect verify to correct newsletter action
 
 $phpwcms = array();
-require_once ('config/phpwcms/conf.inc.php');
+require_once ('include/config/conf.inc.php');
 require_once ('include/inc_lib/default.inc.php');
 
 $type	= '';

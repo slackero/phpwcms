@@ -2,11 +2,11 @@
 /*
 
 	Use this to overwrite default "template_default" settings, wich are defined in
-	"config/phpwcms/conf.template_default.inc.php"
-	
+	"include/config/conf.template_default.inc.php"
+
 	Set only those values which shuld overwrite defaults.
 	Both arrays will be merged while frontend rendering process.
-	
+
 	To use an value remove the "//" (comment sign) in front of the value
 
  */
@@ -55,7 +55,7 @@
 //
 //$template_default['nav_table_struct']['js_over_effects']		= 1;
 //$template_default['nav_table_struct']['all_nodes_active']		= 1;
-//	
+//
 //$template_default['nav_table_struct']['linkimage_norm']			= '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
 //$template_default['nav_table_struct']['linkimage_over']			= '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
 //$template_default['nav_table_struct']['linkimage_active']		= '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
@@ -67,7 +67,7 @@
 //
 //$template_default['nav_table_struct']['row_norm_bgcolor']		= '#CC3300';
 //$template_default['nav_table_struct']['row_norm_class']			= '';
-//	
+//
 //$template_default['nav_table_struct']['row_over_bgcolor']		= '#D3ED7D'; //#AAB7C1
 //$template_default['nav_table_struct']['row_active_bgcolor']		= '#FFFFFF';
 //$template_default['nav_table_struct']['row_active_class']		= '';
@@ -80,8 +80,8 @@
  * ===============
  * setup unique style for each node/level
  * ['array_struct'][1] => the number represents level ID
- * so root level is [0] and so on...  
- 
+ * so root level is [0] and so on...
+
 //$template_default['nav_table_struct']['array_struct'][1]['linkimage_norm']		= '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
 //$template_default['nav_table_struct']['array_struct'][1]['linkimage_over']		= '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
 //$template_default['nav_table_struct']['array_struct'][1]['linkimage_active']	= '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
@@ -96,7 +96,7 @@
 //$template_default['nav_table_struct']['array_struct'][1]['row_over_bgcolor']	= '#FAEAC8';
 //$template_default['nav_table_struct']['array_struct'][1]['row_active_bgcolor']	= '#FAEAC8';
 //$template_default['nav_table_struct']['array_struct'][1]['row_active_class']	= //$template_default['nav_table_struct']['row_active_class'];
-			
+
 //$template_default['nav_table_struct']['array_struct'][1]['space_celltop']		= //$template_default['nav_table_struct']['space_celltop'];
 //$template_default['nav_table_struct']['array_struct'][1]['space_cellbottom']	= //$template_default['nav_table_struct']['space_cellbottom'];
 

@@ -11,7 +11,7 @@
 
 session_start();
 $phpwcms = array();
-require_once ('../../config/phpwcms/conf.inc.php');
+require_once ('../../include/config/conf.inc.php');
 require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');

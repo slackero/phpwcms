@@ -14,7 +14,7 @@
 
 session_start();
 $phpwcms = array();
-require_once ('../../config/phpwcms/conf.inc.php');
+require_once ('../../include/config/conf.inc.php');
 require_once ('../inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
@@ -99,7 +99,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$sql .= "\$indexpage['acat_disable301']	= ".	(empty($_POST["acat_disable301"]) ? 0 : 1).";\n";
 		$sql .= "\$indexpage['acat_opengraph']	= ".	(empty($_POST["acat_opengraph"]) ? 0 : 1).";\n";
 		$sql .= "?>";
-		write_textfile(PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php', $sql);
+		write_textfile(PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php', $sql);
 	}
 
 	$acat_sort_fallback	= isset($_POST["acat_sort"]) ? intval(trim($_POST["acat_sort"])) : 0;

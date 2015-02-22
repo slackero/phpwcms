@@ -29,7 +29,7 @@ if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wc
 	$BE['LANG'] = $_SESSION["wcs_user_lang"];
 }
 
-require_once 'config/phpwcms/conf.inc.php';
+require_once 'include/config/conf.inc.php';
 require_once 'include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -54,8 +54,8 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 
 require_once PHPWCMS_ROOT.'/include/inc_lib/navi_text.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php';
-require_once PHPWCMS_ROOT.'/config/phpwcms/conf.template_default.inc.php';
-require_once PHPWCMS_ROOT.'/config/phpwcms/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
+require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
 // check modules

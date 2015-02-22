@@ -38,12 +38,12 @@ if(isset($_POST['do_pagination'])) {
 	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
 	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
 
-	$_SESSION['filter']			= clean_slweg($_POST['filter']);
-	if(empty($_SESSION['filter'])) {
-		unset($_SESSION['filter']);
+	$_SESSION['filter_seo']			= clean_slweg($_POST['filter']);
+	if(empty($_SESSION['filter_seo'])) {
+		unset($_SESSION['filter_seo']);
 	} else {
-		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
-		$_POST['filter']	= $_SESSION['filter'];
+		$_SESSION['filter_seo']	= convertStringToArray($_SESSION['filter_seo'], ' ');
+		$_POST['filter']	= $_SESSION['filter_seo'];
 	}
 
 	$_SESSION['seolog_page'] = intval($_POST['page']);
@@ -60,24 +60,24 @@ $_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_i
 
 $_entry['query'] = '';
 
-if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
+if(isset($_SESSION['filter_seo']) && is_array($_SESSION['filter_seo']) && count($_SESSION['filter_seo'])) {
 
 	$_entry['filter_array'] = array();
 
-	foreach($_SESSION['filter'] as $_entry['filter']) {
+	foreach($_SESSION['filter_seo'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
 		$_entry['filter_array'][] = "CONCAT(domain,query) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
 
-		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
-		$_entry['query'] .= $_SESSION['filter'];
+		$_SESSION['filter_seo'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
+		$_entry['query'] .= $_SESSION['filter_seo'];
 
 	}
 
-} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+} elseif(isset($_SESSION['filter_seo']) && is_string($_SESSION['filter_seo'])) {
 
-	$_entry['query'] .= $_SESSION['filter'];
+	$_entry['query'] .= $_SESSION['filter_seo'];
 
 }
 
@@ -175,31 +175,34 @@ $sql .= 'GROUP BY hash ORDER BY occurance DESC ';
 $sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 $data = _dbQuery($sql);
 
-#print_r($sql);
+if($data) {
 
-foreach($data as $row) {
+	foreach($data as $row) {
 
-	echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
+		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
 
-	echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;';
-	echo $row['occurance'];
-	echo '&nbsp;</td>';
+		echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;';
+		echo $row['occurance'];
+		echo '&nbsp;</td>';
 
-	echo '<td class="tdbottom3 tdtop3"><a href="';
-	echo html($row['referrer']).'" target="_blank">'.html($row['domain']);
-	echo '</a></td>';
+		echo '<td class="tdbottom3 tdtop3"><a href="';
+		echo html($row['referrer']).'" target="_blank">'.html($row['domain']);
+		echo '</a></td>';
 
-	echo '<td class="tdbottom3 tdtop3">';
-	echo html(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', PHPWCMS_CHARSET, false) : $row['query']);
-	echo '</td>';
+		echo '<td class="tdbottom3 tdtop3">';
+		echo html(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', PHPWCMS_CHARSET, false) : $row['query']);
+		echo '</td>';
 
-	echo "</tr>\n";
+		echo "</tr>\n";
 
-	$row_count++;
-}
+		$row_count++;
+	}
 
-if($row_count) {
 	echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
+
+} else {
+
+	echo '<tr><td colspan="3" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
 }
 
 ?>

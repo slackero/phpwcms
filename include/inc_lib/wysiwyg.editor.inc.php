@@ -56,7 +56,7 @@ if($wysiwyg_editor['editor']) {
 		],
 		width: 538,
 		height: 400,
-		extraPlugins: 'magicline',
+		extraPlugins: 'magicline,image2',
 		toolbarCanCollapse: true,
 		toolbarStartupExpanded: true,
 		forcePasteAsPlainText: true,

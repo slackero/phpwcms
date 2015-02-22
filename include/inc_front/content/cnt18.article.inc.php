@@ -593,7 +593,6 @@ if($guestbook['visible']) {
 				$guestbook['link_add'] .= '&amp;gbs='.html_specialchars(urlencode($guestbook['archiveselect']));
 			}
 
-
 			// goto previous guestbook page
 			if($aktion[5] > 0) {
 				$guestbook['prev_replace']  = '<a href="'.$guestbook['link_to'].($aktion[5] - 1).$guestbook['link_add'].'">$1</a>';
@@ -616,7 +615,7 @@ if($guestbook['visible']) {
 			$guestbook['nav'] = preg_replace('/{NEXT:(.*?)}/s', $guestbook['next_replace'], $guestbook['nav']);
 			$guestbook['nav'] = preg_replace('/{LAST:(.*?)}/s', $guestbook['last_replace'], $guestbook['nav']);
 
-			$guestbook['nav'] = preg_replace('/{PAGE:(\d+):(.*?)}/se', 'guestbook_pages($1, "$2", '.$aktion[5].', '.$guestbook['pagecount'].', "'.$guestbook['link_to'].'", "'.$guestbook['link_add'].'")', $guestbook['nav']);
+			$guestbook['nav'] = preg_replace_callback('/{PAGE:(\d+):(.*?)}/s', 'guestbook_pages', $guestbook['nav']);
 
 			// archive (form)
 			if( ! ( strpos($guestbook['nav'],'{ARCHIVE')===false ) ) {
@@ -719,7 +718,8 @@ if($guestbook['visible']) {
 
 		if(!function_exists('guestbook_date_callback')) {
 			function guestbook_date_callback($matches) {
-				return date($matches[1], empty($GLOBALS['guestbook']['row']['guestbook_created']) ? now() : $GLOBALS['guestbook']['row']['guestbook_created']);
+				global $guestbook;
+				return date($matches[1], empty($guestbook['row']['guestbook_created']) ? now() : $guestbook['row']['guestbook_created']);
 			}
 		}
 
