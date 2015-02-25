@@ -127,7 +127,7 @@ CREATE TABLE `phpwcms_article` (
   `article_norss` int(1) NOT NULL DEFAULT '1',
   `article_archive_status` int(1) NOT NULL DEFAULT '1',
   `article_menutitle` varchar(255) NOT NULL DEFAULT '',
-  `article_description` varchar(255) NOT NULL DEFAULT '',
+  `article_description` text NOT NULL,
   `article_lang` varchar(255) NOT NULL DEFAULT '',
   `article_lang_type` varchar(255) NOT NULL DEFAULT '',
   `article_lang_id` int(11) unsigned NOT NULL DEFAULT '0',

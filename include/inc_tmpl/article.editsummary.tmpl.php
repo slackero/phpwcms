@@ -237,7 +237,7 @@ calEnd.setYearCombo(false);
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-				<td><textarea name="article_description" rows="2" class="width440" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
+				<td><textarea name="article_description" rows="4" class="width440" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
