@@ -8,7 +8,7 @@ body {
 	background-repeat: repeat-x;
 	background-color: #C1D2E2;
 	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 140%;
 }
 h4 {
@@ -16,7 +16,7 @@ h4 {
 }
 form {
 	padding: 0;
-	margin: 5px 0 2px 0;
+	margin: 1em 0;
 }
 p {
 	margin: .5em 0;
@@ -209,4 +209,17 @@ ol, ul {
 ol li, ul li {
 	margin: 0;
 	padding: 0;
+}
+
+input[type="text"],
+input[type="submit"],
+input[type="password"],
+select,
+button {
+	font-size: 16px;
+	font-family: sans-serif;
+}
+input[type="text"],
+input[type="password"] {
+	margin: 1px 3px 1px 0;
 }

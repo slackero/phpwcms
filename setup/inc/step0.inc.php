@@ -10,6 +10,7 @@
  **/
 
 $_SESSION['admin_set'] = false;
+$setup_recommend = true;
 
 ?>
 <h1><span class="number">1.</span> Thanks! You have agreed to the GPL.</h1>
@@ -36,11 +37,13 @@ $_SESSION['admin_set'] = false;
 		case  0:	// the same version - HM not recommend
 					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
 					echo ' (your version of PHP is older - update recommend)';
+					$setup_recommend = false;
 					break;
 
 		case  1:	// false it's older
 					echo '<img src="../img/famfamfam/action_stop.gif" alt="Stop" class="icon1" />';
 					echo ' (your version of PHP is too old - it is not recommend to continue)';
+					$setup_recommend = false;
 					break;
 
 	}
@@ -49,22 +52,30 @@ $_SESSION['admin_set'] = false;
    ?></li>
   <li>MySQL version: <?php
 
-	echo '<strong>'.html_specialchars(mysql_get_client_info()) .'</strong>';
+	$mysql_version = mysql_get_client_info();
 
-	switch(version_compare('5.1.0', mysql_get_client_info())) {
+	echo '<strong>'.$mysql_version.'</strong>';
 
-		case -1:	// current MySQL isOK
-					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
-					break;
+	$mysql_version = explode('.', $mysql_version);
+	$mysql_version[0] = (int) $mysql_version[0];
+	$mysql_version[1] = empty($mysql_version[1]) ? 0 : (int) $mysql_version[1];
 
-		default:	// the same version or older
-					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-					echo ' (update recommend)';
+	if($mysql_version[0] >= 5 && $mysql_version[1] >= 1) {
 
+		// current MySQL isOK
+		echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
+
+	} else {
+
+		// the same version or older
+		echo '<img src="../img/famfamfam/action_stop.gif" alt="Stop" class="icon1" />';
+		echo ' (not supported any longer)';
+
+		$setup_recommend = false;
 	}
 
   ?></li>
-  <li>PHP settings<a href="http://www.php.net/manual/security.php" target="_blank" title="PHP Security"><img src="../img/famfamfam/icon_info.gif" alt="Security risks" class="icon1" border="0" /></a>
+  <li>PHP settings<a href="http://www.php.net/manual/en/security.php" target="_blank" title="PHP Security"><img src="../img/famfamfam/icon_info.gif" alt="Security risks" class="icon1" border="0" /></a>
   	<ul>
       <li><strong>register_globals </strong><?php
 
@@ -85,71 +96,71 @@ $_SESSION['admin_set'] = false;
 <?php if(version_compare(phpversion(), '5.4.0', '<')): ?>
       <li><strong>safe_mode </strong><?php
 
-		  if(ini_get('safe_mode')) {
-		  	echo '<strong>On</strong>';
+		if(ini_get('safe_mode')) {
+			echo '<strong>On</strong>';
 			echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
 			echo ' (limited permissions, but recommend)';
-		  } else {
-		    echo '<strong>Off</strong>';
+		} else {
+			echo '<strong>Off</strong>';
 			echo '<img src="../img/famfamfam/icon_alert.gif" alt="Warning" class="icon1" />';
 			echo ' (check information about security risks';
 			echo '<a href="http://www.php.net/features.safe-mode" target="_blank">';
 			echo '<img src="../img/famfamfam/icon_info.gif" alt="Security risks" class="icon1" border="0" />';
 			echo '</a>)';
-		  }
+		}
 
 		  ?></li>
 <?php endif; ?>
 
   	  <li><?php
 
-	  			$_phpinfo = parsePHPModules();
-				if(isset($_phpinfo['gd']['GD Support']) && $_phpinfo['gd']['GD Support'] == 'enabled' && isset($_phpinfo['gd']['GD Version'])) {
-					$_phpinfo['gd_version'] = html_specialchars($_phpinfo['gd']['GD Version']);
-				} else {
-					$_phpinfo['gd_version'] = 'n.a.';
-				}
+		$_phpinfo = parsePHPModules();
+		if(isset($_phpinfo['gd']['GD Support']) && $_phpinfo['gd']['GD Support'] == 'enabled' && isset($_phpinfo['gd']['GD Version'])) {
+			$_phpinfo['gd_version'] = html_specialchars($_phpinfo['gd']['GD Version']);
+		} else {
+			$_phpinfo['gd_version'] = 'n.a.';
+		}
 
-	  			echo '<strong>GD';
+			echo '<strong>GD';
 
-				if(function_exists('imagegd2')) {
-					echo '2</strong> '.$_phpinfo['gd_version'];
-					echo '<img src="../img/famfamfam/icon_accept.gif" alt="GD2" class="icon1" />';
-					$is_gd = true;
-				} elseif(function_exists('imagegd')) {
-					echo '1</strong> '.$_phpinfo['gd_version'];
-					echo '<img src="../img/famfamfam/icon_alert.gif" alt="GD1" class="icon1" />';
-					echo ' (GD2 is recommend)';
-					$is_gd = true;
-				} else {
-					echo ' not available</strong>';
-					echo '<img src="../img/famfamfam/action_stop.gif" alt="GD not present" class="icon1" />';
-					$is_gd = false;
-				}
+		if(function_exists('imagegd2')) {
+			echo '2</strong> '.$_phpinfo['gd_version'];
+			echo '<img src="../img/famfamfam/icon_accept.gif" alt="GD2" class="icon1" />';
+			$is_gd = true;
+		} elseif(function_exists('imagegd')) {
+			echo '1</strong> '.$_phpinfo['gd_version'];
+			echo '<img src="../img/famfamfam/icon_alert.gif" alt="GD1" class="icon1" />';
+			echo ' (GD2 is recommend)';
+			$is_gd = true;
+		} else {
+			echo ' not available</strong>';
+			echo '<img src="../img/famfamfam/action_stop.gif" alt="GD not present" class="icon1" />';
+			$is_gd = false;
+		}
 
-				if($is_gd) {
+		if($is_gd) {
 
-					$is_gd = array();
+			$is_gd = array();
 
-					if(imagetypes() & IMG_GIF) {
-						$is_gd[] = 'GIF<img src="../img/famfamfam/icon_accept.gif" alt="GIF supported" class="icon1" />';
-					} else {
-						$is_gd[] = 'GIF<img src="../img/famfamfam/action_stop.gif" alt="GIF not supported" class="icon1" />';
-					}
-					if(imagetypes() & IMG_PNG) {
-						$is_gd[] = 'PNG<img src="../img/famfamfam/icon_accept.gif" alt="PNG supported" class="icon1" />';
-					} else {
-						$is_gd[] = 'PNG<img src="../img/famfamfam/action_stop.gif" alt="PNG not supported" class="icon1" />';
-					}
-					if(imagetypes() & IMG_JPG) {
-						$is_gd[] = 'JPG<img src="../img/famfamfam/icon_accept.gif" alt="JPG supported" class="icon1" />';
-					} else {
-						$is_gd[] = 'JPG<img src="../img/famfamfam/action_stop.gif" alt="JPG not supported" class="icon1" />';
-					}
+			if(imagetypes() & IMG_GIF) {
+				$is_gd[] = 'GIF<img src="../img/famfamfam/icon_accept.gif" alt="GIF supported" class="icon1" />';
+			} else {
+				$is_gd[] = 'GIF<img src="../img/famfamfam/action_stop.gif" alt="GIF not supported" class="icon1" />';
+			}
+			if(imagetypes() & IMG_PNG) {
+				$is_gd[] = 'PNG<img src="../img/famfamfam/icon_accept.gif" alt="PNG supported" class="icon1" />';
+			} else {
+				$is_gd[] = 'PNG<img src="../img/famfamfam/action_stop.gif" alt="PNG not supported" class="icon1" />';
+			}
+			if(imagetypes() & IMG_JPG) {
+				$is_gd[] = 'JPG<img src="../img/famfamfam/icon_accept.gif" alt="JPG supported" class="icon1" />';
+			} else {
+				$is_gd[] = 'JPG<img src="../img/famfamfam/action_stop.gif" alt="JPG not supported" class="icon1" />';
+			}
 
-					echo '<br />Image types supported: '.implode('/ ', $is_gd);
+			echo '<br />Image types supported: '.implode('/ ', $is_gd);
 
-				}
+		}
 
 		?></li>
   	</ul>
@@ -177,6 +188,15 @@ if(!is_writable($DOCROOT.'/setup/setup.conf.inc.php')) {
 
   	}
 } else {
+
+	if(!$setup_recommend) {
+
+		echo '<p class="error">
+		<img src="../img/famfamfam/icon_alert.gif" alt="" class="icon1" />
+		It is not recommend to continue with setup. See the warnings!
+		</p>';
+
+	}
 
 ?>
 <form action="setup.php?step=1" method="post">

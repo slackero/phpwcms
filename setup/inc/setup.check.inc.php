@@ -40,12 +40,12 @@ if(!empty($step)) {
 
 		// main settings
 
-		$phpwcms["db_host"]           = slweg($_POST["db_host"]);
-		$phpwcms["db_user"]           = slweg($_POST["db_user"]);
-		$phpwcms["db_pass"]           = slweg($_POST["db_pass"]);
-		$phpwcms["db_table"]          = slweg($_POST["db_table"]);
-		$phpwcms["db_prepend"]        = slweg($_POST["db_prepend"]);
-		$phpwcms["db_pers"]           = empty($_POST["db_pers"]) ? 0 : 1;
+		$phpwcms["db_host"]    = slweg($_POST["db_host"]);
+		$phpwcms["db_user"]    = slweg($_POST["db_user"]);
+		$phpwcms["db_pass"]    = slweg($_POST["db_pass"]);
+		$phpwcms["db_table"]   = slweg($_POST["db_table"]);
+		$phpwcms["db_prepend"] = slweg($_POST["db_prepend"]);
+		$phpwcms["db_pers"]    = empty($_POST["db_pers"]) ? 0 : 1;
 
 		if(isset($_POST["charset"])) {
 
@@ -163,9 +163,8 @@ if(!empty($step)) {
 
 							$_db_prepend = ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '');
 
-							$sql_data = 'default_sql/'.(($phpwcms['db_version'] > 40100) ? 'phpwcms_init_410.sql' : 'phpwcms_init_323.sql');
-							$sql_data = read_textfile($sql_data);
-							$sql_data = $sql_data . read_textfile('default_sql/phpwcms_inserts.sql');
+							$sql_data = read_textfile($DOCROOT . '/default_sql/phpwcms_init.sql');
+							$sql_data = $sql_data . read_textfile($DOCROOT . '/default_sql/phpwcms_inserts.sql');
 							$sql_data = preg_replace("/(#|--).*.\n/", '', $sql_data );
 							$sql_data = preg_replace('/ `phpwcms/', ' `'.$_db_prepend.'phpwcms', $sql_data );
 							$sql_data = str_replace("\r", '', $sql_data);
@@ -179,29 +178,25 @@ if(!empty($step)) {
 
 								@mysql_query('SET storage_engine=MYISAM', $db);
 
-								if($phpwcms['db_version'] > 40100) {
-									$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
-									@mysql_query($value, $db);
-									$value = "SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'");
-									@mysql_query($value, $db);
-								}
+								$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
+								@mysql_query($value, $db);
+								$value = "SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'");
+								@mysql_query($value, $db);
 
 								$db_create_sql = explode(';', $sql_data);
 								foreach($db_create_sql as $key => $value) {
 
 									$value = trim($value);
 
-									if(empty($value)) {
+									if($value) {
 										unset($db_create_sql[$key]);
 										continue;
 									}
 
-									if($phpwcms['db_version'] > 40100 && strpos(strtoupper($value), 'INSERT') !== 0) {
+									if(strpos(strtoupper($value), 'INSERT') !== 0) {
 										$value .= ' DEFAULT';
 										$value .= ' CHARACTER SET '.$phpwcms['db_charset'];
 										$value .= ' COLLATE '.$phpwcms['db_collation'];
-									} elseif($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']=='utf8') {
-										$value = utf8_encode($value);
 									}
 
 									// send sql query
