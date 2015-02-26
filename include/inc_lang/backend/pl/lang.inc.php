@@ -9,7 +9,7 @@
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.7.6 (2014/12/16, r538) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.7.8 (2015/02/21, r538) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1378,4 +1378,5 @@ $BL['be_audio_only']            = 'tylko audio';
 $BL['be_filter']		= 'filtr';
 $BL['be_filter_with_tags']	= 'w/g etykiet';
 $BL['be_filter_not_selected']	= 'Nie wybrano kategorii';
+$BL['be_empty_search_result']	= 'Wyszukiwanie nie przyniosło wyników.';
 ?>
