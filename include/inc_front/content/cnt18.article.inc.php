@@ -24,7 +24,7 @@ if (!defined('PHPWCMS_ROOT')) {
 include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php');
 
 $CNT_TMP 				.= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-global $guestbook; // make it globaly
+global $guestbook; // make it global
 $guestbook 				 = unserialize($crow["acontent_form"]);
 $guestbook['error']		 = array();
 $guestbook['cid']		 = intval( empty($guestbook['aliasID']) ? $crow["acontent_id"] : $guestbook['aliasID'] );
