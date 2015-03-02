@@ -18,34 +18,34 @@
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-// Revised by Isac Araújo  isacaraujo@sapo.pt
+// Revised by Isac AraÃºjo  isacaraujo@sapo.pt
 // Last updated 16.jun 2004
 
-$BL['FOLDER_LIST']       = 'lista de diretórios';
+$BL['FOLDER_LIST']       = 'lista de diretÃ³rios';
 $BL['FILES']             = 'arquivos';
-$BL['SHOW_FILES']        = 'mostrar arquivos dentro do diretório raiz';
-$BL['SHOW_FILES1']       = 'mostrar arquvios dentro do diretório';
+$BL['SHOW_FILES']        = 'mostrar arquivos dentro do diretÃ³rio raiz';
+$BL['SHOW_FILES1']       = 'mostrar arquvios dentro do diretÃ³rio';
 $BL['TAKE_IMAGE']        = 'tomar este arquivo e adicionar&#8230;';
 $BL['NO_FILE']           = 'nenhum arquivo';
-$BL['OPEN_DIR']          = 'abrir diretório';
-$BL['CLOSE_DIR']         = 'fechar diretório';
+$BL['OPEN_DIR']          = 'abrir diretÃ³rio';
+$BL['CLOSE_DIR']         = 'fechar diretÃ³rio';
 $BL['FILE_TITLE']        = 'phpwcms browser de arquivos';
 $BL['IMAGE_TITLE']       = 'phpwcms browser de imagems';
 $BL['MEDIA_TITLE']       = 'phpwcms browser de media';
 $BL['IMAGE_FILES']       = 'arquivos de imagems';
 $BL['MEDIA_FILES']       = 'arquivos de media';
-$BL['ROOT_DIR']          = 'diretório (diretório raiz)';
+$BL['ROOT_DIR']          = 'diretÃ³rio (diretÃ³rio raiz)';
 $BL['DOWNLOAD_ERR1']     = 'Ocurreu um erro (NR:{VAL}) no download do arquivo.';
-$BL['DOWNLOAD_ERR2']     = 'Se pensa que é um problema técnico contacte: <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_ERR2']     = 'Se pensa que Ã© um problema tÃ©cnico contacte: <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'erro no download do arquivo';
-$BL['FILEINFO_TITLE']    = 'phpwcms: informação arquivos';
+$BL['FILEINFO_TITLE']    = 'phpwcms: informaÃ§Ã£o arquivos';
 $BL['CREATED']           = 'criado';
 $BL['DATE_FORMAT']       = 'd-m-Y H:i';
 $BL['SIZE']              = 'tamanho';
 $BL['DOWNLOAD_FILE']     = 'download do arquivo';
 $BL['FILE_IN_TRASH']     = 'arquivo para a lixeira';
 $BL['KEYWORDS']          = 'palavras-chave';
-$BL['DOWNLOAD_ERR3']     = 'erro ao ler a informação do arquivo <br />fecha a janela e tenta novamente...';
+$BL['DOWNLOAD_ERR3']     = 'erro ao ler a informaÃ§Ã£o do arquivo <br />fecha a janela e tenta novamente...';
 
 
 ?>

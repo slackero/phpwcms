@@ -17,10 +17,10 @@
 $weekday_long[0]	= "Domingo";		$weekday_short[0]	= "Do";
 $weekday_long[1]	= "Lunes";			$weekday_short[1]	= "Lu";
 $weekday_long[2]	= "Martes";			$weekday_short[2]	= "Ma";
-$weekday_long[3]	= "Miércoles";		$weekday_short[3]	= "Mi";
+$weekday_long[3]	= "MiÃ©rcoles";		$weekday_short[3]	= "Mi";
 $weekday_long[4]	= "Jueves";			$weekday_short[4]	= "Ju";
 $weekday_long[5]	= "Viernes";		$weekday_short[5]	= "Vi";
-$weekday_long[6]	= "Sábado";			$weekday_short[6]	= "Sa";
+$weekday_long[6]	= "SÃ¡bado";			$weekday_short[6]	= "Sa";
 $month_long[ 1]	= "Enero";			$month_short[ 1]		= "Ene";
 $month_long[ 2]	= "Febrero";		$month_short[ 2]		= "Feb";
 $month_long[ 3]	= "Marzo";			$month_short[ 3]		= "Mar";

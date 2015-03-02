@@ -124,15 +124,15 @@ $translate["SK"]["bodyLine2"]		= "Originálny formulár môžete nájs tu: ";
 $translate["SK"]["bodyRecipient"]	= "Príjemca: ";
 
 // Hungarian
-$translate["HU"]["error100"]		= "A címzett e-mail címe érvénytelen.";		
-$translate["HU"]["error200"]		= "Nincs tárgy!";							
+$translate["HU"]["error100"]		= "A címzett e-mail címe érvénytelen.";
+$translate["HU"]["error200"]		= "Nincs tárgy!";
 $translate["HU"]["error300"]		= "Érvénytelen email cím a megerõsítéshez.";
-$translate["HU"]["error400"]		= "Töltse ki a mezõt ###value###.";        	
-$translate["HU"]["dateFormat"]		= "Y-m-d";									
-$translate["HU"]["timeFormat"]		= "H:i:s";									
-$translate["HU"]["bodyLine1"]		= "Ûrlap elküldve: ###date###, ###time###";	
-$translate["HU"]["bodyLine2"]		= "Az eredeti ûrlapot itt találja:";		
-$translate["HU"]["bodyRecipient"]	= "Címzett:";			
+$translate["HU"]["error400"]		= "Töltse ki a mezõt ###value###.";
+$translate["HU"]["dateFormat"]		= "Y-m-d";
+$translate["HU"]["timeFormat"]		= "H:i:s";
+$translate["HU"]["bodyLine1"]		= "Ûrlap elküldve: ###date###, ###time###";
+$translate["HU"]["bodyLine2"]		= "Az eredeti ûrlapot itt találja:";
+$translate["HU"]["bodyRecipient"]	= "Címzett:";
 
 // Czech
 $translate["CZ"]["error100"]		= "Emailová adresa pøíjemce není platná.";

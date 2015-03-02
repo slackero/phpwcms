@@ -14,13 +14,13 @@
 
 // language: SE
 
-$weekday_long[0]	= "Söndag";			$weekday_short[0]	= "Sön";
-$weekday_long[1]	= "Måndag";			$weekday_short[1]	= "Mån";
+$weekday_long[0]	= "SÃ¶ndag";			$weekday_short[0]	= "SÃ¶n";
+$weekday_long[1]	= "MÃ¥ndag";			$weekday_short[1]	= "MÃ¥n";
 $weekday_long[2]	= "Tisdag";		$weekday_short[2]	= "Tis";
 $weekday_long[3]	= "Onsdag";			$weekday_short[3]	= "Ons";
 $weekday_long[4]	= "Torsdag";		$weekday_short[4]	= "Tor";
 $weekday_long[5]	= "Fredag";			$weekday_short[5]	= "Fre";
-$weekday_long[6]	= "Lördag";			$weekday_short[6]	= "Lör";
+$weekday_long[6]	= "LÃ¶rdag";			$weekday_short[6]	= "LÃ¶r";
 $month_long[ 1]	= "Januari";			$month_short[ 1]		= "Jan.";
 $month_long[ 2]	= "Februari";		$month_short[ 2]		= "Feb.";
 $month_long[ 3]	= "Mars";			$month_short[ 3]		= "Mars";

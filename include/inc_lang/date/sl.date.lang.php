@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * phpwcms content management system
  *

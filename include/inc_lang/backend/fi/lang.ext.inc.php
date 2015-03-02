@@ -44,5 +44,4 @@ $BL['FILE_IN_TRASH']     = 'Tiedosto on roskakorissa';
 $BL['KEYWORDS']          = 'Avainsanat';
 $BL['DOWNLOAD_ERR3']     = 'Virhe k&auml;sitelt&auml;ess&auml; tiedostoa<br />sulje ikkuna ja yrit&auml; uudestaan...';
 
-
 ?>

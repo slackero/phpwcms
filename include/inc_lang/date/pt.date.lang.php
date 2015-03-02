@@ -16,14 +16,14 @@
 
 $weekday_long[0]	= "Domingo";		$weekday_short[0]	= "Dom";
 $weekday_long[1]	= "Segunda";		$weekday_short[1]	= "Seg";
-$weekday_long[2]	= "Terça";			$weekday_short[2]	= "Ter";
+$weekday_long[2]	= "TerÃ§a";			$weekday_short[2]	= "Ter";
 $weekday_long[3]	= "Quarta";			$weekday_short[3]	= "Qua";
 $weekday_long[4]	= "Quinta";			$weekday_short[4]	= "Qui";
 $weekday_long[5]	= "Sexta";			$weekday_short[5]	= "Sex";
-$weekday_long[6]	= "Sábado";			$weekday_short[6]	= "Sáb";
+$weekday_long[6]	= "SÃ¡bado";			$weekday_short[6]	= "SÃ¡b";
 $month_long[ 1]		= "Janeiro";		$month_short[ 1]	= "Jan";
 $month_long[ 2]		= "Fevereiro";		$month_short[ 2]	= "Fev";
-$month_long[ 3]		= "Março";			$month_short[ 3]	= "Mar";
+$month_long[ 3]		= "MarÃ§o";			$month_short[ 3]	= "Mar";
 $month_long[ 4]		= "Abril";			$month_short[ 4]	= "Abr";
 $month_long[ 5]		= "Maio";			$month_short[ 5]	= "Mai";
 $month_long[ 6]		= "Junho";			$month_short[ 6]	= "Jun";

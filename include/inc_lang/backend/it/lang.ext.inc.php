@@ -40,7 +40,7 @@ $BL['CREATED']           = 'creato';
 $BL['DATE_FORMAT']       = 'm-d-Y H:i';
 $BL['SIZE']              = 'dimensione';
 $BL['DOWNLOAD_FILE']     = 'scarica file';
-$BL['FILE_IN_TRASH']     = 'il file è nel cestino';
+$BL['FILE_IN_TRASH']     = 'il file Ã¨ nel cestino';
 $BL['KEYWORDS']          = 'parole chiave';
 $BL['DOWNLOAD_ERR3']     = 'errore leggendo le informazioni sul file<br />chiudi la finestra e prova ancora...';
 

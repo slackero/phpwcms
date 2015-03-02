@@ -11,16 +11,16 @@
 
 // language: EE
 
-$weekday_long[0]	= "P¸hap‰ev";		$weekday_short[0]	= "P¸hap.";
-$weekday_long[1]	= "Esmasp‰ev";		$weekday_short[1]	= "Esmasp.";
-$weekday_long[2]	= "Teisip‰ev";		$weekday_short[2]	= "Teisip.";
-$weekday_long[3]	= "Kolmap‰ev";		$weekday_short[3]	= "Kolmap.";
-$weekday_long[4]	= "Neljap‰ev";		$weekday_short[4]	= "Neljap.";
+$weekday_long[0]	= "P√ºhap√§ev";		$weekday_short[0]	= "P√ºhap.";
+$weekday_long[1]	= "Esmasp√§ev";		$weekday_short[1]	= "Esmasp.";
+$weekday_long[2]	= "Teisip√§ev";		$weekday_short[2]	= "Teisip.";
+$weekday_long[3]	= "Kolmap√§ev";		$weekday_short[3]	= "Kolmap.";
+$weekday_long[4]	= "Neljap√§ev";		$weekday_short[4]	= "Neljap.";
 $weekday_long[5]	= "Reede";			$weekday_short[5]	= "Reede";
-$weekday_long[6]	= "Laup‰ev";		$weekday_short[6]	= "Laup.";
+$weekday_long[6]	= "Laup√§ev";		$weekday_short[6]	= "Laup.";
 $month_long[ 1]	= "jaanuar";			$month_short[ 1]	= "jaan.";
 $month_long[ 2]	= "veebruar";		$month_short[ 2]		= "veeb.";
-$month_long[ 3]	= "m‰rts";			$month_short[ 3]		= "m‰rts";
+$month_long[ 3]	= "m√§rts";			$month_short[ 3]		= "m√§rts";
 $month_long[ 4]	= "aprill;";		$month_short[ 4]		= "apr.";
 $month_long[ 5]	= "mai";			$month_short[ 5]		= "mai";
 $month_long[ 6]	= "juuni";			$month_short[ 6]		= "juuni";

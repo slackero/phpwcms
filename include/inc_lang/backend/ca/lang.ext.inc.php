@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Catal‡
+// Language: Catal√†
 // Language Code: ca
 
 // please use HTML safe strings ONLY
@@ -35,7 +35,7 @@ $BL['ROOT_DIR']          = 'magatzem (dir arrel)';
 $BL['DOWNLOAD_ERR1']     = 'S\'ha produit un error (NR:{VAL}) en intentar baixar un fitxer.';
 $BL['DOWNLOAD_ERR2']     = 'Si creieu que pot ser un problema t&egrave;cnic, envieu un missatge al <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'Error de desc&agrave;rrega';
-$BL['FILEINFO_TITLE']    = 'phpwcms: informaciÛ de fitxer';
+$BL['FILEINFO_TITLE']    = 'phpwcms: informaci√≥ de fitxer';
 $BL['CREATED']           = 'creat';
 $BL['DATE_FORMAT']       = 'd-m-Y H:i';
 $BL['SIZE']              = 'mida';

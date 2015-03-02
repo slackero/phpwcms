@@ -722,7 +722,7 @@ $BL['be_newsletter_open']               = 'HTML ve METIN giri&#351;i';
 $BL['be_newsletter_open1']              = '(resmi a&ccedil;mak i&ccedil;in tikla)';
 $BL['be_newsletter_sendnow']            = 'Haberi g&ouml;nder';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Dikkat!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
-$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.'; 
+$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
@@ -911,10 +911,10 @@ $BL['be_cnt_error_text']				= 'hata metni';
 $BL['be_cnt_css_style']					= 'CSS stili';
 $BL['be_cnt_send_copy_to']				= 'Kopyas&#305; gidecek';
 
-$BL['be_cnt_field']						= array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)', 
-												"hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu', 
-												"list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton', 
-												"upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu', 
+$BL['be_cnt_field']						= array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)',
+												"hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu',
+												"list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton',
+												"upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu',
 												"break"=>'kesme', "breaktext"=>'kesme metni', "special"=>'metin (&ouml;zel)');
 
 $BL['be_cnt_access']					= 'eri&#351;im';
@@ -967,7 +967,7 @@ $BL['be_file_replace'] = 'Ayn&#305; isimli dosyayla de&#287;i&#351;tir';
 $BL['be_alias_articleID'] = 'di&#287;er isim ID';
 $BL['be_alias_useAll'] = "bu konunun header bilgilerini kullan";
 $BL['be_article_morelink'] = '[devami&#8230;] k&ouml;pr&uuml;s&uuml;';
-$BL['be_admin_tmpl_copy']               = '&#351;ablonu kopyala'; 
+$BL['be_admin_tmpl_copy']               = '&#351;ablonu kopyala';
 
 $BL['be_ctype_filelist1']                = 'dosya listeleme pro';
 $BL['be_cnt_fpro_usecaption']            = 'dosya ortas&#305;nda kullan &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
@@ -1151,6 +1151,5 @@ $BL['be_flashplayer_selectsize']		= 'oynat&#305;c&#305; b&uuml;y&uuml;kl&uuml;&#
 $BL['be_check_feuser_profile']			= '&ouml;nplan kullan&#305;c&#305; profili';
 $BL['be_check_feuser_registration']		= 'kay&#305;t';
 $BL['be_check_feuser_manage']			= 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
-
 
 ?>

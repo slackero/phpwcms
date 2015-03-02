@@ -582,8 +582,8 @@ $BL['be_cnt_articles']                  = 'articles';
 $BL['be_cnt_movearticleto']             = 'd&eacute;placer l&#39;article s&eacute;lectionn&eacute; vers la liste de liens articles';
 $BL['be_cnt_removearticleto']           = 'supprimer l&#39;article s&eacute;lectionn&eacute; de la liste de liens articles';
 $BL['be_cnt_mediatype']                 = 'type de m&eacute;dia';
-$BL['be_cnt_control']                   = 'contr鬺e';
-$BL['be_cnt_showcontrol']               = 'afficher la barre de contr鬺e';
+$BL['be_cnt_control']                   = 'contr么le';
+$BL['be_cnt_showcontrol']               = 'afficher la barre de contr么le';
 $BL['be_cnt_autoplay']                  = 'lecture automatique';
 $BL['be_cnt_source']                    = 'source';
 $BL['be_cnt_internal']                  = 'interne';
@@ -721,11 +721,11 @@ $BL['be_newsletter_open']               = 'donn&eacute;es HTML et TEXTE';
 $BL['be_newsletter_open1']              = '(cliquez sur l&#39;image pour l&#39;ouvrir)';
 $BL['be_newsletter_sendnow']            = 'Envoyer la lettre d&#39;infos';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Attention!</strong> Envoyer une lettre d&#39;infos &agrave; plusiers destinataires peut s&#39;av&eacute;rer risqu&eacute;. Les adresses des destinataires doivent avoir &eacute;t&eacute; v&eacute;rifi&eacute;es sinon vous pourriez envoyer du spam potentiel. Pensez-y &agrave; deux fois avant d&#39;envoyer des lettre d&#39;infos. Faites un test avant de tout envoyer.';
-$BL['be_newsletter_attention1']         = 'Si vous avez modifi&eacute; des donn&eacute;es dans votre lettre d&#39;infos sauvez-le, sinon vous perdrez les changements.'; 
+$BL['be_newsletter_attention1']         = 'Si vous avez modifi&eacute; des donn&eacute;es dans votre lettre d&#39;infos sauvez-le, sinon vous perdrez les changements.';
 $BL['be_newsletter_testemail']          = 'Email de test';
 $BL['be_newsletter_sendnlbutton']       = 'envoyez la lettre d&#39;infos';
 $BL['be_newsletter_sendprocess']        = 'processus d&#39;envoi';
-$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Svp n&#39;arr&ecirc;tez pas le processus d&#39;envoi. Vous risquez d&#39;envoyer le lettre d&#39;infos au m&ecirc;me destinataire plusieurs fois. Quand l&#39;envoi pr&eacute;sente des probl&egrave;mes les destinataires non atteints sont stock&eacute;s dans une table, juqu&#39;au prochain envoi, et sont r&eacute;envoy&eacute;s de fa鏾n automatique.';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Svp n&#39;arr&ecirc;tez pas le processus d&#39;envoi. Vous risquez d&#39;envoyer le lettre d&#39;infos au m&ecirc;me destinataire plusieurs fois. Quand l&#39;envoi pr&eacute;sente des probl&egrave;mes les destinataires non atteints sont stock&eacute;s dans une table, juqu&#39;au prochain envoi, et sont r&eacute;envoy&eacute;s de fa莽on automatique.';
 $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">l&#39;adresse de test <strong>###TEST###</strong> n&#39;est PAS valide!<br />&nbsp;<br />Veuillez r&eacute;essayer svp!';
 $BL['be_newsletter_to']                 = 'Destinataires';
 $BL['be_newsletter_ready']              = 'envoi de lettre d&#39;infos: FAIT';
@@ -734,8 +734,8 @@ $BL['be_subnav_msg_subscribers']        = 'lettres d&#39;infos > abonn&eacute;s'
 
 // added: 20-04-2004
 $BL['be_ctype_sitemap']				    = 'plan du site';
-$BL['be_cnt_sitemap_catimage']          = 'ic鬾e du niveau';
-$BL['be_cnt_sitemap_articleimage']      = 'ic鬾e de l&#39;article';
+$BL['be_cnt_sitemap_catimage']          = 'ic么ne du niveau';
+$BL['be_cnt_sitemap_articleimage']      = 'ic么ne de l&#39;article';
 $BL['be_cnt_sitemap_display']           = 'montrer';
 $BL['be_cnt_sitemap_structuronly']      = 'seulement les structures des niveaux';
 $BL['be_cnt_sitemap_structurarticle']   = 'structure des niveaux + articles';
@@ -908,7 +908,7 @@ $BL['be_cnt_error_text']				= 'texte d&#39;erreur';
 $BL['be_cnt_css_style']					= 'style CSS';
 
 $BL['be_cnt_field']						= array("text"=>'texte', "email"=>'email', "textarea"=>'texte (multi-lignes)',
-"hidden"=>'cach&eacute;', "password"=>'mot de passe', "select"=>'s&eacute;巐ectionner le menu',
+"hidden"=>'cach&eacute;', "password"=>'mot de passe', "select"=>'s&eacute;聨lectionner le menu',
 "list"=>'menu de la liste', "checkbox"=>'checkbox', "radio"=>'bouton radio',
 "upload"=>'upload fichier', "submit"=>'bouton d&#39;envoi', "reset"=>'bouton reset',
 "break"=>'s&eacute;parateur', "breaktext"=>'s&eacute;parateur (texte)', "special"=>'texte (sp&eacute;cial)');
@@ -964,7 +964,7 @@ $BL['be_file_replace']					 = 'Remplacer les fichiers &eacute;ponymes';
 $BL['be_alias_articleID']				 = 'alias ID';
 $BL['be_alias_useAll']					 = "utiliser les donn&eacute;es de l&#39;ent&ecirc;te de cet article";
 $BL['be_article_morelink']				 = 'lien [en savoir plus&#8230;]';
-$BL['be_admin_tmpl_copy']                = 'copier le gabarit'; 
+$BL['be_admin_tmpl_copy']                = 'copier le gabarit';
 
 $BL['be_ctype_filelist1']                = 'liste de fichiers pro';
 $BL['be_cnt_fpro_usecaption']            = 'utiliser le centre de fichiers &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
