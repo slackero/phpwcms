@@ -11,6 +11,9 @@ body {
 	font-size: 14px;
 	line-height: 140%;
 }
+.nowrap {
+	white-space: nowrap;
+}
 h4 {
 	margin: .5em 0;
 }

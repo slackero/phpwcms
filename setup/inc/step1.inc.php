@@ -73,8 +73,8 @@ if(!empty($db_additional)) {
 	<tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">4.</span> Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> collation
 	      settings <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a></h1></td></tr>
 	<tr>
-            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset (recommend: UTF8):&nbsp;</td>
-            <td colspan="2"><select name="charset">
+            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
+            <td><select name="charset">
 
 			<?php
 
@@ -117,6 +117,7 @@ if(!empty($db_additional)) {
 
 			?>
 			</select></td>
+			<td class="chatlist"><em>&nbsp;recommend: <strong>UTF-8</strong></em></td>
           </tr>
 <?php
 
@@ -138,7 +139,7 @@ if(!empty($db_additional)) {
 
 			while($row = mysql_fetch_assoc($result)) {
 
-				if(in_array($row['Charset'], $mysql_charset_map)) {
+				if($row['Charset'] == 'utf8' && in_array($row['Charset'], $mysql_charset_map)) {
 					if($phpwcms['db_collation']==$row['Collation']) {
 						$_collation_selected = true;
 						$_collation[ $row['Charset'] ][ $row['Collation'] ] = true;
@@ -166,8 +167,8 @@ if(!empty($db_additional)) {
 ?>
 
 		<tr>
-            <td align="right" class="v10">MySQL Collation (recommend: utf8_general_ci):&nbsp;</td>
-            <td colspan="2"><select name="collation">
+            <td align="right" class="v10 nowrap">MySQL Collation:&nbsp;</td>
+            <td><select name="collation">
 <?php
 
 		foreach($_collation as $key => $value) {
@@ -194,6 +195,7 @@ if(!empty($db_additional)) {
 
 ?>
 			</select></td>
+			<td class="chatlist"><em>&nbsp;recommend: <strong>utf8_unicode_ci</strong></em></td>
           </tr>
 
 
