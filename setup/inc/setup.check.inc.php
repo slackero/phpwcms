@@ -163,8 +163,8 @@ if(!empty($step)) {
 
 							$_db_prepend = ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '');
 
-							$sql_data = read_textfile($DOCROOT . '/default_sql/phpwcms_init.sql');
-							$sql_data = $sql_data . read_textfile($DOCROOT . '/default_sql/phpwcms_inserts.sql');
+							$sql_data = read_textfile($DOCROOT . '/setup/default_sql/phpwcms_init.sql');
+							$sql_data = $sql_data . read_textfile($DOCROOT . '/setup/default_sql/phpwcms_inserts.sql');
 							$sql_data = preg_replace("/(#|--).*.\n/", '', $sql_data );
 							$sql_data = preg_replace('/ `phpwcms/', ' `'.$_db_prepend.'phpwcms', $sql_data );
 							$sql_data = str_replace("\r", '', $sql_data);
