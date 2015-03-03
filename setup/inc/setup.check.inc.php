@@ -188,7 +188,7 @@ if(!empty($step)) {
 
 									$value = trim($value);
 
-									if($value) {
+									if(empty($value)) {
 										unset($db_create_sql[$key]);
 										continue;
 									}
