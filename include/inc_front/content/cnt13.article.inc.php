@@ -28,7 +28,7 @@ if(empty($content['search']["text_html"])) {
 	$content['search']['text_html'] = 0;
 }
 
-$content['search']['search_filenames'] = empty($content['search']["no_filenames"]) ? true : false;	// search/list for file/imagenames
+$content['search']['search_filename'] = empty($content['search']["no_filenames"]) ? true : false;	// search/list for file/imagenames
 $content['search']['search_username'] = empty($content['search']["no_username"]) ? true : false;
 $content['search']['search_caption'] = empty($content['search']["no_caption"]) ? true : false;
 $content['search']['search_keyword'] = empty($content['search']["no_keyword"]) ? true : false;
@@ -222,7 +222,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 							case 7:		// file list, get files listed here
 										$s_text .= ' '.$scrow[2];
-										if($content['search']['search_filenames']) {
+										if($content['search']['search_filename']) {
 											$s_files = getFileInformation( explode(':', $scrow[4]) );
 											if(is_array($s_files) && count($s_files)) {
 												// retrieve file information
@@ -235,14 +235,14 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 							// optimize images for search
 							case 1	:	$s_text .= ' '.$scrow[2];
-										if($content['search']['search_filenames'] && $scrow[7]) {
+										if($content['search']['search_filename'] && $scrow[7]) {
 											$scrow[7] = explode(":", $scrow[7]);
 											$s_text .= ' '.$scrow[1];
 										}
 										break;
 
 							case 29:	$s_text .= ' '.$scrow[2];
-							case 2:		if($content['search']['search_caption'] || $content['search']['search_filenames']) {
+							case 2:		if($content['search']['search_caption'] || $content['search']['search_filename']) {
 											$scrow[6] = @unserialize($scrow[6]);
 											if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
 												$s_imgname = '';
@@ -260,7 +260,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 														}
 													}
 
-													if($content['search']['search_filenames']) {
+													if($content['search']['search_filename']) {
 														$s_imgname .= ' '.$s_imgtext[1];
 													}
 												}
@@ -270,14 +270,14 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 										break;
 
 							case 31:	$s_text .= ' '.$scrow[3];
-										if($content['search']['search_caption'] || $content['search']['search_filenames']) {
+										if($content['search']['search_caption'] || $content['search']['search_filename']) {
 											$scrow[6] = @unserialize($scrow[6]);
 											if(isset($scrow[6]['images']) && is_array($scrow[6]['images']) && count($scrow[6]['images'])) {
 												foreach($scrow[6]['images'] as $s_imgtext) {
 													if($content['search']['search_caption']) {
 														$s_text .= ' '.$s_imgtext['caption'];
 													}
-													if($content['search']['search_filenames']) {
+													if($content['search']['search_filename']) {
 														$s_text .= ' '.$s_imgtext['thumb_name'];
 														$s_text .= ' '.$s_imgtext['zoom_name'];
 													}
