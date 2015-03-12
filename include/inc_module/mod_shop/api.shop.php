@@ -14,7 +14,11 @@
 $phpwcms = array();
 $path = dirname(dirname(dirname(dirname(__FILE__))));
 $module_path = dirname(__FILE__);
-require($path.'/config/phpwcms/conf.inc.php');
+if(is_file($path.'/include/config/conf.inc.php')) {
+	require($path.'/include/config/conf.inc.php');
+} else {
+	require($path.'/config/phpwcms/conf.inc.php');
+}
 require($path.'/include/inc_lib/default.inc.php');
 require(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require(PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
