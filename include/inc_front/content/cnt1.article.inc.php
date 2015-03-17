@@ -246,11 +246,11 @@ if($crow['is_imagetext']) {
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'FLOAT_LEFT', $crow['position_type']['float_left'] ? ' ' : '');
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_LEFT', $crow['position_type']['column_left'] ? ' ' : '');
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_RIGHT', $crow['position_type']['column_right'] ? ' ' : '');
+	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ZOOM', $crow["settings"]['zoom'] ? ' ' : '');
 
 	if(!$crow['has_image']) {
 
 		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', '');
-		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ZOOM', $crow["settings"]['zoom'] ? ' ' : '');
 		$crow["acontent_template"] = str_replace('{IMAGE_ID}', 'empty-image-'.$crow["acontent_id"], $crow["acontent_template"]);
 		$crow["acontent_template"] = str_replace('{IMAGE_HASH}', '', $crow["acontent_template"]);
 		$crow["acontent_template"] = str_replace('{IMAGE_NAME}', 'empty', $crow["acontent_template"]);

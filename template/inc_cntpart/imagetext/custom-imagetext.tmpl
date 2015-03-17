@@ -1,27 +1,31 @@
 <!--IMAGETEXT_SETTINGS_START//-->
 ; this is formatted like WIN.INI
 ; please: do not use comments for value lines
-class_top_left		= imgtxt-top-left
-class_top_center	= imgtxt-top-center
-class_top_right		= imgtxt-top-right
-class_bottom_left	= imgtxt-bottom-left
-class_bottom_center	= imgtxt-bottom-center
-class_bottom_right	= imgtxt-bottom-right
-class_float_left	= imgtxt-left
-class_float_right	= imgtxt-right
-class_column_left	= imgtxt-column-left
-class_column_right	= imgtxt-column-right
-; width				= 300
-; height			= 200
-; zoom				= 1
-; crop				= 1
-; lightbox			= 1
-; nocaption			= 0
+class_top_left				= imgtxt-top-left
+class_top_center			= imgtxt-top-center
+class_top_right				= imgtxt-top-right
+class_bottom_left			= imgtxt-bottom-left
+class_bottom_center			= imgtxt-bottom-center
+class_bottom_right			= imgtxt-bottom-right
+class_float_left			= imgtxt-left
+class_float_right			= imgtxt-right
+class_column_left			= imgtxt-column-left
+class_column_right			= imgtxt-column-right
+class_column_left_image		= imgtxt-column-left-image
+class_column_right_image	= imgtxt-column-right-image
+class_column_left_text		= imgtxt-column-left-text
+class_column_right_text		= imgtxt-column-right-text
+; width						= 300
+; height					= 200
+; zoom						= 1
+; crop						= 1
+; lightbox					= 1
+; nocaption					= 0
 <!--IMAGETEXT_SETTINGS_END//-->
 <div class="image-with-text[CLASS] {CLASS}[/CLASS]" id="imgtext-id-{ID}">
 [TITLE]	<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]	<h4>{SUBTITLE}</h4>[/SUBTITLE]
-[IMAGE]<div class="image">{IMAGE}</div>
+[IMAGE]<div class="image[ZOOM] zoom[/ZOOM]">{IMAGE}</div>
 [CAPTION]
 	<p class="caption">{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>
 [/CAPTION]
