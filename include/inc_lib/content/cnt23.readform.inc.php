@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // email form new
 $content["form"]['subject'] 				= clean_slweg($_POST["cform_subject"]);
 $content["form"]['startup'] 				= slweg($_POST["cform_startup"]);
@@ -28,9 +26,7 @@ $content["form"]["error_class"]				= slweg($_POST["cform_error_class"]);
 $content["form"]["label_wrap"]				= slweg($_POST["cform_label_wrap"]);
 $content["form"]["cform_reqmark"]			= slweg($_POST["cform_reqmark"]);
 $content["form"]["cform_function_validate"]	= clean_slweg($_POST["cform_function_validate"]);
-
-
-$content["form"]["cc"] = convertStringToArray(str_replace(array(' ',','), ';', clean_slweg($_POST["cform_cc"])),';');
+$content["form"]["cc"]						= convertStringToArray(str_replace(array(' ',','), ';', clean_slweg($_POST["cform_cc"])),';');
 foreach($content["form"]["cc"] as $e_key => $e_value) {
 	if(!is_valid_email($content["form"]["cc"][$e_key])) {
 		unset($content["form"]["cc"][$e_key]);
@@ -81,7 +77,6 @@ if($content["form"]["sendernametype"] == 'system' && $content["form"]["sendernam
 }
 
 $content['form']['verifyemail']		= isset($_POST['cform_field_verifyemail']) ? clean_slweg($_POST['cform_field_verifyemail']) : '';
-
 $content["form"]["labelpos"]		= intval($_POST["cform_labelpos"]);
 $content['form']["sendcopy"]		= empty($_POST["cform_sendcopy"]) ? 0 : 1;
 $content['form']["copyto"]			= isset($_POST["cform_copyto"]) ? clean_slweg($_POST["cform_copyto"]) : '';
@@ -122,16 +117,13 @@ if(is_callable($content['form']["function_cc"])) {
 	$content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];
 }
 
-
-$content['form']["template_equal"] = empty($_POST["cform_template_equal"]) ? 0 : 1;
-
-$content['form']["customform"]	= slweg($_POST["cform_customform"]);
-
-$content['form']["savedb"]		= empty($_POST["cform_savedb"]) ? 0 : 1;
-$content['form']["saveprofile"]	= empty($_POST["cform_saveprofile"]) ? 0 : 1;
-$content['form']["anchor_off"]	= empty($_POST["cform_anchor_off"]) ? 0 : 1;
-$content['form']["ssl"]			= empty($_POST["cform_ssl"]) ? 0 : 1;
-
+$content['form']["template_equal"]	= empty($_POST["cform_template_equal"]) ? 0 : 1;
+$content['form']["customform"]		= slweg($_POST["cform_customform"]);
+$content['form']["savedb"]			= empty($_POST["cform_savedb"]) ? 0 : 1;
+$content['form']["saveprofile"]		= empty($_POST["cform_saveprofile"]) ? 0 : 1;
+$content['form']["anchor_off"]		= isset($_POST["cform_anchor_off"]) && !intval($_POST["cform_anchor_off"]) ? 0 : 1;
+$content['form']["ssl"]				= empty($_POST["cform_ssl"]) ? 0 : 1;
+$content['form']["anchor_name"]		= clean_slweg($_POST["cform_anchor_name"]);
 
 //$field_counter = 0;
 $content["form"]["fields"] = array();

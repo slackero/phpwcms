@@ -22,14 +22,19 @@ include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.i
 $cnt_form = unserialize($crow["acontent_form"]);
 
 if(empty($cnt_form['anchor_off'])) {
-	$CNT_TMP .= '<a name="jumpForm'.$crow["acontent_id"].'" id="jumpForm'.$crow["acontent_id"].'"></a>';
+	$CNT_TMP .= '<a id="';
+	if(empty($cnt_form['anchor_name'])) {
+		$CNT_TMP .= 'jumpForm'.$crow["acontent_id"];
+	} else {
+		$CNT_TMP .= html($cnt_form['anchor_name']);
+	}
+	$CNT_TMP .= '"></a>';
 }
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 if(!empty($cnt_form['ssl']) && !PHPWCMS_SSL) {
 	headerRedirect($phpwcms['site_ssl_url'] . rel_url(), 301);
 }
-
 
 // save default form tracking status
 $default_formtracking_value = $phpwcms['form_tracking'];
@@ -2091,13 +2096,18 @@ if($form_cnt) {
 		$cnt_form['class'] = '';
 	}
 	$CNT_TMP .= $form_error_text;
-	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'];
-	$CNT_TMP .= ' action="'.rel_url();
-	if(empty($cnt_form['anchor_off'])) {
+	$CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.rel_url();
+	if(!empty($cnt_form['anchor_name'])) {
+		$CNT_TMP .= '#'.html($cnt_form['anchor_name']);
+	} elseif(empty($cnt_form['anchor_off'])) {
 		$CNT_TMP .= '#jumpForm'.$crow["acontent_id"];
 	}
-	$CNT_TMP .= '" method="post"';
-	$CNT_TMP .= $cnt_form['is_enctype'] ? ' enctype="multipart/form-data">' : '>';
+	$CNT_TMP .= '" ';
+	if($cnt_form['is_enctype']) {
+		$CNT_TMP .= 'enctype="multipart/form-data" ';
+	}
+	$CNT_TMP .= 'method="post">';
+
 
 	if($cnt_form['labelpos'] == 2) {
 
