@@ -26,12 +26,12 @@ table.shop {
 table.shop tr {
 
 
-	
+
 }
 table.shop tr.adsAltRow {
 
 	background-color: #F3F5F8;
-	
+
 }
 table.shop tr:hover {
 	background-color: #FFCC33;
@@ -184,7 +184,7 @@ textarea.code {
 	padding: 3px 4px 3px 0;
 }
 
-.show tr.product.linetop, 
+.show tr.product.linetop,
 .show tr.product.linebottom {
 	background-color: #F3F5F8;
 }
@@ -228,6 +228,7 @@ textarea.code {
 	overflow: auto;
 	height: 150px;
 	border: 1px solid #ABADB3;
+	max-width: 700px;
 }
 .show td label {
 	padding: 0 6px 0 4px;

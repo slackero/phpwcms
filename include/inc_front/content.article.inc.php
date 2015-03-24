@@ -469,6 +469,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'EDITOR', html_specialchars($row["article_username"]));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_hidesummary"] ? '' : $row["article_summary"]);
 
+			// article class based on keyword *CSS-classname*
+			$row['article_class'] = get_css_keywords($row['article_keyword']);
+			$row['article_class'] = count($row['article_class']) ? implode(' ', $row['article_class']) : '';
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CLASS', $row['article_class']);
+
 			// Render SYSTEM
 			if(strpos($row["article_image"]['tmplfull'], '[SYSTEM]') !== false) {
 				// Search for all system related content parts

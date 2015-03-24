@@ -617,7 +617,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					}
 
 					// link to article detail
-					//$content['alink']['tr'][$key]	= str_replace('{ARTICLELINK}', , $content['alink']['tr'][$key]);
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'ARTICLELINK', $row['article_morelink'] ? 'index.php?'.setGetArticleAid($row) : '');
 
 					// article category
@@ -629,14 +628,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CAPTION_TITLE', $content['alink']['caption'][3]);
 
 					// article class based on keyword *CSS-classname*
-					$row['article_class'] = '';
-					if(strpos($row['article_keyword'], '*CSS-') !== false) {
-						preg_match_all('/\*CSS\-(.+?)\*/', $row['article_keyword'], $row['css']);
-						if(isset($row['css'][1]) && is_array($row['css'][1]) && count($row['css'][1])) {
-							$row['article_class'] = implode(' ', $row['css'][1]);
-						}
-					}
-					$content['alink']['tr'][$key]	= render_cnt_template($content['alink']['tr'][$key], 'CLASS', $row['article_class']);
+					$row['article_class'] = get_css_keywords($row['article_keyword']);
+					$row['article_class'] = count($row['article_class']) ? implode(' ', $row['article_class']) : '';
+					$content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CLASS', $row['article_class']);
 
 					break;
 

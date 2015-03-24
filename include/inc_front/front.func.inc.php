@@ -1284,6 +1284,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					$tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
 				}
 
+				// article class based on keyword *CSS-classname*
+				$article['article_class'] = get_css_keywords($article['article_keyword']);
+				$article['article_class'] = count($article['article_class']) ? implode(' ', $article['article_class']) : '';
+				$tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_class']);
+
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
@@ -4159,6 +4164,20 @@ function render_if_category($matches) {
 	}
 
 	return '';
+}
+
+function get_css_keywords($text) {
+
+	if(empty($text) || !is_string($text) || strpos($text, '*CSS-') === false) {
+		return array();
+	}
+
+	preg_match_all('/\*CSS\-(.+?)\*/', $text, $css);
+	if(isset($css[1]) && is_array($css[1])) {
+		return $css[1];
+	}
+
+	return array();
 }
 
 ?>
