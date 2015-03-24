@@ -122,7 +122,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
 		$sql  = "SELECT article_id, article_cid, article_title, article_username, article_subtitle, ";
 		$sql .= "article_summary, article_keyword, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
-		$sql .= "article_image, article_alias ";
+		$sql .= "article_image, article_alias, article_aliasid, article_headerdata ";
 		$sql .= "FROM ".DB_PREPEND."phpwcms_article ar ";
 		$sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_articlecat ac ON ";
 		$sql .= "(ar.article_cid = ac.acat_id OR ar.article_cid = 0)";
@@ -155,6 +155,36 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 			$s_search_words_count	= count($content["search_word"]);
 
 			while($srow = mysql_fetch_assoc($sresult)) {
+
+				// now try to retrieve alias article information
+				if($srow["article_aliasid"]) {
+					$alias_sql  = 'SELECT article_id, article_title, article_subtitle, article_summary, article_keyword, ';
+					$alias_sql .= 'UNIX_TIMESTAMP(article_tstamp) AS article_date, article_image ';
+					$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+					$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($srow["article_aliasid"]);
+					if(!$srow["article_headerdata"]) {
+						switch(VISIBLE_MODE) {
+							case 0: $alias_sql .= " AND article_aktiv=1"; break;
+							case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')'; break;
+						}
+						if(!PREVIEW_MODE) {
+							$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+						}
+					}
+					$alias_sql .= " LIMIT 1";
+					if($alias_result = mysql_query($alias_sql, $db) && $alias_row = mysql_fetch_assoc($alias_result)) {
+						$srow["article_id"] = $alias_row["article_id"];
+						if(!$srow["article_headerdata"]) {
+							$srow["article_title"]		= $alias_row["article_title"];
+							$srow["article_subtitle"]	= $alias_row["article_subtitle"];
+							$srow["article_keyword"]	= $alias_row["article_keyword"];
+							$srow["article_summary"]	= $alias_row["article_summary"];
+							$srow["article_date"]		= $alias_row["article_date"];
+							$srow["article_image"]		= $alias_row["article_image"];
+						}
+						mysql_free_result($alias_result);
+					}
+				}
 
 				// read article base info for search
 				$s_id		= $srow["article_id"];
@@ -299,15 +329,17 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 							default:	$s_text .= ' '.$scrow[2].' '.$scrow[3];
 
 						}
-						$s_text = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text); // strip all <script> Tags
-						$s_text = str_replace(array('~', '|', ':', 'http', '//', '_blank'), ' ', $s_text );
-
 					}
 					mysql_free_result($scresult);
 				}
 
-				$s_result = array();
+				// Search for {SHOW_CONTENT}
+				if(strpos($s_text, '{SHOW_CONTENT') !== false) {
+					$s_text = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $s_text);
+				}
 
+				$s_text  = preg_replace('/<script[^>]*>.*?<\/script>/is', '', $s_text);
+				$s_text  = str_replace(array('~', '|', ':', 'http', '//', '_blank'), ' ', $s_text );
 				$s_text .= ' --##-';
 				if($content['search']['search_keyword']) {
 					$s_text .= $srow["article_keyword"].' ';
@@ -317,8 +349,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 					$s_text .= ' '.$s_user;
 				}
 				$s_text .= '-##--';
+				$s_text  = clean_search_text($s_text);
 
-				$s_text = clean_search_text($s_text);
+				$s_result = array();
 
 				preg_match_all('/'.$s_search_words.'/is', $s_text, $s_result ); //search string
 

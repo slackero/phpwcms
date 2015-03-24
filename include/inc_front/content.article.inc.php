@@ -60,7 +60,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
 				}
 			}
-			$alias_sql .= " AND article_deleted=0 LIMIT 1";
+			$alias_sql .= " LIMIT 1";
 			if($alias_result = mysql_query($alias_sql, $db)) {
 				if($alias_row = mysql_fetch_assoc($alias_result)) {
 					$row["article_id"] = $alias_row["article_id"];
