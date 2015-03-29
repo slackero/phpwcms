@@ -339,6 +339,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 					$opt_2		= intval($opt_2);
 					if($prod_qty && isset($_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2])) {
 						$_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2] = $prod_qty;
+						$_SESSION[CART_KEY]['total'][$prod_id.$opt_1.$opt_2] = $prod_qty;
 					} else {
 						unset(
 							$_SESSION[CART_KEY]['products'][$prod_id][$opt_1][$opt_2],
@@ -1412,7 +1413,7 @@ if( $_shop_load_order !== false ) {
 // small cart
 if($_shop_load_cart_small !== false ) {
 
-	if(empty($_SESSION[CART_KEY]['total']) || !is_array($_SESSION[CART_KEY]['total']) || ($_cart_count = count($_SESSION[CART_KEY]['total'])) === 0) {
+	if(empty($_SESSION[CART_KEY]['total']) || !is_array($_SESSION[CART_KEY]['total']) || ($_cart_count = array_sum($_SESSION[CART_KEY]['total'])) === 0) {
 		$_cart_count = '';
 	}
 
