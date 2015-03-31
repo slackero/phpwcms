@@ -52,7 +52,16 @@ $setup_recommend = true;
    ?></li>
   <li>MySQL version: <?php
 
-	$mysql_version = mysql_get_client_info();
+  	$mysql_version = @mysql_get_server_info();
+  	$mysqlnd = false;
+  	if(!$mysql_version) {
+		$mysql_version = @mysql_get_client_info();
+	}
+
+	if(strpos($mysql_version, 'mysqlnd') !== false) {
+		$mysql_version = preg_replace('/^.*?\s(\d.+?)\s.*?$/', '$1', $mysql_version).' (client lib)';
+		$mysqlnd = true;
+	}
 
 	echo '<strong>'.$mysql_version.'</strong>';
 
@@ -60,7 +69,7 @@ $setup_recommend = true;
 	$mysql_version[0] = (int) $mysql_version[0];
 	$mysql_version[1] = empty($mysql_version[1]) ? 0 : (int) $mysql_version[1];
 
-	if($mysql_version[0] >= 5 && $mysql_version[1] >= 1) {
+	if($mysql_version[0] >= 5 && ($mysql_version[1] >= 1 || $mysqlnd)) {
 
 		// current MySQL isOK
 		echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
