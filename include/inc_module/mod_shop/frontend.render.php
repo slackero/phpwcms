@@ -1245,12 +1245,13 @@ if( $_shop_load_order !== false ) {
 		}
 
 		$payment_options = get_payment_options();
-		foreach($payment_options  as $item_key => $row) {
+		foreach($payment_options as $item_key => $row) {
 			$mail_customer = render_cnt_template($mail_customer, 'PAYBY_'.strtoupper($item_key), '');
+			$mail_neworder = render_cnt_template($mail_neworder, 'PAYBY_'.strtoupper($item_key), '');
 		}
 
-		$mail_customer = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), $_shopPref['shop_pref_currency'], $content['all']);
-		$mail_neworder = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), $_shopPref['shop_pref_currency'], $content['all']);
+		$mail_customer = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), $_shopPref['shop_pref_currency'], $mail_customer);
+		$mail_neworder = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), $_shopPref['shop_pref_currency'], $mail_neworder);
 
 		// store order in database
 		$order_data = array(
