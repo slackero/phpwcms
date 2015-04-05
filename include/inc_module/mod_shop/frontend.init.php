@@ -161,7 +161,9 @@ function get_payment_options() {
 	$supported = array('prepay' => 0, 'pod' => 0, 'onbill' => 0);
 	$available = array();
 	foreach($supported as $key => $value) {
-		if($payment_prefs[$key]) $available[$key] = $payment_prefs[$key];
+		if(!empty($payment_prefs[$key])) {
+			$available[$key] = $payment_prefs[$key];
+		}
 	}
 	return $available;
 }
