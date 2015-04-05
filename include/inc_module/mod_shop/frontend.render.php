@@ -80,7 +80,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
 		// Classes
 		$_tmpl['config'] = array_merge(array(
-			'class_product_form' => 'product-form',
+			'class_form_product_cart_option' => 'product-cart-option',
 			'class_shop_amount' => 'shop-amount',
 			'class_cart_add_button' => 'cart-add-button',
 			'class_product_option_1' => 'product-option-1',
@@ -790,7 +790,7 @@ if( $_shop_load_list !== false ) {
 
 				$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
 
-				$_cart_add  = '<form action="' . $shop_prod_detail . '" id="prod_form_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_product_form'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" method="post">';
+				$_cart_add  = '<form action="' . $shop_prod_detail . '" id="prod_form_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_form_product_cart_option'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" method="post">';
 				$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
 				$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
 				if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
