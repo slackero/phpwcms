@@ -4166,6 +4166,29 @@ function render_if_category($matches) {
 	return '';
 }
 
+function render_if_not_category($matches) {
+
+	$cat_ids = convertStringToArray($matches[1]);
+
+	if(!count($cat_ids)) {
+		return '';
+	}
+
+	$current = intval($GLOBALS['content']['cat_id']);
+
+	foreach($cat_ids as $id) {
+
+		$id = intval($id);
+
+		if($id !== $current) {
+			return str_replace('{IF_NOTCAT_ID}', $id, $matches[2]);
+		}
+
+	}
+
+	return '';
+}
+
 function get_css_keywords($text) {
 
 	if(empty($text) || !is_string($text) || strpos($text, '*CSS-') === false) {
