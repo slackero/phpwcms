@@ -484,7 +484,11 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 		echo implode(LF . '	', $js_files_all);
 		echo LF . '	//if(closewin == true) tmt_winControl("self","close()");';
 		echo LF . '	getObjectById("addAllFilesLink").style.display = "none";';
-		echo LF . '	if(confirm("' . str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']) . '")) tmt_winControl("self","close()");';
+		$confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
+		if(PHPWCMS_CHARSET !== 'utf-8') {
+			$confirm = utf8_decode($confirm);
+		}
+		echo LF . '	if(confirm("' . $confirm . '")) tmt_winControl("self","close()");';
 		echo LF . '}' . LF;
 
 		echo LF . SCRIPT_CDATA_END;
