@@ -1388,6 +1388,6 @@ $BL['be_filter']						= 'filter';
 $BL['be_filter_with_tags']				= 'by tag';
 $BL['be_filter_not_selected']			= 'no category selected';
 $BL['be_empty_search_result']			= 'The search returned no results.';
-$BL['confirm_cp_tab_warning']			= 'The subsection is has no title and no number is assigned. The selection will get lost on save or update.';
+$BL['confirm_cp_tab_warning']			= 'The subsection has no title and no number is assigned. The selection will get lost on save or update.';
 
 ?>
