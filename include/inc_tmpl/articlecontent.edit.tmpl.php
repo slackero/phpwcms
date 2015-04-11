@@ -41,24 +41,24 @@ if(empty($content['article']['acat_id'])) { // Root structure
 		case 16:
 		case 50:
 		case 89:
-			echo 'onsubmit="selectAllOptions(this.cimage_list);"';
+			echo 'onsubmit="selectAllOptions(this.cimage_list);return checkCp();"';
 			break;
 
 		//case 25:
 		case 7:
-			echo 'onsubmit="selectAllOptions(this.cfile_list);"';
+			echo 'onsubmit="selectAllOptions(this.cfile_list);return checkCp();"';
 			break;
 
 		case 8:
-			echo 'onsubmit="selectAllOptions(this.calink);"';
+			echo 'onsubmit="selectAllOptions(this.calink);return checkCp();"';
 			break;
 
 		case 53:
-			echo 'onsubmit="selectAllOptions(this.cforum_selection);"';
+			echo 'onsubmit="selectAllOptions(this.cforum_selection);return checkCp();"';
 			break;
 
 		default:
-			echo 'onsubmit="var ct=document.getElementById(\'target_ctype\');if(ct.disabled){ct.disabled=false;}"';
+			echo 'onsubmit="var ct=document.getElementById(\'target_ctype\'); if(ct.disabled){ct.disabled=false;} return checkCp();"';
 
 	}
 
@@ -104,7 +104,6 @@ if(empty($content['article']['acat_id'])) { // Root structure
 
 	}
 	echo '</span>';
-
 
 	?></td></tr>
 	<tr><td colspan="2" class="rowspacer5x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -433,10 +432,19 @@ if($content['cp_setting_mode']):
 
 				if(block == 'SYSTEM') {
 					system1.style.display = 'table-row';
+					ctab.value = '0';
 					ctab.disabled = true;
+					cTabStatus = false;
+
+					$('ctab1').setStyle('display', 'none');
+					$('ctab2').setStyle('display', 'none');
+					$('ctab3').setStyle('display', 'none');
+
 				} else {
+
 					system1.style.display = 'none';
 					ctab.disabled = false;
+
 				}
 
 				if(block != "CONTENT") {
@@ -450,6 +458,19 @@ if($content['cp_setting_mode']):
 				} else {
 					paginate.disabled = false;
 				}
+			}
+
+			function checkCp() {
+
+				var ctab = document.getElementById('ctab');
+				var ctab_title = document.getElementById('ctab_title');
+				var ctab_number = document.getElementById('ctab_number');
+
+				if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
+					return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : utf8_decode($BL['confirm_cp_tab_warning']); ?>');
+				}
+
+				return true;
 			}
 
 		</script></td>

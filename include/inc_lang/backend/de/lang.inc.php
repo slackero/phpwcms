@@ -1379,5 +1379,6 @@ $BL['be_filter']						= 'Filter';
 $BL['be_filter_with_tags']				= 'nach Schlagwort';
 $BL['be_filter_not_selected']			= 'Keine Kategorie ausgew&auml;hlt';
 $BL['be_empty_search_result']			= 'Die Suche lieferte ein leeres Ergebnis.';
+$BL['confirm_cp_tab_warning']			= 'Der gewählte Abschnitt ist unbenannt und auch keiner Nummer zugeordnet. Beim Speichen bzw. Aktualisieren geht die Auswahl verloren.';
 
 ?>
