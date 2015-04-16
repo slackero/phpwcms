@@ -640,11 +640,15 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 		$article_id = explode(',', $article_id);
 	}
 	if(is_array($article_id) && count($article_id)) {
-		foreach($article_id as $value) {
+		foreach($article_id as $key => $value) {
 			$value = intval($value);
 			if(!$value) {
-				unset($article_id);
+				unset($article_id[$key]);
 			}
+			$article_id[$key] = $value;
+		}
+		if(count($article_id)) {
+			$article_id	= array_unique($article_id);
 		}
 	}
 	if(!is_array($article_id) || !count($article_id)) {
@@ -652,9 +656,6 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 			return array();
 		}
 		$article_id = array();
-	}
-	if(count($article_id)) {
-		$article_id	= array_unique($article_id);
 	}
 
 	$sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
@@ -722,13 +723,15 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 		return array();
 	}
 
-	if($sort == '') {
+	if($sort === '') {
 		foreach($article_id as $row) {
 			$data[$row] = '';
 		}
 	}
 
 	foreach($result as $row) {
+
+		$row["article_id"] = intval($row["article_id"]);
 
 		$data[$row["article_id"]] = array(
 			"article_id"		=> $row["article_id"],
@@ -798,8 +801,12 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 		}
 	}
 
-	if($sort == '') {
-		return array_diff($data, array(''));
+	if($sort === '' && count($data)) {
+		foreach($data as $key => $value) {
+			if($value === '') {
+				unset($data[$key]);
+			}
+		}
 	}
 
 	return $data;
