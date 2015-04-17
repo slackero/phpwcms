@@ -68,7 +68,7 @@ if(isset($_GET['target'])) {
 }
 
 if(isset($_GET['entry_id'])) {
-	$_SESSION['filebrowser_image_entry_id'] = preg_replace('/[^a-z0-9_]/', '', $_GET['entry_id']);
+	$_SESSION['filebrowser_image_entry_id'] = preg_replace('/[^a-z0-9_\-]/', '', $_GET['entry_id']);
 }
 if(isset($_GET['CKEditorFuncNum'])) {
 	$_SESSION['CKEditorFuncNum'] = intval($_GET['CKEditorFuncNum']);
