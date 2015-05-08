@@ -1720,7 +1720,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 
 	// check for unique recipients (target) and sender (fromEmail)
-	if(!empty($cnt_form['checktofrom'])) {
+	if(!empty($cnt_form['checktofrom']) && !empty($cnt_form['fromEmail'])) {
 
 		foreach($cnt_form["target"] as $value) {
 
