@@ -1460,6 +1460,7 @@ function html_parser($string) {
 	$replace[15]	= '<dfn title="$1">$2</dfn>';
 
 	$string = preg_replace($search, $replace, $string);
+	$string = parse_cnt_urlencode($string);
 
 	// internal Link to article ID or alias
 	$string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
@@ -2419,7 +2420,7 @@ function replace_cnt_template($text='', $tag='', $value='') {
 
 function parse_cnt_urlencode($value) {
 	// replace tag by value
-	return preg_replace_callback('/\[URLENCODE\](.*?)\[\/URLENCODE\]/s', 'render_urlencode', $value);
+	return preg_replace_callback('/\[URLENCODE\](.*?)\[\/URLENCODE\]/is', 'render_urlencode', $value);
 }
 
 function render_urlencode($match) {
