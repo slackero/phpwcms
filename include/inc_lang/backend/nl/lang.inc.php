@@ -1023,12 +1023,12 @@ $BL['be_cnt_sysadmin_system']			= 'Systeem';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'De installatie is up to dat. Er zijn geen updates beschikbaar voor deze versie.';
-$BL['Version_not_up_to_date']			= 'De installatie is <b>niet</b> up to date. Er zijn updates beschikbaar. Ga naar <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a> om de laatste versie te downloaden.';
+$BL['Version_not_up_to_date']			= 'De installatie is <b>niet</b> up to date. Er zijn updates beschikbaar. Ga naar <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> om de laatste versie te downloaden.';
 $BL['Latest_version_info']				= 'De laatste versie is <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'Versie: <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Kan geen verbinding maken met de phpwcms server. De foutcode is:<br />%s';
 $BL['Socket_functions_disabled']		= 'Niet mogelijk om socket functies te gebruiken.';
-$BL['Mailing_list_subscribe_reminder']	= 'Schrijf je in voor de mailing list om up to date te blijve van de laatste informatie en versies. <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">Abonneer</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'Schrijf je in voor de mailing list om up to date te blijve van de laatste informatie en versies. <a href="http://eepurl.com/bm-BrH" target="_blank">Abonneer</a>.';
 $BL['Version_information'] 				= 'phpwcms Versie Informatie';
 
 $BL['be_cnt_search_highlight']			= 'Markeer';

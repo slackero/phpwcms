@@ -1016,12 +1016,12 @@ $BL['be_cnt_sysadmin_system']			= 'Sistem';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel,daha g&uuml;ncel bir phpwcms s&uuml;r&uuml;m&uuml;ne rastlamanamadi';
-$BL['Version_not_up_to_date']			= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
+$BL['Version_not_up_to_date']			= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
 $BL['Latest_version_info']				= 'Daha yeni bir <b>phpwcms %s</b>. versiyonu mevcut.';
 $BL['Current_version_info']				= '&#351;u anda <b>phpwcms %s</b> ile &ccedil;al&#305;&#351;&#305;yorsunuz.';
 $BL['Connect_socket_error']				= 'phpwcms Sunucusu ile ba&#287;lant&#305; kurulamad&#305;, raporlanan hata :<br />%s';
 $BL['Socket_functions_disabled']		= 'socket fonksiyonu kullan&#305;lam&#305;yor.';
-$BL['Mailing_list_subscribe_reminder']	= 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://eepurl.com/bm-BrH" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
 $BL['Version_information'] 				= 'phpwcms Versiyon bilgileri';
 
 $BL['be_cnt_search_highlight']			= 'hgighlight';

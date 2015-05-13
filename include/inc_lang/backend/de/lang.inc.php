@@ -1034,12 +1034,12 @@ $BL['be_cnt_sysadmin_system']			= 'System';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date'] 				= 'Diese Installation ist auf dem neuesten Stand; es sind keine Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar.';
-$BL['Version_not_up_to_date'] 			= 'Diese Installation ist wahrscheinlich <b>nicht</b> auf dem neuesten Stand. Es sind Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar, bitte <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> besuchen, um die aktuellste Version zu erhalten.';
+$BL['Version_not_up_to_date'] 			= 'Diese Installation ist wahrscheinlich <b>nicht</b> auf dem neuesten Stand. Es sind Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar, bitte <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> besuchen, um die aktuellste Version zu erhalten.';
 $BL['Latest_version_info'] 				= 'Die neueste offizielle Version ist <b>phpwcms %s</b>.';
 $BL['Current_version_info'] 			= 'Aktuell verwendete Version <b>phpwcms %s</b>.';
 $BL['Connect_socket_error'] 			= 'Die Verbindung zum phpwcms-Server konnte nicht aufgebaut werden. Es trat folgender Fehler auf:<br />%s';
 $BL['Socket_functions_disabled'] 		= 'Die Socket-Funktionen konnten nicht benutzt werden.';
-$BL['Mailing_list_subscribe_reminder'] 	= 'Um immer die neuesten Informationen zu Updates von phpwcms zu erhalten, wird empfohlen, sich bei der <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">phpwcms Mailingliste</a> anzumelden.';
+$BL['Mailing_list_subscribe_reminder'] 	= 'Um immer die neuesten Informationen zu Updates von phpwcms zu erhalten, wird empfohlen, sich bei der <a href="http://eepurl.com/bm-BrH" target="_blank">phpwcms Mailingliste</a> anzumelden.';
 $BL['Version_information'] 				= 'phpwcms Versionsinformation';
 
 $BL['be_cnt_search_highlight']			= 'Highlight';

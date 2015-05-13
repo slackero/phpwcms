@@ -1025,12 +1025,12 @@ $BL['be_cnt_sysadmin_system']           = 'sistem';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']               = 'Nameščeno imate zadnjo verzijo phpwcms-ja. Na voljo ni nobene posodobitve.';
-$BL['Version_not_up_to_date']           = 'Vaša namestitev <strong>ni</strong> posodobljena. Na voljo so posodobitve - obiščite <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a>.';
+$BL['Version_not_up_to_date']           = 'Vaša namestitev <strong>ni</strong> posodobljena. Na voljo so posodobitve - obiščite <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a>.';
 $BL['Latest_version_info']              = 'Zadnja verzija je: <b>phpwcms %s</b>.';
 $BL['Current_version_info']             = 'Nameščeno imate: <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']             = 'Ne morem odpreti povezave do phpwcms strežnika - napaka:<br />%s';
 $BL['Socket_functions_disabled']        = 'Ne morem uporaviti "socket" funkcije.';
-$BL['Mailing_list_subscribe_reminder']  = 'Za prejemanje informacij o zadnjih verzijah phpwcms-ja se lahko prijavite <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">tukaj</a>.';
+$BL['Mailing_list_subscribe_reminder']  = 'Za prejemanje informacij o zadnjih verzijah phpwcms-ja se lahko prijavite <a href="http://eepurl.com/bm-BrH" target="_blank">tukaj</a>.';
 $BL['Version_information']              = 'informacije o verziji phpwcms-ja';
 
 $BL['be_cnt_search_highlight']          = 'poudari zadetek';
