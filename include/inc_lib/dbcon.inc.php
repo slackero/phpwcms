@@ -121,11 +121,12 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 							}
 							break;
 
-			// SET, CREATE, ALTER, DROP, RENAME
+			// SET, CREATE, ALTER, DROP, RENAME, TRUNCATE
 			case 'RENAME':
 			case 'DROP':
 			case 'ALTER':
 			case 'SET':
+			case 'TRUNCATE':
 			case 'CREATE':	return true;
 							break;
 
