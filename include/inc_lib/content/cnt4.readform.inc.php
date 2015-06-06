@@ -21,19 +21,21 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Bullet List Table
 $content["text"] = html_specialchars(slweg($_POST["ctext"], 65500));
-$cbullet = explode("\n", $content["text"]);
+$cbullet = explode(LF, $content["text"]);
 if (count($cbullet)) {
 	foreach($cbullet as $key => $value) {
 		if (trim($value)) {
 			$cbullet[$key] = trim($value);
 		} else {
 			unset($cbullet[$key]);
-		} 
-	} 
-	$content["text"] = implode("\n", $cbullet);
-} 
+		}
+	}
+	$content["text"] = implode(LF, $cbullet);
+} else {
+	$content["text"] = '';
+}
 
-$content["template"]	= clean_slweg($_POST['template']);
+$content["template"] = clean_slweg($_POST['template']);
 
 
 ?>
