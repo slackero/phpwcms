@@ -714,7 +714,7 @@ if(isset($content["search"]["result_per_page"])) {
 			$crow['template']['form'] .= $content["search"]["label_input"]."</td>";
 		}
 		$crow['template']['form'] .= '<td class="formSearch">';
-		$crow['template']['form'] .= '<input name="search_input_field" id="search_input_field" type="text" size="30" maxlength="200" ';
+		$crow['template']['form'] .= '<input name="search_input_field" id="search_input_field" type="search" size="30" maxlength="200" ';
 		$crow['template']['form'] .= 'value="'.$content["search_word"].'"';
 		if($content["search"]["style_input"]) {
 			$crow['template']['form'] .= ' class="'.$content["search"]["style_input"].'"';

@@ -161,7 +161,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		}
 ?>
 				<td style="padding:0 10px 0 0;" class="nowrap">
-					<input type="text" name="filter" size="10" value="<?php	if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" class="width100" />
+					<input type="search" name="filter" size="10" value="<?php	if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" class="width100" />
 					<input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="vertical-align:middle;" />
 				</td>
 

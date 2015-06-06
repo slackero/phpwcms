@@ -154,7 +154,7 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
 
 				<td class="chatlist">|&nbsp;</td>
 
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+				<td><input type="search" name="filter" id="filter" size="10" value="<?php
 
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
 					echo html(implode(' ', $_POST['filter']));
