@@ -446,7 +446,10 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 
 //define the current article category ID
 $content["cat_id"]	= $aktion[0];
-$content['body_id']	= $aktion[0];
+// set default to empty string, to get back the old behavior use
+// frontend_render and set
+// $content['body_id'] = $content["cat_id"];
+$content['body_id']	= '';
 
 // check if current level is a redirect level
 if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
