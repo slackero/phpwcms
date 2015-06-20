@@ -34,30 +34,29 @@ $template_default['imagegallery_default_width']	 = isset($template_default['imag
 $template_default['imagegallery_default_height'] = isset($template_default['imagegallery_default_height']) ? $template_default['imagegallery_default_height'] : '' ;
 $template_default['imagegallery_default_space']	 = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
 
-
 $content['image_default'] = array(
 
-			'pos'			=> 0,
-			'width'			=> $template_default['imagegallery_default_width'],
-			'height'		=> $template_default['imagegallery_default_height'],
-			'width_zoom'	=> $phpwcms['img_prev_width'],
-			'height_zoom'	=> $phpwcms['img_prev_height'],
-			'col'			=> $template_default['imagegallery_default_column'],
-			'space'			=> $template_default['imagegallery_default_space'],
-			'zoom'			=> 0,
-			'caption'		=> '',
-			'lightbox'		=> 0,
-			'nocaption'		=> 0,
-			'center'		=> 0,
-			'crop'			=> 0,
-			'crop_zoom'		=> 0,
-			'fx1'			=> 0,
-			'fx2'			=> 0,
-			'fx3'			=> 0,
-			'freetext'		=> '',
-			'images'		=> array()
+	'pos'			=> 0,
+	'width'			=> $template_default['imagegallery_default_width'],
+	'height'		=> $template_default['imagegallery_default_height'],
+	'width_zoom'	=> $phpwcms['img_prev_width'],
+	'height_zoom'	=> $phpwcms['img_prev_height'],
+	'col'			=> $template_default['imagegallery_default_column'],
+	'space'			=> $template_default['imagegallery_default_space'],
+	'zoom'			=> 0,
+	'caption'		=> '',
+	'lightbox'		=> 0,
+	'nocaption'		=> 0,
+	'center'		=> 0,
+	'crop'			=> 0,
+	'crop_zoom'		=> 0,
+	'fx1'			=> 0,
+	'fx2'			=> 0,
+	'fx3'			=> 0,
+	'freetext'		=> '',
+	'images'		=> array()
 
-					);
+);
 
 $content['image_special'] = isset($content['image_special']) ? array_merge($content['image_default'], $content['image_special']) : $content['image_default'];
 
@@ -201,7 +200,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 				<td class="v10"><label for="cimage_fx1" class="checkbox"><?php echo $BL['be_fx_1'] ?></label></td>
 
 				<td>&nbsp;</td>
-				<td><input name="cimage_fx2" type="checkbox" id="cimage_fx2" value="1" <?php is_checked(1, $content['image_special']['fx2']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" /></td>
+				<td><input name="cimage_fx2" type="checkbox" id="cimage_fx2" value="1" <?php is_checked(1, $content['image_special']['fx2']); ?> /></td>
 				<td class="v10"><label for="cimage_fx2" class="checkbox"><?php echo $BL['be_fx_2'] ?></label></td>
 
 				<td>&nbsp;</td>
