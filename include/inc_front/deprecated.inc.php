@@ -44,7 +44,7 @@ function get_random_image_tag($path) {
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if( $file{0} != '.' && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
+   			if( substr($file, 0, 1) !== '.' && is_file($file) && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
 				$imgArray[] = $file;
 			}
 		}

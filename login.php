@@ -286,7 +286,7 @@ ob_start();
 $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
 $lang_code = array();
 while($lang_codes = readdir( $lang_dirs )) {
-	if( $lang_codes != "." && $lang_codes != ".." && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_codes."/lang.inc.php")) {
+	if( substr($lang_codes, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_codes."/lang.inc.php")) {
 		$lang_code[$lang_codes]  = '<option value="'.$lang_codes.'"';
 		$lang_code[$lang_codes] .= ($lang_codes == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
 		$lang_code[$lang_codes] .= '>';

@@ -284,8 +284,7 @@ if(is_dir($dir)) {
 	$ph			= opendir($dir);
 	$dir_sql	= array();
 	while($pf = readdir($ph)) {
-   		if( $pf != '.' && $pf != '..' && !is_dir($dir.'/'.$pf) && preg_match('/(\.sql)$/', strtolower($pf)) )
-		{
+   		if( substr($pf, 0, 1) !== '.' && is_file($dir.'/'.$pf) && preg_match('/(\.sql)$/i', $pf) ) {
 			$dir_sql[] = html_specialchars($pf);
 		}
 	}
@@ -300,8 +299,6 @@ if(is_dir($dir)) {
 	}
 
 }
-
-
 
 ?>
     </select></td>

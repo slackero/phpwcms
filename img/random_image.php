@@ -26,16 +26,16 @@ if(!$root_path) {
 
 
 if($imgpath) {
-	
+
 	$imgpath = str_replace("\\", "/", $root_path."/".$imgpath."/");
 	$imgpath = str_replace("//", "/", $imgpath );
 	$imgpath = str_replace("../", "/", $imgpath );
 	$imgpath = str_replace("//", "/", $imgpath );
-	
+
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if( $file != "." && $file != ".." && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/', strtolower($file)) ) 
+   			if(substr($file, 0, 1) !== '.' && is_file($file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
 				$imgArray[] = $file;
 		}
 		closedir( $handle );
