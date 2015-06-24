@@ -901,13 +901,15 @@ function parse_downloads($match) {
 			// include content part files renderer
 			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
 
-			return $news['files_result'];
+			if($news['files_result']) {
+				return $news['files_result'];
+			}
 
 		}
 
 	}
 
-	return '';
+	return isset($match[3]) ? $match[3] : '';
 
 }
 
