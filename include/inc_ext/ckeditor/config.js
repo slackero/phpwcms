@@ -32,5 +32,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.pasteFromWordRemoveFontStyles = true;
 	config.pasteFromWordRemoveStyles = true;
 	config.pasteFromWordPromptCleanup = true;
+	config.protectedSource.push(/<i[^>]*><\/i>/g);
+	config.protectedSource.push(/<span[^>]*><\/span>/g);
 
 };
