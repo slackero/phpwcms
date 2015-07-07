@@ -549,7 +549,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 									$content['form']['recaptcha']['site_key'] = trim($content['form']["fields"][$field_counter]['value']['public_key']);
 								}
 								if(isset($content['form']["fields"][$field_counter]['value']['secret_key'])) {
-									$content['form']['recaptcha']['private_key'] = trim($content['form']["fields"][$field_counter]['value']['secret_key']);
+									$content['form']['recaptcha']['secret_key'] = trim($content['form']["fields"][$field_counter]['value']['secret_key']);
 								} elseif(isset($content['form']["fields"][$field_counter]['value']['private_key'])) {
 									$content['form']['recaptcha']['secret_key'] = trim($content['form']["fields"][$field_counter]['value']['private_key']);
 								}
