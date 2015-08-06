@@ -60,6 +60,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_lang_id		= $row_acat["acat_lang_id"];
 			$acat_disable301	= $row_acat['acat_disable301'];
 			$acat_opengraph		= $row_acat['acat_opengraph'];
+			$acat_canonical		= $row_acat['acat_canonical'];
 		}
 
 		mysql_free_result($result_acat);

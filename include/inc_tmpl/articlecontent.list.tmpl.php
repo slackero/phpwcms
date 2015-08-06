@@ -93,6 +93,17 @@ $buttonAction .= '</tr></table>';
 			</tr>
 			<?php
 
+			if($article["article_canonical"]) {
+			?>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+			</tr>
+			<tr>
+			  <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_canonical'] ?>:&nbsp;</td>
+			  <td valign="top" class="v10"><?php echo html($article["article_canonical"]); ?></td>
+			</tr>
+			<?php
+			}
+
 			if($article["article_redirect"]) {
 			?>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>

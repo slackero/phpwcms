@@ -91,6 +91,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				$article['article_lang_type']	= $row['article_lang_type'];
 				$article['article_lang_id']		= $row['article_lang_id'];
 				$article['article_opengraph']	= $row['article_opengraph'];
+				$article['article_canonical']	= $row['article_canonical'];
 
 				$article['article_archive_status']	= $row['article_archive_status'];
 
@@ -143,6 +144,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		$article['article_lang_type']			= '';
 		$article['article_lang_id']				= 0;
 		$article['article_opengraph']			= empty($phpwcms['set_sociallink']['article']) ? 0 : 1;
+		$article['article_canonical']			= '';
 
 		$article['image']						= array();
 		$article['image']['tmpllist']			= 'default';
@@ -202,6 +204,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		$article['article_archive_status']	= empty($_POST["article_archive"]) ? 0 : 1;
 		$article["article_timeout"]			= clean_slweg($_POST["article_timeout"]);
 		$article['article_opengraph']		= empty($_POST["article_opengraph"]) ? 0 : 1;
+		$article['article_canonical']		= clean_slweg($_POST["article_canonical"], 2000);
+
 		if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
 			$article["article_timeout"] = '0'; //check if cache = Off
 		}
@@ -359,7 +363,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 					'article_lang'			=> $article["article_lang"],
 					'article_lang_type'		=> $article["article_lang_type"],
 					'article_lang_id'		=> $article["article_lang_id"],
-					'article_opengraph'		=> $article["article_opengraph"]
+					'article_opengraph'		=> $article["article_opengraph"],
+					'article_canonical'		=> $article["article_canonical"]
 				);
 
 				$result = _dbInsert('phpwcms_article', $data);
@@ -407,13 +412,14 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 						"article_lang="._dbEscape($article["article_lang"]).", ".
 						"article_lang_type="._dbEscape($article["article_lang_type"]).", ".
 						"article_lang_id="._dbEscape($article["article_lang_id"]).", ".
-						"article_opengraph=".$article["article_opengraph"].' ';
+						"article_opengraph=".$article["article_opengraph"].', '.
+						"article_canonical="._dbEscape($article["article_canonical"]);
 
 						if($_SESSION["wcs_user_admin"]) {
-							$sql .= ", article_uid=".$article["article_uid"]." ";
+							$sql .= ", article_uid=".$article["article_uid"];
 						}
 
-				$sql .=	"WHERE article_id=".$article["article_id"];
+				$sql .=	" WHERE article_id=".$article["article_id"];
 
 				$result = _dbQuery($sql, 'UPDATE');
 			}

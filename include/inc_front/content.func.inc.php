@@ -28,6 +28,7 @@ $content['aId_CpPage']			= 0; // set default content part pagination page (0 and
 $content['CpTrigger']			= array(); // array to hold content part trigger functions
 $content['404error']			= array('status' => false, 'id' => '', 'aid' => '', 'alias' => '');
 $content['set_canonical']		= false;
+$content['overwrite_canonical']	= '';
 $content['cptab']				= array(); // array to hold content part based tabs
 $content['images']				= array();
 $content['opengraph']			= array('support' => true, 'type' => 'website', 'render' => empty($phpwcms['set_sociallink']['render']) ? false : true); // will hold all relevant open graph information
@@ -716,6 +717,30 @@ if($aktion[1]) {
 
 	$content["pagetitle"] = setPageTitle($content["pagetitle"], $content['struct'][$content['cat_id']]['acat_name'], '');
 	$content['opengraph']['title'] = $content['struct'][$content['cat_id']]['acat_name'];
+
+}
+
+// Force overwritten canonical link
+if($content['struct'][ $content['cat_id'] ]['acat_canonical']) {
+	$content['overwrite_canonical'] = $content['struct'][ $content['cat_id'] ]['acat_canonical'];
+}
+
+if($content['overwrite_canonical']) {
+
+	$_test_canonical_schema = substr($content['overwrite_canonical'], 0, 4);
+
+	if($_test_canonical_schema !== 'http') {
+		$content['overwrite_canonical'] = ltrim('/');
+		if($_test_canonical_schema === '{SIT') {
+			$content['overwrite_canonical'] = str_replace('{SITE}', PHPWCMS_URL, $content['overwrite_canonical']);
+		} else {
+			$content['overwrite_canonical'] = PHPWCMS_URL . $content['overwrite_canonical'];
+		}
+	}
+
+	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . html($content['overwrite_canonical']) . '"'.HTML_TAG_CLOSE;
+
+	$content['set_canonical'] = false;
 
 }
 

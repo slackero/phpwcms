@@ -76,6 +76,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 						$row["article_pagetitle"]	= $alias_row["article_pagetitle"];
 						$row['article_description']	= $alias_row['article_description'];
 						$row['article_menutitle']	= $alias_row['article_menutitle'];
+						$row['article_opengraph']	= $alias_row['article_opengraph'];
+						$row['article_canonical']	= $alias_row['article_canonical'];
 					}
 				}
 				mysql_free_result($alias_result);
@@ -117,6 +119,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			}
 		}
 
+		$content['overwrite_canonical'] = $row['article_canonical'];
 
 		// UNIQUE article ID as used for teaser content part
 		if(!isset($content['UNIQUE_ALINK'])) {
@@ -824,30 +827,36 @@ if(empty($template_default["article"]["div_spacer"])) {
 
 // set canonical <link> in page <head> section to avoid lower SEO ranking
 // see: http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
-if($content['set_canonical'] && empty($phpwcms['canonical_off']) && empty($phpwcms['force301_2struct'])) {
-	if($content['aId_CpPage']) {
-		$content['set_canonical'] = 'aid='.$row["article_id"].'-'.$content['aId_CpPage'];
-		if(!empty($content['struct'][ $content['cat_id'] ]['acat_alias'])) {
-			$content['set_canonical'] .= '&amp;'.$content['struct'][ $content['cat_id'] ]['acat_alias'];
-		}
-	} else {
-		// set canonical only for single article in this category
-		$content['set_canonical'] = get_structurelevel_single_article_alias($content['cat_id']);
-	}
-	if($content['set_canonical']) {
+if($content['overwrite_canonical']) {
 
-		if($phpwcms["rewrite_url"]) {
+	$content['set_canonical'] = false;
 
-			$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" '.url_search(array(1 => 'href', 3 => $content['set_canonical'])) . ' />';
-
-			if(PHPWCMS_REWRITE_EXT && strpos($block['custom_htmlhead']['canonical'], PHPWCMS_REWRITE_EXT.'&amp;')) {
-				$block['custom_htmlhead']['canonical'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $block['custom_htmlhead']['canonical']);
-			};
-
+} else {
+	if($content['set_canonical'] && empty($phpwcms['canonical_off']) && empty($phpwcms['force301_2struct'])) {
+		if($content['aId_CpPage']) {
+			$content['set_canonical'] = 'aid='.$row["article_id"].'-'.$content['aId_CpPage'];
+			if(!empty($content['struct'][ $content['cat_id'] ]['acat_alias'])) {
+				$content['set_canonical'] .= '&amp;'.$content['struct'][ $content['cat_id'] ]['acat_alias'];
+			}
 		} else {
-			$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
+			// set canonical only for single article in this category
+			$content['set_canonical'] = get_structurelevel_single_article_alias($content['cat_id']);
 		}
+		if($content['set_canonical']) {
 
+			if($phpwcms["rewrite_url"]) {
+
+				$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" '.url_search(array(1 => 'href', 3 => $content['set_canonical'])) . ' />';
+
+				if(PHPWCMS_REWRITE_EXT && strpos($block['custom_htmlhead']['canonical'], PHPWCMS_REWRITE_EXT.'&amp;')) {
+					$block['custom_htmlhead']['canonical'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $block['custom_htmlhead']['canonical']);
+				};
+
+			} else {
+				$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
+			}
+
+		}
 	}
 }
 

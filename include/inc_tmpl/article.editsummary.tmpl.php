@@ -201,14 +201,6 @@ calEnd.setYearCombo(false);
 
 <?php	endif;	?>
 
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-	<tr>
-	  <td align="right" class="chatlist"><?php echo $BL['be_article_aredirect'] ?>:&nbsp;</td>
-	  <td><input name="article_redirect" type="text" id="article_redirect" class="f11" style="width: 440px" value="<?php echo html($article["article_redirect"]) ?>" size="40" /></td>
-	</tr>
-
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
 		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>&nbsp;&nbsp;<br />
@@ -216,11 +208,12 @@ calEnd.setYearCombo(false);
 		<td><input name="article_alias" type="text" class="f11b width440" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" size="40" maxlength="230"<?php
 			if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
 	</tr>
-			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-			<tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-              <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11 width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
-			</tr>
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	<tr>
+        <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
+        <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11 width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
+	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
@@ -229,6 +222,18 @@ calEnd.setYearCombo(false);
 	  <td><input name="article_menutitle" type="text" id="article_menutitle" class="f11 width440" value="<?php echo html($article["article_menutitle"]) ?>" size="40" /></td>
 	</tr>
 
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	<tr>
+	  <td align="right" class="chatlist"><?php echo $BL['be_article_aredirect'] ?>:&nbsp;</td>
+	  <td><input name="article_redirect" type="text" id="article_redirect" class="f11 width440" value="<?php echo html($article["article_redirect"]) ?>" size="40" /></td>
+	</tr>
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	<tr>
+	  <td align="right" class="chatlist"><?php echo $BL['be_canonical'] ?>:&nbsp;</td>
+	  <td><input name="article_canonical" type="text" id="article_canonical" class="f11 width440" value="<?php echo html($article["article_canonical"]) ?>" size="40" maxlength="2000" /></td>
+	</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>

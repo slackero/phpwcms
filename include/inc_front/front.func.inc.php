@@ -466,7 +466,8 @@ function get_struct_data($root_name='', $root_info='') {
 		"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
 		"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
 		"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1,
-		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1
+		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1,
+		"acat_canonical"	=> empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'],
 	);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -504,7 +505,8 @@ function get_struct_data($root_name='', $root_info='') {
 				"acat_class"		=> $row["acat_class"],
 				"acat_keywords"		=> $row["acat_keywords"],
 				"acat_disable301"	=> $row["acat_disable301"],
-				"acat_opengraph"	=> $row["acat_opengraph"]
+				"acat_opengraph"	=> $row["acat_opengraph"],
+				"acat_canonical"	=> $row["acat_canonical"]
 			);
 		}
 		mysql_free_result($result);

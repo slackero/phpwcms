@@ -417,7 +417,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('SCRIPT_ATTRIBUTE_TYPE', '');
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
-	define('HTML_TAG_CLOSE'  , ' />');
+	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
 	define('HTML5_MODE', true);
