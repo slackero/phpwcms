@@ -831,33 +831,24 @@ if($content['overwrite_canonical']) {
 
 	$content['set_canonical'] = false;
 
-} else {
-	if($content['set_canonical'] && empty($phpwcms['canonical_off']) && empty($phpwcms['force301_2struct'])) {
-		if($content['aId_CpPage']) {
-			$content['set_canonical'] = 'aid='.$row["article_id"].'-'.$content['aId_CpPage'];
-			if(!empty($content['struct'][ $content['cat_id'] ]['acat_alias'])) {
-				$content['set_canonical'] .= '&amp;'.$content['struct'][ $content['cat_id'] ]['acat_alias'];
-			}
-		} else {
-			// set canonical only for single article in this category
-			$content['set_canonical'] = get_structurelevel_single_article_alias($content['cat_id']);
-		}
-		if($content['set_canonical']) {
+} elseif(empty($phpwcms['canonical_off'])) {
 
-			if($phpwcms["rewrite_url"]) {
+	$_tempAlias = empty($row['article_alias']) ? 'aid='.$row["article_id"] : $row['article_alias'];
 
-				$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" '.url_search(array(1 => 'href', 3 => $content['set_canonical'])) . ' />';
+	if($content['set_canonical'] && empty($phpwcms['force301_2struct'])) {
 
-				if(PHPWCMS_REWRITE_EXT && strpos($block['custom_htmlhead']['canonical'], PHPWCMS_REWRITE_EXT.'&amp;')) {
-					$block['custom_htmlhead']['canonical'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $block['custom_htmlhead']['canonical']);
-				};
+		// check against page or set canonical only for single article in this category
+		$content['set_canonical'] = $content['aId_CpPage'] ? 'aid='.$row["article_id"].'-'.$content['aId_CpPage'] : get_structurelevel_single_article_alias($content['cat_id']);
+		$content['set_canonical'] = abs_url(array(), true, $content['set_canonical'] ? $content['set_canonical'] : $_tempAlias, 'rawurlencode');
 
-			} else {
-				$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . PHPWCMS_URL . 'index.php?' . $content['set_canonical'] . '" />';
-			}
+	} else {
 
-		}
+		$content['set_canonical'] = abs_url(array(), true, $_tempAlias, 'rawurlencode');
+
 	}
+
+	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . $content['set_canonical'] . '"'.HTML_TAG_CLOSE;
+
 }
 
 if(!defined('PHPWCMS_ALIAS') && !empty($row['article_alias'])) {
