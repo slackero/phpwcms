@@ -559,8 +559,12 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 		if($id_alias[0] !== '') {
 			$id_alias[1] = isset($id_alias[1]) ? trim($id_alias[1]) : '';
-			array_shift($_getVarTemp);
-			$_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
+			if(count($_getVarTemp)) {
+				array_shift($_getVarTemp);
+				$_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
+			} else {
+				$_getVarTemp = array($id_alias[0] => $id_alias[1]);
+			}
 		}
 	}
 
