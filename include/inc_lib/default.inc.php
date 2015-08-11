@@ -373,7 +373,9 @@ $phpwcms['default_template_classes'] = array(
 	'cpgroup-container-clear'		=> '', //cpgroup-container-clear
 	'cpgroup-content'				=> 'cpgroup-content',
 	'shop-category-menu'			=> 'shop-categories',
-	'shop-products-menu'			=> 'shop-products'
+	'shop-products-menu'			=> 'shop-products',
+	'cp-paginate-link'				=> 'paginate-link',
+	'cp-paginate-link-active'		=> 'paginate-link active'
 );
 
 $phpwcms['search_highlight'] = array(
@@ -383,8 +385,14 @@ $phpwcms['search_highlight'] = array(
 
 $phpwcms['default_template_attributes'] = array(
 	'navlist-bs-dropdown-data'	=> 'data-toggle="dropdown"',
-	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>',
-	'cpgroup'					=> 'data' // data = <span>, href = <a>
+	'navlist-bs-dropdown-caret'	=> ' <mark class="caret"></mark>',
+	'cpgroup'					=> 'data', // data = <span>, href = <a>
+	'cp-paginate' => array(
+		'link-prefix' => ' ',
+		'link-suffix' => ' ',
+		'value-prefix' => '',
+		'value-suffix' => ''
+	)
 );
 
 if(empty($phpwcms['mode_XHTML'])) {

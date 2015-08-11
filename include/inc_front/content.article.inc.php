@@ -527,6 +527,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			2 => array('id' => 'cpgroup', 'item' => 'cpgroup', 'title' => 'ContentPartGroupTitle')
 		);
 
+		$content['article_alias'] = $row['article_alias'];
+		$content['article_id'] = $row['article_id'];
+
 		foreach($cresult as $crow) {
 
 			// check for article content part pagination
@@ -825,6 +828,10 @@ if(empty($template_default["article"]["div_spacer"])) {
 	$content["main"] = str_replace("</div><br />", "</div>", $content["main"]);
 }
 
+if(!defined('PHPWCMS_ALIAS') && $content['article_alias']) {
+	define('PHPWCMS_ALIAS', $content['article_alias']);
+}
+
 // set canonical <link> in page <head> section to avoid lower SEO ranking
 // see: http://googlewebmastercentral.blogspot.com/2009/02/specify-your-canonical.html
 if($content['overwrite_canonical']) {
@@ -833,12 +840,12 @@ if($content['overwrite_canonical']) {
 
 } elseif(empty($phpwcms['canonical_off'])) {
 
-	$_tempAlias = empty($row['article_alias']) ? 'aid='.$row["article_id"] : $row['article_alias'];
+	$_tempAlias = PHPWCMS_ALIAS ? PHPWCMS_ALIAS : 'aid='.$content['article_id'];;
 
 	if($content['set_canonical'] && empty($phpwcms['force301_2struct'])) {
 
 		// check against page or set canonical only for single article in this category
-		$content['set_canonical'] = $content['aId_CpPage'] ? 'aid='.$row["article_id"].'-'.$content['aId_CpPage'] : get_structurelevel_single_article_alias($content['cat_id']);
+		$content['set_canonical'] = $content['aId_CpPage'] ? 'aid='.$content['article_id'].'-'.$content['aId_CpPage'] : get_structurelevel_single_article_alias($content['cat_id']);
 		$content['set_canonical'] = abs_url(array(), true, $content['set_canonical'] ? $content['set_canonical'] : $_tempAlias, 'rawurlencode');
 
 	} else {
@@ -849,10 +856,6 @@ if($content['overwrite_canonical']) {
 
 	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . $content['set_canonical'] . '"'.HTML_TAG_CLOSE;
 
-}
-
-if(!defined('PHPWCMS_ALIAS') && !empty($row['article_alias'])) {
-	define('PHPWCMS_ALIAS', $row['article_alias']);
 }
 
 ?>

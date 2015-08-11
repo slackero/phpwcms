@@ -131,6 +131,7 @@ $phpwcms['set_sociallink']		= array('article' => false, 'articlecat' => false, '
 $phpwcms['header_comment']		= '';
 $phpwcms['cnt_sort']			= 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'
 $phpwcms['cmsimage_redirect']	= false; // redirect to the resized/cropped image if true
+$phpwcms['disable_next_prev']	= false; // https://support.google.com/webmasters/answer/1663744
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address
