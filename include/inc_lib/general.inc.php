@@ -1123,7 +1123,7 @@ function return_bytes_shorten($val, $round=2, $return_bytes=0) {
 		$space	= '';
 		$byte	= '';
 	} else {
-		$space	= $return_bytes;
+		$space	= $return_bytes === '1' ? ' ' : $return_bytes;
 		$byte	= 'B';
 	}
 	if($last == 'k' || $last == 'm' || $last == 'g' || $last == 't') {
