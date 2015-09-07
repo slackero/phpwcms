@@ -78,6 +78,7 @@ $phpwcms['imgext_disabled']   = ''; // comma seperated list of imagetypes which 
 $phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia
 $phpwcms['recipient_count']   = 0;
 $phpwcms['inline_download']   = 1; // try to open download document in browser window
+$phpwcms['sanitize_dlname']   = 0; // if there are problems downloading files with special chars in name try to enable this setting
 $phpwcms['form_tracking']     = 1; // make a db entry for each form
 $phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling
 $phpwcms['allow_cntPHP_rt']   = 0; // allow PHP replacement tags and includes in content parts

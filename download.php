@@ -20,6 +20,12 @@ if( !empty($phpwcms['SESSION_FEinit']) ) {
 require_once ('include/inc_lib/default.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+if(empty($phpwcms['sanitize_dlname'])) {
+	$phpwcms['sanitize_dlname'] = false;
+} else {
+	$phpwcms['sanitize_dlname'] = true;
+	require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
+}
 
 // try to get hash for file download
 $success	= false;
@@ -75,7 +81,7 @@ if(!empty($hash) && strlen($hash) == 32) {
 			$fileinfo['mimetype']	= $download["f_type"];
 			$fileinfo['file']		= $fileinfo['path'].$fileinfo['filename'];
 			$fileinfo['extension']	= $download["f_ext"];
-			$fileinfo['realfname']	= $download["f_name"];
+			$fileinfo['realfname']	= $phpwcms['sanitize_dlname'] ? phpwcms_remove_accents($download["f_name"]) : $download["f_name"];
 
 			// start download
 			$success = dl_file_resume($fileinfo['file'], $fileinfo, true);
@@ -109,7 +115,7 @@ if(!empty($hash) && strlen($hash) == 32) {
 
 			header('Content-Transfer-Encoding: binary');
 			if(!isset($_GET['ios'])) {
-				header('Content-Disposition: inline; filename="'.$filename.'"');
+				header('Content-Disposition: inline; filename="'.($phpwcms['sanitize_dlname'] ? phpwcms_remove_accents($filename) : $filename).'"');
 			}
 			header('Content-Length: ' . filesize($file));
 

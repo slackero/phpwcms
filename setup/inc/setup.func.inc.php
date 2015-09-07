@@ -200,6 +200,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['imgext_disabled']   = '';  //comma seperated list of imagetypes which should not be handled 'pdf,ps'\n";
 	$conf_file .= "\$phpwcms['multimedia_ext']    = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia\n";
 	$conf_file .= "\$phpwcms['inline_download']   = 1;  //1 = try to display download documents in new window; 0 = show safe under dialog\n";
+	$conf_file .= "\$phpwcms['sanitize_dlname']   = 0; // if there are problems downloading files with special chars in name try to enable this setting\n";
 	$conf_file .= "\$phpwcms['form_tracking']     = 1; //make a db entry for each form\n";
 	$conf_file .= "\$phpwcms['formmailer_set']    = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling\n";
 	$conf_file .= "\$phpwcms['allow_cntPHP_rt']   = 0; //allow PHP replacement tags and includes in content parts\n";
@@ -254,6 +255,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['header_comment']		= '';\n";
 	$conf_file .= "\$phpwcms['cnt_sort']			= 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'\n";
 	$conf_file .= "\$phpwcms['cmsimage_redirect']	= false; // redirect to the resized/cropped image if true\n";
+	$conf_file .= "\$phpwcms['disable_next_prev']	= false; // https://support.google.com/webmasters/answer/1663744\n";
 
 	$conf_file .= "\n// Email specific settings (based on phpMailer)\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"])."'; // reply/from email address\n";
