@@ -466,7 +466,8 @@ function get_struct_data($root_name='', $root_info='') {
 		"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
 		"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
 		"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1,
-		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1
+		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1,
+		"acat_canonical"	=> empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'],
 	);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -504,7 +505,8 @@ function get_struct_data($root_name='', $root_info='') {
 				"acat_class"		=> $row["acat_class"],
 				"acat_keywords"		=> $row["acat_keywords"],
 				"acat_disable301"	=> $row["acat_disable301"],
-				"acat_opengraph"	=> $row["acat_opengraph"]
+				"acat_opengraph"	=> $row["acat_opengraph"],
+				"acat_canonical"	=> $row["acat_canonical"]
 			);
 		}
 		mysql_free_result($result);
@@ -1284,6 +1286,11 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					$tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
 				}
 
+				// article class based on keyword *CSS-classname*
+				$article['article_class'] = get_css_keywords($article['article_keyword']);
+				$article['article_class'] = count($article['article_class']) ? implode(' ', $article['article_class']) : '';
+				$tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_class']);
+
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
@@ -1455,6 +1462,7 @@ function html_parser($string) {
 	$replace[15]	= '<dfn title="$1">$2</dfn>';
 
 	$string = preg_replace($search, $replace, $string);
+	$string = parse_cnt_urlencode($string);
 
 	// internal Link to article ID or alias
 	$string = preg_replace_callback('/\[ID (.*?)\](.*?)\[\/ID\]/s', 'html_parse_idlink', $string);
@@ -2414,7 +2422,7 @@ function replace_cnt_template($text='', $tag='', $value='') {
 
 function parse_cnt_urlencode($value) {
 	// replace tag by value
-	return preg_replace_callback('/\[URLENCODE\](.*?)\[\/URLENCODE\]/s', 'render_urlencode', $value);
+	return preg_replace_callback('/\[URLENCODE\](.*?)\[\/URLENCODE\]/is', 'render_urlencode', $value);
 }
 
 function render_urlencode($match) {
@@ -4159,6 +4167,43 @@ function render_if_category($matches) {
 	}
 
 	return '';
+}
+
+function render_if_not_category($matches) {
+
+	$cat_ids = convertStringToArray($matches[1]);
+
+	if(!count($cat_ids)) {
+		return '';
+	}
+
+	$current = intval($GLOBALS['content']['cat_id']);
+
+	foreach($cat_ids as $id) {
+
+		$id = intval($id);
+
+		if($id !== $current) {
+			return str_replace('{IF_NOTCAT_ID}', $id, $matches[2]);
+		}
+
+	}
+
+	return '';
+}
+
+function get_css_keywords($text) {
+
+	if(empty($text) || !is_string($text) || strpos($text, '*CSS-') === false) {
+		return array();
+	}
+
+	preg_match_all('/\*CSS\-(.+?)\*/', $text, $css);
+	if(isset($css[1]) && is_array($css[1])) {
+		return $css[1];
+	}
+
+	return array();
 }
 
 ?>

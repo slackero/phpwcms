@@ -18,31 +18,30 @@
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-$BL['FOLDER_LIST']       = 'direktorijø sàrağas';
+$BL['FOLDER_LIST']       = 'direktorijÅ³ sÄ…raÅ¡as';
 $BL['FILES']             = 'failai';
-$BL['SHOW_FILES']        = 'rodyti failus esanèius pagrindinëje direktorijoje';
-$BL['SHOW_FILES1']       = 'rodyti failus esanèius direktorijoje';
-$BL['TAKE_IMAGE']        = 'paimti ğità failà ir pridëti&#8230;';
-$BL['NO_FILE']           = 'failø nëra';
-$BL['OPEN_DIR']          = 'atidaryti direktorijà';
-$BL['CLOSE_DIR']         = 'uşdaryti direktorijà';
-$BL['FILE_TITLE']        = 'phpwcms failø narğyklë';
-$BL['IMAGE_TITLE']       = 'phpwcms paveikslëliø narğyklë';
-$BL['MEDIA_TITLE']       = 'phpwcms media narğyklë';
-$BL['IMAGE_FILES']       = 'paveikslëliø failai';
+$BL['SHOW_FILES']        = 'rodyti failus esanÄius pagrindinÄ—je direktorijoje';
+$BL['SHOW_FILES1']       = 'rodyti failus esanÄius direktorijoje';
+$BL['TAKE_IMAGE']        = 'paimti Å¡itÄ… failÄ… ir pridÄ—ti&#8230;';
+$BL['NO_FILE']           = 'failÅ³ nÄ—ra';
+$BL['OPEN_DIR']          = 'atidaryti direktorijÄ…';
+$BL['CLOSE_DIR']         = 'uÅ¾daryti direktorijÄ…';
+$BL['FILE_TITLE']        = 'phpwcms failÅ³ narÅ¡yklÄ—';
+$BL['IMAGE_TITLE']       = 'phpwcms paveikslÄ—liÅ³ narÅ¡yklÄ—';
+$BL['MEDIA_TITLE']       = 'phpwcms media narÅ¡yklÄ—';
+$BL['IMAGE_FILES']       = 'paveikslÄ—liÅ³ failai';
 $BL['MEDIA_FILES']       = 'media failai';
-$BL['ROOT_DIR']          = 'saugykla (pagrindinë direktorija)';
-$BL['DOWNLOAD_ERR1']     = 'Ávyko klaida (NR:{VAL}) bandant atsisiøsti failà.';
-$BL['DOWNLOAD_ERR2']     = 'Jei manote, jog tai gali bûti techninë klaida, nusiøskite el. laiğkà <a href="mailto:{VAL}"><strong>administratoriui</strong></a>.';
+$BL['ROOT_DIR']          = 'saugykla (pagrindinÄ— direktorija)';
+$BL['DOWNLOAD_ERR1']     = 'Ä®vyko klaida (NR:{VAL}) bandant atsisiÅ³sti failÄ….';
+$BL['DOWNLOAD_ERR2']     = 'Jei manote, jog tai gali bÅ«ti techninÄ— klaida, nusiÅ³skite el. laiÅ¡kÄ… <a href="mailto:{VAL}"><strong>administratoriui</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'Failo atsisiuntimo klaida';
 $BL['FILEINFO_TITLE']    = 'phpwcms: failo informacija';
 $BL['CREATED']           = 'sukurtas';
 $BL['DATE_FORMAT']       = 'Y-m-d H:i';
 $BL['SIZE']              = 'dydis';
-$BL['DOWNLOAD_FILE']     = 'atsisiøsti failà';
-$BL['FILE_IN_TRASH']     = 'failas yra ğiukğliø dëşëje';
-$BL['KEYWORDS']          = 'raktiniai şodşiai';
-$BL['DOWNLOAD_ERR3']     = 'klaida nuskaitant failo informacijà<br />uşdarykite langà ir bandykite iğ naujo...';
-
+$BL['DOWNLOAD_FILE']     = 'atsisiÅ³sti failÄ…';
+$BL['FILE_IN_TRASH']     = 'failas yra Å¡iukÅ¡liÅ³ dÄ—Å¾Ä—je';
+$BL['KEYWORDS']          = 'raktiniai Å¾odÅ¾iai';
+$BL['DOWNLOAD_ERR3']     = 'klaida nuskaitant failo informacijÄ…<br />uÅ¾darykite langÄ… ir bandykite iÅ¡ naujo...';
 
 ?>

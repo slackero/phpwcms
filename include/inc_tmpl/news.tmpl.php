@@ -80,7 +80,7 @@ $news = new phpwcmsNews();
 						</select>
 					</td>
 
-					<td><input type="text" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
+					<td><input type="search" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
 					<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-left:2px" /></td>
 					<td class="nowrap">&nbsp;&nbsp;<?php echo $news->getPagination(); ?>&nbsp;&nbsp;</td>
 				</tr>

@@ -15,11 +15,11 @@
 // language: IT
 
 $weekday_long[0]	= "Domenica";		$weekday_short[0]	= "Do";
-$weekday_long[1]	= "Lunedì";			$weekday_short[1]	= "Lu";
-$weekday_long[2]	= "Martedì";		$weekday_short[2]	= "Ma";
-$weekday_long[3]	= "Mercoledì";		$weekday_short[3]	= "Me";
-$weekday_long[4]	= "Giovedì";		$weekday_short[4]	= "Gi";
-$weekday_long[5]	= "Venerdì";		$weekday_short[5]	= "Ve";
+$weekday_long[1]	= "LunedÃ¬";			$weekday_short[1]	= "Lu";
+$weekday_long[2]	= "MartedÃ¬";		$weekday_short[2]	= "Ma";
+$weekday_long[3]	= "MercoledÃ¬";		$weekday_short[3]	= "Me";
+$weekday_long[4]	= "GiovedÃ¬";		$weekday_short[4]	= "Gi";
+$weekday_long[5]	= "VenerdÃ¬";		$weekday_short[5]	= "Ve";
 $weekday_long[6]	= "Sabato";			$weekday_short[6]	= "Sa";
 $month_long[ 1]	= "Gennaio";		$month_short[ 1]		= "Gen";
 $month_long[ 2]	= "Febbraio";		$month_short[ 2]		= "Feb";

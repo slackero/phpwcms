@@ -1041,12 +1041,12 @@ $BL['be_cnt_sysadmin_system']			= 'system';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'Your installation is up to date, no updates are available for this version of phpwcms.';
-$BL['Version_not_up_to_date']			= 'Your installation does <b>not</b> seem to be up to date. Updates are available for this version of phpwcms, please visit <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> to obtain the latest version.';
+$BL['Version_not_up_to_date']			= 'Your installation does <b>not</b> seem to be up to date. Updates are available for this version of phpwcms, please visit <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> to obtain the latest version.';
 $BL['Latest_version_info']				= 'The latest official version is <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'You are running <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Unable to open connection to phpwcms Server, reported error is:<br />%s';
 $BL['Socket_functions_disabled']		= 'Unable to use socket functions.';
-$BL['Mailing_list_subscribe_reminder']	= 'For the latest information on updates to phpwcms, why not subscribe to our <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">mailing list</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'For the latest information on updates to phpwcms, why not subscribe to our <a href="http://eepurl.com/bm-BrH" target="_blank">mailing list</a>.';
 $BL['Version_information'] 				= 'phpwcms Version Information';
 
 $BL['be_cnt_search_highlight']			= 'highlight';
@@ -1388,5 +1388,8 @@ $BL['be_filter']						= 'filter';
 $BL['be_filter_with_tags']				= 'by tag';
 $BL['be_filter_not_selected']			= 'no category selected';
 $BL['be_empty_search_result']			= 'The search returned no results.';
+$BL['confirm_cp_tab_warning']			= 'The subsection has no title and no number is assigned. The selection will get lost on save or update.';
+
+$BL['be_canonical']						= 'canonical link';
 
 ?>

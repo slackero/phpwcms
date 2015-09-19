@@ -631,10 +631,18 @@ class Phpwcms_Image_lib {
 			imagefilter($dst_img, IMG_FILTER_GRAYSCALE);
 		}
 
-		if ($this->image_type == 3) // png we can actually preserve transparency
+		if ($this->image_type === 3 || $this->image_type === 1) // png and gif, preserve transparency
 		{
 			imagealphablending($dst_img, FALSE);
 			imagesavealpha($dst_img, TRUE);
+		}
+		if ($this->image_type === 1) // gif preserve transparency
+		{
+			$transparent_index = imagecolorallocatealpha($src_img, 255, 255, 255, 127);
+			if ($transparent_index)
+			{
+				imagefilledrectangle($dst_img, 0, 0, $this->width, $this->height, $transparent_index);
+	        }
 		}
 
 		$copy($dst_img, $src_img, 0, 0, $this->x_axis, $this->y_axis, $this->width, $this->height, $this->orig_width, $this->orig_height);
@@ -686,6 +694,7 @@ class Phpwcms_Image_lib {
 
 		// Execute the command
 		$cmd  = $this->library_path;
+		$picnum = '[0]';
 		if($this->target_ext == 'jpg')
 		{
 			$cmd .= ' -colorspace '.$this->colorspace.' -type TrueColor';
@@ -696,20 +705,53 @@ class Phpwcms_Image_lib {
 		}
 		elseif($this->target_ext == 'gif')
 		{
-			$cmd .= ' -colorspace '.$this->colorspace;
-			if($this->quality < 100) {
-				$cmd .= ' -dither';
-				if($this->graphicsmagick) {
-					$cms .= ' FloydSteinberg';
+			// Check if it is an animated GIF an coalesce the image
+			if(($gif_content = @file_get_contents($this->full_src_path)) && preg_match('/\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)/s', $gif_content))
+			{
+				// The coalesce command
+				$coalesce = $this->library_path . ' ' . escapeshellarg($this->full_src_path) . ' -coalesce ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
+
+				// Run the command
+				@exec($coalesce, $output, $retval);
+
+				// Did it work?
+				if ($retval > 0)
+				{
+					// do nothing, but animation gets lost
 				}
+				else
+				{
+					// preserve animated GIF
+					$picnum = '';
+
+					// Set the file to 666
+					@chmod($this->full_dst_path, 0666);
+
+					// Use the coalesce image as new src
+					$this->full_src_path = $this->full_dst_path;
+
+					$cmd .= ' -fuzz 3%';
+					if(!$this->graphicsmagick)
+					{
+						$cmd .= ' -layers optimizePlus';
+					}
+				}
+
 			}
+
+			$cmd .= ' -colorspace '.$this->colorspace;
 			$cmd .= ' -colors 256';
+			$this->sharpen = false;
 		}
 		$cmd .= ' -quality '.$this->quality;
-		if($this->source_ext == 'pdf') {
+		if($this->source_ext == 'pdf')
+		{
 			$cmd .= ' -define pdf:use-cropbox=true';
 		}
-		$cmd .= ' -antialias';
+		if($picnum)
+		{
+			$cmd .= ' -antialias';
+		}
 
 		if($this->sharpen)
 		{
@@ -726,13 +768,13 @@ class Phpwcms_Image_lib {
 
 		if ($action == 'crop')
 		{
-			$cmd .= ' -crop '.$this->width.'x'.$this->height.'+'.$this->x_axis.'+'.$this->y_axis.' ' . escapeshellarg($this->full_src_path.'[0]') . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
+			$cmd .= ' -crop '.$this->width.'x'.$this->height.'+'.$this->x_axis.'+'.$this->y_axis.' ' . escapeshellarg($this->full_src_path.$picnum) . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
 		}
 		elseif($action == 'crop-resize-center')
 		{
 			// combined centered crop and resize
 			$cmd .= ' -resize x'.($this->height*2) . " -resize '" . ($this->width*2) . "x<' -resize 50% -gravity center ";
-			$cmd .= ' -crop '.$this->width.'x'.$this->height.'+0+0 +repage ' . escapeshellarg($this->full_src_path.'[0]') . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
+			$cmd .= ' -crop '.$this->width.'x'.$this->height.'+0+0 +repage ' . escapeshellarg($this->full_src_path.$picnum) . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
 		}
 		elseif ($action == 'rotate')
 		{
@@ -746,11 +788,11 @@ class Phpwcms_Image_lib {
 					break;
 			}
 
-			$cmd .= ' '.$angle.' ' . escapeshellarg($this->full_src_path.'[0]') . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
+			$cmd .= ' '.$angle.' ' . escapeshellarg($this->full_src_path.$picnum) . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
 		}
 		else  // Resize
 		{
-			$cmd .= ' -resize '.$this->width.'x'.$this->height.' ' . escapeshellarg($this->full_src_path.'[0]') . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
+			$cmd .= ' -resize '.$this->width.'x'.$this->height.' ' . escapeshellarg($this->full_src_path.$picnum) . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
 		}
 
 		$retval = 1;

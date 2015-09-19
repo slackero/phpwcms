@@ -38,8 +38,7 @@ function get_shop_option_value($option) {
 	$option_sign = '';
 
 	if(isset($option[1])) {
-		$option[1] = trim($option[1]);
-		if($option[1]) {
+		if(($option[1] = trim($option[1]))) {
 			$config = get_shop_option_value_config();
 			$option_sign = substr($option[1], 0, 1);
 			if(strpos($option[1], ',')) {
@@ -66,9 +65,7 @@ function get_shop_option_value($option) {
 	} else {
 		$option[1] = '';
 	}
-	if(isset($option[2])) {
-		$option[2] = trim($option[2]);
-	}
+	$option[2] = isset($option[2]) ? trim($option[2]) : '';
 
 	return $option;
 }

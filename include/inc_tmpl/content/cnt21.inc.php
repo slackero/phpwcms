@@ -61,23 +61,21 @@ function browse_pages_dir($dir) {
 	if(is_dir($dir)) {
 		$ph = opendir($dir);
 		while($pf = readdir($ph)) {
-   			if($pf != '.' && $pf != '..') {
-			
+   			if(substr($pf, 0, 1) !== '.') {
+
 				if(is_dir($dir.'/'.$pf)) {
-				
-					$da[] = $pf; //add $pf to folder array for current dir				
-				
-				} else {
-					
-					if( preg_match('/(\.html|\.htm|\.txt|\.php|\.inc|\.tmpl)$/', strtolower($pf)) ) {
-						$fa[] = $pf; //add $pf to file array for current dir
-					}
-				
+
+					$da[] = $pf; //add $pf to folder array for current dir
+
+				} elseif( preg_match('/(\.html|\.htm|\.txt|\.php|\.inc|\.tmpl)$/i', $pf) ) {
+
+					$fa[] = $pf; //add $pf to file array for current dir
+
 				}
 			}
 		}
 		closedir($ph);
-		
+
 		// list files
 		if(count($fa)) {
 			$x = 0;
@@ -90,10 +88,10 @@ function browse_pages_dir($dir) {
 				}
 				echo "\n<tr><td align=\"center\">";
 				echo '<input name="cpage_file" type="radio" value="'.html($dir.'/'.$value).'" ';
-				
+
 				if($GLOBALS['content']['page_file']['pfile'] == ($dir.'/'.$value)) {
 					echo 'checked="checked" ';
-				}				
+				}
 				echo '/>';
 				echo '</td><td><strong>';
 				echo str_replace(' ', '&nbsp;', html($value));
@@ -102,12 +100,12 @@ function browse_pages_dir($dir) {
 			}
 			echo '<tr><td colspan="2"><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>';
 		}
-		
+
 		// check all subdirs
 		if(count($da)) {
 			foreach($da as $value) browse_pages_dir($dir.'/'.$value);
 		}
-		
+
 	}
 }
 

@@ -64,7 +64,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	include_once PHPWCMS_ROOT."/include/inc_lang/code.lang.inc.php";
 	$lang_dirs = opendir(PHPWCMS_ROOT."/include/inc_lang/backend");
 	while($lang_codes = readdir( $lang_dirs )) {
-		if( $lang_codes != "." && $lang_codes != ".." && file_exists(PHPWCMS_ROOT."/include/inc_lang/backend/".$lang_codes."/lang.inc.php")) {
+		if( substr($lang_codes, 0, 1) !== '.' && file_exists(PHPWCMS_ROOT."/include/inc_lang/backend/".$lang_codes."/lang.inc.php")) {
 			echo '<option value="'.$lang_codes.'"';
 			if($lang_codes == $_SESSION["wcs_user_lang"]) {
 				echo ' selected="selected"';

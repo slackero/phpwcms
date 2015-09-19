@@ -301,7 +301,7 @@ if($BE['LANG'] == 'ar') {
 		<form action="phpwcms.php" method="POST" class="backend-search">
 
 			<h1 class="title" style="margin:0 0 3px 0;"><?php echo $BL['be_ctype_search'] ?></h1>
-			<input type="text" name="backend_search_input" value="<?php
+			<input type="search" name="backend_search_input" value="<?php
 
 				if(isset($_POST['backend_search_input'])) {
 					$_SESSION['phpwcms_backend_search'] = clean_slweg($_POST['backend_search_input']);

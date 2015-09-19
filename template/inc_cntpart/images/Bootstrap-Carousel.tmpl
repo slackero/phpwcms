@@ -1,0 +1,64 @@
+<!--IMAGE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; settings will overwrite CP settings
+width			= 1200
+height			= 500
+col				= 9999999
+zoom			= 0
+crop			= 1
+space			= 0
+lightbox		= 0
+nocaption		= 0
+random			= 0
+limit			= 0
+; if set to 1 and total amount of images > limit render hidden feature
+hide_limited	= 0
+; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
+center_image	= 0
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+
+<div id="carousel-{ID}" class="carousel slide" data-ride="carousel" data-interval="6000">
+	<div class="carousel-inner" role="listbox">
+<!--IMAGES_HEADER_END//-->
+
+<!--IMAGES_ENTRY_START//-->
+		<div class="item[FIRST] active[/FIRST]">
+			<img src="{THUMB_REL}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMGNAME}[/ALT_ELSE]" />[CAPTION]
+			<div class="carousel-caption">
+				{CAPTION}
+			</div>[/CAPTION]
+		</div>
+		<!--ENTRY_DATA_START//-->
+		<li data-target="#carousel-{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
+			<a href="#img{IMGID}" class="sr-only">[CAPTION]{CAPTION}[/CAPTION][CAPTION_ELSE]@@Image number@@ {ENTRY_ID}[/CAPTION_ELSE]</a>
+		</li>
+		<!--ENTRY_DATA_END//-->
+<!--IMAGES_ENTRY_END//-->
+
+<!--IMAGES_ENTRY_SPACER_START//--><!--IMAGES_ENTRY_SPACER_END//-->
+
+<!--IMAGES_ROW_SPACER_START//--><!--IMAGES_ROW_SPACER_END//-->
+
+<!--IMAGES_FOOTER_START//-->
+	</div>
+	[DATA]
+	<ol class="carousel-indicators">
+		{DATA}
+	</ol>
+	<a class="left carousel-control" href="#carousel-{ID}" role="button" data-slide="prev">
+		<span class="glyphicon glyphicon-chevron-left"></span>
+		<span class="sr-only">@@Previous@@</span>
+	</a>
+	<a class="right carousel-control" href="#carousel-{ID}" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right"></span>
+		<span class="sr-only">@@Next@@</span>
+	</a>
+	[/DATA]
+</div>
+<!--IMAGES_FOOTER_END//-->

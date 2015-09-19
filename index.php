@@ -147,16 +147,14 @@ if(!$phpwcms['base_href'] && $phpwcms['rewrite_url'] && strpos($content['page_st
 }
 
 // inject body tag in case of class or id attribute
-$body_inject = '<body';
-if($content['body_id'] !== false) {
-	if(!empty($template_default['body']['id'])) {
-		$body_inject .= ' id="'.$template_default['body']['id'].$content['body_id'].'"';
-	}
-	if(!empty($template_default['body']['class'])) {
-		$body_inject .= ' class="'.$template_default['body']['class'].$content['body_id'].'"';
-	}
+$content['page_start'] .= '<body';
+if(!empty($template_default['body']['id'])) {
+	$content['page_start'] .= ' id="'.$template_default['body']['id'].$content['body_id'].'"';
 }
-$content['page_start'] .= $body_inject.'>'.LF;
+if(!empty($template_default['body']['class'])) {
+	$content['page_start'] .= ' class="'.$template_default['body']['class'].$content['body_id'].'"';
+}
+$content['page_start'] .= '>'.LF;
 
 //  this regex's inits rewrite
 if(PHPWCMS_REWRITE) {

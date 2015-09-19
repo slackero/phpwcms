@@ -28,10 +28,10 @@ $month_long[ 4]	= "Avril";			$month_short[ 4]		= "Avr";
 $month_long[ 5]	= "Mai";			$month_short[ 5]		= "Mai";
 $month_long[ 6]	= "Juin";			$month_short[ 6]		= "Jui";
 $month_long[ 7]	= "Juillet";		$month_short[ 7]		= "Jul";
-$month_long[ 8]	= "Août";			$month_short[ 8]		= "Aou";
+$month_long[ 8]	= "AoÃ»t";			$month_short[ 8]		= "Aou";
 $month_long[ 9]	= "Septembre";		$month_short[ 9]		= "Sep";
 $month_long[10]	= "Octobre";		$month_short[10]		= "Oct";
 $month_long[11]	= "Novembre";		$month_short[11]		= "Nov";
-$month_long[12]	= "Décembre";		$month_short[12]		= "Dec";
+$month_long[12]	= "DÃ©cembre";		$month_short[12]		= "Dec";
 
 ?>

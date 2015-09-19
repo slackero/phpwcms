@@ -44,5 +44,4 @@ $BL['FILE_IN_TRASH']     = 'El archivo est&aacute; en la papelera';
 $BL['KEYWORDS']          = 'Palabras clave';
 $BL['DOWNLOAD_ERR3']     = 'Error al leer la informaci&oacute;n del archivo<br />Cerrar la ventana e intentar nuevamente...';
 
-
 ?>

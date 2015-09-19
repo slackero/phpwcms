@@ -9,7 +9,8 @@
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.7.6 (2014/12/16, r538) Zięba Bogusław http://www.krynica.malopolska.pl
+
+// Language: Polish, Language Code: pl UTF-8 for ver.1.7.9 (2015/05/12, r538) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -56,6 +57,7 @@ $BL['be_subnav_admin_css']              = 'Domyślny styl css';
 $BL['be_subnav_admin_sitestructure']    = 'Struktura witryny';
 $BL['be_subnav_admin_users']            = 'Administracja użytkownikami';
 $BL['be_subnav_admin_filecat']          = 'Kategorie plików';
+
 
 // admin.functions.inc.php
 $BL['be_func_struct_articleID']      = 'ID artykułu';
@@ -150,6 +152,7 @@ $BL['be_profile_label_repeatpass'] = 'Powtórz nowe hasło';
 $BL['be_profile_label_email']      = 'E-mail';
 $BL['be_profile_account_button']   = 'Uaktualnij';
 $BL['be_profile_label_lang']       = 'Język';
+
 
 // files.ftptakeover.tmpl.php
 $BL['be_ftptakeover_title']        = 'Pliki wgrane przez ftp';
@@ -902,6 +905,7 @@ $BL['be_cnt_req_mark']        = 'oznaczenie wymagalności';
 $BL['be_cnt_mark_as_req']    = 'znak jako wymagalny';
 $BL['be_cnt_mark_as_del']    = 'znak elementu do usunięcia';
 
+
 $BL['be_cnt_type']    = 'typ';
 $BL['be_cnt_label']    = 'etykieta';
 $BL['be_cnt_needed']    = 'wymagana';
@@ -979,6 +983,7 @@ $BL['be_admin_struct_adduser_this'] = 'dodaj wybranych uzytkowników';
 $BL['be_admin_struct_remove_all']   = 'usuń wszystkich użytkowników';
 $BL['be_admin_struct_remove_this']  = 'usuń wybranych użytkowników';
 
+
 $BL['be_ctype_alias'] = 'alias treści';
 $BL['be_cnt_setting'] = 'konfiguracja';
 $BL['be_cnt_spaces']  = 'odstępy oryginalnej treści';
@@ -1008,6 +1013,7 @@ $BL['be_admin_keyword_add']    = 'dodaj SŁOWO KLUCZOWE';
 
 $BL['be_cnt_transparent'] = 'Flash transparent';
 
+
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']   = 'daty usunięcia';
 $BL['be_func_switch_contentpart'] = 'Czy naprawdę chcesz przełączyć część zawartości ? \n\nJest to bardzo ważna zmiana więc! \nIstotne parametry mogą zostać zmienione! \n';
@@ -1018,6 +1024,7 @@ $BL['be_cnt_pos8']   = 'tabela, lewo';
 $BL['be_cnt_pos9']   = 'tabela, prawo';
 $BL['be_cnt_pos8i']  = 'wyrównaj obraz w lewo w tabeli';
 $BL['be_cnt_pos9i']  = 'wyrównaj obraz w prawo w tabeli';
+
 
 $BL['be_WYSIWYG']    = 'WYSIWYG edytor';
 $BL['be_WYSIWYG_disabled']    = 'WYSIWYG edytor wyłączony';
@@ -1034,12 +1041,12 @@ $BL['be_cnt_sysadmin_system']        = 'system';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']        = 'Twoja instalacja jest aktualna,brak możliwych aktualizacji tej wersji phpwcms.';
-$BL['Version_not_up_to_date']        = 'Twoja instalacja <b>nie</b> wydaje się być aktualna. Dostępne są,aktualizacje tej wersji phpwcms-a. Proszę odwiedź <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a> aby poznać szczegóły.';
+$BL['Version_not_up_to_date']        = 'Twoja instalacja <b>nie</b> wydaje się być aktualna. Dostępne są,aktualizacje tej wersji phpwcms-a. Proszę odwiedź <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> aby poznać szczegóły.';
 $BL['Latest_version_info']        = 'Ostatnia dostępna wersja to <b>phpwcms %s</b>.';
 $BL['Current_version_info']        = 'Twój bieżący <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']        = 'Nie można otworzyć połączenia z serwerem phpwcms , zgłaszany jest błąd:<br />%s';
 $BL['Socket_functions_disabled']    = 'Niemożliwe jest użycie funkcji socket';
-$BL['Mailing_list_subscribe_reminder']    = 'Aby otrzymywać informacje o aktualizacjach do Twojego phpwcms,prenumeruj <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">listę mailingową</a>.';
+$BL['Mailing_list_subscribe_reminder']    = 'Aby otrzymywać informacje o aktualizacjach do Twojego phpwcms,prenumeruj <a href="http://eepurl.com/bm-BrH" target="_blank">listę mailingową</a>.';
 $BL['Version_information']        = 'Informacja o wersji phpwcms';
 
 $BL['be_cnt_search_highlight']        = 'podświetlenie';
@@ -1060,6 +1067,7 @@ $BL['be_cnt_pagination']    = 'paginuj elementy zawartości';
 $BL['be_article_pagination']    = 'paginuj artykuły';
 $BL['be_article_per_page']    = 'artykułów na stronę';
 $BL['be_pagination']        = 'paginacja';
+
 
 $BL['be_ctype_recipe']        = 'odbiorca';
 $BL['be_ctype_faq']        = 'faq';
@@ -1084,6 +1092,7 @@ $BL['be_cnt_last_edited']    = 'ostatnio zmieniane';
 $BL['be_cnt_export_selection']    = 'eksportuj wybrane';
 $BL['be_cnt_delete_duplicates']    = 'usuń duplikaty';
 $BL['be_cnt_new_recipient']    = 'dodaj odbiorcę';
+
 
 $BL['be_cnt_newsletter_prepare']    = 'biuletyn aktywny';
 $BL['be_cnt_newsletter_prepare1']   = 'wszyscy odbiorcy będą przyjęci do kolejki wysyłania';
@@ -1378,4 +1387,7 @@ $BL['be_audio_only']            = 'tylko audio';
 $BL['be_filter']		= 'filtr';
 $BL['be_filter_with_tags']	= 'w/g etykiet';
 $BL['be_filter_not_selected']	= 'Nie wybrano kategorii';
+$BL['be_empty_search_result']	= 'Wyszukiwanie nie przyniosło wyników.';
+$BL['confirm_cp_tab_warning']	= 'Podrozdział nie ma tytułu i nie jest przypisany żaden numer.Zaznaczenie zostanie utracone, podczas zapisu lub aktualizacji.';
+
 ?>

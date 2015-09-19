@@ -18,31 +18,30 @@
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-$BL['FOLDER_LIST']       = 'liste des répertoires';
+$BL['FOLDER_LIST']       = 'liste des rÃ©pertoires';
 $BL['FILES']             = 'fichiers';
-$BL['SHOW_FILES']        = 'afficher les fichiers du répertoire racine';
-$BL['SHOW_FILES1']       = 'afficher les fichiers du répertoire';
+$BL['SHOW_FILES']        = 'afficher les fichiers du rÃ©pertoire racine';
+$BL['SHOW_FILES1']       = 'afficher les fichiers du rÃ©pertoire';
 $BL['TAKE_IMAGE']        = 'ajouter ce fichier&#8230;';
-$BL['NO_FILE']           = 'aucun fichier trouvé';
-$BL['OPEN_DIR']          = 'ouvrir le répertoire';
-$BL['CLOSE_DIR']         = 'fermer le répertoire';
+$BL['NO_FILE']           = 'aucun fichier trouvÃ©';
+$BL['OPEN_DIR']          = 'ouvrir le rÃ©pertoire';
+$BL['CLOSE_DIR']         = 'fermer le rÃ©pertoire';
 $BL['FILE_TITLE']        = 'phpwcms gestionnaire de fichiers';
 $BL['IMAGE_TITLE']       = 'phpwcms gestionnaire d\'images';
-$BL['MEDIA_TITLE']       = 'phpwcms gestionnaire de médias';
+$BL['MEDIA_TITLE']       = 'phpwcms gestionnaire de mÃ©dias';
 $BL['IMAGE_FILES']       = 'fichiers images';
-$BL['MEDIA_FILES']       = 'fichiers média';
-$BL['ROOT_DIR']          = 'stockage (répertoire racine)';
-$BL['DOWNLOAD_ERR1']     = 'Une erreur est survenue au cours du téléchargement (NR:{VAL}).';
-$BL['DOWNLOAD_ERR2']     = 'Si ce problème vous semble être de nature technique, veuillez envoyer un mail au <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
-$BL['DOWNLOAD_TITLE']    = 'Erreur de téléchargement';
+$BL['MEDIA_FILES']       = 'fichiers mÃ©dia';
+$BL['ROOT_DIR']          = 'stockage (rÃ©pertoire racine)';
+$BL['DOWNLOAD_ERR1']     = 'Une erreur est survenue au cours du tÃ©lÃ©chargement (NR:{VAL}).';
+$BL['DOWNLOAD_ERR2']     = 'Si ce problÃ¨me vous semble Ãªtre de nature technique, veuillez envoyer un mail au <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Erreur de tÃ©lÃ©chargement';
 $BL['FILEINFO_TITLE']    = 'phpwcms: info fichier';
-$BL['CREATED']           = 'créé le';
+$BL['CREATED']           = 'crÃ©Ã© le';
 $BL['DATE_FORMAT']       = 'm-d-Y H:i';
 $BL['SIZE']              = 'taille';
-$BL['DOWNLOAD_FILE']     = 'télécharger le fichier';
+$BL['DOWNLOAD_FILE']     = 'tÃ©lÃ©charger le fichier';
 $BL['FILE_IN_TRASH']     = 'le fichier se trouve dans la corbeille';
-$BL['KEYWORDS']          = 'mots clés';
-$BL['DOWNLOAD_ERR3']     = 'erreur lors de la lecture de l\'information contenue dans le fichier<br />Veuillez fermer la fenètre et rééssayer...';
-
+$BL['KEYWORDS']          = 'mots clÃ©s';
+$BL['DOWNLOAD_ERR3']     = 'erreur lors de la lecture de l\'information contenue dans le fichier<br />Veuillez fermer la fenÃ¨tre et rÃ©Ã©ssayer...';
 
 ?>

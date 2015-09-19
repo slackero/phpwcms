@@ -122,8 +122,8 @@ if($image['template']) {
 		}
 		// Limit images?
 		$image['limit'] = empty($image['limit']) ? 0 : intval($image['limit']);
+		$image['hide_limited'] = isset($image['hide_limited']) ? intval($image['hide_limited']) : 0;
 		if($image['limit'] && $image['count'] > $image['limit']) {
-			$image['hide_limited'] = isset($image['hide_limited']) ? intval($image['hide_limited']) : 0;
 			if(!$image['hide_limited']) {
 				$image['count'] = $image['limit'];
 				$image['images'] = array_slice($image['images'], 0, $image['limit']);

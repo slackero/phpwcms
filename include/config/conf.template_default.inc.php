@@ -371,7 +371,9 @@ $template_default['classes'] = array(
 	'cpgroup-container-clear'		=> '', //cpgroup-container-clear
 	'cpgroup-content'				=> 'cpgroup-content',
 	'shop-category-menu'			=> 'shop-categories',
-	'shop-products-menu'			=> 'shop-products'
+	'shop-products-menu'			=> 'shop-products',
+	'cp-paginate-link'				=> 'paginate-link',
+	'cp-paginate-link-active'		=> 'paginate-link active'
 );
 
 $template_default['search_highlight'] = array(
@@ -394,6 +396,12 @@ $template_default['attributes'] = array(
 			'prefix'	=> '%1$s<div class="wrapper">', // optional: %1$s = title, %2$s = tab id
 			'suffix'	=> '</div>' // optional: %1$s, %2$s
 		) */
+	),
+	'cp-paginate' => array(
+		'link-prefix' => ' ',
+		'link-suffix' => ' ',
+		'value-prefix' => '',
+		'value-suffix' => ''
 	)
 );
 

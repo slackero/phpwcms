@@ -142,7 +142,7 @@ if($_entry['pages_total'] > 1) {
 
 }
 ?>
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+				<td><input type="search" name="filter" id="filter" size="10" value="<?php
 
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
 					echo html(implode(' ', $_POST['filter']));

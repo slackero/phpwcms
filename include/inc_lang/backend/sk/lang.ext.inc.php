@@ -33,7 +33,7 @@ $BL['IMAGE_FILES']       = 'obr&aacute;zky';
 $BL['MEDIA_FILES']       = 'multim&eacute;di&aacute;';
 $BL['ROOT_DIR']          = 'Skladisko (root adres&aacute;r)';
 $BL['DOWNLOAD_ERR1']     = 'Nastala chyba (NR:{VAL}) po&#269;as pokusu stihn&uacute;&#357; s&uacute;bor.';
-$BL['DOWNLOAD_ERR2']     = 'Ak si mysl&iacute;te, &#382;e je toto technický probl&eacute;m, po&scaron;lite email na <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_ERR2']     = 'Ak si mysl&iacute;te, &#382;e je toto technickÃ½ probl&eacute;m, po&scaron;lite email na <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'Chyba pri s&#357;ahovan&iacute; s&uacute;boru';
 $BL['FILEINFO_TITLE']    = 'phpwcms: s&uacute;borov&eacute; info';
 $BL['CREATED']           = 'vytvoren&eacute;';

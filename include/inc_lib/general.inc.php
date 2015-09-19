@@ -571,12 +571,12 @@ function get_tmpl_files($dir='', $ext='', $sort=true) {
 			}
 		}
 	}
-	$regexp = '/('.$c.')$/';
+	$regexp = '/('.$c.')$/i';
 	$fa = array(); //file array
 	if(is_dir($dir)) {
 		$ph = opendir($dir);
 		while($pf = readdir($ph)) {
-   			if( $pf != '.' && $pf != '..' && !is_dir($dir.'/'.$pf) && preg_match($regexp, strtolower($pf)) ) {
+   			if(substr($pf, 0, 1) !== '.' && is_file($dir.'/'.$pf) && preg_match($regexp, $pf) ) {
 				$fa[] = $pf; //add $pf to file array for current dir
 			}
 		}
@@ -1392,7 +1392,7 @@ function returnSubdirListAsArray($dir='') {
 	$subdir = array();
 	$ph = opendir($dir);
 	while($pf = readdir($ph)) {
-		if(is_dir($dir.'/'.$pf) && strpos($pf, '.') !== 0) { //$pf != '.' && $pf != '..' &&
+		if(substr($pf, 0, 1) !== '.' && is_dir($dir.'/'.$pf)) {
 			$subdir[] = $pf;
 		}
 	}
@@ -1419,7 +1419,7 @@ function returnFileListAsArray($dir='', $extfilter='') {
 	$dofilter = count($extfilter) ? true : false;
 
 	while($pf = readdir($ph)) {
-		if(is_file($dir.'/'.$pf) && strpos($pf, '.') !== 0) { //$pf != '.' && $pf != '..' &&
+		if(substr($pf, 0, 1) !== '.' && is_file($dir.'/'.$pf)) {
 			$ext = which_ext($pf);
 			if($dofilter && !in_array($ext, $extfilter)) {
 				continue;

@@ -23,7 +23,7 @@ $weekday_long[5]	= "Freitag";		$weekday_short[5]	= "Fr";
 $weekday_long[6]	= "Samstag";		$weekday_short[6]	= "Sa";
 $month_long[ 1]	= "Januar";			$month_short[ 1]		= "Jan.";
 $month_long[ 2]	= "Februar";		$month_short[ 2]		= "Feb.";
-$month_long[ 3]	= "März";			$month_short[ 3]		= "März";
+$month_long[ 3]	= "MÃ¤rz";			$month_short[ 3]		= "MÃ¤rz";
 $month_long[ 4]	= "April";			$month_short[ 4]		= "Apr.";
 $month_long[ 5]	= "Mai";			$month_short[ 5]		= "Mai";
 $month_long[ 6]	= "Juni";			$month_short[ 6]		= "Juni";

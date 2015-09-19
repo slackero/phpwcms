@@ -1020,7 +1020,7 @@ $BL['Latest_version_info']				= 'Najnovija dostupna verzija <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'Vasa verzija <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Nije moguce pristupiti serveru. Kod greske je:<br />%s';
 $BL['Socket_functions_disabled']		= 'Nije moguce iskoristiti funkciju "socket-a".';
-$BL['Mailing_list_subscribe_reminder']	= 'Za informacije o najnovijim verzijama, zasto se ne pretplatite na nasu <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">e-mail listu</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'Za informacije o najnovijim verzijama, zasto se ne pretplatite na nasu <a href="http://eepurl.com/bm-BrH" target="_blank">e-mail listu</a>.';
 $BL['Version_information'] 				= 'phpwcms-info o verziji';
 
 $BL['be_cnt_search_highlight']			= 'osvijetli';

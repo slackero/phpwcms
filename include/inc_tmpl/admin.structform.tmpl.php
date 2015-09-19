@@ -53,6 +53,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_id		= 0;
 	$acat_disable301	= empty($indexpage['acat_disable301']) ? 0 : 1;
 	$acat_opengraph		= isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1;
+	$acat_canonical		= empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'];
 
 	$acat_struct_mode = 'INDEX';
 
@@ -87,6 +88,7 @@ if($_GET['struct'] === 'index') {
 	$acat_lang_id		= 0;
 	$acat_disable301	= 0;
 	$acat_opengraph		= empty($phpwcms['set_sociallink']['articlecat']) ? 0 : 1;
+	$acat_canonical		= '';
 
 }
 
@@ -226,6 +228,10 @@ switch($acat_hidden) {
 
 		  <tr><td class="v09"><?php echo $BL['be_article_aredirect'] ?>:</td></tr>
 		  <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="width450" value="<?php echo html($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
+		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+
+		  <tr><td class="v09"><?php echo $BL['be_canonical'] ?>:</td></tr>
+		  <tr><td><input name="acat_canonical" type="text" id="acat_canonical" class="width450" value="<?php echo html($acat_canonical) ?>" size="50" maxlength="2000" /></td></tr>
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		<tr><td class="v09"><?php echo $BL['be_article_akeywords'] ?>:</td></tr>

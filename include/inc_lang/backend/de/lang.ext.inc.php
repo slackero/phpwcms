@@ -44,6 +44,6 @@ $BL['FILE_IN_TRASH']     = 'Datei ist im Papierkorb';
 $BL['KEYWORDS']          = 'Schl&uuml;ssel';
 $BL['DOWNLOAD_ERR3']     = 'Fehler beim Lesen der Dateiinfo<br />Fenster schlie&szlig;en und erneut versuchen&#8230;';
 $BL['ADD_ALL_FILES']     = 'Alle Dateien hinzuf&uuml;gen';
-$BL['ADD_ALL_CONFIRM']   = 'Alle Dateien aus dem Verzeichnis »{VAL}« wurden übernommen!\n\nMit [OK] wird der Dateibrowser geschlossen…';
+$BL['ADD_ALL_CONFIRM']   = 'Alle Dateien aus dem Verzeichnis Â»{VAL}Â« wurden Ã¼bernommen!\n\nMit [OK] wird der Dateibrowser geschlossenâ€¦';
 
 ?>

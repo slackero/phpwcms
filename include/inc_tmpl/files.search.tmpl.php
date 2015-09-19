@@ -123,7 +123,7 @@ if(isset($_POST["file_search"])) {
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		  <tr>
 		    <td>
-		    <input name="file_search" type="text" class="v11" id="file_search" style="font-weight:bold;width:260px;" value="<?php
+		    <input name="file_search" type="search" class="v11" id="file_search" style="font-weight:bold;width:260px;" value="<?php
 				if(!empty($_SESSION['file_search_query']["file_search"])) {
 					echo html($_SESSION['file_search_query']["file_search"]);
 				}

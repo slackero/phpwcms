@@ -259,12 +259,12 @@ $phpwcms['default_lang']	= strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG']	= empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
-	'jquery-2.1'			=> 'jQuery 2.1.3',
-	'jquery-2.1-migrate'	=> 'jQuery 2.1.3 + Migrate 1.2.1',
+	'jquery-2.1'			=> 'jQuery 2.1.4',
+	'jquery-2.1-migrate'	=> 'jQuery 2.1.4 + Migrate 1.2.1',
 	'jquery-2.0'			=> 'jQuery 2.0.3',
 	'jquery-2.0-migrate'	=> 'jQuery 2.0.3 + Migrate 1.2.1',
-	'jquery-1.11'			=> 'jQuery 1.11.2',
-	'jquery-1.11-migrate'	=> 'jQuery 1.11.2 + Migrate 1.2.1',
+	'jquery-1.11'			=> 'jQuery 1.11.3',
+	'jquery-1.11-migrate'	=> 'jQuery 1.11.3 + Migrate 1.2.1',
 	'jquery-1.10'			=> 'jQuery 1.10.2',
 	'jquery-1.10-migrate'	=> 'jQuery 1.10.2 + Migrate 1.2.1',
 	'jquery-1.9'			=> 'jQuery 1.9.1',
@@ -373,7 +373,9 @@ $phpwcms['default_template_classes'] = array(
 	'cpgroup-container-clear'		=> '', //cpgroup-container-clear
 	'cpgroup-content'				=> 'cpgroup-content',
 	'shop-category-menu'			=> 'shop-categories',
-	'shop-products-menu'			=> 'shop-products'
+	'shop-products-menu'			=> 'shop-products',
+	'cp-paginate-link'				=> 'paginate-link',
+	'cp-paginate-link-active'		=> 'paginate-link active'
 );
 
 $phpwcms['search_highlight'] = array(
@@ -383,8 +385,14 @@ $phpwcms['search_highlight'] = array(
 
 $phpwcms['default_template_attributes'] = array(
 	'navlist-bs-dropdown-data'	=> 'data-toggle="dropdown"',
-	'navlist-bs-dropdown-caret'	=> ' <b class="caret"></b>',
-	'cpgroup'					=> 'data' // data = <span>, href = <a>
+	'navlist-bs-dropdown-caret'	=> ' <mark class="caret"></mark>',
+	'cpgroup'					=> 'data', // data = <span>, href = <a>
+	'cp-paginate' => array(
+		'link-prefix' => ' ',
+		'link-suffix' => ' ',
+		'value-prefix' => '',
+		'value-suffix' => ''
+	)
 );
 
 if(empty($phpwcms['mode_XHTML'])) {
@@ -417,7 +425,7 @@ if(empty($phpwcms['mode_XHTML'])) {
 	define('SCRIPT_ATTRIBUTE_TYPE', '');
 	define('SCRIPT_CDATA_START', '');
 	define('SCRIPT_CDATA_END'  , '');
-	define('HTML_TAG_CLOSE'  , ' />');
+	define('HTML_TAG_CLOSE'  , '>');
 	define('XHTML_MODE', true);
 	define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
 	define('HTML5_MODE', true);
@@ -544,7 +552,12 @@ function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspeci
 function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=', $query_string_separator='?') {
 
 	$queryString	= array();
-	$_getVarTemp	= empty($GLOBALS['_getVar']) ? array() : $GLOBALS['_getVar'];
+	if(empty($GLOBALS['_getVar']) || $remove === true) {
+		$_getVarTemp = array();
+		$remove=array(); // force URL without any get parameter
+	} else {
+		$_getVarTemp = $GLOBALS['_getVar'];
+	}
 
 	// replace first value with $id_alias
 	if($id_alias !== '') {
@@ -554,13 +567,19 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
 		if($id_alias[0] !== '') {
 			$id_alias[1] = isset($id_alias[1]) ? trim($id_alias[1]) : '';
-			array_shift($_getVarTemp);
-			$_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
+			if(count($_getVarTemp)) {
+				array_shift($_getVarTemp);
+				$_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
+			} else {
+				$_getVarTemp = array($id_alias[0] => $id_alias[1]);
+			}
 		}
 	}
 
-	foreach($remove as $value) {
-		unset($_getVarTemp[$value]);
+	if(count($remove)) {
+		foreach($remove as $value) {
+			unset($_getVarTemp[$value]);
+		}
 	}
 
 	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;

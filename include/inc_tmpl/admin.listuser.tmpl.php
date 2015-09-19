@@ -151,7 +151,7 @@ if($_userInfo['pages_total'] > 1) {
 }
 ?>
 
-	<td><input type="text" name="filter" id="filter" size="10" value="<?php
+	<td><input type="search" name="filter" id="filter" size="10" value="<?php
 
 	if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
 		echo html(implode(' ', $_SESSION['filter_results']));

@@ -13,8 +13,8 @@
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 //
-// Translated by Frold og Alleykat v. 1.0 
-// Valid for the relaese of phpwcms (28/12/2003) 
+// Translated by Frold og Alleykat v. 1.0
+// Valid for the relaese of phpwcms (28/12/2003)
 // #Changelog#
 // release
 // 28/12/2003
@@ -44,6 +44,5 @@ $BL['DOWNLOAD_FILE']     = 'hent fil';
 $BL['FILE_IN_TRASH']     = 'filen er i skraldespanden';
 $BL['KEYWORDS']          = 'n&oslash;gleord';
 $BL['DOWNLOAD_ERR3']     = 'fejl opstod da filinfo blev fors&oslash;gt l&AElig;st<br />luk vinduet og pr&oslash;v igen...';
-
 
 ?>

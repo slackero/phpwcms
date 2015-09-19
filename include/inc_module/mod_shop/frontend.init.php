@@ -161,7 +161,9 @@ function get_payment_options() {
 	$supported = array('prepay' => 0, 'pod' => 0, 'onbill' => 0);
 	$available = array();
 	foreach($supported as $key => $value) {
-		if($payment_prefs[$key]) $available[$key] = $payment_prefs[$key];
+		if(!empty($payment_prefs[$key])) {
+			$available[$key] = $payment_prefs[$key];
+		}
 	}
 	return $available;
 }
@@ -211,7 +213,7 @@ function get_category_products($selected_product_cat, $shop_detail_id, $shop_cat
 		}
 
 		if(count($shop_cat_prods)) {
-			$shop_cat_prods = LF . '		<ul class="'.$template_default['classes']['shop-products-menu'].'">' . LF.'			' . implode(LF.'			', $shop_cat_prods) . LF .'		</ul>' . LF.'	';
+			$shop_cat_prods = LF . '		<ul class="'.$GLOBALS['template_default']['classes']['shop-products-menu'].'">' . LF.'			' . implode(LF.'			', $shop_cat_prods) . LF .'		</ul>' . LF.'	';
 		}
 
 	}
