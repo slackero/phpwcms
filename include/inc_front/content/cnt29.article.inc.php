@@ -339,6 +339,7 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'TITLE', $caption[3]);
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
+			$img_a = render_cnt_template($img_a, 'URL', $caption[2][0]);
 
 			if($img_landscape !== null) {
 				if($img_landscape === false) {
