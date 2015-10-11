@@ -582,7 +582,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 		}
 	}
 
-	$pairs = count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
+	$pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
 	switch($format) {
 
