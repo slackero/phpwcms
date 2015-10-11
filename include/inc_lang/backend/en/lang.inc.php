@@ -1391,5 +1391,8 @@ $BL['be_empty_search_result']			= 'The search returned no results.';
 $BL['confirm_cp_tab_warning']			= 'The subsection has no title and no number is assigned. The selection will get lost on save or update.';
 
 $BL['be_canonical']						= 'canonical link';
+$BL['be_breadcrumb']					= 'breadcrumb display behavior';
+$BL['be_breadcrumb_nothidden']			= 'visible if level is hidden';
+$BL['be_breadcrumb_nolink']				= 'do not link';
 
 ?>

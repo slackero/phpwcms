@@ -191,6 +191,7 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_disable301` int(1) unsigned NOT NULL DEFAULT '0',
   `acat_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   `acat_canonical` varchar(2000) NOT NULL DEFAULT '',
+  `acat_breadcrumb` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),

@@ -132,6 +132,8 @@ $template_default['list_headline_after']    = '</div>';
 $template_default['breadcrumb_spacer']		= ' <span class="breadcrumb-spacer">&gt;</span> ';
 $template_default['breadcrumb_active_prefix'] = '<strong>';
 $template_default['breadcrumb_active_suffix'] = '</strong>';
+$template_default['breadcrumb_nolink_prefix'] = '<span>';
+$template_default['breadcrumb_nolink_suffix'] = '</span>';
 
 // article default
 $template_default['article']['title_before']		= '<h1>';

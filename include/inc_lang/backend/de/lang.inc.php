@@ -1382,5 +1382,9 @@ $BL['be_empty_search_result']			= 'Die Suche lieferte ein leeres Ergebnis.';
 $BL['confirm_cp_tab_warning']			= 'Der gewählte Abschnitt ist unbenannt und auch keiner Nummer zugeordnet. Beim Speichen bzw. Aktualisieren geht die Auswahl verloren.';
 
 $BL['be_canonical']						= 'Canonical Link';
+$BL['be_breadcrumb']					= 'Breadcrumb Anzeigeverhalten';
+$BL['be_breadcrumb_nothidden']			= 'sichtbar, wenn Seitenebene versteckt';
+$BL['be_breadcrumb_nolink']				= 'nicht verlinken';
+
 
 ?>

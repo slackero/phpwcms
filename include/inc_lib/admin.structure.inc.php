@@ -61,6 +61,7 @@ if($acat_id) { //Anzeige der gewählten Artikel Kategorie
 			$acat_disable301	= $row_acat['acat_disable301'];
 			$acat_opengraph		= $row_acat['acat_opengraph'];
 			$acat_canonical		= $row_acat['acat_canonical'];
+			$acat_breadcrumb	= intval($row_acat['acat_breadcrumb']);
 		}
 
 		mysql_free_result($result_acat);

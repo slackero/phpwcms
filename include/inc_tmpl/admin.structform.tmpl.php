@@ -54,6 +54,7 @@ if($_GET['struct'] === 'index') {
 	$acat_disable301	= empty($indexpage['acat_disable301']) ? 0 : 1;
 	$acat_opengraph		= isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1;
 	$acat_canonical		= empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'];
+	$acat_breadcrumb	= empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']);
 
 	$acat_struct_mode = 'INDEX';
 
@@ -89,6 +90,7 @@ if($_GET['struct'] === 'index') {
 	$acat_disable301	= 0;
 	$acat_opengraph		= empty($phpwcms['set_sociallink']['articlecat']) ? 0 : 1;
 	$acat_canonical		= '';
+	$acat_breadcrumb	= 0;
 
 }
 
@@ -538,21 +540,62 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
 
           <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
           <tr><td><table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr><td colspan="4" class="v09"><?php echo $BL['be_admin_struct_status'] ?>:</td></tr>
-			<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+            <tr><td colspan="7" class="v09"><?php echo $BL['be_admin_struct_status'] ?>:</td></tr>
+
+			<tr><td colspan="7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
             <tr>
               <td bgcolor="#D9DEE3"><input name="acat_hidden" type="checkbox" id="acat_hidden" value="1" <?php is_checked($acat_hidden, 1); ?> /></td>
-              <td bgcolor="#D9DEE3">&nbsp;<label for="acat_hidden"><?php echo $BL['be_admin_struct_hide1'] ?></label>&nbsp;&nbsp;</td>
+              <td bgcolor="#D9DEE3"><label for="acat_hidden">&nbsp;<?php echo $BL['be_admin_struct_hide1'] ?></label>&nbsp;&nbsp;</td>
 
               <td bgcolor="#D9DEE3"><input name="acat_hiddenactive" type="checkbox" id="acat_hiddenactive" value="1" <?php is_checked($acat_hiddenactive, 1); ?> /></td>
-              <td bgcolor="#D9DEE3">&nbsp;<label for="acat_hiddenactive"><?php echo $BL['be_admin_struct_acat_hiddenactive'] ?></label>&nbsp;&nbsp;</td>
+              <td bgcolor="#D9DEE3"><label for="acat_hiddenactive">&nbsp;<?php echo $BL['be_admin_struct_acat_hiddenactive'] ?></label>&nbsp;&nbsp;</td>
 
 			  <td>&nbsp;&nbsp;</td>
 
 			  <td bgcolor="#D9DEE3"><input name="acat_regonly" type="checkbox" id="acat_regonly" value="1" <?php is_checked($acat_regonly, 1); ?> /></td>
-              <td bgcolor="#D9DEE3" colspan="3">&nbsp;<label for="acat_regonly"><?php echo $BL['be_admin_struct_regonly'] ?></label>&nbsp;&nbsp;</td>
+              <td bgcolor="#D9DEE3" colspan="3"><label for="acat_regonly">&nbsp;<?php echo $BL['be_admin_struct_regonly'] ?></label>&nbsp;&nbsp;</td>
 			</tr>
 
+			<tr><td colspan="7"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+          </table>
+
+<?php
+	// Breadcrumb options
+	$acat_breadcrumb_default = 0;
+	$acat_breadcrumb_default_checked = 1;
+	$acat_breadcrumb_nothidden = 1;
+	$acat_breadcrumb_nothidden_checked = 0;
+	$acat_breadcrumb_nolink = 2;
+	$acat_breadcrumb_nolink_checked = 0;
+
+	if($acat_breadcrumb) {
+		$acat_breadcrumb = intval($acat_breadcrumb);
+		$acat_breadcrumb_default_checked = 0;
+		if($acat_breadcrumb === 1) {
+			$acat_breadcrumb_nothidden_checked = 1;
+		} elseif($acat_breadcrumb === 2) {
+			$acat_breadcrumb_nolink_checked = 1;
+		} else {
+			$acat_breadcrumb_nothidden_checked = 1;
+			$acat_breadcrumb_nolink_checked = 1;
+		}
+	}
+
+?>
+		<table border="0" cellpadding="0" cellspacing="0" summary="">
+			<tr><td colspan="6" class="v09"><?php echo $BL['be_breadcrumb'] ?>:</td></tr>
+			<tr><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+			<tr>
+              <td bgcolor="#D9DEE3"><input name="acat_breadcrumb_default" type="checkbox" id="acat_breadcrumb_default" value="0" <?php is_checked($acat_breadcrumb_default_checked, 1); ?> /></td>
+              <td bgcolor="#D9DEE3"><label for="acat_breadcrumb_default">&nbsp;<?php echo $BL['be_admin_tmpl_default'] ?></label>&nbsp;&nbsp;</td>
+
+              <td bgcolor="#D9DEE3"><input name="acat_breadcrumb_nothidden" type="checkbox" id="acat_breadcrumb_nothidden" value="1" <?php is_checked($acat_breadcrumb_nothidden_checked, 1); ?> /></td>
+              <td bgcolor="#D9DEE3"><label for="acat_breadcrumb_nothidden">&nbsp;<?php echo $BL['be_breadcrumb_nothidden'] ?></label>&nbsp;&nbsp;</td>
+
+			  <td bgcolor="#D9DEE3"><input name="acat_breadcrumb_nolink" type="checkbox" id="acat_breadcrumb_nolink" value="2" <?php is_checked($acat_breadcrumb_nolink_checked, 1); ?> /></td>
+              <td bgcolor="#D9DEE3" colspan="3"><label for="acat_breadcrumb_nolink">&nbsp;<?php echo $BL['be_breadcrumb_nolink'] ?></label>&nbsp;&nbsp;</td>
+			</tr>
           </table></td></tr>
 
 		 <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
@@ -571,7 +614,7 @@ foreach($BL['be_admin_optgroup_label'] as $key => $value) {
 
                 <tr bgcolor="#D9DEE3">
                   <td class="inactive"><input name="acat_cacheoff" type="checkbox" id="acat_cacheoff" value="1"<?php if($acat_timeout === '0') echo "checked"; ?> /></td>
-				  <td class="inactive">&nbsp;<label for="acat_cacheoff"><?php echo $BL['be_off'] ?></label>&nbsp;</td>
+				  <td class="inactive"><label for="acat_cacheoff">&nbsp;<?php echo $BL['be_off'] ?></label>&nbsp;</td>
 				  <td class="inactive"><select name="acat_timeout" class="width85" style="margin:2px;" onchange="document.editsitestructure.acat_cacheoff.checked=false;">
 <?php
 echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
@@ -592,11 +635,11 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 				  <td class="inactive">&nbsp;<?php echo $BL['be_cache_timeout'] ?>&nbsp;&nbsp;</td>
 				  <td bgcolor="#FFFFFF">&nbsp;&nbsp;</td>
 				  <td><input name="acat_nosearch" type="checkbox" id="acat_nosearch" value="1" <?php if($acat_nosearch === '1') echo 'checked="checked"'; ?> /></td>
-				  <td>&nbsp;<label for="acat_nosearch"><?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
+				  <td><label for="acat_nosearch">&nbsp;<?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
 				  <td bgcolor="#FFFFFF">&nbsp;&nbsp;<?php if(empty($phpwcms['force301_2struct'])): ?><input type="hidden" name="acat_disable301" value="<?php echo $acat_disable301 ?>" /><?php endif; ?></td>
 				<?php if(!empty($phpwcms['force301_2struct'])): ?>
 				  <td><input name="acat_disable301" type="checkbox" id="acat_disable301" value="1" <?php if($acat_disable301) echo 'checked="checked"'; ?> /></td>
-				  <td>&nbsp;<label for="acat_disable301"><?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
+				  <td><label for="acat_disable301">&nbsp;<?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
 				  <td bgcolor="#FFFFFF" width="90%">&nbsp;&nbsp;</td>
 				 <?php endif; ?>
                 </tr>

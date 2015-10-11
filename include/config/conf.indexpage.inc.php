@@ -26,3 +26,4 @@ $indexpage['acat_cpdefault']	= 0;
 $indexpage['acat_disable301']	= 0;
 $indexpage['acat_opengraph']	= 1;
 $indexpage['acat_canonical']	= '';
+$indexpage['acat_breadcrumb']	= 0;

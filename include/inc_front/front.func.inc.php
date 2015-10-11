@@ -331,80 +331,96 @@ function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
 
 	if(count($data)) {
 
+		$breadcrumb_active_prefix = empty($GLOBALS['template_default']['breadcrumb_active_prefix']) ? '' : $GLOBALS['template_default']['breadcrumb_active_prefix'];
+		$breadcrumb_active_suffix = empty($GLOBALS['template_default']['breadcrumb_active_suffix']) ? '' : $GLOBALS['template_default']['breadcrumb_active_suffix'];
+		$breadcrumb_nolink_prefix = empty($GLOBALS['template_default']['breadcrumb_nolink_prefix']) ? '' : $GLOBALS['template_default']['breadcrumb_nolink_prefix'];
+		$breadcrumb_nolink_suffix = empty($GLOBALS['template_default']['breadcrumb_nolink_suffix']) ? '' : $GLOBALS['template_default']['breadcrumb_nolink_suffix'];
+
 		foreach($data as $key => $value) {
 
-			if($struct_array[$key]["acat_hidden"] != 1) { // check if the structure should be unvisible when active
+			$hidden = $struct_array[$key]["acat_hidden"];
+			$link = 1;
+			$nolink_prefix = '';
+			$nolink_suffix = '';
+
+			if($struct_array[$key]["acat_breadcrumb"]) {
+				if($hidden && ($struct_array[$key]["acat_breadcrumb"] === 1 || $struct_array[$key]["acat_breadcrumb"] === 3)) {
+					$hidden = 0;
+				}
+				if($struct_array[$key]["acat_breadcrumb"] === 2 || $struct_array[$key]["acat_breadcrumb"] === 3) {
+					$link = 0;
+					$nolink_prefix = $breadcrumb_nolink_prefix;
+					$nolink_suffix = $breadcrumb_nolink_suffix;
+				}
+			}
+
+			if(!$hidden) { // check if the structure should be unvisible when active
 
 				$breadcrumb[$key] = '';
 
 				if ($act_id != $key) {
 
-					if(!$struct_array[$key]["acat_redirect"]) {
-						$breadcrumb[$key] .= '<a href="index.php?';
-						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
-						$breadcrumb[$key] .= '">';
-					} else {
-						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
-						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+					if($link) {
+						if(!$struct_array[$key]["acat_redirect"]) {
+							$breadcrumb[$key] .= '<a href="' . rel_url(null, true, $struct_array[$key]["acat_alias"] ? html($struct_array[$key]["acat_alias"]) : 'id='.$key) . '">';
+						} else {
+							$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
+							$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+						}
 					}
 
-					$breadcrumb[$key] .= html_specialchars($data[$key]);
+					$breadcrumb[$key] .= $nolink_prefix . html($data[$key]) . $nolink_suffix;
 
 				} elseif($with_article) {
 
-					if(!$struct_array[$key]["acat_redirect"]) {
-						$breadcrumb[$key] .= '<a href="index.php?';
-						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
-						$breadcrumb[$key] .= '">';
-					} else {
-						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
-						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+					if($link) {
+						if(!$struct_array[$key]["acat_redirect"]) {
+							$breadcrumb[$key] .= '<a href="' . rel_url(null, true, $struct_array[$key]["acat_alias"] ? html($struct_array[$key]["acat_alias"]) : 'id='.$key) . '">';
+						} else {
+							$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
+							$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
+						}
 					}
 
-					$breadcrumb[$key] .= html_specialchars($data[$key]);
-
+					$breadcrumb[$key] .= $nolink_prefix . html($data[$key]) . $nolink_suffix;
 
 				} else {
 
-					if(!$struct_array[$key]["acat_redirect"]) {
-						$breadcrumb[$key] .= '<a href="index.php?';
-						$breadcrumb[$key] .= $struct_array[$key]["acat_alias"] ? html_specialchars($struct_array[$key]["acat_alias"]) : 'id='.$key;
-						$breadcrumb[$key] .= '" class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
-					} else {
-						$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
-						$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
+					if($link) {
+						if(!$struct_array[$key]["acat_redirect"]) {
+							$breadcrumb[$key] .= '<a href="' . rel_url(null, true, $struct_array[$key]["acat_alias"] ? html($struct_array[$key]["acat_alias"]) : 'id='.$key);
+							$breadcrumb[$key] .= '" class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
+						} else {
+							$redirect = get_redirect_link($struct_array[$key]["acat_redirect"], ' ', '');
+							$breadcrumb[$key] .= '<a href="'.$redirect['link'].'"'.$redirect['target'].' class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
+						}
 					}
 
-					if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
-						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
-					}
-
-					$breadcrumb[$key] .= html_specialchars($data[$key]);
-
-					if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
-						$breadcrumb[$key] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
-					}
+					$breadcrumb[$key] .= $breadcrumb_active_prefix;
+					$breadcrumb[$key] .= $nolink_prefix . html($data[$key]) . $nolink_suffix;
+					$breadcrumb[$key] .= $breadcrumb_active_suffix;
 
 				}
 
-				$breadcrumb[$key] .= '</a>';
+				if($link) {
+					$breadcrumb[$key] .= '</a>';
+				}
+
 			}
 		}
-
 	}
 
 	// add current article information
 	if($with_article && isset($GLOBALS['content']["article_menutitle"])) {
 
-		$breadcrumb['article']  = '<a href="index.php?';
-		$breadcrumb['article'] .= defined('PHPWCMS_ALIAS') ? html_specialchars(PHPWCMS_ALIAS) : 'aid='.$GLOBALS['content']["article_id"];
+		$breadcrumb['article']  = '<a href="' . rel_url(null, true, defined('PHPWCMS_ALIAS') ? html(PHPWCMS_ALIAS) : 'aid='.$GLOBALS['content']["article_id"]);
 		$breadcrumb['article'] .= '" class="'.$GLOBALS['template_default']['classes']['breadcrumb-active'].'">';
 
 		if(!empty($GLOBALS['template_default']['breadcrumb_active_prefix'])) {
 			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_prefix'];
 		}
 
-		$breadcrumb['article'] .= html_specialchars($GLOBALS['content']["article_menutitle"]);
+		$breadcrumb['article'] .= html($GLOBALS['content']["article_menutitle"]);
 
 		if(!empty($GLOBALS['template_default']['breadcrumb_active_suffix'])) {
 			$breadcrumb['article'] .= $GLOBALS['template_default']['breadcrumb_active_suffix'];
@@ -466,8 +482,9 @@ function get_struct_data($root_name='', $root_info='') {
 		"acat_class"		=> empty($indexpage['acat_class']) ? '' : $indexpage['acat_class'],
 		"acat_keywords"		=> empty($indexpage['acat_keywords']) ? '' : $indexpage['acat_keywords'],
 		"acat_disable301"	=> empty($indexpage['acat_disable301']) ? 0 : 1,
-		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1,
+		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? intval($indexpage['acat_opengraph']) : 1,
 		"acat_canonical"	=> empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'],
+		"acat_breadcrumb"	=> empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']),
 	);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -485,7 +502,7 @@ function get_struct_data($root_name='', $root_info='') {
 				"acat_info"			=> $row["acat_info"],
 				"acat_struct"		=> $row["acat_struct"],
 				"acat_sort"			=> $row["acat_sort"],
-				"acat_hidden"		=> $row["acat_hidden"],
+				"acat_hidden"		=> intval($row["acat_hidden"]),
 				"acat_regonly"		=> $row["acat_regonly"],
 				"acat_ssl"			=> $row["acat_ssl"],
 				"acat_template"		=> $row["acat_template"],
@@ -506,7 +523,8 @@ function get_struct_data($root_name='', $root_info='') {
 				"acat_keywords"		=> $row["acat_keywords"],
 				"acat_disable301"	=> $row["acat_disable301"],
 				"acat_opengraph"	=> $row["acat_opengraph"],
-				"acat_canonical"	=> $row["acat_canonical"]
+				"acat_canonical"	=> $row["acat_canonical"],
+				"acat_breadcrumb"	=> intval($row["acat_breadcrumb"])
 			);
 		}
 		mysql_free_result($result);
