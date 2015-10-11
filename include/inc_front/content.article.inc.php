@@ -840,7 +840,7 @@ if($content['overwrite_canonical']) {
 
 } elseif(empty($phpwcms['canonical_off'])) {
 
-	$_tempAlias = PHPWCMS_ALIAS ? PHPWCMS_ALIAS : 'aid='.$content['article_id'];;
+	$_tempAlias = defined('PHPWCMS_ALIAS') && PHPWCMS_ALIAS !== '' ? PHPWCMS_ALIAS : 'aid='.$content['article_id'];
 
 	if($content['set_canonical'] && empty($phpwcms['force301_2struct'])) {
 
