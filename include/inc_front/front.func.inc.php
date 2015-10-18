@@ -1227,6 +1227,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
 				$tmpl = render_cnt_template($tmpl, 'TITLE', empty($article['article_notitle']) ? html_specialchars($article["article_title"]) : '' );
 				$tmpl = render_cnt_template($tmpl, 'SUB', html_specialchars($article["article_subtitle"]));
+				$tmpl = str_replace('{CATEGORYID}', $article['article_cid'], $tmpl);
 
 				// replace thumbnail and zoom image information
 				$tmpl = str_replace(
@@ -1308,7 +1309,6 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$article['article_class'] = get_css_keywords($article['article_keyword']);
 				$article['article_class'] = count($article['article_class']) ? implode(' ', $article['article_class']) : '';
 				$tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_class']);
-
 				$tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
 				$tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
 				$tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
