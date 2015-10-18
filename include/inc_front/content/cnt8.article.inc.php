@@ -19,12 +19,14 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Teaser (link article) content part
 
-$content['alink'] = @unserialize($crow["acontent_form"]);
+// Check if custom array is given or parse it based on the default behavior
+if(!isset($content['alink']['inject'])) {
 
-if(!isset($content['alink']['alink_id'])) {
+	$content['alink'] = @unserialize($crow["acontent_form"]);
 
-	$content['alink']['alink_id']	= explode(':', $crow['acontent_alink']);
-
+	if(!isset($content['alink']['alink_id'])) {
+		$content['alink']['alink_id'] = explode(':', $crow['acontent_alink']);
+	}
 }
 
 if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id'])) || (!empty($content['alink']['alink_type']) && ((is_array($content['alink']['alink_level']) && count($content['alink']['alink_level'])) || (isset($content['alink']['alink_category']) && count($content['alink']['alink_category']))))) {
@@ -62,14 +64,12 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 	}
 
-
 	$content['alink']['tags_group_by']			= '';
 	$content['alink']['tags_where']				= '';
 	$content['alink']['date_basis'] 			= 'article_date';
 	$content['alink']['alink_categoryalias']	= empty($content['alink']['alink_categoryalias']) ? 0 : 1;
 
 	$alink_sql  = "SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ar ";
-
 
 	// select by category
 	if(!empty($content['alink']['alink_category']) && count($content['alink']['alink_category'])) {
@@ -660,8 +660,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 	$CNT_TMP .= $content['alink'];
 
-
 }
 
+// unset the CP related value
+unset($content['alink']);
 
 ?>
