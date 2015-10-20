@@ -77,6 +77,11 @@ if($image['template']) {
 			$image['lightbox'] = generic_string(5);
 		}
 
+		if(empty($image['thumb_class'])) {
+			$image['thumb_class'] = '';
+		}
+		$image['thumb_class'] = trim($template_default['classes']['image-thumb'] . ' ' . $image['thumb_class']);
+
 		if(empty($image['center_image'])) {
 			$image['center_image'] = 0;
 		}
@@ -235,7 +240,7 @@ if($image['template']) {
 			if($caption[3]) {
 				$list_img_temp .= ' title="'.$caption[3].'"';
 			}
-			$list_img_temp .= ' class="'.$template_default['classes']['image-thumb'].'" />';
+			$list_img_temp .= ' class="'.$image['thumb_class'].'" />';
 			$img_a			= '';
 
 			if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {

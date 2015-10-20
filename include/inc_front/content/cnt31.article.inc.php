@@ -97,6 +97,11 @@ if($image['template']) {
 			$image['lightbox'] = generic_string(5);
 		}
 
+		if(empty($image['thumb_class'])) {
+			$image['thumb_class'] = '';
+		}
+		$image['thumb_class'] = trim($template_default['classes']['image-thumb'] . ' ' . $image['thumb_class']);
+
 		switch($image['center']) {
 
 			case 1:		// center hor/vert
@@ -248,7 +253,7 @@ if($image['template']) {
 				$caption[3] = html_specialchars($caption[3]);
 				$list_img_temp .= ' title="'.$caption[3].'"';
 			}
-			$list_img_temp .= ' class="'.$template_default['classes']['image-thumb'].'" />';
+			$list_img_temp .= ' class="'.$image['thumb_class'].'" />';
 			$img_a			= '';
 			$lightbox_capt  = '';
 
