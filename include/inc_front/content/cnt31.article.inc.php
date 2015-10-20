@@ -207,9 +207,6 @@ if($image['template']) {
 				$caption[2][1]	= empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
 			}
 
-			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
-			$list_img_temp .= 'data-image-id="'.$value['thumb_id'].'" data-image-hash="'.$value['thumb_hash'].'" ';
-
 			$img_thumb_name		= $thumb_image[0];
 			$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];
 			$img_thumb_abs		= PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
@@ -217,6 +214,9 @@ if($image['template']) {
 			$img_thumb_height	= $thumb_image[2];
 			$img_thumb_filename	= $value['thumb_name'];
 			$img_thumb_link		= '';
+
+			$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" data-image-ext="'.$value['thumb_ext'].'" ';
+			$list_img_temp .= 'data-image-id="'.$value['thumb_id'].'" data-image-hash="'.$value['thumb_hash'].'" ';
 
 			if($image['center']) {
 
