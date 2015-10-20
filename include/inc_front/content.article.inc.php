@@ -212,8 +212,10 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 		$img_thumb_abs		= '';
 		$img_thumb_width	= 0;
 		$img_thumb_height	= 0;
+		$img_thumb_alt		= $caption[1];
+		$img_thumb_title	= $caption[3];
 
-		$img_zoom_name		= '';
+		$img_zoom_name		= empty($row["article_image"]['name']) ? '' : $row["article_image"]['name'];
 		$img_zoom_rel		= '';
 		$img_zoom_abs		= '';
 		$img_zoom_width		= 0;
@@ -494,6 +496,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ALT', html($img_thumb_alt));
+			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE_TITLE', html($img_thumb_title));
 			$row["article_image"]['tmplfull'] = render_cnt_date($row["article_image"]['tmplfull'], $content["article_date"], $row['article_livedate'], $row['article_killdate']);
 			$row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ZOOMIMAGE', $popup_img);
 
