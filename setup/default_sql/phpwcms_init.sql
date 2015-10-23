@@ -720,6 +720,7 @@ CREATE TABLE `phpwcms_shop_products` (
   `shopprod_lang` varchar(255) NOT NULL DEFAULT '',
   `shopprod_overwrite_meta` int(1) NOT NULL DEFAULT '1',
   `shopprod_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
+  `shopprod_unit` VARCHAR(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`shopprod_id`),
   KEY `shopprod_status` (`shopprod_status`),
   KEY `category` (`shopprod_category`),

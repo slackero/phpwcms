@@ -835,6 +835,7 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_GROSS_PRICE', $row['gross']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $row['vat']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_URL', $row['prod_url']['link']);
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_UNIT', html($row['shopprod_unit']));
 
 			if(empty($_shopPref['shop_pref_discount']['discount']) || empty($_shopPref['shop_pref_discount']['percent'])) {
 				$row['discount'] = '';

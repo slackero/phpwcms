@@ -112,7 +112,7 @@ class_form_cart = shop-cart
 			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
 			{PRODUCT_SHORT}
 		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
-			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
+			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}[PRODUCT_UNIT]/{PRODUCT_UNIT}[/PRODUCT_UNIT]</em>
 			<em>{PRODUCT_VAT}%</em>
 			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
 		[/ON_REQUEST_ELSE]
@@ -203,7 +203,7 @@ class_form_cart = shop-cart
 <br /># {ORDER_NUM}
       </td>
 			<td align="right">
-				{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL} <br />
+				{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}[PRODUCT_UNIT]/{PRODUCT_UNIT}[/PRODUCT_UNIT]<br />
 				VAT: {PRODUCT_VAT}% <br />
 				{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
 			</td>
@@ -749,6 +749,36 @@ class_form_cart = shop-cart
 			<td colspan="3"><hr /></td>
 		</tr>
 
+		[DISCOUNT]
+		<tr>
+			<td colspan="3"><strong>Discount</strong></td>
+		</tr>
+		<tr>
+			<td>Discount:</td>
+			<td align="right">{DISCOUNT}</td>
+			<td>%</td>
+		</tr>
+		<tr>
+			<td>Discount Net:</td>
+			<td align="right">{DISCOUNT_NET}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Discount VAT:</td>
+			<td align="right">{DISCOUNT_VAT}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+		<tr>
+			<td>Discount Gross:</td>
+			<td align="right">{DISCOUNT_GROSS}</td>
+			<td>{CURRENCY_SYMBOL}</td>
+		</tr>
+
+		<tr>
+			<td colspan="3"><hr /></td>
+		</tr>
+		[/DISCOUNT]
+
 		<tr>
 			<td colspan="3"><strong>Total</strong></td>
 		</tr>
@@ -812,7 +842,7 @@ class_form_cart = shop-cart
 <!--ORDER_TERMS_ITEMSPACE_END//-->
 
 <!--MAIL_ITEM_START//-->
-Qty:   {COUNT}
+Qty:   {COUNT}[PRODUCT_UNIT] {PRODUCT_UNIT}[/PRODUCT_UNIT]
 Ord#:  {ORDER_NUM}
 Item:  {PRODUCT_TITLE} {PRODUCT_OPT1} {PRODUCT_OPT2}
 Net:   {PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}

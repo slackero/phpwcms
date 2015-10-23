@@ -40,6 +40,7 @@ if($action == 'edit') {
 		$plugin['data']['shopprod_price']			= clean_slweg($_POST['shopprod_price']);
 		$plugin['data']['shopprod_vat']				= abs(floatval($_POST['shopprod_vat']));
 		$plugin['data']['shopprod_weight']			= clean_slweg($_POST['shopprod_weight']);
+		$plugin['data']['shopprod_unit']			= clean_slweg($_POST['shopprod_unit']);
 
 		$plugin['data']['shopprod_size']			= clean_slweg($_POST['shopprod_size']);
 		$plugin['data']['shopprod_color']			= clean_slweg($_POST['shopprod_color']);
@@ -242,7 +243,8 @@ if($action == 'edit') {
 				$sql .= "shopprod_listall = '".aporeplace($plugin['data']['shopprod_listall'])."', ";
 				$sql .= "shopprod_lang = '".aporeplace($plugin['data']['shopprod_lang'])."', ";
 				$sql .= "shopprod_overwrite_meta = ".$plugin['data']['shopprod_overwrite_meta'].", ";
-				$sql .= "shopprod_opengraph = ".$plugin['data']['shopprod_opengraph']." ";
+				$sql .= "shopprod_opengraph = ".$plugin['data']['shopprod_opengraph'].", ";
+				$sql .= "shopprod_unit = "._dbEscape($plugin['data']['shopprod_unit'])." ";
 
 				$sql .= "WHERE shopprod_id = " . $plugin['data']['shopprod_id'];
 
@@ -256,7 +258,7 @@ if($action == 'edit') {
 				$sql .= 'shopprod_name1, shopprod_name2, shopprod_tag, shopprod_vat, shopprod_netgross, shopprod_price, ';
 				$sql .= 'shopprod_maxrebate, shopprod_description0, shopprod_description1, shopprod_description2, ';
 				$sql .= 'shopprod_description3, shopprod_var, shopprod_category, shopprod_weight, shopprod_size, shopprod_color, ';
-				$sql .= 'shopprod_listall, shopprod_lang, shopprod_overwrite_meta, shopprod_opengraph) VALUES (';
+				$sql .= 'shopprod_listall, shopprod_lang, shopprod_overwrite_meta, shopprod_opengraph, shopprod_unit) VALUES (';
 				$sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
 				$sql .= "'".aporeplace( date('Y-m-d H:i:s', $plugin['data']['shopprod_changedate']) )."', ";
 				$sql .= $plugin['data']['shopprod_status'].", ";
@@ -288,7 +290,8 @@ if($action == 'edit') {
 				$sql .= "'".aporeplace($plugin['data']['shopprod_listall'])."', ";
 				$sql .= "'".aporeplace($plugin['data']['shopprod_lang'])."', ";
 				$sql .= $plugin['data']['shopprod_overwrite_meta'].', ';
-				$sql .= $plugin['data']['shopprod_opengraph'];
+				$sql .= $plugin['data']['shopprod_opengraph'].', ';
+				$sql .= _dbEscape($plugin['data']['shopprod_unit']);
 				$sql .= ')';
 
 				$result = _dbQuery($sql, 'INSERT');
@@ -340,6 +343,7 @@ if($action == 'edit') {
 		$plugin['data']['shopprod_lang']			= '';
 		$plugin['data']['shopprod_overwrite_meta']	= 1;
 		$plugin['data']['shopprod_opengraph']		= empty($phpwcms['set_sociallink']['shop']) ? 0 : 1;
+		$plugin['data']['shopprod_unit']			= '';
 
 	} else {
 

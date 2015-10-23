@@ -131,29 +131,35 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 			
 				<td><input name="shopprod_weight" type="text" id="shopprod_weight" class="v12 width125 right" value="<?php
 
-			echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']);
+					echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']);
 
-		?>" size="30" maxlength="200" /></td>
-		
-			<td class="chatlist">&nbsp;<?php
-			
-			if( ! $plugin['data']['shop_pref_unit_weight'] = _getConfig('shop_pref_unit_weight') ) {
-				$plugin['data']['shop_pref_unit_weight'] = 'kg';
-				_setConfig('shop_pref_unit_weight', 	$plugin['data']['shop_pref_unit_weight'], 	'module_shop');
-			}
-			echo html_specialchars($plugin['data']['shop_pref_unit_weight']);
-			
-			?></td>
-		
+				?>" size="30" maxlength="200" /></td>
+
+				<td class="chatlist" width="25">&nbsp;<?php
+
+					if( ! ($plugin['data']['shop_pref_unit_weight'] = _getConfig('shop_pref_unit_weight')) ) {
+						$plugin['data']['shop_pref_unit_weight'] = 'kg';
+						_setConfig('shop_pref_unit_weight', 	$plugin['data']['shop_pref_unit_weight'], 	'module_shop');
+					}
+					echo html_specialchars($plugin['data']['shop_pref_unit_weight']);
+
+				?></td>
+
 			</tr>
 			</table></td>
 
 	</tr>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>	
-	
-	
-	<tr> 
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+
+	<tr>
+		<td align="right" class="chatlist"><?php echo $BLM['shopprod_unit'] ?>:&nbsp;</td>
+		<td><input name="shopprod_unit" type="text" id="shopprod_unit" class="v12 width125" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" /></td>
+	</tr>
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_price'] ?>:&nbsp;</td>
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		

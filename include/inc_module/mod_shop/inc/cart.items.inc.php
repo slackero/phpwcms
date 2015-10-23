@@ -133,6 +133,7 @@ foreach($cart_data as $item_key => $row) {
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_VAT', $row['vat']);
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'ORDER_NUM', html_specialchars($row['shopprod_ordernumber']));
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'MODEL', html_specialchars($row['shopprod_model']));
+			$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_UNIT', html($row['shopprod_unit']));
 
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_OPT1', $opt1_txt);
 			$cart_items[$x] = render_cnt_template($cart_items[$x], 'PRODUCT_OPT2', $opt2_txt);
