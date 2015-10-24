@@ -32,10 +32,10 @@ function phpwcms_revision_r541() {
 		_setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
 		_setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
 	}
-	
+
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_shop_products` WHERE Field='shopprod_unit'");
 	if(!isset($result[0])) {
-		if(!($insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_shop_products` ADD `shopprod_unit` VARCHAR(100) NOT NULL DEFAULT ''", 'ALTER')) {
+		if(!($insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_shop_products` ADD `shopprod_unit` VARCHAR(100) NOT NULL DEFAULT ''", 'ALTER'))) {
 			$status = false;
 		}
 	}
