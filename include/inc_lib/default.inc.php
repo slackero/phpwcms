@@ -551,10 +551,15 @@ function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspeci
 // build a URL query string based on current values
 function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=', $query_string_separator='?') {
 
-	$queryString	= array();
+	$queryString = array();
 	if(empty($GLOBALS['_getVar']) || $remove === true) {
-		$_getVarTemp = array();
 		$remove=array(); // force URL without any get parameter
+		if($id_alias === '' && count($GLOBALS['_getVar'])) {
+			reset($GLOBALS['_getVar']);
+			$_getVarTemp = array( key($GLOBALS['_getVar']) => current($GLOBALS['_getVar']) );
+		} else {
+			$_getVarTemp = array();
+		}
 	} else {
 		$_getVarTemp = $GLOBALS['_getVar'];
 	}
@@ -576,7 +581,7 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 		}
 	}
 
-	if(count($remove)) {
+	if(is_array($remove) && count($remove)) {
 		foreach($remove as $value) {
 			unset($_getVarTemp[$value]);
 		}
