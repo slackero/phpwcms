@@ -134,6 +134,7 @@ $phpwcms['cnt_sort']			= 'a-z'; // not set or empty or false like before; 'a-z' 
 $phpwcms['cmsimage_redirect']	= false; // redirect to the resized/cropped image if true
 $phpwcms['disable_next_prev']	= false; // https://support.google.com/webmasters/answer/1663744
 $phpwcms['allowed_upload_ext']	= 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp4,m4p,flv,f4v,f4p,f4a,f4b';
+$phpwcms['enable_inline_php']	= false; // disable [PHP] {PHP…} … by default
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']   = 'info@localhost'; // reply/from email address

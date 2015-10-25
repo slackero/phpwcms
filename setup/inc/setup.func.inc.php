@@ -258,6 +258,7 @@ function write_conf_file($val) {
 	$conf_file .= "\$phpwcms['disable_next_prev']	= false; // https://support.google.com/webmasters/answer/1663744\n";
 	$conf_file .= "\$phpwcms['allowed_upload_ext']	= 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp4,m4p,flv,f4v,f4p,f4a,f4b';
 \n";
+	$conf_file .= "\$phpwcms['enable_inline_php']	= false; // disable [PHP] {PHP…} … by default\n";
 
 	$conf_file .= "\n// Email specific settings (based on phpMailer)\n";
 	$conf_file .= "\$phpwcms['SMTP_FROM_EMAIL']   = '".str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"])."'; // reply/from email address\n";

@@ -1320,10 +1320,10 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 				$tmpl = render_cnt_template($tmpl, 'ARTICLEID', $article["article_id"]);
 				$tmpl = render_cnt_template($tmpl, 'MORE', $article["article_morelink"] ? $template_default["top_readmore_link"] : '');
 				$tmpl = render_cnt_template($tmpl, 'TARGET', ($article["article_morelink"] && $link_data[1]) ? ' target="'.$link_data[1].'"' : '');
-				$tmpl = render_cnt_template($tmpl, 'BEFORE', '<!--before//-->');
-				$tmpl = render_cnt_template($tmpl, 'AFTER', '<!--after//-->');
+				$tmpl = render_cnt_template($tmpl, 'BEFORE', '<!--before-->');
+				$tmpl = render_cnt_template($tmpl, 'AFTER', '<!--after-->');
 				$tmpl = render_cnt_date($tmpl, $article["article_date"], $article["article_livedate"], $article["article_killdate"] );
-				$tmpl = render_cnt_template($tmpl, 'SPACE', $space_counter ? '<!--space//-->' : '');
+				$tmpl = render_cnt_template($tmpl, 'SPACE', $space_counter ? '<!--space-->' : '');
 
 				$listing .= $tmpl;
 
@@ -2297,8 +2297,20 @@ function include_int_php($string) {
 		}
 	}
 	$s = str_replace('$phpwcms', '$notavailable', $s);
-	$s = str_replace('["phpwcms"]', '["notavailable"]', $s);
-	$s = str_replace("['phpwcms']", '["notavailable"]', $s);
+	$s = str_replace(array('["phpwcms"]', "['phpwcms']"), '["notavailable"]', $s);
+
+	$s = trim($s);
+
+	if(!$s) {
+		return '';
+	}
+
+	// for security reasons several php functions are forbidden
+	if(preg_match('/(passthru|system|exec|popen|eval|assert|include|require|file_get|fread|ini_set|function|unpack|gzuncompress|gzinflate|\]\(|gzdecode)/i', $s)) {
+		echo '<!-- forbidden -->';
+		return '<!-- forbidden -->';
+	}
+
 	ob_start();
 	eval('echo '.$s.';');
 	return ob_get_clean();
@@ -2307,8 +2319,19 @@ function include_int_php($string) {
 function include_int_phpcode($string) {
 	// return the PHP code
 	$s = html_despecialchars($string[1]);
-	$s = str_replace('<br>', "\n", $s);
-	$s = str_replace('<br />', "\n", $s);
+	$s = str_replace(array('<br>', '<br />'), "\n", $s);
+
+	$s = trim($s);
+
+	if(!$s) {
+		return '';
+	}
+
+	// for security reasons several php functions are forbidden
+	if(preg_match('/(passthru|system|exec|popen|eval|assert|include|require|file_get|fread|ini_set|function|unpack|gzuncompress|gzinflate|\]\(|gzdecode)/i', $s)) {
+		return '<!-- forbidden -->';
+	}
+
 	ob_start();
 	eval($s.";");
 	return ob_get_clean();
@@ -2620,12 +2643,22 @@ function make_absoluteURL($matches) {
 // combined PHP replace renderer
 function render_PHPcode($string='') {
 	if($string && strpos($string,'PHP') !== false) {
-		// includes external PHP script and returns the content
-		$string = preg_replace_callback('/\{PHP:(.*?)\}/', 'include_ext_php', $string);
-		// do complete PHP code
-		$string = preg_replace_callback("/\[PHP\](.*?)\[\/PHP\]/s", 'include_int_phpcode', $string);
-		// includes external PHP script and returns the content
-		$string = preg_replace_callback("/\{PHPVAR:(.*?)\}/s", 'include_int_php', $string);
+
+		if(empty($GLOBALS['phpwcms']['enable_inline_php'])) {
+
+			$string = remove_unsecure_rptags($string);
+
+		} else {
+
+			// includes external PHP script and returns the content
+			$string = preg_replace_callback('/\{PHP:(.*?)\}/', 'include_ext_php', $string);
+			// do complete PHP code
+			$string = preg_replace_callback("/\[PHP\](.*?)\[\/PHP\]/s", 'include_int_phpcode', $string);
+			// includes external PHP script and returns the content
+			$string = preg_replace_callback("/\{PHPVAR:(.*?)\}/s", 'include_int_php', $string);
+
+		}
+
 	}
 	return $string;
 }

@@ -628,7 +628,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			$CNT_TMP = trigger_cp($CNT_TMP, $crow);
 
 			//check if PHP replacent tags are allowed for content
-			if(empty($phpwcms["allow_cntPHP_rt"])) {
+			if(empty($phpwcms["allow_cntPHP_rt"]) || empty($phpwcms['enable_inline_php'])) {
 				$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 			}
 

@@ -21,7 +21,7 @@ $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $templ
 $content['page_file'] = @unserialize($crow["acontent_form"]);
 if($content["page_file"]['source']) {
 	$CNT_TMP .= include_url($content['page_file']['pfile']);
-} else {
+} elseif(!empty($phpwcms['enable_inline_php'])) {
 	$content['page_file']['pfile'] = include_ext_php($content['page_file']['pfile'], 1);
 	if(preg_match('/.*?<body[^>]*?>(.*?)<\/body>.*?/si', $content['page_file']['pfile'], $content['page_file']['match'])) {
 		$CNT_TMP .= $content['page_file']['match'][1];

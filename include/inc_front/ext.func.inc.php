@@ -552,7 +552,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 		}
 	}
 
-	if(empty($phpwcms["allow_cntPHP_rt"])) {
+	if(empty($phpwcms["allow_cntPHP_rt"]) || empty($phpwcms['enable_inline_php'])) {
 		$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 	}
 	return trim($CNT_TMP);
