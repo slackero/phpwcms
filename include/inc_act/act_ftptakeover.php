@@ -115,7 +115,9 @@ if(!$ftp["error"]) {
 	flush();
 
 	foreach($ftp["mark"] as $key => $value) {
-		if(!ini_get('safe_mode') && function_exists('set_time_limit')) set_time_limit(60);
+		if(!ini_get('safe_mode') && function_exists('set_time_limit')) {
+			set_time_limit(60);
+		}
 
 		$file = $ftp["file"][$key];
 		$file_path = PHPWCMS_ROOT.$phpwcms["ftp_path"].$file;

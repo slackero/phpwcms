@@ -74,15 +74,16 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 		}
 	}
 
-	//if(isEmpty($file_shortinfo)) $file_error["shortinfo"] = 1;
 	if(empty($file_name)) {
 		$file_error["name"] = 1;
 	} else {
 		//Wenn Dateiname keine Erweiterung hat, dann Extension anhängen
-		if(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) $file_name .= ".".$file_ext;
+		if(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) {
+			$file_name .= ".".$file_ext;
+		}
 	}
-	//Eintragen der aktualisierten Verzeichnisinfos
-	if(!isset($file_error)) {
+
+	if(empty($file_error)) {
 		$sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
 				"f_name='".aporeplace($file_name)."', ".
 				"f_pid=".$file_pid.", ".

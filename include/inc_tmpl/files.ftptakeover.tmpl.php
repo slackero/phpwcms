@@ -312,10 +312,19 @@ initJsAutocompleter();
 $GLOBALS['BE']['HEADER']['fileuploader.css']	= '	<link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />';
 $GLOBALS['BE']['HEADER']['fileuploader.js']		= getJavaScriptSourceLink('include/inc_js/uploader/fileuploader.min.js');
 
+$fileuploaderAllowedExtensions = '';
+if(is_string($phpwcms['allowed_upload_ext'])) {
+	$fileuploaderAllowedExtensions = $phpwcms['allowed_upload_ext'];
+	if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
+		$fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
+	}
+} elseif(count($phpwcms['allowed_upload_ext'])) {
+	$fileuploaderAllowedExtensions = "'" . implode("','", $phpwcms['allowed_upload_ext']) . "'";
+}
+
 ?>
 </form>
-<script type="text/javascript">
-<!--
+<script>
 $(function() {
 
 
@@ -331,7 +340,7 @@ $(function() {
 			action: '<?php echo PHPWCMS_URL ?>include/inc_act/act_upload.php',
 			multiple: true,
 			autoUpload: true,
-			debug: true,
+			allowedExtensions: [<?php echo $fileuploaderAllowedExtensions ?>],
 			uploadButtonText: '<?php echo $BL['be_fileuploader_uploadButtonText'] ?>',
 			cancelButtonText: '<?php echo $BL['be_newsletter_button_cancel'] ?>',
 			failUploadText: '<?php echo $BL['be_error_while_save'] ?>',
@@ -359,12 +368,12 @@ $(function() {
 
 			?>,
 			messages: {
-				typeError: "<?php echo $BL['be_fileuploader_typeError'] ?>",
-				sizeError: "<?php echo $BL['be_fileuploader_sizeError'] ?>",
-				minSizeError: "<?php echo $BL['be_fileuploader_minSizeError'] ?>",
-				emptyError: "<?php echo $BL['be_fileuploader_emptyError'] ?>",
-				noFilesError: "<?php echo $BL['be_fileuploader_noFilesError'] ?>",
-				onLeave: "<?php echo $BL['be_fileuploader_onLeave'] ?>"
+				typeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_typeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
+				sizeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_sizeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
+				minSizeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_minSizeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
+				emptyError: "<?php echo makeCharsetConversion($BL['be_fileuploader_emptyError'], 'utf-8', PHPWCMS_CHARSET) ?>",
+				noFilesError: "<?php echo makeCharsetConversion($BL['be_fileuploader_noFilesError'], 'utf-8', PHPWCMS_CHARSET) ?>",
+				onLeave: "<?php echo makeCharsetConversion($BL['be_fileuploader_onLeave'], 'utf-8', PHPWCMS_CHARSET) ?>"
 			},
 			disableDefaultDropzone: false,
 			onSubmit: function(id, fileName) {
@@ -492,5 +501,4 @@ $(function() {
 
 });
 
-//-->
 </script>

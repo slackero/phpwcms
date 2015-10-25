@@ -40,7 +40,11 @@ if(@ini_get('upload_max_filesize')) {
 	$upload_max_filesize = $phpwcms['file_maxsize'];
 }
 
-$uploader	= new qqFileUploader(array(), min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']));
+if(is_string($phpwcms['allowed_upload_ext'])) {
+	$phpwcms['allowed_upload_ext'] = convertStringToArray(strtolower($phpwcms['allowed_upload_ext']));
+}
+
+$uploader	= new qqFileUploader($phpwcms['allowed_upload_ext'], min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']));
 $uploadDir	= PHPWCMS_ROOT.$phpwcms["ftp_path"];
 
 // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
@@ -48,8 +52,8 @@ $result = $uploader->handleUpload($uploadDir, NULL, TRUE, FALSE);
 
 $result['filename']	= $uploader->getUploadName();
 
-if($result['success'] && !empty($_GET['file_public'])) {
-	
+if(!empty($result['success']) && !empty($_GET['file_public'])) {
+
 	require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
 	$data = array(
@@ -68,52 +72,52 @@ if($result['success'] && !empty($_GET['file_public'])) {
 		'f_copyright'	=> slweg($_GET['file_copyright']),
 		'f_tags'		=> clean_slweg($_GET['file_tags'])
 	);
-	
+
 	if(PHPWCMS_CHARSET != 'utf-8') {
 		$data['f_name']			= makeCharsetConversion($data['f_name'], 'utf-8', PHPWCMS_CHARSET);
 		$data['f_longinfo']		= makeCharsetConversion($data['f_longinfo'], 'utf-8', PHPWCMS_CHARSET);
 		$data['f_copyright']	= makeCharsetConversion($data['f_copyright'], 'utf-8', PHPWCMS_CHARSET);
 		$data['f_tags']			= makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);
 	}
-	
+
 	$insert = _dbInsert('phpwcms_file', $data);
 
 	// move uploaded file
 	if(!empty($insert['INSERT_ID'])) {
-		
+
 		$userftppath    = PHPWCMS_ROOT.$phpwcms["ftp_path"];
 		$useruploadpath = PHPWCMS_ROOT.$phpwcms["file_path"];
 		$usernewfile	= $useruploadpath.$data['f_hash'];
-		
+
 		if($data['f_ext']) {
 			$usernewfile .= '.'.$data['f_ext'];
 		}
-		
+
 		$oldmask = umask(0);
 
 		if($dir = @opendir($useruploadpath) && @copy($userftppath.$result['filename'], $usernewfile)) {
-		
+
 			@unlink($userftppath.$result['filename']);
-		
+
 		} else {
-			
+
 			require(PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
 			$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.inc.php';
 			if(is_file($cust_lang)) {
 				include($cust_lang);
 			}
-			
+
 			$result['success'] = false;
 			$result['error'] = $BL['be_error_while_save'];
-			
+
 			_dbQuery('DELETE FROM '.DB_PREPEND.'phpwcms_file WHERE f_id='._dbEscape($insert['INSERT_ID']));
-			
+
 		}
-		
+
 		if(!empty($dir)) {
 			@closedir($dir);
 		}
-		
+
 	}
 
 }

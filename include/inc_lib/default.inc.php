@@ -178,7 +178,7 @@ define ('PHPWCMS_RSS', 				PHPWCMS_CONTENT.'rss');
 define ('PHPWCMS_STORAGE',			PHPWCMS_ROOT.$phpwcms["file_path"]);
 define ('LF', 						"\n"); 	//global new line Feed
 define ('FEUSER_REGKEY',			empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
-define ('RESPONSIVE_MODE',			!empty($phpwcms['responsive']));
+define ('RESPONSIVE_MODE',			empty($phpwcms['responsive']) ? false : true);
 
 if(function_exists('mb_substr')) {
 	define ('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -394,6 +394,76 @@ $phpwcms['default_template_attributes'] = array(
 		'value-suffix' => ''
 	)
 );
+
+if(empty($phpwcms['allowed_upload_ext'])) {
+	$phpwcms['allowed_upload_ext'] = array(
+		'jpg',
+		'jpeg',
+		'png',
+		'gif',
+		'tif',
+		'tiff',
+		'bmp',
+		'pic',
+		'psd',
+		'eps',
+		'ai',
+		'svg',
+		'pdf',
+		'ps',
+		'doc',
+		'docx',
+		'xls',
+		'xlsx',
+		'ppt',
+		'pptx',
+		'odt',
+		'odm',
+		'odg',
+		'ods',
+		'odp',
+		'odf',
+		'odc',
+		'odb',
+		'sxw',
+		'sxc',
+		'sxi',
+		'csv',
+		'txt',
+		'rtf',
+		'html',
+		'xml',
+		'ini',
+		'sql',
+		'db',
+		'zip',
+		'rar',
+		'7z',
+		's7z',
+		'dmg',
+		'bz2',
+		'gz',
+		'tar',
+		'tgz',
+		'mkv',
+		'webm',
+		'vob',
+		'ogg',
+		'ogv',
+		'mov',
+		'qt',
+		'wmv',
+		'mpg',
+		'mpeg',
+		'mp4',
+		'm4p',
+		'flv',
+		'f4v',
+		'f4p',
+		'f4a',
+		'f4b'
+	);
+}
 
 if(empty($phpwcms['mode_XHTML'])) {
 

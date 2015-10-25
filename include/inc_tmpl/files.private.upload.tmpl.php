@@ -34,7 +34,11 @@ $file_sort				= 0;
 
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
-	if(!ini_get('safe_mode') && function_exists('set_time_limit')) set_time_limit(0);
+
+	if(!ini_get('safe_mode') && function_exists('set_time_limit')) {
+		set_time_limit(0);
+	}
+
 	$file_pid 				= intval($_POST["file_pid"]);
 	$file_aktiv				= empty($_POST["file_aktiv"]) ? 0 : 1;
 	$file_public 			= empty($_POST["file_public"]) ? 0 : 1;
@@ -79,20 +83,54 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
 	//starts upload of file
 	if(!is_uploaded_file($_FILES["file"]["tmp_name"])) {
-		$file_error["file"] = $BL['be_fprivup_err1'];
-	} else {
-		if($_FILES["file"]["size"] > $phpwcms["file_maxsize"]) {
-			$file_error["file"] = $BL['be_fprivup_err2']." ".number_format($phpwcms["file_maxsize"] / 1024, 2, ',', '.')." kB";
-		}
-	}
 
-	//Create new file in database and give hashed
-	if(!isset($file_error)) {
+		$file_error["file"] = $BL['be_fprivup_err1'];
+
+	} elseif($_FILES["file"]["size"] > $phpwcms["file_maxsize"]) {
+
+		$file_error["file"] = $BL['be_fprivup_err2']." ".number_format($phpwcms["file_maxsize"] / 1024, 2, ',', '.')." kB";
+
+	} else {
+
 		$fileName	= sanitize_filename($_FILES["file"]["name"]);
 		$fileExt	= check_image_extension($_FILES["file"]["tmp_name"], $fileName);
 		$fileExt	= $fileExt === false ? which_ext($fileName) : $fileExt;
 		$fileHash	= md5( $fileName . microtime() );
 		$fileType	= is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
+		$fileSize	= intval($_FILES["file"]["size"]);
+
+		// Check against forbidden file names
+		$forbiddenUploadName = array(
+			'.htaccess', // Apache config
+			'web.config', // IIS config
+			'lighttpd.conf', // Lighttpd
+			'nginx.conf' // Nginx
+		);
+
+		if(in_array(strtolower($fileName), $forbiddenUploadName)) {
+			$file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
+		}
+
+		// Only allowed file extensions
+		if(empty($file_error["file"])) {
+
+			if(is_string($phpwcms['allowed_upload_ext'])) {
+				$phpwcms['allowed_upload_ext'] = convertStringToArray(strtolower($phpwcms['allowed_upload_ext']));
+			}
+
+			if($fileExt === '') {
+
+				$file_error["file"] = sprintf($BL['be_fprivup_err9'], implode(', ', $phpwcms['allowed_upload_ext']));
+
+			} elseif(is_array($phpwcms['allowed_upload_ext']) && count($phpwcms['allowed_upload_ext']) && !in_array(strtolower($fileExt), $phpwcms['allowed_upload_ext'])) {
+
+				$file_error["file"] = sprintf($BL['be_fprivup_err8'], strtoupper($fileName), implode(', ', $phpwcms['allowed_upload_ext']));
+
+			}
+		}
+	}
+
+	if(empty($file_error)) {
 
 		if(isset($file_vars)) {
 			$fileVarsField = ',f_vars';
@@ -106,7 +144,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 				"f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
 				"f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, f_sort".$fileVarsField.") VALUES (".
 				$file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
-				$fileName."', '".time()."', '".intval($_FILES["file"]["size"])."', '".
+				$fileName."', '".time()."', '".$fileSize."', '".
 				aporeplace($fileType)."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
 				aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
 				aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".
@@ -136,27 +174,31 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 				}
 				umask($oldumask);
 			}
-			if(file_exists($usernewfile)) {
+			if(is_file($usernewfile)) {
 				@chmod($usernewfile, 0666);
 			}
-			if(!isset($file_error["upload"])) {
+			if(empty($file_error["upload"])) {
 
 				// store tags
 				_dbSaveCategories($file_tags, 'file', $new_fileId, ',');
 
 				//after successful upload go back to clear post (form) var
 				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0&uploaded=1");
+
 			} else {
+
 				echo $file_error["upload"]."<br />";
 				$file_error["upload"] = str_replace('{VAL}', $phpwcms["admin_email"], $BL['be_fprivup_err6']);
 				mysql_query("DELETE FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$new_fileId." AND f_uid=".$_SESSION["wcs_user_id"].";", $db);
+
 			}
 		}
 	}
-	if(!ini_get('safe_mode') && function_exists('set_time_limit')) set_time_limit(30);
-}
-//Ende Auswerten Formular
 
+	if(!ini_get('safe_mode') && function_exists('set_time_limit')) {
+		set_time_limit(30);
+	}
+}
 
 ?>
 <form action="phpwcms.php?do=files&amp;f=0" method="post" enctype="multipart/form-data" name="uploadfile" id="uploadfile">
