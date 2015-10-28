@@ -325,7 +325,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 	$file_sql .= "(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") ";
 	$file_sql .= "ORDER BY f_sort, f_name";
 
-	$ckeditor_action = empty($_SESSION['CKEditorFuncNum']) ? 3 : $_SESSION['CKEditorFuncNum'];
+	$ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
 
 	if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br />".html_entities($file_sql))) {
 		$file_durchlauf = 0;
