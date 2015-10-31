@@ -44,11 +44,6 @@ if($content['recipe']['get_keywords']) {
 $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['all_keywords']);
 
 ?>
-<!--
-<link href="../../inc_css/phpwcms.css" rel="stylesheet" type="text/css">
-<table cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF" width="440">
-
-//-->
 
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
@@ -175,4 +170,3 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<!--  </table>-->
