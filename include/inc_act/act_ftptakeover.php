@@ -42,14 +42,13 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
 	$ftp["error"] = 1;
 }
 
-?>
-<html>
+?><html>
 <head><title>phpwcms: creating thumbnail</title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 <meta http-equiv="Expires" content="0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
-<link href="../inc_css/phpwcms.css" rel="stylesheet" type="text/css">
+<link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 <!--
 body { background-color: #EBF2F4; }

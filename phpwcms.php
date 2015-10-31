@@ -221,7 +221,7 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 <head><?php printf(PHPWCMS_HEADER_COMMENT, ''); ?>
 	<title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 <?php
 
@@ -592,7 +592,7 @@ if($body_onload) {
 	$BE['HTML'] = str_replace('<body>', '<body '.$body_onload.'>', $BE['HTML']);
 }
 
-$BE['HEADER'][] = '  <!--[if lte IE 7]><style type="text/css">body{behavior:url("'.TEMPLATE_PATH.'inc_css/specific/csshover3.htc");}</style><![endif]-->';
+//$BE['HEADER'][] = '';
 
 // html head section
 $BE['HTML'] = str_replace('<!-- phpwcms HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);

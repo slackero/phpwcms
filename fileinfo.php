@@ -105,7 +105,7 @@ if($file_id) {
 
 ?>
 
-	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
+	<link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body onload="ResizeAndCenter();">

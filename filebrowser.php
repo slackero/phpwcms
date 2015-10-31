@@ -161,7 +161,7 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
 
-	<link href="include/inc_css/phpwcms.css" rel="stylesheet" type="text/css" />
+	<link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
 	<link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />
 	<link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />
 	<script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
