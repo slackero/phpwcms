@@ -96,9 +96,10 @@ if($guestbook['visible']) {
 			$guestbook['ban'] = convertStringToArray($guestbook['ban'], ' ');
 			if(is_array($guestbook['ban']) && count($guestbook['ban'])) {
 				foreach($guestbook['ban'] as $key => $value) {
-					$value = preg_quote(trim($value));
-					$guestbook['ban'][$key] = '/'.$value.'/i';
-					$guestbook['ban_count']++;
+					if($value = trim($value)) {
+						$guestbook['ban'][$key] = '/'.preg_quote($value, '/').'/i';
+						$guestbook['ban_count']++;
+					}
 				}
 			}
 

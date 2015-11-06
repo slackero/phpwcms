@@ -143,16 +143,16 @@ if(!empty($_getVar['feedimport'])) {
 					$article_summary = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title()).'<\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote(html_entities($article_title)).'<\/.+?>/'
+						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title(), '/').'<\/.+?>/',
+						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_summary);
 				}
 				if($article_content && strpos($article_content, '<') !== false) {
 					$article_content = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title()).'<\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote(html_entities($article_title)).'<\/.+?>/'
+						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title(), '/').'<\/.+?>/',
+						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_content);
 				}
 

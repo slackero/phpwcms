@@ -71,7 +71,7 @@ function phpwcms_form_encode($in_str, $charset) {
 
        // remove trailing spacer and
        // add start and end delimiters
-       $spacer = preg_quote($spacer);
+       $spacer = preg_quote($spacer, '/');
        $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
        $out_str = $start . $out_str . $end;
    }

@@ -2490,7 +2490,7 @@ function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
 }
 // render date by replacing placeholder tags by value
 function render_date($text='', $date, $rt='DATE') {
-	$rt = preg_quote($rt);
+	$rt = preg_quote($rt, '/');
 	$GLOBALS['phpwcms']['callback'] = $date;
 	$text = preg_replace_callback('/\{'.$rt.':(.*?) lang=(..)\}/', 'international_date_format_callback', $text);
 	$text = preg_replace_callback('/\{'.$rt.':(.*?)\}/', 'date_callback', $text);
@@ -3516,8 +3516,8 @@ function sanitize_replacement_tags( $string, $rt='', $bracket=array('{}', '[]') 
 	if( is_array($bracket) && count($bracket) && count($tag) ) {
 		foreach($bracket as $value) {
 			if(strlen($value) < 2) continue;
-			$prefix = preg_quote($value{0});
-			$suffix = preg_quote($value{1});
+			$prefix = preg_quote($value{0}, '/');
+			$suffix = preg_quote($value{1}, '/');
 			foreach($tag as $row) {
 				$string = preg_replace('/' . $prefix . $row[0] . $suffix . '(.*?)' . $prefix . '\/' . $row[1] . $suffix . '/si', '$1', $string);
 			}
@@ -4133,7 +4133,7 @@ function render_device($string) {
 
 		}
 
-		$match = preg_quote($match);
+		$match = preg_quote($match, '/');
 		if(array_sum($validity) == count($values)) {
 			// Valid – delete the !if and !if:default
 			$string	= preg_replace(

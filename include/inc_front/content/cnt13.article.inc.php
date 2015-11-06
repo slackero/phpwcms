@@ -96,7 +96,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 		$_strlen_value = mb_strlen($value);
 		if($_strlen_value >= $content["search"]["minchar"]) {
 			$value = trim($value);
-			$content["search_word"][$key] = preg_quote($value);
+			$content["search_word"][$key] = preg_quote($value, '/');
 			$content["search_word"][$key] = str_replace("\\?", '.?', $content["search_word"][$key]);
 			$content["search_word"][$key] = str_replace("\\*", '.*', $content["search_word"][$key]);
 			$content['highlight'][] = $value;
