@@ -155,7 +155,6 @@ function image_manipulate($config=array()) {
 
 	} else {
 
-
 		$IMG->resize();
 
 	}
@@ -220,7 +219,6 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
 		}
 	}
-
 
 	if($thumb_image_info[0] != false) {
 
