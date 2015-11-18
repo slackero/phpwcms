@@ -447,7 +447,7 @@ if(isset($fmp_data['fmp_template'])) {
 			if($fmp_data['fmp_set_skin_html5'] && $fmp_data['fmp_set_skin_html5'] != 'default' && is_file(PHPWCMS_TEMPLATE.'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css')) {
 				$block['custom_htmlhead']['skin_html5.css']  = '  <link rel="stylesheet" type="text/css" href="' . TEMPLATE_PATH . 'lib/video-js/skins/'.$fmp_data['fmp_set_skin_html5'].'.css" />';
 				$fmp_data['fmp_set_skin_html5'] = ' ' . strtolower($fmp_data['fmp_set_skin_html5']).'-css';
-				$fmp_data['fmp_set_skin_video'] = strtolower($fmp_data['fmp_set_skin_html5']);
+				$fmp_data['fmp_set_skin_video'] = strtolower($fmp_data['fmp_set_skin_html5']).' vjs-default-skin';
 			} else {
 				$fmp_data['fmp_set_skin_html5'] = '';
 				$fmp_data['fmp_set_skin_video'] = 'vjs-default-skin';

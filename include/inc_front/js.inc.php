@@ -131,7 +131,12 @@ function renderHeadJS($js) {
  * Init Video JS
  */
 function initVideoJs() {
-	$GLOBALS['phpwcms']['video-js'] = empty($GLOBALS['phpwcms']['video-js']) ? PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/4.12/' : rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
+	if(empty($GLOBALS['phpwcms']['video-js'])) {
+		$GLOBALS['block']['custom_htmlhead']['video-js.ie8shim'] = '  <!--[if lt IE 9]><script src="'.PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script><![endif]-->';
+		$GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/5.2/';
+	} else {
+		$GLOBALS['phpwcms']['video-js'] = rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
+	}
 	$GLOBALS['block']['custom_htmlhead']['video-js.css'] = '  <link rel="stylesheet" type="text/css" href="' . $GLOBALS['phpwcms']['video-js'] . 'video-js.css" />';
 }
 
