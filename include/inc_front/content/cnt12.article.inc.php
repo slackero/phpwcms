@@ -228,8 +228,8 @@ if($content["newsletter"]["success"]) {
 	$CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
 	$CNT_TMP .= (($content["newsletter"]["label_email"]) ? $content["newsletter"]["label_email"] : "email:")."&nbsp;</td>";
 	$CNT_TMP .= $label_pos_tr;
-	$CNT_TMP .= "<td><input name=\"newsletter_email\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
-	$CNT_TMP .= "value=\"".$content["newsletter"]["email_address"]."\" /></td>\n</tr>\n";
+	$CNT_TMP .= "<td><input name=\"newsletter_email\" type=\"email\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
+	$CNT_TMP .= "value=\"".$content["newsletter"]["email_address"]."\" required=\"required\" /></td>\n</tr>\n";
 	$CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
 	$CNT_TMP .= (($content["newsletter"]["label_name"]) ? $content["newsletter"]["label_name"] : "name:")."&nbsp;</td>";
 	$CNT_TMP .= $label_pos_tr;
