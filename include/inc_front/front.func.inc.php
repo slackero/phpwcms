@@ -78,7 +78,7 @@ function plugin_size($mediatype, $player, $width, $height) {
 function must_filled($c) {
 	//spaceholder for form fields that have to be filled
 	//with some content or has to be marked or like that
-	return intval($c) ? '<img src="img/article/fill_in_here.gif" alt="" />' : '';
+	return intval($c) ? '<img src="img/article/fill_in_here.gif" alt=""'.HTML_TAG_CLOSE : '';
 }
 
 function add_attribute($baseval, $attribute, $val, $space=" ") {
@@ -1132,7 +1132,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 					$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"';
 					$caption[1] = html_specialchars($caption[1]);
 
-					$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-thumb'].'" />';
+					$thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-article-list'].'"'.HTML_TAG_CLOSE;
 
 					if($article["article_image"]["list_zoom"]) {
 
@@ -3554,7 +3554,7 @@ function set_css_link($css='', $add_template_path=true) {
 	if($add_template_path) {
 		$GLOBALS['block']['custom_htmlhead'][$css_var] .= TEMPLATE_PATH;
 	}
-	$GLOBALS['block']['custom_htmlhead'][$css_var] .= $css.'" rel="stylesheet" type="text/css" />';
+	$GLOBALS['block']['custom_htmlhead'][$css_var] .= $css.'" rel="stylesheet" type="text/css"'.HTML_TAG_CLOSE;
 }
 
 function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {

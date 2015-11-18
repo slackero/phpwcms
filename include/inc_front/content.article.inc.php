@@ -105,7 +105,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 				$content["redirect"]["code"]  = LF . '  <noscript>' . LF;
 				$content["redirect"]["code"] .= '	<meta http-equiv="refresh" content="'.$content["redirect"]["timeout"].';URL=';
 				$content["redirect"]["code"] .= $content["redirect"]["link"];
-				$content["redirect"]["code"] .= '" />'.LF.'  </noscript>' . LF;
+				$content["redirect"]["code"] .= '"'.HTML_TAG_CLOSE.LF.'  </noscript>' . LF;
 				$content["redirect"]["code"] .= '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
 				$content["redirect"]["code"] .= '	var redirectWin;' . LF;
 				if($content["redirect"]["timeout"]) {
@@ -235,11 +235,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			if($thumb_image != false) {
 
 				$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
-				$thumb_img .= ' alt="'.html_specialchars($caption[1]).'"';
-				if($caption[3]) {
-					$thumb_img .= ' title="'.html_specialchars($caption[3]).'"';
+				$thumb_img .= ' alt="'.html_specialchars($img_thumb_alt).'"';
+				if($img_thumb_title) {
+					$thumb_img .= ' title="'.html_specialchars($img_thumb_title).'"';
 				}
-				$thumb_img .= ' class="'.$template_default['classes']['image-thumb'].'" />';
+				$thumb_img .= ' class="'.$template_default['classes']['image-article-summary'].'"'.HTML_TAG_CLOSE;
 
 				$img_thumb_name		= $thumb_image[0];
 				$img_thumb_rel		= PHPWCMS_IMAGES.$thumb_image[0];
