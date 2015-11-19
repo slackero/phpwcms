@@ -33,8 +33,10 @@
 
 	<figure class="image-item[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW] slide{ENTRY_ID} num{ENTRY_NUM}" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
 		<img src="{THUMB_REL}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMGNAME}[/ALT_ELSE]"[ZOOM] srcset="{THUMB_ABS} 2x"[/ZOOM]><!-- read more https://developers.google.com/web/fundamentals/design-and-ui/media/images/images-in-markup -->
-		[URL]<a href="{URL}"[URL_TARGET]{URL_TARGET}[/URL_TARGET]>Read more…</a>[/URL]
-		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<!-- no caption -->[/CAPTION_ELSE]
+		<figcaption>
+			[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<!-- no caption -->[/CAPTION_ELSE]
+			[URL]<a href="{URL}"[URL_TARGET]{URL_TARGET}[/URL_TARGET]>Read more…</a>[/URL]
+		</figcaption>
 	</figure>
 	<!--ENTRY_DATA_START//-->
 		<li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
