@@ -44,8 +44,9 @@ if(!function_exists('get_mediaplayer_stream')) {
 
 			if($file['f_ext']) {
 
-				$file['fmp_file']	.= '.'.$file['f_ext'];
-				$file['f_type']		 = get_mimetype_by_extension($file['f_ext']);
+				$file['fmp_file'] .= '.'.$file['f_ext'];
+				$file['f_type'] = get_mimetype_by_extension($file['f_ext']);
+				$fmp_data['fmp_file_ext'] = $file['f_ext'];
 
 				if($flash) {
 					$fmp_data['flashvars_type'] = $file['f_ext'];
@@ -400,8 +401,9 @@ if(isset($fmp_data['fmp_template'])) {
 	}
 
 	// Set Video-JS
-	$fmp_data['video']		= array();
+	$fmp_data['video'] = array();
 	$fmp_data['video_type']	= '';
+	$fmp_data['fmp_file_ext'] = '';
 	$fmp_data['format_types'] = array(
 		'video' => array(
 			'h264' => 'video/mp4',
@@ -410,6 +412,7 @@ if(isset($fmp_data['fmp_template'])) {
 		),
 		'audio' => array(
 			'h264' => 'audio/mpeg',
+			'm4a' => 'audio/mp4',
 			'webm' => 'audio/webm',
 			'ogg' => 'audio/ogg'
 		)
@@ -421,7 +424,11 @@ if(isset($fmp_data['fmp_template'])) {
 	} elseif($fmp_data['fmp_int_ext_h264'] == 0 && $fmp_data['fmp_internal_id_h264']) {
 		$fmp_data['stream'] = get_mediaplayer_stream($fmp_data['fmp_internal_id_h264']);
 		if($fmp_data['stream']) {
-			$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['h264'] ] = $fmp_data['stream'];
+			if(!empty($fmp_data['fmp_file_ext']) && isset($fmp_data['format_types'][$fmp_data['fmp_set_audio']][$fmp_data['fmp_file_ext']])) {
+				$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']][$fmp_data['fmp_file_ext']] ] = $fmp_data['stream'];
+			} else {
+				$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['h264'] ] = $fmp_data['stream'];
+			}
 		}
 	}
 

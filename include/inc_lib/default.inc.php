@@ -464,6 +464,8 @@ if(empty($phpwcms['allowed_upload_ext'])) {
 		'mpeg',
 		'mp4',
 		'm4p',
+		'm4a',
+		'm4v',
 		'flv',
 		'f4v',
 		'f4p',
