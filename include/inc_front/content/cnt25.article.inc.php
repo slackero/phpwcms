@@ -244,12 +244,12 @@ if(isset($fmp_data['fmp_template'])) {
 	}
 
 	// set ID
-	$fmp_data['id']					= 'fmp'.$crow["acontent_id"];
+	$fmp_data['id'] = 'fmp'.$crow["acontent_id"];
 
 	if($fmp_data['file']) {
 		// Define Flash Vars
 
-		$fmp_data['jw_license_info']	= '';
+		$fmp_data['jw_license_info'] = '';
 
 		// JW Player
 		if(empty($fmp_data['fmp_player']) ) {
@@ -402,34 +402,46 @@ if(isset($fmp_data['fmp_template'])) {
 	// Set Video-JS
 	$fmp_data['video']		= array();
 	$fmp_data['video_type']	= '';
+	$fmp_data['format_types'] = array(
+		'video' => array(
+			'h264' => 'video/mp4',
+			'webm' => 'video/webm',
+			'ogg' => 'video/ogg'
+		),
+		'audio' => array(
+			'h264' => 'audio/mpeg',
+			'webm' => 'audio/webm',
+			'ogg' => 'audio/ogg'
+		)
+	);
 
 	// H.264
 	if($fmp_data['fmp_int_ext_h264'] == 1 && $fmp_data['fmp_external_file_h264']) {
-		$fmp_data['video']['video/mp4'] = $fmp_data['fmp_external_file_h264'];
+		$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['h264'] ] = $fmp_data['fmp_external_file_h264'];
 	} elseif($fmp_data['fmp_int_ext_h264'] == 0 && $fmp_data['fmp_internal_id_h264']) {
 		$fmp_data['stream'] = get_mediaplayer_stream($fmp_data['fmp_internal_id_h264']);
 		if($fmp_data['stream']) {
-			$fmp_data['video']['video/mp4'] = $fmp_data['stream'];
+			$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['h264'] ] = $fmp_data['stream'];
 		}
 	}
 
 	// WebM
 	if($fmp_data['fmp_int_ext_webm'] == 1 && $fmp_data['fmp_external_file_webm']) {
-		$fmp_data['video']['video/webm'] = $fmp_data['fmp_external_file_webm'];
+		$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['webm'] ] = $fmp_data['fmp_external_file_webm'];
 	} elseif($fmp_data['fmp_int_ext_webm'] == 0 && $fmp_data['fmp_internal_id_webm']) {
 		$fmp_data['stream'] = get_mediaplayer_stream($fmp_data['fmp_internal_id_webm']);
 		if($fmp_data['stream']) {
-			$fmp_data['video']['video/webm'] = $fmp_data['stream'];
+			$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['webm'] ] = $fmp_data['stream'];
 		}
 	}
 
 	// Ogg
 	if($fmp_data['fmp_int_ext_ogg'] == 1 && $fmp_data['fmp_external_file_ogg']) {
-		$fmp_data['video']['video/ogg'] = $fmp_data['fmp_external_file_ogg'];
+		$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['ogg'] ] = $fmp_data['fmp_external_file_ogg'];
 	} elseif($fmp_data['fmp_int_ext_ogg'] == 0 && $fmp_data['fmp_internal_id_ogg']) {
 		$fmp_data['stream'] = get_mediaplayer_stream($fmp_data['fmp_internal_id_ogg']);
 		if($fmp_data['stream']) {
-			$fmp_data['video']['video/ogg'] = $fmp_data['stream'];
+			$fmp_data['video'][ $fmp_data['format_types'][$fmp_data['fmp_set_audio']]['ogg'] ] = $fmp_data['stream'];
 		}
 	}
 

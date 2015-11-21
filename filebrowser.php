@@ -277,11 +277,11 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 	$file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
 	switch($js_aktion) {
 
-		case 6:		$file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif') AND ";
+		case 6:		$file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac') AND ";
 					break;
 
 					// H.264
-		case 12:	$file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v') AND ";
+		case 12:	$file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac') AND ";
 					break;
 
 					// WebM

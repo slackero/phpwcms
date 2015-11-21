@@ -135,7 +135,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<!-- HTML5 Media H.264 -->
 		<tr>
 			<td colspan="3" class="chatlist tdbottom3" align="right"><?php echo $BL['be_media_format'] ?>&nbsp;&nbsp;</td>
-			<td colspan="3" class="v10 tdbottom3 greyed">&nbsp;<?php echo $BL['be_html5_h264'] ?> &#8212; <i>mp4, m4v, mov, m4p, m4a</i></td>
+			<td colspan="3" class="v10 tdbottom3 greyed">&nbsp;<?php echo $BL['be_html5_h264'] ?> &#8212; <i>mp4, m4v, mov, m4p, m4a, mp3, aac, mpeg</i></td>
 		</tr>
 		<tr>
 			<td bgcolor="#E7E8EB"><input name="fmp_int_ext_h264" id="fmp_int_ext0_h264" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext_h264']); ?> /></td>
