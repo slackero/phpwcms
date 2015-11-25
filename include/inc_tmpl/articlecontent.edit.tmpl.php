@@ -390,9 +390,8 @@ if($content['cp_setting_mode']):
 	endif;
 ?>
 			</select></td>
-
 		</tr>
-		</table><script type="text/javascript">
+		</table><script>
 
 			var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>, loadblock = true;
 
@@ -404,15 +403,15 @@ if($content['cp_setting_mode']):
 
 				if(cTabStatus == false) {
 
-					$('ctab1').setStyle('display', 'none');
-					$('ctab2').setStyle('display', 'none');
-					$('ctab3').setStyle('display', 'none');
+					document.getElementById('ctab1').style.display = 'none';
+					document.getElementById('ctab2').style.display = 'none';
+					document.getElementById('ctab3').style.display = 'none';
 
 				} else {
 
-					$('ctab1').setStyle('display', '');
-					$('ctab2').setStyle('display', '');
-					$('ctab3').setStyle('display', '');
+					document.getElementById('ctab1').style.display = '';
+					document.getElementById('ctab2').style.display = '';
+					document.getElementById('ctab3').style.display = '';
 
 				}
 
@@ -436,9 +435,9 @@ if($content['cp_setting_mode']):
 					ctab.disabled = true;
 					cTabStatus = false;
 
-					$('ctab1').setStyle('display', 'none');
-					$('ctab2').setStyle('display', 'none');
-					$('ctab3').setStyle('display', 'none');
+					document.getElementById('ctab1').style.display = 'none';
+					document.getElementById('ctab2').style.display = 'none';
+					document.getElementById('ctab3').style.display = 'none';
 
 				} else {
 
