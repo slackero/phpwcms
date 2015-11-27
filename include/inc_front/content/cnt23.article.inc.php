@@ -1790,9 +1790,8 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$mail->From 		= $cnt_form['sender'];
-		$mail->FromName		= $cnt_form['sendername'];
-		$mail->Sender	 	= $cnt_form['sender'];
+		$mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+		$mail->AddReplyTo($cnt_form['sender']);
 
 		$cnt_form["copytoError"] = array();
 
@@ -1843,9 +1842,9 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	if(empty($cnt_form["fromEmail"])) {
 		$cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
 	}
-	$mail->From 		= $cnt_form['sender'];
-	$mail->FromName		= $cnt_form['sendername'];
-	$mail->Sender	 	= $cnt_form['sender'];
+
+	$mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+	$mail->AddReplyTo($cnt_form['sender']);
 
 	if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 

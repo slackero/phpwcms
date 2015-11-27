@@ -161,9 +161,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$mail->From 		= $phpwcms['SMTP_FROM_EMAIL'];
-		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
-		$mail->Sender	 	= $phpwcms["admin_email"];
+		$mail->setFrom($phpwcms['SMTP_FROM_EMAIL'], $phpwcms['SMTP_FROM_NAME']);
+		$mail->AddReplyTo($phpwcms["admin_email"]);
 
 		$mail->clearAddresses();
 		$mail->addAddress($content["newsletter"]["email_address"]);

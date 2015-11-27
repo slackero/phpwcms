@@ -320,24 +320,21 @@ if(isset($form_error)) {
 
 	if(isset($send_copy_to)) {
 
-		$mail->From 		= $recipient;
-		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
-		$mail->Sender	 	= $recipient;
+		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
+		$mail->AddReplyTo($recipient);
 		$mail->addAddress($send_copy_to);
 
 		if(!$mail->send()) {
 			$false .= '(1) '.html($mail->ErrorInfo).'<br>';
 		}
 
-		$mail->From 		= $send_copy_to;
-		$mail->FromName 	= '';
-		$mail->Sender	 	= $send_copy_to;
+		$mail->setFrom($send_copy_to);
+		$mail->AddReplyTo($send_copy_to);
 
 	} else {
 
-		$mail->From 		= $recipient;
-		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
-		$mail->Sender	 	= $recipient;
+		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
+		$mail->AddReplyTo($recipient);
 
 	}
 

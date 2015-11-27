@@ -92,8 +92,8 @@ if(isset($_POST['ecard_chooser'])) {
 			$ecard['mailer']->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$ecard["mailer"]->From = $ecard["sender_email"];
-		if($ecard["sender_name"]) $ecard["mailer"]->FromName = $ecard["sender_name"];
+		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
+		$ecard["mailer"]->AddReplyTo($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);
 		$ecard["mailer"]->Subject = ($ecard["subject"]) ? $ecard["subject"] : 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
 

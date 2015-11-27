@@ -181,10 +181,10 @@ if(!$newsletter) {
 				}
 			}
 		}
-		$mail->From 			= $newsletter['newsletter_vars']['from_email'];
-		$mail->FromName 		= $newsletter['newsletter_vars']['from_name'];
-		$mail->Sender	 		= $newsletter['newsletter_vars']['replyto'];
-		$mail->Subject			= $newsletter['newsletter_subject'];
+
+		$mail->setFrom($newsletter['newsletter_vars']['from_email'], $newsletter['newsletter_vars']['from_name']);
+		$mail->AddReplyTo($newsletter['newsletter_vars']['replyto']);
+		$mail->Subject = $newsletter['newsletter_subject'];
 
 		if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');

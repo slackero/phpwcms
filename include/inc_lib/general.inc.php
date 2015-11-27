@@ -777,9 +777,8 @@ function sendEmail($data = array(	'recipient'=>'','toName'=>'','subject'=>'','is
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$mail->From 		= $from;
-		$mail->FromName		= $fromName;
-		$mail->Sender	 	= $sender;
+		$mail->setFrom($from, $fromName);
+		$mail->AddReplyTo($sender);
 
 		$mail->addAddress($sendTo[0], $toName);
 		unset($sendTo[0]);
