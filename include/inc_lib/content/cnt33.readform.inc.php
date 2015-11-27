@@ -39,7 +39,7 @@ $content['news']['news_detail_link']	= clean_slweg($_POST['news_detail_link']);
 if(!count($content['news']['news_lang']) || (isset($content['news']['news_lang'][0]) && $content['news']['news_lang'][0] == '')) {
 	$content['news']['news_lang'] = array();
 }
-								
+
 if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 10 ) {
 	$content['news']['news_sort'] = 9;
 }
