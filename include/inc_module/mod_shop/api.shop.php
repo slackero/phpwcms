@@ -1,6 +1,6 @@
 <?php
 /**
- * Shop API for phpwcms Shop module
+ * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2015, Oliver Georgi
@@ -14,11 +14,7 @@
 $phpwcms = array();
 $path = dirname(dirname(dirname(dirname(__FILE__))));
 $module_path = dirname(__FILE__);
-if(is_file($path.'/include/config/conf.inc.php')) {
-	require($path.'/include/config/conf.inc.php');
-} else {
-	require($path.'/config/phpwcms/conf.inc.php');
-}
+require($path.'/config/phpwcms/conf.inc.php');
 require($path.'/include/inc_lib/default.inc.php');
 require(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 require(PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
@@ -183,6 +179,7 @@ if($shop_api_access) {
 			// Loop order items
 			foreach($row['order_data']['cart'] as $item) {
 
+
 				$position = array(
 					'id' => '',
 					'ordernum' => '',
@@ -207,6 +204,7 @@ if($shop_api_access) {
 				$vat_factor = 1 + ($position['vat'] / 100);
 
 				if($item['shopprod_size'] && ($_cart_opt_1 = explode(LF, $item['shopprod_size']))) {
+
 					foreach($_cart_opt_1 as $key => $value){
 						//title
 						if(!$key) {
@@ -218,6 +216,7 @@ if($shop_api_access) {
 				} else {
 					$_cart_opt_1 = null;
 				}
+
 				if($item['shopprod_color'] && ($_cart_opt_2 = explode(LF, $item['shopprod_color']))) {
 					foreach($_cart_opt_2 as $key => $value){
 						//title
@@ -240,12 +239,16 @@ if($shop_api_access) {
 				}
 
 				if($item['shopprod_quantity']) {
+
+					//echo "<pre>";
+					//var_dump($item['shopprod_quantity']);
+					//echo "</pre>";
 					foreach($item['shopprod_quantity'] as $key => $idval) {
 
 						//loop all opt_2
-						if(!$item['shopprod_quantity'][$key]) {
-							continue;
-						}
+						//if(!$item['shopprod_quantity'][$key]) {
+						//	continue;
+						//}
 
 						foreach($item['shopprod_quantity'][$key] as $k => $v) {
 
@@ -286,13 +289,19 @@ if($shop_api_access) {
 
 							$position['id'] = md5($item["shopprod_id"].$item['shopprod_ordernumber']);
 
+							// q23.jg moved into inner loop
+							// add item
+							$row_data['positions'][] = $position;
+
 						}
 					}
 				}
 
-				// add item
-				$row_data['positions'][] = $position;
 			}
+
+			//echo "<pre>";
+			//var_dump($row_data['positions']);
+			//echo "</pre>";
 
 			// Add order data
 			$shop_api_data['result'][] = $row_data;
