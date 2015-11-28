@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -34,13 +34,13 @@ foreach($phpwcms_modules as $value) {
 	$_module_fe_setting		= false;
 
 	if(is_file(PHPWCMS_ROOT.'/include/inc_module/'.$value.'/module.default.php')) {
-	
+
 		// main settings
-		require(PHPWCMS_ROOT.'/include/inc_module/'.$value.'/module.default.php');
-		
+		require PHPWCMS_ROOT.'/include/inc_module/'.$value.'/module.default.php';
+
 		// define as module - use default name
 		if($_module_name !== '') {
-		
+
 			$phpwcms['modules'][$_module_name]				= array();
 			$phpwcms['modules'][$_module_name]['name']		= $_module_name;
 			$phpwcms['modules'][$_module_name]['type']		= $_module_type;
@@ -49,44 +49,42 @@ foreach($phpwcms_modules as $value) {
 			$phpwcms['modules'][$_module_name]['dir']		= 'include/inc_module/'.$value.'/';
 			$phpwcms['modules'][$_module_name]['search']	= $_module_fe_search;
 			$phpwcms['modules'][$_module_name]['setting']	= $_module_fe_setting;
-			
+
 			// main module language include -> english is always neccessary
 			// but not necessary in frontend
 			if(!isset($IS_A_BOT)) {
-			
+
 				if(is_file($phpwcms['modules'][$_module_name]['path'].'lang/en.lang.php')) {
-				
+
 					$BLM = array();
-					include_once($phpwcms['modules'][$_module_name]['path'].'lang/en.lang.php');
-				
+					include_once $phpwcms['modules'][$_module_name]['path'].'lang/en.lang.php';
+
 					// try to find right language - will be merged with default english
 					if(is_file($phpwcms['modules'][$_module_name]['path'].'lang/'.$BE['LANG'].'.lang.php')) {
-						include_once($phpwcms['modules'][$_module_name]['path'].'lang/'.$BE['LANG'].'.lang.php');
+						include_once $phpwcms['modules'][$_module_name]['path'].'lang/'.$BE['LANG'].'.lang.php';
 					}
-					
+
 					// put mdule language setting into global language array
 					$BL['modules'][$_module_name] = $BLM;
-				
+
 				} else {
-			
+
 					unset($phpwcms['modules'][$_module_name]);
-				
+
 				}
 			}
-			
+
 			if($_module_fe_render && is_file(PHPWCMS_ROOT.'/include/inc_module/'.$value.'/frontend.render.php')) {
 				$phpwcms['modules_fe_render'][]	= PHPWCMS_ROOT.'/include/inc_module/'.$value.'/frontend.render.php';
 			}
 			if($_module_fe_init && is_file(PHPWCMS_ROOT.'/include/inc_module/'.$value.'/frontend.init.php')) {
 				$phpwcms['modules_fe_init'][]	= PHPWCMS_ROOT.'/include/inc_module/'.$value.'/frontend.init.php';
 			}
-			
+
 		}
-		
+
 	}
 
 }
 
 unset($phpwcms_modules, $BLM);
-
-?>

@@ -9,17 +9,16 @@
  *
  **/
 
-
 session_start();
 $phpwcms = array();
 
-require_once ('../../include/config/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if($_SESSION["wcs_user_admin"] == 1) { //If user has admin rights
 
@@ -31,7 +30,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //If user has admin rights
 			_dbUpdate('phpwcms_usergroup', array('group_active' => 9), 'group_id='.$gi);
 		}
 	}
-	
+
 	if(isset($_GET["aktiv"])) {
 		$gi		= explode(":", clean_slweg($_GET["aktiv"]));
 		$gi[0]	= intval($gi[0]);
@@ -41,10 +40,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //If user has admin rights
 		}
 	}
 
-	
+
 } //End action
 
 headerRedirect($_SESSION['REFERER_URL']);
-
-
-?>

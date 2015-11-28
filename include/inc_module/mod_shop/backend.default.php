@@ -12,10 +12,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 /*
  * Module/Plug-in Shop & Products Extended
@@ -117,19 +116,17 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 
 	// processing
 	if( $action ) {
-		include_once($phpwcms['modules'][$module]['path'].'inc/processing.' . $controller . '.inc.php');
+		include_once $phpwcms['modules'][$module]['path'].'inc/processing.' . $controller . '.inc.php';
 	}
 
 	// header
-	include_once($phpwcms['modules'][$module]['path'].'inc/tabs.inc.php');
+	include_once $phpwcms['modules'][$module]['path'].'inc/tabs.inc.php';
 
 	// listing
 	if($action) {
-		include_once($phpwcms['modules'][$module]['path'].'inc/'.$action.'.' . $controller . '.inc.php');
+		include_once $phpwcms['modules'][$module]['path'].'inc/'.$action.'.' . $controller . '.inc.php';
 	} else {
-		include_once($phpwcms['modules'][$module]['path'].'inc/listing.' . $controller . '.inc.php');
+		include_once $phpwcms['modules'][$module]['path'].'inc/listing.' . $controller . '.inc.php';
 	}
 
 }
-
-?>

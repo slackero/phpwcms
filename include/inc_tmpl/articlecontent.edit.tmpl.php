@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -621,15 +621,15 @@ echo $_save_close_buttons;
 	// show content part specific form elements
 	if($content['type'] != 30 && file_exists(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php')) {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php';
 
 	} elseif($content['type'] == 30 && file_exists($phpwcms['modules'][$content["module"]]['path'].'inc/cnt.form.php')) {
 
-		include_once($phpwcms['modules'][$content["module"]]['path'].'inc/cnt.form.php');
+		include_once $phpwcms['modules'][$content["module"]]['path'].'inc/cnt.form.php';
 
 	} else {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.inc.php';
 
 	}
 

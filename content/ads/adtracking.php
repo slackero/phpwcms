@@ -13,8 +13,8 @@
 
 $phpwcms				= array();
 $phpwcms['THIS_ROOT']	= realpath(dirname(__FILE__).'/../../');
-require($phpwcms['THIS_ROOT'].'/include/config/conf.inc.php');
-require($phpwcms['THIS_ROOT'].'/include/inc_lib/default.inc.php');
+require $phpwcms['THIS_ROOT'].'/include/config/conf.inc.php';
+require $phpwcms['THIS_ROOT'].'/include/inc_lib/default.inc.php';
 
 // first check
 if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
@@ -26,8 +26,9 @@ if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 
 	if(count($ads)) {
 
-		require(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-		require(PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+		require PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+		require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+		require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 		$ads_userip		= getRemoteIP();
 		$ads_useragent	= $_SERVER['HTTP_USER_AGENT'];
@@ -71,5 +72,3 @@ header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-type: image/gif');
 echo base64_decode('R0lGODlhAQABAPAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==');
 exit();
-
-?>

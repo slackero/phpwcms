@@ -12,25 +12,28 @@
 session_start();
 
 $phpwcms = array();
-require_once ('include/config/conf.inc.php');
+require_once 'include/config/conf.inc.php';
 
 if(empty($_SESSION["wcs_user_lang"])) {
 	session_destroy();
 	headerRedirect($phpwcms['site'].$phpwcms["root"]);
 
 } else {
-	require('include/inc_lang/backend/en/lang.ext.inc.php');
+	require 'include/inc_lang/backend/en/lang.ext.inc.php';
 	$cust_lang = 'include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.ext.inc.php';
-	if(is_file($cust_lang)) include($cust_lang);
+	if(is_file($cust_lang)) {
+		include $cust_lang;
+	}
 }
-require_once ('include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+require_once 'include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
-require_once ("include/inc_lib/general.inc.php");
+require_once "include/inc_lib/general.inc.php";
 checkLogin();
-require_once ("include/inc_lib/backend.functions.inc.php");
-require_once ("include/inc_lib/imagick.convert.inc.php");
-require_once ("include/inc_lib/autolink.inc.php");
+require_once "include/inc_lib/backend.functions.inc.php";
+require_once "include/inc_lib/imagick.convert.inc.php";
+require_once "include/inc_lib/autolink.inc.php";
 
 $file_id	= (isset($_GET["fid"])) ? intval($_GET["fid"]) : 0;
 $public		= (isset($_GET["public"])) ? true : false;
@@ -132,7 +135,9 @@ if($file_id) {
 
 		echo $row["f_id"];
 		//download public file too
-		if($public) echo '&amp;pl=1';
+		if($public) {
+			echo '&amp;pl=1';
+		}
 
 		?>" target="_blank" title="<?php echo $BL['DOWNLOAD_FILE'].": ".$filename ?>"><img src="img/button/download_disc_large.gif" alt="" width="61" height="13" border="0" /></a><?php
 		} else {
@@ -207,4 +212,3 @@ if($file_id) {
 if(isset($fehler)) {
 	echo $BL['DOWNLOAD_ERR3'];
 }
-?>

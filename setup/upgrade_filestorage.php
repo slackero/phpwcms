@@ -13,15 +13,13 @@
 
 $phpwcms = array();
 
-require_once ('../include/config/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 echo '<html><body><pre>';
-
 
 $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_hash='' AND f_kid=1";
 $result = mysql_query($sql, $db);
@@ -36,9 +34,9 @@ $linenumber = 1;
 $format     = '%0'.(strlen(strval($total))).'d: ';
 
 while($row = mysql_fetch_assoc($result)) {
-	
+
 	$error = false;
-	
+
 	echo sprintf($format, $linenumber);
 
 	$fileHash = md5( $row['f_name'] . microtime() );
@@ -63,25 +61,23 @@ while($row = mysql_fetch_assoc($result)) {
 		} else {
 			$error = 2;
 		}
-	
+
 		if($error) {
 			echo 'ERROR('.$error.'): ' .$fileOld .' -> ' . $fileNew ."\n";
 		} else {
 			echo 'SUCCESS: ' .$fileOld .' -> ' . $fileNew ."\n";
 		}
-	
+
 	} else {
-	
+
 		@mysql_query("DELETE FROM ".DB_PREPEND."phpwcms_file WHERE f_kid=1 AND f_id=".$row['f_id']." LIMIT 1", $db);
 		echo 'DELETED: ' . $fileOld ."\n";
-	
+
 	}
-	
+
 	flush();
 	$linenumber++;
 
 }
 
 echo '</pre></body></html>';
-
-?>

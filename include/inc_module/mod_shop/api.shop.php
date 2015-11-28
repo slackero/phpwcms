@@ -15,15 +15,16 @@ $phpwcms = array();
 $path = dirname(dirname(dirname(dirname(__FILE__))));
 $module_path = dirname(__FILE__);
 if(is_file($path.'/include/config/conf.inc.php')) {
-	require($path.'/include/config/conf.inc.php');
+	require $path.'/include/config/conf.inc.php';
 } else {
-	require($path.'/config/phpwcms/conf.inc.php');
+	require $path.'/config/phpwcms/conf.inc.php';
 }
-require($path.'/include/inc_lib/default.inc.php');
-require(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require(PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require($module_path.'/inc/functions.global.inc.php');
+require $path.'/include/inc_lib/default.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require $module_path.'/inc/functions.global.inc.php';
 
 function get_shop_option_value_config() {
 	return array(
@@ -323,5 +324,3 @@ if($shop_api_access) {
 
 header('Content-type: application/json; charset=utf-8');
 echo json_encode($shop_api_data);
-
-?>

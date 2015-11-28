@@ -12,11 +12,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
@@ -89,8 +87,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
-
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 		?></td>
 	</tr>

@@ -11,12 +11,13 @@
 
 session_start();
 $phpwcms = array();
-require_once ('../../include/config/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 $chat_message = clean_slweg(trim($_POST['chatmsg']));
 $chatlist = intval($_POST['chatlist']);
@@ -27,5 +28,3 @@ if($chat_message) {
 }
 
 headerRedirect(PHPWCMS_URL."phpwcms.php?do=chat&p=1&l=".$chatlist);
-
-?>

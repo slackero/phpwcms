@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -66,17 +66,17 @@ if(isset($_POST['msg_send_aktion']) && intval($_POST['msg_send_aktion'])) {
 	$msg_to			= slweg(trim($_POST["msg_send_receiver"]));
 	$msg_pid		= intval($_POST['msg_send_pid']);
 
-	if(isEmpty($msg_to)) {
+	if(str_empty($msg_to)) {
 		$msg_err .= "- ".$BL['be_msg_err1']."\n";
 	}
-	if(isEmpty($msg_subject)) {
+	if(str_empty($msg_subject)) {
 		$msg_err .= "- ".$BL['be_msg_err2']."\n";
 	}
-	if(isEmpty($msg_message)) {
+	if(str_empty($msg_message)) {
 		$msg_err .= "- ".$BL['be_msg_err3']."\n";
 	}
 
-	if(isEmpty($msg_err)) {
+	if(str_empty($msg_err)) {
 		//send message routine
 		$msg_receivers = explode(":", $msg_to);
 		foreach($msg_receivers as $value) {

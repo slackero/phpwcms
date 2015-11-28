@@ -13,11 +13,12 @@
 
 session_start();
 $phpwcms = array();
-require('../../include/config/conf.inc.php');
-require('../inc_lib/default.inc.php');
-require(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require(PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require '../../include/config/conf.inc.php';
+require '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if(empty($_SESSION["wcs_user"])) {
 	headerRedirect('', 401);
@@ -127,5 +128,3 @@ if($method == 'json') {
 	}
 
 }
-
-?>

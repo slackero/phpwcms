@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -46,7 +46,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		}
 
-		if(isEmpty($dir_newname)) $dir_error = 1;
+		if(str_empty($dir_newname)) $dir_error = 1;
 		//Eintragen des neuen verzeichnisnamens
 		if(!isset($dir_error)) {
 			$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".

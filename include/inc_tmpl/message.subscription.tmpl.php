@@ -12,10 +12,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 // newsletter subscription
 
@@ -30,9 +29,8 @@ if(!empty($_GET["s"]) && isset($_GET['active'])) {
 }
 
 if(isset($_GET["s"]) && isset($_GET['edit'])) {
-	include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscription.form.tmpl.php');
+	include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscription.form.tmpl.php';
 }
-
 
 ?>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="newsletter susbcription listing">

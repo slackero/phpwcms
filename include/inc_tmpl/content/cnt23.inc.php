@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -1086,7 +1086,7 @@ if($content['form']["template_format"]) {
 		'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 		'lang'		=> 'en'
 	);
-	include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+	include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 } else {
 
 	echo '<textarea name="cform_template" id="cform_template" rows="5" class="code width540" ';
@@ -1201,7 +1201,7 @@ if($content['form']["template_format_copy"]) {
 		'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 		'lang'		=> 'en'
 	);
-	include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+	include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 } else {
 
 	echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="code width540" ';

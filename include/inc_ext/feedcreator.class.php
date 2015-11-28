@@ -110,7 +110,7 @@ v1.0    06-24-03
 
 /*** GENERAL USAGE *********************************************************
 
-include("feedcreator.class.php");
+include "feedcreator.class.php";
 
 $rss = new UniversalFeedCreator();
 $rss->useCached(); // use cached version if age<1 hour
@@ -1730,11 +1730,9 @@ class JSCreator extends HTMLCreator {
 
 }
 
-
-
 /*** TEST SCRIPT *********************************************************
 
-//include("feedcreator.class.php");
+//include "feedcreator.class.php";
 
 $rss = new UniversalFeedCreator();
 $rss->useCached();
@@ -1784,8 +1782,4 @@ $rss->image = $image;
 // valid format strings are: RSS0.91, RSS1.0, RSS2.0, PIE0.1, MBOX, OPML, ATOM0.3, HTML, JS
 echo $rss->saveFeed("RSS0.91", "feed.xml");
 
-
-
 ***************************************************************************/
-
-?>

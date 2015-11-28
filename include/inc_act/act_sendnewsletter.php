@@ -11,17 +11,17 @@
 
 session_start();
 $phpwcms = array();
-require_once ('../../include/config/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
 require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 //load default language EN
-require_once (PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in login.php
-	include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
+	include PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php';
 }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -297,7 +297,6 @@ function updateSentDate($id=0) {
 	_dbQuery($sql, 'UPDATE');
 
 }
-
 
 ?>
 </body>

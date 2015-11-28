@@ -12,13 +12,13 @@
 session_start();
 $phpwcms = array();
 
-require_once ('../../include/config/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 $ref = $_SESSION['REFERER_URL'];
 $ftp = array();
@@ -43,17 +43,13 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
 }
 
 ?><html>
-<head><title>phpwcms: creating thumbnail</title>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-<meta http-equiv="Expires" content="0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-<!--
-body { background-color: #EBF2F4; }
--->
-</style>
+<head><title>phpwcms: Creating thumbnail</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
+	<style type="text/css"> body { background-color: #EBF2F4; } </style>
 </head>
 <body bgcolor="#EBF2F4" text="#000000" link="#000000" vlink="#000000" alink="#000000" leftmargin="15" topmargin="15" marginwidth="15" marginheight="15">
 <?php
@@ -274,5 +270,3 @@ echo "</body>\n</html>\n";
 if(isset($oldumask)) {
 	umask($oldumask);
 }
-
-?>

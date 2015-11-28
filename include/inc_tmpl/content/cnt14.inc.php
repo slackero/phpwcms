@@ -12,18 +12,15 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 //WYSIWYG
 
 ?>
-
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
 	<td><select name="template" id="template">
@@ -63,7 +60,7 @@ $wysiwyg_editor = array(
 	'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 	'lang'		=> 'en'
 );
-include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>

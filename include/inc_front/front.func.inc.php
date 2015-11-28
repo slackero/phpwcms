@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -81,28 +81,34 @@ function must_filled($c) {
 	return intval($c) ? '<img src="img/article/fill_in_here.gif" alt=""'.HTML_TAG_CLOSE : '';
 }
 
-function add_attribute($baseval, $attribute, $val, $space=" ") {
-	//to add all relevant attributes that contains
-	//values to a string maybe a html tag
-	$attribute = isEmpty(strval($val)) ? '' : $attribute.'="'.$val.'"';
-	$attribute = ($baseval && !isEmpty($val)) ? $space.$attribute : $attribute;
+//to add all relevant attributes that contains values to a string maybe a html tag
+function add_attribute($attribute, $val, $space='', $allow_empty=false, $html_encode=false) {
+	if(!$allow_empty && str_empty($val)) {
+		return '';
+	}
+	if($html_encode) {
+		$val = html($val);
+	}
+	$attribute = $attribute.'="'.$val.'"';
+	if($space) {
+		$attribute = $space.$attribute;
+	}
 	return $attribute;
 }
 
+//to add all relevant attributes that contains values to a string maybe a html tag
 function add_style_attribute($attribute='', $val='') {
-	//to add all relevant attributes that contains
-	//values to a string maybe a html tag
 	return $attribute.': '.$val.';';
 }
 
-function html_attribute($attribute='', $val='') {
+function html_attribute($attribute='', $val='', $space='', $allow_empty=false) {
 	//to return only 1 well formatted attributes and values
-	return isEmpty(strval($val)) ? '' : $attribute.'="'.$val.'"';
+	return add_attribute($attribute, $val, $space, $allow_empty, true);
 }
 
+//to return only 1 well formatted attributes and values
 function html_height_attribute($val=0) {
-	//to return only 1 well formatted attributes and values
-	return (intval($val)) ? ' style="height:'.$val.'px;" ' : '';
+	return ' style="height:'.intval($val).'px;" ';
 }
 
 function get_body_attributes(& $values) {
@@ -219,21 +225,21 @@ function get_table_block($val, $content="", $leftblock="", $rightblock="") {
 
 function td_attributes($val, $block, $top=1) {
 	//creates a string with all relevant cell attributes like nackground color/image, class
-	$td_attrib  = ($top) ? ' valign="top"' : "";
+	$td_attrib = $top ? add_attribute('valign', 'top', ' ') : '';
 	if(!empty($val["layout_".$block."_height"])) {
 		$td_attrib .= html_height_attribute($val["layout_".$block."_height"]);
 	}
 	if(!empty($val["layout_".$block."_width"])) {
-		$td_attrib .= html_attribute(" width", $val["layout_".$block."_width"]);
+		$td_attrib .= add_attribute('width', $val["layout_".$block."_width"], ' ');
 	}
 	if(!empty($val["layout_".$block."_bgcolor"])) {
-		$td_attrib .= html_attribute(" bgcolor", $val["layout_".$block."_bgcolor"]);
+		$td_attrib .= add_attribute('bgcolor', $val["layout_".$block."_bgcolor"], ' ');
 	}
 	if(!empty($val["layout_".$block."_bgimage"])) {
-		$td_attrib .= html_attribute(" style", 'background-image:url('.$val["layout_".$block."_bgimage"].')');
+		$td_attrib .= add_attribute('style', 'background-image:url('.$val["layout_".$block."_bgimage"].')', ' ');
 	}
 	if(!empty($val["layout_".$block."_class"])) {
-		$td_attrib .= html_attribute(" class", $val["layout_".$block."_class"]);
+		$td_attrib .= add_attribute('class', $val["layout_".$block."_class"], ' ');
 	}
 	return $td_attrib;
 }
@@ -241,31 +247,27 @@ function td_attributes($val, $block, $top=1) {
 function table_attributes($val, $var_part, $top=1, $tr=false) {
 	//creates a string with all relevant cell attributes like background color/image, class
 	//P.S. it is nearly the same as td_attributes - but it was boring to rewrite code ;-)
-	$td_attrib = '';
-	if($top) {
-		$td_attrib = ' valign="top"';
-	}
-
+	$td_attrib = $top ? add_attribute('valign', 'top', ' ') : '';
 	if(!$tr) {
-		$td_attrib .= html_attribute(" border", (!empty($val[$var_part."_border"])) ? $val[$var_part."_border"] : '0');
-		$td_attrib .= html_attribute(" cellspacing", (!empty($val[$var_part."_cspace"])) ? $val[$var_part."_cspace"] : '0');
-		$td_attrib .= html_attribute(" cellpadding", (!empty($val[$var_part."_cpad"])) ? $val[$var_part."_cpad"] : '0');
+		$td_attrib .= add_attribute('border', (empty($val[$var_part."_border"])) ? '0' : $val[$var_part."_border"], ' ');
+		$td_attrib .= add_attribute('cellspacing', (empty($val[$var_part."_cspace"])) ? '0' : $val[$var_part."_cspace"], ' ');
+		$td_attrib .= add_attribute('cellpadding', (empty($val[$var_part."_cpad"])) ? '0' : $val[$var_part."_cpad"], ' ');
 	}
 
 	if(!empty($val[$var_part."_height"])) {
 		$td_attrib .= html_height_attribute($val[$var_part."_height"]);
 	}
 	if(!empty($val[$var_part."_width"])) {
-		$td_attrib .= html_attribute(" width", $val[$var_part."_width"]);
+		$td_attrib .= add_attribute('width', $val[$var_part."_width"], ' ');
 	}
 	if(!empty($val[$var_part."_bgcolor"])) {
-		$td_attrib .= html_attribute(" bgcolor", $val[$var_part."_bgcolor"]);
+		$td_attrib .= add_attribute('bgcolor', $val[$var_part."_bgcolor"], ' ');
 	}
 	if(!empty($val[$var_part."_bgimage"])) {
-		$td_attrib .= html_attribute(" background", $val[$var_part."_bgimage"]);
+		$td_attrib .= add_attribute('background', $val[$var_part."_bgimage"], ' ');
 	}
 	if(!empty($val[$var_part."_class"])) {
-		$td_attrib .= html_attribute(" class", $val[$var_part."_class"]);
+		$td_attrib .= add_attribute('class', $val[$var_part."_class"], ' ');
 	}
 
 	return $td_attrib;
@@ -1565,7 +1567,7 @@ function include_ext_php($inc_file, $t=0) {
 	}
 
 	ob_start();
-	@include($inc_file);
+	@include $inc_file;
 	return ob_get_clean();
 }
 
@@ -1612,7 +1614,7 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 	$lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.substr($language, 0, 2).'.date.lang.php';
 	if(is_file($lang_include)) {
 
-		include($lang_include);
+		include $lang_include;
 		$date_format_function = array (
 			"a" => 1, "A" => 1, "B" => 1, "d" => 1, "g" => 1, "G" => 1,
 			"h" => 1, "H" => 1, "i" => 1, "I" => 1, "j" => 1, "m" => 1,
@@ -3560,7 +3562,9 @@ function set_css_link($css='', $add_template_path=true) {
 function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 
 	// check if frontend edit link allowed
-	if(!FE_EDIT_LINK) return '';
+	if(!FE_EDIT_LINK) {
+		return '';
+	}
 
 	// init JSLib
 	initJSLib();
@@ -3621,7 +3625,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 
 	if($href) {
 
-		$link  = '<a href="'.PHPWCMS_URL.'phpwcms.php?'.$href.'" target="backend" ';
+		$link  = '<a href="'.PHPWCMS_URL.'phpwcms.php?'.$href.'&'.FE_EDIT_LINK.'" target="backend" ';
 		$link .= 'class="fe-link fe-'.$type.'" title="'.$title.'">';
 		$link .= '<span>'.$title.'</span></a> ';
 
@@ -4256,5 +4260,3 @@ function get_css_keywords($text) {
 
 	return array();
 }
-
-?>

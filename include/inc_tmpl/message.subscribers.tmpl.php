@@ -12,10 +12,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 $_userInfo = array();
 
@@ -60,10 +59,6 @@ if(isset($_GET["verify"]) && isset($_GET["s"])) {
 	_dbQuery($sql, 'UPDATE');
 }
 
-
-
-
-
 echo '<div class="title" style="margin-bottom:10px">'.$BL['be_subnav_msg_subscribers'].'</div>';
 ?>
 
@@ -102,11 +97,11 @@ if(isset($_GET["s"]) && isset($_GET["edit"])) {
 	}
 
 	if(isset($_POST['subscribe_email'])) {
-		include_once(PHPWCMS_ROOT.'/include/inc_lib/subscriber.form.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_lib/subscriber.form.inc.php';
 	}
 
 	if($_userInfo['subscriber_data']) {
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriber.form.tmpl.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriber.form.tmpl.php';
 	}
 }
 
@@ -121,17 +116,17 @@ if(isset($_GET['import']) && $_GET['import'] === '1') {
 
 	if(isset($_POST['delimeter'])) {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_lib/subscriberimport.form.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_lib/subscriberimport.form.inc.php';
 
 		if(isset($_userInfo['csvError'])) {
-			include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php');
+			include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php';
 		} else {
-			include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.result.tmpl.php');
+			include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.result.tmpl.php';
 		}
 
 	} else {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php';
 
 	}
 

@@ -9,6 +9,13 @@
  *
  **/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
 // Module/Plug-in Feed to Article import default settings
 // Init used to import feed to articles
 
@@ -88,7 +95,7 @@ if(!empty($_getVar['feedimport'])) {
 			}
 
 			// need some additional functions
-			include_once(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+			include_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 			// set import sort counter
 			$article_sort_counter = _dbGet('phpwcms_article', 'article_sort', 'article_cid='._dbEscape($feedimport_result['cnt_object']['structure_level_id']), '', 'article_sort DESC', 1);
@@ -403,5 +410,3 @@ if(!empty($_getVar['feedimport'])) {
 	// we quit here
 	exit();
 }
-
-?>

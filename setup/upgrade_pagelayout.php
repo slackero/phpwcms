@@ -13,10 +13,10 @@
 
 $phpwcms = array();
 
-require_once ('../include/config/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 echo '<html><body><pre>';
 
@@ -40,9 +40,8 @@ foreach($pagelayout as $var) {
 	$c++;
 }
 
-if(!$c) echo 'No pagelayout for conversation found!';
-
+if(!$c) {
+	echo 'No pagelayout for conversation found!';
+}
 
 echo '</pre></body></html>';
-
-?>

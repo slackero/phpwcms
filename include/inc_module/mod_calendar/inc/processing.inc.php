@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -63,7 +63,7 @@ if(isset($_POST['calendar_title'])) {
 	}
 
 	// clean up date/time
-	include_once($phpwcms['modules'][$module]['path'].'inc/processing.datetime.inc.php');
+	include_once $phpwcms['modules'][$module]['path'].'inc/processing.datetime.inc.php';
 
 	if(empty($plugin['data']['calendar_title'])) {
 		$plugin['error']['calendar_title'] = 1;
@@ -256,5 +256,3 @@ if(!isset($plugin['data']['calendar_image'])) {
 		$plugin['data']['calendar_image']
 	);
 }
-
-?>

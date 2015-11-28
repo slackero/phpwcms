@@ -12,10 +12,10 @@
 
 $phpwcms	= array();
 $root		= rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
-require($root.'/include/config/conf.inc.php');
-require($root.'/include/inc_lib/default.inc.php');
-require($root.'/include/inc_lib/general.inc.php');
-require($root.'/include/inc_lib/imagick.convert.inc.php');
+require $root.'/include/config/conf.inc.php';
+require $root.'/include/inc_lib/default.inc.php';
+require $root.'/include/inc_lib/general.inc.php';
+require $root.'/include/inc_lib/imagick.convert.inc.php';
 
 // get segments: cmsimage.php/WIDTH[[[[xHEIGHT]xCROP]xQUALITY]xGS]/[[HASH|ID].EXT]
 // ...xGS will convert image to GrayScale
@@ -248,5 +248,3 @@ if(isset($data[1])) {
 
 // uncached transparent GIF
 phpwcms_empty_gif();
-
-?>

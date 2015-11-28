@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -21,50 +21,49 @@ if (!defined('PHPWCMS_ROOT')) {
 $no_durchlauf = 0;
 
 
-			//Count message boxes
-			//New Messages
-			if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".$_SESSION["wcs_user_id"]." AND (msg_read=0 OR (NOW()-msg_tstamp<86400)) AND msg_deleted=0;", $db))
-			{ if($count = mysql_fetch_row($check)) $count_newmsg = $count[0];	}
-			//Old Messages 
-			if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".$_SESSION["wcs_user_id"]." AND msg_read=1 AND msg_deleted=0;", $db))
-			{ if($count = mysql_fetch_row($check)) $count_readmsg = $count[0];	}
-			//Sent Messages
-			if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_from=".$_SESSION["wcs_user_id"]." AND msg_from_del=0;", $db))
-			{ if($count = mysql_fetch_row($check)) $count_sentmsg = $count[0];	}
-			//Files in trash
-			if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE (msg_uid=".$_SESSION["wcs_user_id"]." AND msg_deleted=1) OR (msg_from=".$_SESSION["wcs_user_id"]." AND msg_from_del=1);", $db))
-			{ if($count = mysql_fetch_row($check)) $count_delmsg = $count[0];	}
-			
-			//Ermitteln, wieviele Nachrichten angezeigt werden sollen
-			$msg_list = empty($_GET['l']) ? 15 : intval($_GET['l']);
-			
-			//Ermitteln, ob aufsteigend oder absteigend
-			//0 = normal, absteigend (neueste zuerst) -> 1 = absteigend
-			$msg_order = empty($_GET['o']) ? 0 : intval($_GET['o']);
-			
-			//Welche Message soll gerade angezeigt werden
-			if(empty($_GET["msg"])) {
-				$msg = 0;
-				$msg_get["msg"] = '';
-			} else {
-				$msg_get["msg"]		= "&msg=".$_GET["msg"];
-				list($msg, $msg_read) = explode(":", $_GET["msg"]);
-				$msg = intval($msg);
-			}
-			
-	
-			//Ermitteln, welcher Message Ordner angezeigt wird
-			$msg_folder = empty($_GET['f']) ? 0 : intval($_GET['f']);
-			if($msg_folder == 0 || $msg_folder >= 4) $msg_folder = 0; //new msg
+//Count message boxes
+//New Messages
+if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".$_SESSION["wcs_user_id"]." AND (msg_read=0 OR (NOW()-msg_tstamp<86400)) AND msg_deleted=0;", $db))
+{ if($count = mysql_fetch_row($check)) $count_newmsg = $count[0];	}
+//Old Messages
+if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_uid=".$_SESSION["wcs_user_id"]." AND msg_read=1 AND msg_deleted=0;", $db))
+{ if($count = mysql_fetch_row($check)) $count_readmsg = $count[0];	}
+//Sent Messages
+if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE msg_from=".$_SESSION["wcs_user_id"]." AND msg_from_del=0;", $db))
+{ if($count = mysql_fetch_row($check)) $count_sentmsg = $count[0];	}
+//Files in trash
+if($check = mysql_query("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_message WHERE (msg_uid=".$_SESSION["wcs_user_id"]." AND msg_deleted=1) OR (msg_from=".$_SESSION["wcs_user_id"]." AND msg_from_del=1);", $db))
+{ if($count = mysql_fetch_row($check)) $count_delmsg = $count[0];	}
 
-			//fester GET-Konstrukt + Teile
-			$msg_get["all"]		= "&o=".$msg_order."&f=".$msg_folder."&l=".$msg_list;
-			$msg_get["list"]	= "&l=".$msg_list;
-			$msg_get["order"]	= "&o=".$msg_order;
-			$msg_get["folder"]	= "&f=".$msg_folder;
-			
-			
-			?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+//Ermitteln, wieviele Nachrichten angezeigt werden sollen
+$msg_list = empty($_GET['l']) ? 15 : intval($_GET['l']);
+
+//Ermitteln, ob aufsteigend oder absteigend
+//0 = normal, absteigend (neueste zuerst) -> 1 = absteigend
+$msg_order = empty($_GET['o']) ? 0 : intval($_GET['o']);
+
+//Welche Message soll gerade angezeigt werden
+if(empty($_GET["msg"])) {
+	$msg = 0;
+	$msg_get["msg"] = '';
+} else {
+	$msg_get["msg"]		= "&msg=".$_GET["msg"];
+	list($msg, $msg_read) = explode(":", $_GET["msg"]);
+	$msg = intval($msg);
+}
+
+
+//Ermitteln, welcher Message Ordner angezeigt wird
+$msg_folder = empty($_GET['f']) ? 0 : intval($_GET['f']);
+if($msg_folder == 0 || $msg_folder >= 4) $msg_folder = 0; //new msg
+
+//fester GET-Konstrukt + Teile
+$msg_get["all"]		= "&o=".$msg_order."&f=".$msg_folder."&l=".$msg_list;
+$msg_get["list"]	= "&l=".$msg_list;
+$msg_get["order"]	= "&o=".$msg_order;
+$msg_get["folder"]	= "&f=".$msg_folder;
+
+?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
         <tr><td class="title"><?php echo $BL['be_msg_title'] ?></td></tr>
 		<tr><td><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
         <tr><td><table width="538" border="0" cellpadding="2" cellspacing="0" summary=""><tr>
@@ -94,8 +93,7 @@ $no_durchlauf = 0;
 				}
 				mysql_free_result($msg_user);
 			}
-			
-			
+
 			//Wenn Nachricht angezeigt werden soll
 			if(!empty($_GET["msg"]) && intval($_GET["msg"])) {
 				if($msg_read == "I" && $msg) { //Wenn die Nachricht noch den Status Unread hat, setzen auf read
@@ -113,7 +111,7 @@ $no_durchlauf = 0;
 							" LIMIT 1;";
 					if($result = mysql_query($sql, $db)) {
 						if($msgdetail = mysql_fetch_array($result)) {
-							include("include/inc_lib/autolink.inc.php");
+							include "include/inc_lib/autolink.inc.php";
 							if($msgdetail["msg_from"] == $_SESSION["wcs_user_id"]) $do_move = 2;
 							if($msgdetail["msg_uid"] == $_SESSION["wcs_user_id"]) $do_move = 1;
 	  ?>
@@ -152,7 +150,7 @@ $no_durchlauf = 0;
         <tr bgcolor="#FFF8DF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 		<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 		<tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>	
+        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
       </table>
       <?php
 	  					} //Ende Anzeige Message gefunden
@@ -189,7 +187,7 @@ $no_durchlauf = 0;
 		$zaehler = 0;
 		while($row = mysql_fetch_array($result)) {
 			$bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
-			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":"; 
+			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
 			if(!$row["msg_read"]) $goto .= "I";
 			if($msg == $row["msg_id"]) $bg_color = "#FFCC00";
 ?>
@@ -207,7 +205,7 @@ $no_durchlauf = 0;
 ?>
 	<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-	<tr> 
+	<tr>
 		<td><img src="img/leer.gif" alt="" width="135" height="1"></td>
 		<td><img src="img/leer.gif" alt="" width="250" height="1"></td>
 		<td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
@@ -246,7 +244,7 @@ $no_durchlauf = 0;
 		$zaehler = 0;
 		while($row = mysql_fetch_array($result)) {
 			$bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
-			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":"; 
+			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
 			if(!$row["msg_read"]) $goto .= "I";
 			if($msg == $row["msg_id"]) $bg_color = "#FFCC00";
 ?>
@@ -264,7 +262,7 @@ $no_durchlauf = 0;
 ?>
 	    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-	    <tr> 
+	    <tr>
 		  <td><img src="img/leer.gif" alt="" width="135" height="1"></td>
           <td><img src="img/leer.gif" alt="" width="250" height="1"></td>
           <td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
@@ -304,7 +302,7 @@ $no_durchlauf = 0;
 		$zaehler = 0;
 		while($row = mysql_fetch_array($result)) {
 			$bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
-			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":"; 
+			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
 			if(!$row["msg_read"]) $goto .= "I";
 			if($msg == $row["msg_id"]) $bg_color = "#FFCC00";
 ?>
@@ -322,7 +320,7 @@ $no_durchlauf = 0;
 ?>
 	<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-	<tr> 
+	<tr>
 		<td><img src="img/leer.gif" alt="" width="135" height="1"></td>
 		<td><img src="img/leer.gif" alt="" width="250" height="1"></td>
 		<td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
@@ -362,7 +360,7 @@ $no_durchlauf = 0;
 		$zaehler = 0;
 		while($row = mysql_fetch_array($result)) {
 			$bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
-			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":"; 
+			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
 			if(!$row["msg_read"]) $goto .= "I";
 			if($msg == $row["msg_id"]) $bg_color = "#FFCC00";
 			//Prüfen, welche DO-Aktion
@@ -385,7 +383,7 @@ $no_durchlauf = 0;
 ?>
 	<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-	<tr> 
+	<tr>
 		<td><img src="img/leer.gif" alt="" width="135" height="1"></td>
 		<td><img src="img/leer.gif" alt="" width="250" height="1"></td>
 		<td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
@@ -393,11 +391,12 @@ $no_durchlauf = 0;
 	</tr>
 </table><?php
 			$no_durchlauf++;
-			} //Ende Anzeige Dateien im Papierkorb
-			
-		if(!$no_durchlauf) echo $BL['be_msg_nomsg']."<br /><img src='img/leer.gif' width=1 height=4>";
-		echo "<table width=538 border=0 cellspacing=0 cellpadding=0>\n";
-		echo "<tr><td bgcolor='#9BBECA'><img src='img/leer.gif' width=1 height=4></td><tr>\n";
-		echo "<tr><td><img src='img/leer.gif' width=1 height=15></td><tr>\n";
-		echo "</table>\n";
-?>
+		} //Ende Anzeige Dateien im Papierkorb
+
+if(!$no_durchlauf) {
+	echo $BL['be_msg_nomsg']."<br /><img src='img/leer.gif' width=1 height=4>";
+}
+echo "<table width=538 border=0 cellspacing=0 cellpadding=0>\n";
+echo "<tr><td bgcolor='#9BBECA'><img src='img/leer.gif' width=1 height=4></td><tr>\n";
+echo "<tr><td><img src='img/leer.gif' width=1 height=15></td><tr>\n";
+echo "</table>\n";

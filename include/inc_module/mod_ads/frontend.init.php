@@ -9,6 +9,13 @@
  *
  **/
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
 // Module/Plug-in Ads/Banner Management
 
 // use it as when it is located under "template/inc_script/frontend_render"
@@ -17,10 +24,7 @@
 
 if(isset($_GET['adclickval'])) {
 
-	// OK ADS CLICK set 
-	include_once(dirname($value).'/inc/ads.fe_init.inc.php');
+	// OK ADS CLICK set
+	include_once dirname($value.'/inc/ads.fe_init.inc.php');
 
 }
-
-
-?>

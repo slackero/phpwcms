@@ -9,14 +9,12 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { //Show single article information
 
@@ -453,7 +451,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 
 	// include template defaults which should be overwritten by custom settings
 	if($article["acat_overwrite"] && is_file(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"])) {
-		@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"]);
+		@include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"];
 	}
 
 	// list mode
@@ -501,18 +499,18 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 
 					if($content["type"] != 30 && is_file(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 
-						include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php');
+						include PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php';
 
 					} elseif($content["type"] == 30 && is_file($phpwcms['modules'][$content['module']]['path'].'inc/cnt.read.php')) {
 
 						$content['comment']	= $row["acontent_comment"];
 
 						// load module data
-						include($phpwcms['modules'][$content['module']]['path'].'inc/cnt.read.php');
+						include $phpwcms['modules'][$content['module']]['path'].'inc/cnt.read.php';
 
 					} else {
 
-						include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.takeval.inc.php');
+						include PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.takeval.inc.php';
 
 					}
 				}
@@ -547,7 +545,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		//if form posted
 		if(isset($_POST["caktion"]) && intval($_POST["caktion"])) {
 
-			include_once(PHPWCMS_ROOT."/include/inc_lib/article.readform.inc.php"); //get posted values from form
+			include_once PHPWCMS_ROOT."/include/inc_lib/article.readform.inc.php"; //get posted values from form
 
 			if(!isset($content["error"])) { //if no error
 
@@ -576,15 +574,15 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				// load SQL addition for special content part
 				if($content['type'] != 30 && file_exists(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content['type'].'.sql.inc.php')) {
 
-					include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content['type'].'.sql.inc.php');
+					include PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content['type'].'.sql.inc.php';
 
 				} elseif($content['type'] == 30 && file_exists($phpwcms['modules'][$content['module']]['path'].'inc/cnt.sql.php')) {
 
-					include($phpwcms['modules'][$content['module']]['path'].'inc/cnt.sql.php');
+					include $phpwcms['modules'][$content['module']]['path'].'inc/cnt.sql.php';
 
 				} else {
 
-					include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.sql.inc.php');
+					include PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.sql.inc.php';
 
 				}
 
@@ -648,9 +646,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		}
 
 		//form to edit article content parts
-		include(PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.edit.tmpl.php");
+		include PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.edit.tmpl.php";
 
 	}
 	//end edit article content part
 }
-?>

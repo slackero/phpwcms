@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -523,11 +523,11 @@ $template_default['attributes'] = isset($template_default['attributes']) ? array
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $block['overwrite']);
-	@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite']);
+	@include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
 }
 if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $content['struct'][ $content['cat_id'] ]['acat_overwrite']);
-	@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite']);
+	@include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
 }
 
 // search highlight prefix/suffix
@@ -595,14 +595,14 @@ if(!empty($pagelayout['layout_customblocks'])) {
 if($phpwcms["allow_ext_init"]) {
 	if(count($custom_includes = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_script/frontend_init', 'php'))) {
 		foreach($custom_includes as $value) {
-			include_once(PHPWCMS_TEMPLATE.'inc_script/frontend_init/'.$value);
+			include_once PHPWCMS_TEMPLATE.'inc_script/frontend_init/'.$value;
 		}
 	}
 }
 // include custom frontend init scripts based on module definitions
 if(count($phpwcms['modules_fe_init'])) {
 	foreach($phpwcms['modules_fe_init'] as $value) {
-		include_once($value);
+		include_once $value;
 	}
 }
 
@@ -685,7 +685,7 @@ if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && !$conten
 if(empty($phpwcms['enable_deprecated'])) {
 	$phpwcms['enable_deprecated'] = false;
 } else {
-	include_once(PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php");
+	include_once PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php";
 }
 
 // check if current category should be cached
@@ -704,7 +704,7 @@ $content['list_mode'] = true;
 if($aktion[1]) {
 
 	// render page based on article
-	include_once(PHPWCMS_ROOT."/include/inc_front/content.article.inc.php");
+	include_once PHPWCMS_ROOT."/include/inc_front/content.article.inc.php";
 	$content['list_mode'] = false;
 
 } elseif(!empty($content['struct'][$content['cat_id']]['acat_pagetitle'])) {
@@ -1066,13 +1066,13 @@ if(!defined('PHPWCMS_ALIAS')) {
 if($phpwcms["allow_ext_render"]) {
 	if(count($custom_includes = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_script/frontend_render', 'php'))) {
 		foreach($custom_includes as $value) {
-			include_once(PHPWCMS_TEMPLATE.'inc_script/frontend_render/'.$value);
+			include_once PHPWCMS_TEMPLATE.'inc_script/frontend_render/'.$value;
 		}
 	}
 }
 if(count($phpwcms['modules_fe_render'])) {
 	foreach($phpwcms['modules_fe_render'] as $value) {
-		include_once($value);
+		include_once $value;
 	}
 }
 
@@ -1592,5 +1592,3 @@ if(!empty($phpwcms['gt_mod']) && strpos($content["all"], '{GT') !== false) {
 
 	$content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
-
-?>

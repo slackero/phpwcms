@@ -9,13 +9,6 @@
  *
  **/
 
-// ----------------------------------------------------------------
-// obligate check for phpwcms constants
-if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
-}
-// ----------------------------------------------------------------
-
 /**
  * Image Manipulation class
  *
@@ -1695,7 +1688,7 @@ class Phpwcms_Image_lib {
 		if(!$this->lang_localized) {
 			$local_lang = strtolower( isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : $GLOBALS['phpwcms']['DOCTYPE_LANG'] );
 			if($local_lang && is_file(PHPWCMS_ROOT.'/include/inc_lang/image/image.'.$local_lang.'.php')) {
-				include(PHPWCMS_ROOT.'/include/inc_lang/image/image.'.$local_lang.'.php');
+				include PHPWCMS_ROOT.'/include/inc_lang/image/image.'.$local_lang.'.php';
 				$this->lang				= array_merge($this->lang, $ci_lang);
 				$this->lang_localized	= TRUE;
 			}

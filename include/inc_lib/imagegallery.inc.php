@@ -572,7 +572,7 @@ class phpwcmsImageGallery {
 				$content['file_static_result'][0]	= $image;
 
 				// include content part files renderer
-				include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+				include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
 				$img = render_cnt_template($img, 'DOWNLOAD', $news['files_result'] );
 
@@ -757,5 +757,3 @@ class phpwcmsImageGallery {
 	}
 
 }
-
-?>

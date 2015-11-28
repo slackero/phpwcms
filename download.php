@@ -11,20 +11,21 @@
 
 $phpwcms = array();
 
-require_once ('include/config/conf.inc.php');
+require_once 'include/config/conf.inc.php';
 
 if( !empty($phpwcms['SESSION_FEinit']) ) {
 	@session_start();
 }
 
-require_once ('include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once 'include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 if(empty($phpwcms['sanitize_dlname'])) {
 	$phpwcms['sanitize_dlname'] = false;
 } else {
 	$phpwcms['sanitize_dlname'] = true;
-	require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
+	require_once PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php';
 }
 
 // try to get hash for file download
@@ -41,8 +42,8 @@ if(isset($_GET['target'])) {
 
 if(!empty($hash) && strlen($hash) == 32) {
 
-	require_once (PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php');
-	require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
+	require_once PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php';
+	require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
 
 	_checkFrontendUserAutoLogin();
 
@@ -107,7 +108,7 @@ if(!empty($hash) && strlen($hash) == 32) {
 
 		if(BROWSER_OS == 'iOS') {
 
-			require_once (PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php');
+			require_once PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php';
 
 			rangeDownload($file);
 
@@ -149,5 +150,3 @@ if($success) {
 }
 
 exit();
-
-?>

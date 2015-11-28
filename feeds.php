@@ -13,14 +13,15 @@
 
 $phpwcms = array();
 
-require_once ('include/config/conf.inc.php');
-require_once ('include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/feedcreator.class.php');
-require_once (PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php');
-require_once (PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php');
+require_once 'include/config/conf.inc.php';
+require_once 'include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_ext/feedcreator.class.php';
+require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
+require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 
 $feeds_formats	= array('0.91', 'RSS0.91', '1.0', 'RSS1.0', '2.0', 'RSS2.0', 'ATOM', 'ATOM1.0', 'ATOM0.3');
 $feeds 			= array();
@@ -54,8 +55,8 @@ if(empty($feeds) || (is_array($feeds) && count($feeds) == 0)) {
 
 // chheck which feed data should be used
 reset($feeds);
-$default 				= isset($feeds['default']) ? 'default' : key($feeds);
-$custom  				= isset($_GET['feed']) ? strval(clean_slweg($_GET['feed'])) : $default;
+$default = isset($feeds['default']) ? 'default' : key($feeds);
+$custom	 = isset($_GET['feed']) ? strval(clean_slweg($_GET['feed'])) : $default;
 
 if(!isset($feeds[$custom])) {
 
@@ -287,5 +288,3 @@ function is_num($var) {
 	}
 	return true;
 }
-
-?>

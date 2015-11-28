@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -48,10 +48,10 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	if(isset($_GET['edit'])) {
 
 		// handle posts and read data
-		include_once($phpwcms['modules'][$module]['path'].'inc/processing.inc.php');
+		include_once $phpwcms['modules'][$module]['path'].'inc/processing.inc.php';
 
 		// edit form
-		include_once($phpwcms['modules'][$module]['path'].'backend.editform.php');
+		include_once $phpwcms['modules'][$module]['path'].'backend.editform.php';
 
 	} elseif(isset($_GET['verify'])) {
 
@@ -73,14 +73,8 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	} else {
 
 		// listing
-		include_once($phpwcms['modules'][$module]['path'].'backend.listing.php');
+		include_once $phpwcms['modules'][$module]['path'].'backend.listing.php';
 
 	}
 
 }
-
-
-
-
-
-?>

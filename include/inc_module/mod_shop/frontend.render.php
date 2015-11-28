@@ -17,7 +17,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -1182,15 +1182,15 @@ if( $_shop_load_order !== false ) {
 		}
 
 		$cart_mode = 'terms';
-		include($phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php';
 		$order_process = str_replace('{ITEMS}', implode($_tmpl['term_space'], $cart_items), $order_process);
 
 		$terms_text		= _getConfig( 'shop_pref_terms', '_shopPref' );
 		$terms_format	= _getConfig( 'shop_pref_terms_format', '_shopPref' );
 		$order_process = str_replace('{TERMS}', $terms_format ? $terms_text : nl2br(html($terms_text)), $order_process);
 
-		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
-		include($phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php';
+		include $phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php';
 
 	} elseif( isset($_POST['shop_order_submit']) && !isset($_SESSION[CART_KEY]['error']['step2']) ) {
 
@@ -1214,10 +1214,10 @@ if( $_shop_load_order !== false ) {
 		}
 
 		$cart_mode = 'mail1';
-		include($phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php';
 		$order_process = str_replace('{ITEMS}', implode(LF.LF, $cart_items), $order_process);
 
-		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php';
 
 		$order_process = str_replace('{ORDER}', $order_num, $order_process);
 		$order_process = render_cnt_date($order_process, time());
@@ -1232,10 +1232,10 @@ if( $_shop_load_order !== false ) {
 		}
 
 		$cart_mode = 'mail1';
-		include($phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php';
 		$order_process = str_replace('{ITEMS}', implode(LF.LF, $cart_items), $order_process);
 
-		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php';
 
 		$order_process = str_replace('{ORDER}', $order_num, $order_process);
 		$order_process = render_cnt_date($order_process, time());
@@ -1389,13 +1389,13 @@ if( $_shop_load_order !== false ) {
 	} else {
 
 		$cart_mode = 'cart';
-		include($phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.items.inc.php';
 
 		$order_process  = $_tmpl['cart_header'];
 		$order_process .= implode($_tmpl['cart_space'], $cart_items);
 		$order_process .= $_tmpl['cart_footer'];
 
-		include($phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/cart.parse.inc.php';
 
 		// Update Cart Button
 		$_cart_button = preg_match("/\[UPDATE\](.*?)\[\/UPDATE\]/s", $order_process, $g) ? $g[1] : '';
@@ -1418,7 +1418,7 @@ if( $_shop_load_order !== false ) {
 		}
 		$order_process  = preg_replace('/\[DELETE\](.*?)\[\/DELETE\]/s', $_cart_button , $order_process);
 
-		include($phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php');
+		include $phpwcms['modules']['shop']['path'].'inc/shipping.parse.inc.php';
 
 		$order_process = '<form action="' . rel_url(array('shop_cart' => 'show'), array('shop_detail'), $_tmpl['config']['cart_url']) . '" class="'.$_tmpl['config']['class_form_cart'].'" method="post">' . LF . trim($order_process) . LF . '</form>';
 
@@ -1458,5 +1458,3 @@ if($_shop_load_cart_small !== false ) {
 if($_shop_parsed) {
 	$content['all'] = str_replace(array('{CURRENCY_SYMBOL}', '{$}'), html($_shopPref['shop_pref_currency']), $content['all']);
 }
-
-?>

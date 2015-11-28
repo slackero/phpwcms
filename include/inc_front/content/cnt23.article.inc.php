@@ -12,11 +12,11 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
-include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php');
+include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php';
 
 // Form
 $cnt_form = unserialize($crow["acontent_form"]);
@@ -163,7 +163,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								 */
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
-									include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
+									include_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 									$spaf_obj = new SPAF_FormValidator();
 									if($spaf_obj->validRequest($POST_val[$POST_name])) {
 										$spaf_obj->destroy();
@@ -2140,5 +2140,3 @@ unset( $form, $form_cnt, $form_cnt_2, $form_field, $form_field_hidden, $form_cou
 
 // reset form tracking status to default value
 $phpwcms['form_tracking'] = $default_formtracking_value;
-
-?>

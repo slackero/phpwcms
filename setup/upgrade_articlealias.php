@@ -13,11 +13,11 @@
 
 $phpwcms = array();
 
-require_once ('../include/config/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 ?><html>
 <body>
@@ -56,7 +56,6 @@ if($all = _dbQuery("SELECT article_id, article_alias, article_title FROM ".DB_PR
 
 }
 ?>
-
 <p><strong>Done!</strong> All articles not listed here are not touched.</p>
 </body>
 </html>

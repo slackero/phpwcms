@@ -12,7 +12,7 @@
 //setup functions
 
 $DOCROOT = rtrim(str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))), '/');
-include($DOCROOT.'/include/inc_lib/revision/revision.php');
+include $DOCROOT.'/include/inc_lib/revision/revision.php';
 
 if(empty($_SERVER['DOCUMENT_ROOT'])) {
 	$_SERVER['DOCUMENT_ROOT'] = $DOCROOT;

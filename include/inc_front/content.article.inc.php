@@ -12,10 +12,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 $sql  =	"SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
 $sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
@@ -597,7 +596,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 			// include content part code section
 			if($crow["acontent_type"] != 30) {
 
-				include(PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php");
+				include PHPWCMS_ROOT."/include/inc_front/content/cnt".$crow["acontent_type"].".article.inc.php";
 
 			} elseif($crow["acontent_type"] == 30 && is_file($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
 
@@ -605,7 +604,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 					$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
 				}
 				// now try to include module content part code
-				include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
+				include $phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php';
 
 			}
 
@@ -861,5 +860,3 @@ if($content['overwrite_canonical']) {
 	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . $content['set_canonical'] . '"'.HTML_TAG_CLOSE;
 
 }
-
-?>

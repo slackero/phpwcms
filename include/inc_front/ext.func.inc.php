@@ -523,14 +523,14 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 					// include content part code section
 					if($crow["acontent_type"] != 30) {
 
-						include(PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php');
+						include PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php';
 
 					} elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
 
 						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
 
 						// now try to include module content part code
-						include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
+						include $phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php';
 
 					}
 
@@ -899,7 +899,7 @@ function parse_downloads($match) {
 			$news		= array('files_result' => '');
 
 			// include content part files renderer
-			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+			include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
 			if($news['files_result']) {
 				return $news['files_result'];
@@ -1035,6 +1035,3 @@ function seReferrer($ref = false) {
 					"pos"		=> $SePos,
 					"referrer"	=> $SeReferer	);
 }
-
-
-?>

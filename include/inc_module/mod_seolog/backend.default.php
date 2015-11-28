@@ -12,10 +12,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 /*
  * module glossary
@@ -24,25 +23,23 @@ if (!defined('PHPWCMS_ROOT')) {
  * some defaults for modules: $phpwcms['modules'][$module]
  * store all related in here and holds some default values
  * ['path'], ['type'], ['name']
- * language values are store in $BL['modules'][$module] 
+ * language values are store in $BL['modules'][$module]
  * as defined in lang/en.lang.php
  * but maybe to keep default language file more lightweight
  * you can use own language definitions starting within this file
  *
  */
- 
+
 // first check if neccessary db exists
 if(isset($phpwcms['modules'][$module]['path'])) {
 
 	// module default stuff
-	
+
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
 	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
 
 	// listing
-	include_once($phpwcms['modules'][$module]['path'].'backend.listing.php');
-	
-}
+	include_once $phpwcms['modules'][$module]['path'].'backend.listing.php';
 
-?>
+}

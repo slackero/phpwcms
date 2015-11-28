@@ -12,12 +12,13 @@
 session_start();
 $phpwcms = array();
 
-require_once ('../../include/config/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if($_SESSION["wcs_user_admin"] == 1) {
 
@@ -44,5 +45,3 @@ if($_SESSION["wcs_user_admin"] == 1) {
 }
 
 headerRedirect($_SESSION['REFERER_URL']);
-
-?>

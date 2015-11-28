@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -58,7 +58,7 @@ if(isset($_GET["open"])) {
 				$fcat["needed"]	= empty($_POST["fcat_needed"]) ? 0 : 1;
 				$fcat["sort"]	= empty($_POST["fcat_sort"]) ? 0 : intval($_POST["fcat_sort"]);
 
-				if(isEmpty($fcat["name"])) {
+				if(str_empty($fcat["name"])) {
 					$fcat["error"] = 1;
 				} else {
 					if(!$fcat["id"]) {
@@ -166,7 +166,7 @@ if(isset($_GET["open"])) {
 				$fkey["cid"]	= intval($_POST["fkey_cid"]);
 				$fkey["sort"]	= empty($_POST["fkey_sort"]) ? 0 : intval($_POST["fkey_sort"]);
 
-				if(isEmpty($fkey["name"])) {
+				if(str_empty($fkey["name"])) {
 					$fkey["error"] = 1;
 				} else {
 					if(!$fkey["id"]) {

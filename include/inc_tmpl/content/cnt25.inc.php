@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 initMootools('1.2'); // We use MooTools here
 
 if(!$content["id"]) {
-	include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt25.takeval.inc.php');
+	include PHPWCMS_ROOT.'/include/inc_lib/content/cnt25.takeval.inc.php';
 }
 
 if(empty($fmp_data['fmp_set_skin'])) {

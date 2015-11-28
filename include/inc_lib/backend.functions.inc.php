@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -1022,7 +1022,7 @@ function phpwcms_revision_check($revision) {
 		return true;
 	}
 
-	include_once($revision_file . $revision.'.php');
+	include_once $revision_file . $revision.'.php';
 
 	$revision_function = 'phpwcms_revision_r'.$revision;
 	if(function_exists($revision_function) && empty($GLOBALS['phpwcms']['check_r'.$revision])) {
@@ -1287,6 +1287,3 @@ function get_struct_alias($start_id=0) {
 
 	return implode($GLOBALS['phpwcms']['alias_allow_slash'] ? '/' : '-', array_reverse($data));
 }
-
-
-?>

@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -241,8 +241,7 @@ initMootoolsAutocompleter();
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
-
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 		?></td>
 	</tr>
@@ -398,7 +397,6 @@ window.addEvent('domready', function(){
 	showImage();
 
 });
-
 
 function setCalendarAllDay() {
 

@@ -18,10 +18,11 @@ if(empty($_SESSION["wcs_user_id"])) {
 }
 
 $phpwcms = array();
-require ('../../include/config/conf.inc.php');
-require ('../inc_lib/default.inc.php');
-require (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require (PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php');
+require '../../include/config/conf.inc.php';
+require '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php';
 
 if(@ini_get('post_max_size')) {
 	$post_max_size = return_bytes(ini_get('post_max_size'));
@@ -54,7 +55,7 @@ $result['filename']	= $uploader->getUploadName();
 
 if(!empty($result['success']) && !empty($_GET['file_public'])) {
 
-	require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+	require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
 	$data = array(
 		'f_pid'			=> intval($_GET['file_dir']),
@@ -101,10 +102,10 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 
 		} else {
 
-			require(PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
+			require PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 			$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.inc.php';
 			if(is_file($cust_lang)) {
-				include($cust_lang);
+				include $cust_lang;
 			}
 
 			$result['success'] = false;
@@ -123,6 +124,4 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 }
 
 // to pass data through iframe you will need to encode all html tags
-echo html_entities(json_encode($result), ENT_NOQUOTES);
-
-?>
+echo html(json_encode($result), ENT_NOQUOTES);

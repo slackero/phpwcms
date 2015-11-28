@@ -31,6 +31,7 @@ if(!is_file($basepath.'/include/config/conf.inc.php')) {
 }
 require_once $basepath.'/include/config/conf.inc.php';
 require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
 // Get user Agent BOT check
@@ -205,7 +206,7 @@ header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $php
 // print PDF
 if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 
-	require_once (PHPWCMS_ROOT.'/include/inc_front/pdf.inc.php');
+	require_once PHPWCMS_ROOT.'/include/inc_front/pdf.inc.php';
 
 // handle output action and section
 } elseif($phpwcms['output_action']) {
@@ -239,5 +240,3 @@ if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
 
 // send buffer to browser
 ob_end_flush();
-
-?>

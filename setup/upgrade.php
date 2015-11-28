@@ -13,7 +13,7 @@ $phpwcms = array();
 
 $_this_path = realpath(dirname(__FILE__).'/../');
 if(is_file($_this_path.'/include/config/conf.inc.php')) {
-	require_once ($_this_path.'/include/config/conf.inc.php');
+	require_once $_this_path.'/include/config/conf.inc.php';
 } else {
 	die('Please proof location of "conf.inc.php".');
 }
@@ -22,11 +22,11 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
    define('PHPWCMS_INCLUDE_CHECK', true);
 }
 
-require_once ($_this_path.'/include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php');
+require_once $_this_path.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php';
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -35,12 +35,10 @@ require_once (PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php');
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="inc/install.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-<!--
 body {
 	padding:	0 15px 15px 15px;
 	margin: 0;
 }
--->
 </style>
 </head>
 
@@ -313,8 +311,6 @@ if(is_dir($dir)) {
 }
 
 ?>
-
-
 	</td>
     <td width="15" bgcolor="#FFFFFF" style="background-image:url(../img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>

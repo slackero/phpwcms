@@ -12,12 +12,12 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 // include calendar functions
-include_once($phpwcms['modules'][$module]['path'].'inc/functions.inc.php');
+include_once $phpwcms['modules'][$module]['path'].'inc/functions.inc.php';
 
 // OK lets switch language :)
 // set correct locale

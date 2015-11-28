@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -88,7 +88,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 	}
 
 	// include neccessary frontend functions, but only once
-	include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt13.func.inc.php');
+	include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt13.func.inc.php';
 	$content["search"]["start_at"] = get_SearchForStructureID($content["search"]["start_at"]);
 
 	$content['highlight'] = array();
@@ -422,7 +422,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				if(isset($phpwcms['modules'][$key]) && is_file($phpwcms['modules'][$key]['path'].'frontend.search.php')) {
 
 					// include module search
-					include($phpwcms['modules'][$key]['path'].'frontend.search.php');
+					include $phpwcms['modules'][$key]['path'].'frontend.search.php';
 
 				}
 			}
@@ -786,5 +786,3 @@ if(count($s_result_list)) {
 $CNT_TMP .= $crow['template']['result'];
 
 unset($crow['template']);
-
-?>

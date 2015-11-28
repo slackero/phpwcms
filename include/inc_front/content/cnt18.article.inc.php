@@ -12,16 +12,14 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 //guestbook/comments
 
 // include neccessary frontend functions, but only once
-include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php');
+include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php';
 
 $CNT_TMP 				.= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 global $guestbook; // make it global
@@ -322,7 +320,7 @@ if($guestbook['visible']) {
 
 	if(isset($_POST['guestbook_email']) && !empty($guestbook['captcha'])) {
 
-		include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
+		include_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 		// instantiate the object
 		$spaf_obj = new SPAF_FormValidator();
 		$guestbook['post']['captcha'] = isset($_POST['guestbook_captcha']) ? clean_slweg($_POST['guestbook_captcha']) : '';
@@ -822,6 +820,3 @@ if($guestbook['visible']) {
 
 // delete guetbook array
 unset($guestbook);
-
-
-?>

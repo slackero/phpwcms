@@ -12,14 +12,14 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 
 // keyword administration
 
-include_once(PHPWCMS_ROOT.'/include/inc_lib/lib.keywords.inc.php');
+include_once PHPWCMS_ROOT.'/include/inc_lib/lib.keywords.inc.php';
 
 echo '<h3 class="title">'.$BL['be_admin_keywords'].'</h3>'.LF;
 

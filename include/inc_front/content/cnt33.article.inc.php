@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -689,7 +689,7 @@ if($news['template']) {
 				}
 
 				// include content part files renderer
-				include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+				include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
 				$news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FILES', $news['files_result'] );
 
@@ -753,6 +753,3 @@ if($news['template']) {
 	$CNT_TMP .= $news['tmpl_news'];
 
 }
-
-
-?>

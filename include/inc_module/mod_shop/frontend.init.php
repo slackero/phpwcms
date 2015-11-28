@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -242,7 +242,7 @@ function shop_files($data=array()) {
 	$crow		= array();
 
 	// include content part files renderer
-	include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+	include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
 	return $news['files_result'];
 
@@ -257,5 +257,3 @@ function get_shop_option_value_config() {
 		'suffix' => $GLOBALS['_tmpl']['config']['price_option_suffix']
 	);
 }
-
-?>

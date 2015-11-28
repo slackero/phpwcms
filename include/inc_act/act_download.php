@@ -12,12 +12,13 @@
 session_start();
 $phpwcms = array();
 
-require_once ('../../include/config/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 $dl = isset($_GET["dl"]) ? intval($_GET["dl"]) : 0;
 $pl = isset($_GET["pl"]) ? intval($_GET["pl"]) : 0;
@@ -85,15 +86,13 @@ if($err):
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 <link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
-
 	<h1>Download Error</h1>
-
 	<p><strong><?php echo $err ?></strong> occured while trying to download a file of your directory.</p>
 	<p>Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again and try another file.</p>
 	<p>If you think that this might be a technical problem send an email to the webmaster.</p>
-
 </body>
 </html>
-<?php endif; ?>
+<?php
+
+	endif;

@@ -10,9 +10,8 @@
  **/
 
 $phpwcms = array();
-require_once ('../include/config/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
 
 //Random Pic send to browser
 $imgpath = trim($_GET["imgdir"]);
@@ -23,7 +22,6 @@ $root_path = PHPWCMS_ROOT;
 if(!$root_path) {
 	$root_path = preg_replace('/(.*)([\/|\\\].(.*)){2}/', '$1', $_SERVER['PATH_TRANSLATED']);
 }
-
 
 if($imgpath) {
 
@@ -62,9 +60,8 @@ if($imageinfo != false && isset($imageinfo[2])) {
 	}
 
 	@readfile($file);
+	exit();
 
 } else {
 	die('Error reading image');
 }
-
-?>

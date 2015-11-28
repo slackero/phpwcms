@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -551,17 +551,17 @@ if(!$temp_count) {
 	// check default content parts (system internals
 	if($row['acontent_type'] != 30 && file_exists('include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php')) {
 
-		include(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php';
 
 	} elseif($row['acontent_type'] == 30 && file_exists($phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php')) {
 
 		// custom module
-		include($phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php');
+		include $phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php';
 
 	} else {
 
 		// default fallback
-		include(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.list.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.list.inc.php';
 
 	}
 	// end list
@@ -578,4 +578,6 @@ if(!$temp_count) {
 </table>
 <input name="csorting" type="hidden" id="csorting" value="<?php echo ($scc*10); ?>" />
 </form>
-<?php echo $buttonAction; ?>
+<?php
+
+echo $buttonAction;

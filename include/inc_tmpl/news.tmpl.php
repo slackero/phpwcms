@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -437,7 +437,7 @@ $(function(){
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 	?></div>
 
@@ -661,5 +661,3 @@ $(function(){
 
 	}
 	// Stop news form
-
-?>

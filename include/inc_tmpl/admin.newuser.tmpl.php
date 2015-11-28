@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -40,7 +40,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 		$set_user_fe 	= 2;
 	}
 	$send_verification 	= isset($_POST["verification_email"]) ? 1 : 0;
-	if(isEmpty($new_login)) {
+	if(str_empty($new_login)) {
 		$user_err = $BL['be_admin_usr_err2']."\n";
 	} else {
 		$sql = "SELECT COUNT(*) AS anzahl FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."'";
@@ -51,7 +51,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 			mysql_free_result($result);
 		}
 	}
-	if(isEmpty($new_password)) $user_err .= $BL['be_admin_usr_err3']."\n";
+	if(str_empty($new_password)) $user_err .= $BL['be_admin_usr_err3']."\n";
 	if(!is_valid_email($new_email) && $send_verification) $user_err .= $BL['be_admin_usr_err4']."\n";
 	if(empty($user_err)) { //Insert new User
 		$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
