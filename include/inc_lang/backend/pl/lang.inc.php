@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.7.9 (2015/05/12, r538) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.0 (2015/11/25, r541) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -211,6 +211,9 @@ $BL['be_fprivup_err3']          = 'Błąd w trakcie wgrywania plików';
 $BL['be_fprivup_err4']          = 'Błąd podczas tworzenia ktalogu użytkownika.';
 $BL['be_fprivup_err5']          = 'miniaturki nie istnieją';
 $BL['be_fprivup_err6']          = 'Proszę nie próbować ponownie - To jest błąd serwera! Skontakuj się ze swoim <a href="mailto:{VAL}">administratorem</a> tak szybko jak to możliwe!';
+$BL['be_fprivup_err7']          = 'Ze względów bezpieczeństwa plik %s nie może być przeesłane.';
+$BL['be_fprivup_err8']          = 'Plik bez rozszerzenia %s nie jest dozwolony do przesłania. Dopuszczalne rozszerzenia to: %s.';
+$BL['be_fprivup_err9']          = 'Plik bez rozszerzenia nie jest dozwolony do przesłania. Dopuszczalne rozszerzenia to: %s.';
 $BL['be_fprivup_title']         = 'wgrywanie pliki';
 $BL['be_fprivup_button']        = 'wgraj pliki';
 $BL['be_fprivup_upload']        = 'wgraj';
@@ -552,7 +555,7 @@ $BL['be_cnt_subscription']       = 'subskrypcja';
 $BL['be_cnt_labelemail']         = 'etykieta&nbsp;email';
 $BL['be_cnt_tablealign']         = 'wyrównanie&nbsp;tabeli';
 $BL['be_cnt_labelname']          = 'nazwa&nbsp;etykiety';
-$BL['be_cnt_labelsubsc']         = 'subskr.&nbsp;etykiety';
+$BL['be_cnt_labelsubsc']         = 'etykieta&nbspsubskr.;';
 $BL['be_cnt_allsubsc']           = 'wszyscy&nbsp;subskr.';
 $BL['be_cnt_default']            = 'domyślny';
 $BL['be_cnt_left']               = 'lewo';
@@ -579,8 +582,8 @@ $BL['be_cnt_target2']            = 'w główenj ramce okna';
 $BL['be_cnt_target3']            = 'w tym samym oknie';
 $BL['be_cnt_target4']            = 'w tej samej ramce lub oknie';
 $BL['be_cnt_bullet']             = 'lista (jako tablica)';
-$BL['be_cnt_ullist']                  = 'lista';
-$BL['be_cnt_ullist_desc']          = '~ = 1szy poziom, &nbsp; ~~ = 2gi poziom, &nbsp; itd.';
+$BL['be_cnt_ullist']             = 'lista';
+$BL['be_cnt_ullist_desc']        = '~ = 1szy poziom, &nbsp; ~~ = 2gi poziom, &nbsp; itd.';
 $BL['be_cnt_linklist']           = 'lista odnośników';
 $BL['be_cnt_plainhtml']          = 'czysty html';
 $BL['be_cnt_files']              = 'pliki';
@@ -641,7 +644,7 @@ $BL['be_cnt_align']              = 'wyrównanie';
 $BL['be_cnt_searchformtext']     = 'Wstaw swoje komunikaty gdy użytkownik otworzy strone wyszukiwarki lub gdy nie ma rezultatów.';
 $BL['be_cnt_intro']              = 'nagłówek';
 $BL['be_cnt_noresult']           = 'brak&nbsp; rezultatów';
-$BL['be_cnt_search_default_type']       = 'default search type';
+$BL['be_cnt_search_default_type']       = 'domyślny typ wyszukiwania';
 
 // added: 02-01-2004
 $BL['be_admin_page_disable']    = 'wyłączone';
@@ -665,8 +668,8 @@ $BL['be_cnt_sitecurrent']    = 'obecny poziom struktury';
 
 // added: 24-03-2004
 $BL['be_subnav_admin_starttext']    = 'Tekst na stronie startowej';
-$BL['be_ctype_ecard']            = 'kartka elektroniczna';
-$BL['be_ctype_blog']            = 'blog';
+$BL['be_ctype_ecard']               = 'kartka elektroniczna';
+$BL['be_ctype_blog']                = 'blog';
 $BL['be_cnt_ecardtext']             = 'Tytuł/kartka elektroniczna';
 $BL['be_cnt_ecardtmpl']             = 'Szablon wiadomości';
 $BL['be_cnt_ecard_image']           = 'Obrazek kartki';
@@ -694,7 +697,7 @@ $BL['be_cnt_guestbook_list']        = 'wpisów';
 $BL['be_cnt_guestbook_perpage']        = 'na&nbsp;stronę';
 $BL['be_cnt_guestbook_form']        = 'formularz';
 $BL['be_cnt_guestbook_signed']        = 'podpisane';
-$BL['be_cnt_guestbook_nav']        = 'nawig';
+$BL['be_cnt_guestbook_nav']        = 'nawig.';
 $BL['be_cnt_guestbook_before']        = 'przed';
 $BL['be_cnt_guestbook_after']        = 'po';
 $BL['be_cnt_guestbook_entry']        = 'wpis';
@@ -735,7 +738,7 @@ $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:
 $BL['be_newsletter_to']                 = 'Odbiorcy';
 $BL['be_newsletter_ready']              = 'Wysyłanie nowości: zakończono';
 $BL['be_newsletter_readyfailed']        = 'Nie udało się wysłać nowości do';
-$BL['be_subnav_msg_subscribers']        = 'Subskrynenci nowości';
+$BL['be_subnav_msg_subscribers']        = 'Subskrybenci nowości';
 
 // added: 20-04-2004
 $BL['be_ctype_sitemap']            = 'Mapa witryny';
@@ -863,7 +866,7 @@ $BL['be_date_month']    = 'miesiąc';
 $BL['be_date_months']   = 'miesiące';
 $BL['be_off']           = 'wyłącz';
 $BL['be_on']            = 'włącz';
-$BL['be_cache']         = 'cache';
+$BL['be_cache']         = 'pamięć podręczna';
 $BL['be_cache_timeout'] = 'czas wygaśn.';
 
 // added: 13-12-2004
@@ -1011,7 +1014,7 @@ $BL['be_admin_keyword_del']    = 'usuń SŁOWO KLUCZOWE';
 $BL['be_admin_keyword_delmsg']    = 'Rzeczywiście chcesz\nto usunąć SŁOWO KLUCZOWE?';
 $BL['be_admin_keyword_add']    = 'dodaj SŁOWO KLUCZOWE';
 
-$BL['be_cnt_transparent'] = 'Flash transparent';
+$BL['be_cnt_transparent'] = 'Flash przeźroczysty';
 
 
 // added: 02-04-2006
@@ -1367,7 +1370,7 @@ $BL['be_locked']            = 'zablokowane';
 $BL['be_n/a']                = 'n/a';
 $BL['be_opengraph_support']        = 'Zezwalaj na Dzielenie się z innymi';
 $BL['be_player_volume']            = 'Głośność';
-$BL['be_player_volume_muted']        = 'wyciszone';
+$BL['be_player_volume_muted']      = 'wyciszone';
 $BL['be_keyword']            = 'Słowo kluczowe';
 $BL['be_tag']                = 'znacznik';
 
@@ -1376,12 +1379,12 @@ $BL['be_system_container_norender']    = 'bez regularnego renderowania serwisu';
 $BL['be_custom_scriptlogic']        = 'zdefiniowany przez użytkownika (skrypt logiczny)';
 $BL['be_flush_image_cache']        = 'opróżnij pamięć podręczną grafik';
 
-$BL['be_caption_alt']            = 'poprz. atr.';
-$BL['be_caption_title']            = 'tytuł atr.';
-$BL['be_caption_file_imagesize']    = 'WxHxC <em>(jeżeli obraz)</em>';
-$BL['be_caption_file_title']        = 'tytuł pliku';
+$BL['be_caption_alt']             = 'poprz. atr.';
+$BL['be_caption_title']           = 'tytuł atr.';
+$BL['be_caption_file_imagesize']  = 'WxHxC <em>(jeżeli obraz)</em>';
+$BL['be_caption_file_title']    = 'tytuł pliku';
 $BL['be_caption_descr.']        = 'opis';
-$BL['be_display_html5_only']        = 'tylko HTML5';
+$BL['be_display_html5_only']    = 'tylko HTML5';
 $BL['be_audio_only']            = 'tylko audio';
 
 $BL['be_filter']		= 'filtr';
@@ -1390,4 +1393,8 @@ $BL['be_filter_not_selected']	= 'Nie wybrano kategorii';
 $BL['be_empty_search_result']	= 'Wyszukiwanie nie przyniosło wyników.';
 $BL['confirm_cp_tab_warning']	= 'Podrozdział nie ma tytułu i nie jest przypisany żaden numer.Zaznaczenie zostanie utracone, podczas zapisu lub aktualizacji.';
 
+$BL['be_canonical']		= 'link kanoniczny';
+$BL['be_breadcrumb']		= 'zachowanie nawigacyjne wyświetlania';
+$BL['be_breadcrumb_nothidden']	= 'widoczne, jeśli poziom jest ukryty';
+$BL['be_breadcrumb_nolink']	= 'nie ma linku';
 ?>
