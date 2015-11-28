@@ -100,7 +100,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 			mysql_free_result($result);
 		}
 		if(!$read_done) {
-			headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2");
+			headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2');
 		}
 
 
@@ -428,7 +428,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				_dbSaveCategories($article["article_keyword"], 'article', $article["article_id"], ',');
 
 				$update = isset($_POST['updatesubmit']) ? '&aktion=1' : '';
-				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
 			}
 
 		} else {
@@ -602,7 +602,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 							change_articledate($content["aid"]); //update article date too
 							update_cache(); // set cache timeout = 0
 							if(!empty($_POST['SubmitClose'])) {
-								headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&id=".$content["aid"]);
+								headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$content["aid"]);
 							}
 						}
 					} else {
@@ -636,9 +636,9 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 							if(!empty($_POST['teaser_filter_category_by_tags'])) {
 								$_SESSION['teaser_filter_category_by_tags'] = true;
 							}
-							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$content["aid"]."&acid=".$content["id"]);
+							headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&aktion=2&id='.$content["aid"]."&acid=".$content["id"]);
 						} else {
-							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&id=".$content["aid"]);
+							headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$content["aid"]);
 						}
 					}
 				} //end update/insert

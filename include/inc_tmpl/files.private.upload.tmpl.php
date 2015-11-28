@@ -183,7 +183,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 				_dbSaveCategories($file_tags, 'file', $new_fileId, ',');
 
 				//after successful upload go back to clear post (form) var
-				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0&uploaded=1");
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0&uploaded=1');
 
 			} else {
 
@@ -443,7 +443,6 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 </table>
 </form>
 <script type="text/javascript">
-<!--
 
 $(function(){
 
@@ -489,5 +488,4 @@ $(function(){
 
 });
 
-//-->
 </script>

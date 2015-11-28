@@ -372,6 +372,9 @@ if($action == 'edit') {
 			$plugin['data']['shopprod_caption']		= array();
 			$plugin['data']['shopprod_filecaption']	= array();
 			$plugin['data']['shopprod_url']			= isset($plugin['data']['shopprod_var']['url']) ? $plugin['data']['shopprod_var']['url'] : '';
+			$plugin['data']['shopprod_unit']		= isset($plugin['data']['shopprod_unit']) ? $plugin['data']['shopprod_unit'] : '';
+			$plugin['data']['shopprod_opengraph']	= empty($plugin['data']['shopprod_opengraph']) ? 0 : 1;
+			$plugin['data']['shopprod_overwrite_meta']	= empty($plugin['data']['shopprod_overwrite_meta']) ? 0 : 1;
 
 		} else {
 			headerRedirect( shop_url('controller=prod', '') );

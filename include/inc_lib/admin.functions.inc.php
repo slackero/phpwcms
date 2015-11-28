@@ -718,7 +718,7 @@ function update_404redirect() {
 		if($result) {
 			if($data['data']['active'] == 9) {
 				set_status_message(str_replace('{ID}', $data['data']['rid'], $GLOBALS['BL']['be_action_deleted']), 'success');
-				headerRedirect('phpwcms.php?do=admin&p=14');
+				headerRedirect('phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=14');
 			} else {
 				set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');
 			}

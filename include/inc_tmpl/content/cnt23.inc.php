@@ -452,7 +452,7 @@ if($content["id"]) {
 	if($entries > 0) {
 
 		echo '<div style="float:right;padding-right:10px;">';
-		echo "<button onclick=\"window.open('include/inc_act/act_export.php?action=exportformresult&amp;fid=";
+		echo "<button onclick=\"window.open('include/inc_act/act_export.php?".CSRF_GET_TOKEN."&amp;action=exportformresult&amp;fid=";
 		echo $content['id']."', 'Zweitfenster');\" class=\"f11b\" style=\"padding: 2px 6px 2px 4px\">";
 		echo '<img src="img/icons/small_icon_xls.gif" alt="Excel Sheet" style="position: relative; top:1;" />&nbsp;';
 		echo $BL['be_cnt_download'].'<span style="font-weight:normal;">&nbsp;('.$entries.')</span></button></div>';

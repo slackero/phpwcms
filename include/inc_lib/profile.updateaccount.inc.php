@@ -119,7 +119,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 
 			set_language_cookie();
 
-			headerRedirect(PHPWCMS_URL."phpwcms.php?do=profile");
+			headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=profile');
 		}
 	}
 } //Ende Prüfung Gastzugang

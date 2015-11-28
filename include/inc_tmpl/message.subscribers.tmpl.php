@@ -43,7 +43,7 @@ if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
 			}
 		}
 	}
-	headerRedirect(PHPWCMS_URL.'phpwcms.php?do=messages&p=4');
+	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=4');
 }
 
 
@@ -69,7 +69,7 @@ echo '<div class="title" style="margin-bottom:10px">'.$BL['be_subnav_msg_subscri
 	&nbsp;
 	<a href="phpwcms.php?do=messages&amp;p=4&amp;import=1"><img src="img/famfamfam/table_add.gif" alt="Import" border="0" /><span><?php echo $BL['be_newsletter_newimport'] ?></span></a>
 	&nbsp;
-	<a href="include/inc_act/act_export.php?action=exportsubscriber" target="_blank" onclick="return confirm('Export all subscribers based on current selection?');"><img src="img/famfamfam/icon_download.gif" alt="Download" border="0" /><span><?php echo $BL['be_cnt_export_selection'] ?></span></a>
+	<a href="include/inc_act/act_export.php?<?php echo CSRF_GET_TOKEN; ?>&amp;action=exportsubscriber" target="_blank" onclick="return confirm('Export all subscribers based on current selection?');"><img src="img/famfamfam/icon_download.gif" alt="Download" border="0" /><span><?php echo $BL['be_cnt_export_selection'] ?></span></a>
 </div>
 
 

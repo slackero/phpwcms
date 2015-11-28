@@ -109,7 +109,7 @@ $keyword["id"] = 0;
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating keyword")) {
 						if(!$keyword["id"]) $keyword["id"] = mysql_insert_id($db);
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=5");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=5');
 					}
 				}
 

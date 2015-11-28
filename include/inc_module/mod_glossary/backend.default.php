@@ -41,7 +41,7 @@ if(isset($phpwcms['modules'][$module]['path']) && file_exists($phpwcms['modules'
 
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
-	define('GLOSSARY_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
+	define('GLOSSARY_HREF', 'phpwcms.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
 	$glossary = array();
 
 

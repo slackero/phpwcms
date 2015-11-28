@@ -18,6 +18,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
+validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if($_SESSION["wcs_user_admin"] == 1) {
@@ -44,4 +45,6 @@ if($_SESSION["wcs_user_admin"] == 1) {
 	}
 }
 
-headerRedirect($_SESSION['REFERER_URL']);
+$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+
+headerRedirect($ref);

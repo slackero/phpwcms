@@ -59,7 +59,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.", ".
 					$dir_sort.")";
 			if($result = mysql_query($sql, $db) or die ("error while writing new dir info")) {
-				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
 			}
 		}
 	}

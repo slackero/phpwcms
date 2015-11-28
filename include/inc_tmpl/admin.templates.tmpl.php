@@ -155,7 +155,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 						"WHERE template_id != ".$template["id"], $db);
 		}
 		update_cache();
-		headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=11&s=".$template["id"]);
+		headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=11&s='.$template["id"]);
 	}
 
 	if($template["id"]) {

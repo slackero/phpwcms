@@ -20,12 +20,13 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
+validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if(empty($_SESSION['REFERER_URL'])) {
 	die('Goood bye.');
 } else {
-	$ref = $_SESSION['REFERER_URL'];
+	$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
 }
 
 if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
@@ -213,7 +214,6 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 //diverse Aktionen
 $do = explode("|", isset($_GET["do"]) ? $_GET["do"] : '');
 
-
 switch(intval($do[0])) {
 
 	case 1:	//Einfügen in
@@ -346,7 +346,6 @@ switch(intval($do[0])) {
 	break;
 //31-03-2005 Fernando Batista  end-------------------
 
-
 	case 9: //Löschen des Levels
 	$do[1] = intval($do[1]); //delete ID
 	if($do[1]) {
@@ -414,9 +413,8 @@ _setConfig('structure_array_vmode_all', false, 'frontend_render', 1);
 _setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
 _setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
 
-
 if(isset($_POST['SubmitClose'])) {
-	headerRedirect(PHPWCMS_URL.'phpwcms.php?do=admin&p=6');
+	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=6&'.get_token_get_string('csrftoken'));
 } else {
 	headerRedirect($ref);
 }
@@ -497,7 +495,7 @@ function copy_article_to_level($do, $dbcon) {
 
 			if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open' && $article_insert_id) {
 
-				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&id='.$article_insert_id);
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$article_insert_id);
 
 			}
 

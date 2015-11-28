@@ -61,7 +61,7 @@ if (!defined('PHPWCMS_ROOT')) {
 						$sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
 					}
 			if($result = mysql_query($sql, $db)) {
-				//headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
+				//headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
 			}
 		}
 

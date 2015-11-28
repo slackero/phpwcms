@@ -168,7 +168,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					$result = $group["id"] ? _dbUpdate('phpwcms_usergroup', $data, 'group_id='.$group["id"]) : _dbInsert('phpwcms_usergroup', $data);
 
 					if(isset($result['AFFECTED_ROWS']) || isset($result['INSERT_ID'])) {
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=1");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=1');
 					} else {
 						echo mysql_error();
 					}

@@ -41,7 +41,7 @@ if(isset($_POST["subscription_id"])) {
 	// update or insert data entry
 	mysql_query($sql, $db) or die("error while updating or inserting subscription datas");
 	if(!$subscription["id"]) $subscription["id"] = mysql_insert_id($db);
-	headerRedirect(PHPWCMS_URL."phpwcms.php?do=messages&p=2&s=".$subscription["id"]);
+	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=2&s='.$subscription["id"]);
 }
 
 if($subscription["id"]) {

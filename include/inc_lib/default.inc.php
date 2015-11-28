@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_INCLUDE_CHECK')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -147,8 +147,8 @@ define ('IS_PHP5',					IS_PHP523);
 define ('IS_PHP540',				version_compare(PHP_VERSION, '5.4.0', '>='));
 
 // Mime-Type definitions
-require_once(PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php');
-require_once(PHPWCMS_ROOT.'/include/inc_lib/revision/revision.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/revision/revision.php';
 
 phpwcms_getUserAgent();
 define('BROWSER_NAME',				$phpwcms['USER_AGENT']['agent']);
@@ -1147,7 +1147,11 @@ function init_frontend_edit() {
 		define('FE_EDIT_LINK', false);
 	} else {
 		define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] === 1 ? 2 : 1);
-		define('FE_EDIT_LINK', empty($GLOBALS['phpwcms']['frontend_edit']) ? false : true);
+		if(empty($GLOBALS['phpwcms']['frontend_edit'])) {
+			define('FE_EDIT_LINK', false);
+		} else {
+			define('FE_EDIT_LINK', get_token_get_string('csrftoken'));
+		}
 	}
 }
 

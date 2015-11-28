@@ -17,12 +17,13 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
+validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if(empty($_SESSION['REFERER_URL'])) {
 	die('Goood bye.');
 } else {
-	$ref = $_SESSION['REFERER_URL'];
+	$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
 }
 
 if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat

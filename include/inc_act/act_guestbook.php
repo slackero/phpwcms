@@ -11,7 +11,6 @@
 
 session_start();
 $phpwcms = array();
-$ref = $_SESSION['REFERER_URL'];
 
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
@@ -19,7 +18,12 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
+validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+
+$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+
+headerRedirect($ref);
 
 if(isset($_GET['del']) && intval($_GET['del'])) {
 
@@ -69,7 +73,7 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
 <title>phpwcms Backend Guestbook</title>
 <style type="text/css">
 body,td,th {
@@ -121,11 +125,12 @@ if($result = mysql_query($sql, $db)) {
 	if(!$edit_ID) {
 		while($row = mysql_fetch_assoc($result)) {
 
+			$action_basis = get_token_get_string('csrftoken').'&amp;cid='.$row['guestbook_cid'].'&amp;';
 
 ?>
   <tr bgcolor="#E7E8EB">
     <td><strong><?php echo date('Y-m-d H:i', intval($row['guestbook_created'])).' | IP: <a href="http://www.dnsstuff.com/tools/ptr.ch?ip='.$row['guestbook_ip'].'" target="_blank">'.$row['guestbook_ip'].'</a> | <a href="http://www.dnsstuff.com/tools/whois.ch?ip='.$row['guestbook_ip'].'" target="_blank">WHOIS</a>' ?></strong></td>
-    <td align="right"><a href="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self"><img src="../../img/button/edit_22x13.gif" width="22" height="13" border="0" alt="edit guestbook entry" /></a><img src="../../img/leer.gif" alt="" width="2" height="1" /><a href="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;del='.$row['guestbook_id'] ?>" target="_self" onclick="return confirm('Do you really want to \ndelete this guestbook entry?');"><img src="../../img/button/trash_13x13_1.gif" alt="delete entry" width="13" height="13" border="0" /></a></td>
+    <td align="right"><a href="act_guestbook.php?<?php echo $action_basis.'edit='.$row['guestbook_id'] ?>" target="_self"><img src="../../img/button/edit_22x13.gif" width="22" height="13" border="0" alt="edit guestbook entry" /></a><img src="../../img/leer.gif" alt="" width="2" height="1" /><a href="act_guestbook.php?<?php echo $action_basis.'del='.$row['guestbook_id'] ?>" target="_self" onclick="return confirm('Do you really want to \ndelete this guestbook entry?');"><img src="../../img/button/trash_13x13_1.gif" alt="delete entry" width="13" height="13" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="2"><?php
@@ -155,7 +160,7 @@ if($result = mysql_query($sql, $db)) {
 		while($row = mysql_fetch_assoc($result)) {
 ?>
   <tr bgcolor="#E7E8EB">
-  	<td>[<a href="act_guestbook.php?cid=<?php echo $row['guestbook_cid'] ?>" target="_self">close</a>]<br /><img src="../../img/leer.gif" alt="" width="1" height="2" /></td>
+  	<td>[<a href="act_guestbook.php?<?php echo get_token_get_string('csrftoken'); ?>&amp;cid=<?php echo $row['guestbook_cid'] ?>" target="_self">close</a>]<br /><img src="../../img/leer.gif" alt="" width="1" height="2" /></td>
 	<td><strong><?php echo date('Y-m-d H:i', intval($row['guestbook_created'])).' | IP: <a href="http://www.dnsstuff.com/tools/ptr.ch?ip='.$row['guestbook_ip'].'" target="_blank">'.$row['guestbook_ip'].'</a> | <a href="http://www.dnsstuff.com/tools/whois.ch?ip='.$row['guestbook_ip'].'" target="_blank">WHOIS</a>' ?></strong></td>
   </tr>
   <tr><td colspan="2"><img src="../../img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -169,23 +174,27 @@ if($result = mysql_query($sql, $db)) {
 
   }
 
+	$token_name = generate_token_name();
+	$token_value = generate_session_token($token_name);
+
   ?>
-  <form name="editguestbook" action="act_guestbook.php?<?php echo 'cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
+  <form name="editguestbook" action="act_guestbook.php?<?php echo get_token_get_string('csrftoken').'&amp;cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
+
   <tr>
-  <td>name:&nbsp;</td>
-  <td><input name="gbname" type="text" id="gbname" class="width350" value="<?php echo htmlspecialchars($row['guestbook_name']) ?>" /></td>
+	  <td>name:&nbsp;</td>
+	  <td><input name="gbname" type="text" id="gbname" class="width350" value="<?php echo htmlspecialchars($row['guestbook_name']) ?>" /></td>
   </tr>
   <tr>
-  <td>email:&nbsp;</td>
-  <td><input name="gbemail" type="text" id="gbemail" class="width350" value="<?php echo htmlspecialchars($row['guestbook_email']) ?>" /></td>
+	  <td>email:&nbsp;</td>
+	  <td><input name="gbemail" type="text" id="gbemail" class="width350" value="<?php echo htmlspecialchars($row['guestbook_email']) ?>" /></td>
   </tr>
   <tr>
-  <td>URL:&nbsp;</td>
-  <td><input name="gburl" type="text" id="gburl" class="width350" value="<?php echo htmlspecialchars($row['guestbook_url']) ?>" /></td>
+	  <td>URL:&nbsp;</td>
+	  <td><input name="gburl" type="text" id="gburl" class="width350" value="<?php echo htmlspecialchars($row['guestbook_url']) ?>" /></td>
   </tr>
   <tr>
-  <td valign="top">msg:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
-  <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
+	  <td valign="top">msg:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
+	  <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
   </tr>
   <tr>
     <td valign="top" class="v10">display:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
@@ -195,9 +204,12 @@ if($result = mysql_query($sql, $db)) {
   </tr>
   <tr>
   <td><img src="../../img/leer.gif" alt="" width="1" height="30" /><input name="gbcid" type="hidden" value="<?php echo intval($row['guestbook_cid']) ?>" /><input name="gbid" type="hidden" value="<?php echo intval($row['guestbook_id']) ?>" /></td>
-  <td valign="bottom">
-  	<input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" />
-    <input name="gbcancel" type="button" id="gbcancel" value="close" onclick="location.href='act_guestbook.php?cid=<?php echo $row['guestbook_cid'] ?>';" /></td>
+	  <td valign="bottom">
+		  <input type="hidden" name="csrf_token_name" value="<?php echo $token_name; ?>" />
+		<input type="hidden" name="csrf_token_value" value="<?php echo $token_value; ?>" />
+	  	<input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" />
+	    <input name="gbcancel" type="button" id="gbcancel" value="close" onclick="location.href='act_guestbook.php?<?php echo get_token_get_string('csrftoken'); ?>&amp;cid=<?php echo $row['guestbook_cid']; ?>';" />
+    </td>
   </tr>
   </form>
 <?php

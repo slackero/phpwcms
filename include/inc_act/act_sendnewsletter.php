@@ -17,6 +17,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
+validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
@@ -132,13 +133,7 @@ if(!$newsletter) {
 		}
 		$recipient = _dbQuery($sql);
 
-
-	} else {
-
-		// do nothing
-
 	}
-
 
 	if(count($recipient)) {
 
@@ -251,7 +246,7 @@ if(!$newsletter) {
 				updateSentDate($newsletter["newsletter_id"]);
 				echo '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
 				echo 'function loopIt() { self.location.href="act_sendnewsletter.php?';
-				echo 'newsletter_id='.$newsletter["newsletter_id"].'&';
+				echo 'newsletter_id='.$newsletter["newsletter_id"].'&'.get_token_get_string('csrftoken').'&';
 				echo 'send_confirm=confirmed&loop='.$loop.'&pause='.$pause.'"; }'.LF;
 				echo 'window.setTimeout("loopIt()", '. ($pause * 1000) .')'.LF;
 				echo LF.SCRIPT_CDATA_END.LF.'</script></body></html>';

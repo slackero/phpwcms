@@ -17,6 +17,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
+validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 $chat_message = clean_slweg(trim($_POST['chatmsg']));
@@ -27,4 +28,4 @@ if($chat_message) {
 	_dbQuery($sql, 'INSERT');
 }
 
-headerRedirect(PHPWCMS_URL."phpwcms.php?do=chat&p=1&l=".$chatlist);
+headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=chat&p=1&l='.$chatlist.'&'.get_token_get_string('csrftoken'));

@@ -37,8 +37,8 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 
 	// put translation back to have easier access to it - use it as relation
 	$BLM =& $BL['modules'][$module];
-	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
-	define('MODULE_HREF_DECODE', PHPWCMS_URL . 'phpwcms.php?do=modules&module='.$module);
+	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
+	define('MODULE_HREF_DECODE', PHPWCMS_URL . 'phpwcms.php?'.get_token_get_string('csrftoken').'&do=modules&module='.$module);
 	define('MODULE_KEY', 'feedimport');
 
 	require_once($phpwcms['modules'][$module]['path'].'inc/functions.inc.php');

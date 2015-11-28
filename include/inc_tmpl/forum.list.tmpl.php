@@ -97,7 +97,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 		// update or insert data entry
 		mysql_query($sql, $db) or die("error while updating or inserting forum data");
 		if(!$forum["id"]) $forum["id"] = mysql_insert_id($db);
-		headerRedirect(PHPWCMS_URL.'phpwcms.php?'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
+		headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
 	}
 
 	if($forum["id"]) {
@@ -116,7 +116,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 
 	// show form
 ?>
-<form action="phpwcms.php?<?php echo  build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$forum["id"]) ?>" method="post" name="forums" target="_self">
+<form action="phpwcms.php?<?php echo build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$forum["id"]) ?>" method="post" name="forums" target="_self">
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 	  <td colspan="2" class="title"><?php echo  $BL['be_forum_titleedit'].": ".( $forum["id"] ? $forum["title"] : $BL['be_newsletter_new']); ?></td>

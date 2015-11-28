@@ -202,7 +202,7 @@ if(!isset($_GET["s"])) {
 						"WHERE pagelayout_id != ".$pagelayout["id"], $db);
 		}
 		update_cache();
-		headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=8&s=".$pagelayout["id"]);
+		headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=8&s='.$pagelayout["id"]);
 
 	}
 

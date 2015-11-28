@@ -1389,5 +1389,10 @@ $BL['be_breadcrumb']					= 'Breadcrumb Anzeigeverhalten';
 $BL['be_breadcrumb_nothidden']			= 'sichtbar, wenn Seitenebene versteckt';
 $BL['be_breadcrumb_nolink']				= 'nicht verlinken';
 
+$BL['CSRF_POST_INVALID'] = 'Keine POST <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fparamter gefunden. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_POST_FAILED'] = 'Die POST <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_GET_INVALID'] = 'Keine GET <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fparamter gefunden. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_GET_FAILED'] = 'Die GET <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+
 
 ?>

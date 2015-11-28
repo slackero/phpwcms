@@ -21,6 +21,11 @@ $phpwcms = array();
 require '../../include/config/conf.inc.php';
 require '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+
+if(!validate_csrf_get_token('csrftoken')) {
+	die('{"success":false}');
+}
+
 require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require PHPWCMS_ROOT.'/include/inc_js/uploader/fileuploader.php';
 
@@ -124,4 +129,4 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 }
 
 // to pass data through iframe you will need to encode all html tags
-echo html(json_encode($result), ENT_NOQUOTES);
+echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);

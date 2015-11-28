@@ -17,17 +17,17 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
 // ----------------------------------------------------------------
 
 if(PHPWCMS_CHARSET == 'utf-8') {
-	require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.utf-8.php');
+	require_once PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.utf-8.php';
 } else {
-	require_once (PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.php');
+	require_once PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.php';
 }
-require_once (PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/htmlfilter.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/rfc822.php');
+require_once PHPWCMS_ROOT.'/include/inc_lib/charset_helper.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_ext/htmlfilter.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_ext/rfc822.php';
 
-function isEmpty($string) {
-	return ($string == NULL || $string == '') ? 1 : 0;
+function str_empty($string) {
+	return ($string === NULL || $string === '') ? true : false;
 }
 
 function slweg($text='', $maxlen=0, $trim=true) {
@@ -461,7 +461,7 @@ function is_valid_email($email, $options=array()) {
 function idn_encode($string='') {
 
 	if(IS_PHP5) {
-		require_once (PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php');
+		require_once PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php';
 	}
 
 	// convert to utf-8 first
@@ -1301,7 +1301,7 @@ function makeCharsetConversion($string='', $in_charset='utf-8', $out_charset='ut
 		$phpwcms['convert_charsets'] = array();
 	}
 	if(!isset($phpwcms['convert_charsets'][$convertInOut])) {
-		require_once (PHPWCMS_ROOT.'/include/inc_ext/ConvertCharset/ConvertCharset.class.php');
+		require_once PHPWCMS_ROOT.'/include/inc_ext/ConvertCharset/ConvertCharset.class.php';
 		$phpwcms['convert_charsets'][$convertInOut] = new ConvertCharset($in_charset, $out_charset, $entityEncode);
 	}
 
@@ -1766,7 +1766,7 @@ function sanitize_multiple_emails($string) {
 }
 
 function checkLogin($mode='REDIRECT') {
-	$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_in=0, logged_change='".time()."' ";
+	$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_in=0, logged_change="._dbEscape(time())." ";
 	$sql .= "WHERE logged_in=1 AND (".time()."-logged_change) > ".intval($GLOBALS['phpwcms']["max_time"]);
 	_dbQuery($sql, 'UPDATE');
 
@@ -1774,9 +1774,10 @@ function checkLogin($mode='REDIRECT') {
 
 	if(empty($_SESSION["wcs_user"])) {
 		@session_destroy();
-		$ref_url = '';
 		if(!empty($_SERVER['QUERY_STRING'])) {
 			$ref_url = '?ref='.rawurlencode(PHPWCMS_URL.'phpwcms.php?'.xss_clean($_SERVER['QUERY_STRING']));
+		} else {
+			$ref_url = '';
 		}
 		if($mode == 'REDIRECT') {
 
@@ -1786,7 +1787,7 @@ function checkLogin($mode='REDIRECT') {
 			$sql .= '( '.time().' - logged_change ) < 3600';
 			$ref_url = _dbCount($sql) > 0 ? get_login_file().$ref_url : '';
 
-			headerRedirect(PHPWCMS_URL . $ref_url);
+			headerRedirect(PHPWCMS_URL . $ref_url, 401);
 
 		} else {
 			return false;
@@ -1794,6 +1795,29 @@ function checkLogin($mode='REDIRECT') {
 	}
 
 	return true;
+}
+function logout_user($reason='', $type='') {
+
+	$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET logged_change="._dbEscape(time()).", logged_in=0 ";
+	$sql .= "WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+	_dbQuery($sql, 'UPDATE');
+
+	$_SESSION = array();
+	@session_destroy();
+
+	$login_url = PHPWCMS_URL.get_login_file();
+	$get_parameter = array();
+	if($reason) {
+		$get_parameter[] = 'reason='.rawurlencode($reason);
+	}
+	if($type) {
+		$get_parameter[] = 'type='.rawurlencode($type);
+	}
+	if(count($get_parameter)) {
+		$login_url .= '?'.implode('&', $get_parameter);
+	}
+	headerRedirect($login_url, 401);
+
 }
 
 /**
@@ -2087,5 +2111,3 @@ function dec_num_count($value) {
 	}
 	return strlen($value) - strrpos($value, '.') - 1;
 }
-
-?>

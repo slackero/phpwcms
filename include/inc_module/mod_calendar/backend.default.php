@@ -38,10 +38,9 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	// load special backend CSS
 	$BE['HEADER']['module_calendar.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/backend.calendar.css" rel="stylesheet" type="text/css" />';
 
-
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
-	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
+	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
 	$glossary = array();
 
 

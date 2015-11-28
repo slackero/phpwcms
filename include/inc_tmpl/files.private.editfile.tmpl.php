@@ -108,7 +108,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 			// store tags
 			_dbSaveCategories($file_tags, 'file', $file_id, ',');
 
-			//headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
+			//headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
 		} else {
 
 			$file_error["save_failed"] = 1;
@@ -478,5 +478,3 @@ $(function(){
 
 <?php
 }
-
-?>

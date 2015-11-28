@@ -70,7 +70,7 @@ if(isset($_GET["open"])) {
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating file category")) {
 						if(!$fcat["id"]) $fcat["id"] = mysql_insert_id($db);
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=7");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
 					}
 				}
 
@@ -178,7 +178,7 @@ if(isset($_GET["open"])) {
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating file key")) {
 						if(!$fkey["id"]) $fkey["id"] = mysql_insert_id($db);
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=7");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
 					}
 				}
 

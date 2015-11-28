@@ -1398,4 +1398,9 @@ $BL['be_breadcrumb']					= 'breadcrumb display behavior';
 $BL['be_breadcrumb_nothidden']			= 'visible if level is hidden';
 $BL['be_breadcrumb_nolink']				= 'do not link';
 
+$BL['CSRF_POST_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters found. For security reasons, the session was ended.';
+$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters failed. For security reasons, the session was ended.';
+$BL['CSRF_GET_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters found. For security reasons, the session was ended.';
+$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters failed. For security reasons, the session was ended.';
+
 ?>

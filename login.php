@@ -36,13 +36,13 @@ if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/con
 	endif;
 }
 
-require_once ($basepath.'/include/config/conf.inc.php');
-require_once ($basepath.'/include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lang/code.lang.inc.php');
+require_once $basepath.'/include/config/conf.inc.php';
+require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lang/code.lang.inc.php';
 
 $_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
 
@@ -65,6 +65,14 @@ if(!empty($_POST['ref_url'])) {
 	$ref_url = '';
 }
 
+if($_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value('csrftoken')) {
+	$csrf_error = true;
+} else {
+	$csrf_error = false;
+}
+
+define('LOGIN_TOKEN', generate_get_token('csrftoken'));
+
 // reset all inactive users
 $sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
 $sql .= "logged_in = 0, logged_change = '".time()."' ";
@@ -72,7 +80,7 @@ $sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($phpw
 mysql_query($sql, $db);
 
 //load default language EN
-require_once (PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
+require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
 //define language and check if language file is available
 if(isset($_COOKIE['phpwcmsBELang'])) {
@@ -102,7 +110,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 	//use custom lang if available -> was set in login.php
 	$BL['merge_lang_array'][0] = $BL['be_admin_optgroup_label'];
 	$BL['merge_lang_array'][1] = $BL['be_cnt_field'];
-	include_once (PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php');
+	include_once PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php';
 	$BL['be_admin_optgroup_label'] = array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
 	$BL['be_cnt_field'] = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
 }
@@ -126,7 +134,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 					aporeplace($wcs_user)."' AND usr_pass='".
 					aporeplace($wcs_pass)."' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
 
-	if($result = mysql_query($sql_query)) {
+	if(!$csrf_error && $result = mysql_query($sql_query)) {
 		if($row = mysql_fetch_assoc($result)) {
 			$_SESSION["wcs_user"]			= $wcs_user;
 			$_SESSION["wcs_user_name"] 		= ($row["usr_name"]) ? $row["usr_name"] : $wcs_user;
@@ -192,13 +200,27 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 		set_status_message('Welcome '.$wcs_user.'!');
 
 		if($ref_url) {
-			headerRedirect($ref_url.'&'.session_name().'='.session_id());
+
+			if(($token_position = strpos($ref_url, 'csrftoken')) !== false) {
+				$ref_url = substr_replace($ref_url, '', $token_position, 42);
+				$ref_url = str_replace('?&', '?', $ref_url);
+				$ref_url = str_replace('&&', '&', $ref_url);
+			}
+
+			$backend_redirect = $ref_url . '&';
+
 		} else {
-			headerRedirect(PHPWCMS_URL."phpwcms.php?". session_name().'='.session_id());
+
+			$backend_redirect = PHPWCMS_URL.'phpwcms.php?';
+
 		}
 
+		headerRedirect($backend_redirect . get_token_get_string('csrftoken') . '&' . session_name().'='.session_id());
+
 	} else {
+
 		$err = 1;
+
 	}
 
 } elseif(isset($_POST['json']) && intval($_POST['json']) != 1) {
@@ -206,6 +228,15 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 	$err = 1;
 
 }
+
+$reason_types = array(
+	'default' => 'alert-default',
+	'info' => 'alert-info',
+	'error' => 'alert-error',
+	'warning' => 'alert-warning',
+	'success' => 'alert-success',
+	'danger' => 'alert-danger'
+);
 
 ?><!DOCTYPE html>
 <html>
@@ -226,8 +257,25 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 	<h2><a href="index.php" target="_top"><img src="img/backend/phpwcms-signet-be.png" alt="phpwcms" style="margin:0 18px 12px 18px;border:0;" /></a></h2>
 
 	<div style="border-radius:15px;background:#fff;padding:15px;box-shadow:2px 2px 10px rgba(0,0,0,.25);">
+
+		<h1><?php echo $BL["login_text"]; ?></h1>
+
+<?php if(isset($_GET['reason'])): ?>
+		<div class="alert <?php echo $reason_types[ (isset($_GET['type']) && isset($reason_types[$_GET['type']])) ? $_GET['type'] : 'default' ]; ?>">
+			<?php if($_GET['reason'] === 'csrf-post-failed'): ?>
+				<?php echo $BL['CSRF_POST_FAILED']; ?>
+			<?php elseif($_GET['reason'] === 'csrf-post-invalid'): ?>
+				<?php echo $BL['CSRF_POST_INVALID']; ?>
+			<?php elseif($_GET['reason'] === 'csrf-get-failed'): ?>
+				<?php echo $BL['CSRF_GET_FAILED']; ?>
+			<?php elseif($_GET['reason'] === 'csrf-get-invalid'): ?>
+				<?php echo $BL['CSRF_GET_INVALID']; ?>
+			<?php endif; ?>
+		</div>
+<?php endif; ?>
+
 		<div id="loginFormArea">
-			<div class="error" style="font-weight:bold;padding:0 0 15px 0;font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo'];	?></div>
+			<div class="alert alert-danger" style="font-weight:bold;padding:0 0 15px 0;font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo'];	?></div>
 		</div>
 		<p style="padding: 0 3px 5px 3px;">
 			<strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
@@ -248,24 +296,23 @@ ob_start();
 <form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" onsubmit="return login(this);" autocomplete="off">
 <input type="hidden" name="json" id="json" value="0" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
-<input type="hidden" name="ref_url" value="<?php echo html_specialchars($ref_url) ?>" />
+<input type="hidden" name="ref_url" value="<?php echo html_specialchars($ref_url); ?>" />
+<input type="hidden" name="logintoken" value="<?php echo LOGIN_TOKEN; ?>" />
 <input name="form_aktion" type="hidden" id="form_aktion" value="login" />
 <?php
 
-	echo '<h1>'.$BL["login_text"].'</h1>';
-
 	if(file_exists(PHPWCMS_ROOT.'/setup')) {
-		echo '<div class="error" style="margin-top:10px;">'.$BL["setup_dir_exists"].'</div>';
+		echo '<div class="alert alert-warning">'.$BL["setup_dir_exists"].'</div>';
 	}
 	if(file_exists(PHPWCMS_ROOT.'/phpwcms_code_snippets')) {
-		echo '<div class="error" style="margin-top:10px;">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
+		echo '<div class="alert alert-danger">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
 	}
 
 	if(isset($_POST['json']) && $_POST['json'] == 2) {
 		$err = 0;
 	}
 
-	echo '<div class="error" style="margin-top:10px;font-weight:bold;'.($err ? '' : 'display:none;') . '" id="jserr">'.$BL["login_error"].'</div>';
+	echo '<div class="alert alert-danger"'.($err ? '' : ' style="display:none;"') . ' id="jserr">'.$BL["login_error"].'</div>';
 
 ?>
 	<table border="0" cellpadding="0" cellspacing="0" summary="Login Form" style="margin:15px 0 20px 10px">
