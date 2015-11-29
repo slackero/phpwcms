@@ -9,6 +9,14 @@
  *
  **/
 
+/**
+ * Set session var.
+ *
+ * @access public
+ * @param string $key
+ * @param mixed $data
+ * @return null|true
+ */
 function set_session_var($key, $data) {
 
 	if(isset($_SESSION) && is_string($key)) {
@@ -22,6 +30,15 @@ function set_session_var($key, $data) {
 	return null;
 }
 
+/**
+ * Get value of a session var.
+ * Returns $fallback if session is not set.
+ *
+ * @access public
+ * @param string $key
+ * @param mixed $fallback (default: null)
+ * @return mixed
+ */
 function get_session_var($key, $fallback=null) {
 
 	if(isset($_SESSION[$key])) {
@@ -33,6 +50,13 @@ function get_session_var($key, $fallback=null) {
 	return $fallback;
 }
 
+/**
+ * Unset session var.
+ *
+ * @access public
+ * @param string $key
+ * @return null
+ */
 function unset_session_var($key) {
 
 	if(isset($_SESSION[$key])) {
@@ -45,6 +69,13 @@ function unset_session_var($key) {
 	return null;
 }
 
+/**
+ * Generates a unique token name.
+ *
+ * @access public
+ * @param string $prefix (default: 'csrf')
+ * @return string
+ */
 function generate_token_name($prefix='csrf') {
 
 	return uniqid($prefix, true);
@@ -53,6 +84,15 @@ function generate_token_name($prefix='csrf') {
 
 /**
  * Generate a more short token with shorter value
+ */
+/**
+ * Generates a token with md5 based unique value.
+ * The token is registered as session var too.
+ * Generates a shorter token as recommend with GET parameters.
+ *
+ * @access public
+ * @param string $get_token_name (default: 'csrftoken')
+ * @return void
  */
 function generate_get_token($get_token_name='csrftoken') {
 
@@ -65,6 +105,14 @@ function generate_get_token($get_token_name='csrftoken') {
 
 }
 
+/**
+ * Get the token value.
+ * Returns empty string if token is not registered in the session.
+ *
+ * @access public
+ * @param string $get_token_name (default: 'csrftoken')
+ * @return mixed
+ */
 function get_token_get_value($get_token_name='csrftoken') {
 
 	$token_name = '_gettoken_'.$get_token_name;
@@ -72,12 +120,28 @@ function get_token_get_value($get_token_name='csrftoken') {
 
 }
 
+/**
+ * Get the token and token value formatted as GET parameter 'name=value'.
+ * Value part is empty string if token is not registered in the session 'name='.
+ *
+ * @access public
+ * @param string $get_token_name (default: 'csrftoken')
+ * @return string
+ */
 function get_token_get_string($get_token_name='csrftoken') {
 
 	return $get_token_name.'='.get_token_get_value($get_token_name);
 
 }
 
+/**
+ * Get the token and token value as array.
+ * Value part is empty string if token is not registered in the session 'name='.
+ *
+ * @access public
+ * @param string $get_token_name (default: 'csrftoken')
+ * @return array
+ */
 function get_token_get_array($get_token_name='csrftoken') {
 
 	return array(
@@ -87,6 +151,13 @@ function get_token_get_array($get_token_name='csrftoken') {
 
 }
 
+/**
+ * Generate a complex unique token and token value and store it in a session value.
+ *
+ * @access public
+ * @param string $unique_name
+ * @return string
+ */
 function generate_session_token($unique_name) {
 
 	if(function_exists('hash_algos') && in_array('sha512', hash_algos())) {
@@ -110,6 +181,13 @@ function generate_session_token($unique_name) {
 
 }
 
+/**
+ * Store a session key to the unique token cache.
+ *
+ * @access public
+ * @param string $unique_name
+ * @return void
+ */
 function set_cached_token($unique_name) {
 
 	if(!isset($_SESSION['cached_unique_tokens'])) {
@@ -120,12 +198,27 @@ function set_cached_token($unique_name) {
 
 }
 
+/**
+ * Unset in unique token cache.
+ *
+ * @access public
+ * @param string $unique_name
+ * @return void
+ */
 function unset_cached_token($unique_name) {
 
 	unset($_SESSION['cached_unique_tokens'][$unique_name]);
 
 }
 
+/**
+ * Validate the token.
+ *
+ * @access public
+ * @param string $unique_name
+ * @param string $token_value
+ * @return bool
+ */
 function validate_session_token($unique_name, $token_value) {
 
 	$token = get_session_var($unique_name);
@@ -151,7 +244,20 @@ function validate_session_token($unique_name, $token_value) {
 
 }
 
-// http://php.net/manual/de/function.uniqid.php#96898
+/**
+ * Return a unique ID from integer or reverse it.
+ * rand_uniqid(9007199254740989) = 'PpQXn7COf'
+ * rand_uniqid('PpQXn7COf', true) = '9007199254740989'
+ *
+ * @access public
+ * @author Enrico Pallazzo
+ * @link http://php.net/manual/de/function.uniqid.php#96898
+ * @param mixed $in
+ * @param bool $to_num (default: false)
+ * @param bool $pad_up (default: false)
+ * @param mixed $passkey (default: null)
+ * @return string
+ */
 function rand_uniqid($in, $to_num=false, $pad_up=false, $passkey=null) {
 
 	$index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -226,12 +332,28 @@ function rand_uniqid($in, $to_num=false, $pad_up=false, $passkey=null) {
 	return $out;
 }
 
+/**
+ * Search forms and add (CSRF) tokens.
+ *
+ * @access public
+ * @param string $html
+ * @return string
+ */
 function tokenize_forms($html) {
 
 	return preg_replace_callback('/<form(.*?)>(.*?)<\\/form>/s', 'get_tokenized_form', $html);
 
 }
 
+/**
+ * Callback function to add the CSRF token input fields to a form.
+ * Forms with attribute 'data-csrf="off"' are ignored.
+ *
+ * @access public
+ * @param array $match
+ * @param string $token_prefix (default: 'csrf_')
+ * @return string
+ */
 function get_tokenized_form($match, $token_prefix='csrf_') {
 
 	$form  = '<form'.$match[1].'>';
@@ -253,6 +375,13 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
 
 }
 
+/**
+ * Add csrftoken GET parameter to backend links.
+ *
+ * @access public
+ * @param string $html
+ * @return string
+ */
 function tokenize_urls($html) {
 
 	$get_token = get_token_get_string('csrftoken');
@@ -293,6 +422,14 @@ function tokenize_urls($html) {
 	return $html;
 }
 
+/**
+ * Validate CSRF tokens, POST and GET.
+ * User will get logged out in case error reporting does not stop script.
+ *
+ * @access public
+ * @param string $token_prefix (default: 'csrf_')
+ * @return void
+ */
 function validate_csrf_tokens($token_prefix='csrf_') {
 
 	if($_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST)) {
@@ -332,6 +469,15 @@ function validate_csrf_tokens($token_prefix='csrf_') {
 
 }
 
+/**
+ * Validate CSRF token, GET only.
+ * User will get logged out in case $logout=true and error reporting does not stop script.
+ *
+ * @access public
+ * @param string $token_name (default: 'csrftoken')
+ * @param bool $logout (default: true)
+ * @return bool
+ */
 function validate_csrf_get_token($token_name='csrftoken', $logout=true) {
 
 	if($_SERVER['REQUEST_METHOD'] === 'GET' && count($_GET)) {
