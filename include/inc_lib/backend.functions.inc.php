@@ -256,9 +256,10 @@ function phpwcmsversionCheck() {
 
 	if(empty($phpwcms['version_check'])) return '';
 
-	$errno 						= 0;
-	$errstr 					= '';
-	$version_info				= '';
+	$errno 			= 0;
+	$errstr 		= '';
+	$version_info	= '';
+	$get_info		= false;
 
 	$identify  = '?version='.rawurlencode(PHPWCMS_VERSION.' '.str_replace('/', '', PHPWCMS_RELEASE_DATE));
 	$identify .= '&hash='.md5($_SERVER['REQUEST_URI']);
@@ -271,7 +272,6 @@ function phpwcmsversionCheck() {
 		@fputs($fsock, "HOST: www.phpwcms.de\r\n");
 		@fputs($fsock, "Connection: close\r\n\r\n");
 
-		$get_info = false;
 		while (!@feof($fsock)) {
 			if($get_info) {
 				$version_info .= @fread($fsock, 1024);
@@ -304,7 +304,7 @@ function phpwcmsversionCheck() {
 		$latest_time		= strtotime($latest_revdate.' 00:00:00');
 		$version_time		= strtotime(PHPWCMS_RELEASE_DATE.' 00:00:00');
 
-		if($latest_revision <= $phpwcms['revision'] || $latest_time <= $version_time || strpos(PHPWCMS_VERSION, '-dev'))	{
+		if($latest_revision <= $phpwcms['revision'] || $latest_time <= $version_time)	{
 
 			$version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
 
@@ -343,7 +343,6 @@ function phpwcmsversionCheck() {
 		$version_info = '<p>' . $BL['Socket_functions_disabled'] . '</p>';
 
 	}
-
 
 	$_SESSION['phpwcms_version_check'] = '<div class="versioncheck"><h1>'.$BL['Version_information'].'</h1> '.$version_info.'</div>';
 
