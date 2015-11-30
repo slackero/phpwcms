@@ -1106,7 +1106,8 @@ function destroyBackendSessionData() {
 		$_SESSION["wcs_user_admin"],
 		$_SESSION["wcs_user_thumb"],
 		$_SESSION["wcs_user_cp"],
-		$_SESSION["wcs_allowed_cp"]
+		$_SESSION["wcs_allowed_cp"],
+		$_SESSION['phpwcms_version_check']
 	);
 }
 
