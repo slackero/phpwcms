@@ -127,6 +127,7 @@ switch($acat_hidden) {
 			}
 
 			$acat_struct_alias = get_struct_alias($acat_struct);
+			$acat_parent_alias = get_struct_alias($acat_struct, true);
 			if(empty($acat_struct_alias) && $acat_id != 'index') {
 				$acat_struct_alias = $parentStructData["acat_name"];
 			}
@@ -138,29 +139,17 @@ switch($acat_hidden) {
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_struct_cat'] ?>:</td></tr>
-          <tr><td><input name="acat_name" type="text" id="acat_name" class="f11b width450" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="95" /></td></tr>
+          <tr><td><input name="acat_name" type="text" id="acat_name" class="bold width540" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="95" /></td></tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr>
-		  	<td>
-				<table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
-					<tr>
-						<td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias'] ?></a>
-						(+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');"><?php echo $BL['be_admin_struct_title'] ?></a>):</td>
-						<td style="width:10px">&nbsp;</td>
-						<td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td>
-					</tr>
-		 			<tr>
-						<td><input name="acat_alias" type="text" id="acat_alias" class="f11b width250" value="<?php echo html($acat_alias) ?>" size="50" maxlength="230"<?php
-							if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
-						<td>&nbsp;</td>
-						<td><input name="acat_class" type="text" id="acat_class" class="f11 width185" value="<?php echo html($acat_class) ?>" size="50" maxlength="150" /></td>
-					</tr>
-
-				</table>
-			</td>
-		  </tr>
+			  <td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias']; ?></a>,
+							+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_parent_alias ?>');"><?php echo $BL['be_parental_alias']; ?></a>,
+							+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');"><?php echo $BL['be_admin_struct_title']; ?></a>:
+			</td></tr>
+		  <tr><td><input name="acat_alias" type="text" id="acat_alias" class="bold width540" value="<?php echo html($acat_alias) ?>" size="50" maxlength="230"<?php
+				if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td></tr>
 
 <?php	if($acat_lang_mode):
 
@@ -211,7 +200,7 @@ switch($acat_hidden) {
 					<label><input type="radio" name="acat_lang_type" value="article"<?php is_checked('article', $acat_lang_type); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
 					&nbsp;
 					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . $lang_default ?>" />&nbsp;
-					<input name="acat_lang_id" type="text" class="f11b width75" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" size="11" maxlength="11" />
+					<input name="acat_lang_id" type="text" class="bold width75" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" size="11" maxlength="11" />
 				</div>
 
 			</div>
@@ -225,6 +214,13 @@ switch($acat_hidden) {
 
 		  <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
 		  <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width450" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
+
+		  	<tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+
+		  <tr><td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td></tr>
+		 <tr>
+			<td><input name="acat_class" type="text" id="acat_class" class="width450" value="<?php echo html($acat_class) ?>" size="50" maxlength="150" /></td>
+		</tr>
 
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 

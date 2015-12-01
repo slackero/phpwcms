@@ -54,7 +54,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 				<td align="right" class="chatlist"><a href="#" id="cat-as-articletitle"><?php echo $BL['be_article_atitle'] ?></a>:&nbsp;</td>
 				<td style="padding:2px 0 3px 0;"><table border="0" cellpadding="0" cellspacing="0" summary="">
 				 <tr>
-					<td><input name="article_title" type="text" class="f11b" id="article_title" style="width: 325px" value="<?php echo html($article["article_title"]) ?>" size="40" maxlength="1000" /></td>
+					<td><input name="article_title" type="text" class="bold width325" id="article_title" value="<?php echo html($article["article_title"]) ?>" size="40" maxlength="1000" /></td>
 					<td>&nbsp;&nbsp;</td>
 					<td><input name="article_notitle" id="article_notitle" type="checkbox" value="1" <?php is_checked($article["article_notitle"],1) ?> /></td>
 					<td class="v10"><label for="article_notitle"><?php echo $BL['be_admin_struct_hide1'] ?></label></td>
@@ -63,7 +63,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 			</tr>
 			<tr>
               <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
-              <td><input name="article_subtitle" type="text" class="f11b width440" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
+              <td><input name="article_subtitle" type="text" class="bold width440" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 			<tr>
@@ -77,7 +77,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 						<td class="chatlist">&nbsp;<br />
 						  <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="if(!this.checked) {document.article.article_begin.value='';}else{document.article.article_begin.value='<?php echo $article["article_begin"] ?>';}" /></td>
 						<td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-						  <input name="article_begin" type="text" id="article_begin" style="width:140px" class="f11" value="<?php echo $article["article_begin"] ?>" /></td>
+						  <input name="article_begin" type="text" id="article_begin" style="width:140px" class="bold" value="<?php echo $article["article_begin"] ?>" /></td>
 					  <td class="chatlist" valign="bottom"><script type="text/javascript">
 function aBegin(date, month, year) {
 	document.article.article_begin.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 00:00:00';
@@ -91,7 +91,7 @@ calBegin.setYearCombo(false);
 						<td class="chatlist">&nbsp;<br />
 						  <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="if(!this.checked) {document.article.article_end.value='';}else{document.article.article_end.value='<?php echo $article["article_end"] ?>';}" /></td>
 						<td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-						  <input name="article_end" type="text" id="article_end" style="width:140px" class="f11" value="<?php echo $article["article_end"] ?>" /></td>
+						  <input name="article_end" type="text" id="article_end" style="width:140px" class="bold" value="<?php echo $article["article_end"] ?>" /></td>
 					  <td class="chatlist" valign="bottom"><script type="text/javascript">
 function aEnd(date, month, year) {
 	document.article.article_end.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 23:59:59';
@@ -139,7 +139,7 @@ calEnd.setYearCombo(false);
 		<td align="right" class="chatlist"><?php echo $BL['be_alias_articleID'] ?>:&nbsp;</td>
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		 <tr>
-			<td><input name="article_aliasid" type="text" class="f11b width75" id="article_aliasid" value="<?php echo $article["article_aliasid"] ? $article["article_aliasid"] : ''; ?>" size="11" maxlength="11" /></td>
+			<td><input name="article_aliasid" type="text" class="width75" id="article_aliasid" value="<?php echo $article["article_aliasid"] ? $article["article_aliasid"] : ''; ?>" size="11" maxlength="11" /></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><input name="article_headerdata" id="article_headerdata" type="checkbox" value="1" <?php is_checked($article["article_headerdata"],1) ?> /></td>
 			<td class="v10"><label for="article_headerdata">&nbsp;<?php echo $BL['be_alias_useAll'] ?></label></td>
@@ -193,7 +193,7 @@ calEnd.setYearCombo(false);
 					<label><input type="radio" name="article_lang_type" value="article"<?php is_checked('article', $article['article_lang_type']); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
 					&nbsp;
 					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" />&nbsp;
-					<input name="article_lang_id" type="text" class="f11b width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" />
+					<input name="article_lang_id" type="text" class="bold width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" />
 				</div>
 
 			</div></td>
@@ -203,36 +203,43 @@ calEnd.setYearCombo(false);
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
-		<td align="right" class="chatlist"><a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>&nbsp;&nbsp;<br />
-		(+<a href="#" id="struct_alias"><?php echo $BL['be_admin_struct_title'] ?></a>):&nbsp;</td>
-		<td><input name="article_alias" type="text" class="f11b width440" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" size="40" maxlength="230"<?php
+		<td>&nbsp;</td>
+		<td class="chatlist">
+			<a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>,
+			+<a href="#" id="parent_alias"><?php echo $BL['be_parental_alias'] ?></a>,
+			+<a href="#" id="struct_alias"><?php echo $BL['be_admin_struct_title'] ?></a>
+		</td>
+	</tr>
+	<tr>
+		<td align="right" class="chatlist"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
+		<td><input name="article_alias" type="text" class="bold width440" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" size="40" maxlength="230"<?php
 			if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
         <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-        <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="f11 width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
+        <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['article_menu_title'] ?>:&nbsp;</td>
-	  <td><input name="article_menutitle" type="text" id="article_menutitle" class="f11 width440" value="<?php echo html($article["article_menutitle"]) ?>" size="40" /></td>
+	  <td><input name="article_menutitle" type="text" id="article_menutitle" class="width440" value="<?php echo html($article["article_menutitle"]) ?>" size="40" /></td>
 	</tr>
 
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['be_article_aredirect'] ?>:&nbsp;</td>
-	  <td><input name="article_redirect" type="text" id="article_redirect" class="f11 width440" value="<?php echo html($article["article_redirect"]) ?>" size="40" /></td>
+	  <td><input name="article_redirect" type="text" id="article_redirect" class="width440" value="<?php echo html($article["article_redirect"]) ?>" size="40" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
 	  <td align="right" class="chatlist"><?php echo $BL['be_canonical'] ?>:&nbsp;</td>
-	  <td><input name="article_canonical" type="text" id="article_canonical" class="f11 width440" value="<?php echo html($article["article_canonical"]) ?>" size="40" maxlength="2000" /></td>
+	  <td><input name="article_canonical" type="text" id="article_canonical" class="width440" value="<?php echo html($article["article_canonical"]) ?>" size="40" maxlength="2000" /></td>
 	</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
@@ -301,7 +308,7 @@ if(count($tmpllist)) {
 	<tr>
 		<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			<tr>
-				<td><input name="article_listmaxwords" type="text" id="article_listmaxwords" class="f11" style="width: 25px;" value="<?php echo empty($article['image']['list_maxwords']) ? '' : intval($article['image']['list_maxwords']) ?>" size="10" maxlength="6" /></td>
+				<td><input name="article_listmaxwords" type="text" id="article_listmaxwords" style="width: 25px;" value="<?php echo empty($article['image']['list_maxwords']) ? '' : intval($article['image']['list_maxwords']) ?>" size="10" maxlength="6" /></td>
 				<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?></td>
 			</tr>
 		</table></td>
@@ -735,6 +742,21 @@ $(function(){
 
 	$('#struct_alias').click(function() {
 		var struct		= '<?php echo get_struct_alias($article["article_catid"]) ?>' || $('#article_cid option:selected').text();
+		var title		= $('#article_title').val().trim();
+		var alias		= $('#article_alias');
+
+		if(struct.length) {
+			struct = struct.replace(/^-+/gi, '').trim();
+
+			if(title) {
+				struct += '<?php if($phpwcms['alias_allow_slash']): ?>/<?php else: ?>-<?php endif; ?>'+title;
+			}
+		};
+
+		alias.val( create_alias(struct) );
+	});
+	$('#parent_alias').click(function() {
+		var struct		= '<?php echo get_struct_alias($article["article_catid"], true) ?>' || $('#article_cid option:selected').text();
 		var title		= $('#article_title').val().trim();
 		var alias		= $('#article_alias');
 

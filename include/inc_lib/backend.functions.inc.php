@@ -1248,25 +1248,47 @@ function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
 	return $vor;
 }
 
-function get_struct_alias($start_id=0) {
+function get_struct_alias($start_id=0, $parent_alias=false) {
 
 	if($start_id == 0) {
+		global $indexpage;
+
+		if($parent_alias && !empty($indexpage['acat_alias'])) {
+			return $indexpage['acat_alias'];
+		} elseif(!empty($indexpage['acat_pagetitle']) && strlen($indexpage['acat_name']) > strlen($indexpage['acat_pagetitle'])) {
+			return strtolower(uri_sanitize($indexpage['acat_pagetitle']));
+		} elseif(!empty($struct_array[$start_id]['acat_name'])) {
+			return strtolower(uri_sanitize($indexpage['acat_name']));
+		}
+
 		return '';
 	}
 	$start_id = intval($start_id);
 
-	$sql  = "SELECT acat_id, acat_struct, acat_name, acat_pagetitle FROM ".DB_PREPEND."phpwcms_articlecat ";
-	$sql .= "WHERE acat_trash=0 ORDER BY acat_struct, acat_sort";
+	$sql  = 'SELECT acat_id, acat_struct, acat_name, acat_pagetitle, acat_alias ';
+	$sql .= 'FROM ".DB_PREPEND."phpwcms_articlecat ';
+	$sql .= 'WHERE acat_trash=0 ';
+	if($parent_alias) {
+		$sql .= ' AND acat_id='.$start_id;
+	} else {
+		$sql .= 'ORDER BY acat_struct, acat_sort';
+	}
 
 	$result = _dbQuery($sql);
 	$struct_array = array();
 
 	if(isset($result[0]['acat_id'])) {
+		if($parent_alias && !empty($result[0]['acat_alias'])) {
+			return $result[0]['acat_alias'];
+		}
+
 		foreach($result as $value) {
 			$value['acat_id']					= intval($value['acat_id']);
 			$value['acat_struct']				= intval($value['acat_struct']);
 			$struct_array[$value['acat_id']]	= $value;
 		}
+	} else {
+		return '';
 	}
 
 	$data = array();
