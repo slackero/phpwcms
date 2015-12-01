@@ -376,10 +376,10 @@ function create_alias(str,encoding,ucfirst) {
 	str = str.replace(/\s+/g,'-');
 	str = str.replace(/-+\/+-+/g,'/');
 	if(aliasAllowSlashes) {
-		str = str.replace(/[^a-z0-9_\-\/]+/g,'');
+		str = str.replace(/[^a-z0-9_\-\/\.]+/g,'');
 	} else {
 		str = str.replace('/', '-');
-		str = str.replace(/[^a-z0-9_\-]+/g,'');
+		str = str.replace(/[^a-z0-9_\-\.]+/g,'');
 	}
 	str = str.replace(/\-+/g,'-');
 	str = str.replace(/\/+/g,'/');
