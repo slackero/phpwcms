@@ -144,9 +144,10 @@ switch($acat_hidden) {
 		  <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
 		  <tr>
-			  <td class="v09"><a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias']; ?></a>,
-							+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_parent_alias ?>');"><?php echo $BL['be_parental_alias']; ?></a>,
-							+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');"><?php echo $BL['be_admin_struct_title']; ?></a>:
+			   <td class="v09">
+				<a href="#" onclick="return set_article_alias(false, 'struct');"><?php echo $BL['be_admin_struct_alias']; ?></a>,
+				+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_parent_alias ?>');" title="<?php echo $acat_parent_alias ?>"><?php echo $BL['be_parental_alias']; ?></a>,
+				+<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');" title="<?php echo $acat_struct_alias ?>"><?php echo $BL['be_admin_struct_title']; ?></a>:
 			</td></tr>
 		  <tr><td><input name="acat_alias" type="text" id="acat_alias" class="bold width540" value="<?php echo html($acat_alias) ?>" size="50" maxlength="230"<?php
 				if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td></tr>

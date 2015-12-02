@@ -199,15 +199,20 @@ calEnd.setYearCombo(false);
 			</div></td>
 	</tr>
 
-<?php	endif;	?>
+<?php	endif;
+
+	$struct_alias = get_struct_alias($article["article_catid"]);
+	$struct_parental = get_struct_alias($article["article_catid"], true);
+
+?>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 	<tr>
 		<td>&nbsp;</td>
 		<td class="chatlist">
 			<a href="#" onclick="return set_article_alias();"><?php echo $BL['be_article_urlalias'] ?></a>,
-			+<a href="#" id="parent_alias"><?php echo $BL['be_parental_alias'] ?></a>,
-			+<a href="#" id="struct_alias"><?php echo $BL['be_admin_struct_title'] ?></a>
+			+<a href="#" id="parent_alias" title="<?php echo $struct_parental; ?>" data-alias="<?php echo $struct_parental; ?>"><?php echo $BL['be_parental_alias'] ?></a>,
+			+<a href="#" id="struct_alias" title="<?php echo $struct_alias; ?>" data-alias="<?php echo $struct_alias; ?>"><?php echo $BL['be_admin_struct_title'] ?></a>
 		</td>
 	</tr>
 	<tr>
@@ -740,10 +745,10 @@ $(function(){
 		langIdSelect.hide();
 	});
 
-	$('#struct_alias').click(function() {
-		var struct		= '<?php echo get_struct_alias($article["article_catid"]) ?>' || $('#article_cid option:selected').text();
-		var title		= $('#article_title').val().trim();
-		var alias		= $('#article_alias');
+	$('#struct_alias,#parent_alias').click(function() {
+
+		var struct = $(this).data('alias') || $('#article_cid option:selected').text();
+		var title = $.trim($('#article_title').val());
 
 		if(struct.length) {
 			struct = struct.replace(/^-+/gi, '').trim();
@@ -751,24 +756,11 @@ $(function(){
 			if(title) {
 				struct += '<?php if($phpwcms['alias_allow_slash']): ?>/<?php else: ?>-<?php endif; ?>'+title;
 			}
+		} else {
+			struct = title;
 		};
 
-		alias.val( create_alias(struct) );
-	});
-	$('#parent_alias').click(function() {
-		var struct		= '<?php echo get_struct_alias($article["article_catid"], true) ?>' || $('#article_cid option:selected').text();
-		var title		= $('#article_title').val().trim();
-		var alias		= $('#article_alias');
-
-		if(struct.length) {
-			struct = struct.replace(/^-+/gi, '').trim();
-
-			if(title) {
-				struct += '<?php if($phpwcms['alias_allow_slash']): ?>/<?php else: ?>-<?php endif; ?>'+title;
-			}
-		};
-
-		alias.val( create_alias(struct) );
+		$('#article_alias').val( create_alias(struct) );
 	});
 
 	$('#cat-as-articletitle').click(function(evnt){
