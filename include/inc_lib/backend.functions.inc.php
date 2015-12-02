@@ -1266,10 +1266,9 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
 	$start_id = intval($start_id);
 
 	$sql  = 'SELECT acat_id, acat_struct, acat_name, acat_pagetitle, acat_alias ';
-	$sql .= 'FROM ".DB_PREPEND."phpwcms_articlecat ';
-	$sql .= 'WHERE acat_trash=0 ';
+	$sql .= 'FROM '.DB_PREPEND.'phpwcms_articlecat WHERE acat_trash=0 ';
 	if($parent_alias) {
-		$sql .= ' AND acat_id='.$start_id;
+		$sql .= 'AND acat_id='.$start_id;
 	} else {
 		$sql .= 'ORDER BY acat_struct, acat_sort';
 	}
