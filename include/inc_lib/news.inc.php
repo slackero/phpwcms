@@ -46,6 +46,7 @@ class phpwcmsNews {
 		'end_desc'		=> 'cnt_enddate DESC'
 	);
 	var $filter_sort		= '';
+	var $csrf_token			= '';
 
 	function phpwcmsNews() {
 
@@ -54,8 +55,9 @@ class phpwcmsNews {
 
 		$this->BL				= &$BL;
 		$this->phpwcms			= &$phpwcms;
-		$this->base_url			= PHPWCMS_URL.'phpwcms.php?do=articles&amp;p=3';
-		$this->base_url_decoded	= PHPWCMS_URL.'phpwcms.php?do=articles&p=3';
+		$this->csrf_token		= get_token_get_string('csrftoken');
+		$this->base_url			= PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
+		$this->base_url_decoded	= PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&do=articles&p=3';
 
 	}
 
