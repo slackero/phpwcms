@@ -1861,8 +1861,8 @@ function render_bbcode_basics($text='', $mode='basic') {
 
 	if($mode == 'basic') {
 
-		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]',   '[p]', '[/p]', '[strong]', '[/strong]');
-		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>', '<strong>', '</strong>');
+		$search		= array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]',   '[p]', '[/p]', '[strong]', '[/strong]', '[nowrap]', '[/nowrap]');
+		$replace	= array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>', '<strong>', '</strong>', '<span class="nowrap">', '</span>');
 
 		return str_replace($search, $replace, $text);
 
@@ -1893,9 +1893,10 @@ function render_bbcode_basics($text='', $mode='basic') {
 	$search[19]		= '/\[h6\](.*?)\[\/h6\]/is';			$replace[19]	= '<h6>$1</h6>';
 	$search[20]		= '/\[p\](.*?)\[\/p\]/is';				$replace[20]	= '<p>$1</p>';
 	$search[21]		= '/\[strong\](.*?)\[\/strong\]/is';	$replace[21]	= '<strong>$1</strong>';
+	$search[22]		= '/\[nowrap\](.*?)\[\/nowrap\]/is';	$replace[22]	= '<span class="nowrap">$1</span>';
 
-	$search[22]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
-	$replace[22]	= '<blockquote>$1</blockquote>';
+	$search[23]		= '/\[blockquote\](.*?)\[\/blockquote\]/is';
+	$replace[23]	= '<blockquote>$1</blockquote>';
 
 	return preg_replace($search, $replace, $text);
 
