@@ -330,7 +330,7 @@ $BL['be_newsletter_button_cancel']      = 'mégsem';
 
 // admin.newuser.tmpl.php
 $BL['be_admin_usr_err1']                = 'a felhasználói név érvénytelen, válasszon másikat';
-$BL['be_admin_usr_err2']                = 'a felhasználói név üres (ki kell tölteni)';'username is empty (required)';
+$BL['be_admin_usr_err2']                = 'a felhasználói név üres (ki kell tölteni)';
 $BL['be_admin_usr_err3']                = 'a jelszó üres (ki kell tölteni)';
 $BL['be_admin_usr_err4']                = "email érvénytelen";
 $BL['be_admin_usr_err']                 = 'hiba';
