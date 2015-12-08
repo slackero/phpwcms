@@ -21,6 +21,8 @@ checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
+$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+
 if(isset($_GET["do"])) {
 	$values = explode(",", $_GET["do"]);
 	if(count($values)) {
@@ -78,8 +80,6 @@ if(isset($_GET["sort"])) {
 	mysql_query($sql1, $db) or die("error while changing content part's sorting");
 	mysql_query($sql2, $db) or die("error while changing content part's sorting");
 }
-
-$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
 
 update_cache();
 headerRedirect($ref);
