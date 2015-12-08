@@ -45,4 +45,3 @@ $BL['FILE_IN_TRASH']     = 'filen er i skraldespanden';
 $BL['KEYWORDS']          = 'n&oslash;gleord';
 $BL['DOWNLOAD_ERR3']     = 'fejl opstod da filinfo blev fors&oslash;gt l&AElig;st<br />luk vinduet og pr&oslash;v igen...';
 
-?>

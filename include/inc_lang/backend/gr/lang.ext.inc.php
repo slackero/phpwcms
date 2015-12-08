@@ -44,4 +44,3 @@ $BL['FILE_IN_TRASH']     = 'file is in trash can';
 $BL['KEYWORDS']          = 'keywords';
 $BL['DOWNLOAD_ERR3']     = 'error while reading file info<br />close window and try again...';
 
-?>

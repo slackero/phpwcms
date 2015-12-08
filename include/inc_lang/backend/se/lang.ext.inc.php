@@ -45,4 +45,3 @@ $BL['FILE_IN_TRASH']     = 'filen &auml;r i skr&auml;pkorgen';
 $BL['KEYWORDS']          = 'sökord';
 $BL['DOWNLOAD_ERR3']     = 'Ett fel uppstod n&auml;r info om filen h&auml;mtades<br />st&auml;ng browserfönstret och försök igen...';
 
-?>

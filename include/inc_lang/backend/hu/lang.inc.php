@@ -823,4 +823,3 @@ $BL['be_admin_struct_ordermanual']      = 'manualis (nyil fel/le)';
 $BL['be_cnt_sitemap_startid']           = 'ezzel&nbspkezdõdik';
 
 
-?>

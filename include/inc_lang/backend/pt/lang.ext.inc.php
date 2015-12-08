@@ -48,4 +48,3 @@ $BL['KEYWORDS']          = 'palavras-chave';
 $BL['DOWNLOAD_ERR3']     = 'erro ao ler a informação do arquivo <br />fecha a janela e tenta novamente...';
 
 
-?>

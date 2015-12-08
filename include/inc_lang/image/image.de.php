@@ -30,4 +30,3 @@ $ci_lang['imglib_copy_failed'] = 'Das Kopieren der Bilddatei ist fehlgeschlagen.
 $ci_lang['imglib_missing_font'] = 'Es konnte keine Schriftartendatei gefunden werden.';
 $ci_lang['imglib_save_failed'] = 'Sichern der Bilddatei fehlgeschlagen. Vergewissern Sie sich, dass die Bilddatei und das Zielverzeichnis beschreibbar sind.';
 
-?>

@@ -967,4 +967,3 @@ $BL['be_alias_articleID'] = 'alias ID';
 $BL['be_alias_useAll'] = "utilizeaza acest articlol&#8217;s date header";
 $BL['be_article_morelink'] = '[more&#8230;] link';
 
-?>

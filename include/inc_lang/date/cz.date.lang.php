@@ -35,4 +35,4 @@ $month_long[10]	= "Říjen";		  $month_short[10]		= "Říj.";
 $month_long[11]	= "Listopad";		$month_short[11]		= "Lis.";
 $month_long[12]	= "Prosinec";		$month_short[12]		= "Pro.";
 
-?>
+

@@ -648,4 +648,3 @@ $BL['be_ctype_wysywig']                 = 'WYSYWIG HTMLترميز لغة ';
 $BL['be_admin_struct_regonly']          = 'مرئي للزوار الذين قاموا بتسجيل الدخول للموقع فقط';
 $BL['be_admin_struct_status']           = 'حالة قائمة إعدادات واجهة زوار الموقع';
 
-?>

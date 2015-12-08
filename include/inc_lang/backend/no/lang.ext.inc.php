@@ -50,4 +50,3 @@ $BL['KEYWORDS']          = 'nøkkelord';
 $BL['DOWNLOAD_ERR3']     = 'kan ikke lese fil info<br />lukk vinduet og prøv på nytt...';
 
 
-?>

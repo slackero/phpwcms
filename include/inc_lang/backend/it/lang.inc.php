@@ -655,4 +655,3 @@ $BL['be_ctype_articlemenu']				= 'article menu';
 $BL['be_cnt_sitelevel']					= 'site level';
 $BL['be_cnt_sitecurrent']				= 'current site level';
 
-?>

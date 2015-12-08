@@ -34,4 +34,3 @@ $month_long[10]	= "Oktober";		$month_short[10]		= "Okt.";
 $month_long[11]	= "November";		$month_short[11]		= "Nov.";
 $month_long[12]	= "Dezember";		$month_short[12]		= "Dez.";
 
-?>

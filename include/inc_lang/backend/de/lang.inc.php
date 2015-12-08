@@ -1396,4 +1396,3 @@ $BL['CSRF_GET_FAILED'] = 'Die GET <a href="https://en.wikipedia.org/wiki/Cross-s
 
 $BL['be_parental_alias'] = 'Eltern-Alias';
 
-?>

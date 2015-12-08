@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.0 (2015/11/25, r541) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.0-RC2 (2015/12/02, r541) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1397,4 +1397,10 @@ $BL['be_canonical']		= 'link kanoniczny';
 $BL['be_breadcrumb']		= 'zachowanie nawigacyjne wyświetlania';
 $BL['be_breadcrumb_nothidden']	= 'widoczne, jeśli poziom jest ukryty';
 $BL['be_breadcrumb_nolink']	= 'nie ma linku';
-?>
+
+$BL['CSRF_POST_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> znaleziono parametrów POST. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_POST_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> parametrów POST nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_GET_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów GET. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_GET_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> parametrów GET nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
+
+$BL['be_parental_alias'] = 'alias macierzysty';

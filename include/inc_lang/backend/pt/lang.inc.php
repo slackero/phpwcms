@@ -783,4 +783,3 @@ $BL['be_article_nosummary']             = 'não mostrar o sumário com o artigo 
 $BL['be_article_forlist']               = 'listagem de artigos';
 $BL['be_article_forfull']               = 'mostrar artigo completo';
 
-?>

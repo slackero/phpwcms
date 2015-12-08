@@ -883,4 +883,4 @@ $BL['be_cnt_rssfeed_item']				= 'aiheet';
 $BL['be_cnt_rssfeed_max']				= 'max.';
 $BL['be_cnt_rssfeed_cut']				= 'piilota 1. aihe';
 
-?>
+

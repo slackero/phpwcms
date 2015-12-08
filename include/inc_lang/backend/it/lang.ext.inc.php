@@ -45,4 +45,3 @@ $BL['KEYWORDS']          = 'parole chiave';
 $BL['DOWNLOAD_ERR3']     = 'errore leggendo le informazioni sul file<br />chiudi la finestra e prova ancora...';
 
 
-?>

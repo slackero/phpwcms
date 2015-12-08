@@ -35,4 +35,3 @@ $month_long[10]	= "th&#225;ng 10 n&#259;m";		$month_short[10]		= "th&#225;ng 10"
 $month_long[11]	= "th&#225;ng 11 n&#259;m";		$month_short[11]		= "th&#225;ng 11";
 $month_long[12]	= "th&#225;ng 12 n&#259;m";		$month_short[12]		= "th&#225;ng 12";
 
-?>

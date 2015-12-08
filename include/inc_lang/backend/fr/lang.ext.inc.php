@@ -44,4 +44,4 @@ $BL['FILE_IN_TRASH']     = 'le fichier se trouve dans la corbeille';
 $BL['KEYWORDS']          = 'mots clés';
 $BL['DOWNLOAD_ERR3']     = 'erreur lors de la lecture de l\'information contenue dans le fichier<br />Veuillez fermer la fenètre et rééssayer...';
 
-?>
+

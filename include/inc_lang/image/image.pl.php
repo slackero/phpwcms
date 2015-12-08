@@ -30,4 +30,3 @@ $ci_lang['imglib_copy_failed'] = 'Kopiowanie pliku obrazu nie powiodło się.';
 $ci_lang['imglib_missing_font'] = 'Nie znaleziono pliku czcionki.';
 $ci_lang['imglib_save_failed'] = 'Zapisywanie pliku obrazu nie powiodło się. Upewnij się, że plik obrazu i katalog docelowy są zapisywalne.';
 
-?>

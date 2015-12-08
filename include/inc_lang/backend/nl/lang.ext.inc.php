@@ -45,4 +45,3 @@ $BL['KEYWORDS']          = 'sleutelwoorden';
 $BL['DOWNLOAD_ERR3']     = 'fout bij het lezen van de bstands informatie<br />sluit het venster en probeer opnieuw...';
 
 
-?>

@@ -44,4 +44,3 @@ $BL['FILE_IN_TRASH']     = 'failas yra šiukšlių dėžėje';
 $BL['KEYWORDS']          = 'raktiniai žodžiai';
 $BL['DOWNLOAD_ERR3']     = 'klaida nuskaitant failo informaciją<br />uždarykite langą ir bandykite iš naujo...';
 
-?>

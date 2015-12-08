@@ -1239,4 +1239,3 @@ $BL['automatic']						= 'automatski';
 $BL['random_image']						= 'nasumicna slika';
 $BL['random_image_from_list']			= 'Oznaci jednu nasumicnu sliku iz liste slika';
 
-?>

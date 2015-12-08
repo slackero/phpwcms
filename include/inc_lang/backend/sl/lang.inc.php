@@ -1223,4 +1223,3 @@ $BL['be_gallery_directory'] = "poddirektorij galerije";
 $BL['be_gallery'] = "galerija";
 
 $BL['be_sort_date'] = "uredi po datumu";
-?>

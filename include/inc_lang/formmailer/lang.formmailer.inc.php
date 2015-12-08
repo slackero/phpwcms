@@ -168,4 +168,3 @@ $translate["SL"]["bodyLine2"]		= "Izviren obrazec lahko najdete tukaj: ";
 $translate["SL"]["bodyRecipient"]	= "Prejemnik: ";
 $translate["SL"]["error350"]		= "Preverjenja Captcha kode je spodletelo.";
 
-?>

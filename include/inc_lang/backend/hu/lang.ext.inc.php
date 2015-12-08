@@ -45,4 +45,3 @@ $BL['KEYWORDS']          = 'kulcsszavak';
 $BL['DOWNLOAD_ERR3']     = 'hiba a file info olvasásakor <br /> zárja be az ablakot és próbálja újra...';
 
 
-?>

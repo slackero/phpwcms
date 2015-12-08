@@ -43,6 +43,3 @@ $BL['DOWNLOAD_FILE']     = 'descarrega el fitxer';
 $BL['FILE_IN_TRASH']     = 'l\'arxiu &eacute;s a la paperera';
 $BL['KEYWORDS']          = 'mots clau';
 $BL['DOWNLOAD_ERR3']     = 'Error al llegir informaci&oacute; del fitxer. <br />Tanqueu la finestra i torneu-ho a intentar...';
-
-
-?>

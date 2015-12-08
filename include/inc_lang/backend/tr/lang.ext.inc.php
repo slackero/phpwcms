@@ -43,4 +43,3 @@ $BL['DOWNLOAD_FILE']     = 'dosyay&#305; indir';
 $BL['FILE_IN_TRASH']     = 'dosya geri d&ouml;nü&#351;üm kutusunda';
 $BL['KEYWORDS']          = 'anahtar kelimeler';
 $BL['DOWNLOAD_ERR3']     = 'dosya bilgisi okunurken hata olu&#351;tu<br />pencereyi kapat&#305;p tekrar deneyiniz...';
-?>

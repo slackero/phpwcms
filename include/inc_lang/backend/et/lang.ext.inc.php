@@ -44,4 +44,3 @@ $BL['FILE_IN_TRASH']     = 'fail on prügikastis';
 $BL['KEYWORDS']          = 'võtmesõnad';
 $BL['DOWNLOAD_ERR3']     = 'viga faili omaduste lugemisel,<br />sule aken ja proovi uuesti...';
 
-?>

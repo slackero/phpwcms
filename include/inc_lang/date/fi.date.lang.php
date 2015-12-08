@@ -31,4 +31,3 @@ $month_long[10]	= "Lokakuu";		$month_short[10]		= "Lok.";
 $month_long[11]	= "Marraskuu";		$month_short[11]		= "Mar.";
 $month_long[12]	= "Joulukuu";		$month_short[12]		= "Jou.";
 
-?>

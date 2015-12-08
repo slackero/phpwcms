@@ -34,4 +34,3 @@ $month_long[10]	= "Ekim";		$month_short[10]		= "Ekm.";
 $month_long[11]	= "Kasim";		$month_short[11]		= "Ksm.";
 $month_long[12]	= "Aralik";		$month_short[12]		= "Arlk.";
 
-?>

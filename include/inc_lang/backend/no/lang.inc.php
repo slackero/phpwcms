@@ -950,4 +950,3 @@ $BL['be_func_content_paste_cancel']      = 'avbryt endringer i artikkelinnhold';
 
 
 
-?>

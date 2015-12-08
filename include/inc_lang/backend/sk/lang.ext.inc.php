@@ -45,4 +45,4 @@ $BL['KEYWORDS']          = 'kl&uacute;&#269;. slov&aacute;';
 $BL['DOWNLOAD_ERR3']     = 'chyba pri &#269;&iacute;tan&iacute; s&uacute;borov&eacute;ho info<br />zavrite okno a sk&uacute;ste znovu...';
 
 
-?>
+

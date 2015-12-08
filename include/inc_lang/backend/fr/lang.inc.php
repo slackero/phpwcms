@@ -1088,4 +1088,3 @@ $BL['be_selection']						= 's&eacute;lection';
 
 $BL['be_ctype_module']					= 'plug-in';
 
-?>

@@ -823,4 +823,3 @@ $BL['be_admin_struct_ordermanual']      = 'käsitsi (nool üles/alla)';
 $BL['be_cnt_sitemap_startid']           = 'alusta';
 
 
-?>

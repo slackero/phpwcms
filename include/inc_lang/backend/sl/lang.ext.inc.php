@@ -51,4 +51,3 @@ $BL['DOWNLOAD_ERR3']     = 'napaka pri branju podatkov o datoteki<br />zaprite o
 $BL['ADD_ALL_FILES'] = "dodaj vse datoteke";
 $BL['ADD_ALL_CONFIRM'] = "Vse datoteke iz mape »{VAL}« so bile prenešene!\n\nPritisni [OK], da zapreš brskalnik po datotekah …";
 
-?>

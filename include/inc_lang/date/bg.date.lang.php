@@ -34,4 +34,3 @@ $month_long[10]		= "Октомври";		$month_short[10]	= "Окт.";
 $month_long[11]		= "Ноември";		$month_short[11]	= "Ноем.";
 $month_long[12]		= "Декември";		$month_short[12]	= "Дек.";
 
-?>

@@ -44,4 +44,3 @@ $BL['FILE_IN_TRASH'] = 'soubor je v koi';
 $BL['KEYWORDS'] = 'klíè. slova';
 $BL['DOWNLOAD_ERR3'] = 'chyba pøi naèítání informace o souboru<br />zavøete okno a zkuste to znovu...';
 
-?>

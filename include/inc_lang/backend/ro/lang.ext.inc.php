@@ -45,4 +45,3 @@ $BL['KEYWORDS']          = 'Cuvinte cheie';
 $BL['DOWNLOAD_ERR3']     = 'error la citire fisier info<br />inchide fereastra si inceraca din nou...';
 
 
-?>

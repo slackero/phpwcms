@@ -1405,4 +1405,3 @@ $BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cros
 
 $BL['be_parental_alias'] = 'parental alias';
 
-?>

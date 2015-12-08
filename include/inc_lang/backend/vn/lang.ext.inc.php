@@ -44,4 +44,3 @@ $BL['FILE_IN_TRASH']     = 'file n&#224;y &#273;ang trong th&#249;ng r&#225;c';
 $BL['KEYWORDS']          = 't&#7915; kho&#225;';
 $BL['DOWNLOAD_ERR3']     = 'l&#7895;i trong khi &#273;&#7885;c file th&#244;ng tin<br />&#273;&#243;ng c&#7917;a s&#7893; v&#224; th&#7917; l&#7841;i...';
 
-?>

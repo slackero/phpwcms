@@ -38,4 +38,3 @@ $BL['SL'] = 'Sloven&scaron;&#269;ina';
 $BL['TR'] = 'T&uuml;rk&ccedil;e';
 $BL['VN'] = 'Ti&#7871;ng Vi&#7879;t';
 
-?>

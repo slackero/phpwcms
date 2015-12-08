@@ -756,4 +756,3 @@ $BL['be_cnt_bid_startbid']              = 'start bid';
 // added: 29-04-2004
 $BL['be_cnt_bid_nextbidadd']            = 'increase&nbsp;by';
 
-?>

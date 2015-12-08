@@ -42,4 +42,3 @@ $BL['KEYWORDS']          = 'Słowa kluczowe';
 $BL['DOWNLOAD_ERR3']     = 'Błąd podczas odczytu pliku<br />zamknij okno i spróbuj ponownie...';
 $BL['ADD_ALL_FILES']     = 'Dodaj wszystkie pliki';
 $BL['ADD_ALL_CONFIRM']   = 'Wszystkie pliki wewnątrz katalogu »{VAL}« were taken!\n\nKliknij [OK] aby zamknąć przeglądarkę plików …';
-?>

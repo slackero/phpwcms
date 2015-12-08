@@ -46,4 +46,3 @@ $BL['DOWNLOAD_ERR3']     = 'error while reading file info<br />close window and 
 $BL['ADD_ALL_FILES']     = 'Add all files';
 $BL['ADD_ALL_CONFIRM']   = 'All files inside directory »{VAL}« were taken!\n\nClick [OK] to close the file browser';
 
-?>
