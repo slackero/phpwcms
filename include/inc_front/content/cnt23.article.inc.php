@@ -1014,8 +1014,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['max']) {
 									$form_field .= ' maxlength="'.$cnt_form["fields"][$key]['max'].'"';
+									$form_field .= ' title="max. '.fsize($cnt_form["fields"][$key]['max'],' ',1).'"';
 								} elseif (!empty($cnt_form['upload_value']['maxlength'])) {
 									$form_field .= ' maxlength="'.$cnt_form['upload_value']['maxlength'].'"';
+									$form_field .= ' title="max. '.fsize($cnt_form['upload_value']['maxlength'],' ',1).'"';
 								}
 								if($cnt_form["fields"][$key]['class']) {
 									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
@@ -1023,11 +1025,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
-								$form_field .= ' title="';
-								if($cnt_form['upload_value']['maxlength']) {
-									$form_field .= 'max. '.fsize($cnt_form['upload_value']['maxlength'],' ',1);
-								}
-								$form_field .= '" />';
+								$form_field .= ' />';
 								unset($cnt_form['upload_value']);
 
 								// enable enctype attribute
