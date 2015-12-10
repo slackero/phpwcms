@@ -222,7 +222,7 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 	<meta name="robots" content="noindex, nofollow">
 <?php
 
-$BE['HEADER']['alias_slah_var'] = '	<script type="text/javascript"> ' . LF . '		var aliasAllowSlashes = ' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ';' . LF . '	</script>';
+$BE['HEADER']['alias_slah_var'] = '	<script type="text/javascript"> var aliasAllowSlashes = ' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . '; </script>';
 
 initMootools();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
@@ -266,7 +266,7 @@ if($BE['LANG'] == 'ar') {
     </tr>
 	<tr>
 	 <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
-	  <td colspan="4" valign="top" style="background-image:url(img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><table style="width:100%;min-width:740px" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
+	  <td colspan="4" valign="top" style="background:url(img/backend/backend_r3_c4.jpg) repeat-x; "><table style="width:100%;min-width:740px" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
         <tr>
           <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="9"></td>
         </tr>
@@ -289,7 +289,7 @@ if($BE['LANG'] == 'ar') {
 	  <td valign="top"><img src="img/backend/backend_r3_c7.png" alt="" width="15" height="40"></td>
   </tr>
 	<tr bgcolor="#FFFFFF">
-	  <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
+	  <td width="15" bgcolor="#FFFFFF" style="background: url(img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
 		<td width="175" valign="top" bgcolor="#FFFFFF"><?php
 
 		echo $subnav . LF;
@@ -318,7 +318,7 @@ if($BE['LANG'] == 'ar') {
 
 		</td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
-      <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/dividerA.gif);background-repeat:repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
+      <td width="15" bgcolor="#FFFFFF" style="background:url(img/backend/dividerA.gif) repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
       <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540" id="be_main_content">{STATUS_MESSAGE}{BE_PARSE_LANG}<!--BE_MAIN_CONTENT_START//-->
 <?php
 
@@ -537,7 +537,7 @@ if($BE['LANG'] == 'ar') {
 ?>
 
 	<!--BE_MAIN_CONTENT_END//--></td>
-      <td width="15" bgcolor="#FFFFFF" style="background-image:url(img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
+      <td width="15" bgcolor="#FFFFFF" style="background:url(img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
 	</tr>
 	<tr>
 	  <td><img src="img/backend/backend_a_r1_c1.gif" alt="" width="15" height="15" border="0"></td>

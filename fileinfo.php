@@ -87,14 +87,13 @@ if($file_id) {
 		var width = 590;
 	';
 	if($thumb_image != false) {
-		echo '
-		var height = screen.availHeight;
-		if(height < 490) {
-			height=420;
-		} else {
-			height=570;
-		}
-	';
+		echo '		var height = screen.availHeight;
+			if(height < 490) {
+				height=420;
+			} else {
+				height=570;
+			}
+		';
 	} else {
 		echo '	var height = 300;';
 	}
@@ -133,15 +132,15 @@ if($file_id) {
 		if(!$row["f_trash"]) {
 		?><a href="include/inc_act/act_download.php?dl=<?php
 
-		echo $row["f_id"];
-		//download public file too
-		if($public) {
-			echo '&amp;pl=1';
-		}
+			echo $row["f_id"];
+			//download public file too
+			if($public) {
+				echo '&amp;pl=1';
+			}
 
 		?>" target="_blank" title="<?php echo $BL['DOWNLOAD_FILE'].": ".$filename ?>"><img src="img/button/download_disc_large.gif" alt="" width="61" height="13" border="0" /></a><?php
 		} else {
-		 echo "<img src=\"img/button/file_in_trash.gif\" width=\"61\" height=\"13\" border=\"0\" title=\"".$BL['FILE_IN_TRASH']."\">";
+			echo "<img src=\"img/button/file_in_trash.gif\" width=\"61\" height=\"13\" border=\"0\" title=\"".$BL['FILE_IN_TRASH']."\">";
 		}
 		?><img src="img/leer.gif" alt="" width="9" height="1" /><img src="img/button/aktiv_12x13_<?php echo $row["f_aktiv"] ?>.gif" alt="" width="12" height="13" /><img src="img/button/public_12x13_<?php echo $row["f_public"] ?>.gif" alt="" width="12" height="13" /></td>
       </tr>
@@ -186,8 +185,8 @@ if($file_id) {
     <td class="v10"><?php echo nl2br(auto_link(html_specialchars($row["f_longinfo"]))) ?></td>
     <td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
   </tr>
-  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-  <?php } ?>
+  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr><?php
+	} ?>
   <tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
   <tr bgcolor="#EBF2F4">
     <td><img src="img/leer.gif" alt="" width="10" height="10" /></td>

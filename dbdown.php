@@ -28,14 +28,11 @@ body,td,th {
 }
 body {
 	background-color: #FFFFFF;
-	margin-left: 15px;
-	margin-top: 25px;
-	margin-right: 15px;
-	margin-bottom: 15px;
+	margin: 25px 15px 15px 15px;
 	text-align: center;
 }
 h1 {
-	font-family: Verdana; Arial, Helvetica, sans-serif;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 18px;
 	font-weight: bold;
 	margin: 0 0 10px 0;

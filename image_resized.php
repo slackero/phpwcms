@@ -128,5 +128,3 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
 	imagedestroy($new_img);
 
 }
-
-?>

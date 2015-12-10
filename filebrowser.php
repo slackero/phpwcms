@@ -169,7 +169,7 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
 	<script type="text/javascript">
 		function addFile(obj,text,value) {
 			if(obj!=null && obj.options!=null) {
-				newOpt = new Option(text, value);
+				var newOpt = new Option(text, value);
 				obj.options.length++;
 				obj.options[obj.length-1].text  = newOpt.text;
 				obj.options[obj.length-1].value = newOpt.value;
