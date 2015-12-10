@@ -96,28 +96,48 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<td><select name="fmp_width_height" id="fmp_width_height" onchange="setPlayerSize(this)">
 
 				<option><?php echo $BL['be_flashplayer_selectsize'] ?></option>
-				<option value="200x178">200 x 178 px</option>
-				<option value="320x240">320 x 240 px</option>
-				<option value="380x313">380 x 313 px</option>
-				<option value="425x350">425 x 350 px</option>
-				<option value="450x338">450 x 338 px</option>
-				<option value="500x403">500 x 403 px</option>
-				<option value="640x480">640 x 264 px</option>
-				<option value="640x480">640 x 480 px</option>
+<?php
 
-				<option value="720x480">HD 720 x 480 px</option>
-				<option value="852x480">HD 852 x 480 px</option>
-				<option value="1280x720">HD 1.280 x 720 px</option>
-				<option value="1920x1080">HD 1.920 x 1.080 px</option>
+	if(empty($template_default['settings']['html5_player']['sizes'])) {
+
+		$template_default['settings']['html5_player']['sizes'] = array(
+			'426x240' => '240p',
+			'640x360' => '360p',
+			'854x480' => '480p',
+			'1280x720' => '720p',
+			'1920x1080' => '1080p',
+			'2560x1440' => '1440p (2k)',
+			'3840x2160' => '2160p (4k)',
+			'640x267' => '640 x 267 (21:9)',
+			'854x356' => '854 x 356 (21:9)',
+			'1280x533' => '1280 x 533 (21:9)',
+			'1920x800' => '1920 x 800 (21:9)',
+			'200x178' => '200 x 178 px',
+			'320x240' => '320 x 240 px',
+			'380x313' => '380 x 313 px',
+			'425x350' => '425 x 350 px',
+			'450x338' => '450 x 338 px',
+			'500x403' => '500 x 403 px',
+			'640x264' => '640 x 264 px',
+			'640x480' => '640 x 480 px'
+		);
+
+	}
+
+		foreach($template_default['settings']['html5_player']['sizes'] as $val => $option):
+?>
+				<option value="<?php echo $val ?>"<?php is_selected($val, $fmp_data['fmp_width'].'x'.$fmp_data['fmp_height']); ?>><?php echo html($option); ?></option>
+
+<?php	endforeach; ?>
 
 			</select></td>
 
 			<td>&nbsp;&nbsp;</td>
 
-			<td><input name="fmp_width" type="text" class="width30" id="fmp_width" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_width']  ?>" /></td>
+			<td><input name="fmp_width" type="text" class="width30" id="fmp_width" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_width']; ?>" /></td>
 			<td class="chatlist">&nbsp;x&nbsp;</td>
 
-			<td><input name="fmp_height" type="text" class="width30" id="fmp_height" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_height']  ?>" /></td>
+			<td><input name="fmp_height" type="text" class="width30" id="fmp_height" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_height']; ?>" /></td>
 			<td class="chatlist">&nbsp;px</td>
 
 		</tr>

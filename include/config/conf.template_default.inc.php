@@ -412,7 +412,31 @@ $template_default['attributes'] = array(
 $template_default['settings'] = array(
 	 // the default behavior is to switch to article detail
 	 // mode if there is only 1 article left in the category
-	'force_article_list_mode' => 0
+	'force_article_list_mode' => 0,
+
+	'html5_player' => array(
+		'sizes' => array(
+			'426x240' => '240p',
+			'640x360' => '360p',
+			'854x480' => '480p',
+			'1280x720' => '720p',
+			'1920x1080' => '1080p',
+			'2560x1440' => '1440p (2k)',
+			'3840x2160' => '2160p (4k)',
+			'640x267' => '640 x 267 (21:9)',
+			'854x356' => '854 x 356 (21:9)',
+			'1280x533' => '1280 x 533 (21:9)',
+			'1920x800' => '1920 x 800 (21:9)',
+			'200x178' => '200 x 178 px',
+			'320x240' => '320 x 240 px',
+			'380x313' => '380 x 313 px',
+			'425x350' => '425 x 350 px',
+			'450x338' => '450 x 338 px',
+			'500x403' => '500 x 403 px',
+			'640x264' => '640 x 264 px',
+			'640x480' => '640 x 480 px'
+		)
+	)
 );
 
 ?>
