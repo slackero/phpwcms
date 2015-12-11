@@ -1490,20 +1490,32 @@ function html_parser($string) {
 	// anchor or page link
 	$string = preg_replace_callback('/\{[aA]:(.+?)\}/', 'get_link_anchor', $string);
 
+	// images
+	$string = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i', 'parse_images', $string);
+	$string = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_images', $string);
+
+	// downloads
+	$string = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\/\]/i', 'parse_downloads', $string);
+	$string = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\](.*?)\[\/download\]/is', 'parse_downloads', $string);
+
 	$string = str_replace(
 		array(
 			'&#92;&#039;',
 			'&amp;quot;',
 			'-//-',
 			' class=""',
-			'<br>'
+			'<br>',
+			'{SITE}',
+			'{TEMPLATE}'
 		),
 		array(
 			'&#039;',
 			'&quot;',
 			' ',
 			'',
-			'<br />'
+			'<br />',
+			PHPWCMS_URL,
+			TEMPLATE_PATH
 		),
 		$string
 	);

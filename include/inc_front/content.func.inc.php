@@ -1020,19 +1020,10 @@ if(strpos($content["all"],'{NEW:') !== false) {
 }
 
 // some more general parsing
-$content["all"]	= str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
 $content["all"] = str_replace('{RSSIMG}', $template_default["rss"]["image"], $content["all"]);
-
-$content["all"] = html_parser($content["all"]);
-
-$content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i', 'parse_images', $content["all"]);
-$content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_images', $content["all"]);
-$content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\/\]/i', 'parse_downloads', $content["all"]);
-$content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
 
 // create link to articles for found keywords
 $content["all"] = preg_replace_callback('/\{KEYWORD:(.*?)\}/', 'get_keyword_link', $content["all"]);
-//}
 
 // include external HTML page but only part between <body></body>
 $content["all"] = preg_replace_callback('/\{URL:(.*?)\}/i', 'include_url', $content["all"]);
@@ -1045,11 +1036,16 @@ if(strpos($content["all"],'{BROWSE:') !== false) {
 	$content["all"] = preg_replace_callback('/\{BROWSE:PREV:(.*?):(0|1)\}/', 'get_index_link_prev',$content["all"]);
 }
 
-// replace all "hardcoded" global replacement tags
-if(count($content['globalRT'])) {
-	foreach($content['globalRT'] as $key => $value) {
-		if($key != '') {
-			$content["all"] = str_replace($key, $value, $content["all"]);
+// parse replacements to HTML before frontend render
+if(empty($phpwcms['parse_html_mode']) || substr($phpwcms['parse_html_mode'], 0, 6) === 'before') {
+	$content["all"] = html_parser($content["all"]);
+
+	// replace all "hardcoded" global replacement tags
+	if(count($content['globalRT'])) {
+		foreach($content['globalRT'] as $key => $value) {
+			if($key != '') {
+				$content["all"] = str_replace($key, $value, $content["all"]);
+			}
 		}
 	}
 }
@@ -1073,6 +1069,20 @@ if($phpwcms["allow_ext_render"]) {
 if(count($phpwcms['modules_fe_render'])) {
 	foreach($phpwcms['modules_fe_render'] as $value) {
 		include_once $value;
+	}
+}
+
+// parse replacements to HTML before frontend render
+if(!empty($phpwcms['parse_html_mode']) && substr($phpwcms['parse_html_mode'], -5) === 'after') {
+	$content["all"] = html_parser($content["all"]);
+
+	// replace all "hardcoded" global replacement tags
+	if(count($content['globalRT'])) {
+		foreach($content['globalRT'] as $key => $value) {
+			if($key != '') {
+				$content["all"] = str_replace($key, $value, $content["all"]);
+			}
+		}
 	}
 }
 
