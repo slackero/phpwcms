@@ -23,5 +23,3 @@ _dbSetVar('max_allowed_packet', 16*1024*1024, '<');
 
 // Form
 $SQL .= "acontent_form="._dbEscape(serialize($content['form']))." ";
-
-?>

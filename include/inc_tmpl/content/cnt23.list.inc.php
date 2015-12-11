@@ -40,5 +40,3 @@ if($form['subject']) {
 }
 unset($form);
 echo "</td><td>&nbsp;</td></tr>";
-
-?>

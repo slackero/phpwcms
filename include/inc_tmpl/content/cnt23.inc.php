@@ -16,8 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-// email contact form
+// CP Form
 
 $field_counter = 0;
 initMootools();

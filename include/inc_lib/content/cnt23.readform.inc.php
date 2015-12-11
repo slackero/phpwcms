@@ -607,6 +607,3 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 
 // sort form fields
 ksort($content["form"]["fields"], SORT_NUMERIC);
-
-
-?>
