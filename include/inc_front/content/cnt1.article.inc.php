@@ -66,29 +66,25 @@ $crow["default_settings"] = array(
 	'class_column_right_text'	=> $template_default['classes']['imgtxt-column-right-text'],
 	'width'						=> $image[4],
 	'height'					=> $image[5],
-	'zoom'						=> $image[8],
-	'crop'						=> 0,
-	'lightbox'					=> 0,
-	'nocaption'					=> 0
+	'zoom'						=> $image[8]
 );
 
-$image_text	= '';
-
-$crow["settings"] = array_merge($crow["default_settings"], $crow["settings"]);
-
-//zoom click = $image[8];
 if($image) {
 
 	$cnt_image = @unserialize($crow["acontent_form"]);
-	$crow['has_image'] = true;
-
 	$crow["default_settings"]['lightbox']	= empty($cnt_image['cimage_lightbox']) ? 0 : 1;
 	$crow["default_settings"]['nocaption']	= empty($cnt_image['cimage_nocaption']) ? 0 : 1;
 	$crow["default_settings"]['crop']		= empty($cnt_image['cimage_crop']) ? 0 : 1;
 
-	$crow["settings"]['lightbox']	= $crow["default_settings"]['lightbox'];
-	$crow["settings"]['nocaption']	= $crow["default_settings"]['nocaption'];
-	$crow["settings"]['crop']		= $crow["default_settings"]['crop'];
+}
+
+$crow["settings"] = array_merge($crow["default_settings"], $crow["settings"]);
+
+$image_text	= '';
+
+if($image) {
+
+	$crow['has_image'] = true;
 
 	if($crow["settings"]['lightbox']) {
 		initSlimbox();
