@@ -37,11 +37,11 @@ $template_default['nav_table_struct']['space_cellbottom']		= 2;
 //
 $template_default['nav_table_struct']['cell_width']				= '100%';
 $template_default['nav_table_struct']['cell_height']			= '15';
-$template_default['nav_table_struct']['cell_class']				= 'nav_table';
+$template_default['nav_table_struct']['cell_class']				= 'nav-table';
 //
 $template_default['nav_table_struct']['cell_active_width']		= '100%';
 $template_default['nav_table_struct']['cell_active_height']		= '15';
-$template_default['nav_table_struct']['cell_active_class']		= 'nav_table_active';
+$template_default['nav_table_struct']['cell_active_class']		= 'nav-table-active';
 //
 $template_default['nav_table_struct']['js_over_effects']		= 1;
 $template_default['nav_table_struct']['all_nodes_active']		= 1;
@@ -93,7 +93,7 @@ $template_default['nav_table_struct']['array_struct'][1]['space_cellbottom']	= $
 $template_default['nav_table_struct']['array_struct'][1]['cell_height']		= $template_default['nav_table_struct']['cell_height'];
 $template_default['nav_table_struct']['array_struct'][1]['cell_class']			= 'navLevel1';
 $template_default['nav_table_struct']['array_struct'][1]['cell_active_height']	= $template_default['nav_table_struct']['cell_active_height'];
-$template_default['nav_table_struct']['array_struct'][1]['cell_active_class']	= 'navLevel1a';
+$template_default['nav_table_struct']['array_struct'][1]['cell_active_class']	= 'nav-level-1a';
  */
 
 
@@ -104,13 +104,13 @@ $template_default['space_aftertop_text']	= '';
 $template_default['space_between_list']		= '';
 $template_default['space_between_sum']		= '';
 //
-$template_default['top_listentry_before']   = '<div class="listEntry">';
+$template_default['top_listentry_before']   = '<div class="list-item">';
 $template_default['top_listentry_after']    = '</div>';
 $template_default['top_headline_before']    = '<h1>';
 $template_default['top_headline_after']     = '</h1>';
 $template_default['top_subheadline_before'] = '<h2>';
 $template_default['top_subheadline_after']  = '</h2>';
-$template_default['top_text_before']        = '<div class="topText">';
+$template_default['top_text_before']        = '<div class="text-top">';
 $template_default['top_text_after']         = '</div>';
 $template_default['top_readmore_before']	= ' ';
 $template_default['top_readmore_link']		= 'more&#8230;';
@@ -124,7 +124,7 @@ $template_default['article_paginate_show']	= 'top bottom rt{RT}'; //where should
 $template_default['article_render_anchor']	= false; // render article jumpID anchor true||false
 
 //
-$template_default['list_startimage']		= '<img src="img/article/list_startimage.gif" width="11" height="7" border="0" alt="" />';
+$template_default['list_startimage']		= '';
 $template_default['list_headline_before']   = '<div class="articleListListhead">';
 $template_default['list_headline_after']    = '</div>';
 
@@ -140,7 +140,7 @@ $template_default['article']['title_before']		= '<h1>';
 $template_default['article']['title_after']			= '</h1>';
 $template_default['article']['subtitle_before']		= '<h2>';
 $template_default['article']['subtitle_after']		= '</h2>';
-$template_default['article']['summary_before']		= '<div class="articleSummary">';
+$template_default['article']['summary_before']		= '<div class="article-summary">';
 $template_default['article']['summary_after']		= '</div>';
 
 $template_default['article']['div_spacer']			= true; //if true or 'div' = <div>..., if false or not set <br><img...>
@@ -155,14 +155,14 @@ $template_default['article']['content_subhead_after']	= '</h4>';
 $template_default['article']['text_class']				= 'articleText';
 $template_default['article']['code_class']				= 'articleCode';
 
-$template_default['article']['link_email_before']		= '<div class="linkEmail"><img src="img/article/extlink_1.gif" alt="" /><img src="img/leer.gif" width="1" height="11" alt="" />';
+$template_default['article']['link_email_before']		= '<div class="link-email">';
 $template_default['article']['link_email_after']		= '</div>';
 
-$template_default['article']['bullet_sign']				= '<img src="img/article/bullet_1.gif" alt="" /><img src="img/leer.gif" width="1" height="1" alt="" />';
-$template_default['article']['link_sign']				= '<img src="img/article/extlink_1.gif" alt="" /><img src="img/leer.gif" width="1" height="11" alt="" />';
-$template_default['article']['back_sign']				= '<img src="img/article/back_link_0.gif" border="0" alt="" />';
+$template_default['article']['bullet_sign']				= '&gt; ';
+$template_default['article']['link_sign']				= '&gt; ';
+$template_default['article']['back_sign']				= '&lt; ';
 $template_default['article']['top_sign']				= '<img src="img/article/top_link_0.gif" border="0" alt="" />';
-$template_default['article']['top_sign_before']			= '<div align="right">';
+$template_default['article']['top_sign_before']			= '<div class="link-top">';
 $template_default['article']['top_sign_after']			= '</div>';
 
 $template_default['article']['file_name_cell_class']	= 'v11';
@@ -171,8 +171,8 @@ $template_default['article']['file_size_info_class']	= 'v09';
 
 $template_default['article']['form_align']              = '';
 
-$template_default['article']['link_article_sign']		= '<img src="img/article/intlink_1.gif" alt="" /><img src="img/leer.gif" width="1" height="11" alt="" />';
-$template_default['article']['link_article_class']		= 'articleLinkInternal';
+$template_default['article']['link_article_sign']		= '&gt; ';
+$template_default['article']['link_article_class']		= 'article-link-internal';
 
 $template_default['article']['image_table_class']		= '';
 $template_default['article']['image_table_bgcolor']		= '';
@@ -180,9 +180,9 @@ $template_default['article']['image_bgcolor']			= '';
 $template_default['article']['image_align']				= '';
 $template_default['article']['image_valign']			= '';
 $template_default['article']['image_border']			= 0;
-$template_default['article']['image_class']				= "image_td";
-$template_default['article']['image_imgclass']			= "image_img";
-$template_default['article']['image_caption_class']		= "image_caption";
+$template_default['article']['image_class']				= "image-td";
+$template_default['article']['image_imgclass']			= "image-img";
+$template_default['article']['image_caption_class']		= "image-caption";
 $template_default['article']['image_caption_bgcolor']	= '';
 $template_default['article']['image_caption_valign']	= '';
 $template_default['article']['image_caption_align']		= 'center';
@@ -193,16 +193,16 @@ $template_default['article']['image_div']				= true;
 $template_default['article']['image_default_width']		= '490';
 $template_default['article']['image_default_height']	= '370';
 
-$template_default['article']['imagelist_table_class']		= '';
+$template_default['article']['imagelist_table_class']		= 'imagelist-table';
 $template_default['article']['imagelist_table_bgcolor']		= '';
-$template_default['article']['imagelist_spacerrow_class']	= 'imagelistSpacerRow';
+$template_default['article']['imagelist_spacerrow_class']	= 'imagelist-spacer-row';
 $template_default['article']['imagelist_bgcolor']			= '';
 $template_default['article']['imagelist_align']				= '';
 $template_default['article']['imagelist_valign']			= '';
 $template_default['article']['imagelist_border']			= 0;
-$template_default['article']['imagelist_class']				= 'imagelisttd';
-$template_default['article']['imagelist_imgclass']			= 'imagelistimg';
-$template_default['article']['imagelist_caption_class']		= 'imglistcaption';
+$template_default['article']['imagelist_class']				= 'imagelist-td';
+$template_default['article']['imagelist_imgclass']			= 'imagelist-img';
+$template_default['article']['imagelist_caption_class']		= 'imglist-caption';
 $template_default['article']['imagelist_caption_bgcolor']	= '';
 $template_default['article']['imagelist_caption_valign']	= '';
 $template_default['article']['imagelist_caption_align']		= '';
@@ -261,15 +261,15 @@ $template_default['news']['date_after']		= ' - </span>';
 $template_default['news']['sort_by']		= 'cdate'; // 'cdate' = Creation date, or 'udate' = update date, ldate = start date, kdate = end date
 
 // ecards
-$template_default['article']['ecard_table_class']		= "image_table";
+$template_default['article']['ecard_table_class']		= "image-table";
 $template_default['article']['ecard_table_bgcolor']		= '';
 $template_default['article']['ecard_bgcolor']			= '';
 $template_default['article']['ecard_align']				= '';
 $template_default['article']['ecard_valign']			= '';
 $template_default['article']['ecard_border']			= 0;
 $template_default['article']['ecard_imgclass']			= '';
-$template_default['article']['ecard_class']				= 'image_td';
-$template_default['article']['ecard_caption_class']		= 'image_caption';
+$template_default['article']['ecard_class']				= 'image-td';
+$template_default['article']['ecard_caption_class']		= 'image-caption';
 $template_default['article']['ecard_caption_bgcolor']	= '';
 $template_default['article']['ecard_caption_valign']	= '';
 $template_default['article']['ecard_caption_align']		= 'center';
@@ -438,5 +438,3 @@ $template_default['settings'] = array(
 		)
 	)
 );
-
-?>
