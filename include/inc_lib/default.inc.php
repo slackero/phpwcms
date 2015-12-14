@@ -580,12 +580,20 @@ function buildGlobalGET($return = '') {
 	// and remove session from this array
 	$GLOBALS['_getVar'] = array();
 
-	$_queryVal		= empty($_SERVER['QUERY_STRING']) ? array() : explode('&', $_SERVER['QUERY_STRING']);
+	$_queryVal		= empty($_SERVER['QUERY_STRING']) ? array() : explode('&', remove_unsecure_rptags($_SERVER['QUERY_STRING']));
 	$_queryCount	= count($_queryVal);
 	$_getCount		= is_array($_GET) ? count($_GET) : 0;
 
 	if($_getCount && $_getCount >= $_queryCount) {
+
+		// solve the problem that dots inside alias can get lost using GET variable
+		if(!empty($_queryVal[0]) && strpos($_queryVal[0], '.') !== false) {
+			array_shift($_GET);
+			$_GET = array($_queryVal[0] => '') + $_GET;
+		}
+
 		$GLOBALS['_getVar'] = $_GET;
+
 	} elseif($_queryCount) {
 		foreach($_queryVal as $value) {
 			$key = explode('=', $value);
@@ -595,12 +603,13 @@ function buildGlobalGET($return = '') {
 		}
 	}
 
-	unset(	$_GET[session_name()],
-			$GLOBALS['_getVar'][session_name()],
-			$GLOBALS['_getVar']['']
-		  );
+	unset(
+		$_GET[session_name()],
+		$GLOBALS['_getVar'][session_name()],
+		$GLOBALS['_getVar']['']
+	);
 
-	if( get_magic_quotes_gpc() ) {
+	if(get_magic_quotes_gpc()) {
 		foreach($GLOBALS['_getVar'] as $key => $value) {
 			$GLOBALS['_getVar'][$key] = stripslashes($value);
 		}
