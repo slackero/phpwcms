@@ -84,8 +84,7 @@ initMootools();
 initMootoolsAutocompleter();
 
 ?>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+<td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
@@ -167,7 +166,7 @@ initMootoolsAutocompleter();
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_allowed_tags'] ?>:&nbsp;</td>
-	<td><input name="calink_allowedtags" type="text" id="calink_allowedtags" class="f11b" style="width: 420px" value="<?php echo html($content['alink']['alink_allowedtags']); ?>" size="20" /></td>
+	<td><input name="calink_allowedtags" type="text" id="calink_allowedtags" class="f11b width450" value="<?php echo html($content['alink']['alink_allowedtags']); ?>" size="20" /></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -189,9 +188,7 @@ initMootoolsAutocompleter();
 		</table></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
@@ -215,6 +212,8 @@ initMootoolsAutocompleter();
 			<option value="19"<?php is_selected(19, $content['alink']['alink_type']) ?>><?php echo $BL['be_article_atitle'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 			<option value="22"<?php is_selected(22, $content['alink']['alink_type']) ?>><?php echo $BL['be_tags'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
 			<option value="23"<?php is_selected(23, $content['alink']['alink_type']) ?>><?php echo $BL['be_tags'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+			<option value="24"<?php is_selected(24, $content['alink']['alink_type']) ?>><?php echo $BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+			<option value="25"<?php is_selected(25, $content['alink']['alink_type']) ?>><?php echo $BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 		</optgroup>
 
 		<optgroup label="<?php echo $BL['be_random']; ?>">
@@ -232,6 +231,8 @@ initMootoolsAutocompleter();
 			<option value="17"<?php is_selected(17, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 			<option value="20"<?php is_selected(20, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_atitle'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
 			<option value="21"<?php is_selected(21, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_article_atitle'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+			<option value="26"<?php is_selected(26, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+			<option value="27"<?php is_selected(27, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderasc'] ?></option>
 		</optgroup>
 
 	</select>
@@ -251,7 +252,7 @@ initMootoolsAutocompleter();
 <td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
-		<td rowspan="2"><select name="calink[]" size="8" multiple="multiple" class=" width420 listrow" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
+		<td rowspan="2"><select name="calink[]" size="15" multiple="multiple" class="listrow width540" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
 <?php
 	  	//Auslesen der kompletten Public Artikel
 	  	$sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv, article_keyword ";
@@ -334,7 +335,7 @@ initMootoolsAutocompleter();
       <td><table border="0" cellpadding="0" cellspacing="0" summary="">
 
 	<tr>
-		<td><select name="calinklist" size="16" multiple="multiple" class="listrow" id="calinklist" style="width:420px;" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
+		<td><select name="calinklist" size="25" multiple="multiple" class="listrow width540" id="calinklist" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
 	  <?php echo $carticle_list; ?>
       			</select></td>
 
@@ -386,7 +387,7 @@ initMootoolsAutocompleter();
 </tr>
 <tr id="calink_auto_1"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
 	<td align="right" valign="top" class="chatlist" style="padding-top:6px;"><?php echo $BL['be_cnt_sitelevel'] ?>:&nbsp;</td>
-	<td style="padding-top:3px;"><select name="calink_level[]" size="15" multiple="multiple" class="optionhover" id="calink_level" style="width: 440px">
+	<td style="padding-top:3px;"><select name="calink_level[]" size="30" multiple="multiple" class="optionhover width540" id="calink_level">
 <?php
 		echo '<option value="0"';
 		if(in_array(0, $content['alink']['alink_level'])) {
@@ -405,14 +406,13 @@ initMootoolsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><input type="text" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" class="width350 bold" /></td>
+			<td><input type="text" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" class="width450 bold" /></td>
 			<td>&nbsp;&nbsp;</td>
 			<td><select name="calink_andor" id="calink_andor">
-
 				<option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
 				<option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
 				<option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
-
+				<option value="NOR"<?php is_selected('NOR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_nor'] ?></option>
 			</select></td>
 		</tr>
 		</table></td>
@@ -448,4 +448,4 @@ var source_items = document.getElementById('calinklist');
 
 //-->
 </script></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>

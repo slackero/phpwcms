@@ -1404,4 +1404,4 @@ $BL['CSRF_GET_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-
 $BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters failed. For security reasons, the session was ended.';
 
 $BL['be_parental_alias'] = 'parental alias';
-
+$BL['be_fsearch_nor'] = 'NONE';

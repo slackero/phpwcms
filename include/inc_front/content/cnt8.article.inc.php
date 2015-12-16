@@ -68,42 +68,44 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 	$content['alink']['tags_where']				= '';
 	$content['alink']['date_basis'] 			= 'article_date';
 	$content['alink']['alink_categoryalias']	= empty($content['alink']['alink_categoryalias']) ? 0 : 1;
+	$content['alink']['alink_category_count']	= empty($content['alink']['alink_category']) ? 0 : count($content['alink']['alink_category']);
 
-	$alink_sql  = "SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date FROM ".DB_PREPEND."phpwcms_article ar ";
+	$alink_sql = 'SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date, COUNT(*) as matched_articles ';
 
 	// select by category
-	if(!empty($content['alink']['alink_category']) && count($content['alink']['alink_category'])) {
+	if($content['alink']['alink_category_count']) {
+
+		// pcat.cat_name is used to check against having keywords for OR, AND, NOT
+		$alink_sql .= ', pcat.cat_name FROM '.DB_PREPEND.'phpwcms_article ar ';
 
 		$content['alink']['tags_sql'] = array();
 
-		// and/or/not mode
-		switch($content['alink']['alink_andor']) {
-
-			case 'AND': $content['alink']['alink_andor']	= ' AND ';
-						$content['alink']['alink_compare']	= '=';
-						break;
-
-			case 'NOT':	$content['alink']['alink_andor']	= ' AND ';
-						$content['alink']['alink_compare']	= '!=';
-						break;
-
-			default:	//OR
-						$content['alink']['alink_andor']	= ' OR ';
-						$content['alink']['alink_compare']	= '=';
-		}
-
 		foreach($content['alink']['alink_category'] as $value) {
 
-			$content['alink']['tags_sql'][] = 'pcat.cat_name' . $content['alink']['alink_compare'] . _dbEscape($value);
+			$content['alink']['tags_sql'][] = _dbEscape($value);
 
 		}
 
 		// JOIN with tags/categories for articles
-		$alink_sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='article' AND pcat.cat_pid=ar.article_id) ";
-		$content['alink']['tags_where'] = 'AND (' . implode($content['alink']['alink_andor'], $content['alink']['tags_sql']) . ') ';
+		$alink_sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_categories pcat ON (pcat.cat_type='article' AND pcat.cat_pid=ar.article_id ";
+		$alink_sql .= 'AND pcat.cat_name IN (' . implode(',', $content['alink']['tags_sql']) . '))';
+
+		if($content['alink']['alink_andor'] === 'NOR') {
+
+			$content['alink']['tags_where'] .= 'AND pcat.cat_name IS NULL ';
+
+		} else {
+
+			$content['alink']['tags_where'] .= 'AND pcat.cat_name IS NOT NULL ';
+
+		}
 
 		// group by article ID
 		$content['alink']['tags_group_by'] = ' GROUP BY ar.article_id';
+
+	} else {
+
+		$alink_sql .= 'FROM '.DB_PREPEND.'phpwcms_article ar ';
 
 	}
 
@@ -206,6 +208,14 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_keyword ASC";
 						break;
 
+			case 24:	// article sort, DESC
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_sort DESC";
+						break;
+
+			case 25:	// article sort, ASC
+						$alink_sql .= " ORDER BY ".$sql_prio."ar.article_sort ASC";
+						break;
+
 			case 9:		// random
 						$alink_sql .= " ORDER BY RAND()";
 						break;
@@ -250,14 +260,24 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 						$sql_union .= " ORDER BY ".$sql_union_prio."article_end ASC";
 						break;
 
-			case 20:	// random, kill date, DESC
+			case 20:	// random, article title, DESC
 						$alink_sql .= " ORDER BY RAND()";
 						$sql_union .= " ORDER BY ".$sql_union_prio."article_title DESC";
 						break;
 
-			case 21:	// random, kill date, ASC
+			case 21:	// random, article title, ASC
 						$alink_sql .= " ORDER BY RAND()";
 						$sql_union .= " ORDER BY ".$sql_union_prio."article_title ASC";
+						break;
+
+			case 26:	// random, article sort, DESC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_sort DESC";
+						break;
+
+			case 27:	// random, article sort, ASC
+						$alink_sql .= " ORDER BY RAND()";
+						$sql_union .= " ORDER BY ".$sql_union_prio."article_sort ASC";
 						break;
 
 		}
@@ -274,7 +294,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 			}
 
 		}
-
 	}
 
 	$content['alink']['tr'] = array();
@@ -287,7 +306,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 	$content['alink']['alink_template_column']	= trim( get_tmpl_section('TEASER_COLUMN_OVERWRITE', $content['alink']['alink_template']) );
 	$content['alink']['alink_template_head']	= str_replace('{LINK_ARTICLE_CLASS}', get_class_attrib($template_default["article"]["link_article_class"]), $content['alink']['alink_template_head']);
 
-	$content['alink']['result']					= _dbQuery($alink_sql);
+	$content['alink']['result'] = _dbQuery($alink_sql);
 
 	if(isset($content['alink']['result'][0])) {
 
@@ -304,12 +323,31 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 		$content['alink']['row']		= 1;
 		$content['alink']['row_space']	= false;
 
-		// before finding a faster solution...
 		if(!empty($content['alink']['alink_type'])) {
+
 			$content['alink']['alink_id'] = array();
-			foreach($content['alink']['result'] as $value) {
-				$content['alink']['alink_id'][] = $value['article_id'];
+
+			if($content['alink']['alink_category_count'] && substr($content['alink']['alink_andor'], -2) !== 'OR') {
+
+				foreach($content['alink']['result'] as $value) {
+
+					if($content['alink']['alink_andor'] === 'AND' && $content['alink']['alink_category_count'] !== (int)$value['matched_articles']) {
+						continue;
+					} elseif($content['alink']['alink_andor'] === 'NOT' && $content['alink']['alink_category_count'] === (int)$value['matched_articles']) {
+						continue;
+					}
+
+					$content['alink']['alink_id'][] = $value['article_id'];
+				}
+
+			} else {
+
+				// Anay value is valid
+				foreach($content['alink']['result'] as $value) {
+					$content['alink']['alink_id'][] = $value['article_id'];
+				}
 			}
+
 		}
 
 		// Max teaser items

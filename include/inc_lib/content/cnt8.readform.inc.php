@@ -28,7 +28,7 @@ $content['alink']['alink_level']		= (isset($_POST["calink_level"]) && is_array($
 
 // article select type
 $content['alink']['alink_type'] = abs(intval($_POST['calink_type']));
-if($content['alink']['alink_type'] > 23) {
+if($content['alink']['alink_type'] > 27) {
 	$content['alink']['alink_type'] = 0;
 }
 
@@ -46,19 +46,13 @@ $content['alink']['alink_categoryalias'] = empty($_POST['calink_categoryalias'])
 $content['alink']['alink_max']			= intval($_POST['calink_max']);
 
 // image settings
-$content['alink']['alink_width']		= intval($_POST['calink_width']);
-$content['alink']['alink_height']		= intval($_POST['calink_height']);
-$content['alink']['alink_zoom']			= empty($_POST['calink_zoom']) ? 0 : 1;
-$content['alink']['alink_unique']		= empty($_POST['calink_unique']) ? 0 : 1;
-$content['alink']['alink_crop']			= empty($_POST['calink_crop']) ? 0 : 1;
-$content['alink']['alink_prio']			= empty($_POST['calink_prio']) ? 0 : 1;
-
-if( empty($_POST['calink_andor']) ) {
-	$content['alink']['alink_andor'] = 'OR';
-} else {
-	$content['alink']['alink_andor'] = in_array($_POST['calink_andor'], array('OR', 'AND', 'NOT') ) ? $_POST['calink_andor'] : 'OR';
-}
-
+$content['alink']['alink_width']	= intval($_POST['calink_width']);
+$content['alink']['alink_height']	= intval($_POST['calink_height']);
+$content['alink']['alink_zoom']		= empty($_POST['calink_zoom']) ? 0 : 1;
+$content['alink']['alink_unique']	= empty($_POST['calink_unique']) ? 0 : 1;
+$content['alink']['alink_crop']		= empty($_POST['calink_crop']) ? 0 : 1;
+$content['alink']['alink_prio']		= empty($_POST['calink_prio']) ? 0 : 1;
+$content['alink']['alink_andor']	= (empty($_POST['calink_andor']) || !in_array($_POST['calink_andor'], array('OR', 'AND', 'NOT', 'NOR'))) ? 'OR' : $_POST['calink_andor'];
 $content['alink']['alink_category'] = convertStringToArray( clean_slweg($_POST['calink_category']) );
 
 if(empty($content['alink']['alink_width'])) $content['alink']['alink_width'] = '';
@@ -75,6 +69,3 @@ foreach($content['alink']['alink_id'] as $key => $value) {
 		unset($content['alink']['alink_id'][$key]);
 	}
 }
-
-
-?>

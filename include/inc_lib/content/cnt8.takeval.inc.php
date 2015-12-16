@@ -21,5 +21,3 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Link Article
 $content['alink'] = unserialize($row["acontent_form"]);
-
-?>
