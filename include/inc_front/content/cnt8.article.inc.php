@@ -70,13 +70,13 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 	$content['alink']['alink_categoryalias']	= empty($content['alink']['alink_categoryalias']) ? 0 : 1;
 	$content['alink']['alink_category_count']	= empty($content['alink']['alink_category']) ? 0 : count($content['alink']['alink_category']);
 
-	$alink_sql = 'SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date, COUNT(*) as matched_articles ';
+	$alink_sql = 'SELECT ar.*, UNIX_TIMESTAMP(ar.article_tstamp) AS article_date ';
 
 	// select by category
 	if($content['alink']['alink_category_count']) {
 
 		// pcat.cat_name is used to check against having keywords for OR, AND, NOT
-		$alink_sql .= ', pcat.cat_name FROM '.DB_PREPEND.'phpwcms_article ar ';
+		$alink_sql .= ', COUNT(*) AS matched_articles, pcat.cat_name FROM '.DB_PREPEND.'phpwcms_article ar ';
 
 		$content['alink']['tags_sql'] = array();
 
@@ -105,7 +105,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 	} else {
 
-		$alink_sql .= 'FROM '.DB_PREPEND.'phpwcms_article ar ';
+		$alink_sql .= ', 1 AS matched_articles FROM '.DB_PREPEND.'phpwcms_article ar ';
 
 	}
 
