@@ -186,10 +186,10 @@ initJsAutocompleter();
 			<td><select name="news_paginate_basis" id="news_paginate_basis" onchange="setPaginateBasis();">
 
 				<option value="0"<?php is_selected(0, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_pagniate_count'] ?></option>
-				<option value="1"<?php is_selected(1, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_day'] ?></option>
-				<option value="2"<?php is_selected(2, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_week'] ?></option>
-				<option value="3"<?php is_selected(3, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_month'] ?></option>
-				<option value="4"<?php is_selected(4, $content['news']['news_paginate_basis']) ?>><?php echo $BL['be_date_year'] ?></option>
+				<option value="1"<?php is_selected(1, $content['news']['news_paginate_basis']) ?> disabled="disabled"><?php echo $BL['be_date_day'] ?></option>
+				<option value="2"<?php is_selected(2, $content['news']['news_paginate_basis']) ?> disabled="disabled"><?php echo $BL['be_date_week'] ?></option>
+				<option value="3"<?php is_selected(3, $content['news']['news_paginate_basis']) ?> disabled="disabled"><?php echo $BL['be_date_month'] ?></option>
+				<option value="4"<?php is_selected(4, $content['news']['news_paginate_basis']) ?> disabled="disabled"><?php echo $BL['be_date_year'] ?></option>
 
 			</select></td>
 			<td>&nbsp;&nbsp;</td>
