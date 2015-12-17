@@ -172,15 +172,17 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 						}
 					}
 					$alias_sql .= " LIMIT 1";
-					if($alias_result = mysql_query($alias_sql, $db) && $alias_row = mysql_fetch_assoc($alias_result)) {
-						$srow["article_id"] = $alias_row["article_id"];
-						if(!$srow["article_headerdata"]) {
-							$srow["article_title"]		= $alias_row["article_title"];
-							$srow["article_subtitle"]	= $alias_row["article_subtitle"];
-							$srow["article_keyword"]	= $alias_row["article_keyword"];
-							$srow["article_summary"]	= $alias_row["article_summary"];
-							$srow["article_date"]		= $alias_row["article_date"];
-							$srow["article_image"]		= $alias_row["article_image"];
+					if($alias_result = mysql_query($alias_sql, $db)) {
+						if($alias_row = mysql_fetch_assoc($alias_result)) {
+							$srow["article_id"] = $alias_row["article_id"];
+							if(!$srow["article_headerdata"]) {
+								$srow["article_title"]		= $alias_row["article_title"];
+								$srow["article_subtitle"]	= $alias_row["article_subtitle"];
+								$srow["article_keyword"]	= $alias_row["article_keyword"];
+								$srow["article_summary"]	= $alias_row["article_summary"];
+								$srow["article_date"]		= $alias_row["article_date"];
+								$srow["article_image"]		= $alias_row["article_image"];
+							}
 						}
 						mysql_free_result($alias_result);
 					}
