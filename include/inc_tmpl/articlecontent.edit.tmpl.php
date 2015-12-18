@@ -399,24 +399,19 @@ if($content['cp_setting_mode']):
 
 				var tabValue = tabVal.options[tabVal.selectedIndex].value;
 
-				cTabStatus = tabValue ? true : false;
+				cTabStatus = parseInt(tabValue, 10) ? true : false;
 
 				if(cTabStatus == false) {
-
 					document.getElementById('ctab1').style.display = 'none';
 					document.getElementById('ctab2').style.display = 'none';
 					document.getElementById('ctab3').style.display = 'none';
-
 				} else {
-
 					document.getElementById('ctab1').style.display = '';
 					document.getElementById('ctab2').style.display = '';
 					document.getElementById('ctab3').style.display = '';
-
 				}
 
 				tabVal.blur();
-
 			}
 
 			function setTabStatus(enabled) {
