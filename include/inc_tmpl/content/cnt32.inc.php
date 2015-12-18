@@ -91,11 +91,18 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 
 	// Sort/Up Down Title
 	$sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
-	$custom_tab_fields = empty($template_default['settings']['tabs_custom_fields']) ? array() : array_keys($template_default['settings']['tabs_custom_fields']);
+	if(isset($template_default['settings']['tabs_custom_fields']) && is_array($template_default['settings']['tabs_custom_fields']) && count($template_default['settings']['tabs_custom_fields'])) {
+		$custom_tab_fields = array_keys($template_default['settings']['tabs_custom_fields']);
+	} else {
+		$custom_tab_fields = array();
+	}
 
-	foreach($content['tabs'] as $key => $value):
+	$value['custom_field_items'] = $custom_tab_fields;
 
-			if(!empty($value['custom_fields']) && count($value['custom_fields'])) {
+	if(!empty($content['tabs'])):
+		foreach($content['tabs'] as $key => $value):
+
+			if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
 
 				if(count($custom_tab_fields)) {
 					$value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
@@ -108,7 +115,6 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 				$value['custom_field_items'] = $custom_tab_fields;
 
 			}
-
 ?>
 			<li id="tab<?php echo $key ?>" class="tab tab-collapsed">
 				<table class="tab-container" cellpadding="0" cellspacing="0">
@@ -117,7 +123,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 							<a href="#" onclick="return toggleTab('tab<?php echo $key ?>');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"></a>
 							<?php echo $BL['be_tab_name']; ?>:&nbsp;</td>
 						<td class="tdbottom2"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="f11b width400" /></td>
-						<td nowrap="nowrap">
+						<td nowrap="nowrap" style="padding-right:5px;">
 							<em class="handle" title="<?php echo $sort_up_down; ?>"></em>
 							<a href="#" onclick="return deleteTab('tab<?php echo $key ?>');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a>
 						</td>
@@ -138,7 +144,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
 ?>
 					<tr class="tab-collapsable-row">
-						<td class="chatlist col1w" align="right" nowrap="nowrap"><?php
+						<td class="chatlist col1w" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
 							if(isset($template_default['settings']['tabs_custom_fields'][$custom_field])) {
 								echo html($template_default['settings']['tabs_custom_fields'][$custom_field]);
 							} else {
@@ -159,7 +165,8 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 				</table>
 			</li>
 <?php
-	endforeach;
+		endforeach;
+	endif;
 ?>
 		</ul>
 	</td>
@@ -182,26 +189,26 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 			entry    +=	'<a href="#" onclick="return toggleTab(\'tab' + entries + '\');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"><'+'/a> ';
 			entry    +=	'<?php echo $BL['be_tab_name'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td class="tdbottom2"><input type="text" name="tabtitle[' + entries + ']" id="tabtitle' + entries + '" value="" class="f11b width400" /'+'><'+'/td>';
-			entry    +=	'<td><a href="#" onclick="return deleteTab(\'tab' + entries + '\');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a> <'+'/td><'+'/tr>';
+			entry    +=	'<td style="padding-right:5px;"><a href="#" onclick="return deleteTab(\'tab' + entries + '\');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a> <'+'/td><'+'/tr>';
 			entry    +=	'<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
 			entry    +=	'<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
+			entry    +=	'<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5 tdbottom10"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
 			entry    +=	'<'+'/textarea><'+'/td><'+'/tr>';
 <?php
-			if($value['custom_field_items']):
+			if(!empty($value['custom_field_items'])):
 				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
 ?>
 			entry    +=	'<tr class="tab-collapsable-row">';
-			entry    +=	'<td class="chatlist col1w" align="right" nowrap="nowrap"><?php
+			entry    +=	'<td class="chatlist col1w" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
 							if(isset($template_default['settings']['tabs_custom_fields'][$custom_field])) {
 								echo html($template_default['settings']['tabs_custom_fields'][$custom_field]);
 							} else {
 								echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
 							}
 						?>:&nbsp;<'+'/td>';
-			entry    +=	'<td colspan="2" class="tdtop2"><input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="" class="v11 width400" /><'+'/td><'+'/tr>';
+			entry    +=	'<td colspan="2" class="tdbottom2"><input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="" class="v11 width400" /><'+'/td><'+'/tr>';
 <?php
 				endforeach;
 			endif;
@@ -241,16 +248,16 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
 		$content['ckconfig'][] = 'customConfig: "' . PHPWCMS_URL.TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
 	} else {
-		$content['ckconfig'][] = "				toolbar: [
-					{name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
-					{name: 'links', items: ['Link', 'Unlink', 'Anchor']},
-					{name: 'colors', items: ['TextColor', 'BGColor']},
-					{name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-					{name: 'paragraph', groups: ['align', 'list', 'indent', 'blocks'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']},
-					{name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar']},
-					{name: 'styles', items: ['Styles', 'Format', 'Font']},
-					{name: 'about', items: ['About']}
-				]";
+		$content['ckconfig'][] = "toolbar: [
+			{name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
+			{name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+			{name: 'colors', items: ['TextColor', 'BGColor']},
+			{name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+			{name: 'paragraph', groups: ['align', 'list', 'indent', 'blocks'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']},
+			{name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar']},
+			{name: 'styles', items: ['Styles', 'Format', 'Font']},
+			{name: 'about', items: ['About']}
+		]";
 
 		$content['ckconfig'][] = 'width: 538';
 		$content['ckconfig'][] = 'height: 150';
@@ -268,7 +275,7 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 		$content['ckconfig'][] = 'filebrowserWindowHeight: 480';
 	}
 
-	$content['ckconfig'] = ', {' . LF . implode(','.LF.'				', $content['ckconfig']) . LF . '			}';
+	$content['ckconfig'] = ', {' . implode(',', $content['ckconfig']) . '}';
 
 ?>
 	function EnableCKEditor(x) {
