@@ -1396,3 +1396,5 @@ $BL['CSRF_GET_FAILED'] = 'Die GET <a href="https://en.wikipedia.org/wiki/Cross-s
 
 $BL['be_parental_alias'] = 'Eltern-Alias';
 $BL['be_fsearch_nor'] = 'KEINES';
+$BL['be_tab_toggle'] = 'Reiter aus- bzw. einklappen';
+$BL['be_custom_textfield'] = 'Freitext';

@@ -1480,6 +1480,11 @@ td.col1w
 	padding: 2px 0 2px 0;
 }
 
+.tab-container {
+	width: 100%;
+	border: 0;
+}
+
 ul#tabs
 {
 	margin: 0;
@@ -1487,33 +1492,47 @@ ul#tabs
 	list-style: none;
 }
 
-li.tab { list-style: none; }
-
-ul#tabs li.tab
-{
+li.tab {
+	list-style: none;
 	margin: 0 0 0 0;
 	padding: 7px 0 7px 0;
 	background: transparent url(../../img/lines/be_dotted_line.gif) repeat-x left top;
 }
 
-ul#tabs li:hover { background-color: #F3F5F8; }
+li.tab.tab-collapsed .tab-collapsable-row {
+	display: none;
+}
 
-ul#tabs li.nomove, ul#tabs li.nomove:hover
+li.tab:hover { background-color: #F3F5F8; }
+
+li.tab.nomove,
+li.tab.nomove:hover
 {
 	background: #F3F5F8;
 	list-style: none;
 }
-
-ul#tabs li em.handle
-{
-	float: left;
-	width: 16px;
-	height: 16px;
-	background: transparent url(../../img/button/sort_up_down.gif) no-repeat left top;
+li.tab .toggle-item {
+	display: inline-block;
+	width: 20px;
+	height: 9px;
+	background: transparent url(../../img/symbole/plus_close.gif) no-repeat center center;
 	position: relative;
-	top: -2px;
-	left: 5px;
+}
+li.tab.tab-collapsed .toggle-item {
+	background-image: url(../../img/symbole/plus_open.gif);
+}
+li.tab .tab-delete {
+	display: inline-block;
+}
+li.tab em.handle {
+	display: inline-block;
+	width: 20px;
+	height: 16px;
+	background: transparent url(../../img/button/sort_up_down.gif) no-repeat center center;
+	position: relative;
 	cursor: move;
+	margin-right: 3px;
+	margin-left: 3px;
 }
 
 /* Images Special */
@@ -1798,8 +1817,8 @@ ul#images em.handle
 
 .formrowdark { background: #E6EAED; }
 
-.darkblue, 
-.darkblue a, 
+.darkblue,
+.darkblue a,
 .darkblue a:hover { color: #2B6183; }
 
 #WzTtDiV td,

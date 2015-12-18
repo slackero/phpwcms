@@ -40,25 +40,42 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		$content["tabs"][$x]['tabtext']		= empty($_POST['tabtext'][$key]) ? '' : slweg($_POST['tabtext'][$key]);
 		$content["tabs"][$x]['tablink']		= empty($_POST['tablink'][$key]) ? '' : clean_slweg($_POST['tablink'][$key]);
 
-		$content['search'] .= strip_tags( trim( $content["tabs"][$x]['tabtitle'].' '.$content["tabs"][$x]['tabheadline'].' '.$content["tabs"][$x]['tabtext'] ) ).' ';
+		$content["tabs"][$x]['custom_fields'] = array();
 
+		if(!empty($_POST['customfield'][$key]) && count($_POST['customfield'][$key])) {
+			foreach($_POST['customfield'][$key] as $custom_field => $custom_field_value) {
+				if(substr(strtolower($custom_field), -5) === '_html') {
+					$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
+				} else {
+					$content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
+				}
+			}
+		}
 
-		$content['html'][] = '	<dt>'.html_specialchars($content["tabs"][$x]['tabtitle']).'</dt>';
-		$content['html'][] = '	<dd>';
+		$content['search'] .= strip_tags(
+			trim(
+				$content["tabs"][$x]['tabtitle'] . ' ' . $content["tabs"][$x]['tabheadline'] . ' ' .
+				$content["tabs"][$x]['tabtext'] . ' ' . implode(' ', $content["tabs"][$x]['custom_fields'])
+			)
+		) . ' ';
+
+		$content['html'][] = '<dt>'.html_specialchars($content["tabs"][$x]['tabtitle']).'</dt>';
+		$content['html'][] = '<dd>';
 		if($content["tabs"][$x]['tabheadline']) {
-			$content['html'][] = '		<h3>'.html_specialchars($content["tabs"][$x]['tabheadline']).'</h3>';
+			$content['html'][] = '<h3>'.html_specialchars($content["tabs"][$x]['tabheadline']).'</h3>';
 		}
 		if(!$content['tabwysiwygoff'] && strpos($content["tabs"][$x]['tabtext'], '<') === false) {
 			$content["tabs"][$x]['tabtext'] = plaintext_htmlencode($content["tabs"][$x]['tabtext']);
-			$content['html'][] = '		'.$content["tabs"][$x]['tabtext'];
+			$content['html'][] = ''.$content["tabs"][$x]['tabtext'];
 		}
-		$content['html'][] = '	</dd>';
+		$content['html'][] = '</dd>';
 
 		$x++;
 
 	}
 }
-$content['search']	= trim($content['search']);
+
+$content['search'] = trim($content['search']);
 
 if(count($content['html'])) {
 	$content['html'] = '<dl>' . LF . implode(LF, $content['html']) . LF . '</dl>';
@@ -67,5 +84,3 @@ if(count($content['html'])) {
 }
 
 $content['tabs']['tabwysiwygoff'] = $content['tabwysiwygoff'];
-
-?>

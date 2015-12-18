@@ -1405,3 +1405,5 @@ $BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cros
 
 $BL['be_parental_alias'] = 'parental alias';
 $BL['be_fsearch_nor'] = 'NONE';
+$BL['be_tab_toggle'] = 'Toggle tab to expanded or closed';
+$BL['be_custom_textfield'] = 'custom text';

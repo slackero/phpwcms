@@ -16,9 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Tabs
-
 initMootools();
 
 // set default values
@@ -32,14 +30,10 @@ unset($content['tabs']['tabwysiwygoff']);
 // only FCKeditor is supported here
 // or WYSIWYG disabled
 if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
-
-	$BE['HEADER']['ckeditor.js']		 = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
-	$content['wysiwyg']				= true;
-
+	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+	$content['wysiwyg'] = true;
 } else {
-
-	$content['wysiwyg']				= false;
-
+	$content['wysiwyg'] = false;
 }
 
 ?>
@@ -90,46 +84,85 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 </tr>
 
 <tr>
-	<td colspan="2"><ul id="tabs">
+	<td colspan="2">
 
+		<ul id="tabs">
 <?php
 
 	// Sort/Up Down Title
 	$sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
+	$custom_tab_fields = empty($template_default['settings']['tabs_custom_fields']) ? array() : array_keys($template_default['settings']['tabs_custom_fields']);
 
-	foreach($content['tabs'] as $key => $value) {
+	foreach($content['tabs'] as $key => $value):
+
+			if(!empty($value['custom_fields']) && count($value['custom_fields'])) {
+
+				if(count($custom_tab_fields)) {
+					$value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
+				} else {
+					$value['custom_field_items'] = array_keys($value['custom_fields']);
+				}
+
+			} else {
+
+				$value['custom_field_items'] = $custom_tab_fields;
+
+			}
 
 ?>
-
-			<li id="tab<?php echo $key ?>" class="tab">
-				<table cellpadding="0" cellspacing="0" border="0" summary="">
-
+			<li id="tab<?php echo $key ?>" class="tab tab-collapsed">
+				<table class="tab-container" cellpadding="0" cellspacing="0">
 					<tr>
-						<td class="chatlist col1w" align="right"><em class="handle" title="<?php echo $sort_up_down; ?>">&nbsp;</em><?php echo $BL['be_tab_name']; ?>:&nbsp;</td>
+						<td class="chatlist col1w" align="right" nowrap="nowrap">
+							<a href="#" onclick="return toggleTab('tab<?php echo $key ?>');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"></a>
+							<?php echo $BL['be_tab_name']; ?>:&nbsp;</td>
 						<td class="tdbottom2"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="f11b width400" /></td>
-						<td><a href="#" onclick="return deleteTab('tab<?php echo $key ?>');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a></td>
+						<td nowrap="nowrap">
+							<em class="handle" title="<?php echo $sort_up_down; ?>"></em>
+							<a href="#" onclick="return deleteTab('tab<?php echo $key ?>');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a>
+						</td>
 					</tr>
-					<tr>
+					<tr class="tab-collapsable-row">
 						<td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;</td>
 						<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html($value['tabheadline']); ?>" class="v11 width400" /></td>
 					</tr>
-					<tr>
+					<tr class="tab-collapsable-row">
 						<td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;</td>
 						<td colspan="2"><input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="v11 width400" /></td>
 					</tr>
-					<tr>
-						<td colspan="3" class="tdtop5"><textarea class="width540" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10"><?php echo html($value['tabtext']); ?></textarea></td>
+					<tr class="tab-collapsable-row">
+						<td colspan="3" class="tdtop5 tdbottom5"><textarea class="width540" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="10"><?php echo html($value['tabtext']); ?></textarea></td>
 					</tr>
+<?php
+			if($value['custom_field_items']):
+				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+?>
+					<tr class="tab-collapsable-row">
+						<td class="chatlist col1w" align="right" nowrap="nowrap"><?php
+							if(isset($template_default['settings']['tabs_custom_fields'][$custom_field])) {
+								echo html($template_default['settings']['tabs_custom_fields'][$custom_field]);
+							} else {
+								echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+							}
 
+						?>:&nbsp;</td>
+						<td colspan="2" class="tdtop2"><input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
+							if(isset($value['custom_fields'][$custom_field])) {
+								echo html($value['custom_fields'][$custom_field]);
+							}
+						?>" class="v11 width400" /></td>
+					</tr>
+<?php
+				endforeach;
+			endif;
+?>
 				</table>
 			</li>
-
 <?php
-
-	}
+	endforeach;
 ?>
-
-	</ul></td>
+		</ul>
+	</td>
 </tr>
 
 <tr>
@@ -144,23 +177,45 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 		$('btn_add_tab').addEvent('click', function(event) {
 			event = new Event(event).stop();
 
-			var entry = '<table cellpadding="0" cellspacing="0" border="0" summary="">';
-			entry    +=	'<tr><td class="chatlist col1w" align="right"><?php echo $BL['be_tab_name'] ?>:&nbsp;<'+'/td>';
+			var entry = '<table class="tab-container" cellpadding="0" cellspacing="0">';
+			entry    +=	'<tr><td class="chatlist col1w" align="right"> ';
+			entry    +=	'<a href="#" onclick="return toggleTab(\'tab' + entries + '\');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"><'+'/a> ';
+			entry    +=	'<?php echo $BL['be_tab_name'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td class="tdbottom2"><input type="text" name="tabtitle[' + entries + ']" id="tabtitle' + entries + '" value="" class="f11b width400" /'+'><'+'/td>';
-			entry    +=	'<td><a href="#" onclick="return deleteTab(\'tab' + entries + '\');"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a><'+'/td><'+'/tr>';
-			entry    +=	'<tr><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
+			entry    +=	'<td><a href="#" onclick="return deleteTab(\'tab' + entries + '\');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a> <'+'/td><'+'/tr>';
+			entry    +=	'<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
+			entry    +=	'<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
 			entry    +=	'<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
-			entry    +=	'<'+'/textarea><'+'/td><'+'/tr><'+'/table>';
+			entry    +=	'<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
+			entry    +=	'<'+'/textarea><'+'/td><'+'/tr>';
+<?php
+			if($value['custom_field_items']):
+				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+?>
+			entry    +=	'<tr class="tab-collapsable-row">';
+			entry    +=	'<td class="chatlist col1w" align="right" nowrap="nowrap"><?php
+							if(isset($template_default['settings']['tabs_custom_fields'][$custom_field])) {
+								echo html($template_default['settings']['tabs_custom_fields'][$custom_field]);
+							} else {
+								echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+							}
+						?>:&nbsp;<'+'/td>';
+			entry    +=	'<td colspan="2" class="tdtop2"><input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="" class="v11 width400" /><'+'/td><'+'/tr>';
+<?php
+				endforeach;
+			endif;
+?>
+			entry    += '<'+'/table>';
 
-			var tab = new Element('li', {'id': 'tab'+entries, 'class': 'tab nomove'} ).setHTML( entry ).injectInside( $('tabs') );
+			var tab = new Element('li', {
+				'id': 'tab'+entries,
+				'class': 'tab nomove'
+			}).setHTML(entry).injectInside($('tabs'));
 
-<?php if($content['wysiwyg']): ?>			EnableCKEditor(entries);<?php endif; ?>
-
+<?php if($content['wysiwyg']): ?>
+			EnableCKEditor(entries);<?php endif; ?>
 			window.scrollTo(0, tab.getCoordinates()['top']);
-
 			entries++;
 		});
 
@@ -227,6 +282,14 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 		if(confirm('<?php echo $BL['be_tab_delete_js'] ?>')) {
 			$(e).remove();
 		}
+		return false;
+	}
+	function toggleTab(e) {
+		if($(e).hasClass('tab-collapsed')) {
+			$(e).removeClass('tab-collapsed');
+		} else {
+			$(e).addClass('tab-collapsed');
+		};
 		return false;
 	}
 

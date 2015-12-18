@@ -436,5 +436,11 @@ $template_default['settings'] = array(
 			'640x264' => '640 x 264 px',
 			'640x480' => '640 x 480 px'
 		)
+	),
+
+	'tabs_custom_fields' => array(
+		'value1' => 'Value 1', // [TAB_VALUE1]{TAB_VALUE1}[/TAB_VALUE1]
+		'value2' => 'Value 2', // [TAB_VALUE2]{TAB_VALUE2}[/TAB_VALUE2]
+		'value3_html' => 'Value 3 HTML', // [TAB_VALUE3]{TAB_VALUE3}[/TAB_VALUE3] will not be html encoded!!
 	)
 );
