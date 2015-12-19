@@ -24,7 +24,23 @@ body
 	background-attachment: fixed;
 }
 
-input, textarea, select, button { font-size: 13px; }
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+input[type="range"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+	font-size: 13px;
+}
 ul { margin: 0px 0px 0px 20px; }
 li { font-size: 12px; }
 
@@ -506,8 +522,9 @@ h1
 	border-bottom: 1px solid #CCCCCC;
 	text-align: left;
 }
-
+/*
 .listingTable button { font-size: 11px; }
+*/
 
 .listingTable .actions
 {
@@ -539,7 +556,7 @@ h1
 
 .inputButton button
 {
-	font-size: 12px;
+	/*font-size: 12px;*/
 	margin-right: 10px;
 }
 
