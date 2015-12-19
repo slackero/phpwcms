@@ -25,6 +25,17 @@ $content['search']			= '';
 $content['html']			= array();
 $content['tabwysiwygoff']	= empty($_POST['tabwysiwygoff']) ? 0 : 1;
 
+$tab_fieldgroup_fields = null;
+$tab_fieldgroup_field_render = array('html', 'markdown');
+if(empty($_POST['tab_fieldgroup'])) {
+	$content['tab_fieldgroup'] = '';
+} else {
+	$content['tab_fieldgroup'] = clean_slweg($_POST['tab_fieldgroup']);
+	if(isset($template_default['settings']['tabs_custom_fields'][ $content['tab_fieldgroup'] ]['fields'])) {
+		$tab_fieldgroup_fields =& $template_default['settings']['tabs_custom_fields'][ $content['tab_fieldgroup'] ]['fields'];
+	}
+}
+
 // get all tabs
 if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['tabtitle'])) {
 
@@ -44,7 +55,7 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 
 		if(!empty($_POST['customfield'][$key]) && count($_POST['customfield'][$key])) {
 			foreach($_POST['customfield'][$key] as $custom_field => $custom_field_value) {
-				if(substr(strtolower($custom_field), -5) === '_html') {
+				if($tab_fieldgroup_fields !== null && isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
 				} else {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
@@ -84,3 +95,4 @@ if(count($content['html'])) {
 }
 
 $content['tabs']['tabwysiwygoff'] = $content['tabwysiwygoff'];
+$content['tabs']['tab_fieldgroup'] = $content['tab_fieldgroup'];

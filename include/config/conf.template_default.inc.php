@@ -440,7 +440,15 @@ $template_default['settings'] = array(
 
 	'tabs_custom_fields' => array(
 		// Enable and customise to enable additional tab input fields:
-		// 'fieldname1' => 'legend', // [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
-		// 'fieldname2_html'=>'legend not html encoded' // [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
+		/*
+		'fieldgroup1' => array(
+			'legend' => 'Field group name',
+			'template' => 'default', // bind the fieldgroup to a specific template, or default
+			'fields' => array(
+				'fieldname1' => array('legend' => 'field 1', 'type' => 'str', 'render' => 'html', 'maxlength' => 100), // [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
+				'fieldname2' => array('legend' => 'field 2', 'type' => 'textarea', 'render' => '', 'rows' => 3), // [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
+			)
+		)
+		*/
 	)
 );

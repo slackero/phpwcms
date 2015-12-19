@@ -1407,3 +1407,5 @@ $BL['be_parental_alias'] = 'parental alias';
 $BL['be_fsearch_nor'] = 'NONE';
 $BL['be_tab_toggle'] = 'Toggle tab to expanded or closed';
 $BL['be_custom_textfield'] = 'custom text';
+$BL['be_tab_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';
+

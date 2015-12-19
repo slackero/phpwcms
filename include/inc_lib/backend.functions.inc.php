@@ -1307,3 +1307,23 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
 
 	return implode($GLOBALS['phpwcms']['alias_allow_slash'] ? '/' : '-', array_reverse($data));
 }
+
+
+/**
+ * Correct the text in case phpwcms charset is different from UTF-8
+ *
+ * @access public
+ * @param string $text
+ * @param bool $js (default: false)
+ * @return void
+ */
+function correct_charset($text='', $js=false) {
+
+	if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($text)) {
+		$text = utf8_decode($text);
+	}
+	if($js) {
+		$text = str_replace("'", "\'", $text);
+	}
+	return $text;
+}

@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Tabs
 
 //$SQL .= "acontent_html="._dbEscape($content["image_html"]).", ";
@@ -26,5 +24,3 @@ $SQL .= "acontent_template="._dbEscape($content["tabs_template"]).", ";
 $SQL .= "acontent_form="._dbEscape(serialize($content["tabs"])).", ";
 $SQL .= "acontent_text="._dbEscape($content['search']).", ";
 $SQL .= "acontent_html="._dbEscape($content['html'])." ";
-
-?>

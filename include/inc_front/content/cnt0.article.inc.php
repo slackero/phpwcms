@@ -72,5 +72,3 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TE
 
 
 $CNT_TMP .= LF.trim($crow["acontent_template"]).LF;
-
-?>

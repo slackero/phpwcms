@@ -24,7 +24,7 @@ if(empty($content['tabs']) || !is_array($content['tabs'])) {
 	$content['tabs'] = array();
 }
 $content['tabwysiwygoff'] = empty($content['tabs']['tabwysiwygoff']) ? 0 : 1;
-unset($content['tabs']['tabwysiwygoff']);
+unset($content['tabs']['tabwysiwygoff'], $content['tabs']['tab_fieldgroup']);
 
 // check which WYSIWYG editor to load
 // only FCKeditor is supported here
@@ -36,35 +36,55 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 	$content['wysiwyg'] = false;
 }
 
-?>
+$tab_fieldgroup_templates = array();
+if(isset($template_default['settings']['tabs_custom_fields']) && is_array($template_default['settings']['tabs_custom_fields']) && count($template_default['settings']['tabs_custom_fields'])) {
+	$tab_fieldgroups = $template_default['settings']['tabs_custom_fields'];
+	foreach($template_default['settings']['tabs_custom_fields'] as $key => $tab_fieldgroup) {
+		$tab_fieldgroup_templates[ $tab_fieldgroup['template'] ] = $key;
+	}
+} else {
+	$tab_fieldgroups = array();
+}
 
+$tab_template_options = '<option value=""'.(empty($content["tabs_template"]) ? ' selected="selected"' : '').'>'.$BL['be_admin_tmpl_default'].'</option>';
+
+if(isset($tab_fieldgroup_templates['default'])) {
+	$tab_fieldgroups_active = $tab_fieldgroup_templates['default'];
+}
+
+$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/tabs');
+
+if(is_array($tmpllist) && count($tmpllist)) {
+
+	foreach($tmpllist as $val) {
+		if(!empty($content["tabs_template"]) && $val === $content["tabs_template"]) {
+			$selected_val = ' selected="selected"';
+			if(isset($tab_fieldgroup_templates[$val])) {
+				$tab_fieldgroups_active = $tab_fieldgroup_templates[$val];
+			} else {
+				// Reset
+				$tab_fieldgroups_active = '';
+			}
+		} else {
+			$selected_val = '';
+		}
+
+		$val = html($val);
+		$tab_template_options .= '<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>';
+	}
+
+}
+
+?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-		<tr>
-			<td><select name="template" id="template" class="width150">
-<?php
-
-	echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
-
-	$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/tabs');
-	if(is_array($tmpllist) && count($tmpllist)) {
-		foreach($tmpllist as $val) {
-			$selected_val = (isset($content["tabs_template"]) && $val == $content["tabs_template"]) ? ' selected="selected"' : '';
-			$val = html($val);
-			echo '	<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
-		}
-	}
-
-?>
-			</select></td>
-
-		</tr>
-
-	</table></td>
-
+	<td>
+		<select name="template" id="template" class="width150"<?php if(count($tab_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?>>
+			<?php echo $tab_template_options; ?>
+		</select>
+	</td>
 </tr>
 
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -91,13 +111,20 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 
 	// Sort/Up Down Title
 	$sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
-	if(isset($template_default['settings']['tabs_custom_fields']) && is_array($template_default['settings']['tabs_custom_fields']) && count($template_default['settings']['tabs_custom_fields'])) {
-		$custom_tab_fields = array_keys($template_default['settings']['tabs_custom_fields']);
+	if($tab_fieldgroups_active && isset($template_default['settings']['tabs_custom_fields'][$tab_fieldgroups_active])) {
+		$tab_fieldgroup =& $template_default['settings']['tabs_custom_fields'][$tab_fieldgroups_active];
+	} else {
+		$tab_fieldgroup = null;
+	}
+	if($tab_fieldgroup !== null && isset($tab_fieldgroup['fields']) && is_array($tab_fieldgroup['fields']) && count($tab_fieldgroup['fields'])) {
+		$custom_tab_fields = array_keys($tab_fieldgroup['fields']);
 	} else {
 		$custom_tab_fields = array();
+		$tab_fieldgroup = null;
 	}
 
 	$value['custom_field_items'] = $custom_tab_fields;
+	$custom_tab_fields_hidden = array();
 
 	if(!empty($content['tabs'])):
 		foreach($content['tabs'] as $key => $value):
@@ -111,10 +138,9 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 				}
 
 			} else {
-
 				$value['custom_field_items'] = $custom_tab_fields;
-
 			}
+
 ?>
 			<li id="tab<?php echo $key ?>" class="tab tab-collapsed">
 				<table class="tab-container" cellpadding="0" cellspacing="0">
@@ -142,21 +168,44 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 <?php
 			if($value['custom_field_items']):
 				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+
+					// send fields not defined as hidden values, should ensure not loosing values
+					if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
+						// do not store if the value is an empty string
+						if($value['custom_fields'][$custom_field] !== '') {
+							$custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
+						}
+						continue;
+					}
 ?>
 					<tr class="tab-collapsable-row">
-						<td class="chatlist col1w" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
-							if(isset($template_default['settings']['tabs_custom_fields'][$custom_field])) {
-								echo html($template_default['settings']['tabs_custom_fields'][$custom_field]);
+						<td class="chatlist tdtop6" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
+							if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
+								echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
 							} else {
 								echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
 							}
-
 						?>:&nbsp;</td>
-						<td colspan="2" class="tdtop2"><input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
+						<td colspan="2" class="tdtop2">
+			<?php
+					// support only type "str" or "textarea" at the moment
+					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], array('str', 'textarea'))) {
+						$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
+					}
+
+					if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'):	?>
+							<input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
 							if(isset($value['custom_fields'][$custom_field])) {
 								echo html($value['custom_fields'][$custom_field]);
 							}
-						?>" class="v11 width400" /></td>
+							?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?>
+							class="v11 width400" />
+			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php
+								echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
+							?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
+			<?php	endif; ?>
+						</td>
 					</tr>
 <?php
 				endforeach;
@@ -173,7 +222,12 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 </tr>
 
 <tr>
-	<td colspan="2" class="rowspacer0x7"><script type="text/javascript">
+	<td colspan="2" class="rowspacer0x7" style="font-size:1px;height:0;overflow:hidden;">
+		<input type="hidden" name="tab_fieldgroup" value="<?php echo $tab_fieldgroups_active; ?>" /><?php
+		if(count($custom_tab_fields_hidden)) {
+			echo implode('', $custom_tab_fields_hidden);
+		}
+		?><script type="text/javascript">
 
 	var entries = 0;
 
@@ -185,30 +239,47 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 			event = new Event(event).stop();
 
 			var entry = '<table class="tab-container" cellpadding="0" cellspacing="0">';
-			entry    +=	'<tr><td class="chatlist col1w" align="right"> ';
-			entry    +=	'<a href="#" onclick="return toggleTab(\'tab' + entries + '\');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"><'+'/a> ';
-			entry    +=	'<?php echo $BL['be_tab_name'] ?>:&nbsp;<'+'/td>';
-			entry    +=	'<td class="tdbottom2"><input type="text" name="tabtitle[' + entries + ']" id="tabtitle' + entries + '" value="" class="f11b width400" /'+'><'+'/td>';
-			entry    +=	'<td style="padding-right:5px;"><a href="#" onclick="return deleteTab(\'tab' + entries + '\');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a> <'+'/td><'+'/tr>';
-			entry    +=	'<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
-			entry    +=	'<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
-			entry    +=	'<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry    +=	'<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5 tdbottom10"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
-			entry    +=	'<'+'/textarea><'+'/td><'+'/tr>';
+			entry += '<tr><td class="chatlist col1w" align="right"> ';
+			entry += '<a href="#" onclick="return toggleTab(\'tab' + entries + '\');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"><'+'/a> ';
+			entry += '<?php echo $BL['be_tab_name'] ?>:&nbsp;<'+'/td>';
+			entry += '<td class="tdbottom2"><input type="text" name="tabtitle[' + entries + ']" id="tabtitle' + entries + '" value="" class="f11b width400" /'+'><'+'/td>';
+			entry += '<td style="padding-right:5px;"><a href="#" onclick="return deleteTab(\'tab' + entries + '\');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a> <'+'/td><'+'/tr>';
+			entry += '<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
+			entry += '<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
+			entry += '<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
+			entry += '<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
+			entry += '<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5 tdbottom10"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540">';
+			entry += '<'+'/textarea><'+'/td><'+'/tr>';
 <?php
 			if(!empty($value['custom_field_items'])):
 				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+
+					// send fields not defined as hidden values, should ensure not loosing values
+					if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
+						continue;
+					}
+
+					// support only type "str" or "textarea" at the moment
+					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], array('str', 'textarea'))) {
+						$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
+					}
+
 ?>
-			entry    +=	'<tr class="tab-collapsable-row">';
-			entry    +=	'<td class="chatlist col1w" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
-							if(isset($template_default['settings']['tabs_custom_fields'][$custom_field])) {
-								echo html($template_default['settings']['tabs_custom_fields'][$custom_field]);
-							} else {
-								echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
-							}
-						?>:&nbsp;<'+'/td>';
-			entry    +=	'<td colspan="2" class="tdbottom2"><input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="" class="v11 width400" /><'+'/td><'+'/tr>';
+			entry += '<tr class="tab-collapsable-row">';
+			entry += '<td class="chatlist tdtop4" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
+						if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
+							echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
+						} else {
+							echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+						}
+					?>:&nbsp;<'+'/td>';
+			entry += '<td colspan="2" class="tdbottom2">';
+<?php	if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'):	?>
+			entry += '<input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400" '+'/>';
+<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+			entry += '<textarea name="customfield[' + entries + '][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"><'+'/textarea>';
+<?php	endif; ?>
+			entry += '<'+'/td><'+'/tr>';
 <?php
 				endforeach;
 			endif;
@@ -297,6 +368,13 @@ if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 		} else {
 			$(e).addClass('tab-collapsed');
 		};
+		return false;
+	}
+	function toggleTabsTemplate(e) {
+		if(confirm('<?php echo correct_charset($BL['be_tab_template_toggle_warning'], true); ?>')) {
+			e.form.submit();
+			return true;
+		}
 		return false;
 	}
 

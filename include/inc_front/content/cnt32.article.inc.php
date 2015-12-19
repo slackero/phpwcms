@@ -23,6 +23,9 @@ $tabs			= array();
 $tabs['tabs']	= @unserialize($crow["acontent_form"]);
 unset($tabs['tabs']['tabwysiwygoff']);
 
+$tabs['tab_fieldgroup']	= empty($tabs['tabs']['tab_fieldgroup']) ? '' : $tabs['tabs']['tab_fieldgroup'];
+unset($tabs['tabs']['tab_fieldgroup']);
+
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/tabs.tmpl')) {
 
@@ -40,11 +43,18 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/ta
 
 if($tabs['template']) {
 
-	$tabs['entries']	= array();
+	$tabs['entries']		= array();
 
-	$tabs['tmpl_entry']	= get_tmpl_section('TABS_ENTRY', $tabs['template']);
-	$tabs['template']	= get_tmpl_section('TABS', $tabs['template']);
-	$tabs['custom_tab_fields'] = empty($template_default['settings']['tabs_custom_fields']) ? array() : array_keys($template_default['settings']['tabs_custom_fields']);
+	$tabs['tmpl_entry']		= get_tmpl_section('TABS_ENTRY', $tabs['template']);
+	$tabs['template']		= get_tmpl_section('TABS', $tabs['template']);
+
+	if($tabs['tab_fieldgroup'] === '' || empty($template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields'])) {
+		$tabs['custom_tab_fields'] = array();
+	} else {
+		$tabs['custom_tab_fields'] = array_keys($template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields']);
+		$tabs['field_render'] = array('html', 'markdown', 'plain');
+		$tabs['fieldgroup'] =& $template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ];
+	}
 
 	foreach($tabs['tabs'] as $key => $entry) {
 
@@ -61,27 +71,29 @@ if($tabs['template']) {
 			$tabs['entries'][$key] = str_replace('{TARGET}', $entry['tablink']['target'], $tabs['entries'][$key]);
 		}
 
-		if(!empty($entry['custom_fields']) && count($entry['custom_fields'])) {
-
-			if(count($tabs['custom_tab_fields'])) {
-				$tabs['custom_field_items'] = array_unique( array_merge($tabs['custom_tab_fields'], array_keys($entry['custom_fields'])) );
-			} else {
-				$tabs['custom_field_items'] = array_keys($entry['custom_fields']);
-			}
-
-		} else {
-
-			$tabs['custom_field_items'] = $tabs['custom_tab_fields'];
-
-		}
-
-		if($tabs['custom_field_items']) {
-			foreach($tabs['custom_field_items'] as $custom_field_key) {
+		if($tabs['custom_tab_fields']) {
+			foreach($tabs['custom_tab_fields'] as $custom_field_key) {
 				$custom_field_value = isset($entry['custom_fields'][$custom_field_key]) ? $entry['custom_fields'][$custom_field_key] : '';
 				$custom_field_key = 'TAB_'.strtoupper($custom_field_key);
-				if(substr($custom_field_key, -5) === '_HTML') {
-					$custom_field_key = substr($custom_field_key, 0, -5);
-					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, $custom_field_value);
+
+				if($custom_field_value === '') {
+					render_cnt_template($tabs['entries'][$key], $custom_field_key, '');
+					continue;
+				}
+
+				if(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
+					if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
+						if(!isset($phpwcms['parsedown_class'])) {
+							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
+							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+							$phpwcms['parsedown_class'] = new ParsedownExtra();
+						}
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, $phpwcms['parsedown_class']->text($custom_field_value));
+					} elseif($tabs['fieldgroup'][$custom_field_key]['render'] === 'plain') {
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, plaintext_htmlencode($custom_field_value));
+					} else {
+						render_cnt_template($tabs['entries'][$key], $custom_field_key, $custom_field_value);
+					}
 				} else {
 					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, html($custom_field_value));
 				}
@@ -105,5 +117,3 @@ if($tabs['template']) {
 }
 
 unset($tabs);
-
-?>
