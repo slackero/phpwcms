@@ -439,8 +439,8 @@ $template_default['settings'] = array(
 	),
 
 	'tabs_custom_fields' => array(
-		'value1' => 'Value 1', // [TAB_VALUE1]{TAB_VALUE1}[/TAB_VALUE1]
-		'value2' => 'Value 2', // [TAB_VALUE2]{TAB_VALUE2}[/TAB_VALUE2]
-		'value3_html' => 'Value 3 HTML', // [TAB_VALUE3]{TAB_VALUE3}[/TAB_VALUE3] will not be html encoded!!
+		// Enable and customise to enable additional tab input fields:
+		// 'fieldname1' => 'legend', // [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
+		// 'fieldname2_html'=>'legend not html encoded' // [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
 	)
 );
