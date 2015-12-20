@@ -445,8 +445,34 @@ $template_default['settings'] = array(
 			'legend' => 'Field group name',
 			'template' => 'default', // bind the fieldgroup to a specific template, or default
 			'fields' => array(
-				'fieldname1' => array('legend' => 'field 1', 'type' => 'str', 'render' => 'html', 'maxlength' => 100), // [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
-				'fieldname2' => array('legend' => 'field 2', 'type' => 'textarea', 'render' => '', 'rows' => 3), // [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
+				 // [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
+				'fieldname1' => array(
+					'legend' => 'field 1',
+					'type' => 'str',
+					'render' => 'html',
+					'maxlength' => 100
+				),
+				 // [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
+				'fieldname2' => array(
+					'legend' => 'field 2',
+					'type' => 'textarea',
+					'render' => '',
+					'rows' => 3
+				),
+				// [TAB_OPTIONNAME1]
+				//	  Will be the selected value {TAB_OPTIONNAME1}
+				//    [TAB_OPTIONNAME1_OPTION1]{TAB_OPTIONNAME1_OPTION1}[/TAB_OPTIONNAME1_OPTION1]
+				//    [TAB_OPTIONNAME1_OPTION2]{TAB_OPTIONNAME1_OPTION2}[/TAB_OPTIONNAME1_OPTION2]
+				// [/TAB_OPTIONNAME1]
+				'optionname1' => array(
+					'legend' => 'choose',
+					'type' => 'option',
+					'render' => '',
+					'values' => array(
+						'option1' => 'value option 1',
+						'option2' => 'value option 2'
+					)
+				),
 			)
 		)
 		*/

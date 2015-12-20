@@ -1501,6 +1501,12 @@ td.col1w
 	width: 100%;
 	border: 0;
 }
+.tab-option-radio {
+	display: block;
+}
+.tab-option-radio:first-child {
+	margin-top: 2px;
+}
 
 ul#tabs
 {

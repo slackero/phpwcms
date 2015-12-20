@@ -123,6 +123,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 	$value['custom_field_items'] = $custom_tab_fields;
 	$custom_tab_fields_hidden = array();
+	$custom_tab_field_types = array('str', 'textarea', 'option');
 
 	if(!empty($content['tabs'])):
 		foreach($content['tabs'] as $key => $value):
@@ -187,7 +188,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						<td colspan="2" class="tdtop2">
 			<?php
 					// support only type "str" or "textarea" at the moment
-					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], array('str', 'textarea'))) {
+					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
 						$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
 					}
 
@@ -202,7 +203,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php
 								echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
 							?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
-			<?php	endif; ?>
+			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+						foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+							<label class="radio tab-option-radio">
+								<input type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php
+									if(!empty($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
+								?> checked="checked"<?php endif; ?> /> <?php echo html($option_label); ?>
+							</label>
+			<?php		endforeach; ?>
+							<label class="radio tab-option-radio">
+								<input type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="" /> <?php echo $BL['be_cnt_field']['reset']; ?>
+							</label>
+			<?php		endif; ?>
 						</td>
 					</tr>
 <?php
@@ -258,7 +270,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 					}
 
 					// support only type "str" or "textarea" at the moment
-					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], array('str', 'textarea'))) {
+					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
 						$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
 					}
 
@@ -276,7 +288,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			entry += '<input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400" '+'/>';
 <?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
 			entry += '<textarea name="customfield[' + entries + '][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"><'+'/textarea>';
-<?php	endif; ?>
+<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+			foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+			entry += '<label class="radio tab-option-radio"><input type="radio" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"'+'/> <?php echo html($option_label); ?><'+'/label> ';
+<?php		endforeach;
+		endif; ?>
 			entry += '<'+'/td><'+'/tr>';
 <?php
 				endforeach;

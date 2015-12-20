@@ -53,7 +53,7 @@ if($tabs['template']) {
 	} else {
 		$tabs['custom_tab_fields'] = array_keys($template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields']);
 		$tabs['field_render'] = array('html', 'markdown', 'plain');
-		$tabs['fieldgroup'] =& $template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ];
+		$tabs['fieldgroup'] =& $template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields'];
 	}
 
 	foreach($tabs['tabs'] as $key => $entry) {
@@ -74,28 +74,45 @@ if($tabs['template']) {
 		if($tabs['custom_tab_fields']) {
 			foreach($tabs['custom_tab_fields'] as $custom_field_key) {
 				$custom_field_value = isset($entry['custom_fields'][$custom_field_key]) ? $entry['custom_fields'][$custom_field_key] : '';
-				$custom_field_key = 'TAB_'.strtoupper($custom_field_key);
+				$custom_field_replacer = 'TAB_'.strtoupper($custom_field_key);
 
 				if($custom_field_value === '') {
-					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, '');
+					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, '');
 					continue;
 				}
 
-				if(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
+				if($tabs['fieldgroup'][$custom_field_key]['type'] === 'option') {
+					if(isset($tabs['fieldgroup'][$custom_field_key]['values'][$custom_field_value])) {
+
+						// render custom option globally first
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($tabs['fieldgroup'][$custom_field_key]['values'][$custom_field_value]));
+
+						// render option specific replacers
+						if(strpos($tabs['entries'][$key], $custom_field_replacer.'_') !== false) {
+							foreach($tabs['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
+								if($custom_field_value === $option_key) {
+									$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), html($option_label));
+								} else {
+									$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), '');
+								}
+							}
+						}
+					}
+				} elseif(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
 					if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
 						if(!isset($phpwcms['parsedown_class'])) {
 							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
 							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
 							$phpwcms['parsedown_class'] = new ParsedownExtra();
 						}
-						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, $phpwcms['parsedown_class']->text($custom_field_value));
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
 					} elseif($tabs['fieldgroup'][$custom_field_key]['render'] === 'plain') {
-						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, plaintext_htmlencode($custom_field_value));
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, plaintext_htmlencode($custom_field_value));
 					} else {
-						render_cnt_template($tabs['entries'][$key], $custom_field_key, $custom_field_value);
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $custom_field_value);
 					}
 				} else {
-					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, html($custom_field_value));
+					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($custom_field_value));
 				}
 			}
 		}

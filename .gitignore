@@ -3,3 +3,4 @@
 /content/images/*.png
 /content/images/*.gif
 /content/tmp/*
+.idea
