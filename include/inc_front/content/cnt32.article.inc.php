@@ -77,7 +77,7 @@ if($tabs['template']) {
 				$custom_field_key = 'TAB_'.strtoupper($custom_field_key);
 
 				if($custom_field_value === '') {
-					render_cnt_template($tabs['entries'][$key], $custom_field_key, '');
+					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_key, '');
 					continue;
 				}
 
