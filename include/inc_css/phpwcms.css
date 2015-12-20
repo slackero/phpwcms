@@ -41,6 +41,34 @@ textarea,
 select {
 	font-size: 13px;
 }
+
+.btn {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    background-color: buttonface;
+    box-sizing: border-box;
+    padding: 2px 6px 3px;
+    border: 2px outset buttonface;
+    font-size: 12px;
+    line-height: 16px;
+}
+.btn:hover {
+	text-decoration: none;
+	color: #000;
+	color: buttontext;
+}
+
 ul { margin: 0px 0px 0px 20px; }
 li { font-size: 12px; }
 

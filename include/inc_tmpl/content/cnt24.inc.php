@@ -35,7 +35,7 @@ if(empty($content["alias"]['alias_ID'])) {
 
 				$content['alias_link'] .= '<td class="f10"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=';
 				$content['alias_link'] .= $cntrow['acontent_aid'].'&amp;acid='.$content["alias"]['alias_ID'];
-				$content['alias_link'] .= '" target="_blank"><button>'.$wcs_content_type[$cntrow['acontent_type']].'</button></a>';
+				$content['alias_link'] .= '" target="_blank" class="btn">'.$wcs_content_type[$cntrow['acontent_type']].'</a>';
 			}
 			$content['alias_link'] .= '</td>';
 		} else {
