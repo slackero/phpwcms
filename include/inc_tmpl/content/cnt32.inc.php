@@ -48,9 +48,7 @@ if(isset($template_default['settings']['tabs_custom_fields']) && is_array($templ
 
 $tab_template_options = '<option value=""'.(empty($content["tabs_template"]) ? ' selected="selected"' : '').'>'.$BL['be_admin_tmpl_default'].'</option>';
 
-if(isset($tab_fieldgroup_templates['default'])) {
-	$tab_fieldgroups_active = $tab_fieldgroup_templates['default'];
-}
+$tab_fieldgroups_active = isset($tab_fieldgroup_templates['default']) ? $tab_fieldgroup_templates['default'] : '';
 
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/tabs');
 
