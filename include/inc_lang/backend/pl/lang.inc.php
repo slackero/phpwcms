@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.0-RC2 (2015/12/02, r541) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.9.0-b2 (2015/12/18, r541) Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1175,7 +1175,7 @@ $BL['be_image_crop']    = 'kadruj miniaturę';
 $BL['be_image_cropit']    = 'kadruj obrazek';
 $BL['be_image_align']    = 'wyrównanie obrazka';
 
-$BL['be_ctype_flashplayer']    = 'flash media player';
+$BL['be_ctype_flashplayer']    = 'flash odtwarzacz multimedialny';
 $BL['be_flashplayer_caption']   = 'podpis';
 $BL['be_flashplayer_thumbnail']    = 'miniaturka';
 $BL['be_flashplayer_selectsize']    = 'Wybierz rozmiar odtwarzacza';
@@ -1206,7 +1206,7 @@ $BL['be_fx_3']        = 'efekt 3';
 $BL['be_image_zoom']    = 'powiększony widok';
 $BL['be_image_delete_js']    = 'Czy chcesz usunąć wybrany wpis obrazka?';
 
-$BL['be_news']            = 'News';
+$BL['be_news']            = 'Aktualności';
 $BL['be_news_create']    = 'Utwórz wpis news-a';
 $BL['be_tags']            = 'tagi';
 $BL['be_title']            = 'tytuł';
@@ -1291,19 +1291,19 @@ $BL['group_guest']    = 'gość';
 $BL['php_function']    = 'funkcja php';
 $BL['article_menu_title']    = 'tytuł menu';
 
-$BL['content_type']        = 'content-type';
+$BL['content_type']     = 'content-type';
 $BL['automatic']        = 'automatycznie';
 
-$BL['random_image']        = 'losowy obraz';
+$BL['random_image']     = 'losowy obraz';
 $BL['limit_image_from_list']    = 'Obrazów max.';
 
-$BL['alt_image']    = 'alt. image';
-$BL['alt_text']        = 'alt. text';
+$BL['alt_image']   = 'alt. image';
+$BL['alt_text']    = 'alt. text';
 $BL['over']        = 'over';
-$BL['js_lib']        = 'Biblioteka JS';
+$BL['js_lib']      = 'Biblioteka JS';
 $BL['js_lib_alwaysload'] = 'zawsze ładuj';
-$BL['frontendjs_load']     = 'ładuj frontend.js (więcej z przyczyn historycznych)';
-$BL['googleapi_load']     = 'użyj CDN';
+$BL['frontendjs_load']   = 'ładuj frontend.js (więcej z przyczyn historycznych)';
+$BL['googleapi_load']    = 'użyj CDN';
 
 $BL['fancyupload_clear_list']        = 'Wyczyść Listę';
 $BL['fancyupload_file_uploaded']    = 'Plik został przesłany';
@@ -1313,63 +1313,63 @@ $BL['fancyupload_flashblock_error']    = 'Aby włączyć wbudowany uploader, wł
 $BL['fancyupload_required_error']    = 'Wymagany plik nie został znaleziony, prosimy o cierpliwość, a my to naprawimy.';
 $BL['fancyupload_flash_error']        = 'Aby włączyć wbudowany uploader, należy zainstalować najnowszy plugin Adobe Flash.';
 
-$BL['be_cnt_function_validate']        = 'Walidacja PHP';
-$BL['be_structform_selected_cp']    = 'Wybór Limitu użytecznych części zawartości';
-$BL['be_structform_select_cp']        = 'Wybierz elementy treści';
+$BL['be_cnt_function_validate']  = 'Walidacja PHP';
+$BL['be_structform_selected_cp'] = 'Wybór Limitu użytecznych części zawartości';
+$BL['be_structform_select_cp']   = 'Wybierz elementy treści';
 
-$BL['source_image_not_found']        = 'Błąd źródła obrazu: Obraz %s wydaje się nie istnieć.';
+$BL['source_image_not_found']    = 'Błąd źródła obrazu: Obraz %s wydaje się nie istnieć.';
 $BL['form_force_ssl']            = 'Wymuś wysyłanie formularzy z SSL';
 $BL['numerize_title']            = 'Numerowane zamiast tytułów artykułów';
-$BL['be_article_noteaser']        = 'bez zapowiedzi';
+$BL['be_article_noteaser']       = 'bez zapowiedzi';
 $BL['be_acat_disable301']        = 'artykuł 301 przekierowanie';
 
 $BL['file_actions_step1']        = "Krok 1: wybierz folder";
 $BL['file_actions_step2']        = "Krok 2: wybierz plik";
 $BL['file_actions_step3']        = "Krok 3: wybierz działanie";
-$BL['file_actions_button']        = 'Wykonaj operację';
-$BL['file_actions_no']            = 'Brak plików do edycji. Wybierz inny folder ';
-$BL['file_actions_delete']        = 'Czy jesteś pewien, że należy usunąć wybrane pliki?';
-$BL['file_actions_bemuser']        = 'Wybrane pliki zostaną przypisane do nowego użytkownika i przeniesione do katalogu głównego.';
-$BL['file_actions_bemfolder']        = 'Proszę wybrać folder docelowy. Wybrane pliki zostaną przeniesione do tego folderu. ';
-$BL['file_actions_pdl_empty']        = 'wybierz działanie';
-$BL['file_actions_pdl_delete']        = 'usuń pliki';
-$BL['file_actions_pdl_move']        = 'przenieś pliki';
-$BL['file_actions_pdl_status']        = 'zmień status';
-$BL['file_actions_pdl_user']        = 'zmień właściciela';
-$BL['file_actions_msg_move']        = 'Pliki zostały pomyślnie przeniesione';
-$BL['file_actions_msg_delete']        = 'Pliki zostały pomyślnie usunięte';
-$BL['file_actions_msg_status']        = 'Status plików pomyślnie zmienio';
-$BL['file_actions_msg_error']        = 'Nie wybrano plików';
-$BL['file_actions_msg_user']        = 'Pliki zostały pomyślnie przypisany do nowego użytkownika';
+$BL['file_actions_button']       = 'Wykonaj operację';
+$BL['file_actions_no']           = 'Brak plików do edycji. Wybierz inny folder ';
+$BL['file_actions_delete']       = 'Czy jesteś pewien, że należy usunąć wybrane pliki?';
+$BL['file_actions_bemuser']      = 'Wybrane pliki zostaną przypisane do nowego użytkownika i przeniesione do katalogu głównego.';
+$BL['file_actions_bemfolder']    = 'Proszę wybrać folder docelowy. Wybrane pliki zostaną przeniesione do tego folderu. ';
+$BL['file_actions_pdl_empty']    = 'wybierz działanie';
+$BL['file_actions_pdl_delete']   = 'usuń pliki';
+$BL['file_actions_pdl_move']     = 'przenieś pliki';
+$BL['file_actions_pdl_status']   = 'zmień status';
+$BL['file_actions_pdl_user']     = 'zmień właściciela';
+$BL['file_actions_msg_move']     = 'Pliki zostały pomyślnie przeniesione';
+$BL['file_actions_msg_delete']   = 'Pliki zostały pomyślnie usunięte';
+$BL['file_actions_msg_status']   = 'Status plików pomyślnie zmienio';
+$BL['file_actions_msg_error']    = 'Nie wybrano plików';
+$BL['file_actions_msg_user']     = 'Pliki zostały pomyślnie przypisany do nowego użytkownika';
 
 $BL['be_imagefiles_as_gallery']        = 'utwórz galerię z plików graficznych';
 
 $BL['be_link']                = 'link';
-$BL['be_links']                = 'linki';
+$BL['be_links']               = 'linki';
 $BL['be_redirect']            = 'przekierowanie';
-$BL['be_redirects']            = 'przekierowania';
-$BL['be_views']                = 'wywołań';
-$BL['be_structure_id']            = 'ID struktury';
+$BL['be_redirects']           = 'przekierowania';
+$BL['be_views']               = 'wywołań';
+$BL['be_structure_id']        = 'ID struktury';
 $BL['be_shortcut']            = 'skrót';
-$BL['be_target_type']            = 'typ docelowy';
-$BL['be_http_status']            = 'HTTP status';
-$BL['be_http_status301']        = 'trwale przeniesiony';
-$BL['be_http_status307']        = 'przekierowanie tymczasowe';
-$BL['be_http_status404']        = 'nie znaleziono';
-$BL['be_http_status401']        = 'nieautoryzowany';
-$BL['be_http_status503']        = 'usługa niedostępna';
-$BL['be_redirect_error1']        = 'Alias/Skrót, wymagana jest struktura lub ID artykułu';
-$BL['be_redirect_error2']        = 'Cel jest wymagany';
-$BL['be_redirect_error3']        = 'Dla docelowego typu, ID artykułu i ID struktury dozwolone są tylko liczby całkowite jako docelowe';
-$BL['be_new_linkredirect']        = 'Dodaj link/przekierowanie';
+$BL['be_target_type']         = 'typ docelowy';
+$BL['be_http_status']         = 'HTTP status';
+$BL['be_http_status301']      = 'trwale przeniesiony';
+$BL['be_http_status307']      = 'przekierowanie tymczasowe';
+$BL['be_http_status404']      = 'nie znaleziono';
+$BL['be_http_status401']      = 'nieautoryzowany';
+$BL['be_http_status503']      = 'usługa niedostępna';
+$BL['be_redirect_error1']     = 'Alias/Skrót, wymagana jest struktura lub ID artykułu';
+$BL['be_redirect_error2']     = 'Cel jest wymagany';
+$BL['be_redirect_error3']     = 'Dla docelowego typu, ID artykułu i ID struktury dozwolone są tylko liczby całkowite jako docelowe';
+$BL['be_new_linkredirect']    = 'Dodaj link/przekierowanie';
 
-$BL['be_ctype_accordion']        = 'grupa (accordion)';
-$BL['be_ctype_number']            = 'numer';
+$BL['be_ctype_accordion']     = 'grupa (accordion)';
+$BL['be_ctype_number']        = 'numer';
 $BL['be_inactive']            = 'nieaktywne';
-$BL['be_locked']            = 'zablokowane';
+$BL['be_locked']              = 'zablokowane';
 $BL['be_n/a']                = 'n/a';
-$BL['be_opengraph_support']        = 'Zezwalaj na Dzielenie się z innymi';
-$BL['be_player_volume']            = 'Głośność';
+$BL['be_opengraph_support']  = 'Zezwalaj na Dzielenie się z innymi';
+$BL['be_player_volume']      = 'Głośność';
 $BL['be_player_volume_muted']      = 'wyciszone';
 $BL['be_keyword']            = 'Słowo kluczowe';
 $BL['be_tag']                = 'znacznik';
@@ -1404,3 +1404,8 @@ $BL['CSRF_GET_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site
 $BL['CSRF_GET_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> parametrów GET nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
 
 $BL['be_parental_alias'] = 'alias macierzysty';
+$BL['be_fsearch_nor'] = 'BRAK';
+$BL['be_tab_toggle'] = 'Przełącz zakładkę, by rozwinąć lub zamknąć';
+$BL['be_custom_textfield'] = 'własny tekst';
+$BL['be_tab_template_toggle_warning'] = 'Zmiana szablonu może spowodować, że niestandardowe pola ulegną zmianie i istniejące wartości utracone.\n\nCzy jesteś pewien, że chcesz kontynuować?';
+
