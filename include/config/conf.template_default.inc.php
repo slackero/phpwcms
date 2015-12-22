@@ -446,15 +446,15 @@ $template_default['settings'] = array(
 			'legend' => 'Field group name',
 			'template' => 'default', // bind the fieldgroup to a specific template, or default
 			'fields' => array(
-				// [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
-				'fieldname1' => array(
+				// [TAB_STRING1]{TAB_STRING1}[/TAB_STRING1]
+				'string1' => array(
 					'legend' => 'field 1',
 					'type' => 'str',
 					'render' => 'html',
 					'maxlength' => 100
 				),
-				// [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
-				'fieldname2' => array(
+				// [TAB_TEXTAREA1]{TAB_TEXTAREA1}[/TAB_TEXTAREA1]
+				'textarea1' => array(
 					'legend' => 'field 2',
 					'type' => 'textarea',
 					'render' => '',
