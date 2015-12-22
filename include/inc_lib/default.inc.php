@@ -121,9 +121,8 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 $phpwcms["site"] .= '/';
 $phpwcms['site_ssl_url'] .= '/';
 
-// define the real path of the phpwcms installation
-// important to script that must know the real path to files or something else
-
+// define the real path of this phpwcms installation
+// important for the script to know the real path
 $phpwcms['DOC_ROOT'] = rtrim( str_replace("\\", '/', $phpwcms['DOC_ROOT']), '/' );
 if( empty($phpwcms["root"]) ) {
 	$phpwcms["root"]			 = '';
@@ -135,11 +134,11 @@ if( empty($phpwcms["root"]) ) {
 	$phpwcms["root"]			.= 	'/';
 }
 
-define ("PHPWCMS_ROOT", 			$phpwcms['DOC_ROOT']);
+define ('PHPWCMS_ROOT', 			$phpwcms['DOC_ROOT']);
 define ('PHPWCMS_FILES', 			$phpwcms["file_path"] . '/');
 define ('PHPWCMS_BASEPATH',			'/' . $phpwcms["root"]);
-define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms["db_pass"]));
-define ('PHPWCMS_REWRITE',			empty($phpwcms["rewrite_url"]) ? false : true);
+define ('PHPWCMS_USER_KEY',			md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms['db_pass']));
+define ('PHPWCMS_REWRITE',			empty($phpwcms['rewrite_url']) ? false : true);
 define ('PHPWCMS_REWRITE_EXT',		isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define ('PHPWCMS_ALIAS_WSLASH',		empty($phpwcms['alias_allow_slash']) ? false : true);
 define ('IS_PHP523',				version_compare(PHP_VERSION, '5.2.3', '>='));
@@ -797,6 +796,16 @@ function remove_unsecure_rptags($check) {
 	return str_replace(array('[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'), array('[ PHP ]', '[ /PHP ]', '{ PHP :' , '{ PHPVAR :', '{ URL :'), $check);
 }
 
+/**
+ * Send HTTP Header
+ *
+ * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+ * @access public
+ * @param string $target (default: '')
+ * @param int $type (default: 0)
+ * @param bool $session_close (default: true)
+ * @return void
+ */
 function headerRedirect($target='', $type=0, $session_close=true) {
 	if($session_close && isset($_SESSION)) {
 		session_write_close();
