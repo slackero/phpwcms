@@ -57,6 +57,12 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 			foreach($_POST['customfield'][$key] as $custom_field => $custom_field_value) {
 				if($tab_fieldgroup_fields !== null && isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
+				} elseif($tab_fieldgroup_fields !== null && $tab_fieldgroup_fields[$custom_field] === 'int') {
+					$content["tabs"][$x]['custom_fields'][$custom_field] = intval($custom_field_value);
+				} elseif($tab_fieldgroup_fields !== null && $tab_fieldgroup_fields[$custom_field] === 'float') {
+					$content["tabs"][$x]['custom_fields'][$custom_field] = floatval($custom_field_value);
+				} elseif($tab_fieldgroup_fields !== null && $tab_fieldgroup_fields[$custom_field] === 'bool') {
+					$content["tabs"][$x]['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 				} else {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
 				}

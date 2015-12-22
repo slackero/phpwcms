@@ -427,14 +427,15 @@ $template_default['settings'] = array(
 			'854x356' => '854 x 356 (21:9)',
 			'1280x533' => '1280 x 533 (21:9)',
 			'1920x800' => '1920 x 800 (21:9)',
-			'200x178' => '200 x 178 px',
-			'320x240' => '320 x 240 px',
-			'380x313' => '380 x 313 px',
-			'425x350' => '425 x 350 px',
-			'450x338' => '450 x 338 px',
-			'500x403' => '500 x 403 px',
-			'640x264' => '640 x 264 px',
-			'640x480' => '640 x 480 px'
+			// Outdated, former hard coded size
+			//'200x178' => '200 x 178 px',
+			//'320x240' => '320 x 240 px',
+			//'380x313' => '380 x 313 px',
+			//'425x350' => '425 x 350 px',
+			//'450x338' => '450 x 338 px',
+			//'500x403' => '500 x 403 px',
+			//'640x264' => '640 x 264 px',
+			//'640x480' => '640 x 480 px',
 		)
 	),
 
@@ -445,14 +446,14 @@ $template_default['settings'] = array(
 			'legend' => 'Field group name',
 			'template' => 'default', // bind the fieldgroup to a specific template, or default
 			'fields' => array(
-				 // [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
+				// [TAB_FIELDNAME1]{TAB_FIELDNAME1}[/TAB_FIELDNAME1]
 				'fieldname1' => array(
 					'legend' => 'field 1',
 					'type' => 'str',
 					'render' => 'html',
 					'maxlength' => 100
 				),
-				 // [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
+				// [TAB_FIELDNAME2]{TAB_FIELDNAME2}[/TAB_FIELDNAME2]
 				'fieldname2' => array(
 					'legend' => 'field 2',
 					'type' => 'textarea',
@@ -470,8 +471,50 @@ $template_default['settings'] = array(
 					'render' => '',
 					'values' => array(
 						'option1' => 'value option 1',
-						'option2' => 'value option 2'
-					)
+						'option2' => 'value option 2',
+						'empty' => 'nothing',
+					),
+					'default' => 'empty'
+				),
+				// [TAB_INTEGER1]{TAB_INTEGER1}[/TAB_INTEGER1]
+				'integer1' => array(
+					'legend' => 'integer 1',
+					'type' => 'int',
+					'render' => '',
+					'max' => 1000,
+					'min' => -1000,
+					'step' => 1
+				),
+				// [TAB_FLOAT1]{TAB_FLOAT1}[/TAB_FLOAT1]
+				'float1' => array(
+					'legend' => 'float 1',
+					'type' => 'float',
+					'render' => '',
+					'max' => 1000,
+					'min' => -1000,
+					'step' => .1
+				),
+				// [TAB_SELECT1]
+				//	  Will be the selected value {TAB_SELECT1}
+				//    [TAB_SELECT1_OPTION1]{TAB_SELECT1_OPTION1}[/TAB_SELECT1_OPTION1]
+				//    [TAB_SELECT1_OPTION2]{TAB_SELECT1_OPTION2}[/TAB_SELECT1_OPTION2]
+				// [/TAB_SELECT1]
+				'select1' => array(
+					'legend' => 'choose',
+					'type' => 'select',
+					'render' => '',
+					'values' => array(
+						'empty' => 'choose a value or this for nothing',
+						'option1' => 'value option 1',
+						'option2' => 'value option 2',
+					),
+					'default' => 'empty'
+				),
+				// [TAB_BOOL1]True[/TAB_BOOL1][TAB_BOOL1_ELSE]False[/TAB_BOOL1_ELSE]
+				'bool1' => array(
+					'legend' => 'Enable (to be true)',
+					'type' => 'bool',
+					'default' => false, // or true to be enabled by default
 				),
 			)
 		)

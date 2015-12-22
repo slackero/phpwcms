@@ -81,7 +81,12 @@ if($tabs['template']) {
 					continue;
 				}
 
-				if($tabs['fieldgroup'][$custom_field_key]['type'] === 'option') {
+				if($tabs['fieldgroup'][$custom_field_key]['type'] === 'bool') {
+
+					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, empty($custom_field_value) ? '' : ' ');
+
+				} elseif($tabs['fieldgroup'][$custom_field_key]['type'] === 'option' || $tabs['fieldgroup'][$custom_field_key]['type'] === 'select') {
+
 					if(isset($tabs['fieldgroup'][$custom_field_key]['values'][$custom_field_value])) {
 
 						// render custom option globally first
@@ -98,7 +103,13 @@ if($tabs['template']) {
 							}
 						}
 					}
+
+				} elseif($tabs['fieldgroup'][$custom_field_key]['type'] === 'int' || $tabs['fieldgroup'][$custom_field_key]['type'] === 'float') {
+
+					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $custom_field_value);
+
 				} elseif(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
+
 					if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
 						if(!isset($phpwcms['parsedown_class'])) {
 							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
@@ -111,8 +122,11 @@ if($tabs['template']) {
 					} else {
 						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $custom_field_value);
 					}
+
 				} else {
+
 					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($custom_field_value));
+
 				}
 			}
 		}

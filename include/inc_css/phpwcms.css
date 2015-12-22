@@ -955,6 +955,11 @@ table.tdMorepace td { padding: 0 0 1px 0; }
 	padding-top: 6px;
 }
 
+.tdtop8
+{
+	vertical-align: top;
+	padding-top: 8px;
+}
 .tdtop10
 {
 	vertical-align: top;
