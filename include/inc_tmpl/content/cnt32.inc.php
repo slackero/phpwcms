@@ -218,11 +218,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
 							<label class="radio tab-option-radio">
 								<input type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
-									if(
-										(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key)
-										||
-										(!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key)
-									):
+									if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
+								?> checked="checked"<?php
+									elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
 								?> checked="checked"<?php endif; ?> /> <?php echo html($option_label); ?>
 							</label>
 			<?php		endforeach; ?>
@@ -230,11 +228,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 							<select name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
 			<?php		foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
 								<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
-									if(
-										(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key)
-										||
-										(!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key)
-									):
+									if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
+								?> selected="selected"<?php
+									elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
 								?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?></option>
 			<?php		endforeach; ?>
 							</select>
