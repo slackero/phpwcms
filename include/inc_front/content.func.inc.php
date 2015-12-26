@@ -1425,6 +1425,16 @@ if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['p
 // always check if you want to use same head code only once
 if(count($block['custom_htmlhead'])) {
 
+	if(!empty($block['custom_htmlhead']['jquery_ready'])) {
+
+		$block['custom_htmlhead']['jquery_ready'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . '	$(function(){' . LF . implode(LF, $block['custom_htmlhead']['jquery_ready']) . LF . '	});' . LF . '  </script>';
+
+	} else {
+
+		unset($block['custom_htmlhead']['jquery_ready']);
+
+	}
+
 	if(!empty($phpwcms['js_in_body'])) {
 
 		$block['bodyjs_temp'] = '';

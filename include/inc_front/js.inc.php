@@ -89,18 +89,30 @@ function renderHeadJS($js) {
 		return '';
 	}
 
-	$remote = substr($js, 0, 4) == 'http' ? true : false;
+	// detect remote if `http://example.com`, `https://example.com` or `//example.com`
+	$remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//' ? true : false;
 
 	if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
+
+		if(strtolower(substr($js, 0, 5)) === 'ready') {
+			$jsready = true;
+			$js = trim(substr($js, 5));
+		} else {
+			$jsready = false;
+		}
 
 		$key = md5($js);
 
 		// add the same section only once
-		if(empty($GLOBALS['block']['custom_htmlhead'][$key])) {
+		if(!$jsready && empty($GLOBALS['block']['custom_htmlhead'][$key])) {
 
 			$GLOBALS['block']['custom_htmlhead'][$key]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '	';
 			$GLOBALS['block']['custom_htmlhead'][$key] .= $js;
 			$GLOBALS['block']['custom_htmlhead'][$key] .= LF . SCRIPT_CDATA_END . LF . '  </script>';
+
+		} elseif($jsready && empty($GLOBALS['block']['custom_htmlhead']['jquery_ready']['ready_'.$key])) {
+
+			$GLOBALS['block']['custom_htmlhead']['jquery_ready']['ready_'.$key] = $js;
 
 		}
 
@@ -112,7 +124,7 @@ function renderHeadJS($js) {
 
 			// replace {TEMPLATE}
 			$js		= str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
-			$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html_specialchars($js));
+			$GLOBALS['block']['custom_htmlhead'][md5($js)] = getJavaScriptSourceLink(html($js));
 
 	} else {
 
