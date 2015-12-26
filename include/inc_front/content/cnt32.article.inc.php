@@ -90,13 +90,13 @@ if($tabs['template']) {
 					if(isset($tabs['fieldgroup'][$custom_field_key]['values'][$custom_field_value])) {
 
 						// render custom option globally first
-						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($tabs['fieldgroup'][$custom_field_key]['values'][$custom_field_value]));
+						$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($custom_field_value));
 
 						// render option specific replacers
 						if(strpos($tabs['entries'][$key], $custom_field_replacer.'_') !== false) {
 							foreach($tabs['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
 								if($custom_field_value === $option_key) {
-									$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), html($option_label));
+									$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));
 								} else {
 									$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), '');
 								}
