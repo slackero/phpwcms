@@ -176,6 +176,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						}
 						continue;
 					}
+
+					$custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
 ?>
 					<tr class="tab-collapsable-row">
 						<td class="chatlist tdtop8" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
@@ -199,19 +201,26 @@ if(is_array($tmpllist) && count($tmpllist)) {
 							<input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
 							if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); }
 							?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?>
-							class="v11 width400" />
+							class="v11 width400"<?php echo $custom_field_placeholder; ?> />
 			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'):	?>
 							<input type="number" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
 							echo isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : 0;
-							?>" class="v11 width100"
+							?>" class="v11 width100" <?php echo $custom_field_placeholder; ?>
 							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
 							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>
 							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?> step="<?php
-								echo $tab_fieldgroup['fields'][$custom_field]['type'] === 'int' ? ceil($tab_fieldgroup['fields'][$custom_field]['step']) : floatval($tab_fieldgroup['fields'][$custom_field]['step']); ?>"
+								if($tab_fieldgroup['fields'][$custom_field]['type'] === 'int') {
+									$tab_fieldgroup['fields'][$custom_field]['step'] = ceil($tab_fieldgroup['fields'][$custom_field]['step']);
+								} else {
+									$tab_fieldgroup['fields'][$custom_field]['step'] = floatval($tab_fieldgroup['fields'][$custom_field]['step']);
+									$tab_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($tab_fieldgroup['fields'][$custom_field]['step'], 14 - log10($tab_fieldgroup['fields'][$custom_field]['step'])), '0');
+								}
+								echo $tab_fieldgroup['fields'][$custom_field]['step'];
+							?>"
 							<?php endif; ?>
 							/>
 			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php
+							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400"<?php echo $custom_field_placeholder; ?> rows="<?php
 								echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
 							?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
 			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
@@ -295,6 +304,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						continue;
 					}
 
+					$custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+
 					// support only type "str" or "textarea" at the moment
 					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
 						$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
@@ -314,18 +325,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 					?>&nbsp;<'+'/td>';
 			entry += '<td colspan="2" class="tdbottom2">';
 <?php	if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'):	?>
-			entry += '<input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400" '+'/>';
+			entry += '<input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400"<?php echo $custom_field_placeholder; ?> '+'/>';
 <?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-			entry += '<textarea name="customfield[' + entries + '][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"><'+'/textarea>';
+			entry += '<textarea name="customfield[' + entries + '][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
 <?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
 			foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
 			entry += '<label class="radio tab-option-radio"><input type="radio" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>'+'/> <?php echo html($option_label); ?><'+'/label> ';
 <?php		endforeach;
 		elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'):	?>
-			entry += '<input type="number" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="0" class="v11 width100"';
+			entry += '<input type="number" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="0" class="v11 width100"<?php echo $custom_field_placeholder; ?>';
 			<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?>entry += ' min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>"';<?php endif; ?>
 			<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?>entry += ' max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>"';<?php endif; ?>
-			<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?>entry += ' step="<?php echo $tab_fieldgroup['fields'][$custom_field]['type'] === 'int' ? ceil($tab_fieldgroup['fields'][$custom_field]['step']) : floatval($tab_fieldgroup['fields'][$custom_field]['step']); ?>"';<?php endif; ?>
+			<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?>entry += ' step="<?php echo $tab_fieldgroup['fields'][$custom_field]['step']; ?>"';<?php endif; ?>
 			entry += ' />';
 <?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
 			entry += '<select name="customfield[' + entries + '][<?php echo $custom_field; ?>]">';

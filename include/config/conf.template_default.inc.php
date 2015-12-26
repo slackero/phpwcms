@@ -451,14 +451,16 @@ $template_default['settings'] = array(
 					'legend' => 'field 1',
 					'type' => 'str',
 					'render' => 'html',
-					'maxlength' => 100
+					'maxlength' => 100,
+					'placeholder' => ''
 				),
 				// [TAB_TEXTAREA1]{TAB_TEXTAREA1}[/TAB_TEXTAREA1]
 				'textarea1' => array(
 					'legend' => 'field 2',
 					'type' => 'textarea',
 					'render' => '',
-					'rows' => 3
+					'rows' => 3,
+					'placeholder' => ''
 				),
 				// [TAB_OPTIONNAME1]
 				//	  Will be the selected value {TAB_OPTIONNAME1}
@@ -483,7 +485,8 @@ $template_default['settings'] = array(
 					'render' => '',
 					'max' => 1000,
 					'min' => -1000,
-					'step' => 1
+					'step' => 1,
+					'placeholder' => ''
 				),
 				// [TAB_FLOAT1]{TAB_FLOAT1}[/TAB_FLOAT1]
 				'float1' => array(
@@ -492,7 +495,8 @@ $template_default['settings'] = array(
 					'render' => '',
 					'max' => 1000,
 					'min' => -1000,
-					'step' => .1
+					'step' => .1,
+					'placeholder' => ''
 				),
 				// [TAB_SELECT1]
 				//	  Will be the selected value {TAB_SELECT1}
@@ -517,7 +521,7 @@ $template_default['settings'] = array(
 					'default' => false, // or true to be enabled by default
 				),
 			)
-		)
+		),
 		*/
 	)
 );
