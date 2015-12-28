@@ -38,7 +38,7 @@ class phpwcmsCalendar {
 		11	=> 'November',
 		12	=> 'December'
 	);
-	var $no_calendar_item_found	= 'No date found for current calendar search. <a href="{CALENDAR_RESET}" title="Reset">Reset</a>';
+	var $no_calendar_item_found	= '@@No date found for current calendar search.@@ <a href="{CALENDAR_RESET}" title="@@Reset@@">@@Reset@@</a>';
 	var $template				= '';
 	var $expired				= '';
 	var $expired_date			= 'END';
@@ -225,7 +225,7 @@ class phpwcmsCalendar {
 		}
 
 		if(!count($items['default']) && !count($items['top']) && !count($items['bottom'])) {
-			$items['default'][] = str_replace('{CALENDAR_RESET}', $this->resetCalendarLink(), $this->no_calendar_item_found);
+			return str_replace('{CALENDAR_RESET}', $this->resetCalendarLink(), $this->no_calendar_item_found);
 		} elseif($this->expired && count($items[$this->expired])) {
 			array_unshift($items[$this->expired], $this->expired_prefix);
 			$items[$this->expired][] = $this->expired_suffix;
