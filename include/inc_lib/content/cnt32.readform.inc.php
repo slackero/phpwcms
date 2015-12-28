@@ -53,19 +53,34 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 
 		$content["tabs"][$x]['custom_fields'] = array();
 
-		if(!empty($_POST['customfield'][$key]) && count($_POST['customfield'][$key])) {
-			foreach($_POST['customfield'][$key] as $custom_field => $custom_field_value) {
-				if($tab_fieldgroup_fields !== null && isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
+		// first read all defined custom field values
+		if(!empty($tab_fieldgroup_fields)) {
+			foreach($tab_fieldgroup_fields as $custom_field => $custom_field_definition) {
+				$custom_field_value = isset($_POST['customfield'][$key][$custom_field]) ? $_POST['customfield'][$key][$custom_field] : null;
+				$_POST['customfield'][$key][$custom_field] = null;
+				unset($_POST['customfield'][$key][$custom_field]);
+
+				if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
-				} elseif($tab_fieldgroup_fields !== null && $tab_fieldgroup_fields[$custom_field] === 'int') {
+				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = intval($custom_field_value);
-				} elseif($tab_fieldgroup_fields !== null && $tab_fieldgroup_fields[$custom_field] === 'float') {
+				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = floatval($custom_field_value);
-				} elseif($tab_fieldgroup_fields !== null && $tab_fieldgroup_fields[$custom_field] === 'bool') {
+				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 				} else {
 					$content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
 				}
+			}
+		}
+
+		// parse all non-defined custom fields (maybe left over from old definitions)
+		if(!empty($_POST['customfield'][$key]) && count($_POST['customfield'][$key])) {
+			foreach($_POST['customfield'][$key] as $custom_field => $custom_field_value) {
+				if($custom_field_value === null) {
+					continue;
+				}
+				$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value); // keep the value as is
 			}
 		}
 
