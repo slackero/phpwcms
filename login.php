@@ -279,7 +279,7 @@ $reason_types = array(
 		</div>
 		<p style="padding: 0 3px 5px 3px;">
 			<strong><a href="http://www.phpwcms.org" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
-			Copyright &copy; 2003&#8212;<?php echo date('Y'); ?>
+			Copyright &copy; 2002&#8212;<?php echo date('Y'); ?>
 			Oliver Georgi. Extensions are copyright of their respective owners.
 			Visit <a href="http://www.phpwcms.org" target="_blank">http://www.phpwcms.org</a> for
 			details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a>
