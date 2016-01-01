@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @author Oliver Georgi <oliver@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -376,7 +376,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td class="tdbottom5 email"><pre><?php
 
 			// only a slight fix
-			if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_customer'], 'Ã') !== false) {
+			if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_customer'], 'ï¿½') !== false) {
 				$plugin['data']['order_data']['mail_customer'] = mb_convert_encoding($plugin['data']['order_data']['mail_customer'], PHPWCMS_CHARSET, 'utf-8');
 			}
 
@@ -391,7 +391,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		<td class="email"><pre><?php
 
 			// only a slight fix
-			if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_self'], 'Ã') !== false) {
+			if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_self'], 'ï¿½') !== false) {
 				$plugin['data']['order_data']['mail_self'] = mb_convert_encoding($plugin['data']['order_data']['mail_self'], PHPWCMS_CHARSET, 'utf-8');
 			}
 

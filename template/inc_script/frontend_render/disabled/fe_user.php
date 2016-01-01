@@ -381,30 +381,30 @@ if($fe_action) {
 			$queryResult = _dbQuery($sql, 'INSERT');
 			if(!empty($queryResult['INSERT_ID'])) {
 				$fe_reg  = '<p class="success">Vielen Dank '.html_specialchars($udata['user_firstname'].' '.$udata['user_name']).'! Ihre Registrierungsanfrage wurden erfolgreich &uuml;bertragen.</p>';
-				$fe_reg .= '<p>Ihnen wird in wenigen Augenblicken eine Bestätigung an die E-Mail <b>'.html_specialchars($udata['user_email']).'</b> zugesendet.</p>';
+				$fe_reg .= '<p>Ihnen wird in wenigen Augenblicken eine Bestï¿½tigung an die E-Mail <b>'.html_specialchars($udata['user_email']).'</b> zugesendet.</p>';
 
 				$fe_text  = 'Hallo '.trim($udata['user_title'] . ' ' . trim( $udata['user_firstname'].' '.$udata['user_name']) ) . LF . LF;
 				$fe_text .= 'Ihre Registrierung haben wir erhalten.' . LF;
-				$fe_text .= 'Wir prüfen Ihre Daten und melden uns umgehend bei Ihnen.' . LF . LF;
+				$fe_text .= 'Wir prï¿½fen Ihre Daten und melden uns umgehend bei Ihnen.' . LF . LF;
 
 				if(empty($udata['user_profile_7'][4])) {
-					$fe_text .= 'Sie möchten keinen Zugriff auf unser Partnerbackend. ' .LF . 'Allerdings haben wir folgende Zugangsdaten für Sie hinterlegt:' . LF;
+					$fe_text .= 'Sie mï¿½chten keinen Zugriff auf unser Partnerbackend. ' .LF . 'Allerdings haben wir folgende Zugangsdaten fï¿½r Sie hinterlegt:' . LF;
 				} else {
-					$fe_text .= 'Sie möchten Zugriff auf unser Partnerbackend. ' .LF . 'Folgende Zugangsdaten sind von Ihnen gesendet worden:' . LF;
+					$fe_text .= 'Sie mï¿½chten Zugriff auf unser Partnerbackend. ' .LF . 'Folgende Zugangsdaten sind von Ihnen gesendet worden:' . LF;
 				}
 				$fe_text .= '  Login:    ' . $udata['user_login'] . LF;
 				$fe_text .= '  Passwort: ' . $udata['user_password'] . LF . LF;
-				$fe_text .= 'Ihr Passwort ist nicht reproduizierbar verschlüsselt in unserem System abgelegt worden.' . LF . LF . LF;
-				$fe_text .= 'Mit besten Grüßen' . LF;
+				$fe_text .= 'Ihr Passwort ist nicht reproduizierbar verschlï¿½sselt in unserem System abgelegt worden.' . LF . LF . LF;
+				$fe_text .= 'Mit besten Grï¿½ï¿½en' . LF;
 				$fe_text .= 'phpwcms, Oliver' . LF;
 
 				$fe_text1  = 'Neue Benutzerregistrierung' . LF;
 				$fe_text1 .= '--------------------------' . LF . LF;
 
-				$fe_text1 .= 'Die Benutzerdaten können im Backend eingesehen werden.' . LF;
+				$fe_text1 .= 'Die Benutzerdaten kï¿½nnen im Backend eingesehen werden.' . LF;
 
 				if(!empty($udata['user_profile_7'][4])) {
-					$fe_text1 .= 'Der Benutzer wünscht die Freischaltung für den Partnerbereich!' .LF;
+					$fe_text1 .= 'Der Benutzer wï¿½nscht die Freischaltung fï¿½r den Partnerbereich!' .LF;
 					$fe_text1 .= '  Login:    ' . $udata['user_login'] . LF;
 				}
 
@@ -416,7 +416,7 @@ if($fe_action) {
 				$fe_text1 .= 'Anrede:  ' . $udata['user_title'] . LF;
 				$fe_text1 .= 'Vorname: ' . $udata['user_firstname'] . LF;
 				$fe_text1 .= 'Name:    ' . $udata['user_name'] . LF;
-				$fe_text1 .= 'Straße:  ' . $udata['user_street'] . LF;
+				$fe_text1 .= 'Straï¿½e:  ' . $udata['user_street'] . LF;
 				$fe_text1 .= 'PLZ:     ' . $udata['user_zip'] . LF;
 				$fe_text1 .= 'Ort:     ' . $udata['user_city'] . LF;
 				$fe_text1 .= 'Telefon: ' . $udata['user_tel'] . LF;
@@ -520,5 +520,3 @@ function is_fe_error($field='') {
 	}
 	return '';
 }
-
-?>

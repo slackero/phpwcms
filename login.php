@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -278,10 +278,10 @@ $reason_types = array(
 			<div class="alert alert-danger" style="font-weight:bold;padding:0 0 15px 0;font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo'];	?></div>
 		</div>
 		<p style="padding: 0 3px 5px 3px;">
-			<strong><a href="http://www.phpwcms.de" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
+			<strong><a href="http://www.phpwcms.org" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
 			Copyright &copy; 2003&#8212;<?php echo date('Y'); ?>
 			Oliver Georgi. Extensions are copyright of their respective owners.
-			Visit <a href="http://www.phpwcms.de" target="_blank">http://www.phpwcms.de</a> for
+			Visit <a href="http://www.phpwcms.org" target="_blank">http://www.phpwcms.org</a> for
 			details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a>
 			and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited  by law.
 		</p>

@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -48,7 +48,7 @@ body {
     <td colspan="3"><img src="../img/leer.gif" alt="[beliebiger Wert]" width="1" height="7" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.phpwcms.de" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="phpwcms" width="95" height="24" border="0" /></a></td>
+    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.phpwcms.org" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="phpwcms" width="95" height="24" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
@@ -322,7 +322,7 @@ if(is_dir($dir)) {
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
     <td colspan="2" valign="bottom" class="navtext">
-		<a href="http://www.phpwcms.de" target="_blank">phpwcms</a>
+		<a href="http://www.phpwcms.org" target="_blank">phpwcms</a>
 		&copy; 2003&#8212;<?php echo date('Y') ?>
 		<a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver Georgi</a>.
 		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.

@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -45,9 +45,9 @@ if(isset($_GET["pklapp"])) {
 
 }
 
-$_SESSION["list_zaehler"] = 0; //Zähler für die Public-Listenfunktion setzen
+$_SESSION["list_zaehler"] = 0; //Zï¿½hler fï¿½r die Public-Listenfunktion setzen
 
-//Feststellen, ob überhaupt Dateien/Ordner des Users vorhanden sind
+//Feststellen, ob ï¿½berhaupt Dateien/Ordner des Users vorhanden sind
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0 LIMIT 1;";
 if($result = mysql_query($sql, $db) or die ("error while counting user files")) {
 	if($row = mysql_fetch_row($result)) {
@@ -56,12 +56,12 @@ if($result = mysql_query($sql, $db) or die ("error while counting user files")) 
 	mysql_free_result($result);
 }
 
-if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
-	//Beginn Tabelle für Public Dateilisting
+if(isset($count_user_files) && $count_user_files) { //Wenn ï¿½berhaupt Public-Dateien vorhanden, dann Listing
+	//Beginn Tabelle fï¿½r Public Dateilisting
 	echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";
 
-	//Prüfen, für welche User überhaupt Public Files vorhanden sind
+	//Prï¿½fen, fï¿½r welche User ï¿½berhaupt Public Files vorhanden sind
 	$sql = "SELECT DISTINCT ".DB_PREPEND."phpwcms_file.f_uid, ".DB_PREPEND."phpwcms_user.usr_login, ".DB_PREPEND."phpwcms_user.usr_name ".
 		   "FROM ".DB_PREPEND."phpwcms_file INNER JOIN ".DB_PREPEND."phpwcms_user ON ".DB_PREPEND."phpwcms_file.f_uid=".DB_PREPEND."phpwcms_user.usr_id ".
 		   "WHERE ".DB_PREPEND."phpwcms_file.f_public=1 AND ".DB_PREPEND."phpwcms_file.f_aktiv=1 AND ".DB_PREPEND."phpwcms_file.f_trash=0 ".
@@ -70,7 +70,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 	if($result = mysql_query($sql, $db) or die ("error while browsing user's public files")) {
 		$user_counter=0;
 		while($row = mysql_fetch_array($result)) {
-			//Prüfen
+			//Prï¿½fen
 			$pklapp_status = empty($_SESSION["pklapp"][ "u".$row["f_uid"] ]) ? 1 : 0;
 			$root_user_id = intval($row["f_uid"]);
 			$user_naming = html($row["usr_name"]." (".$row["usr_login"].")");
@@ -88,8 +88,8 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 			echo "<tr bgcolor=\"#D8E4E9\">\n"; //Einleitung Tabellenzeile
 			echo "<td width=\"488\" class=\"msglist\">"; //Einleiten der Tabellenzelle
 			echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\"><img src=\"img/icons/user_zu.gif\" border=\"0\">";
-			echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$user_naming."</strong></td>\n"; //Schließen Zelle 1. Spalte
-			echo "<td width=\"50\" align=\"right\" class=\"msglist\">"; //Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
+			echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$user_naming."</strong></td>\n"; //Schlieï¿½en Zelle 1. Spalte
+			echo "<td width=\"50\" align=\"right\" class=\"msglist\">"; //Zelle 2. Spalte - vorgesehen fï¿½r Buttons/Tasten Edit etc.
 			echo "<img src=\"img/leer.gif\" width=\"50\" height=\"1\">"; //Spacer
 			echo "</td>\n";
 			echo "</tr>\n"; //Abschluss Tabellenzeile
@@ -107,7 +107,7 @@ if(isset($count_user_files) && $count_user_files) { //Wenn überhaupt Public-Date
 					$file_durchlauf = 0;
 					while($file_row = mysql_fetch_array($file_result)) {
 						$filename = html($file_row["f_name"]);
-						if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
+						if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieï¿½en der Filelisten-Tabelle
 							echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 						} else {
 							echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";

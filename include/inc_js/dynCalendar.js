@@ -5,7 +5,7 @@
 * CVS Revision...: $Revision: 1.1 $
 * Copyright......: 2001, 2002 Richard Heyes
 *
-* Enhancements...: 17/03/2007 Oliver Georgi, http://www.phpwcms.de
+* Enhancements...: 17/03/2007 Oliver Georgi, http://www.phpwcms.org
 *                  - detect browser language
 *                  - set calendar month and dayname based on given language
 */

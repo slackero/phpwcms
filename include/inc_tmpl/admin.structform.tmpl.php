@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -114,7 +114,7 @@ switch($acat_hidden) {
 	<table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" summary="">
 
           <tr><td width="538" class="title"><?php echo $BL['be_admin_struct_title'] ?> <span style="font-weight: normal;"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong style="color: #FF3300"><?php
-		  	//Anzeigen des Kategorienamens (Menüpunkt)
+		  	//Anzeigen des Kategorienamens (Menï¿½punkt)
 		  	$acat_struct = intval($_GET["struct"]);
 		  	if($acat_struct) {
 
@@ -519,7 +519,7 @@ foreach($acat_cntpart as $value) {
 <td><select name="acat_cpa" size="9" multiple="multiple" id="acat_cpa" class="width225" ondblclick="moveSelectedOptions(document.editsitestructure.acat_cpa,document.editsitestructure.acat_cp,false);">
 
 <?php
-//Menü mit Content Typen erstellen
+//Menï¿½ mit Content Typen erstellen
 foreach($wcs_content_type as $key => $value) {
 	//echo getContentPartOptionTag($key, $value);
 	echo '<option value="'.$key.'">'.$value."</option>\n";
@@ -677,7 +677,7 @@ echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nb
 
 if($acat_lang_mode):
 
-	// Be more modern here — we start switch to jQuery and overwrite non-used MooTools with jQuery call
+	// Be more modern here ï¿½ we start switch to jQuery and overwrite non-used MooTools with jQuery call
 	$GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
 
 ?>

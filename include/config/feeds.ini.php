@@ -3,9 +3,9 @@
 ; phpwcms content management system
 ;
 ; @author Oliver Georgi <og@phpwcms.org>
-; @copyright Copyright (c) 2002-2015, Oliver Georgi
+; @copyright Copyright (c) 2002-2016, Oliver Georgi
 ; @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
-; @link http://www.phpwcms.de
+; @link http://www.phpwcms.org
 
 ; Here are the basic settings for feeds like default feeds format and so on
 
@@ -38,4 +38,4 @@ orderBy				= "livedate"		; possible: livedate, killdate, createdate, changedate
 order				= DESC					; order ascending ASC, descending DESC (default) or random RAND
 
 
-; */ echo 'Sorry this is no public file. Good bye!' ?>
+; */ echo 'Sorry this is no public file. Good bye!';

@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -23,7 +23,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 
-	//Löschen eines Benutzers
+	//Lï¿½schen eines Benutzers
 	if(isset($_GET["del"])) {
 		$ui = explode(":", clean_slweg($_GET["del"]));
 		$user_id = intval($ui[0]);

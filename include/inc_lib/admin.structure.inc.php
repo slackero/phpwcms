@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -24,7 +24,7 @@ $acat_timeout = '';
 $acat_nosearch = '';
 $acat_nositemap = 1;
 $acat_permit = array();
-if($acat_id) { //Anzeige der gewählten Artikel Kategorie
+if($acat_id) { //Anzeige der gewï¿½hlten Artikel Kategorie
 	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id=".$acat_id." LIMIT 1";
 	if($result_acat = mysql_query($sql, $db) or die("error while reading article category infos")) {
 		if($row_acat = mysql_fetch_assoc($result_acat)) {
@@ -78,5 +78,3 @@ if(isset($_GET["sort"])) {
 }
 
 $acat_order = get_order_sort($acat_order);
-
-?>

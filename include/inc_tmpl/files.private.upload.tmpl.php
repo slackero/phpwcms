@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-// Be more modern here — we start switch to jQuery and overwrite non-used MooTools with jQuery call
+// Be more modern here ï¿½ we start switch to jQuery and overwrite non-used MooTools with jQuery call
 initJsAutocompleter();
 
 // Upload new file
@@ -324,7 +324,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 	<tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 	<?php
 
-	//Auswahlliste vordefinierte Keywörter
+	//Auswahlliste vordefinierte Keywï¿½rter
 	$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
 	if($result = mysql_query($sql, $db) or die("error while browsing file categories for selecting keywords")) {
 		$k = "";
@@ -353,7 +353,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 		}
 		mysql_free_result($result);
 	}
-	//Ende vordefinierte Keywörter
+	//Ende vordefinierte Keywï¿½rter
 
 	?>
 	<tr bgcolor="#F5F8F9">

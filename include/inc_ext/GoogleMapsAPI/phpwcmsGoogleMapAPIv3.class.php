@@ -33,7 +33,7 @@
  * @copyright 2010-2012 Brad wedell
  * @author Brad Wedell
  *
- * @link http://www.phpwcms.de/
+ * @link http://www.phpwcms.org/
  * @copyright 2009-2013 Oliver Georgi
  * @author Oliver Georgi <oliver at phpwcms dot de>
  * @package GoogleMapAPI (version 3) for phpwcms

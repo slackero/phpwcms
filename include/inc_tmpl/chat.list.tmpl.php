@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-$chatlist = empty($_GET['l']) ? 0 : intval($_GET['l']); //Prüfen, wieviele Chatmeldungen angezeigt werden sollen
+$chatlist = empty($_GET['l']) ? 0 : intval($_GET['l']); //Prï¿½fen, wieviele Chatmeldungen angezeigt werden sollen
 if(!$chatlist) $chatlist = 15; //Standardanzahl Chatmitteilungen
 
 require_once(PHPWCMS_ROOT."/include/inc_lib/autolink.inc.php");

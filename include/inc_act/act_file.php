@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -21,7 +21,7 @@ checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-//Wechseln des Status AKTIV für Datei/Ordner
+//Wechseln des Status AKTIV fï¿½r Datei/Ordner
 if(isset($_GET["aktiv"])) {
 	list($id, $wert) = explode("|", $_GET["aktiv"]);
 	$id		= intval($id);

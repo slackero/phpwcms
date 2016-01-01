@@ -18,5 +18,3 @@ foreach($content['struct'] as $key => $item) {
 }
 
 $content['all'] = str_replace('{H3_MENU}', implode(LF, $h3), $content['all']);
-
-?>

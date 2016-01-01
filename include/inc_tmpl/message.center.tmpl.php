@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -154,8 +154,8 @@ $msg_get["folder"]	= "&f=".$msg_folder;
       </table>
       <?php
 	  					} //Ende Anzeige Message gefunden
-	  				} //Bedingung für Abfrage
-	  			} //Ende Anzeige komplette gewählte Nachricht
+	  				} //Bedingung fï¿½r Abfrage
+	  			} //Ende Anzeige komplette gewï¿½hlte Nachricht
 			} //Ende Anzeigen Nachricht
 
 			if($count_newmsg && $msg_folder==0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
@@ -363,7 +363,7 @@ $msg_get["folder"]	= "&f=".$msg_folder;
 			$goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
 			if(!$row["msg_read"]) $goto .= "I";
 			if($msg == $row["msg_id"]) $bg_color = "#FFCC00";
-			//Prüfen, welche DO-Aktion
+			//Prï¿½fen, welche DO-Aktion
 			if($row["msg_from_del"] == 1 && $row["msg_from"] == $_SESSION["wcs_user_id"]) $do_undo = 4; //Undo sent message
 			if($row["msg_deleted"] == 1 && $row["msg_uid"] == $_SESSION["wcs_user_id"]) $do_undo = 3; //Undo normal message
 			if($row["msg_from_del"] == 1 && $row["msg_from"] == $_SESSION["wcs_user_id"]) $do_del = 6; //Delete sent message

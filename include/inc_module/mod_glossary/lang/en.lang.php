@@ -2,8 +2,6 @@
 
 // first define main language vars
 $BLM['backend_menu']			= 'glossary';
-
-
 $BLM['listing_title']			= 'glossary';
 $BLM['create_new']				= 'create glossary entry';
 $BLM['glossary_entry']			= 'glossary entry';
@@ -19,6 +17,3 @@ $BLM['no_entry']				= 'no entry found text';
 $BLM['glossary_keyword']		= 'glossary keyword';
 $BLM['highlight']				= 'highlight';
 $BLM['highlight_descr']			= 'catch glossary keyword in frontend';
-
-
-?>

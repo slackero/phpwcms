@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-if(isset($_GET["all"])) { //Übernehmen der Aufklappwerte aus Session-Variable
+if(isset($_GET["all"])) { //ï¿½bernehmen der Aufklappwerte aus Session-Variable
 
 	if($_GET["all"] == "open") { //alle aufklappen
 
@@ -67,10 +67,10 @@ if(isset($_GET["klapp"])) {
 	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".$_SESSION["wcs_user_id"], $db);
 }
 
-//Zähler für die Listenfunktion setzen
+//Zï¿½hler fï¿½r die Listenfunktion setzen
 $_SESSION["list_zaehler"] = 0;
 
-//Feststellen, ob überhaupt Dateien/Ordner vorhanden sind
+//Feststellen, ob ï¿½berhaupt Dateien/Ordner vorhanden sind
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0";
 if(empty($_SESSION["wcs_user_admin"])) {
 	$sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
@@ -78,9 +78,9 @@ if(empty($_SESSION["wcs_user_admin"])) {
 $sql .= " LIMIT 1";
 $count_user_files = _dbCount($sql);
 
-//Wenn überhaupt Dateien für User vorhanden, dann Listing
+//Wenn ï¿½berhaupt Dateien fï¿½r User vorhanden, dann Listing
 if($count_user_files) {
-	//Beginn Tabelle für Dateilisting
+	//Beginn Tabelle fï¿½r Dateilisting
 	echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";
 	list_private(0, $db, 0, "phpwcms.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], $cutID, $_SESSION["wcs_user_thumb"], $phpwcms);

@@ -7,8 +7,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-// chnage setting Off to On -> do not wrap in ""
+// change setting Off to On -> do not wrap in ""
 
 /*
  * Piwik
@@ -37,14 +36,12 @@ $_Tracking_phpMyVisistesURL 	= 'http://mystats.url/phpmyvisites.php';	// fill in
 $_Tracking_phpMyVisistesJS  	= 'http://mystats.url/phpmyvisites.js';
 $_Tracking_phpMyVisitesVars		= false; // additional vars: full page title, cms page ID, form sender IP
 
-
 /*
  * Google Analytics
  */
 $_Tracking_GoogleAnalytics		= false;
 $_Tracking_GoogleAnalyticsCode	= 'UA-00000-1';
 $_Tracking_GoogleSSL			= false;
-
 
 /*
  * Yahoo Analytics
@@ -63,7 +60,6 @@ $_Tracking_StatCounterSecCode	= 'aaaaaaaaa';
 $_Tracking_StatCounterPartition	= 5;
 $_Tracking_StatCounterSSL		= false;
 
-
 /*
  * eTracker
  * eTracker is a widely used tracking solution in Germany
@@ -71,8 +67,6 @@ $_Tracking_StatCounterSSL		= false;
 $_Tracking_eTracker				= false;
 $_Tracking_eTrackerCode 		= '000000';
 $_Tracking_eTrackerSSL			= false;
-
-
 
 /// some minor things ////////////////////////////////////////////////////////////////////////////
 
@@ -91,7 +85,6 @@ if($_TrackingAlias == '') {
 	}
 }
 $_TrackingPageName = abs_url($_TrackingCategory, array(), $_TrackingAlias, 'rawurlencode');
-
 
 /// phpMyVisites /////////////////////////////////////////////////////////////////////////////////
 
@@ -123,9 +116,6 @@ if($_Tracking_phpMyVisites) {
 
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 /// Piwik ////////////////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_Piwik) {
@@ -151,9 +141,6 @@ piwikTracker.enableLinkTracking();
 
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 /// GoogleAnalytics///////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_GoogleAnalytics) {
@@ -172,8 +159,6 @@ $block['custom_htmlhead']['google.analytics'] = "
 ";
 
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 /// StatCounter //////////////////////////////////////////////////////////////////////////////////
 
@@ -203,9 +188,6 @@ if($_Tracking_StatCounter) {
 
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 /// eTracker /////////////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_eTracker) {
@@ -230,9 +212,6 @@ var et_url          = "'.abs_url(array(), array('phpwcmscategory'), $_TrackingAl
 
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 /// Yahoo Aanalytics /////////////////////////////////////////////////////////////////////////////
 
 if($_Tracking_YahooAnalytics) {
@@ -251,8 +230,3 @@ YWATracker.submit();
 	$content['all'] .= $_TrackingCode;
 
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-?>

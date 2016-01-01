@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -131,7 +131,7 @@ if(isset($_POST['ecard_chooser'])) {
 }
 
 if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_success"]) {
-	//Nochmal Prüfen auf leere Werte oder Dopplungen und Zuweisen der einzelnen Werte
+	//Nochmal Prï¿½fen auf leere Werte oder Dopplungen und Zuweisen der einzelnen Werte
 
 	$ecard["onover"]	= preg_replace('/;{1,}$/', '', $ecard["onover"])	.';';
 	$ecard["onclick"]	= preg_replace('/;{1,}$/', '', $ecard["onclick"])	.';';

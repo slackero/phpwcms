@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -216,17 +216,17 @@ $do = explode("|", isset($_GET["do"]) ? $_GET["do"] : '');
 
 switch(intval($do[0])) {
 
-	case 1:	//Einfügen in
+	case 1:	//Einfï¿½gen in
 	$do[1] = intval($do[1]); //cut ID
 	$do[2] = intval($do[2]); //paste ID
 	$do[3] = intval($do[3]); //sort Number
-	if($do[1]) { // && $do[2] = 0 für Root
+	if($do[1]) { // && $do[2] = 0 fï¿½r Root
 	$sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_struct=".$do[2].", acat_sort=".$do[3]." WHERE acat_id=".$do[1];
 	mysql_query($sql, $db) or die("error while updating structure level");
 	}
 	break;
 
-	case 2:	//Sortierung ändern
+	case 2:	//Sortierung ï¿½ndern
 	$do[1] = intval($do[1]); //sort ID1
 	$do[2] = intval($do[2]); //sort NR1
 	$do[3] = intval($do[3]); //sort ID2
@@ -239,17 +239,17 @@ switch(intval($do[0])) {
 	}
 	break;
 
-	case 3:	//Artikel einfügen in
+	case 3:	//Artikel einfï¿½gen in
 	$do[1] = intval($do[1]); //cut Article ID
 	$do[2] = intval($do[2]); //paste level ID
-	if($do[1]) { // && $do[2] = 0 für Root
+	if($do[1]) { // && $do[2] = 0 fï¿½r Root
 		$new_sort = getArticleSortValue($do[2]);
 		$sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1];
 		mysql_query($sql, $db) or die("error while updating article level");
 	}
 	break;
 
-	case 4:	//Sortierung Artikel ändern
+	case 4:	//Sortierung Artikel ï¿½ndern
 	$do[1] = intval($do[1]); //article sort ID1
 	$do[2] = intval($do[2]); //article sort NR1
 	$do[3] = intval($do[3]); //article sort ID2
@@ -276,7 +276,7 @@ switch(intval($do[0])) {
 	$do[1] = intval($do[1]); //copy level ID
 	$do[2] = intval($do[2]); //paste level ID
 	$do[3] = intval($do[3]); //sort Number
-	if($do[1]) { // && $do[2] = 0 für Root
+	if($do[1]) { // && $do[2] = 0 fï¿½r Root
 		copy_level_to_level($do, $db);
 	}
 	break;
@@ -346,7 +346,7 @@ switch(intval($do[0])) {
 	break;
 //31-03-2005 Fernando Batista  end-------------------
 
-	case 9: //Löschen des Levels
+	case 9: //Lï¿½schen des Levels
 	$do[1] = intval($do[1]); //delete ID
 	if($do[1]) {
 		// extend deleting of structure levels also for deleting of all related child

@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,8 +17,8 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-//Auslesen der eventuell für den User bereits vorhandenen Detaildaten
-//1. Prüfen, ob überhaupt ein Profil angelegt ist
+//Auslesen der eventuell fï¿½r den User bereits vorhandenen Detaildaten
+//1. Prï¿½fen, ob ï¿½berhaupt ein Profil angelegt ist
 $sql = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_userdetail WHERE detail_pid='.intval($_SESSION["wcs_user_id"]);
 
 if(_dbQuery($sql, 'COUNT')) {

@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -46,7 +46,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 				}
 				break;
 
-		case 8: //Löschen der File Category
+		case 8: //Lï¿½schen der File Category
 				$do[1] = intval($do[1]); //delete ID
 				if($do[1]) {
 					$sql =  "UPDATE ".DB_PREPEND."phpwcms_filecat SET fcat_deleted=9 WHERE fcat_id=".$do[1].";";
@@ -54,7 +54,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 				}
 				break;
 
-		case 9: //Löschen des File Keys
+		case 9: //Lï¿½schen des File Keys
 				$do[1] = intval($do[1]); //delete ID
 				$do[2] = intval($do[2]); //cat ID
 				if($do[1] && $do[2]) {

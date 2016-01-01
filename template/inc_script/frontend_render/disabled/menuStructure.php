@@ -7,13 +7,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 $content['all'] .= dumpVar($LEVEL_ID, 2);
 $content['all'] .= dumpVar($LEVEL_KEY, 2);
 $content['all'] .= dumpVar($LEVEL_STRUCT, 2);
 $content['all'] .= dumpVar($content['struct'], 2);
-
-
-
-?>

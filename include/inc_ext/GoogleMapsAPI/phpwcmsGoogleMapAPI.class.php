@@ -20,7 +20,7 @@
 *
 *
 * @link http://www.phpinsider.com/php/code/GoogleMapAPI/
-* @link http://www.phpwcms.de/
+* @link http://www.phpwcms.org/
 * @copyright 2005 New Digital Group, Inc.
 * @author Monte Ohrt <monte at ohrt dot com>
 * @author Oliver Georgi <oliver at phpwcms dot de>

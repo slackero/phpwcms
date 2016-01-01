@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -158,7 +158,7 @@ if(isset($_GET["open"])) {
 				$sendbutton = $BL['be_admin_fcat_button2'];
 			}
 
-			if(!empty($_POST["fkey_aktion"])) { //Formular zum Bearbeiten der Dateischlüssel-Namen
+			if(!empty($_POST["fkey_aktion"])) { //Formular zum Bearbeiten der Dateischlï¿½ssel-Namen
 
 				$fkey["name"]	= clean_slweg($_POST["fkey_name"], 250);
 				$fkey["id"]		= intval($_POST["fkey_id"]);

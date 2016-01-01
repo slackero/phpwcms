@@ -280,4 +280,3 @@ function buildNavi($start=0, $counter=0) {
 	return $t;
 
 }
-?>

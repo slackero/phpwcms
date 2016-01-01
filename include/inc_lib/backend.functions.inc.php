@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -266,10 +266,10 @@ function phpwcmsversionCheck() {
 	$identify .= '&url='.rawurlencode(PHPWCMS_URL);
 	$identify .= '&revision='.rawurlencode(PHPWCMS_REVISION);
 
-	if(function_exists('fsockopen') && $fsock = @fsockopen('www.phpwcms.de', 80, $errno, $errstr, 10))	{
+	if(function_exists('fsockopen') && $fsock = @fsockopen('www.phpwcms.org', 80, $errno, $errstr, 10))	{
 
 		@fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
-		@fputs($fsock, "HOST: www.phpwcms.de\r\n");
+		@fputs($fsock, "HOST: www.phpwcms.org\r\n");
 		@fputs($fsock, "Connection: close\r\n\r\n");
 
 		while (!@feof($fsock)) {
@@ -283,7 +283,7 @@ function phpwcmsversionCheck() {
 
 	} elseif(function_exists('file_get_contents')) {
 
-		$version_info = @file_get_contents('http://www.phpwcms.de/versioncheck/'.$identify);
+		$version_info = @file_get_contents('http://www.phpwcms.org/versioncheck/'.$identify);
 		$get_info = true;
 
 	} elseif($errstr) {

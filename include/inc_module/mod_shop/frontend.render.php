@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @author Oliver Georgi <oliver@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -1102,7 +1102,7 @@ if( $_shop_load_order !== false ) {
 				);
 				continue;
 			} elseif($item_key === 'INV_COUNTRY' && strpos($order_process, '[COUNTRY_OPTIONS') !== false) {
-				// [COUNTRY_OPTIONS:DE]Land wählen[/COUNTRY_OPTIONS]
+				// [COUNTRY_OPTIONS:DE]Land wï¿½hlen[/COUNTRY_OPTIONS]
 				$order_process = preg_replace_callback(
 					'/\[COUNTRY_OPTIONS(:[A-Z]{2,2}){0,1}\](.*?)\[\/COUNTRY_OPTIONS\]/',
 					function($match) use ($row) {

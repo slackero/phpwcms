@@ -12,5 +12,3 @@ if(isset($LEVEL_ID[1]) && $LEVEL_ID[1] == 1 && strpos(PHPWCMS_URL, 'mydomain1.co
 	headerRedirect('http://www.mydomain2.com/'.rel_url( array(), array(), '', 'urlencode'));
 
 }
-
-?>

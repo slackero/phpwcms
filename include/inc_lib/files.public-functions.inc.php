@@ -3,9 +3,9 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2015, Oliver Georgi
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,7 +13,7 @@
 //Funktionen zum Listen der privaten Dateien
 function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
 	$pid = intval($pid);
-	//Folder Listing für Public files
+	//Folder Listing fï¿½r Public files
 	$sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
 		   "f_pid=".intval($pid)." AND ".
 		   "f_public=1 AND f_aktiv=1 AND ".
@@ -27,7 +27,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 		//Ermitteln des Aufklappwertes
 		$klapp_status = empty($_SESSION["pklapp"][$row["f_id"]]) ? 1 : 0;
 
-		//Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
+		//Ermitteln, ob ï¿½berhaupt abhï¿½ngige Dateien/Ordner existieren
 		$count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
 					 "f_pid=".$row["f_id"]." AND ".
 					 "f_uid=".intval($userID)." AND ".
@@ -49,8 +49,8 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 		echo "<td width=\"488\" class='msglist'>"; //Einleiten der Tabellenzelle
 		echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\"><img src=\"img/icons/folder_zu.gif\" border=\"0\">"; //Zellinhalt 1. Spalte
 		echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
-		echo "</strong></td>\n"; //Schließen Zelle 1. Spalte
-		//Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
+		echo "</strong></td>\n"; //Schlieï¿½en Zelle 1. Spalte
+		//Zelle 2. Spalte - vorgesehen fï¿½r Buttons/Tasten Edit etc.
 		echo "<td width=\"50\" align=\"right\" class=\"msglist\">";
 		echo "<img src=\"img/leer.gif\" width=\"50\" height=\"1\">"; //Spacer
 		echo "</td>\n";
@@ -71,7 +71,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 				$file_durchlauf = 0;
 				while($file_row = mysql_fetch_array($file_result)) {
 					$filename = html($file_row["f_name"]);
-					if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
+					if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieï¿½en der Filelisten-Tabelle
 						echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 					} else {
 						echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
@@ -135,7 +135,7 @@ function list_public($pid, $dbcon, $vor, $zieldatei, $userID, $show_thumb=1, $ph
 				}
 			} //Ende Liste Dateien
 		}
-		//Zaehler mitführen
+		//Zaehler mitfï¿½hren
 		$_SESSION["list_zaehler"]++;
 	}
 	mysql_free_result($result);
@@ -148,7 +148,7 @@ function true_false($wert) {
 }
 
 function on_off($wert, $string, $art = 1) {
-	//Erzeugt das Status-Zeichen für Klapp-Auf/Zu
+	//Erzeugt das Status-Zeichen fï¿½r Klapp-Auf/Zu
 	//Wenn Art = 1 dann als Zeichen, ansonsten als Bild
 	if($wert) {
 		return ($art == 1) ? "+" : "<img src=\"img/symbols/klapp_zu.gif\" border=\"0\" title=\"".$GLOBALS['BL']['be_fprivfunc_opendir']." ".$string."\">";
@@ -158,7 +158,7 @@ function on_off($wert, $string, $art = 1) {
 }
 
 function list_public_root($wert) {
-	//Checken ob public root files für user gezeigt werden sollen
+	//Checken ob public root files fï¿½r user gezeigt werden sollen
 	return ($wert) ? 1 : 0;
 }
 ?>
