@@ -399,7 +399,7 @@ if($content['cp_setting_mode']):
 
 				var tabValue = tabVal.options[tabVal.selectedIndex].value;
 
-				cTabStatus = parseInt(tabValue, 10) ? true : false;
+				cTabStatus = tabValue === '0' ? false : true;
 
 				if(cTabStatus == false) {
 					document.getElementById('ctab1').style.display = 'none';
