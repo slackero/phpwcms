@@ -59,6 +59,7 @@ $phpwcms['image_library']     = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick o
 $phpwcms['library_path']      = ''; // Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url']       = 0; // whether URL should be rewritable
 $phpwcms['rewrite_ext']	  	  = '.html'; // The file extension used while URL is rewritten
+//$phpwcms['rewrite_ext']	  = '/'; // Use "/alias/" instead of "/alias.html"
 $phpwcms['alias_allow_slash'] = 0; // Allow slashes / in ALIAS
 $phpwcms['wysiwyg_editor']    = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
 $phpwcms['default_lang']      = 'en'; // default language
