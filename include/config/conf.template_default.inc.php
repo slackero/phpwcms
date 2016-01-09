@@ -377,7 +377,13 @@ $template_default['classes'] = array(
 	'shop-category-menu'			=> 'shop-categories',
 	'shop-products-menu'			=> 'shop-products',
 	'cp-paginate-link'				=> 'paginate-link',
-	'cp-paginate-link-active'		=> 'paginate-link active'
+	'cp-paginate-link-active'		=> 'paginate-link active',
+	'newsletter-table'              => 'table table-newsletter',
+	'newsletter-table-subscription' => 'table table-subscriptions',
+	'newsletter-input-email'        => 'form-control',
+	'newsletter-input-name'         => 'form-control',
+	'newsletter-checkbox-item'      => 'form-row-checkbox',
+	'newsletter-submit-button'      => 'btn btn-primary',
 );
 
 $template_default['search_highlight'] = array(
