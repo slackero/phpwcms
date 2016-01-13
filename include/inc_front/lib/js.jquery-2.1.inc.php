@@ -14,7 +14,7 @@ require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 define('PHPWCMS_JSLIB', 'jquery-2.1');
 
 /**
- * Init jQuery 2.0.x Library
+ * Init jQuery 2.1.x Library
  */
 function initJSLib() {
 	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
