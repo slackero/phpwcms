@@ -1670,6 +1670,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		$cnt_form['fe_current_url'] = abs_url(array(), array(), '', 'rawurlencode');
 
+        $GLOBALS['phpwcms']['callback'] = now();
 		$cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
 		$cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
 		$cnt_form['template'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template']);

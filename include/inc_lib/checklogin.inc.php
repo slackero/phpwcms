@@ -53,4 +53,3 @@ if(empty($_SESSION["wcs_user"])) {
 	}
 	headerRedirect(PHPWCMS_URL.get_login_file().$ref_url);
 }
-?>

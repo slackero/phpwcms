@@ -32,4 +32,3 @@ if($wcs_msg_waiting) {
 						   "<img src=\"img/symbole/new_mail.gif\" border=\"0\"></a>";
 	$new_mail_waiting = 1;	
 }
-?>

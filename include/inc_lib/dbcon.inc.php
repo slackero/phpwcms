@@ -88,20 +88,20 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 		switch($_queryMode) {
 
 			// INSERT, UPDATE, DELETE
-			case 'INSERT':	$queryResult['INSERT_ID']		= mysql_insert_id($db);
+			case 'INSERT':	$queryResult['INSERT_ID'] = mysql_insert_id($db);
 			case 'DELETE':
 			case 'UPDATE':
-							$queryResult['AFFECTED_ROWS']	= mysql_affected_rows($db);
+							$queryResult['AFFECTED_ROWS'] = mysql_affected_rows($db);
 							return $queryResult;
 							break;
 
 			// INSERT ... ON DUPLICATE KEY
 			case 'ON_DUPLICATE':
-							$queryResult['AFFECTED_ROWS']	= mysql_affected_rows($db);
-							$queryResult['INSERT_ID']		= mysql_insert_id($db);
+							$queryResult['AFFECTED_ROWS'] = mysql_affected_rows($db);
+							$queryResult['INSERT_ID'] = mysql_insert_id($db);
 							if($queryResult['AFFECTED_ROWS'] == 2) {
-								$queryResult['INSERT_ID']		= 0;
-								$queryResult['AFFECTED_ROWS']	= 1;
+								$queryResult['INSERT_ID'] = 0;
+								$queryResult['AFFECTED_ROWS'] = 1;
 							}
 							return $queryResult;
 							break;
