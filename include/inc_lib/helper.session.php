@@ -399,7 +399,7 @@ function tokenize_urls($html) {
 			'/act_user.php?',
 			'/act_frontendsetup.php?',
 			'/act_message.php?',
-			'/act_cache.php?'
+			'/act_cache.php?',
 			'/act_delete_from_server.php?'
 		);
 
@@ -414,7 +414,7 @@ function tokenize_urls($html) {
 			'/act_user.php?'.$get_token.'&amp;',
 			'/act_frontendsetup.php?'.$get_token.'&amp;',
 			'/act_message.php?'.$get_token.'&amp;',
-			'/act_cache.php?'.$get_token.'&amp;'
+			'/act_cache.php?'.$get_token.'&amp;',
 			'/act_delete_from_server.php?'.$get_token.'&amp;'
 		);
 
