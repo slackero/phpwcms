@@ -529,59 +529,5 @@ $template_default['settings'] = array(
 			)
 		),
 		*/
-		'gmaps' => array(
-			'legend' => 'Google Maps',
-			'template' => 'simplegmaps.tmpl', // bind the fieldgroup to a specific template, or default
-			'fields' => array(
-				// [TAB_GEOLOCATION]{TAB_GEOLOCATION}[/TAB_GEOLOCATION]
-				'geolocation' => array(
-					'legend' => 'Geo location (address)',
-					'type' => 'str',
-					'render' => 'html',
-					'maxlength' => 250,
-					'placeholder' => 'street 123, postcode, country'
-				),
-				// [TAB_LAT]{TAB_LAT}[/TAB_LAT]
-				'lat' => array(
-					'legend' => 'Latitude',
-					'type' => 'float',
-					'render' => '',
-					'max' => 90,
-					'min' => -90,
-					'step' => .0000001
-				),
-				// [TAB_LON]{TAB_LON}[/TAB_LON]
-				'lon' => array(
-					'legend' => 'Longitude',
-					'type' => 'float',
-					'render' => '',
-					'max' => 180,
-					'min' => -180,
-					'step' => .0000001
-				),
-				// [TAB_MARKERICON]
-				//	  Will be the selected value {TAB_MARKERICON}
-				//    [TAB_MARKERICON_MARKERICON1]{TAB_MARKERICON_MARKERICON1}[/TAB_MARKERICON_MARKERICON1]
-				//    [TAB_MARKERICON_MARKERICON2]{TAB_MARKERICON_MARKERICON2}[/TAB_MARKERICON_MARKERICON2]
-				// [/TAB_MARKERICON]
-				'markericon' => array(
-					'legend' => 'Marker icon',
-					'type' => 'select',
-					'render' => '',
-					'values' => array(
-						'empty' => 'Default marker icon',
-						'marker_01' => 'Custom marker icon 1',
-						'marker_02' => 'Custom marker icon 2',
-					),
-					'default' => 'empty'
-				),
-				// [TAB_INFOBOX]True[/TAB_INFOBOX][TAB_INFOBOX_ELSE]False[/TAB_INFOBOX_ELSE]
-				'infobox' => array(
-					'legend' => 'Infobox',
-					'type' => 'bool',
-					'default' => false, // or true to be enabled by default
-				),
-			)
-		),
 	)
 );
