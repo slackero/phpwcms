@@ -26,7 +26,6 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 	$plugin['data']['shopprod_overwrite_meta'] = 1;
 }
 
-
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['prod_edit'] ?></h1>
 

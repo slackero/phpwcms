@@ -26,7 +26,7 @@ if($action == 'edit') {
 
 		// check if form should be closed only -> and back to listing mode
 		if( isset($_POST['close']) ) {
-			headerRedirect( shop_url('controller=prod', '') );
+			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
 		}
 
 		$plugin['data']['shopprod_changedate']		= time();
@@ -304,9 +304,9 @@ if($action == 'edit') {
 
 			// save and back to listing mode
 			if( isset($_POST['save']) ) {
-				headerRedirect( shop_url('controller=prod', '') );
+				headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
 			} else {
-				headerRedirect( shop_url( array('controller=prod', 'edit='.$plugin['data']['shopprod_id']), '') );
+				headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod&edit='.$plugin['data']['shopprod_id'], '') );
 			}
 
 		}
@@ -377,7 +377,7 @@ if($action == 'edit') {
 			$plugin['data']['shopprod_overwrite_meta']	= empty($plugin['data']['shopprod_overwrite_meta']) ? 0 : 1;
 
 		} else {
-			headerRedirect( shop_url('controller=prod', '') );
+			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
 		}
 
 	}
@@ -404,7 +404,7 @@ if($action == 'edit') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url('controller=prod', '') );
+	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
 
 } elseif($action == 'delete') {
 
@@ -416,7 +416,7 @@ if($action == 'edit') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url('controller=prod', '') );
+	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
 
 }
 
