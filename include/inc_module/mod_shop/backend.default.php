@@ -63,7 +63,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 
 	// module default stuff
 	$plugin = array();
-	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
+	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
 	include_once $phpwcms['modules'][$module]['path'].'inc/functions.backend.inc.php';
 	include_once $phpwcms['modules'][$module]['path'].'inc/functions.global.inc.php';
 

@@ -61,7 +61,7 @@ foreach($cart_data as $item_key => $row) {
 			$opt2_numbr = '';
 			$value_opt2_float = 0;
 			if($row['shopprod_color'] && ($_cart_opt_2 = explode(LF, $row['shopprod_color']))) {
-				foreach ($_cart_opt_2['data'] as $key => $value){
+				foreach ($_cart_opt_2 as $key => $value){
 					if($key && $_SESSION[CART_KEY]['options2'][$prod_id][$opt1_id][$opt2_id] == $key){
 						$value = get_shop_option_value($value);
 						$value_opt2_float = $value[1];

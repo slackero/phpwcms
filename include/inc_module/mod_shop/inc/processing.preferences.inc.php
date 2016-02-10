@@ -196,7 +196,7 @@ if($action == 'edit') {
 			_setConfig('shop_pref_api_key',			$plugin['data']['shop_pref_api_key'],		'module_shop');
 
 			// save and back to listing mode
-			headerRedirect( shop_url('controller=pref', '') );
+			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=pref', '') );
 		}
 	}
 
