@@ -187,6 +187,9 @@ switch ($do) {
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?action=flush_image_cache&value=1\');" ');
 							$subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
+							//--- Edit by Uwe367 29.01.2016 ---
+							$subnav .= subnavtext($BL['be_cnt_delete_from_server'], 'include/inc_act/act_delete_from_server.php?deletedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_delete_from_server_msg'].'\');" ');
+							//--- /Edit ---
 							$subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
 							$subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
 						}
@@ -297,8 +300,9 @@ if($BE['LANG'] == 'ar') {
 		?>
 		<form action="phpwcms.php" method="POST" class="backend-search">
 
-			<h1 class="title" style="margin:0 0 3px 0;"><?php echo $BL['be_ctype_search'] ?></h1>
-			<input type="search" name="backend_search_input" value="<?php
+			<!-- Edit by Uwe 367 Backend Search with Placeholder instead of heading-->
+			<!--<h1 class="title" style="margin:0 0 3px 0;"><?php //echo $BL['be_ctype_search'] ?></h1>-->
+			<input type="search" name="backend_search_input" value=""placeholder="<?php echo $BL['be_ctype_search'] ?>"<?php
 
 				if(isset($_POST['backend_search_input'])) {
 					$_SESSION['phpwcms_backend_search'] = clean_slweg($_POST['backend_search_input']);

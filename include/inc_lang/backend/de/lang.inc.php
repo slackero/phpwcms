@@ -1399,3 +1399,7 @@ $BL['be_fsearch_nor'] = 'KEINES';
 $BL['be_tab_toggle'] = 'Reiter aus- bzw. einklappen';
 $BL['be_custom_textfield'] = 'Freitext';
 $BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die Freitextfelder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
+
+//Added by Uwe 367 29.01.2016
+$BL['be_cnt_delete_from_server'] = 'Dateien vom Server l&ouml;schen';
+$BL['be_cnt_delete_from_server_msg'] = 'Sollen wirklich alle Dateien, die sich\nim L&ouml;schordner befinden, eng&uuml;ltig\nvom Server gel&ouml;scht werden?';

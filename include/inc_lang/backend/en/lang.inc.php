@@ -1409,3 +1409,6 @@ $BL['be_tab_toggle'] = 'Toggle tab to expanded or closed';
 $BL['be_custom_textfield'] = 'custom text';
 $BL['be_tab_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';
 
+//Added by Uwe 367 29.01.2016
+$BL['be_cnt_delete_from_server'] = 'Delete files from Server';
+$BL['be_cnt_delete_from_server_msg'] = 'Do you really want to delete all\nfiles in the deletion folder from the Server?';
