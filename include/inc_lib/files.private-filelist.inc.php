@@ -77,7 +77,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\"></a>";
 		echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
 		//Button zum Löschen der Datei
-		if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
+		if($file_row["f_uid"] === intval($_SESSION["wcs_user_id"]) || !empty($_SESSION["wcs_user_admin"])) {
 			//if user is owner then delete button is active
 			echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
 	 		 "\" title=\"".$BL['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".$BL['be_fprivfunc_jsmovetrash1'].
