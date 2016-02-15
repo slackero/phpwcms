@@ -36,7 +36,7 @@ $phpwcms['admin_pass']          = 'acf977c1cfa27a463246f6963055cb11'; //MD5
 $phpwcms['admin_email']         = 'noreply@'.str_replace(array('www.', 'WWW.', '/'), '', $_SERVER["HTTP_HOST"]);
 
 // paths
-$phpwcms['DOC_ROOT']            = dirname(dirname(__FILE__));
+$phpwcms['DOC_ROOT']            = $_SERVER['DOCUMENT_ROOT'];
 $phpwcms['root']                = '';
 $phpwcms['file_path']           = 'filearchive';
 $phpwcms['templates']           = 'template';
