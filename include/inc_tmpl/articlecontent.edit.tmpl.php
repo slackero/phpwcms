@@ -30,6 +30,10 @@ if(empty($content['article']['acat_id'])) { // Root structure
 	$content['article']['acat_template']	= $indexpage['acat_template'];
 }
 
+// ckeditor article selection injection (in case of not including the ckeditor via /inc_lib/wysiwyg.editor.inc.php)
+$BE['HEADER']['cke.articleselection.js'] = getJavaScriptSourceLink('include/inc_js/cke.articleselection.js');
+$BE['HEADER']['cke.articles.js'] = '<script type="text/javascript"> var cke_articles = '.json_encode(get_article_struct_option()).'; </script>';
+
 ?>
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $content["aid"]."&amp;acid=".$content["id"] ?>" method="post" name="articlecontent" id="articlecontent" <?php
 

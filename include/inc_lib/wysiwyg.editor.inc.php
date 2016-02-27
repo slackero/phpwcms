@@ -29,6 +29,11 @@ $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_use
 if($wysiwyg_editor['editor']) {
 
 	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+	
+	// ckeditor article selection injection
+	$BE['HEADER']['cke.articleselection.js'] = getJavaScriptSourceLink('include/inc_js/cke.articleselection.js');
+	$BE['HEADER']['cke.articles.js'] = '<script type="text/javascript"> var cke_articles = '.json_encode(get_article_struct_option()).'; </script>';
+
 
 	// simple textarea - no WYSIWYG editor
 	echo '<textarea class="ckeditor" name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'].'" id="'.$wysiwyg_editor['field'].'">';
