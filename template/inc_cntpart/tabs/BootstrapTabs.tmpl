@@ -39,7 +39,7 @@
                     $active = ' class="active"';
                     $t.addClass('active');
                 }
-                $tabnav.append('<li role="presentation"'+$active+'><a href="#'+$tabid+'" aria-controls="home" role="tab" data-toggle="tab">'+$tabtext+'</a></li>');
+                $tabnav.append('<li role="presentation"'+$active+'><a href="#'+$tabid+'" aria-controls="'+$tabid+'" role="tab" data-toggle="tab">'+$tabtext+'</a></li>');
             });
             $this.before($tabnav);
         });
