@@ -1411,3 +1411,5 @@ $BL['be_tab_template_toggle_warning'] = 'Changing the template can have the effe
 
 $BL['be_onepage_id'] = 'OnePage ID (#anchor) support';
 $BL['be_onepage_template'] = 'treat as OnePage template';
+$BL['be_yes'] = 'Yes';
+$BL['be_no'] = 'No';

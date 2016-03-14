@@ -1402,3 +1402,5 @@ $BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann pa
 
 $BL['be_onepage_id'] = 'OnePage ID (#Anker) Unterst&uuml;tzung';
 $BL['be_onepage_template'] = 'Als OnePage Vorlage behandeln';
+$BL['be_yes'] = 'Ja';
+$BL['be_no'] = 'Nein';

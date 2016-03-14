@@ -72,6 +72,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	} else {
 		$info .= $BL['be_admin_tmpl_default'];
 	}
+	$info .= '<br>'.$BL['be_onepage_id'].': '.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']);
 
 	$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt=""';
 
