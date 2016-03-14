@@ -115,6 +115,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		$template['jslibload']	= empty($_POST["template_jslibload"]) ? 0 : 1;
 		$template['frontendjs']	= empty($_POST["template_frontendjs"]) ? 0 : 1;
 		$template['googleapi']	= empty($_POST["template_googleapi"]) ? 0 : 1;
+		$template['onepage']	= empty($_POST["template_onepage"]) ? 0 : 1;
 
 		// now browse custom blocks if available
 		if(!empty($_POST['customblock'])) {
@@ -186,7 +187,6 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 				} elseif(empty($template['googleapi'])) {
 					$template['googleapi'] = 0;
 				}
-
 			}
 			mysql_free_result($result);
 		}
@@ -218,13 +218,13 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		  <tr>
 		    <td><?php
-// ERICH COPY TEMPLATE 08.06.2005
-if(empty($createcopy)) {
-	echo '<input name="template_name" type="text" class="f11b width350" id="template_name" value="'.html($template["name"]).'" size="50" maxlength="150">';
-} else {
-	echo '<img src="img/symbole/achtung.gif" width="13" height="11" alt="" border="0" style="margin-right:2px;" /><input name="template_name" type="text" class="f11b width350" id="template_name" style="color:FF3300" value="'.html($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
-}
-?></td>
+            // ERICH COPY TEMPLATE 08.06.2005
+            if(empty($createcopy)) {
+            	echo '<input name="template_name" type="text" class="f11b width350" id="template_name" value="'.html($template["name"]).'" size="50" maxlength="150">';
+            } else {
+            	echo '<img src="img/symbole/achtung.gif" width="13" height="11" alt="" border="0" style="margin-right:2px;" /><input name="template_name" type="text" class="f11b width350" id="template_name" style="color:FF3300" value="'.html($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
+            }
+            ?></td>
 		    <td>&nbsp;</td>
 			<td><input name="template_setdefault" id="template_setdefault" type="checkbox" value="1" <?php is_checked(empty($createcopy) ? $template["default"] : 0, 1) ?> /></td>
 		    <td class="v10"><label for="template_setdefault"><?php echo $BL['be_admin_tmpl_default'] ?></label></td>
@@ -270,7 +270,16 @@ if($opt) {
 
 ?></td>
 	</tr>
-
+    <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+    <tr bgcolor="#E6EAED">
+		<td>&nbsp;</td>
+		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+		  <tr>
+			<td><input name="template_onepage" id="template_onepage" type="checkbox" value="1" <?php is_checked((!empty($template["onepage"]) ? 1 : 0), 1) ?> /></td>
+		    <td class="v10"><label for="template_onepage"><?php echo $BL['be_onepage_template'] ?></label></td>
+	      </tr>
+		  </table></td>
+	</tr>
 
 	<tr bgcolor="#E6EAED"><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 

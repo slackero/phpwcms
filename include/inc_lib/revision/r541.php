@@ -22,15 +22,15 @@ function phpwcms_revision_r541() {
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_breadcrumb'");
 	if(!isset($result[0])) {
-		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` ADD `acat_breadcrumb` INT(1) NOT NULL DEFAULT '0'", 'ALTER');
+		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` ADD `acat_breadcrumb` INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
 		if(!$insert) {
 			$status = false;
 		}
 
 		// Reset cache values
-		_setConfig('structure_array_vmode_all', false, 'frontend_render', 1);
-		_setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
-		_setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
+		_setConfig('structure_array_vmode_all', '', 'frontend_render', 1);
+		_setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
+		_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 	}
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_shop_products` WHERE Field='shopprod_unit'");

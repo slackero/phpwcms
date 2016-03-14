@@ -1399,3 +1399,6 @@ $BL['be_fsearch_nor'] = 'KEINES';
 $BL['be_tab_toggle'] = 'Reiter aus- bzw. einklappen';
 $BL['be_custom_textfield'] = 'Freitext';
 $BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die Freitextfelder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
+
+$BL['be_onepage_id'] = 'OnePage ID (#Anker) Unterst&uuml;tzung';
+$BL['be_onepage_template'] = 'Als OnePage Vorlage behandeln';

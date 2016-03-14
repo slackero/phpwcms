@@ -76,39 +76,42 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 		$acat_breadcrumb += 2;
 	}
 
+	$acat_onepage = empty($_POST["acat_onepage"]) ? 0 : 1;
+
 	if(isset($_POST["acat_id"]) && $_POST["acat_id"] === 'index') {
 		// write index page config into flat file
 		$sql  = "<?php\n";
-		$sql .= "\$indexpage['acat_name']		= '".	str_replace("''", "\\'", clean_slweg($_POST["acat_name"]))."';\n";
-		$sql .= "\$indexpage['acat_info']		= '".	str_replace("''", "\\'", clean_slweg($_POST["acat_info"], 32000))."';\n";
-		$sql .= "\$indexpage['acat_alias']		= '".	proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
-		$sql .= "\$indexpage['acat_aktiv']		= ".	(isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_template']	= ".	intval($_POST["acat_template"]).";\n";
-		$sql .= "\$indexpage['acat_hidden']		= ".	$acat_hidden.";\n";
-		$sql .= "\$indexpage['acat_ssl']		= ".	(isset($_POST["acat_ssl"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_regonly']	= ".	(isset($_POST["acat_regonly"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_topcount']	= ".	intval($_POST["acat_topcount"]).";\n";
-		$sql .= "\$indexpage['acat_maxlist']	= ".	intval($_POST["acat_maxlist"]).";\n";
-		$sql .= "\$indexpage['acat_redirect']	= '".	str_replace("''", "\\'", clean_slweg($_POST["acat_redirect"]))."';\n";
+		$sql .= "\$indexpage['acat_name'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_name"]))."';\n";
+		$sql .= "\$indexpage['acat_info'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_info"], 32000))."';\n";
+		$sql .= "\$indexpage['acat_alias'] = '". proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
+		$sql .= "\$indexpage['acat_aktiv'] = ". (isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_template'] = ". intval($_POST["acat_template"]).";\n";
+		$sql .= "\$indexpage['acat_hidden'] = ". $acat_hidden.";\n";
+		$sql .= "\$indexpage['acat_ssl'] = ". (isset($_POST["acat_ssl"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_regonly'] = ". (isset($_POST["acat_regonly"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_topcount'] = ". intval($_POST["acat_topcount"]).";\n";
+		$sql .= "\$indexpage['acat_maxlist'] = ". intval($_POST["acat_maxlist"]).";\n";
+		$sql .= "\$indexpage['acat_redirect'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_redirect"]))."';\n";
 		$cache_timeout = clean_slweg($_POST["acat_timeout"]);
 		if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
-		$sql .= "\$indexpage['acat_timeout']	= '".	$cache_timeout."';\n";
-		$sql .= "\$indexpage['acat_nosearch']	= '".	((isset($_POST['acat_nosearch']) && intval($_POST['acat_nosearch'])) ? '1' : '')."';\n";
-		$sql .= "\$indexpage['acat_nositemap']	= ".	(isset($_POST["acat_nositemap"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_order']		= ". 	set_correct_ordersort() .";\n";
-		$sql .= "\$indexpage['acat_permit']		= '".	$acat_permit."';\n";
-		$sql .= "\$indexpage['acat_cntpart']	= '".	$acat_cntpart."';\n";
-		$sql .= "\$indexpage['acat_pagetitle']	= '".	str_replace("''", "\\'", clean_slweg($_POST["acat_pagetitle"]))."';\n";
-		$sql .= "\$indexpage['acat_paginate']	= ".	(isset($_POST["acat_paginate"]) ? 1 : 0).";\n";
-		$sql .= "\$indexpage['acat_overwrite']	= '".	str_replace("''", "\\'", clean_slweg($_POST["acat_overwrite"]))."';\n";
-		$sql .= "\$indexpage['acat_archive']	= ".	(empty($_POST["acat_archive"]) ? 0 : 1) .";\n";
-		$sql .= "\$indexpage['acat_class']		= '".	str_replace("'", "\\'", $acat_class)."';\n";
-		$sql .= "\$indexpage['acat_keywords']	= '".	str_replace("'", "\\'", $acat_keywords)."';\n";
-		$sql .= "\$indexpage['acat_cpdefault']	= ".	intval($_POST["acat_cpdefault"]).";\n";
-		$sql .= "\$indexpage['acat_disable301']	= ".	(empty($_POST["acat_disable301"]) ? 0 : 1).";\n";
-		$sql .= "\$indexpage['acat_opengraph']	= ".	(empty($_POST["acat_opengraph"]) ? 0 : 1).";\n";
-		$sql .= "\$indexpage['acat_canonical']	= '".	str_replace("'", "\\'", clean_slweg($_POST["acat_canonical"], 2000))."';\n";
-		$sql .= "\$indexpage['acat_breadcrumb']	= ".	$acat_breadcrumb .";\n";
+		$sql .= "\$indexpage['acat_timeout'] = '". $cache_timeout."';\n";
+		$sql .= "\$indexpage['acat_nosearch'] = '". ((isset($_POST['acat_nosearch']) && intval($_POST['acat_nosearch'])) ? '1' : '')."';\n";
+		$sql .= "\$indexpage['acat_nositemap'] = ". (isset($_POST["acat_nositemap"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_order'] = ". set_correct_ordersort() .";\n";
+		$sql .= "\$indexpage['acat_permit'] = '". $acat_permit."';\n";
+		$sql .= "\$indexpage['acat_cntpart'] = '". $acat_cntpart."';\n";
+		$sql .= "\$indexpage['acat_pagetitle'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_pagetitle"]))."';\n";
+		$sql .= "\$indexpage['acat_paginate'] = ". (isset($_POST["acat_paginate"]) ? 1 : 0).";\n";
+		$sql .= "\$indexpage['acat_overwrite'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_overwrite"]))."';\n";
+		$sql .= "\$indexpage['acat_archive'] = ". (empty($_POST["acat_archive"]) ? 0 : 1) .";\n";
+		$sql .= "\$indexpage['acat_class'] = '". str_replace("'", "\\'", $acat_class)."';\n";
+		$sql .= "\$indexpage['acat_keywords'] = '". str_replace("'", "\\'", $acat_keywords)."';\n";
+		$sql .= "\$indexpage['acat_cpdefault'] = ". intval($_POST["acat_cpdefault"]).";\n";
+		$sql .= "\$indexpage['acat_disable301'] = ". (empty($_POST["acat_disable301"]) ? 0 : 1).";\n";
+		$sql .= "\$indexpage['acat_opengraph'] = ".	(empty($_POST["acat_opengraph"]) ? 0 : 1).";\n";
+		$sql .= "\$indexpage['acat_canonical'] = '". str_replace("'", "\\'", clean_slweg($_POST["acat_canonical"], 2000))."';\n";
+		$sql .= "\$indexpage['acat_breadcrumb'] = ". $acat_breadcrumb .";\n";
+		$sql .= "\$indexpage['acat_onepage'] = ". $acat_onepage .";\n";
 
 		write_textfile(PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php', $sql);
 	}
@@ -133,7 +136,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			"acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
 			"acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
 			"acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, ".
-			"acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301, acat_opengraph, acat_canonical, acat_breadcrumb) VALUES ('".
+			"acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301, acat_opengraph, acat_canonical, acat_breadcrumb, acat_onepage) VALUES ('".
 			getpostvar($_POST["acat_name"])."','".
 			getpostvar($_POST["acat_info"], 32000)."',".
 			(isset($_POST["acat_aktiv"]) ? 1 : 0).",".
@@ -155,7 +158,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 			(empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
 			_dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
 			(empty($_POST["acat_opengraph"]) ? 0 : 1).', '._dbEscape(clean_slweg($_POST["acat_canonical"], 2000)).','.
-			$acat_breadcrumb.')';
+			$acat_breadcrumb.', '.$acat_onepage.')';
 			if($result = mysql_query($sql, $db) or die("MySQL Error: ".mysql_error())) {
 				$ref .= "&cat=".mysql_insert_id($db);
 			}
@@ -204,7 +207,8 @@ if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 				"acat_disable301=".(empty($_POST["acat_disable301"]) ? '0' : '1').','.
 				"acat_opengraph=".(empty($_POST["acat_opengraph"]) ? '0' : '1').','.
 				"acat_canonical="._dbEscape(clean_slweg($_POST["acat_canonical"], 2000)).','.
-				"acat_breadcrumb=".$acat_breadcrumb.
+				"acat_breadcrumb=".$acat_breadcrumb.','.
+				"acat_onepage=".$acat_onepage.
 			" WHERE acat_id=".intval($_POST["acat_id"]);
 
 			mysql_query($sql, $db) or die(_report_error('DB', $sql));
@@ -409,9 +413,9 @@ update_cache();
 
 // empty pre-rendered frontend structure for all visible modes
 // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
-_setConfig('structure_array_vmode_all', false, 'frontend_render', 1);
-_setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
-_setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
+_setConfig('structure_array_vmode_all', '', 'frontend_render', 1);
+_setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
+_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 
 if(isset($_POST['SubmitClose'])) {
 	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=6&'.get_token_get_string('csrftoken'));

@@ -19,7 +19,7 @@ td, th, p, div, span {
 
 a, a:link, a:visited, a:active, a:focus {
 	color: #FF3300;
-	text-decoration: none
+	text-decoration: none;
 }
 a:hover {
 	color: #FF3300;

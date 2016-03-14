@@ -482,12 +482,12 @@ define('PERMIT_ACCESS', $PERMIT_ACCESS);
 // frontend login check
 _checkFrontendUserAutoLogin();
 
-// read the template information for page based on structure
+// read the template information for the current page based on structure
 if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 	//if there is a template defined for this structure level
 	//then choose the template information based on this ID
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND ";
-	$sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1;";
+	$sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1";
 	if($result = mysql_query($sql, $db)) {
 		if($row = mysql_fetch_row($result)) {
 			$block = unserialize($row[0]);
@@ -496,10 +496,10 @@ if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 	}
 }
 if(!isset($block)) {
-	// if template ID is not defined or the were a problem with level's template ID then
+	// if template ID is not defined or there is a problem with level's template ID then
 	// choose the default template or if no default template defined choose the next one
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template ";
-	$sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1;";
+	$sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1";
 	if($result = mysql_query($sql, $db)) {
 		if($row = mysql_fetch_row($result)) {
 			$block = unserialize($row[0]);
@@ -519,6 +519,11 @@ if(is_string($block['css'])) {
 // template defaults
 $template_default['classes'] = isset($template_default['classes']) ? array_merge($phpwcms['default_template_classes'], $template_default['classes']) : $phpwcms['default_template_classes'];
 $template_default['attributes'] = isset($template_default['attributes']) ? array_merge($phpwcms['default_template_attributes'], $template_default['attributes']) : $phpwcms['default_template_attributes'];
+
+// is this a onepage template, also egalize the related variable
+$block['onepage'] = empty($block['onepage']) ? false : true;
+// set the one page constant
+define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {

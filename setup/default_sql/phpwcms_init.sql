@@ -1,11 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 4.0.6
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Erstellungszeit: 20. Feb 2014 um 08:17
--- Server Version: 5.5.33
--- PHP-Version: 5.4.19
+-- phpwcms default Schema
+-- ======================
 
 CREATE TABLE `phpwcms_address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -191,7 +185,8 @@ CREATE TABLE `phpwcms_articlecat` (
   `acat_disable301` int(1) unsigned NOT NULL DEFAULT '0',
   `acat_opengraph` int(1) unsigned NOT NULL DEFAULT '1',
   `acat_canonical` varchar(2000) NOT NULL DEFAULT '',
-  `acat_breadcrumb` int(1) NOT NULL DEFAULT '0',
+  `acat_breadcrumb` int(1) unsigned NOT NULL DEFAULT '0',
+  `acat_onepage` int(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`acat_id`),
   KEY `acat_struct` (`acat_struct`),
   KEY `acat_sort` (`acat_sort`),

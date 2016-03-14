@@ -487,6 +487,7 @@ function get_struct_data($root_name='', $root_info='') {
 		"acat_opengraph"	=> isset($indexpage['acat_opengraph']) ? intval($indexpage['acat_opengraph']) : 1,
 		"acat_canonical"	=> empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'],
 		"acat_breadcrumb"	=> empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']),
+		"acat_onepage"      => empty($indexpage['acat_onepage']) ? 0 : 1,
 	);
 	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
 	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
@@ -526,7 +527,8 @@ function get_struct_data($root_name='', $root_info='') {
 				"acat_disable301"	=> $row["acat_disable301"],
 				"acat_opengraph"	=> $row["acat_opengraph"],
 				"acat_canonical"	=> $row["acat_canonical"],
-				"acat_breadcrumb"	=> intval($row["acat_breadcrumb"])
+				"acat_breadcrumb"	=> intval($row["acat_breadcrumb"]),
+				"acat_onepage"      => $row["acat_onepage"]
 			);
 		}
 		mysql_free_result($result);
@@ -2841,7 +2843,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				<custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
 	*/
 
-	if($param == 'string') {
+	if($param === 'string') {
 
 		$parameter 		= explode(',', is_array($parameter) && isset($parameter[1]) ? $parameter[1] : $parameter);
 		$menu_type		= empty($parameter[0]) ? '' : strtoupper(trim($parameter[0]));
@@ -2852,6 +2854,8 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$parent			= false; // do not show parent link
 		$articlemenu	= false; // do not show category's article titles as menu entry
 		$bootstrap		= false; // bootstrap dropdown style
+		$onepage        = IS_ONEPAGE_TEMPLATE; // render menu links as id anchor <a href=#alias>
+		$onepage_every  = false; // ToDo!
 
 		/**
 		 * P = Show parent level
@@ -2992,7 +2996,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 				'articlemenu'	=> $articlemenu,
 				'level_id'		=> $start_id
 			),
-			13 => $bootstrap
+			13 => $bootstrap,
+			14 => $onepage,
+			15 => $onepage_every
 		);
 
 		if($articlemenu) {
@@ -3013,6 +3019,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		}
 
 	} else {
+
 		$menu_type		= $parameter[0];
 		$start_id		= $parameter[1];
 		$max_depth		= $parameter[2];
@@ -3026,7 +3033,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 		$create_css 	= $parameter[10];
 		$amenu_level	= $parameter[11];
 		$bootstrap		= $parameter[13];
-		$parent			= false;		// do not show parent link
+		$onepage        = $parameter[14];
+		$onepage_every  = $parameter[15];
+		$parent			= false; // do not show parent link
+
 	}
 
 	$li				= '';
@@ -3050,69 +3060,69 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
 
 	foreach($items as $key) {
 
-			$li_ul 		= '';
-			$li_ie		= '';
-			$bs_toggle	= false;
+		$li_ul 		= '';
+		$li_ie		= '';
+		$bs_toggle	= false;
 
-			if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
-				$parameter[1]	= $key;
-				$li_ul			= buildCascadingMenu($parameter, $counter+1, 'param_is_array');
+		if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
+			$parameter[1]	= $key;
+			$li_ul			= buildCascadingMenu($parameter, $counter+1, 'param_is_array');
+		}
+
+		$li .= $TAB.'	<li';
+
+		if($level_id_name) {
+			$li .= ' id="li_'.$level_id_name.'_'.$key.'"';
+		}
+		if($li_ul) {
+			$li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
+			if($bootstrap) {
+				$li_class	= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown'].' '.$li_class);
+				$bs_toggle	= true;
 			}
+		} elseif(getHasSubStructureStatus($key)) {
+			$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'].' '.$GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
+		} else {
+			$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'];
+		}
 
-			$li .= $TAB.'	<li';
+		$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
+		$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? $active_class[1] : ''; // set active link class
+		if($bs_toggle) {
+			$li_a_class		= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'].' '.$li_a_class);
+			$bs_data_toggle = ' '.$GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
+			$bs_caret		= $GLOBALS['template_default']['attributes']['navlist-bs-dropdown-caret'];
+		} else {
+			$bs_data_toggle = '';
+			$bs_caret		= '';
+		}
+		if($li_a_class) {
+			$li_a_class = ' class="'.$li_a_class.'"';
+		}
+		$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"'.$bs_data_toggle);
+		$li_a .= $wrap_link_text[0] . $li_a_title . $bs_caret . $wrap_link_text[1];
 
-			if($level_id_name) {
-				$li .= ' id="li_'.$level_id_name.'_'.$key.'"';
-			}
-			if($li_ul) {
-				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
-				if($bootstrap) {
-					$li_class	= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown'].' '.$li_class);
-					$bs_toggle	= true;
-				}
-			} elseif(getHasSubStructureStatus($key)) {
-				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'].' '.$GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
-			} else {
-				$li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'];
-			}
+		if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
+			$li_class = trim($li_class.' '.$path_class[0]);
+		}
+		if($active_class[0] != '' && $key == $GLOBALS['aktion'][0]) {
+			$li_class = trim($li_class.' '.$active_class[0]);
+		}
+		if($x==0) {
+			$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_first'];
+		}
 
-			$li_a_title	= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-			$li_a_class	= ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? $active_class[1] : ''; // set active link class
-			if($bs_toggle) {
-				$li_a_class		= trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'].' '.$li_a_class);
-				$bs_data_toggle = ' '.$GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
-				$bs_caret		= $GLOBALS['template_default']['attributes']['navlist-bs-dropdown-caret'];
-			} else {
-				$bs_data_toggle = '';
-				$bs_caret		= '';
-			}
-			if($li_a_class) {
-				$li_a_class = ' class="'.$li_a_class.'"';
-			}
-			$li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"'.$bs_data_toggle);
-			$li_a .= $wrap_link_text[0] . $li_a_title . $bs_caret . $wrap_link_text[1];
+		$x++;
 
-			if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
-				$li_class = trim($li_class.' '.$path_class[0]);
-			}
-			if($active_class[0] != '' && $key == $GLOBALS['aktion'][0]) {
-				$li_class = trim($li_class.' '.$active_class[0]);
-			}
-			if($x==0) {
-				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_first'];
-			}
+		if($x==$last_item) {
+			$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_last'];
+		}
 
-			$x++;
+		$li .= ' class="' . trim(trim($li_class) . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
 
-			if($x==$last_item) {
-				$li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_last'];
-			}
+		$li .= '>' . $li_a . '</a>';
 
-			$li .= ' class="' . trim(trim($li_class) . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']) .'"';
-
-			$li .= '>' . $li_a . '</a>';
-
-			$li .= $li_ul.'</li>'.LF;
+		$li .= $li_ul.'</li>'.LF;
 
 	}
 
@@ -3232,7 +3242,11 @@ function get_level_ahref($key=0, $custom_link_add='') {
 	if($GLOBALS['content']['struct'][$key]["acat_redirect"]) {
 		$redirect = get_redirect_link($GLOBALS['content']['struct'][$key]["acat_redirect"], ' ', '');
 		$link .= html_specialchars($redirect['link']).'"'.$redirect['target'];
-	} else {
+	} elseif(IS_ONEPAGE_TEMPLATE && $GLOBALS['content']['struct'][$key]['acat_onepage']) {
+    	$link .= '#';
+    	$link .= $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'opid'.$key;
+        $link .= '"';
+    } else {
 		if(!PHPWCMS_REWRITE) {
 			$link .= 'index.php?';
 		}

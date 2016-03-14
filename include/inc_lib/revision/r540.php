@@ -35,9 +35,9 @@ function phpwcms_revision_r540() {
 		}
 
 		// Reset cache values
-		_setConfig('structure_array_vmode_all', false, 'frontend_render', 1);
-		_setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
-		_setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
+		_setConfig('structure_array_vmode_all', '', 'frontend_render', 1);
+		_setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
+		_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 	}
 
 	return $status;

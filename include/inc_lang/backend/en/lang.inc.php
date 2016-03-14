@@ -1409,3 +1409,5 @@ $BL['be_tab_toggle'] = 'Toggle tab to expanded or closed';
 $BL['be_custom_textfield'] = 'custom text';
 $BL['be_tab_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';
 
+$BL['be_onepage_id'] = 'OnePage ID (#anchor) support';
+$BL['be_onepage_template'] = 'treat as OnePage template';

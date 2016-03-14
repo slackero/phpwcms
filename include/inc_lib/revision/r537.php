@@ -34,9 +34,9 @@ function phpwcms_revision_r537() {
 			$status = false;
 		}
 		// Reset cache values
-		_setConfig('structure_array_vmode_all', false, 'frontend_render', 1);
-		_setConfig('structure_array_vmode_editor', false, 'frontend_render', 1);
-		_setConfig('structure_array_vmode_admin', false, 'frontend_render', 1);
+		_setConfig('structure_array_vmode_all', '', 'frontend_render', 1);
+		_setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
+		_setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 	}
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_content` WHERE Field='cnt_opengraph'");
 	if(!isset($result[0])) {
