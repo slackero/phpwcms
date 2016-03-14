@@ -431,7 +431,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 		}
 
 		// news search
-		if(!empty($content['search']['search_news'])) {
+		if(!empty($content['search']['search_news']) && !empty($s_search_words) && isset($s_search_words_count)) {
 
 			// initialize search for news
 			$s_news = new search_News();
