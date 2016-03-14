@@ -65,7 +65,7 @@ if(isset($struct_template[0]['template_name'])) {
 		echo ' (', $BL['be_admin_tmpl_default'], ')';
 	}
 }
-echo '<br>'.$BL['be_onepage_id'].': '.(empty($struct_template[0]["acat_onepage"]) ? $BL['be_no'] : $BL['be_yes']);
+echo '<br>'.$BL['be_onepage_id'].': '.(empty($indexpage["acat_onepage"]) ? $BL['be_no'] : $BL['be_yes']);
 echo '\');" onmouseout="UnTip()">';
 echo "</td><td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>";
 echo '<td class="dir" width="97%"><strong>'.$indexpage['acat_name']."</strong></td></tr></table></td>";
