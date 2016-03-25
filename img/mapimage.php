@@ -38,8 +38,6 @@ if($img_info) {
 
 	$img_file = PHPWCMS_TEMPLATE.'inc_cntpart/map/map_img/'.$img_file;
 	
-	
-	
 	switch($img_info[2]) {
 	
 		case 1:	// GIF
