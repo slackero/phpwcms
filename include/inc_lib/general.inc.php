@@ -2112,3 +2112,26 @@ function dec_num_count($value) {
 	}
 	return strlen($value) - strrpos($value, '.') - 1;
 }
+
+function convert_rel2abs($text, $base) {
+    if(empty($base)) {
+        return $text;
+    }
+
+    // Base URL needs trailing /
+    if(substr($base, -1, 1) !== '/') {
+        $base .= '/';
+    }
+
+    // Fix a href
+    $pattern = "/<a([^>]*) href=\"([^http|ftp|https|mailto|tel|fax][^\"]*)\"/";
+    $replace = "<a\${1} href=\"" . $base . "\${2}\"";
+    $text = preg_replace($pattern, $replace, $text);
+
+    // Fix img src
+    $pattern = "/<img([^>]*) src=\"([^http|ftp|https][^\"]*)\"/";
+    $replace = "<img\${1} src=\"" . $base . "\${2}\"";
+    $text = preg_replace($pattern, $replace, $text);
+
+    return $text;
+}
