@@ -10,7 +10,8 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.9.0-b2 (2015/12/18, r541) Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.2 (2016/03/25, r542)
+//Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
@@ -1305,13 +1306,13 @@ $BL['js_lib_alwaysload'] = 'zawsze ładuj';
 $BL['frontendjs_load']   = 'ładuj frontend.js (więcej z przyczyn historycznych)';
 $BL['googleapi_load']    = 'użyj CDN';
 
-$BL['fancyupload_clear_list']        = 'Wyczyść Listę';
+$BL['fancyupload_clear_list']       = 'Wyczyść Listę';
 $BL['fancyupload_file_uploaded']    = 'Plik został przesłany';
-$BL['fancyupload_file_error']        = 'Wystąpił błąd';
+$BL['fancyupload_file_error']       = 'Wystąpił błąd';
 $BL['fancyupload_adblock_error']    = 'Aby włączyć wbudowany uploader, odblokuj kartę w swojej przeglądarce i odśwież (zobacz Adblock).';
-$BL['fancyupload_flashblock_error']    = 'Aby włączyć wbudowany uploader, włącz zablokowany film Flash (zobacz Flashblock).';
+$BL['fancyupload_flashblock_error']  = 'Aby włączyć wbudowany uploader, włącz zablokowany film Flash (zobacz Flashblock).';
 $BL['fancyupload_required_error']    = 'Wymagany plik nie został znaleziony, prosimy o cierpliwość, a my to naprawimy.';
-$BL['fancyupload_flash_error']        = 'Aby włączyć wbudowany uploader, należy zainstalować najnowszy plugin Adobe Flash.';
+$BL['fancyupload_flash_error']       = 'Aby włączyć wbudowany uploader, należy zainstalować najnowszy plugin Adobe Flash.';
 
 $BL['be_cnt_function_validate']  = 'Walidacja PHP';
 $BL['be_structform_selected_cp'] = 'Wybór Limitu użytecznych części zawartości';
@@ -1398,10 +1399,10 @@ $BL['be_breadcrumb']		= 'zachowanie nawigacyjne wyświetlania';
 $BL['be_breadcrumb_nothidden']	= 'widoczne, jeśli poziom jest ukryty';
 $BL['be_breadcrumb_nolink']	= 'nie ma linku';
 
-$BL['CSRF_POST_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> znaleziono parametrów POST. Ze względów bezpieczeństwa, sesja została zakończona.';
-$BL['CSRF_POST_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> parametrów POST nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_POST_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów POST. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_POST_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> parametrów POST nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
 $BL['CSRF_GET_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów GET. Ze względów bezpieczeństwa, sesja została zakończona.';
-$BL['CSRF_GET_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> parametrów GET nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_GET_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> parametrów GET nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
 
 $BL['be_parental_alias'] = 'alias macierzysty';
 $BL['be_fsearch_nor'] = 'BRAK';
@@ -1409,3 +1410,7 @@ $BL['be_tab_toggle'] = 'Przełącz zakładkę, by rozwinąć lub zamknąć';
 $BL['be_custom_textfield'] = 'własny tekst';
 $BL['be_tab_template_toggle_warning'] = 'Zmiana szablonu może spowodować, że niestandardowe pola ulegną zmianie i istniejące wartości utracone.\n\nCzy jesteś pewien, że chcesz kontynuować?';
 
+$BL['be_onepage_id'] = 'OnePage ID (#zakotwicz) wsparcie';
+$BL['be_onepage_template'] = 'Traktuj jako szablon OnePage';
+$BL['be_yes'] = 'Tak';
+$BL['be_no'] = 'Nie';
