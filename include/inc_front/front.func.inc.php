@@ -4259,18 +4259,17 @@ function render_if_not_category($matches) {
 	}
 
 	$current = intval($GLOBALS['content']['cat_id']);
+	$return = true;
 
 	foreach($cat_ids as $id) {
 
-		$id = intval($id);
-
-		if($id !== $current) {
-			return str_replace('{IF_NOTCAT_ID}', $id, $matches[2]);
+		if(intval($id) === $current) {
+    		$return = false;
 		}
 
 	}
 
-	return '';
+    return $return === true ? str_replace('{IF_NOTCAT_ID}', $current, $matches[2]) : '';
 }
 
 function get_css_keywords($text) {
