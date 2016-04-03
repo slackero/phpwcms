@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/4b4565b713a7dff2109810c917df93ea
+ * (2) http://ckeditor.com/builder/c93ecb8901a11f5072773e93b23fa12e
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/4b4565b713a7dff2109810c917df93ea
+ * (3) http://ckeditor.com/builder/download/c93ecb8901a11f5072773e93b23fa12e
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
