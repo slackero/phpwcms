@@ -2,25 +2,25 @@
 ; this is formatted like WIN.INI
 ; please: do not use comments for value lines
 ; settings will overwrite CP settings
-;width			= 100
-;height			= 100
-;width_zoom		= 600
-;height_zoom	= 600
-;col			= 1
-;space			= 10
-;zoom			= 1
-;lightbox		= 1
-;nocaption		= 0
-;thumb_class	= image-responsive
+;width          = 100
+;height         = 100
+;width_zoom     = 600
+;height_zoom    = 600
+;col            = 1
+;space          = 10
+;zoom           = 1
+;lightbox       = 1
+;nocaption      = 0
+;thumb_class    = image-responsive
 ; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
-;center			= 2
-;crop			= 0
-;crop_zoom		= 0
-;fx1			= 0
-;fx2			= 0
-;fx3			= 0
+;center         = 2
+;crop           = 0
+;crop_zoom      = 0
+;fx1            = 0
+;fx2            = 0
+;fx3            = 0
 ; InfoText render: plain, html, markdown, textile
-text_render	= plain
+text_render = plain
 <!--IMAGE_SETTINGS_END//-->
 
 <!--IMAGES_HEADER_START//-->
@@ -35,74 +35,75 @@ text_render	= plain
 
 <!--IMAGES_ENTRY_START//-->
 
-	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}">
-		{IMAGE}
-		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
-		[INFOTEXT]
-			{INFOTEXT}
-		[/INFOTEXT]
-		[URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>more &raquo;</a>[/URL]
-	</div>
+    <div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}">
+        {IMAGE}
+        [CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
+        [INFOTEXT]
+            {INFOTEXT}
+        [/INFOTEXT]
+        [URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>more &raquo;</a>[/URL]
+    </div>
 
-	<!--ENTRY_DATA_START//-->
-		<li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
-			<a href="#img{IMGID}">Image {ENTRY_NUM}</a>
-		</li>
-	<!--ENTRY_DATA_END//-->
+    <!--ENTRY_DATA_START//-->
+        <li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
+            <a href="#img{IMGID}">Image {ENTRY_NUM}</a>
+        </li>
+    <!--ENTRY_DATA_END//-->
 
 <!--IMAGES_ENTRY_END//-->
 
 
 <!--IMAGES_ENTRY_SPACER_START//-->
 
-	<!-- space between images {SPACE}px -->
+    <!-- space between images {SPACE}px -->
 
 <!--IMAGES_ENTRY_SPACER_END//-->
 
 
 <!--IMAGES_ROW_SPACER_START//-->
 
-	<!-- space between image rows {SPACE}px -->
+    <!-- space between image rows {SPACE}px -->
 
 <!--IMAGES_ROW_SPACER_END//-->
 
 
 <!--IMAGES_FOOTER_START//-->
-	[DATA]
-		<ol class="indicators">
-			{DATA}
-		</ol>
-		<div class="controls">
-			<a class="prev" href="#images{ID}" role="button" data-slide="prev">
-				<span>Previous</span>
-			</a>
-			<a class="next" href="#images{ID}" role="button" data-slide="next">
-				<span>Next</span>
-			</a>
-		</div>
-	[/DATA]
+    [DATA]
+        <ol class="indicators">
+            {DATA}
+        </ol>
+        <div class="controls">
+            <a class="prev" href="#images{ID}" role="button" data-slide="prev">
+                <span>Previous</span>
+            </a>
+            <a class="next" href="#images{ID}" role="button" data-slide="next">
+                <span>Next</span>
+            </a>
+        </div>
+    [/DATA]
 </div>
 <!--IMAGES_FOOTER_END//-->
 
-		Thumbnail image: {THUMB_NAME}
-		  ID/Hash/Ext:      {THUMB_ID}/{THUMB_HASH}/{THUMB_EXT}
-		  relative:         {THUMB_REL}
-		  absolute:         {THUMB_ABS}
-		  height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
-		  height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
-		  columns:          {THUMB_COLUMNS}
+        Thumbnail image: {THUMB_NAME}
+          ID/Hash/Ext:      {THUMB_ID}/{THUMB_HASH}/{THUMB_EXT}
+          relative:         {THUMB_REL}
+          absolute:         {THUMB_ABS}
+          height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
+          height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
+          columns:          {THUMB_COLUMNS}
 
-		If you are not sure wrap zoomed image:
-		[ZOOM]
-		Zoomed (big) image: {IMAGE_NAME}
-		  ID/Hash/Ext:      {IMAGE_ID}/{IMAGE_HASH}/{IMAGE_EXT}
-		  relative:         {IMAGE_REL}
-		  absolute:         {IMAGE_ABS}
-		  height/width:     {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
-		[/ZOOM]
+        If you are not sure wrap zoomed image:
+        [ZOOM]
+        Zoomed (big) image: {IMAGE_NAME}
+          ID/Hash/Ext:      {IMAGE_ID}/{IMAGE_HASH}/{IMAGE_EXT}
+          relative:         {IMAGE_REL}
+          absolute:         {IMAGE_ABS}
+          height/width:     {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
+        [/ZOOM]
 
-		Image URL: {IMAGE_URL}, Target: {IMAGE_TARGET}
+        Image URL: {IMAGE_URL}, Target: {IMAGE_TARGET}
 
-		[EFFECT_1]Yes Effect 1[/EFFECT_1]
-		[EFFECT_2]Yes Effect 2[/EFFECT_2]
-		[EFFECT_3]Yes Effect 3[/EFFECT_3]
+        No need to use the _ELSE condition, but possible to use _ELSE only
+        [EFFECT_1]Effect 1 enabled[/EFFECT_1][EFFECT_1_ELSE]Effect 1 disabled[/EFFECT_1_ELSE]
+        [EFFECT_2]Effect 2 enabled[/EFFECT_2][EFFECT_2_ELSE]Effect 2 disabled[/EFFECT_2_ELSE]
+        [EFFECT_3]Effect 3 enabled[/EFFECT_3][EFFECT_3_ELSE]Effect 3 disabled[/EFFECT_3_ELSE]
