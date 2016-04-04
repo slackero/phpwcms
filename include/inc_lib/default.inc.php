@@ -909,10 +909,10 @@ function phpwcms_getUserAgent($USER_AGENT='') {
     $engine     = 'Other';
 
     if(stripos($USER_AGENT,'Trident/7.0; rv:11.') !== false ) {
-		$ver    = 11;
+        $ver    = 11;
         $agent  = 'IE';
         $engine = 'Trident';
-	} elseif(preg_match('#Edge\/([0-9]+)#', $USER_AGENT, $log_version)) {
+    } elseif(preg_match('#Edge\/([0-9]+)#', $USER_AGENT, $log_version)) {
         $ver    = $log_version[1];
         $agent  = 'Edge';
         $engine = 'EdgeHTML';
