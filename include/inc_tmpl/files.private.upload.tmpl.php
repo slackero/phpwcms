@@ -322,6 +322,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                     continue;
                 }
 
+                $file_vars[$lang] = array(
+                    'longinfo' => '',
+                    'copyright' => '',
+                    'title' => '',
+                    'alt' => ''
+                );
+
                 if(empty($file_vars[$lang]['longinfo'])) {
                     $file_vars[$lang]['longinfo'] = '';
                 }
