@@ -1404,3 +1404,5 @@ $BL['be_onepage_id'] = 'OnePage ID (#Anker) Unterst&uuml;tzung';
 $BL['be_onepage_template'] = 'Als OnePage Vorlage behandeln';
 $BL['be_yes'] = 'Ja';
 $BL['be_no'] = 'Nein';
+$BL['be_attr_title'] = 'Titel (Attribut)';
+$BL['be_attr_alt'] = 'Alternativer Text';

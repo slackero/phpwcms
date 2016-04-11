@@ -1413,3 +1413,5 @@ $BL['be_onepage_id'] = 'OnePage ID (#anchor) support';
 $BL['be_onepage_template'] = 'treat as OnePage template';
 $BL['be_yes'] = 'Yes';
 $BL['be_no'] = 'No';
+$BL['be_attr_title'] = 'title (attribute)';
+$BL['be_attr_alt'] = 'alternative text';
