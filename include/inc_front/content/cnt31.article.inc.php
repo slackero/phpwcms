@@ -24,6 +24,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $image	= @unserialize($crow["acontent_form"]);
 $crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
+if(empty($image['fieldgroup'])) {
+    $image['fieldgroup'] = '';
+}
 
 // get template
 if($crow['acontent_template_listmode'] && empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/list.imagespecial.tmpl')) {
@@ -53,24 +56,18 @@ $image['text_render'] = 'plaintext';
 
 if($image['template']) {
 
-	$image['tmpl_settings']			= parse_ini_str( get_tmpl_section('IMAGE_SETTINGS', $image['template']), false);
+	$image['tmpl_settings'] = parse_ini_str( get_tmpl_section('IMAGE_SETTINGS', $image['template']), false);
 
 	if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
 		$image = array_merge($image, $image['tmpl_settings']);
 
-		if($image['text_render'] == 'markdown') {
-			// Load ParseDown class
-			if(!isset($phpwcms['parsedown_class'])) {
-				require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-				require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-				$phpwcms['parsedown_class'] = new ParsedownExtra();
-			}
-		} elseif($image['text_render'] == 'textile') {
-			// Load Textile function and class
-			if(!isset($phpwcms['textile_class'])) {
-				require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
-				$phpwcms['textile_class'] = new Textile();
-			}
+		if($image['text_render'] === 'markdown' && !isset($phpwcms['parsedown_class'])) {
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+			$phpwcms['parsedown_class'] = new ParsedownExtra();
+		} elseif($image['text_render'] === 'textile' && !isset($phpwcms['textile_class'])) {
+			require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
+			$phpwcms['textile_class'] = new Textile();
 		}
 	}
 
@@ -86,6 +83,14 @@ if($image['template']) {
 
 	$image['template']				= $image['tmpl_header'];
 	$image['tmpl_data']				= array();
+
+	if($image['fieldgroup'] === '' || empty($template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'])) {
+		$image['custom_tab_fields'] = array();
+	} else {
+		$image['custom_tab_fields'] = array_keys($template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields']);
+		$image['field_render'] = array('html', 'markdown', 'plain');
+		$image['fieldgroup'] =& $template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'];
+	}
 
 	if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
@@ -105,29 +110,29 @@ if($image['template']) {
 		switch($image['center']) {
 
 			case 1:		// center hor/vert
-						if(!$image['width'] && !$image['height']) {
-							$image['center'] = 0;
-						} elseif(!$image['width']) {
-							$image['center'] = 3;
-						} elseif(!$image['height']) {
-							$image['center'] = 2;
-						}
-						break;
+				if(!$image['width'] && !$image['height']) {
+					$image['center'] = 0;
+				} elseif(!$image['width']) {
+					$image['center'] = 3;
+				} elseif(!$image['height']) {
+					$image['center'] = 2;
+				}
+				break;
 
 			case 2:		// center hor
-						if(!$image['width']) {
-							$image['center'] = 0;
-						}
-						break;
+				if(!$image['width']) {
+					$image['center'] = 0;
+				}
+				break;
 
 			case 3:		// center vert
-						if(!$image['height']) {
-							$image['center'] = 0;
-						}
-						break;
+				if(!$image['height']) {
+					$image['center'] = 0;
+				}
+				break;
 
-			default:	$image['center'] = 0;
-
+			default:
+			    $image['center'] = 0;
 
 		}
 
@@ -397,6 +402,66 @@ if($image['template']) {
 			$img_a = render_cnt_template($img_a, 'TITLE', $caption[3]);
 			$img_a = render_cnt_template($img_a, 'ALT', $caption[1]);
 			$img_a = render_cnt_template($img_a, 'LINK', $img_thumb_link);
+
+			if($image['custom_tab_fields']) {
+    			foreach($image['custom_tab_fields'] as $custom_field_key) {
+    				$custom_field_value = isset($value['custom_fields'][$custom_field_key]) ? $value['custom_fields'][$custom_field_key] : '';
+    				$custom_field_replacer = 'IMGSPCL_'.strtoupper($custom_field_key);
+
+    				if($custom_field_value === '') {
+    					$img_a = render_cnt_template($img_a, $custom_field_replacer, '');
+    					continue;
+    				}
+
+    				if($image['fieldgroup'][$custom_field_key]['type'] === 'bool') {
+
+    					$img_a = render_cnt_template($img_a, $custom_field_replacer, empty($custom_field_value) ? '' : ' ');
+
+    				} elseif($image['fieldgroup'][$custom_field_key]['type'] === 'option' || $image['fieldgroup'][$custom_field_key]['type'] === 'select') {
+
+    					if(isset($image['fieldgroup'][$custom_field_key]['values'][$custom_field_value])) {
+
+    						// render custom option globally first
+    						$img_a = render_cnt_template($img_a, $custom_field_replacer, html($custom_field_value));
+
+    						// render option specific replacers
+    						if(strpos($img_a, $custom_field_replacer.'_') !== false) {
+    							foreach($image['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
+    								if($custom_field_value === $option_key) {
+    									$img_a = render_cnt_template($img_a, $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));
+    								} else {
+    									$img_a = render_cnt_template($img_a, $custom_field_replacer.'_'.strtoupper($option_key), '');
+    								}
+    							}
+    						}
+    					}
+
+    				} elseif($image['fieldgroup'][$custom_field_key]['type'] === 'int' || $image['fieldgroup'][$custom_field_key]['type'] === 'float') {
+
+    					$img_a = render_cnt_template($img_a, $custom_field_replacer, $custom_field_value);
+
+    				} elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
+
+    					if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
+    						if(!isset($phpwcms['parsedown_class'])) {
+    							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
+    							require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+    							$phpwcms['parsedown_class'] = new ParsedownExtra();
+    						}
+    						$img_a = render_cnt_template($img_a, $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
+    					} elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
+    						$img_a = render_cnt_template($img_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));
+    					} else {
+    						$img_a = render_cnt_template($img_a, $custom_field_replacer, $custom_field_value);
+    					}
+
+    				} else {
+
+    					$img_a = render_cnt_template($img_a, $custom_field_replacer, html($custom_field_value));
+
+    				}
+    			}
+    		}
 
 			// check if this is the last image in row
 			if($image['col'] == $col || $image['count'] == $total) {

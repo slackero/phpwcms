@@ -26,9 +26,7 @@ if(empty($content['tabs']) || !is_array($content['tabs'])) {
 $content['tabwysiwygoff'] = empty($content['tabs']['tabwysiwygoff']) ? 0 : 1;
 unset($content['tabs']['tabwysiwygoff'], $content['tabs']['tab_fieldgroup']);
 
-// check which WYSIWYG editor to load
-// only FCKeditor is supported here
-// or WYSIWYG disabled
+// load WYSIWYG editor
 if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
 	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
 	$content['wysiwyg'] = true;

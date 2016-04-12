@@ -452,7 +452,7 @@ $template_default['settings'] = array(
 			'legend' => 'Field group name',
 			'template' => 'default', // bind the fieldgroup to a specific template, or default
 			'fields' => array(
-				// [TAB_STRING1]{TAB_STRING1}[/TAB_STRING1]
+				// [IMGSPCL_STRING1]{IMGSPCL_STRING1}[/IMGSPCL_STRING1]
 				'string1' => array(
 					'legend' => 'field 1',
 					'type' => 'str',
@@ -460,7 +460,7 @@ $template_default['settings'] = array(
 					'maxlength' => 100,
 					'placeholder' => ''
 				),
-				// [TAB_TEXTAREA1]{TAB_TEXTAREA1}[/TAB_TEXTAREA1]
+				// [IMGSPCL_TEXTAREA1]{IMGSPCL_TEXTAREA1}[/IMGSPCL_TEXTAREA1]
 				'textarea1' => array(
 					'legend' => 'field 2',
 					'type' => 'textarea',
@@ -468,11 +468,11 @@ $template_default['settings'] = array(
 					'rows' => 3,
 					'placeholder' => ''
 				),
-				// [TAB_OPTIONNAME1]
-				//	  Will be the selected value {TAB_OPTIONNAME1}
-				//    [TAB_OPTIONNAME1_OPTION1]{TAB_OPTIONNAME1_OPTION1}[/TAB_OPTIONNAME1_OPTION1]
-				//    [TAB_OPTIONNAME1_OPTION2]{TAB_OPTIONNAME1_OPTION2}[/TAB_OPTIONNAME1_OPTION2]
-				// [/TAB_OPTIONNAME1]
+				// [IMGSPCL_OPTIONNAME1]
+				//	  Will be the selected value {IMGSPCL_OPTIONNAME1}
+				//    [IMGSPCL_OPTIONNAME1_OPTION1]{IMGSPCL_OPTIONNAME1_OPTION1}[/IMGSPCL_OPTIONNAME1_OPTION1]
+				//    [IMGSPCL_OPTIONNAME1_OPTION2]{IMGSPCL_OPTIONNAME1_OPTION2}[/IMGSPCL_OPTIONNAME1_OPTION2]
+				// [/IMGSPCL_OPTIONNAME1]
 				'optionname1' => array(
 					'legend' => 'choose',
 					'type' => 'option',
@@ -484,7 +484,7 @@ $template_default['settings'] = array(
 					),
 					'default' => 'empty'
 				),
-				// [TAB_INTEGER1]{TAB_INTEGER1}[/TAB_INTEGER1]
+				// [IMGSPCL_INTEGER1]{IMGSPCL_INTEGER1}[/IMGSPCL_INTEGER1]
 				'integer1' => array(
 					'legend' => 'integer 1',
 					'type' => 'int',
@@ -494,7 +494,7 @@ $template_default['settings'] = array(
 					'step' => 1,
 					'placeholder' => ''
 				),
-				// [TAB_FLOAT1]{TAB_FLOAT1}[/TAB_FLOAT1]
+				// [IMGSPCL_FLOAT1]{IMGSPCL_FLOAT1}[/IMGSPCL_FLOAT1]
 				'float1' => array(
 					'legend' => 'float 1',
 					'type' => 'float',
@@ -504,11 +504,11 @@ $template_default['settings'] = array(
 					'step' => .1,
 					'placeholder' => ''
 				),
-				// [TAB_SELECT1]
-				//	  Will be the selected value {TAB_SELECT1}
-				//    [TAB_SELECT1_OPTION1]{TAB_SELECT1_OPTION1}[/TAB_SELECT1_OPTION1]
-				//    [TAB_SELECT1_OPTION2]{TAB_SELECT1_OPTION2}[/TAB_SELECT1_OPTION2]
-				// [/TAB_SELECT1]
+				// [IMGSPCL_SELECT1]
+				//	  Will be the selected value {IMGSPCL_SELECT1}
+				//    [IMGSPCL_SELECT1_OPTION1]{IMGSPCL_SELECT1_OPTION1}[/IMGSPCL_SELECT1_OPTION1]
+				//    [IMGSPCL_SELECT1_OPTION2]{IMGSPCL_SELECT1_OPTION2}[/IMGSPCL_SELECT1_OPTION2]
+				// [/IMGSPCL_SELECT1]
 				'select1' => array(
 					'legend' => 'choose',
 					'type' => 'select',
@@ -520,7 +520,150 @@ $template_default['settings'] = array(
 					),
 					'default' => 'empty'
 				),
-				// [TAB_BOOL1]True[/TAB_BOOL1][TAB_BOOL1_ELSE]False[/TAB_BOOL1_ELSE]
+				// [IMGSPCL_BOOL1]True[/IMGSPCL_BOOL1][IMGSPCL_BOOL1_ELSE]False[/IMGSPCL_BOOL1_ELSE]
+				'bool1' => array(
+					'legend' => 'Enable (to be true)',
+					'type' => 'bool',
+					'default' => false, // or true to be enabled by default
+				),
+			)
+		),
+		*/
+		'gmaps' => array(
+			'legend' => 'Google Maps',
+			'template' => 'simplegmaps.tmpl', // bind the fieldgroup to a specific template, or default
+			'fields' => array(
+				// [TAB_GEOLOCATION]{TAB_GEOLOCATION}[/TAB_GEOLOCATION]
+				'geolocation' => array(
+					'legend' => 'Geo-Location/Adresse',
+					'type' => 'str',
+					'render' => 'html',
+					'maxlength' => 250,
+					'placeholder' => 'Strasse, PLZ Ort, Land'
+				),
+				// [TAB_LAT]{TAB_LAT}[/TAB_LAT]
+				'lat' => array(
+					'legend' => 'Latitude',
+					'type' => 'float',
+					'render' => '',
+					'max' => 90,
+					'min' => -90,
+					'step' => .0000001
+				),
+				// [TAB_LON]{TAB_LON}[/TAB_LON]
+				'lon' => array(
+					'legend' => 'Longitude',
+					'type' => 'float',
+					'render' => '',
+					'max' => 180,
+					'min' => -180,
+					'step' => .0000001
+				),
+				// [TAB_MARKERICON]
+				//	  Will be the selected value {TAB_MARKERICON}
+				//    [TAB_MARKERICON_MARKERICON1]{TAB_MARKERICON_MARKERICON1}[/TAB_MARKERICON_MARKERICON1]
+				//    [TAB_MARKERICON_MARKERICON2]{TAB_MARKERICON_MARKERICON2}[/TAB_MARKERICON_MARKERICON2]
+				// [/TAB_MARKERICON]
+				'markericon' => array(
+					'legend' => 'Markierung',
+					'type' => 'select',
+					'render' => '',
+					'values' => array(
+						'empty' => 'Google Standard (red Drop)',
+						'marker_01' => 'Black Marker, white filled',
+						'marker_02' => 'Black Marker, transparent',
+						'marker_03' => 'Blue Marker, white filled',
+						'marker_04' => 'Blue Marker, transparent',
+
+					),
+					'default' => 'empty'
+				),
+				// [TAB_INFOBOX]True[/TAB_INFOBOX][TAB_INFOBOX_ELSE]False[/TAB_INFOBOX_ELSE]
+				'infobox' => array(
+					'legend' => 'Infobox aktiv',
+					'type' => 'bool',
+					'default' => true, // or true to be enabled by default
+				),
+			)
+		),
+	),
+
+	'imagespecial_custom_fields' => array(
+		// Enable and customise to enable additional input fields for each image special item:
+		/*
+		'fieldgroup1' => array(
+			'legend' => 'Field group name',
+			'template' => 'default', // bind the fieldgroup to a specific template, or default
+			'fields' => array(
+				// [IMGSPCL_STRING1]{IMGSPCL_STRING1}[/IMGSPCL_STRING1]
+				'string1' => array(
+					'legend' => 'field 1',
+					'type' => 'str',
+					'render' => 'html',
+					'maxlength' => 100,
+					'placeholder' => ''
+				),
+				// [IMGSPCL_TEXTAREA1]{IMGSPCL_TEXTAREA1}[/IMGSPCL_TEXTAREA1]
+				'textarea1' => array(
+					'legend' => 'field 2',
+					'type' => 'textarea',
+					'render' => '',
+					'rows' => 3,
+					'placeholder' => ''
+				),
+				// [IMGSPCL_OPTIONNAME1]
+				//	  Will be the selected value {IMGSPCL_OPTIONNAME1}
+				//    [IMGSPCL_OPTIONNAME1_OPTION1]{IMGSPCL_OPTIONNAME1_OPTION1}[/IMGSPCL_OPTIONNAME1_OPTION1]
+				//    [IMGSPCL_OPTIONNAME1_OPTION2]{IMGSPCL_OPTIONNAME1_OPTION2}[/IMGSPCL_OPTIONNAME1_OPTION2]
+				// [/IMGSPCL_OPTIONNAME1]
+				'optionname1' => array(
+					'legend' => 'choose',
+					'type' => 'option',
+					'render' => '',
+					'values' => array(
+						'option1' => 'value option 1',
+						'option2' => 'value option 2',
+						'empty' => 'nothing',
+					),
+					'default' => 'empty'
+				),
+				// [IMGSPCL_INTEGER1]{IMGSPCL_INTEGER1}[/IMGSPCL_INTEGER1]
+				'integer1' => array(
+					'legend' => 'integer 1',
+					'type' => 'int',
+					'render' => '',
+					'max' => 1000,
+					'min' => -1000,
+					'step' => 1,
+					'placeholder' => ''
+				),
+				// [IMGSPCL_FLOAT1]{IMGSPCL_FLOAT1}[/IMGSPCL_FLOAT1]
+				'float1' => array(
+					'legend' => 'float 1',
+					'type' => 'float',
+					'render' => '',
+					'max' => 1000,
+					'min' => -1000,
+					'step' => .1,
+					'placeholder' => ''
+				),
+				// [IMGSPCL_SELECT1]
+				//	  Will be the selected value {IMGSPCL_SELECT1}
+				//    [IMGSPCL_SELECT1_OPTION1]{IMGSPCL_SELECT1_OPTION1}[/IMGSPCL_SELECT1_OPTION1]
+				//    [IMGSPCL_SELECT1_OPTION2]{IMGSPCL_SELECT1_OPTION2}[/IMGSPCL_SELECT1_OPTION2]
+				// [/IMGSPCL_SELECT1]
+				'select1' => array(
+					'legend' => 'choose',
+					'type' => 'select',
+					'render' => '',
+					'values' => array(
+						'empty' => 'choose a value or this for nothing',
+						'option1' => 'value option 1',
+						'option2' => 'value option 2',
+					),
+					'default' => 'empty'
+				),
+				// [IMGSPCL_BOOL1]True[/IMGSPCL_BOOL1][IMGSPCL_BOOL1_ELSE]False[/IMGSPCL_BOOL1_ELSE]
 				'bool1' => array(
 					'legend' => 'Enable (to be true)',
 					'type' => 'bool',

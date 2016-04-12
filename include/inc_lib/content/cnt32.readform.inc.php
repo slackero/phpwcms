@@ -31,7 +31,7 @@ if(empty($_POST['tab_fieldgroup'])) {
 	$content['tab_fieldgroup'] = '';
 } else {
 	$content['tab_fieldgroup'] = clean_slweg($_POST['tab_fieldgroup']);
-	if(isset($template_default['settings']['tabs_custom_fields'][ $content['tab_fieldgroup'] ]['fields'])) {
+	if($content['tab_fieldgroup'] && isset($template_default['settings']['tabs_custom_fields'][ $content['tab_fieldgroup'] ]['fields'])) {
 		$tab_fieldgroup_fields =& $template_default['settings']['tabs_custom_fields'][ $content['tab_fieldgroup'] ]['fields'];
 	}
 }
