@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.2 (2016/03/25, r542)
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.3 (2016/04/12, 543)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -1414,3 +1414,5 @@ $BL['be_onepage_id'] = 'OnePage ID (#zakotwicz) wsparcie';
 $BL['be_onepage_template'] = 'Traktuj jako szablon OnePage';
 $BL['be_yes'] = 'Tak';
 $BL['be_no'] = 'Nie';
+$BL['be_attr_title'] = 'Tytuł (Atrybut)';
+$BL['be_attr_alt'] = 'Alternatywny Tekst';
