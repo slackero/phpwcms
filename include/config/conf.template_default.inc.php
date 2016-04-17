@@ -672,5 +672,91 @@ $template_default['settings'] = array(
 			)
 		),
 		*/
+	),
+
+	'wysiwyg_custom_fields' => array(
+		// Enable and customise to enable additional input fields to WYSIWYG content part:
+		/*
+		'fieldgroup1' => array(
+			'legend' => 'Field group name',
+			'template' => 'default', // bind the fieldgroup to a specific template, or default
+			'fields' => array(
+				// [WYSIWYG_STRING1]{WYSIWYG_STRING1}[/WYSIWYG_STRING1]
+				'string1' => array(
+					'legend' => 'field 1',
+					'type' => 'str',
+					'render' => 'html',
+					'maxlength' => 100,
+					'placeholder' => ''
+				),
+				// [WYSIWYG_TEXTAREA1]{WYSIWYG_TEXTAREA1}[/WYSIWYG_TEXTAREA1]
+				'textarea1' => array(
+					'legend' => 'field 2',
+					'type' => 'textarea',
+					'render' => '',
+					'rows' => 3,
+					'placeholder' => ''
+				),
+				// [WYSIWYG_OPTIONNAME1]
+				//	  Will be the selected value {WYSIWYG_OPTIONNAME1}
+				//    [WYSIWYG_OPTIONNAME1_OPTION1]{WYSIWYG_OPTIONNAME1_OPTION1}[/WYSIWYG_OPTIONNAME1_OPTION1]
+				//    [WYSIWYG_OPTIONNAME1_OPTION2]{WYSIWYG_OPTIONNAME1_OPTION2}[/WYSIWYG_OPTIONNAME1_OPTION2]
+				// [/WYSIWYG_OPTIONNAME1]
+				'optionname1' => array(
+					'legend' => 'choose',
+					'type' => 'option',
+					'render' => '',
+					'values' => array(
+						'option1' => 'value option 1',
+						'option2' => 'value option 2',
+						'empty' => 'nothing',
+					),
+					'default' => 'empty'
+				),
+				// [WYSIWYG_INTEGER1]{WYSIWYG_INTEGER1}[/WYSIWYG_INTEGER1]
+				'integer1' => array(
+					'legend' => 'integer 1',
+					'type' => 'int',
+					'render' => '',
+					'max' => 1000,
+					'min' => -1000,
+					'step' => 1,
+					'placeholder' => ''
+				),
+				// [WYSIWYG_FLOAT1]{WYSIWYG_FLOAT1}[/WYSIWYG_FLOAT1]
+				'float1' => array(
+					'legend' => 'float 1',
+					'type' => 'float',
+					'render' => '',
+					'max' => 1000,
+					'min' => -1000,
+					'step' => .1,
+					'placeholder' => ''
+				),
+				// [WYSIWYG_SELECT1]
+				//	  Will be the selected value {WYSIWYG_SELECT1}
+				//    [WYSIWYG_SELECT1_OPTION1]{WYSIWYG_SELECT1_OPTION1}[/WYSIWYG_SELECT1_OPTION1]
+				//    [WYSIWYG_SELECT1_OPTION2]{WYSIWYG_SELECT1_OPTION2}[/WYSIWYG_SELECT1_OPTION2]
+				// [/WYSIWYG_SELECT1]
+				'select1' => array(
+					'legend' => 'choose',
+					'type' => 'select',
+					'render' => '',
+					'values' => array(
+						'empty' => 'choose a value or this for nothing',
+						'option1' => 'value option 1',
+						'option2' => 'value option 2',
+					),
+					'default' => 'empty'
+				),
+				// [WYSIWYG_BOOL1]True[/WYSIWYG_BOOL1][WYSIWYG_BOOL1_ELSE]False[/WYSIWYG_BOOL1_ELSE]
+				'bool1' => array(
+					'legend' => 'Enable (to be true)',
+					'type' => 'bool',
+					'default' => false, // or true to be enabled by default
+				),
+			)
+		),
+        */
 	)
 );
