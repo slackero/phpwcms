@@ -115,5 +115,3 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 }
 
 $CNT_TMP .= render_cnt_template($crow["acontent_template"], 'TEXT', $crow['acontent_html']);
-
-?>
