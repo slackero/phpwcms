@@ -22,7 +22,7 @@ $content["html"]		= slweg($_POST["chtml"]);
 $content["template"]	= clean_slweg($_POST['template']);
 
 $cnt_fieldgroup_fields = null;
-$cnt_fieldgroup_field_render = array('html', 'markdown');
+$cnt_fieldgroup_field_render = array('html', 'markdown', 'wysiwyg');
 if(empty($_POST['cnt_fieldgroup'])) {
 	$content['cnt_fieldgroup'] = '';
 } else {
@@ -41,13 +41,13 @@ if(!empty($cnt_fieldgroup_fields)) {
 		$_POST['customfield'][$custom_field] = null;
 		unset($_POST['customfield'][$custom_field]);
 
-		if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
+		if(isset($cnt_fieldgroup_fields[$custom_field]['render']) && in_array($cnt_fieldgroup_fields[$custom_field]['render'], $cnt_fieldgroup_field_render)) {
 			$content['custom_fields'][$custom_field] = slweg($custom_field_value);
-		} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
+		} elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'int') {
 			$content['custom_fields'][$custom_field] = intval($custom_field_value);
-		} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
+		} elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'float') {
 			$content['custom_fields'][$custom_field] = floatval($custom_field_value);
-		} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
+		} elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'bool') {
 			$content['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 		} else {
 			$content['custom_fields'][$custom_field] = clean_slweg($custom_field_value);

@@ -49,7 +49,7 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 		$crow['custom_cnt_fields'] = array();
 	} else {
 		$crow['custom_cnt_fields'] = array_keys($template_default['settings']['wysiwyg_custom_fields'][ $crow['cnt_fieldgroup'] ]['fields']);
-		$crow['field_render'] = array('html', 'markdown', 'plain');
+		$crow['field_render'] = array('html', 'markdown', 'plain', 'wysiwyg');
 		$crow['fieldgroup'] =& $template_default['settings']['wysiwyg_custom_fields'][ $crow['cnt_fieldgroup'] ]['fields'];
 	}
 

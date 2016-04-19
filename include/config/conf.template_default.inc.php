@@ -676,7 +676,7 @@ $template_default['settings'] = array(
 
 	'wysiwyg_custom_fields' => array(
 		// Enable and customise to enable additional input fields to WYSIWYG content part:
-		/*
+        /*
 		'fieldgroup1' => array(
 			'legend' => 'Field group name',
 			'template' => 'default', // bind the fieldgroup to a specific template, or default
@@ -754,6 +754,15 @@ $template_default['settings'] = array(
 					'legend' => 'Enable (to be true)',
 					'type' => 'bool',
 					'default' => false, // or true to be enabled by default
+				),
+				// [WYSIWYG_WYSIWYG1]{WYSIWYG_WYSIWYG1}[/WYSIWYG_WYSIWYG1][WYSIWYG_WYSIWYG1_ELSE]<!--nada-->[/WYSIWYG_WYSIWYG1_ELSE]
+				'wysiwyg1' => array(
+					'legend' => 'WYSIWYG editor',
+					'type' => 'textarea',
+					'render' => 'wysiwyg',
+					'rows' => 10,
+					'height' => '175px',
+					'placeholder' => ''
 				),
 			)
 		),
