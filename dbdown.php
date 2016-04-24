@@ -22,23 +22,23 @@ header('Retry-After: 3600');
 <style type="text/css">
 <!--
 body,td,th {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #000000;
 }
 body {
-	background-color: #FFFFFF;
-	margin: 25px 15px 15px 15px;
-	text-align: center;
+    background-color: #FFFFFF;
+    margin: 25px 15px 15px 15px;
+    text-align: center;
 }
 h1 {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 0 0 10px 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
 }
 p {
-	margin: 0 0 5px 0;
+    margin: 0 0 5px 0;
 }
 -->
 </style></head>

@@ -10,22 +10,22 @@
  **/
 
 function phpwcms_getCustomSitemap(&$struct) {
-	
-	// Check sitemap.php to see how $struct is used there
-	global $phpwcms;
-	
-	// Avoid rendering Base sitemap link (default URL)
-	//$phpwcms['sitemap_set_base'] = false;
-	
-	// Avoid default sitemap rendering, otherwise used in addition
-	//$phpwcms['sitemap_set_default'] = false;
-	
-	$url = array(
-	//	array('url' => 'http://www.webverbund.de', 'date' => '')
-	);
-	
-	// Do everything here needed to build your custom sitemap links 
-	// ...
-	
-	return $url;
+
+    // Check sitemap.php to see how $struct is used there
+    global $phpwcms;
+
+    // Avoid rendering Base sitemap link (default URL)
+    //$phpwcms['sitemap_set_base'] = false;
+
+    // Avoid default sitemap rendering, otherwise used in addition
+    //$phpwcms['sitemap_set_default'] = false;
+
+    $url = array(
+    //  array('url' => 'http://www.webverbund.de', 'date' => '')
+    );
+
+    // Do everything here needed to build your custom sitemap links
+    // ...
+
+    return $url;
 }

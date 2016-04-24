@@ -181,7 +181,7 @@ if($file_id) {
             if(isset($row["f_hash"])) {
                 $thumb_image = get_cached_image(array(
                     'max_width'     => 420,
-                    'max_height'    => 250,
+                    'max_height'    => 420,
                     "target_ext"    => $row["f_ext"],
                     "image_name"    => $row["f_hash"] . '.' . $row["f_ext"],
                     "thumb_name"    => md5($row["f_hash"].'420250'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])

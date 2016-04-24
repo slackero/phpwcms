@@ -11,31 +11,31 @@
 
 [default]
 
-title				= "Daily RSS feed"
-description			= "This is the default RSS feeds of my site"
-link				= "http://www.mysite.tld/"
-syndicationURL		= ""				; let empty to set it to SELF
+title               = "Daily RSS feed"
+description         = "This is the default RSS feeds of my site"
+link                = "http://www.mysite.tld/"
+syndicationURL      = ""                ; let empty to set it to SELF
 
-imagesrc			= ""
-imagetitle			= ""
-imagelink			= ""				; if not set will be the same as 'link'
-imagedescription	= ""
+imagesrc            = ""
+imagetitle          = ""
+imagelink           = ""                ; if not set will be the same as 'link'
+imagedescription    = ""
 
-useauthor			= 1					; 0 - no author tag, 1 - author tag
-feedAuthor			= "editor@mysite.tld (Feed Editor)"
-feedEmail			= "feed@mysite.tld"
+useauthor           = 1                 ; 0 - no author tag, 1 - author tag
+feedAuthor          = "editor@mysite.tld (Feed Editor)"
+feedEmail           = "feed@mysite.tld"
 
-timeZone			= "+01:00"			; your local timezone, set to "" to disable or for GMT
-cacheTTL			= 3600				; if 0 no caching will be used otherwise these are seconds
+timeZone            = "+01:00"          ; your local timezone, set to "" to disable or for GMT
+cacheTTL            = 3600              ; if 0 no caching will be used otherwise these are seconds
 
-structureID			= ""					; if empty it will return the list of all articles sort by date, or use an phpwcms alias as starting point
-										; you can also use structureID there seperated by ','
-maxentries			= 10
-encoding			= UTF-8		;ISO-8859-1
-defaultFormat		= RSS2.0			; available: 0.91/RSS0.91, 1.0/RSS1.0, 2.0/RSS2.0, ATOM/ATOM0.3
-filename			= "default_feed.xml"
-orderBy				= "livedate"		; possible: livedate, killdate, createdate, changedate
-order				= DESC					; order ascending ASC, descending DESC (default) or random RAND
+structureID         = ""                    ; if empty it will return the list of all articles sort by date, or use an phpwcms alias as starting point
+                                        ; you can also use structureID there seperated by ','
+maxentries          = 10
+encoding            = UTF-8     ;ISO-8859-1
+defaultFormat       = RSS2.0            ; available: 0.91/RSS0.91, 1.0/RSS1.0, 2.0/RSS2.0, ATOM/ATOM0.3
+filename            = "default_feed.xml"
+orderBy             = "livedate"        ; possible: livedate, killdate, createdate, changedate
+order               = DESC                  ; order ascending ASC, descending DESC (default) or random RAND
 
 
 ; */ echo 'Sorry this is no public file. Good bye!';
