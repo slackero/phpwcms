@@ -457,7 +457,7 @@ if($image['template']) {
 
     				} else {
 
-    					$img_a = render_cnt_template($img_a, $custom_field_replacer, html($custom_field_value));
+    					$img_a = render_cnt_template($img_a, $custom_field_replacer, nl2br(html($custom_field_value)));
 
     				}
     			}

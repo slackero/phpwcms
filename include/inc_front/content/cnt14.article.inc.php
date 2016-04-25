@@ -107,7 +107,7 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 
 			} else {
 
-				$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, html($custom_field_value));
+				$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, nl2br(html($custom_field_value)));
 
 			}
 		}

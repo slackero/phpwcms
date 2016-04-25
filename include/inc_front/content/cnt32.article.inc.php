@@ -125,7 +125,7 @@ if($tabs['template']) {
 
 				} else {
 
-					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($custom_field_value));
+					$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, nl2br(html($custom_field_value)));
 
 				}
 			}
