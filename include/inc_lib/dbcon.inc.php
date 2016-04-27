@@ -112,7 +112,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 
 			// COUNT
 			case 'COUNT':	// first check if SQL COUNT() is used
-							$query = strtoupper($query);
+							$query = substr(strtoupper($query), 0, 30);
 							if(strpos($query, 'SELECT COUNT(') !== false) {
 								$row = mysql_fetch_row($result);
 								return $row ? (int) $row[0] : 0;
