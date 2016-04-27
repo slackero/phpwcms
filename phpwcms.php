@@ -226,6 +226,7 @@ $BE['HEADER']['alias_slah_var'] = ' <script type="text/javascript"> var aliasAll
 
 initMootools();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
+$BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
 
 if($do == "messages" && $p == 1) {
 
