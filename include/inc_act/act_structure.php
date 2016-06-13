@@ -29,7 +29,10 @@ if(empty($_SESSION['REFERER_URL'])) {
 	$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
 }
 
-if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
+//----- Edit by Uwe367-----//
+//-- Original--//  if($_SESSION)["wcs_user_admin"]==1)//Wenn Benutzer Admin-Rechte hat
+if($_SESSION["wcs_user"] == 0){ 
+//----- End Edit ----//
 
 	if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 		$acat_permit = implode(',', $_POST["acat_access"]);
