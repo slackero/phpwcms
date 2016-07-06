@@ -468,11 +468,17 @@ function copy_article_to_level($do, $dbcon) {
     if($result = mysql_query($sql, $dbcon) or die("error while connecting to database: <pre>".$sql."</pre>")) {
 
         if($row = mysql_fetch_assoc($result)) {
-            $row["article_cid"]     = $do[2];
-            $row["article_created"] = now();
-            $row["article_tstamp"]  = date('Y-m-d H:i:s', now() );
-            $row["article_sort"]    = getArticleSortValue($row["article_cid"]);
-            $row["article_alias"]   = proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
+            $row["article_cid"]      = $do[2];
+            $row["article_created"]  = now();
+            $row["article_tstamp"]   = date('Y-m-d H:i:s', now() );
+            $row["article_sort"]     = getArticleSortValue($row["article_cid"]);
+            $row["article_alias"]    = proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
+
+            // Check if the owner of the article needs to be updated
+            if($_SESSION["wcs_user_admin"] === 0 && intval($row["article_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+                $row["article_uid"]      = $_SESSION["wcs_user_id"];
+                $row["article_username"] = $_SESSION["wcs_user_name"];
+            }
 
             foreach($row as $key => $value) {
                 if($key == "article_id" ){
@@ -496,6 +502,12 @@ function copy_article_to_level($do, $dbcon) {
             if($result1 = mysql_query($sql1, $dbcon) or die("error sql")) {
                 while ($row1 = mysql_fetch_assoc($result1)) {
                     $row1["acontent_aid"] = $article_insert_id;
+
+                    // Check if the owner of the content part needs to be updated too
+                    if($_SESSION["wcs_user_admin"] === 0 && intval($row1["acontent_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+                        $row1["acontent_uid"] = $_SESSION["wcs_user_id"];
+                    }
+
                     foreach($row1 as $key1 => $value1) {
                         if($key1 == "acontent_id" ){
                             $key1s   = $key1;
@@ -532,7 +544,12 @@ function copy_level_to_level($do, $dbcon) {
         if($row = mysql_fetch_assoc($result)) {
             $row["acat_struct"] = $do[2];
             $row["acat_sort"]   = $do[3];
-            $row["acat_alias"]  = proof_alias(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY');;
+            $row["acat_alias"]  = proof_alias(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY');
+
+            // Check if the owner of the structure level needs to be updated
+            if($_SESSION["wcs_user_admin"] === 0 && intval($row["acat_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+                $row["acat_uid"] = $_SESSION["wcs_user_id"];
+            }
 
             foreach($row as $key => $value) {
                 if($key == "acat_id" ) {
