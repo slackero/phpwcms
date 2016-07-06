@@ -1453,7 +1453,7 @@ if(count($block['custom_htmlhead'])) {
 
 			$value = trim($value);
 
-			if(substr($value, 0, 7) == '<script') {
+			if(substr($key, 0, 5) !== 'head_' && substr($value, 0, 7) === '<script') {
 				$block['bodyjs_temp'] .= '  ' . $value . LF;
 			} else {
 				$block['htmlhead'] .= '  ' . $value . LF;
