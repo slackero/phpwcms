@@ -1425,6 +1425,50 @@ if(HTML5_MODE && IE8_CC) {
 
 }
 
+// internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
+if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_dismissed']) || strtolower($_COOKIE['cookieconsent_dismissed']) !== 'yes')) {
+
+    $block['cookie_consent']['options'] = array();
+    if(!empty($block['cookie_consent']['message'])) {
+        $block['cookie_consent']['options']['message'] = mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+    }
+    if(!empty($block['cookie_consent']['dismiss'])) {
+        $block['cookie_consent']['options']['dismiss'] = mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+    }
+    if(!empty($block['cookie_consent']['link'])) {
+
+        $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
+        $block['cookie_consent']['link'][0] = trim($block['cookie_consent']['link'][0]);
+        $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
+        if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
+            $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
+        }
+
+        if(!empty($block['cookie_consent']['more'])) {
+            $block['cookie_consent']['options']['learnMore'] = mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+        }
+    }
+
+    if(empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
+        $block['cookie_consent']['options']['theme'] = false;
+    } elseif(!PHPWCMS_USE_CDN && strpos($block['cookie_consent']['theme'], '.css') === false) {
+        $block['cookie_consent']['options']['theme'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/'.$block['cookie_consent']['options']['theme'].'.css';
+    } else {
+        $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
+    }
+
+    $block['custom_htmlhead']['cookieconsent.js']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  ';
+    $block['custom_htmlhead']['cookieconsent.js'] .= '    window.cookieconsent_options='.json_encode($block['cookie_consent']['options']).';';
+    $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
+
+    if(PHPWCMS_USE_CDN) {
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_HTTP_SCHEMA.'://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script><![endif]-->';
+    } else {
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/cookieconsent.min.js"></script><![endif]-->';
+    }
+
+}
+
 // PixelRatio Check based on JavaScript and Cookie
 if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['phpwcms_pixelratio'])) {
 	$block['custom_htmlhead']['pixelratio']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;

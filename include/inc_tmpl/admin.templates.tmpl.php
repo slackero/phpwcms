@@ -38,7 +38,17 @@ $template = array(
     'googleapi' => 1,
     'onepage' => 0,
     'ie8ignore' => 0,
+    'cookie_consent' => array(
+        'enable' => 0,
+        'message' => $BL['cookie_consent_message'],
+        'dismiss' => $BL['cookie_consent_dismiss'],
+        'more' => $BL['cookie_consent_more'],
+        'link' => '',
+        'theme' => 'light-bottom',
+    )
 );
+
+initJQuery();
 
 if(!isset($_GET["s"])) {
 
@@ -131,6 +141,22 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
         $template['googleapi']  = empty($_POST["template_googleapi"]) ? 0 : 1;
         $template['onepage']    = empty($_POST["template_onepage"]) ? 0 : 1;
         $template['ie8ignore']  = empty($_POST["template_ie8ignore"]) ? 0 : 1;
+        $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
+        if(!empty($_POST['template_cc_message'])) {
+            $template['cookie_consent']['message'] = slweg($_POST['template_cc_message']);
+        }
+        if(!empty($_POST['template_cc_dismiss'])) {
+            $template['cookie_consent']['dismiss'] = slweg($_POST['template_cc_dismiss']);
+        }
+        if(!empty($_POST['template_cc_more'])) {
+            $template['cookie_consent']['more'] = slweg($_POST['template_cc_more']);
+        }
+        if(!empty($_POST['template_cc_link'])) {
+            $template['cookie_consent']['link'] = clean_slweg($_POST['template_cc_link']);
+        }
+        if(isset($_POST['template_cc_theme'])) {
+            $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
+        }
 
         // now browse custom blocks if available
         if(!empty($_POST['customblock'])) {
@@ -413,9 +439,56 @@ foreach($phpwcms['js_lib'] as $key => $value) {
             <td><input type="checkbox" name="template_frontendjs" id="template_frontendjs" value="1"<?php is_checked($template['frontendjs'], 1); ?> /></td>
             <td class="v10"><label for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label></td>
         </tr>
-    </table></td>
-    </tr>
+        <tr>
+            <td><input type="checkbox" name="template_cookie_consent" id="template_cookie_consent" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?> /></td>
+            <td class="v10"><label for="template_cookie_consent"><?php echo $BL['be_cookie_consent_enable'] ?></label></td>
+        </tr>
+        <tr id="cookie-consent"<?php if(!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
+            <td>
+                <script type="text/javascript">
 
+                    $(function(){
+                        $('#template_cookie_consent').change(function(){
+                            if($(this).is(':checked')) {
+                                $('#cookie-consent').show();
+                            } else {
+                                $('#cookie-consent').hide();
+                            }
+                        });
+                    });
+
+                </script>
+            </td>
+            <td class="tdtop3 tdbottom5">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_cookie_consent_message']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><textarea name="template_cc_message" rows="3" class="width400 autosize" placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_dismiss']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_cc_dismiss" maxlength="100" class="width400" placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>" value="<?php echo html($template['cookie_consent']['dismiss']) ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_more']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_cc_more" maxlength="100" class="width400" placeholder="<?php echo $BL['cookie_consent_more']; ?>" value="<?php echo html($template['cookie_consent']['more']) ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_link']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_cc_link" class="width400" placeholder="http://example.com/cookie-policy | cookie-policy" value="<?php echo html($template['cookie_consent']['link']) ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_theme']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_cc_theme" maxlength="200" class="width400"
+                            placeholder="light-top, light-bottom, light-floating, dark-top&hellip;"
+                            title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada"
+                            value="<?php echo html($template['cookie_consent']['theme']) ?>" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+      </table></td>
+    </tr>
 
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
@@ -423,7 +496,6 @@ foreach($phpwcms['js_lib'] as $key => $value) {
       <td align="right" class="chatlist"><?php echo $BL['be_admin_tmpl_js'] ?>:&nbsp;</td>
       <td><input name="template_jsonload" type="text" class="code width600" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>" size="50" /></td>
     </tr>
-
 
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
