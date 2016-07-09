@@ -179,7 +179,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top">
-			        	<textarea name="cimage_caption" cols="30" rows="4" class="width300" id="cimage_caption"><?php
+			        	<textarea name="cimage_caption" cols="30" rows="3" class="width300 autosize" id="cimage_caption"><?php
 			        	if(isset($content["image_caption"])) {
 			        		echo html($content["image_caption"]);
 			        	}

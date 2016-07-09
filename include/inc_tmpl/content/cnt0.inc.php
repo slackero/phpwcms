@@ -20,7 +20,6 @@ if (!defined('PHPWCMS_ROOT')) {
 // Plain Text
 
 initMootools('1.2');
-$GLOBALS['BE']['HEADER']['flext.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/plugin-1.2/mootools.flext.js');
 
 if(empty($content['ctext_format'])) {
 	$content['ctext_format'] = 'plain';
@@ -76,7 +75,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_plaintext'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="ctext" rows="20" class="code width440 flext growme" id="ctext"><?php
+	<td valign="top"><textarea name="ctext" rows="20" class="code width440 autosize" id="ctext"><?php
 		if(empty($content["text"])) {
 
 			echo '';

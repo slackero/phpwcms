@@ -66,7 +66,7 @@ $img_thumbs = '';
 
 <tr>
 <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_plaintext'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="creference_text" rows="15" wrap="VIRTUAL" class="width440" id="creference_text"><?php echo  $content['reference']["text"] ?></textarea></td>
+<td valign="top"><textarea name="creference_text" rows="15" wrap="VIRTUAL" class="width440 autosize" id="creference_text"><?php echo  $content['reference']["text"] ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
@@ -129,7 +129,7 @@ if($img_thumbs) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="creference_caption" cols="40" rows="<?php echo (count($content['reference']["list"])) ? (count($content['reference']["list"]) + 4) : 5 ?>" wrap="off" class="width440" id="creference_caption"><?php echo html($content['reference']["caption"]) ?></textarea></td>
+  <td valign="top"><textarea name="creference_caption" cols="40" rows="5" wrap="off" class="width440 autosize" id="creference_caption"><?php echo html($content['reference']["caption"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>

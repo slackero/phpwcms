@@ -166,7 +166,7 @@ if($msg_send_ok) {
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_subject'] ?>:</td></tr>
 	<tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" class="code width540" value="<?php echo html($msg_subject); ?>" size="40" maxlength="125"></td></tr>
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_msg'] ?>:</td></tr>
-	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" class="code width540"><?php echo html($msg_message); ?></textarea></td></tr>
+	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" class="code width540 autosize"><?php echo html($msg_message); ?></textarea></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="3"><input name="submit" type="image" id="submit" src="img/button/send_message.gif" alt="<?php echo $BL['be_msg_all'] ?>" width="87" height="17" border="0"></td></tr>
 	<tr><td colspan="3">&nbsp;</td></tr>

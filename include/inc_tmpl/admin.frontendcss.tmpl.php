@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -20,30 +20,29 @@ if (!defined('PHPWCMS_ROOT')) {
 $frontend_css = read_textfile(PHPWCMS_TEMPLATE."inc_css/frontend.css"); //reads the css template
 $frontend_css = ($frontend_css) ? html($frontend_css) : "";
 
-?><form action="include/inc_act/act_frontendcss.php" method="post" name="css" target="_self"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="include/inc_act/act_frontendcss.php" method="post" name="css" target="_self">
 
-	<tr>
-	  <td colspan="2" class="title"><?php echo $BL['be_admin_css_title'] ?></td>
-	</tr>
-	<tr>
-		<td width="35"><img src="img/leer.gif" alt="" width="35" height="4"></td>
-		<td width="503"><img src="img/leer.gif" alt="" width="1" height="1"></td>
-	</tr>
-	<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-	<tr>
-		<td align="right" valign="top" class="chatlist"><a name="frontend_css"></a><img src="img/leer.gif" alt="" width="1" height="16"><?php echo $BL['be_admin_css_css'] ?>:&nbsp;
-		<div style="text-align:right;padding:2px;padding-right:5px;padding-top:10px;">
-		<a href="#frontend_css" onclick="contractField('frontend_css', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11"></a><a href="#frontend_css" onclick="growField('frontend_css', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11"></a>
-		</div>
-		</td>
-		<td><textarea name="frontend_css" cols="35" rows="25" wrap="off" class="width500" id="frontend_css"><?php echo $frontend_css; ?></textarea></td>
-	</tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_css_button'] ?>"></td>
-	</tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
+    <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 
-</table></form>
+        <tr>
+          <td colspan="2" class="title"><?php echo $BL['be_admin_css_title'] ?></td>
+        </tr>
+        <tr>
+            <td width="35"><img src="img/leer.gif" alt="" width="35" height="4"></td>
+            <td width="503"><img src="img/leer.gif" alt="" width="1" height="1"></td>
+        </tr>
+        <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
+        <tr>
+            <td align="right" valign="top" class="chatlist"><a name="frontend_css"></a><img src="img/leer.gif" alt="" width="1" height="16"><?php echo $BL['be_admin_css_css'] ?>:&nbsp;</td>
+            <td><textarea name="frontend_css" cols="35" rows="20" wrap="off" class="width500 autosize" id="frontend_css"><?php echo $frontend_css; ?></textarea></td>
+        </tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_css_button'] ?>"></td>
+        </tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
+
+    </table>
+</form>

@@ -298,7 +298,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" class="chatlist tdtop3"><?php echo $BL['be_flashplayer_caption'] ?>:&nbsp;</td>
-	<td><textarea name="fmp_caption" cols="40" rows="2" class="width440" id="fmp_caption"><?php echo html($fmp_data['fmp_caption']) ?></textarea></td>
+	<td><textarea name="fmp_caption" cols="40" rows="2" class="width440 autosize" id="fmp_caption"><?php echo html($fmp_data['fmp_caption']) ?></textarea></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>

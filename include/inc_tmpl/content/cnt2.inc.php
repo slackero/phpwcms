@@ -295,7 +295,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top">
-		<textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="width440" id="cimage_caption"><?php echo $caption_box; ?></textarea>
+		<textarea name="cimage_caption" cols="40" rows="3" wrap="off" class="width440 autosize" id="cimage_caption"><?php echo $caption_box; ?></textarea>
 		<span class="caption width440">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|

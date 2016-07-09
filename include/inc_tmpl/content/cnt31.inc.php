@@ -335,7 +335,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                 <tr>
                     <td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
                     <td colspan="3">
-                        <textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="width300" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea>
+                        <textarea name="cimage_caption[<?php echo $key ?>]" id="cimage_caption_<?php echo $key ?>" class="width300 autosize" cols="30" rows="2"><?php echo html($value['caption']) ?></textarea>
                         <span class="caption width440">
                             <?php echo $BL['be_cnt_caption']; ?>
                             |
@@ -354,7 +354,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
                 <tr>
                     <td class="chatlist right tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;</td>
-                    <td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="w300" cols="30" rows="2"><?php echo html(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
+                    <td colspan="3"><textarea name="cimage_freetext[<?php echo $key ?>]" id="cimage_freetext_<?php echo $key ?>" class="w300 autosize" cols="30" rows="2"><?php echo html(empty($value['freetext']) ? '' : $value['freetext']) ?></textarea></td>
                 </tr>
 
                 <tr><td colspan="3" class="spacerrow"></td></tr>
@@ -425,7 +425,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 							<?php endif; ?>
 							/>
 			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400"<?php echo $custom_field_placeholder; ?> rows="<?php
+							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400 autosize"<?php echo $custom_field_placeholder; ?> rows="<?php
 								echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
 							?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
 			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
@@ -649,14 +649,14 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         new_entry += '<'+'/tr>';
         new_entry += '<'+'tr>';
         new_entry += '<'+'td class="chatlist right tdtop3"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;<'+'/td>';
-        new_entry += '<'+'td colspan="3"><textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="width300" cols="30" rows="2"><'+'/textarea>';
+        new_entry += '<'+'td colspan="3"><textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="width300 autosize" cols="30" rows="2"><'+'/textarea>';
         new_entry += '<span class="caption width300"><?php echo $BL['be_cnt_caption']; ?> | <?php echo $BL['be_caption_alt']; ?> | <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em> | <?php echo $BL['be_caption_title']; ?> | <?php echo $BL['be_copyright']; ?></span>';
         new_entry += '<'+'/td>';
         new_entry += '<'+'/tr>';
         new_entry += '<'+'tr><td colspan="3" class="spacerrow"><'+'/td><'+'/tr>';
         new_entry += '<'+'tr>';
         new_entry += '<'+'td class="chatlist right tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;<'+'/td>';
-        new_entry += '<'+'td colspan="3"><textarea name="cimage_freetext['+entry_number+']" id="cimage_freetext_'+entry_number+'" class="w300" cols="30" rows="2"><'+'/textarea><'+'/td>';
+        new_entry += '<'+'td colspan="3"><textarea name="cimage_freetext['+entry_number+']" id="cimage_freetext_'+entry_number+'" class="w300 autosize" cols="30" rows="2"><'+'/textarea><'+'/td>';
         new_entry += '<'+'/tr>';
         new_entry += '<'+'tr><td colspan="3" class="spacerrow"><'+'/td><'+'/tr>';
         new_entry += '<'+'tr>';
@@ -696,7 +696,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <?php	if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'):	?>
 		new_entry += '<input type="text" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400"<?php echo $custom_field_placeholder; ?> '+'/>';
 <?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-		new_entry += '<textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" class="v11 width400" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
+		new_entry += '<textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" class="v11 width400 autosize" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
 <?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
 		foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
 		new_entry += '<label class="radio tab-option-radio"><input type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>'+'/> <?php echo html($option_label); ?><'+'/label> ';

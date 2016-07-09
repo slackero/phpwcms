@@ -193,7 +193,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
     </tr>
     <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
         <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top" class="tdbottom2"><textarea name="file_longinfo" cols="40" rows="4" class="width400" id="file_longinfo"></textarea></td>
+        <td valign="top" class="tdbottom2"><textarea name="file_longinfo" cols="40" rows="4" class="width400 autosize" id="file_longinfo"></textarea></td>
     </tr>
     <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
         <td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
@@ -222,7 +222,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
     </tr>
     <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
         <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top" class="tdbottom2"><textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="width400" id="file_longinfo_<?php echo $lang ?>"></textarea></td>
+        <td valign="top" class="tdbottom2"><textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="width400 autosize" id="file_longinfo_<?php echo $lang ?>"></textarea></td>
     </tr>
     <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
         <td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>

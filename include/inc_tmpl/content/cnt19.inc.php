@@ -37,12 +37,12 @@ if(!isset($content['sitemap'])) {
 ?>
 <tr>
   <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo $BL['be_cnt_guestbook_before'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="csitemap_before" cols="40" rows="3" class="code width440" id="csitemap_before"><?php echo html($content["sitemap"]["before"]) ?></textarea></td>
+  <td valign="top"><textarea name="csitemap_before" cols="40" rows="3" class="code width440 autosize" id="csitemap_before"><?php echo html($content["sitemap"]["before"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
   <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo $BL['be_cnt_guestbook_after'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="csitemap_after" cols="40" rows="3" class="code width440" id="csitemap_after"><?php echo html($content["sitemap"]["after"]) ?></textarea></td>
+  <td valign="top"><textarea name="csitemap_after" cols="40" rows="3" class="code width440 autosize" id="csitemap_after"><?php echo html($content["sitemap"]["after"]) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>

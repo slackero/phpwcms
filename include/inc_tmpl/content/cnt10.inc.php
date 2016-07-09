@@ -53,7 +53,7 @@ if(!isset($content["mailhtml"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_formfields'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="cmailform" rows="15" wrap="off" class="width440" id="cmailform"><?php
+	<td valign="top"><textarea name="cmailform" rows="15" wrap="off" class="width440 autosize" id="cmailform"><?php
 
 	if(isset($content["mailform"])) {
 		if(is_array($content["mailform"])) {

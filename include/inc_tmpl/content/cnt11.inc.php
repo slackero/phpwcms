@@ -48,7 +48,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_code'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="ccode" rows="25" class="code width440" id="ccode"><?php
+	<td valign="top"><textarea name="ccode" rows="20" class="code width440 autosize" id="ccode"><?php
 
 	if(!empty($content["code"])) {
 

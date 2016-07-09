@@ -254,7 +254,7 @@ calEnd.setYearCombo(false);
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
 				<td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-				<td><textarea name="article_description" rows="4" class="width440" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
+				<td><textarea name="article_description" rows="4" class="width440 autosize" id="article_description"><?php echo html($article["article_description"]) ?></textarea></td>
 			</tr>
 			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 			<tr>
@@ -420,7 +420,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top">
-			        	<textarea name="cimage_caption" cols="30" rows="3" class="width300" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
+			        	<textarea name="cimage_caption" cols="30" rows="3" class="width300 autosize" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
 						<span class="caption width300">
 							<?php echo $BL['be_cnt_caption']; ?>
 							|
@@ -532,7 +532,7 @@ if(!isset($article['image']['list_usesummary'])) {
 	<td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 	<td valign="top">
-		<textarea name="cimage_list_caption" cols="30" rows="3" class="width300" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
+		<textarea name="cimage_list_caption" cols="30" rows="3" class="width300 autosize" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
 		<span class="caption width300">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|

@@ -48,5 +48,5 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_linklist'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="ctext" rows="20" wrap="VIRTUAL" class="width440" id="ctext"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea></td>
+	<td valign="top"><textarea name="ctext" rows="20" wrap="VIRTUAL" class="width440 autosize" id="ctext"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea></td>
 </tr>

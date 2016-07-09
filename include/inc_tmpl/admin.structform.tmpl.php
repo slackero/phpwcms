@@ -225,32 +225,32 @@ switch($acat_hidden) {
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
-          <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width450" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
+          <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width540" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="150" /></td></tr>
 
             <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_cnt_css_class'] ?>:</td></tr>
          <tr>
-            <td><input name="acat_class" type="text" id="acat_class" class="width450" value="<?php echo html($acat_class) ?>" size="50" maxlength="150" /></td>
+            <td><input name="acat_class" type="text" id="acat_class" class="width540" value="<?php echo html($acat_class) ?>" size="50" maxlength="150" /></td>
         </tr>
 
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_article_aredirect'] ?>:</td></tr>
-          <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="width450" value="<?php echo html($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
+          <tr><td><input name="acat_redirect" type="text" id="acat_redirect" class="width540" value="<?php echo html($acat_redirect) ?>" size="50" maxlength="255" /></td></tr>
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_canonical'] ?>:</td></tr>
-          <tr><td><input name="acat_canonical" type="text" id="acat_canonical" class="width450" value="<?php echo html($acat_canonical) ?>" size="50" maxlength="2000" /></td></tr>
+          <tr><td><input name="acat_canonical" type="text" id="acat_canonical" class="width540" value="<?php echo html($acat_canonical) ?>" size="50" maxlength="2000" /></td></tr>
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
         <tr><td class="v09"><?php echo $BL['be_article_akeywords'] ?>:</td></tr>
-          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="width540"><?php echo html($acat_keywords) ?></textarea></td></tr>
+          <tr><td><textarea name="acat_keywords" cols="50" rows="3" id="acat_keywords" class="width540 autosize"><?php echo html($acat_keywords) ?></textarea></td></tr>
 
         <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_admin_struct_info'] ?>:</td></tr>
-          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="width540"><?php echo html($acat_info) ?></textarea></td></tr>
+          <tr><td><textarea name="acat_info" cols="50" rows="4" id="acat_info" class="width540 autosize"><?php echo html($acat_info) ?></textarea></td></tr>
 
           <tr><td><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
           <tr><td class="v09"><?php echo $BL['be_admin_struct_template'] ?>:</td></tr>
@@ -710,4 +710,3 @@ $(function() {
 </script>
 <?php
 endif;
-?>

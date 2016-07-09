@@ -197,8 +197,7 @@ initMootools();
 $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
 
 ?>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /><input type="hidden" name="target_ctype" value="23" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="5" /><input type="hidden" name="target_ctype" value="23" /></td></tr>
 <tr>
 <td align="right" class="chatlist"><?php echo $BL['be_msg_subject'] ?>:&nbsp;</td>
 <td><table summary="" cellpadding="0" cellspacing="0" border="0">
@@ -433,10 +432,7 @@ echo $subject_option;
 	</td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist tdtop4"><?php echo $BL['be_cnt_database'] ?>:&nbsp;</td>
@@ -482,11 +478,7 @@ if($content["id"]) {
   </td>
 </tr>
 
-
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_admin_tmpl_default'] ?>:&nbsp;</td>
@@ -499,7 +491,7 @@ if($content["id"]) {
 		<td class="v10"><label for="cform_startup_html1">HTML&nbsp;</label>&nbsp;</td>
 	</tr>
 	</table>
-	<textarea name="cform_startup" id="cform_startup" rows="5" class="width440"><?php echo html($content['form']["startup"]) ?></textarea></td>
+	<textarea name="cform_startup" id="cform_startup" rows="5" class="width440 autosize"><?php echo html($content['form']["startup"]) ?></textarea></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -533,7 +525,7 @@ if($content["id"]) {
 
 	</tr>
 </table>
-<textarea name="cform_onsuccess" id="cform_onsuccess" rows="3" class="width440"><?php echo html($content['form']["onsuccess"]) ?></textarea>
+<textarea name="cform_onsuccess" id="cform_onsuccess" rows="3" class="width440 autosize"><?php echo html($content['form']["onsuccess"]) ?></textarea>
 </td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
@@ -551,7 +543,7 @@ if($content["id"]) {
 		&nbsp;&nbsp;</td>
 	</tr>
 </table>
-<textarea name="cform_onerror" rows="3" class="width440"><?php echo html($content['form']["onerror"]) ?></textarea>
+<textarea name="cform_onerror" rows="3" class="width440 autosize"><?php echo html($content['form']["onerror"]) ?></textarea>
 </td>
 </tr>
 
@@ -603,21 +595,21 @@ if($content["id"]) {
 
 <tr>
 	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_form_class'] ?>:&nbsp;</td>
-	<td><input type="text" name="cform_class" class="v10" style="width:120px;" value="<?php echo html($content['form']["class"]) ?>" /></td>
+	<td><input type="text" name="cform_class" class="width120" value="<?php echo html($content['form']["class"]) ?>" /></td>
 	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_label_wrap'] ?>:&nbsp;</td>
 	<td colspan="4"><input type="text" name="cform_label_wrap" class="v10 width85" value="<?php echo html($content['form']["label_wrap"]) ?>" /></td>
 </tr>
 
 <tr>
 	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_req_mark'] ?>:&nbsp;</td>
-	<td><input type="text" name="cform_reqmark" class="v10" style="width:120px;" value="<?php echo html($content['form']["cform_reqmark"]) ?>" /></td>
+	<td><input type="text" name="cform_reqmark" class="width120" value="<?php echo html($content['form']["cform_reqmark"]) ?>" /></td>
 	<td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_error_class'] ?>:&nbsp;</td>
 	<td colspan="4"><input type="text" name="cform_error_class" class="v10 width85" value="<?php echo html($content['form']["error_class"]) ?>" /></td>
 </tr>
 
 <tr>
 	<td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
-	<td><input type="text" name="cform_function_validate" class="v10" style="width:120px;" value="<?php echo html($content['form']["cform_function_validate"]) ?>" /></td>
+	<td><input type="text" name="cform_function_validate" class="width120" value="<?php echo html($content['form']["cform_function_validate"]) ?>" /></td>
 	<td class="chatlist" align="right" class="nowrap">
 		<?php echo $BL['be_article_cnt_anchor'].' &ndash; '.$BL['be_cnt_target']; ?>:<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> />
 	</td>
@@ -668,7 +660,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 									$field_row4 .= '<td colspan="2" class="chatlist" align="right" valign="top">&nbsp;<img src="img/leer.gif" width="1" height="15" alt="" />';
 									$field_row4 .= $BL['be_cnt_bid_verifyemail'].':&nbsp;</td>'.LF;
 									$field_row4 .= '<td colspan="6"><textarea name="cform_field_verifyemail" ';
-									$field_row4 .= 'id="cform_field_verifyemail" rows="5" class="code" style="font-size:11px;width:323px;" wrap="off">';
+									$field_row4 .= 'id="cform_field_verifyemail" rows="5" class="code width340 autosize" wrap="off">';
 									$field_row4 .= html($content['form']['verifyemail']).'</textarea></td>';
 									$field_row4 .= LF.'</tr>'.LF;
 
@@ -804,13 +796,13 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<option value="breaktext"'. 	is_selected('breaktext',	$content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['breaktext'].'</option>'.LF;
 		echo '</select></td>';
 
-		echo '<td><input type="text" name="cform_field_name['.$field_counter.']" class="v10" style="width:120px;" value="';
+		echo '<td><input type="text" name="cform_field_name['.$field_counter.']" class="width120" value="';
 		echo html($content['form']["fields"][$key]['name']).'"></td>'.LF;
-		echo '<td><input type="text" name="cform_field_label['.$field_counter.']" class="v10" style="width:120px;" value="';
+		echo '<td><input type="text" name="cform_field_label['.$field_counter.']" class="width120" value="';
 		echo html($content['form']["fields"][$key]['label']).'"></td>'.LF;
-		echo '<td><input type="text" name="cform_field_size['.$field_counter.']" class="v10" style="width:40px;" value="';
+		echo '<td><input type="text" name="cform_field_size['.$field_counter.']" class="width40" value="';
 		echo html($content['form']["fields"][$key]['size']).'"title="SIZE for Text/COLUMNS for Textarea"></td>'.LF;
-		echo '<td><input type="text" name="cform_field_max['.$field_counter.']" class="v10" style="width:40px;" value="';
+		echo '<td><input type="text" name="cform_field_max['.$field_counter.']" class="width40" value="';
 		echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List"></td>'.LF;
 		echo '<td><input type="checkbox" name="cform_field_required['.$field_counter.']"';
 		echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0).' value="1" title="'.$BL['be_cnt_mark_as_req'].'"></td>'.LF;
@@ -851,28 +843,23 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo "</table></td>\n";
 
 		echo '<td colspan="4"><textarea name="cform_field_value['.$field_counter.']" ';
-		echo 'id="cform_field_value_'.$field_counter.'" rows="5" class="code" style="font-size:11px;width:323px;">';
+		echo 'id="cform_field_value_'.$field_counter.'" rows="5" class="code width340 autosize">';
 		echo html($content['form']["fields"][$key]['value']).'</textarea>';
 
 		echo '</td>';
-		echo '<td colspan="2" valign="bottom"><div style="padding:2px"><a href="#field_value_'.$field_counter.'" ';
-		echo "onclick=\"contractField('cform_field_value_".$field_counter."', 'V')\">";
-		echo '<img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11"></a><br />';
-		echo '<a href="#field_value_'.$field_counter.'" ';
-		echo "onclick=\"growField('cform_field_value_".$field_counter."', 'V')\">";
-		echo '<img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11"></a></div></td>';
+		echo '<td colspan="2" valign="bottom"></td>';
 		echo '</tr>'.LF;
 
 		echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_2">';
 		echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_newsletter_placeholder'].':&nbsp;</td>';
 		echo '<td colspan="6"><input type="text" name="cform_field_placeholder['.$field_counter.']" value="';
 		echo empty($content['form']["fields"][$key]['placeholder']) ? '' : html($content['form']["fields"][$key]['placeholder']);
-		echo '" class="v10" style="width:323px;"></td>'.LF.'</tr>'.LF;
+		echo '" class="width340"></td>'.LF.'</tr>'.LF;
 
 		echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_3">';
 		echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_cnt_error_text'].':&nbsp;</td>';
 		echo '<td colspan="6"><input type="text" name="cform_field_error['.$field_counter.']" value="';
-		echo  html($content['form']["fields"][$key]['error']).'" class="v10" style="width:323px;"';
+		echo  html($content['form']["fields"][$key]['error']).'" class="width340"';
 		if($content['form']["fields"][$key]['type'] == 'upload') {
 			echo ' title="{MAXLENGTH}, {FILESIZE}, {FILENAME}, {FILEEXT}"';
 		}
@@ -881,11 +868,11 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 		echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">';
 		echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_cnt_css_class'].':&nbsp;</td>';
 		echo '<td><input type="text" name="cform_field_class['.$field_counter.']" value="';
-		echo  html($content['form']["fields"][$key]['class']).'" class="v10" style="width:120px;"></td>'.LF;
+		echo  html($content['form']["fields"][$key]['class']).'" class="width120"></td>'.LF;
 		echo '<td colspan="5"><table summary="" cellpadding="0" cellspacing="0" border="0" style="width:202px;"><tr>
 			 <td class="chatlist" style="width:82px;" align="right">&nbsp;'.$BL['be_cnt_css_style'].':&nbsp;</td>
-			 <td style="width:120px;"><input type="text" name="cform_field_style['.$field_counter.']" value="';
-		echo html($content['form']["fields"][$key]['style']).'" class="v10" style="width:120px;"></td></tr></table></td>';
+			 <td class="width120"><input type="text" name="cform_field_style['.$field_counter.']" value="';
+		echo html($content['form']["fields"][$key]['style']).'" class="width120"></td></tr></table></td>';
 
 		echo "\n</tr>\n";
 
@@ -936,35 +923,34 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 	<option value="break"><?php echo $BL['be_cnt_field']['break'] ?></option>
 	<option value="breaktext"><?php echo $BL['be_cnt_field']['breaktext'] ?></option>
 	</select></td>
-	<td><input type="text" name="cform_field_name[0]" class="v10" style="width:120px;" /></td>
-	<td><input type="text" name="cform_field_label[0]" class="v10" style="width:120px;" /></td>
-	<td><input type="text" name="cform_field_size[0]" class="v10" style="width:40px;" title="SIZE for Text/COLUMNS for Textarea" /></td>
-	<td><input type="text" name="cform_field_max[0]" class="v10" style="width:40px;" title="MAXLENGTH for Text/ROWS for Textarea and List" /></td>
+	<td><input type="text" name="cform_field_name[0]" class="width120" /></td>
+	<td><input type="text" name="cform_field_label[0]" class="width120" /></td>
+	<td><input type="text" name="cform_field_size[0]" class="width40" title="SIZE for Text/COLUMNS for Textarea" /></td>
+	<td><input type="text" name="cform_field_max[0]" class="width40" title="MAXLENGTH for Text/ROWS for Textarea and List" /></td>
 	<td><input type="checkbox" name="cform_field_required[0]" value="1" title="mark as required field" /></td>
 	<td>&nbsp;
 	  <input type="hidden" name="cform_order[0]" value="<?php echo $field_counter?>" /></td>
 </tr>
 <tr bgcolor="#E7E8EB">
 	<td colspan="2" class="chatlist" valign="top" align="right"><a name="field_value_0" id="field_value_0"></a>&nbsp;<img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_value'] ?>:&nbsp;</td>
-	<td colspan="4"><textarea name="cform_field_value[0]" id="cform_field_value_0" rows="5" class="code width325"></textarea></td>
-	<td colspan="2" valign="bottom"><div style="padding:2px"><a href="#field_value_0" onclick="contractField('cform_field_value_0', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><br />
-	  <a href="#field_value_0" onclick="growField('cform_field_value_0', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a></div></td>
+	<td colspan="4"><textarea name="cform_field_value[0]" id="cform_field_value_0" rows="5" class="code width340 autosize"></textarea></td>
+	<td colspan="2" valign="bottom"></td>
 </tr>
 <tr bgcolor="#E7E8EB">
 	<td colspan="2" class="chatlist" align="right">&nbsp;<?php echo $BL['be_newsletter_placeholder'] ?>:&nbsp;</td>
-	<td colspan="6"><input type="text" name="cform_field_placeholder[0]" class="v10" style="width:323px;" /></td>
+	<td colspan="6"><input type="text" name="cform_field_placeholder[0]" class="width340" /></td>
 </tr>
 <tr bgcolor="#E7E8EB">
 	<td colspan="2" class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_error_text'] ?>:&nbsp;</td>
-	<td colspan="6"><input type="text" name="cform_field_error[0]" class="v10" style="width:323px;" /></td>
+	<td colspan="6"><input type="text" name="cform_field_error[0]" class="width340" /></td>
 </tr>
 <tr bgcolor="#E7E8EB">
 	<td colspan="2" class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_css_class']	?>:&nbsp;</td>
-	<td><input type="text" name="cform_field_class[0]" class="v10" style="width:120px;" /></td>
+	<td><input type="text" name="cform_field_class[0]" class="width120" /></td>
 	<td colspan="5"><table summary="" cellpadding="0" cellspacing="0" border="0" style="width:202px;">
 		<tr>
 		<td class="chatlist" style="width:82px;" align="right">&nbsp;<?php echo $BL['be_cnt_css_style'] ?>:&nbsp;</td>
-		<td style="width:120px;"><input type="text" name="cform_field_style[0]" class="v10" style="width:120px;" /></td>
+		<td class="width120"><input type="text" name="cform_field_style[0]" class="width120" /></td>
 		</tr>
 	</table></td>
 </tr>
@@ -1035,9 +1021,7 @@ if(!empty($field_counter) && $field_counter > 1) {
 ?></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr><td class="chatlist" colspan="2">
 	<a name="anchor_template" id="anchor_template"></a>
@@ -1088,14 +1072,9 @@ if($content['form']["template_format"]) {
 	include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 } else {
 
-	echo '<textarea name="cform_template" id="cform_template" rows="5" class="code width540" ';
-	echo 'onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);">';
+	echo '<textarea name="cform_template" id="cform_template" rows="5" class="code width540 autosize">';
 	echo html($content['form']["template"]).'</textarea>';
-	?>
-	<div style="text-align:right;padding:2px;padding-right:5px;">
-	<a href="#anchor_template" onclick="contractField('cform_template', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_template" onclick="growField('cform_template', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>
-	</div>
-	<?php
+
 }
 
 ?></td>
@@ -1110,9 +1089,7 @@ if($content['form']["template_format"]) {
 
 <!-- copy mail template //-->
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td class="chatlist" colspan="2">
@@ -1203,14 +1180,9 @@ if($content['form']["template_format_copy"]) {
 	include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 } else {
 
-	echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="code width540" ';
-	echo 'onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);">';
+	echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="code width540 autosize">';
 	echo html($content['form']["template_copy"]).'</textarea>';
-	?>
-	<div style="text-align:right;padding:2px;padding-right:5px;">
-	<a href="#anchor_template_copy" onclick="contractField('cform_template_copy', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_template_copy" onclick="growField('cform_template_copy', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>
-	</div>
-	<?php
+
 }
 
 ?></td>
@@ -1223,9 +1195,7 @@ if($content['form']["template_format_copy"]) {
 	<td><input name="cform_function_cc" type="text" id="cform_function_cc" class="v11 width200" value="<?php echo html($content['form']['function_cc']) ?>" size="40" /></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td class="chatlist" colspan="2" style="padding-bottom:3px;"><a name="anchor_customform" id="anchor_customform"></a><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
@@ -1248,12 +1218,8 @@ if($for_select_2 != '') {
 
 <tr>
 	<td colspan="2">
-	<textarea name="cform_customform" id="cform_customform" rows="5" class="code width540" onselect="setCursorPos(this);" onclick="setCursorPos(this);" onkeyup="setCursorPos(this);"><?php echo html($content['form']["customform"]) ?></textarea>
-	<div style="text-align:right;padding:2px;padding-right:5px;">
-	<a href="#anchor_customform" onclick="contractField('cform_customform', 'V')"><img src="img/button/minus_11x11.gif" border="0" alt="-" width="11" height="11" /></a><a href="#anchor_customform" onclick="growField('cform_customform', 'V')"><img src="img/button/add_11x11.gif" border="0" alt="+" width="11" height="11" /></a>	</div>
+	    <textarea name="cform_customform" id="cform_customform" rows="5" class="code width540 autosize"><?php echo html($content['form']["customform"]) ?></textarea>
 	</td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

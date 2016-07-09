@@ -268,7 +268,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_guestbook_banned'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cguestbook_banned" cols="40" rows="3" class="width440"><?php echo  isset($content["guestbook"]["banned"]) ? html($content["guestbook"]["banned"]) : '' ?></textarea></td>
+  <td valign="top"><textarea name="cguestbook_banned" cols="40" rows="3" class="width440 autosize"><?php echo  isset($content["guestbook"]["banned"]) ? html($content["guestbook"]["banned"]) : '' ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
 </tr>

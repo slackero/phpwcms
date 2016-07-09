@@ -72,7 +72,7 @@ if(count($content['recipe']['all_keywords'])) {
 ?>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="width440"><?php echo html($content['recipe']['category']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="width440 autosize"><?php echo html($content['recipe']['category']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
@@ -102,7 +102,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13">Zutaten:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="width440"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="width440 autosize"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>

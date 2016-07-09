@@ -200,7 +200,7 @@ if($content['custom_field_items']):
                 include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
             else: ?>
-                <textarea name="customfield[<?php echo $custom_field; ?>]" class="v11 width400"<?php echo $custom_field_placeholder; ?> rows="<?php
+                <textarea name="customfield[<?php echo $custom_field; ?>]" class="width400 autosize"<?php echo $custom_field_placeholder; ?> rows="<?php
                     echo empty($cnt_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $cnt_fieldgroup['fields'][$custom_field]['rows'];
                 ?>"><?php if(isset($content['custom_fields'][$custom_field])) { echo html($content['custom_fields'][$custom_field]); } ?></textarea>
 <?php       endif;

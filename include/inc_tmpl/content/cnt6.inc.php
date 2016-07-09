@@ -50,5 +50,5 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_plainhtml'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="chtml" rows="30" class="width440" id="chtml"><?php echo html($content["html"], true) ?></textarea></td>
+	<td valign="top"><textarea name="chtml" rows="20" class="width440 autosize" id="chtml"><?php echo html($content["html"], true) ?></textarea></td>
 </tr>

@@ -61,7 +61,7 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo 'choices' ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cpoll_caption" cols="40" rows="8" wrap="off" class="width440" id="cpoll_caption"><?php echo $caption_box; ?></textarea></td>
+  <td valign="top"><textarea name="cpoll_caption" cols="40" rows="8" wrap="off" class="width440 autosize" id="cpoll_caption"><?php echo $caption_box; ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr>

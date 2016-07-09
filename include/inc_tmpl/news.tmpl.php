@@ -285,7 +285,7 @@ $(function(){
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<textarea name="cnt_teasertext" id="cnt_teasertext" class="text" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
+					<textarea name="cnt_teasertext" id="cnt_teasertext" class="text autosize" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
 				</td>
 		</table>
 	</div>
@@ -477,7 +477,7 @@ $(function(){
 		<tr>
 				<td class="top"><label><?php echo $BL['be_cnt_caption'] ?></label></td>
 				<td colspan="2" class="tdbottom4">
-					<textarea name="cnt_image_caption" id="cnt_image_caption" class="text" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
+					<textarea name="cnt_image_caption" id="cnt_image_caption" class="text autosize" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
 					<span class="caption width350">
 						<?php echo $BL['be_cnt_caption']; ?>
 						|
@@ -528,7 +528,7 @@ $(function(){
 		<tr>
 	 		<td class="top"><label><?php echo $BL['be_cnt_description'] ?></label></td>
 	  		<td colspan="2">
-	  			<textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
+	  			<textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text autosize" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
 	  			<span class="caption width350 nowrap">
 					<?php echo $BL['be_caption_descr.']; ?>
 					|

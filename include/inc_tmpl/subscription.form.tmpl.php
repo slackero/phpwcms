@@ -71,7 +71,7 @@ if($subscription["id"]) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 	<tr>
 		<td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_newsletter_info'] ?>:&nbsp;</td>
-		<td><textarea name="subscription_info" cols="35" rows="6" class="width440" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea></td>
+		<td><textarea name="subscription_info" cols="35" rows="6" class="width440 autosize" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>

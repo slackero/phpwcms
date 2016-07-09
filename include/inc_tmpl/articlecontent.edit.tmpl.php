@@ -665,7 +665,7 @@ echo $_save_close_buttons;
 
 	<tr>
 	  <td align="right" class="chatlist tdtop3"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</td>
-	  <td><textarea name="ccomment" id="ccomment" class="width440" rows="5"><?php echo html($content["comment"]) ?></textarea></td>
+	  <td><textarea name="ccomment" id="ccomment" class="width440 autosize" rows="5"><?php echo html($content["comment"]) ?></textarea></td>
 	</tr>
 
 </table>

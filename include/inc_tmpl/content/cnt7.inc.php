@@ -119,7 +119,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
   <td valign="top">
-  	<textarea name="cfile_descr" cols="40" rows="8" class="width440" id="cfile_descr"><?php
+  	<textarea name="cfile_descr" cols="40" rows="5" class="width440 autosize" id="cfile_descr"><?php
 
 	if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
 		echo ' ';

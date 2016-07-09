@@ -289,7 +289,7 @@ if($img_count) {
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top">
-		<textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width440" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
+		<textarea name="cimage_caption" cols="40" rows="3" wrap="off" class="width440 autosize" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
 		<span class="caption width440">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|

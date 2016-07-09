@@ -223,5 +223,5 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_admin_page_text'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="width440"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>
+  <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="width440 autosize"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>
 </tr>

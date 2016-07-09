@@ -205,26 +205,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 	<tr><td colspan="2" style="padding-left:2px">
 <script type="text/javascript">
-<!--
-
-  nltemplate = new Array();
+  var nltemplate = new Array();
 <?php
 	echo implode(LF, $tmpldata['js']).LF;
 	echo '  showNewsletterTemplateData("'.$value3.'");';
 ?>
-
-//-->
 </script>
-<!--
-<div id="messageclose" class="chatlist">
-	<a href="#" onclick="hideLayer('messageclose');showLayer('messageopen'); return false;"><img src="img/symbols/icon_minicategory_12x9_1.gif" alt="<?php echo $BL['be_func_struct_open'] ?>" name="switchit" border="0" id="switchit" /><strong style="margin-left:5px"><?php echo $BL['be_newsletter_open'] ?></strong></a> <?php echo $BL['be_newsletter_open1'] ?>
-</div>
-
-<div id="messageopen" style="display:none">
-	<div class="chatlist">
-		<a href="#" onclick="hideLayer('messageopen');showLayer('messageclose');return false;"><img src="img/symbols/icon_minicategory_12x9_2.gif" alt="<?php echo $BL['be_func_struct_close'] ?>" name="switchit" border="0" id="switchit" /><strong style="margin-left:5px"><?php echo $BL['be_newsletter_open'] ?></strong></a> <?php echo $BL['be_newsletter_open1'] ?>
-	</div>
-//-->
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr><td class="chatlist"><?php echo $BL['be_newsletter_htmlpart'] ?>:</td></tr>
 	<tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -248,10 +234,10 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 	</tr>
 	<tr><td class="chatlist"><?php echo $BL['be_newsletter_textpart'] ?>:</td></tr>
 	<tr><td><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-	<tr><td><textarea name="newsletter_text" rows="25" wrap="off" class="code width540"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea></td></tr>
+	<tr><td><textarea name="newsletter_text" rows="25" wrap="off" class="code width540 autosize"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea></td></tr>
 
 	</table>
-	<!-- </div> --></td>
+	</td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
@@ -281,8 +267,6 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 		</table></td>
 	</tr>
 
-
-
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -298,7 +282,6 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 		<div id="statusMessage"><img src="img/indicator/indicator_arrows_green.gif" alt="Indicator" width="16" height="16" class="icon" /><p><?php echo $BL['be_cnt_newsletter_prepare2'] ?></p></div></td></tr>
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 	</tr>
-
 
 </table>
 </form>
