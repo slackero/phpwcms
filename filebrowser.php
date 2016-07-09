@@ -165,7 +165,11 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />
+    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
     <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
+    <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function addFile(obj,text,value) {
             if(obj!=null && obj.options!=null) {
@@ -177,9 +181,6 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
             }
         }
     </script>
-    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
 </head>
 <body class="filebrowser">
 <div class="uploader filebrowser-uploader closed" id="filebrowser-uploader">

@@ -245,6 +245,7 @@ $reason_types = array(
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
     <meta name="robots" content="noindex, nofollow" />
     <link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="include/inc_js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="include/inc_js/phpwcms.js"></script>
     <script type="text/javascript" src="include/inc_js/md5.js"></script>
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>

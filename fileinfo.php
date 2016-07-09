@@ -80,7 +80,9 @@ if($file_id) {
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="robots" content="noindex, nofollow" />
+    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
+    <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
 <?php
     echo '  <script type="text/javascript">
     function ResizeAndCenter(){

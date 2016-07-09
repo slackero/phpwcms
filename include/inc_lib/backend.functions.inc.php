@@ -997,7 +997,8 @@ function initJsAutocompleter() {
 }
 function initJQuery() {
     unset($GLOBALS['BE']['HEADER']['mootools.js']);
-    $GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+    // add jQuery at first position and keep the key
+    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
 // make phpwcms compatibility and upgrade check
