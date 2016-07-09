@@ -68,6 +68,9 @@ select {
 	color: #000;
 	color: buttontext;
 }
+.underline {
+    text-decoration: underline;
+}
 
 ul { margin: 0px 0px 0px 20px; }
 li { font-size: 12px; }
@@ -885,6 +888,7 @@ table.tdMorepace td { padding: 0 0 1px 0; }
 .width75 { width: 75px; }
 .width85 { width: 85px; }
 .width100 { width: 100px; }
+.width120 { width: 120px; }
 .width125 { width: 125px; }
 .width150 { width: 150px; }
 .width160 { width: 160px; }
@@ -898,7 +902,9 @@ table.tdMorepace td { padding: 0 0 1px 0; }
 .width250 { width: 250px; }
 .width300 { width: 300px; }
 .width325 { width: 325px; }
+.width323 { width: 323px; }
 .width330 { width: 330px; }
+.width340 { width: 340px; }
 .width350 { width: 350px; }
 .width360 { width: 360px; }
 .width375 { width: 375px; }
@@ -906,6 +912,7 @@ table.tdMorepace td { padding: 0 0 1px 0; }
 .width420 { width: 420px; }
 .width440 { width: 440px; }
 .width450 { width: 450px; }
+.width600 { width: 600px; margin-right: 5px; }
 
 .width440p5
 {

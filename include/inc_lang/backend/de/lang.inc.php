@@ -1406,3 +1406,4 @@ $BL['be_yes'] = 'Ja';
 $BL['be_no'] = 'Nein';
 $BL['be_attr_title'] = 'Titel (Attribut)';
 $BL['be_attr_alt'] = 'Alternativer Text';
+$BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren';

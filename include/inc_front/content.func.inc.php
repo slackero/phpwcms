@@ -525,6 +525,15 @@ $block['onepage'] = empty($block['onepage']) ? false : true;
 // set the one page constant
 define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 
+// support conditional comments for IE8
+if(empty($block['ie8ignore'])) {
+    define('IE8_CC', true);
+    $block['ie8ignore'] = false;
+} else {
+    define('IE8_CC', false);
+    $block['ie8ignore'] = false;
+}
+
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $block['overwrite']);
@@ -1393,7 +1402,7 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 parse_CKEDitor_resized_images();
 
 // cleanup document to enhance XHTML Strict compatibility
-if(HTML5_MODE) {
+if(HTML5_MODE && IE8_CC) {
 
 	$phpwcms['html5shiv_disabled'] = empty($phpwcms['html5shiv_disabled']) ? false : true;
 	$phpwcms['respondjs_disabled'] = empty($phpwcms['respondjs_disabled']) ? false : true;

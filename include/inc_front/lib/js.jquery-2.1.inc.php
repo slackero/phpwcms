@@ -17,17 +17,21 @@ define('PHPWCMS_JSLIB', 'jquery-2.1');
  * Init jQuery 2.1.x Library
  */
 function initJSLib() {
-	if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
-		if(PHPWCMS_USE_CDN) {
-			// use jQuery CDN
-			$GLOBALS['block']['custom_htmlhead']['jquery-1.11.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-1.11.3.min.js', '') . '<![endif]-->';
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-2.1.4.min.js', '') . '<!--<![endif]-->';
-		} else {
-			$GLOBALS['block']['custom_htmlhead']['jquery-1.11.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.11.3.min.js', '') . '<![endif]-->';
-			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.1.4.min.js', '') . '<!--<![endif]-->';
-		}
-	}
-	return TRUE;
+    if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
+        if(PHPWCMS_USE_CDN) {
+            // use jQuery CDN
+            if(IE8_CC) {
+                $GLOBALS['block']['custom_htmlhead']['jquery-1.11.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-1.11.3.min.js', '') . '<![endif]-->';
+                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-2.1.4.min.js', '') . '<!--<![endif]-->';
+            } else {
+                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-2.1.4.min.js');
+            }
+        } elseif(IE8_CC) {
+            $GLOBALS['block']['custom_htmlhead']['jquery-1.11.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.11.3.min.js', '') . '<![endif]-->';
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.1.4.min.js', '') . '<!--<![endif]-->';
+        } else {
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.1.4.min.js');
+        }
+    }
+    return true;
 }
-
-?>
