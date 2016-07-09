@@ -225,8 +225,8 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 $BE['HEADER']['alias_slah_var'] = ' <script type="text/javascript"> var aliasAllowSlashes = ' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . '; </script>';
 
 initMootools();
-$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 $BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
+$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
 if($do == "messages" && $p == 1) {
 
