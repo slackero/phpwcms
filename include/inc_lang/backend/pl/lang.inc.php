@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.3 (2016/04/12, 543)
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.4 (2016/07/09, 543)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -1416,3 +1416,13 @@ $BL['be_yes'] = 'Tak';
 $BL['be_no'] = 'Nie';
 $BL['be_attr_title'] = 'Tytuł (Atrybut)';
 $BL['be_attr_alt'] = 'Alternatywny Tekst';
+$BL['be_ie8ignore'] = 'disable <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">conditional comments</a> for IE8';
+$BL['be_cookie_consent_enable'] = 'włącz wtyczkę Zgody Cookie';
+$BL['be_cookie_consent_message'] = 'komunikat zgody';
+$BL['cookie_consent_message'] = 'Witryna ta wykorzystuje cookies, aby uzyskać najlepszą jakość na naszej stronie internetowej';
+$BL['be_cookie_consent_dismiss'] = 'przycisk tekstu zwolenia';
+$BL['cookie_consent_dismiss'] = 'Rozumiem!';
+$BL['be_cookie_consent_more'] = 'tekst przycisku dowiedz się więcej';
+$BL['cookie_consent_more'] = 'Więcej informacji';
+$BL['be_cookie_consent_link'] = 'Polityka Cookie url/alias';
+$BL['be_cookie_consent_theme'] = 'motyw (puste = brak CSS)';
