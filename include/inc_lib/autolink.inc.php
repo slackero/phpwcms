@@ -81,5 +81,3 @@ function auto_link($str) {
   $str = preg_replace($src,$tar,$str); 
   return $str; 
 }
-
-?>

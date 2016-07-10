@@ -231,18 +231,13 @@ if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 	$DeluxeMenuParam['start_at_ID'] = intval($GLOBALS['DeluxeMenuParam']['start_at_ID']);
 
 	$DeluxeMenuParam['js'] .= createDeluxeMenuJSCode($DeluxeMenuParam['start_at_ID'], $counter=0, $DeluxeMenuParam);
-
 	$DeluxeMenuParam['js'] .= LF.'   ]'.LF;
-
-
-
 
 	$DeluxeMenuParam['text']  = '<script type="text/javascript">'.LF.SCRIPT_CDATA_START;
 	$DeluxeMenuParam['text'] .= LF.'dm_init();'.LF;
 	$DeluxeMenuParam['text'] .= SCRIPT_CDATA_END.LF.'</script><noscript>';
 	$DeluxeMenuParam['text'] .= buildCascadingMenu( ',' . $DeluxeMenuParam['start_at_ID'] );
 	$DeluxeMenuParam['text'] .= '</noscript>';
-
 
 	$block['custom_htmlhead']['DeluxeMenu']  = '  <script type="text/javascript">'.LF.'  '.SCRIPT_CDATA_START.LF;
 	$block['custom_htmlhead']['DeluxeMenu'] .= '    var dmWorkPath="'.$DeluxeMenuParam['base_path'].'";';
@@ -253,7 +248,5 @@ if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 	$block['custom_htmlhead']['DeluxeMenu'] .= LF.'  '.SCRIPT_CDATA_END.LF.'  </script>'.LF;
 
 	$content['all'] = str_replace('{DELUXE_MENU}', $DeluxeMenuParam['text'], $content['all']);
-
-
 
 }

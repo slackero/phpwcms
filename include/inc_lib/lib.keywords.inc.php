@@ -149,5 +149,3 @@ function backend_getKeywordPostValues() {
 	return $value;
 
 }
-
-?>

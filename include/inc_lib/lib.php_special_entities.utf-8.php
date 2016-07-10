@@ -109,7 +109,7 @@ $SPECIAL_ENTITIES_TABLES['latin1_encode'] = array (
     "&yacute;", 
     "&thorn;", 
     "&yuml;"
-    );
+);
 
 $SPECIAL_ENTITIES_TABLES['symbol_encode'] = array(
     "&fnof;", 
@@ -236,7 +236,7 @@ $SPECIAL_ENTITIES_TABLES['symbol_encode'] = array(
     "&clubs;", 
     "&hearts;", 
     "&diams;"
-    );
+);
     
 $SPECIAL_ENTITIES_TABLES['specialchars_encode'] = array( 
     "&quot;", 
@@ -271,7 +271,7 @@ $SPECIAL_ENTITIES_TABLES['specialchars_encode'] = array(
     "&lsaquo;", 
     "&rsaquo;", 
     "&euro;"
-    );
+);
         
 $SPECIAL_ENTITIES_TABLES['latin1_decode'] = array (
     " ", 
@@ -370,7 +370,7 @@ $SPECIAL_ENTITIES_TABLES['latin1_decode'] = array (
     "ý", 
     "þ", 
     "ÿ"
-    );
+);
     
 $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
 	"&#402;", 
@@ -497,7 +497,7 @@ $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
 	"&#9827;", 
 	"&#9829;", 
 	"&#9830;"
-    );
+);
     
 $SPECIAL_ENTITIES_TABLES['specialchars_decode'] = array( 
     '"', 
@@ -532,6 +532,4 @@ $SPECIAL_ENTITIES_TABLES['specialchars_decode'] = array(
 	"&#8249;", 
 	"&#8250;", 
 	"&#8364;"
-    );
-	
-?>
+);

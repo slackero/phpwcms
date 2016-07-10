@@ -28,5 +28,3 @@ function phpwcms_revision_r528() {
 
 	return $status;
 }
-
-?>

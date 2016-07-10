@@ -28,5 +28,3 @@ switch($content["ctext_format"]) {
 	case 'textile':	break;
 	default: $content["ctext_format"] = 'plain';
 }
-
-?>

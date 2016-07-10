@@ -178,5 +178,3 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 
 }
 unset($rss, $rssfeed);
-
-?>

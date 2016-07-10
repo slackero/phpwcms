@@ -44,5 +44,3 @@ function phpwcms_revision_r534() {
 
 	return $status;
 }
-
-?>

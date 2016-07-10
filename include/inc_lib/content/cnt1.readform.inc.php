@@ -70,5 +70,3 @@ if ($img_result = mysql_query($img_sql, $db) or die("error while getting content
 }
 
 $content["template"]	= clean_slweg($_POST['template']);
-
-?>

@@ -758,7 +758,7 @@ $(function(){
 			}
 		} else {
 			struct = title;
-		};
+		}
 
 		$('#article_alias').val( create_alias(struct) );
 	});

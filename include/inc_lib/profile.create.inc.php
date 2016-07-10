@@ -49,4 +49,3 @@ if(mysql_query($sql, $db)) {
 } else {
 	$detail_updated = $BL['be_profile_create_error'];
 }
-?>

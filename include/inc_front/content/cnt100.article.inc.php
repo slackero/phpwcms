@@ -156,6 +156,3 @@ if(substr_count ($crow["acontent_text"], '~')) {
 	$CNT_TMP .= div_class(plaintext_htmlencode($crow["acontent_text"]), $template_default["article"]["text_class"]);
 
 }
-
-									
-?>

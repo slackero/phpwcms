@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // These are all kind of deprecated replacer and function
 // might kicked off the system in the near future
 // If you need these, please use config setting
@@ -452,6 +451,3 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 	}
 	return $css_list;
 }
-
-
-?>

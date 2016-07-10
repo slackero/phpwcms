@@ -63,5 +63,3 @@ if($content['opengraph']['support']) {
 	// Disable the built-in Open Graph rendering
 	$content['opengraph']['support'] = false;
 }
-
-?>

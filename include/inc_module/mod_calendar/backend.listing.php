@@ -59,7 +59,7 @@ $plugin['first_of_month']	= gmmktime(0, 0, 0, $plugin['current_month'], 1, $plug
 $plugin['days_in_month']	= gmdate('t', $plugin['first_of_month']);
 $plugin['week_start']		= date('W', $plugin['first_of_month']);
 $plugin['first_day']		= 0;
-$plugin['weekday']			= (gmstrftime('%w', $plugin['first_of_month']) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
+$plugin['weekday']			= (intval(gmstrftime('%w', $plugin['first_of_month'])) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
 $plugin['this_date']		= html(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])), false);
 
 $plugin['location']			= decode_entities(MODULE_HREF);
@@ -319,7 +319,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 	if($_entry['day_num'] == 1) {
 
 		if($plugin['days_in_month'] - $_entry['x'] < 7) {
-			$_entry['rowspan'] = $plugin['days_in_month'] - $_entry['x'] + 1;
+			$_entry['rowspan'] = (int)$plugin['days_in_month'] - $_entry['x'] + 1;
 		} else {
 			$_entry['rowspan'] = 7;
 		}
@@ -334,7 +334,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 		echo ($_entry['c'] % 2) ? '' : ' calendarWeekAlt';
 		echo '">';
 
-		$_entry['wno'] = gmstrftime('%W', $_entry['timestamp']) + $plugin['week_add'];
+		$_entry['wno'] = intval(gmstrftime('%W', $_entry['timestamp'])) + $plugin['week_add'];
 		if($_entry['wno'] == 53) {
 			$_entry['wno'] = 1;
 		}

@@ -108,4 +108,3 @@ if(isset($content["form"])) {
 } else {
 	$content["form"] = '';
 }
-?>

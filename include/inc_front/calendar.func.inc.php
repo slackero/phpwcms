@@ -98,8 +98,3 @@ function getCurrentCalendarDate() {
 	return $_date;
 
 }
-
-
-
-
-?>

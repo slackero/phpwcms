@@ -34,5 +34,3 @@ if(!isset($content['image_list']['crop'])) {
 }
 
 $content["text"] = $row["acontent_text"];
-
-?>

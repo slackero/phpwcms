@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,11 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Redirect
-
 $SQL .= "acontent_redirect="._dbEscape($content["redirect"]).", ";
 $SQL .= "acontent_template="._dbEscape($content["template"])." ";
-
-?>

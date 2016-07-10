@@ -207,7 +207,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td valign="top" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="14"><?php echo $BL['be_cnt_map_list'] ?>:&nbsp;</td>
-  <td><div style="overflow:auto;border:1px solid #7F9DB9;padding:0px;width:440px;<?php echo $ck ?>margin:0;background-color:#F3F3F5;">
+  <td><div style="overflow:auto;border:1px solid #7F9DB9;padding:0;width:440px;<?php echo $ck ?>margin:0;background-color:#F3F3F5;">
   <table width="100%" border="0" cellpadding="3" cellspacing="0" summary="">
   <?php echo $map_list; ?>
   </table>

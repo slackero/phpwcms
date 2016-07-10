@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // recipe
 $SQL .= "acontent_text="._dbEscape($content['recipe']['category']).", ";
 $SQL .= "acontent_form="._dbEscape(serialize($content['recipe'])).", ";
@@ -24,6 +23,3 @@ $SQL .= "acontent_alink="._dbEscape('0-'.substr('000000000000000'.$content['reci
 $SQL .= "acontent_media="._dbEscape('0-'.substr('000000000000000'.$content['recipe']['time'], -15) ).", ";
 $SQL .= "acontent_files="._dbEscape('0-'.substr('000000000000000'.$content['recipe']['severity'], -15) ).", ";
 $SQL .= "acontent_newsletter="._dbEscape($content['recipe_search'])." ";
-
-
-?>

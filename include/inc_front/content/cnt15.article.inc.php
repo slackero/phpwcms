@@ -170,5 +170,3 @@ if($alinkmenu['link']) {
 }
 
 unset($alinkmenu);
-
-?>

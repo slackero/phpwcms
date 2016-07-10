@@ -71,5 +71,3 @@ if(isset($_POST['cmap_location_x']) && $content['id']) {
 	}
 
 }
-
-?>

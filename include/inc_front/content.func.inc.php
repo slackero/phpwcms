@@ -296,12 +296,16 @@ if($content['404error']['status'] === true) {
 					$aktion[3] = $row[0]['aktion3'];
 					$aktion[4] = $row[0]['aktion4'];
 
-					define('PHPWCMS_ALIAS', $alias);
+					if(!defined('PHPWCMS_ALIAS')) {
+						define('PHPWCMS_ALIAS', $alias);
+					}
 					$content['404error']['status'] = false;
 
 				} elseif($alias == $indexpage['acat_alias']) {
 
-					define('PHPWCMS_ALIAS', $alias);
+                    if(!defined('PHPWCMS_ALIAS')) {
+                        define('PHPWCMS_ALIAS', $alias);
+                    }
 					$content['404error']['status'] = false;
 
 				}

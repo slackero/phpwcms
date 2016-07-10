@@ -195,7 +195,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 	switch($ecard["pos"]) {
 		case 0: $ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", '', 1); 		break;	//links
 		case 1:	$ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", "center", 1); break;	//center
-		case 1:	$ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", "center", 1); break; 	//right
+		case 2:	$ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", "right", 1); break; 	//right
 	}
 	$ecard["form"] = str_replace('###ECARD_CHOOSER###', $ecard["chooser"], $ecard["form"]);
 	if(!$ecard["send_err"]) {
@@ -222,5 +222,3 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 	}
 	$CNT_TMP .= '</form>';
 }
-
-?>

@@ -1121,7 +1121,7 @@ $BL['be_ctype']							= 'Contentpart';
 $BL['be_selection']						= 'Auswahl';
 
 $BL['be_ctype_module']					= 'Plug-in';
-$BL['be_cnt_lightbox']					= 'Lightbox';
+$BL['be_cnt_lightbox']					= 'Galeriebild';
 $BL['be_cnt_behavior']					= 'Verhalten';
 $BL['be_cnt_imglist_nocaption']			= 'Vorschaubilder ohne Bildunterzeile';
 

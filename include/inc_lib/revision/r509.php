@@ -29,5 +29,3 @@ function phpwcms_revision_r509() {
 
 	return $status;
 }
-
-?>

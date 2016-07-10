@@ -1128,7 +1128,7 @@ $BL['be_ctype']							= 'contentpart';
 $BL['be_selection']						= 'selection';
 
 $BL['be_ctype_module']					= 'plug-in';
-$BL['be_cnt_lightbox']					= 'lightbox';
+$BL['be_cnt_lightbox']					= 'gallery image';
 $BL['be_cnt_behavior']					= 'behavior';
 $BL['be_cnt_imglist_nocaption']			= 'hide caption for thumbnails';
 

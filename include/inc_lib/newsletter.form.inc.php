@@ -205,5 +205,3 @@ if($newsletter["newsletter_id"] && ($newsletter["newsletter_vars"]['html'] || $n
 } else {
 	$show_nl_send = 0;
 }
-
-?>

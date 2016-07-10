@@ -18,7 +18,6 @@ function show_videoplayer($matches) {
 	if(empty($matches[2])) return ' ';
 	
 	$player		= '';
-	$swf		= '';
 	$player_id	= 'vp'.substr(md5($matches[1].$matches[2].microtime()), 15);
 	
 	// Load SwfObject JavaScript
@@ -52,6 +51,3 @@ function show_videoplayer($matches) {
 
 	return $player;
 }
-
-
-?>

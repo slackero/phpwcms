@@ -30,5 +30,3 @@ $content['felogin']['felogin_validate_backenduser']		= empty($_POST['validate_ba
 $content['felogin']['felogin_profile_registration']		= empty($_POST['profile_registration']) ? 0 : 1;
 $content['felogin']['felogin_profile_manage']			= empty($_POST['profile_manage']) ? 0 : 1;
 $content['felogin']['felogin_profile_manage_redirect']	= clean_slweg($_POST['profile_manage_redirect']);
-
-?>

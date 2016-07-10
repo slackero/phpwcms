@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // recipe
 
 //$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
@@ -107,5 +105,3 @@ $crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"][
 $crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"]['template'], 'CAT', html_specialchars($crow["acontent_form"]['category']));
 
 $CNT_TMP .= $crow["acontent_form"]['template'];
-									
-?>

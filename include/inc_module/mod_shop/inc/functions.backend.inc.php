@@ -47,5 +47,3 @@ function get_shop_option_value_config() {
 		'suffix' => '' // _getConfig( 'shop_pref_currency' )
 	);
 }
-
-?>

@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type E-Card
 $content['ecard']['images']		= array();
 $content["ecard"]["list"] 		= isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
@@ -109,6 +107,3 @@ if(is_array($content["ecard"]["list"]) && count($content["ecard"]["list"])) {
 }
 
 unset($content["ecard"]["list"]);
-
-
-?>

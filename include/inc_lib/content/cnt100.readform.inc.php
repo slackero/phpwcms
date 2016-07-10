@@ -31,6 +31,3 @@ switch($content['bulletlist']["list_type"]) {
 	case 2: 	break;
 	default: 	$content['bulletlist']["list_type"] = 0;
 }
-
-
-?>

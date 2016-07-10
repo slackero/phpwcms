@@ -8,8 +8,7 @@ If you find these icons useful, please donate via paypal to mjames@gmail.com (or
 
 Contact: mjames@gmail.com
 
-///////////////////////
 Info for phpwcms users:
-\\\\\\\\\\\\\\\\\\\\\\\
-I have put in here the most general languages only
-put in missing languages in this folder yourself
+=======================
+I have added the most general languages only,
+add missing languages in this folder yourself

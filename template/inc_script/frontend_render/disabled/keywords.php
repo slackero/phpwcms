@@ -24,5 +24,3 @@ set_meta('robots', 'index,follow');
  * It is also easy to set http-equiv meta tags
  */
 set_meta('Content-Language', 'en', TRUE);
-
-?>

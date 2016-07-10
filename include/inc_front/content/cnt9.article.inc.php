@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 //multimedia
 
 // read template
@@ -323,5 +321,3 @@ if($media["code"]) {
 $CNT_TMP .= LF . trim( render_cnt_template($crow["acontent_template"], 'MULTIMEDIA', trim($media["result"]) ) ) . LF;
 
 unset($media);
-
-?>

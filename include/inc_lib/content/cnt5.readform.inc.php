@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Link List
 $content["text"] = str_replace(array('	', '   ', '  '), ' ', clean_slweg($_POST["ctext"]));
 $clinklist = explode(LF, $content["text"]);
@@ -49,5 +47,3 @@ if(is_array($clinklist) && count($clinklist)) {
 	$content["text"] = implode(LF, $clink);
 }
 $content["template"] = clean_slweg($_POST['template']);
-
-?>

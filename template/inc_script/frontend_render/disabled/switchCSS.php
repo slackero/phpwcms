@@ -54,6 +54,3 @@ if($_user_CSS != 'default') {
 	$content['all'] = str_replace('[ALTCSS_URL]', abs_url(array('switchCSS' => 'alt')), $content['all']);
 
 }
-
-
-?>

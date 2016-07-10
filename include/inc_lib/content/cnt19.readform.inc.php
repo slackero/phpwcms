@@ -29,5 +29,3 @@ $content["sitemap"]["articleclass"]		= clean_slweg($_POST["csitemap_articleclass
 $content["sitemap"]["classcount"]		= intval($_POST["csitemap_classcount"]);
 $content["sitemap"]["startid"]			= intval($_POST["csitemap_startid"]);
 $content["sitemap"]["without_parent"]	= empty($_POST["csitemap_without_parent"]) ? 0 : 1;
-
-?>

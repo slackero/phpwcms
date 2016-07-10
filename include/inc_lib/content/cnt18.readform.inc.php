@@ -74,5 +74,3 @@ $content["guestbook"]["max_image_filesize"]	= return_bytes_shorten(clean_slweg($
 if(!(return_bytes($content["guestbook"]["max_image_filesize"]))) {
 	$content["guestbook"]["max_image_filesize"] = return_bytes_shorten($phpwcms['file_maxsize']);
 }
-
-?>

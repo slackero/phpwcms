@@ -171,7 +171,3 @@ if(empty($glossary['data'])) {
 								);
 
 }
-
-
-
-?>

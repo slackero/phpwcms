@@ -57,5 +57,3 @@ function phpwcms_revision_r532() {
 	
 	return $status;
 }
-
-?>

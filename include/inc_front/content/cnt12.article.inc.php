@@ -294,5 +294,3 @@ if($content["newsletter"]["success"]) {
 	$CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
 	$CNT_TMP .= "</td>\n</tr>\n</table></form>";
 }
-
-?>

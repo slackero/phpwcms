@@ -156,7 +156,3 @@ if(empty($plugin['data'])) {
 							);
 
 }
-
-
-
-?>

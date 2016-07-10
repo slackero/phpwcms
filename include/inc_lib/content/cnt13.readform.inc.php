@@ -73,6 +73,3 @@ $content['search']["no_caption"]	= empty($_POST['csearch_nocaption']) ? 0 : 1;
 $content['search']["no_keyword"]	= empty($_POST['csearch_nokeyword']) ? 0 : 1;
 $content['search']["hide_summary"]	= empty($_POST['csearch_hidesummary']) ? 0 : 1;
 $content['search']["type"]			= empty($_POST['csearch_type']) || strtoupper($_POST['csearch_type']) == 'OR' ? 'OR' : 'AND';
-
-
-?>

@@ -62,5 +62,3 @@ if(strpos($content['all'], '{BREADCRUMB_ARTICLE}')) {
 	$content['all'] = str_replace('{BREADCRUMB_ARTICLE}', $_breadcrumb, $content['all']);
 
 }
-
-?>

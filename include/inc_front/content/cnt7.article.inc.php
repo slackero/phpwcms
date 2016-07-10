@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 //file list
 
 // if $IS_NEWS_CP = true then file list content part rendere is
@@ -382,6 +380,3 @@ if($content['files_sql']) {
 	}
 
 }
-
-
-?>

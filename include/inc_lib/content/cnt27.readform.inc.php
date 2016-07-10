@@ -66,6 +66,3 @@ if ($img_result = mysql_query($img_sql, $db) or die("error while getting content
 	}
 	mysql_free_result($img_result);
 }
-
-
-?>

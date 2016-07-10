@@ -161,4 +161,3 @@ function list_public_root($wert) {
 	//Checken ob public root files f�r user gezeigt werden sollen
 	return ($wert) ? 1 : 0;
 }
-?>

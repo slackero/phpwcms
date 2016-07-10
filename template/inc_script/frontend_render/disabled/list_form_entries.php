@@ -94,5 +94,3 @@ if(strpos($content['all'], $_form_entries['RT']) !== false) {
 
 
 }
-
-?>

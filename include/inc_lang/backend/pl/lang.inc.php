@@ -1129,7 +1129,7 @@ $BL['be_ctype']        = 'zawartość';
 $BL['be_selection']    = 'zaznaczenie';
 
 $BL['be_ctype_module']    = 'moduł';
-$BL['be_cnt_lightbox']    = 'lightbox';
+$BL['be_cnt_lightbox']    = 'galeria obrazów';
 $BL['be_cnt_behavior']    = 'zachowanie';
 $BL['be_cnt_imglist_nocaption']    = 'ukryj nagłówek dla miniatur';
 

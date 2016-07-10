@@ -41,5 +41,3 @@ $content["image_pos"]			= isset($content["image_info"][7]) ? $content["image_inf
 $content["image_zoom"]			= isset($content["image_info"][8]) ? $content["image_info"][8] : 0;
 								 
 unset($content["image_info"]);
-
-?>

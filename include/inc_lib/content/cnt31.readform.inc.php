@@ -151,5 +151,3 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
 }
 
 $content['image_special']['fieldgroup'] = $content['tab_fieldgroup'];
-
-?>

@@ -35,6 +35,3 @@ $BLM['error_url']							= 'No Feed source URL given';
 $BLM['error_url_notvalid']					= 'Feed source URL is invalid or not accessible';
 $BLM['error_structure_level_id']			= 'Choose Category in which feed items should be imported as article';
 $BLM['error_false_id']						= 'The feed source with ID %s cannot be opened for editing';
-
-
-?>

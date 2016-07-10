@@ -1316,7 +1316,7 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
  * @access public
  * @param string $text
  * @param bool $js (default: false)
- * @return void
+ * @return string
  */
 function correct_charset($text='', $js=false) {
 

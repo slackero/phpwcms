@@ -88,5 +88,3 @@ if(count($link)) {
 }
 
 $CNT_TMP .= $content['linklist'];
-
-?>

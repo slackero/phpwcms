@@ -30,11 +30,7 @@ $img_val[6]		= round($img_val[2]/2); // position -y
 $img_val[7]		= $img_val[1] - (2 * $img_val[0]); // width inner fill
 $img_val[8]		= $img_val[2] - (2 * $img_val[0]); // height inner fill
 
-
-
 $do = 0;
-
-//print_r($img_info);
 
 if($img_info) {
 
@@ -134,5 +130,3 @@ function hex2rgb($hex) {
 			   );
   return $rgb;
 }
-
-?>

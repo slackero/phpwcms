@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Reference
 $content['reference']["list"] 		= isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
 $content['reference']["width"]		= (intval($_POST["creference_width"]))  ? intval($_POST["creference_width"])  : '';
@@ -121,8 +119,4 @@ if (is_array($content['reference']["list"]) && count($content['reference']["list
 		}
 	}
 
-
 }
-
-
-?>

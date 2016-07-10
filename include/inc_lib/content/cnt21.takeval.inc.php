@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,14 +16,5 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Page / ext. Content
 $content["page_file"] = unserialize($row["acontent_form"]);
-/*
-echo "<pre>";
-print_r($content["page_file"]);
-echo "</pre>";
-*/
-
-?>

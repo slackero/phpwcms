@@ -145,5 +145,3 @@ $order_process = str_replace('{TOTAL_GROSS}', $subtotal['total_gross'], $order_p
 $order_process = render_cnt_template($order_process, 'LOWORDER', $subtotal['float_loworder_net'] != 0 ? 1 : '');
 $order_process = render_cnt_template($order_process, 'DISCOUNT', $subtotal['float_discount_net'] != 0 ? $subtotal['discount_percent'] : '');
 $order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
-
-?>

@@ -105,5 +105,3 @@ if(!$map['tmpl_content']) {
 
 // delete map array
 unset($map);
-
-?>

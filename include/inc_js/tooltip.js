@@ -11,7 +11,7 @@ window.addEvent('domready', function(){
 
     new Tips(as, {
         maxTitleChars: 25,
-        offsets: {'x': 2, 'y': 5},
+        offsets: {'x': 2, 'y': 5}
     });
 
 });

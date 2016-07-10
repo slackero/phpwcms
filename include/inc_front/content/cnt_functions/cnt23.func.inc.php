@@ -67,6 +67,3 @@ function linksleeve_comment_check($content) {
 	
 	return !stristr($buf,"-slv-1-/slv-") ? 'SPAM' : 'HAM';
 }
-
-
-?>

@@ -28,17 +28,17 @@ var Util = {'$VERSION':1.06};
 // Determine if an object is an array
 function isArray(o) {
     return (o!=null && typeof(o)=="object" && typeof(o.length)=="number" && (o.length==0 || defined(o[0])));
-};
+}
 
 // Determine if an object is an Object
 function isObject(o) {
     return (o!=null && typeof(o)=="object" && defined(o.constructor) && o.constructor==Object && !defined(o.nodeName));
-};
+}
 
 // Determine if a reference is defined
 function defined(o) {
     return (typeof(o)!="undefined");
-};
+}
 
 // Iterate over an array, object, or list of items and run code against each item
 // Similar functionality to Perl's map() function
@@ -65,7 +65,7 @@ function map(func) {
         }
     }
     return results;
-};
+}
 
 // Set default values in an object if they are undefined
 function setDefaultValues(o,values) {
@@ -81,7 +81,7 @@ function setDefaultValues(o,values) {
         }
     }
     return o;
-};
+}
 
 /* ******************************************************************* */
 /*   DEFAULT OBJECT PROTOTYPE ENHANCEMENTS                             */
@@ -599,7 +599,7 @@ var Screen = (function() {
                 if (yr<50) { yr += 2000; }
                 else if (yr<100) { yr += 1900; }
                 return yr;
-            };
+            }
             var ret;
             // YYYY-MM-DD
             if (ret=str.match(/(\d{2,4})-(\d{1,2})-(\d{1,2})/)) {
@@ -610,7 +610,7 @@ var Screen = (function() {
                 return (fixYear(ret[3])*10000) + (ret[1]*100) + (+ret[2]);
             }
             return 99999999; // So non-parsed dates will be last, not first
-        };
+        }
         return getdate(val);
     };
 

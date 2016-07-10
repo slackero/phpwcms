@@ -43,14 +43,10 @@ if($poll_id == $crow['acontent_id'] && isset($_POST["poll"]) && !in_array($remot
 	@mysql_query($sql, $db);
 }
 
-
-
 $CNT_TMP .= '<div class="';
 $CNT_TMP .= empty($poll_text['poll_buttonstyle']) ? 'defaultPollClass' : $poll_text['poll_buttonstyle'];
 $CNT_TMP .= "\">\n";
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-
-
 
 if(in_array($remoteIP, $poll_form["ip"])) {
 	$poll_total_votes = 0;
@@ -119,8 +115,4 @@ if(in_array($remoteIP, $poll_form["ip"])) {
 $CNT_TMP .= $poll_html;
 $CNT_TMP .= "\n</div>\n";
 
-unset($poll_image);
-unset($poll_text);
-unset($poll_form);
-
-?>
+unset($poll_image, $poll_text, $poll_form);

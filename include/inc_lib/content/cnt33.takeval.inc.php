@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,11 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // News
 $content["template"]		= $row["acontent_template"];
 $content["news"]			= @unserialize($row["acontent_form"]);
-
-
-?>

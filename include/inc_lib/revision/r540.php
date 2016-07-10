@@ -42,5 +42,3 @@ function phpwcms_revision_r540() {
 
 	return $status;
 }
-
-?>

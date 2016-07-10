@@ -162,5 +162,3 @@ if(is_array($image) && count($image)) {
 	$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 }
 unset($image);
-
-?>

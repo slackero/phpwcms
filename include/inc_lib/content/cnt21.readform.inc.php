@@ -44,6 +44,3 @@ if(!$content["page_file"]['source']) {
 	}
 
 }
-
-
-?>

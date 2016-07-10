@@ -40,6 +40,3 @@ $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'S
 $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'HTML', $crow['acontent_html']);
 
 $CNT_TMP .= LF.$crow["acontent_template"].LF;
-
-									
-?>

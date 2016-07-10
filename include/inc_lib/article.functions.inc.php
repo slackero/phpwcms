@@ -9,7 +9,7 @@
  *
  **/
 
-//Baut das Level Struktur Auswahlmen�
+// build structure level menu
 function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='option') {
 
 	$struct_id		= intval($struct_id);
@@ -121,5 +121,3 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias
 		}
 	}
 }
-
-?>

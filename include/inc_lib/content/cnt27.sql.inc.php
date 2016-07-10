@@ -16,12 +16,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Content Type FAQ
-
 $SQL .= "acontent_text="._dbEscape($content["faq_question"]).", ";
 $SQL .= "acontent_html="._dbEscape($content["faq_answer"]).", ";
 $SQL .= "acontent_form="._dbEscape(serialize($content["faq"])).", ";
 $SQL .= "acontent_image="._dbEscape($content["image_info"])." ";
-
-?>

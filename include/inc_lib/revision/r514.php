@@ -141,5 +141,3 @@ function phpwcms_revision_r514() {
 
 	return $status;
 }
-
-?>

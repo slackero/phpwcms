@@ -69,5 +69,3 @@ if($content['struct'][ $sitemap['startid'] ]['acat_nositemap']) {
 $CNT_TMP .= $sitemap['after'];
 
 unset($sitemap);
-
-?>

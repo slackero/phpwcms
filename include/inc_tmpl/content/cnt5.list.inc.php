@@ -52,6 +52,3 @@ if($cinfo["result"] || $clink_liste) { //Zeige Inhaltinfo
  }
  echo nl2br(chop($clink_liste))."</td><td>&nbsp;</td></tr>";
 }
-
-
-?>

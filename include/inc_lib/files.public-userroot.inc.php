@@ -9,15 +9,12 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 //Listing eventuell im Verzeichnis enthaltener Dateien
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.
@@ -82,4 +79,3 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
 	}
 } //Ende Liste Dateien
-?>

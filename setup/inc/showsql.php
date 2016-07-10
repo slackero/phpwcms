@@ -31,7 +31,7 @@ if(isset($_GET['f'])) {
 <!--
 pre {
 	font-size:	9pt;
-	font-family:"Courier New", Courier, mono;
+	font-family:"Courier New", Courier, monospace;
 	margin:	0;
 	padding: 0;
 }

@@ -16,9 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
-//Listing der gel�schten Dateien
+// list trashed files
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_uid=".$_SESSION["wcs_user_id"].
 			" AND f_kid=1 AND f_trash=1 ORDER BY f_name";
 if($file_result = mysql_query($file_sql, $db) or die ("error while listing files")) {
@@ -62,4 +60,3 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Abstand vor
 	}
 } //Ende Liste Dateien
-?>

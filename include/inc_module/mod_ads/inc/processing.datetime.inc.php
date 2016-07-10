@@ -119,7 +119,3 @@ if(strtotime($plugin['data']['adcampaign_dateend']) < $plugin['data']['start_tim
 
 $plugin['data']['adcampaign_date_start']	= implode($BLM['date_delimiter'], $plugin['data']['adcampaign_date_start']);
 $plugin['data']['adcampaign_date_end']		= implode($BLM['date_delimiter'], $plugin['data']['adcampaign_date_end']);
-
-
-
-?>

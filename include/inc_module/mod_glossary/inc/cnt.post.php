@@ -29,5 +29,3 @@ if(empty($content['glossary']['glossary_maxwords'])) {
 
 $content['glossary']['glossary_tag']		= strtolower(clean_slweg($_POST['glossary_tag']));
 $content['glossary']['glossary_noentry']	= slweg($_POST['glossary_noentry']);
-
-?>

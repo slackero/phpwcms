@@ -86,5 +86,3 @@ unset($GLOBALS['_getVar']['switchFontSize']);
 $content['all'] = str_replace('[FontSize+]', abs_url(array('switchFontSize' => $newFontSizeBigger)), $content['all']);
 $content['all'] = str_replace('[FontSize=]', abs_url(array('switchFontSize' => 'default')), $content['all']);
 $content['all'] = str_replace('[FontSize-]', abs_url(array('switchFontSize' => $newFontSizeSmaller)), $content['all']);
-
-?>

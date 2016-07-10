@@ -62,5 +62,3 @@ function phpwcms_revision_r406() {
 	return $status;
 
 }
-
-?>

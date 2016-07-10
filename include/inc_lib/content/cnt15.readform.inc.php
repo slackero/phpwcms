@@ -40,6 +40,3 @@ switch($content["alist"]["ul"]) {
 	case 1:		break;							// UL
 	default:	$content["alist"]["ul"] = 0;	// TABLE
 }
-
-
-?>

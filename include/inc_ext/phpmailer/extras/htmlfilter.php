@@ -730,8 +730,6 @@ function tln_fixstyle($body, $pos, $trans_image_path, $block_external_images)
         return array(FALSE, strlen($body));
     }
 
-
-
     /**
      * First look for general BODY style declaration, which would be
      * like so:
@@ -739,8 +737,6 @@ function tln_fixstyle($body, $pos, $trans_image_path, $block_external_images)
      * and change it to .bodyclass so we can just assign it to a <div>
      */
     $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
-
-    $trans_image_path = $trans_image_path;
 
     /**
     * Fix url('blah') declarations.

@@ -1098,7 +1098,7 @@ $BL['be_ctype']							= 'i&ccedil;erik par&ccedil;as&#305;';
 $BL['be_selection']						= 'se&ccedil;im';
 
 $BL['be_ctype_module']					= 'mod&uuml;l';
-$BL['be_cnt_lightbox']					= 'lightbox';
+$BL['be_cnt_lightbox']					= 'galeri resim';
 $BL['be_cnt_behavior']					= 'olay';
 $BL['be_cnt_imglist_nocaption']			= 'k&uuml;&ccedil;&uuml;k listede ba&#351;l&#305;klar&#305; gizle';
 

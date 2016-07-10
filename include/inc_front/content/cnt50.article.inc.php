@@ -236,5 +236,3 @@ $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'REF', $content['reference']['ref_image']);
 
 $CNT_TMP .= $content['reference']["tmpl"];
-
-?>

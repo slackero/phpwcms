@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Images
 
 $content["image_list"] 		= isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
@@ -106,7 +104,6 @@ if (is_array($content["image_list"]) && sizeof($content["image_list"])) {
 	}
 }
 
-
 // take values
 $content['image_list'] 				= array();
 $content['image_list']['images']	= $content['tmp_images'];
@@ -122,5 +119,3 @@ $content['image_list']['crop']		= empty($_POST["cimage_crop"]) ? 0 : 1;
 $content["image_list"]['random']	= empty($_POST["cimage_random"]) ? 0 : 1;
 $content["image_list"]['limit']		= intval($_POST["cimage_limit"]);
 $content["image_list"]['usetable']	= empty($_POST["cimage_usetable"]) ? 0 : 1;
-
-?>

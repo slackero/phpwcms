@@ -347,8 +347,8 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								}
 
 								$content['form']["fields"][$field_counter]['value'] = '';
-								foreach($newletter_array as $newsletter['key'] => $newsletter['value']) {
-									$content['form']["fields"][$field_counter]['value'] .= $newsletter['key'].'='.$newsletter['value'].LF;
+								foreach($newletter_array as $newsletter_key => $newsletter_value) {
+									$content['form']["fields"][$field_counter]['value'] .= $newsletter_key.'='.$newsletter_value.LF;
 								}
 								$content['form']["fields"][$field_counter]['value'] = trim($content['form']["fields"][$field_counter]['value']);
 								break;

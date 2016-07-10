@@ -17,8 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Images
 
 $content["image_list"] 		= isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
@@ -81,7 +79,6 @@ if(is_array($content["image_list"]) && count($content["image_list"])) {
 	}
 }
 
-
 // take values
 $content['image_list'] 					= array();
 $content['image_list']['images']		= $content['tmp_images'];
@@ -103,5 +100,3 @@ if($content['image_list']['center_image'] > 3) {
 } elseif($content['image_list']['center_image'] < 0) {
 	$content['image_list']['center_image'] = 0;
 }
-
-?>

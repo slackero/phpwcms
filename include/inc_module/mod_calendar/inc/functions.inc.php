@@ -21,8 +21,3 @@ function returnDayNameArray() {
 	}
 	return $day_names;
 }
-
-
-
-
-?>

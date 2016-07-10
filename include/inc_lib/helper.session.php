@@ -92,7 +92,7 @@ function generate_token_name($prefix='csrf') {
  *
  * @access public
  * @param string $get_token_name (default: 'csrftoken')
- * @return void
+ * @return string
  */
 function generate_get_token($get_token_name='csrftoken') {
 

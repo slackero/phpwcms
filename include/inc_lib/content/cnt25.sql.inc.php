@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,11 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Flash Media Player
-
 $SQL .= "acontent_template="._dbEscape($fmp_data['fmp_template']).", ";
 $SQL .= "acontent_form="._dbEscape(@serialize($fmp_data))." ";
-
-
-?>

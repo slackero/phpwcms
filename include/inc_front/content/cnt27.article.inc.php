@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 //FAQ
 
 $crow["acontent_form"]	= @unserialize($crow["acontent_form"]);
@@ -106,9 +104,6 @@ if(!empty($crow["acontent_image"][2])) {
 	}
 }
 
-
-
-
 // now render whole recipe
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'TITLE', html_specialchars($crow['acontent_title']));
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
@@ -120,9 +115,4 @@ $crow["acontent_form"]['faq_template'] = str_replace('{FAQ_ID}', $crow['acontent
 
 $CNT_TMP .= $crow["acontent_form"]['faq_template'];
 
-
-
-
 unset($image, $caption);
-
-?>

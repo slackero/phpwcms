@@ -33,7 +33,6 @@ $is_mysql_error = _dbSelect() ? false : true;
 if($is_mysql_error) {
 	header('Location: '.PHPWCMS_URL.'dbdown.php');
 	exit();
-
 }
 
 // set DB to compatible mode
@@ -253,8 +252,6 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 
 		return _dbQuery($insert, 'ON_DUPLICATE');
 	}
-
-	return false;
 
 }
 
@@ -735,5 +732,3 @@ function _dbSetVar($var='', $value=NULL, $compare=FALSE) {
 
 	return FALSE;
 }
-
-?>

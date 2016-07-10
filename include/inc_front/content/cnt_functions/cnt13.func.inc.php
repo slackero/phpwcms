@@ -306,5 +306,3 @@ function clean_search_text($string='') {
 
 	return $string;
 }
-
-?>

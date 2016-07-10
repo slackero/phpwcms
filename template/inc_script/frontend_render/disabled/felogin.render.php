@@ -19,5 +19,3 @@ if(defined('FELOGIN_IS_LOGGED')) {
 	$content['all'] = str_replace('{FELOGIN_ERROR}', $FELOGIN_ERROR, $content['all']);
 	
 }
-
-?>

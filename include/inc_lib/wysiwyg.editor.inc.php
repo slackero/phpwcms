@@ -92,5 +92,3 @@ if($wysiwyg_editor['editor']) {
 	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 }
-
-?>

@@ -4,7 +4,7 @@
 $BLM['backend_menu']			= 'Shop/Produkte';
 $BLM['listing_title']			= 'Shop/Produkte';
 
-$BLM['tab_default']				= 'Shopübersicht';
+$BLM['tab_default']				= 'Shop&uuml;bersicht';
 $BLM['tab_products']			= 'Produkte';
 $BLM['tab_categories']			= 'Kategorien';
 $BLM['tab_orders']				= 'Bestellungen';
@@ -19,9 +19,9 @@ $BLM['prod_cat']				= 'Produktkategorie';
 $BLM['cat_edit']				= 'Shop Produktkategorie bearbeiten';
 $BLM['prod_edit']				= 'Shop Produkt bearbeiten';
 $BLM['pref_edit']				= 'Einstellungen &auml;ndern';
-$BLM['delete_entry']			= 'Soll die gewählte Kategorie wirklich gelöscht werden?\nAlle Unterkategorien werden ebenfalls gelöscht!\nGelöscht wird: ';
-$BLM['delete_product']			= 'Folgendes Produkt wirklich löschen?\n';
-$BLM['delete_order']			= 'Folgende Bestellung wirklich löschen?\n';
+$BLM['delete_entry']			= 'Soll die gew&auml;hlte Kategorie wirklich gelÃ¶scht werden?\nAlle Unterkategorien werden ebenfalls gelÃ¶scht!\nGelÃ¶scht wird: ';
+$BLM['delete_product']			= 'Folgendes Produkt wirklich lÃ¶schen?\n';
+$BLM['delete_order']			= 'Folgende Bestellung wirklich lÃ¶schen?\n';
 
 $BLM['th_ordnr']				= 'Best.Nr.';
 $BLM['th_modnr']				= 'Mod.Nr.';
@@ -133,5 +133,3 @@ $BLM['shopprod_distance_base'] = 'Ausgangsadresse';
 $BLM['shopprod_api'] = 'API Schnittstelle';
 $BLM['shopprod_api_access'] = 'Zugriff gestatten';
 $BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';
-
-?>

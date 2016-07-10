@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Glossary module content part SQL UPDATE/INSERT 
 // usage:
 // SQL .= "acontent_field = '".aporeplace($value)."', ";
@@ -26,6 +25,3 @@ if(isset($content['glossary']) && is_array($content['glossary'])) {
 	$SQL .= "acontent_form = '".aporeplace(serialize($content['glossary']))."'";
 
 }
-
-
-?>

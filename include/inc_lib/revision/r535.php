@@ -305,5 +305,3 @@ function phpwcms_revision_r535() {
 
 	return $status;
 }
-
-?>

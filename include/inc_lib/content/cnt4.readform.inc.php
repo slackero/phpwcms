@@ -9,33 +9,27 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
-if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+if(!defined('PHPWCMS_ROOT')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 // Content Type Bullet List Table
 $content["text"] = html_specialchars(slweg($_POST["ctext"], 65500));
 $cbullet = explode(LF, $content["text"]);
-if (count($cbullet)) {
-	foreach($cbullet as $key => $value) {
-		if (trim($value)) {
-			$cbullet[$key] = trim($value);
-		} else {
-			unset($cbullet[$key]);
-		}
-	}
-	$content["text"] = implode(LF, $cbullet);
+if(count($cbullet)) {
+    foreach($cbullet as $key => $value) {
+        if(trim($value)) {
+            $cbullet[ $key ] = trim($value);
+        } else {
+            unset($cbullet[ $key ]);
+        }
+    }
+    $content["text"] = implode(LF, $cbullet);
 } else {
-	$content["text"] = '';
+    $content["text"] = '';
 }
 
 $content["template"] = clean_slweg($_POST['template']);
-
-
-?>

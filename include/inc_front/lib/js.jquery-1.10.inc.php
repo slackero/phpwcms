@@ -27,5 +27,3 @@ function initJSLib() {
 	}
 	return TRUE;
 }
-
-?>

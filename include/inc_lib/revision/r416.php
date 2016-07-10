@@ -31,5 +31,3 @@ function phpwcms_revision_r416() {
 	return $status;
 
 }
-
-?>

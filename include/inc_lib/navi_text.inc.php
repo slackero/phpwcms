@@ -25,5 +25,3 @@ if(!empty($phpwcms['enable_chat'])) {
 $wcsnav["profile"]		= '<a href="phpwcms.php?do=profile">'.$BL['be_nav_profile'].'</a>';
 $wcsnav["admin"]		= '<a href="phpwcms.php?do=admin&amp;p=6">'.$BL['be_nav_admin'].'</a>';
 $wcsnav["navspace1"]	= '';
-
-?>

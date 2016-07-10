@@ -253,5 +253,3 @@ if(empty($plugin['data']['cnt_object-image_folder_id'])) {
 if(empty($plugin['data']['cnt_object-image_url_replace'])) {
 	$plugin['data']['cnt_object-image_url_replace'] = '';
 }
-
-?>

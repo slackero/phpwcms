@@ -298,5 +298,3 @@ if($crow['is_imagetext']) {
 }
 
 unset($image);
-
-?>

@@ -85,5 +85,3 @@ if(!empty($_SESSION['phpwcmsAgree']) || ( isset($_COOKIE['phpwcmsAgree']) && $_C
 	$content['all'] = str_replace($ACCESS['suffix'], '', $content['all']);
 	
 }
-
-?>

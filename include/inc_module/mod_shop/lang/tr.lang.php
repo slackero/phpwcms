@@ -85,6 +85,3 @@ $BLM['shopprod_terms']			= 'Terms &amp; conditions';
 $BLM['shop_order']				= 'Al&#305;&#351;veri&#351;';
 
 $BLM['shopprod_order_subject']	= 'Al&#305;&#351;veri&#351;leriniz';
-
-
-?>

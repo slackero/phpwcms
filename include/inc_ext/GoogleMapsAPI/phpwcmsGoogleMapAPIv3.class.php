@@ -3010,5 +3010,3 @@ class GoogleMapAPI {
         return $id;
     }
 }
-
-?>

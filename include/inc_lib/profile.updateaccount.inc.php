@@ -123,4 +123,3 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 		}
 	}
 } //Ende Prüfung Gastzugang
-?>

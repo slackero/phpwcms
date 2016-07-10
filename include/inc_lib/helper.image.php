@@ -1096,7 +1096,7 @@ class Phpwcms_Image_lib {
 				break;
 			case 'M':	$y_axis += ($this->orig_height / 2) - ($wm_height / 2);
 				break;
-			case 'B':	$y_axis += $this->orig_height - $wm_height;
+			case 'B':	$y_axis += (int)$this->orig_height - (int)$wm_height;
 				break;
 		}
 
@@ -1107,7 +1107,7 @@ class Phpwcms_Image_lib {
 				break;
 			case 'C':	$x_axis += ($this->orig_width / 2) - ($wm_width / 2);
 				break;
-			case 'R':	$x_axis += $this->orig_width - $wm_width;
+			case 'R':	$x_axis += (int)$this->orig_width - (int)$wm_width;
 				break;
 		}
 
@@ -1239,7 +1239,7 @@ class Phpwcms_Image_lib {
 				break;
 			case "M":	$y_axis += ($this->orig_height/2)+($fontheight/2);
 				break;
-			case "B":	$y_axis += ($this->orig_height - $fontheight - $this->wm_shadow_distance - ($fontheight/2));
+			case "B":	$y_axis += ((int)$this->orig_height - $fontheight - $this->wm_shadow_distance - ($fontheight/2));
 				break;
 		}
 
@@ -1253,8 +1253,8 @@ class Phpwcms_Image_lib {
 				break;
 			case "R":
 						if ($this->wm_use_drop_shadow) {
-							$x_shad += ($this->orig_width - $fontwidth*strlen($this->wm_text));
-							$x_axis += ($this->orig_width - $fontwidth*strlen($this->wm_text));
+							$x_shad += ((int)$this->orig_width - $fontwidth*strlen($this->wm_text));
+							$x_axis += ((int)$this->orig_width - $fontwidth*strlen($this->wm_text));
 						}
 				break;
 			case "C":

@@ -42,5 +42,3 @@ $s_list += $s_module->search_results;
 
 // get back final search result counter
 $s_run = $s_module->search_result_entry;
-
-?>

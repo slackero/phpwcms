@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // List available files
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 ";
 if(empty($_SESSION["wcs_user_admin"])) {
@@ -76,7 +75,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 			 "\" title=\"".$BL['be_fprivfunc_cpublicfile'].": ".$filename."\">";
 		echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\"></a>";
 		echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
-		//Button zum Löschen der Datei
+		// button delete file
 		if($file_row["f_uid"] === intval($_SESSION["wcs_user_id"]) || !empty($_SESSION["wcs_user_admin"])) {
 			//if user is owner then delete button is active
 			echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
@@ -88,7 +87,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		}
 		echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">"; //Spacer
 		echo "</td>\n";
-		//Ende Aufbau
+		// end
 		echo "</tr>\n";
 
 		if($_SESSION["wcs_user_thumb"]) {
@@ -119,10 +118,8 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		}
 		$file_durchlauf++;
 	}
-	if($file_durchlauf) { //Abschluss der Filelisten-Tabelle
+	if($file_durchlauf) { // close file list tables
 		echo "</table>\n";
 		echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Abstand vor
 	}
-} //Ende Liste Dateien
-
-?>
+} // end listing files

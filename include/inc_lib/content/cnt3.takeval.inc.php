@@ -28,5 +28,3 @@ if(isset($content["link"][1])) {
 }
 $content["link"] 		= $content["link"][0];
 $content["template"]	= $row["acontent_template"];
-
-?>

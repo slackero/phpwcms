@@ -33,5 +33,3 @@ function phpwcms_revision_r533() {
 
 	return $status;
 }
-
-?>

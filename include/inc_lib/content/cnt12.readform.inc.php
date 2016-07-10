@@ -39,6 +39,3 @@ foreach($content['subscription_temp'] as $subscr_value) {
 }
 
 $content["newsletter"]["pos"]					= intval($_POST["cnewsletter_pos"]);
-
-
-?>

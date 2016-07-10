@@ -39,7 +39,6 @@ foreach($image_list['images'] as $img_info) {
 		$image_data .= 'x'.$phpwcms['img_list_height'].'/'.$img_info['zoom_id'].'" border="0" alt="" /> ';
 	}
 
-
 }
 
 if($cinfo["result"] && $image_data) {
@@ -52,5 +51,3 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
 	echo $cinfo["result"]."</a></td><td>&nbsp;</td></tr>";
 }
-
-?>

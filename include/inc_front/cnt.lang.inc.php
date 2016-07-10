@@ -50,5 +50,3 @@ $BL['be_ctype_flashplayer']		= '';
 $BL['be_ctype_imagesspecial']	= '';
 $BL['be_ctype_tabs']			= '';
 $BL['be_news']					= '';
-
-?>

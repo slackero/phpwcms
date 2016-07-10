@@ -141,7 +141,6 @@ function addFile(file_id, file_name) {
 		if(obj.options.length > 5) {
 			obj.size = obj.options.length;
 			$('#cnt_file_caption').attr('rows', obj.size+1);
-			$('#cnt_file_caption').attr('rows', obj.size+1);
 		}
 	}
 }
@@ -189,7 +188,6 @@ $(function(){
 		$('#cfile_list').find('option').attr('selected', 'selected');
 
 	});
-
 
 	var cnt_title = $('#cnt_title');
 	var change_name_value	= '-';

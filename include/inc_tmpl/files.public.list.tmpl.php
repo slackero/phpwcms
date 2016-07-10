@@ -177,4 +177,3 @@ if(isset($count_user_files) && $count_user_files) { //Wenn �berhaupt Public-Da
 	echo "[<a href=\"phpwcms.php?do=files&f=0&mkdir=0\">".$BL['be_fpriv_button']."</a>]";
 	echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }
-?>

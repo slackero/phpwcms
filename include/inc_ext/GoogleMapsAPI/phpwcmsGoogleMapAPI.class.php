@@ -959,7 +959,7 @@ class GoogleMapAPI
 			if ( !( $_shadow_info = @getimagesize( $_shadow_image_path ) ) )
 			{
 				return FALSE;
-				die( 'GoogleMapAPI:createMarkerIcon: Error reading image: ' . $iconShadowImage );
+				//die( 'GoogleMapAPI:createMarkerIcon: Error reading image: ' . $iconShadowImage );
 			}
 		}
 
@@ -1707,5 +1707,3 @@ class GoogleMapAPI
 		return acos( ( sin( deg2rad($lat1) ) * sin( deg2rad($lat2) ) ) + ( cos( deg2rad($lat1) ) * cos( deg2rad($lat2) ) * cos( deg2rad($lon1 - $lon2) ) ) ) * $earthRadius;
 	}
 }
-
-?>

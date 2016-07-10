@@ -16,7 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // recipe
 $cinfo = array();
 $cinfo[1] = cut_string($row["acontent_title"],'&#8230;', 55);
@@ -27,5 +26,3 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
 	echo str_replace("\n", '/', $cinfo["result"])."</a></td><td>&nbsp;</td></tr>";
 }
-
-?>

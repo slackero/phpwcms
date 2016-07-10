@@ -315,8 +315,6 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 			$content['alink']['alink_columns']	= abs(intval($content['alink']['alink_template_column']));
 		} elseif(empty($content['alink']['alink_columns'])) {
 			$content['alink']['alink_columns']	= 0;
-		} else {
-			$content['alink']['alink_columns']	= $content['alink']['alink_columns'];
 		}
 
 		$content['alink']['column']		= 1;
@@ -702,5 +700,3 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
 // unset the CP related value
 unset($content['alink']);
-
-?>

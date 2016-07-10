@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,13 +16,9 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type File List
 $content["file_descr"]		= $row["acontent_text"];
 $content["file_list"]		= explode(":", $row["acontent_files"]);
 $content["file_template"]	= $row["acontent_template"];
 $content['file']			= unserialize($row["acontent_form"]);
 $content["html"]			= $row["acontent_html"];
-
-?>

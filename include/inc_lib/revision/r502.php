@@ -45,5 +45,3 @@ function phpwcms_revision_r502() {
 
 	return $status;
 }
-
-?>

@@ -74,6 +74,8 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
+
+	return true;
 }
 
 /**
@@ -95,6 +97,8 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
+
+    return true;
 }
 
 
@@ -131,7 +135,6 @@ function initJSPlugin($plugin='', $more=false) {
 			}
 		}
 	}
-	return TRUE;
-}
 
-?>
+    return true;
+}

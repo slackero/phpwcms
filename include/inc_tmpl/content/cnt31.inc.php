@@ -729,7 +729,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         new_element.innerHTML = new_entry;
         window.location.hash='image_'+entry_number;
         return false;
-    };
+    }
 
     function deleteImgElement(e) {
         if(confirm('<?php echo $BL['be_image_delete_js'] ?>')) {

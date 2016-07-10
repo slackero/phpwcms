@@ -353,7 +353,7 @@
     var node,
         nodes = ownerDocument.getElementsByTagName('*'),
         index = nodes.length,
-        reElements = RegExp('^(?:' + getElements().join('|') + ')$', 'i'),
+        reElements = new RegExp('^(?:' + getElements().join('|') + ')$', 'i'),
         result = [];
 
     while (index--) {
@@ -398,7 +398,7 @@
     var pair,
         parts = cssText.split('{'),
         index = parts.length,
-        reElements = RegExp('(^|[\\s,>+~])(' + getElements().join('|') + ')(?=[[\\s,>+~#.:]|$)', 'gi'),
+        reElements = new RegExp('(^|[\\s,>+~])(' + getElements().join('|') + ')(?=[[\\s,>+~#.:]|$)', 'gi'),
         replacement = '$1' + shivNamespace + '\\:$2';
 
     while (index--) {
@@ -461,7 +461,7 @@
           collection = ownerDocument.styleSheets,
           cssText = [],
           index = collection.length,
-          sheets = Array(index);
+          sheets = new Array(index);
 
       // convert styleSheets collection to an array
       while (index--) {

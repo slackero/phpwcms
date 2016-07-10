@@ -433,7 +433,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			$(e).removeClass('tab-collapsed');
 		} else {
 			$(e).addClass('tab-collapsed');
-		};
+		}
 		return false;
 	}
 	function toggleTabsTemplate(e) {

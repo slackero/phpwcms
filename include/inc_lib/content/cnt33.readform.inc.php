@@ -68,6 +68,3 @@ if(is_intval($content['news']['news_detail_link'])) {
 if(is_intval($content['news']['news_archive_link'])) {
 	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ? intval($content['news']['news_archive_link']) : '';
 }
-
-
-?>

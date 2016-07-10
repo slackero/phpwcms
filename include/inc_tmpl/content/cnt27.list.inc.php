@@ -53,5 +53,3 @@ if($cinfo["result"] || $cinfo_image) { //Zeige Inhaltinfo
 	if($cinfo["result"] && $cinfo_image) echo "<br />";
 	echo $cinfo_image."</a></td><td>&nbsp;</td></tr>";
 }
-
-?>

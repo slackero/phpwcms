@@ -30,5 +30,3 @@ if($content["page_file"]['source']) {
 	}
 }
 unset($content['page_file']);
-
-?>

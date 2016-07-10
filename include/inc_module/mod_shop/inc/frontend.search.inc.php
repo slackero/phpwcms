@@ -141,6 +141,3 @@ class ModuleShopSearch {
 	}
 
 }
-
-
-?>

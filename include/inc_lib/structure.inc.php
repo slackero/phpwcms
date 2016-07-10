@@ -31,5 +31,3 @@ function struct_list ($struct_id, $dbcon, $counter=0) {
 		//mysql_free_result($result);
 	}
 }
-
-?>

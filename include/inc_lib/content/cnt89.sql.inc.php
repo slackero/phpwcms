@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,12 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type 89: Poll		jens
-
 $SQL .= "acontent_image="._dbEscape(serialize($content['poll_list'])).", ";
 $SQL .= "acontent_text="._dbEscape(serialize($content['poll_text'])).", ";
 $SQL .= "acontent_form="._dbEscape(serialize($content['poll_form']))." ";
-
-?>

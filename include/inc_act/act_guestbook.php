@@ -83,10 +83,7 @@ body,td,th {
 }
 body {
     background-color: #F3F4F5;
-    margin-left: 3px;
-    margin-top: 3px;
-    margin-right: 3px;
-    margin-bottom: 3px;
+    margin: 3px;
     width: 417px;
 }
 a {
@@ -101,10 +98,7 @@ a:active {
     color: #000000;
 }
 td {
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 2px 4px;
 }
 
 input, textarea {

@@ -35,5 +35,3 @@ function phpwcms_revision_r542() {
 
 	return $status;
 }
-
-?>

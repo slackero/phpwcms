@@ -43,7 +43,3 @@ if(empty($content["alias"]['alias_ID'])) {
 	}
 }
 
-
-
-
-?>

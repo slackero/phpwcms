@@ -414,7 +414,7 @@ class phpwcmsCalendar {
 		if(!empty($match['date_end'])) {
 			$match['date_end'] = strtoupper(trim($match['date_end']));
 			if(is_intval($match['date_end'])) {
-				$this->date_end = ceil($this->date_start + ($match['date_end'] * 24 * 3600));
+				$this->date_end = ceil((int)$this->date_start + ((int)$match['date_end'] * 24 * 3600));
 
 				// Get Seconds of this day and match against 23:59:59
 				$today_hours	= date('G', $this->date_end) * 3600;
@@ -726,6 +726,3 @@ class phpwcmsCalendar {
 	}
 
 }
-
-
-?>

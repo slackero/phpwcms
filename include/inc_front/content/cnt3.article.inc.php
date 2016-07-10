@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 //link & email
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
@@ -26,5 +24,3 @@ $CNT_TMP .= $template_default["article"]["link_email_before"];
 $CNT_TMP .= "<a href=\"".$link["link"]."\"".(($link["target"])?" target=\"".$link["target"]."\"":"").">";
 $CNT_TMP .= html_specialchars(trim(str_replace("mailto:", "", $link["link"])))."</a>";
 $CNT_TMP .= $template_default["article"]["link_email_after"];
-									
-?>

@@ -43,4 +43,3 @@ if(mysql_query($sql)) {
 } else {
 	$detail_updated = $BL['be_profile_update_error'];
 }
-?>

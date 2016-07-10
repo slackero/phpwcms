@@ -44,8 +44,8 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
   </tr>
   <tr bgcolor="#FFFFFF">
-    <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
-    <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
           <td colspan="2"><img src="../img/leer.gif" alt="" width="1" height="9" /></td>
         </tr>
@@ -55,10 +55,10 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
             <a href="upgrade.php">UPGRADE</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="../<?php echo $phpwcms['login.php'] ?>" target="_top">LOGIN</a></td>
         </tr>
     </table></td>
-    <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
   </tr>
   <tr bgcolor="#FFFFFF">
-    <td width="15" bgcolor="#FFFFFF" style="background-image:url(../img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
+    <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
     <td valign="top" bgcolor="#FFFFFF"><?php
 		
 		if(empty($NO_ACCESS)) {
@@ -87,7 +87,7 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 		}
 		
 		?></td>
-    <td width="15" bgcolor="#FFFFFF" style="background-image:url(../img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
+    <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>
   <tr>
     <td><img src="../img/backend/backend_a_r1_c1.gif" alt="" width="15" height="15" border="0" /></td>

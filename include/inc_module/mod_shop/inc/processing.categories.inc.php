@@ -154,6 +154,3 @@ if($action == 'edit') {
 	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat', '') );
 
 }
-
-
-?>

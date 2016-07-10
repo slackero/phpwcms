@@ -27,5 +27,3 @@ function phpwcms_revision_r438() {
 	
 	return $status;
 }
-
-?>

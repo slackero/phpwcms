@@ -6,9 +6,7 @@ a.fe-link {
 	margin: 0;
 	color: #000000;
 	text-decoration: none;
-	background-position: left center;
-	background-repeat: no-repeat;
-	background-color: transparent;
+	background: transparent no-repeat left center;
 	cursor: pointer;
 	z-index: 10000;
 	position: relative;
@@ -45,18 +43,15 @@ a.fe-link.fe-structure {
 	color: #FFFFFF;
 	border: 1px solid #003300;
 	padding: 3px;
-	background-position: center center;
-	background-repeat: no-repeat;
+	background: no-repeat center center;
 	height: 16px;
 	width: 16px;
 	cursor: pointer;
 	z-index: 10000;
 }
 #fe-link.enabled {
-	background-image: url(../../../img/famfamfam/pencil_delete.png);
-	background-color: #E1FFC4;
+	background: #E1FFC4 url(../../../img/famfamfam/pencil_delete.png);
 }
 #fe-link.disabled {
-	background-image: url(../../../img/famfamfam/pencil_add.png);
-	background-color: #FFDDDD;
+	background: #FFDDDD url(../../../img/famfamfam/pencil_add.png);
 }

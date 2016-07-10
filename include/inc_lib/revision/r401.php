@@ -9,7 +9,6 @@
  *
  **/
 
-
 // Revision 401 Update Check
 function phpwcms_revision_r401() {
 	
@@ -22,5 +21,3 @@ function phpwcms_revision_r401() {
 
 	return true;
 }
-
-?>

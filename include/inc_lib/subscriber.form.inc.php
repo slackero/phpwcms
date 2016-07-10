@@ -122,5 +122,3 @@ if($_userInfo['error']['email'] == 0 && (!empty($_POST['save']) || !empty($_user
 	$_userInfo['subscriber_data'] = false;
 
 }
-
-?>

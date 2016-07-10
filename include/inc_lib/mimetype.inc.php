@@ -46,7 +46,6 @@ $phpwcms['mime_types'] = array(
 	'cpio'		=>	'application/x-cpio',
 	'cpt'		=>	'application/mac-compactpro',
 	'csh'		=>	'application/x-csh',
-	'csh'		=>	'application/x-csh',
 	'css'		=>	'text/css',
 	'dll'		=>	'application/octet-stream',
 	'doc'		=>	'application/msword',
@@ -207,7 +206,6 @@ $phpwcms['mime_types'] = array(
 	'sgm'		=>	'text/sgml',
 	'sgml'		=>	'text/sgml',
 	'sh'		=>	'application/x-sh',
-	'sh'		=>	'application/x-sh',
 	'shar'		=>	'application/x-shar',
 	'sit'		=>	'application/x-stuffit',
 	'skp'		=>	'application/x-koan',
@@ -289,5 +287,3 @@ function is_mimetype_format($mimetype='') {
 	// we do not test against 'examples' type
 	return preg_match('/^(application|audio|image|text|video|message|model|multipart)\/([a-z0-9\-\.\+]+)$/i', $mimetype);
 }
-
-?>

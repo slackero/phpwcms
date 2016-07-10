@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,11 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Link List
-
 $SQL .= "acontent_text="._dbEscape($content["text"]).", ";
 $SQL .= "acontent_template="._dbEscape($content["template"])." ";
-
-?>

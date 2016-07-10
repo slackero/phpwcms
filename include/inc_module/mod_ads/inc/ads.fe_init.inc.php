@@ -64,5 +64,3 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 }
 
 headerRedirect(PHPWCMS_URL);
-
-?>

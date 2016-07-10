@@ -216,5 +216,3 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 // render content part title/subtitle
 $CNT_TMP = render_cnt_template($CNT_TMP, 'CP_TITLE', html_specialchars($crow['acontent_title']));
 $CNT_TMP = render_cnt_template($CNT_TMP, 'CP_SUBTITLE', html_specialchars($crow['acontent_subtitle']));
-
-?>

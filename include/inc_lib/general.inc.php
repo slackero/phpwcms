@@ -252,29 +252,49 @@ function fsizelong($zahl,$spacer='&nbsp;') {
 
 function extimg($ext) {
     //get extension image
-    $img =  array   (
-        "exe" =>    "icon_exe.gif",     "com" =>    "icon_exe.gif",
-        "bat" =>    "icon_exe.gif",     "pdf" =>    "icon_pdf.gif",
-        "txt" =>    "icon_txt.gif",     "xls" =>    "icon_xls.gif",
-        "cvs" =>    "icon_xls.gif",     "rtf" =>    "icon_txt.gif",
-        "htm" =>    "icon_htm.gif",     "html" =>   "icon_htm.gif",
-        "pix" =>    "icon_pix.gif",     "tif" =>    "icon_pix.gif",
-        "jpg" =>    "icon_pix.gif",     "jpeg" =>   "icon_pix.gif",
-        "gif" =>    "icon_pix.gif",     "png" =>    "icon_pix.gif",
-        "psd" =>    "icon_pix.gif",     "rar" =>    "icon_rar.gif",
-        "zip" =>    "icon_zip.gif",     "tar" =>    "icon_zip.gif",
-        "gzip" =>   "icon_zip.gif",     "sit" =>    "icon_sit.gif",
-        "sea" =>    "icon_sit.gif",     "doc" =>    "icon_doc.gif",
-        "dot" =>    "icon_doc.gif",     "ai"  =>    "icon_ai.gif",
-        "ps"  =>    "icon_ps.gif",      "eps" =>    "icon_eps.gif",
-        "tar" =>    "icon_tar.gif",     "gz"  =>    "icon_gz.gif",
-        "tgz" =>    "icon_gz.gif",      "aif" =>    "icon_snd.gif",
-        "aiff" =>   "icon_snd.gif",     "mp3" =>    "icon_snd.gif",
-        "snd" =>    "icon_snd.gif",     "wav" =>    "icon_snd.gif",
-        "mid" =>    "icon_snd.gif",     "mov" =>    "icon_vid.gif",
-        "avi" =>    "icon_vid.gif",     "qt"  =>    "icon_vid.gif",
-        "mpeg" =>   "icon_vid.gif"
-                );
+    $img = array(
+        "exe"  => "icon_exe.gif",
+        "com" => "icon_exe.gif",
+        "bat"  => "icon_exe.gif",
+        "pdf" => "icon_pdf.gif",
+        "txt"  => "icon_txt.gif",
+        "xls" => "icon_xls.gif",
+        "cvs"  => "icon_xls.gif",
+        "rtf" => "icon_txt.gif",
+        "htm"  => "icon_htm.gif",
+        "html" => "icon_htm.gif",
+        "pix"  => "icon_pix.gif",
+        "tif" => "icon_pix.gif",
+        "jpg"  => "icon_pix.gif",
+        "jpeg" => "icon_pix.gif",
+        "gif"  => "icon_pix.gif",
+        "png" => "icon_pix.gif",
+        "psd"  => "icon_pix.gif",
+        "rar" => "icon_rar.gif",
+        "zip"  => "icon_zip.gif",
+        "tar" => "icon_zip.gif",
+        "gzip" => "icon_zip.gif",
+        "sit" => "icon_sit.gif",
+        "sea"  => "icon_sit.gif",
+        "doc" => "icon_doc.gif",
+        "dot"  => "icon_doc.gif",
+        "ai" => "icon_ai.gif",
+        "ps"   => "icon_ps.gif",
+        "eps" => "icon_eps.gif",
+        "gz" => "icon_gz.gif",
+        "tgz"  => "icon_gz.gif",
+        "aif" => "icon_snd.gif",
+        "aiff" => "icon_snd.gif",
+        "mp3" => "icon_snd.gif",
+        "snd"  => "icon_snd.gif",
+        "wav" => "icon_snd.gif",
+        "mid"  => "icon_snd.gif",
+        "mov" => "icon_vid.gif",
+        "avi"  => "icon_vid.gif",
+        "qt" => "icon_vid.gif",
+        "mpeg" => "icon_vid.gif",
+    );
+
     return (isset($img[$ext])) ? $img[$ext] : "icon_generic.gif";
 }
 
@@ -1584,16 +1604,32 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
             $data = @getimagesize($_FILES[$file]['tmp_name']);
 
             $exif_imagetype = array(
-                    1=>'gif',   2=>'jpeg',  2=>'jpg',   3=>'png',   4=>'swf',   5=>'psd',
-                    6=>'bmp',   7=>'tif',   8=>'tiff',  9=>'jpc',   10=>'jp2',  11=>'jpx',
-                    12=>'jb2',  13=>'swc',  14=>'iff',  15=>'wbmp', 16=>'xbm'  );
+                1  => 'gif',
+                2  => 'jpg',
+                3  => 'png',
+                4  => 'swf',
+                5  => 'psd',
+                6  => 'bmp',
+                7  => 'tif',
+                8  => 'tiff',
+                9  => 'jpc',
+                10 => 'jp2',
+                11 => 'jpx',
+                12 => 'jb2',
+                13 => 'swc',
+                14 => 'iff',
+                15 => 'wbmp',
+                16 => 'xbm',
+            );
 
             if(!$data && !$exttype) {
 
                 $file_status['error']  = 'Format'.($file_status['ext'] ? ' *.'.$file_status['ext'] : '').' not supported (';
                 $allowed = array();
                 foreach($imgtype as $value) {
-                    $allowed[] = '*.'.$exif_imagetype[$value];
+                    if(($value = intval($value)) && isset($exif_imagetype[$value])) {
+                        $allowed[] = '*.' . $exif_imagetype[ $value ];
+                    }
                 }
                 $file_status['error'] .= implode(', ', $allowed).')';
                 $file_status['error_num'] = 415;

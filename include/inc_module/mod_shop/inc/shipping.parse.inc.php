@@ -59,9 +59,6 @@ if(strpos($order_process, '[SHIPPING_DISTANCE_ADDRESS]') !== false) {
 
 	}
 
-
 } elseif(strpos($order_process, '[SHIPPING') !== false) {
 	$order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
 }
-
-?>

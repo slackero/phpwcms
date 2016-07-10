@@ -81,5 +81,3 @@ $BLM['duplicate_title']			= 'Create copy of banner ads campaign';
 $BLM['under_construction']		= 'Module &#8220;Banner ads&#8221; should be enhanced by analysis and statistics at this point. But it will be possible with your support only.';
 $BLM['donate']					= 'Donate';
 $BLM['own']						= 'define payment';
-
-?>

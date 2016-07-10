@@ -2714,4 +2714,3 @@ class GoogleMapAPI {
         return $id;
     }
 }
-?>

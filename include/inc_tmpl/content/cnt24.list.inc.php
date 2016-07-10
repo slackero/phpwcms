@@ -46,5 +46,3 @@ if(empty($content["alias"]['alias_ID'])) {
 }
 echo $content["alias"]['alias_ID'].$content['alias_link'];
 echo "</td><td>&nbsp;</td></tr>";
-
-?>

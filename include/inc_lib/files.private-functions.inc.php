@@ -266,5 +266,3 @@ function on_off($wert, $string, $art = 1) {
 		return ($art == 1) ? "-" : "<img src=\"img/symbols/klapp_auf.gif\" title=\"".$GLOBALS['BL']['be_fprivfunc_closedir'].": ".$string."\" border=\"0\" alt=\"\" />";
 	}
 }
-
-?>

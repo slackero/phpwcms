@@ -9,14 +9,12 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 // Content Type Form Email
 $content["form"]			= explode("#:#", $row["acontent_form"]);
@@ -25,5 +23,3 @@ $content["mailsubject"]		= $content["form"][1];
 $content["mailrecipient"]	= $content["form"][2];
 $content["mailbutton"]		= $content["form"][3];
 $content["mailhtml"]		= intval($content["form"][4]);
-
-?>

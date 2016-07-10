@@ -113,9 +113,3 @@ if(count($content["file_descr"])) {
 	$content["file_descr"] = '';
 
 }
-
-
-
-
-
-?>

@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 //email form
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
@@ -212,5 +210,3 @@ if(trim($cform[0])) {
 	$CNT_TMP .= "</table></form>\n";
 
 }
-
-?>

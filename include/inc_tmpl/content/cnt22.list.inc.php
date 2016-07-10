@@ -39,7 +39,3 @@ if($rssfeed['rssurl']) {
 	echo '<img src="img/symbole/xml.gif" width="36" height="14" border="0" style="vertical-align:middle;"></a>';
 }
 echo "</td><td>&nbsp;</td></tr>";
-
-
-
-?>

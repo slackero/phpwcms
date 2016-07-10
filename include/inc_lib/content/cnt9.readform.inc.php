@@ -60,6 +60,3 @@ $content['media']["image_caption"]		= $content["image_caption"];
 
 
 $content["template"] = clean_slweg($_POST['template']);
-
-
-?>

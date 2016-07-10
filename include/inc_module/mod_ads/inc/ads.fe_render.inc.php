@@ -45,7 +45,6 @@ function renderAds($match) {
 		} else {
 
 			$ads_userid = $_COOKIE['phpwcmsAdsUserId'];
-			$ads_viewed = 0;
 			while(count($ads)) {
 
 				$ad_index	= array_rand($ads);
@@ -245,6 +244,3 @@ function renderAds($match) {
 	return $ad['adplace_prefix'].$ad_media.$ad['adplace_suffix'];
 
 }
-
-
-?>

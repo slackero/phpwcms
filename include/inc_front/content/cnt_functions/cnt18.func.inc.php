@@ -54,7 +54,3 @@ function guestbook_pages($matches) {
 	return $navpages;
 
 }
-
-
-
-?>

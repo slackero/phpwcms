@@ -28,5 +28,3 @@ $_module_fe_render		= true;
 $_module_fe_init		= false;
 $_module_fe_search		= true;
 $_module_fe_setting		= false;
-
-?>

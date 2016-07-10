@@ -22,7 +22,7 @@ function initJSLib() {
 			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js');
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 /**
@@ -73,6 +73,8 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
+
+	return true;
 }
 
 /**
@@ -105,7 +107,6 @@ function initJSPlugin($plugin='') {
 		initJSLib();
 		$GLOBALS['block']['custom_htmlhead'][$plugin] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/plugin-1.1/'.$plugin);
 	}
-	return TRUE;
-}
 
-?>
+    return true;
+}

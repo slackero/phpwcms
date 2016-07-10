@@ -337,6 +337,3 @@ foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) 
 	}
 
 }
-
-
-?>

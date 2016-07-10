@@ -157,5 +157,3 @@ if(	defined('FELOGIN_LEVEL_DEPTH') && isset($LEVEL_ID[FELOGIN_LEVEL_DEPTH]) && $
 function cleandblsquote($string) {
 	return trim( str_replace("''", '"', $string) );
 }
-
-?>

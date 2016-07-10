@@ -16,8 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-unset($_GET);
-unset($_POST);
+unset($_GET, $_POST);
 
 //$_print_settings['PDF_font_size']		= empty($_print_settings['PDF_font_size']) ? 5 : intval($_print_settings['PDF_font_size']);
 $_print_settings['PDF_file_prefix']		= empty($_print_settings['PDF_file_prefix']) ? '' : trim($_print_settings['PDF_file_prefix']);
@@ -58,7 +57,3 @@ if(write_textfile( PHPWCMS_CONTENT.'tmp/'.$_PDF_temp, $_PDF_page )) {
 }
 
 headerRedirect(abs_url());
-
-exit();
-
-?>

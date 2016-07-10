@@ -77,5 +77,3 @@ if(!isset($content['glossary'])) {
 	// Search for glossary tag
 	$content['all'] = preg_replace_callback('/\[glossary (.*?)\](.*?)\[\/glossary\]/i', 'replace_glossary_tag', $content['all']);
 }
-
-?>

@@ -9,7 +9,6 @@
  *
  **/
 
-
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
@@ -17,11 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Images Special
 $SQL .= "acontent_html="._dbEscape($content["image_html"]).", ";
 $SQL .= "acontent_template="._dbEscape($content["image_template"]).", ";
 $SQL .= "acontent_form="._dbEscape(serialize($content['image_special']))." ";
-
-?>

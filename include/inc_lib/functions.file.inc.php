@@ -213,7 +213,3 @@ function rangeDownload($file) {
 	fclose($fp);
 
 }
-
-
-
-?>

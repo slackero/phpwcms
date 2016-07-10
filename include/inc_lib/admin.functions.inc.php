@@ -731,5 +731,3 @@ function update_404redirect() {
 	return $data;
 
 }
-
-?>

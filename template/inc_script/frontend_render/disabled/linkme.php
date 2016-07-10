@@ -116,5 +116,3 @@ function createSocialBookmark($matches) {
 	return $matches[1];
 
 }
-
-?>

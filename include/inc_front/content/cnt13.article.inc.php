@@ -558,7 +558,6 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 				$crow['template']['pagination'] = $content["search"]["label_pages"];
 				$crow['template']['paginate_custom'] = true;
 			} elseif($crow['template']['pagination']) {
-				$crow['template']['pagination'] = $crow['template']['pagination'];
 				$crow['template']['paginate_custom'] = false;
 			} else {
 				$crow['template']['pagination'] = '[PREV]{PREV:&laquo; Previous} | [/PREV]Page #/##[NEXT] | {NEXT:Next &raquo;}[/NEXT]';

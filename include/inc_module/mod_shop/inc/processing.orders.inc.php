@@ -79,5 +79,3 @@ if($action == 'delete') {
 	$BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];
 
 }
-
-?>

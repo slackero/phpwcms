@@ -297,4 +297,3 @@ class uctc {
         return $output;
     }
 }
-?>

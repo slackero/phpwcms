@@ -49,6 +49,8 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
+
+	return true;
 }
 
 /**
@@ -70,6 +72,8 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
+
+	return true;
 }
 
 /**
@@ -81,7 +85,5 @@ function initJSPlugin($plugin='') {
 		initJSLib();
 		$GLOBALS['block']['custom_htmlhead'][$plugin] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/plugin/'.$plugin);
 	}
-	return TRUE;
+	return true;
 }
-
-?>

@@ -49,5 +49,3 @@ function phpwcms_revision_r414() {
 	return $status;
 
 }
-
-?>

@@ -37,7 +37,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 	while($row = mysql_fetch_assoc($result)) {
 
 		echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"25\">";
-		echo '<img src="img/symbols/icon_minicategory1.gif" width="14" height="14" alt="" style="margin:4px;margin-left:5px;"></td>'."\n";
+		echo '<img src="img/symbols/icon_minicategory1.gif" width="14" height="14" alt="" style="margin:4px 4px 4px 5px;"></td>'."\n";
 		echo '<td width="473" class="dir"><a href="phpwcms.php?';
 		$tempQuery = build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$row["forum_id"]);
 		echo $tempQuery;

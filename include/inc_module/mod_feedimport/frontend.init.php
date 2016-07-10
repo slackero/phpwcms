@@ -352,8 +352,6 @@ if(!empty($_getVar['feedimport'])) {
 							'acontent_spacer'			=> '',
 							'acontent_category'			=> '',
 							'acontent_lang'				=> '',
-							'acontent_alink'			=> '',
-							'acontent_redirect'			=> '',
 							'acontent_form'				=> '',
 							'acontent_media'			=> '',
 							'acontent_newsletter'		=> ''
