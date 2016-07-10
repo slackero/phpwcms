@@ -110,7 +110,7 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 			$a  = '<a href="img/cmsimage.php/';
 			$a .= $config['image_zoom_width'] . 'x' . $config['image_zoom_height'] . '/';
 			$a .= $img['f_hash'] . '.' . $img['f_ext'] . '" ';
-            $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . $caption[3] . $title . '>';
+            $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . get_attr_data_gallery($config['lightbox_id'], ' ', '') . $caption[3] . $title . '>';
 
 			$list_img_temp = $a . $list_img_temp . '</a>';
 		}

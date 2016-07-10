@@ -503,7 +503,7 @@ if($news['template']) {
             $news['entries'][$key] = str_replace('{LIGHTBOX}', '', $news['entries'][$key]);
         } else {
             initSlimbox();
-            $news['entries'][$key] = str_replace('{LIGHTBOX}', ' rel="lightbox"', $news['entries'][$key]);
+            $news['entries'][$key] = str_replace('{LIGHTBOX}', ' rel="lightbox"'.get_attr_data_gallery('', ' ', ''), $news['entries'][$key]);
         }
         // Caption
         if(empty($value['cnt_object']['cnt_image']['caption'])) {

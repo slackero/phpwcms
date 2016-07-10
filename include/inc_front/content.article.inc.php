@@ -311,7 +311,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
                             if($row["article_image"]["caption"]) {
                                 $thumb_href .= ' title="'.parseLightboxCaption($row["article_image"]["caption"]).'"';
                             }
-                            $thumb_href .= ' rel="lightbox" class="'.$template_default['classes']['image-lightbox'].'">';
+                            $thumb_href .= get_attr_data_gallery('', ' ', '').' rel="lightbox" class="'.$template_default['classes']['image-lightbox'].'">';
                         }
 
                         $thumb_img = $thumb_href.$thumb_img.'</a>';

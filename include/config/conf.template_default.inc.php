@@ -301,7 +301,6 @@ $template_default['classes'] = array(
     'link-anchor'                   => 'link-anchor',
     'link-email'                    => 'link-email',
     'link-bookmark'                 => 'link-bookmark',
-    'link-rss'                      => 'link-rss',
     'spaceholder'                   => 'spaceholder',
     'spaceholder-cp-after'          => 'spaceAfterCP',
     'spaceholder-cp-before'         => 'spaceBeforeCP',
@@ -412,7 +411,13 @@ $template_default['attributes'] = array(
         'link-suffix' => ' ',
         'value-prefix' => '',
         'value-suffix' => ''
-    )
+    ),
+    /*
+     * The deprecated solution is using `lightbox` in combination with attribute `rel`
+     * For example the setting 'gallery' will result in attributes `data-gallery="1"`
+     * and if it's grouped `data-gallerygroup="1"` or `data-gallerygroup="groupname"`
+     */
+    'data-gallery' => 'gallery',
 );
 
 $template_default['settings'] = array(

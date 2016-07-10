@@ -133,7 +133,7 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 
             } else {
 
-                $table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"';
+                $table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"'.get_attr_data_gallery('', ' ', '');
                 if($caption[0]) {
                     $table .= ' title="'.parseLightboxCaption($caption[0]).'"';
                 }
@@ -247,7 +247,7 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 
             } else {
 
-                $image_block .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"';
+                $image_block .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"'.get_attr_data_gallery('', ' ', '');
                 if($caption[0]) {
                     $image_block .= ' title="'.parseLightboxCaption($caption[0]).'"';
                 }
@@ -483,7 +483,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
                 } else {
 
                     // lightbox
-                    $table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$lightbox.']"';
+                    $table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$lightbox.']"'.get_attr_data_gallery($lightbox, ' ', '');
                     if($capt_cur) {
                         $table .= ' title="'.parseLightboxCaption($capt_cur).'"';
                     }

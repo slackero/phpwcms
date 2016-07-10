@@ -288,7 +288,7 @@ if($image['template']) {
                 } else {
 
                     // lightbox
-                    $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']" ';
+                    $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
                     $img_thumb_link .= $lightbox_capt;
                     $img_thumb_link .= $list_ahref_style.' class="'.$template_default['classes']['image-lightbox'].'">';
 
@@ -350,7 +350,7 @@ if($image['template']) {
 
             $img_a = render_cnt_template($img_a, 'IMAGE_URL', $caption[2][0]);
             $img_a = str_replace('{IMAGE_TARGET}',  $caption[2][1], $img_a);
-            $img_a = str_replace('{LIGHTBOX}',  ($image['lightbox'] !== false ? ' rel="lightbox['.$image['lightbox'].']"' : '' ), $img_a);
+            $img_a = str_replace('{LIGHTBOX}',  ($image['lightbox'] !== false ? ' rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', '') : '' ), $img_a);
             $img_a = str_replace('{LIGHTBOX_CAPTION}', $lightbox_capt, $img_a);
 
             $img_a = render_cnt_template($img_a, 'ZOOM', ($img_zoom_name ? '<!-- Zoomed -->' : '') );

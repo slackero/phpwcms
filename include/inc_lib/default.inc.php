@@ -68,10 +68,10 @@ $phpwcms['charsets'] = array(
     'euc-tw',
     'ks_c_5601-1987',
     'tis-620',
-    'shift_jis'
+    'shift_jis',
 );
 
-define ('PHPWCMS_CHARSET',  empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
+define('PHPWCMS_CHARSET',  empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
 if(!empty($phpwcms['php_charset'])) {
     @ini_set('default_charset', PHPWCMS_CHARSET);
@@ -111,11 +111,11 @@ if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     if(substr($phpwcms['site'], 0, 5) == 'http:') {
         $phpwcms['site'] = $phpwcms['site_ssl_url'];
     }
-    define ('PHPWCMS_SSL', true);
-    define ('PHPWCMS_HTTP_SCHEMA', 'https');
+    define('PHPWCMS_SSL', true);
+    define('PHPWCMS_HTTP_SCHEMA', 'https');
 } else {
-    define ('PHPWCMS_SSL', false);
-    define ('PHPWCMS_HTTP_SCHEMA', 'http');
+    define('PHPWCMS_SSL', false);
+    define('PHPWCMS_HTTP_SCHEMA', 'http');
 }
 
 $phpwcms["site"] .= '/';
@@ -125,64 +125,64 @@ $phpwcms['site_ssl_url'] .= '/';
 // important for the script to know the real path
 $phpwcms['DOC_ROOT'] = rtrim( str_replace("\\", '/', $phpwcms['DOC_ROOT']), '/' );
 if( empty($phpwcms["root"]) ) {
-    $phpwcms["root"]             = '';
-    $phpwcms["host_root"]        = '';
+    $phpwcms["root"] = '';
+    $phpwcms["host_root"] = '';
 } else {
-    $phpwcms["root"]             = trim( $phpwcms["root"], '/' );
-    $phpwcms["host_root"]        = '/'.$phpwcms["root"];
-    $phpwcms['DOC_ROOT']        .=  '/' . $phpwcms["root"];
-    $phpwcms["root"]            .=  '/';
+    $phpwcms["root"] = trim( $phpwcms["root"], '/' );
+    $phpwcms["host_root"] = '/'.$phpwcms["root"];
+    $phpwcms['DOC_ROOT'] .=  '/' . $phpwcms["root"];
+    $phpwcms["root"] .=  '/';
 }
 
-define ('PHPWCMS_ROOT',             $phpwcms['DOC_ROOT']);
-define ('PHPWCMS_FILES',            $phpwcms["file_path"] . '/');
-define ('PHPWCMS_BASEPATH',         '/' . $phpwcms["root"]);
-define ('PHPWCMS_USER_KEY',         md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms['db_pass']));
-define ('PHPWCMS_REWRITE',          empty($phpwcms['rewrite_url']) ? false : true);
-define ('PHPWCMS_REWRITE_EXT',      isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
-define ('PHPWCMS_ALIAS_WSLASH',     empty($phpwcms['alias_allow_slash']) ? false : true);
-define ('IS_PHP523',                version_compare(PHP_VERSION, '5.2.3', '>='));
-define ('IS_PHP5',                  IS_PHP523);
-define ('IS_PHP540',                version_compare(PHP_VERSION, '5.4.0', '>='));
+define('PHPWCMS_ROOT', $phpwcms['DOC_ROOT']);
+define('PHPWCMS_FILES', $phpwcms["file_path"] . '/');
+define('PHPWCMS_BASEPATH', '/' . $phpwcms["root"]);
+define('PHPWCMS_USER_KEY', md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms['db_pass']));
+define('PHPWCMS_REWRITE', empty($phpwcms['rewrite_url']) ? false : true);
+define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
+define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
+define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
+define('IS_PHP5', IS_PHP523);
+define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/revision/revision.php';
 
 phpwcms_getUserAgent();
-define('BROWSER_NAME',              $phpwcms['USER_AGENT']['agent']);
-define('BROWSER_NUMBER',            $phpwcms['USER_AGENT']['version']);
-define('BROWSER_OS',                $phpwcms['USER_AGENT']['platform']);
-define('BROWSER_MOBILE',            $phpwcms['USER_AGENT']['mobile']);
+define('BROWSER_NAME', $phpwcms['USER_AGENT']['agent']);
+define('BROWSER_NUMBER', $phpwcms['USER_AGENT']['version']);
+define('BROWSER_OS', $phpwcms['USER_AGENT']['platform']);
+define('BROWSER_MOBILE', $phpwcms['USER_AGENT']['mobile']);
 
-$phpwcms["file_path"]           =   '/'.$phpwcms["file_path"].'/' ;  // "/phpwcms_filestorage/"
+$phpwcms["file_path"] =   '/'.$phpwcms["file_path"].'/' ;  // "/phpwcms_filestorage/"
 
-define ('TEMPLATE_PATH',            $phpwcms["templates"].'/');
-$phpwcms["templates"]           =   '/'.$phpwcms["templates"].'/' ;  // "/phpwcms_template/"
-$phpwcms["content_path"]        =   $phpwcms["content_path"].'/'  ;  // "content/"
-define ('CONTENT_PATH',             $phpwcms["content_path"]);
-$phpwcms["cimage_path"]         =   $phpwcms["cimage_path"].'/'   ;  // "images/"
-$phpwcms["ftp_path"]            =   '/'.$phpwcms["ftp_path"].'/'  ;  // "/phpwcms_ftp/"
+define('TEMPLATE_PATH', $phpwcms["templates"].'/');
+$phpwcms["templates"] = '/'.$phpwcms["templates"].'/' ;  // "/phpwcms_template/"
+$phpwcms["content_path"] = $phpwcms["content_path"].'/'  ;  // "content/"
+define('CONTENT_PATH', $phpwcms["content_path"]);
+$phpwcms["cimage_path"] = $phpwcms["cimage_path"].'/'   ;  // "images/"
+$phpwcms["ftp_path"] = '/'.$phpwcms["ftp_path"].'/'  ;  // "/phpwcms_ftp/"
 
-define ('PHPWCMS_TEMPLATE',         PHPWCMS_ROOT.$phpwcms["templates"]);
-define ('PHPWCMS_URL',              $phpwcms["site"].$phpwcms["root"]);
-$phpwcms['parse_url']           =   parse_url(PHPWCMS_URL);
+define('PHPWCMS_TEMPLATE', PHPWCMS_ROOT.$phpwcms["templates"]);
+define('PHPWCMS_URL', $phpwcms["site"].$phpwcms["root"]);
+$phpwcms['parse_url'] = parse_url(PHPWCMS_URL);
 
-define ('PHPWCMS_HOST',             $phpwcms['parse_url']['host'].$phpwcms["host_root"]);
-define ('PHPWCMS_IMAGES',           $phpwcms["content_path"].$phpwcms["cimage_path"]);
-define ('PHPWCMS_TEMP',             PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
-define ('PHPWCMS_CONTENT',          PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
-define ('PHPWCMS_THUMB',            PHPWCMS_CONTENT.$phpwcms["cimage_path"]);
-define ('PHPWCMS_RSS',              PHPWCMS_CONTENT.'rss');
-define ('PHPWCMS_STORAGE',          PHPWCMS_ROOT.$phpwcms["file_path"]);
-define ('LF',                       "\n");  //global new line Feed
-define ('FEUSER_REGKEY',            empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
-define ('RESPONSIVE_MODE',          empty($phpwcms['responsive']) ? false : true);
+define('PHPWCMS_HOST', $phpwcms['parse_url']['host'].$phpwcms["host_root"]);
+define('PHPWCMS_IMAGES', $phpwcms["content_path"].$phpwcms["cimage_path"]);
+define('PHPWCMS_TEMP', PHPWCMS_ROOT.'/'.$phpwcms["content_path"].'tmp/');
+define('PHPWCMS_CONTENT', PHPWCMS_ROOT.'/'.$phpwcms["content_path"]);
+define('PHPWCMS_THUMB', PHPWCMS_CONTENT.$phpwcms["cimage_path"]);
+define('PHPWCMS_RSS', PHPWCMS_CONTENT.'rss');
+define('PHPWCMS_STORAGE', PHPWCMS_ROOT.$phpwcms["file_path"]);
+define('LF', "\n");  //global new line Feed
+define('FEUSER_REGKEY', empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
+define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
 
 if(function_exists('mb_substr')) {
-    define ('MB_SAFE', true); //mbstring safe - better to do a check here
+    define('MB_SAFE', true); //mbstring safe - better to do a check here
 } else {
-    define ('MB_SAFE', false);
+    define('MB_SAFE', false);
 
     function mb_substr($str='', $start=0, $length=NULL, $encoding='') {
         if($length !== NULL) {
@@ -277,7 +277,7 @@ $phpwcms['js_lib_default'] = array(
     'jquery-1.9-migrate'    => 'jQuery 1.9.1 + Migrate 1.2.1',
     'jquery-1.8'            => 'jQuery 1.8.3',
     'jquery-1.7'            => 'jQuery 1.7.2',
-    'jquery-1.6'            => 'jQuery 1.6.4'
+    'jquery-1.6'            => 'jQuery 1.6.4',
 );
 $phpwcms['js_lib_deprecated'] = array(
     'jquery-1.5'            => 'jQuery 1.5.2',
@@ -286,7 +286,7 @@ $phpwcms['js_lib_deprecated'] = array(
     'mootools-1.4'          => 'MooTools 1.4.5',
     'mootools-1.4-compat'   => 'MooTools 1.4.5 Compat',
     'mootools-1.2'          => 'MooTools 1.2.6',
-    'mootools-1.1'          => 'MooTools 1.1'
+    'mootools-1.1'          => 'MooTools 1.1',
 );
 
 if(isset($phpwcms['js_lib'])) {
@@ -307,7 +307,6 @@ $phpwcms['default_template_classes'] = array(
     'link-anchor'                   => 'link-anchor',
     'link-email'                    => 'link-email',
     'link-bookmark'                 => 'link-bookmark',
-    'link-rss'                      => 'link-rss',
     'spaceholder'                   => 'spaceholder',
     'spaceholder-cp-after'          => 'spaceAfterCP',
     'spaceholder-cp-before'         => 'spaceBeforeCP',
@@ -394,7 +393,7 @@ $phpwcms['default_template_classes'] = array(
 
 $phpwcms['search_highlight'] = array(
     'prefix' => '<em class="highlight">',
-    'suffix' => '</em>'
+    'suffix' => '</em>',
 );
 
 $phpwcms['default_template_attributes'] = array(
@@ -406,7 +405,8 @@ $phpwcms['default_template_attributes'] = array(
         'link-suffix' => ' ',
         'value-prefix' => '',
         'value-suffix' => ''
-    )
+    ),
+    'data-gallery' => 'gallery',
 );
 
 if(empty($phpwcms['allowed_upload_ext'])) {
@@ -482,7 +482,7 @@ if(empty($phpwcms['allowed_upload_ext'])) {
         'f4v',
         'f4p',
         'f4a',
-        'f4b'
+        'f4b',
     );
 }
 
@@ -550,12 +550,12 @@ define('PHPWCMS_HEADER_COMMENT', '
 ');
 
 // Todo: Later remove these
-$phpwcms["release"]             = PHPWCMS_VERSION;
-$phpwcms["release_date"]        = PHPWCMS_RELEASE_DATE;
-$phpwcms["revision"]            = PHPWCMS_REVISION;
+$phpwcms["release"] = PHPWCMS_VERSION;
+$phpwcms["release_date"] = PHPWCMS_RELEASE_DATE;
+$phpwcms["revision"] = PHPWCMS_REVISION;
 
 // We need a global var for callback functions, mainly dates
-$phpwcms['callback']            = null;
+$phpwcms['callback'] = null;
 
 // -------------------------------------------------------------
 
@@ -1284,12 +1284,9 @@ function get_user_vmode() {
         case 1:     return 'editor';    break;
         case 2:     return 'admin';     break;
         default:    return 'all';
-    };
+    }
 }
 
 function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
     $c = ''; foreach(str_split(strval($$g)) as $a) $c.=$e[intval($a)]; return $c;
 }
-
-
-?>

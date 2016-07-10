@@ -1179,7 +1179,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                                 // lightbox
                                 initSlimbox();
 
-                                $article["article_image"]["poplink"]  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox" ';
+                                $article["article_image"]["poplink"]  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox" '.get_attr_data_gallery('', '', ' ');
                                 if($article["article_image"]["list_caption"]) {
                                     $article["article_image"]["poplink"] .= 'title="'.parseLightboxCaption($article["article_image"]["list_caption"]).'" ';
                                 }
@@ -4285,4 +4285,14 @@ function get_css_keywords($text) {
     }
 
     return array();
+}
+
+function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
+
+    $attr = ' data-'.$GLOBALS['template_default']['attributes']['data-gallery'].'="1"';
+    if($group !== '') {
+        $attr .= $prefix.'data-'.$GLOBALS['template_default']['attributes']['data-gallery'].'group="'.$group.'"'.$suffix;
+    }
+    return $attr;
+
 }

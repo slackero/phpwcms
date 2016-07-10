@@ -264,8 +264,8 @@ if($image['template']) {
 
                 } else {
 
-                    // lightbox
-                    $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']" ';
+                    // Gallery image
+                    $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
                     if($capt_cur) {
                         $img_thumb_link .= 'title="'.parseLightboxCaption($capt_cur).'" ';
                     } elseif(strpos($image['tmpl_entry'], '{IMGNAME}')) {

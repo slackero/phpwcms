@@ -523,6 +523,9 @@ if(is_string($block['css'])) {
 // template defaults
 $template_default['classes'] = isset($template_default['classes']) ? array_merge($phpwcms['default_template_classes'], $template_default['classes']) : $phpwcms['default_template_classes'];
 $template_default['attributes'] = isset($template_default['attributes']) ? array_merge($phpwcms['default_template_attributes'], $template_default['attributes']) : $phpwcms['default_template_attributes'];
+if(empty($template_default['attributes']['data-gallery'])) {
+    $template_default['attributes']['data-gallery'] = 'gallery';
+}
 
 // is this a onepage template, also egalize the related variable
 $block['onepage'] = empty($block['onepage']) ? false : true;

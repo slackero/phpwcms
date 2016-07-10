@@ -528,7 +528,7 @@ class phpwcmsImageGallery {
 				$a .= '/' . $image['f_hash'] . '.' . $image['f_ext'] . '" target="_blank"';
 
 				if($this->lightbox === true) {
-                    $a .= ' rel="lightbox[gallery'.$folder.']"';
+                    $a .= ' rel="lightbox[gallery'.$folder.']"'.get_attr_data_gallery('gallery'.$folder, ' ', '');
 				}
 				if($image['f_longinfo'] != '') {
 
