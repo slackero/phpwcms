@@ -1459,7 +1459,7 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
     if(empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
         $block['cookie_consent']['options']['theme'] = false;
     } elseif(!PHPWCMS_USE_CDN && strpos($block['cookie_consent']['theme'], '.css') === false) {
-        $block['cookie_consent']['options']['theme'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/'.$block['cookie_consent']['options']['theme'].'.css';
+        $block['cookie_consent']['options']['theme'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/'.$block['cookie_consent']['theme'].'.css';
     } else {
         $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
     }
