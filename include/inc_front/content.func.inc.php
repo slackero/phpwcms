@@ -1469,9 +1469,9 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
     $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
 
     if(PHPWCMS_USE_CDN) {
-        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_HTTP_SCHEMA.'://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script><![endif]-->';
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_HTTP_SCHEMA.'://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
     } else {
-        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/cookieconsent.min.js"></script><![endif]-->';
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/cookieconsent.min.js"></script>';
     }
 
 }
