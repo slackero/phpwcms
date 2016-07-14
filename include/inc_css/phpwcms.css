@@ -1275,9 +1275,7 @@ div.status_message_info {
     background-color: #FEE16C;
     color: #363C47;
     padding: 5px 5px 5px 25px;
-    background-image: url(../../img/famfamfam/information.png) !important;
-    background-repeat: no-repeat;
-    background-position: 4px 4px;
+    background-image: url(../../img/famfamfam/information.png) no-repeat 4px 4px !important;
     font-size: 12px;
     font-weight: normal;
 }
@@ -1288,9 +1286,7 @@ div.status_message_success {
     background-color: #DEF9AC;
     color: #006600;
     padding: 5px 5px 5px 25px;
-    background-image: url(../../img/famfamfam/accept.png) !important;
-    background-repeat: no-repeat;
-    background-position: 4px 4px;
+    background-image: url(../../img/famfamfam/accept.png) no-repeat 4px 4px !important;
     font-size: 12px;
     font-weight: normal;
 }
@@ -1302,9 +1298,7 @@ div.status_message_error {
     background-color: #FFC6C6;
     color: #CC0033;
     padding: 5px 5px 5px 25px;
-    background-image: url(../../img/famfamfam/exclamation.png) !important;
-    background-repeat: no-repeat;
-    background-position: 4px 4px;
+    background-image: url(../../img/famfamfam/exclamation.png) no-repeat 4px 4px !important;
     font-size: 12px;
     font-weight: normal;
 }
@@ -1921,7 +1915,7 @@ ul#images em.handle {
     text-indent: 0;
     top: .65em;
     padding-left: 1em;
-    background: url(../../img/symbols/klapp_zu.gif) left center;
+    background: url(../../img/symbols/klapp_zu.gif) no-repeat left center;
 }
 
 #filebrowser-uploader.closed div {
