@@ -225,8 +225,6 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
 $BE['HEADER']['alias_slah_var'] = ' <script type="text/javascript"> var aliasAllowSlashes = ' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . '; </script>';
 
 initMootools();
-$BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
-$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
 if($do == "messages" && $p == 1) {
 
@@ -594,7 +592,8 @@ if($body_onload) {
     $BE['HTML'] = str_replace('<body>', '<body '.$body_onload.'>', $BE['HTML']);
 }
 
-//$BE['HEADER'][] = '';
+$BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
+$BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
 // html head section
 $BE['HTML'] = str_replace('<!-- phpwcms HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);
