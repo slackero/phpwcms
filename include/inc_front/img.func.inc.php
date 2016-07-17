@@ -79,7 +79,7 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
         $capt_after     = $GLOBALS["template_default"]["article"]["image_caption_after"];
 
         // image caption
-        $caption = getImageCaption(base64_decode($image[6]));
+        $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
         $caption[0] = html_specialchars($caption[0]);
         $caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
         $caption[1] = empty($caption[1]) ? html_specialchars($image[1]) : html_specialchars($caption[1]);

@@ -198,7 +198,7 @@ if($image['template']) {
             }
 
             // set caption and ALT Image Text for imagelist
-            $caption = getImageCaption($value['caption']);
+            $caption = getImageCaption(array('caption' => $value['caption'], 'file' => $value['thumb_id']));
 
             if($caption[0]) {
                 $caption[0] = html_specialchars($caption[0]);

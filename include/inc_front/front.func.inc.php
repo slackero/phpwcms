@@ -1107,7 +1107,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
             if(empty($article["article_image"]["list_caption"])) {
                 $article["article_image"]["list_caption"] = '';
             }
-            $caption = getImageCaption($article["article_image"]["list_caption"]);
+            $caption = getImageCaption(array('caption' => $article["article_image"]["list_caption"], 'file' => $article["article_image"]["list_id"]));
 
             $article["article_image"]["list_caption"]   = $caption[0]; // caption text
             $article["article_image"]["copyright"]      = $caption[4]; // copyright information
@@ -3303,7 +3303,46 @@ function getStructureChildEntryHref($childData) {
 
 }
 
-function getImageCaption($caption='', $array_index='NUM', $short=false) {
+function getImageCaption($caption, $array_index='NUM', $short=false) {
+
+    // empty
+    if(empty($caption)) {
+        if($short) {
+            return array(
+                'caption' => '',
+                'alt' => '',
+                'title' => ''
+            );
+        }
+        if($array_index === 'NUM') {
+            return array(
+                0 => '',
+                1 => '',
+                2 => array('', ''),
+                3 => '',
+                4 => '',
+                'caption_text' => '',
+                'caption_alt' => '',
+                'caption_link' => '',
+                'caption_target' => '',
+                'caption_title' => '',
+                'caption_copyright' => ''
+            );
+        }
+        return array(
+            0 => '',
+            1 => '',
+            2 => array('', ''),
+            3 => '',
+            4 => ''
+        );
+    } elseif(is_array($caption)) {
+        $filedata = isset($caption['file']) ? getFileDetails($caption['file']) : null;
+        $caption = isset($caption['caption']) ? $caption['caption'] : '';
+    } else {
+        $filedata = null;
+    }
+
     // splits given image caption and returns an array
     $caption = explode('|', $caption);
 
@@ -3314,8 +3353,11 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
     // [3] title text -> if empty alt text will be used
     // [4] copyright information
     $caption[0] = trim($caption[0]);
-    $caption[1] = isset($caption[1]) ? trim($caption[1]) : '';
-    $caption[3] = isset($caption[3]) ? trim($caption[3]) : '';
+    if(($caption[0] = trim($caption[0])) === '' && isset($filedata['f_longinfo'])) {
+        $caption[0] = $filedata['f_longinfo'];
+    }
+    $caption[1] = isset($caption[1]) ? trim($caption[1]) : (isset($filedata['f_alt']) ? $filedata['f_alt'] : '');
+    $caption[3] = isset($caption[3]) ? trim($caption[3]) : (isset($filedata['f_title']) ? $filedata['f_title'] : '');
 
     // cut here – just return caption and alt text
     if($short) {
@@ -3335,7 +3377,7 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
         $caption[2][1]  = empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
     }
 
-    $caption[4] = isset($caption[4]) ? trim($caption[4]) : '';
+    $caption[4] = isset($caption[4]) ? trim($caption[4]) : (isset($filedata['f_copyright']) ? $filedata['f_copyright'] : '');
 
     if($caption[4] === '') {
         $copyright  = returnTagContent($caption[3], 'copyright');
@@ -3345,7 +3387,7 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
         $caption[3] = replace_cnt_template($caption[3], 'copyright', '');
     }
 
-    if($array_index == 'NUM') {
+    if($array_index === 'NUM') {
         return $caption;
     } else {
         return $caption + array(
@@ -3357,6 +3399,56 @@ function getImageCaption($caption='', $array_index='NUM', $short=false) {
             'caption_copyright' => $caption[4]
         );
     }
+
+}
+
+function getFileDetails($file) {
+
+    if(empty($file)) {
+        return null;
+    }
+
+    $where = 'f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ';
+
+    if(is_intval($file)) {
+        $where .= 'f_id='.intval($file);
+    } elseif(strlen($file) === 32) {
+        $where .= 'f_hash='._dbEscape($file);
+    } else {
+        return null;
+    }
+
+    $result = _dbGet('phpwcms_file', '*', $where, '', '', 1);
+    if(isset($result[0]['f_id'])) {
+
+        $result = $result[0];
+        if(!empty($result['f_vars'])) {
+            $result['f_vars'] = @unserialize($result['f_vars']);
+            $lang = $GLOBALS['phpwcms']['default_lang'];
+
+            if(count($GLOBALS['phpwcms']['allowed_lang']) > 1 && isset($result['f_vars'][ $lang ])) {
+
+                $default = array(
+                    'longinfo' => '',
+                    'copyright' => '',
+                    'title' => '',
+                    'alt' => '',
+                );
+
+                $result['f_vars'][ $lang ] = array_merge($default, $result['f_vars'][ $lang ]);
+
+                $result['f_longinfo'] = $result['f_vars'][ $lang ]['longinfo'];
+                $result['f_copyright'] = $result['f_vars'][ $lang ]['copyright'];
+                $result['f_title'] = $result['f_vars'][ $lang ]['title'];
+                $result['f_alt'] = $result['f_vars'][ $lang ]['alt'];
+            }
+        }
+
+        return $result;
+
+    }
+
+    return null;
 
 }
 

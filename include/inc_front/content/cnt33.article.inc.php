@@ -510,7 +510,7 @@ if($news['template']) {
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'CAPTION', '' );
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'LIGHTBOX_CAPTION', '' );
         } else {
-            $value['cnt_caption']  = getImageCaption($value['cnt_object']['cnt_image']['caption'], '');
+            $value['cnt_caption']  = getImageCaption(array('caption' => $value['cnt_object']['cnt_image']['caption'], 'file' => $value['cnt_object']['cnt_image']['id']), '');
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'CAPTION', html_specialchars($value['cnt_caption']['caption_text']) );
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'LIGHTBOX_CAPTION', parseLightboxCaption($value['cnt_caption']['caption_text']) );
         }

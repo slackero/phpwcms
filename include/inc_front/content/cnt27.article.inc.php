@@ -49,7 +49,7 @@ $thumb_img		= '';
 $caption[0]		= '';
 if(!empty($crow["acontent_image"][2])) {
 
-	$caption = getImageCaption(base64_decode($crow["acontent_image"][6]));
+	$caption = getImageCaption(array('caption' => base64_decode($crow["acontent_image"][6]), 'file' => $crow["acontent_image"][0]));
 	$caption[0]	= html_specialchars($caption[0]);
 	$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
 	$caption[1] = empty($caption[1]) ? html_specialchars($crow["acontent_image"][1]) : html_specialchars($caption[1]);

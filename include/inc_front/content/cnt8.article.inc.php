@@ -433,7 +433,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 					$row['article_image'] = setArticleSummaryImageData($row['article_image']);
 
 					if(!empty($row['article_image']['list_caption'])) {
-						$content['alink']['caption']			= getImageCaption($row['article_image']['list_caption']);
+						$content['alink']['caption']			= getImageCaption(array('caption' => $row['article_image']['list_caption'], 'file' => $row['article_image']['list_id']));
 						$row['article_image']['list_caption']	= html_specialchars($content['alink']['caption'][0]);
 						$content['alink']['caption'][3]			= html_specialchars($content['alink']['caption'][3]);
 						$content['alink']['caption'][1]			= html_specialchars($content['alink']['caption'][1]);

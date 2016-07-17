@@ -95,7 +95,7 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 	if($thumb_image) {
 
 		// now try to build caption and if neccessary add alt to image or set external link for image
-		$caption	= getImageCaption($img['caption']);
+		$caption	= getImageCaption(array('caption' => $img['caption'], 'file' => $img['f_id']));
 		// set caption and ALT Image Text for imagelist
 		$capt_cur	= html($caption[0]);
 		$caption[3] = empty($caption[3]) ? '' : ' title="'.html($caption[3]).'"'; //title

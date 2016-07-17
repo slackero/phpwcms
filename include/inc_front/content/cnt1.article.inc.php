@@ -272,7 +272,7 @@ if($crow['is_imagetext']) {
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', '');
 		} else {
-			$caption = getImageCaption(base64_decode($image[6]));
+			$caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', html($caption[0]));
 			$caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
 			$crow['image_tag'] .= $caption[1];

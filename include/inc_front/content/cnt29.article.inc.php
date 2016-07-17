@@ -185,9 +185,9 @@ if($image['template']) {
             }
 
             // now try to build caption and if neccessary add alt to image or set external link for image
-            $caption    = getImageCaption($image['images'][$key][6]);
+            $caption = getImageCaption(array('caption' => $image['images'][$key][6], 'file' => $image['images'][$key][0]));
             // set caption and ALT Image Text for imagelist
-            $capt_cur   = html_specialchars($caption[0]);
+            $capt_cur = html_specialchars($caption[0]);
             if(empty($caption[3])) {
                 $capt_title = '';
                 $caption[3] = '';

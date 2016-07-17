@@ -280,7 +280,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 												$s_imgname = '';
 												foreach($scrow[6]['images'] as $s_imgtext) {
 
-													$s_imgtext[6] = getImageCaption($s_imgtext[6], '', true);
+													$s_imgtext[6] = getImageCaption(array('caption' => $s_imgtext[6], 'file' => $s_imgtext[0]), '', true);
 
 													if($content['search']['search_caption']) {
 														if($s_imgtext[6]['caption']) {

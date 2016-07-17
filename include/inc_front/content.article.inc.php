@@ -197,7 +197,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
         //retrieve image info
         $row["article_image"] = unserialize($row["article_image"]);
-        $caption = getImageCaption($row["article_image"]["caption"]);
+        $caption = getImageCaption(array('caption' => $row["article_image"]["caption"], 'file' => $row["article_image"]["id"]));
         $row["article_image"]["caption"]    = $caption[0];
         $row["article_image"]["copyright"]  = $caption[4];
 
