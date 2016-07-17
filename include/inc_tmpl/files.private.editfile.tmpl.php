@@ -57,6 +57,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
                 'alt' => ''
             );
 
+            if($phpwcms['default_lang'] === $lang) {
+                $file_vars[$lang]['longinfo'] = $file_longinfo;
+                $file_vars[$lang]['copyright'] = $file_copyright;
+                $file_vars[$lang]['title'] = $file_title;
+                $file_vars[$lang]['alt'] = $file_alt;
+            }
+
             if(isset($_POST['file_longinfo_'.$lang])) {
                 $file_vars[$lang]['longinfo'] = slweg($_POST['file_longinfo_'.$lang]);
             }
