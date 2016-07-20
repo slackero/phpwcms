@@ -201,15 +201,15 @@ if($image['template']) {
             $caption = getImageCaption(array('caption' => $value['caption'], 'file' => $value['thumb_id']));
 
             if($caption[0]) {
-                $caption[0] = html_specialchars($caption[0]);
+                $caption[0] = html($caption[0]);
             }
 
             // no ALT, no TITLE
             if(empty($caption[1])) {
                 $capt_cur       = $caption[0];
-                $caption[1]     = html_specialchars($value['thumb_name']);
+                $caption[1]     = html($value['thumb_name']);
             } else {
-                $caption[1]     = html_specialchars($caption[1]);
+                $caption[1]     = html($caption[1]);
                 $capt_cur       = $caption[1];
             }
             if(empty($caption[2])) {
@@ -255,7 +255,7 @@ if($image['template']) {
             }
             $list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"';
             if($caption[3]) {
-                $caption[3] = html_specialchars($caption[3]);
+                $caption[3] = html($caption[3]);
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
             $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
@@ -320,7 +320,7 @@ if($image['template']) {
 
             $img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
             $img_a = str_replace('{IMGID}', $key, $img_a);
-            $img_a = str_replace('{IMGNAME}', html_specialchars($image['images'][$key]['thumb_name']), $img_a);
+            $img_a = str_replace('{IMGNAME}', html($image['images'][$key]['thumb_name']), $img_a);
             $img_a = str_replace('{ENTRY_ID}', $total-1, $img_a);
             $img_a = str_replace('{ENTRY_NUM}', $total, $img_a);
 
@@ -502,8 +502,8 @@ if($image['template']) {
     $image['template']  = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
     $image['template']  = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
     $image['template']  = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
-    $image['template']  = render_cnt_template($image['template'], 'TITLE', html_specialchars($crow['acontent_title']));
-    $image['template']  = render_cnt_template($image['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+    $image['template']  = render_cnt_template($image['template'], 'TITLE', html($crow['acontent_title']));
+    $image['template']  = render_cnt_template($image['template'], 'SUBTITLE', html($crow['acontent_subtitle']));
     $image['template']  = render_cnt_template($image['template'], 'TEXT', $crow['acontent_html']);
     $image['template']  = render_cnt_template($image['template'], 'EFFECT_1', ($image['fx1'] ? '<!-- FX 1 -->' : '') );
     $image['template']  = render_cnt_template($image['template'], 'EFFECT_2', ($image['fx2'] ? '<!-- FX 2 -->' : '') );

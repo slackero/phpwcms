@@ -187,17 +187,18 @@ if($image['template']) {
             // now try to build caption and if neccessary add alt to image or set external link for image
             $caption = getImageCaption(array('caption' => $image['images'][$key][6], 'file' => $image['images'][$key][0]));
             // set caption and ALT Image Text for imagelist
-            $capt_cur = html_specialchars($caption[0]);
+            $caption[0] = html($caption[0]);
+
             if(empty($caption[3])) {
                 $capt_title = '';
                 $caption[3] = '';
             } else {
-                $caption[3] = html_specialchars($caption[3]);
+                $caption[3] = html($caption[3]);
                 $capt_title = $caption[3];
             }
-            $caption[1] = html_specialchars(empty($caption[1]) ? $image['images'][$key][1] : $caption[1]);
+            $caption[1] = html(empty($caption[1]) ? $image['images'][$key][1] : $caption[1]);
             if($caption[4]) {
-                $caption[4] = html_specialchars($caption[4]);
+                $caption[4] = html($caption[4]);
             }
 
             $img_thumb_name     = $thumb_image[0];
@@ -266,8 +267,8 @@ if($image['template']) {
 
                     // Gallery image
                     $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
-                    if($capt_cur) {
-                        $img_thumb_link .= 'title="'.parseLightboxCaption($capt_cur).'" ';
+                    if($caption[0]) {
+                        $img_thumb_link .= 'title="'.parseLightboxCaption($caption[0]).'" ';
                     } elseif(strpos($image['tmpl_entry'], '{IMGNAME}')) {
                         $img_thumb_link .= 'title="'.parseLightboxCaption( $image['images'][$key][1] ).'" ';
                     }
