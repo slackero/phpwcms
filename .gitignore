@@ -12,3 +12,6 @@ template/inc_cntpart/images/Slick-Slider-Single-Image.tmpl
 template/inc_cntpart/imagespecial/Image-HoverChange.tmpl
 template/lib/slick
 template/inc_cntpart/images/Figure Kopie.tmpl
+/filearchive/*.jpg
+/filearchive/*.png
+/filearchive/*.pdf
