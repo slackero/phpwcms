@@ -219,7 +219,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 		}
 	}
 
-	if($thumb_image_info[0] != false) {
+	if($thumb_image_info[0] !== false) {
 
 		if($return_all_imageinfo === false) {
 			return $thumb_image_info;

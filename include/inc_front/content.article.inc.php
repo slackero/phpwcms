@@ -474,6 +474,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUB', html_specialchars($row["article_subtitle"]));
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'EDITOR', html_specialchars($row["article_username"]));
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_hidesummary"] ? '' : $row["article_summary"]);
+            $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'MORE', $row["article_morelink"] ? ' ' : '');
 
             // article class based on keyword *CSS-classname*
             $row['article_class'] = get_css_keywords($row['article_keyword']);
