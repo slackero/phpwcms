@@ -773,12 +773,7 @@ function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_stru
             $link_name_id   = ' name="'.$link_image_id.'" id="'.$link_image_id.'"';
 
             if(!$struct[$key]["acat_redirect"]) {
-                $link = 'index.php?';
-                if($struct[$key]["acat_alias"]) {
-                    $link .= html_specialchars($struct[$key]["acat_alias"]);
-                } else {
-                    $link .= 'id='.$key; //',0,0,1,0,0';
-                }
+                $link = rel_url(array(), array('newsdetail'), $struct[$key]["acat_alias"] ? $struct[$key]["acat_alias"] : 'id='.$key);
                 $redirect['target'] = '';
             } else {
                 $redirect = get_redirect_link($struct[$key]["acat_redirect"], ' ', '');
@@ -1868,7 +1863,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
                     if(empty($row['article_morelink'])) {
                         continue;
                     }
-                    $article_link = 'index.php?'.setGetArticleAid($row).'"'.$target;
+                    $article_link = rel_url(array(), array('newsdetail'), setGetArticleAid($row)).'"'.$target;
                 } else {
                     $redirect = get_redirect_link($row['article_redirect'], ' ', '');
                     $article_link = $redirect['link'].'"'.$redirect['target'];
@@ -1958,7 +1953,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=
                 if(empty($row['article_morelink'])) {
                     continue;
                 }
-                $article_link = 'index.php?'.setGetArticleAid($row).'"'.$target;
+                $article_link = rel_url(array(), array('newsdetail'), setGetArticleAid($row)).'"'.$target;
             } else {
                 $redirect = get_redirect_link($row['article_redirect'], ' ', '');
                 $article_link = $redirect['link'].'"'.$redirect['target'];
@@ -2011,10 +2006,10 @@ function get_article_idlink($article_id=0, $link_text="", $db=null) {
         $data = _dbQuery($sql);
 
         if(isset($data[0])) {
-            return '<a href="index.php?'.setGetArticleAid($data[0]).'" title="'.$article_title.'">'.$link_text.'</a>';
+            return '<a href="'.rel_url(array(), array('newsdetail'), setGetArticleAid($data[0])).'" title="'.$article_title.'">'.$link_text.'</a>';
         }
     }
-    return '<a href="index.php?aid='.$article_id.'" title="'.$article_title.'">'.$link_text.'</a>';
+    return '<a href="'.rel_url(array(), array('newsdetail'), 'aid='.$article_id).'" title="'.$article_title.'">'.$link_text.'</a>';
 }
 
 function get_keyword_link($keywords) {
@@ -2143,7 +2138,7 @@ function get_index_link_up($linktext) {
     if(!$linktext) $linktext = 'UP';
     if($cat_id && !$GLOBALS['content']['struct'][$cat_id]['acat_hidden']) {
         $upid = $GLOBALS['content']['struct'][$cat_id]['acat_struct'];
-        $link = '<a href="index.php?' . ( empty($GLOBALS['content']['struct'][$upid]['acat_alias']) ? 'id='.$upid : $GLOBALS['content']['struct'][$upid]['acat_alias'] ) .'">';
+        $link = '<a href="'.rel_url(array(), array('newsdetail'), empty($GLOBALS['content']['struct'][$upid]['acat_alias']) ? 'id='.$upid : $GLOBALS['content']['struct'][$upid]['acat_alias']) .'">';
     }
     return ($link) ? $link.$linktext.'</a>' : $linktext;
 }
@@ -2701,12 +2696,7 @@ function build_list($struct, $level, $temp_tree, $act_cat_id, $class='', $depth=
         if( _getStructureLevelDisplayStatus($key, $level) ) {
 
             if(!$struct[$key]["acat_redirect"]) {
-                $link = 'index.php?';
-                if($struct[$key]["acat_alias"]) {
-                    $link .= html_specialchars($struct[$key]["acat_alias"]);
-                } else {
-                    $link .= 'id='.$key; //',0,0,1,0,0';
-                }
+                $link = rel_url(array(), array('newsdetail'), $struct[$key]["acat_alias"] ? $struct[$key]["acat_alias"] : 'id='.$key);
                 $redirect['target'] = '';
             } else {
                 $redirect = get_redirect_link($struct[$key]["acat_redirect"], ' ', '');
@@ -3248,13 +3238,7 @@ function get_level_ahref($key=0, $custom_link_add='') {
         $link .= $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'opid'.$key;
         $link .= '"';
     } else {
-        if(!PHPWCMS_REWRITE) {
-            $link .= 'index.php?';
-        }
-        $link .= $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key;
-        if(PHPWCMS_REWRITE) {
-            $link .= PHPWCMS_REWRITE_EXT;
-        }
+        $link .= rel_url(array(), array('newsdetail'), $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key);
         $link .= '"';
     }
     return $link.$custom_link_add.'>';
@@ -3285,19 +3269,16 @@ function getStructureChildData($level_id=0) {
 
 function getStructureChildEntryHref($childData) {
 
-    $a = array('link'=>'', 'target'=>'');
+    $a = array(
+        'link' => '',
+        'target' => ''
+    );
     if($childData["acat_redirect"]) {
         $redirect = get_redirect_link($childData["acat_redirect"], ' ', '');
-        $a['link']   .= $redirect['link'];
-        $a['target'] .= $redirect['target'];
+        $a['link']   = $redirect['link'];
+        $a['target'] = $redirect['target'];
     } else {
-        if(!PHPWCMS_REWRITE) {
-            $a['link'] .= 'index.php?';
-        }
-        $a['link'] .= $childData['acat_alias'] ? $childData['acat_alias'] : 'id='.$childData['acat_id'];
-        if(PHPWCMS_REWRITE) {
-            $a['link'] .= PHPWCMS_REWRITE_EXT;
-        }
+        $a['link'] = rel_url(array(), array(), $childData['acat_alias'] ? $childData['acat_alias'] : 'id='.$childData['acat_id']);
     }
     return $a;
 
@@ -3663,7 +3644,7 @@ function get_article_morelink(& $article) {
             $link[1] = '';
         }
     } else {
-        $link[0] = 'index.php?'.setGetArticleAid($article);
+        $link[0] = rel_url(array(), array(), setGetArticleAid($article));
         $link[1] = '';
     }
     return $link;
@@ -3923,8 +3904,18 @@ function getArticleMenu($data=array()) {
             $item[ $data['articlemenu_options']['position'] ] = render_cnt_template($item[ $data['articlemenu_options']['position'] ], 'TEXT', $item['amenu_text']);
         }
 
+        if($item['article_redirect']) {
+            $item['article_redirect'] = get_redirect_link($item['article_redirect'], ' ', '');
+            $item['href'] = $item['article_redirect']['link'];
+            $item['target'] = $item['article_redirect']['target'];
+        }
+        if(empty($item['href'])) {
+            $item['href'] = rel_url(array(), array('newsdetail'), setGetArticleAid($item));
+            $item['target'] = '';
+        }
+
         $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
-        $li[$key] .= '<a href="'.rel_url( array(), array('newsdetail'), setGetArticleAid($item) ).'"'.$class_a.'>';
+        $li[$key] .= '<a href="'.$item['href'].'"'.$class_a.$item['target'].'>';
         $li[$key] .= $data['wrap_title_prefix'];
         $li[$key] .= html(getArticleMenuTitle($item));
         $li[$key] .= $data['wrap_title_suffix'];
