@@ -1432,6 +1432,73 @@ if(HTML5_MODE && IE8_CC) {
 
 }
 
+// Google Analytics Tracking Code
+if(!empty($block['tracking_ga']['enable'])) {
+
+    $template_default['settings']['tracking']['ga_default'] = array(
+        'position' => 'head',
+        'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '%s', 'auto'%s);
+    ga('send', 'pageview');
+  </script>",
+       'anonymize' => ', {anonymizeIp: true}'
+    );
+
+    if(isset($template_default['settings']['tracking']['ga'])) {
+        $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
+    } else {
+        $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
+    }
+
+    if(empty($block['tracking_ga']['anonymize'])) {
+        $template_default['settings']['tracking']['ga']['anonymize'] = '';
+    }
+
+    if($template_default['settings']['tracking']['ga']['position'] === 'head') {
+        $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+    } else {
+        $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+    }
+
+}
+
+// Piwik Tracking Code
+if(!empty($block['tracking_piwik']['enable'])) {
+
+    $template_default['settings']['tracking']['piwik_default'] = array(
+        'position' => 'head',
+        'code' => '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>
+    var _paq = _paq || [];
+    _paq.push(["trackPageView"]);
+    _paq.push(["enableLinkTracking"]);
+    (function() {
+        var u="//%1$s/";
+        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setSiteId", %2$d]);
+        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+        g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+    })();
+  </script>'
+    );
+
+    if(isset($template_default['settings']['tracking']['piwik'])) {
+        $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
+    } else {
+        $template_default['settings']['tracking']['piwik'] = $template_default['settings']['tracking']['piwik_default'];
+    }
+
+    if($template_default['settings']['tracking']['piwik']['position'] === 'head') {
+        $block['custom_htmlhead']['head_piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+    } else {
+        $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+    }
+
+}
+
 // internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
 if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_dismissed']) || strtolower($_COOKIE['cookieconsent_dismissed']) !== 'yes')) {
 

@@ -45,7 +45,17 @@ $template = array(
         'more' => $BL['cookie_consent_more'],
         'link' => '',
         'theme' => 'light-bottom',
-    )
+    ),
+    'tracking_ga' => array(
+        'enable' => 0,
+        'id' => '',
+        'anonymize' => 0
+    ),
+    'tracking_piwik' => array(
+        'enable' => 0,
+        'id' => '',
+        'url' => ''
+    ),
 );
 
 initJQuery();
@@ -156,6 +166,21 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
         }
         if(isset($_POST['template_cc_theme'])) {
             $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
+        }
+        $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
+        $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
+        $template['tracking_ga']['anonymize'] = empty($_POST['template_ga_anonymize']) ? 0 : 1;
+        if(empty($template['tracking_ga']['id'])) {
+            $template['tracking_ga']['enable'] = 0;
+        }
+        $template['tracking_piwik']['enable'] = empty($_POST['template_piwik']) ? 0 : 1;
+        $template['tracking_piwik']['id'] = intval($_POST["template_piwik_id"]);
+        $template['tracking_piwik']['url'] = clean_slweg($_POST["template_piwik_url"]);
+        if(!empty($template['tracking_piwik']['url'])) {
+            $template['tracking_piwik']['url'] = trim(preg_replace('/.*?:\/\//i', '', trim($template['tracking_piwik']['url'], '/')));
+        }
+        if(empty($template['tracking_piwik']['id']) || empty($template['tracking_piwik']['url'])) {
+            $template['tracking_piwik']['enable'] = 0;
         }
 
         // now browse custom blocks if available
@@ -431,34 +456,58 @@ foreach($phpwcms['js_lib'] as $key => $value) {
     <tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist">&nbsp;</td>
       <td><table cellpadding="0" cellspacing="0" border="0" summary="">
+
         <tr>
             <td><input type="checkbox" name="template_ie8ignore" id="template_ie8ignore" value="1"<?php is_checked($template['ie8ignore'], 1); ?> /></td>
             <td class="v10"><label for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label></td>
         </tr>
+
         <tr>
-            <td><input type="checkbox" name="template_frontendjs" id="template_frontendjs" value="1"<?php is_checked($template['frontendjs'], 1); ?> /></td>
-            <td class="v10"><label for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label></td>
+            <td><input type="checkbox" name="template_ga" id="template_ga" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?> /></td>
+            <td class="v10"><label for="template_ga"><?php echo $BL['be_google_analytics_enable']; ?></label></td>
         </tr>
+        <tr id="ga-tracking"<?php if(!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
+            <td>&nbsp;</td>
+            <td class="tdtop3 tdbottom5">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_tracking_id']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_ga_id" maxlength="20" class="width150" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap"><label for="template_ga_anonymize"><?php echo $BL['be_tracking_anonymize']; ?></label>:&nbsp;</td>
+                        <td class="tdbottom3 tdtop3"><input type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="checkbox" name="template_piwik" id="template_piwik" value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?> /></td>
+            <td class="v10"><label for="template_piwik"><?php echo $BL['be_piwik_enable']; ?></label></td>
+        </tr>
+        <tr id="piwik-tracking"<?php if(!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
+            <td>&nbsp;</td>
+            <td class="tdtop3 tdbottom5">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_site_id']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_piwik_id" maxlength="11" class="width150" placeholder="1" value="<?php echo html($template['tracking_piwik']['id']) ?>" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_piwik_url']; ?>:&nbsp;</td>
+                        <td class="tdbottom3"><input type="text" name="template_piwik_url" maxlength="200" class="width400" placeholder="piwik.example.com" value="<?php echo html($template['tracking_piwik']['url']) ?>" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
         <tr>
             <td><input type="checkbox" name="template_cookie_consent" id="template_cookie_consent" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_cookie_consent"><?php echo $BL['be_cookie_consent_enable'] ?></label></td>
         </tr>
         <tr id="cookie-consent"<?php if(!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
-            <td>
-                <script type="text/javascript">
-
-                    $(function(){
-                        $('#template_cookie_consent').change(function(){
-                            if($(this).is(':checked')) {
-                                $('#cookie-consent').show();
-                            } else {
-                                $('#cookie-consent').hide();
-                            }
-                        });
-                    });
-
-                </script>
-            </td>
+            <td>&nbsp;</td>
             <td class="tdtop3 tdbottom5">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
@@ -487,6 +536,12 @@ foreach($phpwcms['js_lib'] as $key => $value) {
                 </table>
             </td>
         </tr>
+
+        <tr>
+            <td><input type="checkbox" name="template_frontendjs" id="template_frontendjs" value="1"<?php is_checked($template['frontendjs'], 1); ?> /></td>
+            <td class="v10"><label for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label></td>
+        </tr>
+
       </table></td>
     </tr>
 
@@ -594,6 +649,33 @@ if(!empty($jsOnChange))  {
 
 </table>
 </form>
+<script type="text/javascript">
+
+    $(function(){
+        $('#template_cookie_consent').change(function(){
+            if($(this).is(':checked')) {
+                $('#cookie-consent').show();
+            } else {
+                $('#cookie-consent').hide();
+            }
+        });
+        $('#template_ga').change(function(){
+            if($(this).is(':checked')) {
+                $('#ga-tracking').show();
+            } else {
+                $('#ga-tracking').hide();
+            }
+        });
+        $('#template_piwik').change(function(){
+            if($(this).is(':checked')) {
+                $('#piwik-tracking').show();
+            } else {
+                $('#piwik-tracking').hide();
+            }
+        });
+    });
+
+</script>
 <?php
 
 }
