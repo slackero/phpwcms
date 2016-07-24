@@ -203,8 +203,7 @@ class phpwcmsCalendar {
 				$date['calendar_teaser'] = plaintext_htmlencode($date['calendar_teaser']);
 			}
 
-			$items[$itemgroup][$key] = $this->template;
-			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'ID', $date['calendar_id']);
+			$items[$itemgroup][$key] = str_replace('{ID}', $date['calendar_id'], $this->template);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'HREF', $href);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'URL', $url);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TARGET', $target);
