@@ -79,7 +79,7 @@ class phpwcmsCalendar {
 	}
 
 	function defaultTemplate() {
-		$this->template  = '<div class="calendar-item[TEXT] calendar-item-has-text[/TEXT]">'.LF;
+		$this->template  = '<div class="calendar-item-{ID}[TEXT] calendar-item-has-text[/TEXT]">'.LF;
 		$this->template .= '	<p class="calendar-list-date">'.LF;
 		$this->template .= '		[RANGEDATE]{STARTDATE:m/d}-{ENDDATE:m/d/Y}[/RANGEDATE][RANGEDATE_ELSE]{STARTDATE:m/d/Y}[/RANGEDATE_ELSE][ALLDAY_ELSE], {STARTDATE:H:i}[/ALLDAY_ELSE][TYPE],'.LF;
 		$this->template .= '		<span class="calendar-list-type">{TYPE}</span>[/TYPE]'.LF;
@@ -204,6 +204,7 @@ class phpwcmsCalendar {
 			}
 
 			$items[$itemgroup][$key] = $this->template;
+			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'ID', $date['calendar_id']);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'HREF', $href);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'URL', $url);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TARGET', $target);
