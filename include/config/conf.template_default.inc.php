@@ -776,7 +776,7 @@ $template_default['settings'] = array(
 
     'tracking' => array(
 
-        // Tracking code and/or position ca be overwritten, not recommend!!!
+        // Tracking code and/or position can be overwritten, not recommend!!!
         // You should know what you are doing here!
 
         // Google Analytics Tracking Code https://support.google.com/analytics/answer/1008080
