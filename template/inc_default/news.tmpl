@@ -54,14 +54,14 @@ gallery_filecenter_info = 1
 	[NEWS_TOPIC]<p><strong>{NEWS_TOPIC}</strong></p>[/NEWS_TOPIC]
 	[IMAGE]
 		[ZOOM_ELSE]
-			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}>[/IMAGE_URL]
-				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
+			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
+				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
 			[IMAGE_URL]</a>[/IMAGE_URL]
-			[CAPTION]<p>{CAPTION}</p>[/CAPTION]
+			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
-			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}"[/LIGHTBOX_CAPTION]>
-				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
+			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
+				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
 			</a>
 		[/ZOOM]
 	[/IMAGE]
@@ -126,14 +126,14 @@ gallery_filecenter_info = 1
 	</p>[/NEWS_TOPIC]
 	[IMAGE]
 		[ZOOM_ELSE]
-			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}>[/IMAGE_URL]
-				<img src="img/cmsimage.php/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
+			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
+				<img src="img/cmsimage.php/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
 			[IMAGE_URL]</a>[/IMAGE_URL]
-			[CAPTION]<p>{CAPTION}</p>[/CAPTION]
+			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
-			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}"[/LIGHTBOX_CAPTION]>
-				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="{IMAGE}" border="0" />
+			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
+				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
 			</a>
 		[/ZOOM]
 	[/IMAGE]
