@@ -1429,6 +1429,6 @@ $BL['be_cookie_consent_theme'] = 'motyw (puste = brak CSS)';
 $BL['be_google_analytics_enable'] = 'użyj Google Analytics';
 $BL['be_piwik_enable'] = 'użyj Piwik';
 $BL['be_tracking_anonymize'] = 'utajnij IP';
-$BL['be_tracking_id'] = 'śledzenie ID';
-$BL['be_site_id'] = 'ID witryna';
+$BL['be_tracking_id'] = 'Śledzenie ID';
+$BL['be_site_id'] = 'ID witryny';
 $BL['be_piwik_url'] = 'Piwik URL';
