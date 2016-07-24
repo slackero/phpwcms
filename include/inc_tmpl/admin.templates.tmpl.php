@@ -492,7 +492,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_site_id']; ?>:&nbsp;</td>
-                        <td class="tdbottom3"><input type="text" name="template_piwik_id" maxlength="11" class="width150" placeholder="1" value="<?php echo html($template['tracking_piwik']['id']) ?>" /></td>
+                        <td class="tdbottom3"><input type="text" name="template_piwik_id" maxlength="11" class="width150" placeholder="1" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>" /></td>
                     </tr>
                     <tr>
                         <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_piwik_url']; ?>:&nbsp;</td>
