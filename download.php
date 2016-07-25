@@ -40,7 +40,7 @@ if(isset($_GET['target'])) {
     $phpwcms["inline_download"] = 0;
 }
 
-if(!empty($hash) && strlen($hash) == 32) {
+if(!empty($hash) && strlen($hash) === 32) {
 
     require_once PHPWCMS_ROOT.'/include/inc_lib/functions.file.inc.php';
     require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
