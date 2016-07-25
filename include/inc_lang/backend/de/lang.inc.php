@@ -1077,7 +1077,7 @@ $BL['be_cnt_filesize']					= 'Dateigr&ouml;&szlig;e';
 $BL['be_cnt_captchalength']				= 'L&auml;nge des Captcha Codes';
 $BL['be_cnt_chars']						= 'Zeichen';
 $BL['be_cnt_download']					= 'Download';
-$BL['be_cnt_download_direct']			= 'direkt';
+$BL['be_cnt_download_direct']			= 'direkt (nicht empfohlen!)';
 $BL['be_cnt_database']					= 'Datenbank';
 $BL['be_cnt_formsave_in_db']			= 'Formularergebnis speichern';
 
@@ -1422,3 +1422,4 @@ $BL['be_tracking_anonymize'] = 'IP anonymisieren';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
 $BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';

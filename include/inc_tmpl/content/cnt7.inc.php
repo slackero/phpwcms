@@ -22,7 +22,6 @@ if (!defined('PHPWCMS_ROOT')) {
 if(empty($content["file_descr"])) $content["file_descr"] = '';
 $content['file']['direct_download'] = empty($content['file']['direct_download']) ? 0 : 1;
 
-
 ?>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
@@ -46,6 +45,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	}
 }
 
+if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['direct_download_deny'] = file_get_contents(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess'))) {
+    $content['file']['direct_download_deny'] = strtolower($content['file']['direct_download_deny']);
+    if(strpos($content['file']['direct_download_deny'], 'deny') !== false) {
+        $content['file']['direct_download_deny'] = true;
+    } else {
+        $content['file']['direct_download_deny'] = false;
+    }
+} else {
+    $content['file']['direct_download_deny'] = false;
+}
+
+
 ?>
 		</select></td>
 </tr>
@@ -54,14 +65,26 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 
 <tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_download'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
-      <tr>
-	   <td><input name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php is_checked(1, $content['file']['direct_download']); ?>></td>
-	   <td class="v10"><label for="cfile_direct">&nbsp;<?php echo $BL['be_cnt_download_direct'] ?></label>&nbsp;&nbsp;</td>
-	   <td><img src="img/leer.gif" alt="" width="1" height="22"></td>
-	  </tr>
-	  </table></td>
+    <td align="right" class="chatlist"><?php echo $BL['be_cnt_download'] ?>:&nbsp;</td>
+    <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+        <tr>
+            <td bgcolor="#E7E8EB"><input name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
+                is_checked(1, $content['file']['direct_download']);
+                if($content['file']['direct_download_deny']) {
+                    echo ' disabled="disabled"';
+                }
+            ?> /></td>
+            <td class="v10" bgcolor="#E7E8EB"><label for="cfile_direct">&nbsp;<?php echo $BL['be_cnt_download_direct'] ?></label>&nbsp;&nbsp;</td>
+            <td bgcolor="#E7E8EB"><img src="img/leer.gif" alt="" width="1" height="22"></td>
+            <?php
+                if($content['file']['direct_download_deny']) {
+                    echo '<td class="v10 error">&nbsp;';
+                    printf($BL['be_filedownload_direct_blocked'], PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess');
+                    echo '</td>';
+                }
+            ?>
+        </tr>
+    </table></td>
 </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>

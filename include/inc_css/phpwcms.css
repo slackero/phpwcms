@@ -2032,3 +2032,10 @@ label {
     font-size: 10px;
     color: #7f7f7f;
 }
+
+abbr {
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px dotted currentcolor;
+    cursor: help;
+}
