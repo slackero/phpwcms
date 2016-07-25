@@ -212,7 +212,7 @@ initMootoolsAutocompleter();
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input name="calendar_refid" type="text" id="calendar_refid" class="v12" style="width:375px;margin-top:3px;" value="<?php echo empty($plugin['data']['calendar_refid']) ? '' : html($plugin['data']['calendar_refid']) ?>" size="30" maxlength="255" /></td>
+		<td><input name="calendar_refid" type="text" id="calendar_refid" class="v12" style="width:375px;margin-top:3px;" value="<?php echo empty($plugin['data']['calendar_refid']) ? '' : html($plugin['data']['calendar_refid']) ?>" size="30" maxlength="500" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>

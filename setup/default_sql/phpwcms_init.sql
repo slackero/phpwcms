@@ -282,7 +282,7 @@ CREATE TABLE `phpwcms_calendar` (
   `calendar_text` mediumtext NOT NULL,
   `calendar_tag` varchar(255) NOT NULL DEFAULT '',
   `calendar_object` longtext NOT NULL,
-  `calendar_refid` int(11) NOT NULL DEFAULT '0',
+  `calendar_refid` varchar(1000) NOT NULL DEFAULT '',
   `calendar_lang` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`calendar_id`),
   KEY `calendar_status` (`calendar_status`),
