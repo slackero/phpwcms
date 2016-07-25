@@ -19,20 +19,29 @@ if (!defined('PHPWCMS_ROOT')) {
 
 function _getFileInfo($value, $limit='1', $mode='hash') {
 
-    $sql = '';
+    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND ";
+    $sql .= "f_trash=0 AND f_public=1 AND ";
 
-    switch($mode) {
+    if( !FEUSER_LOGIN_STATUS ) {
+        $sql .= 'f_granted=0 AND ';
+    }
 
-        case 'hash':    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND ";
-                        $sql .= "f_trash=0 AND f_public=1 AND ";
-                        $sql .= "f_hash="._dbEscape($value);
-                        if( !FEUSER_LOGIN_STATUS ) {
-                            $sql .= ' AND f_granted=0';
-                        }
-                        if($limit) {
-                            $sql .= " LIMIT ".$limit;
-                        }
-                        break;
+    if($mode === 'hash') {
+
+        $sql .= "f_hash="._dbEscape($value);
+
+    } elseif($mode === 'id') {
+
+        $sql .= "f_id=".intval($value);
+
+    } else {
+
+        return array();
+
+    }
+
+    if($limit) {
+        $sql .= " LIMIT ".intval($limit);
     }
 
     return _dbQuery($sql);
@@ -41,61 +50,70 @@ function _getFileInfo($value, $limit='1', $mode='hash') {
 
 function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
-    // function based on this one here:
-    // http://www.php.net/manual/de/function.fread.php#63893
+    // function based on this one here: http://www.php.net/manual/de/function.fread.php#63893
+    // interesting too: http://www.media-division.com/the-right-way-to-handle-file-downloads-in-php/
+    // partially based on this (c) 2007-2013 Thomas Thomassen: https://bitbucket.org/thomthom/php-resumable-download-server
 
-    //First, see if the file exists
+    // Does the file exists
     if (!is_file($file) && connection_status()) {
         return false;
     }
 
-    //Gather relevent info about file
-    $filename       = empty($fileinfo['realfname']) ? basename($file) : $fileinfo['realfname'];
-    $disposition    = empty($fileinfo['method'])    ? 'attachment' : $fileinfo['method'];
+    // Gather relevent info about file
+    $filename     = empty($fileinfo['realfname']) ? basename($file) : $fileinfo['realfname'];
+    $disposition  = empty($fileinfo['method']) ? 'attachment' : $fileinfo['method'];
 
-    if($disposition == 'attachment') {
+    // Fileinfo method
+    if(empty($fileinfo['mimetype']) && extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME))) {
 
-        $fileinfo['mimetype'] = "application/force-download";
-
-    }
-
-    if(empty($fileinfo['mimetype']) && empty($fileinfo['extension'])) {
-
-        $file_extension = strtolower(substr(strrchr($filename,"."),1));
-        $ctype          = isset($GLOBALS['phpwcms']['mime_types'][$file_extension]) ? $GLOBALS['phpwcms']['mime_types'][$file_extension] : 'application/force-download';
-
-    } else {
-
-        $ctype          = $fileinfo['mimetype'];
-        $file_extension = $fileinfo['extension'];
+        $fileinfo['mimetype'] = finfo_file($finfo, $file);
+        finfo_close($finfo);
 
     }
 
-    //Begin writing headers
-    header('Cache-Control: ');
-    header('Cache-Control: public');
-    header('Pragma: ');
+    if(empty($fileinfo['extension'])) {
+
+        $fileinfo['extension'] = strtolower(substr(strrchr($filename, '.'), 1));
+
+    }
+
+    if(empty($fileinfo['mimetype'])) {
+
+        $fileinfo['mimetype'] = isset($GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']]) ? $GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']] : 'application/force-download';
+
+    }
+
+    // Disable output compression.
+    //@apache_setenv('no-gzip', 1); // disabled because using this the download fails
+    @ini_set('zlib.output_compression', 'Off');
+
+
+    // Prevent caching.
+    header('Pragma: public'); // Fix IE6 Content-Disposition
+    header('Expires: -1');
+    header('Cache-Control: public, must-revalidate, post-check=0, pre-check=0');
+
+    // Enable resuamble download in IE9.
+    // http://blogs.msdn.com/b/ieinternals/archive/2011/06/03/send-an-etag-to-enable-http-206-file-download-resume-without-restarting.aspx
+    if(($etag = phpwcms_etag($file, true))) {
+        header('Etag: '.$etag);
+    }
 
     //Use the switch-generated Content-Type
-    header('Content-Type: '.$ctype);
+    header('Content-Type: '.$fileinfo['mimetype']);
 
 
-    if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
-        // workaround for IE filename bug with multiple periods / multiple dots in filename
-        // that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe
+    if(isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtoupper($_SERVER['HTTP_USER_AGENT']), 'MSIE')) {
+        // Workaround for IE filename bug with multiple periods / multiple
+        // dots in filename that adds square brackets to filename.
+        // eg. setup.abc.exe becomes setup[1].abc.exe
         $filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
     }
 
-
-    //header('Accept-Ranges: bytes');
-
     $size = filesize($file);
 
-
-    header('Content-Length: '.$size);
-    header('Content-Transfer-Encoding: binary'.LF);
     header('Content-Disposition: '.$disposition.'; filename="'.$filename.'"');
-
+    header('Content-Length: '.$size);
 
     //reset time limit for big files
     @set_time_limit(0);
@@ -103,16 +121,14 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
     //open the file
     $fp = fopen($file, 'rb');
 
-    //seek to start of missing part
-    //fseek($fp, $range);
-
     //start buffered download
     while(!feof($fp) && !connection_status()){
 
-        print(fread($fp, 1024*8));
+        echo fread($fp, 1024*8);
         flush();
-        //ob_flush();
+
     }
+
     fclose($fp);
 
     return ($onsuccess && !connection_status() && !connection_aborted()) ? true : false;
@@ -214,4 +230,24 @@ function rangeDownload($file) {
 
     fclose($fp);
 
+}
+
+/**
+ * Generates an ETAG for a given file.
+ *
+ * http://php.net/manual/en/function.http-match-etag.php
+ * http://www.xpertdeveloper.com/2011/03/http-etag-explained/
+ * http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19
+ * http://en.wikipedia.org/wiki/HTTP_ETag
+ *
+ * @param   string  $filename The file to generate ETAG for.
+ * @param   bool    $quote    Optional.
+ * @return  string            The ETAG.
+ */
+function phpwcms_etag($filename, $quote = true) {
+    if(!is_file($filename) || !($info = stat($filename))) {
+        return false;
+    }
+    $q = ($quote) ? '"' : '';
+    return sprintf("$q%x-%x-%x$q", $info['ino'], $info['size'], $info['mtime']);
 }
