@@ -1432,3 +1432,4 @@ $BL['be_tracking_anonymize'] = 'utajnij IP';
 $BL['be_tracking_id'] = 'Śledzenie ID';
 $BL['be_site_id'] = 'ID witryny';
 $BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
