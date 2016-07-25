@@ -1085,7 +1085,7 @@ $BL['be_cnt_filesize']        = 'rozmiar pliku';
 $BL['be_cnt_captchalength']    = 'długość kodu captcha';
 $BL['be_cnt_chars']        = 'znaków';
 $BL['be_cnt_download']        = 'pobierz';
-$BL['be_cnt_download_direct']    = 'bezpośredni';
+$BL['be_cnt_download_direct']    = 'bezpośrednio (nie zalecane!)';
 $BL['be_cnt_database']        = 'baza danych';
 $BL['be_cnt_formsave_in_db']    = 'zapisz wyniki formularza';
 
