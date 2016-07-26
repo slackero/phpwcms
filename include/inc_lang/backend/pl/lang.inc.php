@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.4 (2016/07/09, 543)
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.4 (2016/07/22, 543)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -1085,7 +1085,7 @@ $BL['be_cnt_filesize']        = 'rozmiar pliku';
 $BL['be_cnt_captchalength']    = 'długość kodu captcha';
 $BL['be_cnt_chars']        = 'znaków';
 $BL['be_cnt_download']        = 'pobierz';
-$BL['be_cnt_download_direct']    = 'bezpośredni';
+$BL['be_cnt_download_direct']    = 'bezpośrednio (nie zalecane!)';
 $BL['be_cnt_database']        = 'baza danych';
 $BL['be_cnt_formsave_in_db']    = 'zapisz wyniki formularza';
 
@@ -1426,3 +1426,10 @@ $BL['be_cookie_consent_more'] = 'tekst przycisku dowiedz się więcej';
 $BL['cookie_consent_more'] = 'Więcej informacji';
 $BL['be_cookie_consent_link'] = 'Polityka Cookie url/alias';
 $BL['be_cookie_consent_theme'] = 'motyw (puste = brak CSS)';
+$BL['be_google_analytics_enable'] = 'użyj Google Analytics';
+$BL['be_piwik_enable'] = 'użyj Piwik';
+$BL['be_tracking_anonymize'] = 'utajnij IP';
+$BL['be_tracking_id'] = 'Śledzenie ID';
+$BL['be_site_id'] = 'ID witryny';
+$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
