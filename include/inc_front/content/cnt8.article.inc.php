@@ -571,7 +571,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                             $row['article_image']['caption'][3] = html_specialchars($row['article_image']['caption'][3]);
                             $row['article_image']['caption'][1] = html_specialchars($row['article_image']['caption'][1]);
                         } else {
-                            $row['article_image']['caption'] = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+                            $row['article_image']['caption'] = array(0 => '', 1 => '', 2 => array('', ''), 3 => '', 4 => '', 5 => '', 6 => '');
                         }
 
                         $row['article_image']['detail'] = get_cached_image(array(
@@ -614,6 +614,11 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'IMAGE_DETAIL', $row['article_image']['img']);
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_DETAIL', $row['article_image']['caption'][0]);
+                        $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'IMAGE_TITLE', $row['article_image']['caption'][3]);
+                        $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'ALT', $row['article_image']['caption'][1]);
+                        $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'URL', $row['article_image']['caption'][2][0]);
+                        $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'URL_TARGET', $row['article_image']['caption'][2][1]);
+                        $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'COPYRIGHT', $row['article_image']['caption'][4]);
 
                     } else {
 
