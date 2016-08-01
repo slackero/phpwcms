@@ -239,19 +239,21 @@ if($content['files_sql']) {
 					}
 					$_files_entries[$fkey]  = str_replace('{FILE_DATE}', strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$fkey]);
 
-					if($content['files_direct'] && $content['files_result'][ $_files_x ]['f_ext']) {
-
-						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'].'&amp;countonly=1', $_files_entries[$fkey]);
-
-					} else {
-						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', 'download.php?f='.$content['files_result'][ $_files_x ]['f_hash'], $_files_entries[$fkey]);
-					}
-
-
 					if($_file_info[1]) {
 						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', html_specialchars($_file_info[1]), $_files_entries[$fkey]);
+						$content['files_result'][ $_files_x ]['f_name'] = $_file_info[1];
 					} else {
 						$_files_entries[$fkey]  = str_replace('{FILE_NAME}', html_specialchars($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$fkey]);
+					}
+
+					if($content['files_direct'] && $content['files_result'][ $_files_x ]['f_ext']) {
+
+						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', rel_download($content['files_result'][ $_files_x ]['f_hash'], $content['files_result'][ $_files_x ]['f_name'], true), $_files_entries[$fkey]);
+
+					} else {
+
+						$_files_entries[$fkey]  = str_replace('{FILE_LINK}', rel_download($content['files_result'][ $_files_x ]['f_hash'], $content['files_result'][ $_files_x ]['f_name'], false), $_files_entries[$fkey]);
+
 					}
 
 					$_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html_specialchars($_file_info[2]));

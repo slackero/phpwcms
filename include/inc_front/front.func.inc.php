@@ -4379,3 +4379,29 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
     return $attr;
 
 }
+
+function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true) {
+
+    $href = '';
+
+    if(PHPWCMS_REWRITE) {
+
+        $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
+
+        if($countonly) {
+            $href .= '?countonly=1';
+        }
+
+    } else {
+
+        $href .= 'download.php?f='.$hash;
+
+        if($countonly) {
+            $href .= ($htmlencode ? '&amp;' : '&') . 'countonly=1';
+        }
+
+    }
+
+    return $href;
+
+}
