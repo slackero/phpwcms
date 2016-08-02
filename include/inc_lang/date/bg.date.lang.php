@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,24 +14,23 @@
 
 // language: BG
 
-$weekday_long[0]	= "Íåäåëÿ";			$weekday_short[0]	= "Íä";
-$weekday_long[1]	= "Ïîíåäåëíèê";		$weekday_short[1]	= "Ïí";
-$weekday_long[2]	= "Âòîðíèê";		$weekday_short[2]	= "Âò";
-$weekday_long[3]	= "Ñðÿäà";			$weekday_short[3]	= "Ñð";
-$weekday_long[4]	= "×åòâúðòúê";		$weekday_short[4]	= "×ò";
-$weekday_long[5]	= "Ïåòúê";			$weekday_short[5]	= "Ïò";
-$weekday_long[6]	= "Ñúáîòà";			$weekday_short[6]	= "Ñá";
-$month_long[ 1]		= "ßíóàðè";			$month_short[ 1]	= "ßí.";
-$month_long[ 2]		= "Ôåâðóàðè";		$month_short[ 2]	= "Ôåâ.";
-$month_long[ 3]		= "Ìàðò";			$month_short[ 3]	= "Ìàðò";
-$month_long[ 4]		= "Àïðèë";			$month_short[ 4]	= "Àïð.";
-$month_long[ 5]		= "Ìàé";			$month_short[ 5]	= "Ìàé";
-$month_long[ 6]		= "Èþíè";			$month_short[ 6]	= "Èþíè";
-$month_long[ 7]		= "Èþëè";			$month_short[ 7]	= "Èþëè";
-$month_long[ 8]		= "Àâãóñò";			$month_short[ 8]	= "Àâã.";
-$month_long[ 9]		= "Ñåïòåìâðè";		$month_short[ 9]	= "Ñåï.";
-$month_long[10]		= "Îêòîìâðè";		$month_short[10]	= "Îêò.";
-$month_long[11]		= "Íîåìâðè";		$month_short[11]	= "Íîåì.";
-$month_long[12]		= "Äåêåìâðè";		$month_short[12]	= "Äåê.";
+$weekday_long[0]	= "ÐÐµÐ´ÐµÐ»Ñ";			$weekday_short[0]	= "ÐÐ´";
+$weekday_long[1]	= "ÐŸÐ¾Ð½ÐµÐ´ÐµÐ»Ð½Ð¸Ðº";		$weekday_short[1]	= "ÐŸÐ½";
+$weekday_long[2]	= "Ð’Ñ‚Ð¾Ñ€Ð½Ð¸Ðº";		$weekday_short[2]	= "Ð’Ñ‚";
+$weekday_long[3]	= "Ð¡Ñ€ÑÐ´Ð°";			$weekday_short[3]	= "Ð¡Ñ€";
+$weekday_long[4]	= "Ð§ÐµÑ‚Ð²ÑŠÑ€Ñ‚ÑŠÐº";		$weekday_short[4]	= "Ð§Ñ‚";
+$weekday_long[5]	= "ÐŸÐµÑ‚ÑŠÐº";			$weekday_short[5]	= "ÐŸÑ‚";
+$weekday_long[6]	= "Ð¡ÑŠÐ±Ð¾Ñ‚Ð°";			$weekday_short[6]	= "Ð¡Ð±";
+$month_long[ 1]		= "Ð¯Ð½ÑƒÐ°Ñ€Ð¸";			$month_short[ 1]	= "Ð¯Ð½.";
+$month_long[ 2]		= "Ð¤ÐµÐ²Ñ€ÑƒÐ°Ñ€Ð¸";		$month_short[ 2]	= "Ð¤ÐµÐ².";
+$month_long[ 3]		= "ÐœÐ°Ñ€Ñ‚";			$month_short[ 3]	= "ÐœÐ°Ñ€Ñ‚";
+$month_long[ 4]		= "ÐÐ¿Ñ€Ð¸Ð»";			$month_short[ 4]	= "ÐÐ¿Ñ€.";
+$month_long[ 5]		= "ÐœÐ°Ð¹";			$month_short[ 5]	= "ÐœÐ°Ð¹";
+$month_long[ 6]		= "Ð˜ÑŽÐ½Ð¸";			$month_short[ 6]	= "Ð˜ÑŽÐ½Ð¸";
+$month_long[ 7]		= "Ð˜ÑŽÐ»Ð¸";			$month_short[ 7]	= "Ð˜ÑŽÐ»Ð¸";
+$month_long[ 8]		= "ÐÐ²Ð³ÑƒÑÑ‚";			$month_short[ 8]	= "ÐÐ²Ð³.";
+$month_long[ 9]		= "Ð¡ÐµÐ¿Ñ‚ÐµÐ¼Ð²Ñ€Ð¸";		$month_short[ 9]	= "Ð¡ÐµÐ¿.";
+$month_long[10]		= "ÐžÐºÑ‚Ð¾Ð¼Ð²Ñ€Ð¸";		$month_short[10]	= "ÐžÐºÑ‚.";
+$month_long[11]		= "ÐÐ¾ÐµÐ¼Ð²Ñ€Ð¸";		$month_short[11]	= "ÐÐ¾ÐµÐ¼.";
+$month_long[12]		= "Ð”ÐµÐºÐµÐ¼Ð²Ñ€Ð¸";		$month_short[12]	= "Ð”ÐµÐº.";
 
-?>

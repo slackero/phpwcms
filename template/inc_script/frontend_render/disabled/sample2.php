@@ -63,5 +63,3 @@ if( ! ( strpos($content["all"],'{MY_LEVEL_NAV}')===false ) ) {
 	$content["all"] = str_replace('{MY_LEVEL_NAV}', $complexNav, $content["all"]);
 	
 }
-
-?>

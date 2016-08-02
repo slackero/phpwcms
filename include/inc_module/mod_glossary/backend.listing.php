@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -38,12 +38,12 @@ if(isset($_POST['do_pagination'])) {
 	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
 	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
 
-	$_SESSION['filter']			= clean_slweg($_POST['filter']);
-	if(empty($_SESSION['filter'])) {
-		unset($_SESSION['filter']);
+	$_SESSION['filter_glossary']			= clean_slweg($_POST['filter']);
+	if(empty($_SESSION['filter_glossary'])) {
+		unset($_SESSION['filter_glossary']);
 	} else {
-		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
-		$_POST['filter']	= $_SESSION['filter'];
+		$_SESSION['filter_glossary']	= convertStringToArray($_SESSION['filter_glossary'], ' ');
+		$_POST['filter']	= $_SESSION['filter_glossary'];
 	}
 
 	$_SESSION['glossary_page'] = intval($_POST['page']);
@@ -72,24 +72,24 @@ if($_entry['list_active'] != $_entry['list_inactive']) {
 	$_entry['query'] .= 'glossary_status!=9';
 }
 
-if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
+if(isset($_SESSION['filter_glossary']) && is_array($_SESSION['filter_glossary']) && count($_SESSION['filter_glossary'])) {
 
 	$_entry['filter_array'] = array();
 
-	foreach($_SESSION['filter'] as $_entry['filter']) {
+	foreach($_SESSION['filter_glossary'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
 		$_entry['filter_array'][] = "CONCAT(glossary_title, glossary_tag, glossary_keyword, glossary_text) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
 
-		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
-		$_entry['query'] .= $_SESSION['filter'];
+		$_SESSION['filter_glossary'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
+		$_entry['query'] .= $_SESSION['filter_glossary'];
 
 	}
 
-} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+} elseif(isset($_SESSION['filter_glossary']) && is_string($_SESSION['filter_glossary'])) {
 
-	$_entry['query'] .= $_SESSION['filter'];
+	$_entry['query'] .= $_SESSION['filter_glossary'];
 
 }
 
@@ -153,7 +153,7 @@ if($_entry['pages_total'] > 1) {
 
 }
 ?>
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+				<td><input type="search" name="filter" id="filter" size="10" value="<?php
 
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
 					echo html(implode(' ', $_POST['filter']));
@@ -191,40 +191,47 @@ $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_glossary WHERE '.$_entry['query'].'
 $sql .= 'LIMIT '.(($_SESSION['glossary_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 $data = _dbQuery($sql);
 
-foreach($data as $row) {
+if($data) {
 
-	echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>'.LF.'<td width="20" style="width:20px;padding:2px 1px 2px 3px;">';
-	echo '<img src="img/famfamfam/';
-	echo $row["glossary_highlight"] ? 'tag_blue_key.gif' : 'tag_blue.gif';
-	echo '" alt="'.$BLM['glossary_entry'].'" /></td>'.LF;
-	echo '<td class="dir" width="50%">'.html($row["glossary_title"])."&nbsp;</td>\n";
+	foreach($data as $row) {
 
-	echo '<td class="dir">'.html($row["glossary_keyword"])."&nbsp;</td>\n";
+		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>'.LF.'<td width="20" style="width:20px;padding:2px 1px 2px 3px;">';
+		echo '<img src="img/famfamfam/';
+		echo $row["glossary_highlight"] ? 'tag_blue_key.gif' : 'tag_blue.gif';
+		echo '" alt="'.$BLM['glossary_entry'].'" /></td>'.LF;
+		echo '<td class="dir" width="50%">'.html($row["glossary_title"])."&nbsp;</td>\n";
 
-	echo '<td class="dir">'.html($row["glossary_tag"])."&nbsp;</td>\n";
+		echo '<td class="dir">'.html($row["glossary_keyword"])."&nbsp;</td>\n";
 
-	echo '<td align="right" nowrap="nowrap" class="button_td">';
+		echo '<td class="dir">'.html($row["glossary_tag"])."&nbsp;</td>\n";
 
-	echo '<a href="'.GLOSSARY_HREF.'&amp;edit='.$row["glossary_id"].'">';
-	echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
+		echo '<td align="right" nowrap="nowrap" class="button_td">';
 
-	echo '<a href="'.GLOSSARY_HREF.'&amp;editid='.$row["glossary_id"].'&amp;verify=';
-	echo (($row["glossary_status"]) ? '0' : '1').'">';
-	echo '<img src="img/button/aktiv_12x13_'.$row["glossary_status"].'.gif" border="0" alt="" /></a>';
+		echo '<a href="'.GLOSSARY_HREF.'&amp;edit='.$row["glossary_id"].'">';
+		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
 
-	echo '<a href="'.GLOSSARY_HREF.'&amp;delete='.$row["glossary_id"];
-	echo '" title="delete: '.html($row["glossary_title"]).'"';
-	echo ' onclick="return confirm(\''.$BLM['delete_entry'].' '.js_singlequote($row["glossary_title"]).'\');">';
-	echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
+		echo '<a href="'.GLOSSARY_HREF.'&amp;editid='.$row["glossary_id"].'&amp;verify=';
+		echo (($row["glossary_status"]) ? '0' : '1').'">';
+		echo '<img src="img/button/aktiv_12x13_'.$row["glossary_status"].'.gif" border="0" alt="" /></a>';
 
-	echo "</td>\n</tr>\n";
+		echo '<a href="'.GLOSSARY_HREF.'&amp;delete='.$row["glossary_id"];
+		echo '" title="delete: '.html($row["glossary_title"]).'"';
+		echo ' onclick="return confirm(\''.$BLM['delete_entry'].' '.js_singlequote($row["glossary_title"]).'\');">';
+		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
 
-	$row_count++;
-}
+		echo "</td>\n</tr>\n";
 
-if($row_count) {
+		$row_count++;
+	}
+
 	echo '<tr><td colspan="5" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
+
+} else {
+
+	echo '<tr><td colspan="5" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
+
 }
+
 
 ?>
 

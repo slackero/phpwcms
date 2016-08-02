@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -523,14 +523,14 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 					// include content part code section
 					if($crow["acontent_type"] != 30) {
 
-						include(PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php');
+						include PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php';
 
 					} elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
 
 						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
 
 						// now try to include module content part code
-						include($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php');
+						include $phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php';
 
 					}
 
@@ -552,7 +552,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 		}
 	}
 
-	if(empty($phpwcms["allow_cntPHP_rt"])) {
+	if(empty($phpwcms["allow_cntPHP_rt"]) || empty($phpwcms['enable_inline_php'])) {
 		$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
 	}
 	return trim($CNT_TMP);
@@ -640,11 +640,15 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 		$article_id = explode(',', $article_id);
 	}
 	if(is_array($article_id) && count($article_id)) {
-		foreach($article_id as $value) {
+		foreach($article_id as $key => $value) {
 			$value = intval($value);
 			if(!$value) {
-				unset($article_id);
+				unset($article_id[$key]);
 			}
+			$article_id[$key] = $value;
+		}
+		if(count($article_id)) {
+			$article_id	= array_unique($article_id);
 		}
 	}
 	if(!is_array($article_id) || !count($article_id)) {
@@ -652,9 +656,6 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 			return array();
 		}
 		$article_id = array();
-	}
-	if(count($article_id)) {
-		$article_id	= array_unique($article_id);
 	}
 
 	$sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
@@ -722,13 +723,15 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 		return array();
 	}
 
-	if($sort == '') {
+	if($sort === '') {
 		foreach($article_id as $row) {
 			$data[$row] = '';
 		}
 	}
 
 	foreach($result as $row) {
+
+		$row["article_id"] = intval($row["article_id"]);
 
 		$data[$row["article_id"]] = array(
 			"article_id"		=> $row["article_id"],
@@ -798,8 +801,12 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
 		}
 	}
 
-	if($sort == '') {
-		return array_diff($data, array(''));
+	if($sort === '' && count($data)) {
+		foreach($data as $key => $value) {
+			if($value === '') {
+				unset($data[$key]);
+			}
+		}
 	}
 
 	return $data;
@@ -892,15 +899,17 @@ function parse_downloads($match) {
 			$news		= array('files_result' => '');
 
 			// include content part files renderer
-			include(PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php');
+			include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
-			return $news['files_result'];
+			if($news['files_result']) {
+				return $news['files_result'];
+			}
 
 		}
 
 	}
 
-	return '';
+	return isset($match[3]) ? $match[3] : '';
 
 }
 
@@ -1026,6 +1035,3 @@ function seReferrer($ref = false) {
 					"pos"		=> $SePos,
 					"referrer"	=> $SeReferer	);
 }
-
-
-?>

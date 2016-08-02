@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -66,17 +66,17 @@ if(isset($_POST['msg_send_aktion']) && intval($_POST['msg_send_aktion'])) {
 	$msg_to			= slweg(trim($_POST["msg_send_receiver"]));
 	$msg_pid		= intval($_POST['msg_send_pid']);
 
-	if(isEmpty($msg_to)) {
+	if(str_empty($msg_to)) {
 		$msg_err .= "- ".$BL['be_msg_err1']."\n";
 	}
-	if(isEmpty($msg_subject)) {
+	if(str_empty($msg_subject)) {
 		$msg_err .= "- ".$BL['be_msg_err2']."\n";
 	}
-	if(isEmpty($msg_message)) {
+	if(str_empty($msg_message)) {
 		$msg_err .= "- ".$BL['be_msg_err3']."\n";
 	}
 
-	if(isEmpty($msg_err)) {
+	if(str_empty($msg_err)) {
 		//send message routine
 		$msg_receivers = explode(":", $msg_to);
 		foreach($msg_receivers as $value) {
@@ -166,7 +166,7 @@ if($msg_send_ok) {
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_subject'] ?>:</td></tr>
 	<tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" class="code width540" value="<?php echo html($msg_subject); ?>" size="40" maxlength="125"></td></tr>
 	<tr><td colspan="3" class="v09"><?php echo $BL['be_msg_msg'] ?>:</td></tr>
-	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" class="code width540"><?php echo html($msg_message); ?></textarea></td></tr>
+	<tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" class="code width540 autosize"><?php echo html($msg_message); ?></textarea></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 	<tr><td colspan="3"><input name="submit" type="image" id="submit" src="img/button/send_message.gif" alt="<?php echo $BL['be_msg_all'] ?>" width="87" height="17" border="0"></td></tr>
 	<tr><td colspan="3">&nbsp;</td></tr>

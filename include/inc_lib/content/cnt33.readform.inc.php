@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -39,7 +39,7 @@ $content['news']['news_detail_link']	= clean_slweg($_POST['news_detail_link']);
 if(!count($content['news']['news_lang']) || (isset($content['news']['news_lang'][0]) && $content['news']['news_lang'][0] == '')) {
 	$content['news']['news_lang'] = array();
 }
-								
+
 if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 10 ) {
 	$content['news']['news_sort'] = 9;
 }
@@ -68,6 +68,3 @@ if(is_intval($content['news']['news_detail_link'])) {
 if(is_intval($content['news']['news_archive_link'])) {
 	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ? intval($content['news']['news_archive_link']) : '';
 }
-
-
-?>

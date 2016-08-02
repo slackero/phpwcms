@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -58,7 +58,7 @@ if(isset($_GET["open"])) {
 				$fcat["needed"]	= empty($_POST["fcat_needed"]) ? 0 : 1;
 				$fcat["sort"]	= empty($_POST["fcat_sort"]) ? 0 : intval($_POST["fcat_sort"]);
 
-				if(isEmpty($fcat["name"])) {
+				if(str_empty($fcat["name"])) {
 					$fcat["error"] = 1;
 				} else {
 					if(!$fcat["id"]) {
@@ -70,7 +70,7 @@ if(isset($_GET["open"])) {
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating file category")) {
 						if(!$fcat["id"]) $fcat["id"] = mysql_insert_id($db);
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=7");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
 					}
 				}
 
@@ -158,7 +158,7 @@ if(isset($_GET["open"])) {
 				$sendbutton = $BL['be_admin_fcat_button2'];
 			}
 
-			if(!empty($_POST["fkey_aktion"])) { //Formular zum Bearbeiten der Dateischlüssel-Namen
+			if(!empty($_POST["fkey_aktion"])) { //Formular zum Bearbeiten der Dateischlï¿½ssel-Namen
 
 				$fkey["name"]	= clean_slweg($_POST["fkey_name"], 250);
 				$fkey["id"]		= intval($_POST["fkey_id"]);
@@ -166,7 +166,7 @@ if(isset($_GET["open"])) {
 				$fkey["cid"]	= intval($_POST["fkey_cid"]);
 				$fkey["sort"]	= empty($_POST["fkey_sort"]) ? 0 : intval($_POST["fkey_sort"]);
 
-				if(isEmpty($fkey["name"])) {
+				if(str_empty($fkey["name"])) {
 					$fkey["error"] = 1;
 				} else {
 					if(!$fkey["id"]) {
@@ -178,7 +178,7 @@ if(isset($_GET["open"])) {
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating file key")) {
 						if(!$fkey["id"]) $fkey["id"] = mysql_insert_id($db);
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=7");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
 					}
 				}
 

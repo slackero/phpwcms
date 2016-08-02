@@ -2,12 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
+
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
 
 // Module/Plug-in Feed to Article import default settings
 // Init used to import feed to articles
@@ -88,7 +95,7 @@ if(!empty($_getVar['feedimport'])) {
 			}
 
 			// need some additional functions
-			include_once(PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+			include_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 			// set import sort counter
 			$article_sort_counter = _dbGet('phpwcms_article', 'article_sort', 'article_cid='._dbEscape($feedimport_result['cnt_object']['structure_level_id']), '', 'article_sort DESC', 1);
@@ -143,16 +150,16 @@ if(!empty($_getVar['feedimport'])) {
 					$article_summary = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title()).'<\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote(html_entities($article_title)).'<\/.+?>/'
+						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title(), '/').'<\/.+?>/',
+						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_summary);
 				}
 				if($article_content && strpos($article_content, '<') !== false) {
 					$article_content = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title()).'<\/.+?>/',
-						'/<.+?[^>]*>'.preg_quote(html_entities($article_title)).'<\/.+?>/'
+						'/<.+?[^>]*>'.preg_quote($rssvalue->get_title(), '/').'<\/.+?>/',
+						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_content);
 				}
 
@@ -345,8 +352,6 @@ if(!empty($_getVar['feedimport'])) {
 							'acontent_spacer'			=> '',
 							'acontent_category'			=> '',
 							'acontent_lang'				=> '',
-							'acontent_alink'			=> '',
-							'acontent_redirect'			=> '',
 							'acontent_form'				=> '',
 							'acontent_media'			=> '',
 							'acontent_newsletter'		=> ''
@@ -403,5 +408,3 @@ if(!empty($_getVar['feedimport'])) {
 	// we quit here
 	exit();
 }
-
-?>

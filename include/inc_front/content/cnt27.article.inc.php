@@ -2,21 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 //FAQ
 
@@ -51,7 +49,7 @@ $thumb_img		= '';
 $caption[0]		= '';
 if(!empty($crow["acontent_image"][2])) {
 
-	$caption = getImageCaption(base64_decode($crow["acontent_image"][6]));
+	$caption = getImageCaption(array('caption' => base64_decode($crow["acontent_image"][6]), 'file' => $crow["acontent_image"][0]));
 	$caption[0]	= html_specialchars($caption[0]);
 	$caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
 	$caption[1] = empty($caption[1]) ? html_specialchars($crow["acontent_image"][1]) : html_specialchars($caption[1]);
@@ -106,9 +104,6 @@ if(!empty($crow["acontent_image"][2])) {
 	}
 }
 
-
-
-
 // now render whole recipe
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'TITLE', html_specialchars($crow['acontent_title']));
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
@@ -120,9 +115,4 @@ $crow["acontent_form"]['faq_template'] = str_replace('{FAQ_ID}', $crow['acontent
 
 $CNT_TMP .= $crow["acontent_form"]['faq_template'];
 
-
-
-
 unset($image, $caption);
-
-?>

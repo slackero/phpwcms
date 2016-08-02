@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -289,7 +289,7 @@ if($img_count) {
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top">
-		<textarea name="cimage_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width440" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
+		<textarea name="cimage_caption" cols="40" rows="3" wrap="off" class="width440 autosize" id="cimage_caption"><?php echo implode(' '.LF, $caption_box) ?></textarea>
 		<span class="caption width440">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|
@@ -317,8 +317,7 @@ $wysiwyg_editor = array(
 	'lang'		=> 'en'
 );
 
-include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
-
+include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
 

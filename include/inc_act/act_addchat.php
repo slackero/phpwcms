@@ -2,21 +2,23 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 session_start();
 $phpwcms = array();
-require_once ('../../config/phpwcms/conf.inc.php');
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
+validate_csrf_tokens();
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 $chat_message = clean_slweg(trim($_POST['chatmsg']));
 $chatlist = intval($_POST['chatlist']);
@@ -26,6 +28,4 @@ if($chat_message) {
 	_dbQuery($sql, 'INSERT');
 }
 
-headerRedirect(PHPWCMS_URL."phpwcms.php?do=chat&p=1&l=".$chatlist);
-
-?>
+headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=chat&p=1&l='.$chatlist.'&'.get_token_get_string('csrftoken'));

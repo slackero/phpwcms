@@ -105,7 +105,7 @@
   padding: 0 1em !important;
 }
 .syntaxhighlighter.nogutter td.code .container textarea, .syntaxhighlighter.nogutter td.code .line {
-  padding-left: 0em !important;
+  padding-left: 0 !important;
 }
 .syntaxhighlighter.show {
   display: block !important;
@@ -114,7 +114,7 @@
   display: none !important;
 }
 .syntaxhighlighter.collapsed .toolbar {
-  padding: 0.1em 0.8em 0em 0.8em !important;
+  padding: 0.1em 0.8em 0 0.8em !important;
   font-size: 1em !important;
   position: static !important;
   width: auto !important;
@@ -160,7 +160,7 @@
   line-height: 8px !important;
 }
 .syntaxhighlighter.ie .toolbar a {
-  padding-top: 0px !important;
+  padding-top: 0 !important;
 }
 .syntaxhighlighter.printing .line.alt1 .content,
 .syntaxhighlighter.printing .line.alt2 .content,

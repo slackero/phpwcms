@@ -2,15 +2,15 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 
-// Language: Vietnamese, Language Code: vn 
+// Language: Vietnamese, Language Code: vn
 // created by Nguyen Viet Son : nguyenvietson at gmail dot com
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
@@ -610,7 +610,7 @@ $BL['be_cnt_target']                    = '&#273;&#237;ch';
 $BL['be_cnt_target1']                   = 'trong c&#7917;a s&#7893; m&#7899;i';
 $BL['be_cnt_target2']                   = 'trong frame cha c&#7911;a c&#7917;a s&#7893;';
 $BL['be_cnt_target3']                   = 'trong c&#249;ng c&#7917;a s&#7893; m&#224; kh&#244;ng c&#243; frames';
-$BL['be_cnt_target4']                   = 'trong c&#249;ng frame ho&#7863;c cu&#25&#7911;¨ s&#7893;';
+$BL['be_cnt_target4']                   = 'trong c&#249;ng frame ho&#7863;c cu&#25&#7911;Â¨ s&#7893;';
 $BL['be_cnt_bullet']                    = 'danh s&#225;ch bullet';
 $BL['be_cnt_linklist']                  = 'danh s&#225;ch li&#234;n k&#7871;t';
 $BL['be_cnt_plainhtml']                 = 'html &#273;&#417;n gi&#7843;n';
@@ -661,7 +661,7 @@ $BL['be_admin_tmpl_nolayout']           = 'kh&#244;ng c&#243; trang layout n&#22
 $BL['be_ctype_search']                  = 't&#236;m ki&#7871;m';
 $BL['be_cnt_results']                   = 'k&#7871;t qu&#7843;';
 $BL['be_cnt_results_per_page']          = 'tr&#234;n&nbsp;trang (n&#7871;u r&#7895;ng th&#236; hi&#7879;n t&#7845;t c&#7843;)';
-$BL['be_cnt_opennewwin']                = 'm&#7903; cu&#25&#7911;¨ s&#7893; m&#7899;i';
+$BL['be_cnt_opennewwin']                = 'm&#7903; cu&#25&#7911;Â¨ s&#7893; m&#7899;i';
 $BL['be_cnt_searchlabeltext']           = '';
 $BL['be_cnt_input']                     = 'nh&#7853;p';
 $BL['be_cnt_style']                     = 'ki&#7875;u';
@@ -697,7 +697,7 @@ $BL['be_admin_startup_title']           = 'Hi&#7875;n th&#7883; m&#7863;c &#273;
 $BL['be_admin_startup_button']          = 'L&#432;u l&#7841;i'   ;
 $BL['be_subnav_admin_starttext']        = 'trang hi&#7875;n th&#7883; m&#7863;c &#273;&#7883;nh'    ;
 $BL['be_admin_startup_text']            = 'n&#7897;i dung hi&#7875;n th&#7883;'        ;
-// added by Christian Günther (guenther@emediafabrik.de)
+// added by Christian GÃ¼nther (guenther@emediafabrik.de)
 // and Johannes Meyknecht (meyknecht@emediafabrik.de) for VTS phpOpenTracker
 $BL['be_nav_vts']                       = 'TH&#7888;NG K&#202;';
 $BL['be_subnav_vts_total']                = 'T&#7893;ng h&#7907;p';
@@ -993,4 +993,3 @@ $BL['be_cnt_guests']                    = 'kh&#225;ch';
 $BL['be_cnt_admin']                        = 'qu&#7843;n tr&#7883;';
 $BL['be_cnt_write']                        = 'vi&#7871;t';
 $BL['be_cnt_read']                        = '&#273;&#7885;c';
-?>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -109,7 +109,7 @@ $SPECIAL_ENTITIES_TABLES['latin1_encode'] = array (
     "&yacute;", 
     "&thorn;", 
     "&yuml;"
-    );
+);
 
 $SPECIAL_ENTITIES_TABLES['symbol_encode'] = array(
     "&fnof;", 
@@ -236,7 +236,7 @@ $SPECIAL_ENTITIES_TABLES['symbol_encode'] = array(
     "&clubs;", 
     "&hearts;", 
     "&diams;"
-    );
+);
     
 $SPECIAL_ENTITIES_TABLES['specialchars_encode'] = array( 
     "&quot;", 
@@ -271,7 +271,7 @@ $SPECIAL_ENTITIES_TABLES['specialchars_encode'] = array(
     "&lsaquo;", 
     "&rsaquo;", 
     "&euro;"
-    );
+);
         
 $SPECIAL_ENTITIES_TABLES['latin1_decode'] = array (
     " ", 
@@ -370,7 +370,7 @@ $SPECIAL_ENTITIES_TABLES['latin1_decode'] = array (
     "ý", 
     "þ", 
     "ÿ"
-    );
+);
     
 $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
 	"&#402;", 
@@ -497,7 +497,7 @@ $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
 	"&#9827;", 
 	"&#9829;", 
 	"&#9830;"
-    );
+);
     
 $SPECIAL_ENTITIES_TABLES['specialchars_decode'] = array( 
     '"', 
@@ -532,6 +532,4 @@ $SPECIAL_ENTITIES_TABLES['specialchars_decode'] = array(
 	"&#8249;", 
 	"&#8250;", 
 	"&#8364;"
-    );
-	
-?>
+);

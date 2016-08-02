@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -65,6 +65,7 @@ if(isset($struct_template[0]['template_name'])) {
 		echo ' (', $BL['be_admin_tmpl_default'], ')';
 	}
 }
+echo '<br>'.$BL['be_onepage_id'].': '.(empty($indexpage["acat_onepage"]) ? $BL['be_no'] : $BL['be_yes']);
 echo '\');" onmouseout="UnTip()">';
 echo "</td><td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>";
 echo '<td class="dir" width="97%"><strong>'.$indexpage['acat_name']."</strong></td></tr></table></td>";

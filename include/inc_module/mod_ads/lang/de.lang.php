@@ -50,7 +50,6 @@ $BLM['ad_type_1']				= 'Flash';
 
 $BLM['ad_info']					= 'Erst nach Anlegen des Datensatzes k&ouml;nnen passende Medien hochgeladen und der Kampagne zugeordnet werden!';
 
-
 $BLM['ad_type_2']				= 'HTML';
 $BLM['ad_type_3']				= 'Flash Layer';
 $BLM['ad_type_4']				= 'HTML Prefix';
@@ -82,5 +81,3 @@ $BLM['duplicate_title']			= 'Bannerkampagne duplizieren';
 $BLM['under_construction']		= 'Das Modul &#8220;Bannerwerbung&#8221; soll an dieser Stelle um Auswertungen und Statistik erweitert werden. Dies wird jedoch nur bei entsprechender Unterst&uuml;tzung m&ouml;glich sein.';
 $BLM['donate']					= 'Spenden';
 $BLM['own']						= 'Eigener Betrag';
-
-?>

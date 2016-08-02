@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,31 +18,30 @@
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-$BL['FOLDER_LIST']       = 'mappa lista';                       				 	
-$BL['FILES']             = 'file-ok';                            					
-$BL['SHOW_FILES']        = 'a gyˆkÈr kˆnyt·r file list·j·nak megjelenÌtÈse';      	
-$BL['SHOW_FILES1']       = 'a kˆnyvt·r file list·j·nak megjelenÌtÈse';            	
-$BL['TAKE_IMAGE']        = 'a file kiv·laszt·sa Ès hozz·d·sa&#8230;';               
-$BL['NO_FILE']           = 'nincs file';                                            
-$BL['OPEN_DIR']          = 'kˆnyvt·r megnyit·sa';									
-$BL['CLOSE_DIR']         = 'kˆnyvt·r bez·r·sa';										
-$BL['FILE_TITLE']        = 'phpwcms file bˆngÈszı';									
-$BL['IMAGE_TITLE']       = 'phpwcms image bˆngÈszı';								
-$BL['MEDIA_TITLE']       = 'phpwcms media bˆngÈszı';								
-$BL['IMAGE_FILES']       = 'kÈp file-ok';											
-$BL['MEDIA_FILES']       = 'mÈdia file-ok';											
-$BL['ROOT_DIR']          = 't·rolÛ (gyˆkÈr konyvt·r)';								
-$BL['DOWNLOAD_ERR1']     = 'Hiba (NR:{VAL}) a file letˆltÈsekor';					
-$BL['DOWNLOAD_ERR2']     = 'Ha ˙gy gondolja, hogy ez technikai hiba, kˆldjˆn email-t <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';			
-$BL['DOWNLOAD_TITLE']    = 'File letˆltÈsi hiba';									
-$BL['FILEINFO_TITLE']    = 'phpwcms: file info';									
-$BL['CREATED']           = 'lÈtrehozva';											
-$BL['DATE_FORMAT']       = 'm-d-Y H:i';												
-$BL['SIZE']              = 'mÈret';													
-$BL['DOWNLOAD_FILE']     = 'file letˆltÈse';										
-$BL['FILE_IN_TRASH']     = 'a file a lomt·rban van';								
-$BL['KEYWORDS']          = 'kulcsszavak';											
-$BL['DOWNLOAD_ERR3']     = 'hiba a file info olvas·sakor <br /> z·rja be az ablakot Ès prÛb·lja ˙jra...';
+$BL['FOLDER_LIST']       = 'mappa lista';
+$BL['FILES']             = 'file-ok';
+$BL['SHOW_FILES']        = 'a gy√∂k√©r k√∂nyt√°r file list√°j√°nak megjelen√≠t√©se';
+$BL['SHOW_FILES1']       = 'a k√∂nyvt√°r file list√°j√°nak megjelen√≠t√©se';
+$BL['TAKE_IMAGE']        = 'a file kiv√°laszt√°sa √©s hozz√°d√°sa&#8230;';
+$BL['NO_FILE']           = 'nincs file';
+$BL['OPEN_DIR']          = 'k√∂nyvt√°r megnyit√°sa';
+$BL['CLOSE_DIR']         = 'k√∂nyvt√°r bez√°r√°sa';
+$BL['FILE_TITLE']        = 'phpwcms file b√∂ng√©sz≈ë';
+$BL['IMAGE_TITLE']       = 'phpwcms image b√∂ng√©sz≈ë';
+$BL['MEDIA_TITLE']       = 'phpwcms media b√∂ng√©sz≈ë';
+$BL['IMAGE_FILES']       = 'k√©p file-ok';
+$BL['MEDIA_FILES']       = 'm√©dia file-ok';
+$BL['ROOT_DIR']          = 't√°rol√≥ (gy√∂k√©r konyvt√°r)';
+$BL['DOWNLOAD_ERR1']     = 'Hiba (NR:{VAL}) a file let√∂lt√©sekor';
+$BL['DOWNLOAD_ERR2']     = 'Ha √∫gy gondolja, hogy ez technikai hiba, k√∂ldj√∂n email-t <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'File let√∂lt√©si hiba';
+$BL['FILEINFO_TITLE']    = 'phpwcms: file info';
+$BL['CREATED']           = 'l√©trehozva';
+$BL['DATE_FORMAT']       = 'm-d-Y H:i';
+$BL['SIZE']              = 'm√©ret';
+$BL['DOWNLOAD_FILE']     = 'file let√∂lt√©se';
+$BL['FILE_IN_TRASH']     = 'a file a lomt√°rban van';
+$BL['KEYWORDS']          = 'kulcsszavak';
+$BL['DOWNLOAD_ERR3']     = 'hiba a file info olvas√°sakor <br /> z√°rja be az ablakot √©s pr√≥b√°lja √∫jra...';
 
 
-?>

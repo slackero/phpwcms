@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -377,7 +377,7 @@ if(count($content['search']['module_search'])) {
 
   <tr>
     <td align="right" class="chatlist" valign="top" >&nbsp;</td>
-    <td><textarea name="csearch_label_pages" rows="4" class="width440" id="csearch_label_pages"><?php echo  isset($content["search"]["label_pages"]) ? html($content["search"]["label_pages"]) : '' ?></textarea></td>
+    <td><textarea name="csearch_label_pages" rows="4" class="width440 autosize" id="csearch_label_pages"><?php echo  isset($content["search"]["label_pages"]) ? html($content["search"]["label_pages"]) : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
 </tr>
@@ -423,19 +423,19 @@ if(count($content['search']['module_search'])) {
 	</tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_intro'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_intro" rows="6" class="width440" id="csearch_text_intro"><?php echo isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_intro" rows="6" class="width440 autosize" id="csearch_text_intro"><?php echo isset($content["search"]["text_intro"]) ? $content["search"]["text_intro"] : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 </tr>
   <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_result'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_result" rows="6" class="width440"  id="csearch_text_result"><?php echo isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_result" rows="6" class="width440 autosize" id="csearch_text_result"><?php echo isset($content["search"]["text_result"]) ? $content["search"]["text_result"] : '' ?></textarea></td>
   </tr>
   <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
 </tr>
   <tr>
     <td align="right" class="chatlist tdtop3" nowrap="nowrap"><?php echo $BL['be_cnt_noresult'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="width440"  id="csearch_text_noresult"><?php echo isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
+    <td valign="top"><textarea name="csearch_text_noresult" rows="6" class="width440 autosize" id="csearch_text_noresult"><?php echo isset($content["search"]["text_noresult"]) ? $content["search"]["text_noresult"] : '' ?></textarea></td>
   </tr>
 
  <tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -231,18 +231,13 @@ if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 	$DeluxeMenuParam['start_at_ID'] = intval($GLOBALS['DeluxeMenuParam']['start_at_ID']);
 
 	$DeluxeMenuParam['js'] .= createDeluxeMenuJSCode($DeluxeMenuParam['start_at_ID'], $counter=0, $DeluxeMenuParam);
-
 	$DeluxeMenuParam['js'] .= LF.'   ]'.LF;
-
-
-
 
 	$DeluxeMenuParam['text']  = '<script type="text/javascript">'.LF.SCRIPT_CDATA_START;
 	$DeluxeMenuParam['text'] .= LF.'dm_init();'.LF;
 	$DeluxeMenuParam['text'] .= SCRIPT_CDATA_END.LF.'</script><noscript>';
 	$DeluxeMenuParam['text'] .= buildCascadingMenu( ',' . $DeluxeMenuParam['start_at_ID'] );
 	$DeluxeMenuParam['text'] .= '</noscript>';
-
 
 	$block['custom_htmlhead']['DeluxeMenu']  = '  <script type="text/javascript">'.LF.'  '.SCRIPT_CDATA_START.LF;
 	$block['custom_htmlhead']['DeluxeMenu'] .= '    var dmWorkPath="'.$DeluxeMenuParam['base_path'].'";';
@@ -254,8 +249,4 @@ if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 
 	$content['all'] = str_replace('{DELUXE_MENU}', $DeluxeMenuParam['text'], $content['all']);
 
-
-
 }
-
-?>

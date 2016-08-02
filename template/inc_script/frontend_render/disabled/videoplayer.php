@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,7 +18,6 @@ function show_videoplayer($matches) {
 	if(empty($matches[2])) return ' ';
 	
 	$player		= '';
-	$swf		= '';
 	$player_id	= 'vp'.substr(md5($matches[1].$matches[2].microtime()), 15);
 	
 	// Load SwfObject JavaScript
@@ -52,6 +51,3 @@ function show_videoplayer($matches) {
 
 	return $player;
 }
-
-
-?>

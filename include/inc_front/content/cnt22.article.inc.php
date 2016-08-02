@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -48,21 +48,6 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	$rss['template_DIVIDER']	= get_tmpl_section('DIVIDER',	$rssfeed['template']);
 	$rss['template_FEEDINFO']	= get_tmpl_section('FEEDINFO',	$rssfeed['template']);
 	$rss['template_RSSFEED']	= get_tmpl_section('RSSFEED',	$rssfeed['template']);
-
-	// fallback for mb_convert_encoding()
-	if(!function_exists('iconv') && !function_exists('mb_convert_encoding')) {
-
-		function mb_convert_encoding($string='', $out_charset='utf-8', $in_charset='utf-8') {
-			if(strtolower($in_charset) == 'utf-16be') {
-				$in_charset = 'utf-8';
-			}
-			if(strtolower($out_charset) == 'utf-16be') {
-				$out_charset = 'utf-8';
-			}
-			return makeCharsetConversion($string, $in_charset, $out_charset);
-		}
-
-	}
 
 	// Load SimplePie
 	require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie.inc.php');
@@ -193,5 +178,3 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 
 }
 unset($rss, $rssfeed);
-
-?>

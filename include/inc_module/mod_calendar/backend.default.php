@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -38,20 +38,19 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	// load special backend CSS
 	$BE['HEADER']['module_calendar.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/backend.calendar.css" rel="stylesheet" type="text/css" />';
 
-
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
-	define('MODULE_HREF', 'phpwcms.php?do=modules&amp;module='.$module);
+	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
 	$glossary = array();
 
 
 	if(isset($_GET['edit'])) {
 
 		// handle posts and read data
-		include_once($phpwcms['modules'][$module]['path'].'inc/processing.inc.php');
+		include_once $phpwcms['modules'][$module]['path'].'inc/processing.inc.php';
 
 		// edit form
-		include_once($phpwcms['modules'][$module]['path'].'backend.editform.php');
+		include_once $phpwcms['modules'][$module]['path'].'backend.editform.php';
 
 	} elseif(isset($_GET['verify'])) {
 
@@ -73,14 +72,8 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	} else {
 
 		// listing
-		include_once($phpwcms['modules'][$module]['path'].'backend.listing.php');
+		include_once $phpwcms['modules'][$module]['path'].'backend.listing.php';
 
 	}
 
 }
-
-
-
-
-
-?>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -15,411 +15,411 @@
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
 
-$BL['usr_online']                       = 'χρήστες online';
+$BL['usr_online']                       = 'Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ online';
 
 // Login Page
-$BL["login_text"]                       = 'Εισάγετε στοιχεία εισόδου';
-$BL['login_error']                      = 'Λάθος κατα την εισαγωγή!';
-$BL["login_username"]                   = 'όνομα χρήστη';
-$BL["login_userpass"]                   = 'κωδικός πρόσβασης';
-$BL["login_button"]                     = 'Σύνδεση';
-$BL["login_lang"]                       = 'γλώσσα επικοινωνίας';
+$BL["login_text"]                       = 'Ξ•ΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ΞµΞΉΟƒΟΞ΄ΞΏΟ…';
+$BL['login_error']                      = 'Ξ›Ξ¬ΞΈΞΏΟ‚ ΞΊΞ±Ο„Ξ± Ο„Ξ·Ξ½ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®!';
+$BL["login_username"]                   = 'ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL["login_userpass"]                   = 'ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚';
+$BL["login_button"]                     = 'Ξ£ΟΞ½Ξ΄ΞµΟƒΞ·';
+$BL["login_lang"]                       = 'Ξ³Ξ»ΟΟƒΟƒΞ± ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±Ο‚';
 
 // phpwcms.php
-$BL['be_nav_logout']                    = 'ΑΠΟΣΥΝΔΕΣΗ';
-$BL['be_nav_articles']                  = 'ΑΡΘΡΑ';
-$BL['be_nav_files']                     = 'ΑΡΧΕΙΟ';
+$BL['be_nav_logout']                    = 'Ξ‘Ξ ΞΞ£Ξ¥ΞΞ”Ξ•Ξ£Ξ—';
+$BL['be_nav_articles']                  = 'Ξ‘Ξ΅ΞΞ΅Ξ‘';
+$BL['be_nav_files']                     = 'Ξ‘Ξ΅Ξ§Ξ•Ξ™Ξ';
 $BL['be_nav_modules']                   = 'MODULES';
-$BL['be_nav_messages']                  = 'ΜΗΝΥΜΑΤΑ';
-$BL['be_nav_chat']                      = 'ΣΥΝΟΜΙΛΙΑ';
-$BL['be_nav_profile']                   = 'ΠΡΟΦΙΛ';
-$BL['be_nav_admin']                     = 'ΔΙΑΧΕΙΡΙΣΤΗΣ';
-$BL['be_nav_discuss']                   = 'ΣΥΖΗΤΗΣΗ';
+$BL['be_nav_messages']                  = 'ΞΞ—ΞΞ¥ΞΞ‘Ξ¤Ξ‘';
+$BL['be_nav_chat']                      = 'Ξ£Ξ¥ΞΞΞΞ™Ξ›Ξ™Ξ‘';
+$BL['be_nav_profile']                   = 'Ξ Ξ΅ΞΞ¦Ξ™Ξ›';
+$BL['be_nav_admin']                     = 'Ξ”Ξ™Ξ‘Ξ§Ξ•Ξ™Ξ΅Ξ™Ξ£Ξ¤Ξ—Ξ£';
+$BL['be_nav_discuss']                   = 'Ξ£Ξ¥Ξ–Ξ—Ξ¤Ξ—Ξ£Ξ—';
 
-$BL['be_page_title']                    = 'phpwcms διαχείριση';
+$BL['be_page_title']                    = 'phpwcms Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·';
 
-$BL['be_subnav_article_center']         = 'κέντρο τύπου';
-$BL['be_subnav_article_new']            = 'νέο άρθρο';
-$BL['be_subnav_file_center']            = 'κέντρο αρχείων';
+$BL['be_subnav_article_center']         = 'ΞΊΞ­Ξ½Ο„ΟΞΏ Ο„ΟΟ€ΞΏΟ…';
+$BL['be_subnav_article_new']            = 'Ξ½Ξ­ΞΏ Ξ¬ΟΞΈΟΞΏ';
+$BL['be_subnav_file_center']            = 'ΞΊΞ­Ξ½Ο„ΟΞΏ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
 $BL['be_subnav_file_ftptakeover']       = 'ftp takeover';
-$BL['be_subnav_mod_artists']            = 'συντάκτης, κατηγορία, ύφος';
-$BL['be_subnav_msg_center']             = 'κέντρο μηνυμάτων';
-$BL['be_subnav_msg_new']                = 'νέο μήνυμα';
-$BL['be_subnav_msg_newsletter']         = 'συνδρομή';
-$BL['be_subnav_chat_main']              = 'κύρια σελίδα συνομιλίας';
-$BL['be_subnav_chat_internal']          = 'εσωτερική συνομιλία';
-$BL['be_subnav_profile_login']          = 'πληροφορίες σύνδεσης';
-$BL['be_subnav_profile_personal']       = 'προσωπικά στοιχεία';
-$BL['be_subnav_admin_pagelayout']       = 'σχεδιάγραμμα σελίδων';
-$BL['be_subnav_admin_templates']        = 'πρότυπα';
-$BL['be_subnav_admin_css']              = 'προεπιλεγμένο css';
-$BL['be_subnav_admin_sitestructure']    = 'δομή ιστοσελίδας';
-$BL['be_subnav_admin_users']            = 'χρήστες';
-$BL['be_subnav_admin_filecat']          = 'κατηγορίες αρχείων';
+$BL['be_subnav_mod_artists']            = 'ΟƒΟ…Ξ½Ο„Ξ¬ΞΊΟ„Ξ·Ο‚, ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±, ΟΟ†ΞΏΟ‚';
+$BL['be_subnav_msg_center']             = 'ΞΊΞ­Ξ½Ο„ΟΞΏ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½';
+$BL['be_subnav_msg_new']                = 'Ξ½Ξ­ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ±';
+$BL['be_subnav_msg_newsletter']         = 'ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ®';
+$BL['be_subnav_chat_main']              = 'ΞΊΟΟΞΉΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±Ο‚';
+$BL['be_subnav_chat_internal']          = 'ΞµΟƒΟ‰Ο„ΞµΟΞΉΞΊΞ® ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±';
+$BL['be_subnav_profile_login']          = 'Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΟƒΟΞ½Ξ΄ΞµΟƒΞ·Ο‚';
+$BL['be_subnav_profile_personal']       = 'Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ±';
+$BL['be_subnav_admin_pagelayout']       = 'ΟƒΟ‡ΞµΞ΄ΞΉΞ¬Ξ³ΟΞ±ΞΌΞΌΞ± ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½';
+$BL['be_subnav_admin_templates']        = 'Ο€ΟΟΟ„Ο…Ο€Ξ±';
+$BL['be_subnav_admin_css']              = 'Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ css';
+$BL['be_subnav_admin_sitestructure']    = 'Ξ΄ΞΏΞΌΞ® ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$BL['be_subnav_admin_users']            = 'Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$BL['be_subnav_admin_filecat']          = 'ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
 
 
 // admin.functions.inc.php
-$BL['be_func_struct_articleID']         = 'αριθμός άρθρου';
-$BL['be_func_struct_preview']           = 'προεπισκόπηση';
-$BL['be_func_struct_edit']              = 'επεξεργασία άρθρου';
-$BL['be_func_struct_sedit']             = 'επεξεργασία κατηγορίας';
-$BL['be_func_struct_cut']               = 'αποκοπή άρθρου';
-$BL['be_func_struct_nocut']             = 'απενεργοποίηση αποκοπής άρθρου';
-$BL['be_func_struct_svisible']          = 'εναλλαγή ορατό/αόρατο';
-$BL['be_func_struct_spublic']           = 'εναλλαγή δημόσιο/προσωπικό';
-$BL['be_func_struct_sort_up']           = 'ταξινόμηση προς τα πάνω';
-$BL['be_func_struct_sort_down']         = 'ταξινόμηση προς τα κάτω';
-$BL['be_func_struct_del_article']       = 'διαγραφή άρθρου';
-$BL['be_func_struct_del_jsmsg']         = 'Θέλετε πραγματικά \nνα διαγράψετε το άρθρο?'; // "\n" = JavaScript Linebreak
-$BL['be_func_struct_new_article']       = 'δημιουργία νέου άρθρου στην υπάρχουσα κατηγορία';
-$BL['be_func_struct_paste_article']     = 'επικόλληση άρθρου στην υπάρχουσα κατηγορία';
-$BL['be_func_struct_insert_level']      = 'δημιουργία κατηγορίας';
-$BL['be_func_struct_paste_level']       = 'επικόλληση στην κατηγορία';
-$BL['be_func_struct_cut_level']         = 'αποκοπή κατηγορίας';
-$BL['be_func_struct_no_cut']            = "Δεν είναι δυνατό να κοπεί το ριζικό επίπεδο!";
-$BL['be_func_struct_no_paste1']         = "Δεν είναι δυνατό να γίνει επικόλληση εδώ!";
+$BL['be_func_struct_articleID']         = 'Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_func_struct_preview']           = 'Ο€ΟΞΏΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ·';
+$BL['be_func_struct_edit']              = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_func_struct_sedit']             = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$BL['be_func_struct_cut']               = 'Ξ±Ο€ΞΏΞΊΞΏΟ€Ξ® Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_func_struct_nocut']             = 'Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ±Ο€ΞΏΞΊΞΏΟ€Ξ®Ο‚ Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_func_struct_svisible']          = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® ΞΏΟΞ±Ο„Ο/Ξ±ΟΟΞ±Ο„ΞΏ';
+$BL['be_func_struct_spublic']           = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ/Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ';
+$BL['be_func_struct_sort_up']           = 'Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ· Ο€ΟΞΏΟ‚ Ο„Ξ± Ο€Ξ¬Ξ½Ο‰';
+$BL['be_func_struct_sort_down']         = 'Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ· Ο€ΟΞΏΟ‚ Ο„Ξ± ΞΊΞ¬Ο„Ο‰';
+$BL['be_func_struct_del_article']       = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_func_struct_del_jsmsg']         = 'ΞΞ­Ξ»ΞµΟ„Ξµ Ο€ΟΞ±Ξ³ΞΌΞ±Ο„ΞΉΞΊΞ¬ \nΞ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΏ Ξ¬ΟΞΈΟΞΏ?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_new_article']       = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ξ¬ΟΞΈΟΞΏΟ… ΟƒΟ„Ξ·Ξ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…ΟƒΞ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$BL['be_func_struct_paste_article']     = 'ΞµΟ€ΞΉΞΊΟΞ»Ξ»Ξ·ΟƒΞ· Ξ¬ΟΞΈΟΞΏΟ… ΟƒΟ„Ξ·Ξ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…ΟƒΞ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$BL['be_func_struct_insert_level']      = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$BL['be_func_struct_paste_level']       = 'ΞµΟ€ΞΉΞΊΟΞ»Ξ»Ξ·ΟƒΞ· ΟƒΟ„Ξ·Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$BL['be_func_struct_cut_level']         = 'Ξ±Ο€ΞΏΞΊΞΏΟ€Ξ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$BL['be_func_struct_no_cut']            = "Ξ”ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± ΞΊΞΏΟ€ΞµΞ― Ο„ΞΏ ΟΞΉΞ¶ΞΉΞΊΟ ΞµΟ€Ξ―Ο€ΞµΞ΄ΞΏ!";
+$BL['be_func_struct_no_paste1']         = "Ξ”ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉ ΞµΟ€ΞΉΞΊΟΞ»Ξ»Ξ·ΟƒΞ· ΞµΞ΄Ο!";
 $BL['be_func_struct_no_paste2']         = 'is child in root line of the tree level';
 $BL['be_func_struct_no_paste3']         = 'that should paste in here';
-$BL['be_func_struct_paste_cancel']      = 'ακύρωση αλλαγής δομής επιπέδου';
-$BL['be_func_struct_del_struct']        = 'διαγραφή δομής επιπέδου';
-$BL['be_func_struct_del_sjsmsg']        = 'Θέλετε πραγματικά να διαγράψετε \nτην δομή επιπέδου?'; // "\n" = JavaScript Linebreak
-$BL['be_func_struct_open']              = 'άνοιγμα';
-$BL['be_func_struct_close']             = 'κλείσιμο';
-$BL['be_func_struct_empty']             = 'άδειασμα';
+$BL['be_func_struct_paste_cancel']      = 'Ξ±ΞΊΟΟΟ‰ΟƒΞ· Ξ±Ξ»Ξ»Ξ±Ξ³Ξ®Ο‚ Ξ΄ΞΏΞΌΞ®Ο‚ ΞµΟ€ΞΉΟ€Ξ­Ξ΄ΞΏΟ…';
+$BL['be_func_struct_del_struct']        = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ΄ΞΏΞΌΞ®Ο‚ ΞµΟ€ΞΉΟ€Ξ­Ξ΄ΞΏΟ…';
+$BL['be_func_struct_del_sjsmsg']        = 'ΞΞ­Ξ»ΞµΟ„Ξµ Ο€ΟΞ±Ξ³ΞΌΞ±Ο„ΞΉΞΊΞ¬ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ \nΟ„Ξ·Ξ½ Ξ΄ΞΏΞΌΞ® ΞµΟ€ΞΉΟ€Ξ­Ξ΄ΞΏΟ…?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_open']              = 'Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ±';
+$BL['be_func_struct_close']             = 'ΞΊΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ';
+$BL['be_func_struct_empty']             = 'Ξ¬Ξ΄ΞµΞΉΞ±ΟƒΞΌΞ±';
 
 // article.contenttype.inc.php
-$BL['be_ctype_plaintext']               = 'απλό κείμενο';
+$BL['be_ctype_plaintext']               = 'Ξ±Ο€Ξ»Ο ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
 $BL['be_ctype_html']                    = 'html';
-$BL['be_ctype_code']                    = 'κώδικας';
-$BL['be_ctype_textimage']               = 'κείμενο w/με εικόνες';
-$BL['be_ctype_images']                  = 'εικόνες';
-$BL['be_ctype_bulletlist']              = 'λίστα (table)';
+$BL['be_ctype_code']                    = 'ΞΊΟΞ΄ΞΉΞΊΞ±Ο‚';
+$BL['be_ctype_textimage']               = 'ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ w/ΞΌΞµ ΞµΞΉΞΊΟΞ½ΞµΟ‚';
+$BL['be_ctype_images']                  = 'ΞµΞΉΞΊΟΞ½ΞµΟ‚';
+$BL['be_ctype_bulletlist']              = 'Ξ»Ξ―ΟƒΟ„Ξ± (table)';
 $BL['be_ctype_ullist']     		        = 'list';
-$BL['be_ctype_link']                    = 'υπερσύνδεση &amp; email';
-$BL['be_ctype_linklist']                = 'λίστα υπερσυνδέσεων';
-$BL['be_ctype_linkarticle']             = 'υπερσυνδέσεις για το άρθρο';
-$BL['be_ctype_multimedia']              = 'πολυμέσα';
-$BL['be_ctype_filelist']                = 'λίστα αρχείων';
-$BL['be_ctype_emailform']               = 'φόρμα email';
-$BL['be_ctype_newsletter']              = 'ενημερωτικό δελτίο';
+$BL['be_ctype_link']                    = 'Ο…Ο€ΞµΟΟƒΟΞ½Ξ΄ΞµΟƒΞ· &amp; email';
+$BL['be_ctype_linklist']                = 'Ξ»Ξ―ΟƒΟ„Ξ± Ο…Ο€ΞµΟΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΟ‰Ξ½';
+$BL['be_ctype_linkarticle']             = 'Ο…Ο€ΞµΟΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„ΞΏ Ξ¬ΟΞΈΟΞΏ';
+$BL['be_ctype_multimedia']              = 'Ο€ΞΏΞ»Ο…ΞΌΞ­ΟƒΞ±';
+$BL['be_ctype_filelist']                = 'Ξ»Ξ―ΟƒΟ„Ξ± Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_ctype_emailform']               = 'Ο†ΟΟΞΌΞ± email';
+$BL['be_ctype_newsletter']              = 'ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏ';
 
 // profile.create.inc.php
-$BL['be_profile_create_success']        = 'Το προφίλ δημιουργήθηκε με επιτυχία.';
-$BL['be_profile_create_error']          = 'Παρουσιάστηκε σφάλμα κατά τη δημιουργία.';
+$BL['be_profile_create_success']        = 'Ξ¤ΞΏ Ο€ΟΞΏΟ†Ξ―Ξ» Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ ΞΌΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ―Ξ±.';
+$BL['be_profile_create_error']          = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±.';
 
 // profile.update.inc.php
-$BL['be_profile_update_success']        = 'Τα στοιχεία του προφίλ ανανεώθηκαν επιτυχώς.';
-$BL['be_profile_update_error']          = 'Παρουσιάστηκε σφάλμα κατά την ανανέωση.';
+$BL['be_profile_update_success']        = 'Ξ¤Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ο„ΞΏΟ… Ο€ΟΞΏΟ†Ξ―Ξ» Ξ±Ξ½Ξ±Ξ½ΞµΟΞΈΞ·ΞΊΞ±Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚.';
+$BL['be_profile_update_error']          = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ·.';
 
 // profile.updateaccount.inc.php
-$BL['be_profile_account_err1']          = 'η ταυτότητα χρήστη {VAL} δεν είναι έγκυρη';
-$BL['be_profile_account_err2']          = 'ο κωδικός πρόσβασης είναι πολύ μικρός (μόνο {VAL} χαρακτήρες: χρειάζονται τουλάχιστον 5 χαρακτήρες)';
-$BL['be_profile_account_err3']          = 'ο κωδικός πρόσβασης πρέπει να είναι πανομοιότυπος με τον επαναλαμβανόμενο';
-$BL['be_profile_account_err4']          = 'η διεύθυνση ηλεκτρονικού ταχυδρομείου {VAL} δεν είναι έγκυρη';
+$BL['be_profile_account_err1']          = 'Ξ· Ο„Ξ±Ο…Ο„ΟΟ„Ξ·Ο„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· {VAL} Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞ·';
+$BL['be_profile_account_err2']          = 'ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞΌΞΉΞΊΟΟΟ‚ (ΞΌΟΞ½ΞΏ {VAL} Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚: Ο‡ΟΞµΞΉΞ¬Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ 5 Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚)';
+$BL['be_profile_account_err3']          = 'ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ±Ξ½ΞΏΞΌΞΏΞΉΟΟ„Ο…Ο€ΞΏΟ‚ ΞΌΞµ Ο„ΞΏΞ½ ΞµΟ€Ξ±Ξ½Ξ±Ξ»Ξ±ΞΌΞ²Ξ±Ξ½ΟΞΌΞµΞ½ΞΏ';
+$BL['be_profile_account_err4']          = 'Ξ· Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ… {VAL} Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞ·';
 
 // profile.data.tmpl.php
-$BL['be_profile_data_title']            = 'τα προσωπικά σας στοιχεία';
-$BL['be_profile_data_text']             = 'Τα προσωπικά στοιχεία ειναι προαιρετικά. Μπορούν να βοηθήσουν άλλους χρήστες ή επισκέπτες του ιστότοπου να γνωρίσουν περισσότερα για σας, τα ενδιαφέροντα και τις ικανότητές σας. Εάν επιλέξετε το κατάλληλο κουτάκι οι χρήστες μπορούν να δουν τα στοιχεία του προφίλ σας στο δημόσιο χώρο ή σε σελίδες άρθρων. (ή ακόμα και όχι).';
-$BL['be_profile_label_title']           = 'τίτλος';
-$BL['be_profile_label_firstname']       = 'όνομα';
-$BL['be_profile_label_name']            = 'επίθετο';
-$BL['be_profile_label_company']         = 'εταιρεία';
-$BL['be_profile_label_street']          = 'διεύθυνση';
-$BL['be_profile_label_city']            = 'πόλη';
-$BL['be_profile_label_state']           = 'περιοχή';
-$BL['be_profile_label_zip']             = 'ταχυδρομικός κώδικας';
-$BL['be_profile_label_country']         = 'χώρα';
-$BL['be_profile_label_phone']           = 'τηλέφωνο';
-$BL['be_profile_label_fax']             = 'φαξ';
-$BL['be_profile_label_cellphone']       = 'κινητό';
-$BL['be_profile_label_signature']       = 'υπογραφή';
-$BL['be_profile_label_notes']           = 'σημειώσεις';
-$BL['be_profile_label_profession']      = 'επάγγελμα';
-$BL['be_profile_label_newsletter']      = 'ενημερωτικό δελτίο';
-$BL['be_profile_text_newsletter']       = 'Επιθυμώ να λαμβάνω γενικά ενημερωτικά δελτία του phpwcms.';
-$BL['be_profile_label_public']          = 'δημόσιο';
-$BL['be_profile_text_public']           = 'Ο καθένας μπορέι να δει το προσωπικό μου προφίλ.';
-$BL['be_profile_label_button']          = 'ανανέωση προσωπικών στοιχείων';
+$BL['be_profile_data_title']            = 'Ο„Ξ± Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬ ΟƒΞ±Ο‚ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ±';
+$BL['be_profile_data_text']             = 'Ξ¤Ξ± Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ΞµΞΉΞ½Ξ±ΞΉ Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬. ΞΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ²ΞΏΞ·ΞΈΞ®ΟƒΞΏΟ…Ξ½ Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ® ΞµΟ€ΞΉΟƒΞΊΞ­Ο€Ο„ΞµΟ‚ Ο„ΞΏΟ… ΞΉΟƒΟ„ΟΟ„ΞΏΟ€ΞΏΟ… Ξ½Ξ± Ξ³Ξ½Ο‰ΟΞ―ΟƒΞΏΟ…Ξ½ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± Ξ³ΞΉΞ± ΟƒΞ±Ο‚, Ο„Ξ± ΞµΞ½Ξ΄ΞΉΞ±Ο†Ξ­ΟΞΏΞ½Ο„Ξ± ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ ΞΉΞΊΞ±Ξ½ΟΟ„Ξ·Ο„Ξ­Ο‚ ΟƒΞ±Ο‚. Ξ•Ξ¬Ξ½ ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο„ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»Ξ»Ξ·Ξ»ΞΏ ΞΊΞΏΟ…Ο„Ξ¬ΞΊΞΉ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ΄ΞΏΟ…Ξ½ Ο„Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ο„ΞΏΟ… Ο€ΟΞΏΟ†Ξ―Ξ» ΟƒΞ±Ο‚ ΟƒΟ„ΞΏ Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ Ο‡ΟΟΞΏ Ξ® ΟƒΞµ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ξ¬ΟΞΈΟΟ‰Ξ½. (Ξ® Ξ±ΞΊΟΞΌΞ± ΞΊΞ±ΞΉ ΟΟ‡ΞΉ).';
+$BL['be_profile_label_title']           = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚';
+$BL['be_profile_label_firstname']       = 'ΟΞ½ΞΏΞΌΞ±';
+$BL['be_profile_label_name']            = 'ΞµΟ€Ξ―ΞΈΞµΟ„ΞΏ';
+$BL['be_profile_label_company']         = 'ΞµΟ„Ξ±ΞΉΟΞµΞ―Ξ±';
+$BL['be_profile_label_street']          = 'Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·';
+$BL['be_profile_label_city']            = 'Ο€ΟΞ»Ξ·';
+$BL['be_profile_label_state']           = 'Ο€ΞµΟΞΉΞΏΟ‡Ξ®';
+$BL['be_profile_label_zip']             = 'Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞΉΞΊΟΟ‚ ΞΊΟΞ΄ΞΉΞΊΞ±Ο‚';
+$BL['be_profile_label_country']         = 'Ο‡ΟΟΞ±';
+$BL['be_profile_label_phone']           = 'Ο„Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ';
+$BL['be_profile_label_fax']             = 'Ο†Ξ±ΞΎ';
+$BL['be_profile_label_cellphone']       = 'ΞΊΞΉΞ½Ξ·Ο„Ο';
+$BL['be_profile_label_signature']       = 'Ο…Ο€ΞΏΞ³ΟΞ±Ο†Ξ®';
+$BL['be_profile_label_notes']           = 'ΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΞΉΟ‚';
+$BL['be_profile_label_profession']      = 'ΞµΟ€Ξ¬Ξ³Ξ³ΞµΞ»ΞΌΞ±';
+$BL['be_profile_label_newsletter']      = 'ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏ';
+$BL['be_profile_text_newsletter']       = 'Ξ•Ο€ΞΉΞΈΟ…ΞΌΟ Ξ½Ξ± Ξ»Ξ±ΞΌΞ²Ξ¬Ξ½Ο‰ Ξ³ΞµΞ½ΞΉΞΊΞ¬ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞ¬ Ξ΄ΞµΞ»Ο„Ξ―Ξ± Ο„ΞΏΟ… phpwcms.';
+$BL['be_profile_label_public']          = 'Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ';
+$BL['be_profile_text_public']           = 'Ξ ΞΊΞ±ΞΈΞ­Ξ½Ξ±Ο‚ ΞΌΟ€ΞΏΟΞ­ΞΉ Ξ½Ξ± Ξ΄ΞµΞΉ Ο„ΞΏ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ ΞΌΞΏΟ… Ο€ΟΞΏΟ†Ξ―Ξ».';
+$BL['be_profile_label_button']          = 'Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ· Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟΞ½ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½';
 
 // profile.account.tmpl.php
-$BL['be_profile_account_title']         = 'στοιχεία εισόδου';
-$BL['be_profile_account_text']          = 'Κανονικά δεν είναι απαραίτητο να αλλαξετε το όνομα χρήστη.<br />Πρέπει να αλλάζετε τον κωδικό πρόσβασής σας ανα διαστήματα για μεγαλύτερη ασφάλεια.';
-$BL['be_profile_label_err']             = 'παρακαλώ ελέγξτε';
-$BL['be_profile_label_username']        = 'όνομα χρήστη';
-$BL['be_profile_label_newpass']         = 'καινούριος κωδικός πρόσβασης';
-$BL['be_profile_label_repeatpass']      = 'επαναλάβετε καινούριο κωδικό πρόσβασης';
-$BL['be_profile_label_email']           = 'διεύθυνση ηλεκτρονικού ταχυδρομείου';
-$BL['be_profile_account_button']        = 'ανανέωση';
-$BL['be_profile_label_lang']            = 'γλώσσα';
+$BL['be_profile_account_title']         = 'ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ΞµΞΉΟƒΟΞ΄ΞΏΟ…';
+$BL['be_profile_account_text']          = 'ΞΞ±Ξ½ΞΏΞ½ΞΉΞΊΞ¬ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„ΞΏ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ±ΞΎΞµΟ„Ξµ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·.<br />Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬Ξ¶ΞµΟ„Ξµ Ο„ΞΏΞ½ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ®Ο‚ ΟƒΞ±Ο‚ Ξ±Ξ½Ξ± Ξ΄ΞΉΞ±ΟƒΟ„Ξ®ΞΌΞ±Ο„Ξ± Ξ³ΞΉΞ± ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞ· Ξ±ΟƒΟ†Ξ¬Ξ»ΞµΞΉΞ±.';
+$BL['be_profile_label_err']             = 'Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΞ»Ξ­Ξ³ΞΎΟ„Ξµ';
+$BL['be_profile_label_username']        = 'ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL['be_profile_label_newpass']         = 'ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚';
+$BL['be_profile_label_repeatpass']      = 'ΞµΟ€Ξ±Ξ½Ξ±Ξ»Ξ¬Ξ²ΞµΟ„Ξµ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚';
+$BL['be_profile_label_email']           = 'Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ…';
+$BL['be_profile_account_button']        = 'Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ·';
+$BL['be_profile_label_lang']            = 'Ξ³Ξ»ΟΟƒΟƒΞ±';
 
 
 // files.ftptakeover.tmpl.php
-$BL['be_ftptakeover_title']             = 'επεξεργασία αρχείων που φορτώνονται μέσω FTP';
-$BL['be_ftptakeover_mark']              = 'σημάδεμα';
-$BL['be_ftptakeover_available']         = 'διαθέσιμο αρχείο';
-$BL['be_ftptakeover_size']              = 'μέγεθος';
-$BL['be_ftptakeover_nofile']            = 'δέν υπάρχει διαθέσιμο αρχείο &#8211; πρέπει να φορτώσετε ένα μέσω ftp';
-$BL['be_ftptakeover_all']               = 'ΌΛΑ';
-$BL['be_ftptakeover_directory']         = 'φάκελος';
-$BL['be_ftptakeover_rootdir']           = 'ριζικός κατάλογος';
-$BL['be_ftptakeover_needed']            = 'απαραίτητο!!! (πρέπει να επιλέξετε ένα)';
-$BL['be_ftptakeover_optional']          = 'προαιρετικό';
-$BL['be_ftptakeover_keywords']          = 'λέξεις κλειδιά';
-$BL['be_ftptakeover_additional']        = 'επιπλέον';
+$BL['be_ftptakeover_title']             = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ο€ΞΏΟ… Ο†ΞΏΟΟ„ΟΞ½ΞΏΞ½Ο„Ξ±ΞΉ ΞΌΞ­ΟƒΟ‰ FTP';
+$BL['be_ftptakeover_mark']              = 'ΟƒΞ·ΞΌΞ¬Ξ΄ΞµΞΌΞ±';
+$BL['be_ftptakeover_available']         = 'Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$BL['be_ftptakeover_size']              = 'ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚';
+$BL['be_ftptakeover_nofile']            = 'Ξ΄Ξ­Ξ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ &#8211; Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± ΞΌΞ­ΟƒΟ‰ ftp';
+$BL['be_ftptakeover_all']               = 'ΞΞ›Ξ‘';
+$BL['be_ftptakeover_directory']         = 'Ο†Ξ¬ΞΊΞµΞ»ΞΏΟ‚';
+$BL['be_ftptakeover_rootdir']           = 'ΟΞΉΞ¶ΞΉΞΊΟΟ‚ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚';
+$BL['be_ftptakeover_needed']            = 'Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„ΞΏ!!! (Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ξ­Ξ½Ξ±)';
+$BL['be_ftptakeover_optional']          = 'Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ';
+$BL['be_ftptakeover_keywords']          = 'Ξ»Ξ­ΞΎΞµΞΉΟ‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬';
+$BL['be_ftptakeover_additional']        = 'ΞµΟ€ΞΉΟ€Ξ»Ξ­ΞΏΞ½';
 $BL['be_ftptakeover_longinfo']          = 'long info';
-$BL['be_ftptakeover_status']            = 'κατάσταση';
-$BL['be_ftptakeover_active']            = 'ενεργός';
-$BL['be_ftptakeover_public']            = 'δημόσιο';
-$BL['be_ftptakeover_createthumb']       = 'δημιουργία μικρογραφίων';
-$BL['be_ftptakeover_button']            = 'επεξεργασία επιλεγμένων αρχείων';
+$BL['be_ftptakeover_status']            = 'ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$BL['be_ftptakeover_active']            = 'ΞµΞ½ΞµΟΞ³ΟΟ‚';
+$BL['be_ftptakeover_public']            = 'Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ';
+$BL['be_ftptakeover_createthumb']       = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞΉΞΊΟΞΏΞ³ΟΞ±Ο†Ξ―Ο‰Ξ½';
+$BL['be_ftptakeover_button']            = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
 
 // files.reiter.tmpl.php
-$BL['be_ftab_title']                    = 'κέντρο αρχείων';
-$BL['be_ftab_createnew']                = 'δημιουργία νέου φακέλου στον κυρίο κατάλογο';
+$BL['be_ftab_title']                    = 'ΞΊΞ­Ξ½Ο„ΟΞΏ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_ftab_createnew']                = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ… ΟƒΟ„ΞΏΞ½ ΞΊΟ…ΟΞ―ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ';
 $BL['be_ftab_paste']                    = 'paste clipboard file into root directory';
-$BL['be_ftab_disablethumb']             = 'απενεργοποίηση λιστας μικρογραφίων';
-$BL['be_ftab_enablethumb']              = 'ενεργοποίηση λιστας μικρογραφίων';
-$BL['be_ftab_private']                  = 'προσωπικά&nbsp;αρχεία';
-$BL['be_ftab_public']                   = 'δημόσια&nbsp;αρχεία';
-$BL['be_ftab_search']                   = 'αναζήτηση';
-$BL['be_ftab_trash']                    = 'κάδος&nbsp;ανακύκλωσης';
-$BL['be_ftab_open']                     = 'άνοιγμα όλων των καταλόγων';
-$BL['be_ftab_close']                    = 'κλείσιμο όλων των ανοιχτών καταλόγων';
-$BL['be_ftab_upload']                   = 'φόρτωση του αρχείου στον κυρίο κατάλογο';
-$BL['be_ftab_filehelp']                 = 'άνοιγμα βοήθειας';
+$BL['be_ftab_disablethumb']             = 'Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ»ΞΉΟƒΟ„Ξ±Ο‚ ΞΌΞΉΞΊΟΞΏΞ³ΟΞ±Ο†Ξ―Ο‰Ξ½';
+$BL['be_ftab_enablethumb']              = 'ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ»ΞΉΟƒΟ„Ξ±Ο‚ ΞΌΞΉΞΊΟΞΏΞ³ΟΞ±Ο†Ξ―Ο‰Ξ½';
+$BL['be_ftab_private']                  = 'Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬&nbsp;Ξ±ΟΟ‡ΞµΞ―Ξ±';
+$BL['be_ftab_public']                   = 'Ξ΄Ξ·ΞΌΟΟƒΞΉΞ±&nbsp;Ξ±ΟΟ‡ΞµΞ―Ξ±';
+$BL['be_ftab_search']                   = 'Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·';
+$BL['be_ftab_trash']                    = 'ΞΊΞ¬Ξ΄ΞΏΟ‚&nbsp;Ξ±Ξ½Ξ±ΞΊΟΞΊΞ»Ο‰ΟƒΞ·Ο‚';
+$BL['be_ftab_open']                     = 'Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³Ο‰Ξ½';
+$BL['be_ftab_close']                    = 'ΞΊΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ξ±Ξ½ΞΏΞΉΟ‡Ο„ΟΞ½ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³Ο‰Ξ½';
+$BL['be_ftab_upload']                   = 'Ο†ΟΟΟ„Ο‰ΟƒΞ· Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΟ„ΞΏΞ½ ΞΊΟ…ΟΞ―ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ';
+$BL['be_ftab_filehelp']                 = 'Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± Ξ²ΞΏΞ®ΞΈΞµΞΉΞ±Ο‚';
 
 // files.private.newdir.tmpl.php
-$BL['be_fpriv_rootdir']                 = 'κύριος φάκελος';
-$BL['be_fpriv_title']                   = 'δημιουργήστε νέο κατάλογο';
-$BL['be_fpriv_inside']                  = 'μέσα';
-$BL['be_fpriv_error']                   = 'λάθος: συμπληρώστε όνομα για τον κατάλογο';
-$BL['be_fpriv_name']                    = 'όνομα';
-$BL['be_fpriv_status']                  = 'κατάσταση';
-$BL['be_fpriv_button']                  = 'δημιουργία νέου καταλόγου';
+$BL['be_fpriv_rootdir']                 = 'ΞΊΟΟΞΉΞΏΟ‚ Ο†Ξ¬ΞΊΞµΞ»ΞΏΟ‚';
+$BL['be_fpriv_title']                   = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΟ„Ξµ Ξ½Ξ­ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ';
+$BL['be_fpriv_inside']                  = 'ΞΌΞ­ΟƒΞ±';
+$BL['be_fpriv_error']                   = 'Ξ»Ξ¬ΞΈΞΏΟ‚: ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΟ„Ξµ ΟΞ½ΞΏΞΌΞ± Ξ³ΞΉΞ± Ο„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ';
+$BL['be_fpriv_name']                    = 'ΟΞ½ΞΏΞΌΞ±';
+$BL['be_fpriv_status']                  = 'ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$BL['be_fpriv_button']                  = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…';
 
 // files.private.editdir.tmpl.php
-$BL['be_fpriv_edittitle']               = 'επεξεργασία καταλόγου';
-$BL['be_fpriv_newname']                 = 'νέο όνομα';
-$BL['be_fpriv_updatebutton']            = 'ενημέρωση πληροφοριών καταλόγου';
+$BL['be_fpriv_edittitle']               = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…';
+$BL['be_fpriv_newname']                 = 'Ξ½Ξ­ΞΏ ΟΞ½ΞΏΞΌΞ±';
+$BL['be_fpriv_updatebutton']            = 'ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…';
 
 // files.private.upload.tmpl.php
-$BL['be_fprivup_err1']                  = 'Επιλέξτε ένα αρχείο που επιθυμείτε να φορτώσετε';
-$BL['be_fprivup_err2']                  = 'Το μέγεθος του φορτωμένου αρχείου είναι μεγαλύτερο από';
-$BL['be_fprivup_err3']                  = 'Σημειώθηκε λάθος κατα την εγγραφή του αρχείου στον αποθηκευτικό χώρο';
-$BL['be_fprivup_err4']                  = 'Σημειώθηκε λάθος κατα την δημιουργία του φακέλου χρήστη.';
-$BL['be_fprivup_err5']                  = 'δεν υπάρχουν μικρογραφίες';
-$BL['be_fprivup_err6']                  = 'Παρακαλώ μην προσπαθήσετε πάλι - λάθος συστήματος! Επικοινωνήστε με τον <a href="mailto:{VAL}">διαχειριστή</a> του συστήματος το συντομότερο δυνατόν!';
-$BL['be_fprivup_title']                 = 'φόρτωση αρχείων';
-$BL['be_fprivup_button']                = 'φόρτωση αρχείων';
-$BL['be_fprivup_upload']                = 'φόρτωση';
+$BL['be_fprivup_err1']                  = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ';
+$BL['be_fprivup_err2']                  = 'Ξ¤ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„ΞΏΟ… Ο†ΞΏΟΟ„Ο‰ΞΌΞ­Ξ½ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞΏ Ξ±Ο€Ο';
+$BL['be_fprivup_err3']                  = 'Ξ£Ξ·ΞΌΞµΞΉΟΞΈΞ·ΞΊΞµ Ξ»Ξ¬ΞΈΞΏΟ‚ ΞΊΞ±Ο„Ξ± Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΟ„ΞΏΞ½ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…Ο„ΞΉΞΊΟ Ο‡ΟΟΞΏ';
+$BL['be_fprivup_err4']                  = 'Ξ£Ξ·ΞΌΞµΞΉΟΞΈΞ·ΞΊΞµ Ξ»Ξ¬ΞΈΞΏΟ‚ ΞΊΞ±Ο„Ξ± Ο„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·.';
+$BL['be_fprivup_err5']                  = 'Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΞΌΞΉΞΊΟΞΏΞ³ΟΞ±Ο†Ξ―ΞµΟ‚';
+$BL['be_fprivup_err6']                  = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞΌΞ·Ξ½ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΟ„Ξµ Ο€Ξ¬Ξ»ΞΉ - Ξ»Ξ¬ΞΈΞΏΟ‚ ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚! Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ <a href="mailto:{VAL}">Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®</a> Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚ Ο„ΞΏ ΟƒΟ…Ξ½Ο„ΞΏΞΌΟΟ„ΞµΟΞΏ Ξ΄Ο…Ξ½Ξ±Ο„ΟΞ½!';
+$BL['be_fprivup_title']                 = 'Ο†ΟΟΟ„Ο‰ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_fprivup_button']                = 'Ο†ΟΟΟ„Ο‰ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_fprivup_upload']                = 'Ο†ΟΟΟ„Ο‰ΟƒΞ·';
 
 // files.private.editfile.tmpl.php
-$BL['be_fprivedit_title']               = 'επεξεργασία πληροφορίων αρχείου';
-$BL['be_fprivedit_filename']            = 'όνομα αρχείου';
-$BL['be_fprivedit_created']             = 'δημιουργήθηκε';
+$BL['be_fprivedit_title']               = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$BL['be_fprivedit_filename']            = 'ΟΞ½ΞΏΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$BL['be_fprivedit_created']             = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ';
 $BL['be_fprivedit_dateformat']          = 'm-d-Y H:i';
-$BL['be_fprivedit_err1']                = 'έπαναφορά αρχικού ονόματος του αρχείου';
-$BL['be_fprivedit_clockwise']           = 'περιστροφή της μικρογραφίας κατα τη φορά του ρολογιού [γνήσιο αρχείο +90&deg;]';
-$BL['be_fprivedit_cclockwise']          = 'περιστροφή της μικρογραφίας αντίθετα της φοράς του ρολογιού [γνήσιο αρχείο -90&deg;]';
-$BL['be_fprivedit_button']              = 'ενημέρωση πληροφοριών αρχείου';
-$BL['be_fprivedit_size']                = 'μέγεθος';
+$BL['be_fprivedit_err1']                = 'Ξ­Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬ Ξ±ΟΟ‡ΞΉΞΊΞΏΟ ΞΏΞ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$BL['be_fprivedit_clockwise']           = 'Ο€ΞµΟΞΉΟƒΟ„ΟΞΏΟ†Ξ® Ο„Ξ·Ο‚ ΞΌΞΉΞΊΟΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚ ΞΊΞ±Ο„Ξ± Ο„Ξ· Ο†ΞΏΟΞ¬ Ο„ΞΏΟ… ΟΞΏΞ»ΞΏΞ³ΞΉΞΏΟ [Ξ³Ξ½Ξ®ΟƒΞΉΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ +90&deg;]';
+$BL['be_fprivedit_cclockwise']          = 'Ο€ΞµΟΞΉΟƒΟ„ΟΞΏΟ†Ξ® Ο„Ξ·Ο‚ ΞΌΞΉΞΊΟΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚ Ξ±Ξ½Ο„Ξ―ΞΈΞµΟ„Ξ± Ο„Ξ·Ο‚ Ο†ΞΏΟΞ¬Ο‚ Ο„ΞΏΟ… ΟΞΏΞ»ΞΏΞ³ΞΉΞΏΟ [Ξ³Ξ½Ξ®ΟƒΞΉΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ -90&deg;]';
+$BL['be_fprivedit_button']              = 'ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$BL['be_fprivedit_size']                = 'ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'φορτώστε το αρχείο στον φάκελο';
-$BL['be_fprivfunc_makenew']             = 'δημιουργία νεου φακέλου μεσα';
+$BL['be_fprivfunc_upload']              = 'Ο†ΞΏΟΟ„ΟΟƒΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΟ„ΞΏΞ½ Ο†Ξ¬ΞΊΞµΞ»ΞΏ';
+$BL['be_fprivfunc_makenew']             = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½ΞµΞΏΟ… Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ… ΞΌΞµΟƒΞ±';
 $BL['be_fprivfunc_paste']               = 'paste clipboard file into dir';
-$BL['be_fprivfunc_edit']                = 'επεξεργασία φακέλου';
-$BL['be_fprivfunc_cactive']             = 'εναλλαγή ενεργό/ανενεργό';
-$BL['be_fprivfunc_cpublic']             = 'εναλλαγή δημόσιο/προσωπικό';
-$BL['be_fprivfunc_deldir']              = 'διαγραφή φακέλου';
-$BL['be_fprivfunc_jsdeldir']            = 'Θέλετε όντως \nνα διαγράψετε τόν φάκελο?';
-$BL['be_fprivfunc_notempty']            = 'ο φάκελος {VAL} δέν είναι άδειος!';
-$BL['be_fprivfunc_opendir']             = 'άνοιγμα φακέλου';
-$BL['be_fprivfunc_closedir']            = 'κλείσιμο φακέλου';
-$BL['be_fprivfunc_dlfile']              = 'κατεβάστε το αρχείο';
+$BL['be_fprivfunc_edit']                = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ…';
+$BL['be_fprivfunc_cactive']             = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® ΞµΞ½ΞµΟΞ³Ο/Ξ±Ξ½ΞµΞ½ΞµΟΞ³Ο';
+$BL['be_fprivfunc_cpublic']             = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ/Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ';
+$BL['be_fprivfunc_deldir']              = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ…';
+$BL['be_fprivfunc_jsdeldir']            = 'ΞΞ­Ξ»ΞµΟ„Ξµ ΟΞ½Ο„Ο‰Ο‚ \nΞ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΟΞ½ Ο†Ξ¬ΞΊΞµΞ»ΞΏ?';
+$BL['be_fprivfunc_notempty']            = 'ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏΟ‚ {VAL} Ξ΄Ξ­Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ¬Ξ΄ΞµΞΉΞΏΟ‚!';
+$BL['be_fprivfunc_opendir']             = 'Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ…';
+$BL['be_fprivfunc_closedir']            = 'ΞΊΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ…';
+$BL['be_fprivfunc_dlfile']              = 'ΞΊΞ±Ο„ΞµΞ²Ξ¬ΟƒΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
 $BL['be_fprivfunc_clipfile']            = 'clipboard file';
-$BL['be_fprivfunc_cutfile']             = 'αποκοπή';
-$BL['be_fprivfunc_editfile']            = 'επεξεργασία πληροφορίων αρχείου';
-$BL['be_fprivfunc_cactivefile']         = 'εναλλαγή ενεργό/ανενεργό';
-$BL['be_fprivfunc_cpublicfile']         = 'εναλλαγή δημόσιο/προσωπικό';
-$BL['be_fprivfunc_movetrash']           = 'μεταφορά στον κάδο ανακύκλωσης';
-$BL['be_fprivfunc_jsmovetrash1']        = 'Θέλετε όντως να μεταφέρετε το';
-$BL['be_fprivfunc_jsmovetrash2']        = 'στόν φάκελο κάδου ανακύκλωσης?';
+$BL['be_fprivfunc_cutfile']             = 'Ξ±Ο€ΞΏΞΊΞΏΟ€Ξ®';
+$BL['be_fprivfunc_editfile']            = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$BL['be_fprivfunc_cactivefile']         = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® ΞµΞ½ΞµΟΞ³Ο/Ξ±Ξ½ΞµΞ½ΞµΟΞ³Ο';
+$BL['be_fprivfunc_cpublicfile']         = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ/Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ';
+$BL['be_fprivfunc_movetrash']           = 'ΞΌΞµΟ„Ξ±Ο†ΞΏΟΞ¬ ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ΄ΞΏ Ξ±Ξ½Ξ±ΞΊΟΞΊΞ»Ο‰ΟƒΞ·Ο‚';
+$BL['be_fprivfunc_jsmovetrash1']        = 'ΞΞ­Ξ»ΞµΟ„Ξµ ΟΞ½Ο„Ο‰Ο‚ Ξ½Ξ± ΞΌΞµΟ„Ξ±Ο†Ξ­ΟΞµΟ„Ξµ Ο„ΞΏ';
+$BL['be_fprivfunc_jsmovetrash2']        = 'ΟƒΟ„ΟΞ½ Ο†Ξ¬ΞΊΞµΞ»ΞΏ ΞΊΞ¬Ξ΄ΞΏΟ… Ξ±Ξ½Ξ±ΞΊΟΞΊΞ»Ο‰ΟƒΞ·Ο‚?';
 
 // files.private.additions.inc.php
-$BL['be_fprivadd_nofolders']            = 'δεν υπαρχουν ιδιωτικά αρχεία ή φάκελοι';
+$BL['be_fprivadd_nofolders']            = 'Ξ΄ΞµΞ½ Ο…Ο€Ξ±ΟΟ‡ΞΏΟ…Ξ½ ΞΉΞ΄ΞΉΟ‰Ο„ΞΉΞΊΞ¬ Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ® Ο†Ξ¬ΞΊΞµΞ»ΞΏΞΉ';
 
 // files.public.list.tmpl.php
-$BL['be_fpublic_user']                  = 'χρήστης';
-$BL['be_fpublic_nofiles']               = 'δεν υπαρχουν δημόσια αρχεία ή φάκελοι';
+$BL['be_fpublic_user']                  = 'Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚';
+$BL['be_fpublic_nofiles']               = 'Ξ΄ΞµΞ½ Ο…Ο€Ξ±ΟΟ‡ΞΏΟ…Ξ½ Ξ΄Ξ·ΞΌΟΟƒΞΉΞ± Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ® Ο†Ξ¬ΞΊΞµΞ»ΞΏΞΉ';
 
 // files.private.trash.tmpl.php
-$BL['be_ftrash_nofiles']                = 'ο κάδος ανακύκλωσης είναι άδειος';
-$BL['be_ftrash_show']                   = 'εμφάνιση ιδιωτικών αρχείων';
+$BL['be_ftrash_nofiles']                = 'ΞΏ ΞΊΞ¬Ξ΄ΞΏΟ‚ Ξ±Ξ½Ξ±ΞΊΟΞΊΞ»Ο‰ΟƒΞ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ¬Ξ΄ΞµΞΉΞΏΟ‚';
+$BL['be_ftrash_show']                   = 'ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΉΞ΄ΞΉΟ‰Ο„ΞΉΞΊΟΞ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
 
 // files.private-delfilelist.inc.php
-$BL['be_ftrash_restore']                = 'Θέλετε να αποκαταστήσετε το {VAL} \nκαι να το εισάγετε πίσω στον προσωπικό κατάλογο?';
-$BL['be_ftrash_delete']                 = 'Θέλετε όντως να διαγράψετε το {VAL}?';
-$BL['be_ftrash_undo']                   = 'επαναφορά';
-$BL['be_ftrash_delfinal']               = 'οριστική διαγραφή';
+$BL['be_ftrash_restore']                = 'ΞΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ±Ο€ΞΏΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏ {VAL} \nΞΊΞ±ΞΉ Ξ½Ξ± Ο„ΞΏ ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο€Ξ―ΟƒΟ‰ ΟƒΟ„ΞΏΞ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ?';
+$BL['be_ftrash_delete']                 = 'ΞΞ­Ξ»ΞµΟ„Ξµ ΟΞ½Ο„Ο‰Ο‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΏ {VAL}?';
+$BL['be_ftrash_undo']                   = 'ΞµΟ€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬';
+$BL['be_ftrash_delfinal']               = 'ΞΏΟΞΉΟƒΟ„ΞΉΞΊΞ® Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®';
 
 // files.search.tmpl.php
 $BL['be_fsearch_err1']                  = 'search string is empty.';
-$BL['be_fsearch_title']                 = 'αναζήτηση αρχείων';
-$BL['be_fsearch_infotext']              = 'Αυτή είναι μια απλή αναζήτηση για πληροφορίες αρχείων. Ψάχνει για τις αντιστοιχίες στις λέξεις κλειδιά,<br />ονόματα αρχείων και περιγραφές αρχείων. Δέν υπάρχει υποστήριξη για wildcards. Ξεχωρίστε πολλαπλές λέξεις κλειδιά<br />με κενό. Επιλέξτε ΚΑΙ/Η και ποιά αρχεία να αναζητηθούν: προσωπικά/δημόσια.';
-$BL['be_fsearch_nonfound']              = 'δε βρέθηκαν αρχεία για την αναζήτησή σας. διορθώστε τις τιμές αναζήτησής σας!';
-$BL['be_fsearch_fillin']                = 'παρακαλώ συμπληρώστε την αναζητούμενη λέξη στο παραπάνω πεδίο.';
-$BL['be_fsearch_searchlabel']           = 'αναζήτηση για';
-$BL['be_fsearch_startsearch']           = 'έναρξη αναζήτησης';
-$BL['be_fsearch_and']                   = 'ΚΑΙ';
-$BL['be_fsearch_or']                    = 'Ή';
-$BL['be_fsearch_all']                   = 'όλα τα αρχεία';
-$BL['be_fsearch_personal']              = 'ιδιωτικό';
-$BL['be_fsearch_public']                = 'δημόσιο';
+$BL['be_fsearch_title']                 = 'Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_fsearch_infotext']              = 'Ξ‘Ο…Ο„Ξ® ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞΉΞ± Ξ±Ο€Ξ»Ξ® Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ³ΞΉΞ± Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½. Ξ¨Ξ¬Ο‡Ξ½ΞµΞΉ Ξ³ΞΉΞ± Ο„ΞΉΟ‚ Ξ±Ξ½Ο„ΞΉΟƒΟ„ΞΏΞΉΟ‡Ξ―ΞµΟ‚ ΟƒΟ„ΞΉΟ‚ Ξ»Ξ­ΞΎΞµΞΉΟ‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬,<br />ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ ΞΊΞ±ΞΉ Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ­Ο‚ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½. Ξ”Ξ­Ξ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ· Ξ³ΞΉΞ± wildcards. ΞΞµΟ‡Ο‰ΟΞ―ΟƒΟ„Ξµ Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ­Ο‚ Ξ»Ξ­ΞΎΞµΞΉΟ‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬<br />ΞΌΞµ ΞΊΞµΞ½Ο. Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΞ‘Ξ™/Ξ— ΞΊΞ±ΞΉ Ο€ΞΏΞΉΞ¬ Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ½Ξ± Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ·ΞΈΞΏΟΞ½: Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬/Ξ΄Ξ·ΞΌΟΟƒΞΉΞ±.';
+$BL['be_fsearch_nonfound']              = 'Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ® ΟƒΞ±Ο‚. Ξ΄ΞΉΞΏΟΞΈΟΟƒΟ„Ξµ Ο„ΞΉΟ‚ Ο„ΞΉΞΌΞ­Ο‚ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ®Ο‚ ΟƒΞ±Ο‚!';
+$BL['be_fsearch_fillin']                = 'Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΟ„Ξµ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„ΞΏΟΞΌΞµΞ½Ξ· Ξ»Ξ­ΞΎΞ· ΟƒΟ„ΞΏ Ο€Ξ±ΟΞ±Ο€Ξ¬Ξ½Ο‰ Ο€ΞµΞ΄Ξ―ΞΏ.';
+$BL['be_fsearch_searchlabel']           = 'Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ³ΞΉΞ±';
+$BL['be_fsearch_startsearch']           = 'Ξ­Ξ½Ξ±ΟΞΎΞ· Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$BL['be_fsearch_and']                   = 'ΞΞ‘Ξ™';
+$BL['be_fsearch_or']                    = 'Ξ‰';
+$BL['be_fsearch_all']                   = 'ΟΞ»Ξ± Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ±';
+$BL['be_fsearch_personal']              = 'ΞΉΞ΄ΞΉΟ‰Ο„ΞΉΞΊΟ';
+$BL['be_fsearch_public']                = 'Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
-$BL['be_chat_title']                    = 'εσωτερική συνομιλία';
-$BL['be_chat_info']                     = 'Εδώ μπορείτε να συζητήσετε με άλλους χρήστες phpwcms για οτιδήποτε θέλετε. Αυτό το μέσο είναι για συζήτηση σε πραγματικό χρόνο αλλά μπορείτε επίσης να αφήσετε ένα μήνυμα που μπορούν να το διαβάσουν όλοι. Εαν θέλετε να ανταλλάξετε ιδέες με άλλους παρακαλείσθε να χρησιμοποιήστε τη συζήτηση (σε επόμενες εκδόσεις phpwcms).';
-$BL['be_chat_start']                    = 'πατήστε εδώ για έναρξη της συζήτησης';
-$BL['be_chat_lines']                    = 'γραμμές συζήτησης';
+$BL['be_chat_title']                    = 'ΞµΟƒΟ‰Ο„ΞµΟΞΉΞΊΞ® ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±';
+$BL['be_chat_info']                     = 'Ξ•Ξ΄Ο ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ„Ξµ ΞΌΞµ Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ phpwcms Ξ³ΞΉΞ± ΞΏΟ„ΞΉΞ΄Ξ®Ο€ΞΏΟ„Ξµ ΞΈΞ­Ξ»ΞµΟ„Ξµ. Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞΌΞ­ΟƒΞΏ ΞµΞ―Ξ½Ξ±ΞΉ Ξ³ΞΉΞ± ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΞµ Ο€ΟΞ±Ξ³ΞΌΞ±Ο„ΞΉΞΊΟ Ο‡ΟΟΞ½ΞΏ Ξ±Ξ»Ξ»Ξ¬ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± Ξ±Ο†Ξ®ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο€ΞΏΟ… ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο„ΞΏ Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞΏΟ…Ξ½ ΟΞ»ΞΏΞΉ. Ξ•Ξ±Ξ½ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ±Ξ½Ο„Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ ΞΉΞ΄Ξ­ΞµΟ‚ ΞΌΞµ Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»ΞµΞ―ΟƒΞΈΞµ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„Ξ· ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· (ΟƒΞµ ΞµΟ€ΟΞΌΞµΞ½ΞµΟ‚ ΞµΞΊΞ΄ΟΟƒΞµΞΉΟ‚ phpwcms).';
+$BL['be_chat_start']                    = 'Ο€Ξ±Ο„Ξ®ΟƒΟ„Ξµ ΞµΞ΄Ο Ξ³ΞΉΞ± Ξ­Ξ½Ξ±ΟΞΎΞ· Ο„Ξ·Ο‚ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$BL['be_chat_lines']                    = 'Ξ³ΟΞ±ΞΌΞΌΞ­Ο‚ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
 
 // message.center.tmpl.php
-$BL['be_msg_title']                     = 'κέντρο μηνυμάτων';
-$BL['be_msg_new']                       = 'καινούρια';
-$BL['be_msg_old']                       = 'παλιά';
-$BL['be_msg_senttop']                   = 'απεσταλμένα';
-$BL['be_msg_del']                       = 'διεγραμμένα';
-$BL['be_msg_from']                      = 'από';
-$BL['be_msg_subject']                   = 'θέμα';
-$BL['be_msg_date']                      = 'ημερομηνία/ώρα';
-$BL['be_msg_close']                     = 'κλείσιμο μηνύματος';
-$BL['be_msg_create']                    = 'δημιουργία νέου μηνύματος';
-$BL['be_msg_reply']                     = 'απαντήστε σε αυτό το μήνυμα';
-$BL['be_msg_move']                      = 'μετακίνηση αυτού του μηνύματος στον κάδο';
-$BL['be_msg_unread']                    = 'μη ανεγνωσμένα ή καινούρια μηνύματα';
-$BL['be_msg_lastread']                  = 'τελευταία {VAL} ανεγνωσμένα μηνύματα';
-$BL['be_msg_lastsent']                  = 'τελευταία {VAL} απεσταλμένα μηνύματα';
-$BL['be_msg_marked']                    = 'μηνύματα επιλεγμένα για διαγραφή (κάδος)';
-$BL['be_msg_nomsg']                     = 'δε βρέθηκε κανένα μήνυμα μέσα σε αυτόν τον φάκελο';
+$BL['be_msg_title']                     = 'ΞΊΞ­Ξ½Ο„ΟΞΏ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½';
+$BL['be_msg_new']                       = 'ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞ±';
+$BL['be_msg_old']                       = 'Ο€Ξ±Ξ»ΞΉΞ¬';
+$BL['be_msg_senttop']                   = 'Ξ±Ο€ΞµΟƒΟ„Ξ±Ξ»ΞΌΞ­Ξ½Ξ±';
+$BL['be_msg_del']                       = 'Ξ΄ΞΉΞµΞ³ΟΞ±ΞΌΞΌΞ­Ξ½Ξ±';
+$BL['be_msg_from']                      = 'Ξ±Ο€Ο';
+$BL['be_msg_subject']                   = 'ΞΈΞ­ΞΌΞ±';
+$BL['be_msg_date']                      = 'Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±/ΟΟΞ±';
+$BL['be_msg_close']                     = 'ΞΊΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$BL['be_msg_create']                    = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$BL['be_msg_reply']                     = 'Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΟ„Ξµ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ±';
+$BL['be_msg_move']                      = 'ΞΌΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ΄ΞΏ';
+$BL['be_msg_unread']                    = 'ΞΌΞ· Ξ±Ξ½ΞµΞ³Ξ½Ο‰ΟƒΞΌΞ­Ξ½Ξ± Ξ® ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ±';
+$BL['be_msg_lastread']                  = 'Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± {VAL} Ξ±Ξ½ΞµΞ³Ξ½Ο‰ΟƒΞΌΞ­Ξ½Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ±';
+$BL['be_msg_lastsent']                  = 'Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± {VAL} Ξ±Ο€ΞµΟƒΟ„Ξ±Ξ»ΞΌΞ­Ξ½Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ±';
+$BL['be_msg_marked']                    = 'ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ± Ξ³ΞΉΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® (ΞΊΞ¬Ξ΄ΞΏΟ‚)';
+$BL['be_msg_nomsg']                     = 'Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΞΊΞ±Ξ½Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± ΞΌΞ­ΟƒΞ± ΟƒΞµ Ξ±Ο…Ο„ΟΞ½ Ο„ΞΏΞ½ Ο†Ξ¬ΞΊΞµΞ»ΞΏ';
 
 // message.send.tmpl.php
 $BL['be_msg_RE']                        = 'RE';
-$BL['be_msg_by']                        = 'σταλμένο από';
-$BL['be_msg_on']                        = 'στις';
-$BL['be_msg_msg']                       = 'μήνυμα';
-$BL['be_msg_err1']                      = 'ξεχάσατε να προσθέσετε παραλήπτη...';
-$BL['be_msg_err2']                      = 'συπληρώστε το πεδίο του θέματος (ο παραλήπτης μπορέι να χειριστεί το μήνυμά σας καλύτερα)';
-$BL['be_msg_err3']                      = 'δεν έχει νόημα να στείλετε ένα κενό μήνυμα ;-)';
-$BL['be_msg_sent']                      = 'καινούριο μήνυμα εστάλη!';
-$BL['be_msg_fwd']                       = 'θα μεταφερθείτε στο κέντρο μηνυμάτων ή';
-$BL['be_msg_newmsgtitle']               = 'σύνθεση νέου μηνύματος';
-$BL['be_msg_err']                       = 'σφάλμα στην αποστολή του μηνύματος';
-$BL['be_msg_sendto']                    = 'αποστολή μηνύματος προς';
-$BL['be_msg_available']                 = 'λίστα διαθέσιμων παραληπτών';
-$BL['be_msg_all']                       = 'στείλτε το μήνυμα σε όλους τους παραλήπτες';
+$BL['be_msg_by']                        = 'ΟƒΟ„Ξ±Ξ»ΞΌΞ­Ξ½ΞΏ Ξ±Ο€Ο';
+$BL['be_msg_on']                        = 'ΟƒΟ„ΞΉΟ‚';
+$BL['be_msg_msg']                       = 'ΞΌΞ®Ξ½Ο…ΞΌΞ±';
+$BL['be_msg_err1']                      = 'ΞΎΞµΟ‡Ξ¬ΟƒΞ±Ο„Ξµ Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·...';
+$BL['be_msg_err2']                      = 'ΟƒΟ…Ο€Ξ»Ξ·ΟΟΟƒΟ„Ξµ Ο„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ Ο„ΞΏΟ… ΞΈΞ­ΞΌΞ±Ο„ΞΏΟ‚ (ΞΏ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞ­ΞΉ Ξ½Ξ± Ο‡ΞµΞΉΟΞΉΟƒΟ„ΞµΞ― Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ¬ ΟƒΞ±Ο‚ ΞΊΞ±Ξ»ΟΟ„ΞµΟΞ±)';
+$BL['be_msg_err3']                      = 'Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ Ξ½ΟΞ·ΞΌΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ Ξ­Ξ½Ξ± ΞΊΞµΞ½Ο ΞΌΞ®Ξ½Ο…ΞΌΞ± ;-)';
+$BL['be_msg_sent']                      = 'ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΞµΟƒΟ„Ξ¬Ξ»Ξ·!';
+$BL['be_msg_fwd']                       = 'ΞΈΞ± ΞΌΞµΟ„Ξ±Ο†ΞµΟΞΈΞµΞ―Ο„Ξµ ΟƒΟ„ΞΏ ΞΊΞ­Ξ½Ο„ΟΞΏ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ Ξ®';
+$BL['be_msg_newmsgtitle']               = 'ΟƒΟΞ½ΞΈΞµΟƒΞ· Ξ½Ξ­ΞΏΟ… ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$BL['be_msg_err']                       = 'ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΟƒΟ„Ξ·Ξ½ Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® Ο„ΞΏΟ… ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$BL['be_msg_sendto']                    = 'Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ο€ΟΞΏΟ‚';
+$BL['be_msg_available']                 = 'Ξ»Ξ―ΟƒΟ„Ξ± Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΟ‰Ξ½ Ο€Ξ±ΟΞ±Ξ»Ξ·Ο€Ο„ΟΞ½';
+$BL['be_msg_all']                       = 'ΟƒΟ„ΞµΞ―Ξ»Ο„Ξµ Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„ΞµΟ‚';
 
 // message.subscription.tmpl.php
-$BL['be_newsletter_title']              = 'συνδρομές ενημερωτικών δελτίων';
-$BL['be_newsletter_titleedit']          = 'επεξεργασία συνδρομών ενημερωτικών δελτίων';
-$BL['be_newsletter_new']                = 'δημιουργία νέου';
-$BL['be_newsletter_add']                = 'προσθήκη&nbsp;συνδρομής&nbsp;ενημερωτικού δελτίου';
-$BL['be_newsletter_name']               = 'όνομα';
-$BL['be_newsletter_info']               = 'πληροφορίες';
-$BL['be_newsletter_button_save']        = 'Αποθήκευση συνδρομής';
-$BL['be_newsletter_button_cancel']      = 'Ακύρωση';
+$BL['be_newsletter_title']              = 'ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ­Ο‚ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΟΞ½ Ξ΄ΞµΞ»Ο„Ξ―Ο‰Ξ½';
+$BL['be_newsletter_titleedit']          = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΟΞ½ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΟΞ½ Ξ΄ΞµΞ»Ο„Ξ―Ο‰Ξ½';
+$BL['be_newsletter_new']                = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ…';
+$BL['be_newsletter_add']                = 'Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ·&nbsp;ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ®Ο‚&nbsp;ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_name']               = 'ΟΞ½ΞΏΞΌΞ±';
+$BL['be_newsletter_info']               = 'Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚';
+$BL['be_newsletter_button_save']        = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ®Ο‚';
+$BL['be_newsletter_button_cancel']      = 'Ξ‘ΞΊΟΟΟ‰ΟƒΞ·';
 
 // admin.newuser.tmpl.php
-$BL['be_admin_usr_err1']                = 'η ταυτότητα χρήστη δεν είναι έγκυρη, επιλέξτε μία διαφορετική';
-$BL['be_admin_usr_err2']                = 'η ταυτότητα χρήστη είναι κενή (απαιτείται)';
-$BL['be_admin_usr_err3']                = 'ο κωδικός προσβασης είναι κενός (απαιτείται)';
-$BL['be_admin_usr_err4']                = "η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη";
-$BL['be_admin_usr_err']                 = 'σφάλμα';
-$BL['be_admin_usr_mailsubject']         = 'καλωσήρθατε στο phpwcms';
-$BL['be_admin_usr_mailbody']            = "ΚΑΛΩΣΗΡΘΑΤΕ ΣΤΟ PHPWCMS\n\n    ταυτότητα χρήστη: {LOGIN}\n    κωδικός πρόσβασης: {PASSWORD}\n\n\nΜπορείτε να συνδεθείτε εδώ: {LOGIN_PAGE}\n\nδιαχειριστής phpwcms\n ";
-$BL['be_admin_usr_title']               = 'προσθήκη νέου χρήστη';
-$BL['be_admin_usr_realname']            = 'πραγματικό όνομα';
-$BL['be_admin_usr_setactive']           = 'ενεργοποίηση χρήστη';
-$BL['be_admin_usr_iflogin']             = 'εαν ενεργοποιηθεί ο χρήστης μπορεί να συνδέεται';
-$BL['be_admin_usr_isadmin']             = 'ο χρήστης είναι διαχειριστής';
-$BL['be_admin_usr_ifadmin']             = 'εαν ενεργοποιηθεί ο χρήστης έχει δικαιώματα διαχειριστή';
-$BL['be_admin_usr_verify']              = 'επαλήθευση';
-$BL['be_admin_usr_sendemail']           = 'στείλτε ένα μήνυμα ηλεκτρονικού ταχυδρομείου στο νέο χρήστη με τις πληροφορίες λογαριασμού';
-$BL['be_admin_usr_button']              = 'αποστολή στοιχείων χρήστη';
+$BL['be_admin_usr_err1']                = 'Ξ· Ο„Ξ±Ο…Ο„ΟΟ„Ξ·Ο„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞ·, ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞ―Ξ± Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ®';
+$BL['be_admin_usr_err2']                = 'Ξ· Ο„Ξ±Ο…Ο„ΟΟ„Ξ·Ο„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ξ® (Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ)';
+$BL['be_admin_usr_err3']                = 'ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΞΏΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½ΟΟ‚ (Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ)';
+$BL['be_admin_usr_err4']                = "Ξ· Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ… Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞ·";
+$BL['be_admin_usr_err']                 = 'ΟƒΟ†Ξ¬Ξ»ΞΌΞ±';
+$BL['be_admin_usr_mailsubject']         = 'ΞΊΞ±Ξ»Ο‰ΟƒΞ®ΟΞΈΞ±Ο„Ξµ ΟƒΟ„ΞΏ phpwcms';
+$BL['be_admin_usr_mailbody']            = "ΞΞ‘Ξ›Ξ©Ξ£Ξ—Ξ΅ΞΞ‘Ξ¤Ξ• Ξ£Ξ¤Ξ PHPWCMS\n\n    Ο„Ξ±Ο…Ο„ΟΟ„Ξ·Ο„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·: {LOGIN}\n    ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚: {PASSWORD}\n\n\nΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΟƒΟ…Ξ½Ξ΄ΞµΞΈΞµΞ―Ο„Ξµ ΞµΞ΄Ο: {LOGIN_PAGE}\n\nΞ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ phpwcms\n ";
+$BL['be_admin_usr_title']               = 'Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ½Ξ­ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL['be_admin_usr_realname']            = 'Ο€ΟΞ±Ξ³ΞΌΞ±Ο„ΞΉΞΊΟ ΟΞ½ΞΏΞΌΞ±';
+$BL['be_admin_usr_setactive']           = 'ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL['be_admin_usr_iflogin']             = 'ΞµΞ±Ξ½ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΟƒΟ…Ξ½Ξ΄Ξ­ΞµΟ„Ξ±ΞΉ';
+$BL['be_admin_usr_isadmin']             = 'ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚';
+$BL['be_admin_usr_ifadmin']             = 'ΞµΞ±Ξ½ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®';
+$BL['be_admin_usr_verify']              = 'ΞµΟ€Ξ±Ξ»Ξ®ΞΈΞµΟ…ΟƒΞ·';
+$BL['be_admin_usr_sendemail']           = 'ΟƒΟ„ΞµΞ―Ξ»Ο„Ξµ Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ… ΟƒΟ„ΞΏ Ξ½Ξ­ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΌΞµ Ο„ΞΉΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ';
+$BL['be_admin_usr_button']              = 'Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
 
 // admin.edituser.tmpl.php
-$BL['be_admin_usr_etitle']              = 'επεξεργασία λογαριασμού χρήστη';
-$BL['be_admin_usr_emailsubject']        = 'phpwcms - στοιχεία λογαριασμού άλλαξαν';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ΠΛΗΡΟΦΟΡΙΕΣ ΛΟΓΑΡΙΑΣΜΟΥ ΧΡΗΣΤΗ ΑΛΛΑΞΑΝ\n\n    όνομα χρήστη: {LOGIN}\n    κωδικός: {PASSWORD}\n\n\nΜπορείτε να συνδεθείτε εδώ: {LOGIN_PAGE}\n\nphpwcms admin\n ";
-$BL['be_admin_usr_passnochange']        = '[ΚΑΜΙΑ ΑΛΛΑΓΗ - ΧΡΗΣΙΜΟΠΟΙΗΣΤΕ ΤΟΝ ΓΝΩΣΤΟ ΚΩΔΙΚΟ ΠΡΟΣΒΑΣΗΣ]';
-$BL['be_admin_usr_ebutton']             = 'ανανέωση στοιχείων χρήστη';
+$BL['be_admin_usr_etitle']              = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL['be_admin_usr_emailsubject']        = 'phpwcms - ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ξ¬Ξ»Ξ»Ξ±ΞΎΞ±Ξ½';
+$BL['be_admin_usr_emailbody']           = "PHPWCMS Ξ Ξ›Ξ—Ξ΅ΞΞ¦ΞΞ΅Ξ™Ξ•Ξ£ Ξ›ΞΞ“Ξ‘Ξ΅Ξ™Ξ‘Ξ£ΞΞΞ¥ Ξ§Ξ΅Ξ—Ξ£Ξ¤Ξ— Ξ‘Ξ›Ξ›Ξ‘ΞΞ‘Ξ\n\n    ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·: {LOGIN}\n    ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚: {PASSWORD}\n\n\nΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΟƒΟ…Ξ½Ξ΄ΞµΞΈΞµΞ―Ο„Ξµ ΞµΞ΄Ο: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_passnochange']        = '[ΞΞ‘ΞΞ™Ξ‘ Ξ‘Ξ›Ξ›Ξ‘Ξ“Ξ— - Ξ§Ξ΅Ξ—Ξ£Ξ™ΞΞΞ ΞΞ™Ξ—Ξ£Ξ¤Ξ• Ξ¤ΞΞ Ξ“ΞΞ©Ξ£Ξ¤Ξ ΞΞ©Ξ”Ξ™ΞΞ Ξ Ξ΅ΞΞ£Ξ’Ξ‘Ξ£Ξ—Ξ£]';
+$BL['be_admin_usr_ebutton']             = 'Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ· ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
 
 // admin.listuser.tmpl.php
-$BL['be_admin_usr_ltitle']              = 'λίστα χρηστών phpwcms';
-$BL['be_admin_usr_ldel']                = 'ΠΡΟΣΟΧΗ!&#13;Αυτό θα διαγράψει τον χρήστη';
-$BL['be_admin_usr_create']              = 'δημιουργία νέου χρήστη';
-$BL['be_admin_usr_editusr']             = 'επεξεργασία χρήστη';
+$BL['be_admin_usr_ltitle']              = 'Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ phpwcms';
+$BL['be_admin_usr_ldel']                = 'Ξ Ξ΅ΞΞ£ΞΞ§Ξ—!&#13;Ξ‘Ο…Ο„Ο ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ Ο„ΞΏΞ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL['be_admin_usr_create']              = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$BL['be_admin_usr_editusr']             = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
 
 // admin.structform.tmpl.php
-$BL['be_admin_struct_title']            = 'δομή ιστότοπου';
+$BL['be_admin_struct_title']            = 'Ξ΄ΞΏΞΌΞ® ΞΉΟƒΟ„ΟΟ„ΞΏΟ€ΞΏΟ…';
 $BL['be_admin_struct_child']            = '(child of)';
-$BL['be_admin_struct_index']            = 'αρχική σελίδα';
-$BL['be_admin_struct_cat']              = 'τίτλος κατηγορίας';
-$BL['be_admin_struct_hide1']            = 'απόκρυψη';
+$BL['be_admin_struct_index']            = 'Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$BL['be_admin_struct_cat']              = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$BL['be_admin_struct_hide1']            = 'Ξ±Ο€ΟΞΊΟΟ…ΟΞ·';
 $BL['be_admin_struct_hide2']            = 'this&nbsp;category&nbsp;in&nbsp;menu';
 $BL['be_admin_struct_info']             = 'category infotext';
-$BL['be_admin_struct_template']         = 'πατρόν';
+$BL['be_admin_struct_template']         = 'Ο€Ξ±Ο„ΟΟΞ½';
 $BL['be_admin_struct_alias']            = 'alias this category';
-$BL['be_admin_struct_visible']          = 'ορατό';
-$BL['be_admin_struct_button']           = 'αποστολή στοιχείων κατηγορίας';
-$BL['be_admin_struct_close']            = 'κλείσιμο';
+$BL['be_admin_struct_visible']          = 'ΞΏΟΞ±Ο„Ο';
+$BL['be_admin_struct_button']           = 'Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$BL['be_admin_struct_close']            = 'ΞΊΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ';
 
 // admin.filecat.tmpl.php
-$BL['be_admin_fcat_title']              = 'κατηγορίες αρχείων';
-$BL['be_admin_fcat_err']                = 'τίτλος κατηγορίας άδειος!';
-$BL['be_admin_fcat_name']               = 'τίτλος κατηγορίας';
-$BL['be_admin_fcat_needed']             = 'απαραίτητο';
-$BL['be_admin_fcat_button1']            = 'ανανέωση';
-$BL['be_admin_fcat_button2']            = 'δημιουργία';
+$BL['be_admin_fcat_title']              = 'ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_admin_fcat_err']                = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ Ξ¬Ξ΄ΞµΞΉΞΏΟ‚!';
+$BL['be_admin_fcat_name']               = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$BL['be_admin_fcat_needed']             = 'Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„ΞΏ';
+$BL['be_admin_fcat_button1']            = 'Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ·';
+$BL['be_admin_fcat_button2']            = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±';
 $BL['be_admin_fcat_delmsg']             = 'Do you really want\nto delete file key?';
-$BL['be_admin_fcat_fcat']               = 'κατηγορία αρχείου';
+$BL['be_admin_fcat_fcat']               = 'ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
 $BL['be_admin_fcat_err1']               = 'file key name is empty!';
 $BL['be_admin_fcat_fkeyname']           = 'file key name';
 $BL['be_admin_fcat_exit']               = 'exit editing';
-$BL['be_admin_fcat_addkey']             = 'προσθήκη νέου κλειδιού';
-$BL['be_admin_fcat_editcat']            = 'επεξεργασία τίτλου κατηγορίας';
+$BL['be_admin_fcat_addkey']             = 'Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ½Ξ­ΞΏΟ… ΞΊΞ»ΞµΞΉΞ΄ΞΉΞΏΟ';
+$BL['be_admin_fcat_editcat']            = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„Ξ―Ο„Ξ»ΞΏΟ… ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
 $BL['be_admin_fcat_delcatmsg']          = 'Do you really want\nto delete file category?';
-$BL['be_admin_fcat_delcat']             = 'διαγραφή κατηγορίας αρχείου';
+$BL['be_admin_fcat_delcat']             = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
 $BL['be_admin_fcat_delkey']             = 'delete file key name';
-$BL['be_admin_fcat_editkey']            = 'επεξεργασία κλειδιού';
-$BL['be_admin_fcat_addcat']             = 'δημιουργία νέας κατηγορίας αρχείου';
+$BL['be_admin_fcat_editkey']            = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΊΞ»ΞµΞΉΞ΄ΞΉΞΏΟ';
+$BL['be_admin_fcat_addcat']             = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
 
 // admin.pagelayout.tmpl.php
 $BL['be_admin_page_title']              = 'frontend setup: page layout';
-$BL['be_admin_page_align']              = 'στοίχιση σελίδας';
-$BL['be_admin_page_align_left']         = 'κανονική στοίχιση (αριστερά) απο όλο το περιεχόμενο της σελίδας';
-$BL['be_admin_page_align_center']       = 'στοίχιση όλου τού περιεχόμενου στο κέντρο';
+$BL['be_admin_page_align']              = 'ΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ· ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$BL['be_admin_page_align_left']         = 'ΞΊΞ±Ξ½ΞΏΞ½ΞΉΞΊΞ® ΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ· (Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬) Ξ±Ο€ΞΏ ΟΞ»ΞΏ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$BL['be_admin_page_align_center']       = 'ΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ· ΟΞ»ΞΏΟ… Ο„ΞΏΟ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏΟ… ΟƒΟ„ΞΏ ΞΊΞ­Ξ½Ο„ΟΞΏ';
 $BL['be_admin_page_align_right']        = 'align right of the whole page content';
 $BL['be_admin_page_margin']             = 'margin';
-$BL['be_admin_page_top']                = 'πάνω';
-$BL['be_admin_page_bottom']             = 'κάτω';
-$BL['be_admin_page_left']               = 'αριστερά';
-$BL['be_admin_page_right']              = 'δεξιά';
-$BL['be_admin_page_bg']                 = 'φόντο';
-$BL['be_admin_page_color']              = 'χρώμα';
-$BL['be_admin_page_height']             = 'ύψος';
-$BL['be_admin_page_width']              = 'πλάτος';
+$BL['be_admin_page_top']                = 'Ο€Ξ¬Ξ½Ο‰';
+$BL['be_admin_page_bottom']             = 'ΞΊΞ¬Ο„Ο‰';
+$BL['be_admin_page_left']               = 'Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$BL['be_admin_page_right']              = 'Ξ΄ΞµΞΎΞΉΞ¬';
+$BL['be_admin_page_bg']                 = 'Ο†ΟΞ½Ο„ΞΏ';
+$BL['be_admin_page_color']              = 'Ο‡ΟΟΞΌΞ±';
+$BL['be_admin_page_height']             = 'ΟΟΞΏΟ‚';
+$BL['be_admin_page_width']              = 'Ο€Ξ»Ξ¬Ο„ΞΏΟ‚';
 $BL['be_admin_page_main']               = 'main';
-$BL['be_admin_page_leftspace']          = 'αριστερό κενό';
-$BL['be_admin_page_rightspace']         = 'δεξή κενό';
+$BL['be_admin_page_leftspace']          = 'Ξ±ΟΞΉΟƒΟ„ΞµΟΟ ΞΊΞµΞ½Ο';
+$BL['be_admin_page_rightspace']         = 'Ξ΄ΞµΞΎΞ® ΞΊΞµΞ½Ο';
 $BL['be_admin_page_class']              = 'class';
-$BL['be_admin_page_image']              = 'εικόνα';
-$BL['be_admin_page_text']               = 'κείμενο';
-$BL['be_admin_page_link']               = 'υπερσύνδεση';
+$BL['be_admin_page_image']              = 'ΞµΞΉΞΊΟΞ½Ξ±';
+$BL['be_admin_page_text']               = 'ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
+$BL['be_admin_page_link']               = 'Ο…Ο€ΞµΟΟƒΟΞ½Ξ΄ΞµΟƒΞ·';
 $BL['be_admin_page_js']                 = 'javascript';
 $BL['be_admin_page_visited']            = 'visited';
 $BL['be_admin_page_pagetitle']          = 'page&nbsp;title';
 $BL['be_admin_page_addtotitle']         = 'add&nbsp;to&nbsp;title';
-$BL['be_admin_page_category']           = 'κατηγορία';
+$BL['be_admin_page_category']           = 'ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
 $BL['be_admin_page_articlename']        = 'article&nbsp;name';
 $BL['be_admin_page_blocks']             = 'blocks';
 $BL['be_admin_page_allblocks']          = 'all blocks';
@@ -427,7 +427,7 @@ $BL['be_admin_page_col1']               = '3 column layout';
 $BL['be_admin_page_col2']               = '2 column layout (main column right, nav column left)';
 $BL['be_admin_page_col3']               = '2 column layout (main column left, nav column right)';
 $BL['be_admin_page_col4']               = '1 column layout';
-$BL['be_admin_page_header']             = 'επικεφαλίδα';
+$BL['be_admin_page_header']             = 'ΞµΟ€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ±';
 $BL['be_admin_page_footer']             = 'footer';
 $BL['be_admin_page_topspace']           = 'top&nbsp;space';
 $BL['be_admin_page_bottomspace']        = 'bottom&nbsp;space';
@@ -436,73 +436,73 @@ $BL['be_admin_page_button']             = 'save page layout';
 // admin.frontendcss.tmpl.php
 $BL['be_admin_css_title']               = 'frontend setup: css data';
 $BL['be_admin_css_css']                 = 'css';
-$BL['be_admin_css_button']              = 'αποθήκευση δεδομένων css';
+$BL['be_admin_css_button']              = 'Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ css';
 
 // admin.templates.tmpl.php
 $BL['be_admin_tmpl_title']              = 'frontend setup: templates';
-$BL['be_admin_tmpl_default']            = 'εξ ορισμού';
+$BL['be_admin_tmpl_default']            = 'ΞµΞΎ ΞΏΟΞΉΟƒΞΌΞΏΟ';
 $BL['be_admin_tmpl_add']                = 'add&nbsp;template';
 $BL['be_admin_tmpl_edit']               = 'edit template';
-$BL['be_admin_tmpl_new']                = 'δημιουργία νέου';
+$BL['be_admin_tmpl_new']                = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ…';
 $BL['be_admin_tmpl_css']                = 'css file';
 $BL['be_admin_tmpl_head']               = 'html head';
 $BL['be_admin_tmpl_js']                 = 'js onload';
-$BL['be_admin_tmpl_error']              = 'σφάλμα';
+$BL['be_admin_tmpl_error']              = 'ΟƒΟ†Ξ¬Ξ»ΞΌΞ±';
 $BL['be_admin_tmpl_button']             = 'save template';
-$BL['be_admin_tmpl_name']               = 'όνομα';
+$BL['be_admin_tmpl_name']               = 'ΟΞ½ΞΏΞΌΞ±';
 
 // article.structlist.tmpl.php
 $BL['be_article_title']                 = 'site structure and article list';
 
 // article.new.tmpl.php
-$BL['be_article_err1']                  = 'ο τίτλος γι\'αυτό το άρθρο είναι κενός';
-$BL['be_article_err2']                  = 'η δοθείσα ημερομηνία έναρξης ήταν λάθος - ρυθμίστε τη τώρα';
-$BL['be_article_err3']                  = 'η δοθείσα ημερομηνία λήξης ήταν λάθος - ρυθμίστε τη τώρα';
+$BL['be_article_err1']                  = 'ΞΏ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ξ³ΞΉ\'Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ¬ΟΞΈΟΞΏ ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½ΟΟ‚';
+$BL['be_article_err2']                  = 'Ξ· Ξ΄ΞΏΞΈΞµΞ―ΟƒΞ± Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚ Ξ®Ο„Ξ±Ξ½ Ξ»Ξ¬ΞΈΞΏΟ‚ - ΟΟ…ΞΈΞΌΞ―ΟƒΟ„Ξµ Ο„Ξ· Ο„ΟΟΞ±';
+$BL['be_article_err3']                  = 'Ξ· Ξ΄ΞΏΞΈΞµΞ―ΟƒΞ± Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ»Ξ®ΞΎΞ·Ο‚ Ξ®Ο„Ξ±Ξ½ Ξ»Ξ¬ΞΈΞΏΟ‚ - ΟΟ…ΞΈΞΌΞ―ΟƒΟ„Ξµ Ο„Ξ· Ο„ΟΟΞ±';
 $BL['be_article_title1']                = 'article basis information';
-$BL['be_article_cat']                   = 'κατηγορία';
+$BL['be_article_cat']                   = 'ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
 $BL['be_article_atitle']                = 'article title';
-$BL['be_article_asubtitle']             = 'υπότιτλος';
-$BL['be_article_abegin']                = 'ξεκινάει';
-$BL['be_article_aend']                  = 'τελειώνει';
+$BL['be_article_asubtitle']             = 'Ο…Ο€ΟΟ„ΞΉΟ„Ξ»ΞΏΟ‚';
+$BL['be_article_abegin']                = 'ΞΎΞµΞΊΞΉΞ½Ξ¬ΞµΞΉ';
+$BL['be_article_aend']                  = 'Ο„ΞµΞ»ΞµΞΉΟΞ½ΞµΞΉ';
 $BL['be_article_aredirect']             = 'redirect to';
-$BL['be_article_akeywords']             = 'λέξεις κλειδιά';
-$BL['be_article_asummary']              = 'σύνοψη';
-$BL['be_article_abutton']               = 'δημιουργία νέου άρθρου';
+$BL['be_article_akeywords']             = 'Ξ»Ξ­ΞΎΞµΞΉΟ‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬';
+$BL['be_article_asummary']              = 'ΟƒΟΞ½ΞΏΟΞ·';
+$BL['be_article_abutton']               = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… Ξ¬ΟΞΈΟΞΏΟ…';
 
 // article.editcontent.inc.php
 $BL['be_article_err4']                  = 'end date given was wrong - set to now + 1 week';
 
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'edit article basis information';
-$BL['be_article_eslastedit']            = 'τελευταία επεξεργασία';
-$BL['be_article_esnoupdate']            = 'φόρμα δέν ανανεώθηκε';
+$BL['be_article_eslastedit']            = 'Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±';
+$BL['be_article_esnoupdate']            = 'Ο†ΟΟΞΌΞ± Ξ΄Ξ­Ξ½ Ξ±Ξ½Ξ±Ξ½ΞµΟΞΈΞ·ΞΊΞµ';
 $BL['be_article_esbutton']              = 'update article data';
 
 // articlecontent.edit.tmpl.php
-$BL['be_article_cnt_title']             = 'περιεχόμενο άρθρου';
+$BL['be_article_cnt_title']             = 'Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ξ¬ΟΞΈΟΞΏΟ…';
 $BL['be_article_cnt_type']              = 'content type';
-$BL['be_article_cnt_space']             = 'κενό';
-$BL['be_article_cnt_before']            = 'πριν';
-$BL['be_article_cnt_after']             = 'μετά';
-$BL['be_article_cnt_top']               = 'πάνω';
+$BL['be_article_cnt_space']             = 'ΞΊΞµΞ½Ο';
+$BL['be_article_cnt_before']            = 'Ο€ΟΞΉΞ½';
+$BL['be_article_cnt_after']             = 'ΞΌΞµΟ„Ξ¬';
+$BL['be_article_cnt_top']               = 'Ο€Ξ¬Ξ½Ο‰';
 $BL['be_article_cnt_toplink']           = 'display top link';
-$BL['be_article_cnt_ctitle']            = 'τίτλος περιεχομένου';
+$BL['be_article_cnt_ctitle']            = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½ΞΏΟ…';
 $BL['be_article_cnt_back']              = 'complete article info';
-$BL['be_article_cnt_button1']           = 'Ανανέωση';
-$BL['be_article_cnt_button2']           = 'Δημιουργία';
-$BL['be_article_cnt_button3']           = 'Αποθήκευση &amp; κλείσιμο';
+$BL['be_article_cnt_button1']           = 'Ξ‘Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ·';
+$BL['be_article_cnt_button2']           = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±';
+$BL['be_article_cnt_button3']           = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· &amp; ΞΊΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ';
 
 // articlecontent.list.tmpl.php
-$BL['be_article_cnt_ltitle']            = 'πληροφορίες άρθρου';
-$BL['be_article_cnt_ledit']             = 'επεξεργασία άρθρου';
-$BL['be_article_cnt_lvisible']          = 'εναλλαγή ορατό/αόρατο';
-$BL['be_article_cnt_ldel']              = 'να διαγραφεί αυτο το άρθρο';
-$BL['be_article_cnt_ldeljs']            = 'Διαγραφή άρθρου?';
-$BL['be_article_cnt_redirect']          = 'προώθηση';
-$BL['be_article_cnt_edited']            = 'επεξεργασμένο απο';
+$BL['be_article_cnt_ltitle']            = 'Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_article_cnt_ledit']             = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_article_cnt_lvisible']          = 'ΞµΞ½Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® ΞΏΟΞ±Ο„Ο/Ξ±ΟΟΞ±Ο„ΞΏ';
+$BL['be_article_cnt_ldel']              = 'Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― Ξ±Ο…Ο„ΞΏ Ο„ΞΏ Ξ¬ΟΞΈΟΞΏ';
+$BL['be_article_cnt_ldeljs']            = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ¬ΟΞΈΟΞΏΟ…?';
+$BL['be_article_cnt_redirect']          = 'Ο€ΟΞΏΟΞΈΞ·ΟƒΞ·';
+$BL['be_article_cnt_edited']            = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞΌΞ­Ξ½ΞΏ Ξ±Ο€ΞΏ';
 $BL['be_article_cnt_start']             = 'start date';
 $BL['be_article_cnt_end']               = 'end date';
-$BL['be_article_cnt_add']               = 'προσθήκη';
+$BL['be_article_cnt_add']               = 'Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ·';
 $BL['be_article_cnt_addtitle']          = 'add new content part';
 $BL['be_article_cnt_up']                = 'move content up';
 $BL['be_article_cnt_down']              = 'move content down';
@@ -512,18 +512,18 @@ $BL['be_article_cnt_delpartjs']         = 'Delete content part?';
 $BL['be_article_cnt_center']            = 'article center';
 
 // content forms
-$BL['be_cnt_plaintext']                 = 'απλό κείμενο';
-$BL['be_cnt_htmltext']                  = 'κείμενο html';
-$BL['be_cnt_image']                     = 'εικόνα';
-$BL['be_cnt_position']                  = 'τοποθεσία';
-$BL['be_cnt_pos0']                      = 'Above, αριστερά';
-$BL['be_cnt_pos1']                      = 'Above, κέντρο';
-$BL['be_cnt_pos2']                      = 'Above, δεξιά';
-$BL['be_cnt_pos3']                      = 'Κάτω, αριστερά';
-$BL['be_cnt_pos4']                      = 'Κάτω, κέντρο';
-$BL['be_cnt_pos5']                      = 'Κάτω, δεξιά';
-$BL['be_cnt_pos6']                      = 'Στο κείμενο, αριστερά';
-$BL['be_cnt_pos7']                      = 'Στο κείμενο, δεξιά';
+$BL['be_cnt_plaintext']                 = 'Ξ±Ο€Ξ»Ο ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
+$BL['be_cnt_htmltext']                  = 'ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ html';
+$BL['be_cnt_image']                     = 'ΞµΞΉΞΊΟΞ½Ξ±';
+$BL['be_cnt_position']                  = 'Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±';
+$BL['be_cnt_pos0']                      = 'Above, Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$BL['be_cnt_pos1']                      = 'Above, ΞΊΞ­Ξ½Ο„ΟΞΏ';
+$BL['be_cnt_pos2']                      = 'Above, Ξ΄ΞµΞΎΞΉΞ¬';
+$BL['be_cnt_pos3']                      = 'ΞΞ¬Ο„Ο‰, Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$BL['be_cnt_pos4']                      = 'ΞΞ¬Ο„Ο‰, ΞΊΞ­Ξ½Ο„ΟΞΏ';
+$BL['be_cnt_pos5']                      = 'ΞΞ¬Ο„Ο‰, Ξ΄ΞµΞΎΞΉΞ¬';
+$BL['be_cnt_pos6']                      = 'Ξ£Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$BL['be_cnt_pos7']                      = 'Ξ£Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, Ξ΄ΞµΞΎΞΉΞ¬';
 $BL['be_cnt_pos0i']                     = 'align the image above and left of the text block';
 $BL['be_cnt_pos1i']                     = 'align the image above and centered of the text block';
 $BL['be_cnt_pos2i']                     = 'align the image above and right of the text block';
@@ -532,29 +532,29 @@ $BL['be_cnt_pos4i']                     = 'align the image below and centered of
 $BL['be_cnt_pos5i']                     = 'align the image above and right of the text block';
 $BL['be_cnt_pos6i']                     = 'align the image left within the text block';
 $BL['be_cnt_pos7i']                     = 'align the image right within the text block';
-$BL['be_cnt_maxw']                      = 'μέγιστο.&nbsp;πλάτος';
-$BL['be_cnt_maxh']                      = 'μέγιστο.&nbsp;ύψος';
-$BL['be_cnt_enlarge']                   = 'πατήστε&nbsp;μεγέθυνση';
-$BL['be_cnt_caption']                   = 'τίτλος';
-$BL['be_cnt_subject']                   = 'θέμα';
-$BL['be_cnt_recipient']                 = 'παραλήπτης';
-$BL['be_cnt_buttontext']                = 'κείμενο κουμπιού';
-$BL['be_cnt_sendas']                    = 'αποστολή σαν';
-$BL['be_cnt_text']                      = 'κείμενο';
+$BL['be_cnt_maxw']                      = 'ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ.&nbsp;Ο€Ξ»Ξ¬Ο„ΞΏΟ‚';
+$BL['be_cnt_maxh']                      = 'ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ.&nbsp;ΟΟΞΏΟ‚';
+$BL['be_cnt_enlarge']                   = 'Ο€Ξ±Ο„Ξ®ΟƒΟ„Ξµ&nbsp;ΞΌΞµΞ³Ξ­ΞΈΟ…Ξ½ΟƒΞ·';
+$BL['be_cnt_caption']                   = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚';
+$BL['be_cnt_subject']                   = 'ΞΈΞ­ΞΌΞ±';
+$BL['be_cnt_recipient']                 = 'Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·Ο‚';
+$BL['be_cnt_buttontext']                = 'ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞΏΟ…ΞΌΟ€ΞΉΞΏΟ';
+$BL['be_cnt_sendas']                    = 'Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΟƒΞ±Ξ½';
+$BL['be_cnt_text']                      = 'ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
 $BL['be_cnt_html']                      = 'html';
-$BL['be_cnt_formfields']                = 'πεδία φόρμας';
+$BL['be_cnt_formfields']                = 'Ο€ΞµΞ΄Ξ―Ξ± Ο†ΟΟΞΌΞ±Ο‚';
 $BL['be_cnt_code']                      = 'code';
 $BL['be_cnt_infotext']                  = 'info&nbsp;text';
-$BL['be_cnt_subscription']              = 'συνδρομή';
+$BL['be_cnt_subscription']              = 'ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ®';
 $BL['be_cnt_labelemail']                = 'label&nbsp;email';
 $BL['be_cnt_tablealign']                = 'table&nbsp;align';
 $BL['be_cnt_labelname']                 = 'label&nbsp;name';
 $BL['be_cnt_labelsubsc']                = 'label&nbsp;subscr.';
 $BL['be_cnt_allsubsc']                  = 'all&nbsp;subscr.';
-$BL['be_cnt_default']                   = 'προεπιλεγμένο';
-$BL['be_cnt_left']                      = 'αριστερά';
-$BL['be_cnt_center']                    = 'κέντρο';
-$BL['be_cnt_right']                     = 'δεξιά';
+$BL['be_cnt_default']                   = 'Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ';
+$BL['be_cnt_left']                      = 'Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$BL['be_cnt_center']                    = 'ΞΊΞ­Ξ½Ο„ΟΞΏ';
+$BL['be_cnt_right']                     = 'Ξ΄ΞµΞΎΞΉΞ¬';
 $BL['be_cnt_buttontext']                = 'button&nbsp;text';
 $BL['be_cnt_successtext']               = 'success&nbsp;text';
 $BL['be_cnt_regmail']                   = 'regist.email';
@@ -562,49 +562,49 @@ $BL['be_cnt_logoffmail']                = 'logoff.email';
 $BL['be_cnt_changemail']                = 'change.email';
 $BL['be_cnt_openimagebrowser']          = 'open image browser';
 $BL['be_cnt_openfilebrowser']           = 'open file browser';
-$BL['be_cnt_sortup']                    = 'μετακίνηση πάνω';
-$BL['be_cnt_sortdown']                  = 'μετακίνηση κάτω';
-$BL['be_cnt_delimage']                  = 'διαγραφή επιλεγμένης εικόνας';
-$BL['be_cnt_delfile']                   = 'διαγραφή επιλεγμένου αρχείου';
-$BL['be_cnt_delmedia']                  = 'διαγραφή επιλεγμένου πολυμέσου';
-$BL['be_cnt_column']                    = 'στήλη';
+$BL['be_cnt_sortup']                    = 'ΞΌΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· Ο€Ξ¬Ξ½Ο‰';
+$BL['be_cnt_sortdown']                  = 'ΞΌΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞΊΞ¬Ο„Ο‰';
+$BL['be_cnt_delimage']                  = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ·Ο‚ ΞµΞΉΞΊΟΞ½Ξ±Ο‚';
+$BL['be_cnt_delfile']                   = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$BL['be_cnt_delmedia']                  = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ… Ο€ΞΏΞ»Ο…ΞΌΞ­ΟƒΞΏΟ…';
+$BL['be_cnt_column']                    = 'ΟƒΟ„Ξ®Ξ»Ξ·';
 $BL['be_cnt_imagespace']                = 'image&nbsp;space';
 $BL['be_cnt_directlink']                = 'direct link';
-$BL['be_cnt_target']                    = 'στόχος';
-$BL['be_cnt_target1']                   = 'σε νέο παράθυρο';
+$BL['be_cnt_target']                    = 'ΟƒΟ„ΟΟ‡ΞΏΟ‚';
+$BL['be_cnt_target1']                   = 'ΟƒΞµ Ξ½Ξ­ΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ';
 $BL['be_cnt_target2']                   = 'in parent frame of the window';
 $BL['be_cnt_target3']                   = 'in same window without frames';
 $BL['be_cnt_target4']                   = 'in the same frame or window';
 $BL['be_cnt_bullet']                    = 'list (table)';
 $BL['be_cnt_ullist']     		        = 'list';
 $BL['be_cnt_ullist_desc']     		    = '~ = 1st Level, &nbsp; ~~ = 2nd level, &nbsp; etc.';
-$BL['be_cnt_linklist']                  = 'λίστα υπερσυνδέσεων';
-$BL['be_cnt_plainhtml']                 = 'απλή html';
-$BL['be_cnt_files']                     = 'αρχεία';
-$BL['be_cnt_description']               = 'περιγραφή';
+$BL['be_cnt_linklist']                  = 'Ξ»Ξ―ΟƒΟ„Ξ± Ο…Ο€ΞµΟΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΟ‰Ξ½';
+$BL['be_cnt_plainhtml']                 = 'Ξ±Ο€Ξ»Ξ® html';
+$BL['be_cnt_files']                     = 'Ξ±ΟΟ‡ΞµΞ―Ξ±';
+$BL['be_cnt_description']               = 'Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®';
 $BL['be_cnt_linkarticle']               = 'link article';
-$BL['be_cnt_articles']                  = 'άρθρα';
+$BL['be_cnt_articles']                  = 'Ξ¬ΟΞΈΟΞ±';
 $BL['be_cnt_movearticleto']             = 'move selected article to link article list';
 $BL['be_cnt_removearticleto']           = 'remove selected article from link article list';
-$BL['be_cnt_mediatype']                 = 'τύπος πολυμέσων';
+$BL['be_cnt_mediatype']                 = 'Ο„ΟΟ€ΞΏΟ‚ Ο€ΞΏΞ»Ο…ΞΌΞ­ΟƒΟ‰Ξ½';
 $BL['be_cnt_control']                   = 'control';
 $BL['be_cnt_showcontrol']               = 'show control bar';
-$BL['be_cnt_autoplay']                  = 'αυτόματη αναπαραγωγή';
-$BL['be_cnt_source']                    = 'πηγή';
-$BL['be_cnt_internal']                  = 'εσωτερικά';
+$BL['be_cnt_autoplay']                  = 'Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ· Ξ±Ξ½Ξ±Ο€Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ®';
+$BL['be_cnt_source']                    = 'Ο€Ξ·Ξ³Ξ®';
+$BL['be_cnt_internal']                  = 'ΞµΟƒΟ‰Ο„ΞµΟΞΉΞΊΞ¬';
 $BL['be_cnt_openmediabrowser']          = 'open media browser';
-$BL['be_cnt_external']                  = 'εξωτερικά';
-$BL['be_cnt_mediapos0']                 = 'αριστερά (προεπιλογή)';
-$BL['be_cnt_mediapos1']                 = 'κέντρο';
-$BL['be_cnt_mediapos2']                 = 'δεξιά';
-$BL['be_cnt_mediapos3']                 = 'block, αριστερά';
-$BL['be_cnt_mediapos4']                 = 'block, δεξιά';
+$BL['be_cnt_external']                  = 'ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞ¬';
+$BL['be_cnt_mediapos0']                 = 'Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬ (Ο€ΟΞΏΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®)';
+$BL['be_cnt_mediapos1']                 = 'ΞΊΞ­Ξ½Ο„ΟΞΏ';
+$BL['be_cnt_mediapos2']                 = 'Ξ΄ΞµΞΎΞΉΞ¬';
+$BL['be_cnt_mediapos3']                 = 'block, Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$BL['be_cnt_mediapos4']                 = 'block, Ξ΄ΞµΞΎΞΉΞ¬';
 $BL['be_cnt_mediapos0i']                = 'align media above and left of the text block';
 $BL['be_cnt_mediapos1i']                = 'align media above and centered of the text block';
 $BL['be_cnt_mediapos2i']                = 'align media above and right of the text block';
 $BL['be_cnt_mediapos3i']                = 'align media left within the text block';
 $BL['be_cnt_mediapos4i']                = 'align media right within the text block';
-$BL['be_cnt_setsize']                   = 'καθορίστε το μέγεθος';
+$BL['be_cnt_setsize']                   = 'ΞΊΞ±ΞΈΞΏΟΞ―ΟƒΟ„Ξµ Ο„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚';
 $BL['be_cnt_set1']                      = 'set media size to 160x120px';
 $BL['be_cnt_set2']                      = 'set media size to 240x180px';
 $BL['be_cnt_set3']                      = 'set media size to 320x240px';
@@ -624,34 +624,34 @@ $BL['be_admin_tmpl_layout']             = 'layout';
 $BL['be_admin_tmpl_nolayout']           = 'No page layout available!';
 
 // added: 31-12-2003
-$BL['be_ctype_search']                  = 'αναζήτηση';
-$BL['be_cnt_results']                   = 'αποτελέσματα';
+$BL['be_ctype_search']                  = 'Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·';
+$BL['be_cnt_results']                   = 'Ξ±Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ±';
 $BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show all)';
-$BL['be_cnt_opennewwin']                = 'άνοιγμα νέου παραθύρου';
+$BL['be_cnt_opennewwin']                = 'Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± Ξ½Ξ­ΞΏΟ… Ο€Ξ±ΟΞ±ΞΈΟΟΞΏΟ…';
 $BL['be_cnt_searchlabeltext']           = 'these are predefined texts and values for the search form and search result page and texts are shown when more than the given count of results per page should be shown.';
 $BL['be_cnt_input']                     = 'input';
-$BL['be_cnt_style']                     = 'στυλ';
-$BL['be_cnt_result']                    = 'αποτέλεσμα';
-$BL['be_cnt_next']                      = 'επόμενο';
-$BL['be_cnt_previous']                  = 'προηγούμενο';
-$BL['be_cnt_align']                     = 'ευθυγράμμιση';
-$BL['be_cnt_searchformtext']            = 'τα παρακάτω κείμενα παρουσιάζονται όταν η φόρμα αναζήτησης είναι ανοιχτή ή τα αποτελέσματα για μία δοσμένη αναζήτηση (δεν) είναι διαθέσιμα.';
-$BL['be_cnt_intro']                     = 'εισαγωγή';
-$BL['be_cnt_noresult']                  = 'κανένα αποτέλεσμα';
+$BL['be_cnt_style']                     = 'ΟƒΟ„Ο…Ξ»';
+$BL['be_cnt_result']                    = 'Ξ±Ο€ΞΏΟ„Ξ­Ξ»ΞµΟƒΞΌΞ±';
+$BL['be_cnt_next']                      = 'ΞµΟ€ΟΞΌΞµΞ½ΞΏ';
+$BL['be_cnt_previous']                  = 'Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞΏ';
+$BL['be_cnt_align']                     = 'ΞµΟ…ΞΈΟ…Ξ³ΟΞ¬ΞΌΞΌΞΉΟƒΞ·';
+$BL['be_cnt_searchformtext']            = 'Ο„Ξ± Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΞΊΞµΞ―ΞΌΞµΞ½Ξ± Ο€Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟΟ„Ξ±Ξ½ Ξ· Ο†ΟΟΞΌΞ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ξ½ΞΏΞΉΟ‡Ο„Ξ® Ξ® Ο„Ξ± Ξ±Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ξ³ΞΉΞ± ΞΌΞ―Ξ± Ξ΄ΞΏΟƒΞΌΞ­Ξ½Ξ· Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· (Ξ΄ΞµΞ½) ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ±.';
+$BL['be_cnt_intro']                     = 'ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®';
+$BL['be_cnt_noresult']                  = 'ΞΊΞ±Ξ½Ξ­Ξ½Ξ± Ξ±Ο€ΞΏΟ„Ξ­Ξ»ΞµΟƒΞΌΞ±';
 
 // added: 02-01-2004
-$BL['be_admin_page_disable']            = 'απενεργοποίηση';
+$BL['be_admin_page_disable']            = 'Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·';
 
 // added: 09-01-2004
-$BL['be_article_articleowner']          = 'ιδιοκτήτης άρθρου';
+$BL['be_article_articleowner']          = 'ΞΉΞ΄ΞΉΞΏΞΊΟ„Ξ®Ο„Ξ·Ο‚ Ξ¬ΟΞΈΟΞΏΟ…';
 $BL['be_article_adminuser']             = 'admin user';
-$BL['be_article_username']              = 'συγγραφέας';
+$BL['be_article_username']              = 'ΟƒΟ…Ξ³Ξ³ΟΞ±Ο†Ξ­Ξ±Ο‚';
 
 // added: 10-01-2004
 $BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
-$BL['be_admin_struct_regonly']          = 'ορατό μόνο στους συνδεδεμένους χρήστες';
+$BL['be_admin_struct_regonly']          = 'ΞΏΟΞ±Ο„Ο ΞΌΟΞ½ΞΏ ΟƒΟ„ΞΏΟ…Ο‚ ΟƒΟ…Ξ½Ξ΄ΞµΞ΄ΞµΞΌΞ­Ξ½ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
 $BL['be_admin_struct_status']           = 'frontend menu status';
 
 // added: 15-02-2004
@@ -661,21 +661,21 @@ $BL['be_cnt_sitecurrent']				= 'current site level';
 
 // added: 24-03-2004
 $BL['be_subnav_admin_starttext']		= 'backend default text';
-$BL['be_ctype_ecard']					= 'ηλεκτρονική κάρτα';
+$BL['be_ctype_ecard']					= 'Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞ® ΞΊΞ¬ΟΟ„Ξ±';
 $BL['be_ctype_blog']					= 'blog';
 $BL['be_cnt_ecardtext']                 = 'title/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
-$BL['be_cnt_ecard_image']               = 'εικόνα ηλεκτρονικής κάρτας';
-$BL['be_cnt_ecard_title']               = 'τίτλος ηλεκτρονικής κάρτας';
-$BL['be_cnt_alignment']                 = 'ευθυγράμμιση';
+$BL['be_cnt_ecard_image']               = 'ΞµΞΉΞΊΟΞ½Ξ± Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞ®Ο‚ ΞΊΞ¬ΟΟ„Ξ±Ο‚';
+$BL['be_cnt_ecard_title']               = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞ®Ο‚ ΞΊΞ¬ΟΟ„Ξ±Ο‚';
+$BL['be_cnt_alignment']                 = 'ΞµΟ…ΞΈΟ…Ξ³ΟΞ¬ΞΌΞΌΞΉΟƒΞ·';
 $BL['be_cnt_ecardform']                 = 'form tmpl';
-$BL['be_cnt_ecardform_err']             = 'Όλα τα πεδία που επισημαίνονται με * είναι υποχρεωτικά';
-$BL['be_cnt_ecardform_sender']          = 'Αποστολέας';
-$BL['be_cnt_ecardform_recipient']       = 'Παραλήπτης';
-$BL['be_cnt_ecardform_name']            = 'Όνομα';
-$BL['be_cnt_ecardform_msgtext']         = 'Το μήνυμά σας στον παραλήπτη';
-$BL['be_cnt_ecardform_button']          = 'στείλτε την ηλεκτρονική κάρτα';
-$BL['be_cnt_ecardsend']                 = 'κάρτα εστάλη';
+$BL['be_cnt_ecardform_err']             = 'ΞΞ»Ξ± Ο„Ξ± Ο€ΞµΞ΄Ξ―Ξ± Ο€ΞΏΟ… ΞµΟ€ΞΉΟƒΞ·ΞΌΞ±Ξ―Ξ½ΞΏΞ½Ο„Ξ±ΞΉ ΞΌΞµ * ΞµΞ―Ξ½Ξ±ΞΉ Ο…Ο€ΞΏΟ‡ΟΞµΟ‰Ο„ΞΉΞΊΞ¬';
+$BL['be_cnt_ecardform_sender']          = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚';
+$BL['be_cnt_ecardform_recipient']       = 'Ξ Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·Ο‚';
+$BL['be_cnt_ecardform_name']            = 'ΞΞ½ΞΏΞΌΞ±';
+$BL['be_cnt_ecardform_msgtext']         = 'Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ¬ ΟƒΞ±Ο‚ ΟƒΟ„ΞΏΞ½ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·';
+$BL['be_cnt_ecardform_button']          = 'ΟƒΟ„ΞµΞ―Ξ»Ο„Ξµ Ο„Ξ·Ξ½ Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞ® ΞΊΞ¬ΟΟ„Ξ±';
+$BL['be_cnt_ecardsend']                 = 'ΞΊΞ¬ΟΟ„Ξ± ΞµΟƒΟ„Ξ¬Ξ»Ξ·';
 
 // added: 28-03-2004
 $BL['be_admin_startup_title']           = 'Backend default startup text';
@@ -691,10 +691,10 @@ $BL['be_cnt_guestbook_perpage']			= 'per&nbsp;page';
 $BL['be_cnt_guestbook_form']			= 'form';
 $BL['be_cnt_guestbook_signed']			= 'signed';
 $BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'πριν';
-$BL['be_cnt_guestbook_after']			= 'μετά';
-$BL['be_cnt_guestbook_entry']			= 'εγγραφή';
-$BL['be_cnt_guestbook_edit']			= 'επεξεργασία';
+$BL['be_cnt_guestbook_before']			= 'Ο€ΟΞΉΞ½';
+$BL['be_cnt_guestbook_after']			= 'ΞΌΞµΟ„Ξ¬';
+$BL['be_cnt_guestbook_entry']			= 'ΞµΞ³Ξ³ΟΞ±Ο†Ξ®';
+$BL['be_cnt_guestbook_edit']			= 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±';
 $BL['be_cnt_ecardform_selector']        = 'selector';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio button';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript functionality';
@@ -704,34 +704,34 @@ $BL['be_cnt_ecardform_out']       		= 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'top article count';
 
 // added: 19-04-2004
-$BL['be_subnav_msg_newslettersend']     = 'ενημερωτικό δελτίο';
-$BL['be_newsletter_addnl']              = 'πρόσθεση ενημερωτικού δελτίου';
-$BL['be_newsletter_titleeditnl']        = 'επεξεργασία ενημερωτικού δελτίου';
-$BL['be_newsletter_newnl']              = 'δημιουργία νέου';
-$BL['be_newsletter_button_savenl']      = 'αποθήκευση ενημερωτικού δελτίου';
-$BL['be_newsletter_fromname']           = 'από όνομα';
-$BL['be_newsletter_fromemail']          = 'από διεύθυνση ηλεκτρονικού ταχυδρομείου';
-$BL['be_newsletter_replyto']            = 'απάντηση σε διεύθυνση ηλεκτρονικού ταχυδρομείου';
-$BL['be_newsletter_changed']            = 'τελευταία αλλαγή';
+$BL['be_subnav_msg_newslettersend']     = 'ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏ';
+$BL['be_newsletter_addnl']              = 'Ο€ΟΟΟƒΞΈΞµΟƒΞ· ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_titleeditnl']        = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_newnl']              = 'Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ…';
+$BL['be_newsletter_button_savenl']      = 'Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_fromname']           = 'Ξ±Ο€Ο ΟΞ½ΞΏΞΌΞ±';
+$BL['be_newsletter_fromemail']          = 'Ξ±Ο€Ο Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ…';
+$BL['be_newsletter_replyto']            = 'Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· ΟƒΞµ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ…';
+$BL['be_newsletter_changed']            = 'Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ξ±Ξ»Ξ»Ξ±Ξ³Ξ®';
 $BL['be_newsletter_placeholder']        = 'placeholder';
-$BL['be_newsletter_htmlpart']           = 'HTML περιεχόμενο ενημερωτικού δελτίου';
-$BL['be_newsletter_textpart']           = 'TEXT περιεχόμενο ενημερωτικού δελτίου';
-$BL['be_newsletter_allsubscriptions']   = 'όλες οι συνδρομές';
-$BL['be_newsletter_verifypage']         = 'επιβεβαίωση συνδέσμου';
+$BL['be_newsletter_htmlpart']           = 'HTML Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_textpart']           = 'TEXT Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_allsubscriptions']   = 'ΟΞ»ΞµΟ‚ ΞΏΞΉ ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ­Ο‚';
+$BL['be_newsletter_verifypage']         = 'ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…';
 $BL['be_newsletter_open']               = 'HTML and TEXT input';
-$BL['be_newsletter_open1']              = '(Πατήστε στην εικόνα για να ανοίξει)';
-$BL['be_newsletter_sendnow']            = 'Αποστολή ενημερωτικού δελτίου';
+$BL['be_newsletter_open1']              = '(Ξ Ξ±Ο„Ξ®ΟƒΟ„Ξµ ΟƒΟ„Ξ·Ξ½ ΞµΞΉΞΊΟΞ½Ξ± Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ξ½ΞΏΞ―ΞΎΞµΞΉ)';
+$BL['be_newsletter_sendnow']            = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Attention!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
-$BL['be_newsletter_attention1']         = 'Εάν έχετε κάνει αλλαγές στο παραπάνω ενημερωτικό δελτίο παρακαλείσθε να το σώσετε πρώτα αλλιώς αυτές οι αλλαγές δε θα χρησιμοποιηθούν.'; 
+$BL['be_newsletter_attention1']         = 'Ξ•Ξ¬Ξ½ Ξ­Ο‡ΞµΟ„Ξµ ΞΊΞ¬Ξ½ΞµΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ ΟƒΟ„ΞΏ Ο€Ξ±ΟΞ±Ο€Ξ¬Ξ½Ο‰ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏ Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»ΞµΞ―ΟƒΞΈΞµ Ξ½Ξ± Ο„ΞΏ ΟƒΟΟƒΞµΟ„Ξµ Ο€ΟΟΟ„Ξ± Ξ±Ξ»Ξ»ΞΉΟΟ‚ Ξ±Ο…Ο„Ξ­Ο‚ ΞΏΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ΄Ξµ ΞΈΞ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½.';
 $BL['be_newsletter_testemail']          = 'test email';
-$BL['be_newsletter_sendnlbutton']       = 'Αποστολή ενημερωτικού δελτίου';
-$BL['be_newsletter_sendprocess']        = 'Αποστολή διαδικασίας';
+$BL['be_newsletter_sendnlbutton']       = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_sendprocess']        = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® Ξ΄ΞΉΞ±Ξ΄ΞΉΞΊΞ±ΟƒΞ―Ξ±Ο‚';
 $BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Please do not stop the send process. Otherwise it is possible that you will send the newsletter more than twice to a recipient. When sending fails all non achieved recipient are stored in a session array and will be used if you send again immediately.';
 $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">the test email address <strong>###TEST###</strong> is NOT valid!<br />&nbsp;<br />Try again please!';
-$BL['be_newsletter_to']                 = 'Παραλήπτες';
-$BL['be_newsletter_ready']              = 'Αποστολή ενημερωτικού δελτίου: ΕΠΙΤΥΧΗΣ';
-$BL['be_newsletter_readyfailed']        = 'Απέτυχε η αποστολή ενημερωτικού δελτίου προς ';
-$BL['be_subnav_msg_subscribers']        = 'συνδρομητές ενημερωτικού δελτίου';
+$BL['be_newsletter_to']                 = 'Ξ Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„ΞµΟ‚';
+$BL['be_newsletter_ready']              = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…: Ξ•Ξ Ξ™Ξ¤Ξ¥Ξ§Ξ—Ξ£';
+$BL['be_newsletter_readyfailed']        = 'Ξ‘Ο€Ξ­Ο„Ο…Ο‡Ξµ Ξ· Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ… Ο€ΟΞΏΟ‚ ';
+$BL['be_subnav_msg_subscribers']        = 'ΟƒΟ…Ξ½Ξ΄ΟΞΏΞΌΞ·Ο„Ξ­Ο‚ ΞµΞ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ΄ΞµΞ»Ο„Ξ―ΞΏΟ…';
 
 // added: 20-04-2004
 $BL['be_ctype_sitemap']				    = 'sitemap';
@@ -768,14 +768,14 @@ $BL['be_cnt_pages_from']                = 'source';
 
 // added: 24-05-2004
 $BL['be_ctype_reference']               = 'rollover images';
-$BL['be_cnt_reference_basis']           = 'ευθυγράμμιση';
-$BL['be_cnt_reference_horizontal']      = 'οριζόντια';
-$BL['be_cnt_reference_vertical']        = 'κάθετα';
+$BL['be_cnt_reference_basis']           = 'ΞµΟ…ΞΈΟ…Ξ³ΟΞ¬ΞΌΞΌΞΉΟƒΞ·';
+$BL['be_cnt_reference_horizontal']      = 'ΞΏΟΞΉΞ¶ΟΞ½Ο„ΞΉΞ±';
+$BL['be_cnt_reference_vertical']        = 'ΞΊΞ¬ΞΈΞµΟ„Ξ±';
 $BL['be_cnt_reference_aligntext']       = 'small reference images';
 $BL['be_cnt_reference_largetext']       = 'large reference image';
-$BL['be_cnt_reference_zoom']            = 'εστίαση';
-$BL['be_cnt_reference_middle']          = 'μέση';
-$BL['be_cnt_reference_border']          = 'όριο';
+$BL['be_cnt_reference_zoom']            = 'ΞµΟƒΟ„Ξ―Ξ±ΟƒΞ·';
+$BL['be_cnt_reference_middle']          = 'ΞΌΞ­ΟƒΞ·';
+$BL['be_cnt_reference_border']          = 'ΟΟΞΉΞΏ';
 $BL['be_cnt_reference_block']           = 'block w x h';
 
 // added: 31-05-2004
@@ -785,80 +785,80 @@ $BL['be_article_forlist']               = 'article listing';
 $BL['be_article_forfull']               = 'display full article';
 
 // added: 08-07-2004
-$BL["setup_dir_exists"]                 = '<strong>ΠΡΟΣΟΧΗ!</strong> Ο &quot;SETUP&quot; κατάλογος υπάρχει ακόμα! Διαγράψτε αυτό το φάκελο - πιθανά προβλήματα ασφαλείας.';
+$BL["setup_dir_exists"]                 = '<strong>Ξ Ξ΅ΞΞ£ΞΞ§Ξ—!</strong> Ξ &quot;SETUP&quot; ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ±ΞΊΟΞΌΞ±! Ξ”ΞΉΞ±Ξ³ΟΞ¬ΟΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ο†Ξ¬ΞΊΞµΞ»ΞΏ - Ο€ΞΉΞΈΞ±Ξ½Ξ¬ Ο€ΟΞΏΞ²Ξ»Ξ®ΞΌΞ±Ο„Ξ± Ξ±ΟƒΟ†Ξ±Ξ»ΞµΞ―Ξ±Ο‚.';
 
 // added: 12-08-2004
-$BL['be_cnt_guestbook_banned']          = 'απαγορευμένες λέξεις';
+$BL['be_cnt_guestbook_banned']          = 'Ξ±Ο€Ξ±Ξ³ΞΏΟΞµΟ…ΞΌΞ­Ξ½ΞµΟ‚ Ξ»Ξ­ΞΎΞµΞΉΟ‚';
 $BL['be_cnt_guestbook_flooding']        = 'flooding';
 $BL['be_cnt_guestbook_setcookie']       = 'set cookie';
-$BL['be_cnt_guestbook_allowed']         = 'επιτρέπεται ξανά μετά από';
-$BL['be_cnt_guestbook_seconds']         = 'δευτερόλεπτα';
-$BL['be_alias_ID']                      = 'κωδικός ψευδωνύμου';
-$BL['be_ftrash_delall']                 = "Είστε σίγουροι οτι θέλετε να διαγράψετε \nΟΛΑ ΤΑ ΑΡΧΕΙΑ στον κάδο ανακύκλωσης?";
-$BL['be_ftrash_delallfiles']            = 'διαγραφή όλων των αρχείων στον κάδο ανακύκλωσης';
+$BL['be_cnt_guestbook_allowed']         = 'ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΞΎΞ±Ξ½Ξ¬ ΞΌΞµΟ„Ξ¬ Ξ±Ο€Ο';
+$BL['be_cnt_guestbook_seconds']         = 'Ξ΄ΞµΟ…Ο„ΞµΟΟΞ»ΞµΟ€Ο„Ξ±';
+$BL['be_alias_ID']                      = 'ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΟΞµΟ…Ξ΄Ο‰Ξ½ΟΞΌΞΏΟ…';
+$BL['be_ftrash_delall']                 = "Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΞΉ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ \nΞΞ›Ξ‘ Ξ¤Ξ‘ Ξ‘Ξ΅Ξ§Ξ•Ξ™Ξ‘ ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ΄ΞΏ Ξ±Ξ½Ξ±ΞΊΟΞΊΞ»Ο‰ΟƒΞ·Ο‚?";
+$BL['be_ftrash_delallfiles']            = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ΄ΞΏ Ξ±Ξ½Ξ±ΞΊΟΞΊΞ»Ο‰ΟƒΞ·Ο‚';
 
 // added: 16-08-2004
 $BL['be_subnav_msg_importsubscribers']  = 'CSV subscribers import';
-$BL['be_newsletter_importtitle']        = 'Εισαγωγή Συνδρομητών Ενημερωτικού Δελτίου';
-$BL['be_newsletter_entriesfound']       = 'εγγραφές&nbsp;βρέθηκαν';
+$BL['be_newsletter_importtitle']        = 'Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ£Ο…Ξ½Ξ΄ΟΞΏΞΌΞ·Ο„ΟΞ½ Ξ•Ξ½Ξ·ΞΌΞµΟΟ‰Ο„ΞΉΞΊΞΏΟ Ξ”ΞµΞ»Ο„Ξ―ΞΏΟ…';
+$BL['be_newsletter_entriesfound']       = 'ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚&nbsp;Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½';
 $BL['be_newsletter_foundinfile']        = 'in file';
-$BL['be_newsletter_addresses']          = 'διευθύνσεις';
+$BL['be_newsletter_addresses']          = 'Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚';
 $BL['be_newsletter_csverror']           = 'Imported CSV file seems to be incorrect! Check delimeter!';
 $BL['be_newsletter_importall']          = 'import all entries';
-$BL['be_newsletter_addressesadded']     = 'διευθύνσεις προστέθηκαν.';
-$BL['be_newsletter_newimport']          = 'νέα εισαγωγή';
-$BL['be_newsletter_importerror']        = 'Παρακαλώ ελέγξτε το CSV αρχείο σας - δεν μπορεί να προστεθεί καμία διεύθυνση!';
-$BL['be_newsletter_shouldbe1']          = 'Το CSV αρχείο σας πρέπει να είναι διαμορφωμένο έτσι';
-$BL['be_newsletter_shouldbe2']          = 'όμως μπορείτε να διαλέξετε μία εξατομικευμένη delimeter';
-$BL['be_newsletter_sample']             = 'δείγμα';
-$BL['be_newsletter_selectCSV']          = 'δείγμα αρχείου CSV';
+$BL['be_newsletter_addressesadded']     = 'Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΞΉΟ‚ Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞ±Ξ½.';
+$BL['be_newsletter_newimport']          = 'Ξ½Ξ­Ξ± ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®';
+$BL['be_newsletter_importerror']        = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΞ»Ξ­Ξ³ΞΎΟ„Ξµ Ο„ΞΏ CSV Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚ - Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€ΟΞΏΟƒΟ„ΞµΞΈΞµΞ― ΞΊΞ±ΞΌΞ―Ξ± Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·!';
+$BL['be_newsletter_shouldbe1']          = 'Ξ¤ΞΏ CSV Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΌΞΏΟΟ†Ο‰ΞΌΞ­Ξ½ΞΏ Ξ­Ο„ΟƒΞΉ';
+$BL['be_newsletter_shouldbe2']          = 'ΟΞΌΟ‰Ο‚ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ»Ξ­ΞΎΞµΟ„Ξµ ΞΌΞ―Ξ± ΞµΞΎΞ±Ο„ΞΏΞΌΞΉΞΊΞµΟ…ΞΌΞ­Ξ½Ξ· delimeter';
+$BL['be_newsletter_sample']             = 'Ξ΄ΞµΞ―Ξ³ΞΌΞ±';
+$BL['be_newsletter_selectCSV']          = 'Ξ΄ΞµΞ―Ξ³ΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… CSV';
 $BL['be_newsletter_delimeter']          = 'delimeter';
-$BL['be_newsletter_importCSV']          = 'εισαγωγή αρχείου CSV';
+$BL['be_newsletter_importCSV']          = 'ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… CSV';
 
 // added: 24-08-2004
 $BL['be_admin_struct_orderarticle']     = 'ordering of assigned articles';
-$BL['be_admin_struct_orderdate']        = 'ημερομηνία δημιουργίας';
-$BL['be_admin_struct_orderchangedate']  = 'αλλαγή ημερομηνίας';
-$BL['be_admin_struct_orderstartdate']   = 'ημερομηνία έναρξης';
-$BL['be_admin_struct_orderdesc']        = 'φθίνουσα';
-$BL['be_admin_struct_orderasc']         = 'αύξουσα';
-$BL['be_admin_struct_ordermanual']      = 'χειροκίνητο (βελάκι πάνω/κάτω)';
-$BL['be_cnt_sitemap_startid']           = 'έναρξη σε';
+$BL['be_admin_struct_orderdate']        = 'Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚';
+$BL['be_admin_struct_orderchangedate']  = 'Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±Ο‚';
+$BL['be_admin_struct_orderstartdate']   = 'Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚';
+$BL['be_admin_struct_orderdesc']        = 'Ο†ΞΈΞ―Ξ½ΞΏΟ…ΟƒΞ±';
+$BL['be_admin_struct_orderasc']         = 'Ξ±ΟΞΎΞΏΟ…ΟƒΞ±';
+$BL['be_admin_struct_ordermanual']      = 'Ο‡ΞµΞΉΟΞΏΞΊΞ―Ξ½Ξ·Ο„ΞΏ (Ξ²ΞµΞ»Ξ¬ΞΊΞΉ Ο€Ξ¬Ξ½Ο‰/ΞΊΞ¬Ο„Ο‰)';
+$BL['be_cnt_sitemap_startid']           = 'Ξ­Ξ½Ξ±ΟΞΎΞ· ΟƒΞµ';
 
 // added: 20-10-2004
 $BL['be_ctype_map']                     = 'map';
-$BL['be_save_btn']                      = 'Αποθήκευση';
-$BL['be_cmap_location_error_notitle']   = 'συμπληρώστε έναν τίτλο για αυτή την τοποθεσία.';
-$BL['be_cnt_map_add']                   = 'πρόσθεση τοποθεσίας';
-$BL['be_cnt_map_edit']                  = 'επεξεργασία τοποθεσίας';
-$BL['be_cnt_map_title']                 = 'τίτλος τοποθεσίας';
-$BL['be_cnt_map_info']                  = 'εγγραφή/πληροφορίες';
-$BL['be_cnt_map_list']                  = 'λίστα τοποθεσιών';
-$BL['be_btn_delete']                    = 'Είστε σίγουροι οτι θέλετε να \nδιαγράψετε αυτή την τοποθεσία?';
+$BL['be_save_btn']                      = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·';
+$BL['be_cmap_location_error_notitle']   = 'ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΟ„Ξµ Ξ­Ξ½Ξ±Ξ½ Ο„Ξ―Ο„Ξ»ΞΏ Ξ³ΞΉΞ± Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±.';
+$BL['be_cnt_map_add']                   = 'Ο€ΟΟΟƒΞΈΞµΟƒΞ· Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±Ο‚';
+$BL['be_cnt_map_edit']                  = 'ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±Ο‚';
+$BL['be_cnt_map_title']                 = 'Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±Ο‚';
+$BL['be_cnt_map_info']                  = 'ΞµΞ³Ξ³ΟΞ±Ο†Ξ®/Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚';
+$BL['be_cnt_map_list']                  = 'Ξ»Ξ―ΟƒΟ„Ξ± Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞΉΟΞ½';
+$BL['be_btn_delete']                    = 'Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΞΉ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± \nΞ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ο„ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±?';
 
 // added: 05-11-2004
-$BL['be_ctype_phpvar']                  = 'PHP μεταβλητές';
-$BL['be_cnt_vars']                      = 'μεταβλητές';
+$BL['be_ctype_phpvar']                  = 'PHP ΞΌΞµΟ„Ξ±Ξ²Ξ»Ξ·Ο„Ξ­Ο‚';
+$BL['be_cnt_vars']                      = 'ΞΌΞµΟ„Ξ±Ξ²Ξ»Ξ·Ο„Ξ­Ο‚';
 
 // added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
-$BL['be_func_struct_copy']              = 'αντιγραφή άρθρου';
-$BL['be_func_struct_nocopy']            = 'απενεργοποίηση αντιγραφής άρθρου';
+$BL['be_func_struct_copy']              = 'Ξ±Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ® Ξ¬ΟΞΈΟΞΏΟ…';
+$BL['be_func_struct_nocopy']            = 'Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ±Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ®Ο‚ Ξ¬ΟΞΈΟΞΏΟ…';
 $BL['be_func_struct_copy_level']        = 'copy structure level';
 $BL['be_func_struct_no_copy']           = "It's not possible to copy the root level!";
 
 // added: 27-11-2004
-$BL['be_date_minute']                   = 'λεπτό';
-$BL['be_date_minutes']                  = 'λεπτά';
-$BL['be_date_hour']                     = 'ώρα';
-$BL['be_date_hours']                    = 'ώρες';
-$BL['be_date_day']                      = 'μέρα';
-$BL['be_date_days']                     = 'μέρες';
-$BL['be_date_week']                     = 'εβδομάδα';
-$BL['be_date_weeks']                    = 'εβδομάδες';
-$BL['be_date_month']                    = 'μήνας';
-$BL['be_date_months']                   = 'μήνες';
-$BL['be_off']                           = 'Κλείσιμο';
-$BL['be_on']                            = 'Άνοιγμα';
+$BL['be_date_minute']                   = 'Ξ»ΞµΟ€Ο„Ο';
+$BL['be_date_minutes']                  = 'Ξ»ΞµΟ€Ο„Ξ¬';
+$BL['be_date_hour']                     = 'ΟΟΞ±';
+$BL['be_date_hours']                    = 'ΟΟΞµΟ‚';
+$BL['be_date_day']                      = 'ΞΌΞ­ΟΞ±';
+$BL['be_date_days']                     = 'ΞΌΞ­ΟΞµΟ‚';
+$BL['be_date_week']                     = 'ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±';
+$BL['be_date_weeks']                    = 'ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄ΞµΟ‚';
+$BL['be_date_month']                    = 'ΞΌΞ®Ξ½Ξ±Ο‚';
+$BL['be_date_months']                   = 'ΞΌΞ®Ξ½ΞµΟ‚';
+$BL['be_off']                           = 'ΞΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ';
+$BL['be_on']                            = 'Ξ†Ξ½ΞΏΞΉΞ³ΞΌΞ±';
 $BL['be_cache']                         = 'cache';
 $BL['be_cache_timeout']                 = 'timeout';
 
@@ -876,8 +876,8 @@ $BL['be_forum_titleedit']				= 'edit forum';
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'custom';
 $BL['be_show_content']                  = 'display';
-$BL['be_main_content']                  = 'κύρια στήλη';
-$BL['be_admin_template_jswarning']      = 'Προειδοποίηση!!! \nCustom blocks may change! \n\nIf you cancel \nreset your pagelayout setting! \n\nChange template?\n\n';
+$BL['be_main_content']                  = 'ΞΊΟΟΞΉΞ± ΟƒΟ„Ξ®Ξ»Ξ·';
+$BL['be_admin_template_jswarning']      = 'Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·!!! \nCustom blocks may change! \n\nIf you cancel \nreset your pagelayout setting! \n\nChange template?\n\n';
 
 $BL['be_ctype_rssfeed']					= 'RSS feed';
 $BL['be_cnt_rssfeed_url']				= 'RSS url';
@@ -900,33 +900,33 @@ $BL['be_cnt_mark_as_req']				= 'mark as required';
 $BL['be_cnt_mark_as_del']				= 'mark item for deletion';
 
 
-$BL['be_cnt_type']				        = 'τύπος';
-$BL['be_cnt_label']				        = 'ταμπέλα';
-$BL['be_cnt_needed']					= 'απαιτούνται';
-$BL['be_cnt_delete']					= 'διαγραφή';
-$BL['be_cnt_value']					= 'τιμή';
-$BL['be_cnt_error_text']				= 'σφάλμα κείμενο';
-$BL['be_cnt_css_style']					= 'CSS στυλ';
-$BL['be_cnt_send_copy_to']				= 'CC σε';
+$BL['be_cnt_type']				        = 'Ο„ΟΟ€ΞΏΟ‚';
+$BL['be_cnt_label']				        = 'Ο„Ξ±ΞΌΟ€Ξ­Ξ»Ξ±';
+$BL['be_cnt_needed']					= 'Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞ½Ο„Ξ±ΞΉ';
+$BL['be_cnt_delete']					= 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®';
+$BL['be_cnt_value']					= 'Ο„ΞΉΞΌΞ®';
+$BL['be_cnt_error_text']				= 'ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
+$BL['be_cnt_css_style']					= 'CSS ΟƒΟ„Ο…Ξ»';
+$BL['be_cnt_send_copy_to']				= 'CC ΟƒΞµ';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)', 
-												"hidden"=>'hidden', "password"=>'password', "select"=>'select menu', 
-												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button', 
-												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button', 
+$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+												"hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
+												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
+												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
 												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
 
-$BL['be_cnt_access']					= 'πρόσβαση';
-$BL['be_cnt_activated']					= 'ενεργοποιημένο';
-$BL['be_cnt_available']					= 'διαθέσιμο';
-$BL['be_cnt_guests']					= 'επισκέπτες';
-$BL['be_cnt_admin']						= 'διαχεριστής';
-$BL['be_cnt_write']						= 'γράψε';
-$BL['be_cnt_read']						= 'διάβασε';
+$BL['be_cnt_access']					= 'Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·';
+$BL['be_cnt_activated']					= 'ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞΏ';
+$BL['be_cnt_available']					= 'Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ';
+$BL['be_cnt_guests']					= 'ΞµΟ€ΞΉΟƒΞΊΞ­Ο€Ο„ΞµΟ‚';
+$BL['be_cnt_admin']						= 'Ξ΄ΞΉΞ±Ο‡ΞµΟΞΉΟƒΟ„Ξ®Ο‚';
+$BL['be_cnt_write']						= 'Ξ³ΟΞ¬ΟΞµ';
+$BL['be_cnt_read']						= 'Ξ΄ΞΉΞ¬Ξ²Ξ±ΟƒΞµ';
 
-$BL['be_cnt_no_wysiwyg_editor']			= 'απενεργοποίηση WYSIWYG editor';
-$BL['be_cnt_cache_update']				= 'μηδενισμός cache';
-$BL['be_cnt_cache_delete']				= 'διαγραφή cache';
-$BL['be_cnt_cache_delete_msg']			= 'Είστε σίγουροι οτι θέλετε να διαγράψετε το cache?  \nΑυτό μπορεί να επηρρεάσει και την εύρεση.  \n';
+$BL['be_cnt_no_wysiwyg_editor']			= 'Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· WYSIWYG editor';
+$BL['be_cnt_cache_update']				= 'ΞΌΞ·Ξ΄ΞµΞ½ΞΉΟƒΞΌΟΟ‚ cache';
+$BL['be_cnt_cache_delete']				= 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® cache';
+$BL['be_cnt_cache_delete_msg']			= 'Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΞΉ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΏ cache?  \nΞ‘Ο…Ο„Ο ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΟ€Ξ·ΟΟΞµΞ¬ΟƒΞµΞΉ ΞΊΞ±ΞΉ Ο„Ξ·Ξ½ ΞµΟΟΞµΟƒΞ·.  \n';
 
 $BL['be_admin_usr_issection']			= 'login section';
 $BL['be_admin_usr_ifsection0']			= 'frontend';
@@ -943,14 +943,14 @@ $BL['be_func_content_copy']              = 'copy this article content part part'
 $BL['be_func_content_no_copy']           = "It's not possible to copy the article content part!";
 $BL['be_func_content_paste_cancel']      = 'cancel article content part change';
 
-$BL['be_cnt_move_deleted'] = 'αφαίρεση διεγραμμένων αρχείων';
-$BL['be_cnt_move_deleted_msg'] = 'Είστε σίγουροι οτι θέλετε να μετακινήσετε όλα τα αρχεία  \nμαρκαρισμένα ως διεγραμμένα στον ειδικό φάκελο διαγραφής; \n';
+$BL['be_cnt_move_deleted'] = 'Ξ±Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ξ΄ΞΉΞµΞ³ΟΞ±ΞΌΞΌΞ­Ξ½Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$BL['be_cnt_move_deleted_msg'] = 'Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΞΉ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΞΌΞµΟ„Ξ±ΞΊΞΉΞ½Ξ®ΟƒΞµΟ„Ξµ ΟΞ»Ξ± Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ±  \nΞΌΞ±ΟΞΊΞ±ΟΞΉΟƒΞΌΞ­Ξ½Ξ± Ο‰Ο‚ Ξ΄ΞΉΞµΞ³ΟΞ±ΞΌΞΌΞ­Ξ½Ξ± ΟƒΟ„ΞΏΞ½ ΞµΞΉΞ΄ΞΉΞΊΟ Ο†Ξ¬ΞΊΞµΞ»ΞΏ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚; \n';
 
 $BL['be_admin_struct_permit'] = 'authorized to access (let empty for everybody)';
 $BL['be_admin_struct_adduser_all']   = 'take over all users';
 $BL['be_admin_struct_adduser_this']  = 'take over selected user';
-$BL['be_admin_struct_remove_all']    = 'αφαίρεση όλων των χρηστών';
-$BL['be_admin_struct_remove_this']   = 'αφαίρεση επιλεγμένου χρήστη';
+$BL['be_admin_struct_remove_all']    = 'Ξ±Ο†Ξ±Ξ―ΟΞµΟƒΞ· ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$BL['be_admin_struct_remove_this']   = 'Ξ±Ο†Ξ±Ξ―ΟΞµΟƒΞ· ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
 
 
 $BL['be_ctype_alias'] = 'contentpart alias';
@@ -960,4 +960,3 @@ $BL['be_cnt_toplink'] = 'top link setting of contentpart alias';
 $BL['be_cnt_block'] = 'display (block) setting of contentpart alias';
 $BL['be_cnt_title'] = 'titles of contentpart alias';
 
-?>

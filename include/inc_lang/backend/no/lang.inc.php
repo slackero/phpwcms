@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -723,12 +723,12 @@ $BL['be_newsletter_verifypage']         = 'bekreft link';
 $BL['be_newsletter_open']               = 'HTML og TEXT innhold';
 $BL['be_newsletter_open1']              = '(klikk ikon for &#229; &#229;pne)';
 $BL['be_newsletter_sendnow']            = 'Send nyhetsbrev';
-$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">ADVARSEL!</strong> Sending av nyhetsbrev til flere mottakere kan være risikabelt. Mottakere b&#248;r være bekreftet hvis ikke nyhetsbrevet skal regnes som spam. Tenk deg om f&#248;r du sender nyhetsbrevet. Kontroller nyhetsbrevet ved &#229; sende en test.';
-$BL['be_newsletter_attention1']         = 'Hvis du har gjort endringer i nyhetsbrevet m&#229; du lagre det f&#248;rst. Hvis ikke vil endringene bli ignorert.'; 
+$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">ADVARSEL!</strong> Sending av nyhetsbrev til flere mottakere kan vÃ¦re risikabelt. Mottakere b&#248;r vÃ¦re bekreftet hvis ikke nyhetsbrevet skal regnes som spam. Tenk deg om f&#248;r du sender nyhetsbrevet. Kontroller nyhetsbrevet ved &#229; sende en test.';
+$BL['be_newsletter_attention1']         = 'Hvis du har gjort endringer i nyhetsbrevet m&#229; du lagre det f&#248;rst. Hvis ikke vil endringene bli ignorert.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send nyhetsbrev';
 $BL['be_newsletter_sendprocess']        = 'sendeprosess';
-$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">ADVARSEL!</strong> Ikke stopp sendeprosessen. Dersom du gj&#248;r det er det mulig at samme mottaker vil f&#229; nyhetsbrevet to ganger. Dersom sendingen feiler vil alle mottakere som ikke har f&#229;tt nyhetsbrevet være lagret i en session array og vil bli benyttet dersom du sender igjen &#248;yeblikkelig.';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">ADVARSEL!</strong> Ikke stopp sendeprosessen. Dersom du gj&#248;r det er det mulig at samme mottaker vil f&#229; nyhetsbrevet to ganger. Dersom sendingen feiler vil alle mottakere som ikke har f&#229;tt nyhetsbrevet vÃ¦re lagret i en session array og vil bli benyttet dersom du sender igjen &#248;yeblikkelig.';
 $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">email adresse for test <strong>###TEST###</strong> is NOT valid!<br />&nbsp;<br />Vennligs pr&#248;v igjen!';
 $BL['be_newsletter_to']                 = 'Mottakere';
 $BL['be_newsletter_ready']              = 'sending av nyhetsbrev: FERDIG';
@@ -810,7 +810,7 @@ $BL['be_newsletter_importall']          = 'importer alle poster';
 $BL['be_newsletter_addressesadded']     = 'adresser lagt til.';
 $BL['be_newsletter_newimport']          = 'ny import';
 $BL['be_newsletter_importerror']        = 'Vennligst sjekk din CSV fil - ingen adresser kan legges til!';
-$BL['be_newsletter_shouldbe1']          = 'Din CSV fil m&#229; være formattert slik';
+$BL['be_newsletter_shouldbe1']          = 'Din CSV fil m&#229; vÃ¦re formattert slik';
 $BL['be_newsletter_shouldbe2']          = 'men du kan velge skilletegn';
 $BL['be_newsletter_sample']             = 'eksempel';
 $BL['be_newsletter_selectCSV']          = 'velg CSV fil';
@@ -910,10 +910,10 @@ $BL['be_cnt_value']						= 'verdi';
 $BL['be_cnt_error_text']				= 'feilmelding';
 $BL['be_cnt_css_style']					= 'CSS stil';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)', 
-												"hidden"=>'skjult', "password"=>'passord', "select"=>'select meny', 
-												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio knapp', 
-												"upload"=>'fil', "submit"=>'sendeknapp', "reset"=>'reset knapp', 
+$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+												"hidden"=>'skjult', "password"=>'passord', "select"=>'select meny',
+												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio knapp',
+												"upload"=>'fil', "submit"=>'sendeknapp', "reset"=>'reset knapp',
 												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
 
 $BL['be_cnt_access']					= 'tilgang';
@@ -950,4 +950,3 @@ $BL['be_func_content_paste_cancel']      = 'avbryt endringer i artikkelinnhold';
 
 
 
-?>

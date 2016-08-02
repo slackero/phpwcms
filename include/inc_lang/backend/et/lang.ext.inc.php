@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -20,8 +20,8 @@
 // JavaScript Linebreak: '\n'
 $BL['FOLDER_LIST']       = 'kaustad';
 $BL['FILES']             = 'failid';
-$BL['SHOW_FILES']        = 'n‰ita juurkataloogis asuvaid faile';
-$BL['SHOW_FILES1']       = 'n‰ita kaustas asuvaid faile';
+$BL['SHOW_FILES']        = 'n√§ita juurkataloogis asuvaid faile';
+$BL['SHOW_FILES1']       = 'n√§ita kaustas asuvaid faile';
 $BL['TAKE_IMAGE']        = 'vali fail ja lisa&#8230;';
 $BL['NO_FILE']           = 'fail puudub';
 $BL['OPEN_DIR']          = 'ava kataloog';
@@ -40,9 +40,7 @@ $BL['CREATED']           = 'loodud';
 $BL['DATE_FORMAT']       = 'd-m-Y H:i';
 $BL['SIZE']              = 'suurus';
 $BL['DOWNLOAD_FILE']     = 'laadi alla';
-$BL['FILE_IN_TRASH']     = 'fail on pr¸gikastis';
-$BL['KEYWORDS']          = 'vıtmesınad';
+$BL['FILE_IN_TRASH']     = 'fail on pr√ºgikastis';
+$BL['KEYWORDS']          = 'v√µtmes√µnad';
 $BL['DOWNLOAD_ERR3']     = 'viga faili omaduste lugemisel,<br />sule aken ja proovi uuesti...';
 
-
-?>

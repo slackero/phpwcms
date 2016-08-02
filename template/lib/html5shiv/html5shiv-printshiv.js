@@ -1,10 +1,10 @@
 /**
-* @preserve HTML5 Shiv 3.7.2 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+* @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
 */
 ;(function(window, document) {
 /*jshint evil:true */
   /** version */
-  var version = '3.7.2';
+  var version = '3.7.3';
 
   /** Preset options */
   var options = window.html5 || {};
@@ -353,7 +353,7 @@
     var node,
         nodes = ownerDocument.getElementsByTagName('*'),
         index = nodes.length,
-        reElements = RegExp('^(?:' + getElements().join('|') + ')$', 'i'),
+        reElements = new RegExp('^(?:' + getElements().join('|') + ')$', 'i'),
         result = [];
 
     while (index--) {
@@ -398,7 +398,7 @@
     var pair,
         parts = cssText.split('{'),
         index = parts.length,
-        reElements = RegExp('(^|[\\s,>+~])(' + getElements().join('|') + ')(?=[[\\s,>+~#.:]|$)', 'gi'),
+        reElements = new RegExp('(^|[\\s,>+~])(' + getElements().join('|') + ')(?=[[\\s,>+~#.:]|$)', 'gi'),
         replacement = '$1' + shivNamespace + '\\:$2';
 
     while (index--) {
@@ -461,7 +461,7 @@
           collection = ownerDocument.styleSheets,
           cssText = [],
           index = collection.length,
-          sheets = Array(index);
+          sheets = new Array(index);
 
       // convert styleSheets collection to an array
       while (index--) {
@@ -517,4 +517,8 @@
   // shiv for print
   shivPrint(document);
 
-}(this, document));
+  if(typeof module == 'object' && module.exports){
+    module.exports = html5;
+  }
+
+}(typeof window !== "undefined" ? window : this, document));

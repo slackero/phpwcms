@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -77,9 +77,9 @@ $BL['be_func_struct_paste_article']     = 'Liit&auml; artikkeli hakemistorakente
 $BL['be_func_struct_insert_level']      = 'Lis&auml;&auml; taso hakemistorakenteeseen';
 $BL['be_func_struct_paste_level']       = 'Liit&auml; hakemistorakenteeseen';
 $BL['be_func_struct_cut_level']         = 'Leikkaa hakemistorakenteesta';
-$BL['be_func_struct_no_cut']            = "Liitt‰minen ei mahdollista!";
-$BL['be_func_struct_no_paste1']         = "Liitt‰minen ei mahdollista!";
-$BL['be_func_struct_no_paste2']         = 'Liitt‰minen ei mahdollista!';
+$BL['be_func_struct_no_cut']            = "Liitt√§minen ei mahdollista!";
+$BL['be_func_struct_no_paste1']         = "Liitt√§minen ei mahdollista!";
+$BL['be_func_struct_no_paste2']         = 'Liitt√§minen ei mahdollista!';
 $BL['be_func_struct_no_paste3']         = 'Liit&auml;';
 $BL['be_func_struct_paste_cancel']      = 'Peruuta';
 $BL['be_func_struct_del_struct']        = 'Poista hakemistorakenne';
@@ -280,7 +280,7 @@ $BL['be_fsearch_public']                = 'Julkinen';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
 $BL['be_chat_title']                    = 'Yll&auml;pidon chat';
-$BL['be_chat_info']                     = 'T&auml;&auml;ll&auml; voit chattailla muiden sivuston yll&auml;pitoon osallistuvien kesken. Aihe on vapaa. Keskustelu on reaaliaikainen, mutta sit‰ voi hy&ouml;dynt&auml;&auml; my&ouml;s offline-ty&ouml;skentelyss&auml; esimerkiksi jakamalla ty&ouml;teht&auml;vi&auml; yll&auml;pitoon osallistuvien kesken.';
+$BL['be_chat_info']                     = 'T&auml;&auml;ll&auml; voit chattailla muiden sivuston yll&auml;pitoon osallistuvien kesken. Aihe on vapaa. Keskustelu on reaaliaikainen, mutta sit√§ voi hy&ouml;dynt&auml;&auml; my&ouml;s offline-ty&ouml;skentelyss&auml; esimerkiksi jakamalla ty&ouml;teht&auml;vi&auml; yll&auml;pitoon osallistuvien kesken.';
 $BL['be_chat_start']                    = 'Liity keskusteluun t&auml;st&auml;';
 $BL['be_chat_lines']                    = 'Viestien lukum&auml;&auml;r&auml;';
 
@@ -555,7 +555,7 @@ $BL['be_cnt_center']                    = 'Keskitetty';
 $BL['be_cnt_right']                     = 'Oikea';
 $BL['be_cnt_buttontext']                = 'Painikkeen teksti';
 $BL['be_cnt_successtext']               = 'OK-teksti';
-$BL['be_cnt_regmail']                   = 'Rekisterˆinti-s&auml;hk&ouml;posti';
+$BL['be_cnt_regmail']                   = 'Rekister√∂inti-s&auml;hk&ouml;posti';
 $BL['be_cnt_logoffmail']                = 'Uloskirjaus-s&auml;hk&ouml;posti';
 $BL['be_cnt_changemail']                = 'Muutos-s&auml;hk&ouml;posti';
 $BL['be_cnt_openimagebrowser']          = 'Avaa kuvaselain';
@@ -690,7 +690,7 @@ $BL['be_cnt_guestbook_form']			= 'Lomake';
 $BL['be_cnt_guestbook_signed']			= 'Allekirjoitettu';
 $BL['be_cnt_guestbook_nav']				= 'nav';
 $BL['be_cnt_guestbook_before']			= 'Ennen';
-$BL['be_cnt_guestbook_after']			= 'J‰lkeen';
+$BL['be_cnt_guestbook_after']			= 'J√§lkeen';
 $BL['be_cnt_guestbook_entry']			= 'Viesti';
 $BL['be_cnt_guestbook_edit']			= 'Muokkaa';
 $BL['be_cnt_ecardform_selector']        = 'Valitsin';
@@ -724,7 +724,7 @@ $BL['be_newsletter_attention1']         = 'Jos olet muokannut uutisviesti&auml;,
 $BL['be_newsletter_testemail']          = 'Testis&auml;hk&ouml;postiosoite';
 $BL['be_newsletter_sendnlbutton']       = 'L&auml;het&auml; uutisviesti';
 $BL['be_newsletter_sendprocess']        = 'L&auml;hetyksen kehittyminen';
-$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Huomio!</strong> &Auml;l&auml; lopeta l&auml;hetysprosessia, voit vahingossa l&auml;hett&auml;&auml; viestin useampaan kertaan. Jos l&auml;hett&auml;minen ep&auml;onnistuu, ne, joille viesti EI l&auml;htenyt, saavat viestin, jos l&auml;het‰t sen heti uudestaan.';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Huomio!</strong> &Auml;l&auml; lopeta l&auml;hetysprosessia, voit vahingossa l&auml;hett&auml;&auml; viestin useampaan kertaan. Jos l&auml;hett&auml;minen ep&auml;onnistuu, ne, joille viesti EI l&auml;htenyt, saavat viestin, jos l&auml;het√§t sen heti uudestaan.';
 $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">Testis&auml;hk&ouml;postiosoite<strong>###TEST###</strong> ei kelpaa!<br />&nbsp;<br />Yrit&auml; uudelleen!';
 $BL['be_newsletter_to']                 = 'Vastaanottajat';
 $BL['be_newsletter_ready']              = 'Uutisviestin l&auml;hetys: VALMIS';
@@ -883,4 +883,4 @@ $BL['be_cnt_rssfeed_item']				= 'aiheet';
 $BL['be_cnt_rssfeed_max']				= 'max.';
 $BL['be_cnt_rssfeed_cut']				= 'piilota 1. aihe';
 
-?>
+

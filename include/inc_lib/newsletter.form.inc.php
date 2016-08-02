@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -38,7 +38,7 @@ if(!empty($_GET["del"]) && intval($_GET["del"]) == $newsletter["newsletter_id"])
 	$sql  = "UPDATE ".DB_PREPEND."phpwcms_newsletter SET newsletter_trashed=9 ";
 	$sql .= "WHERE newsletter_id=".intval($_GET["del"])." LIMIT 1;";
 	mysql_query($sql, $db) or die("error while deleting newsletter");
-	headerRedirect(PHPWCMS_URL."phpwcms.php?do=messages&p=3");
+	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=3');
 }
 
 if(isset($_POST["newsletter_id"])) {
@@ -180,9 +180,9 @@ if(isset($_POST["newsletter_id"])) {
 		@_dbQuery($sql, 'UPDATE');
 
 		if(isset($_POST['close'])) {
-			headerRedirect(PHPWCMS_URL.'phpwcms.php?do=messages&p=3');
+			headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=3');
 		} else {
-			headerRedirect(PHPWCMS_URL.'phpwcms.php?do=messages&p=3&s='.$newsletter["newsletter_id"].'&edit=1');
+			headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=3&s='.$newsletter["newsletter_id"].'&edit=1');
 		}
 	}
 }
@@ -205,5 +205,3 @@ if($newsletter["newsletter_id"] && ($newsletter["newsletter_vars"]['html'] || $n
 } else {
 	$show_nl_send = 0;
 }
-
-?>

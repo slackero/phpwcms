@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -78,9 +78,9 @@ $BL['be_func_struct_paste_article']     = 'incolla articolo nel livello';
 $BL['be_func_struct_insert_level']      = 'inserisci il livello di struttura in';
 $BL['be_func_struct_paste_level']       = 'incolla nel livello';
 $BL['be_func_struct_cut_level']         = 'taglia il livello';
-$BL['be_func_struct_no_cut']            = "Non si puÚ cancellare la root!";
-$BL['be_func_struct_no_paste1']         = "Non si puÚ incollare qui!";
-$BL['be_func_struct_no_paste2']         = 'Ë figlio nella root del livello';
+$BL['be_func_struct_no_cut']            = "Non si pu√≤ cancellare la root!";
+$BL['be_func_struct_no_paste1']         = "Non si pu√≤ incollare qui!";
+$BL['be_func_struct_no_paste2']         = '√® figlio nella root del livello';
 $BL['be_func_struct_no_paste3']         = 'che dovrebbe essere incollato qui';
 $BL['be_func_struct_paste_cancel']      = 'annulla il cambiamento di struttura del livello';
 $BL['be_func_struct_del_struct']        = 'cancella il livello di struttura';
@@ -113,20 +113,20 @@ $BL['be_profile_update_success']        = 'Dati del profilo aggiornati con succe
 $BL['be_profile_update_error']          = 'Errore di aggiornamento dati.';
 
 // profile.updateaccount.inc.php
-$BL['be_profile_account_err1']          = 'il nome utente {VAL} non Ë valido';
+$BL['be_profile_account_err1']          = 'il nome utente {VAL} non √® valido';
 $BL['be_profile_account_err2']          = 'password troppo corta (solo {VAL} caratteri: ne servono almeno 5)';
 $BL['be_profile_account_err3']          = 'la password deve essere identica';
 $BL['be_profile_account_err4']          = 'email {VAL} non valido';
 
 // profile.data.tmpl.php
 $BL['be_profile_data_title']            = 'i tuoi dati personali';
-$BL['be_profile_data_text']             = 'i dati personali sono opzionali. Questo puÚ aiutare altri utenti o visitatori del sito a sapere di pi˘ su di te, le tue abilit‡ e interessi. Se selezioni la checkbox appropriata gli utenti possono vedere le informazioni sul tuo profilo nell"area pubblica o negli articoli (se desiderato).';
+$BL['be_profile_data_text']             = 'i dati personali sono opzionali. Questo pu√≤ aiutare altri utenti o visitatori del sito a sapere di pi√π su di te, le tue abilit√† e interessi. Se selezioni la checkbox appropriata gli utenti possono vedere le informazioni sul tuo profilo nell"area pubblica o negli articoli (se desiderato).';
 $BL['be_profile_label_title']           = 'titolo';
 $BL['be_profile_label_firstname']       = 'nome';
 $BL['be_profile_label_name']            = 'cognome';
-$BL['be_profile_label_company']         = 'societ‡';
+$BL['be_profile_label_company']         = 'societ√†';
 $BL['be_profile_label_street']          = 'indirizzo';
-$BL['be_profile_label_city']            = 'citt‡';
+$BL['be_profile_label_city']            = 'citt√†';
 $BL['be_profile_label_state']           = 'provincia, stato';
 $BL['be_profile_label_zip']             = 'codice postale';
 $BL['be_profile_label_country']         = 'stato';
@@ -139,12 +139,12 @@ $BL['be_profile_label_profession']      = 'professione';
 $BL['be_profile_label_newsletter']      = 'newsletter';
 $BL['be_profile_text_newsletter']       = 'voglio ricevere la newsletter di phpwcms.';
 $BL['be_profile_label_public']          = 'pubblico';
-$BL['be_profile_text_public']           = 'Chiunque puÚ vedere i miei dati personali.';
+$BL['be_profile_text_public']           = 'Chiunque pu√≤ vedere i miei dati personali.';
 $BL['be_profile_label_button']          = 'aggiorna i dati personali';
 
 // profile.account.tmpl.php
 $BL['be_profile_account_title']         = 'informazioni di accesso';
-$BL['be_profile_account_text']          = 'Normalmente non Ë necessario cambiare il nome utente.<br />Dovreste tuttavia cambiare la password di quando in quando per incrementare la sicurezza.';
+$BL['be_profile_account_text']          = 'Normalmente non √® necessario cambiare il nome utente.<br />Dovreste tuttavia cambiare la password di quando in quando per incrementare la sicurezza.';
 $BL['be_profile_label_err']             = 'per cortesia controlla';
 $BL['be_profile_label_username']        = 'nome utente';
 $BL['be_profile_label_newpass']         = 'nuova password';
@@ -205,7 +205,7 @@ $BL['be_fpriv_updatebutton']            = 'aggiorna le info della cartella';
 
 // files.private.upload.tmpl.php
 $BL['be_fprivup_err1']                  = 'seleziona un file da caricare';
-$BL['be_fprivup_err2']                  = 'la dimensione del file caricato Ë maggiore di';
+$BL['be_fprivup_err2']                  = 'la dimensione del file caricato √® maggiore di';
 $BL['be_fprivup_err3']                  = 'Errore nella scrittura del file nella cartella apposita';
 $BL['be_fprivup_err4']                  = 'Errore nella creazione della cartella utente.';
 $BL['be_fprivup_err5']                  = 'nessuna icona';
@@ -255,7 +255,7 @@ $BL['be_fpublic_user']                  = 'utente';
 $BL['be_fpublic_nofiles']               = 'nessun file o cartella pubblico';
 
 // files.private.trash.tmpl.php
-$BL['be_ftrash_nofiles']                = 'il cestino Ë vuoto';
+$BL['be_ftrash_nofiles']                = 'il cestino √® vuoto';
 $BL['be_ftrash_show']                   = 'mostra i files privati';
 
 // files.private-delfilelist.inc.php
@@ -265,9 +265,9 @@ $BL['be_ftrash_undo']                   = 'ripristina';
 $BL['be_ftrash_delfinal']               = 'cancellazione definitiva';
 
 // files.search.tmpl.php
-$BL['be_fsearch_err1']                  = 'la stringa di ricerca Ë vuota.';
+$BL['be_fsearch_err1']                  = 'la stringa di ricerca √® vuota.';
 $BL['be_fsearch_title']                 = 'cerca files';
-$BL['be_fsearch_infotext']              = 'Questa Ë una ricerca semplificata per le informazioni dei files. Cerca nelle keywords, nomi dei files e descrizioni dei files.<br />. Nessun supporto per le wildcards. Separate la ricerca di parole<br />multiple con uno spazio. Selezionate AND/OR e quali files cercare: personali/pubblici.';
+$BL['be_fsearch_infotext']              = 'Questa √® una ricerca semplificata per le informazioni dei files. Cerca nelle keywords, nomi dei files e descrizioni dei files.<br />. Nessun supporto per le wildcards. Separate la ricerca di parole<br />multiple con uno spazio. Selezionate AND/OR e quali files cercare: personali/pubblici.';
 $BL['be_fsearch_nonfound']              = 'nessun file trovato. provate a modificare i termini di ricerca';
 $BL['be_fsearch_fillin']                = 'per cortesia scrivete nel campo soprastante i termini di ricerca.';
 $BL['be_fsearch_searchlabel']           = 'cerca';
@@ -280,7 +280,7 @@ $BL['be_fsearch_public']                = 'pubblici';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
 $BL['be_chat_title']                    = 'chat interna';
-$BL['be_chat_info']                     = 'Qui potete chattare con altre persone che hanno accesso al back office. Questa chat Ë per parlarsi in tempo reale ma potete lasciare anche un messaggio se volete che tutti leggano.';
+$BL['be_chat_info']                     = 'Qui potete chattare con altre persone che hanno accesso al back office. Questa chat √® per parlarsi in tempo reale ma potete lasciare anche un messaggio se volete che tutti leggano.';
 $BL['be_chat_start']                    = 'cliccate qui per iniziare a chattare';
 $BL['be_chat_lines']                    = 'chat:';
 
@@ -311,7 +311,7 @@ $BL['be_msg_msg']                       = 'messaggio';
 $BL['be_msg_err1']                      = 'non hai indicato il destinatario...';
 $BL['be_msg_err2']                      = 'non hai indicato l"argomento...';
 $BL['be_msg_err3']                      = 'non hai scritto nulla nel messaggio! che lo mandi a fare? :)';
-$BL['be_msg_sent']                      = 'il messaggio Ë satto inviato!';
+$BL['be_msg_sent']                      = 'il messaggio √® satto inviato!';
 $BL['be_msg_fwd']                       = 'sarai riindirizzato al centro messaggi o';
 $BL['be_msg_newmsgtitle']               = 'scrivi un messaggio nuovo';
 $BL['be_msg_err']                       = 'errore nell"invio del messaggio';
@@ -340,8 +340,8 @@ $BL['be_admin_usr_mailbody']            = "BENVENUTO NEL BACK OFFICE DI PHPWCMS\
 $BL['be_admin_usr_title']               = 'aggiungi nome utente';
 $BL['be_admin_usr_realname']            = 'nome vero';
 $BL['be_admin_usr_setactive']           = 'attiva utente';
-$BL['be_admin_usr_iflogin']             = 'se selezionato l"utente puÚ accedere';
-$BL['be_admin_usr_isadmin']             = 'utente Ë amministratore';
+$BL['be_admin_usr_iflogin']             = 'se selezionato l"utente pu√≤ accedere';
+$BL['be_admin_usr_isadmin']             = 'utente √® amministratore';
 $BL['be_admin_usr_ifadmin']             = 'se selezionato l"utente ha diritti di amministratore';
 $BL['be_admin_usr_verify']              = 'verifica';
 $BL['be_admin_usr_sendemail']           = 'manda un e-mail al nuovo utente con le informazioni dell"account';
@@ -356,7 +356,7 @@ $BL['be_admin_usr_ebutton']             = 'aggiorna dati utente';
 
 // admin.listuser.tmpl.php
 $BL['be_admin_usr_ltitle']              = 'lista utenti phpwcms';
-$BL['be_admin_usr_ldel']                = 'ATTENZIONE!&#13Questo canceller‡ l"utente';
+$BL['be_admin_usr_ldel']                = 'ATTENZIONE!&#13Questo canceller√† l"utente';
 $BL['be_admin_usr_create']              = 'crea nuovo utente';
 $BL['be_admin_usr_editusr']             = 'edita utente';
 
@@ -376,7 +376,7 @@ $BL['be_admin_struct_close']            = 'chiudi';
 
 // admin.filecat.tmpl.php
 $BL['be_admin_fcat_title']              = 'categorie dei file';
-$BL['be_admin_fcat_err']                = 'il nome della categoria Ë vuoto!';
+$BL['be_admin_fcat_err']                = 'il nome della categoria √® vuoto!';
 $BL['be_admin_fcat_name']               = 'nome della categoria';
 $BL['be_admin_fcat_needed']             = 'obbligatorio';
 $BL['be_admin_fcat_button1']            = 'aggiorna';
@@ -503,7 +503,7 @@ $BL['be_article_cnt_start']             = 'data inizio';
 $BL['be_article_cnt_end']               = 'data termine';
 $BL['be_article_cnt_add']               = 'aggiungi nuova parte contenuto';
 $BL['be_article_cnt_up']                = 'muovi contenuto su';
-$BL['be_article_cnt_down']              = 'muovi contenuto gi˘';
+$BL['be_article_cnt_down']              = 'muovi contenuto gi√π';
 $BL['be_article_cnt_edit']              = 'aggiungi parte contenuto';
 $BL['be_article_cnt_delpart']           = 'cancella questa parte contenuto articolo';
 $BL['be_article_cnt_delpartjs']         = 'Cancella questa parte contenuto?';
@@ -561,7 +561,7 @@ $BL['be_cnt_changemail']                = 'cambio.email';
 $BL['be_cnt_openimagebrowser']          = 'apri browser immagini';
 $BL['be_cnt_openfilebrowser']           = 'apri browser files';
 $BL['be_cnt_sortup']                    = 'muovi su';
-$BL['be_cnt_sortdown']                  = 'muovi gi˘';
+$BL['be_cnt_sortdown']                  = 'muovi gi√π';
 $BL['be_cnt_delimage']                  = 'rimuovi immagine selezionata';
 $BL['be_cnt_delfile']                   = 'rimuovi file selezionato';
 $BL['be_cnt_delmedia']                  = 'rimuovi media selezionato';
@@ -655,4 +655,3 @@ $BL['be_ctype_articlemenu']				= 'article menu';
 $BL['be_cnt_sitelevel']					= 'site level';
 $BL['be_cnt_sitecurrent']				= 'current site level';
 
-?>

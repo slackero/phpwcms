@@ -2,20 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 $_userInfo = array();
 
@@ -23,28 +22,28 @@ $_userInfo = array();
 if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
 	$data = _dbQuery('SELECT COUNT(*) AS address_count, address_email FROM '.DB_PREPEND.'phpwcms_address GROUP BY address_email');
 	if($data) {
-	
+
 		foreach($data as $value) {
-			
+
 			// check for multiple entries
 			if($value['address_count'] > 1) {
-			
+
 				$sql  = 'SELECT address_id FROM '.DB_PREPEND.'phpwcms_address ';
 				$sql .= "WHERE address_email='".aporeplace($value['address_email'])."' ";
 				$sql .= 'ORDER BY address_verified DESC, address_name DESC LIMIT 1';
 				$dataID = _dbQuery($sql);
-				
+
 				if(!empty($dataID[0]['address_id'])) {
 					$sql  = 'DELETE FROM '.DB_PREPEND.'phpwcms_address ';
 					$sql .= "WHERE address_email='".aporeplace($value['address_email'])."' ";
 					$sql .= "AND address_id != ".intval($dataID[0]['address_id']);
 					@_dbQuery($sql, 'DELETE');
 				}
-	
+
 			}
 		}
 	}
-	headerRedirect(PHPWCMS_URL.'phpwcms.php?do=messages&p=4');
+	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=4');
 }
 
 
@@ -60,10 +59,6 @@ if(isset($_GET["verify"]) && isset($_GET["s"])) {
 	_dbQuery($sql, 'UPDATE');
 }
 
-
-
-
-
 echo '<div class="title" style="margin-bottom:10px">'.$BL['be_subnav_msg_subscribers'].'</div>';
 ?>
 
@@ -74,7 +69,7 @@ echo '<div class="title" style="margin-bottom:10px">'.$BL['be_subnav_msg_subscri
 	&nbsp;
 	<a href="phpwcms.php?do=messages&amp;p=4&amp;import=1"><img src="img/famfamfam/table_add.gif" alt="Import" border="0" /><span><?php echo $BL['be_newsletter_newimport'] ?></span></a>
 	&nbsp;
-	<a href="include/inc_act/act_export.php?action=exportsubscriber" target="_blank" onclick="return confirm('Export all subscribers based on current selection?');"><img src="img/famfamfam/icon_download.gif" alt="Download" border="0" /><span><?php echo $BL['be_cnt_export_selection'] ?></span></a>
+	<a href="include/inc_act/act_export.php?<?php echo CSRF_GET_TOKEN; ?>&amp;action=exportsubscriber" target="_blank" onclick="return confirm('Export all subscribers based on current selection?');"><img src="img/famfamfam/icon_download.gif" alt="Download" border="0" /><span><?php echo $BL['be_cnt_export_selection'] ?></span></a>
 </div>
 
 
@@ -86,27 +81,27 @@ if(isset($_GET["s"]) && isset($_GET["edit"])) {
 	$_userInfo['subscriber_id'] = intval($_GET["s"]);
 
 	if($_userInfo['subscriber_id'] === 0) {
-		
+
 		$_userInfo['subscriber_data']['address_email']			= '';
 		$_userInfo['subscriber_data']['address_name']			= '';
 		$_userInfo['subscriber_data']['address_id']				= 0;
 		$_userInfo['subscriber_data']['address_subscription']	= '';
 		$_userInfo['subscriber_data']['address_tstamp']			= date('Y-m-d H:i:s');
 		$_userInfo['subscriber_data']['address_verified']		= 0;
-		
+
 	} else {
 		$_userInfo['subscriber_data']	= _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_address WHERE address_id=".$_userInfo['subscriber_id']." LIMIT 1");
 		if($_userInfo['subscriber_data']) {
 			$_userInfo['subscriber_data']  = $_userInfo['subscriber_data'][0];
 		}
 	}
-	
+
 	if(isset($_POST['subscribe_email'])) {
-		include_once(PHPWCMS_ROOT.'/include/inc_lib/subscriber.form.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_lib/subscriber.form.inc.php';
 	}
-	
+
 	if($_userInfo['subscriber_data']) {
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriber.form.tmpl.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriber.form.tmpl.php';
 	}
 }
 
@@ -120,18 +115,18 @@ if(isset($_GET['import']) && $_GET['import'] === '1') {
 	$_userInfo['subscribe_select']	= array();
 
 	if(isset($_POST['delimeter'])) {
-	
-		include_once(PHPWCMS_ROOT.'/include/inc_lib/subscriberimport.form.inc.php');
-		
+
+		include_once PHPWCMS_ROOT.'/include/inc_lib/subscriberimport.form.inc.php';
+
 		if(isset($_userInfo['csvError'])) {
-			include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php');
+			include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php';
 		} else {
-			include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.result.tmpl.php');
+			include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.result.tmpl.php';
 		}
-	
+
 	} else {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscriberimport.form.tmpl.php';
 
 	}
 
@@ -158,7 +153,7 @@ if(isset($_POST['do_pagination'])) {
 	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
 	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
 	$_SESSION['list_channel']	= empty($_POST['showchannel']) ? 0 : 1;
-	
+
 	$_SESSION['subscriber_page']	= intval($_POST['page']);
 	$_SESSION['filter_subscriber']	= clean_slweg($_POST['filter']);
 	if(empty($_SESSION['filter_subscriber'])) {
@@ -196,7 +191,7 @@ if($_userInfo['list_active'] != $_userInfo['list_inactive'] && $_userInfo['list_
 }
 
 if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber'])) {
-	
+
 	$_userInfo['filter_array'] = array();
 
 	foreach($_SESSION['filter_subscriber'] as $_userInfo['filter']) {
@@ -204,10 +199,10 @@ if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber']
 		$_userInfo['filter_array'][] = "CONCAT(address_email, address_name) LIKE '%".aporeplace($_userInfo['filter'])."%'";
 	}
 	if(count($_userInfo['filter_array'])) {
-		
+
 		$_userInfo['where_query'] .= $_userInfo['where_query'] ? ' AND ' : ' WHERE ';
 		$_userInfo['where_query'] .= '('.implode(' OR ', $_userInfo['filter_array']).')';
-	
+
 	}
 
 }
@@ -226,18 +221,18 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 		<tr>
 			<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 				<tr>
-					
+
 					<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_active'], 1) ?> /></td>
 					<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
 					<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_inactive'], 1) ?> /></td>
 					<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-					
+
 					<td<?php if($_userInfo['list_channel']) echo ' class="channelSelectTd"' ?>><input type="checkbox" name="showchannel" id="showchannel" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_channel'], 1) ?> /></td>
 					<td<?php if($_userInfo['list_channel']) echo ' class="channelSelectTd"' ?>><label for="showchannel"><img src="img/symbole/newsletter_susbcription.gif" alt="Subscription" style="margin:1px 0 0 1px;" /></label></td>
-					
-					
-					
-<?php 
+
+
+
+<?php
 if($_userInfo['pages_total'] > 1) {
 
 	echo '<td class="chatlist">|&nbsp;</td>';
@@ -266,14 +261,14 @@ if($_userInfo['pages_total'] > 1) {
 	echo '<td class="chatlist">|&nbsp;<input type="hidden" name="page" id="page" value="1" /></td>';
 
 }
-?>	
+?>
 
-	<td><input type="text" name="filter" id="filter" size="10" value="<?php 
-	
+	<td><input type="search" name="filter" id="filter" size="10" value="<?php
+
 	if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber']) ) {
 		echo html(implode(' ', $_SESSION['filter_subscriber']));
 	}
-	
+
 	?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
 	<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
 
@@ -293,29 +288,29 @@ if($_userInfo['pages_total'] > 1) {
 
 	</tr>
 </table>
-<?php 
+<?php
 
 // set filter select by channel
-if($_userInfo['list_channel']) { 
+if($_userInfo['list_channel']) {
 
-	
-	
+
+
 	$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
 
 	if($_userInfo['subscriptions']) {
-	
+
 		$_userInfo['select_subscr'] = '';
-			
+
 		foreach($_userInfo['subscriptions'] as $value) {
-		
+
 			$_userInfo['select_subscr'] .= '		<tr>
 				<td><input type="checkbox" name="subscribe_select['.$value['subscription_id'].
 				']" id="subscribe_select'.$value['subscription_id'].'" value="'.$value['subscription_id'].'"';
-			
-			if(!empty($_userInfo['channel'][$value['subscription_id']]) && $_userInfo['channel'][$value['subscription_id']]==$value['subscription_id']) {				
+
+			if(!empty($_userInfo['channel'][$value['subscription_id']]) && $_userInfo['channel'][$value['subscription_id']]==$value['subscription_id']) {
 				$_userInfo['select_subscr'] .= ' checked="checked"';
 			}
-			
+
 			$_userInfo['select_subscr'] .= ' /></td>
 				<td><label for="subscribe_select'.$value['subscription_id'].'">'.
 				html($value['subscription_name']).
@@ -323,7 +318,7 @@ if($_userInfo['list_channel']) {
 			</tr>
 			';
 		}
-		
+
 		if($_userInfo['select_subscr']) {
 
 			echo '<div id="channelSelect">'.LF;
@@ -334,24 +329,24 @@ if($_userInfo['list_channel']) {
 			echo '</div>';
 
 		}
-	
+
 	}
 
 
-	
+
 
 }
 
 ?>
 </form>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-		
+
 	<tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 	<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
 <?php
 // loop listing available newsletters
-$row_count = 0;                
+$row_count = 0;
 
 $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_address".$_userInfo['where_query']." ";
 $sql .= "LIMIT ".(($_SESSION['subscriber_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
@@ -361,27 +356,27 @@ foreach($data as $row) {
 
 	// mark selected channel
 	if($_userInfo['channel'] !== false) {
-	
+
 		$_userInfo['channel_select'] = ' class="inactive"';
-	
+
 		$row['channel'] = unserialize($row['address_subscription']);
 		if(is_array($row['channel']) && count($row['channel'])) {
-		
+
 			foreach($row['channel'] as $channel) {
-			
+
 				if(isset($_userInfo['channel'][$channel])) {
 					$_userInfo['channel_select'] = '';
 					break;
 				}
-			
+
 			}
-	
+
 		}
 
 	} else {
-	
+
 		$_userInfo['channel_select'] = '';
-	
+
 	}
 
 	$row["address_email"] = html($row["address_email"]);
@@ -390,15 +385,15 @@ foreach($data as $row) {
 	echo '<td width="1%" class="dir">&nbsp;<strong>'.$row["address_email"]."</strong></td>\n";
 	echo '<td class="dir" width="95%">&nbsp;'.html($row["address_name"])."</td>\n";
 	echo '<td align="right" nowrap="nowrap" class="button_td">';
-	
-	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1">';		
+
+	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1">';
 	echo '<img src="img/button/edit_22x13.gif" border="0" alt=""></a>';
-	
+
 	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;verify=';
 	echo ($row["address_verified"]) ? '0' : '1';
-	echo '" title="set '.$row["address_email"].' verified/not verified">';		
+	echo '" title="set '.$row["address_email"].' verified/not verified">';
 	echo '<img src="img/button/aktiv_12x13_'.$row["address_verified"].'.gif" border="0" alt=""></a>';
-	
+
 	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"];
 	echo '" title="delete: '.$row["address_email"].'"';
 	echo ' onclick="return confirm(\'Delete subscriber '.js_singlequote($row["address_email"]).'\');">';

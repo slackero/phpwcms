@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -369,7 +369,7 @@ $BL['be_admin_struct_hide1']            = 'Ocultar';
 $BL['be_admin_struct_hide2']            = 'aquesta categoria al men&uacute; de navegaci&oacute;';
 $BL['be_admin_struct_info']             = 'Informaci&oacute; sobre la categoria';
 $BL['be_admin_struct_template']         = 'Plantilla';
-$BL['be_admin_struct_alias']            = 'Àlias de la categoria';
+$BL['be_admin_struct_alias']            = 'Ã€lias de la categoria';
 $BL['be_admin_struct_visible']          = 'Visible';
 $BL['be_admin_struct_button']           = 'Introduir informaci&oacute; de la categora';
 $BL['be_admin_struct_close']            = 'Cancel&middot;lar';
@@ -663,7 +663,7 @@ $BL['be_cnt_ecardtext']                 = 'T&iacute;tol/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'tmpl correu';
 $BL['be_cnt_ecard_image']               = 'Imatge e-card';
 $BL['be_cnt_ecard_title']               = 'T&iacute;tol e-card';
-$BL['be_cnt_alignment']                 = 'Alineació';
+$BL['be_cnt_alignment']                 = 'AlineaciÃ³';
 $BL['be_cnt_ecardform']                 = 'tmpl formulari';
 $BL['be_cnt_ecardform_err']             = 'Els camps marcats * son obligatoris';
 $BL['be_cnt_ecardform_sender']          = 'Remitent';
@@ -689,7 +689,7 @@ $BL['be_cnt_guestbook_signed']			= 'Firmat';
 $BL['be_cnt_guestbook_nav']				= 'Navegaci&oacute;';
 $BL['be_cnt_guestbook_before']			= 'Abans';
 $BL['be_cnt_guestbook_after']			= 'Despr&eacute;s';
-$BL['be_cnt_guestbook_entry']			= 'Annotació';
+$BL['be_cnt_guestbook_entry']			= 'AnnotaciÃ³';
 $BL['be_cnt_guestbook_edit']			= 'Edita';
 $BL['be_cnt_ecardform_selector']        = 'Selector';
 $BL['be_cnt_ecardform_radiobutton']     = 'But&oacute; de radio';
@@ -717,8 +717,8 @@ $BL['be_newsletter_verifypage']         = 'Comprovar enlla&ccedil;';
 $BL['be_newsletter_open']               = 'Entra HTML i TEXT';
 $BL['be_newsletter_open1']              = '(clicar sobre la imatge per obrir-la)';
 $BL['be_newsletter_sendnow']            = 'Enviar butllet&iacute;';
-$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Atenci&oacute;!</strong> Enviar un butllet&iacute; a nombrosos destinataris és molt arriscat. Cal que comproveu abans els destinataris o possiblement estareu envian \'spam\'. Penseu-vos-ho b&eacute; abans d\'enviar el butllet&iacute; i envieu primer una prova.';
-$BL['be_newsletter_attention1']         = 'Si heu fet canvis en las dades d\'aquest butllet&iacute;, cal que primer les deseu o no s\'aplicaran els canvis.'; 
+$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Atenci&oacute;!</strong> Enviar un butllet&iacute; a nombrosos destinataris Ã©s molt arriscat. Cal que comproveu abans els destinataris o possiblement estareu envian \'spam\'. Penseu-vos-ho b&eacute; abans d\'enviar el butllet&iacute; i envieu primer una prova.';
+$BL['be_newsletter_attention1']         = 'Si heu fet canvis en las dades d\'aquest butllet&iacute;, cal que primer les deseu o no s\'aplicaran els canvis.';
 $BL['be_newsletter_testemail']          = 'Comprovar adre&ccedil;a';
 $BL['be_newsletter_sendnlbutton']       = 'Enviar butllet&iacute;';
 $BL['be_newsletter_sendprocess']        = 'Proc&eacute;s d\'enviar';
@@ -803,7 +803,7 @@ $BL['be_newsletter_csverror']           = 'El fitxer CSV importat sembla incorre
 $BL['be_newsletter_importall']          = 'Importar tots el registres';
 $BL['be_newsletter_addressesadded']     = 'Adreces afegides.';
 $BL['be_newsletter_newimport']          = 'Nova importaci&oacute;';
-$BL['be_newsletter_importerror']        = 'Verifiqueu el fitxer CSV - no es pot afegir cap adreça!';
+$BL['be_newsletter_importerror']        = 'Verifiqueu el fitxer CSV - no es pot afegir cap adreÃ§a!';
 $BL['be_newsletter_shouldbe1']          = 'El fitxer CSV hauria de tenir aquest format';
 $BL['be_newsletter_shouldbe2']          = 'per&ograve; podeu escollir un delimitador personalitzat.';
 $BL['be_newsletter_sample']             = 'mostra';
@@ -820,6 +820,3 @@ $BL['be_admin_struct_orderdesc']        = 'Descendent';
 $BL['be_admin_struct_orderasc']         = 'Ascendent';
 $BL['be_admin_struct_ordermanual']      = 'Manual (fletxa amunt/avall)';
 $BL['be_cnt_sitemap_startid']           = 'Comen&ccedil;ant per';
-
-
-?>

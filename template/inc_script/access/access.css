@@ -5,7 +5,6 @@
 
 }
 
-
 #accessOverlay {
 	position: absolute;
 	left: 0;
@@ -18,7 +17,6 @@
 	overflow: hidden;
 	z-index: 5000;
 }
-
 
 div.agree {
 	border: 1px solid #000000;

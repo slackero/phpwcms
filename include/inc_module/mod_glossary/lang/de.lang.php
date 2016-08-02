@@ -18,6 +18,3 @@ $BLM['max_words']				= 'max. Anzahl Worte aus der Beschreibung';
 $BLM['no_entry']				= 'Kein Eintrag gefunden Text';
 $BLM['highlight']				= 'Highlight';
 $BLM['highlight_descr']			= 'Glossarschl&uuml;ssel im Frontend verschlagworten';
-
-
-?>

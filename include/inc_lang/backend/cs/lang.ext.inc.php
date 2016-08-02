@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,57 +18,29 @@
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-/*
-$BL['FOLDER_LIST']       = 'seznam složek';
-$BL['FILES']             = 'soubory';
-$BL['SHOW_FILES']        = 'uk&aacute;&#382; s&uacute;bory vo vn&uacute;tri root adres&aacute;ra';
-$BL['SHOW_FILES1']       = 'uk&aacute;&#382; s&uacute;bory vo vn&uacute;tri adres&aacute;ra';
-$BL['TAKE_IMAGE']        = 'zober tento s&uacute;bor a pridaj&#8230;';
-$BL['NO_FILE']           = '&#382;iadny s&uacute;bor';
-$BL['OPEN_DIR']          = 'otvor adres&aacute;r';
-$BL['CLOSE_DIR']         = 'zavri adres&aacute;r';
-$BL['FILE_TITLE']        = 'phpwcms prehliada&#269; s&uacute;borov';
-$BL['IMAGE_TITLE']       = 'phpwcms prehliada&#269; obr&aacute;zkov';
-$BL['MEDIA_TITLE']       = 'phpwcms prehliada&#269; medi&aacute;l. s&uacute;b.';
-$BL['IMAGE_FILES']       = 'obr&aacute;zky';
-$BL['MEDIA_FILES']       = 'multim&eacute;di&aacute;';
-$BL['ROOT_DIR']          = 'Skladisko (root adres&aacute;r)';
-$BL['DOWNLOAD_ERR1']     = 'Nastala chyba (NR:{VAL}) po&#269;as pokusu stihn&uacute;&#357; s&uacute;bor.';
-$BL['DOWNLOAD_ERR2']     = 'Ak si mysl&iacute;te, &#382;e je toto technický probl&eacute;m, po&scaron;lite email na <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
-$BL['DOWNLOAD_TITLE']    = 'Chyba pri s&#357;ahovan&iacute; s&uacute;boru';
-$BL['FILEINFO_TITLE']    = 'phpwcms: s&uacute;borov&eacute; info';
-$BL['CREATED']           = 'vytvoren&eacute;';
-$BL['DATE_FORMAT']       = 'm-d-Y H:i';
-$BL['SIZE']              = 've&#318;kos&#357;';
-$BL['DOWNLOAD_FILE']     = 'stiahn&uacute;&#357; s&uacute;bor';
-$BL['FILE_IN_TRASH']     = 's&uacute;bor je v ko&scaron;i';
-$BL['KEYWORDS']          = 'kl&uacute;&#269;. slov&aacute;';
-$BL['DOWNLOAD_ERR3']     = 'chyba pri &#269;&iacute;tan&iacute; s&uacute;borov&eacute;ho info<br />zavrite okno a sk&uacute;ste znovu...';
-*/
-$BL['FOLDER_LIST'] = 'seznam složek';
+$BL['FOLDER_LIST'] = 'seznam sloÂžek';
 $BL['FILES'] = 'soubory';
-$BL['SHOW_FILES'] = 'ukaž soubory uvnitø root adresáøe';
-$BL['SHOW_FILES1'] = 'ukaž soubory uvnitø adresáøe';
-$BL['TAKE_IMAGE'] = 'vezmi tento soubor a pøidej…';
-$BL['NO_FILE'] = 'žádný soubor';
-$BL['OPEN_DIR'] = 'otevøi adresáø';
-$BL['CLOSE_DIR'] = 'zavøi adresáø';
-$BL['FILE_TITLE'] = 'phpwcms prohlížeè souborov';
-$BL['IMAGE_TITLE'] = 'phpwcms prohlížeè obrázkù';
-$BL['MEDIA_TITLE'] = 'phpwcms prohlížeè mediál. soub.';
-$BL['IMAGE_FILES'] = 'obrázky';
-$BL['MEDIA_FILES'] = 'multimédia';
-$BL['ROOT_DIR'] = 'Skladištì (root adresáø)';
-$BL['DOWNLOAD_ERR1'] = 'Nastala chyba (NR:{VAL}) pøi pokusu o stáhnutí souboru.';
-$BL['DOWNLOAD_ERR2'] = 'Pokud si myslíte, že je toto technický problém, pošlete email <a href="mailto:{VAL}"><strong>webmastrovi</strong></a>.';
-$BL['DOWNLOAD_TITLE'] = 'Chyba pøi stahování souboru';
-$BL['FILEINFO_TITLE'] = 'phpwcms: souborové info';
-$BL['CREATED'] = 'vytvoøeno';
+$BL['SHOW_FILES'] = 'ukaÂž soubory uvnitÃ¸ root adresÃ¡Ã¸e';
+$BL['SHOW_FILES1'] = 'ukaÂž soubory uvnitÃ¸ adresÃ¡Ã¸e';
+$BL['TAKE_IMAGE'] = 'vezmi tento soubor a pÃ¸idejÂ…';
+$BL['NO_FILE'] = 'ÂžÃ¡dnÃ½ soubor';
+$BL['OPEN_DIR'] = 'otevÃ¸i adresÃ¡Ã¸';
+$BL['CLOSE_DIR'] = 'zavÃ¸i adresÃ¡Ã¸';
+$BL['FILE_TITLE'] = 'phpwcms prohlÃ­ÂžeÃ¨ souborov';
+$BL['IMAGE_TITLE'] = 'phpwcms prohlÃ­ÂžeÃ¨ obrÃ¡zkÃ¹';
+$BL['MEDIA_TITLE'] = 'phpwcms prohlÃ­ÂžeÃ¨ mediÃ¡l. soub.';
+$BL['IMAGE_FILES'] = 'obrÃ¡zky';
+$BL['MEDIA_FILES'] = 'multimÃ©dia';
+$BL['ROOT_DIR'] = 'SkladiÂštÃ¬ (root adresÃ¡Ã¸)';
+$BL['DOWNLOAD_ERR1'] = 'Nastala chyba (NR:{VAL}) pÃ¸i pokusu o stÃ¡hnutÃ­ souboru.';
+$BL['DOWNLOAD_ERR2'] = 'Pokud si myslÃ­te, Âže je toto technickÃ½ problÃ©m, poÂšlete email <a href="mailto:{VAL}"><strong>webmastrovi</strong></a>.';
+$BL['DOWNLOAD_TITLE'] = 'Chyba pÃ¸i stahovÃ¡nÃ­ souboru';
+$BL['FILEINFO_TITLE'] = 'phpwcms: souborovÃ© info';
+$BL['CREATED'] = 'vytvoÃ¸eno';
 $BL['DATE_FORMAT'] = 'm-d-Y H:i';
 $BL['SIZE'] = 'velikost';
-$BL['DOWNLOAD_FILE'] = 'stáhnout soubor';
-$BL['FILE_IN_TRASH'] = 'soubor je v koši';
-$BL['KEYWORDS'] = 'klíè. slova';
-$BL['DOWNLOAD_ERR3'] = 'chyba pøi naèítání informace o souboru<br />zavøete okno a zkuste to znovu...';
+$BL['DOWNLOAD_FILE'] = 'stÃ¡hnout soubor';
+$BL['FILE_IN_TRASH'] = 'soubor je v koÂši';
+$BL['KEYWORDS'] = 'klÃ­Ã¨. slova';
+$BL['DOWNLOAD_ERR3'] = 'chyba pÃ¸i naÃ¨Ã­tÃ¡nÃ­ informace o souboru<br />zavÃ¸ete okno a zkuste to znovu...';
 
-?>

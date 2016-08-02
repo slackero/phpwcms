@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //$no_durchlauf = 0; //Definieren der Durchlauf-Variable
 $files_folder = (isset($_GET["f"])) ? intval($_GET["f"]) : 0; //Ermitteln, welcher Unterreiter angezeigt wird
 
-//Wenn Cut/Paste für Seite Aktiv, dann
+//Wenn Cut/Paste fï¿½r Seite Aktiv, dann
 $add_paste_icon = '<a href="phpwcms.php?do=files&f=0&mkdir=0" title="'.$BL['be_ftab_createnew'].
 				  '"><img src="img/button/add_13x13.gif" border="0"></a>';
 if(isset($_GET["cut"])) { 

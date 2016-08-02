@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -729,7 +729,7 @@ $BL['be_newsletter_open']               = 'HTML in TEXT vsebina';
 $BL['be_newsletter_open1']              = '(kliknite na sličico)';
 $BL['be_newsletter_sendnow']            = 'Pošlji e-časopis';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Pozor!</strong> Pošiljanje e-časopisa je lahko zelo sporno. Naročniki morajo biti potrjeni, drugače boste pošiljali nezaželeno pošto (spam)! Premislite preden pošiljate e-časopis. Preden ga pošljete vsem, ga preverite s testnim pošiljanjem!';
-$BL['be_newsletter_attention1']         = 'Če ste zgornji e-časopis spremenili, ga prvo shranite, drugače spremembe ne bodo uporabljene!'; 
+$BL['be_newsletter_attention1']         = 'Če ste zgornji e-časopis spremenili, ga prvo shranite, drugače spremembe ne bodo uporabljene!';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'pošlji e-časopis';
 $BL['be_newsletter_sendprocess']        = 'proces pošiljanja';
@@ -921,10 +921,10 @@ $BL['be_cnt_css_style']                 = 'css stil';
 $BL['be_cnt_css_class']                 = 'css razred';
 $BL['be_cnt_send_copy_to']              = 'kopiraj v';
 
-$BL['be_cnt_field']           = array("text"=>'besedilo (1 vrstica)', "email"=>'email', "textarea"=>'besedilo (več vrstic)', 
-                        "hidden"=>'skrito polje', "password"=>'geslo', "select"=>'izbirni meni', 
-                        "list"=>'seznam', "checkbox"=>'potrditveno polje', "radio"=>'izbirni gumb', 
-                        "upload"=>'datoteka', "submit"=>'gumb za pošiljanje', "reset"=>'gumb za resetiranje', 
+$BL['be_cnt_field']           = array("text"=>'besedilo (1 vrstica)', "email"=>'email', "textarea"=>'besedilo (več vrstic)',
+                        "hidden"=>'skrito polje', "password"=>'geslo', "select"=>'izbirni meni',
+                        "list"=>'seznam', "checkbox"=>'potrditveno polje', "radio"=>'izbirni gumb',
+                        "upload"=>'datoteka', "submit"=>'gumb za pošiljanje', "reset"=>'gumb za resetiranje',
                         "break"=>'prekinitev', "breaktext"=>'prekinitveno besedilo', "special"=>'besedilo (specialno)',
                         "captchaimg"=>'captcha slika', "captcha"=>'captcha polje', 'newsletter'=>'e-časopis');
 
@@ -979,7 +979,7 @@ $BL['be_file_replace']                  = 'prepiši enako poimenovane datoteke?'
 $BL['be_alias_articleID']               = 'alias ID';
 $BL['be_alias_useAll']                  = "uporabi podatke za glavo iz originalnega članka";
 $BL['be_article_morelink']              = 'povezava [več&#8230;]';
-$BL['be_admin_tmpl_copy']               = 'kopiraj predlogo'; 
+$BL['be_admin_tmpl_copy']               = 'kopiraj predlogo';
 
 // NEZNAN
 $BL['be_ctype_filelist1']                = 'file list pro';
@@ -1025,12 +1025,12 @@ $BL['be_cnt_sysadmin_system']           = 'sistem';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']               = 'Nameščeno imate zadnjo verzijo phpwcms-ja. Na voljo ni nobene posodobitve.';
-$BL['Version_not_up_to_date']           = 'Vaša namestitev <strong>ni</strong> posodobljena. Na voljo so posodobitve - obiščite <a href="http://www.phpwcms.de/forum/viewtopic.php?t=11933" target="_blank">http://www.phpwcms.de/forum</a>.';
+$BL['Version_not_up_to_date']           = 'Vaša namestitev <strong>ni</strong> posodobljena. Na voljo so posodobitve - obiščite <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a>.';
 $BL['Latest_version_info']              = 'Zadnja verzija je: <b>phpwcms %s</b>.';
 $BL['Current_version_info']             = 'Nameščeno imate: <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']             = 'Ne morem odpreti povezave do phpwcms strežnika - napaka:<br />%s';
 $BL['Socket_functions_disabled']        = 'Ne morem uporaviti "socket" funkcije.';
-$BL['Mailing_list_subscribe_reminder']  = 'Za prejemanje informacij o zadnjih verzijah phpwcms-ja se lahko prijavite <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">tukaj</a>.';
+$BL['Mailing_list_subscribe_reminder']  = 'Za prejemanje informacij o zadnjih verzijah phpwcms-ja se lahko prijavite <a href="http://eepurl.com/bm-BrH" target="_blank">tukaj</a>.';
 $BL['Version_information']              = 'informacije o verziji phpwcms-ja';
 
 $BL['be_cnt_search_highlight']          = 'poudari zadetek';
@@ -1110,7 +1110,7 @@ $BL['be_ctype_module']                  = 'plug-in';
 
 // 1.3.5 - preview
 $BL['be_longdatetime'] = "d.m.Y H:i:s";
-$BL['be_cnt_lightbox'] = "lightbox efekt";
+$BL['be_cnt_lightbox'] = "galerija slik";
 $BL['be_cnt_behavior'] = "obnašanje";
 $BL['be_cnt_imglist_nocaption'] = "skrij podpis k sličici";
 $BL['be_ctype_felogin'] = "prijava v sistem";
@@ -1223,4 +1223,3 @@ $BL['be_gallery_directory'] = "poddirektorij galerije";
 $BL['be_gallery'] = "galerija";
 
 $BL['be_sort_date'] = "uredi po datumu";
-?>

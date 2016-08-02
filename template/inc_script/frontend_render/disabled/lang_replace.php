@@ -43,5 +43,3 @@ foreach($phpwcms['allowed_lang'] as $lang) {
 
 $content['all']			= preg_replace($language_regexp['search'], $language_regexp['replace'], $content['all']);
 $content["pagetitle"]	= preg_replace($language_regexp['search'], $language_regexp['replace'], $content["pagetitle"]);
-
-?>

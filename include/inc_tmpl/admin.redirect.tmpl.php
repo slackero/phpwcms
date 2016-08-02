@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -102,12 +102,11 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 			$_entry['query'] .= $_SESSION['redirect_filter'];
 		}
 
-	} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+	} elseif(isset($_SESSION['redirect_filter']) && is_string($_SESSION['redirect_filter'])) {
 
-		$_entry['query'] .= $_SESSION['filter'];
+		$_entry['query'] .= $_SESSION['redirect_filter'];
 
 	}
-
 
 	// paginating values
 	$_entry['count_total'] = _dbCount('SELECT COUNT(rid) FROM '.DB_PREPEND.'phpwcms_redirect WHERE '.$_entry['query']);
@@ -162,7 +161,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		}
 ?>
 				<td style="padding:0 10px 0 0;" class="nowrap">
-					<input type="text" name="filter" size="10" value="<?php	if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" class="width100" />
+					<input type="search" name="filter" size="10" value="<?php	if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" class="width100" />
 					<input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="vertical-align:middle;" />
 				</td>
 

@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -37,7 +37,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 	while($row = mysql_fetch_assoc($result)) {
 
 		echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"25\">";
-		echo '<img src="img/symbols/icon_minicategory1.gif" width="14" height="14" alt="" style="margin:4px;margin-left:5px;"></td>'."\n";
+		echo '<img src="img/symbols/icon_minicategory1.gif" width="14" height="14" alt="" style="margin:4px 4px 4px 5px;"></td>'."\n";
 		echo '<td width="473" class="dir"><a href="phpwcms.php?';
 		$tempQuery = build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$row["forum_id"]);
 		echo $tempQuery;
@@ -97,7 +97,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 		// update or insert data entry
 		mysql_query($sql, $db) or die("error while updating or inserting forum data");
 		if(!$forum["id"]) $forum["id"] = mysql_insert_id($db);
-		headerRedirect(PHPWCMS_URL.'phpwcms.php?'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
+		headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
 	}
 
 	if($forum["id"]) {
@@ -116,7 +116,7 @@ if($result = mysql_query($sql, $db) or die("error while listing forums")) {
 
 	// show form
 ?>
-<form action="phpwcms.php?<?php echo  build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$forum["id"]) ?>" method="post" name="forums" target="_self">
+<form action="phpwcms.php?<?php echo build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$forum["id"]) ?>" method="post" name="forums" target="_self">
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr>
 	  <td colspan="2" class="title"><?php echo  $BL['be_forum_titleedit'].": ".( $forum["id"] ? $forum["title"] : $BL['be_newsletter_new']); ?></td>

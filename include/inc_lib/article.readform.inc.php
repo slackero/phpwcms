@@ -2,21 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
-
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 // read content type form vars
 if($content["aid"] != intval($_POST["caid"])) {
@@ -100,16 +98,14 @@ $content["update_type"] = ($content["target_type"] != $content["type"]) ? 1 : 0;
 // read form vars for special content parts
 if($content["type"] != 30 && file_exists(PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php")) {
 	$content["module"]	= '';
-	include_once(PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php");
+	include_once PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php";
 
 } elseif($content["type"] == 30 && file_exists($phpwcms['modules'][$content['module']]['path'].'inc/cnt.post.php')) {
 
-	include_once($phpwcms['modules'][$content['module']]['path'].'inc/cnt.post.php');
+	include_once $phpwcms['modules'][$content['module']]['path'].'inc/cnt.post.php';
 
 } else {
 	$content["module"]	= '';
-	include_once(PHPWCMS_ROOT."/include/inc_lib/content/cnt0.readform.inc.php");
+	include_once PHPWCMS_ROOT."/include/inc_lib/content/cnt0.readform.inc.php";
 
 }
-
-?>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -210,6 +210,9 @@ $BL['be_fprivup_err3']                  = 'Fehler beim schreiben in den Speicher
 $BL['be_fprivup_err4']                  = 'Fehler beim Erstellen des Benutzerverzeichnisses.';
 $BL['be_fprivup_err5']                  = 'Keine Vorschau vorhanden';
 $BL['be_fprivup_err6']                  = 'Bitte nicht erneut versuchen! Dies ist ein Serverfehler! Setzen Sie sich unverz&uuml;glich mit Ihrem <a href="mailto:{VAL}">webmaster</a> in Verbindung!';
+$BL['be_fprivup_err7']                  = 'Datei %s darf aus Sicherheitsgr&uuml;nden nicht hochladen werden.';
+$BL['be_fprivup_err8']                  = 'Datei mit der Erweiterung %s darf nicht hochladen werden.<br />Zul&auml;ssig sind: %s.';
+$BL['be_fprivup_err9']                  = 'Datei ohne Erweiterung darf nicht hochladen werden.<br />Zul&auml;ssig sind: %s.';
 $BL['be_fprivup_title']                 = 'Datei hochladen';
 $BL['be_fprivup_button']                = 'Datei hochladen';
 $BL['be_fprivup_upload']                = 'Hochladen';
@@ -1034,12 +1037,12 @@ $BL['be_cnt_sysadmin_system']			= 'System';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date'] 				= 'Diese Installation ist auf dem neuesten Stand; es sind keine Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar.';
-$BL['Version_not_up_to_date'] 			= 'Diese Installation ist wahrscheinlich <b>nicht</b> auf dem neuesten Stand. Es sind Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar, bitte <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> besuchen, um die aktuellste Version zu erhalten.';
+$BL['Version_not_up_to_date'] 			= 'Diese Installation ist wahrscheinlich <b>nicht</b> auf dem neuesten Stand. Es sind Updates f&uuml;r diese Version von phpwcms verf&uuml;gbar, bitte <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> besuchen, um die aktuellste Version zu erhalten.';
 $BL['Latest_version_info'] 				= 'Die neueste offizielle Version ist <b>phpwcms %s</b>.';
 $BL['Current_version_info'] 			= 'Aktuell verwendete Version <b>phpwcms %s</b>.';
 $BL['Connect_socket_error'] 			= 'Die Verbindung zum phpwcms-Server konnte nicht aufgebaut werden. Es trat folgender Fehler auf:<br />%s';
 $BL['Socket_functions_disabled'] 		= 'Die Socket-Funktionen konnten nicht benutzt werden.';
-$BL['Mailing_list_subscribe_reminder'] 	= 'Um immer die neuesten Informationen zu Updates von phpwcms zu erhalten, wird empfohlen, sich bei der <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">phpwcms Mailingliste</a> anzumelden.';
+$BL['Mailing_list_subscribe_reminder'] 	= 'Um immer die neuesten Informationen zu Updates von phpwcms zu erhalten, wird empfohlen, sich bei der <a href="http://eepurl.com/bm-BrH" target="_blank">phpwcms Mailingliste</a> anzumelden.';
 $BL['Version_information'] 				= 'phpwcms Versionsinformation';
 
 $BL['be_cnt_search_highlight']			= 'Highlight';
@@ -1074,7 +1077,7 @@ $BL['be_cnt_filesize']					= 'Dateigr&ouml;&szlig;e';
 $BL['be_cnt_captchalength']				= 'L&auml;nge des Captcha Codes';
 $BL['be_cnt_chars']						= 'Zeichen';
 $BL['be_cnt_download']					= 'Download';
-$BL['be_cnt_download_direct']			= 'direkt';
+$BL['be_cnt_download_direct']			= 'direkt (nicht empfohlen!)';
 $BL['be_cnt_database']					= 'Datenbank';
 $BL['be_cnt_formsave_in_db']			= 'Formularergebnis speichern';
 
@@ -1118,7 +1121,7 @@ $BL['be_ctype']							= 'Contentpart';
 $BL['be_selection']						= 'Auswahl';
 
 $BL['be_ctype_module']					= 'Plug-in';
-$BL['be_cnt_lightbox']					= 'Lightbox';
+$BL['be_cnt_lightbox']					= 'Galeriebild';
 $BL['be_cnt_behavior']					= 'Verhalten';
 $BL['be_cnt_imglist_nocaption']			= 'Vorschaubilder ohne Bildunterzeile';
 
@@ -1171,7 +1174,7 @@ $BL['be_flashplayer_thumbnail']			= 'Vorschau';
 $BL['be_flashplayer_selectsize']		= 'Playergr&ouml;&szlig;e w&auml;hlen';
 $BL['be_flash_media']					= 'Flash';
 $BL['be_html5_media']					= 'HTML5';
-$BL['be_html5_h264']					= 'H.264 (MPEG 4)';
+$BL['be_html5_h264']					= 'MPEG/H.264';
 $BL['be_html5_webm']					= 'WebM';
 $BL['be_html5_ogg']						= 'Ogg';
 $BL['be_media_format']					= 'Format';
@@ -1234,9 +1237,9 @@ $BL['be_random']						= 'zuf&auml;llig';
 $BL['be_sorted']						= 'sortiert';
 $BL['be_granted_download']				= 'gesch&uuml;tzter Download im Frontend';
 $BL['be_granted_feuser']				= 'nur f&uuml;r angemeldete Frontend Benutzer';
-$BL['be_fileuploader_typeError']		= "{file} hat eine nicht zul&auml;ssige Erweiterung. Zul&auml;ssig: {extensions}";
-$BL['be_fileuploader_sizeError']		= "{file} ist zu groß, Dateigr&ouml;&szlig;e maximal {sizeLimit}.";
-$BL['be_fileuploader_minSizeError']		= "{file} ist zu klein, Dateigr&ouml;ße mindestens {minSizeLimit}.";
+$BL['be_fileuploader_typeError']		= "{file} hat eine nicht zulässige Erweiterung. Zulässig: {extensions}";
+$BL['be_fileuploader_sizeError']		= "{file} ist zu groß, Dateigröße maximal {sizeLimit}.";
+$BL['be_fileuploader_minSizeError']		= "{file} ist zu klein, Dateigröße mindestens {minSizeLimit}.";
 $BL['be_fileuploader_emptyError']		= "{file} ist leer. Diese Datei bitte auslassen.";
 $BL['be_fileuploader_noFilesError']		= "Keine Dateien zum Hochladen.";
 $BL['be_fileuploader_onLeave']			= "Das Hochladen l&auml;uft gerade. Wenn Sie jetzt beenden, wird das Hochladen abgebrochen.";
@@ -1378,5 +1381,45 @@ $BL['be_audio_only']					= 'nur Audio';
 $BL['be_filter']						= 'Filter';
 $BL['be_filter_with_tags']				= 'nach Schlagwort';
 $BL['be_filter_not_selected']			= 'Keine Kategorie ausgew&auml;hlt';
+$BL['be_empty_search_result']			= 'Die Suche lieferte ein leeres Ergebnis.';
+$BL['confirm_cp_tab_warning']			= 'Der gewählte Abschnitt ist unbenannt und auch keiner Nummer zugeordnet. Beim Speichen bzw. Aktualisieren geht die Auswahl verloren.';
 
-?>
+$BL['be_canonical']						= 'Canonical Link';
+$BL['be_breadcrumb']					= 'Breadcrumb Anzeigeverhalten';
+$BL['be_breadcrumb_nothidden']			= 'sichtbar, wenn Seitenebene versteckt';
+$BL['be_breadcrumb_nolink']				= 'nicht verlinken';
+
+$BL['CSRF_POST_INVALID'] = 'Keine POST <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fparamter gefunden. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_POST_FAILED'] = 'Die POST <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_GET_INVALID'] = 'Keine GET <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fparamter gefunden. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_GET_FAILED'] = 'Die GET <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+
+$BL['be_parental_alias'] = 'Eltern-Alias';
+$BL['be_fsearch_nor'] = 'KEINES';
+$BL['be_tab_toggle'] = 'Reiter aus- bzw. einklappen';
+$BL['be_custom_textfield'] = 'Freitext';
+$BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die Freitextfelder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
+
+$BL['be_onepage_id'] = 'OnePage ID (#Anker) Unterst&uuml;tzung';
+$BL['be_onepage_template'] = 'Als OnePage Vorlage behandeln';
+$BL['be_yes'] = 'Ja';
+$BL['be_no'] = 'Nein';
+$BL['be_attr_title'] = 'Titel (Attribut)';
+$BL['be_attr_alt'] = 'Alternativer Text';
+$BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren';
+$BL['be_cookie_consent_enable'] = 'Cookie Consent Plugin aktivieren';
+$BL['be_cookie_consent_message'] = 'Zustimmungstext';
+$BL['cookie_consent_message'] = 'Diese Website benutzt Cookies, um eine umfassende Darstellung sowie die Funktionalit&auml;t der Webseite sicherzustellen';
+$BL['be_cookie_consent_dismiss'] = 'Best&auml;tigungs-Button';
+$BL['cookie_consent_dismiss'] = 'Verstanden!';
+$BL['be_cookie_consent_more'] = 'Infolink-Button';
+$BL['cookie_consent_more'] = 'Weitere Informationen';
+$BL['be_cookie_consent_link'] = 'Cookie-Policy URL/Alias';
+$BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
+$BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
+$BL['be_piwik_enable'] = 'Piwik benutzen';
+$BL['be_tracking_anonymize'] = 'IP anonymisieren';
+$BL['be_tracking_id'] = 'Tracking-ID';
+$BL['be_site_id'] = 'Site-ID';
+$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';

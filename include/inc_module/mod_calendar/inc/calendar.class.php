@@ -38,7 +38,7 @@ class phpwcmsCalendar {
 		11	=> 'November',
 		12	=> 'December'
 	);
-	var $no_calendar_item_found	= 'No date found for current calendar search. <a href="{CALENDAR_RESET}" title="Reset">Reset</a>';
+	var $no_calendar_item_found	= '@@No date found for current calendar search.@@ <a href="{CALENDAR_RESET}" title="@@Reset@@">@@Reset@@</a>';
 	var $template				= '';
 	var $expired				= '';
 	var $expired_date			= 'END';
@@ -79,7 +79,7 @@ class phpwcmsCalendar {
 	}
 
 	function defaultTemplate() {
-		$this->template  = '<div class="calendar-item[TEXT] calendar-item-has-text[/TEXT]">'.LF;
+		$this->template  = '<div class="calendar-item-{ID}[TEXT] calendar-item-has-text[/TEXT]">'.LF;
 		$this->template .= '	<p class="calendar-list-date">'.LF;
 		$this->template .= '		[RANGEDATE]{STARTDATE:m/d}-{ENDDATE:m/d/Y}[/RANGEDATE][RANGEDATE_ELSE]{STARTDATE:m/d/Y}[/RANGEDATE_ELSE][ALLDAY_ELSE], {STARTDATE:H:i}[/ALLDAY_ELSE][TYPE],'.LF;
 		$this->template .= '		<span class="calendar-list-type">{TYPE}</span>[/TYPE]'.LF;
@@ -203,7 +203,7 @@ class phpwcmsCalendar {
 				$date['calendar_teaser'] = plaintext_htmlencode($date['calendar_teaser']);
 			}
 
-			$items[$itemgroup][$key] = $this->template;
+			$items[$itemgroup][$key] = str_replace('{ID}', $date['calendar_id'], $this->template);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'HREF', $href);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'URL', $url);
 			$items[$itemgroup][$key] = render_cnt_template($items[$itemgroup][$key], 'TARGET', $target);
@@ -225,7 +225,7 @@ class phpwcmsCalendar {
 		}
 
 		if(!count($items['default']) && !count($items['top']) && !count($items['bottom'])) {
-			$items['default'][] = str_replace('{CALENDAR_RESET}', $this->resetCalendarLink(), $this->no_calendar_item_found);
+			return str_replace('{CALENDAR_RESET}', $this->resetCalendarLink(), $this->no_calendar_item_found);
 		} elseif($this->expired && count($items[$this->expired])) {
 			array_unshift($items[$this->expired], $this->expired_prefix);
 			$items[$this->expired][] = $this->expired_suffix;
@@ -414,7 +414,7 @@ class phpwcmsCalendar {
 		if(!empty($match['date_end'])) {
 			$match['date_end'] = strtoupper(trim($match['date_end']));
 			if(is_intval($match['date_end'])) {
-				$this->date_end = ceil($this->date_start + ($match['date_end'] * 24 * 3600));
+				$this->date_end = ceil((int)$this->date_start + ((int)$match['date_end'] * 24 * 3600));
 
 				// Get Seconds of this day and match against 23:59:59
 				$today_hours	= date('G', $this->date_end) * 3600;
@@ -726,6 +726,3 @@ class phpwcmsCalendar {
 	}
 
 }
-
-
-?>

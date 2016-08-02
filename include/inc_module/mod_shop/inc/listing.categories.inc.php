@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <oliver@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -37,12 +37,12 @@ if(isset($_POST['do_pagination'])) {
 	$_SESSION['list_active']	= empty($_POST['showactive']) ? 0 : 1;
 	$_SESSION['list_inactive']	= empty($_POST['showinactive']) ? 0 : 1;
 
-	$_SESSION['filter']			= clean_slweg($_POST['filter']);
-	if(empty($_SESSION['filter'])) {
-		unset($_SESSION['filter']);
+	$_SESSION['filter_shop_category'] = clean_slweg($_POST['filter']);
+	if(empty($_SESSION['filter_shop_category'])) {
+		unset($_SESSION['filter_shop_category']);
 	} else {
-		$_SESSION['filter']	= convertStringToArray($_SESSION['filter'], ' ');
-		$_POST['filter']	= $_SESSION['filter'];
+		$_SESSION['filter_shop_category'] = convertStringToArray($_SESSION['filter_shop_category'], ' ');
+		$_POST['filter'] = $_SESSION['filter_shop_category'];
 	}
 
 	$_SESSION['detail_page'] = intval($_POST['page']);
@@ -72,25 +72,25 @@ if($_entry['list_active'] != $_entry['list_inactive']) {
 }
 $_entry['query'] .= " AND cat_type='module_shop'";
 
-if(isset($_SESSION['filter']) && is_array($_SESSION['filter']) && count($_SESSION['filter'])) {
+if(isset($_SESSION['filter_shop_category']) && is_array($_SESSION['filter_shop_category']) && count($_SESSION['filter_shop_category'])) {
 
 	$_entry['filter_array'] = array();
 
-	foreach($_SESSION['filter'] as $_entry['filter']) {
+	foreach($_SESSION['filter_shop_category'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
 		$_entry['filter_array'][] = "cat_name LIKE '%".aporeplace($_entry['filter'])."%'";
 		$_entry['filter_array'][] = "cat_info LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
 
-		$_SESSION['filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
-		$_entry['query'] .= $_SESSION['filter'];
+		$_SESSION['filter_shop_category'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
+		$_entry['query'] .= $_SESSION['filter_shop_category'];
 
 	}
 
-} elseif(isset($_SESSION['filter']) && is_string($_SESSION['filter'])) {
+} elseif(isset($_SESSION['filter_shop_category']) && is_string($_SESSION['filter_shop_category'])) {
 
-	$_entry['query'] .= $_SESSION['filter'];
+	$_entry['query'] .= $_SESSION['filter_shop_category'];
 
 }
 
@@ -153,10 +153,10 @@ if($_entry['pages_total'] > 1) {
 
 }
 ?>
-				<td><input type="text" name="filter" id="filter" size="10" value="<?php
+				<td><input type="search" name="filter" id="filter" size="10" value="<?php
 
 				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html(implode(' ', $_POST['filter']));
+					echo html_specialchars(implode(' ', $_POST['filter']));
 				}
 
 				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
@@ -201,51 +201,53 @@ $_controller_link =  shop_url('controller=cat');
 
 if(isset($data[0]['cat_id'])) {
 
-foreach($data as $row) {
+	foreach($data as $row) {
 
-	echo '<tr';
-	if($row_count % 2) echo ' bgcolor="#F3F5F8"';
-	if(!$row['cat_pid']) echo " onmouseover=\"Tip('" . $BL['be_admin_page_category'] . " ID: <b>" .$row["cat_id"]. "</b><br />".$BL['be_cnt_sorting'].": <b>".$row["cat_sort"]."</b>');\"";
-	echo '>'.LF;
+		echo '<tr';
+		if($row_count % 2) echo ' bgcolor="#F3F5F8"';
+		if(!$row['cat_pid']) echo " onmouseover=\"Tip('" . $BL['be_admin_page_category'] . " ID: <b>" .$row["cat_id"]. "</b><br />".$BL['be_cnt_sorting'].": <b>".$row["cat_sort"]."</b>');\"";
+		echo '>'.LF;
 
-	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
-	echo '<img src="img/famfamfam/tag_';
-	echo $row['cat_pid'] ? 'orange' : 'blue';
-	echo '.gif" alt="'.$BLM['shop_category'].'" /></td>'.LF;
+		echo '<td width="25" style="padding:2px 3px 2px 4px;">';
+		echo '<img src="img/famfamfam/tag_';
+		echo $row['cat_pid'] ? 'orange' : 'blue';
+		echo '.gif" alt="'.$BLM['shop_category'].'" /></td>'.LF;
 
-	echo '<td class="dir" width="85%">';
-	echo $row['cat_pid'] ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '&nbsp;';
-	echo html($row['category'])."</td>\n";
+		echo '<td class="dir" width="85%">';
+		echo $row['cat_pid'] ? '&nbsp;&nbsp;&nbsp;&nbsp;' : '&nbsp;';
+		echo html_specialchars($row['category'])."</td>\n";
 
-	echo '<td class="dir" width="3%" align="center">&nbsp;' . $row['cat_sort'] . '&nbsp;</td>';
+		echo '<td class="dir" width="3%" align="center">&nbsp;' . $row['cat_sort'] . '&nbsp;</td>';
 
 
-	echo '<td width="10%" align="right" nowrap="nowrap" class="button_td">';
+		echo '<td width="10%" align="right" nowrap="nowrap" class="button_td">';
 
-		echo '<a href="'.$_controller_link.'&amp;edit='.$row["cat_id"].'">';
-		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
+			echo '<a href="'.$_controller_link.'&amp;edit='.$row["cat_id"].'">';
+			echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
 
-		echo '<a href="'.$_controller_link.'&amp;status=' . $row["cat_id"] . '-' . $row["cat_status"] .'">';
-		echo '<img src="img/button/aktiv_12x13_'.$row["cat_status"].'.gif" border="0" alt="" /></a>';
+			echo '<a href="'.$_controller_link.'&amp;status=' . $row["cat_id"] . '-' . $row["cat_status"] .'">';
+			echo '<img src="img/button/aktiv_12x13_'.$row["cat_status"].'.gif" border="0" alt="" /></a>';
 
-		echo '<a href="'.$_controller_link.'&amp;delete='.$row["cat_id"];
-		echo '" title="delete: '.html($row['cat_name']).'"';
-		echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row['cat_name']).'\');">';
-		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
+			echo '<a href="'.$_controller_link.'&amp;delete='.$row["cat_id"];
+			echo '" title="delete: '.html_specialchars($row['cat_name']).'"';
+			echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row['cat_name']).'\');">';
+			echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
-	echo '</td>'.LF;
+		echo '</td>'.LF;
 
-	echo '</tr>'.LF;
+		echo '</tr>'.LF;
 
-	$row_count++;
-}
+		$row_count++;
+	}
 
-if($row_count) {
 	echo '<tr><td colspan="4" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
-}
+
+} else {
+
+	echo '<tr><td colspan="4" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
 
 }
+
 ?>
-
 
 </table>

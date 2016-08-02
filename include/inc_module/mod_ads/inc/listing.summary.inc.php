@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -21,7 +21,7 @@ echo $BLM['under_construction'];
 ?>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="get" target="_blank" style="margin:20px 0 0 20px;">
 <input type="hidden" name="cmd" value="_xclick" />
-<input type="hidden" name="business" value="phpwcms-paypal-donation@phpwcms.de" />
+<input type="hidden" name="business" value="phpwcms-paypal-donation@phpwcms.org" />
 <input type="hidden" name="item_name" value="phpwcms Donation" />
 <input type="hidden" name="no_shipping" value="1" />
 <input type="hidden" name="no_note" value="1" />

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  * Language: Polish, Language Code: pl UTF-8 for ver.1.6.530 Zięba Bogusław http://www.krynica.malopolska.pl
  **/
 
@@ -30,4 +30,3 @@ $ci_lang['imglib_copy_failed'] = 'Kopiowanie pliku obrazu nie powiodło się.';
 $ci_lang['imglib_missing_font'] = 'Nie znaleziono pliku czcionki.';
 $ci_lang['imglib_save_failed'] = 'Zapisywanie pliku obrazu nie powiodło się. Upewnij się, że plik obrazu i katalog docelowy są zapisywalne.';
 
-?>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,7 +17,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
   <table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
             <td align="right" class="v10">site basis:&nbsp;</td>
-            <td><input name="site" type="text" class="f11b" id="site" value="<?php echo html_specialchars($phpwcms["site"]) ?>" size="30" style="width:200px"></td>
+            <td><input name="site" type="text" class="f11b" id="site" value="<?php echo html_specialchars($phpwcms["site"]) ?>" size="30" style="width:275px"></td>
             <td class="chatlist"><em>&nbsp;default: http://www.mysite.com/</em></td>
           </tr>
           <tr>
@@ -36,7 +36,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="15"></td></tr>
 		  <tr>
             <td align="right" class="v10">from/reply-to&nbsp;email:&nbsp;</td>
-            <td><input name="smtp_from_email" type="text" class="f11b" id="smtp_from_email" value="<?php echo ($phpwcms['SMTP_FROM_EMAIL']) ? html_specialchars($phpwcms['SMTP_FROM_EMAIL']) : html_specialchars($phpwcms["admin_email"]) ?>" size="30" style="width:200px"></td>
+            <td><input name="smtp_from_email" type="text" class="f11b" id="smtp_from_email" value="<?php echo ($phpwcms['SMTP_FROM_EMAIL']) ? html_specialchars($phpwcms['SMTP_FROM_EMAIL']) : html_specialchars($phpwcms["admin_email"]) ?>" size="30" style="width:275px"></td>
             <td class="chatlist"><em>&nbsp;default: <?php echo html_specialchars($phpwcms["admin_email"]) ?></em></td>
     </tr>
 		  <tr>
@@ -44,7 +44,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
 		  <tr>
             <td align="right" class="v10">from/reply-to&nbsp;name:&nbsp;</td>
-            <td><input name="smtp_from_name" type="text" class="f11b" id="smtp_from_name" style="width:200px" value="<?php echo ($phpwcms['SMTP_FROM_NAME']) ? html_specialchars($phpwcms['SMTP_FROM_NAME']) : 'webmaster' ?>" size="30"></td>
+            <td><input name="smtp_from_name" type="text" class="f11b" id="smtp_from_name" style="width:275px" value="<?php echo ($phpwcms['SMTP_FROM_NAME']) ? html_specialchars($phpwcms['SMTP_FROM_NAME']) : 'webmaster' ?>" size="30"></td>
             <td class="chatlist"><em>&nbsp;default: webmaster</em></td>
     </tr>
 			  <tr>
@@ -52,7 +52,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
 		  <tr>
             <td align="right" class="v10">SMTP&nbsp;server:&nbsp;</td>
-            <td><input name="smtp_host" type="text" class="f11b" id="smtp_host" value="<?php echo ($phpwcms['SMTP_HOST']) ? html_specialchars($phpwcms['SMTP_HOST']) : 'localhost' ?>" size="30" style="width:200px"></td>
+            <td><input name="smtp_host" type="text" class="f11b" id="smtp_host" value="<?php echo ($phpwcms['SMTP_HOST']) ? html_specialchars($phpwcms['SMTP_HOST']) : 'localhost' ?>" size="30" style="width:275px"></td>
             <td class="chatlist"><em>&nbsp;default: localhost </em></td>
     </tr>
 		  <tr>
@@ -60,7 +60,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
 		  <tr>
             <td align="right" class="v10">SMTP&nbsp;port :&nbsp;</td>
-            <td><input name="smtp_port" type="text" class="f11b" id="smtp_port" style="width:200px" value="<?php echo ($phpwcms['SMTP_PORT']) ? intval($phpwcms['SMTP_PORT']) : '25'; ?>" size="30"></td>
+            <td><input name="smtp_port" type="text" class="f11b" id="smtp_port" style="width:275px" value="<?php echo ($phpwcms['SMTP_PORT']) ? intval($phpwcms['SMTP_PORT']) : '25'; ?>" size="30"></td>
             <td class="chatlist"><em>&nbsp;default: 25</em></td>
     </tr>
 			  <tr>
@@ -88,7 +88,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
 		  <tr>
             <td align="right" class="v10">SMTP login:&nbsp;</td>
-            <td><input name="smtp_user" type="text" class="f11b" id="smtp_user" value="<?php echo html_specialchars($phpwcms['SMTP_USER']) ?>" size="30" style="width:200px"></td>
+            <td><input name="smtp_user" type="text" class="f11b" id="smtp_user" value="<?php echo html_specialchars($phpwcms['SMTP_USER']) ?>" size="30" style="width:275px"></td>
             <td class="chatlist">&nbsp;</td>
     </tr>
 		  <tr>
@@ -96,7 +96,7 @@ if($err) echo "<p class=\"error\"><b>Check your admin user name and password!</b
     </tr>
 	<tr>
             <td align="right" class="v10">SMTP&nbsp;password:&nbsp;</td>
-            <td><input name="smtp_pass" type="text" class="f11b" id="smtp_pass" style="width:200px" value="<?php echo html_specialchars($phpwcms['SMTP_PASS']) ?>" size="30"></td>
+            <td><input name="smtp_pass" type="text" class="f11b" id="smtp_pass" style="width:275px" value="<?php echo html_specialchars($phpwcms['SMTP_PASS']) ?>" size="30"></td>
             <td class="chatlist">&nbsp;</td>
     </tr>
 

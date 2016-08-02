@@ -1,0 +1,78 @@
+<!--IMAGE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; settings will overwrite CP settings
+;width			= 100
+;height			= 100
+;col			= 1
+;zoom			= 1
+;crop			= 0
+;space			= 10
+;lightbox		= 1
+;nocaption		= 0
+;thumb_class	= image-responsive
+;random			= 0
+;limit			= 0
+; if set to 1 and total amount of images > limit render hidden feature
+;hide_limited	= 0
+; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
+;center_image	= 0
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+
+<div class="images" id="images{ID}">
+<!--IMAGES_HEADER_END//-->
+
+
+<!--IMAGES_ENTRY_START//-->
+
+	<figure class="image-item[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW] slide{ENTRY_ID} num{ENTRY_NUM}" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
+		<img src="{THUMB_REL}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMGNAME}[/ALT_ELSE]"[ZOOM] srcset="{THUMB_ABS} 2x"[/ZOOM]><!-- read more https://developers.google.com/web/fundamentals/design-and-ui/media/images/images-in-markup -->
+		<figcaption>
+			[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<!-- no caption -->[/CAPTION_ELSE]
+			[URL]<a href="{URL}"[URL_TARGET]{URL_TARGET}[/URL_TARGET]>Read more…</a>[/URL]
+		</figcaption>
+	</figure>
+	<!--ENTRY_DATA_START//-->
+		<li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
+			<a href="#img{IMGID}">Image {ENTRY_NUM}</a>
+		</li>
+	<!--ENTRY_DATA_END//-->
+
+<!--IMAGES_ENTRY_END//-->
+
+<!--IMAGES_ENTRY_SPACER_START//-->
+
+	<!-- space between images {SPACE}px -->
+
+<!--IMAGES_ENTRY_SPACER_END//-->
+
+
+<!--IMAGES_ROW_SPACER_START//-->
+
+	<!-- space between image rows {SPACE}px -->
+
+<!--IMAGES_ROW_SPACER_END//-->
+
+
+<!--IMAGES_FOOTER_START//-->
+	[DATA]
+		<ol class="indicators">
+			{DATA}
+		</ol>
+		<div class="controls">
+			<a class="prev" href="#images{ID}" role="button" data-slide="prev">
+				<span>Previous</span>
+			</a>
+			<a class="next" href="#images{ID}" role="button" data-slide="next">
+				<span>Next</span>
+			</a>
+		</div>
+	[/DATA]
+</div>
+<!--IMAGES_FOOTER_END//-->

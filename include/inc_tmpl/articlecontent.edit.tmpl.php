@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -41,24 +41,24 @@ if(empty($content['article']['acat_id'])) { // Root structure
 		case 16:
 		case 50:
 		case 89:
-			echo 'onsubmit="selectAllOptions(this.cimage_list);"';
+			echo 'onsubmit="selectAllOptions(this.cimage_list);return checkCp();"';
 			break;
 
 		//case 25:
 		case 7:
-			echo 'onsubmit="selectAllOptions(this.cfile_list);"';
+			echo 'onsubmit="selectAllOptions(this.cfile_list);return checkCp();"';
 			break;
 
 		case 8:
-			echo 'onsubmit="selectAllOptions(this.calink);"';
+			echo 'onsubmit="selectAllOptions(this.calink);return checkCp();"';
 			break;
 
 		case 53:
-			echo 'onsubmit="selectAllOptions(this.cforum_selection);"';
+			echo 'onsubmit="selectAllOptions(this.cforum_selection);return checkCp();"';
 			break;
 
 		default:
-			echo 'onsubmit="var ct=document.getElementById(\'target_ctype\');if(ct.disabled){ct.disabled=false;}"';
+			echo 'onsubmit="var ct=document.getElementById(\'target_ctype\'); if(ct.disabled){ct.disabled=false;} return checkCp();"';
 
 	}
 
@@ -104,7 +104,6 @@ if(empty($content['article']['acat_id'])) { // Root structure
 
 	}
 	echo '</span>';
-
 
 	?></td></tr>
 	<tr><td colspan="2" class="rowspacer5x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -391,9 +390,8 @@ if($content['cp_setting_mode']):
 	endif;
 ?>
 			</select></td>
-
 		</tr>
-		</table><script type="text/javascript">
+		</table><script>
 
 			var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>, loadblock = true;
 
@@ -401,24 +399,19 @@ if($content['cp_setting_mode']):
 
 				var tabValue = tabVal.options[tabVal.selectedIndex].value;
 
-				cTabStatus = tabValue ? true : false;
+				cTabStatus = tabValue !== '0';
 
 				if(cTabStatus == false) {
-
-					$('ctab1').setStyle('display', 'none');
-					$('ctab2').setStyle('display', 'none');
-					$('ctab3').setStyle('display', 'none');
-
+					document.getElementById('ctab1').style.display = 'none';
+					document.getElementById('ctab2').style.display = 'none';
+					document.getElementById('ctab3').style.display = 'none';
 				} else {
-
-					$('ctab1').setStyle('display', '');
-					$('ctab2').setStyle('display', '');
-					$('ctab3').setStyle('display', '');
-
+					document.getElementById('ctab1').style.display = '';
+					document.getElementById('ctab2').style.display = '';
+					document.getElementById('ctab3').style.display = '';
 				}
 
 				tabVal.blur();
-
 			}
 
 			function setTabStatus(enabled) {
@@ -428,13 +421,30 @@ if($content['cp_setting_mode']):
 			function checkCntBlockPaginate(obj) {
 				var paginate = document.getElementById("cpaginate_page");
 				var block = obj.options[obj.selectedIndex].value;
+				var system1 = document.getElementById('system1');
+				var ctab = document.getElementById('ctab');
 
-				document.getElementById('system1').style.display = (block == 'SYSTEM' ? 'table-row' : 'none');
+				if(block == 'SYSTEM') {
+					system1.style.display = 'table-row';
+					ctab.value = '0';
+					ctab.disabled = true;
+					cTabStatus = false;
+
+					document.getElementById('ctab1').style.display = 'none';
+					document.getElementById('ctab2').style.display = 'none';
+					document.getElementById('ctab3').style.display = 'none';
+
+				} else {
+
+					system1.style.display = 'none';
+					ctab.disabled = false;
+
+				}
 
 				if(block != "CONTENT") {
 					if(paginate.value != "0" && loadblock == false) {
 						if(!confirm("<?php echo $BL['be_cnt_subsection_warning'] ?>")) {
-							getObjectById("cblock").selectedIndex = 0;
+							obj.selectedIndex = 0;
 							return false;
 						}
 					}
@@ -442,6 +452,19 @@ if($content['cp_setting_mode']):
 				} else {
 					paginate.disabled = false;
 				}
+			}
+
+			function checkCp() {
+
+				var ctab = document.getElementById('ctab');
+				var ctab_title = document.getElementById('ctab_title');
+				var ctab_number = document.getElementById('ctab_number');
+
+				if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
+					return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : utf8_decode($BL['confirm_cp_tab_warning']); ?>');
+				}
+
+				return true;
 			}
 
 		</script></td>
@@ -593,15 +616,15 @@ echo $_save_close_buttons;
 	// show content part specific form elements
 	if($content['type'] != 30 && file_exists(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php')) {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$content['type'].'.inc.php';
 
 	} elseif($content['type'] == 30 && file_exists($phpwcms['modules'][$content["module"]]['path'].'inc/cnt.form.php')) {
 
-		include_once($phpwcms['modules'][$content["module"]]['path'].'inc/cnt.form.php');
+		include_once $phpwcms['modules'][$content["module"]]['path'].'inc/cnt.form.php';
 
 	} else {
 
-		include_once(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.inc.php');
+		include_once PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.inc.php';
 
 	}
 
@@ -642,7 +665,7 @@ echo $_save_close_buttons;
 
 	<tr>
 	  <td align="right" class="chatlist tdtop3"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</td>
-	  <td><textarea name="ccomment" id="ccomment" class="width440" rows="5"><?php echo html($content["comment"]) ?></textarea></td>
+	  <td><textarea name="ccomment" id="ccomment" class="width440 autosize" rows="5"><?php echo html($content["comment"]) ?></textarea></td>
 	</tr>
 
 </table>

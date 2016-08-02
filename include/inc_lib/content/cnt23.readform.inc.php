@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,11 +13,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 // email form new
 $content["form"]['subject'] 				= clean_slweg($_POST["cform_subject"]);
@@ -28,9 +26,7 @@ $content["form"]["error_class"]				= slweg($_POST["cform_error_class"]);
 $content["form"]["label_wrap"]				= slweg($_POST["cform_label_wrap"]);
 $content["form"]["cform_reqmark"]			= slweg($_POST["cform_reqmark"]);
 $content["form"]["cform_function_validate"]	= clean_slweg($_POST["cform_function_validate"]);
-
-
-$content["form"]["cc"] = convertStringToArray(str_replace(array(' ',','), ';', clean_slweg($_POST["cform_cc"])),';');
+$content["form"]["cc"]						= convertStringToArray(str_replace(array(' ',','), ';', clean_slweg($_POST["cform_cc"])),';');
 foreach($content["form"]["cc"] as $e_key => $e_value) {
 	if(!is_valid_email($content["form"]["cc"][$e_key])) {
 		unset($content["form"]["cc"][$e_key]);
@@ -81,7 +77,6 @@ if($content["form"]["sendernametype"] == 'system' && $content["form"]["sendernam
 }
 
 $content['form']['verifyemail']		= isset($_POST['cform_field_verifyemail']) ? clean_slweg($_POST['cform_field_verifyemail']) : '';
-
 $content["form"]["labelpos"]		= intval($_POST["cform_labelpos"]);
 $content['form']["sendcopy"]		= empty($_POST["cform_sendcopy"]) ? 0 : 1;
 $content['form']["copyto"]			= isset($_POST["cform_copyto"]) ? clean_slweg($_POST["cform_copyto"]) : '';
@@ -122,16 +117,13 @@ if(is_callable($content['form']["function_cc"])) {
 	$content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];
 }
 
-
-$content['form']["template_equal"] = empty($_POST["cform_template_equal"]) ? 0 : 1;
-
-$content['form']["customform"]	= slweg($_POST["cform_customform"]);
-
-$content['form']["savedb"]		= empty($_POST["cform_savedb"]) ? 0 : 1;
-$content['form']["saveprofile"]	= empty($_POST["cform_saveprofile"]) ? 0 : 1;
-$content['form']["anchor_off"]	= empty($_POST["cform_anchor_off"]) ? 0 : 1;
-$content['form']["ssl"]			= empty($_POST["cform_ssl"]) ? 0 : 1;
-
+$content['form']["template_equal"]	= empty($_POST["cform_template_equal"]) ? 0 : 1;
+$content['form']["customform"]		= slweg($_POST["cform_customform"]);
+$content['form']["savedb"]			= empty($_POST["cform_savedb"]) ? 0 : 1;
+$content['form']["saveprofile"]		= empty($_POST["cform_saveprofile"]) ? 0 : 1;
+$content['form']["anchor_off"]		= isset($_POST["cform_anchor_off"]) && !intval($_POST["cform_anchor_off"]) ? 0 : 1;
+$content['form']["ssl"]				= empty($_POST["cform_ssl"]) ? 0 : 1;
+$content['form']["anchor_name"]		= clean_slweg($_POST["cform_anchor_name"]);
 
 //$field_counter = 0;
 $content["form"]["fields"] = array();
@@ -355,8 +347,8 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 								}
 
 								$content['form']["fields"][$field_counter]['value'] = '';
-								foreach($newletter_array as $newsletter['key'] => $newsletter['value']) {
-									$content['form']["fields"][$field_counter]['value'] .= $newsletter['key'].'='.$newsletter['value'].LF;
+								foreach($newletter_array as $newsletter_key => $newsletter_value) {
+									$content['form']["fields"][$field_counter]['value'] .= $newsletter_key.'='.$newsletter_value.LF;
 								}
 								$content['form']["fields"][$field_counter]['value'] = trim($content['form']["fields"][$field_counter]['value']);
 								break;
@@ -538,38 +530,37 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 			case 'recaptcha':	/*
 								 * reCAPTCHA
 								 */
-								$content['form']["fields"][$field_counter]['name']		= 'recaptcha_response_field';
+								$content['form']["fields"][$field_counter]['name']		= 'recaptcha';
 								$content['form']["fields"][$field_counter]['size']		= '';
 								$content['form']["fields"][$field_counter]['max']		= '';
 								$content['form']["fields"][$field_counter]['required']	= 1;
 								$content['form']["fields"][$field_counter]['value']		= parse_ini_str( slweg($_POST['cform_field_value'][$key]), false );
 								$content['form']['recaptcha'] = array(
-									'public_key' => '',
-									'private_key' => '',
+									'site_key' => '',
+									'secret_key' => '',
 									'lang' => $phpwcms['default_lang'],
-									'theme' => 'clear',
-									'tabindex' => 0
+									'theme' => 'light',
+									'type' => 'image'
 								);
 
-								if(isset($content['form']["fields"][$field_counter]['value']['public_key'])) {
-									$content['form']['recaptcha']['public_key'] = trim($content['form']["fields"][$field_counter]['value']['public_key']);
+								if(isset($content['form']["fields"][$field_counter]['value']['site_key'])) {
+									$content['form']['recaptcha']['site_key'] = trim($content['form']["fields"][$field_counter]['value']['site_key']);
+								} elseif(isset($content['form']["fields"][$field_counter]['value']['public_key'])) {
+									$content['form']['recaptcha']['site_key'] = trim($content['form']["fields"][$field_counter]['value']['public_key']);
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['private_key'])) {
-									$content['form']['recaptcha']['private_key'] = trim($content['form']["fields"][$field_counter]['value']['private_key']);
+								if(isset($content['form']["fields"][$field_counter]['value']['secret_key'])) {
+									$content['form']['recaptcha']['secret_key'] = trim($content['form']["fields"][$field_counter]['value']['secret_key']);
+								} elseif(isset($content['form']["fields"][$field_counter]['value']['private_key'])) {
+									$content['form']['recaptcha']['secret_key'] = trim($content['form']["fields"][$field_counter]['value']['private_key']);
 								}
 								if(!empty($content['form']["fields"][$field_counter]['value']['lang'])) {
 									$content['form']['recaptcha']['lang'] = strtolower($content['form']["fields"][$field_counter]['value']['lang']);
 								}
-								if(isset($content['form']["fields"][$field_counter]['value']['theme'])
-									&& in_array(strtolower($content['form']["fields"][$field_counter]['value']['theme']), array('red', 'white', 'blackglass', 'clean'))
-								) {
-									// no 'custom' at the moment
-									$content['form']['recaptcha']['theme'] = strtolower($content['form']["fields"][$field_counter]['value']['theme']);
-								} else {
-									$content['form']['recaptcha']['theme'] = 'clean';
+								if(isset($content['form']["fields"][$field_counter]['value']['theme']) && in_array($content['form']["fields"][$field_counter]['value']['theme'], array('light', 'dark'))) {
+									$content['form']['recaptcha']['theme'] = $content['form']["fields"][$field_counter]['value']['theme'];
 								}
-								if(!empty($content['form']["fields"][$field_counter]['value']['public_key'])) {
-									$content['form']['recaptcha']['tabindex'] = abs(intval($content['form']["fields"][$field_counter]['value']['tabindex']));
+								if(isset($content['form']["fields"][$field_counter]['value']['type']) && in_array($content['form']["fields"][$field_counter]['value']['type'], array('image', 'audio'))) {
+									$content['form']['recaptcha']['type'] = abs(intval($content['form']["fields"][$field_counter]['value']['type']));
 								}
 
 								$content['form']["fields"][$field_counter]['value'] = $content['form']['recaptcha'];
@@ -616,6 +607,3 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 
 // sort form fields
 ksort($content["form"]["fields"], SORT_NUMERIC);
-
-
-?>

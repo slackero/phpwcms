@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -45,7 +45,7 @@ $buttonAction .= '</tr></table>';
 		<?php else: ?>
 			<img src="img/famfamfam/lang/<?php echo ($lang = strtolower(empty($article["article_lang"]) ? $phpwcms['default_lang'] : $article["article_lang"])); ?>.png" title="<?php echo get_language_name($lang) ?>" style="margin-right:4px;" />
 		<?php endif; ?></td>
-		<td width="453" class="dir"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><strong><?php echo html($article["article_title"]) ?></strong></a></td>
+		<td width="453" class="dir"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><strong><?php echo html($article["article_title"]) ?></strong></a>&nbsp;[AID:<?php echo $article["article_id"] ?>]</td>
 		<td width="62" align="right" class="h13" style="padding-right:1px"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><img src="img/button/edit_22x13.gif" alt="<?php echo $BL['be_article_cnt_ledit'] ?>" width="22" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "3,".$article["article_id"].",0,".switch_on_off($article["article_aktiv"]) ?>" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"><img src="img/button/visible_12x13_<?php echo $article["article_aktiv"] ?>.gif" alt="" width="12" height="13" border="0" /></a><a href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" title="<?php echo $BL['be_article_cnt_ldel'] ?>" onclick="return confirm('<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
 	</tr>
 	<tr bgcolor="#F3F5F8"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
@@ -92,6 +92,17 @@ $buttonAction .= '</tr></table>';
 			  <td valign="top" class="v10"><?php if($article["article_keyword"]) {echo html($article["article_keyword"]);}else{echo "not defined/completed";} ?></td>
 			</tr>
 			<?php
+
+			if($article["article_canonical"]) {
+			?>
+			<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+			</tr>
+			<tr>
+			  <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_canonical'] ?>:&nbsp;</td>
+			  <td valign="top" class="v10"><?php echo html($article["article_canonical"]); ?></td>
+			</tr>
+			<?php
+			}
 
 			if($article["article_redirect"]) {
 			?>
@@ -540,17 +551,17 @@ if(!$temp_count) {
 	// check default content parts (system internals
 	if($row['acontent_type'] != 30 && file_exists('include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php')) {
 
-		include(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php';
 
 	} elseif($row['acontent_type'] == 30 && file_exists($phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php')) {
 
 		// custom module
-		include($phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php');
+		include $phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php';
 
 	} else {
 
 		// default fallback
-		include(PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.list.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.list.inc.php';
 
 	}
 	// end list
@@ -567,4 +578,6 @@ if(!$temp_count) {
 </table>
 <input name="csorting" type="hidden" id="csorting" value="<?php echo ($scc*10); ?>" />
 </form>
-<?php echo $buttonAction; ?>
+<?php
+
+echo $buttonAction;

@@ -2,21 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
-
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { //Show single article information
 
@@ -91,6 +89,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				$article['article_lang_type']	= $row['article_lang_type'];
 				$article['article_lang_id']		= $row['article_lang_id'];
 				$article['article_opengraph']	= $row['article_opengraph'];
+				$article['article_canonical']	= $row['article_canonical'];
 
 				$article['article_archive_status']	= $row['article_archive_status'];
 
@@ -101,7 +100,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 			mysql_free_result($result);
 		}
 		if(!$read_done) {
-			headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2");
+			headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2');
 		}
 
 
@@ -143,6 +142,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		$article['article_lang_type']			= '';
 		$article['article_lang_id']				= 0;
 		$article['article_opengraph']			= empty($phpwcms['set_sociallink']['article']) ? 0 : 1;
+		$article['article_canonical']			= '';
 
 		$article['image']						= array();
 		$article['image']['tmpllist']			= 'default';
@@ -174,7 +174,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		$article["article_alias"]			= proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
 		$article["article_subtitle"]		= clean_slweg($_POST["article_subtitle"], 255);
 		$article["article_menutitle"]		= clean_slweg($_POST["article_menutitle"], 255);
-		$article["article_description"]		= clean_slweg($_POST["article_description"], 255);
+		$article["article_description"]		= clean_slweg($_POST["article_description"]);
 		$article["article_summary"]			= str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]));
 		$article["article_notitle"]			= isset($_POST["article_notitle"]) ? 1 : 0;
 		$article["article_hidesummary"]		= isset($_POST["article_hidesummary"]) ? 1 : 0;
@@ -202,6 +202,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		$article['article_archive_status']	= empty($_POST["article_archive"]) ? 0 : 1;
 		$article["article_timeout"]			= clean_slweg($_POST["article_timeout"]);
 		$article['article_opengraph']		= empty($_POST["article_opengraph"]) ? 0 : 1;
+		$article['article_canonical']		= clean_slweg($_POST["article_canonical"], 2000);
+
 		if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
 			$article["article_timeout"] = '0'; //check if cache = Off
 		}
@@ -359,7 +361,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 					'article_lang'			=> $article["article_lang"],
 					'article_lang_type'		=> $article["article_lang_type"],
 					'article_lang_id'		=> $article["article_lang_id"],
-					'article_opengraph'		=> $article["article_opengraph"]
+					'article_opengraph'		=> $article["article_opengraph"],
+					'article_canonical'		=> $article["article_canonical"]
 				);
 
 				$result = _dbInsert('phpwcms_article', $data);
@@ -407,13 +410,14 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 						"article_lang="._dbEscape($article["article_lang"]).", ".
 						"article_lang_type="._dbEscape($article["article_lang_type"]).", ".
 						"article_lang_id="._dbEscape($article["article_lang_id"]).", ".
-						"article_opengraph=".$article["article_opengraph"].' ';
+						"article_opengraph=".$article["article_opengraph"].', '.
+						"article_canonical="._dbEscape($article["article_canonical"]);
 
 						if($_SESSION["wcs_user_admin"]) {
-							$sql .= ", article_uid=".$article["article_uid"]." ";
+							$sql .= ", article_uid=".$article["article_uid"];
 						}
 
-				$sql .=	"WHERE article_id=".$article["article_id"];
+				$sql .=	" WHERE article_id=".$article["article_id"];
 
 				$result = _dbQuery($sql, 'UPDATE');
 			}
@@ -424,7 +428,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				_dbSaveCategories($article["article_keyword"], 'article', $article["article_id"], ',');
 
 				$update = isset($_POST['updatesubmit']) ? '&aktion=1' : '';
-				headerRedirect(PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
 			}
 
 		} else {
@@ -447,7 +451,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 
 	// include template defaults which should be overwritten by custom settings
 	if($article["acat_overwrite"] && is_file(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"])) {
-		@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"]);
+		@include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$article["acat_overwrite"];
 	}
 
 	// list mode
@@ -495,18 +499,18 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 
 					if($content["type"] != 30 && is_file(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 
-						include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php');
+						include PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php';
 
 					} elseif($content["type"] == 30 && is_file($phpwcms['modules'][$content['module']]['path'].'inc/cnt.read.php')) {
 
 						$content['comment']	= $row["acontent_comment"];
 
 						// load module data
-						include($phpwcms['modules'][$content['module']]['path'].'inc/cnt.read.php');
+						include $phpwcms['modules'][$content['module']]['path'].'inc/cnt.read.php';
 
 					} else {
 
-						include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.takeval.inc.php');
+						include PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.takeval.inc.php';
 
 					}
 				}
@@ -541,7 +545,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		//if form posted
 		if(isset($_POST["caktion"]) && intval($_POST["caktion"])) {
 
-			include_once(PHPWCMS_ROOT."/include/inc_lib/article.readform.inc.php"); //get posted values from form
+			include_once PHPWCMS_ROOT."/include/inc_lib/article.readform.inc.php"; //get posted values from form
 
 			if(!isset($content["error"])) { //if no error
 
@@ -570,15 +574,15 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 				// load SQL addition for special content part
 				if($content['type'] != 30 && file_exists(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content['type'].'.sql.inc.php')) {
 
-					include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content['type'].'.sql.inc.php');
+					include PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content['type'].'.sql.inc.php';
 
 				} elseif($content['type'] == 30 && file_exists($phpwcms['modules'][$content['module']]['path'].'inc/cnt.sql.php')) {
 
-					include($phpwcms['modules'][$content['module']]['path'].'inc/cnt.sql.php');
+					include $phpwcms['modules'][$content['module']]['path'].'inc/cnt.sql.php';
 
 				} else {
 
-					include(PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.sql.inc.php');
+					include PHPWCMS_ROOT.'/include/inc_lib/content/cnt0.sql.inc.php';
 
 				}
 
@@ -598,7 +602,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 							change_articledate($content["aid"]); //update article date too
 							update_cache(); // set cache timeout = 0
 							if(!empty($_POST['SubmitClose'])) {
-								headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&id=".$content["aid"]);
+								headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$content["aid"]);
 							}
 						}
 					} else {
@@ -632,9 +636,9 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 							if(!empty($_POST['teaser_filter_category_by_tags'])) {
 								$_SESSION['teaser_filter_category_by_tags'] = true;
 							}
-							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&aktion=2&id=".$content["aid"]."&acid=".$content["id"]);
+							headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&aktion=2&id='.$content["aid"]."&acid=".$content["id"]);
 						} else {
-							headerRedirect(PHPWCMS_URL."phpwcms.php?do=articles&p=2&s=1&id=".$content["aid"]);
+							headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$content["aid"]);
 						}
 					}
 				} //end update/insert
@@ -642,9 +646,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
 		}
 
 		//form to edit article content parts
-		include(PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.edit.tmpl.php");
+		include PHPWCMS_ROOT."/include/inc_tmpl/articlecontent.edit.tmpl.php";
 
 	}
 	//end edit article content part
 }
-?>

@@ -2,20 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 // These are all kind of deprecated replacer and function
 // might kicked off the system in the near future
@@ -42,9 +41,9 @@ function get_random_image_tag($path) {
 	$imageinfo	= false;
 
 	if(is_dir($imgpath)) {
-		$handle = opendir( $imgpath );
+		$handle = opendir($imgpath);
 		while($file = readdir( $handle )) {
-   			if( $file{0} != '.' && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
+   			if( substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
 				$imgArray[] = $file;
 			}
 		}
@@ -452,6 +451,3 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 	}
 	return $css_list;
 }
-
-
-?>

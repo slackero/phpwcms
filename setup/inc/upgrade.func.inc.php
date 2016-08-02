@@ -28,6 +28,3 @@ function parsePHPModules() {
  }
  return $vModules;
 }
-
-
-?>

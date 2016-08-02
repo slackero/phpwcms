@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -40,9 +40,8 @@ $BL['CREATED']           = 'creato';
 $BL['DATE_FORMAT']       = 'm-d-Y H:i';
 $BL['SIZE']              = 'dimensione';
 $BL['DOWNLOAD_FILE']     = 'scarica file';
-$BL['FILE_IN_TRASH']     = 'il file è nel cestino';
+$BL['FILE_IN_TRASH']     = 'il file Ã¨ nel cestino';
 $BL['KEYWORDS']          = 'parole chiave';
 $BL['DOWNLOAD_ERR3']     = 'errore leggendo le informazioni sul file<br />chiudi la finestra e prova ancora...';
 
 
-?>

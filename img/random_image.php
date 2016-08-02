@@ -2,17 +2,16 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array();
-require_once ('../config/phpwcms/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
 
 //Random Pic send to browser
 $imgpath = trim($_GET["imgdir"]);
@@ -24,18 +23,17 @@ if(!$root_path) {
 	$root_path = preg_replace('/(.*)([\/|\\\].(.*)){2}/', '$1', $_SERVER['PATH_TRANSLATED']);
 }
 
-
 if($imgpath) {
-	
+
 	$imgpath = str_replace("\\", "/", $root_path."/".$imgpath."/");
 	$imgpath = str_replace("//", "/", $imgpath );
 	$imgpath = str_replace("../", "/", $imgpath );
 	$imgpath = str_replace("//", "/", $imgpath );
-	
+
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if( $file != "." && $file != ".." && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/', strtolower($file)) ) 
+   			if(substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
 				$imgArray[] = $file;
 		}
 		closedir( $handle );
@@ -62,9 +60,8 @@ if($imageinfo != false && isset($imageinfo[2])) {
 	}
 
 	@readfile($file);
+	exit();
 
 } else {
 	die('Error reading image');
 }
-
-?>

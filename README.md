@@ -44,7 +44,7 @@ Author
 Copyright and license
 ---------------------
 
-Copyright 2002–2014 Oliver Georgi
+Copyright 2002–2016 Oliver Georgi
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.

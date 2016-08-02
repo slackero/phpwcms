@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -48,7 +48,7 @@ if(isset($_POST["file_search"])) {
 				default: $search["which"]="(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].")"; break;
 			}
 
-			$file_key = get_list_of_file_keywords(); //Auslesen der File Schlüsselwörter
+			$file_key = get_list_of_file_keywords(); //Auslesen der File Schlï¿½sselwï¿½rter
 
 			//Aufbau des eigentlichen Suchstrings
 			$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND f_kid=1 AND ";
@@ -58,7 +58,7 @@ if(isset($_POST["file_search"])) {
 					$search["string"]  = $row["f_name"]." ".$row["f_shortinfo"]." ".$row["f_longinfo"];
 					$search["string"]  = str_replace("\r\n", " ", $search["string"]);
 					$search["string"]  = str_replace("\n", " ", $search["string"]);
-					$search["string"] .= add_keywords_to_search ($file_key, $row["f_keywords"]); //fügt freie Keywords zum Suchstring hinzu
+					$search["string"] .= add_keywords_to_search ($file_key, $row["f_keywords"]); //fï¿½gt freie Keywords zum Suchstring hinzu
 
 					foreach($search["key"] as $value) {
 						if(preg_match("/".preg_quote($value,"/")."/i", $search["string"])) {
@@ -75,7 +75,7 @@ if(isset($_POST["file_search"])) {
 					}
 				}
 				if(isset($search["result"]) && sizeof($search["result"]) && $search["andor"]) {
-					//Prüfen, ob die AND bedingung erfüllt ist
+					//Prï¿½fen, ob die AND bedingung erfï¿½llt ist
 					//gilt nur, wenn Anzahl Suchworte = Anzahl Funde im String
 					$search["count_key"] = sizeof($search["key"]);
 					foreach($search["result"] as $key => $value) {
@@ -123,7 +123,7 @@ if(isset($_POST["file_search"])) {
 		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
 		  <tr>
 		    <td>
-		    <input name="file_search" type="text" class="v11" id="file_search" style="font-weight:bold;width:260px;" value="<?php
+		    <input name="file_search" type="search" class="v11" id="file_search" style="font-weight:bold;width:260px;" value="<?php
 				if(!empty($_SESSION['file_search_query']["file_search"])) {
 					echo html($_SESSION['file_search_query']["file_search"]);
 				}
@@ -159,7 +159,7 @@ if(isset($_POST["file_search"])) {
 <?php
 
 if(isset($search["result"])) {
-	//Beginn Tabelle für Dateilisting
+	//Beginn Tabelle fï¿½r Dateilisting
 	echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" /></td></tr>\n";
 
@@ -176,7 +176,7 @@ if(isset($search["result"])) {
 		$file_durchlauf = 0;
 		while($file_row = mysql_fetch_array($file_result)) {
 			$filename = html($file_row["f_name"]);
-			if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tavbelle
+			if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieï¿½en der Filelisten-Tavbelle
 				echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 			} else {
 				echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" /></td></tr>\n";
@@ -264,7 +264,7 @@ if(isset($search["result"])) {
 	echo "</table>\n"; //Ende Tabelle
 
 } else {
-	//kein gültiges Suchergebnis
+	//kein gï¿½ltiges Suchergebnis
 	if(isset($search["string"])) {
 		echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
 		echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];

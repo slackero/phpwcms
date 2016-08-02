@@ -35,6 +35,3 @@ $BLM['error_url']							= 'Keine Feedquelle angegeben';
 $BLM['error_url_notvalid']					= 'Feedquelle URL ist ung&uuml;ltig oder nicht erreichbar';
 $BLM['error_structure_level_id']			= 'Bitte Kategorie w&auml;hlen, in die das Feedelement als Artikel importiert werden soll';
 $BLM['error_false_id']						= 'Die Feedquelle mit der ID %s kann nicht zum Bearbeiten ge&ouml;ffnet werden';
-
-
-?>

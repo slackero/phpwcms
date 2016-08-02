@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -61,23 +61,21 @@ function browse_pages_dir($dir) {
 	if(is_dir($dir)) {
 		$ph = opendir($dir);
 		while($pf = readdir($ph)) {
-   			if($pf != '.' && $pf != '..') {
-			
+   			if(substr($pf, 0, 1) !== '.') {
+
 				if(is_dir($dir.'/'.$pf)) {
-				
-					$da[] = $pf; //add $pf to folder array for current dir				
-				
-				} else {
-					
-					if( preg_match('/(\.html|\.htm|\.txt|\.php|\.inc|\.tmpl)$/', strtolower($pf)) ) {
-						$fa[] = $pf; //add $pf to file array for current dir
-					}
-				
+
+					$da[] = $pf; //add $pf to folder array for current dir
+
+				} elseif( preg_match('/(\.html|\.htm|\.txt|\.php|\.inc|\.tmpl)$/i', $pf) ) {
+
+					$fa[] = $pf; //add $pf to file array for current dir
+
 				}
 			}
 		}
 		closedir($ph);
-		
+
 		// list files
 		if(count($fa)) {
 			$x = 0;
@@ -90,10 +88,10 @@ function browse_pages_dir($dir) {
 				}
 				echo "\n<tr><td align=\"center\">";
 				echo '<input name="cpage_file" type="radio" value="'.html($dir.'/'.$value).'" ';
-				
+
 				if($GLOBALS['content']['page_file']['pfile'] == ($dir.'/'.$value)) {
 					echo 'checked="checked" ';
-				}				
+				}
 				echo '/>';
 				echo '</td><td><strong>';
 				echo str_replace(' ', '&nbsp;', html($value));
@@ -102,12 +100,12 @@ function browse_pages_dir($dir) {
 			}
 			echo '<tr><td colspan="2"><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>';
 		}
-		
+
 		// check all subdirs
 		if(count($da)) {
 			foreach($da as $value) browse_pages_dir($dir.'/'.$value);
 		}
-		
+
 	}
 }
 

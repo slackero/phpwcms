@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -29,9 +29,8 @@ $month_long[ 5]	= "Mayis";			$month_short[ 5]		= "Mys";
 $month_long[ 6]	= "Haziran";			$month_short[ 6]		= "Hzrn";
 $month_long[ 7]	= "Temmuz";			$month_short[ 7]		= "Tmmz";
 $month_long[ 8]	= "Agustos";			$month_short[ 8]		= "Agsts.";
-$month_long[ 9]	= "Eylül";		$month_short[ 9]		= "Eyll.";
+$month_long[ 9]	= "EylÃ¼l";		$month_short[ 9]		= "Eyll.";
 $month_long[10]	= "Ekim";		$month_short[10]		= "Ekm.";
 $month_long[11]	= "Kasim";		$month_short[11]		= "Ksm.";
 $month_long[12]	= "Aralik";		$month_short[12]		= "Arlk.";
 
-?>

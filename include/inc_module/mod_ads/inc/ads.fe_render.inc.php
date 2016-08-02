@@ -3,10 +3,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -45,7 +45,6 @@ function renderAds($match) {
 		} else {
 
 			$ads_userid = $_COOKIE['phpwcmsAdsUserId'];
-			$ads_viewed = 0;
 			while(count($ads)) {
 
 				$ad_index	= array_rand($ads);
@@ -245,6 +244,3 @@ function renderAds($match) {
 	return $ad['adplace_prefix'].$ad_media.$ad['adplace_suffix'];
 
 }
-
-
-?>

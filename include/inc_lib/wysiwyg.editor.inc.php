@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -25,23 +25,29 @@ if(!isset($wysiwyg_editor['editor'])) {
 }
 
 $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
+$wysiwyg_editor['id'] = trim(preg_replace('/[^a-z0-9\-\_]/', '_', $wysiwyg_editor['field']), '_');
 
 if($wysiwyg_editor['editor']) {
 
 	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
 
 	// simple textarea - no WYSIWYG editor
-	echo '<textarea class="ckeditor" name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'].'" id="'.$wysiwyg_editor['field'].'">';
+	echo '<textarea class="ckeditor" name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'].'" id="'.$wysiwyg_editor['id'].'">';
 	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 	echo '<script type="text/javascript">' . LF;
-	echo '	CKEDITOR.replace("'.$wysiwyg_editor['field'].'", {';
+	echo '	CKEDITOR.replace("'.$wysiwyg_editor['id'].'", {';
 
 	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
 
 		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
 
 	} else {
+
+    	$wysiwyg_editor['js_height'] = intval(str_replace(array('px', '%', 'em'), '', $wysiwyg_editor['height']));
+    	if($wysiwyg_editor['height'] < 100) {
+        	$wysiwyg_editor['height'] = 100;
+    	}
 
 		echo "
 		toolbar: [
@@ -55,8 +61,8 @@ if($wysiwyg_editor['editor']) {
 			{name: 'about', items: ['About']}
 		],
 		width: 538,
-		height: 400,
-		extraPlugins: 'magicline',
+		height: ".$wysiwyg_editor['js_height'].",
+		extraPlugins: 'magicline,image2',
 		toolbarCanCollapse: true,
 		toolbarStartupExpanded: true,
 		forcePasteAsPlainText: true,
@@ -81,10 +87,8 @@ if($wysiwyg_editor['editor']) {
 
 	// simple textarea - no WYSIWYG editor
 	echo '<textarea name="'.$wysiwyg_editor['field'].'" rows="'.$wysiwyg_editor['rows'];
-	echo '" class="v12 editor-textarea" id="'.$wysiwyg_editor['field'].'" ';
+	echo '" class="v12 editor-textarea" id="'.$wysiwyg_editor['id'].'" ';
 	echo 'style="width:'.$wysiwyg_editor['width'].';height:'.$wysiwyg_editor['height'].';">';
 	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 }
-
-?>

@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -67,9 +67,7 @@ $wysiwyg_editor = array(
 	'lang'		=> 'en'
 );
 
-include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
-
-
+include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
@@ -181,7 +179,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
 			        <td valign="top">
-			        	<textarea name="cimage_caption" cols="30" rows="4" class="width300" id="cimage_caption"><?php
+			        	<textarea name="cimage_caption" cols="30" rows="3" class="width300 autosize" id="cimage_caption"><?php
 			        	if(isset($content["image_caption"])) {
 			        		echo html($content["image_caption"]);
 			        	}

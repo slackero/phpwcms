@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -722,7 +722,7 @@ $BL['be_newsletter_open']               = 'HTML ve METIN giri&#351;i';
 $BL['be_newsletter_open1']              = '(resmi a&ccedil;mak i&ccedil;in tikla)';
 $BL['be_newsletter_sendnow']            = 'Haberi g&ouml;nder';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Dikkat!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
-$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.'; 
+$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
@@ -911,10 +911,10 @@ $BL['be_cnt_error_text']				= 'hata metni';
 $BL['be_cnt_css_style']					= 'CSS stili';
 $BL['be_cnt_send_copy_to']				= 'Kopyas&#305; gidecek';
 
-$BL['be_cnt_field']						= array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)', 
-												"hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu', 
-												"list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton', 
-												"upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu', 
+$BL['be_cnt_field']						= array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)',
+												"hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu',
+												"list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton',
+												"upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu',
 												"break"=>'kesme', "breaktext"=>'kesme metni', "special"=>'metin (&ouml;zel)');
 
 $BL['be_cnt_access']					= 'eri&#351;im';
@@ -967,7 +967,7 @@ $BL['be_file_replace'] = 'Ayn&#305; isimli dosyayla de&#287;i&#351;tir';
 $BL['be_alias_articleID'] = 'di&#287;er isim ID';
 $BL['be_alias_useAll'] = "bu konunun header bilgilerini kullan";
 $BL['be_article_morelink'] = '[devami&#8230;] k&ouml;pr&uuml;s&uuml;';
-$BL['be_admin_tmpl_copy']               = '&#351;ablonu kopyala'; 
+$BL['be_admin_tmpl_copy']               = '&#351;ablonu kopyala';
 
 $BL['be_ctype_filelist1']                = 'dosya listeleme pro';
 $BL['be_cnt_fpro_usecaption']            = 'dosya ortas&#305;nda kullan &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
@@ -1016,12 +1016,12 @@ $BL['be_cnt_sysadmin_system']			= 'Sistem';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel,daha g&uuml;ncel bir phpwcms s&uuml;r&uuml;m&uuml;ne rastlamanamadi';
-$BL['Version_not_up_to_date']			= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
+$BL['Version_not_up_to_date']			= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
 $BL['Latest_version_info']				= 'Daha yeni bir <b>phpwcms %s</b>. versiyonu mevcut.';
 $BL['Current_version_info']				= '&#351;u anda <b>phpwcms %s</b> ile &ccedil;al&#305;&#351;&#305;yorsunuz.';
 $BL['Connect_socket_error']				= 'phpwcms Sunucusu ile ba&#287;lant&#305; kurulamad&#305;, raporlanan hata :<br />%s';
 $BL['Socket_functions_disabled']		= 'socket fonksiyonu kullan&#305;lam&#305;yor.';
-$BL['Mailing_list_subscribe_reminder']	= 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://eepurl.com/bm-BrH" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
 $BL['Version_information'] 				= 'phpwcms Versiyon bilgileri';
 
 $BL['be_cnt_search_highlight']			= 'hgighlight';
@@ -1098,7 +1098,7 @@ $BL['be_ctype']							= 'i&ccedil;erik par&ccedil;as&#305;';
 $BL['be_selection']						= 'se&ccedil;im';
 
 $BL['be_ctype_module']					= 'mod&uuml;l';
-$BL['be_cnt_lightbox']					= 'lightbox';
+$BL['be_cnt_lightbox']					= 'galeri resim';
 $BL['be_cnt_behavior']					= 'olay';
 $BL['be_cnt_imglist_nocaption']			= 'k&uuml;&ccedil;&uuml;k listede ba&#351;l&#305;klar&#305; gizle';
 
@@ -1152,5 +1152,3 @@ $BL['be_check_feuser_profile']			= '&ouml;nplan kullan&#305;c&#305; profili';
 $BL['be_check_feuser_registration']		= 'kay&#305;t';
 $BL['be_check_feuser_manage']			= 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
 
-
-?>

@@ -2,18 +2,18 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array();
 
 $_this_path = realpath(dirname(__FILE__).'/../');
-if(is_file($_this_path.'/config/phpwcms/conf.inc.php')) {
-	require_once ($_this_path.'/config/phpwcms/conf.inc.php');
+if(is_file($_this_path.'/include/config/conf.inc.php')) {
+	require_once $_this_path.'/include/config/conf.inc.php';
 } else {
 	die('Please proof location of "conf.inc.php".');
 }
@@ -22,11 +22,11 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
    define('PHPWCMS_INCLUDE_CHECK', true);
 }
 
-require_once ($_this_path.'/include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require_once (PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php');
+require_once $_this_path.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php';
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -35,12 +35,10 @@ require_once (PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php');
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="inc/install.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-<!--
 body {
 	padding:	0 15px 15px 15px;
 	margin: 0;
 }
--->
 </style>
 </head>
 
@@ -50,14 +48,14 @@ body {
     <td colspan="3"><img src="../img/leer.gif" alt="[beliebiger Wert]" width="1" height="7" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.phpwcms.de" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="phpwcms" width="95" height="24" border="0" /></a></td>
+    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.phpwcms.org" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="phpwcms" width="95" height="24" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
   </tr>
   <tr bgcolor="#FFFFFF">
-    <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
-    <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
           <td colspan="2"><img src="../img/leer.gif" alt="" width="1" height="9" /></td>
         </tr>
@@ -67,10 +65,10 @@ body {
             <a href="setup.php">SETUP</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" target="_top">LOGIN</a></td>
         </tr>
     </table></td>
-    <td valign="top" style="background-image:url(../img/backend/backend_r3_c4.jpg); background-repeat:repeat-x; "><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
   </tr>
   <tr bgcolor="#FFFFFF">
-    <td width="15" bgcolor="#FFFFFF" style="background-image:url(../img/backend/preinfo2_r7_c2.gif);background-repeat:repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
+    <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
     <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="0" cellspacing="0" style="border:1px dotted #7599BB;" summary="">
         <tr>
           <td colspan="4"><img src="../img/leer.gif" alt="" width="1" height="6" /></td>
@@ -100,33 +98,33 @@ body {
         <tr>
           <td align="right" class="chatlist">php.ini:&nbsp;</td>
           <td class="chatlist"><?php
-		  
+
 		  if(ini_get('register_globals')) {
 		  	echo 'register_globals = On -&gt; should always be set Off because of <a href="http://phpsec.org/projects/guide/1.html#1.3" target="_blank" style="text-decoration:underline">security risks</a>';
 		  } else {
 		    echo 'register_globals = Off -&gt; that\'s good :)';
 		  }
-		  
-		  
-		  
+
+
+
 		  ?></td>
         </tr>
         <tr>
           <td align="right" class="chatlist">&nbsp;</td>
           <td class="chatlist"><?php
-		  
+
 		  if(ini_get('safe_mode')) {
 		  	echo 'safe_mode = On -&gt; you have limited permissions, you might not be able to use ImageMagick';
 		  } else {
 		    echo 'safe_mode = Off -&gt; good when you want to use ImageMagick, may have some <a href="http://phpsec.org/" target="_blank" style="text-decoration:underline">security risks</a>';
 		  }
-		  
+
 		  ?></td>
         </tr>
         <tr>
           <td align="right" class="chatlist">&nbsp;</td>
-          <td class="chatlist">GD = <?php 
-					
+          <td class="chatlist">GD = <?php
+
 				$_phpinfo = parsePHPModules();
 				if(isset($_phpinfo['gd']['GD Support']) && $_phpinfo['gd']['GD Support'] == 'enabled') {
 					echo 'On';
@@ -134,9 +132,9 @@ body {
 				} else {
 					echo 'Off';
 				}
-				
-				
-		
+
+
+
 		?></td>
         </tr>
         <tr>
@@ -150,13 +148,13 @@ body {
   images, settings and custom scripts.</p>
 </div></td>
         </tr>
-		
+
         <tr>
           <td colspan="4"><img src="../img/leer.gif" alt="" width="1" height="6" /></td>
         </tr>
-    </table>      
+    </table>
 
-	
+
 
   <h1>When upgrading from releases older than 1.1.9:</h1>
  <p> There are some deeper changes. After upgrading db frame the following<br />
@@ -191,7 +189,7 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 if($do) {
 
 	@mysql_query('SET storage_engine=MYISAM', $db);
-	
+
 	if($phpwcms['db_version'] > 40100) {
 		$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
 		@mysql_query($value, $db);
@@ -213,16 +211,16 @@ if($do) {
 		if(!$value) {
 			unset($sql[$key]);
 		} else {
-		
+
 			if($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']=='utf8') {
 				$value = utf8_encode($value);
 			}
-		
+
 			if(!mysql_query($value)) echo '<span class="error">ERROR: '.html_entities(@mysql_error())." -&gt; </span>";
 			echo html_specialchars($value).";\n";
 		}
 	}
-	
+
 	echo '</pre></div>';
 
 } else {
@@ -268,11 +266,11 @@ if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation']) || empty($ph
     <td align="right">DB table prefix:</td>
     <td style="font-weight:bold; "><?php echo $phpwcms["db_prepend"] ?>&nbsp;</td>
   </tr>
-  
-  
 
-  
-  
+
+
+
+
   <tr bgcolor="#FFFFFF">
     <td align="right">&nbsp;select&nbsp;SQL&nbsp;file:</td>
     <td><select name="sqlfile" id="sqlfile" onchange="window.open(this.options[this.selectedIndex].value,'sqlqueries')">
@@ -284,25 +282,22 @@ if(is_dir($dir)) {
 	$ph			= opendir($dir);
 	$dir_sql	= array();
 	while($pf = readdir($ph)) {
-   		if( $pf != '.' && $pf != '..' && !is_dir($dir.'/'.$pf) && preg_match('/(\.sql)$/', strtolower($pf)) ) 
-		{
+   		if( substr($pf, 0, 1) !== '.' && is_file($dir.'/'.$pf) && preg_match('/(\.sql)$/i', $pf) ) {
 			$dir_sql[] = html_specialchars($pf);
 		}
 	}
 	closedir($ph);
-	
+
 	natsort($dir_sql);
-	
+
 	foreach($dir_sql as $pf) {
-	
+
 		echo '<option value="inc/showsql.php?f='.$pf.'">'.$pf."</option>\n";
-	
+
 	}
-	
+
 }
-	
-	
-	
+
 ?>
     </select></td>
   </tr>
@@ -311,15 +306,13 @@ if(is_dir($dir)) {
 <iframe name="sqlqueries" id="sqlqueries" frameborder="0" scrolling="auto" src="inc/showsql.php"></iframe>
 <p><input name="submit" type="submit" value="Upgrade database" /></p>
 </form>
-<?php 
+<?php
 
 }
 
 ?>
-
-		
 	</td>
-    <td width="15" bgcolor="#FFFFFF" style="background-image:url(../img/backend/preinfo2_r7_c7.gif);background-repeat:repeat-y;background-position:right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
+    <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>
   <tr>
     <td><img src="../img/backend/backend_a_r1_c1.gif" alt="" width="15" height="15" border="0" /></td>
@@ -329,7 +322,7 @@ if(is_dir($dir)) {
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
     <td colspan="2" valign="bottom" class="navtext">
-		<a href="http://www.phpwcms.de" target="_blank">phpwcms</a>
+		<a href="http://www.phpwcms.org" target="_blank">phpwcms</a>
 		&copy; 2003&#8212;<?php echo date('Y') ?>
 		<a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver Georgi</a>.
 		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.

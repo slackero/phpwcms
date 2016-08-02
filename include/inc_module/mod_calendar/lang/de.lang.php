@@ -3,7 +3,6 @@
 // first define main language vars
 $BLM['backend_menu']			= 'Kalender/Events';
 
-
 $BLM['listing_title']			= 'Kalender';
 $BLM['create_new']				= 'Neuer Kalendereintrag';
 $BLM['calendar_entry']			= 'Kalendereintrag';
@@ -55,11 +54,8 @@ $BLM['repeat_list5']			= 'w&ouml;chentlich';
 $BLM['repeat_list6']			= 'monatlich';
 $BLM['repeat_list7']			= 'j&auml;hrlich';
 
-
 $BLM['article_link']			= 'AID/Alias/URL';
 $BLM['more_info']				= '(erzeugt weiterf&uuml;hrenden Link im Frontend)'; 
 
 $BLM['repeat_till']				= 'Zeitraum'; 
 $BLM['till']					= 'bis';
-
-?>

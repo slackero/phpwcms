@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -22,26 +22,23 @@ header('Retry-After: 3600');
 <style type="text/css">
 <!--
 body,td,th {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #000000;
 }
 body {
-	background-color: #FFFFFF;
-	margin-left: 15px;
-	margin-top: 25px;
-	margin-right: 15px;
-	margin-bottom: 15px;
-	text-align: center;
+    background-color: #FFFFFF;
+    margin: 25px 15px 15px 15px;
+    text-align: center;
 }
 h1 {
-	font-family: Verdana; Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 0 0 10px 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
 }
 p {
-	margin: 0 0 5px 0;
+    margin: 0 0 5px 0;
 }
 -->
 </style></head>

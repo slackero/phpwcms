@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -46,7 +46,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 		}
 
-		if(isEmpty($dir_newname)) $dir_error = 1;
+		if(str_empty($dir_newname)) $dir_error = 1;
 		//Eintragen des neuen verzeichnisnamens
 		if(!isset($dir_error)) {
 			$sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (f_pid, f_uid, f_name, f_aktiv, f_public, ".
@@ -59,7 +59,7 @@ if (!defined('PHPWCMS_ROOT')) {
 					time()."', 0, '".aporeplace($dir_longinfo)."', ".$dir_gallery.", ".
 					$dir_sort.")";
 			if($result = mysql_query($sql, $db) or die ("error while writing new dir info")) {
-				headerRedirect(PHPWCMS_URL."phpwcms.php?do=files&f=0");
+				headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
 			}
 		}
 	}

@@ -19,5 +19,3 @@ if(isset($LEVEL_ID[1])) { // lets say it is the main structure root
 	$content['body_id'] = false;
 
 }
-
-?>

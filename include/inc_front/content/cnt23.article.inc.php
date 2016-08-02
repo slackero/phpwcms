@@ -2,34 +2,39 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
-include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php');
+include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php';
 
 // Form
 $cnt_form = unserialize($crow["acontent_form"]);
 
 if(empty($cnt_form['anchor_off'])) {
-	$CNT_TMP .= '<a name="jumpForm'.$crow["acontent_id"].'" id="jumpForm'.$crow["acontent_id"].'"></a>';
+	$CNT_TMP .= '<a id="';
+	if(empty($cnt_form['anchor_name'])) {
+		$CNT_TMP .= 'jumpForm'.$crow["acontent_id"];
+	} else {
+		$CNT_TMP .= html($cnt_form['anchor_name']);
+	}
+	$CNT_TMP .= '"></a>';
 }
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 if(!empty($cnt_form['ssl']) && !PHPWCMS_SSL) {
 	headerRedirect($phpwcms['site_ssl_url'] . rel_url(), 301);
 }
-
 
 // save default form tracking status
 $default_formtracking_value = $phpwcms['form_tracking'];
@@ -158,7 +163,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								 */
 								if($POST_DO && isset($_POST[$POST_name])) {
 									$POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
-									include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
+									include_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 									$spaf_obj = new SPAF_FormValidator();
 									if($spaf_obj->validRequest($POST_val[$POST_name])) {
 										$spaf_obj->destroy();
@@ -194,43 +199,46 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 			case 'recaptcha':	/*
 								 * reCAPTCHA
 								 */
-								include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php');
+								require_once PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php';
 
 								$cnt_form['recaptcha'] = array(
-									'public_key' => empty($cnt_form["fields"][$key]['value']['public_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['public_key'],
-									'private_key' => empty($cnt_form["fields"][$key]['value']['private_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['private_key'],
+									'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
+									'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
 									'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
-									'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'clear' : $cnt_form["fields"][$key]['value']['theme'],
-									'tabindex' => empty($cnt_form["fields"][$key]['value']['tabindex']) ? 0 : $cnt_form["fields"][$key]['value']['tabindex'],
+									'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'light' : $cnt_form["fields"][$key]['value']['theme'],
+									'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
 									'error' => NULL
 								);
 
-								if($POST_DO && isset($_POST['recaptcha_response_field']) && isset($_POST['recaptcha_challenge_field'])) {
+								$reCaptcha = new ReCaptcha($cnt_form['recaptcha']['secret_key']);
 
-									$cnt_form['recaptcha']['response'] = recaptcha_check_answer($cnt_form['recaptcha']['private_key'], $_SERVER["REMOTE_ADDR"], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+								if($POST_DO && isset($_POST['g-recaptcha-response'])) {
 
-									if(!$cnt_form['recaptcha']['response']->is_valid) {
+									$cnt_form['recaptcha']['response'] = $reCaptcha->verifyResponse(
+										getRemoteIP(),
+										$_POST['g-recaptcha-response']
+									);
 
-										$cnt_form['recaptcha']['error']	= $cnt_form['recaptcha']['response']->error;
+									if(empty($cnt_form['recaptcha']['response']->success)) {
+										if(is_array($cnt_form['recaptcha']['response']->errorCodes) && count($cnt_form['recaptcha']['response']->errorCodes)) {
+											$cnt_form['recaptcha']['error']	= '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']->errorCodes).'@@';
+										} else {
+											$cnt_form['recaptcha']['error'] = 'reCaptcha @@failed@@';
+										}
 										$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
 										$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
-
 									}
 								}
 								//
-								$form_field  = '<div';
-								if($cnt_form["fields"][$key]['class']) {
-									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
+								$form_field  = '<div class="g-recaptcha"';
+								$form_field .= ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
+								$form_field .= ' data-theme="'.$cnt_form['recaptcha']['theme'].'"';
+								$form_field .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
+								$form_field .= '></div>';
+								$form_field .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://www.google.com/recaptcha/api.js?hl='.$cnt_form['recaptcha']['lang'].'"></script>';
+								if($cnt_form["fields"][$key]['class'] || $cnt_form["fields"][$key]['style']) {
+									$form_field = '<div class="'.$cnt_form["fields"][$key]['class'].'" style="'.$cnt_form["fields"][$key]['style'].'">' . $form_field . '</div>';
 								}
-								if($cnt_form["fields"][$key]['style']) {
-									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
-								}
-								$form_field .= '><script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-								$form_field .= '	var RecaptchaOptions = {lang:"'.$cnt_form['recaptcha']['lang'].'",';
-								$form_field .= 'theme:"'.$cnt_form['recaptcha']['theme'].'",tabindex:'.$cnt_form['recaptcha']['tabindex'] . '};' . LF;
-								$form_field .= '</script>';
-								$form_field .= recaptcha_get_html($cnt_form['recaptcha']['public_key'], $cnt_form['recaptcha']['error'], PHPWCMS_SSL);
-								$form_field .= '</div>';
 
 								break;
 
@@ -1006,8 +1014,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								}
 								if($cnt_form["fields"][$key]['max']) {
 									$form_field .= ' maxlength="'.$cnt_form["fields"][$key]['max'].'"';
+									$form_field .= ' title="max. '.fsize($cnt_form["fields"][$key]['max'],' ',1).'"';
 								} elseif (!empty($cnt_form['upload_value']['maxlength'])) {
 									$form_field .= ' maxlength="'.$cnt_form['upload_value']['maxlength'].'"';
+									$form_field .= ' title="max. '.fsize($cnt_form['upload_value']['maxlength'],' ',1).'"';
 								}
 								if($cnt_form["fields"][$key]['class']) {
 									$form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
@@ -1015,11 +1025,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 								if($cnt_form["fields"][$key]['style']) {
 									$form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
 								}
-								$form_field .= ' title="';
-								if($cnt_form['upload_value']['maxlength']) {
-									$form_field .= 'max. '.fsize($cnt_form['upload_value']['maxlength'],' ',1);
-								}
-								$form_field .= '" />';
+								$form_field .= ' />';
 								unset($cnt_form['upload_value']);
 
 								// enable enctype attribute
@@ -1664,6 +1670,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 		$cnt_form['fe_current_url'] = abs_url(array(), array(), '', 'rawurlencode');
 
+        $GLOBALS['phpwcms']['callback'] = now();
 		$cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
 		$cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
 		$cnt_form['template'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template']);
@@ -1712,7 +1719,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 
 	// check for unique recipients (target) and sender (fromEmail)
-	if(!empty($cnt_form['checktofrom'])) {
+	if(!empty($cnt_form['checktofrom']) && !empty($cnt_form['fromEmail'])) {
 
 		foreach($cnt_form["target"] as $value) {
 
@@ -1782,9 +1789,8 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$mail->From 		= $cnt_form['sender'];
-		$mail->FromName		= $cnt_form['sendername'];
-		$mail->Sender	 	= $cnt_form['sender'];
+		$mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+		$mail->AddReplyTo($cnt_form['sender']);
 
 		$cnt_form["copytoError"] = array();
 
@@ -1835,9 +1841,9 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	if(empty($cnt_form["fromEmail"])) {
 		$cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
 	}
-	$mail->From 		= $cnt_form['sender'];
-	$mail->FromName		= $cnt_form['sendername'];
-	$mail->Sender	 	= $cnt_form['sender'];
+
+	$mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+	$mail->AddReplyTo($cnt_form['sender']);
 
 	if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 
@@ -2088,13 +2094,18 @@ if($form_cnt) {
 		$cnt_form['class'] = '';
 	}
 	$CNT_TMP .= $form_error_text;
-	$CNT_TMP .= '<form name="phpwcmsForm'.$crow["acontent_id"].'" id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'];
-	$CNT_TMP .= ' action="'.rel_url();
-	if(empty($cnt_form['anchor_off'])) {
+	$CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.rel_url();
+	if(!empty($cnt_form['anchor_name'])) {
+		$CNT_TMP .= '#'.html($cnt_form['anchor_name']);
+	} elseif(empty($cnt_form['anchor_off'])) {
 		$CNT_TMP .= '#jumpForm'.$crow["acontent_id"];
 	}
-	$CNT_TMP .= '" method="post"';
-	$CNT_TMP .= $cnt_form['is_enctype'] ? ' enctype="multipart/form-data">' : '>';
+	$CNT_TMP .= '" ';
+	if($cnt_form['is_enctype']) {
+		$CNT_TMP .= 'enctype="multipart/form-data" ';
+	}
+	$CNT_TMP .= 'method="post">';
+
 
 	if($cnt_form['labelpos'] == 2) {
 
@@ -2128,5 +2139,3 @@ unset( $form, $form_cnt, $form_cnt_2, $form_field, $form_field_hidden, $form_cou
 
 // reset form tracking status to default value
 $phpwcms['form_tracking'] = $default_formtracking_value;
-
-?>

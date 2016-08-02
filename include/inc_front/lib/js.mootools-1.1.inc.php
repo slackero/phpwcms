@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -22,7 +22,7 @@ function initJSLib() {
 			$GLOBALS['block']['custom_htmlhead']['mootools.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js');
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 /**
@@ -73,6 +73,8 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
 		$GLOBALS['block']['custom_htmlhead'][] = $_js;
 	}
+
+	return true;
 }
 
 /**
@@ -105,7 +107,6 @@ function initJSPlugin($plugin='') {
 		initJSLib();
 		$GLOBALS['block']['custom_htmlhead'][$plugin] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/plugin-1.1/'.$plugin);
 	}
-	return TRUE;
-}
 
-?>
+    return true;
+}

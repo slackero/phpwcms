@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -212,7 +212,7 @@ initMootoolsAutocompleter();
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><input name="calendar_refid" type="text" id="calendar_refid" class="v12" style="width:375px;margin-top:3px;" value="<?php echo empty($plugin['data']['calendar_refid']) ? '' : html($plugin['data']['calendar_refid']) ?>" size="30" maxlength="255" /></td>
+		<td><input name="calendar_refid" type="text" id="calendar_refid" class="v12" style="width:375px;margin-top:3px;" value="<?php echo empty($plugin['data']['calendar_refid']) ? '' : html($plugin['data']['calendar_refid']) ?>" size="30" maxlength="500" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -241,8 +241,7 @@ initMootoolsAutocompleter();
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
-
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 		?></td>
 	</tr>
@@ -398,7 +397,6 @@ window.addEvent('domready', function(){
 	showImage();
 
 });
-
 
 function setCalendarAllDay() {
 

@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -44,11 +44,6 @@ if($content['recipe']['get_keywords']) {
 $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['all_keywords']);
 
 ?>
-<!--
-<link href="../../inc_css/phpwcms.css" rel="stylesheet" type="text/css">
-<table cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF" width="440">
-
-//-->
 
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
@@ -77,7 +72,7 @@ if(count($content['recipe']['all_keywords'])) {
 ?>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="width440"><?php echo html($content['recipe']['category']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_category" id="recipe_category" cols="40" rows="2" class="width440 autosize"><?php echo html($content['recipe']['category']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
@@ -107,7 +102,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13">Zutaten:&nbsp;</td>
-  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="width440"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
+  <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="width440 autosize"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
@@ -169,10 +164,9 @@ $wysiwyg_editor = array(
 	'lang'		=> 'en'
 );
 
-include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<!--  </table>-->

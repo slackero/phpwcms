@@ -2,15 +2,15 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms['mime_types'] = array(
-	
+
 	'*'			=>	'application/octet-stream',
 	'3dmf'		=>	'x-world/x-3dmf',
 	'3g2'		=>	'video/3gpp2',
@@ -46,7 +46,6 @@ $phpwcms['mime_types'] = array(
 	'cpio'		=>	'application/x-cpio',
 	'cpt'		=>	'application/mac-compactpro',
 	'csh'		=>	'application/x-csh',
-	'csh'		=>	'application/x-csh',
 	'css'		=>	'text/css',
 	'dll'		=>	'application/octet-stream',
 	'doc'		=>	'application/msword',
@@ -60,12 +59,12 @@ $phpwcms['mime_types'] = array(
 	'es'		=>	'audio/echospeech',
 	'evy'		=>	'application/envoy',
 	'exe'		=>	'application/octet-stream',
-	
+
 	'f4a'		=>	'audio/mp4',
 	'f4b'		=>	'audio/mp4',
 	'f4p'		=>	'video/mp4',
 	'f4v'		=>	'video/mp4',
-	
+
 	'fif'		=>	'image/fif',
 	'flac'		=>	'audio/flac',
 	'flv'		=>	'video/x-flv',
@@ -100,8 +99,8 @@ $phpwcms['mime_types'] = array(
 	'm1s'		=>	'video/mpeg',
 	'm1v'		=>	'video/mpeg',
 	'm15'		=>	'video/mpeg',
-	'm4a'		=>	'audio/x-m4a',
-	'm4v'		=>	'video/x-m4v',
+	'm4a'		=>	'audio/mp4',
+	'm4v'		=>	'video/mp4',
 	'm75'		=>	'video/mpeg',
 	'man'		=>	'application/x-troff-man',
 	'me'		=>	'application/x-troff-me',
@@ -131,7 +130,7 @@ $phpwcms['mime_types'] = array(
 	'mpv2'		=>	'video/mpeg-2',
 	'ms'		=>	'application/x-troff-ms',
 	'oda'		=>	'application/oda',
-	
+
 	// Open Office
 	'odt'		=>	'application/vnd.oasis.opendocument.text',
 	'ott'		=>	'application/vnd.oasis.opendocument.text-template',
@@ -149,7 +148,7 @@ $phpwcms['mime_types'] = array(
 	'otf'		=>	'application/vnd.oasis.opendocument.formula-template',
 	'odm'		=>	'application/vnd.oasis.opendocument.text-master',
 	'oth'		=>	'application/vnd.oasis.opendocument.text-web',
-	
+
 	// Office 2007
 	'docx'			=>	'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 	'docm'			=>	'application/vnd.ms-word.document.macroEnabled.12',
@@ -175,7 +174,7 @@ $phpwcms['mime_types'] = array(
 	'onetoc2'		=>	'application/onenote',
 	'onetmp'		=>	'application/onenote',
 	'onepkg'		=>	'application/onenote',
-	
+
 	'oga'		=>	'audio/ogg',
 	'ogg'		=>	'audio/ogg',
 	'ogv'		=>	'video/ogg',
@@ -206,7 +205,6 @@ $phpwcms['mime_types'] = array(
 	'sea'		=>	'application/x-stuffit',
 	'sgm'		=>	'text/sgml',
 	'sgml'		=>	'text/sgml',
-	'sh'		=>	'application/x-sh',
 	'sh'		=>	'application/x-sh',
 	'shar'		=>	'application/x-shar',
 	'sit'		=>	'application/x-stuffit',
@@ -264,7 +262,7 @@ $phpwcms['mime_types'] = array(
  * @return strin mime-type
  */
 function get_mimetype_by_extension($ext='') {
-	
+
 	if(empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext])) {
 		$ext = '*';
 	}
@@ -281,13 +279,11 @@ function is_mimetype_by_extension($ext) {
  * It is mainly based to handle problemes related to mimeTypes.rdf in FireFox
  */
 function is_mimetype_format($mimetype='') {
-	
+
 	if(empty($mimetype)) {
 		return false;
 	}
-	
+
 	// we do not test against 'examples' type
 	return preg_match('/^(application|audio|image|text|video|message|model|multipart)\/([a-z0-9\-\.\+]+)$/i', $mimetype);
 }
-
-?>

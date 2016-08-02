@@ -2,20 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 // newsletter subscription
 
@@ -30,9 +29,8 @@ if(!empty($_GET["s"]) && isset($_GET['active'])) {
 }
 
 if(isset($_GET["s"]) && isset($_GET['edit'])) {
-	include_once(PHPWCMS_ROOT.'/include/inc_tmpl/subscription.form.tmpl.php');
+	include_once PHPWCMS_ROOT.'/include/inc_tmpl/subscription.form.tmpl.php';
 }
-
 
 ?>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="newsletter susbcription listing">

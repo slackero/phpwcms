@@ -1570,7 +1570,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         }
         for (key in this._options.customHeaders){
             xhr.setRequestHeader(key, this._options.customHeaders[key]);
-        };
+        }
         xhr.send(file);
     },
     _onComplete: function(id, xhr){

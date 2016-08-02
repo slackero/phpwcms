@@ -4,20 +4,23 @@ html, body, div {
 }
 body {
 	color: #282F42;
-	background-image: url(../../img/backend/background.jpg);
-	background-repeat: repeat-x;
-	background-color: #C1D2E2;
+	background: #C1D2E2 url(../../img/backend/background.jpg) repeat-x;
 	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 140%;
+}
+.nowrap {
+	white-space: nowrap;
+}
+h4 {
+	margin: .5em 0;
 }
 form {
 	padding: 0;
-	margin: 5px 0 2px 0;
+	margin: 1em 0;
 }
 p {
-	margin: 0;
-	padding: 5px 0 10px 0;
+	margin: .5em 0;
 }
 .v09 {
 	font-size: 9px;
@@ -35,36 +38,8 @@ p {
 	font-size: 12px;
 	font-weight: normal;
 }
-.v13 {
-	font-size: 13px;
-	font-weight: normal;
-}
-.v14 {
-	font-size: 14px;
-	font-weight: normal;
-}
-.v09b {
-	font-size: 9px;
-	font-weight: bold;
-}
-.v10b {
-	font-size: 10px;
-	font-weight: bold;
-}
-.v11b {
-	font-size: 11px;
-	font-weight: bold;
-}
 .v12b {
 	font-size: 12px;
-	font-weight: bold;
-}
-.v13b {
-	font-size: 13px;
-	font-weight: bold;
-}
-.v14b {
-	font-size: 14px;
 	font-weight: bold;
 }
 h1 {
@@ -100,11 +75,6 @@ a:hover {
 	color: #FF572D;
 	text-decoration: underline;
 	background-color: transparent;
-}
-.versioncheck {
-	padding: 6px;
-	border: 1px solid #A0BBD6;
-	margin: 0 0 15px 0;
 }
 .versioncheck p {
 	padding: 0;
@@ -153,7 +123,7 @@ input, select, textarea {
 	border: 1px solid #7599BB;
 	margin: 10px 0 20px 0;
 	padding: 10px;
-	font-family: "Courier New", Courier, mono;
+	font-family: "Courier New", Courier, monospace;
 	font-weight: normal;
 	color: #FF572D;
 }
@@ -165,10 +135,10 @@ input, select, textarea {
 	width: 735px;
 }
 #license p {
-	font-family: "Courier New", Courier, mono;
+	font-family: "Courier New", Courier, monospace;
 }
 p.code {
-	font-family: "Courier New", Courier, mono;
+	font-family: "Courier New", Courier, monospace;
 	color: #009900;
 	padding-left: 20px;
 }
@@ -207,4 +177,17 @@ ol, ul {
 ol li, ul li {
 	margin: 0;
 	padding: 0;
+}
+
+input[type="text"],
+input[type="submit"],
+input[type="password"],
+select,
+button {
+	font-size: 16px;
+	font-family: sans-serif;
+}
+input[type="text"],
+input[type="password"] {
+	margin: 1px 3px 1px 0;
 }

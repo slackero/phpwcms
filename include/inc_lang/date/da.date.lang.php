@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,13 +14,13 @@
 
 // language: DA
 
-$weekday_long[0]	= "Søndag"; 		$weekday_short[0]	= "Sø";
+$weekday_long[0]	= "SÃ¸ndag"; 		$weekday_short[0]	= "SÃ¸";
 $weekday_long[1]	= "Mandag";			$weekday_short[1]	= "Ma";
 $weekday_long[2]	= "Tirsdag";		$weekday_short[2]	= "Ti";
 $weekday_long[3]	= "Onsdag"; 		$weekday_short[3]	= "On";
 $weekday_long[4]	= "Torsdag";		$weekday_short[4]	= "To";
 $weekday_long[5]	= "Fredag"; 		$weekday_short[5]	= "Fr";
-$weekday_long[6]	= "Lørdag"; 		$weekday_short[6]	= "Lø";
+$weekday_long[6]	= "LÃ¸rdag"; 		$weekday_short[6]	= "LÃ¸";
 $month_long[ 1]	= "Januar";			$month_short[ 1]		= "Jan.";
 $month_long[ 2]	= "Februar";		$month_short[ 2]		= "Feb.";
 $month_long[ 3]	= "Marts";			$month_short[ 3]		= "Mar.";
@@ -34,4 +34,3 @@ $month_long[10]	= "Oktober";		$month_short[10]		= "Okt.";
 $month_long[11]	= "November";		$month_short[11]		= "Nov.";
 $month_long[12]	= "December";		$month_short[12]		= "Dec.";
 
-?>

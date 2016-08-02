@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,7 +14,7 @@
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 //
-// Translated by Spirou v. 1.0 
+// Translated by Spirou v. 1.0
 // Valid for the relaese of phpwcms (31/12/2003)
 // #Changelog#
 // release
@@ -66,7 +66,7 @@ $BL['be_subnav_admin_filecat']          = 'filkategorier';
 
 // admin.functions.inc.php
 $BL['be_func_struct_articleID']         = 'artikel-ID';
-$BL['be_func_struct_preview']           = 'förhandsgranska';
+$BL['be_func_struct_preview']           = 'fÃ¶rhandsgranska';
 $BL['be_func_struct_edit']              = 'modifiera artikel';
 $BL['be_func_struct_sedit']             = 'modifiera denna kategori';
 $BL['be_func_struct_cut']               = 'kopiera artikel';
@@ -124,7 +124,7 @@ $BL['be_profile_account_err4']          = 'e-postadressen {VAL} kunde inte spara
 
 // profile.data.tmpl.php
 $BL['be_profile_data_title']            = 'Dina personliga uppgifter';
-$BL['be_profile_data_text']             = 'Personliga uppgifter &auml;r frivilliga. Genom att uppge dessa f&aring;r andra anv&auml;ndare till&auml;ggsinformation om dig, dina intressen eller meriter. Genom att v&auml;lja vilken ruta som du kryssar för kan andra se din profil eller via artikelsidor (eller vice versa)..';
+$BL['be_profile_data_text']             = 'Personliga uppgifter &auml;r frivilliga. Genom att uppge dessa f&aring;r andra anv&auml;ndare till&auml;ggsinformation om dig, dina intressen eller meriter. Genom att v&auml;lja vilken ruta som du kryssar fÃ¶r kan andra se din profil eller via artikelsidor (eller vice versa)..';
 $BL['be_profile_label_title']           = 'titel';
 $BL['be_profile_label_firstname']       = 'f&ouml;rnamn';
 $BL['be_profile_label_name']            = 'efternamn';
@@ -163,7 +163,7 @@ $BL['be_ftptakeover_title']             = 'h&auml;mta filer som &ouml;verf&ouml;
 $BL['be_ftptakeover_mark']              = 'markera';
 $BL['be_ftptakeover_available']         = 'tillg&auml;ngliga filer';
 $BL['be_ftptakeover_size']              = 'st&oslash;rrelse';
-$BL['be_ftptakeover_nofile']            = 'der er ikke nogle filer tilg&auml;ngelige &#8211; du skal uploade mindst én til den angivne ftp Ovantagelsesmappe';
+$BL['be_ftptakeover_nofile']            = 'der er ikke nogle filer tilg&auml;ngelige &#8211; du skal uploade mindst Ã©n til den angivne ftp Ovantagelsesmappe';
 $BL['be_ftptakeover_all']               = 'ALLA';
 $BL['be_ftptakeover_directory']         = 'katalog';
 $BL['be_ftptakeover_rootdir']           = 'rotkatalog';
@@ -209,7 +209,7 @@ $BL['be_fpriv_updatebutton']            = '&auml;ndra kataloginfo';
 
 // files.private.upload.tmpl.php
 $BL['be_fprivup_err1']                  = 'V&auml;lj en fil som du vill h&auml;mta';
-$BL['be_fprivup_err2']                  = 'Storleken p&aring; den h&auml;mtade filen &auml;r större &auml;n';
+$BL['be_fprivup_err2']                  = 'Storleken p&aring; den h&auml;mtade filen &auml;r stÃ¶rre &auml;n';
 $BL['be_fprivup_err3']                  = '&Ouml;verf&ouml;ring av fil misslyckades';
 $BL['be_fprivup_err4']                  = 'Skapandet av katalog misslyckades';
 $BL['be_fprivup_err5']                  = 'thumbnail saknas';
@@ -239,7 +239,7 @@ $BL['be_fprivfunc_cpublic']             = 'byt till offentlig/icke offentlig';
 $BL['be_fprivfunc_deldir']              = 'radera katalog';
 $BL['be_fprivfunc_jsdeldir']            = 'Vill du verkligen radera denna katalog?';
 $BL['be_fprivfunc_notempty']            = 'katalogen {VAL} &auml;r inte tom!';
-$BL['be_fprivfunc_opendir']             = 'öppna katalog';
+$BL['be_fprivfunc_opendir']             = 'Ã¶ppna katalog';
 $BL['be_fprivfunc_closedir']            = 'st&auml;ng katalogen';
 $BL['be_fprivfunc_dlfile']              = 'h&auml;mta fil';
 $BL['be_fprivfunc_clipfile']            = 'fil att flytta';
@@ -271,7 +271,7 @@ $BL['be_ftrash_delfinal']               = 'radera permanent';
 // files.search.tmpl.php
 $BL['be_fsearch_err1']                  = 'Du fyllde inte i s&ouml;kf&auml;ltet.';
 $BL['be_fsearch_title']                 = 's&ouml;k filer';
-$BL['be_fsearch_infotext']              = 'H&auml;r kan du söka efter filer med hj&auml;lp av sökord, filnamn och fil-information.<br /> Sökningen understöder inte sk. wildcards (*). Sök med flera ord genom att separera dessa med ett blanksteg.<br /> V&auml;lj OCH/ELLER samt filtyp (privata/offentliga.';
+$BL['be_fsearch_infotext']              = 'H&auml;r kan du sÃ¶ka efter filer med hj&auml;lp av sÃ¶kord, filnamn och fil-information.<br /> SÃ¶kningen understÃ¶der inte sk. wildcards (*). SÃ¶k med flera ord genom att separera dessa med ett blanksteg.<br /> V&auml;lj OCH/ELLER samt filtyp (privata/offentliga.';
 $BL['be_fsearch_nonfound']              = 'S&ouml;kningen gav inget matchande resultat.';
 $BL['be_fsearch_fillin']                = 'fyll i s&ouml;kf&auml;ltet.';
 $BL['be_fsearch_searchlabel']           = 's&oslash;k efter';
@@ -340,7 +340,7 @@ $BL['be_admin_usr_err3']                = 'l&ouml;senord saknas (obligatoriskt)'
 $BL['be_admin_usr_err4']                = "e-post adressen &auml;r inte giltig";
 $BL['be_admin_usr_err']                 = 'fel';
 $BL['be_admin_usr_mailsubject']         = 'V&auml;lkommen till administrationen av phpwcms';
-$BL['be_admin_usr_mailbody']            = "VÄLKOMMEN TILL ADMINISTRATIONEN AV PHPWCMS\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "VÃ„LKOMMEN TILL ADMINISTRATIONEN AV PHPWCMS\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_title']               = 'L&auml;gg till ny anv&auml;ndare';
 $BL['be_admin_usr_realname']            = 'Ditt egentliga namn';
 $BL['be_admin_usr_setactive']           = 'Aktivera anv&auml;ndarkonto';
@@ -354,8 +354,8 @@ $BL['be_admin_usr_button']              = 'spara anv&auml;ndardata';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = '&auml;ndra anv&auml;ndarkonto';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - kontodata har &auml;ndrats';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS ANVÄNDARINFORMATION &auml;NDRAT\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {LOGIN_PAGE}\n\nphpwcms admin\n ";
-$BL['be_admin_usr_passnochange']        = '[INGA &auml;NDRINGAR - ANVÄND SAMMA LÖSENORD SOM TIDIGARE]';
+$BL['be_admin_usr_emailbody']           = "PHPWCMS ANVÃ„NDARINFORMATION &auml;NDRAT\n\n    anv&auml;ndarnamn: {LOGIN}\n    l&ouml;senord: {PASSWORD}\n\n\nDu kan logga in h&auml;r: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_passnochange']        = '[INGA &auml;NDRINGAR - ANVÃ„ND SAMMA LÃ–SENORD SOM TIDIGARE]';
 $BL['be_admin_usr_ebutton']             = 'spara anv&auml;ndardata';
 
 // admin.listuser.tmpl.php
@@ -385,9 +385,9 @@ $BL['be_admin_fcat_name']               = 'kategorins namn';
 $BL['be_admin_fcat_needed']             = 'obilgatorisk';
 $BL['be_admin_fcat_button1']            = 'obligatoriskt';
 $BL['be_admin_fcat_button2']            = 'uppr&auml;tta';
-$BL['be_admin_fcat_delmsg']             = 'Vill du verkligen radera filens sökord?';
+$BL['be_admin_fcat_delmsg']             = 'Vill du verkligen radera filens sÃ¶kord?';
 $BL['be_admin_fcat_fcat']               = 'filkategori';
-$BL['be_admin_fcat_err1']               = 'sökord fattas!';
+$BL['be_admin_fcat_err1']               = 'sÃ¶kord fattas!';
 $BL['be_admin_fcat_fkeyname']           = 'filn&oslash;glens navn';
 $BL['be_admin_fcat_exit']               = 'st&auml;ng';
 $BL['be_admin_fcat_addkey']             = 'tilf&oslash;j ny n&oslash;gle';
@@ -395,7 +395,7 @@ $BL['be_admin_fcat_editcat']            = '&auml;ndra kategorins namn';
 $BL['be_admin_fcat_delcatmsg']          = '&oslash;nsker du virkelig\nat slette filkategorien?';
 $BL['be_admin_fcat_delcat']             = 'radera filens kategori';
 $BL['be_admin_fcat_delkey']             = 'slet filn&oslash;glens navn';
-$BL['be_admin_fcat_editkey']            = 'redigér n&oslash;gle';
+$BL['be_admin_fcat_editkey']            = 'redigÃ©r n&oslash;gle';
 $BL['be_admin_fcat_addcat']             = 'skapa ny filkategori';
 
 // admin.pagelayout.tmpl.php
@@ -471,7 +471,7 @@ $BL['be_article_abegin']                = 'b&ouml;rjar';
 $BL['be_article_aend']                  = 'slutar';
 $BL['be_article_aredirect']             = 'l&auml;nk';
 $BL['be_article_akeywords']             = 's&ouml;kord';
-$BL['be_article_asummary']              = 'brödtext';
+$BL['be_article_asummary']              = 'brÃ¶dtext';
 $BL['be_article_abutton']               = 'skapa ny artikel';
 
 // article.editcontent.inc.php
@@ -491,7 +491,7 @@ $BL['be_article_cnt_before']            = 'f&ouml;re';
 $BL['be_article_cnt_after']             = 'efter';
 $BL['be_article_cnt_top']               = 'top';
 $BL['be_article_cnt_ctitle']            = 'Rubrik';
-$BL['be_article_cnt_back']              = 'artikel översikt';
+$BL['be_article_cnt_back']              = 'artikel Ã¶versikt';
 $BL['be_article_cnt_button1']           = '&auml;ndra inneh&aring;ll';
 $BL['be_article_cnt_button2']           = 'spara';
 
@@ -503,7 +503,7 @@ $BL['be_article_cnt_ldel']              = 'radera denna artikel';
 $BL['be_article_cnt_ldeljs']            = 'Radera artikeln?';
 $BL['be_article_cnt_redirect']          = 'l&auml;nk';
 $BL['be_article_cnt_edited']            = 'skribent';
-$BL['be_article_cnt_start']             = 'börjar';
+$BL['be_article_cnt_start']             = 'bÃ¶rjar';
 $BL['be_article_cnt_end']               = 'slutar';
 $BL['be_article_cnt_add']               = 'tilf&oslash;j nyt artikelindhold';
 $BL['be_article_cnt_up']                = 'flytta inneh&aring;ll upp&aring;t';
@@ -535,8 +535,8 @@ $BL['be_cnt_pos5i']                     = 'infoga bild under texten och till h&o
 $BL['be_cnt_pos6i']                     = 'infoga bild till v&auml;nster med texten omkring';
 $BL['be_cnt_pos7i']                     = 'infoga bild til h&ouml;ger med texten omkring';
 $BL['be_cnt_maxw']                      = 'max.&nbsp;bredd';
-$BL['be_cnt_maxh']                      = 'max.&nbsp;höjd';
-$BL['be_cnt_enlarge']                   = 'förstora bilden (musklick)';
+$BL['be_cnt_maxh']                      = 'max.&nbsp;hÃ¶jd';
+$BL['be_cnt_enlarge']                   = 'fÃ¶rstora bilden (musklick)';
 $BL['be_cnt_caption']                   = 'bildtext';
 $BL['be_cnt_subject']                   = 'rubrik';
 $BL['be_cnt_recipient']                 = 'mottagare';
@@ -558,7 +558,7 @@ $BL['be_cnt_left']                      = 'v&auml;nster';
 $BL['be_cnt_center']                    = 'mitten';
 $BL['be_cnt_right']                     = 'h&ouml;ger';
 $BL['be_cnt_buttontext']                = 'knapptext';
-$BL['be_cnt_successtext']               = 'utfört-text';
+$BL['be_cnt_successtext']               = 'utfÃ¶rt-text';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
 $BL['be_cnt_changemail']                = '&auml;ndra.e-postadress';
@@ -609,7 +609,7 @@ $BL['be_cnt_set1']                      = 'storlek 160x120px';
 $BL['be_cnt_set2']                      = 'storlek 240x180px';
 $BL['be_cnt_set3']                      = 'storlek 320x240px';
 $BL['be_cnt_set4']                      = 'storlek 480x360px';
-$BL['be_cnt_set5']                      = 'ignorera bredd och höjd';
+$BL['be_cnt_set5']                      = 'ignorera bredd och hÃ¶jd';
 
 // added: 28-12-2003
 $BL['be_admin_page_add']                = 'skapa ny sidlayout';
@@ -623,20 +623,20 @@ $BL['be_admin_page_custominfo']         = 'anv&auml;nd blockv&auml;rden';
 $BL['be_admin_tmpl_layout']             = 'layout';
 $BL['be_admin_tmpl_nolayout']           = 'Ingen sidlayout finns tillg&auml;nglig!';
 
-// added: 31-12-2003 
-$BL['be_ctype_search'] = 'sökformul&auml;r'; 
-$BL['be_cnt_results'] = 'resultat'; 
-$BL['be_cnt_results_per_page'] = 'resultat per sida (tomt ger alla res.)'; 
-$BL['be_cnt_opennewwin'] = '&ouml;ppna l&auml;nk i nytt f&ouml;nster'; 
-$BL['be_cnt_searchlabeltext'] = 'Definiera text och sökv&auml;rden för sökformul&auml;ret och meddelanden som visas p&aring; resultatsidan samt vad som visas n&auml;r antalet matchningar  överstiger det angivna antalet tr&auml;ffar per sida.'; 
-$BL['be_cnt_input'] = 'input'; 
-$BL['be_cnt_style'] = 'style'; 
-$BL['be_cnt_result'] = 'resultat'; 
-$BL['be_cnt_next'] = 'n&auml;sta'; 
-$BL['be_cnt_previous'] = 'f&ouml;reg&aring;ende'; 
-$BL['be_cnt_align'] = 'placering'; 
-$BL['be_cnt_searchformtext'] = 'Följande text anger vad som ska visas n&auml;r resultat h&auml;mtas fr&aring;n fr&aring;geformul&auml;ret'; 
-$BL['be_cnt_intro'] = 'intro'; 
+// added: 31-12-2003
+$BL['be_ctype_search'] = 'sÃ¶kformul&auml;r';
+$BL['be_cnt_results'] = 'resultat';
+$BL['be_cnt_results_per_page'] = 'resultat per sida (tomt ger alla res.)';
+$BL['be_cnt_opennewwin'] = '&ouml;ppna l&auml;nk i nytt f&ouml;nster';
+$BL['be_cnt_searchlabeltext'] = 'Definiera text och sÃ¶kv&auml;rden fÃ¶r sÃ¶kformul&auml;ret och meddelanden som visas p&aring; resultatsidan samt vad som visas n&auml;r antalet matchningar  Ã¶verstiger det angivna antalet tr&auml;ffar per sida.';
+$BL['be_cnt_input'] = 'input';
+$BL['be_cnt_style'] = 'style';
+$BL['be_cnt_result'] = 'resultat';
+$BL['be_cnt_next'] = 'n&auml;sta';
+$BL['be_cnt_previous'] = 'f&ouml;reg&aring;ende';
+$BL['be_cnt_align'] = 'placering';
+$BL['be_cnt_searchformtext'] = 'FÃ¶ljande text anger vad som ska visas n&auml;r resultat h&auml;mtas fr&aring;n fr&aring;geformul&auml;ret';
+$BL['be_cnt_intro'] = 'intro';
 $BL['be_cnt_noresult'] = 'inga resultat';
 
 // added: 02-01-2004
@@ -659,4 +659,3 @@ $BL['be_ctype_articlemenu']				= 'article menu';
 $BL['be_cnt_sitelevel']					= 'site level';
 $BL['be_cnt_sitecurrent']				= 'current site level';
 
-?>

@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -161,9 +161,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 			$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$mail->From 		= $phpwcms['SMTP_FROM_EMAIL'];
-		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
-		$mail->Sender	 	= $phpwcms["admin_email"];
+		$mail->setFrom($phpwcms['SMTP_FROM_EMAIL'], $phpwcms['SMTP_FROM_NAME']);
+		$mail->AddReplyTo($phpwcms["admin_email"]);
 
 		$mail->clearAddresses();
 		$mail->addAddress($content["newsletter"]["email_address"]);
@@ -211,13 +210,13 @@ if($content["newsletter"]["success"]) {
 
 	$CNT_TMP .= ($content["newsletter"]["text"]) ? "<br />".nl2br(div_class($content["newsletter"]["text"],$template_default["article"]["text_class"])) : "";
 	$CNT_TMP .= '<form action="'.FE_CURRENT_URL.'" method="post" id="newsletterSubscribeForm">'.LF;
-	$CNT_TMP .= '<table border="0" cellpadding="0" cellspacing="0"';
+	$CNT_TMP .= '<table class="'.$template_default['classes']['newsletter-table'].'"';
 	switch($content["newsletter"]["pos"]) {
-		case 1: $CNT_TMP .= ' align="left"'; break;
-		case 2: $CNT_TMP .= ' align="center"'; break;
-		case 3: $CNT_TMP .= ' align="right"'; break;
+		case 1: $CNT_TMP .= ' style="float:left;"'; break;
+		case 2: $CNT_TMP .= ' style="margin-left:auto;margin-right:auto;"'; break;
+		case 3: $CNT_TMP .= ' style="float:right;"'; break;
 	}
-	$CNT_TMP .= ' summary="">'.LF;
+	$CNT_TMP .= '>'.LF;
 	if($content["newsletter"]["email_address_error"]) {
 		$CNT_TMP .= "<tr>";
 		if(!$label_pos) {
@@ -228,12 +227,12 @@ if($content["newsletter"]["success"]) {
 	$CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
 	$CNT_TMP .= (($content["newsletter"]["label_email"]) ? $content["newsletter"]["label_email"] : "email:")."&nbsp;</td>";
 	$CNT_TMP .= $label_pos_tr;
-	$CNT_TMP .= "<td><input name=\"newsletter_email\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
-	$CNT_TMP .= "value=\"".$content["newsletter"]["email_address"]."\" /></td>\n</tr>\n";
+	$CNT_TMP .= '<td><input name="newsletter_email" type="email" class="'.$template_default['classes']['newsletter-input-email'].'" size="30" maxlength="250" ';
+	$CNT_TMP .= "value=\"".$content["newsletter"]["email_address"]."\" required=\"required\" /></td>\n</tr>\n";
 	$CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
 	$CNT_TMP .= (($content["newsletter"]["label_name"]) ? $content["newsletter"]["label_name"] : "name:")."&nbsp;</td>";
 	$CNT_TMP .= $label_pos_tr;
-	$CNT_TMP .= "<td><input name=\"newsletter_name\" type=\"text\" class=\"inputNewsletter\" size=\"30\" maxlength=\"250\" ";
+	$CNT_TMP .= '<td><input name="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
 	$CNT_TMP .= "value=\"".$content["newsletter"]["email_name"]."\" /></td>\n</tr>\n";
 
 	if(is_array($content["newsletter"]["subscription"]) && count($content["newsletter"]["subscription"])) {
@@ -260,8 +259,10 @@ if($content["newsletter"]["success"]) {
 
 			if(is_numeric($nlvalue)) continue;
 
-			$content["newsletter"]['t'] .= '<tr>'.LF.'<td><input name="email_subscription['.$nlkey.']" type="checkbox" value="'.$nlkey.'"';
-			if(isset($content["newsletter"]["email_subscription"][$nlkey])) $content["newsletter"]['t'] .= ' checked="checked"';
+			$content["newsletter"]['t'] .= '<tr class="'.$template_default['classes']['newsletter-checkbox-item'].'">'.LF.'<td><input name="email_subscription['.$nlkey.']" type="checkbox" value="'.$nlkey.'"';
+			if(isset($content["newsletter"]["email_subscription"][$nlkey])) {
+    			$content["newsletter"]['t'] .= ' checked="checked"';
+            }
 			$content["newsletter"]['t'] .= ' id="email_subscription_'.$nlkey.'"/></td>'.LF;
 			$content["newsletter"]['t'] .= '<td><label for="email_subscription_'.$nlkey.'">';
 			$content["newsletter"]['t'] .= html_specialchars($nlvalue);
@@ -273,10 +274,10 @@ if($content["newsletter"]["success"]) {
 
 		if($content["newsletter"]['c']) {
 
-			$CNT_TMP .= "<tr>\n<td valign=\"top\" class=\"formLabel subscriptions\">";
+			$CNT_TMP .= "<tr>\n<td class=\"formLabel subscriptions\">";
 			$CNT_TMP .= empty($content["newsletter"]["label_subscriptions"]) ? 'subscribe&nbsp;to:' : $content["newsletter"]["label_subscriptions"];
-			$CNT_TMP .= '&nbsp;</td>'.$label_pos_tr.'<td valign="top">';
-			$CNT_TMP .= '<table border="0" cellpadding="0" cellspacing="0" class="subscriptions">'.LF;
+			$CNT_TMP .= '&nbsp;</td>'.$label_pos_tr.'<td>';
+			$CNT_TMP .= '<table class="'.$template_default['classes']['newsletter-table-subscription'].'">'.LF;
 			$CNT_TMP .= $content["newsletter"]['t'];
 			$CNT_TMP .= "</table></td>\n</tr>\n";
 		}
@@ -288,10 +289,8 @@ if($content["newsletter"]["success"]) {
 	if(!$label_pos) {
 		$CNT_TMP .= "\n<td>&nbsp;</td>";
 	}
-	$CNT_TMP .= "<td><input name=\"submit\" type=\"submit\" class=\"formButton\" value=\"";
+	$CNT_TMP .= '<td><input type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'" value="';
 	$CNT_TMP .= (($content["newsletter"]["button_text"]) ? $content["newsletter"]["button_text"] : "send")."\" />";
 	$CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
 	$CNT_TMP .= "</td>\n</tr>\n</table></form>";
 }
-
-?>

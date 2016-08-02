@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,25 +14,25 @@
 
 // language: cz
 
-$weekday_long[0]	= "Nedìle";		    $weekday_short[0]	= "Ne";
-$weekday_long[1]	= "Pondìlí";			$weekday_short[1]	= "Po";
-$weekday_long[2]	= "Úterý";		    $weekday_short[2]	= "Út";
-$weekday_long[3]	= "Støeda";		    $weekday_short[3]	= "St";
-$weekday_long[4]	= "Ètvrtek";		  $weekday_short[4]	= "Èt";
-$weekday_long[5]	= "Pátek";		    $weekday_short[5]	= "Pá";
+$weekday_long[0]	= "NedÄ›le";		    $weekday_short[0]	= "Ne";
+$weekday_long[1]	= "PondÄ›lÃ­";			$weekday_short[1]	= "Po";
+$weekday_long[2]	= "ÃšterÃ½";		    $weekday_short[2]	= "Ãšt";
+$weekday_long[3]	= "StÅ™eda";		    $weekday_short[3]	= "St";
+$weekday_long[4]	= "ÄŒtvrtek";		  $weekday_short[4]	= "ÄŒt";
+$weekday_long[5]	= "PÃ¡tek";		    $weekday_short[5]	= "PÃ¡";
 $weekday_long[6]	= "Sobota";		    $weekday_short[6]	= "So";
 
 $month_long[ 1]	= "Leden";			$month_short[ 1]		= "Led.";
-$month_long[ 2]	= "Únor";		    $month_short[ 2]		= "Úno.";
-$month_long[ 3]	= "Bøezen";			$month_short[ 3]		= "Bøe.";
+$month_long[ 2]	= "Ãšnor";		    $month_short[ 2]		= "Ãšno.";
+$month_long[ 3]	= "BÅ™ezen";			$month_short[ 3]		= "BÅ™e.";
 $month_long[ 4]	= "Duben";			$month_short[ 4]		= "Dub.";
-$month_long[ 5]	= "Kvìten";			$month_short[ 5]		= "Kvì.";
-$month_long[ 6]	= "Èerven";			$month_short[ 6]		= "Èer.";
-$month_long[ 7]	= "Èervenec";		$month_short[ 7]		= "Èen.";
+$month_long[ 5]	= "KvÄ›ten";			$month_short[ 5]		= "KvÄ›.";
+$month_long[ 6]	= "ÄŒerven";			$month_short[ 6]		= "ÄŒer.";
+$month_long[ 7]	= "ÄŒervenec";		$month_short[ 7]		= "ÄŒen.";
 $month_long[ 8]	= "Srpen";			$month_short[ 8]		= "Srp.";
-$month_long[ 9]	= "Záøí";		    $month_short[ 9]		= "Záø.";
-$month_long[10]	= "Øíjen";		  $month_short[10]		= "Øíj.";
+$month_long[ 9]	= "ZÃ¡Å™Ã­";		    $month_short[ 9]		= "ZÃ¡Å™.";
+$month_long[10]	= "Å˜Ã­jen";		  $month_short[10]		= "Å˜Ã­j.";
 $month_long[11]	= "Listopad";		$month_short[11]		= "Lis.";
 $month_long[12]	= "Prosinec";		$month_short[12]		= "Pro.";
 
-?>
+

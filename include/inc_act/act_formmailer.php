@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 //  based on FormMail v1
@@ -13,7 +13,7 @@
 
 // Only internal form sender allowed
 $phpwcms = array();
-require_once ('../../config/phpwcms/conf.inc.php');
+require_once '../../include/config/conf.inc.php';
 
 $url = $phpwcms["site"];
 $url = str_replace('http://', '', $url);
@@ -30,13 +30,13 @@ if(is_array($_GET)) {
 	$_GET = array('');
 }
 
-require_once ('../inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php');
-include_once (PHPWCMS_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php');
+require_once '../inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+include_once PHPWCMS_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
 if(!checkFormTrackingValue()) {
 
@@ -71,13 +71,12 @@ function phpwcms_form_encode($in_str, $charset) {
 
        // remove trailing spacer and
        // add start and end delimiters
-       $spacer = preg_quote($spacer);
+       $spacer = preg_quote($spacer, '/');
        $out_str = preg_replace("/" . $spacer . "$/", "", $out_str);
        $out_str = $start . $out_str . $end;
    }
    return $out_str;
 }
-
 
 //check which language to use
 $lang = "EN";
@@ -86,7 +85,9 @@ if(isset($_POST["language"]) && strlen($_POST['language']) < 3 ) {
 	unset($_POST["language"]);
 	$translate[$lang] = array_merge($translate['EN'], $translate[$lang]);
 }
-if(!isset($translate[$lang])) $lang = "EN";
+if(!isset($translate[$lang])) {
+	$lang = "EN";
+}
 
 //charset
 if(isset($_POST["charset"])) {
@@ -117,7 +118,7 @@ if(isset($_POST["required"])) {
 }
 
 if(isset($_POST["Captcha_Validation"])) {
-	include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
+	include_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 	$spaf_obj = new SPAF_FormValidator();
 	if($spaf_obj->validRequest($_POST["Captcha_Validation"])) {
 		$spaf_obj->destroy();
@@ -152,7 +153,6 @@ if(	isset($phpwcms["formmailer_set"])
 	$recipient = $phpwcms["formmailer_set"]['global_recipient_email'];
 }
 
-
 if(!is_valid_email($recipient)) { //if recipient mail address is invalid
 	$form_error[100] = $translate[$lang]["error100"];
 }
@@ -180,6 +180,7 @@ if(isset($_POST["send_copy"])) {
 	}
 	unset($_POST["send_copy"]);
 }
+
 //get values for redirecting
 if(isset($_POST["redirect"])) {
 	$redirect = trim($_POST["redirect"]);
@@ -198,8 +199,12 @@ if(isset($_POST["redirect_error_template"])) {
 	unset($_POST["redirect_error_template"]);
 }
 
-if(isset($_POST["submit"])) unset($_POST["submit"]);
-if(isset($_POST["type"])) unset($_POST["type"]);
+if(isset($_POST["submit"])) {
+	unset($_POST["submit"]);
+}
+if(isset($_POST["type"])) {
+	unset($_POST["type"]);
+}
 
 //checking values and setting labels
 if(count($_POST)) {
@@ -207,7 +212,7 @@ if(count($_POST)) {
 	foreach($_POST as $key => $value) {
 
 		//Check for required fields
-		if(!empty($required_val[$key]) && isEmpty($value) && $key != 'Captcha_Validation') {
+		if(!empty($required_val[$key]) && str_empty($value) && $key !== 'Captcha_Validation') {
 			if(isset($form_label[$key])) {
 				$form_error[500+$err_num] = str_replace("###value###", $form_label[$key], $translate[$lang]["error400"]);
 			} else {
@@ -320,24 +325,21 @@ if(isset($form_error)) {
 
 	if(isset($send_copy_to)) {
 
-		$mail->From 		= $recipient;
-		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
-		$mail->Sender	 	= $recipient;
+		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
+		$mail->AddReplyTo($recipient);
 		$mail->addAddress($send_copy_to);
 
 		if(!$mail->send()) {
 			$false .= '(1) '.html($mail->ErrorInfo).'<br>';
 		}
 
-		$mail->From 		= $send_copy_to;
-		$mail->FromName 	= '';
-		$mail->Sender	 	= $send_copy_to;
+		$mail->setFrom($send_copy_to);
+		$mail->AddReplyTo($send_copy_to);
 
 	} else {
 
-		$mail->From 		= $recipient;
-		$mail->FromName 	= $phpwcms['SMTP_FROM_NAME'];
-		$mail->Sender	 	= $recipient;
+		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
+		$mail->AddReplyTo($recipient);
 
 	}
 
@@ -376,6 +378,3 @@ if(isset($form_error)) {
 
 	}
 }
-
-
-?>

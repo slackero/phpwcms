@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -16,375 +16,375 @@
 // Translated by : Kiril Jovchev
 // Last change: 24 Aug 2004
 
-$BL['usr_online']                       = 'посетители';
+$BL['usr_online']                       = 'РїРѕСЃРµС‚РёС‚РµР»Рё';
 
 // Login Page
-$BL["login_text"]                       = 'Потребителско име';
-$BL['login_error']                      = 'Грешен потребител/парола!';
-$BL["login_username"]                   = 'Потребителско име';
-$BL["login_userpass"]                   = 'Парола';
-$BL["login_button"]                     = 'Влез';
-$BL["login_lang"]                       = 'Език';
+$BL["login_text"]                       = 'РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ';
+$BL['login_error']                      = 'Р“СЂРµС€РµРЅ РїРѕС‚СЂРµР±РёС‚РµР»/РїР°СЂРѕР»Р°!';
+$BL["login_username"]                   = 'РџРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ';
+$BL["login_userpass"]                   = 'РџР°СЂРѕР»Р°';
+$BL["login_button"]                     = 'Р’Р»РµР·';
+$BL["login_lang"]                       = 'Р•Р·РёРє';
 
 // phpwcms.php
-$BL['be_nav_logout']                    = 'ИЗХОД';
-$BL['be_nav_articles']                  = 'СТАТИИ';
-$BL['be_nav_files']                     = 'ФАЙЛОВЕ';
-$BL['be_nav_modules']                   = 'МОДУЛИ';
-$BL['be_nav_messages']                  = 'СЪОБЩЕНИЯ';
-$BL['be_nav_chat']                      = 'ЧАТ';
-$BL['be_nav_profile']                   = 'ПРОФИЛ';
-$BL['be_nav_admin']                     = 'АДМИНИСТРАЦИЯ';
-$BL['be_nav_discuss']                   = 'ДИСКУСИИ';
+$BL['be_nav_logout']                    = 'РР—РҐРћР”';
+$BL['be_nav_articles']                  = 'РЎРўРђРўРР';
+$BL['be_nav_files']                     = 'Р¤РђР™Р›РћР’Р•';
+$BL['be_nav_modules']                   = 'РњРћР”РЈР›Р';
+$BL['be_nav_messages']                  = 'РЎРЄРћР‘Р©Р•РќРРЇ';
+$BL['be_nav_chat']                      = 'Р§РђРў';
+$BL['be_nav_profile']                   = 'РџР РћР¤РР›';
+$BL['be_nav_admin']                     = 'РђР”РњРРќРРЎРўР РђР¦РРЇ';
+$BL['be_nav_discuss']                   = 'Р”РРЎРљРЈРЎРР';
 
-$BL['be_page_title']                    = 'phpwcms backend (администрация)';
+$BL['be_page_title']                    = 'phpwcms backend (Р°РґРјРёРЅРёСЃС‚СЂР°С†РёСЏ)';
 
-$BL['be_subnav_article_center']         = 'прес-център';
-$BL['be_subnav_article_new']            = 'нова статия';
-$BL['be_subnav_file_center']            = 'файл-център';
+$BL['be_subnav_article_center']         = 'РїСЂРµСЃ-С†РµРЅС‚СЉСЂ';
+$BL['be_subnav_article_new']            = 'РЅРѕРІР° СЃС‚Р°С‚РёСЏ';
+$BL['be_subnav_file_center']            = 'С„Р°Р№Р»-С†РµРЅС‚СЉСЂ';
 $BL['be_subnav_file_ftptakeover']       = 'ftp takeover';
-$BL['be_subnav_mod_artists']            = 'автор, категория, жанр';
-$BL['be_subnav_msg_center']             = 'център за съобщения';
-$BL['be_subnav_msg_new']                = 'ново съобщение';
-$BL['be_subnav_msg_newsletter']         = 'бюлетин';
-$BL['be_subnav_chat_main']              = 'главна страница на чата';
-$BL['be_subnav_chat_internal']          = 'вътрешен чат';
-$BL['be_subnav_profile_login']          = 'информация за потребителя';
-$BL['be_subnav_profile_personal']       = 'лични данни';
-$BL['be_subnav_admin_pagelayout']       = 'параметри на страницата';
-$BL['be_subnav_admin_templates']        = 'шаблони';
-$BL['be_subnav_admin_css']              = 'css по подразбиране';
-$BL['be_subnav_admin_sitestructure']    = 'структура на сайта';
-$BL['be_subnav_admin_users']            = 'администриране на потребители';
-$BL['be_subnav_admin_filecat']          = 'категории на файлове';
+$BL['be_subnav_mod_artists']            = 'Р°РІС‚РѕСЂ, РєР°С‚РµРіРѕСЂРёСЏ, Р¶Р°РЅСЂ';
+$BL['be_subnav_msg_center']             = 'С†РµРЅС‚СЉСЂ Р·Р° СЃСЉРѕР±С‰РµРЅРёСЏ';
+$BL['be_subnav_msg_new']                = 'РЅРѕРІРѕ СЃСЉРѕР±С‰РµРЅРёРµ';
+$BL['be_subnav_msg_newsletter']         = 'Р±СЋР»РµС‚РёРЅ';
+$BL['be_subnav_chat_main']              = 'РіР»Р°РІРЅР° СЃС‚СЂР°РЅРёС†Р° РЅР° С‡Р°С‚Р°';
+$BL['be_subnav_chat_internal']          = 'РІСЉС‚СЂРµС€РµРЅ С‡Р°С‚';
+$BL['be_subnav_profile_login']          = 'РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»СЏ';
+$BL['be_subnav_profile_personal']       = 'Р»РёС‡РЅРё РґР°РЅРЅРё';
+$BL['be_subnav_admin_pagelayout']       = 'РїР°СЂР°РјРµС‚СЂРё РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°';
+$BL['be_subnav_admin_templates']        = 'С€Р°Р±Р»РѕРЅРё';
+$BL['be_subnav_admin_css']              = 'css РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ';
+$BL['be_subnav_admin_sitestructure']    = 'СЃС‚СЂСѓРєС‚СѓСЂР° РЅР° СЃР°Р№С‚Р°';
+$BL['be_subnav_admin_users']            = 'Р°РґРјРёРЅРёСЃС‚СЂРёСЂР°РЅРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»Рё';
+$BL['be_subnav_admin_filecat']          = 'РєР°С‚РµРіРѕСЂРёРё РЅР° С„Р°Р№Р»РѕРІРµ';
 
 
 // admin.functions.inc.php
-$BL['be_func_struct_articleID']         = 'статия номер';
-$BL['be_func_struct_preview']           = 'преглед';
-$BL['be_func_struct_edit']              = 'редактиране на статията';
-$BL['be_func_struct_sedit']             = 'редактиране на нивото на структурата';
-$BL['be_func_struct_cut']               = 'изрежи статия';
-$BL['be_func_struct_nocut']             = 'отмени изрязване на статия';
-$BL['be_func_struct_svisible']          = 'видима/невидима';
-$BL['be_func_struct_spublic']           = 'публична/частна';
-$BL['be_func_struct_sort_up']           = 'нагоре';
-$BL['be_func_struct_sort_down']         = 'надолу';
-$BL['be_func_struct_del_article']       = 'изтрии статията';
-$BL['be_func_struct_del_jsmsg']         = 'Наистина ли искате \nда изтриете статията?'; // "\n" = JavaScript Linebreak
-$BL['be_func_struct_new_article']       = 'създаване на нова статия в нивото';
-$BL['be_func_struct_paste_article']     = 'вмъкване на статията в нивото';
-$BL['be_func_struct_insert_level']      = 'създаване на категория';
-$BL['be_func_struct_paste_level']       = 'вмъкване на категория';
-$BL['be_func_struct_cut_level']         = 'изрязване на категория';
-$BL['be_func_struct_no_cut']            = "Не може да изрежете главното ниво!";
-$BL['be_func_struct_no_paste1']         = "Не може да вмъкнете тука!";
+$BL['be_func_struct_articleID']         = 'СЃС‚Р°С‚РёСЏ РЅРѕРјРµСЂ';
+$BL['be_func_struct_preview']           = 'РїСЂРµРіР»РµРґ';
+$BL['be_func_struct_edit']              = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_func_struct_sedit']             = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РЅРёРІРѕС‚Рѕ РЅР° СЃС‚СЂСѓРєС‚СѓСЂР°С‚Р°';
+$BL['be_func_struct_cut']               = 'РёР·СЂРµР¶Рё СЃС‚Р°С‚РёСЏ';
+$BL['be_func_struct_nocut']             = 'РѕС‚РјРµРЅРё РёР·СЂСЏР·РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЏ';
+$BL['be_func_struct_svisible']          = 'РІРёРґРёРјР°/РЅРµРІРёРґРёРјР°';
+$BL['be_func_struct_spublic']           = 'РїСѓР±Р»РёС‡РЅР°/С‡Р°СЃС‚РЅР°';
+$BL['be_func_struct_sort_up']           = 'РЅР°РіРѕСЂРµ';
+$BL['be_func_struct_sort_down']         = 'РЅР°РґРѕР»Сѓ';
+$BL['be_func_struct_del_article']       = 'РёР·С‚СЂРёРё СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_func_struct_del_jsmsg']         = 'РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ \nРґР° РёР·С‚СЂРёРµС‚Рµ СЃС‚Р°С‚РёСЏС‚Р°?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_new_article']       = 'СЃСЉР·РґР°РІР°РЅРµ РЅР° РЅРѕРІР° СЃС‚Р°С‚РёСЏ РІ РЅРёРІРѕС‚Рѕ';
+$BL['be_func_struct_paste_article']     = 'РІРјСЉРєРІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЏС‚Р° РІ РЅРёРІРѕС‚Рѕ';
+$BL['be_func_struct_insert_level']      = 'СЃСЉР·РґР°РІР°РЅРµ РЅР° РєР°С‚РµРіРѕСЂРёСЏ';
+$BL['be_func_struct_paste_level']       = 'РІРјСЉРєРІР°РЅРµ РЅР° РєР°С‚РµРіРѕСЂРёСЏ';
+$BL['be_func_struct_cut_level']         = 'РёР·СЂСЏР·РІР°РЅРµ РЅР° РєР°С‚РµРіРѕСЂРёСЏ';
+$BL['be_func_struct_no_cut']            = "РќРµ РјРѕР¶Рµ РґР° РёР·СЂРµР¶РµС‚Рµ РіР»Р°РІРЅРѕС‚Рѕ РЅРёРІРѕ!";
+$BL['be_func_struct_no_paste1']         = "РќРµ РјРѕР¶Рµ РґР° РІРјСЉРєРЅРµС‚Рµ С‚СѓРєР°!";
 $BL['be_func_struct_no_paste2']         = 'is child in root line of the tree level';
 $BL['be_func_struct_no_paste3']         = 'that should paste in here';
-$BL['be_func_struct_paste_cancel']      = 'отказ от промяната на структурата';
-$BL['be_func_struct_del_struct']        = 'изтриване на нивото';
-$BL['be_func_struct_del_sjsmsg']        = 'Наистина ли искате \nда изтриете нивото?'; // "\n" = JavaScript Linebreak
-$BL['be_func_struct_open']              = 'отвори';
-$BL['be_func_struct_close']             = 'затвори';
-$BL['be_func_struct_empty']             = 'изпразни';
+$BL['be_func_struct_paste_cancel']      = 'РѕС‚РєР°Р· РѕС‚ РїСЂРѕРјСЏРЅР°С‚Р° РЅР° СЃС‚СЂСѓРєС‚СѓСЂР°С‚Р°';
+$BL['be_func_struct_del_struct']        = 'РёР·С‚СЂРёРІР°РЅРµ РЅР° РЅРёРІРѕС‚Рѕ';
+$BL['be_func_struct_del_sjsmsg']        = 'РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ \nРґР° РёР·С‚СЂРёРµС‚Рµ РЅРёРІРѕС‚Рѕ?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_open']              = 'РѕС‚РІРѕСЂРё';
+$BL['be_func_struct_close']             = 'Р·Р°С‚РІРѕСЂРё';
+$BL['be_func_struct_empty']             = 'РёР·РїСЂР°Р·РЅРё';
 
 // article.contenttype.inc.php
-$BL['be_ctype_plaintext']               = 'само текст';
+$BL['be_ctype_plaintext']               = 'СЃР°РјРѕ С‚РµРєСЃС‚';
 $BL['be_ctype_html']                    = 'html';
-$BL['be_ctype_code']                    = 'код';
-$BL['be_ctype_textimage']               = 'тект с картинка';
-$BL['be_ctype_images']                  = 'картинки';
-$BL['be_ctype_bulletlist']              = 'списък (таблица)';
-$BL['be_ctype_ullist']     		        = 'списък';
-$BL['be_ctype_link']                    = 'препратки &amp; email';
-$BL['be_ctype_linklist']                = 'списък от препратки';
-$BL['be_ctype_linkarticle']             = 'връзка към статия';
-$BL['be_ctype_multimedia']              = 'мултимедия';
-$BL['be_ctype_filelist']                = 'списък от файлове';
-$BL['be_ctype_emailform']               = 'email форма';
-$BL['be_ctype_newsletter']              = 'бюлетин';
+$BL['be_ctype_code']                    = 'РєРѕРґ';
+$BL['be_ctype_textimage']               = 'С‚РµРєС‚ СЃ РєР°СЂС‚РёРЅРєР°';
+$BL['be_ctype_images']                  = 'РєР°СЂС‚РёРЅРєРё';
+$BL['be_ctype_bulletlist']              = 'СЃРїРёСЃСЉРє (С‚Р°Р±Р»РёС†Р°)';
+$BL['be_ctype_ullist']     		        = 'СЃРїРёСЃСЉРє';
+$BL['be_ctype_link']                    = 'РїСЂРµРїСЂР°С‚РєРё &amp; email';
+$BL['be_ctype_linklist']                = 'СЃРїРёСЃСЉРє РѕС‚ РїСЂРµРїСЂР°С‚РєРё';
+$BL['be_ctype_linkarticle']             = 'РІСЂСЉР·РєР° РєСЉРј СЃС‚Р°С‚РёСЏ';
+$BL['be_ctype_multimedia']              = 'РјСѓР»С‚РёРјРµРґРёСЏ';
+$BL['be_ctype_filelist']                = 'СЃРїРёСЃСЉРє РѕС‚ С„Р°Р№Р»РѕРІРµ';
+$BL['be_ctype_emailform']               = 'email С„РѕСЂРјР°';
+$BL['be_ctype_newsletter']              = 'Р±СЋР»РµС‚РёРЅ';
 
 // profile.create.inc.php
-$BL['be_profile_create_success']        = 'Профилът е създаден успешно.';
-$BL['be_profile_create_error']          = 'Грешка при създаване.';
+$BL['be_profile_create_success']        = 'РџСЂРѕС„РёР»СЉС‚ Рµ СЃСЉР·РґР°РґРµРЅ СѓСЃРїРµС€РЅРѕ.';
+$BL['be_profile_create_error']          = 'Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ.';
 
 // profile.update.inc.php
-$BL['be_profile_update_success']        = 'Профилът е обновен успешно.';
-$BL['be_profile_update_error']          = 'Грешка при обновяване.';
+$BL['be_profile_update_success']        = 'РџСЂРѕС„РёР»СЉС‚ Рµ РѕР±РЅРѕРІРµРЅ СѓСЃРїРµС€РЅРѕ.';
+$BL['be_profile_update_error']          = 'Р“СЂРµС€РєР° РїСЂРё РѕР±РЅРѕРІСЏРІР°РЅРµ.';
 
 // profile.updateaccount.inc.php
-$BL['be_profile_account_err1']          = 'потребителското име {VAL} е невалидно';
-$BL['be_profile_account_err2']          = 'паролата е много къса (only {VAL} символа: необходими са поне 5)';
-$BL['be_profile_account_err3']          = 'паролата трябва да бъде еднаква с повторната парола';
-$BL['be_profile_account_err4']          = 'email {VAL} е невалиден';
+$BL['be_profile_account_err1']          = 'РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕС‚Рѕ РёРјРµ {VAL} Рµ РЅРµРІР°Р»РёРґРЅРѕ';
+$BL['be_profile_account_err2']          = 'РїР°СЂРѕР»Р°С‚Р° Рµ РјРЅРѕРіРѕ РєСЉСЃР° (only {VAL} СЃРёРјРІРѕР»Р°: РЅРµРѕР±С…РѕРґРёРјРё СЃР° РїРѕРЅРµ 5)';
+$BL['be_profile_account_err3']          = 'РїР°СЂРѕР»Р°С‚Р° С‚СЂСЏР±РІР° РґР° Р±СЉРґРµ РµРґРЅР°РєРІР° СЃ РїРѕРІС‚РѕСЂРЅР°С‚Р° РїР°СЂРѕР»Р°';
+$BL['be_profile_account_err4']          = 'email {VAL} Рµ РЅРµРІР°Р»РёРґРµРЅ';
 
 // profile.data.tmpl.php
-$BL['be_profile_data_title']            = 'вашите лични данни';
-$BL['be_profile_data_text']             = 'личните данни не са задължителни. Те помагат на потребителите и посетителите на сайта да получат повече информация за Вас, Вашите интереси и умения. Ако изберете съответните отметки потребителите могат да виждат или не виждат информация за Вас в публичните страници на сайта.';
-$BL['be_profile_label_title']           = 'титла';
-$BL['be_profile_label_firstname']       = 'име';
-$BL['be_profile_label_name']            = 'фамилия';
-$BL['be_profile_label_company']         = 'фирма';
-$BL['be_profile_label_street']          = 'улица';
-$BL['be_profile_label_city']            = 'град';
-$BL['be_profile_label_state']           = 'провинция, щат';
-$BL['be_profile_label_zip']             = 'пощенски код';
-$BL['be_profile_label_country']         = 'държава';
-$BL['be_profile_label_phone']           = 'телефон';
-$BL['be_profile_label_fax']             = 'факс';
-$BL['be_profile_label_cellphone']       = 'мобилен';
-$BL['be_profile_label_signature']       = 'подпис';
-$BL['be_profile_label_notes']           = 'забележки';
-$BL['be_profile_label_profession']      = 'професия';
-$BL['be_profile_label_newsletter']      = 'блюетин';
-$BL['be_profile_text_newsletter']       = 'Искам да получавам общият бюлетин на phpwcms.';
-$BL['be_profile_label_public']          = 'публичен';
-$BL['be_profile_text_public']           = 'Всеки може да види профилът ми.';
-$BL['be_profile_label_button']          = 'обнови личните ми данни';
+$BL['be_profile_data_title']            = 'РІР°С€РёС‚Рµ Р»РёС‡РЅРё РґР°РЅРЅРё';
+$BL['be_profile_data_text']             = 'Р»РёС‡РЅРёС‚Рµ РґР°РЅРЅРё РЅРµ СЃР° Р·Р°РґСЉР»Р¶РёС‚РµР»РЅРё. РўРµ РїРѕРјР°РіР°С‚ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ Рё РїРѕСЃРµС‚РёС‚РµР»РёС‚Рµ РЅР° СЃР°Р№С‚Р° РґР° РїРѕР»СѓС‡Р°С‚ РїРѕРІРµС‡Рµ РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ, Р’Р°С€РёС‚Рµ РёРЅС‚РµСЂРµСЃРё Рё СѓРјРµРЅРёСЏ. РђРєРѕ РёР·Р±РµСЂРµС‚Рµ СЃСЉРѕС‚РІРµС‚РЅРёС‚Рµ РѕС‚РјРµС‚РєРё РїРѕС‚СЂРµР±РёС‚РµР»РёС‚Рµ РјРѕРіР°С‚ РґР° РІРёР¶РґР°С‚ РёР»Рё РЅРµ РІРёР¶РґР°С‚ РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° Р’Р°СЃ РІ РїСѓР±Р»РёС‡РЅРёС‚Рµ СЃС‚СЂР°РЅРёС†Рё РЅР° СЃР°Р№С‚Р°.';
+$BL['be_profile_label_title']           = 'С‚РёС‚Р»Р°';
+$BL['be_profile_label_firstname']       = 'РёРјРµ';
+$BL['be_profile_label_name']            = 'С„Р°РјРёР»РёСЏ';
+$BL['be_profile_label_company']         = 'С„РёСЂРјР°';
+$BL['be_profile_label_street']          = 'СѓР»РёС†Р°';
+$BL['be_profile_label_city']            = 'РіСЂР°Рґ';
+$BL['be_profile_label_state']           = 'РїСЂРѕРІРёРЅС†РёСЏ, С‰Р°С‚';
+$BL['be_profile_label_zip']             = 'РїРѕС‰РµРЅСЃРєРё РєРѕРґ';
+$BL['be_profile_label_country']         = 'РґСЉСЂР¶Р°РІР°';
+$BL['be_profile_label_phone']           = 'С‚РµР»РµС„РѕРЅ';
+$BL['be_profile_label_fax']             = 'С„Р°РєСЃ';
+$BL['be_profile_label_cellphone']       = 'РјРѕР±РёР»РµРЅ';
+$BL['be_profile_label_signature']       = 'РїРѕРґРїРёСЃ';
+$BL['be_profile_label_notes']           = 'Р·Р°Р±РµР»РµР¶РєРё';
+$BL['be_profile_label_profession']      = 'РїСЂРѕС„РµСЃРёСЏ';
+$BL['be_profile_label_newsletter']      = 'Р±Р»СЋРµС‚РёРЅ';
+$BL['be_profile_text_newsletter']       = 'РСЃРєР°Рј РґР° РїРѕР»СѓС‡Р°РІР°Рј РѕР±С‰РёСЏС‚ Р±СЋР»РµС‚РёРЅ РЅР° phpwcms.';
+$BL['be_profile_label_public']          = 'РїСѓР±Р»РёС‡РµРЅ';
+$BL['be_profile_text_public']           = 'Р’СЃРµРєРё РјРѕР¶Рµ РґР° РІРёРґРё РїСЂРѕС„РёР»СЉС‚ РјРё.';
+$BL['be_profile_label_button']          = 'РѕР±РЅРѕРІРё Р»РёС‡РЅРёС‚Рµ РјРё РґР°РЅРЅРё';
 
 // profile.account.tmpl.php
-$BL['be_profile_account_title']         = 'вашата информация';
-$BL['be_profile_account_text']          = 'Обикновенно не е необходимо да сменяте потребителското си име.<br />Би трябвало да сменяте паролата си от време на време за да имате по-високо ниво на сигурност.';
-$BL['be_profile_label_err']             = 'моля проверете информацията';
-$BL['be_profile_label_username']        = 'потребителско име';
-$BL['be_profile_label_newpass']         = 'нова парола';
-$BL['be_profile_label_repeatpass']      = 'повторно парола';
+$BL['be_profile_account_title']         = 'РІР°С€Р°С‚Р° РёРЅС„РѕСЂРјР°С†РёСЏ';
+$BL['be_profile_account_text']          = 'РћР±РёРєРЅРѕРІРµРЅРЅРѕ РЅРµ Рµ РЅРµРѕР±С…РѕРґРёРјРѕ РґР° СЃРјРµРЅСЏС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕС‚Рѕ СЃРё РёРјРµ.<br />Р‘Рё С‚СЂСЏР±РІР°Р»Рѕ РґР° СЃРјРµРЅСЏС‚Рµ РїР°СЂРѕР»Р°С‚Р° СЃРё РѕС‚ РІСЂРµРјРµ РЅР° РІСЂРµРјРµ Р·Р° РґР° РёРјР°С‚Рµ РїРѕ-РІРёСЃРѕРєРѕ РЅРёРІРѕ РЅР° СЃРёРіСѓСЂРЅРѕСЃС‚.';
+$BL['be_profile_label_err']             = 'РјРѕР»СЏ РїСЂРѕРІРµСЂРµС‚Рµ РёРЅС„РѕСЂРјР°С†РёСЏС‚Р°';
+$BL['be_profile_label_username']        = 'РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ';
+$BL['be_profile_label_newpass']         = 'РЅРѕРІР° РїР°СЂРѕР»Р°';
+$BL['be_profile_label_repeatpass']      = 'РїРѕРІС‚РѕСЂРЅРѕ РїР°СЂРѕР»Р°';
 $BL['be_profile_label_email']           = 'email';
-$BL['be_profile_account_button']        = 'обнови информацията';
-$BL['be_profile_label_lang']            = 'език';
+$BL['be_profile_account_button']        = 'РѕР±РЅРѕРІРё РёРЅС„РѕСЂРјР°С†РёСЏС‚Р°';
+$BL['be_profile_label_lang']            = 'РµР·РёРє';
 
 
 // files.ftptakeover.tmpl.php
-$BL['be_ftptakeover_title']             = 'обработи файловете получени по ftp';
-$BL['be_ftptakeover_mark']              = 'маркирай';
-$BL['be_ftptakeover_available']         = 'достъпните файлове';
-$BL['be_ftptakeover_size']              = 'размер';
-$BL['be_ftptakeover_nofile']            = 'няма файлове &#8211; качете поне един по ftp';
-$BL['be_ftptakeover_all']               = 'Всички';
-$BL['be_ftptakeover_directory']         = 'папка';
-$BL['be_ftptakeover_rootdir']           = 'главна директория';
-$BL['be_ftptakeover_needed']            = 'задължително!!! (трябва да изберете поне едно поле)';
-$BL['be_ftptakeover_optional']          = 'не задължително';
-$BL['be_ftptakeover_keywords']          = 'ключови думи';
-$BL['be_ftptakeover_additional']        = 'допълнително';
-$BL['be_ftptakeover_longinfo']          = 'информация';
-$BL['be_ftptakeover_status']            = 'статус';
-$BL['be_ftptakeover_active']            = 'активен';
-$BL['be_ftptakeover_public']            = 'публичен';
-$BL['be_ftptakeover_createthumb']       = 'създай миниатюра';
-$BL['be_ftptakeover_button']            = 'обработи избраните файлове';
+$BL['be_ftptakeover_title']             = 'РѕР±СЂР°Р±РѕС‚Рё С„Р°Р№Р»РѕРІРµС‚Рµ РїРѕР»СѓС‡РµРЅРё РїРѕ ftp';
+$BL['be_ftptakeover_mark']              = 'РјР°СЂРєРёСЂР°Р№';
+$BL['be_ftptakeover_available']         = 'РґРѕСЃС‚СЉРїРЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ';
+$BL['be_ftptakeover_size']              = 'СЂР°Р·РјРµСЂ';
+$BL['be_ftptakeover_nofile']            = 'РЅСЏРјР° С„Р°Р№Р»РѕРІРµ &#8211; РєР°С‡РµС‚Рµ РїРѕРЅРµ РµРґРёРЅ РїРѕ ftp';
+$BL['be_ftptakeover_all']               = 'Р’СЃРёС‡РєРё';
+$BL['be_ftptakeover_directory']         = 'РїР°РїРєР°';
+$BL['be_ftptakeover_rootdir']           = 'РіР»Р°РІРЅР° РґРёСЂРµРєС‚РѕСЂРёСЏ';
+$BL['be_ftptakeover_needed']            = 'Р·Р°РґСЉР»Р¶РёС‚РµР»РЅРѕ!!! (С‚СЂСЏР±РІР° РґР° РёР·Р±РµСЂРµС‚Рµ РїРѕРЅРµ РµРґРЅРѕ РїРѕР»Рµ)';
+$BL['be_ftptakeover_optional']          = 'РЅРµ Р·Р°РґСЉР»Р¶РёС‚РµР»РЅРѕ';
+$BL['be_ftptakeover_keywords']          = 'РєР»СЋС‡РѕРІРё РґСѓРјРё';
+$BL['be_ftptakeover_additional']        = 'РґРѕРїСЉР»РЅРёС‚РµР»РЅРѕ';
+$BL['be_ftptakeover_longinfo']          = 'РёРЅС„РѕСЂРјР°С†РёСЏ';
+$BL['be_ftptakeover_status']            = 'СЃС‚Р°С‚СѓСЃ';
+$BL['be_ftptakeover_active']            = 'Р°РєС‚РёРІРµРЅ';
+$BL['be_ftptakeover_public']            = 'РїСѓР±Р»РёС‡РµРЅ';
+$BL['be_ftptakeover_createthumb']       = 'СЃСЉР·РґР°Р№ РјРёРЅРёР°С‚СЋСЂР°';
+$BL['be_ftptakeover_button']            = 'РѕР±СЂР°Р±РѕС‚Рё РёР·Р±СЂР°РЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ';
 
 // files.reiter.tmpl.php
-$BL['be_ftab_title']                    = 'файл-център';
-$BL['be_ftab_createnew']                = 'създай нова папка в главната';
-$BL['be_ftab_paste']                    = 'вмъкни файла в главната папка';
-$BL['be_ftab_disablethumb']             = 'не показвай миниатюри в списъците';
-$BL['be_ftab_enablethumb']              = 'показвай миниатюри в списъците';
-$BL['be_ftab_private']                  = 'лични&nbsp;файлове';
-$BL['be_ftab_public']                   = 'публични&nbsp;файлове';
-$BL['be_ftab_search']                   = 'търсене';
-$BL['be_ftab_trash']                    = 'кошче';
-$BL['be_ftab_open']                     = 'отваря всички папки';
-$BL['be_ftab_close']                    = 'затваря всички отворени папки';
-$BL['be_ftab_upload']                   = 'качване на файл в главната папка';
-$BL['be_ftab_filehelp']                 = 'отваря помощ';
+$BL['be_ftab_title']                    = 'С„Р°Р№Р»-С†РµРЅС‚СЉСЂ';
+$BL['be_ftab_createnew']                = 'СЃСЉР·РґР°Р№ РЅРѕРІР° РїР°РїРєР° РІ РіР»Р°РІРЅР°С‚Р°';
+$BL['be_ftab_paste']                    = 'РІРјСЉРєРЅРё С„Р°Р№Р»Р° РІ РіР»Р°РІРЅР°С‚Р° РїР°РїРєР°';
+$BL['be_ftab_disablethumb']             = 'РЅРµ РїРѕРєР°Р·РІР°Р№ РјРёРЅРёР°С‚СЋСЂРё РІ СЃРїРёСЃСЉС†РёС‚Рµ';
+$BL['be_ftab_enablethumb']              = 'РїРѕРєР°Р·РІР°Р№ РјРёРЅРёР°С‚СЋСЂРё РІ СЃРїРёСЃСЉС†РёС‚Рµ';
+$BL['be_ftab_private']                  = 'Р»РёС‡РЅРё&nbsp;С„Р°Р№Р»РѕРІРµ';
+$BL['be_ftab_public']                   = 'РїСѓР±Р»РёС‡РЅРё&nbsp;С„Р°Р№Р»РѕРІРµ';
+$BL['be_ftab_search']                   = 'С‚СЉСЂСЃРµРЅРµ';
+$BL['be_ftab_trash']                    = 'РєРѕС€С‡Рµ';
+$BL['be_ftab_open']                     = 'РѕС‚РІР°СЂСЏ РІСЃРёС‡РєРё РїР°РїРєРё';
+$BL['be_ftab_close']                    = 'Р·Р°С‚РІР°СЂСЏ РІСЃРёС‡РєРё РѕС‚РІРѕСЂРµРЅРё РїР°РїРєРё';
+$BL['be_ftab_upload']                   = 'РєР°С‡РІР°РЅРµ РЅР° С„Р°Р№Р» РІ РіР»Р°РІРЅР°С‚Р° РїР°РїРєР°';
+$BL['be_ftab_filehelp']                 = 'РѕС‚РІР°СЂСЏ РїРѕРјРѕС‰';
 
 // files.private.newdir.tmpl.php
-$BL['be_fpriv_rootdir']                 = 'главна папка';
-$BL['be_fpriv_title']                   = 'създава нова папка';
-$BL['be_fpriv_inside']                  = 'влиза';
-$BL['be_fpriv_error']                   = 'грешка: напишете името на папката';
-$BL['be_fpriv_name']                    = 'име';
-$BL['be_fpriv_status']                  = 'статус';
-$BL['be_fpriv_button']                  = 'създай нова папка';
+$BL['be_fpriv_rootdir']                 = 'РіР»Р°РІРЅР° РїР°РїРєР°';
+$BL['be_fpriv_title']                   = 'СЃСЉР·РґР°РІР° РЅРѕРІР° РїР°РїРєР°';
+$BL['be_fpriv_inside']                  = 'РІР»РёР·Р°';
+$BL['be_fpriv_error']                   = 'РіСЂРµС€РєР°: РЅР°РїРёС€РµС‚Рµ РёРјРµС‚Рѕ РЅР° РїР°РїРєР°С‚Р°';
+$BL['be_fpriv_name']                    = 'РёРјРµ';
+$BL['be_fpriv_status']                  = 'СЃС‚Р°С‚СѓСЃ';
+$BL['be_fpriv_button']                  = 'СЃСЉР·РґР°Р№ РЅРѕРІР° РїР°РїРєР°';
 
 // files.private.editdir.tmpl.php
-$BL['be_fpriv_edittitle']               = 'редактирай папката';
-$BL['be_fpriv_newname']                 = 'ново име';
-$BL['be_fpriv_updatebutton']            = 'обнови информацията за папката';
+$BL['be_fpriv_edittitle']               = 'СЂРµРґР°РєС‚РёСЂР°Р№ РїР°РїРєР°С‚Р°';
+$BL['be_fpriv_newname']                 = 'РЅРѕРІРѕ РёРјРµ';
+$BL['be_fpriv_updatebutton']            = 'РѕР±РЅРѕРІРё РёРЅС„РѕСЂРјР°С†РёСЏС‚Р° Р·Р° РїР°РїРєР°С‚Р°';
 
 // files.private.upload.tmpl.php
-$BL['be_fprivup_err1']                  = 'Изберете файл който искате да качите';
-$BL['be_fprivup_err2']                  = 'Размера на каченият файл е по-голям от ';
-$BL['be_fprivup_err3']                  = 'Грешка при качването на файла';
-$BL['be_fprivup_err4']                  = 'Грешка при създаване на потребителска папка.';
-$BL['be_fprivup_err5']                  = 'няма миниатюри';
-$BL['be_fprivup_err6']                  = 'Не опитвайте пак - това е грешка на сървъра! Свържете се с <a href="mailto:{VAL}">администратора</a> колкото е възможно по-бързо!';
-$BL['be_fprivup_title']                 = 'качване на файл';
-$BL['be_fprivup_button']                = 'качване на файл';
-$BL['be_fprivup_upload']                = 'качване';
+$BL['be_fprivup_err1']                  = 'РР·Р±РµСЂРµС‚Рµ С„Р°Р№Р» РєРѕР№С‚Рѕ РёСЃРєР°С‚Рµ РґР° РєР°С‡РёС‚Рµ';
+$BL['be_fprivup_err2']                  = 'Р Р°Р·РјРµСЂР° РЅР° РєР°С‡РµРЅРёСЏС‚ С„Р°Р№Р» Рµ РїРѕ-РіРѕР»СЏРј РѕС‚ ';
+$BL['be_fprivup_err3']                  = 'Р“СЂРµС€РєР° РїСЂРё РєР°С‡РІР°РЅРµС‚Рѕ РЅР° С„Р°Р№Р»Р°';
+$BL['be_fprivup_err4']                  = 'Р“СЂРµС€РєР° РїСЂРё СЃСЉР·РґР°РІР°РЅРµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»СЃРєР° РїР°РїРєР°.';
+$BL['be_fprivup_err5']                  = 'РЅСЏРјР° РјРёРЅРёР°С‚СЋСЂРё';
+$BL['be_fprivup_err6']                  = 'РќРµ РѕРїРёС‚РІР°Р№С‚Рµ РїР°Рє - С‚РѕРІР° Рµ РіСЂРµС€РєР° РЅР° СЃСЉСЂРІСЉСЂР°! РЎРІСЉСЂР¶РµС‚Рµ СЃРµ СЃ <a href="mailto:{VAL}">Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°</a> РєРѕР»РєРѕС‚Рѕ Рµ РІСЉР·РјРѕР¶РЅРѕ РїРѕ-Р±СЉСЂР·Рѕ!';
+$BL['be_fprivup_title']                 = 'РєР°С‡РІР°РЅРµ РЅР° С„Р°Р№Р»';
+$BL['be_fprivup_button']                = 'РєР°С‡РІР°РЅРµ РЅР° С„Р°Р№Р»';
+$BL['be_fprivup_upload']                = 'РєР°С‡РІР°РЅРµ';
 
 // files.private.editfile.tmpl.php
-$BL['be_fprivedit_title']               = 'реактиране на информацията за файла';
-$BL['be_fprivedit_filename']            = 'име на файла';
-$BL['be_fprivedit_created']             = 'създаден';
+$BL['be_fprivedit_title']               = 'СЂРµР°РєС‚РёСЂР°РЅРµ РЅР° РёРЅС„РѕСЂРјР°С†РёСЏС‚Р° Р·Р° С„Р°Р№Р»Р°';
+$BL['be_fprivedit_filename']            = 'РёРјРµ РЅР° С„Р°Р№Р»Р°';
+$BL['be_fprivedit_created']             = 'СЃСЉР·РґР°РґРµРЅ';
 $BL['be_fprivedit_dateformat']          = 'm-d-Y H:i';
-$BL['be_fprivedit_err1']                = 'върни оригиналното име';
-$BL['be_fprivedit_clockwise']           = 'завърти миниатюрата по часовниковата стрелка [+90&deg;]';
-$BL['be_fprivedit_cclockwise']          = 'завърти миниатюрата обратно на часовниковата стрелка [-90&deg;]';
-$BL['be_fprivedit_button']              = 'обнови информацията за файла';
-$BL['be_fprivedit_size']                = 'размер';
+$BL['be_fprivedit_err1']                = 'РІСЉСЂРЅРё РѕСЂРёРіРёРЅР°Р»РЅРѕС‚Рѕ РёРјРµ';
+$BL['be_fprivedit_clockwise']           = 'Р·Р°РІСЉСЂС‚Рё РјРёРЅРёР°С‚СЋСЂР°С‚Р° РїРѕ С‡Р°СЃРѕРІРЅРёРєРѕРІР°С‚Р° СЃС‚СЂРµР»РєР° [+90&deg;]';
+$BL['be_fprivedit_cclockwise']          = 'Р·Р°РІСЉСЂС‚Рё РјРёРЅРёР°С‚СЋСЂР°С‚Р° РѕР±СЂР°С‚РЅРѕ РЅР° С‡Р°СЃРѕРІРЅРёРєРѕРІР°С‚Р° СЃС‚СЂРµР»РєР° [-90&deg;]';
+$BL['be_fprivedit_button']              = 'РѕР±РЅРѕРІРё РёРЅС„РѕСЂРјР°С†РёСЏС‚Р° Р·Р° С„Р°Р№Р»Р°';
+$BL['be_fprivedit_size']                = 'СЂР°Р·РјРµСЂ';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'качване файла в папка';
-$BL['be_fprivfunc_makenew']             = 'създаване на нова папка вътре';
-$BL['be_fprivfunc_paste']               = 'вмъкване файл от Обмена в папката';
-$BL['be_fprivfunc_edit']                = 'редактиране на папка';
-$BL['be_fprivfunc_cactive']             = 'активен/неактивен';
-$BL['be_fprivfunc_cpublic']             = 'публичен/личен';
-$BL['be_fprivfunc_deldir']              = 'изтриване на папка';
-$BL['be_fprivfunc_jsdeldir']            = 'Наистина ли искате \nда изтриете папката';
-$BL['be_fprivfunc_notempty']            = 'папката {VAL} не е празна!';
-$BL['be_fprivfunc_opendir']             = 'отваряне на папка';
-$BL['be_fprivfunc_closedir']            = 'затваряне на папка';
-$BL['be_fprivfunc_dlfile']              = 'сваляне на файл';
-$BL['be_fprivfunc_clipfile']            = 'в Обмена';
-$BL['be_fprivfunc_cutfile']             = 'изрязва';
-$BL['be_fprivfunc_editfile']            = 'редактира информацията за файла';
-$BL['be_fprivfunc_cactivefile']         = 'активен/неактивен';
-$BL['be_fprivfunc_cpublicfile']         = 'публичен/личен';
-$BL['be_fprivfunc_movetrash']           = 'в боклука';
-$BL['be_fprivfunc_jsmovetrash1']        = 'Наистина ли искате да сложите';
-$BL['be_fprivfunc_jsmovetrash2']        = 'в боклука?';
+$BL['be_fprivfunc_upload']              = 'РєР°С‡РІР°РЅРµ С„Р°Р№Р»Р° РІ РїР°РїРєР°';
+$BL['be_fprivfunc_makenew']             = 'СЃСЉР·РґР°РІР°РЅРµ РЅР° РЅРѕРІР° РїР°РїРєР° РІСЉС‚СЂРµ';
+$BL['be_fprivfunc_paste']               = 'РІРјСЉРєРІР°РЅРµ С„Р°Р№Р» РѕС‚ РћР±РјРµРЅР° РІ РїР°РїРєР°С‚Р°';
+$BL['be_fprivfunc_edit']                = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РїР°РїРєР°';
+$BL['be_fprivfunc_cactive']             = 'Р°РєС‚РёРІРµРЅ/РЅРµР°РєС‚РёРІРµРЅ';
+$BL['be_fprivfunc_cpublic']             = 'РїСѓР±Р»РёС‡РµРЅ/Р»РёС‡РµРЅ';
+$BL['be_fprivfunc_deldir']              = 'РёР·С‚СЂРёРІР°РЅРµ РЅР° РїР°РїРєР°';
+$BL['be_fprivfunc_jsdeldir']            = 'РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ \nРґР° РёР·С‚СЂРёРµС‚Рµ РїР°РїРєР°С‚Р°';
+$BL['be_fprivfunc_notempty']            = 'РїР°РїРєР°С‚Р° {VAL} РЅРµ Рµ РїСЂР°Р·РЅР°!';
+$BL['be_fprivfunc_opendir']             = 'РѕС‚РІР°СЂСЏРЅРµ РЅР° РїР°РїРєР°';
+$BL['be_fprivfunc_closedir']            = 'Р·Р°С‚РІР°СЂСЏРЅРµ РЅР° РїР°РїРєР°';
+$BL['be_fprivfunc_dlfile']              = 'СЃРІР°Р»СЏРЅРµ РЅР° С„Р°Р№Р»';
+$BL['be_fprivfunc_clipfile']            = 'РІ РћР±РјРµРЅР°';
+$BL['be_fprivfunc_cutfile']             = 'РёР·СЂСЏР·РІР°';
+$BL['be_fprivfunc_editfile']            = 'СЂРµРґР°РєС‚РёСЂР° РёРЅС„РѕСЂРјР°С†РёСЏС‚Р° Р·Р° С„Р°Р№Р»Р°';
+$BL['be_fprivfunc_cactivefile']         = 'Р°РєС‚РёРІРµРЅ/РЅРµР°РєС‚РёРІРµРЅ';
+$BL['be_fprivfunc_cpublicfile']         = 'РїСѓР±Р»РёС‡РµРЅ/Р»РёС‡РµРЅ';
+$BL['be_fprivfunc_movetrash']           = 'РІ Р±РѕРєР»СѓРєР°';
+$BL['be_fprivfunc_jsmovetrash1']        = 'РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ РґР° СЃР»РѕР¶РёС‚Рµ';
+$BL['be_fprivfunc_jsmovetrash2']        = 'РІ Р±РѕРєР»СѓРєР°?';
 
 // files.private.additions.inc.php
-$BL['be_fprivadd_nofolders']            = 'няма лични файлове или папки';
+$BL['be_fprivadd_nofolders']            = 'РЅСЏРјР° Р»РёС‡РЅРё С„Р°Р№Р»РѕРІРµ РёР»Рё РїР°РїРєРё';
 
 // files.public.list.tmpl.php
-$BL['be_fpublic_user']                  = 'потребител';
-$BL['be_fpublic_nofiles']               = 'няма публични файлове или папки';
+$BL['be_fpublic_user']                  = 'РїРѕС‚СЂРµР±РёС‚РµР»';
+$BL['be_fpublic_nofiles']               = 'РЅСЏРјР° РїСѓР±Р»РёС‡РЅРё С„Р°Р№Р»РѕРІРµ РёР»Рё РїР°РїРєРё';
 
 // files.private.trash.tmpl.php
-$BL['be_ftrash_nofiles']                = 'боклукът е празен';
-$BL['be_ftrash_show']                   = 'покажи личните файлове';
+$BL['be_ftrash_nofiles']                = 'Р±РѕРєР»СѓРєСЉС‚ Рµ РїСЂР°Р·РµРЅ';
+$BL['be_ftrash_show']                   = 'РїРѕРєР°Р¶Рё Р»РёС‡РЅРёС‚Рµ С„Р°Р№Р»РѕРІРµ';
 
 // files.private-delfilelist.inc.php
-$BL['be_ftrash_restore']                = 'Искате да въстановите {VAL} \nи да го преместите в личният списък?';
-$BL['be_ftrash_delete']                 = 'Искате да изтриете {VAL}?';
-$BL['be_ftrash_undo']                   = 'въстановаване (undo trash)';
-$BL['be_ftrash_delfinal']               = 'окончателно изтриване';
+$BL['be_ftrash_restore']                = 'РСЃРєР°С‚Рµ РґР° РІСЉСЃС‚Р°РЅРѕРІРёС‚Рµ {VAL} \nРё РґР° РіРѕ РїСЂРµРјРµСЃС‚РёС‚Рµ РІ Р»РёС‡РЅРёСЏС‚ СЃРїРёСЃСЉРє?';
+$BL['be_ftrash_delete']                 = 'РСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ {VAL}?';
+$BL['be_ftrash_undo']                   = 'РІСЉСЃС‚Р°РЅРѕРІР°РІР°РЅРµ (undo trash)';
+$BL['be_ftrash_delfinal']               = 'РѕРєРѕРЅС‡Р°С‚РµР»РЅРѕ РёР·С‚СЂРёРІР°РЅРµ';
 
 // files.search.tmpl.php
-$BL['be_fsearch_err1']                  = 'полето за търсене е празно.';
-$BL['be_fsearch_title']                 = 'търсене на файлове';
-$BL['be_fsearch_infotext']              = 'Това е търсене на информация за файла. Търсенето търси в ключови думи, ,<br />имена на файлове и информация за файловете. No support for wildcards. Separate multiple search<br />words with a blank. Select AND/OR and what files to search for: personal/public.';
-$BL['be_fsearch_nonfound']              = 'не са намерени файлове. коригирайте критериите си!';
-$BL['be_fsearch_fillin']                = 'моля запълнете по-гоpното поле.';
-$BL['be_fsearch_searchlabel']           = 'търси за';
-$BL['be_fsearch_startsearch']           = 'търсене';
-$BL['be_fsearch_and']                   = 'И';
-$BL['be_fsearch_or']                    = 'ИЛИ';
-$BL['be_fsearch_all']                   = 'всички файлове';
-$BL['be_fsearch_personal']              = 'лични';
-$BL['be_fsearch_public']                = 'публични';
+$BL['be_fsearch_err1']                  = 'РїРѕР»РµС‚Рѕ Р·Р° С‚СЉСЂСЃРµРЅРµ Рµ РїСЂР°Р·РЅРѕ.';
+$BL['be_fsearch_title']                 = 'С‚СЉСЂСЃРµРЅРµ РЅР° С„Р°Р№Р»РѕРІРµ';
+$BL['be_fsearch_infotext']              = 'РўРѕРІР° Рµ С‚СЉСЂСЃРµРЅРµ РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° С„Р°Р№Р»Р°. РўСЉСЂСЃРµРЅРµС‚Рѕ С‚СЉСЂСЃРё РІ РєР»СЋС‡РѕРІРё РґСѓРјРё, ,<br />РёРјРµРЅР° РЅР° С„Р°Р№Р»РѕРІРµ Рё РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° С„Р°Р№Р»РѕРІРµС‚Рµ. No support for wildcards. Separate multiple search<br />words with a blank. Select AND/OR and what files to search for: personal/public.';
+$BL['be_fsearch_nonfound']              = 'РЅРµ СЃР° РЅР°РјРµСЂРµРЅРё С„Р°Р№Р»РѕРІРµ. РєРѕСЂРёРіРёСЂР°Р№С‚Рµ РєСЂРёС‚РµСЂРёРёС‚Рµ СЃРё!';
+$BL['be_fsearch_fillin']                = 'РјРѕР»СЏ Р·Р°РїСЉР»РЅРµС‚Рµ РїРѕ-РіРѕpРЅРѕС‚Рѕ РїРѕР»Рµ.';
+$BL['be_fsearch_searchlabel']           = 'С‚СЉСЂСЃРё Р·Р°';
+$BL['be_fsearch_startsearch']           = 'С‚СЉСЂСЃРµРЅРµ';
+$BL['be_fsearch_and']                   = 'Р';
+$BL['be_fsearch_or']                    = 'РР›Р';
+$BL['be_fsearch_all']                   = 'РІСЃРёС‡РєРё С„Р°Р№Р»РѕРІРµ';
+$BL['be_fsearch_personal']              = 'Р»РёС‡РЅРё';
+$BL['be_fsearch_public']                = 'РїСѓР±Р»РёС‡РЅРё';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
-$BL['be_chat_title']                    = 'вътрешен чат';
+$BL['be_chat_title']                    = 'РІСЉС‚СЂРµС€РµРЅ С‡Р°С‚';
 $BL['be_chat_info']                     = 'Here you can chat with other phpwcms backend users about everything you want. This medium is for realtime speaking but you can also let a message that everybody can read. If you want to exchange ideas with others use the discussion please (later phpwcms version).';
-$BL['be_chat_start']                    = 'натисни тук за да започне чата';
+$BL['be_chat_start']                    = 'РЅР°С‚РёСЃРЅРё С‚СѓРє Р·Р° РґР° Р·Р°РїРѕС‡РЅРµ С‡Р°С‚Р°';
 $BL['be_chat_lines']                    = 'chat lines';
 
 // message.center.tmpl.php
-$BL['be_msg_title']                     = 'център за съобщения';
-$BL['be_msg_new']                       = 'нови';
-$BL['be_msg_old']                       = 'стари';
-$BL['be_msg_senttop']                   = 'изпратени';
-$BL['be_msg_del']                       = 'изтрити';
-$BL['be_msg_from']                      = 'от';
-$BL['be_msg_subject']                   = 'относно';
-$BL['be_msg_date']                      = 'дата/час';
-$BL['be_msg_close']                     = 'затвори съобщението';
-$BL['be_msg_create']                    = 'създай ново съобщение';
-$BL['be_msg_reply']                     = 'отговори на това съобщение';
-$BL['be_msg_move']                      = 'премести това съобщение в боклука';
-$BL['be_msg_unread']                    = 'непрочетени или нови съобщения';
-$BL['be_msg_lastread']                  = 'последни {VAL} прочетени съобщения';
-$BL['be_msg_lastsent']                  = 'последни {VAL} изпратени съобщения';
-$BL['be_msg_marked']                    = 'съобщения маркиране за изтриване (в боклука)';
-$BL['be_msg_nomsg']                     = 'няма съобщения в тази папка';
+$BL['be_msg_title']                     = 'С†РµРЅС‚СЉСЂ Р·Р° СЃСЉРѕР±С‰РµРЅРёСЏ';
+$BL['be_msg_new']                       = 'РЅРѕРІРё';
+$BL['be_msg_old']                       = 'СЃС‚Р°СЂРё';
+$BL['be_msg_senttop']                   = 'РёР·РїСЂР°С‚РµРЅРё';
+$BL['be_msg_del']                       = 'РёР·С‚СЂРёС‚Рё';
+$BL['be_msg_from']                      = 'РѕС‚';
+$BL['be_msg_subject']                   = 'РѕС‚РЅРѕСЃРЅРѕ';
+$BL['be_msg_date']                      = 'РґР°С‚Р°/С‡Р°СЃ';
+$BL['be_msg_close']                     = 'Р·Р°С‚РІРѕСЂРё СЃСЉРѕР±С‰РµРЅРёРµС‚Рѕ';
+$BL['be_msg_create']                    = 'СЃСЉР·РґР°Р№ РЅРѕРІРѕ СЃСЉРѕР±С‰РµРЅРёРµ';
+$BL['be_msg_reply']                     = 'РѕС‚РіРѕРІРѕСЂРё РЅР° С‚РѕРІР° СЃСЉРѕР±С‰РµРЅРёРµ';
+$BL['be_msg_move']                      = 'РїСЂРµРјРµСЃС‚Рё С‚РѕРІР° СЃСЉРѕР±С‰РµРЅРёРµ РІ Р±РѕРєР»СѓРєР°';
+$BL['be_msg_unread']                    = 'РЅРµРїСЂРѕС‡РµС‚РµРЅРё РёР»Рё РЅРѕРІРё СЃСЉРѕР±С‰РµРЅРёСЏ';
+$BL['be_msg_lastread']                  = 'РїРѕСЃР»РµРґРЅРё {VAL} РїСЂРѕС‡РµС‚РµРЅРё СЃСЉРѕР±С‰РµРЅРёСЏ';
+$BL['be_msg_lastsent']                  = 'РїРѕСЃР»РµРґРЅРё {VAL} РёР·РїСЂР°С‚РµРЅРё СЃСЉРѕР±С‰РµРЅРёСЏ';
+$BL['be_msg_marked']                    = 'СЃСЉРѕР±С‰РµРЅРёСЏ РјР°СЂРєРёСЂР°РЅРµ Р·Р° РёР·С‚СЂРёРІР°РЅРµ (РІ Р±РѕРєР»СѓРєР°)';
+$BL['be_msg_nomsg']                     = 'РЅСЏРјР° СЃСЉРѕР±С‰РµРЅРёСЏ РІ С‚Р°Р·Рё РїР°РїРєР°';
 
 // message.send.tmpl.php
 $BL['be_msg_RE']                        = 'RE';
-$BL['be_msg_by']                        = 'изпращач';
-$BL['be_msg_on']                        = 'на';
-$BL['be_msg_msg']                       = 'съобщения';
-$BL['be_msg_err1']                      = 'забравили сте да укажете получател...';
-$BL['be_msg_err2']                      = 'запълнете полето относно (получателят може по-лесно да се оправи с вашето съобщение)';
-$BL['be_msg_err3']                      = 'няма смисъл да се изпраща без самото съобщение ;-)';
-$BL['be_msg_sent']                      = 'съобщението бе изпратено!';
-$BL['be_msg_fwd']                       = 'ще бъдете пренасочени към центъра за съобщения или';
-$BL['be_msg_newmsgtitle']               = 'писане на ново съобщение';
-$BL['be_msg_err']                       = 'грешка при изпращането';
-$BL['be_msg_sendto']                    = 'изпрати съобщението';
-$BL['be_msg_available']                 = 'списък с получатели';
-$BL['be_msg_all']                       = 'изпрати съобщението на всички избрани получатели';
+$BL['be_msg_by']                        = 'РёР·РїСЂР°С‰Р°С‡';
+$BL['be_msg_on']                        = 'РЅР°';
+$BL['be_msg_msg']                       = 'СЃСЉРѕР±С‰РµРЅРёСЏ';
+$BL['be_msg_err1']                      = 'Р·Р°Р±СЂР°РІРёР»Рё СЃС‚Рµ РґР° СѓРєР°Р¶РµС‚Рµ РїРѕР»СѓС‡Р°С‚РµР»...';
+$BL['be_msg_err2']                      = 'Р·Р°РїСЉР»РЅРµС‚Рµ РїРѕР»РµС‚Рѕ РѕС‚РЅРѕСЃРЅРѕ (РїРѕР»СѓС‡Р°С‚РµР»СЏС‚ РјРѕР¶Рµ РїРѕ-Р»РµСЃРЅРѕ РґР° СЃРµ РѕРїСЂР°РІРё СЃ РІР°С€РµС‚Рѕ СЃСЉРѕР±С‰РµРЅРёРµ)';
+$BL['be_msg_err3']                      = 'РЅСЏРјР° СЃРјРёСЃСЉР» РґР° СЃРµ РёР·РїСЂР°С‰Р° Р±РµР· СЃР°РјРѕС‚Рѕ СЃСЉРѕР±С‰РµРЅРёРµ ;-)';
+$BL['be_msg_sent']                      = 'СЃСЉРѕР±С‰РµРЅРёРµС‚Рѕ Р±Рµ РёР·РїСЂР°С‚РµРЅРѕ!';
+$BL['be_msg_fwd']                       = 'С‰Рµ Р±СЉРґРµС‚Рµ РїСЂРµРЅР°СЃРѕС‡РµРЅРё РєСЉРј С†РµРЅС‚СЉСЂР° Р·Р° СЃСЉРѕР±С‰РµРЅРёСЏ РёР»Рё';
+$BL['be_msg_newmsgtitle']               = 'РїРёСЃР°РЅРµ РЅР° РЅРѕРІРѕ СЃСЉРѕР±С‰РµРЅРёРµ';
+$BL['be_msg_err']                       = 'РіСЂРµС€РєР° РїСЂРё РёР·РїСЂР°С‰Р°РЅРµС‚Рѕ';
+$BL['be_msg_sendto']                    = 'РёР·РїСЂР°С‚Рё СЃСЉРѕР±С‰РµРЅРёРµС‚Рѕ';
+$BL['be_msg_available']                 = 'СЃРїРёСЃСЉРє СЃ РїРѕР»СѓС‡Р°С‚РµР»Рё';
+$BL['be_msg_all']                       = 'РёР·РїСЂР°С‚Рё СЃСЉРѕР±С‰РµРЅРёРµС‚Рѕ РЅР° РІСЃРёС‡РєРё РёР·Р±СЂР°РЅРё РїРѕР»СѓС‡Р°С‚РµР»Рё';
 
 // message.subscription.tmpl.php
-$BL['be_newsletter_title']              = 'абониране за бюлетин';
-$BL['be_newsletter_titleedit']          = 'редактиране на абонамента за бюлетина';
-$BL['be_newsletter_new']                = 'създай ново';
-$BL['be_newsletter_add']                = 'добави&nbsp;абонамент&nbsp;за&nbsp;бюлетин';
-$BL['be_newsletter_name']               = 'име';
-$BL['be_newsletter_info']               = 'информация';
-$BL['be_newsletter_button_save']        = 'запази бюлетина';
-$BL['be_newsletter_button_cancel']      = 'отказ';
+$BL['be_newsletter_title']              = 'Р°Р±РѕРЅРёСЂР°РЅРµ Р·Р° Р±СЋР»РµС‚РёРЅ';
+$BL['be_newsletter_titleedit']          = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° Р°Р±РѕРЅР°РјРµРЅС‚Р° Р·Р° Р±СЋР»РµС‚РёРЅР°';
+$BL['be_newsletter_new']                = 'СЃСЉР·РґР°Р№ РЅРѕРІРѕ';
+$BL['be_newsletter_add']                = 'РґРѕР±Р°РІРё&nbsp;Р°Р±РѕРЅР°РјРµРЅС‚&nbsp;Р·Р°&nbsp;Р±СЋР»РµС‚РёРЅ';
+$BL['be_newsletter_name']               = 'РёРјРµ';
+$BL['be_newsletter_info']               = 'РёРЅС„РѕСЂРјР°С†РёСЏ';
+$BL['be_newsletter_button_save']        = 'Р·Р°РїР°Р·Рё Р±СЋР»РµС‚РёРЅР°';
+$BL['be_newsletter_button_cancel']      = 'РѕС‚РєР°Р·';
 
 // admin.newuser.tmpl.php
-$BL['be_admin_usr_err1']                = 'грешно потребителско име, изберете друго';
-$BL['be_admin_usr_err2']                = 'потребителското име е празно (задължително)';
-$BL['be_admin_usr_err3']                = 'паролата е празна (задължитела)';
-$BL['be_admin_usr_err4']                = "email е невалиден";
-$BL['be_admin_usr_err']                 = 'грешка';
-$BL['be_admin_usr_mailsubject']         = 'Добре дошли в phpwcms backend';
-$BL['be_admin_usr_mailbody']            = "ДОБРЕ ДОШЛИ PHPWCMS BACKEND\n\n    потребителско име: {LOGIN}\n    парола: {PASSWORD}\n\n\nможе да влезето тука: {LOGIN_PAGE}\n\nphpwcms admin\n ";
-$BL['be_admin_usr_title']               = 'добавяне на нов потребител';
-$BL['be_admin_usr_realname']            = 'истинско име';
-$BL['be_admin_usr_setactive']           = 'активирай потребителят';
-$BL['be_admin_usr_iflogin']             = 'ако е отбелязано потребителя може да влиза';
-$BL['be_admin_usr_isadmin']             = 'потребителя е администратор';
-$BL['be_admin_usr_ifadmin']             = 'ако отбележите, потребителя ще получи права на администратор';
-$BL['be_admin_usr_verify']              = 'проверка';
-$BL['be_admin_usr_sendemail']           = 'изпрати email на новият потребител с информация';
-$BL['be_admin_usr_button']              = 'изпрати данните на потребителя';
+$BL['be_admin_usr_err1']                = 'РіСЂРµС€РЅРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ, РёР·Р±РµСЂРµС‚Рµ РґСЂСѓРіРѕ';
+$BL['be_admin_usr_err2']                = 'РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕС‚Рѕ РёРјРµ Рµ РїСЂР°Р·РЅРѕ (Р·Р°РґСЉР»Р¶РёС‚РµР»РЅРѕ)';
+$BL['be_admin_usr_err3']                = 'РїР°СЂРѕР»Р°С‚Р° Рµ РїСЂР°Р·РЅР° (Р·Р°РґСЉР»Р¶РёС‚РµР»Р°)';
+$BL['be_admin_usr_err4']                = "email Рµ РЅРµРІР°Р»РёРґРµРЅ";
+$BL['be_admin_usr_err']                 = 'РіСЂРµС€РєР°';
+$BL['be_admin_usr_mailsubject']         = 'Р”РѕР±СЂРµ РґРѕС€Р»Рё РІ phpwcms backend';
+$BL['be_admin_usr_mailbody']            = "Р”РћР‘Р Р• Р”РћРЁР›Р PHPWCMS BACKEND\n\n    РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ: {LOGIN}\n    РїР°СЂРѕР»Р°: {PASSWORD}\n\n\nРјРѕР¶Рµ РґР° РІР»РµР·РµС‚Рѕ С‚СѓРєР°: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_title']               = 'РґРѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІ РїРѕС‚СЂРµР±РёС‚РµР»';
+$BL['be_admin_usr_realname']            = 'РёСЃС‚РёРЅСЃРєРѕ РёРјРµ';
+$BL['be_admin_usr_setactive']           = 'Р°РєС‚РёРІРёСЂР°Р№ РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚';
+$BL['be_admin_usr_iflogin']             = 'Р°РєРѕ Рµ РѕС‚Р±РµР»СЏР·Р°РЅРѕ РїРѕС‚СЂРµР±РёС‚РµР»СЏ РјРѕР¶Рµ РґР° РІР»РёР·Р°';
+$BL['be_admin_usr_isadmin']             = 'РїРѕС‚СЂРµР±РёС‚РµР»СЏ Рµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ';
+$BL['be_admin_usr_ifadmin']             = 'Р°РєРѕ РѕС‚Р±РµР»РµР¶РёС‚Рµ, РїРѕС‚СЂРµР±РёС‚РµР»СЏ С‰Рµ РїРѕР»СѓС‡Рё РїСЂР°РІР° РЅР° Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ';
+$BL['be_admin_usr_verify']              = 'РїСЂРѕРІРµСЂРєР°';
+$BL['be_admin_usr_sendemail']           = 'РёР·РїСЂР°С‚Рё email РЅР° РЅРѕРІРёСЏС‚ РїРѕС‚СЂРµР±РёС‚РµР» СЃ РёРЅС„РѕСЂРјР°С†РёСЏ';
+$BL['be_admin_usr_button']              = 'РёР·РїСЂР°С‚Рё РґР°РЅРЅРёС‚Рµ РЅР° РїРѕС‚СЂРµР±РёС‚РµР»СЏ';
 
 // admin.edituser.tmpl.php
-$BL['be_admin_usr_etitle']              = 'редактирай потребителя';
-$BL['be_admin_usr_emailsubject']        = 'phpwcms - данните за потребитеят са променени';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    потребителско име: {LOGIN}\n    парола: {PASSWORD}\n\n\nМоже да влезнете от тука: {LOGIN_PAGE}\n\nphpwcms admin\n ";
-$BL['be_admin_usr_passnochange']        = '[НЯМА ПРОМЯНА - ИЗПОЛЗВАЙТЕ ПАРОЛАТА СИ]';
-$BL['be_admin_usr_ebutton']             = 'обнови данните за потребителя';
+$BL['be_admin_usr_etitle']              = 'СЂРµРґР°РєС‚РёСЂР°Р№ РїРѕС‚СЂРµР±РёС‚РµР»СЏ';
+$BL['be_admin_usr_emailsubject']        = 'phpwcms - РґР°РЅРЅРёС‚Рµ Р·Р° РїРѕС‚СЂРµР±РёС‚РµСЏС‚ СЃР° РїСЂРѕРјРµРЅРµРЅРё';
+$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    РїРѕС‚СЂРµР±РёС‚РµР»СЃРєРѕ РёРјРµ: {LOGIN}\n    РїР°СЂРѕР»Р°: {PASSWORD}\n\n\nРњРѕР¶Рµ РґР° РІР»РµР·РЅРµС‚Рµ РѕС‚ С‚СѓРєР°: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_passnochange']        = '[РќРЇРњРђ РџР РћРњРЇРќРђ - РР—РџРћР›Р—Р’РђР™РўР• РџРђР РћР›РђРўРђ РЎР]';
+$BL['be_admin_usr_ebutton']             = 'РѕР±РЅРѕРІРё РґР°РЅРЅРёС‚Рµ Р·Р° РїРѕС‚СЂРµР±РёС‚РµР»СЏ';
 
 // admin.listuser.tmpl.php
-$BL['be_admin_usr_ltitle']              = 'phpwcms списък с потребители';
-$BL['be_admin_usr_ldel']                = 'Внимание!&#13Потребителят ще бъде изтрит';
-$BL['be_admin_usr_create']              = 'създай нов потребител';
-$BL['be_admin_usr_editusr']             = 'редактирай потребителят';
+$BL['be_admin_usr_ltitle']              = 'phpwcms СЃРїРёСЃСЉРє СЃ РїРѕС‚СЂРµР±РёС‚РµР»Рё';
+$BL['be_admin_usr_ldel']                = 'Р’РЅРёРјР°РЅРёРµ!&#13РџРѕС‚СЂРµР±РёС‚РµР»СЏС‚ С‰Рµ Р±СЉРґРµ РёР·С‚СЂРёС‚';
+$BL['be_admin_usr_create']              = 'СЃСЉР·РґР°Р№ РЅРѕРІ РїРѕС‚СЂРµР±РёС‚РµР»';
+$BL['be_admin_usr_editusr']             = 'СЂРµРґР°РєС‚РёСЂР°Р№ РїРѕС‚СЂРµР±РёС‚РµР»СЏС‚';
 
 // admin.structform.tmpl.php
-$BL['be_admin_struct_title']            = 'структура на сайта';
-$BL['be_admin_struct_child']            = '(подкатегория на)';
-$BL['be_admin_struct_index']            = 'index (начало на сайта)';
-$BL['be_admin_struct_cat']              = 'заглавие на категорията';
-$BL['be_admin_struct_hide1']            = 'скриване';
-$BL['be_admin_struct_hide2']            = 'тази&nbsp;категория&nbsp;в&nbsp;меню';
-$BL['be_admin_struct_info']             = 'информация за категорията';
-$BL['be_admin_struct_template']         = 'шаблон';
-$BL['be_admin_struct_alias']            = 'пзевдоним на категорията';
-$BL['be_admin_struct_visible']          = 'видима';
-$BL['be_admin_struct_button']           = 'изпрати данните за категорията';
-$BL['be_admin_struct_close']            = 'затвори';
+$BL['be_admin_struct_title']            = 'СЃС‚СЂСѓРєС‚СѓСЂР° РЅР° СЃР°Р№С‚Р°';
+$BL['be_admin_struct_child']            = '(РїРѕРґРєР°С‚РµРіРѕСЂРёСЏ РЅР°)';
+$BL['be_admin_struct_index']            = 'index (РЅР°С‡Р°Р»Рѕ РЅР° СЃР°Р№С‚Р°)';
+$BL['be_admin_struct_cat']              = 'Р·Р°РіР»Р°РІРёРµ РЅР° РєР°С‚РµРіРѕСЂРёСЏС‚Р°';
+$BL['be_admin_struct_hide1']            = 'СЃРєСЂРёРІР°РЅРµ';
+$BL['be_admin_struct_hide2']            = 'С‚Р°Р·Рё&nbsp;РєР°С‚РµРіРѕСЂРёСЏ&nbsp;РІ&nbsp;РјРµРЅСЋ';
+$BL['be_admin_struct_info']             = 'РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° РєР°С‚РµРіРѕСЂРёСЏС‚Р°';
+$BL['be_admin_struct_template']         = 'С€Р°Р±Р»РѕРЅ';
+$BL['be_admin_struct_alias']            = 'РїР·РµРІРґРѕРЅРёРј РЅР° РєР°С‚РµРіРѕСЂРёСЏС‚Р°';
+$BL['be_admin_struct_visible']          = 'РІРёРґРёРјР°';
+$BL['be_admin_struct_button']           = 'РёР·РїСЂР°С‚Рё РґР°РЅРЅРёС‚Рµ Р·Р° РєР°С‚РµРіРѕСЂРёСЏС‚Р°';
+$BL['be_admin_struct_close']            = 'Р·Р°С‚РІРѕСЂРё';
 
 // admin.filecat.tmpl.php
-$BL['be_admin_fcat_title']              = 'категории на файлове';
-$BL['be_admin_fcat_err']                = 'името на категорията е празно!';
-$BL['be_admin_fcat_name']               = 'име на категорията';
-$BL['be_admin_fcat_needed']             = 'нужно';
-$BL['be_admin_fcat_button1']            = 'обнови';
-$BL['be_admin_fcat_button2']            = 'създай';
-$BL['be_admin_fcat_delmsg']             = 'Наистина ли искате \nда изтриете ключовият файл?';
-$BL['be_admin_fcat_fcat']               = 'Категория на файла';
-$BL['be_admin_fcat_err1']               = 'името на ключовият файл е празно!';
-$BL['be_admin_fcat_fkeyname']           = 'име на ключов файл';
+$BL['be_admin_fcat_title']              = 'РєР°С‚РµРіРѕСЂРёРё РЅР° С„Р°Р№Р»РѕРІРµ';
+$BL['be_admin_fcat_err']                = 'РёРјРµС‚Рѕ РЅР° РєР°С‚РµРіРѕСЂРёСЏС‚Р° Рµ РїСЂР°Р·РЅРѕ!';
+$BL['be_admin_fcat_name']               = 'РёРјРµ РЅР° РєР°С‚РµРіРѕСЂРёСЏС‚Р°';
+$BL['be_admin_fcat_needed']             = 'РЅСѓР¶РЅРѕ';
+$BL['be_admin_fcat_button1']            = 'РѕР±РЅРѕРІРё';
+$BL['be_admin_fcat_button2']            = 'СЃСЉР·РґР°Р№';
+$BL['be_admin_fcat_delmsg']             = 'РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ \nРґР° РёР·С‚СЂРёРµС‚Рµ РєР»СЋС‡РѕРІРёСЏС‚ С„Р°Р№Р»?';
+$BL['be_admin_fcat_fcat']               = 'РљР°С‚РµРіРѕСЂРёСЏ РЅР° С„Р°Р№Р»Р°';
+$BL['be_admin_fcat_err1']               = 'РёРјРµС‚Рѕ РЅР° РєР»СЋС‡РѕРІРёСЏС‚ С„Р°Р№Р» Рµ РїСЂР°Р·РЅРѕ!';
+$BL['be_admin_fcat_fkeyname']           = 'РёРјРµ РЅР° РєР»СЋС‡РѕРІ С„Р°Р№Р»';
 $BL['be_admin_fcat_exit']               = 'exit editing';
 $BL['be_admin_fcat_addkey']             = 'add new key';
 $BL['be_admin_fcat_editcat']            = 'edit category name';
@@ -395,44 +395,44 @@ $BL['be_admin_fcat_editkey']            = 'edit key';
 $BL['be_admin_fcat_addcat']             = 'create new file category';
 
 // admin.pagelayout.tmpl.php
-$BL['be_admin_page_title']              = 'frontend setup: разположение на страницата';
-$BL['be_admin_page_align']              = 'подравняване';
-$BL['be_admin_page_align_left']         = 'стандартно подравняване (ляво) на цялото съдържание ан страницата';
-$BL['be_admin_page_align_center']       = 'центриране на цялата страница';
-$BL['be_admin_page_align_right']        = 'подравняване от дясно на цялата страница';
-$BL['be_admin_page_margin']             = 'граница';
-$BL['be_admin_page_top']                = 'горе';
-$BL['be_admin_page_bottom']             = 'долу';
-$BL['be_admin_page_left']               = 'ляво';
-$BL['be_admin_page_right']              = 'дясно';
-$BL['be_admin_page_bg']                 = 'фон';
-$BL['be_admin_page_color']              = 'цвят';
-$BL['be_admin_page_height']             = 'височина';
-$BL['be_admin_page_width']              = 'широчина';
-$BL['be_admin_page_main']               = 'основен';
-$BL['be_admin_page_leftspace']          = 'ляво растояние';
-$BL['be_admin_page_rightspace']         = 'дясно растояние';
+$BL['be_admin_page_title']              = 'frontend setup: СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°';
+$BL['be_admin_page_align']              = 'РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ';
+$BL['be_admin_page_align_left']         = 'СЃС‚Р°РЅРґР°СЂС‚РЅРѕ РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ (Р»СЏРІРѕ) РЅР° С†СЏР»РѕС‚Рѕ СЃСЉРґСЉСЂР¶Р°РЅРёРµ Р°РЅ СЃС‚СЂР°РЅРёС†Р°С‚Р°';
+$BL['be_admin_page_align_center']       = 'С†РµРЅС‚СЂРёСЂР°РЅРµ РЅР° С†СЏР»Р°С‚Р° СЃС‚СЂР°РЅРёС†Р°';
+$BL['be_admin_page_align_right']        = 'РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ РѕС‚ РґСЏСЃРЅРѕ РЅР° С†СЏР»Р°С‚Р° СЃС‚СЂР°РЅРёС†Р°';
+$BL['be_admin_page_margin']             = 'РіСЂР°РЅРёС†Р°';
+$BL['be_admin_page_top']                = 'РіРѕСЂРµ';
+$BL['be_admin_page_bottom']             = 'РґРѕР»Сѓ';
+$BL['be_admin_page_left']               = 'Р»СЏРІРѕ';
+$BL['be_admin_page_right']              = 'РґСЏСЃРЅРѕ';
+$BL['be_admin_page_bg']                 = 'С„РѕРЅ';
+$BL['be_admin_page_color']              = 'С†РІСЏС‚';
+$BL['be_admin_page_height']             = 'РІРёСЃРѕС‡РёРЅР°';
+$BL['be_admin_page_width']              = 'С€РёСЂРѕС‡РёРЅР°';
+$BL['be_admin_page_main']               = 'РѕСЃРЅРѕРІРµРЅ';
+$BL['be_admin_page_leftspace']          = 'Р»СЏРІРѕ СЂР°СЃС‚РѕСЏРЅРёРµ';
+$BL['be_admin_page_rightspace']         = 'РґСЏСЃРЅРѕ СЂР°СЃС‚РѕСЏРЅРёРµ';
 $BL['be_admin_page_class']              = 'class';
-$BL['be_admin_page_image']              = 'картинка';
-$BL['be_admin_page_text']               = 'текст';
-$BL['be_admin_page_link']               = 'връзки';
+$BL['be_admin_page_image']              = 'РєР°СЂС‚РёРЅРєР°';
+$BL['be_admin_page_text']               = 'С‚РµРєСЃС‚';
+$BL['be_admin_page_link']               = 'РІСЂСЉР·РєРё';
 $BL['be_admin_page_js']                 = 'javascript';
-$BL['be_admin_page_visited']            = 'посетена';
-$BL['be_admin_page_pagetitle']          = 'заглавие&nbsp;на&nbsp;страницата';
-$BL['be_admin_page_addtotitle']         = 'добави&nbsp;към&nbsp;заглавието';
-$BL['be_admin_page_category']           = 'категорията';
-$BL['be_admin_page_articlename']        = 'името&nbsp;на&nbsp;статията';
-$BL['be_admin_page_blocks']             = 'блокове';
-$BL['be_admin_page_allblocks']          = 'всички блокове';
-$BL['be_admin_page_col1']               = '3 колонно разположение';
-$BL['be_admin_page_col2']               = '2 колонно разположение (главна колона в дясно, навигация в ляво)';
-$BL['be_admin_page_col3']               = '2 колонно разположение (главна колона в ляво, навигация в дясно)';
-$BL['be_admin_page_col4']               = '1 колонно разположение';
-$BL['be_admin_page_header']             = 'заглавие';
+$BL['be_admin_page_visited']            = 'РїРѕСЃРµС‚РµРЅР°';
+$BL['be_admin_page_pagetitle']          = 'Р·Р°РіР»Р°РІРёРµ&nbsp;РЅР°&nbsp;СЃС‚СЂР°РЅРёС†Р°С‚Р°';
+$BL['be_admin_page_addtotitle']         = 'РґРѕР±Р°РІРё&nbsp;РєСЉРј&nbsp;Р·Р°РіР»Р°РІРёРµС‚Рѕ';
+$BL['be_admin_page_category']           = 'РєР°С‚РµРіРѕСЂРёСЏС‚Р°';
+$BL['be_admin_page_articlename']        = 'РёРјРµС‚Рѕ&nbsp;РЅР°&nbsp;СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_admin_page_blocks']             = 'Р±Р»РѕРєРѕРІРµ';
+$BL['be_admin_page_allblocks']          = 'РІСЃРёС‡РєРё Р±Р»РѕРєРѕРІРµ';
+$BL['be_admin_page_col1']               = '3 РєРѕР»РѕРЅРЅРѕ СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ';
+$BL['be_admin_page_col2']               = '2 РєРѕР»РѕРЅРЅРѕ СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ (РіР»Р°РІРЅР° РєРѕР»РѕРЅР° РІ РґСЏСЃРЅРѕ, РЅР°РІРёРіР°С†РёСЏ РІ Р»СЏРІРѕ)';
+$BL['be_admin_page_col3']               = '2 РєРѕР»РѕРЅРЅРѕ СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ (РіР»Р°РІРЅР° РєРѕР»РѕРЅР° РІ Р»СЏРІРѕ, РЅР°РІРёРіР°С†РёСЏ РІ РґСЏСЃРЅРѕ)';
+$BL['be_admin_page_col4']               = '1 РєРѕР»РѕРЅРЅРѕ СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ';
+$BL['be_admin_page_header']             = 'Р·Р°РіР»Р°РІРёРµ';
 $BL['be_admin_page_footer']             = 'footer';
-$BL['be_admin_page_topspace']           = 'горен&nbsp;отстъп';
-$BL['be_admin_page_bottomspace']        = 'долен&nbsp;отстъп';
-$BL['be_admin_page_button']             = 'запази разположението на страницата';
+$BL['be_admin_page_topspace']           = 'РіРѕСЂРµРЅ&nbsp;РѕС‚СЃС‚СЉРї';
+$BL['be_admin_page_bottomspace']        = 'РґРѕР»РµРЅ&nbsp;РѕС‚СЃС‚СЉРї';
+$BL['be_admin_page_button']             = 'Р·Р°РїР°Р·Рё СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµС‚Рѕ РЅР° СЃС‚СЂР°РЅРёС†Р°С‚Р°';
 
 // admin.frontendcss.tmpl.php
 $BL['be_admin_css_title']               = 'frontend setup: css data';
@@ -440,221 +440,221 @@ $BL['be_admin_css_css']                 = 'css';
 $BL['be_admin_css_button']              = 'save css data';
 
 // admin.templates.tmpl.php
-$BL['be_admin_tmpl_title']              = 'frontend setup: шаблони';
-$BL['be_admin_tmpl_default']            = 'по подразбиране';
-$BL['be_admin_tmpl_add']                = 'добави&nbsp;шаблон';
-$BL['be_admin_tmpl_edit']               = 'редактиране на шаблон';
-$BL['be_admin_tmpl_new']                = 'създаване на нов шаблон';
-$BL['be_admin_tmpl_css']                = 'css файл';
-$BL['be_admin_tmpl_head']               = 'html глава';
+$BL['be_admin_tmpl_title']              = 'frontend setup: С€Р°Р±Р»РѕРЅРё';
+$BL['be_admin_tmpl_default']            = 'РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ';
+$BL['be_admin_tmpl_add']                = 'РґРѕР±Р°РІРё&nbsp;С€Р°Р±Р»РѕРЅ';
+$BL['be_admin_tmpl_edit']               = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° С€Р°Р±Р»РѕРЅ';
+$BL['be_admin_tmpl_new']                = 'СЃСЉР·РґР°РІР°РЅРµ РЅР° РЅРѕРІ С€Р°Р±Р»РѕРЅ';
+$BL['be_admin_tmpl_css']                = 'css С„Р°Р№Р»';
+$BL['be_admin_tmpl_head']               = 'html РіР»Р°РІР°';
 $BL['be_admin_tmpl_js']                 = 'js onload';
-$BL['be_admin_tmpl_error']              = 'грешка';
-$BL['be_admin_tmpl_button']             = 'запази шаблона';
-$BL['be_admin_tmpl_name']               = 'име';
+$BL['be_admin_tmpl_error']              = 'РіСЂРµС€РєР°';
+$BL['be_admin_tmpl_button']             = 'Р·Р°РїР°Р·Рё С€Р°Р±Р»РѕРЅР°';
+$BL['be_admin_tmpl_name']               = 'РёРјРµ';
 
 // article.structlist.tmpl.php
-$BL['be_article_title']                 = 'структура на сайта и списък със статии';
+$BL['be_article_title']                 = 'СЃС‚СЂСѓРєС‚СѓСЂР° РЅР° СЃР°Р№С‚Р° Рё СЃРїРёСЃСЉРє СЃСЉСЃ СЃС‚Р°С‚РёРё';
 
 // article.new.tmpl.php
-$BL['be_article_err1']                  = 'заглавието на статията е празно';
-$BL['be_article_err2']                  = 'началната дата е грешна - избрано "сега"';
-$BL['be_article_err3']                  = 'крайната дата е грешна - избрано "сега"';
-$BL['be_article_title1']                = 'информация за статията';
-$BL['be_article_cat']                   = 'катеогрия';
-$BL['be_article_atitle']                = 'заглавие';
-$BL['be_article_asubtitle']             = 'подзаглавие';
-$BL['be_article_abegin']                = 'започва';
-$BL['be_article_aend']                  = 'свършва';
-$BL['be_article_aredirect']             = 'препраща към';
-$BL['be_article_akeywords']             = 'ключови думи';
-$BL['be_article_asummary']              = 'накратко';
-$BL['be_article_abutton']               = 'създаване на статията';
+$BL['be_article_err1']                  = 'Р·Р°РіР»Р°РІРёРµС‚Рѕ РЅР° СЃС‚Р°С‚РёСЏС‚Р° Рµ РїСЂР°Р·РЅРѕ';
+$BL['be_article_err2']                  = 'РЅР°С‡Р°Р»РЅР°С‚Р° РґР°С‚Р° Рµ РіСЂРµС€РЅР° - РёР·Р±СЂР°РЅРѕ "СЃРµРіР°"';
+$BL['be_article_err3']                  = 'РєСЂР°Р№РЅР°С‚Р° РґР°С‚Р° Рµ РіСЂРµС€РЅР° - РёР·Р±СЂР°РЅРѕ "СЃРµРіР°"';
+$BL['be_article_title1']                = 'РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_cat']                   = 'РєР°С‚РµРѕРіСЂРёСЏ';
+$BL['be_article_atitle']                = 'Р·Р°РіР»Р°РІРёРµ';
+$BL['be_article_asubtitle']             = 'РїРѕРґР·Р°РіР»Р°РІРёРµ';
+$BL['be_article_abegin']                = 'Р·Р°РїРѕС‡РІР°';
+$BL['be_article_aend']                  = 'СЃРІСЉСЂС€РІР°';
+$BL['be_article_aredirect']             = 'РїСЂРµРїСЂР°С‰Р° РєСЉРј';
+$BL['be_article_akeywords']             = 'РєР»СЋС‡РѕРІРё РґСѓРјРё';
+$BL['be_article_asummary']              = 'РЅР°РєСЂР°С‚РєРѕ';
+$BL['be_article_abutton']               = 'СЃСЉР·РґР°РІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЏС‚Р°';
 
 // article.editcontent.inc.php
-$BL['be_article_err4']                  = 'крайната дата е грешна - избрано "сега" + 1 седмица';
+$BL['be_article_err4']                  = 'РєСЂР°Р№РЅР°С‚Р° РґР°С‚Р° Рµ РіСЂРµС€РЅР° - РёР·Р±СЂР°РЅРѕ "СЃРµРіР°" + 1 СЃРµРґРјРёС†Р°';
 
 // article.editsummary.tmpl.php
-$BL['be_article_estitle']               = 'редактиране на данните за статията';
-$BL['be_article_eslastedit']            = 'последна редакция';
-$BL['be_article_esnoupdate']            = 'формата не е променена';
-$BL['be_article_esbutton']              = 'обнови статията';
+$BL['be_article_estitle']               = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° РґР°РЅРЅРёС‚Рµ Р·Р° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_eslastedit']            = 'РїРѕСЃР»РµРґРЅР° СЂРµРґР°РєС†РёСЏ';
+$BL['be_article_esnoupdate']            = 'С„РѕСЂРјР°С‚Р° РЅРµ Рµ РїСЂРѕРјРµРЅРµРЅР°';
+$BL['be_article_esbutton']              = 'РѕР±РЅРѕРІРё СЃС‚Р°С‚РёСЏС‚Р°';
 
 // articlecontent.edit.tmpl.php
-$BL['be_article_cnt_title']             = 'раздел';
+$BL['be_article_cnt_title']             = 'СЂР°Р·РґРµР»';
 $BL['be_article_cnt_type']              = 'content type';
-$BL['be_article_cnt_space']             = 'място';
-$BL['be_article_cnt_before']            = 'преди';
-$BL['be_article_cnt_after']             = 'след';
-$BL['be_article_cnt_top']               = 'отгоре';
-$BL['be_article_cnt_ctitle']            = 'заглавие на раздела';
-$BL['be_article_cnt_back']              = 'пълна информация за статията';
-$BL['be_article_cnt_button1']           = 'обнови раздела';
-$BL['be_article_cnt_button2']           = 'създай раздел';
+$BL['be_article_cnt_space']             = 'РјСЏСЃС‚Рѕ';
+$BL['be_article_cnt_before']            = 'РїСЂРµРґРё';
+$BL['be_article_cnt_after']             = 'СЃР»РµРґ';
+$BL['be_article_cnt_top']               = 'РѕС‚РіРѕСЂРµ';
+$BL['be_article_cnt_ctitle']            = 'Р·Р°РіР»Р°РІРёРµ РЅР° СЂР°Р·РґРµР»Р°';
+$BL['be_article_cnt_back']              = 'РїСЉР»РЅР° РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_cnt_button1']           = 'РѕР±РЅРѕРІРё СЂР°Р·РґРµР»Р°';
+$BL['be_article_cnt_button2']           = 'СЃСЉР·РґР°Р№ СЂР°Р·РґРµР»';
 
 // articlecontent.list.tmpl.php
-$BL['be_article_cnt_ltitle']            = 'информация за статията';
-$BL['be_article_cnt_ledit']             = 'редактирай статията';
-$BL['be_article_cnt_lvisible']          = 'видима/невидима';
-$BL['be_article_cnt_ldel']              = 'изтриване на статията';
-$BL['be_article_cnt_ldeljs']            = 'Искате да изтриете статията?';
-$BL['be_article_cnt_redirect']          = 'препратка';
-$BL['be_article_cnt_edited']            = 'редактирана от';
-$BL['be_article_cnt_start']             = 'начална дата';
-$BL['be_article_cnt_end']               = 'крайна дата';
-$BL['be_article_cnt_add']               = 'добавяне на нов раздел';
-$BL['be_article_cnt_up']                = 'местене на раздела нагоре';
-$BL['be_article_cnt_down']              = 'местене на раздела надолу';
-$BL['be_article_cnt_edit']              = 'редактиране на раздела';
-$BL['be_article_cnt_delpart']           = 'изтриване на раздела';
-$BL['be_article_cnt_delpartjs']         = 'Наистина ли искате да изтриете раздела?';
-$BL['be_article_cnt_center']            = 'прес център';
+$BL['be_article_cnt_ltitle']            = 'РёРЅС„РѕСЂРјР°С†РёСЏ Р·Р° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_cnt_ledit']             = 'СЂРµРґР°РєС‚РёСЂР°Р№ СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_cnt_lvisible']          = 'РІРёРґРёРјР°/РЅРµРІРёРґРёРјР°';
+$BL['be_article_cnt_ldel']              = 'РёР·С‚СЂРёРІР°РЅРµ РЅР° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_cnt_ldeljs']            = 'РСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ СЃС‚Р°С‚РёСЏС‚Р°?';
+$BL['be_article_cnt_redirect']          = 'РїСЂРµРїСЂР°С‚РєР°';
+$BL['be_article_cnt_edited']            = 'СЂРµРґР°РєС‚РёСЂР°РЅР° РѕС‚';
+$BL['be_article_cnt_start']             = 'РЅР°С‡Р°Р»РЅР° РґР°С‚Р°';
+$BL['be_article_cnt_end']               = 'РєСЂР°Р№РЅР° РґР°С‚Р°';
+$BL['be_article_cnt_add']               = 'РґРѕР±Р°РІСЏРЅРµ РЅР° РЅРѕРІ СЂР°Р·РґРµР»';
+$BL['be_article_cnt_up']                = 'РјРµСЃС‚РµРЅРµ РЅР° СЂР°Р·РґРµР»Р° РЅР°РіРѕСЂРµ';
+$BL['be_article_cnt_down']              = 'РјРµСЃС‚РµРЅРµ РЅР° СЂР°Р·РґРµР»Р° РЅР°РґРѕР»Сѓ';
+$BL['be_article_cnt_edit']              = 'СЂРµРґР°РєС‚РёСЂР°РЅРµ РЅР° СЂР°Р·РґРµР»Р°';
+$BL['be_article_cnt_delpart']           = 'РёР·С‚СЂРёРІР°РЅРµ РЅР° СЂР°Р·РґРµР»Р°';
+$BL['be_article_cnt_delpartjs']         = 'РќР°РёСЃС‚РёРЅР° Р»Рё РёСЃРєР°С‚Рµ РґР° РёР·С‚СЂРёРµС‚Рµ СЂР°Р·РґРµР»Р°?';
+$BL['be_article_cnt_center']            = 'РїСЂРµСЃ С†РµРЅС‚СЉСЂ';
 
 // content forms
-$BL['be_cnt_plaintext']                 = 'само текст';
-$BL['be_cnt_htmltext']                  = 'html текст';
-$BL['be_cnt_image']                     = 'картинка';
-$BL['be_cnt_position']                  = 'позиция';
-$BL['be_cnt_pos0']                      = 'Горе, ляво';
-$BL['be_cnt_pos1']                      = 'Горе, център';
-$BL['be_cnt_pos2']                      = 'Горе, дясно';
-$BL['be_cnt_pos3']                      = 'Долу, ляво';
-$BL['be_cnt_pos4']                      = 'Долу, център';
-$BL['be_cnt_pos5']                      = 'Долу, дясно';
-$BL['be_cnt_pos6']                      = 'В текста, ляво';
-$BL['be_cnt_pos7']                      = 'В текста, дясно';
-$BL['be_cnt_pos0i']                     = 'подравнява картинката от ляво и над текста';
-$BL['be_cnt_pos1i']                     = 'центрира картинката над текста';
-$BL['be_cnt_pos2i']                     = 'подравнява картинката от дясно и над текста';
-$BL['be_cnt_pos3i']                     = 'подравнява картинката от ляво и под текста';
-$BL['be_cnt_pos4i']                     = 'центрира картинката под текста';
-$BL['be_cnt_pos5i']                     = 'подравнява картинката от дясно и под текста';
-$BL['be_cnt_pos6i']                     = 'подравнява картинката от ляво и в текста';
-$BL['be_cnt_pos7i']                     = 'подравнява картинката от дясно и в текста';
-$BL['be_cnt_maxw']                      = 'max.&nbsp;широчина';
-$BL['be_cnt_maxh']                      = 'max.&nbsp;височина';
-$BL['be_cnt_enlarge']                   = 'щракане&nbsp;увеличава';
-$BL['be_cnt_caption']                   = 'заглавие';
-$BL['be_cnt_subject']                   = 'относно';
-$BL['be_cnt_recipient']                 = 'получател';
-$BL['be_cnt_buttontext']                = 'текст на бутона';
-$BL['be_cnt_sendas']                    = 'изпрати като';
-$BL['be_cnt_text']                      = 'текст';
+$BL['be_cnt_plaintext']                 = 'СЃР°РјРѕ С‚РµРєСЃС‚';
+$BL['be_cnt_htmltext']                  = 'html С‚РµРєСЃС‚';
+$BL['be_cnt_image']                     = 'РєР°СЂС‚РёРЅРєР°';
+$BL['be_cnt_position']                  = 'РїРѕР·РёС†РёСЏ';
+$BL['be_cnt_pos0']                      = 'Р“РѕСЂРµ, Р»СЏРІРѕ';
+$BL['be_cnt_pos1']                      = 'Р“РѕСЂРµ, С†РµРЅС‚СЉСЂ';
+$BL['be_cnt_pos2']                      = 'Р“РѕСЂРµ, РґСЏСЃРЅРѕ';
+$BL['be_cnt_pos3']                      = 'Р”РѕР»Сѓ, Р»СЏРІРѕ';
+$BL['be_cnt_pos4']                      = 'Р”РѕР»Сѓ, С†РµРЅС‚СЉСЂ';
+$BL['be_cnt_pos5']                      = 'Р”РѕР»Сѓ, РґСЏСЃРЅРѕ';
+$BL['be_cnt_pos6']                      = 'Р’ С‚РµРєСЃС‚Р°, Р»СЏРІРѕ';
+$BL['be_cnt_pos7']                      = 'Р’ С‚РµРєСЃС‚Р°, РґСЏСЃРЅРѕ';
+$BL['be_cnt_pos0i']                     = 'РїРѕРґСЂР°РІРЅСЏРІР° РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ Р»СЏРІРѕ Рё РЅР°Рґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos1i']                     = 'С†РµРЅС‚СЂРёСЂР° РєР°СЂС‚РёРЅРєР°С‚Р° РЅР°Рґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos2i']                     = 'РїРѕРґСЂР°РІРЅСЏРІР° РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ РґСЏСЃРЅРѕ Рё РЅР°Рґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos3i']                     = 'РїРѕРґСЂР°РІРЅСЏРІР° РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ Р»СЏРІРѕ Рё РїРѕРґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos4i']                     = 'С†РµРЅС‚СЂРёСЂР° РєР°СЂС‚РёРЅРєР°С‚Р° РїРѕРґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos5i']                     = 'РїРѕРґСЂР°РІРЅСЏРІР° РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ РґСЏСЃРЅРѕ Рё РїРѕРґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos6i']                     = 'РїРѕРґСЂР°РІРЅСЏРІР° РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ Р»СЏРІРѕ Рё РІ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_pos7i']                     = 'РїРѕРґСЂР°РІРЅСЏРІР° РєР°СЂС‚РёРЅРєР°С‚Р° РѕС‚ РґСЏСЃРЅРѕ Рё РІ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_maxw']                      = 'max.&nbsp;С€РёСЂРѕС‡РёРЅР°';
+$BL['be_cnt_maxh']                      = 'max.&nbsp;РІРёСЃРѕС‡РёРЅР°';
+$BL['be_cnt_enlarge']                   = 'С‰СЂР°РєР°РЅРµ&nbsp;СѓРІРµР»РёС‡Р°РІР°';
+$BL['be_cnt_caption']                   = 'Р·Р°РіР»Р°РІРёРµ';
+$BL['be_cnt_subject']                   = 'РѕС‚РЅРѕСЃРЅРѕ';
+$BL['be_cnt_recipient']                 = 'РїРѕР»СѓС‡Р°С‚РµР»';
+$BL['be_cnt_buttontext']                = 'С‚РµРєСЃС‚ РЅР° Р±СѓС‚РѕРЅР°';
+$BL['be_cnt_sendas']                    = 'РёР·РїСЂР°С‚Рё РєР°С‚Рѕ';
+$BL['be_cnt_text']                      = 'С‚РµРєСЃС‚';
 $BL['be_cnt_html']                      = 'html';
 $BL['be_cnt_formfields']                = 'form fields';
-$BL['be_cnt_code']                      = 'код';
+$BL['be_cnt_code']                      = 'РєРѕРґ';
 $BL['be_cnt_infotext']                  = 'info&nbsp;text';
-$BL['be_cnt_subscription']              = 'абонамент';
+$BL['be_cnt_subscription']              = 'Р°Р±РѕРЅР°РјРµРЅС‚';
 $BL['be_cnt_labelemail']                = 'label&nbsp;email';
 $BL['be_cnt_tablealign']                = 'table&nbsp;align';
 $BL['be_cnt_labelname']                 = 'label&nbsp;name';
 $BL['be_cnt_labelsubsc']                = 'label&nbsp;subscr.';
 $BL['be_cnt_allsubsc']                  = 'all&nbsp;subscr.';
 $BL['be_cnt_default']                   = 'default';
-$BL['be_cnt_left']                      = 'ляво';
-$BL['be_cnt_center']                    = 'център';
-$BL['be_cnt_right']                     = 'дясно';
+$BL['be_cnt_left']                      = 'Р»СЏРІРѕ';
+$BL['be_cnt_center']                    = 'С†РµРЅС‚СЉСЂ';
+$BL['be_cnt_right']                     = 'РґСЏСЃРЅРѕ';
 $BL['be_cnt_buttontext']                = 'button&nbsp;text';
 $BL['be_cnt_successtext']               = 'success&nbsp;text';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
 $BL['be_cnt_changemail']                = 'change.email';
-$BL['be_cnt_openimagebrowser']          = 'отвори браузърът за картинки';
-$BL['be_cnt_openfilebrowser']           = 'отвори браузърът за файлове';
-$BL['be_cnt_sortup']                    = 'премести нагоре';
-$BL['be_cnt_sortdown']                  = 'премести надолу';
-$BL['be_cnt_delimage']                  = 'махни избраната картинка';
-$BL['be_cnt_delfile']                   = 'махни избраният файл';
-$BL['be_cnt_delmedia']                  = 'махни избраната медия';
-$BL['be_cnt_column']                    = 'колона';
+$BL['be_cnt_openimagebrowser']          = 'РѕС‚РІРѕСЂРё Р±СЂР°СѓР·СЉСЂСЉС‚ Р·Р° РєР°СЂС‚РёРЅРєРё';
+$BL['be_cnt_openfilebrowser']           = 'РѕС‚РІРѕСЂРё Р±СЂР°СѓР·СЉСЂСЉС‚ Р·Р° С„Р°Р№Р»РѕРІРµ';
+$BL['be_cnt_sortup']                    = 'РїСЂРµРјРµСЃС‚Рё РЅР°РіРѕСЂРµ';
+$BL['be_cnt_sortdown']                  = 'РїСЂРµРјРµСЃС‚Рё РЅР°РґРѕР»Сѓ';
+$BL['be_cnt_delimage']                  = 'РјР°С…РЅРё РёР·Р±СЂР°РЅР°С‚Р° РєР°СЂС‚РёРЅРєР°';
+$BL['be_cnt_delfile']                   = 'РјР°С…РЅРё РёР·Р±СЂР°РЅРёСЏС‚ С„Р°Р№Р»';
+$BL['be_cnt_delmedia']                  = 'РјР°С…РЅРё РёР·Р±СЂР°РЅР°С‚Р° РјРµРґРёСЏ';
+$BL['be_cnt_column']                    = 'РєРѕР»РѕРЅР°';
 $BL['be_cnt_imagespace']                = 'image&nbsp;space';
-$BL['be_cnt_directlink']                = 'директна връзка';
-$BL['be_cnt_target']                    = 'цел';
-$BL['be_cnt_target1']                   = 'в нов прозорец';
+$BL['be_cnt_directlink']                = 'РґРёСЂРµРєС‚РЅР° РІСЂСЉР·РєР°';
+$BL['be_cnt_target']                    = 'С†РµР»';
+$BL['be_cnt_target1']                   = 'РІ РЅРѕРІ РїСЂРѕР·РѕСЂРµС†';
 $BL['be_cnt_target2']                   = 'in parent frame of the window';
 $BL['be_cnt_target3']                   = 'in same window without frames';
 $BL['be_cnt_target4']                   = 'in the same frame or window';
-$BL['be_cnt_bullet']                    = 'списък (таблица)';
-$BL['be_cnt_ullist']     		        = 'списък';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1во ниво, &nbsp; ~~ = 2ро ниво, &nbsp; т.н.';
-$BL['be_cnt_linklist']                  = 'списък линкове';
-$BL['be_cnt_plainhtml']                 = 'чист html';
-$BL['be_cnt_files']                     = 'файлове';
-$BL['be_cnt_description']               = 'описание';
+$BL['be_cnt_bullet']                    = 'СЃРїРёСЃСЉРє (С‚Р°Р±Р»РёС†Р°)';
+$BL['be_cnt_ullist']     		        = 'СЃРїРёСЃСЉРє';
+$BL['be_cnt_ullist_desc']     		    = '~ = 1РІРѕ РЅРёРІРѕ, &nbsp; ~~ = 2СЂРѕ РЅРёРІРѕ, &nbsp; С‚.РЅ.';
+$BL['be_cnt_linklist']                  = 'СЃРїРёСЃСЉРє Р»РёРЅРєРѕРІРµ';
+$BL['be_cnt_plainhtml']                 = 'С‡РёСЃС‚ html';
+$BL['be_cnt_files']                     = 'С„Р°Р№Р»РѕРІРµ';
+$BL['be_cnt_description']               = 'РѕРїРёСЃР°РЅРёРµ';
 $BL['be_cnt_linkarticle']               = 'link article';
-$BL['be_cnt_articles']                  = 'статии';
-$BL['be_cnt_movearticleto']             = 'премести избраната статия в списъка със статии';
-$BL['be_cnt_removearticleto']           = 'махни избраната статия от списъка със статии';
-$BL['be_cnt_mediatype']                 = 'тип медия';
-$BL['be_cnt_control']                   = 'контрол';
-$BL['be_cnt_showcontrol']               = 'показвай панела с контроли';
-$BL['be_cnt_autoplay']                  = 'автостарт';
-$BL['be_cnt_source']                    = 'източник';
-$BL['be_cnt_internal']                  = 'вътрешен';
-$BL['be_cnt_openmediabrowser']          = 'отвори броузера за медия';
-$BL['be_cnt_external']                  = 'външен';
-$BL['be_cnt_mediapos0']                 = 'ляво (по подразбиране)';
-$BL['be_cnt_mediapos1']                 = 'централно';
-$BL['be_cnt_mediapos2']                 = 'дясно';
+$BL['be_cnt_articles']                  = 'СЃС‚Р°С‚РёРё';
+$BL['be_cnt_movearticleto']             = 'РїСЂРµРјРµСЃС‚Рё РёР·Р±СЂР°РЅР°С‚Р° СЃС‚Р°С‚РёСЏ РІ СЃРїРёСЃСЉРєР° СЃСЉСЃ СЃС‚Р°С‚РёРё';
+$BL['be_cnt_removearticleto']           = 'РјР°С…РЅРё РёР·Р±СЂР°РЅР°С‚Р° СЃС‚Р°С‚РёСЏ РѕС‚ СЃРїРёСЃСЉРєР° СЃСЉСЃ СЃС‚Р°С‚РёРё';
+$BL['be_cnt_mediatype']                 = 'С‚РёРї РјРµРґРёСЏ';
+$BL['be_cnt_control']                   = 'РєРѕРЅС‚СЂРѕР»';
+$BL['be_cnt_showcontrol']               = 'РїРѕРєР°Р·РІР°Р№ РїР°РЅРµР»Р° СЃ РєРѕРЅС‚СЂРѕР»Рё';
+$BL['be_cnt_autoplay']                  = 'Р°РІС‚РѕСЃС‚Р°СЂС‚';
+$BL['be_cnt_source']                    = 'РёР·С‚РѕС‡РЅРёРє';
+$BL['be_cnt_internal']                  = 'РІСЉС‚СЂРµС€РµРЅ';
+$BL['be_cnt_openmediabrowser']          = 'РѕС‚РІРѕСЂРё Р±СЂРѕСѓР·РµСЂР° Р·Р° РјРµРґРёСЏ';
+$BL['be_cnt_external']                  = 'РІСЉРЅС€РµРЅ';
+$BL['be_cnt_mediapos0']                 = 'Р»СЏРІРѕ (РїРѕ РїРѕРґСЂР°Р·Р±РёСЂР°РЅРµ)';
+$BL['be_cnt_mediapos1']                 = 'С†РµРЅС‚СЂР°Р»РЅРѕ';
+$BL['be_cnt_mediapos2']                 = 'РґСЏСЃРЅРѕ';
 $BL['be_cnt_mediapos3']                 = 'block, left';
 $BL['be_cnt_mediapos4']                 = 'block, right';
-$BL['be_cnt_mediapos0i']                = 'подравни медията отляво и над текста';
-$BL['be_cnt_mediapos1i']                = 'центрирай медията над текста';
-$BL['be_cnt_mediapos2i']                = 'подравни медията отдясно и над текста';
-$BL['be_cnt_mediapos3i']                = 'подравни медията отляво и в текста';
-$BL['be_cnt_mediapos4i']                = 'подравни медията отдясно и в текста';
-$BL['be_cnt_setsize']                   = 'размер';
+$BL['be_cnt_mediapos0i']                = 'РїРѕРґСЂР°РІРЅРё РјРµРґРёСЏС‚Р° РѕС‚Р»СЏРІРѕ Рё РЅР°Рґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_mediapos1i']                = 'С†РµРЅС‚СЂРёСЂР°Р№ РјРµРґРёСЏС‚Р° РЅР°Рґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_mediapos2i']                = 'РїРѕРґСЂР°РІРЅРё РјРµРґРёСЏС‚Р° РѕС‚РґСЏСЃРЅРѕ Рё РЅР°Рґ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_mediapos3i']                = 'РїРѕРґСЂР°РІРЅРё РјРµРґРёСЏС‚Р° РѕС‚Р»СЏРІРѕ Рё РІ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_mediapos4i']                = 'РїРѕРґСЂР°РІРЅРё РјРµРґРёСЏС‚Р° РѕС‚РґСЏСЃРЅРѕ Рё РІ С‚РµРєСЃС‚Р°';
+$BL['be_cnt_setsize']                   = 'СЂР°Р·РјРµСЂ';
 $BL['be_cnt_set1']                      = '160x120px';
 $BL['be_cnt_set2']                      = '240x180px';
 $BL['be_cnt_set3']                      = '320x240px';
 $BL['be_cnt_set4']                      = '480x360px';
-$BL['be_cnt_set5']                      = 'махни размера';
+$BL['be_cnt_set5']                      = 'РјР°С…РЅРё СЂР°Р·РјРµСЂР°';
 
 // added: 28-12-2003
-$BL['be_admin_page_add']                = 'създай ново разположение на страница';
-$BL['be_admin_page_name']               = 'име';
-$BL['be_admin_page_edit']               = 'редактирай разположението';
+$BL['be_admin_page_add']                = 'СЃСЉР·РґР°Р№ РЅРѕРІРѕ СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ РЅР° СЃС‚СЂР°РЅРёС†Р°';
+$BL['be_admin_page_name']               = 'РёРјРµ';
+$BL['be_admin_page_edit']               = 'СЂРµРґР°РєС‚РёСЂР°Р№ СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµС‚Рѕ';
 $BL['be_admin_page_render']             = 'rendering';
-$BL['be_admin_page_table']              = 'таблица';
+$BL['be_admin_page_table']              = 'С‚Р°Р±Р»РёС†Р°';
 $BL['be_admin_page_div']                = 'css div';
-$BL['be_admin_page_custom']             = 'ръчно';
-$BL['be_admin_page_custominfo']         = 'от main блока на шаблона';
-$BL['be_admin_tmpl_layout']             = 'разположение';
-$BL['be_admin_tmpl_nolayout']           = 'Няма разположения!';
+$BL['be_admin_page_custom']             = 'СЂСЉС‡РЅРѕ';
+$BL['be_admin_page_custominfo']         = 'РѕС‚ main Р±Р»РѕРєР° РЅР° С€Р°Р±Р»РѕРЅР°';
+$BL['be_admin_tmpl_layout']             = 'СЂР°Р·РїРѕР»РѕР¶РµРЅРёРµ';
+$BL['be_admin_tmpl_nolayout']           = 'РќСЏРјР° СЂР°Р·РїРѕР»РѕР¶РµРЅРёСЏ!';
 
 // added: 31-12-2003
-$BL['be_ctype_search']                  = 'търсене';
-$BL['be_cnt_results']                   = 'резултати';
-$BL['be_cnt_results_per_page']          = 'на&nbsp;страница (ако е празно показва всички)';
-$BL['be_cnt_opennewwin']                = 'отваря в ное прозорец';
-$BL['be_cnt_searchlabeltext']           = 'това са предефинирани текстове и стойности на формата за търсене и резултата от търсенето ще бъдат показвани когато има повече от зададените "резултати на страница".';
+$BL['be_ctype_search']                  = 'С‚СЉСЂСЃРµРЅРµ';
+$BL['be_cnt_results']                   = 'СЂРµР·СѓР»С‚Р°С‚Рё';
+$BL['be_cnt_results_per_page']          = 'РЅР°&nbsp;СЃС‚СЂР°РЅРёС†Р° (Р°РєРѕ Рµ РїСЂР°Р·РЅРѕ РїРѕРєР°Р·РІР° РІСЃРёС‡РєРё)';
+$BL['be_cnt_opennewwin']                = 'РѕС‚РІР°СЂСЏ РІ РЅРѕРµ РїСЂРѕР·РѕСЂРµС†';
+$BL['be_cnt_searchlabeltext']           = 'С‚РѕРІР° СЃР° РїСЂРµРґРµС„РёРЅРёСЂР°РЅРё С‚РµРєСЃС‚РѕРІРµ Рё СЃС‚РѕР№РЅРѕСЃС‚Рё РЅР° С„РѕСЂРјР°С‚Р° Р·Р° С‚СЉСЂСЃРµРЅРµ Рё СЂРµР·СѓР»С‚Р°С‚Р° РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ С‰Рµ Р±СЉРґР°С‚ РїРѕРєР°Р·РІР°РЅРё РєРѕРіР°С‚Рѕ РёРјР° РїРѕРІРµС‡Рµ РѕС‚ Р·Р°РґР°РґРµРЅРёС‚Рµ "СЂРµР·СѓР»С‚Р°С‚Рё РЅР° СЃС‚СЂР°РЅРёС†Р°".';
 $BL['be_cnt_input']                     = 'input';
 $BL['be_cnt_style']                     = 'style';
-$BL['be_cnt_result']                    = 'резултат';
-$BL['be_cnt_next']                      = 'следващ';
-$BL['be_cnt_previous']                  = 'предишен';
-$BL['be_cnt_align']                     = 'подравняване';
-$BL['be_cnt_searchformtext']            = 'следните текстове ще са показвани като се отвори формата за търсене или няма резултати от търсенето.';
-$BL['be_cnt_intro']                     = 'въведение';
-$BL['be_cnt_noresult']                  = 'няма резултати';
+$BL['be_cnt_result']                    = 'СЂРµР·СѓР»С‚Р°С‚';
+$BL['be_cnt_next']                      = 'СЃР»РµРґРІР°С‰';
+$BL['be_cnt_previous']                  = 'РїСЂРµРґРёС€РµРЅ';
+$BL['be_cnt_align']                     = 'РїРѕРґСЂР°РІРЅСЏРІР°РЅРµ';
+$BL['be_cnt_searchformtext']            = 'СЃР»РµРґРЅРёС‚Рµ С‚РµРєСЃС‚РѕРІРµ С‰Рµ СЃР° РїРѕРєР°Р·РІР°РЅРё РєР°С‚Рѕ СЃРµ РѕС‚РІРѕСЂРё С„РѕСЂРјР°С‚Р° Р·Р° С‚СЉСЂСЃРµРЅРµ РёР»Рё РЅСЏРјР° СЂРµР·СѓР»С‚Р°С‚Рё РѕС‚ С‚СЉСЂСЃРµРЅРµС‚Рѕ.';
+$BL['be_cnt_intro']                     = 'РІСЉРІРµРґРµРЅРёРµ';
+$BL['be_cnt_noresult']                  = 'РЅСЏРјР° СЂРµР·СѓР»С‚Р°С‚Рё';
 
 // added: 02-01-2004
-$BL['be_admin_page_disable']            = 'извади от строя';
+$BL['be_admin_page_disable']            = 'РёР·РІР°РґРё РѕС‚ СЃС‚СЂРѕСЏ';
 
 // added: 09-01-2004
-$BL['be_article_articleowner']          = 'собственик на статията';
-$BL['be_article_adminuser']             = 'административен потребител';
-$BL['be_article_username']              = 'автор';
+$BL['be_article_articleowner']          = 'СЃРѕР±СЃС‚РІРµРЅРёРє РЅР° СЃС‚Р°С‚РёСЏС‚Р°';
+$BL['be_article_adminuser']             = 'Р°РґРјРёРЅРёСЃС‚СЂР°С‚РёРІРµРЅ РїРѕС‚СЂРµР±РёС‚РµР»';
+$BL['be_article_username']              = 'Р°РІС‚РѕСЂ';
 
 // added: 10-01-2004
 $BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
-$BL['be_admin_struct_regonly']          = 'видим само за влезналите потребители';
+$BL['be_admin_struct_regonly']          = 'РІРёРґРёРј СЃР°РјРѕ Р·Р° РІР»РµР·РЅР°Р»РёС‚Рµ РїРѕС‚СЂРµР±РёС‚РµР»Рё';
 $BL['be_admin_struct_status']           = 'frontend menu status';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'меню за статии';
-$BL['be_cnt_sitelevel']					= 'ниво на сайта';
+$BL['be_ctype_articlemenu']				= 'РјРµРЅСЋ Р·Р° СЃС‚Р°С‚РёРё';
+$BL['be_cnt_sitelevel']					= 'РЅРёРІРѕ РЅР° СЃР°Р№С‚Р°';
 $BL['be_cnt_sitecurrent']				= 'current site level';
 
 // added: 24-03-2004
@@ -720,7 +720,7 @@ $BL['be_newsletter_open']               = 'HTML and TEXT input';
 $BL['be_newsletter_open1']              = '(click on image to open)';
 $BL['be_newsletter_sendnow']            = 'Send newsletter';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Attention!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
-$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.'; 
+$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
@@ -732,17 +732,17 @@ $BL['be_newsletter_readyfailed']        = 'Failed newsletter sending to';
 $BL['be_subnav_msg_subscribers']        = 'newsletter subscribers';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'карта на стайта';
-$BL['be_cnt_sitemap_catimage']          = 'икона за нивото';
-$BL['be_cnt_sitemap_articleimage']      = 'икона за статия';
-$BL['be_cnt_sitemap_display']           = 'показвай';
-$BL['be_cnt_sitemap_structuronly']      = 'само нива от структурата';
-$BL['be_cnt_sitemap_structurarticle']   = 'структура и статии';
-$BL['be_cnt_sitemap_catclass']          = 'class на ниво';
-$BL['be_cnt_sitemap_articleclass']      = 'class на статия';
-$BL['be_cnt_sitemap_count']             = 'брояч';
-$BL['be_cnt_sitemap_classcount']        = 'добавяй към името на class-а';
-$BL['be_cnt_sitemap_noclasscount']      = 'не добавяй към името на class-а';
+$BL['be_ctype_sitemap']				    = 'РєР°СЂС‚Р° РЅР° СЃС‚Р°Р№С‚Р°';
+$BL['be_cnt_sitemap_catimage']          = 'РёРєРѕРЅР° Р·Р° РЅРёРІРѕС‚Рѕ';
+$BL['be_cnt_sitemap_articleimage']      = 'РёРєРѕРЅР° Р·Р° СЃС‚Р°С‚РёСЏ';
+$BL['be_cnt_sitemap_display']           = 'РїРѕРєР°Р·РІР°Р№';
+$BL['be_cnt_sitemap_structuronly']      = 'СЃР°РјРѕ РЅРёРІР° РѕС‚ СЃС‚СЂСѓРєС‚СѓСЂР°С‚Р°';
+$BL['be_cnt_sitemap_structurarticle']   = 'СЃС‚СЂСѓРєС‚СѓСЂР° Рё СЃС‚Р°С‚РёРё';
+$BL['be_cnt_sitemap_catclass']          = 'class РЅР° РЅРёРІРѕ';
+$BL['be_cnt_sitemap_articleclass']      = 'class РЅР° СЃС‚Р°С‚РёСЏ';
+$BL['be_cnt_sitemap_count']             = 'Р±СЂРѕСЏС‡';
+$BL['be_cnt_sitemap_classcount']        = 'РґРѕР±Р°РІСЏР№ РєСЉРј РёРјРµС‚Рѕ РЅР° class-Р°';
+$BL['be_cnt_sitemap_noclasscount']      = 'РЅРµ РґРѕР±Р°РІСЏР№ РєСЉРј РёРјРµС‚Рѕ РЅР° class-Р°';
 
 // added: 23-04-2004
 $BL['be_ctype_bid']				        = 'bid';
@@ -756,4 +756,3 @@ $BL['be_cnt_bid_startbid']              = 'start bid';
 // added: 29-04-2004
 $BL['be_cnt_bid_nextbidadd']            = 'increase&nbsp;by';
 
-?>

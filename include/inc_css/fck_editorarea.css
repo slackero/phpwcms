@@ -26,7 +26,7 @@ td, tr, th {
 	font-size: 11px
 }
 
-ul { margin: 0px 0px 0px 20px; }
+ul { margin: 0 0 0 20px; }
 li { font-size: 11px; list-style: disc; }
 
 a, a:link, a:visited, a:active {
@@ -60,7 +60,7 @@ a:hover {
 	font-weight: normal;
 	color: #6D7983;
 	line-height: 110%;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .articleSummary {

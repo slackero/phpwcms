@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -295,7 +295,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr>
 	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 	<td valign="top">
-		<textarea name="cimage_caption" cols="40" rows="<?php echo (($imgx+2 >= 6) ? $imgx+4 : 6); ?>" wrap="off" class="width440" id="cimage_caption"><?php echo $caption_box; ?></textarea>
+		<textarea name="cimage_caption" cols="40" rows="3" wrap="off" class="width440 autosize" id="cimage_caption"><?php echo $caption_box; ?></textarea>
 		<span class="caption width440">
 			<?php echo $BL['be_cnt_caption']; ?>
 			|

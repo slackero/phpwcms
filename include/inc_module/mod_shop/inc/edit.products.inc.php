@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <oliver@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -25,7 +25,6 @@ if(!isset($plugin['data']['shopprod_duplicate'])) {
 if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 	$plugin['data']['shopprod_overwrite_meta'] = 1;
 }
-
 
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['prod_edit'] ?></h1>
@@ -43,14 +42,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
 		<td class="v10" width="410"><?php
 
-		echo html(date($BL['be_fprivedit_dateformat'], $plugin['data']['shopprod_changedate'])) ;
+		echo html_specialchars(date($BL['be_fprivedit_dateformat'], $plugin['data']['shopprod_changedate'])) ;
 
 		if(!empty($plugin['data']['shopprod_createdate'])) {
 		?>
 		&nbsp;&nbsp;&nbsp;<span class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:</span>
 		<?php
 
-			echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
+			echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
 		}
 
 		?></td>
@@ -68,10 +67,10 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		//error class
 		if(!empty($plugin['error']['shopprod_ordernumber'])) echo ' errorInputText';
 
-		?>" value="<?php echo html($plugin['data']['shopprod_ordernumber']) ?>" size="30" maxlength="20" /></td>
+		?>" value="<?php echo html_specialchars($plugin['data']['shopprod_ordernumber']) ?>" size="30" maxlength="20" /></td>
 
 				<td align="right" class="chatlist width100"><?php echo $BLM['shopprod_model'] ?>:&nbsp;</td>
-				<td><input name="shopprod_model" type="text" id="shopprod_model" class="v12 width170" value="<?php echo html($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" /></td>
+				<td><input name="shopprod_model" type="text" id="shopprod_model" class="v12 width170" value="<?php echo html_specialchars($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" /></td>
 			</tr>
 
 			</table></td>
@@ -111,14 +110,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		//error class
 		if(!empty($plugin['error']['shopprod_name1'])) echo ' errorInputText';
 
-		?>" value="<?php echo html($plugin['data']['shopprod_name1']) ?>" size="30" maxlength="200" /></td>
+		?>" value="<?php echo html_specialchars($plugin['data']['shopprod_name1']) ?>" size="30" maxlength="200" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_name2'] ?>:&nbsp;</td>
-		<td><input name="shopprod_name2" type="text" id="shopprod_name2" class="v12 width400" value="<?php echo html($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" /></td>
+		<td><input name="shopprod_name2" type="text" id="shopprod_name2" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" /></td>
 	</tr>
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
@@ -131,27 +130,33 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 
 				<td><input name="shopprod_weight" type="text" id="shopprod_weight" class="v12 width125 right" value="<?php
 
-			echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']);
+					echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']);
 
-		?>" size="30" maxlength="200" /></td>
+				?>" size="30" maxlength="200" /></td>
 
-			<td class="chatlist">&nbsp;<?php
+				<td class="chatlist" width="25">&nbsp;<?php
 
-			if( ! $plugin['data']['shop_pref_unit_weight'] = _getConfig('shop_pref_unit_weight') ) {
-				$plugin['data']['shop_pref_unit_weight'] = 'kg';
-				_setConfig('shop_pref_unit_weight', 	$plugin['data']['shop_pref_unit_weight'], 	'module_shop');
-			}
-			echo html($plugin['data']['shop_pref_unit_weight']);
+					if( ! ($plugin['data']['shop_pref_unit_weight'] = _getConfig('shop_pref_unit_weight')) ) {
+						$plugin['data']['shop_pref_unit_weight'] = 'kg';
+						_setConfig('shop_pref_unit_weight', 	$plugin['data']['shop_pref_unit_weight'], 	'module_shop');
+					}
+					echo html_specialchars($plugin['data']['shop_pref_unit_weight']);
 
-			?></td>
+				?></td>
 
 			</tr>
 			</table></td>
 
 	</tr>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
+	<tr>
+		<td align="right" class="chatlist"><?php echo $BLM['shopprod_unit'] ?>:&nbsp;</td>
+		<td><input name="shopprod_unit" type="text" id="shopprod_unit" class="v12 width125" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" /></td>
+	</tr>
+
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_price'] ?>:&nbsp;</td>
@@ -228,18 +233,15 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 		<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 
 			<tr>
-				<td><textarea name="shopprod_size" id="shopprod_size" class="width125" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_size']) ?></textarea></td>
+				<td><textarea name="shopprod_size" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea></td>
 
 				<td align="right" class="chatlist width100 tdtop4"><?php echo $BLM['shopprod_color'] ?>:&nbsp;</td>
-				<td><textarea name="shopprod_color" id="shopprod_color" class="width170" rows="5" cols="15"><?php echo html($plugin['data']['shopprod_color']) ?></textarea></td>
+				<td><textarea name="shopprod_color" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea></td>
 
 				</tr>
 
 			</table></td>
 	</tr>
-
-
-
 
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
@@ -261,7 +263,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 		?></td>
 	</tr>
@@ -283,19 +285,19 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 		?></td>
 	</tr>
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description1'] ?>:&nbsp;</td>
-		<td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="width400"><?php echo html($plugin['data']['shopprod_description2']) ?></textarea></td>
+		<td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="v12 width400"><?php echo html_specialchars($plugin['data']['shopprod_description2']) ?></textarea></td>
 	</tr>
 
 	<tr>
 		<td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description2'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="width400"><?php echo html($plugin['data']['shopprod_description3']) ?></textarea></td>
+		<td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="v12 width400"><?php echo html_specialchars($plugin['data']['shopprod_description3']) ?></textarea></td>
 	</tr>
 
 
@@ -335,7 +337,7 @@ if($img_count) {
 
 			// image found
 			echo '<option value="' . $plugin['data']['shopprod_images'][$key]['f_id'] . '">';
-			$img_name = html($plugin['data']['shopprod_images'][$key]['f_name']);
+			$img_name = html_specialchars($plugin['data']['shopprod_images'][$key]['f_name']);
 			echo $img_name . '</option>'.LF;
 
 			if($imgx == 4) {
@@ -347,7 +349,7 @@ if($img_count) {
 			}
 			$img_thumbs .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
 
-			$plugin['data']['shopprod_caption'][] = html($plugin['data']['shopprod_images'][$key]['caption']);
+			$plugin['data']['shopprod_caption'][] = html_specialchars($plugin['data']['shopprod_images'][$key]['caption']);
 
 			$imgx++;
 		}
@@ -381,7 +383,7 @@ if($img_count) {
 
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
+		<td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
 	</tr>
 
 	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -408,10 +410,10 @@ if(count($plugin['data']['shopprod_files'])) {
 	foreach($plugin['data']['shopprod_files'] as $key => $value) {
 
 		echo '<option value="' . $plugin['data']['shopprod_files'][$key]['f_id'] . '">';
-		echo html($plugin['data']['shopprod_files'][$key]['f_name']);
+		echo html_specialchars($plugin['data']['shopprod_files'][$key]['f_name']);
 		echo '</option>'.LF;
 
-		$plugin['data']['shopprod_filecaption'][] = html($plugin['data']['shopprod_files'][$key]['caption']);
+		$plugin['data']['shopprod_filecaption'][] = html_specialchars($plugin['data']['shopprod_files'][$key]['caption']);
 
 	}
 
@@ -432,7 +434,7 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-		<td valign="top"><textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="width400" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea></td>
+		<td valign="top"><textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea></td>
 	</tr>
 	<!-- End Attachments -->
 
@@ -440,7 +442,7 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_url'] ?>:&nbsp;</td>
-		<td><input name="shopprod_url" type="text" id="shopprod_url" class="v12 width400" value="<?php echo html($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" /></td>
+		<td><input name="shopprod_url" type="text" id="shopprod_url" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" /></td>
 	</tr>
 
 	<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -468,7 +470,7 @@ if(count($plugin['data']['shopprod_files'])) {
 			if($value['cat_pid']) {
 				echo '&nbsp;&nbsp;&nbsp;';
 			}
-			echo html($value['cat_name']).'</option>'.LF;
+			echo html_specialchars($value['cat_name']).'</option>'.LF;
 
 		}
 
@@ -477,7 +479,7 @@ if(count($plugin['data']['shopprod_files'])) {
 			</tr>
 		<?php	if(count($t)) {		?>
 			<tr>
-				<td class="tdtop3 v10"><?php echo nl2br(html(implode(', ', $t))) ?></td>
+				<td class="tdtop3 v10"><?php echo nl2br(html_specialchars(implode(', ', $t))) ?></td>
 			</tr>
 		<?php	}	?>
 
@@ -490,7 +492,7 @@ if(count($plugin['data']['shopprod_files'])) {
 
 	<tr>
 		<td align="right" class="chatlist"><?php echo $BLM['shopprod_tag'] ?>:&nbsp;</td>
-		<td><input name="shopprod_tag" type="text" id="shopprod_tag" class="v12 width400" value="<?php echo html( trim($plugin['data']['shopprod_tag'], ',') ) ?>" size="30" maxlength="250" /></td>
+		<td><input name="shopprod_tag" type="text" id="shopprod_tag" class="v12 width400" value="<?php echo html_specialchars( trim($plugin['data']['shopprod_tag'], ',') ) ?>" size="30" maxlength="250" /></td>
 	</tr>
 
 
@@ -540,10 +542,10 @@ if(count($plugin['data']['shopprod_files'])) {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+			<input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+			<input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="close" type="submit" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+			<input name="close" type="submit" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" />
 		</td>
 	</tr>
 </table>

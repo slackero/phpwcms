@@ -2,20 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 //map
 
@@ -192,7 +191,7 @@ $wysiwyg_editor = array(
 	'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 	'lang'		=> 'en'
 );
-include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
   ?></td>
 </tr>
@@ -208,7 +207,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr>
   <td valign="top" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="14"><?php echo $BL['be_cnt_map_list'] ?>:&nbsp;</td>
-  <td><div style="overflow:auto;border:1px solid #7F9DB9;padding:0px;width:440px;<?php echo $ck ?>margin:0;background-color:#F3F3F5;">
+  <td><div style="overflow:auto;border:1px solid #7F9DB9;padding:0;width:440px;<?php echo $ck ?>margin:0;background-color:#F3F3F5;">
   <table width="100%" border="0" cellpadding="3" cellspacing="0" summary="">
   <?php echo $map_list; ?>
   </table>
@@ -224,5 +223,5 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_admin_page_text'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="width440"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>
+  <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="width440 autosize"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>
 </tr>

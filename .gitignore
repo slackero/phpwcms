@@ -3,3 +3,15 @@
 /content/images/*.png
 /content/images/*.gif
 /content/tmp/*
+.idea
+template/inc_cntpart/tabs/simplegmaps.tmpl
+template/lib/simplegmaps
+template/img/mapicons
+template/inc_cntpart/html/YouTubeStatic.tmpl
+template/inc_cntpart/images/Slick-Slider-Single-Image.tmpl
+template/inc_cntpart/imagespecial/Image-HoverChange.tmpl
+template/lib/slick
+template/inc_cntpart/images/Figure Kopie.tmpl
+/filearchive/*.jpg
+/filearchive/*.png
+/filearchive/*.pdf

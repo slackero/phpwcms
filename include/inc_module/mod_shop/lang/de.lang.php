@@ -4,7 +4,7 @@
 $BLM['backend_menu']			= 'Shop/Produkte';
 $BLM['listing_title']			= 'Shop/Produkte';
 
-$BLM['tab_default']				= 'Shopübersicht';
+$BLM['tab_default']				= 'Shop&uuml;bersicht';
 $BLM['tab_products']			= 'Produkte';
 $BLM['tab_categories']			= 'Kategorien';
 $BLM['tab_orders']				= 'Bestellungen';
@@ -19,9 +19,9 @@ $BLM['prod_cat']				= 'Produktkategorie';
 $BLM['cat_edit']				= 'Shop Produktkategorie bearbeiten';
 $BLM['prod_edit']				= 'Shop Produkt bearbeiten';
 $BLM['pref_edit']				= 'Einstellungen &auml;ndern';
-$BLM['delete_entry']			= 'Soll die gewählte Kategorie wirklich gelöscht werden?\nAlle Unterkategorien werden ebenfalls gelöscht!\nGelöscht wird: ';
-$BLM['delete_product']			= 'Folgendes Produkt wirklich löschen?\n';
-$BLM['delete_order']			= 'Folgende Bestellung wirklich löschen?\n';
+$BLM['delete_entry']			= 'Soll die gew&auml;hlte Kategorie wirklich gelÃ¶scht werden?\nAlle Unterkategorien werden ebenfalls gelÃ¶scht!\nGelÃ¶scht wird: ';
+$BLM['delete_product']			= 'Folgendes Produkt wirklich lÃ¶schen?\n';
+$BLM['delete_order']			= 'Folgende Bestellung wirklich lÃ¶schen?\n';
 
 $BLM['th_ordnr']				= 'Best.Nr.';
 $BLM['th_modnr']				= 'Mod.Nr.';
@@ -63,7 +63,7 @@ $BLM['shopprod_cart']			= 'Warenkorb';
 $BLM['shopprod_max_cartitem']	= 'max. Produkte/Warenkorb';
 $BLM['shopprod_vat_rates']		= 'MwSt.-S&auml;tze';
 
-$BLM['shopprod_size']			= 'z.B. Gr&ouml;&szlig;e';
+$BLM['shopprod_size']			= 'z.B. Gr&ouml;&szlig;e&nbsp;&nbsp;<br/>Titel&nbsp;&nbsp;<br />Beschr.|+/-Preis|Anhang';
 $BLM['shopprod_color']			= 'z.B. Farbe';
 
 $BLM['shopprod_url']			= 'Produktlink';
@@ -88,7 +88,7 @@ $BLM['shop_order']				= 'Bestellung';
 $BLM['shopprod_order_subject']	= 'Ihre Bestellung';
 $BLM['shopprod_subcategory']	= 'Subkategorie&nbsp;von';
 $BLM['shopprod_is_main_cat']	= 'Hauptkategorie';
-$BLM['shopprod_listall']		= 'Unter &bdquo;Alle Produkte&ldquo; listen';
+$BLM['shopprod_listall']		= 'Unter &quot;Alle Produkte&quot; listen';
 
 $BLM['shopprod_id_shop']		= 'Shop&nbsp;Ziel';
 $BLM['shopprod_id_cart']		= 'Warenkorb&nbsp;Ziel';
@@ -105,7 +105,6 @@ $BLM['shopprod_total_vat']		= 'Mehrwertsteuer';
 $BLM['shopprod_total_gross']	= 'Endbetrag (Brutto)';
 
 $BLM['shopprod_subtotal']		= 'Warenbetrag';
-$BLM['shopprod_shipping']		= 'Versandkosten';
 
 $BLM['shopprod_email_customer']	= 'E-Mail an Kunden';
 $BLM['shopprod_email_shop']		= 'E-Mail an Shop';
@@ -123,8 +122,14 @@ $BLM['shopprod_loworder_under']		= 'unter';
 $BLM['shopprod_loworder_charge']	= 'Zuschlag';
 
 $BLM['shopprod_discount']			= 'Rabatt';
+$BLM['shopprod_discount_from']		= 'ab Nettobetrag';
+$BLM['shopprod_freeshipping']		= 'versandkostenfrei';
 
 $BLM['shopprod_lang_support']	= 'Frontend Sprachunterst&uuml;tzung';
 $BLM['shopprod_overwrite_meta']	= 'Produktdetail &uuml;berschreibt Metadaten';
 
-?>
+$BLM['shopprod_distance'] = 'Entfernung (km)';
+$BLM['shopprod_distance_base'] = 'Ausgangsadresse';
+$BLM['shopprod_api'] = 'API Schnittstelle';
+$BLM['shopprod_api_access'] = 'Zugriff gestatten';
+$BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';

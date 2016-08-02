@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,8 +13,8 @@
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 //
-// Translated by Frold og Alleykat v. 1.0 
-// Valid for the relaese of phpwcms (28/12/2003) 
+// Translated by Frold og Alleykat v. 1.0
+// Valid for the relaese of phpwcms (28/12/2003)
 // #Changelog#
 // release
 // 28/12/2003
@@ -45,5 +45,3 @@ $BL['FILE_IN_TRASH']     = 'filen er i skraldespanden';
 $BL['KEYWORDS']          = 'n&oslash;gleord';
 $BL['DOWNLOAD_ERR3']     = 'fejl opstod da filinfo blev fors&oslash;gt l&AElig;st<br />luk vinduet og pr&oslash;v igen...';
 
-
-?>

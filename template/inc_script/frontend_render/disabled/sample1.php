@@ -24,5 +24,3 @@ function myRT1($rtinfo) {
 
 	return $dateImage;
 }
-
-?>

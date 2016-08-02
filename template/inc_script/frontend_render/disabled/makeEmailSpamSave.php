@@ -69,6 +69,3 @@ document.write("&#"+"46");
 	return $part[1].$part[2].$part[3];
 	
 }
-
-
-?>

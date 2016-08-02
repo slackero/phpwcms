@@ -2,24 +2,24 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 
 // keyword administration
 
-include_once(PHPWCMS_ROOT.'/include/inc_lib/lib.keywords.inc.php');
+include_once PHPWCMS_ROOT.'/include/inc_lib/lib.keywords.inc.php';
 
 echo '<h3 class="title">'.$BL['be_admin_keywords'].'</h3>'.LF;
 
@@ -109,7 +109,7 @@ $keyword["id"] = 0;
 					}
 					if($result = mysql_query($sql, $db) or die("error while inserting/updating keyword")) {
 						if(!$keyword["id"]) $keyword["id"] = mysql_insert_id($db);
-						headerRedirect(PHPWCMS_URL."phpwcms.php?do=admin&p=5");
+						headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=5');
 					}
 				}
 

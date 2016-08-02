@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -211,6 +211,9 @@ $BL['be_fprivup_err3']                  = 'Error while writing file to storage';
 $BL['be_fprivup_err4']                  = 'Error while creating user directory.';
 $BL['be_fprivup_err5']                  = 'no thumbnail exists';
 $BL['be_fprivup_err6']                  = 'Please dont try again - this is an server error! Contact your <a href="mailto:{VAL}">webmaster</a> as soon as possible!';
+$BL['be_fprivup_err7']                  = 'For security reasons the file %s cannot be uploaded.';
+$BL['be_fprivup_err8']                  = 'File with extension %s is not allowed for upload. Allowed extensions are: %s.';
+$BL['be_fprivup_err9']                  = 'File without extension is not allowed for upload. Allowed extensions are: %s.';
 $BL['be_fprivup_title']                 = 'upload files';
 $BL['be_fprivup_button']                = 'upload files';
 $BL['be_fprivup_upload']                = 'upload';
@@ -1041,12 +1044,12 @@ $BL['be_cnt_sysadmin_system']			= 'system';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']				= 'Your installation is up to date, no updates are available for this version of phpwcms.';
-$BL['Version_not_up_to_date']			= 'Your installation does <b>not</b> seem to be up to date. Updates are available for this version of phpwcms, please visit <a href="http://www.phpwcms.de/versioncheck/forum/" target="_blank">http://www.phpwcms.de/forum</a> to obtain the latest version.';
+$BL['Version_not_up_to_date']			= 'Your installation does <b>not</b> seem to be up to date. Updates are available for this version of phpwcms, please visit <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> to obtain the latest version.';
 $BL['Latest_version_info']				= 'The latest official version is <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'You are running <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Unable to open connection to phpwcms Server, reported error is:<br />%s';
 $BL['Socket_functions_disabled']		= 'Unable to use socket functions.';
-$BL['Mailing_list_subscribe_reminder']	= 'For the latest information on updates to phpwcms, why not subscribe to our <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">mailing list</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'For the latest information on updates to phpwcms, why not subscribe to our <a href="http://eepurl.com/bm-BrH" target="_blank">mailing list</a>.';
 $BL['Version_information'] 				= 'phpwcms Version Information';
 
 $BL['be_cnt_search_highlight']			= 'highlight';
@@ -1081,7 +1084,7 @@ $BL['be_cnt_filesize']					= 'filesize';
 $BL['be_cnt_captchalength']				= 'captcha code length';
 $BL['be_cnt_chars']						= 'chars';
 $BL['be_cnt_download']					= 'download';
-$BL['be_cnt_download_direct']			= 'direct';
+$BL['be_cnt_download_direct']			= 'direct (not recommend!)';
 $BL['be_cnt_database']					= 'database';
 $BL['be_cnt_formsave_in_db']			= 'save form results';
 
@@ -1125,7 +1128,7 @@ $BL['be_ctype']							= 'contentpart';
 $BL['be_selection']						= 'selection';
 
 $BL['be_ctype_module']					= 'plug-in';
-$BL['be_cnt_lightbox']					= 'lightbox';
+$BL['be_cnt_lightbox']					= 'gallery image';
 $BL['be_cnt_behavior']					= 'behavior';
 $BL['be_cnt_imglist_nocaption']			= 'hide caption for thumbnails';
 
@@ -1178,7 +1181,7 @@ $BL['be_flashplayer_thumbnail']			= 'thumbnail';
 $BL['be_flashplayer_selectsize']		= 'Select player size';
 $BL['be_flash_media']					= 'Flash';
 $BL['be_html5_media']					= 'HTML5';
-$BL['be_html5_h264']					= 'H.264';
+$BL['be_html5_h264']					= 'MPEG/H.264';
 $BL['be_html5_webm']					= 'WebM';
 $BL['be_html5_ogg']						= 'Ogg';
 $BL['be_media_format']					= 'format';
@@ -1387,5 +1390,45 @@ $BL['be_audio_only']					= 'audio only';
 $BL['be_filter']						= 'filter';
 $BL['be_filter_with_tags']				= 'by tag';
 $BL['be_filter_not_selected']			= 'no category selected';
+$BL['be_empty_search_result']			= 'The search returned no results.';
+$BL['confirm_cp_tab_warning']			= 'The subsection has no title and no number is assigned. The selection will get lost on save or update.';
 
-?>
+$BL['be_canonical']						= 'canonical link';
+$BL['be_breadcrumb']					= 'breadcrumb display behavior';
+$BL['be_breadcrumb_nothidden']			= 'visible if level is hidden';
+$BL['be_breadcrumb_nolink']				= 'do not link';
+
+$BL['CSRF_POST_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters found. For security reasons, the session was ended.';
+$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters failed. For security reasons, the session was ended.';
+$BL['CSRF_GET_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters found. For security reasons, the session was ended.';
+$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters failed. For security reasons, the session was ended.';
+
+$BL['be_parental_alias'] = 'parental alias';
+$BL['be_fsearch_nor'] = 'NONE';
+$BL['be_tab_toggle'] = 'Toggle tab to expanded or closed';
+$BL['be_custom_textfield'] = 'custom text';
+$BL['be_tab_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';
+
+$BL['be_onepage_id'] = 'OnePage ID (#anchor) support';
+$BL['be_onepage_template'] = 'treat as OnePage template';
+$BL['be_yes'] = 'Yes';
+$BL['be_no'] = 'No';
+$BL['be_attr_title'] = 'title (attribute)';
+$BL['be_attr_alt'] = 'alternative text';
+$BL['be_ie8ignore'] = 'disable <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">conditional comments</a> for IE8';
+$BL['be_cookie_consent_enable'] = 'enable Cookie Consent plugin';
+$BL['be_cookie_consent_message'] = 'consent message';
+$BL['cookie_consent_message'] = 'This website uses cookies to ensure you get the best experience on our website';
+$BL['be_cookie_consent_dismiss'] = 'dismiss button text';
+$BL['cookie_consent_dismiss'] = 'Got it!';
+$BL['be_cookie_consent_more'] = 'learn more button text';
+$BL['cookie_consent_more'] = 'More info';
+$BL['be_cookie_consent_link'] = 'cookie policy url/alias';
+$BL['be_cookie_consent_theme'] = 'theme (empty = no CSS)';
+$BL['be_google_analytics_enable'] = 'use Google Analytics';
+$BL['be_piwik_enable'] = 'use Piwik';
+$BL['be_tracking_anonymize'] = 'anonymize the IP';
+$BL['be_tracking_id'] = 'tracking ID';
+$BL['be_site_id'] = 'site ID';
+$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';

@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -92,8 +92,8 @@ if(isset($_POST['ecard_chooser'])) {
 			$ecard['mailer']->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
 		}
 
-		$ecard["mailer"]->From = $ecard["sender_email"];
-		if($ecard["sender_name"]) $ecard["mailer"]->FromName = $ecard["sender_name"];
+		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
+		$ecard["mailer"]->AddReplyTo($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);
 		$ecard["mailer"]->Subject = ($ecard["subject"]) ? $ecard["subject"] : 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
 
@@ -131,7 +131,7 @@ if(isset($_POST['ecard_chooser'])) {
 }
 
 if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_success"]) {
-	//Nochmal Prüfen auf leere Werte oder Dopplungen und Zuweisen der einzelnen Werte
+	//Nochmal Prï¿½fen auf leere Werte oder Dopplungen und Zuweisen der einzelnen Werte
 
 	$ecard["onover"]	= preg_replace('/;{1,}$/', '', $ecard["onover"])	.';';
 	$ecard["onclick"]	= preg_replace('/;{1,}$/', '', $ecard["onclick"])	.';';
@@ -195,7 +195,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 	switch($ecard["pos"]) {
 		case 0: $ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", '', 1); 		break;	//links
 		case 1:	$ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", "center", 1); break;	//center
-		case 1:	$ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", "center", 1); break; 	//right
+		case 2:	$ecard["chooser"] = imagelisttable($ecard, "0:5:0:0", "right", 1); break; 	//right
 	}
 	$ecard["form"] = str_replace('###ECARD_CHOOSER###', $ecard["chooser"], $ecard["form"]);
 	if(!$ecard["send_err"]) {
@@ -222,5 +222,3 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 	}
 	$CNT_TMP .= '</form>';
 }
-
-?>

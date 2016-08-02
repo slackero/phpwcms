@@ -1,60 +1,61 @@
 # PHP: These settings are recommend - check phpinfo() before try these
-#	register_globals ON
-#	php_flag magic_quotes_gpc Off
-# 	php_flag magic_quotes_runtime Off
-#	php_flag register_globals Off
+#   register_globals ON
+#   php_flag magic_quotes_gpc Off
+#   php_flag magic_quotes_runtime Off
+#   php_flag register_globals Off
 
 #Sometimes necessary to add special types
-#	AddType application/x-javascript .js
-#	AddType text/css .css
-#	AddType video/ogg .ogv
-#	AddType video/ogg .ogg
-#	AddType video/mp4 .mp4
-#	AddType video/x-m4v .m4v
-#	AddType video/webm .webm
-#	AddType image/svg+xml .svg
-#	AddType application/font-woff .woff
-#	AddType application/vnd.ms-fontobject .eot
-#	AddType application/x-font-ttf .ttf
-#	AddType application/x-font-opentype .otf
+#   AddType application/x-javascript .js
+#   AddType text/css .css
+#   AddType video/ogg .ogv
+#   AddType video/ogg .ogg
+#   AddType video/mp4 .mp4
+#   AddType video/x-m4v .m4v
+#   AddType video/webm .webm
+#   AddType image/svg+xml .svg
+#   AddType application/font-woff .woff
+#   AddType application/vnd.ms-fontobject .eot
+#   AddType application/x-font-ttf .ttf
+#   AddType application/x-font-opentype .otf
 
 # Options:
-#	Options +FollowSymlinks
-#	AcceptPathInfo On
+#   Options +FollowSymlinks
+#   AcceptPathInfo On
 
 # All 404 error should link to phpwcms then
 # it is easy to define internal routing/redirection
-#	ErrorDocument 404 /index.php?r404
+#   ErrorDocument 404 /index.php?r404
 # Installed in Subfolder www.example.com/subfolder/
-#	ErrorDocument 404 /subfolder/index.php?r404
+#   ErrorDocument 404 /subfolder/index.php?r404
 
 # Rewrite:
 <IfModule mod_rewrite.c>
 
-	RewriteEngine On
+    RewriteEngine On
 
-	DirectoryIndex index.html index.php
+    # Force everything to www. and keep SSL status too
+    #RewriteCond %{HTTP_HOST} !^$
+    #RewriteCond %{HTTP_HOST} !^www\. [NC]
+    #RewriteCond %{HTTPS}s ^on(s)|
+    #RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# Use RewriteBase - always start in Document Root
-# If installed in subfolder see the ReWrite Rule section
-	RewriteBase /
+    DirectoryIndex index.html index.php
 
+    # Use RewriteBase - always start in Document Root
+    RewriteBase /
+    # If installed in a subfolder
+    #RewriteBase /subfolder/
 
-# Ignore
-	RewriteRule ^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)($|/) - [L]
-	RewriteRule ^index\.php$ - [L]
+    # Ignore
+    RewriteRule ^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)($|/) - [L]
+    RewriteRule ^index\.php$ - [L]
 
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
 
-
-# Installed in Document Root www.example.com/
-	RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ /index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
-	RewriteRule ^(.+)\.html$ /index.php?$1&%{QUERY_STRING}
-
-# Installed in Subfolder www.example.com/subfolder/
-#	RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ /subfolder/index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
-#	RewriteRule ^(.+)\.html$ /subfolder/index.php?$1&%{QUERY_STRING}
-
+    # In case of config setting `$phpwcms['rewrite_ext']='.html'` -> /alias.html (Default)
+    RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING}
+    RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1&%{QUERY_STRING}
+    RewriteRule ^(.+)\.html$ ./index.php?$1&%{QUERY_STRING}
 
 </IfModule>

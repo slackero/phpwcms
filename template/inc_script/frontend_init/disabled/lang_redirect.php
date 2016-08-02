@@ -77,7 +77,3 @@ if(isset($LEVEL_ID[1])) {
 	headerRedirect($value['HOME_URL'], 301);
 
 }
-
-
-
-?>

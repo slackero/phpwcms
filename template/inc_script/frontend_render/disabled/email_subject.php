@@ -6,5 +6,3 @@
 // in content part form
 
 $content['all'] = str_replace('[%GLOBAL_FORM_SUBJECT%]', trim('web form: ' . html_specialchars($content['article_title'])), $content['all']);
-
-?>

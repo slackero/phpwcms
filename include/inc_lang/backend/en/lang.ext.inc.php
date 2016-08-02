@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -44,6 +44,5 @@ $BL['FILE_IN_TRASH']     = 'file is in trash can';
 $BL['KEYWORDS']          = 'keywords';
 $BL['DOWNLOAD_ERR3']     = 'error while reading file info<br />close window and try again&#8230;';
 $BL['ADD_ALL_FILES']     = 'Add all files';
-$BL['ADD_ALL_CONFIRM']   = 'All files inside directory »{VAL}« were taken!\n\nClick [OK] to close the file browser…';
+$BL['ADD_ALL_CONFIRM']   = 'All files inside directory Â»{VAL}Â« were taken!\n\nClick [OK] to close the file browserÂ…';
 
-?>

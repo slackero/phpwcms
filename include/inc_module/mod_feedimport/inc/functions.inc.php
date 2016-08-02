@@ -123,5 +123,3 @@ function feedimport_filestorage_dirlist($pid=0, $prefix='+', $userID=null, $coun
 		return $result;
 	}
 }
-
-?>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,11 +13,9 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 // Content Type Images
 
@@ -106,7 +104,6 @@ if (is_array($content["image_list"]) && sizeof($content["image_list"])) {
 	}
 }
 
-
 // take values
 $content['image_list'] 				= array();
 $content['image_list']['images']	= $content['tmp_images'];
@@ -122,5 +119,3 @@ $content['image_list']['crop']		= empty($_POST["cimage_crop"]) ? 0 : 1;
 $content["image_list"]['random']	= empty($_POST["cimage_random"]) ? 0 : 1;
 $content["image_list"]['limit']		= intval($_POST["cimage_limit"]);
 $content["image_list"]['usetable']	= empty($_POST["cimage_usetable"]) ? 0 : 1;
-
-?>

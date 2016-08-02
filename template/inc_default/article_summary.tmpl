@@ -1,51 +1,56 @@
-[TITLE]<h1>{TITLE}</h1>[/TITLE]
-[SUB]<h2>{SUB}</h2>[/SUB]
-[IMAGE]
-	<div class="article-summary-image">
-		{IMAGE}[CAPTION]<span class="caption">
-			{CAPTION}[COPYRIGHT]
-			<span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
-		</span>[/CAPTION]
-	</div>
-[/IMAGE]
-[SUMMARY]
-	<div class="article-summary-text">
-		{SUMMARY}
-	</div>
-[/SUMMARY]
-[SYSTEM]
-	<div class="article-system">
-		{SYSTEM}
-	</div>
-[/SYSTEM]
+[CLASS]<div class="{CLASS}">[/CLASS]
+    [TITLE]<h1>{TITLE}</h1>[/TITLE]
+    [SUB]<h2>{SUB}</h2>[/SUB]
+    [IMAGE]
+        <div class="article-summary-image">
+        [IMAGE_URL]<a href="{IMAGE_URL}"[IMAGE_TARGET] target="{IMAGE_TARGET}"[/IMAGE_TARGET]>[/IMAGE_URL]
+            {IMAGE}[CAPTION]<span class="caption">
+                {CAPTION}[COPYRIGHT]
+                <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+            </span>[/CAPTION]
+        [IMAGE_URL]</a>[/IMAGE_URL]
+        </div>
+    [/IMAGE]
+    [SUMMARY]
+        <div class="article-summary-text">
+            {SUMMARY}
+        </div>
+    [/SUMMARY]
+    [SYSTEM]
+        <div class="article-system">
+            {SYSTEM}
+        </div>
+    [/SYSTEM]
+[CLASS]</div>[/CLASS]
 <!--CP_PAGINATE_START//-->
 <div class="pagination">
 [CP_PAGINATE_PREV]<a href="{CP_PAGINATE_PREV}" class="pagination-prev">&laquo; Previous</a>[/CP_PAGINATE_PREV]
 [CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]
 [CP_PAGINATE_NEXT]<a href="{CP_PAGINATE_NEXT}" class="pagination-next">Next &raquo;</a>[/CP_PAGINATE_NEXT]
 [CP_PAGINATE_MENU]
-	<!-- when no item prefix/suffix/... is given the default will be used (ul/li) -->
-	<!-- with parameter: [ CP_PAGINATE_MENU : item_prefix|item_suffix|active_class|hide_active ] -->
-	{CP_PAGINATE_MENU}
+    <!-- when no item prefix/suffix/... is given the default will be used (ul/li) -->
+    <!-- with parameter: [ CP_PAGINATE_MENU : item_prefix|item_suffix|active_class|hide_active ] -->
+    {CP_PAGINATE_MENU}
 [/CP_PAGINATE_MENU]
 </div>
 <!--CP_PAGINATE_END//-->
 
 <!--
-	Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]
+    Livedate: {LIVEDATE:d.m.Y H:i:s lang=EN} / Killdate: {KILLDATE:d.m.Y H:i:s lang=EN} [IMAGE]
 
-	Image ID   {IMAGE_ID}
-	Image Hash {IMAGE_HASH}
-	cmsImage   <img src="img/cmsimage.php/100x100/{IMAGE_ID}.jpg" alt="" border="0" />
+    Image ID   {IMAGE_ID}
+    Image Hash {IMAGE_HASH}
+    cmsImage   <img src="img/cmsimage.php/100x100/{IMAGE_ID}.jpg" alt="" border="0" />
 
-	Thumbnail  {THUMB_NAME}
-	Relative   {THUMB_REL}
-	Absolute   {THUMB_ABS}
-	WxH        {THUMB_WIDTH}px x {THUMB_HEIGHT}px[ZOOMIMAGE]
+    Thumbnail  {THUMB_NAME}
+    Relative   {THUMB_REL}
+    Absolute   {THUMB_ABS}
+    WxH        {THUMB_WIDTH}px x {THUMB_HEIGHT}px[ZOOMIMAGE]
 
-	Zoomimage  {IMAGE_NAME}
-	Relative   {IMAGE_REL}
-	Absolute   {IMAGE_ABS}
-	WxH        {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
-	[/ZOOMIMAGE][/IMAGE]
+    Zoomimage  {IMAGE_NAME}
+    Relative   {IMAGE_REL}
+    Absolute   {IMAGE_ABS}
+    WxH        {IMAGE_WIDTH}px x {IMAGE_HEIGHT}px
+    [/ZOOMIMAGE][/IMAGE]
+    [MORE] More link active[/MORE]
 -->

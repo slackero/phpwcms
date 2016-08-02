@@ -4,7 +4,3 @@
 // not able to handle "cmsimage.php/values..."
 
 $content['all'] = str_replace('cmsimage.php/', 'cmsimage.php?', $content['all']);
-
-
-
-?>

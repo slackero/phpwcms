@@ -22,6 +22,3 @@ if(is_array($content['all_keywords']) && count($content['all_keywords'])) {
 	}
 }
 $content['all'] = str_replace('{VGWort}', '', $content['all']);
-
-
-?>

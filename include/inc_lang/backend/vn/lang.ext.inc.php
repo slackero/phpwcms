@@ -2,15 +2,15 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 
-// Language: Vietnamese	
+// Language: Vietnamese
 // Language Code: vn
 // created by Nguyen Viet Son : nguyenvietson at gmail dot com
 // please use HTML safe strings ONLY
@@ -44,5 +44,3 @@ $BL['FILE_IN_TRASH']     = 'file n&#224;y &#273;ang trong th&#249;ng r&#225;c';
 $BL['KEYWORDS']          = 't&#7915; kho&#225;';
 $BL['DOWNLOAD_ERR3']     = 'l&#7895;i trong khi &#273;&#7885;c file th&#244;ng tin<br />&#273;&#243;ng c&#7917;a s&#7893; v&#224; th&#7917; l&#7841;i...';
 
-
-?>

@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -253,5 +253,3 @@ if(empty($plugin['data']['cnt_object-image_folder_id'])) {
 if(empty($plugin['data']['cnt_object-image_url_replace'])) {
 	$plugin['data']['cnt_object-image_url_replace'] = '';
 }
-
-?>

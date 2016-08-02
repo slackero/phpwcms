@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -23,12 +23,11 @@ $month_long[ 2]	= "Helmikuu";		$month_short[ 2]		= "Hel.";
 $month_long[ 3]	= "Maaliskuu";		$month_short[ 3]		= "Maa.";
 $month_long[ 4]	= "Huhtikuu;";		$month_short[ 4]		= "Huh.";
 $month_long[ 5]	= "Toukokuu";		$month_short[ 5]		= "Tou.";
-$month_long[ 6]	= "Kesäkuu";		$month_short[ 6]		= "Kes.";
-$month_long[ 7]	= "Heinäkuu";		$month_short[ 7]		= "Hein.";
+$month_long[ 6]	= "KesÃ¤kuu";		$month_short[ 6]		= "Kes.";
+$month_long[ 7]	= "HeinÃ¤kuu";		$month_short[ 7]		= "Hein.";
 $month_long[ 8]	= "Elokuu";			$month_short[ 8]		= "Elo.";
 $month_long[ 9]	= "Syyskuu";		$month_short[ 9]		= "Syy.";
 $month_long[10]	= "Lokakuu";		$month_short[10]		= "Lok.";
 $month_long[11]	= "Marraskuu";		$month_short[11]		= "Mar.";
 $month_long[12]	= "Joulukuu";		$month_short[12]		= "Jou.";
 
-?>

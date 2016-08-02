@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -43,14 +43,10 @@ if($poll_id == $crow['acontent_id'] && isset($_POST["poll"]) && !in_array($remot
 	@mysql_query($sql, $db);
 }
 
-
-
 $CNT_TMP .= '<div class="';
 $CNT_TMP .= empty($poll_text['poll_buttonstyle']) ? 'defaultPollClass' : $poll_text['poll_buttonstyle'];
 $CNT_TMP .= "\">\n";
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-
-
 
 if(in_array($remoteIP, $poll_form["ip"])) {
 	$poll_total_votes = 0;
@@ -119,8 +115,4 @@ if(in_array($remoteIP, $poll_form["ip"])) {
 $CNT_TMP .= $poll_html;
 $CNT_TMP .= "\n</div>\n";
 
-unset($poll_image);
-unset($poll_text);
-unset($poll_form);
-
-?>
+unset($poll_image, $poll_text, $poll_form);

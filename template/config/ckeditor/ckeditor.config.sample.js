@@ -50,7 +50,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.width = 538;
 	config.height = 400;
 
-	config.extraPlugins = 'magicline';
+	config.extraPlugins = 'magicline,image2';
 	//config.removePlugins = 'resize';
 
 	// Allow classes for all tags

@@ -1,9 +1,9 @@
 <?php
 
 $phpwcms = array();
-require_once ('../config/phpwcms/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 
 $spaf_obj = new SPAF_FormValidator();
 
@@ -18,5 +18,3 @@ if($spaf_char_num) {
 }
 
 $spaf_obj->streamImage();
-
-?>

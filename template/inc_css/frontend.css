@@ -19,7 +19,7 @@ td, th, p, div, span {
 
 a, a:link, a:visited, a:active, a:focus {
 	color: #FF3300;
-	text-decoration: none
+	text-decoration: none;
 }
 a:hover {
 	color: #FF3300;
@@ -94,7 +94,7 @@ ul.list_top li, ul.list_level li {
 }
 ul.list_top li a, ul.list_level li a {
 	padding: 3px 0.5em;
-	margin: 0px;
+	margin: 0;
 	border: 1px solid #778;
 	border-bottom: none;
 	background: #D7DEE5;
@@ -119,12 +119,8 @@ ul.list_top li.active a, ul.list_level li.active a {
  */
 #container {
 	width: 760px;
-	\width: 780px;
-	w\idth: 760px;
 	border: 1px solid gray;
-	margin: 10px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 10px auto;
 	padding: 10px;
 }
 
@@ -144,10 +140,7 @@ ul.list_top li.active a, ul.list_level li.active a {
 #leftBlock {
 	float: left;
 	width: 200px;
-	\width: 210px;
-	w\idth: 200px;
-	margin: 0;
-	margin-right: 5px;
+	margin: 0 5px 0 0;
 	padding: 5px;
 	background-color: rgb(235, 235, 235);
 }
@@ -155,10 +148,7 @@ ul.list_top li.active a, ul.list_level li.active a {
 #rightBlock {
 	float: right;
 	width: 200px;
-	\width: 210px;
-	w\idth: 200px;
-	margin: 0;
-	margin-left: 5px;
+	margin: 0 0 0 5px;
 	padding: 5px;
 	background-color: rgb(235, 235, 235);
 }
@@ -184,12 +174,12 @@ ul.list_top li.active a, ul.list_level li.active a {
 } 
 .imgDIVtopLeft { 
 	margin:8px 10px 5px 20px; 
-	padding:0px; 
+	padding:0;
 	border:0; 
 } 
 .imgDIVtopCenter { 
 	margin:8px -50% 5px -50%; 
-	padding:0px; 
+	padding:0;
 	border:0; 
 }
 
@@ -246,7 +236,7 @@ div.cpPagination {
 	text-align: right;
 }
 a.cpPaginate, a.cpPaginateActive, a.cpPaginationPrev, a.cpPaginationNext {
-	padding: 0px 3px 1px 3px;
+	padding: 0 3px 1px 3px;
 	background-color: #FFFFFF;
 	color: #BBBBBB;
 	text-decoration: none;

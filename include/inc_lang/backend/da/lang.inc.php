@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,7 +14,7 @@
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 //
-// Translated by Frold og Alleykat v. 1.0 
+// Translated by Frold og Alleykat v. 1.0
 // Valid for the relaese of phpwcms (31/12/2003)
 // #Changelog#
 // release
@@ -67,8 +67,8 @@ $BL['be_subnav_admin_filecat']          = 'filkategorier';
 // admin.functions.inc.php
 $BL['be_func_struct_articleID']         = 'artikel-ID';
 $BL['be_func_struct_preview']           = 'vis pr&oslash;ve';
-$BL['be_func_struct_edit']              = 'redigér artikel';
-$BL['be_func_struct_sedit']             = 'redigér dette niveau';
+$BL['be_func_struct_edit']              = 'redigÃ©r artikel';
+$BL['be_func_struct_sedit']             = 'redigÃ©r dette niveau';
 $BL['be_func_struct_cut']               = 'klip artikel';
 $BL['be_func_struct_nocut']             = 'fortryd klip (artikel)';
 $BL['be_func_struct_svisible']          = 'skift til synlig/usynlig';
@@ -144,30 +144,30 @@ $BL['be_profile_label_newsletter']      = 'nyhedsbreve';
 $BL['be_profile_text_newsletter']       = 'Jeg &oslash;nsker at modtage det generelle phpwcms nyhedsbrev.';
 $BL['be_profile_label_public']          = 'offentlig';
 $BL['be_profile_text_public']           = 'Alle skal kunne se min personlige profil.';
-$BL['be_profile_label_button']          = 'opdatér dine personlige data';
+$BL['be_profile_label_button']          = 'opdatÃ©r dine personlige data';
 
 // profile.account.tmpl.php
 $BL['be_profile_account_title']         = 'din logininformation';
 $BL['be_profile_account_text']          = 'Normalt er det ikke n&oslash;dvendigt at &aelig;ndre dit brugernavn.<br />Men det anbefales at du &aelig;ndre dit kodeord fra tid til anden for at &oslash;ge sikkerheden omkring din profil.';
-$BL['be_profile_label_err']             = 'markér venligst';
+$BL['be_profile_label_err']             = 'markÃ©r venligst';
 $BL['be_profile_label_username']        = 'brugernavn';
 $BL['be_profile_label_newpass']         = 'kodeord';
 $BL['be_profile_label_repeatpass']      = 'gentag kodeord';
 $BL['be_profile_label_email']           = 'email';
-$BL['be_profile_account_button']        = 'opdatér logindata';
+$BL['be_profile_account_button']        = 'opdatÃ©r logindata';
 $BL['be_profile_label_lang']            = 'sprog';
 
 
 // files.ftptakeover.tmpl.php
 $BL['be_ftptakeover_title']             = 'overtag filer der er uploadet via ftp';
-$BL['be_ftptakeover_mark']              = 'markér';
+$BL['be_ftptakeover_mark']              = 'markÃ©r';
 $BL['be_ftptakeover_available']         = 'tilg&aelig;ngelige filer';
 $BL['be_ftptakeover_size']              = 'st&oslash;rrelse';
-$BL['be_ftptakeover_nofile']            = 'der er ikke nogle filer tilg&aelig;ngelige &#8211; du skal uploade mindst én til den angivne ftp overtagelsesmappe';
+$BL['be_ftptakeover_nofile']            = 'der er ikke nogle filer tilg&aelig;ngelige &#8211; du skal uploade mindst Ã©n til den angivne ftp overtagelsesmappe';
 $BL['be_ftptakeover_all']               = 'ALLE';
 $BL['be_ftptakeover_directory']         = 'mappe';
 $BL['be_ftptakeover_rootdir']           = 'rodmappen';
-$BL['be_ftptakeover_needed']            = 'n&oslash;dvendigt!!! (du skal v&aelig;lge mindst én)';
+$BL['be_ftptakeover_needed']            = 'n&oslash;dvendigt!!! (du skal v&aelig;lge mindst Ã©n)';
 $BL['be_ftptakeover_optional']          = 'valgfri';
 $BL['be_ftptakeover_keywords']          = 'n&oslash;gleord';
 $BL['be_ftptakeover_additional']        = 'filkommentar';
@@ -183,7 +183,7 @@ $BL['be_ftab_title']                    = 'filcentral';
 $BL['be_ftab_createnew']                = 'opret ny mappe i roden';
 $BL['be_ftab_paste']                    = 'inds&aelig;t fil fra klipbordet i rodmappen';
 $BL['be_ftab_disablethumb']             = 'frav&aelig;lg thumbnails i listen';
-$BL['be_ftab_enablethumb']              = 'acceptér thumbnails i listen';
+$BL['be_ftab_enablethumb']              = 'acceptÃ©r thumbnails i listen';
 $BL['be_ftab_private']                  = 'private&nbsp;filer';
 $BL['be_ftab_public']                   = 'offentlige&nbsp;filer';
 $BL['be_ftab_search']                   = 's&oslash;g';
@@ -203,9 +203,9 @@ $BL['be_fpriv_status']                  = 'status';
 $BL['be_fpriv_button']                  = 'opret ny mappe';
 
 // files.private.editdir.tmpl.php
-$BL['be_fpriv_edittitle']               = 'redigér mappe';
+$BL['be_fpriv_edittitle']               = 'redigÃ©r mappe';
 $BL['be_fpriv_newname']                 = 'nyt navn';
-$BL['be_fpriv_updatebutton']            = 'opdatér mappe info';
+$BL['be_fpriv_updatebutton']            = 'opdatÃ©r mappe info';
 
 // files.private.upload.tmpl.php
 $BL['be_fprivup_err1']                  = 'V&aelig;lg en fil du &oslash;nsker at uploade';
@@ -219,21 +219,21 @@ $BL['be_fprivup_button']                = 'upload filer';
 $BL['be_fprivup_upload']                = 'upload';
 
 // files.private.editfile.tmpl.php
-$BL['be_fprivedit_title']               = 'redigér filinformation';
+$BL['be_fprivedit_title']               = 'redigÃ©r filinformation';
 $BL['be_fprivedit_filename']            = 'filnavn';
 $BL['be_fprivedit_created']             = 'oprettet';
 $BL['be_fprivedit_dateformat']          = 'm-d-Y H:i';
 $BL['be_fprivedit_err1']                = 'filens faktiske navn (s&aelig;t tilbage til oprindelige)';
-$BL['be_fprivedit_clockwise']           = 'rotér thumbnail med uret [original fil +90&grader;]';
-$BL['be_fprivedit_cclockwise']          = 'rotér thumbnail mod uret [original fil -90&grader;]';
-$BL['be_fprivedit_button']              = 'opdatér filinfo';
+$BL['be_fprivedit_clockwise']           = 'rotÃ©r thumbnail med uret [original fil +90&grader;]';
+$BL['be_fprivedit_cclockwise']          = 'rotÃ©r thumbnail mod uret [original fil -90&grader;]';
+$BL['be_fprivedit_button']              = 'opdatÃ©r filinfo';
 $BL['be_fprivedit_size']                = 'st&oslash;rrelse';
 
 // files.private-functions.inc.php
 $BL['be_fprivfunc_upload']              = 'upload fil til mappen';
 $BL['be_fprivfunc_makenew']             = 'opret ny mappe inden i denne';
 $BL['be_fprivfunc_paste']               = 'inds&aelig;t fil fra klipbordet i denne mappe';
-$BL['be_fprivfunc_edit']                = 'redigér mappe';
+$BL['be_fprivfunc_edit']                = 'redigÃ©r mappe';
 $BL['be_fprivfunc_cactive']             = 'skift til aktiv/inaktiv';
 $BL['be_fprivfunc_cpublic']             = 'skift til offentlig/ikke offentlig';
 $BL['be_fprivfunc_deldir']              = 'slet mappe';
@@ -244,7 +244,7 @@ $BL['be_fprivfunc_closedir']            = 'luk mappe';
 $BL['be_fprivfunc_dlfile']              = 'hent fil';
 $BL['be_fprivfunc_clipfile']            = 'klippebords fil';
 $BL['be_fprivfunc_cutfile']             = 'klip';
-$BL['be_fprivfunc_editfile']            = 'redigér filinfo';
+$BL['be_fprivfunc_editfile']            = 'redigÃ©r filinfo';
 $BL['be_fprivfunc_cactivefile']         = 'skift til aktiv/inaktiv';
 $BL['be_fprivfunc_cpublicfile']         = 'skift til offentlig/ikke offentlig';
 $BL['be_fprivfunc_movetrash']           = 'overf&oslash;r til skraldespand';
@@ -325,7 +325,7 @@ $BL['be_msg_all']                       = 'send besked til alle valgte modtagere
 
 // message.subscription.tmpl.php
 $BL['be_newsletter_title']              = 'abonnementer p&aring; nyhedsbreve';
-$BL['be_newsletter_titleedit']          = 'redigér abonnement p&aring; nyhedsbrev';
+$BL['be_newsletter_titleedit']          = 'redigÃ©r abonnement p&aring; nyhedsbrev';
 $BL['be_newsletter_new']                = 'opret ny';
 $BL['be_newsletter_add']                = 'tilf&oslash;j&nbsp;abonnement&nbsp;p&aring;&nbsp;nyhedsbrev';
 $BL['be_newsletter_name']               = 'navn';
@@ -352,17 +352,17 @@ $BL['be_admin_usr_sendemail']           = 'send en email til den nye bruger med 
 $BL['be_admin_usr_button']              = 'send brugerdata';
 
 // admin.edituser.tmpl.php
-$BL['be_admin_usr_etitle']              = 'redigér brugerkonto';
+$BL['be_admin_usr_etitle']              = 'redigÃ©r brugerkonto';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - kontodata er &aelig;ndret';
 $BL['be_admin_usr_emailbody']           = "PHPWCMS BRUGERINFORMATION &aelig;NDRET\n\n    brugernavn: {LOGIN}\n    password: {PASSWORD}\n\n\nDu kan logge ind her: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[INGEN &aelig;NDRINGER - BRUG BLOT DET KENDTE PASSWORD]';
-$BL['be_admin_usr_ebutton']             = 'opdatér brugerdata';
+$BL['be_admin_usr_ebutton']             = 'opdatÃ©r brugerdata';
 
 // admin.listuser.tmpl.php
 $BL['be_admin_usr_ltitle']              = 'liste over brugere i phpwcms';
 $BL['be_admin_usr_ldel']                = 'OBS!&#13Dette vil slette flg. bruger permanent:';
 $BL['be_admin_usr_create']              = 'opret ny bruger';
-$BL['be_admin_usr_editusr']             = 'redigér brugeren';
+$BL['be_admin_usr_editusr']             = 'redigÃ©r brugeren';
 
 // admin.structform.tmpl.php
 $BL['be_admin_struct_title']            = 'sidestruktur';
@@ -383,7 +383,7 @@ $BL['be_admin_fcat_title']              = 'filkategorier';
 $BL['be_admin_fcat_err']                = 'kategoriens navn er ikke angivet!';
 $BL['be_admin_fcat_name']               = 'kategoriens navn';
 $BL['be_admin_fcat_needed']             = 'skal udfyldes';
-$BL['be_admin_fcat_button1']            = 'opdatér';
+$BL['be_admin_fcat_button1']            = 'opdatÃ©r';
 $BL['be_admin_fcat_button2']            = 'opret';
 $BL['be_admin_fcat_delmsg']             = 'Sikker p&aring; at du vil\nslette filn&oslash;gle?';
 $BL['be_admin_fcat_fcat']               = 'filens kategori';
@@ -391,18 +391,18 @@ $BL['be_admin_fcat_err1']               = 'filn&oslash;gle er ikke angivet!';
 $BL['be_admin_fcat_fkeyname']           = 'filn&oslash;glens navn';
 $BL['be_admin_fcat_exit']               = 'luk';
 $BL['be_admin_fcat_addkey']             = 'tilf&oslash;j ny n&oslash;gle';
-$BL['be_admin_fcat_editcat']            = 'redigér kategoriens navn';
+$BL['be_admin_fcat_editcat']            = 'redigÃ©r kategoriens navn';
 $BL['be_admin_fcat_delcatmsg']          = '&oslash;nsker du virkelig\nat slette filkategorien?';
 $BL['be_admin_fcat_delcat']             = 'slet filens kategori';
 $BL['be_admin_fcat_delkey']             = 'slet filn&oslash;glens navn';
-$BL['be_admin_fcat_editkey']            = 'redigér n&oslash;gle';
+$BL['be_admin_fcat_editkey']            = 'redigÃ©r n&oslash;gle';
 $BL['be_admin_fcat_addcat']             = 'opret ny filkategori';
 
 // admin.pagelayout.tmpl.php
 $BL['be_admin_page_title']              = 'frontend ops&aelig;tning: sidens layout';
 $BL['be_admin_page_align']              = 'placering';
 $BL['be_admin_page_align_left']         = 'standard er at siden venstre-stilles';
-$BL['be_admin_page_align_center']       = 'centré hele sidens indhold';
+$BL['be_admin_page_align_center']       = 'centrÃ© hele sidens indhold';
 $BL['be_admin_page_align_right']        = 'h&oslash;jrestil hele sidens indhold';
 $BL['be_admin_page_margin']             = 'margin';
 $BL['be_admin_page_top']                = 'top';
@@ -436,7 +436,7 @@ $BL['be_admin_page_header']             = 'sidehoved';
 $BL['be_admin_page_footer']             = 'sidefod';
 $BL['be_admin_page_topspace']           = 'top&nbsp;afstand';
 $BL['be_admin_page_bottomspace']        = 'bund&nbsp;afstand';
-$BL['be_admin_page_button']             = 'opdatér sidens layout';
+$BL['be_admin_page_button']             = 'opdatÃ©r sidens layout';
 
 // admin.frontendcss.tmpl.php
 $BL['be_admin_css_title']               = 'frontend setup: css data';
@@ -447,7 +447,7 @@ $BL['be_admin_css_button']              = 'gem css data';
 $BL['be_admin_tmpl_title']              = 'phpwcms frontend skabeloner';
 $BL['be_admin_tmpl_default']            = 'standard';
 $BL['be_admin_tmpl_add']                = 'tilf&oslash;j&nbsp;skabelon';
-$BL['be_admin_tmpl_edit']               = 'redigér skabelon';
+$BL['be_admin_tmpl_edit']               = 'redigÃ©r skabelon';
 $BL['be_admin_tmpl_new']                = 'opret ny';
 $BL['be_admin_tmpl_css']                = 'css fil';
 $BL['be_admin_tmpl_head']               = 'html head';
@@ -471,7 +471,7 @@ $BL['be_article_abegin']                = 'vises fra';
 $BL['be_article_aend']                  = 'vises ikke l&aelig;ngere fra';
 $BL['be_article_aredirect']             = 'videresend til';
 $BL['be_article_akeywords']             = 'n&oslash;gleord';
-$BL['be_article_asummary']              = 'brø&oslash;dtekst';
+$BL['be_article_asummary']              = 'brÃ¸&oslash;dtekst';
 $BL['be_article_abutton']               = 'opret ny artikel';
 
 // article.editcontent.inc.php
@@ -481,7 +481,7 @@ $BL['be_article_err4']                  = 'du har oplyst en ikke gyldig slutdato
 $BL['be_article_estitle']               = 'ret artiklens basisinformation';
 $BL['be_article_eslastedit']            = '&aelig;ndret';
 $BL['be_article_esnoupdate']            = 'formularen er ikke opdateret';
-$BL['be_article_esbutton']              = 'opdatér artikelens data';
+$BL['be_article_esbutton']              = 'opdatÃ©r artikelens data';
 
 // articlecontent.edit.tmpl.php
 $BL['be_article_cnt_title']             = 'artikelinformation';
@@ -492,12 +492,12 @@ $BL['be_article_cnt_after']             = 'efter';
 $BL['be_article_cnt_top']               = 'top';
 $BL['be_article_cnt_ctitle']            = 'overskrift';
 $BL['be_article_cnt_back']              = 'komplet artikelinfo';
-$BL['be_article_cnt_button1']           = 'opdatér indhold';
+$BL['be_article_cnt_button1']           = 'opdatÃ©r indhold';
 $BL['be_article_cnt_button2']           = 'opret indhold';
 
 // articlecontent.list.tmpl.php
 $BL['be_article_cnt_ltitle']            = 'artikelens information';
-$BL['be_article_cnt_ledit']             = 'redigér artikel';
+$BL['be_article_cnt_ledit']             = 'redigÃ©r artikel';
 $BL['be_article_cnt_lvisible']          = 'skift til synlig/usynlig';
 $BL['be_article_cnt_ldel']              = 'slet denne artikel';
 $BL['be_article_cnt_ldeljs']            = 'Slet artiklen?';
@@ -508,7 +508,7 @@ $BL['be_article_cnt_end']               = 'vises til';
 $BL['be_article_cnt_add']               = 'tilf&oslash;j nyt artikelindhold';
 $BL['be_article_cnt_up']                = 'flyt indhold op';
 $BL['be_article_cnt_down']              = 'flyt indhold ned';
-$BL['be_article_cnt_edit']              = 'redigér denne del af artiklen';
+$BL['be_article_cnt_edit']              = 'redigÃ©r denne del af artiklen';
 $BL['be_article_cnt_delpart']           = 'slet denne del af artiklen';
 $BL['be_article_cnt_delpartjs']         = 'Slet denne del?';
 $BL['be_article_cnt_center']            = 'artikeldatabase';
@@ -555,7 +555,7 @@ $BL['be_cnt_labelsubsc']                = 'label&nbsp;modtagere';
 $BL['be_cnt_allsubsc']                  = 'alle&nbsp;modt.';
 $BL['be_cnt_default']                   = 'standard';
 $BL['be_cnt_left']                      = 'ventre';
-$BL['be_cnt_center']                    = 'centrér';
+$BL['be_cnt_center']                    = 'centrÃ©r';
 $BL['be_cnt_right']                     = 'h&oslash;jre';
 $BL['be_cnt_buttontext']                = 'undertekst';
 $BL['be_cnt_successtext']               = 'udf&oslash;rt-tekst';
@@ -595,7 +595,7 @@ $BL['be_cnt_internal']                  = 'internt';
 $BL['be_cnt_openmediabrowser']          = '&aring;ben mediebrowser';
 $BL['be_cnt_external']                  = 'eksternt';
 $BL['be_cnt_mediapos0']                 = 'ventre (standard)';
-$BL['be_cnt_mediapos1']                 = 'centrér';
+$BL['be_cnt_mediapos1']                 = 'centrÃ©r';
 $BL['be_cnt_mediapos2']                 = 'h&oslash;jre';
 $BL['be_cnt_mediapos3']                 = 'blok, vensre';
 $BL['be_cnt_mediapos4']                 = 'blok, h&oslash;jre';
@@ -614,7 +614,7 @@ $BL['be_cnt_set5']                      = 'ryd mediebredde og h&oslash;jde';
 // added: 28-12-2003
 $BL['be_admin_page_add']                = 'opret nyt sidelayout';
 $BL['be_admin_page_name']               = 'layoutets navn';
-$BL['be_admin_page_edit']               = 'redigér sidelayout';
+$BL['be_admin_page_edit']               = 'redigÃ©r sidelayout';
 $BL['be_admin_page_render']             = 'opstilling';
 $BL['be_admin_page_table']              = 'tabel';
 $BL['be_admin_page_div']                = 'css div';
@@ -623,20 +623,20 @@ $BL['be_admin_page_custominfo']         = 'brug v&aelig;rdi fra hovedblokken';
 $BL['be_admin_tmpl_layout']             = 'layout';
 $BL['be_admin_tmpl_nolayout']           = 'Der er intet sidelayout tilg&aelig;ngeligt!';
 
-// added: 31-12-2003 
-$BL['be_ctype_search'] = 's&oslash;ge-form'; 
-$BL['be_cnt_results'] = 'resulter'; 
-$BL['be_cnt_results_per_page'] = 'pr&nbsp;side (hvis tom vises alle)'; 
-$BL['be_cnt_opennewwin'] = '&aring;ben link i nyt vindue'; 
-$BL['be_cnt_searchlabeltext'] = 'Dette er forudbestemte v&aelig;rdier og tekst for s&aring;vel s&oslash;geresultater, som s&oslash;geformularen.'; 
-$BL['be_cnt_input'] = 'input'; 
-$BL['be_cnt_style'] = 'style'; 
-$BL['be_cnt_result'] = 'resulter'; 
-$BL['be_cnt_next'] = 'n&aelig;ste'; 
-$BL['be_cnt_previous'] = 'foreg&aring;ende'; 
-$BL['be_cnt_align'] = 'placering'; 
-$BL['be_cnt_searchformtext'] = 'Den f&oslash;lgende tekst vises under brugen af s&oslash;geforumularen'; 
-$BL['be_cnt_intro'] = 'intro'; 
+// added: 31-12-2003
+$BL['be_ctype_search'] = 's&oslash;ge-form';
+$BL['be_cnt_results'] = 'resulter';
+$BL['be_cnt_results_per_page'] = 'pr&nbsp;side (hvis tom vises alle)';
+$BL['be_cnt_opennewwin'] = '&aring;ben link i nyt vindue';
+$BL['be_cnt_searchlabeltext'] = 'Dette er forudbestemte v&aelig;rdier og tekst for s&aring;vel s&oslash;geresultater, som s&oslash;geformularen.';
+$BL['be_cnt_input'] = 'input';
+$BL['be_cnt_style'] = 'style';
+$BL['be_cnt_result'] = 'resulter';
+$BL['be_cnt_next'] = 'n&aelig;ste';
+$BL['be_cnt_previous'] = 'foreg&aring;ende';
+$BL['be_cnt_align'] = 'placering';
+$BL['be_cnt_searchformtext'] = 'Den f&oslash;lgende tekst vises under brugen af s&oslash;geforumularen';
+$BL['be_cnt_intro'] = 'intro';
 $BL['be_cnt_noresult'] = 'intet resultat';
 
 // added: 02-01-2004
@@ -659,4 +659,3 @@ $BL['be_ctype_articlemenu']				= 'article menu';
 $BL['be_cnt_sitelevel']					= 'site level';
 $BL['be_cnt_sitecurrent']				= 'current site level';
 
-?>

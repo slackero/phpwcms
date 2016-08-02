@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -72,6 +72,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	} else {
 		$info .= $BL['be_admin_tmpl_default'];
 	}
+	$info .= '<br>'.$BL['be_onepage_id'].': '.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']);
 
 	$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt=""';
 
@@ -683,7 +684,7 @@ function update_404redirect() {
 		)
 	);
 
-	if(!$data['data']['aid'] && !$data['data']['alias'] && $data['data']['id'] == '') {
+	if(!$data['data']['aid'] && !$data['data']['alias'] && $data['data']['id'] == '' && !isset($_POST['delete_'.md5($data['data']['rid'])])) {
 		$data['error'][] = $GLOBALS['BL']['be_redirect_error1'];
 	}
 	if($data['data']['type'] && $data['data']['target'] === '') {
@@ -703,8 +704,10 @@ function update_404redirect() {
 			// Mark for deletion
 			if(isset($_POST['delete_'.md5($rid)])) {
 				$data['data']['active'] = 9;
+				$result = _dbQuery('DELETE FROM '.DB_PREPEND.'phpwcms_redirect WHERE rid='.$rid, 'DELETE');
+			} else {
+				$result = _dbUpdate('phpwcms_redirect', $data['data'], 'rid='.$rid);
 			}
-			$result = _dbUpdate('phpwcms_redirect', $data['data'], 'rid='.$rid);
 		} else {
 			$result = _dbInsert('phpwcms_redirect', $data['data']);
 			if(isset($result['INSERT_ID'])) {
@@ -716,7 +719,7 @@ function update_404redirect() {
 		if($result) {
 			if($data['data']['active'] == 9) {
 				set_status_message(str_replace('{ID}', $data['data']['rid'], $GLOBALS['BL']['be_action_deleted']), 'success');
-				headerRedirect('phpwcms.php?do=admin&p=14');
+				headerRedirect('phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=14');
 			} else {
 				set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');
 			}
@@ -728,5 +731,3 @@ function update_404redirect() {
 	return $data;
 
 }
-
-?>

@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,8 +13,8 @@
 
 $phpwcms				= array();
 $phpwcms['THIS_ROOT']	= realpath(dirname(__FILE__).'/../../');
-require($phpwcms['THIS_ROOT'].'/config/phpwcms/conf.inc.php');
-require($phpwcms['THIS_ROOT'].'/include/inc_lib/default.inc.php');
+require $phpwcms['THIS_ROOT'].'/include/config/conf.inc.php';
+require $phpwcms['THIS_ROOT'].'/include/inc_lib/default.inc.php';
 
 // first check
 if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
@@ -26,8 +26,9 @@ if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 
 	if(count($ads)) {
 
-		require(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-		require(PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+		require PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+		require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+		require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 		$ads_userip		= getRemoteIP();
 		$ads_useragent	= $_SERVER['HTTP_USER_AGENT'];
@@ -71,5 +72,3 @@ header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-type: image/gif');
 echo base64_decode('R0lGODlhAQABAPAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAICTAEAOw==');
 exit();
-
-?>

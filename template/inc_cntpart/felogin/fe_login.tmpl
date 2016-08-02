@@ -25,7 +25,7 @@ cookie_expire	= 7776000
 	[/ERROR_ELSE]
 
 	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
-	
+
 		<p class="field">
 			<label for="feLogin">Login:</label>
 			<input type="text" name="feLogin" id="feLogin" value="{LOGIN}" />
@@ -41,9 +41,9 @@ cookie_expire	= 7776000
 		<p class="button">
 			<input type="submit" value="Login" name="feSubmit" id="feSubmit" />
 		</p>
-	
+
 	</form>
-	
+
 	[REGISTER_PROFILE]<p><a href="{REGISTER_PROFILE}">Register</a></p>[/REGISTER_PROFILE]
 	<p><a href="{REMINDER_FORM}">Reminder</a></p>
 
@@ -57,7 +57,7 @@ cookie_expire	= 7776000
 	<p>You are logged in as <strong>{LOGIN}</strong></p>
 	[MANAGE_PROFILE]<p>You can <a href="{MANAGE_PROFILE}">edit your user profile</a></p>[/MANAGE_PROFILE]
 	[MANAGE_PROFILE_ELSE]<p>Profile is in edit</p>[/MANAGE_PROFILE_ELSE]
-	
+
 	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
 		<p class="button">
 			<input type="submit" value="Logout" name="feLogout" id="feLogout" />
@@ -68,7 +68,7 @@ cookie_expire	= 7776000
 <!--LOGIN_IS_END//-->
 
 <!--PROFILE_REGISTER_START//-->
-	
+
 	<h2>Register account</h2>
 
 	{FE_USER_REGISTER}
@@ -77,11 +77,11 @@ cookie_expire	= 7776000
 <!--PROFILE_REGISTER_END//-->
 
 <!--PROFILE_MANAGE_START//-->
-	
+
 	<h2>Manage account</h2>
 
 	{FE_USER_MANAGE}
-	
+
 	<hr />
 
 	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
@@ -103,23 +103,24 @@ cookie_expire	= 7776000
 	[/ERROR][ERROR_ELSE]
 	<h3>Reminder:</h3>
 	<p>
-		In case you have forgotten your password please fill in your login (username). 
+		In case you have forgotten your password please fill in your login (username).
 		If you have forgotten your login insert the email under which your account was registered.
 	</p>
 	[/ERROR_ELSE]
 
 	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
-	
+
 		<p class="field">
 			<label for="feReminder">Login or email:</label>
 			<input type="text" name="feReminder" id="feReminder" value="{REMINDER}" />
+			<input type="hidden" name="feReminderLoginKnown" value="0" />
 		</p>
 		<p class="button">
 			<input type="submit" value="Send" name="feSubmit" id="feSubmit" />
 		</p>
-	
+
 	</form>
-	
+
 	[REGISTER_PROFILE]<p><a href="{REGISTER_PROFILE}">Register</a></p>[/REGISTER_PROFILE]
 	<p><a href="{LOGIN_URL}">Login</a></p>
 
@@ -127,10 +128,10 @@ cookie_expire	= 7776000
 <!--REMINDER_FORM_END//-->
 
 <!--REMINDER_SUCCESS_START//-->
-	
+
 	<h3>Reminder success</h3>
 	<p>Your request was successful. We have sent a reminder message to your email.</p>
-	
+
 	<p><a href="{LOGIN_URL}">Login</a></p>
 
 <!--REMINDER_SUCCESS_END//-->

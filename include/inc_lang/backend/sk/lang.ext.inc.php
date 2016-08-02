@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -33,7 +33,7 @@ $BL['IMAGE_FILES']       = 'obr&aacute;zky';
 $BL['MEDIA_FILES']       = 'multim&eacute;di&aacute;';
 $BL['ROOT_DIR']          = 'Skladisko (root adres&aacute;r)';
 $BL['DOWNLOAD_ERR1']     = 'Nastala chyba (NR:{VAL}) po&#269;as pokusu stihn&uacute;&#357; s&uacute;bor.';
-$BL['DOWNLOAD_ERR2']     = 'Ak si mysl&iacute;te, &#382;e je toto technický probl&eacute;m, po&scaron;lite email na <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_ERR2']     = 'Ak si mysl&iacute;te, &#382;e je toto technickÃ½ probl&eacute;m, po&scaron;lite email na <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'Chyba pri s&#357;ahovan&iacute; s&uacute;boru';
 $BL['FILEINFO_TITLE']    = 'phpwcms: s&uacute;borov&eacute; info';
 $BL['CREATED']           = 'vytvoren&eacute;';
@@ -45,4 +45,4 @@ $BL['KEYWORDS']          = 'kl&uacute;&#269;. slov&aacute;';
 $BL['DOWNLOAD_ERR3']     = 'chyba pri &#269;&iacute;tan&iacute; s&uacute;borov&eacute;ho info<br />zavrite okno a sk&uacute;ste znovu...';
 
 
-?>
+

@@ -2,20 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 //FAQ
 
@@ -48,7 +47,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2" class="chatlist">&nbsp;<?php echo $BL['be_cnt_question'] ?>:&nbsp;</td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
 </tr>
-<tr><td colspan="2"><textarea name="faq_question" rows="4" class="width540" id="faq_question"><?php
+<tr><td colspan="2"><textarea name="faq_question" rows="4" class="width540 autosize" id="faq_question"><?php
 
 	echo empty($content["faq_question"]) ? '' : $content["faq_question"];
 
@@ -70,9 +69,7 @@ $wysiwyg_editor = array(
 	'lang'		=> 'en'
 );
 
-include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
-
-
+include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
@@ -115,7 +112,7 @@ include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
 			  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
 			  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 			      <tr>
-			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300" id="cimage_caption"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
+			        <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300 autosize" id="cimage_caption"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
 			        <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
 			        <td valign="top"><?php
 

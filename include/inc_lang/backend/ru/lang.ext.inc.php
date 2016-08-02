@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,31 +18,29 @@
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
-$BL['FOLDER_LIST']       = 'список папок';
-$BL['FILES']             = 'файлы';
-$BL['SHOW_FILES']        = 'показать файлы в корневой директории';
-$BL['SHOW_FILES1']       = 'показать файлы в директории';
-$BL['TAKE_IMAGE']        = 'добавить этот файл&#8230;';
-$BL['NO_FILE']           = 'нет файла';
-$BL['OPEN_DIR']          = 'открыть директорию';
-$BL['CLOSE_DIR']         = 'закрыть директорию';
-$BL['FILE_TITLE']        = 'файл-браузер phpwcms';
-$BL['IMAGE_TITLE']       = 'браузер изображений phpwcms ';
-$BL['MEDIA_TITLE']       = 'медиа-браузер phpwcms';
-$BL['IMAGE_FILES']       = 'файлы изображений';
-$BL['MEDIA_FILES']       = 'медиа-файлы';
-$BL['ROOT_DIR']          = 'корневая директория';
-$BL['DOWNLOAD_ERR1']     = 'Возникла ошибка (NR:{VAL}) во время загрузки файла.';
-$BL['DOWNLOAD_ERR2']     = 'Если Вы предполагаете что это техническая проблема пошлите письмо <a href="mailto:{VAL}"><strong>вебмастеру</strong></a>.';
-$BL['DOWNLOAD_TITLE']    = 'Ошибка загрузки файла';
-$BL['FILEINFO_TITLE']    = 'phpwcms: информация о файле';
-$BL['CREATED']           = 'создан';
+$BL['FOLDER_LIST']       = 'СЃРїРёСЃРѕРє РїР°РїРѕРє';
+$BL['FILES']             = 'С„Р°Р№Р»С‹';
+$BL['SHOW_FILES']        = 'РїРѕРєР°Р·Р°С‚СЊ С„Р°Р№Р»С‹ РІ РєРѕСЂРЅРµРІРѕР№ РґРёСЂРµРєС‚РѕСЂРёРё';
+$BL['SHOW_FILES1']       = 'РїРѕРєР°Р·Р°С‚СЊ С„Р°Р№Р»С‹ РІ РґРёСЂРµРєС‚РѕСЂРёРё';
+$BL['TAKE_IMAGE']        = 'РґРѕР±Р°РІРёС‚СЊ СЌС‚РѕС‚ С„Р°Р№Р»&#8230;';
+$BL['NO_FILE']           = 'РЅРµС‚ С„Р°Р№Р»Р°';
+$BL['OPEN_DIR']          = 'РѕС‚РєСЂС‹С‚СЊ РґРёСЂРµРєС‚РѕСЂРёСЋ';
+$BL['CLOSE_DIR']         = 'Р·Р°РєСЂС‹С‚СЊ РґРёСЂРµРєС‚РѕСЂРёСЋ';
+$BL['FILE_TITLE']        = 'С„Р°Р№Р»-Р±СЂР°СѓР·РµСЂ phpwcms';
+$BL['IMAGE_TITLE']       = 'Р±СЂР°СѓР·РµСЂ РёР·РѕР±СЂР°Р¶РµРЅРёР№ phpwcms ';
+$BL['MEDIA_TITLE']       = 'РјРµРґРёР°-Р±СЂР°СѓР·РµСЂ phpwcms';
+$BL['IMAGE_FILES']       = 'С„Р°Р№Р»С‹ РёР·РѕР±СЂР°Р¶РµРЅРёР№';
+$BL['MEDIA_FILES']       = 'РјРµРґРёР°-С„Р°Р№Р»С‹';
+$BL['ROOT_DIR']          = 'РєРѕСЂРЅРµРІР°СЏ РґРёСЂРµРєС‚РѕСЂРёСЏ';
+$BL['DOWNLOAD_ERR1']     = 'Р’РѕР·РЅРёРєР»Р° РѕС€РёР±РєР° (NR:{VAL}) РІРѕ РІСЂРµРјСЏ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°.';
+$BL['DOWNLOAD_ERR2']     = 'Р•СЃР»Рё Р’С‹ РїСЂРµРґРїРѕР»Р°РіР°РµС‚Рµ С‡С‚Рѕ СЌС‚Рѕ С‚РµС…РЅРёС‡РµСЃРєР°СЏ РїСЂРѕР±Р»РµРјР° РїРѕС€Р»РёС‚Рµ РїРёСЃСЊРјРѕ <a href="mailto:{VAL}"><strong>РІРµР±РјР°СЃС‚РµСЂСѓ</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°';
+$BL['FILEINFO_TITLE']    = 'phpwcms: РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ С„Р°Р№Р»Рµ';
+$BL['CREATED']           = 'СЃРѕР·РґР°РЅ';
 $BL['DATE_FORMAT']       = 'd.m.Y H:i';
-$BL['SIZE']              = 'размер';
-$BL['DOWNLOAD_FILE']     = 'загрузить файл';
-$BL['FILE_IN_TRASH']     = 'файл в корзине';
-$BL['KEYWORDS']          = 'ключевые слова';
-$BL['DOWNLOAD_ERR3']     = 'во время чтения файла произошла ошибка<br />закройте окно и попробуйте снова...';
+$BL['SIZE']              = 'СЂР°Р·РјРµСЂ';
+$BL['DOWNLOAD_FILE']     = 'Р·Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р»';
+$BL['FILE_IN_TRASH']     = 'С„Р°Р№Р» РІ РєРѕСЂР·РёРЅРµ';
+$BL['KEYWORDS']          = 'РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°';
+$BL['DOWNLOAD_ERR3']     = 'РІРѕ РІСЂРµРјСЏ С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р° РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°<br />Р·Р°РєСЂРѕР№С‚Рµ РѕРєРЅРѕ Рё РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°...';
 
-
-?>

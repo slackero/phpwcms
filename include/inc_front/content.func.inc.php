@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -28,6 +28,7 @@ $content['aId_CpPage']			= 0; // set default content part pagination page (0 and
 $content['CpTrigger']			= array(); // array to hold content part trigger functions
 $content['404error']			= array('status' => false, 'id' => '', 'aid' => '', 'alias' => '');
 $content['set_canonical']		= false;
+$content['overwrite_canonical']	= '';
 $content['cptab']				= array(); // array to hold content part based tabs
 $content['images']				= array();
 $content['opengraph']			= array('support' => true, 'type' => 'website', 'render' => empty($phpwcms['set_sociallink']['render']) ? false : true); // will hold all relevant open graph information
@@ -295,12 +296,16 @@ if($content['404error']['status'] === true) {
 					$aktion[3] = $row[0]['aktion3'];
 					$aktion[4] = $row[0]['aktion4'];
 
-					define('PHPWCMS_ALIAS', $alias);
+					if(!defined('PHPWCMS_ALIAS')) {
+						define('PHPWCMS_ALIAS', $alias);
+					}
 					$content['404error']['status'] = false;
 
 				} elseif($alias == $indexpage['acat_alias']) {
 
-					define('PHPWCMS_ALIAS', $alias);
+                    if(!defined('PHPWCMS_ALIAS')) {
+                        define('PHPWCMS_ALIAS', $alias);
+                    }
 					$content['404error']['status'] = false;
 
 				}
@@ -446,7 +451,10 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
 
 //define the current article category ID
 $content["cat_id"]	= $aktion[0];
-$content['body_id']	= $aktion[0];
+// set default to empty string, to get back the old behavior use
+// frontend_render and set
+// $content['body_id'] = $content["cat_id"];
+$content['body_id']	= '';
 
 // check if current level is a redirect level
 if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
@@ -478,12 +486,12 @@ define('PERMIT_ACCESS', $PERMIT_ACCESS);
 // frontend login check
 _checkFrontendUserAutoLogin();
 
-// read the template information for page based on structure
+// read the template information for the current page based on structure
 if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 	//if there is a template defined for this structure level
 	//then choose the template information based on this ID
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND ";
-	$sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1;";
+	$sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1";
 	if($result = mysql_query($sql, $db)) {
 		if($row = mysql_fetch_row($result)) {
 			$block = unserialize($row[0]);
@@ -492,10 +500,10 @@ if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 	}
 }
 if(!isset($block)) {
-	// if template ID is not defined or the were a problem with level's template ID then
+	// if template ID is not defined or there is a problem with level's template ID then
 	// choose the default template or if no default template defined choose the next one
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template ";
-	$sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1;";
+	$sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1";
 	if($result = mysql_query($sql, $db)) {
 		if($row = mysql_fetch_row($result)) {
 			$block = unserialize($row[0]);
@@ -515,15 +523,32 @@ if(is_string($block['css'])) {
 // template defaults
 $template_default['classes'] = isset($template_default['classes']) ? array_merge($phpwcms['default_template_classes'], $template_default['classes']) : $phpwcms['default_template_classes'];
 $template_default['attributes'] = isset($template_default['attributes']) ? array_merge($phpwcms['default_template_attributes'], $template_default['attributes']) : $phpwcms['default_template_attributes'];
+if(empty($template_default['attributes']['data-gallery'])) {
+    $template_default['attributes']['data-gallery'] = 'gallery';
+}
+
+// is this a onepage template, also egalize the related variable
+$block['onepage'] = empty($block['onepage']) ? false : true;
+// set the one page constant
+define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
+
+// support conditional comments for IE8
+if(empty($block['ie8ignore'])) {
+    define('IE8_CC', true);
+    $block['ie8ignore'] = false;
+} else {
+    define('IE8_CC', false);
+    $block['ie8ignore'] = false;
+}
 
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $block['overwrite']);
-	@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite']);
+	@include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
 }
 if(!empty($content['struct'][ $content['cat_id'] ]['acat_overwrite'])) {
 	$block['overwrite'] = str_replace('/', '', $content['struct'][ $content['cat_id'] ]['acat_overwrite']);
-	@include(PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite']);
+	@include PHPWCMS_TEMPLATE.'inc_settings/template_default/'.$block['overwrite'];
 }
 
 // search highlight prefix/suffix
@@ -591,14 +616,14 @@ if(!empty($pagelayout['layout_customblocks'])) {
 if($phpwcms["allow_ext_init"]) {
 	if(count($custom_includes = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_script/frontend_init', 'php'))) {
 		foreach($custom_includes as $value) {
-			include_once(PHPWCMS_TEMPLATE.'inc_script/frontend_init/'.$value);
+			include_once PHPWCMS_TEMPLATE.'inc_script/frontend_init/'.$value;
 		}
 	}
 }
 // include custom frontend init scripts based on module definitions
 if(count($phpwcms['modules_fe_init'])) {
 	foreach($phpwcms['modules_fe_init'] as $value) {
-		include_once($value);
+		include_once $value;
 	}
 }
 
@@ -629,7 +654,7 @@ if(!$aktion[4]) {
 
 		$content['opengraph']['type'] = 'article';
 
-		if($content["article_list_count"] == 1 || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1) {
+		if($content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1 || ($content["article_list_count"] === 1 && empty($template_default['settings']['force_article_list_mode']))) {
 		    // if($temp_counter == 1) {
 			// if only 1 article for this category available
 			// then show this article directly
@@ -681,7 +706,7 @@ if($content['set_canonical'] && !empty($phpwcms['force301_2struct']) && !$conten
 if(empty($phpwcms['enable_deprecated'])) {
 	$phpwcms['enable_deprecated'] = false;
 } else {
-	include_once(PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php");
+	include_once PHPWCMS_ROOT."/include/inc_front/deprecated.inc.php";
 }
 
 // check if current category should be cached
@@ -700,7 +725,7 @@ $content['list_mode'] = true;
 if($aktion[1]) {
 
 	// render page based on article
-	include_once(PHPWCMS_ROOT."/include/inc_front/content.article.inc.php");
+	include_once PHPWCMS_ROOT."/include/inc_front/content.article.inc.php";
 	$content['list_mode'] = false;
 
 } elseif(!empty($content['struct'][$content['cat_id']]['acat_pagetitle'])) {
@@ -713,6 +738,30 @@ if($aktion[1]) {
 
 	$content["pagetitle"] = setPageTitle($content["pagetitle"], $content['struct'][$content['cat_id']]['acat_name'], '');
 	$content['opengraph']['title'] = $content['struct'][$content['cat_id']]['acat_name'];
+
+}
+
+// Force overwritten canonical link
+if($content['struct'][ $content['cat_id'] ]['acat_canonical']) {
+	$content['overwrite_canonical'] = $content['struct'][ $content['cat_id'] ]['acat_canonical'];
+}
+
+if($content['overwrite_canonical']) {
+
+	$_test_canonical_schema = substr($content['overwrite_canonical'], 0, 4);
+
+	if($_test_canonical_schema !== 'http') {
+		$content['overwrite_canonical'] = ltrim('/');
+		if($_test_canonical_schema === '{SIT') {
+			$content['overwrite_canonical'] = str_replace('{SITE}', PHPWCMS_URL, $content['overwrite_canonical']);
+		} else {
+			$content['overwrite_canonical'] = PHPWCMS_URL . $content['overwrite_canonical'];
+		}
+	}
+
+	$block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . html($content['overwrite_canonical']) . '"'.HTML_TAG_CLOSE;
+
+	$content['set_canonical'] = false;
 
 }
 
@@ -870,12 +919,6 @@ $content['all'] = render_device($content['all']);
 $content['all'] = str_replace('{CURRENT_ARTICLEID}', $aktion[1], $content['all']);
 $content['all'] = str_replace('{CURRENT_CATEGORYID}', $aktion[0], $content['all']);
 
-// keep inner content if match category ID [IF_CAT:id,id,id],
-// the matching ID can be used inside with replacer {IF_CAT_ID}
-if(strpos($content["all"],'[IF_CAT:') !== false) {
-	$content['all'] = preg_replace_callback('/\[IF_CAT:([0-9, ]+?)\](.+?)\[\/IF_CAT\]/s', 'render_if_category', $content['all']);
-}
-
 // search for level related replacement tags and replace it, sample: [LEVEL2_ID]{LEVEL2_ID}[/LEVEL2_ID]
 if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
 	// get unique IDs
@@ -884,6 +927,16 @@ if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
 		$id = intval($id);
 		$content['all'] = render_cnt_template($content['all'], 'LEVEL'.$id.'_ID', isset($LEVEL_ID[$id]) ? $LEVEL_ID[$id] : '');
 	}
+}
+// keep inner content if category ID [IF_CAT:id,id,id] is matched,
+// the matching ID can be used inside with replacer {IF_CAT_ID}
+if(strpos($content["all"],'[IF_CAT:') !== false) {
+	$content['all'] = preg_replace_callback('/\[IF_CAT:([0-9, ]+?)\](.+?)\[\/IF_CAT\]/s', 'render_if_category', $content['all']);
+}
+// keep inner content if category ID [IF_NOTCAT:id,id,id] is NOT matched,
+// the not matching ID can be used inside with replacer {IF_NOTCAT_ID}
+if(strpos($content["all"],'[IF_NOTCAT:') !== false) {
+	$content['all'] = preg_replace_callback('/\[IF_NOTCAT:([0-9, ]+?)\](.+?)\[\/IF_NOTCAT\]/s', 'render_if_not_category', $content['all']);
 }
 
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
@@ -987,19 +1040,10 @@ if(strpos($content["all"],'{NEW:') !== false) {
 }
 
 // some more general parsing
-$content["all"]	= str_replace('{SITE}', PHPWCMS_URL, $content["all"]);
 $content["all"] = str_replace('{RSSIMG}', $template_default["rss"]["image"], $content["all"]);
-
-$content["all"] = html_parser($content["all"]);
-
-$content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\](.*?)\[\/img\]/i', 'parse_images', $content["all"]);
-$content["all"] = preg_replace_callback('/\[img=(\d+)(.*?){0,1}\]/i', 'parse_images', $content["all"]);
-$content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\/\]/i', 'parse_downloads', $content["all"]);
-$content["all"] = preg_replace_callback('/\[download=([0-9, ]+?)( template=.*?){0,1}\](.*?)\[\/download\]/is', 'parse_downloads', $content["all"]);
 
 // create link to articles for found keywords
 $content["all"] = preg_replace_callback('/\{KEYWORD:(.*?)\}/', 'get_keyword_link', $content["all"]);
-//}
 
 // include external HTML page but only part between <body></body>
 $content["all"] = preg_replace_callback('/\{URL:(.*?)\}/i', 'include_url', $content["all"]);
@@ -1012,11 +1056,16 @@ if(strpos($content["all"],'{BROWSE:') !== false) {
 	$content["all"] = preg_replace_callback('/\{BROWSE:PREV:(.*?):(0|1)\}/', 'get_index_link_prev',$content["all"]);
 }
 
-// replace all "hardcoded" global replacement tags
-if(count($content['globalRT'])) {
-	foreach($content['globalRT'] as $key => $value) {
-		if($key != '') {
-			$content["all"] = str_replace($key, $value, $content["all"]);
+// parse replacements to HTML before frontend render
+if(empty($phpwcms['parse_html_mode']) || substr($phpwcms['parse_html_mode'], 0, 6) === 'before') {
+	$content["all"] = html_parser($content["all"]);
+
+	// replace all "hardcoded" global replacement tags
+	if(count($content['globalRT'])) {
+		foreach($content['globalRT'] as $key => $value) {
+			if($key != '') {
+				$content["all"] = str_replace($key, $value, $content["all"]);
+			}
 		}
 	}
 }
@@ -1033,13 +1082,27 @@ if(!defined('PHPWCMS_ALIAS')) {
 if($phpwcms["allow_ext_render"]) {
 	if(count($custom_includes = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_script/frontend_render', 'php'))) {
 		foreach($custom_includes as $value) {
-			include_once(PHPWCMS_TEMPLATE.'inc_script/frontend_render/'.$value);
+			include_once PHPWCMS_TEMPLATE.'inc_script/frontend_render/'.$value;
 		}
 	}
 }
 if(count($phpwcms['modules_fe_render'])) {
 	foreach($phpwcms['modules_fe_render'] as $value) {
-		include_once($value);
+		include_once $value;
+	}
+}
+
+// parse replacements to HTML before frontend render
+if(!empty($phpwcms['parse_html_mode']) && substr($phpwcms['parse_html_mode'], -5) === 'after') {
+	$content["all"] = html_parser($content["all"]);
+
+	// replace all "hardcoded" global replacement tags
+	if(count($content['globalRT'])) {
+		foreach($content['globalRT'] as $key => $value) {
+			if($key != '') {
+				$content["all"] = str_replace($key, $value, $content["all"]);
+			}
+		}
 	}
 }
 
@@ -1189,23 +1252,17 @@ if(!empty($_CpPaginate)) {
 	$content['all'] = str_replace(array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->'), '', $content['all']);
 
 	unset($_getVar['aid'], $_getVar['id']);
-	$content['CpPaginateNaviGET'] = returnGlobalGET_QueryString('htmlentities', array(), defined('PHPWCMS_ALIAS') ? array(PHPWCMS_ALIAS) : array());
-	if(!empty($content['CpPaginateNaviGET']) && $content['CpPaginateNaviGET']{0} == '?') {
-		$content['CpPaginateNaviGET'] = '&amp;'.substr($content['CpPaginateNaviGET'], 1);
-	}
 
 	// first build [1][2][3] paginate pages
 	if(strpos($content['all'], '{CP_PAGINATE}')) {
 		$content['CpPaginateNavi'] = array();
 		foreach($content['CpPages'] as $key => $value) {
 
-			$content['CpPaginateNavi'][ $key ]  = '	<a href="index.php?aid='.$aktion[1];
-			if($key) {
-				$content['CpPaginateNavi'][ $key ] .= '-'.$key;
-			}
-			$content['CpPaginateNavi'][ $key ] .= $content['CpPaginateNaviGET'].'" class="';
-			$content['CpPaginateNavi'][ $key ] .= ($key == $content['aId_CpPage']) ? 'cpPaginateActive' : 'cpPaginate';
-			$content['CpPaginateNavi'][ $key ] .= '">'.$value.'</a>';
+			$content['CpPaginateNavi'][ $key ]  = $template_default['attributes']['cp-paginate']['link-prefix'];
+			$content['CpPaginateNavi'][ $key ] .= '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : '') . '" class="';
+			$content['CpPaginateNavi'][ $key ] .= $key == $content['aId_CpPage'] ? $template_default['classes']['cp-paginate-link'] : $template_default['classes']['cp-paginate-link-active'];
+			$content['CpPaginateNavi'][ $key ] .= '">' . $template_default['attributes']['cp-paginate']['value-prefix'] . $value . $template_default['attributes']['cp-paginate']['value-suffix'] . '</a>';
+			$content['CpPaginateNavi'][ $key ] .= $template_default['attributes']['cp-paginate']['link-suffix'];
 
 		}
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE', implode(LF, $content['CpPaginateNavi']));
@@ -1215,11 +1272,12 @@ if(!empty($_CpPaginate)) {
 	if(in_array($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages'])) {
 
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages']);
-		$value = 'index.php?aid='.$aktion[1];
-		if($key) {
-			$value .= '-'.$key;
-		}
+		$value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : '');
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_PREV', $value);
+
+		if(empty($phpwcms['disable_next_prev'])) {
+			$block['custom_htmlhead']['link_prev'] = '  <link rel="prev" href="' . $value . '"'.HTML_TAG_CLOSE;
+		}
 
 	} else {
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_PREV');
@@ -1229,11 +1287,12 @@ if(!empty($_CpPaginate)) {
 	if(in_array($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages'])) {
 
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages']);
-		$value = 'index.php?aid='.$aktion[1];
-		if($key) {
-			$value .= '-'.$key;
-		}
+		$value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : '');
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT', $value);
+
+		if(empty($phpwcms['disable_next_prev'])) {
+			$block['custom_htmlhead']['link_next'] = '  <link rel="next" href="' . $value . '"'.HTML_TAG_CLOSE;
+		}
 
 	} else {
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT');
@@ -1280,13 +1339,7 @@ if(!empty($_CpPaginate)) {
 		// cp menu items
 		foreach($content['CpPageTitles'] as $key => $value) {
 
-			$content['CpItem']  = '<a href="index.php?aid='.$aktion[1];
-
-			if($key) {
-				$content['CpItem'] .= '-'.$key;
-			}
-
-			$content['CpItem'] .= $content['CpPaginateNaviGET'].'"';
+			$content['CpItem']  = '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS) . '"';
 
 			if($key == $content['aId_CpPage']) {
 
@@ -1356,7 +1409,7 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 parse_CKEDitor_resized_images();
 
 // cleanup document to enhance XHTML Strict compatibility
-if(HTML5_MODE) {
+if(HTML5_MODE && IE8_CC) {
 
 	$phpwcms['html5shiv_disabled'] = empty($phpwcms['html5shiv_disabled']) ? false : true;
 	$phpwcms['respondjs_disabled'] = empty($phpwcms['respondjs_disabled']) ? false : true;
@@ -1379,6 +1432,117 @@ if(HTML5_MODE) {
 
 }
 
+// Google Analytics Tracking Code
+if(!empty($block['tracking_ga']['enable'])) {
+
+    $template_default['settings']['tracking']['ga_default'] = array(
+        'position' => 'head',
+        'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '%s', 'auto'%s);
+    ga('send', 'pageview');
+  </script>",
+       'anonymize' => ', {anonymizeIp: true}'
+    );
+
+    if(isset($template_default['settings']['tracking']['ga'])) {
+        $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
+    } else {
+        $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
+    }
+
+    if(empty($block['tracking_ga']['anonymize'])) {
+        $template_default['settings']['tracking']['ga']['anonymize'] = '';
+    }
+
+    if($template_default['settings']['tracking']['ga']['position'] === 'head') {
+        $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+    } else {
+        $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+    }
+
+}
+
+// Piwik Tracking Code
+if(!empty($block['tracking_piwik']['enable'])) {
+
+    $template_default['settings']['tracking']['piwik_default'] = array(
+        'position' => 'head',
+        'code' => '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>
+    var _paq = _paq || [];
+    _paq.push(["trackPageView"]);
+    _paq.push(["enableLinkTracking"]);
+    (function() {
+        var u="//%1$s/";
+        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setSiteId", %2$d]);
+        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+        g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+    })();
+  </script>'
+    );
+
+    if(isset($template_default['settings']['tracking']['piwik'])) {
+        $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
+    } else {
+        $template_default['settings']['tracking']['piwik'] = $template_default['settings']['tracking']['piwik_default'];
+    }
+
+    if($template_default['settings']['tracking']['piwik']['position'] === 'head') {
+        $block['custom_htmlhead']['head_piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+    } else {
+        $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+    }
+
+}
+
+// internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
+if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_dismissed']) || strtolower($_COOKIE['cookieconsent_dismissed']) !== 'yes')) {
+
+    $block['cookie_consent']['options'] = array();
+    if(!empty($block['cookie_consent']['message'])) {
+        $block['cookie_consent']['options']['message'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+    }
+    if(!empty($block['cookie_consent']['dismiss'])) {
+        $block['cookie_consent']['options']['dismiss'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+    }
+    if(!empty($block['cookie_consent']['link'])) {
+
+        $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
+        $block['cookie_consent']['link'][0] = trim($block['cookie_consent']['link'][0]);
+        $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
+        if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
+            $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
+        }
+
+        if(!empty($block['cookie_consent']['more'])) {
+            $block['cookie_consent']['options']['learnMore'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+        }
+    }
+
+    if(empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
+        $block['cookie_consent']['options']['theme'] = false;
+    } elseif(!PHPWCMS_USE_CDN && strpos($block['cookie_consent']['theme'], '.css') === false) {
+        $block['cookie_consent']['options']['theme'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/'.$block['cookie_consent']['theme'].'.css';
+    } else {
+        $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
+    }
+
+    $block['custom_htmlhead']['cookieconsent.js']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  ';
+    $block['custom_htmlhead']['cookieconsent.js'] .= '    window.cookieconsent_options='.json_encode($block['cookie_consent']['options']).';';
+    $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
+
+    if(PHPWCMS_USE_CDN) {
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_HTTP_SCHEMA.'://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
+    } else {
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/cookieconsent.min.js"></script>';
+    }
+
+}
+
 // PixelRatio Check based on JavaScript and Cookie
 if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['phpwcms_pixelratio'])) {
 	$block['custom_htmlhead']['pixelratio']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
@@ -1391,6 +1555,16 @@ if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['p
 // you will be able to use $GLOBALS['block']['custom_htmlhead']['myheadname']
 // always check if you want to use same head code only once
 if(count($block['custom_htmlhead'])) {
+
+	if(!empty($block['custom_htmlhead']['jquery_ready'])) {
+
+		$block['custom_htmlhead']['jquery_ready'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . '	$(function(){' . LF . implode(LF, $block['custom_htmlhead']['jquery_ready']) . LF . '	});' . LF . '  </script>';
+
+	} else {
+
+		unset($block['custom_htmlhead']['jquery_ready']);
+
+	}
 
 	if(!empty($phpwcms['js_in_body'])) {
 
@@ -1406,7 +1580,7 @@ if(count($block['custom_htmlhead'])) {
 
 			$value = trim($value);
 
-			if(substr($value, 0, 7) == '<script') {
+			if(substr($key, 0, 5) !== 'head_' && substr($value, 0, 7) === '<script') {
 				$block['bodyjs_temp'] .= '  ' . $value . LF;
 			} else {
 				$block['htmlhead'] .= '  ' . $value . LF;
@@ -1523,11 +1697,11 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
 				$value['alias'] = html_specialchars($value['alias']);
 
-				if($value['alias_type'] == 'id') {
+				if($value['alias_type'] == 'id' && isset($all_close['id'.$value['id']])) {
 
 					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
 
-				} else {
+				} elseif(isset($all_close['aid'.$value['aid']])) {
 
 					$content['all'] = str_replace('index.php?aid=' . $value['aid'] . $all_close['aid'.$value['aid']], 'index.php?' . $value['alias'] . $all_close['aid'.$value['aid']], $content['all']);
 
@@ -1538,7 +1712,11 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
 					$value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
 
-					$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
+					if(isset($all_close['id'.$value['id']])) {
+
+						$content['all'] = str_replace('index.php?id=' . $value['id'] . $all_close['id'.$value['id']], 'index.php?' . $value['alias'] . $all_close['id'.$value['id']], $content['all']);
+
+					}
 
 				}
 			}
@@ -1565,5 +1743,3 @@ if(!empty($phpwcms['gt_mod']) && strpos($content["all"], '{GT') !== false) {
 
 	$content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
-
-?>

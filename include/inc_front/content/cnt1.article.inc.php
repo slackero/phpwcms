@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -66,29 +66,25 @@ $crow["default_settings"] = array(
 	'class_column_right_text'	=> $template_default['classes']['imgtxt-column-right-text'],
 	'width'						=> $image[4],
 	'height'					=> $image[5],
-	'zoom'						=> $image[8],
-	'crop'						=> 0,
-	'lightbox'					=> 0,
-	'nocaption'					=> 0
+	'zoom'						=> $image[8]
 );
 
-$image_text	= '';
-
-$crow["settings"] = array_merge($crow["default_settings"], $crow["settings"]);
-
-//zoom click = $image[8];
 if($image) {
 
 	$cnt_image = @unserialize($crow["acontent_form"]);
-	$crow['has_image'] = true;
-
 	$crow["default_settings"]['lightbox']	= empty($cnt_image['cimage_lightbox']) ? 0 : 1;
 	$crow["default_settings"]['nocaption']	= empty($cnt_image['cimage_nocaption']) ? 0 : 1;
 	$crow["default_settings"]['crop']		= empty($cnt_image['cimage_crop']) ? 0 : 1;
 
-	$crow["settings"]['lightbox']	= $crow["default_settings"]['lightbox'];
-	$crow["settings"]['nocaption']	= $crow["default_settings"]['nocaption'];
-	$crow["settings"]['crop']		= $crow["default_settings"]['crop'];
+}
+
+$crow["settings"] = array_merge($crow["default_settings"], $crow["settings"]);
+
+$image_text	= '';
+
+if($image) {
+
+	$crow['has_image'] = true;
 
 	if($crow["settings"]['lightbox']) {
 		initSlimbox();
@@ -246,11 +242,11 @@ if($crow['is_imagetext']) {
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'FLOAT_LEFT', $crow['position_type']['float_left'] ? ' ' : '');
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_LEFT', $crow['position_type']['column_left'] ? ' ' : '');
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_RIGHT', $crow['position_type']['column_right'] ? ' ' : '');
+	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ZOOM', $crow["settings"]['zoom'] ? ' ' : '');
 
 	if(!$crow['has_image']) {
 
 		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', '');
-		$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ZOOM', $crow["settings"]['zoom'] ? ' ' : '');
 		$crow["acontent_template"] = str_replace('{IMAGE_ID}', 'empty-image-'.$crow["acontent_id"], $crow["acontent_template"]);
 		$crow["acontent_template"] = str_replace('{IMAGE_HASH}', '', $crow["acontent_template"]);
 		$crow["acontent_template"] = str_replace('{IMAGE_NAME}', 'empty', $crow["acontent_template"]);
@@ -276,7 +272,7 @@ if($crow['is_imagetext']) {
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', '');
 		} else {
-			$caption = getImageCaption(base64_decode($image[6]));
+			$caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
 			$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', html($caption[0]));
 			$caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
 			$crow['image_tag'] .= $caption[1];
@@ -302,5 +298,3 @@ if($crow['is_imagetext']) {
 }
 
 unset($image);
-
-?>

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
@@ -22,6 +22,9 @@ body
 {
 	font-size: 13px;
 	line-height: 1.6;
+
+	/* Fix for missing scrollbars with RTL texts. (#10488) */
+	word-wrap: break-word;
 }
 
 blockquote
@@ -29,9 +32,7 @@ blockquote
 	font-style: italic;
 	font-family: Georgia, Times, "Times New Roman", serif;
 	padding: 2px 0;
-	border-style: solid;
-	border-color: #ccc;
-	border-width: 0;
+	border: 0 solid #ccc;
 }
 
 .cke_contents_ltr blockquote
@@ -56,7 +57,7 @@ a
 ol,ul,dl
 {
 	/* IE7: reset rtl list margin. (#7334) */
-	*margin-right: 0px;
+	*margin-right: 0;
 	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
 	padding: 0 40px;
 }
@@ -69,7 +70,7 @@ h1,h2,h3,h4,h5,h6
 
 hr
 {
-	border: 0px;
+	border: 0;
 	border-top: 1px solid #ccc;
 }
 
@@ -94,8 +95,6 @@ pre
 	white-space: pre-wrap; /* CSS 2.1 */
 	word-wrap: break-word; /* IE7 */
 	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	-webkit-tab-size: 4;
 	tab-size: 4;
 }
 

@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -33,7 +33,6 @@ $is_mysql_error = _dbSelect() ? false : true;
 if($is_mysql_error) {
 	header('Location: '.PHPWCMS_URL.'dbdown.php');
 	exit();
-
 }
 
 // set DB to compatible mode
@@ -88,20 +87,20 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 		switch($_queryMode) {
 
 			// INSERT, UPDATE, DELETE
-			case 'INSERT':	$queryResult['INSERT_ID']		= mysql_insert_id($db);
+			case 'INSERT':	$queryResult['INSERT_ID'] = mysql_insert_id($db);
 			case 'DELETE':
 			case 'UPDATE':
-							$queryResult['AFFECTED_ROWS']	= mysql_affected_rows($db);
+							$queryResult['AFFECTED_ROWS'] = mysql_affected_rows($db);
 							return $queryResult;
 							break;
 
 			// INSERT ... ON DUPLICATE KEY
 			case 'ON_DUPLICATE':
-							$queryResult['AFFECTED_ROWS']	= mysql_affected_rows($db);
-							$queryResult['INSERT_ID']		= mysql_insert_id($db);
+							$queryResult['AFFECTED_ROWS'] = mysql_affected_rows($db);
+							$queryResult['INSERT_ID'] = mysql_insert_id($db);
 							if($queryResult['AFFECTED_ROWS'] == 2) {
-								$queryResult['INSERT_ID']		= 0;
-								$queryResult['AFFECTED_ROWS']	= 1;
+								$queryResult['INSERT_ID'] = 0;
+								$queryResult['AFFECTED_ROWS'] = 1;
 							}
 							return $queryResult;
 							break;
@@ -112,7 +111,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 
 			// COUNT
 			case 'COUNT':	// first check if SQL COUNT() is used
-							$query = strtoupper($query);
+							$query = substr(strtoupper($query), 0, 30);
 							if(strpos($query, 'SELECT COUNT(') !== false) {
 								$row = mysql_fetch_row($result);
 								return $row ? (int) $row[0] : 0;
@@ -121,11 +120,12 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 							}
 							break;
 
-			// SET, CREATE, ALTER, DROP, RENAME
+			// SET, CREATE, ALTER, DROP, RENAME, TRUNCATE
 			case 'RENAME':
 			case 'DROP':
 			case 'ALTER':
 			case 'SET':
+			case 'TRUNCATE':
 			case 'CREATE':	return true;
 							break;
 
@@ -252,8 +252,6 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 
 		return _dbQuery($insert, 'ON_DUPLICATE');
 	}
-
-	return false;
 
 }
 
@@ -390,26 +388,46 @@ function _dbInitialize() {
 	if($phpwcms['db_version'] > 40000) {
 
 		if(empty($phpwcms['db_charset'])) {
-			$mysql_charset_map = array(	'big5'         => 'big5',	'cp-866'       => 'cp866',	'euc-jp'       => 'ujis',
-										'euc-kr'       => 'euckr',	'gb2312'       => 'gb2312',	'gbk'          => 'gbk',
-										'iso-8859-1'   => 'latin1',	'iso-8859-2'   => 'latin2',	'iso-8859-7'   => 'greek',
-										'iso-8859-8'   => 'hebrew',	'iso-8859-8-i' => 'hebrew',	'iso-8859-9'   => 'latin5',
-										'iso-8859-13'  => 'latin7',	'iso-8859-15'  => 'latin1',	'koi8-r'       => 'koi8r',
-										'shift_jis'    => 'sjis',	'tis-620'      => 'tis620',	'utf-8'        => 'utf8',
-										'windows-1250' => 'cp1250',	'windows-1251' => 'cp1251',	'windows-1252' => 'latin1',
-										'windows-1256' => 'cp1256',	'windows-1257' => 'cp1257'   );
-			$phpwcms['db_charset'] = $mysql_charset_map[ strtolower($phpwcms['charset']) ];
+			$mysql_charset_map = array(
+				'big5'         => 'big5',	'cp-866'       => 'cp866',	'euc-jp'       => 'ujis',
+				'euc-kr'       => 'euckr',	'gb2312'       => 'gb2312',	'gbk'          => 'gbk',
+				'iso-8859-1'   => 'latin1',	'iso-8859-2'   => 'latin2',	'iso-8859-7'   => 'greek',
+				'iso-8859-8'   => 'hebrew',	'iso-8859-8-i' => 'hebrew',	'iso-8859-9'   => 'latin5',
+				'iso-8859-13'  => 'latin7',	'iso-8859-15'  => 'latin1',	'koi8-r'       => 'koi8r',
+				'shift_jis'    => 'sjis',	'tis-620'      => 'tis620',	'utf-8'        => 'utf8',
+				'windows-1250' => 'cp1250',	'windows-1251' => 'cp1251',	'windows-1252' => 'latin1',
+				'windows-1256' => 'cp1256',	'windows-1257' => 'cp1257'
+			);
+			$phpwcms['db_charset'] = isset($mysql_charset_map[PHPWCMS_CHARSET]) ? $mysql_charset_map[PHPWCMS_CHARSET] : '';
 		}
 
-		// Send charset used in phpwcms for every query
-		$sql = "SET NAMES "._dbEscape($phpwcms['db_charset']);
-		if($phpwcms['db_version'] > 40100 && !empty($phpwcms['db_collation'])) {
-			$sql .= " COLLATE "._dbEscape($phpwcms['db_collation']);
+		if(IS_PHP523 && $phpwcms['db_version'] > 50000 && $phpwcms['db_charset']) {
+
+			global $db;
+
+			mysql_set_charset($phpwcms['db_charset'], $db);
+
+			if(!empty($phpwcms['db_timezone'])) {
+				_dbQuery("SET time_zone = "._dbEscape($phpwcms['db_timezone']), 'SET');
+			}
+
+		} elseif($phpwcms['db_charset']) {
+
+			// Send charset used in phpwcms for every query
+			$sql = "SET NAMES "._dbEscape($phpwcms['db_charset']);
+			if($phpwcms['db_version'] > 40100 && !empty($phpwcms['db_collation'])) {
+				$sql .= " COLLATE "._dbEscape($phpwcms['db_collation']);
+			}
+			if(!empty($phpwcms['db_timezone'])) {
+				$sql .= ", time_zone = "._dbEscape($phpwcms['db_timezone']);
+			}
+			_dbQuery($sql, 'SET');
+
+		} elseif(!empty($phpwcms['db_timezone'])) {
+
+			_dbQuery("SET time_zone = "._dbEscape($phpwcms['db_timezone']), 'SET');
+
 		}
-		if(!empty($phpwcms['db_timezone'])) {
-			$sql .= ", time_zone = "._dbEscape($phpwcms['db_timezone']);
-		}
-		_dbQuery($sql, 'SET');
 	}
 
 	return $phpwcms['db_version'];
@@ -714,5 +732,3 @@ function _dbSetVar($var='', $value=NULL, $compare=FALSE) {
 
 	return FALSE;
 }
-
-?>

@@ -2,22 +2,19 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
-
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 //Listing eventuell im Verzeichnis enthaltener Dateien
 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.
@@ -27,7 +24,7 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 	$file_durchlauf = 0;
 	while($file_row = mysql_fetch_array($file_result)) {
 		$filename = html($file_row["f_name"]);
-		if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
+		if(!$file_durchlauf) { //Aufbau der Zeile zum Einflieï¿½en der Filelisten-Tabelle
 			echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
 		} else {
 			echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
@@ -82,4 +79,3 @@ if($file_result = mysql_query($file_sql, $db) or die ("error while listing files
 		echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
 	}
 } //Ende Liste Dateien
-?>

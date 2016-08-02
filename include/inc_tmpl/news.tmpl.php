@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -80,7 +80,7 @@ $news = new phpwcmsNews();
 						</select>
 					</td>
 
-					<td><input type="text" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
+					<td><input type="search" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
 					<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-left:2px" /></td>
 					<td class="nowrap">&nbsp;&nbsp;<?php echo $news->getPagination(); ?>&nbsp;&nbsp;</td>
 				</tr>
@@ -141,7 +141,6 @@ function addFile(file_id, file_name) {
 		if(obj.options.length > 5) {
 			obj.size = obj.options.length;
 			$('#cnt_file_caption').attr('rows', obj.size+1);
-			$('#cnt_file_caption').attr('rows', obj.size+1);
 		}
 	}
 }
@@ -189,7 +188,6 @@ $(function(){
 		$('#cfile_list').find('option').attr('selected', 'selected');
 
 	});
-
 
 	var cnt_title = $('#cnt_title');
 	var change_name_value	= '-';
@@ -285,7 +283,7 @@ $(function(){
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<textarea name="cnt_teasertext" id="cnt_teasertext" class="text" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
+					<textarea name="cnt_teasertext" id="cnt_teasertext" class="text autosize" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
 				</td>
 		</table>
 	</div>
@@ -437,7 +435,7 @@ $(function(){
 			'lang'		=> 'en'
 		);
 
-		include(PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php');
+		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 	?></div>
 
@@ -477,7 +475,7 @@ $(function(){
 		<tr>
 				<td class="top"><label><?php echo $BL['be_cnt_caption'] ?></label></td>
 				<td colspan="2" class="tdbottom4">
-					<textarea name="cnt_image_caption" id="cnt_image_caption" class="text" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
+					<textarea name="cnt_image_caption" id="cnt_image_caption" class="text autosize" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
 					<span class="caption width350">
 						<?php echo $BL['be_cnt_caption']; ?>
 						|
@@ -528,7 +526,7 @@ $(function(){
 		<tr>
 	 		<td class="top"><label><?php echo $BL['be_cnt_description'] ?></label></td>
 	  		<td colspan="2">
-	  			<textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
+	  			<textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text autosize" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
 	  			<span class="caption width350 nowrap">
 					<?php echo $BL['be_caption_descr.']; ?>
 					|
@@ -661,5 +659,3 @@ $(function(){
 
 	}
 	// Stop news form
-
-?>

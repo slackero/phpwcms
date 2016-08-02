@@ -2,19 +2,12 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
-
-// ----------------------------------------------------------------
-// obligate check for phpwcms constants
-if (!defined('PHPWCMS_INCLUDE_CHECK')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
-}
-// ----------------------------------------------------------------
 
 /**
  * Render @@Text@@ based on browser language and store in related language file
@@ -60,14 +53,14 @@ function i18n_get_file_open_text() {
 }
 // substitutes a single token
 function i18n_substitute_text_token($token) {
-	global $i18n_tokens;	
+	global $i18n_tokens;
 	$a = trim($token[1]);
 	if(isset($i18n_tokens[$a])) {
 		return $i18n_tokens[$a];
-	} else {		
+	} else {
 		$f = i18n_get_filename();
 		if(is_readable($f)) {
-			include($f);
+			include $f;
 		} elseif($handle = fopen($f, 'ab')) {
 			fwrite($handle, i18n_get_file_open_text() );
 			fclose($handle);
@@ -89,19 +82,15 @@ function i18n_substitute_text_token($token) {
 }
 // all contents starting and ending with @@ are replaced
 function i18n_substitute_text($tpl_output) {
-	global $i18n_tokens;	    
+	global $i18n_tokens;
 	$f = i18n_get_filename();
 	if(!isset($i18n_tokens)) {
 		if(is_readable($f)) {
-			include($f);
+			include $f;
 		} elseif($handle = fopen($f, 'ab')) {
 			fwrite($handle, i18n_get_file_open_text() );
 			fclose($handle);
 		}
 	}
-	return preg_replace_callback('/@@(.+?)@@/', 'i18n_substitute_text_token', $tpl_output);    
+	return preg_replace_callback('/@@(.+?)@@/', 'i18n_substitute_text_token', $tpl_output);
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-
-?>

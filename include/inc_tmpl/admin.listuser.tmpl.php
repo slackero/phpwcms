@@ -2,17 +2,17 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -151,7 +151,7 @@ if($_userInfo['pages_total'] > 1) {
 }
 ?>
 
-	<td><input type="text" name="filter" id="filter" size="10" value="<?php
+	<td><input type="search" name="filter" id="filter" size="10" value="<?php
 
 	if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
 		echo html(implode(' ', $_SESSION['filter_results']));

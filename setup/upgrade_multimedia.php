@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,10 +13,10 @@
 
 $phpwcms = array();
 
-require_once ('../config/phpwcms/conf.inc.php');
-require_once ('../include/inc_lib/default.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
-require_once (PHPWCMS_ROOT.'/include/inc_lib/general.inc.php');
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 echo '<html><body><pre>';
 
@@ -32,9 +32,9 @@ foreach($pagelayout as $var) {
 	$media = array();
 
 	$media["media"] 		= explode(":", $var["acontent_media"]);
-	
+
 	$media["media_backup"]	= $var["acontent_media"];
-										
+
 	$media["media_type"]	= intval($media["media"][0]);
 	$media["media_player"]	= intval($media["media"][1]);
 	$media["media_src"]		= intval($media["media"][5]);
@@ -58,7 +58,7 @@ foreach($pagelayout as $var) {
 		$media["media_name"]	= trim($media["media_name"]);
 		$media["media_extern"]	= '';
 	}
-	
+
 	unset($media["media"]);
 
 	$sql  = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET ";
@@ -72,9 +72,8 @@ foreach($pagelayout as $var) {
 	$c++;
 }
 
-if($c==1) echo 'No content part multimedia found for upgrading!';
-
+if($c==1) {
+	echo 'No content part multimedia found for upgrading!';
+}
 
 echo '</pre></body></html>';
-
-?>

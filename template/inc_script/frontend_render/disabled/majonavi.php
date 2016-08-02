@@ -43,8 +43,7 @@ way to fit your requirements.
 	line-height:		24px;
 	text-decoration:	none;
 	text-indent:		5px;
-	border:				1px solid #000;
-	border-width:		1px 0 1px 1px;
+	border:				1px 0 1px 1px solid #000;
 }
 
 /* Set up the sub level borders */
@@ -280,4 +279,3 @@ function buildNavi($start=0, $counter=0) {
 	return $t;
 
 }
-?>

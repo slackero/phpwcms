@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -25,5 +25,3 @@ if(!empty($phpwcms['enable_chat'])) {
 $wcsnav["profile"]		= '<a href="phpwcms.php?do=profile">'.$BL['be_nav_profile'].'</a>';
 $wcsnav["admin"]		= '<a href="phpwcms.php?do=admin&amp;p=6">'.$BL['be_nav_admin'].'</a>';
 $wcsnav["navspace1"]	= '';
-
-?>

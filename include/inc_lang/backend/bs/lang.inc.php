@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -723,7 +723,7 @@ $BL['be_newsletter_open']               = 'HTML i TEKST ulaz';
 $BL['be_newsletter_open1']              = '(klikni na sliku da je otvoris)';
 $BL['be_newsletter_sendnow']            = 'posalji newsletter';
 $BL['be_newsletter_attention']          = 'Jeste li sigurni da zelite poslati na vise adresa';
-$BL['be_newsletter_attention1']         = 'Ako ste napravili neke promjene, snimite ih prvo, jer inace nece biti upotrebljene.'; 
+$BL['be_newsletter_attention1']         = 'Ako ste napravili neke promjene, snimite ih prvo, jer inace nece biti upotrebljene.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'posalji newsletter';
 $BL['be_newsletter_sendprocess']        = 'posalji proces';
@@ -913,10 +913,10 @@ $BL['be_cnt_css_style']					= 'CSS stil';
 $BL['be_cnt_css_class']					= 'CSS klasa';
 $BL['be_cnt_send_copy_to']				= 'CC ka';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)', 
-												"hidden"=>'hidden', "password"=>'password', "select"=>'select menu', 
-												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button', 
-												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button', 
+$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+												"hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
+												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
+												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
 												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)',
 												"captchaimg"=>'captcha image', "captcha"=>'captcha code', 'newsletter'=>'newsletter');
 
@@ -970,7 +970,7 @@ $BL['be_file_replace'] = 'Premjesti datoteke';
 $BL['be_alias_articleID'] = 'ID broj aliasa';
 $BL['be_alias_useAll'] = "iskoristi naslov ovog sadrzaja";
 $BL['be_article_morelink'] = '[vise&#8230;] adresa';
-$BL['be_admin_tmpl_copy']               = 'kopiraj predlozak'; 
+$BL['be_admin_tmpl_copy']               = 'kopiraj predlozak';
 
 $BL['be_ctype_filelist1']                = 'lista datoteka';
 $BL['be_cnt_fpro_usecaption']            = 'iskoristi centar datoteka &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
@@ -1020,7 +1020,7 @@ $BL['Latest_version_info']				= 'Najnovija dostupna verzija <b>phpwcms %s</b>.';
 $BL['Current_version_info']				= 'Vasa verzija <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']				= 'Nije moguce pristupiti serveru. Kod greske je:<br />%s';
 $BL['Socket_functions_disabled']		= 'Nije moguce iskoristiti funkciju "socket-a".';
-$BL['Mailing_list_subscribe_reminder']	= 'Za informacije o najnovijim verzijama, zasto se ne pretplatite na nasu <a href="http://lists.phpwcms.de/mailman/listinfo/phpwcms-releaseinfo" target="_blank">e-mail listu</a>.';
+$BL['Mailing_list_subscribe_reminder']	= 'Za informacije o najnovijim verzijama, zasto se ne pretplatite na nasu <a href="http://eepurl.com/bm-BrH" target="_blank">e-mail listu</a>.';
 $BL['Version_information'] 				= 'phpwcms-info o verziji';
 
 $BL['be_cnt_search_highlight']			= 'osvijetli';
@@ -1096,7 +1096,7 @@ $BL['be_ctype']							= 'dio clanka';
 $BL['be_selection']						= 'selekcija';
 
 $BL['be_ctype_module']					= 'plug-in';
-$BL['be_cnt_lightbox']					= 'efekat';
+$BL['be_cnt_lightbox']					= 'galerija slika';
 $BL['be_cnt_behavior']					= 'ponasanje';
 $BL['be_cnt_imglist_nocaption']			= 'sakrij caption za thumbnails';
 
@@ -1238,5 +1238,3 @@ $BL['automatic']						= 'automatski';
 
 $BL['random_image']						= 'nasumicna slika';
 $BL['random_image_from_list']			= 'Oznaci jednu nasumicnu sliku iz liste slika';
-
-?>

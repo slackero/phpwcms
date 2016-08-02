@@ -2,28 +2,27 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-   die("You Cannot Access This Script Directly, Have a Nice Day.");
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
 
 //guestbook/comments
 
 // include neccessary frontend functions, but only once
-include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php');
+include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php';
 
 $CNT_TMP 				.= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
+global $guestbook; // make it global
 $guestbook 				 = unserialize($crow["acontent_form"]);
 $guestbook['error']		 = array();
 $guestbook['cid']		 = intval( empty($guestbook['aliasID']) ? $crow["acontent_id"] : $guestbook['aliasID'] );
@@ -95,9 +94,10 @@ if($guestbook['visible']) {
 			$guestbook['ban'] = convertStringToArray($guestbook['ban'], ' ');
 			if(is_array($guestbook['ban']) && count($guestbook['ban'])) {
 				foreach($guestbook['ban'] as $key => $value) {
-					$value = preg_quote(trim($value));
-					$guestbook['ban'][$key] = '/'.$value.'/i';
-					$guestbook['ban_count']++;
+					if($value = trim($value)) {
+						$guestbook['ban'][$key] = '/'.preg_quote($value, '/').'/i';
+						$guestbook['ban_count']++;
+					}
 				}
 			}
 
@@ -320,7 +320,7 @@ if($guestbook['visible']) {
 
 	if(isset($_POST['guestbook_email']) && !empty($guestbook['captcha'])) {
 
-		include_once (PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php');
+		include_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 		// instantiate the object
 		$spaf_obj = new SPAF_FormValidator();
 		$guestbook['post']['captcha'] = isset($_POST['guestbook_captcha']) ? clean_slweg($_POST['guestbook_captcha']) : '';
@@ -593,7 +593,6 @@ if($guestbook['visible']) {
 				$guestbook['link_add'] .= '&amp;gbs='.html_specialchars(urlencode($guestbook['archiveselect']));
 			}
 
-
 			// goto previous guestbook page
 			if($aktion[5] > 0) {
 				$guestbook['prev_replace']  = '<a href="'.$guestbook['link_to'].($aktion[5] - 1).$guestbook['link_add'].'">$1</a>';
@@ -616,7 +615,7 @@ if($guestbook['visible']) {
 			$guestbook['nav'] = preg_replace('/{NEXT:(.*?)}/s', $guestbook['next_replace'], $guestbook['nav']);
 			$guestbook['nav'] = preg_replace('/{LAST:(.*?)}/s', $guestbook['last_replace'], $guestbook['nav']);
 
-			$guestbook['nav'] = preg_replace('/{PAGE:(\d+):(.*?)}/se', 'guestbook_pages($1, "$2", '.$aktion[5].', '.$guestbook['pagecount'].', "'.$guestbook['link_to'].'", "'.$guestbook['link_add'].'")', $guestbook['nav']);
+			$guestbook['nav'] = preg_replace_callback('/{PAGE:(\d+):(.*?)}/s', 'guestbook_pages', $guestbook['nav']);
 
 			// archive (form)
 			if( ! ( strpos($guestbook['nav'],'{ARCHIVE')===false ) ) {
@@ -723,6 +722,8 @@ if($guestbook['visible']) {
 			}
 		}
 
+		$thumb_image = false;
+
 		while($guestbook['row'] = mysql_fetch_assoc($guestbook['result'])) {
 
 			$guestbook['row']['guestbook_msg'] = html_specialchars($guestbook['row']['guestbook_msg']);
@@ -819,6 +820,3 @@ if($guestbook['visible']) {
 
 // delete guetbook array
 unset($guestbook);
-
-
-?>

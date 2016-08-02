@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,8 +13,8 @@
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 //
-// Translated by Spirou v. 1.0 
-// Valid for the relaese of phpwcms (28/12/2003) 
+// Translated by Spirou v. 1.0
+// Valid for the relaese of phpwcms (28/12/2003)
 // #Changelog#
 // release
 // 28/12/2003
@@ -25,7 +25,7 @@ $BL['SHOW_FILES']        = 'visa filer i roten';
 $BL['SHOW_FILES1']       = 'visa filer i katalogen';
 $BL['TAKE_IMAGE']        = 'tag denne fil og tilf&oslash;j&#8230;';
 $BL['NO_FILE']           = 'ingen fil';
-$BL['OPEN_DIR']          = 'öppna katalog';
+$BL['OPEN_DIR']          = 'Ã¶ppna katalog';
 $BL['CLOSE_DIR']         = 'st&auml;ng katalog';
 $BL['FILE_TITLE']        = 'phpwcms filbrowser';
 $BL['IMAGE_TITLE']       = 'phpwcms bildbrowser';
@@ -42,8 +42,6 @@ $BL['DATE_FORMAT']       = 'm.d.Y H:i';
 $BL['SIZE']              = 'storlek';
 $BL['DOWNLOAD_FILE']     = 'h&auml;mta fil';
 $BL['FILE_IN_TRASH']     = 'filen &auml;r i skr&auml;pkorgen';
-$BL['KEYWORDS']          = 'sökord';
-$BL['DOWNLOAD_ERR3']     = 'Ett fel uppstod n&auml;r info om filen h&auml;mtades<br />st&auml;ng browserfönstret och försök igen...';
+$BL['KEYWORDS']          = 'sÃ¶kord';
+$BL['DOWNLOAD_ERR3']     = 'Ett fel uppstod n&auml;r info om filen h&auml;mtades<br />st&auml;ng browserfÃ¶nstret och fÃ¶rsÃ¶k igen...';
 
-
-?>

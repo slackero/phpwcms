@@ -1021,4 +1021,3 @@ function htmlfilter_sanitize($body,
     // $trusted .= "<!-- end sanitized html -->\n";
     return $trusted;
 }
-?>

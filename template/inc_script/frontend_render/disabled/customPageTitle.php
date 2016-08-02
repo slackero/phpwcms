@@ -26,5 +26,3 @@ if(!empty($row["article_title"])) {
 }
 
 $content["pagetitle"] = implode(' / ', $my_title);
-
-?>

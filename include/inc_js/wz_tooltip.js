@@ -133,7 +133,7 @@ function UnTip()
 // OnMoveAfter, OnHideInit, OnHide, OnKill
 
 var tt_aElt = new Array(10), // Container DIV, outer title & body DIVs, inner title & body TDs, closebutton SPAN, shadow DIVs, and IFRAME to cover windowed elements in IE
-tt_aV = new Array(),	// Caches and enumerates config data for currently active tooltip
+tt_aV = [],	// Caches and enumerates config data for currently active tooltip
 tt_sContent,			// Inner tooltip text or HTML
 tt_t2t, tt_t2tDad,		// Tag converted to tip, and its DOM parent element
 tt_musX, tt_musY,
@@ -287,7 +287,7 @@ function tt_MovDomNode(el, dadFrom, dadTo)
 }
 
 //======================  PRIVATE  ===========================================//
-var tt_aExt = new Array(),	// Array of extension objects
+var tt_aExt = [],	// Array of extension objects
 
 tt_db, tt_op, tt_ie, tt_ie56, tt_bBoxOld,	// Browser flags
 tt_body,
@@ -388,7 +388,7 @@ function tt_MkMainDivHtm()
 {
 	return(
 		'<div id="WzTtDiV"></div>' +
-		(tt_ie56 ? ('<iframe id="WzTtIfRm" src="javascript:false" scrolling="no" frameborder="0" style="filter:Alpha(opacity=0);position:absolute;top:0px;left:0px;display:none;"></iframe>')
+		(tt_ie56 ? ('<iframe id="WzTtIfRm" src="javascript:false" scrolling="no" frameborder="0" style="filter:Alpha(opacity=0);position:absolute;top:0;left:0;display:none;"></iframe>')
 		: '')
 	);
 }

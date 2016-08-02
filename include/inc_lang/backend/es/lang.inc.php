@@ -2,10 +2,10 @@
 /**
  * phpwcms content management system
  *
- * @author Oliver Georgi <oliver@phpwcms.de>
- * @copyright Copyright (c) 2002-2014, Oliver Georgi
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2016, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.de
+ * @link http://www.phpwcms.org
  *
  **/
 
@@ -621,7 +621,7 @@ $BL['be_admin_tmpl_nolayout']           = '&iexcl;No hay composici&oacute;n de p
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'Buscar';
 $BL['be_cnt_results']                   = 'Resultados';
-$BL['be_cnt_results_per_page']          = 'Por&nbsp;p&aacute;gina (si está vac&iacute;o mostrar todo)';
+$BL['be_cnt_results_per_page']          = 'Por&nbsp;p&aacute;gina (si estÃ¡ vac&iacute;o mostrar todo)';
 $BL['be_cnt_opennewwin']                = 'Abrir nueva ventana';
 $BL['be_cnt_searchlabeltext']           = 'Estos son textos y valores predefinidos para el formulario de b&uacute;squeda y para los resultados.';
 $BL['be_cnt_input']                     = 'Input';
@@ -647,11 +647,10 @@ $BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'Visible s&oacute;lo para usuarios registrados';
-$BL['be_admin_struct_status']           = 'Estado del menú frontend';
+$BL['be_admin_struct_status']           = 'Estado del menÃº frontend';
 
 // added: 15-02-2004
 $BL['be_ctype_articlemenu']				= 'article menu';
 $BL['be_cnt_sitelevel']					= 'site level';
 $BL['be_cnt_sitecurrent']				= 'current site level';
 
-?>
