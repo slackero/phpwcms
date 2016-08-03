@@ -122,6 +122,33 @@ if (!defined('PHPWCMS_ROOT')) {
 			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=messages&p=4';return false;" />
 		</td>
 	</tr>
+<!-- pwmod: List send newsletter -->
+	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
+	<tr>
+		<td align="right" class="chatlist" valign="top" style="padding-top: 4px;"><?php echo $BL['be_msg_senttop']; ?>&nbsp;</td>
+		<td><table border="0" cellpadding="2" cellspacing="0" summary="">
+			<?php
+	//retrieve send newsletter
+
+	$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_newsletterqueue ';
+	$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_newsletter ';
+	$sql .= 'ON '.DB_PREPEND.'phpwcms_newsletterqueue.queue_pid = '.DB_PREPEND.'phpwcms_newsletter.newsletter_id ';
+	$sql .= 'WHERE queue_status = 1 AND queue_rid = ' . $_userInfo['subscriber_data']['address_id'] . ' ORDER BY queue_changed DESC';
+	$_userInfo['newsletter'] = _dbQuery($sql);
+
+	if($_userInfo['newsletter']) {
+		foreach($_userInfo['newsletter'] as $value) {
+			echo '<tr>';
+			echo '<td nowrap="nowrap" valign="top">'. $value['queue_changed'] .'</td>';
+			echo '<td>'. $value['newsletter_subject'] .'</td>';
+			echo '</tr>';
+		}
+	}
+	?>
+
+		</table></td>
+	</tr>
+<!-- pwmod end -->
 
 </table>
 </form>
