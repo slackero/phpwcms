@@ -238,7 +238,8 @@ $(function(){
 });
 
 </script>
-<form action="<?php echo $news->formAction() ?>" method="post" class="free" id="newsform">
+<!-- pwmod add name tag -->
+<form action="<?php echo $news->formAction() ?>" method="post" class="free" id="newsform" name="newsform">
 
 
 	<p class="break filled important">
@@ -567,7 +568,19 @@ $(function(){
 	<p class="space_top">
 		<label><?php echo $BL['be_read_more_link'] ?></label>
 		<input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="text" maxlength="250" title="<?php echo $BL['be_read_more_link'] ?>" />
-	</p>
+	<!-- pwmod add article browser --><a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('articlebrowser.php?opt=1');return false;"><img src="img/famfamfam/sitemap_color.png" alt="" width="16" height="16" border="0" /></a><br></p>
+	<?php
+	if (intval($news->data['cnt_link'])> 0) {
+		$adata = get_article_data($news->data['cnt_link']);
+		echo '<p><label>' . $BL['be_cnt_target'] .'</label>';
+		if (is_array($adata)) {
+			echo '<a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata['article_id'] . '" target="_blank" title="' . $adata['article_title'] . '">' . $adata['article_alias'] . $phpwcms['rewrite_ext'] .'</a>';
+		} else {
+			echo $BL['be_admin_usr_err'];
+		}
+		echo '</p>';
+	}
+	?>
 
 	<p>
 		<label>URL <?php echo $BL['be_admin_page_text'] ?></label>
