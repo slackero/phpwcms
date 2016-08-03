@@ -15,7 +15,19 @@ if (!defined('PHPWCMS_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
+//pwmod: reCAPTCHA theme white loading
+include_once (PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php');
+include_once(PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php');
 
+$cnt_form['recaptcha'] = array(
+	'public_key' => empty($_POST["public_key"]) ? get_user_rc('pu') : $_POST["public_key"],
+	'private_key' => empty($_POST["private_key"]) ? get_user_rc('pr') : $_POST["private_key"],
+	'lang' => empty($_POST["lang"]) ? $phpwcms['default_lang'] : $_POST["lang"],
+	'theme' => empty($_POST["theme"]) ? 'white' : $_POST["theme"],
+	'tabindex' => empty($_POST["tabindex"]) ? 0 : $_POST["tabindex"],
+	'error' => 'NULL'
+);
+//pwmod end 
 
 //newsletter subscription
 
@@ -66,9 +78,31 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 	$content["newsletter"]["email_name"]			= clean_slweg(remove_unsecure_rptags($_POST["newsletter_name"]), 250);
 	$content["newsletter"]["email_subscription"]	= isset($_POST["email_subscription"]) && is_array($_POST["email_subscription"]) ? $_POST["email_subscription"] : array(0 => 0);
 
+	//pwmod: check empty form and reCAPTCHA	
+	if(!empty($_POST['newsletter_name']) && !empty($_POST['newsletter_email'])) {
+		$POST_DO = true;
+	} else {
+		$POST_DO = false;
+	}
+	if($POST_DO && isset($_POST['recaptcha_response_field']) && isset($_POST['recaptcha_challenge_field'])) {
+		//echo get_user_rc('pu').$cnt_form['recaptcha']['private_key'];	
+		$cnt_form['recaptcha']['response'] = recaptcha_check_answer($cnt_form['recaptcha']['private_key'], $_SERVER["REMOTE_ADDR"], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+	
+		if(!$cnt_form['recaptcha']['response']->is_valid) {
+			$recaptcha_error = $cnt_form['recaptcha']['response']->error;
+		}
+	}
+	if(!is_valid_email($content["newsletter"]["email_address"])) {
+		$content["newsletter"]["email_address_error"] = 1;
+	}	
+	//pwmod end 
+	
 	if(empty($content["newsletter"]["url1"])) $content["newsletter"]["url1"] = '';
 	if(empty($content["newsletter"]["url2"])) $content["newsletter"]["url2"] = '';
 
+	//pwmod: error when no entry and recaptcha wrong 
+	if($POST_DO && !$recaptcha_error) {
+	//pwmod end 
 	if(is_valid_email($content["newsletter"]["email_address"])) {
 		//Success
 		$content["newsletter"]["success"] = 1;
@@ -91,6 +125,9 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 			"address_url2="._dbEscape($content["newsletter"]["url2"])." ".
 			"WHERE address_id="._dbEscape($content["newsletter"]["reffering_id"]);
 			$content["newsletter"]["updated"] = 1;
+			//pwmod: Eintrag Logfile Subscription update
+			log_message('1', aporeplace($content["newsletter"]["email_name"])."::".aporeplace($content["newsletter"]["email_address"]), aporeplace($content["newsletter"]["reffering_id"]));
+			//pwmod end
 		} else {
 			$content["newsletter"]["reffering_key"] = preg_replace('/[^a-z0-9]/i', '', shortHash($content["newsletter"]["email_address"].time()) );
 			//if email not exists in newsletter address list insert entry
@@ -103,6 +140,9 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 			_dbEscape($content["newsletter"]["url1"]).", ".
 			_dbEscape($content["newsletter"]["url2"]).")";
 			$content["newsletter"]["updated"] = 0;
+			//pwmod: Eintrag Logfile Subscription insert
+			log_message('2', aporeplace($content["newsletter"]["email_name"])."::".aporeplace($content["newsletter"]["email_address"]), 0);
+			//pwmod end
 		}
 		mysql_query($e_sql, $db);
 		$content["newsletter"]["verify_link"] = PHPWCMS_URL."verify.php?s=".rawurlencode($content["newsletter"]["reffering_key"]);
@@ -179,7 +219,9 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 		//Error
 		$content["newsletter"]["email_address_error"] = 1;
 	}
-
+	//pwmod: end check
+	}
+	//pwmod end
 	$content["newsletter"]["email_address"] = html_specialchars($content["newsletter"]["email_address"]);
 	$content["newsletter"]["email_name"] = html_specialchars($content["newsletter"]["email_name"]);
 }
@@ -272,7 +314,11 @@ if($content["newsletter"]["success"]) {
 
 		}
 
-		if($content["newsletter"]['c']) {
+		//pwmod: if only 1 subsribtion selected tnen checkbox hidden
+		if ($content["newsletter"]['c'] == 1) {
+			$CNT_TMP .= '<input name="email_subscription['.$nlkey.']" id="email_subscription['.$nlkey.']" type="hidden" value="'.$nlkey.'" />';
+		} else if($content["newsletter"]['c']) {
+			//pwmod end
 
 			$CNT_TMP .= "<tr>\n<td class=\"formLabel subscriptions\">";
 			$CNT_TMP .= empty($content["newsletter"]["label_subscriptions"]) ? 'subscribe&nbsp;to:' : $content["newsletter"]["label_subscriptions"];
@@ -283,7 +329,50 @@ if($content["newsletter"]["success"]) {
 		}
 
 	}
-
+	$form_field  = '';
+	//pwmod: reCAPTCHA
+	if ($content["newsletter"]["recaptcha"] == 1) {
+		$POST_DO = true;
+	
+		$cnt_form['recaptcha'] = array(
+			'site_key' => $phpwcms['recaptcha_pu'],
+			'secret_key' => $phpwcms['recaptcha_pr'],
+			'lang' => $phpwcms['default_lang'],
+			'theme' => 'light',
+			'type' => 'image',
+			'error' => NULL
+		);
+		
+		$reCaptcha = new ReCaptcha($cnt_form['recaptcha']['secret_key']);
+		
+		if($POST_DO && isset($_POST['g-recaptcha-response'])) {
+		
+			$cnt_form['recaptcha']['response'] = $reCaptcha->verifyResponse(
+				getRemoteIP(),
+				$_POST['g-recaptcha-response']
+			);
+		
+			if(empty($cnt_form['recaptcha']['response']->success)) {
+				if(is_array($cnt_form['recaptcha']['response']->errorCodes) && count($cnt_form['recaptcha']['response']->errorCodes)) {
+					$cnt_form['recaptcha']['error']	= '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']->errorCodes).'@@';
+				} else {
+					$cnt_form['recaptcha']['error'] = 'reCaptcha @@failed@@';
+				}
+				$POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+				$cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
+			}
+		}
+		//
+		$form_field  = '<tr><td><div class="g-recaptcha"';
+		$form_field .= ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
+		$form_field .= ' data-theme="'.$cnt_form['recaptcha']['theme'].'"';
+		$form_field .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
+		$form_field .= '></div>';
+		$form_field .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://www.google.com/recaptcha/api.js?hl='.$cnt_form['recaptcha']['lang'].'"></script>';
+		$form_field .= '</td></tr>';
+	}
+	//pwmod: recapcha
+	$CNT_TMP .= $form_field;
 
 	$CNT_TMP .= '<tr><td'.$label_pos_colspan.'>'.spacer(1,3)."</td></tr>\n<tr>";
 	if(!$label_pos) {
