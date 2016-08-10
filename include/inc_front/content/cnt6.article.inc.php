@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -23,20 +23,21 @@ if (!defined('PHPWCMS_ROOT')) {
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/html.tmpl')) {
 
-	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/html.tmpl') );
-	
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/html.tmpl') );
+
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/html/'.$crow["acontent_template"])) {
 
-	$crow["acontent_template"]	= render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/html/'.$crow["acontent_template"]) );
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/html/'.$crow["acontent_template"]) );
 
 } else {
 
-	$crow["acontent_template"]	= '[TITLE]<h3>{TITLE}</h3>'.LF.'[/TITLE][SUBTITLE]<h4>{SUBTITLE}</h4>'.LF.'[/SUBTITLE][HTML]{HTML}[/HTML]';
+    $crow["acontent_template"] = '[TITLE]<h3>{TITLE}</h3>'.LF.'[/TITLE][SUBTITLE]<h4>{SUBTITLE}</h4>'.LF.'[/SUBTITLE][HTML]{HTML}[/HTML]';
 
 }
 
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
-$crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'HTML', $crow['acontent_html']);
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'HTML', $crow['acontent_html']);
+$crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
 
 $CNT_TMP .= LF.$crow["acontent_template"].LF;

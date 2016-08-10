@@ -62,5 +62,6 @@ if(count($crow['bullets'])) {
 }
 
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BULLETLIST', $crow['bulletlist_items']);
+$crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
 
 $CNT_TMP .= $crow["acontent_template"];

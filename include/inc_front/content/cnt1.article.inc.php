@@ -40,7 +40,6 @@ $crow["settings"]			= parse_ini_str($crow["settings"], false);
 $crow["acontent_template"]	= replace_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
 $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
-$crow["acontent_template"]  = str_replace('{ID}', $crow["acontent_id"], $crow["acontent_template"]);
 
 $crow['is_imagetext']		= strpos($crow["acontent_template"], '{IMAGETEXT}') !== false ? true : false;
 $crow['has_image']			= false;
@@ -293,6 +292,7 @@ if($crow['is_imagetext']) {
 	$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CLASS', $crow['imagetext_class']);
 	$crow["acontent_template"] = str_replace('{IMAGE_WIDTH}', $crow["settings"]['width'], $crow["acontent_template"]);
 	$crow["acontent_template"] = str_replace('{IMAGE_HEIGHT}', $crow["settings"]['width'], $crow["acontent_template"]);
+	$crow["acontent_template"] = str_replace('{ID}', $crow["acontent_id"], $crow["acontent_template"]);
 
 	$CNT_TMP .= render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_text"]);
 }

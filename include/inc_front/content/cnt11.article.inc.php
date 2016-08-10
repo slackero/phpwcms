@@ -44,6 +44,7 @@ if($crow["acontent_text"]) {
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CODE', $crow["acontent_text"]);
+$crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
 
 $CNT_TMP .= $crow["acontent_template"];
 

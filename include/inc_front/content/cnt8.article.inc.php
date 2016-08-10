@@ -718,6 +718,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
     // render title
     $content['alink'] = render_cnt_template($content['alink'], 'TITLE', html_specialchars($crow['acontent_title']));
     $content['alink'] = render_cnt_template($content['alink'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+    $content['alink'] = str_replace('{ID}', $crow["acontent_id"], $content['alink']);
 
     $CNT_TMP .= $content['alink'];
 

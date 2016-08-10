@@ -234,5 +234,6 @@ $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'CAPTION', $content['reference']['ref_caption']);
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'LIST', $content['reference']['ref_list']);
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'REF', $content['reference']['ref_image']);
+$content['reference']["tmpl"] = str_replace('{ID}', $crow['acontent_id'], $content['reference']["tmpl"]);
 
 $CNT_TMP .= $content['reference']["tmpl"];
