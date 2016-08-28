@@ -53,7 +53,7 @@ if ($action == 'form') {
   $sql =  "SELECT DISTINCT phpwcms_article.article_title, phpwcms_article.article_id, phpwcms_articlecontent.acontent_id FROM ".DB_PREPEND."phpwcms_articlecontent ";
   $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
   $sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-  $sql .= "WHERE acontent_type="._dbEscape($ctnid)." AND acontent_trash=0 AND article_deleted = 0 AND acontent_visible = 1 AND ";
+  $sql .= "WHERE acontent_type="._dbEscape($ctnid)." AND acontent_trash=0 AND article_deleted = 0 AND ";
   if ($ctnid == '8') {
     $sql .= " acontent_form like '%".$ctntemplate."%'";
   } else {

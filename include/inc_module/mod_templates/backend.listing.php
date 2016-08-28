@@ -34,36 +34,36 @@ $GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink('include/inc_j
 $wcs_content_templates = array(
      0 => 'plaintext',
      6 => 'html',
-    14 => 'wysywig',
+    14 => 'wysiwyg',
     11 => 'code',
      1 => 'imagetext',
     29 => 'images',
     31 => 'imagespecial',
     32 => 'tabs',
-     2 => '',
+     2 => 'imagetable',
      4 => 'bulletlist',
-   100 => '',
-     3 => 'linkemail',
+   100 => '', //ullist
+     3 => '', //linkemail
      5 => 'linklist',
      8 => 'teaser',
     33 => 'news',
-    15 => '',
+    15 => '', //articlemenu
      9 => 'multimedia',
      7 => 'filelist',
-    16 => '',
-    23 => '',
-    10 => '',
-    12 => 'newsletter',
+    16 => '', //ecard
+    23 => '', //simpleform/formular
+    10 => '', //emailform
+    12 => '', //newsletter
     13 => 'search',
     18 => 'guestbook',
-    19 => '',
-    21 => '',
+    19 => '', //sitemap
+    21 => '', //pages/ext.content
     22 => 'rssfeed',
-    50 => 'reference',
+    50 => 'reference',  //bilderwechsel
     51 => 'map',
-    52 => '',
-    24 => '',
-    89 => '',
+    52 => '', //phpvar
+    24 => '', //alias
+    89 => '', //poll
     26 => 'recipe',
     27 => 'faq',
     28 => 'felogin',
@@ -74,7 +74,7 @@ $wcs_content_templates = array(
 $wcs_content_templates_default = array(
      0 => 'plaintext.tmpl',
      6 => 'html.tmpl',
-    14 => 'wysywig.tmpl',
+    14 => 'wysiwyg.tmpl',
     11 => 'code.tmpl',
      1 => 'imagetext.tmpl',
     29 => 'images.tmpl',
@@ -106,7 +106,7 @@ $wcs_content_templates_default = array(
     89 => '',
     26 => '',
     27 => '',
-    28 => 'felogin.tmpl',
+    28 => 'fe_login.tmpl',
     25 => 'flashplayer.tmpl'
 );
 
@@ -131,10 +131,12 @@ if ($fcopy["src"] && $fcopy["target"]) {
 
 //delete template
 if ($fdelete["src"] && $action == 'delete') { 
-  if (unlink (PHPWCMS_TEMPLATE.$fdelete["src"])) {
-    echo '<div class="alert-success" id="msgbox">'.$fdelete["src"] .$BLM['deleted_msg'].'</div>';
-  } else {
-    echo '<div class="alert-danger" id="msgbox">'.$fdelete["src"] .$BLM['deleted_msg_error'].'</div>';
+  if (file_exists (PHPWCMS_TEMPLATE.$fdelete["src"])) {
+    if (unlink (PHPWCMS_TEMPLATE.$fdelete["src"])) {
+      echo '<div class="alert-success" id="msgbox">'.$fdelete["src"] .$BLM['deleted_msg'].'</div>';
+    } else {
+      echo '<div class="alert-danger" id="msgbox">'.$fdelete["src"] .$BLM['deleted_msg_error'].'</div>';
+    }
   }
 }
 //rename template and update records using this template
@@ -235,7 +237,7 @@ function showMenu(imgid, divid) {
 foreach($wcs_content_type as $key => $value):
 
 	// count used CPs so it is easier to decide if needed or not
-	$used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key));
+	$used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent INNER JOIN '.DB_PREPEND.'phpwcms_article ON '.DB_PREPEND.'phpwcms_article.article_id = '.DB_PREPEND.'phpwcms_articlecontent.acontent_aid WHERE acontent_trash=0 AND article_deleted = 0 AND acontent_type='._dbEscape($key));
           
   if ($wcs_content_templates[$key]) {
     echo '<h4>'.html($value).' ('.$used_count.'), [ID:'.$key.'], '.$BLM['label_folder'].': /' . $wcs_content_templates[$key] .'</h4>';
@@ -248,16 +250,32 @@ foreach($wcs_content_type as $key => $value):
     if ($wcs_content_templates_default[$key] || (is_array($tmpllist) && count($tmpllist))) { 
       $output = '<ul>';
       //first get default template
-      $used_template = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key)." AND acontent_template =''");
-      $output .= '<li><img border="0" alt="" src="img/icons/folder_zu.gif"> <label>'.$BLM['label_default'].'</label><ul><li><img border="0" alt="" src="'.$phpwcms['modules'][$module]['dir'].'template/img/page_white_wrench.png" id="menudefaultimg'.$key.'" onmouseover="'."showMenu('#menudefaultimg".$key."','#menudefault".$key."')".'"> '.$wcs_content_templates_default[$key].'('.$used_template.')';
-      //default menu
-      $output .=  '<div id="menudefault'.$key.'" class="p_menu"><ul><li><img onclick="showHtml('."'".PHPWCMS_TEMPLATE.'inc_default/'.$wcs_content_templates_default[$key]."'".')" border="0" alt="'.$BLM['show_code'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/script_code.png" class="hoverimg">'.$BLM['show_code'].'</li>';
-      //if template used show menu row to list articles
-      if ($used_template > 0) {
-        $output .= '<li><img onclick="listctn('."'',".$key.')" border="0" halign="center" alt="'.$BLM['list_files'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/application_view_list.png" class="hoverimg">'.$BLM['list_files'].'</li>';
+      $sqlcount = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent INNER JOIN '.DB_PREPEND.'phpwcms_article ON '.DB_PREPEND.'phpwcms_article.article_id = '.DB_PREPEND.'phpwcms_articlecontent.acontent_aid WHERE acontent_trash=0 AND article_deleted = 0 AND acontent_type='._dbEscape($key);
+      //teaser, rssfeed and reerence templates are stored in acontent_form 
+      if ($key == '8') {
+        $sqlcount .= ' AND acontent_form like '._dbEscape('%alink_template";s:0:%');
+      } elseif ($key == '22' || $key == '26') {
+        $sqlcount .= ' AND acontent_form like '._dbEscape('%template";s:0:%');
+      } elseif ($key == '27') {
+        $sqlcount .= ' AND acontent_form like '._dbEscape('%faq_template";s:0:%'); 
+      } elseif ($key == '50') {
+        $sqlcount .= ' AND acontent_form like '._dbEscape('%tmpl";s:0:%');
+      } else {
+        $sqlcount .= " AND acontent_template = ''";
       }
-      //menu row to copy this default template
-      $output .= '<li><a href="'.TEMPLATE_HREF.'&src=inc_default/'.$wcs_content_templates_default[$key].'&target='. 'inc_cntpart/'.$wcs_content_templates[$key].'/custom.'.$wcs_content_templates_default[$key].'"><img border="0" alt="'.$BLM['file_copy'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/page_copy.png"></a>'.$BLM['file_copy'].'</li></div></li></ul></li>';
+      $used_template = _dbCount($sqlcount);
+      //if we have a default template lets show that
+      if ($wcs_content_templates_default[$key]) {
+        $output .= '<li><img border="0" alt="" src="img/icons/folder_zu.gif"> <label>'.$BLM['label_default'].'</label><ul><li><img border="0" alt="" src="'.$phpwcms['modules'][$module]['dir'].'template/img/page_white_wrench.png" id="menudefaultimg'.$key.'" onmouseover="'."showMenu('#menudefaultimg".$key."','#menudefault".$key."')".'"> '.$wcs_content_templates_default[$key].'('.$used_template.')';
+        //default menu
+        $output .=  '<div id="menudefault'.$key.'" class="p_menu"><ul><li><img onclick="showHtml('."'".PHPWCMS_TEMPLATE.'inc_default/'.$wcs_content_templates_default[$key]."'".')" border="0" alt="'.$BLM['show_code'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/script_code.png" class="hoverimg">'.$BLM['show_code'].'</li>';
+        //if template used show menu row to list articles
+        if ($used_template > 0) {
+          $output .= '<li><img onclick="listctn('."'',".$key.')" border="0" halign="center" alt="'.$BLM['list_files'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/application_view_list.png" class="hoverimg">'.$BLM['list_files'].'</li>';
+        }
+        //menu row to copy this default template
+        $output .= '<li><a href="'.TEMPLATE_HREF.'&src=inc_default/'.$wcs_content_templates_default[$key].'&target='. 'inc_cntpart/'.$wcs_content_templates[$key].'/custom.'.$wcs_content_templates_default[$key].'"><img border="0" alt="'.$BLM['file_copy'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/page_copy.png"></a>'.$BLM['file_copy'].'</li></div></li></ul></li>';
+      }
       
       //if templates are found in custom folder list them
       //rename for teaser (ID:8) excluded. Template is not stored in acontent_template
@@ -265,10 +283,13 @@ foreach($wcs_content_type as $key => $value):
         $output .= '<li><img border="0" alt="" src="img/icons/folder_galleryroot.gif"> <label>'.$BLM['label_custom'].' (/inc_cntpart/'.$wcs_content_templates[$key].')</label><ul>';
         $i=0;
         foreach($tmpllist as $val) {
-          $used_template = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key)." AND acontent_template ='".$val."'");
-          if ($key == '8') {
-            $used_template = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key)." AND acontent_form like '%".$val."%'");
+          $sqlcount = 'SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_articlecontent INNER JOIN '.DB_PREPEND.'phpwcms_article ON '.DB_PREPEND.'phpwcms_article.article_id = '.DB_PREPEND.'phpwcms_articlecontent.acontent_aid WHERE acontent_trash=0 AND article_deleted = 0 AND acontent_type='._dbEscape($key);
+          if ($key == '8' || $key == '22' || $key == '26' || $key == '27' || $key == '50') {
+            $sqlcount .= " AND acontent_form like '%".$val."%'";
+          } else {
+            $sqlcount .= ' AND acontent_template = '._dbEscape($val);
           }
+          $used_template = _dbCount($sqlcount);
           $output .=  '<li><img border="0" alt="" src="'.$phpwcms['modules'][$module]['dir'].'template/img/page_white_wrench.png" id="menucustomimg'.$key.'-'.$i.'" onmouseover="'."showMenu('#menucustomimg".$key.'-'.$i."','#menucustom".$key.'-'.$i."')".'">'.html($val).' ('.$used_template.')';
           //custom menu
           $output .=  '<div id="menucustom'.$key.'-'.$i.'" class="p_menu"><ul><li><img onclick="showHtml('."'".$path.'/'.$val."'".')" border="0" alt="'.$BLM['show_code'].'" src="'.$phpwcms['modules'][$module]['dir'].'template/img/script_code.png" class="hoverimg">'.$BLM['show_code'].'</li>';
