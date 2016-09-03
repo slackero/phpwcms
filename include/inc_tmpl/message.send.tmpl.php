@@ -36,9 +36,8 @@ if(isset($_GET["msg"]) && intval($_GET["msg"]) && empty($_POST['msg_send_aktion'
 	}
 	if($msg) {
 		$sql =	"SELECT *, DATE_FORMAT(phpwcms_message.msg_tstamp, '%b %e, %Y (%H:%i)') AS send_date ".
-				"FROM ".DB_PREPEND."phpwcms_message INNER JOIN ".DB_PREPEND."phpwcms_user ON ".
-				DB_PREPEND."phpwcms_message.msg_from=".DB_PREPEND."phpwcms_user.usr_id WHERE ".DB_PREPEND."phpwcms_message.msg_uid=".$_SESSION["wcs_user_id"].
-				" AND ".DB_PREPEND."phpwcms_message.msg_id=".$msg." LIMIT 1;";
+				"FROM ".DB_PREPEND."phpwcms_message m INNER JOIN ".DB_PREPEND."phpwcms_user u ON m.msg_from=u.usr_id WHERE m.msg_uid=".$_SESSION["wcs_user_id"].
+				" AND m.msg_id=".$msg." LIMIT 1;";
 		if($result = mysql_query($sql, $db)) {
 			if($msgdetail = mysql_fetch_array($result)) {
 				$msg_subject = $BL['be_msg_RE'].": ".$msgdetail["msg_subject"];

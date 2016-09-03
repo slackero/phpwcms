@@ -130,10 +130,10 @@ if (!defined('PHPWCMS_ROOT')) {
 			<?php
 	//retrieve send newsletter
 
-	$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_newsletterqueue ';
-	$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_newsletter ';
-	$sql .= 'ON '.DB_PREPEND.'phpwcms_newsletterqueue.queue_pid = '.DB_PREPEND.'phpwcms_newsletter.newsletter_id ';
-	$sql .= 'WHERE queue_status = 1 AND queue_rid = ' . $_userInfo['subscriber_data']['address_id'] . ' ORDER BY queue_changed DESC';
+	$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_newsletterqueue nlq ';
+	$sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_newsletter nl ';
+	$sql .= 'ON nlq.queue_pid = nl.newsletter_id ';
+	$sql .= 'WHERE nlq.queue_status = 1 AND nlq.queue_rid = ' . $_userInfo['subscriber_data']['address_id'] . ' ORDER BY nlq.queue_changed DESC';
 	$_userInfo['newsletter'] = _dbQuery($sql);
 
 	if($_userInfo['newsletter']) {
