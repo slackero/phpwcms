@@ -63,6 +63,7 @@ gallery_filecenter_info = 1
 			<a href="img/cmsimage.php/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
 				<img src="img/cmsimage.php/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
 			</a>
+			<!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px and {IMAGE_HASH} -->
 		[/ZOOM]
 	[/IMAGE]
 	[NEWS_TEASER]{NEWS_TEASER}[/NEWS_TEASER]
@@ -77,7 +78,7 @@ gallery_filecenter_info = 1
 			<div class="image-gallery-item">
 				<!-- Zoom -->
 				<a href="img/cmsimage.php/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
-					<!-- Thumbnail -->
+					<!-- Thumbnail --><!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px -->
 					<img src="img/cmsimage.php/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
 				</a>
 			</div>

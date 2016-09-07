@@ -489,6 +489,35 @@ if($news['template']) {
                 if($value['cnt_object']['cnt_image']['ext']) {
                     $value['cnt_object']['cnt_image']['ext'] = '.' . $value['cnt_object']['cnt_image']['ext'];
                 }
+
+                if(preg_match_all('/{IMAGE_(HASH|WIDTH|HEIGHT)}/', $news['entries'][$key], $matches)) {
+
+                    $content['images']['news'][ $value['cnt_object']['cnt_image']['id'] ]['details'] = getFileDetails($value['cnt_object']['cnt_image']['id']);
+
+                    if($content['images']['news'][ $value['cnt_object']['cnt_image']['id'] ]['details'] !== null) {
+
+                        if(count($matches[0]) > 1 || $matches[1][0] !== 'HASH') {
+                            $newsimage_file = PHPWCMS_STORAGE . $content['images']['news'][ $value['cnt_object']['cnt_image']['id'] ]['details']['f_hash'];
+                            if($content['images']['news'][ $value['cnt_object']['cnt_image']['id'] ]['details']['f_ext']) {
+                                $newsimage_file .= '.' . $content['images']['news'][ $value['cnt_object']['cnt_image']['id'] ]['details']['f_ext'];
+                            }
+                            if(is_file($newsimage_file) && ($newsimage_file_detail = @getimagesize($newsimage_file))) {
+                                $news['entries'][$key] = str_replace('{IMAGE_WIDTH}', $newsimage_file_detail[0], $news['entries'][$key]);
+                                $news['entries'][$key] = str_replace('{IMAGE_HEIGHT}', $newsimage_file_detail[1], $news['entries'][$key]);
+                            } else {
+                                $news['entries'][$key] = str_replace('{IMAGE_WIDTH}', '0', $news['entries'][$key]);
+                                $news['entries'][$key] = str_replace('{IMAGE_HEIGHT}', '0', $news['entries'][$key]);
+                            }
+                        }
+
+                        $news['entries'][$key] = str_replace('{IMAGE_HASH}', $content['images']['news'][ $value['cnt_object']['cnt_image']['id'] ]['details']['f_hash'], $news['entries'][$key]);
+                    } else {
+                        $news['entries'][$key] = str_replace('{IMAGE_HASH}', '', $news['entries'][$key]);
+                        $news['entries'][$key] = str_replace('{IMAGE_WIDTH}', '0', $news['entries'][$key]);
+                        $news['entries'][$key] = str_replace('{IMAGE_HEIGHT}', '0', $news['entries'][$key]);
+                    }
+
+                }
             }
 
             $news['entries'][$key] = str_replace('{IMAGE_ID}', $value['cnt_object']['cnt_image']['id'], $news['entries'][$key]);
@@ -659,14 +688,29 @@ if($news['template']) {
                                         );
                                     }
 
-                                    $ivalue['tmpl'] = $news['tmpl_gallery_item'];
-                                    $ivalue['tmpl'] = str_replace('{IMAGE_HASH}', $ivalue['f_hash'], $ivalue['tmpl']);
+                                    $ivalue['tmpl'] = str_replace('{IMAGE_HASH}', $ivalue['f_hash'], $news['tmpl_gallery_item']);
                                     $ivalue['tmpl'] = str_replace('{IMAGE_EXT}', $ivalue['f_ext'], $ivalue['tmpl']);
                                     $ivalue['tmpl'] = str_replace('{IMAGE_ID}', $ivalue['f_id'], $ivalue['tmpl']);
                                     $ivalue['tmpl'] = str_replace('{IMAGE_NAME}', $ivalue['f_name'], $ivalue['tmpl']);
 
                                     $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'CAPTION', empty($value['gallery_captions'][$ikey]['caption']) ? '' : html_specialchars($value['gallery_captions'][$ikey]['caption']));
                                     $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'COPYRIGHT', empty($value['gallery_captions'][$ikey]['copyright']) ? '' : html_specialchars($value['gallery_captions'][$ikey]['copyright']));
+
+                                    if(preg_match('/{IMAGE_(WIDTH|HEIGHT)}/', $ivalue['tmpl'])) {
+
+                                        $ivalue['file'] = PHPWCMS_STORAGE . $ivalue['f_hash'];
+                                        if($ivalue['f_ext']) {
+                                            $ivalue['file'] .= '.' . $ivalue['f_ext'];
+                                        }
+                                        if(is_file($ivalue['file']) && ($ivalue['imageinfo'] = @getimagesize($ivalue['file']))) {
+                                            $ivalue['tmpl'] = str_replace('{IMAGE_WIDTH}', $ivalue['imageinfo'][0], $ivalue['tmpl']);
+                                            $ivalue['tmpl'] = str_replace('{IMAGE_HEIGHT}', $ivalue['imageinfo'][1], $ivalue['tmpl']);
+                                        } else {
+                                            $ivalue['tmpl'] = str_replace('{IMAGE_WIDTH}', '0', $ivalue['tmpl']);
+                                            $ivalue['tmpl'] = str_replace('{IMAGE_HEIGHT}', '0', $ivalue['tmpl']);
+                                        }
+
+                                    }
 
                                     $value['cnt_object']['cnt_files']['gallery'] .= $ivalue['tmpl'];
 
