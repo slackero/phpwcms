@@ -73,13 +73,8 @@ if($phpwcms['sitemap_set_default']) {
                 }
 
                 // now add article URL to Google sitemap
-                if(empty($phpwcms['rewrite_url']) || empty($data['article_alias'])) {
-                    $_link = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
-                } else {
-                    $_link = PHPWCMS_URL.rawurlencode($data['article_alias']).PHPWCMS_REWRITE_EXT;
-                }
                 echo '  <url>'.LF;
-                echo '      <loc>'.$_link.'</loc>'.LF;
+                echo '      <loc>'.abs_url(array(), array(), empty($data['article_alias']) ? 'aid='.$data['article_id'] : $data['article_alias']).'</loc>'.LF;
                 echo '      <lastmod>'.$data["article_tstamp"].'</lastmod>'.LF;
                 echo '  </url>'.LF;
 
