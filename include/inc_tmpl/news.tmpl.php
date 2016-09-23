@@ -185,7 +185,7 @@ $(function(){
 	$('#newsform').submit(function(event){
 
 		$("#cnt_category").val($('#as-values-keyword-autosuggest').val());
-		$('#cfile_list').find('option').attr('selected', 'selected');
+		$('#cfile_list option').prop('selected', true);
 
 	});
 
