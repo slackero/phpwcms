@@ -32,7 +32,9 @@ blockquote
 	font-style: italic;
 	font-family: Georgia, Times, "Times New Roman", serif;
 	padding: 2px 0;
-	border: 0 solid #ccc;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
 }
 
 .cke_contents_ltr blockquote
@@ -57,7 +59,7 @@ a
 ol,ul,dl
 {
 	/* IE7: reset rtl list margin. (#7334) */
-	*margin-right: 0;
+	*margin-right: 0px;
 	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
 	padding: 0 40px;
 }
@@ -70,7 +72,7 @@ h1,h2,h3,h4,h5,h6
 
 hr
 {
-	border: 0;
+	border: 0px;
 	border-top: 1px solid #ccc;
 }
 
