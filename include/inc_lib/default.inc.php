@@ -258,6 +258,9 @@ $phpwcms['default_lang']    = strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG']    = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
+    'jquery-3.1'            => 'jQuery 3.1.1',
+    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.0.0',
+    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 & 3.0.0',
     'jquery-3.0'            => 'jQuery 3.1.0',
     'jquery-3.0-migrate'    => 'jQuery 3.1.0 + Migrate 3.0.0',
     'jquery-3.0-migrate-1'  => 'jQuery 3.1.0 + Migrate 1.4.1 & 3.0.0',
