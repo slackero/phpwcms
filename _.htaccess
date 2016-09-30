@@ -47,7 +47,7 @@
     #RewriteBase /subfolder/
 
     # Ignore
-    RewriteRule ^(include|img|template|picture|filearchive|content|robots\.txt|favicon\.ico)($|/) - [L]
+    RewriteRule ^(include|img|template|picture|filearchive|content|setup|robots\.txt|favicon\.ico)($|/) - [L]
     RewriteRule ^index\.php$ - [L]
 
     RewriteCond %{REQUEST_FILENAME} !-f
