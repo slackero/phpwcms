@@ -133,11 +133,12 @@ function write_conf_file($val) {
 
     $conf_file .= "\n// site values\n";
     if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
-        $conf_file .= "\$phpwcms['site'] = 'http://'.\$_SERVER['SERVER_NAME'].'/';";
+        $conf_file .= "\$phpwcms['site'] = '';";
     } else {
         $conf_file .= "\$phpwcms['site'] = '".$val["site"]."';";
     }
-    $conf_file .= " // recommend 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
+
+    $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$phpwcms['site_ssl_mode'] = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0\n";
     $conf_file .= "\$phpwcms['site_ssl_url'] = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$phpwcms['site_ssl_port'] = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
@@ -537,4 +538,24 @@ if(!function_exists('decode_entities')) {
         $trans_tbl = array_flip($trans_tbl);
         return strtr($string, $trans_tbl);
     }
+}
+
+function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {
+    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
+    if($set_protocol) {
+        $protocol = substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://';
+    } else {
+        $protocol = '';
+    }
+    if($enable_port) {
+        $port = intval($_SERVER['SERVER_PORT']);
+        $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':'.$port;
+    } else {
+        $port = '';
+    }
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
+
+    return $protocol . $host;
 }

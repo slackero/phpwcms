@@ -93,7 +93,11 @@ if(defined('CUSTOM_CONTENT_TYPE')) {
 
 }
 
-$phpwcms["site"] = rtrim($phpwcms["site"], '/');
+if($phpwcms["site"] === '') {
+    $phpwcms["site"] = get_url_origin(true);
+} else {
+    $phpwcms["site"] = rtrim($phpwcms["site"], '/');
+}
 if(empty($phpwcms['site_ssl_url'])) {
     $phpwcms['site_ssl_url'] = $phpwcms["site"];
 } else {
@@ -1292,4 +1296,30 @@ function get_user_vmode() {
 
 function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
     $c = ''; foreach(str_split(strval($$g)) as $a) $c.=$e[intval($a)]; return $c;
+}
+
+function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
+    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
+    if($set_protocol) {
+        $protocol = substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://';
+    } else {
+        $protocol = '';
+    }
+    $port = intval($_SERVER['SERVER_PORT']);
+    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':'.$port;
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
+
+    return $protocol . $host;
+}
+
+function get_full_url($use_forwarded_host = false, $set_protocol = true) {
+    return get_url_origin($use_forwarded_host, $set_protocol) . $_SERVER['REQUEST_URI'];
+}
+
+function get_base_url($use_forwarded_host = false, $set_protocol = true) {
+    $script_name = basename($_SERVER['SCRIPT_FILENAME']);
+    $uri_path = explode($script_name, $_SERVER['PHP_SELF'], 2);
+    return rtrim(get_url_origin($use_forwarded_host, $set_protocol) . $uri_path[0], '/');
 }

@@ -25,15 +25,15 @@ $phpwcms['db_version']          = 0;
 $phpwcms['db_timezone']         = ''; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
 
 // site values
-$phpwcms['site']                = 'http://'.$_SERVER['SERVER_NAME'].'/';
+$phpwcms['site']                = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
 $phpwcms['site_ssl_mode']       = 0; // turns the SSL Support of WCMS on (1) or off (0), default value 0
-$phpwcms['site_ssl_url']        = '';  //URL assigned to the SSL Certificate. Recommend 'https://'.$_SERVER['SERVER_NAME'].'/'
-$phpwcms['site_ssl_port']       = 443; //The Port on which you SSL Service serve the secure Sites, default SSL port is 443
+$phpwcms['site_ssl_url']        = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.$_SERVER['SERVER_NAME'].'/'
+$phpwcms['site_ssl_port']       = 443; // The Port on which your SSL Service serve the secure Sites, default SSL port is 443
 
 $phpwcms['admin_name']          = 'Webmaster';
 $phpwcms['admin_user']          = 'admin';
 $phpwcms['admin_pass']          = 'acf977c1cfa27a463246f6963055cb11'; //MD5
-$phpwcms['admin_email']         = 'noreply@'.str_replace(array('www.', 'WWW.', '/'), '', $_SERVER["HTTP_HOST"]);
+$phpwcms['admin_email']         = 'noreply@example.com';
 
 // paths
 $phpwcms['DOC_ROOT']            = $_SERVER['DOCUMENT_ROOT'];
