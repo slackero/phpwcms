@@ -456,10 +456,12 @@ if($news['template']) {
             } else {
                 $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_LIST_LINK', $news['base_href']);
 
+			    $content['pagetitle'] = $value['cnt_title'];
                 $content['opengraph']['type'] = 'article';
                 $content['opengraph']['title'] = $value['cnt_title'];
                 if($value['cnt_opengraph_teasertext']) {
                     $content['opengraph']['description'] = $value['cnt_opengraph_teasertext'];
+                    set_meta('description',$value['cnt_opengraph_teasertext']);
                 }
                 if(!$value['cnt_opengraph']) {
                     $content['opengraph']['support'] = false;
