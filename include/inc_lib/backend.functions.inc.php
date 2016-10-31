@@ -45,17 +45,17 @@ function update_cache() {
 
 function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
     if($do == "chat" && $p == 1) {
-        echo "<script type=\"text/javascript\">\n";
-        echo "document.sendchatmessage.chatmsg.focus();\ndocument.sendchatmessage.chatmsg.value=get_cookie('chatstring');\n";
-        echo "timer = chat_reload(20000);\nfunction chat_reload(zeit) {\n";
-        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php?do=chat&p=1&l=".$chatlist."'\", zeit);\n";
-        echo "return timer;\n}\nfunction restart_reload(timer) {\n";
-        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); }\nreturn timer;\n}\n</script>\n";
+        echo "<script type=\"text/javascript\"> ";
+        echo "document.sendchatmessage.chatmsg.focus(); document.sendchatmessage.chatmsg.value=get_cookie('chatstring');";
+        echo "timer = chat_reload(20000); function chat_reload(zeit) {";
+        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
+        echo "return timer;\n} function restart_reload(timer) {";
+        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>\n";
     }
 }
 
 function forward_to($to, $link, $time=2500) { //Javascript forwarding
-    if($to) echo "<script type=\"text/javascript\">\n setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); \n</script>\n";
+    if($to) echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>\n";
 }
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {

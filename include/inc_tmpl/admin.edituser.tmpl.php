@@ -257,7 +257,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
  	} else {
 
-		echo "<script type=\"text/JavaScript\"> timer=setTimeout(\"self.location.href='phpwcms.php?do=admin'\", 0); </script>";
+		echo "<script type=\"text/JavaScript\"> timer=setTimeout(\"self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=admin'\", 0); </script>";
 
 	}
 }

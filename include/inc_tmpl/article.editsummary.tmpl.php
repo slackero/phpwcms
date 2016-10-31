@@ -773,7 +773,7 @@ $(function(){
 });
 
 function cancelEdit() {
-	document.location.href='phpwcms.php?do=articles<?php echo $article["article_id"] ? '&p=2&s=1&id='.$article["article_id"] : '' ?>';
+	document.location.href='phpwcms.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article["article_id"] ? '&p=2&s=1&id='.$article["article_id"] : '' ?>';
 	return false;
 }
 
