@@ -398,7 +398,7 @@ if($news['template']) {
             }
 
             if($value['cnt_teasertext']) {
-                $value['cnt_opengraph_teasertext'] = $value['cnt_teasertext'];
+                $value['cnt_description'] = $value['cnt_teasertext'];
                 if($news['config']['news_teaser_limit_chars']) {
                     $value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_chars'], $news['config']['news_teaser_limit_ellipse'], 'char');
                 } elseif($news['config']['news_teaser_limit_words']) {
@@ -407,8 +407,10 @@ if($news['template']) {
 
                 if(empty($value['cnt_object']['cnt_textformat']) || $value['cnt_object']['cnt_textformat'] == 'plain') {
                     $value['cnt_teasertext'] = plaintext_htmlencode($value['cnt_teasertext']);
+                    $value['cnt_description'] = plaintext_htmlencode($value['cnt_description']);
                 } elseif($value['cnt_object']['cnt_textformat'] == 'br') {
                     $value['cnt_teasertext'] = br_htmlencode($value['cnt_teasertext']);
+                    $value['cnt_description'] = br_htmlencode($value['cnt_description']);
                 } elseif($value['cnt_object']['cnt_textformat'] == 'markdown') {
                     if(!isset($phpwcms['parsedown_class'])) {
                         require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
@@ -416,17 +418,22 @@ if($news['template']) {
                         $phpwcms['parsedown_class'] = new ParsedownExtra();
                     }
                     $value['cnt_teasertext'] = $phpwcms['parsedown_class']->text($value['cnt_teasertext']);
+                    $value['cnt_description'] = $phpwcms['parsedown_class']->text($value['cnt_description']);
                 } elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
                     if(!isset($phpwcms['textile_class'])) {
                         require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
                         $phpwcms['textile_class'] = new Textile();
                     }
                     $value['cnt_teasertext'] = $phpwcms['textile_class']->TextileThis($value['cnt_teasertext']);
+                    $value['cnt_description'] = $phpwcms['textile_class']->TextileThis($value['cnt_description']);
                 } else {
-                    $value['cnt_teasertext'] = html_specialchars($value['cnt_teasertext']);
+                    $value['cnt_teasertext'] = html($value['cnt_teasertext']);
+                    $value['cnt_description'] = html($value['cnt_description']);
                 }
+
             } else {
                 $value['cnt_opengraph_teasertext'] = '';
+                $value['cnt_description'] = '';
             }
 
             $news['entries'][$key] = str_replace('{ID}', $value['cnt_id'], $news['entries'][$key]);
@@ -454,15 +461,21 @@ if($news['template']) {
 
             // news list link (back)
             } else {
+
                 $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_LIST_LINK', $news['base_href']);
 
                 $content['opengraph']['type'] = 'article';
                 $content['opengraph']['title'] = $value['cnt_title'];
-                if($value['cnt_opengraph_teasertext']) {
-                    $content['opengraph']['description'] = $value['cnt_opengraph_teasertext'];
-                }
                 if(!$value['cnt_opengraph']) {
                     $content['opengraph']['support'] = false;
+                }
+
+                if($value['cnt_description']) {
+                    $content['opengraph']['description'] = preg_replace('/\s+/', ' ', strip_tags($value['cnt_description']));
+                    set_meta('description', $content['opengraph']['description']);
+                }
+                if($value['cnt_title']) {
+                    $content["pagetitle"] = $content["pagetitle"] ? $value['cnt_title'] . $GLOBALS['pagelayout']['layout_title_spacer'] . $content["pagetitle"] : $value['cnt_title'];
                 }
             }
 
