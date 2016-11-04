@@ -446,6 +446,7 @@ if($news['template']) {
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'PLACE', html_specialchars($value['cnt_place']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'PRIO', empty($value['cnt_prio']) ? '' : $value['cnt_prio'] );
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FIRST', $news['row_count'] === 1 ? ' ' : '');
+            $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'LAST', $news['row_count'] === $news['entry_count'] ? ' ' : '');
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TAGS', html_specialchars($value['cnt_object']['cnt_category']));
 
             // news detail link (read)
