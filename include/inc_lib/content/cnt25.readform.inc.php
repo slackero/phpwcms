@@ -70,7 +70,8 @@ $fmp_data = array(
     'fmp_set_preload'           => empty($_POST['fmp_set_preload']) ? 'none' : clean_slweg($_POST['fmp_set_preload']), // auto, none, metadata
 
     'fmp_set_html5only'         => empty($_POST['fmp_set_html5only']) ? 0 : 1,
-    'fmp_set_audio'             => empty($_POST['fmp_set_audio']) ? 0 : 1
+    'fmp_set_audio'             => empty($_POST['fmp_set_audio']) ? 0 : 1,
+    'fmp_set_loop'              => empty($_POST['fmp_set_loop']) ? 0 : 1
 
 );
 

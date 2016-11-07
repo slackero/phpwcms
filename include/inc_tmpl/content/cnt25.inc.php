@@ -60,6 +60,9 @@ if(!isset($fmp_data['fmp_set_html5only'])) {
 if(!isset($fmp_data['fmp_set_audio'])) {
     $fmp_data['fmp_set_audio'] = 0;
 }
+if(!isset($fmp_data['fmp_set_loop'])) {
+    $fmp_data['fmp_set_loop'] = 0;
+}
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -303,6 +306,11 @@ if(!isset($fmp_data['fmp_set_audio'])) {
         <tr>
             <td class="chatlist" align="right"><label for="fmp_set_autostart">Autostart:&nbsp;</label></td>
             <td><input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> /></td>
+        </tr>
+
+        <tr>
+            <td class="chatlist" align="right"><label for="fmp_set_loop">Loop:&nbsp;</label></td>
+            <td><input type="checkbox" name="fmp_set_loop" id="fmp_set_loop" value="1"<?php is_checked(1, $fmp_data['fmp_set_loop']) ?> /></td>
         </tr>
 
         <tr>
