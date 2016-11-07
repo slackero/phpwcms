@@ -224,6 +224,7 @@ if(isset($fmp_data['fmp_template'])) {
         $fmp_data['flashvars']['autoPlay']          = $fmp_data['fmp_set_autostart'] ? 'true' : 'false';
         $fmp_data['flashvars']['controlBackColor']  = '0x' . $fmp_data['fmp_set_bgcolor'];
         $fmp_data['flashvars']['controlColor']      = '0x' . $fmp_data['fmp_set_color'];
+        $fmp_data['flashvars']['loop']              = empty($fmp_data['fmp_set_loop']) ? 'false' : 'true';
 
         if($fmp_data['fmp_img_id'] && isset($fmp_data['preview'])) {
             $fmp_data['flashvars']['teaserURL']     = rawurlencode($fmp_data['preview']);
@@ -359,7 +360,7 @@ if(isset($fmp_data['fmp_template'])) {
             }
 
             // Put Video JS scripts to the body end
-            $block['custom_htmlhead']['video.js'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.' src="' . $phpwcms['video-js'] . 'video.js" charset="utf-8"></script>';
+            $block['custom_htmlhead']['video.js'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.' src="' . $phpwcms['video-js'] . 'video.min.js" charset="utf-8"></script>';
 
             $fmp_data['video_js_attributes'] = 'id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" ';
 
@@ -402,6 +403,9 @@ if(isset($fmp_data['fmp_template'])) {
         }
         if($fmp_data['fmp_set_autostart']) {
             $fmp_data['video_tag']['header'] .= 'autoplay="autoplay" ';
+        }
+        if(!empty($fmp_data['fmp_set_loop'])) {
+            $fmp_data['video_tag']['header'] .= 'loop="loop" ';
         }
 
         $fmp_data['video_tag']['header'] .= 'preload="' . (isset($fmp_data['fmp_set_preload']) ? $fmp_data['fmp_set_preload'] : 'auto') . '">';
