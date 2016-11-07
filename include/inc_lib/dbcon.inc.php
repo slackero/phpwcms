@@ -28,17 +28,24 @@ if($phpwcms["db_pers"] == 1) {
 	$db = @mysql_connect($phpwcms["db_host"], $phpwcms["db_user"], $phpwcms["db_pass"]) or ($is_mysql_error = true);
 }
 
-$is_mysql_error = _dbSelect() ? false : true;
+$is_mysql_error = _dbSelect() ? false : basename($_SERVER["SCRIPT_FILENAME"]);
 
-if($is_mysql_error) {
-	header('Location: '.PHPWCMS_URL.'dbdown.php');
-	exit();
+if($is_mysql_error === false) {
+
+    // set DB to compatible mode
+    // for compatibility issues try to check for MySQL version and charset
+    $phpwcms['db_version'] = _dbInitialize();
+    define('PHPWCMS_DB_VERSION', $phpwcms['db_version']);
+
+} elseif($is_mysql_error !== 'dbdown.php') {
+
+    headerRedirect(PHPWCMS_URL.'dbdown.php', 503, false); // keep session
+
+} else {
+
+    define('PHPWCMS_DB_VERSION', 'unknown');
+
 }
-
-// set DB to compatible mode
-// for compatibility issues try to check for MySQL version and charset
-$phpwcms['db_version'] = _dbInitialize();
-define('PHPWCMS_DB_VERSION', $phpwcms['db_version']);
 
 if(!function_exists('mysql_real_escape_string')) {
 	if(function_exists('mysql_escape_string')) {

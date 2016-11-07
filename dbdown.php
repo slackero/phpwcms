@@ -9,8 +9,19 @@
  *
  **/
 
-// sending system down message and send 503
+$phpwcms = array();
+$basepath = str_replace('\\', '/', dirname(__FILE__));
+require_once $basepath.'/include/config/conf.inc.php';
+require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
+// database accessible again?
+if($is_mysql_error === false) {
+    headerRedirect(PHPWCMS_URL, 302, false); // keep session intact
+}
+
+// sending system down message and send 503
 header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Retry-After: 3600');
 
