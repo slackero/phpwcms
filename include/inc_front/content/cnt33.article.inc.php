@@ -436,7 +436,6 @@ if($news['template']) {
                 $value['cnt_description'] = '';
             }
 
-            $news['entries'][$key] = str_replace('{ID}', $value['cnt_id'], $news['entries'][$key]);
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_SUBTITLE', html_specialchars($value['cnt_subtitle']));
@@ -709,6 +708,7 @@ if($news['template']) {
 
                                     $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'CAPTION', empty($value['gallery_captions'][$ikey]['caption']) ? '' : html_specialchars($value['gallery_captions'][$ikey]['caption']));
                                     $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'COPYRIGHT', empty($value['gallery_captions'][$ikey]['copyright']) ? '' : html_specialchars($value['gallery_captions'][$ikey]['copyright']));
+                                    $ivalue['tmpl'] = render_cnt_template($ivalue['tmpl'], 'FIRST', $value['cnt_object']['cnt_files']['gallery'] === '' ? ' ' : '');
 
                                     if(preg_match('/{IMAGE_(WIDTH|HEIGHT)}/', $ivalue['tmpl'])) {
 
@@ -799,6 +799,8 @@ if($news['template']) {
 
                 $news['total_count']++;
             }
+
+            $news['entries'][$key] = str_replace('{ID}', $value['cnt_id'], $news['entries'][$key]);
 
         }
     }
