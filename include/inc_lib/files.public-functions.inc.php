@@ -41,6 +41,8 @@ function list_public($pid, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
         if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
             $count  = "<img src=\"img/leer.gif\" width=\"2\" height=\"1\"><a href=\"".$zieldatei."&amp;pklapp=".$row["f_id"];
             $count .= "|".$klapp_status."\">".on_off($klapp_status, $dirname, 0)."</a>";
+        } else {
+            $count  = "<img src=\"img/leer.gif\" width=\"13\" height=\"1\">";
         }
 
         //Aufbau der Zeile

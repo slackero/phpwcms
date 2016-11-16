@@ -162,7 +162,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
     <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
-    <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function addFile(obj,text,value) {
             if(obj!=null && obj.options!=null) {
@@ -234,13 +234,13 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         $count  = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0';
         $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
     } else {
-        $count = '';
+        $count = '<img src="img/leer.gif" height="1" width="13" alt="" border="0" />';
     }
 
     // define current directory name
     $current_dirname = $dirname;
 
-    $dirname    =  "<a href=\"filebrowser.php?opt=".$js_aktion."&amp;files=0\" title=\"".$BL['SHOW_FILES']."\">".$dirname."</a>";
+    $dirname    =  "<a href=\"filebrowser.php?opt=".$js_aktion."&amp;files=0\" title=\"".$BL['SHOW_FILES'].'">'.$dirname."</a>";
     $bgcol      = (isset($row["f_id"]) && $row["f_id"] == $_SESSION["imgdir"]) ? ' bgcolor="#FED83F"' : '';
 
     echo '<tr'.$bgcol.'><td colspan="2"><img src="img/leer.gif" height="2" width="1" border="0" alt="" /></td></tr>'.LF; //Abstand vor
@@ -647,7 +647,7 @@ function folder_list($pid, $dbcon, $vor, $zieldatei) {
                 $count  = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="'.$zieldatei."folder=".$row["f_id"];
                 $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
             } else {
-                $count = '';
+                $count = '<img src="img/leer.gif" height="1" width="13" alt="" border="0" />';
             }
 
             $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';

@@ -49,6 +49,8 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, 
         if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
             $count  = '<img src="img/leer.gif" width="2" height="1"><a href="'.$zieldatei."&amp;klapp=".$row["f_id"];
             $count .= '%7C'.$klapp_status.'">'.on_off($klapp_status, $dirname, 0)."</a>";
+        } else {
+            $count  = '<img src="img/leer.gif" width="13" height="1">';
         }
 
         //Aufbau der Zeile

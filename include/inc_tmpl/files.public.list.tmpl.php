@@ -61,7 +61,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
            "ORDER BY ".DB_PREPEND."phpwcms_user.usr_name, ".DB_PREPEND."phpwcms_user.usr_login";
     $result = _dbQuery($sql);
 
-    if(isset($result[0]['f_id'])) {
+    if(isset($result[0]['f_uid'])) {
         $user_counter=0;
         foreach($result as $row) {
             //Prüfen

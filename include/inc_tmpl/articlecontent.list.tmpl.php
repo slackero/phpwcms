@@ -278,11 +278,11 @@ if(!$temp_count) {
                 $sc = 0; $scc = 0; //Sort-Zwischenzähler
                 foreach($result as $row) {
                     $scc++;
-                    if($row[2] == 0) {
+                    if($row['acontent_trash'] == 0) {
                         $sc++;
-                        $sbutton[$sc]["id"]    = $row[0];
-                        $sbutton[$sc]["sort"]  = $row[1];
-                        $sbutton[$sc]["block"] = $row[3];
+                        $sbutton[$sc]["id"]    = $row['acontent_id'];
+                        $sbutton[$sc]["sort"]  = $row['acontent_sorting'];
+                        $sbutton[$sc]["block"] = $row['acontent_block'];
                     }
                 }
             }
