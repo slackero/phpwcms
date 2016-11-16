@@ -9,15 +9,19 @@
  *
  **/
 
-function struct_list ($struct_id, $dbcon, $counter=0) {
-	//Create Listing for Site Structure
-	$struct_id = intval($struct_id);
+//Create Listing for Site Structure
+function struct_list($struct_id, $counter=0) {
+
 	$counter++;
-	$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_struct=".$struct_id." ORDER BY acat_sort;";
-	if($result = mysql_query($sql, $dbcon)) {
-		while($row = mysql_fetch_array($result)) {
-			echo "<tr>\n<td nowrap=\"nowrap\"><img src=\"img/leer.gif\" width=\"15\" height=\"11\"></td>\n";
-			echo "<td class=\"dir\">".html($row["acat_name"])."</td>\n";
+
+	$result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_struct=".intval($struct_id)." ORDER BY acat_sort");
+
+	if(isset($result[0]['acat_id'])) {
+
+		foreach($result as $row) {
+
+			echo "<tr><td nowrap=\"nowrap\"><img src=\"img/leer.gif\" width=\"15\" height=\"11\"></td>";
+			echo "<td class=\"dir\">".html($row["acat_name"])."</td>";
 			echo "<td><img src=\"img/button/add_11x11.gif\" width=\"11\" height=\"11\">";
 			echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\">";
 			echo "<img src=\"img/button/sort_0_1.gif\" width=\"11\" height=\"11\">";
@@ -25,9 +29,10 @@ function struct_list ($struct_id, $dbcon, $counter=0) {
 			echo "<img src=\"img/button/sort_2_1.gif\" width=\"11\" height=\"11\">";
 			echo "<img src=\"img/button/sort_3_1.gif\" width=\"11\" height=\"11\">";
 			echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\">";
-			echo "</td>\n</tr>\n";
-			struct_list ($row["acat_name"], $dbcon, $counter);
+			echo "</td></tr>";
+
+			struct_list($row["acat_name"], $counter);
+
 		}
-		//mysql_free_result($result);
 	}
 }

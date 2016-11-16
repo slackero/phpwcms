@@ -5,8 +5,8 @@ html, body, div {
 body {
 	color: #282F42;
 	background: #C1D2E2 url(../../img/backend/background.jpg) repeat-x;
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 14px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 16px;
 	line-height: 140%;
 }
 .nowrap {
@@ -23,33 +23,31 @@ p {
 	margin: .5em 0;
 }
 .v09 {
-	font-size: 9px;
-	font-weight: normal;
-}
-.v10 {
-	font-size: 10px;
-	font-weight: normal;
-}
-.v11 {
 	font-size: 11px;
 	font-weight: normal;
 }
+.v10 {
+	font-size: 13px;
+	font-weight: normal;
+}
+.v11 {
+	font-size: 14px;
+	font-weight: normal;
+}
 .v12 {
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: normal;
 }
 .v12b {
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: bold;
 }
 h1 {
 	color: #4B6F92;
 	font-weight: normal;
-	font-size: 14pt;
+	font-size: 24px;
 	margin: 15px 0 5px 0;
 	padding: 0;
-	font-family: "Terbuchet MS", Trebuchet, Verdana, Arial, sans-serif;
-	line-height: 95%;
 }
 .title {
 	color: #4B6F92;
@@ -61,7 +59,7 @@ h1 {
 }
 .chatlist, .chatlist a {
 	color: #406C94;
-	font-size: 11px;
+	font-size: 14px;
 }
 .chatlist a:hover {
 	color: #FF572D;
@@ -81,13 +79,13 @@ a:hover {
 	margin: 5px 0 0 0;
 }
 .versioncheck h1 {
-	font-size: 13px;
+	font-size: 16px;
 	margin: 0;
 }
 .navtext, .navtext a:link, .navtext a:visited, .navtext a:active, .navtext a:hover {
 	color: #406C94;
 	font-weight: normal;
-	font-size: 11px
+	font-size: 13px
 }
 .navtext a:hover {
 	text-decoration: underline;
@@ -95,7 +93,7 @@ a:hover {
 .navtexta, .navtexta a:link, .navtexta a:visited, .navtexta a:active, .navtexta a:hover {
 	color: #305270;
 	font-weight: normal;
-	font-size: 11px
+	font-size: 13px
 }
 .navtexta a:hover {
 	text-decoration: underline;
@@ -107,8 +105,8 @@ hr {
 	margin: 10px 0 15px 0;
 }
 input, select, textarea {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 13px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 16px;
 }
 #license {
 	height: 300px;
@@ -123,32 +121,32 @@ input, select, textarea {
 	border: 1px solid #7599BB;
 	margin: 10px 0 20px 0;
 	padding: 10px;
-	font-family: "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", Courier, monospace;
 	font-weight: normal;
 	color: #FF572D;
 }
 #sqlqueries {
-	height: 300px;
+	height: 500px;
 	border: 1px solid #7599BB;
 	margin: 0 0 20px 0;
 	padding: 0;
 	width: 735px;
 }
 #license p {
-	font-family: "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", Courier, monospace;
+	font-size: 14px;
 }
 p.code {
-	font-family: "Courier New", Courier, monospace;
+	font-family: Menlo, "Courier New", Courier, monospace;
 	color: #009900;
 	padding-left: 20px;
 }
 #warning {
 	color: #FFFFFF;
 	background-color: #CC3300;
-	padding: 5px;
+	padding: 10px;
 }
 #warning p {
-	font-size: 11px;
 	padding: 0;
 	margin: 0;
 }
@@ -179,13 +177,10 @@ ol li, ul li {
 	padding: 0;
 }
 
-input[type="text"],
 input[type="submit"],
-input[type="password"],
-select,
+input[type="reset"],
 button {
-	font-size: 16px;
-	font-family: sans-serif;
+	font-size: 18px;
 }
 input[type="text"],
 input[type="password"] {

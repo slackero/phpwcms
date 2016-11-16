@@ -78,7 +78,7 @@ $struct[0]["acat_struct"] = 0;
 echo listmode_edits($listmode, $struct, 0, $indexpage['acat_name'], $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, 0, 0, 0, $child_sort);
 echo "</td></tr>";
 if(!empty($_SESSION["structure"][0])) {
-	struct_list(0, $db, $copy_article_content, $cut_article_content,$copy_id, $copy_article, $cut_id, $cut_article, $listmode);
+	struct_list(0, $copy_article_content, $cut_article_content,$copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 
 ?>

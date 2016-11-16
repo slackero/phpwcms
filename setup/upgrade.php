@@ -36,8 +36,14 @@ require_once PHPWCMS_ROOT.'/setup/inc/upgrade.func.inc.php';
 <link href="inc/install.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 body {
-	padding:	0 15px 15px 15px;
+	padding: 0 15px 15px 15px;
 	margin: 0;
+}
+td.chatlist {
+    vertical-align: top;
+    line-height: 135%;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }
 </style>
 </head>
@@ -89,7 +95,7 @@ body {
         </tr>
         <tr>
           <td align="right" class="chatlist">mysql:&nbsp;</td>
-          <td class="chatlist"><?php echo mysql_get_client_info() ?> (is just client information, server might be different)</td>
+          <td class="chatlist"><?php echo _dbGetClientInfo() ?><br /><em>based on client, server might be different</em></td>
         </tr>
         <tr>
           <td align="right" class="chatlist">path:&nbsp;</td>
@@ -157,21 +163,24 @@ body {
 
 
   <h1>When upgrading from releases older than 1.1.9:</h1>
- <p> There are some deeper changes. After upgrading db frame the following<br />
-  files needs to be processed.<br />
-  1) <a href="upgrade_filestorage.php" target="_blank"><strong>UPGRADE FILESTORAGE</strong></a> (all
-  files will be moved and renamed)<br />
-  2) <a href="upgrade_articleimages.php" target="_blank"><strong>UPGRADE ARTICLE
-    CONTENT IMAGE</strong></a><br />
-  3) <a href="upgrade_articleimagelist.php" target="_blank"><strong>UPGRADE ARTICLE
-CONTENT IMAGELIST</strong></a><br />
- 4) <a href="upgrade_articleimg.php" target="_blank"><strong>UPGRADE ARTICLE
- SUMMARY IMAGE</strong></a></p>
- <h1>When upgrading from releases older than 1.2.9:</h1>
-<p>5) <a href="upgrade_pagelayout.php" target="_blank"><strong>UPGRADE PAGELAYOUT</strong></a></p>
-<h1>When upgrading from releases older than 1.3.1:</h1>
-<p>6) <a href="upgrade_multimedia.php" target="_blank"><strong>UPGRADE CONTENT PART MULTIMEDIA</strong></a></p>
-<p>7) <a href="upgrade_articlealias.php" target="_blank"><strong>UPDATE ARTICLE ALIAS</strong></a></p>
+     <p>
+     There are some deeper changes. After upgrading db frame the following<br />
+      files needs to be processed.<br />
+      1) <a href="upgrade_filestorage.php" target="_blank"><strong>UPGRADE FILESTORAGE</strong></a> (all
+      files will be moved and renamed)<br />
+      2) <a href="upgrade_articleimages.php" target="_blank"><strong>UPGRADE ARTICLE
+        CONTENT IMAGE</strong></a><br />
+      3) <a href="upgrade_articleimagelist.php" target="_blank"><strong>UPGRADE ARTICLE
+    CONTENT IMAGELIST</strong></a><br />
+     4) <a href="upgrade_articleimg.php" target="_blank"><strong>UPGRADE ARTICLE
+     SUMMARY IMAGE</strong></a></p>
+
+     <h1>When upgrading from releases older than 1.2.9:</h1>
+     <p>5) <a href="upgrade_pagelayout.php" target="_blank"><strong>UPGRADE PAGELAYOUT</strong></a></p>
+
+     <h1>When upgrading from releases older than 1.3.1:</h1>
+     <p>6) <a href="upgrade_multimedia.php" target="_blank"><strong>UPGRADE CONTENT PART MULTIMEDIA</strong></a><br />
+     7) <a href="upgrade_articlealias.php" target="_blank"><strong>UPDATE ARTICLE ALIAS</strong></a></p>
 
 <h1>Update old default article end date 2010-12-31, 23:59:59:</h1>
 <p>8) <a href="upgrade_articledate.php" target="_blank"><strong>SET ARTICLE END 2010-12-31, 23:59:59 plus 20 YEARS</strong></a></p>
@@ -188,13 +197,13 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 
 if($do) {
 
-	@mysql_query('SET storage_engine=MYISAM', $db);
+	_dbQuery('SET storage_engine=MYISAM', 'SET');
 
 	if($phpwcms['db_version'] > 40100) {
 		$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
-		@mysql_query($value, $db);
+		_dbQuery($value, 'SET');
 		$value = "SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'");
-		@mysql_query($value, $db);
+		_dbQuery($value, 'SET');
 	}
 
 	$sql_data = read_textfile("update_sql/".$file);
@@ -216,7 +225,9 @@ if($do) {
 				$value = utf8_encode($value);
 			}
 
-			if(!mysql_query($value)) echo '<span class="error">ERROR: '.html_entities(@mysql_error())." -&gt; </span>";
+			if(!@mysqli_query($GLOBALS['db'], $value)) {
+    			echo '<span class="error">ERROR: '.html_entities(_dbError())." -&gt; </span>";
+            }
 			echo html_specialchars($value).";\n";
 		}
 	}
@@ -302,7 +313,7 @@ if(is_dir($dir)) {
     </select></td>
   </tr>
 </table>
-<p style="margin-top:5px;"><strong>SQL queries to be processed:</strong></p>
+<p style="margin-top:15px;"><strong>SQL queries to be processed:</strong></p>
 <iframe name="sqlqueries" id="sqlqueries" frameborder="0" scrolling="auto" src="inc/showsql.php"></iframe>
 <p><input name="submit" type="submit" value="Upgrade database" /></p>
 </form>

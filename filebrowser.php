@@ -34,17 +34,19 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 if( empty($_SESSION["wcs_user_lang"]) ) {
 
     session_destroy();
-    headerRedirect( PHPWCMS_URL );
+    headerRedirect(PHPWCMS_URL, 401);
 
 } else {
 
+    $user_lang = strtolower(substr($_SESSION["wcs_user_lang"], 0, 2));
+
     require PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
     require PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.ext.inc.php';
-    $cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.inc.php';
+    $cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
     if(is_file($cust_lang)) {
         include $cust_lang;
     }
-    $cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.ext.inc.php';
+    $cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.ext.inc.php';
     if(is_file($cust_lang)) {
         include $cust_lang;
     }
@@ -54,13 +56,7 @@ if( empty($_SESSION["wcs_user_lang"]) ) {
 // set target for article summary/list image
 if(isset($_GET['target'])) {
 
-    switch($_GET['target']) {
-
-        case 'list':    $_SESSION['filebrowser_image_target'] = '_list_';
-                        break;
-
-        default:        $_SESSION['filebrowser_image_target'] = '_';
-    }
+    $_SESSION['filebrowser_image_target'] = $_GET['target'] === 'list' ? '_list_' : '_';
 
 } elseif(empty($_SESSION['filebrowser_image_target'])) {
 
@@ -148,11 +144,8 @@ if(isset($_GET["files"])) {
 }
 
 //Does user have files and folders that can be used
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") AND f_trash=0 LIMIT 1";
-if($result = mysql_query($sql, $db) or die ("error while counting private files")) {
-    if($row = mysql_fetch_row($result)) $count_user_files = $row[0];
-    mysql_free_result($result);
-}
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".intval($_SESSION["wcs_user_id"]).") AND f_trash=0";
+$count_user_files = _dbQuery($sql, 'COUNT');
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -234,16 +227,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         $folder[0] = 0;
     }
     $folder_status = true_false($folder[0]);
-    // Change based on Issue 265 by TB to allow file's uploader to select own items
-    $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") LIMIT 1";
 
-    if($count_result = mysql_query($count_sql, $db)) {
-        if($count_row = mysql_fetch_row($count_result)) {
-            $count = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0'.
-                     '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
-            $count_wert = $count_row[0];
-        }
-        mysql_free_result($count_result);
+    $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].")";
+
+    if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
+        $count  = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0';
+        $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
+    } else {
+        $count = '';
     }
 
     // define current directory name
@@ -329,17 +320,15 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     $ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
 
-    if($file_result = mysql_query($file_sql, $db) or die ("error while listing files<br />".html_entities($file_sql))) {
-        $file_durchlauf = 0;
+    $file_result = _dbQuery($file_sql);
 
-        if(empty($_SESSION['image_browser_article'])) {
-            $target_form = 'articlecontent';
-        } else {
-            $target_form = 'article';
-        }
+    if(isset($file_result[0]['f_id'])) {
 
-        while($file_row = mysql_fetch_array($file_result)) {
-            $filename = html_specialchars($file_row["f_name"]);
+        $target_form = (empty($_SESSION['image_browser_article'])) ? 'articlecontent' : 'article';
+
+        foreach($file_result as $file_durchlauf => $file_row) {
+
+            $filename = html($file_row["f_name"]);
 
             $thumb_image = true;
             if( !in_array($js_aktion, array(2, 4, 9, 10, 16, 18)) ) {
@@ -457,16 +446,15 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 }
                 echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\" alt=\"\" border=\"0\" /></td></tr>\n";
                 echo "<tr><td colspan=\"4\" bgcolor=\"#CDDEE4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-                $file_durchlauf++;
             }
 
         }
-        if(!$file_durchlauf) { //Abschluss der Filelisten-Tabelle
+        if(empty($filename)) { //Abschluss der Filelisten-Tabelle
             echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"3\" height=\"2\" alt=\"\" border=\"0\" /></td></tr>\n";
             echo "<tr><td colspan=\"4\" class=\"msglist\">&nbsp;".$BL['NO_FILE']."&nbsp;&nbsp;</td></tr>\n";
             echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"3\" height=\"2\" alt=\"\" border=\"0\" /></td></tr>\n";
         }
-    } //Ende Liste Dateien
+    }
 
     echo "</table>";
 
@@ -629,62 +617,62 @@ $(function() {
 <?php
 
 function folder_list($pid, $dbcon, $vor, $zieldatei) {
+
     global $current_dirname;
+
     $folder = $_SESSION["folder"];
     $pid = intval($pid);
     $userID = intval($_SESSION["wcs_user_id"]);
     $sql = "SELECT f_id, f_name, f_aktiv, f_public FROM ".DB_PREPEND."phpwcms_file WHERE ".
            "f_pid=".intval($pid)." AND f_aktiv=1 AND f_kid=0 AND f_trash=0 AND ".
            "(f_public=1 OR f_uid=".$userID.") ORDER BY f_sort, f_name";
-    $result = mysql_query($sql, $dbcon);
-    while($row = mysql_fetch_array($result)) {
 
-        $dirname = html_specialchars($row["f_name"]);
+    $result = _dbQuery($sql);
 
-        //Ermitteln des Aufolderwertes
-        if(!isset($folder[$row["f_id"]])) $folder[$row["f_id"]] = 0;
-        $folder_status = true_false($folder[$row["f_id"]]);
+    if(isset($result[0]['f_id'])) {
+        foreach($result as $row) {
 
-        //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
-        $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
-                     "f_pid=".$row["f_id"]." AND f_trash=0 AND f_aktiv=1 AND ".
-                     "(f_public=1 OR f_uid=".$userID.") LIMIT 1";
-        if($count_result = mysql_query($count_sql, $dbcon)) {
-            if($count_row = mysql_fetch_row($count_result)) {
-                $count = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="'.$zieldatei."folder=".$row["f_id"].
-                         '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
-                $count_wert = $count_row[0];
+            $dirname = html($row["f_name"]);
+
+            //Ermitteln des Aufolderwertes
+            if(empty($folder[$row["f_id"]])) {
+                $folder[ $row["f_id"] ] = 0;
             }
-            mysql_free_result($count_result);
+            $folder_status = true_false($folder[ $row["f_id"] ]);
+
+            //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
+            $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_trash=0 AND f_aktiv=1 AND (f_public=1 OR f_uid=".$userID.")";
+
+            if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
+                $count  = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="'.$zieldatei."folder=".$row["f_id"];
+                $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
+            } else {
+                $count = '';
+            }
+
+            $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
+
+            if($row["f_id"] == $_SESSION["imgdir"]) {
+                $bgcol = ' bgcolor="#FED83F"';
+                $current_dirname = $row["f_name"];
+            } else {
+                $bgcol = '';
+            }
+
+            echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
+            echo "<tr".$bgcol."><td class=\"msglist\" nowrap=\"nowrap\">";
+            echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\" alt=\"\" /><img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
+            echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" />".$dirname."</td><td><img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" /></td></tr>\n";
+            echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
+            echo "<tr bgcolor=\"#CDDEE4\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
+
+            if(!$folder_status && $count_wert) {
+                folder_list($row["f_id"], $dbcon, $vor+18, $zieldatei);
+            }
+
+            $_SESSION["list_zaehler"]++;
         }
-
-        $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
-
-        if($row["f_id"] == $_SESSION["imgdir"]) {
-            $bgcol = ' bgcolor="#FED83F"';
-            $current_dirname = $row["f_name"];
-        } else {
-            $bgcol = '';
-        }
-
-        //Aufbau der Zeile
-        echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n"; //Abstand vor
-        echo "<tr".$bgcol."><td class=\"msglist\" nowrap=\"nowrap\">";
-        echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\" alt=\"\" /><img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />"; //Zellinhalt 1. Spalte
-        echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" />".$dirname."</td><td><img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" /></td></tr>\n";
-        //Aufbau trennende Tabellen-Zeile
-        echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n"; //Abstand nach
-        echo "<tr bgcolor=\"#CDDEE4\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n"; //Trennlinie<img src='img/lines/line-lightgrey-dotted-538.gif'>
-
-        //Weiter, wenn Unterstruktur
-        if(!$folder_status && $count_wert) {
-            folder_list($row["f_id"], $dbcon, $vor+18, $zieldatei); //, $userID
-        }
-
-        //Zaehler mitführen
-        $_SESSION["list_zaehler"]++;
     }
-    mysql_free_result($result);
 }
 
 function on_off($wert, $string, $art = 1) {
@@ -706,6 +694,6 @@ function on_off($wert, $string, $art = 1) {
 }
 
 function true_false($wert) {
-    //Wechselt den Wahr/Falsch wert zum Gegenteil: 1=>0 und 0=>1
-    if(intval($wert)) { return 0; } else { return 1; }
+    // Swap true / false
+    return intval($wert) ? 0 : 1;
 }

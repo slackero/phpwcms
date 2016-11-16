@@ -31,8 +31,8 @@ $file_tags              = '';
 $file_granted           = 0;
 $file_gallerydownload   = 0;
 $file_sort              = 0;
-$file_title		= '';
-$file_alt		= '';
+$file_title     = '';
+$file_alt       = '';
 
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
@@ -167,9 +167,10 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                 aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
                 aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".
                 $file_gallerydownload.", ".$file_sort.$fileVarsValue.","._dbEscape($file_title).", "._dbEscape($file_alt).")";
+        $result = _dbQuery($sql, 'INSERT');
 
-        if($result = mysql_query($sql, $db) or die("error while insert file information")) {
-            $new_fileId = mysql_insert_id($db); //Festlegen der aktuellen File-ID
+        if(!empty($result['INSERT_ID'])) {
+            $new_fileId = $result['INSERT_ID']; //Festlegen der aktuellen File-ID
             $wcs_newfilename = ($fileExt) ? $fileHash.'.'.$fileExt : $fileHash;
 
             // changed for using hashed file names
@@ -207,7 +208,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
                 echo $file_error["upload"]."<br />";
                 $file_error["upload"] = str_replace('{VAL}', $phpwcms["admin_email"], $BL['be_fprivup_err6']);
-                mysql_query("DELETE FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$new_fileId." AND f_uid=".$_SESSION["wcs_user_id"].";", $db);
+                _dbQuery("DELETE FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$new_fileId." AND f_uid=".$_SESSION["wcs_user_id"], 'DELETE');
 
             }
         }
@@ -231,7 +232,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
         <td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
         <td class="v10"><select name="file_pid" id="file_pid" class="width400">
             <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-            <?php dir_menu(0, $file_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
+            <?php dir_menu(0, $file_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
     </select></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
@@ -373,10 +374,12 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
-    if($result = mysql_query($sql, $db) or die("error while browsing file categories for selecting keywords")) {
+    $result = _dbQuery($sql);
+
+    if(isset($result[0]['fcat_id'])) {
         $k = "";
-        while($row = mysql_fetch_array($result)) {
-            if(get_filecat_childcount ($row["fcat_id"], $db)) {
+        foreach($result as $row) {
+            if(get_filecat_childcount($row["fcat_id"])) {
 
                 $ke = isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
                 $k .= "<tr>\n<td class=\"f10b\">".$ke.html($row["fcat_name"]).":&nbsp;</td>\n";
@@ -384,13 +387,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
-                if($kresult = mysql_query($ksql, $db) or die("error while listing file keywords")) {
-                    while($krow = mysql_fetch_array($kresult)) {
+                $kresult = _dbQuery($ksql);
+                if(isset($kresult[0]['fkey_id'])) {
+                    foreach($kresult as $krow) {
                         $k .= "<option value=\"".$krow["fkey_id"]."\"";
-                        $k .= isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"] ? " selected" : "";
+                        $k .= isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"] ? ' selected="selected"' : '';
                         $k .= ">".html($krow["fkey_name"])."</option>\n";
                     }
-                    mysql_free_result($kresult);
                 }
 
                 $k .= "</select></td>\n</tr>\n";
@@ -398,7 +401,6 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
             }
         }
-        mysql_free_result($result);
     }
 
     ?>

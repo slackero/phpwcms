@@ -60,9 +60,11 @@ if($phpwcms['sitemap_set_default']) {
     $sql .= "article_nositemap=1 AND article_begin < NOW() AND article_end > NOW() ";
     $sql .= "ORDER BY article_tstamp DESC";
 
-    if($result = mysql_query($sql, $db)) {
+    $result = _dbQuery($sql);
 
-        while($data = mysql_fetch_assoc($result)) {
+    if(isset($result[0]['article_id'])) {
+
+        foreach($result as $data) {
 
             // first proof if this article is within an "public" structure section
             if(isset($struct[$data['article_cid']])) {

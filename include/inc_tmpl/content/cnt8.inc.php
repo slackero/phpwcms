@@ -264,23 +264,26 @@ initMootoolsAutocompleter();
 
         $carticle_list = '';
         $carticle_link = $content['alink']['alink_id'];
-        if($result = mysql_query($sql, $db) or die("error while reading complete article/articlecategory list")) {
-            while($row = mysql_fetch_row($result)) {
+
+        $result = _dbQuery($sql);
+
+        if(isset($result[0]['article_id'])) {
+            foreach($result as $row) {
                 $k  = 0;
-                $k1 = $BL['be_cnt_sitelevel'].': '.html($row[2]);
-                if(empty($row[4])) {
-                    $row[2] = $indexpage['acat_name'];
-                    $row[3] = $indexpage['acat_alias'];
+                $k1 = $BL['be_cnt_sitelevel'].': '.html($row['acat_name']);
+                if(empty($row['article_cid'])) {
+                    $row['acat_name'] = $indexpage['acat_name'];
+                    $row['acat_alias'] = $indexpage['acat_alias'];
                 }
-                $alias_add  = ' ('.html($row[2]);
-                if(!empty($row[3])) {
-                    $alias_add .= '/'.html($row[3]);
+                $alias_add  = ' ('.html($row['acat_name']);
+                if(!empty($row['acat_alias'])) {
+                    $alias_add .= '/'.html($row['acat_alias']);
                 }
                 $alias_add .= ')';
                 foreach($content['alink']['alink_id'] as $key => $value) {
 
-                    if($row[0] == $value) {
-                        $carticle_link[$key]  = '<option value="'.$row[0].'" title="'.$k1.'">'.html($row[1]).$alias_add.'</option>'.LF;
+                    if($row['article_id'] == $value) {
+                        $carticle_link[$key]  = '<option value="'.$row['article_id'].'" title="'.$k1.'">'.html($row['article_title']).$alias_add.'</option>'.LF;
                         unset($content['alink']['alink_id'][$key]);
                         $k = 1;
                     }
@@ -290,7 +293,7 @@ initMootoolsAutocompleter();
                 if(!$k) {
 
                     // filter by category
-                    if($content['alink']['filter_category'] !== null && $content['alink']['filter_category'] !== intval($row[4])) {
+                    if($content['alink']['filter_category'] !== null && $content['alink']['filter_category'] !== intval($row['article_cid'])) {
                         continue;
                     }
 
@@ -298,7 +301,7 @@ initMootoolsAutocompleter();
                     if(is_array($content['alink']['filter_tags']) && count($content['alink']['filter_tags'])) {
                         $content['alink']['filter_tags_active'] = false;
                         foreach($content['alink']['filter_tags'] as $_tag) {
-                            if(strpos($row[6], $_tag) !== false) {
+                            if(strpos($row['article_keyword'], $_tag) !== false) {
                                 $content['alink']['filter_tags_active'] = true;
                                 break;
                             }
@@ -308,7 +311,7 @@ initMootoolsAutocompleter();
                         }
                     }
 
-                    $carticle_list .= '<option value="'.$row[0].'" title="'.$k1.'">'.html($row[1]).$alias_add.'</option>'.LF;
+                    $carticle_list .= '<option value="'.$row['article_id'].'" title="'.$k1.'">'.html($row['article_title']).$alias_add.'</option>'.LF;
                 }
             }
         }

@@ -40,7 +40,7 @@ function update_cache() {
     // used to update cache setting all current cache entries
     // will be forced to update cache but will not be deleted
     //$sql = "UPDATE ".DB_PREPEND."phpwcms_cache SET cache_timeout='0'";
-    //mysql_query($sql, $GLOBALS['db']) or die("error while updating cache");
+    //_dbQuery($sql, 'UPDATE');
 }
 
 function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
@@ -143,14 +143,13 @@ function check_image_extension($file, $filename='') {
 }
 
 function getParentStructArray($structID) {
-    $structID   = intval($structID);
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id=".$structID." LIMIT 1";
-    if($result = mysql_query($sql, $GLOBALS['db'])) {
-        if($row = mysql_fetch_assoc($result)) {
-            return $row;
-        }
-        mysql_free_result($result);
+
+    $result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_id=".intval($structID)." LIMIT 1");
+
+    if(isset($result[0]['acat_id'])) {
+        return $result[0];
     }
+
     return $GLOBALS['indexpage'];
 }
 
@@ -159,27 +158,23 @@ function getParentStructArray($structID) {
  */
 function getArticleSortValue($cat_id=0) {
 
-    // default sort value
-    $sort       = 0;
-    $cat_id     = intval($cat_id);
-    $count      = 0;
-    $max_sort   = 0;
     // Count all articles within the given structure ID
     $sql  = "SELECT article_id, article_sort FROM ".DB_PREPEND."phpwcms_article ";
-    $sql .= "WHERE article_cid=".$cat_id." ";
-    $sql .= "ORDER BY article_sort DESC";
-    if($result = mysql_query($sql, $GLOBALS['db'])) {
-        // this is the max articles in structure
-        $count = mysql_num_rows($result);
-        // but neccessary trying to get the highest article sort value
-        if($row = mysql_fetch_assoc($result)) {
-            $max_sort = $row['article_sort'];
-        }
-        mysql_free_result($result);
+    $sql .= "WHERE article_cid=".intval($cat_id)." ORDER BY article_sort DESC";
+
+    $result = _dbQuery($sql);
+
+    if(isset($result[0]['article_id'])) {
+        $count = count($result); // number of articles
+        $max_sort = $result[0]['article_sort']; // get the highest article sort value
+    } else {
+        $count = 0;
+        $max_sort = 0;
     }
+
     $count = ($count + 1) * 10;
-    $count = ($max_sort < $count) ? $count : $max_sort + 10;
-    return $count;
+
+    return ($max_sort < $count) ? $count : $max_sort + 10;
 }
 
 /*
@@ -200,29 +195,30 @@ function getArticleReSorted(& $cat_id, & $ordered_by) {
     $sql .= "FROM ".DB_PREPEND."phpwcms_article ";
     $sql .= "WHERE article_cid='".$cat_id."' ORDER BY ".$ao[2];
 
-    if($result = mysql_query($sql, $GLOBALS['db'])) {
+    $result = _dbQuery($sql);
+
+    if(isset($result[0]['article_id'])) {
 
         // now check if it's sorted manually and DESC
         // then sort has to be lowerd by -10
         if($ao[0] == 0 && $ao[1] == 1) {
-            $max_article_count  = mysql_num_rows($result);
-            $sort               = ($max_article_count + 1) * 10;
-            $sort_multiply_by   = -1;
+            $sort = (count($result) + 1) * 10;
+            $sort_multiply_by = -1;
         }
 
         // take all entries and build new array with it
-        while($row = mysql_fetch_assoc($result)) {
+        foreach($result as $row) {
 
             // SQL update query with new sort value
             $update_sql  = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
             $update_sql .= "article_sort=".$sort.", ";
             $update_sql .= "article_tstamp='".$row['article_tstamp']."' ";
             $update_sql .= "WHERE article_id=".$row['article_id']." LIMIT 1";
-            @mysql_query($update_sql, $GLOBALS['db']);
+            _dbQuery($update_sql, 'UPDATE');
 
             // add entry to the returning array only for article_deleted=0
             // drops all deleted articles or articles having another status
-            if($row['article_deleted'] == 0) {
+            if(!$row['article_deleted']) {
 
                 $article[$count_article]                    = $row;
                 $article[$count_article]['article_sort']    = $sort;
@@ -236,7 +232,6 @@ function getArticleReSorted(& $cat_id, & $ordered_by) {
             $sort = $sort + (10 * $sort_multiply_by);
 
         }
-        mysql_free_result($result);
     }
 
     return $article;
@@ -254,7 +249,9 @@ function phpwcmsversionCheck() {
     global $phpwcms;
     global $BL;
 
-    if(empty($phpwcms['version_check'])) return '';
+    if(empty($phpwcms['version_check'])) {
+        return '';
+    }
 
     $errno          = 0;
     $errstr         = '';
@@ -1224,7 +1221,7 @@ function get_pix_or_percent($val) {
 }
 
 // List private files
-function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
+function dir_menu($pid, $zid, $vor, $userID, $vorzeichen = ":") {
     $pid  = intval($pid);
     $sql  = "SELECT f_id, f_name, f_uid, usr_login FROM ".DB_PREPEND."phpwcms_file f ";
     $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
@@ -1233,20 +1230,21 @@ function dir_menu($pid, $zid, & $dbcon, $vor, $userID, $vorzeichen = ":") {
         $sql .= "f.f_uid=".intval($userID)." AND ";
     }
     $sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_name";
-    $result = mysql_query($sql, $dbcon);
-    while($row = mysql_fetch_row($result)) {
-        $dirname = html($row["1"]);
-        if($_SESSION["wcs_user_id"] != $row[2]) {
-            $dirname .= ' (' . html($row[3]) . ')';
+    $result = _dbQuery($sql);
+    if(isset($result[0]['f_id'])) {
+        foreach($result as $row) {
+            $dirname = html($row['f_name']);
+            if($_SESSION["wcs_user_id"] != $row['f_uid']) {
+                $dirname .= ' (' . html($row['usr_login']) . ')';
+            }
+            echo "<option value='".$row['f_id']."'";
+            if(intval($zid) == $row['f_id']) {
+                echo ' selected="selected"';
+            }
+            echo ">".$vor.' '.$dirname."</option>\n";
+            dir_menu($row['f_id'], $zid, $vor.$vorzeichen, $userID, $vorzeichen);
         }
-        echo "<option value='".$row[0]."'";
-        if(intval($zid) == $row[0]) {
-            echo " selected";
-        }
-        echo ">".$vor.' '.$dirname."</option>\n";
-        dir_menu($row["0"], $zid, $dbcon, $vor.$vorzeichen, $userID, $vorzeichen);
     }
-    mysql_free_result($result);
     return $vor;
 }
 

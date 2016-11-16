@@ -96,11 +96,8 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
 
     if(empty($file_name)) {
         $file_error["name"] = 1;
-    } else {
-        // Extend filename by extension
-        if(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) {
-            $file_name .= ".".$file_ext;
-        }
+    } elseif(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) {
+        $file_name .= ".".$file_ext;
     }
 
     if(empty($file_error)) {
@@ -125,12 +122,14 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
                 if(empty($_SESSION["wcs_user_admin"])) {
                     $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
                 }
-        if($result = mysql_query($sql, $db)) {
+
+        $result = _dbQuery($sql, 'UPDATE');
+
+        if(!empty($result['AFFECTED_ROWS'])) {
 
             // store tags
             _dbSaveCategories($file_tags, 'file', $file_id, ',');
 
-            //headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
         } else {
 
             $file_error["save_failed"] = 1;
@@ -147,64 +146,64 @@ if($file_id) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     $sql .= " AND f_trash=0 AND f_kid=1 LIMIT 1";
-    if($result = mysql_query($sql, $db) or die("error while reading file information")) {
-        if($row = mysql_fetch_array($result)) {
-            $file_oldname   = html($row["f_name"]);
-            $file_created   = intval($row["f_created"]);
-            $file_size      = intval($row["f_size"]);
-            $file_id        = $row["f_id"];
-            $file_ext       = $row["f_ext"];
-            $file_hash      = $row["f_hash"];
+    $result = _dbQuery($sql);
 
-            if(empty($_POST["file_aktion"]) || intval($_POST["file_aktion"]) != 2) {
-                $file_pid               = $row["f_pid"];
-                $file_name              = $row["f_name"];
-                $file_aktiv             = $row["f_aktiv"];
-                $file_public            = $row["f_public"];
-                $file_shortinfo         = $row["f_shortinfo"];
-                $file_longinfo          = $row["f_longinfo"];
-                $file_keys              = $row["f_keywords"];
-                $file_copyright         = $row["f_copyright"];
-                $file_tags              = $row["f_tags"];
-                $file_granted           = $row["f_granted"];
-                $file_gallerydownload   = $row["f_gallerystatus"];
-                $file_sort              = $row["f_sort"];
-                $file_vars              = @unserialize($row['f_vars']);
-                $file_title             = $row["f_title"];
-                $file_alt               = $row["f_alt"];
+    if(isset($result[0]['f_id'])) {
+        $row = $result[0];
 
-                if($file_keys) {
-                    $file_keys_temp = explode(":", $file_keys);
-                    if(count($file_keys_temp)) {
-                        $file_keywords = array();
-                        foreach($file_keys_temp as $value) {
-                            list($k1, $k2) = explode("_", $value);
-                            $file_keywords[intval($k1)] = intval($k2);
-                        }
+        $file_oldname   = html($row["f_name"]);
+        $file_created   = intval($row["f_created"]);
+        $file_size      = intval($row["f_size"]);
+        $file_id        = $row["f_id"];
+        $file_ext       = $row["f_ext"];
+        $file_hash      = $row["f_hash"];
+
+        if(empty($_POST["file_aktion"]) || intval($_POST["file_aktion"]) != 2) {
+            $file_pid               = $row["f_pid"];
+            $file_name              = $row["f_name"];
+            $file_aktiv             = $row["f_aktiv"];
+            $file_public            = $row["f_public"];
+            $file_shortinfo         = $row["f_shortinfo"];
+            $file_longinfo          = $row["f_longinfo"];
+            $file_keys              = $row["f_keywords"];
+            $file_copyright         = $row["f_copyright"];
+            $file_tags              = $row["f_tags"];
+            $file_granted           = $row["f_granted"];
+            $file_gallerydownload   = $row["f_gallerystatus"];
+            $file_sort              = $row["f_sort"];
+            $file_vars              = @unserialize($row['f_vars']);
+            $file_title             = $row["f_title"];
+            $file_alt               = $row["f_alt"];
+
+            if($file_keys) {
+                $file_keys_temp = explode(":", $file_keys);
+                if(count($file_keys_temp)) {
+                    $file_keywords = array();
+                    foreach($file_keys_temp as $value) {
+                        list($k1, $k2) = explode("_", $value);
+                        $file_keywords[intval($k1)] = intval($k2);
                     }
                 }
             }
-
-            if(isset($row["f_hash"])) {
-                $thumb_image = get_cached_image(array(
-                    'max_width'     => 420,
-                    'max_height'    => 420,
-                    "target_ext"    => $row["f_ext"],
-                    "image_name"    => $row["f_hash"] . '.' . $row["f_ext"],
-                    "thumb_name"    => md5($row["f_hash"].'420250'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-                ));
-
-                if($thumb_image != false) {
-                    $file_thumb_small = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" style="border: 1px solid #9BBECA;background:#F5F8F9;" />';
-                }
-            }
-
-            $ja = 1;
         }
-        mysql_free_result($result);
+
+        if(isset($row["f_hash"])) {
+            $thumb_image = get_cached_image(array(
+                'max_width'     => 420,
+                'max_height'    => 420,
+                "target_ext"    => $row["f_ext"],
+                "image_name"    => $row["f_hash"] . '.' . $row["f_ext"],
+                "thumb_name"    => md5($row["f_hash"].'420250'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+            ));
+
+            if($thumb_image != false) {
+                $file_thumb_small = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" style="border: 1px solid #9BBECA;background:#F5F8F9;" />';
+            }
+        }
+
+        $ja = 1;
     }
 }
-
 
 if($ja) {
 ?>
@@ -248,7 +247,7 @@ if($ja) {
         <td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
         <td class="v10"><select name="file_pid" id="file_pid" class="width400">
             <option value="0" <?php if($file_pid == 0) echo "selected"; ?>><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-            <?php dir_menu(0, $file_pid, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
+            <?php dir_menu(0, $file_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
         </select></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
@@ -375,10 +374,11 @@ if($ja) {
 
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
-    if($result = mysql_query($sql, $db) or die("error while browsing file categories for selecting keywords")) {
+    $result = _dbQuery($sql);
+    if(isset($result[0]['fcat_id'])) {
         $k = "";
-        while($row = mysql_fetch_array($result)) {
-            if(get_filecat_childcount ($row["fcat_id"], $db)) {
+        foreach($result as $row) {
+            if(get_filecat_childcount($row["fcat_id"])) {
 
                 $ke = isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
                 $k .= "<tr>\n<td class=\"f10b\">".$ke.html($row["fcat_name"]).":&nbsp;</td>\n";
@@ -386,21 +386,20 @@ if($ja) {
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
-                if($kresult = mysql_query($ksql, $db) or die("error while listing file keywords")) {
-                    while($krow = mysql_fetch_array($kresult)) {
+                $kresult = _dbQuery($ksql);
+
+                if(isset($kresult[0]['fkey_id'])) {
+                    foreach($kresult as $krow) {
                         $k .= "<option value=\"".$krow["fkey_id"]."\"";
-                        $k .= isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"] ? " selected" : "";
+                        $k .= isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"] ? ' selected="selected"' : "";
                         $k .= ">".html($krow["fkey_name"])."</option>\n";
                     }
-                    mysql_free_result($kresult);
                 }
 
                 $k .= "</select></td>\n</tr>\n";
                 $k .= "<tr>\n<td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\"></td>\n</tr>\n";
-
             }
         }
-        mysql_free_result($result);
     }
 
     ?>

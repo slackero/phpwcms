@@ -198,10 +198,9 @@ if($FEED['maxentries']) {
 }
 $timePlus = 0;
 
-//dumpVar($sql); exit();
-
-if($result = mysql_query($sql, $db)) {
-    while($data = mysql_fetch_assoc($result)) {
+$result = _dbQuery($sql);
+if(isset($result[0]['article_title'])) {
+    foreach($result as $data) {
 
         $item = new FeedItem();
         $item->title            = combinedParser($data["article_title"], FEED_ENCODING);
@@ -248,7 +247,7 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
 
     // Strip away unwanted UTF-8 chars to avoid XML fatal parsing error
     // http://www.phpwact.org/php/i18n/charsets#common_problem_areas_with_utf-8
-    if($charset == 'utf-8') {
+    if($charset === 'utf-8') {
         $string = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
     }
 
@@ -261,17 +260,14 @@ function getFeedStructureID($value) {
         //check for correct structureID when alias is given
         global $indexpage;
         $value = strtolower($value);
-        if($indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) && strtolower($indexpage['acat_alias']) == $value) {
+        if($indexpage['acat_aktiv'] && empty($indexpage['acat_regonly']) && strtolower($indexpage['acat_alias']) === $value) {
             return '0';
         }
         $sql  = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_aktiv=1 AND ";
         $sql .= "acat_trash=0 AND acat_regonly=0 AND acat_alias LIKE "._dbEscape($value)." LIMIT 1";
-        $value = '';
-        if($result = mysql_query($sql, $GLOBALS['db'])) {
-            if($row = mysql_fetch_row($result)) {
-                $value = strval($row[0]);
-            }
-            mysql_free_result($result);
+        $result = _dbQuery($sql);
+        if(isset($result[0]['acat_id'])) {
+            $value = $result[0]['acat_id'];
         }
     }
     return $value;

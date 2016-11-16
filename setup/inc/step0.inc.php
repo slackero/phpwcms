@@ -29,7 +29,7 @@ $setup_recommend = true;
 
 		case -1:	// current used PHP is > OK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
-					if(version_compare('5.3', phpversion()) == 1) {
+					if(version_compare('5.6', phpversion()) == 1) {
 						echo ' (it is recommend to update your PHP version)';
 					}
 					break;
@@ -52,10 +52,10 @@ $setup_recommend = true;
    ?></li>
   <li>MySQL version: <?php
 
-  	$mysql_version = @mysql_get_server_info();
+  	$mysql_version = @mysqli_get_server_info();
   	$mysqlnd = false;
   	if(!$mysql_version) {
-		$mysql_version = @mysql_get_client_info();
+		$mysql_version = @mysqli_get_client_info();
 	}
 
 	if(strpos($mysql_version, 'mysqlnd') !== false) {

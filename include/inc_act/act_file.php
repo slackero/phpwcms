@@ -21,8 +21,9 @@ checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-//Wechseln des Status AKTIV f�r Datei/Ordner
+// Change file status
 if(isset($_GET["aktiv"])) {
+
     list($id, $wert) = explode("|", $_GET["aktiv"]);
     $id     = intval($id);
     $wert   = intval($wert);
@@ -31,10 +32,10 @@ if(isset($_GET["aktiv"])) {
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
-    $result = mysql_query($sql, $db) or die ("error while changing ACTIVE status");
-}
+    _dbQuery($sql, 'UPDATE');
 
-if(isset($_GET["public"])) {
+} elseif(isset($_GET["public"])) {
+
     list($id, $wert) = explode("|", $_GET["public"]);
     $id     = intval($id);
     $wert   = intval($wert);
@@ -43,10 +44,10 @@ if(isset($_GET["public"])) {
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
-    $result = mysql_query($sql, $db) or die ("error while changing PUBLIC status");
-}
+    _dbQuery($sql, 'UPDATE');
 
-if(isset($_GET["delete"])) {
+} elseif(isset($_GET["delete"])) {
+
     list($id, $wert) = explode("|", $_GET["delete"]);
     $id     = intval($id);
     $wert   = intval($wert);
@@ -55,11 +56,11 @@ if(isset($_GET["delete"])) {
         if(empty($_SESSION["wcs_user_admin"])) {
             $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
         }
-        $result = mysql_query($sql, $db) or die ("error while deleted directory");
+        _dbQuery($sql, 'UPDATE');
     }
-}
 
-if(isset($_GET["trash"])) {
+} elseif(isset($_GET["trash"])) {
+
     list($id, $wert) = explode("|", $_GET["trash"]);
     $id     = intval($id);
     $wert   = intval($wert);
@@ -69,35 +70,36 @@ if(isset($_GET["trash"])) {
         if(empty($_SESSION["wcs_user_admin"])) {
             $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
         }
-        $result = mysql_query($sql, $db) or die ("error while moving file to trash");
+        _dbQuery($sql, 'UPDATE');
     }
-}
 
-if(isset($_GET["paste"])) {
+} elseif(isset($_GET["paste"])) {
+
     list($file_id, $dir_id) = explode("|", $_GET["paste"]);
     $file_id    = intval($file_id);
     $dir_id     = intval($dir_id);
-    $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_pid=".$dir_id.", f_changed='".time()."' ";
-    $sql .= "WHERE f_id=".$file_id." AND f_kid=1";
+    $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_pid=".$dir_id.", f_changed='".time()."' WHERE f_id=".$file_id." AND f_kid=1";
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
-    $result = mysql_query($sql, $db) or die ("error while moving file to other directory");
+    _dbQuery($sql, 'UPDATE');
+
 }
 
 if(isset($_GET["thumbnail"])) {
     $_SESSION["wcs_user_thumb"] = intval($_GET["thumbnail"]);
 }
 
-if(!empty($_SESSION["wcs_user_admin"])) { //Wenn Benutzer Admin-Rechte hat
+if(!empty($_SESSION["wcs_user_admin"])) { // If user has admin permissions
 
     $phpwcms['trash_delete_files'] = empty($phpwcms['trash_delete_files']) ? false : true;
 
     //move deleted files into final deletion directory
     if(isset($_GET['movedeletedfiles']) && intval($_GET['movedeletedfiles']) === intval($_SESSION["wcs_user_id"])) {
 
-        $sql =  "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=9 AND f_kid=1";
-        if($result = mysql_query($sql, $db) or die ("error while retrieving list of deleted files")) {
+        $result = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=9 AND f_kid=1");
+
+        if(isset($result[0]['f_id'])) {
 
             //default file storage folder
             $default_path = PHPWCMS_ROOT.$phpwcms["file_path"];
@@ -109,7 +111,7 @@ if(!empty($_SESSION["wcs_user_admin"])) { //Wenn Benutzer Admin-Rechte hat
                 }
             }
 
-            while($row = mysql_fetch_assoc($result)) {
+            foreach($result as $row) {
 
                 $delstatus = false;
 
@@ -129,20 +131,18 @@ if(!empty($_SESSION["wcs_user_admin"])) { //Wenn Benutzer Admin-Rechte hat
                     }
 
                 } else {
+
                     $delstatus = true;
+
                 }
 
                 if($delstatus) {
 
                     $sql_f  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_trash=8 WHERE f_id=".$row['f_id']." AND f_kid=1";
-                    @mysql_query($sql_f, $db);
+                    _dbQuery($sql_f, 'UPDATE');
 
                 }
-
-
             }
-            mysql_free_result($result);
-
         }
 
         // clean pre-rendered thumbnail images

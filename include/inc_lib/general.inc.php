@@ -158,15 +158,16 @@ function list_profession($c){
     if(empty($c)) {
         $c = $GLOBALS['BL']['be_n/a'];
     }
-    $sql = mysql_query("SELECT prof_name FROM ".DB_PREPEND."phpwcms_profession ORDER BY prof_name");
-    while($a = mysql_fetch_assoc($sql)) {
-        echo '<option value="'.html($a["prof_name"]).'"';
-        if($a["prof_name"] == $c) {
-            echo ' selected="selected"';
+    $sql = "SELECT prof_name FROM ".DB_PREPEND."phpwcms_profession ORDER BY prof_name";
+    if($result = _dbQuery($sql)) {
+        foreach($result as $a) {
+            echo '<option value="'.html($a["prof_name"]).'"';
+            if($a["prof_name"] == $c) {
+                echo ' selected="selected"';
+            }
+            echo '>'.html($a["prof_name"])."</option>";
         }
-        echo '>'.html($a["prof_name"])."</option>";
     }
-    mysql_free_result($sql);
 }
 
 function is_selected($c, $chkvalue, $xhtml=1, $echoit=1) {
@@ -435,27 +436,22 @@ function switch_on_off($wert) {
     return intval($wert) ? 0 : 1;
 }
 
-function online_users($dbcon, $spacer="<br />", $wrap="<span class=\"useronline\">|<span>") {
-    $wrap = explode("|", $wrap);
-    $x=0; $xo="";
-    if($o = mysql_query("SELECT logged_user FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_in=1", $dbcon)) {
-        while($uo = mysql_fetch_row($o)) {
-            $xo .= ($x) ? $spacer : "";
-            $xo .= html($uo[0]);
-            $x++;
+function online_users($spacer='<br />', $wrap='<span class="useronline">|<span>') {
+    $wrap = explode('|', $wrap);
+    $users = array();
+    if($result = _dbQuery("SELECT logged_user FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_in=1")) {
+        foreach($result as $user) {
+            $users[] = html($user['logged_user']);
         }
-        mysql_free_result($o);
     }
-    return ($x) ? $wrap[0].$xo.$wrap[1] : "";
+    if($users) {
+        return $wrap[0] . implode($spacer, $users) . (isset($wrap[1]) ? $wrap[1] : '');
+    }
+    return '';
 }
 
-function get_filecat_childcount ($fcatid, $dbcon) {
-    $sql = "SELECT COUNT(fkey_id) FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".intval($fcatid);
-    if($result = mysql_query($sql, $dbcon)) {
-        if($row = mysql_fetch_row($result)) $count = $row[0];
-        mysql_free_result($result);
-    }
-    return intval($count);
+function get_filecat_childcount($fcatid=0) {
+    return _dbQuery("SELECT COUNT(fkey_id) FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".intval($fcatid), 'COUNT');
 }
 
 /**
@@ -562,15 +558,14 @@ function add_keywords_to_search ($list_of_keywords, $keywords, $spacer=" ", $sta
 
 function get_list_of_file_keywords() {
     //reads possible keywords defined by admin and returns
-    //array with values if exists
-    //else it returns false
-    if($result = mysql_query("SELECT * FROM ".DB_PREPEND."phpwcms_filekey")) {
-        while($row = mysql_fetch_assoc($result)) {
+    //array with values if exists else it returns false
+    $file_key = array();
+    if($result = _dbQuery("SELECT fkey_id, fkey_name FROM ".DB_PREPEND."phpwcms_filekey")) {
+        foreach($result as $row) {
             $file_key[intval($row["fkey_id"])] = html($row["fkey_name"]);
         }
-        mysql_free_result($result);
     }
-    return (!empty($file_key) && count($file_key)) ? $file_key : false;
+    return count($file_key) ? $file_key : false;
 }
 
 function js_singlequote($t='') {
@@ -850,11 +845,10 @@ function getFormTrackingValue() {
     $hash       = md5($ip.$GLOBALS['phpwcms']["db_pass"].date('G'));
     $entry_id   = time();
     if(!empty($GLOBALS['phpwcms']["form_tracking"])) {
-        $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_formtracking SET ";
-        $sql .= "formtracking_hash="._dbEscape($hash).", ";
-        $sql .= "formtracking_ip="._dbEscape($ip);
-        if($entry_created = mysql_query($sql, $GLOBALS['db'])) {
-            $entry_id = mysql_insert_id($GLOBALS['db']);
+        $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_formtracking SET formtracking_hash="._dbEscape($hash).", formtracking_ip="._dbEscape($ip);
+        $result = _dbQuery($sql, 'INSERT');
+        if(isset($result['INSERT_ID'])) {
+            $entry_id = $result['INSERT_ID'];
         }
     }
     return '<input type="hidden" name="'.$hash.'" value="'.$entry_id.'" />';

@@ -38,8 +38,11 @@ $sql =	"UPDATE ".DB_PREPEND."phpwcms_userdetail SET ".
 		"detail_public=".(empty($_POST["form_public"]) ? 0 : 1).",".
 		"detail_newsletter=".(empty($_POST["form_newsletter"]) ? 0 : 1)." WHERE ".
 		"detail_pid=".$_SESSION["wcs_user_id"];
-if(mysql_query($sql)) {
-	$detail_updated = $BL['be_profile_update_success'];	
+
+$result = _dbQuery($sql, 'UPDATE');
+
+if(!isset($result['AFFECED_ROWS'])) {
+	$detail_updated = $BL['be_profile_update_success'];
 } else {
 	$detail_updated = $BL['be_profile_update_error'];
 }

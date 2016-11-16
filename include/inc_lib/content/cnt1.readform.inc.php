@@ -41,32 +41,30 @@ if((!RESPONSIVE_MODE && $content["image_width"] > $temp_img_maxwidth) || ($conte
 }
 
 // check for image information and get alle infos from file
-$img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=" . $content["image_id"] . " LIMIT 1;";
-if ($img_result = mysql_query($img_sql, $db) or die("error while getting content image info")) {
-	if ($img_row = mysql_fetch_assoc($img_result)) {
+$img_sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=" . $content["image_id"] . " LIMIT 1";
+$img_result = _dbQuery($img_sql);
+if(isset($img_result[0]['f_id'])) {
 
-		// new structure of image information
-		// dbid:filename:hash:extension:width:height:caption:position:zoom
-		$content["image_info"]  = $img_row['f_id'];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $img_row['f_name'];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $img_row['f_hash'];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $img_row['f_ext'];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $content["image_width"];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $content["image_height"];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= base64_encode($content["image_caption"]);
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $content["image_pos"];
-		$content["image_info"] .= ':';
-		$content["image_info"] .= $content["image_zoom"];
+	// new structure of image information
+	// dbid:filename:hash:extension:width:height:caption:position:zoom
+	$content["image_info"]  = $img_result[0]['f_id'];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $img_result[0]['f_name'];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $img_result[0]['f_hash'];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $img_result[0]['f_ext'];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $content["image_width"];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $content["image_height"];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= base64_encode($content["image_caption"]);
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $content["image_pos"];
+	$content["image_info"] .= ':';
+	$content["image_info"] .= $content["image_zoom"];
 
-	}
-	mysql_free_result($img_result);
 }
 
-$content["template"]	= clean_slweg($_POST['template']);
+$content["template"] = clean_slweg($_POST['template']);

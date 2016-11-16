@@ -24,10 +24,11 @@ if(!isset($_GET["s"])) {
     <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 <?php
     // loop listing available pagelayouts
-    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC;";
-    if($result = mysql_query($sql, $db) or die("error while listing pagelayouts")) {
+    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
+    $result = _dbQuery($sql);
+    if(isset($result[0]['pagelayout_id'])) {
         $row_count = 0;
-        while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        foreach($result as $row) {
 
             echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"1%\" style=\"padding:2px 5px 2px 3px\">";
 
@@ -49,9 +50,9 @@ if(!isset($_GET["s"])) {
             echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
 
             echo "</td>\n</tr>\n";
+
             $row_count++;
         }
-        mysql_free_result($result);
     } // end listing
 
 ?>
@@ -178,44 +179,52 @@ if(!isset($_GET["s"])) {
         }
 
         if($pagelayout["id"]) {
-        // if ID <> 0 then update pagelayout
+            // if ID <> 0 then update pagelayout
+            $query_mode = 'UPDATE';
             $sql =  "UPDATE ".DB_PREPEND."phpwcms_pagelayout SET ".
                     "pagelayout_name='".aporeplace($pagelayout["layout_name"])."', ".
                     "pagelayout_default=".$pagelayout["layout_default"].", ".
                     "pagelayout_var='".aporeplace(serialize($pagelayout))."' ".
                     "WHERE pagelayout_id=".$pagelayout["id"];
         } else {
-        // if ID = 0 then create new pagelayout
+            // if ID = 0 then create new pagelayout
+            $query_mode = 'INSERT';
             $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_pagelayout (".
                     "pagelayout_name, pagelayout_default, pagelayout_var) VALUES ('".
                     aporeplace($pagelayout["layout_name"])."', ".$pagelayout["layout_default"].", '".
                     aporeplace(serialize($pagelayout))."')";
         }
+
         // update or insert data entry
-        mysql_query($sql, $db) or die("error while updating or inserting pagelayout: <br></pre>".wordwrap($sql)."</pre>");
-        if(!$pagelayout["id"]) $pagelayout["id"] = mysql_insert_id($db);
+        $result = _dbQuery($sql, $query_mode);
+        if($query_mode === 'INSERT' && !empty($result['INSERT_ID'])) {
+            $pagelayout["id"] = $result['INSERT_ID'];
+        }
+
         //now proof for default pagelayout and set
         if($pagelayout["layout_default"]) {
-            mysql_query("UPDATE ".DB_PREPEND."phpwcms_pagelayout SET pagelayout_default=0 ".
-                        "WHERE pagelayout_id != ".$pagelayout["id"], $db);
+            _dbQuery("UPDATE ".DB_PREPEND."phpwcms_pagelayout SET pagelayout_default=0 WHERE pagelayout_id != ".$pagelayout["id"], 'UPDATE');
         }
+
         update_cache();
-        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=8&s='.$pagelayout["id"]);
+
+        if($pagelayout["id"]) {
+            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=8&s='.$pagelayout["id"]);
+        }
 
     }
 
     if($pagelayout["id"]) {
-    // read the given pagelayout from db
+
+        // read the given pagelayout from db
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_id=".$pagelayout["id"]." LIMIT 1";
-        if($result = mysql_query($sql, $db)) {
-            if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                unset($pagelayout);
-                $pagelayout = unserialize($row["pagelayout_var"]);
-                $pagelayout["id"] = $row["pagelayout_id"];
-                $pagelayout["layout_default"] = $row["pagelayout_default"];
-            }
-            mysql_free_result($result);
+        $result = _dbQuery($sql);
+        if(isset($result[0]['pagelayout_id'])) {
+            $pagelayout = unserialize($result[0]["pagelayout_var"]);
+            $pagelayout["id"] = $result[0]["pagelayout_id"];
+            $pagelayout["layout_default"] = $result[0]["pagelayout_default"];
         }
+
     } else {
 
         // set default pagelayout information

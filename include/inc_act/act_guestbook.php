@@ -61,7 +61,7 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
             $sql .= "guestbook_url="._dbEscape($gburl).", ";
             $sql .= "guestbook_show="._dbEscape($gbshow)." WHERE ";
             $sql .= "guestbook_cid="._dbEscape($gbcid)." AND guestbook_id="._dbEscape($gbid);
-            mysql_query($sql, $db);
+            _dbQuery($sql, 'UPDATE');
         }
     }
 
@@ -114,10 +114,13 @@ input, textarea {
 $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
 $sql .= intval($_GET['cid']).$edit_ID." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
 $c = 0;
-if($result = mysql_query($sql, $db)) {
+$result = _dbQuery($sql);
+
+if(isset($result[0]['guestbook_cid'])) {
 
     if(!$edit_ID) {
-        while($row = mysql_fetch_assoc($result)) {
+
+        foreach($result as $row) {
 
             $action_basis = get_token_get_string('csrftoken').'&amp;cid='.$row['guestbook_cid'].'&amp;';
 
@@ -136,9 +139,10 @@ if($result = mysql_query($sql, $db)) {
     if($row['guestbook_url']) {
         echo ' (<a href="'.htmlspecialchars($row['guestbook_url']).'" target="_blank" title="'.htmlspecialchars($row['guestbook_url']).'">URL</a>)';
     }
-    if($row['guestbook_msg']) {
-        echo '<br />'.nl2br(htmlspecialchars($row['guestbook_msg']));
-    }
+
+        if($row['guestbook_msg']) {
+            echo '<br />'.nl2br(html($row['guestbook_msg']));
+        }
 
     ?></td>
   </tr>
@@ -146,12 +150,12 @@ if($result = mysql_query($sql, $db)) {
     <td colspan="2"><img src="../../img/leer.gif" alt="" width="1" height="1" /></td>
   </tr>
 <?php
-        $c++;
+            $c++;
         }
 
     } else {
 
-        while($row = mysql_fetch_assoc($result)) {
+        foreach($result as $row) {
 ?>
   <tr bgcolor="#E7E8EB">
     <td>[<a href="act_guestbook.php?<?php echo get_token_get_string('csrftoken'); ?>&amp;cid=<?php echo $row['guestbook_cid'] ?>" target="_self">close</a>]<br /><img src="../../img/leer.gif" alt="" width="1" height="2" /></td>
@@ -166,7 +170,7 @@ if($result = mysql_query($sql, $db)) {
   <td><strong style="color:#FF3333;"><?php echo $gberror ?></strong></td>
   </tr><?php
 
-  }
+    }
 
     $token_name = generate_token_name();
     $token_value = generate_session_token($token_name);
@@ -207,21 +211,19 @@ if($result = mysql_query($sql, $db)) {
   </tr>
   </form>
 <?php
-        $c++;
+            $c++;
         }
-
     }
-
-    mysql_free_result($result);
 }
 
 // if no guestbook entry available
-if(!$c) {
-?><tr>
-    <td colspan="2">No guestbook entry available</td>
-  </tr>
+if(!$c): ?>
+    <tr>
+        <td colspan="2">No guestbook entry available</td>
+    </tr>
 <?php
-}
+
+endif;
 
 ?>
 </table>

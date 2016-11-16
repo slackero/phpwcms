@@ -68,10 +68,11 @@ if(!isset($_GET["s"])) {
     <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <?php
 // loop listing available templates
-$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC, template_name"; //AND template_type=0
-if($result = mysql_query($sql, $db) or die("error while listing templates")) {
+$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC, template_name";
+$result = _dbQuery($sql);
+if(isset($result[0]['template_id'])) {
     $row_count = 0;
-    while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    foreach($result as $row) {
 
         $edit_link = 'do=admin&amp;p=11&amp;s='.$row["template_id"].'&amp;t='.$row["template_type"];
 
@@ -85,20 +86,19 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
         echo '"><img src="img/button/edit_22x11.gif" width="22" height="11" border="0"></a>';
         echo '<img src="img/leer.gif" width="2" height="1">';
 
-               // ERICH COPY TEMPLATE 7.6.2005
         echo '<a href="phpwcms.php?'.$edit_link.'&amp;c=1'; // c=1 -> do copy
         echo '" title="copy template"><img src="img/button/copy_11x11_0.gif" width="11" height="11" border="0"></a>';
         echo '<img src="img/leer.gif" width="2" height="1">';
-                // ERICH COPY TEMPLATE END 7.6.2005
 
         echo '<a href="include/inc_act/act_frontendsetup.php?do=2|'.$row["template_id"].'" ';
         echo 'title="'.$BL['be_cnt_delete'].': '.html($row["template_name"]).'" ';
         echo 'onclick="return confirm(\''.js_singlequote($BL['be_cnt_delete'].': '.html($row["template_name"])).'\');">';
         echo '<img src="img/button/del_11x11.gif" width="11" height="11" border="0"></a>';
         echo '<img src="img/leer.gif" width="2" height="1">'."</td>\n</tr>\n";
+
         $row_count++;
     }
-    mysql_free_result($result);
+
 } // end listing
 
 ?>
@@ -197,6 +197,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 
         if($template["id"] && empty($createcopy)) {
             // if ID <> 0 then get template info from database
+            $query_mode = 'UPDATE';
             $sql =  "UPDATE ".DB_PREPEND."phpwcms_template SET ".
                     "template_name='".aporeplace($template["name"])."', ".
                     "template_default=".$template["default"].", ".
@@ -204,21 +205,22 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
                     "WHERE template_id=".$template["id"];
         } else {
             // if ID = 0 then show create new template form
+            $query_mode = 'INSERT';
             $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_template (".
                     "template_name, template_default, template_var) VALUES ('".
                     aporeplace($template["name"])."', ".$template["default"].", '".
                     aporeplace(serialize($template))."')";
         }
         // update or insert data entry
-        @mysql_query($sql, $db) or die("error while updating or inserting template datas");
+        $result = _dbQuery($sql, $query_mode);
 
-        if(empty($template["id"]) || $createcopy == 1) {
-            $template["id"] = mysql_insert_id($db);
+        if($query_mode === 'INSERT' && !empty($result['INSERT_ID'])) {
+            $template["id"] = $result['INSERT_ID'];
         }
 
         //now proof for default template definition
         if($template["default"]) {
-            mysql_query("UPDATE ".DB_PREPEND."phpwcms_template SET template_default=0 WHERE template_id != ".$template["id"], $db);
+            _dbQuery("UPDATE ".DB_PREPEND."phpwcms_template SET template_default=0 WHERE template_id != ".$template["id"], 'UPDATE');
         }
         update_cache();
         headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=11&s='.$template["id"]);
@@ -227,21 +229,19 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
     if($template["id"]) {
         // read the given template datas from db
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_id=".$template["id"]." LIMIT 1";
-        if($result = mysql_query($sql, $db)) {
-            if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                if($row["template_var"] = @unserialize($row["template_var"])) {
-                    $template = array_merge($template, $row["template_var"]);
-                };
-                $template["id"] = intval($row["template_id"]);
-                $template["default"] = $row["template_default"];
+        $result = _dbQuery($sql);
+        if(isset($result[0]['template_id'])) {
+            if(($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
+                $template = array_merge($template, $result[0]["template_var"]);
+            };
+            $template["id"] = intval($result[0]["template_id"]);
+            $template["default"] = $result[0]["template_default"];
 
-                // compatibility for older releases where only 1 css file could be stored per template
-                if(is_string($template['css'])) {
-                    $template['css'] = array($template['css']);
-                }
+            // compatibility for older releases where only 1 css file could be stored per template
+            if(is_string($template['css'])) {
+                $template['css'] = array($template['css']);
             }
-            mysql_free_result($result);
-        }
+         }
     }
 
     // show form
@@ -288,13 +288,13 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
 // get available page layout list
 $jsOnChange = '';
 $opt = "";
-$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout ".
-       "WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
-if($result = mysql_query($sql, $db) or die("error while listing pagelayouts")) {
-    while($row = mysql_fetch_assoc($result)) {
+$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
+$result = _dbQuery($sql);
+if(isset($result[0]['pagelayout_id'])) {
+    foreach($result as $row) {
         $opt .= '<option value="'.$row['pagelayout_id'].'"';
         if($row['pagelayout_id'] == $template["layout"]) {
-            $opt .= ' selected';
+            $opt .= ' selected="selected"';
             // try to get additional custom blocks from selected page layout
             $custom_blocks = unserialize($row['pagelayout_var']);
             $custom_blocks = explode(', ', trim($custom_blocks['layout_customblocks']));
@@ -305,13 +305,12 @@ if($result = mysql_query($sql, $db) or die("error while listing pagelayouts")) {
                 $jsOnChange = '';
             }
         }
-        $opt .= '>'.html($row['pagelayout_name']).'</option>'."\n";
+        $opt .= '>'.html($row['pagelayout_name']).'</option>';
     }
-    mysql_free_result($result);
 }
 
 if($opt) {
-    echo '<select name="template_layout" class="width350" id="template_layout"'.$jsOnChange.'>'.LF;
+    echo '<select name="template_layout" class="width350" id="template_layout"'.$jsOnChange.'>';
     echo $opt;
     echo '</select>';
 } else {

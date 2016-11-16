@@ -131,37 +131,41 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
         if(trim($_POST["acat_name"])) {
 
             $cache_timeout = clean_slweg($_POST["acat_timeout"]);
-            if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
+            if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) {
+                $cache_timeout = 0; //check if cache = Off
+            }
 
-            $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
-            "acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
-            "acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
-            "acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, ".
-            "acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301, acat_opengraph, acat_canonical, acat_breadcrumb, acat_onepage) VALUES ('".
-            getpostvar($_POST["acat_name"])."','".
-            getpostvar($_POST["acat_info"], 32000)."',".
-            (isset($_POST["acat_aktiv"]) ? 1 : 0).",".
-            (isset($_POST["acat_ssl"]) ? 1 : 0).",".
-            (isset($_POST["acat_regonly"]) ? 1 : 0).",".
-            intval($_POST["acat_struct"]).",".
-            intval($_POST["acat_template"]).",".
-            $acat_sort_fallback.",".
-            $_SESSION["wcs_user_id"].",'".
-            proof_alias($_POST["acat_id"], $_POST["acat_alias"])."',".
-            $acat_hidden.", ".
-            intval($_POST["acat_topcount"]).",'".
-            getpostvar($_POST["acat_redirect"])."', ".
-            set_correct_ordersort().",'".
-            $cache_timeout."', '".(isset($_POST['acat_nosearch']) ? 1 : '')."',".
-            (isset($_POST["acat_nositemap"]) ? 1 : 0).",".
-            "'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
-            getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
-            (empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
-            _dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
-            (empty($_POST["acat_opengraph"]) ? 0 : 1).', '._dbEscape(clean_slweg($_POST["acat_canonical"], 2000)).','.
-            $acat_breadcrumb.', '.$acat_onepage.')';
-            if($result = mysql_query($sql, $db) or die("MySQL Error: ".mysql_error())) {
-                $ref .= "&cat=".mysql_insert_id($db);
+            $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
+                "acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
+                "acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
+                "acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, ".
+                "acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301, acat_opengraph, acat_canonical, acat_breadcrumb, acat_onepage) VALUES ('".
+                getpostvar($_POST["acat_name"])."','".
+                getpostvar($_POST["acat_info"], 32000)."',".
+                (isset($_POST["acat_aktiv"]) ? 1 : 0).",".
+                (isset($_POST["acat_ssl"]) ? 1 : 0).",".
+                (isset($_POST["acat_regonly"]) ? 1 : 0).",".
+                intval($_POST["acat_struct"]).",".
+                intval($_POST["acat_template"]).",".
+                $acat_sort_fallback.",".
+                $_SESSION["wcs_user_id"].",'".
+                proof_alias($_POST["acat_id"], $_POST["acat_alias"])."',".
+                $acat_hidden.", ".
+                intval($_POST["acat_topcount"]).",'".
+                getpostvar($_POST["acat_redirect"])."', ".
+                set_correct_ordersort().",'".
+                $cache_timeout."', '".(isset($_POST['acat_nosearch']) ? 1 : '')."',".
+                (isset($_POST["acat_nositemap"]) ? 1 : 0).",".
+                "'".$acat_permit."', ".intval($_POST["acat_maxlist"]).", "._dbEscape($acat_cntpart).",'".
+                getpostvar($_POST["acat_pagetitle"])."', ".(isset($_POST["acat_paginate"]) ? 1 : 0).", '".getpostvar($_POST["acat_overwrite"])."',".
+                (empty($_POST["acat_archive"]) ? 0 : 1).", "._dbEscape($acat_class).", "._dbEscape($acat_keywords).", ".intval($_POST["acat_cpdefault"]).",".
+                _dbEscape($acat_lang).','._dbEscape($acat_lang_type).','._dbEscape($acat_lang_id).','.(empty($_POST["acat_disable301"]) ? '0' : '1').','.
+                (empty($_POST["acat_opengraph"]) ? 0 : 1).', '._dbEscape(clean_slweg($_POST["acat_canonical"], 2000)).','.
+                $acat_breadcrumb.', '.$acat_onepage.')';
+
+            $result = _dbQuery($sql, 'INSERT');
+            if(isset($result['INSERT_ID'])) {
+                $ref .= "&cat=".$result['INSERT_ID'];
             }
         }
     }
@@ -174,7 +178,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
                 $cache_timeout = 0; //check if cache = Off
             }
 
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
+            $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
                 "acat_name='".getpostvar($_POST["acat_name"])."', ".
                 "acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
                 "acat_alias="._dbEscape(proof_alias($_POST["acat_id"], $_POST["acat_alias"])).", ".
@@ -212,7 +216,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
                 "acat_onepage=".$acat_onepage.
             " WHERE acat_id=".intval($_POST["acat_id"]);
 
-            mysql_query($sql, $db) or die(_report_error('DB', $sql));
+            _dbQuery($sql, 'UPDATE');
         }
     }
 
@@ -235,7 +239,7 @@ if($action) {
             $do[3] = intval($do[3]); //sort Number
             if($do[1]) { // && $do[2] = 0 for Root
                 $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_struct=".$do[2].", acat_sort=".$do[3]." WHERE acat_id=".$do[1];
-                mysql_query($sql, $db) or die("error while updating structure level");
+                _dbQuery($sql, 'UPDATE');
             }
 
         // Change sorting
@@ -247,9 +251,10 @@ if($action) {
             $do[4] = intval($do[4]); //sort NR2
             if($do[1] && $do[2]>=10 && $do[3] && $do[4]>=10) {
                 $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_sort=".$do[2]." WHERE acat_id=".$do[1];
-                mysql_query($sql, $db) or die("error while updating sorting ID1");
+                _dbQuery($sql, 'UPDATE');
+
                 $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_sort=".$do[4]." WHERE acat_id=".$do[3];
-                mysql_query($sql, $db) or die("error while updating sorting ID1");
+                _dbQuery($sql, 'UPDATE');
             }
 
         // Copy Structure
@@ -259,7 +264,7 @@ if($action) {
             $do[2] = intval($do[2]); //paste level ID
             $do[3] = intval($do[3]); //sort Number
             if($do[1]) { // && $do[2] = 0 for Root
-                copy_level_to_level($do, $db);
+                copy_level_to_level($do);
             }
 
         // Delete structure level
@@ -279,41 +284,41 @@ if($action) {
 
                 $struct_del[] = $do[1]; //start
 
-                get_struct_del_id($do[1], $db);
+                get_struct_del_id($do[1]);
 
                 // create SQL query to set articles deleted
                 if(count($article_del)) {
 
-                    $a_del = '';
+                    $a_del = array();
                     foreach($article_del as $value) {
                         //delete cached articles
                         $sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_aid=".intval($value);
-                        mysql_query($sql, $db) or die("error while deleting cached article ID:".$value);
+                        _dbQuery($sql, 'DELETE');
 
-                        $a_del .= ($a_del) ? " OR article_id=".$value : "article_id=".$value;
+                        $a_del[] = $value;
                     }
 
-                    if($a_del) {
-                        $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE (".$a_del.")";
-                        mysql_query($sql, $db) or die("error while deleting articles while deleting structures");
+                    if(count($a_del)) {
+                        $sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_deleted=9, article_alias=CONCAT(article_alias,'_del-','".date('YmdHis')."') WHERE article_id IN (".implode(',', $a_del).")";
+                        _dbQuery($sql, 'UPDATE');
                     }
                 }
 
                 // create SQL query to set structure levels deleted
                 if(count($struct_del)) {
 
-                    $s_del = "";
+                    $s_del = array();
                     foreach($struct_del as $value) {
                         //delete cached categories
                         $sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_cid=".intval($value);
-                        mysql_query($sql, $db) or die("error while deleting cached category ID:".$value);
+                        _dbQuery($sql, 'DELETE');
 
-                        $s_del .= ($s_del) ? " OR acat_id=".$value : "acat_id=".$value;
+                        $s_del[] = $value;
                     }
 
-                    if($s_del) {
-                        $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE (".$s_del.")";
-                        mysql_query($sql, $db) or die("error while deleting structures");
+                    if(count($s_del)) {
+                        $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_trash=9, acat_alias=CONCAT(acat_alias,'_del-','".date('YmdHis')."') WHERE acat_id IN (".implode(',', $s_del).")";
+                        _dbQuery($sql, 'UPDATE');
                     }
                 }
 
@@ -329,7 +334,7 @@ if($action) {
         if($do[1]) { // && $do[2] = 0 for Root
             $new_sort = getArticleSortValue($do[2]);
             $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_cid=".$do[2].", article_sort=".$new_sort." WHERE article_id=".$do[1];
-            mysql_query($sql, $db) or die("error while updating article level");
+            _dbQuery($sql, 'UPDATE');
         }
 
     // Change sorting of articles
@@ -341,9 +346,10 @@ if($action) {
         $do[4] = intval($do[4]); //article sort NR2
         if($do[1] && $do[2]>=10 && $do[3] && $do[4]>=10) {
             $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_sort=".$do[2].", article_tstamp=article_tstamp WHERE article_id=".$do[1];
-            mysql_query($sql, $db) or die("error while updating sorting article ID1");
+            _dbQuery($sql, 'UPDATE');
+
             $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_sort=".$do[4].", article_tstamp=article_tstamp WHERE article_id=".$do[3];
-            mysql_query($sql, $db) or die("error while updating sorting article ID1");
+            _dbQuery($sql, 'UPDATE');
         }
 
     // Copy Article
@@ -353,7 +359,7 @@ if($action) {
         $do[2] = intval($do[2]); //paste level ID
         $do[3] = isset($do[3]) && $do[3] == 'open' ? 'open' : 0; // special link to copy an existing article and open the new
         if($do[1]) { //also allowed for pasting in root structure
-            copy_article_to_level($do, $db);
+            copy_article_to_level($do);
         }
 
     // Cut & Paste Content Part
@@ -363,20 +369,20 @@ if($action) {
         $do[2] = intval($do[2]); //paste Article ID
         $do[3] = intval($do[3]); //sort Number
         if($do[1]) {
-
             $sql = "SELECT acontent_aid, acontent_sorting FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];
-            $result = mysql_query($sql, $db) or die("error while updating Article Content");
-            $row = mysql_fetch_assoc($result);
+            $result = _dbQuery($sql);
+            if(isset($result[0]['acontent_aid'])) {
 
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting-10 WHERE acontent_aid=".$row['acontent_aid']." AND acontent_sorting >= ".$row['acontent_sorting']."+10";
-            mysql_query($sql, $db) or die("error while updating Article Content");
+                $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting-10 WHERE acontent_aid=".$result[0]['acontent_aid']." AND acontent_sorting >= ".$result[0]['acontent_sorting']."+10";
+                _dbQuery($sql, 'UPDATE');
 
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
-            mysql_query($sql, $db) or die("error while updating Article Content");
+                $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
+                _dbQuery($sql, 'UPDATE');
 
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_aid=".$do[2].", acontent_sorting=".$do[3]."+10 WHERE acontent_id=".$do[1];
-            mysql_query($sql, $db) or die("error while updating Article Content");
+                $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_aid=".$do[2].", acontent_sorting=".$do[3]."+10 WHERE acontent_id=".$do[1];
+                _dbQuery($sql, 'UPDATE');
 
+            }
         }
 
     // Copy Content Part
@@ -387,15 +393,14 @@ if($action) {
         $do[3] = intval($do[3]); //sort Number
         if($do[1]) {
 
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
-            mysql_query($sql, $db) or die("error while updating Article Content");
+            $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=acontent_sorting+10 WHERE acontent_aid=".$do[2]." AND acontent_sorting >= ".$do[3]."+10";
+            _dbQuery($sql, 'UPDATE');
 
             $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$do[1];
-
-            if($result = mysql_query($sql, $db) or die("error sql")) {
-                $row = mysql_fetch_assoc($result);
+            $result = _dbQuery($sql);
+            if(isset($result[0]['acontent_id'])) {
                 $key1s = '';
-                foreach($row as $key => $value) {
+                foreach($result[0] as $key => $value) {
                     if($key === "acontent_created") {
                         $key1s   .= ", ".$key;
                         $value1s .= ", NOW()";
@@ -416,8 +421,8 @@ if($action) {
                 }
                 $key1s = trim($key1s, ' ,');
                 $value1s = trim($value1s, ' ,');
-                $sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
-                mysql_query($sql2, $db) or die("error while copy article content <br>error while connecting to database: <br><pre>".$sql2."</pre>");
+                $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
+                _dbQuery($sql, 'INSERT');
             }
         }
     }
@@ -443,87 +448,86 @@ function get_struct_del_id($s_id=0, $dbcon) {
 
     //retrieve article ID list that should be deleted
     $sql = "SELECT article_id FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_cid=".$s_id;
-    if($result = mysql_query($sql, $dbcon)) {
-        while($row = mysql_fetch_row($result)) {
-            $GLOBALS["article_del"][] = $row[0];
+    $result = _dbQuery($sql);
+    if(isset($result[0]['article_id'])) {
+        foreach($result as $row) {
+            $GLOBALS["article_del"][] = $row['article_id'];
         }
-        mysql_free_result($result);
     }
 
     // retrieve structure ID list that should be deleted
     $sql = "SELECT acat_id FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$s_id;
-    if($result = mysql_query($sql, $dbcon)) {
-        while($row = mysql_fetch_row($result)) {
-            $GLOBALS["struct_del"][] = $row[0];
-            get_struct_del_id($row[0], $dbcon);
+    $result = _dbQuery($sql);
+    if(isset($result[0]['acat_id'])) {
+        foreach($result as $row) {
+            $GLOBALS["struct_del"][] = $row['acat_id'];
+            get_struct_del_id('acat_id');
         }
-        mysql_free_result($result);
     }
 }
 
-//19-11-2004  Fernando Batista start-----------------------------------------------------------------------------------------------------------
-function copy_article_to_level($do, $dbcon) {
+function copy_article_to_level($do) {
 
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_id=".$do[1];
-    if($result = mysql_query($sql, $dbcon) or die("error while connecting to database: <pre>".$sql."</pre>")) {
+    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_id=".$do[1];
+    $result = _dbQuery($sql);
+    if(isset($result[0]['article_id'])) {
 
-        if($row = mysql_fetch_assoc($result)) {
-            $row["article_cid"]      = $do[2];
-            $row["article_created"]  = now();
-            $row["article_tstamp"]   = date('Y-m-d H:i:s', now() );
-            $row["article_sort"]     = getArticleSortValue($row["article_cid"]);
-            $row["article_alias"]    = proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
+        $row = $result[0];
+        $row["article_cid"]      = $do[2];
+        $row["article_created"]  = now();
+        $row["article_tstamp"]   = date('Y-m-d H:i:s', now() );
+        $row["article_sort"]     = getArticleSortValue($row["article_cid"]);
+        $row["article_alias"]    = proof_alias(0, empty($row["article_alias"]) ? $row['article_title'] : $row["article_alias"], 'ARTICLE');
 
-            // Check if the owner of the article needs to be updated
-            if($_SESSION["wcs_user_admin"] === 0 && intval($row["article_uid"]) !== intval($_SESSION["wcs_user_id"])) {
-                $row["article_uid"]      = $_SESSION["wcs_user_id"];
-                $row["article_username"] = $_SESSION["wcs_user_name"];
-            }
+        // Check if the owner of the article needs to be updated
+        if($_SESSION["wcs_user_admin"] === 0 && intval($row["article_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+            $row["article_uid"]      = $_SESSION["wcs_user_id"];
+            $row["article_username"] = $_SESSION["wcs_user_name"];
+        }
 
-            foreach($row as $key => $value) {
-                if($key == "article_id" ){
-                    $keys   = $key;
-                    $values = "''";
-                } else {
-                    $keys   .= ", ".$key;
-                    $values .= ", "._dbEscape($value);
-                }
+        foreach($row as $key => $value) {
+            if($key === "article_id" ){
+                $keys   = $key;
+                $values = "''";
+            } else {
+                $keys   .= ", ".$key;
+                $values .= ", "._dbEscape($value);
             }
         }
-        mysql_free_result($result);
 
         $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_article (".$keys.") VALUES (".$values.")";
+        $result = _dbQuery($sql, 'INSERT');
 
-        if($result = mysql_query($sql, $dbcon) or die("error while copy article <br>error while connecting to database: <pre>".$sql."</pre>")) {
+        if(isset($result['INSERT_ID'])) {
 
-            $article_insert_id = mysql_insert_id($dbcon);
+            $article_insert_id = $result['INSERT_ID'];
 
-            $sql1  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$do[1];
-            if($result1 = mysql_query($sql1, $dbcon) or die("error sql")) {
-                while ($row1 = mysql_fetch_assoc($result1)) {
-                    $row1["acontent_aid"] = $article_insert_id;
+            $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$do[1];
+            $result = _dbQuery($sql);
 
-                    // Check if the owner of the content part needs to be updated too
-                    if($_SESSION["wcs_user_admin"] === 0 && intval($row1["acontent_uid"]) !== intval($_SESSION["wcs_user_id"])) {
-                        $row1["acontent_uid"] = $_SESSION["wcs_user_id"];
-                    }
+            if(isset($result[0]['acontent_aid'])) {
+                $row = $result[0];
+                $row["acontent_aid"] = $article_insert_id;
 
-                    foreach($row1 as $key1 => $value1) {
-                        if($key1 == "acontent_id" ){
-                            $key1s   = $key1;
-                            $value1s = "''";
-                        } else {
-                            $key1s   .= ", ".$key1;
-                            $value1s .= ", "._dbEscape($value1);
-                        }
-                    }
-                    $sql2 =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
-                    $result = mysql_query($sql2, $dbcon) or die("error while copy article content <br>error while connecting to database: <pre>".$sql2."</pre>");
+                // Check if the owner of the content part needs to be updated too
+                if($_SESSION["wcs_user_admin"] === 0 && intval($row["acontent_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+                    $row["acontent_uid"] = $_SESSION["wcs_user_id"];
                 }
-                mysql_free_result($result1);
+
+                foreach($row as $key1 => $value1) {
+                    if($key1 === "acontent_id" ){
+                        $key1s   = $key1;
+                        $value1s = "''";
+                    } else {
+                        $key1s   .= ", ".$key1;
+                        $value1s .= ", "._dbEscape($value1);
+                    }
+                }
+                $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
+                _dbQuery($sql, 'INSERT');
             }
 
-            if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open' && $article_insert_id) {
+            if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open') {
 
                 headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$article_insert_id);
 
@@ -534,71 +538,72 @@ function copy_article_to_level($do, $dbcon) {
     }
 }
 
-function copy_level_to_level($do, $dbcon) {
+function copy_level_to_level($do) {
     // $do[1] -- copy level
     // $do[2] -- paste level
     // $do[3] -- sort Number
 
-    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_id=".$do[1];
-    if($result = mysql_query($sql, $dbcon) or die("error while connecting to database: <br><pre>".$sql."</pre>")) {
-        if($row = mysql_fetch_assoc($result)) {
-            $row["acat_struct"] = $do[2];
-            $row["acat_sort"]   = $do[3];
-            $row["acat_alias"]  = proof_alias(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY');
+    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_id=".$do[1];
+    $result = _dbQuery($sql);
+    $acat_insert_id = 0;
 
-            // Check if the owner of the structure level needs to be updated
-            if($_SESSION["wcs_user_admin"] === 0 && intval($row["acat_uid"]) !== intval($_SESSION["wcs_user_id"])) {
-                $row["acat_uid"] = $_SESSION["wcs_user_id"];
-            }
+    if(isset($result[0]['acat_id'])) {
+        $row = $result[0];
+        $row["acat_struct"] = $do[2];
+        $row["acat_sort"]   = $do[3];
+        $row["acat_alias"]  = proof_alias(0, empty($row["acat_alias"]) ? $row['acat_name'] : $row["acat_alias"], 'CATEGORY');
 
-            foreach($row as $key => $value) {
-                if($key == "acat_id" ) {
-                    $keys   = $key;
-                    $values = "''";
-                } else {
-                    $keys   .= ", ".$key;
-                    $values .= ", "._dbEscape($value);
-                }
+        // Check if the owner of the structure level needs to be updated
+        if($_SESSION["wcs_user_admin"] === 0 && intval($row["acat_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+            $row["acat_uid"] = $_SESSION["wcs_user_id"];
+        }
+
+        foreach($row as $key => $value) {
+            if($key === 'acat_id' ) {
+                $keys   = $key;
+                $values = "''";
+            } else {
+                $keys   .= ", ".$key;
+                $values .= ", "._dbEscape($value);
             }
         }
-        mysql_free_result($result);
 
-        $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (".$keys.") VALUES (".$values.")";
-        mysql_query($sql, $dbcon);
-        $acat_insert_id = mysql_insert_id($dbcon);
+        $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (".$keys.") VALUES (".$values.")";
+        $result = _dbQuery($sql, 'INSERT');
+        if(isset($result['INSERT_ID'])) {
+            $acat_insert_id = $result['INSERT_ID'];
+        }
     }
 
-
-    $sql = "SELECT article_id FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_cid=".$do[1];
-    if($result = mysql_query($sql, $dbcon)) {
-        while($row = mysql_fetch_row($result)) {
-            $do_article[1] = $row[0];
-            $do_article[2] = $acat_insert_id;
-            copy_article_to_level($do_article, $dbcon);
+    if($acat_insert_id) {
+        $sql = "SELECT article_id FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0 AND article_cid=".$do[1];
+        $result = _dbQuery($sql);
+        if(isset($result[0]['article_id'])) {
+            foreach($result as $row) {
+                $do_article[1] = $row['article_id'];
+                $do_article[2] = $acat_insert_id;
+                copy_article_to_level($do_article);
+            }
         }
-        mysql_free_result($result);
-    }
 
-
-    $sql = "SELECT acat_id,acat_sort FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$do[1];
-    if($result = mysql_query($sql, $dbcon)) {
-        while($row = mysql_fetch_row($result)) {
-            $do_struct[1] = $row[0];
-            $do_struct[2] = $acat_insert_id;
-            $do_struct[3] = $row[1];
-            copy_level_to_level($do_struct, $dbcon);
+        $sql = "SELECT acat_id,acat_sort FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$do[1];
+        $result = _dbQuery($sql);
+        if(isset($result[0]['acat_id'])) {
+            foreach($result as $row) {
+                $do_struct[1] = $row['acat_id'];
+                $do_struct[2] = $acat_insert_id;
+                $do_struct[3] = $row['acat_sort'];
+                copy_level_to_level($do_struct);
+            }
         }
-        mysql_free_result($result);
     }
 }
-//19-11-2004  Fernando Batista end-------------------
 
 function set_correct_ordersort() {
-    // 0 = manual, 2 = creation date, 4 = start date -> + 0 = ASC, + 1 = DESC
-    $val = 0;
 
     // but why not - should be possible too based on new sorting
-    $val = intval($_POST["acat_order"]) + intval($_POST["acat_ordersort"]);
+    $val  = empty($_POST["acat_order"]) ? 0 : intval($_POST["acat_order"]);
+    $val += empty($_POST["acat_ordersort"]) ? 0 : intval($_POST["acat_ordersort"]);
 
     return $val;
 }

@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -36,27 +36,27 @@ $copy_id = (isset($_GET["cop"])) ? intval($_GET["cop"]) : 0;
 $copy_article = (isset($_GET["acopy"])) ? intval($_GET["acopy"]) : 0;
 
 if(isset($_GET["open"])) {
-	list($open_id, $open_value) = explode(":", $_GET["open"]);
-	$open_id = intval($open_id);
-	if(empty($open_value)) {
-		unset($_SESSION["structure"][$open_id]);
-	}
-	$_SESSION["structure"][$open_id] = $open_value;
-	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), $db);
+    list($open_id, $open_value) = explode(":", $_GET["open"]);
+    $open_id = intval($open_id);
+    if(empty($open_value)) {
+        unset($_SESSION["structure"][$open_id]);
+    }
+    $_SESSION["structure"][$open_id] = $open_value;
+     _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), 'UPDATE');
 }
 
 //31-03-2005 Fernando Batista  start---------------------------------------------------------------------------
 $cut_article_content = (isset($_GET["accut"])) ? intval($_GET["accut"]) : 0;
 $copy_article_content = (isset($_GET["accopy"])) ? intval($_GET["accopy"]) : 0;
 if(isset($_GET["opena"])) {
-	list($open_id, $open_value) = explode(":", $_GET["opena"]);
-	$open_id = intval($open_id);
-	if(empty($open_value)) {
-		unset($_SESSION["structure"]["article"][$open_id]);
-	} else {
-		$_SESSION["structure"]["article"][$open_id] = $open_value;
-	}
-	mysql_query("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), $db);
+    list($open_id, $open_value) = explode(":", $_GET["opena"]);
+    $open_id = intval($open_id);
+    if(empty($open_value)) {
+        unset($_SESSION["structure"]["article"][$open_id]);
+    } else {
+        $_SESSION["structure"]["article"][$open_id] = $open_value;
+    }
+    _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_structure="._dbEscape(serialize($_SESSION["structure"]))." WHERE usr_id=".aporeplace($_SESSION["wcs_user_id"]), 'UPDATE');
 }
 //31-03-2005 Fernando Batista  end-------------------
 
@@ -86,17 +86,17 @@ $a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table
 echo $a;
 echo '<td width="77" nowrap="nowrap">';
 
-$struct[0]["acat_id"]		= 0;
-$struct[0]["acat_aktiv"]	= 1;
-$struct[0]["acat_struct"]	= 0;
+$struct[0]["acat_id"]       = 0;
+$struct[0]["acat_aktiv"]    = 1;
+$struct[0]["acat_struct"]   = 0;
 
 echo listmode_edits($listmode, $struct, 0, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, 0, 0, 0, 0);
 
 echo "</td>\n</tr>\n";
 
 if($_SESSION["structure"][0]) {
-	struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);//$template_default["article_order"]
-	struct_list(0, $db, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
+    struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);//$template_default["article_order"]
+    struct_list(0, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>

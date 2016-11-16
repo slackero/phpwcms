@@ -59,8 +59,8 @@ if(!$ftp["error"]) {
 
     $ftp["dir"]         = intval($_POST["file_dir"]);
     $ftp["short_info"]  = clean_slweg($_POST["file_shortinfo"]);
-    $ftp["title"]	    = clean_slweg($_POST["file_title"]);
-    $ftp["alt"]	        = clean_slweg($_POST["file_alt"]);
+    $ftp["title"]       = clean_slweg($_POST["file_title"]);
+    $ftp["alt"]         = clean_slweg($_POST["file_alt"]);
     $ftp["aktiv"]       = empty($_POST["file_aktiv"]) ? 0 : 1;
     $ftp["public"]      = empty($_POST["file_public"]) ? 0 : 1;
     $ftp["replace"]     = empty($_POST["file_replace"]) ? 0 : 1;
@@ -195,9 +195,9 @@ if(!$ftp["error"]) {
                         $file_error["upload"] = "Error while writing file to storage (1).";
                     }
                 }
-            } elseif(mysql_error()) {
+            } elseif(($mysql_error = _dbError())) {
 
-                $file_error["upload"] = 'MySQL Error while insert to DB: '.mysql_error();
+                $file_error["upload"] = 'MySQL Error while insert to DB: '.$mysql_error;
 
             }
 

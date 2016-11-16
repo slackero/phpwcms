@@ -147,7 +147,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
               <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
               <td width="471" class="v10"><select name="file_dir" id="file_dir" class="v11 width400">
                   <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-                  <?php dir_menu(0, 0, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
+                  <?php dir_menu(0, 0, "+", $_SESSION["wcs_user_id"], "+"); ?>
                  </select></td>
             </tr>
 
@@ -244,10 +244,11 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
-    if($result = mysql_query($sql, $db) or die("error while browsing file categories for selecting keywords")) {
+    $result = _dbQuery($sql);
+    if(isset($result[0]['fcat_id'])) {
         $k = "";
-        while($row = mysql_fetch_array($result)) {
-            if(get_filecat_childcount ($row["fcat_id"], $db)) {
+        foreach($result as $row) {
+            if(get_filecat_childcount($row["fcat_id"])) {
 
                 $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : "<img src=\"img/symbole/error.gif\" width=\"8\" height=\"9\">&nbsp;";
                 $k .= "<tr>\n<td class=\"f10b\">".$ke.html($row["fcat_name"]).":&nbsp;</td>\n";
@@ -255,11 +256,11 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
-                if($kresult = mysql_query($ksql, $db) or die("error while listing file keywords")) {
-                    while($krow = mysql_fetch_array($kresult)) {
-                        $k .= "<option value=\"".$krow["fkey_id"]."\">".html($krow["fkey_name"])."</option>\n";
+                $kresult = _dbQuery($ksql);
+                if(isset($kresult[0]['fkey_id'])) {
+                    foreach($kresult as $krow) {
+                        $k .= "<option value=\"".$krow["fkey_id"]."\">".html($krow["fkey_name"])."</option>";
                     }
-                    mysql_free_result($kresult);
                 }
 
                 $k .= "</select></td>\n</tr>\n";
@@ -267,7 +268,6 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
             }
         }
-        mysql_free_result($result);
     }
     //Ende vordefinierte Keywörter
 

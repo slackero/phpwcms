@@ -454,7 +454,6 @@ function get_struct_data($root_name='', $root_info='') {
         return $data;
     }
 
-    global $db;
     global $indexpage;
     $data = array();
 
@@ -497,10 +496,12 @@ function get_struct_data($root_name='', $root_info='') {
     }
     $sql .= "acat_trash=0 ORDER BY acat_struct, acat_sort";
 
-    if($result = mysql_query($sql, $db)) {
-        while($row = mysql_fetch_assoc($result)) {
+    $result = _dbQuery($sql);
+
+    if(isset($result[0]['acat_id'])) {
+        foreach($result as $row) {
             $data[$row["acat_id"]] = array(
-                "acat_id"       => $row["acat_id"],
+                "acat_id"           => $row["acat_id"],
                 "acat_name"         => $row["acat_name"],
                 "acat_info"         => $row["acat_info"],
                 "acat_struct"       => $row["acat_struct"],
@@ -531,7 +532,6 @@ function get_struct_data($root_name='', $root_info='') {
                 "acat_onepage"      => $row["acat_onepage"]
             );
         }
-        mysql_free_result($result);
     }
 
     // set max_allowed_package to bigger value
@@ -578,7 +578,7 @@ function get_actcat_articles_data($act_cat_id) {
         if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
             $sql .= ' AND article_end > NOW()';
         } else {
-            $sql .= ' AND IF(article_archive_status=1, 1 , article_end > NOW())';
+            $sql .= ' AND IF(article_archive_status=1, 1, article_end > NOW())';
         }
     }
     $sql .= ' ORDER BY '.$ao[2];
@@ -587,8 +587,10 @@ function get_actcat_articles_data($act_cat_id) {
         $sql .= ' LIMIT '.$as['acat_maxlist'];
     }
 
-    if($result = mysql_query($sql, $db)) {
-        while($row = mysql_fetch_assoc($result)) {
+    $result = _dbQuery($sql);
+
+    if(isset($result[0]['article_id'])) {
+        foreach($result as $row) {
             $data[$row["article_id"]] = array(
                 "article_id"            => $row["article_id"],
                 "article_cid"           => $row["article_cid"],
@@ -638,34 +640,36 @@ function get_actcat_articles_data($act_cat_id) {
                     }
                 }
                 $alias_sql .= " AND article_deleted=0 LIMIT 1";
-                if($alias_result = mysql_query($alias_sql, $db)) {
-                    if($alias_row = mysql_fetch_assoc($alias_result)) {
-                        $data[$aid]["article_id"] = $alias_row["article_id"];
-                        $data[$aid]["article_alias"] = $alias_row["article_alias"];
-                        $data[$aid]["article_uid"] = $alias_row["article_uid"];
-                        // use alias article header data
-                        if(!$row["article_headerdata"]) {
-                            $data[$aid]["article_title"]        = $alias_row["article_title"];
-                            $data[$aid]["article_subtitle"]     = $alias_row["article_subtitle"];
-                            $data[$aid]["article_keyword"]      = $alias_row["article_keyword"];
-                            $data[$aid]["article_summary"]      = $alias_row["article_summary"];
-                            $data[$aid]["article_redirect"]     = $alias_row["article_redirect"];
-                            $data[$aid]["article_date"]         = $alias_row["article_date"];
-                            $data[$aid]["article_image"]        = @unserialize($alias_row["article_image"]);
-                            $data[$aid]["article_begin"]        = $alias_row["article_begin"];
-                            $data[$aid]["article_end"]          = $alias_row["article_end"];
-                            $data[$aid]['article_livedate']     = $alias_row["article_livedate"];
-                            $data[$aid]['article_killdate']     = $alias_row["article_killdate"];
-                            $data[$aid]['article_menutitle']    = $alias_row["article_menutitle"];
-                            $data[$aid]['article_description']  = $alias_row["article_description"];
-                        }
+
+                $alias_result = _dbQuery($alias_sql);
+
+                if(isset($alias_result[0]['article_id'])) {
+
+                    $data[$aid]["article_id"] = $alias_result[0]["article_id"];
+                    $data[$aid]["article_alias"] = $alias_result[0]["article_alias"];
+                    $data[$aid]["article_uid"] = $alias_result[0]["article_uid"];
+
+                    // use alias article header data
+                    if(!$row["article_headerdata"]) {
+                        $data[$aid]["article_title"]        = $alias_result[0]["article_title"];
+                        $data[$aid]["article_subtitle"]     = $alias_result[0]["article_subtitle"];
+                        $data[$aid]["article_keyword"]      = $alias_result[0]["article_keyword"];
+                        $data[$aid]["article_summary"]      = $alias_result[0]["article_summary"];
+                        $data[$aid]["article_redirect"]     = $alias_result[0]["article_redirect"];
+                        $data[$aid]["article_date"]         = $alias_result[0]["article_date"];
+                        $data[$aid]["article_image"]        = @unserialize($alias_result[0]["article_image"]);
+                        $data[$aid]["article_begin"]        = $alias_result[0]["article_begin"];
+                        $data[$aid]["article_end"]          = $alias_result[0]["article_end"];
+                        $data[$aid]['article_livedate']     = $alias_result[0]["article_livedate"];
+                        $data[$aid]['article_killdate']     = $alias_result[0]["article_killdate"];
+                        $data[$aid]['article_menutitle']    = $alias_result[0]["article_menutitle"];
+                        $data[$aid]['article_description']  = $alias_result[0]["article_description"];
                     }
-                    mysql_free_result($alias_result);
                 }
             }
         }
-        mysql_free_result($result);
     }
+
     return $data;
 }
 
@@ -703,7 +707,7 @@ function add_linkid($img='', $linkid='') {
     return $img;
 }
 
-function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $count, $div, $link_to) {
+function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $count, $div, $link_to) {
 
     // this returns the level structure based on given arrays
     // it is special for browsing from root levels
@@ -1101,6 +1105,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
             if(empty($article["article_image"]["list_caption"])) {
                 $article["article_image"]["list_caption"] = '';
+            }
+            if(empty($article["article_image"]["list_id"])) {
+                $article["article_image"]["list_id"] = 0;
             }
             $caption = getImageCaption(array('caption' => $article["article_image"]["list_caption"], 'file' => $article["article_image"]["list_id"]));
 
@@ -2420,33 +2427,31 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
 
     $s = '';
 
-    if($result = mysql_query($sql, $GLOBALS['db'])) {
+    $result = _dbQuery($sql);
 
-        if(mysql_num_rows($result) > 1) {
+    if(isset($result[0]['article_id']) && count($result) > 1) {
 
-            $c = '';
+        $c = '';
 
-            if($sitemap['articleclass']) {
-                $c .= ' class="'.$sitemap['articleclass'];
-                if($sitemap['classcount']) {
-                    $c .= $counter;
-                }
-                $c .= '"';
+        if($sitemap['articleclass']) {
+            $c .= ' class="'.$sitemap['articleclass'];
+            if($sitemap['classcount']) {
+                $c .= $counter;
             }
+            $c .= '"';
+        }
 
-            while($row = mysql_fetch_row($result)) {
+        foreach($result as $row) {
 
-                $s .= '<li'.$sitemap['article_style'].'>';
-                $s .= '<a href="'.rel_url(array(), array(), empty($row[2]) ? 'aid='.$row[0] : $row[2]).'">';
-                $s .= html_specialchars($row[1]);
-                $s .= "</a></li>\n";
-
-            }
-
-            $s = "\n<ul".$c.">\n".$s.'</ul>';
+            $s .= '<li'.$sitemap['article_style'].'>';
+            $s .= '<a href="'.rel_url(array(), array(), empty($row['article_alias']) ? 'aid='.$row['article_id'] : $row['article_alias']).'">';
+            $s .= html($row['article_title']);
+            $s .= '</a></li>' . LF;
 
         }
-        mysql_free_result($result);
+
+        $s = LF . '<ul'.$c.'>' . LF . $s . '</ul>';
+
     }
 
     return $s;
@@ -2734,40 +2739,57 @@ function combined_POST_cleaning($val) {
 }
 
 function get_fe_userinfo($forum_userID) {
-    // get frontend userinformation
+    // get frontend user information
     $forum_userID = intval($forum_userID);
     $got_the_info = false;
+
     if($forum_userID != 0 && (!isset($GLOBALS['FE_USER']) || !isset($GLOBALS['FE_USER'][$forum_userID]))) {
         //connect to user db and get information
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_id=".$forum_userID." LIMIT 1";
-        if($result = mysql_query($sql, $GLOBALS['db'])) {
-            if($row = mysql_fetch_assoc($result)) {
-                $GLOBALS['FE_USER'][$forum_userID] = array(
-                    'FE_ID'     => $forum_userID,       'login' => $row['usr_login'],
-                    'pass'      => $row['usr_pass'],    'email' => $row['usr_email'],
-                    'admin'     => $row['usr_admin'],   'fe'    => $row['usr_fe'],
-                    'aktiv'     => $row['usr_aktiv'],   'name'  => $row['usr_name'],
-                    'lang'      => empty($row['usr_lang']) ? $GLOBALS['phpwcms']['default_lang'] : $row['usr_lang'],
-                    'wysiwyg'   => $row['usr_wysiwyg']
-                );
-                $got_the_info = true;
-            }
-            mysql_free_result($result);
+        $result = _dbQuery($sql);
+
+        if(isset($result[0]['usr_id'])) {
+
+            $GLOBALS['FE_USER'][$forum_userID] = array(
+                'FE_ID'     => $forum_userID,
+                'login'     => $result[0]['usr_login'],
+                'pass'      => $result[0]['usr_pass'],
+                'email'     => $result[0]['usr_email'],
+                'admin'     => $result[0]['usr_admin'],
+                'fe'        => $result[0]['usr_fe'],
+                'aktiv'     => $result[0]['usr_aktiv'],
+                'name'      => $result[0]['usr_name'],
+                'lang'      => empty($result[0]['usr_lang']) ? $GLOBALS['phpwcms']['default_lang'] : $result[0]['usr_lang'],
+                'wysiwyg'   => $result[0]['usr_wysiwyg']
+            );
+
+            $got_the_info = true;
+
         }
+
     } else {
+
         $got_the_info = true;
+
     }
     if(($forum_userID === 0 && !isset($GLOBALS['FE_USER'][$forum_userID])) || !$got_the_info) {
+
         $forum_userID = 0;
+
         $GLOBALS['FE_USER'][$forum_userID] = array(
-            'FE_ID'     => $forum_userID,       'login' => 'guest',
-            'pass'      => '',                  'email' => 'noreply@localhost',
-            'admin'     => 0,                   'fe'    => 0,
-            'aktiv'     => 1,                   'name'  => 'Guest',
+            'FE_ID'     => $forum_userID,
+            'login'     => 'guest',
+            'pass'      => '',
+            'email'     => 'noreply@localhost',
+            'admin'     => 0,
+            'fe'        => 0,
+            'aktiv'     => 1,
+            'name'      => 'Guest',
             'lang'      => $GLOBALS['phpwcms']['default_lang'],
             'wysiwyg'   => empty($GLOBALS['phpwcms']['wysiwyg_editor']) ? 0 : 1
         );
     }
+
 }
 
 function highlightSearchResult($string='', $search=null) {
@@ -3318,7 +3340,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
             4 => ''
         );
     } elseif(is_array($caption)) {
-        $filedata = isset($caption['file']) ? getFileDetails($caption['file']) : null;
+        $filedata = !empty($caption['file']) ? getFileDetails($caption['file']) : null;
         $caption = isset($caption['caption']) ? $caption['caption'] : '';
     } else {
         $filedata = null;

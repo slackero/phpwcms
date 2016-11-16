@@ -37,39 +37,42 @@ require_once "include/inc_lib/autolink.inc.php";
 
 $file_id    = (isset($_GET["fid"])) ? intval($_GET["fid"]) : 0;
 $public     = (isset($_GET["public"])) ? true : false;
+$error      = 1;
 
 if($file_id) {
 
     $file_key = get_list_of_file_keywords();
+    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id." AND f_kid=1 AND ";
 
     if($public) {
         //public file
-        $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id." ";
-        $sql .= "AND f_kid=1 AND f_trash=0 AND f_aktiv=1 AND (f_public=1";
+        $sql .= "f_trash=0 AND f_aktiv=1 AND (f_public=1";
         if(empty($_SESSION["wcs_user_admin"])) {
             $sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
         }
-        $sql .= ") LIMIT 1";
+        $sql .= ") ";
     } else {
         //private file
-        $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id.' AND ';
-        $sql .= "f_kid=1 AND f_trash IN (0, 1) ";
+        $sql .= "f_trash IN (0, 1) ";
         if(empty($_SESSION["wcs_user_admin"])) {
             $sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
         }
-        $sql .= "LIMIT 1";
     }
-    if($result = mysql_query($sql, $db) or die("error")) {
-        if($row = mysql_fetch_assoc($result)) {
-            $filename = html_specialchars($row["f_name"]);
+    $sql .= "LIMIT 1";
+    $result = _dbQuery($sql);
 
-            $thumb_image = get_cached_image(array(
-                "target_ext"    =>  $row["f_ext"],
-                "image_name"    =>  $row["f_hash"] . '.' . $row["f_ext"],
-                "thumb_name"    =>  md5($row["f_hash"].'538538'.$phpwcms["sharpen_level"].$phpwcms['colorspace']),
-                "max_width"     =>  538,
-                "max_height"    =>  538
-            ));
+    if(isset($result[0]['f_id'])) {
+        $row = $result[0];
+        $filename = html($row["f_name"]);
+        $error = 0;
+
+        $thumb_image = get_cached_image(array(
+            "target_ext"    =>  $row["f_ext"],
+            "image_name"    =>  $row["f_hash"] . '.' . $row["f_ext"],
+            "thumb_name"    =>  md5($row["f_hash"].'538538'.$phpwcms["sharpen_level"].$phpwcms['colorspace']),
+            "max_width"     =>  538,
+            "max_height"    =>  538
+        ));
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -80,36 +83,18 @@ if($file_id) {
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="robots" content="noindex, nofollow" />
+    <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
     <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
     <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
-<?php
-    echo '  <script type="text/javascript">
-    function ResizeAndCenter(){
-        var width = 590;
-    ';
-    if($thumb_image != false) {
-        echo '      var height = screen.availHeight;
-            if(height < 490) {
-                height=420;
-            } else {
-                height=570;
-            }
-        ';
-    } else {
-        echo '  var height = 300;';
-    }
-
-    echo '
-        window.moveTo(5,5);
-        window.resizeTo(width,height);
-    }
-        </script>
-    ';
-
-?>
-
-    <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function ResizeAndCenter(){
+            var width = 590;
+            var height = <?php if($thumb_image != false): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
+            window.moveTo(5,5);
+            window.resizeTo(width,height);
+        }
+    </script>';
 </head>
 
 <body onload="ResizeAndCenter();">
@@ -177,6 +162,7 @@ if($file_id) {
   <tr><td colspan="4" bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <?php
     }
+
     if($row["f_longinfo"]) {
 ?>
   <tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -187,8 +173,10 @@ if($file_id) {
     <td class="v10"><?php echo nl2br(auto_link(html_specialchars($row["f_longinfo"]))) ?></td>
     <td><img src="img/leer.gif" alt="" width="1" height="5" /></td>
   </tr>
-  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr><?php
-    } ?>
+  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<?php
+    }
+?>
   <tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
   <tr bgcolor="#EBF2F4">
     <td><img src="img/leer.gif" alt="" width="10" height="10" /></td>
@@ -198,18 +186,11 @@ if($file_id) {
   </tr>
 </table>
 </body>
-</html>
-<?php
-        } else {
-            $fehler = 1;
-        }
-    } else {
-        $fehler = 1;
+</html><?php
+
     }
-} else {
-    $fehler = 1;
 }
 
-if(isset($fehler)) {
+if($error) {
     echo $BL['DOWNLOAD_ERR3'];
 }

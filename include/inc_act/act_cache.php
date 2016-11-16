@@ -22,16 +22,16 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
 
-	if(isset($_GET['do']) && intval($_GET['do']) === 9) {
+    if(isset($_GET['do']) && intval($_GET['do']) === 9) {
 
-		$sql = "TRUNCATE TABLE ".DB_PREPEND."phpwcms_cache";
-		mysql_query($sql, $db) or die("error while deleting all cache entries");
+        $sql = "TRUNCATE TABLE ".DB_PREPEND."phpwcms_cache";
+        _dbQuery($sql, 'TRUNCATE');
 
-	} else {
+    } else {
 
-		update_cache();
+        update_cache();
 
-	}
+    }
 
 }
 

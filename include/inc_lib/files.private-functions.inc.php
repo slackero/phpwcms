@@ -11,19 +11,23 @@
 
 //Funktionen zum Listen der privaten Dateien
 
-function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, $phpwcms) {
+function list_private($pid, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, $phpwcms) {
     $cutID = intval($cutID);
     $pid = intval($pid);
     $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file f ";
     $sql .= "LEFT JOIN ".DB_PREPEND."phpwcms_user u ON u.usr_id=f.f_uid ";
-    $sql .= "WHERE ";
-    $sql .= "f.f_pid=".intval($pid)." AND ";
+    $sql .= "WHERE f.f_pid=".intval($pid)." AND ";
     if(empty($_SESSION["wcs_user_admin"])) {
         $sql .= "f.f_uid=".intval($userID)." AND ";
     }
     $sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_sort, f_name";
-    $result = mysql_query($sql, $dbcon);
-    while($row = mysql_fetch_array($result)) {
+    $result = _dbQuery($sql);
+
+    if(!isset($result[0]['f_id'])) {
+        return $vor;
+    }
+
+    foreach($result as $row) {
 
         $dirname = html($row["f_name"]);
 
@@ -40,15 +44,11 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
         if(empty($_SESSION["wcs_user_admin"])) {
             $count_sql .= "f_uid=".intval($userID)." AND ";
         }
-        $count_sql .= "f_trash=0 LIMIT 1";
-        if($count_result = mysql_query($count_sql, $dbcon)) {
-            if($count_row = mysql_fetch_row($count_result)) {
-                $count = '<img src="img/leer.gif" width="2" height="1">'.
-                         '<a href="'.$zieldatei."&amp;klapp=".$row["f_id"].
-                         '%7C'.$klapp_status.'">'.on_off($klapp_status, $dirname, 0)."</a>"; // | = %7C
-                $count_wert = $count_row[0];
-            }
-            mysql_free_result($count_result);
+        $count_sql .= "f_trash=0";
+
+        if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
+            $count  = '<img src="img/leer.gif" width="2" height="1"><a href="'.$zieldatei."&amp;klapp=".$row["f_id"];
+            $count .= '%7C'.$klapp_status.'">'.on_off($klapp_status, $dirname, 0)."</a>";
         }
 
         //Aufbau der Zeile
@@ -60,15 +60,18 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
         // Gallery status
         switch($row["f_gallerystatus"]) {
 
-            case 2:     // gallery root dir
-                        echo '<img src="img/icons/folder_galleryroot.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_root'].'" title="'.$GLOBALS['BL']['be_gallery_root'].'" />';
-                        break;
+            case 2:
+                // gallery root dir
+                echo '<img src="img/icons/folder_galleryroot.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_root'].'" title="'.$GLOBALS['BL']['be_gallery_root'].'" />';
+                break;
 
-            case 3:     // gallery subdir
-                        echo '<img src="img/icons/folder_gallerysub.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_directory'].'" title="'.$GLOBALS['BL']['be_gallery_directory'].'" />';
-                        break;
+            case 3:
+                // gallery subdir
+                echo '<img src="img/icons/folder_gallerysub.gif" border="0" alt="'.$GLOBALS['BL']['be_gallery_directory'].'" title="'.$GLOBALS['BL']['be_gallery_directory'].'" />';
+                break;
 
-            default:    echo "<img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
+            default:
+                echo "<img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
         }
 
         echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\"><strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
@@ -118,7 +121,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 
         //Weiter, wenn Unterstruktur
         if(!$klapp_status && $count_wert) { //$vor."<img src='img/leer.gif' height=1 width=18 border=0>"
-            list_private($row["f_id"], $dbcon, $vor+18, $zieldatei, $userID, $cutID, $show_thumb, $phpwcms);
+            list_private($row["f_id"], $vor+18, $zieldatei, $userID, $cutID, $show_thumb, $phpwcms);
 
             //Listing eventuell im Verzeichnis enthaltener Dateien
             $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"];
@@ -127,9 +130,13 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
             }
             $file_sql .= " AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 
-            if($file_result = mysql_query($file_sql, $dbcon) or die ("error while listing files")) {
+            $file_result = _dbQuery($file_sql);
+
+            if(isset($file_result[0]['f_id'])) {
+
                 $file_durchlauf = 0;
-                while($file_row = mysql_fetch_array($file_result)) {
+
+                foreach($file_result as $file_row) {
                     $filename = html($file_row["f_name"]);
 
                     $file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
@@ -195,8 +202,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
                     //Ende Aufbau
                     echo "</tr>\n";
 
-
-                    if($_SESSION["wcs_user_thumb"]) {
+                    if(!empty($_SESSION["wcs_user_thumb"])) {
 
                         // now try to get existing thumbnails or if not exists
                         // build new based on default thumbnail listing sizes
@@ -209,7 +215,6 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
                         ));
 
                         if($thumb_image != false) {
-
 
                             echo "<tr>\n";
                             echo "<td width=\"".($vor+37)."\"><img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+37)."\" border=\"0\" alt=\"\" /></td>\n";
@@ -231,7 +236,6 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
 
                     }
 
-
                     $file_durchlauf++;
                 }
                 if($file_durchlauf) { //Abschluss der Filelisten-Tabelle
@@ -244,7 +248,7 @@ function list_private($pid, $dbcon, $vor, $zieldatei, $userID, $cutID=0, $show_t
         //Zaehler mitführen
         $_SESSION["list_zaehler"]++;
     }
-    mysql_free_result($result);
+
     return $vor;
 }
 

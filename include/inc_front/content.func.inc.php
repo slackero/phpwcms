@@ -84,13 +84,12 @@ if(isset($_GET["id"])) {
 			$sql  =	'SELECT article_id, article_cid FROM '.DB_PREPEND.'phpwcms_article WHERE ';
 			$sql .= 'article_deleted=0 AND article_aktiv=1 AND article_id='.$aktion[1].' LIMIT 1';
 			$aktion[1] = 0; //reset
-			if($result = mysql_query($sql, $db)) {
-				if($row = mysql_fetch_row($result)) {
-					$aktion[0] = $row[1];
-					$aktion[1] = $row[0];
-					$content['404error']['status'] = false;
-				}
-				mysql_free_result($result);
+			$result = _dbQuery($sql);
+
+			if(isset($result[0]['article_id'])) {
+				$aktion[0] = $result[0]['article_cid'];
+				$aktion[1] = $result[0]['article_id'];
+				$content['404error']['status'] = false;
 			}
 		}
 
@@ -122,22 +121,17 @@ if(isset($_GET["id"])) {
 			$sql .= 'AND (article_aktiv=1 OR article_uid='.intval($_SESSION["wcs_user_id"]).') ';
 		}
 		$sql .= 'LIMIT 1';
-		if($result = mysql_query($sql, $db)) {
-			if($row = mysql_fetch_row($result)) {
-				$aktion[0] = $row[0];
-				$aktion[1] = $_GET['aid'];
 
-				// Force 301 Redirect when alias is available
-				if(!empty($phpwcms['force301_id2alias']) && !$content['aId_CpPage'] && !empty($row[1])) {
-					headerRedirect(abs_url(array(), array(), $row[1], 'urlencode'), 301);
-				}
+		$result = _dbQuery($sql);
 
-			} else {
+		if(isset($result[0]['article_cid'])) {
+			$aktion[0] = $result[0]['article_cid'];
+			$aktion[1] = $_GET['aid'];
 
-				$content['404error']['status'] = true;
-
+			// Force 301 Redirect when alias is available
+			if(!empty($phpwcms['force301_id2alias']) && !$content['aId_CpPage'] && !empty($result[0]['article_alias'])) {
+				headerRedirect(abs_url(array(), array(), $result[0]['article_alias'], 'urlencode'), 301);
 			}
-			mysql_free_result($result);
 
 		} else {
 
@@ -492,11 +486,9 @@ if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 	//then choose the template information based on this ID
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND ";
 	$sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1";
-	if($result = mysql_query($sql, $db)) {
-		if($row = mysql_fetch_row($result)) {
-			$block = unserialize($row[0]);
-		}
-		mysql_free_result($result);
+	$result = _dbQuery($sql);
+	if(isset($result[0]['template_var'])) {
+		$block = @unserialize($result[0]['template_var']);
 	}
 }
 if(!isset($block)) {
@@ -504,11 +496,9 @@ if(!isset($block)) {
 	// choose the default template or if no default template defined choose the next one
 	$sql  = "SELECT template_var FROM ".DB_PREPEND."phpwcms_template ";
 	$sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1";
-	if($result = mysql_query($sql, $db)) {
-		if($row = mysql_fetch_row($result)) {
-			$block = unserialize($row[0]);
-		}
-		mysql_free_result($result);
+	$result = _dbQuery($sql);
+	if(isset($result[0]['template_var'])) {
+		$block = @unserialize($result[0]['template_var']);
 	}
 }
 

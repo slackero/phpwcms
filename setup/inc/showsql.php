@@ -18,41 +18,32 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 $sqldata = '';
 
 if(isset($_GET['f'])) {
-	$file = str_replace(array('..', '/', "\\"), '', clean_slweg($_GET['f']));
-	$sql_data = read_textfile(PHPWCMS_ROOT.'/setup/update_sql/'.$file);
+    $file = str_replace(array('..', '/', "\\"), '', clean_slweg($_GET['f']));
+    $sql_data = read_textfile(PHPWCMS_ROOT.'/setup/update_sql/'.$file);
 }
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+?><!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Upgrade phpwcms</title>
-<style type="text/css">
-<!--
-pre {
-	font-size:	9pt;
-	font-family:"Courier New", Courier, monospace;
-	margin:	0;
-	padding: 0;
-}
-body {
-	margin:	0;
-	padding: 10px;
-	background-color: #F6F8FA;
-	color: #000000;
-}
-//-->
-</style>
+    <meta charset="<?php echo $phpwcms['charset']; ?>">
+    <title>Upgrade phpwcms</title>
+    <style type="text/css">
+    body {
+        margin: 0;
+        padding: 10px;
+        background-color: #F6F8FA;
+        color: #000000;
+    }
+    pre {
+        font-size: 13px;
+        font-family: Menlo, "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
 </head>
 
 <body>
-<pre><?php
-if(!empty($sql_data)) {
-	echo $sql_data;
-} else {
-	echo 'No update/upgrade SQL file selected<br />See above menu...';
-}
-
-?></pre>
+    <pre><?php echo empty($sql_data) ? 'No update/upgrade SQL file selected<br /><br />See above menu ... [select SQL file]' : $sql_data; ?></pre>
 </body>
 </html>

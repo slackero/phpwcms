@@ -370,7 +370,7 @@ if(!empty($_getVar['feedimport'])) {
 						$insert = _dbInsert('phpwcms_articlecontent', $cpdata);
 
 						if(!isset($insert['INSERT_ID'])) {
-							dumpVar(mysql_error());
+							dumpVar(_dbError());
 						}
 
 					}

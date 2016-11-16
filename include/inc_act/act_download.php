@@ -25,61 +25,70 @@ $dl = isset($_GET["dl"]) ? intval($_GET["dl"]) : 0;
 $pl = isset($_GET["pl"]) ? intval($_GET["pl"]) : 0;
 
 if($dl) {
-	$err = 0;
-	if(!$pl) {
-		$sql  =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND ";
-		$sql .=	"f_id=".$dl." AND f_kid=1 ";
-		if(empty($_SESSION["wcs_user_admin"])) {
-			$sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
-		}
-		$sql .=	"LIMIT 1";
-	} else {
-		$sql  =	"SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND f_trash=0 AND ";
-		$sql .=	"f_id=".$dl." AND f_kid=1 AND (f_public=1";
-		if(empty($_SESSION["wcs_user_admin"])) {
-			$sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
-		}
-		$sql .=	") LIMIT 1";
-	}
+    $err = 0;
 
-	if($result = mysql_query($sql, $db) or die ("error while retrieving file download infos")) {;
-		if($download = mysql_fetch_array($result)) {
+    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND f_kid=1 AND f_id=".$dl." ";
 
-			$dl_filename = $download["f_hash"];
-			if($download["f_ext"]) {
-				$dl_filename .= '.'.$download["f_ext"];
-			}
+    if($pl === 0) {
+        if(empty($_SESSION["wcs_user_admin"])) {
+            $sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
+        }
+    } else {
+        $sql .= "AND f_aktiv=1 AND (f_public=1";
+        if(empty($_SESSION["wcs_user_admin"])) {
+            $sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
+        }
+        $sql .= ") ";
+    }
 
-			$dl_path = PHPWCMS_ROOT.$phpwcms["file_path"];
+    $sql .= "LIMIT 1";
 
-			if(file_exists($dl_path.$dl_filename)) {
-				if(!is_mimetype_format($download["f_type"])) {
-					$download["f_type"] = get_mimetype_by_extension($download["f_ext"]);
-				}
+    $result = _dbQuery($sql);
 
-				header("Content-type: ".$download["f_type"]);
-				header('Content-Disposition: attachment; filename="'.$download["f_name"].'"');
-				header("Content-Length: " . filesize($dl_path.$dl_filename));
-				if(readfile($dl_path.$dl_filename)) {
-					exit();
-				} else {
-					$err = 'Error reading file (4)';
-				}
+    if(isset($result[0]['f_id'])) {
 
-			} else {
-				$err = 'File does not exist (1)';
-			}
-		} else {
-			$err = 'File not found in database (2)';
-		}
-	}
+        $download = $result[0];
+
+        $dl_filename = $download["f_hash"];
+        if($download["f_ext"]) {
+            $dl_filename .= '.'.$download["f_ext"];
+        }
+
+        $dl_path = PHPWCMS_ROOT.$phpwcms["file_path"];
+
+        if(is_file($dl_path.$dl_filename)) {
+
+            if(!is_mimetype_format($download["f_type"])) {
+                $download["f_type"] = get_mimetype_by_extension($download["f_ext"]);
+            }
+
+            header("Content-type: ".$download["f_type"]);
+            header('Content-Disposition: attachment; filename="'.$download["f_name"].'"');
+            header("Content-Length: " . filesize($dl_path.$dl_filename));
+
+            if(readfile($dl_path.$dl_filename)) {
+                exit();
+            } else {
+                $err = 'Error reading file (4)';
+            }
+
+        } else {
+            $err = 'File does not exist (1)';
+        }
+
+    } else {
+        $err = 'File not found in database (2)';
+    }
+
 } else {
-	$err = 'False ID given (3)';
+
+    $err = 'False ID given (3)';
+
 }
 
 if($err):
 
-	session_destroy();
+    session_destroy();
 
 ?><html>
 <head>
@@ -88,12 +97,12 @@ if($err):
 <link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<h1>Download Error</h1>
-	<p><strong><?php echo $err ?></strong> occured while trying to download a file of your directory.</p>
-	<p>Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again and try another file.</p>
-	<p>If you think that this might be a technical problem send an email to the webmaster.</p>
+    <h1>Download Error</h1>
+    <p><strong><?php echo $err ?></strong> occured while trying to download a file of your directory.</p>
+    <p>Please <a href="<?php echo PHPWCMS_URL.get_login_file() ?>"><strong>login</strong></a> again and try another file.</p>
+    <p>If you think that this might be a technical problem send an email to the webmaster.</p>
 </body>
 </html>
 <?php
 
-	endif;
+    endif;

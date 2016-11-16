@@ -313,7 +313,7 @@ if($BE['LANG'] == 'ar') {
 
         <h1 class="title" style="margin:1em 0 3px 0;"><?php echo $BL['usr_online'] ?></h1>
 
-        <?php echo online_users($db, "<br />", "<span class=\"subnavinactive\">|</span>"); ?>
+        <?php echo online_users('<br />', '<span class="subnavinactive">|</span>'); ?>
 
         </td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>

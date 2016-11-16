@@ -263,8 +263,9 @@ $_temp_cat = '';
 
 // list available
 $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC";
-if($result = mysql_query($sql, $db) or die("error while listing templates")) {
-    while($row = mysql_fetch_assoc($result)) {
+$result = _dbQuery($sql);
+if(isset($result[0]['template_id'])) {
+    foreach($result as $row) {
         echo "<option value=\"".$row["template_id"]."\"";
         if($row["template_id"] == $acat_template) {
             echo " selected";
@@ -277,7 +278,6 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
         }
         echo "</option>\n";
     }
-    mysql_free_result($result);
 }
 
 ?>
@@ -408,13 +408,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
         // list all available groups and put into temp array
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_active != 9 ORDER BY group_id DESC";
-        if($result = mysql_query($sql, $db) or die("error while listing groups: ".html(mysql_error()))) {
-            $_temp_group = array();
-            while($row = mysql_fetch_assoc($result)) {
+        $result = _dbQuery($sql);
+        $_temp_group = array();
+        if(isset($result[0]['group_name'])) {
+            foreach($result as $row) {
                 $_temp_group[$row['group_id']]['name']   = html($row['group_name']);
                 $_temp_group[$row['group_id']]['active'] = $row['group_active'];
             }
-            mysql_free_result($result);
         }
 
         ?><table border="0" cellspacing="0" cellpadding="0">

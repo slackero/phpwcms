@@ -78,7 +78,7 @@ if(getimagesize($_FILES['cvsfile']['tmp_name'])) {
 
 						$sql = _dbQuery($sql, 'INSERT');
 						if(empty($sql['INSERT_ID'])) {
-							$_userInfo['nonImported'][ $c ] = $row[0] . '; ' . $row[1] . ' (' . mysql_error() . ')';
+							$_userInfo['nonImported'][ $c ] = $row[0] . '; ' . $row[1] . ' (' . _dbError() . ')';
 						}
 
 					} else {

@@ -12,78 +12,77 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
-
-$new_login 			= genlogname();
-$new_password 		= generic_string(8);
-$new_email			= '';
-$new_name			= '';
-$set_user_aktiv 	= 0;
-$set_user_admin 	= 0;
-$set_user_fe		= 0;
-$send_verification	= 1;
-$user_err			= '';
+$new_login          = genlogname();
+$new_password       = generic_string(8);
+$new_email          = '';
+$new_name           = '';
+$set_user_aktiv     = 0;
+$set_user_admin     = 0;
+$set_user_fe        = 0;
+$send_verification  = 1;
+$user_err           = '';
 
 if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
-	//Create Account Daten verarbeiten
-	$new_login 			= slweg($_POST["form_newloginname"]);
-	$new_password 		= slweg($_POST["form_newpassword"]);
-	$new_email 			= clean_slweg($_POST["form_newemail"]);
-	$new_name 			= clean_slweg($_POST["form_newrealname"]);
-	$set_user_aktiv 	= isset($_POST["form_active"]) ? 1 : 0;
-	$set_user_admin 	= isset($_POST["form_admin"]) ? 1 : 0;
-	$set_user_fe 		= isset($_POST["form_feuser"]) ? intval($_POST["form_feuser"]) : 0;
-	if($set_user_admin) {
-		$set_user_fe 	= 2;
-	}
-	$send_verification 	= isset($_POST["verification_email"]) ? 1 : 0;
-	if(str_empty($new_login)) {
-		$user_err = $BL['be_admin_usr_err2']."\n";
-	} else {
-		$sql = "SELECT COUNT(*) AS anzahl FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."'";
-		if($result = mysql_query($sql, $db)) {
-			if($check_anzahl = mysql_fetch_array($result)) {
-				if($check_anzahl["anzahl"]) $user_err .= $BL['be_admin_usr_err1']."\n";
-			}
-			mysql_free_result($result);
-		}
-	}
-	if(str_empty($new_password)) $user_err .= $BL['be_admin_usr_err3']."\n";
-	if(!is_valid_email($new_email) && $send_verification) $user_err .= $BL['be_admin_usr_err4']."\n";
-	if(empty($user_err)) { //Insert new User
-		$sql =	"INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
-				"usr_admin, usr_aktiv, usr_name, usr_wysiwyg, usr_fe ) VALUES ('".
-				aporeplace($new_login)."', '".
-				aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', '".
-				aporeplace($new_email)."', '".
-				$set_user_admin."', '".
-				$set_user_aktiv."', '".
-				aporeplace($new_name)."', 1, '".
-				$set_user_fe."')";
-		if(mysql_query($sql, $db) or die('error while creating new user')) {
-			$new_user_id = mysql_insert_id($db);
-			$user_ok = 1;
-			if($send_verification) {
-				$emailbody = str_replace('{LOGIN}', $new_login, $BL['be_admin_usr_mailbody']);
-				$emailbody = str_replace('{PASSWORD}', $new_password, $emailbody);
-				$emailbody = str_replace('{SITE}', PHPWCMS_URL, $emailbody);
-				$emailbody = str_replace('{LOGIN_PAGE}', PHPWCMS_URL.get_login_file(), $emailbody);
+    //Create Account Daten verarbeiten
+    $new_login          = slweg($_POST["form_newloginname"]);
+    $new_password       = slweg($_POST["form_newpassword"]);
+    $new_email          = clean_slweg($_POST["form_newemail"]);
+    $new_name           = clean_slweg($_POST["form_newrealname"]);
+    $set_user_aktiv     = isset($_POST["form_active"]) ? 1 : 0;
+    $set_user_admin     = isset($_POST["form_admin"]) ? 1 : 0;
+    $set_user_fe        = isset($_POST["form_feuser"]) ? intval($_POST["form_feuser"]) : 0;
+    if($set_user_admin) {
+        $set_user_fe = 2;
+    }
+    $send_verification  = isset($_POST["verification_email"]) ? 1 : 0;
+    if(empty($new_login)) {
+        $user_err .= $BL['be_admin_usr_err2']."\n";
+    } elseif(($check_anzahl = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."'", 'COUNT'))) {
+        $user_err .= $BL['be_admin_usr_err1']."\n";
+    }
+    if(empty($new_password)) {
+        $user_err .= $BL['be_admin_usr_err3']."\n";
+    }
+    if(!is_valid_email($new_email) && $send_verification) {
+        $user_err .= $BL['be_admin_usr_err4']."\n";
+    }
+    if(empty($user_err)) { //Insert new User
+        $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
+                "usr_admin, usr_aktiv, usr_name, usr_wysiwyg, usr_fe ) VALUES ('".
+                aporeplace($new_login)."', '".
+                aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', '".
+                aporeplace($new_email)."', '".
+                $set_user_admin."', '".
+                $set_user_aktiv."', '".
+                aporeplace($new_name)."', 1, '".
+                $set_user_fe."')";
+        $result = _dbQuery($sql, 'INSERT');
 
-				sendEmail(	array(
-					'recipient'	=> $new_email,
-					'toName'	=> $new_name,
-					'subject'	=> $BL['be_admin_usr_mailsubject'],
-					'isHTML'	=> 0,
-					'text'		=> $emailbody,
-					'from'		=> $phpwcms["admin_email"],
-					'sender'	=> $phpwcms["admin_email"]
-				));
-			}
-		}
-	}
+        if(!empty($result['INSERT_ID'])) {
+            $new_user_id = $result['INSERT_ID'];
+            $user_ok = 1;
+            if($send_verification) {
+                $emailbody = str_replace('{LOGIN}', $new_login, $BL['be_admin_usr_mailbody']);
+                $emailbody = str_replace('{PASSWORD}', $new_password, $emailbody);
+                $emailbody = str_replace('{SITE}', PHPWCMS_URL, $emailbody);
+                $emailbody = str_replace('{LOGIN_PAGE}', PHPWCMS_URL.get_login_file(), $emailbody);
+
+                sendEmail(  array(
+                    'recipient' => $new_email,
+                    'toName'    => $new_name,
+                    'subject'   => $BL['be_admin_usr_mailsubject'],
+                    'isHTML'    => 0,
+                    'text'      => $emailbody,
+                    'from'      => $phpwcms["admin_email"],
+                    'sender'    => $phpwcms["admin_email"]
+                ));
+            }
+        }
+    }
 }
 
 if(empty($user_ok)) {
@@ -101,17 +100,17 @@ if(empty($user_ok)) {
             <td><img src="img/leer.gif" alt="" width="105" height="1"></td>
             <td><img src="img/leer.gif" alt="" width="1" height="5"></td>
           </tr>
-		  <?php
-		  if(!empty($user_err)) {
-		  ?>
+          <?php
+          if(!empty($user_err)) {
+          ?>
           <tr valign="top">
             <td align="right"><strong style="color:#FF3300"><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
             <td><strong style="color:#FF3300"><?php echo nl2br(chop($user_err)) ?></strong></td>
           </tr>
           <tr valign="top"><td colspan="2" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
-		  <?php
-		  } //Ende Fehler New User
-		  ?>
+          <?php
+          } //Ende Fehler New User
+          ?>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
             <td><input name="form_newloginname" type="text" id="form_newloginname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_login ?>" size="30" maxlength="30" autocomplete="off"></td>
@@ -132,18 +131,18 @@ if(empty($user_ok)) {
             <td><input name="form_newrealname" type="text" id="form_newrealname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
           </tr>
 
-		  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_issection']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
                 <tr>
                   <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?>></td>
                   <td><label for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>&nbsp;&nbsp;</td>
-				  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?>></td>
                   <td><label for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>&nbsp;&nbsp;</td>
-				  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?>></td>
                   <td><label for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label></td>
-				  <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
+                  <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
                 </tr>
               </table></td>
           </tr>
@@ -191,7 +190,7 @@ if(empty($user_ok)) {
 
 
 } else {
-	echo "<script type=\"text/javascript\"> timer=setTimeout(\"self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=admin'\", 0); </script>";
+    echo "<script type=\"text/javascript\"> timer=setTimeout(\"self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=admin'\", 0); </script>";
 }
 
 ?>

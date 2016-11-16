@@ -77,7 +77,7 @@ define('LOGIN_TOKEN', generate_get_token('csrftoken'));
 $sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
 $sql .= "logged_in = 0, logged_change = '".time()."' ";
 $sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($phpwcms["max_time"]);
-mysql_query($sql, $db);
+_dbQuery($sql, 'UPDATE');
 
 //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
@@ -130,37 +130,40 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
     $wcs_user           = slweg($_POST['form_loginname']);
     $wcs_pass           = slweg($_POST['md5pass']);
 
-    $sql_query =    "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".
-                    aporeplace($wcs_user)."' AND usr_pass='".
-                    aporeplace($wcs_pass)."' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
+    $sql_query  = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_login="._dbEscape($wcs_user)." AND ";
+    $sql_query .= "usr_pass="._dbEscape($wcs_pass)." AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
 
-    if(!$csrf_error && $result = mysql_query($sql_query)) {
-        if($row = mysql_fetch_assoc($result)) {
+    if(!$csrf_error) {
+
+        $result = _dbQuery($sql_query);
+
+        if(isset($result[0]['usr_id'])) {
+
             $_SESSION["wcs_user"]           = $wcs_user;
-            $_SESSION["wcs_user_name"]      = ($row["usr_name"]) ? $row["usr_name"] : $wcs_user;
-            $_SESSION["wcs_user_id"]        = $row["usr_id"];
-            $_SESSION["wcs_user_aktiv"]     = $row["usr_aktiv"];
-            $_SESSION["wcs_user_rechte"]    = $row["usr_rechte"];
-            $_SESSION["wcs_user_email"]     = $row["usr_email"];
-            $_SESSION["wcs_user_avatar"]    = $row["usr_avatar"];
+            $_SESSION["wcs_user_name"]      = empty($result[0]["usr_name"]) ? $wcs_user : $result[0]["usr_name"];
+            $_SESSION["wcs_user_id"]        = $result[0]["usr_id"];
+            $_SESSION["wcs_user_aktiv"]     = $result[0]["usr_aktiv"];
+            $_SESSION["wcs_user_rechte"]    = $result[0]["usr_rechte"];
+            $_SESSION["wcs_user_email"]     = $result[0]["usr_email"];
+            $_SESSION["wcs_user_avatar"]    = $result[0]["usr_avatar"];
             $_SESSION["wcs_user_logtime"]   = time();
-            $_SESSION["wcs_user_admin"]     = intval($row["usr_admin"]);
+            $_SESSION["wcs_user_admin"]     = intval($result[0]["usr_admin"]);
             $_SESSION["wcs_user_thumb"]     = 1;
-            if($row["usr_lang"]) {
-                $_SESSION["wcs_user_lang"]  = $row["usr_lang"];
+            if($result[0]["usr_lang"]) {
+                $_SESSION["wcs_user_lang"]  = $result[0]["usr_lang"];
             }
 
             set_language_cookie();
 
-            $_SESSION["structure"]          = @unserialize($row["usr_var_structure"]);
-            $_SESSION["klapp"]              = @unserialize($row["usr_var_privatefile"]);
-            $_SESSION["pklapp"]             = @unserialize($row["usr_var_publicfile"]);
-            $row["usr_vars"]                = @unserialize($row["usr_vars"]);
+            $_SESSION["structure"]      = @unserialize($result[0]["usr_var_structure"]);
+            $_SESSION["klapp"]          = @unserialize($result[0]["usr_var_privatefile"]);
+            $_SESSION["pklapp"]         = @unserialize($result[0]["usr_var_publicfile"]);
+            $result[0]["usr_vars"]      = @unserialize($result[0]["usr_vars"]);
 
             // Fallback to CKeditor?
-            $_SESSION["WYSIWYG_EDITOR"]     = empty($row["usr_wysiwyg"]) ? false : true;
-            $_SESSION["wcs_user_cp"]        = isset($row["usr_vars"]['selected_cp']) && is_array($row["usr_vars"]['selected_cp']) ? $row["usr_vars"]['selected_cp'] : array();
-            $_SESSION["wcs_allowed_cp"]     = isset($row["usr_vars"]['allowed_cp']) && is_array($row["usr_vars"]['allowed_cp']) ? $row["usr_vars"]['allowed_cp'] : array();
+            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? false : true;
+            $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
+            $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
 
             // Test if there are CPs that use had choosen but no longer available for
             if(count($_SESSION["wcs_allowed_cp"])) {
@@ -178,24 +181,18 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
             $login_passed = 1;
         }
-        mysql_free_result($result);
     }
 
     if($login_passed) {
+
         // Store login information in DB
-        $check = mysql_query(   "SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user='".
-                                aporeplace($wcs_user)."' AND logged_in=1", $db );
-        if($row = mysql_fetch_row($check)) {
-            if(!$row[0]) {
-                // User not yet logged in, create new
-                mysql_query("INSERT INTO ".DB_PREPEND."phpwcms_userlog ".
-                            "(logged_user, logged_username, logged_start, logged_change, ".
-                            "logged_in, logged_ip) VALUES ('".
-                            aporeplace($wcs_user)."', '".aporeplace($_SESSION["wcs_user_name"])."', ".time().", ".
-                            time().", 1, '".aporeplace(getRemoteIP())."')", $db );
-            }
+        if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
+            // User not yet logged in, create new
+            $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (";
+            $sql .= _dbEscape($wcs_user).", "._dbEscape($_SESSION["wcs_user_name"]).", ".time().", ".time().", 1, "._dbEscape(getRemoteIP()).")";
+            _dbQuery($sql, 'INSERT');
         }
-        mysql_free_result($check);
+
         $_SESSION['PHPWCMS_ROOT'] = PHPWCMS_ROOT;
         set_status_message('Welcome '.$wcs_user.'!');
 
@@ -241,15 +238,15 @@ $reason_types = array(
 ?><!DOCTYPE html>
 <html>
 <head>
+    <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
-    <meta name="robots" content="noindex, nofollow" />
-    <link href="include/inc_css/login.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="include/inc_js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="include/inc_js/phpwcms.js"></script>
-    <script type="text/javascript" src="include/inc_js/md5.js"></script>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="include/inc_css/login.css" rel="stylesheet" type="text/css">
+    <script src="include/inc_js/jquery/jquery.min.js"></script>
+    <script src="include/inc_js/phpwcms.js"></script>
+    <script src="include/inc_js/md5.js"></script>
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>
-    <style type="text/css">* {direction: rtl;}</style>
+    <style>* {direction: rtl;}</style>
 <?php endif; ?>
 </head>
 <body>
@@ -332,20 +329,21 @@ ob_start();
 
 // check available languages installed and build language selector menu
 $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
-$lang_code = array();
-while($lang_codes = readdir( $lang_dirs )) {
-    if( substr($lang_codes, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_codes."/lang.inc.php")) {
-        $lang_code[$lang_codes]  = '<option value="'.$lang_codes.'"';
-        $lang_code[$lang_codes] .= ($lang_codes == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
-        $lang_code[$lang_codes] .= '>';
-        $lang_code[$lang_codes] .= (isset($BL[strtoupper($lang_codes)])) ? $BL[strtoupper($lang_codes)] : strtoupper($lang_codes);
-        $lang_code[$lang_codes] .= '</option>';
+$lang_options = array();
+while($lang_code = readdir($lang_dirs)) {
+    if( substr($lang_code, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
+        $_lang_code = strtoupper($lang_code);
+        $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
+        $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
+        $lang_options[$_lang_code] .= '>';
+        $lang_options[$_lang_code] .= (isset($BL[$_lang_code])) ? $BL[$_lang_code] : $_lang_code;
+        $lang_options[$_lang_code] .= '</option>';
     }
 }
-closedir( $lang_dirs );
-ksort($lang_code);
+closedir($lang_dirs);
 
-echo implode(LF, $lang_code);
+ksort($lang_options);
+echo implode('', $lang_options);
 
 ?>
           </select></td>
@@ -360,15 +358,15 @@ echo implode(LF, $lang_code);
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
 
-?><script type="text/javascript">
+?><script>
     getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     getObjectById('form_loginname').focus();
 </script>
 <?php if(!empty($phpwcms['browser_check']['be'])): ?>
-<script type="text/javascript">
+<script>
     $buoop = {<?php if(!empty($phpwcms['browser_check']['vs'])) { echo 'vs:'.$phpwcms['browser_check']['vs']; } ?>};
 </script>
-<script type="text/javascript" src="//browser-update.org/update.js"></script>
+<script src="//browser-update.org/update.js"></script>
 <?php endif; ?>
 </body>
 </html>
