@@ -94,7 +94,7 @@ if($file_id) {
             window.moveTo(5,5);
             window.resizeTo(width,height);
         }
-    </script>';
+    </script>
 </head>
 
 <body onload="ResizeAndCenter();">
