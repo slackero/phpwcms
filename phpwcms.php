@@ -254,7 +254,7 @@ if($BE['LANG'] == 'ar') {
 <!-- phpwcms HEADER -->
 </head>
 <body<?php echo $body_onload ?>><!-- phpwcms BODY_OPEN -->
-<table width="770" border="0" align="center" cellpadding="0" cellspacing="0" summary="main layout structure">
+<table width="830" border="0" align="center" cellpadding="0" cellspacing="0" summary="main layout structure">
     <tr>
         <td colspan="6">
         <div style="position:relative;margin:15px 15px 7px 15px;">
@@ -265,7 +265,7 @@ if($BE['LANG'] == 'ar') {
     </tr>
     <tr>
      <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
-      <td colspan="4" valign="top" style="background:url(img/backend/backend_r3_c4.jpg) repeat-x; "><table style="width:100%;min-width:740px" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
+      <td colspan="4" valign="top" style="background:url(img/backend/backend_r3_c4.jpg) repeat-x; "><table style="width:100%;min-width:800px" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
         <tr>
           <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="9"></td>
         </tr>
