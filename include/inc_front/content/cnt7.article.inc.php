@@ -42,6 +42,7 @@ if( empty($IS_NEWS_CP) ) {
     $crow["acontent_html"]      = '';
     $crow['file_cp_title']      = '';
     $crow['file_cp_subtitle']   = '';
+    $crow['acontent_id']        = 0;
 
 }
 
