@@ -49,10 +49,18 @@ $setup_recommend = true;
 	}
 
 
-   ?></li>
-  <li>MySQL version: <?php
+    ?></li>
+    <li>MySQLi extension: <?php
+    if(function_exists('mysqli_connect')) {
+        echo '<strong>installed</strong> <img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
+    } else {
+        echo '<strong class="error">not installed</strong> <img src="../img/famfamfam/action_stop.gif" alt="Stop" class="icon1" />';
+		$setup_recommend = false;
+    }
+  ?></li>
+  <li>MySQLi version: <?php
 
-  	$mysql_version = @mysqli_get_server_info();
+  	$mysql_version = mysqli_get_server_info();
   	$mysqlnd = false;
   	if(!$mysql_version) {
 		$mysql_version = @mysqli_get_client_info();
@@ -201,8 +209,8 @@ if(!is_writable($DOCROOT.'/setup/setup.conf.inc.php')) {
 	if(!$setup_recommend) {
 
 		echo '<p class="error">
-		<img src="../img/famfamfam/icon_alert.gif" alt="" class="icon1" />
-		It is not recommend to continue with setup. See the warnings!
+		    <img src="../img/famfamfam/icon_alert.gif" alt="" class="icon1" />
+		    <strong>It is not recommend to continue with setup. See the warnings!</strong>
 		</p>';
 
 	}
