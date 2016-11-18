@@ -73,7 +73,7 @@ if($form_detail_aktion == 'create_detail') {
 <?php
 	//if error during login occurs
 	if(!empty($detail_updated)) {
-		echo '<tr><td colspan="3" class="error"><img src="img/leer.gif" alt=" width="1" height="10" /><br /><strong>';
+		echo '<tr><td colspan="3" class="error"><img src="img/leer.gif" alt="" width="1" height="10" /><br /><strong>';
 		echo nl2br(chop($detail_updated)).'</strong></td></tr>';
 	}
 ?>

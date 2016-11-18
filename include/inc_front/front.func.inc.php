@@ -1458,7 +1458,7 @@ function html_parser($string) {
     $replace[7]     = '<$1 class="$2">$3</$1>';
 
     $search[8]      = '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
-    $replace[8]     = '<acronym title="$1">$2</acronym>';
+    $replace[8]     = '<abbr title="$1">$2</abbr>';
 
     // this parses an E-Mail Link without subject (by Florian, 21-11-2003)
     $search[9]      = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';

@@ -212,7 +212,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
     <tr><td colspan="2" style="padding-left:2px">
 <script type="text/javascript">
-  var nltemplate = new Array();
+  var nltemplate = [];
 <?php
     echo implode(LF, $tmpldata['js']).LF;
     echo '  showNewsletterTemplateData("'.$value3.'");';

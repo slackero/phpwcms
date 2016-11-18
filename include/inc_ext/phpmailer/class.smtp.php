@@ -474,7 +474,7 @@ class SMTP
                 $temp = new stdClass;
                 $ntlm_client = new ntlm_sasl_client_class;
                 //Check that functions are available
-                if (!$ntlm_client->Initialize($temp)) {
+                if (!$ntlm_client->initialize($temp)) {
                     $this->setError($temp->error);
                     $this->edebug(
                         'You need to enable some modules in your php.ini file: '
@@ -484,7 +484,7 @@ class SMTP
                     return false;
                 }
                 //msg1
-                $msg1 = $ntlm_client->TypeMsg1($realm, $workstation); //msg1
+                $msg1 = $ntlm_client->typeMsg1($realm, $workstation); //msg1
 
                 if (!$this->sendCommand(
                     'AUTH NTLM',
@@ -503,7 +503,7 @@ class SMTP
                     $password
                 );
                 //msg3
-                $msg3 = $ntlm_client->TypeMsg3(
+                $msg3 = $ntlm_client->typeMsg3(
                     $ntlm_res,
                     $username,
                     $realm,

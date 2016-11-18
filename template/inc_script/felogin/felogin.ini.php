@@ -29,7 +29,7 @@ FELOGIN_LOGOUT_LINK			= "Logout {FELOGOUT_PREFIX}{FELOGIN_USER}{FELOGOUT_SUFFIX}
 ; otherwise parsing the INI file will fail
 
 ; HTML prefix mainly used for logout link
-FELOGIN_LOGOUT_LINK_PREFIX	= "<span style=''color:#FF0000;''>"
+FELOGIN_LOGOUT_LINK_PREFIX	= "<span style='color:#FF0000;'>"
 
 ; HTML suffix mainly used for logout link
 FELOGIN_LOGOUT_LINK_SUFFIX	= "</span>"
@@ -44,7 +44,7 @@ FELOGIN_ERROR_EMPTY_PASS	= "Insert your password"
 FELOGIN_ERROR_WRONG_PASS	= "Wrong password"
 
 ; Wrap error messages by HTML
-FELOGIN_ERROR_PREFIX		= "<p class=''error''>"
+FELOGIN_ERROR_PREFIX		= "<p class='error'>"
 FELOGIN_ERROR_SUFFIX		= "</p>"
 
 

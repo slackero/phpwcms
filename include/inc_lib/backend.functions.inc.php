@@ -77,6 +77,8 @@ function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
     } else {
         echo $sn;
     }
+
+    return null;
 }
 
 function subnavtextext($text, $link, $target='_blank', $getback=1) {
@@ -87,7 +89,12 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
     $sn .= "onMouseOver=\"".$id.".src='img/subnav/subnav_B.gif'\" onMouseOut=\"".$id.".src='img/subnav/subnav_A.gif'\"";
     $sn .= '>'.$text.'</a></td></tr>';
     $sn .= "\n";
-    if(!$getback) { return $sn; } else { echo $sn; }
+
+    if(!$getback) {
+        return $sn;
+    } else {
+        echo $sn;
+    }
 }
 
 function subnavback($text, $link, $h_before=0, $h_after=0) {
@@ -1181,13 +1188,14 @@ function backend_language_parser() {
 
     backend_language_replace( implode(LF, $menu) );
 
+    return null;
 }
 
 function backend_language_replace($result) {
 
     $GLOBALS['BE']['HTML'] = str_replace('{BE_PARSE_LANG}', $result, $GLOBALS['BE']['HTML']);
-    return NULL;
 
+    return null;
 }
 
 function get_language_name($lang='', $default=true) {

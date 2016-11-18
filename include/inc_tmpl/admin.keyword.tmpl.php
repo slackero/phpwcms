@@ -55,5 +55,3 @@ if(!IS_ADMIN) {
 
 // old
 $keyword["id"] = 0;
-
-?>

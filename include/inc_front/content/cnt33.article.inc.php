@@ -424,8 +424,8 @@ if($news['template']) {
                         require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
                         $phpwcms['textile_class'] = new Textile();
                     }
-                    $value['cnt_teasertext'] = $phpwcms['textile_class']->TextileThis($value['cnt_teasertext']);
-                    $value['cnt_description'] = $phpwcms['textile_class']->TextileThis($value['cnt_description']);
+                    $value['cnt_teasertext'] = $phpwcms['textile_class']->textileThis($value['cnt_teasertext']);
+                    $value['cnt_description'] = $phpwcms['textile_class']->textileThis($value['cnt_description']);
                 } else {
                     $value['cnt_teasertext'] = html($value['cnt_teasertext']);
                     $value['cnt_description'] = html($value['cnt_description']);

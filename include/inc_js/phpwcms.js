@@ -44,7 +44,7 @@ function MM_findObj(n, d) { //v4.01
 
 function MM_swapImage() { //v3.0
     var i, j = 0, x, a = MM_swapImage.arguments;
-    document.MM_sr = new Array;
+    document.MM_sr = [];
     for (i = 0; i < (a.length - 2); i += 3) {
         if ((x = MM_findObj(a[i])) != null) {
             document.MM_sr[j++] = x;
@@ -157,13 +157,13 @@ function get_cookie(Name) {
     var search = Name + "=";
     var returnvalue = "";
     if (document.cookie.length > 0) {
-        offset = document.cookie.indexOf(search);
+        var offset = document.cookie.indexOf(search);
         // if cookie exists
         if (offset != -1) {
             offset += search.length; // set index of beginning of value
-            end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+            var end = document.cookie.indexOf(";", offset); // set index of end of cookie value
             if (end == -1) end = document.cookie.length;
-            returnvalue = unescape(document.cookie.substring(offset, end));
+            returnvalue = decodeURIComponent(document.cookie.substring(offset, end));
         }
     }
     return returnvalue;
@@ -187,7 +187,7 @@ function changeImagePos(x, f) {
     } else {
         document.article.cimage_pos.selectedIndex = x;
     }
-    for (i = 0; i <= 9; i++) {
+    for (var i = 0; i <= 9; i++) {
         if (i == x) {
             MM_swapImage('imgpos' + i, '', 'img/symbole/content_selected.gif', 0);
         } else {
@@ -202,7 +202,7 @@ function changeImagePosMenu(f) {
     } else {
         var x = document.article.cimage_pos.selectedIndex;
     }
-    for (i = 0; i <= 9; i++) {
+    for (var i = 0; i <= 9; i++) {
         if (i == x) {
             MM_swapImage('imgpos' + i, '', 'img/symbole/content_selected.gif', 0);
         } else {
@@ -226,12 +226,8 @@ function switchToggleFTP(field) {
 }
 
 function toggleAllFTP(field, proof) {
-    for (i = 0; i < field.length; i++) {
-        if (proof) {
-            field[i].checked = true;
-        } else {
-            field[i].checked = false;
-        }
+    for (var i = 0; i < field.length; i++) {
+        field[i].checked = proof ? true : false;
     }
 }
 
@@ -322,19 +318,15 @@ function getObjectById(fld) {
 }
 
 function switchDisabled(fld) {
-    if (fld.disabled) {
-        fld.disabled = false;
-    } else {
-        fld.disabled = true;
-    }
+    fld.disabled = fld.disabled ? false : true;
     return false;
 }
 
 function enableStatusMessage(fld, showHide, text) {
     if (document.getElementById && document.getElementById(fld) != null) {
-        obj = document.getElementById(fld);
+        var obj = document.getElementById(fld);
     } else if (document.layers && document.layers[fld] != null) {
-        obj = document.layers[fld];
+        var obj = document.layers[fld];
     } else {
         return true;
     }
@@ -377,7 +369,7 @@ function create_alias(str, encoding, ucfirst) {
     str = str.replace(/^\/+|\/+$/g, '');
     str = str.replace(/^-+|-+$/g, '');
     if (ucfirst == 1) {
-        c = str.charAt(0);
+        var c = str.charAt(0);
         str = c.toUpperCase() + str.slice(1);
     }
     return str;
@@ -403,15 +395,15 @@ function openFileBrowser(url) {
 
 function set_article_alias(onempty_only, alias_type, category) {
     if (alias_type == 'struct') {
-        var alias_basis = 'acat_name';
-        var alias_target = 'acat_alias';
+        var alias_basis = 'acat_name', alias_target = 'acat_alias';
     } else {
-        var alias_basis = 'article_title';
-        var alias_target = 'article_alias';
+        var alias_basis = 'article_title', alias_target = 'article_alias';
     }
     var aalias = getObjectById(alias_target);
-    if (onempty_only && aalias.value != '') return false;
-    var atitle = getObjectById(alias_basis)
+    if (onempty_only && aalias.value != '') {
+        return false;
+    }
+    var atitle = getObjectById(alias_basis);
     aalias.value = create_alias((category ? category + '/' : '') + atitle.value);
     return false;
 }

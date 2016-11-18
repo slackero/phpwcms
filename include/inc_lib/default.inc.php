@@ -634,9 +634,11 @@ function buildGlobalGET($return = '') {
         }
     }
 
-    if($return == 'getQuery') {
+    if($return === 'getQuery') {
         return returnGlobalGET_QueryString('htmlentities');
     }
+
+    return null;
 }
 
 // build phpwcms specific relative url
@@ -1186,6 +1188,7 @@ function checkLoginCount() {
 // 1 = article user mode
 // 2 = admin user mode
 function init_frontend_edit() {
+
     if(empty($GLOBALS['phpwcms']['frontend_edit']) || empty($_SESSION["wcs_user_id"])) {
         define('VISIBLE_MODE', 0);
         define('FE_EDIT_LINK', false);
@@ -1204,6 +1207,8 @@ function init_frontend_edit() {
             define('FE_EDIT_LINK', get_token_get_string('csrftoken'));
         }
     }
+
+    return null;
 }
 
 if(IS_PHP523) {

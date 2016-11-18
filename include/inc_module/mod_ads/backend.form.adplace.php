@@ -102,8 +102,7 @@ if (!defined('PHPWCMS_ROOT')) {
 				<td class="chatlist">&nbsp;<?php echo $BLM['pixel'] ?></td>
 			</tr>
 		</table><script type="text/javascript">
-		var ad_formats = new Array();
-
+		var ad_formats = [];
 <?php
 
 echo implode(LF, $plugin['ad_formats_js']);

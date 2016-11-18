@@ -1321,7 +1321,7 @@ class SimplePie
 		// Pass whatever was set with config options over to the sanitizer.
 		// Pass the classes in for legacy support; new classes should use the registry instead
 		$this->sanitize->pass_cache_data($this->cache, $this->cache_location, $this->cache_name_function, $this->registry->get_class('Cache'));
-		$this->sanitize->pass_file_data($this->registry->get_class('File'), $this->timeout, $this->useragent, $this->force_fsockopen, $this->curl_options);
+		$this->sanitize->pass_file_data($this->registry->get_class('File'), $this->timeout, $this->useragent, $this->force_fsockopen);
 
 		if (!empty($this->multifeed_url))
 		{
@@ -16077,7 +16077,7 @@ class SimplePie_Parser
 		{
 			libxml_clear_errors();
 			$xml = new XMLReader();
-			$xml->xml($data);
+			$xml->XML($data);
 			while (@$xml->read())
 			{
 				switch ($xml->nodeType)

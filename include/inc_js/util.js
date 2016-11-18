@@ -95,7 +95,7 @@ Array.prototype.contains = function(o) {
             return true;
         }
     }
-}
+};
 
 /* ******************************************************************* */
 /*   DOM FUNCTIONS                                                     */
@@ -215,7 +215,7 @@ var CSS = (function(){
         if (typeof(rgbString)!="string" || !defined(rgbString.match)) { return null; }
         var result = rgbString.match(/^\s*rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*/);
         if (result==null) { return rgbString; }
-        var rgb = +result[1] << 16 | +result[2] << 8 | +result[3]
+        var rgb = +result[1] << 16 | +result[2] << 8 | +result[3];
         var hex = "";
         var digits = "0123456789abcdef";
         while(rgb!=0) {

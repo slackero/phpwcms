@@ -326,7 +326,7 @@ if(isset($form_error)) {
 	if(isset($send_copy_to)) {
 
 		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
-		$mail->AddReplyTo($recipient);
+		$mail->addReplyTo($recipient);
 		$mail->addAddress($send_copy_to);
 
 		if(!$mail->send()) {
@@ -334,12 +334,12 @@ if(isset($form_error)) {
 		}
 
 		$mail->setFrom($send_copy_to);
-		$mail->AddReplyTo($send_copy_to);
+		$mail->addReplyTo($send_copy_to);
 
 	} else {
 
 		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
-		$mail->AddReplyTo($recipient);
+		$mail->addReplyTo($recipient);
 
 	}
 

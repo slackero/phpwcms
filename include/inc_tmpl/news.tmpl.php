@@ -204,10 +204,11 @@ $(function(){
 	});
 
 	$('#cnt_alias_click').click(function(){
-		var cnt_alias = $('#cnt_name').val().trim();
+		var cnt_name = $('#cnt_name');
+		var cnt_alias = cnt_name.val().trim();
 		if(cnt_alias === '') {
 			cnt_alias = cnt_title.val().trim();
-			$('#cnt_name').val(cnt_alias);
+			cnt_name.val(cnt_alias);
 		} else {
 			$('#cnt_alias').val( create_alias(cnt_alias) );
 		}

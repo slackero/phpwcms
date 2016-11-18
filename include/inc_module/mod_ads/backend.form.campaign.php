@@ -117,7 +117,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 				<td class="chatlist">&nbsp;<?php echo $BLM['pixel'] ?></td>
 			</tr>
 		</table><script type="text/javascript">
-		var ad_place = new Array();
+		var ad_place = [];
 <?php
 
 echo implode(LF, $plugin['ad_place_js']);

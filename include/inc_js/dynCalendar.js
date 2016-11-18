@@ -500,7 +500,7 @@
 	
 			dynCalendar_oldOnmousemove();
 		//}
-	}
+	};
 
 /**
 * Callbacks for document.onclick
@@ -519,4 +519,4 @@
 	
 			dynCalendar_oldOnclick(arguments[0] ? arguments[0] : null);
 		//}
-	}
+	};

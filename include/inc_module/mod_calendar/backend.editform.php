@@ -380,7 +380,6 @@ window.addEvent('domready', function(){
 		this.value = this.value.replace(/[^a-z\-]/g, '');
 	});
 
-
 	setCalendarAllDay();
 	setRangeDates(<?php echo $plugin['data']['calendar_range'] ?>);
 
@@ -393,13 +392,10 @@ window.addEvent('domready', function(){
 		}
 	});
 
-
 	showImage();
-
 });
 
 function setCalendarAllDay() {
-
 	var calendarAllDay = $('calendar_allday');
 	if(calendarAllDay.checked == true) {
 		toggleDisplayById('endDate0', 'none');
@@ -416,7 +412,6 @@ function setCalendarAllDay() {
 		toggleDisplayById('endDate4', '');
 		toggleDisplayById('endDate5', '');
 	}
-
 }
 
 function setRangeDates(value) {
@@ -428,7 +423,6 @@ function setRangeDates(value) {
 		toggleDisplayById('rDate0', '');
 		toggleDisplayById('rDate1', '');
 	}
-
 }
 
 function setImgIdName(file_id, file_name) {
@@ -441,8 +435,8 @@ function setImgIdName(file_id, file_name) {
 }
 
 function showImage() {
-	id	= parseInt(getObjectById('cnt_image_id').value,10);
-	img	= getObjectById('cnt_image');
+	var id	= parseInt(getObjectById('cnt_image_id').value,10);
+	var img	= getObjectById('cnt_image');
 	if(id > 0) {
 		img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
 		img.style.display = '';

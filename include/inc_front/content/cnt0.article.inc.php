@@ -59,7 +59,7 @@ switch($crow["acontent_form"]) {
             require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
             $phpwcms['textile_class'] = new Textile();
         }
-        $crow['acontent_text'] = $phpwcms['textile_class']->TextileThis($crow['acontent_text']);
+        $crow['acontent_text'] = $phpwcms['textile_class']->textileThis($crow['acontent_text']);
         break;
 
     case 'plain':

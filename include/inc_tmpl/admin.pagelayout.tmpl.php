@@ -39,7 +39,7 @@ if(!isset($_GET["s"])) {
 
             echo ($row["pagelayout_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : '';
 
-            echo "</a></td>\n".'<td align="right" nowarp="nowrap" style="padding:2px 3px 0 5px">';
+            echo "</a></td>\n".'<td align="right" nowrap="nowrap" style="padding:2px 3px 0 5px">';
 
             echo '<a href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
             echo '<img src="img/button/edit_22x13.gif" alt="" border="0" /></a>';

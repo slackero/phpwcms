@@ -274,7 +274,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 	window.addEvent('domready', function() {
 
-		entries = $('tabs').getChildren().length;
+		var $tabs = $('tabs');
+		entries = $tabs.getChildren().length;
 
 		$('btn_add_tab').addEvent('click', function(event) {
 			event = new Event(event).stop();
@@ -365,13 +366,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <?php if($content['wysiwyg']): ?>
 		if(entries > 0) {
-			for(x = 0; x < entries; x++) {
+			for(var x = 0; x < entries; x++) {
 				EnableCKEditor(x);
 			}
 		}
 <?php endif; ?>
 
-		var s = new Sortables( $('tabs'), { handles: 'em' } );
+		var s = new Sortables( $tabs, { handles: 'em' } );
 	});
 
 <?php if($content['wysiwyg']):

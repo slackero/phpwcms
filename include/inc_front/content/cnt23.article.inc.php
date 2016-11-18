@@ -1790,7 +1790,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 		}
 
 		$mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-		$mail->AddReplyTo($cnt_form['sender']);
+		$mail->addReplyTo($cnt_form['sender']);
 
 		$cnt_form["copytoError"] = array();
 
@@ -1843,7 +1843,7 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 	}
 
 	$mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-	$mail->AddReplyTo($cnt_form['sender']);
+	$mail->addReplyTo($cnt_form['sender']);
 
 	if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 

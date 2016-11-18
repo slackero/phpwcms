@@ -74,6 +74,8 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 	if($return === 'array') {
 		return $structure;
 	}
+
+	return null;
 }
 
 function change_articledate($article_id=0) {

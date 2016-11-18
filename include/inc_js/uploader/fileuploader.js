@@ -57,11 +57,11 @@ qq.getUniqueId = (function(){
 //
 // Browsers and platforms detection
 
-qq.ie       = function(){ return navigator.userAgent.indexOf('MSIE') != -1; }
-qq.safari   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf("Apple") != -1; }
-qq.chrome   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf('Google') != -1; }
-qq.firefox  = function(){ return (navigator.userAgent.indexOf('Mozilla') != -1 && navigator.vendor != undefined && navigator.vendor == ''); }
-qq.windows  = function(){ return navigator.platform == "Win32"; }
+qq.ie       = function(){ return navigator.userAgent.indexOf('MSIE') != -1; };
+qq.safari   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf("Apple") != -1; };
+qq.chrome   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf('Google') != -1; };
+qq.firefox  = function(){ return (navigator.userAgent.indexOf('Mozilla') != -1 && navigator.vendor != undefined && navigator.vendor == ''); };
+qq.windows  = function(){ return navigator.platform == "Win32"; };
 
 //
 // Events
@@ -574,7 +574,7 @@ qq.FileUploaderBasic.prototype = {
             catch (exception) {
                 self.log("Caught " + exception + " in callback: " + callback);
             }
-        }
+        };
 
         for (var prop in this._options) {
             if (/^on[A-Z]/.test(prop)) {
@@ -1449,7 +1449,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
         // form.setAttribute('method', 'post');
         // form.setAttribute('enctype', 'multipart/form-data');
         // Because in this case file won't be attached to request
-        var protocol = this._options.demoMode ? "GET" : "POST"
+        var protocol = this._options.demoMode ? "GET" : "POST";
         var form = qq.toElement('<form method="' + protocol + '" enctype="multipart/form-data"></form>');
 
         var queryString = qq.obj2url(params, this._options.action);
@@ -1490,7 +1490,7 @@ qq.UploadHandlerXhr.isSupported = function(){
 };
 
 // @inherits qq.UploadHandlerAbstract
-qq.extend(qq.UploadHandlerXhr.prototype, qq.UploadHandlerAbstract.prototype)
+qq.extend(qq.UploadHandlerXhr.prototype, qq.UploadHandlerAbstract.prototype);
 
 qq.extend(qq.UploadHandlerXhr.prototype, {
     /**

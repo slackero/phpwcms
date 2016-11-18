@@ -6,7 +6,7 @@ function AC_AX_RunContent(){
 }
 
 function AC_AX_GetArgs(args){
-  var ret = new Object();
+  var ret = {};
   ret.embedAttrs = {};
   ret.params = {};
   ret.objAttrs = {};

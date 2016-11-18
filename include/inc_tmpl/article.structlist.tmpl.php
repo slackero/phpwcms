@@ -60,7 +60,7 @@ if(isset($_GET["opena"])) {
 }
 //31-03-2005 Fernando Batista  end-------------------
 
-$child_count = get_root_childcount(0, $db);
+$child_count = get_root_childcount(0);
 //$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 

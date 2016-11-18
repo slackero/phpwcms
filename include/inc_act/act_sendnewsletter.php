@@ -183,7 +183,7 @@ if(!$newsletter) {
         }
 
         $mail->setFrom($newsletter['newsletter_vars']['from_email'], $newsletter['newsletter_vars']['from_name']);
-        $mail->AddReplyTo($newsletter['newsletter_vars']['replyto']);
+        $mail->addReplyTo($newsletter['newsletter_vars']['replyto']);
         $mail->Subject = $newsletter['newsletter_subject'];
 
         if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {

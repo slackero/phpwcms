@@ -143,7 +143,7 @@ if(isset($_POST["file_search"])) {
               <option value="0" <?php is_selected("0", $s2) ?>><?php echo $BL['be_fsearch_personal'] ?></option>
               <option value="1" <?php is_selected("1", $s2) ?>><?php echo $BL['be_fsearch_public'] ?></option>
               </select><img src="img/leer.gif" alt="" width="3" height="1" /></td>
-            <td><input name="submit" type="image" id="submit" src="img/button/go_search.gif" alt="<?php echo $BL['be_fsearch_startsearch'] ?>" width="22" height="14" border="0" /></td>
+            <td><input name="submit" type="image" id="submit" src="img/button/go_search.gif" alt="<?php echo $BL['be_fsearch_startsearch'] ?>" width="22" height="14" /></td>
             </tr>
           </table></td>
     </tr>

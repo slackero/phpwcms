@@ -1,20 +1,20 @@
 function showImageAds() {
-	obj = getObjectById('adcampaign_image');
-	val = obj.options[obj.selectedIndex].value;
+	var obj = getObjectById('adcampaign_image');
+	var val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
 		var boxw = getFieldById('adcampaign_width').value;
 		var boxh = getFieldById('adcampaign_height').value;
 		var set  = true;
 		if(boxh+boxw==0) {
 			boxh = 350;
-			box2 = 770;
+			boxw = 770;
 			set  = false;
 		}
 
-		wh = parseInt(boxh,10)+50;
-		ww = parseInt(boxw,10)+30;
+		var wh = parseInt(boxh, 10)+50;
+		var ww = parseInt(boxw, 10)+30;
 
-		newwindow2=window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
+		var newwindow2 = window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
 		tmp.write('<html><head><title>banner image</title>');
 		tmp.write('<style type="text/css">\n');
@@ -29,12 +29,11 @@ function showImageAds() {
 		tmp.write('<p align="center"><a href="javascript:self.close()">close</a> the popup.</p>');
 		tmp.write('</body></html>');
 		tmp.close();
-
 	}
 }
 
 function showHtmlAds() {
-	val = getFieldById('adcampaign_html').value;
+	var val = getFieldById('adcampaign_html').value;
 	if(val && val != '') {
 
 		var boxw = getFieldById('adcampaign_width').value;
@@ -42,14 +41,14 @@ function showHtmlAds() {
 		var set  = true;
 		if(boxh+boxw==0) {
 			boxh = 350;
-			box2 = 770;
+			boxw = 770;
 			set  = false;
 		}
 
-		wh = parseInt(boxh,10)+50;
-		ww = parseInt(boxw,10)+30;
+		var wh = parseInt(boxh, 10)+50;
+		var ww = parseInt(boxw, 10)+30;
 
-		newwindow2=window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
+		var newwindow2 = window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
 		tmp.write('<html><head><title>banner image</title>');
 		tmp.write('<style type="text/css">\n');
@@ -70,8 +69,8 @@ function showHtmlAds() {
 }
 
 function showFlashAds() {
-	obj = getObjectById('adcampaign_flash');
-	val = obj.options[obj.selectedIndex].value;
+	var obj = getObjectById('adcampaign_flash');
+	var val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
 
 		var boxw = getFieldById('adcampaign_width').value;
@@ -79,14 +78,14 @@ function showFlashAds() {
 		var set  = true;
 		if(boxh+boxw==0) {
 			boxh = 350;
-			box2 = 770;
+			boxw = 770;
 			set  = false;
 		}
 
-		wh = parseInt(boxh,10)+50;
-		ww = parseInt(boxw,10)+30;
+		var wh = parseInt(boxh, 10)+50;
+		var ww = parseInt(boxw, 10)+30;
 
-		newwindow2=window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
+		var newwindow2 = window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
 		tmp.write('<html><head><title>banner image</title>');
 		tmp.write('<style type="text/css">\n');

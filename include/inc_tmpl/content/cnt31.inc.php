@@ -525,7 +525,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     var site_url    = '<?php echo PHPWCMS_URL; ?>';
     var max_img_w   = <?php echo $phpwcms['img_list_width']; ?>;
     var max_img_h   = <?php echo $phpwcms['img_list_height']; ?>;
-    var image_entry = new Array();
+    var image_entry = [];
 
     function setCimageCenterInactive() {
         var cih = $('cimage_width');
@@ -575,20 +575,20 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     }
 
     function updatePreviewImage(image_number) {
-        var preview = '';
-        if($('cimage_id_thumb_'+image_number)) {
-            var image_file_id = $('cimage_id_thumb_'+image_number).value;
-            preview += getBackendImgSrc( image_file_id );
+        var preview = '',;
+        var cimage_id_thumb = $('cimage_id_thumb_'+image_number);
+        var cimage_id_zoom = $('cimage_id_zoom_'+image_number);
+        if(cimage_id_thumb) {
+            preview += getBackendImgSrc( cimage_id_thumb.value );
         }
-        if($('cimage_id_zoom_'+image_number)) {
-            var image_file_id = $('cimage_id_zoom_'+image_number).value;
-            preview += getBackendImgSrc( image_file_id );
+        if(cimage_id_zoom) {
+            preview += getBackendImgSrc( cimage_id_zoom.value );
         }
         $('img_preview_'+image_number).setHTML(preview);
     }
 
     function getBackendImgSrc(image_file_id) {
-        var image_file_id = parseInt(image_file_id,10);
+        var image_file_id = parseInt(image_file_id, 10);
         if(image_file_id) {
             return '<'+'img src="'+site_url+'img/cmsimage.php/'+max_img_w+'x'+max_img_h+'/'+image_file_id+'" border="0" alt="" /'+'> ';
         }
@@ -599,7 +599,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         var all_images = $('images').getElements('li[id^=image_]');
         if(all_images.length > 0) {
             all_images.each(function(e) {
-                image_number = e.id.split('_');
+                var image_number = e.id.split('_');
                 if(image_number[1]) {
                     updatePreviewImage(image_number[1]);
                     image_entry[ image_number[1] ] = $('cimage_sort_'+image_number[1]).value;
@@ -608,23 +608,17 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         }
     }
 
-
-
     function addNewImage(where) {
 
         updatePreviewImageAll();
 
         var entry_number = image_entry.length;
-
         var new_entry = '';
-
         new_entry += '<'+'table border="0" cellpadding="0" cellspacing="0" summary=""'+'>';
-
         new_entry += '<'+'tr>';
         new_entry += '<'+'td colspan="3"><'+'/td>';
         new_entry += '<'+'td class="tdbottom5"><a href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\');"><img src="img/famfamfam/image_delete.gif" alt="" border="" /'+'><'+'/a></'+'td>';
         new_entry += '<'+'/tr>';
-
         new_entry += '<'+'tr>';
         new_entry += '<'+'td class="chatlist right">';
         new_entry += '<'+'input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_'+entry_number+'" type="hidden" value="" /'+'>';

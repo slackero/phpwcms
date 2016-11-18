@@ -3362,7 +3362,7 @@ class Textile
             ->src($this->shelveURL($url), true)
             ->title($title);
 
-        if (!$this->dimensionless_images && $this->isRelUrl($url)) {
+        if (!$this->dimensionless_images && $this->isRelURL($url)) {
             $real_location = realpath($this->doc_root.ltrim($url, $this->ds));
 
             if ($real_location) {

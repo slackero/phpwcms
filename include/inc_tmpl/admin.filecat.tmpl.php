@@ -87,7 +87,7 @@ if(isset($_GET["open"])) {
           <tr align="center" bgcolor="#F0F2F4"><td colspan="2"><table border="0" cellpadding="0" cellspacing="0" summary="">
             <?php if(!empty($fcat["error"])) { ?>
             <tr>
-              <td align="right" class="chatlist"><font color="#FF3300"><?php echo $BL['be_admin_usr_err'] ?>:</font>&nbsp;</td>
+              <td align="right" class="chatlist" style="color:#FF3300;"><?php echo $BL['be_admin_usr_err'] ?>:&nbsp;</td>
               <td class="error"><strong><?php echo $BL['be_admin_fcat_err'] ?></strong></td>
             </tr>
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>

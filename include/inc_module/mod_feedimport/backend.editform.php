@@ -101,7 +101,7 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
 		echo '<tr>'.LF;
 		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea type="text" class="width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
+		echo '<td><textarea class="width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
 		echo '</tr>'.LF;
 							break;
 

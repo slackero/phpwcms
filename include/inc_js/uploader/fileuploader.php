@@ -151,8 +151,9 @@ class qqFileUploader {
     }
 
 	public function getUploadName(){
-		if( isset( $this->uploadName ) )
-			return $this->uploadName;
+		if( isset( $this->uploadName ) ) {
+            return $this->uploadName;
+        }
 	}
 
 	public function getFileSize(){
@@ -172,13 +173,15 @@ class qqFileUploader {
 	}
 
 	public function getFileType(){
-		if ($this->file)
-			return $this->file->getMimeType();
+		if ($this->file) {
+            return $this->file->getMimeType();
+        }
 	}
 
 	public function getName(){
-		if ($this->file)
-			return $this->file->getName();
+		if ($this->file) {
+            return $this->file->getName();
+        }
 	}
 
     private function checkServerSettings(){

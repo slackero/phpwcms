@@ -59,7 +59,7 @@ function initDynamicOptionLists() {
 				// Map the HTML options in the first select into the options we created
 				if (k==0) {
 					if (selObj.options!=null) {
-						for (l=0; l<selObj.options.length; l++) {
+						for (var l=0; l<selObj.options.length; l++) {
 							var sopt = selObj.options[l];
 							var m = dol.findMatchingOptionInArray(dol.options,sopt.text,sopt.value,false);
 							if (m!=null) {

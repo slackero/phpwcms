@@ -40,7 +40,7 @@ require_once(PHPWCMS_ROOT."/include/inc_lib/autolink.inc.php");
         <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
         <tr>
             <td width="490"><input name="chatmsg" type="text" id="chatmsg" style="font-family: Verdana, Arial, sans-serif; width:490px; font-size: 11px" size="40" maxlength="250" onKeyDown="timer=restart_reload(timer);"></td>
-            <td width="48">&nbsp;<input name="Submit" type="image" id="Submit" src="img/button/send_chat_message.gif" width="36" height="15" border="0"></td>
+            <td width="48">&nbsp;<input name="Submit" type="image" id="Submit" src="img/button/send_chat_message.gif" width="36" height="15" /></td>
         </tr>
         <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
         <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

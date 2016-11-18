@@ -793,7 +793,7 @@ function sendEmail($data = array(   'recipient'=>'','toName'=>'','subject'=>'','
         }
 
         $mail->setFrom($from, $fromName);
-        $mail->AddReplyTo($sender);
+        $mail->addReplyTo($sender);
 
         $mail->addAddress($sendTo[0], $toName);
         unset($sendTo[0]);
@@ -1903,7 +1903,7 @@ function render_bbcode_basics($text='', $mode='basic') {
 
     $search[0]      = '/\[i\](.*?)\[\/i\]/is';              $replace[0]     = '<i>$1</i>';
     $search[1]      = '/\[u\](.*?)\[\/u\]/is';              $replace[1]     = '<u>$1</u>';
-    $search[2]      = '/\[s\](.*?)\[\/s\]/is';              $replace[2]     = '<strike>$1</strike>';
+    $search[2]      = '/\[s\](.*?)\[\/s\]/is';              $replace[2]     = '<del>$1</del>';
     $search[3]      = '/\[b\](.*?)\[\/b\]/is';              $replace[3]     = '<b>$1</b>';
     $search[4]      = '/\[br\]/i';                          $replace[4]     = '<br />';
     $search[5]      = '/\[em\](.*?)\[\/em\]/is';            $replace[5]     = '<em>$1</em>';
