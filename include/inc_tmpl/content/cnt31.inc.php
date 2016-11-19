@@ -575,7 +575,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     }
 
     function updatePreviewImage(image_number) {
-        var preview = '',;
+        var preview = '';
         var cimage_id_thumb = $('cimage_id_thumb_'+image_number);
         var cimage_id_zoom = $('cimage_id_zoom_'+image_number);
         if(cimage_id_thumb) {
