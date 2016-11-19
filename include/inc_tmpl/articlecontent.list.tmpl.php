@@ -268,14 +268,17 @@ if(!$temp_count) {
             <tr bgcolor="#D9DEE3"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
             <tr bgcolor="#92A1AF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <?php
-            //Auslesen der Content Daten zum Zusammenstellen der Sortier-Informationen
+
+            // Sorting
+            $sc = 0;
+            $scc = 0;
 
             $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
             $sql .= "WHERE acontent_aid=".$article["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";
             $result = _dbQuery($sql);
 
             if(isset($result[0]['acontent_id'])) {
-                $sc = 0; $scc = 0; //Sort-Zwischenzähler
+
                 foreach($result as $row) {
                     $scc++;
                     if($row['acontent_trash'] == 0) {
@@ -325,16 +328,17 @@ if(!$temp_count) {
             }
 
             //Listing zugehöriger Artikel Content Teile
+            $sortierwert            = 1;
+            $contentpart_block      = ' ';
+            $contentpart_block_name = '';
+            $contentpart_tab        = '';
+            $contentpart_tab_close  = '';
+
             $sql =  "SELECT *, UNIX_TIMESTAMP(acontent_tstamp) as acontent_date FROM ".DB_PREPEND."phpwcms_articlecontent ".
                     "WHERE acontent_aid=".$article["article_id"]." AND acontent_trash=0 ".
                     "ORDER BY acontent_block, acontent_sorting, acontent_tab, acontent_id";
             $result = _dbQuery($sql);
             if(isset($result[0]['acontent_id'])) {
-                $sortierwert            = 1;
-                $contentpart_block      = ' ';
-                $contentpart_block_name = '';
-                $contentpart_tab        = '';
-                $contentpart_tab_close  = '';
                 foreach($result as $row) {
 
                     // if type of content part not enabled available
