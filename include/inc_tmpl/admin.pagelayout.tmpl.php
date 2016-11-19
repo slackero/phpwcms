@@ -26,8 +26,8 @@ if(!isset($_GET["s"])) {
     // loop listing available pagelayouts
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
     $result = _dbQuery($sql);
+    $row_count = 0;
     if(isset($result[0]['pagelayout_id'])) {
-        $row_count = 0;
         foreach($result as $row) {
 
             echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"1%\" style=\"padding:2px 5px 2px 3px\">";

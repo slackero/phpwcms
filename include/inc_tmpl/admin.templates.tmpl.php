@@ -70,8 +70,8 @@ if(!isset($_GET["s"])) {
 // loop listing available templates
 $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC, template_name";
 $result = _dbQuery($sql);
+$row_count = 0;
 if(isset($result[0]['template_id'])) {
-    $row_count = 0;
     foreach($result as $row) {
 
         $edit_link = 'do=admin&amp;p=11&amp;s='.$row["template_id"].'&amp;t='.$row["template_type"];

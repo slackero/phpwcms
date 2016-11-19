@@ -108,7 +108,7 @@ function feedimport_filestorage_dirlist($pid=0, $prefix='+', $userID=null, $coun
 	}
 	$sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_name";
 	$result = _dbQuery($sql);
-	if(isset($result[0])) {
+	if(isset($result[0]['f_id'])) {
 		foreach($result as $row) {
 			if($_SESSION["wcs_user_id"] != $row['f_uid']) {
 				$row["f_name"] .= ' (' . $row["usr_login"] . ')';

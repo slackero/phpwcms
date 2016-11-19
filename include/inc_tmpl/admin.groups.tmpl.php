@@ -38,7 +38,7 @@ $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/i
     //Liste aller Gruppen erzeugen
     $result = _dbGet('phpwcms_usergroup', '*', 'group_active != 9', '', 'group_name');
 
-    if(isset($result[0])) {
+    if(isset($result[0]['group_id'])) {
 
         foreach($result as $grouplist) {
 
@@ -210,8 +210,8 @@ $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/i
 // list all available frontend users and put into temp array
 $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv != 9 ORDER BY usr_fe, usr_name, usr_login";
 $result = _dbQuery($sql);
+$_temp_usr = array();
 if(isset($result[0]['usr_id'])) {
-    $_temp_usr = array();
     foreach($result as $row) {
         $_temp_usr[$row['usr_id']]['name']   = html($row['usr_name']);
         $_temp_usr[$row['usr_id']]['login']  = html($row['usr_login']);
@@ -226,22 +226,23 @@ if(isset($result[0]['usr_id'])) {
               <tr>
                 <td><select name="acat_access[]" id="acat_access" size="12" multiple="multiple" class="width185" onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);">
 <?php
-
-// list all fe_users
-foreach($_temp_usr as $key => $value) {
-    if (isset($group["member"]) && empty($group["error"])) {
-    if(in_array($key, $group["member"])) {
-        echo '<option value="'.$key.'"';
-        if(!$_temp_usr[$key]['active']) {
-            echo ' style="color:#999999;"';
-        } else if($_temp_usr[$key]['admin']) {
-            echo ' style="color:#3F61BF;"';
+    if(count($_temp_usr)) {
+        // list all fe_users
+        foreach($_temp_usr as $key => $value) {
+            if(isset($group["member"]) && empty($group["error"])) {
+                if(in_array($key, $group["member"])) {
+                    echo '<option value="'.$key.'"';
+                    if(!$_temp_usr[$key]['active']) {
+                        echo ' style="color:#999999;"';
+                    } else if($_temp_usr[$key]['admin']) {
+                        echo ' style="color:#3F61BF;"';
+                    }
+                    echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
+                    unset($_temp_usr[$key]);
+                }
+            }
         }
-        echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
-        unset($_temp_usr[$key]);
     }
-  }
-}
 
 ?>
         </select></td>
@@ -249,18 +250,18 @@ foreach($_temp_usr as $key => $value) {
                 <td><select name="acat_feusers" size="12" multiple="multiple" id="acat_feusers" class="width185" onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);">
 <?php
 
-// list all available fe_users
-if(isset($_temp_usr) && is_array($_temp_usr)) {
-    foreach($_temp_usr as $key => $value) {
-        echo '<option value="'.$key.'"';
-        if(!$_temp_usr[$key]['active']) {
-            echo ' style="color:#999999"';
-        } else if($_temp_usr[$key]['admin']) {
-            echo ' style="color:#3F61BF"';
+    // list all available fe_users
+    if(count($_temp_usr)) {
+        foreach($_temp_usr as $key => $value) {
+            echo '<option value="'.$key.'"';
+            if(!$_temp_usr[$key]['active']) {
+                echo ' style="color:#999999"';
+            } else if($_temp_usr[$key]['admin']) {
+                echo ' style="color:#3F61BF"';
+            }
+            echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
         }
-        echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
     }
-}
 
 ?>
         </select></td>
@@ -300,5 +301,5 @@ if(isset($_temp_usr) && is_array($_temp_usr)) {
           </form>
       </table>
 <?php
-          }
+}
 ?>

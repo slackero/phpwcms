@@ -61,8 +61,8 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
            "ORDER BY ".DB_PREPEND."phpwcms_user.usr_name, ".DB_PREPEND."phpwcms_user.usr_login";
     $result = _dbQuery($sql);
 
+    $user_counter=0;
     if(isset($result[0]['f_uid'])) {
-        $user_counter=0;
         foreach($result as $row) {
             //Prüfen
             $pklapp_status = empty($_SESSION["pklapp"][ "u".$row["f_uid"] ]) ? 1 : 0;
