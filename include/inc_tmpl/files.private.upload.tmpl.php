@@ -375,16 +375,17 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
+    $k = '';
 
     if(isset($result[0]['fcat_id'])) {
-        $k = "";
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 
-                $ke = isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
-                $k .= "<tr>\n<td class=\"f10b\">".$ke.html($row["fcat_name"]).":&nbsp;</td>\n";
-                $k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"width300\">\n";
-                $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
+                $k .= "<tr><td class=\"f10b\">";
+                $k .= isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
+                $k .= html($row["fcat_name"]).":&nbsp;</td>";
+                $k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"width300\">";
+                $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
                 $kresult = _dbQuery($ksql);
@@ -396,8 +397,8 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                     }
                 }
 
-                $k .= "</select></td>\n</tr>\n";
-                $k .= "<tr>\n<td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\"></td>\n</tr>\n";
+                $k .= "</select></td></tr>";
+                $k .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\"></td>\n</tr>";
 
             }
         }
@@ -407,7 +408,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     <tr bgcolor="#F5F8F9">
         <td align="right" valign="top" class="v09 tdtop5"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-        <?php if($k) echo $k; ?>
+        <?php echo $k; ?>
         <tr>
             <td class="f10b"><?php echo $BL['be_ftptakeover_additional'] ?>:&nbsp;</td>
             <td><input name="file_shortinfo" type="text" class="width300" id="file_shortinfo" value="<?php echo html($file_shortinfo) ?>" size="40" maxlength="750"></td>
