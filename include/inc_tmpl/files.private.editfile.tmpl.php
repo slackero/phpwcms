@@ -375,8 +375,8 @@ if($ja) {
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
+    $k = '';
     if(isset($result[0]['fcat_id'])) {
-        $k = "";
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 

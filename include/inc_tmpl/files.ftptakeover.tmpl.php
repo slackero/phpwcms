@@ -52,33 +52,32 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
           </tr>
           <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
         </tr>
-          <?php
-                //Browse FTP Open Directory
-                $handle = @opendir(PHPWCMS_ROOT.$phpwcms["ftp_path"]);
-                $fx = 0;
-                $fxsg = 0;
-                while ($file = @readdir ($handle))
-                {
-                    if($file != "." && $file != ".." && $file{0} != '.') {
-                        if(!is_dir($file) && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
+<?php
+        //Browse FTP Open Directory
+        $handle = @opendir(PHPWCMS_ROOT.$phpwcms["ftp_path"]);
+        $fx = 0;
+        $fxsg = 0;
+        while($file = @readdir ($handle)) {
+            if($file !== '.' && $file !== '..' && $file{0} !== '.') {
+                if(!is_dir($file) && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
 
-                            // test if the file should be deleted
-                            $file_base64 = base64_encode($file);
-                            if(isset($deleteFiles[$file_base64])) {
+                    // test if the file should be deleted
+                    $file_base64 = base64_encode($file);
+                    if(isset($deleteFiles[$file_base64])) {
 
-                                if(@unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
-                                    continue;
-                                }
+                        if(@unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
+                            continue;
+                        }
 
-                            }
+                    }
 
-                            $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
-                            $fxsg += $fxs;
-                            $fxe = extimg(which_ext($file));
-                             // there is a big problem with special chars on Mac OS X and seems Windows too
-                            $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
-                            $filename = html($filename);
-          ?>
+                    $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
+                    $fxsg += $fxs;
+                    $fxe = extimg(which_ext($file));
+                     // there is a big problem with special chars on Mac OS X and seems Windows too
+                    $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
+                    $filename = html($filename);
+?>
           <tr<?php echo $fxb ?>>
             <td align="center"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
@@ -92,21 +91,21 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
                 <input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
             </td>
           </tr>
-            <?php               $fx++;
-                        }
-                    }
+<?php               $fx++;
                 }
-                @closedir($handle);
+            }
+        }
+        @closedir($handle);
 
-                if(!$fx) {
-            ?>
+        if(!$fx) {
+?>
           <tr>
             <td colspan="5" class="dir">&nbsp;<?php echo $BL['be_ftptakeover_nofile'] ?></td>
             <td><img src="img/leer.gif" alt="" width="1" height="17" /></td>
         </tr>
-            <?php
-                } else {
-            ?>
+<?php
+        } else {
+?>
           <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
         </tr>
 
@@ -123,9 +122,9 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
           </tr>
           <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
         </tr>
-          <?php
-            }
-          ?>
+<?php
+        }
+?>
           <tr bgcolor="#D9DEE3">
             <td><img src="img/leer.gif" alt="" width="35" height="1" /></td>
             <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
@@ -134,12 +133,12 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
             <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
             <td><img src="img/leer.gif" alt="" width="80" height="1" /></td>
         </tr>
-        </table><?php
-            //Nur Zeigen wenn Dateien vorhanden
-            if($fx) {
+        </table>
+<?php
+        //Nur Zeigen wenn Dateien vorhanden
+        if($fx) {
 
-       ?>
-
+?>
 
        <table width="538" border="0" cellpadding="0" cellspacing="0" summary="" style="background:#EBF2F4">
           <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -245,8 +244,9 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
+    $k = '';
+
     if(isset($result[0]['fcat_id'])) {
-        $k = "";
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 
