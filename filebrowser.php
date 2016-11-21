@@ -161,7 +161,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
     <script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
+    <script src="include/inc_js/phpwcms.min.js" type="text/javascript"></script>
     <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function addFile(obj,text,value) {

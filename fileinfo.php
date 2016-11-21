@@ -85,7 +85,7 @@ if($file_id) {
     <meta name="robots" content="noindex, nofollow" />
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
     <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
+    <script src="include/inc_js/phpwcms.min.js" type="text/javascript"></script>
     <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function ResizeAndCenter(){

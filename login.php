@@ -241,13 +241,13 @@ $reason_types = array(
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
     <meta name="robots" content="noindex, nofollow">
-    <link href="include/inc_css/login.css" rel="stylesheet" type="text/css">
-    <script src="include/inc_js/jquery/jquery.min.js"></script>
-    <script src="include/inc_js/phpwcms.js"></script>
-    <script src="include/inc_js/md5.js"></script>
+    <link href="include/inc_css/login.min.css" rel="stylesheet" type="text/css">
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>
 <?php endif; ?>
+    <script src="include/inc_js/jquery/jquery.min.js"></script>
+    <script src="include/inc_js/phpwcms.min.js"></script>
+    <script src="include/inc_js/md5.js"></script>
 </head>
 <body>
 <div style="margin:0 auto;width:500px;padding-top:50px;">
