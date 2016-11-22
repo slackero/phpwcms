@@ -384,6 +384,7 @@ if($news['template']) {
         foreach($news['result'] as $key => $value) {
 
             $value['cnt_object'] = @unserialize($value['cnt_object']);
+            $news_item_id = $value['cnt_id'];
 
             $news['entries'][$key] = getFrontendEditLink('news', $value['cnt_id']);
 
@@ -800,7 +801,7 @@ if($news['template']) {
                 $news['total_count']++;
             }
 
-            $news['entries'][$key] = str_replace('{ID}', $value['cnt_id'], $news['entries'][$key]);
+            $news['entries'][$key] = str_replace('{ID}', $news_item_id, $news['entries'][$key]);
 
         }
     }
