@@ -1,59 +1,73 @@
-window.addEvent('domready', function() {
-	
-	
-	if(Cookie.get('phpwcmsAgree') == '1') {
-	
-		hasAgreed();
-		
-	} else {
-		
-		
-		var overlay = new Element('div', {'id': 'accessOverlay'}).injectInside(document.body);
-		$('access_dialog').addClass('accessDialog');
-		
-		$('access_save').setStyle('display','');
-		overlay.setStyles({'top': 0, 'height': window.getScrollHeight(), 'opacity': .75});
-		window.addEvent('resize', function(){ overlay.setStyles({'top': 0, 'height': window.getScrollHeight()}); });
-	
-		var agree_checkbox = $('access_agree');
-		agree_checkbox.rel = 0;
-										 
-		$('agree_button_reject').addEvent('click', function(){agree_checkbox.rel = 1} );
-		$('agree_button_agree').addEvent('click', function(){agree_checkbox.rel = 2} );
-										 
-		$('access_form').addEvent('submit', function(r) {
-													 
-			
-			var r = new Event(r).stop();
-													 
-			if(agree_checkbox.rel == 1) {
-	
-				Cookie.remove('phpwcmsAgree');
-				document.location.href = redirect;
-			
-			} else if(agree_checkbox.rel == 2 && agree_checkbox.checked==false) {
-			
-				alert(erroralert);
-			
-			} else {
-			
-				Cookie.set('phpwcmsAgree', '1', {duration: 0, path: '/'});
-				window.removeEvent('resize');
-				hasAgreed();
-				overlay.remove();
-				
-			}
-			
-		});
-	
-	}
+$(function() {
+
+    var accessDialog = $('#access_dialog'),
+        accessSave = $('#access_save'),
+        hasAgreed = function() {
+            accessDialog.css('display', 'none');
+            accessSave.css('display', '');
+        };
+
+    if(Cookie.get('phpwcmsAgree') === '1') {
+
+        hasAgreed();
+
+    } else {
+
+        var overlay = $('<div id="accessOverlay"></div>');
+        $('body').append(overlay);
+
+        accessDialog.addClass('accessDialog');
+        accessSave.css('display', '');
+
+        overlay.css({
+            'top': 0,
+            'height': window.getScrollHeight(),
+            'opacity': 0.75
+        });
+
+        $(window).on('resize', function(){
+            overlay.css({
+                'top': 0,
+                'height': window.getScrollHeight()
+            });
+        });
+
+        var agreeCheckbox = $('#access_agree'),
+            agreeRel = 0;
+
+        $('#agree_button_reject').click(function(){
+            agreeRel = 1;
+        });
+        $('#agree_button_agree').click(function(){
+            agreeRel = 2;
+        });
+
+        $('#access_form').submit(function(e) {
+
+            e.preventDefault();
+
+            if(agreeRel === 1) {
+
+                Cookie.remove('phpwcmsAgree');
+                document.location.href = redirect;
+
+            } else if(agreeRel === 2 && agreeCheckbox.not(':checked')) {
+
+                alert(erroralert);
+
+            } else {
+
+                Cookie.set('phpwcmsAgree', '1', {expires: 7, path: '/'});
+                $(window).off('resize');
+                hasAgreed();
+                overlay.remove();
+
+            }
+
+        });
+
+    }
 
 });
 
 
-function hasAgreed() {
-	
-	$('access_dialog').setStyle('display','none');
-	$('access_save').setStyle('display','');
-
-}
