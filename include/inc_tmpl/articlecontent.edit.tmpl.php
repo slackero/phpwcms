@@ -415,7 +415,7 @@ if($content['cp_setting_mode']):
 			}
 
 			function setTabStatus(enabled) {
-				document.getElementById('ctab').disabled = (enabled ? false : true);
+				document.getElementById('ctab').disabled = !enabled;
 			}
 
 			function checkCntBlockPaginate(obj) {

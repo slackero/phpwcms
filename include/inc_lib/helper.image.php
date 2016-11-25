@@ -1302,7 +1302,7 @@ class Phpwcms_Image_lib {
 	 *
 	 * @access	public
 	 * @param	string
-	 * @return	resource
+	 * @return	mixed
 	 */
 	function image_create_gd($path = '', $image_type = '')
 	{
