@@ -54,12 +54,12 @@ if(!empty($_SESSION['phpwcmsAgree']) || ( isset($_COOKIE['phpwcmsAgree']) && $_C
 
 } elseif( strpos($content['all'], $ACCESS['prefix']) !== FALSE && strpos($content['all'], $ACCESS['suffix']) !== FALSE ) {
 
-    $block['custom_htmlhead']['mootools.js'] = '  <script src="'.TEMPLATE_PATH.'lib/mootools/mootools-1.1-yc.js" type="text/javascript"></script>';
+    $block['custom_htmlhead']['js.cookie.min.js']   = '  <script src="'.TEMPLATE_PATH.'lib/js-cookie/js.cookie.min.js" type="text/javascript"></script>';
     $block['custom_htmlhead']['access.js']   = '  <script src="'.TEMPLATE_PATH.'inc_script/access/access.js" type="text/javascript"></script>';
-    $block['custom_htmlhead']['set_vars']    = '  <script type="text/javascript">'.LF.'  <!--'.LF;
+    $block['custom_htmlhead']['set_vars']    = '  <script type="text/javascript">'.LF;
     $block['custom_htmlhead']['set_vars']   .= '  var redirect="'.$redirect.'";' . LF;
     $block['custom_htmlhead']['set_vars']   .= '  var erroralert="'.$ACCESS['error_js'].'";';
-    $block['custom_htmlhead']['set_vars']   .= LF.'  //-->'.LF.'  </script>';
+    $block['custom_htmlhead']['set_vars']   .= LF.'  </script>';
     $block['custom_htmlhead']['access.css']  = '  <link rel="stylesheet" type="text/css" href="'.TEMPLATE_PATH.'inc_script/access/access.css" />';
 
     $ACCESS['source_data'] = @file_get_contents(PHPWCMS_TEMPLATE.'inc_script/access/'.$ACCESS['source_data']);
