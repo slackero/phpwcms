@@ -21,6 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $tabs			= array();
 $tabs['tabs']	= @unserialize($crow["acontent_form"]);
+$tabsId         = 1;
 unset($tabs['tabs']['tabwysiwygoff']);
 
 $tabs['tab_fieldgroup']	= empty($tabs['tabs']['tab_fieldgroup']) ? '' : $tabs['tabs']['tab_fieldgroup'];
@@ -58,6 +59,7 @@ if($tabs['template']) {
 
 	foreach($tabs['tabs'] as $key => $entry) {
 
+        $tabs['entries'][$key] = render_cnt_template($tabs['tmpl_entry'], 'TABID', $tabsId);
 		$tabs['entries'][$key] = render_cnt_template($tabs['tmpl_entry'], 'TABTITLE', $entry['tabtitle'] == '-' ? '' : html_specialchars($entry['tabtitle']));
 		$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABCONTENT', trim($entry['tabheadline'].$entry['tabtext']) === '' ? '' : LF);
 		$tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABHEADLINE', html_specialchars($entry['tabheadline']));
@@ -130,7 +132,7 @@ if($tabs['template']) {
 				}
 			}
 		}
-
+        $tabsId++
 	}
 
 	$tabs['template']	= render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
