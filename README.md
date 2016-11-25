@@ -3,7 +3,7 @@ phpwcms
 
 phpwcms is a very flexible, fast, robust, customer and developer friendly but yet powerful web based content management system and cms framework running under PHP and MySQL. phpwcms is created and maintained by [Oliver Georgi](http://twitter.com/slackero).
 
-To get started, checkout <http://phpwcms.org> or community driven [HowTo Wiki](http://www.phpwcms-howto.de/wiki/).
+To get started, checkout [phpwcms.org](http://phpwcms.org) or the community driven [HowTo Wiki](http://www.phpwcms-howto.de/wiki/). Thousands of topics including solutions are available in the [**phpwcms** Support Forum](https://forum.phpwcms.org/) where you can ask your questions too.
 
 
 
@@ -23,11 +23,10 @@ Have a bug? Please create an issue here on GitHub that conforms with [necolas's 
 
 
 
-Share with us
+Keep in touch
 -------------
 
 Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
-
 
 
 Author
