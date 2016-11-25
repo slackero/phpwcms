@@ -45,7 +45,7 @@ if(isset($_POST["subscription_id"])) {
     $result = _dbQuery($sql, $query_mode);
 
     if($query_mode === 'INSERT' && isset($result['INSERT_ID'])) {
-        $subscription["id"] = $result['INSERT_ID']
+        $subscription["id"] = $result['INSERT_ID'];
     }
 
     if($subscription["id"]) {

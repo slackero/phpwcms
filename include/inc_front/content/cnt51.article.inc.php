@@ -32,7 +32,7 @@ $map['loc']  = array();
 
 $map['result'] = _dbQuery($map['sql']);
 
-if(isset($map['result'][0]'map_x'])) {
+if(isset($map['result'][0]['map_x'])) {
     foreach($map['result'] as $map['row']) {
 
         $map['map'] .= '<area shape="rect" coords="'.($map['row']['map_x']-4).','.($map['row']['map_y']-4);

@@ -2576,20 +2576,20 @@ function include_url($url) {
         $cache_file     = PHPWCMS_CONTENT.'tmp/'.$cache_filename;   // set caching file
         $cache_status   = check_cache($cache_file, $cache); // ceck existence
 
-        if($cache_status == 'VALID') {  // read cache
+        if($cache_status === 'VALID') {  // read cache
 
             $k  = read_textfile($cache_file);
             $k  = trim($k);
 
             if(empty($k)) {
-                $cache_status == 'EXPIRED'; // check if cache content is available
+                $cache_status = 'EXPIRED'; // check if cache content is available
             }
 
         }
 
     }
 
-    if($cache_status != 'VALID' && $url) {  // cache file is missing or outdated
+    if($cache_status !== 'VALID' && $url) {  // cache file is missing or outdated
 
         $include_urlparts = parse_url($url);
         if(!empty($include_urlparts['path'])) {

@@ -32,7 +32,7 @@ if(!empty($_SESSION["wcs_user"])) {
 		$sql .= " AND logged_ip="._dbEscape(getRemoteIP());
 	}
 
-	if(!($check = _dbQuery($sql, 'COUNT')) {
+	if(!($check = _dbQuery($sql, 'COUNT'))) {
 
         unset($_SESSION["wcs_user"]);
 

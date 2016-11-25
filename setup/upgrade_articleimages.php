@@ -32,7 +32,7 @@ echo '================================================================='."\n\n";
 if($total)
     $linenumber = 1;
 
-    while($result as $row) {
+    foreach($result as $row) {
 
         $error = false;
         $image = explode(':', $row['acontent_image']);
