@@ -94,7 +94,7 @@ $BL['be_ctype_code']                    = 'Codi';
 $BL['be_ctype_textimage']               = 'Text + imatge';
 $BL['be_ctype_images']                  = 'Imatges';
 $BL['be_ctype_bulletlist']              = 'Llista de punts';
-$BL['be_ctype_ullist']     		        = 'Llista ordenada';
+$BL['be_ctype_ullist']                  = 'Llista ordenada';
 $BL['be_ctype_link']                    = 'Enlla&ccedil; &amp; correu';
 $BL['be_ctype_linklist']                = 'Llista d\'enlla&ccedil;os';
 $BL['be_ctype_linkarticle']             = 'Enlla&ccedil; a article';
@@ -644,21 +644,21 @@ $BL['be_article_adminuser']             = 'L\'usuari &eacute;s administrador';
 $BL['be_article_username']              = 'Autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'Visible nom&eacute;s per usuaris registrats';
 $BL['be_admin_struct_status']           = 'Estat del men&uacute; \'frontend\'';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'Men&uacute; d\'articles';
-$BL['be_cnt_sitelevel']					= 'Nivell del website';
-$BL['be_cnt_sitecurrent']				= 'Nivell actual del website';
+$BL['be_ctype_articlemenu']             = 'Men&uacute; d\'articles';
+$BL['be_cnt_sitelevel']                 = 'Nivell del website';
+$BL['be_cnt_sitecurrent']               = 'Nivell actual del website';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'Text d\'acollida';
-$BL['be_ctype_ecard']					= 'E-card';
-$BL['be_ctype_blog']					= 'Blog';
+$BL['be_subnav_admin_starttext']        = 'Text d\'acollida';
+$BL['be_ctype_ecard']                   = 'E-card';
+$BL['be_ctype_blog']                    = 'Blog';
 $BL['be_cnt_ecardtext']                 = 'T&iacute;tol/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'tmpl correu';
 $BL['be_cnt_ecard_image']               = 'Imatge e-card';
@@ -679,24 +679,24 @@ $BL['be_admin_startup_text']            = 'Text';
 $BL['be_admin_startup_button']          = 'Desar text d\'acollida';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'Llibre de visites/comentaris';
-$BL['be_cnt_guestbook_listing']			= 'Llistat';
-$BL['be_cnt_guestbook_listing_all']		= 'Llista tots els registres';
-$BL['be_cnt_guestbook_list']			= 'Llista';
-$BL['be_cnt_guestbook_perpage']			= 'per p&agrave;gina';
-$BL['be_cnt_guestbook_form']			= 'Formulari';
-$BL['be_cnt_guestbook_signed']			= 'Firmat';
-$BL['be_cnt_guestbook_nav']				= 'Navegaci&oacute;';
-$BL['be_cnt_guestbook_before']			= 'Abans';
-$BL['be_cnt_guestbook_after']			= 'Despr&eacute;s';
-$BL['be_cnt_guestbook_entry']			= 'Annotació';
-$BL['be_cnt_guestbook_edit']			= 'Edita';
+$BL['be_ctype_guestbook']               = 'Llibre de visites/comentaris';
+$BL['be_cnt_guestbook_listing']         = 'Llistat';
+$BL['be_cnt_guestbook_listing_all']     = 'Llista tots els registres';
+$BL['be_cnt_guestbook_list']            = 'Llista';
+$BL['be_cnt_guestbook_perpage']         = 'per p&agrave;gina';
+$BL['be_cnt_guestbook_form']            = 'Formulari';
+$BL['be_cnt_guestbook_signed']          = 'Firmat';
+$BL['be_cnt_guestbook_nav']             = 'Navegaci&oacute;';
+$BL['be_cnt_guestbook_before']          = 'Abans';
+$BL['be_cnt_guestbook_after']           = 'Despr&eacute;s';
+$BL['be_cnt_guestbook_entry']           = 'Annotació';
+$BL['be_cnt_guestbook_edit']            = 'Edita';
 $BL['be_cnt_ecardform_selector']        = 'Selector';
 $BL['be_cnt_ecardform_radiobutton']     = 'But&oacute; de radio';
 $BL['be_cnt_ecardform_javascript']      = 'Funcionalitat JavaScript';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'Nombre d\'articles presentats';
 
 // added: 19-04-2004
@@ -730,7 +730,7 @@ $BL['be_newsletter_readyfailed']        = 'No s\'ha pogut enviar el butllet&iacu
 $BL['be_subnav_msg_subscribers']        = 'Llistat de subscriptors';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'Mapa del site';
+$BL['be_ctype_sitemap']                 = 'Mapa del site';
 $BL['be_cnt_sitemap_catimage']          = 'Icona de nivell';
 $BL['be_cnt_sitemap_articleimage']      = 'Icona d\'article';
 $BL['be_cnt_sitemap_display']           = 'Mostrar';
@@ -743,7 +743,7 @@ $BL['be_cnt_sitemap_classcount']        = 'afegir a nom de classe';
 $BL['be_cnt_sitemap_noclasscount']      = 'no afegir a nom de classe';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'Oferta';
+$BL['be_ctype_bid']                     = 'Oferta';
 $BL['be_cnt_bid_bidtext']               = 'Text de la oferta';
 $BL['be_cnt_bid_sendtext']              = 'Text enviat';
 $BL['be_cnt_bid_verifiedtext']          = 'Text verificat';

@@ -95,7 +95,7 @@ $BL['be_ctype_code']                    = 'код';
 $BL['be_ctype_textimage']               = 'тект с картинка';
 $BL['be_ctype_images']                  = 'картинки';
 $BL['be_ctype_bulletlist']              = 'списък (таблица)';
-$BL['be_ctype_ullist']     		        = 'списък';
+$BL['be_ctype_ullist']                  = 'списък';
 $BL['be_ctype_link']                    = 'препратки &amp; email';
 $BL['be_ctype_linklist']                = 'списък от препратки';
 $BL['be_ctype_linkarticle']             = 'връзка към статия';
@@ -574,8 +574,8 @@ $BL['be_cnt_target2']                   = 'in parent frame of the window';
 $BL['be_cnt_target3']                   = 'in same window without frames';
 $BL['be_cnt_target4']                   = 'in the same frame or window';
 $BL['be_cnt_bullet']                    = 'списък (таблица)';
-$BL['be_cnt_ullist']     		        = 'списък';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1во ниво, &nbsp; ~~ = 2ро ниво, &nbsp; т.н.';
+$BL['be_cnt_ullist']                    = 'списък';
+$BL['be_cnt_ullist_desc']               = '~ = 1во ниво, &nbsp; ~~ = 2ро ниво, &nbsp; т.н.';
 $BL['be_cnt_linklist']                  = 'списък линкове';
 $BL['be_cnt_plainhtml']                 = 'чист html';
 $BL['be_cnt_files']                     = 'файлове';
@@ -646,21 +646,21 @@ $BL['be_article_adminuser']             = 'административен пот
 $BL['be_article_username']              = 'автор';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'видим само за влезналите потребители';
 $BL['be_admin_struct_status']           = 'frontend menu status';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'меню за статии';
-$BL['be_cnt_sitelevel']					= 'ниво на сайта';
-$BL['be_cnt_sitecurrent']				= 'current site level';
+$BL['be_ctype_articlemenu']             = 'меню за статии';
+$BL['be_cnt_sitelevel']                 = 'ниво на сайта';
+$BL['be_cnt_sitecurrent']               = 'current site level';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'backend default text';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'backend default text';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'title/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'e-card image';
@@ -681,24 +681,24 @@ $BL['be_admin_startup_text']            = 'startup text';
 $BL['be_admin_startup_button']          = 'save stratup text';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'guestbook/comm.';
-$BL['be_cnt_guestbook_listing']			= 'listing';
-$BL['be_cnt_guestbook_listing_all']		= 'list&nbsp;all&nbsp;entries';
-$BL['be_cnt_guestbook_list']			= 'list';
-$BL['be_cnt_guestbook_perpage']			= 'per&nbsp;page';
-$BL['be_cnt_guestbook_form']			= 'form';
-$BL['be_cnt_guestbook_signed']			= 'signed';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'before';
-$BL['be_cnt_guestbook_after']			= 'after';
-$BL['be_cnt_guestbook_entry']			= 'entry';
-$BL['be_cnt_guestbook_edit']			= 'edit';
+$BL['be_ctype_guestbook']               = 'guestbook/comm.';
+$BL['be_cnt_guestbook_listing']         = 'listing';
+$BL['be_cnt_guestbook_listing_all']     = 'list&nbsp;all&nbsp;entries';
+$BL['be_cnt_guestbook_list']            = 'list';
+$BL['be_cnt_guestbook_perpage']         = 'per&nbsp;page';
+$BL['be_cnt_guestbook_form']            = 'form';
+$BL['be_cnt_guestbook_signed']          = 'signed';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'before';
+$BL['be_cnt_guestbook_after']           = 'after';
+$BL['be_cnt_guestbook_entry']           = 'entry';
+$BL['be_cnt_guestbook_edit']            = 'edit';
 $BL['be_cnt_ecardform_selector']        = 'selector';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio button';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript functionality';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'top article count';
 
 // added: 19-04-2004
@@ -732,7 +732,7 @@ $BL['be_newsletter_readyfailed']        = 'Failed newsletter sending to';
 $BL['be_subnav_msg_subscribers']        = 'newsletter subscribers';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'карта на стайта';
+$BL['be_ctype_sitemap']                 = 'карта на стайта';
 $BL['be_cnt_sitemap_catimage']          = 'икона за нивото';
 $BL['be_cnt_sitemap_articleimage']      = 'икона за статия';
 $BL['be_cnt_sitemap_display']           = 'показвай';
@@ -745,7 +745,7 @@ $BL['be_cnt_sitemap_classcount']        = 'добавяй към името на
 $BL['be_cnt_sitemap_noclasscount']      = 'не добавяй към името на class-а';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'bid';
+$BL['be_ctype_bid']                     = 'bid';
 $BL['be_cnt_bid_bidtext']               = 'bid text';
 $BL['be_cnt_bid_sendtext']              = 'sent text';
 $BL['be_cnt_bid_verifiedtext']          = 'verified text';

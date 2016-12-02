@@ -655,7 +655,7 @@ $BL['be_article_adminuser']             = 'uporabnik-administrator';
 $BL['be_article_username']              = 'avtor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'oblikovano besedilo';
+$BL['be_ctype_wysiwyg']                 = 'oblikovano besedilo';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'vidno samo prijavljenim uporabnikom';

@@ -93,7 +93,7 @@ $BL['be_ctype_code']                    = 'kod';
 $BL['be_ctype_textimage']               = 'yaz&#305; w/resim';
 $BL['be_ctype_images']                  = 'resimler';
 $BL['be_ctype_bulletlist']              = 'liste (tablo)';
-$BL['be_ctype_ullist']     		        = 'liste';
+$BL['be_ctype_ullist']                  = 'liste';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'link listesi';
 $BL['be_ctype_linkarticle']             = 'ba&#351;l&#305;k ba&#287;lant&#305;s&#305;';
@@ -576,8 +576,8 @@ $BL['be_cnt_target2']                   = 'pencerenin t&uuml;m&uuml;n&uuml; kapa
 $BL['be_cnt_target3']                   = 'ayn&#305; pencere i&ccedil;inde "frame" olmdan';
 $BL['be_cnt_target4']                   = 'ayn&#305; "frame" yada pencere i&ccedil;inde';
 $BL['be_cnt_bullet']                    = 'liste (tablo)';
-$BL['be_cnt_ullist']     		        = 'liste';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1. seviye, &nbsp; ~~ = 2. seviye, &nbsp; etc.';
+$BL['be_cnt_ullist']                    = 'liste';
+$BL['be_cnt_ullist_desc']               = '~ = 1. seviye, &nbsp; ~~ = 2. seviye, &nbsp; etc.';
 $BL['be_cnt_linklist']                  = 'link listesi';
 $BL['be_cnt_plainhtml']                 = 'sade metin';
 $BL['be_cnt_files']                     = 'dosyalar';
@@ -648,21 +648,21 @@ $BL['be_article_adminuser']             = 'y&ouml;netici';
 $BL['be_article_username']              = 'yazar';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'sadece bagl&#305; kullan&#305;c&#305;lar g&ouml;rebilir';
 $BL['be_admin_struct_status']           = '&ouml;ny&uuml;z men&uuml;s&uuml; durumu';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'b&ouml;l&uuml;m men&uuml;s&uuml;';
-$BL['be_cnt_sitelevel']					= 'sitedeki s&#305;ras&#305;';
-$BL['be_cnt_sitecurrent']				= 'ge&ccedil;erli site s&#305;ralamas&#305;';
+$BL['be_ctype_articlemenu']             = 'b&ouml;l&uuml;m men&uuml;s&uuml;';
+$BL['be_cnt_sitelevel']                 = 'sitedeki s&#305;ras&#305;';
+$BL['be_cnt_sitecurrent']               = 'ge&ccedil;erli site s&#305;ralamas&#305;';
 
 /// added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'site arkas&#305; varsy&#305;lan metni';
-$BL['be_ctype_ecard']					= 'e-kart';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'site arkas&#305; varsy&#305;lan metni';
+$BL['be_ctype_ecard']                   = 'e-kart';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'baslik/e-kart';
 $BL['be_cnt_ecardtmpl']                 = 'posta kal&#305;p.';
 $BL['be_cnt_ecard_image']               = 'e-kart resim';
@@ -683,24 +683,24 @@ $BL['be_admin_startup_text']            = 'ba&#351;lang&#305;&ccedil; yaz&#305;s
 $BL['be_admin_startup_button']          = 'ba&#351;langi&ccedil; yaz&#305;s&#305;n&#305; kaydet';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'ziyaret&ccedil;i defteri/yorum';
-$BL['be_cnt_guestbook_listing']			= 'listeleniyor';
-$BL['be_cnt_guestbook_listing_all']		= 't&uuml;m&nbsp;girilenlerin&nbsp;listesi';
-$BL['be_cnt_guestbook_list']			= 'liste';
-$BL['be_cnt_guestbook_perpage']			= 'sayfa&nbsp;ba&#351;&#305;na';
-$BL['be_cnt_guestbook_form']			= 'kimden';
-$BL['be_cnt_guestbook_signed']			= 'i&#351;aretli';
-$BL['be_cnt_guestbook_nav']				= 'gez';
-$BL['be_cnt_guestbook_before']			= '&ouml;nce';
-$BL['be_cnt_guestbook_after']			= 'sonra';
-$BL['be_cnt_guestbook_entry']			= 'giri&#351;';
-$BL['be_cnt_guestbook_edit']			= 'd&uuml;zen';
+$BL['be_ctype_guestbook']               = 'ziyaret&ccedil;i defteri/yorum';
+$BL['be_cnt_guestbook_listing']         = 'listeleniyor';
+$BL['be_cnt_guestbook_listing_all']     = 't&uuml;m&nbsp;girilenlerin&nbsp;listesi';
+$BL['be_cnt_guestbook_list']            = 'liste';
+$BL['be_cnt_guestbook_perpage']         = 'sayfa&nbsp;ba&#351;&#305;na';
+$BL['be_cnt_guestbook_form']            = 'kimden';
+$BL['be_cnt_guestbook_signed']          = 'i&#351;aretli';
+$BL['be_cnt_guestbook_nav']             = 'gez';
+$BL['be_cnt_guestbook_before']          = '&ouml;nce';
+$BL['be_cnt_guestbook_after']           = 'sonra';
+$BL['be_cnt_guestbook_entry']           = 'giri&#351;';
+$BL['be_cnt_guestbook_edit']            = 'd&uuml;zen';
 $BL['be_cnt_ecardform_selector']        = 'se&ccedil;ici';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio tip buton';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript fonksiyonerli&#287;i';
-$BL['be_cnt_ecardform_over']        	= 'Fare&uuml;zerindeyken';
-$BL['be_cnt_ecardform_click']       	= 'T&#305;kland&#305;&#287;&#305;nda';
-$BL['be_cnt_ecardform_out']       		= 'Fareayr&#305;ld&#305;&#287;&#305;nda';
+$BL['be_cnt_ecardform_over']            = 'Fare&uuml;zerindeyken';
+$BL['be_cnt_ecardform_click']           = 'T&#305;kland&#305;&#287;&#305;nda';
+$BL['be_cnt_ecardform_out']             = 'Fareayr&#305;ld&#305;&#287;&#305;nda';
 $BL['be_admin_struct_topcount']         = 'g&ouml;r&uuml;nt&uuml;lenecek toplam konu say&#305;s&#305;';
 
 // added: 19-04-2004
@@ -734,7 +734,7 @@ $BL['be_newsletter_readyfailed']        = '&#304;lgili al&#305;c&#305;lara haber
 $BL['be_subnav_msg_subscribers']        = 'Haber &uuml;yeligi';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'site haritas&#305;';
+$BL['be_ctype_sitemap']                 = 'site haritas&#305;';
 $BL['be_cnt_sitemap_catimage']          = 'seviye simgesi';
 $BL['be_cnt_sitemap_articleimage']      = 'konu ba&#351;l&#305;&#287;&#305; simgesi';
 $BL['be_cnt_sitemap_display']           = 'g&ouml;ster';
@@ -747,7 +747,7 @@ $BL['be_cnt_sitemap_classcount']        = 's&#305;n&#305;f ismi ekle';
 $BL['be_cnt_sitemap_noclasscount']      = 's&#305;n&#305;f ismi eklenemedi';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'bid';
+$BL['be_ctype_bid']                     = 'bid';
 $BL['be_cnt_bid_bidtext']               = 'bid metin';
 $BL['be_cnt_bid_sendtext']              = 'metini g&ouml;nder';
 $BL['be_cnt_bid_verifiedtext']          = 'onay metni';
@@ -863,17 +863,17 @@ $BL['be_cache']                         = 'tampon';
 $BL['be_cache_timeout']                 = 'zaman a&#351;&#305;m&#305;';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'kullan&#305;c&#305; gruplar&#305;';
-$BL['be_admin_group_add']				= 'grup ekle';
-$BL['be_admin_group_nogroup']			= 'hi&ccedil;bir kullan&#305;c&#305; grubu bulunamad&#305;';
+$BL['be_subnav_admin_groups']           = 'kullan&#305;c&#305; gruplar&#305;';
+$BL['be_admin_group_add']               = 'grup ekle';
+$BL['be_admin_group_nogroup']           = 'hi&ccedil;bir kullan&#305;c&#305; grubu bulunamad&#305;';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'forum';
-$BL['be_subnav_msg_forum']				= 'forumlar&#305;n listesi';
-$BL['be_forum_title']					= 'forum ba&#351;l&#305;&#287;&#305;';
-$BL['be_forum_permission']				= 'izinler';
-$BL['be_forum_add']						= 'forum ekle';
-$BL['be_forum_titleedit']				= 'edit forum';
+$BL['be_ctype_forum']                   = 'forum';
+$BL['be_subnav_msg_forum']              = 'forumlar&#305;n listesi';
+$BL['be_forum_title']                   = 'forum ba&#351;l&#305;&#287;&#305;';
+$BL['be_forum_permission']              = 'izinler';
+$BL['be_forum_add']                     = 'forum ekle';
+$BL['be_forum_titleedit']               = 'edit forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'se&ccedil;ime ba&#287;l&#305;';
@@ -881,59 +881,59 @@ $BL['be_show_content']                  = 'g&ouml;r&uuml;nt&uuml;le';
 $BL['be_main_content']                  = 'ana kolon';
 $BL['be_admin_template_jswarning']      = 'Tehlike!!! \nSe&ccedil;ime bagl&#305; bloklar degisebilir! \n\nE&#287;er iptal ederseniz \nsayfa &#351;ablonundaki ayarlar&#305;n&#305;z s&#305;f&#305;rlan&#305;r! \n\n&#350;ablon de&#287;i&#351;sin mi?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'RSS sonu';
-$BL['be_cnt_rssfeed_url']				= 'RSS url';
-$BL['be_cnt_rssfeed_item']				= 'elemanlar';
-$BL['be_cnt_rssfeed_max']				= 'enfazla';
-$BL['be_cnt_rssfeed_cut']				= 'ilk eleman&#305; gizle';
+$BL['be_ctype_rssfeed']                 = 'RSS sonu';
+$BL['be_cnt_rssfeed_url']               = 'RSS url';
+$BL['be_cnt_rssfeed_item']              = 'elemanlar';
+$BL['be_cnt_rssfeed_max']               = 'enfazla';
+$BL['be_cnt_rssfeed_cut']               = 'ilk eleman&#305; gizle';
 
-$BL['be_ctype_simpleform']				= 'email ile ileti&#351;im formu';
+$BL['be_ctype_simpleform']              = 'email ile ileti&#351;im formu';
 
-$BL['be_cnt_onsuccess']				    = 'ba&#351;ar&#305;ld&#305;&#287;&#305;nda';
-$BL['be_cnt_onerror']				    = 'hata olu&#351;tu&#287;unda';
-$BL['be_cnt_onsuccess_redirect']	    = 'ba&#351;ar&#305;ld&#305;&#287;&#305;nda y&ouml;nlendir';
-$BL['be_cnt_onerror_redirect']	        = 'hata olustugunda y&ouml;nelendir';
+$BL['be_cnt_onsuccess']                 = 'ba&#351;ar&#305;ld&#305;&#287;&#305;nda';
+$BL['be_cnt_onerror']                   = 'hata olu&#351;tu&#287;unda';
+$BL['be_cnt_onsuccess_redirect']        = 'ba&#351;ar&#305;ld&#305;&#287;&#305;nda y&ouml;nlendir';
+$BL['be_cnt_onerror_redirect']          = 'hata olustugunda y&ouml;nelendir';
 
-$BL['be_cnt_form_class']				= 'form s&#305;n&#305;f&#305;';
-$BL['be_cnt_label_wrap']				= 'etiketi ta&#351;&#305;rma';
-$BL['be_cnt_error_class']				= 'hatal&#305; s&#305;n&#305;f';
-$BL['be_cnt_req_mark']				    = 'gerekli i&#351;areti';
-$BL['be_cnt_mark_as_req']				= 'i&#351;aretliler gerekli';
-$BL['be_cnt_mark_as_del']				= 'silmek i&ccedil;in i&#351;aretle';
+$BL['be_cnt_form_class']                = 'form s&#305;n&#305;f&#305;';
+$BL['be_cnt_label_wrap']                = 'etiketi ta&#351;&#305;rma';
+$BL['be_cnt_error_class']               = 'hatal&#305; s&#305;n&#305;f';
+$BL['be_cnt_req_mark']                  = 'gerekli i&#351;areti';
+$BL['be_cnt_mark_as_req']               = 'i&#351;aretliler gerekli';
+$BL['be_cnt_mark_as_del']               = 'silmek i&ccedil;in i&#351;aretle';
 
 
-$BL['be_cnt_type']				        = 't&uuml;r';
-$BL['be_cnt_label']				        = 'etiket';
-$BL['be_cnt_needed']					= 'gerekli';
-$BL['be_cnt_delete']					= 'sil';
-$BL['be_cnt_value']						= 'de&#287;er';
-$BL['be_cnt_error_text']				= 'hata metni';
-$BL['be_cnt_css_style']					= 'CSS stili';
-$BL['be_cnt_send_copy_to']				= 'Kopyas&#305; gidecek';
+$BL['be_cnt_type']                      = 't&uuml;r';
+$BL['be_cnt_label']                     = 'etiket';
+$BL['be_cnt_needed']                    = 'gerekli';
+$BL['be_cnt_delete']                    = 'sil';
+$BL['be_cnt_value']                     = 'de&#287;er';
+$BL['be_cnt_error_text']                = 'hata metni';
+$BL['be_cnt_css_style']                 = 'CSS stili';
+$BL['be_cnt_send_copy_to']              = 'Kopyas&#305; gidecek';
 
-$BL['be_cnt_field']						= array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)',
-												"hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu',
-												"list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton',
-												"upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu',
-												"break"=>'kesme', "breaktext"=>'kesme metni', "special"=>'metin (&ouml;zel)');
+$BL['be_cnt_field']                     = array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)',
+                                                "hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu',
+                                                "list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton',
+                                                "upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu',
+                                                "break"=>'kesme', "breaktext"=>'kesme metni', "special"=>'metin (&ouml;zel)');
 
-$BL['be_cnt_access']					= 'eri&#351;im';
-$BL['be_cnt_activated']					= 'aktifle&#351;tirildi';
-$BL['be_cnt_available']					= 'mevcut';
-$BL['be_cnt_guests']					= 'ziyaret&ccedil;iler';
-$BL['be_cnt_admin']						= 'y&ouml;netici';
-$BL['be_cnt_write']						= 'yaz';
-$BL['be_cnt_read']						= 'oku';
+$BL['be_cnt_access']                    = 'eri&#351;im';
+$BL['be_cnt_activated']                 = 'aktifle&#351;tirildi';
+$BL['be_cnt_available']                 = 'mevcut';
+$BL['be_cnt_guests']                    = 'ziyaret&ccedil;iler';
+$BL['be_cnt_admin']                     = 'y&ouml;netici';
+$BL['be_cnt_write']                     = 'yaz';
+$BL['be_cnt_read']                      = 'oku';
 
-$BL['be_cnt_no_wysiwyg_editor']			= ' WYSIWYG edit&ouml;r devre d&#305;&#351;&#305;';
-$BL['be_cnt_cache_update']				= '&ouml;n belle&#287;i temizle';
-$BL['be_cnt_cache_delete']				= '&ouml;n belle&#287;i sil';
-$BL['be_cnt_cache_delete_msg']			= 'tamponu silmek istedi&#287;inizden emin misiniz?  \nBu arama i&#351;lemine de etki edebilir.\n';
+$BL['be_cnt_no_wysiwyg_editor']         = ' WYSIWYG edit&ouml;r devre d&#305;&#351;&#305;';
+$BL['be_cnt_cache_update']              = '&ouml;n belle&#287;i temizle';
+$BL['be_cnt_cache_delete']              = '&ouml;n belle&#287;i sil';
+$BL['be_cnt_cache_delete_msg']          = 'tamponu silmek istedi&#287;inizden emin misiniz?  \nBu arama i&#351;lemine de etki edebilir.\n';
 
-$BL['be_admin_usr_issection']			= 'Yetkili oldu&#287;u b&ouml;l&uuml;m';
-$BL['be_admin_usr_ifsection0']			= '&ouml;ny&uuml;z';
-$BL['be_admin_usr_ifsection1']			= 'arkaplan';
-$BL['be_admin_usr_ifsection2']			= '&ouml;ny&uuml;z ve arkaplan';
+$BL['be_admin_usr_issection']           = 'Yetkili oldu&#287;u b&ouml;l&uuml;m';
+$BL['be_admin_usr_ifsection0']          = '&ouml;ny&uuml;z';
+$BL['be_admin_usr_ifsection1']          = 'arkaplan';
+$BL['be_admin_usr_ifsection2']          = '&ouml;ny&uuml;z ve arkaplan';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'Bu i&ccedil;erik par&ccedil;as&#305;n&#305; d&uuml;zenle';
@@ -972,13 +972,13 @@ $BL['be_admin_tmpl_copy']               = '&#351;ablonu kopyala';
 $BL['be_ctype_filelist1']                = 'dosya listeleme pro';
 $BL['be_cnt_fpro_usecaption']            = 'dosya ortas&#305;nda kullan &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
-$BL['be_admin_keywords']				= 'Anahtar kelimeler';
-$BL['be_admin_keywords_key']			= 'ANAHTAR KELIME';
-$BL['be_admin_keywords_err']			= 'yanl&#305;zca tek ANAHTAR KELIME ismi';
-$BL['be_admin_keyword_edit']			= 'ANAHTAR KELIME d&uuml;zenle';
-$BL['be_admin_keyword_del']				= 'ANAHTAR KELIME sil';
-$BL['be_admin_keyword_delmsg']			= 'ger&ccedil;ekten ANAHTAR KELIME yi \nsilmek istiyor musunuz?';
-$BL['be_admin_keyword_add']				= 'ANAHTAR KELIME ekle';
+$BL['be_admin_keywords']                = 'Anahtar kelimeler';
+$BL['be_admin_keywords_key']            = 'ANAHTAR KELIME';
+$BL['be_admin_keywords_err']            = 'yanl&#305;zca tek ANAHTAR KELIME ismi';
+$BL['be_admin_keyword_edit']            = 'ANAHTAR KELIME d&uuml;zenle';
+$BL['be_admin_keyword_del']             = 'ANAHTAR KELIME sil';
+$BL['be_admin_keyword_delmsg']          = 'ger&ccedil;ekten ANAHTAR KELIME yi \nsilmek istiyor musunuz?';
+$BL['be_admin_keyword_add']             = 'ANAHTAR KELIME ekle';
 
 $BL['be_cnt_transparent'] = 'Flash saydam';
 
@@ -999,156 +999,156 @@ $BL['be_cnt_pos8i']                     = 'resmi tablonun solunda hizala';
 $BL['be_cnt_pos9i']                     = 'resmi tablonun saginda hizala';
 
 
-$BL['be_WYSIWYG']						= 'WYSIWYG editor';
-$BL['be_WYSIWYG_disabled']				= 'WYSIWYG editor devredisi';
+$BL['be_WYSIWYG']                       = 'WYSIWYG editor';
+$BL['be_WYSIWYG_disabled']              = 'WYSIWYG editor devredisi';
 $BL['be_admin_struct_acat_hiddenactive'] = 'aktif oldugunda g&ouml;r&uuml;ns&uuml;n';
 
 
 
-$BL['be_login_jsinfo']					= 'L&uuml;tfen JavaScript i etkinletistirin. Site arkasi y&ouml;netimi i&ccedil;in bu sart!';
+$BL['be_login_jsinfo']                  = 'L&uuml;tfen JavaScript i etkinletistirin. Site arkasi y&ouml;netimi i&ccedil;in bu sart!';
 
-$BL['be_admin_struct_maxlist']			= 'listelnme modunda enfazla baslik sayisi';
+$BL['be_admin_struct_maxlist']          = 'listelnme modunda enfazla baslik sayisi';
 
-$BL['be_admin_optgroup_label']			= array(1 => 'd&uuml;z metin', 2 => 'resim', 3 => 'form', 4 => 'admin', 5 => '&ouml;zel');
-$BL['be_cnt_articlemenu_maxchar']		= 'enfazla Karakter';
+$BL['be_admin_optgroup_label']          = array(1 => 'd&uuml;z metin', 2 => 'resim', 3 => 'form', 4 => 'admin', 5 => '&ouml;zel');
+$BL['be_cnt_articlemenu_maxchar']       = 'enfazla Karakter';
 
-$BL['be_cnt_sysadmin_system']			= 'Sistem';
+$BL['be_cnt_sysadmin_system']           = 'Sistem';
 
 // version check - taken from phpBB ;-)
-$BL['Version_up_to_date']				= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel,daha g&uuml;ncel bir phpwcms s&uuml;r&uuml;m&uuml;ne rastlamanamadi';
-$BL['Version_not_up_to_date']			= 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
-$BL['Latest_version_info']				= 'Daha yeni bir <b>phpwcms %s</b>. versiyonu mevcut.';
-$BL['Current_version_info']				= '&#351;u anda <b>phpwcms %s</b> ile &ccedil;al&#305;&#351;&#305;yorsunuz.';
-$BL['Connect_socket_error']				= 'phpwcms Sunucusu ile ba&#287;lant&#305; kurulamad&#305;, raporlanan hata :<br />%s';
-$BL['Socket_functions_disabled']		= 'socket fonksiyonu kullan&#305;lam&#305;yor.';
-$BL['Mailing_list_subscribe_reminder']	= 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://eepurl.com/bm-BrH" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
-$BL['Version_information'] 				= 'phpwcms Versiyon bilgileri';
+$BL['Version_up_to_date']               = 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel,daha g&uuml;ncel bir phpwcms s&uuml;r&uuml;m&uuml;ne rastlamanamadi';
+$BL['Version_not_up_to_date']           = 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
+$BL['Latest_version_info']              = 'Daha yeni bir <b>phpwcms %s</b>. versiyonu mevcut.';
+$BL['Current_version_info']             = '&#351;u anda <b>phpwcms %s</b> ile &ccedil;al&#305;&#351;&#305;yorsunuz.';
+$BL['Connect_socket_error']             = 'phpwcms Sunucusu ile ba&#287;lant&#305; kurulamad&#305;, raporlanan hata :<br />%s';
+$BL['Socket_functions_disabled']        = 'socket fonksiyonu kullan&#305;lam&#305;yor.';
+$BL['Mailing_list_subscribe_reminder']  = 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://eepurl.com/bm-BrH" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
+$BL['Version_information']              = 'phpwcms Versiyon bilgileri';
 
-$BL['be_cnt_search_highlight']			= 'hgighlight';
-$BL['be_cnt_results_wordlimit']			= '&ouml;zet bilgisi i&ccedil;in enfazla kelime say&#305;s&#305;';
-$BL['be_cnt_page_of_pages']				= 'search navi';
-$BL['be_cnt_page_of_pages_descr']		= '{PREV:&ouml;nceki} sayfa #/##, sonu&ccedil; ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Sonraki}';
-$BL['be_cnt_search_show_top']			= '&uuml;st';
-$BL['be_cnt_search_show_bottom']		= 'alt';
-$BL['be_cnt_search_show_next']			= 'sonraki (link olmad&#305;&#287;&#305;nda)';
-$BL['be_cnt_search_show_prev']			= 'previous (link olmad&#305;&#287;&#305;nda)';
-$BL['be_cnt_search_show_forall']		= 'her zaman g&ouml;ster';
-$BL['be_cnt_search_startlevel']			= 'arama ba&#351;lang&#305;c&#305;';
-$BL['be_cnt_results_minchar']			= 'arama girdisi i&ccedil;in en az karakter say&#305;s&#305;';
+$BL['be_cnt_search_highlight']          = 'hgighlight';
+$BL['be_cnt_results_wordlimit']         = '&ouml;zet bilgisi i&ccedil;in enfazla kelime say&#305;s&#305;';
+$BL['be_cnt_page_of_pages']             = 'search navi';
+$BL['be_cnt_page_of_pages_descr']       = '{PREV:&ouml;nceki} sayfa #/##, sonu&ccedil; ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Sonraki}';
+$BL['be_cnt_search_show_top']           = '&uuml;st';
+$BL['be_cnt_search_show_bottom']        = 'alt';
+$BL['be_cnt_search_show_next']          = 'sonraki (link olmad&#305;&#287;&#305;nda)';
+$BL['be_cnt_search_show_prev']          = 'previous (link olmad&#305;&#287;&#305;nda)';
+$BL['be_cnt_search_show_forall']        = 'her zaman g&ouml;ster';
+$BL['be_cnt_search_startlevel']         = 'arama ba&#351;lang&#305;c&#305;';
+$BL['be_cnt_results_minchar']           = 'arama girdisi i&ccedil;in en az karakter say&#305;s&#305;';
 
-$BL['be_cnt_pagination']				= 'sayfalanm&#305;&#351; i&ccedil;erik par&ccedil;as&#305;';
-$BL['be_article_pagination']			= 'sayfalanmis ba&#351;l&#305;k';
-$BL['be_article_per_page']			    = 'sayfa ba&#351;&#305;na d&uuml;&#351;en ba&#351;l&#305;k';
-$BL['be_pagination']					= 'sayfalama';
-
-
-$BL['be_ctype_recipe']					= 'yol';
-$BL['be_ctype_faq']						= 'SSS';
-$BL['be_cnt_additional']				= 'eklenti';
-$BL['be_cnt_question']					= 'soru';
-$BL['be_cnt_answer']					= 'cevap';
-$BL['be_cnt_same_as_summary']			= 'ba&#351;l&#305;g&#305;n resim bilgisini kullan';
-$BL['be_cnt_sorting']					= 's&#305;ralama';
-$BL['be_cnt_imgupload']					= 'resim&nbsp;y&uuml;kle';
-$BL['be_cnt_filesize']					= 'dosyaboyu';
-$BL['be_cnt_captchalength']				= 'captcha code length';
-$BL['be_cnt_chars']						= 'karakterler';
-$BL['be_cnt_download']					= 'indir';
-$BL['be_cnt_download_direct']			= 'do&#287;rudan';
-$BL['be_cnt_database']					= 'veritabani';
-$BL['be_cnt_formsave_in_db']			= 'form bilgilerini kaydet';
-
-$BL['be_cnt_email_notify']				= 'emaille bidir';
-$BL['be_cnt_notify_by_email']			= 'email al&#305;c&#305;';
-$BL['be_cnt_last_edited']				= 'son de&#287;i&#351;iklik';
-
-$BL['be_cnt_export_selection']			= 'se&ccedil;imi ihra&ccedil; et';
-$BL['be_cnt_delete_duplicates']			= 'takrarlar&#305; sil';
-$BL['be_cnt_new_recipient']				= 'al&#305;c&#305; ekle';
+$BL['be_cnt_pagination']                = 'sayfalanm&#305;&#351; i&ccedil;erik par&ccedil;as&#305;';
+$BL['be_article_pagination']            = 'sayfalanmis ba&#351;l&#305;k';
+$BL['be_article_per_page']              = 'sayfa ba&#351;&#305;na d&uuml;&#351;en ba&#351;l&#305;k';
+$BL['be_pagination']                    = 'sayfalama';
 
 
-$BL['be_cnt_newsletter_prepare']		= 'haberler etkin';
-$BL['be_cnt_newsletter_prepare1']		= 't&uuml;m al&#305;c&#305;lar g&ouml;nderme kuyru&#287;una aktar&#305;lacak';
-$BL['be_cnt_newsletter_prepare2']		= 'g&ouml;nderme kuyru&#287;u g&uuml;ncellendi&#8230;';
+$BL['be_ctype_recipe']                  = 'yol';
+$BL['be_ctype_faq']                     = 'SSS';
+$BL['be_cnt_additional']                = 'eklenti';
+$BL['be_cnt_question']                  = 'soru';
+$BL['be_cnt_answer']                    = 'cevap';
+$BL['be_cnt_same_as_summary']           = 'ba&#351;l&#305;g&#305;n resim bilgisini kullan';
+$BL['be_cnt_sorting']                   = 's&#305;ralama';
+$BL['be_cnt_imgupload']                 = 'resim&nbsp;y&uuml;kle';
+$BL['be_cnt_filesize']                  = 'dosyaboyu';
+$BL['be_cnt_captchalength']             = 'captcha code length';
+$BL['be_cnt_chars']                     = 'karakterler';
+$BL['be_cnt_download']                  = 'indir';
+$BL['be_cnt_download_direct']           = 'do&#287;rudan';
+$BL['be_cnt_database']                  = 'veritabani';
+$BL['be_cnt_formsave_in_db']            = 'form bilgilerini kaydet';
 
-$BL['be_cnt_export']					= 'ihra&ccedil;';
-$BL['be_cnt_formsave_profile']			= 'kullan&#305;c&#305; profil bilgilerini kaydet';
-$BL['be_profile_label_add']				= 'eklenti';
-$BL['be_profile_label_website']			= 'url';
-$BL['be_profile_label_gender']			= 'cinsiyet';
-$BL['be_profile_label_birthday']		= 'do&#287;umg&uuml;n&uuml;';
+$BL['be_cnt_email_notify']              = 'emaille bidir';
+$BL['be_cnt_notify_by_email']           = 'email al&#305;c&#305;';
+$BL['be_cnt_last_edited']               = 'son de&#287;i&#351;iklik';
 
-$BL['be_cnt_store_in']					= 'alana kaydet';
-$BL['be_aboutlink_title']				= 'phpwcms lisans&#305; hakk&#305;nda bilgi';
+$BL['be_cnt_export_selection']          = 'se&ccedil;imi ihra&ccedil; et';
+$BL['be_cnt_delete_duplicates']         = 'takrarlar&#305; sil';
+$BL['be_cnt_new_recipient']             = 'al&#305;c&#305; ekle';
 
-$BL['be_shortdate']          			= 'j/n/y';
-$BL['be_shortdatetime']          		= 'j/n/y G:i';
-$BL['be_longdatetime']          		= 'd/m/Y H:i:s';
 
-$BL['be_confirm_sending']				= 'G&ouml;nderimi onayla';
-$BL['be_confirm_text']					= 'Evet, haberi t&uuml;m al&#305;c&#305;lara g&ouml;nder!';
+$BL['be_cnt_newsletter_prepare']        = 'haberler etkin';
+$BL['be_cnt_newsletter_prepare1']       = 't&uuml;m al&#305;c&#305;lar g&ouml;nderme kuyru&#287;una aktar&#305;lacak';
+$BL['be_cnt_newsletter_prepare2']       = 'g&ouml;nderme kuyru&#287;u g&uuml;ncellendi&#8230;';
 
-$BL['be_cnt_queued']					= 'kuyruk';
-$BL['be_last_sending']					= 'son g&ouml;nderim';
-$BL['be_last_edited']					= 'son d&uuml;zenleme';
-$BL['be_total']							= 'toplam';
+$BL['be_cnt_export']                    = 'ihra&ccedil;';
+$BL['be_cnt_formsave_profile']          = 'kullan&#305;c&#305; profil bilgilerini kaydet';
+$BL['be_profile_label_add']             = 'eklenti';
+$BL['be_profile_label_website']         = 'url';
+$BL['be_profile_label_gender']          = 'cinsiyet';
+$BL['be_profile_label_birthday']        = 'do&#287;umg&uuml;n&uuml;';
 
-$BL['be_settings']						= 'ayarlar';
-$BL['be_ctype']							= 'i&ccedil;erik par&ccedil;as&#305;';
-$BL['be_selection']						= 'se&ccedil;im';
+$BL['be_cnt_store_in']                  = 'alana kaydet';
+$BL['be_aboutlink_title']               = 'phpwcms lisans&#305; hakk&#305;nda bilgi';
 
-$BL['be_ctype_module']					= 'mod&uuml;l';
-$BL['be_cnt_lightbox']					= 'galeri resim';
-$BL['be_cnt_behavior']					= 'olay';
-$BL['be_cnt_imglist_nocaption']			= 'k&uuml;&ccedil;&uuml;k listede ba&#351;l&#305;klar&#305; gizle';
+$BL['be_shortdate']                     = 'j/n/y';
+$BL['be_shortdatetime']                 = 'j/n/y G:i';
+$BL['be_longdatetime']                  = 'd/m/Y H:i:s';
 
-$BL['be_ctype_felogin']					= '&ouml;nplan giri&#351;i';
-$BL['be_cookie_runtime']				= '&ccedil;erez zaman a&#351;&#305;m&#305;';
-$BL['be_locale']						= 'yerel';
-$BL['be_date_format']					= 'tarih format&#305;';
+$BL['be_confirm_sending']               = 'G&ouml;nderimi onayla';
+$BL['be_confirm_text']                  = 'Evet, haberi t&uuml;m al&#305;c&#305;lara g&ouml;nder!';
 
-$BL['be_check_login_against']			= 'onay i&ccedil;in tekrar giris';
-$BL['be_userprofile_db']				= 'kullan&#305;c&#305; profili veri taban&#305;';
-$BL['be_backenduser_db']				= 'y&ouml;netici kullan&#305;c&#305; veri taban&#305;';
+$BL['be_cnt_queued']                    = 'kuyruk';
+$BL['be_last_sending']                  = 'son g&ouml;nderim';
+$BL['be_last_edited']                   = 'son d&uuml;zenleme';
+$BL['be_total']                         = 'toplam';
 
-$BL['be_gb_post_login']					= 'sadece giri&#351; yapm&#305;&#351; kullan&#305;c&#305;lar i&ccedil;in g&ouml;nder';
-$BL['be_gb_show_login']					= 'sadece giri&#351; yapm&#305;&#351; kullan&#305;c&#305;lar g&ouml;ster';
-$BL['be_gb_urlcheck']					= 'uzak URL do&#287;rulama etkin';
-$BL['be_order']							= 'Al&#305;&#351;veri&#351;';
+$BL['be_settings']                      = 'ayarlar';
+$BL['be_ctype']                         = 'i&ccedil;erik par&ccedil;as&#305;';
+$BL['be_selection']                     = 'se&ccedil;im';
 
-$BL['be_unique_teaser_entry']			= 'show teaser/link article only once per page';
-$BL['be_allowed_tags']					= 'izinli tag lar';
-$BL['be_fe_login_url']					= '&ouml;nplan giri&#351; url';
-$BL['be_ctype_imagesdiv']				= 'resimler &lt;div&gt;';
-$BL['be_cnt_imagecenter']				= 'merkez dikey/yatay';
-$BL['be_cnt_imagenocenter']				= 'merkez de&#287;il';
-$BL['be_cnt_imagecenterh']				= 'yatayda merkez';
-$BL['be_cnt_imagecenterv']				= 'd&uuml;&#351;eyde merkez';
+$BL['be_ctype_module']                  = 'mod&uuml;l';
+$BL['be_cnt_lightbox']                  = 'galeri resim';
+$BL['be_cnt_behavior']                  = 'olay';
+$BL['be_cnt_imglist_nocaption']         = 'k&uuml;&ccedil;&uuml;k listede ba&#351;l&#305;klar&#305; gizle';
 
-$BL['be_overwrite_default']				= 'varsay&#305;an ayarlar konfig&uuml;rasyon dosyas&#305;na yaz&#305;lacak';
-$BL['be_cnt_sortvalue']					= 's&#305;ra&nbsp;de&#287;eri';
-$BL['be_dialog_warn_nosave']			= 'E&#287;er devam ederseniz hi&ccedil; bir de&#287;isiklik kaydedilmeyecek!\nDevam etmek istiyor musunuz?';
-$BL['be_cnt_paginate_subsection']		= 'altse&ccedil;im';
-$BL['be_cnt_subsection_tite']			= 'alt se&ccedil;im basl&#305;&#287;&#305;';
-$BL['be_cnt_subsection_warning']		= 'ana kolanda sadece (CONTENT) i&ccedil;in\nAlt se&ccedil;im say&#305;s&#305; (sayfalanm&#305;&#351; i&ccedil;erik par&ccedil;alar&#305;) mevcut';
+$BL['be_ctype_felogin']                 = '&ouml;nplan giri&#351;i';
+$BL['be_cookie_runtime']                = '&ccedil;erez zaman a&#351;&#305;m&#305;';
+$BL['be_locale']                        = 'yerel';
+$BL['be_date_format']                   = 'tarih format&#305;';
 
-$BL['be_no_search']						= 'arama yok';
-$BL['be_priorize']						= '&ouml;nceliklendirme';
-$BL['be_change_articleID']				= 'ba&#351;l&#305;k ID yi de&#287;i&#351;tir';
-$BL['be_title_wrap']					= 'konu ba&#351;l&#305;&#287;&#305;n&#305; yay';
+$BL['be_check_login_against']           = 'onay i&ccedil;in tekrar giris';
+$BL['be_userprofile_db']                = 'kullan&#305;c&#305; profili veri taban&#305;';
+$BL['be_backenduser_db']                = 'y&ouml;netici kullan&#305;c&#305; veri taban&#305;';
 
-$BL['be_no_rss']						= 'RSS';
-$BL['be_article_urlalias']				= 'konu ba&#351;l&#305;&#287;&#305; mahlas&#305;';
+$BL['be_gb_post_login']                 = 'sadece giri&#351; yapm&#305;&#351; kullan&#305;c&#305;lar i&ccedil;in g&ouml;nder';
+$BL['be_gb_show_login']                 = 'sadece giri&#351; yapm&#305;&#351; kullan&#305;c&#305;lar g&ouml;ster';
+$BL['be_gb_urlcheck']                   = 'uzak URL do&#287;rulama etkin';
+$BL['be_order']                         = 'Al&#305;&#351;veri&#351;';
 
-$BL['be_image_crop']					= 'k&#305;rp&#305;lm&#305;&#351; k&uuml;&ccedil;&uuml;kboy';
-$BL['be_image_align']					= 'resim hizlama';
+$BL['be_unique_teaser_entry']           = 'show teaser/link article only once per page';
+$BL['be_allowed_tags']                  = 'izinli tag lar';
+$BL['be_fe_login_url']                  = '&ouml;nplan giri&#351; url';
+$BL['be_ctype_imagesdiv']               = 'resimler &lt;div&gt;';
+$BL['be_cnt_imagecenter']               = 'merkez dikey/yatay';
+$BL['be_cnt_imagenocenter']             = 'merkez de&#287;il';
+$BL['be_cnt_imagecenterh']              = 'yatayda merkez';
+$BL['be_cnt_imagecenterv']              = 'd&uuml;&#351;eyde merkez';
 
-$BL['be_ctype_flashplayer']				= 'flash media player';
+$BL['be_overwrite_default']             = 'varsay&#305;an ayarlar konfig&uuml;rasyon dosyas&#305;na yaz&#305;lacak';
+$BL['be_cnt_sortvalue']                 = 's&#305;ra&nbsp;de&#287;eri';
+$BL['be_dialog_warn_nosave']            = 'E&#287;er devam ederseniz hi&ccedil; bir de&#287;isiklik kaydedilmeyecek!\nDevam etmek istiyor musunuz?';
+$BL['be_cnt_paginate_subsection']       = 'altse&ccedil;im';
+$BL['be_cnt_subsection_tite']           = 'alt se&ccedil;im basl&#305;&#287;&#305;';
+$BL['be_cnt_subsection_warning']        = 'ana kolanda sadece (CONTENT) i&ccedil;in\nAlt se&ccedil;im say&#305;s&#305; (sayfalanm&#305;&#351; i&ccedil;erik par&ccedil;alar&#305;) mevcut';
+
+$BL['be_no_search']                     = 'arama yok';
+$BL['be_priorize']                      = '&ouml;nceliklendirme';
+$BL['be_change_articleID']              = 'ba&#351;l&#305;k ID yi de&#287;i&#351;tir';
+$BL['be_title_wrap']                    = 'konu ba&#351;l&#305;&#287;&#305;n&#305; yay';
+
+$BL['be_no_rss']                        = 'RSS';
+$BL['be_article_urlalias']              = 'konu ba&#351;l&#305;&#287;&#305; mahlas&#305;';
+
+$BL['be_image_crop']                    = 'k&#305;rp&#305;lm&#305;&#351; k&uuml;&ccedil;&uuml;kboy';
+$BL['be_image_align']                   = 'resim hizlama';
+
+$BL['be_ctype_flashplayer']             = 'flash media player';
 $BL['be_flashplayer_caption']           = 'ba&#351;l&#305;k';
-$BL['be_flashplayer_thumbnail']			= 'k&uuml;&ccedil;&uuml;kboy';
-$BL['be_flashplayer_selectsize']		= 'oynat&#305;c&#305; b&uuml;y&uuml;kl&uuml;&#287;&uuml;n&uuml; se&ccedil;';
+$BL['be_flashplayer_thumbnail']         = 'k&uuml;&ccedil;&uuml;kboy';
+$BL['be_flashplayer_selectsize']        = 'oynat&#305;c&#305; b&uuml;y&uuml;kl&uuml;&#287;&uuml;n&uuml; se&ccedil;';
 
-$BL['be_check_feuser_profile']			= '&ouml;nplan kullan&#305;c&#305; profili';
-$BL['be_check_feuser_registration']		= 'kay&#305;t';
-$BL['be_check_feuser_manage']			= 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
+$BL['be_check_feuser_profile']          = '&ouml;nplan kullan&#305;c&#305; profili';
+$BL['be_check_feuser_registration']     = 'kay&#305;t';
+$BL['be_check_feuser_manage']           = 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
 

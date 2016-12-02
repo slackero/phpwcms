@@ -40,13 +40,13 @@ $BL['xemtiep']                          = '<SPAN style = "FONT-SIZE: 7pt; COLOR:
 $BL['be_article_asubtitle_image']       = '&#7842;nh tr&#237;ch d&#7851;n';
 
 //Thu ngo
-$BL["thu_ngo"]							= 'Th&#432; ng&#7887;';
+$BL["thu_ngo"]                          = 'Th&#432; ng&#7887;';
 
 //Tin noi bat
-$BL["tinnoibat"]						= 'Tin n&#7893;i b&#7853;t';
+$BL["tinnoibat"]                        = 'Tin n&#7893;i b&#7853;t';
 
 //Tin cho agents va forwarders
-$BL["agent"]							= 'Tin Agents & Forwarders';
+$BL["agent"]                            = 'Tin Agents & Forwarders';
 //vote
 
 //Noi bo
@@ -83,7 +83,7 @@ $BL['be_subnav_admin_pagelayout']       = 'trang layout';
 $BL['be_subnav_admin_templates']        = 'm&#7851;u trang';
 $BL['be_subnav_admin_css']              = 'css m&#7863;c &#273;&#7883;nh';
 $BL['be_subnav_admin_sitestructure']    = 'c&#7845;u tr&#250;c h&#7879; th&#7889;ng';
-$BL['be_subnav_admin_vote']				= 'b&#236;nh b&#7847;u';
+$BL['be_subnav_admin_vote']             = 'b&#236;nh b&#7847;u';
 $BL['be_subnav_admin_users']            = 'qu&#7843;n tr&#7883; th&#224;nh vi&#234;n';
 $BL['be_subnav_admin_filecat']          = 'ph&#226;n lo&#7841;i file';
 $BL['be_subnav_article_editor']         = 'ki&#7875;m duy&#7879;t tin';
@@ -682,16 +682,16 @@ $BL['be_article_adminuser']             = 'qu&#7843;n tr&#7883; user';
 $BL['be_article_username']              = 't&#225;c gi&#7843;';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSYWIG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'ch&#7881; hi&#7875;n th&#7883; cho user &#273;&#259;ng nh&#7853;p';
 $BL['be_admin_struct_status']           = 'tr&#7841;ng th&#225;i menu';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'menu tin/m&#7909;c tin';
-$BL['be_cnt_sitelevel']					= 'c&#7845;p c&#7911;a site';
-$BL['be_cnt_sitecurrent']				= 'c&#7845;p hi&#7879;n th&#7901;i c&#7911;a site';
+$BL['be_ctype_articlemenu']             = 'menu tin/m&#7909;c tin';
+$BL['be_cnt_sitelevel']                 = 'c&#7845;p c&#7911;a site';
+$BL['be_cnt_sitecurrent']               = 'c&#7845;p hi&#7879;n th&#7901;i c&#7911;a site';
 // added: 4-4-2004
 $BL['be_admin_startup_title']           = 'Hi&#7875;n th&#7883; m&#7863;c &#273;&#7883;nh'       ;
 $BL['be_admin_startup_button']          = 'L&#432;u l&#7841;i'   ;
@@ -978,7 +978,7 @@ $BL['be_cnt_delete']                    = 'x&#243;a';
 $BL['be_cnt_value']                        = 'gi&#225; tr&#7883;';
 $BL['be_cnt_error_text']                = 'd&#242;ng b&#225;o l&#7895;i';
 $BL['be_cnt_css_style']                    = '&#273;&#7883;nh d&#7841;ng CSS';
-$BL['be_article_cnt_button3']			= "L&#432;u v&#224; &#273;&#243;ng l&#7841;i";
+$BL['be_article_cnt_button3']           = "L&#432;u v&#224; &#273;&#243;ng l&#7841;i";
 
 $BL['be_cnt_field']                        = array("text"=>'text (d&#242;ng &#273;&#417;n)', "email"=>'email', "textarea"=>'text (nhi&#7873;u d&#242;ng)',
                                                 "hidden"=>'gi&#7845;u', "password"=>'m&#7853;t kh&#7849;u', "select"=>'ch&#7885;n danh m&#7909;c',

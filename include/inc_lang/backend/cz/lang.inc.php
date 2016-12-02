@@ -92,7 +92,7 @@ $BL['be_ctype_code']                    = 'kód';
 $BL['be_ctype_textimage']               = 'text s obrázkem';
 $BL['be_ctype_images']                  = 'obrázky';
 $BL['be_ctype_bulletlist']              = 'seznam (tabulka)';
-$BL['be_ctype_ullist']     		          = 'seznam';
+$BL['be_ctype_ullist']                    = 'seznam';
 $BL['be_ctype_link']                    = 'odkaz &amp; email';
 $BL['be_ctype_linklist']                = 'seznam odkazù';
 $BL['be_ctype_linkarticle']             = 'link na èlánek';
@@ -570,8 +570,8 @@ $BL['be_cnt_target2']                   = 'v nadøazeném rámu okna';
 $BL['be_cnt_target3']                   = 'v tomto oknì bez rámù';
 $BL['be_cnt_target4']                   = 'v tomto rámu nebo oknì';
 $BL['be_cnt_bullet']                    = 'seznam (tabulka)';
-$BL['be_cnt_ullist']     		            = 'seznam';
-$BL['be_cnt_ullist_desc']     		      = '~ = První úroveò, &nbsp; ~~ = Druhá úroveò, &nbsp; atd.';
+$BL['be_cnt_ullist']                        = 'seznam';
+$BL['be_cnt_ullist_desc']                 = '~ = První úroveò, &nbsp; ~~ = Druhá úroveò, &nbsp; atd.';
 $BL['be_cnt_linklist']                  = 'seznam odkazù';
 $BL['be_cnt_plainhtml']                 = 'obyèejné html';
 $BL['be_cnt_files']                     = 'soubory';
@@ -642,21 +642,21 @@ $BL['be_article_adminuser']             = 'administrátor';
 $BL['be_article_username']              = 'autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'viditelné pouze pro pøihláené uivatele';
 $BL['be_admin_struct_status']           = 'frontend menu stav';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				      = 'menu èlánku';
-$BL['be_cnt_sitelevel']					        = 'úroveò stránky';
-$BL['be_cnt_sitecurrent']				        = 'aktuální úroveò stránky';
+$BL['be_ctype_articlemenu']                   = 'menu èlánku';
+$BL['be_cnt_sitelevel']                         = 'úroveò stránky';
+$BL['be_cnt_sitecurrent']                       = 'aktuální úroveò stránky';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		    = 'backend pøedvolený text';
-$BL['be_ctype_ecard']					          = 'e-card';
-$BL['be_ctype_blog']					          = 'blog';
+$BL['be_subnav_admin_starttext']            = 'backend pøedvolený text';
+$BL['be_ctype_ecard']                             = 'e-card';
+$BL['be_ctype_blog']                              = 'blog';
 $BL['be_cnt_ecardtext']                 = 'titulek/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mailová ablona';
 $BL['be_cnt_ecard_image']               = 'e-card obrázek';
@@ -677,24 +677,24 @@ $BL['be_admin_startup_text']            = 'prvotní text';
 $BL['be_admin_startup_button']          = 'uloit text';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				        = 'guestbook/comm.';
-$BL['be_cnt_guestbook_listing']			    = 'seznam';
-$BL['be_cnt_guestbook_listing_all']		  = 'procházet&nbsp;vechny&nbsp;vstupy';
-$BL['be_cnt_guestbook_list']			      = 'procházet';
-$BL['be_cnt_guestbook_perpage']			    = 'po&nbsp;stránce';
-$BL['be_cnt_guestbook_form']			      = 'formuláø';
-$BL['be_cnt_guestbook_signed']			    = 'podepsaný';
-$BL['be_cnt_guestbook_nav']				      = 'navigace';
-$BL['be_cnt_guestbook_before']			    = 'pøed';
-$BL['be_cnt_guestbook_after']			      = 'po';
-$BL['be_cnt_guestbook_entry']			      = 'záznam';
-$BL['be_cnt_guestbook_edit']			      = 'editovat';
+$BL['be_ctype_guestbook']                       = 'guestbook/comm.';
+$BL['be_cnt_guestbook_listing']             = 'seznam';
+$BL['be_cnt_guestbook_listing_all']       = 'procházet&nbsp;vechny&nbsp;vstupy';
+$BL['be_cnt_guestbook_list']                  = 'procházet';
+$BL['be_cnt_guestbook_perpage']             = 'po&nbsp;stránce';
+$BL['be_cnt_guestbook_form']                  = 'formuláø';
+$BL['be_cnt_guestbook_signed']              = 'podepsaný';
+$BL['be_cnt_guestbook_nav']                   = 'navigace';
+$BL['be_cnt_guestbook_before']              = 'pøed';
+$BL['be_cnt_guestbook_after']                 = 'po';
+$BL['be_cnt_guestbook_entry']                 = 'záznam';
+$BL['be_cnt_guestbook_edit']                  = 'editovat';
 $BL['be_cnt_ecardform_selector']        = 'výbìr';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio tlaèítko';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript funkènost';
-$BL['be_cnt_ecardform_over']        	  = 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	  = 'onClick';
-$BL['be_cnt_ecardform_out']       		  = 'onMouseOut';
+$BL['be_cnt_ecardform_over']              = 'onMouseOver';
+$BL['be_cnt_ecardform_click']             = 'onClick';
+$BL['be_cnt_ecardform_out']               = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'mnoství top èlánkù';
 
 // added: 19-04-2004
@@ -728,7 +728,7 @@ $BL['be_newsletter_readyfailed']        = 'Selhalo odeslání newsletteru na';
 $BL['be_subnav_msg_subscribers']        = 'newsletter odbìratelé';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				          = 'mapa stránek';
+$BL['be_ctype_sitemap']                       = 'mapa stránek';
 $BL['be_cnt_sitemap_catimage']          = 'ikona úrovnì';
 $BL['be_cnt_sitemap_articleimage']      = 'ikona èlánku';
 $BL['be_cnt_sitemap_display']           = 'zobrazení';
@@ -741,7 +741,7 @@ $BL['be_cnt_sitemap_classcount']        = 'pøidat do class name';
 $BL['be_cnt_sitemap_noclasscount']      = 'nepøidávat do class name';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				              = 'nabídka';
+$BL['be_ctype_bid']                           = 'nabídka';
 $BL['be_cnt_bid_bidtext']               = 'text nabídky';
 $BL['be_cnt_bid_sendtext']              = 'odeslat text';
 $BL['be_cnt_bid_verifiedtext']          = 'ovìøený text';
@@ -858,15 +858,15 @@ $BL['be_cache']                         = 'cache';
 $BL['be_cache_timeout']                 = 'timeout';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			      = 'uivatelé &amp; skupiny';
+$BL['be_subnav_admin_groups']                 = 'uivatelé &amp; skupiny';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					          = 'fórum';
-$BL['be_subnav_msg_forum']				      = 'seznam fór';
-$BL['be_forum_title']					          = 'jméno fóra';
-$BL['be_forum_permission']				      = 'práva';
-$BL['be_forum_add']						          = 'nové fórum';
-$BL['be_forum_titleedit']				        = 'editovat fórum';
+$BL['be_ctype_forum']                             = 'fórum';
+$BL['be_subnav_msg_forum']                    = 'seznam fór';
+$BL['be_forum_title']                             = 'jméno fóra';
+$BL['be_forum_permission']                    = 'práva';
+$BL['be_forum_add']                               = 'nové fórum';
+$BL['be_forum_titleedit']                       = 'editovat fórum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'uivatelský';
@@ -874,58 +874,58 @@ $BL['be_show_content']                  = 'zobrazení';
 $BL['be_main_content']                  = 'hlavní sloupec';
 $BL['be_admin_template_jswarning']      = 'Varování!!! \nUivatelský blok byl zmìnìn! \n\nPro zachování nastavení zvolte storno! \n\nZmìnit ablonu?\n\n';
 
-$BL['be_ctype_rssfeed']					        = 'RSS zdroj';
-$BL['be_cnt_rssfeed_url']				        = 'RSS url';
-$BL['be_cnt_rssfeed_item']				      = 'poloka(y)';
-$BL['be_cnt_rssfeed_max']				        = 'max.';
-$BL['be_cnt_rssfeed_cut']				        = 'skrýt první poloku';
+$BL['be_ctype_rssfeed']                         = 'RSS zdroj';
+$BL['be_cnt_rssfeed_url']                       = 'RSS url';
+$BL['be_cnt_rssfeed_item']                    = 'poloka(y)';
+$BL['be_cnt_rssfeed_max']                       = 'max.';
+$BL['be_cnt_rssfeed_cut']                       = 'skrýt první poloku';
 
-$BL['be_ctype_simpleform']				      = 'kontaktní formuláø';
+$BL['be_ctype_simpleform']                    = 'kontaktní formuláø';
 
-$BL['be_cnt_onsuccess']				          = 'pøi úspìchu';
-$BL['be_cnt_onerror']				            = 'pøi chybì';
-$BL['be_cnt_onsuccess_redirect']	      = 'pøesmìrování pøi úspìchu';
-$BL['be_cnt_onerror_redirect']	        = 'pøesmìrování pøi chybì';
+$BL['be_cnt_onsuccess']                       = 'pøi úspìchu';
+$BL['be_cnt_onerror']                           = 'pøi chybì';
+$BL['be_cnt_onsuccess_redirect']          = 'pøesmìrování pøi úspìchu';
+$BL['be_cnt_onerror_redirect']          = 'pøesmìrování pøi chybì';
 
-$BL['be_cnt_form_class']				        = 'class formuláøe';
-$BL['be_cnt_label_wrap']				        = 'znaèka zalomení';
-$BL['be_cnt_error_class']				        = 'chybová class';
-$BL['be_cnt_req_mark']				          = 'vyadované';
-$BL['be_cnt_mark_as_req']				        = 'oznaèené jsou vyadované';
-$BL['be_cnt_mark_as_del']				        = 'oznaèit pro smazání';
+$BL['be_cnt_form_class']                        = 'class formuláøe';
+$BL['be_cnt_label_wrap']                        = 'znaèka zalomení';
+$BL['be_cnt_error_class']                       = 'chybová class';
+$BL['be_cnt_req_mark']                        = 'vyadované';
+$BL['be_cnt_mark_as_req']                       = 'oznaèené jsou vyadované';
+$BL['be_cnt_mark_as_del']                       = 'oznaèit pro smazání';
 
 
-$BL['be_cnt_type']				              = 'typ';
-$BL['be_cnt_label']				              = 'jméno';
-$BL['be_cnt_needed']					          = 'vyadovat';
-$BL['be_cnt_delete']					          = 'smazat';
-$BL['be_cnt_value']						          = 'hodnota';
-$BL['be_cnt_error_text']				        = 'chybový text';
-$BL['be_cnt_css_style']					        = 'CSS styl';
+$BL['be_cnt_type']                            = 'typ';
+$BL['be_cnt_label']                           = 'jméno';
+$BL['be_cnt_needed']                              = 'vyadovat';
+$BL['be_cnt_delete']                              = 'smazat';
+$BL['be_cnt_value']                               = 'hodnota';
+$BL['be_cnt_error_text']                        = 'chybový text';
+$BL['be_cnt_css_style']                         = 'CSS styl';
 
-$BL['be_cnt_field']						          = array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
-												                        "hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
-												                        "list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
-												                        "upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
-												                        "break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
+$BL['be_cnt_field']                               = array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+                                                                        "hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
+                                                                        "list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
+                                                                        "upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
+                                                                        "break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
 
-$BL['be_cnt_access']					          = 'access';
-$BL['be_cnt_activated']				        	= 'activated';
-$BL['be_cnt_available']				        	= 'available';
-$BL['be_cnt_guests']					          = 'guests';
-$BL['be_cnt_admin']						          = 'admin';
-$BL['be_cnt_write']						          = 'write';
-$BL['be_cnt_read']						          = 'read';
+$BL['be_cnt_access']                              = 'access';
+$BL['be_cnt_activated']                         = 'activated';
+$BL['be_cnt_available']                         = 'available';
+$BL['be_cnt_guests']                              = 'guests';
+$BL['be_cnt_admin']                               = 'admin';
+$BL['be_cnt_write']                               = 'write';
+$BL['be_cnt_read']                                = 'read';
 
-$BL['be_cnt_no_wysiwyg_editor']			    = 'zakázat WYSIWYG editor';
-$BL['be_cnt_cache_update']				      = 'reset cache';
-$BL['be_cnt_cache_delete']				      = 'smazání cache';
-$BL['be_cnt_cache_delete_msg']			    = 'Opravdu chcete smazat cache?\n';
+$BL['be_cnt_no_wysiwyg_editor']             = 'zakázat WYSIWYG editor';
+$BL['be_cnt_cache_update']                    = 'reset cache';
+$BL['be_cnt_cache_delete']                    = 'smazání cache';
+$BL['be_cnt_cache_delete_msg']              = 'Opravdu chcete smazat cache?\n';
 
-$BL['be_admin_usr_issection']			      = 'pøístup do sekcí';
-$BL['be_admin_usr_ifsection0']			    = 'frontend';
-$BL['be_admin_usr_ifsection1']			    = 'backend';
-$BL['be_admin_usr_ifsection2']			    = 'frontend and backend';
+$BL['be_admin_usr_issection']                 = 'pøístup do sekcí';
+$BL['be_admin_usr_ifsection0']              = 'frontend';
+$BL['be_admin_usr_ifsection1']              = 'backend';
+$BL['be_admin_usr_ifsection2']              = 'frontend and backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'upravit tuto èást èlánku';

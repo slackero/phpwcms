@@ -94,7 +94,7 @@ $BL['be_ctype_code']                    = 'code';
 $BL['be_ctype_textimage']               = 'text w/image';
 $BL['be_ctype_images']                  = 'imagini';
 $BL['be_ctype_bulletlist']              = 'lista (tabele)';
-$BL['be_ctype_ullist']     		        = 'lista';
+$BL['be_ctype_ullist']                  = 'lista';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'lista link';
 $BL['be_ctype_linkarticle']             = 'link articol';
@@ -577,8 +577,8 @@ $BL['be_cnt_target2']                   = 'in farme-ul parinte a ferestrei';
 $BL['be_cnt_target3']                   = 'in aceeasi fereastra fara frame-uri';
 $BL['be_cnt_target4']                   = 'in aceeasi fereastra sau frame';
 $BL['be_cnt_bullet']                    = 'lista (tabel)';
-$BL['be_cnt_ullist']     		        = 'lista';
-$BL['be_cnt_ullist_desc']     		    = '~ = primul Nivel, &nbsp; ~~ = al 2-lea nivel, &nbsp; etc.';
+$BL['be_cnt_ullist']                    = 'lista';
+$BL['be_cnt_ullist_desc']               = '~ = primul Nivel, &nbsp; ~~ = al 2-lea nivel, &nbsp; etc.';
 $BL['be_cnt_linklist']                  = 'lista link-uri';
 $BL['be_cnt_plainhtml']                 = 'html plin';
 $BL['be_cnt_files']                     = 'fisiere';
@@ -649,21 +649,21 @@ $BL['be_article_adminuser']             = 'utilizator admin';
 $BL['be_article_username']              = 'autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'vizibil doar pt utilizatori logiati ';
 $BL['be_admin_struct_status']           = 'status meniu fatada';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'meniu articol';
-$BL['be_cnt_sitelevel']					= 'nivel site';
-$BL['be_cnt_sitecurrent']				= 'nivelul curent al site-ului';
+$BL['be_ctype_articlemenu']             = 'meniu articol';
+$BL['be_cnt_sitelevel']                 = 'nivel site';
+$BL['be_cnt_sitecurrent']               = 'nivelul curent al site-ului';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'text standard intrare spate';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'text standard intrare spate';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'title/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'e-card imagine';
@@ -684,24 +684,24 @@ $BL['be_admin_startup_text']            = 'text de inceput';
 $BL['be_admin_startup_button']          = 'salveaza text de inceput';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'impresii/comentarii';
-$BL['be_cnt_guestbook_listing']			= 'listare';
-$BL['be_cnt_guestbook_listing_all']		= 'listeaza&nbsp;toate&nbsp;intrarile';
-$BL['be_cnt_guestbook_list']			= 'lista';
-$BL['be_cnt_guestbook_perpage']			= 'pe&nbsp;pagina';
-$BL['be_cnt_guestbook_form']			= 'formular';
-$BL['be_cnt_guestbook_signed']			= 'semnat';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'inainte';
-$BL['be_cnt_guestbook_after']			= 'dupa';
-$BL['be_cnt_guestbook_entry']			= 'intrare';
-$BL['be_cnt_guestbook_edit']			= 'editeaza';
+$BL['be_ctype_guestbook']               = 'impresii/comentarii';
+$BL['be_cnt_guestbook_listing']         = 'listare';
+$BL['be_cnt_guestbook_listing_all']     = 'listeaza&nbsp;toate&nbsp;intrarile';
+$BL['be_cnt_guestbook_list']            = 'lista';
+$BL['be_cnt_guestbook_perpage']         = 'pe&nbsp;pagina';
+$BL['be_cnt_guestbook_form']            = 'formular';
+$BL['be_cnt_guestbook_signed']          = 'semnat';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'inainte';
+$BL['be_cnt_guestbook_after']           = 'dupa';
+$BL['be_cnt_guestbook_entry']           = 'intrare';
+$BL['be_cnt_guestbook_edit']            = 'editeaza';
 $BL['be_cnt_ecardform_selector']        = 'selector';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio buton';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript functionalitate';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'numar articol sus';
 
 // added: 19-04-2004
@@ -723,7 +723,7 @@ $BL['be_newsletter_open']               = 'intrare HTML si TEXT';
 $BL['be_newsletter_open1']              = '(click pe imagine pt a deschide)';
 $BL['be_newsletter_sendnow']            = 'Trimite newsletter';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Atentie!</strong> Trimiterea newsletter-ului la mai multi destinatari e periculos. Destinatarii trebuie verificati in caz contrar va pot acuza de spam. Gandestete de 2-ori inainte de a trimite newsletter. Verifica newsletter-ul prin trimiterea unui test.';
-$BL['be_newsletter_attention1']         = 'Daca ai facut modificari in newsletterul de mai sus te rugam sa il salvezi inainte altfel modificarile nu vor fi luate in considerare.'; 
+$BL['be_newsletter_attention1']         = 'Daca ai facut modificari in newsletterul de mai sus te rugam sa il salvezi inainte altfel modificarile nu vor fi luate in considerare.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'trimite newsletter';
 $BL['be_newsletter_sendprocess']        = 'proces trimitere';
@@ -735,7 +735,7 @@ $BL['be_newsletter_readyfailed']        = 'TRIMITERE ESUATA CATRE';
 $BL['be_subnav_msg_subscribers']        = 'Abonati newsletter';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'sitemap';
+$BL['be_ctype_sitemap']                 = 'sitemap';
 $BL['be_cnt_sitemap_catimage']          = 'icoana nivel';
 $BL['be_cnt_sitemap_articleimage']      = 'icoana articol';
 $BL['be_cnt_sitemap_display']           = 'arata';
@@ -748,7 +748,7 @@ $BL['be_cnt_sitemap_classcount']        = 'adauga la nume clasa';
 $BL['be_cnt_sitemap_noclasscount']      = 'Nu adauga la nume clasa';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'licitatie';
+$BL['be_ctype_bid']                     = 'licitatie';
 $BL['be_cnt_bid_bidtext']               = 'text licitatie';
 $BL['be_cnt_bid_sendtext']              = 'text trimis';
 $BL['be_cnt_bid_verifiedtext']          = 'text verificat';
@@ -864,15 +864,15 @@ $BL['be_cache']                         = 'cache';
 $BL['be_cache_timeout']                 = 'timp expirat';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'utilizatori &amp; grupuri';
+$BL['be_subnav_admin_groups']           = 'utilizatori &amp; grupuri';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'forum';
-$BL['be_subnav_msg_forum']				= 'lista forumuri';
-$BL['be_forum_title']					= 'titlu forum';
-$BL['be_forum_permission']				= 'permisii';
-$BL['be_forum_add']						= 'adauga forum';
-$BL['be_forum_titleedit']				= 'editeaza forum';
+$BL['be_ctype_forum']                   = 'forum';
+$BL['be_subnav_msg_forum']              = 'lista forumuri';
+$BL['be_forum_title']                   = 'titlu forum';
+$BL['be_forum_permission']              = 'permisii';
+$BL['be_forum_add']                     = 'adauga forum';
+$BL['be_forum_titleedit']               = 'editeaza forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'special';
@@ -880,59 +880,59 @@ $BL['be_show_content']                  = 'arata';
 $BL['be_main_content']                  = 'coloana principala';
 $BL['be_admin_template_jswarning']      = 'Avertizare!!! \nBlocurile speciale se pot modificae! \n\nDaca anulezi \nreseteaza setarile aranjamentului pagini (pagelayout)! \n\nSchimba template?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'RSS feed';
-$BL['be_cnt_rssfeed_url']				= 'RSS url';
-$BL['be_cnt_rssfeed_item']				= 'obiect';
-$BL['be_cnt_rssfeed_max']				= 'max.';
-$BL['be_cnt_rssfeed_cut']				= 'ascunde primul obiect';
+$BL['be_ctype_rssfeed']                 = 'RSS feed';
+$BL['be_cnt_rssfeed_url']               = 'RSS url';
+$BL['be_cnt_rssfeed_item']              = 'obiect';
+$BL['be_cnt_rssfeed_max']               = 'max.';
+$BL['be_cnt_rssfeed_cut']               = 'ascunde primul obiect';
 
-$BL['be_ctype_simpleform']				= 'email contact form';
+$BL['be_ctype_simpleform']              = 'email contact form';
 
-$BL['be_cnt_onsuccess']				    = 'la reusita';
-$BL['be_cnt_onerror']				    = 'la erroare';
-$BL['be_cnt_onsuccess_redirect']	    = 'redirectioneaza la reusita';
-$BL['be_cnt_onerror_redirect']	        = 'redirectioneaza la erroare';
+$BL['be_cnt_onsuccess']                 = 'la reusita';
+$BL['be_cnt_onerror']                   = 'la erroare';
+$BL['be_cnt_onsuccess_redirect']        = 'redirectioneaza la reusita';
+$BL['be_cnt_onerror_redirect']          = 'redirectioneaza la erroare';
 
-$BL['be_cnt_form_class']				= 'form class';
-$BL['be_cnt_label_wrap']				= 'intinde eticheta';
-$BL['be_cnt_error_class']				= 'erroare class';
-$BL['be_cnt_req_mark']				    = 'obligatoriu cele marcate';
-$BL['be_cnt_mark_as_req']				= 'marcate ca obligatoriu';
-$BL['be_cnt_mark_as_del']				= 'marcheaza obiect pentru stergere';
+$BL['be_cnt_form_class']                = 'form class';
+$BL['be_cnt_label_wrap']                = 'intinde eticheta';
+$BL['be_cnt_error_class']               = 'erroare class';
+$BL['be_cnt_req_mark']                  = 'obligatoriu cele marcate';
+$BL['be_cnt_mark_as_req']               = 'marcate ca obligatoriu';
+$BL['be_cnt_mark_as_del']               = 'marcheaza obiect pentru stergere';
 
 
-$BL['be_cnt_type']				        = 'tip';
-$BL['be_cnt_label']				        = 'eticheta';
-$BL['be_cnt_needed']					= 'necesar';
-$BL['be_cnt_delete']					= 'sterge';
-$BL['be_cnt_value']						= 'valoare';
-$BL['be_cnt_error_text']				= 'erroare text';
-$BL['be_cnt_css_style']					= 'CSS style';
-$BL['be_cnt_send_copy_to']				= 'CC la';
+$BL['be_cnt_type']                      = 'tip';
+$BL['be_cnt_label']                     = 'eticheta';
+$BL['be_cnt_needed']                    = 'necesar';
+$BL['be_cnt_delete']                    = 'sterge';
+$BL['be_cnt_value']                     = 'valoare';
+$BL['be_cnt_error_text']                = 'erroare text';
+$BL['be_cnt_css_style']                 = 'CSS style';
+$BL['be_cnt_send_copy_to']              = 'CC la';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)', 
-												"hidden"=>'hidden', "password"=>'password', "select"=>'select menu', 
-												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button', 
-												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button', 
-												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
+$BL['be_cnt_field']                     = array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+                                                "hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
+                                                "list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
+                                                "upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
+                                                "break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
 
-$BL['be_cnt_access']					= 'acces';
-$BL['be_cnt_activated']					= 'activat';
-$BL['be_cnt_available']					= 'disponibil';
-$BL['be_cnt_guests']					= 'vizitatori';
-$BL['be_cnt_admin']						= 'admin';
-$BL['be_cnt_write']						= 'scrie';
-$BL['be_cnt_read']						= 'citeste';
+$BL['be_cnt_access']                    = 'acces';
+$BL['be_cnt_activated']                 = 'activat';
+$BL['be_cnt_available']                 = 'disponibil';
+$BL['be_cnt_guests']                    = 'vizitatori';
+$BL['be_cnt_admin']                     = 'admin';
+$BL['be_cnt_write']                     = 'scrie';
+$BL['be_cnt_read']                      = 'citeste';
 
-$BL['be_cnt_no_wysiwyg_editor']			= 'dezactiveaza editor WYSIWYG';
-$BL['be_cnt_cache_update']				= 'reseteaza cache';
-$BL['be_cnt_cache_delete']				= 'sterge cache';
-$BL['be_cnt_cache_delete_msg']			= 'Doresti sa stergi cache-ul?  \nPoate afecta cautarea.  \n';
+$BL['be_cnt_no_wysiwyg_editor']         = 'dezactiveaza editor WYSIWYG';
+$BL['be_cnt_cache_update']              = 'reseteaza cache';
+$BL['be_cnt_cache_delete']              = 'sterge cache';
+$BL['be_cnt_cache_delete_msg']          = 'Doresti sa stergi cache-ul?  \nPoate afecta cautarea.  \n';
 
-$BL['be_admin_usr_issection']			= 'sectiune de logare';
-$BL['be_admin_usr_ifsection0']			= 'fatada';
-$BL['be_admin_usr_ifsection1']			= 'intrare spate';
-$BL['be_admin_usr_ifsection2']			= 'fatada si intrare spate';
+$BL['be_admin_usr_issection']           = 'sectiune de logare';
+$BL['be_admin_usr_ifsection0']          = 'fatada';
+$BL['be_admin_usr_ifsection1']          = 'intrare spate';
+$BL['be_admin_usr_ifsection2']          = 'fatada si intrare spate';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'editeaza continulul acestui articol';

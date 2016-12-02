@@ -98,7 +98,7 @@ $BL['be_ctype_code']                    = 'Scriptcode';
 $BL['be_ctype_textimage']               = 'Tekst (Met afbeelding uit bestandsbeheer)';
 $BL['be_ctype_images']                  = 'Afbeeldingen uit bestandsbeheer';
 $BL['be_ctype_bulletlist']              = 'Ongeordende lijst';
-$BL['be_ctype_ullist']     		        = 'Geordende lijst';
+$BL['be_ctype_ullist']                  = 'Geordende lijst';
 $BL['be_ctype_link']                    = 'Link naar pagina of mail';
 $BL['be_ctype_linklist']                = 'Lijst met links';
 $BL['be_ctype_linkarticle']             = 'Link naar een artikel';
@@ -586,7 +586,7 @@ $BL['be_cnt_files']                     = 'Bestanden';
 $BL['be_cnt_description']               = 'Beschrijving';
 $BL['be_cnt_linkarticle']               = 'Link naar artikel';
 $BL['be_cnt_articles']                  = 'Artikelen';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1e Level, &nbsp; ~~ = 2e level, &nbsp; etc.';
+$BL['be_cnt_ullist_desc']               = '~ = 1e Level, &nbsp; ~~ = 2e level, &nbsp; etc.';
 $BL['be_cnt_movearticleto']             = 'Artikel verplaatsen naar lijst met artikelen';
 $BL['be_cnt_removearticleto']           = 'Artikel verwijderen uit lijst met artikelen';
 $BL['be_cnt_mediatype']                 = 'Mediatype';
@@ -645,7 +645,7 @@ $BL['be_cnt_noresult']                  = 'Geen&nbsp;&#13resultaten';
 // added: 02-01-2004
 $BL['be_admin_page_disable']            = 'Uitzetten';
 $BL['be_cnt_move_deleted']              = 'Leeg prullenbak';
-$BL['be_admin_keyword_add']				= 'Keyword toevoegen';
+$BL['be_admin_keyword_add']             = 'Keyword toevoegen';
 
 // added: 09-01-2004
 $BL['be_article_articleowner']          = 'Eigenaar';
@@ -653,21 +653,21 @@ $BL['be_article_adminuser']             = 'Admin';
 $BL['be_article_username']              = 'Auteur';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'Tekst met Word editor';
+$BL['be_ctype_wysiwyg']                 = 'Tekst met Word editor';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'Alleen zichtbaar voor gebruikers';
 $BL['be_admin_struct_status']           = 'Status in frontend-menu';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'Lijst met artikelen';
-$BL['be_cnt_sitelevel']					= 'Site-categorie';
-$BL['be_cnt_sitecurrent']				= 'Huidige site-categorie';
+$BL['be_ctype_articlemenu']             = 'Lijst met artikelen';
+$BL['be_cnt_sitelevel']                 = 'Site-categorie';
+$BL['be_cnt_sitecurrent']               = 'Huidige site-categorie';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'Backend default tekst';
-$BL['be_ctype_ecard']					= 'E-kaart';
-$BL['be_ctype_blog']					= 'Blog';
+$BL['be_subnav_admin_starttext']        = 'Backend default tekst';
+$BL['be_ctype_ecard']                   = 'E-kaart';
+$BL['be_ctype_blog']                    = 'Blog';
 $BL['be_cnt_ecardtext']                 = 'Titel/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'Mail tmpl';
 $BL['be_cnt_ecard_image']               = 'E-card afbeelding';
@@ -688,24 +688,24 @@ $BL['be_admin_startup_text']            = 'Startup tekst';
 $BL['be_admin_startup_button']          = 'Bewaar startup tekst';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'Gastenboek';
-$BL['be_cnt_guestbook_listing']			= 'Berichten';
-$BL['be_cnt_guestbook_listing_all']		= 'Laat alle berichten zien';
-$BL['be_cnt_guestbook_list']			= 'Lijst';
-$BL['be_cnt_guestbook_perpage']			= 'Berichten per&nbsp;pagina';
-$BL['be_cnt_guestbook_form']			= 'Formulier';
-$BL['be_cnt_guestbook_signed']			= 'Getekend';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'voor';
-$BL['be_cnt_guestbook_after']			= 'na';
-$BL['be_cnt_guestbook_entry']			= 'Bericht';
-$BL['be_cnt_guestbook_edit']			= 'Bewerk';
+$BL['be_ctype_guestbook']               = 'Gastenboek';
+$BL['be_cnt_guestbook_listing']         = 'Berichten';
+$BL['be_cnt_guestbook_listing_all']     = 'Laat alle berichten zien';
+$BL['be_cnt_guestbook_list']            = 'Lijst';
+$BL['be_cnt_guestbook_perpage']         = 'Berichten per&nbsp;pagina';
+$BL['be_cnt_guestbook_form']            = 'Formulier';
+$BL['be_cnt_guestbook_signed']          = 'Getekend';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'voor';
+$BL['be_cnt_guestbook_after']           = 'na';
+$BL['be_cnt_guestbook_entry']           = 'Bericht';
+$BL['be_cnt_guestbook_edit']            = 'Bewerk';
 $BL['be_cnt_ecardform_selector']        = 'Selecteer';
 $BL['be_cnt_ecardform_radiobutton']     = 'Radio button';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript functionaliteit';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'Top artikel berichten';
 
 // added: 19-04-2004
@@ -739,7 +739,7 @@ $BL['be_newsletter_readyfailed']        = 'Versturen van de nieuwsbrief is mislu
 $BL['be_subnav_msg_subscribers']        = 'Nieuwsbrief abonnees';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'Sitemap';
+$BL['be_ctype_sitemap']                 = 'Sitemap';
 $BL['be_cnt_sitemap_catimage']          = 'Level icoon';
 $BL['be_cnt_sitemap_articleimage']      = 'Artikel icoon';
 $BL['be_cnt_sitemap_display']           = 'Laat zien';
@@ -752,7 +752,7 @@ $BL['be_cnt_sitemap_classcount']        = 'Voeg toe aan class naam';
 $BL['be_cnt_sitemap_noclasscount']      = 'Niet toevoegen aan class naam';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'Bieden';
+$BL['be_ctype_bid']                     = 'Bieden';
 $BL['be_cnt_bid_bidtext']               = 'Bied tekst';
 $BL['be_cnt_bid_sendtext']              = 'Verzonden tekst';
 $BL['be_cnt_bid_verifiedtext']          = 'Goedgekeurde tekst';
@@ -871,17 +871,17 @@ $BL['be_cache']                         = 'Tussengeheugen';
 $BL['be_cache_timeout']                 = 'Tijdsoverschrijding';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'Gebruikers &amp; groepen';
-$BL['be_admin_group_add']				= 'Groep toevoegen';
-$BL['be_admin_group_nogroup']			= 'Geen gebruikersgroep gevonden';
+$BL['be_subnav_admin_groups']           = 'Gebruikers &amp; groepen';
+$BL['be_admin_group_add']               = 'Groep toevoegen';
+$BL['be_admin_group_nogroup']           = 'Geen gebruikersgroep gevonden';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'Forum';
-$BL['be_subnav_msg_forum']				= 'forums lijst';
-$BL['be_forum_title']					= 'forum titel';
-$BL['be_forum_permission']				= 'toestemmingen';
-$BL['be_forum_add']						= 'voeg forum toe';
-$BL['be_forum_titleedit']				= 'bewerk forum';
+$BL['be_ctype_forum']                   = 'Forum';
+$BL['be_subnav_msg_forum']              = 'forums lijst';
+$BL['be_forum_title']                   = 'forum titel';
+$BL['be_forum_permission']              = 'toestemmingen';
+$BL['be_forum_add']                     = 'voeg forum toe';
+$BL['be_forum_titleedit']               = 'bewerk forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'aanpasbare';
@@ -889,62 +889,62 @@ $BL['be_show_content']                  = 'weergave';
 $BL['be_main_content']                  = 'hoofdkolom';
 $BL['be_admin_template_jswarning']      = 'Pas op!!! \nAangespaste blokken kunnen veranderen! \n\nWanneer je de paginalayour \nverwerkt! \n\nWijzig voorbeelddocument?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'RSS feed';
-$BL['be_cnt_rssfeed_url']				= 'RSS url';
-$BL['be_cnt_rssfeed_item']				= 'Items';
-$BL['be_cnt_rssfeed_max']				= 'Max.';
-$BL['be_cnt_rssfeed_cut']				= 'verstop eerste item';
+$BL['be_ctype_rssfeed']                 = 'RSS feed';
+$BL['be_cnt_rssfeed_url']               = 'RSS url';
+$BL['be_cnt_rssfeed_item']              = 'Items';
+$BL['be_cnt_rssfeed_max']               = 'Max.';
+$BL['be_cnt_rssfeed_cut']               = 'verstop eerste item';
 
-$BL['be_ctype_simpleform']				= 'Email contact formulier';
+$BL['be_ctype_simpleform']              = 'Email contact formulier';
 
-$BL['be_cnt_onsuccess']				    = 'Succes';
-$BL['be_cnt_onerror']				    = 'Fout';
-$BL['be_cnt_onsuccess_redirect']	    = 'Redirect bij succes';
-$BL['be_cnt_onerror_redirect']	        = 'Redirect wanneer het fout gaat';
+$BL['be_cnt_onsuccess']                 = 'Succes';
+$BL['be_cnt_onerror']                   = 'Fout';
+$BL['be_cnt_onsuccess_redirect']        = 'Redirect bij succes';
+$BL['be_cnt_onerror_redirect']          = 'Redirect wanneer het fout gaat';
 
-$BL['be_cnt_form_class']				= 'Formulier class';
-$BL['be_cnt_label_wrap']				= 'Label omslag';
-$BL['be_cnt_error_class']				= 'Foute class';
-$BL['be_cnt_req_mark']				    = 'Vereist teken';
-$BL['be_cnt_mark_as_req']				= 'Maak het vereist';
-$BL['be_cnt_mark_as_del']				= 'Selecteer item voor verwijderen';
-
-
-$BL['be_cnt_type']				        = 'Type';
-$BL['be_cnt_label']				        = 'Label';
-$BL['be_cnt_needed']					= 'Geeist';
-$BL['be_cnt_delete']					= 'Verwijder';
-$BL['be_cnt_value']						= 'Waarde';
-$BL['be_cnt_error_text']				= 'Foute tekst';
-$BL['be_cnt_css_style']					= 'CSS style';
-$BL['be_cnt_send_copy_to']				= 'Kopieer naar';
-
-$BL['be_cnt_field']						= array("text"=>'texst (1 lijn)', "email"=>'email', "textarea"=>'tekst (meerdere-lijnen)',
-												"hidden"=>'verborgen', "password"=>'wachtwoord', "select"=>'selecteer menu',
-												"list"=>'lijst menu', "checkbox"=>'checkbox', "radio"=>'radio drukknop',
-												"upload"=>'bestand', "submit"=>'verzend drukknop', "reset"=>'resetknop',
-												"break"=>'break', "breaktext"=>'breaktekst', "special"=>'tekst (speciaal)'
-												, "captcha"=>'captcha code', "captchaimg"=>'captcha image');
+$BL['be_cnt_form_class']                = 'Formulier class';
+$BL['be_cnt_label_wrap']                = 'Label omslag';
+$BL['be_cnt_error_class']               = 'Foute class';
+$BL['be_cnt_req_mark']                  = 'Vereist teken';
+$BL['be_cnt_mark_as_req']               = 'Maak het vereist';
+$BL['be_cnt_mark_as_del']               = 'Selecteer item voor verwijderen';
 
 
+$BL['be_cnt_type']                      = 'Type';
+$BL['be_cnt_label']                     = 'Label';
+$BL['be_cnt_needed']                    = 'Geeist';
+$BL['be_cnt_delete']                    = 'Verwijder';
+$BL['be_cnt_value']                     = 'Waarde';
+$BL['be_cnt_error_text']                = 'Foute tekst';
+$BL['be_cnt_css_style']                 = 'CSS style';
+$BL['be_cnt_send_copy_to']              = 'Kopieer naar';
 
-$BL['be_cnt_access']					= 'Toegang';
-$BL['be_cnt_activated']					= 'Geactiveerd';
-$BL['be_cnt_available']					= 'Beschikbaar';
-$BL['be_cnt_guests']					= 'Gast';
-$BL['be_cnt_admin']						= 'Admin';
-$BL['be_cnt_write']						= 'Schrijf';
-$BL['be_cnt_read']						= 'Lees';
+$BL['be_cnt_field']                     = array("text"=>'texst (1 lijn)', "email"=>'email', "textarea"=>'tekst (meerdere-lijnen)',
+                                                "hidden"=>'verborgen', "password"=>'wachtwoord', "select"=>'selecteer menu',
+                                                "list"=>'lijst menu', "checkbox"=>'checkbox', "radio"=>'radio drukknop',
+                                                "upload"=>'bestand', "submit"=>'verzend drukknop', "reset"=>'resetknop',
+                                                "break"=>'break', "breaktext"=>'breaktekst', "special"=>'tekst (speciaal)'
+                                                , "captcha"=>'captcha code', "captchaimg"=>'captcha image');
 
-$BL['be_cnt_no_wysiwyg_editor']			= 'Blokeer WYSIWYG editor';
-$BL['be_cnt_cache_update']				= 'Reset tussengeheugen';
-$BL['be_cnt_cache_delete']				= 'Verwijder tussengeheugen';
-$BL['be_cnt_cache_delete_msg']			= 'Wil je echt het tussengeheugen verwijderen?  \nDit kan het zoeken vertragen.  \n';
 
-$BL['be_admin_usr_issection']			= 'Aanmeldingssectie';
-$BL['be_admin_usr_ifsection0']			= 'Frontend';
-$BL['be_admin_usr_ifsection1']			= 'Backend';
-$BL['be_admin_usr_ifsection2']			= 'Frontend en backend';
+
+$BL['be_cnt_access']                    = 'Toegang';
+$BL['be_cnt_activated']                 = 'Geactiveerd';
+$BL['be_cnt_available']                 = 'Beschikbaar';
+$BL['be_cnt_guests']                    = 'Gast';
+$BL['be_cnt_admin']                     = 'Admin';
+$BL['be_cnt_write']                     = 'Schrijf';
+$BL['be_cnt_read']                      = 'Lees';
+
+$BL['be_cnt_no_wysiwyg_editor']         = 'Blokeer WYSIWYG editor';
+$BL['be_cnt_cache_update']              = 'Reset tussengeheugen';
+$BL['be_cnt_cache_delete']              = 'Verwijder tussengeheugen';
+$BL['be_cnt_cache_delete_msg']          = 'Wil je echt het tussengeheugen verwijderen?  \nDit kan het zoeken vertragen.  \n';
+
+$BL['be_admin_usr_issection']           = 'Aanmeldingssectie';
+$BL['be_admin_usr_ifsection0']          = 'Frontend';
+$BL['be_admin_usr_ifsection1']          = 'Backend';
+$BL['be_admin_usr_ifsection2']          = 'Frontend en backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'Bewerk dit artikelinhoudsdeel';
@@ -957,10 +957,10 @@ $BL['be_func_content_no_copy']           = 'Het is niet mogelijk om dit artikeli
 $BL['be_func_content_paste_cancel']      = 'Annuleer deze inhoudsdeel wijziging';
 $BL['be_article_cnt_button3']            = 'Opslaan &amp; sluiten';
 
-$BL['be_cnt_move_deleted'] 				 = 'Verwijder bestanden uit de prullenbak';
-$BL['be_cnt_move_deleted_msg'] 			 = 'Weet je zeker dat je alle bestanden wilt verwijderen?\n';
+$BL['be_cnt_move_deleted']               = 'Verwijder bestanden uit de prullenbak';
+$BL['be_cnt_move_deleted_msg']           = 'Weet je zeker dat je alle bestanden wilt verwijderen?\n';
 
-$BL['be_admin_struct_permit']			 = 'Geautorizeerd voor toegang';
+$BL['be_admin_struct_permit']            = 'Geautorizeerd voor toegang';
 $BL['be_admin_struct_adduser_all']       = 'Neem controle over van alle gebruikers';
 $BL['be_admin_struct_adduser_this']      = 'Neem controle over van geselecteerde gebruiker';
 $BL['be_admin_struct_remove_all']        = 'Verwijder alle gebruikers';
@@ -983,13 +983,13 @@ $BL['be_admin_tmpl_copy']                = 'Kopieer template';
 $BL['be_ctype_filelist1']                = 'Bestanden lijst pro';
 $BL['be_cnt_fpro_usecaption']            = 'Gebruik bestandsbeheer &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
-$BL['be_admin_keywords']			     = 'Keywords';
-$BL['be_admin_keywords_key']			 = 'KEYWORD';
-$BL['be_admin_keywords_err']			 = 'Voeg een uniek KEYWORD naam in';
-$BL['be_admin_keyword_edit']			 = 'Wijzig KEYWORD';
-$BL['be_admin_keyword_del']				 = 'Verwijder KEYWORD';
-$BL['be_admin_keyword_delmsg']			 = 'Weet je zeker dat je\nto het KEYWORD wilt verwijderen?';
-$BL['be_admin_keyword_add']				 = 'KEYWORD toevoegen';
+$BL['be_admin_keywords']                 = 'Keywords';
+$BL['be_admin_keywords_key']             = 'KEYWORD';
+$BL['be_admin_keywords_err']             = 'Voeg een uniek KEYWORD naam in';
+$BL['be_admin_keyword_edit']             = 'Wijzig KEYWORD';
+$BL['be_admin_keyword_del']              = 'Verwijder KEYWORD';
+$BL['be_admin_keyword_delmsg']           = 'Weet je zeker dat je\nto het KEYWORD wilt verwijderen?';
+$BL['be_admin_keyword_add']              = 'KEYWORD toevoegen';
 
 $BL['be_cnt_transparent']                = 'Flash transparant';
 
@@ -1006,101 +1006,101 @@ $BL['be_cnt_pos8i']                     = 'Plaatje links in de tabel uitlijnen';
 $BL['be_cnt_pos9i']                     = 'Plaatje rechts in de tabel uitlijnen';
 
 
-$BL['be_WYSIWYG']						= 'WYSIWYG editor';
-$BL['be_WYSIWYG_disabled']				= 'WYSIWYG editor uitgeschakeld';
+$BL['be_WYSIWYG']                       = 'WYSIWYG editor';
+$BL['be_WYSIWYG_disabled']              = 'WYSIWYG editor uitgeschakeld';
 $BL['be_admin_struct_acat_hiddenactive'] = 'Zichtbaar wanneer actief';
 
 
 
-$BL['be_login_jsinfo']					= 'U dient de JavaScript functionaliteit aan te zetten in uw browser. De administratie werkt niet zonder JavaScript functionaliteit!';
+$BL['be_login_jsinfo']                  = 'U dient de JavaScript functionaliteit aan te zetten in uw browser. De administratie werkt niet zonder JavaScript functionaliteit!';
 
-$BL['be_admin_struct_maxlist']			= 'Max. aantal artikelen in lijst mode';
+$BL['be_admin_struct_maxlist']          = 'Max. aantal artikelen in lijst mode';
 
-$BL['be_admin_optgroup_label']			= array(1 => 'tekst', 2 => 'plaatje', 3 => 'formulier', 4 => 'admin', 5 => 'speciaal');
-$BL['be_cnt_articlemenu_maxchar']		= 'Max. aantal karakters';
+$BL['be_admin_optgroup_label']          = array(1 => 'tekst', 2 => 'plaatje', 3 => 'formulier', 4 => 'admin', 5 => 'speciaal');
+$BL['be_cnt_articlemenu_maxchar']       = 'Max. aantal karakters';
 
-$BL['be_cnt_sysadmin_system']			= 'Systeem';
+$BL['be_cnt_sysadmin_system']           = 'Systeem';
 
 // version check - taken from phpBB ;-)
-$BL['Version_up_to_date']				= 'De installatie is up to dat. Er zijn geen updates beschikbaar voor deze versie.';
-$BL['Version_not_up_to_date']			= 'De installatie is <b>niet</b> up to date. Er zijn updates beschikbaar. Ga naar <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> om de laatste versie te downloaden.';
-$BL['Latest_version_info']				= 'De laatste versie is <b>phpwcms %s</b>.';
-$BL['Current_version_info']				= 'Versie: <b>phpwcms %s</b>.';
-$BL['Connect_socket_error']				= 'Kan geen verbinding maken met de phpwcms server. De foutcode is:<br />%s';
-$BL['Socket_functions_disabled']		= 'Niet mogelijk om socket functies te gebruiken.';
-$BL['Mailing_list_subscribe_reminder']	= 'Schrijf je in voor de mailing list om up to date te blijve van de laatste informatie en versies. <a href="http://eepurl.com/bm-BrH" target="_blank">Abonneer</a>.';
-$BL['Version_information'] 				= 'phpwcms Versie Informatie';
+$BL['Version_up_to_date']               = 'De installatie is up to dat. Er zijn geen updates beschikbaar voor deze versie.';
+$BL['Version_not_up_to_date']           = 'De installatie is <b>niet</b> up to date. Er zijn updates beschikbaar. Ga naar <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> om de laatste versie te downloaden.';
+$BL['Latest_version_info']              = 'De laatste versie is <b>phpwcms %s</b>.';
+$BL['Current_version_info']             = 'Versie: <b>phpwcms %s</b>.';
+$BL['Connect_socket_error']             = 'Kan geen verbinding maken met de phpwcms server. De foutcode is:<br />%s';
+$BL['Socket_functions_disabled']        = 'Niet mogelijk om socket functies te gebruiken.';
+$BL['Mailing_list_subscribe_reminder']  = 'Schrijf je in voor de mailing list om up to date te blijve van de laatste informatie en versies. <a href="http://eepurl.com/bm-BrH" target="_blank">Abonneer</a>.';
+$BL['Version_information']              = 'phpwcms Versie Informatie';
 
-$BL['be_cnt_search_highlight']			= 'Markeer';
-$BL['be_cnt_results_wordlimit']			= 'Max. aantal woorden voor opsomming';
-$BL['be_cnt_page_of_pages']				= 'Zoek navi';
-$BL['be_cnt_page_of_pages_descr']		= '{PREV:Terug} page #/##, resultaat ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Volgende}';
-$BL['be_cnt_search_show_top']			= 'Top';
-$BL['be_cnt_search_show_bottom']		= 'Bodem';
-$BL['be_cnt_search_show_next']			= 'Volgende (ook wanneer er geen link is)';
-$BL['be_cnt_search_show_prev']			= 'Vorige (ook wanneer er geen link is)';
-$BL['be_cnt_search_show_forall']		= 'Altijd zichtbaar';
-$BL['be_cnt_search_startlevel']			= 'Zoeken starten';
-$BL['be_cnt_results_minchar']			= 'Minimale aantal karakters voor het zoekformulier';
+$BL['be_cnt_search_highlight']          = 'Markeer';
+$BL['be_cnt_results_wordlimit']         = 'Max. aantal woorden voor opsomming';
+$BL['be_cnt_page_of_pages']             = 'Zoek navi';
+$BL['be_cnt_page_of_pages_descr']       = '{PREV:Terug} page #/##, resultaat ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Volgende}';
+$BL['be_cnt_search_show_top']           = 'Top';
+$BL['be_cnt_search_show_bottom']        = 'Bodem';
+$BL['be_cnt_search_show_next']          = 'Volgende (ook wanneer er geen link is)';
+$BL['be_cnt_search_show_prev']          = 'Vorige (ook wanneer er geen link is)';
+$BL['be_cnt_search_show_forall']        = 'Altijd zichtbaar';
+$BL['be_cnt_search_startlevel']         = 'Zoeken starten';
+$BL['be_cnt_results_minchar']           = 'Minimale aantal karakters voor het zoekformulier';
 
-$BL['be_cnt_pagination']				= 'Pagineer content parts';
-$BL['be_article_pagination']			= 'Pagineer artikelen';
-$BL['be_article_per_page']			    = 'Artikelen per pagina';
-$BL['be_pagination']					= 'Pagineer';
+$BL['be_cnt_pagination']                = 'Pagineer content parts';
+$BL['be_article_pagination']            = 'Pagineer artikelen';
+$BL['be_article_per_page']              = 'Artikelen per pagina';
+$BL['be_pagination']                    = 'Pagineer';
 
-$BL['be_ctype_recipe']					= 'Recept';
-$BL['be_ctype_faq']						= 'Veel gestelde vragen';
-$BL['be_cnt_additional']				= 'Toevoeging';
-$BL['be_cnt_question']					= 'Vraag';
-$BL['be_cnt_answer']					= 'Antwoord';
-$BL['be_cnt_same_as_summary']			= 'Gebruik de data van het artikel plaatje';
-$BL['be_cnt_sorting']					= 'Sorteren';
-$BL['be_cnt_imgupload']					= 'Upload&nbsp;plaatje';
-$BL['be_cnt_filesize']					= 'Bestandsgroote';
-$BL['be_cnt_captchalength']				= 'Lengte van de captcha code';
-$BL['be_cnt_chars']						= 'Klusjes';
-$BL['be_cnt_download']					= 'Download';
-$BL['be_cnt_download_direct']			= 'Direct';
-$BL['be_cnt_database']					= 'Database';
-$BL['be_cnt_formsave_in_db']			= 'Sla formulier resultaten op';
+$BL['be_ctype_recipe']                  = 'Recept';
+$BL['be_ctype_faq']                     = 'Veel gestelde vragen';
+$BL['be_cnt_additional']                = 'Toevoeging';
+$BL['be_cnt_question']                  = 'Vraag';
+$BL['be_cnt_answer']                    = 'Antwoord';
+$BL['be_cnt_same_as_summary']           = 'Gebruik de data van het artikel plaatje';
+$BL['be_cnt_sorting']                   = 'Sorteren';
+$BL['be_cnt_imgupload']                 = 'Upload&nbsp;plaatje';
+$BL['be_cnt_filesize']                  = 'Bestandsgroote';
+$BL['be_cnt_captchalength']             = 'Lengte van de captcha code';
+$BL['be_cnt_chars']                     = 'Klusjes';
+$BL['be_cnt_download']                  = 'Download';
+$BL['be_cnt_download_direct']           = 'Direct';
+$BL['be_cnt_database']                  = 'Database';
+$BL['be_cnt_formsave_in_db']            = 'Sla formulier resultaten op';
 
-$BL['be_cnt_email_notify']				= 'Op de hoogte houden via email';
-$BL['be_cnt_notify_by_email']			= 'van email naar';
-$BL['be_cnt_last_edited']				= 'Laatste wijziging';
+$BL['be_cnt_email_notify']              = 'Op de hoogte houden via email';
+$BL['be_cnt_notify_by_email']           = 'van email naar';
+$BL['be_cnt_last_edited']               = 'Laatste wijziging';
 
-$BL['be_cnt_export_selection']			= 'Exporteer selectie';
-$BL['be_cnt_delete_duplicates']			= 'Verwijder duplicaten';
-$BL['be_cnt_new_recipient']				= 'Ontvanger toevoegen';
+$BL['be_cnt_export_selection']          = 'Exporteer selectie';
+$BL['be_cnt_delete_duplicates']         = 'Verwijder duplicaten';
+$BL['be_cnt_new_recipient']             = 'Ontvanger toevoegen';
 
 
-$BL['be_cnt_newsletter_prepare']		= 'Activeer nieuwsbrief';
-$BL['be_cnt_newsletter_prepare1']		= 'Alle Ontvangers worden naar de verzendlijst verstuurd';
-$BL['be_cnt_newsletter_prepare2']		= 'Verzendlijst wordt geupdate&#8230;';
+$BL['be_cnt_newsletter_prepare']        = 'Activeer nieuwsbrief';
+$BL['be_cnt_newsletter_prepare1']       = 'Alle Ontvangers worden naar de verzendlijst verstuurd';
+$BL['be_cnt_newsletter_prepare2']       = 'Verzendlijst wordt geupdate&#8230;';
 
-$BL['be_cnt_export']					= 'Exporteer';
-$BL['be_cnt_formsave_profile']			= 'Sla gebruikers profiel op';
-$BL['be_profile_label_add']				= 'Additief';
-$BL['be_profile_label_website']			= 'Website (URL)';
-$BL['be_profile_label_gender']			= 'Geslacht';
-$BL['be_profile_label_birthday']		= 'Geboortedatum';
+$BL['be_cnt_export']                    = 'Exporteer';
+$BL['be_cnt_formsave_profile']          = 'Sla gebruikers profiel op';
+$BL['be_profile_label_add']             = 'Additief';
+$BL['be_profile_label_website']         = 'Website (URL)';
+$BL['be_profile_label_gender']          = 'Geslacht';
+$BL['be_profile_label_birthday']        = 'Geboortedatum';
 
-$BL['be_cnt_store_in']					= 'Opslaan in veld';
-$BL['be_aboutlink_title']				= 'Informatie over phpwcms en licentie';
+$BL['be_cnt_store_in']                  = 'Opslaan in veld';
+$BL['be_aboutlink_title']               = 'Informatie over phpwcms en licentie';
 
-$BL['be_shortdate']          			= 'n/j/y';
-$BL['be_shortdatetime']          		= 'n/j/y G:i';
+$BL['be_shortdate']                     = 'n/j/y';
+$BL['be_shortdatetime']                 = 'n/j/y G:i';
 
-$BL['be_confirm_sending']				= 'confirm sending';
-$BL['be_confirm_text']					= 'Ja, verzend de nieuwsbrief naar alle ontvangers!';
+$BL['be_confirm_sending']               = 'confirm sending';
+$BL['be_confirm_text']                  = 'Ja, verzend de nieuwsbrief naar alle ontvangers!';
 
-$BL['be_cnt_queued']					= 'In de wachtrij plaatsen';
-$BL['be_last_sending']					= 'Laatst verzonden';
-$BL['be_last_edited']					= 'Laatst gewijzigd';
-$BL['be_total']							= 'Totaal';
+$BL['be_cnt_queued']                    = 'In de wachtrij plaatsen';
+$BL['be_last_sending']                  = 'Laatst verzonden';
+$BL['be_last_edited']                   = 'Laatst gewijzigd';
+$BL['be_total']                         = 'Totaal';
 
-$BL['be_settings']						= 'Instellingen';
-$BL['be_ctype']							= 'Contentpart';
-$BL['be_selection']						= 'Selectie';
+$BL['be_settings']                      = 'Instellingen';
+$BL['be_ctype']                         = 'Contentpart';
+$BL['be_selection']                     = 'Selectie';
 
-$BL['be_ctype_module']					= 'Plug-in';
+$BL['be_ctype_module']                  = 'Plug-in';
 

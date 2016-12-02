@@ -642,7 +642,7 @@ $BL['be_article_adminuser']             = 'المستخدم الإداري';
 $BL['be_article_username']              = 'المحرر';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSYWIG HTMLترميز لغة ';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTMLترميز لغة ';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'مرئي للزوار الذين قاموا بتسجيل الدخول للموقع فقط';
