@@ -643,7 +643,7 @@ $BL['be_article_adminuser']             = 'administrateur';
 $BL['be_article_username']              = 'auteur';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'wysiwyg html';
+$BL['be_ctype_wysiwyg']                 = 'wysiwyg html';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'visible uniquement pour les utilisateurs enregistr&eacute;s';
@@ -654,14 +654,14 @@ $BL['be_admin_struct_status']           = '&eacute;tat du menu &#39;frontend&#39
 
 // added: 15-02-2004
 
-$BL['be_ctype_articlemenu']				= 'menu d&#39;articles';
-$BL['be_cnt_sitelevel']					= 'niveau du site';
-$BL['be_cnt_sitecurrent']				= 'niveau du site actuel';
+$BL['be_ctype_articlemenu']             = 'menu d&#39;articles';
+$BL['be_cnt_sitelevel']                 = 'niveau du site';
+$BL['be_cnt_sitecurrent']               = 'niveau du site actuel';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'texte par d&eacute;faut de la zone d&#39;administration';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'texte par d&eacute;faut de la zone d&#39;administration';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'titre/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'image de l&#39;e-card';
@@ -682,24 +682,24 @@ $BL['be_admin_startup_text']            = 'Texte par d&eacute;faut';
 $BL['be_admin_startup_button']          = 'Sauver le texte par d&eacute;faut';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'livre de visites/commentaires';
-$BL['be_cnt_guestbook_listing']			= 'lister';
-$BL['be_cnt_guestbook_listing_all']		= 'lister&nbsp;toutes&nbsp;les&nbsp;entr&eacute;es';
-$BL['be_cnt_guestbook_list']			= 'liste';
-$BL['be_cnt_guestbook_perpage']			= 'par&nbsp;page';
-$BL['be_cnt_guestbook_form']			= 'formulaire';
-$BL['be_cnt_guestbook_signed']			= 'sign&eacute;';
-$BL['be_cnt_guestbook_nav']				= 'navigation';
-$BL['be_cnt_guestbook_before']			= 'avant';
-$BL['be_cnt_guestbook_after']			= 'apr&egrave;s';
-$BL['be_cnt_guestbook_entry']			= 'entr&eacute;e';
-$BL['be_cnt_guestbook_edit']			= '&eacute;diter';
+$BL['be_ctype_guestbook']               = 'livre de visites/commentaires';
+$BL['be_cnt_guestbook_listing']         = 'lister';
+$BL['be_cnt_guestbook_listing_all']     = 'lister&nbsp;toutes&nbsp;les&nbsp;entr&eacute;es';
+$BL['be_cnt_guestbook_list']            = 'liste';
+$BL['be_cnt_guestbook_perpage']         = 'par&nbsp;page';
+$BL['be_cnt_guestbook_form']            = 'formulaire';
+$BL['be_cnt_guestbook_signed']          = 'sign&eacute;';
+$BL['be_cnt_guestbook_nav']             = 'navigation';
+$BL['be_cnt_guestbook_before']          = 'avant';
+$BL['be_cnt_guestbook_after']           = 'apr&egrave;s';
+$BL['be_cnt_guestbook_entry']           = 'entr&eacute;e';
+$BL['be_cnt_guestbook_edit']            = '&eacute;diter';
 $BL['be_cnt_ecardform_selector']        = 's&eacute;lecteur';
 $BL['be_cnt_ecardform_radiobutton']     = 'bouton radio';
 $BL['be_cnt_ecardform_javascript']      = 'fonctionnalit&eacute; JavaScript';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'Nombre d&#39;articles &agrave; afficher au d&eacute;but'; //
 
 // added: 19-04-2004
@@ -733,7 +733,7 @@ $BL['be_newsletter_readyfailed']        = 'Erreur d&#39;envoi de la lettre d&#39
 $BL['be_subnav_msg_subscribers']        = 'lettres d&#39;infos > abonn&eacute;s'; // titre
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'plan du site';
+$BL['be_ctype_sitemap']                 = 'plan du site';
 $BL['be_cnt_sitemap_catimage']          = 'icône du niveau';
 $BL['be_cnt_sitemap_articleimage']      = 'icône de l&#39;article';
 $BL['be_cnt_sitemap_display']           = 'montrer';
@@ -746,7 +746,7 @@ $BL['be_cnt_sitemap_classcount']        = 'ajouter &agrave; la classe nom';
 $BL['be_cnt_sitemap_noclasscount']      = 'n&#39;ajouter pas &agrave; la classe nom';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'faire offre';
+$BL['be_ctype_bid']                     = 'faire offre';
 $BL['be_cnt_bid_bidtext']               = 'texte de l&#39;offre';
 $BL['be_cnt_bid_sendtext']              = 'envoyer le texte';
 $BL['be_cnt_bid_verifiedtext']          = 'texte v&eacute;rifi&eacute;';
@@ -862,15 +862,15 @@ $BL['be_cache']                         = 'cache';
 $BL['be_cache_timeout']                 = 'arr&ecirc;t';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'groupe &amp; d&#39;utlisateurs';
+$BL['be_subnav_admin_groups']           = 'groupe &amp; d&#39;utlisateurs';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'forum';
-$BL['be_subnav_msg_forum']				= 'liste des forums';
-$BL['be_forum_title']					= 'titre du forum';
-$BL['be_forum_permission']				= 'permissions';
-$BL['be_forum_add']						= 'ajouter forum';
-$BL['be_forum_titleedit']				= '&eacute;diter forum';
+$BL['be_ctype_forum']                   = 'forum';
+$BL['be_subnav_msg_forum']              = 'liste des forums';
+$BL['be_forum_title']                   = 'titre du forum';
+$BL['be_forum_permission']              = 'permissions';
+$BL['be_forum_add']                     = 'ajouter forum';
+$BL['be_forum_titleedit']               = '&eacute;diter forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'personnalis&eacute;';
@@ -878,58 +878,58 @@ $BL['be_show_content']                  = 'afficher';
 $BL['be_main_content']                  = 'colonne principale';
 $BL['be_admin_template_jswarning']      = 'Avertissement!!! \nLes blocks personnalis&eacute;s peuvent changer! \n\nSi vous annuler ou \nmodifier les donn&eacute;es de votre mise en page! \n\nChanger le mod&egrave;le?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'fil RSS';
-$BL['be_cnt_rssfeed_url']				= 'url du RSS';
-$BL['be_cnt_rssfeed_item']				= '&eacute;l&eacute;ment';
-$BL['be_cnt_rssfeed_max']				= 'max.';
-$BL['be_cnt_rssfeed_cut']				= 'cacher le 1er &eacute;l&eacute;ment';
+$BL['be_ctype_rssfeed']                 = 'fil RSS';
+$BL['be_cnt_rssfeed_url']               = 'url du RSS';
+$BL['be_cnt_rssfeed_item']              = '&eacute;l&eacute;ment';
+$BL['be_cnt_rssfeed_max']               = 'max.';
+$BL['be_cnt_rssfeed_cut']               = 'cacher le 1er &eacute;l&eacute;ment';
 
-$BL['be_ctype_simpleform']				= 'formulaire de contact';
+$BL['be_ctype_simpleform']              = 'formulaire de contact';
 
-$BL['be_cnt_onsuccess']				    = 'en cas de r&eacute;ussite';
-$BL['be_cnt_onerror']				    = 'en cas d&#39;erreur';
-$BL['be_cnt_onsuccess_redirect']	    = 'redirection en cas de r&eacute;ussite';
-$BL['be_cnt_onerror_redirect']	        = 'redirection en cas d&#39;erreur';
+$BL['be_cnt_onsuccess']                 = 'en cas de r&eacute;ussite';
+$BL['be_cnt_onerror']                   = 'en cas d&#39;erreur';
+$BL['be_cnt_onsuccess_redirect']        = 'redirection en cas de r&eacute;ussite';
+$BL['be_cnt_onerror_redirect']          = 'redirection en cas d&#39;erreur';
 
-$BL['be_cnt_form_class']				= 'classe du formlaire';
-$BL['be_cnt_label_wrap']				= '&eacute;tiquette de l&#39;enveloppe';
-$BL['be_cnt_error_class']				= 'classe d&#39;erreur';
-$BL['be_cnt_req_mark']				    = 'marque requise';
-$BL['be_cnt_mark_as_req']				= 'marquer comme requise';
-$BL['be_cnt_mark_as_del']				= 'marquer l&#39;&eacute;l&eacute;ment pour l&#39;effacer';
+$BL['be_cnt_form_class']                = 'classe du formlaire';
+$BL['be_cnt_label_wrap']                = '&eacute;tiquette de l&#39;enveloppe';
+$BL['be_cnt_error_class']               = 'classe d&#39;erreur';
+$BL['be_cnt_req_mark']                  = 'marque requise';
+$BL['be_cnt_mark_as_req']               = 'marquer comme requise';
+$BL['be_cnt_mark_as_del']               = 'marquer l&#39;&eacute;l&eacute;ment pour l&#39;effacer';
 
 
-$BL['be_cnt_type']				        = 'type';
-$BL['be_cnt_label']				        = '&eacute;tiquette';
-$BL['be_cnt_needed']					= 'requis';
-$BL['be_cnt_delete']					= 'effacer';
-$BL['be_cnt_value']						= 'valeur';
-$BL['be_cnt_error_text']				= 'texte d&#39;erreur';
-$BL['be_cnt_css_style']					= 'style CSS';
+$BL['be_cnt_type']                      = 'type';
+$BL['be_cnt_label']                     = '&eacute;tiquette';
+$BL['be_cnt_needed']                    = 'requis';
+$BL['be_cnt_delete']                    = 'effacer';
+$BL['be_cnt_value']                     = 'valeur';
+$BL['be_cnt_error_text']                = 'texte d&#39;erreur';
+$BL['be_cnt_css_style']                 = 'style CSS';
 
-$BL['be_cnt_field']						= array("text"=>'texte', "email"=>'email', "textarea"=>'texte (multi-lignes)',
+$BL['be_cnt_field']                     = array("text"=>'texte', "email"=>'email', "textarea"=>'texte (multi-lignes)',
 "hidden"=>'cach&eacute;', "password"=>'mot de passe', "select"=>'s&eacute;lectionner le menu',
 "list"=>'menu de la liste', "checkbox"=>'checkbox', "radio"=>'bouton radio',
 "upload"=>'upload fichier', "submit"=>'bouton d&#39;envoi', "reset"=>'bouton reset',
 "break"=>'s&eacute;parateur', "breaktext"=>'s&eacute;parateur (texte)', "special"=>'texte (sp&eacute;cial)');
 
-$BL['be_cnt_access']					= 'acc&egrave;s';
-$BL['be_cnt_activated']					= 'activ&eacute;';
-$BL['be_cnt_available']					= 'disponible';
-$BL['be_cnt_guests']					= 'invit&eacute;s';
-$BL['be_cnt_admin']						= 'admin';
-$BL['be_cnt_write']						= '&eacute;crire';
-$BL['be_cnt_read']						= 'lire';
+$BL['be_cnt_access']                    = 'acc&egrave;s';
+$BL['be_cnt_activated']                 = 'activ&eacute;';
+$BL['be_cnt_available']                 = 'disponible';
+$BL['be_cnt_guests']                    = 'invit&eacute;s';
+$BL['be_cnt_admin']                     = 'admin';
+$BL['be_cnt_write']                     = '&eacute;crire';
+$BL['be_cnt_read']                      = 'lire';
 
-$BL['be_cnt_no_wysiwyg_editor']			= 'd&eacute;sactiver l&#39;&eacute;diteur WYSIWYG';
-$BL['be_cnt_cache_update']				= 'remise &agrave; 0 du cache';
-$BL['be_cnt_cache_delete']				= 'effacer le cache';
-$BL['be_cnt_cache_delete_msg']			= 'Voulez-vous vraiment &eacute;ffacer le cache?  \nCeci peut affecter la recherche aussi.  \n';
+$BL['be_cnt_no_wysiwyg_editor']         = 'd&eacute;sactiver l&#39;&eacute;diteur WYSIWYG';
+$BL['be_cnt_cache_update']              = 'remise &agrave; 0 du cache';
+$BL['be_cnt_cache_delete']              = 'effacer le cache';
+$BL['be_cnt_cache_delete_msg']          = 'Voulez-vous vraiment &eacute;ffacer le cache?  \nCeci peut affecter la recherche aussi.  \n';
 
-$BL['be_admin_usr_issection']			= 'section du login';
-$BL['be_admin_usr_ifsection0']			= 'frontend';
-$BL['be_admin_usr_ifsection1']			= 'backend';
-$BL['be_admin_usr_ifsection2']			= 'frontend et backend';
+$BL['be_admin_usr_issection']           = 'section du login';
+$BL['be_admin_usr_ifsection0']          = 'frontend';
+$BL['be_admin_usr_ifsection1']          = 'backend';
+$BL['be_admin_usr_ifsection2']          = 'frontend et backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = '&eacute;diter cette partie de contenu de l&#39;article';
@@ -942,42 +942,42 @@ $BL['be_func_content_no_copy']           = "Il n'est pas possible de copier cett
 $BL['be_func_content_paste_cancel']      = 'annuler le changement de la partie de contenu';
 
 // translate to french - kosse
-$BL['be_cnt_move_deleted']				 = 'supprimer les fichiers effac&eacute;s';
-$BL['be_cnt_move_deleted_msg']			 = 'Voulez-vous vraiment d&eacute;placer tous les fichiers \nmarqu&eacute;s comme effac&eacute;s du r&eacute;pertoire sp&eacute;cial d&#39;effacement?  \n';
+$BL['be_cnt_move_deleted']               = 'supprimer les fichiers effac&eacute;s';
+$BL['be_cnt_move_deleted_msg']           = 'Voulez-vous vraiment d&eacute;placer tous les fichiers \nmarqu&eacute;s comme effac&eacute;s du r&eacute;pertoire sp&eacute;cial d&#39;effacement?  \n';
 
-$BL['be_admin_struct_permit']			 = 'autoris&eacute;s &agrave; acc&eacute;der (laiss&eacute; vide pour tous)';
-$BL['be_admin_struct_adduser_all']		 = 'reprendre tous les utilisateurs';
-$BL['be_admin_struct_adduser_this']		 = 'reprendre les utilisateurs s&eacute;lectionn&eacute;s';
-$BL['be_admin_struct_remove_all']		 = 'retirer tous les utilisateurs';
-$BL['be_admin_struct_remove_this']   	 = 'retirer l&#39;utilisateur s&eacute;lectionn&eacute;';
+$BL['be_admin_struct_permit']            = 'autoris&eacute;s &agrave; acc&eacute;der (laiss&eacute; vide pour tous)';
+$BL['be_admin_struct_adduser_all']       = 'reprendre tous les utilisateurs';
+$BL['be_admin_struct_adduser_this']      = 'reprendre les utilisateurs s&eacute;lectionn&eacute;s';
+$BL['be_admin_struct_remove_all']        = 'retirer tous les utilisateurs';
+$BL['be_admin_struct_remove_this']       = 'retirer l&#39;utilisateur s&eacute;lectionn&eacute;';
 
 
-$BL['be_ctype_alias']					 = 'alias de la partie de contenu';
-$BL['be_cnt_setting']					 = 'reprendre';
-$BL['be_cnt_spaces']					 = 'espaces de l&#39;alias de la partie de contenu';
-$BL['be_cnt_toplink']					 = 'lien haut de page pour l&#39;alias de la partie de contenu';
-$BL['be_cnt_block']						 = 'montrer (block) de l&#39;alias de la partie de contenu';
-$BL['be_cnt_title']						 = 'titres de l&#39;alias de la partie de contenu';
+$BL['be_ctype_alias']                    = 'alias de la partie de contenu';
+$BL['be_cnt_setting']                    = 'reprendre';
+$BL['be_cnt_spaces']                     = 'espaces de l&#39;alias de la partie de contenu';
+$BL['be_cnt_toplink']                    = 'lien haut de page pour l&#39;alias de la partie de contenu';
+$BL['be_cnt_block']                      = 'montrer (block) de l&#39;alias de la partie de contenu';
+$BL['be_cnt_title']                      = 'titres de l&#39;alias de la partie de contenu';
 
-$BL['be_file_replace']					 = 'Remplacer les fichiers &eacute;ponymes';
+$BL['be_file_replace']                   = 'Remplacer les fichiers &eacute;ponymes';
 
-$BL['be_alias_articleID']				 = 'alias ID';
-$BL['be_alias_useAll']					 = "utiliser les donn&eacute;es de l&#39;ent&ecirc;te de cet article";
-$BL['be_article_morelink']				 = 'lien [en savoir plus&#8230;]';
+$BL['be_alias_articleID']                = 'alias ID';
+$BL['be_alias_useAll']                   = "utiliser les donn&eacute;es de l&#39;ent&ecirc;te de cet article";
+$BL['be_article_morelink']               = 'lien [en savoir plus&#8230;]';
 $BL['be_admin_tmpl_copy']                = 'copier le gabarit';
 
 $BL['be_ctype_filelist1']                = 'liste de fichiers pro';
 $BL['be_cnt_fpro_usecaption']            = 'utiliser le centre de fichiers &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
-$BL['be_admin_keywords']				= 'Mots clefs';
-$BL['be_admin_keywords_key']			= 'MOT CLEF';
-$BL['be_admin_keywords_err']			= 'Ins&eacute;rer un nom de MOT CLEF unique';
-$BL['be_admin_keyword_edit']			= '&eacute;diter le MOT CLEF';
-$BL['be_admin_keyword_del']				= 'effacer le MOT CLEF';
-$BL['be_admin_keyword_delmsg']			= 'Voulez-vous vraiment \neffacer le MOT CLEF?';
-$BL['be_admin_keyword_add']				= 'ajouter un MOT CLEF';
+$BL['be_admin_keywords']                = 'Mots clefs';
+$BL['be_admin_keywords_key']            = 'MOT CLEF';
+$BL['be_admin_keywords_err']            = 'Ins&eacute;rer un nom de MOT CLEF unique';
+$BL['be_admin_keyword_edit']            = '&eacute;diter le MOT CLEF';
+$BL['be_admin_keyword_del']             = 'effacer le MOT CLEF';
+$BL['be_admin_keyword_delmsg']          = 'Voulez-vous vraiment \neffacer le MOT CLEF?';
+$BL['be_admin_keyword_add']             = 'ajouter un MOT CLEF';
 
-$BL['be_cnt_transparent']				= 'Flash transparent';
+$BL['be_cnt_transparent']               = 'Flash transparent';
 
 
 // added: 02-04-2006
@@ -985,106 +985,106 @@ $BL['be_admin_struct_orderkilldate']    = 'date de suppression';
 $BL['be_func_switch_contentpart'] = 'Voulez-vous vraiment changer la PARTIE DE CONTENU? \n\nSoyez tr&egrave;s prudents! \nVous pourriez perdre une grande partie de vos donn&eacute;es (comme la mise en forme, pour plus de s&eacute;curit&eacute; copier/coller le code source)! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ATTENTION!</strong> Le r&eacute;pertoire &quot;CODE-SNIPPETS&quot; existe encore! Effacer le r&eacute;pertoire <strong>phpwcms_code_snippets</strong> - vous &eacute;viterez des probl&egrave;mes de s&eacute;curit&eacute; potentiels.';
 
-$BL['be_ctype_poll']				    = 'enqu&ecirc;te';
+$BL['be_ctype_poll']                    = 'enqu&ecirc;te';
 $BL['be_cnt_pos8']                      = 'tableau, gauche';
 $BL['be_cnt_pos9']                      = 'tableau, droite';
 $BL['be_cnt_pos8i']                     = 'aligner l&#39;image &agrave; gauche dans le tableau';
 $BL['be_cnt_pos9i']                     = 'aligner l&#39;image &agrave; droite dans le tableau';
 
-$BL['be_WYSIWYG']						= '&eacute;diteur WYSIWYG';
-$BL['be_WYSIWYG_disabled']				= '&eacute;diteur WYSIWYG d&eacute;sactiv&eacute;';
+$BL['be_WYSIWYG']                       = '&eacute;diteur WYSIWYG';
+$BL['be_WYSIWYG_disabled']              = '&eacute;diteur WYSIWYG d&eacute;sactiv&eacute;';
 $BL['be_admin_struct_acat_hiddenactive'] = 'visible lorsqu&#39;activ&eacute;';
 
-$BL['be_login_jsinfo']					= 'Svp activer votre JavaScript qui est n&eacute;cessaire dans le panneau d&#39;administration!';
+$BL['be_login_jsinfo']                  = 'Svp activer votre JavaScript qui est n&eacute;cessaire dans le panneau d&#39;administration!';
 
-$BL['be_admin_struct_maxlist']			= 'articles max. en mode liste';
+$BL['be_admin_struct_maxlist']          = 'articles max. en mode liste';
 
-$BL['be_admin_optgroup_label']			= array(1 => 'texte', 2 => 'image', 3 => 'formulaire', 4 => 'administration', 5 => 'sp&eacute;cial');
-$BL['be_cnt_articlemenu_maxchar']		= 'Caract&egrave;res max.';
+$BL['be_admin_optgroup_label']          = array(1 => 'texte', 2 => 'image', 3 => 'formulaire', 4 => 'administration', 5 => 'sp&eacute;cial');
+$BL['be_cnt_articlemenu_maxchar']       = 'Caract&egrave;res max.';
 
-$BL['be_cnt_sysadmin_system']			= 'syst&egrave;me';
+$BL['be_cnt_sysadmin_system']           = 'syst&egrave;me';
 
 // version check - taken from phpBB ;-)
-$BL['Version_up_to_date']				= 'Votre version de phpwcms est &agrave; jour, il n&#39;y a pas de mises &agrave; jour disponibles.';
-$BL['Version_not_up_to_date']			= 'Votre version n\est <b>pas</b> &agrave; jour. Il existe des versions plus neuves, svp visitez le forum &agrave; <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> pour obtenir la dern&egrave;re version.';
-$BL['Latest_version_info']				= 'La derni&egrave;re version est <b>phpwcms %s</b>.';
-$BL['Current_version_info']				= 'Vous avez la version <b>phpwcms %s</b>.';
-$BL['Connect_socket_error']				= 'Impossible de se conncter au serveur phpwcms, l&#39;erreur rapport&eacute;e est:<br />%s';
-$BL['Socket_functions_disabled']		= 'Impossible d&#39;utiliser les fonctions socket.';
-$BL['Mailing_list_subscribe_reminder']	= 'Pour les infos des dern&egrave;res versions de phpwcms, souscrivez &agrave; notre <a href="http://eepurl.com/bm-BrH" target="_blank">liste d&#39;infos (en anglais)</a>.';
-$BL['Version_information'] 				= 'Information de version de phpwcms';
+$BL['Version_up_to_date']               = 'Votre version de phpwcms est &agrave; jour, il n&#39;y a pas de mises &agrave; jour disponibles.';
+$BL['Version_not_up_to_date']           = 'Votre version n\est <b>pas</b> &agrave; jour. Il existe des versions plus neuves, svp visitez le forum &agrave; <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> pour obtenir la dern&egrave;re version.';
+$BL['Latest_version_info']              = 'La derni&egrave;re version est <b>phpwcms %s</b>.';
+$BL['Current_version_info']             = 'Vous avez la version <b>phpwcms %s</b>.';
+$BL['Connect_socket_error']             = 'Impossible de se conncter au serveur phpwcms, l&#39;erreur rapport&eacute;e est:<br />%s';
+$BL['Socket_functions_disabled']        = 'Impossible d&#39;utiliser les fonctions socket.';
+$BL['Mailing_list_subscribe_reminder']  = 'Pour les infos des dern&egrave;res versions de phpwcms, souscrivez &agrave; notre <a href="http://eepurl.com/bm-BrH" target="_blank">liste d&#39;infos (en anglais)</a>.';
+$BL['Version_information']              = 'Information de version de phpwcms';
 
-$BL['be_cnt_search_highlight']			= 'surligner';
-$BL['be_cnt_results_wordlimit']			= 'mots max. pour le sommaire';
-$BL['be_cnt_page_of_pages']				= 'navigation de recherche';
-$BL['be_cnt_page_of_pages_descr']		= '{PREV:Retour} page #/##, result ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Prochain}';
-$BL['be_cnt_search_show_top']			= 'haut de page';
-$BL['be_cnt_search_show_bottom']		= 'bas de page';
-$BL['be_cnt_search_show_next']			= 'prochain (aussi si pas de lien)';
-$BL['be_cnt_search_show_prev']			= 'pr&eacute;c&eacute;dent (aussi si pas de lien)';
-$BL['be_cnt_search_show_forall']		= 'toujours visible';
-$BL['be_cnt_search_startlevel']			= 'd&eacute;but de la recherche';
-$BL['be_cnt_results_minchar']			= 'caract&egrave;res minimaux pour lancer la recherche';
+$BL['be_cnt_search_highlight']          = 'surligner';
+$BL['be_cnt_results_wordlimit']         = 'mots max. pour le sommaire';
+$BL['be_cnt_page_of_pages']             = 'navigation de recherche';
+$BL['be_cnt_page_of_pages_descr']       = '{PREV:Retour} page #/##, result ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Prochain}';
+$BL['be_cnt_search_show_top']           = 'haut de page';
+$BL['be_cnt_search_show_bottom']        = 'bas de page';
+$BL['be_cnt_search_show_next']          = 'prochain (aussi si pas de lien)';
+$BL['be_cnt_search_show_prev']          = 'pr&eacute;c&eacute;dent (aussi si pas de lien)';
+$BL['be_cnt_search_show_forall']        = 'toujours visible';
+$BL['be_cnt_search_startlevel']         = 'd&eacute;but de la recherche';
+$BL['be_cnt_results_minchar']           = 'caract&egrave;res minimaux pour lancer la recherche';
 
-$BL['be_cnt_pagination']				= 'paginer les parties de contenu';
-$BL['be_article_pagination']			= 'paginer les articles';
-$BL['be_article_per_page']			    = 'articles par page';
-$BL['be_pagination']					= 'pagination';
-
-
-$BL['be_ctype_recipe']					= 'recette';
-$BL['be_ctype_faq']						= 'faq';
-$BL['be_cnt_additional']				= 'addition';
-$BL['be_cnt_question']					= 'question';
-$BL['be_cnt_answer']					= 'r&eacute;ponse';
-$BL['be_cnt_same_as_summary']			= 'utiliser l&#39;image de l&#39;article';
-$BL['be_cnt_sorting']					= 'classifier';
-$BL['be_cnt_imgupload']					= 'upload&nbsp;d&#39;image';
-$BL['be_cnt_filesize']					= 'taille du fichier';
-$BL['be_cnt_captchalength']				= 'longueur de code du captcha';
-$BL['be_cnt_chars']						= 'caract&egrave;res';
-$BL['be_cnt_download']					= 't&eacute;l&eacute;chargez';
-$BL['be_cnt_download_direct']			= 'direct';
-$BL['be_cnt_database']					= 'base de donn&eacute;es';
-$BL['be_cnt_formsave_in_db']			= 'sauvegarder &agrave; partir des r&eacute;sultats';
-
-$BL['be_cnt_email_notify']				= 'notifier par email';
-$BL['be_cnt_notify_by_email']			= 'par email &agrave;';
-$BL['be_cnt_last_edited']				= 'dernier changement';
-
-$BL['be_cnt_export_selection']			= 'exporter la s&eacute;lection';
-$BL['be_cnt_delete_duplicates']			= 'effacer les doublons';
-$BL['be_cnt_new_recipient']				= 'ajouter un destinataire';
+$BL['be_cnt_pagination']                = 'paginer les parties de contenu';
+$BL['be_article_pagination']            = 'paginer les articles';
+$BL['be_article_per_page']              = 'articles par page';
+$BL['be_pagination']                    = 'pagination';
 
 
-$BL['be_cnt_newsletter_prepare']		= 'newsletter est activ&eacute;e';
-$BL['be_cnt_newsletter_prepare1']		= 'tous les destinataires seront mis dans file d&#39;attente';
-$BL['be_cnt_newsletter_prepare2']		= 'la file d&#39;attente sera mise &agrave; jour&#8230;';
+$BL['be_ctype_recipe']                  = 'recette';
+$BL['be_ctype_faq']                     = 'faq';
+$BL['be_cnt_additional']                = 'addition';
+$BL['be_cnt_question']                  = 'question';
+$BL['be_cnt_answer']                    = 'r&eacute;ponse';
+$BL['be_cnt_same_as_summary']           = 'utiliser l&#39;image de l&#39;article';
+$BL['be_cnt_sorting']                   = 'classifier';
+$BL['be_cnt_imgupload']                 = 'upload&nbsp;d&#39;image';
+$BL['be_cnt_filesize']                  = 'taille du fichier';
+$BL['be_cnt_captchalength']             = 'longueur de code du captcha';
+$BL['be_cnt_chars']                     = 'caract&egrave;res';
+$BL['be_cnt_download']                  = 't&eacute;l&eacute;chargez';
+$BL['be_cnt_download_direct']           = 'direct';
+$BL['be_cnt_database']                  = 'base de donn&eacute;es';
+$BL['be_cnt_formsave_in_db']            = 'sauvegarder &agrave; partir des r&eacute;sultats';
 
-$BL['be_cnt_export']					= 'exporter';
-$BL['be_cnt_formsave_profile']			= 'sauvegarder les donn&eacute;es de l&#39;utilisateur';
-$BL['be_profile_label_add']				= 'Ajouter';
-$BL['be_profile_label_website']			= 'Site web (URL)';
-$BL['be_profile_label_gender']			= 'genre';
-$BL['be_profile_label_birthday']		= 'anniversaire';
+$BL['be_cnt_email_notify']              = 'notifier par email';
+$BL['be_cnt_notify_by_email']           = 'par email &agrave;';
+$BL['be_cnt_last_edited']               = 'dernier changement';
 
-$BL['be_cnt_store_in']					= 'sauvegarder dans le champs';
-$BL['be_aboutlink_title']				= 'info &agrave; propos de phpwcms et la licence';
+$BL['be_cnt_export_selection']          = 'exporter la s&eacute;lection';
+$BL['be_cnt_delete_duplicates']         = 'effacer les doublons';
+$BL['be_cnt_new_recipient']             = 'ajouter un destinataire';
 
-$BL['be_shortdate']          			= 'n/j/y';
-$BL['be_shortdatetime']          		= 'n/j/y G:i';
 
-$BL['be_confirm_sending']				= 'confirmer l&#39;envoi';
-$BL['be_confirm_text']					= 'Oui, envoyer la newsletter &agrave; tous les destinataires!';
+$BL['be_cnt_newsletter_prepare']        = 'newsletter est activ&eacute;e';
+$BL['be_cnt_newsletter_prepare1']       = 'tous les destinataires seront mis dans file d&#39;attente';
+$BL['be_cnt_newsletter_prepare2']       = 'la file d&#39;attente sera mise &agrave; jour&#8230;';
 
-$BL['be_cnt_queued']					= 'liste d&#39;attente';
-$BL['be_last_sending']					= 'dernier envoi';
-$BL['be_last_edited']					= 'deni&egrave;re &eacute;dition';
-$BL['be_total']							= 'total';
+$BL['be_cnt_export']                    = 'exporter';
+$BL['be_cnt_formsave_profile']          = 'sauvegarder les donn&eacute;es de l&#39;utilisateur';
+$BL['be_profile_label_add']             = 'Ajouter';
+$BL['be_profile_label_website']         = 'Site web (URL)';
+$BL['be_profile_label_gender']          = 'genre';
+$BL['be_profile_label_birthday']        = 'anniversaire';
 
-$BL['be_settings']						= 'settings';
-$BL['be_ctype']							= 'parties de contenu';
-$BL['be_selection']						= 's&eacute;lection';
+$BL['be_cnt_store_in']                  = 'sauvegarder dans le champs';
+$BL['be_aboutlink_title']               = 'info &agrave; propos de phpwcms et la licence';
 
-$BL['be_ctype_module']					= 'plug-in';
+$BL['be_shortdate']                     = 'n/j/y';
+$BL['be_shortdatetime']                 = 'n/j/y G:i';
+
+$BL['be_confirm_sending']               = 'confirmer l&#39;envoi';
+$BL['be_confirm_text']                  = 'Oui, envoyer la newsletter &agrave; tous les destinataires!';
+
+$BL['be_cnt_queued']                    = 'liste d&#39;attente';
+$BL['be_last_sending']                  = 'dernier envoi';
+$BL['be_last_edited']                   = 'deni&egrave;re &eacute;dition';
+$BL['be_total']                         = 'total';
+
+$BL['be_settings']                      = 'settings';
+$BL['be_ctype']                         = 'parties de contenu';
+$BL['be_selection']                     = 's&eacute;lection';
+
+$BL['be_ctype_module']                  = 'plug-in';
 

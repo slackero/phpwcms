@@ -656,7 +656,7 @@ $BL['be_article_adminuser']     = 'Administrator';
 $BL['be_article_username']      = 'Autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']         = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']         = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']  = 'widoczne tylko dla zalogowanych użytkowników';
@@ -1388,16 +1388,16 @@ $BL['be_caption_descr.']        = 'opis';
 $BL['be_display_html5_only']    = 'tylko HTML5';
 $BL['be_audio_only']            = 'tylko audio';
 
-$BL['be_filter']		= 'filtr';
-$BL['be_filter_with_tags']	= 'w/g etykiet';
-$BL['be_filter_not_selected']	= 'Nie wybrano kategorii';
-$BL['be_empty_search_result']	= 'Wyszukiwanie nie przyniosło wyników.';
-$BL['confirm_cp_tab_warning']	= 'Podrozdział nie ma tytułu i nie jest przypisany żaden numer.Zaznaczenie zostanie utracone, podczas zapisu lub aktualizacji.';
+$BL['be_filter']        = 'filtr';
+$BL['be_filter_with_tags']  = 'w/g etykiet';
+$BL['be_filter_not_selected']   = 'Nie wybrano kategorii';
+$BL['be_empty_search_result']   = 'Wyszukiwanie nie przyniosło wyników.';
+$BL['confirm_cp_tab_warning']   = 'Podrozdział nie ma tytułu i nie jest przypisany żaden numer.Zaznaczenie zostanie utracone, podczas zapisu lub aktualizacji.';
 
-$BL['be_canonical']		= 'link kanoniczny';
-$BL['be_breadcrumb']		= 'zachowanie nawigacyjne wyświetlania';
-$BL['be_breadcrumb_nothidden']	= 'widoczne, jeśli poziom jest ukryty';
-$BL['be_breadcrumb_nolink']	= 'nie ma linku';
+$BL['be_canonical']     = 'link kanoniczny';
+$BL['be_breadcrumb']        = 'zachowanie nawigacyjne wyświetlania';
+$BL['be_breadcrumb_nothidden']  = 'widoczne, jeśli poziom jest ukryty';
+$BL['be_breadcrumb_nolink'] = 'nie ma linku';
 
 $BL['CSRF_POST_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów POST. Ze względów bezpieczeństwa, sesja została zakończona.';
 $BL['CSRF_POST_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> parametrów POST nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';

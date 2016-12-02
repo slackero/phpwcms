@@ -96,7 +96,7 @@ $BL['be_ctype_code']                    = 'código';
 $BL['be_ctype_textimage']               = 'texto c/ imagem';
 $BL['be_ctype_images']                  = 'imagens';
 $BL['be_ctype_bulletlist']              = 'lista (tabela)';
-$BL['be_ctype_ullist']     		        = 'lista';
+$BL['be_ctype_ullist']                  = 'lista';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'link listagem';
 $BL['be_ctype_linkarticle']             = 'link artigo';
@@ -575,8 +575,8 @@ $BL['be_cnt_target2']                   = 'no frame parente da janela';
 $BL['be_cnt_target3']                   = 'na mesma janela sem frames';
 $BL['be_cnt_target4']                   = 'no mesmo frame ou janela';
 $BL['be_cnt_bullet']                    = 'lists (tabela)';
-$BL['be_cnt_ullist']     		        = 'lista';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1º nível, &nbsp; ~~ = 2º nível, &nbsp; etc.';
+$BL['be_cnt_ullist']                    = 'lista';
+$BL['be_cnt_ullist_desc']               = '~ = 1º nível, &nbsp; ~~ = 2º nível, &nbsp; etc.';
 $BL['be_cnt_linklist']                  = 'listagem de links';
 $BL['be_cnt_plainhtml']                 = 'simplesmente html';
 $BL['be_cnt_files']                     = 'ficheiros';
@@ -647,21 +647,21 @@ $BL['be_article_adminuser']             = 'Utilizador administrativo';
 $BL['be_article_username']              = 'autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'visivel apenas por utilizadores registados/ligados';
 $BL['be_admin_struct_status']           = 'status no frontend';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'menu de artigos';
-$BL['be_cnt_sitelevel']					= 'nível do site';
-$BL['be_cnt_sitecurrent']				= 'nível actual do site';
+$BL['be_ctype_articlemenu']             = 'menu de artigos';
+$BL['be_cnt_sitelevel']                 = 'nível do site';
+$BL['be_cnt_sitecurrent']               = 'nível actual do site';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'texto por defeito no backend';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'texto por defeito no backend';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'titulo/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'e-card imagem';
@@ -682,24 +682,24 @@ $BL['be_admin_startup_text']            = 'texto de entrada';
 $BL['be_admin_startup_button']          = 'salvar texto de entrada';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'livro de visitas/comentário.';
-$BL['be_cnt_guestbook_listing']			= 'listagem';
-$BL['be_cnt_guestbook_listing_all']		= 'mostrar&nbsp;todas&nbsp;as&nbsp;entradas';
-$BL['be_cnt_guestbook_list']			= 'lista';
-$BL['be_cnt_guestbook_perpage']			= 'por&nbsp;página';
-$BL['be_cnt_guestbook_form']			= 'form';
-$BL['be_cnt_guestbook_signed']			= 'assinado';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'anterior';
-$BL['be_cnt_guestbook_after']			= 'próxima';
-$BL['be_cnt_guestbook_entry']			= 'entrada';
-$BL['be_cnt_guestbook_edit']			= 'editar';
+$BL['be_ctype_guestbook']               = 'livro de visitas/comentário.';
+$BL['be_cnt_guestbook_listing']         = 'listagem';
+$BL['be_cnt_guestbook_listing_all']     = 'mostrar&nbsp;todas&nbsp;as&nbsp;entradas';
+$BL['be_cnt_guestbook_list']            = 'lista';
+$BL['be_cnt_guestbook_perpage']         = 'por&nbsp;página';
+$BL['be_cnt_guestbook_form']            = 'form';
+$BL['be_cnt_guestbook_signed']          = 'assinado';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'anterior';
+$BL['be_cnt_guestbook_after']           = 'próxima';
+$BL['be_cnt_guestbook_entry']           = 'entrada';
+$BL['be_cnt_guestbook_edit']            = 'editar';
 $BL['be_cnt_ecardform_selector']        = 'seletor';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio button';
 $BL['be_cnt_ecardform_javascript']      = 'Funcionalidade JavaScript';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'Contagem superior do artigo';
 
 // added: 19-04-2004
@@ -733,7 +733,7 @@ $BL['be_newsletter_readyfailed']        = 'Falhou o envio do boletim de notícia
 $BL['be_subnav_msg_subscribers']        = 'subscritores do boletim de notícias';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'mapa do site';
+$BL['be_ctype_sitemap']                 = 'mapa do site';
 $BL['be_cnt_sitemap_catimage']          = 'icon da categoria';
 $BL['be_cnt_sitemap_articleimage']      = 'icon do artigo';
 $BL['be_cnt_sitemap_display']           = 'mostrar';
@@ -746,7 +746,7 @@ $BL['be_cnt_sitemap_classcount']        = 'adicionar ao nome da class';
 $BL['be_cnt_sitemap_noclasscount']      = 'não adicionar ao nome da class';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'oferta';
+$BL['be_ctype_bid']                     = 'oferta';
 $BL['be_cnt_bid_bidtext']               = 'texto da oferta';
 $BL['be_cnt_bid_sendtext']              = 'texto enviado';
 $BL['be_cnt_bid_verifiedtext']          = 'texto para verificação';

@@ -649,22 +649,22 @@ $BL['be_article_adminuser']             = 'administrator';
 $BL['be_article_username']              = 'skrevet av';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'visible for users logged on only';
 $BL['be_admin_struct_status']           = 'frontend meny status';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'article menu';
-$BL['be_cnt_sitelevel']					= 'site level';
-$BL['be_cnt_sitecurrent']				= 'current site level';
+$BL['be_ctype_articlemenu']             = 'article menu';
+$BL['be_cnt_sitelevel']                 = 'site level';
+$BL['be_cnt_sitecurrent']               = 'current site level';
 
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'backend default text';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'backend default text';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'titel/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'e-card bilde';
@@ -685,24 +685,24 @@ $BL['be_admin_startup_text']            = 'startup text';
 $BL['be_admin_startup_button']          = 'save startup text';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'guestbook/comment';
-$BL['be_cnt_guestbook_listing']			= 'listing';
-$BL['be_cnt_guestbook_listing_all']		= 'list&nbsp;alle&nbsp;innlegg';
-$BL['be_cnt_guestbook_list']			= 'list';
-$BL['be_cnt_guestbook_perpage']			= 'pr&nbsp;side';
-$BL['be_cnt_guestbook_form']			= 'skjema';
-$BL['be_cnt_guestbook_signed']			= 'signed';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'f&#248;r';
-$BL['be_cnt_guestbook_after']			= 'etter';
-$BL['be_cnt_guestbook_entry']			= 'innlegg';
-$BL['be_cnt_guestbook_edit']			= 'rediger';
+$BL['be_ctype_guestbook']               = 'guestbook/comment';
+$BL['be_cnt_guestbook_listing']         = 'listing';
+$BL['be_cnt_guestbook_listing_all']     = 'list&nbsp;alle&nbsp;innlegg';
+$BL['be_cnt_guestbook_list']            = 'list';
+$BL['be_cnt_guestbook_perpage']         = 'pr&nbsp;side';
+$BL['be_cnt_guestbook_form']            = 'skjema';
+$BL['be_cnt_guestbook_signed']          = 'signed';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'f&#248;r';
+$BL['be_cnt_guestbook_after']           = 'etter';
+$BL['be_cnt_guestbook_entry']           = 'innlegg';
+$BL['be_cnt_guestbook_edit']            = 'rediger';
 $BL['be_cnt_ecardform_selector']        = 'velger';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio knapp';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript funksjonalitet';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'top article count';
 
 // added: 19-04-2004
@@ -736,7 +736,7 @@ $BL['be_newsletter_readyfailed']        = 'Kunne ikke sende til';
 $BL['be_subnav_msg_subscribers']        = 'nyhetsbrev abonnenter';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'sidekart';
+$BL['be_ctype_sitemap']                 = 'sidekart';
 $BL['be_cnt_sitemap_catimage']          = 'niv&#229; ikon';
 $BL['be_cnt_sitemap_articleimage']      = 'artikkel ikon';
 $BL['be_cnt_sitemap_display']           = 'vis';
@@ -749,7 +749,7 @@ $BL['be_cnt_sitemap_classcount']        = 'legg til class name';
 $BL['be_cnt_sitemap_noclasscount']      = 'ikke legg til class name';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'by';
+$BL['be_ctype_bid']                     = 'by';
 $BL['be_cnt_bid_bidtext']               = 'budtekst';
 $BL['be_cnt_bid_sendtext']              = 'sendt tekst';
 $BL['be_cnt_bid_verifiedtext']          = 'bekreftet tekst';
@@ -865,15 +865,15 @@ $BL['be_cache']                         = 'cache';
 $BL['be_cache_timeout']                 = 'timeout';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'brukere &amp; grupper';
+$BL['be_subnav_admin_groups']           = 'brukere &amp; grupper';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'forum';
-$BL['be_subnav_msg_forum']				= 'forumliste';
-$BL['be_forum_title']					= 'forum tittel';
-$BL['be_forum_permission']				= 'tillatelser';
-$BL['be_forum_add']						= 'legg til forum';
-$BL['be_forum_titleedit']				= 'rediger forum';
+$BL['be_ctype_forum']                   = 'forum';
+$BL['be_subnav_msg_forum']              = 'forumliste';
+$BL['be_forum_title']                   = 'forum tittel';
+$BL['be_forum_permission']              = 'tillatelser';
+$BL['be_forum_add']                     = 'legg til forum';
+$BL['be_forum_titleedit']               = 'rediger forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'custom';
@@ -881,58 +881,58 @@ $BL['be_show_content']                  = 'vis';
 $BL['be_main_content']                  = 'hovedspalte';
 $BL['be_admin_template_jswarning']      = 'ADVARSEL!!! \nCustom blokker kan endres! \n\nHvis du avbryter \nm&#229; din sidelayout resettes! \n\nEndre mal?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'RSS feed';
-$BL['be_cnt_rssfeed_url']				= 'RSS url';
-$BL['be_cnt_rssfeed_item']				= 'items';
-$BL['be_cnt_rssfeed_max']				= 'maks.';
-$BL['be_cnt_rssfeed_cut']				= 'skjul f&#248;rste item';
+$BL['be_ctype_rssfeed']                 = 'RSS feed';
+$BL['be_cnt_rssfeed_url']               = 'RSS url';
+$BL['be_cnt_rssfeed_item']              = 'items';
+$BL['be_cnt_rssfeed_max']               = 'maks.';
+$BL['be_cnt_rssfeed_cut']               = 'skjul f&#248;rste item';
 
-$BL['be_ctype_simpleform']				= 'email kontaktskjema';
+$BL['be_ctype_simpleform']              = 'email kontaktskjema';
 
-$BL['be_cnt_onsuccess']				    = 'ved suksess';
-$BL['be_cnt_onerror']				    = 'ved feil';
-$BL['be_cnt_onsuccess_redirect']	    = 'videresend ved suksess';
-$BL['be_cnt_onerror_redirect']	        = 'videresend ved feil';
+$BL['be_cnt_onsuccess']                 = 'ved suksess';
+$BL['be_cnt_onerror']                   = 'ved feil';
+$BL['be_cnt_onsuccess_redirect']        = 'videresend ved suksess';
+$BL['be_cnt_onerror_redirect']          = 'videresend ved feil';
 
-$BL['be_cnt_form_class']				= 'skjema class';
-$BL['be_cnt_label_wrap']				= 'label wrap';
-$BL['be_cnt_error_class']				= 'feil class';
-$BL['be_cnt_req_mark']				    = 'p&#229;krevd markering';
-$BL['be_cnt_mark_as_req']				= 'merk som p&#229;krevd';
-$BL['be_cnt_mark_as_del']				= 'merk felt for sletting';
+$BL['be_cnt_form_class']                = 'skjema class';
+$BL['be_cnt_label_wrap']                = 'label wrap';
+$BL['be_cnt_error_class']               = 'feil class';
+$BL['be_cnt_req_mark']                  = 'p&#229;krevd markering';
+$BL['be_cnt_mark_as_req']               = 'merk som p&#229;krevd';
+$BL['be_cnt_mark_as_del']               = 'merk felt for sletting';
 
 
-$BL['be_cnt_type']				        = 'type';
-$BL['be_cnt_label']				        = 'label';
-$BL['be_cnt_needed']					= 'p&#229;krevd';
-$BL['be_cnt_delete']					= 'slett';
-$BL['be_cnt_value']						= 'verdi';
-$BL['be_cnt_error_text']				= 'feilmelding';
-$BL['be_cnt_css_style']					= 'CSS stil';
+$BL['be_cnt_type']                      = 'type';
+$BL['be_cnt_label']                     = 'label';
+$BL['be_cnt_needed']                    = 'p&#229;krevd';
+$BL['be_cnt_delete']                    = 'slett';
+$BL['be_cnt_value']                     = 'verdi';
+$BL['be_cnt_error_text']                = 'feilmelding';
+$BL['be_cnt_css_style']                 = 'CSS stil';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
-												"hidden"=>'skjult', "password"=>'passord', "select"=>'select meny',
-												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio knapp',
-												"upload"=>'fil', "submit"=>'sendeknapp', "reset"=>'reset knapp',
-												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
+$BL['be_cnt_field']                     = array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+                                                "hidden"=>'skjult', "password"=>'passord', "select"=>'select meny',
+                                                "list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio knapp',
+                                                "upload"=>'fil', "submit"=>'sendeknapp', "reset"=>'reset knapp',
+                                                "break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
 
-$BL['be_cnt_access']					= 'tilgang';
-$BL['be_cnt_activated']					= 'aktivert';
-$BL['be_cnt_available']					= 'tilgjengelig';
-$BL['be_cnt_guests']					= 'gjester';
-$BL['be_cnt_admin']						= 'admin';
-$BL['be_cnt_write']						= 'skrive';
-$BL['be_cnt_read']						= 'lese';
+$BL['be_cnt_access']                    = 'tilgang';
+$BL['be_cnt_activated']                 = 'aktivert';
+$BL['be_cnt_available']                 = 'tilgjengelig';
+$BL['be_cnt_guests']                    = 'gjester';
+$BL['be_cnt_admin']                     = 'admin';
+$BL['be_cnt_write']                     = 'skrive';
+$BL['be_cnt_read']                      = 'lese';
 
-$BL['be_cnt_no_wysiwyg_editor']			= 'deaktiver WYSIWYG editor';
-$BL['be_cnt_cache_update']				= 'reset cache';
-$BL['be_cnt_cache_delete']				= 'slett cache';
-$BL['be_cnt_cache_delete_msg']			= 'Vil du virkelig slette cache?  \nDette kan p&#229;virke s&#248;kefunksjonen.  \n';
+$BL['be_cnt_no_wysiwyg_editor']         = 'deaktiver WYSIWYG editor';
+$BL['be_cnt_cache_update']              = 'reset cache';
+$BL['be_cnt_cache_delete']              = 'slett cache';
+$BL['be_cnt_cache_delete_msg']          = 'Vil du virkelig slette cache?  \nDette kan p&#229;virke s&#248;kefunksjonen.  \n';
 
-$BL['be_admin_usr_issection']			= 'login section';
-$BL['be_admin_usr_ifsection0']			= 'frontend';
-$BL['be_admin_usr_ifsection1']			= 'backend';
-$BL['be_admin_usr_ifsection2']			= 'frontend og backend';
+$BL['be_admin_usr_issection']           = 'login section';
+$BL['be_admin_usr_ifsection0']          = 'frontend';
+$BL['be_admin_usr_ifsection1']          = 'backend';
+$BL['be_admin_usr_ifsection2']          = 'frontend og backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'rediger denne artikkelens innhold';

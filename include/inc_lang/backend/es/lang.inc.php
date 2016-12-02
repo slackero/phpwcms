@@ -643,14 +643,14 @@ $BL['be_article_adminuser']             = 'Usuario de administraci&oacute;n';
 $BL['be_article_username']              = 'Autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'Visible s&oacute;lo para usuarios registrados';
 $BL['be_admin_struct_status']           = 'Estado del menú frontend';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'article menu';
-$BL['be_cnt_sitelevel']					= 'site level';
-$BL['be_cnt_sitecurrent']				= 'current site level';
+$BL['be_ctype_articlemenu']             = 'article menu';
+$BL['be_cnt_sitelevel']                 = 'site level';
+$BL['be_cnt_sitecurrent']               = 'current site level';
 

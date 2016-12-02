@@ -14,7 +14,7 @@
 $wcs_content_type = array(
      0 => $BL['be_ctype_plaintext'] ,
      6 => $BL['be_ctype_html'],
-    14 => $BL['be_ctype_wysywig'],
+    14 => $BL['be_ctype_wysiwyg'],
     11 => $BL['be_ctype_code'],
      1 => $BL['be_ctype_textimage'],
     29 => $BL['be_ctype_imagesdiv'],

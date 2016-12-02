@@ -94,7 +94,7 @@ $BL['be_ctype_code']                    = 'κώδικας';
 $BL['be_ctype_textimage']               = 'κείμενο w/με εικόνες';
 $BL['be_ctype_images']                  = 'εικόνες';
 $BL['be_ctype_bulletlist']              = 'λίστα (table)';
-$BL['be_ctype_ullist']     		        = 'list';
+$BL['be_ctype_ullist']                  = 'list';
 $BL['be_ctype_link']                    = 'υπερσύνδεση &amp; email';
 $BL['be_ctype_linklist']                = 'λίστα υπερσυνδέσεων';
 $BL['be_ctype_linkarticle']             = 'υπερσυνδέσεις για το άρθρο';
@@ -576,8 +576,8 @@ $BL['be_cnt_target2']                   = 'in parent frame of the window';
 $BL['be_cnt_target3']                   = 'in same window without frames';
 $BL['be_cnt_target4']                   = 'in the same frame or window';
 $BL['be_cnt_bullet']                    = 'list (table)';
-$BL['be_cnt_ullist']     		        = 'list';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1st Level, &nbsp; ~~ = 2nd level, &nbsp; etc.';
+$BL['be_cnt_ullist']                    = 'list';
+$BL['be_cnt_ullist_desc']               = '~ = 1st Level, &nbsp; ~~ = 2nd level, &nbsp; etc.';
 $BL['be_cnt_linklist']                  = 'λίστα υπερσυνδέσεων';
 $BL['be_cnt_plainhtml']                 = 'απλή html';
 $BL['be_cnt_files']                     = 'αρχεία';
@@ -648,21 +648,21 @@ $BL['be_article_adminuser']             = 'admin user';
 $BL['be_article_username']              = 'συγγραφέας';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'ορατό μόνο στους συνδεδεμένους χρήστες';
 $BL['be_admin_struct_status']           = 'frontend menu status';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'article menu';
-$BL['be_cnt_sitelevel']					= 'site level';
-$BL['be_cnt_sitecurrent']				= 'current site level';
+$BL['be_ctype_articlemenu']             = 'article menu';
+$BL['be_cnt_sitelevel']                 = 'site level';
+$BL['be_cnt_sitecurrent']               = 'current site level';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'backend default text';
-$BL['be_ctype_ecard']					= 'ηλεκτρονική κάρτα';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'backend default text';
+$BL['be_ctype_ecard']                   = 'ηλεκτρονική κάρτα';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'title/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'εικόνα ηλεκτρονικής κάρτας';
@@ -683,24 +683,24 @@ $BL['be_admin_startup_text']            = 'startup text';
 $BL['be_admin_startup_button']          = 'save startup text';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'guestbook/comment';
-$BL['be_cnt_guestbook_listing']			= 'listing';
-$BL['be_cnt_guestbook_listing_all']		= 'list&nbsp;all&nbsp;entries';
-$BL['be_cnt_guestbook_list']			= 'list';
-$BL['be_cnt_guestbook_perpage']			= 'per&nbsp;page';
-$BL['be_cnt_guestbook_form']			= 'form';
-$BL['be_cnt_guestbook_signed']			= 'signed';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'πριν';
-$BL['be_cnt_guestbook_after']			= 'μετά';
-$BL['be_cnt_guestbook_entry']			= 'εγγραφή';
-$BL['be_cnt_guestbook_edit']			= 'επεξεργασία';
+$BL['be_ctype_guestbook']               = 'guestbook/comment';
+$BL['be_cnt_guestbook_listing']         = 'listing';
+$BL['be_cnt_guestbook_listing_all']     = 'list&nbsp;all&nbsp;entries';
+$BL['be_cnt_guestbook_list']            = 'list';
+$BL['be_cnt_guestbook_perpage']         = 'per&nbsp;page';
+$BL['be_cnt_guestbook_form']            = 'form';
+$BL['be_cnt_guestbook_signed']          = 'signed';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'πριν';
+$BL['be_cnt_guestbook_after']           = 'μετά';
+$BL['be_cnt_guestbook_entry']           = 'εγγραφή';
+$BL['be_cnt_guestbook_edit']            = 'επεξεργασία';
 $BL['be_cnt_ecardform_selector']        = 'selector';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio button';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript functionality';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'top article count';
 
 // added: 19-04-2004
@@ -734,7 +734,7 @@ $BL['be_newsletter_readyfailed']        = 'Απέτυχε η αποστολή ε
 $BL['be_subnav_msg_subscribers']        = 'συνδρομητές ενημερωτικού δελτίου';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'sitemap';
+$BL['be_ctype_sitemap']                 = 'sitemap';
 $BL['be_cnt_sitemap_catimage']          = 'level icon';
 $BL['be_cnt_sitemap_articleimage']      = 'article icon';
 $BL['be_cnt_sitemap_display']           = 'display';
@@ -747,7 +747,7 @@ $BL['be_cnt_sitemap_classcount']        = 'add to class name';
 $BL['be_cnt_sitemap_noclasscount']      = 'don\'t add to class name';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'bid';
+$BL['be_ctype_bid']                     = 'bid';
 $BL['be_cnt_bid_bidtext']               = 'bid text';
 $BL['be_cnt_bid_sendtext']              = 'sent text';
 $BL['be_cnt_bid_verifiedtext']          = 'verified text';
@@ -863,15 +863,15 @@ $BL['be_cache']                         = 'cache';
 $BL['be_cache_timeout']                 = 'timeout';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'users &amp; groups';
+$BL['be_subnav_admin_groups']           = 'users &amp; groups';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'forum';
-$BL['be_subnav_msg_forum']				= 'forums list';
-$BL['be_forum_title']					= 'forum title';
-$BL['be_forum_permission']				= 'permissions';
-$BL['be_forum_add']						= 'add forum';
-$BL['be_forum_titleedit']				= 'edit forum';
+$BL['be_ctype_forum']                   = 'forum';
+$BL['be_subnav_msg_forum']              = 'forums list';
+$BL['be_forum_title']                   = 'forum title';
+$BL['be_forum_permission']              = 'permissions';
+$BL['be_forum_add']                     = 'add forum';
+$BL['be_forum_titleedit']               = 'edit forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'custom';
@@ -879,59 +879,59 @@ $BL['be_show_content']                  = 'display';
 $BL['be_main_content']                  = 'κύρια στήλη';
 $BL['be_admin_template_jswarning']      = 'Προειδοποίηση!!! \nCustom blocks may change! \n\nIf you cancel \nreset your pagelayout setting! \n\nChange template?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'RSS feed';
-$BL['be_cnt_rssfeed_url']				= 'RSS url';
-$BL['be_cnt_rssfeed_item']				= 'items';
-$BL['be_cnt_rssfeed_max']				= 'max.';
-$BL['be_cnt_rssfeed_cut']				= 'hide 1st item';
+$BL['be_ctype_rssfeed']                 = 'RSS feed';
+$BL['be_cnt_rssfeed_url']               = 'RSS url';
+$BL['be_cnt_rssfeed_item']              = 'items';
+$BL['be_cnt_rssfeed_max']               = 'max.';
+$BL['be_cnt_rssfeed_cut']               = 'hide 1st item';
 
-$BL['be_ctype_simpleform']				= 'email contact form';
+$BL['be_ctype_simpleform']              = 'email contact form';
 
-$BL['be_cnt_onsuccess']				    = 'on success';
-$BL['be_cnt_onerror']				    = 'on error';
-$BL['be_cnt_onsuccess_redirect']	    = 'redirect on success';
-$BL['be_cnt_onerror_redirect']	        = 'redirect on error';
+$BL['be_cnt_onsuccess']                 = 'on success';
+$BL['be_cnt_onerror']                   = 'on error';
+$BL['be_cnt_onsuccess_redirect']        = 'redirect on success';
+$BL['be_cnt_onerror_redirect']          = 'redirect on error';
 
-$BL['be_cnt_form_class']				= 'form class';
-$BL['be_cnt_label_wrap']				= 'label wrap';
-$BL['be_cnt_error_class']				= 'error class';
-$BL['be_cnt_req_mark']				    = 'required mark';
-$BL['be_cnt_mark_as_req']				= 'mark as required';
-$BL['be_cnt_mark_as_del']				= 'mark item for deletion';
+$BL['be_cnt_form_class']                = 'form class';
+$BL['be_cnt_label_wrap']                = 'label wrap';
+$BL['be_cnt_error_class']               = 'error class';
+$BL['be_cnt_req_mark']                  = 'required mark';
+$BL['be_cnt_mark_as_req']               = 'mark as required';
+$BL['be_cnt_mark_as_del']               = 'mark item for deletion';
 
 
-$BL['be_cnt_type']				        = 'τύπος';
-$BL['be_cnt_label']				        = 'ταμπέλα';
-$BL['be_cnt_needed']					= 'απαιτούνται';
-$BL['be_cnt_delete']					= 'διαγραφή';
-$BL['be_cnt_value']					= 'τιμή';
-$BL['be_cnt_error_text']				= 'σφάλμα κείμενο';
-$BL['be_cnt_css_style']					= 'CSS στυλ';
-$BL['be_cnt_send_copy_to']				= 'CC σε';
+$BL['be_cnt_type']                      = 'τύπος';
+$BL['be_cnt_label']                     = 'ταμπέλα';
+$BL['be_cnt_needed']                    = 'απαιτούνται';
+$BL['be_cnt_delete']                    = 'διαγραφή';
+$BL['be_cnt_value']                 = 'τιμή';
+$BL['be_cnt_error_text']                = 'σφάλμα κείμενο';
+$BL['be_cnt_css_style']                 = 'CSS στυλ';
+$BL['be_cnt_send_copy_to']              = 'CC σε';
 
-$BL['be_cnt_field']						= array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
-												"hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
-												"list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
-												"upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
-												"break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
+$BL['be_cnt_field']                     = array("text"=>'text (single-line)', "email"=>'email', "textarea"=>'text (multi-line)',
+                                                "hidden"=>'hidden', "password"=>'password', "select"=>'select menu',
+                                                "list"=>'list menu', "checkbox"=>'checkbox', "radio"=>'radio button',
+                                                "upload"=>'file', "submit"=>'send button', "reset"=>'reset button',
+                                                "break"=>'break', "breaktext"=>'break text', "special"=>'text (spezial)');
 
-$BL['be_cnt_access']					= 'πρόσβαση';
-$BL['be_cnt_activated']					= 'ενεργοποιημένο';
-$BL['be_cnt_available']					= 'διαθέσιμο';
-$BL['be_cnt_guests']					= 'επισκέπτες';
-$BL['be_cnt_admin']						= 'διαχεριστής';
-$BL['be_cnt_write']						= 'γράψε';
-$BL['be_cnt_read']						= 'διάβασε';
+$BL['be_cnt_access']                    = 'πρόσβαση';
+$BL['be_cnt_activated']                 = 'ενεργοποιημένο';
+$BL['be_cnt_available']                 = 'διαθέσιμο';
+$BL['be_cnt_guests']                    = 'επισκέπτες';
+$BL['be_cnt_admin']                     = 'διαχεριστής';
+$BL['be_cnt_write']                     = 'γράψε';
+$BL['be_cnt_read']                      = 'διάβασε';
 
-$BL['be_cnt_no_wysiwyg_editor']			= 'απενεργοποίηση WYSIWYG editor';
-$BL['be_cnt_cache_update']				= 'μηδενισμός cache';
-$BL['be_cnt_cache_delete']				= 'διαγραφή cache';
-$BL['be_cnt_cache_delete_msg']			= 'Είστε σίγουροι οτι θέλετε να διαγράψετε το cache?  \nΑυτό μπορεί να επηρρεάσει και την εύρεση.  \n';
+$BL['be_cnt_no_wysiwyg_editor']         = 'απενεργοποίηση WYSIWYG editor';
+$BL['be_cnt_cache_update']              = 'μηδενισμός cache';
+$BL['be_cnt_cache_delete']              = 'διαγραφή cache';
+$BL['be_cnt_cache_delete_msg']          = 'Είστε σίγουροι οτι θέλετε να διαγράψετε το cache?  \nΑυτό μπορεί να επηρρεάσει και την εύρεση.  \n';
 
-$BL['be_admin_usr_issection']			= 'login section';
-$BL['be_admin_usr_ifsection0']			= 'frontend';
-$BL['be_admin_usr_ifsection1']			= 'backend';
-$BL['be_admin_usr_ifsection2']			= 'frontend and backend';
+$BL['be_admin_usr_issection']           = 'login section';
+$BL['be_admin_usr_ifsection0']          = 'frontend';
+$BL['be_admin_usr_ifsection1']          = 'backend';
+$BL['be_admin_usr_ifsection2']          = 'frontend and backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
 $BL['be_func_content_edit']              = 'edit this article content part';

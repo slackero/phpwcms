@@ -94,7 +94,7 @@ $BL['be_ctype_code']                    = 'kód';
 $BL['be_ctype_textimage']               = 'szöveg képpel';
 $BL['be_ctype_images']                  = 'képek';
 $BL['be_ctype_bulletlist']              = 'lista (felsorolás)';
-$BL['be_ctype_ullist']     		        = 'lista';
+$BL['be_ctype_ullist']                  = 'lista';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'link lista';
 $BL['be_ctype_linkarticle']             = 'cikk link';
@@ -573,8 +573,8 @@ $BL['be_cnt_target2']                   = 'az ablak szülõ keretében';
 $BL['be_cnt_target3']                   = 'ugyanabban az ablakban, keret nélkül';
 $BL['be_cnt_target4']                   = 'ugyanabban az ablakban, vagy keretben';
 $BL['be_cnt_bullet']                    = 'lista (táblázat)';
-$BL['be_cnt_ullist']     		        = 'lista';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1. Szint, &nbsp; ~~ = 2. szint, &nbsp; stb.';
+$BL['be_cnt_ullist']                    = 'lista';
+$BL['be_cnt_ullist_desc']               = '~ = 1. Szint, &nbsp; ~~ = 2. szint, &nbsp; stb.';
 $BL['be_cnt_linklist']                  = 'link lista';
 $BL['be_cnt_plainhtml']                 = 'egyszerû html';
 $BL['be_cnt_files']                     = 'file-ok';
@@ -645,21 +645,21 @@ $BL['be_article_adminuser']             = 'admin felhasználó';
 $BL['be_article_username']              = 'szerzõ';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'csak a bejelentkezett felhasználók láthatják';
 $BL['be_admin_struct_status']           = 'frontend menü státus';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'cikk menü';
-$BL['be_cnt_sitelevel']					= 'weblap&nbsp;(site)&nbsp;szint';
-$BL['be_cnt_sitecurrent']				= 'aktuális weblap (site) szint';
+$BL['be_ctype_articlemenu']             = 'cikk menü';
+$BL['be_cnt_sitelevel']                 = 'weblap&nbsp;(site)&nbsp;szint';
+$BL['be_cnt_sitecurrent']               = 'aktuális weblap (site) szint';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'backend alapértelmezett szöveg';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'backend alapértelmezett szöveg';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'cím/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mail tmpl';
 $BL['be_cnt_ecard_image']               = 'e-card kép';
@@ -680,24 +680,24 @@ $BL['be_admin_startup_text']            = 'bejelentkezõ szöveg';
 $BL['be_admin_startup_button']          = 'bejelentkezõ szöveg mentése';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'vendégkönyv/comm.';
-$BL['be_cnt_guestbook_listing']			= 'listázás';
-$BL['be_cnt_guestbook_listing_all']		= 'minden&nbsp;bejegyzés&nbsp;kiírva';
-$BL['be_cnt_guestbook_list']			= 'kiírva';
-$BL['be_cnt_guestbook_perpage']			= 'per&nbsp;lap';
-$BL['be_cnt_guestbook_form']			= 'form';
-$BL['be_cnt_guestbook_signed']			= 'bejegyzést&nbsp;tett';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'elõtte';
-$BL['be_cnt_guestbook_after']			= 'utána';
-$BL['be_cnt_guestbook_entry']			= 'belépés';
-$BL['be_cnt_guestbook_edit']			= 'szerkesztés';
+$BL['be_ctype_guestbook']               = 'vendégkönyv/comm.';
+$BL['be_cnt_guestbook_listing']         = 'listázás';
+$BL['be_cnt_guestbook_listing_all']     = 'minden&nbsp;bejegyzés&nbsp;kiírva';
+$BL['be_cnt_guestbook_list']            = 'kiírva';
+$BL['be_cnt_guestbook_perpage']         = 'per&nbsp;lap';
+$BL['be_cnt_guestbook_form']            = 'form';
+$BL['be_cnt_guestbook_signed']          = 'bejegyzést&nbsp;tett';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'elõtte';
+$BL['be_cnt_guestbook_after']           = 'utána';
+$BL['be_cnt_guestbook_entry']           = 'belépés';
+$BL['be_cnt_guestbook_edit']            = 'szerkesztés';
 $BL['be_cnt_ecardform_selector']        = 'választás';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio button';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript functionality';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = '"top" cikkek száma';
 
 // added: 19-04-2004
@@ -731,7 +731,7 @@ $BL['be_newsletter_readyfailed']        = 'Meghiúsult a hírlevél küldése';
 $BL['be_subnav_msg_subscribers']        = 'hírlevél elõfizetõk';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'oldaltérkép';
+$BL['be_ctype_sitemap']                 = 'oldaltérkép';
 $BL['be_cnt_sitemap_catimage']          = 'szint ikon';
 $BL['be_cnt_sitemap_articleimage']      = 'cikk ikon';
 $BL['be_cnt_sitemap_display']           = 'megjelenítés';
@@ -744,7 +744,7 @@ $BL['be_cnt_sitemap_classcount']        = 'a "Class name"-hez ad';
 $BL['be_cnt_sitemap_noclasscount']      = 'nem ad a "Class name"-hez';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'licit';
+$BL['be_ctype_bid']                     = 'licit';
 $BL['be_cnt_bid_bidtext']               = 'licit szöveg';
 $BL['be_cnt_bid_sendtext']              = 'elküldve&nbsp;szöveg';
 $BL['be_cnt_bid_verifiedtext']          = 'megerõsítve&nbsp;szöveg';

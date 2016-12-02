@@ -93,7 +93,7 @@ $BL['be_ctype_code']                    = 'k&oacute;d';
 $BL['be_ctype_textimage']               = 'text s obr&aacute;zkom';
 $BL['be_ctype_images']                  = 'obr&aacute;zky';
 $BL['be_ctype_bulletlist']              = 'zoznam (tabu&#318;ka)';
-$BL['be_ctype_ullist']     		        = 'zoznam';
+$BL['be_ctype_ullist']                  = 'zoznam';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'zoznam linkov';
 $BL['be_ctype_linkarticle']             = 'link na &#269;l&aacute;nok';
@@ -571,8 +571,8 @@ $BL['be_cnt_target2']                   = 'v nadradenom r&aacute;me okna';
 $BL['be_cnt_target3']                   = 'v tom istom okne bez r&aacute;mov';
 $BL['be_cnt_target4']                   = 'v tom istom r&aacute;me alebo okne';
 $BL['be_cnt_bullet']                    = 'zoznam (tabu&#318;ka)';
-$BL['be_cnt_ullist']     		        = 'zoznam';
-$BL['be_cnt_ullist_desc']     		    = '~ = Prv&aacute; &uacute;rove&#328;, &nbsp; ~~ = Druh&aacute; &uacute;rove&#328;, &nbsp; at&#271;.';
+$BL['be_cnt_ullist']                    = 'zoznam';
+$BL['be_cnt_ullist_desc']               = '~ = Prv&aacute; &uacute;rove&#328;, &nbsp; ~~ = Druh&aacute; &uacute;rove&#328;, &nbsp; at&#271;.';
 $BL['be_cnt_linklist']                  = 'zoznam odkazov';
 $BL['be_cnt_plainhtml']                 = 'oby&#269;ajn&eacute; html';
 $BL['be_cnt_files']                     = 's&uacute;bory';
@@ -643,21 +643,21 @@ $BL['be_article_adminuser']             = 'administr&aacute;tor';
 $BL['be_article_username']              = 'autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'vidite&#318;n&eacute; len pre prihl&aacute;sen&yacute;ch u&#382;&iacute;vate&#318;ov';
 $BL['be_admin_struct_status']           = 'frontend menu stav';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'menu &#269;l&aacute;nku';
-$BL['be_cnt_sitelevel']					= '&uacute;rove&#328; str&aacute;nky';
-$BL['be_cnt_sitecurrent']				= 'aktu&aacute;lna &uacute;rove&#328; str&aacute;nky';
+$BL['be_ctype_articlemenu']             = 'menu &#269;l&aacute;nku';
+$BL['be_cnt_sitelevel']                 = '&uacute;rove&#328; str&aacute;nky';
+$BL['be_cnt_sitecurrent']               = 'aktu&aacute;lna &uacute;rove&#328; str&aacute;nky';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'backend predvolen&yacute; text';
-$BL['be_ctype_ecard']					= 'e-card';
-$BL['be_ctype_blog']					= 'blog';
+$BL['be_subnav_admin_starttext']        = 'backend predvolen&yacute; text';
+$BL['be_ctype_ecard']                   = 'e-card';
+$BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'titulok/e-card';
 $BL['be_cnt_ecardtmpl']                 = 'mailov&aacute; &scaron;abl&oacute;na';
 $BL['be_cnt_ecard_image']               = 'e-card obr&aacute;zok';
@@ -678,24 +678,24 @@ $BL['be_admin_startup_text']            = 'prvotn&yacute; text';
 $BL['be_admin_startup_button']          = 'ulo&#382;i&#357; text';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'guestbook/comm.';
-$BL['be_cnt_guestbook_listing']			= 'zoznam';
-$BL['be_cnt_guestbook_listing_all']		= 'prech&aacute;dza&#357;&nbsp;v&scaron;etky&nbsp;vstupy';
-$BL['be_cnt_guestbook_list']			= 'prech&aacute;dza&#357;';
-$BL['be_cnt_guestbook_perpage']			= 'po&nbsp;str&aacute;nke';
-$BL['be_cnt_guestbook_form']			= 'formul&aacute;r';
-$BL['be_cnt_guestbook_signed']			= 'podp&iacute;san&yacute;';
-$BL['be_cnt_guestbook_nav']				= 'navig&aacute;cia';
-$BL['be_cnt_guestbook_before']			= 'pred';
-$BL['be_cnt_guestbook_after']			= 'po';
-$BL['be_cnt_guestbook_entry']			= 'z&aacute;znam';
-$BL['be_cnt_guestbook_edit']			= 'editova&#357;';
+$BL['be_ctype_guestbook']               = 'guestbook/comm.';
+$BL['be_cnt_guestbook_listing']         = 'zoznam';
+$BL['be_cnt_guestbook_listing_all']     = 'prech&aacute;dza&#357;&nbsp;v&scaron;etky&nbsp;vstupy';
+$BL['be_cnt_guestbook_list']            = 'prech&aacute;dza&#357;';
+$BL['be_cnt_guestbook_perpage']         = 'po&nbsp;str&aacute;nke';
+$BL['be_cnt_guestbook_form']            = 'formul&aacute;r';
+$BL['be_cnt_guestbook_signed']          = 'podp&iacute;san&yacute;';
+$BL['be_cnt_guestbook_nav']             = 'navig&aacute;cia';
+$BL['be_cnt_guestbook_before']          = 'pred';
+$BL['be_cnt_guestbook_after']           = 'po';
+$BL['be_cnt_guestbook_entry']           = 'z&aacute;znam';
+$BL['be_cnt_guestbook_edit']            = 'editova&#357;';
 $BL['be_cnt_ecardform_selector']        = 'v&yacute;ber';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio tla&#269;&iacute;tko';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript funk&#269;nos&#357;';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'mno&#382;stvo top &#269;l&aacute;nkov';
 
 // added: 19-04-2004
@@ -729,7 +729,7 @@ $BL['be_newsletter_readyfailed']        = 'Zlyhalo odosielanie newsletteru na';
 $BL['be_subnav_msg_subscribers']        = 'newsletter odoberatelia';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'mapa str&aacute;nok';
+$BL['be_ctype_sitemap']                 = 'mapa str&aacute;nok';
 $BL['be_cnt_sitemap_catimage']          = 'ikona &uacute;rovne';
 $BL['be_cnt_sitemap_articleimage']      = 'ikona &#269;l&aacute;nku';
 $BL['be_cnt_sitemap_display']           = 'displej';
@@ -742,7 +742,7 @@ $BL['be_cnt_sitemap_classcount']        = 'prida&#357; do class name';
 $BL['be_cnt_sitemap_noclasscount']      = 'neprid&aacute;va&#357; do class name';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'ponuka';
+$BL['be_ctype_bid']                     = 'ponuka';
 $BL['be_cnt_bid_bidtext']               = 'text ponuky';
 $BL['be_cnt_bid_sendtext']              = 'odosla&#357; text';
 $BL['be_cnt_bid_verifiedtext']          = 'overen&yacute; text';

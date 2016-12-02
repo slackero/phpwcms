@@ -94,7 +94,7 @@ $BL['be_ctype_code']                    = 'kood';
 $BL['be_ctype_textimage']               = 'tekst ja pilt';
 $BL['be_ctype_images']                  = 'pildid';
 $BL['be_ctype_bulletlist']              = 'loetelu (tabel)';
-$BL['be_ctype_ullist']     		        = 'loetelu';
+$BL['be_ctype_ullist']                  = 'loetelu';
 $BL['be_ctype_link']                    = 'link &amp; e-mail';
 $BL['be_ctype_linklist']                = 'linkide loetelu';
 $BL['be_ctype_linkarticle']             = 'link artiklile';
@@ -573,8 +573,8 @@ $BL['be_cnt_target2']                   = 'sama akna freimis';
 $BL['be_cnt_target3']                   = 'samas aknas ilma freimideta';
 $BL['be_cnt_target4']                   = 'samas freimis või aknas';
 $BL['be_cnt_bullet']                    = 'loetelu tabelina';
-$BL['be_cnt_ullist']     		        = 'loetelu';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1ne tase, &nbsp; ~~ = 2ne tase, &nbsp; jne.';
+$BL['be_cnt_ullist']                    = 'loetelu';
+$BL['be_cnt_ullist_desc']               = '~ = 1ne tase, &nbsp; ~~ = 2ne tase, &nbsp; jne.';
 $BL['be_cnt_linklist']                  = 'linkide loetelu';
 $BL['be_cnt_plainhtml']                 = 'html kood';
 $BL['be_cnt_files']                     = 'failid';
@@ -645,21 +645,21 @@ $BL['be_article_adminuser']             = 'administraator';
 $BL['be_article_username']              = 'autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'nähtav ainult sisse loginud kasutajatele';
 $BL['be_admin_struct_status']           = 'olek front-end menüüs';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'artiklite sisukord';
-$BL['be_cnt_sitelevel']					= 'lehe struktuuritase';
-$BL['be_cnt_sitecurrent']				= 'käesolev struktuuritase';
+$BL['be_ctype_articlemenu']             = 'artiklite sisukord';
+$BL['be_cnt_sitelevel']                 = 'lehe struktuuritase';
+$BL['be_cnt_sitecurrent']               = 'käesolev struktuuritase';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'back-end avatekst';
-$BL['be_ctype_ecard']					= 'e-kaart';
-$BL['be_ctype_blog']					= 'veebipäevik (blog)';
+$BL['be_subnav_admin_starttext']        = 'back-end avatekst';
+$BL['be_ctype_ecard']                   = 'e-kaart';
+$BL['be_ctype_blog']                    = 'veebipäevik (blog)';
 $BL['be_cnt_ecardtext']                 = 'e-kaart/pealkiri';
 $BL['be_cnt_ecardtmpl']                 = 'e-maili mall';
 $BL['be_cnt_ecard_image']               = 'e-kaardi pilt';
@@ -680,24 +680,24 @@ $BL['be_admin_startup_text']            = 'avatekst';
 $BL['be_admin_startup_button']          = 'salvesta';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'külalisteraamat';
-$BL['be_cnt_guestbook_listing']			= 'kuva';
-$BL['be_cnt_guestbook_listing_all']		= 'kuva&nbsp;kõik&nbsp;sissekanded';
-$BL['be_cnt_guestbook_list']			= 'sissekanded';
-$BL['be_cnt_guestbook_perpage']			= 'lehekülje&nbsp;kohta';
-$BL['be_cnt_guestbook_form']			= 'vorm';
-$BL['be_cnt_guestbook_signed']			= 'signed';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'enne';
-$BL['be_cnt_guestbook_after']			= 'pärast';
-$BL['be_cnt_guestbook_entry']			= 'sissekanne';
-$BL['be_cnt_guestbook_edit']			= 'muuda';
+$BL['be_ctype_guestbook']               = 'külalisteraamat';
+$BL['be_cnt_guestbook_listing']         = 'kuva';
+$BL['be_cnt_guestbook_listing_all']     = 'kuva&nbsp;kõik&nbsp;sissekanded';
+$BL['be_cnt_guestbook_list']            = 'sissekanded';
+$BL['be_cnt_guestbook_perpage']         = 'lehekülje&nbsp;kohta';
+$BL['be_cnt_guestbook_form']            = 'vorm';
+$BL['be_cnt_guestbook_signed']          = 'signed';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'enne';
+$BL['be_cnt_guestbook_after']           = 'pärast';
+$BL['be_cnt_guestbook_entry']           = 'sissekanne';
+$BL['be_cnt_guestbook_edit']            = 'muuda';
 $BL['be_cnt_ecardform_selector']        = 'märkija';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio button';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScripti kasutusega';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'mitu artiklit näidata uuemate artiklite loetelus (kui 1, siis esimene artikkel täismahus)';
 
 // added: 19-04-2004
@@ -731,7 +731,7 @@ $BL['be_newsletter_readyfailed']        = 'Saatmine ebaõnnestus';
 $BL['be_subnav_msg_subscribers']        = 'uudiskirja tellijad';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				    = 'sisukord';
+$BL['be_ctype_sitemap']                 = 'sisukord';
 $BL['be_cnt_sitemap_catimage']          = 'taseme ikoon';
 $BL['be_cnt_sitemap_articleimage']      = 'artikli ikoon';
 $BL['be_cnt_sitemap_display']           = 'kuva';
@@ -744,7 +744,7 @@ $BL['be_cnt_sitemap_classcount']        = 'lisa klassi nimele';
 $BL['be_cnt_sitemap_noclasscount']      = 'mitte lisada klassi nimele';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'pakkumine';
+$BL['be_ctype_bid']                     = 'pakkumine';
 $BL['be_cnt_bid_bidtext']               = 'pakkumise tekst';
 $BL['be_cnt_bid_sendtext']              = '"saadetud" tekst';
 $BL['be_cnt_bid_verifiedtext']          = 'kinnitatud tekst';

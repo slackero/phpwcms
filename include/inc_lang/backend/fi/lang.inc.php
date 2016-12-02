@@ -58,7 +58,6 @@ $BL['be_subnav_admin_sitestructure']    = 'Sivuston rakenne';
 $BL['be_subnav_admin_users']            = 'K&auml;ytt&auml;jien hallinta';
 $BL['be_subnav_admin_filecat']          = 'Tiedostojen kategoriat';
 
-
 // admin.functions.inc.php
 $BL['be_func_struct_articleID']         = 'Artikkelin tunniste';
 $BL['be_func_struct_preview']           = 'Esikatselu';
@@ -95,7 +94,7 @@ $BL['be_ctype_code']                    = 'Koodi';
 $BL['be_ctype_textimage']               = 'Teksti ja kuva';
 $BL['be_ctype_images']                  = 'Kuvaluettelo/galleria';
 $BL['be_ctype_bulletlist']              = 'Lista';
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 $BL['be_ctype_link']                    = 'Linkki &amp; s&auml;hk&ouml;posti';
 $BL['be_ctype_linklist']                = 'Linkkilista';
 $BL['be_ctype_linkarticle']             = 'Linkki artikkeliin';
@@ -178,7 +177,7 @@ $BL['be_ftptakeover_button']            = 'Valitse seuraavat tiedostot';
 $BL['be_ftab_title']                    = 'Tiedostojen hallinta';
 $BL['be_ftab_createnew']                = 'Luo uusi kansio juurihakemistoon';
 $BL['be_ftab_paste']                    = 'Liit&auml; tiedosto leikep&ouml;d&auml;lt&auml; juurihakemistoon';
-$BL['be_ftab_enablethumb']             	= 'N&auml;yt&auml; kansioiden sis&auml;lt&auml;m&auml;t kuvat';
+$BL['be_ftab_enablethumb']              = 'N&auml;yt&auml; kansioiden sis&auml;lt&auml;m&auml;t kuvat';
 $BL['be_ftab_disablethumb']             = '&Auml;l&auml; n&auml;yt&auml; kansioiden sis&auml;lt&auml;mi&auml; kuvia';
 $BL['be_ftab_private']                  = 'Yksityiset&nbsp;tiedostot';
 $BL['be_ftab_public']                   = 'Julkiset&nbsp;tiedostot';
@@ -574,8 +573,8 @@ $BL['be_cnt_target2']                   = 'P&auml;&auml;ikkunassa';
 $BL['be_cnt_target3']                   = 'Samassa ikkunassa ilman kehyksi&auml;';
 $BL['be_cnt_target4']                   = 'Samassa kehyksess&auml; tai ikkunassa';
 $BL['be_cnt_bullet']                    = 'Lista';
-$BL['be_cnt_ullist']     		        = 'Lista';
-$BL['be_cnt_ullist_desc']     		    = '~ = 1. taso, &nbsp; ~~ = 2. taso, &nbsp; jne';
+$BL['be_cnt_ullist']                    = 'Lista';
+$BL['be_cnt_ullist_desc']               = '~ = 1. taso, &nbsp; ~~ = 2. taso, &nbsp; jne';
 $BL['be_cnt_linklist']                  = 'Linkkilista';
 $BL['be_cnt_plainhtml']                 = 'Pelkk&auml; html';
 $BL['be_cnt_files']                     = 'Tiedostot';
@@ -646,21 +645,21 @@ $BL['be_article_adminuser']             = 'Admin-k&auml;ytt&auml;j&auml;';
 $BL['be_article_username']              = 'Artisti';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'N&auml;kyviss&auml; vain kirjautuneille k&auml;ytt&auml;jille';
 $BL['be_admin_struct_status']           = 'Normaalisivuston valikon status';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']				= 'Artikkelivalikko';
-$BL['be_cnt_sitelevel']					= 'Sivustotaso';
-$BL['be_cnt_sitecurrent']				= 'Nykyinen sivustotaso';
+$BL['be_ctype_articlemenu']             = 'Artikkelivalikko';
+$BL['be_cnt_sitelevel']                 = 'Sivustotaso';
+$BL['be_cnt_sitecurrent']               = 'Nykyinen sivustotaso';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']		= 'Hallintaj&auml;rjestelm&auml;n oletusteksti';
-$BL['be_ctype_ecard']					= 'eKortti';
-$BL['be_ctype_blog']					= 'Blogi';
+$BL['be_subnav_admin_starttext']        = 'Hallintaj&auml;rjestelm&auml;n oletusteksti';
+$BL['be_ctype_ecard']                   = 'eKortti';
+$BL['be_ctype_blog']                    = 'Blogi';
 $BL['be_cnt_ecardtext']                 = 'Nimi/eKortti';
 $BL['be_cnt_ecardtmpl']                 = 'Viestipohja';
 $BL['be_cnt_ecard_image']               = 'eKortin kuva';
@@ -681,24 +680,24 @@ $BL['be_admin_startup_text']            = 'Aloitusteksti (HTML-muotoilu sallittu
 $BL['be_admin_startup_button']          = 'Tallenna aloitusteksti';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']				= 'Vieraskirja';
-$BL['be_cnt_guestbook_listing']			= 'Listaus';
-$BL['be_cnt_guestbook_listing_all']		= 'Listaa kaikki viestit';
-$BL['be_cnt_guestbook_list']			= 'Lista';
-$BL['be_cnt_guestbook_perpage']			= 'per&nbsp;sivu';
-$BL['be_cnt_guestbook_form']			= 'Lomake';
-$BL['be_cnt_guestbook_signed']			= 'Allekirjoitettu';
-$BL['be_cnt_guestbook_nav']				= 'nav';
-$BL['be_cnt_guestbook_before']			= 'Ennen';
-$BL['be_cnt_guestbook_after']			= 'Jälkeen';
-$BL['be_cnt_guestbook_entry']			= 'Viesti';
-$BL['be_cnt_guestbook_edit']			= 'Muokkaa';
+$BL['be_ctype_guestbook']               = 'Vieraskirja';
+$BL['be_cnt_guestbook_listing']         = 'Listaus';
+$BL['be_cnt_guestbook_listing_all']     = 'Listaa kaikki viestit';
+$BL['be_cnt_guestbook_list']            = 'Lista';
+$BL['be_cnt_guestbook_perpage']         = 'per&nbsp;sivu';
+$BL['be_cnt_guestbook_form']            = 'Lomake';
+$BL['be_cnt_guestbook_signed']          = 'Allekirjoitettu';
+$BL['be_cnt_guestbook_nav']             = 'nav';
+$BL['be_cnt_guestbook_before']          = 'Ennen';
+$BL['be_cnt_guestbook_after']           = 'Jälkeen';
+$BL['be_cnt_guestbook_entry']           = 'Viesti';
+$BL['be_cnt_guestbook_edit']            = 'Muokkaa';
 $BL['be_cnt_ecardform_selector']        = 'Valitsin';
 $BL['be_cnt_ecardform_radiobutton']     = 'Valintanappi';
 $BL['be_cnt_ecardform_javascript']      = 'JavaScript';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'Artikkelien lukum&auml;&auml;r&auml;';
 
 // added: 19-04-2004
@@ -732,7 +731,7 @@ $BL['be_newsletter_readyfailed']        = 'L&auml;hett&auml;minen ep&auml;onnist
 $BL['be_subnav_msg_subscribers']        = 'Uutisviestin tilaajat';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']				   				= 'Sivukartta';
+$BL['be_ctype_sitemap']                             = 'Sivukartta';
 $BL['be_cnt_sitemap_catimage']          = 'Tason kuvake';
 $BL['be_cnt_sitemap_articleimage']      = 'Artikkelin kuvake';
 $BL['be_cnt_sitemap_display']           = 'N&auml;ytt&ouml;tapa';
@@ -745,7 +744,7 @@ $BL['be_cnt_sitemap_classcount']        = 'Lis&auml;&auml; luokkaan';
 $BL['be_cnt_sitemap_noclasscount']      = '&Auml;l&auml; lis&auml;&auml; luokkaan';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']				        = 'Tarjous';
+$BL['be_ctype_bid']                     = 'Tarjous';
 $BL['be_cnt_bid_bidtext']               = 'Tarjousteksti';
 $BL['be_cnt_bid_sendtext']              = 'L&auml;hetetty-teksti';
 $BL['be_cnt_bid_verifiedtext']          = 'Varmistettu-teksti';
@@ -861,15 +860,15 @@ $BL['be_cache']                         = 'V&auml;limuisti';
 $BL['be_cache_timeout']                 = 'aikav&auml;li';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']			= 'k&auml;ytt&auml;j&auml;t &amp; ryhm&auml;t';
+$BL['be_subnav_admin_groups']           = 'k&auml;ytt&auml;j&auml;t &amp; ryhm&auml;t';
 
 // added: 20-12-2004
-$BL['be_ctype_forum']					= 'keskustelu';
-$BL['be_subnav_msg_forum']				= 'keskusteluaiheiden listaus';
-$BL['be_forum_title']					= 'keskustelualueen otsikko';
-$BL['be_forum_permission']				= 'k&auml;ytt&ouml;oikeudet';
-$BL['be_forum_add']						= 'lis&auml;&auml; keskustelualue';
-$BL['be_forum_titleedit']				= 'muokkaa keskustelualuetta';
+$BL['be_ctype_forum']                   = 'keskustelu';
+$BL['be_subnav_msg_forum']              = 'keskusteluaiheiden listaus';
+$BL['be_forum_title']                   = 'keskustelualueen otsikko';
+$BL['be_forum_permission']              = 'k&auml;ytt&ouml;oikeudet';
+$BL['be_forum_add']                     = 'lis&auml;&auml; keskustelualue';
+$BL['be_forum_titleedit']               = 'muokkaa keskustelualuetta';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']       = 'kustomoitu';
@@ -877,10 +876,10 @@ $BL['be_show_content']                  = 'n&auml;ytt&ouml;';
 $BL['be_main_content']                  = 'p&auml;&auml;otsake';
 $BL['be_admin_template_jswarning']      = 'Varoitus!!! \nKustomoidut osat saattavat muuttua! \n\nJos peruutat toimenpiteen \npalautat sivuston oletusulkoasun! \n\nVaihda muotoilupohja?\n\n';
 
-$BL['be_ctype_rssfeed']					= 'RSS-sy&ouml;te';
-$BL['be_cnt_rssfeed_url']				= 'RSS-polku';
-$BL['be_cnt_rssfeed_item']				= 'aiheet';
-$BL['be_cnt_rssfeed_max']				= 'max.';
-$BL['be_cnt_rssfeed_cut']				= 'piilota 1. aihe';
+$BL['be_ctype_rssfeed']                 = 'RSS-sy&ouml;te';
+$BL['be_cnt_rssfeed_url']               = 'RSS-polku';
+$BL['be_cnt_rssfeed_item']              = 'aiheet';
+$BL['be_cnt_rssfeed_max']               = 'max.';
+$BL['be_cnt_rssfeed_cut']               = 'piilota 1. aihe';
 
 

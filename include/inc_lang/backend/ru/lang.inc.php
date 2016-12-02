@@ -642,7 +642,7 @@ $BL['be_article_adminuser']             = 'администратор';
 $BL['be_article_username']              = 'автор';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']                 = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 
@@ -650,14 +650,14 @@ $BL['be_admin_struct_regonly']          = 'видимый только для а
 $BL['be_admin_struct_status']           = 'статус видимости';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']		= 'выбор статей';
-$BL['be_cnt_sitelevel']			= 'категория сайта';
-$BL['be_cnt_sitecurrent']		= 'текущая категория сайта';
+$BL['be_ctype_articlemenu']     = 'выбор статей';
+$BL['be_cnt_sitelevel']         = 'категория сайта';
+$BL['be_cnt_sitecurrent']       = 'текущая категория сайта';
 
 // added: 24-03-2004
-$BL['be_subnav_admin_starttext']	= 'текст при входе';
-$BL['be_ctype_ecard']			= 'открытки';
-$BL['be_ctype_blog']			= 'блог';
+$BL['be_subnav_admin_starttext']    = 'текст при входе';
+$BL['be_ctype_ecard']           = 'открытки';
+$BL['be_ctype_blog']            = 'блог';
 $BL['be_cnt_ecardtext']                 = 'заголовок/открытка';
 $BL['be_cnt_ecardtmpl']                 = 'шаблон отправки';
 $BL['be_cnt_ecard_image']               = 'картинка открытки';
@@ -678,24 +678,24 @@ $BL['be_admin_startup_text']            = 'Текст при входе в ад�
 $BL['be_admin_startup_button']          = 'сохранить текст';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']			= 'гост.книга/коммент.';
-$BL['be_cnt_guestbook_listing']			= 'отображение';
-$BL['be_cnt_guestbook_listing_all']		= 'показать&nbsp;все&nbsp;записи';
-$BL['be_cnt_guestbook_list']			= 'показать';
-$BL['be_cnt_guestbook_perpage']			= 'на&nbsp;страницу';
-$BL['be_cnt_guestbook_form']			= 'форма';
-$BL['be_cnt_guestbook_signed']			= 'отослано';
-$BL['be_cnt_guestbook_nav']			= 'навигация';
-$BL['be_cnt_guestbook_before']			= 'до';
-$BL['be_cnt_guestbook_after']			= 'после';
-$BL['be_cnt_guestbook_entry']			= 'запись';
-$BL['be_cnt_guestbook_edit']			= 'редактировать';
+$BL['be_ctype_guestbook']           = 'гост.книга/коммент.';
+$BL['be_cnt_guestbook_listing']         = 'отображение';
+$BL['be_cnt_guestbook_listing_all']     = 'показать&nbsp;все&nbsp;записи';
+$BL['be_cnt_guestbook_list']            = 'показать';
+$BL['be_cnt_guestbook_perpage']         = 'на&nbsp;страницу';
+$BL['be_cnt_guestbook_form']            = 'форма';
+$BL['be_cnt_guestbook_signed']          = 'отослано';
+$BL['be_cnt_guestbook_nav']         = 'навигация';
+$BL['be_cnt_guestbook_before']          = 'до';
+$BL['be_cnt_guestbook_after']           = 'после';
+$BL['be_cnt_guestbook_entry']           = 'запись';
+$BL['be_cnt_guestbook_edit']            = 'редактировать';
 $BL['be_cnt_ecardform_selector']        = 'выбор';
 $BL['be_cnt_ecardform_radiobutton']     = 'с помощю радио-кнопки';
 $BL['be_cnt_ecardform_javascript']      = 'с помощью JavaScript';
-$BL['be_cnt_ecardform_over']        	= 'onMouseOver';
-$BL['be_cnt_ecardform_click']       	= 'onClick';
-$BL['be_cnt_ecardform_out']       		= 'onMouseOut';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']             = 'onMouseOut';
 $BL['be_admin_struct_topcount']         = 'Кол-во статей сверху';
 
 // added: 19-04-2004
@@ -729,7 +729,7 @@ $BL['be_newsletter_readyfailed']        = 'Не удалось отправит�
 $BL['be_subnav_msg_subscribers']        = 'подписчики рассылки';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']			= 'карта сайта';
+$BL['be_ctype_sitemap']         = 'карта сайта';
 $BL['be_cnt_sitemap_catimage']          = 'иконка уровня';
 $BL['be_cnt_sitemap_articleimage']      = 'иконка статьи';
 $BL['be_cnt_sitemap_display']           = 'показывать';
@@ -742,7 +742,7 @@ $BL['be_cnt_sitemap_classcount']        = 'добавить к имени css-к
 $BL['be_cnt_sitemap_noclasscount']      = 'не добавлять';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']			= 'предложения';
+$BL['be_ctype_bid']         = 'предложения';
 $BL['be_cnt_bid_bidtext']               = 'текст предложения';
 $BL['be_cnt_bid_sendtext']              = 'текст "отправлено"';
 $BL['be_cnt_bid_verifiedtext']          = 'текст "проверено"';
