@@ -131,10 +131,12 @@ if(!empty($hash) && strlen($hash) === 32) {
 }
 
 if($success) {
-
-    $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_dlfinal=f_dlfinal+1 ";
-    $sql .= "WHERE f_hash="._dbEscape($download["f_hash"])." LIMIT 1";
-    _dbQuery($sql, 'UPDATE');
+	
+    if(!empty($download["f_hash"])) {
+        $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_dlfinal=f_dlfinal+1 ";
+        $sql .= "WHERE f_hash="._dbEscape($download["f_hash"])." LIMIT 1";
+        _dbQuery($sql, 'UPDATE');
+    }
 
     if($countonly) {
 
