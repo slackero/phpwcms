@@ -304,6 +304,25 @@ if(isset($fmp_data['fmp_template'])) {
             'ogg' => 'audio/ogg'
         )
     );
+	
+	if(!isset($fmp_data['fmp_int_ext_h264'])) {
+
+    	$fmp_data = array_merge(
+    	    array(
+            	'fmp_int_ext_h264' => 0,
+            	'fmp_external_file_h264' => '',
+            	'fmp_internal_id_h264' => '',
+            	'fmp_int_ext_webm' => 0,
+            	'fmp_external_file_webm' => '',
+            	'fmp_internal_id_webm' => '',
+            	'fmp_int_ext_ogg' => 0,
+            	'fmp_external_file_ogg' => '',
+            	'fmp_internal_id_ogg' => ''
+        	),
+        	$fmp_data
+        );
+
+	}
 
     // H.264
     if($fmp_data['fmp_int_ext_h264'] == 1 && $fmp_data['fmp_external_file_h264']) {

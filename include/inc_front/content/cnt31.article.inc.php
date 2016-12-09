@@ -505,9 +505,9 @@ if($image['template']) {
     $image['template']  = render_cnt_template($image['template'], 'TITLE', html($crow['acontent_title']));
     $image['template']  = render_cnt_template($image['template'], 'SUBTITLE', html($crow['acontent_subtitle']));
     $image['template']  = render_cnt_template($image['template'], 'TEXT', $crow['acontent_html']);
-    $image['template']  = render_cnt_template($image['template'], 'EFFECT_1', ($image['fx1'] ? '<!-- FX 1 -->' : '') );
-    $image['template']  = render_cnt_template($image['template'], 'EFFECT_2', ($image['fx2'] ? '<!-- FX 2 -->' : '') );
-    $image['template']  = render_cnt_template($image['template'], 'EFFECT_3', ($image['fx3'] ? '<!-- FX 3 -->' : '') );
+    $image['template']  = render_cnt_template($image['template'], 'EFFECT_1', (empty($image['fx1']) ? '' : '<!-- FX 1 -->') );
+    $image['template']  = render_cnt_template($image['template'], 'EFFECT_2', (empty($image['fx2']) ? '' :  '<!-- FX 2 -->') );
+    $image['template']  = render_cnt_template($image['template'], 'EFFECT_3', (empty($image['fx3']) ? '' :  '<!-- FX 3 -->') );
 
     $CNT_TMP .= $image['template'];
 
