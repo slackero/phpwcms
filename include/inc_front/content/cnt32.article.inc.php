@@ -58,8 +58,8 @@ if($tabs['template']) {
 
     foreach($tabs['tabs'] as $key => $entry) {
 
-        $tabs['entries'][$key] = str_replace('{TABID}', ($key+1), $tabs['entries'][$key]);
-        $tabs['entries'][$key] = render_cnt_template($tabs['tmpl_entry'], 'TABTITLE', $entry['tabtitle'] === '-' ? '' : html_specialchars($entry['tabtitle']));
+        $tabs['entries'][$key] = str_replace('{TABID}', ($key+1), $tabs['tmpl_entry']);
+        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABTITLE', $entry['tabtitle'] === '-' ? '' : html_specialchars($entry['tabtitle']));
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABCONTENT', trim($entry['tabheadline'].$entry['tabtext']) === '' ? '' : LF);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABHEADLINE', html_specialchars($entry['tabheadline']));
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABTEXT', $entry['tabtext']);
