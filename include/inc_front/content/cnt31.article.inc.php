@@ -440,6 +440,30 @@ if($image['template']) {
 
                         $img_a = render_cnt_template($img_a, $custom_field_replacer, $custom_field_value);
 
+                    } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
+
+                        $news['files_result'] = '';
+
+                        if(!empty($custom_field_value['id'])) {
+
+                            $IS_NEWS_CP = true;
+
+                            $value['cnt_object']['cnt_files'] = array(
+                                'id' => array(0 => $custom_field_value['id']),
+                                'caption' => array(0 => $custom_field_value['description']),
+                            );
+                            $value['files_direct_download'] = empty($image['fieldgroup'][$custom_field_key]['direct']) ? 0 : 1;
+                            $value['files_template'] = empty($image['fieldgroup'][$custom_field_key]['template']) ? '' : $image['fieldgroup'][$custom_field_key]['template'];
+
+                            // include content part files renderer
+                            include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
+
+                            unset($IS_NEWS_CP);
+
+                        }
+
+                        $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
+
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
                         if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {

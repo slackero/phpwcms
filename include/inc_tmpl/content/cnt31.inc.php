@@ -62,12 +62,12 @@ $content['image_special'] = isset($content['image_special']) ? array_merge($cont
 
 $tab_fieldgroup_templates = array();
 if(isset($template_default['settings']['imagespecial_custom_fields']) && is_array($template_default['settings']['imagespecial_custom_fields']) && count($template_default['settings']['imagespecial_custom_fields'])) {
-	$tab_fieldgroups = $template_default['settings']['imagespecial_custom_fields'];
-	foreach($template_default['settings']['imagespecial_custom_fields'] as $key => $tab_fieldgroup) {
-		$tab_fieldgroup_templates[ $tab_fieldgroup['template'] ] = $key;
-	}
+    $tab_fieldgroups = $template_default['settings']['imagespecial_custom_fields'];
+    foreach($template_default['settings']['imagespecial_custom_fields'] as $key => $tab_fieldgroup) {
+        $tab_fieldgroup_templates[ $tab_fieldgroup['template'] ] = $key;
+    }
 } else {
-	$tab_fieldgroups = array();
+    $tab_fieldgroups = array();
 }
 
 ?>
@@ -96,11 +96,11 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
             if(isset($content["image_template"]) && $val == $content["image_template"]){
                 $selected_val = ' selected="selected"';
                 if(isset($tab_fieldgroup_templates[$val])) {
-    				$tab_fieldgroups_active = $tab_fieldgroup_templates[$val];
-    			} else {
-    				// Reset
-    				$tab_fieldgroups_active = '';
-    			}
+                    $tab_fieldgroups_active = $tab_fieldgroup_templates[$val];
+                } else {
+                    // Reset
+                    $tab_fieldgroups_active = '';
+                }
             } else {
                 $selected_val = '';
             }
@@ -265,35 +265,35 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
     $sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
 
     if($tab_fieldgroups_active && isset($template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active])) {
-		$tab_fieldgroup =& $template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active];
-	} else {
-		$tab_fieldgroup = null;
-	}
-	if($tab_fieldgroup !== null && isset($tab_fieldgroup['fields']) && is_array($tab_fieldgroup['fields']) && count($tab_fieldgroup['fields'])) {
-		$custom_tab_fields = array_keys($tab_fieldgroup['fields']);
-	} else {
-		$custom_tab_fields = array();
-		$tab_fieldgroup = null;
-	}
+        $tab_fieldgroup =& $template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active];
+    } else {
+        $tab_fieldgroup = null;
+    }
+    if($tab_fieldgroup !== null && isset($tab_fieldgroup['fields']) && is_array($tab_fieldgroup['fields']) && count($tab_fieldgroup['fields'])) {
+        $custom_tab_fields = array_keys($tab_fieldgroup['fields']);
+    } else {
+        $custom_tab_fields = array();
+        $tab_fieldgroup = null;
+    }
 
     $value['custom_field_items'] = $custom_tab_fields;
-	$custom_tab_fields_hidden = array();
-	$custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool');
+    $custom_tab_fields_hidden = array();
+    $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file');
 
     // loop available image entries
     foreach($content['image_special']['images'] as $key => $value) {
 
         if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
 
-			if(count($custom_tab_fields)) {
-				$value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
-			} else {
-				$value['custom_field_items'] = array_keys($value['custom_fields']);
-			}
+            if(count($custom_tab_fields)) {
+                $value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
+            } else {
+                $value['custom_field_items'] = array_keys($value['custom_fields']);
+            }
 
-		} else {
-			$value['custom_field_items'] = $custom_tab_fields;
-		}
+        } else {
+            $value['custom_field_items'] = $custom_tab_fields;
+        }
 
 ?>
         <li id="image_<?php echo $key ?>">
@@ -365,101 +365,179 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                 </tr>
 
 <?php
-			if($value['custom_field_items']):
+            if($value['custom_field_items']):
 
 ?>
                 <tr><td colspan="3" class="spacerrow"></td></tr>
 <?php
 
-				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+                foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
 
-					// send fields not defined as hidden values, should ensure not loosing values
-					if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
-						// do not store if the value is an empty string
-						if($value['custom_fields'][$custom_field] !== '') {
-							$custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
-						}
-						continue;
-					}
+                    // send fields not defined as hidden values, should ensure not loosing values
+                    if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
+                        // do not store if the value is an empty string
+                        if($value['custom_fields'][$custom_field] !== '') {
+                            $custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
+                        }
+                        continue;
+                    }
 
-					$custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+                    $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
 ?>
-					<tr>
-						<td class="chatlist right tdtop8" nowrap="nowrap"><?php
-							if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
-								if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
-									echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
-								} else {
-									echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
-								}
-								echo ':';
-							}
-						?>&nbsp;</td>
-						<td colspan="3" class="tdtop5">
-			<?php
-					// support only type "str" or "textarea" at the moment
-					if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
-						$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
-					}
+                    <tr>
+                        <td class="chatlist right tdtop8" nowrap="nowrap"><?php
+                            if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
+                                if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
+                                    echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
+                                } else {
+                                    echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+                                }
+                                echo ':';
+                            }
+                        ?>&nbsp;</td>
+                        <td colspan="3" class="tdtop5">
+            <?php
+                    // support only type "str" or "textarea" at the moment
+                    if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
+                        $tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
+                    }
 
-					if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'):	?>
-							<input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
-							if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); }
-							?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?>
-							class="v11 width400"<?php echo $custom_field_placeholder; ?> />
-			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'):	?>
-							<input type="number" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
-							echo isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : 0;
-							?>" class="v11 width100" <?php echo $custom_field_placeholder; ?>
-							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
-							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>
-							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?> step="<?php
-								if($tab_fieldgroup['fields'][$custom_field]['type'] === 'int') {
-									$tab_fieldgroup['fields'][$custom_field]['step'] = ceil($tab_fieldgroup['fields'][$custom_field]['step']);
-								} else {
-									$tab_fieldgroup['fields'][$custom_field]['step'] = floatval($tab_fieldgroup['fields'][$custom_field]['step']);
-									$tab_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($tab_fieldgroup['fields'][$custom_field]['step'], 14 - log10($tab_fieldgroup['fields'][$custom_field]['step'])), '0');
-								}
-								echo $tab_fieldgroup['fields'][$custom_field]['step'];
-							?>"
-							<?php endif; ?>
-							/>
-			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-							<textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400 autosize"<?php echo $custom_field_placeholder; ?> rows="<?php
-								echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
-							?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
-			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
-						foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-							<label class="radio tab-option-radio">
-								<input type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
-									if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
-								?> checked="checked"<?php
-									elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
-								?> checked="checked"<?php endif; ?> /> <?php echo html($option_label); ?>
-							</label>
-			<?php		endforeach; ?>
-			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
-							<select name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
-			<?php		foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-								<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
-									if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
-								?> selected="selected"<?php
-									elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
-								?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?></option>
-			<?php		endforeach; ?>
-							</select>
-			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-							<label class="checkbox tab-option-checkbox">
-								<input type="checkbox" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="1"<?php
-									if((!empty($value['custom_fields'][$custom_field])) || (!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']))):
-								?> checked="checked"<?php endif; ?> /> <?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?>
-							</label>
-			<?php	endif; ?>
-						</td>
-					</tr>
+                    if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
+                            <input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
+                            if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); }
+                            ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?>
+                            class="v11 width400"<?php echo $custom_field_placeholder; ?> />
+
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
+                            <input type="number" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
+                            echo isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : 0;
+                            ?>" class="v11 width100" <?php echo $custom_field_placeholder; ?>
+                            <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
+                            <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>
+                            <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?> step="<?php
+                                if($tab_fieldgroup['fields'][$custom_field]['type'] === 'int') {
+                                    $tab_fieldgroup['fields'][$custom_field]['step'] = ceil($tab_fieldgroup['fields'][$custom_field]['step']);
+                                } else {
+                                    $tab_fieldgroup['fields'][$custom_field]['step'] = floatval($tab_fieldgroup['fields'][$custom_field]['step']);
+                                    $tab_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($tab_fieldgroup['fields'][$custom_field]['step'], 14 - log10($tab_fieldgroup['fields'][$custom_field]['step'])), '0');
+                                }
+                                echo $tab_fieldgroup['fields'][$custom_field]['step'];
+                            ?>"
+                            <?php endif; ?>
+                            />
+
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+                            <textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400 autosize"<?php echo $custom_field_placeholder; ?> rows="<?php
+                                echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
+                            ?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
+
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+                        foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+                            <label class="radio tab-option-radio">
+                                <input type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
+                                    if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
+                                ?> checked="checked"<?php
+                                    elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
+                                ?> checked="checked"<?php endif; ?> /> <?php echo html($option_label); ?>
+                            </label>
+            <?php       endforeach; ?>
+
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
+                            <select name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
+            <?php       foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+                                <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
+                                    if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
+                                ?> selected="selected"<?php
+                                    elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
+                                ?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?></option>
+            <?php       endforeach; ?>
+                            </select>
+
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
+                            <label class="checkbox tab-option-checkbox">
+                                <input type="checkbox" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="1"<?php
+                                    if((!empty($value['custom_fields'][$custom_field])) || (!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']))):
+                                ?> checked="checked"<?php endif; ?> /> <?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?>
+                            </label>
+
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
+
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <input
+                                            name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
+                                            type="hidden"
+                                            id="customfield_<?php echo $custom_field.'_'.$key; ?>_id"
+                                            value="<?php
+                                            if(isset($value['custom_fields'][$custom_field]['id'])) {
+                                                echo $value['custom_fields'][$custom_field]['id'];
+                                            }
+                                            ?>"
+                                        />
+                                        <input
+                                            name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][name]"
+                                            type="text"
+                                            id="customfield_<?php echo $custom_field.'_'.$key; ?>_name"
+                                            class="width375 greyed"
+                                            value="<?php
+                                            if(isset($value['custom_fields'][$custom_field]['name'])) {
+                                                echo html($value['custom_fields'][$custom_field]['name']);
+                                            }
+                                            ?>"
+                                            size="40"
+                                            onfocus="this.blur()"
+                                        />
+                                    </td>
+                                    <td><a
+                                        href="#"
+                                        title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"
+                                        onclick="openFileBrowser('filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>');return false;"
+                                        ><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /></a></td>
+                                    <td><a
+                                        href="#"
+                                        title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                                        onclick="getObjectById('customfield_<?php
+                                            echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
+                                            echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                                            echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
+                                        ><img src="img/button/del_image_button.gif" alt="" border="0" /></a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="tdtop5">
+                                        <textarea
+                                            name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][description]"
+                                            cols="40"
+                                            rows="2"
+                                            class="width375 autosize"
+                                            id="customfield_<?php echo $custom_field.'_'.$key; ?>_description"><?php
+                                            if(isset($value['custom_fields'][$custom_field]['description'])) {
+                                                echo html($value['custom_fields'][$custom_field]['description']);
+                                            }
+                                            ?></textarea>
+                                        <span class="caption width400">
+                                            <?php echo $BL['be_cnt_description']; ?>
+                                            |
+                                            <?php echo $BL['be_fprivedit_filename']; ?>
+                                            |
+                                            <?php echo $BL['be_caption_file_title']; ?>
+                                            |
+                                            <?php echo $BL['be_cnt_target']; ?>
+                                            |
+                                            <?php echo $BL['be_caption_file_imagesize']; ?>
+                                            |
+                                            <?php echo $BL['be_copyright']; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+
+            <?php   endif; ?>
+                        </td>
+                    </tr>
 <?php
-				endforeach;
-			endif;
+                endforeach;
+            endif;
 ?>
 
             </table>
@@ -516,10 +594,10 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <tr>
     <td colspan="2" class="rowspacer7x7">
         <input type="hidden" name="tab_fieldgroup" value="<?php echo $tab_fieldgroups_active; ?>" /><?php
-    		if(count($custom_tab_fields_hidden)) {
-    			echo implode('', $custom_tab_fields_hidden);
-    		}
-    	?>
+            if(count($custom_tab_fields_hidden)) {
+                echo implode('', $custom_tab_fields_hidden);
+            }
+        ?>
     <script type="text/javascript">
 
     var site_url    = '<?php echo PHPWCMS_URL; ?>';
@@ -554,6 +632,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         openFileBrowser('filebrowser.php?opt=8&target=nolist&entry_id='+image_number);
         return false;
     }
+
     function setImgIdName(image_number, file_id, file_name) {
         if(file_id == null || file_name == null) return null;
         $('cimage_id_'+image_number).value = file_id;
@@ -563,6 +642,19 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
             updatePreviewImage(image_number[1]);
         }
     }
+
+    function setIdName(field, file_id, file_name) {
+        if(file_id == null || file_name == null || field == null) {
+            return null;
+        }
+        var field_id = $('customfield_'+field+'_id');
+        if(!field_id) {
+             return null;
+        }
+        field_id.value = file_id;
+        $('customfield_'+field+'_name').value = file_name;
+    }
+
     function deleteImageData(image_number, e) {
         $('cimage_name_'+image_number).value='';
         $('cimage_id_'+image_number).value='0';
@@ -665,63 +757,124 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         new_entry += '<'+'/tr>';
 
 <?php
-		if(!empty($value['custom_field_items'])):
-			foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+        if(!empty($value['custom_field_items'])):
+            foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
 
-				// send fields not defined as hidden values, should ensure not loosing values
-				if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
-					continue;
-				}
+                // send fields not defined as hidden values, should ensure not loosing values
+                if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
+                    continue;
+                }
 
-				$custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+                $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
 
-				// support only type "str" or "textarea" at the moment
-				if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
-					$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
-				}
+                // support only type "str" or "textarea" at the moment
+                if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
+                    $tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
+                }
 
 ?>
-		new_entry += '<tr class="tab-collapsable-row">';
-		new_entry += '<td class="chatlist tdtop4" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
-					if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
-						if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
-							echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
-						} else {
-							echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
-						}
-						echo ':';
-					}
-				?>&nbsp;<'+'/td>';
-		new_entry += '<td colspan="2" class="tdbottom2">';
-<?php	if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'):	?>
-		new_entry += '<input type="text" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400"<?php echo $custom_field_placeholder; ?> '+'/>';
-<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-		new_entry += '<textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" class="v11 width400 autosize" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
-<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
-		foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-		new_entry += '<label class="radio tab-option-radio"><input type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>'+'/> <?php echo html($option_label); ?><'+'/label> ';
-<?php		endforeach;
-	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'):	?>
-		new_entry += '<input type="number" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="0" class="v11 width100"<?php echo $custom_field_placeholder; ?>';
-		<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?>new_entry += ' min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>"';<?php endif; ?>
-		<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?>new_entry += ' max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>"';<?php endif; ?>
-		<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?>new_entry += ' step="<?php echo $tab_fieldgroup['fields'][$custom_field]['step']; ?>"';<?php endif; ?>
-		new_entry += ' />';
-<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
-		new_entry += '<select name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]">';
-		<?php		foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-		new_entry += '<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?><'+'/option>';
-		<?php		endforeach; ?>
-		new_entry += '</select>';
-<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-		new_entry += '<label class="checkbox tab-option-checkbox">';
-		new_entry += '<input type="checkbox" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>'+'/> ';
-		new_entry += '<?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
-<?php	endif; ?>
-		new_entry += '<'+'/td><'+'/tr>';
+        new_entry += '<tr class="tab-collapsable-row">';
+        new_entry += '<td class="chatlist tdtop4" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
+                if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
+                    if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
+                        echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
+                    } else {
+                        echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+                    }
+                    echo ':';
+                }
+        ?>&nbsp;<'+'/td>';
+        new_entry += '<td colspan="2" class="tdbottom2">';
+<?php   if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
+        new_entry += '<input type="text" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="v11 width400"<?php echo $custom_field_placeholder; ?> '+'/>';
+
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+        new_entry += '<textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" class="v11 width400 autosize" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
+
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+        foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+        new_entry += '<label class="radio tab-option-radio"><input type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>'+'/> <?php echo html($option_label); ?><'+'/label> ';
+<?php   endforeach;
+
+        elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
+        new_entry += '<input type="number" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="0" class="v11 width100"<?php echo $custom_field_placeholder; ?>';
+        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?>new_entry += ' min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>"';<?php endif; ?>
+        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?>new_entry += ' max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>"';<?php endif; ?>
+        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?>new_entry += ' step="<?php echo $tab_fieldgroup['fields'][$custom_field]['step']; ?>"';<?php endif; ?>
+        new_entry += ' />';
+
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
+        new_entry += '<select name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]">';
+        <?php       foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+        new_entry += '<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?><'+'/option>';
+        <?php       endforeach; ?>
+        new_entry += '</select>';
+
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
+        new_entry += '<label class="checkbox tab-option-checkbox">';
+        new_entry += '<input type="checkbox" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>'+'/> ';
+        new_entry += '<?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
+
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
+
+        new_entry += '<table border="0" cellpadding="0" cellspacing="0">';
+        new_entry += '  <tr>';
+        new_entry += '      <td>';
+        new_entry += '          <input';
+        new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][id]"';
+        new_entry += '              type="hidden"';
+        new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_id"';
+        new_entry += '              value=""';
+        new_entry += '          />';
+        new_entry += '          <input';
+        new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][name]"';
+        new_entry += '              type="text"';
+        new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_name"';
+        new_entry += '              class="width375 greyed"';
+        new_entry += '              value=""';
+        new_entry += '              size="40"';
+        new_entry += '              onfocus="this.blur()"';
+        new_entry += '          />';
+        new_entry += '      </td>';
+        new_entry += '      <td><a';
+        new_entry += '              href="#"';
+        new_entry += '              title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"';
+        new_entry += '              onclick="openFileBrowser(\'filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>\');return false;"';
+        new_entry += '          ><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /><'+'/a><'+'/td>';
+        new_entry += '      <td><a';
+        new_entry += '              href="#"';
+        new_entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
+        new_entry += '              onclick="getObjectById(\'customfield_<?php
+                                    echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';getObjectById(\'customfield_<?php
+                                    echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
+                                    echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
+        new_entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
+        new_entry += '  <'+'/tr>';
+        new_entry += '  <tr>';
+        new_entry += '      <td colspan="3" class="tdtop5">';
+        new_entry += '          <textarea';
+        new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][description]"';
+        new_entry += '              cols="40"';
+        new_entry += '              rows="2"';
+        new_entry += '              class="width375 autosize"';
+        new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_description"></textarea>';
+        new_entry += '          <span class="caption width400">';
+        new_entry += '              <?php echo $BL['be_cnt_description']; ?> |';
+        new_entry += '              <?php echo $BL['be_fprivedit_filename']; ?> |';
+        new_entry += '              <?php echo $BL['be_caption_file_title']; ?> |';
+        new_entry += '              <?php echo $BL['be_cnt_target']; ?> |';
+        new_entry += '              <?php echo $BL['be_caption_file_imagesize']; ?> |';
+        new_entry += '              <?php echo $BL['be_copyright']; ?>';
+        new_entry += '          <'+'/span>';
+        new_entry += '      <'+'/td>';
+        new_entry += '  <'+'/tr>';
+        new_entry += '<'+'/table>';
+
+<?php   endif; ?>
+        new_entry += '<'+'/td><'+'/tr>';
 <?php
-			endforeach;
-		endif;
+            endforeach;
+        endif;
 ?>
         new_entry += '<'+'/table>';
 

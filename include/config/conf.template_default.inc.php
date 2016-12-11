@@ -674,6 +674,13 @@ $template_default['settings'] = array(
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
                 ),
+                'file1' => array(
+                    'legend' => 'file 1',
+                    'type' => 'file',
+                    'template' => '', // if empty the default file list template is used
+                    'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
+                    'direct' => 0 // direct file download 1 or not 0
+                )
             )
         ),
         */

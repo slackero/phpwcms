@@ -84,26 +84,30 @@ text_render = plain
 </div>
 <!--IMAGES_FOOTER_END//-->
 
-        Thumbnail image: {THUMB_NAME}
-          ID/Hash/Ext:      {THUMB_ID}/{THUMB_HASH}/{THUMB_EXT}
-          relative:         {THUMB_REL}
-          absolute:         {THUMB_ABS}
-          height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
-          height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
-          columns:          {THUMB_COLUMNS}
 
-        If you are not sure wrap zoomed image:
-        [ZOOM]
-        Zoomed (big) image: {IMAGE_NAME}
-          ID/Hash/Ext:      {IMAGE_ID}/{IMAGE_HASH}/{IMAGE_EXT}
-          relative:         {IMAGE_REL}
-          absolute:         {IMAGE_ABS}
-          height/width:     {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
-        [/ZOOM]
+Thumbnail image: {THUMB_NAME}
+  ID/Hash/Ext:      {THUMB_ID}/{THUMB_HASH}/{THUMB_EXT}
+  relative:         {THUMB_REL}
+  absolute:         {THUMB_ABS}
+  height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
+  height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
+  columns:          {THUMB_COLUMNS}
 
-        Image URL: {IMAGE_URL}, Target: {IMAGE_TARGET}
+If you are not sure wrap zoomed image:
+[ZOOM]
+Zoomed (big) image: {IMAGE_NAME}
+  ID/Hash/Ext:      {IMAGE_ID}/{IMAGE_HASH}/{IMAGE_EXT}
+  relative:         {IMAGE_REL}
+  absolute:         {IMAGE_ABS}
+  height/width:     {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
+[/ZOOM]
 
-        No need to use the _ELSE condition, but possible to use _ELSE only
-        [EFFECT_1]Effect 1 enabled[/EFFECT_1][EFFECT_1_ELSE]Effect 1 disabled[/EFFECT_1_ELSE]
-        [EFFECT_2]Effect 2 enabled[/EFFECT_2][EFFECT_2_ELSE]Effect 2 disabled[/EFFECT_2_ELSE]
-        [EFFECT_3]Effect 3 enabled[/EFFECT_3][EFFECT_3_ELSE]Effect 3 disabled[/EFFECT_3_ELSE]
+Image URL: {IMAGE_URL}, Target: {IMAGE_TARGET}
+
+No need to use the _ELSE condition, but possible to use _ELSE only
+[EFFECT_1]Effect 1 enabled[/EFFECT_1][EFFECT_1_ELSE]Effect 1 disabled[/EFFECT_1_ELSE]
+[EFFECT_2]Effect 2 enabled[/EFFECT_2][EFFECT_2_ELSE]Effect 2 disabled[/EFFECT_2_ELSE]
+[EFFECT_3]Effect 3 enabled[/EFFECT_3][EFFECT_3_ELSE]Effect 3 disabled[/EFFECT_3_ELSE]
+
+Custom Fields
+[IMGSPCL_xxxx]{IMGSPCL_xxxx}[/IMGSPCL_xxxx]

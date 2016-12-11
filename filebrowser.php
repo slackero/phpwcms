@@ -51,16 +51,12 @@ if( empty($_SESSION["wcs_user_lang"]) ) {
 
 }
 
+$js_aktion = empty($_GET["opt"]) ? 0 : intval($_GET["opt"]);
+
 // set target for article summary/list image
 if(isset($_GET['target'])) {
 
-    switch($_GET['target']) {
-
-        case 'list':    $_SESSION['filebrowser_image_target'] = '_list_';
-                        break;
-
-        default:        $_SESSION['filebrowser_image_target'] = '_';
-    }
+    $_SESSION['filebrowser_image_target'] = $_GET['target'] === 'list' ? '_list_' :  '_';
 
 } elseif(empty($_SESSION['filebrowser_image_target'])) {
 
@@ -85,8 +81,6 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
 $phpwcms_filestorage = PHPWCMS_FILES;
 
-$js_aktion = (isset($_GET["opt"])) ? intval($_GET["opt"]) : 0;
-
 switch($js_aktion) {
 
     case 0:
@@ -96,31 +90,39 @@ switch($js_aktion) {
     case 8:
     case 5:
     case 11:
-    case 17:    $titel      = $BL['IMAGE_TITLE'];
-                $filetype   = $BL['IMAGE_FILES'];
-                break;
+    case 17:
+        $titel      = $BL['IMAGE_TITLE'];
+        $filetype   = $BL['IMAGE_FILES'];
+        break;
 
     case 4:
     case 9:
     case 10:
     case 16:
     case 15:
-    case 18:    $titel      = $BL['FILE_TITLE'];
-                $filetype   = $BL['FILES'];
-                break;
+    case 18:
+    case 19:
+        $titel      = $BL['FILE_TITLE'];
+        $filetype   = $BL['FILES'];
+        break;
 
     case 2:
     case 6:
     case 12:
     case 13:
-    case 14:    $titel      = $BL['MEDIA_TITLE'];
-                $filetype   = $BL['MEDIA_FILES'];
-                break;
+    case 14:
+        $titel      = $BL['MEDIA_TITLE'];
+        $filetype   = $BL['MEDIA_FILES'];
+        break;
 
 }
 
-if(isset($folder)) unset($folder);
-if(isset($_SESSION["folder"])) $folder = $_SESSION["folder"];
+$folder = array();
+
+if(isset($_SESSION["folder"])) {
+    $folder = $_SESSION["folder"];
+}
+
 if(isset($_GET["folder"])) {
     list($folder_id, $folder_value) = explode('|', $_GET["folder"]);
     $folder_value       = intval($folder_value);
@@ -169,7 +171,7 @@ if($result = mysql_query($sql, $db) or die ("error while counting private files"
     <script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
     <script src="include/inc_js/phpwcms.js" type="text/javascript"></script>
-    <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function addFile(obj,text,value) {
             if(obj!=null && obj.options!=null) {
@@ -279,48 +281,80 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
     switch($js_aktion) {
 
-        case 6:     $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac') AND ";
-                    break;
+        case 6:
+            $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac') AND ";
+            break;
 
-                    // H.264
-        case 12:    $file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac') AND ";
-                    break;
+            // H.264
+        case 12:
+            $file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac') AND ";
+            break;
 
-                    // WebM
-        case 13:    $file_sql .= "f_ext IN ('webm') AND ";
-                    break;
+            // WebM
+        case 13:
+            $file_sql .= "f_ext IN ('webm') AND ";
+            break;
 
-                    // Ogg
-        case 14:    $file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
-                    break;
+            // Ogg
+        case 14:
+            $file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
+            break;
 
-                    // Typical Doc files
-        case 18:    $file_sql .= "f_ext IN ('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers') AND ";
-        case 15:    $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
-                    break;
+            // Typical Doc files
+        case 18:
+            $file_sql .= "f_ext IN ('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers') AND ";
+            // no break here
+        case 15:
+            $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
+            break;
+
+            // Custom content part file selector
+        case 19:
+            $allowed_ext = empty($_SESSION['filebrowser_allowed_ext']) ? array() : $_SESSION['filebrowser_allowed_ext'];
+            if(!empty($_GET['allowed'])) {
+                $allowed_ext = convertStringToArray(strtolower($_GET['allowed']));
+                if(count($allowed_ext)) {
+                    foreach($allowed_ext as $key => $ext) {
+                        $allowed_ext[$key] = _dbEscape($ext);
+                    }
+                    $_SESSION['filebrowser_allowed_ext'] = $allowed_ext;
+                }
+            }
+            if(count($allowed_ext)) {
+                $file_sql .= 'f_ext IN (' . implode(',', $allowed_ext) . ') AND ';
+            }
+            $entry_id = empty($_SESSION['filebrowser_field']) ? null : $_SESSION['filebrowser_field'];
+            if(!empty($_GET['field']) && ($entry_id = preg_replace('/[^a-z0-9_-]/i', '', $_GET['field']))) {
+                $_SESSION['filebrowser_field'] = $entry_id;
+            }
+            break;
 
         case 11:
         case 17:
-        case 8:     $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
-        case 7:     $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif') AND ";
-                    break;
+        case 8:
+            $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
+            // no break here
+        case 7:
+            $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif') AND ";
+            break;
 
-        case 2:     $default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
-                    $default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
-                    $default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
+        case 2:
+            $default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
+            $default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
+            $default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
 
-                    if(!empty($phpwcms["multimedia_ext"])) {
+            if(!empty($phpwcms["multimedia_ext"])) {
 
-                        $allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
-                        if(count($allowed_ext)) {
-                            $default_ext = "f_ext IN ('".implode("', '", $allowed_ext) . "')";
-                        }
+                $allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
+                if(count($allowed_ext)) {
+                    $default_ext = "f_ext IN ('" . implode("', '", $allowed_ext) . "')";
+                }
 
-                    }
+            }
 
-                    $file_sql .= $default_ext." AND ";
+            $file_sql .= $default_ext." AND ";
 
-                    break;
+            break;
 
     }
     $file_sql .= "f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ";
@@ -342,7 +376,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             $filename = html_specialchars($file_row["f_name"]);
 
             $thumb_image = true;
-            if( !in_array($js_aktion, array(2, 4, 9, 10, 16, 18)) ) {
+            if( !in_array($js_aktion, array(2, 4, 9, 10, 16, 18, 19)) ) {
                 // check if file can have thumbnail - if so it can be choosen for usage
                 $thumb_image = get_cached_image(array(
                     "target_ext"    =>  $file_row["f_ext"],
@@ -351,72 +385,88 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 ));
             }
 
-            if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16, 18))) {
+            if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16, 18, 19))) {
 
                 $js_files_select[$file_durchlauf] = '     [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
                 $add_all = false;
 
-
                 switch($js_aktion) {
-                    case 0:  $jst = empty($_SESSION['filebrowser_image_target']) ? '_' : $_SESSION['filebrowser_image_target'];
+                    case 0:
+                        $jst = empty($_SESSION['filebrowser_image_target']) ? '_' : $_SESSION['filebrowser_image_target'];
 
-                             $js  = "window.opener.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
-                             $js .= "window.opener.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
-                             break;
+                        $js  = "window.opener.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
+                        $js .= "window.opener.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
+                        break;
 
-                    case 2:  $js  = "window.opener.document.articlecontent.cmedia_name.value='".$filename."';";
-                             $js .= "window.opener.document.articlecontent.cmedia_id.value='".$file_row["f_id"]."';";
-                             break;
+                    case 2:
+                        $js  = "window.opener.document.articlecontent.cmedia_name.value='".$filename."';";
+                        $js .= "window.opener.document.articlecontent.cmedia_id.value='".$file_row["f_id"]."';";
+                        break;
 
                     case 6:
                     case 12:
                     case 13:
-                    case 14: $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
-                             break;
+                    case 14:
+                        $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
+                        break;
+
+                    case 19:
+                        $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');tmt_winControl('self','close()');";
+                        break;
 
                     case 18:
-                    case 15: $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
-                             break;
+                    case 15:
+                        $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
+                        break;
 
-                    case 7:  $js = "window.opener.setImgIdName('".$file_row["f_id"]."', '".$filename."');";
-                             break;
+                    case 7:
+                        $js = "window.opener.setImgIdName('".$file_row["f_id"]."', '".$filename."');";
+                        break;
 
-                    case 8:  $js = "window.opener.setImgIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
-                             break;
+                    case 8:
+                        $js = "window.opener.setImgIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
+                        break;
 
-                    case 4:  $js = "addFile(window.opener.document.articlecontent.cfile_list,'".$filename."','".$file_row["f_id"]."');";
-                             $js_files_all[] = $js;
-                             $add_all = true;
-                             break;
+                    case 4:
+                        $js = "addFile(window.opener.document.articlecontent.cfile_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js_files_all[] = $js;
+                        $add_all = true;
+                        break;
 
-                    case 9:  $js = "window.opener.addFile('".$file_row["f_id"]."', '".$filename."');";
-                             $js_files_all[] = $js;
-                             $add_all = true;
-                             break;
+                    case 9:
+                        $js = "window.opener.addFile('".$file_row["f_id"]."', '".$filename."');";
+                        $js_files_all[] = $js;
+                        $add_all = true;
+                        break;
 
-                    case 5:  $js = "addFile(window.opener.img_field,'".$filename."','".$file_row["f_id"]."');";
-                             $js_files_all[] = $js;
-                             $add_all = true;
-                             break;
+                    case 5:
+                        $js = "addFile(window.opener.img_field,'".$filename."','".$file_row["f_id"]."');";
+                        $js_files_all[] = $js;
+                        $add_all = true;
+                        break;
 
                     //mod
-                    case 10: $js  = "window.opener.SetUrl('download.php?f=".$file_row["f_hash"] . "&target=0');";
-                             break;
+                    case 10:
+                        $js  = "window.opener.SetUrl('download.php?f=".$file_row["f_hash"] . "&target=0');";
+                        break;
 
-                    case 11: $js  = "window.opener.SetUrl('img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
-                             break;
+                    case 11:
+                        $js  = "window.opener.SetUrl('img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        break;
 
                     //CKEditor
-                    case 16: $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=".$file_row["f_hash"] . "&target=0');";
-                             break;
+                    case 16:
+                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=".$file_row["f_hash"] . "&target=0');";
+                        break;
 
-                    case 17: $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
-                             break;
+                    case 17:
+                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        break;
 
-
-                    default: $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
-                             $js_files_all[] = $js;
-                             $add_all = true;
+                    default:
+                        $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js_files_all[] = $js;
+                        $add_all = true;
                 }
 
                 // show "add all files"
@@ -449,7 +499,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 echo "<img src=\"img/button/add_9x9a.gif\" border=\"0\" alt=\"\" hspace=\"5\" vspace=\"2\" /></a></td>\n";
                 echo "<td><img src=\"img/leer.gif\" alt=\"\" border=\"0\" /></td>\n</tr>\n";
                 echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-                if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18) ) ) {
+                if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
                     echo "<tr><td>&nbsp;</td>\n<td colspan=\"3\"><a href=\"#\" onclick=\"".$js;
                     echo "tmt_winControl('self','close()');\">";
                     echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
@@ -691,21 +741,13 @@ function on_off($wert, $string, $art = 1) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        if($art == 1) {
-            return "+";
-        } else {
-            return "<img src=\"img/symbols/klapp_zu.gif\" border=\"0\" alt=\"\" title=\"".$GLOBALS['BL']['OPEN_DIR'].": ".$string."\" />";
-        }
+        return $art == 1 ? "+" : "<img src=\"img/symbols/klapp_zu.gif\" border=\"0\" alt=\"\" title=\"".$GLOBALS['BL']['OPEN_DIR'].": ".$string."\" />";
     } else {
-        if($art == 1) {
-            return "-";
-        } else {
-            return "<img src=\"img/symbols/klapp_auf.gif\" border=\"0\" alt=\"\" title=\"".$GLOBALS['BL']['CLOSE_DIR'].": ".$string."\" />";
-        }
+        return $art == 1 ? "-" : "<img src=\"img/symbols/klapp_auf.gif\" border=\"0\" alt=\"\" title=\"".$GLOBALS['BL']['CLOSE_DIR'].": ".$string."\" />";
     }
 }
 
 function true_false($wert) {
     //Wechselt den Wahr/Falsch wert zum Gegenteil: 1=>0 und 0=>1
-    if(intval($wert)) { return 0; } else { return 1; }
+    return intval($wert) ? 0 : 1;
 }
