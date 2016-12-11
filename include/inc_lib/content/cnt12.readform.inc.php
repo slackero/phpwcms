@@ -30,7 +30,9 @@ $content["newsletter"]["logoff_text"]			= html_specialchars(clean_slweg($_POST["
 $content["newsletter"]["change_text"]			= html_specialchars(clean_slweg($_POST["cnewsletter_change_text"]));
 $content["newsletter"]["url1"]					= clean_slweg($_POST["cnewsletter_url1"]);
 $content["newsletter"]["url2"]					= clean_slweg($_POST["cnewsletter_url2"]);
-
+//pwmod: recaptcha newsletter
+$content["newsletter"]["recaptcha"]				= intval($_POST["cnewsletter_recaptcha"]);
+//pwod end
 $content['subscription_temp']					= convertStringToArray($_POST['cnewsletter_subscription_left']);
 $content["newsletter"]["subscription"]			= array();
 foreach($content['subscription_temp'] as $subscr_value) {

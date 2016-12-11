@@ -193,7 +193,8 @@ calEnd.setYearCombo(false);
 					<label><input type="radio" name="article_lang_type" value="article"<?php is_checked('article', $article['article_lang_type']); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
 					&nbsp;
 					<img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" />&nbsp;
-					<input name="article_lang_id" type="text" class="bold width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" />
+					<!-- pwmod add article browser -->
+					<input name="article_lang_id" type="text" class="bold width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" /> <a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('articlebrowser.php?opt=2');return false;"><img src="img/famfamfam/sitemap_color.png" alt="" width="16" height="16" border="0" />
 				</div>
 
 			</div></td>

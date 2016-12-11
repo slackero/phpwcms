@@ -154,4 +154,11 @@ if (!defined('PHPWCMS_ROOT')) {
   </tr>
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr><!-- pwmod: recaptcha added -->
+  <tr>
+    <td align="right" valign="top" class="chatlist"><?php echo $BL['be_cnt_field']['recaptcha'] ?>:&nbsp;</td>
+    <td valign="top"><input type="checkbox" name="cnewsletter_recaptcha" id="cnewsletter_recaptcha" value="1" <?php is_checked(1, $content["newsletter"]["recaptcha"]) ?> /></td>
+  </tr>
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
+<!-- pwmod end -->

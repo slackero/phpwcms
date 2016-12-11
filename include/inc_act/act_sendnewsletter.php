@@ -125,11 +125,10 @@ if(!$newsletter) {
 
         // retrieve recipients for current loop
         $sql  = 'SELECT address_key, address_email, address_name, queue_id ';
-        $sql .= 'FROM '.DB_PREPEND.'phpwcms_address ';
-        $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_newsletterqueue ';
-        $sql .= 'ON '.DB_PREPEND.'phpwcms_address.address_id = '.DB_PREPEND.'phpwcms_newsletterqueue.queue_rid ';
-        $sql .= 'WHERE '.DB_PREPEND.'phpwcms_newsletterqueue.queue_status=0 AND ';
-        $sql .= DB_PREPEND.'phpwcms_newsletterqueue.queue_pid='.$newsletter["newsletter_id"];
+        $sql .= 'FROM '.DB_PREPEND.'phpwcms_address ad ';
+        $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_newsletterqueue nlq ';
+        $sql .= 'ON ad.address_id = nlq.queue_rid ';
+        $sql .= 'WHERE nlq.queue_status=0 AND nlq.queue_pid='.$newsletter["newsletter_id"];
         if($loop) {
             $sql .= ' LIMIT '.$loop;
         }

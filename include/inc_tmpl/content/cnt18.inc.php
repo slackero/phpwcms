@@ -54,12 +54,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<td>&nbsp;</td>
 <?php
 
-	$_aliasID_Query	 = 'SELECT acontent_id,  acontent_visible, article_title, acontent_form FROM '.DB_PREPEND.'phpwcms_articlecontent';
-	$_aliasID_Query	.= ' LEFT JOIN '.DB_PREPEND.'phpwcms_article ON ';
-	$_aliasID_Query	.= ' ('.DB_PREPEND.'phpwcms_articlecontent.acontent_aid = '.DB_PREPEND.'phpwcms_article.article_id)';
-	$_aliasID_Query	.= ' WHERE '.DB_PREPEND.'phpwcms_articlecontent.acontent_id != '.$content["id"];
-	$_aliasID_Query	.= ' AND '.DB_PREPEND.'phpwcms_articlecontent.acontent_type=18';
-	$_aliasID_Query	.= ' AND '.DB_PREPEND.'phpwcms_articlecontent.acontent_trash=0';
+	$_aliasID_Query	 = 'SELECT acontent_id,  acontent_visible, article_title, acontent_form FROM '.DB_PREPEND.'phpwcms_articlecontent ac ';
+	$_aliasID_Query	.= ' LEFT JOIN '.DB_PREPEND.'phpwcms_article ON ar ';
+	$_aliasID_Query	.= ' (ac.acontent_aid = ar.article_id)';
+	$_aliasID_Query	.= ' WHERE ac.acontent_id != '.$content["id"];
+	$_aliasID_Query	.= ' AND ac.acontent_type=18';
+	$_aliasID_Query	.= ' AND ac.acontent_trash=0';
 
 	$_available_aliasID = _dbQuery($_aliasID_Query);
 

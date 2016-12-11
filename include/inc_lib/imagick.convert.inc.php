@@ -186,6 +186,13 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 	$thumb_image_info[0] = false; // Thumb Image
 	$image_hash = substr($val['image_name'], 0, (strlen($val['target_ext']) * -1) - 1);
 
+	//pwmod: get googlefriendly filename
+	require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+	$sql = "SELECT f_id, f_alias FROM ".DB_PREPEND."phpwcms_file WHERE f_alias <> '' AND f_trash=0 AND f_hash='".$image_hash."'";
+	if($f_row = @_dbQuery($sql, 'ROW')) {
+		$val['thumb_name'] = $val['max_width'].$val['max_height'].$f_row[0][0]."-".$f_row[0][1];
+	}
+	//pwmod_end
 	// now check if thumbnail was created - proof for GIF, PNG, JPG
 	$thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 

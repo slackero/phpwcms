@@ -32,6 +32,10 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
     $file_aktiv             = empty($_POST["file_aktiv"]) ? 0 : 1;
     $file_public            = empty($_POST["file_public"]) ? 0 : 1;
     $file_name              = clean_slweg($_POST["file_name"]);
+    //pwmod: f_alias
+    $file_alias                = clean_slweg($_POST["file_alias"]);
+    $file_alias_old                = clean_slweg($_POST["file_alias_old"]);
+    //pwmod end
     $file_ext               = clean_slweg($_POST["file_ext"]);
     $file_shortinfo         = clean_slweg($_POST["file_shortinfo"]);
     $file_longinfo          = slweg($_POST["file_longinfo"]);
@@ -94,6 +98,30 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
         }
     }
 
+    //pwmod: alias eingebaut
+    if ($file_alias != '') {
+      $file_alias = clean_slweg(strtolower($file_alias), 150);
+      $file_alias = uri_sanitize($file_alias);
+      if($file_alias != '') {
+          $file_alias = trim( preg_replace('/\-\-+/', '-', $file_alias), '-' );
+          $file_alias = trim( preg_replace('/__+/', '_', $file_alias), '_' );
+      }
+      $f_count  = "SELECT COUNT(f_alias) FROM ".DB_PREPEND."phpwcms_file WHERE ";
+      $f_count .= "f_alias='".aporeplace($file_alias)."' AND f_id<>".$file_id;
+      $f_count = @_dbQuery($f_count, 'COUNT');
+      if ($f_count > 0) {
+          $file_alias = $file_alias."-".$f_count;
+      }
+    }
+    //if alias has changed lets deleted existing content images
+    if ($file_alias != $file_alias_old && $file_alias_old != '') {
+      $files = glob(PHPWCMS_ROOT.'/content/images/*-'.$file_alias_old.'.'.$file_ext);
+      foreach ($files as $file) {
+         unlink($file);
+      }
+    }
+    //pwmod end
+    
     if(empty($file_name)) {
         $file_error["name"] = 1;
     } else {
@@ -106,6 +134,9 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
     if(empty($file_error)) {
         $sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".
                 "f_name='".aporeplace($file_name)."', ".
+                //pwmod: f_alias
+                "f_alias='".aporeplace($file_alias)."', ".
+                //pwmod end
                 "f_pid=".$file_pid.", ".
                 "f_aktiv=".$file_aktiv.", ".
                 "f_public=".$file_public.", ".
@@ -159,6 +190,9 @@ if($file_id) {
             if(empty($_POST["file_aktion"]) || intval($_POST["file_aktion"]) != 2) {
                 $file_pid               = $row["f_pid"];
                 $file_name              = $row["f_name"];
+                //pwmod: f_alias
+                $file_alias                = $row["f_alias"];
+                //pwmod end
                 $file_aktiv             = $row["f_aktiv"];
                 $file_public            = $row["f_public"];
                 $file_shortinfo         = $row["f_shortinfo"];
@@ -267,6 +301,13 @@ if($ja) {
       <td align="right" class="v09"><?php echo $BL['be_fprivedit_filename'] ?>:&nbsp;</td>
       <td><input name="file_name" type="text" class="width400 v12" id="file_name" value="<?php echo html($file_name) ?>" size="40" maxlength="230"></td>
     </tr>
+    <!-- pwmod: Feld filealias -->
+     <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+       <tr>
+      <td align="right" class="v09"><?php echo $BL['be_alias'] ?>:&nbsp;</td>
+      <td><input name="file_alias" type="text" class="width400" id="file_alias" value="<?php echo html($file_alias) ?>" size="40" maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value);document.getElementById('file_alias_changed').value='changed';"><input name="file_alias_changed" type="hidden" id="file_alias_changed" value="" /><input name="file_alias_old" type="hidden" id="file_alias_old" value="<?php echo $file_alias ?>" /></td>
+    </tr>
+    <!-- pwmod end -->
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
@@ -516,6 +557,16 @@ $(function(){
 <?php   endif; ?>
 
 });
+
+/* pwmod: add function alias */
+function set_file_alias(onempty_only, alias_type) {
+    var aalias = getObjectById('file_alias');
+    if(onempty_only && aalias.value != '') return false;
+    var aname = document.getElementById('file_name').value.replace('<?php echo $file_ext; ?>', '');
+    aalias.value = create_alias(aname);
+    document.getElementById("file_alias_changed").value = "changed";
+    return false;
+}
 
 </script>
 

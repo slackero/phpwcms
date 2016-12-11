@@ -1,0 +1,68 @@
+/* module Template backend CSS */
+
+h4 {
+  margin-bottom:10px;
+}
+label {
+ font-weight: bold;
+}
+
+.tmpl_menu img {
+  vertical-align: middle;
+  padding-right:3px;
+}
+.tmpl_menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 0;
+}
+.tmpl_menu ul li ul {
+  padding-left: 25px;
+  top: 0;
+  padding-bottom: 5px;
+}
+  
+.p_menu {
+  display:none;
+}
+.ui-tooltip-content img {
+  vertical-align: middle;
+  height: 15px;
+  padding-right:10px;
+}
+.ui-tooltip-content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 0;
+}
+.ui-tooltip-content ul li ul {
+  padding-left: 25px;
+  top: 0;
+}
+
+.alert-success {
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  border: 1px solid #18bc9c;
+  -webkit-border-radius: 4px;
+          border-radius: 4px;
+  background-color: #18bc9c;
+  color: #ffffff;
+}
+.alert-danger {
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  border: 1px solid #e74c3c;
+  -webkit-border-radius: 4px;
+          border-radius: 4px;
+  background-color: #e74c3c;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.hoverimg:hover {
+  cursor: pointer;
+  cursor: hand;  
+}

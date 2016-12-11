@@ -62,10 +62,10 @@ if(isset($count_user_files) && $count_user_files) { //Wenn �berhaupt Public-Da
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";
 
 	//Pr�fen, f�r welche User �berhaupt Public Files vorhanden sind
-	$sql = "SELECT DISTINCT ".DB_PREPEND."phpwcms_file.f_uid, ".DB_PREPEND."phpwcms_user.usr_login, ".DB_PREPEND."phpwcms_user.usr_name ".
-		   "FROM ".DB_PREPEND."phpwcms_file INNER JOIN ".DB_PREPEND."phpwcms_user ON ".DB_PREPEND."phpwcms_file.f_uid=".DB_PREPEND."phpwcms_user.usr_id ".
-		   "WHERE ".DB_PREPEND."phpwcms_file.f_public=1 AND ".DB_PREPEND."phpwcms_file.f_aktiv=1 AND ".DB_PREPEND."phpwcms_file.f_trash=0 ".
-		   "ORDER BY ".DB_PREPEND."phpwcms_user.usr_name, ".DB_PREPEND."phpwcms_user.usr_login;";
+	$sql = "SELECT DISTINCT f.f_uid, u.usr_login, u.usr_name ".
+		   "FROM ".DB_PREPEND."phpwcms_file f INNER JOIN ".DB_PREPEND."phpwcms_user u ON f.f_uid=u.usr_id ".
+		   "WHERE f.f_public=1 AND f.f_aktiv=1 AND f.f_trash=0 ".
+		   "ORDER BY u.usr_name, u.usr_login;";
 
 	if($result = mysql_query($sql, $db) or die ("error while browsing user's public files")) {
 		$user_counter=0;
