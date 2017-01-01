@@ -10,7 +10,7 @@
  * @see https://dev.twitter.com/cards/getting-started Documentation of Twitter Cards
  *
  * @author Oliver Georgi <slackero@gmail.com>
- * @copyright 2016 Oliver Georgi
+ * @copyright 2017 Oliver Georgi
  */
 
 if(!$content['list_mode']) {
