@@ -13,6 +13,11 @@ Quick start
 Clone the repo, `git clone git://github.com/slackero/phpwcms.git` or [download the latest release](https://github.com/slackero/phpwcms/zipball/master).
 
 
+Server system requirements
+--------------------------
+
+phpwcms requires a web server with PHP (minimum version 5.3 up to 5.6.x) and a MySQL database (minimum version 5.1, recommend 5.5+). **This branch is NOT compatible to PHP 7.**
+
 
 Bug tracker
 -----------
