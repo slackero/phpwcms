@@ -1,5 +1,5 @@
-/**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/**
+ * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/c93ecb8901a11f5072773e93b23fa12e
+ * (2) http://ckeditor.com/builder/894b630798eeb872e86919c9b2cad9c2
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/c93ecb8901a11f5072773e93b23fa12e
+ * (3) http://ckeditor.com/builder/download/894b630798eeb872e86919c9b2cad9c2
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,7 +25,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moono',
+	skin: 'moono-lisa',
 	preset: 'full',
 	ignore: [
 		'.bender',
@@ -159,6 +159,7 @@ var CKBUILDER_CONFIG = {
 		'nb' : 1,
 		'nl' : 1,
 		'no' : 1,
+		'oc' : 1,
 		'pl' : 1,
 		'pt' : 1,
 		'pt-br' : 1,
