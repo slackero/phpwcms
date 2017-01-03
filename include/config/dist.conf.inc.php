@@ -104,10 +104,10 @@ $phpwcms['JW_FLV_License']      = ''; // insert your JW FLV Media Player License
 $phpwcms['feuser_regkey']       = 'FEUSER';
 $phpwcms['login.php']           = 'login.php';
 $phpwcms['js_lib']              = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.12/)
+$phpwcms['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.14/)
 $phpwcms['render_device']       = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio']   = 0; // will inject the page with JavaScript to detect Retina devices
-$phpwcms['im_fix_colorspace']   = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB
+$phpwcms['im_fix_colorspace']   = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
 $phpwcms['wkhtmltopdf_path']    = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
 $phpwcms['render_clean_html']   = 0; // clean up HTML source a bit, experimental can have unexpected side effects
 $phpwcms['browser_check']       = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
