@@ -96,7 +96,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             $content["redirect"]["timeout"] = isset($content["redirect"][2]) ? intval($content["redirect"][2]) : 0;
 
             //check how to redirect - new window or self window
-            if( !$content["redirect"]["timeout"] || !$content["redirect"]["target"]) {
+            if(!$content["redirect"]["timeout"] && !$content["redirect"]["target"]) {
                 // direct redirection in the same window
                 headerRedirect($content["redirect"]["link"], 301);
             } elseif($content["redirect"]["target"] === '' || $content["redirect"]["target"] === "_self") {
