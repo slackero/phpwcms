@@ -96,25 +96,29 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             $content["redirect"]["timeout"] = isset($content["redirect"][2]) ? intval($content["redirect"][2]) : 0;
 
             //check how to redirect - new window or self window
-            if( !$content["redirect"]["target"] || $content["redirect"]["target"] == "_self" || $content["redirect"]["target"] == "_top" || $content["redirect"]["target"] == "_parent") {
+            if( !$content["redirect"]["timeout"] || !$content["redirect"]["target"]) {
                 // direct redirection in the same window
                 headerRedirect($content["redirect"]["link"], 301);
+            } elseif($content["redirect"]["target"] === '' || $content["redirect"]["target"] === "_self") {
+                set_meta('refresh', $content["redirect"]["timeout"].'; URL='.$content["redirect"]["link"], 'http-equiv');
             } else {
                 // redirection by using a special <meta><javascript> html head part
-                $content["redirect"]["code"]  = LF . '  <noscript>' . LF;
-                $content["redirect"]["code"] .= '   <meta http-equiv="refresh" content="'.$content["redirect"]["timeout"].';URL=';
-                $content["redirect"]["code"] .= $content["redirect"]["link"];
-                $content["redirect"]["code"] .= '"'.HTML_TAG_CLOSE.LF.'  </noscript>' . LF;
-                $content["redirect"]["code"] .= '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-                $content["redirect"]["code"] .= '   var redirectWin;' . LF;
-                if($content["redirect"]["timeout"]) {
-                    $content["redirect"]["code"] .= '   window.setTimeout(\'window.open("'.$content["redirect"]["link"].'", redirectWin)\', ';
-                    $content["redirect"]["code"] .= $content["redirect"]["timeout"] * 1000;
-                    $content["redirect"]["code"] .= ');';
+                if($content["redirect"]["target"] === '_top') {
+                    $content["redirect"]["js"] = 'window.top.location="'.$content["redirect"]["link"].'"';
+                } elseif($content["redirect"]["target"] === '_parent') {
+                    $content["redirect"]["js"] = 'parent.location="'.$content["redirect"]["link"].'"';
                 } else {
-                    $content["redirect"]["code"] .= '   window.open("'.$content["redirect"]["link"].'", redirectWin);';
+                    $content["redirect"]["js"] = 'window.open("'.$content["redirect"]["link"].'", redirectWin)';
                 }
-                $content["redirect"]["code"] .= LF . '  </script>' . LF;
+
+                $content["redirect"]["code"]  = LF . '  <noscript><meta http-equiv="refresh" content="'.$content["redirect"]["timeout"].';URL='.$content["redirect"]["link"].'"'.HTML_TAG_CLOSE.'</noscript>';
+                $content["redirect"]["code"] .= LF . '  <script'.SCRIPT_ATTRIBUTE_TYPE.'> var redirectWin; ';
+                if($content["redirect"]["timeout"]) {
+                    $content["redirect"]["code"] .= 'window.setTimeout(\''.$content["redirect"]["js"].'\', ' . ($content["redirect"]["timeout"] * 1000) . ');';
+                } else {
+                    $content["redirect"]["code"] .= $content["redirect"]["js"].';';
+                }
+                $content["redirect"]["code"] .= ' </script>' . LF;
             }
         }
 
