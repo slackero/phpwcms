@@ -21,10 +21,6 @@ checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
-
-headerRedirect($ref);
-
 if(isset($_GET['del']) && intval($_GET['del'])) {
 
     $sql  = "UPDATE ".DB_PREPEND."phpwcms_guestbook SET guestbook_trashed=9 WHERE guestbook_cid=";
@@ -111,10 +107,15 @@ input, textarea {
 <table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
 <?php
 
-$sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=";
-$sql .= intval($_GET['cid']).$edit_ID." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
+$gbid = empty($_GET['cid']) ? 0 : intval($_GET['cid']);
 $c = 0;
-$result = _dbQuery($sql);
+
+if($gbid) {
+    $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_guestbook WHERE guestbook_cid=".$gbid;
+    $sql .= $edit_ID." AND guestbook_trashed=0 ORDER BY guestbook_created DESC";
+
+    $result = _dbQuery($sql);
+}
 
 if(isset($result[0]['guestbook_cid'])) {
 
