@@ -374,6 +374,10 @@ if($image['template']) {
                 case 'html':
                     break;
 
+                case 'text':
+                    $value['freetext'] = html($value['freetext']);
+                    break;
+
                 default:
                     $value['freetext'] = plaintext_htmlencode($value['freetext'], 'html_entities');
                     break;
