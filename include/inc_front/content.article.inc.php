@@ -684,8 +684,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
                 if(!isset($content['cptab'][$CNT_TAB][$CNT_TAB_ID])) {
 
                     $content['cptab'][$CNT_TAB][$CNT_TAB_ID] = array(
-                        'title'     => $crow['acontent_tab']['title'],
-                        'content'   => ''
+                        'title' => $crow['acontent_tab']['title'],
+                        'id' => $CNT_TAB_ID,
+                        'content' => ''
                     );
 
                 }
@@ -774,9 +775,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
                     foreach($trow as $tabkey => $tabitem) {
                         $tabitem['title'] = html_specialchars($tabitem['title']);
-                        $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['prefix'], $tabitem['title'], $CNT_TAB);
+                        $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['prefix'], $tabitem['title'], $tabitem['id']);
                         $g['wrap'][] = $tabitem['content'];
-                        $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['suffix'], $tabitem['title'], $CNT_TAB);
+                        $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['suffix'], $tabitem['title'], $tabitem['id']);
                     }
 
                 // Default behavior: Tabs
