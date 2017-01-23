@@ -253,10 +253,10 @@ if($file_id) {
 
 if($ja) {
 ?>
-<form action="phpwcms.php?do=files&f=0" method="post" name="editfileinfo" id="editfileinfo">
+<form action="phpwcms.php?do=files&amp;f=0" method="post" name="editfileinfo" id="editfileinfo">
 <table border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
     <tr>
-        <td rowspan="2" valign="top"><a href="phpwcms.php?do=files&f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
+        <td rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
         <td><img src="img/leer.gif" alt="" width="1" height="6"></td>
     </tr>
     <tr><td class="title"><?php echo $BL['be_fprivedit_title'] ?></td></tr>

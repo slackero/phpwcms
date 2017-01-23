@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $files_folder = (isset($_GET["f"])) ? intval($_GET["f"]) : 0; //Ermitteln, welcher Unterreiter angezeigt wird
 
 // if cut/paste is active
-$add_paste_icon = '<a href="phpwcms.php?do=files&f=0&mkdir=0" title="'.$BL['be_ftab_createnew'].
+$add_paste_icon = '<a href="phpwcms.php?do=files&amp;f=0&amp;mkdir=0" title="'.$BL['be_ftab_createnew'].
 				  '"><img src="img/button/add_13x13.gif" border="0"></a>';
 if(isset($_GET["cut"])) {
 	$cutID = intval($_GET["cut"]);

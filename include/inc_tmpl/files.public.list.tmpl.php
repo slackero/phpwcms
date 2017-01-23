@@ -75,7 +75,7 @@ if(isset($count_user_files) && $count_user_files) { // list if there are public 
 			$root_user_id = intval($row["f_uid"]);
 			$user_naming = html($row["usr_name"]." (".$row["usr_login"].")");
 			$count = "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">".
-					 "<a href=\"phpwcms.php?do=files&f=1&pklapp=u".$row["f_uid"].
+					 "<a href=\"phpwcms.php?do=files&amp;f=1&amp;pklapp=u".$row["f_uid"].
 					 "|".$pklapp_status."\">".on_off($pklapp_status, "\n".$BL['be_fpublic_user'].": ".$user_naming, 0)."</a>";
 
 			//Aufbau der Zeile mit den Benutzerinfos
@@ -98,7 +98,7 @@ if(isset($count_user_files) && $count_user_files) { // list if there are public 
 			echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Trennlinie
 
 			if(!$pklapp_status) {
-				list_public(0, $db, 18, "phpwcms.php?do=files&f=1", $row["f_uid"], $_SESSION["wcs_user_thumb"], $phpwcms);
+				list_public(0, $db, 18, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $_SESSION["wcs_user_thumb"], $phpwcms);
 
 				//Root files anzeigen
 				$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.
@@ -174,6 +174,6 @@ if(isset($count_user_files) && $count_user_files) { // list if there are public 
 	echo "</table>\n"; //Ende Tabelle
 } else { //Wenn keinerlei Datensatz innerhalb Files durchlaufen wurde, dann
 	echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />".$BL['be_fpublic_nofiles']."&nbsp;&nbsp;";
-	echo "[<a href=\"phpwcms.php?do=files&f=0&mkdir=0\">".$BL['be_fpriv_button']."</a>]";
+	echo "[<a href=\"phpwcms.php?do=files&amp;f=0&amp;mkdir=0\">".$BL['be_fpriv_button']."</a>]";
 	echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }

@@ -49,6 +49,6 @@ if(isset($count_user_files) && $count_user_files) {
 	//Ende Tabelle
 } else { //Wenn keinerlei Datensatz innerhalb Files durchlaufen wurde, dann
 	echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />".$BL['be_ftrash_nofiles']."&nbsp;&nbsp;";
-	echo "[<a href=\"phpwcms.php?do=files&f=0\">".$BL['be_ftrash_show']."</a>]";
+	echo "[<a href=\"phpwcms.php?do=files&amp;f=0\">".$BL['be_ftrash_show']."</a>]";
 	echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }
