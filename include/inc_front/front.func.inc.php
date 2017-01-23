@@ -434,7 +434,7 @@ function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
     return ($GLOBALS['content'][$hash] = implode($spacer, $breadcrumb));
 }
 
-function get_redirect_link($link='#', $pre='', $after=' ') {
+function get_redirect_link($link='#', $pre='', $after=' ', $self=null) {
     // returns the link var and target var if available
     $link           = explode(' ', $link);
     $l['link']      = empty($link[0]) ? '#' : $link[0];

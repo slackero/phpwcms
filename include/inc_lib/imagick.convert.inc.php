@@ -10,7 +10,7 @@
  **/
 
 // load external GD image handling class
-include_once PHPWCMS_ROOT."/include/inc_lib/helper.image.php";
+include_once PHPWCMS_ROOT.'/include/inc_lib/helper.image.php';
 
 // Deprecated function, use for 3rd party fallback usage
 function imagick_converting($config=array()) {

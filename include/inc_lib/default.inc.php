@@ -493,6 +493,9 @@ if(empty($phpwcms['allowed_upload_ext'])) {
     );
 }
 
+/**
+ * HTML Mode and document type
+ */
 if(empty($phpwcms['mode_XHTML'])) {
 
     $phpwcms['mode_XHTML'] = 0;

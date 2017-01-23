@@ -45,10 +45,10 @@ if(isset($_GET["pklapp"])) {
 
 }
 
-$_SESSION["list_zaehler"] = 0; //Z�hler f�r die Public-Listenfunktion setzen
+$_SESSION["list_zaehler"] = 0; // set counter
 
-//Feststellen, ob �berhaupt Dateien/Ordner des Users vorhanden sind
-$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0 LIMIT 1;";
+// are there any files and folders
+$sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_public=1 AND f_aktiv=1 AND f_trash=0 LIMIT 1";
 if($result = mysql_query($sql, $db) or die ("error while counting user files")) {
 	if($row = mysql_fetch_row($result)) {
 		$count_user_files = $row[0];
@@ -56,12 +56,12 @@ if($result = mysql_query($sql, $db) or die ("error while counting user files")) 
 	mysql_free_result($result);
 }
 
-if(isset($count_user_files) && $count_user_files) { //Wenn �berhaupt Public-Dateien vorhanden, dann Listing
-	//Beginn Tabelle f�r Public Dateilisting
+if(isset($count_user_files) && $count_user_files) { // list if there are public files
+	// table begin
 	echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
 	echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";
 
-	//Pr�fen, f�r welche User �berhaupt Public Files vorhanden sind
+	// are there any public files
 	$sql = "SELECT DISTINCT ".DB_PREPEND."phpwcms_file.f_uid, ".DB_PREPEND."phpwcms_user.usr_login, ".DB_PREPEND."phpwcms_user.usr_name ".
 		   "FROM ".DB_PREPEND."phpwcms_file INNER JOIN ".DB_PREPEND."phpwcms_user ON ".DB_PREPEND."phpwcms_file.f_uid=".DB_PREPEND."phpwcms_user.usr_id ".
 		   "WHERE ".DB_PREPEND."phpwcms_file.f_public=1 AND ".DB_PREPEND."phpwcms_file.f_aktiv=1 AND ".DB_PREPEND."phpwcms_file.f_trash=0 ".

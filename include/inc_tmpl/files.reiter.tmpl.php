@@ -16,17 +16,13 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
-// Files-Navigation
-		
-//$no_durchlauf = 0; //Definieren der Durchlauf-Variable
+// files
 $files_folder = (isset($_GET["f"])) ? intval($_GET["f"]) : 0; //Ermitteln, welcher Unterreiter angezeigt wird
 
-//Wenn Cut/Paste f�r Seite Aktiv, dann
+// if cut/paste is active
 $add_paste_icon = '<a href="phpwcms.php?do=files&f=0&mkdir=0" title="'.$BL['be_ftab_createnew'].
 				  '"><img src="img/button/add_13x13.gif" border="0"></a>';
-if(isset($_GET["cut"])) { 
+if(isset($_GET["cut"])) {
 	$cutID = intval($_GET["cut"]);
 	$add_paste_icon = '<a href="include/inc_act/act_file.php?paste='.$cutID.'|0" title="'.$BL['be_ftab_paste'].
 					  '"><img src="img/button/paste_13x13.gif" border="0"></a>';
@@ -40,7 +36,7 @@ if($_SESSION["wcs_user_thumb"]) {
 	$change_thumbnail_icon .= '1" title="'.$BL['be_ftab_enablethumb'].'">';
 	$change_thumbnail_icon .= '<img src="img/button/thumbnail_13x13_1.gif" border="0"></a>';
 }
-		
+
 ?>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr><td class="title"><?php echo $BL['be_ftab_title'] ?></td></tr>
@@ -57,7 +53,10 @@ if($_SESSION["wcs_user_thumb"]) {
 		<td width="162" align="right" background="img/background/bg_ecke_lang.gif" bgcolor="#EBF2F4" class="chatlist"><a href="include/inc_help/filehelp.htm" target="_blank" onclick="flevPopupLink(this.href,'filehelp','scrollbars=yes,resizable=yes,width=320,height=300',0);return document.MM_returnValue" style="cursor: help;"><img src="img/button/help_22x13.gif" alt="<?php echo $BL['be_ftab_filehelp'] ?>" width="22" height="13" border="0" /></a><a href="phpwcms.php?do=files&amp;f=1&amp;all=close" title="<?php echo $BL['be_ftab_close'] ?>"><img src="img/button/alle_zu.gif" alt="" width="12" height="13" border="0" /></a><img src="img/leer.gif" alt="" width="5" height="1" /><?php echo $change_thumbnail_icon ?></td>
 		<?php } elseif($files_folder == 3) { ?>
 		<td width="162" align="right" background="img/background/bg_ecke_lang.gif" bgcolor="#EBF2F4" class="chatlist"><a href="include/inc_help/filehelp.htm" target="_blank" onclick="flevPopupLink(this.href,'filehelp','scrollbars=yes,resizable=yes,width=320,height=300',0);return document.MM_returnValue" style="cursor: help;"><img src="img/button/help_22x13.gif" alt="<?php echo $BL['be_ftab_filehelp'] ?>" width="22" height="13" border="0" /></a><img src="img/leer.gif" alt="" width="5" height="1" /><?php echo $change_thumbnail_icon ?></td>
-		<?php } else { echo '<td width="162" class="chatlist">&nbsp;</td>'."\n"; } ?>
+		<?php } else { ?>
+		<td width="162" class="chatlist">&nbsp;</td>
+		<?php } ?>
 	</tr></table></td></tr>
 <tr><td bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4" /></td>
-</tr></table>
+</tr>
+</table>
