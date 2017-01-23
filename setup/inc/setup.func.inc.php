@@ -257,7 +257,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['cnt_sort'] = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'\n";
     $conf_file .= "\$phpwcms['cmsimage_redirect'] = false; // redirect to the resized/cropped image if true\n";
     $conf_file .= "\$phpwcms['disable_next_prev'] = false; // https://support.google.com/webmasters/answer/1663744\n";
-    $conf_file .= "\$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp4,m4p,flv,f4v,f4p,f4a,f4b';\n";
+    $conf_file .= "\$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';\n";
     $conf_file .= "\$phpwcms['enable_inline_php'] = false; // disable [PHP] {PHP…} … by default\n";
     $conf_file .= "\$phpwcms['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render\n";
     $conf_file .= "\$phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied\n";
