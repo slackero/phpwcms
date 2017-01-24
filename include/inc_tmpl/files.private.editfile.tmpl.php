@@ -497,7 +497,7 @@ if($ja) {
 
     ?>
     <tr bgcolor="#F5F8F9">
-        <td align="right" valign="top" class="v09 tdtop5"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
+        <td align="right" valign="top" class="v09 tdtop1"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
         <?php if($k) echo $k; ?>
         <tr>
