@@ -31,14 +31,14 @@ $file_tags              = '';
 $file_granted           = 0;
 $file_gallerydownload   = 0;
 $file_sort              = 0;
-$file_title		= '';
-$file_alt		= '';
+$file_title             = '';
+$file_alt               = '';
 
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
     if(!ini_get('safe_mode') && function_exists('set_time_limit')) {
-        set_time_limit(0);
+        @set_time_limit(0);
     }
 
     $file_pid               = intval($_POST["file_pid"]);
@@ -54,6 +54,38 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     $file_sort              = intval($_POST["file_sort"]);
     $file_title             = clean_slweg($_POST["file_title"]);
     $file_alt               = clean_slweg($_POST["file_alt"]);
+    $file_is_uploaded       = isset($_FILES["file"]["tmp_name"]) && is_uploaded_file($_FILES["file"]["tmp_name"]) ? true : false;
+    $file_iptc_info         = null;
+
+    // Check against IPTC and handle IPTC tags if applicable
+    if($file_is_uploaded && !empty($_POST['file_iptc_as_caption'])) {
+
+        // Try to read IPTC data
+        $file_image_size = getimagesize($_FILES["file"]["tmp_name"], $file_image_info);
+
+        if(isset($file_image_info['APP13'])) {
+            $file_image_iptc = IPTC::parse($file_image_info['APP13']);
+            $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
+
+            if($file_title === '') {
+                $file_title = $file_iptc_info['title'];
+            }
+            if($file_longinfo === '') {
+                $file_longinfo = $file_iptc_info['longinfo'];
+            }
+            if($file_copyright === '') {
+                $file_copyright = $file_iptc_info['copyright'];
+            }
+            if($file_alt === '') {
+                $file_alt = $file_iptc_info['alt'];
+            }
+
+        } else {
+
+            $file_iptc_info = null;
+
+        }
+    }
 
     if(count($phpwcms['allowed_lang']) > 1) {
 
@@ -69,6 +101,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                 'alt' => ''
             );
 
+            if($phpwcms['default_lang'] === $lang) {
+                $file_vars[$lang]['longinfo'] = $file_longinfo;
+                $file_vars[$lang]['copyright'] = $file_copyright;
+                $file_vars[$lang]['title'] = $file_title;
+                $file_vars[$lang]['alt'] = $file_alt;
+            }
+
             if(isset($_POST['file_longinfo_'.$lang])) {
                 $file_vars[$lang]['longinfo'] = slweg($_POST['file_longinfo_'.$lang]);
             }
@@ -81,6 +120,23 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             if(isset($_POST['file_alt_'.$lang])) {
                 $file_vars[$lang]['alt'] = clean_slweg($_POST['file_alt_'.$lang]);
             }
+
+            // Set file info based on IPTC for all languages
+            if(!empty($phpwcms['iptc_as_caption_all_lang']) && $file_iptc_info !== null) {
+                if($file_vars[$lang]['title'] === '') {
+                    $file_vars[$lang]['title'] = $file_iptc_info['title'];
+                }
+                if($file_vars[$lang]['longinfo'] === '') {
+                    $file_vars[$lang]['longinfo'] = $file_iptc_info['longinfo'];
+                }
+                if($file_vars[$lang]['copyright'] === '') {
+                    $file_vars[$lang]['copyright'] = $file_iptc_info['copyright'];
+                }
+                if($file_vars[$lang]['alt'] === '') {
+                    $file_vars[$lang]['alt'] = $file_iptc_info['alt'];
+                }
+            }
+
         }
     }
 
@@ -99,7 +155,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     }
 
     //starts upload of file
-    if(!is_uploaded_file($_FILES["file"]["tmp_name"])) {
+    if(!$file_is_uploaded) {
 
         $file_error["file"] = $BL['be_fprivup_err1'];
 
@@ -218,6 +274,42 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     }
 }
 
+// Init Exif.js library
+$GLOBALS['BE']['HEADER']['exif.js'] = getJavaScriptSourceLink('include/inc_js/exif.min.js');
+$GLOBALS['BE']['BODY_CLOSE']['exif.js.upload'] = '<script type="text/javascript">
+document.getElementById("file").onchange = function(e) {
+    var iptcdata = document.getElementById("iptc-info");
+    iptcdata.innerHTML = "";
+    EXIF.getData(e.target.files[0], function() {
+        //alert(EXIF.pretty(this));
+        var iptctags = {
+            Caption: EXIF.getIptcTag(this, "caption"),
+            Copyright: EXIF.getIptcTag(this, "copyright"),
+            Credit: EXIF.getIptcTag(this, "credit"),
+            Title: EXIF.getIptcTag(this, "headline"),
+            Category: EXIF.getIptcTag(this, "category"),
+            Writer: EXIF.getIptcTag(this, "captionWriter"),
+            Creator: EXIF.getIptcTag(this, "byline"),
+            Profession: EXIF.getIptcTag(this, "bylineTitle")
+        }, iptctable = "";
+        for(var a in iptctags) {
+            if(iptctags.hasOwnProperty(a)) {
+                if(typeof iptctags[a] === "string") {
+                    var val = iptctags[a].trim();
+                    if(val !== "") {
+                        iptctable += "<tr><td class=\"chatlist tdtop3\" width=\"5%\">" + a + "&nbsp;</td><td class=\"tdtop3\">" + val + "</td></tr>";
+                    }
+                }
+            }
+        }
+        if(iptctable !== "") {
+            iptctable = "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;\">" + iptctable + "</table>";
+        }
+        iptcdata.innerHTML = iptctable;
+    });
+}
+</script>';
+
 ?>
 <form action="phpwcms.php?do=files&amp;f=0" method="post" enctype="multipart/form-data" name="uploadfile" id="uploadfile">
 <table border="0" cellpadding="0" cellspacing="0" bgcolor="#EBF2F4" summary="">
@@ -237,29 +329,44 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
     <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <?php if(isset($file_error["upload"])) { ?>
+<?php if(isset($file_error["upload"])) { ?>
     <tr>
       <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
       <td class="v10"><strong style="color:#FF3300"><?php echo $file_error["upload"] ?></strong></td>
     </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-    </tr>
-    <?php }
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+<?php }
 
-    if(isset($file_error["file"])) { ?>
+    if(isset($file_error["file"])) {
+?>
     <tr>
       <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
       <td class="v10"><strong style="color:#FF3300"><?php echo $file_error["file"] ?></strong></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
-    <?php } ?>
+<?php } ?>
     <tr>
         <td align="right" class="v09"><?php echo $BL['be_fprivup_upload'] ?>:&nbsp;</td>
         <td><input name="file" type="file" id="file" size="40" /></td>
     </tr>
 
-
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+    <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
+    <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+
+    <tr bgcolor="#F5F8F9">
+        <td align="right" class="v09 tdtop1"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0" summary="">
+                <tr>
+                    <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
+                    <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
+                </tr>
+            </table><div id="iptc-info"></div>
+        </td>
+    </tr>
+
+    <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
 
@@ -369,7 +476,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
     <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
-    <?php
+<?php
 
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
@@ -403,7 +510,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
     ?>
     <tr bgcolor="#F5F8F9">
-        <td align="right" valign="top" class="v09 tdtop5"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
+        <td align="right" valign="top" class="v09 tdtop1"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
         <?php if($k) echo $k; ?>
         <tr>
