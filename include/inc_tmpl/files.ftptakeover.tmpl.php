@@ -156,6 +156,8 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
         </tr>
 
         <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+        <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
+        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
 
