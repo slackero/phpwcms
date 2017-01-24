@@ -325,7 +325,7 @@ if($fx) {
 </form>
 <?php if($fx) { ?>
 <script type="text/javascript">
-$('toggle').addEvent('click',function (e) {
+$('toggle').addEvent('change',function(e) {
 	var toggle = $('toggle').checked;
 	$$('#filetakeover input.ftp_mark').each(function(check) {
 		check.checked = toggle;

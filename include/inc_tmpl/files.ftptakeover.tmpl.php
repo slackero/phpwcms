@@ -40,8 +40,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
 <form action="include/inc_act/act_ftptakeover.php" method="post" name="ftptakeover" id="ftptakeover">
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        </tr>
+        <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
           <tr bgcolor="#D9DEE3">
             <td width="35" align="center" class="v09"><?php echo $BL['be_ftptakeover_mark'] ?></td>
             <td width="1" bgcolor="#F2F3F5"><img src="img/leer.gif" alt="" width="1" height="14" /></td>
@@ -50,82 +49,70 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
             <td width="1" bgcolor="#F2F3F5"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
             <td width="80" align="right" class="v09"><?php echo $BL['be_ftptakeover_size'] ?>&nbsp;&nbsp;</td>
           </tr>
-          <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        </tr>
-          <?php
-                //Browse FTP Open Directory
-                $handle = @opendir(PHPWCMS_ROOT.$phpwcms["ftp_path"]);
-                $fx = 0;
-                $fxsg = 0;
-                while ($file = @readdir ($handle))
-                {
-                    if($file != "." && $file != ".." && $file{0} != '.') {
-                        if(!is_dir($file) && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
+          <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<?php
+            //Browse FTP Open Directory
+            $handle = @opendir(PHPWCMS_ROOT.$phpwcms["ftp_path"]);
+            $fx = 0;
+            $fxsg = 0;
+            while($file = @readdir($handle)) {
+                if(!is_dir($file) && $file !== "." && $file !== ".." && substr($file, 0, 1) !== '.' && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
 
-                            // test if the file should be deleted
-                            $file_base64 = base64_encode($file);
-                            if(isset($deleteFiles[$file_base64])) {
+                    // test if the file should be deleted
+                    $file_base64 = base64_encode($file);
 
-                                if(@unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
-                                    continue;
-                                }
+                    if(isset($deleteFiles[$file_base64]) && @unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
+                        continue;
+                    }
 
-                            }
-
-                            $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
-                            $fxsg += $fxs;
-                            $fxe = extimg(which_ext($file));
-                             // there is a big problem with special chars on Mac OS X and seems Windows too
-                            $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
-                            $filename = html($filename);
-          ?>
+                    $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
+                    $fxsg += $fxs;
+                    $fxe = extimg(which_ext($file));
+                     // there is a big problem with special chars on Mac OS X and seems Windows too
+                    $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
+                    $filename = html($filename);
+?>
           <tr<?php echo $fxb ?>>
-            <td align="center"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
+            <td align="center" class="tdtop2 tdbottom2"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
             <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
-            <td class="v10"><?php echo $filename ?></td>
+            <td class="v10 tdtop3"><?php echo $filename ?></td>
 
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td align="right" class="v10">
+            <td align="right" class="v10 tdtop3">
                 <?php echo fsizelong($fxs) ?>&nbsp;
                 <input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
                 <input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
             </td>
           </tr>
-            <?php               $fx++;
-                        }
-                    }
+<?php               $fx++;
                 }
-                @closedir($handle);
+            }
+            @closedir($handle);
 
-                if(!$fx) {
-            ?>
+            if(!$fx) {
+?>
           <tr>
             <td colspan="5" class="dir">&nbsp;<?php echo $BL['be_ftptakeover_nofile'] ?></td>
             <td><img src="img/leer.gif" alt="" width="1" height="17" /></td>
         </tr>
-            <?php
-                } else {
-            ?>
-          <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        </tr>
+<?php
+            } else {
+?>
+          <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
           <tr bgcolor="#EAEDF0">
-            <td align="center" class="subnavactive"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
+            <td align="center" class="subnavactive tdtop3 tdbottom3"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
             <td>&nbsp;</td>
-            <td class="v10">
-                <?php echo $BL['be_ftptakeover_all'] ?>
-                <button id="delete-selected-files" style="display:none;margin-left:3em;" class="v10"><?php echo $BL['be_delete_selected_files'] ?></button>
-            </td>
+            <td class="v10"><button id="delete-selected-files" style="display:none;" class="v10"><?php echo $BL['be_delete_selected_files'] ?></button></td>
             <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
             <td align="right" class="v10"><?php echo fsizelong($fxsg) ?>&nbsp;</td>
           </tr>
-          <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        </tr>
-          <?php
+          <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<?php
             }
-          ?>
+?>
           <tr bgcolor="#D9DEE3">
             <td><img src="img/leer.gif" alt="" width="35" height="1" /></td>
             <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
@@ -140,21 +127,35 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
        ?>
 
+    <table width="538" border="0" cellpadding="0" cellspacing="0" summary="" style="background:#EBF2F4">
+        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+        <tr>
+            <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
+            <td width="471" class="v10">
+                <select name="file_dir" id="file_dir" class="v11 width400">
+                    <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+                    <?php dir_menu(0, 0, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
+                </select>
+            </td>
+        </tr>
 
-       <table width="538" border="0" cellpadding="0" cellspacing="0" summary="" style="background:#EBF2F4">
-          <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-            <tr>
-              <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-              <td width="471" class="v10"><select name="file_dir" id="file_dir" class="v11 width400">
-                  <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-                  <?php dir_menu(0, 0, $db, "+", $_SESSION["wcs_user_id"], "+") ?>
-                 </select></td>
-            </tr>
+        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+        <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
+        <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
+        <tr bgcolor="#F5F8F9">
+            <td align="right" class="v09 tdtop1"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0" summary="">
+                    <tr>
+                        <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
+                        <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
+                    </tr>
+                </table><div id="iptc-info"></div>
+            </td>
+        </tr>
 
-
- <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
- <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
+        <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
 
@@ -200,7 +201,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
         <td class="tdbottom2"><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="1000" value="" /></td>
     </tr>
     <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
+        <td align="right" class="v09 nowrap">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
         <td><input name="file_alt" type="text" id="file_alt" size="40" class="width400" maxlength="1000" value="" /></td>
     </tr>
 
@@ -229,7 +230,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
         <td class="tdbottom2"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="" /></td>
     </tr>
     <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
+        <td align="right" class="v09 nowrap">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
         <td><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="" /></td>
     </tr>
 
@@ -273,7 +274,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
     ?>
     <tr bgcolor="#F5F8F9">
-        <td align="right" valign="top" class="v09 tdtop5"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
+        <td align="right" valign="top" class="v09 tdtop1"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
         <?php if($k) echo $k; ?>
         <tr>
@@ -295,30 +296,28 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
     <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
-            <tr>
-              <td align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-              <td><table border="0" cellpadding="1" cellspacing="0" bgcolor="#E6EAED" summary="">
-                  <tr>
+    <tr>
+        <td align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+        <td>
+            <table border="0" cellpadding="1" cellspacing="0" summary="">
+                <tr>
                     <td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> /></td>
                     <td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;</td>
                     <td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> /></td>
                     <td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;</td>
                     <td><input name="file_replace" type="checkbox" id="file_replace" value="1" /></td>
                     <td class="v10"><strong><label for="file_replace"><?php echo $BL['be_file_replace'] ?></label></strong>&nbsp;</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="12" /></td>
-            </tr>
-            <tr>
-              <td width="67" valign="top"><input name="file_aktion" type="hidden" id="file_aktion" value="1" /></td>
-              <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_ftptakeover_button'] ?>" /></td>
-            </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
-            </tr>
-          <tr bgcolor="#92A1AF"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-          </tr>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="12" /></td></tr>
+    <tr>
+        <td width="67" valign="top"><input name="file_aktion" type="hidden" id="file_aktion" value="1" /></td>
+        <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_ftptakeover_button'] ?>" /></td>
+    </tr>
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+    <tr bgcolor="#92A1AF"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 </table>
 <?php }
 
@@ -409,11 +408,12 @@ $(function() {
 
 <?php if($fx): ?>
 
-    var ftpTakeOverForm = $('#ftptakeover');
-    var deleteFiles = $('#delete-selected-files');
-    var fileMarker = $('input.ftp_mark');
+    var ftpTakeOverForm = $('#ftptakeover'),
+        deleteFiles = $('#delete-selected-files'),
+        fileMarker = $('input.ftp_mark'),
+        checkToggle = $('#toggle');
 
-    $('#toggle').click(function() {
+    checkToggle.on('change', function() {
 
         var toggle_var  = $(this).is(':checked');
         var isChecked   = false;
@@ -421,9 +421,9 @@ $(function() {
         fileMarker.each(function() {
             var $_this = $(this);
             if($_this.is(':checked')) {
-                $_this.attr('checked', false);
+                $_this.prop('checked', false);
             } else {
-                $_this.attr('checked', true);
+                $_this.prop('checked', true);
                 isChecked = true;
             }
         });
@@ -432,11 +432,12 @@ $(function() {
             deleteFiles.show();
         } else {
             deleteFiles.hide();
+            checkToggle.prop('checked', false);
         }
 
     });
 
-    fileMarker.click(function() {
+    fileMarker.on('change', function() {
 
         var isChecked = false;
 
@@ -450,11 +451,12 @@ $(function() {
             deleteFiles.show();
         } else {
             deleteFiles.hide();
+            checkToggle.prop('checked', false);
         }
 
     });
 
-    deleteFiles.click(function(evt) {
+    deleteFiles.on('click', function(evt) {
         evt.preventDefault();
         if(confirm('<?php echo str_replace("'", "\\'", html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, PHPWCMS_CHARSET)) ?>')) {
             ftpTakeOverForm.attr('action', 'phpwcms.php'+'?<?php echo get_token_get_string('csrftoken'); ?>&do=files&p=8').submit();
