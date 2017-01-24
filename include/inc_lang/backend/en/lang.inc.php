@@ -1434,7 +1434,7 @@ $BL['be_piwik_url'] = 'Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
 
 $BL['be_iptc_data'] = 'IPTC data';
-$BL['be_iptc_as_caption'] = 'use for caption on save, only if yet unset';
+$BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';
 $BL['iptc_ImageDescription'] = 'image description';
 $BL['iptc_Copyright'] = 'copyright';
 $BL['iptc_Artist'] = 'artist';
