@@ -47,7 +47,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     // Set file info based on IPTC for all languages
     if(!empty($_POST['file_iptc_as_caption']) && !empty($_POST['file_image_iptc'])) {
 
-        $file_image_iptc = json_decode(base64_decode($_POST['file_image_iptc']), true);
+        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']), true);
         $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
         if($file_title === '') {
@@ -430,7 +430,7 @@ if($ja) {
                     <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
                 </tr>
             </table>
-            <input type="hidden" name="file_image_iptc" value="<?php echo base64_encode(json_encode($file_image_iptc)); ?>" />
+            <input type="hidden" name="file_image_iptc" value="<?php echo base64_encode(serialize($file_image_iptc)); ?>" />
         </td>
     </tr>
 
