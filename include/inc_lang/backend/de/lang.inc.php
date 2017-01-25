@@ -1461,3 +1461,5 @@ $BL['iptc_DateTimeExpires'] = 'Ablaufdatum';
 $BL['iptc_IntellectualGenre'] = 'Genre';
 $BL['iptc_SubjectNewsCode'] = 'Betreffkennung';
 $BL['iptc_iimVersion'] = 'Version';
+
+$BE['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdrücken';

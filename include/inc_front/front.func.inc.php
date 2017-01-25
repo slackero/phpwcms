@@ -676,16 +676,19 @@ function setArticleSummaryImageData($img) {
     if(!isset($img['list_usesummary'])) {
         $img['list_usesummary'] = 1;
     }
+
     if($img['list_usesummary'] && !empty($img['hash'])) {
-        $img['list_name']       = $img['name'];
-        $img['list_hash']       = $img['hash'];
-        $img['list_ext']        = $img['ext'];
-        $img['list_id']         = $img['id'];
-        $img['list_caption']    = $img['caption'];
-        $img['list_zoom']       = empty($img['list_zoom']) ? $img['zoom'] : $img['list_zoom'];
-        $img['list_width']      = empty($img['list_width']) ? $img['width'] : $img['list_width'];
-        $img['list_height']     = empty($img['list_height']) ? $img['height'] : $img['list_height'];
+        $img['list_name'] = $img['name'];
+        $img['list_hash'] = $img['hash'];
+        $img['list_ext'] = $img['ext'];
+        $img['list_id'] = $img['id'];
+        $img['list_caption'] = $img['caption'];
+        $img['list_zoom'] = empty($img['list_zoom']) ? $img['zoom'] : $img['list_zoom'];
+        $img['list_width'] = empty($img['list_width']) ? $img['width'] : $img['list_width'];
+        $img['list_height'] = empty($img['list_height']) ? $img['height'] : $img['list_height'];
+        $img['list_caption_suppress'] = empty($img['list_caption_suppress']) ? (empty($img['caption_suppress']) ? 0 : 1) : $img['list_caption_suppress'];
     }
+
     return $img;
 }
 
@@ -1310,6 +1313,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                 $tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_class']);
                 $tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
                 $tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
+                $tmpl = render_cnt_template($tmpl, 'CAPTION_SUPPRESS', empty($article["article_image"]["list_caption_suppress"]) ? '' : ' ');
                 $tmpl = render_cnt_template($tmpl, 'CAPTION', nl2br(html_specialchars($article["article_image"]["list_caption"])));
                 $tmpl = render_cnt_template($tmpl, 'ALT', html_specialchars($article["article_image"]["list_alt"]));
                 $tmpl = render_cnt_template($tmpl, 'IMAGE_TITLE', html_specialchars($article["article_image"]["list_title"]));

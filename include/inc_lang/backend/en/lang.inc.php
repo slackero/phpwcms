@@ -1470,3 +1470,5 @@ $BL['iptc_DateTimeExpires'] = 'date/time expires';
 $BL['iptc_IntellectualGenre'] = 'intellectual genre';
 $BL['iptc_SubjectNewsCode'] = 'subject news code';
 $BL['iptc_iimVersion'] = 'version';
+
+$BE['be_suppress_render_caption'] = 'suppress rendering of the caption';

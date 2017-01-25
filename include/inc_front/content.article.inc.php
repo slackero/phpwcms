@@ -230,11 +230,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
         if(!empty($row["article_image"]["hash"])) {
 
             $thumb_image = get_cached_image(array(
-                "target_ext"    =>  $row["article_image"]['ext'],
-                "image_name"    =>  $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-                "max_width"     =>  $row["article_image"]['width'],
-                "max_height"    =>  $row["article_image"]['height'],
-                "thumb_name"    =>  md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                "target_ext" => $row["article_image"]['ext'],
+                "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+                "max_width" => $row["article_image"]['width'],
+                "max_height" => $row["article_image"]['height'],
+                "thumb_name" => md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
             ));
 
             if($thumb_image != false) {
@@ -254,38 +254,38 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
                 $img_thumb_ext      = which_ext($thumb_image[0]);
 
                 $content['images']['article'] = array(
-                    'name'  => $row["article_image"]["name"],
-                    'hash'  => $row["article_image"]["hash"],
-                    'ext'   => $img_thumb_ext,
+                    'name' => $row["article_image"]["name"],
+                    'hash' => $row["article_image"]["hash"],
+                    'ext' => $img_thumb_ext,
                     'image' => array(
-                        'width'     => $img_thumb_width,
-                        'height'    => $img_thumb_height,
-                        'src'       => $img_thumb_rel
+                        'width' => $img_thumb_width,
+                        'height' => $img_thumb_height,
+                        'src' => $img_thumb_rel
                     )
                 );
 
                 if($row["article_image"]["zoom"]) {
 
                     $zoominfo = get_cached_image(array(
-                        "target_ext"    =>  $row["article_image"]['ext'],
-                        "image_name"    =>  $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-                        "max_width"     =>  $phpwcms["img_prev_width"],
-                        "max_height"    =>  $phpwcms["img_prev_height"],
-                        "thumb_name"    =>  md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                        "target_ext" => $row["article_image"]['ext'],
+                        "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+                        "max_width" => $phpwcms["img_prev_width"],
+                        "max_height" => $phpwcms["img_prev_height"],
+                        "thumb_name" => md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
                     ));
 
                     if($zoominfo != false) {
 
-                        $img_zoom_name      = $zoominfo[0];
-                        $img_zoom_rel       = PHPWCMS_IMAGES.$zoominfo[0];
-                        $img_zoom_abs       = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
-                        $img_zoom_width     = $zoominfo[1];
-                        $img_zoom_height    = $zoominfo[2];
+                        $img_zoom_name = $zoominfo[0];
+                        $img_zoom_rel = PHPWCMS_IMAGES.$zoominfo[0];
+                        $img_zoom_abs = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
+                        $img_zoom_width = $zoominfo[1];
+                        $img_zoom_height = $zoominfo[2];
 
                         $content['images']['article']['zoom'] = array(
-                            'width'     => $img_zoom_width,
-                            'height'    => $img_zoom_height,
-                            'src'       => $img_zoom_rel
+                            'width' => $img_zoom_width,
+                            'height' => $img_zoom_height,
+                            'src' => $img_zoom_rel
                         );
 
                         $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
@@ -431,7 +431,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             } else {
                 $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>'.LF.'[/TITLE][SUB]<h3>{SUB}</h3>'.LF.'[/SUB]';
                 $row["article_image"]['tmplfull'] .= '[SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}';
-                $row["article_image"]['tmplfull'] .= '[CAPTION]<br />'.LF.'{CAPTION}[/CAPTION]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
+                $row["article_image"]['tmplfull'] .= '[CAPTION_SUPPRESS_ELSE][CAPTION]<br />'.LF.'{CAPTION}[/CAPTION][/CAPTION_SUPPRESS_ELSE]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
             }
 
         }
@@ -500,6 +500,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             }
 
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
+            $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION_SUPPRESS', empty($row['article_image']['caption_suppress']) ? '' : ' ');
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ALT', html($img_thumb_alt));
