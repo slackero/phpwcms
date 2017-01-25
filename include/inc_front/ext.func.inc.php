@@ -12,70 +12,70 @@
 // added by jens for content type 89: poll
 function showPollImage($image, $zoom = 0) {
 
-	$image_border		= ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
-	if(empty($GLOBALS["template_default"]["article"]["imagelist_imgclass"])) {
-		$image_imgclass	= '';
-	} else {
-		$image_imgclass	= ' class="'.$GLOBALS["template_default"]["article"]["imagelist_imgclass"].'"';
-	}
+    $image_border       = ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
+    if(empty($GLOBALS["template_default"]["article"]["imagelist_imgclass"])) {
+        $image_imgclass = '';
+    } else {
+        $image_imgclass = ' class="'.$GLOBALS["template_default"]["article"]["imagelist_imgclass"].'"';
+    }
 
-	$thumb_image = get_cached_image(array(
-			"target_ext"	=>	$image[3],
-			"image_name"	=>	$image[2].'.'.$image[3],
-			"max_width"		=>	$image[4],
-			"max_height"	=>	$image[5],
-			"thumb_name"	=>	md5($image[2].$image[4].$image[5].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
-	));
+    $thumb_image = get_cached_image(array(
+            "target_ext"    =>  $image[3],
+            "image_name"    =>  $image[2].'.'.$image[3],
+            "max_width"     =>  $image[4],
+            "max_height"    =>  $image[5],
+            "thumb_name"    =>  md5($image[2].$image[4].$image[5].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+    ));
 
-	if($zoom) {
-		$zoominfo = get_cached_image(array(
-			"target_ext"	=>	$image[3],
-			"image_name"	=>	$image[2] . '.' . $image[3],
-			"max_width"		=>	$GLOBALS['phpwcms']["img_prev_width"],
-			"max_height"	=>	$GLOBALS['phpwcms']["img_prev_height"],
-			"thumb_name"	=>	md5($image[2].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
-		));
-	}
+    if($zoom) {
+        $zoominfo = get_cached_image(array(
+            "target_ext"    =>  $image[3],
+            "image_name"    =>  $image[2] . '.' . $image[3],
+            "max_width"     =>  $GLOBALS['phpwcms']["img_prev_width"],
+            "max_height"    =>  $GLOBALS['phpwcms']["img_prev_height"],
+            "thumb_name"    =>  md5($image[2].$GLOBALS['phpwcms']["img_prev_width"].$GLOBALS['phpwcms']["img_prev_height"].$GLOBALS['phpwcms']["sharpen_level"].$GLOBALS['phpwcms']['colorspace'])
+        ));
+    }
 
-	$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
+    $list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
 
-	if($zoom && !empty($zoominfo)) {
-		// if click enlarge the image
-		$open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
-		$open_link = $open_popup_link;
-		$return_false = 'return false;';
+    if($zoom && !empty($zoominfo)) {
+        // if click enlarge the image
+        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+        $open_link = $open_popup_link;
+        $return_false = 'return false;';
 
-		$html .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
-		$html .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'">';
-		$html .= $list_img_temp."</a>";
-	} else {
-		// if not click enlarge
-		$html .= $list_img_temp;
-	}
-	return $html;
+        $html .= "<a href=\"".$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
+        $html .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'">';
+        $html .= $list_img_temp."</a>";
+    } else {
+        // if not click enlarge
+        $html .= $list_img_temp;
+    }
+    return $html;
 }
 
 // taken from http://www.php.net/manual/en/function.utf8-decode.php
 // vpribish at shopping dot com, 10-Sep-2004 08:55
 function utf2html($str) {
-	$ret = '';
-	$max = strlen($str);
-	$last = 0;  // keeps the index of the last regular character
-	for ($i=0; $i < $max; $i++) {
-		$c = $str{$i};
-		$c1 = ord($c);
-		if ($c1>>5 == 6) {  // 110x xxxx, 110 prefix for 2 bytes unicode
-			$ret .= substr($str, $last, $i-$last); // append all the regular characters we've passed
-			$c1 &= 31; // remove the 3 bit two bytes prefix
-			$c2 = ord($str{++$i}); // the next byte
-			$c2 &= 63;  // remove the 2 bit trailing byte prefix
-			$c2 |= (($c1 & 3) << 6); // last 2 bits of c1 become first 2 of c2
-			$c1 >>= 2; // c1 shifts 2 to the right
-			$ret .= "&#" . ($c1 * 100 + $c2) . ";"; // this is the fastest string concatenation
-			$last = $i+1;
-		}
-	}
-	return $ret . substr($str, $last, $i); // append the last batch of regular characters
+    $ret = '';
+    $max = strlen($str);
+    $last = 0;  // keeps the index of the last regular character
+    for ($i=0; $i < $max; $i++) {
+        $c = $str{$i};
+        $c1 = ord($c);
+        if ($c1>>5 == 6) {  // 110x xxxx, 110 prefix for 2 bytes unicode
+            $ret .= substr($str, $last, $i-$last); // append all the regular characters we've passed
+            $c1 &= 31; // remove the 3 bit two bytes prefix
+            $c2 = ord($str{++$i}); // the next byte
+            $c2 &= 63;  // remove the 2 bit trailing byte prefix
+            $c2 |= (($c1 & 3) << 6); // last 2 bits of c1 become first 2 of c2
+            $c1 >>= 2; // c1 shifts 2 to the right
+            $ret .= "&#" . ($c1 * 100 + $c2) . ";"; // this is the fastest string concatenation
+            $last = $i+1;
+        }
+    }
+    return $ret . substr($str, $last, $i); // append the last batch of regular characters
 }
 
 // http://www.evilwalrus.com/viewcode.php?codeEx=627
@@ -249,28 +249,28 @@ function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
 // kiss dot pal at expert-net dot hu
 // 05-Jan-2005 09:13
 function is_float_ex($pNum) {
-	$num_chars = "0123456789.,+-";
-	if(strlen(trim($pNum)) == 0) { // empty $pNum -> null
-		return false;
-	} else {
-		$i = 0;
-		$f = 1;  // modify
-		$v = strlen($num_chars) - $f;
-		while(($i < strlen($pNum)) && ($v >= 0)) {
-			$v=strlen($num_chars)-$f;
-			while(($v >= 0) && ($num_chars[$v] <> $pNum[$i])) {
-				$v--;
-			}
-			if($f==1) { // Only first item + vagy -
-				$f=3;
-		 	}
-			if(($pNum[$i] == '.') || ($pNum[$i] == ',')) {
-				$f=5;
-			}
-			$i++;
-		}
-		return ($v < 0) ? false : true;
-	}
+    $num_chars = "0123456789.,+-";
+    if(strlen(trim($pNum)) == 0) { // empty $pNum -> null
+        return false;
+    } else {
+        $i = 0;
+        $f = 1;  // modify
+        $v = strlen($num_chars) - $f;
+        while(($i < strlen($pNum)) && ($v >= 0)) {
+            $v=strlen($num_chars)-$f;
+            while(($v >= 0) && ($num_chars[$v] <> $pNum[$i])) {
+                $v--;
+            }
+            if($f==1) { // Only first item + vagy -
+                $f=3;
+            }
+            if(($pNum[$i] == '.') || ($pNum[$i] == ',')) {
+                $f=5;
+            }
+            $i++;
+        }
+        return ($v < 0) ? false : true;
+    }
 }
 
 
@@ -291,625 +291,696 @@ function is_float_ex($pNum) {
  */
 function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
-	global $template_default;
-	global $db;
-	global $content;
-	global $block;
-	global $phpwcms;
-	global $aktion;
+    global $template_default;
+    global $db;
+    global $content;
+    global $block;
+    global $phpwcms;
+    global $aktion;
 
-	$topcount		= 999999;
-	$template		= '';
-	$param			= is_array($param) && isset($param[1]) ? $param[1] : $param;
-	$type			= null;
-	$mode			= null;
-	$related_type	= 'OR';
-	$where			= '';
-	$not			= array();
+    $topcount       = 999999;
+    $template       = '';
+    $param          = is_array($param) && isset($param[1]) ? $param[1] : $param;
+    $type           = null;
+    $mode           = null;
+    $related_type   = 'OR';
+    $where          = '';
+    $not            = array();
 
-	if($cpsql === null) {
-		if($cp = explode(',', $param)) {
-			$mode = strtoupper(trim($cp[0]));
-			$type = substr($mode, 0, 2);
-			if($type === 'AS') {
-				$mode = explode('|', $cp[0]);
-				if(isset($mode[1])) {
-					$mode[1] = trim($mode[1]);
-					if(is_numeric($mode[1])) {
-						$topcount = intval($mode[1]);
-					} elseif(empty($mode[2]) && strlen($mode[1]) > 4 && ($mode[1] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[1]))) {
-						$template = $mode[1];
-					}
-				}
-				if(isset($mode[2])) {
-					$mode[2] = trim($mode[2]);
-					if(is_numeric($mode[2])) {
-						$topcount = intval($mode[2]);
-					} elseif(strlen($mode[2]) > 4 && ($mode[2] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[2]))) {
-						$template = $mode[2];
-					}
-				}
-				$mode = strtoupper(trim($mode[0]));
-				if(isset($cp[1])) { // now check if
-					$cp[1] = trim($cp[1]);
-					if(!is_numeric($cp[1])) {
-						$cp[1] = explode('|', $cp[1], 2);
-						// Check for OR or AND
-						if(isset($cp[1][1])) {
-							$related_type = strtoupper(trim($cp[1][1]));
-							if($related_type !== 'AND' && $related_type !== 'OR') {
-								$related_type = 'OR';
-							}
-						}
-						$cp[1] = trim($cp[1][0]);
-						switch($cp[1]) {
-							case 'random':
-								$where = 'RANDOM';
-								break;
-							case 'related':
-								if(isset($cp[2])) {
-									unset($cp[0], $cp[1]);
-									$related = array();
-									foreach($cp as $value) {
-										$related[] = "article_keyword LIKE "._dbEscape(strtoupper(trim($value)), true, '%', '%');
-									}
-									if(count($related)) {
-										$where = '('.implode(' '.$related_type.' ', $related).')';
-									}
-								}
-								break;
-							case 'new':
-							default:
-								$where = 'NEW';
-								break;
-						}
-						$not[] = $aktion[1];
-						$cp = array();
-					}
-				}
-			}
-			if(count($cp)) {
-				unset($cp[0]);
-				foreach($cp as $key => $value) {
-					$value = intval($value);
-					if(!$value) {
-						unset($cp[$key]);
-					} else {
-						$cp[$key] = $value;
-					}
-				}
-				if(!count($cp)) {
-					return '';
-				}
-			}
-		} else {
-			// oh no ID given, end function
-			return '';
-		}
+    if($cpsql === null) {
+        if($cp = explode(',', $param)) {
+            $mode = strtoupper(trim($cp[0]));
+            $type = substr($mode, 0, 2);
+            if($type === 'AS') {
+                $mode = explode('|', $cp[0]);
+                if(isset($mode[1])) {
+                    $mode[1] = trim($mode[1]);
+                    if(is_numeric($mode[1])) {
+                        $topcount = intval($mode[1]);
+                    } elseif(empty($mode[2]) && strlen($mode[1]) > 4 && ($mode[1] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[1]))) {
+                        $template = $mode[1];
+                    }
+                }
+                if(isset($mode[2])) {
+                    $mode[2] = trim($mode[2]);
+                    if(is_numeric($mode[2])) {
+                        $topcount = intval($mode[2]);
+                    } elseif(strlen($mode[2]) > 4 && ($mode[2] == 'default' || is_file(PHPWCMS_TEMPLATE.'inc_cntpart/articlesummary/list/'.$mode[2]))) {
+                        $template = $mode[2];
+                    }
+                }
+                $mode = strtoupper(trim($mode[0]));
+                if(isset($cp[1])) { // now check if
+                    $cp[1] = trim($cp[1]);
+                    if(!is_numeric($cp[1])) {
+                        $cp[1] = explode('|', $cp[1], 2);
+                        // Check for OR or AND
+                        if(isset($cp[1][1])) {
+                            $related_type = strtoupper(trim($cp[1][1]));
+                            if($related_type !== 'AND' && $related_type !== 'OR') {
+                                $related_type = 'OR';
+                            }
+                        }
+                        $cp[1] = trim($cp[1][0]);
+                        switch($cp[1]) {
+                            case 'random':
+                                $where = 'RANDOM';
+                                break;
+                            case 'related':
+                                if(isset($cp[2])) {
+                                    unset($cp[0], $cp[1]);
+                                    $related = array();
+                                    foreach($cp as $value) {
+                                        $related[] = "article_keyword LIKE "._dbEscape(strtoupper(trim($value)), true, '%', '%');
+                                    }
+                                    if(count($related)) {
+                                        $where = '('.implode(' '.$related_type.' ', $related).')';
+                                    }
+                                }
+                                break;
+                            case 'new':
+                            default:
+                                $where = 'NEW';
+                                break;
+                        }
+                        $not[] = $aktion[1];
+                        $cp = array();
+                    }
+                }
+            }
+            if(count($cp)) {
+                unset($cp[0]);
+                foreach($cp as $key => $value) {
+                    $value = intval($value);
+                    if(!$value) {
+                        unset($cp[$key]);
+                    } else {
+                        $cp[$key] = $value;
+                    }
+                }
+                if(!count($cp)) {
+                    return '';
+                }
+            }
+        } else {
+            // oh no ID given, end function
+            return '';
+        }
 
-	} elseif(is_string($cpsql)) {
+    } elseif(is_string($cpsql)) {
 
-		// Otherwise custom SQL
-		// and fallback to CPC mode
-		$type	= 'CP';
-		$mode	= 'CPC';
-		$cp		= array(0);
+        // Otherwise custom SQL
+        // and fallback to CPC mode
+        $type   = 'CP';
+        $mode   = 'CPC';
+        $cp     = array(0);
 
-	}
+    }
 
-	$CNT_TMP = '';
+    $CNT_TMP = '';
 
-	// Article Mode
-	if($type === 'AS') {
+    // Article Mode
+    if($type === 'AS') {
 
-		if(substr($mode, -1) == 'P') {
-			$mode = substr($mode, 0, -1);
-			$priorize = 'article_priorize DESC, ';
-		} else {
-			$priorize = '';
-		}
+        if(substr($mode, -1) == 'P') {
+            $mode = substr($mode, 0, -1);
+            $priorize = 'article_priorize DESC, ';
+        } else {
+            $priorize = '';
+        }
 
-		switch($mode) {
+        switch($mode) {
 
-			case 'ASL':		$sort = $priorize.'article_begin ASC';		break; // sorted by livedate ascending
-			case 'ASLD':	$sort = $priorize.'article_begin DESC';		break; // sorted by livedate descending
-			case 'ASK':		$sort = $priorize.'article_end ASC';		break; // sorted by killdate ascending
-			case 'ASKD':	$sort = $priorize.'article_end DESC';		break; // sorted by killdate descending
-			case 'ASC':		$sort = $priorize.'article_tstamp ASC';		break; // sorted by change date ascending
-			case 'ASCD':	$sort = $priorize.'article_tspamp DESC';	break; // sorted by change date descending
-			case 'AST':		$sort = $priorize.'article_keyword ASC';	break; // sorted by keyword ascending
-			case 'ASTD':	$sort = $priorize.'article_keyword DESC';	break; // sorted by keyword descending
-			case 'ASR':		$sort = 'RAND()';							break; // random sort
-			default:		$sort = '';
+            case 'ASL':     $sort = $priorize.'article_begin ASC';      break; // sorted by livedate ascending
+            case 'ASLD':    $sort = $priorize.'article_begin DESC';     break; // sorted by livedate descending
+            case 'ASK':     $sort = $priorize.'article_end ASC';        break; // sorted by killdate ascending
+            case 'ASKD':    $sort = $priorize.'article_end DESC';       break; // sorted by killdate descending
+            case 'ASC':     $sort = $priorize.'article_tstamp ASC';     break; // sorted by change date ascending
+            case 'ASCD':    $sort = $priorize.'article_tspamp DESC';    break; // sorted by change date descending
+            case 'AST':     $sort = $priorize.'article_keyword ASC';    break; // sorted by keyword ascending
+            case 'ASTD':    $sort = $priorize.'article_keyword DESC';   break; // sorted by keyword descending
+            case 'ASR':     $sort = 'RAND()';                           break; // random sort
+            default:        $sort = '';
 
-		}
+        }
 
-		$CNT_TMP = list_articles_summary( get_article_data( $cp, $topcount, $sort, $where, $not ) , $topcount, $template);
+        $CNT_TMP = list_articles_summary( get_article_data( $cp, $topcount, $sort, $where, $not ) , $topcount, $template);
 
-	// Content Part mode CP, CPA, CPAD, CPS, CPAS, CPASD
-	} elseif($type === 'CP') {
+    // Content Part mode CP, CPA, CPAD, CPS, CPAS, CPASD
+    } elseif($type === 'CP') {
 
-		$sort = ($mode == 'CPAD' || $mode == 'CPASD') ? ' DESC' : ''; //means ASCENDING
+        $sort = ($mode == 'CPAD' || $mode == 'CPASD') ? ' DESC' : ''; //means ASCENDING
 
-		foreach($cp as $value) {
+        foreach($cp as $value) {
 
-			if($mode == 'CP') {
-				// content part listing
-				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
-				$sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-				$sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
-				$sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
+            if($mode == 'CP') {
+                // content part listing
+                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
+                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
+                $sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
+                $sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
+                $sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
 
-				if( !FEUSER_LOGIN_STATUS ) {
-					$sql .= 'AND acontent_granted=0 ';
-				}
+                if( !FEUSER_LOGIN_STATUS ) {
+                    $sql .= 'AND acontent_granted=0 ';
+                }
 
-				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
-				if(!PREVIEW_MODE) {
-					$sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
-				}
-				$sql .= "LIMIT 1";
+                $sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
+                if(!PREVIEW_MODE) {
+                    $sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+                }
+                $sql .= "LIMIT 1";
 
-			} elseif($mode == 'CPS') {
+            } elseif($mode == 'CPS') {
 
-				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-				$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
-				$sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-				$sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
-				$sql .= "AND acontent_block='SYSTEM' ";
+                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
+                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
+                $sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
+                $sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
+                $sql .= "AND acontent_block='SYSTEM' ";
 
-				if( !FEUSER_LOGIN_STATUS ) {
-					$sql .= 'AND acontent_granted=0 ';
-				}
+                if( !FEUSER_LOGIN_STATUS ) {
+                    $sql .= 'AND acontent_granted=0 ';
+                }
 
-				$sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
-				if(!PREVIEW_MODE) {
-					$sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
-				}
-				$sql .= "LIMIT 1";
+                $sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
+                if(!PREVIEW_MODE) {
+                    $sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+                }
+                $sql .= "LIMIT 1";
 
-			} elseif($mode == 'CPC') {
+            } elseif($mode == 'CPC') {
 
-				$sql = $cpsql;
+                $sql = $cpsql;
 
-			} else {
+            } else {
 
-				// content parts based on article ID
-				$sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-				$sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
+                // content parts based on article ID
+                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
+                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
 
-				if($mode == 'CPAS' || $mode == 'CPASD') {
-					$sql .= "AND acontent_block='SYSTEM' ";
-				} else {
-					$sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
-				}
+                if($mode == 'CPAS' || $mode == 'CPASD') {
+                    $sql .= "AND acontent_block='SYSTEM' ";
+                } else {
+                    $sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
+                }
 
-				if( !FEUSER_LOGIN_STATUS ) {
-					$sql .= 'AND acontent_granted=0 ';
-				}
+                if( !FEUSER_LOGIN_STATUS ) {
+                    $sql .= 'AND acontent_granted=0 ';
+                }
 
-				$sql .= "ORDER BY acontent_sorting".$sort.", acontent_id";
+                $sql .= "ORDER BY acontent_sorting".$sort.", acontent_id";
 
-			}
+            }
 
-			if(!empty($sql) && ($cresult = mysql_query($sql, $db))) {
-				while($crow = mysql_fetch_assoc($cresult))	{
+            if(!empty($sql) && ($cresult = mysql_query($sql, $db))) {
+                while($crow = mysql_fetch_assoc($cresult))  {
 
-					if($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]])) {
-						continue;
-					}
+                    if($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]])) {
+                        continue;
+                    }
 
-					if($crow["acontent_type"] == 24) {
-						// first retrieve alias ID information and settings
-						$crow = getContentPartAlias($crow);
-						if($crow === false) {
-							continue;
-						}
-					}
+                    if($crow["acontent_type"] == 24) {
+                        // first retrieve alias ID information and settings
+                        $crow = getContentPartAlias($crow);
+                        if($crow === false) {
+                            continue;
+                        }
+                    }
 
-					// Set listmode setting, allows fallback listmode content part template
-					// for content parts which supports it (ToDo extend it)
-					$crow['acontent_template_listmode'] = $listmode;
+                    // Set listmode setting, allows fallback listmode content part template
+                    // for content parts which supports it (ToDo extend it)
+                    $crow['acontent_template_listmode'] = $listmode;
 
-					$space = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
+                    $space = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
 
-					// Space before
-					$CNT_TMP .= $space['before'];
+                    // Space before
+                    $CNT_TMP .= $space['before'];
 
-					// set frontend edit link
-					$CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
+                    // set frontend edit link
+                    $CNT_TMP .= getFrontendEditLink('CP', $crow['acontent_aid'], $crow['acontent_id']);
 
-					// include content part code section
-					if($crow["acontent_type"] != 30) {
+                    // include content part code section
+                    if($crow["acontent_type"] != 30) {
 
-						include PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php';
+                        include PHPWCMS_ROOT.'/include/inc_front/content/cnt' . $crow["acontent_type"] . '.article.inc.php';
 
-					} elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
+                    } elseif($crow["acontent_type"] == 30 && file_exists($phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php')) {
 
-						$CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
+                        $CNT_TMP .= getFrontendEditLink('module', $phpwcms['modules'][$crow["acontent_module"]]['name'], $crow['acontent_aid']);
 
-						// now try to include module content part code
-						include $phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php';
+                        // now try to include module content part code
+                        include $phpwcms['modules'][$crow["acontent_module"]]['path'].'inc/cnt.article.php';
 
-					}
+                    }
 
-					//check if top link should be shown
-					$CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
+                    //check if top link should be shown
+                    $CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
 
-					//Maybe content part ID should b used inside templates or for something different
-					$CNT_TMP  = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
+                    //Maybe content part ID should b used inside templates or for something different
+                    $CNT_TMP  = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
 
-					// trigger content part functions
-					$CNT_TMP = trigger_cp($CNT_TMP, $crow);
+                    // trigger content part functions
+                    $CNT_TMP = trigger_cp($CNT_TMP, $crow);
 
-					// Space after
-					$CNT_TMP .= $space['after'];
+                    // Space after
+                    $CNT_TMP .= $space['after'];
 
-				}
-				mysql_free_result($cresult);
-			}
-		}
-	}
+                }
+                mysql_free_result($cresult);
+            }
+        }
+    }
 
-	if(empty($phpwcms["allow_cntPHP_rt"]) || empty($phpwcms['enable_inline_php'])) {
-		$CNT_TMP = remove_unsecure_rptags($CNT_TMP);
-	}
-	return trim($CNT_TMP);
+    if(empty($phpwcms["allow_cntPHP_rt"]) || empty($phpwcms['enable_inline_php'])) {
+        $CNT_TMP = remove_unsecure_rptags($CNT_TMP);
+    }
+    return trim($CNT_TMP);
 }
 
 function getContentPartSpacer($space_before=0, $space_after=0) {
 
-	if(!$space_before && !$space_after) {
-		return array('before' => '', 'after'  => '');
+    $spacers = array(
+        'before' => '',
+        'after'  => ''
+    );
 
-	} elseif($space_before && $space_after) {
-		return array('before' => '<div style="margin:' .$space_before. 'px 0 ' .$space_after. 'px 0; padding:0;">',	'after'  => '</div>');
+    if(empty($space_before) && empty($space_after)) {
+        return $spacers;
+    }
 
-	} elseif($space_before && !$space_after) {
-		return array('before' => '<div style="margin:' .$space_before. 'px 0 0 0;padding:0;clear:both;"></div>', 'after'  => '');
+    global $template_default;
 
-	} else {
-		return array('before' => '', 'after'  => '<div style="margin:0 0' .$space_after. 'px 0;padding:0;clear:both;"></div>');
+    if(!empty($template_default["article"]["div_spacer"])) {
 
-	}
+        if(empty($template_default['article']['div_spacer_tag'])) {
+            $template_default['article']['div_spacer_tag'] = 'div';
+        }
+
+        if(empty($template_default['article']['div_spacer_style'])) {
+            $template_default['article']['div_spacer_style'] = 'margin';
+        }
+
+        if(empty($template_default['article']['div_spacer_unit'])) {
+            $template_default['article']['div_spacer_unit'] = 'px';
+        }
+
+    }
+
+    if($space_before && $space_after) {
+
+        if(empty($template_default["article"]["div_spacer"])) {
+            $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
+            $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
+        } else {
+            $spacers['before'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+            if($template_default['article']['div_spacer_style'] === 'padding' || $template_default['article']['div_spacer_style'] === 'height') {
+                $spacers['before'] .= 'padding-top:'.$space_before.$template_default['article']['div_spacer_unit'].';';
+                $spacers['before'] .= 'padding-bottom:'.$space_after.$template_default['article']['div_spacer_unit'].';';
+            } else {
+                $spacers['before'] .= 'margin-top:'.$space_before.$template_default['article']['div_spacer_unit'].';';
+                $spacers['before'] .= 'margin-bottom:'.$space_after.$template_default['article']['div_spacer_unit'].';';
+            }
+            $spacers['before'] .= '" class="'.trim($template_default['classes']['spaceholder-cp-before'].' '.$template_default['classes']['spaceholder-cp-after']).'">';
+            $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+        }
+
+    } elseif($space_before) {
+
+        if(empty($template_default["article"]["div_spacer"])) {
+            $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
+        } else {
+            $spacers['before'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+            if($template_default['article']['div_spacer_style'] === 'padding') {
+                $spacers['before'] .= 'padding-top';
+            } elseif($template_default['article']['div_spacer_style'] === 'height') {
+                $spacers['before'] .= 'height';
+            } else {
+                $spacers['before'] .= 'margin-top';
+            }
+            $spacers['before'] .= ':'.$space_before.$template_default['article']['div_spacer_unit'].';" ';
+            $spacers['before'] .= 'class="'.$template_default['classes']['spaceholder-cp-before'].'">';
+            $spacers['before'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+        }
+
+    } else {
+
+        if(empty($template_default["article"]["div_spacer"])) {
+            $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
+        } else {
+             $spacers['after'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+            if($template_default['article']['div_spacer_style'] === 'padding') {
+                $spacers['after'] .= 'padding-bottom';
+            } elseif($template_default['article']['div_spacer_style'] === 'height') {
+                $spacers['after'] .= 'height';
+            } else {
+                $spacers['after'] .= 'margin-bottom';
+            }
+            $spacers['after'] .= ':'.$space_after.$template_default['article']['div_spacer_unit'].';" ';
+            $spacers['after'] .= 'class="'.$template_default['classes']['spaceholder-cp-after'].'">';
+            $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+        }
+
+    }
+
+    return $spacers;
 }
 
 function getContentPartTopLink($param=0) {
-	global $template_default;
-	$toplink = '';
-	if($param) {
-		if($template_default["article"]["top_sign_before"].$template_default["article"]["top_sign_after"]) {
-			$toplink .= $template_default["article"]["top_sign_before"];
-			$toplink .= '<a href="'.rel_url().'#top">'.$template_default["article"]["top_sign"].'</a>';
-			$toplink .= $template_default["article"]["top_sign_after"];
-		} else{
-			$toplink .= '<br /><a href="'.rel_url().'#top">' . $template_default["article"]["top_sign"] . '</a>';
-		}
-	}
-	return $toplink;
+    global $template_default;
+    $toplink = '';
+    if($param) {
+        if($template_default["article"]["top_sign_before"].$template_default["article"]["top_sign_after"]) {
+            $toplink .= $template_default["article"]["top_sign_before"];
+            $toplink .= '<a href="'.rel_url().'#top">'.$template_default["article"]["top_sign"].'</a>';
+            $toplink .= $template_default["article"]["top_sign_after"];
+        } else{
+            $toplink .= '<br /><a href="'.rel_url().'#top">' . $template_default["article"]["top_sign"] . '</a>';
+        }
+    }
+    return $toplink;
 }
 
 function getContentPartAlias($crow) {
-	global $db;
-	$alias = unserialize($crow["acontent_form"]);
-	$alias_visible = false;
-	if(!empty($alias['alias_ID'])) {
-		$alias['alias_ID'] = intval($alias['alias_ID']);
-		$sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
-		$sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
-		if(!empty($alias['alias_status'])) {
-			$sql_alias .= 'AND acontent_visible=1 ';
-		}
-		if( !FEUSER_LOGIN_STATUS ) {
-			$sql_alias .= 'AND acontent_granted=0 ';
-		}
-		$sql_alias .= "LIMIT 1";
-		if($alias_result = mysql_query($sql_alias, $db)) {
-			if($alias_row = mysql_fetch_assoc($alias_result)) {
-				if(empty($alias['alias_block'])) {
-					$alias_row['acontent_block'] = $crow['acontent_block'];
-				}
-				if(empty($alias['alias_spaces'])) {
-					$alias_row['acontent_before'] = $crow['acontent_before'];
-					$alias_row['acontent_after']  = $crow['acontent_after'];
-				}
-				if(empty($alias['alias_title'])) {
-					$alias_row['acontent_title']     = $crow['acontent_title'];
-					$alias_row['acontent_subtitle']  = $crow['acontent_subtitle'];
-				}
-				if(empty($alias['alias_toplink'])) {
-					$alias_row['acontent_top'] = $crow['acontent_top'];
-				}
-				$crow = $alias_row;
-				$alias_visible = true;
-			}
-			mysql_free_result($alias_result);
-		}
-	}
-	if(!$alias_visible) {
-		$crow = false;
-	}
-	return $crow;
+    global $db;
+    $alias = unserialize($crow["acontent_form"]);
+    $alias_visible = false;
+    if(!empty($alias['alias_ID'])) {
+        $alias['alias_ID'] = intval($alias['alias_ID']);
+        $sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
+        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
+        if(!empty($alias['alias_status'])) {
+            $sql_alias .= 'AND acontent_visible=1 ';
+        }
+        if( !FEUSER_LOGIN_STATUS ) {
+            $sql_alias .= 'AND acontent_granted=0 ';
+        }
+        $sql_alias .= "LIMIT 1";
+        if($alias_result = mysql_query($sql_alias, $db)) {
+            if($alias_row = mysql_fetch_assoc($alias_result)) {
+                if(empty($alias['alias_block'])) {
+                    $alias_row['acontent_block'] = $crow['acontent_block'];
+                }
+                if(empty($alias['alias_spaces'])) {
+                    $alias_row['acontent_before'] = $crow['acontent_before'];
+                    $alias_row['acontent_after']  = $crow['acontent_after'];
+                }
+                if(empty($alias['alias_title'])) {
+                    $alias_row['acontent_title']     = $crow['acontent_title'];
+                    $alias_row['acontent_subtitle']  = $crow['acontent_subtitle'];
+                }
+                if(empty($alias['alias_toplink'])) {
+                    $alias_row['acontent_top'] = $crow['acontent_top'];
+                }
+                $crow = $alias_row;
+                $alias_visible = true;
+            }
+            mysql_free_result($alias_result);
+        }
+    }
+    if(!$alias_visible) {
+        $crow = false;
+    }
+    return $crow;
 }
 
 
 function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array()) {
 
-	if(is_string($article_id)) {
-		$article_id = explode(',', $article_id);
-	}
-	if(is_array($article_id) && count($article_id)) {
-		foreach($article_id as $key => $value) {
-			$value = intval($value);
-			if(!$value) {
-				unset($article_id[$key]);
-			}
-			$article_id[$key] = $value;
-		}
-		if(count($article_id)) {
-			$article_id	= array_unique($article_id);
-		}
-	}
-	if(!is_array($article_id) || !count($article_id)) {
-		if($where === '') {
-			return array();
-		}
-		$article_id = array();
-	}
+    if(is_string($article_id)) {
+        $article_id = explode(',', $article_id);
+    }
+    if(is_array($article_id) && count($article_id)) {
+        foreach($article_id as $key => $value) {
+            $value = intval($value);
+            if(!$value) {
+                unset($article_id[$key]);
+            }
+            $article_id[$key] = $value;
+        }
+        if(count($article_id)) {
+            $article_id = array_unique($article_id);
+        }
+    }
+    if(!is_array($article_id) || !count($article_id)) {
+        if($where === '') {
+            return array();
+        }
+        $article_id = array();
+    }
 
-	$sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
-	$sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
-	$sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-	$sql .= 'FROM '.DB_PREPEND.'phpwcms_article ';
+    $sql  = 'SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ';
+    $sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+    $sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
+    $sql .= 'FROM '.DB_PREPEND.'phpwcms_article ';
 
-	$sql_where = array('article_deleted=0');
+    $sql_where = array('article_deleted=0');
 
-	// VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
-	switch(VISIBLE_MODE) {
-		case 0: $sql_where[] = 'article_aktiv=1';
-				break;
-		case 1: $sql_where[] = '(article_aktiv=1 OR article_uid='.$_SESSION["wcs_user_id"].')';
-				break;
-	}
-	if(!PREVIEW_MODE) {
-		$sql_where[] = 'article_begin < NOW() AND article_end > NOW()';
-	}
+    // VISIBLE_MODE: 0 = frontend (all) mode, 1 = article user mode, 2 = admin user mode
+    switch(VISIBLE_MODE) {
+        case 0: $sql_where[] = 'article_aktiv=1';
+                break;
+        case 1: $sql_where[] = '(article_aktiv=1 OR article_uid='.$_SESSION["wcs_user_id"].')';
+                break;
+    }
+    if(!PREVIEW_MODE) {
+        $sql_where[] = 'article_begin < NOW() AND article_end > NOW()';
+    }
 
-	if(count($not)) {
-		$sql_where[] = 'article_id NOT IN (' . implode( ',', $not ) . ')';
-		$article_id = array_diff($article_id, $not);
-	}
+    if(count($not)) {
+        $sql_where[] = 'article_id NOT IN (' . implode( ',', $not ) . ')';
+        $article_id = array_diff($article_id, $not);
+    }
 
-	if($where === '') {
-		$sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
-	} elseif($where === 'RANDOM') {
+    if($where === '') {
+        $sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
+    } elseif($where === 'RANDOM') {
 
-		$sort = 'RAND()';
+        $sort = 'RAND()';
 
-		if(count($article_id)) {
-			$sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
-		}
+        if(count($article_id)) {
+            $sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
+        }
 
-	} elseif($where === 'NEW') {
+    } elseif($where === 'NEW') {
 
-		if($sort) {
-			$sort = ','.$sort;
-		}
-		$sort = 'article_created DESC'.$sort;
+        if($sort) {
+            $sort = ','.$sort;
+        }
+        $sort = 'article_created DESC'.$sort;
 
-		if(count($article_id)) {
-			$sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
-		}
+        if(count($article_id)) {
+            $sql_where[] = 'article_id IN (' . implode( ',', $article_id ) . ')';
+        }
 
-	} else {
-		$sql_where[] = $where;
-	}
-	if(count($sql_where)) {
-		$sql .= 'WHERE '.implode(' AND ', $sql_where).' ';
-		$sql .= 'GROUP BY article_id ';
-	}
-	if($sort) {
-		$sql .= 'ORDER BY '.$sort;
-	}
-	if($limit) {
-		$sql .= ' LIMIT '.$limit;
-	}
+    } else {
+        $sql_where[] = $where;
+    }
+    if(count($sql_where)) {
+        $sql .= 'WHERE '.implode(' AND ', $sql_where).' ';
+        $sql .= 'GROUP BY article_id ';
+    }
+    if($sort) {
+        $sql .= 'ORDER BY '.$sort;
+    }
+    if($limit) {
+        $sql .= ' LIMIT '.$limit;
+    }
 
-	$data	= array();
-	$result	= _dbQuery($sql);
+    $data   = array();
+    $result = _dbQuery($sql);
 
-	if(!is_array($result)) {
-		return array();
-	}
+    if(!is_array($result)) {
+        return array();
+    }
 
-	if($sort === '') {
-		foreach($article_id as $row) {
-			$data[$row] = '';
-		}
-	}
+    if($sort === '') {
+        foreach($article_id as $row) {
+            $data[$row] = '';
+        }
+    }
 
-	foreach($result as $row) {
+    foreach($result as $row) {
 
-		$row["article_id"] = intval($row["article_id"]);
+        $row["article_id"] = intval($row["article_id"]);
 
-		$data[$row["article_id"]] = array(
-			"article_id"		=> $row["article_id"],
-			"article_cid"		=> $row["article_cid"],
-			"article_title"		=> $row["article_title"],
-			"article_subtitle"	=> $row["article_subtitle"],
-			"article_keyword"	=> $row["article_keyword"],
-			"article_summary"	=> $row["article_summary"],
-			"article_redirect"	=> $row["article_redirect"],
-			"article_date"		=> $row["article_date"],
-			"article_username"	=> $row["article_username"],
-			"article_sort"		=> $row["article_sort"],
-			"article_notitle"	=> $row["article_notitle"],
-			"article_created"	=> $row["article_created"],
-			"article_image"		=> @unserialize($row["article_image"]),
-			"article_timeout"	=> $row["article_cache"],
-			"article_nosearch"	=> $row["article_nosearch"],
-			"article_nositemap"	=> $row["article_nositemap"],
-			"article_aliasid"	=> $row["article_aliasid"],
-			"article_headerdata"=> $row["article_headerdata"],
-			"article_morelink"	=> $row["article_morelink"],
-			"article_begin"		=> $row["article_begin"],
-			"article_end"		=> $row["article_end"],
-			"article_alias"		=> $row["article_alias"],
-			'article_livedate'	=> $row["article_livedate"],
-			'article_killdate'	=> $row["article_killdate"]
-		);
+        $data[$row["article_id"]] = array(
+            "article_id"        => $row["article_id"],
+            "article_cid"       => $row["article_cid"],
+            "article_title"     => $row["article_title"],
+            "article_subtitle"  => $row["article_subtitle"],
+            "article_keyword"   => $row["article_keyword"],
+            "article_summary"   => $row["article_summary"],
+            "article_redirect"  => $row["article_redirect"],
+            "article_date"      => $row["article_date"],
+            "article_username"  => $row["article_username"],
+            "article_sort"      => $row["article_sort"],
+            "article_notitle"   => $row["article_notitle"],
+            "article_created"   => $row["article_created"],
+            "article_image"     => @unserialize($row["article_image"]),
+            "article_timeout"   => $row["article_cache"],
+            "article_nosearch"  => $row["article_nosearch"],
+            "article_nositemap" => $row["article_nositemap"],
+            "article_aliasid"   => $row["article_aliasid"],
+            "article_headerdata"=> $row["article_headerdata"],
+            "article_morelink"  => $row["article_morelink"],
+            "article_begin"     => $row["article_begin"],
+            "article_end"       => $row["article_end"],
+            "article_alias"     => $row["article_alias"],
+            'article_livedate'  => $row["article_livedate"],
+            'article_killdate'  => $row["article_killdate"]
+        );
 
-		// now check for article alias ID
-		if($row["article_aliasid"]) {
-			$aid = $row["article_id"];
-			$alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
-			$alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
-			$alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
-			$alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
-			$alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
-			if(!$row["article_headerdata"]) {
-				switch(VISIBLE_MODE) {
-					case 0: $alias_sql .= " AND article_aktiv=1";
-							break;
-					case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
-							break;
-				}
-				if(!PREVIEW_MODE) {
-					$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
-				}
-			}
-			$alias_sql .= " AND article_deleted=0 LIMIT 1";
-			$alias_result = _dbQuery($alias_sql);
-			foreach($alias_result as $alias_row) {
-				$data[$aid]["article_id"] = $alias_row["article_id"];
-				// use alias article header data
-				if(!$row["article_headerdata"]) {
-					$data[$aid]["article_title"]	= $alias_row["article_title"];
-					$data[$aid]["article_subtitle"]	= $alias_row["article_subtitle"];
-					$data[$aid]["article_keyword"]	= $alias_row["article_keyword"];
-					$data[$aid]["article_summary"]	= $alias_row["article_summary"];
-					$data[$aid]["article_redirect"]	= $alias_row["article_redirect"];
-					$data[$aid]["article_date"]		= $alias_row["article_date"];
-					$data[$aid]["article_image"]	= @unserialize($alias_row["article_image"]);
-					$data[$aid]["article_begin"]	= $alias_row["article_begin"];
-					$data[$aid]["article_end"]		= $alias_row["article_end"];
-					$data[$aid]['article_livedate']	= $alias_row["article_livedate"];
-					$data[$aid]['article_killdate']	= $alias_row["article_killdate"];
-				}
-			}
-		}
-	}
+        // now check for article alias ID
+        if($row["article_aliasid"]) {
+            $aid = $row["article_id"];
+            $alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
+            $alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
+            $alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
+            $alias_sql .= "FROM ".DB_PREPEND."phpwcms_article ";
+            $alias_sql .= "WHERE article_deleted=0 AND article_id=".intval($row["article_aliasid"]);
+            if(!$row["article_headerdata"]) {
+                switch(VISIBLE_MODE) {
+                    case 0: $alias_sql .= " AND article_aktiv=1";
+                            break;
+                    case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')';
+                            break;
+                }
+                if(!PREVIEW_MODE) {
+                    $alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+                }
+            }
+            $alias_sql .= " AND article_deleted=0 LIMIT 1";
+            $alias_result = _dbQuery($alias_sql);
+            foreach($alias_result as $alias_row) {
+                $data[$aid]["article_id"] = $alias_row["article_id"];
+                // use alias article header data
+                if(!$row["article_headerdata"]) {
+                    $data[$aid]["article_title"]    = $alias_row["article_title"];
+                    $data[$aid]["article_subtitle"] = $alias_row["article_subtitle"];
+                    $data[$aid]["article_keyword"]  = $alias_row["article_keyword"];
+                    $data[$aid]["article_summary"]  = $alias_row["article_summary"];
+                    $data[$aid]["article_redirect"] = $alias_row["article_redirect"];
+                    $data[$aid]["article_date"]     = $alias_row["article_date"];
+                    $data[$aid]["article_image"]    = @unserialize($alias_row["article_image"]);
+                    $data[$aid]["article_begin"]    = $alias_row["article_begin"];
+                    $data[$aid]["article_end"]      = $alias_row["article_end"];
+                    $data[$aid]['article_livedate'] = $alias_row["article_livedate"];
+                    $data[$aid]['article_killdate'] = $alias_row["article_killdate"];
+                }
+            }
+        }
+    }
 
-	if($sort === '' && count($data)) {
-		foreach($data as $key => $value) {
-			if($value === '') {
-				unset($data[$key]);
-			}
-		}
-	}
+    if($sort === '' && count($data)) {
+        foreach($data as $key => $value) {
+            if($value === '') {
+                unset($data[$key]);
+            }
+        }
+    }
 
-	return $data;
+    return $data;
 }
 
 function convert2html($matches) {
-	if(isset($matches[1])) {
-		return html_entities($matches[1]);
-	}
+    if(isset($matches[1])) {
+        return html_entities($matches[1]);
+    }
 }
 
 function convert2htmlspecialchars($matches) {
-	if(isset($matches[1])) {
-		return html_specialchars($matches[1]);
-	}
+    if(isset($matches[1])) {
+        return html_specialchars($matches[1]);
+    }
 }
 
 function parse_images($matches) {
 
-	if(isset($matches[1])) {
+    if(isset($matches[1])) {
 
-		// Image file ID
-		$img_id 	= intval($matches[1]);
+        // Image file ID
+        $img_id     = intval($matches[1]);
 
-		// check for Alt-Text
-		$alt		= explode(' ', trim($matches[2]), 2);
-		$value		= explode('x', trim(strtolower($alt[0])));
+        // check for Alt-Text
+        $alt        = explode(' ', trim($matches[2]), 2);
+        $value      = explode('x', trim(strtolower($alt[0])));
 
-		$alt		= isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';
+        $alt        = isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';
 
-		if(substr($value[0], 0, 1) == '.') {
-			$ext	= trim($value[0]);
-		} else {
-			$ext	= '.jpg';
-		}
+        if(substr($value[0], 0, 1) == '.') {
+            $ext    = trim($value[0]);
+        } else {
+            $ext    = '.jpg';
+        }
 
-		$width		= isset($value[ 1 ]) ? intval($value[ 1 ]) : 0;
-		$height		= isset($value[ 2 ]) ? intval($value[ 2 ]) : 0;
-		$crop		= isset($value[ 3 ]) ? intval($value[ 3 ]) : 0;
-		$quality	= isset($value[ 4 ]) ? intval($value[ 4 ]) : 0;
+        $width      = isset($value[ 1 ]) ? intval($value[ 1 ]) : 0;
+        $height     = isset($value[ 2 ]) ? intval($value[ 2 ]) : 0;
+        $crop       = isset($value[ 3 ]) ? intval($value[ 3 ]) : 0;
+        $quality    = isset($value[ 4 ]) ? intval($value[ 4 ]) : 0;
 
-		$image		= '<img src="'.PHPWCMS_URL.'img/cmsimage.php/'.$width.'x'.$height.'x'.$crop;
-		if($quality <= 100 && $quality >= 10) {
-			$image .= 'x'.$quality;
-		}
-		$image	   .= '/'.$img_id.$ext.'" alt="'.$alt.'"';
-		if(isset($matches[3])) {
+        $image      = '<img src="'.PHPWCMS_URL.'img/cmsimage.php/'.$width.'x'.$height.'x'.$crop;
+        if($quality <= 100 && $quality >= 10) {
+            $image .= 'x'.$quality;
+        }
+        $image     .= '/'.$img_id.$ext.'" alt="'.$alt.'"';
+        if(isset($matches[3])) {
 
-			$title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
-			if($title) {
-				$image .= ' title="'.$title.'"';
-			}
-		}
-		$image	   .= ' />';
+            $title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
+            if($title) {
+                $image .= ' title="'.$title.'"';
+            }
+        }
+        $image     .= ' />';
 
-		return $image;
+        return $image;
 
-	}
+    }
 
-	return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" />';
+    return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" />';
 
 }
 
 function parse_downloads($match) {
 
-	if(isset($match[1])) {
+    if(isset($match[1])) {
 
-		$value = array();
-		$value['cnt_object']['cnt_files']['id'] = convertStringToArray($match[1]);
+        $value = array();
+        $value['cnt_object']['cnt_files']['id'] = convertStringToArray($match[1]);
 
-		if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
+        if(isset($value['cnt_object']['cnt_files']['id']) && is_array($value['cnt_object']['cnt_files']['id']) && count($value['cnt_object']['cnt_files']['id'])) {
 
-			global $phpwcms;
+            global $phpwcms;
 
-			$value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? @html_entity_decode(trim($match[3]), ENT_QUOTES, PHPWCMS_CHARSET) : '';
-			$value['files_direct_download'] = 0;
-			$value['files_template'] = 'download-inline';
-			if(!empty($match[2])) {
-				$match[2] = explode('=', trim($match[2]));
-				if(!empty($match[2][1])) {
-					$value['files_template'] = trim($match[2][1]);
-					if(which_ext($value['files_template']) == '') {
-						$value['files_template'] .= '.tmpl';
-					}
-				}
-			}
+            $value['cnt_object']['cnt_files']['caption'] = isset($match[3]) ? @html_entity_decode(trim($match[3]), ENT_QUOTES, PHPWCMS_CHARSET) : '';
+            $value['files_direct_download'] = 0;
+            $value['files_template'] = 'download-inline';
+            if(!empty($match[2])) {
+                $match[2] = explode('=', trim($match[2]));
+                if(!empty($match[2][1])) {
+                    $value['files_template'] = trim($match[2][1]);
+                    if(which_ext($value['files_template']) == '') {
+                        $value['files_template'] .= '.tmpl';
+                    }
+                }
+            }
 
-			$IS_NEWS_CP	= true;
-			$crow		= array();
-			$news		= array('files_result' => '');
+            $IS_NEWS_CP = true;
+            $crow       = array();
+            $news       = array('files_result' => '');
 
-			// include content part files renderer
-			include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
+            // include content part files renderer
+            include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
-			if($news['files_result']) {
-				return $news['files_result'];
-			}
+            if($news['files_result']) {
+                return $news['files_result'];
+            }
 
-		}
+        }
 
-	}
+    }
 
-	return isset($match[3]) ? $match[3] : '';
+    return isset($match[3]) ? $match[3] : '';
 
 }
 
@@ -917,22 +988,22 @@ function parse_downloads($match) {
  * process content part trigger functions
  **/
 function trigger_cp($CP, & $CPDATA) {
-	foreach($GLOBALS['content']['CpTrigger'] as $trigger_function) {
-		if(function_exists($trigger_function)) {
-			$CP = $trigger_function($CP, $CPDATA);
-		}
-	}
-	return $CP;
+    foreach($GLOBALS['content']['CpTrigger'] as $trigger_function) {
+        if(function_exists($trigger_function)) {
+            $CP = $trigger_function($CP, $CPDATA);
+        }
+    }
+    return $CP;
 }
 
 /**
  * register content part trigger function
- * @param	string	$function	name of the trigger function
- * @param	string	$method		method how trigger function should be registered
- *								LAST	- register as last, multiple possible
- *								FIRST	- register as first, multiple possible
- *								RFIRST	- if not registered as first
- *								RLAST	- if not registered as last
+ * @param   string  $function   name of the trigger function
+ * @param   string  $method     method how trigger function should be registered
+ *                              LAST    - register as last, multiple possible
+ *                              FIRST   - register as first, multiple possible
+ *                              RFIRST  - if not registered as first
+ *                              RLAST   - if not registered as last
  *
  * Good place to place custom trigger function is
  * /template/inc_script/frontend_init
@@ -944,29 +1015,29 @@ function trigger_cp($CP, & $CPDATA) {
  *
  **/
 function register_cp_trigger($function='', $method='LAST') {
-	if(is_string($function)) {
-		switch($method) {
-			case 'FIRST':
-				array_unshift($GLOBALS['content']['CpTrigger'], $function);
-				break;
+    if(is_string($function)) {
+        switch($method) {
+            case 'FIRST':
+                array_unshift($GLOBALS['content']['CpTrigger'], $function);
+                break;
 
-			case 'RFIRST':
-				if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
-					array_unshift($GLOBALS['content']['CpTrigger'], $function);
-				}
-				break;
+            case 'RFIRST':
+                if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
+                    array_unshift($GLOBALS['content']['CpTrigger'], $function);
+                }
+                break;
 
-			case 'RLAST':
-				if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
-					array_push($GLOBALS['content']['CpTrigger'], $function);
-				}
-				break;
+            case 'RLAST':
+                if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
+                    array_push($GLOBALS['content']['CpTrigger'], $function);
+                }
+                break;
 
-			case 'LAST':
-			default:
-				array_push($GLOBALS['content']['CpTrigger'], $function);
-		}
-	}
+            case 'LAST':
+            default:
+                array_push($GLOBALS['content']['CpTrigger'], $function);
+        }
+    }
 }
 
 
@@ -975,63 +1046,63 @@ function register_cp_trigger($function='', $method='LAST') {
  * and log those fetched data in database
  * Basic idea: http://www.tellinya.com/read/2007/07/11/34.html
  *
- * @return	array
- * @param	string	referrer string
+ * @return  array
+ * @param   string  referrer string
  *
  **/
 function seReferrer($ref = false) {
 
-	if(!empty($ref) && is_string($ref)) {
-		$SeReferer = trim($ref);
-	} elseif(isset($_SERVER['HTTP_REFERER'])) {
-		$SeReferer = trim($_SERVER['HTTP_REFERER']);
-	} else {
-		return false;
-	}
-	$SePos		= 0;
-	$SeDomain	= '';
+    if(!empty($ref) && is_string($ref)) {
+        $SeReferer = trim($ref);
+    } elseif(isset($_SERVER['HTTP_REFERER'])) {
+        $SeReferer = trim($_SERVER['HTTP_REFERER']);
+    } else {
+        return false;
+    }
+    $SePos      = 0;
+    $SeDomain   = '';
 
-	//Check against Google, Yahoo, MSN, Ask and others
-	if( $SeReferer && preg_match('/[&\?](q|p|w|s|qry|searchfor|as_q|as_epq|query|qt|keyword|keywords|encquery)=([^&]+)/i', $SeReferer, $pcs) ){
-		if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ) {
-			$SeDomain	= trim(strtolower($SeDomain[1]));
-			$SeQuery	= $pcs[2];
-			if(preg_match("/[&\?](start|b|first|stq)=([0-9]*)/i",$SeReferer,$pcs)) {
-				$SePos	= (int)trim($pcs[2]);
-			}
-		}
-	}
-	if(!isset($SeQuery)){
-		//Check against DogPile
-		if( preg_match('/\/search\/web\/([^\/]+)\//i', $SeReferer, $pcs) ) {
-			if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ){
-			$SeDomain	= trim(strtolower($SeDomain[1]));
-			$SeQuery	= $pcs[1];
-			}
-		}
+    //Check against Google, Yahoo, MSN, Ask and others
+    if( $SeReferer && preg_match('/[&\?](q|p|w|s|qry|searchfor|as_q|as_epq|query|qt|keyword|keywords|encquery)=([^&]+)/i', $SeReferer, $pcs) ){
+        if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ) {
+            $SeDomain   = trim(strtolower($SeDomain[1]));
+            $SeQuery    = $pcs[2];
+            if(preg_match("/[&\?](start|b|first|stq)=([0-9]*)/i",$SeReferer,$pcs)) {
+                $SePos  = (int)trim($pcs[2]);
+            }
+        }
+    }
+    if(!isset($SeQuery)){
+        //Check against DogPile
+        if( preg_match('/\/search\/web\/([^\/]+)\//i', $SeReferer, $pcs) ) {
+            if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ){
+            $SeDomain   = trim(strtolower($SeDomain[1]));
+            $SeQuery    = $pcs[1];
+            }
+        }
 
-		// We Do Not have a query
-		if(!isset($SeQuery)){
-			return false;
-		}
-	}
+        // We Do Not have a query
+        if(!isset($SeQuery)){
+            return false;
+        }
+    }
 
-	$OldQ		= $SeQuery;
-	$SeQuery	= urldecode($SeQuery);
+    $OldQ       = $SeQuery;
+    $SeQuery    = urldecode($SeQuery);
 
-	// The Multiple URLDecode Trick to fix DogPile %XXXX Encodes
-	while($SeQuery != $OldQ){
-		$OldQ		= $SeQuery;
-		$SeQuery	= urldecode($SeQuery);
-	}
+    // The Multiple URLDecode Trick to fix DogPile %XXXX Encodes
+    while($SeQuery != $OldQ){
+        $OldQ       = $SeQuery;
+        $SeQuery    = urldecode($SeQuery);
+    }
 
-	// check given query and decode utf-8
-	if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($SeQuery)) {
-		$SeQuery = makeCharsetConversion($SeQuery, 'utf-8', PHPWCMS_CHARSET, false);
-	}
+    // check given query and decode utf-8
+    if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($SeQuery)) {
+        $SeQuery = makeCharsetConversion($SeQuery, 'utf-8', PHPWCMS_CHARSET, false);
+    }
 
-	return array(	"domain"	=> $SeDomain,
-					"query"		=> $SeQuery,
-					"pos"		=> $SePos,
-					"referrer"	=> $SeReferer	);
+    return array(   "domain"    => $SeDomain,
+                    "query"     => $SeQuery,
+                    "pos"       => $SePos,
+                    "referrer"  => $SeReferer   );
 }

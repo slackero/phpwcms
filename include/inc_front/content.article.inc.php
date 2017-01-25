@@ -588,14 +588,11 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
                 $CNT_TMP .= 'id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
             }
 
+            // set CP space before and after or wrap if both
+            $content['cp_spacers'] = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
+
             // Space before
-            if($crow["acontent_before"]) {
-                if(!empty($template_default["article"]["div_spacer"])) {
-                    $CNT_TMP .= '<div style="margin-top:'.$crow["acontent_before"].'px;" class="'.$template_default['classes']['spaceholder-cp-before'].'"></div>';
-                } else {
-                    $CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1,$crow["acontent_before"]);
-                }
-            }
+            $CNT_TMP .= $content['cp_spacers']['before'];
 
             // set frontend edit link
             if($content['article_frontend_edit']) {
@@ -621,15 +618,9 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             $CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
 
             // Space after
-            if($crow["acontent_after"]) {
-                if(!empty($template_default["article"]["div_spacer"])) {
-                    $CNT_TMP .= '<div style="margin-bottom:'.$crow["acontent_after"].'px;" class="'.$template_default['classes']['spaceholder-cp-after'].'"></div>';
-                } else {
-                    $CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1,$crow["acontent_after"]);
-                }
-            }
+            $CNT_TMP .= $content['cp_spacers']['after'];
 
-            // Maybe content part ID should b used inside templates or for something different
+            // Maybe content part ID should be used inside templates or for something different
             $CNT_TMP = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
 
             // trigger content part functions
