@@ -21,11 +21,11 @@ if (!defined('PHPWCMS_ROOT')) {
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 ?>
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-<tr><td colspan="2" class="title"><?php echo $BL['be_article_title'] ?></td></tr>
-<tr><td colspan="2" class="title"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+
+    <tr><td colspan="2" class="title"><?php echo $BL['be_article_title'] ?></td></tr>
+    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
 <?php
 
 $listmode = 0;
@@ -84,7 +84,7 @@ $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\
 $a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td width="77" nowrap="nowrap">';
+echo '<td width="77" nowrap="nowrap" class="nowrap">';
 
 $struct[0]["acat_id"]		= 0;
 $struct[0]["acat_aktiv"]	= 1;
@@ -99,7 +99,6 @@ if($_SESSION["structure"][0]) {
 	struct_list(0, $db, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+
+    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 </table>

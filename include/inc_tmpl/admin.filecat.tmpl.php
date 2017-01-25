@@ -22,14 +22,13 @@ if(isset($_GET["open"])) {
 	$_SESSION["fcatlist"][intval($open_id)] = intval($open_value);
 }
 ?>
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
           <tr><td colspan="2" class="title"><?php echo $BL['be_admin_fcat_title'] ?></td></tr>
 		  <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 		  <?php
 		  if(isset($_GET["fcatid"])) {
 		  ?>
-		  <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-    </tr>
+		  <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
           <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
     </tr>
 		  <?php
@@ -251,18 +250,14 @@ if(isset($_GET["open"])) {
 		    </tr>
 		    </table></td>
 		  </tr>
-		  <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
-		  </tr>
+		  <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 		  </form>
 <?php
 		  } //Ende Anzeige Key Name Formular
 
 
 		  ?>
-          <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-    </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-    </tr>
+          <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 		  <?php
 			$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
 			if($result = mysql_query($sql, $db) or die("error while browsing file categories")) {
@@ -282,10 +277,10 @@ if(isset($_GET["open"])) {
 					echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
               		echo "</tr>\n</table></td>".LF;
 
-					echo "<td width=\"55\">";
+					echo '<td width="66" class="nowrap">';
 
 					echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" title=\"".$BL['be_admin_fcat_addkey']."\">";
-					echo "<img src=\"img/button/add_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
+					echo "<img src=\"img/button/add_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
 
 					echo "<a href=\"phpwcms.php?do=admin&p=7&fcatid=".$row["fcat_id"]."\" title =\"".$BL['be_admin_fcat_editcat']."\">";
 					echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
@@ -312,7 +307,7 @@ if(isset($_GET["open"])) {
 								echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
 								echo "<td>".html($krow["fkey_name"])." [".$krow["fkey_sort"]."]</td>\n";
 								echo "</tr>\n</table></td>\n";
-								echo "<td><img src=\"img/leer.gif\" width=\"11\" height=\"11\">";
+								echo '<td class="nowrap"><img src="img/leer.gif" width="22" height="11">';
 
 								echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow["fkey_id"]."&cid=".$row["fcat_id"]."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
 								echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
@@ -332,14 +327,11 @@ if(isset($_GET["open"])) {
 		  		mysql_free_result($result);
 			}
 		?>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-    </tr>
-          <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-    </tr>
-          <tr>
+        <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+        <tr>
             <td><img src="img/leer.gif" alt="" width="483" height="1" /></td>
-			<td><img src="img/leer.gif" alt="" width="55" height="5" /></td>
-    </tr>
+			<td><img src="img/leer.gif" alt="" width="66" height="5" /></td>
+        </tr>
           <tr>
             <td colspan="2"><form action="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
             	<input type="submit" value="<?php echo $BL['be_admin_fcat_addcat'] ?>" class="button" title="<?php echo $BL['be_admin_fcat_addcat'] ?>" />
