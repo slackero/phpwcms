@@ -135,7 +135,6 @@ if($map_selected) {
 		mysql_free_result($map_result);
 	}
 
-
 ?>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

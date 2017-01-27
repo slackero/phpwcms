@@ -43,8 +43,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 	$child_count	= get_root_childcount($struct[$key]["acat_id"], $dbcon);
 	$child_sort		= (($child_count+1)*10);
 
-	$forbid_cut		= ($struct[$key]["acat_struct"] == $cut_id || $forbid_cut) ? 1 : 0;
-	$forbid_copy	= ($struct[$key]["acat_struct"] == $copy_id || $forbid_copy) ? 1 : 0;
+    $forbid_cut     = ($struct[$key]["acat_struct"] == $cut_id || $forbid_cut) ? 1 : 0;
+    $forbid_copy    = ($struct[$key]["acat_struct"] == $copy_id || $forbid_copy) ? 1 : 0;
 
 	$an = html($struct[$key]["acat_name"]);
 	$a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
@@ -129,14 +129,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
 	global $BL;
 
-	$article			= array();	// empty article array
-	$sort_array			= array();	// empty array to store all sort values for the category
-	$article_order		= intval($article_order);
-	$max_article_count	= 0;
-	$show_sort			= (!$article_order || $article_order == 1) ? 1 : 0;
-	$ao 				= get_order_sort($article_order);
-	$count_article		= 0;
-	$sbutton_string		= array();
+    $article            = array();  // empty article array
+    $sort_array         = array();  // empty array to store all sort values for the category
+    $article_order      = intval($article_order);
+    $max_article_count  = 0;
+    $show_sort          = (!$article_order || $article_order == 1) ? 1 : 0;
+    $ao                 = get_order_sort($article_order);
+    $count_article      = 0;
+    $sbutton_string     = array();
 
 	$sql  = "SELECT *, ";
 	$sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date "; //, article_deleted
@@ -354,7 +354,9 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 		$sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
 		$sql .= "WHERE acontent_aid=".$article[$akey]["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";
 		if($result = mysql_query($sql, $GLOBALS['db']) or die("error while listing contents for this article")) {
-			$sc = 0; $scc = 0; //Sort-Zwischenz�hler
+        //Sort counter
+        $sc = 0;
+        $scc = 0;
 			while($row = mysql_fetch_row($result)) {
 				$scc++;
 				if($row[2] == 0) {
@@ -453,7 +455,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$gk = 14+14+29+(14*($counter-1));
 			$a .= "<td width=\"".$gk."\"><img src=\"img/leer.gif\" width=\"".$gk."\" height=\"1\" alt=\"\" /></td>";	//$counter-1
 			$a .= "<td width=\"13\"><img src=\"img/symbole/content_9x11.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" onmouseover=\"".$info."\" /></td>";
-			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;width:".(538-$gk-14-15-88-98)."px;\" onmouseover=\"".$info."\">";
+			$a .= "<td class=\"v09\" style=\"color:#727889;padding:1px 0 1px 0;\" onmouseover=\"".$info."\">";
 
 			$ab  = '[ID:'.$article_content["acontent_id"].'] ';
 			$ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];
@@ -466,7 +468,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 			$a .= "</td>";
 			$a .= "<td width=\"16\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";
 			$a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html(' {'.$article_content['acontent_block'].'} ')."</td>";
-			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:88px;white-space:nowrap;" onmouseover="'.$info.'">';
+			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:94px;white-space:nowrap;" onmouseover="'.$info.'">';
 
 			$at  = ' '.$ab.' ';
 
@@ -542,7 +544,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
 
 		if($a) {
 			$aa  = "<tr>\n<td colspan=\"2\">";
-			$aa .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\" width=\"538\">\n";
+			$aa .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\" width=\"100%\">\n";
 			$aa .= $a;
 			$aa .= "</table></td></tr>";
 			echo $aa;

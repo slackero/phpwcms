@@ -139,12 +139,9 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
 
     if(empty($file_name)) {
         $file_error["name"] = 1;
-    } else {
-        // Extend filename by extension
-        if(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) {
+    } elseif(trim(strtolower(FileExtension($file_name))) != trim($file_ext)) {
             $file_name .= ".".$file_ext;
         }
-    }
 
     if(empty($file_error)) {
         $sql =  "UPDATE ".DB_PREPEND."phpwcms_file SET ".

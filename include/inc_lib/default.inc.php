@@ -637,7 +637,7 @@ function buildGlobalGET($return = '') {
         }
     }
 
-    if($return == 'getQuery') {
+    if($return === 'getQuery') {
         return returnGlobalGET_QueryString('htmlentities');
     }
 }

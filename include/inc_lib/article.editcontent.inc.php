@@ -265,11 +265,11 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article['image']['zoom']       = empty($_POST["cimage_zoom"]) ? 0 : 1;
         $article['image']['lightbox']   = empty($_POST["cimage_lightbox"]) ? 0 : 1;
 
-        if ((!RESPONSIVE_MODE && $article['image']['width'] > $phpwcms["content_width"]) || $article['image']['width'] == '') {
+        if((!RESPONSIVE_MODE && $article['image']['width'] > $phpwcms["content_width"]) || $article['image']['width'] == '') {
             $article['image']['width'] = $phpwcms["content_width"];
         }
 
-        if ($article['image']['id']) {
+        if($article['image']['id']) {
             // check for image information and get alle infos from file
             $img_sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_file WHERE f_id=";
             $img_sql .= $article['image']['id']." LIMIT 1";
@@ -323,12 +323,11 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
             }
         }
 
-        if( count($article_err) == 0 ) {
+        if(!count($article_err)) {
 
-            if($article["article_id"] == 0) {
+            if(empty($article["article_id"])) {
 
                 // Insert (create) new article
-
                 $data = array(
                     'article_created'       => time(),
                     "article_cid"           => $article["article_catid"],

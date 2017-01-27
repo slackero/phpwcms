@@ -578,7 +578,7 @@ function get_actcat_articles_data($act_cat_id) {
         if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
             $sql .= ' AND article_end > NOW()';
         } else {
-            $sql .= ' AND IF(article_archive_status=1, 1 , article_end > NOW())';
+            $sql .= ' AND IF(article_archive_status=1, 1, article_end > NOW())';
         }
     }
     $sql .= ' ORDER BY '.$ao[2];
@@ -706,7 +706,7 @@ function add_linkid($img='', $linkid='') {
     return $img;
 }
 
-function build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $count, $div, $link_to) {
+function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $count, $div, $link_to) {
 
     // this returns the level structure based on given arrays
     // it is special for browsing from root levels
@@ -1105,6 +1105,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
             if(empty($article["article_image"]["list_caption"])) {
                 $article["article_image"]["list_caption"] = '';
             }
+            if(empty($article["article_image"]["list_id"])) {
+                $article["article_image"]["list_id"] = 0;
+            }
             $caption = getImageCaption(array('caption' => $article["article_image"]["list_caption"], 'file' => $article["article_image"]["list_id"]));
 
             $article["article_image"]["list_caption"]   = $caption[0]; // caption text
@@ -1455,7 +1458,7 @@ function html_parser($string) {
     $replace[7]     = '<$1 class="$2">$3</$1>';
 
     $search[8]      = '/\[acronym (.*?)\](.*?)\[\/acronym\]/is';
-    $replace[8]     = '<acronym title="$1">$2</acronym>';
+    $replace[8]     = '<abbr title="$1">$2</abbr>';
 
     // this parses an E-Mail Link without subject (by Florian, 21-11-2003)
     $search[9]      = '/\[E{0,1}MAIL (.*?)\](.*?)\[\/E{0,1}MAIL\]/is';
@@ -3322,7 +3325,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
             4 => ''
         );
     } elseif(is_array($caption)) {
-        $filedata = isset($caption['file']) ? getFileDetails($caption['file']) : null;
+        $filedata = !empty($caption['file']) ? getFileDetails($caption['file']) : null;
         $caption = isset($caption['caption']) ? $caption['caption'] : '';
     } else {
         $filedata = null;

@@ -119,7 +119,6 @@ if(isset($count_user_files) && $count_user_files) { // list if there are public 
 						echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" onmouseout="UnTip()" alt=""';
 						echo "></td>\n";
 						echo "<td width=\"473\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">"; //438-$vor
-						//echo "<a href=\"fileinfo_public.php?fid=".$file_row["f_id"];
 						echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];
 						echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
 						echo $filename."</a>";
@@ -134,7 +133,7 @@ if(isset($count_user_files) && $count_user_files) { // list if there are public 
 						//Ende Aufbau
 						echo "</tr>\n";
 
-						if($_SESSION["wcs_user_thumb"]) {
+                        if(!empty($_SESSION["wcs_user_thumb"])) {
 
 							$thumb_image = get_cached_image(array(
 								"target_ext"	=>	$file_row["f_ext"],
