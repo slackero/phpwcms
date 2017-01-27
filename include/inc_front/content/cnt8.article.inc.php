@@ -612,6 +612,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                             $content['alink']['tr'][$key]
                         );
 
+                        $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_DETAIL_SUPPRESS', empty($row['article_image']['caption_suppress']) ? '' : ' ');
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'IMAGE_DETAIL', $row['article_image']['img']);
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_DETAIL', $row['article_image']['caption'][0]);
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'IMAGE_TITLE', $row['article_image']['caption'][3]);
@@ -684,6 +685,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CATEGORY', html_specialchars($content['struct'][ $row['article_cid'] ]['acat_name']));
 
                     // Image Caption, Alt, Title
+                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_SUPPRESS', empty($row['article_image']['list_caption_suppress']) ? '' : ' ');
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION', $row['article_image']['list_caption']);
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_ALT', $content['alink']['caption'][1]);
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_TITLE', $content['alink']['caption'][3]);

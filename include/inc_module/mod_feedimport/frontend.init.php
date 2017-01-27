@@ -85,8 +85,8 @@ if(!empty($_getVar['feedimport'])) {
 				}
 			} else {
 				$feedimport_result['cnt_object']['image_url_replace'] = array(
-					0	=> '', // Search
-					1	=> '' // Replace
+                    0   => '', // Search
+                    1   => '' // Replace
 				);
 			}
 
@@ -107,7 +107,7 @@ if(!empty($_getVar['feedimport'])) {
 
 			foreach($rss_obj->get_items() as $rssvalue) {
 
-				$article_unique_hash	= md5( $feedimport_result['cnt_text'] . $rssvalue->get_title() . $rssvalue->get_date('U') );
+                $article_unique_hash    = md5( $feedimport_result['cnt_text'] . $rssvalue->get_title() . $rssvalue->get_date('U') );
 
 				// check against crossreference table
 				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_crossreference c ';
@@ -120,21 +120,21 @@ if(!empty($_getVar['feedimport'])) {
 					continue;
 				}
 
-				$article_title			= html_entity_decode($rssvalue->get_title(), ENT_COMPAT, PHPWCMS_CHARSET);
-				$article_alias			= proof_alias(0, $article_title, 'ARTICLE');
-				$article_begin			= $rssvalue->get_date('U');
-				$article_end			= now()+(3600*24*365*10);
-				$article_summary		= $rssvalue->get_description();
-				$article_content		= $rssvalue->get_content();
-				$article_description	= preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($article_summary), ENT_COMPAT, PHPWCMS_CHARSET));
+                $article_title          = html_entity_decode($rssvalue->get_title(), ENT_COMPAT, PHPWCMS_CHARSET);
+                $article_alias          = proof_alias(0, $article_title, 'ARTICLE');
+                $article_begin          = $rssvalue->get_date('U');
+                $article_end            = now()+(3600*24*365*10);
+                $article_summary        = $rssvalue->get_description();
+                $article_content        = $rssvalue->get_content();
+                $article_description    = preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($article_summary), ENT_COMPAT, PHPWCMS_CHARSET));
 				list($article_description) = explode("\n", wordwrap($article_description, 250), 2);
 				list($article_description) = explode("-- ", $article_description, 2);
-				$article_description	= preg_replace('/(.*?\.).+?$/', '$1', $article_description);
-				$article_author			= $rssvalue->get_author();
+                $article_description    = preg_replace('/(.*?\.).+?$/', '$1', $article_description);
+                $article_author         = $rssvalue->get_author();
 				if($article_author) {
-					$article_author		= html_entity_decode($article_author->get_name(), ENT_COMPAT, PHPWCMS_CHARSET);
+                    $article_author     = html_entity_decode($article_author->get_name(), ENT_COMPAT, PHPWCMS_CHARSET);
 				} else {
-					$article_author		= $feedimport_result['cnt_object']['author_name'];
+                    $article_author     = $feedimport_result['cnt_object']['author_name'];
 				}
 
 				if($article_summary && $article_content && $article_summary == $article_content) {
@@ -176,23 +176,25 @@ if(!empty($_getVar['feedimport'])) {
 				}
 
 				$feedimport_result['image'] = array(
-					'tmpllist'			=> $feedimport_result['cnt_object']['article_template_list'],
-					'tmplfull'			=> $feedimport_result['cnt_object']['article_template_detail'],
-					'name'				=> '',
-					'id'				=> '',
-					'caption'			=> '',
-					'hash'				=> '',
-					'width'				=> '',
-					'ext'				=> '',
-					'list_usesummary'	=> 0,
-					'list_name'			=> '',
-					'list_id'			=> 0,
-					'list_width'		=> '',
-					'list_height'		=> '',
-					'list_zoom'			=> 0,
-					'list_caption'		=> '',
-					"list_hash"			=> '',
-					'zoom'				=> 0
+                    'tmpllist' => $feedimport_result['cnt_object']['article_template_list'],
+                    'tmplfull' => $feedimport_result['cnt_object']['article_template_detail'],
+                    'name' => '',
+                    'id' => '',
+                    'caption' => '',
+                    'caption_suppress' => 0,
+                    'hash' => '',
+                    'width' => '',
+                    'ext' => '',
+                    'list_usesummary' => 0,
+                    'list_name' => '',
+                    'list_id' => 0,
+                    'list_width' => '',
+                    'list_height' => '',
+                    'list_zoom' => 0,
+                    'list_caption' => '',
+                    'list_caption_suppress' => 0,
+                    "list_hash" => '',
+                    'zoom' => 0
 				);
 
 				// Thumbnail
@@ -212,8 +214,8 @@ if(!empty($_getVar['feedimport'])) {
 							$article_thumbnail_hash = md5($article_thumbnail_name . microtime());
 							$article_thumbnail_store = PHPWCMS_STORAGE . $article_thumbnail_hash . '.' . $article_thumbnail_ext;
 
-							$oldmask	= umask(0);
-							$insert		= false;
+                            $oldmask    = umask(0);
+                            $insert     = false;
 
 							if($dir = @opendir(PHPWCMS_STORAGE) && copy($article_thumbnail, $article_thumbnail_store)) {
 
@@ -221,39 +223,39 @@ if(!empty($_getVar['feedimport'])) {
 
 									// yeah, we have it
 									$data = array(
-										'f_pid'			=> $feedimport_result['cnt_object']['image_folder_id'],
-										'f_uid'			=> $feedimport_result['cnt_object']['author_id'],
-										'f_kid'			=> 1,
-										'f_aktiv'		=> 1,
-										'f_public'		=> 1,
-										'f_name'		=> $article_thumbnail_name,
-										'f_created'		=> now(),
-										'f_size'		=> $article_thumbnail_size,
-										'f_type'		=> get_mimetype_by_extension($article_thumbnail_ext),
-										'f_ext'			=> $article_thumbnail_ext,
-										'f_longinfo'	=> $article_title,
-										'f_hash'		=> $article_thumbnail_hash,
-										'f_copyright'	=> '',
-										'f_tags'		=> $article_categories
+                                        'f_pid'         => $feedimport_result['cnt_object']['image_folder_id'],
+                                        'f_uid'         => $feedimport_result['cnt_object']['author_id'],
+                                        'f_kid'         => 1,
+                                        'f_aktiv'       => 1,
+                                        'f_public'      => 1,
+                                        'f_name'        => $article_thumbnail_name,
+                                        'f_created'     => now(),
+                                        'f_size'        => $article_thumbnail_size,
+                                        'f_type'        => get_mimetype_by_extension($article_thumbnail_ext),
+                                        'f_ext'         => $article_thumbnail_ext,
+                                        'f_longinfo'    => $article_title,
+                                        'f_hash'        => $article_thumbnail_hash,
+                                        'f_copyright'   => '',
+                                        'f_tags'        => $article_categories
 									);
 
 									if(PHPWCMS_CHARSET != 'utf-8') {
-										$data['f_name']			= makeCharsetConversion($data['f_name'], 'utf-8', PHPWCMS_CHARSET);
-										$data['f_longinfo']		= makeCharsetConversion($data['f_longinfo'], 'utf-8', PHPWCMS_CHARSET);
-										$data['f_copyright']	= makeCharsetConversion($data['f_copyright'], 'utf-8', PHPWCMS_CHARSET);
-										$data['f_tags']			= makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);
+                                        $data['f_name']         = makeCharsetConversion($data['f_name'], 'utf-8', PHPWCMS_CHARSET);
+                                        $data['f_longinfo']     = makeCharsetConversion($data['f_longinfo'], 'utf-8', PHPWCMS_CHARSET);
+                                        $data['f_copyright']    = makeCharsetConversion($data['f_copyright'], 'utf-8', PHPWCMS_CHARSET);
+                                        $data['f_tags']         = makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);
 									}
 
 									$insert = _dbInsert('phpwcms_file', $data);
 
 									if(isset($insert['INSERT_ID'])) {
-										$feedimport_result['image']['name']				= $article_thumbnail_name;
-										$feedimport_result['image']['id']				= $insert['INSERT_ID'];
-										$feedimport_result['image']['width']			= $phpwcms["content_width"];
-										$feedimport_result['image']['height']			= '';
-										$feedimport_result['image']['hash']				= $article_thumbnail_hash;
-										$feedimport_result['image']['ext']				= $article_thumbnail_ext;
-										$feedimport_result['image']['list_usesummary']	= 1;
+                                        $feedimport_result['image']['name']             = $article_thumbnail_name;
+                                        $feedimport_result['image']['id']               = $insert['INSERT_ID'];
+                                        $feedimport_result['image']['width']            = $phpwcms["content_width"];
+                                        $feedimport_result['image']['height']           = '';
+                                        $feedimport_result['image']['hash']             = $article_thumbnail_hash;
+                                        $feedimport_result['image']['ext']              = $article_thumbnail_ext;
+                                        $feedimport_result['image']['list_usesummary']  = 1;
 									}
 								}
 
@@ -279,37 +281,37 @@ if(!empty($_getVar['feedimport'])) {
 				// define article data
 				$data = array(
 
-					'article_created'		=> now(),
-					"article_cid"			=> $feedimport_result['cnt_object']['structure_level_id'],
-					"article_uid"			=> $feedimport_result['cnt_object']['author_id'],
-					"article_title"			=> $article_title,
-					"article_alias"			=> $article_alias,
-					"article_keyword"		=> $article_categories,
-					"article_aktiv"			=> $feedimport_result['cnt_object']['activate_after_import'],
-					"article_begin"			=> date('Y-m-d H:i:s', $article_begin),
-					"article_end"			=> date('Y-m-d 23:59:59', $article_end),
-					"article_subtitle"		=> '',
-					"article_summary"		=> $article_summary,
-					"article_redirect"		=> '',
-					"article_sort"			=> $article_sort_counter,
-					"article_username"		=> $article_author,
-					"article_notitle"		=> 0,
-					"article_hidesummary"	=> 0,
-					"article_image"			=> '',
-					"article_cache"			=> '',
-					"article_nosearch"		=> 0,
-					"article_nositemap"		=> 0,
-					"article_aliasid"		=> 0,
-					"article_headerdata"	=> 0,
-					"article_morelink"		=> 1,
-					"article_pagetitle"		=> '',
-					"article_paginate"		=> 0,
-					"article_priorize"		=> 0,
-					"article_norss"			=> 0,
+                    'article_created'       => now(),
+                    "article_cid"           => $feedimport_result['cnt_object']['structure_level_id'],
+                    "article_uid"           => $feedimport_result['cnt_object']['author_id'],
+                    "article_title"         => $article_title,
+                    "article_alias"         => $article_alias,
+                    "article_keyword"       => $article_categories,
+                    "article_aktiv"         => $feedimport_result['cnt_object']['activate_after_import'],
+                    "article_begin"         => date('Y-m-d H:i:s', $article_begin),
+                    "article_end"           => date('Y-m-d 23:59:59', $article_end),
+                    "article_subtitle"      => '',
+                    "article_summary"       => $article_summary,
+                    "article_redirect"      => '',
+                    "article_sort"          => $article_sort_counter,
+                    "article_username"      => $article_author,
+                    "article_notitle"       => 0,
+                    "article_hidesummary"   => 0,
+                    "article_image"         => '',
+                    "article_cache"         => '',
+                    "article_nosearch"      => 0,
+                    "article_nositemap"     => 0,
+                    "article_aliasid"       => 0,
+                    "article_headerdata"    => 0,
+                    "article_morelink"      => 1,
+                    "article_pagetitle"     => '',
+                    "article_paginate"      => 0,
+                    "article_priorize"      => 0,
+                    "article_norss"         => 0,
 					"article_archive_status"=> 1,
-					"article_menutitle"		=> '',
-					'article_description'	=> $article_description,
-					'article_serialized'	=> ''
+                    "article_menutitle"     => '',
+                    'article_description'   => $article_description,
+                    'article_serialized'    => ''
 
 				);
 
@@ -323,38 +325,38 @@ if(!empty($_getVar['feedimport'])) {
 					if($article_content) {
 
 						$cpdata = array(
-							'acontent_aid'				=> $result['INSERT_ID'],
-							'acontent_uid'				=> $feedimport_result['cnt_object']['author_id'],
-							'acontent_created'			=> date('Y-m-d H:i:s', now()),
-							'acontent_tstamp'			=> date('Y-m-d H:i:s', now()),
-							'acontent_title'			=> '',
-							'acontent_subtitle'			=> '',
-							'acontent_text'				=> '',
-							'acontent_html'				=> '',
-							'acontent_sorting'			=> 100,
-							'acontent_visible'			=> 1,
-							'acontent_before'			=> '',
-							'acontent_after'			=> '',
-							'acontent_top'				=> 0,
-							'acontent_block'			=> 'CONTENT',
-							'acontent_anchor'			=> 0,
-							'acontent_module'			=> '',
-							'acontent_comment'			=> $article_title,
-							'acontent_paginate_page'	=> 0,
-							'acontent_paginate_title'	=> '',
-							'acontent_granted'			=> 0,
-							'acontent_tab'				=> '',
-							'acontent_image'			=> '',
-							'acontent_files'			=> '',
-							'acontent_redirect'			=> '',
-							'acontent_alink'			=> '',
-							'acontent_template'			=> '',
-							'acontent_spacer'			=> '',
-							'acontent_category'			=> '',
-							'acontent_lang'				=> '',
-							'acontent_form'				=> '',
-							'acontent_media'			=> '',
-							'acontent_newsletter'		=> ''
+                            'acontent_aid'              => $result['INSERT_ID'],
+                            'acontent_uid'              => $feedimport_result['cnt_object']['author_id'],
+                            'acontent_created'          => date('Y-m-d H:i:s', now()),
+                            'acontent_tstamp'           => date('Y-m-d H:i:s', now()),
+                            'acontent_title'            => '',
+                            'acontent_subtitle'         => '',
+                            'acontent_text'             => '',
+                            'acontent_html'             => '',
+                            'acontent_sorting'          => 100,
+                            'acontent_visible'          => 1,
+                            'acontent_before'           => '',
+                            'acontent_after'            => '',
+                            'acontent_top'              => 0,
+                            'acontent_block'            => 'CONTENT',
+                            'acontent_anchor'           => 0,
+                            'acontent_module'           => '',
+                            'acontent_comment'          => $article_title,
+                            'acontent_paginate_page'    => 0,
+                            'acontent_paginate_title'   => '',
+                            'acontent_granted'          => 0,
+                            'acontent_tab'              => '',
+                            'acontent_image'            => '',
+                            'acontent_files'            => '',
+                            'acontent_redirect'         => '',
+                            'acontent_alink'            => '',
+                            'acontent_template'         => '',
+                            'acontent_spacer'           => '',
+                            'acontent_category'         => '',
+                            'acontent_lang'             => '',
+                            'acontent_form'             => '',
+                            'acontent_media'            => '',
+                            'acontent_newsletter'       => ''
 						);
 
 						// CP WYSIWYG HTML
@@ -378,9 +380,9 @@ if(!empty($_getVar['feedimport'])) {
 					$feedimport_result['status'][] = date('Y-m-d, H:i:s', $article_begin) . LF . $article_title . LF . $rssvalue->get_permalink() . LF . PHPWCMS_URL . 'phpwcms.php?do=articles&p=2&s=1&id='.$result['INSERT_ID'];
 
 					$data = array(
-						'cref_type'	=> 'feed_to_article_import',
-						'cref_rid'	=> $result['INSERT_ID'],
-						'cref_str'	=> 'feedimport_'.$article_unique_hash
+                        'cref_type' => 'feed_to_article_import',
+                        'cref_rid'  => $result['INSERT_ID'],
+                        'cref_str'  => 'feedimport_'.$article_unique_hash
 					);
 
 					_dbInsert('phpwcms_crossreference', $data);
@@ -395,11 +397,11 @@ if(!empty($_getVar['feedimport'])) {
 				$feedimport_result['status'] = implode(LF.LF, $feedimport_result['status']);
 
 				sendEmail(array(
-					'recipient'	=> $feedimport_result['cnt_object']['import_status_email'],
-					'subject'	=> 'Import Status: ' . $feedimport_result['cnt_name'],
-					'isHTML'	=> 0,
-					'text'		=> $feedimport_result['status'],
-					'fromName'	=> 'Feed Importer'
+                    'recipient' => $feedimport_result['cnt_object']['import_status_email'],
+                    'subject'   => 'Import Status: ' . $feedimport_result['cnt_name'],
+                    'isHTML'    => 0,
+                    'text'      => $feedimport_result['status'],
+                    'fromName'  => 'Feed Importer'
 				));
 			}
 		}

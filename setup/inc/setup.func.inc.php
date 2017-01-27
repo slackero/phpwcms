@@ -228,10 +228,10 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['feuser_regkey'] = 'FEUSER';\n";
     $conf_file .= "\$phpwcms['login.php'] = 'login.php';\n";
     $conf_file .= "\$phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.12/)\n";
+    $conf_file .= "\$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.16/)\n";
     $conf_file .= "\$phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
-    $conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // some ImageMagick installs (on Mac) might have problems with colorspace setting, if colors are not good try SRGB\n";
+    $conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
     $conf_file .= "\$phpwcms['wkhtmltopdf_path'] = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'\n";
     $conf_file .= "\$phpwcms['render_clean_html'] = 0; // clean up HTML source a bit, experimental can have unexpected side effects\n";
     $conf_file .= "\$phpwcms['browser_check'] = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
@@ -257,7 +257,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['cnt_sort'] = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'\n";
     $conf_file .= "\$phpwcms['cmsimage_redirect'] = false; // redirect to the resized/cropped image if true\n";
     $conf_file .= "\$phpwcms['disable_next_prev'] = false; // https://support.google.com/webmasters/answer/1663744\n";
-    $conf_file .= "\$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp4,m4p,flv,f4v,f4p,f4a,f4b';\n";
+    $conf_file .= "\$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';\n";
     $conf_file .= "\$phpwcms['enable_inline_php'] = false; // disable [PHP] {PHP…} … by default\n";
     $conf_file .= "\$phpwcms['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render\n";
     $conf_file .= "\$phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied\n";

@@ -564,19 +564,90 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
 function getContentPartSpacer($space_before=0, $space_after=0) {
 
-    if(!$space_before && !$space_after) {
-        return array('before' => '', 'after'  => '');
+    $spacers = array(
+        'before' => '',
+        'after'  => ''
+    );
 
-    } elseif($space_before && $space_after) {
-        return array('before' => '<div style="margin:' .$space_before. 'px 0 ' .$space_after. 'px 0; padding:0;">', 'after'  => '</div>');
+    if(empty($space_before) && empty($space_after)) {
+        return $spacers;
+    }
 
-    } elseif($space_before && !$space_after) {
-        return array('before' => '<div style="margin:' .$space_before. 'px 0 0 0;padding:0;clear:both;"></div>', 'after'  => '');
+    global $template_default;
 
-    } else {
-        return array('before' => '', 'after'  => '<div style="margin:0 0' .$space_after. 'px 0;padding:0;clear:both;"></div>');
+    if(!empty($template_default["article"]["div_spacer"])) {
+
+        if(empty($template_default['article']['div_spacer_tag'])) {
+            $template_default['article']['div_spacer_tag'] = 'div';
+        }
+
+        if(empty($template_default['article']['div_spacer_style'])) {
+            $template_default['article']['div_spacer_style'] = 'margin';
+        }
+
+        if(empty($template_default['article']['div_spacer_unit'])) {
+            $template_default['article']['div_spacer_unit'] = 'px';
+        }
 
     }
+
+    if($space_before && $space_after) {
+
+        if(empty($template_default["article"]["div_spacer"])) {
+            $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
+            $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
+    } else {
+            $spacers['before'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+            if($template_default['article']['div_spacer_style'] === 'padding' || $template_default['article']['div_spacer_style'] === 'height') {
+                $spacers['before'] .= 'padding-top:'.$space_before.$template_default['article']['div_spacer_unit'].';';
+                $spacers['before'] .= 'padding-bottom:'.$space_after.$template_default['article']['div_spacer_unit'].';';
+            } else {
+                $spacers['before'] .= 'margin-top:'.$space_before.$template_default['article']['div_spacer_unit'].';';
+                $spacers['before'] .= 'margin-bottom:'.$space_after.$template_default['article']['div_spacer_unit'].';';
+            }
+            $spacers['before'] .= '" class="'.trim($template_default['classes']['spaceholder-cp-before'].' '.$template_default['classes']['spaceholder-cp-after']).'">';
+            $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+        }
+
+    } elseif($space_before) {
+
+        if(empty($template_default["article"]["div_spacer"])) {
+            $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
+        } else {
+            $spacers['before'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+            if($template_default['article']['div_spacer_style'] === 'padding') {
+                $spacers['before'] .= 'padding-top';
+            } elseif($template_default['article']['div_spacer_style'] === 'height') {
+                $spacers['before'] .= 'height';
+            } else {
+                $spacers['before'] .= 'margin-top';
+            }
+            $spacers['before'] .= ':'.$space_before.$template_default['article']['div_spacer_unit'].';" ';
+            $spacers['before'] .= 'class="'.$template_default['classes']['spaceholder-cp-before'].'">';
+            $spacers['before'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+        }
+
+    } else {
+
+        if(empty($template_default["article"]["div_spacer"])) {
+            $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
+        } else {
+             $spacers['after'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+            if($template_default['article']['div_spacer_style'] === 'padding') {
+                $spacers['after'] .= 'padding-bottom';
+            } elseif($template_default['article']['div_spacer_style'] === 'height') {
+                $spacers['after'] .= 'height';
+            } else {
+                $spacers['after'] .= 'margin-bottom';
+            }
+            $spacers['after'] .= ':'.$space_after.$template_default['article']['div_spacer_unit'].';" ';
+            $spacers['after'] .= 'class="'.$template_default['classes']['spaceholder-cp-after'].'">';
+            $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+        }
+
+    }
+
+    return $spacers;
 }
 
 function getContentPartTopLink($param=0) {

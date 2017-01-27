@@ -5,7 +5,7 @@
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2017, Oliver Georgi
  *
- * @author Marus K�hl <info@pagewerkstatt.ch>
+ * @author Marus Köhl <info@pagewerkstatt.ch>
  * @link http://www.pagewerkstatt.ch
  *
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
@@ -319,7 +319,7 @@ if($fx) {
 </form>
 <?php if($fx) { ?>
 <script type="text/javascript">
-$('toggle').addEvent('click',function (e) {
+$('toggle').addEvent('change',function(e) {
     var toggle = $('toggle').checked;
     $$('#filetakeover input.ftp_mark').each(function(check) {
         check.checked = toggle;

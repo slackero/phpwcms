@@ -1335,3 +1335,94 @@ function correct_charset($text='', $js=false) {
     }
     return $text;
 }
+
+
+/**
+ * Render IPTC fields (for use in image info fields)
+ *
+ * @access public
+ * @param mixed $iptc_data
+ * @return void
+ */
+function render_iptc_fileinfo($iptc_data) {
+
+    $iptc_rules = $GLOBALS['phpwcms']['iptc_rules'];
+    $iptc_keys = $GLOBALS['phpwcms']['iptc_keys'];
+    $fileinfo = array(
+        'title' => '',
+        'longinfo' => '',
+        'copyright' => '',
+        'alt' => ''
+    );
+
+    if(is_array($iptc_data) && count($iptc_data)) {
+
+        $fileinfo['title'] = $iptc_rules['title'];
+        $fileinfo['longinfo'] = $iptc_rules['longinfo'];
+        $fileinfo['copyright'] = $iptc_rules['copyright'];
+        $fileinfo['alt'] = $iptc_rules['alt'];
+
+        foreach($iptc_data as $iptc_key => $iptc_value) {
+
+            if(empty($iptc_value)) {
+
+                $iptc_value = '';
+
+            } elseif(is_array($iptc_value)) {
+
+                if(empty($GLOBALS['phpwcms']['iptc_rules_multiple'])) {
+                    $iptc_value = $iptc_value[0];
+                } else {
+                    $iptc_value = implode($GLOBALS['phpwcms']['iptc_separator'], $iptc_value);
+    }
+
+            }
+
+            $fileinfo['title'] = render_custom_tag($fileinfo['title'], $iptc_key, $iptc_value);
+            $fileinfo['longinfo'] = render_custom_tag($fileinfo['longinfo'], $iptc_key, $iptc_value);
+            $fileinfo['copyright'] = render_custom_tag($fileinfo['copyright'], $iptc_key, $iptc_value);
+            $fileinfo['alt'] = render_custom_tag($fileinfo['alt'], $iptc_key, $iptc_value);
+
+            unset($iptc_keys[$iptc_key]);
+        }
+
+    }
+
+    if(count($iptc_keys)) {
+
+        foreach($fileinfo as $field => $value) {
+
+            if((strpos($value, '{') !== false && strpos($value, '}') !== false) || strpos($value, '[/') !== false) {
+
+                foreach($iptc_keys as $iptc_key => $iptc_value) {
+
+                    if($fileinfo[$field] === '') {
+                        break;
+                    }
+
+                    $fileinfo[$field] = trim( render_custom_tag($fileinfo[$field], $iptc_key, $iptc_value) );
+                }
+
+            }
+
+        }
+
+    }
+
+    return $fileinfo;
+}
+
+function render_custom_tag($text='', $tag='', $value='', $value_else='', $case_sensitive=true) {
+    $value = strval($value);
+    $case_sensitive = $case_sensitive ? '' : 'i';
+    if($value !== '') {
+        $text = preg_replace('/\['.$tag.'\](.*?)\[\/'.$tag.'\]/'.$case_sensitive.'s', '$1', $text);
+        $text = preg_replace('/\['.$tag.'_ELSE\].*?\[\/'.$tag.'_ELSE\]/'.$case_sensitive.'s', '', $text);
+    } else {
+        $text = preg_replace('/\['.$tag.'_ELSE\](.*?)\[\/'.$tag.'_ELSE\]/'.$case_sensitive.'s', '$1', $text);
+        $text = preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/'.$case_sensitive.'s', '', $text);
+        $text = str_replace('{'.$tag.'_ELSE}', $value_else, $text);
+    }
+    $text = str_replace('{'.$tag.'}', $value, $text);
+    return $text;
+}

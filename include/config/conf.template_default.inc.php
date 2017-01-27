@@ -143,7 +143,10 @@ $template_default['article']['subtitle_after']      = '</h2>';
 $template_default['article']['summary_before']      = '<div class="article-summary">';
 $template_default['article']['summary_after']       = '</div>';
 
-$template_default['article']['div_spacer']          = true; //if true or 'div' = <div>..., if false or not set <br><img...>
+$template_default['article']['div_spacer'] = true; //if true or 'div' = <div>..., if false or not set <br><img...>
+$template_default['article']['div_spacer_tag'] = 'div'; // like div, span
+$template_default['article']['div_spacer_style'] = 'height'; // can be margin, padding or height
+$template_default['article']['div_spacer_unit'] = 'px'; // like px, em
 
 $template_default['article']['head_after']          = '';
 

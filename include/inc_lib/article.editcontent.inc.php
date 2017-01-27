@@ -153,25 +153,28 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article['article_opengraph']           = empty($phpwcms['set_sociallink']['article']) ? 0 : 1;
         $article['article_canonical']           = '';
 
-        $article['image']                       = array();
-        $article['image']['tmpllist']           = 'default';
-        $article['image']['tmplfull']           = 'default';
-        $article['image']['name']               = '';
-        $article['image']['id']                 = '';
-        $article['image']['caption']            = '';
-        $article["image"]["hash"]               = '';
-        $article['image']['list_usesummary']    = 0;
-        $article['image']['list_name']          = '';
-        $article['image']['list_id']            = 0;
-        $article['image']['list_width']         = '';
-        $article['image']['list_height']        = '';
-        $article['image']['list_zoom']          = 0;
-        $article['image']['list_caption']       = '';
-        $article["image"]["list_hash"]          = '';
-        $article['image']['zoom']               = 0;
+        $article['image'] = array(
+            'tmpllist' => 'default',
+            'tmplfull' => 'default',
+            'name' => '',
+            'id' => '',
+            'caption' => '',
+            'caption_suppress' => 0,
+            'hash' => '',
+            'list_usesummary' => 0,
+            'list_name' => '',
+            'list_id' => 0,
+            'list_width' => '',
+            'list_height' => '',
+            'list_zoom' => 0,
+            'list_caption' => '',
+            'list_hash' => '',
+            'list_caption_suppress' => 0,
+            'zoom' => 0
+        );
 
-        $set_begin                              = 0;
-        $set_end                                = 0;
+        $set_begin = 0;
+        $set_end = 0;
 
     } else {
 
@@ -301,8 +304,10 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article['image']['list_caption']       = clean_slweg($_POST["cimage_list_caption"]);
         $article['image']['list_zoom']          = empty($_POST["cimage_list_zoom"]) ? 0 : 1;
         $article['image']['list_lightbox']      = empty($_POST["cimage_list_lightbox"]) ? 0 : 1;
-
         $article['image']['list_maxwords']      = empty($_POST["article_listmaxwords"]) ? 0 : intval($_POST["article_listmaxwords"]);
+
+        $article['image']['caption_suppress']       = empty($_POST["cimage_caption_suppress"]) ? 0 : 1;
+        $article['image']['list_caption_suppress']  = empty($_POST["cimage_list_caption_suppress"]) ? 0 : 1;
 
         if((!RESPONSIVE_MODE && $article['image']['list_width'] > $phpwcms["content_width"]) || $article['image']['list_width'] == '') {
             $article['image']['list_width'] = $phpwcms["content_width"];

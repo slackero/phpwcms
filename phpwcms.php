@@ -23,14 +23,15 @@ $indexpage                  = array();
 $phpwcms                    = array();
 $BL                         = array();
 $BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
+$PHPWCMS_ROOT               = dirname(__FILE__);
 
 // check against user's language
 if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wcs_user_lang"])) {
     $BE['LANG'] = $_SESSION["wcs_user_lang"];
 }
 
-require_once 'include/config/conf.inc.php';
-require_once 'include/inc_lib/default.inc.php';
+require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
+require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -61,6 +62,10 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
+
+require_once PHPWCMS_ROOT.'/include/inc_lib/constants/timestamp.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.iptc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.convertibletimestamp.php';
 
 // check modules
 require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';

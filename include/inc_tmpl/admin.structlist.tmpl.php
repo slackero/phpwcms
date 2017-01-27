@@ -19,11 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr><td colspan="2" class="title"><?php echo $BL['be_admin_struct_title'] ?></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 <?php
 
@@ -50,7 +48,7 @@ $child_sort			= ( $child_count + 1 ) * 10;
 $struct_template	= _dbQuery('SELECT template_default, template_name FROM '.DB_PREPEND.'phpwcms_template WHERE template_trash=0 AND template_id='.intval($indexpage['acat_template']));
 
 echo "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">";
-echo "<td width=\"439\">";
+echo "<td width=\"450\">";
 echo "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\"><tr>";
 echo '<td nowrap="nowrap">';
 echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
@@ -82,7 +80,5 @@ if(!empty($_SESSION["structure"][0])) {
 }
 
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 </table>

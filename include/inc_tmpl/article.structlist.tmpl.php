@@ -21,11 +21,10 @@ if (!defined('PHPWCMS_ROOT')) {
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 ?>
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr><td colspan="2" class="title"><?php echo $BL['be_article_title'] ?></td></tr>
-<tr><td colspan="2" class="title"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
 <?php
 
 $listmode = 0;
@@ -99,7 +98,5 @@ if($_SESSION["structure"][0]) {
     struct_list(0, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 </table>

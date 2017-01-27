@@ -24,9 +24,10 @@ $file_id            = isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
 $file_ext           = '';
 $ja                 = 0;
 $file_thumb_small   = '';
+$file_image_iptc    = array();
 
 //Auswerten des Formulars
-if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
+if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     $file_id                = intval($_POST["file_id"]);
     $file_pid               = intval($_POST["file_pid"]);
     $file_aktiv             = empty($_POST["file_aktiv"]) ? 0 : 1;
@@ -42,6 +43,31 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
     $file_sort              = intval($_POST["file_sort"]);
     $file_title             = clean_slweg($_POST["file_title"]);
     $file_alt               = clean_slweg($_POST["file_alt"]);
+
+    // Set file info based on IPTC for all languages
+    if(!empty($_POST['file_iptc_as_caption']) && !empty($_POST['file_image_iptc'])) {
+
+        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']));
+        $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
+
+        if($file_title === '') {
+            $file_title = $file_iptc_info['title'];
+        }
+        if($file_longinfo === '') {
+            $file_longinfo = $file_iptc_info['longinfo'];
+        }
+        if($file_copyright === '') {
+            $file_copyright = $file_iptc_info['copyright'];
+        }
+        if($file_alt === '') {
+            $file_alt = $file_iptc_info['alt'];
+        }
+
+    } else {
+
+        $file_iptc_info = null;
+
+    }
 
     if(count($phpwcms['allowed_lang']) > 1) {
 
@@ -76,10 +102,27 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
             if(isset($_POST['file_alt_'.$lang])) {
                 $file_vars[$lang]['alt'] = clean_slweg($_POST['file_alt_'.$lang]);
             }
+
+            // Set file info based on IPTC for all languages
+            if(!empty($phpwcms['iptc_as_caption_all_lang']) && $file_iptc_info !== null) {
+                if($file_vars[$lang]['title'] === '') {
+                    $file_vars[$lang]['title'] = $file_iptc_info['title'];
+                }
+                if($file_vars[$lang]['longinfo'] === '') {
+                    $file_vars[$lang]['longinfo'] = $file_iptc_info['longinfo'];
+                }
+                if($file_vars[$lang]['copyright'] === '') {
+                    $file_vars[$lang]['copyright'] = $file_iptc_info['copyright'];
+        }
+                if($file_vars[$lang]['alt'] === '') {
+                    $file_vars[$lang]['alt'] = $file_iptc_info['alt'];
+    }
+            }
+
         }
     }
 
-    $file_keys = "";
+    $file_keys = '';
     if(isset($_POST["file_keywords"]) && is_array($_POST["file_keywords"]) && count($_POST["file_keywords"])) {
         $file_keywords = $_POST["file_keywords"];
         foreach($file_keywords as $key => $value) {
@@ -137,9 +180,9 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) {
         }
     }
 }
-//Ende Auswerten Formular
+// end form
 
-//Wenn ID angegeben, dann -> oder aber Root Verzeichnis
+// If ID isset or root dir
 if($file_id) {
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$file_id;
     if(empty($_SESSION["wcs_user_admin"])) {
@@ -197,7 +240,11 @@ if($file_id) {
             ));
 
             if($thumb_image != false) {
-                $file_thumb_small = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" style="border: 1px solid #9BBECA;background:#F5F8F9;" />';
+                    $file_thumb_small = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" style="border:1px solid #9BBECA;background:#F5F8F9;" />';
+                    $file_image_size = getimagesize(PHPWCMS_STORAGE . $row["f_hash"] . '.' . $row["f_ext"], $file_image_info);
+                    if(isset($file_image_info['APP13'])) {
+                        $file_image_iptc = IPTC::parse($file_image_info['APP13']);
+                    }
             }
         }
 
@@ -207,10 +254,10 @@ if($file_id) {
 
 if($ja) {
 ?>
-<form action="phpwcms.php?do=files&f=0" method="post" name="editfileinfo" id="editfileinfo">
+<form action="phpwcms.php?do=files&amp;f=0" method="post" name="editfileinfo" id="editfileinfo">
 <table border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
     <tr>
-        <td rowspan="2" valign="top"><a href="phpwcms.php?do=files&f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
+        <td rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
         <td><img src="img/leer.gif" alt="" width="1" height="6"></td>
     </tr>
     <tr><td class="title"><?php echo $BL['be_fprivedit_title'] ?></td></tr>
@@ -307,7 +354,7 @@ if($ja) {
         <td class="tdbottom2"><input name="file_title" type="text" id="file_title" size="40" class="width400" maxlength="1000" value="<?php echo html($file_title) ?>" /></td>
     </tr>
     <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
+        <td align="right" valign="top" class="v09 tdtop3"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
         <td valign="top" class="tdbottom2"><textarea name="file_longinfo" cols="40" rows="4" class="width400 autosize" id="file_longinfo"><?php echo html($file_longinfo) ?></textarea></td>
     </tr>
     <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
@@ -315,7 +362,7 @@ if($ja) {
         <td class="tdbottom2"><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="1000" value="<?php echo html($file_copyright) ?>" /></td>
     </tr>
     <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
+        <td align="right" class="v09">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
         <td><input name="file_alt" type="text" id="file_alt" size="40" class="width400" maxlength="1000" value="<?php echo html($file_alt) ?>" /></td>
     </tr>
 
@@ -349,7 +396,7 @@ if($ja) {
         <td class="tdbottom2"><input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="<?php echo html($file_vars[$lang]['title']) ?>" /></td>
     </tr>
     <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
+        <td align="right" valign="top" class="v09 tdtop3"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
         <td valign="top" class="tdbottom2"><textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="width400 autosize" id="file_longinfo_<?php echo $lang ?>"><?php echo html($file_vars[$lang]['longinfo']) ?></textarea></td>
     </tr>
     <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
@@ -357,7 +404,7 @@ if($ja) {
         <td class="tdbottom2"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="<?php echo html($file_vars[$lang]['copyright']) ?>" /></td>
     </tr>
     <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
+        <td align="right" class="v09">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
         <td><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="<?php echo html($file_vars[$lang]['alt']) ?>" /></td>
     </tr>
 
@@ -368,11 +415,58 @@ if($ja) {
 
     <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
     <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
+<?php
+
+    // List IPTC data
+    if(!empty($file_image_iptc)):
+?>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+
+    <tr>
+        <td align="right" class="v09"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0" summary="">
+                <tr>
+                    <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
+                    <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
+                </tr>
+            </table>
+            <input type="hidden" name="file_image_iptc" value="<?php echo base64_encode(serialize($file_image_iptc)); ?>" />
+        </td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+<?php
+            ksort($file_image_iptc);
+            foreach($file_image_iptc as $iptc_key => $iptc_value):
+?>
+                <tr>
+                    <td nowrap="nowrap" class="tdtop1 chatlist"><?php echo $BL['iptc_'.$iptc_key]; ?>&nbsp;</td>
+                    <td class="tdtop1"><?php echo html(is_array($iptc_value) ? implode(', ', $iptc_value) : $iptc_value); ?></td>
+                </tr>
+<?php
+            endforeach;
+?>
+            </table>
+        </td>
+    </tr>
+
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+    <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
+<?php
+
+    endif;
+    // End list IPTC data
+
+?>
     <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
     <?php
 
-    //Auswahlliste vordefinierte Keywörter
+    // List of predefined keywords
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
     $k = '';
@@ -404,7 +498,7 @@ if($ja) {
 
     ?>
     <tr bgcolor="#F5F8F9">
-        <td align="right" valign="top" class="v09 tdtop5"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
+        <td align="right" valign="top" class="v09 tdtop1"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
         <?php if($k) echo $k; ?>
         <tr>
@@ -438,14 +532,14 @@ if($ja) {
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
             <td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> /></td>
-            <td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="v10" style="padding-right:1.5em;"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong></td>
 
             <td><input name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted) ?>></td>
             <td class="v10"><label for="file_granted"><?php echo $BL['be_granted_download'] ?></label></td>
         </tr>
         <tr>
             <td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> /></td>
-            <td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="v10" style="padding-right:1.5em;"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong></td>
 
             <td><input name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload) ?>></td>
             <td class="v10"><label for="file_gallerydownload"><?php echo $BL['be_gallerydownload'] ?></label></td>

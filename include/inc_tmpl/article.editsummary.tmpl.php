@@ -21,10 +21,10 @@ initJsAutocompleter();
 
 unset($_SESSION['filebrowser_image_target']);
 
-$template_default['article']['image_default_width']      = isset($template_default['article']['image_default_width']) ? $template_default['article']['image_default_width'] : '' ;
-$template_default['article']['image_default_height']     = isset($template_default['article']['image_default_height']) ? $template_default['article']['image_default_height'] : '' ;
-$template_default['article']['imagelist_default_width']  = isset($template_default['article']['imagelist_default_width']) ? $template_default['article']['imagelist_default_width'] : '' ;
-$template_default['article']['imagelist_default_height'] = isset($template_default['article']['imagelist_default_height']) ? $template_default['article']['imagelist_default_height'] : '' ;
+$template_default['article']['image_default_width']      = isset($template_default['article']['image_default_width']) ? $template_default['article']['image_default_width'] : '';
+$template_default['article']['image_default_height']     = isset($template_default['article']['image_default_height']) ? $template_default['article']['image_default_height'] : '';
+$template_default['article']['imagelist_default_width']  = isset($template_default['article']['imagelist_default_width']) ? $template_default['article']['imagelist_default_width'] : '';
+$template_default['article']['imagelist_default_height'] = isset($template_default['article']['imagelist_default_height']) ? $template_default['article']['imagelist_default_height'] : '';
 
 ?>
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>" method="post" name="article" id="article">
@@ -357,13 +357,13 @@ if(count($tmpllist)) {
               <td colspan="2"><?php
 
 $wysiwyg_editor = array(
-    'value'     => $article["article_summary"],
-    'field'     => 'article_summary',
-    'height'    => '450px',
-    'width'     => '536px',
-    'rows'      => '15',
-    'editor'    => $_SESSION["WYSIWYG_EDITOR"],
-    'lang'      => 'en'
+    'value' => $article["article_summary"],
+    'field' => 'article_summary',
+    'height' => '450px',
+    'width' => '536px',
+    'rows' => '15',
+    'editor' => $_SESSION["WYSIWYG_EDITOR"],
+    'lang' => 'en'
 );
 include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
@@ -416,12 +416,12 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
             <tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
             </tr>
             <tr bgcolor="#F3F6F9">
-              <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+              <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
               <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
                   <tr>
                     <td valign="top">
                         <textarea name="cimage_caption" cols="30" rows="3" class="width300 autosize" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
-                        <span class="caption width300">
+                        <div class="caption width300">
                             <?php echo $BL['be_cnt_caption']; ?>
                             |
                             <?php echo $BL['be_caption_alt']; ?>
@@ -431,7 +431,13 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
                             <?php echo $BL['be_caption_title']; ?>
                             |
                             <?php echo $BL['be_copyright']; ?>
-                        </span>
+                        </div>
+                        <div class="checkbox tdtop3">
+                            <label>
+                                <input type="checkbox" name="cimage_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['caption_suppress']) ? 0 : 1); ?> />
+                                <?php echo $BE['be_suppress_render_caption']; ?>
+                            </label>
+                        </div>
                     </td>
                     <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
                     <td valign="top"><?php
@@ -441,9 +447,9 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
                 $thumb_image = false;
                 if(!empty($article["image"]["hash"])) {
                     $thumb_image = get_cached_image(array(
-                        "target_ext"    =>  $article['image']['ext'],
-                        "image_name"    =>  $article['image']['hash'] . '.' . $article['image']['ext'],
-                        "thumb_name"    =>  md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                        "target_ext" => $article['image']['ext'],
+                        "image_name" => $article['image']['hash'] . '.' . $article['image']['ext'],
+                        "thumb_name" => md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
                     ));
                 }
                 if($thumb_image != false) {
@@ -474,13 +480,13 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 // set default list values
 if(!isset($article['image']['list_usesummary'])) {
-    $article['image']['list_usesummary']    = 0;
-    $article['image']['list_name']          = '';
-    $article['image']['list_id']            = 0;
-    $article['image']['list_width']         = '';
-    $article['image']['list_height']        = '';
-    $article['image']['list_zoom']          = 0;
-    $article['image']['list_caption']       = '';
+    $article['image']['list_usesummary'] = 0;
+    $article['image']['list_name'] = '';
+    $article['image']['list_id'] = 0;
+    $article['image']['list_width'] = '';
+    $article['image']['list_height'] = '';
+    $article['image']['list_zoom'] = 0;
+    $article['image']['list_caption'] = '';
 }
 
 ?>
@@ -528,12 +534,12 @@ if(!isset($article['image']['list_usesummary'])) {
 <tr bgcolor="#F3F6F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
 </tr>
 <tr bgcolor="#F3F6F9">
-    <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
+    <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
     <tr>
     <td valign="top">
         <textarea name="cimage_list_caption" cols="30" rows="3" class="width300 autosize" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
-        <span class="caption width300">
+            <div class="caption width300">
             <?php echo $BL['be_cnt_caption']; ?>
             |
             <?php echo $BL['be_caption_alt']; ?>
@@ -543,7 +549,13 @@ if(!isset($article['image']['list_usesummary'])) {
             <?php echo $BL['be_caption_title']; ?>
             |
             <?php echo $BL['be_copyright']; ?>
-        </span>
+            </div>
+            <div class="checkbox tdtop3">
+                <label>
+                    <input type="checkbox" name="cimage_list_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['list_caption_suppress']) ? 0 : 1); ?> />
+                    <?php echo $BE['be_suppress_render_caption']; ?>
+                </label>
+            </div>
     </td>
     <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
     <td valign="top"><?php
@@ -553,9 +565,9 @@ if(!isset($article['image']['list_usesummary'])) {
     $thumb_image = false;
     if(!empty($article["image"]["list_hash"])) {
         $thumb_image = get_cached_image(array(
-            "target_ext"    =>  $article['image']['list_ext'],
-            "image_name"    =>  $article['image']['list_hash'] . '.' . $article['image']['list_ext'],
-            "thumb_name"    =>  md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                "target_ext" => $article['image']['list_ext'],
+                "image_name" => $article['image']['list_hash'] . '.' . $article['image']['list_ext'],
+                "thumb_name" => md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
         ));
     }
     if($thumb_image != false) {

@@ -80,6 +80,7 @@ if($image['template']) {
     $image['tmpl_thumb_width_max']  = 0;
     $image['tmpl_thumb_height_max'] = 0;
     $image['tmpl_images']           = array();
+    $image['cnt_id']                = $crow['acontent_id'];
 
     $image['template']              = $image['tmpl_header'];
     $image['tmpl_data']             = array();
@@ -374,6 +375,10 @@ if($image['template']) {
                 case 'html':
                     break;
 
+                case 'text':
+                    $value['freetext'] = html($value['freetext']);
+                    break;
+
                 default:
                     $value['freetext'] = plaintext_htmlencode($value['freetext'], 'html_entities');
                     break;
@@ -521,7 +526,7 @@ if($image['template']) {
 
     // now do main replacements
     $image['template']  = render_cnt_template($image['template'], 'DATA', $image['tmpl_data']);
-    $image['template']  = str_replace('{ID}', $crow['acontent_id'], $image['template']);
+    $image['template']  = str_replace('{ID}', $image['cnt_id'], $image['template']);
     $image['template']  = str_replace('{SPACE}', $image['space'], $image['template']);
     $image['template']  = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
     $image['template']  = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);

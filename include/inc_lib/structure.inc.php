@@ -22,7 +22,7 @@ function struct_list($struct_id, $counter=0) {
 
 			echo "<tr><td nowrap=\"nowrap\"><img src=\"img/leer.gif\" width=\"15\" height=\"11\"></td>";
 			echo "<td class=\"dir\">".html($row["acat_name"])."</td>";
-			echo "<td><img src=\"img/button/add_11x11.gif\" width=\"11\" height=\"11\">";
+			echo "<td><img src=\"img/button/add_22x11.gif\" width=\"22\" height=\"11\">";
 			echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\">";
 			echo "<img src=\"img/button/sort_0_1.gif\" width=\"11\" height=\"11\">";
 			echo "<img src=\"img/button/sort_1_1.gif\" width=\"11\" height=\"11\">";

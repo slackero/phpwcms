@@ -229,11 +229,11 @@ if(isset($result[0]['article_id'])) {
     if(!empty($row["article_image"]["hash"])) {
 
         $thumb_image = get_cached_image(array(
-            "target_ext"    =>  $row["article_image"]['ext'],
-            "image_name"    =>  $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-            "max_width"     =>  $row["article_image"]['width'],
-            "max_height"    =>  $row["article_image"]['height'],
-            "thumb_name"    =>  md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                "target_ext" => $row["article_image"]['ext'],
+                "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+                "max_width" => $row["article_image"]['width'],
+                "max_height" => $row["article_image"]['height'],
+                "thumb_name" => md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
         ));
 
         if($thumb_image != false) {
@@ -253,38 +253,38 @@ if(isset($result[0]['article_id'])) {
             $img_thumb_ext      = which_ext($thumb_image[0]);
 
             $content['images']['article'] = array(
-                'name'  => $row["article_image"]["name"],
-                'hash'  => $row["article_image"]["hash"],
-                'ext'   => $img_thumb_ext,
+                    'name' => $row["article_image"]["name"],
+                    'hash' => $row["article_image"]["hash"],
+                    'ext' => $img_thumb_ext,
                 'image' => array(
-                    'width'     => $img_thumb_width,
-                    'height'    => $img_thumb_height,
-                    'src'       => $img_thumb_rel
+                        'width' => $img_thumb_width,
+                        'height' => $img_thumb_height,
+                        'src' => $img_thumb_rel
                 )
             );
 
             if($row["article_image"]["zoom"]) {
 
                 $zoominfo = get_cached_image(array(
-                    "target_ext"    =>  $row["article_image"]['ext'],
-                    "image_name"    =>  $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-                    "max_width"     =>  $phpwcms["img_prev_width"],
-                    "max_height"    =>  $phpwcms["img_prev_height"],
-                    "thumb_name"    =>  md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                        "target_ext" => $row["article_image"]['ext'],
+                        "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+                        "max_width" => $phpwcms["img_prev_width"],
+                        "max_height" => $phpwcms["img_prev_height"],
+                        "thumb_name" => md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
                 ));
 
                 if($zoominfo != false) {
 
-                    $img_zoom_name      = $zoominfo[0];
-                    $img_zoom_rel       = PHPWCMS_IMAGES.$zoominfo[0];
-                    $img_zoom_abs       = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
-                    $img_zoom_width     = $zoominfo[1];
-                    $img_zoom_height    = $zoominfo[2];
+                        $img_zoom_name = $zoominfo[0];
+                        $img_zoom_rel = PHPWCMS_IMAGES.$zoominfo[0];
+                        $img_zoom_abs = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
+                        $img_zoom_width = $zoominfo[1];
+                        $img_zoom_height = $zoominfo[2];
 
                     $content['images']['article']['zoom'] = array(
-                        'width'     => $img_zoom_width,
-                        'height'    => $img_zoom_height,
-                        'src'       => $img_zoom_rel
+                            'width' => $img_zoom_width,
+                            'height' => $img_zoom_height,
+                            'src' => $img_zoom_rel
                     );
 
                     $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
@@ -430,7 +430,7 @@ if(isset($result[0]['article_id'])) {
         } else {
             $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>'.LF.'[/TITLE][SUB]<h3>{SUB}</h3>'.LF.'[/SUB]';
             $row["article_image"]['tmplfull'] .= '[SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}';
-            $row["article_image"]['tmplfull'] .= '[CAPTION]<br />'.LF.'{CAPTION}[/CAPTION]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
+                $row["article_image"]['tmplfull'] .= '[CAPTION_SUPPRESS_ELSE][CAPTION]<br />'.LF.'{CAPTION}[/CAPTION][/CAPTION_SUPPRESS_ELSE]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
         }
 
     }
@@ -499,6 +499,7 @@ if(isset($result[0]['article_id'])) {
         }
 
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
+            $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION_SUPPRESS', empty($row['article_image']['caption_suppress']) ? '' : ' ');
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ALT', html($img_thumb_alt));
@@ -587,14 +588,11 @@ if(isset($result[0]['article_id'])) {
             $CNT_TMP .= 'id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
         }
 
+            // set CP space before and after or wrap if both
+            $content['cp_spacers'] = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
+
         // Space before
-        if($crow["acontent_before"]) {
-            if(!empty($template_default["article"]["div_spacer"])) {
-                $CNT_TMP .= '<div style="margin-top:'.$crow["acontent_before"].'px;" class="'.$template_default['classes']['spaceholder-cp-before'].'"></div>';
-            } else {
-                $CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1,$crow["acontent_before"]);
-            }
-        }
+            $CNT_TMP .= $content['cp_spacers']['before'];
 
         // set frontend edit link
         if($content['article_frontend_edit']) {
@@ -620,15 +618,9 @@ if(isset($result[0]['article_id'])) {
         $CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
 
         // Space after
-        if($crow["acontent_after"]) {
-            if(!empty($template_default["article"]["div_spacer"])) {
-                $CNT_TMP .= '<div style="margin-bottom:'.$crow["acontent_after"].'px;" class="'.$template_default['classes']['spaceholder-cp-after'].'"></div>';
-            } else {
-                $CNT_TMP .= '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1,$crow["acontent_after"]);
-            }
-        }
+            $CNT_TMP .= $content['cp_spacers']['after'];
 
-        // Maybe content part ID should b used inside templates or for something different
+            // Maybe content part ID should be used inside templates or for something different
         $CNT_TMP = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
 
         // trigger content part functions
@@ -683,8 +675,9 @@ if(isset($result[0]['article_id'])) {
             if(!isset($content['cptab'][$CNT_TAB][$CNT_TAB_ID])) {
 
                 $content['cptab'][$CNT_TAB][$CNT_TAB_ID] = array(
-                    'title'     => $crow['acontent_tab']['title'],
-                    'content'   => ''
+                        'title' => $crow['acontent_tab']['title'],
+                        'id' => $CNT_TAB_ID,
+                        'content' => ''
                 );
 
             }
@@ -773,9 +766,9 @@ if(isset($result[0]['article_id'])) {
 
                 foreach($trow as $tabkey => $tabitem) {
                     $tabitem['title'] = html_specialchars($tabitem['title']);
-                    $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['prefix'], $tabitem['title'], $CNT_TAB);
+                        $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['prefix'], $tabitem['title'], $tabitem['id']);
                     $g['wrap'][] = $tabitem['content'];
-                    $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['suffix'], $tabitem['title'], $CNT_TAB);
+                        $g['wrap'][] = sprintf($template_default['attributes']['cpgroup_custom'][$content['cptab_types'][$CNT_TAB]]['suffix'], $tabitem['title'], $tabitem['id']);
                 }
 
             // Default behavior: Tabs
