@@ -1474,3 +1474,4 @@ $BL['iptc_iimVersion'] = 'version';
 $BL['be_suppress_render_caption'] = 'suppress rendering of the caption';
 $BL['be_cnt_attribute_class'] = 'CSS class';
 $BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';

@@ -42,8 +42,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['bullets'] = convertStringToArray($crow["acontent_text"], LF);
-
+$crow['bullets'] = convertStringToArray($crow["acontent_text"], LF, false);
 
 if(count($crow['bullets'])) {
 
