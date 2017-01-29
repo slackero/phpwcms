@@ -41,6 +41,8 @@ if($crow["acontent_text"]) {
     }
 }
 
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CODE', $crow["acontent_text"]);

@@ -499,6 +499,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                     $content["granted"]         = $row["acontent_granted"];
                     $content["tab"]             = $row["acontent_tab"];
                     $content['tid']             = $row['acontent_tid'];
+                    $content["attr_class"]      = $row['acontent_attr_class'];
+                    $content["attr_id"]         = $row['acontent_attr_id'];
 
                     if($content["type"] != 30 && is_file(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 
@@ -521,20 +523,22 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
             }
 
         } else {
-            $content["id"]  = 0;
+            $content["id"] = 0;
             $content["aid"] = intval($_GET["id"]);
             $content['tid'] = 0;
+            $content["attr_class"] = '';
+            $content["attr_id"] = '';
 
             if(isset($_POST["ctype"])) {
 
-                $content["type"]    = explode(':', $_POST["ctype"]);
-                $content["module"]  = empty($content["type"][1]) ? '' : trim($content["type"][1]);
-                $content["type"]    = intval($content["type"][0]);
+                $content["type"] = explode(':', $_POST["ctype"]);
+                $content["module"] = empty($content["type"][1]) ? '' : trim($content["type"][1]);
+                $content["type"] = intval($content["type"][0]);
 
             } else {
 
-                $content["type"]    = 0;
-                $content["module"]  = '';
+                $content["type"] = 0;
+                $content["module"] = '';
 
             }
 
@@ -571,6 +575,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                 $SQL .= "acontent_granted           = "._dbEscape($content["granted"]).", ";
                 $SQL .= "acontent_tab               = "._dbEscape($content["tab"]).", ";
                 $SQL .= "acontent_tid               = "._dbEscape($content["tid"]).", ";
+                $SQL .= "acontent_attr_class        = "._dbEscape($content["attr_class"] ).", ";
+                $SQL .= "acontent_attr_id           = "._dbEscape($content["attr_id"]).", ";
 
                 $WHERE = '';
 
@@ -590,8 +596,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                 }
 
                 // clean up SQL and remove ending ","
-                $SQL = trim($SQL);
-                if(substr($SQL, -1, 1) == ',') $SQL = substr($SQL, 0, -1);
+                $SQL = trim(trim($SQL), ',');
 
                 if(!$content["id"]) { //if new content part should be created
 

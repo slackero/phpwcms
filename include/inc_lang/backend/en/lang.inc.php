@@ -94,7 +94,7 @@ $BL['be_ctype_html']                    = 'html';
 $BL['be_ctype_code']                    = 'code';
 $BL['be_ctype_textimage']               = 'text w/image';
 $BL['be_ctype_images']                  = 'images';
-$BL['be_ctype_bulletlist']              = 'list (table)';
+$BL['be_ctype_bulletlist']              = 'list';
 $BL['be_ctype_ullist']                  = 'list';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'link list';
@@ -1471,4 +1471,6 @@ $BL['iptc_IntellectualGenre'] = 'intellectual genre';
 $BL['iptc_SubjectNewsCode'] = 'subject news code';
 $BL['iptc_iimVersion'] = 'version';
 
-$BE['be_suppress_render_caption'] = 'suppress rendering of the caption';
+$BL['be_suppress_render_caption'] = 'suppress rendering of the caption';
+$BL['be_cnt_attribute_class'] = 'CSS class';
+$BL['be_cnt_attribute_id'] = 'CSS id';

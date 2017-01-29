@@ -565,7 +565,7 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
         'after'  => ''
     );
 
-    if(empty($space_before) && empty($space_after)) {
+    if($space_before === '' && $space_after === '') {
         return $spacers;
     }
 
@@ -587,7 +587,7 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
 
     }
 
-    if($space_before && $space_after) {
+    if($space_before !== '' && $space_after !== '') {
 
         if(empty($template_default["article"]["div_spacer"])) {
             $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
@@ -605,7 +605,7 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
             $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
         }
 
-    } elseif($space_before) {
+    } elseif($space_before !== '') {
 
         if(empty($template_default["article"]["div_spacer"])) {
             $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);

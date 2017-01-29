@@ -10,7 +10,7 @@ class_bottom_right		= imgtable-bottom-right
 class_float_left		= imgtable-left
 class_float_right		= imgtable-right
 class_image_thumb		= image-thumb
-class_image_wrapper		= image-wrapper 
+class_image_wrapper		= image-wrapper
 class_image_link		= image-link
 class_image_zoom		= image-zoom
 class_image_lightbox	= image-lightbox
@@ -26,6 +26,8 @@ class_image_lightbox	= image-lightbox
 ; random				= 0
 
 <!--IMAGETABLE_SETTINGS_END//-->
-<div class="image-table" id="imgtable-id-{ID}">
-[IMAGETABLE]{IMAGETABLE}[/IMAGETABLE]
-</div>
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+    <div class="image-table" id="imgtable-id-{ID}">[IMAGETABLE]
+        {IMAGETABLE}[/IMAGETABLE]
+    </div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]

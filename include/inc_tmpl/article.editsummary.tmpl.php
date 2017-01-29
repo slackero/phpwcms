@@ -435,7 +435,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
                         <div class="checkbox tdtop3">
                             <label>
                                 <input type="checkbox" name="cimage_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['caption_suppress']) ? 0 : 1); ?> />
-                                <?php echo $BE['be_suppress_render_caption']; ?>
+                                <?php echo $BL['be_suppress_render_caption']; ?>
                             </label>
                         </div>
                     </td>
@@ -553,7 +553,7 @@ if(!isset($article['image']['list_usesummary'])) {
             <div class="checkbox tdtop3">
                 <label>
                     <input type="checkbox" name="cimage_list_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['list_caption_suppress']) ? 0 : 1); ?> />
-                    <?php echo $BE['be_suppress_render_caption']; ?>
+                    <?php echo $BL['be_suppress_render_caption']; ?>
                 </label>
             </div>
         </td>

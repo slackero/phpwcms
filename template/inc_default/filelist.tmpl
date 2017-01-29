@@ -13,32 +13,34 @@ file_size_space		= " "
 date_format			= "%m/%d/%y"
 set_locale			= "de_DE@Euro"
 <!--FILE_SETTINGS_END//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 [TEXT]{TEXT}[/TEXT]
-<div style="margin-top: 15px; padding-top: 10px; border-top: 1px dotted #CCCCCC;">
+    <div style="margin-top: 15px; padding-top: 10px; border-top: 1px dotted #CCCCCC;">
 <!--FILE_ENTRY_START//-->
-	<div class="fileEntry" style="margin-bottom:10px; padding-bottom: 10px; border-bottom: 1px dotted #CCCCCC;" id="file-{FILE_ID}">
-		<h2>
-			[FILE_IMAGE_ELSE]<img src="{FILE_ICON}" alt="" border="0" />[/FILE_IMAGE_ELSE]
-			[FILE_IMAGE]<img src="{FILE_IMAGE}" alt="" border="" />[/FILE_IMAGE]
-			<a href="{FILE_LINK}"{FILE_TARGET} title="Download &raquo;{FILE_NAME}&laquo;">[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
-		</h2>
-		[FILE_DESCRIPTION]<p>
-		{FILE_DESCRIPTION}<br />[FILE_COPYRIGHT]
-		Copyright: {FILE_COPYRIGHT}<br />[/FILE_COPYRIGHT]
-		{FILE_EXT}, {FILE_SIZE}, {FILE_DATE}, {FILE_DOWNLOADS} downloads
-		</p>[/FILE_DESCRIPTION][FILE_LONGINFO]
-		<!-- This uses the file information from info in file center auto wrapped by <p> -->
-		{FILE_LONGINFO}[/FILE_LONGINFO]
-		[FILE_IMAGE][FILE_IMAGE_WIDTH]
-		<p>
-		width: {FILE_IMAGE_WIDTH}px, height: {FILE_IMAGE_HEIGHT}px<br />
-		mode: {FILE_IMAGE_CHANNEL}, MIME type: {FILE_IMAGE_MIME}<br />
-		format: [FILE_IMAGE_LANDSCAPE]landscape[/FILE_IMAGE_LANDSCAPE][FILE_IMAGE_PORTRAIT]portrait[/FILE_IMAGE_PORTRAIT]
-		</p>
-		[/FILE_IMAGE_WIDTH][/FILE_IMAGE]
-	</div>
+    	<div class="fileEntry" style="margin-bottom:10px; padding-bottom: 10px; border-bottom: 1px dotted #CCCCCC;" id="file-{FILE_ID}">
+    		<h2>
+    			[FILE_IMAGE_ELSE]<img src="{FILE_ICON}" alt="" border="0" />[/FILE_IMAGE_ELSE]
+    			[FILE_IMAGE]<img src="{FILE_IMAGE}" alt="" border="" />[/FILE_IMAGE]
+    			<a href="{FILE_LINK}"{FILE_TARGET} title="Download &raquo;{FILE_NAME}&laquo;">[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
+    		</h2>
+    		[FILE_DESCRIPTION]<p>
+    		{FILE_DESCRIPTION}<br />[FILE_COPYRIGHT]
+    		Copyright: {FILE_COPYRIGHT}<br />[/FILE_COPYRIGHT]
+    		{FILE_EXT}, {FILE_SIZE}, {FILE_DATE}, {FILE_DOWNLOADS} downloads
+    		</p>[/FILE_DESCRIPTION][FILE_LONGINFO]
+    		<!-- This uses the file information from info in file center auto wrapped by <p> -->
+    		{FILE_LONGINFO}[/FILE_LONGINFO]
+    		[FILE_IMAGE][FILE_IMAGE_WIDTH]
+    		<p>
+    		width: {FILE_IMAGE_WIDTH}px, height: {FILE_IMAGE_HEIGHT}px<br />
+    		mode: {FILE_IMAGE_CHANNEL}, MIME type: {FILE_IMAGE_MIME}<br />
+    		format: [FILE_IMAGE_LANDSCAPE]landscape[/FILE_IMAGE_LANDSCAPE][FILE_IMAGE_PORTRAIT]portrait[/FILE_IMAGE_PORTRAIT]
+    		</p>
+    		[/FILE_IMAGE_WIDTH][/FILE_IMAGE]
+    	</div>
 
 <!--FILE_ENTRY_END//-->
-</div>
+    </div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]

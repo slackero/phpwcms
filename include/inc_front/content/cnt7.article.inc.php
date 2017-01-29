@@ -43,6 +43,8 @@ if( empty($IS_NEWS_CP) ) {
     $crow['file_cp_title']      = '';
     $crow['file_cp_subtitle']   = '';
     $crow['acontent_id']        = 0;
+    $crow['acontent_attr_class'] = '';
+    $crow['acontent_attr_id']   = '';
 
 }
 
@@ -359,8 +361,10 @@ if($content['files_sql']) {
         }
 
         $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['file_cp_title']));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['file_cp_subtitle']));
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['file_cp_title']));
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['file_cp_subtitle']));
         $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
         $crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
 

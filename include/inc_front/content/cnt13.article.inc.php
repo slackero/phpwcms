@@ -753,6 +753,8 @@ if(isset($content["search"]["result_per_page"])) {
 
 }
 
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'ATTR_ID', html($crow['acontent_attr_id']));
 $crow['template']['result'] = render_cnt_template($crow['template']['result'], 'TITLE', html($crow["acontent_title"]));
 $crow['template']['result'] = render_cnt_template($crow['template']['result'], 'SUBTITLE', html($crow["acontent_subtitle"]));
 $crow['template']['result'] = render_cnt_template($crow['template']['result'], 'TEXT', $crow['template']['text']);

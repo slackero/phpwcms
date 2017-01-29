@@ -49,8 +49,10 @@ $content['linklist_entry']	= get_tmpl_section('LINKLIST_ENTRY', $crow["acontent_
 $content['linklist_space']	= get_tmpl_section('LINKLIST_SPACE', $crow["acontent_template"]);
 
 $content['linklist'] = str_replace('{ID}', $crow['acontent_id'], $content['linklist']);
-$content['linklist'] = render_cnt_template($content['linklist'], 'TITLE', html_specialchars($crow['acontent_title']));
-$content['linklist'] = render_cnt_template($content['linklist'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+$content['linklist'] = render_cnt_template($content['linklist'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$content['linklist'] = render_cnt_template($content['linklist'], 'ATTR_ID', html($crow['acontent_attr_id']));
+$content['linklist'] = render_cnt_template($content['linklist'], 'TITLE', html($crow['acontent_title']));
+$content['linklist'] = render_cnt_template($content['linklist'], 'SUBTITLE', html($crow['acontent_subtitle']));
 
 $link  = explode(LF, $crow["acontent_text"]);
 

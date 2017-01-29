@@ -134,9 +134,11 @@ if($tabs['template']) {
 
     }
 
-    $tabs['template']   = render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
-    $tabs['template']   = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
-    $tabs['template']   = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
+    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
 
     $CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 

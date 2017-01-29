@@ -21,6 +21,21 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type List
 // initiated by Jéróme
 
+$crow['attr_class_id'] = array();
+if($crow['acontent_attr_class']) {
+    $crow['attr_class_id'][] = 'class="'.html($crow['acontent_attr_class']).'"';
+}
+if($crow['acontent_attr_id']) {
+    $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
+}
+
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id'])) {;
+    $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
+    $crow['attr_class_id_close'] = '</div>';
+} else {
+    $crow['attr_class_id_close'] = '';
+}
+
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 if(substr_count ($crow["acontent_text"], '~')) {
@@ -156,3 +171,5 @@ if(substr_count ($crow["acontent_text"], '~')) {
     $CNT_TMP .= div_class(plaintext_htmlencode($crow["acontent_text"]), $template_default["article"]["text_class"]);
 
 }
+
+$CNT_TMP .= $crow['attr_class_id_close'];

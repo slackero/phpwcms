@@ -30,6 +30,22 @@ if(empty($cnt_form['anchor_off'])) {
 	}
 	$CNT_TMP .= '"></a>';
 }
+
+$crow['attr_class_id'] = array();
+if($crow['acontent_attr_class']) {
+    $crow['attr_class_id'][] = 'class="'.html($crow['acontent_attr_class']).'"';
+}
+if($crow['acontent_attr_id']) {
+    $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
+}
+
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id'])) {;
+    $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
+    $crow['attr_class_id_close'] = '</div>';
+} else {
+    $crow['attr_class_id_close'] = '';
+}
+
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 if(!empty($cnt_form['ssl']) && !PHPWCMS_SSL) {
@@ -2134,6 +2150,8 @@ if($form_cnt) {
 	$CNT_TMP .=	getFormTrackingValue(); //hidden form tracking field
 	$CNT_TMP .= '</div>' . LF . '</form>' . LF . $cnt_form["class_close"];
 }
+
+$CNT_TMP .= $crow['attr_class_id_close'];
 
 unset( $form, $form_cnt, $form_cnt_2, $form_field, $form_field_hidden, $form_counter, $form_error_text, $POST_ERR );
 
