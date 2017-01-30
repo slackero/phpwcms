@@ -31,10 +31,8 @@ $buttonAction .= '</tr></table>';
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article["article_id"] ?>" method="post" name="addcontent" id="addcontent">
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
     <tr><td colspan="3" class="title"><?php echo $BL['be_article_cnt_ltitle'] ?></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-    </tr>
-    <tr bgcolor="#92A1AF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-    </tr>
+    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+    <tr bgcolor="#92A1AF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
     <tr bgcolor="#F3F5F8"><td><img src="img/leer.gif" alt="" width="23" height="4" /></td>
         <td><img src="img/leer.gif" alt="" width="453" height="1" /></td>
         <td><img src="img/leer.gif" alt="" width="62" height="1" /></td>
@@ -53,23 +51,18 @@ $buttonAction .= '</tr></table>';
         <tr bgcolor="#F3F5F8">
           <td><img src="img/leer.gif" alt="" width="23" height="1" /></td>
           <td><table border="0" cellpadding="0" cellspacing="0" summary="" class="tdMorepace">
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-            </tr>
-
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><strong><?php echo html($article["article_alias"]); ?></strong></td>
             </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
-
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <?php   if($article["article_subtitle"]) { ?>
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><strong><?php echo html($article["article_subtitle"]); ?></strong></td>
             </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <?php } ?>
 
             <?php if(!empty($article["article_summary"])) { ?>
@@ -77,26 +70,21 @@ $buttonAction .= '</tr></table>';
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_asummary'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php echo html(getCleanSubString(strip_tags($article["article_summary"]), 250, '&#8230;'), false); ?></td>
             </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <?php   } ?>
-
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_cat'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php echo html($article["article_cat"]) ?></td>
             </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php if($article["article_keyword"]) {echo html($article["article_keyword"]);}else{echo "not defined/completed";} ?></td>
             </tr>
             <?php
-
             if($article["article_canonical"]) {
             ?>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_canonical'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php echo html($article["article_canonical"]); ?></td>
@@ -106,15 +94,13 @@ $buttonAction .= '</tr></table>';
 
             if($article["article_redirect"]) {
             ?>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_article_cnt_redirect'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php echo html($article["article_redirect"]); ?></td>
             </tr>
             <?php
             }
-
 
             $thumb_image = false;
             if(!empty($article["image"]["hash"])) {
@@ -137,8 +123,7 @@ $buttonAction .= '</tr></table>';
             if($thumb_image != false || $thumb_list_image != false) {
 
             ?>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <tr>
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php
@@ -161,7 +146,6 @@ $buttonAction .= '</tr></table>';
             }
 
             ?>
-
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
             <tr>
               <td class="v10" style="color:#727889"><?php echo $BL['be_article_username']; ?>:&nbsp;</td>
@@ -173,9 +157,11 @@ $buttonAction .= '</tr></table>';
             </tr>
             <tr>
               <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
-              <td class="v10"><?php echo phpwcms_strtotime($article["article_begin"], $BL['be_longdatetime'], '') ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_article_cnt_end'] ?>:</span>&nbsp;<?php echo phpwcms_strtotime($article["article_end"], $BL['be_longdatetime'], '') ?></td>
+              <td class="v10">
+                  <?php echo $set_begin ? phpwcms_strtotime($article["article_begin"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_article_cnt_end'] ?>:</span>
+                  <?php echo $set_end ? phpwcms_strtotime($article["article_end"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?>
+              </td>
             </tr>
-
             <tr>
               <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
               <td class="v10"><?php echo $article["article_sort"] ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_priorize'] ?>:</span>&nbsp;<?php echo $article["article_priorize"] ?></td>
@@ -201,7 +187,6 @@ $buttonAction .= '</tr></table>';
               <td class="v10">&nbsp;</td>
               <td class="v10"><?php echo ($article["article_archive_status"] == 1 ? '&check;' : '-') . ' ' . $BL['be_show_archived']; //&#x2610; ?></td>
             </tr>
-
 
           </table></td>
             <td>&nbsp;</td>
@@ -525,9 +510,9 @@ if(!$temp_count) {
               ?>]\n ');"><img src="img/button/trash_13x13_1.gif" alt="" width="13" height="13" border="0" /></a></td>
             </tr>
 
-<?php   if($row["acontent_block"] === 'SYSTEM'):    ?>
+<?php   if($row["acontent_block"] === 'SYSTEM'): ?>
             <tr>
-                <td align="right" class="v09">&nbsp;</td>
+                <td class="v09">&nbsp;</td>
                 <td colspan="2" class="v09"><?php
                     echo '<span class="greyed">', $BL['be_article_rendering'], ':</span> <span class="tool-title">';
 
@@ -548,10 +533,23 @@ if(!$temp_count) {
             <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <?php   endif;
 
+        $acontent_livedate = $row['acontent_livedate'] === '0000-00-00 00:00:00' ? false : phpwcms_strtotime($row['acontent_livedate'], $BL['be_longdatetime'], '');
+        $acontent_killdate = $row['acontent_killdate'] === '0000-00-00 00:00:00' ? false : phpwcms_strtotime($row['acontent_killdate'], $BL['be_longdatetime'], '');
+
+        if($acontent_livedate || $acontent_killdate):
+?>
+            <tr>
+                <td class="v09">&nbsp;</td>
+                <td class="v10" colspan="2">
+                    <span class="chatlist"><?php echo $BL['be_article_cnt_start'] ?>:</span> <?php echo $acontent_livedate ? $acontent_livedate : $BL['be_not_set']; ?>
+                    &nbsp;&nbsp;
+                    <span class="chatlist"><?php echo $BL['be_article_cnt_end'] ?>:</span> <?php echo $acontent_killdate ? $acontent_killdate : $BL['be_not_set']; ?>
+                </td>
+            </tr>
+<?php   endif;
+
     // list content type overview
     $cinfo = NULL;
-
-    //$row["acontent_type"] = intval($row["acontent_type"]); -> it is always INT because coming from db INT field
 
     // check default content parts (system internals
     if($row['acontent_type'] != 30 && file_exists('include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php')) {

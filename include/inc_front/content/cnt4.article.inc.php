@@ -37,11 +37,12 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/bu
 
 $crow['bulletlist_item_template'] = get_tmpl_section('BULLETLIST_ITEM', $crow["acontent_template"]);
 $crow["acontent_template"] = replace_tmpl_section('BULLETLIST_ITEM', $crow["acontent_template"]);
-$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
-$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['bullets'] = convertStringToArray($crow["acontent_text"], LF);
-
+$crow['bullets'] = convertStringToArray($crow["acontent_text"], LF, false);
 
 if(count($crow['bullets'])) {
 

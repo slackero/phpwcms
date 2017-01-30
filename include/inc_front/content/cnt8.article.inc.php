@@ -111,7 +111,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
     $alink_sql .= 'WHERE ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_noteaser=0 ';
     if(!PREVIEW_MODE) {
-        $alink_sql .= 'AND ar.article_begin < NOW() AND ar.article_end > NOW() ';
+        $alink_sql .= "AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
     }
 
     // add possible WHERE clauses when tags/categories are used
@@ -717,9 +717,10 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
     // render teaser elements - throw everything between [TEASER]...[/TEASER]
     $content['alink'] = render_cnt_template($content['alink']['alink_template'], 'TEASER', $content['alink']['teaser']);
 
-    // render title
-    $content['alink'] = render_cnt_template($content['alink'], 'TITLE', html_specialchars($crow['acontent_title']));
-    $content['alink'] = render_cnt_template($content['alink'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+    $content['alink'] = render_cnt_template($content['alink'], 'TITLE', html($crow['acontent_title']));
+    $content['alink'] = render_cnt_template($content['alink'], 'SUBTITLE', html($crow['acontent_subtitle']));
+    $content['alink'] = render_cnt_template($content['alink'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $content['alink'] = render_cnt_template($content['alink'], 'ATTR_ID', html($crow['acontent_attr_id']));
     $content['alink'] = str_replace('{ID}', $crow["acontent_id"], $content['alink']);
 
     $CNT_TMP .= $content['alink'];

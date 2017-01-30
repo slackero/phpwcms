@@ -807,6 +807,8 @@ if($news['template']) {
     }
 
     $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'NEWS_ENTRIES', implode('', $news['entries']) );
+    $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'ATTR_ID', html($crow['acontent_attr_id']));
     $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'TITLE', html_specialchars($crow['acontent_title']));
     $news['tmpl_news'] = render_cnt_template($news['tmpl_news'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 

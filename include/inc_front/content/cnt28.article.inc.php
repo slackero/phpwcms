@@ -18,6 +18,20 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // frontend login
+$crow['attr_class_id'] = array();
+if($crow['acontent_attr_class']) {
+    $crow['attr_class_id'][] = 'class="'.html($crow['acontent_attr_class']).'"';
+}
+if($crow['acontent_attr_id']) {
+    $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
+}
+
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id'])) {;
+    $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
+    $crow['attr_class_id_close'] = '</div>';
+} else {
+    $crow['attr_class_id_close'] = '';
+}
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
@@ -279,3 +293,5 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     $CNT_TMP .=  str_replace(array('{FORM_TARGET}', '{LOGIN_URL}'), $_loginData['uri'], $_loginData['template']);
 
 }
+
+$CNT_TMP .= $crow['attr_class_id_close'];

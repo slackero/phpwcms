@@ -104,7 +104,8 @@ if(!empty($crow["acontent_image"][2])) {
 	}
 }
 
-// now render whole recipe
+$crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'ATTR_ID', html($crow['acontent_attr_id']));
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'TITLE', html_specialchars($crow['acontent_title']));
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 $crow["acontent_form"]['faq_template'] = render_cnt_template($crow["acontent_form"]['faq_template'], 'FAQ_QUESTION', html_specialchars($crow["acontent_text"]));

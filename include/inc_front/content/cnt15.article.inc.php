@@ -19,6 +19,21 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //article menu
 
+$crow['attr_class_id'] = array();
+if($crow['acontent_attr_class']) {
+    $crow['attr_class_id'][] = 'class="'.html($crow['acontent_attr_class']).'"';
+}
+if($crow['acontent_attr_id']) {
+    $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
+}
+
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id'])) {;
+    $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
+    $crow['attr_class_id_close'] = '</div>';
+} else {
+    $crow['attr_class_id_close'] = '';
+}
+
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
 $alinkmenu                  = unserialize($crow["acontent_form"]);
@@ -35,8 +50,8 @@ $alink_sql  = "SELECT article_id, article_title, article_cid, article_summary, a
 $alink_sql .= DB_PREPEND."phpwcms_article WHERE article_aktiv=1 AND article_deleted=0 AND article_cid=";
 $alink_sql .= intval($alinkmenu["catid"]);
 if(!PREVIEW_MODE) {
-    $alink_sql .= ' AND article_begin<NOW()';
-    $alink_sql .= ' AND article_end>NOW()';
+	$alink_sql .= ' AND article_begin < NOW()';
+	$alink_sql .= " AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
 }
 if(!empty($alinkmenu['hideactive'])) {
     $alink_sql .= ' AND article_id != '. $aktion[1];
@@ -166,5 +181,7 @@ if($alinkmenu['link']) {
     $CNT_TMP .= $alinkmenu['link'];
 
 }
+
+$CNT_TMP .= $crow['attr_class_id_close'];
 
 unset($alinkmenu);

@@ -2,97 +2,99 @@
 ; this is formatted like WIN.INI
 ; please: do not use comments for value lines
 ; settings will overwrite CP settings
-;width			= 100
-;height			= 100
-;col			= 1
-;zoom			= 1
-;crop			= 0
-;space			= 10
-;lightbox		= 1
-;nocaption		= 0
-;thumb_class	= image-responsive
-;random			= 0
-;limit			= 0
+;width          = 100
+;height         = 100
+;col            = 1
+;zoom           = 1
+;crop           = 0
+;space          = 10
+;lightbox       = 1
+;nocaption      = 0
+;thumb_class    = image-responsive
+;random         = 0
+;limit          = 0
 ; if set to 1 and total amount of images > limit render hidden feature
-;hide_limited	= 0
+;hide_limited   = 0
 ; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
-;center_image	= 0
+;center_image   = 0
 <!--IMAGE_SETTINGS_END//-->
 
 <!--IMAGES_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 [TEXT]{TEXT}[/TEXT]
 
-<div class="images" id="images{ID}">
+  <div class="images" id="images{ID}">
 <!--IMAGES_HEADER_END//-->
 
 
 <!--IMAGES_ENTRY_START//-->
-	
-	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW] slide{ENTRY_ID} num{ENTRY_NUM}" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
-		{IMAGE}
-		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
-	</div>
-	<!--ENTRY_DATA_START//-->
-		<li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
-			<a href="#img{IMGID}">Image {ENTRY_NUM}</a>
-		</li>
-	<!--ENTRY_DATA_END//-->
-	
+
+    <div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW] slide{ENTRY_ID} num{ENTRY_NUM}" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
+        {IMAGE}
+        [CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
+    </div>
+    <!--ENTRY_DATA_START//-->
+        <li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
+            <a href="#img{IMGID}">Image {ENTRY_NUM}</a>
+        </li>
+    <!--ENTRY_DATA_END//-->
+
 <!--IMAGES_ENTRY_END//-->
 
 <!--IMAGES_ENTRY_SPACER_START//-->
 
-	<!-- space between images {SPACE}px -->
+    <!-- space between images {SPACE}px -->
 
 <!--IMAGES_ENTRY_SPACER_END//-->
 
 
 <!--IMAGES_ROW_SPACER_START//-->
 
-	<!-- space between image rows {SPACE}px -->
+    <!-- space between image rows {SPACE}px -->
 
 <!--IMAGES_ROW_SPACER_END//-->
 
 
 <!--IMAGES_FOOTER_START//-->
-	[DATA]
-		<ol class="indicators">
-			{DATA}
-		</ol>
-		<div class="controls">
-			<a class="prev" href="#images{ID}" role="button" data-slide="prev">
-				<span>Previous</span>
-			</a>
-			<a class="next" href="#images{ID}" role="button" data-slide="next">
-				<span>Next</span>
-			</a>
-		</div>
-	[/DATA]
-</div>
+    [DATA]
+        <ol class="indicators">
+            {DATA}
+        </ol>
+        <div class="controls">
+            <a class="prev" href="#images{ID}" role="button" data-slide="prev">
+                <span>Previous</span>
+            </a>
+            <a class="next" href="#images{ID}" role="button" data-slide="next">
+                <span>Next</span>
+            </a>
+        </div>
+    [/DATA]
+  </div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!--IMAGES_FOOTER_END//-->
 
 
-	Thumbnail image:    {THUMB_NAME}
-	  relative:         {THUMB_REL}
-	  absolute:         {THUMB_ABS}
-	  height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
-	  height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
-	  columns:          {THUMB_COLUMNS}
-	  image ID:         {IMAGE_ID}
-	  image Hash:       {IMAGE_HASH}
-	  image Extension:	{IMAGE_EXT}
-	  
-	Slide ID: {SLIDE_ID}
-	Slide Number: {SLIDE_NUM}
-	[SLIDES]{SLIDES}[/SLIDES]
+    Thumbnail image:    {THUMB_NAME}
+      relative:         {THUMB_REL}
+      absolute:         {THUMB_ABS}
+      height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
+      height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
+      columns:          {THUMB_COLUMNS}
+      image ID:         {IMAGE_ID}
+      image Hash:       {IMAGE_HASH}
+      image Extension:  {IMAGE_EXT}
 
-	If you are not sure wrap zoomed image:
-	[ZOOM]
-	Zoomed (big) image: {IMAGE_NAME}
-	  relative: {IMAGE_REL}
-	  absolute: {IMAGE_ABS}
-	  height/width: {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
-	[/ZOOM]
+    Slide ID: {SLIDE_ID}
+    Slide Number: {SLIDE_NUM}
+    [SLIDES]{SLIDES}[/SLIDES]
+
+    If you are not sure wrap zoomed image:
+    [ZOOM]
+    Zoomed (big) image: {IMAGE_NAME}
+      relative: {IMAGE_REL}
+      absolute: {IMAGE_ABS}
+      height/width: {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
+    [/ZOOM]

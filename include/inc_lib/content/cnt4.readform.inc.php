@@ -17,7 +17,7 @@ if(!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Bullet List Table
-$content["text"] = html_specialchars(slweg($_POST["ctext"], 65500));
+$content["text"] = html(slweg($_POST["ctext"], 65500));
 $cbullet = explode(LF, $content["text"]);
 if(count($cbullet)) {
     foreach($cbullet as $key => $value) {

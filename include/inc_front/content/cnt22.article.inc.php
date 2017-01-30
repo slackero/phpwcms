@@ -18,8 +18,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // RSS feed
 
-//$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-
 if( !empty($crow["acontent_form"]) && is_string($crow["acontent_form"]) ) {
 	$rssfeed = unserialize($crow["acontent_form"]);
 } elseif( empty($rssfeed) || !is_array($rssfeed) ) {
@@ -165,6 +163,8 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 		}
 
 		// whole rss feed
+		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+        $rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'ATTR_ID', html($crow['acontent_attr_id']));
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'TITLE', html_specialchars($crow['acontent_title']) );
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']) );
 		$rss['template_RSSFEED'] = render_cnt_template($rss['template_RSSFEED'], 'ITEMS', implode( LF , $rss['items'] ) );

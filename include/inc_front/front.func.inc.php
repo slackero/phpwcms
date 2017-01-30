@@ -576,9 +576,9 @@ function get_actcat_articles_data($act_cat_id) {
     if(!PREVIEW_MODE) {
         $sql .= ' AND article_begin < NOW() ';
         if($content['struct'][ $act_cat_id ]['acat_archive'] == 0) {
-            $sql .= ' AND article_end > NOW()';
+            $sql .= " AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
         } else {
-            $sql .= ' AND IF(article_archive_status=1, 1, article_end > NOW())';
+            $sql .= " AND IF(article_archive_status=1, 1, (article_end='0000-00-00 00:00:00' OR article_end > NOW()))";
         }
     }
     $sql .= ' ORDER BY '.$ao[2];
@@ -1304,6 +1304,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                 if(strpos($tmpl, '[SYSTEM]') !== false) {
                     // Search for all system related content parts
                     $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
+                    $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
                     $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (1, 3) "; // 1 = article list, 3 = article detail OR list
                     if(!FEUSER_LOGIN_STATUS) {
                         $sql_cnt .= 'AND acontent_granted=0 ';
@@ -1818,7 +1819,7 @@ function get_related_articles($keywords, $current_article_id, $template_default,
             //case 2: admin mode no additional neccessary
         }
         if(!PREVIEW_MODE) {
-            $sql .= 'article_begin < NOW() AND article_end > NOW() AND ';
+            $sql .= "article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) AND ";
         }
         $sql .= '('.$where.') ';
 
@@ -1947,7 +1948,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=
     }
     $sql .= 'article_deleted=0 ';
     if(!PREVIEW_MODE) {
-        $sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+        $sql .= "AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) ";
     }
     $sql .= "ORDER BY ".$sorting." DESC".$limit;
 
@@ -2011,7 +2012,7 @@ function get_article_idlink($article_id=0, $link_text="", $db=null) {
                 "FROM ".DB_PREPEND."phpwcms_article WHERE article_id=".$article_id." AND ".
                 "article_aktiv=1 AND article_deleted=0 ";
         if(!PREVIEW_MODE) {
-            $sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+            $sql .= "AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) ";
         }
         $sql .= "LIMIT 1";
         $data = _dbQuery($sql);
@@ -2061,7 +2062,7 @@ function get_keyword_link($keywords) {
         }
         $sql .= 'article_deleted=0 AND ';
         if(!PREVIEW_MODE) {
-            $sql .= 'article_begin < NOW() AND article_end > NOW() ';
+            $sql .= "article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) ";
         }
         $sql .= "AND (".$where.")";
 
@@ -2128,7 +2129,7 @@ function get_search_action($matches) {
     $sql  = "SELECT article_cid, article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
     $sql .= "article_aktiv=1 AND article_deleted=0 ";
     if(!PREVIEW_MODE) {
-        $sql .= 'AND article_begin < NOW() AND article_end > NOW() ';
+        $sql .= "AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) ";
     }
     $sql .= "AND article_id=".intval($matches[1])." LIMIT 1";
 
@@ -2424,8 +2425,8 @@ function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
     }
     $sql .= 'article_deleted=0 ';
     if(!PREVIEW_MODE) {
-        $sql .= 'AND article_begin<NOW() ';
-        $sql .= 'AND article_end>NOW() ';
+        $sql .= 'AND article_begin < NOW() ';
+        $sql .= "AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) ";
     }
     $sql .= "ORDER BY ".$ao[2];
 
@@ -4151,7 +4152,7 @@ function get_structurelevel_single_article_alias($article_cid=0) {
         $sql  = 'SELECT COUNT(article_id) FROM '.DB_PREPEND.'phpwcms_article ';
         $sql .= 'WHERE article_cid='.$article_cid.' AND article_aktiv=1 AND article_deleted=0';
         if(!PREVIEW_MODE) {
-            $sql .= ' AND article_begin < NOW() AND article_end > NOW()';
+            $sql .= " AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
         }
         $content['struct'][ $article_cid ]['acat_articlecount'] = _dbCount($sql);
     }

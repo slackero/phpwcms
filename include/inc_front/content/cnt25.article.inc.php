@@ -304,7 +304,7 @@ if(isset($fmp_data['fmp_template'])) {
             'ogg' => 'audio/ogg'
         )
     );
-	
+
 	if(!isset($fmp_data['fmp_int_ext_h264'])) {
 
     	$fmp_data = array_merge(
@@ -474,6 +474,8 @@ if(isset($fmp_data['fmp_template'])) {
     }
 
     // add rendering result to current listing
+    $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'ATTR_ID', html($crow['acontent_attr_id']));
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'TITLE',    html_specialchars($crow['acontent_title']));
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'PLAYER', $fmp_data['fallback']);

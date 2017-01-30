@@ -91,6 +91,8 @@ if(count($crow["acontent_form"]['ingredients'])) {
 }
 
 // now render whole recipe
+$crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"]['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"]['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
 $crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"]['template'], 'TITLE', html_specialchars($crow['acontent_title']));
 $crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"]['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 $crow["acontent_form"]['template'] = render_cnt_template($crow["acontent_form"]['template'], 'INGREDIENTS', $crow["acontent_form"]['ingredients']);

@@ -579,7 +579,7 @@ $BL['be_cnt_target1']                   = 'in neuem Fenster';
 $BL['be_cnt_target2']                   = 'im Parent-Frame des Fensters';
 $BL['be_cnt_target3']                   = 'im selben Fenster ohne Frames';
 $BL['be_cnt_target4']                   = 'im selben Frame oder Fenster';
-$BL['be_cnt_bullet']                    = 'Aufz&auml;hlung (Tabelle)';
+$BL['be_cnt_bullet']                    = 'Aufz&auml;hlung';
 $BL['be_cnt_ullist']                    = 'Liste';
 $BL['be_cnt_ullist_desc']               = '~ = 1. Ebene, &nbsp ~~ = 2. Ebene, &nbsp; usw.';
 $BL['be_cnt_linklist']                  = 'Linkliste';
@@ -1462,4 +1462,8 @@ $BL['iptc_IntellectualGenre'] = 'Genre';
 $BL['iptc_SubjectNewsCode'] = 'Betreffkennung';
 $BL['iptc_iimVersion'] = 'Version';
 
-$BE['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;cken';
+$BL['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;cken';
+$BL['be_cnt_attribute_class'] = 'CSS Klasse [class]';
+$BL['be_cnt_attribute_id'] = 'CSS ID [id]';
+$BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';
+$BL['be_not_set'] = 'nicht gesetzt';

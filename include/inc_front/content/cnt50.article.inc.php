@@ -228,8 +228,10 @@ if($content['reference']['ref_count']) {
 
 }
 
-$content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'TITLE', html_specialchars($crow["acontent_title"]));
-$content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'SUB', html_specialchars($crow["acontent_subtitle"]));
+$content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'ATTR_ID', html($crow['acontent_attr_id']));
+$content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'TITLE', html($crow["acontent_title"]));
+$content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'SUB', html($crow["acontent_subtitle"]));
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'TEXT', nl2br($content['reference']["text"]));
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'CAPTION', $content['reference']['ref_caption']);
 $content['reference']["tmpl"] = render_cnt_template($content['reference']["tmpl"], 'LIST', $content['reference']['ref_list']);

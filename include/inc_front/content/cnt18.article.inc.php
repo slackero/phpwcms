@@ -21,6 +21,21 @@ if (!defined('PHPWCMS_ROOT')) {
 // include neccessary frontend functions, but only once
 include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt18.func.inc.php';
 
+$crow['attr_class_id'] = array();
+if($crow['acontent_attr_class']) {
+    $crow['attr_class_id'][] = 'class="'.html($crow['acontent_attr_class']).'"';
+}
+if($crow['acontent_attr_id']) {
+    $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
+}
+
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id'])) {;
+    $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
+    $crow['attr_class_id_close'] = '</div>';
+} else {
+    $crow['attr_class_id_close'] = '';
+}
+
 $CNT_TMP                .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 global $guestbook; // make it global
 $guestbook               = unserialize($crow["acontent_form"]);
@@ -815,6 +830,8 @@ if($guestbook['visible']) {
     $CNT_TMP .= $guestbook['list'];
 
 }
+
+$CNT_TMP .= $crow['attr_class_id_close'];
 
 // delete guetbook array
 unset($guestbook);

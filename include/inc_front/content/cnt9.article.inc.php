@@ -316,6 +316,8 @@ if($media["code"]) {
 }
 
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'MULTIMEDIA', trim($media["result"]) );
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
 $crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
 
 unset($media);

@@ -121,7 +121,7 @@ if($map_selected) {
             $map_list .= '<td class="v09" width="90%"><strong>'.$map_row['map_title']."</strong></td>\n";
             $map_list .= '<td align="right" class="v09"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
             $map_list .= 'id='.$content["aid"].'&amp;acid='.$content["id"].'&amp;locid='.$map_row['map_id'].'">';
-            $map_list .= '<img src="img/button/edit_11x11.gif" width="11" height="11" border="0" alt=""></a>';
+			$map_list .= '<img src="img/button/edit_22x13.gif" width="22" height="13" border="0" alt=""></a>';
             $map_list .= '<img src="img/leer.gif" width="1" height="1" alt="" border="0">';
             $map_list .= '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
             $map_list .= 'id='.$content["aid"].'&amp;acid='.$content["id"].'&amp;dellocid='.$map_row['map_id'];

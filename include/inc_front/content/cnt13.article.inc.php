@@ -146,7 +146,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
         $sql .= "ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_nosearch!=1 ";
         if(!PREVIEW_MODE) {
             // enhanced IF statement by kh 2008/12/03
-            $sql .= "AND IF((ar.article_begin < NOW() AND ar.article_end > NOW()) OR (ar.article_archive_status=1 AND ac.acat_archive=1), 1, 0) ";
+			$sql .= "AND IF((ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW())) OR (ar.article_archive_status=1 AND ac.acat_archive=1), 1, 0) ";
         }
         $sql .= "GROUP BY ar.article_id";
 
@@ -170,7 +170,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                             case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')'; break;
                         }
                         if(!PREVIEW_MODE) {
-                            $alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+							$alias_sql .= " AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
                         }
                     }
                     $alias_sql .= " LIMIT 1";
@@ -200,7 +200,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                 // read article content for search
                 $csql  = "SELECT acontent_title, acontent_subtitle, acontent_text, acontent_html, acontent_files, acontent_type, acontent_form, acontent_image FROM ";
-                $csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." AND acontent_visible=1 AND acontent_trash=0 AND ";
+				$csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." ";
+				$csql .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
+				$csql .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) AND ";
                 if( !FEUSER_LOGIN_STATUS ) {
                     $csql .= 'acontent_granted=0 AND ';
                 }
@@ -753,6 +755,8 @@ if(isset($content["search"]["result_per_page"])) {
 
 }
 
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+$crow['template']['result'] = render_cnt_template($crow['template']['result'], 'ATTR_ID', html($crow['acontent_attr_id']));
 $crow['template']['result'] = render_cnt_template($crow['template']['result'], 'TITLE', html($crow["acontent_title"]));
 $crow['template']['result'] = render_cnt_template($crow['template']['result'], 'SUBTITLE', html($crow["acontent_subtitle"]));
 $crow['template']['result'] = render_cnt_template($crow['template']['result'], 'TEXT', $crow['template']['text']);

@@ -22,11 +22,13 @@ class_column_right_text		= imgtxt-column-right-text
 ; lightbox					= 1
 ; nocaption					= 0
 <!--IMAGETEXT_SETTINGS_END//-->
-<div class="image-with-text" id="imgtext-id-{ID}">
-[TITLE]	<h3>{TITLE}</h3>[/TITLE]
-[SUBTITLE]	<h4>{SUBTITLE}</h4>[/SUBTITLE]
-[IMAGETEXT]{IMAGETEXT}[/IMAGETEXT]
-</div>
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+    <div class="image-with-text" id="imgtext-id-{ID}">
+    [TITLE]	<h3>{TITLE}</h3>[/TITLE]
+    [SUBTITLE]	<h4>{SUBTITLE}</h4>[/SUBTITLE]
+    [IMAGETEXT]{IMAGETEXT}[/IMAGETEXT]
+    </div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!-- Sample CSS -->
 <!-- CSS:
 .imgtxt-top-left,

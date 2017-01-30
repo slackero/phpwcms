@@ -435,37 +435,40 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
             if($mode == 'CP') {
                 // content part listing
-                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
-                $sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-                $sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
-                $sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
+                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
+                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+                $sql .= "ar.article_id=ac.acontent_aid ";
+                $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
+                $sql .= "AND ac.acontent_block NOT IN ('CPSET', 'SYSTEM') ";
 
                 if( !FEUSER_LOGIN_STATUS ) {
-                    $sql .= 'AND acontent_granted=0 ';
+                    $sql .= 'AND ac.acontent_granted=0 ';
                 }
 
-                $sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
+                $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 AND ";
+                $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate='0000-00-00 00:00:00' OR ac.acontent_killdate > NOW()) ";
+
                 if(!PREVIEW_MODE) {
-                    $sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+                    $sql .= " AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
                 }
                 $sql .= "LIMIT 1";
 
             } elseif($mode == 'CPS') {
 
-                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
-                $sql .= DB_PREPEND . "phpwcms_article.article_id=" . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-                $sql .= "WHERE acontent_id=" . $value . " AND acontent_visible=1 ";
-                $sql .= "AND acontent_block='SYSTEM' ";
+                $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
+                $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
+                $sql .= "ar.article_id=ac.acontent_aid ";
+                $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 AND ";
+                $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate='0000-00-00 00:00:00' OR ac.acontent_killdate > NOW()) ";
+                $sql .= "AND ac.acontent_block='SYSTEM' ";
 
                 if( !FEUSER_LOGIN_STATUS ) {
-                    $sql .= 'AND acontent_granted=0 ';
+                    $sql .= 'AND ac.acontent_granted=0 ';
                 }
 
-                $sql .= "AND acontent_trash=0 AND " . DB_PREPEND . "phpwcms_article.article_deleted=0 ";
+                $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 ";
                 if(!PREVIEW_MODE) {
-                    $sql .= ' AND ' . DB_PREPEND."phpwcms_article.article_begin < NOW() AND " . DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+                    $sql .= " AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
                 }
                 $sql .= "LIMIT 1";
 
@@ -477,7 +480,8 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
                 // content parts based on article ID
                 $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
+                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 AND ";
+                $sql .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
 
                 if($mode == 'CPAS' || $mode == 'CPASD') {
                     $sql .= "AND acontent_block='SYSTEM' ";
@@ -569,7 +573,7 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
         'after'  => ''
     );
 
-    if(empty($space_before) && empty($space_after)) {
+    if($space_before === '' && $space_after === '') {
         return $spacers;
     }
 
@@ -591,7 +595,7 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
 
     }
 
-    if($space_before && $space_after) {
+    if($space_before !== '' && $space_after !== '') {
 
         if(empty($template_default["article"]["div_spacer"])) {
             $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
@@ -609,7 +613,7 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
             $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
         }
 
-    } elseif($space_before) {
+    } elseif($space_before !== '') {
 
         if(empty($template_default["article"]["div_spacer"])) {
             $spacers['before'] = '<br class="'.$template_default['classes']['spaceholder-cp-before'].'" />'.spacer(1, $space_before);
@@ -672,7 +676,8 @@ function getContentPartAlias($crow) {
     if(!empty($alias['alias_ID'])) {
         $alias['alias_ID'] = intval($alias['alias_ID']);
         $sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
-        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
+        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 AND ";
+        $sql_alias .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
         if(!empty($alias['alias_status'])) {
             $sql_alias .= 'AND acontent_visible=1 ';
         }
@@ -749,7 +754,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
                 break;
     }
     if(!PREVIEW_MODE) {
-        $sql_where[] = 'article_begin < NOW() AND article_end > NOW()';
+        $sql_where[] = "article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
     }
 
     if(count($not)) {
@@ -852,7 +857,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
                             break;
                 }
                 if(!PREVIEW_MODE) {
-                    $alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+                    $alias_sql .= " AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
                 }
             }
             $alias_sql .= " AND article_deleted=0 LIMIT 1";

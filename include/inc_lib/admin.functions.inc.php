@@ -264,10 +264,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             $info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
         }
         if(!empty($article[$akey]["article_begin"])) {
-            $info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>'.phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;').'</b></td></tr>';
+			$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>';
+			$info .= $article[$akey]["article_begin"] === '0000-00-00 00:00:00' ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
+			$info .= '</b></td></tr>';
         }
         if(!empty($article[$akey]["article_end"])) {
-            $info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>'.phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;').'</b></td></tr>';
+			$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>';
+			$info .= $article[$akey]["article_end"] === '0000-00-00 00:00:00' ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
+			$info .= '</b></td></tr>';
         }
         $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
         if(isset($article[$akey]["article_end"])) {

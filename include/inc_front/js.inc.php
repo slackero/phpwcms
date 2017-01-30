@@ -147,7 +147,7 @@ function initVideoJs() {
         if(IE8_CC) {
             $GLOBALS['block']['custom_htmlhead']['video-js.ie8shim'] = '  <!--[if lt IE 9]><script src="'.PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script><![endif]-->';
         }
-        $GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/5.12/';
+        $GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/5.16/';
     } else {
         $GLOBALS['phpwcms']['video-js'] = rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
     }
