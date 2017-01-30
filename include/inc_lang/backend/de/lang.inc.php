@@ -1465,4 +1465,4 @@ $BL['iptc_iimVersion'] = 'Version';
 $BL['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;cken';
 $BL['be_cnt_attribute_class'] = 'CSS Klasse [class]';
 $BL['be_cnt_attribute_id'] = 'CSS ID [id]';
-$BL['be_cnt_avoid_duplicates'] = 'allow unique values only';
+$BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';
