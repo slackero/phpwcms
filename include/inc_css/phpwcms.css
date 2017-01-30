@@ -37,7 +37,8 @@ input[type="tel"],
 input[type="url"],
 textarea,
 select {
-    font-size: 13px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .btn {
@@ -408,7 +409,7 @@ a:hover {
 
 .code {
     font-family: Menlo, "Courier New", monospace;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .clickMenu {
@@ -489,8 +490,8 @@ a:hover {
     border: 1px solid #c0c0c0;
     font-size: 10px;
 }
-
-td.dynCalendar_day:hover, td.dynCalendar_today:hover {
+td.dynCalendar_day:hover,
+td.dynCalendar_today:hover {
     background-color: #FFCC33;
 }
 
@@ -500,7 +501,6 @@ td.dynCalendar_day:hover, td.dynCalendar_today:hover {
 
 h1 {
     color: #6288AD;
-    /* font-family: Helvetica, Arial, Verdana, sans-serif; */
     font-size: 15px;
     font-weight: bold;
     padding: 0;
@@ -513,8 +513,8 @@ h1 {
     padding: 2px 2px 1px 4px;
     font-weight: normal;
 }
-
-.radioButton, .checkBox {
+.radioButton,
+.checkBox {
     margin: 3px;
     padding: 0;
 }
@@ -849,8 +849,8 @@ select.listrow option {
     padding: 2px;
     border-bottom: 1px dotted #DDDDDD;
 }
-
-select.listrow option:hover, select.optionhover option:hover {
+select.listrow option:hover,
+select.optionhover option:hover {
     background-color: #DEF9AC;
 }
 
@@ -1119,8 +1119,7 @@ table.tdMorepace td {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left bottom;
     padding: 0 0 1px 0;
 }
-
-td.inlineCheckbox checkbox {
+td.inlineCheckbox .checkbox {
     margin: 0;
     padding: 0;
 }
@@ -1308,8 +1307,8 @@ table.listing td.collast {
 table.listing td a {
     padding: 0 1px 0 1px;
 }
-
-table.listing th.colfirst, table.listing td.colfirst {
+table.listing th.colfirst,
+table.listing td.colfirst {
     padding-left: 21px;
     white-space: nowrap;
 }
@@ -1403,8 +1402,9 @@ form.free label.checkbox {
     width: auto;
     font-size: 12px;
 }
-
-form.free input.text, form.free textarea, form.free select {
+form.free input.text,
+form.free textarea,
+form.free select {
     width: 350px;
 }
 
@@ -1456,8 +1456,8 @@ span.autocompleter-loading {
     position: relative;
     top: 1px;
 }
-
-textarea.ajax-loading, input.ajax-loading {
+textarea.ajax-loading,
+input.ajax-loading {
     background: url(../../img/indicator/indicator_arrows_green_19x19.gif) no-repeat right top;
     padding: 1px;
     border: 1px solid #C7E2F1;
@@ -1538,14 +1538,14 @@ ul.autocompleter-choices li.autocompleter-selected span.autocompleter-queried {
     background: none no-repeat 0 1px;
     overflow: hidden;
 }
-
-#be_lang a.be-disabled, #be_lang a.be-lang {
+#be_lang a.be-disabled,
+#be_lang a.be-lang {
     opacity: .5;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     filter: alpha(opacity=50);
 }
-
-#be_lang a.be-lang:hover, #be_lang a.be-active {
+#be_lang a.be-lang:hover,
+#be_lang a.be-active {
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: alpha(opacity=100);
@@ -1666,8 +1666,8 @@ ul#images li {
 ul#images li:hover {
     background-color: #F3F5F8;
 }
-
-ul#images li.nomove, ul#images li.nomove:hover {
+ul#images li.nomove,
+ul#images li.nomove:hover {
     background: #F3F5F8;
     border-top: 1px solid #4E789F;
     border-bottom: 1px solid #4E789F;
@@ -1698,8 +1698,8 @@ ul#images td.backend_preview_img {
 ul#images td.backend_preview_img img {
     margin: 5px 0 3px 0;
 }
-
-ul#images input.w300, ul#images textarea.w300 {
+ul#images input.w300,
+ul#images textarea.w300 {
     width: 300px;
 }
 

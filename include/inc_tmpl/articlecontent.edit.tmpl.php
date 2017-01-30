@@ -31,13 +31,13 @@ if(empty($content['article']['acat_id'])) { // Root structure
 }
 
 // Livedate / killdate fallback
-if($content["livedate"] === '0000-00-00 00:00:00') {
+if(empty($content["livedate"]) || $content["livedate"] === '0000-00-00 00:00:00') {
     $content["livedate"] = '';
     $set_livedate = 0;
 } else {
     $set_livedate = 1;
 }
-if($content["killdate"] === '0000-00-00 00:00:00') {
+if(empty($content["killdate"]) || $content["killdate"] === '0000-00-00 00:00:00') {
     $content["killdate"] = '';
     $set_killdate = 0;
 } else {
@@ -684,7 +684,7 @@ echo $_save_close_buttons;
                         <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo $content["livedate"]; ?>' : '';" />
                     </td>
                     <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-                        <input name="clivedate" type="text" id="clivedate" class="bold width150" value="<?php echo $content["livedate"]; ?>" />
+                        <input name="clivedate" type="text" id="clivedate" class="width150" value="<?php echo $content["livedate"]; ?>" />
                     </td>
                     <td class="chatlist tdbottom3">&nbsp;<br />
                         <script type="text/javascript">
@@ -718,7 +718,7 @@ echo $_save_close_buttons;
                         <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo $content["killdate"] ?>' : '';" />
                     </td>
                     <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-                        <input name="ckilldate" type="text" id="ckilldate" class="bold width150" value="<?php echo $content["killdate"]; ?>" />
+                        <input name="ckilldate" type="text" id="ckilldate" class="width150" value="<?php echo $content["killdate"]; ?>" />
                     </td>
                     <td class="chatlist tdbottom3">&nbsp;<br />
                         <script type="text/javascript">
