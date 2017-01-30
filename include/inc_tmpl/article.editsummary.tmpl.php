@@ -73,11 +73,11 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
                         <td colspan="7"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
                     </tr>
                     <tr bgcolor="#E7E8EB">
-                      <td width="84" align="right" bgcolor="#FFFFFF" class="chatlist" style="width:84px;">&nbsp;<br /><?php echo $BL['be_article_abegin'] ?>:<img src="img/leer.gif" alt="" width="2" height="1" /></td>
+                      <td align="right" bgcolor="#FFFFFF" class="chatlist width85">&nbsp;<br /><?php echo $BL['be_article_abegin'] ?>:<img src="img/leer.gif" alt="" width="2" height="1" /></td>
                         <td class="chatlist">&nbsp;<br />
-                          <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="if(!this.checked) {document.article.article_begin.value='';}else{document.article.article_begin.value='<?php echo $article["article_begin"] ?>';}" /></td>
+                          <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="document.article.article_begin.value = this.checked ? '<?php echo $article["article_begin"] ?>' : '';" /></td>
                         <td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-                          <input name="article_begin" type="text" id="article_begin" style="width:140px" class="bold" value="<?php echo $article["article_begin"] ?>" /></td>
+                          <input name="article_begin" type="text" id="article_begin" class="bold width140" value="<?php echo $article["article_begin"]; ?>" /></td>
                       <td class="chatlist" valign="bottom"><script type="text/javascript">
 function aBegin(date, month, year) {
     document.article.article_begin.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 00:00:00';
@@ -89,9 +89,9 @@ calBegin.setYearCombo(false);
 </script><img src="img/leer.gif" alt="" width="3" height="1" /></td>
                         <td align="right" bgcolor="#FFFFFF" class="chatlist">&nbsp;<br />&nbsp;&nbsp;<?php echo $BL['be_article_aend'] ?>:</td>
                         <td class="chatlist">&nbsp;<br />
-                          <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="if(!this.checked) {document.article.article_end.value='';}else{document.article.article_end.value='<?php echo $article["article_end"] ?>';}" /></td>
+                          <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="document.article.article_end.value = this.checked ? '<?php echo $article["article_end"] ?>' : '';" /></td>
                         <td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-                          <input name="article_end" type="text" id="article_end" style="width:140px" class="bold" value="<?php echo $article["article_end"] ?>" /></td>
+                          <input name="article_end" type="text" id="article_end" class="bold width140" value="<?php echo $article["article_end"] ?>" /></td>
                       <td class="chatlist" valign="bottom"><script type="text/javascript">
 function aEnd(date, month, year) {
     document.article.article_end.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 23:59:59';
@@ -106,8 +106,7 @@ calEnd.setYearCombo(false);
             </tr>
 
 
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td>
-            </tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
 
             <tr>
                 <td align="right" class="chatlist"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>

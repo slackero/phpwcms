@@ -30,7 +30,7 @@ if($all = _dbQuery("SELECT article_id, article_alias, article_title FROM ".DB_PR
 	if(isset($all[0])) {
 
 		$sql  = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
-		$sql .= "article_end='2030-12-31 23:59:59'";
+		$sql .= "article_end='2099-12-31 23:59:59'";
 		$sql .= "WHERE article_end='2010-12-31 23:59:59' AND article_deleted=0";
 
 		$result = _dbQuery($sql, 'UPDATE');

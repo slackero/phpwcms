@@ -206,7 +206,7 @@ if(!(strpos($content["all"], '{RECIPES:') === false)) {
 		if(!PREVIEW_MODE) {
 			$sql .= 'AND ';
 			$sql .= DB_PREPEND . "phpwcms_article.article_begin < NOW() AND ";
-			$sql .= DB_PREPEND . "phpwcms_article.article_end > NOW() ";
+			$sql .= '(' . DB_PREPEND . "phpwcms_article.article_end > NOW() OR " .DB_PREPEND . "phpwcms_article.article_end = '0000-00-00 00:00:00')";
 		}
 		$sql .= 'ORDER BY ' . implode(', ', $order_by);
 

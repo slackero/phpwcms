@@ -875,166 +875,129 @@ table.tdMorepace td {
 .width15 {
     width: 15px;
 }
-
 .width15i {
     width: 15px;
     margin: 0 1px 0 2px;
 }
-
 .width20 {
     width: 20px;
 }
-
 .width25 {
     width: 25px;
 }
-
 .width30 {
     width: 30px;
 }
-
 .width35 {
     width: 35px;
 }
-
 .width40 {
     width: 40px;
 }
-
 .width45 {
     width: 45px;
 }
-
 .width50 {
     width: 50px;
 }
-
 .width60 {
     width: 60px;
 }
-
 .width75 {
     width: 75px;
 }
-
 .width85 {
     width: 85px;
 }
-
 .width100 {
     width: 100px;
 }
-
 .width120 {
     width: 120px;
 }
-
 .width125 {
     width: 125px;
 }
-
+.width140 {
+    width: 140px;
+}
 .width150 {
     width: 150px;
 }
-
 .width160 {
     width: 160px;
 }
-
 .width170 {
     width: 170px;
 }
-
 .width175 {
     width: 175px;
 }
-
 .width180 {
     width: 180px;
 }
-
 .width185 {
     width: 185px;
 }
-
 .width200 {
     width: 200px;
 }
-
 .width215 {
     width: 215px;
 }
-
 .width225 {
     width: 225px;
 }
-
 .width250 {
     width: 250px;
 }
-
 .width300 {
     width: 300px;
 }
-
 .width325 {
     width: 325px;
 }
-
 .width323 {
     width: 323px;
 }
-
 .width330 {
     width: 330px;
 }
-
 .width340 {
     width: 340px;
 }
-
 .width350 {
     width: 350px;
 }
-
 .width360 {
     width: 360px;
 }
-
 .width375 {
     width: 375px;
 }
-
 .width400 {
     width: 400px;
 }
-
 .width420 {
     width: 420px;
 }
-
 .width440 {
     width: 440px;
 }
-
 .width450 {
     width: 450px;
 }
-
 .width600 {
     width: 600px;
     margin-right: 5px;
 }
-
 .width440p5 {
     width: 433px;
     margin-right: 5px;
 }
-
 .width500 {
     width: 500px;
 }
-
 .width540 {
     width: 540px;
 }
@@ -1046,86 +1009,69 @@ table.tdMorepace td {
 .tdleft5 {
     padding-left: 5px;
 }
-
 .tdleft10 {
     padding-left: 10px;
 }
-
 .tdtop1 {
     vertical-align: top;
     padding-top: 1px;
 }
-
 .tdtop2 {
     vertical-align: top;
     padding-top: 2px;
 }
-
 .tdtop3 {
     vertical-align: top;
     padding-top: 3px;
 }
-
 .tdtop4 {
     vertical-align: top;
     padding-top: 4px;
 }
-
 .tdtop5 {
     vertical-align: top;
     padding-top: 5px;
 }
-
 .tdtop6 {
     vertical-align: top;
     padding-top: 6px;
 }
-
 .tdtop8 {
     vertical-align: top;
     padding-top: 8px;
 }
-
 .tdtop10 {
     vertical-align: top;
     padding-top: 10px;
 }
-
 .tdbottom1 {
     vertical-align: top;
     padding-bottom: 1px;
 }
-
 .tdbottom2 {
     vertical-align: top;
     padding-bottom: 2px;
 }
-
 .tdbottom3 {
     vertical-align: top;
     padding-bottom: 3px;
 }
-
 .tdbottom4 {
     vertical-align: top;
     padding-bottom: 4px;
 }
-
 .tdbottom5 {
     vertical-align: top;
     padding-bottom: 5px;
 }
-
 .tdbottom6 {
     vertical-align: top;
     padding-bottom: 6px;
 }
-
 .tdbottom10 {
     vertical-align: top;
     padding-bottom: 10px;
 }
-
 .valign-middle {
     vertical-align: middle;
 }
@@ -1134,51 +1080,41 @@ table.tdMorepace td {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
     padding: 1px 0 0 0;
 }
-
 .rowspacer10x10 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left;
     padding: 10px 0 10px 0;
 }
-
 .rowspacer7x7 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left;
     padding: 7px 0 7px 0;
 }
-
 .rowspacer0x7 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
     padding: 1px 0 7px 0;
 }
-
 .rowspacer7x0 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left bottom;
     padding: 7px 0 1px 0;
 }
-
 .rowspacer0x5 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
     padding: 1px 0 5px 0;
 }
-
 .rowspacer5x0 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left bottom;
     padding: 5px 0 1px 0;
 }
-
 .rowspacer10x0 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left bottom;
     padding: 10px 0 1px 0;
 }
-
 .rowspacer0x10 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
     padding: 1px 0 10px 0;
 }
-
 .rowspacer {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left bottom;
 }
-
 .rowspacer0x0 {
     background: url(../../img/lines/be_dotted_line.gif) repeat-x left bottom;
     padding: 0 0 1px 0;
@@ -1188,7 +1124,6 @@ td.inlineCheckbox checkbox {
     margin: 0;
     padding: 0;
 }
-
 td.inlineCheckbox label {
     padding: 0 0 0 0;
     margin: 0;

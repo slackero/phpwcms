@@ -146,7 +146,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 		$sql .= "ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_nosearch!=1 ";
 		if(!PREVIEW_MODE) {
 			// enhanced IF statement by kh 2008/12/03
-			$sql .= "AND IF((ar.article_begin < NOW() AND ar.article_end > NOW()) OR (ar.article_archive_status=1 AND ac.acat_archive=1), 1, 0) ";
+			$sql .= "AND IF((ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW())) OR (ar.article_archive_status=1 AND ac.acat_archive=1), 1, 0) ";
 		}
 		$sql .= "GROUP BY ar.article_id";
 
@@ -168,7 +168,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 							case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')'; break;
 						}
 						if(!PREVIEW_MODE) {
-							$alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+							$alias_sql .= " AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
 						}
 					}
 					$alias_sql .= " LIMIT 1";

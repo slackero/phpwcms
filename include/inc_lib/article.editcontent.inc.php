@@ -16,16 +16,20 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+$set_begin = 0;
+$sent_end = 0;
+
 if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { //Show single article information
 
     //Artikel editieren
-    $article = array();
-    $article["article_id"] = empty($_GET["id"]) ? 0 : intval($_GET["id"]);
-    $article["article_timeout"] = '';
-    $article['article_nosearch'] = '';
-    $article['article_nositemap'] = 1;
-    $article['article_morelink'] = 1;
-    $article["article_cntpart"] = array();
+    $article = array(
+        "article_id" => empty($_GET["id"]) ? 0 : intval($_GET["id"]),
+        "article_timeout" => '',
+        'article_nosearch' => '',
+        'article_nositemap' => 1,
+        'article_morelink' => 1,
+        "article_cntpart" => array(),
+    );
 
     // check if in POST mode (form submitted) and NOT add new article
     if((!isset($_POST["article_update"]) || !intval($_POST["article_update"])) && !isset($_GET['struct'])) {
@@ -70,8 +74,20 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                 $article["article_timeout"]     = $row["article_cache"];
                 $article['article_nosearch']    = $row['article_nosearch'];
                 $article['article_nositemap']   = $row['article_nositemap'];
-                $set_begin = ($article["article_begin"]) ? 1 : 0;
-                $set_end = ($article["article_end"]) ? 1 : 0;
+
+                if($article["article_begin"] === '0000-00-00 00:00:00') {
+                    $article["article_begin"] = '';
+                    $set_begin = 0;
+                } else {
+                    $set_begin = 1;
+                }
+
+                if($article["article_end"] === '0000-00-00 00:00:00') {
+                    $article["article_end"] = '';
+                    $set_end = 0;
+                } else {
+                    $set_end = 1;
+                }
 
                 $article['article_aliasid']     = $row['article_aliasid'];
                 $article['article_headerdata']  = $row['article_headerdata'];
@@ -172,43 +188,43 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         // Take article Post data
         $article_err = array();
 
-        $article["article_catid"]           = intval($_POST["article_cid"]);
-        $article["article_title"]           = clean_slweg($_POST["article_title"], 255);
-        $article["article_alias"]           = proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
-        $article["article_subtitle"]        = clean_slweg($_POST["article_subtitle"], 255);
-        $article["article_menutitle"]       = clean_slweg($_POST["article_menutitle"], 255);
-        $article["article_description"]     = clean_slweg($_POST["article_description"]);
-        $article["article_summary"]         = str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]));
-        $article["article_notitle"]         = isset($_POST["article_notitle"]) ? 1 : 0;
-        $article["article_hidesummary"]     = isset($_POST["article_hidesummary"]) ? 1 : 0;
-        $article["article_aktiv"]           = isset($_POST["article_aktiv"]) ? 1 : 0;
-        $article["article_begin"]           = clean_slweg($_POST["article_begin"]);
-        $article["article_end"]             = clean_slweg($_POST["article_end"]);
-        $article["article_keyword"]         = implode(', ', convertStringToArray( clean_slweg($_POST["article_keyword"]) , ',') );
-        $article["article_lang"]            = isset($_POST["article_lang"]) ? clean_slweg($_POST["article_lang"]) : '';
-        $article['article_lang_type']       = $article["article_lang"] == '' || empty($_POST["article_lang_type"]) ? '' : in_array($_POST["article_lang_type"], array('category', 'article')) ? $_POST["article_lang_type"] : '';
-        $article['article_lang_id']         = $article['article_lang_type'] == '' || empty($_POST["article_lang_id"]) ? 0 : intval($_POST["article_lang_id"]);
-        $article["article_redirect"]        = clean_slweg($_POST["article_redirect"]);
-        $set_begin                          = isset($_POST["set_begin"]) ? 1 : 0;
-        $set_end                            = isset($_POST["set_end"]) ? 1 : 0;
-        $article['article_nosearch']        = isset($_POST['article_nosearch']) ? 1 : '';
-        $article['article_nositemap']       = isset($_POST['article_nositemap']) ? 1 : 0;
-        $article['article_aliasid']         = intval($_POST["article_aliasid"]);
-        $article['article_headerdata']      = isset($_POST["article_headerdata"]) ? 1 : 0;
-        $article['article_morelink']        = isset($_POST["article_morelink"]) ? 1 : 0;
-        $article['article_noteaser']        = isset($_POST["article_noteaser"]) ? 1 : 0;
-        $article["article_pagetitle"]       = clean_slweg($_POST["article_pagetitle"]);
-        $article['article_paginate']        = isset($_POST["article_paginate"]) ? 1 : 0;
-        $article['article_sort']            = empty($_POST["article_sort"]) ? 0 : intval($_POST["article_sort"]);
-        $article['article_priorize']        = empty($_POST["article_priorize"]) ? 0 : intval($_POST["article_priorize"]);
-        $article['article_norss']           = empty($_POST["article_norss"]) ? 0 : 1;
-        $article['article_archive_status']  = empty($_POST["article_archive"]) ? 0 : 1;
-        $article["article_timeout"]         = clean_slweg($_POST["article_timeout"]);
-        $article['article_opengraph']       = empty($_POST["article_opengraph"]) ? 0 : 1;
-        $article['article_canonical']       = clean_slweg($_POST["article_canonical"], 2000);
+        $article["article_catid"] = intval($_POST["article_cid"]);
+        $article["article_title"] = clean_slweg($_POST["article_title"], 255);
+        $article["article_alias"] = proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
+        $article["article_subtitle"] = clean_slweg($_POST["article_subtitle"], 255);
+        $article["article_menutitle"] = clean_slweg($_POST["article_menutitle"], 255);
+        $article["article_description"] = clean_slweg($_POST["article_description"]);
+        $article["article_summary"] = str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]));
+        $article["article_notitle"] = empty($_POST["article_notitle"]) ? 0 : 1;
+        $article["article_hidesummary"] = empty($_POST["article_hidesummary"]) ? 0 : 1;
+        $article["article_aktiv"] = empty($_POST["article_aktiv"]) ? 0 : 1;
+        $article["article_begin"] = clean_slweg($_POST["article_begin"]);
+        $article["article_end"] = clean_slweg($_POST["article_end"]);
+        $article["article_keyword"] = implode(', ', convertStringToArray( clean_slweg($_POST["article_keyword"]) , ',') );
+        $article["article_lang"] = isset($_POST["article_lang"]) ? clean_slweg($_POST["article_lang"]) : '';
+        $article['article_lang_type'] = $article["article_lang"] == '' || empty($_POST["article_lang_type"]) ? '' : in_array($_POST["article_lang_type"], array('category', 'article')) ? $_POST["article_lang_type"] : '';
+        $article['article_lang_id'] = $article['article_lang_type'] == '' || empty($_POST["article_lang_id"]) ? 0 : intval($_POST["article_lang_id"]);
+        $article["article_redirect"] = clean_slweg($_POST["article_redirect"]);
+        $set_begin = empty($_POST["set_begin"]) ? 0 : 1;
+        $set_end = empty($_POST["set_end"]) ? 0 : 1;
+        $article['article_nosearch'] = empty($_POST['article_nosearch']) ? '' : 1;
+        $article['article_nositemap'] = empty($_POST['article_nositemap']) ? 0 : 1;
+        $article['article_aliasid'] = intval($_POST["article_aliasid"]);
+        $article['article_headerdata'] = empty($_POST["article_headerdata"]) ? 0 : 1;
+        $article['article_morelink'] = empty($_POST["article_morelink"]) ? 0 : 1;
+        $article['article_noteaser'] = empty($_POST["article_noteaser"]) ? 0 : 1;
+        $article["article_pagetitle"] = clean_slweg($_POST["article_pagetitle"]);
+        $article['article_paginate'] = empty($_POST["article_paginate"]) ? 0 : 1;
+        $article['article_sort'] = empty($_POST["article_sort"]) ? 0 : intval($_POST["article_sort"]);
+        $article['article_priorize'] = empty($_POST["article_priorize"]) ? 0 : intval($_POST["article_priorize"]);
+        $article['article_norss'] = empty($_POST["article_norss"]) ? 0 : 1;
+        $article['article_archive_status'] = empty($_POST["article_archive"]) ? 0 : 1;
+        $article["article_timeout"] = clean_slweg($_POST["article_timeout"]);
+        $article['article_opengraph'] = empty($_POST["article_opengraph"]) ? 0 : 1;
+        $article['article_canonical'] = clean_slweg($_POST["article_canonical"], 2000);
 
         if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
-            $article["article_timeout"] = '0'; //check if cache = Off
+            $article["article_timeout"] = 0; //check if cache = Off
         }
         if($_SESSION["wcs_user_admin"]) {
             $article["article_uid"] = isset($_POST["article_uid"]) ? intval($_POST["article_uid"]) : $_SESSION["wcs_user_id"];
@@ -216,57 +232,72 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         if(empty($article["article_uid"])) {
             $article["article_uid"] = $_SESSION["wcs_user_id"];
         }
-        $article["article_username"]        = clean_slweg($_POST["article_username"],100);
+        $article["article_username"] = clean_slweg($_POST["article_username"],100);
         if(!$article["article_username"]) {
             $article["article_username"] = $_SESSION["wcs_user_name"];
         }
         if($article["article_title"] === '') {
             $article_err[] = $BL['be_article_err1'];
         }
-        if($article["article_begin"]) { //Check date
+
+        //Check date
+        if($set_begin && $article["article_begin"]) {
             $article["article_begin"] = phpwcms_strtotime($article["article_begin"]);
-            if($article["article_begin"] == false) {
-                $article["article_begin"] = date("Y-m-d H:i:s");
-                $set_begin = 1;
+            if($article["article_begin"] === false) {
+                $article["article_begin"] = date('Y-m-d H:i:s', now());
                 $article_err[] = $BL['be_article_err2'];
             } else {
                 $article["article_begin"] = date("Y-m-d H:i:s", $article["article_begin"]);
-                $set_begin = 1;
             }
         } else {
-            $article["article_begin"] = date("Y-m-d H:i:s");
-            $set_begin = 0;
+            $article["article_begin"] = '0000-00-00 00:00:00';
         }
-        if($article["article_end"]) { //Check date
+        if($set_end && $article["article_end"]) {
             $article["article_end"] = phpwcms_strtotime($article["article_end"]);
-            if($article["article_end"] == false) {
-                $article["article_end"] = date("Y-m-d H:i:s", time() + (3600*24*365*10) );
-                $set_end = 1;
+            if($article["article_end"] === false) {
+                $article["article_end"] = '0000-00-00 00:00:00';
                 $article_err[] = $BL['be_article_err4'];
             } else {
                 $article["article_end"] = date("Y-m-d H:i:s", $article["article_end"]);
-                $set_end = 1;
             }
         } else {
-            $article["article_end"] = date("Y-m-d H:i:s", time() + (3600*24*365*10) );
-            $set_end = 0;
-        }       //Ende Check Date
+            $article["article_end"] = '0000-00-00 00:00:00';
+        }
+        //End Check Date
 
-        $article['image'] = array();
-        $article['image']['tmpllist']   = slweg($_POST["article_tmpllist"]);
-        $article['image']['tmplfull']   = slweg($_POST["article_tmplfull"]);
+        $article['image'] = array(
+            'tmpllist' => slweg($_POST["article_tmpllist"]),
+            'tmplfull' => slweg($_POST["article_tmplfull"]),
 
-        // get summary image info for article detail
-        $article['image']['name']       = clean_slweg($_POST["cimage_name"]);
-        $article['image']['id']         = intval($_POST["cimage_id"]);
-        $article['image']['width']      = (intval($_POST["cimage_width"]))  ? intval($_POST["cimage_width"])  : '';
-        $article['image']['height']     = (intval($_POST["cimage_height"])) ? intval($_POST["cimage_height"]) : '';
-        $article['image']['caption']    = clean_slweg($_POST["cimage_caption"]);
-        $article['image']['zoom']       = empty($_POST["cimage_zoom"]) ? 0 : 1;
-        $article['image']['lightbox']   = empty($_POST["cimage_lightbox"]) ? 0 : 1;
+            // get summary image info for article detail
+            'name' => clean_slweg($_POST["cimage_name"]),
+            'id' => intval($_POST["cimage_id"]),
+            'width' => intval($_POST["cimage_width"]) ? intval($_POST["cimage_width"]) : '',
+            'height' => intval($_POST["cimage_height"]) ? intval($_POST["cimage_height"]) : '',
+            'caption' => clean_slweg($_POST["cimage_caption"]),
+            'caption_suppress' => empty($_POST["cimage_caption_suppress"]) ? 0 : 1,
+            'zoom' => empty($_POST["cimage_zoom"]) ? 0 : 1,
+            'lightbox' => empty($_POST["cimage_lightbox"]) ? 0 : 1,
 
-        if((!RESPONSIVE_MODE && $article['image']['width'] > $phpwcms["content_width"]) || $article['image']['width'] == '') {
+            // get list image for article
+            'list_usesummary' => empty($_POST["cimage_usesummary"]) ? 0 : 1,
+            'list_name' => clean_slweg($_POST["cimage_list_name"]),
+            'list_id' => intval($_POST["cimage_list_id"]),
+            'list_width' => intval($_POST["cimage_list_width"]) ? intval($_POST["cimage_list_width"]) : '',
+            'list_height' => intval($_POST["cimage_list_height"]) ? intval($_POST["cimage_list_height"]) : '',
+            'list_caption' => clean_slweg($_POST["cimage_list_caption"]),
+            'list_caption_suppress' => empty($_POST["cimage_list_caption_suppress"]) ? 0 : 1,
+            'list_zoom' => empty($_POST["cimage_list_zoom"]) ? 0 : 1,
+            'list_lightbox' => empty($_POST["cimage_list_lightbox"]) ? 0 : 1,
+            'list_maxwords' => empty($_POST["article_listmaxwords"]) ? 0 : intval($_POST["article_listmaxwords"])
+        );
+
+        if((!RESPONSIVE_MODE && $article['image']['width'] > $phpwcms["content_width"]) || $article['image']['width'] === '') {
             $article['image']['width'] = $phpwcms["content_width"];
+        }
+
+        if((!RESPONSIVE_MODE && $article['image']['list_width'] > $phpwcms["content_width"]) || $article['image']['list_width'] == '') {
+            $article['image']['list_width'] = $phpwcms["content_width"];
         }
 
         if($article['image']['id']) {
@@ -285,24 +316,6 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                 }
                 mysql_free_result($img_result);
             }
-        }
-
-        // get list image for article
-        $article['image']['list_usesummary']    = isset($_POST["cimage_usesummary"]) ? 1 : 0;
-        $article['image']['list_name']          = clean_slweg($_POST["cimage_list_name"]);
-        $article['image']['list_id']            = intval($_POST["cimage_list_id"]);
-        $article['image']['list_width']         = (intval($_POST["cimage_list_width"]))  ? intval($_POST["cimage_list_width"])  : '';
-        $article['image']['list_height']        = (intval($_POST["cimage_list_height"])) ? intval($_POST["cimage_list_height"]) : '';
-        $article['image']['list_caption']       = clean_slweg($_POST["cimage_list_caption"]);
-        $article['image']['list_zoom']          = empty($_POST["cimage_list_zoom"]) ? 0 : 1;
-        $article['image']['list_lightbox']      = empty($_POST["cimage_list_lightbox"]) ? 0 : 1;
-        $article['image']['list_maxwords']      = empty($_POST["article_listmaxwords"]) ? 0 : intval($_POST["article_listmaxwords"]);
-
-        $article['image']['caption_suppress']       = empty($_POST["cimage_caption_suppress"]) ? 0 : 1;
-        $article['image']['list_caption_suppress']  = empty($_POST["cimage_list_caption_suppress"]) ? 0 : 1;
-
-        if((!RESPONSIVE_MODE && $article['image']['list_width'] > $phpwcms["content_width"]) || $article['image']['list_width'] == '') {
-            $article['image']['list_width'] = $phpwcms["content_width"];
         }
 
         if($article['image']['list_id']) {

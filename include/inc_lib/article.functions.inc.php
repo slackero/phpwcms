@@ -81,7 +81,7 @@ function change_articledate($article_id=0) {
 	$article_id = intval($article_id);
 	if($article_id) {
 		$sql  = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
-		$sql .= "article_tstamp = NOW() WHERE article_id = '".$article_id."' LIMIT 1 ;";
+		$sql .= "article_tstamp = NOW() WHERE article_id = '".$article_id."' LIMIT 1";
 		mysql_query($sql, $GLOBALS['db']);
 	}
 }
@@ -93,7 +93,7 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias
 	$struct_id	= intval($struct_id);
 	$counter	= intval($counter) + 1;
 
-	$sql = "SELECT acat_id,acat_name,acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort;";
+	$sql = "SELECT acat_id,acat_name,acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
 	if($result = mysql_query($sql, $db) or die ("error while building struct select menu (ID:".$struct_id)) {
 		$sx=0;
 		while($row = mysql_fetch_assoc($result)) {

@@ -32,7 +32,7 @@ switch(VISIBLE_MODE) {
 $sql .= 'ar.article_deleted=0 ';
 if(!PREVIEW_MODE) {
     $sql .= 'AND ar.article_begin<NOW() ';
-    $sql .= 'AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, ar.article_end>NOW()) ';
+    $sql .= "AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, (ar.article_end='0000-00-00 00:00:00' OR ar.article_end>NOW())) ";
 }
 $sql .= 'LIMIT 1';
 
@@ -56,7 +56,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
                                 break;
                 }
                 if(!PREVIEW_MODE) {
-                    $alias_sql .= " AND article_begin < NOW() AND article_end > NOW()";
+                    $alias_sql .= " AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
                 }
             }
             $alias_sql .= " LIMIT 1";

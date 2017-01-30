@@ -1466,3 +1466,4 @@ $BL['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;c
 $BL['be_cnt_attribute_class'] = 'CSS Klasse [class]';
 $BL['be_cnt_attribute_id'] = 'CSS ID [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';
+$BL['be_not_set'] = 'nicht gesetzt';

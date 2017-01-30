@@ -57,7 +57,7 @@ if($phpwcms['sitemap_set_default']) {
     $sql .= "article_title, article_redirect, article_aliasid, article_alias ";
     $sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ";
     $sql .= "article_aktiv=1 AND article_deleted=0 AND article_nosearch!='1' AND ";
-    $sql .= "article_nositemap=1 AND article_begin < NOW() AND article_end > NOW() ";
+    $sql .= "article_nositemap=1 AND article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()) ";
     $sql .= "ORDER BY article_tstamp DESC";
 
     if($result = mysql_query($sql, $db)) {
