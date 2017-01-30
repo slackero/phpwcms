@@ -30,6 +30,22 @@ if(empty($content['article']['acat_id'])) { // Root structure
     $content['article']['acat_template']    = $indexpage['acat_template'];
 }
 
+// Livedate / killdate fallback
+if($content["livedate"] === '0000-00-00 00:00:00') {
+    $content["livedate"] = '';
+    $set_livedate = 0;
+} else {
+    $set_livedate = 1;
+}
+if($content["killdate"] === '0000-00-00 00:00:00') {
+    $content["killdate"] = '';
+    $set_killdate = 0;
+} else {
+    $set_killdate = 1;
+}
+
+initJsCalendar();
+
 ?>
 <script type="text/javascript">
     function validate_before_after(elem, checkElem) {
@@ -658,6 +674,83 @@ echo $_save_close_buttons;
     <tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
+
+    <tr bgcolor="#F3F5F8">
+        <td align="right" class="chatlist">&nbsp;<br /><?php echo $BL['be_article_abegin'] ?>:&nbsp;</td>
+        <td>
+            <table border="0" cellpadding="2" cellspacing="0" summary="" bgcolor="#E7E8EB">
+                <tr>
+                    <td class="chatlist">&nbsp;<br />
+                        <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo $content["livedate"]; ?>' : '';" />
+                    </td>
+                    <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                        <input name="clivedate" type="text" id="clivedate" class="bold width150" value="<?php echo $content["livedate"]; ?>" />
+                    </td>
+                    <td class="chatlist tdbottom3">&nbsp;<br />
+                        <script type="text/javascript">
+                            var currentDateBegin = 0,
+                                currentDateEnd = 0;
+
+                            function aBegin(day, month, year) {
+
+                                month = subrstr('00' + month, 2);
+                                day = subrstr('00' + day, 2);
+
+                                currentDateBegin = parseInt(year + month + day, 10);
+
+                                if(currentDateEnd > 0 && currentDateBegin > currentDateEnd) {
+                                    document.articlecontent.ckilldate.value = '';
+                                    document.articlecontent.set_killdate.checked = false;
+                                }
+
+                                document.articlecontent.clivedate.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + day, 2) + ' 00:00:00';
+                                document.articlecontent.set_livedate.checked = true;
+                            }
+
+                            calBegin = new dynCalendar('calBegin', 'aBegin', 'img/dynCal/');
+                            calBegin.setMonthCombo(false);
+                            calBegin.setYearCombo(false);
+
+                        </script>&nbsp;
+                    </td>
+                    <td align="right" class="chatlist" bgcolor="#F3F5F8">&nbsp;<br />&nbsp;&nbsp;<?php echo $BL['be_article_aend'] ?>:</td>
+                    <td class="chatlist">&nbsp;<br />
+                        <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo $content["killdate"] ?>' : '';" />
+                    </td>
+                    <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                        <input name="ckilldate" type="text" id="ckilldate" class="bold width150" value="<?php echo $content["killdate"]; ?>" />
+                    </td>
+                    <td class="chatlist tdbottom3">&nbsp;<br />
+                        <script type="text/javascript">
+
+                            function aEnd(day, month, year) {
+
+                                month = subrstr('00' + month, 2);
+                                day = subrstr('00' + day, 2);
+
+                                currentDateEnd = parseInt(year + month + day, 10);
+
+                                if(currentDateBegin > 0 && currentDateBegin > currentDateEnd) {
+                                    document.articlecontent.clivedate.value = '';
+                                    document.articlecontent.set_livedate.checked = false;
+                                }
+
+                                document.articlecontent.ckilldate.value = year + '-' + month + '-' + day + ' 23:59:59';
+                                document.articlecontent.set_killdate.checked = true;
+                            }
+
+                            calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
+                            calEnd.setMonthCombo(false);
+                            calEnd.setYearCombo(false);
+
+                        </script>&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
 
     <tr bgcolor="#F3F5F8">
         <td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>

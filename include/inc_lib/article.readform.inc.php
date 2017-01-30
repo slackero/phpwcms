@@ -40,6 +40,32 @@ if($content["attr_id"] && !preg_match('/^[A-Za-z]*$/', $content["attr_id"])) {
     $content["attr_id"] = 'id'.$content["attr_id"];
 }
 
+$set_livedate = empty($_POST['set_livedate']) ? 0 : 1;
+$set_killdate = empty($_POST['set_killdate']) ? 0 : 1;
+$content['livedate'] = clean_slweg($_POST["clivedate"]);
+$content['killdate'] = clean_slweg($_POST["ckilldate"]);
+
+if($set_livedate && $content['livedate']) {
+    $content['livedate'] = phpwcms_strtotime($content['livedate']);
+    if($content['livedate'] === false) {
+        $content['livedate'] = date('Y-m-d H:i:s', now());
+    } else {
+        $content['livedate'] = date("Y-m-d H:i:s", $content['livedate']);
+    }
+} else {
+    $content['livedate'] = '0000-00-00 00:00:00';
+}
+if($set_killdate && $content['killdate']) {
+    $content['killdate'] = phpwcms_strtotime($content['killdate']);
+    if($content['killdate'] === false) {
+        $content['killdate'] = '0000-00-00 00:00:00';
+    } else {
+        $content['killdate'] = date("Y-m-d H:i:s", $content['killdate']);
+    }
+} else {
+    $content['killdate'] = '0000-00-00 00:00:00';
+}
+
 if(!empty($_POST['ctype_change_aid'])) {
 
     $ctype_change_aid   = intval($_POST['ctype_change_aid']);

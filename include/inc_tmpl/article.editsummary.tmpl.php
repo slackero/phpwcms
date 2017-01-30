@@ -65,46 +65,81 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
               <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
               <td><input name="article_subtitle" type="text" class="bold width440" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
             </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
             <tr>
-                <td colspan="2"><table border="0" cellpadding="2" cellspacing="0" summary="">
-                    <tr>
-                        <td width="84"><img src="img/leer.gif" alt="" width="84" height="1" /></td>
-                        <td colspan="7"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-                    </tr>
+                <td align="right" bgcolor="#FFFFFF" class="chatlist">&nbsp;<br /><?php echo $BL['be_article_abegin'] ?>:&nbsp;</td>
+                <td>
+                  <table border="0" cellpadding="2" cellspacing="0" summary="">
                     <tr bgcolor="#E7E8EB">
-                      <td align="right" bgcolor="#FFFFFF" class="chatlist width85">&nbsp;<br /><?php echo $BL['be_article_abegin'] ?>:<img src="img/leer.gif" alt="" width="2" height="1" /></td>
                         <td class="chatlist">&nbsp;<br />
-                          <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="document.article.article_begin.value = this.checked ? '<?php echo $article["article_begin"] ?>' : '';" /></td>
-                        <td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-                          <input name="article_begin" type="text" id="article_begin" class="bold width140" value="<?php echo $article["article_begin"]; ?>" /></td>
-                      <td class="chatlist" valign="bottom"><script type="text/javascript">
-function aBegin(date, month, year) {
-    document.article.article_begin.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 00:00:00';
-    document.article.set_begin.checked = true;
-}
-calBegin = new dynCalendar('calBegin', 'aBegin', 'img/dynCal/');
-calBegin.setMonthCombo(false);
-calBegin.setYearCombo(false);
-</script><img src="img/leer.gif" alt="" width="3" height="1" /></td>
+                            <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="document.article.article_begin.value = this.checked ? '<?php echo $article["article_begin"] ?>' : '';" />
+                        </td>
+                        <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                            <input name="article_begin" type="text" id="article_begin" class="bold width150" value="<?php echo $article["article_begin"]; ?>" />
+                        </td>
+                        <td class="chatlist tdbottom3">&nbsp;<br />
+                            <script type="text/javascript">
+                                var currentDateBegin = 0,
+                                    currentDateEnd = 0;
+
+                                function aBegin(day, month, year) {
+
+                                    month = subrstr('00' + month, 2);
+                                    day = subrstr('00' + day, 2);
+
+                                    currentDateBegin = parseInt(year + month + day, 10);
+
+                                    if(currentDateEnd > 0 && currentDateBegin > currentDateEnd) {
+                                        document.article.article_end.value = '';
+                                        document.article.set_end.checked = false;
+                                    }
+
+                                    document.article.article_begin.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + day, 2) + ' 00:00:00';
+                                    document.article.set_begin.checked = true;
+                                }
+
+                                calBegin = new dynCalendar('calBegin', 'aBegin', 'img/dynCal/');
+                                calBegin.setMonthCombo(false);
+                                calBegin.setYearCombo(false);
+
+                            </script>&nbsp;
+                        </td>
                         <td align="right" bgcolor="#FFFFFF" class="chatlist">&nbsp;<br />&nbsp;&nbsp;<?php echo $BL['be_article_aend'] ?>:</td>
                         <td class="chatlist">&nbsp;<br />
-                          <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="document.article.article_end.value = this.checked ? '<?php echo $article["article_end"] ?>' : '';" /></td>
-                        <td class="chatlist" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
-                          <input name="article_end" type="text" id="article_end" class="bold width140" value="<?php echo $article["article_end"] ?>" /></td>
-                      <td class="chatlist" valign="bottom"><script type="text/javascript">
-function aEnd(date, month, year) {
-    document.article.article_end.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + date, 2) + ' 23:59:59';
-    document.article.set_end.checked = true;
-}
-calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
-calEnd.setMonthCombo(false);
-calEnd.setYearCombo(false);
-</script><img src="img/leer.gif" alt="" width="3" height="1" /></td>
+                            <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="document.article.article_end.value = this.checked ? '<?php echo $article["article_end"] ?>' : '';" />
+                        </td>
+                        <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                            <input name="article_end" type="text" id="article_end" class="bold width150" value="<?php echo $article["article_end"] ?>" />
+                        </td>
+                        <td class="chatlist tdbottom3">&nbsp;<br />
+                            <script type="text/javascript">
+
+                                function aEnd(day, month, year) {
+
+                                    month = subrstr('00' + month, 2);
+                                    day = subrstr('00' + day, 2);
+
+                                    currentDateEnd = parseInt(year + month + day, 10);
+
+                                    if(currentDateBegin > 0 && currentDateBegin > currentDateEnd) {
+                                        document.article.article_begin.value = '';
+                                        document.article.set_begin.checked = false;
+                                    }
+
+                                    document.article.article_end.value = year + '-' + subrstr('00' + month, 2) + '-' + subrstr('00' + day, 2) + ' 23:59:59';
+                                    document.article.set_end.checked = true;
+
+                                }
+
+                                calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
+                                calEnd.setMonthCombo(false);
+                                calEnd.setYearCombo(false);
+
+                            </script>&nbsp;
+                        </td>
                     </tr>
                 </table></td>
             </tr>
-
 
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
 
@@ -115,14 +150,13 @@ calEnd.setYearCombo(false);
                     <td><input name="article_sort" type="text" id="article_sort" value="<?php echo empty($article["article_sort"]) ? 0 : intval($article["article_sort"]) ?>" class="v11 width75" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
                     <td align="right" class="chatlist">&nbsp;&nbsp;&nbsp;<?php echo $BL['be_priorize'] ?>:&nbsp;</td>
                     <td><select name="article_priorize" id="article_priorize" class="v11">
-
 <?php
 
     for($x=30; $x>=-30; $x--) {
 
         echo '  <option value="'.$x.'"';
         is_selected($x, $article["article_priorize"]);
-        echo '>'. ( $x==0 ? $BL['be_cnt_default'] : $x ) .'</option>'.LF;
+        echo '>'. ( $x==0 ? $BL['be_cnt_default'] : $x ) .'</option>';
 
     }
 

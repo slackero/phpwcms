@@ -445,7 +445,9 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                     $sql .= 'AND ac.acontent_granted=0 ';
                 }
 
-                $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 ";
+                $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 AND ";
+                $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate='0000-00-00 00:00:00' OR ac.acontent_killdate > NOW()) ";
+
                 if(!PREVIEW_MODE) {
                     $sql .= " AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
                 }
@@ -456,7 +458,8 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                 $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
                 $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
                 $sql .= "ar.article_id=ac.acontent_aid ";
-                $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
+                $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 AND ";
+                $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate='0000-00-00 00:00:00' OR ac.acontent_killdate > NOW()) ";
                 $sql .= "AND ac.acontent_block='SYSTEM' ";
 
                 if( !FEUSER_LOGIN_STATUS ) {
@@ -477,7 +480,8 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
                 // content parts based on article ID
                 $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
+                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 AND ";
+                $sql .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
 
                 if($mode == 'CPAS' || $mode == 'CPASD') {
                     $sql .= "AND acontent_block='SYSTEM' ";
@@ -668,7 +672,8 @@ function getContentPartAlias($crow) {
     if(!empty($alias['alias_ID'])) {
         $alias['alias_ID'] = intval($alias['alias_ID']);
         $sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
-        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
+        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 AND ";
+        $sql_alias .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
         if(!empty($alias['alias_status'])) {
             $sql_alias .= 'AND acontent_visible=1 ';
         }

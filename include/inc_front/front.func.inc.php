@@ -1300,6 +1300,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                 if(strpos($tmpl, '[SYSTEM]') !== false) {
                     // Search for all system related content parts
                     $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
+                    $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
                     $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (1, 3) "; // 1 = article list, 3 = article detail OR list
                     if(!FEUSER_LOGIN_STATUS) {
                         $sql_cnt .= 'AND acontent_granted=0 ';

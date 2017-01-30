@@ -121,8 +121,9 @@ if(!(strpos($content["all"], '{RECIPES:') === false)) {
 		$sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 		$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 		$sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-		$sql .= "WHERE acontent_type=26 AND acontent_visible = 1 ";
-		$sql .= "AND acontent_trash = 0 AND ";
+		$sql .= "WHERE acontent_type=26 AND acontent_visible=1 AND ";
+		$sql .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
+		$sql .= "AND acontent_trash=0 AND ";
 
 		if(!empty($_getVar['recipecat'])) {
 			$sql .= "acontent_text LIKE '%" . aporeplace($_getVar['recipecat']) . "%' AND ";

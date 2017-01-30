@@ -17,7 +17,9 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 $set_begin = 0;
-$sent_end = 0;
+$set_livedate = 0;
+$set_end = 0;
+$set_killdate = 0;
 
 if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { //Show single article information
 
@@ -514,6 +516,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                     $content['tid']             = $row['acontent_tid'];
                     $content["attr_class"]      = $row['acontent_attr_class'];
                     $content["attr_id"]         = $row['acontent_attr_id'];
+                    $content["livedate"]        = $row['acontent_livedate'];
+                    $content["killdate"]        = $row['acontent_killdate'];
 
                     if($content["type"] != 30 && is_file(PHPWCMS_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 
@@ -588,6 +592,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                 $SQL .= "acontent_granted           = "._dbEscape($content["granted"]).", ";
                 $SQL .= "acontent_tab               = "._dbEscape($content["tab"]).", ";
                 $SQL .= "acontent_tid               = "._dbEscape($content["tid"]).", ";
+                $SQL .= "acontent_livedate          = "._dbEscape($content["livedate"]).", ";
+                $SQL .= "acontent_killdate          = "._dbEscape($content["killdate"]).", ";
                 $SQL .= "acontent_attr_class        = "._dbEscape($content["attr_class"] ).", ";
                 $SQL .= "acontent_attr_id           = "._dbEscape($content["attr_id"]).", ";
 

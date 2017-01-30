@@ -346,7 +346,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
             $sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page, ";
             $sql_cnt .= "acontent_paginate_title ";
             $sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
-            $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 ";
+            $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 AND ";
+            $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
 
             if( !FEUSER_LOGIN_STATUS ) {
                 $sql_cnt .= 'AND acontent_granted=0 ';
@@ -490,6 +491,7 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
                 // Search for all system related content parts
                 $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
                 $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (2, 3) "; // 2 = article detail, 3 = article detail OR list
+                $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
                 if(!FEUSER_LOGIN_STATUS) {
                     $sql_cnt .= 'AND acontent_granted=0 ';
                 }
@@ -528,7 +530,8 @@ if($result = mysql_query($sql, $db) or die("error while reading article datas"))
 
         // render content parts
         $sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$row["article_id"]." ";
-        $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 ";
+        $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
+        $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
         if( !FEUSER_LOGIN_STATUS ) {
             $sql_cnt .= 'AND acontent_granted=0 ';
         }
