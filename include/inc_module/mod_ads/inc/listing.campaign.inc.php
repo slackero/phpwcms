@@ -201,11 +201,11 @@ if($data) {
 		echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/transmit.gif" alt="'.$BLM['campaign_entry'].'" /></td>'.LF;
 		echo '	<td width="50%">'.html($row["adcampaign_title"])."</td>\n";
 
-		echo '	<td class="listFormat">'.html(date($BLM['list_date_format'], $row["adcampaign_start"]).'&#8211;'.date($BLM['list_date_format'], $row["adcampaign_end"]))."</td>\n";
+		echo '	<td class="listFormat nowrap">&nbsp;'.html(date($BLM['list_date_format'], $row["adcampaign_start"]).'&#8211;'.date($BLM['list_date_format'], $row["adcampaign_end"]))."&nbsp;</td>\n";
 
-		echo '	<td class="listFormat" nowrap="nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"].' {ADS_'.$row["adplace_id"]."}&nbsp;</td>\n";
+		echo '	<td class="listFormat nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"].' {ADS_'.$row["adplace_id"]."}&nbsp;</td>\n";
 
-		echo '	<td align="right" nowrap="nowrap" class="button_td">';
+		echo '	<td align="right" class="button_td nowrap">';
 
 		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;edit='.$row["adcampaign_id"].'">';
 		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
