@@ -49,9 +49,9 @@ foreach($data as $row) {
 
 	echo '	<td width="50%">'.html($row["adplace_title"])."</td>\n";
 
-	echo '	<td class="listFormat" nowrap="nowrap">'.html($row["adformat_title"])."</td>\n";
+	echo '	<td class="listFormat nowrap"">'.html($row["adformat_title"])."</td>\n";
 	echo '	<td class="listFormat">{ADS_'.$row["adplace_id"]."}</td>\n";
-	echo '	<td class="listFormat">'.$row["adplace_width"].'x'.$row["adplace_height"]."&nbsp;</td>\n";
+	echo '	<td class="listFormat nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"]."&nbsp;</td>\n";
 
 
 	echo '	<td align="right" nowrap="nowrap" class="button_td">';
