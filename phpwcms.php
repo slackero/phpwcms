@@ -551,10 +551,11 @@ if($BE['LANG'] == 'ar') {
     <tr>
       <td width="15"><img src="img/leer.gif" alt="" width="14" height="17"></td>
       <td colspan="5" valign="bottom" class="navtext darkblue" style="padding: 8px 0 15px 0;">
-            <a href="http://www.phpwcms.org" title="phpwcms">phpwcms <?php echo PHPWCMS_VERSION ?></a>
+            <a href="http://www.phpwcms.org" title="phpwcms <?php echo PHPWCMS_VERSION; ?>" target="_blank">phpwcms</a>
             &copy; 2002&#8212;<?php echo date('Y'); ?>
-            <a href="mailto:og@phpwcms.org?subject=phpwcms">Oliver Georgi</a>.
-            <a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>">Licensed under GPL. Extensions are copyright of their respective owners.</a>
+            <a href="mailto:og@phpwcms.org?subject=phpwcms+<?php echo rawurlencode(PHPWCMS_VERSION); ?>">Oliver Georgi</a>.
+            <a href="phpwcms.php?do=about" title="<?php echo $BL['be_aboutlink_title'] ?>"><?php echo $BL['be_licensed_under_GPL']; ?></a>
+            <?php echo $BL['be_extensions_copyright']; ?>
         </td>
   </tr>
 </table>
