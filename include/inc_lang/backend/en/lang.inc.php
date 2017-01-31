@@ -1476,3 +1476,5 @@ $BL['be_cnt_attribute_class'] = 'CSS class';
 $BL['be_cnt_attribute_id'] = 'CSS id';
 $BL['be_cnt_avoid_duplicates'] = 'allow unique values only';
 $BL['be_not_set'] = 'not set';
+$BL['be_licensed_under_GPL'] = 'Licensed under GPL.';
+$BL['be_extensions_copyright'] = 'Extensions are copyright of their respective owners.';

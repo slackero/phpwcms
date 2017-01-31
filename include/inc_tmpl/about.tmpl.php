@@ -24,7 +24,7 @@ echo phpwcmsversionCheck();
     it is not allowed to remove or change any part of license information
 
 //-->
-<div class="copyrightInfo">
+<div class="copyrightInfo code">
     <p>
         <strong>phpwcms</strong> Copyright &copy; 2002&#8212;<?php echo date('Y') ?>
         <a title="send email to og@phpwcms.org" href="mailto:og@phpwcms.org">Oliver Georgi</a>.
@@ -65,14 +65,9 @@ echo phpwcmsversionCheck();
         Copyright &copy; 2003-2004 Mikolaj Jedrzejak
     </li>
     <li>
-        <a href="http://www.fckeditor.net" target="_blank"><strong>FCKeditor</strong></a>,
-        Copyright &copy; 2003-2012 Frederico Caldeira Knabben,
-        <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a>
-    </li>
-    <li>
-        <a href="http://www.fckeditor.net" target="_blank"><strong>CKEditor</strong></a>,
-        Copyright &copy; 2003-2016 Frederico Caldeira Knabben,
-        <a href="http://ckeditor.com/license" target="_blank">License</a>
+        <a href="http://www.ckeditor.com" target="_blank"><strong>CKEditor</strong></a>,
+        Copyright &copy; 2003-2017 Frederico Caldeira Knabben,
+        <a href="http://ckeditor.com/terms-of-use#licenses" target="_blank">License</a>
     </li>
     <li>
         <a href="http://www.bitfolge.de" target="_blank"><strong>FeedCreator</strong></a>,
@@ -85,13 +80,13 @@ echo phpwcmsversionCheck();
         <a href="http://www.opensource.org/licenses/bsd-license.php" target="_blank">BSD License</a>
     </li>
     <li>
-        <a href="http://phpmailer.sourceforge.net/" target="_blank"><strong>PHPMailer</strong></a>,
+        <a href="https://github.com/PHPMailer/PHPMailer" target="_blank"><strong>PHPMailer</strong></a>,
         <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a>
     </li>
     <li>
         <a href="http://www.solmetra.com" target="_blank"><strong>Solmetra FormValidator</strong></a>,
         Copyright &copy; UAB Solmetra,
-        <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a>
+        <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0" target="_blank">GNU GPL</a>
     </li>
     <li>
         <a href="http://www.JavascriptToolbox.com" target="_blank"><strong>JavascriptToolbox.com</strong></a> JavaScripts,
@@ -156,15 +151,21 @@ echo phpwcmsversionCheck();
     <li>
         <a href="http://textpattern.googlecode.com/svn/development/4.x/textpattern/lib/classTextile.php" target="_blank"><strong>Textile Parser</strong></a>,
         Copyright &copy; 2003-2004, Dean Allen,
+        <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0" target="_blank">GNU GPL</a>
+    </li>
+    <li>
+        <a href="http://parsedown.org/" target="_blank"><strong>Parsedown &amp; Parsedown Extra</strong></a>,
+        Copyright &copy; Emanuil Rusev,
+        <a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT License</a>
+    </li>
+    <li>
+        <a href="https://www.mediawiki.org" target="_blank"><strong>ConvertibleTimestamp &amp; IPTC</strong></a>,
+        Copyright &copy; MediaWiki.org
         <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a>
     </li>
     <li>
-        <a href="http://michelf.com/projects/php-markdown" target="_blank"><strong>Markdown Extra Parser</strong></a>,
-        Copyright &copy; 2004-2012 Michel Fortin,
-        <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a>
-    </li>
-    <li>
-        and other contributors &ndash; see source code for detailed copyright and license information
+        and other contributors &ndash; see <a href="https://github.com/slackero/phpwcms" title="Source code on GitHub" target="_blank">source code</a>
+        for detailed copyright and license information.
     </li>
   </ul>
 </div>
