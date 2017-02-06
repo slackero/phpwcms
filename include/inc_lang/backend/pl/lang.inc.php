@@ -10,7 +10,7 @@
  **/
 
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.4 (2016/07/22, 543)
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.6-rc.2 (2017/01/31, 545)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -1433,3 +1433,49 @@ $BL['be_tracking_id'] = 'Śledzenie ID';
 $BL['be_site_id'] = 'ID witryny';
 $BL['be_piwik_url'] = 'Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
+// Release phpwcms 2017/01/31
+$BL['be_iptc_data'] = 'Dane IPTC';
+$BL['be_iptc_as_caption'] = 'Użyj do podpisu, Praw autorskich itp. korzytaj , gdy nie jest ustawiony';
+$BL['iptc_ImageDescription'] = 'Opis obrazu';
+$BL['iptc_Copyright'] = 'Prawa autorskie';
+$BL['iptc_Artist'] = 'Wykonawca';
+$BL['iptc_Keywords'] = 'Słowa kluczowe';
+$BL['iptc_CountryDest'] = 'Kraj';
+$BL['iptc_ProvinceOrStateDest'] = 'Region';
+$BL['iptc_CityDest'] = 'Miejscowość';
+$BL['iptc_SublocationDest'] = 'Lokalizacja';
+$BL['iptc_ObjectName'] = 'Nazwa obiektu';
+$BL['iptc_SpecialInstructions'] = 'Instrukcje specjalne';
+$BL['iptc_Headline'] = 'Nagłówek';
+$BL['iptc_Credit'] = 'kredyt';
+$BL['iptc_Source'] = 'Źródło';
+$BL['iptc_EditStatus'] = 'Edytuj status';
+$BL['iptc_iimCategory'] = 'Kategoria';
+$BL['iptc_iimSupplementalCategory'] = 'Kategoria uzupełniająca';
+$BL['iptc_Urgency'] = 'Pilność';
+$BL['iptc_FixtureIdentifier'] = 'Identyfikator';
+$BL['iptc_LocationDestCode'] = 'Kod lokalizacji';
+$BL['iptc_LocationDest'] = 'Lokalizacja';
+$BL['iptc_Software'] = 'Oprogramowanie';
+$BL['iptc_SoftwareVersion'] = 'Wersja oprogramowania';
+$BL['iptc_ObjectCycle'] = 'Cykl obiektu';
+$BL['iptc_CountryCodeDest'] = 'Kod kraju';
+$BL['iptc_OriginalTransmissionRef'] = 'Oryginalne pochodzenie';
+$BL['iptc_Contact'] = 'Kontakt';
+$BL['iptc_Writer'] = 'Piszący';
+$BL['iptc_LanguageCode'] = 'Kod języka';
+$BL['iptc_DateTimeOriginal'] = 'Data/czas oryginalna';
+$BL['iptc_DateTimeDigitized'] = 'Data/czas zdigitalizowane';
+$BL['iptc_DateTimeReleased'] = 'Data/czas wydania';
+$BL['iptc_DateTimeExpires'] = 'Data/czas wygaśnięcia';
+$BL['iptc_IntellectualGenre'] = 'Gatunek';
+$BL['iptc_SubjectNewsCode'] = 'ID tematu';
+$BL['iptc_iimVersion'] = 'Wersja';
+
+$BL['be_suppress_render_caption'] = 'Tłumienie renderowania podpisu';
+$BL['be_cnt_attribute_class'] = 'Klasa CSS';
+$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_avoid_duplicates'] = 'Pozwalaj tylko na unikalne wartości';
+$BL['be_not_set'] = 'Nie ustawiony';
+$BL['be_licensed_under_GPL'] = 'Na licencji GPL.';
+$BL['be_extensions_copyright'] = 'Rozszerzenia są chronione prawami autorskimi ich właścicieli.';
