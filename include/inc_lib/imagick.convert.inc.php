@@ -366,3 +366,18 @@ function phpwcms_convertimage_gs($source_img='', $target_img='', $config=array()
         'error' => $IMG->display_errors('<li>', '</li>', '<ul class="error">', '</ul>')
     );
 }
+
+function phpwcms_svg_getimagesize($svg_file) {
+
+    if(empty($svg_file) || !is_file($svg_file) || !($svg = @simplexml_load_file($svg_file))) {
+        return null;
+    }
+
+    $svg_attributes = $svg->attributes();
+
+    return array(
+        'width' => empty($svg_attributes->width) ? 0 : (string) $svg_attributes->width,
+        'height' => empty($svg_attributes->height) ? 0 : (string) $svg_attributes->height
+    );
+
+}

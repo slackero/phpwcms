@@ -34,8 +34,7 @@ if(isset($template_default['settings']['wysiwyg_custom_fields']) && is_array($te
 $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fieldgroup_templates['default'] : '';
 
 ?>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
     <td><select name="template" id="template"<?php if(count($cnt_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?>>
@@ -67,21 +66,14 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
         </select></td>
 </tr>
 
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-
-<tr><td colspan="2" class="chatlist">&nbsp;<?php echo $BL['be_cnt_plainhtml'] ?>:&nbsp;</td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-<tr><td colspan="2" align="center"><?php
+<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+<tr><td colspan="2"><?php
 
 $wysiwyg_editor = array(
     'value'     => isset($content["html"]) ? $content["html"] : '',
     'field'     => 'chtml',
     'height'    => '400px',
-    'width'     => '536px',
+    'width'     => '800px',
     'rows'      => '15',
     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
     'lang'      => 'en'
@@ -89,8 +81,6 @@ $wysiwyg_editor = array(
 include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
-
-<tr><td colspan="2" class="rowspacer7x7"></td></tr>
 
 <?php
 
@@ -124,7 +114,11 @@ if(isset($content['custom_fields']) && is_array($content['custom_fields']) && co
 
 }
 
-if($content['custom_field_items']):
+if($content['custom_field_items']): ?>
+
+<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+
+<?php
     foreach($content['custom_field_items'] as $custom_field_key => $custom_field):
 
         // send fields not defined as hidden values, should ensure not loosing values
@@ -240,7 +234,7 @@ endif;
 ?>
 
 <tr>
-    <td colspan="2" class="rowspacer7x7"><input type="hidden" name="cnt_fieldgroup" value="<?php echo $cnt_fieldgroups_active; ?>" /><?php
+    <td colspan="2"><input type="hidden" name="cnt_fieldgroup" value="<?php echo $cnt_fieldgroups_active; ?>" /><?php
         if(count($custom_cnt_fields_hidden)) {
             echo implode('', $custom_cnt_fields_hidden);
         }

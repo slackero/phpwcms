@@ -161,11 +161,13 @@ if(!$ftp["error"]) {
         if(is_file($file_path)) {
 
             $file_error["upload"] = 0;
+            $file_image_size = null;
 
             $file_type      = '';
             $file_size      = filesize($file_path);
-            $file_ext       = check_image_extension($file_path);
-            $file_ext       = (false === $file_ext) ? which_ext($file) : $file_ext;
+            if(false === ($file_ext = check_image_extension($file_path, $file, $file_image_size))) {;
+                $file_ext = which_ext($file);
+            }
             $file_name      = sanitize_filename($ftp["filename"][$key]);
             $file_hash      = md5( $file_name . microtime() );
 

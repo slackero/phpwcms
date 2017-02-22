@@ -56,6 +56,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     $file_alt               = clean_slweg($_POST["file_alt"]);
     $file_is_uploaded       = isset($_FILES["file"]["tmp_name"]) && is_uploaded_file($_FILES["file"]["tmp_name"]) ? true : false;
     $file_iptc_info         = null;
+    $file_image_size        = null;
 
     // Check against IPTC and handle IPTC tags if applicable
     if($file_is_uploaded && !empty($_POST['file_iptc_as_caption'])) {
@@ -140,7 +141,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
         }
     }
 
-    $file_keywords  = empty($_POST["file_keywords"]) ? array() : $_POST["file_keywords"];
+    $file_keywords = empty($_POST["file_keywords"]) ? array() : $_POST["file_keywords"];
     if(count($file_keywords)) {
         foreach($file_keywords as $key => $value) {
             unset($file_keywords[$key]);
@@ -165,12 +166,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
     } else {
 
-        $fileName   = sanitize_filename($_FILES["file"]["name"]);
-        $fileExt    = check_image_extension($_FILES["file"]["tmp_name"], $fileName);
-        $fileExt    = $fileExt === false ? which_ext($fileName) : $fileExt;
-        $fileHash   = md5( $fileName . microtime() );
-        $fileType   = is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
-        $fileSize   = intval($_FILES["file"]["size"]);
+        $fileName = sanitize_filename($_FILES["file"]["name"]);
+        if(false === ($fileExt = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size))) {;
+            $fileExt = which_ext($fileName);
+        }
+        $fileHash = md5( $fileName . microtime() );
+        $fileType = is_mimetype_format($_FILES["file"]["type"]) ? $_FILES["file"]["type"] : get_mimetype_by_extension($fileExt);
+        $fileSize = intval($_FILES["file"]["size"]);
 
         // Check against forbidden file names
         $forbiddenUploadName = array(
