@@ -104,41 +104,61 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
     echo $sn;
 }
 
-function check_image_extension($file, $filename='') {
-    // only checks against correct image extension
-    $image_info = getimagesize($file);
-    $result     = false;
-    if(false != $image_info) {
-        switch($image_info[2]) {
-            case  1: $result = 'gif';   break;
-            case  2: $result = 'jpg';   break;
-            case  3: $result = 'png';   break;
-            case  4: $result = 'swf';   break;
-            case  5: $result = 'psd';   break;
-            case  6: $result = 'bmp';   break;
-            case  7: $result = 'tif';   break; //(intel byte order),
-            case  8: $result = 'tif';   break; //(motorola byte order),
-            case  9: $result = 'jpc';   break;
-            case 10: $result = 'jp2';   break;
-            case 11: $result = 'jpx';   break;
-            case 12: $result = 'jb2';   break;
+
+
+/**
+ * check_image_extension function.
+ *
+ * @access public
+ * @param mixed $file
+ * @param string $filename (default: '')
+ * @param mixed &$file_image_size
+ * @return void
+ */
+function check_image_extension($file, $filename='', &$file_image_size) {
+
+    $result = false;
+    if(empty($file_image_size[2])) {
+        $file_image_size = getimagesize($file);
+    }
+
+    if(!empty($file_image_size[2])) {
+
+        if($filename === '') {
+            $filename = basename($file);
+        }
+
+        switch($file_image_size[2]) {
+            case  1: $result = 'gif'; break;
+            case  2: $result = 'jpg'; break;
+            case  3: $result = 'png'; break;
+            case  4: $result = 'swf'; break;
+            case  5: $result = 'psd'; break;
+            case  6: $result = 'bmp'; break;
+            case  7: $result = 'tif'; break; //(intel byte order),
+            case  8: $result = 'tif'; break; //(motorola byte order),
+            case  9: $result = 'jpc'; break;
+            case 10: $result = 'jp2'; break;
+            case 11: $result = 'jpx'; break;
+            case 12: $result = 'jb2'; break;
 
             case 13: // there is a problem in some cases swf -> swc ? why ever!
                      // do an additional extension check and compare against swf
-                     $result = strtolower(which_ext($filename)) == 'swf' ? 'swf' : 'swc';
+                     $result = strtolower(which_ext($filename)) === 'swf' ? 'swf' : 'swc';
                      break;
 
-            case 14: $result = 'iff';   break;
+            case 14: $result = 'iff'; break;
 
             case 15: // there seems to be a problem with getimagesize and Quicktime VR
                      // mov -> wmbf ? why ever!
                      // do an additional extension check and compare against mov
-                     $result = strtolower(which_ext($filename)) == 'mov' ? 'mov' : 'wbmp';
+                     $result = strtolower(which_ext($filename)) === 'mov' ? 'mov' : 'wbmp';
                      break;
 
-            case 16: $result = 'xbm';   break;
+            case 16: $result = 'xbm'; break;
         }
     }
+
     return $result;
 }
 

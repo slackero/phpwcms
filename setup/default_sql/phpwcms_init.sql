@@ -404,6 +404,7 @@ CREATE TABLE `phpwcms_file` (
   `f_pid` int(11) NOT NULL DEFAULT '0',
   `f_uid` int(11) NOT NULL DEFAULT '0',
   `f_kid` int(2) NOT NULL DEFAULT '0',
+  `f_is_variation` int(11) NOT NULL DEFAULT '0',
   `f_order` int(11) NOT NULL DEFAULT '0',
   `f_trash` int(1) NOT NULL DEFAULT '0',
   `f_aktiv` int(1) NOT NULL DEFAULT '0',
@@ -416,6 +417,8 @@ CREATE TABLE `phpwcms_file` (
   `f_size` int(15) unsigned NOT NULL DEFAULT '0',
   `f_type` varchar(200) NOT NULL DEFAULT '',
   `f_ext` varchar(50) NOT NULL DEFAULT '',
+  `f_image_width` VARCHAR(20) NOT NULL DEFAULT '',
+  `f_image_height` VARCHAR(20) NOT NULL DEFAULT '',
   `f_shortinfo` varchar(1000) NOT NULL DEFAULT '',
   `f_longinfo` text NOT NULL,
   `f_keywords` varchar(1000) NOT NULL DEFAULT '',
@@ -434,6 +437,8 @@ CREATE TABLE `phpwcms_file` (
   PRIMARY KEY (`f_id`),
   KEY `f_granted` (`f_granted`),
   KEY `f_sort` (`f_sort`),
+  KEY `f_pid` (`f_pid`),
+  KEY `f_is_variation` (`f_is_variation`),
   FULLTEXT KEY `f_name` (`f_name`),
   FULLTEXT KEY `f_shortinfo` (`f_shortinfo`)
 );
