@@ -7,6 +7,15 @@ User-Agent: *
 # Be careful with these settings related to phpwcms
 # =================================================
 #
+# Examples here are in case site is accessible at URL
+# http://example.com/
+#
+# In case it is installed in a sub directory
+# http://example.com/dir/
+# you have to add /dir at the beginnung like
+# Disallow: /dir/content/tmp/
+# and so on…
+#
 # exclude downloadable files from indexing
 #Disallow: /download.php*
 #
@@ -32,3 +41,6 @@ Disallow: /filearchive/
 # Block indexing backend files
 Disallow: /login.php
 Disallow: /phpwcms.php
+
+
+#Sitemap: /sitemap.php
