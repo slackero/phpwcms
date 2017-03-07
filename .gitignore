@@ -11,8 +11,5 @@
 !/filearchive/can_be_deleted/index.html
 !.htaccess
 !.gitignore
-include/inc_css/phpwcms.processed.css
-include/inc_css/login.processed.css
-include/inc_css/phpwcms.css
-include/inc_css/login.css
 include/config.codekit3
+/include/build
