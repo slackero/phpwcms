@@ -16,24 +16,24 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 	$selected_id	= intval($selected_id);
 	$counter		= intval($counter) + 1;
 
-	if($return=='array') {
+	if($return === 'array') {
 		$structure = array();
 	}
 
-	$sql = "SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
-	if($result = mysql_query($sql, $GLOBALS['db']) or die ("error while building struct select menu (ID:".$struct_id)) {
-		$sx=0;
-		while($row = mysql_fetch_assoc($result)) {
-			$row['acat_name'] = str_repeat('-', $counter) . ' ' . $row['acat_name'];
-			$struct[$sx] = $row;
-			$sx++;
+	$sql  = 'SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM '.DB_PREPEND.'phpwcms_articlecat ';
+	$sql .= 'WHERE acat_trash=0 AND acat_struct='.$struct_id.' ORDER BY acat_sort';
+
+    $struct = _dbQuery($sql);
+
+    if(isset($struct[0]['acat_id'])) {
+		foreach($struct as $sx => $row) {
+			$struct[$sx]['acat_name'] = str_repeat('-', $counter) . ' ' . $row['acat_name'];
 		}
-		mysql_free_result($result);
 	}
 
-	if(isset($struct[0])) {
+	if(count($struct)) {
 		foreach($struct as $value) {
-			if($return=='array') {
+			if($return === 'array') {
 
 				$structure[$value["acat_id"]] = $value["acat_name"];
 
@@ -71,38 +71,29 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 		}
 	}
 
-	if($return=='array') {
+	if($return === 'array') {
 		return $structure;
 	}
+
+	return null;
 }
 
 function change_articledate($article_id=0) {
 	// update article date when content part was changed
-	$article_id = intval($article_id);
-	if($article_id) {
-		$sql  = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
-		$sql .= "article_tstamp = NOW() WHERE article_id = '".$article_id."' LIMIT 1";
-		mysql_query($sql, $GLOBALS['db']);
+	if(($article_id = intval($article_id))) {
+		$sql = "UPDATE ".DB_PREPEND."phpwcms_article SET article_tstamp=NOW() WHERE article_id='".$article_id."'";
+		_dbQuery($sql, 'UPDATE');
 	}
 }
 
 function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias=false) {
 
-	global $db;
-
 	$struct_id	= intval($struct_id);
-	$counter	= intval($counter) + 1;
+	$counter	= $counter + 1;
 
-	$sql = "SELECT acat_id,acat_name,acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
-	if($result = mysql_query($sql, $db) or die ("error while building struct select menu (ID:".$struct_id)) {
-		$sx=0;
-		while($row = mysql_fetch_assoc($result)) {
-			$struct[$sx] = $row;
-			$sx++;
-		}
-		mysql_free_result($result);
-	}
-	if(isset($struct[0])) {
+	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_public,acat_regonly', 'acat_trash=0 AND acat_struct='.$struct_id);
+
+	if(isset($struct[0]['acat_id'])) {
 		foreach($struct as $key => $value) {
 
 			$value['acat_name'] = html($struct[$key]["acat_name"]);
@@ -117,7 +108,65 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias
 			echo ' title="', $value['acat_name'], '">';
 			echo str_repeat("&#8212;", $counter), ' ', $value['acat_name'];
 			echo '</option>'.LF;
+
 			struct_select_list($counter, $struct[$key]["acat_id"], $selected_id, $add_alias);
 		}
 	}
 }
+
+function struct_checkbox_list($counter=0, $struct_id=0, $selected_id=array(), $add_alias=false, $checkbox_name='structlist') {
+
+    $list = '';
+
+    if($counter === 0 && !is_array($selected_id)) {
+        $selected_id = is_null($selected_id) || is_bool($selected_id) ? array() : array(strval($selected_id));
+    }
+
+	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_public,acat_regonly', 'acat_trash=0 AND acat_struct='.intval($struct_id));
+
+	if(isset($struct[0]['acat_id'])) {
+
+        $counter = $counter + 1;
+        $list .= '<ul class="checkbox-list checkbox-list-level-'.$counter.'">';
+
+		foreach($struct as $key => $value) {
+
+            $value['acat_name'] = html($value["acat_name"]);
+
+            if($value['acat_name'] === '' && $value["acat_alias"]) {
+                $value['acat_name'] = $value["acat_alias"];
+                $value["acat_alias"] = '';
+            }
+
+			$list .= '<li class="checkbox-list-item" id="checkbox-list-item-'.$value["acat_id"].'">';
+			$list .= '<label class="checkbox-label';
+			if(empty($value["acat_public"])) {
+    			$list .= ' checkbox-list-item-off';
+			}
+			if(!empty($value["acat_regonly"])) {
+    			$list .= ' checkbox-list-item-regonly';
+			}
+			$list .= '" title="'.$value['acat_name'].', ID: '.$value["acat_id"].'">';
+			$list .= '<input type="checkbox" value="'.$value["acat_id"].'" ';
+			$list .= 'name="'.$checkbox_name.'[]" id="checkbox-list-input-'.$value["acat_id"].'"';
+			if(in_array($value["acat_id"], $selected_id)) {
+				$list .= ' checked="checked"';
+			}
+			$list .= ' /> ' . $value['acat_name'];
+
+            if($add_alias && $value["acat_alias"]) {
+				$list .= ' <em class="checkbox-list-item-alias">'.$value["acat_alias"].'</em>';
+			}
+
+            $list .= '</label>';
+			$list .= struct_checkbox_list($counter, $value["acat_id"], $selected_id, $add_alias, $checkbox_name);
+			$list .= '</li>';
+
+		}
+
+		$list .= '</ul>';
+	}
+
+	return $list;
+}
+
