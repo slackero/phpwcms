@@ -89,11 +89,9 @@ function change_articledate($article_id=0) {
 function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias=false) {
 
 	$struct_id	= intval($struct_id);
-	$counter	= intval($counter) + 1;
+	$counter	= $counter + 1;
 
-	$sql = "SELECT acat_id,acat_name,acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE acat_trash=0 AND acat_struct=".$struct_id." ORDER BY acat_sort";
-
-	$struct = _dbQuery($sql);
+	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_public,acat_regonly', 'acat_trash=0 AND acat_struct='.$struct_id);
 
 	if(isset($struct[0]['acat_id'])) {
 		foreach($struct as $key => $value) {
@@ -115,3 +113,60 @@ function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias
 		}
 	}
 }
+
+function struct_checkbox_list($counter=0, $struct_id=0, $selected_id=array(), $add_alias=false, $checkbox_name='structlist') {
+
+    $list = '';
+
+    if($counter === 0 && !is_array($selected_id)) {
+        $selected_id = is_null($selected_id) || is_bool($selected_id) ? array() : array(strval($selected_id));
+    }
+
+	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_public,acat_regonly', 'acat_trash=0 AND acat_struct='.intval($struct_id));
+
+	if(isset($struct[0]['acat_id'])) {
+
+        $counter = $counter + 1;
+        $list .= '<ul class="checkbox-list checkbox-list-level-'.$counter.'">';
+
+		foreach($struct as $key => $value) {
+
+            $value['acat_name'] = html($value["acat_name"]);
+
+            if($value['acat_name'] === '' && $value["acat_alias"]) {
+                $value['acat_name'] = $value["acat_alias"];
+                $value["acat_alias"] = '';
+            }
+
+			$list .= '<li class="checkbox-list-item" id="checkbox-list-item-'.$value["acat_id"].'">';
+			$list .= '<label class="checkbox-label';
+			if(empty($value["acat_public"])) {
+    			$list .= ' checkbox-list-item-off';
+			}
+			if(!empty($value["acat_regonly"])) {
+    			$list .= ' checkbox-list-item-regonly';
+			}
+			$list .= '" title="'.$value['acat_name'].', ID: '.$value["acat_id"].'">';
+			$list .= '<input type="checkbox" value="'.$value["acat_id"].'" ';
+			$list .= 'name="'.$checkbox_name.'[]" id="checkbox-list-input-'.$value["acat_id"].'"';
+			if(in_array($value["acat_id"], $selected_id)) {
+				$list .= ' checked="checked"';
+			}
+			$list .= ' /> ' . $value['acat_name'];
+
+            if($add_alias && $value["acat_alias"]) {
+				$list .= ' <em class="checkbox-list-item-alias">'.$value["acat_alias"].'</em>';
+			}
+
+            $list .= '</label>';
+			$list .= struct_checkbox_list($counter, $value["acat_id"], $selected_id, $add_alias, $checkbox_name);
+			$list .= '</li>';
+
+		}
+
+		$list .= '</ul>';
+	}
+
+	return $list;
+}
+

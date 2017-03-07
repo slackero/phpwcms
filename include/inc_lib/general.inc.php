@@ -1047,12 +1047,16 @@ function getJavaScriptSourceLink($src, $prefix='  ') {
 
 function convertStringToArray($string='', $seperator=',', $mode='UNIQUE', $rmvDblWSp=true) {
     // clean up a seperator seperated string and return as array
-    if(trim($string) == '') return array();
+    if(trim($string) === '') {
+        return array();
+    }
     // replace all duplicate white chars by single space
-    if($rmvDblWSp) $string = preg_replace('/\s\s+/', ' ', $string);
+    if($rmvDblWSp) {
+        $string = preg_replace('/\s\s+/', ' ', $string);
+    }
     $string = explode($seperator, $string);
     $string = array_map('trim', $string);
-    $string = array_diff($string, array('',NULL,false));
+    $string = array_diff($string, array('', null, false));
     if($mode=='UNIQUE') {
         $string = array_unique($string);
     }
