@@ -1563,7 +1563,7 @@ button.btn_add_tab {
 }
 
 button.btn_add_tab span {
-    background:url(../../img/famfamfam/tab_add.gif) no-repeat 5px center;
+    background: url(../../img/famfamfam/tab_add.gif) no-repeat 5px center;
     float:left;
     font-size:12px;
     line-height:1.5em;
@@ -1581,8 +1581,7 @@ div.checkbox-list.checkbox-list-darker {
 }
 
 div.status_message_error {
-    background-color:#FFC6C6;
-    background-image:url(../../img/famfamfam/exclamation.png) no-repeat 4px 4px!important;
+    background: #FFC6C6 url(../../img/famfamfam/exclamation.png) no-repeat 4px 4px!important;
     border:1px solid #C30;
     color:#C03;
     font-size:12px;
@@ -1592,8 +1591,7 @@ div.status_message_error {
 }
 
 div.status_message_info {
-    background-color:#FEE16C;
-    background-image:url(../../img/famfamfam/information.png) no-repeat 4px 4px!important;
+    background: #FEE16C url(../../img/famfamfam/information.png) no-repeat 4px 4px!important;
     border:1px solid #FC0;
     color:#363C47;
     font-size:12px;
@@ -1603,8 +1601,7 @@ div.status_message_info {
 }
 
 div.status_message_success {
-    background-color:#DEF9AC;
-    background-image:url(../../img/famfamfam/accept.png) no-repeat 4px 4px!important;
+    background: #DEF9AC url(../../img/famfamfam/accept.png) no-repeat 4px 4px!important;
     border:1px solid #090;
     color:#060;
     font-size:12px;
@@ -1614,8 +1611,7 @@ div.status_message_success {
 }
 
 div.status_message_warning {
-    background-color:#FFC6C6;
-    background-image:url(../../img/famfamfam/exclamation.png) no-repeat 4px 4px!important;
+    background: #FFC6C6 url(../../img/famfamfam/exclamation.png) no-repeat 4px 4px!important;
     border:1px solid #C30;
     color:#C03;
     font-size:12px;
