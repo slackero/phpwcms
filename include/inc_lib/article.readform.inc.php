@@ -36,8 +36,8 @@ $content["granted"]         = empty($_POST["cgranted"]) ? 0 : 1;
 $content["tid"]             = empty($_POST["ctid"]) || !in_array(intval($_POST["ctid"]), array(0, 1, 2, 3)) ? 0 : intval($_POST["ctid"]);
 $content["attr_class"]      = empty($_POST["cattr_class"]) ? '' : clean_slweg($_POST["cattr_class"]);
 $content["attr_id"]         = empty($_POST["cattr_id"]) ? '' : trim(preg_replace('/[^A-Za-z0-9_\/\w\-\:\.]/', '', preg_replace('/\s+/', '-', clean_slweg($_POST["cattr_id"]))), '-');
-if($content["attr_id"] && !preg_match('/^[A-Za-z]*$/', $content["attr_id"])) {
-    $content["attr_id"] = 'id'.$content["attr_id"];
+if($content["attr_id"] && !preg_match('/^[A-Za-z]$/', substr($content["attr_id"], 0, 1))) {
+    $content["attr_id"] = 'id_'.$content["attr_id"];
 }
 
 $set_livedate = empty($_POST['set_livedate']) ? 0 : 1;
