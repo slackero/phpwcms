@@ -2,9 +2,9 @@
 .idea
 /content/images/
 !/content/images/index.html
-/content/tmp/
+/content/tmp/*.*
 !/content/tmp/index.html
-/filearchive/
+/filearchive/*.*
 !/filearchive/image_memoryinfo.png
 !/filearchive/image_placeholder.png
 !/filearchive/index.html
