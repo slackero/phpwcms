@@ -11,10 +11,10 @@
 
 require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('PHPWCMS_JSLIB', 'jquery-3.0-migrate-1');
+define('PHPWCMS_JSLIB', 'jquery-3.1-migrate-1');
 
 /**
- * Init jQuery 3.0.x + jQuery Migrate 1.4.x & 3.0.x Library
+ * Init jQuery 3.1.x + jQuery Migrate 1.4.x & 3.0.x Library
  */
 function initJSLib() {
     if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
