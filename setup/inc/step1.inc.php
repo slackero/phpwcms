@@ -21,28 +21,28 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
         <table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
             <td align="right" class="v10" width="120">MySQL host:&nbsp;</td>
-            <td width="270"><input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" size="30" style="width:300px" /></td>
+            <td width="270"><input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:300px" /></td>
             <td class="chatlist"><em>default: localhost</em></td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
             <td align="right" class="v10">DB user:&nbsp;</td>
-            <td><input name="db_user" type="text" class="v12" id="db_user" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" size="30" /></td>
+            <td><input name="db_user" type="text" class="v12" id="db_user" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" placeholder="database user" size="30" /></td>
             <td class="chatlist">&nbsp;</td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
             <td align="right" class="v10">DB password:&nbsp;</td>
-            <td><input name="db_pass" type="text" class="v12" id="db_pass" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" size="30" /></td>
+            <td><input name="db_pass" type="text" class="v12" id="db_pass" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" placeholder="database password" size="30" /></td>
             <td class="chatlist">&nbsp;</td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
             <td align="right" class="v10">DB database:&nbsp;</td>
-            <td><input name="db_table" type="text" class="v12" id="db_table" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" size="30" maxlength="255" /></td>
+            <td><input name="db_table" type="text" class="v12" id="db_table" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" size="30" maxlength="255" /></td>
             <td class="chatlist"><em>you have to create it <strong>before</strong> setup!!!</em></td>
           </tr>
           <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
@@ -63,7 +63,7 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
                 <td><label for="db_pers" class="v12">&nbsp;use&nbsp;persistent&nbsp;database&nbsp;connection&nbsp;</label></td>
                 </tr>
             </table></td>
-            <td class="chatlist"><em>recommend setting is to enable it</em></td>
+            <td class="chatlist"><em>recommend setting is to disable it</em></td>
           </tr>
 
 <?php
