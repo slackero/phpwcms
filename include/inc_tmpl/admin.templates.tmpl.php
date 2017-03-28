@@ -135,14 +135,14 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
         } else {
             $template["css"] = array();
         }
-        $template["htmlhead"]   = slweg($_POST["template_htmlhead"]);
+        $template["htmlhead"]   = slweg($_POST["template_htmlhead"], 0, false);
         $template["jsonload"]   = slweg($_POST["template_jsonload"]);
-        $template["headertext"] = slweg($_POST["template_block_header"]);
-        $template["maintext"]   = slweg($_POST["template_block_main"]);
-        $template["footertext"] = slweg($_POST["template_block_footer"]);
-        $template["lefttext"]   = slweg($_POST["template_block_left"]);
-        $template["righttext"]  = slweg($_POST["template_block_right"]);
-        $template["errortext"]  = slweg($_POST["template_block_error"]);
+        $template["headertext"] = slweg($_POST["template_block_header"], 0, false);
+        $template["maintext"]   = slweg($_POST["template_block_main"], 0, false);
+        $template["footertext"] = slweg($_POST["template_block_footer"], 0, false);
+        $template["lefttext"]   = slweg($_POST["template_block_left"], 0, false);
+        $template["righttext"]  = slweg($_POST["template_block_right"], 0, false);
+        $template["errortext"]  = slweg($_POST["template_block_error"], 0, false);
         $template["feloginurl"] = slweg($_POST["template_felogin_url"]);
         $template["overwrite"]  = clean_slweg($_POST["template_overwrite"]);
         $template['jslib']      = clean_slweg($_POST["template_jslib"]);
@@ -190,7 +190,7 @@ if($result = mysql_query($sql, $db) or die("error while listing templates")) {
             $temp_customblock = explode(',', $template['customblock']);
             foreach($temp_customblock as $value) {
 
-                $template['customblock_'.$value] = slweg($_POST['template_customblock_'.$value]);
+                $template['customblock_'.$value] = slweg($_POST['template_customblock_'.$value], 0, false);
 
             }
         }
