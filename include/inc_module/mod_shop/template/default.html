@@ -105,36 +105,36 @@ class_form_cart = shop-cart
 
 
 <!--LIST_ENTRY_START//-->
-	<div class="entry">
+    <div class="entry">
 
-		<h2>{PRODUCT_TITLE}</h2>
-		<div>
-			[IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
-			{PRODUCT_SHORT}
-		[ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
-			<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}[PRODUCT_UNIT]/{PRODUCT_UNIT}[/PRODUCT_UNIT]</em>
-			<em>{PRODUCT_VAT}%</em>
-			<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
-		[/ON_REQUEST_ELSE]
-			<a href="{PRODUCT_DETAIL_LINK}">Show product details</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>More&#8230;</a>[/PRODUCT_URL]
-		[ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
-			Send price inquiry
-		</a>[/ON_REQUEST][ON_REQUEST_ELSE]
-			[CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD]
-		[/ON_REQUEST_ELSE]
-			[VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
-		</div>
+        <h2>{PRODUCT_TITLE}</h2>
+        <div>
+            [IMAGE]<span class="image">{IMAGE}</span>[/IMAGE]
+            {PRODUCT_SHORT}
+        [ON_REQUEST]<em>On Request</em>[/ON_REQUEST][ON_REQUEST_ELSE]
+            <em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}[PRODUCT_UNIT]/{PRODUCT_UNIT}[/PRODUCT_UNIT]</em>
+            <em>{PRODUCT_VAT}%</em>
+            <em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+        [/ON_REQUEST_ELSE]
+            <a href="{PRODUCT_DETAIL_LINK}">Show product details</a> | [PRODUCT_URL]<a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>More&#8230;</a>[/PRODUCT_URL]
+        [ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
+            Send price inquiry
+        </a>[/ON_REQUEST][ON_REQUEST_ELSE]
+            [CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD]
+        [/ON_REQUEST_ELSE]
+            [VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
+        </div>
 
-	</div>
+    </div>
 <!--LIST_ENTRY_END//-->
 
 <!--LIST_NONE_START//-->
-	<p>No product found</p>
+    <p>No product found</p>
 <!--LIST_NONE_END//-->
 
 
 <!--LIST_SPACE_START//-->
-	<hr />
+    <hr />
 <!--LIST_SPACE_END//-->
 
 
@@ -146,25 +146,25 @@ class_form_cart = shop-cart
 <!--DETAIL_START//-->
 <div class="detail">
 
-	<h1>{PRODUCT_TITLE}</h1>
-	[PRODUCT_ADD]<h2>{PRODUCT_ADD}</h2>[/PRODUCT_ADD]
-	<div>
-		{PRODUCT_LONG}
+    <h1>{PRODUCT_TITLE}</h1>
+    [PRODUCT_ADD]<h2>{PRODUCT_ADD}</h2>[/PRODUCT_ADD]
+    <div>
+        {PRODUCT_LONG}
 
-		[IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
-		[ON_REQUEST_ELSE]
-		<em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
-		<em>{PRODUCT_VAT}%</em>
-		<em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
-		[/ON_REQUEST_ELSE]
-		[ORDER_NUM]<p>Order number: {ORDER_NUM}</p>[/ORDER_NUM]
-		[MODEL]<p>Model: {MODEL}</p>[/MODEL]
-		[VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
-		[PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
+        [IMAGE]<div class="image">{IMAGE}</div>[/IMAGE]
+        [ON_REQUEST_ELSE]
+        <em>{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}</em>
+        <em>{PRODUCT_VAT}%</em>
+        <em>{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}</em>
+        [/ON_REQUEST_ELSE]
+        [ORDER_NUM]<p>Order number: {ORDER_NUM}</p>[/ORDER_NUM]
+        [MODEL]<p>Model: {MODEL}</p>[/MODEL]
+        [VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
+        [PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-		[ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
-	</div>
-	<div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
+        [ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
+    </div>
+    <div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 
 </div>
 <!--DETAIL_END//-->
@@ -175,271 +175,271 @@ class_form_cart = shop-cart
 
 <!--CART_SMALL_START//-->
 <div style="padding:10px;border:1px solid #000000">
-	<h2>Cart</h2>
-	<p>
-		[COUNT]<a href="{CART_LINK}">{COUNT} products in cart</a>[/COUNT][COUNT_ELSE]Cart is empty[/COUNT_ELSE]
-	</p>
+    <h2>Cart</h2>
+    <p>
+        [COUNT]<a href="{CART_LINK}">{COUNT} products in cart</a>[/COUNT][COUNT_ELSE]Cart is empty[/COUNT_ELSE]
+    </p>
 </div>
 <!--CART_SMALL_END//-->
 
 
 <!--CART_HEADER_START//-->
 <div class="cart">
-	<h1>Cart</h1>
+    <h1>Cart</h1>
 
-	<table cellpadding="0" cellspacing="0" border="0" summary="cart">
-		<tr>
-			<td>Shopping Cart Item:</td>
-			<td>Price {CURRENCY_SYMBOL}:</td>
-			<td>Qty:</td>
-		</tr>
+    <table cellpadding="0" cellspacing="0" border="0" summary="cart">
+        <tr>
+            <td>Shopping Cart Item:</td>
+            <td>Price {CURRENCY_SYMBOL}:</td>
+            <td>Qty:</td>
+        </tr>
 <!--CART_HEADER_END//-->
 
 <!--CART_ENTRY_START//-->
-		<tr>
-			<td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_SHORT]<br />
-			{PRODUCT_SHORT}[/PRODUCT_SHORT] [PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]<br /> [PRODUCT_WEIGHT]
-			<p> weight: {PRODUCT_WEIGHT}{WEIGHT_UNIT}</p>[/PRODUCT_WEIGHT]
+        <tr>
+            <td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_SHORT]<br />
+            {PRODUCT_SHORT}[/PRODUCT_SHORT] [PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]<br /> [PRODUCT_WEIGHT]
+            <p> weight: {PRODUCT_WEIGHT}{WEIGHT_UNIT}</p>[/PRODUCT_WEIGHT]
 <br /># {ORDER_NUM}
       </td>
-			<td align="right">
-				{PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}[PRODUCT_UNIT]/{PRODUCT_UNIT}[/PRODUCT_UNIT]<br />
-				VAT: {PRODUCT_VAT}% <br />
-				{PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
-			</td>
-			<td>{COUNT}</td>
-		</tr>
+            <td align="right">
+                {PRODUCT_NET_PRICE} {CURRENCY_SYMBOL}[PRODUCT_UNIT]/{PRODUCT_UNIT}[/PRODUCT_UNIT]<br />
+                VAT: {PRODUCT_VAT}% <br />
+                {PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
+            </td>
+            <td>{COUNT}</td>
+        </tr>
 <!--CART_ENTRY_END//-->
 
 <!--CART_SPACE_START//-->
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
 <!--CART_SPACE_END//-->
 
 <!--CART_FOOTER_START//-->
-		[SHIPPING_DISTANCE]
+        [SHIPPING_DISTANCE]
 
-			<tr>
-				<td colspan="3"><hr /></td>
-			</tr>
+            <tr>
+                <td colspan="3"><hr /></td>
+            </tr>
 
-			[SHIPPING_DISTANCE_ADDRESS]
+            [SHIPPING_DISTANCE_ADDRESS]
 
-			<tr>
-				<td colspan="3"><strong>Shipping Costs</strong></td>
-			</tr>
+            <tr>
+                <td colspan="3"><strong>Shipping Costs</strong></td>
+            </tr>
 
-				[SHIPPING_DISTANCE:LABEL]
-				<tr>
-					<td>Zone:</td>
-					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
-				</tr>
-				[/SHIPPING_DISTANCE:LABEL]
+                [SHIPPING_DISTANCE:LABEL]
+                <tr>
+                    <td>Zone:</td>
+                    <td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+                </tr>
+                [/SHIPPING_DISTANCE:LABEL]
 
-			<!-- Is it worth to know? -->
-			[SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
-			<tr>
-				<td>Entfernung:</td>
-				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
-			</tr>
-			[/SHIPPING_DISTANCE:KM]
-			<tr>
-				<td>Delivery:</td>
-				<td colspan="2">
-					[SHIPPING_DISTANCE:CITY]city: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
-					[SHIPPING_DISTANCE:POSTCODE]post code: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
-					[SHIPPING_DISTANCE:COUNTRY]country: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
-					[SHIPPING_DISTANCE:FOREIGN]foreign shipping[/SHIPPING_DISTANCE:FOREIGN]
-					[SHIPPING_DISTANCE:FOREIGN_ELSE]domestic shipping[/SHIPPING_DISTANCE:FOREIGN_ELSE]
-				</td>
-			</tr>
+            <!-- Is it worth to know? -->
+            [SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
+            <tr>
+                <td>Entfernung:</td>
+                <td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
+            </tr>
+            [/SHIPPING_DISTANCE:KM]
+            <tr>
+                <td>Delivery:</td>
+                <td colspan="2">
+                    [SHIPPING_DISTANCE:CITY]city: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+                    [SHIPPING_DISTANCE:POSTCODE]post code: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+                    [SHIPPING_DISTANCE:COUNTRY]country: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+                    [SHIPPING_DISTANCE:FOREIGN]foreign shipping[/SHIPPING_DISTANCE:FOREIGN]
+                    [SHIPPING_DISTANCE:FOREIGN_ELSE]domestic shipping[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+                </td>
+            </tr>
 
-			<tr>
-				<td>Weight total:</td>
-				<td align="right">{SUBTOTAL_WEIGHT}</td>
-				<td>{WEIGHT_UNIT}</td>
-			</tr>
+            <tr>
+                <td>Weight total:</td>
+                <td align="right">{SUBTOTAL_WEIGHT}</td>
+                <td>{WEIGHT_UNIT}</td>
+            </tr>
 
-				[SHIPPING]
-				<tr>
-					<td>Shipping Net:</td>
-					<td align="right">{SHIPPING_NET}</td>
-					<td>{CURRENCY_SYMBOL}</td>
-				</tr>
-				<tr>
-					<td>Shipping VAT:</td>
-					<td align="right">{SHIPPING_VAT}</td>
-					<td>{CURRENCY_SYMBOL}</td>
-				</tr>
-				<tr>
-					<td>Shipping Gross:</td>
-					<td align="right">{SHIPPING_GROSS}</td>
-					<td>{CURRENCY_SYMBOL}</td>
-				</tr>
-				[/SHIPPING]
-				[SHIPPING_ELSE]
-				<tr>
-					<td colspan="3"><hr /></td>
-				</tr>
-				<tr>
-					<td>Shipping Costs</td>
-					<td colspan="2">free shipping</td>
-				</tr>
-				[/SHIPPING_ELSE]
+                [SHIPPING]
+                <tr>
+                    <td>Shipping Net:</td>
+                    <td align="right">{SHIPPING_NET}</td>
+                    <td>{CURRENCY_SYMBOL}</td>
+                </tr>
+                <tr>
+                    <td>Shipping VAT:</td>
+                    <td align="right">{SHIPPING_VAT}</td>
+                    <td>{CURRENCY_SYMBOL}</td>
+                </tr>
+                <tr>
+                    <td>Shipping Gross:</td>
+                    <td align="right">{SHIPPING_GROSS}</td>
+                    <td>{CURRENCY_SYMBOL}</td>
+                </tr>
+                [/SHIPPING]
+                [SHIPPING_ELSE]
+                <tr>
+                    <td colspan="3"><hr /></td>
+                </tr>
+                <tr>
+                    <td>Shipping Costs</td>
+                    <td colspan="2">free shipping</td>
+                </tr>
+                [/SHIPPING_ELSE]
 
-			[/SHIPPING_DISTANCE_ADDRESS]
-			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+            [/SHIPPING_DISTANCE_ADDRESS]
+            [SHIPPING_DISTANCE_ADDRESS_ELSE]
 
-			<tr>
-				<td>Shipping Costs</td>
-				<td colspan="2">
-					<strong>Depending on distance:</strong>
-					final calculation is not possible without delivery address
-				</td>
-			</tr>
+            <tr>
+                <td>Shipping Costs</td>
+                <td colspan="2">
+                    <strong>Depending on distance:</strong>
+                    final calculation is not possible without delivery address
+                </td>
+            </tr>
 
-			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+            [/SHIPPING_DISTANCE_ADDRESS_ELSE]
 
-		[/SHIPPING_DISTANCE]
-		[SHIPPING_DISTANCE_ELSE]
+        [/SHIPPING_DISTANCE]
+        [SHIPPING_DISTANCE_ELSE]
 
-			[SHIPPING]
-			<tr>
-				<td colspan="3"><hr /></td>
-			</tr>
+            [SHIPPING]
+            <tr>
+                <td colspan="3"><hr /></td>
+            </tr>
 
-			<tr>
-				<td colspan="3"><strong>Shipping Costs</strong></td>
-			</tr>
-			<tr>
-				<td>Weight total:</td>
-				<td align="right">{SUBTOTAL_WEIGHT}</td>
-				<td>{WEIGHT_UNIT}</td>
-			</tr>
-			<tr>
-				<td>Shipping Net:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Shipping VAT:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Shipping Gross:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			[/SHIPPING]
-			[SHIPPING_ELSE]
-			<tr>
-				<td colspan="3"><hr /></td>
-			</tr>
-			<tr>
-				<td>Shipping Costs</td>
-				<td colspan="2">free shipping</td>
-			</tr>
-			[/SHIPPING_ELSE]
+            <tr>
+                <td colspan="3"><strong>Shipping Costs</strong></td>
+            </tr>
+            <tr>
+                <td>Weight total:</td>
+                <td align="right">{SUBTOTAL_WEIGHT}</td>
+                <td>{WEIGHT_UNIT}</td>
+            </tr>
+            <tr>
+                <td>Shipping Net:</td>
+                <td align="right">{SHIPPING_NET}</td>
+                <td>{CURRENCY_SYMBOL}</td>
+            </tr>
+            <tr>
+                <td>Shipping VAT:</td>
+                <td align="right">{SHIPPING_VAT}</td>
+                <td>{CURRENCY_SYMBOL}</td>
+            </tr>
+            <tr>
+                <td>Shipping Gross:</td>
+                <td align="right">{SHIPPING_GROSS}</td>
+                <td>{CURRENCY_SYMBOL}</td>
+            </tr>
+            [/SHIPPING]
+            [SHIPPING_ELSE]
+            <tr>
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr>
+                <td>Shipping Costs</td>
+                <td colspan="2">free shipping</td>
+            </tr>
+            [/SHIPPING_ELSE]
 
-		[/SHIPPING_DISTANCE_ELSE]
+        [/SHIPPING_DISTANCE_ELSE]
 
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
 
-		<tr>
-			<td colspan="3"><strong>Subtotal (all products)</strong></td>
-		</tr>
+        <tr>
+            <td colspan="3"><strong>Subtotal (all products)</strong></td>
+        </tr>
 
-		<tr>
-			<td>Subtotal Net:</td>
-			<td align="right">{SUBTOTAL_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Subtotal VAT:</td>
-			<td align="right">{SUBTOTAL_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Subtotal Gross:</td>
-			<td align="right">{SUBTOTAL_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
+        <tr>
+            <td>Subtotal Net:</td>
+            <td align="right">{SUBTOTAL_NET}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Subtotal VAT:</td>
+            <td align="right">{SUBTOTAL_VAT}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Subtotal Gross:</td>
+            <td align="right">{SUBTOTAL_GROSS}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
 
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
 
-		[DISCOUNT]
-		<tr>
-			<td colspan="3"><strong>Discount</strong></td>
-		</tr>
-		<tr>
-			<td>Discount:</td>
-			<td align="right">{DISCOUNT}</td>
-			<td>%</td>
-		</tr>
-		<tr>
-			<td>Discount Net:</td>
-			<td align="right">{DISCOUNT_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Discount VAT:</td>
-			<td align="right">{DISCOUNT_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Discount Gross:</td>
-			<td align="right">{DISCOUNT_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
+        [DISCOUNT]
+        <tr>
+            <td colspan="3"><strong>Discount</strong></td>
+        </tr>
+        <tr>
+            <td>Discount:</td>
+            <td align="right">{DISCOUNT}</td>
+            <td>%</td>
+        </tr>
+        <tr>
+            <td>Discount Net:</td>
+            <td align="right">{DISCOUNT_NET}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Discount VAT:</td>
+            <td align="right">{DISCOUNT_VAT}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Discount Gross:</td>
+            <td align="right">{DISCOUNT_GROSS}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
 
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
-		[/DISCOUNT]
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
+        [/DISCOUNT]
 
-		<tr>
-			<td colspan="3"><strong>Total</strong></td>
-		</tr>
+        <tr>
+            <td colspan="3"><strong>Total</strong></td>
+        </tr>
 
-		<tr>
-			<td>Total Net:</td>
-			<td align="right">{TOTAL_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Total VAT:</td>
-			<td align="right">{TOTAL_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>You have to pay:</td>
-			<td align="right">{TOTAL_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
+        <tr>
+            <td>Total Net:</td>
+            <td align="right">{TOTAL_NET}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Total VAT:</td>
+            <td align="right">{TOTAL_VAT}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>You have to pay:</td>
+            <td align="right">{TOTAL_GROSS}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
 
 
-	</table>
+    </table>
 
-	<div>
-		<a href="{SHOP_LINK}">Continue Shopping</a>
+    <div>
+        <a href="{SHOP_LINK}">Continue Shopping</a>
 
-		[UPDATE]Update Cart[/UPDATE]
-		[DELETE]Empty Cart[/DELETE]
-		[CHECKOUT]Checkout[/CHECKOUT]
-	</div>
+        [UPDATE]Update Cart[/UPDATE]
+        [DELETE]Empty Cart[/DELETE]
+        [CHECKOUT]Checkout[/CHECKOUT]
+    </div>
 </div>
 <!--CART_FOOTER_END//-->
 
 <!--CART_NONE_START//-->
 <div class="cart">
-	<h1>Cart</h1>
-	<p>Cart is empty! <a href="{SHOP_LINK}">Continue Shopping</a></p>
+    <h1>Cart</h1>
+    <p>Cart is empty! <a href="{SHOP_LINK}">Continue Shopping</a></p>
 </div>
 <!--CART_NONE_END//-->
 
@@ -457,98 +457,98 @@ class_form_cart = shop-cart
 [ERROR_PAYMENT]<p>You must check preferred payment option</p>[/ERROR_PAYMENT]
 [ERROR_shop_field_1]<p>You must fill in custom shop field 1</p>[/ERROR_shop_field_1]
 <table cellpadding="1" cellspacing="0" border="0" summary="cart">
-	<tr>
-		<td>salutation:</td>
-		<td>
-			<select name="shop_inv_salutation">
-				<option value="">select salutation (optional)</option>
-				<option value="Herr"[INV_SALUTATION_SELECTED:Mr]>Mr</option>
-				<option value="Frau"[INV_SALUTATION_SELECTED:Ms]>Ms</option>
-				<option value="Firma"[INV_SALUTATION_SELECTED:Company]>Company</option>
-			</select>
-			<!--
-				possible replacement (remove the spaces inside the brackets):
-				- [ INV_SALUTATION_SELECTED:value ] => selected="selected"
-				- [ INV_SALUTATION_CHECKED:value ] => checked="checked"
-			-->
-		</td>
-	</tr>
-	<tr>
-		<td>title:</td>
-		<td><input type="text" name="shop_inv_title" id="shop_inv_title" value="{INV_TITLE}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>first name*:</td>
-		<td><input type="text" name="shop_inv_firstname" id="shop_inv_firstname" value="{INV_FIRSTNAME}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>name*:</td>
-		<td><input type="text" name="shop_inv_name" id="shop_inv_name" value="{INV_NAME}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>company:</td>
-		<td><input type="text" name="shop_inv_company" id="shop_inv_company" value="{INV_COMPANY}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>address*:</td>
-		<td><input type="text" name="shop_inv_address" id="shop_inv_address" value="{INV_ADDRESS}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>additional:</td>
-		<td><input type="text" name="shop_inv_address2" id="shop_inv_address2" value="{INV_ADDRESS2}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>zip*:</td>
-		<td><input type="text" name="shop_inv_zip" id="shop_inv_zip" value="{INV_ZIP}" size="5" maxlength="10" /></td>
-	</tr>
-	<tr>
-		<td>city*:</td>
-		<td><input type="text" name="shop_inv_city" id="shop_inv_city" value="{INV_CITY}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>region:</td>
-		<td><input type="text" name="shop_inv_region" id="shop_inv_region" value="{INV_REGION}" size="40" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>country:</td>
-		<td>
-			<select name="shop_inv_country">
-			[COUNTRY_OPTIONS:US]select country[/COUNTRY_OPTIONS]
-			</select>
-		</td>
-		<!-- <input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /> -->
-	</tr>
-	<tr>
-		<td>email*:</td>
-		<td><input type="text" name="shop_email" id="shop_email" value="{EMAIL}" size="20" maxlength="100" /></td>
-	</tr>
-	<tr>
-		<td>phone*:</td>
-		<td><input type="text" name="shop_phone" id="shop_phone" value="{PHONE}" size="20" maxlength="20" /></td>
-	</tr>
+    <tr>
+        <td>salutation:</td>
+        <td>
+            <select name="shop_inv_salutation">
+                <option value="">select salutation (optional)</option>
+                <option value="Herr"[INV_SALUTATION_SELECTED:Mr]>Mr</option>
+                <option value="Frau"[INV_SALUTATION_SELECTED:Ms]>Ms</option>
+                <option value="Firma"[INV_SALUTATION_SELECTED:Company]>Company</option>
+            </select>
+            <!--
+                possible replacement (remove the spaces inside the brackets):
+                - [ INV_SALUTATION_SELECTED:value ] => selected="selected"
+                - [ INV_SALUTATION_CHECKED:value ] => checked="checked"
+            -->
+        </td>
+    </tr>
+    <tr>
+        <td>title:</td>
+        <td><input type="text" name="shop_inv_title" id="shop_inv_title" value="{INV_TITLE}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>first name*:</td>
+        <td><input type="text" name="shop_inv_firstname" id="shop_inv_firstname" value="{INV_FIRSTNAME}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>name*:</td>
+        <td><input type="text" name="shop_inv_name" id="shop_inv_name" value="{INV_NAME}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>company:</td>
+        <td><input type="text" name="shop_inv_company" id="shop_inv_company" value="{INV_COMPANY}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>address*:</td>
+        <td><input type="text" name="shop_inv_address" id="shop_inv_address" value="{INV_ADDRESS}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>additional:</td>
+        <td><input type="text" name="shop_inv_address2" id="shop_inv_address2" value="{INV_ADDRESS2}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>zip*:</td>
+        <td><input type="text" name="shop_inv_zip" id="shop_inv_zip" value="{INV_ZIP}" size="5" maxlength="10" /></td>
+    </tr>
+    <tr>
+        <td>city*:</td>
+        <td><input type="text" name="shop_inv_city" id="shop_inv_city" value="{INV_CITY}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>region:</td>
+        <td><input type="text" name="shop_inv_region" id="shop_inv_region" value="{INV_REGION}" size="40" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>country:</td>
+        <td>
+            <select name="shop_inv_country">
+            [COUNTRY_OPTIONS:US]select country[/COUNTRY_OPTIONS]
+            </select>
+        </td>
+        <!-- <input type="text" name="shop_inv_country" id="shop_inv_country" value="{INV_COUNTRY}" size="40" maxlength="100" /> -->
+    </tr>
+    <tr>
+        <td>email*:</td>
+        <td><input type="text" name="shop_email" id="shop_email" value="{EMAIL}" size="20" maxlength="100" /></td>
+    </tr>
+    <tr>
+        <td>phone*:</td>
+        <td><input type="text" name="shop_phone" id="shop_phone" value="{PHONE}" size="20" maxlength="20" /></td>
+    </tr>
 
-	<tr>
-		<td>custom 1*:</td>
-		<td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
-	</tr>
+    <tr>
+        <td>custom 1*:</td>
+        <td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
+    </tr>
 
 [PAYMENT]
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
 
-	<tr>
-		<td>payment*:</td>
-		<td>{PAYMENT}</td>
-	</tr>
+    <tr>
+        <td>payment*:</td>
+        <td>{PAYMENT}</td>
+    </tr>
 [/PAYMENT]
-	<tr>
-		<td colspan="2">&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td><input name="shop_order_step1" type="submit" value="Continue &raquo;" /></td>
-	</tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><input name="shop_order_step1" type="submit" value="Continue &raquo;" /></td>
+    </tr>
 </table>
 <!--ORDER_INV_ADDRESS_END//-->
 
@@ -557,284 +557,285 @@ class_form_cart = shop-cart
 <p>Please proof all information before sending your order</p>
 <div>
 
-	[IF_ERROR]<p><strong>You have to agree our terms and conditions</strong></p>[/IF_ERROR]
+    [IF_ERROR]<p><strong>You have to agree our terms and conditions</strong></p>[/IF_ERROR]
 
-	<h2>Address</h2>
-	<p>
-		{INV_FIRSTNAME} {INV_NAME}<br />
-		{INV_ADDRESS}<br />
-		{INV_ZIP} {INV_CITY}
-		[INV_REGION]<br />{INV_REGION}[/INV_REGION]
-		[INV_COUNTRY]<br />{INV_COUNTRY}[/INV_COUNTRY]
-	</p>
-	<p>
-		Email: {EMAIL}<br />
-		Phone: {PHONE}
-	</p>
-	[shop_field_1]
-	<p>
-		custom 1: {shop_field_1}
-	</p>
-	[/shop_field_1]
-	[PAYMENT]<p>
-		Payment: {PAYMENT}
-	</p>[/PAYMENT]
-	<form action="{CART_LINK}" method="post">
-	<p>
-		Please correct address if necessary
-		<input name="shop_edit_address" type="submit" value="Correct address" />
-	</p>
-	</form>
+    <h2>Address</h2>
+    <p>
+        [INV_SALUTATION]{INV_SALUTATION}<br />[/INV_SALUTATION]
+        {INV_FIRSTNAME} {INV_NAME}<br />
+        {INV_ADDRESS}<br />
+        {INV_ZIP} {INV_CITY}
+        [INV_REGION]<br />{INV_REGION}[/INV_REGION]
+        [INV_COUNTRY]<br />{INV_COUNTRY}[/INV_COUNTRY]
+    </p>
+    <p>
+        Email: {EMAIL}<br />
+        Phone: {PHONE}
+    </p>
+    [shop_field_1]
+    <p>
+        custom 1: {shop_field_1}
+    </p>
+    [/shop_field_1]
+    [PAYMENT]<p>
+        Payment: {PAYMENT}
+    </p>[/PAYMENT]
+    <form action="{CART_LINK}" method="post">
+    <p>
+        Please correct address if necessary
+        <input name="shop_edit_address" type="submit" value="Correct address" />
+    </p>
+    </form>
 
-	<hr />
+    <hr />
 
-	<h2>Ordered Items</h2>
-	<table cellspacing="0" cellpadding="1" border="0" summary="items">
+    <h2>Ordered Items</h2>
+    <table cellspacing="0" cellpadding="1" border="0" summary="items">
 
-	{ITEMS}
+    {ITEMS}
 
-		[SHIPPING_DISTANCE]
+        [SHIPPING_DISTANCE]
 
-			<tr>
-				<td colspan="3"><hr /></td>
-			</tr>
+            <tr>
+                <td colspan="3"><hr /></td>
+            </tr>
 
-			[SHIPPING_DISTANCE_ADDRESS]
+            [SHIPPING_DISTANCE_ADDRESS]
 
-			<tr>
-				<td colspan="3"><strong>Shipping Costs</strong></td>
-			</tr>
+            <tr>
+                <td colspan="3"><strong>Shipping Costs</strong></td>
+            </tr>
 
-				[SHIPPING_DISTANCE:LABEL]
-				<tr>
-					<td>Zone:</td>
-					<td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
-				</tr>
-				[/SHIPPING_DISTANCE:LABEL]
+                [SHIPPING_DISTANCE:LABEL]
+                <tr>
+                    <td>Zone:</td>
+                    <td colspan="2">{SHIPPING_DISTANCE:LABEL}</td>
+                </tr>
+                [/SHIPPING_DISTANCE:LABEL]
 
-			<!-- Is it worth to know? -->
-			[SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
-			<tr>
-				<td>Entfernung:</td>
-				<td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
-			</tr>
-			[/SHIPPING_DISTANCE:KM]
-			<tr>
-				<td>Delivery:</td>
-				<td colspan="2">
-					[SHIPPING_DISTANCE:CITY]city: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
-					[SHIPPING_DISTANCE:POSTCODE]post code: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
-					[SHIPPING_DISTANCE:COUNTRY]country: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
-					[SHIPPING_DISTANCE:FOREIGN]foreign shipping[/SHIPPING_DISTANCE:FOREIGN]
-					[SHIPPING_DISTANCE:FOREIGN_ELSE]domestic shipping[/SHIPPING_DISTANCE:FOREIGN_ELSE]
-				</td>
-			</tr>
+            <!-- Is it worth to know? -->
+            [SHIPPING_DISTANCE:KM]<!-- KM|MI|M -->
+            <tr>
+                <td>Entfernung:</td>
+                <td colspan="2">{SHIPPING_DISTANCE:KM} km</td><!-- KM|MI|M -->
+            </tr>
+            [/SHIPPING_DISTANCE:KM]
+            <tr>
+                <td>Delivery:</td>
+                <td colspan="2">
+                    [SHIPPING_DISTANCE:CITY]city: {SHIPPING_DISTANCE:CITY}<br />[/SHIPPING_DISTANCE:CITY]
+                    [SHIPPING_DISTANCE:POSTCODE]post code: {SHIPPING_DISTANCE:POSTCODE}<br />[/SHIPPING_DISTANCE:POSTCODE]
+                    [SHIPPING_DISTANCE:COUNTRY]country: {SHIPPING_DISTANCE:COUNTRY}<br />[/SHIPPING_DISTANCE:COUNTRY]
+                    [SHIPPING_DISTANCE:FOREIGN]foreign shipping[/SHIPPING_DISTANCE:FOREIGN]
+                    [SHIPPING_DISTANCE:FOREIGN_ELSE]domestic shipping[/SHIPPING_DISTANCE:FOREIGN_ELSE]
+                </td>
+            </tr>
 
-			<tr>
-				<td>Weight total:</td>
-				<td align="right">{SUBTOTAL_WEIGHT}</td>
-				<td>{WEIGHT_UNIT}</td>
-			</tr>
+            <tr>
+                <td>Weight total:</td>
+                <td align="right">{SUBTOTAL_WEIGHT}</td>
+                <td>{WEIGHT_UNIT}</td>
+            </tr>
 
-				[SHIPPING]
-				<tr>
-					<td>Shipping Net:</td>
-					<td align="right">{SHIPPING_NET}</td>
-					<td>{CURRENCY_SYMBOL}</td>
-				</tr>
-				<tr>
-					<td>Shipping VAT:</td>
-					<td align="right">{SHIPPING_VAT}</td>
-					<td>{CURRENCY_SYMBOL}</td>
-				</tr>
-				<tr>
-					<td>Shipping Gross:</td>
-					<td align="right">{SHIPPING_GROSS}</td>
-					<td>{CURRENCY_SYMBOL}</td>
-				</tr>
-				[/SHIPPING]
-				[SHIPPING_ELSE]
-				<tr>
-					<td colspan="3"><hr /></td>
-				</tr>
-				<tr>
-					<td>Shipping Costs</td>
-					<td colspan="2">free shipping</td>
-				</tr>
-				[/SHIPPING_ELSE]
+                [SHIPPING]
+                <tr>
+                    <td>Shipping Net:</td>
+                    <td align="right">{SHIPPING_NET}</td>
+                    <td>{CURRENCY_SYMBOL}</td>
+                </tr>
+                <tr>
+                    <td>Shipping VAT:</td>
+                    <td align="right">{SHIPPING_VAT}</td>
+                    <td>{CURRENCY_SYMBOL}</td>
+                </tr>
+                <tr>
+                    <td>Shipping Gross:</td>
+                    <td align="right">{SHIPPING_GROSS}</td>
+                    <td>{CURRENCY_SYMBOL}</td>
+                </tr>
+                [/SHIPPING]
+                [SHIPPING_ELSE]
+                <tr>
+                    <td colspan="3"><hr /></td>
+                </tr>
+                <tr>
+                    <td>Shipping Costs</td>
+                    <td colspan="2">free shipping</td>
+                </tr>
+                [/SHIPPING_ELSE]
 
-			[/SHIPPING_DISTANCE_ADDRESS]
-			[SHIPPING_DISTANCE_ADDRESS_ELSE]
+            [/SHIPPING_DISTANCE_ADDRESS]
+            [SHIPPING_DISTANCE_ADDRESS_ELSE]
 
-			<tr>
-				<td>Shipping Costs</td>
-				<td colspan="2">
-					<strong>Depending on distance:</strong>
-					final calculation is not possible without delivery address
+            <tr>
+                <td>Shipping Costs</td>
+                <td colspan="2">
+                    <strong>Depending on distance:</strong>
+                    final calculation is not possible without delivery address
 
-				</td>
-			</tr>
+                </td>
+            </tr>
 
-			[/SHIPPING_DISTANCE_ADDRESS_ELSE]
+            [/SHIPPING_DISTANCE_ADDRESS_ELSE]
 
-		[/SHIPPING_DISTANCE]
-		[SHIPPING_DISTANCE_ELSE]
+        [/SHIPPING_DISTANCE]
+        [SHIPPING_DISTANCE_ELSE]
 
-			[SHIPPING]
-			<tr>
-				<td colspan="3"><hr /></td>
-			</tr>
+            [SHIPPING]
+            <tr>
+                <td colspan="3"><hr /></td>
+            </tr>
 
-			<tr>
-				<td colspan="3"><strong>Shipping Costs</strong></td>
-			</tr>
-			<tr>
-				<td>Weight total:</td>
-				<td align="right">{SUBTOTAL_WEIGHT}</td>
-				<td>{WEIGHT_UNIT}</td>
-			</tr>
-			<tr>
-				<td>Shipping Net:</td>
-				<td align="right">{SHIPPING_NET}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Shipping VAT:</td>
-				<td align="right">{SHIPPING_VAT}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			<tr>
-				<td>Shipping Gross:</td>
-				<td align="right">{SHIPPING_GROSS}</td>
-				<td>{CURRENCY_SYMBOL}</td>
-			</tr>
-			[/SHIPPING]
-			[SHIPPING_ELSE]
-			<tr>
-				<td colspan="3"><hr /></td>
-			</tr>
-			<tr>
-				<td>Shipping Costs</td>
-				<td colspan="2">free shipping</td>
-			</tr>
-			[/SHIPPING_ELSE]
+            <tr>
+                <td colspan="3"><strong>Shipping Costs</strong></td>
+            </tr>
+            <tr>
+                <td>Weight total:</td>
+                <td align="right">{SUBTOTAL_WEIGHT}</td>
+                <td>{WEIGHT_UNIT}</td>
+            </tr>
+            <tr>
+                <td>Shipping Net:</td>
+                <td align="right">{SHIPPING_NET}</td>
+                <td>{CURRENCY_SYMBOL}</td>
+            </tr>
+            <tr>
+                <td>Shipping VAT:</td>
+                <td align="right">{SHIPPING_VAT}</td>
+                <td>{CURRENCY_SYMBOL}</td>
+            </tr>
+            <tr>
+                <td>Shipping Gross:</td>
+                <td align="right">{SHIPPING_GROSS}</td>
+                <td>{CURRENCY_SYMBOL}</td>
+            </tr>
+            [/SHIPPING]
+            [SHIPPING_ELSE]
+            <tr>
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr>
+                <td>Shipping Costs</td>
+                <td colspan="2">free shipping</td>
+            </tr>
+            [/SHIPPING_ELSE]
 
-		[/SHIPPING_DISTANCE_ELSE]
+        [/SHIPPING_DISTANCE_ELSE]
 
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
 
-		<tr>
-			<td colspan="3"><strong>Subtotal (all products)</strong></td>
-		</tr>
+        <tr>
+            <td colspan="3"><strong>Subtotal (all products)</strong></td>
+        </tr>
 
-		<tr>
-			<td>Subtotal Net:</td>
-			<td align="right">{SUBTOTAL_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Subtotal VAT:</td>
-			<td align="right">{SUBTOTAL_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Subtotal Gross:</td>
-			<td align="right">{SUBTOTAL_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
+        <tr>
+            <td>Subtotal Net:</td>
+            <td align="right">{SUBTOTAL_NET}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Subtotal VAT:</td>
+            <td align="right">{SUBTOTAL_VAT}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Subtotal Gross:</td>
+            <td align="right">{SUBTOTAL_GROSS}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
 
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
 
-		[DISCOUNT]
-		<tr>
-			<td colspan="3"><strong>Discount</strong></td>
-		</tr>
-		<tr>
-			<td>Discount:</td>
-			<td align="right">{DISCOUNT}</td>
-			<td>%</td>
-		</tr>
-		<tr>
-			<td>Discount Net:</td>
-			<td align="right">{DISCOUNT_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Discount VAT:</td>
-			<td align="right">{DISCOUNT_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Discount Gross:</td>
-			<td align="right">{DISCOUNT_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
+        [DISCOUNT]
+        <tr>
+            <td colspan="3"><strong>Discount</strong></td>
+        </tr>
+        <tr>
+            <td>Discount:</td>
+            <td align="right">{DISCOUNT}</td>
+            <td>%</td>
+        </tr>
+        <tr>
+            <td>Discount Net:</td>
+            <td align="right">{DISCOUNT_NET}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Discount VAT:</td>
+            <td align="right">{DISCOUNT_VAT}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Discount Gross:</td>
+            <td align="right">{DISCOUNT_GROSS}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
 
-		<tr>
-			<td colspan="3"><hr /></td>
-		</tr>
-		[/DISCOUNT]
+        <tr>
+            <td colspan="3"><hr /></td>
+        </tr>
+        [/DISCOUNT]
 
-		<tr>
-			<td colspan="3"><strong>Total</strong></td>
-		</tr>
+        <tr>
+            <td colspan="3"><strong>Total</strong></td>
+        </tr>
 
-		<tr>
-			<td>Total Net:</td>
-			<td align="right">{TOTAL_NET}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>Total VAT:</td>
-			<td align="right">{TOTAL_VAT}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-		<tr>
-			<td>You have to pay:</td>
-			<td align="right">{TOTAL_GROSS}</td>
-			<td>{CURRENCY_SYMBOL}</td>
-		</tr>
-	</table>
+        <tr>
+            <td>Total Net:</td>
+            <td align="right">{TOTAL_NET}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>Total VAT:</td>
+            <td align="right">{TOTAL_VAT}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+        <tr>
+            <td>You have to pay:</td>
+            <td align="right">{TOTAL_GROSS}</td>
+            <td>{CURRENCY_SYMBOL}</td>
+        </tr>
+    </table>
 
-	<p>
-		<a href="{CART_LINK}">Show cart</a>
-		<a href="{SHOP_LINK}">Continue shopping</a>
-	</p>
+    <p>
+        <a href="{CART_LINK}">Show cart</a>
+        <a href="{SHOP_LINK}">Continue shopping</a>
+    </p>
 
-	<hr />
+    <hr />
 
-	<h2>Terms and conditions</h2>
-	<div style="width:300px;height: 200px;padding:5px; overflow:auto;">
-		{TERMS}
-	</div>
-	<form action="{CART_LINK}" method="post">
-	<p>
-		<input type="checkbox" name="shop_terms_agree" value="1" />
-		I have read and agree your terms and conditions
-	</p>
-	<p>
-		<input name="shop_order_submit" type="submit" value="Submit order" />
-	</p>
-	</form>
+    <h2>Terms and conditions</h2>
+    <div style="width:300px;height: 200px;padding:5px; overflow:auto;">
+        {TERMS}
+    </div>
+    <form action="{CART_LINK}" method="post">
+    <p>
+        <input type="checkbox" name="shop_terms_agree" value="1" />
+        I have read and agree your terms and conditions
+    </p>
+    <p>
+        <input name="shop_order_submit" type="submit" value="Submit order" />
+    </p>
+    </form>
 
 </div>
 
 <!--ORDER_TERMS_END//-->
 
 <!--ORDER_TERMS_ITEM_START//-->
-		<tr>
-			<td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]</td>
-			<td>
-				{PRODUCT_NET_PRICE} <br />
-				VAT: {PRODUCT_VAT}% <br />
-				{PRODUCT_GROSS_PRICE}
-			</td>
-			<td>{COUNT}</td>
-		</tr>
+        <tr>
+            <td><a href="{PRODUCT_DETAIL_LINK}">{PRODUCT_TITLE}</a>[PRODUCT_OPT1]<br />{PRODUCT_OPT1}[/PRODUCT_OPT1][PRODUCT_OPT2]<br />{PRODUCT_OPT2}[/PRODUCT_OPT2]</td>
+            <td>
+                {PRODUCT_NET_PRICE} <br />
+                VAT: {PRODUCT_VAT}% <br />
+                {PRODUCT_GROSS_PRICE}
+            </td>
+            <td>{COUNT}</td>
+        </tr>
 <!--ORDER_TERMS_ITEM_END//-->
 
 <!--ORDER_TERMS_ITEMSPACE_START//-->
@@ -858,7 +859,7 @@ Your order: {ORDER}
 
 Payment: [PAYBY_PREPAY]You have choosen to pay by Cash with Order.
          We will send your order after we have received your payment.
-		 Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL]
+         Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL]
 
 Address: {INV_FIRSTNAME} {INV_NAME}
          {INV_ADDRESS}
@@ -955,16 +956,16 @@ Let's go.
 <!--MAIL_NEWORDER_END//-->
 
 <!--ORDER_DONE_START//-->
-	<h2>Order {ORDER} successfully sent</h2>
-	<p>Hello <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
-	Thanks for your order. You will receive a confirmation to your email <strong>{EMAIL}</strong> within next minutes.</p>
-	<p>Your order number is: <strong>{ORDER}</strong>. Please use this number in case you contact us by email.</p>
+    <h2>Order {ORDER} successfully sent</h2>
+    <p>Hello <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
+    Thanks for your order. You will receive a confirmation to your email <strong>{EMAIL}</strong> within next minutes.</p>
+    <p>Your order number is: <strong>{ORDER}</strong>. Please use this number in case you contact us by email.</p>
 <!--ORDER_DONE_END//-->
 
 <!--ORDER_NOT_DONE_START//-->
-	<h2>Order not send</h2>
-	<p>We are sorry, but due to technical problems your order could not stored or send.</p>
-	<p>Please try again or contact webmaster to inform about the problem.</p>
-	<p>Your potential order number is: <strong>{ORDER}</strong>.</p>
-	<p>If you wish <a href="mailto:shop@mydomain.com?subject={SUBJECT}&amp;body={MSG}">click this</a> to send your order message by email.</p>
+    <h2>Order not send</h2>
+    <p>We are sorry, but due to technical problems your order could not stored or send.</p>
+    <p>Please try again or contact webmaster to inform about the problem.</p>
+    <p>Your potential order number is: <strong>{ORDER}</strong>.</p>
+    <p>If you wish <a href="mailto:shop@mydomain.com?subject={SUBJECT}&amp;body={MSG}">click this</a> to send your order message by email.</p>
 <!--ORDER_NOT_DONE_END//-->
