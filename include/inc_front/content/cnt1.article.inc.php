@@ -267,16 +267,17 @@ if($crow['is_imagetext']) {
         $crow['image_tag']  = '<img src="img/cmsimage.php/'.$crow["settings"]['width'].'x'.$crow["settings"]['height'].'x'.$crow["settings"]['crop'].'/';
         $crow['image_tag'] .= $image[2].'.'.$image[3].'" alt="';
 
+        $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
+        $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
+        $crow['image_tag'] .= $caption[1];
+
         if($crow["settings"]['nocaption']) {
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', '');
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', '');
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', '');
         } else {
-            $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', html($caption[0]));
-            $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
-            $crow['image_tag'] .= $caption[1];
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', $caption[1]);
             if(empty($caption[3])) {
                 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
