@@ -23,7 +23,7 @@ initMootools();
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 $BE['HEADER']['custom_js'] = '<script type="text/javascript">
 function initMathSpam() {
-    $("cform_field_value_0").value = "+ = '.
+    document.getElementById("cform_field_value_0").value = "+ = '.
     $BL['be_cnt_field']['summing'].
     '\n- = '.
     $BL['be_cnt_field']['subtract'].
@@ -1103,41 +1103,24 @@ if($content['form']["template_format"]) {
     <td colspan="2" class="tdtop3"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
 
         <tr>
-            <td><input type="checkbox" name="cform_template_equal" id="cform_template_equal" value="1"<?php is_checked(1, $content['form']["template_equal"]) ?> onchange="showhidecopy()" /></td>
+            <td><input type="checkbox" name="cform_template_equal" id="cform_template_equal" value="1"<?php is_checked(1, $content['form']["template_equal"]) ?> onchange="showhidecopy();" /></td>
             <td class="v10"><label for="cform_template_equal">&nbsp;= <?php echo $BL['be_cnt_recipient'].' - '.$BL['be_admin_struct_template'] ?>&nbsp;&nbsp;</label></td>
         </tr>
 
-    </table><script type="text/javascript">
-    <!--
+    </table>
+    <script type="text/javascript">
 
-    function showhidecopy() {
+    var showhidecopy = function() {
+        var display_style = document.getElementById('cform_template_equal').checked ? 'none' : '';
+        document.getElementById('copytemplate1').style.display = display_style;
+        document.getElementById('copytemplate2').style.display = display_style;
+        document.getElementById('copytemplate3').style.display = display_style;
+    };
 
-        var tcopy = $('cform_template_equal').checked;
+    document.addEventListener("DOMContentLoaded", showhidecopy);
 
-        if(tcopy) {
-
-            $('copytemplate1').setStyle('display', 'none');
-            $('copytemplate2').setStyle('display', 'none');
-            $('copytemplate3').setStyle('display', 'none');
-
-        } else {
-
-            $('copytemplate1').setStyle('display', '');
-            $('copytemplate2').setStyle('display', '');
-            $('copytemplate3').setStyle('display', '');
-
-        }
-
-    }
-
-    window.addEvent('domready', function() {
-
-        showhidecopy();
-
-    });
-
-    //-->
-    </script></td>
+    </script>
+    </td>
 </tr>
 <tr id="copytemplate1">
     <td colspan="2" class="tdtop3"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
