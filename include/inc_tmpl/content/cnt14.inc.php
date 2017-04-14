@@ -37,7 +37,7 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 <tr><td colspan="2" class="rowspacer0x7"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-    <td><select name="template" id="template">
+    <td><select name="template" id="template"<?php if(count($cnt_fieldgroups)): ?> onchange="return toggleTabsTemplate(this);"<?php endif; ?>>
 <?php
 
     echo '<option value=""'.(empty($content["template"]) ? ' selected="selected"' : '').'>'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -238,5 +238,14 @@ endif;
         if(count($custom_cnt_fields_hidden)) {
             echo implode('', $custom_cnt_fields_hidden);
         }
-    ?></td>
+        if(count($cnt_fieldgroups)): ?>
+    <script>
+    function toggleTabsTemplate(e) {
+		if(confirm('<?php echo correct_charset($BL['be_tab_template_toggle_warning'], true); ?>')) {
+			e.form.submit();
+			return true;
+		}
+		return false;
+	}
+	</script><?php endif; ?></td>
 </tr>
