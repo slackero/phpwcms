@@ -67,6 +67,60 @@ if($image['template']) {
     $image['template']              = $image['tmpl_header'];
     $image['tmpl_data']             = array();
 
+    if(empty($image['center_image'])) {
+        $image['center_image'] = 0;
+    }
+
+    $image['center_image_class'] = '';
+
+    switch($image['center_image']) {
+
+        case 1:
+            // center horizontal/vertical
+            if(!$image['width'] && !$image['height']) {
+                $image['center_image'] = 0;
+            } elseif(!$image['width']) {
+                $image['center_image'] = 3;
+                $image['center_image_class'] = empty($image['image_class_center_vertical']) ? $template_default['classes']['image-center-vertical'] : $image['image_class_center_vertical'];
+            } elseif(!$image['height']) {
+                $image['center_image'] = 2;
+                $image['center_image_class'] = empty($image['image_class_center_horizontal']) ? $template_default['classes']['image-center-horizontal'] : $image['image_class_center_horizontal'];
+            } else {
+                $image['center_image_class'] = empty($image['image_class_center_center']) ? $template_default['classes']['image-center-center'] : $image['image_class_center_center'];
+            }
+            break;
+
+        case 2:
+            // center horizontal
+            if(!$image['width']) {
+                $image['center_image'] = 0;
+            } else {
+                $image['center_image_class'] = empty($image['image_class_center_horizontal']) ? $template_default['classes']['image-center-horizontal'] : $image['image_class_center_horizontal'];
+            }
+            break;
+
+        case 3:
+            // center vertical
+            if(!$image['height']) {
+                $image['center_image'] = 0;
+            } else {
+                $image['center_image_class'] = empty($image['image_class_center_vertical']) ? $template_default['classes']['image-center-vertical'] : $image['image_class_center_vertical'];
+            }
+            break;
+
+        default:
+            $image['center_image'] = 0;
+    }
+
+    if(empty($image['thumb_class'])) {
+        $image['thumb_class'] = '';
+    }
+    $image['thumb_class'] = trim($template_default['classes']['image-thumb'] . ' ' . $image['thumb_class']);
+
+    if($image['center_image_class']) {
+        $image['thumb_class'] = trim($image['thumb_class'].' '.$image['center_image_class']);
+    }
+
     if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
         // Start lightbox
@@ -77,45 +131,7 @@ if($image['template']) {
             $image['lightbox'] = generic_string(5);
         }
 
-        if(empty($image['thumb_class'])) {
-            $image['thumb_class'] = '';
-        }
-        $image['thumb_class'] = trim($template_default['classes']['image-thumb'] . ' ' . $image['thumb_class']);
-
-        if(empty($image['center_image'])) {
-            $image['center_image'] = 0;
-        }
-
         $image['crop'] = empty($image['crop']) ? 0 : 1;
-
-        switch($image['center_image']) {
-
-            case 1:     // center hor/vert
-                        if(!$image['width'] && !$image['height']) {
-                            $image['center_image'] = 0;
-                        } elseif(!$image['width']) {
-                            $image['center_image'] = 3;
-                        } elseif(!$image['height']) {
-                            $image['center_image'] = 2;
-                        }
-                        break;
-
-            case 2:     // center hor
-                        if(!$image['width']) {
-                            $image['center_image'] = 0;
-                        }
-                        break;
-
-            case 3:     // center vert
-                        if(!$image['height']) {
-                            $image['center_image'] = 0;
-                        }
-                        break;
-
-            default:    $image['center_image'] = 0;
-
-
-        }
 
         $x      = 0;
         $col    = 0;
@@ -381,6 +397,7 @@ if($image['template']) {
         }
 
         $image['template'] .= implode($image['tmpl_row_space'], $image['tmpl_images']);
+        $image['template'] = render_cnt_template($image['template'], 'IMAGE_CLASS_CENTER', $image['center_image_class']);
 
     }
 
