@@ -397,8 +397,6 @@ if($image['template']) {
         }
 
         $image['template'] .= implode($image['tmpl_row_space'], $image['tmpl_images']);
-        $image['template'] = render_cnt_template($image['template'], 'IMAGE_CLASS_CENTER', $image['center_image_class']);
-
     }
 
     $image['template'] .= $image['tmpl_footer'];
@@ -412,6 +410,7 @@ if($image['template']) {
     $image['template'] = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
 
+    $image['template'] = render_cnt_template($image['template'], 'IMAGE_CLASS_CENTER', $image['center_image_class']);
     $image['template'] = render_cnt_template($image['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
     $image['template'] = render_cnt_template($image['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
     $image['template'] = render_cnt_template($image['template'], 'TITLE', html_specialchars($crow['acontent_title']));
