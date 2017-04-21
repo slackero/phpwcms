@@ -360,9 +360,13 @@ $(function(){
 
 
 	<p class="space_top">
-		<label><a id="cnt_name_click"><?php echo $BL['be_title'] ?></a>/<a id="cnt_alias_click"><?php echo $BL['be_alias'] ?></a></label>
-		<input type="text" name="cnt_name" id="cnt_name" value="<?php echo html($news->data['cnt_name']) ?>" class="text short" maxlength="200" placeholder="<?php echo $BL['be_title'] ?>" />
-		<input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" class="text short" maxlength="230" placeholder="<?php echo $BL['be_alias'] ?>" />
+		<label><a id="cnt_name_click" style="cursor:pointer;text-decoration:underline;"><?php echo $BL['be_title'] ?></a></label>
+		<input type="text" name="cnt_name" id="cnt_name" value="<?php echo html($news->data['cnt_name']) ?>" class="text" maxlength="200" placeholder="<?php echo $BL['be_title'] ?>" />
+	</p>
+
+	<p>
+		<label><a id="cnt_alias_click" style="cursor:pointer;text-decoration:underline;"><?php echo $BL['be_alias'] ?></a></label>
+		<input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" class="text" maxlength="230" placeholder="<?php echo $BL['be_alias'] ?>" />
 	</p>
 
 	<div class="cf">
