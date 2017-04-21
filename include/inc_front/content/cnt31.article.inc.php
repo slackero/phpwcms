@@ -186,16 +186,27 @@ if($image['template']) {
 
             }
 
-            if($value['zoom_hash'] && $image['zoom']) {
+            if($image['zoom']) {
 
-                $zoominfo = get_cached_image(array(
-                    "target_ext"    =>  $value['zoom_ext'],
-                    "image_name"    =>  $value['zoom_hash'] . '.' . $value['zoom_ext'],
-                    "max_width"     =>  $image['width_zoom'],
-                    "max_height"    =>  $image['height_zoom'],
-                    "thumb_name"    =>  md5($value['zoom_hash'].$image['width_zoom'].$image['height_zoom'].$phpwcms["sharpen_level"].$image['crop_zoom'].$phpwcms['colorspace']),
-                    'crop_image'    =>  $image['crop_zoom']
-                ));
+                if($value['zoom_hash']) {
+                    $zoominfo = get_cached_image(array(
+                        "target_ext"    =>  $value['zoom_ext'],
+                        "image_name"    =>  $value['zoom_hash'] . '.' . $value['zoom_ext'],
+                        "max_width"     =>  $image['width_zoom'],
+                        "max_height"    =>  $image['height_zoom'],
+                        "thumb_name"    =>  md5($value['zoom_hash'].$image['width_zoom'].$image['height_zoom'].$phpwcms["sharpen_level"].$image['crop_zoom'].$phpwcms['colorspace']),
+                        'crop_image'    =>  $image['crop_zoom']
+                    ));
+                } else {
+                    $zoominfo = get_cached_image(array(
+                        "target_ext"    =>  $value['thumb_ext'],
+                        "image_name"    =>  $value['thumb_hash'] . '.' . $value['thumb_ext'],
+                        "max_width"     =>  $image['width_zoom'],
+                        "max_height"    =>  $image['height_zoom'],
+                        "thumb_name"    =>  md5($value['thumb_hash'].$image['width_zoom'].$image['height_zoom'].$phpwcms["sharpen_level"].$image['crop_zoom'].$phpwcms['colorspace']),
+                        'crop_image'    =>  $image['crop_zoom']
+                    ));
+                }
             }
 
             // set caption and ALT Image Text for imagelist
