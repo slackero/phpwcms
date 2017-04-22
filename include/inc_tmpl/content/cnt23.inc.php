@@ -74,7 +74,8 @@ $BL['be_cnt_field'] = array_merge(
         'formtracking_off' => 'disable form tracking',
         'checktofrom' => 'email of recipient must be different from sender',
         'recaptcha' => 'reCAPTCHA',
-        'recaptcha_signapikey' => 'Sign up for a reCAPTCHA API key'
+        'recaptcha_signapikey' => 'Sign up for a reCAPTCHA API key',
+        'recaptchainv' => 'Invisible reCAPTCHA',
     ),
     $BL['be_cnt_field']
 );
@@ -189,7 +190,6 @@ $content['profile_fields_longtext'] = array(
     "text2" => $BL['be_cnt_field']['textarea'].' 2',
     "text3" => $BL['be_cnt_field']['textarea'].' 3'
 );
-
 
 $for_select     = '';
 $for_select_2   = '';
@@ -635,41 +635,52 @@ if($content["id"]) {
 <?php
 if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && count($content['form']["fields"])) {
 
-    $field_counter          = 1;
-    $field_max              = count($content['form']["fields"]);
-    $field_js               = array( 'showAll' => array(), 'hideAll' => array(), 'varcharFields' => array(), 'longtextFields' => array() );
+    $field_counter = 1;
+    $field_max = count($content['form']["fields"]);
+    $field_js = array(
+        'showAll' => array(),
+        'hideAll' => array(),
+        'varcharFields' => array(),
+        'longtextFields' => array()
+    );
+    $field_type_count = array();
 
     foreach($content['form']["fields"] as $key => $value) {
 
-        $field_bg               = ($field_counter % 2) ? '' : ' bgcolor="#F3F5F8"';
-        $field_row4             = '';
+        $field_bg   = ($field_counter % 2) ? '' : ' bgcolor="#F3F5F8"';
+        $field_row4 = '';
+        $field_type = $content['form']["fields"][$key]['type'];
 
         // generate javascript code part 1
         $field_js['showAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'block\'';
         $field_js['hideAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 
-        echo '<tr'.$field_bg.'>'.LF;
+        echo '<tr'.$field_bg.'>';
         echo '<td align="center" id="formRow_'.$field_counter.'">';
         echo '<a href="#" onclick="return showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 
+        if(!isset($field_type_count[$field_type])) {
+            $field_type_count[$field_type] = 0;
+        }
+
         // some field specific checks and settings
-        switch($content['form']["fields"][$key]['type']) {
+        switch($field_type) {
 
             case 'newsletter':      // default hide/show
-                                    echo ', 5';
+                echo ', 5';
 
-                                    $field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">'.LF;
-                                    $field_row4 .= '<td colspan="2" class="chatlist" align="right" valign="top">&nbsp;<img src="img/leer.gif" width="1" height="15" alt="" />';
-                                    $field_row4 .= $BL['be_cnt_bid_verifyemail'].':&nbsp;</td>'.LF;
-                                    $field_row4 .= '<td colspan="6"><textarea name="cform_field_verifyemail" ';
-                                    $field_row4 .= 'id="cform_field_verifyemail" rows="5" class="code width340 autosize" wrap="off">';
-                                    $field_row4 .= html($content['form']['verifyemail']).'</textarea></td>';
-                                    $field_row4 .= LF.'</tr>'.LF;
+                $field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">';
+                $field_row4 .= '<td colspan="2" class="chatlist" align="right" valign="top">&nbsp;<img src="img/leer.gif" width="1" height="15" alt="" />';
+                $field_row4 .= $BL['be_cnt_bid_verifyemail'].':&nbsp;</td>'.LF;
+                $field_row4 .= '<td colspan="6"><textarea name="cform_field_verifyemail" ';
+                $field_row4 .= 'id="cform_field_verifyemail" rows="5" class="code width340 autosize" wrap="off">';
+                $field_row4 .= html($content['form']['verifyemail']).'</textarea></td>';
+                $field_row4 .= '</tr>';
 
-                                    $field_js['showAll'][$key] .= ', 5';
-                                    $field_js['hideAll'][$key] .= ', 5';
+                $field_js['showAll'][$key] .= ', 5';
+                $field_js['hideAll'][$key] .= ', 5';
 
-                                    break;
+                break;
 
             case 'text':
             case 'special':
@@ -679,137 +690,137 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
             case 'select':
             case 'selectemail':
             case 'country':
-            case 'radio':           // default hide/show
-                                    if($content['form']["saveprofile"]) {
-                                        echo ', 5';
+            case 'radio':
+                // default hide/show
+                if($content['form']["saveprofile"]) {
+                    echo ', 5';
 
-                                        $field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">'.LF;
-                                        $field_row4 .= '<td colspan="2" class="chatlist" align="right">'.$BL['be_cnt_store_in'].':&nbsp;</td>'.LF;
-                                        $field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
+                    $field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">';
+                    $field_row4 .= '<td colspan="2" class="chatlist" align="right">'.$BL['be_cnt_store_in'].':&nbsp;</td>';
+                    $field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
 
-                                        if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ])) {
+                    if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ])) {
 
-                                            $field_js['varcharFields'][$field_counter]  = '<"+"option value=\"'.$content['form']["fields"][$key]['profile'].'\" selected=\"selected\">';
-                                            $field_js['varcharFields'][$field_counter] .= $content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ].'<"+"/option>';
-                                            unset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ]);
+                        $field_js['varcharFields'][$field_counter]  = '<"+"option value=\"'.$content['form']["fields"][$key]['profile'].'\" selected=\"selected\">';
+                        $field_js['varcharFields'][$field_counter] .= $content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ].'<"+"/option>';
+                        unset($content['profile_fields_varchar'][ $content['form']["fields"][$key]['profile'] ]);
 
-                                        } else {
+                    } else {
 
-                                            $field_js['varcharFields'][$field_counter] = '';
+                        $field_js['varcharFields'][$field_counter] = '';
 
-                                        }
+                    }
 
-                                        $field_row4 .= '</td>'.LF.'</tr>'.LF;
+                    $field_row4 .= '</td></tr>';
 
-                                        $field_js['showAll'][$key] .= ', 5';
-                                        $field_js['hideAll'][$key] .= ', 5';
-                                    }
-                                    break;
-
+                    $field_js['showAll'][$key] .= ', 5';
+                    $field_js['hideAll'][$key] .= ', 5';
+                }
+                break;
 
             case 'textarea':
             case 'checkbox':
             case 'checkboxcopy':
-            case 'list':            // default hide/show
-                                    if($content['form']["saveprofile"]) {
-                                        echo ', 5';
+            case 'list':
+                // default hide/show
+                if($content['form']["saveprofile"]) {
+                    echo ', 5';
 
-                                        $field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">'.LF;
-                                        $field_row4 .= '<td colspan="2" class="chatlist" align="right">'.$BL['be_cnt_store_in'].':&nbsp;</td>'.LF;
-                                        $field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
+                    $field_row4  = '<tr'.$field_bg.' id="formRow_'.$field_counter.'_5">';
+                    $field_row4 .= '<td colspan="2" class="chatlist" align="right">'.$BL['be_cnt_store_in'].':&nbsp;</td>';
+                    $field_row4 .= '<td colspan="6" id="cform_field_profile_'.$field_counter.'_td">';
 
-                                        if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ])) {
+                    if(!empty($content['form']["fields"][$key]['profile']) && isset($content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ])) {
 
-                                            $field_js['longtextFields'][$field_counter]  = '<"+"option value=\"'.$content['form']["fields"][$key]['profile'].'\" selected=\"selected\">';
-                                            $field_js['longtextFields'][$field_counter] .= $content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ].'<"+"/option>';
-                                            unset($content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ]);
+                        $field_js['longtextFields'][$field_counter]  = '<"+"option value=\"'.$content['form']["fields"][$key]['profile'].'\" selected=\"selected\">';
+                        $field_js['longtextFields'][$field_counter] .= $content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ].'<"+"/option>';
+                        unset($content['profile_fields_longtext'][ $content['form']["fields"][$key]['profile'] ]);
 
-                                        } else {
+                    } else {
 
-                                            $field_js['longtextFields'][$field_counter] = '';
-                                        }
+                        $field_js['longtextFields'][$field_counter] = '';
+                    }
 
-                                        $field_row4 .= '</td>'.LF.'</tr>'.LF;
+                    $field_row4 .= '</td></tr>';
 
-                                        $field_js['showAll'][$key] .= ', 5';
-                                        $field_js['hideAll'][$key] .= ', 5';
-                                    }
-                                    break;
-
+                    $field_js['showAll'][$key] .= ', 5';
+                    $field_js['hideAll'][$key] .= ', 5';
+                }
+                break;
 
             case 'mathspam':
-            case 'recaptcha':       $_ini_values = $content['form']["fields"][$key]['value'];
-                                    $content['form']["fields"][$key]['value'] = '';
+            case 'recaptcha':
+            case 'recaptchainv':
+                $_ini_values = $content['form']["fields"][$key]['value'];
+                $content['form']["fields"][$key]['value'] = '';
 
-                                    // Rewrite for reCaptcha v2
-                                    if(isset($_ini_values['public_key'])) {
-                                        if(!isset($_ini_values['site_key'])) {
-                                            $_ini_values['site_key'] = $_ini_values['public_key'];
-                                        }
-                                        unset($_ini_values['public_key']);
-                                    }
-                                    if(isset($_ini_values['private_key'])) {
-                                        if(!isset($_ini_values['secret_key'])) {
-                                            $_ini_values['secret_key'] = $_ini_values['private_key'];
-                                        }
-                                        unset($_ini_values['private_key']);
-                                    }
+                // Rewrite for reCAPTCHA v2 and invisible reCAPTCHA
+                if(isset($_ini_values['public_key'])) {
+                    if(!isset($_ini_values['site_key'])) {
+                        $_ini_values['site_key'] = $_ini_values['public_key'];
+                    }
+                    unset($_ini_values['public_key']);
+                }
+                if(isset($_ini_values['private_key'])) {
+                    if(!isset($_ini_values['secret_key'])) {
+                        $_ini_values['secret_key'] = $_ini_values['private_key'];
+                    }
+                    unset($_ini_values['private_key']);
+                }
 
-                                    foreach($_ini_values as $item_key => $item) {
+                foreach($_ini_values as $item_key => $item) {
+                    $content['form']["fields"][$key]['value'] .= $item_key . ' = ' . $item . LF;
+                }
 
-                                        $content['form']["fields"][$key]['value'] .= $item_key . ' = ' . $item . LF;
+                $content['form']["fields"][$key]['value'] = trim($content['form']["fields"][$key]['value']);
 
-                                    }
+                unset($_ini_values);
 
-                                    $content['form']["fields"][$key]['value'] = trim($content['form']["fields"][$key]['value']);
-
-                                    unset($_ini_values);
-
-                                    break;
-
+                break;
 
         }
 
         echo ')"><img src="img/button/arrow_opened.gif" alt="" border="0" /></a>';
-        echo '</td>'.LF.'<td>';
-        echo '<select name="cform_field_type['.$field_counter.']" class="v10" style="width:140px">'.LF;
-        echo '<option value="text"'.        is_selected('text',         $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['text'].'</option>'.LF;
-        echo '<option value="textarea"'.    is_selected('textarea',     $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['textarea'].'</option>'.LF;
-        echo '<option value="special"'.     is_selected('special',      $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['special'].'</option>'.LF;
-        echo '<option value="hidden"'.      is_selected('hidden',       $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['hidden'].'</option>'.LF;
-        echo '<option value="password"'.    is_selected('password',     $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['password'].'</option>'.LF;
-        echo '<option value="email"'.       is_selected('email',        $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['email'].'</option>'.LF;
-        echo '<option value="selectemail"'. is_selected('selectemail',  $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['selectemail'].'</option>'.LF;
-        echo '<option value="select"'.      is_selected('select',       $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['select'].'</option>'.LF;
-        echo '<option value="country"'.     is_selected('country',      $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['country'].'</option>'.LF;
-        echo '<option value="list"'.        is_selected('list',         $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['list'].'</option>'.LF;
-        echo '<option value="newsletter"'.  is_selected('newsletter',   $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['newsletter'].'</option>'.LF;
-        echo '<option value="checkbox"'.    is_selected('checkbox',     $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['checkbox'].'</option>'.LF;
-        echo '<option value="checkboxcopy"'.is_selected('checkboxcopy', $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['checkboxcopy'].'</option>'.LF;
-        echo '<option value="radio"'.       is_selected('radio',        $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['radio'].'</option>'.LF;
-        echo '<option value="upload"'.      is_selected('upload',       $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['upload'].'</option>'.LF;
-        echo '<option value="recaptcha"'.   is_selected('recaptcha',    $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['recaptcha'].'</option>'.LF;
-        echo '<option value="captcha"'.     is_selected('captcha',      $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['captcha'].'</option>'.LF;
-        echo '<option value="captchaimg"'.  is_selected('captchaimg',   $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['captchaimg'].'</option>'.LF;
-        echo '<option value="mathspam"'.    is_selected('mathspam',     $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['mathspam'].'</option>'.LF;
-        echo '<option value="submit"'.      is_selected('submit',       $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['submit'].'</option>'.LF;
-        echo '<option value="reset"'.       is_selected('reset',        $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['reset'].'</option>'.LF;
-        echo '<option value="break"'.       is_selected('break',        $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['break'].'</option>'.LF;
-        echo '<option value="breaktext"'.   is_selected('breaktext',    $content['form']["fields"][$key]['type'], 0, 0) .'>'.$BL['be_cnt_field']['breaktext'].'</option>'.LF;
+        echo '</td><td>';
+        echo '<select name="cform_field_type['.$field_counter.']" class="v10" style="width:140px">';
+        echo '<option value="text"'. is_selected('text', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['text'].'</option>';
+        echo '<option value="textarea"'. is_selected('textarea', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['textarea'].'</option>';
+        echo '<option value="special"'. is_selected('special', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['special'].'</option>';
+        echo '<option value="hidden"'. is_selected('hidden', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['hidden'].'</option>';
+        echo '<option value="password"'. is_selected('password', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['password'].'</option>';
+        echo '<option value="email"'. is_selected('email', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['email'].'</option>';
+        echo '<option value="selectemail"'. is_selected('selectemail', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['selectemail'].'</option>';
+        echo '<option value="select"'. is_selected('select', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['select'].'</option>';
+        echo '<option value="country"'. is_selected('country', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['country'].'</option>';
+        echo '<option value="list"'. is_selected('list', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['list'].'</option>';
+        echo '<option value="newsletter"'. is_selected('newsletter', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['newsletter'].'</option>';
+        echo '<option value="checkbox"'. is_selected('checkbox', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['checkbox'].'</option>';
+        echo '<option value="checkboxcopy"'. is_selected('checkboxcopy', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['checkboxcopy'].'</option>';
+        echo '<option value="radio"'. is_selected('radio', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['radio'].'</option>';
+        echo '<option value="upload"'. is_selected('upload', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['upload'].'</option>';
+        echo '<option value="recaptcha"'. is_selected('recaptcha', $field_type, 0, 0) . ($field_type === 'recaptcha' ? '' : ' class="disable-recaptcha"') . '>'.$BL['be_cnt_field']['recaptcha'].'</option>';
+        echo '<option value="recaptchainv"'. is_selected('recaptchainv', $field_type, 0, 0) . ($field_type === 'recaptchainv' ? '' : ' class="disable-recaptchainv"') . '>'.$BL['be_cnt_field']['recaptchainv'].'</option>';
+        echo '<option value="captcha"'. is_selected('captcha', $field_type, 0, 0) . ($field_type === 'captcha' ? '' : ' class="disable-captcha"') . '>'.$BL['be_cnt_field']['captcha'].'</option>';
+        echo '<option value="captchaimg"'. is_selected('captchaimg', $field_type, 0, 0) . ($field_type === 'captchaimg' ? '' : ' class="disable-captchaimg"') . '>'.$BL['be_cnt_field']['captchaimg'].'</option>';
+        echo '<option value="mathspam"'. is_selected('mathspam', $field_type, 0, 0) . ($field_type === 'mathspam' ? '' : ' class="disable-mathspam"') . '>'.$BL['be_cnt_field']['mathspam'].'</option>';
+        echo '<option value="submit"'. is_selected('submit', $field_type, 0, 0) . ($field_type === 'submit' ? '' : ' class="disable-submit"') . '>'.$BL['be_cnt_field']['submit'].'</option>';
+        echo '<option value="reset"'. is_selected('reset', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['reset'].'</option>';
+        echo '<option value="break"'. is_selected('break', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['break'].'</option>';
+        echo '<option value="breaktext"'. is_selected('breaktext', $field_type, 0, 0) .'>'.$BL['be_cnt_field']['breaktext'].'</option>';
         echo '</select></td>';
 
         echo '<td><input type="text" name="cform_field_name['.$field_counter.']" class="width120" value="';
-        echo html($content['form']["fields"][$key]['name']).'"></td>'.LF;
+        echo html($content['form']["fields"][$key]['name']).'"></td>';
         echo '<td><input type="text" name="cform_field_label['.$field_counter.']" class="width120" value="';
-        echo html($content['form']["fields"][$key]['label']).'"></td>'.LF;
+        echo html($content['form']["fields"][$key]['label']).'"></td>';
         echo '<td><input type="text" name="cform_field_size['.$field_counter.']" class="width40" value="';
-        echo html($content['form']["fields"][$key]['size']).'"title="SIZE for Text/COLUMNS for Textarea"></td>'.LF;
+        echo html($content['form']["fields"][$key]['size']).'"title="SIZE for Text/COLUMNS for Textarea"></td>';
         echo '<td><input type="text" name="cform_field_max['.$field_counter.']" class="width40" value="';
-        echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List"></td>'.LF;
+        echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List"></td>';
         echo '<td><input type="checkbox" name="cform_field_required['.$field_counter.']"';
-        echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0).' value="1" title="'.$BL['be_cnt_mark_as_req'].'"></td>'.LF;
+        echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0).' value="1" title="'.$BL['be_cnt_mark_as_req'].'"></td>';
         echo '<td><input type="checkbox" name="cform_field_delete['.$field_counter.']" value="1" title="'.$BL['be_cnt_mark_as_del'].'"></td>';
-        echo "\n</tr>\n";
+        echo "</tr>";
 
 
         echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_1"><td>&nbsp;</td>';
@@ -839,10 +850,13 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         echo '<img src="img/leer.gif" width="1" height="15" alt="" />'.$BL['be_cnt_value'].':&nbsp;';
         echo "</td></tr>";
         // Show "sign up for reCAPCHA API key"
-        if($content['form']["fields"][$key]['type'] == 'recaptcha') {
-            echo '<tr><td colspan="2" class="chatlist" style="padding:10px 5px 0 3px"><a href="https://www.google.com/recaptcha/admin" target="_blank">'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a></td></tr>';
+        if($field_type === 'recaptcha' || $field_type === 'recaptchainv') {
+            echo '<tr><td colspan="2" class="chatlist" style="padding:5px 0 0 3px"><a
+                href="https://www.google.com/recaptcha/admin"
+                target="_blank"
+                style="white-space:normal;max-width:135px;display:inline-block;">'.$BL['be_cnt_field']['recaptcha_signapikey'].'</a></td></tr>';
         }
-        echo "</table></td>\n";
+        echo "</table></td>";
 
         echo '<td colspan="4"><textarea name="cform_field_value['.$field_counter.']" ';
         echo 'id="cform_field_value_'.$field_counter.'" rows="5" class="code width340 autosize">';
@@ -850,45 +864,45 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
         echo '</td>';
         echo '<td colspan="2" valign="bottom"></td>';
-        echo '</tr>'.LF;
+        echo '</tr>';
 
         echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_2">';
         echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_newsletter_placeholder'].':&nbsp;</td>';
         echo '<td colspan="6"><input type="text" name="cform_field_placeholder['.$field_counter.']" value="';
         echo empty($content['form']["fields"][$key]['placeholder']) ? '' : html($content['form']["fields"][$key]['placeholder']);
-        echo '" class="width340"></td>'.LF.'</tr>'.LF;
+        echo '" class="width340"></td></tr>';
 
         echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_3">';
         echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_cnt_error_text'].':&nbsp;</td>';
         echo '<td colspan="6"><input type="text" name="cform_field_error['.$field_counter.']" value="';
         echo  html($content['form']["fields"][$key]['error']).'" class="width340"';
-        if($content['form']["fields"][$key]['type'] == 'upload') {
+        if($field_type == 'upload') {
             echo ' title="{MAXLENGTH}, {FILESIZE}, {FILENAME}, {FILEEXT}"';
         }
-        echo '></td>'.LF.'</tr>'.LF;
+        echo '></td></tr>';
 
         echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_4">';
         echo '<td colspan="2" class="chatlist" align="right">&nbsp;'.$BL['be_cnt_css_class'].':&nbsp;</td>';
         echo '<td><input type="text" name="cform_field_class['.$field_counter.']" value="';
-        echo  html($content['form']["fields"][$key]['class']).'" class="width120"></td>'.LF;
+        echo  html($content['form']["fields"][$key]['class']).'" class="width120"></td>';
         echo '<td colspan="5"><table summary="" cellpadding="0" cellspacing="0" border="0" style="width:202px;"><tr>
              <td class="chatlist" style="width:82px;" align="right">&nbsp;'.$BL['be_cnt_css_style'].':&nbsp;</td>
              <td class="width120"><input type="text" name="cform_field_style['.$field_counter.']" value="';
         echo html($content['form']["fields"][$key]['style']).'" class="width120"></td></tr></table></td>';
 
-        echo "\n</tr>\n";
+        echo "</tr>";
 
         // if field row 4
         echo $field_row4;
 
         echo '<tr bgcolor="#DAE4ED"><td colspan="8"><img src="img/leer.gif" width="1" height="1" alt="" /></td></tr>';
 
-
         // generate javascript code part 2
         $field_js['showAll'][$key] .= ');';
         $field_js['hideAll'][$key] .= ');';
 
         $field_counter++;
+        $field_type_count[$field_type]++;
     }
 
 }
@@ -914,13 +928,26 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <option value="checkboxcopy"><?php echo $BL['be_cnt_field']['checkboxcopy'] ?></option>
     <option value="radio"><?php echo $BL['be_cnt_field']['radio'] ?></option>
     <option value="upload"><?php echo $BL['be_cnt_field']['upload'] ?></option>
-    <?php   if(!defined('RECAPTCHA_API_SERVER')):   ?>
+    <?php   if(!defined('RECAPTCHA_API_SERVER')): ?>
+    <?php       if(empty($field_type_count['recaptcha'])): ?>
     <option value="recaptcha"><?php echo $BL['be_cnt_field']['recaptcha'] ?></option>
+    <?php       endif;  ?>
+    <?php       if(empty($field_type_count['recaptchainv'])): ?>
+    <option value="recaptchainv"><?php echo $BL['be_cnt_field']['recaptchainv'] ?></option>
+    <?php       endif;  ?>
     <?php   endif;  ?>
+    <?php   if(empty($field_type_count['captcha'])): ?>
     <option value="captcha"><?php echo $BL['be_cnt_field']['captcha'] ?></option>
+    <?php   endif;  ?>
+    <?php   if(empty($field_type_count['captchaimg'])): ?>
     <option value="captchaimg"><?php echo $BL['be_cnt_field']['captchaimg'] ?></option>
+    <?php   endif;  ?>
+    <?php   if(empty($field_type_count['mathspam'])): ?>
     <option value="mathspam"><?php echo $BL['be_cnt_field']['mathspam'] ?></option>
+    <?php   endif;  ?>
+    <?php   if(empty($field_type_count['submit'])): ?>
     <option value="submit"><?php echo $BL['be_cnt_field']['submit'] ?></option>
+    <?php   endif;  ?>
     <option value="reset"><?php echo $BL['be_cnt_field']['reset'] ?></option>
     <option value="break"><?php echo $BL['be_cnt_field']['break'] ?></option>
     <option value="breaktext"><?php echo $BL['be_cnt_field']['breaktext'] ?></option>
@@ -930,8 +957,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <td><input type="text" name="cform_field_size[0]" class="width40" title="SIZE for Text/COLUMNS for Textarea" /></td>
     <td><input type="text" name="cform_field_max[0]" class="width40" title="MAXLENGTH for Text/ROWS for Textarea and List" /></td>
     <td><input type="checkbox" name="cform_field_required[0]" value="1" title="mark as required field" /></td>
-    <td>&nbsp;
-      <input type="hidden" name="cform_order[0]" value="<?php echo $field_counter?>" /></td>
+    <td>&nbsp;<input type="hidden" name="cform_order[0]" value="<?php echo $field_counter?>" /></td>
 </tr>
 <tr bgcolor="#E7E8EB">
     <td colspan="2" class="chatlist" valign="top" align="right"><a name="field_value_0" id="field_value_0"></a>&nbsp;<img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_value'] ?>:&nbsp;</td>
@@ -976,7 +1002,6 @@ if(!empty($field_counter) && $field_counter > 1) {
 
     echo 'hideAllFormFields();'.LF.LF;
 
-
     // set options lists
     if($content['form']["saveprofile"]) {
 
@@ -1017,6 +1042,17 @@ if(!empty($field_counter) && $field_counter > 1) {
         }
     }
 
+    echo ' var i; ';
+
+    foreach(array('recaptcha', 'recaptchainv', 'captcha', 'captchaimg', 'mathspam', 'submit') as $field_type) {
+
+        if(isset($field_type_count[$field_type])) {
+            echo ' var options_'.$field_type.' = document.getElementsByClassName("disable-'.$field_type.'"); ';
+            echo ' for(i=0; i < options_'.$field_type.'.length; i++){options_'.$field_type.'[i].disabled=true;} ';
+        }
+
+    }
+
     echo LF.'</script>';
 }
 
@@ -1042,9 +1078,9 @@ if(!empty($field_counter) && $field_counter > 1) {
             echo 'onChange="insertAtCursorPos(document.articlecontent.cform_template, ';
             echo 'document.articlecontent.ph.options[document.articlecontent.ph.selectedIndex].value);">';
             echo $for_select;
-            echo '<option value="{FORM_URL}">{FORM_URL}</option>'.LF;
-            echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>'.LF;
-            echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>'.LF;
+            echo '<option value="{FORM_URL}">{FORM_URL}</option>';
+            echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>';
+            echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
             echo '</select></td>';
             echo '<td><img src="img/button/go04.gif" width="15" height="15" title="insert field placeholder" border="0" ';
             echo 'onclick="insertAtCursorPos(document.articlecontent.cform_template, ';
@@ -1135,9 +1171,9 @@ if($content['form']["template_format"]) {
             echo 'onchange="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
             echo 'document.articlecontent.phc.options[document.articlecontent.phc.selectedIndex].value);">';
             echo $for_select;
-            echo '<option value="{FORM_URL}">{FORM_URL}</option>'.LF;
-            echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>'.LF;
-            echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>'.LF;
+            echo '<option value="{FORM_URL}">{FORM_URL}</option>';
+            echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>';
+            echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
             echo '</select></td>';
             echo '<td><img src="img/button/go04.gif" width="15" height="15" title="insert field placeholder" border="0" ';
             echo 'onclick="insertAtCursorPos(document.articlecontent.cform_template_copy, ';
