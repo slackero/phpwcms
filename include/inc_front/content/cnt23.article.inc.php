@@ -61,7 +61,7 @@ if(isset($cnt_form['formtracking_off']) && $cnt_form['formtracking_off'] == 1) {
 
 $form_error_text = '';
 
-$form_cnt = $cnt_form['labelpos']== 2 ? render_device( $cnt_form['customform'] ) : '';
+$form_cnt = $cnt_form['labelpos'] == 2 ? render_device( $cnt_form['customform'] ) : '';
 
 // set sender email address
 if(empty($cnt_form['sendertype']) || $cnt_form['sendertype'] == 'system') {
@@ -218,7 +218,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 /*
                  * reCAPTCHA
                  */
-                require_once PHPWCMS_ROOT.'/include/inc_ext/recaptchalib.php';
+                require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.recaptcha.php';
 
                 $cnt_form['recaptcha'] = array(
                     'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
@@ -226,38 +226,85 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
                     'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'light' : $cnt_form["fields"][$key]['value']['theme'],
                     'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
-                    'error' => NULL
+                    'size' => empty($cnt_form["fields"][$key]['value']['size']) ? 'normal' : $cnt_form["fields"][$key]['value']['size'],
+                    'error' => null
                 );
 
-                $reCaptcha = new ReCaptcha($cnt_form['recaptcha']['secret_key']);
+                $recaptcha = new phpwcmsRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
 
                 if($POST_DO && isset($_POST['g-recaptcha-response'])) {
 
-                    $cnt_form['recaptcha']['response'] = $reCaptcha->verifyResponse(
-                        getRemoteIP(),
-                        $_POST['g-recaptcha-response']
-                    );
+                    $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
 
-                    if(empty($cnt_form['recaptcha']['response']->success)) {
-                        if(is_array($cnt_form['recaptcha']['response']->errorCodes) && count($cnt_form['recaptcha']['response']->errorCodes)) {
-                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']->errorCodes).'@@';
+                    if($cnt_form['recaptcha']['response']['success'] === false) {
+                        if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
                         } else {
-                            $cnt_form['recaptcha']['error'] = 'reCaptcha @@failed@@';
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
                         }
                         $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
                 }
-                //
+
                 $form_field  = '<div class="g-recaptcha"';
                 $form_field .= ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
                 $form_field .= ' data-theme="'.$cnt_form['recaptcha']['theme'].'"';
                 $form_field .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
+                $form_field .= ' data-size="'.$cnt_form['recaptcha']['size'].'"';
                 $form_field .= '></div>';
-                $form_field .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://www.google.com/recaptcha/api.js?hl='.$cnt_form['recaptcha']['lang'].'"></script>';
+
+                $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
+                $form_field = '<!-- JS: -->';
+
                 if($cnt_form["fields"][$key]['class'] || $cnt_form["fields"][$key]['style']) {
                     $form_field = '<div class="'.$cnt_form["fields"][$key]['class'].'" style="'.$cnt_form["fields"][$key]['style'].'">' . $form_field . '</div>';
                 }
+
+                break;
+
+            case 'recaptchainv':
+                /*
+                 * Invisible reCAPTCHA
+                 */
+                require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.recaptcha.php';
+
+                $cnt_form['recaptcha'] = array(
+                    'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
+                    'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
+                    'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
+                    'badge' => empty($cnt_form["fields"][$key]['value']['badge']) ? 'bottomright' : $cnt_form["fields"][$key]['value']['badge'],
+                    'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
+                    'size' => empty($cnt_form["fields"][$key]['value']['size']) ? '' : $cnt_form["fields"][$key]['value']['size'],
+                    'error' => null
+                );
+
+                $recaptcha = new phpwcmsRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
+
+                if($POST_DO && isset($_POST['g-recaptcha-response'])) {
+
+                    $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+
+                    if($cnt_form['recaptcha']['response']['success'] === false) {
+                        if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
+                        } else {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
+                        }
+                        $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+                        $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
+                    }
+                }
+
+                $crow['recaptcha_submit_data']  = ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
+                $crow['recaptcha_submit_data'] .= ' data-badge="'.$cnt_form['recaptcha']['badge'].'"';
+                $crow['recaptcha_submit_data'] .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
+                $crow['recaptcha_submit_data'] .= ' data-size="'.$cnt_form['recaptcha']['size'].'"';
+                $crow['recaptcha_submit_data'] .= ' data-callback="onSubmitRecaptchaInv'.$crow["acontent_id"].'"';
+
+                $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
+                $block['custom_htmlhead']['recaptchainv_submit'.$crow["acontent_id"]]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'> function onSubmitRecaptchaInv'.$crow["acontent_id"].'(token){document.getElementById("phpwcmsForm'.$crow["acontent_id"].'").submit();} </script>';
+
                 break;
 
             case 'special':
@@ -1084,28 +1131,26 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 /*
                  * Submit
                  */
+                $cnt_form["fields"][$key]['class'] = trim('phpwcms-recaptcha-class '.$cnt_form["fields"][$key]['class']);
+                $cnt_form["fields"][$key]['recaptchainv'] = ' data-recaptchainv-submit';
+
                 if(strpos(strtolower($cnt_form["fields"][$key]['value']), 'src=') === false) {
-                    $form_field .= '<input type="submit" name="'.$form_name.'" id="'.$form_name.'" ';
-                    if($cnt_form["fields"][$key]['value'] != '') {
-                        $form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
-                    }
-                    if($cnt_form["fields"][$key]['class']) {
-                        $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
-                    }
+                    $form_field .= '<button type="submit" name="'.$form_name.'" id="'.$form_name.'" ';
+                    $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
                     if($cnt_form["fields"][$key]['style']) {
                         $form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
                     }
-                    $form_field .= ' />###RESET###';
+                    $form_field .= $cnt_form["fields"][$key]['recaptchainv'].'>';
+                    $form_field .= ($cnt_form["fields"][$key]['value'] != '') ? html($cnt_form["fields"][$key]['value']) : '@@Submit@@';
+                    $form_field .= '</button>###RESET###';
                 } else {
                     $form_field .= '<input type="image" name="'.$form_name.'" id="'.$form_name.'" ';
                     $form_field .= $cnt_form["fields"][$key]['value'];
-                    if($cnt_form["fields"][$key]['class']) {
-                        $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
-                    }
+                    $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
                     if($cnt_form["fields"][$key]['style']) {
                         $form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
                     }
-                    $form_field .= ' />###RESET###';
+                    $form_field .= $cnt_form["fields"][$key]['recaptchainv'].' />###RESET###';
                 }
                 break;
 
@@ -1114,17 +1159,16 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                  * Reset
                  */
                 if(strpos(strtolower($cnt_form["fields"][$key]['value']), 'src=') === false) {
-                    $form_field .= '<input type="reset" name="'.$form_name.'" id="'.$form_name.'" ';
-                    if($cnt_form["fields"][$key]['value'] != '') {
-                        $form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
-                    }
+                    $form_field .= '<button type="reset" name="'.$form_name.'" id="'.$form_name.'" ';
                     if($cnt_form["fields"][$key]['class']) {
                         $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
                     }
                     if($cnt_form["fields"][$key]['style']) {
                         $form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
                     }
-                    $form_field .= ' />';
+                    $form_field .= '>';
+                    $form_field .= ($cnt_form["fields"][$key]['value'] != '') ? html($cnt_form["fields"][$key]['value']) : '@@Reset@@';
+                    $form_field .= '</button>';
                 } else {
                     $form_field .= '<img name="'.$form_name.'" id="'.$form_name.'" ';
                     $form_field .= $cnt_form["fields"][$key]['value'];
@@ -1494,8 +1538,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
         }
 
         // Build the form elements
-        if($form_field && $cnt_form["fields"][$key]['type'] != 'hidden') {
-
+        if($form_field && $cnt_form["fields"][$key]['type'] !== 'hidden') {
 
             if($cnt_form['labelpos'] == 2) {
 
@@ -1520,7 +1563,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
             } else {
 
                 // default table
-                if($cnt_form["fields"][$key]['type'] == 'reset' && strpos($form_cnt, '###RESET###')) {
+                if($cnt_form["fields"][$key]['type'] === 'reset' && strpos($form_cnt, '###RESET###')) {
 
                     $form_cnt = str_replace('###RESET###', $form_field, $form_cnt);
 
@@ -1564,7 +1607,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                         // DIV based
                         $form_cnt .= '<div class="'.$cnt_form['typeClass'].' form-field'.$cnt_form['requiredClass'];
-                        if($cnt_form["fields"][$key]['label'] != '') {
+                        if($cnt_form["fields"][$key]['label'] !== '') {
                             $form_cnt .= '">' . LF . '  <label class="form-label'.$cnt_form['requiredClass'].'">';
                             $form_cnt .= $cnt_form['label_wrap'][0];
                             $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
@@ -1579,7 +1622,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } else {
 
                         // label:field
-                        if($cnt_form["fields"][$key]['label'] != '') {
+                        if($cnt_form["fields"][$key]['label'] !== '') {
                             $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">'.$cnt_form['label_wrap'][0];
                             $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
                             $form_cnt .= $cnt_form['labelReqMark'];
@@ -1593,7 +1636,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
             }
         }
 
-        if($form_field_hidden && $cnt_form["fields"][$key]['type'] == 'hidden' && $cnt_form['labelpos'] == 2) {
+        if($form_field_hidden && $cnt_form["fields"][$key]['type'] === 'hidden' && $cnt_form['labelpos'] == 2) {
 
             // custom form template
             $POST_name_quoted = preg_quote($POST_name, '/');
@@ -1615,6 +1658,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
         }
 
         $form_counter++;
+    }
+
+    if(empty($crow['recaptcha_submit_data'])) {
+        $form_cnt = str_replace(' data-recaptchainv-submit', '', $form_cnt);
+        $form_cnt = str_replace('class="phpwcms-recaptcha-class ', 'class="', $form_cnt);
+        $form_cnt = str_replace(' class="phpwcms-recaptcha-class"', '', $form_cnt);
+    } else {
+        $form_cnt = str_replace(' data-recaptchainv-submit', $crow['recaptcha_submit_data'], $form_cnt);
+        $form_cnt = str_replace('class="phpwcms-recaptcha-class', 'class="g-recaptcha', $form_cnt);
     }
 
     // check against custom PHP function used to validate form
