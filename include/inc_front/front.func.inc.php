@@ -2492,18 +2492,23 @@ function render_urlencode($match) {
     return rawurlencode(decode_entities($match));
 }
 // render date by replacing placeholder tags by value
-function render_cnt_date($text='', $date, $livedate=NULL, $killdate=NULL) {
-    $date = intval($date);
-    if(!$date) {
+function render_cnt_date($text='', $date, $livedate=null, $killdate=null) {
+    if(!($date = intval($date))) {
         $date = now();
     }
     $text = render_date($text, $date, 'DATE');
     $text = render_date($text, now(), 'NOW');
-    if(intval($livedate)) {
+    if(($livedate = intval($livedate))) {
+        $text = render_cnt_template($text, 'LIVEDATE', ' ');
         $text = render_date($text, $livedate, 'LIVEDATE');
+    } else {
+        $text = render_cnt_template($text, 'LIVEDATE', '');
     }
-    if(intval($killdate)) {
+    if(($killdate = intval($killdate))) {
+        $text = render_cnt_template($text, 'KILLDATE', ' ');
         $text = render_date($text, $killdate, 'KILLDATE');
+    } else {
+        $text = render_cnt_template($text, 'KILLDATE', '');
     }
     return $text;
 }
