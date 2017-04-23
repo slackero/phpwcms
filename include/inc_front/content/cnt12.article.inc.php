@@ -46,7 +46,7 @@ if(empty($content["newsletter"]["email_address"])) {
 if(empty($content["newsletter"]["email_name"])) {
     $content["newsletter"]["email_name"] = '';
 }
-if(!isset($content["newsletter"]["label_pos"])) {
+if(empty($content["newsletter"]["label_pos"])) {
     $content["newsletter"]["label_pos"] = 0;
 }
 
@@ -79,12 +79,24 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 
     $content["newsletter"]["email_address"]         = clean_slweg(remove_unsecure_rptags($_POST["newsletter_email"]), 250);
     $content["newsletter"]["email_name"]            = clean_slweg(remove_unsecure_rptags($_POST["newsletter_name"]), 250);
-    $content["newsletter"]["email_subscription"]    = isset($_POST["email_subscription"]) && is_array($_POST["email_subscription"]) ? $_POST["email_subscription"] : array(0 => 0);
+    $content["newsletter"]["email_subscription"]    = isset($_POST["email_subscription"]) && is_array($_POST["email_subscription"]) && count($_POST["email_subscription"]) ? $_POST["email_subscription"] : false;
 
-    if(empty($content["newsletter"]["url1"])) $content["newsletter"]["url1"] = '';
-    if(empty($content["newsletter"]["url2"])) $content["newsletter"]["url2"] = '';
+    if($content["newsletter"]["email_subscription"]) {
+        foreach($content["newsletter"]["email_subscription"] as $nlkey => $nlvalue) {
+            $content["newsletter"]["email_subscription"][$nlkey] = intval($nlvalue);
+        }
+    } else {
+        $template_default["article"]["newsletter_error"] = '@@No subscription selected. Choose a list you wish to subscribe to.@@';
+    }
 
-    if(is_valid_email($content["newsletter"]["email_address"])) {
+    if(empty($content["newsletter"]["url1"])) {
+        $content["newsletter"]["url1"] = '';
+    }
+    if(empty($content["newsletter"]["url2"])) {
+        $content["newsletter"]["url2"] = '';
+    }
+
+    if(is_valid_email($content["newsletter"]["email_address"]) && $content["newsletter"]["email_subscription"]) {
         //Success
         $content["newsletter"]["success"] = 1;
 
@@ -131,10 +143,10 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         $content["newsletter"]["verify_link"] = PHPWCMS_URL."verify.php?s=".rawurlencode($content["newsletter"]["reffering_key"]);
         $content["newsletter"]["delete_link"] = PHPWCMS_URL."verify.php?u=".rawurlencode($content["newsletter"]["reffering_key"]);
         $content["newsletter"]["mailtext"] = ($content["newsletter"]["updated"]) ? $content["newsletter"]["change_text"] : $content["newsletter"]["reg_text"];
-        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_NAME}",   $content["newsletter"]["email_name"],       $content["newsletter"]["mailtext"]);
-        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_EMAIL}",  $content["newsletter"]["email_address"],    $content["newsletter"]["mailtext"]);
-        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_VERIFY}", $content["newsletter"]["verify_link"],      $content["newsletter"]["mailtext"]);
-        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_DELETE}", $content["newsletter"]["delete_link"],      $content["newsletter"]["mailtext"]);
+        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_NAME}", $content["newsletter"]["email_name"], $content["newsletter"]["mailtext"]);
+        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_EMAIL}", $content["newsletter"]["email_address"], $content["newsletter"]["mailtext"]);
+        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_VERIFY}", $content["newsletter"]["verify_link"], $content["newsletter"]["mailtext"]);
+        $content["newsletter"]["mailtext"] = str_replace("{NEWSLETTER_DELETE}", $content["newsletter"]["delete_link"], $content["newsletter"]["mailtext"]);
         $content["newsletter"]["mailtext"] = replaceGlobalRT($content["newsletter"]["mailtext"]);
 
         $content['newsletter']['subject']  = returnTagContent($content["newsletter"]["mailtext"], 'SUBJECT');
@@ -144,8 +156,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             }
             $content['newsletter']['subject'] = 'Newsletter verification for '.$phpwcms["site"];
         } else {
-            $content["newsletter"]["mailtext"]  = $content['newsletter']['subject']['new'];
-            $content['newsletter']['subject']   = $content['newsletter']['subject']['tag'];
+            $content["newsletter"]["mailtext"] = $content['newsletter']['subject']['new'];
+            $content['newsletter']['subject'] = $content['newsletter']['subject']['tag'];
         }
 
         require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
@@ -191,7 +203,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         $mail->addAddress($content["newsletter"]["email_address"]);
 
         if(!$mail->send()) {
-            $template_default["article"]["newsletter_error"] = html_specialchars($mail->ErrorInfo);
+            $template_default["article"]["newsletter_error"] = html($mail->ErrorInfo);
             $content["newsletter"]["success"] = 0;
             $content["newsletter"]["email_address_error"] = 1;
         }
@@ -203,64 +215,63 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         $content["newsletter"]["email_address_error"] = 1;
     }
 
-    $content["newsletter"]["email_address"] = html_specialchars($content["newsletter"]["email_address"]);
-    $content["newsletter"]["email_name"] = html_specialchars($content["newsletter"]["email_name"]);
+    $content["newsletter"]["email_address"] = html($content["newsletter"]["email_address"]);
+    $content["newsletter"]["email_name"] = html($content["newsletter"]["email_name"]);
 }
 
 if($content["newsletter"]["success"]) {
-    $content["newsletter"]["success_text"] = str_replace("{NEWSLETTER_EMAIL}", "<strong>".$content["newsletter"]["email_address"]."</strong>", $content["newsletter"]["success_text"]);
-    $CNT_TMP .= div_class(  (
-                            ($content["newsletter"]["success_text"]) ? nl2br($content["newsletter"]["success_text"]) : "Email: ".$content["newsletter"]["email_address"].
-                                " successfully registred. You will receive a verification email within seconds.")
-    , $template_default["article"]["text_class"]);
+
+    $content["newsletter"]["success_text"] = str_replace("{NEWSLETTER_EMAIL}", $content["newsletter"]["email_address"], html($content["newsletter"]["success_text"]));
+
+    $CNT_TMP .= div_class(
+        $content["newsletter"]["success_text"] ? nl2br($content["newsletter"]["success_text"]) : sprintf("@@Email: %s successfully registered. You will receive a verification email within seconds.@@", $content["newsletter"]["email_address"]), $template_default["article"]["text_class"]
+    );
 
 } else {
 
-    if(empty($content["newsletter"]["label_pos"])) {
+    $label_pos = empty($content["newsletter"]["label_pos"]) ? '' : ' label-offset';
 
-        $label_pos          = false;
-        $label_pos_tr       = LF;
-        $label_pos_colspan  = ' colspan="2"';
+    $CNT_TMP .= $content["newsletter"]["text"] ? nl2br(div_class(html($content["newsletter"]["text"]), $template_default["article"]["text_class"])) : '';
+    $CNT_TMP .= '<form action="'.FE_CURRENT_URL.'#newsletterSubscribeForm" method="post" id="newsletterSubscribeForm"';
 
-    } else {
-
-        $label_pos          = true;
-        $label_pos_tr       = '</tr>'.LF.'<tr>';
-        $label_pos_colspan  = '';
-
-    }
-
-
-    $CNT_TMP .= ($content["newsletter"]["text"]) ? "<br />".nl2br(div_class($content["newsletter"]["text"],$template_default["article"]["text_class"])) : "";
-    $CNT_TMP .= '<form action="'.FE_CURRENT_URL.'" method="post" id="newsletterSubscribeForm">'.LF;
-    $CNT_TMP .= '<table class="'.$template_default['classes']['newsletter-table'].'"';
     switch($content["newsletter"]["pos"]) {
-        case 1: $CNT_TMP .= ' style="float:left;"'; break;
-        case 2: $CNT_TMP .= ' style="margin-left:auto;margin-right:auto;"'; break;
-        case 3: $CNT_TMP .= ' style="float:right;"'; break;
+        case 1:
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' pull-left');
+            break;
+
+        case 2:
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' center-block');
+            break;
+
+        case 3:
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' pull-right');
+            break;
+
+        default:
+            $content["newsletter"]["class"] = $template_default['classes']['newsletter-table'];
     }
-    $CNT_TMP .= '>'.LF;
+
+    $CNT_TMP .= ' class="'.$content["newsletter"]["class"].$label_pos.'">';
+
     if($content["newsletter"]["email_address_error"]) {
-        $CNT_TMP .= "<tr>";
-        if(!$label_pos) {
-            $CNT_TMP .= "\n<td>&nbsp;</td>";
+        $CNT_TMP .= '<p class="formError">'.$template_default["article"]["newsletter_error"].'<p>';
         }
-        $CNT_TMP .= "<td class=\"formError\">".$template_default["article"]["newsletter_error"]."</td>\n</tr>\n";
-    }
-    $CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
-    $CNT_TMP .= (($content["newsletter"]["label_email"]) ? $content["newsletter"]["label_email"] : "email:")."&nbsp;</td>";
-    $CNT_TMP .= $label_pos_tr;
-    $CNT_TMP .= '<td><input name="newsletter_email" type="email" class="'.$template_default['classes']['newsletter-input-email'].'" size="30" maxlength="250" ';
-    $CNT_TMP .= "value=\"".$content["newsletter"]["email_address"]."\" required=\"required\" /></td>\n</tr>\n";
-    $CNT_TMP .= "<tr>\n<td class=\"formLabel\">";
-    $CNT_TMP .= (($content["newsletter"]["label_name"]) ? $content["newsletter"]["label_name"] : "name:")."&nbsp;</td>";
-    $CNT_TMP .= $label_pos_tr;
-    $CNT_TMP .= '<td><input name="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
-    $CNT_TMP .= "value=\"".$content["newsletter"]["email_name"]."\" /></td>\n</tr>\n";
+
+    $CNT_TMP .= '<fieldset class="subscriber">';
+
+    $CNT_TMP .= '<div class="form-group">';
+    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_email"] ? $content["newsletter"]["label_email"] : "@@email:@@") . '</label> ';
+    $CNT_TMP .= '<input name="newsletter_email" type="email" class="'.$template_default['classes']['newsletter-input-email'].'" size="30" maxlength="250" ';
+    $CNT_TMP .= 'value="'.$content["newsletter"]["email_address"].'" required="required" placeholder="@@newsletter email@@" /></div>';
+
+    $CNT_TMP .= '<div class="form-group">';
+    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_name"] ? $content["newsletter"]["label_name"] : '@@name:@@') . '</label> ';
+    $CNT_TMP .= '<input name="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
+    $CNT_TMP .= 'value="'.$content["newsletter"]["email_name"].'" placeholder="@@newsletter name@@" /></div>';
+
+    $CNT_TMP .= '</fieldset>';
 
     if(is_array($content["newsletter"]["subscription"]) && count($content["newsletter"]["subscription"])) {
-
-        $CNT_TMP .= '<tr><td'.$label_pos_colspan.'>'.spacer(1,3)."</td></tr>\n";
 
         // retrieve all active newsletters
         $content["newsletter"]['temp'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription WHERE subscription_active=1 ORDER BY subscription_name");
@@ -273,23 +284,26 @@ if($content["newsletter"]["success"]) {
         }
         // check for "all" subscriptions setting
         if(isset($content["newsletter"]["subscription"][0])) {
-            $content["newsletter"]["subscription"][0] = empty($content["newsletter"]["all_subscriptions"]) ? 'all subscriptions' : $content["newsletter"]["all_subscriptions"];
+            $content["newsletter"]["subscription"][0] = empty($content["newsletter"]["all_subscriptions"]) ? '@@subscribe to all@@' : $content["newsletter"]["all_subscriptions"];
         }
 
         $content["newsletter"]['c'] = 0;
         $content["newsletter"]['t'] = '';
         foreach($content["newsletter"]["subscription"] as $nlkey => $nlvalue) {
 
-            if(is_numeric($nlvalue)) continue;
+            if(is_numeric($nlvalue)) {
+                continue;
+            }
 
-            $content["newsletter"]['t'] .= '<tr class="'.$template_default['classes']['newsletter-checkbox-item'].'">'.LF.'<td><input name="email_subscription['.$nlkey.']" type="checkbox" value="'.$nlkey.'"';
+            $content["newsletter"]['t'] .= '<li class="'.$template_default['classes']['newsletter-checkbox-item'].'">';
+            $content["newsletter"]['t'] .= '<div class="checkbox"><label for="email_subscription_'.$nlkey.'">';
+            $content["newsletter"]['t'] .= '<input name="email_subscription['.$nlkey.']" type="checkbox" value="'.$nlkey.'"';
             if(isset($content["newsletter"]["email_subscription"][$nlkey])) {
                 $content["newsletter"]['t'] .= ' checked="checked"';
             }
-            $content["newsletter"]['t'] .= ' id="email_subscription_'.$nlkey.'"/></td>'.LF;
-            $content["newsletter"]['t'] .= '<td><label for="email_subscription_'.$nlkey.'">';
-            $content["newsletter"]['t'] .= html_specialchars($nlvalue);
-            $content["newsletter"]['t'] .= '</label></td>'.LF.'</tr>'.LF;
+            $content["newsletter"]['t'] .= ' id="email_subscription_'.$nlkey.'" /> ';
+            $content["newsletter"]['t'] .= html($nlvalue);
+            $content["newsletter"]['t'] .= '</label></div></li>';
 
             $content["newsletter"]['c']++;
 
@@ -297,25 +311,27 @@ if($content["newsletter"]["success"]) {
 
         if($content["newsletter"]['c']) {
 
-            $CNT_TMP .= "<tr>\n<td class=\"formLabel subscriptions\">";
-            $CNT_TMP .= empty($content["newsletter"]["label_subscriptions"]) ? 'subscribe&nbsp;to:' : $content["newsletter"]["label_subscriptions"];
-            $CNT_TMP .= '&nbsp;</td>'.$label_pos_tr.'<td>';
-            $CNT_TMP .= '<table class="'.$template_default['classes']['newsletter-table-subscription'].'">'.LF;
+            $CNT_TMP .= '<fieldset class="subscriptions">' . LF;
+            $CNT_TMP .= '<legend>' . (empty($content["newsletter"]["label_subscriptions"]) ? '@@subscribe&nbsp;to:@@' : html($content["newsletter"]["label_subscriptions"])) . '</legend>' . LF;
+            $CNT_TMP .= '<ul class="'.$template_default['classes']['newsletter-table-subscription'].'">' . LF;
             $CNT_TMP .= $content["newsletter"]['t'];
-            $CNT_TMP .= "</table></td>\n</tr>\n";
+            $CNT_TMP .= '</ul>' . LF;
+            $CNT_TMP .= '</fieldset>';
+
         }
 
     }
 
+    $CNT_TMP .= '<fieldset class="subscribe-buttons">' . LF;
 
-    $CNT_TMP .= '<tr><td'.$label_pos_colspan.'>'.spacer(1,3)."</td></tr>\n<tr>";
-    if(!$label_pos) {
-        $CNT_TMP .= "\n<td>&nbsp;</td>";
-    }
-    $CNT_TMP .= '<td><input type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'" value="';
-    $CNT_TMP .= (($content["newsletter"]["button_text"]) ? $content["newsletter"]["button_text"] : "send")."\" />";
+    $CNT_TMP .= '<button type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'">';
+    $CNT_TMP .= $content["newsletter"]["button_text"] ? $content["newsletter"]["button_text"] : '@@Subscribe@@';
+    $CNT_TMP .= '</button>' . LF;
     $CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
-    $CNT_TMP .= "</td>\n</tr>\n</table></form>";
+
+    $CNT_TMP .= '</fieldset>';
+
+    $CNT_TMP .= '</form>';
 }
 
 $CNT_TMP .= $crow['attr_class_id_close'];
