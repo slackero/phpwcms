@@ -39,3 +39,45 @@ foreach($content['subscription_temp'] as $subscr_value) {
 }
 
 $content["newsletter"]["pos"]                   = intval($_POST["cnewsletter_pos"]);
+$content["newsletter"]["recaptcha"]             = intval($_POST["cnewsletter_recaptcha"]);
+$content["newsletter"]["recaptcha_config"]      = parse_ini_str( slweg($_POST["cnewsletter_recaptcha_config"]), false );
+
+$content["newsletter"]["recaptcha_config"] = array_merge(
+    array(
+        'site_key' => '',
+        'secret_key' => '',
+        'type' => 'image',
+        'lang' => $phpwcms['default_lang'],
+    ),
+    $content["newsletter"]["recaptcha_config"]
+);
+
+if($content["newsletter"]["recaptcha"] === 1) { // reCAPTCHA v2
+
+    if(empty($content["newsletter"]["recaptcha_config"]['size']) || !in_array($content["newsletter"]["recaptcha_config"]['size'], array('compact', 'normal'))) {
+        $content["newsletter"]["recaptcha_config"]['size'] = 'normal';
+    }
+    if(empty($content["newsletter"]["recaptcha_config"]['theme']) || !in_array($content["newsletter"]["recaptcha_config"]['theme'], array('dark', 'light'))) {
+        $content["newsletter"]["recaptcha_config"]['theme'] = 'light';
+    }
+    if(empty($content["newsletter"]["recaptcha_config"]['type']) || !in_array($content["newsletter"]["recaptcha_config"]['type'], array('image', 'audio'))) {
+        $content["newsletter"]["recaptcha_config"]['type'] = 'image';
+    }
+
+    unset($content["newsletter"]["recaptcha_config"]['badge']);
+
+} elseif($content["newsletter"]["recaptcha"] === 2) { // Invisible reCAPTCHA
+
+    if(empty($content["newsletter"]["recaptcha_config"]['size']) || ($content["newsletter"]["recaptcha_config"]['size'] !== '' && $content["newsletter"]["recaptcha_config"]['size'] !== 'invisible')) {
+        $content["newsletter"]["recaptcha_config"]['size'] = '';
+    }
+    if(empty($content["newsletter"]["recaptcha_config"]['badge']) || !in_array($content["newsletter"]["recaptcha_config"]['badge'], array('bottomright', 'bottomleft', 'inline'))) {
+        $content["newsletter"]["recaptcha_config"]['badge'] = 'bottomright';
+    }
+    if(empty($content["newsletter"]["recaptcha_config"]['type']) || !in_array($content["newsletter"]["recaptcha_config"]['type'], array('image', 'audio'))) {
+        $content["newsletter"]["recaptcha_config"]['type'] = 'image';
+    }
+
+    unset($content["newsletter"]["recaptcha_config"]['theme']);
+
+}

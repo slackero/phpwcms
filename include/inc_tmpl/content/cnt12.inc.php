@@ -25,6 +25,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
     $content["newsletter"]['left']  = array();
     $content["newsletter"]['right'] = array();
+    if(empty($content["newsletter"]["recaptcha"])) {
+        $content["newsletter"]["recaptcha"] = 0;
+    }
+    if(empty($content["newsletter"]["recaptcha_config"])) {
+        $content["newsletter"]["recaptcha_config"] = "site_key = \nsecret_key = \ntype = image";
+    }
 
     // default = all subscriptions
     $content["newsletter"]['right'][0] = $BL['be_newsletter_allsubscriptions'];
@@ -105,11 +111,11 @@ if (!defined('PHPWCMS_ROOT')) {
 </tr>
 <tr>
     <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_cnt_infotext'] ?>:&nbsp;</td>
-    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_text" rows="8" class="width440 autosize" id="cnewsletter_text"><?php echo isset($content["newsletter"]["text"]) ? html($content["newsletter"]["text"]) : ''; ?></textarea></td>
+    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_text" rows="4" class="width440 autosize" id="cnewsletter_text"><?php echo isset($content["newsletter"]["text"]) ? html($content["newsletter"]["text"]) : ''; ?></textarea></td>
 </tr>
 <tr>
     <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_cnt_successtext'] ?>:&nbsp;</td>
-    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_success_text" rows="5" class="width440 autosize" id="cnewsletter_success_text"><?php echo isset($content["newsletter"]["success_text"]) ? html($content["newsletter"]["success_text"]) : ''; ?></textarea></td>
+    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_success_text" rows="4" class="width440 autosize" id="cnewsletter_success_text"><?php echo isset($content["newsletter"]["success_text"]) ? html($content["newsletter"]["success_text"]) : ''; ?></textarea></td>
 </tr>
 <tr>
     <td align="right" class="chatlist">URL 1:&nbsp;</td>
@@ -124,20 +130,42 @@ if (!defined('PHPWCMS_ROOT')) {
 <tr><td colspan="2" class="rowspacer7x7"></td></tr>
 
 <tr>
+    <td align="right" class="chatlist"><?php echo $BL['be_cnt_field']['recaptcha']; ?>:&nbsp;</td>
+    <td>
+        <select name="cnewsletter_recaptcha">
+            <option value="0" <?php is_selected(0, $content["newsletter"]["recaptcha"]) ?>><?php echo $BL['be_off']; ?></option>
+            <option value="2" <?php is_selected(2, $content["newsletter"]["recaptcha"]) ?>><?php echo $BL['be_cnt_field']['recaptchainv']; ?></option>
+            <option value="1" <?php is_selected(1, $content["newsletter"]["recaptcha"]) ?>><?php echo $BL['be_cnt_field']['recaptcha']; ?> v2</option>
+        </select>
+    </td>
+</tr>
+<tr>
+    <td align="right" valign="top" class="chatlist tdtop6"><?php echo $BL['be_settings']; ?>:&nbsp;</td>
+    <td valign="top" class="tdtop3">
+        <textarea name="cnewsletter_recaptcha_config" rows="3" class="width440 code autosize" placeholder="site_key = &#10;secret_key = &#10;type = image"><?php echo html($content["newsletter"]["recaptcha_config"]); ?></textarea>
+        <div class="tdtop3">
+            <a href="https://www.google.com/recaptcha/admin" target="_blank" style="text-decoration:underline;"><?php echo $BL['be_cnt_field']['recaptcha_signapikey']; ?></a>
+        </div>
+    </td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"></td></tr>
+
+<tr>
     <td>&nbsp;</td>
     <td class="v10 tdbottom3">{NEWSLETTER_NAME}, {NEWSLETTER_EMAIL}, {NEWSLETTER_VERIFY}, {NEWSLETTER_DELETE}, {IP}, {DATE:m/d/Y}, [SUBJECT][/SUBJECT]</td>
 </tr>
 
   <tr>
     <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_cnt_regmail'] ?>:&nbsp;</td>
-    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_reg_text" rows="5" wrap="OFF" class="code width440 autosize" id="cnewsletter_reg_text"><?php echo isset($content["newsletter"]["reg_text"]) ? html($content["newsletter"]["reg_text"]) : ''; ?></textarea></td>
+    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_reg_text" rows="4" wrap="off" class="code width440 autosize" id="cnewsletter_reg_text"><?php echo isset($content["newsletter"]["reg_text"]) ? html($content["newsletter"]["reg_text"]) : ''; ?></textarea></td>
   </tr>
   <tr>
     <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_cnt_logoffmail'] ?>:&nbsp;</td>
-    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_logoff_text" rows="5" wrap="OFF" class="code width440 autosize" id="cnewsletter_logoff_text"><?php echo isset($content["newsletter"]["logoff_text"]) ? html($content["newsletter"]["logoff_text"]) : ''; ?></textarea></td>
+    <td valign="top" class="tdbottom3"><textarea name="cnewsletter_logoff_text" rows="4" wrap="off" class="code width440 autosize" id="cnewsletter_logoff_text"><?php echo isset($content["newsletter"]["logoff_text"]) ? html($content["newsletter"]["logoff_text"]) : ''; ?></textarea></td>
   </tr>
   <tr>
     <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_cnt_changemail'] ?>:&nbsp;</td>
-    <td valign="top"><textarea name="cnewsletter_change_text" rows="5" wrap="OFF" class="code width440 autosize" id="cnewsletter_change_text"><?php echo isset($content["newsletter"]["change_text"]) ? html($content["newsletter"]["change_text"]) : ''; ?></textarea></td>
+    <td valign="top"><textarea name="cnewsletter_change_text" rows="4" wrap="off" class="code width440 autosize" id="cnewsletter_change_text"><?php echo isset($content["newsletter"]["change_text"]) ? html($content["newsletter"]["change_text"]) : ''; ?></textarea></td>
   </tr>
 
