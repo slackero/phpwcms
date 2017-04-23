@@ -74,6 +74,24 @@ if(!$content["newsletter"]["change_text"] || !$content["newsletter"]["reg_text"]
     }
 }
 
+if(empty($content["newsletter"]["recaptcha"])) {
+
+    $content["newsletter"]["recaptcha"] = 0;
+
+} else {
+
+    require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.recaptcha.php';
+
+    $recaptcha = new phpwcmsRecaptcha($content["newsletter"]["recaptcha_config"]['site_key'], $content["newsletter"]["recaptcha_config"]['secret_key']);
+
+    if(empty($content["newsletter"]["recaptcha_config"]['lang'])) {
+        $content["newsletter"]["recaptcha_config"]['lang'] = $phpwcms['default_lang'];
+    }
+
+}
+
+$content["newsletter"]["newsletter_error"] = '';
+
 if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
     unset($content["newsletter"]["email_subscription"]);
 
@@ -86,7 +104,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content["newsletter"]["email_subscription"][$nlkey] = intval($nlvalue);
         }
     } else {
-        $template_default["article"]["newsletter_error"] = '@@No subscription selected. Choose a list you wish to subscribe to.@@';
+        $content["newsletter"]["newsletter_error"] = '@@No subscription selected. Choose a list you wish to subscribe to.@@';
     }
 
     if(empty($content["newsletter"]["url1"])) {
@@ -96,7 +114,29 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         $content["newsletter"]["url2"] = '';
     }
 
-    if(is_valid_email($content["newsletter"]["email_address"]) && $content["newsletter"]["email_subscription"]) {
+    if(empty($content["newsletter"]["newsletter_error"]) && $content["newsletter"]["recaptcha"]) {
+
+        if(empty($_POST['g-recaptcha-response'])) {
+
+            $content["newsletter"]["newsletter_error"] = '@@recaptcha-error:missing-input@@';
+
+        } else {
+
+            $recaptcha_response = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+
+            if($recaptcha_response['success'] === false) {
+                if(is_array($recaptcha_response['error-codes']) && count($recaptcha_response['error-codes'])) {
+                    $content["newsletter"]["newsletter_error"] = '@@recaptcha-error:'.current($recaptcha_response['error-codes']).'@@';
+                } else {
+                    $content["newsletter"]["newsletter_error"] = '@@recaptcha-error:'.$recaptcha_response['error-codes'].'@@';
+                }
+            }
+
+        }
+
+    };
+
+    if(empty($content["newsletter"]["newsletter_error"]) && is_valid_email($content["newsletter"]["email_address"]) && $content["newsletter"]["email_subscription"]) {
         //Success
         $content["newsletter"]["success"] = 1;
 
@@ -231,8 +271,10 @@ if($content["newsletter"]["success"]) {
 
     $label_pos = empty($content["newsletter"]["label_pos"]) ? '' : ' label-offset';
 
+    $content["newsletter"]["form_id"] = 'subscribe-newsletter-form'.$crow['acontent_id'];
+
     $CNT_TMP .= $content["newsletter"]["text"] ? nl2br(div_class(html($content["newsletter"]["text"]), $template_default["article"]["text_class"])) : '';
-    $CNT_TMP .= '<form action="'.FE_CURRENT_URL.'#newsletterSubscribeForm" method="post" id="newsletterSubscribeForm"';
+    $CNT_TMP .= '<form action="'.FE_CURRENT_URL.'#'.$content["newsletter"]["form_id"].'" method="post" id="'.$content["newsletter"]["form_id"].'"';
 
     switch($content["newsletter"]["pos"]) {
         case 1:
@@ -251,11 +293,13 @@ if($content["newsletter"]["success"]) {
             $content["newsletter"]["class"] = $template_default['classes']['newsletter-table'];
     }
 
-    $CNT_TMP .= ' class="'.$content["newsletter"]["class"].$label_pos.'">';
+    $CNT_TMP .= ' class="'.$content["newsletter"]["class"].$label_pos.'">' . LF;
 
-    if($content["newsletter"]["email_address_error"]) {
-        $CNT_TMP .= '<p class="formError">'.$template_default["article"]["newsletter_error"].'<p>';
-        }
+    if($content["newsletter"]["newsletter_error"]) {
+        $CNT_TMP .= '<p class="formError">'.$content["newsletter"]["newsletter_error"].'<p>' . LF;
+    } elseif($content["newsletter"]["email_address_error"]) {
+        $CNT_TMP .= '<p class="formError">'.$template_default["article"]["newsletter_error"].'<p>' . LF;
+    }
 
     $CNT_TMP .= '<fieldset class="subscriber">';
 
@@ -269,7 +313,7 @@ if($content["newsletter"]["success"]) {
     $CNT_TMP .= '<input name="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
     $CNT_TMP .= 'value="'.$content["newsletter"]["email_name"].'" placeholder="@@newsletter name@@" /></div>';
 
-    $CNT_TMP .= '</fieldset>';
+    $CNT_TMP .= '</fieldset>' . LF;
 
     if(is_array($content["newsletter"]["subscription"]) && count($content["newsletter"]["subscription"])) {
 
@@ -316,20 +360,55 @@ if($content["newsletter"]["success"]) {
             $CNT_TMP .= '<ul class="'.$template_default['classes']['newsletter-table-subscription'].'">' . LF;
             $CNT_TMP .= $content["newsletter"]['t'];
             $CNT_TMP .= '</ul>' . LF;
-            $CNT_TMP .= '</fieldset>';
+            $CNT_TMP .= '</fieldset>' . LF;
 
         }
 
     }
 
+    // reCAPTCHA v2
+    if($content["newsletter"]["recaptcha"] === 1) {
+
+        $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($content["newsletter"]["recaptcha_config"]['lang'], true);
+
+        $CNT_TMP .= '<fieldset class="subscribe-recaptcha">' . LF;
+
+        $CNT_TMP .= '<div class="g-recaptcha"';
+        $CNT_TMP .= ' data-sitekey="'.$recaptcha->get_site_key().'"';
+        $CNT_TMP .= ' data-theme="'.$content["newsletter"]["recaptcha_config"]['theme'].'"';
+        $CNT_TMP .= ' data-type="'.$content["newsletter"]["recaptcha_config"]['type'].'"';
+        $CNT_TMP .= ' data-size="'.$content["newsletter"]["recaptcha_config"]['size'].'"';
+        $CNT_TMP .= '></div>';
+
+        $CNT_TMP .= '</fieldset>' . LF;
+
+    }
+
     $CNT_TMP .= '<fieldset class="subscribe-buttons">' . LF;
 
-    $CNT_TMP .= '<button type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'">';
+        // reCAPTCHA v2
+    if($content["newsletter"]["recaptcha"] === 2) {
+
+        $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($content["newsletter"]["recaptcha_config"]['lang'], true);
+        $block['custom_htmlhead']['recaptchainv_submit'.$crow['acontent_id']] = '  '.$recaptcha->get_onsubmit_function($crow['acontent_id'], $content["newsletter"]["form_id"], true);
+
+        $CNT_TMP .= '<button type="submit" class="'.trim('g-recaptcha '.$template_default['classes']['newsletter-submit-button']).'"';
+        $CNT_TMP .= ' data-sitekey="'.$recaptcha->get_site_key().'"';
+        $CNT_TMP .= ' data-badge="'.$content["newsletter"]["recaptcha_config"]['badge'].'"';
+        $CNT_TMP .= ' data-type="'.$content["newsletter"]["recaptcha_config"]['type'].'"';
+        $CNT_TMP .= ' data-size="'.$content["newsletter"]["recaptcha_config"]['size'].'"';
+        $CNT_TMP .= ' data-callback="'.$recaptcha->get_callback().'"';
+        $CNT_TMP .= '>';
+
+    } else {
+        $CNT_TMP .= '<button type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'">';
+    }
+
     $CNT_TMP .= $content["newsletter"]["button_text"] ? $content["newsletter"]["button_text"] : '@@Subscribe@@';
     $CNT_TMP .= '</button>' . LF;
     $CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
 
-    $CNT_TMP .= '</fieldset>';
+    $CNT_TMP .= '</fieldset>' . LF;
 
     $CNT_TMP .= '</form>';
 }

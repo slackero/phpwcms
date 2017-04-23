@@ -18,3 +18,19 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Newsletter Subscription
 $content["newsletter"] = unserialize($row["acontent_newsletter"]);
+
+if(empty($content["newsletter"]["recaptcha_config"])) {
+
+    $content["newsletter"]["recaptcha_config"] = '';
+
+} else {
+
+    $recaptcha_config = '';
+
+    foreach($content["newsletter"]["recaptcha_config"] as $key => $value) {
+        $recaptcha_config .= trim($key . ' = ' . $value) . LF;
+    }
+
+    $content["newsletter"]["recaptcha_config"] = trim($recaptcha_config);
+
+}
