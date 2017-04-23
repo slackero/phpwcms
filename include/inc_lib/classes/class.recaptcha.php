@@ -13,6 +13,7 @@ class phpwcmsRecaptcha {
 
     public $sitekey = '';
     public $secretkey = '';
+    public $callback = '';
     private $api_script_src = 'https://www.google.com/recaptcha/api.js';
     private $api_verify_url = 'https://www.google.com/recaptcha/api/siteverify';
 
@@ -41,6 +42,12 @@ class phpwcmsRecaptcha {
     public function get_secret_key() {
 
         return $this->secretkey;
+
+    }
+
+    public function get_callback() {
+
+        return $this->callback;
 
     }
 
@@ -104,4 +111,20 @@ class phpwcmsRecaptcha {
 
         return implode('&', $param);
     }
+
+    public function get_onsubmit_function($uniquekey='', $formid='', $script=true) {
+
+        $uniquekey = trim($uniquekey);
+        $formid = trim($formid);
+
+        $this->callback = 'onSubmitRecaptchaInv'.$uniquekey;
+
+        $js = 'function onSubmitRecaptchaInv'.$uniquekey.'(token){document.getElementById("'.$formid.'").submit();}';
+        if($script) {
+            return '<script'.SCRIPT_ATTRIBUTE_TYPE.'> ' . $js . '</script>';
+        }
+
+        return $js;
+    }
+
 }
