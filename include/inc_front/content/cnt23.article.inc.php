@@ -248,14 +248,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 }
 
                 $form_field  = '<div class="g-recaptcha"';
-                $form_field .= ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
+                $form_field .= ' data-sitekey="'.$recaptcha->get_site_key().'"';
                 $form_field .= ' data-theme="'.$cnt_form['recaptcha']['theme'].'"';
                 $form_field .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
                 $form_field .= ' data-size="'.$cnt_form['recaptcha']['size'].'"';
                 $form_field .= '></div>';
 
                 $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
-                $form_field = '<!-- JS: -->';
 
                 if($cnt_form["fields"][$key]['class'] || $cnt_form["fields"][$key]['style']) {
                     $form_field = '<div class="'.$cnt_form["fields"][$key]['class'].'" style="'.$cnt_form["fields"][$key]['style'].'">' . $form_field . '</div>';
@@ -296,16 +295,16 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
 
-                $crow['recaptcha_submit_data']  = ' data-sitekey="'.$cnt_form['recaptcha']['site_key'].'"';
+                $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
+                $block['custom_htmlhead']['recaptchainv_submit'.$crow["acontent_id"]]  = '  '.$recaptcha->get_onsubmit_function($crow['acontent_id'], 'phpwcmsForm'.$crow["acontent_id"], true);
+
+                $crow['recaptcha_submit_data']  = ' data-sitekey="'.$recaptcha->get_site_key().'"';
                 $crow['recaptcha_submit_data'] .= ' data-badge="'.$cnt_form['recaptcha']['badge'].'"';
                 $crow['recaptcha_submit_data'] .= ' data-type="'.$cnt_form['recaptcha']['type'].'"';
                 $crow['recaptcha_submit_data'] .= ' data-size="'.$cnt_form['recaptcha']['size'].'"';
-                $crow['recaptcha_submit_data'] .= ' data-callback="onSubmitRecaptchaInv'.$crow["acontent_id"].'"';
+                $crow['recaptcha_submit_data'] .= ' data-callback="'.$recaptcha->get_callback().'"';
 
-                $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
-                $block['custom_htmlhead']['recaptchainv_submit'.$crow["acontent_id"]]  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'> function onSubmitRecaptchaInv'.$crow["acontent_id"].'(token){document.getElementById("phpwcmsForm'.$crow["acontent_id"].'").submit();} </script>';
-
-                break;
+                                break;
 
             case 'special':
                 /*
