@@ -223,7 +223,7 @@ $template_default['imagegallery_default_column']            = 1;
 
 $template_default['article']['keyword_before']          = '<span class="keywords">';
 $template_default['article']['keyword_after']           = '</span>';
-$template_default['article']['newsletter_error']        = 'Please check email address!';
+$template_default['article']['newsletter_error']        = '@@Please check email address!@@';
 
 // date and time formatting
 $template_default['date']['language']       = 'EN';         // DE=German, IT=Italian, FR=French
