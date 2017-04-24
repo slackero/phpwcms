@@ -3,14 +3,13 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2016, Oliver Georgi
+ * @copyright Copyright (c) 2002-2017, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
  **/
 
-
-// Language: Polish, Language Code: pl UTF-8 for ver.1.8.4 (2016/07/22, 543)
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.7-beta (2017/04/23, 546)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -96,7 +95,7 @@ $BL['be_ctype_code']               = 'kod programistyczny';
 $BL['be_ctype_textimage']          = 'tekst z grafiką';
 $BL['be_ctype_images']             = 'grafika';
 $BL['be_ctype_bulletlist']         = 'lista (jako tabela)';
-$BL['be_ctype_ullist']            = 'lista';
+$BL['be_ctype_ullist']             = 'lista';
 $BL['be_ctype_link']               = 'odnośnik &amp; e-mail';
 $BL['be_ctype_linklist']           = 'lista odnośników';
 $BL['be_ctype_linkarticle']        = 'odnośniki do artykułów';
@@ -656,7 +655,7 @@ $BL['be_article_adminuser']     = 'Administrator';
 $BL['be_article_username']      = 'Autor';
 
 // added: 10-01-2004
-$BL['be_ctype_wysywig']         = 'WYSIWYG HTML';
+$BL['be_ctype_wysiwyg']         = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']  = 'widoczne tylko dla zalogowanych użytkowników';
@@ -665,7 +664,7 @@ $BL['be_admin_struct_status']   = 'status dostępności w menu';
 // added: 15-02-2004
 $BL['be_ctype_articlemenu']    = 'menu artykułów';
 $BL['be_cnt_sitelevel']        = 'poziom struktury';
-$BL['be_cnt_sitecurrent']    = 'obecny poziom struktury';
+$BL['be_cnt_sitecurrent']      = 'obecny poziom struktury';
 
 // added: 24-03-2004
 $BL['be_subnav_admin_starttext']    = 'Tekst na stronie startowej';
@@ -692,23 +691,23 @@ $BL['be_admin_startup_button']      = 'Zapisz tekst';
 
 // added: 17-04-2004
 $BL['be_ctype_guestbook']        = 'księga gości/komentarze';
-$BL['be_cnt_guestbook_listing']        = 'pokazuj';
-$BL['be_cnt_guestbook_listing_all']    = 'pokaż&nbsp;wszystkie&nbsp;wpisy';
+$BL['be_cnt_guestbook_listing']     = 'pokazuj';
+$BL['be_cnt_guestbook_listing_all'] = 'pokaż&nbsp;wszystkie&nbsp;wpisy';
 $BL['be_cnt_guestbook_list']        = 'wpisów';
-$BL['be_cnt_guestbook_perpage']        = 'na&nbsp;stronę';
+$BL['be_cnt_guestbook_perpage']     = 'na&nbsp;stronę';
 $BL['be_cnt_guestbook_form']        = 'formularz';
-$BL['be_cnt_guestbook_signed']        = 'podpisane';
-$BL['be_cnt_guestbook_nav']        = 'nawig.';
-$BL['be_cnt_guestbook_before']        = 'przed';
-$BL['be_cnt_guestbook_after']        = 'po';
-$BL['be_cnt_guestbook_entry']        = 'wpis';
+$BL['be_cnt_guestbook_signed']      = 'podpisane';
+$BL['be_cnt_guestbook_nav']         = 'nawig.';
+$BL['be_cnt_guestbook_before']      = 'przed';
+$BL['be_cnt_guestbook_after']       = 'po';
+$BL['be_cnt_guestbook_entry']       = 'wpis';
 $BL['be_cnt_guestbook_edit']        = 'edycja';
 $BL['be_cnt_ecardform_selector']    = 'wybierz';
 $BL['be_cnt_ecardform_radiobutton'] = 'pole wyboru';
 $BL['be_cnt_ecardform_javascript']  = 'funkcjonalność JavaScript';
 $BL['be_cnt_ecardform_over']        = 'onMouseOver';
 $BL['be_cnt_ecardform_click']       = 'onClick';
-$BL['be_cnt_ecardform_out']           = 'onMouseOut';
+$BL['be_cnt_ecardform_out']         = 'onMouseOut';
 $BL['be_admin_struct_topcount']     = 'ilość artykułów na górze';
 
 // added: 19-04-2004
@@ -742,7 +741,7 @@ $BL['be_newsletter_readyfailed']        = 'Nie udało się wysłać nowości do'
 $BL['be_subnav_msg_subscribers']        = 'Subskrybenci nowości';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']            = 'Mapa witryny';
+$BL['be_ctype_sitemap']            	= 'Mapa witryny';
 $BL['be_cnt_sitemap_catimage']          = 'ikona poziomu';
 $BL['be_cnt_sitemap_articleimage']      = 'ikona artykułu';
 $BL['be_cnt_sitemap_display']           = 'wyświetl';
@@ -756,7 +755,7 @@ $BL['be_cnt_sitemap_noclasscount']      = 'nie dodawaj do nazwy klasy';
 $BL['be_cnt_sitemap_without_parent']    = 'bez poziomu początkowego';
 
 // added: 23-04-2004
-$BL['be_ctype_bid']            = 'Oferta';
+$BL['be_ctype_bid']            		= 'Oferta';
 $BL['be_cnt_bid_bidtext']               = 'treść oferty';
 $BL['be_cnt_bid_sendtext']              = 'tekst do&nbsp; wysłania';
 $BL['be_cnt_bid_verifiedtext']          = 'tekst&nbsp; weryfikacji';
@@ -877,11 +876,11 @@ $BL['be_admin_group_nogroup']    = 'nie znaleziono użytkownika grupy';
 
 // added: 20-12-2004
 $BL['be_ctype_forum']       = 'forum';
-$BL['be_subnav_msg_forum'] = 'lista forów';
+$BL['be_subnav_msg_forum']  = 'lista forów';
 $BL['be_forum_title']       = 'tytuł forum';
-$BL['be_forum_permission'] = 'uprawnienia';
-$BL['be_forum_add']       = 'dodaj forum';
-$BL['be_forum_titleedit']  = 'edytuj forum';
+$BL['be_forum_permission']  = 'uprawnienia';
+$BL['be_forum_add']         = 'dodaj forum';
+$BL['be_forum_titleedit']   = 'edytuj forum';
 
 // added: 15-01-2005
 $BL['be_admin_page_customblocks']   = 'własne';
@@ -889,25 +888,25 @@ $BL['be_show_content']       = 'wyświetl';
 $BL['be_main_content']       = 'główna kolumna';
 $BL['be_admin_template_jswarning']  = 'UWAGA!!! \nWłasne bloki mogą się zmienić! \n\nJeżeli anulujesz \nlub zresetujesz ustawienia układu! \n\nZmienić szablon?\n\n';
 
-$BL['be_ctype_rssfeed']        = 'RSS';
+$BL['be_ctype_rssfeed']      = 'RSS';
 $BL['be_cnt_rssfeed_url']    = 'adres url RSS';
-$BL['be_cnt_rssfeed_item']    = 'elementy';
+$BL['be_cnt_rssfeed_item']   = 'elementy';
 $BL['be_cnt_rssfeed_max']    = 'maks.';
 $BL['be_cnt_rssfeed_cut']    = 'ukryj 1szy element';
 
-$BL['be_ctype_simpleform']    = 'formularz email';
+$BL['be_ctype_simpleform']   = 'formularz email';
 
-$BL['be_cnt_onsuccess']        = 'przy sukcesie';
+$BL['be_cnt_onsuccess']      = 'przy sukcesie';
 $BL['be_cnt_onerror']        = 'przy błędzie';
 $BL['be_cnt_onsuccess_redirect']  = 'przekieruj gdy sukces';
-$BL['be_cnt_onerror_redirect']      = 'przekieruj gdy błąd';
+$BL['be_cnt_onerror_redirect']    = 'przekieruj gdy błąd';
 
 $BL['be_cnt_form_class']    = 'klasa formularza';
 $BL['be_cnt_label_wrap']    = 'wcięcie etykiety';
-$BL['be_cnt_error_class']    = 'klasa błędu';
-$BL['be_cnt_req_mark']        = 'oznaczenie wymagalności';
-$BL['be_cnt_mark_as_req']    = 'znak jako wymagalny';
-$BL['be_cnt_mark_as_del']    = 'znak elementu do usunięcia';
+$BL['be_cnt_error_class']   = 'klasa błędu';
+$BL['be_cnt_req_mark']      = 'oznaczenie wymagalności';
+$BL['be_cnt_mark_as_req']   = 'znak jako wymagalny';
+$BL['be_cnt_mark_as_del']   = 'znak elementu do usunięcia';
 
 
 $BL['be_cnt_type']    = 'typ';
@@ -915,12 +914,13 @@ $BL['be_cnt_label']    = 'etykieta';
 $BL['be_cnt_needed']    = 'wymagana';
 $BL['be_cnt_delete']    = 'usunięta';
 $BL['be_cnt_value']    = 'wartość';
-$BL['be_cnt_error_text']    = 'tekst błędu';
-$BL['be_cnt_css_style']        = 'styl CSS';
-$BL['be_cnt_css_class']        = 'CSS class';
+$BL['be_cnt_error_text']   = 'tekst błędu';
+$BL['be_cnt_css_style']    = 'styl CSS';
+$BL['be_cnt_css_class']    = 'CSS class';
 $BL['be_cnt_send_copy_to'] = 'Kopia do';
 
-$BL['be_cnt_field']        = array("text"=>'text (jedno-liniowy)',
+$BL['be_cnt_field']        = array(
+                "text"=>'text (jedno-liniowy)',
                 "email"=>'e-mail',
                 "textarea"=>'tekst (wielo-liniowy)',
                 "hidden"=>'ukryty',
@@ -947,16 +947,18 @@ $BL['be_cnt_field']        = array("text"=>'text (jedno-liniowy)',
                 'calculation'=>'kalkulacja:',
                 'formtracking_off'=>'wyłącz śledzenie formularza',
                 'checktofrom'=>'e-mail odbiorcy musi się różnić od nadawcy',
-                                'recaptcha'=>'reCAPTCHA',
-                'recaptcha_signapikey'=>'Zarejestruj się na reCAPTCHA API key');
+                'recaptcha'=>'reCAPTCHA',
+                'recaptcha_signapikey'=>'Zarejestruj się na reCAPTCHA API key',
+                'recaptchainv' => 'Niewidoczny reCAPTCHA',
+);
 
 $BL['be_cnt_access']    = 'dostęp';
-$BL['be_cnt_activated']    = 'aktywowany';
-$BL['be_cnt_available']    = 'dostępny';
-$BL['be_cnt_guests']    = 'goście';
+$BL['be_cnt_activated'] = 'aktywowany';
+$BL['be_cnt_available'] = 'dostępny';
+$BL['be_cnt_guests']   = 'goście';
 $BL['be_cnt_admin']    = 'administrator';
 $BL['be_cnt_write']    = 'zapisz';
-$BL['be_cnt_read']    = 'czytaj';
+$BL['be_cnt_read']     = 'czytaj';
 
 $BL['be_cnt_no_wysiwyg_editor']     = 'wyłącz edytor WYSIWYG';
 $BL['be_cnt_cache_update']     = 'zresetuj cache';
@@ -978,10 +980,10 @@ $BL['be_func_content_copy']    = 'Kopiuj treść artykułu';
 $BL['be_func_content_no_copy'] = "Nie można skopiować treści artykułu!";
 $BL['be_func_content_paste_cancel'] = 'anuluj zmiany';
 
-$BL['be_cnt_move_deleted']       = 'Skasuj usunięte pliki';
+$BL['be_cnt_move_deleted']     = 'Skasuj usunięte pliki';
 $BL['be_cnt_move_deleted_msg'] = 'Czy na pewno chcesz przesunąć wszystkie \noznaczone pliki do specjalnego folderu?  \n';
 
-$BL['be_admin_struct_permit']        = 'autoryzacja dostępu (pozostawione puste - dostęp dla wszystkich)';
+$BL['be_admin_struct_permit']       = 'autoryzacja dostępu (pozostawione puste - dostęp dla wszystkich)';
 $BL['be_admin_struct_adduser_all']  = 'dodaj wszystkich użytkowników';
 $BL['be_admin_struct_adduser_this'] = 'dodaj wybranych uzytkowników';
 $BL['be_admin_struct_remove_all']   = 'usuń wszystkich użytkowników';
@@ -997,10 +999,10 @@ $BL['be_cnt_title']   = 'tytuły oryginalnej treści';
 $BL['be_cnt_status']  = 'widoczność treści aliasu';
 $BL['be_cnt_plugin_n.a.'] = 'wtyczka jest niedostępna';
 
-$BL['be_file_replace']       = 'Zastąp tytuły plików';
+$BL['be_file_replace']     = 'Zastąp tytuły plików';
 
 $BL['be_alias_articleID']  = 'ID artykułu';
-$BL['be_alias_useAll']       = "użyj nagłówka tego artykułu";
+$BL['be_alias_useAll']     = "użyj nagłówka tego artykułu";
 $BL['be_article_morelink'] = 'odnośnik [więcej...]';
 $BL['be_admin_tmpl_copy']  = 'kopiuj szablon';
 
@@ -1008,11 +1010,11 @@ $BL['be_ctype_filelist1']  = 'lista plików pro';
 $BL['be_cnt_fpro_usecaption']   = 'użyj centrum plików &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
 $BL['be_admin_keywords']    = 'Słowa kluczowe';
-$BL['be_admin_keywords_key']    = 'SŁOWO KLUCZOWE';
-$BL['be_admin_keywords_err']    = 'Wstaw unikalne SŁOWO KLUCZOWE o nazwie';
-$BL['be_admin_keyword_edit']    = 'edytuj SŁOWO KLUCZOWE';
+$BL['be_admin_keywords_key']   = 'SŁOWO KLUCZOWE';
+$BL['be_admin_keywords_err']   = 'Wstaw unikalne SŁOWO KLUCZOWE o nazwie';
+$BL['be_admin_keyword_edit']   = 'edytuj SŁOWO KLUCZOWE';
 $BL['be_admin_keyword_del']    = 'usuń SŁOWO KLUCZOWE';
-$BL['be_admin_keyword_delmsg']    = 'Rzeczywiście chcesz\nto usunąć SŁOWO KLUCZOWE?';
+$BL['be_admin_keyword_delmsg'] = 'Rzeczywiście chcesz\nto usunąć SŁOWO KLUCZOWE?';
 $BL['be_admin_keyword_add']    = 'dodaj SŁOWO KLUCZOWE';
 
 $BL['be_cnt_transparent'] = 'Flash przeźroczysty';
@@ -1045,56 +1047,56 @@ $BL['be_cnt_sysadmin_system']        = 'system';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']        = 'Twoja instalacja jest aktualna,brak możliwych aktualizacji tej wersji phpwcms.';
-$BL['Version_not_up_to_date']        = 'Twoja instalacja <b>nie</b> wydaje się być aktualna. Dostępne są,aktualizacje tej wersji phpwcms-a. Proszę odwiedź <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> aby poznać szczegóły.';
-$BL['Latest_version_info']        = 'Ostatnia dostępna wersja to <b>phpwcms %s</b>.';
-$BL['Current_version_info']        = 'Twój bieżący <b>phpwcms %s</b>.';
-$BL['Connect_socket_error']        = 'Nie można otworzyć połączenia z serwerem phpwcms , zgłaszany jest błąd:<br />%s';
-$BL['Socket_functions_disabled']    = 'Niemożliwe jest użycie funkcji socket';
+$BL['Version_not_up_to_date']    = 'Twoja instalacja <b>nie</b> wydaje się być aktualna. Dostępne są,aktualizacje tej wersji phpwcms-a. Proszę odwiedź <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> aby poznać szczegóły.';
+$BL['Latest_version_info']       = 'Ostatnia dostępna wersja to <b>phpwcms %s</b>.';
+$BL['Current_version_info']      = 'Twój bieżący <b>phpwcms %s</b>.';
+$BL['Connect_socket_error']      = 'Nie można otworzyć połączenia z serwerem phpwcms , zgłaszany jest błąd:<br />%s';
+$BL['Socket_functions_disabled'] = 'Niemożliwe jest użycie funkcji socket';
 $BL['Mailing_list_subscribe_reminder']    = 'Aby otrzymywać informacje o aktualizacjach do Twojego phpwcms,prenumeruj <a href="http://eepurl.com/bm-BrH" target="_blank">listę mailingową</a>.';
 $BL['Version_information']        = 'Informacja o wersji phpwcms';
 
-$BL['be_cnt_search_highlight']        = 'podświetlenie';
-$BL['be_cnt_results_wordlimit']        = 'maks. słów dla podsumowania';
-$BL['be_cnt_page_of_pages']        = 'search navi';
-$BL['be_cnt_page_of_pages_descr']    = '{PREV:Wróć} strona #/##, wynik ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Nast.}';
-$BL['be_cnt_search_show_top']        = 'góra';
-$BL['be_cnt_search_show_bottom']    = 'dół';
-$BL['be_cnt_search_show_next']        = 'następny (także jeżeli nie link)';
-$BL['be_cnt_search_show_prev']        = 'poprzedni (także jeżeli nie link)';
-$BL['be_cnt_search_show_forall']    = 'pokaż zawsze';
-$BL['be_cnt_search_startlevel']        = 'zacznij szukać';
-$BL['be_cnt_results_minchar']        = 'minimalna liczba znaków w zapytaniu';
-$BL['be_cnt_search_hidesummary']    = 'ukryj wyszukiwanie tekstu zapowiedzi';
+$BL['be_cnt_search_highlight']    = 'podświetlenie';
+$BL['be_cnt_results_wordlimit']   = 'maks. słów dla podsumowania';
+$BL['be_cnt_page_of_pages']       = 'search navi';
+$BL['be_cnt_page_of_pages_descr'] = '{PREV:Wróć} strona #/##, wynik ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Nast.}';
+$BL['be_cnt_search_show_top']     = 'góra';
+$BL['be_cnt_search_show_bottom']  = 'dół';
+$BL['be_cnt_search_show_next']    = 'następny (także jeżeli nie link)';
+$BL['be_cnt_search_show_prev']    = 'poprzedni (także jeżeli nie link)';
+$BL['be_cnt_search_show_forall']  = 'pokaż zawsze';
+$BL['be_cnt_search_startlevel']   = 'zacznij szukać';
+$BL['be_cnt_results_minchar']     = 'minimalna liczba znaków w zapytaniu';
+$BL['be_cnt_search_hidesummary']  = 'ukryj wyszukiwanie tekstu zapowiedzi';
 $BL['be_cnt_search_searchnot']    = 'nie szukaj';
 
 $BL['be_cnt_pagination']    = 'paginuj elementy zawartości';
-$BL['be_article_pagination']    = 'paginuj artykuły';
-$BL['be_article_per_page']    = 'artykułów na stronę';
+$BL['be_article_pagination']  = 'paginuj artykuły';
+$BL['be_article_per_page']  = 'artykułów na stronę';
 $BL['be_pagination']        = 'paginacja';
 
 
-$BL['be_ctype_recipe']        = 'odbiorca';
+$BL['be_ctype_recipe']     = 'odbiorca';
 $BL['be_ctype_faq']        = 'faq';
-$BL['be_cnt_additional']    = 'dodatkowe';
-$BL['be_cnt_question']        = 'pytanie';
-$BL['be_cnt_answer']        = 'odpowiedź';
+$BL['be_cnt_additional']   = 'dodatkowe';
+$BL['be_cnt_question']     = 'pytanie';
+$BL['be_cnt_answer']       = 'odpowiedź';
 $BL['be_cnt_same_as_summary']    = 'użyj danych obrazu artykułu';
 $BL['be_cnt_sorting']        = 'sortowanie';
-$BL['be_cnt_imgupload']        = 'prześlij&nbsp;obraz';
-$BL['be_cnt_filesize']        = 'rozmiar pliku';
-$BL['be_cnt_captchalength']    = 'długość kodu captcha';
+$BL['be_cnt_imgupload']      = 'prześlij&nbsp;obraz';
+$BL['be_cnt_filesize']       = 'rozmiar pliku';
+$BL['be_cnt_captchalength']  = 'długość kodu captcha';
 $BL['be_cnt_chars']        = 'znaków';
 $BL['be_cnt_download']        = 'pobierz';
-$BL['be_cnt_download_direct']    = 'bezpośrednio (nie zalecane!)';
+$BL['be_cnt_download_direct'] = 'bezpośrednio (nie zalecane!)';
 $BL['be_cnt_database']        = 'baza danych';
-$BL['be_cnt_formsave_in_db']    = 'zapisz wyniki formularza';
+$BL['be_cnt_formsave_in_db']  = 'zapisz wyniki formularza';
 
 $BL['be_cnt_email_notify']    = 'powiadom przez e-mail';
-$BL['be_cnt_notify_by_email']    = 'przez e-mail do';
-$BL['be_cnt_last_edited']    = 'ostatnio zmieniane';
+$BL['be_cnt_notify_by_email'] = 'przez e-mail do';
+$BL['be_cnt_last_edited']     = 'ostatnio zmieniane';
 
 $BL['be_cnt_export_selection']    = 'eksportuj wybrane';
-$BL['be_cnt_delete_duplicates']    = 'usuń duplikaty';
+$BL['be_cnt_delete_duplicates']   = 'usuń duplikaty';
 $BL['be_cnt_new_recipient']    = 'dodaj odbiorcę';
 
 
@@ -1388,16 +1390,16 @@ $BL['be_caption_descr.']        = 'opis';
 $BL['be_display_html5_only']    = 'tylko HTML5';
 $BL['be_audio_only']            = 'tylko audio';
 
-$BL['be_filter']		= 'filtr';
-$BL['be_filter_with_tags']	= 'w/g etykiet';
-$BL['be_filter_not_selected']	= 'Nie wybrano kategorii';
-$BL['be_empty_search_result']	= 'Wyszukiwanie nie przyniosło wyników.';
-$BL['confirm_cp_tab_warning']	= 'Podrozdział nie ma tytułu i nie jest przypisany żaden numer.Zaznaczenie zostanie utracone, podczas zapisu lub aktualizacji.';
+$BL['be_filter']        = 'filtr';
+$BL['be_filter_with_tags']  = 'w/g etykiet';
+$BL['be_filter_not_selected']   = 'Nie wybrano kategorii';
+$BL['be_empty_search_result']   = 'Wyszukiwanie nie przyniosło wyników.';
+$BL['confirm_cp_tab_warning']   = 'Podrozdział nie ma tytułu i nie jest przypisany żaden numer.Zaznaczenie zostanie utracone, podczas zapisu lub aktualizacji.';
 
-$BL['be_canonical']		= 'link kanoniczny';
-$BL['be_breadcrumb']		= 'zachowanie nawigacyjne wyświetlania';
-$BL['be_breadcrumb_nothidden']	= 'widoczne, jeśli poziom jest ukryty';
-$BL['be_breadcrumb_nolink']	= 'nie ma linku';
+$BL['be_canonical']     = 'link kanoniczny';
+$BL['be_breadcrumb']        = 'zachowanie nawigacyjne wyświetlania';
+$BL['be_breadcrumb_nothidden']  = 'widoczne, jeśli poziom jest ukryty';
+$BL['be_breadcrumb_nolink'] = 'nie ma linku';
 
 $BL['CSRF_POST_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów POST. Ze względów bezpieczeństwa, sesja została zakończona.';
 $BL['CSRF_POST_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> parametrów POST nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
@@ -1433,3 +1435,49 @@ $BL['be_tracking_id'] = 'Śledzenie ID';
 $BL['be_site_id'] = 'ID witryny';
 $BL['be_piwik_url'] = 'Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
+
+$BL['be_iptc_data'] = 'Dane IPTC';
+$BL['be_iptc_as_caption'] = 'Użyj do podpisu, Praw autorskich itp. korzytaj , gdy nie jest ustawiony';
+$BL['iptc_ImageDescription'] = 'Opis obrazu';
+$BL['iptc_Copyright'] = 'Prawa autorskie';
+$BL['iptc_Artist'] = 'Wykonawca';
+$BL['iptc_Keywords'] = 'Słowa kluczowe';
+$BL['iptc_CountryDest'] = 'Kraj';
+$BL['iptc_ProvinceOrStateDest'] = 'Region';
+$BL['iptc_CityDest'] = 'Miejscowość';
+$BL['iptc_SublocationDest'] = 'Lokalizacja';
+$BL['iptc_ObjectName'] = 'Nazwa obiektu';
+$BL['iptc_SpecialInstructions'] = 'Instrukcje specjalne';
+$BL['iptc_Headline'] = 'Nagłówek';
+$BL['iptc_Credit'] = 'kredyt';
+$BL['iptc_Source'] = 'Źródło';
+$BL['iptc_EditStatus'] = 'Edytuj status';
+$BL['iptc_iimCategory'] = 'Kategoria';
+$BL['iptc_iimSupplementalCategory'] = 'Kategoria uzupełniająca';
+$BL['iptc_Urgency'] = 'Pilność';
+$BL['iptc_FixtureIdentifier'] = 'Identyfikator';
+$BL['iptc_LocationDestCode'] = 'Kod lokalizacji';
+$BL['iptc_LocationDest'] = 'Lokalizacja';
+$BL['iptc_Software'] = 'Oprogramowanie';
+$BL['iptc_SoftwareVersion'] = 'Wersja oprogramowania';
+$BL['iptc_ObjectCycle'] = 'Cykl obiektu';
+$BL['iptc_CountryCodeDest'] = 'Kod kraju';
+$BL['iptc_OriginalTransmissionRef'] = 'Oryginalne pochodzenie';
+$BL['iptc_Contact'] = 'Kontakt';
+$BL['iptc_Writer'] = 'Piszący';
+$BL['iptc_LanguageCode'] = 'Kod języka';
+$BL['iptc_DateTimeOriginal'] = 'Data/czas oryginalna';
+$BL['iptc_DateTimeDigitized'] = 'Data/czas zdigitalizowane';
+$BL['iptc_DateTimeReleased'] = 'Data/czas wydania';
+$BL['iptc_DateTimeExpires'] = 'Data/czas wygaśnięcia';
+$BL['iptc_IntellectualGenre'] = 'Gatunek';
+$BL['iptc_SubjectNewsCode'] = 'ID tematu';
+$BL['iptc_iimVersion'] = 'Wersja';
+
+$BL['be_suppress_render_caption'] = 'Tłumienie renderowania podpisu';
+$BL['be_cnt_attribute_class'] = 'Klasa CSS';
+$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_avoid_duplicates'] = 'Pozwalaj tylko na unikalne wartości';
+$BL['be_not_set'] = 'Nie ustawiony';
+$BL['be_licensed_under_GPL'] = 'Na licencji GPL.';
+$BL['be_extensions_copyright'] = 'Rozszerzenia są chronione prawami autorskimi ich właścicieli.';
