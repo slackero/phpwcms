@@ -294,15 +294,23 @@ function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
 
 // wrapper for breadcrumb frontend render
 function breadcrumb_wrapper($match) {
+
+    if(empty($match[2])) {
+        $cat_only = false;
+    } else {
+        $cat_only = intval(trim($match[2], ',')) ? true : false;
+    }
+
     return breadcrumb(
         $GLOBALS['content']["cat_id"],
         $GLOBALS['content']["struct"],
         empty($match[1]) ? 0 : $match[1],
-        $GLOBALS['template_default']["breadcrumb_spacer"]
+        $GLOBALS['template_default']["breadcrumb_spacer"],
+        $cat_only
     );
 }
 
-function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
+function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ', $cat_only=false) {
     //builds the breadcrumb menu based on given values
     //$link_to = the page on which the breadcrum part links
     //$root_name = name of the breadcrumb part if empty/false/0 $start_id
@@ -319,7 +327,7 @@ function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
     }
 
     while ($start_id) { //get the breadcrumb path starting with given start_id
-        if($end_id && $start_id == $end_id) {
+        if($end_id && $start_id === $end_id) {
             break;
         }
         $data[$start_id] = $struct_array[$start_id]["acat_name"];
@@ -329,7 +337,7 @@ function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ') {
     $data               = array_reverse($data, 1);
 
     // decide how to handle when in article detail or list mode
-    $with_article       = (!$GLOBALS['content']['list_mode'] && $GLOBALS['content']["article_list_count"] > 1);
+    $with_article       = $cat_only ? false : (!$GLOBALS['content']['list_mode'] && $GLOBALS['content']["article_list_count"] > 1);
 
     if(count($data)) {
 
