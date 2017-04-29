@@ -476,9 +476,7 @@ function is_valid_email($email, $options=array()) {
  */
 function idn_encode($string='') {
 
-    if(IS_PHP5) {
-        require_once PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php';
-    }
+    require_once PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php';
 
     // convert to utf-8 first
     $string = makeCharsetConversion($string, PHPWCMS_CHARSET, 'utf-8');
