@@ -1661,11 +1661,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
     if(empty($crow['recaptcha_submit_data'])) {
         $form_cnt = str_replace(' data-recaptchainv-submit', '', $form_cnt);
-        $form_cnt = str_replace('class="phpwcms-recaptcha-class ', 'class="', $form_cnt);
-        $form_cnt = str_replace(' class="phpwcms-recaptcha-class"', '', $form_cnt);
+        $form_cnt = str_replace('phpwcms-recaptcha-class ', '', $form_cnt);
     } else {
         $form_cnt = str_replace(' data-recaptchainv-submit', $crow['recaptcha_submit_data'], $form_cnt);
-        $form_cnt = str_replace('class="phpwcms-recaptcha-class', 'class="g-recaptcha', $form_cnt);
+        $form_cnt = str_replace('phpwcms-recaptcha-class', ' g-recaptcha', $form_cnt);
     }
 
     // check against custom PHP function used to validate form
