@@ -1968,7 +1968,7 @@ function get_link_ahref($match) {
 
 function strip_bbcode($text) {
     $text = str_replace(array('[br]', '[BR]'), ' ', $text);
-    $text = preg_replace('/\[(\w+)=.*?:(.*?)\](.*?)\[\/\1:\2\]/is', '$3', $text);
+    $text = preg_replace('|[[\/\!]*?[^\[\]]*?]|si', '', $text);
     $text = preg_replace('/\s\s+/', ' ', $text);
     return $text;
 }
