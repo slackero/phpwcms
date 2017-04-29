@@ -941,7 +941,7 @@ $content["all"] = render_PHPcode($content["all"]);
 
 //breadcrumb replacement
 if(strpos($content["all"],'{BREADCRUMB') !== false) {
-	$content['all'] = preg_replace_callback('/\{BREADCRUMB:?(\-?\d+){0,1}\}/', 'breadcrumb_wrapper', $content['all']);
+	$content['all'] = preg_replace_callback('/\{BREADCRUMB:?(\-?\d+){0,1}(,[01]){0,1}\}/', 'breadcrumb_wrapper', $content['all']);
 }
 
 // ul/li based navigation, the default one
