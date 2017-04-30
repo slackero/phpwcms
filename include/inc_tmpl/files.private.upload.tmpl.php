@@ -59,32 +59,28 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     $file_image_size        = null;
 
     // Check against IPTC and handle IPTC tags if applicable
-    if($file_is_uploaded && !empty($_POST['file_iptc_as_caption'])) {
+    if($file_is_uploaded) {
 
         // Try to read IPTC data
         $file_image_size = getimagesize($_FILES["file"]["tmp_name"], $file_image_info);
 
-        if(isset($file_image_info['APP13'])) {
-            $file_image_iptc = IPTC::parse($file_image_info['APP13']);
-            $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
+    }
 
-            if($file_title === '') {
-                $file_title = $file_iptc_info['title'];
-            }
-            if($file_longinfo === '') {
-                $file_longinfo = $file_iptc_info['longinfo'];
-            }
-            if($file_copyright === '') {
-                $file_copyright = $file_iptc_info['copyright'];
-            }
-            if($file_alt === '') {
-                $file_alt = $file_iptc_info['alt'];
-            }
+    if(!empty($_POST['file_iptc_as_caption']) && isset($file_image_info['APP13'])) {
+        $file_image_iptc = IPTC::parse($file_image_info['APP13']);
+        $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
-        } else {
-
-            $file_iptc_info = null;
-
+        if($file_title === '') {
+            $file_title = $file_iptc_info['title'];
+        }
+        if($file_longinfo === '') {
+            $file_longinfo = $file_iptc_info['longinfo'];
+        }
+        if($file_copyright === '') {
+            $file_copyright = $file_iptc_info['copyright'];
+        }
+        if($file_alt === '') {
+            $file_alt = $file_iptc_info['alt'];
         }
     }
 
@@ -216,12 +212,13 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
         }
 
         $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
-                "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ".
+                "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_image_width, f_image_height, ".
                 "f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, ".
                 "f_sort".$fileVarsField.", f_title, f_alt) VALUES (".
                 $file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
                 $fileName."', '".time()."', '".$fileSize."', '".
-                aporeplace($fileType)."', '".$fileExt."', '".aporeplace($file_shortinfo)."', '".
+                aporeplace($fileType)."', '".$fileExt."', "._dbEscape(empty($file_image_size[0]) ? '' : $file_image_size[0]).", ".
+                _dbEscape(empty($file_image_size[1]) ? '' : $file_image_size[1]).", '".aporeplace($file_shortinfo)."', '".
                 aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
                 aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".
                 $file_gallerydownload.", ".$file_sort.$fileVarsValue.","._dbEscape($file_title).", "._dbEscape($file_alt).")";

@@ -20,11 +20,13 @@ if (!defined('PHPWCMS_ROOT')) {
 // Be more modern here - we start switch to jQuery and overwrite non-used MooTools with jQuery call
 initJsAutocompleter();
 
-$file_id            = isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
-$file_ext           = '';
-$ja                 = 0;
-$file_thumb_small   = '';
-$file_image_iptc    = array();
+$file_id = isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
+$file_ext = '';
+$ja = 0;
+$file_thumb_small = '';
+$file_image_iptc = array();
+$file_image_width = 0;
+$file_image_height = 0;
 
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
@@ -233,12 +235,14 @@ if($file_id) {
                     "thumb_name"    => md5($row["f_hash"].'420420'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])
                 ));
 
-                if($thumb_image != false) {
+                if($thumb_image !== false) {
                     $file_thumb_small = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" style="border:1px solid #9BBECA;background:#F5F8F9;" />';
                     $file_image_size = getimagesize(PHPWCMS_STORAGE . $row["f_hash"] . '.' . $row["f_ext"], $file_image_info);
                     if(isset($file_image_info['APP13'])) {
                         $file_image_iptc = IPTC::parse($file_image_info['APP13']);
                     }
+                    $file_image_width = empty($row['f_image_width']) ? $file_image_size[0] : $row['f_image_width'];
+                    $file_image_height = empty($row['f_image_height']) ? $file_image_size[1] : $row['f_image_height'];
                 }
             }
 
@@ -280,9 +284,17 @@ if($ja) {
       <td class="v09">
         ID: <strong class="v10"><?php echo $file_id ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;Hash: <strong class="v10"><?php echo $file_hash ?></strong><br />
       <?php
-        echo $BL['be_fprivedit_created'], ': <strong class="v10">', date($BL['be_fprivedit_dateformat'], $file_created), '</strong>';
-        echo '&nbsp;&nbsp;&nbsp;', $BL['be_fprivedit_size'], ': <strong class="v10">', fsizelong($file_size), '</strong>';
-        echo '&nbsp;&nbsp;&nbsp;EXT: <strong class="v10">', strtoupper($file_ext), '</strong>';
+        echo $BL['be_fprivedit_size'], ': <strong class="v10">', fsizelong($file_size), '</strong>', '&nbsp;&nbsp;&nbsp;';
+        echo 'EXT: <strong class="v10">', strtoupper($file_ext), '</strong>';
+
+        if($file_thumb_small) {
+            echo '&nbsp;&nbsp;&nbsp;';
+            echo $BL['be_admin_page_width'], ': <strong class="v10">', $file_image_width, '</strong>px', '&nbsp;&nbsp;&nbsp;';
+            echo $BL['be_admin_page_height'], ': <strong class="v10">', $file_image_height, '</strong>px';
+        }
+
+        echo '<br />';
+        echo $BL['be_fprivedit_created'], ': <strong class="v10">', date($BL['be_fprivedit_dateformat'], $file_created), '</strong>'
       ?></td>
     </tr>
     <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>

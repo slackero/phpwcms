@@ -170,9 +170,7 @@ if(!$ftp["error"]) {
             }
             $file_name      = sanitize_filename($ftp["filename"][$key]);
             $file_hash      = md5( $file_name . microtime() );
-
-            $file_check     = null;
-
+            $file_check     = getimagesize($file_path, $file_image_info);
             $file_title     = $ftp["title"];
             $file_longinfo  = $ftp["long_info"];
             $file_copyright = $ftp["copyright"];
@@ -185,48 +183,42 @@ if(!$ftp["error"]) {
             $file_iptc_info = null;
 
             // Check against IPTC and handle IPTC tags if applicable
-            if(!empty($_POST['file_iptc_as_caption'])) {
+            if(!empty($_POST['file_iptc_as_caption']) && isset($file_image_info['APP13'])) {
 
-                // Try to read IPTC data
-                $file_check = getimagesize($file_path, $file_image_info);
+                $file_image_iptc = IPTC::parse($file_image_info['APP13']);
+                $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
-                if(isset($file_image_info['APP13'])) {
-                    $file_image_iptc = IPTC::parse($file_image_info['APP13']);
-                    $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
+                if($file_title === '') {
+                    $file_title = $file_iptc_info['title'];
+                }
+                if($file_longinfo === '') {
+                    $file_longinfo = $file_iptc_info['longinfo'];
+                }
+                if($file_copyright === '') {
+                    $file_copyright = $file_iptc_info['copyright'];
+                }
+                if($file_alt === '') {
+                    $file_alt = $file_iptc_info['alt'];
+                }
 
-                    if($file_title === '') {
-                        $file_title = $file_iptc_info['title'];
-                    }
-                    if($file_longinfo === '') {
-                        $file_longinfo = $file_iptc_info['longinfo'];
-                    }
-                    if($file_copyright === '') {
-                        $file_copyright = $file_iptc_info['copyright'];
-                    }
-                    if($file_alt === '') {
-                        $file_alt = $file_iptc_info['alt'];
-                    }
+                // set language specific caption, title, copyright…
+                foreach($phpwcms['allowed_lang'] as $lang) {
+                    $lang = strtolower($lang);
 
-                    // set language specific caption, title, copyright…
-                    foreach($phpwcms['allowed_lang'] as $lang) {
-                        $lang = strtolower($lang);
-
-                        // Set file info based on IPTC for all languages
-                        if(!empty($phpwcms['iptc_as_caption_all_lang']) && $file_iptc_info !== null) {
-                            if($file_vars[$lang]['title'] === '') {
-                                $file_vars[$lang]['title'] = $file_iptc_info['title'];
-                            }
-                            if($file_vars[$lang]['longinfo'] === '') {
-                                $file_vars[$lang]['longinfo'] = $file_iptc_info['longinfo'];
-                            }
-                            if($file_vars[$lang]['copyright'] === '') {
-                                $file_vars[$lang]['copyright'] = $file_iptc_info['copyright'];
-                            }
-                            if($file_vars[$lang]['alt'] === '') {
-                                $file_vars[$lang]['alt'] = $file_iptc_info['alt'];
-                            }
+                    // Set file info based on IPTC for all languages
+                    if(!empty($phpwcms['iptc_as_caption_all_lang']) && $file_iptc_info !== null) {
+                        if($file_vars[$lang]['title'] === '') {
+                            $file_vars[$lang]['title'] = $file_iptc_info['title'];
                         }
-
+                        if($file_vars[$lang]['longinfo'] === '') {
+                            $file_vars[$lang]['longinfo'] = $file_iptc_info['longinfo'];
+                        }
+                        if($file_vars[$lang]['copyright'] === '') {
+                            $file_vars[$lang]['copyright'] = $file_iptc_info['copyright'];
+                        }
+                        if($file_vars[$lang]['alt'] === '') {
+                            $file_vars[$lang]['alt'] = $file_iptc_info['alt'];
+                        }
                     }
 
                 }
@@ -241,9 +233,6 @@ if(!$ftp["error"]) {
             if(is_mimetype_by_extension($file_ext)) {
                 $file_type = get_mimetype_by_extension($file_ext);
             } else {
-                if($file_check === null) {
-                    $file_check = getimagesize($file_path);
-                }
                 if(function_exists('image_type_to_mime_type') && isset($file_check[2])) {
                     $file_type = image_type_to_mime_type($file_check[2]);
                 }
@@ -256,11 +245,12 @@ if(!$ftp["error"]) {
             }
 
             $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_file (";
-            $sql .= "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, ";
+            $sql .= "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_image_width, f_image_height, ";
             $sql .= "f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags".$ftp_varsfield.", f_title, f_alt) VALUES (";
             $sql .= $ftp["dir"].", ".intval($_SESSION["wcs_user_id"]).", 1, ".$ftp["aktiv"].", ".$ftp["public"].", ";
             $sql .= _dbEscape($file_name).", '".time()."', "._dbEscape($file_size).", "._dbEscape($file_type).", ";
-            $sql .= _dbEscape($file_ext).", "._dbEscape($ftp["short_info"]).", ";
+            $sql .= _dbEscape($file_ext).", "._dbEscape(empty($file_check[0]) ? '' : $file_check[0]).", "._dbEscape(empty($file_check[1]) ? '' : $file_check[1]).", ";
+            $sql .= _dbEscape($ftp["short_info"]).", ";
             $sql .= _dbEscape($file_longinfo).", "._dbEscape($ftp["keys"]).", '".$file_hash."', ";
             $sql .= _dbEscape($file_copyright).", "._dbEscape($ftp["tags"]).$ftp_varsvalue.", ";
             $sql .= _dbEscape($file_title).", "._dbEscape($file_alt).")";
