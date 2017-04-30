@@ -15,7 +15,7 @@ function phpwcms_revision_r546() {
 
     $status = true;
 
-    // do former revision check – fallback to r544
+    // do former revision check – fallback to r545
     if(phpwcms_revision_check_temp('545') !== true) {
         $status = phpwcms_revision_check('545');
     }
