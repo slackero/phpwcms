@@ -62,7 +62,6 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
-
 require_once PHPWCMS_ROOT.'/include/inc_lib/constants/timestamp.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.iptc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.convertibletimestamp.php';
@@ -339,32 +338,31 @@ if($BE['LANG'] == 'ar') {
         case "files":   // File manager
                         if($p === 8) { //FTP File upload
 
-                        include PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php';
+                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php';
 
                         // based on pwmod by pagewerkstatt.ch 12/2012
                         } elseif ($p === 4) {
 
-                        include PHPWCMS_ROOT.'/include/inc_tmpl/files.actions.tmpl.php';
+                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.actions.tmpl.php';
 
                         } else {
 
                             include PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'; //Files Navigation/Reiter
                             switch($files_folder) {
                                 case 0: //Listing der Privaten Dateien
+                                        include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; //Listing-Funktionen einfügen
+
                                         if(isset($_GET["mkdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) ) {
                                             include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.newdir.tmpl.php';
-                                        }
-                                        if(isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) ) {
+                                        } elseif(isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) ) {
                                             include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php';
-                                        }
-                                        if(isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) ) {
+                                        } elseif(isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) ) {
                                             include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php';
-                                        }
-                                        if(isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) ) {
+                                        } elseif(isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) ) {
                                             include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php';
+                                        } else {
+                                            include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //Zusätzliche Private Funktionen
                                         }
-                                        include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; //Listing-Funktionen einfügen
-                                        include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //Zusätzliche Private Funktionen
                                         break;
 
                                 case 1: //Funktionen zum Listen von Public Files
