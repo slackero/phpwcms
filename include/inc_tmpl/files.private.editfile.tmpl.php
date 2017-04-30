@@ -236,7 +236,7 @@ if($file_id) {
                 'max_height'    => 420,
                 "target_ext"    => $row["f_ext"],
                 "image_name"    => $row["f_hash"] . '.' . $row["f_ext"],
-                "thumb_name"    => md5($row["f_hash"].'420250'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                    "thumb_name"    => md5($row["f_hash"].'420420'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])
             ));
 
             if($thumb_image != false) {
