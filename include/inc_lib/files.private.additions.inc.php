@@ -17,9 +17,9 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-if(isset($_GET["all"])) {
+if(isset($_GET["all"])) { // Hide/Show
 
-    if($_GET["all"] == "open") {
+    if($_GET["all"] == "open") { // All
 
         $_SESSION["klapp"] = array();
 
@@ -70,8 +70,10 @@ if(isset($_GET["klapp"])) {
     _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');
 }
 
+// Set counter for listing
 $_SESSION["list_zaehler"] = 0;
 
+// Are there any files or folders
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0";
 if(empty($_SESSION["wcs_user_admin"])) {
     $sql .= " AND f_uid=".$_SESSION["wcs_user_id"];
@@ -79,14 +81,15 @@ if(empty($_SESSION["wcs_user_admin"])) {
 $sql .= " LIMIT 1";
 $count_user_files = _dbCount($sql);
 
+// Does the user have files to list
 if($count_user_files) {
-    echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
-    echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>\n";
+    echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
+    echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>";
     list_private(0, 0, "phpwcms.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], $cutID, $_SESSION["wcs_user_thumb"], $phpwcms);
     include_once PHPWCMS_ROOT."/include/inc_lib/files.private-filelist.inc.php";
-    echo "</table>\n";
+    echo "</table>";
 } else {
-    //Wenn keinerlei Datensatz innerhalb Files durchlaufen wurde, dann
+    // Nothing to list
     echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";
     echo $BL['be_fprivadd_nofolders']."&nbsp;&nbsp;";
     echo "[<a href=\"phpwcms.php?do=files&amp;f=0&amp;mkdir=0\">".$BL['be_fpriv_button']."</a>]";
