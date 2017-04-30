@@ -1051,9 +1051,11 @@ function phpwcms_revision_check($revision) {
 
     $revision_function = 'phpwcms_revision_r'.$revision;
     if(function_exists($revision_function) && empty($GLOBALS['phpwcms']['check_r'.$revision])) {
+        $GLOBALS['phpwcms']['revision_return'] = '';
         if( call_user_func($revision_function) !== false ) {
             $GLOBALS['phpwcms']['check_r'.$revision] = true;
-            @write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s'));
+            $phpwcms_revision_return = empty($GLOBALS['phpwcms']['revision_return']) ? '' : "\n\nReturn:\n-------\n".strval($GLOBALS['phpwcms']['revision_return']);
+            @write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s').$phpwcms_revision_return);
             return true;
         } else {
             return false;
