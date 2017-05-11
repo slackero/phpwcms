@@ -141,6 +141,13 @@ initMootoolsAutocompleter();
 			<option value="5"<?php is_selected(5, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_5'] ?></option>
 			<option value="6"<?php is_selected(6, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_6'] ?></option>
 			<option value="7"<?php is_selected(7, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_7'] ?></option>
+			<option value="8"<?php is_selected(8, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_8'] ?></option>
+			<option value="9"<?php is_selected(9, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_9'] ?></option>
+			<option value="10"<?php is_selected(10, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_10'] ?></option>
+			<option value="11"<?php is_selected(11, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_11'] ?></option>
+			<option value="12"<?php is_selected(12, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_12'] ?></option>
+			<option value="13"<?php is_selected(13, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_13'] ?></option>
+			<option value="14"<?php is_selected(14, $plugin['data']['calendar_range']) ?>><?php echo $BLM['repeat_14'] ?></option>
 
 		</select></td>
 	</tr>
