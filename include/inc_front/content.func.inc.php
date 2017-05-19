@@ -1074,7 +1074,11 @@ if(empty($phpwcms['parse_html_mode']) || substr($phpwcms['parse_html_mode'], 0, 
 $block["htmlhead"] = $content["redirect"]["code"] . render_PHPcode($block["htmlhead"]) . LF;
 
 if(!defined('PHPWCMS_ALIAS')) {
-	define('PHPWCMS_ALIAS', empty($content['struct'][ $content["cat_id"] ]['acat_alias']) ? '' : $content['struct'][ $content["cat_id"] ]['acat_alias'] );
+    if(empty($content['struct'][ $content["cat_id"] ]['acat_alias'])) {
+        define('PHPWCMS_ALIAS', empty($aktion[1]) ? 'id='.$content["cat_id"] : 'aid='.$aktion[1]);
+    } else {
+        define('PHPWCMS_ALIAS',  $content['struct'][ $content["cat_id"] ]['acat_alias']);
+    }
 }
 
 // try to include custom functions and replacement tags or what you want to do at this point of the script
@@ -1256,10 +1260,11 @@ if(!empty($_CpPaginate)) {
 	// first build [1][2][3] paginate pages
 	if(strpos($content['all'], '{CP_PAGINATE}')) {
 		$content['CpPaginateNavi'] = array();
+
 		foreach($content['CpPages'] as $key => $value) {
 
 			$content['CpPaginateNavi'][ $key ]  = $template_default['attributes']['cp-paginate']['link-prefix'];
-			$content['CpPaginateNavi'][ $key ] .= '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : '') . '" class="';
+			$content['CpPaginateNavi'][ $key ] .= '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS) . '" class="';
 			$content['CpPaginateNavi'][ $key ] .= $key == $content['aId_CpPage'] ? $template_default['classes']['cp-paginate-link'] : $template_default['classes']['cp-paginate-link-active'];
 			$content['CpPaginateNavi'][ $key ] .= '">' . $template_default['attributes']['cp-paginate']['value-prefix'] . $value . $template_default['attributes']['cp-paginate']['value-suffix'] . '</a>';
 			$content['CpPaginateNavi'][ $key ] .= $template_default['attributes']['cp-paginate']['link-suffix'];
@@ -1272,7 +1277,7 @@ if(!empty($_CpPaginate)) {
 	if(in_array($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages'])) {
 
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages']);
-		$value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : '');
+		$value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS);
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_PREV', $value);
 
 		if(empty($phpwcms['disable_next_prev'])) {
@@ -1287,7 +1292,7 @@ if(!empty($_CpPaginate)) {
 	if(in_array($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages'])) {
 
 		$key = array_search($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages']);
-		$value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : '');
+		$value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS);
 		$content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT', $value);
 
 		if(empty($phpwcms['disable_next_prev'])) {
