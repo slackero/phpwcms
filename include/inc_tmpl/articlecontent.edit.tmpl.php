@@ -628,9 +628,16 @@ echo $_save_close_buttons;
 
     }
 
+    if(in_array($content['type'], array(32))):
 ?>
-
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+<?php
+    else:
+?>
     <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<?php
+    endif;
+?>
 
     <tr>
       <td align="right" class="chatlist"><?php echo $BL['be_article_cnt_space'] ?>:&nbsp;</td>

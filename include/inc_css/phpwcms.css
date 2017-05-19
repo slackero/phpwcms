@@ -1825,18 +1825,18 @@ li {
     font-size:12px;
 }
 
-li.tab {
+div.tab {
     background:transparent url(../../img/lines/be_dotted_line.gif) repeat-x left top;
     list-style:none;
     margin:0;
     padding:7px 0;
 }
 
-li.tab .tab-delete {
+div.tab .tab-delete {
     display:inline-block;
 }
 
-li.tab .toggle-item {
+div.tab .toggle-item {
     background:transparent url(../../img/symbole/plus_close.gif) no-repeat center center;
     display:inline-block;
     height:9px;
@@ -1844,7 +1844,7 @@ li.tab .toggle-item {
     width:20px;
 }
 
-li.tab em.handle {
+div.tab em.handle {
     background:transparent url(../../img/button/sort_up_down.gif) no-repeat center center;
     cursor:move;
     display:inline-block;
@@ -1855,25 +1855,25 @@ li.tab em.handle {
     width:20px;
 }
 
-li.tab.nomove {
+div.tab.nomove {
     background:#F3F5F8;
     list-style:none;
 }
 
-li.tab.nomove:hover {
+div.tab.nomove:hover {
     background:#F3F5F8;
     list-style:none;
 }
 
-li.tab.tab-collapsed .tab-collapsable-row {
+div.tab.tab-collapsed .tab-collapsable-row {
     display:none;
 }
 
-li.tab.tab-collapsed .toggle-item {
+div.tab.tab-collapsed .toggle-item {
     background-image:url(../../img/symbole/plus_open.gif);
 }
 
-li.tab:hover {
+div.tab:hover {
     background-color:#F3F5F8;
 }
 
@@ -2084,17 +2084,16 @@ ul {
     margin:0 0 0 20px;
 }
 
-ul#images {
-    list-style:none;
+div#images {
     margin:3px 0 0;
     padding:0;
 }
 
-ul#images a {
+div#images a {
     margin-left:3px;
 }
 
-ul#images em.handle {
+div#images em.handle {
     background:transparent url(../../img/button/sort_up_down.gif) no-repeat left top;
     cursor:move;
     float:right;
@@ -2104,58 +2103,57 @@ ul#images em.handle {
     width:16px;
 }
 
-ul#images input.imagename {
+div#images input.imagename {
     color:#727889;
     width:300px;
 }
 
-ul#images input.w300 {
+div#images input.w300 {
     width:300px;
 }
 
-ul#images li {
+div#images > div {
     background:url(../../img/lines/be_dotted_line.gif) repeat-x left top;
     list-style:none;
     margin:0 3px 0 0;
     padding:6px 4px 7px;
 }
 
-ul#images li.nomove {
+div#images > div.nomove {
     background:#F3F5F8;
     border-bottom:1px solid #4E789F;
     border-top:1px solid #4E789F;
     margin-top:10px;
 }
 
-ul#images li.nomove:hover {
+div#images > div.nomove:hover {
     background:#F3F5F8;
     border-bottom:1px solid #4E789F;
     border-top:1px solid #4E789F;
     margin-top:10px;
 }
 
-ul#images li:hover {
+div#images > div:hover {
     background-color:#F3F5F8;
 }
 
-ul#images td.backend_preview_img {
+div#images td.backend_preview_img {
     height:1px;
 }
 
-ul#images td.backend_preview_img img {
+div#images td.backend_preview_img img {
     margin:5px 0 3px;
 }
 
-ul#images td.spacerrow {
+div#images td.spacerrow {
     height:3px;
 }
 
-ul#images textarea.w300 {
+div#images textarea.w300 {
     width:300px;
 }
 
-ul#tabs {
-    list-style:none;
+div#tabs {
     margin:0;
     padding:0;
 }
