@@ -257,7 +257,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
     <td>&nbsp;</td>
     <td>
 
-    <ul id="images">
+    <div id="images">
 
 <?php
 
@@ -296,7 +296,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
         }
 
 ?>
-        <li id="image_<?php echo $key ?>">
+        <div id="image_<?php echo $key ?>">
 
             <table border="0" cellpadding="0" cellspacing="0" summary="">
 
@@ -542,7 +542,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
             </table>
 
-        </li>
+        </div>
 
 <?php
 
@@ -550,7 +550,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
     // close image entry looping
 
 ?>
-    </ul>
+    </div>
 
     </td>
 </tr>
@@ -592,7 +592,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 ?></td></tr>
 
 <tr>
-    <td colspan="2" class="rowspacer7x7">
+    <td colspan="2">
         <input type="hidden" name="tab_fieldgroup" value="<?php echo $tab_fieldgroups_active; ?>" /><?php
             if(count($custom_tab_fields_hidden)) {
                 echo implode('', $custom_tab_fields_hidden);
@@ -699,8 +699,6 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
             });
         }
     }
-
-
 
     function addNewImage(where) {
 
@@ -878,7 +876,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 ?>
         new_entry += '<'+'/table>';
 
-        var new_element = new Element('li', {'id': 'image_'+entry_number, 'class': 'nomove', 'style': 'margin:5px 0'}).inject($('images'),where);
+        var new_element = new Element('div', {'id': 'image_'+entry_number, 'class': 'nomove', 'style': 'margin:5px 0'}).inject($('images'),where);
         new_element.innerHTML = new_entry;
         window.location.hash='image_'+entry_number;
         return false;

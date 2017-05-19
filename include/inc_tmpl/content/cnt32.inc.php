@@ -102,7 +102,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr>
 	<td colspan="2">
 
-		<ul id="tabs">
+		<div id="tabs">
 <?php
 
 	// Sort/Up Down Title
@@ -139,7 +139,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			}
 
 ?>
-			<li id="tab<?php echo $key ?>" class="tab tab-collapsed">
+			<div id="tab<?php echo $key ?>" class="tab tab-collapsed">
 				<table class="tab-container" cellpadding="0" cellspacing="0">
 					<tr>
 						<td class="chatlist col1w" align="right" nowrap="nowrap">
@@ -160,7 +160,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						<td colspan="2"><input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="v11 width400" /></td>
 					</tr>
 					<tr class="tab-collapsable-row">
-						<td colspan="3" class="tdtop5 tdbottom5"><textarea class="width540 autosize" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea></td>
+						<td colspan="3" class="tdtop5 tdbottom5 tdleft5 tdright5"><textarea class="width540 autosize" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea></td>
 					</tr>
 <?php
 			if($value['custom_field_items']):
@@ -253,12 +253,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			endif;
 ?>
 				</table>
-			</li>
+			</div>
 <?php
 		endforeach;
 	endif;
 ?>
-		</ul>
+		</div>
 	</td>
 </tr>
 
@@ -289,7 +289,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			entry += '<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
 			entry += '<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
 			entry += '<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="v11 width400" /'+'><'+'/td><'+'/tr>';
-			entry += '<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5 tdbottom10"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540 autosize">';
+			entry += '<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5 tdbottom10 tdleft5 tdright5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="width540 autosize">';
 			entry += '<'+'/textarea><'+'/td><'+'/tr>';
 <?php
 			if(!empty($value['custom_field_items'])):
@@ -352,7 +352,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 ?>
 			entry    += '<'+'/table>';
 
-			var tab = new Element('li', {
+			var tab = new Element('div', {
 				'id': 'tab'+entries,
 				'class': 'tab nomove'
 			}).setHTML(entry).injectInside($('tabs'));
