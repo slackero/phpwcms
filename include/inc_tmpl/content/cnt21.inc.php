@@ -27,6 +27,8 @@ if(!isset($content["page_file"])) {
 }
 
 ?>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_pages_from'] ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">

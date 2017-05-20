@@ -25,6 +25,8 @@ if(!isset($content["map"])) {
 }
 
 ?>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
 	<td><select name="cmap_template" id="cmap_template">
@@ -43,9 +45,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 ?>
 		</select></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
 	<td valign="top" align="right" class="chatlist"><img src="img/leer.gif" width="1" height="14" alt=""><?php echo $BL['be_ctype_map'] ?>:&nbsp;</td>
 	<td valign="top"><?php
@@ -136,9 +138,9 @@ if($map_selected) {
 	}
 
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo ($map_current) ? $BL['be_cnt_map_edit'] : $BL['be_cnt_map_add']; ?>:&nbsp;</td>
   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
@@ -217,9 +219,9 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 }
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_admin_page_text'] ?>:&nbsp;</td>
   <td valign="top"><textarea name="cmap_text" cols="40" rows="8" class="width440 autosize"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea></td>

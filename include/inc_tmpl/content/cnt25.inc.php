@@ -389,45 +389,45 @@ if(!isset($fmp_data['fmp_set_loop'])) {
             <td><input name="fmp_set_logo" type="text" id="fmp_set_logo" class="width200" value="<?php echo html($fmp_data['fmp_set_logo']) ?>" size="40" /></td>
         </tr>
 
-    </table></td>
-</tr>
+    </table>
 
-<tr>
-    <td colspan="2" class="rowspacer7x0"><script type="text/javascript">
+<script type="text/javascript">
 
-        function setIdName(file_id, file_name, file_type) {
-            if(file_id == null) file_id=0;
-            if(file_name == null) file_name='';
-            if(file_type == 6 || file_type == null) {
-                $('fmp_internal_id').value = file_id;
-                $('fmp_internal_name').value = file_name;
-            } else if(file_type == 12) { // H.264
-                $('fmp_internal_id_h264').value = file_id;
-                $('fmp_internal_name_h264').value = file_name;
-            } else if(file_type == 13) { // WebM
-                $('fmp_internal_id_webm').value = file_id;
-                $('fmp_internal_name_webm').value = file_name;
-            } else if(file_type == 14) { // Ogg
-                $('fmp_internal_id_ogg').value = file_id;
-                $('fmp_internal_name_ogg').value = file_name;
-            }
+    function setIdName(file_id, file_name, file_type) {
+        if(file_id == null) file_id=0;
+        if(file_name == null) file_name='';
+        if(file_type == 6 || file_type == null) {
+            $('fmp_internal_id').value = file_id;
+            $('fmp_internal_name').value = file_name;
+        } else if(file_type == 12) { // H.264
+            $('fmp_internal_id_h264').value = file_id;
+            $('fmp_internal_name_h264').value = file_name;
+        } else if(file_type == 13) { // WebM
+            $('fmp_internal_id_webm').value = file_id;
+            $('fmp_internal_name_webm').value = file_name;
+        } else if(file_type == 14) { // Ogg
+            $('fmp_internal_id_ogg').value = file_id;
+            $('fmp_internal_name_ogg').value = file_name;
         }
-        function setImgIdName(file_id, file_name) {
-            if(file_id == null) file_id=0;
-            if(file_name == null) file_name='';
-            $('fmp_img_id').value = file_id;
-            $('fmp_img_name').value = file_name;
+    }
+    function setImgIdName(file_id, file_name) {
+        if(file_id == null) file_id=0;
+        if(file_name == null) file_name='';
+        $('fmp_img_id').value = file_id;
+        $('fmp_img_name').value = file_name;
+    }
+    function setPlayerSize(sval) {
+        var indx = sval.selectedIndex;
+        if(indx > 0) {
+            var val = sval.options[indx].value.split('x');
+            $('fmp_width').value = parseInt(val[0],10);
+            $('fmp_height').value = parseInt(val[1],10);
         }
-        function setPlayerSize(sval) {
-            var indx = sval.selectedIndex;
-            if(indx > 0) {
-                var val = sval.options[indx].value.split('x');
-                $('fmp_width').value = parseInt(val[0],10);
-                $('fmp_height').value = parseInt(val[1],10);
-            }
-            sval.options[0].selected = true;
-            sval.blur();
-        }
+        sval.options[0].selected = true;
+        sval.blur();
+    }
 
-    </script></td>
+ </script>
+
+    </td>
 </tr>

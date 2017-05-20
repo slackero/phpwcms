@@ -45,8 +45,8 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 
 ?>
 
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <?php
 
 if(count($content['recipe']['all_keywords'])) {
@@ -97,9 +97,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 ?>
 		</select></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13">Zutaten:&nbsp;</td>
   <td valign="top"><textarea name="recipe_ingredients" id="recipe_ingredients" cols="40" rows="6" class="width440 autosize"><?php echo html($content['recipe']['ingredients']) ?></textarea></td>
@@ -167,6 +167,3 @@ $wysiwyg_editor = array(
 include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt=""></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>

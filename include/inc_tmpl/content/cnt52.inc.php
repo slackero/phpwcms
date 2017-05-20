@@ -19,7 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // PHP variables
 
-?><tr>
-<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_vars'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="cvar" rows="20" wrap="VIRTUAL" class="code width440 autosize" id="cvar"><?php echo isset($content["var"]) ? html($content["var"]) : '' ?></textarea></td>
+?>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<tr>
+    <td align="right" class="chatlist tdtop3"><?php echo $BL['be_cnt_vars'] ?>:&nbsp;</td>
+    <td><textarea name="cvar" rows="20" wrap="VIRTUAL" class="code width440 autosize" id="cvar"><?php echo isset($content["var"]) ? html($content["var"]) : '' ?></textarea></td>
 </tr>

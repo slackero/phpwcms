@@ -89,4 +89,3 @@ $content["alias"]['alias_status']	= empty($content["alias"]['alias_status']) ? 0
 	<td><label for="castatus">&nbsp;<?php echo $BL['be_cnt_status'] ?></label></td>
 </tr>
 </table></td>
-<tr><td colspan="2"><img src="img/leer.gif" width="1" height="5" alt=""></td></tr>
