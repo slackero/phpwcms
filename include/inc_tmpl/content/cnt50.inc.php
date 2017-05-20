@@ -43,6 +43,8 @@ $imgx=0;
 $img_thumbs = '';
 
 ?>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
 	<td><select name="creference_tmpl" id="creference_tmpl">
@@ -60,9 +62,8 @@ $img_thumbs = '';
 
 ?>
 	  </select></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
 <tr>
 <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_plaintext'] ?>:&nbsp;</td>
@@ -142,8 +143,8 @@ if($img_thumbs) {
     </table></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr><td><img src="img/leer.gif" alt="" width="1" height="22"></td><td class="chatlist"><strong><?php echo $BL['be_cnt_reference_largetext']; ?>:</strong></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
@@ -157,8 +158,9 @@ if($img_thumbs) {
       </tr>
     </table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr><td><img src="img/leer.gif" alt="" width="1" height="22"></td><td class="chatlist"><strong><?php echo $BL['be_cnt_reference_aligntext'] ?>:</strong></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_basis'] ?>:&nbsp;</td>
@@ -201,6 +203,3 @@ if($img_thumbs) {
       </tr>
     </table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>

@@ -212,10 +212,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 	</td>
 </tr>
 
-
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
@@ -284,7 +281,8 @@ if($img_count) {
 	}
 
 ?></td>
-			  </tr>
+
+</tr>
 
 <tr>
 	<td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
@@ -320,5 +318,3 @@ $wysiwyg_editor = array(
 include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?></td></tr>
-
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

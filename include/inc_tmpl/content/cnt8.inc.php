@@ -418,10 +418,9 @@ initMootoolsAutocompleter();
                 <option value="NOR"<?php is_selected('NOR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_nor'] ?></option>
             </select></td>
         </tr>
-        </table></td>
-</tr>
+        </table>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /><script type="text/javascript">
+        <script type="text/javascript">
 
 window.addEvent('domready', function(){
 
@@ -448,5 +447,7 @@ window.addEvent('domready', function(){
 var teaser_items = document.getElementById('calink');
 var source_items = document.getElementById('calinklist');
 
-</script></td></tr>
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+</script>
+
+        </td>
+</tr>

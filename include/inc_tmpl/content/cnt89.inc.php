@@ -48,7 +48,9 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 }
 
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
+
 <tr>
 	<td align="right" class="chatlist">Class:&nbsp;</td>
 	<td><input name="cpoll_buttonstyle" type="text" class="width250" id="cpoll_buttonstyle" value="<?php echo html($content['poll_text']['poll_buttonstyle']) ?>" /></td>
@@ -139,6 +141,3 @@ if($img_thumbs)
 	  </tr>
 	</table></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-
-

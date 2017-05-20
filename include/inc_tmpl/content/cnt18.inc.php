@@ -20,9 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //guestbook/comments
 
 ?>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
     <td><select name="cguestbook_template" id="cguestbook_template">
@@ -84,9 +82,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   </table></td>
 </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_guestbook_listing'] ?>:&nbsp;</td>
@@ -305,16 +301,14 @@ if(!isset($content["guestbook"]["notify_email"])) {
 // if content part is created
 if($content["id"]) {
 ?>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_guestbook_edit'] ?>:&nbsp;</td>
   <td><iframe height="350" width="440" frameborder="0" scrolling="Auto" src="include/inc_act/act_guestbook.php?<?php echo CSRF_GET_TOKEN; ?>&amp;cid=<?php echo empty($content["guestbook"]["aliasID"]) ? $content["id"] : $content["guestbook"]["aliasID"]; ?>"></iframe></td>
 </tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-<tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+
 
 <?php
 }

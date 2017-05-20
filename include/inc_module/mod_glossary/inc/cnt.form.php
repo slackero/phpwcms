@@ -59,7 +59,8 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 
 ?>
 <!-- top spacer - seperate from title/subtitle section -->
-<tr><td colspan="2" style="padding-bottom:8px"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+
 <!-- start custom fields here -->
 
 <!-- retrieve templates -->
@@ -129,4 +130,3 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <!-- end custom fields -->
 <!-- bottom spacer - is followed by status "visible" checkbox -->
-<tr><td colspan="2" style="padding-top:8px"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>

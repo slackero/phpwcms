@@ -91,5 +91,3 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 	?></textarea></td>
 </tr>
-
-<tr><td colspan="2" class="rowspacer7x0"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

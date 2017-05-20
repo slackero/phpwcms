@@ -25,12 +25,9 @@ if(empty($content["alias"]['alias_ID'])) {
 } else {
     $content["alias"]['alias_ID'] = intval($content["alias"]['alias_ID']);
     $sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=".$content["alias"]['alias_ID']." AND acontent_trash=0";
-    $cntresult = _dbQuerey($sql_cnt);
-
+    $cntresult = _dbQuery($sql_cnt);
     if(isset($cntresult[0]['acontent_id'])) {
-
         $content['alias_link']  = '<td class="chatlist">&nbsp;&nbsp;&nbsp;'.$BL['be_article_cnt_edit'].':&nbsp;</td>';
-
         if($cntresult[0]['acontent_type'] == 30 && (!$cntresult[0]['acontent_module'] || !isset($phpwcms['modules'][$cntresult[0]['acontent_module']]))) {
             $content['alias_link'] .= '<td class="f10b error">'.$BL['be_cnt_plugin_n.a.'];
         } else {
@@ -39,13 +36,9 @@ if(empty($content["alias"]['alias_ID'])) {
             $content['alias_link'] .= '" target="_blank" class="btn">'.$wcs_content_type[$cntresult[0]['acontent_type']].'</a>';
         }
         $content['alias_link'] .= '</td>';
-
-    } else {
-
-        $content["alias"]['alias_ID'] = '';
-
     }
 }
+
 $content["alias"]['alias_block']    = empty($content["alias"]['alias_block']) ? 0 : 1;
 $content["alias"]['alias_spaces']   = empty($content["alias"]['alias_spaces']) ? 0 : 1;
 $content["alias"]['alias_title']    = empty($content["alias"]['alias_title']) ? 0 : 1;
@@ -88,4 +81,3 @@ $content["alias"]['alias_status']   = empty($content["alias"]['alias_status']) ?
     <td><label for="castatus">&nbsp;<?php echo $BL['be_cnt_status'] ?></label></td>
 </tr>
 </table></td>
-<tr><td colspan="2"><img src="img/leer.gif" width="1" height="5" alt=""></td></tr>
