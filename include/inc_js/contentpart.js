@@ -29,14 +29,16 @@ function showHide_TeaserArticleSelection(value) {
 // special function for content part form
 function showHide_CntFormfieldRow(whichLayer, status, rowplus) {
 
+    var innerLink = '<a href="#" onclick="return showHide_CntFormfieldRow(\''+whichLayer+'\', ';
+
     if(status == 'block') {
-        innerLink  = '<a href="#" onclick="return showHide_CntFormfieldRow(\''+whichLayer+'\', \'none\'';
+        innerLink += "'none'";
         if(rowplus == 5) {
             innerLink += ', 5';
         }
         innerLink += ')"><img src="img/button/arrow_opened.gif" alt="" border="0" /></a>';
     } else {
-        innerLink  = '<a href="#" onclick="return showHide_CntFormfieldRow(\''+whichLayer+'\', \'block\'';
+        innerLink += "'block'";
         if(rowplus == 5) {
             innerLink += ', 5';
         }
