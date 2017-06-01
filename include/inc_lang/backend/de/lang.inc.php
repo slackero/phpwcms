@@ -1027,7 +1027,7 @@ $BL['be_admin_struct_acat_hiddenactive'] = 'sichtbar, wenn aktiv';
 $BL['be_login_jsinfo'] = 'JavaScript wird im Backend ben&ouml;tigt!';
 
 $BL['be_admin_struct_maxlist'] = 'max. Artikel im Listenmodus';
-$BL['be_admin_optgroup_label'] = [1 => 'Text', 2 => 'Bild', 3 => 'Formular', 4 => 'Admin', 5 => 'Spezial'];
+$BL['be_admin_optgroup_label'] = array(1 => 'Text', 2 => 'Bild', 3 => 'Formular', 4 => 'Admin', 5 => 'Spezial');
 $BL['be_cnt_articlemenu_maxchar'] = 'max. Zeichen';
 
 $BL['be_cnt_sysadmin_system'] = 'System';
