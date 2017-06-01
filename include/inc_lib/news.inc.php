@@ -21,19 +21,19 @@ if (!defined('PHPWCMS_ROOT')) {
  */
 class phpwcmsNews {
 
-    var $news               = array();
-    var $news_total         = 0;
-    var $where              = array('status' => 'cnt_status != 9');
-    var $order_by           = array('cnt_startdate DESC');
-    var $group_by           = '';
-    var $sql                = '';
-    var $limit              = 0;
-    var $start_at           = 0;
-    var $select             = '*';
-    var $base_url           = '';
-    var $base_url_decoded   = '';
-    var $data               = array();
-    var $sort_options       = array(
+    public $news                = array();
+    public $news_total          = 0;
+    public $where               = array('status' => 'cnt_status != 9');
+    public $order_by            = array('cnt_startdate DESC');
+    public $group_by            = '';
+    public $sql                 = '';
+    public $limit               = 0;
+    public $start_at            = 0;
+    public $select              = '*';
+    public $base_url            = '';
+    public $base_url_decoded    = '';
+    public $data                = array();
+    public $sort_options        = array(
         'prio_asc'      => 'cnt_prio ASC',
         'prio_desc'     => 'cnt_prio DESC',
         'name_asc'      => 'cnt_name ASC',
@@ -45,10 +45,10 @@ class phpwcmsNews {
         'end_asc'       => 'cnt_enddate ASC',
         'end_desc'      => 'cnt_enddate DESC'
     );
-    var $filter_sort        = '';
-    var $csrf_token         = '';
+    public $filter_sort     = '';
+    public $csrf_token          = '';
 
-    function phpwcmsNews() {
+    function __construct() {
 
         global $BL;
         global $phpwcms;
@@ -61,13 +61,13 @@ class phpwcmsNews {
 
     }
 
-    function formAction() {
+    public function formAction() {
 
         return $this->base_url.'&amp;cntid='.$this->data['cnt_id'].'&amp;action=edit';
 
     }
 
-    function _where() {
+    private function _where() {
 
         $sql = '';
 
@@ -116,7 +116,7 @@ class phpwcmsNews {
     /**
      * set array with news
      */
-    function getNews() {
+    public function getNews() {
 
         $this->news = array();
 
@@ -154,7 +154,7 @@ class phpwcmsNews {
 
     }
 
-    function countAll() {
+    public function countAll() {
 
         $sql  = 'SELECT COUNT(cnt_id) FROM '.DB_PREPEND.'phpwcms_content WHERE ';
         $sql .= "cnt_module = 'news'" . $this->_where();
@@ -165,7 +165,7 @@ class phpwcmsNews {
 
     }
 
-    function getPagination() {
+    public function getPagination() {
 
         initMootools();
 
@@ -219,7 +219,7 @@ class phpwcmsNews {
         return $paginate;
     }
 
-    function setQueryDefaults() {
+    public function setQueryDefaults() {
 
         $this->select   = '*';
         $this->order_by = array('cnt_livedate');
@@ -231,7 +231,7 @@ class phpwcmsNews {
 
     }
 
-    function filter() {
+    public function filter() {
 
         // filter defaults
         // 0 = all with deleted
@@ -323,7 +323,7 @@ class phpwcmsNews {
 
     }
 
-    function getNewsCategories() {
+    public function getNewsCategories() {
 
         $where = '(SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_content WHERE  cnt_id=cat_pid AND cnt_status != 9 AND cnt_module='news')";
         $result = _dbGet('phpwcms_categories', 'cat_name', "cat_type='news' AND ".$where, 'cat_name', 'cat_name');
@@ -338,7 +338,7 @@ class phpwcmsNews {
         return $categories;
     }
 
-    function getNewsLanguages() {
+    public function getNewsLanguages() {
 
         $this->select           = 'DISTINCT cnt_lang';
         $this->order_by         = 'cnt_lang';
@@ -349,14 +349,12 @@ class phpwcmsNews {
 
     }
 
-    function listBackend() {
+    public function listBackend() {
 
         $this->select   = '*, ';
         $this->select  .= 'IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)) AS cnt_startdate, ';
         $this->select  .= 'UNIX_TIMESTAMP(cnt_killdate) AS cnt_enddate, ';
         $this->select  .= 'IF(cnt_sort=0, IF(UNIX_TIMESTAMP(cnt_livedate)<=0, cnt_created, UNIX_TIMESTAMP(cnt_livedate)), cnt_sort) AS cnt_sortdate';
-
-        //$this->order_by   = array('cnt_prio DESC', 'cnt_sortdate DESC');
 
         $this->getNews();
 
@@ -440,11 +438,10 @@ class phpwcmsNews {
             $list[] = '</table>';
         }
 
-
         return implode(LF, $list);
     }
 
-    function getFiles($mode='backend') {
+    public function getFiles($mode='backend') {
 
         if( is_array($this->data['cnt_files']['id']) && count($this->data['cnt_files']['id'])) {
 
@@ -483,7 +480,7 @@ class phpwcmsNews {
         }
     }
 
-    function edit() {
+    public function edit() {
 
         $this->newsId   = intval($_GET['cntid']);
         $this->data     = array();
@@ -496,15 +493,17 @@ class phpwcmsNews {
 
                 case 0:
                 case 1:
-                case 9:     _dbUpdate('phpwcms_content', array('cnt_status'=>$status), 'cnt_id='.$this->newsId);
-                            set_status_message(
-                                    $status == 9 ? $this->BL['be_action_deleted'] : $this->BL['be_action_status'],
-                                    'success',
-                                    array('ID'=>$this->newsId)
-                                );
-                            break;
+                case 9:
+                    _dbUpdate('phpwcms_content', array('cnt_status'=>$status), 'cnt_id='.$this->newsId);
+                    set_status_message(
+                            $status == 9 ? $this->BL['be_action_deleted'] : $this->BL['be_action_status'],
+                            'success',
+                            array('ID'=>$this->newsId)
+                        );
+                    break;
 
-                default:    set_status_message($this->BL['be_action_notvalid'], 'warning');
+                default:
+                    set_status_message($this->BL['be_action_notvalid'], 'warning');
 
             }
 
@@ -641,9 +640,7 @@ class phpwcmsNews {
 
             }
 
-
             $this->data = array_merge($this->data, $post);
-
 
         } elseif($this->newsId > 0) {
 
@@ -720,7 +717,7 @@ class phpwcmsNews {
 
     }
 
-    function getPostData() {
+    public function getPostData() {
 
         $post = array();
 
