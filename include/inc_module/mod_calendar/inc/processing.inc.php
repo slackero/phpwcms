@@ -97,7 +97,7 @@ if(isset($_POST['calendar_title'])) {
 			$sql .= "calendar_text='".aporeplace($plugin['data']['calendar_text'])."', ";
 			$sql .= "calendar_tag='".aporeplace($plugin['data']['calendar_tag'])."', ";
 			$sql .= "calendar_object='".aporeplace(serialize($plugin['data']['calendar_object']))."', ";
-			$sql .= "calendar_refid='".aporeplace($plugin['data']['calendar_refid'])."', ";
+			$sql .= "calendar_refid='".$plugin['data']['calendar_refid']."', ";
 			$sql .= "calendar_lang='".aporeplace($plugin['data']['calendar_lang'])."' ";
 
 			$sql .= "WHERE calendar_id=".$plugin['data']['calendar_id'];
