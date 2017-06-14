@@ -603,7 +603,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     var site_url    = '<?php echo PHPWCMS_URL; ?>';
     var max_img_w   = <?php echo $phpwcms['img_list_width']; ?>;
     var max_img_h   = <?php echo $phpwcms['img_list_height']; ?>;
-    var image_entry = new Array();
+    var image_entry = [];
 
     function setCimageCenterInactive() {
         var cih = $('cimage_width');
@@ -611,11 +611,11 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         var cic = $('cimage_center');
         var ccp = $('cimage_crop');
         var dis = false;
-        if(!parseInt(cih.value,10)) {
+        if(!parseInt(cih.value, 10)) {
             cih.value = '';
             dis = true;
         }
-        if(!parseInt(ciw.value,10)) {
+        if(!parseInt(ciw.value, 10)) {
             ciw.value = '';
             dis = true;
         }
@@ -688,7 +688,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     }
 
     function updatePreviewImageAll() {
-        var all_images = $('images').getElements('li[id^=image_]');
+        var all_images = $('images').getElements('div[id^=image_]');
         if(all_images.length > 0) {
             all_images.each(function(e) {
                 image_number = e.id.split('_');
