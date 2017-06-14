@@ -2157,7 +2157,7 @@ function convert_rel2abs($text, $base) {
     }
 
     // Fix a href
-    $pattern = "/<a([^>]*) href=\"([^http|ftp|https|mailto|tel|fax][^\"]*)\"/";
+    $pattern = "/<a([^>]*) href=\"([^http|ftp|https|mailto|tel|fax|###DELETE_LINK###|###SITE_URL###][^\"]*)\"/";
     $replace = "<a\${1} href=\"" . $base . "\${2}\"";
     $text = preg_replace($pattern, $replace, $text);
 
