@@ -506,25 +506,26 @@ function copy_article_to_level($do) {
             $result = _dbQuery($sql);
 
             if(isset($result[0]['acontent_aid'])) {
-                $row = $result[0];
-                $row["acontent_aid"] = $article_insert_id;
+                foreach($result as $row) {
+                    $row["acontent_aid"] = $article_insert_id;
 
-                // Check if the owner of the content part needs to be updated too
-                if($_SESSION["wcs_user_admin"] === 0 && intval($row["acontent_uid"]) !== intval($_SESSION["wcs_user_id"])) {
-                    $row["acontent_uid"] = $_SESSION["wcs_user_id"];
-                }
-
-                foreach($row as $key1 => $value1) {
-                    if($key1 === "acontent_id" ){
-                        $key1s   = $key1;
-                        $value1s = "''";
-                    } else {
-                        $key1s   .= ", ".$key1;
-                        $value1s .= ", "._dbEscape($value1);
+                    // Check if the owner of the content part needs to be updated too
+                    if($_SESSION["wcs_user_admin"] === 0 && intval($row["acontent_uid"]) !== intval($_SESSION["wcs_user_id"])) {
+                        $row["acontent_uid"] = $_SESSION["wcs_user_id"];
                     }
+
+                    foreach($row as $key1 => $value1) {
+                        if($key1 === "acontent_id" ){
+                            $key1s   = $key1;
+                            $value1s = "''";
+                        } else {
+                            $key1s   .= ", ".$key1;
+                            $value1s .= ", "._dbEscape($value1);
+                        }
+                    }
+                    $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
+                    _dbQuery($sql, 'INSERT');
                 }
-                $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_articlecontent (".$key1s.") VALUES (".$value1s.")";
-                _dbQuery($sql, 'INSERT');
             }
 
             if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open') {
