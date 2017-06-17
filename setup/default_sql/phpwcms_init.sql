@@ -417,6 +417,7 @@ CREATE TABLE `phpwcms_file` (
   `f_size` int(15) unsigned NOT NULL DEFAULT '0',
   `f_type` varchar(200) NOT NULL DEFAULT '',
   `f_ext` varchar(50) NOT NULL DEFAULT '',
+  `f_svg` int(1) unsigned NOT NULL DEFAULT '0',
   `f_image_width` VARCHAR(20) NOT NULL DEFAULT '',
   `f_image_height` VARCHAR(20) NOT NULL DEFAULT '',
   `f_shortinfo` varchar(1000) NOT NULL DEFAULT '',

@@ -57,15 +57,16 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     $file_is_uploaded       = isset($_FILES["file"]["tmp_name"]) && is_uploaded_file($_FILES["file"]["tmp_name"]) ? true : false;
     $file_iptc_info         = null;
     $file_image_size        = null;
+    $file_svg               = 0;
 
-    // Check against IPTC and handle IPTC tags if applicable
     if($file_is_uploaded) {
 
-        // Try to read IPTC data
+        // Try to read image data
         $file_image_size = getimagesize($_FILES["file"]["tmp_name"], $file_image_info);
 
     }
 
+    // Check against IPTC and handle IPTC tags if applicable
     if(!empty($_POST['file_iptc_as_caption']) && isset($file_image_info['APP13'])) {
         $file_image_iptc = IPTC::parse($file_image_info['APP13']);
         $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
@@ -122,10 +123,10 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             if(!empty($phpwcms['iptc_as_caption_all_lang']) && $file_iptc_info !== null) {
                 if($file_vars[$lang]['title'] === '') {
                     $file_vars[$lang]['title'] = $file_iptc_info['title'];
-        }
+                }
                 if($file_vars[$lang]['longinfo'] === '') {
                     $file_vars[$lang]['longinfo'] = $file_iptc_info['longinfo'];
-    }
+                }
                 if($file_vars[$lang]['copyright'] === '') {
                     $file_vars[$lang]['copyright'] = $file_iptc_info['copyright'];
                 }
@@ -175,10 +176,10 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             '.htaccess', // Apache config
             'web.config', // IIS config
             'lighttpd.conf', // Lighttpd
-            'nginx.conf' // Nginx
+            'nginx.conf', // Nginx
         );
 
-        if(in_array(strtolower($fileName), $forbiddenUploadName)) {
+        if(substr($fileName, 0, 1) === '.' || in_array(strtolower($fileName), $forbiddenUploadName)) {
             $file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
         }
 
@@ -189,14 +190,28 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                 $phpwcms['allowed_upload_ext'] = convertStringToArray(strtolower($phpwcms['allowed_upload_ext']));
             }
 
+            $fileExt = strtolower($fileExt);
+
             if($fileExt === '') {
 
                 $file_error["file"] = sprintf($BL['be_fprivup_err9'], implode(', ', $phpwcms['allowed_upload_ext']));
 
-            } elseif(is_array($phpwcms['allowed_upload_ext']) && count($phpwcms['allowed_upload_ext']) && !in_array(strtolower($fileExt), $phpwcms['allowed_upload_ext'])) {
+            } elseif(is_array($phpwcms['allowed_upload_ext']) && count($phpwcms['allowed_upload_ext']) && !in_array($fileExt, $phpwcms['allowed_upload_ext'])) {
 
-                $file_error["file"] = sprintf($BL['be_fprivup_err8'], strtoupper($fileName), implode(', ', $phpwcms['allowed_upload_ext']));
+                $file_error["file"] = sprintf($BL['be_fprivup_err8'], $fileName, implode(', ', $phpwcms['allowed_upload_ext']));
 
+            } elseif(!$file_image_size && $fileExt === 'svg') {
+
+                require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
+
+                if($file_svg = @SVGMetadataExtractor::getMetadata($_FILES["file"]["tmp_name"])) {;
+                    $fileType = 'image/svg+xml';
+                    $file_image_size = array(
+                        0 => $file_svg['width'],
+                        1 => $file_svg['height']
+                    );
+                    $file_svg = 1;
+                }
             }
         }
     }
@@ -212,12 +227,12 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
         }
 
         $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_file (".
-                "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_image_width, f_image_height, ".
+                "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_svg, f_image_width, f_image_height, ".
                 "f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags, f_granted, f_gallerystatus, ".
                 "f_sort".$fileVarsField.", f_title, f_alt) VALUES (".
                 $file_pid.", ".intval($_SESSION["wcs_user_id"]).", 1, ".$file_aktiv.", ".$file_public.", '".
-                $fileName."', '".time()."', '".$fileSize."', '".
-                aporeplace($fileType)."', '".$fileExt."', "._dbEscape(empty($file_image_size[0]) ? '' : $file_image_size[0]).", ".
+                $fileName."', '".time()."', '".$fileSize."', '".aporeplace($fileType)."', '".$fileExt."', ".
+                $file_svg.', '._dbEscape(empty($file_image_size[0]) ? '' : $file_image_size[0]).", ".
                 _dbEscape(empty($file_image_size[1]) ? '' : $file_image_size[1]).", '".aporeplace($file_shortinfo)."', '".
                 aporeplace($file_longinfo)."', '".aporeplace($file_keys)."', '".aporeplace($fileHash)."', '".
                 aporeplace($file_copyright)."', '".aporeplace($file_tags)."', ".$file_granted.", ".

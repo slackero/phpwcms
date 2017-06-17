@@ -75,6 +75,8 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
 <?php
 if(!$ftp["error"]) {
 
+    require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
+
     if(!empty($_POST['file_iptc_as_caption'])) {
         require_once PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php';
         require_once PHPWCMS_ROOT.'/include/inc_lib/constants/timestamp.php';
@@ -147,8 +149,11 @@ if(!$ftp["error"]) {
 
 ?><p><img src="../../img/symbole/rotation.gif" alt="" width="15" height="15"><strong class="title">&nbsp;Selected files will be taken over!</strong></p><?php
 
-    echo "<p class=\"v10\">";
+    echo '<p class="v10">';
     flush();
+
+    $userftppath    = PHPWCMS_ROOT.$phpwcms["ftp_path"];
+    $useruploadpath = PHPWCMS_ROOT.$phpwcms["file_path"];
 
     foreach($ftp["mark"] as $key => $value) {
 
@@ -157,7 +162,7 @@ if(!$ftp["error"]) {
         }
 
         $file = $ftp["file"][$key];
-        $file_path = PHPWCMS_ROOT.$phpwcms["ftp_path"].$file;
+        $file_path = $userftppath.$file;
         if(is_file($file_path)) {
 
             $file_error["upload"] = 0;
@@ -181,6 +186,7 @@ if(!$ftp["error"]) {
             $ftp_varsvalue  = '';
 
             $file_iptc_info = null;
+            $file_ext       = strtolower($file_ext);
 
             // Check against IPTC and handle IPTC tags if applicable
             if(!empty($_POST['file_iptc_as_caption']) && isset($file_image_info['APP13'])) {
@@ -229,27 +235,44 @@ if(!$ftp["error"]) {
                 $ftp_varsvalue = ','._dbEscape(serialize($file_vars));
             }
 
-            //check file_type
-            if(is_mimetype_by_extension($file_ext)) {
-                $file_type = get_mimetype_by_extension($file_ext);
+            // Check if SVG and detect related values
+            if(!$file_check && $file_ext === 'svg' && ($file_svg = @SVGMetadataExtractor::getMetadata($file_path))) {
+
+                $file_svg = 1;
+                $file_type = 'image/svg+xml';
+                $file_check = array(
+                    0 => $file_svg['width'],
+                    1 => $file_svg['height']
+                );
+
             } else {
-                if(function_exists('image_type_to_mime_type') && isset($file_check[2])) {
-                    $file_type = image_type_to_mime_type($file_check[2]);
-                }
-                if(!is_mimetype_format($file_type)) {
+
+                $file_svg = 0;
+
+                //check file_type
+                if(is_mimetype_by_extension($file_ext)) {
                     $file_type = get_mimetype_by_extension($file_ext);
+                } else {
+                    if(function_exists('image_type_to_mime_type') && isset($file_check[2])) {
+                        $file_type = image_type_to_mime_type($file_check[2]);
+                    }
+                    if(!is_mimetype_format($file_type)) {
+                        $file_type = get_mimetype_by_extension($file_ext);
+                    }
                 }
-            }
-            if($file_type === '') {
-                $file_type = @mime_content_type($file_path);
+
+                if($file_type === '') {
+                    $file_type = @mime_content_type($file_path);
+                }
+
             }
 
             $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_file (";
-            $sql .= "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_image_width, f_image_height, ";
+            $sql .= "f_pid, f_uid, f_kid, f_aktiv, f_public, f_name, f_created, f_size, f_type, f_ext, f_svg, f_image_width, f_image_height, ";
             $sql .= "f_shortinfo, f_longinfo, f_keywords, f_hash, f_copyright, f_tags".$ftp_varsfield.", f_title, f_alt) VALUES (";
             $sql .= $ftp["dir"].", ".intval($_SESSION["wcs_user_id"]).", 1, ".$ftp["aktiv"].", ".$ftp["public"].", ";
             $sql .= _dbEscape($file_name).", '".time()."', "._dbEscape($file_size).", "._dbEscape($file_type).", ";
-            $sql .= _dbEscape($file_ext).", "._dbEscape(empty($file_check[0]) ? '' : $file_check[0]).", "._dbEscape(empty($file_check[1]) ? '' : $file_check[1]).", ";
+            $sql .= _dbEscape($file_ext).", ".$file_svg.', '._dbEscape(empty($file_check[0]) ? '' : $file_check[0]).", "._dbEscape(empty($file_check[1]) ? '' : $file_check[1]).", ";
             $sql .= _dbEscape($ftp["short_info"]).", ";
             $sql .= _dbEscape($file_longinfo).", "._dbEscape($ftp["keys"]).", '".$file_hash."', ";
             $sql .= _dbEscape($file_copyright).", "._dbEscape($ftp["tags"]).$ftp_varsvalue.", ";
@@ -264,8 +287,6 @@ if(!$ftp["error"]) {
                 $wcs_newfilename = $file_hash . $_file_extension;
 
                 // changed for using hashed file names
-                $userftppath    = PHPWCMS_ROOT.$phpwcms["ftp_path"];
-                $useruploadpath = PHPWCMS_ROOT.$phpwcms["file_path"];
                 $usernewfile    = $useruploadpath.$wcs_newfilename;
 
 

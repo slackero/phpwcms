@@ -73,6 +73,7 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 		'f_size'		=> $uploader->getFileSize(),
 		'f_type'		=> $uploader->getFileType(),
 		'f_ext'			=> strtolower($uploader->getFileExtension()),
+		'f_svg'         => 0,
 		'f_longinfo'	=> slweg($_GET['file_longinfo']),
 		'f_hash'		=> md5( $result['filename'] . microtime() ),
 		'f_copyright'	=> slweg($_GET['file_copyright']),
@@ -86,12 +87,32 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 		$data['f_tags']			= makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);
 	}
 
+	$userftppath = PHPWCMS_ROOT.$phpwcms["ftp_path"];
+
+	// Try to detect image data
+    if($file_image_size = getimagesize($userftppath.$result['filename'])) {
+
+        $data['f_image_width'] = $file_image_size[0];
+        $data['f_image_height'] = $file_image_size[1];
+
+    } elseif($data['f_ext'] === 'svg') {
+
+        require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
+
+        if($file_svg = @SVGMetadataExtractor::getMetadata($userftppath.$result['filename'])) {;
+            $data['f_type'] = 'image/svg+xml';
+            $data['f_svg'] = 1;
+            $data['f_image_width'] = $file_svg['width'];
+            $data['f_image_height'] = $file_svg['height'];
+        }
+
+    }
+
 	$insert = _dbInsert('phpwcms_file', $data);
 
 	// move uploaded file
 	if(!empty($insert['INSERT_ID'])) {
 
-		$userftppath    = PHPWCMS_ROOT.$phpwcms["ftp_path"];
 		$useruploadpath = PHPWCMS_ROOT.$phpwcms["file_path"];
 		$usernewfile	= $useruploadpath.$data['f_hash'];
 

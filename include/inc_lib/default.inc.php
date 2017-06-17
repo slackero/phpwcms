@@ -182,6 +182,8 @@ define('PHPWCMS_STORAGE', PHPWCMS_ROOT.$phpwcms["file_path"]);
 define('LF', "\n");  //global new line Feed
 define('FEUSER_REGKEY', empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
 define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
+define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
+define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
