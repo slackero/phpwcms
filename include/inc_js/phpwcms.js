@@ -11,12 +11,12 @@
 var imageBrowser, uploadWin, temp_url;
 
 function login(fval) {
-    if (fval.json.value == 2 && fval.form_password.value == '' && fval.form_loginname.value == '') {
+    if (fval.json.value == '2') {
+        fval.customlang.value = 1;
         fval.submit();
         return true;
-    } else {
-        fval.json.value == 0;
     }
+    fval.json.value = 0;
     if (fval.form_password.value && fval.form_loginname.value) {
         fval.md5pass.value = hex_md5(fval.form_password.value);
         fval.form_password.value = '';

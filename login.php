@@ -123,7 +123,9 @@ $_SESSION["WYSIWYG_EDITOR"] = $phpwcms["wysiwyg_editor"];
 
 destroyBackendSessionData();
 
-if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_POST['json']) && $_POST['json'] == '1') {
+$json_check = isset($_POST['json']) ? intval($_POST['json']) : 0;
+
+if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_check === 1) {
 
     $login_passed       = 0;
     $wysiwyg_template   = '';
@@ -149,7 +151,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
             $_SESSION["wcs_user_logtime"]   = time();
             $_SESSION["wcs_user_admin"]     = intval($result[0]["usr_admin"]);
             $_SESSION["wcs_user_thumb"]     = 1;
-            if($result[0]["usr_lang"]) {
+            if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
                 $_SESSION["wcs_user_lang"]  = $result[0]["usr_lang"];
             }
 
@@ -220,7 +222,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && isset($_P
 
     }
 
-} elseif(isset($_POST['json']) && intval($_POST['json']) != 1) {
+} elseif(isset($_POST['form_loginname']) && $json_check !== 2) {
 
     $err = 1;
 
@@ -293,6 +295,7 @@ ob_start();
 ?>
 <form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" onsubmit="return login(this);" autocomplete="off">
 <input type="hidden" name="json" id="json" value="0" />
+<input type="hidden" name="customlang" id="customlang" value="<?php if(!empty($_POST['customlang'])): ?>1<?php endif; ?>" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
 <input type="hidden" name="ref_url" value="<?php echo html_specialchars($ref_url); ?>" />
 <input type="hidden" name="logintoken" value="<?php echo LOGIN_TOKEN; ?>" />
