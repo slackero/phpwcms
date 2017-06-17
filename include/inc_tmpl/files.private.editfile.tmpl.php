@@ -233,13 +233,16 @@ if($file_id) {
         }
 
         if(isset($row["f_hash"])) {
-            $thumb_image = get_cached_image(array(
-                'max_width'     => 420,
-                'max_height'    => 420,
-                "target_ext"    => $row["f_ext"],
-                "image_name"    => $row["f_hash"] . '.' . $row["f_ext"],
+
+            if(empty($row["f_svg"])) {
+
+                $thumb_image = get_cached_image(array(
+                    'max_width'     => 420,
+                    'max_height'    => 420,
+                    "target_ext"    => $row["f_ext"],
+                    "image_name"    => $row["f_hash"] . '.' . $row["f_ext"],
                     "thumb_name"    => md5($row["f_hash"].'420420'.$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-            ));
+                ));
 
                 if($thumb_image !== false) {
                     $file_thumb_small = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" style="border:1px solid #9BBECA;background:#F5F8F9;" />';
@@ -249,6 +252,14 @@ if($file_id) {
                     }
                     $file_image_width = empty($row['f_image_width']) ? $file_image_size[0] : $row['f_image_width'];
                     $file_image_height = empty($row['f_image_height']) ? $file_image_size[1] : $row['f_image_height'];
+                }
+
+            } else {
+
+                $file_image_width = $row['f_image_width'];
+                $file_image_height = $row['f_image_height'];
+                $file_thumb_small = '<img src="img/cmsimage.php/420x420/'.$row['f_hash'].'.'.$row['f_ext'].'" alt="" style="border:1px solid #9BBECA;background:#F5F8F9;max-width:420px;height:auto;" />';
+
             }
         }
 

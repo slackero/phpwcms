@@ -97,7 +97,7 @@ if(isset($data[1])) {
         }
 
         // Check allowed cmsimage settings and use fallback/default if not matching
-        if(!empty($phpwcms['cmsimage_settings']) && $data[0] && !in_array($data[0], $phpwcms['cmsimage_settings'])) {
+        if($ext !== 'svg' && !empty($phpwcms['cmsimage_settings']) && $data[0] && !in_array($data[0], $phpwcms['cmsimage_settings'])) {
             if(isset($phpwcms['cmsimage_settings']['default'])) {
                 $data[0] = $phpwcms['cmsimage_settings']['default'];
             } else {
@@ -117,46 +117,62 @@ if(isset($data[1])) {
 
             require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
-            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) == 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
             if(isset($hash[0]['f_hash'])) {
                 $ext  = $hash[0]['f_ext'];
-                $hash = $hash[0]['f_hash'];
+                $svg  = intval($hash[0]['f_svg']);
+                $_w   = $hash[0]['f_image_width'];
+                $_h   = $hash[0]['f_image_height'];
+                $name = $hash[0]['f_name'];
+                $hash = $hash[0]['f_hash']; // this overwrites $hash!!!
             } else {
                 $hash = '';
                 $ext  = '';
+                $svg  = 0;
+                $_w   = '';
+                $_h   = '';
+                $name = '';
             }
 
-        } elseif($hash && strlen($hash) == 32 && $ext && !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext)) {
+        } elseif($hash && strlen($hash) === 32 && $ext && !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext)) {
 
             @session_start();
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
             require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
 
-            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'phpwcms_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) == 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
             if(isset($hash[0]['f_hash'])) {
                 $ext  = $hash[0]['f_ext'];
-                $hash = $hash[0]['f_hash'];
+                $svg  = intval($hash[0]['f_svg']);
+                $_w   = $hash[0]['f_image_width'];
+                $_h   = $hash[0]['f_image_height'];
+                $name = $hash[0]['f_name'];
+                $hash = $hash[0]['f_hash']; // this overwrites $hash!!!
             } else {
                 $hash = '';
                 $ext  = '';
+                $svg  = 0;
+                $_w   = '';
+                $_h   = '';
+                $name = '';
             }
 
         }
 
-        if($hash && strlen($hash) == 32 && $ext) {
+        if($hash && strlen($hash) === 32 && $ext) {
 
             $attribute  = explode('x', $data[0]);
             $width      = intval($attribute[0]);
@@ -202,11 +218,23 @@ if(isset($data[1])) {
             $value['thumb_name']    = md5($hash.$value["max_width"].$value["max_height"].$phpwcms['sharpen_level'].$crop.$crop_pos.$quality.$phpwcms['colorspace']);
             $value['crop_image']    = $crop;
             $value['crop_pos']      = $crop_pos;
+            $value['is_file']       = is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
+
+            if($svg && $value['is_file']) {
+
+                header('Content-Type: image/svg+xml');
+                header('Content-length: '.filesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']));
+                header('Content-Disposition: inline; filename="'.$name.'"');
+                @readfile(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
+                exit();
+
+            }
+
 
             // Set width/height based on grid
             if($grid) {
                 if(!$value["max_width"] || !$value["max_height"]) {
-                    if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']) && ($imgdata = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']))) {
+                    if($value['is_file'] && ($imgdata = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']))) {
 
                         if($value["max_height"] && !$value["max_width"]) {
                             $resize_factor = $imgdata[1] / $value["max_height"];
@@ -249,7 +277,8 @@ if(isset($data[1])) {
                     $image['type'] = get_mimetype_by_extension(which_ext($image[0]));
                 }
                 header('Content-Type: ' . $image['type']);
-                header('Content-Disposition: inline');
+                header('Content-length: '.filesize(PHPWCMS_THUMB.$image[0]));
+                header('Content-Disposition: inline; filename="'.$name.'"');
                 @readfile(PHPWCMS_THUMB.$image[0]);
                 exit;
             }

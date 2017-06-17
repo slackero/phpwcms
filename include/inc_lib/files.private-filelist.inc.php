@@ -98,21 +98,36 @@ if(isset($file_result[0]['f_id'])) {
             // now try to get existing thumbnails or if not exists
             // build new based on default thumbnail listing sizes
 
-            // build thumbnail image name
-            $thumb_image = get_cached_image(array(
-                "target_ext"    =>  $file_row["f_ext"],
-                "image_name"    =>  $file_row["f_hash"] . '.' . $file_row["f_ext"],
-                "thumb_name"    =>  md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-            ));
+            if(empty($file_row["f_svg"])) {
 
-            if($thumb_image != false) {
+                // build thumbnail image name
+                $thumb_image = get_cached_image(array(
+                    "target_ext"    =>  $file_row["f_ext"],
+                    "image_name"    =>  $file_row["f_hash"] . '.' . $file_row["f_ext"],
+                    "thumb_name"    =>  md5($file_row["f_hash"].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                ));
+
+                if($thumb_image != false) {
+
+                    echo "<tr>\n";
+                    echo "<td width=\"19\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n";
+                    echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
+                    echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">";
+                    echo $file_row['edit'];
+                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
+                    echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
+                    echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
+
+                }
+
+            } else {
 
                 echo "<tr>\n";
                 echo "<td width=\"19\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n";
                 echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
                 echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">";
                 echo $file_row['edit'];
-                echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
+                echo '<img src="img/cmsimage.php/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;"></a></td>';
                 echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
                 echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 

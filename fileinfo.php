@@ -66,13 +66,15 @@ if($file_id) {
         $filename = html($row["f_name"]);
         $error = 0;
 
-        $thumb_image = get_cached_image(array(
-            "target_ext"    =>  $row["f_ext"],
-            "image_name"    =>  $row["f_hash"] . '.' . $row["f_ext"],
-            "thumb_name"    =>  md5($row["f_hash"].'538538'.$phpwcms["sharpen_level"].$phpwcms['colorspace']),
-            "max_width"     =>  538,
-            "max_height"    =>  538
-        ));
+        if(empty($row["f_svg"])) {
+            $thumb_image = get_cached_image(array(
+                "target_ext"    =>  $row["f_ext"],
+                "image_name"    =>  $row["f_hash"] . '.' . $row["f_ext"],
+                "thumb_name"    =>  md5($row["f_hash"].'538538'.$phpwcms["sharpen_level"].$phpwcms['colorspace']),
+                "max_width"     =>  538,
+                "max_height"    =>  538
+            ));
+        }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -146,7 +148,7 @@ if($file_id) {
   <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <?php
 
-    if($thumb_image != false) {
+    if(!empty($thumb_image) || !empty($row["f_svg"])) {
 ?>
   <tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
   <tr><td colspan="4" bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
@@ -154,7 +156,11 @@ if($file_id) {
     <td bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
     <td colspan="2" align="center" bgcolor="#F5F8F9"><?php
 
-    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
+    if(empty($row["f_svg"])) {
+        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
+    } else {
+        echo'<img src="img/cmsimage.php/538x538/'.$row['f_hash'].'.'.$row['f_ext'].'" alt="" style="max-width:538px;height:auto;">';
+    }
 
     ?></td>
     <td bgcolor="#F5F8F9"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
