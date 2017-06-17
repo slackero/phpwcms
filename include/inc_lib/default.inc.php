@@ -627,11 +627,18 @@ function buildGlobalGET($return = '') {
         }
     }
 
+    reset($GLOBALS['_getVar']);
+    $_getVar_first = key($GLOBALS['_getVar']);
+
     unset(
         $_GET[session_name()],
+        $GLOBALS['_getVar'][$_getVar_first],
         $GLOBALS['_getVar'][session_name()],
         $GLOBALS['_getVar']['']
     );
+
+    $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
+    $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
 
     if(get_magic_quotes_gpc()) {
         foreach($GLOBALS['_getVar'] as $key => $value) {

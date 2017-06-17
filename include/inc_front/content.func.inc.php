@@ -153,7 +153,7 @@ if(isset($_GET["id"])) {
 
 	if(count($GLOBALS['_getVar'])) {
 		reset($GLOBALS['_getVar']);
-		$alias = trim(key($GLOBALS['_getVar']));
+		$alias = key($GLOBALS['_getVar']);
 
 		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
