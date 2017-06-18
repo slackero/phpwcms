@@ -222,10 +222,68 @@ if(isset($data[1])) {
 
             if($svg && $value['is_file']) {
 
+                // calculate target dimensions
+                $resize_factor = $_w / $_h;
+                $svg_edit = true;
+                $svg_preserveAspectRatio = '';
+
+                if($value["max_height"] && $value["max_width"]) {
+
+                    if($value['crop_image']) {
+
+                        $svg_preserveAspectRatio = 'xMidYMid slice';
+
+                    } else {
+
+                        $resize_factor_x = $value["max_width"] / $_w;
+                        $resize_factor_y = $value["max_height"] / $_h;
+
+                        if ($resize_factor_x * $_h < $value["max_height"]) { // Resize the image based on width
+                        	$value["max_height"] = round($resize_factor_x * $_h);
+                        } else {
+                        	$value["max_width"] = round($resize_factor_y * $_w);
+                        }
+
+                    }
+
+                } elseif($value["max_height"] && !$value["max_width"]) {
+                    $value["max_width"] = floor($value["max_height"] * $_w / $_h);
+                    $value['crop_image'] = 0;
+                } elseif($value["max_width"] && !$value["max_height"]) {
+                    $value["max_height"] = floor($value["max_width"] * $_h / $_w);
+                    $value['crop_image'] = 0;
+                } elseif(!$value["max_width"] && !$value["max_height"]) {
+                    $value["max_width"]  = $_w;
+                    $value["max_height"] = $_h;
+                    $value['crop_image'] = 0;
+                    $svg_edit = false;
+                }
+
+                if($svg_edit) {
+
+                    $doc = new DOMDocument();
+                    $doc->load(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
+                    $svg_tag = $doc->getElementsByTagName('svg')->item(0);
+                    $svg_tag->setAttribute('width', $value['max_width']);
+                    $svg_tag->setAttribute('height', $value['max_height']);
+                    if($svg_preserveAspectRatio) {
+                        $svg_tag->setAttribute('preserveAspectRatio', $svg_preserveAspectRatio);
+                    }
+                    $svg = $doc->saveXML();
+                    $svg_length = mb_strlen($svg, PHPWCMS_CHARSET);
+
+                } else {
+
+                    $svg = file_get_contents(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
+                    $svg_length = filesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
+
+                }
+
                 header('Content-Type: image/svg+xml');
-                header('Content-length: '.filesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']));
+                header('Content-length: '.$svg_length);
                 header('Content-Disposition: inline; filename="'.$name.'"');
-                @readfile(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
+
+                echo $svg;
                 exit();
 
             }
