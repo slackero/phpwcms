@@ -140,7 +140,7 @@ if(isset($data[1])) {
                 $name = '';
             }
 
-        } elseif($hash && strlen($hash) === 32 && $ext && !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext)) {
+        } elseif(strlen($hash) === 32 && (!$ext || !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext))) {
 
             @session_start();
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
@@ -172,7 +172,7 @@ if(isset($data[1])) {
 
         }
 
-        if($hash && strlen($hash) === 32 && $ext) {
+        if(strlen($hash) === 32 && $ext) {
 
             $attribute  = explode('x', $data[0]);
             $width      = intval($attribute[0]);
@@ -287,7 +287,6 @@ if(isset($data[1])) {
                 exit();
 
             }
-
 
             // Set width/height based on grid
             if($grid) {
