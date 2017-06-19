@@ -164,6 +164,9 @@ if(PHPWCMS_REWRITE) {
     if(PHPWCMS_REWRITE_EXT && strpos($content["all"], PHPWCMS_REWRITE_EXT.'&amp;')) {
         $content['all'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $content["all"]);
     };
+
+    $content['all'] = str_replace('img/cmsimage.php/', 'im/', $content['all']);
+    $content['page_start'] = str_replace('img/cmsimage.php/', 'im/', $content['page_start']);
 }
 
 // real page ending

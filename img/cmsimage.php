@@ -30,8 +30,14 @@ if(session_id() && session_name()) {
     }
 }
 
-$query_separator    = strpos($request_uri, 'cmsimage.php?') !== FALSE ? '?' : '/';
-$data               = explode('cmsimage.php'.$query_separator, $request_uri, 2);
+if(strpos($request_uri, '/im/') !== false) {
+    $data = explode('/im/', $request_uri, 2);
+} elseif(strpos($request_uri, 'cmsimage.php?') === false) {
+    $data = explode('cmsimage.php/', $request_uri, 2);
+} else {
+    $data = explode('cmsimage.php?', $request_uri, 2);
+}
+
 if(isset($data[1])) {
 
     $data = explode('/', $data[1]);
