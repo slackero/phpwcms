@@ -332,7 +332,11 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
             // no break here
         case 7:
-            $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif') AND ";
+            $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif', 'svg'";
+            if($phpwcms['image_library'] !== 'gd2') {
+                $file_sql .= ", 'pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps', 'webp'";
+            }
+            $file_sql .= ") AND ";
             break;
 
         case 2:
@@ -371,7 +375,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             $filename = html($file_row["f_name"]);
 
             $thumb_image = true;
-            if( !in_array($js_aktion, array(2, 4, 9, 10, 16, 18, 19)) ) {
+            if( !$file_row['f_svg'] && !in_array($js_aktion, array(2, 4, 9, 10, 16, 18, 19)) ) {
                 // check if file can have thumbnail - if so it can be choosen for usage
                 $thumb_image = get_cached_image(array(
                     "target_ext"    =>  $file_row["f_ext"],
@@ -467,52 +471,52 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 // show "add all files"
                 if($file_durchlauf === 0 && $add_all) {
 
-                    echo '
-                        <tr id="addAllFilesLink">
-                            <td colspan="4" class="add_all_files"><a href="#" onclick="addAllFiles();return false;" title="' . $BL['ADD_ALL_FILES'] . '">' .
-                                $BL['ADD_ALL_FILES'] .  '
-                                <img src="img/button/add_9x9a.gif" alt="" border="0" />
-                                </a></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" border="0" /></td>
-                        </tr>
-                          ';
+                    echo '<tr id="addAllFilesLink"><td colspan="4" class="add_all_files"><a href="#" onclick="addAllFiles();return false;" title="';
+                    echo $BL['ADD_ALL_FILES'];
+                    echo '">';
+                    echo $BL['ADD_ALL_FILES'];
+                    echo '<img src="img/button/add_9x9a.gif" alt="" border="0" /></a></td></tr>';
+                    echo '<tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" border="0" /></td></tr>';
 
                 }
 
-                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" border="0" alt="" /></td></tr>'.LF;
-                echo "<tr>\n<td><img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" alt=\"\" hspace=\"3\" vspace=\"1\" /></td>\n";
+                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" border="0" alt="" /></td></tr>';
+                echo '<tr><td><img src="img/icons/small_'.extimg($file_row["f_ext"]).'" alt="" hspace="3" vspace="1" /></td>';
+                echo '<td class="msglist">';
 
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
-                    echo "<td class=\"msglist\">".$filename."</td>\n<td><img src=\"img/leer.gif\" width=\"5\" height=\"1\" alt=\"\" border=\"0\" />";
+                    echo $filename.'</td><td><img src="img/leer.gif" width="5" height="1" alt="" />';
                 } else {
-                    echo "<td class=\"msglist\"><a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename."</a></td>\n<td align=\"right\">";
+                    echo '<a href="#" onclick="'.$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td align="right">';
                 }
 
-                echo "<a href=\"#\" onclick=\"".$js."return false;\" title=\"".$BL['TAKE_IMAGE']."\">";
-                echo "<img src=\"img/button/add_9x9a.gif\" border=\"0\" alt=\"\" hspace=\"5\" vspace=\"2\" /></a></td>\n";
-                echo "<td><img src=\"img/leer.gif\" alt=\"\" border=\"0\" /></td>\n</tr>\n";
-                echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-                if(!empty($thumb_image[0]) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo "<tr><td>&nbsp;</td>\n<td colspan=\"3\"><a href=\"#\" onclick=\"".$js;
+                echo '<a href="#" onclick="'.$js.'return false;" title="'.$BL['TAKE_IMAGE'].'">';
+                echo '<img src="img/button/add_9x9a.gif" alt="" hspace="5" vspace="2" /></a></td>';
+                echo '<td><img src="img/leer.gif" alt="" /></td></tr>';
+                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="1" alt="" /></td></tr>';
+                if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
+                    echo '<tr><td>&nbsp;</td><td colspan="3"><a href="#" onclick="'.$js;
                     echo "tmt_winControl('self','close()');\">";
-                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
-                    echo "</a></td>\n</tr>\n";
+                    if($file_row['f_svg']) {
+                        echo '<img src="img/cmsimage.php/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" />';
+                    } else {
+                        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" />';
+                    }
+                    echo '</a></td></tr>';
                 }
-                echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\" alt=\"\" border=\"0\" /></td></tr>\n";
-                echo "<tr><td colspan=\"4\" bgcolor=\"#CDDEE4\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
+                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>';
+                echo '<tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" width="1" height="1" alt="" /></td></tr>';
             }
 
         }
         if(empty($filename)) { //Abschluss der Filelisten-Tabelle
-            echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"3\" height=\"2\" alt=\"\" border=\"0\" /></td></tr>\n";
-            echo "<tr><td colspan=\"4\" class=\"msglist\">&nbsp;".$BL['NO_FILE']."&nbsp;&nbsp;</td></tr>\n";
-            echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" width=\"3\" height=\"2\" alt=\"\" border=\"0\" /></td></tr>\n";
+            echo '<tr><td colspan="4"><img src="img/leer.gif" width="3" height="2" alt="" /></td></tr>';
+            echo '<tr><td colspan="4" class="msglist">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
+            echo '<tr><td colspan="4"><img src="img/leer.gif" width="3" height="2" alt="" /></td></tr>';
         }
     }
 
-    echo "</table>";
+    echo '</table>';
 
     if( count($js_files_select) ) {
 
