@@ -120,7 +120,7 @@ $buttonAction .= '</tr></table>';
                 ));
             }
 
-            if($thumb_image != false || $thumb_list_image != false) {
+            if($thumb_image || $thumb_list_image) {
 
             ?>
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -128,18 +128,18 @@ $buttonAction .= '</tr></table>';
               <td valign="top" class="v10" style="color:#727889"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
               <td valign="top" class="v10"><?php
 
-        if($thumb_image != false) {
-            echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" style="margin-right:5px;" />';
-        }
-        if($thumb_list_image != false) {
-            echo '<img src="'.PHPWCMS_IMAGES . $thumb_list_image[0] .'" border="0" '.$thumb_list_image[3].' alt=""';
-            if(!empty($article['image']['list_usesummary'])) {
-                echo ' class="inactive"';
+            if($thumb_image) {
+                echo '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" style="margin-right:5px;" />';
             }
-            echo ' />';
-        }
+            if($thumb_list_image) {
+                echo '<img src="'. $thumb_list_image['src'] .'" '.$thumb_list_image[3].' alt=""';
+                if(!empty($article['image']['list_usesummary'])) {
+                    echo ' class="inactive"';
+                }
+                echo ' />';
+            }
 
-              ?></td>
+            ?></td>
             </tr>
             <?php
 

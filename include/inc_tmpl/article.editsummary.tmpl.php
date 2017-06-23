@@ -477,19 +477,15 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
                     $_SESSION['image_browser_article'] = 1;
 
-                $thumb_image = false;
-                if(!empty($article["image"]["hash"])) {
-                    $thumb_image = get_cached_image(array(
-                        "target_ext" => $article['image']['ext'],
-                        "image_name" => $article['image']['hash'] . '.' . $article['image']['ext'],
-                        "thumb_name" => md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-                    ));
-                }
-                if($thumb_image != false) {
-                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
-                } else {
-                    echo '&nbsp;';
-                }
+                    $thumb_image = false;
+                    if(!empty($article["image"]["hash"])) {
+                        $thumb_image = get_cached_image(array(
+                            "target_ext" => $article['image']['ext'],
+                            "image_name" => $article['image']['hash'] . '.' . $article['image']['ext'],
+                            "thumb_name" => md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                        ));
+                    }
+                    echo $thumb_image ? '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" />' : '&nbsp;';
 
                     ?></td>
                   </tr>
@@ -598,16 +594,12 @@ if(!isset($article['image']['list_usesummary'])) {
     $thumb_image = false;
     if(!empty($article["image"]["list_hash"])) {
         $thumb_image = get_cached_image(array(
-                "target_ext" => $article['image']['list_ext'],
-                "image_name" => $article['image']['list_hash'] . '.' . $article['image']['list_ext'],
-                "thumb_name" => md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+            "target_ext" => $article['image']['list_ext'],
+            "image_name" => $article['image']['list_hash'] . '.' . $article['image']['list_ext'],
+            "thumb_name" => md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
         ));
     }
-    if($thumb_image != false) {
-        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="" />';
-    } else {
-        echo '&nbsp;';
-    }
+    echo $thumb_image ? '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" />' : '&nbsp;';
 
     ?></td>
     </tr>

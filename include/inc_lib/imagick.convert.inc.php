@@ -188,11 +188,33 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     $thumb_image_info = array();
     $thumb_image_info[0] = false; // Thumb Image
     $image_hash = substr($val['image_name'], 0, (strlen($val['target_ext']) * -1) - 1);
+    $svg = false;
 
     // now check if thumbnail was created - proof for GIF, PNG, JPG
     $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
-    if(is_file($thumb_check .'.jpg')) {
+    if($val['target_ext'] === 'svg') {
+
+        $svg = true;
+
+        if(is_file($val['image_dir'].$val['image_name'])) {
+
+            $thumb_image_info[0] = $val['image_name'];
+            $thumb_image_info[1] = $val['max_width'];
+            $thumb_image_info[2] = $val['max_height'];
+            $thumb_image_info[3] = '';
+            $thumb_image_info['type'] = 'image/svg+xml';
+            $thumb_image_info['src'] = 'img/cmsimage.php/'.$val['max_width'].'x'.$val['max_height'];
+            if($val['crop_image']) {
+                $thumb_image_info['src'] .= 'x1';
+            }
+            $thumb_image_info['src'] .= '/'.$val['image_name'];
+
+            return $thumb_image_info;
+
+        }
+
+    } elseif(is_file($thumb_check .'.jpg')) {
 
         $thumb_image_info[0] = $val['thumb_name'] .'.jpg';
         $thumb_image_info['type'] = 'image/jpeg';
@@ -234,6 +256,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             $thumb_image_info[1] = $thumb_info[0]; // width
             $thumb_image_info[2] = $thumb_info[1]; // height
             $thumb_image_info[3] = $thumb_info[3]; // HTML width & height attribute
+            $thumb_image_info['src'] = PHPWCMS_IMAGES.$thumb_image_info[0];
 
         } else {
 
