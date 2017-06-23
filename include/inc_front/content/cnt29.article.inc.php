@@ -187,17 +187,24 @@ if($image['template']) {
                 ));
             }
 
-            $img_landscape = null;
             if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false) {
+
                 $img_landscape = false;
-                if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {
+
+                if(!empty($thumb_image['svg'])) {
+
+                    $img_landscape = $image['height'] > $image['width'] ? '' : 'L';
+
+                } elseif(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3])) {
+
                     $img_landscape = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$image['images'][$key][2] . '.' . $image['images'][$key][3]);
-                    if($img_landscape) {
-                        $img_landscape = $img_landscape[1] > $img_landscape[0] ? '' : 'L';
-                    } else {
-                        $img_landscape = false;
-                    }
+                    $img_landscape = $img_landscape ? ($img_landscape[1] > $img_landscape[0] ? '' : 'L') : false;
+
                 }
+            } else {
+
+                $img_landscape = null;
+
             }
 
             // now try to build caption and if neccessary add alt to image or set external link for image
@@ -218,14 +225,14 @@ if($image['template']) {
             }
 
             $img_thumb_name     = $thumb_image[0];
-            $img_thumb_rel      = PHPWCMS_IMAGES.$thumb_image[0];
-            $img_thumb_abs      = PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
+            $img_thumb_rel      = $thumb_image['src'];
+            $img_thumb_abs      = PHPWCMS_URL.$thumb_image['src'];
             $img_thumb_width    = $thumb_image[1];
             $img_thumb_height   = $thumb_image[2];
             $img_thumb_link     = '';
             $img_thumb_ext      = which_ext($thumb_image[0]);
 
-            $list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" data-image-ext="'.$img_thumb_ext.'" ';
+            $list_img_temp  = '<img src="'.$thumb_image['src'].'" data-image-ext="'.$img_thumb_ext.'" ';
             $list_img_temp .= 'data-image-id="'.$image['images'][$key][0].'" data-image-hash="'.$image['images'][$key][2].'" ';
 
             if($image['center_image']) {
@@ -262,7 +269,7 @@ if($image['template']) {
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -282,7 +289,7 @@ if($image['template']) {
                 } else {
 
                     // Gallery image
-                    $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
+                    $img_thumb_link  = '<a href="'.$zoominfo['src'].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
                     if($caption[0]) {
                         $img_thumb_link .= 'title="'.parseLightboxCaption($caption[0]).'" ';
                     } elseif(strpos($image['tmpl_entry'], '{IMGNAME}')) {
@@ -298,8 +305,8 @@ if($image['template']) {
                 $img_a .= $list_img_temp.'</a>';
 
                 $img_zoom_name      = $zoominfo[0];
-                $img_zoom_rel       = PHPWCMS_IMAGES.$zoominfo[0];
-                $img_zoom_abs       = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
+                $img_zoom_rel       = $zoominfo['src'];
+                $img_zoom_abs       = PHPWCMS_URL.$zoominfo['src'];
                 $img_zoom_width     = $zoominfo[1];
                 $img_zoom_height    = $zoominfo[2];
 

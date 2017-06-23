@@ -68,8 +68,8 @@ if(isset($file_result[0]['f_id'])) {
                 echo "505\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\"><a href=\"fileinfo.php?fid=";
                 echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
                 echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n";
-                echo "<td width=\"15\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
+                echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3]."></a></td>\n";
+                echo "<td width=\"15\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\"></td>\n</tr>\n";
                 echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
             }
 

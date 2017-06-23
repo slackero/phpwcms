@@ -121,7 +121,7 @@ if(isset($content["image_hash"])) {
     ));
 
     if($thumb_image != false) {
-        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
+        echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
     }
 }
 

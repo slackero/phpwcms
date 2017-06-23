@@ -117,13 +117,13 @@ if(isset($content['image_list']['images']) && is_array($content['image_list']['i
             echo $img_name . "</option>\n";
 
             if($imgx == 4) {
-                $img_thumbs .= '<br><img src="img/leer.gif" alt="" border="0" width="1" height="2"><br>';
+                $img_thumbs .= '<br><img src="img/leer.gif" alt="" width="1" height="2"><br>';
                 $imgx = 0;
             }
             if($imgx) {
-                $img_thumbs .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1">';
+                $img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1">';
             }
-            $img_thumbs .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
+            $img_thumbs .= '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
 
             $imgx++;
         }

@@ -421,9 +421,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     $content['alink']['tr'][$key]   = str_replace('{COLUMN}', $content['alink']['column_current'], $content['alink']['tr'][$key]);
                     $content['alink']['tr'][$key]   = str_replace('{ROW}', $content['alink']['row']-$content['alink']['row_minus'], $content['alink']['tr'][$key]);
 
-                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'MENUTITLE', html_specialchars($row['article_menutitle']));
-                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'TITLE', html_specialchars($row['article_title']));
-                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html_specialchars($row['article_subtitle']));
+                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'MENUTITLE', html($row['article_menutitle']));
+                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'TITLE', html($row['article_title']));
+                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'SUBTITLE', html($row['article_subtitle']));
                     $content['alink']['tr'][$key]   = render_cnt_date($content['alink']['tr'][$key], $row[ $content['alink']['date_basis'] ], phpwcms_strtotime($row['article_begin']), phpwcms_strtotime($row['article_end']));
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'PRIO', empty($row['article_priorize']) ? '' : $row['article_priorize']);
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'ACTIVE', isset($content["article_id"]) && $content["article_id"] == $row['article_id'] ? 'active' : '');
@@ -434,9 +434,9 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                     if(!empty($row['article_image']['list_caption'])) {
                         $content['alink']['caption']            = getImageCaption(array('caption' => $row['article_image']['list_caption'], 'file' => $row['article_image']['list_id']));
-                        $row['article_image']['list_caption']   = html_specialchars($content['alink']['caption'][0]);
-                        $content['alink']['caption'][3]         = html_specialchars($content['alink']['caption'][3]);
-                        $content['alink']['caption'][1]         = html_specialchars($content['alink']['caption'][1]);
+                        $row['article_image']['list_caption']   = html($content['alink']['caption'][0]);
+                        $content['alink']['caption'][3]         = html($content['alink']['caption'][3]);
+                        $content['alink']['caption'][1]         = html($content['alink']['caption'][1]);
                     } else {
                         $row['article_image']['list_caption']   = '';
                         $content['alink']['caption']            = array('', '', '', '', '');
@@ -454,7 +454,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                         $img_thumb_hash     = '';
                         $img_thumb_crop     = 0;
                         $img_thumb_ext      = 'jpg';
-                        $row['article_image']['list_name'] = html_specialchars($row['article_image']['list_name']);
+                        $row['article_image']['list_name'] = html($row['article_image']['list_name']);
 
                         // check if image available
                         if($img_thumb_id) {
@@ -492,7 +492,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                                 if($thumb_image != false) {
 
-                                    $thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
+                                    $thumb_img  = '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3];
                                     $thumb_img .= ' data-image-id="'.$img_thumb_id.'" data-image-hash="'.$img_thumb_hash.'"';
                                     $thumb_img .= ' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
                                     if($content['alink']['caption'][3]) {
@@ -501,8 +501,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                                     $thumb_img .= ' />';
 
                                     $img_thumb_name     = $thumb_image[0];
-                                    $img_thumb_rel      = PHPWCMS_IMAGES.$thumb_image[0];
-                                    $img_thumb_abs      = PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
+                                    $img_thumb_rel      = $thumb_image['src'];
+                                    $img_thumb_abs      = PHPWCMS_URL.$thumb_image['src'];
                                     $img_thumb_width    = $thumb_image[1];
                                     $img_thumb_height   = $thumb_image[2];
                                     $img_thumb_ext      = which_ext($thumb_image[0]);
@@ -585,7 +585,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                         if($row['article_image']['detail'] != false) {
 
-                            $row['article_image']['img']  = '<img src="'.PHPWCMS_IMAGES . $row['article_image']['detail'][0] .'" '.$row['article_image']['detail'][3];
+                            $row['article_image']['img']  = '<img src="' . $row['article_image']['detail']['src'] .'" '.$row['article_image']['detail'][3];
                             $row['article_image']['img'] .= ' data-detail-id="'.$row['article_image']['id'].'" data-detail-hash="'.$row['article_image']['hash'].'"';
                             $row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ? $row['article_image']['caption'][1] : $row['article_image']['name']).'"';
                             if($row['article_image']['caption'][3]) {

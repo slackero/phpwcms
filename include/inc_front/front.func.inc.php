@@ -1140,8 +1140,8 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                 if($thumb_image != false) {
 
                     $img_thumb_name     = $thumb_image[0];
-                    $img_thumb_rel      = PHPWCMS_IMAGES.$thumb_image[0];
-                    $img_thumb_abs      = PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
+                    $img_thumb_rel      = $thumb_image['src'];
+                    $img_thumb_abs      = PHPWCMS_URL.$thumb_image['src'];
                     $img_thumb_width    = $thumb_image[1];
                     $img_thumb_height   = $thumb_image[2];
                     $img_thumb_ext      = $article["article_image"]['list_ext'];
@@ -1164,12 +1164,12 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                         if($zoominfo != false) {
 
                             $img_zoom_name      = $zoominfo[0];
-                            $img_zoom_rel       = PHPWCMS_IMAGES.$zoominfo[0];
-                            $img_zoom_abs       = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
+                            $img_zoom_rel       = $zoominfo['src'];
+                            $img_zoom_abs       = PHPWCMS_URL.$zoominfo['src'];
                             $img_zoom_width     = $zoominfo[1];
                             $img_zoom_height    = $zoominfo[2];
 
-                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
 
                             if(!empty($caption[2][0])) {
                                 $open_link = $caption[2][0];
@@ -1192,7 +1192,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                                 // lightbox
                                 initSlimbox();
 
-                                $article["article_image"]["poplink"]  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox" '.get_attr_data_gallery('', '', ' ');
+                                $article["article_image"]["poplink"]  = '<a href="'.$zoominfo['src'].'" rel="lightbox" '.get_attr_data_gallery('', '', ' ');
                                 if($article["article_image"]["list_caption"]) {
                                     $article["article_image"]["poplink"] .= 'title="'.parseLightboxCaption($article["article_image"]["list_caption"]).'" ';
                                 }

@@ -185,20 +185,20 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     ), $val);
 
     $imgCache = false; //do not insert file information in db image cache
-    $thumb_image_info = array();
-    $thumb_image_info[0] = false; // Thumb Image
+    $thumb_image_info = array(
+        0 => false,
+        'svg' => false
+    );
     $image_hash = substr($val['image_name'], 0, (strlen($val['target_ext']) * -1) - 1);
-    $svg = false;
 
     // now check if thumbnail was created - proof for GIF, PNG, JPG
     $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
     if($val['target_ext'] === 'svg') {
 
-        $svg = true;
-
         if(is_file($val['image_dir'].$val['image_name'])) {
 
+            $thumb_image_info['svg'] = true;
             $thumb_image_info[0] = $val['image_name'];
             $thumb_image_info[1] = $val['max_width'];
             $thumb_image_info[2] = $val['max_height'];

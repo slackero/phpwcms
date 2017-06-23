@@ -64,8 +64,7 @@ if(!empty($crow["acontent_image"][2])) {
 
 	if($thumb_image != false) {
 
-		$thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
-		$thumb_img .= ' alt="'.$caption[1].'"'.$caption[3].' />';
+		$thumb_img  = '<img src="'. $thumb_image['src'] .'" ' . $thumb_image[3] . ' alt="'.$caption[1].'"'.$caption[3].' />';
 
 		if($crow["acontent_image"][8]) {
 
@@ -79,7 +78,7 @@ if(!empty($crow["acontent_image"][2])) {
 
 			if($zoominfo != false) {
 
-				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
 
 				if(!empty($caption[2][0])) {
 					$open_link = $caption[2][0];

@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -27,29 +27,29 @@ $cinfo[3] = str_replace("\n", " ", $row["acontent_text"]);
 $cinfo_image = explode(":", $row["acontent_image"]);
 if(isset($cinfo_image[2]) && is_array($cinfo_image) && count($cinfo_image)) {
 
-	$thumb_image = get_cached_image(array(
-		"target_ext"	=>	$cinfo_image[3],
-		"image_name"	=>	$cinfo_image[2] . '.' . $cinfo_image[3],
-		"thumb_name"	=>	md5($cinfo_image[2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-	));
+    $thumb_image = get_cached_image(array(
+        "target_ext"    =>  $cinfo_image[3],
+        "image_name"    =>  $cinfo_image[2] . '.' . $cinfo_image[3],
+        "thumb_name"    =>  md5($cinfo_image[2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+    ));
 
-	if($thumb_image != false) {
-		$cinfo_image = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
-	} else {
-		$cinfo_image = '';
-	}
+    if($thumb_image != false) {
+        $cinfo_image = '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
+    } else {
+        $cinfo_image = '';
+    }
 } else {
-	$cinfo_image = '';
+    $cinfo_image = '';
 }
 $cinfo["result"] = '';
 foreach($cinfo as $value) {
-	if($value) $cinfo["result"] .= $value."\n";
+    if($value) $cinfo["result"] .= $value."\n";
 }
 $cinfo["result"] = str_replace("\n", " / ", html(trim($cinfo["result"])));
 if($cinfo["result"] || $cinfo_image) { //Zeige Inhaltinfo
-	echo "<tr><td>&nbsp;</td><td class=\"v10\">";
-	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
-	echo $cinfo["result"];
-	if($cinfo["result"] && $cinfo_image) echo "<br />";
-	echo $cinfo_image."</a></td><td>&nbsp;</td></tr>";
+    echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+    echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
+    echo $cinfo["result"];
+    if($cinfo["result"] && $cinfo_image) echo "<br />";
+    echo $cinfo_image."</a></td><td>&nbsp;</td></tr>";
 }

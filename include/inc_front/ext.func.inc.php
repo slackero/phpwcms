@@ -37,11 +37,11 @@ function showPollImage($image, $zoom = 0) {
         ));
     }
 
-    $list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
+    $list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
 
     if($zoom && !empty($zoominfo)) {
         // if click enlarge the image
-        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
         $open_link = $open_popup_link;
         $return_false = 'return false;';
 

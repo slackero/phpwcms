@@ -225,7 +225,7 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, 
                                 echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\" alt=\"\" /></td>\n<td width=\"";
                                 echo (388-$vor)."\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\" border=\"0\" alt=\"\" />";
                                 echo $file_row["edit"];
-                                echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' ';
+                                echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].' ';
                                 echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
                                 echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
                                 if($file_row["f_copyright"]) {

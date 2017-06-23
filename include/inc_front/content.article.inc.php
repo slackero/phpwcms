@@ -229,65 +229,65 @@ if(isset($result[0]['article_id'])) {
     if(!empty($row["article_image"]["hash"])) {
 
         $thumb_image = get_cached_image(array(
-                "target_ext" => $row["article_image"]['ext'],
-                "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-                "max_width" => $row["article_image"]['width'],
-                "max_height" => $row["article_image"]['height'],
-                "thumb_name" => md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+            "target_ext" => $row["article_image"]['ext'],
+            "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+            "max_width" => $row["article_image"]['width'],
+            "max_height" => $row["article_image"]['height'],
+            "thumb_name" => md5($row["article_image"]['hash'].$row["article_image"]['width'].$row["article_image"]['height'].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
         ));
 
         if($thumb_image != false) {
 
-            $thumb_img  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
-            $thumb_img .= ' alt="'.html_specialchars($img_thumb_alt).'"';
+            $thumb_img  = '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3];
+            $thumb_img .= ' alt="'.html($img_thumb_alt).'"';
             if($img_thumb_title) {
-                $thumb_img .= ' title="'.html_specialchars($img_thumb_title).'"';
+                $thumb_img .= ' title="'.html($img_thumb_title).'"';
             }
             $thumb_img .= ' class="'.$template_default['classes']['image-article-summary'].'"'.HTML_TAG_CLOSE;
 
             $img_thumb_name     = $thumb_image[0];
-            $img_thumb_rel      = PHPWCMS_IMAGES.$thumb_image[0];
-            $img_thumb_abs      = PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
+            $img_thumb_rel      = $thumb_image['src'];
+            $img_thumb_abs      = PHPWCMS_URL.$thumb_image['src'];
             $img_thumb_width    = $thumb_image[1];
             $img_thumb_height   = $thumb_image[2];
             $img_thumb_ext      = which_ext($thumb_image[0]);
 
             $content['images']['article'] = array(
-                    'name' => $row["article_image"]["name"],
-                    'hash' => $row["article_image"]["hash"],
-                    'ext' => $img_thumb_ext,
+                'name' => $row["article_image"]["name"],
+                'hash' => $row["article_image"]["hash"],
+                'ext' => $img_thumb_ext,
                 'image' => array(
-                        'width' => $img_thumb_width,
-                        'height' => $img_thumb_height,
-                        'src' => $img_thumb_rel
+                    'width' => $img_thumb_width,
+                    'height' => $img_thumb_height,
+                    'src' => $img_thumb_rel
                 )
             );
 
             if($row["article_image"]["zoom"]) {
 
                 $zoominfo = get_cached_image(array(
-                        "target_ext" => $row["article_image"]['ext'],
-                        "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
-                        "max_width" => $phpwcms["img_prev_width"],
-                        "max_height" => $phpwcms["img_prev_height"],
-                        "thumb_name" => md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+                    "target_ext" => $row["article_image"]['ext'],
+                    "image_name" => $row["article_image"]['hash'] . '.' . $row["article_image"]['ext'],
+                    "max_width" => $phpwcms["img_prev_width"],
+                    "max_height" => $phpwcms["img_prev_height"],
+                    "thumb_name" => md5($row["article_image"]['hash'].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
                 ));
 
                 if($zoominfo != false) {
 
                         $img_zoom_name = $zoominfo[0];
-                        $img_zoom_rel = PHPWCMS_IMAGES.$zoominfo[0];
-                        $img_zoom_abs = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
+                        $img_zoom_rel = $zoominfo['src'];
+                        $img_zoom_abs = PHPWCMS_URL.$zoominfo['src'];
                         $img_zoom_width = $zoominfo[1];
                         $img_zoom_height = $zoominfo[2];
 
                     $content['images']['article']['zoom'] = array(
-                            'width' => $img_zoom_width,
-                            'height' => $img_zoom_height,
-                            'src' => $img_zoom_rel
+                        'width' => $img_zoom_width,
+                        'height' => $img_zoom_height,
+                        'src' => $img_zoom_rel
                     );
 
-                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
 
                     if(!empty($caption[2][0])) {
                         $open_link = $caption[2][0];
@@ -310,7 +310,7 @@ if(isset($result[0]['article_id'])) {
                         //lightbox
                         initSlimbox();
 
-                        $thumb_href  = '<a href="'.PHPWCMS_IMAGES . $zoominfo[0].'"';
+                        $thumb_href  = '<a href="' . $zoominfo['src'].'"';
                         if($row["article_image"]["caption"]) {
                             $thumb_href .= ' title="'.parseLightboxCaption($row["article_image"]["caption"]).'"';
                         }

@@ -782,7 +782,7 @@ if($guestbook['visible']) {
 
                     if($thumb_image != false) {
 
-                        $guestbook['entry_image']  = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3];
+                        $guestbook['entry_image']  = '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3];
                         $guestbook['entry_image'] .= ' alt="'.html_specialchars($guestbook['row']['guestbook_imagename']).'" />';
 
                         //zoom
@@ -798,7 +798,7 @@ if($guestbook['visible']) {
 
                             if($zoominfo != false) {
 
-                                $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+                                $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
                                 $guestbook['entry_image']   =   '<a href="'.$popup_img.'" onclick="window.open(\''.$popup_img.
                                                                 "','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;".
                                                                 '">'.$guestbook['entry_image'].'</a>';

@@ -347,7 +347,7 @@ if($content['files_sql']) {
 
                     }
 
-                    $_files_image           = ($_files_image != false) ? PHPWCMS_IMAGES . $_files_image[0] : '';
+                    $_files_image           = ($_files_image != false) ? $_files_image['src'] : '';
                     $_files_entries[$fkey]  = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE', $_files_image);
 
                     // now replace a possible icon image

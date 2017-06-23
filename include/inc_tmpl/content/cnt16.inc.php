@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -25,26 +25,26 @@ $caption_box = '';
 
 if(!isset($content["ecard"])) {
 
-	$content["ecard"] = array(
+    $content["ecard"] = array(
 
-		"subject"	=> '',
-		"selector"	=> 0,
-		"onover"	=> '',
-		"onclick"	=> '',
-		"onout"		=> '',
-		"select"	=> array(),
-		'images'	=> array(),
-		"pos"		=> 0,
-		"width"		=> '',
-		"height"	=> '',
-		"form"		=> false,
-		"send"		=> '',
-		"mail"		=> '',
-		'col'		=> 1,
-		'space'		=> '',
-		'zoom'	=> 0
+        "subject"   => '',
+        "selector"  => 0,
+        "onover"    => '',
+        "onclick"   => '',
+        "onout"     => '',
+        "select"    => array(),
+        'images'    => array(),
+        "pos"       => 0,
+        "width"     => '',
+        "height"    => '',
+        "form"      => false,
+        "send"      => '',
+        "mail"      => '',
+        'col'       => 1,
+        'space'     => '',
+        'zoom'  => 0
 
-	);
+    );
 
 }
 
@@ -54,7 +54,7 @@ if(!isset($content["ecard"])) {
 
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_subject'] ?>:&nbsp;</td>
-	<td><input name="cecard_subject" type="text" id="cecard_subject" class="f11b" style="width: 440px" value="<?php echo html($content["ecard"]["subject"]) ?>" size="40" maxlength="250"></td>
+    <td><input name="cecard_subject" type="text" id="cecard_subject" class="f11b" style="width: 440px" value="<?php echo html($content["ecard"]["subject"]) ?>" size="40" maxlength="250"></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -73,17 +73,17 @@ if(!isset($content["ecard"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_over'] ?>:&nbsp;</td>
-	<td><input name="cecard_onover" type="text" id="cecard_over" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onover"]) ?>" size="40" /></td>
+    <td><input name="cecard_onover" type="text" id="cecard_over" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onover"]) ?>" size="40" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_click'] ?>:&nbsp;</td>
-	<td><input name="cecard_onclick" type="text" id="cecard_onclick" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onclick"]) ?>" size="40" /></td>
+    <td><input name="cecard_onclick" type="text" id="cecard_onclick" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onclick"]) ?>" size="40" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_out'] ?>:&nbsp;</td>
-	<td><input name="cecard_onout" type="text" id="cecard_onout" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onout"]) ?>" size="40" /></td>
+    <td><input name="cecard_onout" type="text" id="cecard_onout" class="f11" style="width: 440px" value="<?php echo html($content["ecard"]["onout"]) ?>" size="40" /></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -96,38 +96,38 @@ if(!isset($content["ecard"])) {
 <?php
 if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) {
 
-	// browse images and list available
-	// will be visible only when aceessible
-	foreach($content['ecard']['images'] as $key => $value) {
+    // browse images and list available
+    // will be visible only when aceessible
+    foreach($content['ecard']['images'] as $key => $value) {
 
-		$caption_box .= html($content['ecard']['images'][$key][6])."\n";
+        $caption_box .= html($content['ecard']['images'][$key][6])."\n";
 
-		$thumb_image = get_cached_image(array(
-			"target_ext"	=>	$content['ecard']['images'][$key][3],
-			"image_name"	=>	$content['ecard']['images'][$key][2] . '.' . $content['ecard']['images'][$key][3],
-			"thumb_name"	=>	md5($content['ecard']['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-		));
+        $thumb_image = get_cached_image(array(
+            "target_ext"    =>  $content['ecard']['images'][$key][3],
+            "image_name"    =>  $content['ecard']['images'][$key][2] . '.' . $content['ecard']['images'][$key][3],
+            "thumb_name"    =>  md5($content['ecard']['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+        ));
 
-		if($thumb_image != false) {
+        if($thumb_image != false) {
 
-			// image found
-			echo '<option value="' . $content['ecard']['images'][$key][0] . '">';
-			$img_name = html($content['ecard']['images'][$key][1]);
-			echo $img_name . "</option>\n";
+            // image found
+            echo '<option value="' . $content['ecard']['images'][$key][0] . '">';
+            $img_name = html($content['ecard']['images'][$key][1]);
+            echo $img_name . "</option>\n";
 
-			if($imgx == 4) {
-				$img_thumbs .= '<br><img src="img/leer.gif" alt="" border="0" width="1" height="2"><br>';
-				$imgx = 0;
-			}
-			if($imgx) {
-				$img_thumbs .= '<img src="img/leer.gif" alt="" border="0" width="2" height="1">';
-			}
-			$img_thumbs .= '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
+            if($imgx == 4) {
+                $img_thumbs .= '<br><img src="img/leer.gif" alt="" width="1" height="2"><br>';
+                $imgx = 0;
+            }
+            if($imgx) {
+                $img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1">';
+            }
+            $img_thumbs .= '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
 
-			$imgx++;
-		}
+            $imgx++;
+        }
 
-	}
+    }
 
 }
 
@@ -143,9 +143,9 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
     </table><?php
 
 if(isset($img_thumbs) && $img_thumbs) {
-	echo '<table border="0" cellspacing="0" cellpadding="0">
-		<tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
-		</table>';
+    echo '<table border="0" cellspacing="0" cellpadding="0">
+        <tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
+        </table>';
 }
 
 ?></td>
@@ -156,10 +156,10 @@ if(isset($img_thumbs) && $img_thumbs) {
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_alignment'] ?>:&nbsp;</td>
   <td><select name="cecard_pos" id="cecard_pos">
-			    <option value="0" <?php is_selected(0, $content["ecard"]["pos"]) ?>><?php echo $BL['be_cnt_left'].' ('.$BL['be_cnt_default'].')' ?></option>
-			    <option value="1" <?php is_selected(1, $content["ecard"]["pos"]) ?>><?php echo $BL['be_cnt_center'] ?></option>
-			    <option value="2" <?php is_selected(2, $content["ecard"]["pos"]) ?>><?php echo $BL['be_cnt_right'] ?></option>
-		      </select></td>
+                <option value="0" <?php is_selected(0, $content["ecard"]["pos"]) ?>><?php echo $BL['be_cnt_left'].' ('.$BL['be_cnt_default'].')' ?></option>
+                <option value="1" <?php is_selected(1, $content["ecard"]["pos"]) ?>><?php echo $BL['be_cnt_center'] ?></option>
+                <option value="2" <?php is_selected(2, $content["ecard"]["pos"]) ?>><?php echo $BL['be_cnt_right'] ?></option>
+              </select></td>
 </tr>
 <tr>
   <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td>
@@ -187,9 +187,9 @@ if(isset($img_thumbs) && $img_thumbs) {
 // list select menu for max image columns
 for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
-	echo '<option value="'.$max_image_col.'" ';
-	is_selected($max_image_col, $content['ecard']['col']);
-	echo '>'.$max_image_col."</option>\n";
+    echo '<option value="'.$max_image_col.'" ';
+    is_selected($max_image_col, $content['ecard']['col']);
+    echo '>'.$max_image_col."</option>\n";
 
 }
 
@@ -218,9 +218,9 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr>
   <td align="right" valign="top" class="chatlist">&nbsp;</td>
   <td valign="top" class="chatlist">
-  	HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###,  ###SENDER_EMAIL###,<br>
-  	###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, <br />###ECARD_CHOOSER###,
-  	&lt;!--FORM_ERROR_START--&gt; &lt;!--FORM_ERROR_END--&gt;
+    HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###,  ###SENDER_EMAIL###,<br>
+    ###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, <br />###ECARD_CHOOSER###,
+    &lt;!--FORM_ERROR_START--&gt; &lt;!--FORM_ERROR_END--&gt;
   </td>
 </tr>
 <tr>
@@ -231,48 +231,48 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 // fill in the default template if form value is empty
 
 if(!$content["ecard"]["form"]) {
-	$content["ecard"]["form"]  = '<div align="center" style="margin:0 0 0 0;padding:10px 0 10px 0;">###ECARD_CHOOSER###</div>'."\n";
-	$content["ecard"]["form"] .= '<table border="0" align="center" cellpadding="4" cellspacing="0" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
-	$content["ecard"]["form"] .= "<!--FORM_ERROR_START-->\n";
-	$content["ecard"]["form"] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table border="0" cellspacing="0" cellpadding="0">'."\n";
-	$content["ecard"]["form"] .= '<tr><td valign="top"><img src="img/symbole/achtung.gif" width="13" height="11" />&nbsp;</td>'."\n";
-	$content["ecard"]["form"] .= '<td valign="top"><strong style="color:#CC3300;">'.$BL['be_cnt_ecardform_err'].'</strong></td>'."\n";
-	$content["ecard"]["form"] .= "</tr></table></td></tr>\n";
-	$content["ecard"]["form"] .= '<tr><td colspan="5"><img src="img/leer.gif" width="1" height="2" /></td></tr>'."\n";
-	$content["ecard"]["form"] .= "<!--FORM_ERROR_END-->\n";
-	$content["ecard"]["form"] .= "<tr>\n";
-	$content["ecard"]["form"] .= '<td colspan="2" bgcolor="#99CC00"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_sender'].'</strong></td>'."\n";
-	$content["ecard"]["form"] .= '<td rowspan="5"><img src="img/leer.gif" width="3" height="1" /></td>'."\n";
-	$content["ecard"]["form"] .= '<td colspan="2" bgcolor="#99CC00"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_recipient'].'</strong></td>'."\n";
-	$content["ecard"]["form"] .= "</tr><tr>\n";
-	$content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-	$content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-	$content["ecard"]["form"] .= "</tr>\n";
-	$content["ecard"]["form"] .= "<tr>\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_cnt_ecardform_name'].':</td>'."\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###SENDER_NAME###" type="text" style="font-size:12px; width:150px;margin-right:3px;" value="###SENDER_NAME###" size="25" /></td>'."\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_cnt_ecardform_name'].':</td>'."\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###RECIPIENT_NAME###" type="text" style="font-size:12px; width:150px;margin-right:3px" value="###RECIPIENT_NAME###" size="25" /></td>'."\n";
-	$content["ecard"]["form"] .= "</tr>\n";
-	$content["ecard"]["form"] .= "<tr>\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_profile_label_email'].'<span style="color:#CC3300;">*</span>:</td>'."\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###SENDER_EMAIL###" type="text" style="font-size:12px; width:150px;" value="###SENDER_EMAIL###" size="25" /></td>'."\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_profile_label_email'].'<span style="color:#CC3300;">*</span>:</td>'."\n";
-	$content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###RECIPIENT_EMAIL###" type="text" style="font-size:12px; width:150px;" value="###RECIPIENT_EMAIL###" size="25" /></td>'."\n";
-	$content["ecard"]["form"] .= "</tr>\n";
-	$content["ecard"]["form"] .= "<tr>\n";
-	$content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-	$content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-	$content["ecard"]["form"] .= "</tr>\n";
-	$content["ecard"]["form"] .= '<tr><td colspan="5"><img src="img/leer.gif" width="1" height="3" /></td></tr>'."\n";
-	$content["ecard"]["form"] .= '<tr bgcolor="#99CC00"><td colspan="5"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_msgtext'].'</strong></td></tr>'."\n";
-	$content["ecard"]["form"] .= '<tr bgcolor="#F8FFDF"><td colspan="5" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
-	$content["ecard"]["form"] .= '<tr align="center" bgcolor="#F8FFDF">'."\n";
-	$content["ecard"]["form"] .= '<td colspan="5"><textarea name="###SENDER_MESSAGE###" cols="50" rows="6" id="ecard_sender_msg" class="width440 autosize">###SENDER_MESSAGE###</textarea></td></tr>'."\n";
-	$content["ecard"]["form"] .= '<tr bgcolor="#F8FFDF"><td colspan="5" style="margin:0 0 0 0;padding:4px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
-	$content["ecard"]["form"] .= '<tr align="center" bgcolor="#F8FFDF"><td colspan="5"><input name="###BUTTON###" type="submit" value="'.$BL['be_cnt_ecardform_button'].'" style="font-size:12px;" /></td></tr>'."\n";
-	$content["ecard"]["form"] .= '<tr bgcolor="#F8FFDF"><td colspan="5"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
-	$content["ecard"]["form"] .= '</table>';
+    $content["ecard"]["form"]  = '<div align="center" style="margin:0 0 0 0;padding:10px 0 10px 0;">###ECARD_CHOOSER###</div>'."\n";
+    $content["ecard"]["form"] .= '<table border="0" align="center" cellpadding="4" cellspacing="0" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
+    $content["ecard"]["form"] .= "<!--FORM_ERROR_START-->\n";
+    $content["ecard"]["form"] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table border="0" cellspacing="0" cellpadding="0">'."\n";
+    $content["ecard"]["form"] .= '<tr><td valign="top"><img src="img/symbole/achtung.gif" width="13" height="11" />&nbsp;</td>'."\n";
+    $content["ecard"]["form"] .= '<td valign="top"><strong style="color:#CC3300;">'.$BL['be_cnt_ecardform_err'].'</strong></td>'."\n";
+    $content["ecard"]["form"] .= "</tr></table></td></tr>\n";
+    $content["ecard"]["form"] .= '<tr><td colspan="5"><img src="img/leer.gif" width="1" height="2" /></td></tr>'."\n";
+    $content["ecard"]["form"] .= "<!--FORM_ERROR_END-->\n";
+    $content["ecard"]["form"] .= "<tr>\n";
+    $content["ecard"]["form"] .= '<td colspan="2" bgcolor="#99CC00"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_sender'].'</strong></td>'."\n";
+    $content["ecard"]["form"] .= '<td rowspan="5"><img src="img/leer.gif" width="3" height="1" /></td>'."\n";
+    $content["ecard"]["form"] .= '<td colspan="2" bgcolor="#99CC00"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_recipient'].'</strong></td>'."\n";
+    $content["ecard"]["form"] .= "</tr><tr>\n";
+    $content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
+    $content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
+    $content["ecard"]["form"] .= "</tr>\n";
+    $content["ecard"]["form"] .= "<tr>\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_cnt_ecardform_name'].':</td>'."\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###SENDER_NAME###" type="text" style="font-size:12px; width:150px;margin-right:3px;" value="###SENDER_NAME###" size="25" /></td>'."\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_cnt_ecardform_name'].':</td>'."\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###RECIPIENT_NAME###" type="text" style="font-size:12px; width:150px;margin-right:3px" value="###RECIPIENT_NAME###" size="25" /></td>'."\n";
+    $content["ecard"]["form"] .= "</tr>\n";
+    $content["ecard"]["form"] .= "<tr>\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_profile_label_email'].'<span style="color:#CC3300;">*</span>:</td>'."\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###SENDER_EMAIL###" type="text" style="font-size:12px; width:150px;" value="###SENDER_EMAIL###" size="25" /></td>'."\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_profile_label_email'].'<span style="color:#CC3300;">*</span>:</td>'."\n";
+    $content["ecard"]["form"] .= '<td bgcolor="#F8FFDF"><input name="###RECIPIENT_EMAIL###" type="text" style="font-size:12px; width:150px;" value="###RECIPIENT_EMAIL###" size="25" /></td>'."\n";
+    $content["ecard"]["form"] .= "</tr>\n";
+    $content["ecard"]["form"] .= "<tr>\n";
+    $content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
+    $content["ecard"]["form"] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
+    $content["ecard"]["form"] .= "</tr>\n";
+    $content["ecard"]["form"] .= '<tr><td colspan="5"><img src="img/leer.gif" width="1" height="3" /></td></tr>'."\n";
+    $content["ecard"]["form"] .= '<tr bgcolor="#99CC00"><td colspan="5"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_msgtext'].'</strong></td></tr>'."\n";
+    $content["ecard"]["form"] .= '<tr bgcolor="#F8FFDF"><td colspan="5" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
+    $content["ecard"]["form"] .= '<tr align="center" bgcolor="#F8FFDF">'."\n";
+    $content["ecard"]["form"] .= '<td colspan="5"><textarea name="###SENDER_MESSAGE###" cols="50" rows="6" id="ecard_sender_msg" class="width440 autosize">###SENDER_MESSAGE###</textarea></td></tr>'."\n";
+    $content["ecard"]["form"] .= '<tr bgcolor="#F8FFDF"><td colspan="5" style="margin:0 0 0 0;padding:4px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
+    $content["ecard"]["form"] .= '<tr align="center" bgcolor="#F8FFDF"><td colspan="5"><input name="###BUTTON###" type="submit" value="'.$BL['be_cnt_ecardform_button'].'" style="font-size:12px;" /></td></tr>'."\n";
+    $content["ecard"]["form"] .= '<tr bgcolor="#F8FFDF"><td colspan="5"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
+    $content["ecard"]["form"] .= '</table>';
 
 }
 
@@ -287,8 +287,8 @@ if(!$content["ecard"]["form"]) {
 <tr>
   <td align="right" valign="top" class="chatlist">&nbsp;</td>
   <td valign="top" class="chatlist">HTML: ###ECARD_SUBJECT###, ###RECIPIENT_NAME###,
-		###RECIPIENT_EMAIL###,<br /> ###SENDER_MESSAGE###,
-		###ECARD_TITLE###, ###ECARD_IMAGE###</td>
+        ###RECIPIENT_EMAIL###,<br /> ###SENDER_MESSAGE###,
+        ###ECARD_TITLE###, ###ECARD_IMAGE###</td>
 </tr>
 <tr>
   <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td>

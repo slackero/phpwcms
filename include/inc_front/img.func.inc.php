@@ -80,12 +80,12 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 
         // image caption
         $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
-        $caption[0] = html_specialchars($caption[0]);
-        $caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
-        $caption[1] = empty($caption[1]) ? html_specialchars($image[1]) : html_specialchars($caption[1]);
+        $caption[0] = html($caption[0]);
+        $caption[3] = empty($caption[3]) ? '' : ' title="'.html($caption[3]).'"'; //title
+        $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
 
         // image source
-        $img  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass.' alt="'.$caption[1].'" ';
+        $img  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass.' alt="'.$caption[1].'" ';
         $img .= 'data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"'.$caption[3].' />';
 
         $tablewidth = $thumb_image[1];
@@ -116,7 +116,7 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
         $table .= ($rand[2]) ? '<td>'.spacer($rand[2],1).'</td>' : '';
         if($image[8]) {
 
-            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
             $table .= '<td'.$image_align.$image_valign.$image_bgcolor.$image_class.">";
             if($caption[2][0]) {
                 $open_link = $caption[2][0];
@@ -133,7 +133,7 @@ function imagetable(& $phpwcms, & $image, $rand="0:0:0:0", $align=0) {
 
             } else {
 
-                $table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox"'.get_attr_data_gallery('', ' ', '');
+                $table .= '<a href="'.$zoominfo['src'].'" rel="lightbox"'.get_attr_data_gallery('', ' ', '');
                 if($caption[0]) {
                     $table .= ' title="'.parseLightboxCaption($caption[0]).'"';
                 }
@@ -213,9 +213,9 @@ function imagediv(& $phpwcms, & $image, $classname='') {
 
         // image caption
         $caption    = getImageCaption(base64_decode($image[6]));
-        $caption[0] = html_specialchars($caption[0]);
-        $caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
-        $caption[1] = html_specialchars(empty($caption[1]) ? $image[1] : $caption[1]);
+        $caption[0] = html($caption[0]);
+        $caption[3] = empty($caption[3]) ? '' : ' title="'.html($caption[3]).'"'; //title
+        $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
 
         if(empty($classname)) {
             $classname = $GLOBALS['template_default']['classes']['image-wrapper'];
@@ -455,18 +455,18 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
             // now try to build caption and if neccessary add alt to image or set external link for image
             $caption = getImageCaption($imagelist['images'][$key][6]);
             // set caption and ALT Image Text for imagelist
-            $capt_cur   = !$type ? html_specialchars($caption[0]) : $caption[0];
-            $caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"'; //title
-            $caption[1] = empty($caption[1]) ? html_specialchars($imagelist['images'][$key][1]) : html_specialchars($caption[1]);
+            $capt_cur   = !$type ? html($caption[0]) : $caption[0];
+            $caption[3] = empty($caption[3]) ? '' : ' title="'.html($caption[3]).'"'; //title
+            $caption[1] = empty($caption[1]) ? html($imagelist['images'][$key][1]) : html_specialchars($caption[1]);
 
-            $list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].$image_border.$image_imgclass;
+            $list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass;
             $list_img_temp .= ' data-image-id="'.$imagelist['images'][$key][0].'" data-image-hash="'.$imagelist['images'][$key][2].'"';
             $list_img_temp .= ' data-image-ext="'.$imagelist['images'][$key][3].'"';
             $list_img_temp .= ' alt="'.$caption[1].'"'.$caption[3].' />';
 
             if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -483,7 +483,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
                 } else {
 
                     // lightbox
-                    $table .= '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$lightbox.']"'.get_attr_data_gallery($lightbox, ' ', '');
+                    $table .= '<a href="'.$zoominfo['src'].'" rel="lightbox['.$lightbox.']"'.get_attr_data_gallery($lightbox, ' ', '');
                     if($capt_cur) {
                         $table .= ' title="'.parseLightboxCaption($capt_cur).'"';
                     }

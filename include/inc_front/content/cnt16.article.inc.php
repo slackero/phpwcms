@@ -69,7 +69,7 @@ if(isset($_POST['ecard_chooser'])) {
 			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$ecard['images'][$ecard["chooser"]][4].$ecard['images'][$ecard["chooser"]][5].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
         ));
 
-		$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].' alt="'.html_specialchars($ecard['images'][$ecard["chooser"]][1]).'" />';
+		$list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html($ecard['images'][$ecard["chooser"]][1]).'" />';
 
 		$ecard["send"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_IMAGE###', $list_img_temp, $ecard["send"]);
@@ -119,7 +119,7 @@ if(isset($_POST['ecard_chooser'])) {
 			"max_height"	=>	$phpwcms["img_prev_height"],
 			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'].'ecard')
 		));
-		$list_img_temp  = '<img src="'.PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3].' alt="'.html_specialchars($ecard['images'][$ecard["chooser"]][1]).'" />';
+		$list_img_temp  = '<img src="'.PHPWCMS_URL.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html_specialchars($ecard['images'][$ecard["chooser"]][1]).'" />';
 
 		if($ecard["mail"]) {
 			$ecard["mail"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["mail"]);

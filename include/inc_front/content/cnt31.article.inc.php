@@ -230,14 +230,14 @@ if($image['template']) {
             }
 
             $img_thumb_name     = $thumb_image[0];
-            $img_thumb_rel      = PHPWCMS_IMAGES.$thumb_image[0];
-            $img_thumb_abs      = PHPWCMS_URL.PHPWCMS_IMAGES.$thumb_image[0];
+            $img_thumb_rel      = $thumb_image['src'];
+            $img_thumb_abs      = PHPWCMS_URL.$thumb_image['src'];
             $img_thumb_width    = $thumb_image[1];
             $img_thumb_height   = $thumb_image[2];
             $img_thumb_filename = $value['thumb_name'];
             $img_thumb_link     = '';
 
-            $list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" data-image-ext="'.$value['thumb_ext'].'" ';
+            $list_img_temp  = '<img src="'.$thumb_image['src'].'" data-image-ext="'.$value['thumb_ext'].'" ';
             $list_img_temp .= 'data-image-id="'.$value['thumb_id'].'" data-image-hash="'.$value['thumb_hash'].'" ';
 
             if($image['center']) {
@@ -276,7 +276,7 @@ if($image['template']) {
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -300,7 +300,7 @@ if($image['template']) {
                 } else {
 
                     // lightbox
-                    $img_thumb_link  = '<a href="'.PHPWCMS_IMAGES.$zoominfo[0].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
+                    $img_thumb_link  = '<a href="'.$zoominfo['src'].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
                     $img_thumb_link .= $lightbox_capt;
                     $img_thumb_link .= $list_ahref_style.' class="'.$template_default['classes']['image-lightbox'].'">';
 
@@ -314,8 +314,8 @@ if($image['template']) {
                 $img_zoom_hash      = $value['zoom_hash'];
                 $img_zoom_ext       = $value['zoom_ext'];
                 $img_zoom_name      = $zoominfo[0];
-                $img_zoom_rel       = PHPWCMS_IMAGES.$zoominfo[0];
-                $img_zoom_abs       = PHPWCMS_URL.PHPWCMS_IMAGES.$zoominfo[0];
+                $img_zoom_rel       = $zoominfo['src'];
+                $img_zoom_abs       = PHPWCMS_URL.$zoominfo['src'];
                 $img_zoom_width     = $zoominfo[1];
                 $img_zoom_height    = $zoominfo[2];
                 $img_zoom_filename  = $value['zoom_name'];

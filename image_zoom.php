@@ -20,22 +20,22 @@ if(empty($_GET["show"])) {
 
 } else {
 
-    $img                        = base64_decode($_GET["show"]);
+    $img = base64_decode($_GET["show"]);
     list($img, $width_height)   = explode('?', $img);
-    $img                        = str_replace(array('http://', 'https://', 'ftp://'), '', $img);
-    $img                        = strip_tags($img);
-    $width_height               = strip_tags($width_height);
-    $img = PHPWCMS_IMAGES.urlencode($img);
+    $img = str_replace(array('http://', 'https://', 'ftp://'), '', $img);
+    $img = strip_tags($img);
+    $width_height = strip_tags($width_height);
+    $img = urlencode($img);
 
 }
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+?><!DOCTYPE html>
+<html>
 <head>
     <title>Image</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
+    <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <script type="text/javascript" src="<?php echo TEMPLATE_PATH; ?>inc_js/imagezoom.js"></script>
-    <link href="<?php echo TEMPLATE_PATH; ?>inc_css/dialog/popup.image.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo TEMPLATE_PATH; ?>inc_css/dialog/popup.image.css" rel="stylesheet">
 </head>
-<body><a href="#" title="Close PopUp" onclick="window.close();return false;"><img src="<?php echo $img ?>" alt="" border="0" <?php echo $width_height ?> /></a></body>
+<body><a href="#" title="Close PopUp" onclick="window.close();return false;"><img src="<?php echo $img ?>" alt="" border="0" <?php echo $width_height ?>></a></body>
 </html>

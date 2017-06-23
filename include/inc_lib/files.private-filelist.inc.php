@@ -114,7 +114,7 @@ if(isset($file_result[0]['f_id'])) {
                     echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
                     echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">";
                     echo $file_row['edit'];
-                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
+                    echo '<img src="' . $thumb_image['src'] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
                     echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
                     echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
 

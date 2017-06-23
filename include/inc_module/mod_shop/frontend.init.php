@@ -101,8 +101,8 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 		$caption[3] = empty($caption[3]) ? '' : ' title="'.html($caption[3]).'"'; //title
 		$caption[1] = html(empty($caption[1]) ? $img['f_name'] : $caption[1]);
 
-		$list_img_temp  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" ';
-		$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].$title.' border="0" />';
+		$list_img_temp  = '<img src="'.$thumb_image['src'].'" ';
+		$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].$title.' />';
 
 		// use lightbox effect
 		if($config['image_'.$config['mode'].'_lightbox']) {
