@@ -581,8 +581,8 @@ $(function(){
 
 	<p class="space_top border_top">
 		<label><?php echo $BL['be_article_username'] ?>/<?php echo $BL['be_place'] ?></label>
-		<input type="text" name="cnt_editor" id="cnt_editor" value="<?php echo html($news->data['cnt_editor']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_article_username'] ?>" />
-		<input type="text" name="cnt_place" id="cnt_place" value="<?php echo html($news->data['cnt_place']) ?>" class="text short" maxlength="250" title="<?php echo $BL['be_place'] ?>" />
+		<input type="text" name="cnt_editor" id="cnt_editor" value="<?php echo html($news->data['cnt_editor']) ?>" class="width200" maxlength="250" title="<?php echo $BL['be_article_username'] ?>" />
+		<input type="text" name="cnt_place" id="cnt_place" value="<?php echo html($news->data['cnt_place']) ?>" class="width140" maxlength="250" title="<?php echo $BL['be_place'] ?>" />
 	</p>
 
 	<div class="filled border_top paragraph border_bottom">

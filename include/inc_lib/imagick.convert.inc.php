@@ -174,14 +174,15 @@ function image_manipulate($config=array()) {
 function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=true) {
 
     $val = array_merge(array(
-        "max_width"     => $GLOBALS['phpwcms']["img_list_width"],
-        "max_height"    => $GLOBALS['phpwcms']["img_list_height"],
-        "image_dir"     => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
-        "thumb_dir"     => PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES,
+        'max_width'     => $GLOBALS['phpwcms']['img_list_width'],
+        'max_height'    => $GLOBALS['phpwcms']['img_list_height'],
+        'image_dir'     => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
+        'thumb_dir'     => PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES,
         'jpg_quality'   => $GLOBALS['phpwcms']['jpg_quality'],
         'sharpen_level' => $GLOBALS['phpwcms']['sharpen_level'],
         'crop_image'    => false,
-        'crop_pos'      => ''
+        'crop_pos'      => '',
+        'img_filename'  => ''
     ), $val);
 
     $imgCache = false; //do not insert file information in db image cache
@@ -189,10 +190,6 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         0 => false,
         'svg' => false
     );
-    $image_hash = substr($val['image_name'], 0, (strlen($val['target_ext']) * -1) - 1);
-
-    // now check if thumbnail was created - proof for GIF, PNG, JPG
-    $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
     if($val['target_ext'] === 'svg') {
 
@@ -210,11 +207,51 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             }
             $thumb_image_info['src'] .= '/'.$val['image_name'];
 
+            if(!empty($val['img_filename'])) {
+                $thumb_image_info['src'] .= '/' . rawurlencode($val['img_filename']);
+            }
+
             return $thumb_image_info;
 
         }
 
-    } elseif(is_file($thumb_check .'.jpg')) {
+    }
+
+    if(empty($val['img_filename'])) {
+
+        // now check if thumbnail was created - proof for GIF, PNG, JPG
+        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
+
+    } else {
+
+        $thumb_size_dir = $val['max_width'].'-'.$val['max_height'].'-'.$val['jpg_quality'];
+        $thumb_spec_info = '';
+        if($val['crop_image']) {
+            $thumb_spec_info .= 'c'.$val['crop_image'];
+            if($val['crop_pos']) {
+                $thumb_spec_info .= $val['crop_pos'];
+            }
+        }
+        if($val['sharpen_level']) {
+            $thumb_spec_info .= 's'.$val['sharpen_level'];
+        }
+
+        $thumb_filename_ext = which_ext($val['img_filename']);
+        $thumb_filename_basis = cut_ext($val['img_filename']);
+        if($thumb_spec_info) {
+            $thumb_filename_basis .= '_'.$thumb_spec_info;
+        }
+        $val['thumb_name'] = $thumb_filename_basis . '.' . ($thumb_filename_ext ? $thumb_filename_ext : $val['target_ext']);
+
+        if(!is_dir($val['thumb_dir'].$thumb_size_dir) && _mkdir($val['thumb_dir'].$thumb_size_dir)) {
+            $val['thumb_dir'] = $val['thumb_dir'].$thumb_size_dir.'/';
+        }
+
+        $thumb_check = $val['thumb_dir'] . $thumb_filename_basis;
+
+    }
+
+    if(is_file($thumb_check .'.jpg')) {
 
         $thumb_image_info[0] = $val['thumb_name'] .'.jpg';
         $thumb_image_info['type'] = 'image/jpeg';

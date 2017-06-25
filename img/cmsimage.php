@@ -49,6 +49,7 @@ if(isset($data[1])) {
         $hash       = cut_ext($data[1]);
         $ext        = which_ext($data[1]);
         $value      = array();
+        $svg        = 0;
 
         if(substr($data[0], 0, 7) === 'convert') {
             // get image convert function but limit to max of 5 chars
@@ -285,6 +286,10 @@ if(isset($data[1])) {
 
                 }
 
+                if(empty($name)) {
+                    $name = $value['image_name'];
+                }
+
                 header('Content-Type: image/svg+xml');
                 header('Content-length: '.$svg_length);
                 header('Content-Disposition: inline; filename="'.$name.'"');
@@ -331,14 +336,23 @@ if(isset($data[1])) {
                 $value["max_height"] = $basis * $grid;
             }
 
-            if(($image = get_cached_image( $value, false, false )) && !empty($image[0])) {
+            $image = get_cached_image($value, false, false);
+
+            if(!empty($image[0])) {
+
                 // Redirect, the "old" way
                 if(!empty($phpwcms['cmsimage_redirect'])) {
                     headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$image[0], 301);
                 }
+
                 if(empty($image['type'])) {
                     $image['type'] = get_mimetype_by_extension(which_ext($image[0]));
                 }
+
+                if(empty($name)) {
+                    $name = $image[0];
+                }
+
                 header('Content-Type: ' . $image['type']);
                 header('Content-length: '.filesize(PHPWCMS_THUMB.$image[0]));
                 header('Content-Disposition: inline; filename="'.$name.'"');
