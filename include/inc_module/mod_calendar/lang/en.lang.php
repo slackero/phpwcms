@@ -51,8 +51,10 @@ $BLM['repeat_9']                = 'Every Tuesday';
 $BLM['repeat_10']               = 'Every Wednesday';
 $BLM['repeat_11']               = 'Every Thursday';
 $BLM['repeat_12']               = 'Every Friday';
-$BLM['repeat_13']               = 'Every Sunday';
-$BLM['repeat_14']               = 'Every Saturday';
+$BLM['repeat_13']               = 'Every Saturday';
+$BLM['repeat_14']               = 'Every Sunday';
+$BLM['repeat_15']               = 'Every Wednesday &ndash; Sunday';
+$BLM['repeat_16']               = 'Every Weekend (Sat+Sun)';
 
 $BLM['repeat_list1']            = 'daily';
 $BLM['repeat_list2']            = 'Mon-Fri';
@@ -66,8 +68,10 @@ $BLM['repeat_list9']            = 'Tues';
 $BLM['repeat_list10']           = 'Wed';
 $BLM['repeat_list11']           = 'Thurs';
 $BLM['repeat_list12']           = 'Fri';
-$BLM['repeat_list13']           = 'Sun';
-$BLM['repeat_list14']           = 'Sat';
+$BLM['repeat_list13']           = 'Sat';
+$BLM['repeat_list14']           = 'Sun';
+$BLM['repeat_list15']           = 'Wed-Sun';
+$BLM['repeat_list16']           = 'Sat+Sun';
 
 $BLM['article_link']            = 'AID/alias/url';
 $BLM['more_info']               = '(generates pursuing link in frontend)';

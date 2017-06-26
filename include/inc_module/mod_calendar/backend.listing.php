@@ -265,6 +265,8 @@ if($plugin['dates']) {
                 // 12 Every Friday
                 // 13 Every Saturday
                 // 14 Every Sunday
+                // 15 Every Wednesday – Sunday
+                // 16 Every Weekend
 
                 $_entry['y']['calendar_range'] = intval($_entry['y']['calendar_range']);
 
@@ -295,6 +297,10 @@ if($plugin['dates']) {
                     ($_entry['y']['calendar_range'] === 13 && $_entry['weekday'] === 6)
                     ||
                     ($_entry['y']['calendar_range'] === 14 && $_entry['weekday'] === 0)
+                    ||
+                    ($_entry['y']['calendar_range'] === 15 && (($_entry['weekday'] >= 3 && $_entry['weekday'] <= 6) || $_entry['weekday'] === 0))
+                    ||
+                    ($_entry['y']['calendar_range'] === 16 && ($_entry['weekday'] === 6 || $_entry['weekday'] === 0))
                 ) {
 
                     $_entry['y']['calendar_start_date'] = date('d'.$BLM['date_delimiter'].'m'.$BLM['date_delimiter'].'Y', $_entry['timestamp']);

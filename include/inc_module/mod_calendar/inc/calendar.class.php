@@ -58,8 +58,10 @@ class phpwcmsCalendar {
         10  => 'every Wednesday',
         11  => 'every Thursday',
         12  => 'every Friday',
-        13  => 'every Sunday',
-        14  => 'every Saturday',
+        13  => 'every Saturday',
+        14  => 'every Sunday',
+        15  => 'every Wednesday - Sunday',
+        16  => 'every Weekend (Sat+Sun)'
     );
 
     /**

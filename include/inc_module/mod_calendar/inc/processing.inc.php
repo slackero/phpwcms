@@ -53,7 +53,7 @@ if(isset($_POST['calendar_title'])) {
         )
     );
 
-	if($plugin['data']['calendar_range'] > 14) {
+    if($plugin['data']['calendar_range'] > 16) {
         $plugin['data']['calendar_range'] = 0;
     }
 
