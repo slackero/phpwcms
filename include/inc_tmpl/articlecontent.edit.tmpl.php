@@ -53,7 +53,9 @@ initJsCalendar();
             return true;
         }
         var checkbox_element = document.getElementById(checkElem);
-        if(validation.isInt(elem.value)) {
+        var elem_int = parseInt(elem.value, 10);
+        if(elem_int) {
+            elem.value = elem_int;
             checkbox_element.checked = true;
         } else {
             checkbox_element.checked = false;
