@@ -55,7 +55,7 @@
     # ===============================================================
 
     # Resized image /img/cmsimage.php/… -> /im/…
-    RewriteRule ^im\/(.+?)$ ./img/cmsimage.php/$1 [L]
+    RewriteRule ^im\/(.+?)$ ./img/cmsimage.php?$1 [L]
 
     # File download /dl/… -> /download.php?…
     RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1&%{QUERY_STRING} [L]
