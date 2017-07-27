@@ -748,7 +748,9 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
             if($c === 1 && PHPWCMS_REWRITE) {
 
-                $rewrite = $funct($key, $value, $bind) . PHPWCMS_REWRITE_EXT;
+                if($key !== '') {
+                    $rewrite = $funct($key, $value, $bind) . PHPWCMS_REWRITE_EXT;
+                }
 
                 continue;
             }
