@@ -17,7 +17,7 @@ class Parsedown
 {
     # ~
 
-    const version = '1.6.2';
+    const version = '1.6.3';
 
     # ~
 
@@ -515,10 +515,10 @@ class Parsedown
                 ),
             );
 
-            if($name === 'ol')
+            if($name === 'ol') 
             {
                 $listStart = stristr($matches[0], '.', true);
-
+                
                 if($listStart !== '1')
                 {
                     $Block['element']['attributes'] = array('start' => $listStart);
