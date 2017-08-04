@@ -1435,6 +1435,7 @@ $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
+$BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';

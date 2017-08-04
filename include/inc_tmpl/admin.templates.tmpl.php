@@ -49,7 +49,8 @@ $template = array(
     'tracking_ga' => array(
         'enable' => 0,
         'id' => '',
-        'anonymize' => 0
+        'anonymize' => 0,
+        'optout' => 0,
     ),
     'tracking_piwik' => array(
         'enable' => 0,
@@ -170,6 +171,7 @@ if(isset($result[0]['template_id'])) {
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
         $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
         $template['tracking_ga']['anonymize'] = empty($_POST['template_ga_anonymize']) ? 0 : 1;
+        $template['tracking_ga']['optout'] = empty($_POST['template_ga_optout']) ? 0 : 1;
         if(empty($template['tracking_ga']['id'])) {
             $template['tracking_ga']['enable'] = 0;
         }
@@ -465,17 +467,23 @@ foreach($phpwcms['js_lib'] as $key => $value) {
             <td><input type="checkbox" name="template_ga" id="template_ga" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_ga"><?php echo $BL['be_google_analytics_enable']; ?></label></td>
         </tr>
-        <tr id="ga-tracking"<?php if(!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
+        <tr id="ga-tracking"<?php if(empty($template['tracking_ga']['enable'])): ?> style="display:none;"<?php endif; ?>>
             <td>&nbsp;</td>
             <td class="tdtop3 tdbottom5">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_tracking_id']; ?>:&nbsp;</td>
-                        <td class="tdbottom3"><input type="text" name="template_ga_id" maxlength="20" class="width150" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>" /></td>
+                        <td class="tdbottom3" colspan="2"><input type="text" name="template_ga_id" maxlength="20" class="width150" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>" /></td>
                     </tr>
                     <tr>
-                        <td align="right" class="chatlist tdtop3 nowrap"><label for="template_ga_anonymize"><?php echo $BL['be_tracking_anonymize']; ?></label>:&nbsp;</td>
-                        <td class="tdbottom3 tdtop3"><input type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> /></td>
+                        <td class="chatlist">&nbsp;</td>
+                        <td class="tdtop3"><input type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> /></td>
+                        <td class="chatlist tdtop3 nowrap"><label for="template_ga_anonymize">&nbsp;<?php echo $BL['be_tracking_anonymize']; ?></label></td>
+                    </tr>
+                    <tr>
+                        <td class="chatlist">&nbsp;</td>
+                        <td><input type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'], 1); ?> /></td>
+                        <td class="chatlist nowrap"><label for="template_ga_optout">&nbsp;<?php echo $BL['be_tracking_optout']; ?></label></td>
                     </tr>
                 </table>
             </td>
@@ -485,7 +493,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
             <td><input type="checkbox" name="template_piwik" id="template_piwik" value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_piwik"><?php echo $BL['be_piwik_enable']; ?></label></td>
         </tr>
-        <tr id="piwik-tracking"<?php if(!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
+        <tr id="piwik-tracking"<?php if(empty($template['tracking_piwik']['enable'])): ?> style="display:none;"<?php endif; ?>>
             <td>&nbsp;</td>
             <td class="tdtop3 tdbottom5">
                 <table cellpadding="0" cellspacing="0" border="0">
