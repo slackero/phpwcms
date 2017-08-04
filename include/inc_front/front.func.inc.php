@@ -3278,7 +3278,7 @@ function get_level_ahref($key=0, $custom_link_add='') {
         $link .= $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'opid'.$key;
         $link .= '"';
     } else {
-        $link .= rel_url(array(), array('newsdetail'), $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key);
+        $link .= rel_url(array(), array('newsdetail', 'profile_manage', 'profile_reminder', 'profile_register'), $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key);
         $link .= '"';
     }
     return $link.$custom_link_add.'>';
