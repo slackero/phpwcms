@@ -3117,7 +3117,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         }
 
         $li_a_title = html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-        $li_a_class = $GLOBALS['template_default']['attributes']['navlist-link-class'];
+        $li_a_class = $GLOBALS['template_default']['classes']['navlist-link-class'];
         if($active_class[1] && $key == $GLOBALS['aktion'][0]) {
             $li_a_class = trim($li_a_class . ' ' . $active_class[1]); // set active link class
         }
