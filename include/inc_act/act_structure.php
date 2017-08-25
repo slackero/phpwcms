@@ -442,7 +442,7 @@ if(isset($_POST['SubmitClose'])) {
     headerRedirect($ref);
 }
 
-function get_struct_del_id($s_id=0, $dbcon) {
+function get_struct_del_id($s_id=0) {
 
     $s_id = intval($s_id);
 

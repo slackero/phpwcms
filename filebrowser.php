@@ -261,7 +261,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     //Wenn überhaupt Ordner für User vorhanden, dann Listing
     if(!$folder_status && $count_wert) {
-        folder_list(0, $db, 18, "filebrowser.php?opt=".$js_aktion."&amp;");
+        folder_list(0, 18, "filebrowser.php?opt=".$js_aktion."&amp;");
     }
 
     echo '</table>';
@@ -676,7 +676,7 @@ $(function() {
 </html>
 <?php
 
-function folder_list($pid, $dbcon, $vor, $zieldatei) {
+function folder_list($pid, $vor, $zieldatei) {
     global $current_dirname;
     $folder = $_SESSION["folder"];
     $pid = intval($pid);
@@ -725,7 +725,7 @@ function folder_list($pid, $dbcon, $vor, $zieldatei) {
             echo "<tr bgcolor=\"#CDDEE4\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
 
             if(!$folder_status && $count_wert) {
-                folder_list($row["f_id"], $dbcon, $vor+18, $zieldatei);
+                folder_list($row["f_id"], $vor+18, $zieldatei);
             }
 
             $_SESSION["list_zaehler"]++;
