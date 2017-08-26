@@ -145,6 +145,7 @@ define('PHPWCMS_USER_KEY', md5(getRemoteIP().$phpwcms['DOC_ROOT'].$phpwcms['db_p
 define('PHPWCMS_REWRITE', empty($phpwcms['rewrite_url']) ? false : true);
 define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
+define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8' ? false : true);
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));

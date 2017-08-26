@@ -342,25 +342,35 @@ function create_alias(str, encoding, ucfirst) {
     str = str.toLowerCase();
     str = str.replace(/\[br\]/g, ' ');
     str = str.replace(/__/g, ' ');
-    str = str.replace(/[\u00E0\u00E1\u00E2\u00E3\u00E5]/g, 'a');
-    str = str.replace(/[\u00E7]/g, 'c');
-    str = str.replace(/[\u00E8\u00E9\u00EA\u00EB]/g, 'e');
-    str = str.replace(/[\u00EC\u00ED\u00EE\u00EF]/g, 'i');
-    str = str.replace(/[\u00F2\u00F3\u00F4\u00F5\u00F8]/g, 'o');
-    str = str.replace(/[\u00F9\u00FA\u00FB]/g, 'u');
-    str = str.replace(/[\u00FD\u00FF]/g, 'y');
-    str = str.replace(/[\u00F1]/g, 'n');
-    str = str.replace(/[\u0153\u00F6]/g, 'oe');
-    str = str.replace(/[\u00E6\u00E4]/g, 'ae');
-    str = str.replace(/[\u00DF]/g, 'ss');
-    str = str.replace(/[\u00FC]/g, 'ue');
     str = str.replace(/\s+/g, '-');
+    str = str.replace(/[\?\+#=]/g, '-');
     str = str.replace(/-+\/+-+/g, '/');
-    if (aliasAllowSlashes) {
-        str = str.replace(/[^a-z0-9_\-\/\.]+/g, '');
+    if(aliasUtf8) {
+        if (aliasAllowSlashes) {
+            str = str.replace(/[^a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF0-9_\-\/\.]+/g, '');
+        } else {
+            str = str.replace('/', '-');
+            str = str.replace(/[^a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF0-9_\-\.]+/g, '');
+        }
     } else {
-        str = str.replace('/', '-');
-        str = str.replace(/[^a-z0-9_\-\.]+/g, '');
+        str = str.replace(/[\u00E0\u00E1\u00E2\u00E3\u00E5]/g, 'a');
+        str = str.replace(/[\u00E7]/g, 'c');
+        str = str.replace(/[\u00E8\u00E9\u00EA\u00EB]/g, 'e');
+        str = str.replace(/[\u00EC\u00ED\u00EE\u00EF]/g, 'i');
+        str = str.replace(/[\u00F2\u00F3\u00F4\u00F5\u00F8]/g, 'o');
+        str = str.replace(/[\u00F9\u00FA\u00FB]/g, 'u');
+        str = str.replace(/[\u00FD\u00FF]/g, 'y');
+        str = str.replace(/[\u00F1]/g, 'n');
+        str = str.replace(/[\u0153\u00F6]/g, 'oe');
+        str = str.replace(/[\u00E6\u00E4]/g, 'ae');
+        str = str.replace(/[\u00DF]/g, 'ss');
+        str = str.replace(/[\u00FC]/g, 'ue');
+        if (aliasAllowSlashes) {
+            str = str.replace(/[^a-z0-9_\-\/\.]+/g, '');
+        } else {
+            str = str.replace('/', '-');
+            str = str.replace(/[^a-z0-9_\-\.]+/g, '');
+        }
     }
     str = str.replace(/\-+/g, '-');
     str = str.replace(/\/+/g, '/');

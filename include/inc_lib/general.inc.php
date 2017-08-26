@@ -1717,11 +1717,14 @@ function saveUploadedFile($file, $target, $exttype='', $imgtype='', $rename=0, $
 }
 
 function get_alnum_dashes($string, $remove_accents = false, $replace_space='-', $allow_slashes=false) {
+    $string = str_replace(array(' ', '?', ':', '&', '\\', ';', '#', '=', '+'), $replace_space, $string);
     if($remove_accents) {
         $string = phpwcms_remove_accents($string);
+        $string = preg_replace('/[^a-z0-9\-_\.'.($allow_slashes ? '\/' : '').']/i', '', $string);
+    } else {
+        $string = preg_replace('/[^a-z0-9\x{00A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\-_\.'.($allow_slashes ? '\/' : '').']/iu', '', $string);
     }
-    $string = str_replace(' ', $replace_space, $string);
-    return preg_replace($allow_slashes ? '/[^a-z0-9\-_\/\.]/i' : '/[^a-z0-9\-_\.]/i', '', $string);
+    return trim(preg_replace('/\-+/', $replace_space, $string), '._/'.$replace_space);
 }
 
 // Thanks to: http://quickwired.com/smallprojects/php_xss_filter_function.php
@@ -2113,8 +2116,8 @@ function phpwcms_boolval($BOOL, $STRICT=false) {
 
 // sanitize a text for nice URL/alias or whatever
 function uri_sanitize($text) {
-    $text = str_replace(array('[br]', '__'), ' ', $text); // cleanup special bbcode [br] and __
-    $text = get_alnum_dashes($text, true, '-', PHPWCMS_ALIAS_WSLASH);
+    $text = str_replace(array('[br]', '__', '[b]', '[/b]', '[i]', '[/i]'), ' ', $text); // cleanup special bbcode and __
+    $text = get_alnum_dashes($text, !PHPWCMS_ALIAS_UTF8, '-', PHPWCMS_ALIAS_WSLASH);
     $text = trim($text);
     if($text !== '') {
         $text = trim( preg_replace('/\-\-+/', '-', $text), '-' );
