@@ -369,6 +369,7 @@ $BL['be_admin_struct_title']            = 'site structure';
 $BL['be_admin_struct_child']            = '(child of)';
 $BL['be_admin_struct_index']            = 'index (website start)';
 $BL['be_admin_struct_cat']              = 'category title';
+$BL['be_admin_struct_alt']              = 'category alternative title';
 $BL['be_admin_struct_hide1']            = 'hide';
 $BL['be_admin_struct_hide2']            = 'this&nbsp;category&nbsp;in&nbsp;menu';
 $BL['be_admin_struct_info']             = 'category infotext';

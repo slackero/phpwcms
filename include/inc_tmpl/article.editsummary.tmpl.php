@@ -54,7 +54,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
                 <td align="right" class="chatlist"><a href="#" id="cat-as-articletitle"><?php echo $BL['be_article_atitle'] ?></a>:&nbsp;</td>
                 <td style="padding:2px 0 3px 0;"><table border="0" cellpadding="0" cellspacing="0" summary="">
                  <tr>
-                    <td><input name="article_title" type="text" class="bold width325" id="article_title" value="<?php echo html($article["article_title"]) ?>" size="40" maxlength="1000" /></td>
+                    <td><input name="article_title" type="text" class="bold width325" id="article_title" value="<?php echo html($article["article_title"]) ?>" size="40" maxlength="5000" /></td>
                     <td>&nbsp;&nbsp;</td>
                     <td><input name="article_notitle" id="article_notitle" type="checkbox" value="1" <?php is_checked($article["article_notitle"],1) ?> /></td>
                     <td class="v10"><label for="article_notitle"><?php echo $BL['be_admin_struct_hide1'] ?></label></td>
@@ -63,7 +63,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
             </tr>
             <tr>
               <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
-              <td><input name="article_subtitle" type="text" class="bold width440" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="1000" /></td>
+              <td><input name="article_subtitle" type="text" class="bold width440" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="5000" /></td>
             </tr>
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="7" /></td></tr>
                     <tr>
@@ -250,14 +250,14 @@ calEnd.setYearCombo(false);
     </tr>
     <tr>
         <td align="right" class="chatlist"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
-        <td><input name="article_alias" type="text" class="bold width440" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" size="40" maxlength="230"<?php
+        <td><input name="article_alias" type="text" class="bold width440" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" size="40" maxlength="1000"<?php
             if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" /></td>
     </tr>
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
     <tr>
         <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-        <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="125" /></td>
+        <td><input name="article_pagetitle" type="text" id="article_pagetitle" class="width440" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="2000" /></td>
     </tr>
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
@@ -652,7 +652,7 @@ if(!isset($article['image']['list_usesummary'])) {
             ?>
             <tr>
               <td align="right" class="chatlist"><?php echo $BL['be_article_username'] ?>:&nbsp;</td>
-              <td><input name="article_username" type="text" id="article_username" class="f11" style="width: 300px" value="<?php echo html($article["article_username"]) ?>" size="40" maxlength="100" /></td>
+              <td><input name="article_username" type="text" id="article_username" class="f11" style="width: 300px" value="<?php echo html($article["article_username"]) ?>" size="40" maxlength="200" /></td>
             </tr>
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
             </tr>

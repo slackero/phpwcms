@@ -22,6 +22,7 @@ $acat_lang_mode     = $_GET['struct'] != 'index' && count($phpwcms['allowed_lang
 if($_GET['struct'] === 'index') {
 
     $acat_title         = $indexpage['acat_name'];
+    $acat_title_alt     = $indexpage['acat_title'];
     $acat_info          = $indexpage['acat_info'];
     $acat_id            = 'index';
     $acat_new           = 0;
@@ -64,6 +65,7 @@ if($_GET['struct'] === 'index') {
     $parentStructData   = getParentStructArray($_GET["struct"]);
 
     $acat_title         = '';
+    $acat_title_alt     = '';
     $acat_info          = '';
     $acat_aktiv         = $phpwcms['set_category_active'];
     $acat_sort          = isset($acat_sort) ? $acat_sort : '';
@@ -141,7 +143,12 @@ switch($acat_hidden) {
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_admin_struct_cat'] ?>:</td></tr>
-          <tr><td><input name="acat_name" type="text" id="acat_name" class="bold width540" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="255" /></td></tr>
+          <tr><td><input name="acat_name" type="text" id="acat_name" class="bold width540" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="2000" /></td></tr>
+
+          <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+
+          <tr><td class="v09"><?php echo $BL['be_admin_struct_alt'] ?>:</td></tr>
+          <tr><td><input name="acat_title" type="text" id="acat_title" class="bold width540" value="<?php echo html($acat_title_alt) ?>" size="50" maxlength="2000" /></td></tr>
 
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
@@ -152,7 +159,7 @@ switch($acat_hidden) {
                 +<a href="#" onclick="return set_article_alias(false, 'struct', '<?php echo $acat_struct_alias ?>');" title="<?php echo $acat_struct_alias ?>"><?php echo $BL['be_admin_struct_title']; ?></a>:
             </td></tr>
           <tr><td>
-              <input name="acat_alias" type="text" id="acat_alias" class="bold width540" value="<?php echo html($acat_alias) ?>" size="50" maxlength="255"<?php
+              <input name="acat_alias" type="text" id="acat_alias" class="bold width540" value="<?php echo html($acat_alias) ?>" size="50" maxlength="1000"<?php
                 if(empty($phpwcms['allow_empty_alias'])): ?> onfocus="set_article_alias(true, 'struct');"<?php endif; ?> onchange="this.value=create_alias(this.value);" />
           </td></tr>
           <tr><td><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
@@ -225,7 +232,7 @@ switch($acat_hidden) {
           <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
           <tr><td class="v09"><?php echo $BL['be_admin_page_pagetitle'] ?>:</td></tr>
-          <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width540" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="255" /></td></tr>
+          <tr><td><input name="acat_pagetitle" type="text" id="acat_pagetitle" class="width540" value="<?php echo html($acat_pagetitle) ?>" size="50" maxlength="2000" /></td></tr>
 
             <tr><td><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 

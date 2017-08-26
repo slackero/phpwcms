@@ -486,7 +486,7 @@ if($content['cp_setting_mode']):
       <td align="right" class="chatlist"><?php echo $BL['be_cnt_paginate_subsection'] ?>:&nbsp;</td>
       <td><table summary="" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td><input name="ctab_title" type="text" id="ctab_title" class="f11b width325" value="<?php echo html($content["tab_title"]) ?>" size="40" maxlength="250" /></td>
+            <td><input name="ctab_title" type="text" id="ctab_title" class="f11b width325" value="<?php echo html($content["tab_title"]) ?>" size="40" maxlength="1500" /></td>
             <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_ctype_number'] ?>:&nbsp;</td>
             <td><input name="ctab_number" type="text" id="ctab_number" class="v11 width25" value="<?php echo $content["tab_number"] ?>" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10))this.value='';" /></td>
           </tr>
@@ -518,12 +518,12 @@ if($content['cp_setting_mode']):
           ?>
     <tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist"><?php echo $BL['be_article_cnt_ctitle'] ?>:&nbsp;</td>
-      <td><input name="ctitle" type="text" id="ctitle" class="width440p5" value="<?php echo html($content["title"]) ?>" size="40" maxlength="250" /></td>
+      <td><input name="ctitle" type="text" id="ctitle" class="width440p5" value="<?php echo html($content["title"]) ?>" size="40" maxlength="2000" /></td>
     </tr>
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
     <tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
-      <td><input name="csubtitle" type="text" id="csubtitle" class="width440p5" value="<?php echo html($content["subtitle"]) ?>" size="40" maxlength="250" /></td>
+      <td><input name="csubtitle" type="text" id="csubtitle" class="width440p5" value="<?php echo html($content["subtitle"]) ?>" size="40" maxlength="2000" /></td>
     </tr>
 
 <?php
@@ -553,7 +553,7 @@ if($content['cp_setting_mode']):
           <tr>
             <td><input name="cpaginate_page" type="text" id="cpaginate_page" class="v11 width25" value="<?php echo $content["paginate_page"] ?>" size="3" maxlength="3" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
             <td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_subsection_tite'].' ('.$BL['be_pagination'].')' ?>:&nbsp;</td>
-            <td width="200"><input name="cpaginate_title" type="text" id="cpaginate_title" class="f11b width225" value="<?php echo html($content["paginate_title"]) ?>" size="40" maxlength="250" /></td>
+            <td width="200"><input name="cpaginate_title" type="text" id="cpaginate_title" class="f11b width225" value="<?php echo html($content["paginate_title"]) ?>" size="40" maxlength="2000" /></td>
           </tr>
         </table><script type="text/javascript">
 

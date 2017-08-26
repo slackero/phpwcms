@@ -33,6 +33,7 @@ if($acat_id) {
         $row_acat = $row_acat[0];
 
         $acat_title         = $row_acat["acat_name"];
+        $acat_title_alt     = $row_acat["acat_title"];
         $acat_info          = $row_acat["acat_info"];
         $acat_id            = $row_acat["acat_id"];
         $acat_new           = 0;

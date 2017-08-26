@@ -82,7 +82,8 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
     if(isset($_POST["acat_id"]) && $_POST["acat_id"] === 'index') {
         // write index page config to flat file
         $sql  = "<?php\n";
-        $sql .= "\$indexpage['acat_name'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_name"]))."';\n";
+        $sql .= "\$indexpage['acat_name'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_name"], 2000))."';\n";
+        $sql .= "\$indexpage['acat_title'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_title"], 2000))."';\n";
         $sql .= "\$indexpage['acat_info'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_info"], 32000))."';\n";
         $sql .= "\$indexpage['acat_alias'] = '". proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
         $sql .= "\$indexpage['acat_aktiv'] = ". (isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
@@ -135,12 +136,13 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
                 $cache_timeout = 0; //check if cache = Off
             }
 
-            $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
+            $sql = "INSERT INTO ".DB_PREPEND."phpwcms_articlecat (acat_name, acat_title, acat_info, acat_aktiv, acat_ssl, acat_regonly, ".
                 "acat_struct, acat_template, acat_sort, acat_uid, acat_alias, acat_hidden, acat_topcount, ".
                 "acat_redirect, acat_order, acat_cache, acat_nosearch, acat_nositemap, acat_permit, acat_maxlist, ".
                 "acat_cntpart, acat_pagetitle, acat_paginate, acat_overwrite, acat_archive, acat_class, acat_keywords, ".
                 "acat_cpdefault, acat_lang, acat_lang_type, acat_lang_id, acat_disable301, acat_opengraph, acat_canonical, acat_breadcrumb, acat_onepage) VALUES ('".
-                getpostvar($_POST["acat_name"])."','".
+                getpostvar($_POST["acat_name"], 2000)."','".
+                getpostvar($_POST["acat_title"], 2000)."','".
                 getpostvar($_POST["acat_info"], 32000)."',".
                 (isset($_POST["acat_aktiv"]) ? 1 : 0).",".
                 (isset($_POST["acat_ssl"]) ? 1 : 0).",".
@@ -179,7 +181,8 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
             }
 
             $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecat SET ".
-                "acat_name='".getpostvar($_POST["acat_name"])."', ".
+                "acat_name='".getpostvar($_POST["acat_name"], 2000)."', ".
+                "acat_title='".getpostvar($_POST["acat_title"], 2000)."', ".
                 "acat_info='".getpostvar($_POST["acat_info"], 32000)."', ".
                 "acat_alias="._dbEscape(proof_alias($_POST["acat_id"], $_POST["acat_alias"])).", ".
                 "acat_aktiv=".(isset($_POST["acat_aktiv"]) ? 1 : 0).", ".
