@@ -8,7 +8,7 @@
  * @link http://www.phpwcms.org
  *
  **/
-// Language: Polish, Language Code: pl UTF-8 for ver.1.9.0-beta.8 (2017/10/08, 549)
+// Language: Polish, Language Code: pl UTF-8 for ver.1.9.0-beta.8 (2017/10/18, 549)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
