@@ -136,8 +136,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           if(!empty($user_err)) {
           ?>
           <tr valign="top">
-            <td align="right"><strong style="color:#FF3300"><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
-            <td><strong style="color:#FF3300"><?php echo nl2br(chop($user_err)) ?></strong></td>
+            <td align="right" class="error"><strong><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
+            <td class="error"><strong><?php echo nl2br(chop($user_err)) ?></strong></td>
           </tr>
           <tr valign="top"><td colspan="2" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
           <?php
@@ -145,22 +145,22 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           ?>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250 f11b" value="<?php echo $new_login ?>" size="30" maxlength="30" autocomplete="off"></td>
+            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250 f11b" value="<?php echo $new_password ?>" size="30" maxlength="50" autocomplete="off"></td>
+            <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="off" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-            <td><input name="form_newemail" type="text" id="form_newemail" class="width250 f11b" value="<?php echo $new_email ?>" size="30" maxlength="150"></td>
+            <td><input name="form_newemail" type="text" id="form_newemail" class="width250" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
-            <td><input name="form_newrealname" type="text" id="form_newrealname" class="width250 f11b" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
+            <td><input name="form_newrealname" type="text" id="form_newrealname" class="width250" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" /></td>
           </tr>
 
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
@@ -168,11 +168,11 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_issection']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
                 <tr>
-                  <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> /></td>
                   <td><label for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> /></td>
                   <td><label for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> /></td>
                   <td><label for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label></td>
                   <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
                 </tr>
@@ -184,7 +184,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_setactive'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
-                  <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?>></td>
+                  <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> /></td>
                   <td><label for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label></td>
                 </tr>
               </table></td>
@@ -195,8 +195,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
             <td align="right" class="chatlist" style="color:#FF0000"><?php echo $BL['be_admin_usr_isadmin'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
-                  <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked(1, $set_user_admin); ?>></td>
-                  <td><label for="form_admin"><?php echo $BL['be_admin_usr_ifadmin'] ?> <strong style="color:#FF0000">!!!</strong></label></td>
+                  <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked(1, $set_user_admin); ?> /></td>
+                  <td><label for="form_admin"><?php echo $BL['be_admin_usr_ifadmin'] ?> <strong class="error">!!!</strong></label></td>
                 </tr>
               </table></td>
           </tr>
@@ -205,7 +205,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
                 <tr bgcolor="#E7E8EB">
-                  <td><input name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked(1, $send_verification); ?>></td>
+                  <td><input name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked(1, $send_verification); ?> /></td>
                   <td><label for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label></td>
                   <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
                 </tr>
@@ -239,9 +239,9 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           <tr>
             <td>&nbsp;</td>
             <td class="tdbottom10 tdtop6">
-                <input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_ebutton'] ?>">
+                <input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_ebutton'] ?>" />
                 <input name="form_aktion" type="hidden" value="edit_account" />
-                <input name="form_uid" type="hidden" value="<?php echo $new_user_id ?>" />
+                <input name="form_uid" type="hidden" value="<?php echo html($new_user_id) ?>" />
             </td>
           </tr>
       </table>
@@ -261,5 +261,3 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
     }
 }
-
-?>

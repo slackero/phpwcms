@@ -87,7 +87,7 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
 
 if(empty($user_ok)) {
 
-?><form action="phpwcms.php?do=admin&amp;s=1" method="post" name="edituser"><table border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="phpwcms.php?do=admin&amp;s=1" method="post" name="edituser" autocomplete="off"><table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
             <td colspan="2"><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
@@ -104,8 +104,8 @@ if(empty($user_ok)) {
           if(!empty($user_err)) {
           ?>
           <tr valign="top">
-            <td align="right"><strong style="color:#FF3300"><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
-            <td><strong style="color:#FF3300"><?php echo nl2br(chop($user_err)) ?></strong></td>
+            <td align="right" class="error"><strong><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
+            <td class="error"><strong><?php echo nl2br(chop($user_err)) ?></strong></td>
           </tr>
           <tr valign="top"><td colspan="2" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
           <?php
@@ -113,22 +113,22 @@ if(empty($user_ok)) {
           ?>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_login ?>" size="30" maxlength="30" autocomplete="off"></td>
+            <td><input name="form_newloginname" type="text" id="form_newloginname" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" class="width250" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td><input name="form_newpassword" type="text" id="form_newpassword" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_password ?>" size="30" maxlength="50" autocomplete="off"></td>
+            <td><input name="form_newpassword" type="text" id="form_newpassword" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="off" class="width250" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-            <td><input name="form_newemail" type="text" id="form_newemail" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_email ?>" size="30" maxlength="150"></td>
+            <td><input name="form_newemail" type="text" id="form_newemail" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" class="width250" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
-            <td><input name="form_newrealname" type="text" id="form_newrealname" style="font-family: Verdana, Arial, Helvetica, sans-serif; width:250px; font-size: 11px; font-weight: bold;" value="<?php echo $new_name ?>" size="30" maxlength="80"></td>
+            <td><input name="form_newrealname" type="text" id="form_newrealname" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" class="width250" /></td>
           </tr>
 
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
@@ -136,11 +136,11 @@ if(empty($user_ok)) {
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_issection']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
                 <tr>
-                  <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> /></td>
                   <td><label for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> /></td>
                   <td><label for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?>></td>
+                  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> /></td>
                   <td><label for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label></td>
                   <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
                 </tr>
@@ -152,7 +152,7 @@ if(empty($user_ok)) {
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_setactive'] ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
-                  <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?>></td>
+                  <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> /></td>
                   <td><label for="form_active"><?php echo  $BL['be_admin_usr_iflogin'] ?></label></td>
                 </tr>
               </table></td>
@@ -163,8 +163,8 @@ if(empty($user_ok)) {
             <td align="right" class="chatlist" style="color:#FF0000"><?php echo $BL['be_admin_usr_isadmin']  ?>:&nbsp;</td>
             <td><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
-                  <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?>></td>
-                  <td><label for="form_admin"><?php echo  $BL['be_admin_usr_ifadmin'] ?> <strong style="color:#FF0000">!!!</strong></label></td>
+                  <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> /></td>
+                  <td><label for="form_admin"><?php echo  $BL['be_admin_usr_ifadmin'] ?> <strong class="error">!!!</strong></label></td>
                 </tr>
               </table></td>
           </tr>
@@ -180,10 +180,10 @@ if(empty($user_ok)) {
                 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
               </table></td>
           </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"><input name="form_aktion" type="hidden" value="create_account"></td></tr>
+          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"><input name="form_aktion" type="hidden" value="create_account" /></td></tr>
           <tr>
             <td>&nbsp;</td>
-            <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_button'] ?>"></td>
+            <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_button'] ?>" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
       </table></form><img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br /><img src="img/leer.gif" alt="" width="1" height="5"><?php
@@ -192,5 +192,3 @@ if(empty($user_ok)) {
 } else {
     echo "<script type=\"text/javascript\"> timer=setTimeout(\"self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=admin'\", 0); </script>";
 }
-
-?>

@@ -187,7 +187,7 @@ $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/i
             <?php } ?>
             <tr>
               <td align="right" class="chatlist"><?php echo $BL['be_fpriv_name'] ?>:&nbsp;</td>
-              <td><input name="group_name" type="text" id="group_name" class="width400" value="<?php echo  empty($group["name"]) ? '' : html($group["name"]) ?>" size="40" maxlength="250" /></td>
+              <td><input name="group_name" type="text" id="group_name" class="width400" value="<?php echo empty($group["name"]) ? '' : html($group["name"]) ?>" size="40" maxlength="250" /></td>
             </tr>
 
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
