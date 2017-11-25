@@ -165,6 +165,7 @@ if($content['files_sql']) {
                     // [3] = target (where to open a new file -> default is _blank even if empty
                     // [4] = if it is an image try to show a thumbnail instead of the file icon -> here thumbnail WIDTHxHEIGHT
                     // [5] = copyright information
+                    // [6] = custom URL
 
                     if($value['file_info']) {
 
@@ -173,7 +174,26 @@ if($content['files_sql']) {
                         $_file_info[0] = trim($_file_info[0]);
                         $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
                         $_file_info[2] = empty($_file_info[2]) ? '' : trim($_file_info[2]);
-                        $_file_info[3] = ' target="'.( empty($_file_info[3]) ? '_blank' : trim($_file_info[3]) ) .'"';
+                        $_file_info[6] = '';
+
+                        // Custom URL and target
+                        $_file_info[3] = empty($_file_info[3]) ? array(0 => '', 1 => '') : explode(' ', trim($_file_info[3]), 2);
+                        $_file_info[3][0] = trim($_file_info[3][0]);
+                        if(empty($_file_info[3][1])) {
+                            $_file_info[3][1] = '';
+                        }
+                        if(empty($_file_info[3][0])) {
+                            $_file_info[3][0] = '';
+                            $_file_info[3][1] = '';
+                        }
+                        if($_file_info[3][0] && ($_file_info[3][0] === '_blank' || $_file_info[3][0] === '_parent' || $_file_info[3][0] === '_self')) {
+                            $_file_info[3] = ' target="'. $_file_info[3][0] .'"';
+                        } elseif($_file_info[3][1]) {
+                            $_file_info[6] = $_file_info[3][0];
+                            $_file_info[3] = ' target="'. $_file_info[3][1] .'"';
+                        } else {
+                            $_file_info[6] = $_file_info[3][0];
+                        }
 
                         // only when height/width is given
                         if(empty($_file_info[4])) {
@@ -209,9 +229,10 @@ if($content['files_sql']) {
                             0 => '',
                             1 => '',
                             2 => '',
-                            3 =>
-                            ' target="_blank"',
-                            4 => ''
+                            3 => ' target="_blank"',
+                            4 => '',
+                            5 => '',
+                            6 => ''
                         );
 
                     }
@@ -246,6 +267,7 @@ if($content['files_sql']) {
                     $_files_entries[$fkey] = str_replace('{FILE_ID}', $content['files_result'][ $_files_x ]['f_id'], $_files_entries[$fkey]);
                     $_files_entries[$fkey] = str_replace('{FILE_TARGET}', $_file_info[3], $_files_entries[$fkey]);
                     $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][ $_files_x ]['f_ext']);
+                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_URL', $_file_info[6]);
                     $_files_entries[$fkey] = str_replace('{FILE_DOWNLOADS}', $content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$fkey]);
                     $_files_entries[$fkey] = str_replace('{FILE_SIZE}', return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
 

@@ -159,7 +159,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 		|
 		<?php echo $BL['be_caption_file_title']; ?>
 		|
-		<?php echo $BL['be_cnt_target']; ?>
+		<?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
 		|
 		<?php echo $BL['be_caption_file_imagesize']; ?>
 		|
