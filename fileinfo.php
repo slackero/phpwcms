@@ -159,7 +159,7 @@ if($file_id) {
     if(empty($row["f_svg"])) {
         echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3].'>';
     } else {
-        echo'<img src="img/cmsimage.php/538x538/'.$row['f_hash'].'.'.$row['f_ext'].'" alt="" style="max-width:538px;height:auto;">';
+        echo'<img src="'.PHPWCMS_RESIZE_IMAGE.'/538x538/'.$row['f_hash'].'.'.$row['f_ext'].'" alt="" style="max-width:538px;height:auto;">';
     }
 
     ?></td>

@@ -214,7 +214,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <tr>
         <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300 autosize" id="cimage_caption"><?php echo html($content["image_caption"]) ?></textarea></td>
         <td valign="top"><img src="img/leer.gif" alt="" width="10" height="1" /></td>
-        <td valign="top"><?php if($content["image_id"]): ?><img src="img/cmsimage.php/<?= $phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$content["image_id"] ?>" border="0" /><?php endif; ?>&nbsp;</td>
+        <td valign="top"><?php if($content["image_id"]): ?><img src="<?php echo PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$content["image_id"] ?>" border="0" /><?php endif; ?>&nbsp;</td>
       </tr>
   </table></td>
 </tr>

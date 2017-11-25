@@ -107,7 +107,7 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 		// use lightbox effect
 		if($config['image_'.$config['mode'].'_lightbox']) {
 
-			$a  = '<a href="img/cmsimage.php/';
+			$a  = '<a href="'.PHPWCMS_RESIZE_IMAGE.'/';
 			$a .= $config['image_zoom_width'] . 'x' . $config['image_zoom_height'] . '/';
 			$a .= $img['f_hash'] . '.' . $img['f_ext'] . '" ';
             $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . get_attr_data_gallery($config['lightbox_id'], ' ', '') . $caption[3] . $title . '>';

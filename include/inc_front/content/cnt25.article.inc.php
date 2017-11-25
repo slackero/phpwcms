@@ -193,7 +193,7 @@ if(isset($fmp_data['fmp_template'])) {
 
             }
 
-            $fmp_data['preview'] = PHPWCMS_URL . 'img/cmsimage.php/' . $fmp_data['fmp_width'].'x'.$fmp_data['fmp_height'].'x1x85/'.$fmp_data['fmp_preview'];
+            $fmp_data['preview'] = PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/' . $fmp_data['fmp_width'].'x'.$fmp_data['fmp_height'].'x1x85/'.$fmp_data['fmp_preview'];
 
         } else {
 

@@ -201,7 +201,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             $thumb_image_info[2] = $val['max_height'];
             $thumb_image_info[3] = '';
             $thumb_image_info['type'] = 'image/svg+xml';
-            $thumb_image_info['src'] = 'img/cmsimage.php/'.$val['max_width'].'x'.$val['max_height'];
+            $thumb_image_info['src'] = PHPWCMS_RESIZE_IMAGE . '/'.$val['max_width'].'x'.$val['max_height'];
             if($val['crop_image']) {
                 $thumb_image_info['src'] .= 'x1';
             }

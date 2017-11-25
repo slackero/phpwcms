@@ -456,7 +456,7 @@ function showImage() {
     var id  = parseInt(getObjectById('cnt_image_id').value,10);
     var img = getObjectById('cnt_image');
     if(id > 0) {
-        img.innerHTML = '<img src="<?php echo PHPWCMS_URL.'img/cmsimage.php/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
+        img.innerHTML = '<img src="<?php echo PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />';
         img.style.display = '';
     } else {
         img.style.display = 'none';

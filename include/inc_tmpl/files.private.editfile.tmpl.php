@@ -258,7 +258,7 @@ if($file_id) {
 
                 $file_image_width = $row['f_image_width'];
                 $file_image_height = $row['f_image_height'];
-                $file_thumb_small = '<img src="img/cmsimage.php/420x420/'.$row['f_hash'].'.'.$row['f_ext'].'" alt="" style="border:1px solid #9BBECA;background:#F5F8F9;max-width:420px;height:auto;" />';
+                $file_thumb_small = '<img src="'.PHPWCMS_RESIZE_IMAGE.'/420x420/'.$row['f_hash'].'.'.$row['f_ext'].'" alt="" style="border:1px solid #9BBECA;background:#F5F8F9;max-width:420px;height:auto;" />';
 
             }
         }

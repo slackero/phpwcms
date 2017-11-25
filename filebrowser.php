@@ -450,7 +450,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         break;
 
                     case 11:
-                        $js  = "window.opener.SetUrl('img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        $js  = "window.opener.SetUrl('".PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
 
                     //CKEditor
@@ -459,7 +459,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         break;
 
                     case 17:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'img/cmsimage.php/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
 
                     default:
@@ -498,7 +498,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     echo '<tr><td>&nbsp;</td><td colspan="3"><a href="#" onclick="'.$js;
                     echo "tmt_winControl('self','close()');\">";
                     if($file_row['f_svg']) {
-                        echo '<img src="img/cmsimage.php/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" />';
+                        echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" />';
                     } else {
                         echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="" />';
                     }

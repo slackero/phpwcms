@@ -136,7 +136,7 @@ function list_public($pid, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
                             echo (473-$vor).'"><img src="img/leer.gif" height="1" width="6"><a href="fileinfo.php?public&amp;fid=';
                             echo $file_row["f_id"].'" target="_blank" onclick="flevPopupLink(this.href,\'filedetail\',\'scrollbars=';
                             echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                            echo '<img src="img/cmsimage.php/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;"';
+                            echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;"';
                             echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" onmouseout="UnTip()" alt=""';
                             echo '></a></td>';
                             echo '<td width="15\"><img src="img/leer.gif" height="1" width="1" border="0"></td></tr>';

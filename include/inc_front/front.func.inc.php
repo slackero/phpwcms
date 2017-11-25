@@ -3920,7 +3920,7 @@ function getArticleMenu($data=array()) {
                 }
                 if($item['img_src']) {
                     $item['img_src'] = 'x'.$data['articlemenu_options']['height'].'x'.$data['articlemenu_options']['crop'].'/'.$item['img_src'];
-                    $item['img_src'] = 'img/cmsimage.php/'.$data['articlemenu_options']['width'].$item['img_src'];
+                    $item['img_src'] = PHPWCMS_RESIZE_IMAGE . '/'.$data['articlemenu_options']['width'].$item['img_src'];
                 }
             }
             if($data['articlemenu_options']['text']) {
@@ -4145,7 +4145,7 @@ function render_CKEDitor_resized_images($match) {
         return $match[0];
     }
 
-    $src = 'img/cmsimage.php/'.$width.'x'.$height.'/'.$src[1];
+    $src = PHPWCMS_RESIZE_IMAGE . '/' . $width . 'x' . $height . '/' . $src[1];
     if(strpos($match[0], 'alt="')) {
         preg_match('/alt="(.*?)"/', $match[0], $alt);
         $alt = empty($alt[1]) ? '' : ' alt="'.$alt[1].'"';

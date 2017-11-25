@@ -1138,6 +1138,11 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 
 // Built-in Open Graph rendering
 if($content['opengraph']['render']) {
+
+    if(empty($phpwcms['opengraph_imagesize'])) {
+        $phpwcms['opengraph_imagesize'] = '1200x630x1';
+    }
+
 	set_meta('og:type', $content['opengraph']['type'], 'property');
 	set_meta('og:title', sanitize_replacement_tags($content['opengraph']['title']), 'property');
 	if(empty($content['opengraph']['url'])) {
@@ -1153,18 +1158,18 @@ if($content['opengraph']['render']) {
 	if(isset($content['images']['shop']) && count($content['images']['shop'])) {
 		foreach($content['images']['shop'] as $og_img) {
 				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
+				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
 		}
 	}
 	if(isset($content['images']['news']) && count($content['images']['news'])) {
 		foreach($content['images']['news'] as $og_img) {
 				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
+				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
 		}
 	}
 	if(isset($content['images']['article']['image'])) {
 		$content['opengraph']['has_image'] = true;
-		set_meta('og:image', PHPWCMS_URL . 'img/cmsimage.php/500x500x0/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
+		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
 	}
 	if(!$content['opengraph']['has_image'] && is_file(PHPWCMS_TEMPLATE.'img/opengraph-default.png')) {
 		set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');

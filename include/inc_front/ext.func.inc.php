@@ -935,7 +935,7 @@ function parse_images($matches) {
         $crop       = isset($value[ 3 ]) ? intval($value[ 3 ]) : 0;
         $quality    = isset($value[ 4 ]) ? intval($value[ 4 ]) : 0;
 
-        $image      = '<img src="'.PHPWCMS_URL.'img/cmsimage.php/'.$width.'x'.$height.'x'.$crop;
+        $image      = '<img src="'.PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$width.'x'.$height.'x'.$crop;
         if($quality <= 100 && $quality >= 10) {
             $image .= 'x'.$quality;
         }

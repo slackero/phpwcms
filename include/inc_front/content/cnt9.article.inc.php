@@ -69,7 +69,7 @@ if($media["media_src"]) {
 if(!empty($media["image_id"])) {
 
     $media["alt"] .= '<div class="alt-image">';
-    $media["alt"] .= '<img src="img/cmsimage.php/' . $media["media_width"] . 'x' . $media["media_height"] . 'x1/' . $media["image_id"] . '" ';
+    $media["alt"] .= '<img src="' . PHPWCMS_RESIZE_IMAGE . '/' . $media["media_width"] . 'x' . $media["media_height"] . 'x1/' . $media["image_id"] . '" ';
     $media["alt"] .= 'alt="'.html_specialchars($media["image_name"]).'" />';
     $media["alt"] .= '</div>';
 

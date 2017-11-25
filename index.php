@@ -165,9 +165,11 @@ if(PHPWCMS_REWRITE) {
         $content['all'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $content["all"]);
     };
 
-    $content['all'] = str_replace('img/cmsimage.php/', 'im/', $content['all']);
-    $content['page_start'] = str_replace('img/cmsimage.php/', 'im/', $content['page_start']);
+    $content['all'] = str_replace('img/cmsimage.php', 'im', $content['all']);
+    $content['page_start'] = str_replace('img/cmsimage.php', 'im', $content['page_start']);
 }
+
+$content['all'] = str_replace('{PHPWCMS_RESIZE_IMAGE}', PHPWCMS_RESIZE_IMAGE, $content['all']);
 
 // real page ending
 if(count($block['bodyjs'])) {
