@@ -125,7 +125,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
     if(empty($user_ok)) {
 
-?><form action="phpwcms.php?do=admin&amp;s=2&amp;u=<?php echo $new_user_id ?>" method="post" name="edituser"><table border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="phpwcms.php?do=admin&amp;s=2&amp;u=<?php echo $new_user_id ?>" method="post" name="edituser" autocomplete="off"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
           <tr><td colspan="2" class="title"><?php echo $BL['be_admin_usr_etitle'] ?></td></tr>
           <tr>
