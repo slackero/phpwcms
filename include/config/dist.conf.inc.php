@@ -11,7 +11,6 @@
 
 // phpwcms base values -> needed in any document
 
-
 // database values
 $phpwcms['db_host']             = 'localhost';
 $phpwcms['db_user']             = '';
@@ -22,7 +21,8 @@ $phpwcms['db_pers']             = 0;
 $phpwcms['db_charset']          = 'utf8';
 $phpwcms['db_collation']        = 'utf8_general_ci';
 $phpwcms['db_version']          = 0;
-$phpwcms['db_timezone']         = ''; // set MySQL session time zone http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
+$phpwcms['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
+$phpwcms['db_sql_mode']         = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
 
 // site values
 $phpwcms['site']                = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
