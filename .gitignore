@@ -4,6 +4,8 @@
 !/content/images/index.html
 /content/tmp/
 !/content/tmp/index.html
+/content/form/
+!/content/form/index.html
 /filearchive/
 !/filearchive/image_memoryinfo.png
 !/filearchive/image_placeholder.png
