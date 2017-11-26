@@ -2,7 +2,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2016, Oliver Georgi
+ * @copyright Copyright (c) 2002-2017, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -469,3 +469,9 @@ var validation = {
         return pattern.test(str);  // returns a boolean
     },
 };
+
+function togglePasswordVisibility(id) {
+    var pwdField = document.getElementById(id);
+    pwdField.type = pwdField.type === "password" ? "text" : "password";
+    return pwdField.type === 'text' ? 'hide' : 'show';
+}

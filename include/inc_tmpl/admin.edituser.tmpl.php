@@ -145,22 +145,27 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
           ?>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" /></td>
+            <td><input name="form_newloginname" type="text" id="form_newloginname" class="width250" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" required="required" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td><input name="form_newpassword" type="text" id="form_newpassword" class="width250" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="off" /></td>
+            <td>
+                <input name="form_newpassword" type="password" id="form_newpassword" class="width250" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="new-password" />
+                <span onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer">
+                    <?php echo $BL['be_password_show']; ?>
+                </span>
+            </td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-            <td><input name="form_newemail" type="text" id="form_newemail" class="width250" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" /></td>
+            <td><input name="form_newemail" type="email" id="form_newemail" class="width250" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" required="required" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
-            <td><input name="form_newrealname" type="text" id="form_newrealname" class="width250" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" /></td>
+            <td><input name="form_newrealname" type="text" id="form_newrealname" class="width250" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" required="required" /></td>
           </tr>
 
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
@@ -234,8 +239,6 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                     <input type="hidden" name="cp_total" value="<?php echo count($wcs_content_type) ?>" />
                 </td>
             </tr>
-
-
           <tr>
             <td>&nbsp;</td>
             <td class="tdbottom10 tdtop6">
@@ -251,9 +254,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
       <img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br />
       <img src="img/leer.gif" alt="" width="1" height="5">
-
-      <?php
-
+<?php
 
     } else {
 

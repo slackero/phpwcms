@@ -26,9 +26,10 @@ $set_user_fe        = 0;
 $send_verification  = 1;
 $user_err           = '';
 
-if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
-    //Create Account Daten verarbeiten
-    $new_login          = slweg($_POST["form_newloginname"]);
+if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
+
+    // Create Account
+    $new_login          = trim(slweg($_POST["form_newloginname"]));
     $new_password       = slweg($_POST["form_newpassword"]);
     $new_email          = clean_slweg($_POST["form_newemail"]);
     $new_name           = clean_slweg($_POST["form_newrealname"]);
@@ -40,15 +41,15 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] == "create_account") {
     }
     $send_verification  = isset($_POST["verification_email"]) ? 1 : 0;
     if(empty($new_login)) {
-        $user_err .= $BL['be_admin_usr_err2']."\n";
-    } elseif(($check_anzahl = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_user WHERE usr_login='".aporeplace($new_login)."'", 'COUNT'))) {
-        $user_err .= $BL['be_admin_usr_err1']."\n";
+        $user_err .= $BL['be_admin_usr_err2'].LF;
+    } elseif(($check_anzahl = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_user WHERE usr_aktiv != 9 AND usr_login='._dbEscape($new_login), 'COUNT'))) {
+        $user_err .= $BL['be_admin_usr_err1'].LF;
     }
     if(empty($new_password)) {
-        $user_err .= $BL['be_admin_usr_err3']."\n";
+        $user_err .= $BL['be_admin_usr_err3'].LF;
     }
     if(!is_valid_email($new_email) && $send_verification) {
-        $user_err .= $BL['be_admin_usr_err4']."\n";
+        $user_err .= $BL['be_admin_usr_err4'].LF;
     }
     if(empty($user_err)) { //Insert new User
         $sql =  "INSERT INTO ".DB_PREPEND."phpwcms_user (usr_login, usr_pass, usr_email, ".
@@ -100,35 +101,40 @@ if(empty($user_ok)) {
             <td><img src="img/leer.gif" alt="" width="105" height="1"></td>
             <td><img src="img/leer.gif" alt="" width="1" height="5"></td>
           </tr>
-          <?php
-          if(!empty($user_err)) {
-          ?>
+<?php
+        if(!empty($user_err)):
+?>
           <tr valign="top">
             <td align="right" class="error"><strong><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
             <td class="error"><strong><?php echo nl2br(chop($user_err)) ?></strong></td>
           </tr>
           <tr valign="top"><td colspan="2" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
-          <?php
-          } //Ende Fehler New User
-          ?>
+<?php
+        endif;
+?>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" class="width250" /></td>
+            <td><input name="form_newloginname" type="text" id="form_newloginname" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" class="width250" required="required" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td><input name="form_newpassword" type="text" id="form_newpassword" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="off" class="width250" /></td>
+            <td nowrap="nowrap">
+                <input name="form_newpassword" type="password" id="form_newpassword" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="new-password" class="width250" required="required" />
+                <span onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer">
+                    <?php echo $BL['be_password_show']; ?>
+                </span>
+            </td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-            <td><input name="form_newemail" type="text" id="form_newemail" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" class="width250" /></td>
+            <td><input name="form_newemail" type="email" id="form_newemail" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" class="width250" required="required" /></td>
           </tr>
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
           <tr>
             <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
-            <td><input name="form_newrealname" type="text" id="form_newrealname" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" class="width250" /></td>
+            <td><input name="form_newrealname" type="text" id="form_newrealname" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" class="width250" required="required" /></td>
           </tr>
 
           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>

@@ -1483,3 +1483,6 @@ $BL['be_cnt_avoid_duplicates'] = 'allow unique values only';
 $BL['be_not_set'] = 'not set';
 $BL['be_licensed_under_GPL'] = 'Licensed under GPL.';
 $BL['be_extensions_copyright'] = 'Extensions are copyright of their respective owners.';
+
+$BL['be_password_show'] = 'Show password';
+$BL['be_password_hide'] = 'Hide password';
