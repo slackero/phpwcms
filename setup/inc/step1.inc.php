@@ -369,7 +369,7 @@ if(!empty($_SESSION['admin_set'])) {
 
     <tr>
         <td align="right" class="v10">Admin password:&nbsp;</td>
-        <td><input name="admin_pass" type="password" id="admin_pass" class="v12" style="width:300px" size="30" autocomplete="off" /></td>
+        <td><input name="admin_pass" type="password" id="admin_pass" class="v12" style="width:300px" size="30" autocomplete="new-password" /></td>
         <td class="chatlist"><em>&nbsp;default: phpwcms </em></td>
     </tr>
 
@@ -378,7 +378,7 @@ if(!empty($_SESSION['admin_set'])) {
 
     <tr>
         <td align="right" class="v10">Repeat password:&nbsp;</td>
-        <td><input name="admin_passrepeat" type="password" id="admin_passrepeat" class="v12" style="width:300px" size="30" autocomplete="off" /></td>
+        <td><input name="admin_passrepeat" type="password" id="admin_passrepeat" class="v12" style="width:300px" size="30" autocomplete="new-password" /></td>
         <td class="chatlist"><em>&nbsp;</em></td>
     </tr>
 

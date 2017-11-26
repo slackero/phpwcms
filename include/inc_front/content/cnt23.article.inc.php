@@ -563,7 +563,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 if($cnt_form["fields"][$key]['required']) {
                     $form_field .= ' required="required"';
                 }
-                $form_field .= ' autocomplete="off" />';
+                $form_field .= ' autocomplete="new-password" />';
                 break;
 
             case 'country':

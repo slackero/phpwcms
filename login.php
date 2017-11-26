@@ -323,7 +323,7 @@ ob_start();
           </tr>
         <tr>
           <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-          <td class="v10"><input name="form_password" type="password" id="form_password" class="width250" size="30" maxlength="40" required="required" /></td>
+          <td class="v10"><input name="form_password" type="password" id="form_password" class="width250" size="30" maxlength="40" required="required" autocomplete="new-password" /></td>
           </tr>
         <tr>
           <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_lang"] ?>:&nbsp;</td>
