@@ -178,10 +178,12 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['max_time'] = ".intval($val["max_time"])."; //logout after max_time/60 seconds\n";
     $conf_file .= "\$phpwcms['responsive'] = 1; // 0 max. image width = \$phpwcms['content_width'], 1 = as given\n";
 
+    $val["rewrite_url"] = check_htaccess($val);
+
     $conf_file .= "\n// other stuff\n";
     $conf_file .= "\$phpwcms['image_library'] = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
     $conf_file .= "\$phpwcms['library_path'] = '';       //Path to ImageMagick or NetPBM\n";
-    $conf_file .= "\$phpwcms['rewrite_url'] = 1; // whether URL should be rewritable\n";
+    $conf_file .= "\$phpwcms['rewrite_url'] = ".$val["rewrite_url"]."; // whether URL should be rewritable\n";
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
@@ -499,4 +501,45 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
     return $protocol . $host;
+}
+
+function check_htaccess($val) {
+
+    $val["rewrite_url"] = empty($val["rewrite_url"]) ? 0 : 1;
+
+    if($val["rewrite_url"]) {
+
+        $root = dirname(dirname(dirname(__FILE__)));
+        $htaccess_content = '';
+        $htaccess_new_content = '';
+
+        if(is_file($root.'/.htaccess')) {
+            $htaccess_content = read_textfile($root.'/.htaccess');
+        }
+
+        // Test if RewriteEngine is On or disable rewrite of phpwcms
+        if($htaccess_content) {
+            return (strpos(strtolower($htaccess_content), 'rewriteengine on')) !== false ? 1 : 0;
+        }
+
+        if(is_file($root.'/_.htaccess')) {
+            $htaccess_new_content = read_textfile($root.'/_.htaccess');
+        }
+
+        // Disable rewrite during setup if the _.htaccess is empty
+        if(!$htaccess_new_content) {
+            return 0;
+        }
+
+        if($val["root"]) {
+            $htaccess_new_content = str_replace('#RewriteBase /subfolder/', '#RewriteBase#/'.$val["root"].'/', $htaccess_new_content);
+            $htaccess_new_content = str_replace('RewriteBase /', '#RewriteBase /', $htaccess_new_content);
+            $htaccess_new_content = str_replace('#RewriteBase#/'.$val["root"].'/', 'RewriteBase /'.$val["root"].'/', $htaccess_new_content);
+        }
+
+        $val["rewrite_url"] = @write_textfile($root.'/.htaccess', $htaccess_new_content) ? 1 : 0;
+
+    }
+
+    return $val["rewrite_url"];
 }
