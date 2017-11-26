@@ -55,9 +55,7 @@ if(!empty($cnt_form['ssl']) && !PHPWCMS_SSL) {
 // save default form tracking status
 $default_formtracking_value = $phpwcms['form_tracking'];
 // check form related form tracking status
-if(isset($cnt_form['formtracking_off']) && $cnt_form['formtracking_off'] == 1) {
-    $phpwcms['form_tracking'] = 0;
-}
+$phpwcms['form_tracking'] = empty($cnt_form['formtracking_off']) ? 1 : 0;
 
 $form_error_text = '';
 
@@ -126,7 +124,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     }
 
     // make spam check
-    if($POST_DO && !checkFormTrackingValue()) {
+    if($phpwcms['form_tracking'] && $POST_DO && !checkFormTrackingValue()) {
         $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.getRemoteIP().' is not allowed to send form![/class]';
     }
 
