@@ -193,6 +193,7 @@ if($content['files_sql']) {
                             $_file_info[3] = ' target="'. $_file_info[3][1] .'"';
                         } else {
                             $_file_info[6] = $_file_info[3][0];
+                            $_file_info[3] = '';
                         }
 
                         // only when height/width is given
