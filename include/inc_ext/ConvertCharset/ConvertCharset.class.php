@@ -10,7 +10,7 @@ class ConvertCharset {
     var $ToCharset; // (string) This value keeps information about destination (to) encoding
     var $CharsetTable; // (array) This property keeps convert Table inside
 
-    function ConvertCharset ($FromCharset, $ToCharset, $TurnOnEntities = false)
+    function __construct($FromCharset, $ToCharset, $TurnOnEntities = false)
     {
 
         $this -> FromCharset = strtolower($FromCharset);
