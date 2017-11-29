@@ -146,7 +146,7 @@ if(empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', false);
     define('PHPWCMS_RESIZE_IMAGE', 'img/cmsimage.php');
 } else {
-    define('PHPWCMS_REWRITE', false);
+    define('PHPWCMS_REWRITE', true);
     define('PHPWCMS_RESIZE_IMAGE', 'im');
 }
 define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
