@@ -609,7 +609,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
             $GLOBALS['_search_navi']    = explode(',', $GLOBALS['_search_navi'], 2);
             $GLOBALS['_search_navi'][0] = trim($GLOBALS['_search_navi'][0]);
-            $GLOBALS['_search_navi'][1] = empty($GLOBALS['_search_navi'][1]) ? '' : explode('|', $GLOBALS['_search_navi'][1]);
+            $GLOBALS['_search_navi'][1] = empty($GLOBALS['_search_navi'][1]) ? array(' ', '', '') : explode('|', $GLOBALS['_search_navi'][1]);
 
             if($GLOBALS['_search_navi'][0] === '123') {
 
