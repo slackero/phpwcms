@@ -134,7 +134,7 @@ class phpwcmsImageGallery {
 	/*
 	 * Initialize some defaults
 	 */
-	function phpwcmsImageGallery() {
+	function __construct() {
 
 		$this->_getGallerySortString();
 

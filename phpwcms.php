@@ -226,7 +226,7 @@ header('Content-Type: text/html; charset='.PHPWCMS_CHARSET);
     <meta name="robots" content="noindex, nofollow">
 <?php
 
-$BE['HEADER']['alias_slah_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
+$BE['HEADER']['alias_slash_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
 
 initMootools();
 
