@@ -457,7 +457,18 @@ if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
 }
 // Check if curret level is forced for SSL
 if(!PHPWCMS_SSL && (!empty($phpwcms['site_ssl_mode']) || !empty($content['struct'][ $content["cat_id"] ]['acat_ssl']))) {
-	headerRedirect($phpwcms['site_ssl_url'] . (PHPWCMS_REWRITE ? '' : 'index.php') . returnGlobalGET_QueryString('rawurlencode'), 301);
+    if(!empty($GLOBALS['_getVar']) && count($GLOBALS['_getVar'])) {
+        $query_string = returnGlobalGET_QueryString('rawurlencode');
+        if($query_string === '?') {
+            $query_string = '';
+        }
+    } else {
+        $query_string = '';
+    }
+    if($query_string && !PHPWCMS_REWRITE) {
+        $query_string = 'index.php' . $query_string;
+    }
+	headerRedirect($phpwcms['site_ssl_url'] . $query_string, 301);
 }
 
 //try to find current tree depth
