@@ -247,7 +247,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['reserved_alias'] = array(); // use this to block custom alias\n";
     $conf_file .= "\$phpwcms['canonical_off'] = false; // disable canonical link tag\n";
     $conf_file .= "\$phpwcms['viewport'] = ''; // set viewport like \"width=device-width, initial-scale=1.0, user-scalable=no\"\n";
-    $conf_file .= "\$phpwcms['X-UA-Compatible'] = 'IE=Edge'; // set browser compatibility mode using meta tag X-UA-Compatible\n";
+    $conf_file .= "\$phpwcms['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...\n";
     $conf_file .= "\$phpwcms['base_href'] = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
     $conf_file .= "\$phpwcms['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
     $conf_file .= "\$phpwcms['js_in_body'] = 0; // add <script> direct before </body> instead inside of <head>\n";
