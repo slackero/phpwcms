@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2017, Oliver Georgi
+ * @copyright Copyright (c) 2002-2018, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -50,12 +50,14 @@ function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
         echo "timer = chat_reload(20000); function chat_reload(zeit) {";
         echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
         echo "return timer;\n} function restart_reload(timer) {";
-        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>\n";
+        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>";
     }
 }
 
 function forward_to($to, $link, $time=2500) { //Javascript forwarding
-    if($to) echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>\n";
+    if($to) {
+        echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>";
+    }
 }
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
@@ -99,15 +101,19 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
 
 function subnavback($text, $link, $h_before=0, $h_after=0) {
     $id = "subbackid".generic_string(5);
-    $sn  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
-    $sn .= (intval($h_before)) ? "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_before)."\" alt=\"\" /></td></tr>\n" : "";
+    $sn  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
+    if(intval($h_before)) {
+        $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"" . intval($h_before) . "\" alt=\"\" /></td></tr>";
+    }
     $sn .= "<tr>";
     $sn .= "<td><img name=\"".$id."\" src=\"img/subnav/subnav_back_0.gif\" width=\"9\" height=\"9\" border=\"0\" alt=\"\" /></td>";
     $sn .= "<td class=\"subnavinactive\">&nbsp;<a href=\"".$link."\" onMouseOver=\"".$id.".src='img/subnav/subnav_back_1.gif'\" ";
     $sn .= "onMouseOut=\"".$id.".src='img/subnav/subnav_back_0.gif'\"><strong>".$text."</strong></a></td>";
-    $sn .= "</tr>\n";
-    $sn .= (intval($h_after)) ? "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_after)."\" alt=\"\" /></td></tr>\n" : "";
-    $sn .= "</table>\n";
+    $sn .= "</tr>";
+    if(intval($h_after)) {
+        $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_after)."\" alt=\"\" /></td></tr>";
+    };
+    $sn .= "</table>";
     echo $sn;
 }
 
@@ -455,7 +461,6 @@ function createOptionTransferSelectList($id='', $leftData, $rightData, $option =
     $table .= ' '.$option_object.'.saveNewLeftOptions("'.$id_left.'");'.LF;
     $table .= ' '.$option_object.'.saveNewRightOptions("'.$id_right.'");'.LF;
     $table .= ' '.$option_object.'.init('.$option['formname'].');'.LF;
-
     $table .= LF.SCRIPT_CDATA_END.LF;
     $table .= '</script>'.LF;
 

@@ -333,7 +333,7 @@ function tt_Browser()
 {
 	var n, nv, n6, w3c;
 
-	n = navigator.userAgent.toLowerCase(),
+	n = navigator.userAgent.toLowerCase();
 	nv = navigator.appVersion;
 	tt_op = (document.defaultView && typeof(eval("w" + "indow" + "." + "o" + "p" + "er" + "a")) != tt_u);
 	tt_ie = n.indexOf("msie") != -1 && document.all && !tt_op;

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2017, Oliver Georgi
+ * @copyright Copyright (c) 2002-2018, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -120,7 +120,7 @@ $phpwcms['reserved_alias']      = array(); // use this to block custom alias
 $phpwcms['enable_deprecated']   = false; // enable/disable deprecated functionality, enable if you miss things
 $phpwcms['canonical_off']       = false; // disable canonical link tag
 $phpwcms['viewport']            = ''; // set viewport like "width=device-width, initial-scale=1.0, user-scalable=no"
-$phpwcms['X-UA-Compatible']     = 'IE=Edge'; // set browser compatibility mode using meta tag X-UA-Compatible
+$phpwcms['X-UA-Compatible']     = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...
 $phpwcms['base_href']           = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $phpwcms['cp_default']          = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
 $phpwcms['js_in_body']          = 0; // add <script> direct before </body> instead inside of <head>
@@ -140,6 +140,7 @@ $phpwcms['parse_html_mode']     = 'before'; // when to parse html: [null|before,
 $phpwcms['trash_delete_files']  = false; // set to true if files should be deleted if trash is emptied
 $phpwcms['cmsimage_settings']   = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only: array('500x500x0', 'default'=>'1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
 $phpwcms['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
+$phpwcms['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']     = 'info@localhost'; // reply/from email address

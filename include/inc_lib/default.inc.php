@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2017, Oliver Georgi
+ * @copyright Copyright (c) 2002-2018, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -146,7 +146,7 @@ if(empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', false);
     define('PHPWCMS_RESIZE_IMAGE', 'img/cmsimage.php');
 } else {
-    define('PHPWCMS_REWRITE', false);
+    define('PHPWCMS_REWRITE', true);
     define('PHPWCMS_RESIZE_IMAGE', 'im');
 }
 define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
@@ -646,6 +646,12 @@ function buildGlobalGET($return = '') {
         $GLOBALS['_getVar'][session_name()],
         $GLOBALS['_getVar']['']
     );
+
+    if(!empty($GLOBALS['phpwcms']['unregister_getVar']) && is_array($GLOBALS['phpwcms']['unregister_getVar'])) {
+        foreach($GLOBALS['phpwcms']['unregister_getVar'] as $key) {
+            unset($GLOBALS['_getVar'][$key]);
+        }
+    }
 
     $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
     $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];

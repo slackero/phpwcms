@@ -67,7 +67,7 @@ class phpwcmsCalendar {
     /**
      * Initialize class
      */
-    function phpwcmsCalendar() {
+    function __construct() {
 
         // current
         $this->current_date     = getdate();

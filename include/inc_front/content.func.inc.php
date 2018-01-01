@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2017, Oliver Georgi
+ * @copyright Copyright (c) 2002-2018, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -457,7 +457,18 @@ if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
 }
 // Check if curret level is forced for SSL
 if(!PHPWCMS_SSL && (!empty($phpwcms['site_ssl_mode']) || !empty($content['struct'][ $content["cat_id"] ]['acat_ssl']))) {
-	headerRedirect($phpwcms['site_ssl_url'] . (count($_getVar) ? rel_url() : ''), 301);
+    if(!empty($GLOBALS['_getVar']) && count($GLOBALS['_getVar'])) {
+        $query_string = returnGlobalGET_QueryString('rawurlencode');
+        if($query_string === '?') {
+            $query_string = '';
+        }
+    } else {
+        $query_string = '';
+    }
+    if($query_string && !PHPWCMS_REWRITE) {
+        $query_string = 'index.php' . $query_string;
+    }
+	headerRedirect($phpwcms['site_ssl_url'] . $query_string, 301);
 }
 
 //try to find current tree depth
@@ -1437,15 +1448,14 @@ if(!empty($block['tracking_ga']['enable'])) {
 
     $template_default['settings']['tracking']['ga_default'] = array(
         'position' => 'head',
-        'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', '%s', 'auto'%s);
-    ga('send', 'pageview');
+        'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE." src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
+  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '%1\$s'%2\$s);
   </script>",
-       'anonymize' => ', {anonymizeIp: true}',
+       'anonymize' => ", {'anonymize_ip': true}",
        'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
     var gaOptOutCookie = 'ga-disable-%s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
