@@ -67,13 +67,7 @@ if(isset($_POST["newsletter_id"])) {
     if(!empty($_POST['newsletter_subscription']) && count($_POST['newsletter_subscription'])) {
         foreach($_POST['newsletter_subscription'] as $value) {
             $value = intval($value);
-            if($value) {
-                $newsletter['newsletter_vars']['subscription'][$value] = intval($value);
-            } else {
-                unset($newsletter['newsletter_vars']['subscription']);
-                $newsletter['newsletter_vars']['subscription'][0] = 0;
-                break;
-            }
+            $newsletter['newsletter_vars']['subscription'][$value] = $value;
         }
     } else {
         $newsletter['newsletter_vars']['subscription'][0] = 0;
@@ -115,22 +109,30 @@ if(isset($_POST["newsletter_id"])) {
                     // check against "all"
                     if(empty($value['address_subscription'])) {
 
-                        $queue[] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
+                        $queue[$value['address_id']] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
 
                     } else {
 
-                        $value['address_subscription']      = unserialize($value['address_subscription']);
+                        $value['address_subscription'] = @unserialize($value['address_subscription']);
+
+                        if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
 
                         // run all
                         foreach($value['address_subscription'] as $subscr) {
 
-                            $subscr = intval($subscr);
-                            if(in_array($subscr, $newsletter['newsletter_vars']['subscription'])) {
+                                if(isset($newsletter['newsletter_vars']['subscription'][intval($subscr)])) {
 
-                                $queue[] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
+                                    $queue[$value['address_id']] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
 
                                 break;
                             }
+
+                        }
+
+                        // Fallback
+                        } else {
+
+                            $queue[$value['address_id']] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
 
                         }
 
@@ -156,7 +158,8 @@ if(isset($_POST["newsletter_id"])) {
                 _dbQuery($sql, 'UPDATE');
 
                 // now insert queue entries into db
-                $queue = array_chunk($queue, 2);
+                $queue = array_chunk($queue, 100, true);
+
                 foreach($queue as $value) {
 
                     $sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_newsletterqueue ';

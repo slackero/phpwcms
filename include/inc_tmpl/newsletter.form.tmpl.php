@@ -95,7 +95,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
 
         <tr>
-            <td><input name="newsletter_subscription[0]" id="nls0" type="checkbox" value="0" <?php if(isset($newsletter["newsletter_vars"]["subscription"][0]) && $newsletter["newsletter_vars"]["subscription"][0] == 0) echo ' checked="checked"'; ?> /></td>
+            <td><input name="newsletter_subscription[0]" id="nls0" type="checkbox" value="0" <?php if(isset($newsletter["newsletter_vars"]["subscription"][0]) && $newsletter["newsletter_vars"]["subscription"][0] === 0) echo ' checked="checked"'; ?> /></td>
             <td><label for="nls0"><?php echo $BL['be_newsletter_allsubscriptions']; ?></label></td>
         </tr>
 
@@ -116,10 +116,7 @@ if (!defined('PHPWCMS_ROOT')) {
                         value="<?php echo $row['subscription_id']; ?>"<?php
                             if(!empty($newsletter["newsletter_vars"]["subscription"]) && count($newsletter["newsletter_vars"]["subscription"])) {
                                 foreach($newsletter["newsletter_vars"]["subscription"] as $value) {
-                                    if($value == $row['subscription_id']): ?>
-                        checked="checked"<?php;
-                                        break;
-                                    endif;
+                                    if($value == $row['subscription_id']): ?> checked="checked"<?php; break; endif;
                                 }
                             }
                     ?> />
