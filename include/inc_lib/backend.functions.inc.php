@@ -477,14 +477,16 @@ function countNewsletterRecipients($target) {
             $counter++;
             continue;
         } elseif($check) {
-            $value['address_subscription'] = unserialize($value['address_subscription']);
-            if(is_array($value['address_subscription'])) {
+            $value['address_subscription'] = @unserialize($value['address_subscription']);
+            if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
                 foreach($value['address_subscription'] as $subscr) {
                     if(in_array(intval($subscr), $target)) {
                         $counter++;
                         break;
                     }
                 }
+            } else {
+                $counter++;
             }
         }
     }
