@@ -32,10 +32,15 @@ function i18n_get_language($complex=false) {
 	if($complex) {
 		$lang = explode(';', trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 2);
 		$lang = explode(',', $lang[0], 2);
-		$phpwcms['i18_lang'] = preg_replace('/[^a-z0-9\-_\.]/', '', strtolower(trim($lang[0])));
+		$phpwcms['i18_lang'] = trim($lang[0]);
 	} else {
-		$phpwcms['i18_lang'] = strtolower(substr( trim($_SERVER['HTTP_ACCEPT_LANGUAGE']) , 0, 2));
+		$phpwcms['i18_lang'] = substr(trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 0, 2);
 	}
+	if($phpwcms['i18_lang'] === '*') { // Any language
+    	$phpwcms['i18_lang'] = $phpwcms['default_lang'];
+    	return $phpwcms['i18_lang'];
+	}
+	$phpwcms['i18_lang'] = preg_replace('/[^a-z\-_]/', '', strtolower($phpwcms['i18_lang']));
 	if(empty($phpwcms['i18_lang'])) {
 		$phpwcms['i18_lang'] = $phpwcms['default_lang'];
 	}
