@@ -52,14 +52,14 @@ $content['files']           = array();
 $content['files_sql']       = array();
 
 // build file id query first
-foreach($crow["acontent_files"] as $fkey => $value) {
+foreach($crow["acontent_files"] as $fkey => $file_item) {
 
-    $value = intval($value);
+    $file_item = intval($file_item);
 
-    if($value) {
-        $content['files'][$fkey]['file_id'] = $value;
+    if($file_item) {
+        $content['files'][$fkey]['file_id'] = $file_item;
         $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : trim($crow["acontent_text"][$fkey]);
-        $content['files_sql'][$fkey] = $value;
+        $content['files_sql'][$fkey] = $file_item;
     }
 }
 
@@ -146,7 +146,7 @@ if($content['files_sql']) {
         $_files_entries = array();
         $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === FALSE ? false : true; // check if necessary to check for image type and sizes
 
-        foreach($content['files'] as $fkey => $value) {
+        foreach($content['files'] as $fkey => $file_item) {
 
             for($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
 
@@ -156,7 +156,7 @@ if($content['files_sql']) {
                 }
 
                 // compare query result against content part file IDs
-                if($content['files_result'][ $_files_x ]['f_id'] == $value['file_id'] && is_file($_file_current) ) {
+                if($content['files_result'][ $_files_x ]['f_id'] == $file_item['file_id'] && is_file($_file_current) ) {
 
                     // check if info for the file is available
                     // [0] = normal file description like before
@@ -167,9 +167,9 @@ if($content['files_sql']) {
                     // [5] = copyright information
                     // [6] = custom URL
 
-                    if($value['file_info']) {
+                    if($file_item['file_info']) {
 
-                        $_file_info = explode('|', $value['file_info']);
+                        $_file_info = explode('|', $file_item['file_info']);
 
                         $_file_info[0] = trim($_file_info[0]);
                         $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
