@@ -1,0 +1,45 @@
+#####################################################
+#
+#  CMSGO SQL Update
+#  
+#  08.06.2004
+#
+#####################################################
+
+#
+# Tabellenstruktur f�r Tabelle `cmsgo_fonts`
+#
+
+CREATE TABLE `cmsgo_fonts` (
+  `font_id` int(11) NOT NULL auto_increment,
+  `font_name` text NOT NULL,
+  `font_shortname` text NOT NULL,
+  `font_filename` text NOT NULL,
+  PRIMARY KEY  (`font_id`)
+);
+
+# --------------------------------------------------------
+
+#
+# Tabellenstruktur f�r Tabelle `cmsgo_fonts_colors`
+#
+
+CREATE TABLE `cmsgo_fonts_colors` (
+  `color_id` int(11) NOT NULL auto_increment,
+  `color_name` text NOT NULL,
+  `color_value` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`color_id`)
+);
+
+# --------------------------------------------------------
+
+#
+# Tabellenstruktur f�r Tabelle `cmsgo_fonts_styles`
+#
+
+CREATE TABLE `cmsgo_fonts_styles` (
+  `style_id` int(11) NOT NULL auto_increment,
+  `style_name` text NOT NULL,
+  `style_info` text NOT NULL,
+  PRIMARY KEY  (`style_id`)
+);

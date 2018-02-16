@@ -1,0 +1,168 @@
+<?php
+/**
+ * cmsGO!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ **/
+
+// ----------------------------------------------------------------
+// obligate check for cmsgo constants
+if (!defined('CMSGO_ROOT')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+//file list
+if(empty($content["file_descr"])) $content["file_descr"] = '';
+$content['file']['direct_download'] = empty($content['file']['direct_download']) ? 0 : 1;
+
+?>
+<div class="form-group align-items-center form-row">
+  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+  <div class="col-sm-4">
+    <select name="cfile_template" id="cfile_template" class="custom-select form-control form-control-sm">
+
+<?php
+
+echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+
+// templates for recipes
+$tmpllist = get_tmpl_files(CMSGO_TEMPLATE.'inc_cntpart/filelist');
+if(is_array($tmpllist) && count($tmpllist)) {
+    foreach($tmpllist as $val) {
+        if(isset($content['file_template']) && $val == $content['file_template']) {
+            $selected_val = ' selected="selected"';
+        } else {
+            $selected_val = '';
+        }
+        $val = htmlspecialchars($val);
+        echo '  <option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+    }
+}
+
+if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess') && ($content['file']['direct_download_deny'] = file_get_contents(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess'))) {
+    $content['file']['direct_download_deny'] = strtolower($content['file']['direct_download_deny']);
+    if(strpos($content['file']['direct_download_deny'], 'deny') !== false) {
+        $content['file']['direct_download_deny'] = true;
+    } else {
+        $content['file']['direct_download_deny'] = false;
+    }
+} else {
+    $content['file']['direct_download_deny'] = false;
+}
+?>
+      </select>
+   </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+	<label for="cimage_center" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_download'] ?></label>
+	<div class="col-sm-auto form-check form-check-inline">
+		<input class="form-check-input" name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
+					is_checked(1, $content['file']['direct_download']);
+					if($content['file']['direct_download_deny']) {
+							echo ' disabled="disabled"';
+					}
+			?> />
+		<label class="form-check-label" for="be_cnt_download_direct"><?php echo $BL['be_cnt_download_direct'] ?></label>
+	</div>
+	<div class="col form-check form-check-inline">
+		<?php
+			if($content['file']['direct_download_deny']) {
+					printf($BL['be_filedownload_direct_blocked'], CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess');
+			}
+		?>
+	</div>
+</div>
+
+<div class="form-group form-row">
+  <label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+    <div class="col">
+        <select name="cfile_list[]" size="8" multiple class="custom-select form-control form-control-sm" id="cfile_list">
+        <?php
+
+        if(isset($content["file_list"]) && is_array($content["file_list"]) && count($content["file_list"])) {
+            $fx  = 0;
+            $fxa = "";
+            $fxb = array();
+            foreach($content["file_list"] as $key => $value) {
+                if($fx) $fxa .= " OR ";
+                $fxa .= "f_id=".intval($value);
+                $fxb[$key]["fid"] = intval($value);
+                $fx++;
+            }
+            if($fx) {
+                $file_sql = "SELECT f_id, f_name FROM ".DB_PREPEND."cmsgo_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (".$fxa.")";
+                $file_result = _dbQuery($file_sql);
+                if(isset($file_result[0]['f_id'])) {
+                    foreach($file_result as $file_row) {
+                        foreach($fxb as $key => $value) {
+                            if($fxb[$key]["fid"] == $file_row['f_id']) {
+                                $fxb[$key]["fname"] = html($file_row['f_name']);
+                            }
+                        }
+                    }
+                }
+                foreach($fxb as $key => $value) {
+                    if(!empty($fxb[$key]["fname"])) {
+                        echo "<option value=\"".$fxb[$key]["fid"]."\">".$fxb[$key]["fname"]."</option>\n";
+                    }
+                }
+                unset($fxb, $content["file_list"]);
+            }
+        }
+
+        ?>
+        </select>
+    </div>
+      <div class="col-sm-auto">
+        <button class="modalButton btn btn-sm btn-blue mb-1" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
+        <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></button>
+      </div>
+  </div>
+
+<div class="form-group form-row mb-5">
+  <label for="cimage_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+  <div class="col">
+    <textarea name="cfile_descr" cols="40" rows="5" class="form-control form-control-sm" id="cfile_descr"><?php
+
+    if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
+        echo ' ';
+    }
+    echo html($content["file_descr"]);
+
+  ?></textarea>
+    <div class="caption pt-2">
+        <?php echo $BL['be_cnt_description']; ?>
+        |
+        <?php echo $BL['be_fprivedit_filename']; ?>
+        |
+        <?php echo $BL['be_caption_file_title']; ?>
+        |
+        <?php echo $BL['be_cnt_target']; ?>
+        |
+        <?php echo $BL['be_caption_file_imagesize']; ?>
+        |
+        <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+    </div>
+  </div>
+</div>
+
+<?php
+
+$wysiwyg_editor = array(
+    'value'     => isset($content["html"]) ? $content["html"] : '',
+    'field'     => 'chtml',
+    'height'    => '250px',
+    'width'     => '100%',
+    'rows'      => '15',
+    'editor'    => $_SESSION["WYSIWYG_EDITOR"],
+    'lang'      => 'en'
+);
+
+include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
+?>

@@ -1,0 +1,1366 @@
+<?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+
+// ----------------------------------------------------------------
+// obligate check for cmsgo constants
+if (!defined('CMSGO_INCLUDE_CHECK')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+@ini_set( 'arg_separator.output' , '&amp;' );
+
+if(!empty($cmsgo['php_timezone'])) {
+    @date_default_timezone_set($cmsgo['php_timezone']);
+}
+
+// i18n charsets that might be accessible - in general used in MySQL
+// but a few more as listed here http://www.w3.org/International/O-charset-list.html
+$cmsgo['charsets'] = array(
+    'iso-2022-kr',
+    'iso-2022-jp',
+    'iso-8859-1',
+    'iso-8859-2',
+    'iso-8859-3',
+    'iso-8859-4',
+    'iso-8859-5',
+    'iso-8859-6',
+    'iso-8859-7',
+    'iso-8859-8',
+    'iso-8859-8-i',
+    'iso-8859-9',
+    'iso-8859-10',
+    'iso-8859-11',
+    'iso-8859-12',
+    'iso-8859-13',
+    'iso-8859-14',
+    'iso-8859-15',
+    'iso-10646-ucs-2',
+    'windows-874',
+    'windows-1250',
+    'windows-1251',
+    'windows-1252',
+    'windows-1253',
+    'windows-1254',
+    'windows-1255',
+    'windows-1256',
+    'windows-1257',
+    'windows-1258',
+    'koi8-r',
+    'big5',
+    'gb2312',
+    'us-ascii',
+    'utf-16',
+    'utf-8',
+    'utf-7',
+    'x-user-defined',
+    'euc-cn',
+    'euc-jp',
+    'euc-kr',
+    'euc-tw',
+    'ks_c_5601-1987',
+    'tis-620',
+    'shift_jis',
+);
+
+define('CMSGO_CHARSET',  empty($cmsgo["charset"]) ? 'utf-8' : strtolower($cmsgo["charset"]));
+
+if(!empty($cmsgo['php_charset'])) {
+    @ini_set('default_charset', CMSGO_CHARSET);
+    @ini_set('iconv.input_encoding', CMSGO_CHARSET);
+    @ini_set('iconv.internal_encoding', CMSGO_CHARSET);
+    @ini_set('iconv.output_encoding', CMSGO_CHARSET);
+    @ini_set('mbstring.internal_encoding', CMSGO_CHARSET);
+    @ini_set('mbstring.http_output', CMSGO_CHARSET);
+}
+
+if(defined('CUSTOM_CONTENT_TYPE')) {
+
+    header(CUSTOM_CONTENT_TYPE);
+
+} else {
+
+    header('Content-Type: text/html; charset='.CMSGO_CHARSET);
+    $_use_content_type = 'text/html';
+
+}
+
+if($cmsgo["site"] === '') {
+    $cmsgo["site"] = get_url_origin(true);
+} else {
+    $cmsgo["site"] = rtrim($cmsgo["site"], '/');
+}
+if(empty($cmsgo['site_ssl_url'])) {
+    $cmsgo['site_ssl_url'] = $cmsgo["site"];
+} else {
+    $cmsgo["site_ssl_url"] = rtrim($cmsgo["site_ssl_url"], '/');
+}
+if(substr($cmsgo['site_ssl_url'], 0, 5) == 'http:') {
+    $cmsgo['site_ssl_url'] = 'https' . substr($cmsgo['site_ssl_url'], 4);
+}
+$cmsgo['site_ssl_port'] = abs(intval($cmsgo['site_ssl_port']));
+if($cmsgo['site_ssl_port'] !== 443) {
+    $cmsgo['site_ssl_url'] .= ':' . $cmsgo['site_ssl_port'];
+}
+
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+    if(substr($cmsgo['site'], 0, 5) == 'http:') {
+        $cmsgo['site'] = $cmsgo['site_ssl_url'];
+    }
+    define('CMSGO_SSL', true);
+    define('CMSGO_HTTP_SCHEMA', 'https');
+} else {
+    define('CMSGO_SSL', false);
+    define('CMSGO_HTTP_SCHEMA', 'http');
+}
+
+$cmsgo["site"] .= '/';
+$cmsgo['site_ssl_url'] .= '/';
+
+// define the real path of this cmsgo installation
+// important for the script to know the real path
+$cmsgo['DOC_ROOT'] = rtrim( str_replace("\\", '/', $cmsgo['DOC_ROOT']), '/' );
+if( empty($cmsgo["root"]) ) {
+    $cmsgo["root"] = '';
+    $cmsgo["host_root"] = '';
+} else {
+    $cmsgo["root"] = trim( $cmsgo["root"], '/' );
+    $cmsgo["host_root"] = '/'.$cmsgo["root"];
+    $cmsgo['DOC_ROOT'] .=  '/' . $cmsgo["root"];
+    $cmsgo["root"] .=  '/';
+}
+
+define('CMSGO_ROOT', $cmsgo['DOC_ROOT']);
+define('CMSGO_FILES', $cmsgo["file_path"] . '/');
+define('CMSGO_BASEPATH', '/' . $cmsgo["root"]);
+define('CMSGO_USER_KEY', md5(getRemoteIP().$cmsgo['DOC_ROOT'].$cmsgo['db_pass']));
+if(empty($cmsgo['rewrite_url'])) {
+    define('CMSGO_REWRITE', false);
+    define('CMSGO_RESIZE_IMAGE', 'img/cmsimage.php');
+} else {
+    define('CMSGO_REWRITE', true);
+    define('CMSGO_RESIZE_IMAGE', 'im/');
+}
+define('CMSGO_REWRITE_EXT', isset($cmsgo['rewrite_ext']) ? $cmsgo['rewrite_ext'] : '.html');
+define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
+define('CMSGO_ALIAS_WSLASH', empty($cmsgo['alias_allow_slash']) ? false : true);
+define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
+define('IS_PHP5', IS_PHP523);
+define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
+
+// Mime-Type definitions
+require_once CMSGO_ROOT.'/include/inc_lib/mimetype.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/revision/revision.php';
+
+cmsgo_getUserAgent();
+define('BROWSER_NAME', $cmsgo['USER_AGENT']['agent']);
+define('BROWSER_NUMBER', $cmsgo['USER_AGENT']['version']);
+define('BROWSER_OS', $cmsgo['USER_AGENT']['platform']);
+define('BROWSER_MOBILE', $cmsgo['USER_AGENT']['mobile']);
+
+$cmsgo["file_path"] =   '/'.$cmsgo["file_path"].'/' ;  // "/cmsgo_filestorage/"
+
+define('TEMPLATE_PATH', $cmsgo["templates"].'/');
+$cmsgo["templates"] = '/'.$cmsgo["templates"].'/' ;  // "/cmsgo_template/"
+$cmsgo["content_path"] = $cmsgo["content_path"].'/'  ;  // "content/"
+define('CONTENT_PATH', $cmsgo["content_path"]);
+$cmsgo["cimage_path"] = $cmsgo["cimage_path"].'/'   ;  // "images/"
+$cmsgo["ftp_path"] = '/'.$cmsgo["ftp_path"].'/'  ;  // "/cmsgo_ftp/"
+
+define('CMSGO_TEMPLATE', CMSGO_ROOT.$cmsgo["templates"]);
+define('CMSGO_URL', $cmsgo["site"].$cmsgo["root"]);
+$cmsgo['parse_url'] = parse_url(CMSGO_URL);
+
+define('CMSGO_HOST', $cmsgo['parse_url']['host'].$cmsgo["host_root"]);
+define('CMSGO_IMAGES', $cmsgo["content_path"].$cmsgo["cimage_path"]);
+define('CMSGO_TEMP', CMSGO_ROOT.'/'.$cmsgo["content_path"].'tmp/');
+define('CMSGO_CONTENT', CMSGO_ROOT.'/'.$cmsgo["content_path"]);
+define('CMSGO_THUMB', CMSGO_CONTENT.$cmsgo["cimage_path"]);
+define('CMSGO_RSS', CMSGO_CONTENT.'rss');
+define('CMSGO_STORAGE', CMSGO_ROOT.$cmsgo["file_path"]);
+define('LF', "\n");  //global new line Feed
+define('FEUSER_REGKEY', empty($cmsgo['feuser_regkey']) ? 'FEUSER' : $cmsgo['feuser_regkey']);
+define('RESPONSIVE_MODE', empty($cmsgo['responsive']) ? false : true);
+define('CMSGO_IMAGE_WIDTH', $cmsgo['img_prev_width']);
+define('CMSGO_IMAGE_HEIGHT', $cmsgo['img_prev_height']);
+
+if(function_exists('mb_substr')) {
+    define('MB_SAFE', true); //mbstring safe - better to do a check here
+} else {
+    define('MB_SAFE', false);
+
+    function mb_substr($str='', $start=0, $length=NULL, $encoding='') {
+        if($length !== NULL) {
+            if(cmsgo_seems_utf8($str)) {
+                return utf8_encode(substr(utf8_decode($str), $start, $length));
+            } else {
+                return substr($str, $start, $length);
+            }
+        } else {
+            if(cmsgo_seems_utf8($str)) {
+                return utf8_encode(substr(utf8_decode($str), $start));
+            } else {
+                return substr($str, $start);
+            }
+        }
+    }
+    function mb_strlen($str='', $encoding='') {
+        return strlen(cmsgo_seems_utf8($str) ? utf8_decode($str) : $str);
+    }
+
+    // fallback for mb_convert_encoding()
+    function mb_convert_encoding($string='', $out_charset='utf-8', $in_charset='utf-8') {
+        if(strtolower($in_charset) == 'utf-16be') {
+            $in_charset = 'utf-8';
+        }
+        if(strtolower($out_charset) == 'utf-16be') {
+            $out_charset = 'utf-8';
+        }
+        return makeCharsetConversion($string, $in_charset, $out_charset);
+    }
+}
+
+$cmsgo['modules']             = array();
+$cmsgo['modules_fe_render']   = array();
+$cmsgo['modules_fe_init']     = array();
+
+// 2011-12-27
+// Changed Image Manipulation class to CodeIgniter based class
+// which supports GD, GD2, ImageMagick and NetPBM
+if(isset($cmsgo['image_library'])) {
+
+    $cmsgo['image_library']   = strtolower($cmsgo['image_library']);
+    $cmsgo['library_path']    = empty($cmsgo['library_path']) ? '' : $cmsgo['library_path'];
+
+    if(!in_array($cmsgo['image_library'], array('gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'))) {
+        $cmsgo['image_library'] = 'gd2';
+    }
+
+// Fallback to old setting
+} else {
+
+    $cmsgo['image_library']   = empty($cmsgo["imagick"]) ? 'gd2' : 'imagemagick';
+    $cmsgo['library_path']    = empty($cmsgo["imagick_path"]) ? '' : str_replace('//', '/', str_replace("\\", '/', $cmsgo["imagick_path"].'/') );
+
+    unset($cmsgo["imagick_path"], $cmsgo["imagick"]);
+
+}
+
+// Set default colorspace in General RGB or sRGB
+if(empty($cmsgo['im_fix_colorspace'])) {
+    $cmsgo['im_fix_colorspace'] = 'RGB';
+}
+$cmsgo['colorspace'] = $cmsgo['im_fix_colorspace'];
+
+if(empty($cmsgo['SMTP_MAILER'])) {
+    $cmsgo['SMTP_MAILER'] = 'mail';
+}
+if(empty($cmsgo['SMTP_FROM_EMAIL'])) {
+    $cmsgo['SMTP_FROM_EMAIL'] = $cmsgo["admin_email"];
+}
+
+$cmsgo['default_lang']    = strtolower($cmsgo['default_lang']);
+$cmsgo['DOCTYPE_LANG']    = empty($cmsgo['DOCTYPE_LANG']) ? $cmsgo['default_lang'] : strtolower(trim($cmsgo['DOCTYPE_LANG']));
+
+$cmsgo['js_lib_default'] = array(
+    'jquery-3.2'            => 'jQuery 3.2.1',
+    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.0.0',
+    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.0.0',
+    'jquery-3.1'            => 'jQuery 3.1.1',
+    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.0.0',
+    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.0.0',
+    'jquery-3.0'            => 'jQuery 3.1.0',
+    'jquery-3.0-migrate'    => 'jQuery 3.1.0 + Migrate 3.0.0',
+    'jquery-3.0-migrate-1'  => 'jQuery 3.1.0 + Migrate 1.4.1 + 3.0.0',
+    'jquery-2.2'            => 'jQuery 2.2.4',
+    'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
+    'jquery-1.12'           => 'jQuery 1.12.4',
+    'jquery-1.12-migrate'   => 'jQuery 1.12.4 + Migrate 1.4.1',
+    'jquery-2.1'            => 'jQuery 2.1.4',
+    'jquery-2.1-migrate'    => 'jQuery 2.1.4 + Migrate 1.2.1',
+    'jquery-1.11'           => 'jQuery 1.11.3',
+    'jquery-1.11-migrate'   => 'jQuery 1.11.3 + Migrate 1.2.1',
+    'jquery-2.0'            => 'jQuery 2.0.3',
+    'jquery-2.0-migrate'    => 'jQuery 2.0.3 + Migrate 1.2.1',
+    'jquery-1.10'           => 'jQuery 1.10.2',
+    'jquery-1.10-migrate'   => 'jQuery 1.10.2 + Migrate 1.2.1',
+    'jquery-1.9'            => 'jQuery 1.9.1',
+    'jquery-1.9-migrate'    => 'jQuery 1.9.1 + Migrate 1.2.1',
+    'jquery-1.8'            => 'jQuery 1.8.3',
+    'jquery-1.7'            => 'jQuery 1.7.2',
+    'jquery-1.6'            => 'jQuery 1.6.4',
+);
+$cmsgo['js_lib_deprecated'] = array(
+    'jquery-1.5'            => 'jQuery 1.5.2',
+    'jquery-1.4'            => 'jQuery 1.4.4',
+    'jquery'                => 'jQuery 1.3.2',
+);
+
+if(isset($cmsgo['js_lib'])) {
+    $cmsgo['js_lib'] = array_merge($cmsgo['js_lib_default'], $cmsgo['js_lib']);
+} else {
+    $cmsgo['js_lib'] = $cmsgo['js_lib_default'];
+}
+if(!empty($cmsgo['enable_deprecated'])) {
+    $cmsgo['js_lib'] = array_merge($cmsgo['js_lib'], $cmsgo['js_lib_deprecated']);
+}
+
+$cmsgo['default_template_classes'] = array(
+    'link-top'                      => 'link-top',
+    'link-internal'                 => 'link-internal',
+    'link-external'                 => 'link-external',
+    'link-rss'                      => 'link-rss',
+    'link-back'                     => 'link-back',
+    'link-anchor'                   => 'link-anchor',
+    'link-email'                    => 'link-email',
+    'link-bookmark'                 => 'link-bookmark',
+    'spaceholder'                   => 'spaceholder',
+    'spaceholder-cp-after'          => 'spaceAfterCP',
+    'spaceholder-cp-before'         => 'spaceBeforeCP',
+    'img-list-right'                => 'img-list-right',
+    'search-nextprev'               => 'search-nextprev',
+    'search-result'                 => 'search-result',
+    'search-result-item'            => 'search-result-item',
+    'article-list-paginate'         => 'article-list-paginate',
+    'tab-container'                 => 'tab-container',
+    'tab-navigation'                => 'tab-navigation',
+    'tab-first'                     => 'tab-first',
+    'tab-last'                      => 'tab-last',
+    'tab-content'                   => 'tab-content',
+    'tab-content-item'              => 'tab-content-item',
+    'tab-container-clear'           => '', //tab-container-clear
+    'tab-item'                      => 'tab-item',
+    'navlist-sub_ul_true'           => 'sub_ul_true',
+    'navlist-sub_ul'                => 'sub_ul',
+    'navlist-sub_no'                => 'sub_no',
+    'navlist-sub_first'             => 'sub_first',
+    'navlist-sub_last'              => 'sub_last',
+    'navlist-sub_parent'            => 'sub_parent',
+    'navlist-asub_no'               => 'asub_no',
+    'navlist-asub_first'            => 'asub_first',
+    'navlist-asub_last'             => 'asub_last',
+    'navlist-navLevel'              => 'navLevel-',
+    'navlist-bs-dropdown'           => 'dropdown',
+    'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
+    'breadcrumb-active'             => 'active',
+    'cp-anchor'                     => 'anchor-cp',
+    'jump-anchor'                   => 'anchor-article',
+    'image-thumb'                   => 'image-thumb',
+    'image-center-center'           => 'image-center-center',
+    'image-center-horizontal'       => 'image-center-horizontal',
+    'image-center-vertical'         => 'image-center-vertical',
+    'image-article-summary'         => 'image-article-summary',
+    'image-article-list'            => 'image-article-list',
+    'image-wrapper'                 => 'image-wrapper',
+    'image-link'                    => 'image-link',
+    'image-zoom'                    => 'image-zoom',
+    'image-lightbox'                => 'image-lightbox',
+    'imgtxt-top-left'               => 'imgtxt-top-left',
+    'imgtxt-top-center'             => 'imgtxt-top-center',
+    'imgtxt-top-right'              => 'imgtxt-top-right',
+    'imgtxt-bottom-left'            => 'imgtxt-bottom-left',
+    'imgtxt-bottom-center'          => 'imgtxt-bottom-center',
+    'imgtxt-bottom-right'           => 'imgtxt-bottom-right',
+    'imgtxt-left'                   => 'imgtxt-left',
+    'imgtxt-right'                  => 'imgtxt-right',
+    'imgtxt-column-left'            => 'imgtxt-column-left',
+    'imgtxt-column-right'           => 'imgtxt-column-right',
+    'imgtxt-column-left-image'      => 'imgtxt-column-left-image',
+    'imgtxt-column-right-image'     => 'imgtxt-column-right-image',
+    'imgtxt-column-left-text'       => 'imgtxt-column-left-text',
+    'imgtxt-column-right-text'      => 'imgtxt-column-right-text',
+    'copyright'                     => 'copyright',
+    'image-list-table'              => 'image-list-table-',
+    'link-article-listing'          => 'article-listing',
+    'link-print'                    => 'print',
+    'link-print-pdf'                => 'print-pdf',
+    'imgtable-top-left'             => 'imgtable-top-left',
+    'imgtable-top-center'           => 'imgtable-top-center',
+    'imgtable-top-right'            => 'imgtable-top-right',
+    'imgtable-bottom-left'          => 'imgtable-bottom-left',
+    'imgtable-bottom-center'        => 'imgtable-bottom-center',
+    'imgtable-bottom-right'         => 'imgtable-bottom-right',
+    'imgtable-left'                 => 'imgtable-left',
+    'imgtable-right'                => 'imgtable-right',
+    'cpgroup-container'             => 'cpgroup-container',
+    'cpgroup-title'                 => 'cpgroup-title',
+    'cpgroup-first'                 => 'cpgroup-first',
+    'cpgroup-last'                  => 'cpgroup-last',
+    'cpgroup'                       => 'cpgroup',
+    'cpgroup-container-clear'       => '', //cpgroup-container-clear
+    'cpgroup-content'               => 'cpgroup-content',
+    'shop-category-menu'            => 'shop-categories',
+    'shop-products-menu'            => 'shop-products',
+    'cp-paginate-link'              => 'paginate-link',
+    'cp-paginate-link-active'       => 'paginate-link active',
+    'newsletter-table'              => 'table table-newsletter',
+    'newsletter-table-subscription' => 'table table-subscriptions',
+    'newsletter-input-email'        => 'form-control',
+    'newsletter-input-name'         => 'form-control',
+    'newsletter-checkbox-item'      => 'form-row-checkbox',
+    'newsletter-submit-button'      => 'btn btn-primary',
+);
+
+$cmsgo['search_highlight'] = array(
+    'prefix' => '<em class="highlight">',
+    'suffix' => '</em>',
+);
+
+$cmsgo['default_template_attributes'] = array(
+    'navlist-bs-dropdown-data'  => 'data-toggle="dropdown"',
+    'navlist-bs-dropdown-caret' => ' <mark class="caret"></mark>',
+    'cpgroup'                   => 'data', // data = <span>, href = <a>
+    'cp-paginate' => array(
+        'link-prefix' => ' ',
+        'link-suffix' => ' ',
+        'value-prefix' => '',
+        'value-suffix' => ''
+    ),
+    'data-gallery' => 'gallery',
+);
+
+if(empty($cmsgo['allowed_upload_ext'])) {
+    $cmsgo['allowed_upload_ext'] = array(
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'tif',
+        'tiff',
+        'bmp',
+        'pic',
+        'psd',
+        'eps',
+        'ai',
+        'svg',
+        'pdf',
+        'ps',
+        'doc',
+        'docx',
+        'xls',
+        'xlsx',
+        'ppt',
+        'pptx',
+        'odt',
+        'odm',
+        'odg',
+        'ods',
+        'odp',
+        'odf',
+        'odc',
+        'odb',
+        'sxw',
+        'sxc',
+        'sxi',
+        'csv',
+        'txt',
+        'rtf',
+        'html',
+        'xml',
+        'ini',
+        'sql',
+        'db',
+        'zip',
+        'rar',
+        '7z',
+        's7z',
+        'dmg',
+        'bz2',
+        'gz',
+        'tar',
+        'tgz',
+        'mkv',
+        'webm',
+        'vob',
+        'ogg',
+        'ogv',
+        'oga',
+        'mov',
+        'qt',
+        'wmv',
+        'wav',
+        'aif',
+        'aac',
+        'mp3',
+        'mpg',
+        'mpeg',
+        'mp4',
+        'm4p',
+        'm4a',
+        'm4v',
+        'flv',
+        'f4v',
+        'f4p',
+        'f4a',
+        'f4b',
+    );
+}
+
+/**
+ * HTML Mode and document type
+ */
+if(empty($cmsgo['mode_XHTML'])) {
+
+    $cmsgo['mode_XHTML'] = 0;
+
+    define('CMSGO_DOCTYPE', '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF.'%s<html%s%s>%s'.LF.'<head>%s%s');
+    define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
+    define('SCRIPT_CDATA_START', '  <!-- ');
+    define('SCRIPT_CDATA_END'  , '  -->');
+    define('HTML_TAG_CLOSE'  , '>');
+    define('XHTML_MODE', false);
+    define('CMSGO_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
+    define('HTML5_MODE', false);
+
+} elseif($cmsgo['mode_XHTML'] == 2) {
+
+    define('CMSGO_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s%s');
+    define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
+    define('SCRIPT_CDATA_START', '  /* <![CDATA[ */');
+    define('SCRIPT_CDATA_END'  , '  /* ]]> */');
+    define('HTML_TAG_CLOSE'  , ' />');
+    define('XHTML_MODE', true);
+    define('CMSGO_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
+    define('HTML5_MODE', false);
+
+} elseif($cmsgo['mode_XHTML'] == 3) {
+
+    define('CMSGO_DOCTYPE', '<!DOCTYPE html>'.LF.'%s<html%s%s>%s'.LF.'<head>%s%s');
+    define('SCRIPT_ATTRIBUTE_TYPE', '');
+    define('SCRIPT_CDATA_START', '');
+    define('SCRIPT_CDATA_END'  , '');
+    define('HTML_TAG_CLOSE'  , '>');
+    define('XHTML_MODE', true);
+    define('CMSGO_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
+    define('HTML5_MODE', true);
+
+} else {
+
+    $cmsgo['mode_XHTML'] = 1;
+
+    define('CMSGO_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'.LF.'%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s'.LF.'<head>%s%s');
+    define('SCRIPT_ATTRIBUTE_TYPE', ' type="text/javascript"');
+    define('SCRIPT_CDATA_START', '  <!-- ');
+    define('SCRIPT_CDATA_END'  , '  -->');
+    define('HTML_TAG_CLOSE'  , ' />');
+    define('XHTML_MODE', true);
+    define('CMSGO_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
+    define('HTML5_MODE', false);
+
+}
+
+$cmsgo['htmlhead_inject_prefix']  = '';
+$cmsgo['htmlhead_inject_suffix']  = '';
+$cmsgo['htmlhead_inject']         = '';
+
+define('CMSGO_HEADER_COMMENT', '
+  <!--%s
+        *****************************************************************************
+
+        Ihre Neugier hat sich gelohnt.
+
+        Auch hier wurde wieder ein Spitzenprodukt mit cmsGo! erstellt, dem
+        Redaktionssystem von pixels & points GmbH, CH-8302 Kloten.
+
+        Möchten Sie mehr über cmsGo! erfahren?
+        Zögern Sie nicht und lassen Sie sich von einer kompetenten und designstarken
+        Firma beraten. Wir würden uns über Ihren Anruf freuen: +41 43 500 33 55
+
+        http://www.pixels-points.ch
+
+        *****************************************************************************
+  -->
+');
+
+// Todo: Later remove these
+$cmsgo["release"] = CMSGO_VERSION;
+$cmsgo["release_date"] = CMSGO_RELEASE_DATE;
+$cmsgo["revision"] = CMSGO_REVISION;
+
+// We need a global var for callback functions, mainly dates
+$cmsgo['callback'] = null;
+
+// -------------------------------------------------------------
+
+function removeSessionName($str='') {
+    // is used to remove all &hashID=...
+    // not useful when when storing in cache
+    // because it stores unneccessary session IDs too
+    $sessName = session_name();
+    if($sessName) {
+        $str = preg_replace('/[&|\?]{0,1}'.$sessName.'=[a-zA-Z0-9]{1,}/', '', $str);
+    }
+    return $str;
+}
+
+function dumpVar($var, $commented=false) {
+    //just a simple funcction returning formatted print_r()
+    switch($commented) {
+        case 1:     echo "\n<!--\n";
+                    print_r($var);
+                    echo "\n//-->\n";
+                    return NULL;
+                    break;
+        case 2:     return '<pre>'.html(print_r($var, true)).'</pre>';
+                    break;
+        default:    echo '<pre>';
+                    echo html(print_r($var, true));
+                    echo '</pre>';
+                    return NULL;
+    }
+}
+
+function buildGlobalGET($return = '') {
+    // build internal array containing all GET values
+    // and remove session from this array
+    $GLOBALS['_getVar'] = array();
+
+    $_queryVal      = empty($_SERVER['QUERY_STRING']) ? array() : explode('&', remove_unsecure_rptags($_SERVER['QUERY_STRING']));
+    $_queryCount    = count($_queryVal);
+    $_getCount      = is_array($_GET) ? count($_GET) : 0;
+
+    if($_getCount && $_getCount >= $_queryCount) {
+
+        // solve the problem that dots inside alias can get lost using GET variable
+        if(!empty($_queryVal[0]) && strpos($_queryVal[0], '.') !== false) {
+            array_shift($_GET);
+            $_GET = array($_queryVal[0] => '') + $_GET;
+        }
+
+        $GLOBALS['_getVar'] = $_GET;
+
+    } elseif($_queryCount) {
+        foreach($_queryVal as $value) {
+            $key = explode('=', $value);
+            $val = empty($key[1]) ? '' : $key[1];
+            $key = $key[0];
+            $GLOBALS['_getVar'][$key] = $val;
+        }
+    }
+
+    reset($GLOBALS['_getVar']);
+    $_getVar_first = key($GLOBALS['_getVar']);
+
+    unset(
+        $_GET[session_name()],
+        $GLOBALS['_getVar'][$_getVar_first],
+        $GLOBALS['_getVar'][session_name()],
+        $GLOBALS['_getVar']['']
+    );
+    
+    if(!empty($GLOBALS['cmsgo']['unregister_getVar']) && is_array($GLOBALS['cmsgo']['unregister_getVar'])) {
+        foreach($GLOBALS['cmsgo']['unregister_getVar'] as $key) {
+            unset($GLOBALS['_getVar'][$key]);
+        }
+    }
+
+    $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
+    $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
+
+    if(get_magic_quotes_gpc()) {
+        foreach($GLOBALS['_getVar'] as $key => $value) {
+            $GLOBALS['_getVar'][$key] = stripslashes($value);
+        }
+    }
+
+    if($return === 'getQuery') {
+        return returnGlobalGET_QueryString('htmlentities');
+    }
+
+    return null;
+}
+
+// build cmsgo specific relative url
+function rel_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
+    $query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+    if(empty($query)) {
+        return CMSGO_URL;
+    }
+    $index = CMSGO_REWRITE ? '' : 'index.php';
+    return $index . $query;
+}
+// build cmsgo specific absolute url
+function abs_url($add=array(), $remove=array(), $id_alias='', $format='htmlspecialchars', $glue='&', $bind='=') {
+    $query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
+    $index = CMSGO_REWRITE ? '' : 'index.php';
+    return CMSGO_URL . $index . $query;
+}
+
+// build a URL query string based on current values
+function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), $id_alias='', $glue='&', $bind='=', $query_string_separator='?') {
+
+    $queryString = array();
+    if(empty($GLOBALS['_getVar']) || $remove === true) {
+        $remove=array(); // force URL without any get parameter
+        if($id_alias === '' && count($GLOBALS['_getVar'])) {
+            reset($GLOBALS['_getVar']);
+            $_getVarTemp = array( key($GLOBALS['_getVar']) => current($GLOBALS['_getVar']) );
+        } else {
+            $_getVarTemp = array();
+        }
+    } else {
+        $_getVarTemp = $GLOBALS['_getVar'];
+    }
+
+    // replace first value with $id_alias
+    if($id_alias !== '') {
+
+        $id_alias       = explode($bind, $id_alias, 2);
+        $id_alias[0]    = trim($id_alias[0]);
+
+        if($id_alias[0] !== '') {
+            $id_alias[1] = isset($id_alias[1]) ? trim($id_alias[1]) : '';
+            if(count($_getVarTemp)) {
+                array_shift($_getVarTemp);
+                $_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
+            } else {
+                $_getVarTemp = array($id_alias[0] => $id_alias[1]);
+            }
+        }
+    }
+
+    if(is_array($remove) && count($remove)) {
+        foreach($remove as $value) {
+            unset($_getVarTemp[$value]);
+        }
+    }
+
+    $pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
+
+    switch($format) {
+
+        case 'htmlentities':
+            $glue   = html_entities($glue);
+            $funct  = 'getQueryString_htmlentities';
+            break;
+
+        case 'htmlspecialchars':
+            $glue   = html($glue);
+            $funct  = 'getQueryString_htmlspecialchars';
+            break;
+
+        case 'urlencode':
+            $funct  = 'getQueryString_urlencode';
+            break;
+
+        case 'rawurlencode':
+            $funct  = 'getQueryString_rawurlencode';
+            break;
+
+        default:
+            $funct  = 'getQueryString_default';
+
+    }
+
+    if(count($pairs)) {
+
+        $c          = 0;
+        $rewrite    = '';
+
+        foreach($pairs as $key => $value) {
+
+            $c++;
+
+            if($c === 1 && CMSGO_REWRITE) {
+
+                $rewrite = $funct($key, $value, $bind) . CMSGO_REWRITE_EXT;
+
+                continue;
+            }
+
+            $queryString[] = $funct($key, $value, $bind);
+
+        }
+
+        $queryString = count($queryString) ? ( $query_string_separator . implode($glue, $queryString)) : '';
+
+        return $rewrite . $queryString;
+
+    }
+
+    return '';
+}
+
+function getQueryString_htmlentities($key='', $value='', $bind='=') {
+    if($value !== '') {
+        return html_entities(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
+    } elseif(CMSGO_ALIAS_WSLASH) {
+        return html_entities(str_replace('%2F', '/', urlencode($key)));
+    }
+    return html_entities(urlencode($key));
+}
+
+function getQueryString_htmlspecialchars($key='', $value='', $bind='=') {
+    if($value !== '') {
+        return html(urlencode($key).$bind.str_replace('%2C', ',', urlencode($value)));
+    } elseif(CMSGO_ALIAS_WSLASH) {
+        return html(str_replace('%2F', '/', urlencode($key)));
+    }
+    return html(urlencode($key));
+}
+
+function getQueryString_urlencode($key='', $value='', $bind='=') {
+    if($value !== '') {
+        return urlencode($key).$bind.urlencode($value);
+    } elseif(CMSGO_ALIAS_WSLASH) {
+        return str_replace('%2F', '/', urlencode($key));
+    }
+    return urlencode($key);
+}
+
+function getQueryString_rawurlencode($key='', $value='', $bind='=') {
+    if($value !== '') {
+        return rawurlencode($key).$bind.rawurlencode($value);
+    } elseif(CMSGO_ALIAS_WSLASH) {
+        return str_replace('%2F', '/', rawurlencode($key));
+    }
+    return rawurlencode($key);
+}
+
+function getQueryString_default($key='', $value='', $bind='=') {
+    if($value !== '') {
+        return $key.$bind.$value;
+    }
+    return $key;
+}
+
+function cleanupPOSTandGET() {
+    // remove possible unsecure PHP replacement tags in GET and POST vars
+    if(isset($_POST) && count($_POST)) {
+        foreach($_POST as $key => $value) {
+            if(!is_array($_POST[$key])) {
+                $_POST[$key] = remove_unsecure_rptags($value);
+            }
+        }
+    }
+    if(isset($_GET) && count($_GET)) {
+        foreach($_GET as $key => $value) {
+            $_GET[$key] = remove_unsecure_rptags($value);
+        }
+    }
+}
+
+function remove_unsecure_rptags($check) {
+    // remove special replacement tags for security reasons
+    // bc input fields can be used for code injection
+    $check = preg_replace(array('/\{PHP:(.*?)\}/i', '/\{PHPVAR:(.*?)\}/si', '/\[PHP\](.*?)\[\/PHP\]/si', '/\{URL:(.*?)\}/i'), '$1', $check);
+    return str_replace(array('[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'), array('[ PHP ]', '[ /PHP ]', '{ PHP :' , '{ PHPVAR :', '{ URL :'), $check);
+}
+
+/**
+ * Send HTTP Header
+ *
+ * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+ * @access public
+ * @param string $target (default: '')
+ * @param int $type (default: 0)
+ * @param bool $session_close (default: true)
+ * @return void
+ */
+function headerRedirect($target='', $type=0, $session_close=true) {
+    if($session_close && isset($_SESSION)) {
+        session_write_close();
+    }
+    switch($type) {
+        case 200: header('HTTP/1.1 200 OK'); break;
+        case 301: header('HTTP/1.1 301 Moved Permanently'); break;
+        case 302: header('HTTP/1.1 302 Found'); break;
+        case 307: header('HTTP/1.1 307 Temporary Redirect'); break;
+        case 401: header('HTTP/1.1 401 Authorization Required'); break;
+        case 404: header('HTTP/1.1 404 Not Found'); break;
+        case 503: header('HTTP/1.1 503 Service Unavailable'); break;
+    }
+    if($target !== '') {
+        header('Location: '.$target);
+        exit();
+    }
+}
+
+function _initSession() {
+    if(!session_id()) {
+        session_start();
+    }
+    if(empty($_SESSION['cmsgoSessionInit']) && function_exists("session_regenerate_id")) {
+        session_regenerate_id();
+        $_SESSION['cmsgoSessionInit'] = true;
+    }
+    return session_id();
+}
+
+function getRemoteIP() {
+    if(defined('REMOTE_IP')) {
+        return REMOTE_IP;
+    }
+    $IP = 'unknown';
+    if (!empty($_SERVER['HTTP_CLIENT_IP']) && strcasecmp($_SERVER['HTTP_CLIENT_IP'], 'unknown')) {
+        $IP = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], 'unknown')) {
+        $IP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } elseif (!empty($_SERVER['REMOTE_ADDR']) && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
+        $IP = $_SERVER['REMOTE_ADDR'];
+    }
+    define('REMOTE_IP', $IP);
+    return $IP;
+}
+
+// Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
+function cmsgo_getUserAgent($USER_AGENT='') {
+
+    if(empty($USER_AGENT)) {
+        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        $index      = 'USER_AGENT';
+    } else {
+        $index      = 'USER_AGENT_'.md5($USER_AGENT);
+    }
+
+    if(isset($GLOBALS['cmsgo'][$index])) {
+        return $GLOBALS['cmsgo'][$index];
+    }
+
+    if(empty($GLOBALS['cmsgo']['detect_pixelratio'])) {
+        $pixelratio = 1;
+    } elseif(isset($_COOKIE['cmsgo_pixelratio'])) {
+        $pixelratio = floatval($_COOKIE['cmsgo_pixelratio']);
+        if($pixelratio < 1 || $pixelratio > 3) {
+            $pixelratio = 1;
+        }
+    } else {
+        $pixelratio = 1;
+    }
+
+    if(empty($USER_AGENT)) {
+        return $GLOBALS['cmsgo'][$index] = array(
+            'agent'         => 'Other',
+            'version'       => 0,
+            'platform'      => 'Other',
+            'mobile'        => 0,
+            'device'        => 'Default',
+            'bot'           => 0,
+            'engine'        => 'Other',
+            'pixelratio'    => $pixelratio
+        );
+    }
+
+    $mobile     = 0;
+    $bot        = 0;
+    $device     = 'Other';
+    $ver        = 0;
+    $agent      = 'Other';
+    $platform   = 'Other';
+    $engine     = 'Other';
+
+    if(stripos($USER_AGENT,'Trident/7.0; rv:11.') !== false ) {
+        $ver    = 11;
+        $agent  = 'IE';
+        $engine = 'Trident';
+    } elseif(preg_match('#Edge\/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Edge';
+        $engine = 'EdgeHTML';
+    } elseif(preg_match('#MSIE ([0-9]+)(.*Opera ([0-9]+))?#', $USER_AGENT, $log_version)) {
+        if(isset($log_version[3])) {
+            $ver    = $log_version[3];
+            $agent  = 'Opera';
+            $engine = 'Opera';
+        } else {
+            $ver    = $log_version[1];
+            $agent  = 'IE';
+            $engine = 'IE';
+        }
+    } elseif(preg_match('#Mozilla.*Firefox\/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Firefox';
+        $engine = 'Gecko';
+    } elseif(preg_match('#OPR\/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Opera';
+        $engine = 'WebKit';
+    } elseif(preg_match('#Mozilla.*Chrome\/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Chrome';
+        $engine = 'WebKit';
+    } elseif(strstr($USER_AGENT, 'Safari') && preg_match('#Safari/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Safari';
+        $engine = 'WebKit';
+    } elseif(preg_match('#Mozilla/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Mozilla';
+        $engine = 'Gecko';
+    } elseif(preg_match('#Opera.* Version\/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Opera';
+        $engine = 'Opera';
+    } elseif(preg_match('#Opera[/ ]([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Opera';
+        $engine = 'Opera';
+    } elseif(strstr($USER_AGENT, 'Konqueror') && preg_match('#Konqueror/([0-9]+)#', $USER_AGENT, $log_version)) {
+        $ver    = $log_version[1];
+        $agent  = 'Konqueror';
+        $engine = 'KHTML';
+    }
+
+    $USER_AGENT = strtolower($USER_AGENT);
+
+    if(strpos($USER_AGENT, 'android') !== false) {
+        if($agent === 'Edge') {
+            $platform = 'Edge';
+        } else {
+            $platform = 'Android';
+            $engine = 'Webkit';
+        }
+        if(stripos($USER_AGENT, 'mobile') !== false) {
+            $mobile     = 1;
+            $device     = 'Smartphone';
+        } else {
+            $device     = 'Tablet';
+        }
+    } elseif(strpos($USER_AGENT, 'windows phone') !== false) {
+        $agent      = 'IEMobile';
+        $platform   = 'WinPhone';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+    } elseif(strpos($USER_AGENT, 'windows ce') !== false) {
+        $platform   = 'WinCE';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+    } elseif(strpos($USER_AGENT, 'win') !== false) {
+        $platform   = 'Win';
+        $device     = 'Desktop';
+    } elseif(strpos($USER_AGENT, 'iphone') !== false) {
+        $platform   = 'iOS';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+    } elseif(strpos($USER_AGENT, 'ipad') !== false) {
+        $platform   = 'iOS';
+        $device     = 'Tablet';
+    } elseif(strpos($USER_AGENT, 'ipod') !== false) {
+        $platform   = 'iOS';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+    } elseif(strpos($USER_AGENT, 'mac') !== false) {
+        $platform   = 'Mac';
+        $device     = 'Desktop';
+    } elseif(strpos($USER_AGENT, 'googletv') !== false) {
+        $platform   = 'GoogleTV';
+        $device     = 'TV';
+        $engine     = 'WebKit';
+    } elseif(strpos($USER_AGENT, 'rim tablet') !== false) {
+        $platform   = 'Blackberry';
+        $device     = 'Tablet';
+        $engine     = 'Webkit';
+    } elseif(strpos($USER_AGENT, 'blackberry') !== false) {
+        $platform   = 'Blackberry';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+        $engine     = 'Webkit';
+    } elseif(strpos($USER_AGENT, 'webos') !== false) {
+        $platform   = 'WebOS';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+        $engine     = 'Webkit';
+    } elseif(strpos($USER_AGENT, 'kindle') !== false) {
+        $platform   = 'Android';
+        $mobile     = 1;
+        $device     = 'Tablet';
+        $engine     = 'Webkit';
+    } elseif(strpos($USER_AGENT, 'silk') !== false) {
+        $platform   = 'Linux';
+        $device     = 'Tablet';
+        $engine     = 'Webkit';
+    } elseif(strpos($USER_AGENT, 'linux') !== false) {
+        $platform   = 'Linux';
+        if(strpos($USER_AGENT, 'x11')) {
+            $device     = 'Desktop';
+        }
+    } elseif(strpos($USER_AGENT, 'unix') !== false) {
+        $platform   = 'Unix';
+        if(strpos($USER_AGENT, 'x11')) {
+            $device     = 'Desktop';
+        }
+    } elseif(strpos($USER_AGENT, 'freebsd') !== false) {
+        $platform   = 'FreeBSD';
+        if(strpos($USER_AGENT, 'x11')) {
+            $device     = 'Desktop';
+        }
+    } elseif(strpos($USER_AGENT, 'symbian') !== false) {
+        $platform   = 'Symbian';
+        $mobile     = 1;
+        $device     = 'Smartphone';
+    } elseif($USER_AGENT) {
+
+        if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
+            $mobile = 1;
+        }
+
+        if(empty($GLOBALS['cmsgo']["BOTS"]) || !is_array($GLOBALS['cmsgo']["BOTS"])) {
+            $GLOBALS['cmsgo']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'baiduspider', 'yandex', 'sosospider', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+        }
+
+        if(preg_match('/('.implode('|', $GLOBALS['cmsgo']["BOTS"]).')/i', $USER_AGENT, $match_bot)) {
+            $agent  = $match_bot[1];
+            $bot    = 1;
+            $device = 'Bot';
+        }
+    }
+
+    return $GLOBALS['cmsgo'][$index] = array(
+        'agent'         => $agent,
+        'version'       => intval($ver),
+        'platform'      => $platform,
+        'mobile'        => $mobile,
+        'device'        => $device,
+        'bot'           => $bot,
+        'engine'        => $engine,
+        'pixelratio'    => $pixelratio
+    );
+}
+
+/**
+ * Return current UNIX timestamp
+ * Wrapper function that might be enhanced for regional time and so on
+ **/
+function now($format=NULL) {
+    return is_string($format) ? date($format) : time();
+}
+
+/**
+ * Log to db
+ *
+ * Default log types: DEBUG|INFO|ERROR|INFO or use specific module name
+ */
+function log_message($type='UNDEFINED', $message='', $userid=0) {
+
+    $log = array(
+            'log_created'       => date('Y-m-d H:i:s', now()),
+            'log_type'          => 'UNDEFINED',
+            'log_ip'            => getRemoteIP(),
+            'log_user_agent'    => '',
+            'log_user_id'       => 0,
+            'log_user_name'     => '',
+            'log_referrer_id'   => 0,
+            'log_referrer_url'  => '',
+            'log_data1'         => '',
+            'log_data2'         => '',
+            'log_data3'         => '',
+            'log_msg'           => ''
+        );
+
+    if(is_array($type)) {
+        foreach($type as $key => $value) {
+            if(isset($log[$key])) {
+                $log[$key] = $value;
+            }
+        }
+    } else {
+        $log['log_type']    = trim($type);
+        $log['log_user_id'] = intval($userid);
+        $log['log_msg']     = trim($message);
+    }
+
+    $log['log_type'] = strtoupper($log['log_type']);
+
+    if($log['log_user_agent'] == '') {
+        $log['log_user_agent'] = empty($_SERVER['HTTP_USER_AGENT']) ? implode( ', ', cmsgo_getUserAgent() ) : $_SERVER['HTTP_USER_AGENT'];
+    }
+    if(empty($log['log_referrer_url']) && isset($_SERVER['HTTP_REFERER'])) {
+        $log['log_referrer_url'] = $_SERVER['HTTP_REFERER'];
+    }
+
+    _dbInsert( 'cmsgo_log', $log, 'DELAYED' );
+
+}
+
+function destroyBackendSessionData() {
+    unset(
+        $_SESSION["wcs_user"],
+        $_SESSION["wcs_user_name"],
+        $_SESSION["wcs_user_id"],
+        $_SESSION["wcs_user_aktiv"],
+        $_SESSION["wcs_user_rechte"],
+        $_SESSION["wcs_user_email"],
+        $_SESSION["wcs_user_avatar"],
+        $_SESSION["structure"],
+        $_SESSION["klapp"],
+        $_SESSION["pklapp"],
+        $_SESSION["wcs_user_admin"],
+        $_SESSION["wcs_user_thumb"],
+        $_SESSION["wcs_user_cp"],
+        $_SESSION["wcs_allowed_cp"],
+        $_SESSION['cmsgo_version_check']
+    );
+}
+
+function checkLoginCount() {
+    $check = 0;
+    if(!empty($_SESSION["wcs_user"])) {
+        $sql  = "SELECT COUNT(*) FROM ".DB_PREPEND."cmsgo_userlog WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+        if(!empty($cmsgo['Login_IPcheck'])) {
+            $sql .= " AND logged_ip="._dbEscape(getRemoteIP());
+        }
+        $check = _dbCount($sql);
+
+        if($check) {
+            $sql  = "UPDATE ".DB_PREPEND."cmsgo_userlog SET logged_change=".time()." WHERE ";
+            $sql .= "logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+            _dbQuery($sql, 'UPDATE');
+        } else {
+            destroyBackendSessionData();
+        }
+    }
+    return $check;
+}
+
+// set VISIBLE_MODE
+// 0 = frontend (all) mode
+// 1 = article user mode
+// 2 = admin user mode
+function init_frontend_edit() {
+
+    if(empty($GLOBALS['cmsgo']['frontend_edit']) || empty($_SESSION["wcs_user_id"])) {
+        define('VISIBLE_MODE', 0);
+        define('FE_EDIT_LINK', false);
+        return true;
+    }
+    // Check Backend session
+    checkLoginCount();
+    if(empty($_SESSION["wcs_user_id"])) {
+        define('VISIBLE_MODE', 0);
+        define('FE_EDIT_LINK', false);
+    } else {
+        define('VISIBLE_MODE', $_SESSION['wcs_user_admin'] === 1 ? 2 : 1);
+        if(empty($GLOBALS['cmsgo']['frontend_edit'])) {
+            define('FE_EDIT_LINK', false);
+        } else {
+            define('FE_EDIT_LINK', get_token_get_string('csrftoken'));
+        }
+    }
+
+    return null;
+}
+
+if(IS_PHP523) {
+    function html($string, $double_encode=false) {
+        return htmlspecialchars($string, ENT_QUOTES, CMSGO_CHARSET, $double_encode);
+    }
+} else {
+    function html($string, $double_encode=false) {
+        return htmlspecialchars($string, ENT_QUOTES, CMSGO_CHARSET);
+    }
+}
+function html_entities($string='', $quote_mode=ENT_QUOTES, $charset=CMSGO_CHARSET) {
+    return htmlentities($string, $quote_mode, $charset);
+}
+function html_specialchars($string='', $quote_mode=ENT_QUOTES, $charset=CMSGO_CHARSET) {
+    //used to replace the htmlspecialchars original php function
+    //not compatible with many international chars like turkish, polish
+    $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $string ); //works correct for "&#8230;" and/or "&ndash;"
+    $string = str_replace( array('<', '>', '"', "'", "\\"), array('&lt;','&gt;', '&quot;', '&#039;', '&#92;'), $string);
+    return $string;
+}
+
+function getMicrotime() {
+    list($usec, $sec) = explode(' ', microtime());
+    return ((float)$usec + (float)$sec);
+}
+
+function getMicrotimeDiff($start=0) {
+    return (getMicrotime() - $start);
+}
+
+/**
+ * Return edit.php
+ */
+function get_login_file() {
+    if(defined('CMSGO_LOGIN_PHP')) {
+        return CMSGO_LOGIN_PHP;
+    }
+    global $cmsgo;
+    $login = empty($GLOBALS['cmsgo']['edit.php']) ? 'edit.php' : $GLOBALS['cmsgo']['edit.php'];
+    if(is_file(CMSGO_ROOT.'/'.$login)) {
+        define('CMSGO_LOGIN_PHP', $login);
+        return CMSGO_LOGIN_PHP;
+    }
+    if(is_file(CMSGO_ROOT.'/edit.php')) {
+        define('CMSGO_LOGIN_PHP', 'edit.php');
+        return CMSGO_LOGIN_PHP;
+    }
+    die('edit.php cannot be found. We stop here!');
+}
+
+/**
+ * Encrypt string
+ */
+function cmsgo_encrypt($plaintext, $key=CMSGO_USER_KEY, $cypher='blowfish', $mode='cfb') {
+    $td = mcrypt_module_open($cypher, '', $mode, '');
+    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
+    mcrypt_generic_init($td, $key, $iv);
+    $crypttext = mcrypt_generic($td, $plaintext);
+    mcrypt_generic_deinit($td);
+    return $iv.$crypttext;
+}
+
+/**
+ * Decrypt string
+ */
+function cmsgo_decrypt($crypttext, $key=CMSGO_USER_KEY, $cypher='blowfish', $mode='cfb') {
+    $plaintext = '';
+    $td = mcrypt_module_open($cypher, '', $mode, '');
+    $ivsize = mcrypt_enc_get_iv_size($td);
+    $iv = substr($crypttext, 0, $ivsize);
+    $crypttext = substr($crypttext, $ivsize);
+    if ($iv) {
+        mcrypt_generic_init($td, $key, $iv);
+        $plaintext = mdecrypt_generic($td, $crypttext);
+    }
+    return $plaintext;
+}
+
+/**
+ * Get current user visual mode
+ */
+function get_user_vmode() {
+    switch(VISIBLE_MODE) {
+        case 1:     return 'editor';    break;
+        case 2:     return 'admin';     break;
+        default:    return 'all';
+    }
+}
+
+function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
+    $c = ''; foreach(str_split(strval($$g)) as $a) $c.=$e[intval($a)]; return $c;
+}
+
+function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
+    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
+    if($set_protocol) {
+        $protocol = substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://';
+    } else {
+        $protocol = '';
+    }
+    $port = intval($_SERVER['SERVER_PORT']);
+    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':'.$port;
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
+
+    return $protocol . $host;
+}
+
+function get_full_url($use_forwarded_host = false, $set_protocol = true) {
+    return get_url_origin($use_forwarded_host, $set_protocol) . $_SERVER['REQUEST_URI'];
+}
+
+function get_base_url($use_forwarded_host = false, $set_protocol = true) {
+    $script_name = basename($_SERVER['SCRIPT_FILENAME']);
+    $uri_path = explode($script_name, $_SERVER['PHP_SELF'], 2);
+    return rtrim(get_url_origin($use_forwarded_host, $set_protocol) . $uri_path[0], '/');
+}

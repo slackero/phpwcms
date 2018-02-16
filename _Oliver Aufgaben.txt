@@ -1,0 +1,43 @@
+Modul Kalender -> Kalenderübersicht wird Monat "März" nie angezeigt. Irgendetwas mit Kodierung wegen Umlaut?
+
+
+Contentparts:
+
+cnt0    = Einfacher Text      fertig
+cnt1    = Text mit Bild       fertig
+cnt2    = Bilder              fertig
+cnt3    = Link & E-Mail       fertig
+cnt4    = Aufzählung          fertig
+cnt5    = Linkliste           fertig
+cnt6    = HTML                fertig
+cnt7    = Dateiliste          fertig
+cnt8    = Teaser/Artikellink  fertig -> Tooltip auf „i“ kontrollieren: spinnt
+cnt9    = Multimedia					-> Ersatz von Oliver
+cnt11   = Code                fertig
+cnt12   = Newsletter Anm.     fertig
+cnt13   = Suche              	fertig
+cnt14   = WYSIWYG HTML        fertig
+cnt15   = Artikelmenü         fertig
+cnt19   = Sitemap             fertig
+cnt21   = Ext. Content        fertig
+cnt22   = RSS Feed            fertig
+cnt23   = Formular            fertig
+cnt24   = Contentpart Alias		fertig
+cnt28   = Frontend Login      fertig
+cnt29   = Bilder DIV          fertig
+cnt31   = Bilder Spezial      -> Custom Element "Fileupload" geht nicht
+cnt32   = Tabs                -> Problem mit neue Tabs erstellen
+cnt33   = Newsverwaltung      fertig
+cnt52   = PHP Variablen       fertig
+cnt60   = Custom Elements     -> Problem mit neue Tabs erstellen
+cnt100  = Liste               fertig
+
+
+
+/include/inc_ext/GoogleMapsAPI
+Kann das entfernt werden?
+
+Mootools-Codeschnippsel aus cmsgo entfernen wo noch vorhanden. Mootools selber wurde bereits entfernt und wird auch nirgends mehr geladen.
+
+
+Die Socketfunktionen gehen nicht mehr. 

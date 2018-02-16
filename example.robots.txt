@@ -1,0 +1,34 @@
+# http://www.robotstxt.org/
+# https://www.google.com/support/webmasters/bin/answer.py?answer=156449
+# https://support.google.com/webmasters/answer/35769
+
+User-Agent: *
+
+# Be careful with these settings related to cmsgo
+# =================================================
+#
+# exclude downloadable files from indexing
+#Disallow: /download.php*
+#
+# The system store several temporary stuff in this dir
+Disallow: /content/form/
+Disallow: /content/rss/
+Disallow: /content/tmp/
+Disallow: /content/pages/
+#
+# This will exclude resized images from indexing
+#Disallow: /content/images/
+# And some resizing is done by files here especially cmsimage.php
+#Disallow: /img/
+#
+# cmsgo keeps uploaded files here, better let it as is
+# in general there is no direct access from the frontend to this
+Disallow: /filearchive/
+#
+# Better let search engine index everything from this directory
+# Have a look from where your system delivers CSS, JS, and so on
+#Disallow: /template/
+#
+# Block indexing backend files
+Disallow: /edit.php
+Disallow: /cmsgo.php

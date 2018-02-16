@@ -1,0 +1,30 @@
+<!--FILE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+icon_path       = "img/icons/"
+icon_name       = "small_icon_{FILE_EXT}.gif"
+file_size_round = 1
+file_size_space = " "
+date_format     = "%m/%d/%y"
+set_locale      = "de_DE@Euro"
+<!--FILE_SETTINGS_END//-->
+[TITLE]<h4>{TITLE}</h4>
+[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>
+[/SUBTITLE]
+<div style="margin-top: 15px; padding-top: 10px; border-top: 1px dotted #CCCCCC;">
+<!--FILE_ENTRY_START//-->
+    <div class="fileEntry" style="margin-bottom:10px; padding-bottom: 10px; border-bottom: 1px dotted #CCCCCC;">
+        <h2>
+            [FILE_IMAGE_ELSE]<img src="{FILE_ICON}" alt="" border="0" />[/FILE_IMAGE_ELSE]
+            [FILE_IMAGE]<img src="{FILE_IMAGE}" alt="" border="" />[/FILE_IMAGE]
+            <a href="{FILE_LINK}"{FILE_TARGET}>[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
+        </h2>
+        <p>[FILE_DESCRIPTION]
+        {FILE_DESCRIPTION}<br />[/FILE_DESCRIPTION]
+        {FILE_EXT}, {FILE_SIZE}, {FILE_DATE}, {FILE_DOWNLOADS} downloads
+        </p>
+
+    </div>
+
+<!--FILE_ENTRY_END//-->
+</div>

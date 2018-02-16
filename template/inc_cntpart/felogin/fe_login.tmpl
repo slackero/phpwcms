@@ -1,0 +1,164 @@
+<!-- NOTICE: Convert file to charset of site -->
+
+<!--LOGIN_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; Cookie expire set to 90 days
+date_format		= "%m/%d/%y"
+set_locale		= "en"
+cookie_expire	= 7776000
+<!--LOGIN_SETTINGS_END//-->
+
+<!--LOGIN_FORM_START//-->
+<div class="feLoginForm">
+
+	[ERROR]
+	<h3>Login error:</h3>
+	<p class="error">
+		Login and/or password not valid.
+	</p>
+	[/ERROR][ERROR_ELSE]
+	<h3>Please login:</h3>
+	<p>
+		Some contents on our page are only availabe for logged in users. Fill in your acount data, please!
+	</p>
+	[/ERROR_ELSE]
+
+	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
+
+		<p class="field">
+			<label for="feLogin">Login:</label>
+			<input type="text" name="feLogin" id="feLogin" value="{LOGIN}" />
+		</p>
+		<p class="field">
+			<label for="fePassword">Password:</label>
+			<input type="password" name="fePassword" id="fePassword" value="{PASSWORD}" autocomplete="new-password" />
+		</p>
+		<p class="checkbox">
+			<input type="checkbox" name="feRemember" id="feRemember" value="1"{REMEMBER} />
+			<label for="feRemember">Remember login on this computer</label>
+		</p>
+		<p class="button">
+			<input type="submit" value="Login" name="feSubmit" id="feSubmit" />
+		</p>
+
+	</form>
+
+	[REGISTER_PROFILE]<p><a href="{REGISTER_PROFILE}">Register</a></p>[/REGISTER_PROFILE]
+	<p><a href="{REMINDER_FORM}">Reminder</a></p>
+
+</div>
+<!--LOGIN_FORM_END//-->
+
+<!--LOGIN_IS_START//-->
+<div class="feLoggedIn">
+
+	<h3>Nice to see you again.</h3>
+	<p>You are logged in as <strong>{LOGIN}</strong></p>
+	[MANAGE_PROFILE]<p>You can <a href="{MANAGE_PROFILE}">edit your user profile</a></p>[/MANAGE_PROFILE]
+	[MANAGE_PROFILE_ELSE]<p>Profile is in edit</p>[/MANAGE_PROFILE_ELSE]
+
+	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
+		<p class="button">
+			<input type="submit" value="Logout" name="feLogout" id="feLogout" />
+		</p>
+	</form>
+
+</div>
+<!--LOGIN_IS_END//-->
+
+<!--PROFILE_REGISTER_START//-->
+
+	<h2>Register account</h2>
+
+	{FE_USER_REGISTER}
+
+	<hr />
+<!--PROFILE_REGISTER_END//-->
+
+<!--PROFILE_MANAGE_START//-->
+
+	<h2>Manage account</h2>
+
+	{FE_USER_MANAGE}
+
+	<hr />
+
+	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
+		<p class="button">
+			<input type="submit" value="Logout" name="feLogout" id="feLogout" />
+		</p>
+	</form>
+
+<!--PROFILE_MANAGE_END//-->
+
+<!--REMINDER_FORM_START//-->
+<div class="feLoginForm">
+
+	[ERROR]
+	<h3>Reminder error:</h3>
+	<p class="error">
+		Please check your input. It has to be valid email or login.
+	</p>
+	[/ERROR][ERROR_ELSE]
+	<h3>Reminder:</h3>
+	<p>
+		In case you have forgotten your password please fill in your login (username).
+		If you have forgotten your login insert the email under which your account was registered.
+	</p>
+	[/ERROR_ELSE]
+
+	<form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
+
+		<p class="field">
+			<label for="feReminder">Login or email:</label>
+			<input type="text" name="feReminder" id="feReminder" value="{REMINDER}" />
+			<input type="hidden" name="feReminderLoginKnown" value="0" />
+		</p>
+		<p class="button">
+			<input type="submit" value="Send" name="feSubmit" id="feSubmit" />
+		</p>
+
+	</form>
+
+	[REGISTER_PROFILE]<p><a href="{REGISTER_PROFILE}">Register</a></p>[/REGISTER_PROFILE]
+	<p><a href="{LOGIN_URL}">Login</a></p>
+
+</div>
+<!--REMINDER_FORM_END//-->
+
+<!--REMINDER_SUCCESS_START//-->
+
+	<h3>Reminder success</h3>
+	<p>Your request was successful. We have sent a reminder message to your email.</p>
+
+	<p><a href="{LOGIN_URL}">Login</a></p>
+
+<!--REMINDER_SUCCESS_END//-->
+
+
+<!--REMINDER_EMAIL_START//-->
+[SUBJECT]
+	Your account reminder
+[/SUBJECT]
+
+[LOGIN_EMAIL]
+You have requested this reminder email.
+
+Your login: {LOGIN}
+
+{LOGIN_URL}
+
+[/LOGIN_EMAIL]
+
+[PASSWORD_EMAIL]
+You have requested this reminder email.
+
+We have reset your passwort: {PASSWORD}
+
+Please change it after your first login.
+
+{LOGIN_URL}
+
+[/PASSWORD_EMAIL]
+<!--REMINDER_EMAIL_END//-->

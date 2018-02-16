@@ -1,0 +1,118 @@
+/*
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003 Frederico Caldeira Knabben
+ *
+ * Licensed under the terms of the GNU Lesser General Public License
+ * (http://www.opensource.org/licenses/lgpl-license.php)
+ *
+ * For further information go to http://www.fredck.com/FCKeditor/ 
+ * or contact fckeditor@fredck.com.
+ *
+ * fck_editorarea.css: Styles used in the editor area. The final user
+ *   should customize it for his web site needs.
+ *
+ * Authors:
+ *   Frederico Caldeira Knabben (fckeditor@fredck.com)
+ */
+
+body {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	margin: 5px;
+}
+
+td, tr, th {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px
+}
+
+ul { margin: 0 0 0 20px; }
+li { font-size: 11px; list-style: disc; }
+
+a, a:link, a:visited, a:active {
+	color: #FF3300;
+	text-decoration: none
+}
+a:hover {
+	color: #FF3300;
+	text-decoration: underline;
+}
+
+.articleText { /*text-align: justify;*/ }
+
+.articleCode {
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+}
+
+.articleHead, .articleList_tophead, h1, h2 {
+	font-weight: bold;
+	font-size: 21px;
+	font-family: "Arial Narrow", "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	line-height : 120%;
+	color : #000000;
+}
+
+.articleSubHead, .articleList_topsubhead, h3, h4 {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 17px;
+	font-weight: normal;
+	color: #6D7983;
+	line-height: 110%;
+	margin-bottom: 0;
+}
+
+.articleSummary {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	line-height: 135%;
+}
+
+.contentHead {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #6D7983;
+	line-height: 110%;
+}
+
+.contentSubHead {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	line-height: 110%;
+}
+
+.tableHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #6D7983;
+	line-height: 13px;
+}
+
+.tableSubHead {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+}
+
+.v09 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px; }
+.v10 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; }
+.v11 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; }
+.v12 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px; }
+.v13 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px; }
+.v14 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px; }
+
+.articleList_toptext {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 10px;
+}
+
+.articleList_listhead {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}

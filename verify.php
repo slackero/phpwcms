@@ -1,0 +1,123 @@
+<?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+ 
+// redirect verify to correct newsletter action
+$cmsgo = array();
+require_once 'include/config/conf.inc.php';
+require_once 'include/inc_lib/default.inc.php';
+
+$type   = '';
+$email  = 'n.a.';
+
+// counter open newsletter
+if(!empty($_GET['o'])) {
+
+    require_once (CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
+    require_once (CMSGO_ROOT.'/include/inc_lib/general.inc.php');
+    require_once (CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php');
+
+    $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_newsletterqueue ';
+    $sql .= 'SET queue_opener=1 ';
+    $sql .= "WHERE queue_id=".intval($_GET['o']);
+    _dbQuery($sql, 'UPDATE');
+
+    headerRedirect(CMSGO_URL.'img/leer.gif', 301);
+    exit;
+}
+
+if(!empty($_GET['s']) || !empty($_GET['u'])) {
+
+    require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
+    require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
+    require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
+
+    if(isset($_GET['s'])) {
+
+        $hash = clean_slweg($_GET['s']);
+        $type = 'subscribe';
+
+    } else {
+
+        $hash = clean_slweg($_GET['u']);
+        $type = 'unsubscribe';
+
+    }
+
+    $data = _dbQuery('SELECT * FROM '.DB_PREPEND."cmsgo_address WHERE address_key='".aporeplace($hash)."' LIMIT 1");
+
+    if(isset($data[0])) {
+
+        // fix old hash where containing "+" char might result in an invalid hash key
+        $hash = str_replace(' ', '+', $hash);
+
+        $email = $data[0]['address_email'];
+        switch($type) {
+
+            case 'subscribe':       $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_address ';
+                                    $sql .= 'SET address_verified=1 ';
+                                    $sql .= "WHERE address_key='".aporeplace($hash)."'";
+                                    // Logfile Subscription verified
+                                    log_message('3', $data[0]['address_email']." ".$data[0]['address_name'] , $data[0]['address_id']);
+                                    // end
+                                    if(empty($data[0]['address_verified'])) {
+                                        $result = _dbQuery($sql, 'UPDATE');
+                                    }
+                                    if(!empty($data[0]['address_url1'])) {
+                                        headerRedirect($data[0]['address_url1']);
+                                    }
+
+                                    if(!($page = file_get_contents(CMSGO_TEMPLATE.'inc_default/subscribe.tmpl'))) {
+
+                                        $page = "The email address <strong>{EMAIL}</strong> was verified.";
+
+                                    }
+                                    break;
+
+
+            case 'unsubscribe':     $sql  = 'DELETE FROM '.DB_PREPEND.'cmsgo_address ';
+                                    $sql .= "WHERE address_key='".aporeplace($hash)."'";
+                                    $result = _dbQuery($sql, 'DELETE');
+                                    // Logfile Subscription deleted
+                                    log_message('4', $data[0]['address_email']." ".$data[0]['address_name'] , $data[0]['address_id']);
+                                    // end
+                                    if(!empty($data[0]['address_url2'])) {
+                                        headerRedirect($data[0]['address_url2']);
+                                    }
+
+                                    if(!($page = file_get_contents(CMSGO_TEMPLATE.'inc_default/unsubscribe.tmpl'))) {
+
+                                        $page = "All Subscriptions for <strong>{EMAIL}</strong> canceled.";
+
+                                    }
+
+                                    break;
+
+        }
+
+
+    } else {
+
+        headerRedirect(CMSGO_URL);
+
+    }
+
+} else {
+
+    headerRedirect(CMSGO_URL);
+
+}
+
+// some replacements
+$page = replaceGlobalRT($page);
+$page = str_replace('{EMAIL}', $email, $page);
+
+// send non caching page header
+headerAvoidPageCaching();
+echo $page;

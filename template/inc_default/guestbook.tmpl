@@ -1,0 +1,169 @@
+<p style="background-color:#D7E3E2 "><strong>List of banned words - make a listing divided by simple space &quot; &quot;.
+</strong>if possible try to insert no HTML chars.<br />shit porno fuck and so on </p>
+<p>
+<!--BAN_START//-->
+shit     fuck    porno    sex http: www.
+<!--BAN_END//-->
+</p>
+<p style="background-color:#D7E3E2 "><strong>List of banned IPs - make a listing divided by simple space &quot; &quot;.
+</strong>if possible try to insert no HTML chars.<br />192.168.000.001 and so on </p>
+<p>
+<!--BAN_IP_START//-->
+192.168.0.0
+<!--BAN_IP_END//-->
+</p>
+<p style="background-color:#D7E3E2 "><strong>Replace banned words by this HTML code. </strong><br>banned OR &lt;img src=&quot;...&quot;&gt; </p>
+<p>
+<!--BAN_REPLACE_START//-->
+***
+<!--BAN_REPLACE_END//-->
+</p>
+<p style="background-color:#D7E3E2 "><strong>Guestbook HTML form and form error message <br>
+  </strong>{EMAIL}, {NAME}, {URL}, {MSG}, {CAPTCHA}, [IMAGE_ERROR]{IMAGE_ERROR}[/IMAGE_ERROR]</p>
+<p>
+<!--FORM_START//-->
+<div class="gbInputForm">
+    <h1>Your guestbook entry</h1>
+<!--FORM_ERROR_START//-->
+    <p class="gbError">
+  <ul>
+ <!-- you can replace {ERROR_xxx} by translated error message -->
+[ERROR_EMAIL]           <li>{ERROR_EMAIL}</li>[/ERROR_EMAIL]
+[ERROR_NAME]            <li>{ERROR_NAME}</li>[/ERROR_NAME]
+[ERROR_URL]         <li>{ERROR_URL}</li>[/ERROR_URL]
+[ERROR_IMG]         <li>{ERROR_IMG}</li>[/ERROR_IMG]
+[ERROR_IMGUPLOAD]           <li>{ERROR_IMGUPLOAD}</li>[/ERROR_IMGUPLOAD]
+[ERROR_IMGFORMAT]           <li>{ERROR_IMGFORMAT}</li>[/ERROR_IMGFORMAT]
+[ERROR_IMGWRITE]            <li>{ERROR_IMGWRITE}</li>[/ERROR_IMGWRITE]
+[ERROR_IMGSAVE]         <li>{ERROR_IMGSAVE}</li>[/ERROR_IMGSAVE]
+[ERROR_IMGSIZE]         <li>{ERROR_IMGSIZE}</li>[/ERROR_IMGSIZE]
+[ERROR_CAPTCHA]         <li>{ERROR_CAPTCHA}</li>[/ERROR_CAPTCHA]
+  </ul>
+
+<!--FORM_ERROR_END//-->
+    <div class="gbFormFields">
+
+        <p>
+            <label for="guestbook_email">email (obligatory)</label>
+            <input name="guestbook_email" type="text" id="guestbook_email" class="gbInputField" value="{EMAIL}" size="50" maxlength="250" />
+        </p>
+
+        <p>
+            <label for="guestbook_name">name (obligatory)</label>
+            <input name="guestbook_name" type="text" id="guestbook_name" class="gbInputField" value="{NAME}" size="50" maxlength="500" />
+        </p>
+
+        <p>
+            <label for="guestbook_url">website</label>
+            <input name="guestbook_url" type="text" id="guestbook_url" class="gbInputField" value="{URL}" size="50" maxlength="1000" />
+        </p>
+
+        <p>
+            <label for="guestbook_msg">message</label>
+            <textarea name="guestbook_msg" cols="50" rows="6" id="guestbook_msg" class="gbInputTextarea">{MSG}</textarea>
+        </p>
+
+<!--IMAGE_UPLOAD_START//-->
+
+        <p>
+            <label for="guestbook_image">image</label>
+            <input name="guestbook_image" id="guestbook_image" type="file" class="gbInputField" />
+        </p>
+
+<!--IMAGE_UPLOAD_END//-->
+
+        <p>
+            <label>display</label>
+            <input name="guestbook_show" type="radio" value="0" id="guestbook_show0"{GBSHOW_0} />
+            <label for="guestbook_show0">show email</label>
+            <input name="guestbook_show" type="radio" value="1" id="guestbook_show1"{GBSHOW_1} />
+            <label for="guestbook_show1">hide email</label>
+            <input name="guestbook_show" type="radio" value="2" id="guestbook_show2"{GBSHOW_2} />
+            <label for="guestbook_show2">as &quot;info at mail dot com&quot;</label>
+        </p>
+
+<!--CAPTCHA_START//-->
+
+        <p>
+            <label for="guestbook_captcha">code</label>
+            <input name="guestbook_captcha" type="text" id="guestbook_captcha" class="gbInputFieldCaptcha" value="" size="10" maxlength="10" />
+            {CAPTCHA}
+        </p>
+
+<!--CAPTCHA_END//-->
+
+        <p class="gbFormButton">
+            <input name="guestbook_send" type="submit" id="guestbook_send" value="sign guestbook" />
+        </p>
+
+    </div>
+</div>
+<!--FORM_END//-->
+
+<p style="background-color:#D7E3E2 "> <strong>Success Text - displayed when guestbook
+    entry created</strong><br>
+    {NAME}</p>
+<p>
+<!--FORM_SUCCESS_START//-->
+<div class="gbSuccess">Thanks {NAME}! You have successfully signed our guestbook.</div>
+<!--FORM_SUCCESS_END//-->
+
+<p style="background-color:#D7E3E2 "> <strong>Guestbook navigation<br>
+  </strong><span class="chatlist">{FIRST:HTML}, {LAST:HTML}, {BACK:HTML}, {NEXT:HTML},
+  {JUMP:LISTTEXT|BUTTON|SPACER}, {PAGE:COUNT:SPACER|WRAP_ACTIVE_BEFORE|AFTER}<br>
+(HTML = link text or image tag, like &lt;img src=&quot;back.gif&quot; border=&quot;0&quot; /&gt;)</span></p>
+<p>
+<!--NAV_START//-->
+<div class="gbNav">
+
+        <div class="gbNavLeft">
+            <strong>{FIRST:&lt;&lt;} {BACK:&lt;}</strong>
+            {PAGE:5:&nbsp;|<strong>|</strong>}
+            <strong>{NEXT:&gt;} {LAST:&gt;&gt;}</strong>
+        </div>
+
+        <div class="gbNavRight">
+            {ARCHIVE:%Y/%m|alle Eintr&auml;ge|go|&nbsp;}&nbsp;{JUMP:page|go|&nbsp;}
+        </div>
+
+</div>
+<!--NAV_END//-->
+
+<p style="background-color:#D7E3E2 "> <strong>Guestbook listing<br>
+  </strong>{EMAIL}, {NAME}, {URL:HTML}, {MSG}, {URL}, {ID},
+  {DBID}, {TIMESTAMP:FORMAT} (<a href="http://www.php.net/manual/en/function.date.php" target="_blank" style="text-decoration:underline">FORMAT&nbsp;=&nbsp;d.m.Y&nbsp;or&nbsp;H:i:s</a>),
+  [IF_IMAGE]{IMAGE:WIDTHxHEIGHTxZOOM}[/IF_IMAGE] </p>
+<p>
+  <!--GUESTBOOK_START//-->
+  {FORM} {NAV}
+<div class="gbEntries">
+<!--GUESTBOOK_ENTRY_START//-->
+    <div class="gbListEntry" id="entry-{DBID}">
+        <h1><span class="entryID">entry #{ID} by </span>[URL]<a href="{URL}" target="_blank">{NAME}</a>[/URL][URL_ELSE]{NAME}[/URL_ELSE]</h1>
+        <h2>{TIMESTAMP:m/d/Y H:i}[EMAIL] &#8212; <a href="mailto:{EMAIL}">email</a>[/EMAIL]</h2>
+        [IMAGE]<div class="gbImage">{IMAGE:50x50x1}</div>[/IMAGE]
+        [MSG]<p>{MSG}</p>[/MSG]
+    </div>
+<!--GUESTBOOK_ENTRY_END//-->
+</div>
+<!--GUESTBOOK_END//-->
+
+<p style="background-color:#D7E3E2 "><strong>Comments of edited articles</strong><strong> </strong>[c]...[/c]<br>
+  normal HTML code like &lt;span style=&quot;color:#FF3300&quot;&gt;|&lt;/span&gt;</p>
+<p>
+<!--COMMENT_START//-->
+<span class="gbComment">|</span>
+<!--COMMENT_END//-->
+</p>
+
+<p style="background-color:#D7E3E2 "><strong>Information should be shown in case login necessary to see guestbook/comment or post possible for users logged
+    in only</strong><br>
+    use normal HTML code, this  code snippet will replace post form or whole guestbook. Use new template in case you need different texts.
+</p>
+<!--LOGIN_INFO_START//-->
+<p>
+Guestbook is accessible for users logged in only.<br />
+You can post to this guestbook only when you are logged in.<br />
+Login or sign in here.
+</p>
+<!--LOGIN_INFO_END//-->

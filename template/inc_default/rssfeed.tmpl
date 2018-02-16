@@ -1,0 +1,40 @@
+<!--ITEM_START//-->
+	<li>
+		[TITLE]<h3>[LINK]<a href="{LINK}" target="_blank">[/LINK]{TITLE}[LINK]</a>[/LINK]</h3>[/TITLE]
+		<p>{DATE:D, j F Y H:i lang=EN}[AUTHOR] by {AUTHOR}[/AUTHOR]</p>
+		[IMAGE]<p class="feeditem-image"><img src="{IMAGE}" alt="" /></p>[/IMAGE]
+		[DESCRIPTION]<div class="feed-description">{DESCRIPTION}</div>[/DESCRIPTION]
+		[CONTENT]<!-- {CONTENT} -->[/CONTENT]
+		<!-- {DIVIDER} -->
+	</li>
+<!--ITEM_END//-->
+
+<!--DIVIDER_START//-->
+<hr />
+<!--DIVIDER_END//-->
+
+<!--FEEDINFO_START//-->
+	[TITLE]<h2>{TITLE}</h2>[/TITLE]
+[DESCRIPTION]
+	<p>[IMAGE]<span style="float:left">{IMAGE}</span>[/IMAGE]
+		{DESCRIPTION}
+	</p>
+[/DESCRIPTION][DESCRIPTION_ELSE]
+[IMAGE]	<p class="feed-image">{IMAGE}</p>[/IMAGE]
+[/DESCRIPTION_ELSE]
+<!--FEEDINFO_END//-->
+
+<!--RSSFEED_START//-->
+<div class="feed">
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+{FEEDINFO}
+[ITEMS]
+{DIVIDER}
+<ul>
+{ITEMS}
+</ul>
+{DIVIDER}
+[/ITEMS]
+</div>
+<!--RSSFEED_END//-->

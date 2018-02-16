@@ -1,0 +1,104 @@
+/* module calendar backend CSS */
+
+#calendar_form {}
+
+table.calendar {
+  margin: 0;
+}
+
+table.calendar tr {
+  background-color: #fff;
+}
+
+table.calendar tr.calendarAltRow {
+  background-color: #f4f4f4;
+}
+
+table.calendar th {
+  padding: 8px 3px;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  background-color: #D9DEE3;
+  text-align: center;
+}
+
+table.calendar th.calendarWeek {
+  padding: 8px 3px;
+  background-color: #3a4a5c;
+  border-right: 1px solid #fff;
+  color: #fff;
+}
+
+table.calendar th.calendarMonth {
+  font-size: 1.125em;
+  line-height: 100%;
+  text-align: left;
+}
+
+table.calendar td.calendarWeek {
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #3a4a5c;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+  color: #fff;
+}
+
+table.calendar td.calendarWeekAlt {
+  background-color: #3a4a5c;
+}
+
+table.calendar td.calendarDay {
+  padding: 2px 5px 2px 5px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .875em;
+  line-height: 100%;
+  vertical-align: top;
+}
+
+table.calendar td.calendarDay span {
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 105%;
+}
+
+table.calendar td.calendarSunday {
+  border-bottom: 2px solid #ccc;
+}
+
+table.calendar td.calendarButton {
+  padding: 2px 6px 2px 5px;
+}
+
+table.calendar td.calendarData {
+  padding: 4px 3px;
+  vertical-align: middle;
+}
+
+table.calendar td.calendarData a {
+  color: #000000;
+}
+
+table.calendar td.calendarData a.off {
+  text-decoration: line-through;
+  color: #000000;
+}
+
+table.calendar td.calendarData a.off:hover {
+  text-decoration: underline;
+  color: #000000;
+}
+
+table.calendar td.calendarData p {
+  margin: 0;
+  padding: 0;
+  font-size: .875em;
+  line-height: 100%;
+  color: #000000;
+}
+
+a.calendarDateDel {
+  padding-left: 2px;
+}

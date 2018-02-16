@@ -1,0 +1,68 @@
+#access_dialog {
+
+}
+#access_save {
+
+}
+
+#accessOverlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: #000000;
+    z-index: 4999;
+}
+.accessDialog {
+    position: relative;
+    overflow: hidden;
+    z-index: 5000;
+}
+
+div.agree {
+    border: 1px solid #000000;
+    background: #FFFFFF;
+    margin: 0;
+    padding: 10px;
+}
+div.agree h3 {
+    margin: 0;
+    padding: 0 0 5px 0;
+    font-size: 1.5em;
+    color: #999999;
+}
+div.agree div.scroller {
+    height: 200px;
+    overflow: auto;
+    border: 1px solid #CCCCCC;
+    margin: 0 0 10px 0;
+    padding: 6px;
+}
+div.agree div.scroller p {
+    margin: 0;
+    padding: 0 0 5px 0;
+    font-size: .9em;
+    line-height: 125%;
+}
+div.agree div.scroller h4 {
+    margin: 0;
+    padding: 0 0 5px 0;
+    font-size: 1.2em;
+    line-height: 100%;
+    font-weight: normal;
+    font-style: italic;
+}
+div.agree div.scroller p+h4 {
+    padding-top: 10px;
+}
+div.agree form {
+    margin: 0;
+    padding: 0;
+}
+div.agree form p.button {
+    padding: 10px 0 0 0;
+    margin: 0;
+}
+div.agree form p.button input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}

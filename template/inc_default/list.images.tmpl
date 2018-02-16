@@ -1,0 +1,55 @@
+<!--IMAGE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; settings will overwrite CP settings
+;width			= 100
+;height			= 100
+;col			= 1
+;zoom			= 1
+;crop			= 0
+;space			= 10
+;lightbox		= 1
+;nocaption		= 0
+;random			= 0
+;limit			= 0
+; if set to 1 and total amount of images > limit render hidden feature
+;hide_limited	= 0
+; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
+;center_image	= 0
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+
+<div class="images images-listmode" id="images{ID}">
+<!--IMAGES_HEADER_END//-->
+
+
+<!--IMAGES_ENTRY_START//-->
+	<div class="imageEntry[FIRST] first[/FIRST][LAST] last[/LAST][ROW] row{ROW}[/ROW]" id="img{IMGID}"[HIDDEN] style="display:none"[/HIDDEN]>
+		{IMAGE}
+		[CAPTION]<p>{CAPTION}</p>[/CAPTION][CAPTION_ELSE]<p>{IMGNAME}</p>[/CAPTION_ELSE]
+	</div>
+<!--IMAGES_ENTRY_END//-->
+
+
+<!--IMAGES_ENTRY_SPACER_START//-->
+
+	<!-- space between images {SPACE}px -->
+
+<!--IMAGES_ENTRY_SPACER_END//-->
+
+
+<!--IMAGES_ROW_SPACER_START//-->
+
+	<!-- space between image rows {SPACE}px -->
+
+<!--IMAGES_ROW_SPACER_END//-->
+
+
+<!--IMAGES_FOOTER_START//-->
+</div>
+<!--IMAGES_FOOTER_END//-->

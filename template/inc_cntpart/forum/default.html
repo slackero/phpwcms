@@ -1,0 +1,138 @@
+<p style="background-color:#D7E3E2 "><strong>List of banned words - make a listing divided by simple space &quot; &quot;.
+</strong>if possible try to insert no HTML chars.<strong><br>
+</strong>shit porno fuck and so on </p>
+<p>
+<!--BAN_START//-->
+shit     fuck    porno
+  sex
+<!--BAN_END//-->
+</p>
+<p style="background-color:#D7E3E2 "><strong>Replace banned words by this HTML
+    code. </strong><strong><br>
+  </strong>banned OR &lt;img src=&quot;...&quot;&gt; </p>
+<p>
+<!--BAN_REPLACE_START//-->
+<strong>banned word</strong>
+<!--BAN_REPLACE_END//-->
+</p>
+<p style="background-color:#D7E3E2 "><strong>Guestbook HTML form and form error message <br>
+  </strong>{EMAIL}, {NAME}, {URL}, {MSG} </p>
+
+  <!--FORM_START//-->
+<table border="0" align="center" cellpadding="1" cellspacing="0" bgcolor="#F5F5F5" style="margin-bottom:10px;" summary="">
+  <tr bgcolor="#E1E1E1">
+    <td colspan="2"><strong>&nbsp;&nbsp;sign my guestbook</strong> <span style="font-size:10px;color:#CC3300;">(fields
+        marked * are obligatory)</span></td>
+  </tr>
+  <tr bgcolor="#E1E1E1">
+    <td colspan="2"><img src="img/leer.gif" width="1" height="1" alt="" /></td>
+  </tr>
+  <!--FORM_ERROR_START//-->
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;<span style="color:#CC3300;">not signed - fill
+        in all neccessary info</span></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td>
+  </tr>
+  <!--FORM_ERROR_END//-->
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td>
+  </tr>
+  <tr>
+    <td align="right" class="v10">email<span style="color:#CC3300;">*</span>:&nbsp;</td>
+    <td><input name="guestbook_email" type="text" id="guestbook_email" style="width: 350px" class="v12" value="{EMAIL}" size="50" maxlength="250" />
+&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right" class="v10">name<span style="color:#CC3300;">*</span>:&nbsp;</td>
+    <td><input name="guestbook_name" type="text" id="guestbook_name" style="width: 350px" class="v12" value="{NAME}"  size="50" maxlength="500" /></td>
+  </tr>
+  <tr>
+    <td align="right" class="v10">website:&nbsp;</td>
+    <td><input name="guestbook_url" type="text" id="guestbook_url" style="width: 350px" class="v12" value="{URL}" size="50" maxlength="1000" /></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" class="v10">&nbsp;&nbsp;message:&nbsp;</td>
+    <td><textarea name="guestbook_msg" cols="50" rows="6" id="guestbook_msg" class="width350">{MSG}</textarea></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" class="v10">display:&nbsp;</td>
+    <td><input name="guestbook_show" type="radio" value="0" checked>show email<br>
+     <input name="guestbook_show" type="radio" value="1">hide email<br>
+     <input type="radio" name="guestbook_show" value="2">show email as &quot;info at mail dot com&quot;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="4" alt="" /></td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td><input name="guestbook_send" type="submit" id="guestbook_send" value="sign guestbook" class="v11" /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="6" alt="" /></td>
+  </tr>
+</table>
+<!--FORM_END//-->
+
+<p style="background-color:#D7E3E2 "> <strong>Success Text - displayed when guestbook
+    entry created<br>
+    </strong>{NAME}</p>
+
+  <!--FORM_SUCCESS_START//-->
+<div style="margin-top:5px; margin-bottom: 5px;">Thanks {NAME}! You have successfully signed our guestbook.</div>
+  <!--FORM_SUCCESS_END//-->
+
+<p style="background-color:#D7E3E2 "> <strong>Guestbook navigation<br>
+  </strong><span class="chatlist">{FIRST:HTML}, {LAST:HTML}, {BACK:HTML}, {NEXT:HTML},
+  {JUMP:LISTTEXT|BUTTON|SPACER}, {PAGE:COUNT:SPACER|WRAP_ACTIVE_BEFORE|AFTER}<br>
+(HTML = link text or image tag, like &lt;img src=&quot;back.gif&quot; border=&quot;0&quot; /&gt;)</span></p>
+
+  <!--NAV_START//-->
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" style="margin-top:5px;" summary="">
+  <tr>
+    <td><strong>{FIRST:&lt;&lt;} {BACK:&lt;}</strong> {PAGE:5:&nbsp;|<strong>|</strong>} <strong>{NEXT:&gt;}
+        {LAST:&gt;&gt;}</strong></td>
+    <td align="right">{ARCHIVE:%Y/%m|alle Eintr&auml;ge|go|&nbsp;}&nbsp;{JUMP:page
+      |go|&nbsp;}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td>
+  </tr>
+</table>
+<!--NAV_END//-->
+
+<p style="background-color:#D7E3E2 "> <strong>Guestbook listing<br>
+  </strong>{EMAIL}, {NAME}, {URL:HTML}, {MSG}, {URL}, {ID},
+  {DBID}, {TIMESTAMP:FORMAT} (<a href="http://www.php.net/manual/en/function.date.php" target="_blank" style="text-decoration:underline">FORMAT&nbsp;=&nbsp;d.m.Y&nbsp;or&nbsp;H:i:s</a>)</p>
+
+  <!--GUESTBOOK_START//-->
+  {FORM} {NAV}
+<table width="100%"  border="0" cellpadding="2" cellspacing="0" summary="">
+  <!--GUESTBOOK_ENTRY_START//-->
+  <tr bgcolor="#F5F5F5">
+    <td width="1%" align="right"><strong>{ID}&nbsp;&nbsp;</strong></td>
+    <td width="99%">{DBID} | {TIMESTAMP:m/d/Y H:i}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><a href="mailto:{EMAIL}"><strong>{NAME}</strong></a> {URL:visit
+      website} {EMAIL}<br />
+      {MSG}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td>
+  </tr>
+  <!--GUESTBOOK_ENTRY_END//-->
+</table>
+<!--GUESTBOOK_END//-->
+
+<p style="background-color:#D7E3E2 "><strong>Comments of edited articles</strong><strong> </strong>[c]...[/c]<br>
+  normal HTML code like &lt;span style=&quot;color:#FF3300&quot;&gt;|&lt;/span&gt;</p>
+<p>
+<!--COMMENT_START//-->
+<span style="color:#00CC00;">|</span>
+<!--COMMENT_END//-->
+</p>

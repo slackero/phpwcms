@@ -1,0 +1,1 @@
+Class.Occlude=new Class({occlude:function(c,b){b=document.id(b||this.element);var a=b.retrieve(c||this.property);if(a&&!$defined(this.occluded)){return this.occluded=a}this.occluded=false;b.store(c||this.property,this);return this.occluded}});

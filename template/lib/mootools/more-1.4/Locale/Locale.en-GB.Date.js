@@ -1,0 +1,1 @@
+Locale.define("en-GB","Date",{dateOrder:["date","month","year"],shortDate:"%d/%m/%Y",shortTime:"%H:%M"}).inherit("en-US","Date");

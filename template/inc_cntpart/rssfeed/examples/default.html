@@ -1,0 +1,38 @@
+<!--ITEM_START//-->
+	<li>
+		<h3>[LINK]<a href="{LINK}" target="_blank">[/LINK]{TITLE}[LINK]</a>[/LINK]</h3>
+		<p>{DATE:D, j F Y H:i lang=EN}[AUTHOR] by {AUTHOR}[/AUTHOR]</p>
+		[DESCRIPTION]<p>{DESCRIPTION}</p>[/DESCRIPTION]
+		[CONTENT]<!-- <p>{CONTENT}</p> -->[/CONTENT]
+	</li>
+<!--ITEM_END//-->
+
+<!--DIVIDER_START//-->
+<hr />
+<!--DIVIDER_END//-->
+
+<!--FEEDINFO_START//-->
+	<h2>{TITLE}</h2>
+[DESCRIPTION]
+	<p>[IMAGE]<span style="float:left">{IMAGE}</span>[/IMAGE]
+		{DESCRIPTION}
+	</p>
+[/DESCRIPTION][DESCRIPTION_ELSE]
+[IMAGE]	<p>{IMAGE}</p>[/IMAGE]
+[/DESCRIPTION_ELSE]
+<!--FEEDINFO_END//-->
+
+<!--RSSFEED_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+<div class="feed">
+{FEEDINFO}
+[ITEMS]
+{DIVIDER}
+<ul>
+{ITEMS}
+</ul>
+{DIVIDER}
+[/ITEMS]
+</div>
+<!--RSSFEED_END//-->

@@ -1,0 +1,51 @@
+<!--TEASER_HEAD_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEASER]
+<ul{LINK_ARTICLE_CLASS}>
+<!--TEASER_HEAD_END//-->
+<!--TEASER_ENTRY_START//-->
+	<!-- AID: {ARTICLEID}, CID: {CATEGORYID} -->
+	<li class="teaser col-{COLUMN} row-{ROW}[PRIO] prio-{PRIO}[/PRIO][CLASS] {CLASS}[/CLASS][ACTIVE] active[/ACTIVE]">
+		[ARTICLELINK]<a href="{ARTICLELINK}"[ARTICLELINK_TARGET]{ARTICLELINK_TARGET}[/ARTICLELINK_TARGET]>[/ARTICLELINK]
+			[CATEGORY]{CATEGORY}: [/CATEGORY][MENUTITLE]{MENUTITLE}[/MENUTITLE][MENUTITLE_ELSE]{TITLE}[/MENUTITLE_ELSE]
+		[ARTICLELINK]</a>[/ARTICLELINK]
+		[CAPTION_SUPPRESS]<!-- Caption is suppressed -->[/CAPTION_SUPPRESS][CAPTION_SUPPRESS_ELSE][CAPTION]<p>{CAPTION}</p>[/CAPTION][/CAPTION_SUPPRESS_ELSE]
+		[CAPTION_ALT]<p>{CAPTION_ALT}</p>[/CAPTION_ALT]
+		[CAPTION_TITLE]<p>{CAPTION_TITLE}</p>[/CAPTION_TITLE]
+		<!--
+{SUMMARY}
+-------------------------------------
+{SUMMARY_RAW}
+		-->
+	</li>
+<!--TEASER_ENTRY_END//-->
+<!--TEASER_ENTRY_SPACER_START//-->
+	<!-- next teaser please -->
+<!--TEASER_ENTRY_SPACER_END//-->
+
+<!--TEASER_ROW_SPACER_START//-->
+	<!-- start new row {ROW} -->
+<!--TEASER_ROW_SPACER_END//-->
+
+<!--TEASER_FOOTER_START//-->
+</ul>
+[/TEASER]
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--TEASER_FOOTER_END//-->
+
+<!--
+	The following setting can be used to overwrite
+	the CP backend column setting. Only unsigned Integer
+	values will be used. Use value here only if you
+	ensure to overwrite user's setting. Use 0 to disable
+	columns for this template.
+-->
+<!--TEASER_COLUMN_OVERWRITE_START//--><!--TEASER_COLUMN_OVERWRITE_END//-->
+
+<!--
+	To use the [CLASS] tag you need to fill in a
+	special keyword in the keyword field.
+	Use it like this: *CSS-myclass*.
+-->

@@ -1,0 +1,31 @@
+<?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+
+
+// ----------------------------------------------------------------
+// obligate check for cmsgo constants
+if (!defined('CMSGO_ROOT')) {
+	die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+
+//
+// Content Part Frontend Login
+//
+$content['felogin_template']							= clean_slweg($_POST['template']);
+$content['felogin']['felogin_cookie_expire']			= intval($_POST['cookie_expire']);
+$content['felogin']['felogin_date_format']				= clean_slweg($_POST['date_format']);
+$content['felogin']['felogin_locale']					= clean_slweg($_POST['locale']);
+$content['felogin']['felogin_validate_userdetail']		= empty($_POST['validate_userdetail']) ? 0 : 1;
+$content['felogin']['felogin_validate_backenduser']		= empty($_POST['validate_backenduser']) ? 0 : 1;
+$content['felogin']['felogin_profile_registration']		= empty($_POST['profile_registration']) ? 0 : 1;
+$content['felogin']['felogin_profile_manage']			= empty($_POST['profile_manage']) ? 0 : 1;
+$content['felogin']['felogin_profile_manage_redirect']	= clean_slweg($_POST['profile_manage_redirect']);

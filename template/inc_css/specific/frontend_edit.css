@@ -1,0 +1,71 @@
+a.fe-link {
+	float: left;
+	width: 20px;
+	height: 16px;
+	padding: 0;
+	margin: 0;
+	color: #000000;
+	text-decoration: none;
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	z-index: 10000;
+	position: relative;
+}
+a.fe-link span {
+	display: none;
+}
+a.fe-link:hover {
+	text-decoration: none;
+	background-color: transparent;
+}
+a.fe-link.fe-article {
+	background-image: url(../../../img/famfamfam/page_go.png);
+}
+a.fe-link.fe-summary {
+	background-image: url(../../../img/famfamfam/page_edit.png);
+}
+a.fe-link.fe-CP {
+	background-image: url(../../../img/famfamfam/page_white_edit.png);
+}
+a.fe-link.fe-module {
+	background-image: url(../../../img/famfamfam/plugin_go.png);
+}
+a.fe-link.fe-news {
+	background-image: url(../../../img/famfamfam/pencil.png);
+}
+a.fe-link.fe-structure {
+	background-image: url(../../../img/famfamfam/folder_edit.png);
+}
+#fe-link {
+	position: fixed;
+	right: 5px;
+	top: 5px;
+	color: #FFF;
+	border: 1px solid #999;
+    padding: 0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+	z-index: 10000;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px rgba(23, 23, 23, 0.25);
+	box-sizing: border-box;
+}
+#fe-link.enabled {
+    background-color: #E1FFC4;
+	background-image: url(../../../img/famfamfam/pencil_delete.png);
+}
+#fe-link.disabled {
+    background-color: #FFDDDD;
+	background-image: url(../../../img/famfamfam/pencil_add.png);
+}
+#fe-link.disabled:hover {
+    background-color: #95d757;
+}
+#fe-link.enabled:hover {
+    background-color: #e94f4f;
+	background-image: url(../../../img/famfamfam/pencil_delete.png);
+}

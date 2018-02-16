@@ -1,0 +1,167 @@
+<!--NEWS_SETTINGS_START//-->
+; how many news should be listed per row
+news_per_row = 2
+
+; cut teaser text
+; 0 means no limit
+news_teaser_limit_chars = 0
+news_teaser_limit_words = 0
+news_teaser_limit_ellipse = …
+
+; template for files - the same as used
+; for content part files , default:
+; files_template_list = default
+files_template_list = default
+files_template_detail = default
+files_direct_download = 0
+
+; gallery supported image formats
+gallery_allowed_ext = jpg,jpeg,png,gif,svg
+; use the file info/copyright as used defined in file center
+gallery_filecenter_info = 1
+
+<!--NEWS_SETTINGS_END//-->
+
+
+<!--NEWS_LIST_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[NEWS_ENTRIES]{NEWS_ENTRIES}[/NEWS_ENTRIES]
+[PAGINATE]
+<div class="news-pagination">
+	[PAGE_PREV]<a href="{PAGE_PREV}">previous</a>[/PAGE_PREV]
+	[PAGE_PREV_ELSE]<span class="inactive">previous</span>[/PAGE_PREV_ELSE]
+	|
+	[PAGE_NEXT]<a href="{PAGE_NEXT}">next</a>[/PAGE_NEXT]
+	[PAGE_NEXT_ELSE]<span class="inactive">next</span>[/PAGE_NEXT_ELSE]
+	|
+	page {PAGE_CURRENT}/{PAGE_TOTAL}
+</div>
+[/PAGINATE]
+<!--NEWS_LIST_END//-->
+
+
+<!--NEWS_LIST_ENTRY_START//-->
+	<!--
+		Changedate: {DATE:m/d/Y H:i:s lang=EN}
+		Livedate:   {LIVEDATE:d.m.Y H:i:s lang=EN}
+		Killdate:   {KILLDATE:d.m.Y H:i:s lang=EN}
+		Sortdate:   {SORTDATE:d.m.Y H:i:s lang=EN}
+	//-->
+	<div class="newsEntry[PRIO] prio{PRIO}[/PRIO][FIRST] firstEntry[/FIRST][LAST] lastEntry[/LAST]" id="news-{ID}">
+	[NEWS_TITLE]<h2>{NEWS_TITLE}</h2>[/NEWS_TITLE]
+	[NEWS_SUBTITLE]<h3>{NEWS_SUBTITLE}</h3>[/NEWS_SUBTITLE]
+	[NEWS_TOPIC]<p><strong>{NEWS_TOPIC}</strong></p>[/NEWS_TOPIC]
+	[IMAGE]
+		[ZOOM_ELSE]
+			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
+				<img src="{CMSGO_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+			[IMAGE_URL]</a>[/IMAGE_URL]
+			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
+		[/ZOOM_ELSE]
+		[ZOOM]
+			<a href="{CMSGO_RESIZE_IMAGE}/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
+				<img src="{CMSGO_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+			</a>
+			<!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px and {IMAGE_HASH} -->
+		[/ZOOM]
+	[/IMAGE]
+	[NEWS_TEASER]{NEWS_TEASER}[/NEWS_TEASER]
+	[NEWS_TEASER_ELSE][NEWS_TEXT]{NEWS_TEXT}[/NEWS_TEXT][/NEWS_TEASER_ELSE]
+	[AUTHOR]<p>{AUTHOR}[PLACE], {PLACE}[/PLACE]</p>[/AUTHOR][AUTHOR_ELSE][PLACE]<p>{PLACE}</p>[/PLACE][/AUTHOR_ELSE]
+	[URL]
+		<p><a href="{URL}"{URL_TARGET}>[URL_TEXT]{URL_TEXT}[/URL_TEXT][URL_TEXT_ELSE]more[/URL_TEXT_ELSE]</a></p>
+	[/URL]
+	[GALLERY]
+		<div class="image-gallery">
+			<!--GALLERY_ITEM_START//-->
+			<div class="image-gallery-item">
+				<!-- Zoom -->
+				<a href="{CMSGO_RESIZE_IMAGE}/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
+					<!-- Thumbnail --><!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px -->
+					<img src="{CMSGO_RESIZE_IMAGE}/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
+				</a>
+			</div>
+			<!--GALLERY_ITEM_END//-->
+			{GALLERY}
+		</div>
+	[/GALLERY]
+	[FILES]{FILES}[/FILES]
+	[NEWS_DETAIL_LINK]
+		<p class="link"><a href="{NEWS_DETAIL_LINK}">read</a></p>
+	[/NEWS_DETAIL_LINK]
+	[NEWS_TAGS]{NEWS_TAGS}[/NEWS_TAGS]
+	</div>
+<!--NEWS_LIST_ENTRY_END//-->
+
+
+<!--NEWS_LIST_ENTRY_SPACE_START//-->
+
+	<!-- space between news items -->
+
+<!--NEWS_LIST_ENTRY_SPACE_END//-->
+
+<!--NEWS_LIST_ROW_SPACE_START//-->
+
+	<!-- space between rows of news items -->
+	<hr />
+
+<!--NEWS_LIST_ROW_SPACE_END//-->
+
+<!--NEWS_DETAIL_START//-->
+<div class="news">
+	<div class="news-header">
+		[TITLE]<h3>{TITLE}</h3>[/TITLE]
+		[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+	</div>
+	<!--
+		Changedate: {DATE:m/d/Y H:i:s lang=EN}
+		Livedate:   {LIVEDATE:d.m.Y H:i:s lang=EN}
+		Killdate:   {KILLDATE:d.m.Y H:i:s lang=EN}
+		Sortdate:   {SORTDATE:d.m.Y H:i:s lang=EN}
+	//-->
+	[NEWS_TITLE]<h1>{NEWS_TITLE}</h1>[/NEWS_TITLE]
+	[NEWS_SUBTITLE]<h2>{NEWS_SUBTITLE}</h2>[/NEWS_SUBTITLE]
+	[NEWS_TOPIC]<p>
+		<strong>{NEWS_TOPIC}</strong>[AUTHOR], {AUTHOR}[PLACE], {PLACE}[/PLACE][/AUTHOR][AUTHOR_ELSE][PLACE], {PLACE}[/PLACE][/AUTHOR_ELSE]
+	</p>[/NEWS_TOPIC]
+	[IMAGE]
+		[ZOOM_ELSE]
+			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
+				<img src="{CMSGO_RESIZE_IMAGE}/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+			[IMAGE_URL]</a>[/IMAGE_URL]
+			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
+		[/ZOOM_ELSE]
+		[ZOOM]
+			<a href="{CMSGO_RESIZE_IMAGE}/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
+				<img src="{CMSGO_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+			</a>
+		[/ZOOM]
+	[/IMAGE]
+	[NEWS_TEXT]{NEWS_TEXT}[/NEWS_TEXT]
+	[NEWS_TEXT_ELSE][NEWS_TEASER]{NEWS_TEASER}[/NEWS_TEASER][/NEWS_TEXT_ELSE]
+	[URL]
+		<p><a href="{URL}"{URL_TARGET}>[URL_TEXT]{URL_TEXT}[/URL_TEXT][URL_TEXT_ELSE]more[/URL_TEXT_ELSE]</a></p>
+	[/URL]
+		[GALLERY]
+		<div class="image-gallery">
+			<!--GALLERY_ITEM_START//-->
+			<div class="image-gallery-item">
+				<!-- Zoom -->
+				<a href="{CMSGO_RESIZE_IMAGE}/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
+					<!-- Thumbnail -->
+					<img src="{CMSGO_RESIZE_IMAGE}/150x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
+				</a>
+			</div>
+			<!--GALLERY_ITEM_END//-->
+			{GALLERY}
+		</div>
+	[/GALLERY]
+	[FILES]{FILES}[/FILES]
+
+	[NEWS_LIST_LINK]
+		<p class="link"><a href="{NEWS_LIST_LINK}">back</a></p>
+	[/NEWS_LIST_LINK]
+
+</div>
+<!--NEWS_DETAIL_END//-->

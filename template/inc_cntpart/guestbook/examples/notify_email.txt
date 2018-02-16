@@ -1,0 +1,22 @@
+Notify about a new guestbook/comment
+------------------------------------
+
+Frontend URL
+{FE_URL}
+
+Backend URL (login first, then open the link)
+{BE_URL}
+
+Here are the posted data:
+Date   : {DATE}
+IP     : {IP}
+Browser: {BROWSER}
+Name   : {NAME}
+Email  : {EMAIL}
+URL    : {URL}
+
+Message:
+{MESSAGE}
+
+Image  : {IMG_NAME}
+{IMG_URL}

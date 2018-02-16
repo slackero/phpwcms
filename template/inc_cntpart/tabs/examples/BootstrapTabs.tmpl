@@ -1,0 +1,81 @@
+<!--TABS_START//-->
+<div class="bs-tabs">
+[TITLE]    <h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]    <h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TABS_ENTRIES]    <div class="bs-tab-content tab-content" data-id="{ID}">
+{TABS_ENTRIES}
+    </div>
+    <!--
+        This is for example ONLY!!!, not recommend to use it this way.
+        Place Bootstrap CSS and JavaScript inside your main template.
+        It's also recommend to place the DOM ready $(function(){}); inside
+        a global JavaScript file so it's loaded only once.
+    -->
+    <!-- CSS: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css -->
+    <!-- JS: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js -->
+    <!-- JS:
+    $(function(){
+        var $bstabs = $('div.bs-tab-content');
+        $bstabs.each(function(){
+            var $this = $(this);
+            var $id = $this.data('id');
+            var $tabnav = $('<ul class="nav nav-tabs" role="tablist"></ul>');
+            var $tabpanels = $('div.tab-pane', $this);
+            $tabpanels.each(function(key){
+                var $t = $(this);
+                var $tabid = 'tab'+$id+'-'+(key+1);
+                var $tablabel = $('h5.bs-tab-label:first-child', $t);
+                var $tabtext = ''
+                if($tablabel.length) {
+                    $tabtext = $.trim($tablabel.text());
+                }
+                $tablabel.remove();
+                if(!$tabtext) {
+                    $tabtext = 'Tab '+(key+1);
+                }
+                $t.attr('id', $tabid);
+                var $active = '';
+                if(key === 0) {
+                    $active = ' class="active"';
+                    $t.addClass('active');
+                }
+                $tabnav.append('<li role="presentation"'+$active+'><a href="#'+$tabid+'" aria-controls="'+$tabid+'" role="tab" data-toggle="tab">'+$tabtext+'</a></li>');
+            });
+            $this.before($tabnav);
+        });
+    });
+    -->
+[/TABS_ENTRIES]
+</div>
+<!--TABS_END//-->
+
+<!--TABS_ENTRY_START//-->
+ [TABCONTENT]
+    <div role="tabpanel" class="tab-pane">
+        <h5 class="bs-tab-label">{TABTITLE}</h5>
+		[TABHEADLINE]<h3>{TABHEADLINE}</h3>[/TABHEADLINE]
+		[TABTEXT]{TABTEXT}[/TABTEXT]
+		[TABLINK]<p class="more"><a href="{TABLINK}"{TARGET}>@@read more@@</a></p>[/TABLINK]
+    </div>
+[/TABCONTENT]
+<!--TABS_ENTRY_END//-->
+
+<!--
+	If you use custom fields you can use the following for testing
+	See the fieldgroup1 in conf.template_default.inc.php
+	[TAB_STRING1]{TAB_STRING1}[/TAB_STRING1][TAB_STRING1_ELSE] ... [/TAB_STRING1_ELSE]
+	[TAB_TEXTAREA1]{TAB_TEXTAREA1}[/TAB_TEXTAREA1][TAB_TEXTAREA1_ELSE] ... [/TAB_TEXTAREA1_ELSE]
+	[TAB_OPTIONNAME1]
+		Will be the selected value {TAB_OPTIONNAME1}
+		[TAB_OPTIONNAME1_OPTION1]{TAB_OPTIONNAME1_OPTION1}[/TAB_OPTIONNAME1_OPTION1]
+		[TAB_OPTIONNAME1_OPTION2]{TAB_OPTIONNAME1_OPTION2}[/TAB_OPTIONNAME1_OPTION2]
+	[/TAB_OPTIONNAME1]
+	[TAB_SELECT1]
+		Will be the selected value {TAB_SELECT1}
+		[TAB_SELECT1_OPTION1]{TAB_SELECT1_OPTION1}[/TAB_SELECT1_OPTION1]
+		[TAB_SELECT1_OPTION2]{TAB_SELECT1_OPTION2}[/TAB_SELECT1_OPTION2]
+	[/TAB_SELECT1]
+	[TAB_INTEGER1]{TAB_INTEGER1}[/TAB_INTEGER1]
+	[TAB_FLOAT1]{TAB_FLOAT1}[/TAB_FLOAT1]
+	[TAB_BOOL1]True[/TAB_BOOL1][TAB_BOOL1_ELSE]False[/TAB_BOOL1_ELSE]
+-->

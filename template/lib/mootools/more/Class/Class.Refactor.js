@@ -1,0 +1,1 @@
+Class.refactor=function(b,a){$each(a,function(e,d){var c=b.prototype[d];if(c&&(c=c._origin?c._origin:c)&&typeof e=="function"){b.implement(d,function(){var f=this.previous;this.previous=c;var g=e.apply(this,arguments);this.previous=f;return g})}else{b.implement(d,e)}});return b};

@@ -1,0 +1,57 @@
+/* 
+
+	Sample CSS for use in combination with {NAV_LIST_UL:VCSS}
+	
+	CSS for show/hide flyout menu is rendered dynamically in the style section
+	Basis of this CSS is taken from http://www.alistapart.com/articles/horizdropdowns/
+
+*/
+
+.vcss_menu {
+	font: normal normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	}
+	
+.vcss_menu em {
+	font-style: normal;
+	}
+
+.vcss_menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 150px; /* Width of Menu Items */
+	border-bottom: 1px solid #CCCCCC;
+	}
+	
+.vcss_menu ul li {
+	position: relative;
+	}
+	
+.vcss_menu li ul {
+	position: absolute;
+	left: 149px; /* Set 1px less than menu width */
+	top: 0;
+	display: none;
+	}
+
+/* Styles for Menu Items */
+
+.vcss_menu ul li a, .vcss_menu ul li a:link,  .vcss_menu ul li a:visited, .vcss_menu ul li a:active {
+	display: block;
+	text-decoration: none;
+	color: #777777;
+	background: #FFFFFF; /* IE6 Bug */
+	padding: 5px;
+	border: 1px solid #CCCCCC; /* IE6 Bug */
+	border-bottom: 0;
+	}
+
+.vcss_menu ul li a:hover {
+	background: #F0F8FF;
+	color: #191970;
+}
+	
+/* Holly Hack. IE Requirement \*/
+* html .vcss_menu ul li { float: left; height: 1%; }
+* html .vcss_menu ul li a { height: 1%; }
+/* End */

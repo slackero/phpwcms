@@ -1,0 +1,272 @@
+<?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+
+
+$cmsgo    = array();
+$root       = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
+require $root.'/include/config/conf.inc.php';
+require $root.'/include/inc_lib/default.inc.php';
+require $root.'/include/inc_lib/general.inc.php';
+require $root.'/include/inc_lib/imagick.convert.inc.php';
+
+// get segments: cmsimage.php/WIDTH[[[[xHEIGHT]xCROP]xQUALITY]xGS]/[[HASH|ID].EXT]
+// ...xGS will convert image to GrayScale
+$request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF'];
+
+// strip out PHPSESSNAME=...
+if(session_id() && session_name()) {
+    // session expected at the end of REQUEST URI when added by PHP
+    $session_name_pos = strpos($request_uri, session_name().'=');
+    if($session_name_pos !== FALSE) {
+        $request_uri = trim(trim(mb_substr($request_uri, 0, $session_name_pos), '&'), '?');
+    }
+}
+
+$query_separator    = strpos($request_uri, 'cmsimage.php?') !== FALSE ? '?' : '/';
+$data               = explode('cmsimage.php'.$query_separator, $request_uri, 2);
+if(isset($data[1])) {
+
+    $data = explode('/', $data[1]);
+
+    // first check hashed data
+    if(isset($data[1])) {
+
+        $data[1]    = preg_replace('/[^a-fgijpn0-9\.]/i', '', $data[1]);
+        $hash       = cut_ext($data[1]);
+        $ext        = which_ext($data[1]);
+        $value      = array();
+
+        if(substr($data[0], 0, 7) === 'convert') {
+            // get image convert function but limit to max of 5 chars
+            $convert_function = substr(substr($data[0], 8), 0, 5);
+
+            if(!empty($convert_function) && $hash && $ext && function_exists('cmsgo_convertimage_'.$convert_function)) {
+
+                $source_image       = $hash.'.'.$ext;
+                $target_image       = $hash.'-'.$convert_function.'.'.$ext;
+                $convert_function   = 'cmsgo_convertimage_'.$convert_function;
+
+                // deliver cached image first
+                if(!is_file(CMSGO_THUMB.$target_image)) {
+
+                    $result = $convert_function(CMSGO_THUMB.$source_image, CMSGO_THUMB.$target_image);
+
+                    if(empty($result['error']) && !empty($result['image'])) {
+
+                        $target_image = $result['image'];
+
+                    } elseif(is_file(CMSGO_THUMB.$source_image)) {
+
+                        $target_image = $source_image;
+
+                    } else {
+
+                        $target_image = '';
+                    }
+
+                }
+
+                if($target_image) {
+
+                    if(!empty($cmsgo['cmsimage_redirect'])) {
+                        headerRedirect(CMSGO_URL.CMSGO_IMAGES.$target_image, 301);
+                    }
+
+                    header('Content-Type: ' . get_mimetype_by_extension($ext));
+                    header('Content-Disposition: inline');
+                    @readfile(CMSGO_THUMB.$target_image);
+                    exit;
+
+                }
+
+            }
+
+            // uncached transparent GIF
+            cmsgo_empty_gif();
+
+        } else {
+            $data[0] = preg_replace('/[^0-9xgsXGSctrlb\-]/', '', $data[0]);
+        }
+
+        // Check allowed cmsimage settings and use fallback/default if not matching
+        if(!empty($cmsgo['cmsimage_settings']) && $data[0] && !in_array($data[0], $cmsgo['cmsimage_settings'])) {
+            if(isset($cmsgo['cmsimage_settings']['default'])) {
+                $data[0] = $cmsgo['cmsimage_settings']['default'];
+            } else {
+                reset($cmsgo['cmsimage_settings']);
+                $data[0] = current($cmsgo['cmsimage_settings']);
+            }
+            // check if script should stop here with an empty GIF
+            if(empty($data[0]) || $data[0] === 'empty') {
+                cmsgo_empty_gif();
+            }
+        }
+
+        if(is_intval($hash)) {
+
+            @session_start();
+            $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+
+            require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
+
+            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'cmsgo_file WHERE ';
+            $sql  .= 'f_id='.intval($hash)." AND ";
+            if(substr($cmsgo['image_library'], 0, 2) == 'gd') {
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+            }
+            $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
+            $hash  = _dbQuery($sql);
+            if(isset($hash[0]['f_hash'])) {
+                $ext  = $hash[0]['f_ext'];
+                $hash = $hash[0]['f_hash'];
+            } else {
+                $hash = '';
+                $ext  = '';
+            }
+
+        } elseif($hash && strlen($hash) == 32 && $ext && !is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$hash.'.'.$ext)) {
+
+            @session_start();
+            $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+
+            require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
+
+            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'cmsgo_file WHERE ';
+            $sql  .= 'f_hash='._dbEscape($hash)." AND ";
+            if(substr($cmsgo['image_library'], 0, 2) == 'gd') {
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+            }
+            $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
+            $hash  = _dbQuery($sql);
+            if(isset($hash[0]['f_hash'])) {
+                $ext  = $hash[0]['f_ext'];
+                $hash = $hash[0]['f_hash'];
+            } else {
+                $hash = '';
+                $ext  = '';
+            }
+
+        }
+
+        if($hash && strlen($hash) == 32 && $ext) {
+
+            $attribute  = explode('x', $data[0]);
+            $width      = intval($attribute[0]);
+            $height     = isset($attribute[1]) ? intval($attribute[1]) : 0;
+            $crop       = isset($attribute[2]) ? $attribute[2] : 0;
+            $crop_pos   = ''; // the old behavior center,center | cc
+            $grid       = 0;
+            if($crop) {
+                $crop   = explode('-', $crop, 2);
+
+                if(isset($crop[1]) && in_array($crop[1], array('tl', 'tc', 'tr', 'cl', 'cr', 'bl', 'bc', 'br'))) {
+                    $crop_pos = $crop[1];
+                }
+                $crop   = intval($crop[0]);
+                if($crop) {
+                    $grid       = $crop > 1 ? $crop : 0;
+                    $crop       = 1;
+                } else {
+                    $crop_pos   = '';
+                    $crop       = 0;
+                }
+            }
+
+            // quality
+            if(isset($attribute[3]) && ($quality = intval($attribute[3])) ) {
+                if($quality < 10 || $quality > 100) {
+                    $quality = '';
+                } else {
+                    $value['jpg_quality'] = $quality;
+                }
+            } else {
+                $quality = '';
+            }
+
+            if(isset($attribute[4]) && strtolower($attribute[4]) == 'gs') {
+                $cmsgo['colorspace'] = 'GRAY';
+            }
+
+            $value["max_width"]     = $width ? $width : '';
+            $value["max_height"]    = $height ? $height : '';
+            $value['target_ext']    = $ext;
+            $value['image_name']    = $hash . '.' . $ext;
+            $value['thumb_name']    = md5($hash.$value["max_width"].$value["max_height"].$cmsgo['sharpen_level'].$crop.$crop_pos.$quality.$cmsgo['colorspace']);
+            $value['crop_image']    = $crop;
+            $value['crop_pos']      = $crop_pos;
+
+            // Set width/height based on grid
+            if($grid) {
+                if(!$value["max_width"] || !$value["max_height"]) {
+                    if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']) && ($imgdata = @getimagesize(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']))) {
+
+                        if($value["max_height"] && !$value["max_width"]) {
+                            $resize_factor = $imgdata[1] / $value["max_height"];
+                            $value["max_width"] = floor($imgdata[0] / $resize_factor);
+                        }
+                        if($value["max_width"] && !$value["max_height"]) {
+                            $resize_factor = $imgdata[0] / $value["max_width"];
+                            $value["max_height"] = floor($imgdata[1] / $resize_factor);
+                        }
+                        if(!$value["max_width"] && !$value["max_height"]) {
+                            $value["max_width"]  = $imgdata[0];
+                            $value["max_height"] = $imgdata[1];
+                        }
+
+                    } elseif(!$value["max_width"]) {
+                        $value["max_width"] = $value["max_height"];
+                    } elseif(!$value["max_height"]) {
+                        $value["max_height"] = $value["max_width"];
+                    }
+                }
+                $basis = floor($value["max_width"] / $grid);
+                if(!$basis) {
+                    $basis = 1;
+                }
+                $value["max_width"] = $basis * $grid;
+
+                $basis = floor($value["max_height"] / $grid);
+                if(!$basis) {
+                    $basis = 1;
+                }
+                $value["max_height"] = $basis * $grid;
+            }
+
+            //get googlefriendly filename
+            require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
+            $image_hash = substr($value['image_name'], 0, (strlen($value['target_ext']) * -1) - 1);
+            $f_row= _dbGet('cmsgo_file', 'f_id, f_alias', "f_alias <> '' AND f_trash=0 AND f_hash="._dbEscape($image_hash), '', '', 1);
+            if(isset($f_row[0]['f_id'])) {
+                $value['thumb_name'] = $value['max_width'].$value['max_height'].$f_row[0]['f_id']."-".$f_row[0]['f_alias'];
+            }
+            //end get googlefriendly filename
+            
+            if(($image = get_cached_image( $value, false, false )) && !empty($image[0])) {
+                // Redirect, the "old" way
+                if(!empty($cmsgo['cmsimage_redirect'])) {
+                    headerRedirect(CMSGO_URL.CMSGO_IMAGES.$image[0], 301);
+                }
+                if(empty($image['type'])) {
+                    $image['type'] = get_mimetype_by_extension(which_ext($image[0]));
+                }
+                header('Content-Type: ' . $image['type']);
+                header('Content-Disposition: inline');
+                @readfile(CMSGO_THUMB.$image[0]);
+                exit;
+            }
+
+        }
+
+    }
+
+}
+
+// uncached transparent GIF
+cmsgo_empty_gif();

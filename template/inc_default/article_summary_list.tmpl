@@ -1,0 +1,34 @@
+[SPACE]<!-- Space -->[/SPACE]
+<div class="article-list-entry[CLASS] {CLASS}[/CLASS]">
+[IMAGE]
+	<div class="list-image">
+		[ARTICLELINK]<a href="{ARTICLELINK}"{TARGET}>[/ARTICLELINK]
+			{IMAGE}
+		[ARTICLELINK]</a>[/ARTICLELINK]
+
+		[CAPTION_SUPPRESS_ELSE][CAPTION]
+			<p class="list-image-caption">
+				{CAPTION}
+				[COPYRIGHT]<span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+			</p>
+		[/CAPTION][/CAPTION_SUPPRESS_ELSE]
+	</div>
+[/IMAGE]
+[TITLE]	<h1>{TITLE}</h1>[/TITLE][SUB]
+	<h2>{SUB}</h2>[/SUB][SUMMARY]
+	<div class="article-list-summary">
+		<strong>{DATE:j. F Y lang=EN}</strong>
+		{SUMMARY}
+	</div>
+[/SUMMARY]
+[SYSTEM]
+	<div class="article-list-system">
+		{SYSTEM}
+	</div>
+[/SYSTEM]
+[MORE]
+	<p class="article-list-more">
+		<a href="{ARTICLELINK}"{TARGET}>{MORE}</a>
+	</p>
+[/MORE]
+</div>

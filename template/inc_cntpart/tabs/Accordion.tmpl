@@ -1,0 +1,28 @@
+<!--TABS_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TABS_ENTRIES]
+<div id="accordion_{ID}" class="accordion">{TABS_ENTRIES}</div>
+<!-- JS: MORE:Fx/Fx.Elements,Fx/Fx.Accordion -->
+<script type="text/javascript">
+window.addEvent('domready', function() {
+	new Accordion($('accordion_{ID}'), 'h3.toggler', 'div.element', {
+		opacity: false,
+		alwaysHide: true,
+		onActive: function(toggler, element){toggler.addClass('active');},
+		onBackground: function(toggler, element){toggler.removeClass('active');}
+	});
+});
+</script>
+[/TABS_ENTRIES]
+<!--TABS_END//-->
+
+<!--TABS_ENTRY_START//-->
+[TABCONTENT]
+	<h3 class="toggler">{TABTITLE}</h3>
+	<div class="element">
+		[TABHEADLINE]<h4>{TABHEADLINE}</h4>[/TABHEADLINE]
+		[TABTEXT]{TABTEXT}[/TABTEXT]
+	</div>
+[/TABCONTENT]
+<!--TABS_ENTRY_END//-->

@@ -1,0 +1,60 @@
+<div class="recipe">
+	[TITLE]<h3>{GT:rezept}{TITLE}{/GT}</h3>[/TITLE]
+	[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+	
+	[CALORIES]
+	<p>
+	<strong>{CALORIES} kJ / {KCAL} kcal</strong>
+	[CALORIESADD] ({CALORIESADD})[/CALORIESADD]
+	</p>
+	[/CALORIES]
+	
+	[INGREDIENTS]
+	<table width="500" border="0" cellpadding="0" cellspacing="0" bgcolor="#addcf7" onclick="expandcontent(this, 'rz1')" onmouseover="this.style.border='1px #0081C8 solid';" onmouseout="this.style.border='1px #C1D9F0 solid';" style="border: 1px solid rgb(193, 217, 240); cursor: pointer;" summary="">
+		<tr>
+			<td style="padding-left: 3px;">{GT:expander}Zutaten{/GT}</td>
+			<td align="right" style="padding-right: 3px;"><img width="21" height="21" border="0" alt="Oeffnen" src="img/template/expander.gif" /></td>
+		</tr>
+	</table>
+	<div class="switchcontent" id="rz1">
+	<table width="500" border="0" cellpadding="0" cellspacing="0" bgcolor="#ebf3f8" style="border-left: 1px solid rgb(193, 217, 240); border-right: 1px solid rgb(193, 217, 240); border-bottom: 1px solid rgb(193, 217, 240); height: 160px;" summary="">
+		<tr>
+			<td valign="top" class="kitchen" style="padding: 10px;">
+			{INGREDIENTS}
+			</td>
+		</tr>
+	</table>
+	</div>
+	[/INGREDIENTS]
+	
+	[PREPARATION]
+	<table width="500" border="0" cellpadding="0" cellspacing="0" bgcolor="#addcf7" onclick="expandcontent(this, 'rz2')" onmouseover="this.style.border='1px #0081C8 solid';" onmouseout="this.style.border='1px #C1D9F0 solid';" style="border: 1px solid rgb(193, 217, 240); cursor: pointer; margin-top: 4px;" summary="">
+		<tr>
+			<td style="padding-left: 3px;">{GT:expander}Zubereitung{/GT}</td>
+			<td align="right" style="padding-right: 3px;"><img width="21" height="21" border="0" alt="Oeffnen" src="img/template/expander.gif" /></td>
+		</tr>
+	</table>
+	<div class="switchcontent" id="rz2">
+	<table width="500" border="0" cellpadding="0" cellspacing="0" bgcolor="#ebf3f8" style="border-left: 1px solid rgb(193, 217, 240); border-right: 1px solid rgb(193, 217, 240); border-bottom: 1px solid rgb(193, 217, 240); height: 200px;" summary="">
+		<tr>
+			<td valign="top" style="padding: 10px;">
+			{PREPARATION}
+			</td>
+		</tr>
+	</table>
+	</div>
+	[/PREPARATION]
+	
+	<table width="500" border="0" cellpadding="0" cellspacing="0" bgcolor="#addcf7" style="border: 1px solid rgb(193, 217, 240);" summary="">
+		<tr>
+			<td width="50" style="padding-left: 3px;">Schwierigkeit:</td>
+			<td valign="bottom">{IMAGE:{SEVERITY}.gif}</td>
+			[TIME]<td align="right" style="padding-right: 3px;">Zubereitungszeit: ca. {TIME} Minuten[TIMEADD], {TIMEADD}[/TIMEADD]</td>[/TIME]
+		</tr>
+	</table>
+	
+	[CAT]
+		<div class="cat" style="display:none">{CAT}</div>
+	[/CAT]
+
+</div>
