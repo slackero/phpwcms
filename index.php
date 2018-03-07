@@ -150,10 +150,10 @@ if(!$phpwcms['base_href'] && $phpwcms['rewrite_url'] && strpos($content['page_st
 // inject body tag in case of class or id attribute
 $content['page_start'] .= '<body';
 if(!empty($template_default['body']['id'])) {
-    $content['page_start'] .= ' id="'.$template_default['body']['id'].$content['body_id'].'"';
+    $content['page_start'] .= ' id="'.$template_default['body']['id'].$content['body_id'].$content['cat_id'].'"';
 }
 if(!empty($template_default['body']['class'])) {
-    $content['page_start'] .= ' class="'.$template_default['body']['class'].$content['body_id'].'"';
+    $content['page_start'] .= ' class="'.$template_default['body']['class'].$content['body_id'].$content['cat_id'].'"';
 }
 $content['page_start'] .= '>'.LF;
 
