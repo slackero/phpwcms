@@ -45,21 +45,22 @@ if( empty($IS_NEWS_CP) ) {
     $crow['acontent_id']        = 0;
     $crow['acontent_attr_class'] = '';
     $crow['acontent_attr_id']   = '';
+    $news['files_result']       = '';
 
 }
 
-$content['files']           = array();
-$content['files_sql']       = array();
+$content['files'] = array();
+$content['files_sql'] = array();
 
 // build file id query first
-foreach($crow["acontent_files"] as $fkey => $file_item) {
+foreach($crow["acontent_files"] as $fkey => $fkey_value) {
 
-    $file_item = intval($file_item);
+    $fkey_value = intval($fkey_value);
 
-    if($file_item) {
-        $content['files'][$fkey]['file_id'] = $file_item;
-        $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : trim($crow["acontent_text"][$fkey]);
-        $content['files_sql'][$fkey] = $file_item;
+    if($fkey_value) {
+        $content['files'][$fkey]['file_id'] = $fkey_value;
+        $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey]);
+        $content['files_sql'][$fkey] = $fkey_value;
     }
 }
 
@@ -150,233 +151,259 @@ if($content['files_sql']) {
 
             for($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
 
-                $_file_current = PHPWCMS_ROOT.$phpwcms["file_path"].$content['files_result'][ $_files_x ]['f_hash'];
-                if($content['files_result'][ $_files_x ]['f_ext']) {
-                    $_file_current .= '.'.$content['files_result'][ $_files_x ]['f_ext'];
-                }
-
                 // compare query result against content part file IDs
-                if($content['files_result'][ $_files_x ]['f_id'] == $file_item['file_id'] && is_file($_file_current) ) {
+                if(intval($content['files_result'][ $_files_x ]['f_id']) === intval($file_item['file_id'])) {
 
-                    // check if info for the file is available
-                    // [0] = normal file description like before
-                    // [1] = name the file (it's not the file name)
-                    // [2] = title
-                    // [3] = target (where to open a new file -> default is _blank even if empty
-                    // [4] = if it is an image try to show a thumbnail instead of the file icon -> here thumbnail WIDTHxHEIGHT
-                    // [5] = copyright information
-                    // [6] = custom URL
+                    $_file_current = PHPWCMS_ROOT.$phpwcms["file_path"].$content['files_result'][ $_files_x ]['f_hash'];
+                    if($content['files_result'][ $_files_x ]['f_ext']) {
+                        $_file_current .= '.'.$content['files_result'][ $_files_x ]['f_ext'];
+                    }
 
-                    if($file_item['file_info']) {
+                    if(is_file($_file_current) ) {
 
-                        $_file_info = explode('|', $file_item['file_info']);
+                        // check if info for the file is available
+                        // [0] = normal file description like before
+                        // [1] = name the file (it's not the file name)
+                        // [2] = title
+                        // [3] = target (where to open a new file -> default is _blank even if empty
+                        // [4] = if it is an image try to show a thumbnail instead of the file icon -> here thumbnail WIDTHxHEIGHT
+                        // [5] = copyright information
+                        // [6] = custom URL
 
-                        $_file_info[0] = trim($_file_info[0]);
-                        $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
-                        $_file_info[2] = empty($_file_info[2]) ? '' : trim($_file_info[2]);
-                        $_file_info[6] = '';
+                        if($file_item['file_info']) {
 
-                        // Custom URL and target
-                        $_file_info[3] = empty($_file_info[3]) ? array(0 => '', 1 => '') : explode(' ', trim($_file_info[3]), 2);
-                        $_file_info[3][0] = trim($_file_info[3][0]);
-                        if(empty($_file_info[3][1])) {
-                            $_file_info[3][1] = '';
-                        }
-                        if(empty($_file_info[3][0])) {
-                            $_file_info[3][0] = '';
-                            $_file_info[3][1] = '';
-                        }
-                        if($_file_info[3][0] && ($_file_info[3][0] === '_blank' || $_file_info[3][0] === '_parent' || $_file_info[3][0] === '_self')) {
-                            $_file_info[3] = ' target="'. $_file_info[3][0] .'"';
-                        } elseif($_file_info[3][1]) {
-                            $_file_info[6] = $_file_info[3][0];
-                            $_file_info[3] = ' target="'. $_file_info[3][1] .'"';
-                        } else {
-                            $_file_info[6] = $_file_info[3][0];
-                            $_file_info[3] = '';
-                        }
+                            // If file info is just an array
+                                if(is_array($file_item['file_info'])) {
 
-                        // only when height/width is given
-                        if(empty($_file_info[4])) {
+                                $_file_info = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+                                    if(count($file_item['file_info'])) {
+                                        foreach($file_item['file_info'] as $finfo_key => $finfo_value) {
+                                        $_file_info[$finfo_key] = $finfo_value;
+                                    }
+                                }
 
-                            $_file_info[4] = '';
+                            } else {
 
-                        } else {
+                            $_file_info = explode('|', $file_item['file_info']);
 
-                            $_file_info[4] = explode('x', $_file_info[4]);
-                            $_file_info[4][0] = intval($_file_info[4][0]);
-                            if(empty($_file_info[4][0])) {
-                                $_file_info[4][0] = '';
+                            $_file_info[0] = trim($_file_info[0]);
+                            $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
+                            $_file_info[2] = empty($_file_info[2]) ? '' : trim($_file_info[2]);
+                            $_file_info[6] = '';
+
                             }
 
-                            if(empty($_file_info[4][1])) {
-                                $_file_info[4][1] = '';
+                            // Custom URL and target
+                            $_file_info[3] = empty($_file_info[3]) ? array(0 => '', 1 => '') : explode(' ', trim($_file_info[3]), 2);
+                            $_file_info[3][0] = trim($_file_info[3][0]);
+                            if(empty($_file_info[3][1])) {
+                                $_file_info[3][1] = '';
+                            }
+                            if(empty($_file_info[3][0])) {
+                                $_file_info[3][0] = '';
+                                $_file_info[3][1] = '';
+                            }
+                            if($_file_info[3][0] && ($_file_info[3][0] === '_blank' || $_file_info[3][0] === '_parent' || $_file_info[3][0] === '_self')) {
+                                $_file_info[3] = ' target="'. $_file_info[3][0] .'"';
+                            } elseif($_file_info[3][1]) {
+                                $_file_info[6] = $_file_info[3][0];
+                                $_file_info[3] = ' target="'. $_file_info[3][1] .'"';
                             } else {
-                                $_file_info[4][1] = intval($_file_info[4][1]);
+                                $_file_info[6] = $_file_info[3][0];
+                                $_file_info[3] = '';
+                            }
+
+                            // only when height/width is given
+                            if(empty($_file_info[4])) {
+
+                                $_file_info[4] = '';
+
+                            } else {
+
+                                $_file_info[4] = explode('x', $_file_info[4]);
+                                $_file_info[4][0] = intval($_file_info[4][0]);
+                                if(empty($_file_info[4][0])) {
+                                    $_file_info[4][0] = '';
+                                }
+
                                 if(empty($_file_info[4][1])) {
                                     $_file_info[4][1] = '';
+                                } else {
+                                    $_file_info[4][1] = intval($_file_info[4][1]);
+                                    if(empty($_file_info[4][1])) {
+                                        $_file_info[4][1] = '';
+                                    }
+                                }
+                                $_file_info[4][2] = empty($_file_info[4][2]) ? 0 : 1;
+
+                                if(!($_file_info[4][0].$_file_info[4][1])) {
+                                    $_file_info[4] = '';
                                 }
                             }
-                            $_file_info[4][2] = empty($_file_info[4][2]) ? 0 : 1;
 
-                            if(!($_file_info[4][0].$_file_info[4][1])) {
-                                $_file_info[4] = '';
-                            }
-                        }
-
-                    } else {
-
-                        $_file_info = array(
-                            0 => '',
-                            1 => '',
-                            2 => '',
-                            3 => ' target="_blank"',
-                            4 => '',
-                            5 => '',
-                            6 => ''
-                        );
-
-                    }
-
-                    if(empty($_file_info[4]) && $_files_settings['thumbnail'] == 1) {
-
-                        $_file_info[4] = array(
-                            0 => intval($_files_settings['thumbnail_width']),
-                            1 => intval($_files_settings['thumbnail_height']),
-                            2 => intval($_files_settings['thumbnail_crop']) ? 1 : 0
-                        );
-
-                    }
-
-                    // language specific long description and copyright
-                    if($content['files_result'][ $_files_x ]['f_vars'] && count($phpwcms['allowed_lang']) > 1) {
-
-                        $content['files_result'][ $_files_x ]['f_vars'] = @unserialize($content['files_result'][ $_files_x ]['f_vars']);
-
-                        if(!empty($content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['longinfo'])) {
-                            $content['files_result'][ $_files_x ]['f_longinfo'] = $content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['longinfo'];
-                        }
-                        if(!empty($content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['copyright'])) {
-                            $content['files_result'][ $_files_x ]['f_copyright'] = $content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['copyright'];
-                        }
-
-                    }
-
-                    $_file_info[5] = empty($_file_info[5]) ? $content['files_result'][ $_files_x ]['f_copyright'] : trim($_file_info[5]);
-
-                    $_files_entries[$fkey] = $content['template_file'];
-                    $_files_entries[$fkey] = str_replace('{FILE_ID}', $content['files_result'][ $_files_x ]['f_id'], $_files_entries[$fkey]);
-                    $_files_entries[$fkey] = str_replace('{FILE_TARGET}', $_file_info[3], $_files_entries[$fkey]);
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][ $_files_x ]['f_ext']);
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_URL', $_file_info[6]);
-                    $_files_entries[$fkey] = str_replace('{FILE_DOWNLOADS}', $content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$fkey]);
-                    $_files_entries[$fkey] = str_replace('{FILE_SIZE}', return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
-
-                    $content['files_result'][ $_files_x ]['f_created'] = intval($content['files_result'][ $_files_x ]['f_created']);
-                    if($content['files_result'][ $_files_x ]['f_created'] <= 0) {
-                        $content['files_result'][ $_files_x ]['f_created'] = filectime($_file_current);
-                    }
-                    $_files_entries[$fkey] = str_replace('{FILE_DATE}', strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$fkey]);
-
-                    if($_file_info[1]) {
-                        $_files_entries[$fkey] = str_replace('{FILE_NAME}', html($_file_info[1]), $_files_entries[$fkey]);
-                        $content['files_result'][ $_files_x ]['f_name'] = $_file_info[1];
-                    } else {
-                        $_files_entries[$fkey] = str_replace('{FILE_NAME}', html($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$fkey]);
-                    }
-
-                    if($content['files_direct'] && $content['files_result'][ $_files_x ]['f_ext']) {
-
-                        $_files_entries[$fkey] = str_replace('{FILE_LINK}', rel_download($content['files_result'][ $_files_x ]['f_hash'], $content['files_result'][ $_files_x ]['f_name'], true), $_files_entries[$fkey]);
-
-                    } else {
-
-                        $_files_entries[$fkey] = str_replace('{FILE_LINK}', rel_download($content['files_result'][ $_files_x ]['f_hash'], $content['files_result'][ $_files_x ]['f_name'], false), $_files_entries[$fkey]);
-
-                    }
-
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html($_file_info[2]));
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_LONGINFO', empty($content['files_result'][ $_files_x ]['f_longinfo']) ? '' : plaintext_htmlencode($content['files_result'][ $_files_x ]['f_longinfo']));
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html($_file_info[0]));
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_COPYRIGHT', html($_file_info[5]));
-
-                    // now check file for possible thumbnail image
-                    $_files_image = false;
-
-                    if($_file_info[4] && strpos($_files_entries[$fkey], 'FILE_IMAGE') !== false) {
-
-                        $target_ext = $content['files_result'][ $_files_x ]['f_ext'];
-
-                        // do it for jpg, png or gif only
-                        switch($content['files_result'][ $_files_x ]['f_ext']) {
-
-                            case 'tif':
-                            case 'tiff':
-                            case 'pdf':
-                            case 'psd':
-                            case 'eps':
-                                if($GLOBALS['phpwcms']['image_library'] == 'gd2' || $GLOBALS['phpwcms']['image_library'] == 'gd') {
-                                    break;
-                                }
-
-                            case 'bmp':
-                                $target_ext = 'jpg';
-
-                            case 'gif':
-                            case 'jpg':
-                            case 'png':
-                            case 'svg':
-                                $_files_image = get_cached_image(array(
-                                    "target_ext"    =>  $target_ext,
-                                    "image_name"    =>  $content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
-                                    "max_width"     =>  $_file_info[4][0],
-                                    "max_height"    =>  $_file_info[4][1],
-                                    "thumb_name"    =>  md5($content['files_result'][ $_files_x ]['f_hash'].$_file_info[4][0].$_file_info[4][1].$phpwcms["sharpen_level"].$_file_info[4][2].$phpwcms['colorspace']),
-                                    'crop_image'    =>  $_file_info[4][2]
-                                ));
-                                break;
-
-                        }
-
-                    }
-
-                    // render {FILE_IMAGE_%} RT
-                    if($_files_get_imagesize) {
-
-                        if(!empty($content['files_result'][ $_files_x ]['f_svg']) || !empty($content['files_result'][ $_files_x ]['f_image_width'])) {
-                            $_files_get_imagesize = array(
-                                0 => $content['files_result'][ $_files_x ]['f_image_width'],
-                                1 => $content['files_result'][ $_files_x ]['f_image_height']
-                            );
                         } else {
-                            $_files_get_imagesize = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$content['files_result'][$_files_x ]['f_hash'].'.'.$content['files_result'][ $_files_x ]['f_ext']);
+
+                            $_file_info = array(
+                                0 => '',
+                                1 => '',
+                                2 => '',
+                                3 => ' target="_blank"',
+                                4 => '',
+                                5 => '',
+                                6 => ''
+                            );
+
                         }
 
-                        if(!empty($_files_get_imagesize[0])) {
+                        if(empty($_file_info[4]) && $_files_settings['thumbnail'] == 1) {
 
-                            $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', $_files_get_imagesize[0]);
-                            $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', $_files_get_imagesize[1]);
-                            $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', isset($_files_get_imagesize['mime']) ? $_files_get_imagesize['mime'] : '');
-                            if(isset($_files_get_imagesize['channels'])) {
-                                switch($_files_get_imagesize['channels']) {
-                                    case 3:
-                                        $_files_get_imagesize['channels'] = 'RGB';
-                                        break;
+                            $_file_info[4] = array(
+                                0 => intval($_files_settings['thumbnail_width']),
+                                1 => intval($_files_settings['thumbnail_height']),
+                                2 => intval($_files_settings['thumbnail_crop']) ? 1 : 0
+                            );
 
-                                    case 4:
-                                        $_files_get_imagesize['channels'] = 'CMYK';
-                                        break;
+                        }
 
-                                    default:
-                                        $_files_get_imagesize['channels'] = '@@unknown@@';
-                                }
-                            } else {
-                                $_files_get_imagesize['channels'] = '';
+                        // language specific long description and copyright
+                        if($content['files_result'][ $_files_x ]['f_vars'] && count($phpwcms['allowed_lang']) > 1) {
+
+                            $content['files_result'][ $_files_x ]['f_vars'] = @unserialize($content['files_result'][ $_files_x ]['f_vars']);
+
+                            if(!empty($content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['longinfo'])) {
+                                $content['files_result'][ $_files_x ]['f_longinfo'] = $content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['longinfo'];
+                            }
+                            if(!empty($content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['copyright'])) {
+                                $content['files_result'][ $_files_x ]['f_copyright'] = $content['files_result'][ $_files_x ]['f_vars'][ $phpwcms['default_lang'] ]['copyright'];
                             }
 
-                            $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', $_files_get_imagesize['channels']);
-                            $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', $_files_get_imagesize[0] >= $_files_get_imagesize[1] ? '@@landscape@@' : '');
-                            $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', $_files_get_imagesize[1] > $_files_get_imagesize[0] ? '@@portrait@@' : '');
+                        }
+
+                        $_file_info[5] = empty($_file_info[5]) ? $content['files_result'][ $_files_x ]['f_copyright'] : trim($_file_info[5]);
+
+                        $_files_entries[$fkey] = $content['template_file'];
+                        $_files_entries[$fkey] = str_replace('{FILE_ID}', $content['files_result'][ $_files_x ]['f_id'], $_files_entries[$fkey]);
+                        $_files_entries[$fkey] = str_replace('{FILE_TARGET}', $_file_info[3], $_files_entries[$fkey]);
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_EXT', $content['files_result'][ $_files_x ]['f_ext']);
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_URL', $_file_info[6]);
+                        $_files_entries[$fkey] = str_replace('{FILE_DOWNLOADS}', $content['files_result'][ $_files_x ]['f_dlfinal'], $_files_entries[$fkey]);
+                        $_files_entries[$fkey] = str_replace('{FILE_SIZE}', return_bytes_shorten($content['files_result'][ $_files_x ]['f_size'], $_files_settings['file_size_round'], $_files_settings['file_size_space']), $_files_entries[$fkey]);
+
+                        $content['files_result'][ $_files_x ]['f_created'] = intval($content['files_result'][ $_files_x ]['f_created']);
+                        if($content['files_result'][ $_files_x ]['f_created'] <= 0) {
+                            $content['files_result'][ $_files_x ]['f_created'] = filectime($_file_current);
+                        }
+                        $_files_entries[$fkey] = str_replace('{FILE_DATE}', strftime($_files_settings['date_format'], $content['files_result'][ $_files_x ]['f_created']), $_files_entries[$fkey]);
+
+                        if($_file_info[1]) {
+                            $_files_entries[$fkey] = str_replace('{FILE_NAME}', html($_file_info[1]), $_files_entries[$fkey]);
+                            $content['files_result'][ $_files_x ]['f_name'] = $_file_info[1];
+                        } else {
+                            $_files_entries[$fkey] = str_replace('{FILE_NAME}', html($content['files_result'][ $_files_x ]['f_name']), $_files_entries[$fkey]);
+                        }
+
+                        if($content['files_direct'] && $content['files_result'][ $_files_x ]['f_ext']) {
+
+                            $_files_entries[$fkey] = str_replace('{FILE_LINK}', rel_download($content['files_result'][ $_files_x ]['f_hash'], $content['files_result'][ $_files_x ]['f_name'], true), $_files_entries[$fkey]);
+
+                        } else {
+
+                            $_files_entries[$fkey] = str_replace('{FILE_LINK}', rel_download($content['files_result'][ $_files_x ]['f_hash'], $content['files_result'][ $_files_x ]['f_name'], false), $_files_entries[$fkey]);
+
+                        }
+
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html($_file_info[2]));
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_LONGINFO', empty($content['files_result'][ $_files_x ]['f_longinfo']) ? '' : plaintext_htmlencode($content['files_result'][ $_files_x ]['f_longinfo']));
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_DESCRIPTION', html($_file_info[0]));
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_COPYRIGHT', html($_file_info[5]));
+
+                        // now check file for possible thumbnail image
+                        $_files_image = false;
+
+                        if($_file_info[4] && strpos($_files_entries[$fkey], 'FILE_IMAGE') !== false) {
+
+                            $target_ext = $content['files_result'][ $_files_x ]['f_ext'];
+
+                            // do it for jpg, png or gif only
+                            switch($content['files_result'][ $_files_x ]['f_ext']) {
+
+                                case 'tif':
+                                case 'tiff':
+                                case 'pdf':
+                                case 'psd':
+                                case 'eps':
+                                    if($GLOBALS['phpwcms']['image_library'] == 'gd2' || $GLOBALS['phpwcms']['image_library'] == 'gd') {
+                                        break;
+                                    }
+
+                                case 'bmp':
+                                    $target_ext = 'jpg';
+
+                                case 'gif':
+                                case 'jpg':
+                                case 'png':
+                                case 'svg':
+                                    $_files_image = get_cached_image(array(
+                                        "target_ext"    =>  $target_ext,
+                                        "image_name"    =>  $content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
+                                        "max_width"     =>  $_file_info[4][0],
+                                        "max_height"    =>  $_file_info[4][1],
+                                        "thumb_name"    =>  md5($content['files_result'][ $_files_x ]['f_hash'].$_file_info[4][0].$_file_info[4][1].$phpwcms["sharpen_level"].$_file_info[4][2].$phpwcms['colorspace']),
+                                        'crop_image'    =>  $_file_info[4][2]
+                                    ));
+                                    break;
+
+                            }
+
+                        }
+
+                        // render {FILE_IMAGE_%} RT
+                        if($_files_get_imagesize) {
+
+                            if(!empty($content['files_result'][ $_files_x ]['f_svg']) || !empty($content['files_result'][ $_files_x ]['f_image_width'])) {
+                                $_files_get_imagesize = array(
+                                    0 => $content['files_result'][ $_files_x ]['f_image_width'],
+                                    1 => $content['files_result'][ $_files_x ]['f_image_height']
+                                );
+                            } else {
+                                $_files_get_imagesize = @getimagesize(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$content['files_result'][$_files_x ]['f_hash'].'.'.$content['files_result'][ $_files_x ]['f_ext']);
+                            }
+
+                            if(!empty($_files_get_imagesize[0])) {
+
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', $_files_get_imagesize[0]);
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', $_files_get_imagesize[1]);
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', isset($_files_get_imagesize['mime']) ? $_files_get_imagesize['mime'] : '');
+                                if(isset($_files_get_imagesize['channels'])) {
+                                    switch($_files_get_imagesize['channels']) {
+                                        case 3:
+                                            $_files_get_imagesize['channels'] = 'RGB';
+                                            break;
+
+                                        case 4:
+                                            $_files_get_imagesize['channels'] = 'CMYK';
+                                            break;
+
+                                        default:
+                                            $_files_get_imagesize['channels'] = '@@unknown@@';
+                                    }
+                                } else {
+                                    $_files_get_imagesize['channels'] = '';
+                                }
+
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', $_files_get_imagesize['channels']);
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', $_files_get_imagesize[0] >= $_files_get_imagesize[1] ? '@@landscape@@' : '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', $_files_get_imagesize[1] > $_files_get_imagesize[0] ? '@@portrait@@' : '');
+
+                            } else {
+
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', '');
+                            }
 
                         } else {
 
@@ -386,30 +413,19 @@ if($content['files_sql']) {
                             $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', '');
                             $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', '');
                             $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', '');
+
                         }
 
-                    } else {
+                        $_files_image = ($_files_image != false) ? $_files_image['src'] : '';
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE', $_files_image);
 
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', '');
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', '');
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', '');
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_CHANNEL', '');
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_LANDSCAPE', '');
-                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_PORTRAIT', '');
+                        // now replace a possible icon image
+                        $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_ICON', str_replace('{FILE_EXT}', $content['files_result'][ $_files_x ]['f_ext'], $_files_settings['icon_path'].$_files_settings['icon_name']));
 
+                        break;
                     }
-
-                    $_files_image = ($_files_image != false) ? $_files_image['src'] : '';
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE', $_files_image);
-
-                    // now replace a possible icon image
-                    $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_ICON', str_replace('{FILE_EXT}', $content['files_result'][ $_files_x ]['f_ext'], $_files_settings['icon_path'].$_files_settings['icon_name']));
-
-                    break;
-
                 }
             }
-
         }
 
         $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
