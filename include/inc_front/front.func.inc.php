@@ -537,7 +537,10 @@ function get_struct_data($root_name='', $root_info='') {
                 "acat_opengraph"    => $row["acat_opengraph"],
                 "acat_canonical"    => $row["acat_canonical"],
                 "acat_breadcrumb"   => intval($row["acat_breadcrumb"]),
-                "acat_onepage"      => $row["acat_onepage"]
+                "acat_onepage"      => $row["acat_onepage"],
+                "acat_lang"         => $row["acat_lang"],
+                "acat_lang_type"    => $row["acat_lang_type"],
+                "acat_lang_id"      => intval($row["acat_lang_id"])
             );
         }
     }
