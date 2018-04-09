@@ -1,10 +1,21 @@
 <?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+
+// cmsgo base values -> needed in any document
+
 
 // database values
 $cmsgo['db_host'] = 'localhost';
-$cmsgo['db_user'] = 'work_admin';
-$cmsgo['db_pass'] = 'stmS18!2';
-$cmsgo['db_table'] = 'cmsgo_work_db';
+$cmsgo['db_user'] = 'cmsgo';
+$cmsgo['db_pass'] = 'cmsgo!';
+$cmsgo['db_table'] = 'cmsgo';
 $cmsgo['db_prepend'] = '';
 $cmsgo['db_pers'] = 0;
 $cmsgo['db_charset'] = 'utf8';
@@ -20,12 +31,12 @@ $cmsgo['site_ssl_port'] = 443; // The Port on which you SSL Service serve the se
 
 $cmsgo['admin_name'] = 'Webmaster'; //default: Webmaster
 $cmsgo['admin_user'] = 'cmsadmin'; //default: admin
-$cmsgo['admin_pass'] = '00d20d37c7421890793795f78b944f9f'; //MD5(cmsgo)
+$cmsgo['admin_pass'] = 'acf977c1cfa27a463246f6963055cb11'; //MD5(cmsgo)
 $cmsgo['admin_email'] = 'noreply@cmsgo.ch'; //default: noreplay@host
 
 // paths
 $cmsgo['DOC_ROOT'] = $_SERVER['DOCUMENT_ROOT'];// current DOC_ROOT seems to be: '/home/httpd/vhosts/cmsgo.ch/httpdocs'
-$cmsgo['root'] = 'workplace';         //default: ''
+$cmsgo['root'] = '';         //default: ''
 $cmsgo['file_path'] = 'filearchive';    //default: 'filearchive'
 $cmsgo['templates'] = 'template';    //default: 'template'
 $cmsgo['content_path'] = 'content'; //default: 'content'
@@ -127,6 +138,10 @@ $cmsgo['parse_html_mode'] = 'before'; // when to parse html: [null|before, after
 $cmsgo['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied
 $cmsgo['cmsimage_settings'] = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only array('500x500x0', '1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
 $cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+
+//reCaptcha
+$phpwcms['recaptcha_pu']		= ''; //public key google recaptcha
+$phpwcms['recaptcha_pr']		= ''; //privat key google recaptcha
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

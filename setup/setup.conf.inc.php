@@ -20,7 +20,7 @@ $cmsgo['db_prepend'] = '';
 $cmsgo['db_pers'] = 0;
 $cmsgo['db_charset'] = 'utf8';
 $cmsgo['db_collation'] = 'utf8_general_ci';
-$cmsgo['db_version'] = 50547;
+$cmsgo['db_version'] = 0;
 $cmsgo['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
 $cmsgo['db_sql_mode'] = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
 
@@ -32,12 +32,12 @@ $cmsgo['site_ssl_port'] = 443; // The Port on which you SSL Service serve the se
 
 $cmsgo['admin_name'] = 'Webmaster'; //default: Webmaster
 $cmsgo['admin_user'] = 'cmsadmin'; //default: admin
-$cmsgo['admin_pass'] = '00d20d37c7421890793795f78b944f9f'; //MD5(cmsgo)
-$cmsgo['admin_email'] = 'noreply@cmsgo.ch'; //default: noreplay@host
+$cmsgo['admin_pass'] = 'acf977c1cfa27a463246f6963055cb11'; //MD5(cmsgo)
+$cmsgo['admin_email'] = 'info@pixels-points.ch'; //default: noreplay@host
 
 // paths
-$cmsgo['DOC_ROOT'] = $_SERVER['DOCUMENT_ROOT'];// current DOC_ROOT seems to be: '/home/httpd/vhosts/cmsgo.ch/httpdocs' 
-$cmsgo['root'] = 'workplace';         //default: ''
+$cmsgo['DOC_ROOT'] = empty($_SERVER['DOCUMENT_ROOT']) ? dirname(dirname(__FILE__)) : $_SERVER['DOCUMENT_ROOT'];
+$cmsgo['root'] = trim(str_replace("\\", '/', preg_replace('/\/setup$/i', '', dirname($_SERVER['SCRIPT_NAME']))), '/');
 $cmsgo['file_path'] = 'filearchive';    //default: 'filearchive'
 $cmsgo['templates'] = 'template';    //default: 'template'
 $cmsgo['content_path'] = 'content'; //default: 'content'
