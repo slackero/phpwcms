@@ -1,10 +1,21 @@
 <?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+
+// cmsgo base values -> needed in any document
+
 
 // database values
 $cmsgo['db_host'] = 'localhost';
-$cmsgo['db_user'] = 'work_admin';
-$cmsgo['db_pass'] = 'stmS18!2';
-$cmsgo['db_table'] = 'cmsgo_work_db';
+$cmsgo['db_user'] = 'db_user';
+$cmsgo['db_pass'] = 'db_pass';
+$cmsgo['db_table'] = 'db_table';
 $cmsgo['db_prepend'] = '';
 $cmsgo['db_pers'] = 0;
 $cmsgo['db_charset'] = 'utf8';
@@ -146,7 +157,5 @@ $cmsgo['SMTP_REALM'] = ''; // SMTP realm, used for NTLM auth type
 $cmsgo['SMTP_WORKSTATION'] = ''; // SMTP workstation, used for NTLM auth type
 
 define('CMSGO_INCLUDE_CHECK', true);
-
-$NO_ACCESS = true;
 
 ?>
