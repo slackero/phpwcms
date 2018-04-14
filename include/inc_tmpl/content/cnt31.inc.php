@@ -899,14 +899,9 @@ function addNewImage(where) {
     $('#image_'+entry_number).html(new_entry);
     window.location.hash='image_'+entry_number;
 
-    $('img.modalButton').on('click', function(e) {
-      var src = $(this).attr('data-src');
-      //var height = $(this).attr('data-height') || 300;
-      //var width = $(this).attr('data-width') || 400;
-      //ar modaltitle = $(this).attr('alt');
-
+    $('button.modalButton').on('click', function(e) {
+      var src = $(this).data('src');
       $("#browserModal iframe").attr({'src':src, 'height': '100%', 'width': '100%'});
-      //$("#browserModal h2").html(modaltitle);
     });
     return false;
 }
