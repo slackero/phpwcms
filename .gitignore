@@ -1,2 +1,3 @@
 /.idea
 /include/config/conf.inc.php
+/content/tmp/*.tmp

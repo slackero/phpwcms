@@ -324,14 +324,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
             if(isset($_SESSION["structure"]["article"][$article[$akey]["article_id"]]) && $_SESSION["structure"]["article"][$article[$akey]["article_id"]]) {
-                struct_articlecontentlist($article, $counter, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string);
+                struct_articlecontentlist($article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string);
             }
         }
 
     }
 }
 
-function struct_articlecontentlist(& $article, $counter, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string){
+function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string){
 
     $a    = '';
 
@@ -528,7 +528,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 
                 $a .= '</div></div>'.LF;
 
-                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
+                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
                 $a .= '</div>'.LF;
                 break;
