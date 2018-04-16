@@ -726,7 +726,7 @@ function addNewImage(where) {
     new_entry += '<'+'div class="row mb-3">';
     new_entry += '<'+'div class="col-sm-6">';
     new_entry += '<'+'div class="form-group align-items-center">';
-    new_entry += '<'+'input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_<?php echo $key ?>" type="hidden" value="" '+'/>';
+    new_entry += '<'+'input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_'+entry_number+'" type="hidden" value="" '+'/>';
     new_entry += '<'+'input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" '+'/>';
     new_entry += '<'+'label><?php echo $BL['be_flashplayer_thumbnail'] ?><'+'/label>';
     new_entry += '<div class="input-group">';
