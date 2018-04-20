@@ -9,7 +9,7 @@
 
 // get article details
 function get_article_data($aid) {
-    $sql  = "SELECT article_id, article_cid, article_title, article_subtitle, article_alias, article_aktiv, article_public, article_uid, ";
+    $sql  = "SELECT article_id, article_cid, article_title, article_subtitle, article_alias, article_aktiv, article_public, article_uid, article_lang, ";
     $sql .= "date_format(article_tstamp, '".$BL['be_sqlshortdatetime']."') AS article_date ";
     $sql .= 'FROM '.DB_PREPEND.'cmsgo_article WHERE article_deleted=0 AND   article_id = ' . intval($aid) . ' LIMIT 1';
 
@@ -36,6 +36,7 @@ function struct_list($id, $copy_article_content, $cut_article_content, $copy_id,
 }
 
 function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $forbid_cut, $forbid_copy, $listmode, $cut_article, $count_row) {
+
 
     global $BL;
 
@@ -79,6 +80,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($struct[$key]["acat_alias"]) ? 'id='.$struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
     $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
     $a .= $an . '</a></strong></td></tr></table></td><td class="nowrap text-right" nowrap="nowrap">'.LF;
+    $a .= '<span class="mr-3 flag-icon flag-icon-'.$struct[$key]['acat_lang'].' data-toggle="tooltip" title="" data-original-title="'.$struct[$key]['acat_lang'].'"></span>';
 
     $a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
 
@@ -245,6 +247,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
         $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
         $a .= $at.'</a></td></tr></table></td><td nowrap="nowrap" class="nowrap text-right">';
+        $a .= '<span class="mr-3 flag-icon flag-icon-'.$article[$akey]["article_lang"].' data-toggle="tooltip" title="" data-original-title="'.$article[$akey]["article_lang"].'"></span>';
 
         if($cut_article) {
           if($cut_article != $article[$akey]["article_id"]) {
