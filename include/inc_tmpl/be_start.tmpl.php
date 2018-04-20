@@ -61,7 +61,7 @@ if (!empty($_SESSION['cmsgo_backend_search'])) {
 $_asql_1 .= ' ORDER BY acontent_tstamp DESC LIMIT '.$_cmsgo_home['homeMaxCntParts'];
 $_last10_articlecontent = _dbQuery($_asql_1);
 
-$_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_aktiv, article_uid, ";
+$_asql_1  = "SELECT article_id, article_cid, article_title, article_subtitle, article_aktiv, article_uid, article_lang, ";
 $_asql_1 .= "date_format(article_tstamp, '".$BL['be_sqlshortdatetime']."') AS article_date ";
 $_asql_1 .= 'FROM '.DB_PREPEND.'cmsgo_article WHERE article_deleted=0 ';
 $_asql_1 .= $_usql;
@@ -112,9 +112,14 @@ $_last10_article = _dbQuery($_asql_1);
           if ($value['article_subtitle']) {
               echo ' / ' . html($value['article_subtitle']);
           }
+
+
+
+
           echo '</td>'.LF;
           echo '  <td>&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
           echo '  <td class="text-right text-nowrap">';
+          echo '<span class="mr-3 flag-icon flag-icon-'.$value["article_lang"].'" data-toggle="tooltip" title="" data-original-title="'.$article[$akey]["article_lang"].'"></span>';
           echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value["article_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
           echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'];
           echo '"><i class="fa fa-pencil"></i></a>';
@@ -205,7 +210,7 @@ $_last10_article = _dbQuery($_asql_1);
           echo '  <td class="overflow-ellipsis home-cp" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
           echo '  <td>&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
           echo '  <td class="text-right text-nowrap">';
-
+          echo '<span class="mr-3 flag-icon flag-icon-'.$value["article_lang"].'" data-toggle="tooltip" title="" data-original-title="'.$article[$akey]["article_lang"].'"></span>';
           echo '<button id="abtncontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value["acontent_visible"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$value['acontent_id'].'" data-type="content" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
           echo '<a class="btn btn-sm btn-blue" title="'.$BL['be_func_content_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
           echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'];

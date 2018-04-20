@@ -243,7 +243,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
   } elseif ($js_aktion == 16) {
     $a .= '<a href="#" onclick="'.str_replace('%s','id='.$struct[$key]["acat_id"],$js).'" title="">'.$an . '</a>';
   } else {
-    $a .= '<a href="#" class="structarticle" data-aid="'.($js_aktion == 6 ? 'id=' : '').$struct[$key]["acat_id"].'" data-idtype="category" title="">'.$an . '</a>';
+    $a .= '<a href="#" class="structarticle" data-aid="'.($js_aktion == 6 ? 'id=' : '').$struct[$key]["acat_id"].'" data-idtype="category" title="">'.$an ;
+    $a .= '<span class="ml-3">'.$struct[$key]['acat_lang'].'</span></a>';
   }
   $a .= "</strong></td>\n</tr>\n</table></td>\n</tr>\n";
   echo $a;
@@ -366,7 +367,8 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     } elseif ($js_aktion == 16) {
       $a .= '<a href="#" onclick="' . str_replace('%s','aid='.$article[$akey]["article_id"],$js).'" title="">'.$at.'</a>';
     } else {
-      $a .= '<a href="#"  class="structarticle" data-aid="'.($js_aktion == 6 ? 'aid=' : '').$article[$akey]["article_id"].'" data-idtype="article" title="">'.$at.'</a>';
+      $a .= '<a href="#"  class="structarticle" data-aid="'.($js_aktion == 6 ? 'aid=' : '').$article[$akey]["article_id"].'" data-idtype="article" title="">'.$at;
+      $a .= '<span class="ml-3">'.$article[$akey]["article_lang"].'</span></a>';
     }
     $a .= "</td>\n</tr>\n</table></td>\n</tr>\n";
     echo $a;
