@@ -230,18 +230,30 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 $recaptcha = new phpwcmsRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
 
-                if($POST_DO && isset($_POST['g-recaptcha-response'])) {
+                if($POST_DO) {
+                    /***
+                     * CAUTION: spambots may bypass g-recaptcha by removing
+                     * g-recaptcha-response from posted values prior to submitting
+                     *
+                     * Thanks to Thomas Mooshammer to report this
+                     */
+                    if(empty($_POST['g-recaptcha-response'])) {
+                        $_POST['g-recaptcha-response'] = generic_string(10);
+                    }
 
-                    $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+                    if(isset($_POST['g-recaptcha-response'])) {
 
-                    if($cnt_form['recaptcha']['response']['success'] === false) {
-                        if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
-                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
-                        } else {
-                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
+                        $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+
+                        if($cnt_form['recaptcha']['response']['success'] === false) {
+                            if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
+                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
+                            } else {
+                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
+                            }
+                            $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+                            $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                         }
-                        $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
-                        $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
                 }
 
@@ -278,18 +290,30 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 $recaptcha = new phpwcmsRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
 
-                if($POST_DO && isset($_POST['g-recaptcha-response'])) {
+                if($POST_DO) {
+                    /***
+                     * CAUTION: spambots may bypass g-recaptcha by removing
+                     * g-recaptcha-response from posted values prior to submitting
+                     *
+                     * Thanks to Thomas Mooshammer to report this
+                     */
+                    if(empty($_POST['g-recaptcha-response'])) {
+                        $_POST['g-recaptcha-response'] = generic_string(10);
+                    }
 
-                    $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+                    if(isset($_POST['g-recaptcha-response'])) {
 
-                    if($cnt_form['recaptcha']['response']['success'] === false) {
-                        if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
-                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
-                        } else {
-                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
+                        $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+
+                        if($cnt_form['recaptcha']['response']['success'] === false) {
+                            if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
+                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
+                            } else {
+                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
+                            }
+                            $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+                            $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                         }
-                        $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
-                        $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
                 }
 
