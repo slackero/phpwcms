@@ -343,6 +343,7 @@ $cmsgo['default_template_classes'] = array(
     'navlist-sub_first'             => 'sub_first',
     'navlist-sub_last'              => 'sub_last',
     'navlist-sub_parent'            => 'sub_parent',
+    'navlist-abootstrap'            => 'nav-link',
     'navlist-asub_no'               => 'asub_no',
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
@@ -654,7 +655,7 @@ function buildGlobalGET($return = '') {
         $GLOBALS['_getVar'][session_name()],
         $GLOBALS['_getVar']['']
     );
-    
+
     if(!empty($GLOBALS['cmsgo']['unregister_getVar']) && is_array($GLOBALS['cmsgo']['unregister_getVar'])) {
         foreach($GLOBALS['cmsgo']['unregister_getVar'] as $key) {
             unset($GLOBALS['_getVar'][$key]);

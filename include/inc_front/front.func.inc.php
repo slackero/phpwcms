@@ -3127,6 +3127,12 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         }
         if($li_a_class) {
             $li_a_class = ' class="'.$li_a_class.'"';
+        } else {
+          if($bootstrap) {
+            $li_a_class = ' class="';
+            $li_a_class .= $GLOBALS['template_default']['classes']['navlist-abootstrap'];
+            $li_a_class .= '"';
+          }
         }
         $li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"'.$bs_data_toggle);
         $li_a .= $wrap_link_text[0] . $li_a_title . $bs_caret . $wrap_link_text[1];

@@ -322,10 +322,11 @@ $template_default['classes'] = array(
     'tab-item'                      => 'tab-item',
     'navlist-sub_ul_true'           => 'sub_ul_true',
     'navlist-sub_ul'                => 'sub_ul',
-    'navlist-sub_no'                => 'sub_no',
-    'navlist-sub_first'             => 'sub_first',
-    'navlist-sub_last'              => 'sub_last',
+    'navlist-sub_no'                => 'nav-item',
+    'navlist-sub_first'             => '',
+    'navlist-sub_last'              => '',
     'navlist-sub_parent'            => 'sub_parent',
+    'navlist-abootstrap'            => 'nav-link',
     'navlist-asub_no'               => 'asub_no',
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
@@ -689,7 +690,7 @@ $template_default['settings'] = array(
             )
         ),
 
-        
+
         'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
@@ -877,7 +878,7 @@ $template_default['settings'] = array(
 
     ),
     'customctp_custom_fields' => array(
-    
+
       // Enable and customise to enable additional input fields to custom content part:
       'fieldgroup1' => array(
             'legend' => 'Field group name',
