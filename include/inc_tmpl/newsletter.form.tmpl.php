@@ -106,7 +106,7 @@ if (!defined('PHPWCMS_ROOT')) {
     $result = _dbQuery($sql);
 
     if(isset($result[0]['subscription_id'])) {
-        foreach($result as $row):
+        foreach($result as $row) {
 ?>
             <tr>
                 <td>
@@ -114,18 +114,21 @@ if (!defined('PHPWCMS_ROOT')) {
                         name="newsletter_subscription[<?php echo $row['subscription_id']; ?>]"
                         id="nls<?php echo $row['subscription_id']; ?>"
                         value="<?php echo $row['subscription_id']; ?>"<?php
-                            if(!empty($newsletter["newsletter_vars"]["subscription"]) && count($newsletter["newsletter_vars"]["subscription"])) {
-                                foreach($newsletter["newsletter_vars"]["subscription"] as $value) {
-                                    if($value == $row['subscription_id']): ?> checked="checked"<?php; break; endif;
+                        if(!empty($newsletter["newsletter_vars"]["subscription"]) && count($newsletter["newsletter_vars"]["subscription"])) {
+                            foreach($newsletter["newsletter_vars"]["subscription"] as $value) {
+                                if($value == $row['subscription_id']) {
+                                    echo ' checked="checked"';
+                                    break;
                                 }
                             }
-                    ?> />
+                        }
+                        ?> />
                 </td>
                 <td><label for="nls<?php echo $row['subscription_id']; ?>"><?php echo html($row['subscription_name']); ?></label></td>
             </tr>
 
 <?php
-        endforeach;
+        }
     }
 ?>
         </table></td>
