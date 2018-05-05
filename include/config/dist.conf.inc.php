@@ -21,8 +21,8 @@ $phpwcms['db_pers']             = 0;
 $phpwcms['db_charset']          = 'utf8';
 $phpwcms['db_collation']        = 'utf8_general_ci';
 $phpwcms['db_version']          = 0;
-$phpwcms['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
-$phpwcms['db_sql_mode']         = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
+$phpwcms['db_sql_mode']         = null; // SET MySQL sql_mode https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
 
 // site values
 $phpwcms['site']                = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
