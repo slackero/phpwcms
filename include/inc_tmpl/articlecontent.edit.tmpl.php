@@ -668,7 +668,7 @@ echo $_save_close_buttons;
       <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></label>
         <div class="col-sm-auto">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(0, $content["visible"]); ?>/>
+            <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?>/>
             <label class="form-check-label" for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?></label>
           </div>
         </div>
