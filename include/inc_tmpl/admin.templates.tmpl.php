@@ -201,11 +201,10 @@ if(!isset($_GET["s"])) {
         } else {
             // if ID = 0 then show create new template form
             $query_mode = 'INSERT';
-            $sql =  "INSERT INTO ".DB_PREPEND."cmsgo_template (".
-                    "template_name, template_default, template_var) VALUES ('".
-                    aporeplace($template["name"])."', ".$template["default"].", '".
-                    aporeplace(serialize($template))."')";
+            $sql =  "INSERT INTO ".DB_PREPEND."cmsgo_template (template_name, template_default, template_var) VALUES ('".
+                    aporeplace($template["name"])."', ".$template["default"].", '".aporeplace(serialize($template))."')";
         }
+
         // update or insert data entry
         $result = _dbQuery($sql, $query_mode);
 
@@ -264,9 +263,14 @@ if(!isset($_GET["s"])) {
   </div>
 </div>
 <div class="card">
-  <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo (empty($createcopy) ? $BL['be_admin_tmpl_edit'] : $BL['be_admin_tmpl_copy']) ?>: <?php echo ($template["id"]) ? html($template["name"]) : $BL['be_admin_tmpl_new']; ?></h2></div>
-    <div class="card-body">
-
+  <div class="card-header">
+      <h2>
+          <i class="fa fa-list"></i>
+          <?php echo (empty($createcopy) ? $BL['be_admin_tmpl_edit'] : $BL['be_admin_tmpl_copy']) ?>: <?php echo ($template["id"]) ? html($template["name"]) : $BL['be_admin_tmpl_new']; ?>
+      </h2>
+      <input type="hidden" name="c" value="<?php echo $createcopy; ?>" />
+  </div>
+  <div class="card-body">
     <div class="form-group form-row align-items-center">
       <label for="layout_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_name'] ?></label>
       <div class="col-sm-7">
@@ -274,20 +278,18 @@ if(!isset($_GET["s"])) {
             if(empty($createcopy)) {
                 echo '<input name="template_name" type="text" class="form-control form-control-sm" id="template_name" value="'.html($template["name"]).'" >';
             } else {
-                echo '<input name="template_name" type="text" class="form-control  is-invalid" id="template_name" value="'.html($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
+                echo '<input name="template_name" type="text" class="form-control form-control-sm is-invalid" id="template_name" value="'.html($template["name"]).'_'.generic_string(2).'" size="50" maxlength="150">';
             }
-            ?>
+        ?>
       </div>
       <div class="col-sm-3 mt-2 mt-sm-0">
       	<div class="form-check">
-					<input class="form-check-input" name="template_setdefault" type="checkbox" id="template_setdefault" value="1" <?php is_checked(empty($createcopy) ? $template["default"] : 0, 1) ?> /> 
-					<label class="form-check-label" for="template_setdefault"><?php echo $BL['be_admin_tmpl_default'] ?></label>
-				</div>
+            <input class="form-check-input" name="template_setdefault" type="checkbox" id="template_setdefault" value="1" <?php is_checked(empty($createcopy) ? $template["default"] : 0, 1) ?> />
+            <label class="form-check-label" for="template_setdefault"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+		</div>
       </div>
     </div>
-
-<hr />
-
+      <hr />
   <div class="form-group form-row align-items-center">
     <label for="be_admin_tmpl_layout" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_layout'] ?></label>
     <div class="col-sm-5">
@@ -329,10 +331,10 @@ if(!isset($_GET["s"])) {
   <div class="form-group form-row align-items-center">
     <div class="col-sm-2"></div>
     <div class="col">
-    	<div class="form-check">
-				<input class="form-check-input" name="template_onepage" type="checkbox" id="template_onepage" value="1" <?php is_checked((!empty($template["onepage"]) ? 1 : 0), 1) ?> /> 
-				<label class="form-check-label" for="template_onepage"><?php echo $BL['be_onepage_template'] ?></label>
-			</div>
+        <div class="form-check">
+            <input class="form-check-input" name="template_onepage" type="checkbox" id="template_onepage" value="1" <?php is_checked((!empty($template["onepage"]) ? 1 : 0), 1) ?> />
+            <label class="form-check-label" for="template_onepage"><?php echo $BL['be_onepage_template'] ?></label>
+        </div>
     </div>
   </div>
 
@@ -425,11 +427,11 @@ if(!isset($_GET["s"])) {
     </div>
     <div class="col-sm-5 mt-2 mt-sm-0">
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> /> 
+        <input class="form-check-input" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
         <label for="template_jslibload" class="form-check-label"><?php echo $BL['js_lib_alwaysload'] ?></label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> /> 
+        <input class="form-check-input" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
         <label for="template_googleapi" class="form-check-label"><?php echo $BL['googleapi_load'] ?></label>
       </div>
     </div>
@@ -453,7 +455,7 @@ if(!isset($_GET["s"])) {
         <div class="col-sm-3"><input type="text" name="template_ga_id" class="form-control form-control-sm" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>" /></div>
 
         <div class="form-check col-sm-5 form-check-inline">
-          <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> /> 
+          <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
           <label for="be_tracking_anonymize" class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
         </div>
       </div>
@@ -507,7 +509,7 @@ if(!isset($_GET["s"])) {
         </div>
       </div>
     </div>
-    
+
     <div class="form-check">
 			<input class="form-check-input" name="template_frontendjs" id="template_frontendjs" type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
 			<label class="form-check-label" for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
