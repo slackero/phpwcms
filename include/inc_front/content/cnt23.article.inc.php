@@ -118,13 +118,45 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     if(!empty($_POST['cpID'.$crow["acontent_id"]]) && intval($_POST['cpID'.$crow["acontent_id"]]) == $crow["acontent_id"]) {
         $POST_DO = true;
         $POST_val = array();
+        $GET_DO = false;
+
         $cache_nosave = true;
-    } else {
+    } elseif (!empty($_GET['hash'])) {
+        if ($cnt_form['doubleoptin']==1) {
+            $cache_nosave = true;
+
+        	$POST_DO = false;
+           	$GET_DO = true;
+            //SELECT * FROM `phpwcms_formresult` WHERE `formresult_content` LIKE '2lgBlZafP8llGSWw6jr6g%'
+            $GET_savedb_sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_formresult ';
+            $GET_savedb_sql .= 'WHERE formresult_content LIKE ';
+            $GET_savedb_sql .= _dbEscape('%'.$_GET['hash'].'%');
+            //$CNT_TMP .= print_r($GET_savedb_sql.'1111',1);
+            $GET_savedb_sql  = _dbQuery($GET_savedb_sql);
+
+            $doubleoptin_error=false;
+            if (count($GET_savedb_sql)!=1) {
+                 $doubleoptin_error=true;
+            }
+
+            if (!$doubleoptin_error) {
+                $results=unserialize($GET_savedb_sql[0]['formresult_content']);
+                if ($results['hash']!==$_GET['hash']){
+                    $doubleoptin_error=true;
+                }
+                if (!$doubleoptin_error) {
+                unset($results['hash']);
+                }
+            }
+        }
+    }
+    else {
+        $GET_DO = false;
         $POST_DO = false;
     }
 
     // make spam check
-    if($phpwcms['form_tracking'] && $POST_DO && !checkFormTrackingValue()) {
+    if($phpwcms['form_tracking'] && $POST_DO  && !checkFormTrackingValue()) {
         $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.getRemoteIP().' is not allowed to send form![/class]';
     }
 
@@ -443,7 +475,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $cnt_form['target'] = $cnt_form["fields"][$key]['value'].';'.$cnt_form['target'];
                     }
                 }
-                //
+                //check if message should be delivered to email address of this field doubleoptin
+                if($POST_DO && ($cnt_form['doubleoptin_targettype'] == 'emailfield_'.$POST_name) && empty($POST_ERR[$key]) && is_valid_email($cnt_form["fields"][$key]['value'])) {
+                    $cnt_form['doubleoptin_target'] = $cnt_form["fields"][$key]['value'];
+                }
                 // check if message should be sent by email address of this field
                 if($POST_DO && ($cnt_form['sendertype'] == 'emailfield_'.$POST_name) && empty($POST_ERR[$key]) && is_valid_email($cnt_form["fields"][$key]['value'])) {
                     $cnt_form['sender'] = $cnt_form["fields"][$key]['value'];
@@ -1694,11 +1729,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     }
 }
 
-if(!empty($POST_DO) && empty($POST_ERR)) {
+if(!empty($POST_DO) && empty($POST_ERR) || $GET_DO) {
 
     $POST_attach = array();
     $POST_savedb = array();
-
+    if ($GET_DO) {
+       $POST_val = $results;
+    }
     // now prepare form values for sending or storing
     if(isset($POST_val) && is_array($POST_val) && count($POST_val)) {
 
@@ -1824,6 +1861,16 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
         }
 
+        if($cnt_form['doubleoptin']==1) {
+            $POST_savedb['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash($cnt_form['doubleoptin_target'].time() ) );
+            $cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}',abs_url(array('hash'=>$POST_savedb['hash']), array(), '', 'rawurlencode'), $cnt_form['template_doubleoptin']);
+            //$cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'].'index.html?hash='.$POST_savedb['hash'], $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
+        }
+
         $cnt_form['template']   = preg_replace('/\{(.*?)\}/', '', $cnt_form['template']);
 
         // check if "copy to" email template is equal recipient
@@ -1833,6 +1880,11 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
             $cnt_form['template_format_copy']   = $cnt_form['template_format'];
             $cnt_form['template_copy']          = $cnt_form['template'];
 
+        }
+
+        //
+        if ($GET_DO) {
+            $POST_savedb = array();
         }
     }
 
@@ -1874,11 +1926,10 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 // do $POST_ERR test again to handle possible duplicates
 // in case 'checktofrom' = 1
-if(!empty($POST_DO) && empty($POST_ERR)) {
+if(!empty($POST_DO) && empty($POST_ERR) || $GET_DO && !$doubleoptin_error) {
 
     // check if there are form values which should be saved in db
     if(count($POST_savedb)) {
-
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
         $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(getRemoteIP()).", ";
@@ -1886,13 +1937,151 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
         $POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
 
     }
+    if ($cnt_form["doubleoptin"]==1&&!$GET_DO) {
+         if(!empty($cnt_form["onsuccess"])) {
+            $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["onsuccess"].'</p>';
+        }
+        //dumpVar($cnt_form);
+        if (is_valid_email($cnt_form['doubleoptin_target'])) {
+                // send mail, include phpmailer class
+                // 
+            //dumpVar( $cnt_form['template_doubleoptin']);
+          
+            //dumpVar( $cnt_form['template_doubleoptin']);
+           // dumpVar($POST_savedb['hash']);
+            require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
+       
+            $mail = new PHPMailer();
+            $mail->Mailer           = $phpwcms['SMTP_MAILER'];
+            $mail->Host             = $phpwcms['SMTP_HOST'];
+            $mail->Port             = $phpwcms['SMTP_PORT'];
+            if($phpwcms['SMTP_AUTH']) {
+                $mail->SMTPAuth     = 1;
+                $mail->Username     = $phpwcms['SMTP_USER'];
+                $mail->Password     = $phpwcms['SMTP_PASS'];
+            }
+            if(!empty($phpwcms['SMTP_SECURE'])) {
+                $mail->SMTPSecure   = $phpwcms['SMTP_SECURE'];
+            }
+            if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
+                $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
+                if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
+                    if(!empty($phpwcms['SMTP_REALM'])) {
+                        $mail->Realm = $phpwcms['SMTP_REALM'];
+                    }
+                    if(!empty($phpwcms['SMTP_WORKSTATION'])) {
+                        $mail->Workstation = $phpwcms['SMTP_WORKSTATION'];
+                    }
+                }
+            }
+            $mail->CharSet          = $phpwcms["charset"];
 
-    // send mail, include phpmailer class
-    require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
+            $mail->isHTML($cnt_form['template_format_doubleoptin']);
+            $mail->Subject          = $cnt_form["subject"];
+            $mail->Body             = $cnt_form['template_doubleoptin'];
+            if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+                $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+            }
 
-    // now run all CC -> but sent as full email to each CC recipient
-    if(count($cnt_form['cc'])) {
+            $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+            $mail->AddReplyTo($cnt_form['sender']);
 
+            $cnt_form["copytoError"] = array();
+
+           // foreach($cnt_form['cc'] as $cc_email) {
+
+                $mail->addAddress($cnt_form['doubleoptin_target']);
+
+                if(!$mail->send()) {
+                    $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+                }
+
+                $mail->clearAddresses();
+
+            //}
+
+            if(count($cnt_form["copytoError"])) {
+                $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
+            } else {
+                unset($cnt_form["copytoError"]);
+            }
+
+            unset($mail);
+        }
+
+    }
+    else
+    {
+   
+        // send mail, include phpmailer class
+        require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
+
+        // now run all CC -> but sent as full email to each CC recipient
+        if(count($cnt_form['cc'])) {
+
+            $mail = new PHPMailer();
+            $mail->Mailer           = $phpwcms['SMTP_MAILER'];
+            $mail->Host             = $phpwcms['SMTP_HOST'];
+            $mail->Port             = $phpwcms['SMTP_PORT'];
+            if($phpwcms['SMTP_AUTH']) {
+                $mail->SMTPAuth     = 1;
+                $mail->Username     = $phpwcms['SMTP_USER'];
+                $mail->Password     = $phpwcms['SMTP_PASS'];
+            }
+            if(!empty($phpwcms['SMTP_SECURE'])) {
+                $mail->SMTPSecure   = $phpwcms['SMTP_SECURE'];
+            }
+            if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
+                $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
+                if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
+                    if(!empty($phpwcms['SMTP_REALM'])) {
+                        $mail->Realm = $phpwcms['SMTP_REALM'];
+                    }
+                    if(!empty($phpwcms['SMTP_WORKSTATION'])) {
+                        $mail->Workstation = $phpwcms['SMTP_WORKSTATION'];
+                    }
+                }
+            }
+            $mail->CharSet          = $phpwcms["charset"];
+
+            if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {
+                @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
+            }
+
+            $mail->isHTML($cnt_form['template_format_copy']);
+            $mail->Subject          = $cnt_form["subject"];
+            $mail->Body             = $cnt_form['template_copy'];
+            if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
+                $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+            }
+
+            $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+            $mail->AddReplyTo($cnt_form['sender']);
+
+            $cnt_form["copytoError"] = array();
+
+            foreach($cnt_form['cc'] as $cc_email) {
+
+                $mail->addAddress($cc_email);
+
+                if(!$mail->send()) {
+                    $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+                }
+
+                $mail->clearAddresses();
+
+            }
+
+            if(count($cnt_form["copytoError"])) {
+                $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
+            } else {
+                unset($cnt_form["copytoError"]);
+            }
+
+            unset($mail);
+        }
+
+        // now send original message
         $mail = new PHPMailer();
         $mail->Mailer           = $phpwcms['SMTP_MAILER'];
         $mail->Host             = $phpwcms['SMTP_HOST'];
@@ -1902,238 +2091,203 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
             $mail->Username     = $phpwcms['SMTP_USER'];
             $mail->Password     = $phpwcms['SMTP_PASS'];
         }
-        if(!empty($phpwcms['SMTP_SECURE'])) {
-            $mail->SMTPSecure   = $phpwcms['SMTP_SECURE'];
-        }
-        if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-            if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
-                if(!empty($phpwcms['SMTP_REALM'])) {
-                    $mail->Realm = $phpwcms['SMTP_REALM'];
-                }
-                if(!empty($phpwcms['SMTP_WORKSTATION'])) {
-                    $mail->Workstation = $phpwcms['SMTP_WORKSTATION'];
-                }
-            }
-        }
         $mail->CharSet          = $phpwcms["charset"];
 
-        if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {
-            @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
+        if(isset($cnt_form['function_to']) && function_exists($cnt_form['function_to'])) {
+            @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
         }
 
-        $mail->isHTML($cnt_form['template_format_copy']);
+        $mail->isHTML($cnt_form['template_format']);
         $mail->Subject          = $cnt_form["subject"];
-        $mail->Body             = $cnt_form['template_copy'];
+        $mail->Body             = $cnt_form['template'];
+
         if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
             $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+        }
+        if(empty($cnt_form["fromEmail"])) {
+            $cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
         }
 
         $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
         $mail->AddReplyTo($cnt_form['sender']);
 
-        $cnt_form["copytoError"] = array();
+        if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 
-        foreach($cnt_form['cc'] as $cc_email) {
-
-            $mail->addAddress($cc_email);
-
-            if(!$mail->send()) {
-                $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+            foreach($cnt_form["target"] as $e_value) {
+                $mail->addAddress(trim($e_value));
             }
 
-            $mail->clearAddresses();
-
-        }
-
-        if(count($cnt_form["copytoError"])) {
-            $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
         } else {
-            unset($cnt_form["copytoError"]);
+            // use default email address
+            $mail->addAddress($phpwcms['SMTP_FROM_EMAIL']);
         }
 
-        unset($mail);
-    }
-
-    // now send original message
-    $mail = new PHPMailer();
-    $mail->Mailer           = $phpwcms['SMTP_MAILER'];
-    $mail->Host             = $phpwcms['SMTP_HOST'];
-    $mail->Port             = $phpwcms['SMTP_PORT'];
-    if($phpwcms['SMTP_AUTH']) {
-        $mail->SMTPAuth     = 1;
-        $mail->Username     = $phpwcms['SMTP_USER'];
-        $mail->Password     = $phpwcms['SMTP_PASS'];
-    }
-    $mail->CharSet          = $phpwcms["charset"];
-
-    if(isset($cnt_form['function_to']) && function_exists($cnt_form['function_to'])) {
-        @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
-    }
-
-    $mail->isHTML($cnt_form['template_format']);
-    $mail->Subject          = $cnt_form["subject"];
-    $mail->Body             = $cnt_form['template'];
-
-    if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-        $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
-    }
-    if(empty($cnt_form["fromEmail"])) {
-        $cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
-    }
-
-    $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-    $mail->AddReplyTo($cnt_form['sender']);
-
-    if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
-
-        foreach($cnt_form["target"] as $e_value) {
-            $mail->addAddress(trim($e_value));
+        if(count($POST_attach)) {
+            foreach($POST_attach as $attach_file) {
+                $mail->addAttachment($attach_file);
+            }
         }
 
-    } else {
-        // use default email address
-        $mail->addAddress($phpwcms['SMTP_FROM_EMAIL']);
-    }
+        if(!$mail->send()) {
+            $CNT_TMP .= '<p>'.html_specialchars($mail->ErrorInfo).'</p>';
+        } else {
 
-    if(count($POST_attach)) {
-        foreach($POST_attach as $attach_file) {
-            $mail->addAttachment($attach_file);
-        }
-    }
+            // check if user should be registered for newsletter
+            if(isset($form_newletter_setting['selection']) && count($form_newletter_setting['selection'])) {
 
-    if(!$mail->send()) {
-        $CNT_TMP .= '<p>'.html_specialchars($mail->ErrorInfo).'</p>';
-    } else {
+                // first check if neccessary form field is valid email
+                if(isset($POST_val[ $form_newletter_setting['email_field'] ]) && is_valid_email($POST_val[ $form_newletter_setting['email_field'] ])) {
 
-        // check if user should be registered for newsletter
-        if(isset($form_newletter_setting['selection']) && count($form_newletter_setting['selection'])) {
+                    // ok now I know we can store email as newsletter recipient
+                    $form_newletter_setting['email_field'] = $POST_val[ $form_newletter_setting['email_field'] ];
 
-            // first check if neccessary form field is valid email
-            if(isset($POST_val[ $form_newletter_setting['email_field'] ]) && is_valid_email($POST_val[ $form_newletter_setting['email_field'] ])) {
+                    // now try to find fields to build recipient's name, if empty name is same as email
+                    if(!empty($form_newletter_setting['name_field'])) {
 
-                // ok now I know we can store email as newsletter recipient
-                $form_newletter_setting['email_field'] = $POST_val[ $form_newletter_setting['email_field'] ];
+                        // split by "+"
+                        $form_newletter_setting['name_field_tmp'] = explode('+', $form_newletter_setting['name_field']);
+                        $form_newletter_setting['name_field'] = '';
+                        foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
 
-                // now try to find fields to build recipient's name, if empty name is same as email
-                if(!empty($form_newletter_setting['name_field'])) {
+                            // empty - continue
+                            if(empty($form_value_nl)) continue;
 
-                    // split by "+"
-                    $form_newletter_setting['name_field_tmp'] = explode('+', $form_newletter_setting['name_field']);
-                    $form_newletter_setting['name_field'] = '';
-                    foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
+                            // now check if field name exists and build corresponding name value
+                            if(empty($POST_val[ trim($form_value_nl) ])) {
+                                $form_newletter_setting['name_field'] .= $form_value_nl;
+                            } else {
+                                $form_value_nl = trim($form_value_nl);
+                                $form_newletter_setting['name_field'] .= $POST_val[ $form_value_nl ];
+                            }
 
-                        // empty - continue
-                        if(empty($form_value_nl)) continue;
-
-                        // now check if field name exists and build corresponding name value
-                        if(empty($POST_val[ trim($form_value_nl) ])) {
-                            $form_newletter_setting['name_field'] .= $form_value_nl;
-                        } else {
-                            $form_value_nl = trim($form_value_nl);
-                            $form_newletter_setting['name_field'] .= $POST_val[ $form_value_nl ];
                         }
+                        $form_newletter_setting['name_field'] = trim($form_newletter_setting['name_field']);
 
                     }
-                    $form_newletter_setting['name_field'] = trim($form_newletter_setting['name_field']);
 
-                }
+                    if(empty($form_newletter_setting['name_field'])) {
+                        $form_newletter_setting['name_field'] = $form_newletter_setting['email_field'];
+                    }
 
-                if(empty($form_newletter_setting['name_field'])) {
-                    $form_newletter_setting['name_field'] = $form_newletter_setting['email_field'];
-                }
+                    $form_newletter_setting['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash( $form_newletter_setting['email_field'].time() ) );
 
-                $form_newletter_setting['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash( $form_newletter_setting['email_field'].time() ) );
+                    // create SQL query to populate recipient into recipients db
+                    $form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
+                    $form_newletter_setting['sql'] .= '(address_key, address_email, address_name, address_verified, ';
+                    $form_newletter_setting['sql'] .= 'address_subscription, address_url1, address_url2) VALUES (';
+                    $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['hash']).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['email_field']).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['name_field']).", ";
+                    $form_newletter_setting['sql'] .= (empty($form_newletter_setting['double_optin']) ? 1 : 0) .", ";
+                    $form_newletter_setting['sql'] .= _dbEscape(serialize($form_newletter_setting['selection'])).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_subscribe']) ? '' : $form_newletter_setting['url_subscribe']).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_unsubscribe']) ? '' : $form_newletter_setting['url_unsubscribe']);
+                    $form_newletter_setting['sql'] .= ')';
 
-                // create SQL query to populate recipient into recipients db
-                $form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
-                $form_newletter_setting['sql'] .= '(address_key, address_email, address_name, address_verified, ';
-                $form_newletter_setting['sql'] .= 'address_subscription, address_url1, address_url2) VALUES (';
-                $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['hash']).", ";
-                $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['email_field']).", ";
-                $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['name_field']).", ";
-                $form_newletter_setting['sql'] .= (empty($form_newletter_setting['double_optin']) ? 1 : 0) .", ";
-                $form_newletter_setting['sql'] .= _dbEscape(serialize($form_newletter_setting['selection'])).", ";
-                $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_subscribe']) ? '' : $form_newletter_setting['url_subscribe']).", ";
-                $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_unsubscribe']) ? '' : $form_newletter_setting['url_unsubscribe']);
-                $form_newletter_setting['sql'] .= ')';
+                    // save recipient in db and send verify message in case of double opt-in
+                    $form_newletter_setting['query_result'] = @_dbQuery($form_newletter_setting['sql'], 'INSERT');
 
-                // save recipient in db and send verify message in case of double opt-in
-                $form_newletter_setting['query_result'] = @_dbQuery($form_newletter_setting['sql'], 'INSERT');
+                    // now send opt-in email
+                    if(!empty($form_newletter_setting['double_optin'])) {
 
-                // now send opt-in email
-                if(!empty($form_newletter_setting['double_optin'])) {
-
-                    if(empty($cnt_form['verifyemail'])) {
-                        if(empty($form_newletter_setting['optin_template']) || !is_file(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']))) {
-                            $cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
-                        } else {
-                            $cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']));
-                            if(trim($cnt_form['verifyemail']) === '') {
+                        if(empty($cnt_form['verifyemail'])) {
+                            if(empty($form_newletter_setting['optin_template']) || !is_file(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']))) {
                                 $cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
+                            } else {
+                                $cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']));
+                                if(trim($cnt_form['verifyemail']) === '') {
+                                    $cnt_form['verifyemail'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
+                                }
+                            }
+                            if(trim($cnt_form['verifyemail']) === '') {
+                                $cnt_form['verifyemail']  = 'Hi {NEWSLETTER_NAME},'.LF.LF.'Someone (presumably you) on {SITE}'.LF.'subscribed to these newsletters:'.LF;
+                                $cnt_form['verifyemail'] .= '{SUBSCRIPTIONS}'.LF.LF.'The following email was requested for subscription'.LF.'{NEWSLETTER_EMAIL}'.LF.LF;
+                                $cnt_form['verifyemail'] .= 'If you requested this subscription, visit the following URL'.LF.'{NEWSLETTER_VERIFY}'.LF.'to verify and activate it.'.LF.LF;
+                                $cnt_form['verifyemail'] .= 'Ignore the message or visit the following URL'.LF.'{NEWSLETTER_DELETE}'.LF.'and nothing will happen.'.LF.LF.LF;
+                                $cnt_form['verifyemail'] .= 'With best regards'.LF.'Webmaster'.LF.LF.'--'.LF.'{DATE:m/d/Y H:i:s}, IP: {IP}'.LF;
                             }
                         }
-                        if(trim($cnt_form['verifyemail']) === '') {
-                            $cnt_form['verifyemail']  = 'Hi {NEWSLETTER_NAME},'.LF.LF.'Someone (presumably you) on {SITE}'.LF.'subscribed to these newsletters:'.LF;
-                            $cnt_form['verifyemail'] .= '{SUBSCRIPTIONS}'.LF.LF.'The following email was requested for subscription'.LF.'{NEWSLETTER_EMAIL}'.LF.LF;
-                            $cnt_form['verifyemail'] .= 'If you requested this subscription, visit the following URL'.LF.'{NEWSLETTER_VERIFY}'.LF.'to verify and activate it.'.LF.LF;
-                            $cnt_form['verifyemail'] .= 'Ignore the message or visit the following URL'.LF.'{NEWSLETTER_DELETE}'.LF.'and nothing will happen.'.LF.LF.LF;
-                            $cnt_form['verifyemail'] .= 'With best regards'.LF.'Webmaster'.LF.LF.'--'.LF.'{DATE:m/d/Y H:i:s}, IP: {IP}'.LF;
+
+                        $form_newletter_setting['hash'] = rawurlencode($form_newletter_setting['hash']);
+
+                        $form_newletter_setting['selection_text'] = array();
+                        foreach($form_newletter_setting['selection'] as $form_value_nl) {
+                            $form_newletter_setting['subscr_text'][] = '[X] '.$form_newletter_setting['subscriptions'][$form_value_nl];
                         }
+
+                        if($form_newletter_setting['email_field'] == $form_newletter_setting['name_field']) $form_newletter_setting['name_field'] = '';
+
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_NAME}', $form_newletter_setting['name_field'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{SUBSCRIPTIONS}', implode(LF, $form_newletter_setting['subscr_text']), $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_EMAIL}', $form_newletter_setting['email_field'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', PHPWCMS_URL.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', PHPWCMS_URL.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace(array('[br]', '[BR]'), LF, $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = replaceGlobalRT($cnt_form['verifyemail']);
+
+                        if(empty($form_newletter_setting['sender_email'])) $form_newletter_setting['sender_email'] = $cnt_form['sender'];
+                        if(empty($form_newletter_setting['sender_name']))  $form_newletter_setting['sender_name']  = $cnt_form['sendername'];
+
+                        // now send verification email
+                        @sendEmail(array(   'recipient' => $form_newletter_setting['email_field'],
+                                            'toName'    => $form_newletter_setting['name_field'],
+                                            'subject'   => $form_newletter_setting['subject'],
+                                            'text'      => $cnt_form['verifyemail'],
+                                            'from'      => $form_newletter_setting['sender_email'],
+                                            'fromName'  => $form_newletter_setting['sender_name'],
+                                            'sender'    => $form_newletter_setting['sender_email']   ));
+
                     }
-
-                    $form_newletter_setting['hash'] = rawurlencode($form_newletter_setting['hash']);
-
-                    $form_newletter_setting['selection_text'] = array();
-                    foreach($form_newletter_setting['selection'] as $form_value_nl) {
-                        $form_newletter_setting['subscr_text'][] = '[X] '.$form_newletter_setting['subscriptions'][$form_value_nl];
-                    }
-
-                    if($form_newletter_setting['email_field'] == $form_newletter_setting['name_field']) $form_newletter_setting['name_field'] = '';
-
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_NAME}', $form_newletter_setting['name_field'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{SUBSCRIPTIONS}', implode(LF, $form_newletter_setting['subscr_text']), $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_EMAIL}', $form_newletter_setting['email_field'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', PHPWCMS_URL.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', PHPWCMS_URL.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace(array('[br]', '[BR]'), LF, $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = replaceGlobalRT($cnt_form['verifyemail']);
-
-                    if(empty($form_newletter_setting['sender_email'])) $form_newletter_setting['sender_email'] = $cnt_form['sender'];
-                    if(empty($form_newletter_setting['sender_name']))  $form_newletter_setting['sender_name']  = $cnt_form['sendername'];
-
-                    // now send verification email
-                    @sendEmail(array(   'recipient' => $form_newletter_setting['email_field'],
-                                        'toName'    => $form_newletter_setting['name_field'],
-                                        'subject'   => $form_newletter_setting['subject'],
-                                        'text'      => $cnt_form['verifyemail'],
-                                        'from'      => $form_newletter_setting['sender_email'],
-                                        'fromName'  => $form_newletter_setting['sender_name'],
-                                        'sender'    => $form_newletter_setting['sender_email']   ));
 
                 }
 
             }
 
-        }
 
-        if($cnt_form["onsuccess_redirect"] === 1) {
-            // redirect on success
-            headerRedirect(str_replace('{SITE}', PHPWCMS_URL, $cnt_form["onsuccess"]));
+        if ($cnt_form["doubleoptin"]==1&&$GET_DO) {
+                $GET_updatedb_sql  = 'UPDATE '.DB_PREPEND.'phpwcms_formresult ';
+                $GET_updatedb_sql .= 'SET formresult_content = ';
+                $GET_updatedb_sql .= _dbEscape(serialize($results)) . "";
+                $GET_updatedb_sql .= " WHERE formresult_id = ".$GET_savedb_sql[0]['formresult_id'];
+                //$CNT_TMP .= print_r($GET_updatedb_sql,1);
+                $GET_updatedb_sql  = _dbQuery($GET_updatedb_sql, 'UPDATE');
 
-        } elseif($cnt_form["onsuccess"]) {
-            // success
+          if($cnt_form["onsuccess_doubleoptin_redirect"] === 1) {
+                // redirect on success
+                headerRedirect(str_replace('{SITE}', PHPWCMS_URL, $cnt_form["onsuccess_doubleoptin"]));
 
-            $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
+            } elseif($cnt_form["onsuccess_doubleoptin"]) {
+                // success
 
-            if($cnt_form["onsuccess_redirect"] === 0) {
-                $CNT_TMP .= plaintext_htmlencode($cnt_form["onsuccess"]);
-            } else {
-                $CNT_TMP .= $cnt_form["onsuccess"];
+                $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
+
+                if($cnt_form["onsuccess_doubleoptin_redirect"] === 0) {
+                    $CNT_TMP .= plaintext_htmlencode($cnt_form["onsuccess_doubleoptin"]);
+                } else {
+                    $CNT_TMP .= $cnt_form["onsuccess_doubleoptin"];
+                }
+                $CNT_TMP .= LF . '</div>' . LF;
             }
-            $CNT_TMP .= LF . '</div>' . LF;
-        }
+        } else {
 
+            if($cnt_form["onsuccess_redirect"] === 1) {
+                // redirect on success
+                headerRedirect(str_replace('{SITE}', PHPWCMS_URL, $cnt_form["onsuccess"]));
+
+            } elseif($cnt_form["onsuccess"]) {
+                // success
+
+                $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
+
+                if($cnt_form["onsuccess_redirect"] === 0) {
+                    $CNT_TMP .= plaintext_htmlencode($cnt_form["onsuccess"]);
+                } else {
+                    $CNT_TMP .= $cnt_form["onsuccess"];
+                }
+                $CNT_TMP .= LF . '</div>' . LF;
+            }
+          }
+        }
     }
     if(!empty($cnt_form["copytoError"])) {
         $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["copytoError"].'</p>';
@@ -2141,6 +2295,25 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
     unset($mail);
 
+    $form_cnt = '';
+
+} elseif($doubleoptin_error) {
+    if($cnt_form["onerror_doubleoptin_redirect"] === 1) {
+    // redirect on success
+    headerRedirect(str_replace('{SITE}', PHPWCMS_URL, $cnt_form["onerror_doubleoptin"]));
+
+    } elseif($cnt_form["onerror_doubleoptin"]) {
+    // success
+
+    $CNT_TMP .= '<div class="' . trim('form-error ' . $cnt_form["class"]) . '">' . LF;
+
+    if($cnt_form["onerror_doubleoptin_redirect"] === 0) {
+        $CNT_TMP .= plaintext_htmlencode($cnt_form["onerror_doubleoptin"]);
+    } else {
+        $CNT_TMP .= $cnt_form["onerror_doubleoptin"];
+    }
+    $CNT_TMP .= LF . '</div>' . LF;
+    }
     $form_cnt = '';
 
 } elseif(isset($POST_ERR)) {

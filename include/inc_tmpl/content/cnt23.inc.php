@@ -274,6 +274,10 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 $recipient_option .= is_selected($content['form']['targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $recipient_option .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
 
+                $recipient_option_doubleoptin .= '  <option value="emailfield_'.$for_name.'"';
+                $recipient_option_doubleoptin .= is_selected($content['form']['doubleoptin_targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
+                $recipient_option_doubleoptin .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
+
                 $sender_option .= ' <option value="emailfield_'.$for_name.'"';
                 $sender_option .= is_selected($content['form']['sendertype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $sender_option .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
@@ -431,6 +435,157 @@ echo $subject_option;
             <td class="v10"><label for="cform_ssl">&nbsp;<?php echo $BL['form_force_ssl'] ?></label>&nbsp;</td>
         </tr>
         </table>
+    </td>
+</tr>
+
+<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<tr>
+    <td align="right" class="chatlist"><?php echo $BL['be_cnt_optin'] ?>:&nbsp;</td>
+     <td><table summary="" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td bgcolor="#E7E8EB"><input type="checkbox" onchange="doubleoptin();" name="cform_doubleoptin" id="cform_doubleoptin" value="1" <?php echo is_checked(1, $content['form']["doubleoptin"], 0, 0) ?> /></td>
+                <td class="v10" bgcolor="#E7E8EB"><label for="cform_doubleoptin">&nbsp;<?php echo $BL['be_cnt_doubleoptin'] ?></label>&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
+          </tr>
+        </table>
+    </td>
+</tr>
+<script type="text/javascript">
+
+    var doubleoptin = function() {
+        var display_style = document.getElementById('cform_doubleoptin').checked ? '' : 'none';
+        document.getElementById('form_doubleoptin_1').style.display = display_style;
+        document.getElementById('form_doubleoptin_2').style.display = display_style;
+        document.getElementById('form_doubleoptin_3').style.display = display_style;
+        document.getElementById('form_doubleoptin_4').style.display = display_style;
+        document.getElementById('form_doubleoptin_5').style.display = display_style;
+        document.getElementById('form_doubleoptin_6').style.display = display_style;
+    };
+
+    document.addEventListener("DOMContentLoaded", doubleoptin);
+
+</script>
+
+<tr id="form_doubleoptin_1"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+<tr id="form_doubleoptin_2">
+    <td align="right" class="chatlist"><?php echo $BL['be_cnt_recipient'] ?>:&nbsp;</td>
+    <td><select name="cform_targettype_doubleoptin" class="v11" style="width:200px">
+    <?php
+
+        echo '  <option value="email"'. is_selected('email', $content['form']['doubleoptin_targettype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
+        echo $recipient_option_doubleoptin;
+    ?>
+    </select></td>
+</tr>
+<tr id="form_doubleoptin_3"><td class="chatlist" colspan="1">
+    <a name="anchor_template" id="anchor_template"></a>
+    <?php echo $BL['be_cnt_recipient'].' - '.$BL['be_admin_struct_template'] ?>:&nbsp;
+    </td>
+    <td>
+        <table summary="" cellpadding="0" cellspacing="0" border="0">
+            <tr id="optintemplate1">
+                <td colspan="2" class="tdtop3"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
+                    <tr>
+                        <td><input type="radio" name="cform_template_format_doubleoptin" id="cform_template_text_doubleoptin" value="0"<?php is_checked(0, $content['form']["template_format_doubleoptin"]) ?> onchange="this.form.submit();" /></td>
+                        <td class="f10"><label for="cform_template_text_copy">TEXT&nbsp;&nbsp;</label></td>
+                        <td><input type="radio" name="cform_template_format_doubleoptin" id="cform_template_html_doubleoptin" value="1"<?php is_checked(1, $content['form']["template_format_doubleoptin"]) ?> onchange="this.form.submit();" /></td>
+                        <td class="f10"><label for="cform_template_html_doubleoptin">HTML&nbsp;</label></td>
+                        <?php
+                        if(!$content['form']["template_format_doubleoptin"] && $for_select != '') {
+                            echo '<td style="padding:2px;"><select name="phc_doubleoptin" id="phc_doubleoptin" class="v10 width200" ';
+                            echo 'onchange="insertAtCursorPos(document.articlecontent.cform_template_doubleoptin, ';
+                            echo 'document.articlecontent.phc_doubleoptin.options[document.articlecontent.phc_doubleoptin.selectedIndex].value);">';
+                            echo $for_select;
+                            echo '<option value="{FORM_URL}">{FORM_URL}</option>';
+                            echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>';
+                            echo '<option value="{DATE:y/m/d H:i:s}">{DATE:y/m/d H:i:s}</option>';
+                            echo '</select></td>';
+                            echo '<td><img src="img/button/go04.gif" width="15" height="15" title="insert field placeholder" border="0" ';
+                            echo 'onclick="insertAtCursorPos(document.articlecontent.cform_template_doubleoptin, ';
+                            echo 'document.articlecontent.phc_doubleoptin.options[document.articlecontent.phc_doubleoptin.selectedIndex].value);" style="margin:3px;" alt="" /></td>';
+                        }
+                        ?>
+                    </tr>
+                </table></td>
+            </tr>
+
+            <tr id="optintemplate2"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+
+            <tr id="optintemplate3">
+                <td colspan="2"><?php
+            if($content['form']["template_format_doubleoptin"]) {
+                $wysiwyg_editor = array(
+                    'value'     => $content['form']["template_doubleoptin"],
+                    'field'     => 'cform_template_doubleoptin',
+                    'height'    => '350px',
+                    'width'     => '536px',
+                    'rows'      => '15',
+                    'editor'    => $_SESSION["WYSIWYG_EDITOR"],
+                    'lang'      => 'en'
+                );
+                include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
+            } else {
+
+                echo '<textarea name="cform_template_doubleoptin" id="cform_template_doubleoptin" rows="5" class="code width440 autosize">';
+                echo html($content['form']["template_doubleoptin"]).'</textarea>';
+
+            }
+
+            ?></td>
+            </tr>
+        </table>
+  </td>
+</tr>
+<tr id="form_doubleoptin_4">
+    <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_onsuccess'] ?>:&nbsp;</td>
+    <td>
+        <table summary="" cellpadding="0" cellspacing="0" border="0">
+            <tr bgcolor="#E7E8EB">
+                <td><input type="radio" name="cform_onsuccess_redirect_doubleoptin" id="cform_onsuccess_redirec_doubleoptint0" value="0"<?php echo is_checked('0', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" /></td>
+                <td class="v10"><label for="cform_onsuccess_redirect0">Text&nbsp;</label>&nbsp;</td>
+                <td><input type="radio" name="cform_onsuccess_redirect_doubleoptin" id="cform_onsuccess_redirect_doubleoptin2" value="2"<?php echo is_checked('2', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" /></td>
+                <td class="v10"><label for="cform_onsuccess_redirect_doubleoptin2">HTML&nbsp;</label>&nbsp;</td>
+                <?php
+                if($for_select != '') {
+                    echo '<td style="padding:2px;"><select name="successInfo_doubleoptin" id="successInfo_doubleoptin" class="v10 width200" ';
+                    echo 'onChange="insertAtCursorPos(document.articlecontent.cform_onsuccess_doubleoptin, ';
+                    echo 'document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);">';
+                    echo $for_select;
+                    echo '<option value="{REMOTE_IP}">{REMOTE_IP}</option>'.LF;
+                    echo '</select></td>';
+                    echo '<td style="padding-right:3px;"><img src="img/button/go04.gif" alt="" width="15" height="15" title="insert field placeholder" border="0" ';
+                    echo 'onclick="insertAtCursorPos(document.articlecontent.cform_onsuccess_doubleoptin, ';
+                    echo 'document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);" style="margin:3px;" /></td>';
+                }
+                ?>
+                <td bgcolor="#FFFFFF">&nbsp;</td>
+                <td><input type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect1" value="1"<?php echo is_checked('1', $content['form']["onsuccess_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
+                <td class="v10"><label for="cform_onsuccess_redirect1">Redirect</label>&nbsp;&nbsp;</td>
+            </tr>
+        </table>
+        <textarea name="cform_onsuccess_doubleoptin" id="cform_onsuccess_doubleoptin" rows="3" class="width440 autosize"><?php echo html($content['form']["onsuccess_doubleoptin"]) ?></textarea>
+    </td>
+</tr>
+<tr id="form_doubleoptin_5"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+<tr id="form_doubleoptin_6">
+    <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15" /><?php echo $BL['be_cnt_onerror'] ?>:&nbsp;</td>
+    <td>
+        <table summary="" cellpadding="1" cellspacing="0" border="0">
+        <tr bgcolor="#E7E8EB">
+            <td><input type="radio" name="cform_onerror_redirect_doubleoptin" id="cform_onerror_redirect_doubleoptin0" value="0"<?php echo is_checked('0', $content['form']["onerror_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
+            <td class="v10"><label for="cform_onerror_redirect_doubleoptin0">Text&nbsp;</label>&nbsp;</td>
+            <td><input type="radio" name="cform_onerror_redirect_doubleoptin" id="cform_onerror_redirect_doubleoptin2" value="2"<?php echo is_checked('2', $content['form']["onerror_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
+            <td class="v10"><label for="cform_onerror_redirect_doubleoptin2">HTML&nbsp;</label>&nbsp;</td>
+            <td bgcolor="#FFFFFF" style="padding-bottom: 5px;">&nbsp;</td>
+            <td><input type="radio" name="cform_onerror_redirect_doubleoptin" id="cform_onerror_redirect_doubleoptin1" value="1"<?php echo is_checked('1', $content['form']["onerror_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
+            <td class="v10"><label for="cform_onerror_redirect_doubleoptin1">Redirect</label>
+            &nbsp;&nbsp;</td>
+        </tr>
+        </table>
+        <textarea name="cform_onerror_doubleoptin" rows="3" class="width440 autosize"><?php echo html($content['form']["onerror_doubleoptin"]) ?></textarea>
     </td>
 </tr>
 

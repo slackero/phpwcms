@@ -953,6 +953,9 @@ $BL['be_cnt_field']                     = array(
     'recaptchainv' => 'Invisible reCAPTCHA',
 );
 
+$BL['be_cnt_optin']						= 'Double Opt-In';
+$BL['be_cnt_doubleoptin']				= 'activate Double Opt-In according to General Data Protection Regulation (GDPR)';
+
 $BL['be_cnt_access']                    = 'access';
 $BL['be_cnt_activated']                 = 'activated';
 $BL['be_cnt_available']                 = 'available';
