@@ -1296,29 +1296,28 @@ function get_login_file() {
 /**
  * Encrypt string
  */
-function phpwcms_encrypt($plaintext, $key=PHPWCMS_USER_KEY, $cypher='blowfish', $mode='cfb') {
-    $td = mcrypt_module_open($cypher, '', $mode, '');
-    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-    mcrypt_generic_init($td, $key, $iv);
-    $crypttext = mcrypt_generic($td, $plaintext);
-    mcrypt_generic_deinit($td);
-    return $iv.$crypttext;
+function phpwcms_encrypt($plaintext, $password=PHPWCMS_USER_KEY) {
+    $key = hash('sha256', $password, true);
+    $iv = openssl_random_pseudo_bytes(16);
+    $ciphertext = openssl_encrypt($plaintext, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+    $hash = hash_hmac('sha256', $ciphertext, $key, true);
+    return $iv . $hash . $ciphertext;
 }
 
 /**
  * Decrypt string
  */
-function phpwcms_decrypt($crypttext, $key=PHPWCMS_USER_KEY, $cypher='blowfish', $mode='cfb') {
-    $plaintext = '';
-    $td = mcrypt_module_open($cypher, '', $mode, '');
-    $ivsize = mcrypt_enc_get_iv_size($td);
-    $iv = substr($crypttext, 0, $ivsize);
-    $crypttext = substr($crypttext, $ivsize);
-    if ($iv) {
-        mcrypt_generic_init($td, $key, $iv);
-        $plaintext = mdecrypt_generic($td, $crypttext);
+function phpwcms_decrypt($crypttext, $password=PHPWCMS_USER_KEY) {
+    $iv = substr($ivHashCiphertext, 0, 16);
+    $hash = substr($ivHashCiphertext, 16, 32);
+    $ciphertext = substr($ivHashCiphertext, 48);
+    $key = hash('sha256', $password, true);
+
+    if (hash_hmac('sha256', $ciphertext, $key, true) !== $hash) {
+        return null;
     }
-    return $plaintext;
+
+    return openssl_decrypt($ciphertext, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
 }
 
 /**

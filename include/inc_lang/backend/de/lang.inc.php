@@ -945,6 +945,9 @@ $BL['be_cnt_field'] = array(
     'recaptchainv' => 'Unsichtbares reCAPTCHA',
 );
 
+$BL['be_cnt_optin'] = 'Double Opt-In';
+$BL['be_cnt_doubleoptin'] = 'aktiviere Double Opt-In gem&auml;&szlig; der <a href="https://de.wikipedia.org/wiki/Datenschutz-Grundverordnung" target="_blank">Datenschutzgrundverordnung</a> (DSGVO)';
+
 $BL['be_cnt_access'] = 'Zugriff';
 $BL['be_cnt_activated'] = 'aktiviert';
 $BL['be_cnt_available'] = 'verf&uuml;gbar';
