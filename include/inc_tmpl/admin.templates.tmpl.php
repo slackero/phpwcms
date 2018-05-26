@@ -515,8 +515,9 @@ foreach($phpwcms['js_lib'] as $key => $value) {
         </tr>
         <tr id="cookie-consent"<?php if(!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
             <td>&nbsp;</td>
-            <td class="tdtop3 tdbottom5">
-                <table cellpadding="0" cellspacing="0" border="0">
+            <td class="tdbottom5">
+                <?php if(count($phpwcms['allowed_lang'])): ?><div class="chatlist wrap tdbottom3 tdright10"><?php echo $BL['be_cookie_consent_translatable']; ?></div><?php endif; ?>
+                <table cellpadding="0" cellspacing="0" border="0" class="tdtop3">
                     <tr>
                         <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_cookie_consent_message']; ?>:&nbsp;</td>
                         <td class="tdbottom3"><textarea name="template_cc_message" rows="3" class="width400 autosize" placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea></td>
