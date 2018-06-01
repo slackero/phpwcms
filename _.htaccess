@@ -41,6 +41,9 @@
 
     DirectoryIndex index.html index.php
 
+    # Redirect /en and /en/ to english home
+    #RewriteRule ^(en|de)(/{0,1})$ ./index.php?$1/index [L,QSA]
+
     # Use RewriteBase - always start in Document Root
     RewriteBase /
     # If installed in a subfolder
