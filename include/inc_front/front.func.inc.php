@@ -1543,6 +1543,9 @@ function html_parser($string) {
 }
 
 function html_parse_idlink($matches) {
+    $matches[1] = explode(' ', $matches[1], 2);
+    $target = empty($matches[1][1]) ? '' : ' target="' . $matches[1][1] . '"';
+    $matches[1] = $matches[1][0];
     if(strpos($matches[1], '#') !== false) {
         list($matches[1], $anchor) = explode('#', $matches[1], 2);
         if($anchor) {
@@ -1558,7 +1561,7 @@ function html_parse_idlink($matches) {
     if(!empty($GLOBALS['template_default']['classes']['link-internal'])) {
         $replace .= ' class="'.$GLOBALS['template_default']['classes']['link-internal'].'"';
     }
-    $replace .= '>' . $matches[2] . '</a>';
+    $replace .= $target . '>' . $matches[2] . '</a>';
     return $replace;
 }
 
