@@ -727,6 +727,25 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
         }
     }
 
+    // always remove the following GET parameters,
+    // must be set explicity in $add
+    unset(
+        $_getVarTemp['page'],
+        $_getVarTemp['listpage'],
+        $_getVarTemp['newsdetail'],
+        $_getVarTemp['newspage'],
+        $_getVarTemp['glossary'],
+        $_getVarTemp['glossaryid'],
+        $_getVarTemp['glossarytitle'],
+        $_getVarTemp['shop_detail'],
+        $_getVarTemp['shop_cat'],
+        $_getVarTemp['shop_cart'],
+        $_getVarTemp['searchstart'],
+        $_getVarTemp['searchwords'],
+        $_getVarTemp['gallery'],
+        $_getVarTemp['subgallery']
+    );
+
     $pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
     switch($format) {
