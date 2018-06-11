@@ -975,7 +975,7 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 
             return '';
 
-        } elseif($sanitize===NULL && $maxLength >= mb_strlen($curString)) {
+        } elseif($sanitize === null && $maxLength >= mb_strlen($curString)) {
 
             return $curString;
 
@@ -990,9 +990,11 @@ function getCleanSubString($cutString='', $maxLength, $moreChar='', $cutMode='ch
 
         }
     }
-    if($sanitize !== NULL) {
+
+    if($sanitize !== null && $cutString) {
         $cutString = htmlfilter_sanitize($cutString, array(), array(), array('img', 'br', 'hr', 'input'), true);
     }
+
     return $cutString;
 }
 
