@@ -515,8 +515,8 @@ class phpwcmsImageGallery {
 			if($this->detail_thumbnail_crop == 1) {
 				$img .= 'x1';
 			}
-			$img .= '/' . $image['f_hash'] . '.' . $image['f_ext'];
-			$img .= '" alt="' . $name . '" border="0" />';
+			$img .= '/' . $image['f_hash'] . '.' . $image['f_ext'] . '/' . rawurlencode($image['f_name']);
+			$img .= '" alt="' . $name . '" />';
 
 			// create zoom
 			if($this->zoom === true || $this->lightbox === true) {
@@ -525,7 +525,7 @@ class phpwcmsImageGallery {
 				if($this->detail_zoom_crop == 1) {
 					$a .= 'x1';
 				}
-				$a .= '/' . $image['f_hash'] . '.' . $image['f_ext'] . '" target="_blank"';
+				$a .= '/' . $image['f_hash'] . '.' . $image['f_ext'] . '/' . rawurlencode($image['f_name']) . '" target="_blank"';
 
 				if($this->lightbox === true) {
                     $a .= ' rel="lightbox[gallery'.$folder.']"'.get_attr_data_gallery('gallery'.$folder, ' ', '');
@@ -629,8 +629,8 @@ class phpwcmsImageGallery {
 			if($this->list_image_crop == 1) {
 				$img .= 'x1';
 			}
-			$img .= '/' . $image['f_hash'] . '.' . $image['f_ext'];
-			$img .= '" alt="' . $name . '" border="0" />';
+			$img .= '/' . $image['f_hash'] . '.' . $image['f_ext'] . '/' . rawurlencode($image['f_name']);
+			$img .= '" alt="' . $name . '" />';
 
 			$images[] = $this->list_image_prefix . $img . $this->list_image_suffix;
 
@@ -690,8 +690,8 @@ class phpwcmsImageGallery {
 					if($this->list_thumbnail_crop == 1) {
 						$img .= 'x1';
 					}
-					$img .= '/' . $image['f_hash'] . '.' . $image['f_ext'];
-					$img .= '" alt="' . $name . '" border="0" />';
+					$img .= '/' . $image['f_hash'] . '.' . $image['f_ext'] . '/' . rawurlencode($image['f_name']);
+					$img .= '" alt="' . $name . '" />';
 
 					$thumbs[] = $this->list_thumbnail_prefix . $img . $this->list_thumbnail_suffix;
 

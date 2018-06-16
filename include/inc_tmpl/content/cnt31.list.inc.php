@@ -31,12 +31,12 @@ foreach($image_list['images'] as $img_info) {
 
 	if($img_info['thumb_id']) {
 		$image_data .= '<img src="'.PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'];
-		$image_data .= 'x'.$phpwcms['img_list_height'].'/'.$img_info['thumb_id'].'" border="0" alt="" /> ';
+		$image_data .= 'x'.$phpwcms['img_list_height'].'/'.$img_info['thumb_id'].'" alt="" /> ';
 	}
 
 	if($img_info['zoom_id']) {
 		$image_data .= '<img src="'.PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'];
-		$image_data .= 'x'.$phpwcms['img_list_height'].'/'.$img_info['zoom_id'].'" border="0" alt="" /> ';
+		$image_data .= 'x'.$phpwcms['img_list_height'].'/'.$img_info['zoom_id'].'" alt="" /> ';
 	}
 
 }

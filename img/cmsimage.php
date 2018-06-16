@@ -87,8 +87,10 @@ if(isset($data[1])) {
                         headerRedirect(PHPWCMS_URL.PHPWCMS_IMAGES.$target_image, 301);
                     }
 
+                    $filename = empty($data[2]) ? '' : '; filename="'.rawurlencode($data[2]).'"';
+
                     header('Content-Type: ' . get_mimetype_by_extension($ext));
-                    header('Content-Disposition: inline');
+                    header('Content-Disposition: inline' . $filename);
                     @readfile(PHPWCMS_THUMB.$target_image);
                     exit;
 
@@ -287,12 +289,12 @@ if(isset($data[1])) {
                 }
 
                 if(empty($name)) {
-                    $name = $value['image_name'];
+                    $name = empty($data[2]) ? $value['image_name'] : $data[2];
                 }
 
                 header('Content-Type: image/svg+xml');
                 header('Content-length: '.$svg_length);
-                header('Content-Disposition: inline; filename="'.$name.'"');
+                header('Content-Disposition: inline; filename="'.rawurlencode($name).'"');
 
                 echo $svg;
                 exit();
@@ -350,12 +352,12 @@ if(isset($data[1])) {
                 }
 
                 if(empty($name)) {
-                    $name = $image[0];
+                    $name = empty($data[2]) ? $image[0] : $data[2];
                 }
 
                 header('Content-Type: ' . $image['type']);
                 header('Content-length: '.filesize(PHPWCMS_THUMB.$image[0]));
-                header('Content-Disposition: inline; filename="'.$name.'"');
+                header('Content-Disposition: inline; filename="'.rawurlencode($name).'"');
                 @readfile(PHPWCMS_THUMB.$image[0]);
                 exit;
             }

@@ -3926,7 +3926,7 @@ function getArticleMenu($data=array()) {
                 }
                 if($item['img_src']) {
                     $item['img_src'] = 'x'.$data['articlemenu_options']['height'].'x'.$data['articlemenu_options']['crop'].'/'.$item['img_src'];
-                    $item['img_src'] = PHPWCMS_RESIZE_IMAGE . '/'.$data['articlemenu_options']['width'].$item['img_src'];
+                    $item['img_src'] = PHPWCMS_RESIZE_IMAGE . '/'.$data['articlemenu_options']['width'].$item['img_src'].'/'.rawurlencode($item['article_image']['name']);
                 }
             }
             if($data['articlemenu_options']['text']) {
