@@ -108,11 +108,8 @@ function casenormalize(&$val){
  */
 function skipspace($body, $offset){
     $me = 'skipspace';
-    preg_match('/^(\s*)/s', substr($body, $offset), $matches);
-    if (sizeof($matches[1])){
-        $count = strlen($matches[1]);
-        //htmlfilter_debug("$me: skipped $count chars\n");
-        $offset += $count;
+    if (preg_match('/^(\s*)/s', substr($body, $offset), $matches)) {;
+        $offset += strlen($matches[1]);
     }
     return $offset;
 }
@@ -157,15 +154,14 @@ function findnxreg($body, $offset, $reg){
     $matches = array();
     $retarr = array();
     $preg_rule = '%^(.*?)(' . $reg . ')%s';
-    preg_match($preg_rule, substr($body, $offset), $matches);
-    if (!isset($matches[0])){
-        //htmlfilter_debug("$me: No matches found.\n");
-        $retarr = false;
-    } else {
+    if(preg_match($preg_rule, substr($body, $offset), $matches)) {
         $retarr[0] = $offset + strlen($matches[1]);
         $retarr[1] = $matches[1];
         $retarr[2] = $matches[2];
         //htmlfilter_debug("$me: '$reg' found at pos $offset matching '".$matches[2]."'\n");
+    } else {
+        //htmlfilter_debug("$me: No matches found.\n");
+        $retarr = false;
     }
     return $retarr;
 }
@@ -337,8 +333,7 @@ function getnxtag($body, $offset){
          * the end of the tag.
          */
         $matches = array();
-        preg_match('%^(\s*)(>|/>)%s', substr($body, $pos), $matches);
-        if (!empty($matches[0])){
+        if(preg_match('%^(\s*)(>|/>)%s', substr($body, $pos), $matches)) {
             /**
              * Yep. So we did.
              */
@@ -525,8 +520,7 @@ function deent(&$attvalue, $regex, $hex=false){
     $me = 'deent';
     //htmlfilter_debug("$me: matching '$regex' against: $attvalue\n");
     $ret_match = false;
-    preg_match_all($regex, $attvalue, $matches);
-    if (is_array($matches) && sizeof($matches[0]) > 0){
+    if(preg_match_all($regex, $attvalue, $matches)){
         //htmlfilter_debug("$me: found " . sizeof($matches[0]) . " matches\n");
         $repl = array();
         for ($i = 0; $i < sizeof($matches[0]); $i++){
