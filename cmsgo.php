@@ -504,7 +504,7 @@ $GLOBALS['BE']['HEADER']['jquery.js']        = getJavaScriptSourceLink('include/
     $GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.js');
     //$GLOBALS['BE']['HEADER']['metisMenu.js'] = getJavaScriptSourceLink('include/inc_js/metisMenu/metisMenu.min.js');
 
-    $GLOBALS['BE']['HEADER']['popper.js'] = '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>';
+    $GLOBALS['BE']['HEADER']['popper.js'] = '<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>';
 
     $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.min.js');
     //echo 'jQuery';

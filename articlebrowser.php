@@ -104,7 +104,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
   <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
   <script src="include/inc_js/cmsgo.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
   <script src="include/inc_js/bootstrap.min.js" type="text/javascript"></script>
   <script src="include/inc_js/cmsgo-addons.js" type="text/javascript"></script>
 
