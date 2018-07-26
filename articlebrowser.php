@@ -104,8 +104,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <script src="include/inc_js/jquery/jquery.min.js"></script>
   <script src="include/inc_js/autosize.min.js"></script>
   <script src="include/inc_js/cmsgo.js"></script>
-  <script src="include/inc_js/popper.min.js"></script>
-  <script src="include/inc_js/bootstrap.min.js"></script>
+  <script src="include/inc_js/bootstrap.bundle.min.js"></script>
   <script src="include/inc_js/cmsgo-addons.js"></script>
 
   <?php if ($js_aktion == 16) { ?>

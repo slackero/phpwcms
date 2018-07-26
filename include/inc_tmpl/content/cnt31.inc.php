@@ -772,9 +772,6 @@ function addNewImage(where) {
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
 
-
-
-
 <?php
     if(!empty($value['custom_field_items'])):
         foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
@@ -913,7 +910,7 @@ function deleteImgElement(id) {
     return false;
 }
 
-$(document).ready(function(){
+$(function(){
 
     setCimageCenterInactive();
     updatePreviewImageAll();
@@ -925,11 +922,10 @@ $(document).ready(function(){
         $(".collapse").collapse('hide');
       },
       onDrop: function ($item, container, _super, event) {
-        $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-        $("body").removeClass(container.group.options.bodyClass)
+        $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+        $("body").removeClass(container.group.options.bodyClass);
       }
     });
-
 });
 
 </script>
