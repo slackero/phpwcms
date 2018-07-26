@@ -30,15 +30,15 @@ if (isset($image_list['images'])) {
     foreach($image_list['images'] as $img_info) {
 
         if($img_info['thumb_id']) {
-            $image_data .= '<div class="col-sm-auto img-bg m-1">';
-            $image_data .= '<img class="m-1 img-fluid" src="'.CMSGO_URL.CMSGO_RESIZE_IMAGE.'img/cmsimage.php/'.$cmsgo['img_list_width'];
+            $image_data .= '<div class="col-auto pr-0">';
+            $image_data .= '<img class="my-1 img-fluid" src="'.CMSGO_URL.CMSGO_RESIZE_IMAGE.'img/cmsimage.php/'.$cmsgo['img_list_width'];
             $image_data .= 'x'.$cmsgo['img_list_height'].'/'.$img_info['thumb_id'].'" border="0" alt="" /> ';
             $image_data .= '</div>';
         }
 
         if($img_info['zoom_id']) {
-            $image_data .= '<div class="col-sm-auto img-bg m-1">';
-            $image_data .= '<img class="m-1 img-fluid" src="'.CMSGO_URL.CMSGO_RESIZE_IMAGE.'img/cmsimage.php/'.$cmsgo['img_list_width'];
+            $image_data .= '<div class="col-auto pr-0">';
+            $image_data .= '<img class="m-y1 img-fluid" src="'.CMSGO_URL.CMSGO_RESIZE_IMAGE.'img/cmsimage.php/'.$cmsgo['img_list_width'];
             $image_data .= 'x'.$cmsgo['img_list_height'].'/'.$img_info['zoom_id'].'" border="0" alt="" /> ';
             $image_data .= '</div>';
         }
@@ -53,7 +53,7 @@ $cinfo["result"] .= $image_data;
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
     echo "<a class=\"w-100 mt-2\" href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
-    echo "<div class=\"row\">";
+    echo "<div class=\"row mx-0\">";
     echo $cinfo["result"];
     echo "</div>";
     echo "</a>";

@@ -49,8 +49,8 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
             if($imgx) {
                 $cinfo_img .= '';
             }
-            $cinfo_img .= '<div class="col-sm-auto img-bg m-1">';
-            $cinfo_img .= '<img class="m-1 img-fluid" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
+            $cinfo_img .= '<div class="col-auto pr-0">';
+            $cinfo_img .= '<img class="img-fluid my-1" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
             $cinfo_img .= '</div>';
             $imgx++;
         }
@@ -63,7 +63,7 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
     echo "<a class=\"w-100 mt-2\" href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
-    echo "<div class=\"row\">";
+    echo "<div class=\"row mx-0\">";
     echo $cinfo["result"];
     echo "</div>";
     echo "</a>";
