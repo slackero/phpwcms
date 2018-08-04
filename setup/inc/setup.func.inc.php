@@ -130,7 +130,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['db_collation'] = '".$val["db_collation"]."';\n";
     $conf_file .= "\$phpwcms['db_version'] = ".intval($val["db_version"]).";\n";
     $conf_file .= "\$phpwcms['db_timezone'] = '".trim($val["db_timezone"])."'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
-    $conf_file .= "\$phpwcms['db_sql_mode'] = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
+    $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
 
     $conf_file .= "\n// site values\n";
     if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
