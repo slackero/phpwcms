@@ -480,14 +480,13 @@ $(function  () {
     } else {
       echo '<script type="text/javascript">
 
-
-      $(function  () {
+      $(function() {
         $("ul.dropable-list'. $listingflag .'").sortable({
         group: \'no-drop'. $listingflag .'\',
         handle: \'em.handle\',
         onDrop: function ($item, container, _super, event) {
-          $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-          $("body").removeClass(container.group.options.bodyClass)
+          $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+          $("body").removeClass(container.group.options.bodyClass);
           var sort_order = \'\';
           $(\'#sortable-list-'. $listingflag .' li\').each(function(element) { sort_order = sort_order +  $(this).attr(\'id\')  + \'|\'; });
           var sUrl = \'include/inc_act/act_articlesort.php?sortid=\' + sort_order;
