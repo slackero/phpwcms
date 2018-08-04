@@ -510,8 +510,8 @@ $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/c
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-body">
-        <iframe src="" id="infobrowser" class="iframe" name="infobrowser" seamless="" height="100%" width="100%" frameborder="0"></iframe>
+      <div class="modal-body d-flex align-items-stretch modal-body-iframe">
+        <iframe src="" id="infobrowser" class="iframe flex-grow-1" name="infobrowser" seamless="seamless" frameborder="0"></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-blue" data-dismiss="modal"><?php echo $BL['be_func_struct_close'] ?></button>

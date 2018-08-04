@@ -36,6 +36,7 @@ require_once "include/inc_lib/autolink.inc.php";
 $file_id    = (isset($_GET["fid"])) ? intval($_GET["fid"]) : 0;
 $public     = (isset($_GET["public"])) ? true : false;
 $error      = 1;
+$frows      = '';
 
 if($file_id) {
 
@@ -189,7 +190,7 @@ if($file_id) {
       <td bgcolor="#F5F8F9"></td>
       <td bgcolor="#F5F8F9" >Published in:<br /><?php echo $frows ?></td>
       <td bgcolor="#F5F8F9"></td>
-    </tr> 
+    </tr>
 
 </table>
 </body>

@@ -552,7 +552,7 @@ function add_keywords_to_search($list_of_keywords, $keywords, $spacer=" ", $star
     //adds available keywords to the values used by search engine in file section
     //returns a string
     $kw_string = "";
-    if (sizeof($list_of_keywords) && $keywords) {
+    if (is_array($list_of_keywords) && count($list_of_keywords) && $keywords) {
         $kw = explode(":", $keywords);
         if (sizeof($kw)) {
             foreach ($kw as $value) {

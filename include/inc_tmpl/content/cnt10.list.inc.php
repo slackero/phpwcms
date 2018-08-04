@@ -1,0 +1,38 @@
+<?php
+/**
+ * cmsGo!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
+ **/
+
+// ----------------------------------------------------------------
+// obligate check for cmsgo constants
+if(!defined('CMSGO_ROOT')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
+// Form Email
+
+$cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
+$cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
+$cinfo_formmail = explode("#:#", $row["acontent_form"]);
+$cinfo[3] = html($cinfo_formmail[1]) . " -> " . $cinfo_formmail[2];
+$cinfo[3] .= " [" . (($cinfo_formmail[4]) ? "HTML" : "TEXT") . "]";
+
+$cinfo["result"] = "";
+
+foreach($cinfo as $value) {
+    if($value) {
+        $cinfo["result"] .= $value . "\n";
+    }
+}
+$cinfo["result"] = str_replace("\n", " / ", chop($cinfo["result"]));
+if($cinfo["result"]) { //Zeige Inhaltinfo
+    echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+    echo "<a href=\"cmsgo.php?do=articles&p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"] . "&amp;acid=" . $row["acontent_id"] . "\">";
+    echo $cinfo["result"] . "</a></td><td>&nbsp;</td></tr>";
+}

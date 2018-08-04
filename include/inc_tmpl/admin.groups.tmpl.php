@@ -237,8 +237,8 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
           <input type="hidden" value="<?php echo $group["syskey"] ?>" name="group_syskey"  id="group_syskey" />
       </div>
     </div>
-  </div> 
-    
+  </div>
+
     </form>
 <?php
 }
@@ -298,8 +298,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             echo '<span class="btn btn-sm btn-default"><i class="fa fa-fw"></i></span>';
             } else {
             ?>
-            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_login"])
-            ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
+            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
             ?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><i class="fa fa-trash fa-fw"></i></a>
 
