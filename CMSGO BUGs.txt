@@ -1,2 +1,0 @@
-- kopieren der Vorlagen geht nicht
-- mehrfach Dateiupload alle anklicken
