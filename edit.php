@@ -254,7 +254,7 @@ $reason_types = array(
 <?php endif; ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 	<script src="include/inc_js/jquery/jquery.min.js"></script>
-	<script src="include/inc_js/bootstrap.min.js"></script>
+	<script src="include/inc_js/bootstrap.bundle.min.js"></script>
 	<script src="include/inc_js/cmsgo.min.js"></script>
 	<script src="include/inc_js/md5.js"></script>
 </head>

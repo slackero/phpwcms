@@ -1,6 +1,9 @@
 /.idea
 /include/config/conf.inc.php
 /content/tmp/*.tmp
+/content/tmp/*.posts
 /.htaccess
 /filearchive/*.jpg
+/filearchive/*.png
 /content/images/*.jpg
+/content/images/*.png

@@ -318,40 +318,35 @@ if(is_string($cmsgo['allowed_upload_ext'])) {
 
 <script>
 
-$(document).ready(function() {
-  $("#fileuploader").uploadFile({
-  url:"include/inc_act/act_multiupload.php",
-  fileName:"myfile",
-  dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
-  abortStr:"<?php echo $BL["be_newsletter_button_cancel"] ?>",
-  onSuccess:function(files,data,xhr,pd)
-    {
-    $.ajax({
-      url: 'include/inc_act/act_multiupload-list.php',
-      success: function(data) {
-        $("#filelist").html(data);
-        $("#showform").show();
-        ppInitFunction();
-      }
+$(function () {
+    $("#fileuploader").uploadFile({
+        url: "include/inc_act/act_multiupload.php",
+        fileName: "myfile",
+        dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
+        abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
+        onSuccess: function (files, data, xhr, pd) {
+            $.ajax({
+                url: 'include/inc_act/act_multiupload-list.php',
+                success: function (data) {
+                    $("#filelist").html(data);
+                    $("#showform").show();
+                    ppInitFunction();
+                }
+            });
+        }
     });
-    }
-  });
 
-  ppInitFunction();
+    ppInitFunction();
 });
 
-
-
 function ppInitFunction() {
-
-<?php if($fx): ?>
 
     var ftpTakeOverForm = $('#ftptakeover'),
         deleteFiles = $('#delete-selected-files'),
         fileMarker = $('input.ftp_mark'),
         checkToggle = $('#toggle');
 
-        checkToggle.on('change', function() {
+    checkToggle.on('change', function() {
 
         var toggle_var  = $(this).is(':checked');
         var isChecked   = false;
@@ -447,8 +442,7 @@ function ppInitFunction() {
     });
 
 <?php
-        endif;
-    endif;
+  endif;
 ?>
 
 }

@@ -15,7 +15,7 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Article List
-$buttonAction .= '<input class="btn btn-sm btn-blue mr-1" type="button" value="'.$BL['be_article_cnt_center'];
+$buttonAction  = '<input class="btn btn-sm btn-blue mr-1" type="button" value="'.$BL['be_article_cnt_center'];
 $buttonAction .= '" title="'.$BL['be_article_cnt_center'].'" onclick="';
 $buttonAction .= "location.href='cmsgo.php?do=articles';return false;\">";
 // Article Preview (new window)
@@ -67,7 +67,7 @@ $(function  () {
         <div class="col text-right">
           <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil"></i></a>
           <a id="abtnarticle<?php echo $article["article_id"]?>" class="btn fa btn-sm visible <?php echo ($article["article_aktiv"]==0 ? "btn-danger" : "btn-success")?>" data-id="<?php echo $article["article_id"]?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"></a>
-          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['modules']['usergroup']['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="'<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><i class="fa fa-trash"></i></a>
+          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="'<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><i class="fa fa-trash"></i></a>
         </div>
       </div>
 
@@ -81,6 +81,9 @@ $(function  () {
               <td><strong><?php echo html($article["article_alias"]); ?></strong></td>
             </tr>
             <?php
+
+            $langstr = '';
+
             //show connected language articles
             if(count($cmsgo['allowed_lang']) > 0) {
               if (intval($article['article_lang_id'])> 0 && $article['article_lang_type'] == 'article') {
@@ -477,14 +480,13 @@ $(function  () {
     } else {
       echo '<script type="text/javascript">
 
-
-      $(function  () {
+      $(function() {
         $("ul.dropable-list'. $listingflag .'").sortable({
         group: \'no-drop'. $listingflag .'\',
         handle: \'em.handle\',
         onDrop: function ($item, container, _super, event) {
-          $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-          $("body").removeClass(container.group.options.bodyClass)
+          $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+          $("body").removeClass(container.group.options.bodyClass);
           var sort_order = \'\';
           $(\'#sortable-list-'. $listingflag .' li\').each(function(element) { sort_order = sort_order +  $(this).attr(\'id\')  + \'|\'; });
           var sUrl = \'include/inc_act/act_articlesort.php?sortid=\' + sort_order;
@@ -614,7 +616,7 @@ $(function  () {
             echo '<a id="abtnacontent'.$row["acontent_id"].'" class="btn fa btn-sm visible '.($row["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$row["acontent_id"].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
 
             ?>
-            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['modules']['usergroup']['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" onclick="return confirm('<?php echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]?>]\n ');"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" onclick="return confirm('<?php echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]?>]\n ');"><i class="fa fa-trash"></i></a>
           </div>
         </div>
         <?php

@@ -9,7 +9,7 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeLegibility;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 body {
@@ -95,6 +95,10 @@ select.form-control-sm:not([size]):not([multiple]) {
   font-size: 1.125rem;
   margin: 0;
   padding: 0;
+}
+
+.modal-content {
+  min-height: 800px;
 }
 
 .card, .card-header, .card-footer, .card-header:first-child {
@@ -310,6 +314,9 @@ header .dropdown-toggle::after {
   color: #fff !important;
   background-color: #31709b;
   border-color: #31709b;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 .btn-light {
@@ -789,6 +796,10 @@ li.sortme {
   margin-left: 3.6rem;
 }
 
+.alist-4 {
+  margin-left: 4.8rem;
+}
+
 .aclist-0 {
   margin-left: 4.6rem;
 }
@@ -803,6 +814,10 @@ li.sortme {
 
 .aclist-3 {
   margin-left: 7.0rem;
+}
+
+.aclist-4 {
+  margin-left: 8.2rem;
 }
 
 .admin-slist {
@@ -918,8 +933,26 @@ li.sortme {
     text-align: left !important;
   }
 }
+
 @media (min-width: 576px) {
-	.modal-dialog {
-			max-width: 800px;
-	}
+  .modal-dialog {
+    max-width: 800px;
+  }
+}
+
+.modal-body-iframe {
+  padding: 0;
+  margin: 1rem;
+  position: relative;
+}
+.modal-body-iframe > .iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.nowrap {
+  white-space: nowrap;
 }

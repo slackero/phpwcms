@@ -220,6 +220,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         $folder[0] = 0;
     }
     $folder_status = true_false($folder[0]);
+    $counter = 0;
 
     $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."cmsgo_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].")";
 
@@ -242,7 +243,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     //Wenn überhaupt Ordner für User vorhanden, dann Listing
     if(!$folder_status && $count_wert) {
-        folder_list(0, $db, 1, "filebrowser.php?opt=".$js_aktion."&amp;");
+        folder_list(0, 1, "filebrowser.php?opt=".$js_aktion."&amp;");
     }
 
     echo '</table>';
@@ -600,7 +601,7 @@ $(document).ready(function(){
 </html>
 <?php
 
-function folder_list($pid, $dbcon, $counter, $zieldatei) {
+function folder_list($pid, $counter, $zieldatei) {
     global $current_dirname;
     $folder = $_SESSION["folder"];
     $pid = intval($pid);
@@ -647,7 +648,7 @@ function folder_list($pid, $dbcon, $counter, $zieldatei) {
 
 
             if(!$folder_status && $count_wert) {
-                    folder_list($row["f_id"], $dbcon, $counter+1, $zieldatei);
+                folder_list($row["f_id"], $counter+1, $zieldatei);
             }
 
             $_SESSION["list_zaehler"]++;

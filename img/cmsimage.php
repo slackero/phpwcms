@@ -29,8 +29,14 @@ if(session_id() && session_name()) {
     }
 }
 
-$query_separator    = strpos($request_uri, 'cmsimage.php?') !== FALSE ? '?' : '/';
-$data               = explode('cmsimage.php'.$query_separator, $request_uri, 2);
+if(strpos($request_uri, '/im/') !== false) {
+    $data = explode('/im/', $request_uri, 2);
+} elseif(strpos($request_uri, 'cmsimage.php?') === false) {
+    $data = explode('cmsimage.php/', $request_uri, 2);
+} else {
+    $data = explode('cmsimage.php?', $request_uri, 2);
+}
+
 if(isset($data[1])) {
 
     $data = explode('/', $data[1]);
@@ -42,6 +48,7 @@ if(isset($data[1])) {
         $hash       = cut_ext($data[1]);
         $ext        = which_ext($data[1]);
         $value      = array();
+        $svg        = 0;
 
         if(substr($data[0], 0, 7) === 'convert') {
             // get image convert function but limit to max of 5 chars
@@ -96,7 +103,7 @@ if(isset($data[1])) {
         }
 
         // Check allowed cmsimage settings and use fallback/default if not matching
-        if(!empty($cmsgo['cmsimage_settings']) && $data[0] && !in_array($data[0], $cmsgo['cmsimage_settings'])) {
+        if($ext !== 'svg' && !empty($cmsgo['cmsimage_settings']) && $data[0] && !in_array($data[0], $cmsgo['cmsimage_settings'])) {
             if(isset($cmsgo['cmsimage_settings']['default'])) {
                 $data[0] = $cmsgo['cmsimage_settings']['default'];
             } else {
@@ -116,46 +123,62 @@ if(isset($data[1])) {
 
             require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
 
-            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'cmsgo_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
             if(substr($cmsgo['image_library'], 0, 2) == 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
             if(isset($hash[0]['f_hash'])) {
                 $ext  = $hash[0]['f_ext'];
-                $hash = $hash[0]['f_hash'];
+                $svg  = intval($hash[0]['f_svg']);
+                $_w   = $hash[0]['f_image_width'];
+                $_h   = $hash[0]['f_image_height'];
+                $name = $hash[0]['f_name'];
+                $hash = $hash[0]['f_hash']; // this overwrites $hash!!!
             } else {
                 $hash = '';
                 $ext  = '';
+                $svg  = 0;
+                $_w   = '';
+                $_h   = '';
+                $name = '';
             }
 
-        } elseif($hash && strlen($hash) == 32 && $ext && !is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$hash.'.'.$ext)) {
+        } elseif(strlen($hash) === 32 && (!$ext || !is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$hash.'.'.$ext))) {
 
             @session_start();
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
             require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
 
-            $sql   = 'SELECT f_hash, f_ext FROM '.DB_PREPEND.'cmsgo_file WHERE ';
+            $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
             if(substr($cmsgo['image_library'], 0, 2) == 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
             if(isset($hash[0]['f_hash'])) {
                 $ext  = $hash[0]['f_ext'];
-                $hash = $hash[0]['f_hash'];
+                $svg  = intval($hash[0]['f_svg']);
+                $_w   = $hash[0]['f_image_width'];
+                $_h   = $hash[0]['f_image_height'];
+                $name = $hash[0]['f_name'];
+                $hash = $hash[0]['f_hash']; // this overwrites $hash!!!
             } else {
                 $hash = '';
                 $ext  = '';
+                $svg  = 0;
+                $_w   = '';
+                $_h   = '';
+                $name = '';
             }
 
         }
 
-        if($hash && strlen($hash) == 32 && $ext) {
+        if(strlen($hash) === 32 && $ext) {
 
             $attribute  = explode('x', $data[0]);
             $width      = intval($attribute[0]);
@@ -201,11 +224,84 @@ if(isset($data[1])) {
             $value['thumb_name']    = md5($hash.$value["max_width"].$value["max_height"].$cmsgo['sharpen_level'].$crop.$crop_pos.$quality.$cmsgo['colorspace']);
             $value['crop_image']    = $crop;
             $value['crop_pos']      = $crop_pos;
+            $value['is_file']       = is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']);
+
+            if($svg && $value['is_file']) {
+
+                // calculate target dimensions
+                $resize_factor = $_w / $_h;
+                $svg_edit = true;
+                $svg_preserveAspectRatio = '';
+
+                if($value["max_height"] && $value["max_width"]) {
+
+                    if($value['crop_image']) {
+
+                        $svg_preserveAspectRatio = 'xMidYMid slice';
+
+                    } else {
+
+                        $resize_factor_x = $value["max_width"] / $_w;
+                        $resize_factor_y = $value["max_height"] / $_h;
+
+                        if ($resize_factor_x * $_h < $value["max_height"]) { // Resize the image based on width
+                        	$value["max_height"] = round($resize_factor_x * $_h);
+                        } else {
+                        	$value["max_width"] = round($resize_factor_y * $_w);
+                        }
+
+                    }
+
+                } elseif($value["max_height"] && !$value["max_width"]) {
+                    $value["max_width"] = floor($value["max_height"] * $_w / $_h);
+                    $value['crop_image'] = 0;
+                } elseif($value["max_width"] && !$value["max_height"]) {
+                    $value["max_height"] = floor($value["max_width"] * $_h / $_w);
+                    $value['crop_image'] = 0;
+                } elseif(!$value["max_width"] && !$value["max_height"]) {
+                    $value["max_width"]  = $_w;
+                    $value["max_height"] = $_h;
+                    $value['crop_image'] = 0;
+                    $svg_edit = false;
+                }
+
+                if($svg_edit) {
+
+                    $doc = new DOMDocument();
+                    $doc->load(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']);
+                    $svg_tag = $doc->getElementsByTagName('svg')->item(0);
+                    $svg_tag->setAttribute('width', $value['max_width']);
+                    $svg_tag->setAttribute('height', $value['max_height']);
+                    if($svg_preserveAspectRatio) {
+                        $svg_tag->setAttribute('preserveAspectRatio', $svg_preserveAspectRatio);
+                    }
+                    $svg = $doc->saveXML();
+                    $svg_length = mb_strlen($svg, CMSGO_CHARSET);
+
+                } else {
+
+                    $svg = file_get_contents(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']);
+                    $svg_length = filesize(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']);
+
+                }
+
+                if(empty($name)) {
+                    $name = $value['image_name'];
+                }
+
+                header('Content-Type: image/svg+xml');
+                header('Content-length: '.$svg_length);
+                header('Content-Disposition: inline; filename="'.$name.'"');
+
+                echo $svg;
+                exit();
+
+            }
 
             // Set width/height based on grid
             if($grid) {
                 if(!$value["max_width"] || !$value["max_height"]) {
-                    if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']) && ($imgdata = @getimagesize(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']))) {
+                    if($value['is_file'] && ($imgdata = @getimagesize(CMSGO_ROOT.'/'.CMSGO_FILES.$value['image_name']))) {
 
                         if($value["max_height"] && !$value["max_width"]) {
                             $resize_factor = $imgdata[1] / $value["max_height"];
@@ -239,25 +335,26 @@ if(isset($data[1])) {
                 $value["max_height"] = $basis * $grid;
             }
 
-            //get googlefriendly filename
-            require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
-            $image_hash = substr($value['image_name'], 0, (strlen($value['target_ext']) * -1) - 1);
-            $f_row= _dbGet('cmsgo_file', 'f_id, f_alias', "f_alias <> '' AND f_trash=0 AND f_hash="._dbEscape($image_hash), '', '', 1);
-            if(isset($f_row[0]['f_id'])) {
-                $value['thumb_name'] = $value['max_width'].$value['max_height'].$f_row[0]['f_id']."-".$f_row[0]['f_alias'];
-            }
-            //end get googlefriendly filename
-            
-            if(($image = get_cached_image( $value, false, false )) && !empty($image[0])) {
+            $image = get_cached_image($value, false, false);
+
+            if(!empty($image[0])) {
+
                 // Redirect, the "old" way
                 if(!empty($cmsgo['cmsimage_redirect'])) {
                     headerRedirect(CMSGO_URL.CMSGO_IMAGES.$image[0], 301);
                 }
+
                 if(empty($image['type'])) {
                     $image['type'] = get_mimetype_by_extension(which_ext($image[0]));
                 }
+
+                if(empty($name)) {
+                    $name = $image[0];
+                }
+
                 header('Content-Type: ' . $image['type']);
-                header('Content-Disposition: inline');
+                header('Content-length: '.filesize(CMSGO_THUMB.$image[0]));
+                header('Content-Disposition: inline; filename="'.$name.'"');
                 @readfile(CMSGO_THUMB.$image[0]);
                 exit;
             }

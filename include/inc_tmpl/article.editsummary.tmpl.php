@@ -24,6 +24,10 @@ $template_default['article']['image_default_height']   = isset($template_default
 $template_default['article']['imagelist_default_width']  = isset($template_default['article']['imagelist_default_width']) ? $template_default['article']['imagelist_default_width'] : '' ;
 $template_default['article']['imagelist_default_height'] = isset($template_default['article']['imagelist_default_height']) ? $template_default['article']['imagelist_default_height'] : '' ;
 
+$struct_alias = get_struct_alias($article["article_catid"]);
+$struct_parental = get_struct_alias($article["article_catid"], true);
+$langstr = '';
+
 ?>
 <form action="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>" method="post" name="article" id="article" required>
 <div class="row align-items-center">
@@ -270,12 +274,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
 <?php echo $langstr; ?>
      </div>
   </div>
-<?php endif;
-
-    $struct_alias = get_struct_alias($article["article_catid"]);
-    $struct_parental = get_struct_alias($article["article_catid"], true);
-
-  ?>
+<?php endif; ?>
 <!-- Sprachwechsel ende-->
 
   </div>

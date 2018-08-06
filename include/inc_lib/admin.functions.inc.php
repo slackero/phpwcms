@@ -56,7 +56,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     $a .= '<i class="fa fa-caret-'.(($child_count) ? ($_SESSION["structure"][ $struct[$key]["acat_id"] ]==0 ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-    $info .= 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
+    $info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
     $info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';
     $info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
     $info .= '<br>'.$BL['be_admin_struct_template'].': ';
@@ -427,16 +427,13 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
             $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
             $a .= '</div></div>';
 
-            $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-xs visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
+            $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-xs visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
             $a .= "</div></td></tr>".LF;
         }
 
         if($a) {
-
-            $aa .= $a;
-
-            echo $aa;
+            echo $a;
         }
     }
 }

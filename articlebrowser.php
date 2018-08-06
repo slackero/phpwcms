@@ -101,12 +101,11 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgospecial.css" rel="stylesheet" type="text/css">
 
-  <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-  <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
-  <script src="include/inc_js/cmsgo.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-  <script src="include/inc_js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="include/inc_js/cmsgo-addons.js" type="text/javascript"></script>
+  <script src="include/inc_js/jquery/jquery.min.js"></script>
+  <script src="include/inc_js/autosize.min.js"></script>
+  <script src="include/inc_js/cmsgo.js"></script>
+  <script src="include/inc_js/bootstrap.bundle.min.js"></script>
+  <script src="include/inc_js/cmsgo-addons.js"></script>
 
   <?php if ($js_aktion == 16) { ?>
   <script type="text/javascript">
