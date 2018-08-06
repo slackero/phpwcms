@@ -9,7 +9,7 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeLegibility;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body {
@@ -304,10 +304,6 @@ header .dropdown-toggle::after {
   padding: .25rem .5rem;
   font-size: .875rem;
   border-radius: .2rem;
-}
-
-.btn-group-sm>.btn, .btn-sm {
-  font-size: .938rem;
 }
 
 .btn-blue {
@@ -945,7 +941,8 @@ li.sortme {
   margin: 1rem;
   position: relative;
 }
-.modal-body-iframe > .iframe {
+
+.modal-body-iframe>.iframe {
   position: absolute;
   left: 0;
   top: 0;

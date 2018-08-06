@@ -182,7 +182,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
   <h2 class="mb-1"><?php echo $BL['be_article_title'] ?></h2><?php } ?>
 <hr />
 <button type="button" class="btn btn-blue btn-sm mb-3" id="showuploader"><?php echo $BL['be_file_multiple_upload'] ?></button>
-	<div class="uploader filebrowser-uploader closed" id="filebrowser-uploader" style="display:none">
+	<div class="uploader filebrowser-uploader" id="filebrowser-uploader" style="display:none">
 	  <div id="fileuploader">Upload</div>
     <div class="filebrowser-form">
 			<p>
@@ -456,7 +456,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 // show "add all files"
                 if($file_durchlauf === 0 && $add_all) {
 
-                    echo '<tr id="addAllFilesLink"><td colspan="4" class="add_all_files"><a href="#" class="btn btn-sm btn-blue" onclick="addAllFiles();return false;" data-toggle="tooltip" title="';
+                    echo '<tr id="addAllFilesLink"><td colspan="4"><a href="#" class="btn btn-sm btn-blue" onclick="addAllFiles();return false;" data-toggle="tooltip" title="';
                     echo $BL['ADD_ALL_FILES'];
                     echo '">';
                     echo $BL['ADD_ALL_FILES'];
