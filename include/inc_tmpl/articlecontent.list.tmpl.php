@@ -511,7 +511,7 @@ $(function  () {
       $contentpart_tab_number = intval($contentpart_tab_number[0]);
 
       ?>
-      <div class="py-1" style="padding-left:1.25rem; background-color: <?php echo $contentpart_block_color ?>"><small>{<?php
+      <div style="background-color: <?php echo $contentpart_block_color ?>"><div class="pl-3 py-1"><small>{<?php
             if($contentpart_tab_type == 2) {
               echo $BL['be_ctype_accordion'];
             } elseif(isset($template_default['attributes']['cpgroup_custom'][$contentpart_tab_type])) {
@@ -522,7 +522,7 @@ $(function  () {
             echo ' / ' . $BL['be_cnt_paginate_subsection'] . ': ';
             echo empty($contentpart_tab_title) ? '[' . $contentpart_tab_number . ']' : html($contentpart_tab_title);
 
-      ?>}</small>
+      ?>}</small></div>
 
 
 <?php
