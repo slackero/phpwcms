@@ -47,9 +47,9 @@ if(!empty($_GET['s']) || !empty($_GET['u'])) {
         switch($type) {
 
             case 'subscribe':       $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_address ';
-                                    $sql .= 'SET address_verified=1 ';
+                                    $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
                                     $sql .= "WHERE address_key='".aporeplace($hash)."'";
-                                    if(empty($data[0]['address_verified'])) {
+                                    if(isset($data[0]['address_verified'])) {
                                         $result = _dbQuery($sql, 'UPDATE');
                                     }
                                     if(!empty($data[0]['address_url1'])) {
