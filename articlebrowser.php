@@ -428,9 +428,9 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
       $a .= "<tr onmouseover=\"this.bgColor='#FFDE01';\" onmouseout=\"this.bgColor='#FFFFFF';\"  class=\"structarticle\" data-aid=\"".$article_content['acontent_id']."\" data-idtype=\"acontent\">\n";
 
       $a .= '<td width="30"><i class="far fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'" /></td>';
-      $a .= '<td class="" style="color:#727889;width: 60%">';
-
+      $a .= '<td class="" style="color:#727889;width: 60%">';  
       $ab  = '[ID:'.$article_content["acontent_id"].'] ';
+      $ab .= $article_content["acontent_title"].' - ';
       $ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];
       if($article_content["acontent_type"] == 30) {
         $ab .= ': '.$GLOBALS['BL']['modules'][$article_content["acontent_module"]]['listing_title'];

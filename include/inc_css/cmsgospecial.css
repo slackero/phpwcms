@@ -101,6 +101,10 @@ select.form-control-sm:not([size]):not([multiple]) {
   min-height: 800px;
 }
 
+.modal-body {
+  height: 1px;
+}
+
 .card, .card-header, .card-footer, .card-header:first-child {
   border-radius: 0;
 }
@@ -796,6 +800,10 @@ li.sortme {
   margin-left: 4.8rem;
 }
 
+.alist-5 {
+  margin-left: 6rem;
+}
+
 .aclist-0 {
   margin-left: 4.6rem;
 }
@@ -814,6 +822,10 @@ li.sortme {
 
 .aclist-4 {
   margin-left: 8.2rem;
+}
+
+.aclist-5 {
+  margin-left: 9.4rem;
 }
 
 .admin-slist {
