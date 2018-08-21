@@ -146,7 +146,7 @@ if(empty($cmsgo['rewrite_url'])) {
     define('CMSGO_RESIZE_IMAGE', 'img/cmsimage.php');
 } else {
     define('CMSGO_REWRITE', true);
-    define('CMSGO_RESIZE_IMAGE', 'im/');
+    define('CMSGO_RESIZE_IMAGE', 'im');
 }
 define('CMSGO_REWRITE_EXT', isset($cmsgo['rewrite_ext']) ? $cmsgo['rewrite_ext'] : '.html');
 define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
