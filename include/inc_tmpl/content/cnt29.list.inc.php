@@ -62,9 +62,11 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
+    echo "<div class=\"col\">";
     echo "<a class=\"w-100 mt-2\" href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
     echo "<div class=\"row mx-0\">";
     echo $cinfo["result"];
     echo "</div>";
     echo "</a>";
+    echo "</div>";
 }
