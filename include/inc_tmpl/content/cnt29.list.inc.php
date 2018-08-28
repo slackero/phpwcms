@@ -18,7 +18,7 @@ if (!defined('CMSGO_ROOT')) {
 
 // Images
 
-$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : '';
+$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : ' ';
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
@@ -49,24 +49,23 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
             if($imgx) {
                 $cinfo_img .= '';
             }
-            $cinfo_img .= '<div class="col-auto pr-0">';
-            $cinfo_img .= '<img class="img-fluid my-1" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
+            $cinfo_img .= '<div class="col-auto pr-0 pt-1 pb-1">';
+            $cinfo_img .= '<img class="img-fluid" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
             $cinfo_img .= '</div>';
             $imgx++;
         }
     }
     if($imgx) {
-        if($cinfo["result"]) $cinfo["result"] .= '<br>';
+        if($cinfo["result"]) $cinfo["result"] .= '</div>';
         $cinfo["result"] .= $cinfo_img;
     }
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<div class=\"col\">";
-    echo "<a class=\"w-100 mt-2\" href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
+    echo "<a class=\"w-100\" href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
     echo "<div class=\"row mx-0\">";
+    echo "<div class=\"col-12 pb-2\">";
     echo $cinfo["result"];
     echo "</div>";
     echo "</a>";
-    echo "</div>";
 }

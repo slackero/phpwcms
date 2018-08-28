@@ -18,7 +18,7 @@ if (!defined('CMSGO_ROOT')) {
 
 // Images
 
-$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : '';
+$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : ' ';
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
@@ -47,15 +47,15 @@ if (isset($image_list['images'])) {
 }
 
 if($cinfo["result"] && $image_data) {
-    $cinfo["result"] .= '<br />';
+    $cinfo["result"] .= '</div>';
 }
 $cinfo["result"] .= $image_data;
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo '<a class="w-100" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article["article_id"].'&amp;acid='.$row["acontent_id"].'">';
-    echo '<div class="row mx-0">';
+    echo "<a class=\"w-100\" href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"].'&amp;acid='.$row["acontent_id"]."\">";
+    echo "<div class=\"row mx-0\">";
+    echo "<div class=\"col-12 pb-2\">";
     echo $cinfo["result"];
     echo "</div>";
     echo "</a>";
-
 }
