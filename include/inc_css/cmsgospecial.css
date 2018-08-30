@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-/*img {
-  border: 2px solid #ff0000;
-}*/
 
 html, body {
   height: 100%;
@@ -10,9 +7,6 @@ html, body {
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeLegibility;
   font-size: 14px;
-}
-
-body {
   color: #333;
 }
 
@@ -27,10 +21,6 @@ a, .text-blue {
 
 a:hover {
   text-decoration: none;
-}
-
-.table td, .table th {
-  /*vertical-align: middle;*/
 }
 
 .tableheader {
@@ -369,6 +359,9 @@ header .dropdown-toggle::after {
 
 .btn-success, .btn-danger {
   color: #fff !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 .custom-select {
