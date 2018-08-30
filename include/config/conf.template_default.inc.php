@@ -901,7 +901,7 @@ $template_default['settings'] = array(
         // Enable and customise to enable additional input fields to ImageDiv content part:
         'fieldgroup1' => array(
             'legend' => 'Field group name',
-            'template' => 'Bootstrap-Carousel.tmpl', // bind the fieldgroup to a specific template, or default
+            'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
                 // [IMGDIV_STRING1]{IMGDIV_STRING1}[/IMGDIV_STRING1]
                 'string1' => array(
