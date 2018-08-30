@@ -243,7 +243,7 @@ if ($BE['LANG'] == 'ar') {
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="glyphicon arrow"></span></a>';
                 $subnav = '';
                 foreach ($cmsgo['modules'] as $value) {
-                    if (in_array($_SESSION["wcs_user_id"], $modulearray[$value['name']])) {
+                    if (isset($modulearray[$value['name']]) && in_array($_SESSION["wcs_user_id"], $modulearray[$value['name']])) {
                         $subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'cmsgo.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
                     }
                 }
