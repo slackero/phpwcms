@@ -49,7 +49,6 @@ if(!isset($content['felogin']['felogin_profile_manage_redirect'])) {
 }
 
 ?>
-
 <div class="form-group align-items-center form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
@@ -122,12 +121,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
     <label class="col-sm-2 col-form-label text-right pt-0" for="be_check_feuser_profile"><?php echo $BL['be_check_feuser_profile'] ?></label>
     <div class="col-sm-auto">
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" name="profile_manage" id="profile_manage" value="1"<?php echo is_checked(1, $content['felogin']['felogin_profile_manage']); ?> />
-          <label class="form-check-label" for="profile_manage"><?php echo $BL['be_check_feuser_registration'] ?></label>
+          <input type="checkbox" class="form-check-input" name="profile_registration" id="profile_registration" value="1"<?php echo is_checked(1, $content['felogin']['felogin_profile_registration']); ?> />
+          <label class="form-check-label" for="profile_registration"><?php echo $BL['be_check_feuser_registration'] ?></label>
         </div>
         <div class="form-check">
-					<input type="checkbox" class="form-check-input" name="validate_backenduser" id="validate_backenduser" value="1"<?php echo is_checked(1, $content['felogin']['felogin_validate_backenduser']); ?> />
-					<label class="form-check-label" for="validate_backenduser"><?php echo $BL['be_check_feuser_manage'] ?></label>
+            <input type="checkbox" class="form-check-input" name="profile_manage" id="profile_manage" value="1"<?php echo is_checked(1, $content['felogin']['felogin_profile_manage']); ?> />
+            <label class="form-check-label" for="profile_manage"><?php echo $BL['be_check_feuser_manage'] ?></label>
         </div>
     </div>
 </div>
