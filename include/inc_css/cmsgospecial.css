@@ -444,6 +444,11 @@ header .dropdown-toggle::after {
   width: 16px;
 }
 
+.fa-folder {
+  color: #f4c017;
+}
+
+
 a.filein {
   display: block;
 }
