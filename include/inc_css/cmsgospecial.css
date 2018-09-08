@@ -433,7 +433,7 @@ header .dropdown-toggle::after {
 }
 
 .ffolder.fa.fa-folder {
-  color: #333;
+  color: #f4c017;
   margin-right: 5px;
 }
 
@@ -443,6 +443,11 @@ header .dropdown-toggle::after {
   height: 12px;
   width: 16px;
 }
+
+.fa-folder {
+  color: #f4c017;
+}
+
 
 a.filein {
   display: block;
