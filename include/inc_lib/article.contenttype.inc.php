@@ -45,7 +45,7 @@ $wcs_content_type = array(
     //26 => $BL['be_ctype_recipe'],
     //27 => $BL['be_ctype_faq'],
     28 => $BL['be_ctype_felogin'],
-    //25 => $BL['be_ctype_flashplayer'],
+    25 => $BL['be_ctype_flashplayer'],
     60 => $BL['be_ctype_custom'] //custom contentpart
 );
 
