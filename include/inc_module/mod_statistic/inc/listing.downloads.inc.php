@@ -29,7 +29,7 @@ if(empty($_SESSION['list_user_count'])) {
 
 // paginate and search form processing
 if(isset($_POST['do_pagination'])) {
-    
+
     $_SESSION['download_filter']      = clean_slweg($_POST['filter']);
     if(empty($_SESSION['download_filter'])) {
         unset($_SESSION['download_filter']);
@@ -40,10 +40,8 @@ if(isset($_POST['do_pagination'])) {
     $_SESSION['list_search']      = clean_slweg($_POST['list_search']);
     if(empty($_SESSION['list_search'])) {
         unset($_SESSION['list_search']);
-    } else {
-        $_SESSION['list_search']  = $_SESSION['list_search'];
     }
-    
+
     $_SESSION['downloads_page'] = intval($_POST['page']);
 }
 
@@ -54,9 +52,9 @@ if(empty($_SESSION['downloads_page'])) {
 $_entry['query'] = 'f_dlstart > 0 AND f_trash = 0';
 
 if(isset($_SESSION['download_filter']) && is_array($_SESSION['download_filter']) && count($_SESSION['download_filter'])) {
-    
+
     $_entry['filter_array'] = array();
-    
+
     foreach($_SESSION['download_filter'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
         $_entry['filter_array'][] = "CONCAT(f_name) LIKE '%".aporeplace($_entry['filter'])."%'";
@@ -65,11 +63,11 @@ if(isset($_SESSION['download_filter']) && is_array($_SESSION['download_filter'])
         $_SESSION['download_filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
         $_entry['query'] .= $_SESSION['download_filter'];
     }
-    
+
 } elseif(isset($_SESSION['download_filter']) && is_string($_SESSION['download_filter'])) {
-    
+
     $_entry['query'] .= $_SESSION['download_filter'];
-    
+
 }
 if(isset($_SESSION['list_search'])) {
     $_entry['sort'] = empty($_SESSION['list_search']) ? 'f_dlstart' : $_SESSION['list_search'];

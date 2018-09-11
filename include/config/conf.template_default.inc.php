@@ -322,14 +322,15 @@ $template_default['classes'] = array(
     'tab-item'                      => 'tab-item',
     'navlist-sub_ul_true'           => 'sub_ul_true',
     'navlist-sub_ul'                => 'sub_ul',
-    'navlist-sub_no'                => 'sub_no',
-    'navlist-sub_first'             => 'sub_first',
-    'navlist-sub_last'              => 'sub_last',
+    'navlist-sub_no'                => 'nav-item',
+    'navlist-sub_first'             => '',
+    'navlist-sub_last'              => '',
     'navlist-sub_parent'            => 'sub_parent',
     'navlist-asub_no'               => 'asub_no',
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
     'navlist-navLevel'              => 'navLevel-',
+    'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
     'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
     'breadcrumb-active'             => 'active',
@@ -600,7 +601,6 @@ $template_default['settings'] = array(
 
     'imagespecial_custom_fields' => array(
         // Enable and customise to enable additional input fields for each image special item:
-
         'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
@@ -688,103 +688,10 @@ $template_default['settings'] = array(
                 )
             )
         ),
-
-        
-        'fieldgroup1' => array(
-            'legend' => 'Field group name',
-            'template' => 'default', // bind the fieldgroup to a specific template, or default
-            'fields' => array(
-                // [IMGSPCL_STRING1]{IMGSPCL_STRING1}[/IMGSPCL_STRING1]
-                'string1' => array(
-                    'legend' => 'field 1',
-                    'type' => 'str',
-                    'render' => 'html',
-                    'maxlength' => 100,
-                    'placeholder' => ''
-                ),
-                // [IMGSPCL_TEXTAREA1]{IMGSPCL_TEXTAREA1}[/IMGSPCL_TEXTAREA1]
-                'textarea1' => array(
-                    'legend' => 'field 2',
-                    'type' => 'textarea',
-                    'render' => '',
-                    'rows' => 3,
-                    'placeholder' => ''
-                ),
-                // [IMGSPCL_OPTIONNAME1]
-                //    Will be the selected value {IMGSPCL_OPTIONNAME1}
-                //    [IMGSPCL_OPTIONNAME1_OPTION1]{IMGSPCL_OPTIONNAME1_OPTION1}[/IMGSPCL_OPTIONNAME1_OPTION1]
-                //    [IMGSPCL_OPTIONNAME1_OPTION2]{IMGSPCL_OPTIONNAME1_OPTION2}[/IMGSPCL_OPTIONNAME1_OPTION2]
-                // [/IMGSPCL_OPTIONNAME1]
-                'optionname1' => array(
-                    'legend' => 'choose',
-                    'type' => 'option',
-                    'render' => '',
-                    'values' => array(
-                        'option1' => 'value option 1',
-                        'option2' => 'value option 2',
-                        'empty' => 'nothing',
-                    ),
-                    'default' => 'empty'
-                ),
-                // [IMGSPCL_INTEGER1]{IMGSPCL_INTEGER1}[/IMGSPCL_INTEGER1]
-                'integer1' => array(
-                    'legend' => 'integer 1',
-                    'type' => 'int',
-                    'render' => '',
-                    'max' => 1000,
-                    'min' => -1000,
-                    'step' => 1,
-                    'placeholder' => ''
-                ),
-                // [IMGSPCL_FLOAT1]{IMGSPCL_FLOAT1}[/IMGSPCL_FLOAT1]
-                'float1' => array(
-                    'legend' => 'float 1',
-                    'type' => 'float',
-                    'render' => '',
-                    'max' => 1000,
-                    'min' => -1000,
-                    'step' => .1,
-                    'placeholder' => ''
-                ),
-                // [IMGSPCL_SELECT1]
-                //    Will be the selected value {IMGSPCL_SELECT1}
-                //    [IMGSPCL_SELECT1_OPTION1]{IMGSPCL_SELECT1_OPTION1}[/IMGSPCL_SELECT1_OPTION1]
-                //    [IMGSPCL_SELECT1_OPTION2]{IMGSPCL_SELECT1_OPTION2}[/IMGSPCL_SELECT1_OPTION2]
-                // [/IMGSPCL_SELECT1]
-                'select1' => array(
-                    'legend' => 'choose',
-                    'type' => 'select',
-                    'render' => '',
-                    'values' => array(
-                        'empty' => 'choose a value or this for nothing',
-                        'option1' => 'value option 1',
-                        'option2' => 'value option 2',
-                    ),
-                    'default' => 'empty'
-                ),
-                // [IMGSPCL_BOOL1]True[/IMGSPCL_BOOL1][IMGSPCL_BOOL1_ELSE]False[/IMGSPCL_BOOL1_ELSE]
-                'bool1' => array(
-                    'legend' => 'Enable (to be true)',
-                    'type' => 'bool',
-                    'default' => false, // or true to be enabled by default
-                ),
-                'file1' => array(
-                    'legend' => 'file 1',
-                    'type' => 'file',
-                    'template' => '', // if empty the default file list template is used
-                    'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
-                    'direct' => 0 // direct file download 1 or not 0
-                )
-            )
-        ),
-
-
-
     ),
 
     'wysiwyg_custom_fields' => array(
         // Enable and customise to enable additional input fields to WYSIWYG content part:
-
         'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
@@ -873,13 +780,12 @@ $template_default['settings'] = array(
                     'placeholder' => ''
                 ),
             )
-        ),
-
+        )
     ),
+
     'customctp_custom_fields' => array(
-    
-      // Enable and customise to enable additional input fields to custom content part:
-      'fieldgroup1' => array(
+        // Enable and customise to enable additional input fields to custom content part:
+        'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
@@ -989,7 +895,108 @@ $template_default['settings'] = array(
                 )
             )
         ),
-     ),
+    ),
+
+    'imgdiv_custom_fields' => array(
+        // Enable and customise to enable additional input fields to ImageDiv content part:
+        'fieldgroup1' => array(
+            'legend' => 'Field group name',
+            'template' => 'default', // bind the fieldgroup to a specific template, or default
+            'fields' => array(
+                // [IMGDIV_STRING1]{IMGDIV_STRING1}[/IMGDIV_STRING1]
+                'string1' => array(
+                    'legend' => 'field 1',
+                    'type' => 'str',
+                    'render' => 'html',
+                    'maxlength' => 100,
+                    'placeholder' => ''
+                ),
+                // [IMGDIV_TEXTAREA1]{IMGDIV_TEXTAREA1}[/IMGDIV_TEXTAREA1]
+                'textarea1' => array(
+                    'legend' => 'field 2',
+                    'type' => 'textarea',
+                    'render' => '',
+                    'rows' => 3,
+                    'placeholder' => ''
+                ),
+                // [IMGDIV_OPTIONNAME1]
+                //    Will be the selected value {IMGDIV_OPTIONNAME1}
+                //    [IMGDIV_OPTIONNAME1_OPTION1]{IMGDIV_OPTIONNAME1_OPTION1}[/IMGDIV_OPTIONNAME1_OPTION1]
+                //    [IMGDIV_OPTIONNAME1_OPTION2]{IMGDIV_OPTIONNAME1_OPTION2}[/IMGDIV_OPTIONNAME1_OPTION2]
+                // [/IMGDIV_OPTIONNAME1]
+                'optionname1' => array(
+                    'legend' => 'choose',
+                    'type' => 'option',
+                    'render' => '',
+                    'values' => array(
+                        'option1' => 'value option 1',
+                        'option2' => 'value option 2',
+                        'empty' => 'nothing',
+                    ),
+                    'default' => 'empty'
+                ),
+                // [IMGDIV_INTEGER1]{IMGDIV_INTEGER1}[/IMGDIV_INTEGER1]
+                'integer1' => array(
+                    'legend' => 'integer 1',
+                    'type' => 'int',
+                    'render' => '',
+                    'max' => 1000,
+                    'min' => -1000,
+                    'step' => 1,
+                    'placeholder' => ''
+                ),
+                // [IMGDIV_FLOAT1]{WYSIWYG_FLOAT1}[/IMGDIV_FLOAT1]
+                'float1' => array(
+                    'legend' => 'float 1',
+                    'type' => 'float',
+                    'render' => '',
+                    'max' => 1000,
+                    'min' => -1000,
+                    'step' => .1,
+                    'placeholder' => ''
+                ),
+                // [IMGDIV_SELECT1]
+                //    Will be the selected value {IMGDIV_SELECT1}
+                //    [IMGDIV_SELECT1_OPTION1]{IMGDIV_SELECT1_OPTION1}[/IMGDIV_SELECT1_OPTION1]
+                //    [IMGDIV_SELECT1_OPTION2]{IMGDIV_SELECT1_OPTION2}[/IMGDIV_SELECT1_OPTION2]
+                // [/IMGDIV_SELECT1]
+                'select1' => array(
+                    'legend' => 'choose',
+                    'type' => 'select',
+                    'render' => '',
+                    'values' => array(
+                        'empty' => 'choose a value or this for nothing',
+                        'option1' => 'value option 1',
+                        'option2' => 'value option 2',
+                    ),
+                    'default' => 'empty'
+                ),
+                // [IMGDIV_BOOL1]True[/IMGDIV_BOOL1][IMGDIV_BOOL1_ELSE]False[/IMGDIV_BOOL1_ELSE]
+                'bool1' => array(
+                    'legend' => 'Enable (to be true)',
+                    'type' => 'bool',
+                    'default' => false, // or true to be enabled by default
+                ),
+                'file1' => array(
+                    'legend' => 'file 1',
+                    'type' => 'file',
+                    'template' => '', // if empty the default file list template is used
+                    'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
+                    'direct' => 0 // direct file download 1 or not 0
+                ),
+                // [IMGDIV_WYSIWYG1]{IMGDIV_WYSIWYG1}[/IMGDIV_WYSIWYG1][IMGDIV_WYSIWYG1_ELSE]<!--nada-->[/IMGDIV_WYSIWYG1_ELSE]
+                'wysiwyg1' => array(
+                    'legend' => 'WYSIWYG editor',
+                    'type' => 'textarea',
+                    'render' => 'wysiwyg',
+                    'rows' => 10,
+                    'height' => '175px',
+                    'placeholder' => ''
+                )
+            )
+        ),
+    ),
+    /*
 
     'tracking' => array(
 
@@ -1008,15 +1015,15 @@ $template_default['settings'] = array(
   ga('create', '%s', 'auto'%s);
   ga('send', 'pageview');
 </script>",
-           'anonymize' => ', {anonymizeIp: true}'
-        ),
-        */
+        'anonymize' => ', {anonymizeIp: true}'
+    ),
+    */
 
-        // Piwik Tracking Code http://developer.piwik.org/guides/tracking-javascript-guide
-        /*
-        'piwik' => array(
-            'position' => 'head',
-            'code' => '<script'.SCRIPT_ATTRIBUTE_TYPE.'>
+    // Piwik Tracking Code http://developer.piwik.org/guides/tracking-javascript-guide
+    /*
+    'piwik' => array(
+        'position' => 'head',
+        'code' => '<script'.SCRIPT_ATTRIBUTE_TYPE.'>
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
@@ -1028,7 +1035,6 @@ $template_default['settings'] = array(
     g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
   })();
 </script>'
-        ),
-        */
     ),
+    */
 );

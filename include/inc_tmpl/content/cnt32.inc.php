@@ -138,7 +138,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
           <div class="row">
             <div class="col-sm-auto">
-              <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em>
+              <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
+                  <span class="fa-stack">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
+                  </span>
+              </em>
             </div>
             <div class="col text-right">
               <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
@@ -155,8 +160,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 							<input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="form-control form-control-sm" />
 						</div>
 				</div>
-      			
-				<div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#accordion">
+
+				<div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#tabs">
 				<div class="form-group align-items-center form-row">
 					<label for="be_headline" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
@@ -167,7 +172,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						<input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="form-control form-control-sm" />
 					</div>
 				</div>
-            
+
 				<div class="form-group form-row">
 					<?php if($content['tabwysiwygoff']): ?>
 					<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_wysiwyg']; ?></label>
@@ -185,7 +190,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 									include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 								?></div><?php
 								else: ?>
-							<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>     
+							<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
 								<div class="col">
 									<textarea class="form-control" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea>
 								</div>
@@ -218,7 +223,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                 }
               }
             ?></label>
- 
+
             <div class="col">
 						<?php
 						// support only type "str" or "textarea" at the moment
@@ -473,7 +478,7 @@ function addNewTab() {
     return false;
   }
 
-  $(document).ready(function(){
+  $(function(){
 
       $("ul.dropable-list").sortable({
         group: 'no-drop',
@@ -482,15 +487,15 @@ function addNewTab() {
           $(".collapse").collapse('hide');
         },
         onDrop: function ($item, container, _super, event) {
-          $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-          $("body").removeClass(container.group.options.bodyClass)
+          $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+          $("body").removeClass(container.group.options.bodyClass);
         }
       });
 
   });
 
   </script>
-</div> 
+</div>
 
 <div class="form-group align-items-center form-row">
 	<label class="col-sm-2 col-form-label text-right"></label>

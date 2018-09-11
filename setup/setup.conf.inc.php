@@ -22,7 +22,7 @@ $cmsgo['db_charset'] = 'utf8';
 $cmsgo['db_collation'] = 'utf8_general_ci';
 $cmsgo['db_version'] = 0;
 $cmsgo['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
-$cmsgo['db_sql_mode'] = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
 
 // site values
 $cmsgo['site'] = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/'

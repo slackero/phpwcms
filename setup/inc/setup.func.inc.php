@@ -129,8 +129,8 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['db_collation'] = '".$val["db_collation"]."';\n";
     $conf_file .= "\$cmsgo['db_version'] = ".intval($val["db_version"]).";\n";
     $conf_file .= "\$cmsgo['db_timezone'] = '".trim($val["db_timezone"])."'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
-    $conf_file .= "\$cmsgo['db_sql_mode'] = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
- 
+    $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
+
 
     $conf_file .= "\n// site values\n";
     if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
@@ -180,7 +180,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['responsive'] = 1; // 0 max. image width = \$cmsgo['content_width'], 1 = as given\n";
 
     $val["rewrite_url"] = check_htaccess($val);
-    
+
     $conf_file .= "\n// other stuff\n";
     $conf_file .= "\$cmsgo['image_library'] = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
     $conf_file .= "\$cmsgo['library_path'] = '';       //Path to ImageMagick or NetPBM\n";
@@ -503,42 +503,42 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
 }
 
 function check_htaccess($val) {
-    
+
     $val["rewrite_url"] = empty($val["rewrite_url"]) ? 0 : 1;
-    
+
     if($val["rewrite_url"]) {
-        
+
         $root = dirname(dirname(dirname(__FILE__)));
         $htaccess_content = '';
         $htaccess_new_content = '';
-        
+
         if(is_file($root.'/.htaccess')) {
             $htaccess_content = read_textfile($root.'/.htaccess');
         }
-        
+
         // Test if RewriteEngine is On or disable rewrite of cmsgo
         if($htaccess_content) {
             return (strpos(strtolower($htaccess_content), 'rewriteengine on')) !== false ? 1 : 0;
         }
-        
+
         if(is_file($root.'/_.htaccess')) {
             $htaccess_new_content = read_textfile($root.'/_.htaccess');
         }
-        
+
         // Disable rewrite during setup if the _.htaccess is empty
         if(!$htaccess_new_content) {
             return 0;
         }
-        
+
         if($val["root"]) {
             $htaccess_new_content = str_replace('#RewriteBase /subfolder/', '#RewriteBase#/'.$val["root"].'/', $htaccess_new_content);
             $htaccess_new_content = str_replace('RewriteBase /', '#RewriteBase /', $htaccess_new_content);
             $htaccess_new_content = str_replace('#RewriteBase#/'.$val["root"].'/', 'RewriteBase /'.$val["root"].'/', $htaccess_new_content);
         }
-        
+
         $val["rewrite_url"] = @write_textfile($root.'/.htaccess', $htaccess_new_content) ? 1 : 0;
-        
+
     }
-    
+
     return $val["rewrite_url"];
 }

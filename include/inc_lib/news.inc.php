@@ -52,7 +52,7 @@ class cmsgoNews {
         global $cmsgo;
 
         $this->BL               = &$BL;
-        $this->cmsgo          = &$cmsgo;
+        $this->cmsgo            = &$cmsgo;
         $this->csrf_token       = get_token_get_string('csrftoken');
         $this->base_url         = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
         $this->base_url_decoded = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&do=articles&p=3';
@@ -527,7 +527,7 @@ class cmsgoNews {
             'cnt_place'             => '',
             'cnt_teasertext'        => '',
             'cnt_text'              => '',
-            'cnt_duplicate'         => 0,
+            'cnt_duplicate'         => isset($_GET['button']) && $_GET['button'] === 'copy' ? 1 : 0,
             'cnt_lang'              => '',
             'cnt_prio'              => 0,
             'cnt_readmore'          => 1,
@@ -553,8 +553,6 @@ class cmsgoNews {
             'cnt_textformat'        => 'plain',
             'cnt_searchoff'         => 0
         );
-
-        $this->data['cnt_duplicate'] = $_GET['button'] == 'copy' ? 1 : 0;
 
         // check form post
         if( isset($_POST['cnt_name']) ) {
@@ -634,7 +632,7 @@ class cmsgoNews {
                 // error while storing data
                 } else {
 
-                    set_status_message($BL['be_error_while_save'].trim( html( _dbErrorNum().': '._dbError() ) ), 'warning');
+                    set_status_message($this->BL['be_error_while_save'] . ' ' . trim( html( _dbErrorNum().': '._dbError() ) ), 'warning');
 
                 }
 
@@ -737,16 +735,16 @@ class cmsgoNews {
         $post['cnt_archive_status'] = empty($_POST['cnt_archive_status']) ? 0 : 1;
         $post['cnt_prio']           = empty($_POST['cnt_prio']) ? 0 : intval($_POST['cnt_prio']);
 
-        $temp_time                  = isset($_POST['start_time']) ? _getTime($_POST['start_time']) : ':';
-        $temp_date                  = isset($_POST['start_date']) ? _getDate($_POST['start_date']) : '.';
+        $temp_time                  = isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
+        $temp_date                  = isset($_POST['calendar_start_date']) ? _getDate($_POST['calendar_start_date']) : '';
         $post['cnt_livedate']       = $temp_date.' '.$temp_time;
 
-        $temp_time                  = isset($_POST['end_time']) ? _getTime($_POST['end_time']) : ':';
-        $temp_date                  = isset($_POST['end_date']) ? _getDate($_POST['end_date']) : '.';
+        $temp_time                  = isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
+        $temp_date                  = isset($_POST['calendar_end_date']) ? _getDate($_POST['calendar_end_date']) : '';
         $post['cnt_killdate']       = $temp_date.' '.$temp_time;
 
-        $temp_time                  = isset($_POST['sort_time']) ? _getTime($_POST['sort_time']) : ':';
-        $temp_date                  = isset($_POST['sort_date']) ? _getDate($_POST['sort_date']) : '.';
+        $temp_time                  = isset($_POST['sort_time']) ? _getTime($_POST['sort_time']) : '';
+        $temp_date                  = isset($_POST['sort_date']) ? _getDate($_POST['sort_date']) : '';
         $post['cnt_sort']           = intval( strtotime($temp_date.' '.$temp_time) );
 
         $post['cnt_name']           = isset($_POST['cnt_name']) ? clean_slweg($_POST['cnt_name']) : '';
@@ -804,5 +802,7 @@ class cmsgoNews {
         );
 
         return $post;
+
     }
+
 }

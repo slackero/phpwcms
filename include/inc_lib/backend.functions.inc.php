@@ -120,9 +120,8 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
 
     if(!$getback) {
         return $sn;
-    } else {
-        echo $sn;
     }
+    echo $sn;
 }
 
 /**
@@ -588,7 +587,6 @@ function set_status_message($msg='', $type='info', $replace=array()) {
     switch($type) {
         case 'success':
         case 'info':
-        case 'info':
         case 'danger':
         case 'warning': break;
         default: $type = 'info';
@@ -795,22 +793,28 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
             switch( $value{0} ) {
 
                 case 'H':   if(isset($time[$x])) {
-                                $hour = intval($time[$x]);
-                                if($hour < 0 || $hour > 23) $hour = 0;
-                            }
-                            break;
+                    $hour = intval($time[$x]);
+                    if($hour < 0 || $hour > 23) {
+                        $hour = 0;
+                    }
+                }
+                    break;
 
                 case 'i':   if(isset($time[$x])) {
-                                $minute = intval($time[$x]);
-                                if($minute < 0 || $minute > 59) $minute = 0;
-                            }
-                            break;
+                    $minute = intval($time[$x]);
+                    if($minute < 0 || $minute > 59) {
+                        $minute = 0;
+                    }
+                }
+                    break;
 
                 case 's':   if(isset($time[$x])) {
-                                $second = intval($time[$x]);
-                                if($second < 0 || $second > 59) $second = 0;
-                            }
-                            break;
+                    $second = intval($time[$x]);
+                    if($second < 0 || $second > 59) {
+                        $second = 0;
+                    }
+                }
+                    break;
             }
 
         }
@@ -818,9 +822,9 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
     }
 
     $time = str_replace($delimeter, ':', $default_time);
-    $time = str_replace('H', $hour, $time);
-    $time = str_replace('i', $minute, $time);
-    $time = str_replace('s', $second, $time);
+    $time = str_replace('H', substr('0' . $hour, -2), $time);
+    $time = str_replace('i', substr('0' . $minute, -2), $time);
+    $time = str_replace('s', substr('0' . $second, -2), $time);
 
     return $time;
 }
@@ -848,22 +852,28 @@ function _getDate($date='', $delimeter='', $default_date='') {
             switch( $value{0} ) {
 
                 case 'y':   if(isset($date[$x])) {
-                                $year = intval($date[$x]);
-                                if($year < 0) $year = '';
-                            }
-                            break;
+                    $year = intval($date[$x]);
+                    if($year < 0) {
+                        $year = '';
+                    }
+                }
+                    break;
 
                 case 'd':   if(isset($date[$x])) {
-                                $day = intval($date[$x]);
-                                if($day < 1 || $day > 31) $day = '';
-                            }
-                            break;
+                    $day = intval($date[$x]);
+                    if($day < 1 || $day > 31) {
+                        $day = '';
+                    }
+                }
+                    break;
 
                 case 'm':   if(isset($date[$x])) {
-                                $month = intval($date[$x]);
-                                if($month < 1 || $month > 12) $month = '';
-                            }
-                            break;
+                    $month = intval($date[$x]);
+                    if($month < 1 || $month > 12) {
+                        $month = '';
+                    }
+                }
+                    break;
 
             }
 
@@ -873,7 +883,7 @@ function _getDate($date='', $delimeter='', $default_date='') {
 
     if($year && $month && $day) {
 
-        return $year.'-'.$month.'-'.$day;
+        return substr('000' . $year, -4) . '-' . substr('0' . $month, -2) . '-' . substr('0' . $day, -2);
 
     } else {
 
@@ -1017,7 +1027,7 @@ function initJsAutocompleter() {
 function initJQuery() {
 //  unset($GLOBALS['BE']['HEADER']['mootools.js']);
     // add jQuery at first position and keep the key
-    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js')) + $GLOBALS['BE']['HEADER'];
+    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.3.1.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
 // make cmsgo compatibility and upgrade check

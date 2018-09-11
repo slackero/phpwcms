@@ -171,7 +171,7 @@ if(isset($template_default['settings']['customctp_custom_fields']) && is_array($
       </div>
     </div>
 
-    <div id="collapse_<?php echo $key ?>" class="collapse p-1 <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#accordion">
+    <div id="collapse_<?php echo $key ?>" class="collapse p-1 <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#custom_elements">
 
 <?php
 if($value['custom_field_items']):
@@ -533,7 +533,7 @@ function addNewElement(where) {
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
 
-    new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show p-1" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#accordion">';
+    new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show p-1" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#custom_elements">';
 
 <?php
     if(!empty($value['custom_field_items'])):
@@ -732,7 +732,7 @@ function deleteImgElement(id) {
     return false;
 }
 
-$(document).ready(function(){
+$(function(){
 
     updatePreviewImageAll();
     updateCustomSort();
@@ -741,8 +741,8 @@ $(document).ready(function(){
       group: 'no-drop',
       handle: 'em.handle',
       onDrop: function ($item, container, _super, event) {
-        $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-        $("body").removeClass(container.group.options.bodyClass)
+        $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+        $("body").removeClass(container.group.options.bodyClass);
       }
     });
 

@@ -1487,3 +1487,6 @@ $BL['be_extensions_copyright'] = 'Erweiterungen sind urheberrechtlich gesch&uuml
 
 $BL['be_password_show'] = 'Passwort anzeigen';
 $BL['be_password_hide'] = 'Password verstecken';
+
+$BL['be_allowed_filetypes'] = 'Zul&auml;ssige Dateitypen';
+$BL['be_imagediv_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die benutzerdefinierten Felder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';

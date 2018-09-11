@@ -39,13 +39,13 @@ $(\'#cform_field_type\').on(\'change\', function() {
   }
 })
 
-$(function  () {
+$(function() {
   $("ul.dropable-list").sortable({
   group: \'no-drop\',
   handle: \'em.handle\',
-  onDrop: function ($item, container, _super, event) {
-    $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-    $("body").removeClass(container.group.options.bodyClass)
+  onDrop: function($item, container, _super, event) {
+    $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+    $("body").removeClass(container.group.options.bodyClass);
     var i=1;
     $(\'#sortable-list li\').each(function(element) {
         var res = $(this).attr(\'id\').split("_");

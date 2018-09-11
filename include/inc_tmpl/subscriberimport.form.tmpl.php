@@ -40,7 +40,6 @@ if($_userInfo['subscriptions']) {
   }
 
   if($_userInfo['select_subscr']) {
-    $_userInfo['select_subscr'] = $_userInfo['select_subscr'];
     $_userInfo['select_subscr'] = '
         <div class="form-check">
         <input class="form-check-input" type="checkbox" name="subscribe_all" id="subscribe_all" value="1"'.is_checked($_userInfo['subscribe_all'], 1, 1, 0).' />

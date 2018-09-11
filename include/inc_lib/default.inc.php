@@ -146,7 +146,7 @@ if(empty($cmsgo['rewrite_url'])) {
     define('CMSGO_RESIZE_IMAGE', 'img/cmsimage.php');
 } else {
     define('CMSGO_REWRITE', true);
-    define('CMSGO_RESIZE_IMAGE', 'im/');
+    define('CMSGO_RESIZE_IMAGE', 'im');
 }
 define('CMSGO_REWRITE_EXT', isset($cmsgo['rewrite_ext']) ? $cmsgo['rewrite_ext'] : '.html');
 define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
@@ -347,6 +347,7 @@ $cmsgo['default_template_classes'] = array(
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
     'navlist-navLevel'              => 'navLevel-',
+    'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
     'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
     'breadcrumb-active'             => 'active',
@@ -654,7 +655,7 @@ function buildGlobalGET($return = '') {
         $GLOBALS['_getVar'][session_name()],
         $GLOBALS['_getVar']['']
     );
-    
+
     if(!empty($GLOBALS['cmsgo']['unregister_getVar']) && is_array($GLOBALS['cmsgo']['unregister_getVar'])) {
         foreach($GLOBALS['cmsgo']['unregister_getVar'] as $key) {
             unset($GLOBALS['_getVar'][$key]);

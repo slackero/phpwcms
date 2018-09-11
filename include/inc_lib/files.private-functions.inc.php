@@ -21,6 +21,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
     }
     $sql .= "f.f_kid=0 AND f.f_trash=0 ORDER BY f_sort, f_name";
     $result = _dbQuery($sql);
+    $vor = '';
 
     if(!isset($result[0]['f_id'])) {
         return $counter;
@@ -164,7 +165,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
                     echo '<div class="btn-group" role="group">'.LF;
 
                     //Button zum Bearbeiten der Dateiinformationn
-                    echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" data-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+                    echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
 
                     echo '<div class="btn-group" role="group">';
                     echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -195,9 +196,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
                     echo "</div></div></div>";
 
                     //Button zum Umschalten zwischen Aktiv/Inaktiv
-                    echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa fa-fw btn-sm ml-1 visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
+                    echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa fa-fw btn-sm ml-1 visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
                     //Button zum Umschalten zwischen Public/Non-Public
-                    echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa fa-fw btn-sm ml-1 public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
+                    echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa fa-fw btn-sm ml-1 public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
 
                     echo "</td>\n";
                     echo "</tr>\n";

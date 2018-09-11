@@ -17,6 +17,7 @@ if (!defined('CMSGO_ROOT')) {
 
 // News
 $news = new cmsgoNews();
+
 ?>
 
 <?php
@@ -61,32 +62,32 @@ $news = new cmsgoNews();
           </div>
         </div>
       <div class="col-sm-auto my-2 my-sm-0">
-          <select name="sort" class="custom-select form-control form-control-sm" onchange="this.form.submit();" >
-						<option value="prio_asc"<?php is_selected('prio_asc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-						<option value="prio_desc"<?php is_selected('prio_desc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-						<option value="name_asc"<?php is_selected('name_asc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-						<option value="name_desc"<?php is_selected('name_desc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-						<option value="start_asc"<?php is_selected('start_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-						<option value="start_desc"<?php is_selected('start_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-						<option value="end_asc"<?php is_selected('end_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-						<option value="end_desc"<?php is_selected('end_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-						<option value="sort_asc"<?php is_selected('sort_asc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-						<option value="sort_desc"<?php is_selected('sort_desc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-					</select>
+        <select name="sort" class="custom-select form-control form-control-sm" onchange="this.form.submit();" >
+			<option value="prio_asc"<?php is_selected('prio_asc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+			<option value="prio_desc"<?php is_selected('prio_desc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+			<option value="name_asc"<?php is_selected('name_asc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+			<option value="name_desc"<?php is_selected('name_desc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+			<option value="start_asc"<?php is_selected('start_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+			<option value="start_desc"<?php is_selected('start_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+			<option value="end_asc"<?php is_selected('end_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+			<option value="end_desc"<?php is_selected('end_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+			<option value="sort_asc"<?php is_selected('sort_asc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+			<option value="sort_desc"<?php is_selected('sort_desc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+		</select>
       </div>
 
       <div class="col-sm-auto">
-				<select name="keyword" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_tags'] ?>" class="custom-select form-control form-control-sm" onchange="this.form.submit();">
-					<option value=""<?php is_selected('', $news->filter_keyword) ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
-						<?php if(count($news_categories)):
-							foreach($news_categories as $item):
-						?>
-					<option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html(ucfirst($item)) ?></option>
-						<?php
-							endforeach;
-							endif;
-						?>
-				</select>
+			<select name="keyword" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_tags'] ?>" class="custom-select form-control form-control-sm" onchange="this.form.submit();">
+				<option value=""<?php is_selected('', $news->filter_keyword) ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+					<?php if(count($news_categories)):
+						foreach($news_categories as $item):
+					?>
+				<option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html(ucfirst($item)) ?></option>
+					<?php
+						endforeach;
+						endif;
+					?>
+			</select>
       </div>
 
         <div class="col-sm-auto my-2 my-sm-0">
@@ -101,12 +102,12 @@ $news = new cmsgoNews();
         <div class="col-sm-auto text-sm-right">
             <select class="custom-select form-control-sm">
                 <option selected><?php echo $BL['be_article_rendering'] ?></option>
-                <option onClick="window.location = 'cmsgo.php?do=articles&amp;p=3&amp;c=5'">5</option>
-                <option onClick="window.location = 'cmsgo.php?do=articles&amp;p=3&amp;c=10'">10</option>
-                <option onClick="window.location = 'cmsgo.php?do=articles&amp;p=3&amp;c=25'">25</option>
-                <option onClick="window.location = 'cmsgo.php?do=articles&amp;p=3&amp;c=50'">50</option>
-                <option onClick="window.location = 'cmsgo.php?do=articles&amp;p=3&amp;c=100'">100</option>
-                <option onClick="window.location = 'cmsgo.php?do=articles&amp;p=3&amp;c=all'"><?php echo $BL['be_ftptakeover_all'] ?></option>
+                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=5'">5</option>
+                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=10'">10</option>
+                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=25'">25</option>
+                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=50'">50</option>
+                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=100'">100</option>
+                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=all'"><?php echo $BL['be_ftptakeover_all'] ?></option>
             </select>
         </div>
 
@@ -133,9 +134,8 @@ $news = new cmsgoNews();
     initJsOptionSelect();
     initJsAutocompleter();
 ?>
-
 <!-- NEWSDETAIL START -->
-<script type="text/javascript">
+<script>
 
 function setImgIdName(file_id, file_name) {
   if(file_id == null) var file_id=0;
@@ -147,10 +147,10 @@ function setImgIdName(file_id, file_name) {
 }
 
 function showImage() {
-  var id  = parseInt($('#cnt_image_id').val(),10);
+  var id  = parseInt($('#cnt_image_id').val(), 10);
   var img = $('#cnt_image');
-  if(id > 0) {
-    img.html('<img src="<?php echo CMSGO_URL.CMSGO_RESIZE_IMAGE.'/'.$cmsgo['img_list_width'].'x'.$cmsgo['img_list_height'] ?>/'+id+'" alt="" border="0" />');
+  if(id) {
+    img.html('<img src="<?php echo CMSGO_URL.CMSGO_RESIZE_IMAGE.$cmsgo['img_list_width'].'x'.$cmsgo['img_list_height'] ?>/'+id+'" alt="" border="0" />');
     img.show();
   } else {
     img.hide();
@@ -204,13 +204,12 @@ $(function(){
 
   });
 
-
-  var cnt_title = $('#cnt_title');
-  var change_name_value = '-';
-  var change_alias_value  = '-';
+  var cnt_title = $('#cnt_title'),
+      change_name_value = '-',
+      change_alias_value  = '-';
 
   // set name field
-  $('#cnt_name_click').click(function(){
+  $('#cnt_name_click').on('click', function(){
     var cnt_name = cnt_title.val().trim();
     if(cnt_name === '') {
       cnt_title.val( $('#cnt_name').val().trim() );
@@ -219,7 +218,7 @@ $(function(){
     }
   });
 
-  $('#cnt_alias_click').click(function(){
+  $('#cnt_alias_click').on('click', function(){
     var cnt_alias = $('#cnt_name').val().trim();
     if(cnt_alias === '') {
       cnt_alias = cnt_title.val().trim();
@@ -230,7 +229,6 @@ $(function(){
   });
 
   cnt_title.on({
-
     focus: function(){
       change_name_value   = $('#cnt_name').val().trim();
       change_alias_value  = $('#cnt_alias').val().trim();
@@ -245,7 +243,7 @@ $(function(){
     }
   });
 
-  $('#cnt_image_lightbox').click(function(){
+  $('#cnt_image_lightbox').on('click', function(){
     if($(this).is(':checked')) {
       $('#cnt_image_zoom').attr('checked', true);
     }
@@ -254,7 +252,6 @@ $(function(){
 });
 
 </script>
-
 
 <form action="<?php echo $news->formAction() ?>" method="post" class="free" id="newsform" name="newsform" required>
   <div class="row">
@@ -279,7 +276,7 @@ $(function(){
 <div class="card-header"><h2><?php
 if($news->data['cnt_id']) {
   echo $BL['be_news_edit'];
-} else if ($_GET["button"] == 'copy') {
+} else if (isset($_GET["button"]) && $_GET["button"] === 'copy') {
   echo $BL['be_news_copy'];
 } else {
   echo $BL['be_news_add'];
@@ -336,7 +333,7 @@ if($news->data['cnt_id']) {
       <label for="start_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
       <div class="col-sm-auto">
         <div class="date input-group mb-2 mb-sm-0" id="datetimepickerstartdate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
+          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
           <div class="input-group-append">
           	<span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
@@ -344,14 +341,14 @@ if($news->data['cnt_id']) {
       </div>
       <div class="col-sm-auto">
         <div class="input-group" id="datetimepickerstarttime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
+          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
           <div class="input-group-append">
           	<span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
           </div>
         </div>
       </div>
     </div>
-    <script type="text/javascript">
+    <script>
       $(function () {
           $('#datetimepickerstartdate').datetimepicker({
             locale: 'de-ch',
@@ -371,7 +368,7 @@ if($news->data['cnt_id']) {
       <label for="end_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_end'] ?></label>
       <div class="col-sm-auto">
         <div class="input-group mb-2 mb-sm-0" id="datetimepickerenddate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
+          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
           <div class="input-group-append">
           	<span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
@@ -379,14 +376,14 @@ if($news->data['cnt_id']) {
       </div>
       <div class="col-sm-auto">
         <div class="input-group" id="datetimepickerendtime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
+          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
           <div class="input-group-append">
           	<span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
         	</div>
         </div>
       </div>
     </div>
-    <script type="text/javascript">
+    <script>
       $(function () {
           $('#datetimepickerenddate').datetimepicker({
             locale: 'de-ch',
@@ -421,7 +418,7 @@ if($news->data['cnt_id']) {
         </div>
       </div>
     </div>
-    <script type="text/javascript">
+    <script>
       $(function () {
           $('#datetimepickersortdate').datetimepicker({
             locale: 'de-ch',
@@ -449,7 +446,7 @@ if($news->data['cnt_id']) {
   <div class="form-group align-items-center form-row">
     <label for="be_alias" class="col-sm-2 col-form-label text-right"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
     <div class="col">
-      <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['cnt_alias'] ?>" maxlength="200" type="text" required>
+      <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['be_alias'] ?>" maxlength="200" type="text" required>
     </div>
   </div>
 
@@ -530,7 +527,7 @@ if($news->data['cnt_id']) {
 					<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"></a>
 				</span>
 			</div>
-			<input name="cimage_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
+			<input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
 		</div>
 	</div>
 

@@ -29,7 +29,7 @@ foreach($cinfo as $value) {
 }
 $cinfo["result"] = str_replace("\n", " / ", html(chop($cinfo["result"])));
 if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<div class=\"col-sm-auto\">";
+    echo "<div class=\"col align-items-stretch\">";
     echo "<a href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"] . "&amp;acid=" . $row["acontent_id"] . "\">";
     echo $cinfo["result"] . "</a></div>";
 }

@@ -300,17 +300,28 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
   <li id="image_<?php echo $key ?>" class="card my-3 p-0 sortme">
 
-		<div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
-			<div class="row align-items-center">
-				<div class="col-sm-auto text-right pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></div>
-				<div class="col"><h2># <?php echo $key ?></h2></div>
-					<div class="col-sm-auto text-right">
-						<a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');"><i class="fa fa-trash"></i></a></div>
-					</div>
-				</div>
+    <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
+        <div class="row align-items-center">
+            <div class="col-sm-auto text-right pr-0">
+                <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
+                    <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
+                </em>
+            </div>
+            <div class="col">
+                <h2># <?php echo $key ?></h2>
+            </div>
+            <div class="col-sm-auto text-right">
+                <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>">
+                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#accordion">
+    <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" data-parent="#images">
       <div class="card-body ">
         <div class="row mb-3">
           <div class="col-sm-6">
@@ -695,7 +706,7 @@ function getBackendImgSrc(image_file_id) {
 function updatePreviewImageAll() {
 
     $('li', $('ul#images')).each(function() {
-      var image_number = $(this).attr('id').split('_')
+      var image_number = $(this).attr('id').split('_');
       if(image_number[1]) {
           updatePreviewImage(image_number[1]);
           image_entry[ image_number[1] ] = $('cimage_sort_'+image_number[1]).value;
@@ -721,12 +732,12 @@ function addNewImage(where) {
     new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="fa fa-trash"><'+'/i><'+'/a><'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
-    new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#accordion">';
+    new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';
     new_entry += '<'+'div class="card-body">';
     new_entry += '<'+'div class="row mb-3">';
     new_entry += '<'+'div class="col-sm-6">';
     new_entry += '<'+'div class="form-group align-items-center">';
-    new_entry += '<'+'input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_<?php echo $key ?>" type="hidden" value="" '+'/>';
+    new_entry += '<'+'input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_'+entry_number+'" type="hidden" value="" '+'/>';
     new_entry += '<'+'input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" '+'/>';
     new_entry += '<'+'label><?php echo $BL['be_flashplayer_thumbnail'] ?><'+'/label>';
     new_entry += '<div class="input-group">';
@@ -771,9 +782,6 @@ function addNewImage(where) {
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
-
-
-
 
 <?php
     if(!empty($value['custom_field_items'])):
@@ -913,21 +921,23 @@ function deleteImgElement(id) {
     return false;
 }
 
-$(document).ready(function(){
+$(function(){
 
     setCimageCenterInactive();
     updatePreviewImageAll();
 
-    $("ul.dropable-list").sortable({
-      group: 'no-drop',
-      handle: 'em.handle',
-      onDrag: function ($item, container, _super, event) {
-        $(".collapse").collapse('hide');
-      },
-      onDrop: function ($item, container, _super, event) {
-        $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-        $("body").removeClass(container.group.options.bodyClass)
-      }
+    var $images = $("#images");
+
+    $images.sortable({
+        group: 'no-drop',
+        handle: 'em.handle',
+        onDrag: function ($item, container, _super, event) {
+            $(".collapse").collapse('hide');
+        },
+        onDrop: function ($item, container, _super, event) {
+            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+            $("body").removeClass(container.group.options.bodyClass);
+        }
     });
 
 });

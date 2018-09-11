@@ -101,12 +101,11 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgospecial.css" rel="stylesheet" type="text/css">
 
-  <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-  <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
-  <script src="include/inc_js/cmsgo.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-  <script src="include/inc_js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="include/inc_js/cmsgo-addons.js" type="text/javascript"></script>
+  <script src="include/inc_js/jquery/jquery.min.js"></script>
+  <script src="include/inc_js/autosize.min.js"></script>
+  <script src="include/inc_js/cmsgo.js"></script>
+  <script src="include/inc_js/bootstrap.bundle.min.js"></script>
+  <script src="include/inc_js/cmsgo-addons.js"></script>
 
   <?php if ($js_aktion == 16) { ?>
   <script type="text/javascript">
@@ -243,7 +242,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
   } elseif ($js_aktion == 16) {
     $a .= '<a href="#" onclick="'.str_replace('%s','id='.$struct[$key]["acat_id"],$js).'" title="">'.$an . '</a>';
   } else {
-    $a .= '<a href="#" class="structarticle" data-aid="'.($js_aktion == 6 ? 'id=' : '').$struct[$key]["acat_id"].'" data-idtype="category" title="">'.$an . '</a>';
+    $a .= '<a href="#" class="structarticle" data-aid="'.($js_aktion == 6 ? 'id=' : '').$struct[$key]["acat_id"].'" data-idtype="category" title="">'.$an ;
+    $a .= '<span class="ml-3">'.$struct[$key]['acat_lang'].'</span></a>';
   }
   $a .= "</strong></td>\n</tr>\n</table></td>\n</tr>\n";
   echo $a;
@@ -366,7 +366,8 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     } elseif ($js_aktion == 16) {
       $a .= '<a href="#" onclick="' . str_replace('%s','aid='.$article[$akey]["article_id"],$js).'" title="">'.$at.'</a>';
     } else {
-      $a .= '<a href="#"  class="structarticle" data-aid="'.($js_aktion == 6 ? 'aid=' : '').$article[$akey]["article_id"].'" data-idtype="article" title="">'.$at.'</a>';
+      $a .= '<a href="#"  class="structarticle" data-aid="'.($js_aktion == 6 ? 'aid=' : '').$article[$akey]["article_id"].'" data-idtype="article" title="">'.$at;
+      $a .= '<span class="ml-3">'.$article[$akey]["article_lang"].'</span></a>';
     }
     $a .= "</td>\n</tr>\n</table></td>\n</tr>\n";
     echo $a;
@@ -427,9 +428,9 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
       $a .= "<tr onmouseover=\"this.bgColor='#FFDE01';\" onmouseout=\"this.bgColor='#FFFFFF';\"  class=\"structarticle\" data-aid=\"".$article_content['acontent_id']."\" data-idtype=\"acontent\">\n";
 
       $a .= '<td width="30"><i class="far fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'" /></td>';
-      $a .= '<td class="" style="color:#727889;width: 60%">';
-
+      $a .= '<td class="" style="color:#727889;width: 60%">';  
       $ab  = '[ID:'.$article_content["acontent_id"].'] ';
+      $ab .= $article_content["acontent_title"].' - ';
       $ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];
       if($article_content["acontent_type"] == 30) {
         $ab .= ': '.$GLOBALS['BL']['modules'][$article_content["acontent_module"]]['listing_title'];

@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-/*img {
-  border: 2px solid #ff0000;
-}*/
 
 html, body {
   height: 100%;
@@ -9,10 +6,7 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeLegibility;
-  font-size: 13px;
-}
-
-body {
+  font-size: 14px;
   color: #333;
 }
 
@@ -27,10 +21,6 @@ a, .text-blue {
 
 a:hover {
   text-decoration: none;
-}
-
-.table td, .table th {
-  /*vertical-align: middle;*/
 }
 
 .tableheader {
@@ -95,6 +85,14 @@ select.form-control-sm:not([size]):not([multiple]) {
   font-size: 1.125rem;
   margin: 0;
   padding: 0;
+}
+
+.modal-content {
+  min-height: 800px;
+}
+
+.modal-body {
+  height: 1px;
 }
 
 .card, .card-header, .card-footer, .card-header:first-child {
@@ -302,14 +300,13 @@ header .dropdown-toggle::after {
   border-radius: .2rem;
 }
 
-.btn-group-sm>.btn, .btn-sm {
-  font-size: .938rem;
-}
-
 .btn-blue {
   color: #fff !important;
   background-color: #31709b;
   border-color: #31709b;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 .btn-light {
@@ -362,6 +359,9 @@ header .dropdown-toggle::after {
 
 .btn-success, .btn-danger {
   color: #fff !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 .custom-select {
@@ -433,7 +433,7 @@ header .dropdown-toggle::after {
 }
 
 .ffolder.fa.fa-folder {
-  color: #333;
+  color: #f4c017;
   margin-right: 5px;
 }
 
@@ -443,6 +443,11 @@ header .dropdown-toggle::after {
   height: 12px;
   width: 16px;
 }
+
+.fa-folder {
+  color: #f4c017;
+}
+
 
 a.filein {
   display: block;
@@ -789,6 +794,14 @@ li.sortme {
   margin-left: 3.6rem;
 }
 
+.alist-4 {
+  margin-left: 4.8rem;
+}
+
+.alist-5 {
+  margin-left: 6rem;
+}
+
 .aclist-0 {
   margin-left: 4.6rem;
 }
@@ -803,6 +816,14 @@ li.sortme {
 
 .aclist-3 {
   margin-left: 7.0rem;
+}
+
+.aclist-4 {
+  margin-left: 8.2rem;
+}
+
+.aclist-5 {
+  margin-left: 9.4rem;
 }
 
 .admin-slist {
@@ -918,8 +939,27 @@ li.sortme {
     text-align: left !important;
   }
 }
+
 @media (min-width: 576px) {
-	.modal-dialog {
-			max-width: 800px;
-	}
+  .modal-dialog {
+    max-width: 800px;
+  }
+}
+
+.modal-body-iframe {
+  padding: 0;
+  margin: 1rem;
+  position: relative;
+}
+
+.modal-body-iframe>.iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.nowrap {
+  white-space: nowrap;
 }

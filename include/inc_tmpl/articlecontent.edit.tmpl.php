@@ -502,20 +502,19 @@ endif;
 // render buttons only once and save the buffer
 if (!empty($content["id"])) {
     $buttonActionLink = rel_url(array('cmsgo-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
-    $buttonAction  = '<button type="button" value="'.$BL['be_func_struct_preview'].'" class="btn btn-sm btn-blue float-sm-right" title="'.$BL['be_func_struct_preview'].'" ';
+    $buttonAction  = '<button type="button" value="'.$BL['be_func_struct_preview'].'" class="btn btn-sm btn-info float-sm-right" title="'.$BL['be_func_struct_preview'].'" ';
     $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
     $buttonAction .= $BL['be_func_struct_preview']."</button>" . LF;
 } else {
     $buttonAction  = '';
 }
 
-
 ob_start();
 
 ?>
-    <input name="Submit" type="submit" class="btn btn-sm btn-blue my-1" value="<?php echo  $sendbutton ?>" />
-    <input name="SubmitClose" type="submit" class="btn btn-sm btn-blue my-1" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-    <input name="donotsubmit" type="button" class="btn btn-sm btn-blue my-1" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
+    <input name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo $sendbutton ?>" />
+    <input name="SubmitClose" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+    <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
     <?php echo $buttonAction; ?>
 <?php
 
@@ -668,7 +667,7 @@ echo $_save_close_buttons;
       <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></label>
         <div class="col-sm-auto">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(0, $content["visible"]); ?>/>
+            <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?>/>
             <label class="form-check-label" for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?></label>
           </div>
         </div>
@@ -696,7 +695,7 @@ echo $_save_close_buttons;
         <input name="caid" type="hidden" id="caid" value="<?php echo $article["article_id"] ?>" />
         <input name="cid" type="hidden" id="cid" value="<?php echo  $content["id"] ?>" />
         <input name="ctype" type="hidden" id="ctype" value="<?php echo  $content["type"] ?>" />
-        <?php echo $_save_close_buttons ?>
+        <?php echo str_replace('"submit-button', '"submit-button-bottom', $_save_close_buttons); ?>
       </div>
     </div>
 

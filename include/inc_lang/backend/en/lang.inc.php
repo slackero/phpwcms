@@ -1500,3 +1500,6 @@ $BL['be_cnt_avoid_duplicates'] = 'allow unique values only';
 $BL['be_not_set'] = 'not set';
 $BL['be_licensed_under_GPL'] = 'Licensed under GPL.';
 $BL['be_extensions_copyright'] = 'Extensions are copyright of their respective owners.';
+
+$BL['be_allowed_filetypes'] = 'Allowed file types';
+$BL['be_imagediv_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';

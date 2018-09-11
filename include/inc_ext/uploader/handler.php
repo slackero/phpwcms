@@ -33,7 +33,11 @@ class UploadHandler {
         $initialFiles = array();
 
         for ($i = 0; $i < 5000; $i++) {
-            array_push($initialFiles, array("name" => "name" + $i, uuid => "uuid" + $i, thumbnailUrl => "/test/dev/handlers/vendor/fineuploader/php-traditional-server/fu.png"));
+            array_push($initialFiles, array(
+                "name" => "name" . $i,
+                'uuid' => "uuid" . $i,
+                'thumbnailUrl' => "/test/dev/handlers/vendor/fineuploader/php-traditional-server/fu.png"
+            ));
         }
 
         return $initialFiles;
@@ -138,7 +142,7 @@ class UploadHandler {
         if($file['error']) {
             return array('error' => 'Upload Error #'.$file['error']);
         }
-        	
+
         // Validate name
         if ($name === null || $name === ''){
             return array('error' => 'File name empty.');

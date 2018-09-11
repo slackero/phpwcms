@@ -243,7 +243,7 @@ if ($BE['LANG'] == 'ar') {
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="glyphicon arrow"></span></a>';
                 $subnav = '';
                 foreach ($cmsgo['modules'] as $value) {
-                    if (in_array($_SESSION["wcs_user_id"], $modulearray[$value['name']])) {
+                    if (isset($modulearray[$value['name']]) && in_array($_SESSION["wcs_user_id"], $modulearray[$value['name']])) {
                         $subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'cmsgo.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
                     }
                 }
@@ -499,25 +499,19 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, CMSGO_URL."cmsgo.php?do=messages", 2500);
 
-$GLOBALS['BE']['HEADER']['jquery.js']        = getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
-
-    $GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.js');
-    //$GLOBALS['BE']['HEADER']['metisMenu.js'] = getJavaScriptSourceLink('include/inc_js/metisMenu/metisMenu.min.js');
-
-    $GLOBALS['BE']['HEADER']['popper.js'] = '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>';
-
-    $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.min.js');
-    //echo 'jQuery';
-
+$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.3.1.min.js');
+$GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
+$BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
 $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');
+
 ?>
 <!-- cmsgo BODY_CLOSE -->
 <div id="browserModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-body">
-        <iframe src="" id="infobrowser" class="iframe" name="infobrowser" seamless="" height="100%" width="100%" frameborder="0"></iframe>
+      <div class="modal-body d-flex align-items-stretch modal-body-iframe">
+        <iframe src="" id="infobrowser" class="iframe flex-grow-1" name="infobrowser" seamless="seamless" frameborder="0"></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-blue" data-dismiss="modal"><?php echo $BL['be_func_struct_close'] ?></button>
@@ -529,7 +523,7 @@ $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/c
 </body>
 </html>
 <?php
-$BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.min.js');
+$BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
 
 // retrieve complete processing time
 list($usec, $sec) = explode(' ', microtime());
