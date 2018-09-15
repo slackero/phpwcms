@@ -466,7 +466,7 @@ function get_struct_data($root_name='', $root_info='') {
     $data = array();
 
     $data[0] = array(
-        "acat_id"       => 0,
+        "acat_id"           => 0,
         "acat_name"         => $indexpage['acat_name'],
         "acat_info"         => $indexpage['acat_info'],
         "acat_struct"       => 0,
